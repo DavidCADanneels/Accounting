@@ -1,15 +1,15 @@
 package be.dafke;
 
-import javax.swing.DefaultListModel;
+import javax.swing.*;
 
 /**
  * Deze lijst sorteert zijn gegevens in alfabetische volgorde
  * @version 1
  * @author David Danneels
  * @since 28/07/2005
- * @see PrefixZoeker PrefixZoeker
+ * @see PrefixFilter PrefixFilter
  */
-public class AlfabetischeLijstModel extends DefaultListModel {
+public class AlfabeticListModel extends DefaultListModel {
 
 	/**
 	 * 
@@ -18,11 +18,8 @@ public class AlfabetischeLijstModel extends DefaultListModel {
 
 	/**
 	 * Constructor
-	 * @see be.dafke.Accounting.AccountsGUI#AccountsGUI(be.dafke.Accounting.JournalGUI) oorzaak new
-	 * AccountsGUI(JournalGUI)
-	 * @see be.dafke.Accounting.ProjectManagerFrame#ProjectManagerFrame() oorzaak new ProjectManagerFrame()
 	 */
-	public AlfabetischeLijstModel() {
+	public AlfabeticListModel() {
 		super();
 	}
 
@@ -47,7 +44,7 @@ public class AlfabetischeLijstModel extends DefaultListModel {
 			} else if (p.toString().compareTo(p2.toString()) > 0) {
 				insertElementAt(p, size());
 			} else {
-				voegTussen(p, 0, size() - 1);
+				insert(p, 0, size() - 1);
 			}
 		}
 	}
@@ -57,7 +54,7 @@ public class AlfabetischeLijstModel extends DefaultListModel {
 	 * gevonden >> "duplicaat" indien niet vind men de plaats waar de persoon / het object moet worden toegevoegd
 	 * @see javax.swing.DefaultListModel#add(int index, java.lang.Object element)
 	 */
-	private void voegTussen(Object nieuw, int links, int rechts) {
+	private void insert(Object nieuw, int links, int rechts) {
 		Object p1, p2, m;
 		while (rechts - links > 1) {
 			int midden = (links + rechts) / 2;

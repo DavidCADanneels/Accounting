@@ -98,18 +98,18 @@ public class Account implements Serializable {
 		project = p;
 	}
 
-	/**
-	 * Deelt mee of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
-	 * @return of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
-	 */
+//	/**
+//	 * Deelt mee of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
+//	 * @return of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
+//	 */
 //	public boolean isSaved() {
 //		return save;
 //	}
-
-	/*
-	 * Stelt in of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
-	 * @param save of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
-	 */
+//
+//	/**
+//	 * Stelt in of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
+//	 * @param save of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
+//	 */
 //	protected void setSaved(boolean save) {
 //		accounting.setSaved(save);
 //		this.save = save;

@@ -86,6 +86,7 @@ public class Accountings {
 	}
 
 	public static void fromXML() {
+		System.out.println("fromXML");
 		File file = getFile();
 		String pad = file.getAbsolutePath();
 		if (!file.exists()) {
@@ -159,7 +160,7 @@ public class Accountings {
 			for(Accounting acc : getAccountings()) {
 				writer.write("  <Accounting name=\"" + acc.toString() + "\"/>\r\n");
 			}
-			writer.write("  <CurrentAccounting name=\"" + currentAccounting.toString() + "\"/>\r\n");
+			writer.write("  <CurrentAccounting name=\"" + currentAccounting==null?"null":currentAccounting.toString() + "\"/>\r\n");
 			writer.write("</Accountings>");
 			writer.flush();
 			writer.close();

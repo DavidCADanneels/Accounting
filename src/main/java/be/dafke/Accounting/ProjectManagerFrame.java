@@ -5,8 +5,8 @@ import be.dafke.Accounting.Objects.Account.AccountType;
 import be.dafke.Accounting.Objects.Accountings;
 import be.dafke.Accounting.Objects.Project;
 import be.dafke.Accounting.Objects.Projects;
-import be.dafke.AlfabetischeLijstModel;
-import be.dafke.PrefixZoeker;
+import be.dafke.AlfabeticListModel;
+import be.dafke.PrefixFilter;
 import be.dafke.RefreshableFrame;
 
 import javax.swing.*;
@@ -28,8 +28,8 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final PrefixZoeker zoeker;
-	private final AlfabetischeLijstModel allAccountsModel, projectAccountsModel;
+	private final PrefixFilter zoeker;
+	private final AlfabeticListModel allAccountsModel, projectAccountsModel;
 	private final JList allAccounts, projectAccounts;
 	private final JButton moveTo, moveBack, newProject;
 	private final JComboBox combo;
@@ -65,11 +65,11 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 		//
 		// links
 		JPanel paneelLinks = new JPanel();
-		allAccountsModel = new AlfabetischeLijstModel();
+		allAccountsModel = new AlfabeticListModel();
 		allAccounts = new JList(allAccountsModel);
 		allAccounts.addListSelectionListener(this);
 		allAccounts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		zoeker = new PrefixZoeker(allAccounts, onder, Accountings.getCurrentAccounting().getAccounts().getAccounts());
+		zoeker = new PrefixFilter(allAccounts, onder, Accountings.getCurrentAccounting().getAccounts().getAccounts());
 		paneelLinks.add(zoeker);
 		paneelLinks.setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
 				"Accounting").getString("REKENINGEN")));
@@ -78,7 +78,7 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 		// rechts
 		JPanel paneelRechts = new JPanel(new BorderLayout());
 		// paneelRechts.setLayout(new BoxLayout(paneelRechts,BoxLayout.Y_AXIS));
-		projectAccountsModel = new AlfabetischeLijstModel();
+		projectAccountsModel = new AlfabeticListModel();
 		projectAccounts = new JList(projectAccountsModel);
 		projectAccounts.addListSelectionListener(this);
 		projectAccounts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);

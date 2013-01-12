@@ -13,9 +13,9 @@ import java.util.ArrayList;
  * @version 1
  * @author David Danneels
  * @since 28/07/2005
- * @see AlfabetischeLijstModel AlfabetischeLijstModel
+ * @see AlfabeticListModel AlfabeticListModel
  */
-public class PrefixZoeker extends JPanel {
+public class PrefixFilter extends JPanel {
 
 	/**
 	 * 
@@ -27,16 +27,13 @@ public class PrefixZoeker extends JPanel {
 	// protected HashMap map;
 	protected ArrayList map;
 
-	/*
+	/**
 	 * Constructor met lijst, paneel en gegevensmap als parameters
 	 * @param lijst de lijst (dus impliciet ook een model)
 	 * @param paneel <code>null</code> of een paneel dat onderaan wordt in beeld wordt toegevoegd
 	 * @param map map met de gegevens uit de lijst l
-	 * @see be.dafke.Accounting.AccountsGUI#AccountsGUI(be.dafke.Accounting.JournalGUI) AccountsGUI(<a
-	 * href="Accounting/JournalGUI.html">JournalGUI</a>)
-	 * @see be.dafke.Accounting.ProjectManagerFrame#ProjectManagerFrame()
 	 */
-	public PrefixZoeker(JList lijst, JPanel paneel, /* HashMap */ArrayList map) {
+	public PrefixFilter(JList lijst, JPanel paneel, /* HashMap */ArrayList map) {
 		this.map = map;
 		this.lijst = lijst;
 		scrol = new JScrollPane(lijst);
@@ -67,12 +64,10 @@ public class PrefixZoeker extends JPanel {
 		add(zoekpaneel, BorderLayout.NORTH);
 	}
 
-	/*
+	/**
 	 * Vervangt de datamap en hertekent het JPanel
-	 * @param map de nieuwe map
+	 * @param newMap de nieuwe map
 	 * @since 01/10/2010
-	 * @see be.dafke.Accounting.ProjectManagerFrame#ProjectManagerFrame()
-	 * @see be.dafke.Accounting.ProjectManagerFrame#refresh()
 	 */
 	public void resetMap(/* HashMap */ArrayList newMap) {
 		map = newMap;
