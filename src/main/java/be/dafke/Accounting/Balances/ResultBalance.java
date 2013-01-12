@@ -19,7 +19,7 @@ public class ResultBalance extends RefreshableBalance {
 	}
 
 	private ResultBalance(AccountingGUIFrame parent) {
-		super(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("RESULTATENBALANS"),
+		super(java.util.ResourceBundle.getBundle("Accounting").getString("RESULTATENBALANS"),
 				new ResultBalanceDataModel(/*parent*/), parent, AccountType.Cost, AccountType.Revenue);
 		// tabel.setAutoCreateRowSorter(true);
 	}

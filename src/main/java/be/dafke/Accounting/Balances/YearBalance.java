@@ -1,7 +1,7 @@
 package be.dafke.Accounting.Balances;
 
-import be.dafke.RefreshableTable;
 import be.dafke.Accounting.AccountingGUIFrame;
+import be.dafke.RefreshableTable;
 
 public class YearBalance extends RefreshableTable {
 	/**
@@ -19,7 +19,7 @@ public class YearBalance extends RefreshableTable {
 	}
 
 	private YearBalance(AccountingGUIFrame parent) {
-		super(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("EINDBALANS"),
+		super(java.util.ResourceBundle.getBundle("Accounting").getString("EINDBALANS"),
 				new YearBalanceDataModel(/*parent*/), parent);
 		tabel.setAutoCreateRowSorter(true);
 	}

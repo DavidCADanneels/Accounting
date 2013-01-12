@@ -1,27 +1,18 @@
 package be.dafke.Accounting.Objects;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.Writer;
+import be.dafke.Accounting.XML.AccountingsContentHandler;
+import be.dafke.Accounting.XML.FoutHandler;
+import org.xml.sax.XMLReader;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
+import javax.xml.parsers.SAXParser;
+import javax.xml.parsers.SAXParserFactory;
+import java.io.*;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileSystemView;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
-
-import org.xml.sax.XMLReader;
-
-import be.dafke.Accounting.XML.AccountingsContentHandler;
-import be.dafke.Accounting.XML.FoutHandler;
 
 public class Accountings {
 	// private static Accountings accountings =null;
@@ -213,7 +204,7 @@ public class Accountings {
 
 	public static void openInstance() {
 		JFileChooser kiezer = new JFileChooser();
-		kiezer.setDialogTitle(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+		kiezer.setDialogTitle(java.util.ResourceBundle.getBundle("Accounting").getString(
 				"SELECTEER_BOEKHOUDING-BESTAND"));
 		if (kiezer.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 			File bestand = kiezer.getSelectedFile();

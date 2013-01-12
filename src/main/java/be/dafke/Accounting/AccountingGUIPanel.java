@@ -1,9 +1,9 @@
 package be.dafke.Accounting;
 
 //import be.belgium.eid.*;
-import java.awt.BorderLayout;
 
-import javax.swing.JPanel;
+import javax.swing.*;
+import java.awt.*;
 
 /**
  * @author David Danneels
@@ -14,7 +14,7 @@ public class AccountingGUIPanel extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	// private static final ResourceBundle bundle = ResourceBundle.getBundle("be/dafke/Accounting/Bundle");
+	// private static final ResourceBundle bundle = ResourceBundle.getBundle("Accounting");
 	private final JournalGUI dagboekGUI;
 	private final AccountsGUI accountsGUI;
 	private final JournalsGUI journalsGUI;

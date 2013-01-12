@@ -1,12 +1,11 @@
 package be.dafke.Accounting;
 
-import java.math.BigDecimal;
-
-import javax.swing.table.AbstractTableModel;
-
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Booking;
 import be.dafke.Accounting.Objects.Transaction;
+
+import javax.swing.table.AbstractTableModel;
+import java.math.BigDecimal;
 
 /**
  * @author David Danneels
@@ -17,10 +16,10 @@ public class JournalDataModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String[] columnNames = { java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("DEBET"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("CREDIT"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("D"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("C") };
+	String[] columnNames = { java.util.ResourceBundle.getBundle("Accounting").getString("DEBET"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("CREDIT"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("D"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("C") };
 	Class[] columnClasses = { Account.class, Account.class, BigDecimal.class, BigDecimal.class };
 
 // DE GET METHODEN

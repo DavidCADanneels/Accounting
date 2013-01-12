@@ -1,12 +1,11 @@
 package be.dafke.Accounting;
 
+import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.ParentFrame;
+
+import javax.swing.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-
-import javax.swing.WindowConstants;
-
-import be.dafke.ParentFrame;
-import be.dafke.Accounting.Objects.Accountings;
 
 /**
  * @author David Danneels
@@ -64,7 +63,7 @@ public class AccountingGUIFrame extends ParentFrame implements WindowListener {
 
 	public static void main(String[] args) {
 		new AccountingGUIFrame(
-				java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("BOEKHOUDING"));
+				java.util.ResourceBundle.getBundle("Accounting").getString("BOEKHOUDING"));
 	}
 
 	@Override

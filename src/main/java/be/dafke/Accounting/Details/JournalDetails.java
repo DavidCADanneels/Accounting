@@ -1,22 +1,15 @@
 package be.dafke.Accounting.Details;
 
-import java.awt.Point;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.WindowEvent;
-import java.util.ArrayList;
-
-import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.JPopupMenu;
-
-import be.dafke.ParentFrame;
-import be.dafke.RefreshableTable;
 import be.dafke.Accounting.Objects.Accountings;
 import be.dafke.Accounting.Objects.Journal;
 import be.dafke.Accounting.Objects.Transaction;
+import be.dafke.ParentFrame;
+import be.dafke.RefreshableTable;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
+import java.util.ArrayList;
 
 /**
  * @author David Danneels
@@ -35,14 +28,14 @@ public class JournalDetails extends RefreshableTable implements ActionListener {
 //	private final AccountingGUIFrame parent;
 
 	public JournalDetails(Journal journal, ParentFrame parent) {
-		super(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("DAGBOEK_DETAILS")
+		super(java.util.ResourceBundle.getBundle("Accounting").getString("DAGBOEK_DETAILS")
 				+ journal.toString(), new JournalDetailsDataModel(journal, parent), parent);
 		// this.parent = parent;
 		this.journal = journal;
 		tabel.setAutoCreateRowSorter(true);
 		popup = new JPopupMenu();
-		delete = new JMenuItem(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("VERWIJDER"));
-		move = new JMenuItem(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("VERPLAATS"));
+		delete = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString("VERWIJDER"));
+		move = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString("VERPLAATS"));
 		delete.addActionListener(this);
 		move.addActionListener(this);
 		popup.add(delete);
@@ -88,24 +81,24 @@ public class JournalDetails extends RefreshableTable implements ActionListener {
 					journal);
 			Object[] lijst = dagboeken.toArray();
 			int keuze = JOptionPane.showOptionDialog(null,
-					java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("KIES_DAGBOEK"),
-					java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("DAGBOEK_KEUZE"),
+					java.util.ResourceBundle.getBundle("Accounting").getString("KIES_DAGBOEK"),
+					java.util.ResourceBundle.getBundle("Accounting").getString("DAGBOEK_KEUZE"),
 					JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, lijst, lijst[0]);
 			Journal newJournal = (Journal) lijst[keuze];
 			transactie.moveTransaction(journal, newJournal);
 
 			JOptionPane.showMessageDialog(
 					null,
-					java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+					java.util.ResourceBundle.getBundle("Accounting").getString(
 							"TRANSACTIE_VERPLAATST_VAN")
 							+ journal
-							+ java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("NAAR")
+							+ java.util.ResourceBundle.getBundle("Accounting").getString("NAAR")
 							+ newJournal);
 		} else if (source == delete) {
 			transactie.deleteTransaction(journal);
 			JOptionPane.showMessageDialog(
 					null,
-					java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+					java.util.ResourceBundle.getBundle("Accounting").getString(
 							"TRANSACTIE_VERWIJDERD_UIT")
 							+ journal);
 		}

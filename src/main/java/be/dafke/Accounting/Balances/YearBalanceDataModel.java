@@ -1,14 +1,13 @@
 package be.dafke.Accounting.Balances;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.table.AbstractTableModel;
-
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Account.AccountType;
 import be.dafke.Accounting.Objects.Accountings;
+
+import javax.swing.table.AbstractTableModel;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class YearBalanceDataModel extends AbstractTableModel {
 	/**
@@ -16,10 +15,10 @@ public class YearBalanceDataModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = {
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("ACTIVA"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("BEDRAG"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("BEDRAG"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("PASSIVA") };
+			java.util.ResourceBundle.getBundle("Accounting").getString("ACTIVA"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("BEDRAG"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("BEDRAG"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("PASSIVA") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, Account.class };
 
 //	private final AccountingGUIFrame parent;
@@ -35,9 +34,9 @@ public class YearBalanceDataModel extends AbstractTableModel {
 		int size = getRowCount();
 		if (row == size - 1) {
 			// in de onderste rij komen totalen
-			if (col == 0) return java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+			if (col == 0) return java.util.ResourceBundle.getBundle("Accounting").getString(
 					"TOTAAL_ACTIVA_TEGOEDEN");
-			else if (col == 3) return java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+			else if (col == 3) return java.util.ResourceBundle.getBundle("Accounting").getString(
 					"TOTAAL_PASSIVA_SCHULDEN");
 			else {
 				// Berekening totalen en resultaat

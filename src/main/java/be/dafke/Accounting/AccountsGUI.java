@@ -1,33 +1,25 @@
 package be.dafke.Accounting;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import be.dafke.AlfabetischeLijstModel;
-import be.dafke.PrefixZoeker;
-import be.dafke.RefreshableFrame;
 import be.dafke.Accounting.Details.AccountDetails;
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Account.AccountType;
 import be.dafke.Accounting.Objects.Accountings;
 import be.dafke.Accounting.Objects.Transaction;
+import be.dafke.AlfabetischeLijstModel;
+import be.dafke.PrefixZoeker;
+import be.dafke.RefreshableFrame;
+
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 
 /**
  * @author David Danneels
@@ -52,17 +44,17 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		this.parent = parent;
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
-				"be/dafke/Accounting/Bundle").getString("REKENINGEN")));
+				"Accounting").getString("REKENINGEN")));
 		dagboekGUI = journalGUI;
-		debet = new JButton(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("DEBITEER"));
+		debet = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("DEBITEER"));
 		debet.setMnemonic(KeyEvent.VK_D);
-		credit = new JButton(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("CREDITEER"));
+		credit = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("CREDITEER"));
 		credit.setMnemonic(KeyEvent.VK_C);
-		nieuw = new JButton(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+		nieuw = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString(
 				"BEHEER_REKENING"));
 		nieuw.setMnemonic(KeyEvent.VK_N);
 		nieuw.setEnabled(false);
-		details = new JButton(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+		details = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString(
 				"BEKIJK_REKENING"));
 		debet.addActionListener(this);
 		credit.addActionListener(this);
@@ -141,7 +133,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		Account rekening = (Account) lijst.getSelectedValue();
 		boolean ok = false;
 		while (!ok) {
-			String s = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+			String s = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
 					"GEEF_BEDRAG"));
 			if (s == null || s.equals("")) {
 				ok = true;
@@ -162,7 +154,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 					if (debettotaal.compareTo(credittotaal) == 0) dagboekGUI.setOK();
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(this,
-							java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("INVALID_INPUT"));
+							java.util.ResourceBundle.getBundle("Accounting").getString("INVALID_INPUT"));
 				}
 			}
 		}

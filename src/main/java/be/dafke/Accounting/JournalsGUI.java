@@ -1,20 +1,16 @@
 package be.dafke.Accounting;
 
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
-
 import be.dafke.Accounting.Details.JournalDetails;
 import be.dafke.Accounting.Objects.Accountings;
 import be.dafke.Accounting.Objects.Journal;
 import be.dafke.Accounting.Objects.Journals;
+
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * @author David Danneels
@@ -34,18 +30,18 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	public JournalsGUI(JournalGUI journalGUI, AccountingGUIFrame parent) {
 		this.parent = parent;
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
-				"be/dafke/Accounting/Bundle").getString("DAGBOEKEN")));
+				"Accounting").getString("DAGBOEKEN")));
 		dagboekGUI = journalGUI;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		combo = new JComboBox();
 		combo.setEnabled(false);
 		add(combo);
 		JPanel paneel = new JPanel();
-		maak = new JButton(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("NIEUW_DAGBOEK"));
+		maak = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("NIEUW_DAGBOEK"));
 		maak.addActionListener(this);
 		maak.setEnabled(false);
 		paneel.add(maak);
-		details = new JButton(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+		details = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString(
 				"DETAILS_DAGBOEK"));
 		details.addActionListener(this);
 		details.setEnabled(false);

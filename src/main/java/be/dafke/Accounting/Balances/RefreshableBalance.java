@@ -1,6 +1,14 @@
 package be.dafke.Accounting.Balances;
 
-import java.awt.BorderLayout;
+import be.dafke.Accounting.Objects.Account;
+import be.dafke.Accounting.Objects.Account.AccountType;
+import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.ParentFrame;
+import be.dafke.RefreshableTable;
+
+import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
@@ -12,16 +20,6 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.table.AbstractTableModel;
-
-import be.dafke.ParentFrame;
-import be.dafke.RefreshableTable;
-import be.dafke.Accounting.Objects.Account;
-import be.dafke.Accounting.Objects.Account.AccountType;
-import be.dafke.Accounting.Objects.Accountings;
 
 public class RefreshableBalance extends RefreshableTable implements ActionListener {
 	/**
@@ -50,7 +48,7 @@ public class RefreshableBalance extends RefreshableTable implements ActionListen
 		if (Accountings.getCurrentAccounting().getBalanceLocation().equals("")) {
 			JFileChooser dialoog = new JFileChooser();
 			dialoog.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			ResourceBundle bundle = ResourceBundle.getBundle("be/dafke/Accounting/Bundle");
+			ResourceBundle bundle = ResourceBundle.getBundle("Accounting");
 			dialoog.setDialogTitle(bundle.getString("OPEN_BALANCES-MAP"));
 			int result = dialoog.showSaveDialog(null);
 			while (result != JFileChooser.APPROVE_OPTION)

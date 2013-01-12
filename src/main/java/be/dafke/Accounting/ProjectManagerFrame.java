@@ -1,35 +1,24 @@
 package be.dafke.Accounting;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.ListSelectionModel;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import be.dafke.AlfabetischeLijstModel;
-import be.dafke.PrefixZoeker;
-import be.dafke.RefreshableFrame;
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Account.AccountType;
 import be.dafke.Accounting.Objects.Accountings;
 import be.dafke.Accounting.Objects.Project;
 import be.dafke.Accounting.Objects.Projects;
+import be.dafke.AlfabetischeLijstModel;
+import be.dafke.PrefixZoeker;
+import be.dafke.RefreshableFrame;
+
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * @author David Danneels
@@ -58,18 +47,18 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 	}
 
 	private ProjectManagerFrame(AccountingGUIFrame parent) {
-		super(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("PROJECTMANAGER"), parent);
+		super(java.util.ResourceBundle.getBundle("Accounting").getString("PROJECTMANAGER"), parent);
 		this.parent = parent;
 		JPanel hoofdPaneel = new JPanel();
 		hoofdPaneel.setLayout(new BoxLayout(hoofdPaneel, BoxLayout.X_AXIS));
 		//
 		// midden
 		JPanel onder = new JPanel();
-		moveTo = new JButton(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("VOEG_TOE"));
+		moveTo = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("VOEG_TOE"));
 		moveTo.addActionListener(this);
 		moveTo.setEnabled(false);
 		onder.add(moveTo);
-		moveBack = new JButton(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("VERWIJDER"));
+		moveBack = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("VERWIJDER"));
 		moveBack.addActionListener(this);
 		moveBack.setEnabled(false);
 		onder.add(moveBack);
@@ -83,7 +72,7 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 		zoeker = new PrefixZoeker(allAccounts, onder, Accountings.getCurrentAccounting().getAccounts().getAccounts());
 		paneelLinks.add(zoeker);
 		paneelLinks.setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
-				"be/dafke/Accounting/Bundle").getString("REKENINGEN")));
+				"Accounting").getString("REKENINGEN")));
 		hoofdPaneel.add(paneelLinks);
 		//
 		// rechts
@@ -115,7 +104,7 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 				allAccountsModel.addElement(account);
 			}
 		}
-		newProject = new JButton(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+		newProject = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString(
 				"NIEUW_PROJECT"));
 		newProject.addActionListener(this);
 		JPanel noord = new JPanel();
@@ -126,7 +115,7 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 		paneelRechts.add(scrol);
 
 		paneelRechts.setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
-				"be/dafke/Accounting/Bundle").getString("PROJECTEN")));
+				"Accounting").getString("PROJECTEN")));
 		hoofdPaneel.add(paneelRechts);
 		//
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -168,10 +157,10 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 			project.removeAccount(account);
 			projectAccountsModel.removeElement(account);
 		} else if (ae.getSource() == newProject) {
-			String naam = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+			String naam = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
 					"GEEF_NAAM"));
 			while (naam != null && naam.equals(""))
-				naam = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+				naam = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
 						"GEEF_NAAM"));
 			if (naam != null) {
 				project = new Project(naam);

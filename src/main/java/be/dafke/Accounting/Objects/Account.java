@@ -1,24 +1,18 @@
 package be.dafke.Accounting.Objects;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Serializable;
-import java.io.Writer;
+import be.dafke.Utils;
+
+import javax.swing.filechooser.FileSystemView;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlList;
+import javax.xml.bind.annotation.XmlRootElement;
+import java.io.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.swing.filechooser.FileSystemView;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlList;
-import javax.xml.bind.annotation.XmlRootElement;
-
-import be.dafke.Utils;
 
 @XmlRootElement()
 /**
@@ -43,7 +37,7 @@ public class Account implements Serializable {
 		}
 	}
 
-//	private static final ResourceBundle bundle = ResourceBundle.getBundle("be/dafke/Accounting/Bundle");
+//	private static final ResourceBundle bundle = ResourceBundle.getBundle("Accounting");
 	private String name;
 	private AccountType type;
 	private BigDecimal debettotaal, credittotaal;
@@ -112,7 +106,7 @@ public class Account implements Serializable {
 //		return save;
 //	}
 
-	/**
+	/*
 	 * Stelt in of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
 	 * @param save of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
 	 */

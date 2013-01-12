@@ -1,12 +1,11 @@
 package be.dafke.Accounting.Balances;
 
-import java.math.BigDecimal;
-
-import javax.swing.table.AbstractTableModel;
-
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Account.AccountType;
 import be.dafke.Accounting.Objects.Accountings;
+
+import javax.swing.table.AbstractTableModel;
+import java.math.BigDecimal;
 
 public class TestBalanceDataModel extends AbstractTableModel {
 	/**
@@ -14,11 +13,11 @@ public class TestBalanceDataModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = {
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("REKENING"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("PROEF(DEBET)"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("PROEF(CREDIT)"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("SALDO(DEBET)"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("SALDO(CREDIT)") };
+			java.util.ResourceBundle.getBundle("Accounting").getString("REKENING"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("PROEF(DEBET)"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("PROEF(CREDIT)"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("SALDO(DEBET)"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("SALDO(CREDIT)") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, BigDecimal.class,
 			BigDecimal.class };
 

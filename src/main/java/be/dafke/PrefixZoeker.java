@@ -1,17 +1,10 @@
 package be.dafke;
 
-import java.awt.BorderLayout;
-import java.awt.Graphics;
-import java.util.ArrayList;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Een paneel met lijst en tekstveld<br>
@@ -34,7 +27,7 @@ public class PrefixZoeker extends JPanel {
 	// protected HashMap map;
 	protected ArrayList map;
 
-	/**
+	/*
 	 * Constructor met lijst, paneel en gegevensmap als parameters
 	 * @param lijst de lijst (dus impliciet ook een model)
 	 * @param paneel <code>null</code> of een paneel dat onderaan wordt in beeld wordt toegevoegd
@@ -66,7 +59,7 @@ public class PrefixZoeker extends JPanel {
 		});
 
 		JPanel zoekpaneel = new JPanel();
-		zoekpaneel.add(new JLabel(java.util.ResourceBundle.getBundle("be/dafke/Bundle").getString("ZOEK")));
+		zoekpaneel.add(new JLabel(java.util.ResourceBundle.getBundle("Dafke").getString("ZOEK")));
 		zoekpaneel.add(zoekveld);
 		setLayout(new BorderLayout());
 		add(scrol, BorderLayout.CENTER);
@@ -74,7 +67,7 @@ public class PrefixZoeker extends JPanel {
 		add(zoekpaneel, BorderLayout.NORTH);
 	}
 
-	/**
+	/*
 	 * Vervangt de datamap en hertekent het JPanel
 	 * @param map de nieuwe map
 	 * @since 01/10/2010

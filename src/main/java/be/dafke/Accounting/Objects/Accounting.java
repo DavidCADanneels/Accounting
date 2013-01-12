@@ -1,16 +1,15 @@
 package be.dafke.Accounting.Objects;
 
+import be.dafke.Mortgage.Mortgage;
+
+import javax.swing.*;
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import javax.swing.JFileChooser;
-import javax.swing.filechooser.FileSystemView;
-
-import be.dafke.Mortgage.Mortgage;
 
 /**
  * @author David Danneels
@@ -150,15 +149,15 @@ public class Accounting implements Serializable {
 
 //	public Journal addNewJournal() {
 //		// TODO: implement a gui to create journals (using journalType) see NewAccountGUI
-//		String name = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+//		String name = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
 //				"GEEF_NAAM_DAGBOEK"));
 //		while (name == null || name.equals(""))
-//			name = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+//			name = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
 //					"GEEF_NAAM_DAGBOEK"));
-//		String abbr = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+//		String abbr = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
 //				"GEEF_AFKORTING_DAGBOEK"));
 //		while (abbr == null || abbr.equals(""))
-//			abbr = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+//			abbr = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
 //					"GEEF_AFKORTING_DAGBOEK"));
 //		Journal journal = new Journal(name, abbr);
 //		journal.setAccounting(this);
@@ -193,7 +192,7 @@ public class Accounting implements Serializable {
 //			// later implementeren
 //			JOptionPane.showMessageDialog(
 //					null,
-//					java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+//					java.util.ResourceBundle.getBundle("Accounting").getString(
 //							"NOG_NIET_GEIMPLEMENTEERD"));
 //			accounting = new Accounting("Transferred");
 //		} else {
@@ -214,7 +213,7 @@ public class Accounting implements Serializable {
 	public void saveToXML() {
 //		if (!isSaved()) {
 //			int result = JOptionPane.showConfirmDialog(null,
-//					java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("SAVE_XML?"));
+//					java.util.ResourceBundle.getBundle("Accounting").getString("SAVE_XML?"));
 //			if (result == JOptionPane.OK_OPTION) {
 		System.out.println("Accounting.saveToXML");
 		getAccounts().saveAllXML();
@@ -225,7 +224,7 @@ public class Accounting implements Serializable {
 
 	private void saveToHTML() {
 //		int result = JOptionPane.showConfirmDialog(null,
-//				java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("SAVE_XML?"));
+//				java.util.ResourceBundle.getBundle("Accounting").getString("SAVE_XML?"));
 //		if (result == JOptionPane.OK_OPTION) {
 		System.out.println("Accounting.saveToHTML");
 		getAccounts().saveAllHTML();
@@ -254,7 +253,7 @@ public class Accounting implements Serializable {
 
 //	public Accounting saveAs() {
 //		JFileChooser kiezer = new JFileChooser();
-//		kiezer.setDialogTitle(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("WAAR_OPSLAAN"));
+//		kiezer.setDialogTitle(java.util.ResourceBundle.getBundle("Accounting").getString("WAAR_OPSLAAN"));
 //		int result = kiezer.showSaveDialog(null);
 //		while (result != JFileChooser.APPROVE_OPTION)
 //			result = kiezer.showSaveDialog(null);
@@ -274,7 +273,7 @@ public class Accounting implements Serializable {
 			out.flush();
 			out.close();
 		} catch (Exception e) {
-			System.out.println(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+			System.out.println(java.util.ResourceBundle.getBundle("Accounting").getString(
 					"FOUT_SERIALISEREN")
 					+ "Accounting");
 			e.printStackTrace();
@@ -286,7 +285,7 @@ public class Accounting implements Serializable {
 //			out.flush();
 //			out.close();
 //		} catch (Exception e) {
-//			System.out.println(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+//			System.out.println(java.util.ResourceBundle.getBundle("Accounting").getString(
 //					"FOUT_SERIALISEREN")
 //					+ "Counterparties");
 //			e.printStackTrace();
@@ -298,7 +297,7 @@ public class Accounting implements Serializable {
 //			out.flush();
 //			out.close();
 //		} catch (Exception e) {
-//			System.out.println(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+//			System.out.println(java.util.ResourceBundle.getBundle("Accounting").getString(
 //					"FOUT_SERIALISEREN")
 //					+ "Movements");
 //			e.printStackTrace();

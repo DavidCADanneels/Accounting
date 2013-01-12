@@ -19,7 +19,7 @@ public class RelationsBalance extends RefreshableBalance {
 	}
 
 	private RelationsBalance(AccountingGUIFrame parent) {
-		super(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("RELATIES-BALANS"),
+		super(java.util.ResourceBundle.getBundle("Accounting").getString("RELATIES-BALANS"),
 				new RelationsBalanceDataModel(/*parent*/), parent, AccountType.Credit, AccountType.Debit);
 		// tabel.setAutoCreateRowSorter(true);
 	}

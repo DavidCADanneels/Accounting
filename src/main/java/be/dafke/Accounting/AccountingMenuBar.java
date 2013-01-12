@@ -1,13 +1,5 @@
 package be.dafke.Accounting;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-
 import be.dafke.Accounting.Balances.RelationsBalance;
 import be.dafke.Accounting.Balances.ResultBalance;
 import be.dafke.Accounting.Balances.TestBalance;
@@ -17,6 +9,11 @@ import be.dafke.Accounting.Objects.Accountings;
 import be.dafke.Coda.CounterPartyTable;
 import be.dafke.Coda.MovementTable;
 import be.dafke.Mortgage.MortgageGUI;
+
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 /**
  * @author David Danneels
@@ -68,14 +65,14 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
 		}
 		add(file);
 
-		balances = new JMenu(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("BALANSEN"));
+		balances = new JMenu(java.util.ResourceBundle.getBundle("Accounting").getString("BALANSEN"));
 		balances.setMnemonic(KeyEvent.VK_B);
-		test = new JMenuItem(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+		test = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString(
 				"PROEF_EN_SALDI-BALANS"));
-		year = new JMenuItem(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("EINDBALANS"));
-		result = new JMenuItem(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+		year = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString("EINDBALANS"));
+		result = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString(
 				"RESULTATENBALANS"));
-		relate = new JMenuItem(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+		relate = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString(
 				"RELATIES-BALANS"));
 		test.addActionListener(this);
 		year.addActionListener(this);
@@ -91,9 +88,9 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
 		balances.add(relate);
 		add(balances);
 
-		projecten = new JMenu(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("PROJECTEN"));
+		projecten = new JMenu(java.util.ResourceBundle.getBundle("Accounting").getString("PROJECTEN"));
 		projecten.setMnemonic(KeyEvent.VK_P);
-		projects = new JMenuItem(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+		projects = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString(
 				"PROJECTMANAGER"));
 		projects.addActionListener(this);
 		// projects.setEnabled(false);

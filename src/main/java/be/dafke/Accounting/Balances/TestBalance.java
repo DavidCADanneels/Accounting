@@ -1,7 +1,7 @@
 package be.dafke.Accounting.Balances;
 
-import be.dafke.RefreshableTable;
 import be.dafke.Accounting.AccountingGUIFrame;
+import be.dafke.RefreshableTable;
 
 public class TestBalance extends RefreshableTable {
 	/**
@@ -19,7 +19,7 @@ public class TestBalance extends RefreshableTable {
 	}
 
 	private TestBalance(AccountingGUIFrame parent) {
-		super(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("PROEF_EN_SALDI-BALANS"),
+		super(java.util.ResourceBundle.getBundle("Accounting").getString("PROEF_EN_SALDI-BALANS"),
 				new TestBalanceDataModel(/*parent*/), parent);
 		tabel.setAutoCreateRowSorter(true);
 	}

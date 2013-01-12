@@ -1,12 +1,12 @@
 package be.dafke.Accounting.Objects;
 
+import be.dafke.Accounting.Objects.Account.AccountType;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
 import java.util.Iterator;
-
-import be.dafke.Accounting.Objects.Account.AccountType;
 
 /**
  * @author David Danneels
@@ -49,7 +49,7 @@ public class Project implements Serializable {
 
 	public Account close() {
 		Transaction.newInstance(new GregorianCalendar(),
-				java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("AFSLUITEN_PROJECT"));
+				java.util.ResourceBundle.getBundle("Accounting").getString("AFSLUITEN_PROJECT"));
 		ArrayList<Account> teVerwijderen = new ArrayList<Account>();
 
 		BigDecimal totaalKost = new BigDecimal(0);
@@ -75,14 +75,14 @@ public class Project implements Serializable {
 		if (totaalOpbrengst.compareTo(totaalKost) > 0) {
 			BigDecimal winst = totaalOpbrengst.subtract(totaalKost);
 			winst = winst.setScale(2);
-			result = new Account(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+			result = new Account(java.util.ResourceBundle.getBundle("Accounting").getString(
 					"WINST_PROJECT")
 					+ naam, AccountType.Revenue);
 			Transaction.getInstance().crediteer(result, winst);
 		} else {
 			BigDecimal verlies = totaalKost.subtract(totaalOpbrengst);
 			verlies = verlies.setScale(2);
-			result = new Account(java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+			result = new Account(java.util.ResourceBundle.getBundle("Accounting").getString(
 					"VERLIES_PROJECT")
 					+ naam, AccountType.Cost);
 			Transaction.getInstance().debiteer(result, verlies);

@@ -1,14 +1,13 @@
 package be.dafke.Accounting.Balances;
 
-import java.math.BigDecimal;
-import java.util.Collection;
-import java.util.Iterator;
-
-import javax.swing.table.AbstractTableModel;
-
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Account.AccountType;
 import be.dafke.Accounting.Objects.Accountings;
+
+import javax.swing.table.AbstractTableModel;
+import java.math.BigDecimal;
+import java.util.Collection;
+import java.util.Iterator;
 
 public class RelationsBalanceDataModel extends AbstractTableModel {
 	/**
@@ -16,10 +15,10 @@ public class RelationsBalanceDataModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = {
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("TEGOEDEN_VAN_KLANTEN"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("BEDRAG"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("BEDRAG"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("SCHULDEN_AAN_LEVERANCIERS") };
+			java.util.ResourceBundle.getBundle("Accounting").getString("TEGOEDEN_VAN_KLANTEN"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("BEDRAG"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("BEDRAG"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("SCHULDEN_AAN_LEVERANCIERS") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, Account.class };
 
 //	private final AccountingGUIFrame parent;
@@ -35,10 +34,10 @@ public class RelationsBalanceDataModel extends AbstractTableModel {
 		int size = getRowCount();
 		if (row == size - 2 || row == size - 1) {
 			// in de onderste 2 rijen komen totalen
-			if (row == size - 2 && col == 0) return java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+			if (row == size - 2 && col == 0) return java.util.ResourceBundle.getBundle("Accounting").getString(
 					"TOTAAL_TEGOEDEN");
 			else if (row == size - 2 && col == 3) return java.util.ResourceBundle.getBundle(
-					"be/dafke/Accounting/Bundle").getString("TOTAAL_SCHULDEN");
+					"Accounting").getString("TOTAAL_SCHULDEN");
 			else if (row == size - 1 && (col == 2 || col == 3)) {
 				return "";
 			} else {
@@ -64,10 +63,10 @@ public class RelationsBalanceDataModel extends AbstractTableModel {
 						String tekst;
 						BigDecimal resultaat = totaalLeveranciers.add(totaalKlanten);
 						if (resultaat.compareTo(BigDecimal.ZERO) > 0) {
-							tekst = java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+							tekst = java.util.ResourceBundle.getBundle("Accounting").getString(
 									"RESTEREND_TEGOED");
 						} else {
-							tekst = java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString(
+							tekst = java.util.ResourceBundle.getBundle("Accounting").getString(
 									"RESTERENDE_SCHULD");
 							resultaat = BigDecimal.ZERO.subtract(resultaat);
 						}

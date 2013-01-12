@@ -1,14 +1,13 @@
 package be.dafke.Accounting.Details;
 
-import java.math.BigDecimal;
-import java.util.Calendar;
-
-import javax.swing.table.AbstractTableModel;
-
-import be.dafke.ParentFrame;
-import be.dafke.Utils;
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Booking;
+import be.dafke.ParentFrame;
+import be.dafke.Utils;
+
+import javax.swing.table.AbstractTableModel;
+import java.math.BigDecimal;
+import java.util.Calendar;
 
 /**
  * @author David Danneels
@@ -20,11 +19,11 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private final Account rekening;
 	private final String[] columnNames = {
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("NR"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("DATUM"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("DEBET"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("CREDIT"),
-			java.util.ResourceBundle.getBundle("be/dafke/Accounting/Bundle").getString("OMSCHRIJVING") };
+			java.util.ResourceBundle.getBundle("Accounting").getString("NR"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("DATUM"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("DEBET"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("CREDIT"),
+			java.util.ResourceBundle.getBundle("Accounting").getString("OMSCHRIJVING") };
 	private final Class[] columnClasses = { String.class, String.class, BigDecimal.class, BigDecimal.class,
 			String.class };
 	private final ParentFrame parent;
