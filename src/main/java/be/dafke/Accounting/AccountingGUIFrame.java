@@ -1,7 +1,8 @@
 package be.dafke.Accounting;
 
 import be.dafke.Accounting.Objects.Accountings;
-import be.dafke.ParentFrame;
+import be.dafke.Accounting.Objects.RefreshEvent;
+import org.springframework.context.ApplicationListener;
 
 import javax.swing.*;
 import java.awt.event.WindowEvent;
@@ -11,89 +12,55 @@ import java.awt.event.WindowListener;
  * @author David Danneels
  */
 
-public class AccountingGUIFrame extends ParentFrame implements WindowListener {
+public class AccountingGUIFrame extends JFrame implements WindowListener, ApplicationListener<RefreshEvent> {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final AccountingMenuBar menuBar;
+	private final Accountings accountings;
 
-//	private Accounting accounting = null;
-//	private final HashMap<String, Accounting> accountings;
-
-	public AccountingGUIFrame(String title) {
+	public AccountingGUIFrame(String title, Accountings accountings/*, JMenuBar menuBar*/) {
 		super(title);
-//		accountings = new HashMap<String, Accounting>();
-		Accountings.fromXML();
+		this.accountings = accountings;
 		addWindowListener(this);
 		setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-		setContentPane(new AccountingGUIPanel(this));
-		menuBar = new AccountingMenuBar(this);
-		setJMenuBar(menuBar);
+		setContentPane(new AccountingGUIPanel(accountings));
+//		setJMenuBar(menuBar);
+		setJMenuBar(new AccountingMenuBar(accountings));
 		pack();
 		setVisible(true);
 	}
 
-//	public void addAccounting(Accounting accounting) {
-//		accountings.put(accounting.toString(), accounting);
-//	}
-//
-//	public boolean contains(String name) {
-//		return accountings.containsKey(name);
-//	}
-//
-//	public Collection<Accounting> getAccountings() {
-//		return accountings.values();
-//	}
-
-	@Override
-	public void repaintAllFrames() {
-		super.repaintAllFrames();
-		refresh();
-	}
-
+//	@Override
 	public void refresh() {
 		AccountingGUIPanel panel = (AccountingGUIPanel) getContentPane();
 		panel.activateButtons(/*accounting != null*/);
 	}
 
-//	public Accounting getAccounting() {
-//		return accounting;
-//	}
-
-	public static void main(String[] args) {
-		new AccountingGUIFrame(
-				java.util.ResourceBundle.getBundle("Accounting").getString("BOEKHOUDING"));
-	}
-
-	@Override
 	public void windowOpened(WindowEvent we) {
 	}
 
-	@Override
 	public void windowClosing(WindowEvent we) {
-		Accountings.close();
-		closeAllFrames();
+		accountings.close();
 		dispose();
 	}
 
-	@Override
 	public void windowClosed(WindowEvent we) {
 	}
 
-	@Override
 	public void windowIconified(WindowEvent we) {
 	}
 
-	@Override
 	public void windowDeiconified(WindowEvent we) {
 	}
 
-	@Override
 	public void windowActivated(WindowEvent we) {
 	}
 
-	@Override
 	public void windowDeactivated(WindowEvent we) {
+	}
+
+	public void onApplicationEvent(RefreshEvent arg0) {
+		refresh();
 	}
 }

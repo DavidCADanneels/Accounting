@@ -3,6 +3,7 @@ package be.dafke.Accounting;
 import be.dafke.Accounting.Details.AccountDetails;
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Account.AccountType;
+import be.dafke.Accounting.Objects.Accounting;
 import be.dafke.Accounting.Objects.Accountings;
 import be.dafke.Accounting.Objects.Transaction;
 import be.dafke.AlfabeticListModel;
@@ -34,18 +35,17 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 	private final AlfabeticListModel model;
 	private final JList lijst;
 	private final JButton debet, credit, nieuw, details;
-	private final JournalGUI dagboekGUI;
-	private final AccountingGUIFrame parent;
+	private final JournalGUI journalGUI;
 	private RefreshableFrame detailsGui;
-
 	private final JCheckBox[] boxes;
+	private final Accountings accountings;
 
-	public AccountsGUI(JournalGUI journalGUI, AccountingGUIFrame parent) {
-		this.parent = parent;
+	public AccountsGUI(Accountings accountings, JournalGUI journalGUI) {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
-				"Accounting").getString("REKENINGEN")));
-		dagboekGUI = journalGUI;
+                "Accounting").getString("REKENINGEN")));
+		this.accountings = accountings;
+		this.journalGUI = journalGUI;
 		debet = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("DEBITEER"));
 		debet.setMnemonic(KeyEvent.VK_D);
 		credit = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("CREDITEER"));
@@ -79,7 +79,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		lijst.addListSelectionListener(this);
 		lijst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		zoeker = new PrefixFilter(lijst, hoofdPaneel, new ArrayList<Account>());
-		// zoeker=new PrefixFilter(lijst,hoofdPaneel,parent.getAccounting().getAccounts());
+		// zoeker=new PrefixZoeker(lijst,hoofdPaneel,parent.getAccounting().getAccounts());
 		add(zoeker, BorderLayout.CENTER);
 
 		JPanel filter = new JPanel();
@@ -116,13 +116,13 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		if (ae.getSource() == debet || ae.getSource() == credit) {
 			book(ae.getSource() == debet);
 		} else if (ae.getSource() == nieuw) {
-			NewAccountGUI.getInstance(parent).setVisible(true);
+			NewAccountGUI.getInstance(accountings).setVisible(true);
 		} else if (ae.getSource() == details) {
 			// if(!parent.containsFrame(detailsGui)){
 			// TODO: if parent contains frame detail_THIS_ACCOUNT
 			Account account = (Account) lijst.getSelectedValue();
-			detailsGui = new AccountDetails(account, parent);
-			parent.addChildFrame(detailsGui);
+			AccountDetails gui = new AccountDetails(account);
+			gui.setVisible(true);
 			// }else detailsGui.setVisible(true);
 		} else if (ae.getSource() instanceof JCheckBox) {
 			checkBoxes();
@@ -147,11 +147,11 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 					} else {
 						Transaction.getInstance().crediteer(rekening, amount);
 					}
-					dagboekGUI.refresh();
+					journalGUI.refresh();
 					ok = true;
 					BigDecimal debettotaal = Transaction.getInstance().getDebetTotaal();
 					BigDecimal credittotaal = Transaction.getInstance().getCreditTotaal();
-					if (debettotaal.compareTo(credittotaal) == 0) dagboekGUI.setOK();
+					if (debettotaal.compareTo(credittotaal) == 0) journalGUI.setOK();
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(this,
 							java.util.ResourceBundle.getBundle("Accounting").getString("INVALID_INPUT"));
@@ -167,12 +167,13 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 				types.add(AccountType.valueOf(box.getActionCommand()));
 			}
 		}
-		ArrayList<Account> map = Accountings.getCurrentAccounting().getAccounts().getAccounts(types);
+		Accounting accounting = accountings.getCurrentAccounting();
+		ArrayList<Account> map = accounting.getAccounts().getAccounts(types);
 		zoeker.resetMap(map);
 	}
 
 	public void activateButtons(/*boolean active*/) {
-		boolean active = Accountings.isActive();
+		boolean active = accountings.isActive();
 		/*
 		 * if (active) { zoeker.resetMap(parent.getAccounting().getAccounts()); } else { zoeker.resetMap(new
 		 * ArrayList<Account>()); }

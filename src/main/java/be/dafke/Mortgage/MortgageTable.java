@@ -1,20 +1,15 @@
 package be.dafke.Mortgage;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.Accounting.Objects.RefreshEvent;
+import be.dafke.RefreshableFrame;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
-import be.dafke.ParentFrame;
-import be.dafke.RefreshableFrame;
-import be.dafke.Accounting.Objects.Accountings;
+import java.math.BigDecimal;
 
 public class MortgageTable extends RefreshableFrame implements ActionListener {
 	/**
@@ -22,13 +17,15 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JButton save;
-//	private final AccountingGUIFrame parent;
 	private final MortgageDataModel model;
 	private final JTable tabel;
+	private final BigDecimal startCapital;
+	private final Accountings accountings;
 
-	public MortgageTable(ParentFrame parent, Mortgage mortgage) {
-		super("Aflossingstabel", parent);
-//		this.parent = parent;
+	public MortgageTable(Mortgage mortgage, BigDecimal startCapital, Accountings accountings) {
+		super("Aflossingstabel");
+		this.accountings = accountings;
+		this.startCapital = startCapital;
 		model = new MortgageDataModel(mortgage);
 		tabel = new JTable(model);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -42,7 +39,6 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 		setContentPane(panel);
 		pack();
 		setVisible(true);
-
 	}
 
 	@Override
@@ -52,14 +48,19 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		String name = JOptionPane.showInputDialog(parent, "Enter a name for the table.");
-		while (Accountings.getCurrentAccounting().containsMortgageName(name)) {
-			name = JOptionPane.showInputDialog(parent, "This name is already used. Enter another name.");
+		Accounting accounting = accountings.getCurrentAccounting();
+		String name = JOptionPane.showInputDialog(this, "Enter a name for the table.");
+		while (accounting.containsMortgageName(name)) {
+			name = JOptionPane.showInputDialog(this, "This name is already used. Enter another name.");
 		}
 		if (name != null) {
-			Mortgage m = new Mortgage(name, model.getData());
-			Accountings.getCurrentAccounting().addMortgageTable(name, m);
-			parent.repaintAllFrames();
+			Mortgage mortgage = new Mortgage(name, startCapital);
+//			mortgage.setAccounting(accounting);
+			mortgage.setTable(model.getData());
+			accounting.addMortgageTable(name, mortgage);
+			RefreshEvent event = new RefreshEvent(this);
+			System.out.println("notifyAll called in " + this.getClass());
+			event.notifyAll();
 			dispose();
 		}
 	}

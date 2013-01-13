@@ -1,22 +1,14 @@
 package be.dafke.Accounting;
 
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import be.dafke.Accounting.Objects.Account.AccountType;
+import be.dafke.Accounting.Objects.RefreshEvent;
+import be.dafke.RefreshableFrame;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-
-import be.dafke.ParentFrame;
-import be.dafke.RefreshableFrame;
-import be.dafke.Accounting.Objects.Account.AccountType;
 
 public class NewJournalTypeGUI extends RefreshableFrame implements ActionListener {
 	/**
@@ -28,18 +20,8 @@ public class NewJournalTypeGUI extends RefreshableFrame implements ActionListene
 	private final ArrayList<AccountType> debitTypes, creditTypes;
 	private final DefaultListModel debitModel, creditModel;
 
-	private static NewJournalTypeGUI newJournalTypeGUI = null;
-
-	public static NewJournalTypeGUI getInstance(ParentFrame parent) {
-		if (newJournalTypeGUI == null) {
-			newJournalTypeGUI = new NewJournalTypeGUI(parent);
-		}
-		parent.addChildFrame(newJournalTypeGUI);
-		return newJournalTypeGUI;
-	}
-
-	private NewJournalTypeGUI(ParentFrame parent) {
-		super("Create and modify journal types", parent);
+	public NewJournalTypeGUI() {
+		super("Create and modify journal types");
 		debitTypes = new ArrayList<AccountType>();
 		creditTypes = new ArrayList<AccountType>();
 		debitModel = new DefaultListModel();
@@ -147,7 +129,9 @@ public class NewJournalTypeGUI extends RefreshableFrame implements ActionListene
 				}
 			}
 		}
-		refresh();
+		RefreshEvent event = new RefreshEvent(this);
+		System.out.println("notifyAll called in " + this.getClass());
+		event.notifyAll();
 	}
 
 	@Override

@@ -2,7 +2,9 @@ package be.dafke.Accounting;
 
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Account.AccountType;
+import be.dafke.Accounting.Objects.Accounting;
 import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.Accounting.Objects.Accounts;
 import be.dafke.Accounting.Objects.Project;
 import be.dafke.Accounting.Objects.Projects;
 import be.dafke.AlfabeticListModel;
@@ -30,25 +32,16 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 	private static final long serialVersionUID = 1L;
 	private final PrefixFilter zoeker;
 	private final AlfabeticListModel allAccountsModel, projectAccountsModel;
-	private final JList allAccounts, projectAccounts;
+	private final JList<Account> allAccounts, projectAccounts;
 	private final JButton moveTo, moveBack, newProject;
 	private final JComboBox combo;
 	private Project project;
-//	private final AccountingGUIFrame parent;
 
-	private static ProjectManagerFrame projectManagerFrame;
+	private final Accountings accountings;
 
-	public static ProjectManagerFrame getInstance(AccountingGUIFrame parent) {
-		if (projectManagerFrame == null) {
-			projectManagerFrame = new ProjectManagerFrame(parent);
-		}
-		parent.addChildFrame(projectManagerFrame);
-		return projectManagerFrame;
-	}
-
-	private ProjectManagerFrame(AccountingGUIFrame parent) {
-		super(java.util.ResourceBundle.getBundle("Accounting").getString("PROJECTMANAGER"), parent);
-		this.parent = parent;
+	public ProjectManagerFrame(Accountings accountings) {
+		super(java.util.ResourceBundle.getBundle("Accounting").getString("PROJECTMANAGER"));
+		this.accountings = accountings;
 		JPanel hoofdPaneel = new JPanel();
 		hoofdPaneel.setLayout(new BoxLayout(hoofdPaneel, BoxLayout.X_AXIS));
 		//
@@ -68,8 +61,10 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 		allAccountsModel = new AlfabeticListModel();
 		allAccounts = new JList(allAccountsModel);
 		allAccounts.addListSelectionListener(this);
-		allAccounts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		zoeker = new PrefixFilter(allAccounts, onder, Accountings.getCurrentAccounting().getAccounts().getAccounts());
+		allAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+//		Accounting accounting = accountings.getCurrentAccounting();
+//		Accounts accounts = accounting.getAccounts();
+		zoeker = new PrefixFilter(allAccounts, onder, new ArrayList<Account>());
 		paneelLinks.add(zoeker);
 		paneelLinks.setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
 				"Accounting").getString("REKENINGEN")));
@@ -81,36 +76,38 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 		projectAccountsModel = new AlfabeticListModel();
 		projectAccounts = new JList(projectAccountsModel);
 		projectAccounts.addListSelectionListener(this);
-		projectAccounts.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		JScrollPane scrol = new JScrollPane(projectAccounts);
-		Projects projects = Accountings.getCurrentAccounting().getProjects();
-		Project[] result = new Project[projects.size()];
-		projects.values().toArray(result);
-		combo = new JComboBox(result);
-		combo.addActionListener(this);
-		if (result.length != 0) {
-			System.out.println("voor init");
-			combo.setSelectedItem(result[0]);
-			System.out.println("na init");
-		} else {
-			project = null;
-			ArrayList<Account> noProjectlijst = Accountings.getCurrentAccounting().getAccounts().getAccounts(
-					AccountType.getList());
-			Iterator<Account> it2 = noProjectlijst.iterator();
-			allAccountsModel.removeAllElements();
-			while (it2.hasNext()) {
-				Account account = it2.next();
-				System.out.println("No Project: " + project + " | account" + account);
-				allAccountsModel.addElement(account);
-			}
-		}
+		projectAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+//		Projects projects = accounting.getProjects();
+//		JScrollPane scrol = new JScrollPane(projectAccounts);
+//		Project[] result = new Project[projects.size()];
+//		projects.values().toArray(result);
+//		combo = new JComboBox(result);
+//		combo.addActionListener(this);
+//		if (result.length != 0) {
+//			System.out.println("voor init");
+//			combo.setSelectedItem(result[0]);
+//			System.out.println("na init");
+//		} else {
+//			project = null;
+//			ArrayList<Account> noProjectlijst = accounts.getAccounts(AccountType.getList());
+//			Iterator<Account> it2 = noProjectlijst.iterator();
+//			allAccountsModel.removeAllElements();
+//			while (it2.hasNext()) {
+//				Account account = it2.next();
+//				System.out.println("No Project: " + project + " | account" + account);
+//				allAccountsModel.addElement(account);
+//			}
+//		}
 		newProject = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString(
 				"NIEUW_PROJECT"));
 		newProject.addActionListener(this);
 		JPanel noord = new JPanel();
+		combo = new JComboBox();
+		combo.addActionListener(this);
 		noord.add(combo);
 		noord.add(newProject);
 		paneelRechts.add(noord, BorderLayout.NORTH);
+		JScrollPane scrol = new JScrollPane(projectAccounts);
 
 		paneelRechts.add(scrol);
 
@@ -121,7 +118,7 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(hoofdPaneel);
 		pack();
-		setVisible(true);
+		// setVisible(true);
 	}
 
 	@Override
@@ -144,18 +141,21 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
+		Accounting accounting = accountings.getCurrentAccounting();
 		if (ae.getSource() == moveTo) {
-			Account account = (Account) allAccounts.getSelectedValue();
-			projectAccountsModel.addElement(account);
-			Project p = account.getProject();
-			if (p != null) p.removeAccount(account);
-			project.addAccount(account);
-			allAccountsModel.removeElement(account);
+			for(Account account : allAccounts.getSelectedValuesList()) {
+				projectAccountsModel.addElement(account);
+				Project p = account.getProject();
+				if (p != null) p.removeAccount(account);
+				project.addAccount(account);
+				allAccountsModel.removeElement(account);
+			}
 		} else if (ae.getSource() == moveBack) {
-			Account account = (Account) projectAccounts.getSelectedValue();
-			allAccountsModel.addElement(account);
-			project.removeAccount(account);
-			projectAccountsModel.removeElement(account);
+			for(Account account : projectAccounts.getSelectedValuesList()) {
+				allAccountsModel.addElement(account);
+				project.removeAccount(account);
+				projectAccountsModel.removeElement(account);
+			}
 		} else if (ae.getSource() == newProject) {
 			String naam = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
 					"GEEF_NAAM"));
@@ -164,8 +164,8 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 						"GEEF_NAAM"));
 			if (naam != null) {
 				project = new Project(naam);
-				project.setAccounting(Accountings.getCurrentAccounting());
-				Accountings.getCurrentAccounting().getProjects().put(naam, project);
+				project.setAccounting(accounting);
+				accounting.getProjects().put(naam, project);
 				((DefaultComboBoxModel) combo.getModel()).addElement(project);
 				((DefaultComboBoxModel) combo.getModel()).setSelectedItem(project);
 			}
@@ -177,14 +177,36 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 				// System.out.println("Project: " + project + " | account" + account);
 				projectAccountsModel.addElement(account);
 			}
-			ArrayList<Account> noProjectlijst = Accountings.getCurrentAccounting().getAccounts().getAccountNoMatchProject(
-					project);
+			ArrayList<Account> noProjectlijst = accounting.getAccounts().getAccountNoMatchProject(project);
 			zoeker.resetMap(noProjectlijst);
 		}
 	}
 
 	@Override
 	public void refresh() {
-		zoeker.resetMap(Accountings.getCurrentAccounting().getAccounts().getAccounts());
+		Accounting accounting = accountings.getCurrentAccounting();
+		Accounts accounts = accounting.getAccounts();
+		zoeker.resetMap(accounts.getAccounts());
+		Projects projects = accounting.getProjects();
+		for(Project project : projects.values()) {
+			combo.addItem(project);
+		}
+		Project[] result = new Project[projects.size()];
+		projects.values().toArray(result);
+		if (result.length != 0) {
+			System.out.println("voor init");
+			combo.setSelectedItem(result[0]);
+			System.out.println("na init");
+		} else {
+			project = null;
+			ArrayList<Account> noProjectlijst = accounts.getAccounts(AccountType.getList());
+			Iterator<Account> it2 = noProjectlijst.iterator();
+			allAccountsModel.removeAllElements();
+			while (it2.hasNext()) {
+				Account account = it2.next();
+				System.out.println("No Project: " + project + " | account" + account);
+				allAccountsModel.addElement(account);
+			}
+		}
 	}
 }

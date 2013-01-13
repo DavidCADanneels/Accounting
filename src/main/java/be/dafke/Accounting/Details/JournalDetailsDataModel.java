@@ -4,7 +4,6 @@ import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Booking;
 import be.dafke.Accounting.Objects.Journal;
 import be.dafke.Accounting.Objects.Transaction;
-import be.dafke.ParentFrame;
 import be.dafke.Utils;
 
 import javax.swing.table.AbstractTableModel;
@@ -31,10 +30,8 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 			java.util.ResourceBundle.getBundle("Accounting").getString("OMSCHRIJVING") };
 	private final Class[] columnClasses = { String.class, String.class, Account.class, BigDecimal.class,
 			BigDecimal.class, String.class };
-	private final ParentFrame parent;
 
-	public JournalDetailsDataModel(Journal journal, ParentFrame parent) {
-		this.parent = parent;
+	public JournalDetailsDataModel(Journal journal) {
 		dagboek = journal;
 	}
 
@@ -118,6 +115,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 			boeking.getTransaction().setDescription((String) value);
 		}
 		// ouder.repaint();
-		parent.repaintAllFrames();
+		// parent.repaintAllFrames();
+//		super.refresh();
 	}
 }

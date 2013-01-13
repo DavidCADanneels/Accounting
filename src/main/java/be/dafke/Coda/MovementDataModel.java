@@ -1,11 +1,11 @@
 package be.dafke.Coda;
 
-import java.math.BigDecimal;
+import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.Coda.Objects.Movement;
+import be.dafke.Utils;
 
 import javax.swing.table.AbstractTableModel;
-
-import be.dafke.Utils;
-import be.dafke.Coda.Objects.Movement;
+import java.math.BigDecimal;
 
 public class MovementDataModel extends AbstractTableModel {
 	/**
@@ -16,12 +16,17 @@ public class MovementDataModel extends AbstractTableModel {
 			"TransactionCode", "Communication" };
 	private final Class[] columnClasses = { String.class, String.class, String.class, String.class, BigDecimal.class,
 			CounterParty.class, String.class, String.class };
+	private final Accountings accountings;
+
+	public MovementDataModel(Accountings accountings) {
+		this.accountings = accountings;
+	}
 
 	// DE GET METHODEN
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Movement m = Movements.getMovement(row);
+		Movement m = accountings.getCurrentAccounting().getMovements().getMovement(row);
 		if (col == 0) {
 			return m.getStatementNr();
 		} else if (col == 1) {
@@ -48,7 +53,10 @@ public class MovementDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return Movements.getSize();
+		if (accountings == null || accountings.getCurrentAccounting() == null) {
+			return 0;
+		}
+		return accountings.getCurrentAccounting().getMovements().getSize();
 	}
 
 	@Override

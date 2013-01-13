@@ -1,12 +1,12 @@
 package be.dafke.Accounting.Objects;
 
+import be.dafke.Mortgage.Mortgage;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
-
-import be.dafke.Mortgage.Mortgage;
 
 /**
  * Boekhoudkundige transactie Bevat minstens 2 boekingen
@@ -125,7 +125,7 @@ public class Transaction implements Serializable {
 		}
 	}
 
-	protected void setId(int nr) {
+	public void setId(int nr) {
 		Iterator<Booking> it = boekingen.iterator();
 		while (it.hasNext()) {
 			Booking b = it.next();

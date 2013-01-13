@@ -1,26 +1,17 @@
 package be.dafke.Accounting.Balances;
 
-import be.dafke.Accounting.AccountingGUIFrame;
 import be.dafke.Accounting.Objects.Account.AccountType;
+import be.dafke.Accounting.Objects.Accountings;
 
 public class ResultBalance extends RefreshableBalance {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static ResultBalance balance = null;
 
-	public static ResultBalance getInstance(AccountingGUIFrame parent) {
-		if (balance == null) {
-			balance = new ResultBalance(parent);
-		}
-		parent.addChildFrame(balance);
-		return balance;
-	}
-
-	private ResultBalance(AccountingGUIFrame parent) {
+	public ResultBalance(Accountings accountings) {
 		super(java.util.ResourceBundle.getBundle("Accounting").getString("RESULTATENBALANS"),
-				new ResultBalanceDataModel(/*parent*/), parent, AccountType.Cost, AccountType.Revenue);
+				new ResultBalanceDataModel(accountings), AccountType.Cost, AccountType.Revenue, accountings);
 		// tabel.setAutoCreateRowSorter(true);
 	}
 }

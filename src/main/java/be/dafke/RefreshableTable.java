@@ -1,13 +1,8 @@
 package be.dafke;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
+import javax.swing.*;
 import javax.swing.table.AbstractTableModel;
+import java.awt.*;
 
 /**
  * Uitbreiding op RefreshableFrame, refresh() herlaad de gegevens van de tabel
@@ -20,8 +15,9 @@ public class RefreshableTable extends RefreshableFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final AbstractTableModel model;
+	protected final AbstractTableModel model;
 	protected JTable tabel;
+	protected JPanel contentPanel;
 
 	/**
 	 * Constructor
@@ -30,18 +26,19 @@ public class RefreshableTable extends RefreshableFrame {
 	 * @see be.dafke.RefreshableFrame#RefreshableFrame(java.lang.String) RefreshableFrame(String)
 	 * @see javax.swing.table.AbstractTableModel
 	 */
-	public RefreshableTable(String title, AbstractTableModel m, ParentFrame parent) {
-		super(title, parent);
+	public RefreshableTable(String title, AbstractTableModel m) {
+		super(title);
 		model = m;
 		tabel = new JTable(model);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
+		tabel.setAutoCreateRowSorter(true);
 		JScrollPane scrollPane = new JScrollPane(tabel);
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.add(scrollPane, BorderLayout.CENTER);
+		contentPanel = new JPanel(new BorderLayout());
+		contentPanel.add(scrollPane, BorderLayout.CENTER);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setContentPane(panel);
+		setContentPane(contentPanel);
 		pack();
-		setVisible(true);
+//		setVisible(true);
 	}
 
 	/**

@@ -1,19 +1,19 @@
 package be.dafke.Coda;
 
+import be.dafke.Coda.Objects.Movement;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
-
-import be.dafke.Coda.Objects.Movement;
 
 public class Movements implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static ArrayList<Movement> movements = new ArrayList<Movement>();
+	private ArrayList<Movement> movements = new ArrayList<Movement>();
 
-	public static void add(Movement value) {
+	public void add(Movement value) {
 		movements.add(value);
 	}
 
@@ -27,19 +27,19 @@ public class Movements implements Serializable {
 		return builder.toString();
 	}
 
-	public static Movement getMovement(int nr) {
+	public Movement getMovement(int nr) {
 		return movements.get(nr);
 	}
 
-	public static ArrayList<Movement> getAllMovements() {
+	public ArrayList<Movement> getAllMovements() {
 		return movements;
 	}
 
-	public static void setAllMovements(ArrayList<Movement> newMovements) {
-		movements = newMovements;
-	}
+//	public void setAllMovements(ArrayList<Movement> newMovements) {
+//		movements = newMovements;
+//	}
 
-	public static ArrayList<Movement> getMovements(CounterParty counterParty) {
+	public ArrayList<Movement> getMovements(CounterParty counterParty) {
 		ArrayList<Movement> result = new ArrayList<Movement>();
 		for(Movement movement : movements) {
 			if (movement.getCounterParty() == counterParty) {
@@ -49,7 +49,7 @@ public class Movements implements Serializable {
 		return result;
 	}
 
-	public static ArrayList<Movement> getMovements(String transactionCode) {
+	public ArrayList<Movement> getMovements(String transactionCode) {
 		ArrayList<Movement> result = new ArrayList<Movement>();
 		for(Movement movement : movements) {
 			if (movement.getTransactionCode().equals(transactionCode)) {
@@ -59,7 +59,7 @@ public class Movements implements Serializable {
 		return result;
 	}
 
-	public static ArrayList<Movement> getMovements(CounterParty counterParty, String transactionCode, boolean allowNull) {
+	public ArrayList<Movement> getMovements(CounterParty counterParty, String transactionCode, boolean allowNull) {
 		if (counterParty == null && !allowNull) {
 			return getMovements(transactionCode);
 		}
@@ -75,7 +75,7 @@ public class Movements implements Serializable {
 		return result;
 	}
 
-	public static int getSize() {
+	public int getSize() {
 		return movements.size();
 	}
 }

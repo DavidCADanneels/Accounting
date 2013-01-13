@@ -1,30 +1,19 @@
 package be.dafke.Accounting;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import be.dafke.Accounting.Objects.Account;
+import be.dafke.Accounting.Objects.Account.AccountType;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.Accounting.Objects.RefreshEvent;
+import be.dafke.RefreshableFrame;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-
-import javax.swing.BoxLayout;
-import javax.swing.DefaultListSelectionModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-
-import be.dafke.ParentFrame;
-import be.dafke.RefreshableFrame;
-import be.dafke.Accounting.Objects.Account;
-import be.dafke.Accounting.Objects.Account.AccountType;
-import be.dafke.Accounting.Objects.Accountings;
 
 public class NewAccountGUI extends RefreshableFrame implements ActionListener, ListSelectionListener {
 	/**
@@ -36,23 +25,24 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 	private final JButton add, delete, modifyName, modifyType;
 	private final NewAccountDataModel model;
 	private final JTable tabel;
-//	private final AccountingGUIFrame parent;
 	private final DefaultListSelectionModel selection;
+	private final Accountings accountings;
 
 	private static NewAccountGUI newAccountGUI = null;
 
-	public static NewAccountGUI getInstance(ParentFrame parent) {
+	public static NewAccountGUI getInstance(Accountings accountings) {
 		if (newAccountGUI == null) {
-			newAccountGUI = new NewAccountGUI(parent);
+			newAccountGUI = new NewAccountGUI(accountings);
+		} else {
+			newAccountGUI.refresh();
 		}
-		parent.addChildFrame(newAccountGUI);
 		return newAccountGUI;
 	}
 
-	private NewAccountGUI(ParentFrame parent) {
-		super("Create and modify accounts", parent);
-		this.parent = parent;
-		model = new NewAccountDataModel(/*parent*/);
+	private NewAccountGUI(Accountings accountings) {
+		super("Create and modify accounts");
+		this.accountings = accountings;
+		this.model = new NewAccountDataModel(accountings);
 		tabel = new JTable(model);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		selection = new DefaultListSelectionModel();
@@ -95,7 +85,7 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(panel);
 		pack();
-		setVisible(true);
+//		setVisible(true);
 	}
 
 	@Override
@@ -109,10 +99,13 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 		} else if (event.getSource() == delete) {
 			deleteAccount();
 		}
-		parent.repaintAllFrames();
+		RefreshEvent eventt = new RefreshEvent(this);
+		System.out.println("notifyAll called in " + this.getClass());
+		eventt.notifyAll();
 	}
 
 	private void deleteAccount() {
+		Accounting accounting = accountings.getCurrentAccounting();
 		int[] rows = tabel.getSelectedRows();
 		int nrNotEmpty = 0;
 		if (rows.length == 0) {
@@ -128,8 +121,10 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 					// When saving files to XML, add trailer to closed accounts
 					// and remove them from the Accounts object
 					// Note: if account was never used: just remove.i
-					Accountings.getCurrentAccounting().getAccounts().remove(account.getName());
-					parent.repaintAllFrames();
+					accounting.getAccounts().remove(account.getName());
+					RefreshEvent event = new RefreshEvent(this);
+					System.out.println("notifyAll called in " + this.getClass());
+					event.notifyAll();
 				}
 			}
 			if (nrNotEmpty > 0) {
@@ -146,11 +141,14 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 							+ " accounts were not zero, so they could not be deleted");
 				}
 			}
-			parent.repaintAllFrames();
+			RefreshEvent event = new RefreshEvent(this);
+			System.out.println("notifyAll called in " + this.getClass());
+			event.notifyAll();
 		}
 	}
 
 	private void modifyName() {
+		Accounting accounting = accountings.getCurrentAccounting();
 		int[] rows = tabel.getSelectedRows();
 		if (rows.length == 0) {
 			JOptionPane.showMessageDialog(this, "Select an account first");
@@ -159,9 +157,11 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 				Account account = (Account) model.getValueAt(row, 0);
 				String oldName = account.getName();
 				String newName = JOptionPane.showInputDialog("New name", account.getName()).trim();
-				Accountings.getCurrentAccounting().getAccounts().rename(oldName, newName);
+				accounting.getAccounts().rename(oldName, newName);
 			}
-			parent.repaintAllFrames();
+			RefreshEvent event = new RefreshEvent(this);
+			System.out.println("notifyAll called in " + this.getClass());
+			event.notifyAll();
 		}
 	}
 
@@ -196,23 +196,27 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 					account.setType(types[nr]);
 				}
 			}
-			parent.repaintAllFrames();
-			// parent.refresh();
+			RefreshEvent event = new RefreshEvent(this);
+			System.out.println("notifyAll called in " + this.getClass());
+			event.notifyAll();
 		}
 	}
 
 	private void addAccount() {
+		Accounting accounting = accountings.getCurrentAccounting();
 		String newName = name.getText().trim();
 		if (newName.equals("")) {
 			JOptionPane.showMessageDialog(this, "Account name cannot be empty");
 		} else {
-			if (Accountings.getCurrentAccounting().getAccounts().containsKey(newName)) {
+			if (accounting.getAccounts().containsKey(newName)) {
 				JOptionPane.showMessageDialog(this, "Account name already exists");
 			} else {
 				Account account = new Account(newName, (AccountType) type.getSelectedItem());
-				account.setAccounting(Accountings.getCurrentAccounting());
-				Accountings.getCurrentAccounting().getAccounts().add(account);
-				parent.repaintAllFrames();
+				account.setAccounting(accounting);
+				accounting.getAccounts().add(account);
+				RefreshEvent event = new RefreshEvent(this);
+				System.out.println("notifyAll called in " + this.getClass());
+				event.notifyAll();
 			}
 		}
 		name.setText("");
@@ -222,6 +226,7 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 	 * Herlaadt de data van de tabel
 	 * @see javax.swing.table.AbstractTableModel#fireTableDataChanged()
 	 */
+
 	@Override
 	public void refresh() {
 		model.fireTableDataChanged();
@@ -238,5 +243,4 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 			}
 		}
 	}
-
 }

@@ -1,22 +1,12 @@
 package be.dafke.Coda;
 
-import java.awt.BorderLayout;
-import java.awt.Container;
+import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.Coda.Objects.Movement;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-
-import be.dafke.Coda.Objects.Movement;
 
 public class CounterPartySelector extends JDialog implements ActionListener {
 	/**
@@ -33,17 +23,17 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 	private final Movement movement;
 	private final JRadioButton single, multiple;
 	private final ButtonGroup singleMultiple;
+	private final ComboBoxModel<CounterParty> model;
+	private final Accountings accountings;
 
-	public CounterPartySelector(JFrame parent, Movement movement) {
+	public CounterPartySelector(JFrame parent, Movement movement, Accountings accountings) {
 		super(parent, "Select Counterparty", true);
 		this.movement = movement;
-		Object[] counterparties = CounterParties.getCounterParties().toArray();
-		if (counterparties.length == 0) {
-			dispose();
-		}
+		this.accountings = accountings;
 		counterParty = null;
 		// counterParty = (CounterParty) counterparties[0];
-		combo = new JComboBox(counterparties);
+		model = new DefaultComboBoxModel<CounterParty>();
+		combo = new JComboBox(model);
 		combo.addItem(null);
 		combo.setSelectedItem(null);
 		// combo.setSelectedItem(counterparties[0]);
@@ -57,9 +47,10 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 		JPanel north = new JPanel();
 		north.add(combo);
 		north.add(create);
-		movementExistingCounterpartyTableModel = new GenericMovementDataModel(counterParty, null, true);
+		movementExistingCounterpartyTableModel = new GenericMovementDataModel(counterParty, null, true, accountings);
 		movementExistingCounterpartyTable = new JTable(movementExistingCounterpartyTableModel);
-		movementNoCounterpartyTableModel = new GenericMovementDataModel(null, movement.getTransactionCode(), true);
+		movementNoCounterpartyTableModel = new GenericMovementDataModel(null, movement.getTransactionCode(), true,
+				accountings);
 		movementNoCounterpartyTableModel.setSingleMovement(movement);
 		movementNoCounterpartyTable = new JTable(movementNoCounterpartyTableModel);
 		movementNoCounterpartyTable.setDefaultRenderer(CounterParty.class, new ColorRenderer());
@@ -100,7 +91,8 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 			String s = JOptionPane.showInputDialog(this, "Enter a name for the new counterparty");
 			if (s != null && !s.equals("")) {
 				counterParty = new CounterParty(s);
-				CounterParties.getInstance().put(s, counterParty);
+				CounterParties counterParties = accountings.getCurrentAccounting().getCounterParties();
+				counterParties.put(s, counterParty);
 				combo.addItem(counterParty);
 				combo.setSelectedItem(counterParty);
 			}

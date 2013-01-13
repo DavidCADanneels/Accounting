@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jdbc="http://www.springframework.org/schema/jdbc"
+       xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-3.2.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
+
+<bean id="accountings" class="be.dafke.Accounting.Objects.Accountings" scope="singleton" init-method="fromXML"/>
+
+<bean id="movements" class="be.dafke.Coda.Movements" scope="singleton"/>
+
+<bean id="counterparties" class="be.dafke.Coda.CounterParties" scope="singleton"/>
+
+<!-- Main GUI -->
+<bean id="accountingMainPanel" class="be.dafke.Accounting.AccountingGUIFrame" scope="singleton">
+	<constructor-arg>
+		<value>Boekhouding</value>
+	</constructor-arg>
+	<constructor-arg ref="menubar"/>
+	<constructor-arg ref="contentPanel"/>
+	<constructor-arg ref="accountings"/>
+</bean>
+
+<alias name="accountingMainPanel" alias="mainPanel"/>
+
+<!-- Menu Bar -->
+<bean id="menubar" class="be.dafke.Accounting.AccountingMenuBar" scope="singleton" init-method="activateButtons">
+	<constructor-arg ref="accountings"/>
+</bean>
+
+<!-- Content Panel -->
+<bean id="contentPanel" class="be.dafke.Accounting.AccountingGUIPanel">
+	<constructor-arg ref="journalGui"/>
+	<constructor-arg ref="journalsGui"/>
+	<constructor-arg ref="accountsGui"/>
+	<constructor-arg ref="mortgagesGui"/>
+</bean>
+
+<!-- Details -->
+<bean id="accountDetails" class="be.dafke.Accounting.Details.AccountDetails" parent="refresableTable" scope="prototype"/>
+<bean id="journalDetails" class="be.dafke.Accounting.Details.JournalDetails" parent="refresableTable" scope="prototype"/>
+
+<!-- Main GUI components -->
+<bean id="journalGui" class="be.dafke.Accounting.JournalGUI"/>
+<bean id="journalsGui" class="be.dafke.Accounting.JournalsGUI"/>
+<bean id="accountsGui" class="be.dafke.Accounting.AccountsGUI"/>
+<bean id="mortgagesGui" class="be.dafke.Accounting.MortgagesGUI"/>
+
+<!-- Balances -->
+<bean id="testBalance" class="be.dafke.Accounting.Balances.TestBalance" parent="refresableBalance" scope="singleton">
+	<constructor-arg ref="testBalanceDataModel"/>
+</bean>
+<bean id="yearBalance" class="be.dafke.Accounting.Balances.YearBalance" parent="refresableBalance" scope="singleton">
+<!--<constructor-arg value="Eindbalans"/> -->
+	<constructor-arg ref="yearBalanceDataModel"/>
+</bean>
+<bean id="resultBalance" class="be.dafke.Accounting.Balances.ResultBalance" parent="refresableBalance" scope="singleton">
+<!--<constructor-arg value="Resultatenbalans"/> -->
+	<constructor-arg ref="resultBalanceDataModel"/>
+<!--<constructor-arg value="AccountType.Cost"/> -->
+<!--<constructor-arg value="AccountType.Revenue"/> -->
+</bean>
+<bean id="relationsBalance" class="be.dafke.Accounting.Balances.RelationsBalance" parent="refresableBalance" scope="singleton">
+<!--<constructor-arg value="Schulden- en tegoedenbalans"/> -->
+	<constructor-arg ref="relationsBalanceDataModel"/>
+<!--<constructor-arg value="AccountType.Debit"/> -->
+<!--<constructor-arg value="AccountType.Credit"/> -->
+</bean>
+
+<!-- Balance Data Models -->
+<bean id="testBalanceDataModel" class="be.dafke.Accounting.Balances.TestBalanceDataModel" scope="singleton" />
+<bean id="yearBalanceDataModel" class="be.dafke.Accounting.Balances.YearBalanceDataModel" scope="singleton" />
+<bean id="resultBalanceDataModel" class="be.dafke.Accounting.Balances.ResultBalanceDataModel" scope="singleton" />
+<bean id="relationsBalanceDataModel" class="be.dafke.Accounting.Balances.RelationsBalanceDataModel" scope="singleton" />
+
+<!-- Account Management -->
+<bean id="newAccountGUI" class="be.dafke.Accounting.NewAccountGUI" parent="refresableFrame" scope="singleton">
+	<constructor-arg ref="newAccountDataModel"/>
+</bean>
+<bean id="newAccountDataModel" class="be.dafke.Accounting.NewAccountDataModel" scope="singleton"/>
+
+<!-- Journal Management -->
+<bean id="newJournalGUI" class="be.dafke.Accounting.NewJournalGUI" parent="refresableFrame" scope="singleton">
+	<constructor-arg ref="journalTypes"/>
+    <constructor-arg ref="newJournalDataModel"/>
+</bean>
+<bean id="journalTypes" class="be.dafke.Accounting.Objects.JournalTypes"/>
+<bean id="newJournalDataModel" class="be.dafke.Accounting.NewJournalDataModel" scope="singleton"/>
+
+<!-- Journal Type Management -->
+<bean id="newJournalTypeGUI" class="be.dafke.Accounting.NewJournalTypeGUI" parent="refresableFrame" scope="singleton">
+<!-- <constructor-arg ref="newJournalTypeDataModel"/> -->
+</bean>
+<!-- <bean id="newAccountDataModel" class="be.dafke.Accounting.NewAccountDataModel" scope="singleton"/>  -->
+
+<!-- Project Management -->
+<bean id="projectManagerFrame" class="be.dafke.Accounting.ProjectManagerFrame" scope="singleton">
+	<constructor-arg ref="accountings"/>
+</bean>
+
+<bean id="mortgageGui" class="be.dafke.Mortgage.MortgageGUI" scope="singleton" init-method="refresh"/>
+<bean id="mortgageCalculatorGui" class="be.dafke.Mortgage.MortgageCalculatorGUI" scope="singleton"/>
+<bean id="mortgageTable" class="be.dafke.Mortgage.MortgageTable" scope="prototype"/>
+<!--
+<bean id="genericMovementDataModel" class="be.dafke.Coda.GenericMovementDataModel" scope="prototype"/>
+<bean id="counterPartyTable" class="be.dafke.Coda.CounterPartyTable" scope="singleton">
+	<constructor-arg ref="counterPartyDataModel"/>
+</bean>
+<bean id="counterPartyDataModel" class="be.dafke.Coda.CounterPartyDataModel" scope="singleton"/>
+
+<bean id="counterPartySelector" class="be.dafke.Coda.CounterPartySelector" scope="prototype"/>
+
+<bean id="movementTable" class="be.dafke.Coda.MovementTable" scope="singleton">
+	<constructor-arg ref="movementDataModel"/>
+</bean>
+<bean id="movementDataModel" class="be.dafke.Coda.MovementDataModel" scope="singleton"/>
+ -->
+<jdbc:embedded-database type="H2" id="dataSource">
+	<jdbc:script location="create.sql"/>
+	<jdbc:script location="data.sql"/>
+</jdbc:embedded-database>
+<bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+	<property ref="dataSource" name="dataSource"/>
+</bean>
+
+</beans>

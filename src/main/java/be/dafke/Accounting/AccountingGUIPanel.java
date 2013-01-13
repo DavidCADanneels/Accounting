@@ -2,6 +2,8 @@ package be.dafke.Accounting;
 
 //import be.belgium.eid.*;
 
+import be.dafke.Accounting.Objects.Accountings;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -15,18 +17,18 @@ public class AccountingGUIPanel extends JPanel {
 	 */
 	private static final long serialVersionUID = 1L;
 	// private static final ResourceBundle bundle = ResourceBundle.getBundle("Accounting");
-	private final JournalGUI dagboekGUI;
+	private final JournalGUI journalGUI;
 	private final AccountsGUI accountsGUI;
 	private final JournalsGUI journalsGUI;
 	private final MortgagesGUI mortgagesGUI;
 
-	public AccountingGUIPanel(AccountingGUIFrame parent) {
+	public AccountingGUIPanel(Accountings accountings) {
 		// if(!checkID())
 		// System.exit(0);
-		dagboekGUI = new JournalGUI(parent);
-		accountsGUI = new AccountsGUI(dagboekGUI, parent);
-		journalsGUI = new JournalsGUI(dagboekGUI, parent);
-		mortgagesGUI = new MortgagesGUI(dagboekGUI, parent);
+		journalGUI = new JournalGUI(accountings);
+		accountsGUI = new AccountsGUI(accountings, journalGUI);
+		journalsGUI = new JournalsGUI(accountings, journalGUI);
+		mortgagesGUI = new MortgagesGUI(accountings, journalGUI);
 
 		JPanel linksBoven = new JPanel(new BorderLayout());
 		linksBoven.add(accountsGUI, BorderLayout.CENTER);
@@ -37,14 +39,14 @@ public class AccountingGUIPanel extends JPanel {
 		links.add(journalsGUI, BorderLayout.SOUTH);
 
 		setLayout(new BorderLayout());
-		add(dagboekGUI, BorderLayout.CENTER);
+		add(journalGUI, BorderLayout.CENTER);
 
 		add(links, BorderLayout.WEST);
 		// dagboekGUI.init();
 	}
 
 	public void activateButtons(/*boolean active*/) {
-		dagboekGUI.init();
+		journalGUI.init();
 		accountsGUI.activateButtons(/*active*/);
 		journalsGUI.activateButtons(/*active*/);
 		mortgagesGUI.refresh();

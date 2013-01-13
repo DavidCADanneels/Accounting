@@ -5,6 +5,15 @@
 
 package be.dafke.Coda;
 
+import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.Coda.Objects.Header;
+import be.dafke.Coda.Objects.Information;
+import be.dafke.Coda.Objects.Movement;
+import be.dafke.Coda.Objects.NewBalance;
+import be.dafke.Coda.Objects.OldBalance;
+import be.dafke.Coda.Objects.Statement;
+import be.dafke.Coda.Objects.Trailer;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -18,31 +27,20 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
-import be.dafke.Coda.Objects.Header;
-import be.dafke.Coda.Objects.Information;
-import be.dafke.Coda.Objects.Movement;
-import be.dafke.Coda.Objects.NewBalance;
-import be.dafke.Coda.Objects.OldBalance;
-import be.dafke.Coda.Objects.Statement;
-import be.dafke.Coda.Objects.Trailer;
-
 /**
  * @author David C.A. Danneels
  */
 public class CodaParser {
 	private final HashMap<Integer, String> banks;
 
-	// private CounterParties counterParties;
-//	private Movements movements;
-
 	public CodaParser() {
 		banks = new HashMap<Integer, String>();
 		banks.put(Integer.valueOf(750), "AXA Bank");
 	}
 
-	public void parseFile(File[] files) {
-		// Statement result = new Statement();
-		// movements = Movements.getInstance();
+	public void parseFile(File[] files, Accountings accountings) {
+		CounterParties counterParties = accountings.getCurrentAccounting().getCounterParties();
+		Movements movements = accountings.getCurrentAccounting().getMovements();
 		Movement movement = null;
 		Information information = null;
 		for(File file : files) {
@@ -60,9 +58,9 @@ public class CodaParser {
 					} else if (line.startsWith("21")) {
 						/*
 						 * if(movement!=null){ statement.addMovement(movement); Movements.add(movement); }
-						 */movement = Movement.parse(line);
+						 */movement = Movement.parse(line, counterParties);
 						statement.addMovement(movement);
-						Movements.add(movement);
+						movements.add(movement);
 					} else if (line.startsWith("22")) {
 						movement.addPart2(line);
 					} else if (line.startsWith("23")) {
@@ -93,14 +91,14 @@ public class CodaParser {
 			System.out.println(statement);
 		}
 		ArrayList<CounterParty> toRemove = new ArrayList<CounterParty>();
-		for(CounterParty party : CounterParties.getCounterParties()) {
-			if (Movements.getMovements(party).isEmpty()) {
+		for(CounterParty party : counterParties.getCounterParties()) {
+			if (movements.getMovements(party).isEmpty()) {
 				toRemove.add(party);
 			}
 		}
 		for(CounterParty party : toRemove) {
 			System.err.println("remove " + party.getName());
-			CounterParties.getInstance().remove(party.getName());
+			counterParties.remove(party.getName());
 		}
 	}
 

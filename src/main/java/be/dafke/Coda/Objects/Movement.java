@@ -1,21 +1,23 @@
 package be.dafke.Coda.Objects;
 
-import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Calendar;
-
 import be.dafke.Coda.BankAccount;
 import be.dafke.Coda.CodaParser;
 import be.dafke.Coda.CounterParties;
 import be.dafke.Coda.CounterParty;
 import be.dafke.Coda.TmpCounterParty;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Calendar;
+
 public class Movement implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String sequenceNumber, detailNumber, bankReference, transactionCode, communication, statementNr;
+	private final String sequenceNumber, detailNumber, bankReference, transactionCode;
+	private String communication;
+	private final String statementNr;
 	private final boolean debit, structured, part2;
 	private final BigDecimal amount;
 	private final Calendar date, entryDate;
@@ -27,8 +29,10 @@ public class Movement implements Serializable {
 	private TmpCounterParty tmpCounterParty;
 	private boolean info, part3;
 	private Information information;
+	private static CounterParties counterParties;
 
-	public static Movement parse(String line) {
+	public static Movement parse(String line, CounterParties counterParties) {
+		Movement.counterParties = counterParties;
 		String nr1 = line.substring(2, 6);
 		String nr2 = line.substring(6, 10);
 		String bankRef = line.substring(10, 31);
@@ -38,7 +42,8 @@ public class Movement implements Serializable {
 		BigDecimal amount = CodaParser.convertBigDecimal(amountString);
 		String date = line.substring(47, 53);
 		Calendar cal = CodaParser.convertDate(date);
-		String transCode = line.substring(53, 61);
+//		String transCode = line.substring(53, 61);
+		String transCode = line.substring(55, 58);
 		String struc = line.substring(61, 62);
 		boolean structured = "1".equals(struc);
 		String comm = line.substring(62, 115);
@@ -49,6 +54,16 @@ public class Movement implements Serializable {
 		boolean part2Coming = "1".equals(part2);
 		String info = line.substring(127, 128);
 		boolean infoComing = "1".equals(info);
+		// trim numbers
+		while (nr.startsWith("0")) {
+			nr = nr.substring(1);
+		}
+		while (nr1.startsWith("0")) {
+			nr1 = nr1.substring(1);
+		}
+		while (nr2.startsWith("0")) {
+			nr2 = nr2.substring(1);
+		}
 		return new Movement(nr1, nr2, bankRef, debit, amount, cal, transCode, structured, comm, cal2, nr, part2Coming,
 				infoComing);
 	}
@@ -77,6 +92,12 @@ public class Movement implements Serializable {
 	public void addPart2(String line) {
 		String nr1 = line.substring(2, 6);
 		String nr2 = line.substring(6, 10);
+		while (nr1.startsWith("0")) {
+			nr1 = nr1.substring(1);
+		}
+		while (nr2.startsWith("0")) {
+			nr2 = nr2.substring(1);
+		}
 		if (!nr1.equals(sequenceNumber)) System.err.println("SequenceNumber not equal [" + nr1 + "!=" + sequenceNumber
 				+ "]");
 		if (!nr2.equals(detailNumber)) System.err.println("DetailNumber not equal [" + nr2 + "!=" + detailNumber + "]");
@@ -92,6 +113,12 @@ public class Movement implements Serializable {
 	public void addPart3(String line) {
 		String nr1 = line.substring(2, 6);
 		String nr2 = line.substring(6, 10);
+		while (nr1.startsWith("0")) {
+			nr1 = nr1.substring(1);
+		}
+		while (nr2.startsWith("0")) {
+			nr2 = nr2.substring(1);
+		}
 		if (!nr1.equals(sequenceNumber)) System.err.println("SequenceNumber not equal [" + nr1 + "!=" + sequenceNumber
 				+ "]");
 		if (!nr2.equals(detailNumber)) System.err.println("DetailNumber not equal [" + nr2 + "!=" + detailNumber + "]");
@@ -105,7 +132,7 @@ public class Movement implements Serializable {
 			account.setCurrency(counterPartyCurrency);
 			counterParty.addAccount(account);
 		}
-		CounterParties counterParties = CounterParties.getInstance();
+		// CounterParties counterParties = CounterParties.getInstance();
 		// counterParties.remove(transactionCode);
 		counterParty = counterParties.put(counterPartyName, counterParty);
 		communication3 = line.substring(82, 125).trim();
@@ -127,9 +154,25 @@ public class Movement implements Serializable {
 		builder.append("transactionCode=" + transactionCode + "\r\n");
 		builder.append("structured=" + structured + "\r\n");
 		builder.append("communication=" + communication + "\r\n");
-		if (structured && communication.startsWith("101")) {
-			// +++123/1234/12345+++
-
+		if (structured) {
+			String start = communication.substring(0, 3);
+			communication = communication.substring(3);
+			if (start.equals("101") && communication.length() >= 12) {
+				// +++123/1234/12345+++
+				String part1 = communication.substring(0, 3);
+				String part2 = communication.substring(3, 7);
+				String part3 = communication.substring(7, 12);
+				communication = "+++" + part1 + "/" + part2 + "/" + part3 + "/" + "+++";
+			} else if (start.equals("107")) {
+				communication = communication.substring(18);
+				while (communication.startsWith("0")) {
+					communication = communication.substring(1);
+				}
+			}
+		}
+		if (transactionCode.equals("402") || transactionCode.equals("404")) {
+			communication = communication.replaceAll("[0-9]", "");
+			communication = communication.trim();
 		}
 		builder.append("entryDate=" + entryDate.get(Calendar.DAY_OF_MONTH) + "/" + (entryDate.get(Calendar.MONTH) + 1)
 				+ "/" + entryDate.get(Calendar.YEAR) + "\r\n");
@@ -190,13 +233,12 @@ public class Movement implements Serializable {
 		return counterParty;
 	}
 
-	public Object getCommunication() {
+	public String getCommunication() {
 		StringBuilder builder = new StringBuilder(communication.trim());
-		if (communication2 != null && !communication2.trim().isEmpty()) {
-			builder.append("|(2)" + communication2.trim());
-		}
-		if (communication3 != null && !communication3.trim().isEmpty()) {
-			builder.append("|(3)" + communication3.trim());
+		if (!structured && !transactionCode.equals("402") && !transactionCode.equals("404") && communication2 != null
+				&& !communication2.trim().isEmpty()) {
+			// momenteel enkel indien transactionCode = 150 (CM)
+			builder.append(communication2.trim());
 		}
 		return builder.toString();
 	}

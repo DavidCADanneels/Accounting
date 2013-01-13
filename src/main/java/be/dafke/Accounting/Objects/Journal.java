@@ -1,5 +1,9 @@
 package be.dafke.Accounting.Objects;
 
+import be.dafke.Accounting.XML.XMLtoHTMLTransformer;
+import be.dafke.Utils;
+
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -11,10 +15,6 @@ import java.util.Calendar;
 import java.util.Iterator;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import javax.swing.filechooser.FileSystemView;
-
-import be.dafke.Utils;
 
 /**
  * Boekhoudkundig dagboek
@@ -33,8 +33,11 @@ public class Journal implements Serializable {
 //	private boolean save;
 	private Accounting accounting;
 	private JournalType journalType;
-	private final String DEFAULT_XSL = "../../xsl/Journal.xsl";
-	private final String styleSheet = DEFAULT_XSL;
+//	private final String DEFAULT_XSL = "../../xsl/Journal.xsl";
+//	private final String styleSheet = DEFAULT_XSL;
+	private File xmlFile;
+	private File htmlFile;
+	private File styleSheet;
 
 	/**
 	 * Constructor
@@ -64,6 +67,9 @@ public class Journal implements Serializable {
 
 	public void setAccounting(Accounting accounting) {
 		this.accounting = accounting;
+		xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getJournalLocationXml(), name + ".xml");
+		styleSheet = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Journal.xsl");
+		htmlFile = FileSystemView.getFileSystemView().getChild(accounting.getJournalLocationHtml(), name + ".html");
 	}
 
 	public Accounting getAccounting() {
@@ -74,6 +80,7 @@ public class Journal implements Serializable {
 	 * Geeft de naam van het dagboek en de bijhorende afkorting terug
 	 * @return de naam van het dagboek en de bijhorende afkorting <b><i>naam dagboek(afkorting)</i></b>
 	 */
+
 	@Override
 	public String toString() {
 		return name + " (" + abbreviation + ")";
@@ -125,11 +132,9 @@ public class Journal implements Serializable {
 	 * aan de gebruiker gevraagd deze map aan te duiden.
 	 */
 	public void toXML() {
-//		File folder = FileSystemView.getFileSystemView().createFileObject(accounting.getXMLLocation());
-//		File subFolder = FileSystemView.getFileSystemView().getChild(folder, "Journals");
-		File file = FileSystemView.getFileSystemView().getChild(accounting.getXMLJournalLocation(), name + ".xml");
+		xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getJournalLocationXml(), name + ".xml");
 		try {
-			Writer writer = new FileWriter(file);
+			Writer writer = new FileWriter(xmlFile);
 			writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
 					+ "<?xml-stylesheet type=\"text/xsl\" href=\"" + styleSheet + "\"?>\r\n" + "<journal>\r\n"
 					+ "  <name>" + name + "</name>\r\n");
@@ -163,8 +168,7 @@ public class Journal implements Serializable {
 	}
 
 	public void toHTML() {
-		// Main.startFOP(args);
-		System.out.println("Journal to HTML canceled since startFOP (not implemented yet) closes the JVM");
+		XMLtoHTMLTransformer.xmlToHtml(xmlFile, styleSheet, htmlFile, null);
 	}
 
 	/**

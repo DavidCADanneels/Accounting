@@ -1,13 +1,13 @@
 package be.dafke.Coda;
 
+import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.Coda.Objects.Movement;
+import be.dafke.Utils;
+
+import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
-
-import javax.swing.table.AbstractTableModel;
-
-import be.dafke.Utils;
-import be.dafke.Coda.Objects.Movement;
 
 public class GenericMovementDataModel extends AbstractTableModel {
 	/**
@@ -18,18 +18,15 @@ public class GenericMovementDataModel extends AbstractTableModel {
 			"TransactionCode", "Communication" };
 	private final Class[] columnClasses = { String.class, String.class, Calendar.class, String.class, BigDecimal.class,
 			CounterParty.class, String.class, String.class };
-
 	private final String transactionCode;
 	private CounterParty counterParty;
 	private final boolean allowNull;
-
 	private Movement singleMovement;
+	private final Accountings accountings;
 
-	public GenericMovementDataModel(CounterParty counterParty, String transactionCode) {
-		this(counterParty, transactionCode, false);
-	}
-
-	public GenericMovementDataModel(CounterParty counterParty, String transactionCode, boolean allowNull) {
+	public GenericMovementDataModel(CounterParty counterParty, String transactionCode, boolean allowNull,
+			Accountings accountings) {
+		this.accountings = accountings;
 		this.counterParty = counterParty;
 		this.transactionCode = transactionCode;
 		this.allowNull = allowNull;
@@ -53,7 +50,8 @@ public class GenericMovementDataModel extends AbstractTableModel {
 		if (singleMovement != null) {
 			m = singleMovement;
 		} else {
-			m = Movements.getMovements(counterParty, transactionCode, allowNull).get(row);
+			Movements movements = accountings.getCurrentAccounting().getMovements();
+			m = movements.getMovements(counterParty, transactionCode, allowNull).get(row);
 		}
 		if (col == 0) {
 			return m.getStatementNr();
@@ -83,10 +81,14 @@ public class GenericMovementDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
+		if (accountings == null || accountings.getCurrentAccounting() == null) {
+			return 0;
+		}
 		if (singleMovement != null) {
 			return 1;
 		}
-		return Movements.getMovements(counterParty, transactionCode, allowNull).size();
+		Movements movements = accountings.getCurrentAccounting().getMovements();
+		return movements.getMovements(counterParty, transactionCode, allowNull).size();
 	}
 
 	@Override
@@ -123,6 +125,7 @@ public class GenericMovementDataModel extends AbstractTableModel {
 			result.add(singleMovement);
 			return result;
 		}
-		return Movements.getMovements(counterParty, transactionCode, allowNull);
+		Movements movements = accountings.getCurrentAccounting().getMovements();
+		return movements.getMovements(counterParty, transactionCode, allowNull);
 	}
 }

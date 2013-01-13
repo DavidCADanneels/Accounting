@@ -1,23 +1,20 @@
 package be.dafke.Accounting;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.math.BigDecimal;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.Accounting.Objects.RefreshEvent;
+import be.dafke.Accounting.Objects.Transaction;
+import be.dafke.Mortgage.Mortgage;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-
-import be.dafke.Accounting.Objects.Accountings;
-import be.dafke.Accounting.Objects.Transaction;
-import be.dafke.Mortgage.Mortgage;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 
 public class MortgagesGUI extends JPanel implements ListSelectionListener, ActionListener {
 	/**
@@ -27,12 +24,12 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 	private final JList list;
 	private final JButton pay;// , newMortgage, details;
 	private final JournalGUI journalGUI;
-	private final AccountingGUIFrame parent;
 	private final DefaultListModel listModel;
+	private final Accountings accountings;
 
-	public MortgagesGUI(JournalGUI journalGUI, AccountingGUIFrame parent) {
-		this.parent = parent;
+	public MortgagesGUI(Accountings accountings, JournalGUI journalGUI) {
 		this.journalGUI = journalGUI;
+		this.accountings = accountings;
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Mortgages"));
 		list = new JList();
@@ -46,8 +43,9 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 	}
 
 	public void refresh() {
-		if (Accountings.getCurrentAccounting() != null) {
-			for(Mortgage mortgage : Accountings.getCurrentAccounting().getMortgagesTables()) {
+		Accounting accounting = accountings.getCurrentAccounting();
+		if (accounting != null) {
+			for(Mortgage mortgage : accounting.getMortgagesTables()) {
 				if (!listModel.contains(mortgage)) {
 					listModel.addElement(mortgage);
 				}
@@ -71,7 +69,9 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 		BigDecimal debettotaal = Transaction.getInstance().getDebetTotaal();
 		BigDecimal credittotaal = Transaction.getInstance().getCreditTotaal();
 		if (debettotaal.compareTo(credittotaal) == 0) journalGUI.setOK();
-		parent.repaintAllFrames();
+		RefreshEvent event = new RefreshEvent(this);
+		System.out.println("notifyAll called in " + this.getClass());
+		event.notifyAll();
 	}
 
 	@Override
@@ -82,5 +82,4 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 			pay.setEnabled(false);
 		}
 	}
-
 }

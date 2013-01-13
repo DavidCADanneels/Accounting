@@ -1,12 +1,18 @@
 package be.dafke.Accounting.Objects;
 
+import be.dafke.Accounting.XML.XMLtoHTMLTransformer;
 import be.dafke.Utils;
 
 import javax.swing.filechooser.FileSystemView;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Serializable;
+import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -45,7 +51,9 @@ public class Account implements Serializable {
 //	private boolean save;
 	private Project project;
 	private Accounting accounting;
-	private File xmlFile, htmlFile, styleSheet;
+	private File xmlFile;
+	private File htmlFile;
+	private File styleSheet;
 
 	/**
 	 * Constructor
@@ -76,6 +84,9 @@ public class Account implements Serializable {
 
 	public void setAccounting(Accounting accounting) {
 		this.accounting = accounting;
+		xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getAccountLocationXml(), name + ".xml");
+		styleSheet = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Account.xsl");
+		htmlFile = FileSystemView.getFileSystemView().getChild(accounting.getAccountLocationHtml(), name + ".html");
 	}
 
 	public Accounting getAccounting() {
@@ -237,18 +248,6 @@ public class Account implements Serializable {
 	 * aan de gebruiker gevraagd deze map aan te duiden.
 	 */
 	public void toXML() {
-		// XML
-		xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getXMLAccountLocation(), name + ".xml");
-		//
-		// XSL
-//		File folder = accounting.getXMLLocation();
-//		File parent = FileSystemView.getFileSystemView().getParentDirectory(folder);
-//		File styleSheetFolder = FileSystemView.getFileSystemView().getChild(parent, "xsl");
-//		File styleSheetFolder = FileSystemView.getFileSystemView().createFileObject();
-		styleSheet = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Account.xsl");
-		//
-		// HTML
-		htmlFile = FileSystemView.getFileSystemView().getChild(accounting.getAccountLocation(), name + ".html");
 		try {
 			Writer writer = new FileWriter(xmlFile);
 			writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
@@ -275,15 +274,7 @@ public class Account implements Serializable {
 	}
 
 	public void toHTML() {
-		String args[] = new String[6];
-		args[0] = "-xml";
-		args[1] = xmlFile.getAbsolutePath();
-		args[2] = "-xsl";
-		args[3] = styleSheet.getAbsolutePath();
-		args[4] = "-foout";
-		args[5] = htmlFile.getAbsolutePath();
-		// Main.startFOP(args);
-		System.out.println("Account to HTML canceled since startFOP closes the JVM");
+		XMLtoHTMLTransformer.xmlToHtml(xmlFile, styleSheet, htmlFile, null);
 	}
 
 	/**
@@ -291,6 +282,7 @@ public class Account implements Serializable {
 	 * @return de naam van de rekening <b><i>naam rekening</i></b> of <b><i>naam rekening(naam project)</i></b> indien
 	 * het project niet <b>null</b> is.
 	 */
+
 	@Override
 	public String toString() {
 		if (project == null) return name;

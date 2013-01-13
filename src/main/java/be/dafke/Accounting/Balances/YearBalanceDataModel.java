@@ -2,6 +2,7 @@ package be.dafke.Accounting.Balances;
 
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Account.AccountType;
+import be.dafke.Accounting.Objects.Accounting;
 import be.dafke.Accounting.Objects.Accountings;
 
 import javax.swing.table.AbstractTableModel;
@@ -20,17 +21,17 @@ public class YearBalanceDataModel extends AbstractTableModel {
 			java.util.ResourceBundle.getBundle("Accounting").getString("BEDRAG"),
 			java.util.ResourceBundle.getBundle("Accounting").getString("PASSIVA") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, Account.class };
+	private final Accountings accountings;
 
-//	private final AccountingGUIFrame parent;
-
-//	public YearBalanceDataModel(AccountingGUIFrame parent) {
-//		this.parent = parent;
-//	}
+	public YearBalanceDataModel(Accountings accountings) {
+		this.accountings = accountings;
+	}
 
 // DE GET METHODEN
 // ===============
-	@Override
+
 	public Object getValueAt(int row, int col) {
+		Accounting accounting = accountings.getCurrentAccounting();
 		int size = getRowCount();
 		if (row == size - 1) {
 			// in de onderste rij komen totalen
@@ -40,14 +41,10 @@ public class YearBalanceDataModel extends AbstractTableModel {
 					"TOTAAL_PASSIVA_SCHULDEN");
 			else {
 				// Berekening totalen en resultaat
-				ArrayList<Account> activa = Accountings.getCurrentAccounting().getAccounts().getAccounts(
-						AccountType.Active);
-				ArrayList<Account> passiva = Accountings.getCurrentAccounting().getAccounts().getAccounts(
-						AccountType.Passive);
-				ArrayList<Account> klanten = Accountings.getCurrentAccounting().getAccounts().getAccounts(
-						AccountType.Credit);
-				ArrayList<Account> leveranciers = Accountings.getCurrentAccounting().getAccounts().getAccounts(
-						AccountType.Debit);
+				ArrayList<Account> activa = accounting.getAccounts().getAccounts(AccountType.Active);
+				ArrayList<Account> passiva = accounting.getAccounts().getAccounts(AccountType.Passive);
+				ArrayList<Account> klanten = accounting.getAccounts().getAccounts(AccountType.Credit);
+				ArrayList<Account> leveranciers = accounting.getAccounts().getAccounts(AccountType.Debit);
 				BigDecimal totaalActiva = new BigDecimal(0);
 				BigDecimal totaalPassiva = new BigDecimal(0);
 				BigDecimal totaalKlanten = new BigDecimal(0);
@@ -74,11 +71,10 @@ public class YearBalanceDataModel extends AbstractTableModel {
 				return BigDecimal.ZERO.subtract(totaalRechts);
 			}
 		}// einde totalen
-		ArrayList<Account> activa = Accountings.getCurrentAccounting().getAccounts().getAccounts(AccountType.Active);
-		ArrayList<Account> passiva = Accountings.getCurrentAccounting().getAccounts().getAccounts(AccountType.Passive);
-		ArrayList<Account> klanten = Accountings.getCurrentAccounting().getAccounts().getAccounts(AccountType.Credit);
-		ArrayList<Account> leveranciers = Accountings.getCurrentAccounting().getAccounts().getAccounts(
-				AccountType.Debit);
+		ArrayList<Account> activa = accounting.getAccounts().getAccounts(AccountType.Active);
+		ArrayList<Account> passiva = accounting.getAccounts().getAccounts(AccountType.Passive);
+		ArrayList<Account> klanten = accounting.getAccounts().getAccounts(AccountType.Credit);
+		ArrayList<Account> leveranciers = accounting.getAccounts().getAccounts(AccountType.Debit);
 		int max;
 		if (activa.size() < passiva.size()) max = passiva.size();
 		else max = activa.size();
@@ -113,18 +109,19 @@ public class YearBalanceDataModel extends AbstractTableModel {
 		return "";
 	}
 
-	@Override
 	public int getColumnCount() {
 		return columnNames.length;
 	}
 
-	@Override
 	public int getRowCount() {
-		ArrayList<Account> activa = Accountings.getCurrentAccounting().getAccounts().getAccounts(AccountType.Active);
-		ArrayList<Account> passiva = Accountings.getCurrentAccounting().getAccounts().getAccounts(AccountType.Passive);
-		ArrayList<Account> klanten = Accountings.getCurrentAccounting().getAccounts().getAccounts(AccountType.Credit);
-		ArrayList<Account> leveranciers = Accountings.getCurrentAccounting().getAccounts().getAccounts(
-				AccountType.Debit);
+		if (accountings == null || accountings.getCurrentAccounting() == null) {
+			return 0;
+		}
+		Accounting accounting = accountings.getCurrentAccounting();
+		ArrayList<Account> activa = accounting.getAccounts().getAccounts(AccountType.Active);
+		ArrayList<Account> passiva = accounting.getAccounts().getAccounts(AccountType.Passive);
+		ArrayList<Account> klanten = accounting.getAccounts().getAccounts(AccountType.Credit);
+		ArrayList<Account> leveranciers = accounting.getAccounts().getAccounts(AccountType.Debit);
 		int size1 = activa.size() > passiva.size() ? activa.size() : passiva.size();
 		int size2 = klanten.size() > leveranciers.size() ? klanten.size() : leveranciers.size();
 		int size = size1 + size2;

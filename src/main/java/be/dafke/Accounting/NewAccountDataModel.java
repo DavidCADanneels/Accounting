@@ -1,12 +1,12 @@
 package be.dafke.Accounting;
 
-import java.math.BigDecimal;
-
-import javax.swing.table.AbstractTableModel;
-
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Account.AccountType;
+import be.dafke.Accounting.Objects.Accounting;
 import be.dafke.Accounting.Objects.Accountings;
+
+import javax.swing.table.AbstractTableModel;
+import java.math.BigDecimal;
 
 public class NewAccountDataModel extends AbstractTableModel {
 	/**
@@ -15,26 +15,24 @@ public class NewAccountDataModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = { "Account (Name)", "Type", "Saldo" };
 	private final Class[] columnClasses = { Account.class, String.class, BigDecimal.class };
+	private final Accountings accountings;
 
-//	private final AccountingGUIFrame parent;
+	public NewAccountDataModel(Accountings accountings) {
+		this.accountings = accountings;
+	}
 
-//	public NewAccountDataModel(AccountingGUIFrame parent) {
-//		this.parent = parent;
-//	}
-
-	@Override
 	public int getColumnCount() {
 		return columnClasses.length;
 	}
 
-	@Override
 	public int getRowCount() {
-		return Accountings.getCurrentAccounting().getAccounts().size();
+		Accounting accounting = accountings.getCurrentAccounting();
+		return accounting.getAccounts().size();
 	}
 
-	@Override
 	public Object getValueAt(int row, int col) {
-		Account account = Accountings.getCurrentAccounting().getAccounts().getAccounts(AccountType.getList()).get(row);
+		Accounting accounting = accountings.getCurrentAccounting();
+		Account account = accounting.getAccounts().getAccounts(AccountType.getList()).get(row);
 		if (col == 1) {
 			return account.getType();
 		} else if (col == 2) {

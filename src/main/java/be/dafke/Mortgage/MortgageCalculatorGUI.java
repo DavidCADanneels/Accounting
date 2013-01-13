@@ -1,6 +1,10 @@
 package be.dafke.Mortgage;
 
-import java.awt.GridLayout;
+import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.RefreshableFrame;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -9,18 +13,6 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
-
-import javax.swing.BoxLayout;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
-
-import be.dafke.ParentFrame;
-import be.dafke.RefreshableFrame;
 
 public class MortgageCalculatorGUI extends RefreshableFrame implements ActionListener, FocusListener {
 	/**
@@ -43,20 +35,12 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 
 	List<Vector<BigDecimal>> fixedTable, degressiveTable;
 
-	// private final ParentFrame parent;
+	private final Accountings accountings;
 
-	public static MortgageCalculatorGUI getInstance(ParentFrame parent) {
-		if (mortgage == null) {
-			mortgage = new MortgageCalculatorGUI(parent);
-		}
-		parent.addChildFrame(mortgage);
-		return mortgage;
-	}
 
-	private MortgageCalculatorGUI(ParentFrame parent) {
-		super("Mortgage Calculator", parent);
-
-		// this.parent = parent;
+	public MortgageCalculatorGUI(Accountings accountings) {
+		super("Mortgage Calculator");
+		this.accountings = accountings;
 
 		amountField = new JTextField(10);
 		months = new JTextField(10);
@@ -185,9 +169,12 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 						maandPercentage);
 			}
 			// if (show) {
-			Mortgage newMortgage = new Mortgage("new Mortgage Table", data);
-			MortgageTable table = new MortgageTable(parent, newMortgage);
-			table.setVisible(true);
+			Mortgage newMortgage = new Mortgage("new Mortgage Table", startKapitaal);
+//			newMortgage.setAccounting(accounting);
+			newMortgage.setTable(data);
+			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, accountings);
+//			gui.setMortgage(newMortgage);
+			gui.setVisible(true);
 			// dispose();
 			// }
 		}

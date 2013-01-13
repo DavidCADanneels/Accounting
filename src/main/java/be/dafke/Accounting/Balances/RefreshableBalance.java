@@ -2,8 +2,8 @@ package be.dafke.Accounting.Balances;
 
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Account.AccountType;
+import be.dafke.Accounting.Objects.Accounting;
 import be.dafke.Accounting.Objects.Accountings;
-import be.dafke.ParentFrame;
 import be.dafke.RefreshableTable;
 
 import javax.swing.*;
@@ -29,41 +29,41 @@ public class RefreshableBalance extends RefreshableTable implements ActionListen
 	private final String name;
 	private final AccountType left, right;
 	private final JButton button;
+	private final Accountings accountings;
 
-//	private final AccountingGUIFrame parent;
-
-	public RefreshableBalance(String title, AbstractTableModel m, ParentFrame parent, AccountType left,
-			AccountType right) {
-		super(title, m, parent);
-//		this.parent = parent;
+	public RefreshableBalance(String title, AbstractTableModel m, AccountType left, AccountType right,
+			Accountings accountings) {
+		super(title, m);
+		this.accountings = accountings;
 		name = title;
 		this.left = left;
 		this.right = right;
-		button = new JButton("Print");
+		button = new JButton("Print"); //$NON-NLS-1$
 		button.addActionListener(this);
 		getContentPane().add(button, BorderLayout.SOUTH);
 	}
 
 	public void toXML() {
-		if (Accountings.getCurrentAccounting().getBalanceLocation().equals("")) {
+		Accounting accounting = accountings.getCurrentAccounting(); //$NON-NLS-1$
+		if (accounting.getBalanceLocationXml().equals("")) { //$NON-NLS-1$
 			JFileChooser dialoog = new JFileChooser();
 			dialoog.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			ResourceBundle bundle = ResourceBundle.getBundle("Accounting");
-			dialoog.setDialogTitle(bundle.getString("OPEN_BALANCES-MAP"));
+			ResourceBundle bundle = ResourceBundle.getBundle("Accounting"); //$NON-NLS-1$
+			dialoog.setDialogTitle(bundle.getString("OPEN_BALANCES-MAP")); //$NON-NLS-1$
 			int result = dialoog.showSaveDialog(null);
 			while (result != JFileChooser.APPROVE_OPTION)
 				result = dialoog.showSaveDialog(null);
-			Accountings.getCurrentAccounting().setBalanceLocation(dialoog.getSelectedFile());
+			accounting.setBalanceLocationXml(dialoog.getSelectedFile());
 		}
-		String path = Accountings.getCurrentAccounting().getBalanceLocation() + "//" + name + ".xml";
+		String xml = accounting.getBalanceLocationXml() + "//" + name + ".xml"; //$NON-NLS-1$ //$NON-NLS-2$
+		String xsl = accounting.getLocationXSL().getAbsolutePath();
 		try {
-			Writer writer = new FileWriter(path);
-			writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-					+ "<?xml-stylesheet type=\"text/xsl\" href=\"Balance.xsl\"?>\r\n" + "<balance name=\"" + name
-					+ "\" left=\"" + left + "\" right=\"" + right + "\">\r\n");
-			ArrayList<Account> leftAccounts = Accountings.getCurrentAccounting().getAccounts().getAccountsNotEmpty(left);
-			ArrayList<Account> rightAccounts = Accountings.getCurrentAccounting().getAccounts().getAccountsNotEmpty(
-					right);
+			Writer writer = new FileWriter(xml);
+			writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" //$NON-NLS-1$
+					+ "<?xml-stylesheet type=\"text/xsl\" href=\"" + xsl + "Balance.xsl" + "\"?>\r\n" + "<balance>\r\n  <name>" + name //$NON-NLS-1$ //$NON-NLS-2$
+					+ "</name>\r\n  <left>" + left + "</left>\r\n  <right>" + right + "</right>\r\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+			ArrayList<Account> leftAccounts = accounting.getAccounts().getAccountsNotEmpty(left);
+			ArrayList<Account> rightAccounts = accounting.getAccounts().getAccountsNotEmpty(right);
 
 			int nrLeft = leftAccounts.size();
 			int nrRight = rightAccounts.size();
@@ -74,25 +74,25 @@ public class RefreshableBalance extends RefreshableTable implements ActionListen
 				max = nrRight;
 			}
 			for(int i = 0; i < max; i++) {
-				writer.write("  <line>\r\n");
+				writer.write("  <line>\r\n"); //$NON-NLS-1$
 				if (i < nrLeft) {
-					writer.write("    <name1>" + leftAccounts.get(i).toString() + "</name1>");
-					writer.write("    <amount1>" + leftAccounts.get(i).saldo() + "</amount1>");
+					writer.write("    <name1>" + leftAccounts.get(i).toString() + "</name1>\r\n"); //$NON-NLS-1$ //$NON-NLS-2$
+					writer.write("    <amount1>" + leftAccounts.get(i).saldo() + "</amount1>\r\n"); //$NON-NLS-1$ //$NON-NLS-2$
 				} else {
-					writer.write("    <name1></name1>");
-					writer.write("    <amount1></amount1>");
+					writer.write("    <name1></name1>\r\n"); //$NON-NLS-1$
+					writer.write("    <amount1></amount1>\r\n"); //$NON-NLS-1$
 				}
 				if (i < nrRight) {
-					writer.write("    <amount2>" + BigDecimal.ZERO.subtract(rightAccounts.get(i).saldo())
-							+ "</amount2>");
-					writer.write("    <name2>" + rightAccounts.get(i).toString() + "</name2>");
+					writer.write("    <amount2>" + BigDecimal.ZERO.subtract(rightAccounts.get(i).saldo()) //$NON-NLS-1$
+							+ "</amount2>\r\n"); //$NON-NLS-1$
+					writer.write("    <name2>" + rightAccounts.get(i).toString() + "</name2>\r\n"); //$NON-NLS-1$ //$NON-NLS-2$
 				} else {
-					writer.write("    <amount2></amount2>");
-					writer.write("    <name2></name2>");
+					writer.write("    <amount2></amount2>\r\n"); //$NON-NLS-1$
+					writer.write("    <name2></name2>\r\n"); //$NON-NLS-1$
 				}
-				writer.write("  </line>\r\n");
+				writer.write("  </line>\r\n"); //$NON-NLS-1$
 			}
-			writer.write("</balance>");
+			writer.write("</balance>"); //$NON-NLS-1$
 			writer.flush();
 			writer.close();
 		} catch (FileNotFoundException ex) {

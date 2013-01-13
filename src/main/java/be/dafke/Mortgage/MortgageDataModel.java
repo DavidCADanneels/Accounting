@@ -1,10 +1,9 @@
 package be.dafke.Mortgage;
 
+import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Vector;
-
-import javax.swing.table.AbstractTableModel;
 
 public class MortgageDataModel extends AbstractTableModel {
 	/**
@@ -15,8 +14,10 @@ public class MortgageDataModel extends AbstractTableModel {
 	private final Class[] columnClasses = { Integer.class, BigDecimal.class, BigDecimal.class, BigDecimal.class,
 			BigDecimal.class };
 	private ArrayList<Vector<BigDecimal>> data;
+	private final Mortgage mortgage;
 
 	public MortgageDataModel(Mortgage mortgage) {
+		this.mortgage = mortgage;
 		if (mortgage != null) {
 			data = mortgage.getTable();
 		} else {
@@ -70,17 +71,25 @@ public class MortgageDataModel extends AbstractTableModel {
 	@Override
 	public void setValueAt(Object value, int row, int col) {
 		if (value instanceof BigDecimal) {
+			BigDecimal vorigRestCapital;
+			if (row == 0) {
+				vorigRestCapital = mortgage.getStartCapital();
+			} else {
+				vorigRestCapital = (BigDecimal) getValueAt(row - 1, 4);
+			}
 			BigDecimal amount = (BigDecimal) value;
 			Vector<BigDecimal> line = data.get(row);
 			BigDecimal mens = line.get(0);
 //			BigDecimal total = line.get(3);
 			BigDecimal amount2 = mens.subtract(amount);
 			if (col == 2) {
-				line.set(1, amount);
-				line.set(2, amount2);
+				line.set(1, amount); // intrest
+				line.set(2, amount2);// capital
+				line.set(3, vorigRestCapital.subtract(amount2));
 			} else if (col == 3) {
-				line.set(2, amount);
-				line.set(1, amount2);
+				line.set(2, amount); // capital
+				line.set(1, amount2);// intrest
+				line.set(3, vorigRestCapital.subtract(amount));
 			}
 			data.set(row, line);
 			fireTableDataChanged();

@@ -2,7 +2,6 @@ package be.dafke.Accounting.Details;
 
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Booking;
-import be.dafke.ParentFrame;
 import be.dafke.Utils;
 
 import javax.swing.table.AbstractTableModel;
@@ -26,10 +25,8 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 			java.util.ResourceBundle.getBundle("Accounting").getString("OMSCHRIJVING") };
 	private final Class[] columnClasses = { String.class, String.class, BigDecimal.class, BigDecimal.class,
 			String.class };
-	private final ParentFrame parent;
 
-	public AccountDetailsDataModel(Account account, ParentFrame parent) {
-		this.parent = parent;
+	public AccountDetailsDataModel(Account account) {
 		rekening = account;
 	}
 
@@ -91,6 +88,7 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 		} else if (col == 4) {
 			boeking.getTransaction().setDescription((String) value);
 		}
-		parent.repaintAllFrames();
+//		parent.repaintAllFrames();
+//		super.refresh();
 	}
 }

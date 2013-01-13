@@ -1,11 +1,21 @@
 package be.dafke.Coda;
 
-import java.awt.BorderLayout;
-import java.awt.Point;
+import be.dafke.Accounting.Objects.Account;
+import be.dafke.Accounting.Objects.Account.AccountType;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.Accounting.Objects.Journal;
+import be.dafke.Accounting.Objects.Transaction;
+import be.dafke.Coda.Objects.Movement;
+import be.dafke.RefreshableTable;
+import be.dafke.Utils;
+
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,122 +25,85 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.Set;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-
-import be.dafke.ParentFrame;
-import be.dafke.RefreshableTable;
-import be.dafke.Utils;
-import be.dafke.Accounting.Objects.Account;
-import be.dafke.Accounting.Objects.Account.AccountType;
-import be.dafke.Accounting.Objects.Accountings;
-import be.dafke.Accounting.Objects.Journal;
-import be.dafke.Accounting.Objects.Transaction;
-import be.dafke.Coda.Objects.Movement;
-
-public class MovementTable extends RefreshableTable implements ActionListener {
+public class MovementTable extends RefreshableTable implements ActionListener, MouseListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JButton viewCounterParties, exportToJournal, openMovements;
-	// private final RefreshableFrame counterPartyTable = null;
-//	private final AccountingGUIFrame parent;
+	private final JButton viewCounterParties, exportToJournal, openMovements, saveToAccounting;
+	private final Accountings accountings;
 
-	private static MovementTable table;
-
-	public static MovementTable getInstance(ParentFrame parent) {
-		if (table == null) {
-			table = new MovementTable(parent);
-		}
-		parent.addChildFrame(table);
-		return table;
-	}
-
-	private MovementTable(final ParentFrame parent) {
-		super("Movements", new MovementDataModel(), parent);
+	public MovementTable(Accountings accountings) {
+		super("Movements", new MovementDataModel(accountings));
+		this.accountings = accountings;
 		// tabel.setAutoCreateRowSorter(true);
-		this.parent = parent;
-		tabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent me) {
-				Point cell = me.getPoint();//
-				// Point location = me.getLocationOnScreen();
-				if (me.getClickCount() == 2) {
-					int col = tabel.columnAtPoint(cell);
-					int row = tabel.rowAtPoint(cell);
-					if (col == 5) {
-						CounterParty counterParty = (CounterParty) tabel.getValueAt(row, col);
-						if (counterParty == null) {
-							CounterPartySelector sel = new CounterPartySelector(parent, Movements.getMovement(row));
-							sel.setVisible(true);
-							counterParty = sel.getSelection();
-						}
-						if (counterParty != null) {
-							Movement movement = Movements.getMovement(row);
-							movement.setCounterParty(counterParty);
-							parent.repaintAllFrames();
-							System.out.println(counterParty.getName());
-							for(BankAccount account : counterParty.getBankAccounts().values()) {
-								System.out.println(account.getAccountNumber());
-								System.out.println(account.getBic());
-								System.out.println(account.getCurrency());
-							}
-							RefreshableTable refreshableTable = new GenericMovementTable(parent, counterParty, null);
-							parent.addChildFrame(refreshableTable);
-						}
-					} else if (col == 6) {
-						String transactionCode = (String) tabel.getValueAt(row, 6);
-						System.out.println(transactionCode);
-						System.out.println(ResourceBundle.getBundle("be/dafke/Coda/Bundle").getString(transactionCode));
-						RefreshableTable refreshableTable = new GenericMovementTable(parent, null, transactionCode);
-						parent.addChildFrame(refreshableTable);
-					}
-				}
-			}
-		});
+		tabel.addMouseListener(this);
 		viewCounterParties = new JButton("View Counterparties");
 		viewCounterParties.addActionListener(this);
 		openMovements = new JButton("Read Coda file(s)");
 		openMovements.addActionListener(this);
+		saveToAccounting = new JButton("Save movements (all/selection)");
+		saveToAccounting.addActionListener(this);
 		JPanel north = new JPanel();
-		north.add(viewCounterParties);
 		north.add(openMovements);
+		north.add(viewCounterParties);
 		getContentPane().add(north, BorderLayout.NORTH);
 		exportToJournal = new JButton("Export selected movements to a Journal");
 		// exportToJournal.setEnabled(false);
 		exportToJournal.addActionListener(this);
+//		JPanel south = new JPanel();
 		getContentPane().add(exportToJournal, BorderLayout.SOUTH);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == viewCounterParties) {
-			CounterPartyTable.getInstance(parent).setVisible(true);
+			CounterPartyTable gui = new CounterPartyTable(accountings);
+			gui.setVisible(true);
 		} else if (e.getSource() == openMovements) {
 			openMovements();
 		} else if (e.getSource() == exportToJournal) {
 			exportToJournal();
+		} else if (e.getSource() == saveToAccounting) {
+			saveToAccounting();
 		}
 	}
 
+	private void saveToAccounting() {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void refresh() {
+		super.refresh();
+//		if (checkCounterParties(null)) {
+//
+//		}
+//		if (checkAccountAndSelection(null)) {
+//
+//		}
+	}
+
 	private void openMovements() {
+		//CounterParties counterParties = accountings.getCurrentAccounting().getCounterParties();
 		JFileChooser chooser = new JFileChooser();
 		chooser.setMultiSelectionEnabled(true);
 		if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 			File[] files = chooser.getSelectedFiles();
 			CodaParser codaParser = new CodaParser();
-			codaParser.parseFile(files);
-			MovementTable.getInstance(parent).setVisible(true);
-			MovementTable.getInstance(parent).refresh();
+			codaParser.parseFile(files, accountings);
+			// Movements movements = accountings.getCurrentAccounting().getMovements();
+			// TODO: remove movements from MovementTable constructor
+			MovementTable gui = new MovementTable(accountings);
+			gui.setVisible(true);
+			gui.refresh();
 		}
-		parent.repaintAllFrames();
+		refresh();
 	}
 
 	private boolean checkAccountAndSelection(int[] rows) {
-		if (Accountings.getCurrentAccounting() == null) {
+		Accounting accounting = accountings.getCurrentAccounting();
+		if (accounting == null) {
 			JOptionPane.showMessageDialog(this, "Open an accounting first");
 			return false;
 		}
@@ -152,7 +125,8 @@ public class MovementTable extends RefreshableTable implements ActionListener {
 		for(int i : rows) {
 			CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 5);
 			if (counterParty == null) {
-				list.add(Movements.getMovement(i));
+				Movements movements = accountings.getCurrentAccounting().getMovements();
+				list.add(movements.getMovement(i));
 			} else if (counterParty.getAccount() == null) {
 				set.add(counterParty);
 			}
@@ -165,7 +139,8 @@ public class MovementTable extends RefreshableTable implements ActionListener {
 //				builder.append("\r\n" + movement);
 //			}
 			JOptionPane.showMessageDialog(this, builder.toString());
-			CounterPartyTable.getInstance(parent).setVisible(true);
+			CounterPartyTable gui = new CounterPartyTable(accountings);
+			gui.setVisible(true);
 			return false;
 		}
 		if (!set.isEmpty()) {
@@ -176,25 +151,28 @@ public class MovementTable extends RefreshableTable implements ActionListener {
 				builder.append("\r\n" + counterParty);
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
-			CounterPartyTable.getInstance(parent).setVisible(true);
+			CounterPartyTable gui = new CounterPartyTable(accountings);
+			gui.setVisible(true);
 			return false;
 		}
 		return true;
 	}
 
 	private void exportToJournal() {
+		// TODO save movements (and counterparties) into accounting [or with different button]
+		Accounting accounting = accountings.getCurrentAccounting();
 		int[] rows = tabel.getSelectedRows();
 		if (checkAccountAndSelection(rows)) {
 			if (checkCounterParties(rows)) {
-				Object[] accounts = Accountings.getCurrentAccounting().getAccounts().values().toArray();
-				Account bankAccount = (Account) JOptionPane.showInputDialog(parent, "Select Bank account",
+				Object[] accounts = accounting.getAccounts().values().toArray();
+				Account bankAccount = (Account) JOptionPane.showInputDialog(this, "Select Bank account",
 						"Select account", JOptionPane.INFORMATION_MESSAGE, null, accounts, null);
 				Journal journal;
-				Object[] journals = Accountings.getCurrentAccounting().getJournals().values().toArray();
-				if (Accountings.getCurrentAccounting().getJournals().size() == 1) {
+				Object[] journals = accounting.getJournals().values().toArray();
+				if (accounting.getJournals().size() == 1) {
 					journal = (Journal) journals[0];
 				} else {
-					journal = (Journal) JOptionPane.showInputDialog(parent, "Select Journal", "Select journal",
+					journal = (Journal) JOptionPane.showInputDialog(this, "Select Journal", "Select journal",
 							JOptionPane.INFORMATION_MESSAGE, null, journals, null);
 				}
 				if (bankAccount != null && journal != null) {
@@ -210,7 +188,7 @@ public class MovementTable extends RefreshableTable implements ActionListener {
 					Account account = counterParty.getAccount();
 					boolean debet = tabel.getValueAt(i, 3).equals("D");
 					if (account == null) {
-						CounterParty counterParty2 = CounterParties.getInstance().get(counterParty.getName());
+						CounterParty counterParty2 = accounting.getCounterParties().get(counterParty.getName());
 						if (counterParty2 != null) {
 							counterParty = counterParty2;
 							account = counterParty2.getAccount();
@@ -223,13 +201,14 @@ public class MovementTable extends RefreshableTable implements ActionListener {
 							} else {
 								account = new Account(counterParty.getName(), AccountType.Debit);
 							}
+							account.setAccounting(accounting);
 						} else {
-							account = (Account) JOptionPane.showInputDialog(parent, "Select account", "Select account",
+							account = (Account) JOptionPane.showInputDialog(this, "Select account", "Select account",
 									JOptionPane.INFORMATION_MESSAGE, null, accounts, null);
 						}
 						counterParty.setAccount(account);
-						Accountings.getCurrentAccounting().getAccounts().add(account);
-						account.setAccounting(Accountings.getCurrentAccounting());
+						accounting.getAccounts().add(account);
+						account.setAccounting(accounting);
 					}
 					BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 4);
 					Transaction trans = Transaction.getInstance();
@@ -250,6 +229,63 @@ public class MovementTable extends RefreshableTable implements ActionListener {
 				}
 			}
 		}
-		parent.repaintAllFrames();
+		super.refresh();
+	}
+
+	public void mouseClicked(MouseEvent me) {
+		Point cell = me.getPoint();//
+		// Point location = me.getLocationOnScreen();
+		if (me.getClickCount() == 2) {
+			int col = tabel.columnAtPoint(cell);
+			int row = tabel.rowAtPoint(cell);
+			if (col == 5) {
+				Movements movements = accountings.getCurrentAccounting().getMovements();
+				CounterParty counterParty = (CounterParty) tabel.getValueAt(row, col);
+				if (counterParty == null) {
+					CounterPartySelector sel = new CounterPartySelector(this, movements.getMovement(row), accountings);
+					sel.setVisible(true);
+					counterParty = sel.getSelection();
+				}
+				if (counterParty != null) {
+					Movement movement = movements.getMovement(row);
+					movement.setCounterParty(counterParty);
+					super.refresh();
+					System.out.println(counterParty.getName());
+					for(BankAccount account : counterParty.getBankAccounts().values()) {
+						System.out.println(account.getAccountNumber());
+						System.out.println(account.getBic());
+						System.out.println(account.getCurrency());
+					}
+					RefreshableTable refreshableTable = new GenericMovementTable(counterParty, null, true, accountings);
+					// parent.addChildFrame(refreshableTable);
+				}
+			} else if (col == 6) {
+				String transactionCode = (String) tabel.getValueAt(row, 6);
+				System.out.println(transactionCode);
+				System.out.println(ResourceBundle.getBundle("CODA").getString(transactionCode));
+				RefreshableTable refreshableTable = new GenericMovementTable(null, transactionCode, true, accountings); // false
+																														// ???
+				// parent.addChildFrame(refreshableTable);
+			}
+		}
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
 	}
 }

@@ -1,31 +1,36 @@
 package be.dafke.Mortgage;
 
+import be.dafke.Accounting.Objects.Account;
+import be.dafke.Accounting.Objects.Transaction;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Vector;
-
-import be.dafke.Accounting.Objects.Account;
-import be.dafke.Accounting.Objects.Transaction;
 
 public class Mortgage implements Serializable {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final ArrayList<Vector<BigDecimal>> table;
+	private ArrayList<Vector<BigDecimal>> table;
 	private int alreadyPayed = 0;
 	private final String name;
 	private Account capital, intrest;
+	private final BigDecimal startCapital;
 
-	public Mortgage(String name, ArrayList<Vector<BigDecimal>> table) {
-		this.table = table;
+	public Mortgage(String name, BigDecimal startCapital) {
 		this.name = name;
+		this.startCapital = startCapital;
 	}
 
 	@Override
 	public String toString() {
 		return name;
+	}
+
+	public BigDecimal getStartCapital() {
+		return startCapital;
 	}
 
 	public void setCapitalAccount(Account capital) {
@@ -46,7 +51,10 @@ public class Mortgage implements Serializable {
 
 	public ArrayList<Vector<BigDecimal>> getTable() {
 		return table;
+	}
 
+	public void setTable(ArrayList<Vector<BigDecimal>> table) {
+		this.table = table;
 	}
 
 	public void setPayed(int nr) {

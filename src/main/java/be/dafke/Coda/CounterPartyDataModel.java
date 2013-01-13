@@ -1,10 +1,9 @@
 package be.dafke.Coda;
 
-import java.util.ArrayList;
+import be.dafke.Accounting.Objects.Account;
+import be.dafke.Accounting.Objects.Accountings;
 
 import javax.swing.table.AbstractTableModel;
-
-import be.dafke.Accounting.Objects.Account;
 
 public class CounterPartyDataModel extends AbstractTableModel {
 	/**
@@ -14,12 +13,18 @@ public class CounterPartyDataModel extends AbstractTableModel {
 	private final String[] columnNames = { "Name", "Account", "BIC", "Currency", "Account (for Accounting)" };
 	private final Class[] columnClasses = { CounterParty.class, String.class, String.class, String.class, Account.class };
 
+	private final Accountings accountings;
+
+	public CounterPartyDataModel(Accountings accountings) {
+		this.accountings = accountings;
+	}
+
 	// DE GET METHODEN
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		ArrayList<CounterParty> counterparties = CounterParties.getCounterParties();
-		CounterParty c = counterparties.get(row);
+		CounterParties counterParties = accountings.getCurrentAccounting().getCounterParties();
+		CounterParty c = counterParties.getCounterParties().get(row);
 		if (col == 0) {
 			return c;
 		} else if (col == 1) {
@@ -49,7 +54,11 @@ public class CounterPartyDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return CounterParties.getCounterParties().size();
+		if (accountings == null || accountings.getCurrentAccounting() == null) {
+			return 0;
+		}
+		CounterParties counterParties = accountings.getCurrentAccounting().getCounterParties();
+		return counterParties.getCounterParties().size();
 	}
 
 	@Override

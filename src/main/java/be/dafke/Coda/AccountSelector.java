@@ -1,18 +1,14 @@
 package be.dafke.Coda;
 
-import java.awt.BorderLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-
-import be.dafke.ParentFrame;
 import be.dafke.Accounting.NewAccountGUI;
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.Accounting.Objects.Accounts;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class AccountSelector extends JDialog implements ActionListener {
 	/**
@@ -22,13 +18,16 @@ public class AccountSelector extends JDialog implements ActionListener {
 	private final JButton create, ok;
 	private Account account;
 	private final JComboBox combo;
-	private final ParentFrame parent;
 
-	public AccountSelector(ParentFrame parent) {
-		super(parent, "Select Account", true);
-		this.parent = parent;
-		Object[] accounts = Accountings.getCurrentAccounting().getAccounts().getAccounts().toArray();
-		combo = new JComboBox(accounts);
+	private final Accountings accountings;
+
+	public AccountSelector(Accountings accountings) {
+		super();
+		this.accountings = accountings;
+		setTitle("Select Account");
+		setModal(true);
+		Accounts accounts = accountings.getCurrentAccounting().getAccounts();
+		combo = new JComboBox(accounts.getAccounts().toArray());
 		combo.addActionListener(this);
 		create = new JButton("Manage accounts ...");
 		create.addActionListener(this);
@@ -49,7 +48,7 @@ public class AccountSelector extends JDialog implements ActionListener {
 		if (e.getSource() == combo) {
 			account = (Account) combo.getSelectedItem();
 		} else if (e.getSource() == create) {
-			NewAccountGUI.getInstance(parent).setVisible(true);
+			NewAccountGUI.getInstance(accountings).setVisible(true);
 		} else if (e.getSource() == ok) {
 			dispose();
 		}
@@ -59,5 +58,4 @@ public class AccountSelector extends JDialog implements ActionListener {
 	public Account getSelection() {
 		return account;
 	}
-
 }

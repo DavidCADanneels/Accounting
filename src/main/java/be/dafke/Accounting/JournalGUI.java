@@ -2,6 +2,7 @@ package be.dafke.Accounting;
 
 import be.dafke.Accounting.Objects.Accounting;
 import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.Accounting.Objects.RefreshEvent;
 import be.dafke.Accounting.Objects.Transaction;
 import be.dafke.Utils;
 
@@ -25,10 +26,10 @@ public class JournalGUI extends JPanel implements ActionListener {
 	protected String tekst;
 	protected Calendar datum;
 	private BigDecimal debettotaal, credittotaal;
-	private final AccountingGUIFrame parent;
+	private final Accountings accountings;
 
-	public JournalGUI(AccountingGUIFrame parent) {
-		this.parent = parent;
+	public JournalGUI(Accountings accountings) {
+		this.accountings = accountings;
 		debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
 		datum = Calendar.getInstance();
@@ -129,10 +130,13 @@ public class JournalGUI extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if ((JButton) e.getSource() == ok) {
-			Transaction.getInstance().book(Accountings.getCurrentAccounting().getCurrentJournal());
+			Accounting accounting = accountings.getCurrentAccounting();
+			Transaction.getInstance().book(accounting.getCurrentJournal());
 			init();
 			clear();
-			parent.repaintAllFrames();
+			RefreshEvent event = new RefreshEvent(this);
+			System.out.println("notifyAll called in " + this.getClass());
+			event.notifyAll();
 		}
 		if ((JButton) e.getSource() == clear) {
 			clear();
@@ -146,10 +150,10 @@ public class JournalGUI extends JPanel implements ActionListener {
 	}
 
 	public void init() {
-		Accounting accounting = Accountings.getCurrentAccounting();
+		Accounting accounting = accountings.getCurrentAccounting();
 		if (accounting != null) {
 			if (accounting.getJournals().isEmpty()) {
-				NewJournalGUI.getInstance(parent).setVisible(true);
+				NewJournalGUI.getInstance(accountings).setVisible(true);
 			} else {
 				ident.setText(accounting.getCurrentJournal().getAbbreviation() + " "
 						+ accounting.getCurrentJournal().getId());

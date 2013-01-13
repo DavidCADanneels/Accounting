@@ -1,14 +1,18 @@
 package be.dafke.Accounting.Details;
 
+import be.dafke.Accounting.Objects.Accounting;
 import be.dafke.Accounting.Objects.Accountings;
 import be.dafke.Accounting.Objects.Journal;
 import be.dafke.Accounting.Objects.Transaction;
-import be.dafke.ParentFrame;
 import be.dafke.RefreshableTable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
 /**
@@ -24,13 +28,15 @@ public class JournalDetails extends RefreshableTable implements ActionListener {
 	private Object selected;
 	private final JMenuItem move, delete;
 	private final Journal journal;
+	private final Accountings accountings;
 
 //	private final AccountingGUIFrame parent;
 
-	public JournalDetails(Journal journal, ParentFrame parent) {
+	public JournalDetails(Journal journal, Accountings accountings) {
 		super(java.util.ResourceBundle.getBundle("Accounting").getString("DAGBOEK_DETAILS")
-				+ journal.toString(), new JournalDetailsDataModel(journal, parent), parent);
+				+ journal.toString(), new JournalDetailsDataModel(journal));
 		// this.parent = parent;
+		this.accountings = accountings;
 		this.journal = journal;
 		tabel.setAutoCreateRowSorter(true);
 		popup = new JPopupMenu();
@@ -77,8 +83,8 @@ public class JournalDetails extends RefreshableTable implements ActionListener {
 		int nr = Integer.parseInt(s.replaceFirst(journal.getAbbreviation(), ""));
 		Transaction transactie = transacties.get(nr - 1);
 		if (source == move) {
-			ArrayList<Journal> dagboeken = Accountings.getCurrentAccounting().getJournals().getAllJournalsExcept(
-					journal);
+			Accounting accounting = accountings.getCurrentAccounting();
+			ArrayList<Journal> dagboeken = accounting.getJournals().getAllJournalsExcept(journal);
 			Object[] lijst = dagboeken.toArray();
 			int keuze = JOptionPane.showOptionDialog(null,
 					java.util.ResourceBundle.getBundle("Accounting").getString("KIES_DAGBOEK"),
@@ -102,6 +108,6 @@ public class JournalDetails extends RefreshableTable implements ActionListener {
 							"TRANSACTIE_VERWIJDERD_UIT")
 							+ journal);
 		}
-		parent.repaintAllFrames();
+		super.refresh();
 	}
 }

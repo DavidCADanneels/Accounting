@@ -1,73 +1,87 @@
 package be.dafke.Coda;
 
-import java.awt.Point;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-
-import javax.swing.JOptionPane;
-
-import be.dafke.ParentFrame;
-import be.dafke.RefreshableTable;
 import be.dafke.Accounting.Objects.Account;
+import be.dafke.Accounting.Objects.Accounting;
 import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.RefreshableTable;
 
-public class CounterPartyTable extends RefreshableTable {
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+
+public class CounterPartyTable extends RefreshableTable implements MouseListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static CounterPartyTable table;
+	private final Accountings accountings;
 
-	public static CounterPartyTable getInstance(ParentFrame parent) {
-		if (table == null) {
-			table = new CounterPartyTable(parent);
-		}
-		parent.addChildFrame(table);
-		return table;
+	public CounterPartyTable(Accountings accountings) {
+		super("Counterparties", new CounterPartyDataModel(accountings));
+		this.accountings = accountings;
+		// tabel.setAutoCreateRowSorter(true);
+		tabel.addMouseListener(this);
 	}
 
-	private CounterPartyTable(final ParentFrame parent) {
-		super("Counterparties", new CounterPartyDataModel(), parent);
-		// tabel.setAutoCreateRowSorter(true);
-		tabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent me) {
-				Point cell = me.getPoint();
-//				Point location = me.getLocationOnScreen();
-				if (me.getClickCount() == 2) {
-					int col = tabel.columnAtPoint(cell);
-					int row = tabel.rowAtPoint(cell);
-					if (col == 0) {
-						CounterParty counterParty = (CounterParty) tabel.getValueAt(row, col);
-						System.out.println(counterParty.getName());
-						for(BankAccount account : counterParty.getBankAccounts().values()) {
-							System.out.println(account.getAccountNumber());
-							System.out.println(account.getBic());
-							System.out.println(account.getCurrency());
-						}
-						RefreshableTable refreshTable = new GenericMovementTable(parent, counterParty, null);
-						parent.addChildFrame(refreshTable);
-					} else if (col == 4) {
-						Account account = (Account) tabel.getValueAt(row, col);
-						if (!Accountings.isActive()) {
-							JOptionPane.showMessageDialog(parent, "Open an accounting first");
-						} else {
-							AccountSelector sel = new AccountSelector(parent);
-							sel.setVisible(true);
-							account = sel.getSelection();
+	public void mouseClicked(MouseEvent me) {
+		Point cell = me.getPoint();
+//		Point location = me.getLocationOnScreen();
+		if (me.getClickCount() == 2) {
+			int col = tabel.columnAtPoint(cell);
+			int row = tabel.rowAtPoint(cell);
+			if (col == 0) {
+				CounterParty counterParty = (CounterParty) tabel.getValueAt(row, col);
+				System.out.println(counterParty.getName());
+				for(BankAccount account : counterParty.getBankAccounts().values()) {
+					System.out.println(account.getAccountNumber());
+					System.out.println(account.getBic());
+					System.out.println(account.getCurrency());
+				}
+				RefreshableTable refreshTable = new GenericMovementTable(counterParty, null, true, accountings);
+				// parent.addChildFrame(refreshTable);
+			} else if (col == 4) {
+				Account account = (Account) tabel.getValueAt(row, col);
+				boolean active = accountings.isActive();
+				if (!active) {
+					JOptionPane.showMessageDialog(this, "Open an accounting first");
+				} else {
+					Accounting accounting = accountings.getCurrentAccounting();
+					AccountSelector sel = new AccountSelector(accountings);
+					sel.setVisible(true);
+					account = sel.getSelection();
 
-							if (account != null) {
-								CounterParty counterParty = (CounterParty) tabel.getValueAt(row, 0);
-								counterParty.setAccount(account);
-								CounterParties.getInstance().remove(counterParty.getName());
-								CounterParties.getInstance().put(counterParty.getName(), counterParty);
-								parent.repaintAllFrames();
-							}
-						}
+					if (account != null) {
+						CounterParty counterParty = (CounterParty) tabel.getValueAt(row, 0);
+						counterParty.setAccount(account);
+						CounterParties counterParties = accounting.getCounterParties();
+						counterParties.remove(counterParty.getName());
+						counterParties.put(counterParty.getName(), counterParty);
+						super.refresh();
 					}
-
 				}
 			}
-		});
+
+		}
+	}
+
+	public void mouseEntered(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void mouseExited(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void mousePressed(MouseEvent e) {
+		// TODO Auto-generated method stub
+
+	}
+
+	public void mouseReleased(MouseEvent e) {
+		// TODO Auto-generated method stub
+
 	}
 }

@@ -10,22 +10,10 @@ public class CounterParties extends HashMap<String, CounterParty> implements Ser
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static CounterParties counterParties = new CounterParties();
 
-	public static CounterParties getInstance() {
-		if (counterParties == null) {
-			counterParties = new CounterParties();
-		}
-		return counterParties;
-	}
-
-	public static void setInstance(CounterParties newCounterParties) {
-		counterParties = newCounterParties;
-	}
-
-	public static ArrayList<CounterParty> getCounterParties() {
+	public ArrayList<CounterParty> getCounterParties() {
 		ArrayList<CounterParty> result = new ArrayList<CounterParty>();
-		Iterator<CounterParty> it = counterParties.values().iterator();
+		Iterator<CounterParty> it = values().iterator();
 		while (it.hasNext()) {
 			result.add(it.next());
 		}

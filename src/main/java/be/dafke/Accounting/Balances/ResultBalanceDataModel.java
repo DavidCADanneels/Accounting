@@ -2,6 +2,7 @@ package be.dafke.Accounting.Balances;
 
 import be.dafke.Accounting.Objects.Account;
 import be.dafke.Accounting.Objects.Account.AccountType;
+import be.dafke.Accounting.Objects.Accounting;
 import be.dafke.Accounting.Objects.Accountings;
 
 import javax.swing.table.AbstractTableModel;
@@ -20,17 +21,17 @@ public class ResultBalanceDataModel extends AbstractTableModel {
 			java.util.ResourceBundle.getBundle("Accounting").getString("BEDRAG"),
 			java.util.ResourceBundle.getBundle("Accounting").getString("OPBRENGSTEN") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, Account.class };
+	private final Accountings accountings;
 
-//	private final AccountingGUIFrame parent;
-
-//	public ResultBalanceDataModel(AccountingGUIFrame parent) {
-//		this.parent = parent;
-//	}
+	public ResultBalanceDataModel(Accountings accountings) {
+		this.accountings = accountings;
+	}
 
 // DE GET METHODEN
 // ===============
 	@Override
 	public Object getValueAt(int row, int col) {
+		Accounting accounting = accountings.getCurrentAccounting();
 		int size = getRowCount();
 		if (row == size - 2 || row == size - 1) {
 			// in de onderste 2 rijen komen totalen
@@ -42,10 +43,8 @@ public class ResultBalanceDataModel extends AbstractTableModel {
 				return "";
 			} else {
 				// Berekening totalen en resultaat
-				ArrayList<Account> kosten = Accountings.getCurrentAccounting().getAccounts().getAccounts(
-						AccountType.Cost);
-				ArrayList<Account> opbrengsten = Accountings.getCurrentAccounting().getAccounts().getAccounts(
-						AccountType.Revenue);
+				ArrayList<Account> kosten = accounting.getAccounts().getAccounts(AccountType.Cost);
+				ArrayList<Account> opbrengsten = accounting.getAccounts().getAccounts(AccountType.Revenue);
 				BigDecimal totaalKosten = new BigDecimal(0);
 				BigDecimal totaalOpbrengsten = new BigDecimal(0);
 				Iterator<Account> it1 = kosten.iterator();
@@ -80,17 +79,16 @@ public class ResultBalanceDataModel extends AbstractTableModel {
 		}// einde onderste 2 rijen
 		if (col == 0 || col == 1) {
 			// Kosten
-			if (row < Accountings.getCurrentAccounting().getAccounts().getAccounts(AccountType.Cost).size()) {
-				Account account = Accountings.getCurrentAccounting().getAccounts().getAccounts(AccountType.Cost).get(
-						row);
+			if (row < accounting.getAccounts().getAccounts(AccountType.Cost).size()) {
+				Account account = accounting.getAccounts().getAccounts(AccountType.Cost).get(row);
 				if (col == 0) return account;
 				return account.saldo();
 			}
 			return "";
 		}
 		// Opbrengsten
-		if (row < Accountings.getCurrentAccounting().getAccounts().getAccounts(AccountType.Revenue).size()) {
-			Account account = Accountings.getCurrentAccounting().getAccounts().getAccounts(AccountType.Revenue).get(row);
+		if (row < accounting.getAccounts().getAccounts(AccountType.Revenue).size()) {
+			Account account = accounting.getAccounts().getAccounts(AccountType.Revenue).get(row);
 			if (col == 3) return account;
 			return BigDecimal.ZERO.subtract(account.saldo());
 		}
@@ -104,8 +102,12 @@ public class ResultBalanceDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		int size1 = Accountings.getCurrentAccounting().getAccounts().getAccounts(AccountType.Cost).size();
-		int size2 = Accountings.getCurrentAccounting().getAccounts().getAccounts(AccountType.Revenue).size();
+		if (accountings == null || accountings.getCurrentAccounting() == null) {
+			return 0;
+		}
+		Accounting accounting = accountings.getCurrentAccounting();
+		int size1 = accounting.getAccounts().getAccounts(AccountType.Cost).size();
+		int size2 = accounting.getAccounts().getAccounts(AccountType.Revenue).size();
 		int size = size1 > size2 ? size1 : size2;
 		if (size != 0) size += 2;
 		return size;

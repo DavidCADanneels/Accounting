@@ -1,9 +1,10 @@
 package be.dafke.Accounting;
 
-import javax.swing.table.AbstractTableModel;
-
+import be.dafke.Accounting.Objects.Accounting;
 import be.dafke.Accounting.Objects.Accountings;
 import be.dafke.Accounting.Objects.Journal;
+
+import javax.swing.table.AbstractTableModel;
 
 public class NewJournalDataModel extends AbstractTableModel {
 	/**
@@ -12,12 +13,11 @@ public class NewJournalDataModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = { "Journal (Name)", "Type", "Next Index" };
 	private final Class[] columnClasses = { Journal.class, String.class, Integer.class };
+	private final Accountings accountings;
 
-//	private final AccountingGUIFrame parent;
-
-//	public NewJournalDataModel(AccountingGUIFrame parent) {
-//		this.parent = parent;
-//	}
+	public NewJournalDataModel(Accountings accountings) {
+		this.accountings = accountings;
+	}
 
 	@Override
 	public int getColumnCount() {
@@ -26,12 +26,14 @@ public class NewJournalDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return Accountings.getCurrentAccounting().getJournals().size();
+		Accounting accounting = accountings.getCurrentAccounting();
+		return accounting.getJournals().size();
 	}
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		Journal journal = Accountings.getCurrentAccounting().getJournals().getAllJournals().get(row);
+		Accounting accounting = accountings.getCurrentAccounting();
+		Journal journal = accounting.getJournals().getAllJournals().get(row);
 		if (col == 0) {
 			return journal;
 		} else if (col == 1) {
