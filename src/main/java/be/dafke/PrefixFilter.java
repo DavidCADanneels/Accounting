@@ -34,6 +34,7 @@ public class PrefixFilter extends JPanel {
 	 * @param map map met de gegevens uit de lijst l
 	 */
 	public PrefixFilter(JList lijst, JPanel paneel, /* HashMap */ArrayList map) {
+        // TODO split up in Filter and GUI component !!!
 		this.map = map;
 		this.lijst = lijst;
 		scrol = new JScrollPane(lijst);

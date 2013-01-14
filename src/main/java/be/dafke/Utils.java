@@ -1,7 +1,12 @@
 package be.dafke;
 
+import org.apache.fop.cli.InputHandler;
+
+import java.io.File;
+import java.io.OutputStream;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
+import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -32,4 +37,24 @@ public class Utils {
 		buf.append(c.get(Calendar.YEAR));
 		return buf.toString();
 	}
+
+    public static void xmlToHtml(File xmlFile, File xslFile, File htmlFile, Vector params) {
+        InputHandler inputHandler = new InputHandler(xmlFile, xslFile, params);
+        try {
+            if (!htmlFile.exists()) {
+                htmlFile.getParentFile().mkdirs();
+                htmlFile.createNewFile();
+            }
+            OutputStream out = new java.io.BufferedOutputStream(new java.io.FileOutputStream(htmlFile));
+            inputHandler.transformTo(out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void writeXml() {
+        // TODO write generic function to write Xml file for Account, Journal, etc.
+        // or at least the header: links to xsl, dtd, etc. (Marshallers)
+        // or implement a Dao package + XmlDao (and later JdbcDao) implementation
+    }
 }

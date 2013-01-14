@@ -3,9 +3,9 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd">
 
-<bean id="accountings" class="be.dafke.Accounting.Objects.Accountings" scope="singleton" init-method="fromXML"/>
+<bean id="accountings" class="be.dafke.Accounting.Objects.Accounting.Accountings" scope="singleton" init-method="fromXML"/>
 
-<bean id="accountingMainPanel" class="be.dafke.Accounting.AccountingGUIFrame" scope="singleton">
+<bean id="accountingMainPanel" class="be.dafke.Accounting.GUI.MainWindow.AccountingGUIFrame" scope="singleton">
 	<constructor-arg>
 		<value>Boekhouding</value>
 	</constructor-arg>
@@ -15,7 +15,7 @@
 
 <!-- Menu Bar -->
 <!--
-<bean id="menubar" class="be.dafke.Accounting.AccountingMenuBar" scope="singleton" init-method="activateButtons">
+<bean id="menubar" class="be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar" scope="singleton" init-method="activateButtons">
 	<constructor-arg ref="accountings"/>
 </bean>
 -->
