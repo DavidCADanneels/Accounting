@@ -1,21 +1,20 @@
 package be.dafke;
 
-import org.testng.annotations.Test;
+
+import org.junit.Test;
 
 import static junit.framework.Assert.assertEquals;
-//import junit.framework.Test;
-//import org.springframework.
 
 /**
  * User: Dafke
  * Date: 14/01/13
  * Time: 6:33
  */
-public class AlfabeticListModelTest {
+public class AlphabeticListModelTest {
 
     @Test
     public void addElement_test_correct_order(){
-        AlfabeticListModel model = new AlfabeticListModel();
+        AlphabeticListModel model = new AlphabeticListModel();
         model.addElement("AAP");
         model.addElement("BEER");
         assertEquals("AAP",model.get(0));
@@ -24,7 +23,7 @@ public class AlfabeticListModelTest {
 
     @Test
     public void addElement_test_reversed_order(){
-        AlfabeticListModel model = new AlfabeticListModel();
+        AlphabeticListModel model = new AlphabeticListModel();
         model.addElement("BEER");
         model.addElement("AAP");
         assertEquals("AAP",model.get(0));

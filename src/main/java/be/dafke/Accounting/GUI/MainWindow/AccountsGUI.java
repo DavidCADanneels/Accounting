@@ -7,8 +7,8 @@ import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
-import be.dafke.AlfabeticListModel;
-import be.dafke.PrefixFilter;
+import be.dafke.AlphabeticListModel;
+import be.dafke.PrefixFilterPanel;
 import be.dafke.RefreshableFrame;
 
 import javax.swing.*;
@@ -32,8 +32,8 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final PrefixFilter zoeker;
-	private final AlfabeticListModel model;
+	private final PrefixFilterPanel zoeker;
+	private final AlphabeticListModel model;
 	private final JList lijst;
 	private final JButton debet, credit, nieuw, details;
 	private final JournalGUI journalGUI;
@@ -75,11 +75,12 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		hoofdPaneel.add(noord, BorderLayout.NORTH);
 		hoofdPaneel.add(midden, BorderLayout.CENTER);
 
-		model = new AlfabeticListModel();
+		model = new AlphabeticListModel();
 		lijst = new JList(model);
 		lijst.addListSelectionListener(this);
 		lijst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		zoeker = new PrefixFilter(lijst, hoofdPaneel, new ArrayList<Account>());
+		zoeker = new PrefixFilterPanel(model, lijst, new ArrayList<Account>());
+        zoeker.add(hoofdPaneel, BorderLayout.SOUTH);
 		// zoeker=new PrefixZoeker(lijst,hoofdPaneel,parent.getAccounting().getAccounts());
 		add(zoeker, BorderLayout.CENTER);
 

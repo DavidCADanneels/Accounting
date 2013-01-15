@@ -1,0 +1,92 @@
+package be.dafke;
+
+import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
+import java.awt.*;
+import java.util.ArrayList;
+
+/**
+ * Een paneel met list en tekstveld<br>
+ * Van zodra je begint te tikken in het tekstveld, verdwijnen de personen/objecten uit de list (de view ervan) zodat de
+ * list steeds korter wordt
+ * @version 1
+ * @author David Danneels
+ * @since 28/07/2005
+ * @see AlphabeticListModel AlphabeticListModel
+ */
+public class PrefixFilterPanel<K> extends JPanel {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private JList list;
+	private JScrollPane scrol;
+	protected JTextField zoekveld;
+    private PrefixFilter<K> filter;
+    private DefaultListModel<K> model;
+	// protected HashMap map;
+//	protected ArrayList map;
+
+	/**
+	 * Constructor with model, panel and map
+	 * @param model het model van de list
+	 * @param list the list
+	 * @param map map met de gegevens uit de list
+	 */
+	public PrefixFilterPanel(DefaultListModel model, JList<K> list, ArrayList map) {
+        // TODO split up in Filter and GUI component !!!
+        this.model = model;
+        filter = new PrefixFilter<K>(model, map);
+        //list = new JList(model);
+        this.list = list;
+        scrol = new JScrollPane(list);
+		zoekveld = new JTextField(20);
+		zoekveld.getDocument().addDocumentListener(new DocumentListener() {
+			@Override
+			public void changedUpdate(DocumentEvent e) {
+				repaint();
+			}
+
+			@Override
+			public void insertUpdate(DocumentEvent e) {
+				repaint();
+			}
+
+			@Override
+			public void removeUpdate(DocumentEvent e) {
+				repaint();
+			}
+		});
+
+		JPanel zoekpaneel = new JPanel();
+		zoekpaneel.add(new JLabel(java.util.ResourceBundle.getBundle("Dafke").getString("ZOEK")));
+		zoekpaneel.add(zoekveld);
+		setLayout(new BorderLayout());
+		add(scrol, BorderLayout.CENTER);
+		add(zoekpaneel, BorderLayout.NORTH);
+	}
+
+	/**
+	 * Vervangt de datamap en hertekent het JPanel
+	 * @param newMap de nieuwe map
+	 * @since 01/10/2010
+	 */
+	public void resetMap(ArrayList newMap) {
+		filter = new PrefixFilter<K>(model,newMap);
+		repaint();
+	}
+
+	/**
+	 * verwijdert alle objecten uit de view en voegt enkel de objecten toe, waarvan de String-voorstelling begint met de
+	 * letters in het tekstveld
+	 * <p>
+	 * <i>(o.toString().startsWith(String s))</i>
+	 */
+	@Override
+	public void paintComponent(Graphics g) {
+        filter.filter(zoekveld.getText());
+		super.paintComponent(g);
+	}
+}

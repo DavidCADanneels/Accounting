@@ -7,9 +7,9 @@ import javax.swing.*;
  * @version 1
  * @author David Danneels
  * @since 28/07/2005
- * @see PrefixFilter PrefixFilter
+ * @see PrefixFilterPanel PrefixFilterPanel
  */
-public class AlfabeticListModel extends DefaultListModel {
+public class AlphabeticListModel extends DefaultListModel {
 
 	/**
 	 * 
@@ -19,7 +19,7 @@ public class AlfabeticListModel extends DefaultListModel {
 	/**
 	 * Constructor
 	 */
-	public AlfabeticListModel() {
+	public AlphabeticListModel() {
 		super();
 	}
 

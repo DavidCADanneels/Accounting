@@ -7,8 +7,8 @@ import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Project;
 import be.dafke.Accounting.Objects.Accounting.Projects;
-import be.dafke.AlfabeticListModel;
-import be.dafke.PrefixFilter;
+import be.dafke.AlphabeticListModel;
+import be.dafke.PrefixFilterPanel;
 import be.dafke.RefreshableFrame;
 
 import javax.swing.*;
@@ -30,8 +30,8 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final PrefixFilter zoeker;
-	private final AlfabeticListModel allAccountsModel, projectAccountsModel;
+	private final PrefixFilterPanel zoeker;
+	private final AlphabeticListModel allAccountsModel, projectAccountsModel;
 	private final JList<Account> allAccounts, projectAccounts;
 	private final JButton moveTo, moveBack, newProject;
 	private final JComboBox combo;
@@ -58,13 +58,14 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 		//
 		// links
 		JPanel paneelLinks = new JPanel();
-		allAccountsModel = new AlfabeticListModel();
+		allAccountsModel = new AlphabeticListModel();
 		allAccounts = new JList(allAccountsModel);
 		allAccounts.addListSelectionListener(this);
 		allAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 //		Accounting accounting = accountings.getCurrentAccounting();
 //		Accounts accounts = accounting.getAccounts();
-		zoeker = new PrefixFilter(allAccounts, onder, new ArrayList<Account>());
+		zoeker = new PrefixFilterPanel(allAccountsModel, allAccounts, new ArrayList<Account>());
+        zoeker.add(onder, BorderLayout.SOUTH);
 		paneelLinks.add(zoeker);
 		paneelLinks.setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
 				"Accounting").getString("REKENINGEN")));
@@ -73,7 +74,7 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 		// rechts
 		JPanel paneelRechts = new JPanel(new BorderLayout());
 		// paneelRechts.setLayout(new BoxLayout(paneelRechts,BoxLayout.Y_AXIS));
-		projectAccountsModel = new AlfabeticListModel();
+		projectAccountsModel = new AlphabeticListModel();
 		projectAccounts = new JList(projectAccountsModel);
 		projectAccounts.addListSelectionListener(this);
 		projectAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
