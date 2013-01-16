@@ -27,24 +27,21 @@ public class Booking implements Comparable, Serializable {
 	/**
 	 * Constructor
 	 * @param transaction de transactie waartoe deze boeking behoort
-	 * @param description omschrijving van de boeking
 	 * @param account de rekening horende bij deze boeking
 	 * @param amount het bedrag waarmee de rekening gedebiteerd/gecrediteerd moet worden
-	 * @param debet of het bedrag gedebiteerd of gecrediteerd moet worden
+	 * @param debit of het bedrag gedebiteerd of gecrediteerd moet worden
 	 * <ul>
 	 * <li><i><b>true</b></i>: debiteren</li>
 	 * <li><i><b>false</b></i>: crediteren</li>
 	 * </ul>
-	 * @param date de datum waarop de boeking plaatsvond
 	 */
-	public Booking(Transaction transaction, String description, Account account, BigDecimal amount, boolean debet,
-			Calendar date) {
+	public Booking(Transaction transaction, Account account, BigDecimal amount, boolean debit) {
 		transactie = transaction;
-		descr = description;
+//		descr = description;
 		rekening = account;
 		bedrag = amount;
-		isDebet = debet;
-		datum = date;
+		isDebet = debit;
+		//datum = date;
 	}
 
 	/**
@@ -55,52 +52,52 @@ public class Booking implements Comparable, Serializable {
 		return transactie;
 	}
 
-	/**
-	 * Stel de datum van de boeking in
-	 * @param date de datum van de boeking
-	 */
-	public void setDate(Calendar date) {
-		datum = date;
-	}
+//	/**
+//	 * Stel de datum van de boeking in
+//	 * @param date de datum van de boeking
+//	 */
+//	public void setDate(Calendar date) {
+//		datum = date;
+//	}
 
-	/**
-	 * Stelt het id-nummer van de boeking in
-	 * @param s het id-nummer van de boeking
-	 */
-	protected void setID(int s) {
-		id = s;
-	}
+//	/**
+//	 * Stelt het id-nummer van de boeking in
+//	 * @param s het id-nummer van de boeking
+//	 */
+//	protected void setID(int s) {
+//		id = s;
+//	}
 
-	/**
-	 * Stelt de afkorting van de boeking in
-	 * @param abbrev de afkorting van de boeking
-	 */
-	public void setAbbreviation(String abbrev) {
-		afkorting = abbrev;
-	}
+//	/**
+//	 * Stelt de afkorting van de boeking in
+//	 * @param abbrev de afkorting van de boeking
+//	 */
+//	public void setAbbreviation(String abbrev) {
+//		afkorting = abbrev;
+//	}
 
 	/**
 	 * Geeft de afkorting van de boeking terug
 	 * @return de afkorting van de boeking
 	 */
 	public String getAbbreviation() {
-		return afkorting;
+		return transactie.getAbbreviation();
 	}
 
-	/**
-	 * Stelt de omschrijving van de boeking in
-	 * @param description de omschrijving van de boeking
-	 */
-	public void setDescription(String description) {
-		descr = description;
-	}
+//	/**
+//	 * Stelt de omschrijving van de boeking in
+//	 * @param description de omschrijving van de boeking
+//	 */
+//	public void setDescription(String description) {
+//		descr = description;
+//	}
 
 	/**
 	 * Geeft het id-nummer van de boeking terug
 	 * @return het id-nummer van de boeking
 	 */
 	public int getId() {
-		return id;
+		return transactie.getId();
 	}
 
 	/**
@@ -122,7 +119,7 @@ public class Booking implements Comparable, Serializable {
 	 * @return de datum waarop deze boeking plaatsvond
 	 */
 	public Calendar getDate() {
-		return datum;
+		return transactie.getDate();
 	}
 
 	/**
@@ -130,7 +127,7 @@ public class Booking implements Comparable, Serializable {
 	 * @return de omschrijving van de boeking
 	 */
 	public String getDescription() {
-		return descr;
+		return transactie.getDescription();
 	}
 
 	/**

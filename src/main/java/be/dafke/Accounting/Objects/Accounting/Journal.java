@@ -244,12 +244,13 @@ public class Journal implements Serializable {
 	 * @param transaction de te boeken transactie
 	 */
 	protected void book(Transaction transaction) {
+        transaction.setAbbreviation(abbreviation);
 		addTransaction(transaction);
 		ArrayList<Booking> boekingen = transaction.getBookings();
 		for(int i = 0; i < boekingen.size(); i++) {
 			Booking boeking = boekingen.get(i);
 			Account rek = boeking.getAccount();
-			boeking.setAbbreviation(abbreviation);
+//			boeking.setAbbreviation(abbreviation);
 			rek.book(boeking);
 		}
 		id++;
