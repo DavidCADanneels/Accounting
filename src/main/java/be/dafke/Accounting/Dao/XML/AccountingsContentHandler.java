@@ -22,8 +22,10 @@ public class AccountingsContentHandler extends DefaultHandler {
 		if (qName.equals("Accounting")) {
 			String name = atts.getValue("name");
 			Accounting acc = new Accounting(name);
-			String location = atts.getValue("location");
-			acc.setLocationXml(new File(location));
+			String xml = atts.getValue("xml");
+			acc.setLocationXml(new File(xml));
+            String html = atts.getValue("html");
+            acc.setLocationHtml(new File(html));
 			if (acc != null) {
 				accountings.addAccounting(acc);
 			}

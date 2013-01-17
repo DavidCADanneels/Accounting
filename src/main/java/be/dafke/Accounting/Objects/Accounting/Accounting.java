@@ -131,6 +131,9 @@ public class Accounting implements Serializable {
 //	public static Accounting fromXML(){
 //		
 //	}
+    public void addCounterparty(CounterParty counterParty){
+        counterParties.put(counterParty.toString(), counterParty);
+    }
 
 	public void addMortgageTable(String mortgageName, Mortgage table) {
 		mortgageTables.put(mortgageName, table);
@@ -334,13 +337,20 @@ public class Accounting implements Serializable {
 			writer.write("  <Counterparties xml=\"" + getCounterPartyLocationXml() + "\" html=\""
 					+ getCounterPartyLocationHtml() + "\">\r\n");
 			for(CounterParty counterParty : counterParties.getCounterParties()) {
-				writer.write("<Counterparty>");
-				writer.write("<Account>" + counterParty.getAccount().getName() + "</Account>");
-				for(BankAccount account : counterParty.getBankAccounts().values()) {
-					writer.write("<BankAccount>" + account.toString() + "</BankAccount>");
-
-				}
-				writer.write("</Counterparty>");
+				writer.write("    <Counterparty name =\""+counterParty.getName()+"\">\r\n");
+				writer.write("      <AccountName>");
+                if(counterParty.getAccount()!=null){
+                    writer.write(counterParty.getAccount().getName());
+                }
+                writer.write("</AccountName>\r\n");
+                if(counterParty.getBankAccounts()!=null){
+                    for(BankAccount account : counterParty.getBankAccounts().values()) {
+                        writer.write("      <BankAccount>" + account.getAccountNumber() + "</BankAccount>\r\n");
+                        writer.write("      <BIC>" + account.getBic().trim() + "</BIC>\r\n");
+                        writer.write("      <Currency>" + account.getCurrency() + "</Currency>\r\n");
+                    }
+                }
+				writer.write("    </Counterparty>\r\n");
 			}
 			writer.write("  </Counterparties>\r\n");
 			writer.write("</Accounting>\r\n");

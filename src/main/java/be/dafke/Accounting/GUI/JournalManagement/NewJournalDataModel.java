@@ -26,7 +26,10 @@ public class NewJournalDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		Accounting accounting = accountings.getCurrentAccounting();
+        if(accountings == null || accountings.getCurrentAccounting()==null){
+            return 0;
+        }
+        Accounting accounting = accountings.getCurrentAccounting();
 		return accounting.getJournals().size();
 	}
 

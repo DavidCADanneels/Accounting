@@ -1,10 +1,10 @@
 package be.dafke.Accounting.GUI.AccountManagement;
 
+import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
-import be.dafke.Accounting.Objects.RefreshEvent;
 import be.dafke.RefreshableFrame;
 
 import javax.swing.*;
@@ -28,18 +28,7 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 	private final DefaultListSelectionModel selection;
 	private final Accountings accountings;
 
-	private static NewAccountGUI newAccountGUI = null;
-
-	public static NewAccountGUI getInstance(Accountings accountings) {
-		if (newAccountGUI == null) {
-			newAccountGUI = new NewAccountGUI(accountings);
-		} else {
-			newAccountGUI.refresh();
-		}
-		return newAccountGUI;
-	}
-
-	private NewAccountGUI(Accountings accountings) {
+	public NewAccountGUI(Accountings accountings) {
 		super("Create and modify accounts");
 		this.accountings = accountings;
 		this.model = new NewAccountDataModel(accountings);
@@ -82,7 +71,7 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 		south.add(modifyType);
 		south.add(delete);
 		panel.add(south, BorderLayout.SOUTH);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(panel);
 		pack();
 //		setVisible(true);
@@ -99,9 +88,7 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 		} else if (event.getSource() == delete) {
 			deleteAccount();
 		}
-		RefreshEvent eventt = new RefreshEvent(this);
-		System.out.println("notifyAll called in " + this.getClass());
-		eventt.notifyAll();
+        AccountingMenuBar.refreshAllFrames();
 	}
 
 	private void deleteAccount() {
@@ -122,9 +109,8 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 					// and remove them from the Accounts object
 					// Note: if account was never used: just remove.i
 					accounting.getAccounts().remove(account.getName());
-					RefreshEvent event = new RefreshEvent(this);
-					System.out.println("notifyAll called in " + this.getClass());
-					event.notifyAll();
+//                    RefreshEvent event = new RefreshEvent(this);
+//                    accountings.getApplicationEventPublisher().publishEvent(event);
 				}
 			}
 			if (nrNotEmpty > 0) {
@@ -141,9 +127,6 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 							+ " accounts were not zero, so they could not be deleted");
 				}
 			}
-			RefreshEvent event = new RefreshEvent(this);
-			System.out.println("notifyAll called in " + this.getClass());
-			event.notifyAll();
 		}
 	}
 
@@ -159,9 +142,6 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 				String newName = JOptionPane.showInputDialog("New name", account.getName()).trim();
 				accounting.getAccounts().rename(oldName, newName);
 			}
-			RefreshEvent event = new RefreshEvent(this);
-			System.out.println("notifyAll called in " + this.getClass());
-			event.notifyAll();
 		}
 	}
 
@@ -196,9 +176,6 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 					account.setType(types[nr]);
 				}
 			}
-			RefreshEvent event = new RefreshEvent(this);
-			System.out.println("notifyAll called in " + this.getClass());
-			event.notifyAll();
 		}
 	}
 
@@ -214,9 +191,6 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 				Account account = new Account(newName, (AccountType) type.getSelectedItem());
 				account.setAccounting(accounting);
 				accounting.getAccounts().add(account);
-				RefreshEvent event = new RefreshEvent(this);
-				System.out.println("notifyAll called in " + this.getClass());
-				event.notifyAll();
 			}
 		}
 		name.setText("");

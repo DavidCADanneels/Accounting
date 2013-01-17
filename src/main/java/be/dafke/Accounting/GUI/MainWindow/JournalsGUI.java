@@ -1,11 +1,11 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.Details.JournalDetails;
-import be.dafke.Accounting.GUI.JournalManagement.NewJournalGUI;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Journals;
+import be.dafke.RefreshableFrame;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -26,8 +26,6 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	private JComboBox combo;
 	private final JButton maak, details;
 	private final Accountings accountings;
-
-//	private final NewJournalGUI newJournalGui = null;
 
 	public JournalsGUI(Accountings accountings, JournalGUI journalGUI) {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
@@ -55,10 +53,14 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == details) {
 			Journal journal = (Journal) combo.getSelectedItem();
-			JournalDetails gui = new JournalDetails(journal, accountings);
-			gui.setVisible(true);
+            RefreshableFrame gui = AccountingMenuBar.getFrame("JOURNAL_"+journal.getName());
+            if(gui == null){
+                gui = new JournalDetails(journal, accountings);
+                AccountingMenuBar.addFrame("JOURNAL_"+journal.getName(), gui);
+            }
+            gui.setVisible(true);
 		} else if (e.getSource() == maak) {
-			NewJournalGUI.getInstance(accountings).setVisible(true);
+            AccountingMenuBar.getFrame(AccountingMenuBar.NEW_JOURNAL).setVisible(true);
 		} else if (e.getSource() == combo) {
 			Journal journal = (Journal) combo.getSelectedItem();
 			Accounting accounting = accountings.getCurrentAccounting();
@@ -67,7 +69,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
 		}
 	}
 
-	public void activateButtons(/*boolean active*/) {
+	public void refresh() {
 		boolean active = accountings.isActive();
 		if (active) {
 			remove(combo);

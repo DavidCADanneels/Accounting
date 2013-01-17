@@ -4,7 +4,6 @@ import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
-import be.dafke.Accounting.Objects.RefreshEvent;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -69,9 +68,7 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 		BigDecimal debettotaal = Transaction.getInstance().getDebetTotaal();
 		BigDecimal credittotaal = Transaction.getInstance().getCreditTotaal();
 		if (debettotaal.compareTo(credittotaal) == 0) journalGUI.setOK();
-		RefreshEvent event = new RefreshEvent(this);
-		System.out.println("notifyAll called in " + this.getClass());
-		event.notifyAll();
+        AccountingMenuBar.refreshAllFrames();
 	}
 
 	@Override

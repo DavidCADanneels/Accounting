@@ -123,7 +123,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 		panel.add(overview);
 		panel.add(line4);
 
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(panel);
 		pack();
 	}

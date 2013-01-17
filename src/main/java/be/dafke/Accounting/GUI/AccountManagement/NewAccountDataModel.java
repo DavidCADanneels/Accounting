@@ -26,6 +26,9 @@ public class NewAccountDataModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
+        if(accountings == null || accountings.getCurrentAccounting()==null){
+            return 0;
+        }
 		Accounting accounting = accountings.getCurrentAccounting();
 		return accounting.getAccounts().size();
 	}

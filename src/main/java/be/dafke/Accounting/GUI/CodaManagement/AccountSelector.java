@@ -1,9 +1,10 @@
 package be.dafke.Accounting.GUI.CodaManagement;
 
-import be.dafke.Accounting.GUI.AccountManagement.NewAccountGUI;
+import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
+import be.dafke.RefreshableFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -48,7 +49,11 @@ public class AccountSelector extends JDialog implements ActionListener {
 		if (e.getSource() == combo) {
 			account = (Account) combo.getSelectedItem();
 		} else if (e.getSource() == create) {
-			NewAccountGUI.getInstance(accountings).setVisible(true);
+            RefreshableFrame frame = AccountingMenuBar.getFrame(AccountingMenuBar.NEW_ACCOUNT);
+            if(frame == null){
+                System.err.println("frame not found");
+            }
+			frame.setVisible(true);
 		} else if (e.getSource() == ok) {
 			dispose();
 		}

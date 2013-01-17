@@ -1,11 +1,11 @@
 package be.dafke.Accounting.GUI.JournalManagement;
 
+import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.JournalType;
 import be.dafke.Accounting.Objects.Accounting.JournalTypes;
-import be.dafke.Accounting.Objects.RefreshEvent;
 import be.dafke.RefreshableTable;
 
 import javax.swing.*;
@@ -23,23 +23,12 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JTextField name, abbr;
-	private final JComboBox type;
+	private JComboBox type;
 	private final JButton add, delete, modifyName, modifyType, newType, modifyAbbr;
 	private final DefaultListSelectionModel selection;
 	private final Accountings accountings;
 
-	private static NewJournalGUI newJournalGUI = null;
-
-	public static NewJournalGUI getInstance(Accountings accountings) {
-		if (newJournalGUI == null) {
-			newJournalGUI = new NewJournalGUI(accountings);
-		} else {
-			newJournalGUI.refresh();
-		}
-		return newJournalGUI;
-	}
-
-	private NewJournalGUI(Accountings accountings) {
+	public NewJournalGUI(Accountings accountings) {
 		super("Create and modify journals", new NewJournalDataModel(accountings));
 		this.accountings = accountings;
 		selection = new DefaultListSelectionModel();
@@ -56,8 +45,7 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 		line1.add(abbr);
 		JPanel line2 = new JPanel();
 		line2.add(new JLabel("Type:"));
-		JournalTypes journaltypes = accountings.getCurrentAccounting().getJournalTypes();
-		type = new JComboBox(journaltypes.values().toArray());
+		type = new JComboBox();
 		line2.add(type);
 		add = new JButton("Create new journal");
 		add.addActionListener(this);
@@ -89,7 +77,7 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 		south.add(modifyAbbr);
 		south.add(delete);
 		contentPanel.add(south, BorderLayout.SOUTH);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(contentPanel);
 		pack();
 //		setVisible(true);
@@ -108,6 +96,15 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 		}
 	}
 
+    @Override
+    public void refresh(){
+        if(accountings!=null && accountings.getCurrentAccounting()!=null){
+            JournalTypes journaltypes = accountings.getCurrentAccounting().getJournalTypes();
+            type = new JComboBox(journaltypes.values().toArray());
+        }
+        super.refresh();
+    }
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == add || e.getSource() == name || e.getSource() == abbr) {
@@ -121,9 +118,10 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 		} else if (e.getSource() == delete) {
 			deleteJournal();
 		} else if (e.getSource() == newType) {
-			NewJournalTypeGUI gui = new NewJournalTypeGUI();
+			NewJournalTypeGUI gui = new NewJournalTypeGUI(accountings);
 			gui.setVisible(true);
 		}
+        AccountingMenuBar.refreshAllFrames();
 	}
 
 	private void deleteJournal() {
@@ -139,9 +137,6 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 					nrNotEmpty++;
 				} else {
 					accounting.getJournals().remove(journal.toString());
-					RefreshEvent event = new RefreshEvent(this);
-					System.out.println("notifyAll called in " + this.getClass());
-					event.notifyAll();
 				}
 			}
 			if (nrNotEmpty > 0) {
@@ -158,9 +153,6 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 							+ " journal already contain transactions, so they could not be deleted");
 				}
 			}
-			RefreshEvent event = new RefreshEvent(this);
-			System.out.println("notifyAll called in " + this.getClass());
-			event.notifyAll();
 		}
 	}
 
@@ -191,9 +183,6 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 				}
 				accounting.getJournals().rename(oldName, newName);
 			}
-			RefreshEvent event = new RefreshEvent(this);
-			System.out.println("notifyAll called in " + this.getClass());
-			event.notifyAll();
 		}
 	}
 
@@ -223,9 +212,6 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 				}
 				accounting.getJournals().reAbbrev(oldName, newName);
 			}
-			RefreshEvent event = new RefreshEvent(this);
-			System.out.println("notifyAll called in " + this.getClass());
-			event.notifyAll();
 		}
 	}
 
@@ -249,9 +235,7 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 				}
 				name.setText("");
 				abbr.setText("");
-				RefreshEvent event = new RefreshEvent(this);
-				System.out.println("notifyAll called in " + this.getClass());
-				event.notifyAll();
+                AccountingMenuBar.refreshAllFrames();
 			}
 		}
 	}
@@ -292,9 +276,6 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 					}
 				}
 			}
-			RefreshEvent event = new RefreshEvent(this);
-			System.out.println("notifyAll called in " + this.getClass());
-			event.notifyAll();
 		}
 	}
 

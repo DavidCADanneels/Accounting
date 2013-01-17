@@ -6,8 +6,6 @@ import be.dafke.Accounting.Dao.XML.FoutHandler;
 import be.dafke.Accounting.Dao.XML.JournalContentHandler;
 import be.dafke.Accounting.Dao.XML.MortgageContentHandler;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
-import org.springframework.context.ApplicationEventPublisher;
-import org.springframework.context.ApplicationEventPublisherAware;
 import org.xml.sax.XMLReader;
 
 import javax.swing.*;
@@ -15,21 +13,18 @@ import javax.swing.filechooser.FileSystemView;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.ObjectInputStream;
 import java.io.Writer;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Accountings implements ApplicationEventPublisherAware {
+public class Accountings {
 	private final HashMap<String, Accounting> accountings = new HashMap<String, Accounting>();
 	private Accounting currentAccounting = null;
-	private ApplicationEventPublisher applicationEventPublisher;
 
 	public Accounting getCurrentAccounting() {
 		return currentAccounting;
@@ -39,17 +34,17 @@ public class Accountings implements ApplicationEventPublisherAware {
 		accountings.put(accounting.toString(), accounting);
 	}
 
-//	public boolean contains(String name) {
-//		return accountings.containsKey(name);
-//	}
+	public boolean contains(String name) {
+		return accountings.containsKey(name);
+	}
 
 	public Collection<Accounting> getAccountings() {
 		return accountings.values();
 	}
 
-	public void setCurrentAccounting(Accounting accounting) {
-		currentAccounting = accounting;
-	}
+//	public void setCurrentAccounting(Accounting accounting) {
+//		currentAccounting = accounting;
+//	}
 
 	public boolean isActive() {
 		return currentAccounting != null;
@@ -59,9 +54,6 @@ public class Accountings implements ApplicationEventPublisherAware {
 		for(Accounting accounting : accountings.values()) {
 			accounting.close();
 		}
-//		if (currentAccounting != null) {
-//			currentAccounting.close();
-//		}
 		toXML();
 	}
 
@@ -199,7 +191,7 @@ public class Accountings implements ApplicationEventPublisherAware {
 			try {
 				Writer writer = new FileWriter(getFile());
 				writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-						+ "<!DOCTYPE Accountings SYSTEM \"Accountings.dtd\">\r\n"
+						+ "<!DOCTYPE Accountings SYSTEM \"C:\\Users\\Dafke\\Accounting\\xsl\\Accountings.dtd\">\r\n"
 						+ "<?xml-stylesheet type=\"text/xsl\" href=\"Accountings.xsl\"?>\r\n" + "<Accountings>\r\n");
 				for(Accounting acc : getAccountings()) {
 					writer.write("  <Accounting name=\"" + acc.toString() + "\" xml=\"" + acc.getLocationXml()
@@ -237,54 +229,12 @@ public class Accountings implements ApplicationEventPublisherAware {
 		currentAccounting = accountings.get(s);
 	}
 
-	public Accounting newAccounting() {
-		String name = JOptionPane.showInputDialog(null, "Enter a name");
-		while (name == null || accountings.containsKey(name) || name.trim().isEmpty()) {
-			name = JOptionPane.showInputDialog(null, "This name is empty or already exists. Enter another name");
-		}
+	public void addAccounting(String name) {
 		currentAccounting = new Accounting(name);
 		addAccounting(currentAccounting);
-		return currentAccounting;
 	}
 
-	public Accounting getAccounting(String name) {
-		return accountings.get(name);
-	}
-
-	public Accounting openInstance() {
-		JFileChooser kiezer = new JFileChooser();
-		kiezer.setDialogTitle(java.util.ResourceBundle.getBundle("Accounting").getString(
-				"SELECTEER_BOEKHOUDING-BESTAND"));
-		if (kiezer.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			File bestand = kiezer.getSelectedFile();
-			if (bestand != null) {
-				currentAccounting = openObject(bestand);
-			}
-		}
-		return currentAccounting;
-	}
-
-	public Accounting openObject(File bestand) {
-		try {
-			String location = bestand.getPath();
-			ObjectInputStream in = new ObjectInputStream(new FileInputStream(location));
-			return (Accounting) in.readObject();
-//					ObjectInputStream in_c = new ObjectInputStream(new FileInputStream(location + "_CounterParties"));
-//					CounterParties.setInstance((CounterParties) in_c.readObject());
-//					ObjectInputStream in_m = new ObjectInputStream(new FileInputStream(location + "_Movements"));
-//					Movements.setAllMovements((ArrayList<Movement>) in_m.readObject());
-		} catch (Exception e) {
-			return null;
-		}
-	}
-
-	public void setApplicationEventPublisher(ApplicationEventPublisher applicationEventPublisher) {
-		System.out.println("set");
-		this.applicationEventPublisher = applicationEventPublisher;
-	}
-
-	public ApplicationEventPublisher getApplicationEventPublisher() {
-		System.out.println("get");
-		return applicationEventPublisher;
-	}
+//	public Accounting getAccounting(String name) {
+//		return accountings.get(name);
+//	}
 }

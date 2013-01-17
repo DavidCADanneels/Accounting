@@ -1,10 +1,10 @@
 package be.dafke.Accounting.GUI.MortgageManagement;
 
+import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
-import be.dafke.Accounting.Objects.RefreshEvent;
 import be.dafke.RefreshableFrame;
 
 import javax.swing.*;
@@ -159,9 +159,6 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 			if (selectedMortgage != null) {
 				Accounting accounting = accountings.getCurrentAccounting();
 				accounting.removeMortgageTable(selectedMortgage);
-				RefreshEvent event = new RefreshEvent(this);
-				System.out.println("notifyAll called in " + this.getClass());
-				event.notifyAll();
 			}
 		} else if (!init) {
 			if (e.getSource() == comboIntrest) {
@@ -185,7 +182,8 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 				}
 			}
 		}
-	}
+        AccountingMenuBar.refreshAllFrames();
+    }
 
 	@Override
 	public void refresh() {

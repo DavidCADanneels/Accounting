@@ -116,7 +116,7 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 				"Accounting").getString("PROJECTEN")));
 		hoofdPaneel.add(paneelRechts);
 		//
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(hoofdPaneel);
 		pack();
 		// setVisible(true);

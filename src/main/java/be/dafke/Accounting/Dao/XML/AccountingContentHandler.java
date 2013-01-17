@@ -5,6 +5,7 @@ import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Project;
+import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -28,6 +29,7 @@ public class AccountingContentHandler extends DefaultHandler {
 	private boolean b_account_project = false;
 	private Mortgage mortgage;
 	private Project project;
+    private CounterParty counterParty;
 
 	public AccountingContentHandler(Accounting accounting) {
 		this.accounting = accounting;
@@ -72,6 +74,20 @@ public class AccountingContentHandler extends DefaultHandler {
 			accounting.setCounterpartyLocationXml(new File(xmlLocation));
 			String htmlLocation = atts.getValue("html");
 			accounting.setCounterpartyLocationHtml(new File(htmlLocation));
+        } else if (qName.equals("Counterparty")){
+            String name = atts.getValue("name");
+            counterParty = new CounterParty(name);
+            // TODO: import Counterparties
+//        } else if (qName.equals("AccountName")){
+//            Account account = accounting.getAccounts().get()
+//            counterParty.setAccount();
+//        } else if (qName.equals("BankAccount")){
+//            counterParty.addAccount(new BankAccount());
+//        } else if (qName.equals("BIC")){
+//            counterParty.s
+//        } else if (qName.equals("Currency")){
+//            String name = atts.getValue("name");
+//            counterParty = new CounterParty(name);
 		} else if (qName.equals("account_name")) {
 			b_account_name = true;
 		} else if (qName.equals("account_type")) {
@@ -153,6 +169,9 @@ public class AccountingContentHandler extends DefaultHandler {
 			Journal journal = new Journal(journal_name, journal_short);
 			journal.setAccounting(accounting);
 			accounting.getJournals().add(journal);
+        } else if (qName.equals("Counterparty")){
+            accounting.addCounterparty(counterParty);
+//            accounting.getCounterParties().put(counterParty.getName(),counterParty);
 		}
 	}
 }

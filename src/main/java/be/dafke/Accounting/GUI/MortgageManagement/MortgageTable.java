@@ -1,9 +1,9 @@
 package be.dafke.Accounting.GUI.MortgageManagement;
 
+import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
-import be.dafke.Accounting.Objects.RefreshEvent;
 import be.dafke.RefreshableFrame;
 
 import javax.swing.*;
@@ -36,7 +36,7 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 		save = new JButton("Save table");
 		save.addActionListener(this);
 		panel.add(save, BorderLayout.SOUTH);
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(panel);
 		pack();
 		setVisible(true);
@@ -59,10 +59,8 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 //			mortgage.setAccounting(accounting);
 			mortgage.setTable(model.getData());
 			accounting.addMortgageTable(name, mortgage);
-			RefreshEvent event = new RefreshEvent(this);
-			System.out.println("notifyAll called in " + this.getClass());
-			event.notifyAll();
-			dispose();
+            AccountingMenuBar.refreshAllFrames();
+            dispose();
 		}
 	}
 }

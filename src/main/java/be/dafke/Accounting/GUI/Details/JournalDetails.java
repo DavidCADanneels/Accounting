@@ -13,13 +13,14 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
 /**
  * @author David Danneels
  */
 
-public class JournalDetails extends RefreshableTable implements ActionListener {
+public class JournalDetails extends RefreshableTable implements ActionListener, WindowListener {
 	/**
 	 * 
 	 */
@@ -61,13 +62,43 @@ public class JournalDetails extends RefreshableTable implements ActionListener {
 		});
 	}
 
-	@Override
+    @Override
+    public void windowOpened(WindowEvent e) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
 	public void windowClosing(WindowEvent we) {
-		super.windowClosing(we);
+//		super.windowClosing(we);
 		popup.setVisible(false);
 	}
 
-	@Override
+    @Override
+    public void windowClosed(WindowEvent e) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() instanceof JMenuItem) {
 			menuAction((JMenuItem) ae.getSource());

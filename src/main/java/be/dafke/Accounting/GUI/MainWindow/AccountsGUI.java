@@ -1,6 +1,5 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
-import be.dafke.Accounting.GUI.AccountManagement.NewAccountGUI;
 import be.dafke.Accounting.GUI.Details.AccountDetails;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
@@ -81,7 +80,6 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		lijst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		zoeker = new PrefixFilterPanel(model, lijst, new ArrayList<Account>());
         zoeker.add(hoofdPaneel, BorderLayout.SOUTH);
-		// zoeker=new PrefixZoeker(lijst,hoofdPaneel,parent.getAccounting().getAccounts());
 		add(zoeker, BorderLayout.CENTER);
 
 		JPanel filter = new JPanel();
@@ -118,14 +116,19 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		if (ae.getSource() == debet || ae.getSource() == credit) {
 			book(ae.getSource() == debet);
 		} else if (ae.getSource() == nieuw) {
-			NewAccountGUI.getInstance(accountings).setVisible(true);
-		} else if (ae.getSource() == details) {
-			// if(!parent.containsFrame(detailsGui)){
-			// TODO: if parent contains frame detail_THIS_ACCOUNT
-			Account account = (Account) lijst.getSelectedValue();
-			AccountDetails gui = new AccountDetails(account);
+            RefreshableFrame frame = AccountingMenuBar.getFrame(AccountingMenuBar.NEW_ACCOUNT);
+            if(frame == null){
+                System.err.println("frame not found");
+            }
+            frame.setVisible(true);
+        } else if (ae.getSource() == details) {
+            Account account = (Account) lijst.getSelectedValue();
+            RefreshableFrame gui = AccountingMenuBar.getFrame("ACCOUNT_"+account.getName());
+            if(gui == null){
+                gui = new AccountDetails(account);
+                AccountingMenuBar.addFrame("ACCOUNT_"+account.getName(), gui);
+            }
 			gui.setVisible(true);
-			// }else detailsGui.setVisible(true);
 		} else if (ae.getSource() instanceof JCheckBox) {
 			checkBoxes();
 		}
@@ -174,13 +177,9 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		zoeker.resetMap(map);
 	}
 
-	public void activateButtons(/*boolean active*/) {
+	public void refresh() {
 		boolean active = accountings.isActive();
-		/*
-		 * if (active) { zoeker.resetMap(parent.getAccounting().getAccounts()); } else { zoeker.resetMap(new
-		 * ArrayList<Account>()); }
-		 */for(int i = 0; i < boxes.length; i++) {
-			// boxes[i].setSelected(active);
+		for(int i = 0; i < boxes.length; i++) {
 			boxes[i].setEnabled(active);
 		}
 		nieuw.setEnabled(active);

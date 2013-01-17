@@ -1,7 +1,8 @@
 package be.dafke.Accounting.GUI.JournalManagement;
 
+import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
-import be.dafke.Accounting.Objects.RefreshEvent;
+import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.RefreshableFrame;
 
 import javax.swing.*;
@@ -19,9 +20,11 @@ public class NewJournalTypeGUI extends RefreshableFrame implements ActionListene
 	private final JButton addLeft, addRight, removeLeft, removeRight;
 	private final ArrayList<AccountType> debitTypes, creditTypes;
 	private final DefaultListModel debitModel, creditModel;
+    private Accountings accountings;
 
-	public NewJournalTypeGUI() {
+	public NewJournalTypeGUI(Accountings accountings) {
 		super("Create and modify journal types");
+        this.accountings = accountings;
 		debitTypes = new ArrayList<AccountType>();
 		creditTypes = new ArrayList<AccountType>();
 		debitModel = new DefaultListModel();
@@ -79,7 +82,7 @@ public class NewJournalTypeGUI extends RefreshableFrame implements ActionListene
 		// TODO: add components to enter the name and save
 		// + show existing types and check for doubles
 
-		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(panel);
 		pack();
 	}
@@ -129,10 +132,8 @@ public class NewJournalTypeGUI extends RefreshableFrame implements ActionListene
 				}
 			}
 		}
-		RefreshEvent event = new RefreshEvent(this);
-		System.out.println("notifyAll called in " + this.getClass());
-		event.notifyAll();
-	}
+        AccountingMenuBar.refreshAllFrames();
+    }
 
 	@Override
 	public void refresh() {

@@ -42,13 +42,12 @@ public class AccountingGUIPanel extends JPanel {
 		add(journalGUI, BorderLayout.CENTER);
 
 		add(links, BorderLayout.WEST);
-		// dagboekGUI.init();
 	}
 
-	public void activateButtons(/*boolean active*/) {
+	public void refresh() {
 		journalGUI.init();
-		accountsGUI.activateButtons(/*active*/);
-		journalsGUI.activateButtons(/*active*/);
+		accountsGUI.refresh();
+		journalsGUI.refresh();
 		mortgagesGUI.refresh();
 	}
 

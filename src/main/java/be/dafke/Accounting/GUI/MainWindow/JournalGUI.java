@@ -1,10 +1,8 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
-import be.dafke.Accounting.GUI.JournalManagement.NewJournalGUI;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
-import be.dafke.Accounting.Objects.RefreshEvent;
 import be.dafke.Utils;
 
 import javax.swing.*;
@@ -135,9 +133,7 @@ public class JournalGUI extends JPanel implements ActionListener {
 			Transaction.getInstance().book(accounting.getCurrentJournal());
 			init();
 			clear();
-			RefreshEvent event = new RefreshEvent(this);
-			System.out.println("notifyAll called in " + this.getClass());
-			event.notifyAll();
+            AccountingMenuBar.refreshAllFrames();
 		}
 		if ((JButton) e.getSource() == clear) {
 			clear();
@@ -151,10 +147,11 @@ public class JournalGUI extends JPanel implements ActionListener {
 	}
 
 	public void init() {
+        // TODO check this init method (null pointers ???)
 		Accounting accounting = accountings.getCurrentAccounting();
 		if (accounting != null) {
 			if (accounting.getJournals().isEmpty()) {
-				NewJournalGUI.getInstance(accountings).setVisible(true);
+				AccountingMenuBar.getFrame(AccountingMenuBar.NEW_JOURNAL).setVisible(true);
 			} else {
 				ident.setText(accounting.getCurrentJournal().getAbbreviation() + " "
 						+ accounting.getCurrentJournal().getId());
