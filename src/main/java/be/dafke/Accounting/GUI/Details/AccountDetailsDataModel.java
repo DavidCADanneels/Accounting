@@ -56,10 +56,10 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 		} else if (col == 1) {
 			return Utils.toString(boeking.getDate());
 		} else if (col == 2) {
-			if (boeking.isDebet()) return boeking.getAmount();
+			if (boeking.isDebit()) return boeking.getAmount();
 			return "";
 		} else if (col == 3) {
-			if (!boeking.isDebet()) return boeking.getAmount();
+			if (!boeking.isDebit()) return boeking.getAmount();
 			return "";
 		} else return boeking.getDescription();
 	}

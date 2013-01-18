@@ -205,7 +205,7 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 			allAccountsModel.removeAllElements();
 			while (it2.hasNext()) {
 				Account account = it2.next();
-				System.out.println("No Project: " + project + " | account" + account);
+//				System.out.println("No Project: " + project + " | account" + account);
 				allAccountsModel.addElement(account);
 			}
 		}

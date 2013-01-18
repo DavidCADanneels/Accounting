@@ -6,6 +6,8 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Vector;
 
 /**
  * Boekhoudkundige transactie Bevat minstens 2 boekingen
@@ -24,23 +26,20 @@ public class Transaction implements Serializable {
 	private Calendar datum = null;
     private int id;
     private String abbreviation;
-	private final ArrayList<Booking> debitBookings, creditBookings, boekingen;
-//    private final HashMap<Account,Vector<Booking>> allBookings;//debitBookings, creditBookings;
+    private final HashMap<Account,Vector<Booking>> debitBookings, creditBookings, allBookings;
     private boolean booked;
 	private final ArrayList<Mortgage> mortgages;
+    private boolean sort = true; // for later use: default = true --> First all Debits, then all Credits
 
-	private Transaction() {
+    private Transaction() {
 		booked = false;
 		debettotaal = new BigDecimal(0);
 		debettotaal = debettotaal.setScale(2);
 		credittotaal = new BigDecimal(0);
 		credittotaal = credittotaal.setScale(2);
-//        allBookings = new HashMap<Account,Vector<Booking>>();
-//		debitBookings = new HashMap<Account,Vector<Booking>>();
-        debitBookings = new ArrayList<Booking>();
-//		creditBookings = new HashMap<Account,Vector<Booking>>();
-        creditBookings = new ArrayList<Booking>();
-		boekingen = new ArrayList<Booking>();
+        allBookings = new HashMap<Account,Vector<Booking>>();
+		debitBookings = new HashMap<Account,Vector<Booking>>();
+		creditBookings = new HashMap<Account,Vector<Booking>>();
 		mortgages = new ArrayList<Mortgage>();
 	}
 
@@ -66,19 +65,14 @@ public class Transaction implements Serializable {
 
 	public void setDescription(String description) {
 		this.description = description;
-//		for(int i = 0; i < boekingen.size(); i++) {
-//			boekingen.get(i).setDescription(description);
-//		}
 	}
 
 	protected void lowerID() {
-		for(int i = 0; i < boekingen.size(); i++)
-			boekingen.get(i).lowerId();
+        id--;
 	}
 
 	protected void raiseID() {
-		for(int i = 0; i < boekingen.size(); i++)
-			boekingen.get(i).raiseId();
+        id++;
 	}
 
 	public Calendar getDate() {
@@ -87,9 +81,6 @@ public class Transaction implements Serializable {
 
 	public void setDate(Calendar date) {
 		datum = date;
-//		for(int i = 0; i < boekingen.size(); i++) {
-//			boekingen.get(i).setDate(date);
-//		}
 	}
 
 	public static Transaction getInstance() {
@@ -107,40 +98,95 @@ public class Transaction implements Serializable {
 		mortgages.add(mortgage);
 	}
 
-	public void debiteer(Account rek, BigDecimal amount) {
-        Booking booking = new Booking(this, rek, amount, true);
-//        addBooking(rek, amount, true);
-        debitBookings.add(booking);
+    public void debiteer(Account account, BigDecimal amount){
+        debiteer(account, amount, false);// do not merge by default
+    }
+
+    public void crediteer(Account account, BigDecimal amount){
+        crediteer(account, amount, false);// do not merge by default
+    }
+
+	public void debiteer(Account rek, BigDecimal amount, boolean merge) {
+        addBooking(rek, amount, true, merge);
 		debettotaal = debettotaal.add(amount);
 		debettotaal = debettotaal.setScale(2);
 	}
 
-	public void crediteer(Account rek, BigDecimal amount) {
-        Booking booking = new Booking(this, rek, amount, false);
-//        addBooking(rek, amount, false);
-        creditBookings.add(booking);
+	public void crediteer(Account rek, BigDecimal amount, boolean merge) {
+        addBooking(rek, amount, false, merge);
 		credittotaal = credittotaal.add(amount);
 		credittotaal = credittotaal.setScale(2);
 	}
 
-    private void addBooking(Account rek, BigDecimal amount, boolean debit){
-        Booking booking = new Booking(this, rek, amount, debit);
-        boekingen.add(booking);
-//        Vector<Booking> vector;
-        // TODO: optimise this code:
-        // 1. vector = get
-        //    if vector == null vector=new
-        // 2. do we have to reput the vector if vector was not null ?
-//        if(allBookings.containsKey(rek)){
-//            vector = allBookings.get(rek);
-//        }else{
-//            vector = new Vector<Booking>();
-//        }
-//        vector.add(booking);
-//        allBookings.put(rek,vector);
+    private void addBooking(Account account, BigDecimal amount, boolean debit, boolean merge){
+        Booking booking = new Booking(this, account, amount, debit);
+        Vector<Booking> vector;
+        HashMap<Account,Vector<Booking>> myMap;
+        HashMap<Account,Vector<Booking>> otherMap;
+        if(debit){
+            myMap = debitBookings;
+            otherMap = creditBookings;
+        } else {
+            myMap = creditBookings;
+            otherMap = debitBookings;
+        }
+        if(!merge){
+            vector = myMap.get(account);
+            if (vector == null){
+                vector = new Vector<Booking>();
+            }
+            vector.add(booking);
+            myMap.put(account,vector);
+            allBookings.put(account, vector);
+        } else{
+            // MERGE !!!
+            vector = myMap.get(account);
+            if(vector!=null){
+                vector.add(booking);
+                booking = merge(vector);
+            }
+            vector = otherMap.get(account);
+            if(vector!=null){
+                vector.add(booking);
+                booking = merge(vector);
+            }
+            vector = new Vector<Booking>();
+            vector.add(booking);
+            if(booking.isDebit()){
+                debitBookings.put(account, vector);
+            } else {
+                creditBookings.put(account, vector);
+            }
+            allBookings.put(account, vector);
+        }
     }
 
-	public void moveTransaction(Journal oldJournal, Journal newJournal) {
+    private Booking merge(Vector<Booking> vector) {
+        if(vector.size()==1){
+            return vector.firstElement();
+        }
+        Booking result = vector.firstElement();
+        BigDecimal amount = result.getAmount();
+        for(int i=1;i<vector.size();i++){
+            Booking nextBooking = vector.elementAt(i);
+            if(result.isDebit() == nextBooking.isDebit()){
+                amount = amount.add(nextBooking.getAmount());
+//              amount.setScale(2);
+            }else{
+                amount = amount.subtract(nextBooking.getAmount());
+//              amount.setScale(2);
+            }
+            result.setAmount(amount);
+        }
+        if(amount.compareTo(BigDecimal.ONE)<0){
+            amount = amount.negate();
+            result.setDebit(!result.isDebit());
+        }
+
+        return result;
+    }
+
+    public void moveTransaction(Journal oldJournal, Journal newJournal) {
 		if (booked) {
 			oldJournal.unbook(this);
 		}
@@ -165,17 +211,28 @@ public class Transaction implements Serializable {
 
 	public void setId(int nr) {
         id = nr;
-//		Iterator<Booking> it = boekingen.iterator();
-//		while (it.hasNext()) {
-//			Booking b = it.next();
-//			b.setID(nr);
-//		}
 	}
 
 	public ArrayList<Booking> getBookings() {
-		ArrayList<Booking> result = new ArrayList<Booking>();
-		result.addAll(debitBookings);
-		result.addAll(creditBookings);
-		return result;
-	}
+        ArrayList<Booking> result = new ArrayList<Booking>();
+        if(sort){
+            for(Vector<Booking> vector: debitBookings.values()){
+                for(Booking booking: vector){
+                    result.add(booking);
+                }
+            }
+            for(Vector<Booking> vector: creditBookings.values()){
+                for(Booking booking: vector){
+                    result.add(booking);
+                }
+            }
+        } else {
+            for(Vector<Booking> vector: allBookings.values()){
+                for(Booking booking: vector){
+                    result.add(booking);
+                }
+            }
+        }
+        return result;
+    }
 }

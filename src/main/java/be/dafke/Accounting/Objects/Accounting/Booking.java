@@ -1,6 +1,5 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
@@ -10,108 +9,56 @@ import java.util.Calendar;
  * @since 01/10/2010
  * @see Transaction
  */
-public class Booking implements Comparable, Serializable {
+public class Booking {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int id;
-	private String afkorting;
-	private String descr;
-	private Calendar datum;
-	private final Account rekening;
-	private final BigDecimal bedrag;
-	private final boolean isDebet;
-	private final Transaction transactie;
+	private final Account account;
+	private BigDecimal amount;
+	private boolean debit;
+	private final Transaction transaction;
 
 	/**
 	 * Constructor
-	 * @param transaction de transactie waartoe deze boeking behoort
-	 * @param account de rekening horende bij deze boeking
-	 * @param amount het bedrag waarmee de rekening gedebiteerd/gecrediteerd moet worden
-	 * @param debit of het bedrag gedebiteerd of gecrediteerd moet worden
+	 * @param transaction de transaction waartoe deze boeking behoort
+	 * @param account de account horende bij deze boeking
+	 * @param amount het amount waarmee de account gedebiteerd/gecrediteerd moet worden
+	 * @param debit of het amount gedebiteerd of gecrediteerd moet worden
 	 * <ul>
 	 * <li><i><b>true</b></i>: debiteren</li>
 	 * <li><i><b>false</b></i>: crediteren</li>
 	 * </ul>
 	 */
 	public Booking(Transaction transaction, Account account, BigDecimal amount, boolean debit) {
-		transactie = transaction;
-//		descr = description;
-		rekening = account;
-		bedrag = amount;
-		isDebet = debit;
-		//datum = date;
+		this.transaction = transaction;
+		this.account = account;
+		this.amount = amount;
+		this.debit = debit;
 	}
 
 	/**
-	 * Geeft de transactie terug waartoe deze boeking hoort
-	 * @return de transactie waartoe deze boeking hoort
+	 * Geeft de transaction terug waartoe deze boeking hoort
+	 * @return de transaction waartoe deze boeking hoort
 	 */
 	public Transaction getTransaction() {
-		return transactie;
+		return transaction;
 	}
-
-//	/**
-//	 * Stel de datum van de boeking in
-//	 * @param date de datum van de boeking
-//	 */
-//	public void setDate(Calendar date) {
-//		datum = date;
-//	}
-
-//	/**
-//	 * Stelt het id-nummer van de boeking in
-//	 * @param s het id-nummer van de boeking
-//	 */
-//	protected void setID(int s) {
-//		id = s;
-//	}
-
-//	/**
-//	 * Stelt de afkorting van de boeking in
-//	 * @param abbrev de afkorting van de boeking
-//	 */
-//	public void setAbbreviation(String abbrev) {
-//		afkorting = abbrev;
-//	}
 
 	/**
 	 * Geeft de afkorting van de boeking terug
 	 * @return de afkorting van de boeking
 	 */
 	public String getAbbreviation() {
-		return transactie.getAbbreviation();
+		return transaction.getAbbreviation();
 	}
-
-//	/**
-//	 * Stelt de omschrijving van de boeking in
-//	 * @param description de omschrijving van de boeking
-//	 */
-//	public void setDescription(String description) {
-//		descr = description;
-//	}
 
 	/**
 	 * Geeft het id-nummer van de boeking terug
 	 * @return het id-nummer van de boeking
 	 */
 	public int getId() {
-		return transactie.getId();
-	}
-
-	/**
-	 * Verlaag het id-nummer van de boeking
-	 */
-	protected void lowerId() {
-		id--;
-	}
-
-	/**
-	 * Verhoog het id-nummer van de boeking
-	 */
-	protected void raiseId() {
-		id++;
+		return transaction.getId();
 	}
 
 	/**
@@ -119,7 +66,7 @@ public class Booking implements Comparable, Serializable {
 	 * @return de datum waarop deze boeking plaatsvond
 	 */
 	public Calendar getDate() {
-		return transactie.getDate();
+		return transaction.getDate();
 	}
 
 	/**
@@ -127,23 +74,23 @@ public class Booking implements Comparable, Serializable {
 	 * @return de omschrijving van de boeking
 	 */
 	public String getDescription() {
-		return transactie.getDescription();
+		return transaction.getDescription();
 	}
 
 	/**
-	 * Geeft de rekening van de boeking terug
-	 * @return de rekening van de boeking
+	 * Geeft de account van de boeking terug
+	 * @return de account van de boeking
 	 */
 	public Account getAccount() {
-		return rekening;
+		return account;
 	}
 
 	/**
-	 * Geeft het bedrag van de boeking terug
-	 * @return het bedrag van de boeking
+	 * Geeft het amount van de boeking terug
+	 * @return het amount van de boeking
 	 */
 	public BigDecimal getAmount() {
-		return bedrag;
+		return amount;
 	}
 
 	/**
@@ -154,23 +101,15 @@ public class Booking implements Comparable, Serializable {
 	 * <li><i><b>false</b></i>: crediteren</li>
 	 * </ul>
 	 */
-	public boolean isDebet() {
-		return isDebet;
+	public boolean isDebit() {
+		return debit;
 	}
 
-	/**
-	 * Functie om boekingen te ordenen
-	 * @param t de boeking waarmee vergeleken wordt
-	 * @return <ul>
-	 * <li><b>kleiner dan 0</b>: het id-nummer van deze boeking is kleiner dan dat van <i>t</i></li>
-	 * <li><b>groter dan 0</b>: het id-nummer van deze boeking is groter dan dat van <i>t</i></li>
-	 * <li><b>0</b>: de id-nummers van beide boekingen zijn gelijk. Dit kan enkel wanneer de boekingen tot verschillende
-	 * dagboeken horen</li>
-	 * </ul>
-	 * @see Comparable
-	 */
-	@Override
-	public int compareTo(Object t) {
-		return id - ((Booking) t).id;
-	}
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public void setDebit(boolean debit) {
+        this.debit = debit;
+    }
 }

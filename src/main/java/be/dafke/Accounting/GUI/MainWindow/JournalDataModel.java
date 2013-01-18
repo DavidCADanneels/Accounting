@@ -27,7 +27,7 @@ public class JournalDataModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int row, int col) {
 		Booking booking = Transaction.getInstance().getBookings().get(row);
-		if (booking.isDebet()) {
+		if (booking.isDebit()) {
 			if (col == 0) {
 				return booking.getAccount();
 			}

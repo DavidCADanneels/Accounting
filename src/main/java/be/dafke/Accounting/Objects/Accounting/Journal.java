@@ -144,15 +144,15 @@ public class Journal implements Serializable {
 				Booking booking = list.get(0);
 				writer.write("  <action>\r\n" + "    <nr>" + abbreviation + booking.getId() + "</nr>\r\n"
 						+ "    <date>" + Utils.toString(booking.getDate()) + "</date>\r\n" + "    <account>"
-						+ booking.getAccount() + "</account>\r\n" + "    <" + (booking.isDebet() ? "debet" : "credit")
-						+ ">" + booking.getAmount().toString() + "</" + (booking.isDebet() ? "debet" : "credit")
+						+ booking.getAccount() + "</account>\r\n" + "    <" + (booking.isDebit() ? "debet" : "credit")
+						+ ">" + booking.getAmount().toString() + "</" + (booking.isDebit() ? "debet" : "credit")
 						+ ">\r\n" + "    <description>" + booking.getDescription()
 						+ "</description>\r\n  </action>\r\n");
 				for(int i = 1; i < list.size(); i++) {
 					booking = list.get(i);
 					writer.write("  <action>\r\n" + "    <account>" + booking.getAccount() + "</account>\r\n" + "    <"
-							+ (booking.isDebet() ? "debet" : "credit") + ">" + booking.getAmount().toString() + "</"
-							+ (booking.isDebet() ? "debet" : "credit") + ">\r\n" + "  </action>\r\n");
+							+ (booking.isDebit() ? "debet" : "credit") + ">" + booking.getAmount().toString() + "</"
+							+ (booking.isDebit() ? "debet" : "credit") + ">\r\n" + "  </action>\r\n");
 				}
 			}
 			writer.write("</journal>");

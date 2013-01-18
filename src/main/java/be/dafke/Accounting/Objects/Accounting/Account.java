@@ -160,7 +160,7 @@ public class Account implements Serializable {
 	 * @param booking de nieuwe boeking
 	 */
 	protected void book(Booking booking) {
-		if (booking.isDebet()) {
+		if (booking.isDebit()) {
 			debiteer(booking);
 		} else {
 			crediteer(booking);
@@ -251,8 +251,8 @@ public class Account implements Serializable {
 				Booking booking = it.next();
 				writer.write("  <action>\r\n" + "    <nr>" + booking.getAbbreviation() + booking.getId() + "</nr>\r\n"
 						+ "    <date>" + Utils.toString(booking.getDate()) + "</date>\r\n" + "    <"
-						+ (booking.isDebet() ? "debet" : "credit") + ">" + booking.getAmount().toString() + "</"
-						+ (booking.isDebet() ? "debet" : "credit") + ">\r\n" + "    <description>"
+						+ (booking.isDebit() ? "debet" : "credit") + ">" + booking.getAmount().toString() + "</"
+						+ (booking.isDebit() ? "debet" : "credit") + ">\r\n" + "    <description>"
 						+ booking.getDescription() + "</description>\r\n  </action>\r\n");
 			}
 			writer.write("</account>");
@@ -287,7 +287,7 @@ public class Account implements Serializable {
 	 * @param booking de te verwijderen boeking
 	 */
 	protected void unbook(Booking booking) {
-		if (booking.isDebet()) {
+		if (booking.isDebit()) {
 			debettotaal = debettotaal.subtract(booking.getAmount());
 			debettotaal = debettotaal.setScale(2);
 		} else {
