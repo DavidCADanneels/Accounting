@@ -120,44 +120,62 @@ public class Transaction implements Serializable {
 
     private void addBooking(Account account, BigDecimal amount, boolean debit, boolean merge){
         Booking booking = new Booking(this, account, amount, debit);
-        Vector<Booking> vector;
-        HashMap<Account,Vector<Booking>> myMap;
-        HashMap<Account,Vector<Booking>> otherMap;
-        if(debit){
-            myMap = debitBookings;
-            otherMap = creditBookings;
-        } else {
-            myMap = creditBookings;
-            otherMap = debitBookings;
-        }
         if(!merge){
-            vector = myMap.get(account);
-            if (vector == null){
-                vector = new Vector<Booking>();
+            // all Bookings
+            Vector<Booking> allVector = allBookings.get(account);
+            if(allVector==null){
+                allVector = new Vector<Booking>();
             }
-            vector.add(booking);
-            myMap.put(account,vector);
-            allBookings.put(account, vector);
+            allVector.add(booking);
+            allBookings.put(account, allVector);
+
+            // Specific Bookings: Debit or Credit
+            if(debit){
+                // Debit
+                Vector<Booking> debitVector = debitBookings.get(account);
+                if(debitVector==null){
+                    debitVector = new Vector<Booking>();
+                }
+                debitVector.add(booking);
+                debitBookings.put(account,debitVector);
+            } else {
+                // Credit
+                Vector<Booking> creditVector = creditBookings.get(account);
+                if(creditVector==null){
+                    creditVector = new Vector<Booking>();
+                }
+                creditVector.add(booking);
+                creditBookings.put(account,creditVector);
+            }
         } else{
             // MERGE !!!
-            vector = myMap.get(account);
-            if(vector!=null){
-                vector.add(booking);
-                booking = merge(vector);
+            Vector<Booking> vector = new Vector<Booking>();
+            Vector<Booking> debitVector = debitBookings.get(account);
+            Vector<Booking> creditVector = creditBookings.get(account);
+            vector.add(booking);
+            if(debitVector!=null){
+                vector.addAll(debitVector);
             }
-            vector = otherMap.get(account);
-            if(vector!=null){
-                vector.add(booking);
-                booking = merge(vector);
+            if(creditVector!=null){
+                vector.addAll(creditVector);
             }
+            booking = merge(vector);
             vector = new Vector<Booking>();
             vector.add(booking);
-            if(booking.isDebit()){
-                debitBookings.put(account, vector);
+            if(booking.getAmount().compareTo(BigDecimal.ZERO) == 0){
+                debitBookings.remove(account);
+                creditBookings.remove(account);
+                allBookings.remove(account);
             } else {
-                creditBookings.put(account, vector);
+                if(booking.isDebit()){
+                    debitBookings.put(account, vector);
+                    creditBookings.remove(account);
+                } else {
+                    creditBookings.put(account, vector);
+                    debitBookings.remove(account);
+                }
+                allBookings.put(account, vector);
             }
-            allBookings.put(account, vector);
         }
     }
 
@@ -165,10 +183,10 @@ public class Transaction implements Serializable {
         if(vector.size()==1){
             return vector.firstElement();
         }
-        Booking result = vector.firstElement();
+        Booking result = vector.get(0);
         BigDecimal amount = result.getAmount();
         for(int i=1;i<vector.size();i++){
-            Booking nextBooking = vector.elementAt(i);
+            Booking nextBooking = vector.get(i);
             if(result.isDebit() == nextBooking.isDebit()){
                 amount = amount.add(nextBooking.getAmount());
 //              amount.setScale(2);
@@ -181,6 +199,7 @@ public class Transaction implements Serializable {
         if(amount.compareTo(BigDecimal.ONE)<0){
             amount = amount.negate();
             result.setDebit(!result.isDebit());
+            result.setAmount(amount);
         }
 
         return result;
@@ -234,5 +253,9 @@ public class Transaction implements Serializable {
             }
         }
         return result;
+    }
+
+    public boolean contains(Account account) {
+        return allBookings.containsKey(account);
     }
 }

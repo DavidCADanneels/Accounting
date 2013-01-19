@@ -146,11 +146,16 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 				try {
 					BigDecimal amount = new BigDecimal(s);
 					amount = amount.setScale(2);
+                    boolean merge = false;
+                    if(Transaction.getInstance().contains(rekening)){
+                        merge = JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Merge Bookings?", "The current transaction already contains bookings for "
+                                + rekening +". Do you want to merge them?", JOptionPane.YES_NO_OPTION);
+                    }
 					if (debit) {
-						// veranderen naar Transaction.addBooking(newBooking)?
-						Transaction.getInstance().debiteer(rekening, amount);
+						// TODO: veranderen naar Transaction.addBooking(newBooking)?
+						Transaction.getInstance().debiteer(rekening, amount, merge);
 					} else {
-						Transaction.getInstance().crediteer(rekening, amount);
+						Transaction.getInstance().crediteer(rekening, amount, merge);
 					}
 					journalGUI.refresh();
 					ok = true;
