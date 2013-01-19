@@ -160,32 +160,15 @@ public class Account implements Serializable {
 	 * @param booking de nieuwe boeking
 	 */
 	protected void book(Booking booking) {
+        addBooking(booking);
 		if (booking.isDebit()) {
-			debiteer(booking);
+            debettotaal = debettotaal.add(booking.getAmount());
+            debettotaal = debettotaal.setScale(2);
 		} else {
-			crediteer(booking);
+            credittotaal = credittotaal.add(booking.getAmount());
+            credittotaal = credittotaal.setScale(2);
 		}
 //		setSaved(false);
-	}
-
-	/**
-	 * Debiteer de rekening
-	 * @param booking de debet-boeking
-	 */
-	private void debiteer(Booking booking) {
-		addBooking(booking);
-		debettotaal = debettotaal.add(booking.getAmount());
-		debettotaal = debettotaal.setScale(2);
-	}
-
-	/**
-	 * Crediteer de rekening
-	 * @param booking de credit-boeking
-	 */
-	private void crediteer(Booking booking) {
-		addBooking(booking);
-		credittotaal = credittotaal.add(booking.getAmount());
-		credittotaal = credittotaal.setScale(2);
 	}
 
 	/**
