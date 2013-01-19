@@ -22,15 +22,13 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JournalGUI journalGUI;
 	private JComboBox combo;
 	private final JButton maak, details;
 	private final Accountings accountings;
 
-	public JournalsGUI(Accountings accountings, JournalGUI journalGUI) {
+	public JournalsGUI(Accountings accountings) {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
 				"Accounting").getString("DAGBOEKEN")));
-		this.journalGUI = journalGUI;
 		this.accountings = accountings;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		combo = new JComboBox();
@@ -65,7 +63,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
 			Journal journal = (Journal) combo.getSelectedItem();
 			Accounting accounting = accountings.getCurrentAccounting();
 			accounting.setCurrentJournal(journal);
-			journalGUI.init();
+            AccountingMenuBar.refreshAllFrames();
 		}
 	}
 

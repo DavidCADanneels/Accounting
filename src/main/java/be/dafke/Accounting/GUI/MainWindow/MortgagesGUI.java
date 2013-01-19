@@ -2,7 +2,6 @@ package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
-import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
 
 import javax.swing.*;
@@ -13,7 +12,6 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
 
 public class MortgagesGUI extends JPanel implements ListSelectionListener, ActionListener {
 	/**
@@ -22,12 +20,10 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 	private static final long serialVersionUID = 1L;
 	private final JList list;
 	private final JButton pay;// , newMortgage, details;
-	private final JournalGUI journalGUI;
 	private final DefaultListModel listModel;
 	private final Accountings accountings;
 
-	public MortgagesGUI(Accountings accountings, JournalGUI journalGUI) {
-		this.journalGUI = journalGUI;
+	public MortgagesGUI(Accountings accountings) {
 		this.accountings = accountings;
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Mortgages"));
@@ -63,11 +59,8 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 			System.out.println("Payed Off already");
 			return;
 		}
-		mortgage.pay(Transaction.getInstance());
-		journalGUI.refresh();
-		BigDecimal debettotaal = Transaction.getInstance().getDebetTotaal();
-		BigDecimal credittotaal = Transaction.getInstance().getCreditTotaal();
-		if (debettotaal.compareTo(credittotaal) == 0) journalGUI.setOK();
+		mortgage.pay(accountings.getCurrentAccounting().getCurrentTransaction());
+//		journalGUI.refresh();
         AccountingMenuBar.refreshAllFrames();
 	}
 

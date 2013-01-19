@@ -49,6 +49,8 @@ public class Accounting implements Serializable {
 	private File locationXSL, locationXML, locationHTML;
 	private File xmlFile, htmlFile, xslFile;
 
+    private Transaction currentTransaction = new Transaction();
+
 	public Accounting(String name) {
 		this.name = name;
 //		savedXML = true;
@@ -63,6 +65,14 @@ public class Accounting implements Serializable {
 		createXMLFolders();
 //		createHTMLFolders();
 	}
+
+    public Transaction getCurrentTransaction(){
+        return currentTransaction;
+    }
+
+    public void setCurrentTransaction(Transaction transaction){
+        currentTransaction = transaction;
+    }
 
 	public CounterParties getCounterParties() {
 		return counterParties;

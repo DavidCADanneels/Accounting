@@ -1,8 +1,8 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
+import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Booking;
-import be.dafke.Accounting.Objects.Accounting.Transaction;
 
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
@@ -21,12 +21,17 @@ public class JournalDataModel extends AbstractTableModel {
 			java.util.ResourceBundle.getBundle("Accounting").getString("D"),
 			java.util.ResourceBundle.getBundle("Accounting").getString("C") };
 	Class[] columnClasses = { Account.class, Account.class, BigDecimal.class, BigDecimal.class };
+    private final Accountings accountings;
 
+    public JournalDataModel(Accountings accountings){
+        this.accountings = accountings;
+    }
+    
 // DE GET METHODEN
 // ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Booking booking = Transaction.getInstance().getBookings().get(row);
+		Booking booking = accountings.getCurrentAccounting().getCurrentTransaction().getBookings().get(row);
 		if (booking.isDebit()) {
 			if (col == 0) {
 				return booking.getAccount();
@@ -52,7 +57,7 @@ public class JournalDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return Transaction.getInstance().getBookings().size();
+		return accountings.getCurrentAccounting().getCurrentTransaction().getBookings().size();
 	}
 
 	@Override

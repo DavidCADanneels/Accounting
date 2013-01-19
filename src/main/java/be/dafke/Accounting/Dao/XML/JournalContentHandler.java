@@ -21,7 +21,7 @@ public class JournalContentHandler extends DefaultHandler {
 	private boolean account = false;
 	private boolean debit = false;
 	private boolean credit = false;
-	private boolean action = false;
+    private Transaction transaction = null;
 
 //	private final Transaction transaction;
 
@@ -32,13 +32,10 @@ public class JournalContentHandler extends DefaultHandler {
 
 	@Override
 	public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
+        if (qName.equals("action")){
+            transaction = new Transaction();
+        }
 		if (qName.equals("nr")) {
-			if (action) {
-				Transaction.getInstance().book(journal);
-				Transaction.newInstance(null, null);
-			} else {
-				action = true;
-			}
 			nr = true;
 		} else if (qName.equals("date")) {
 			date = true;
@@ -51,7 +48,6 @@ public class JournalContentHandler extends DefaultHandler {
 		} else if (qName.equals("description")) {
 			description = true;
 		}
-
 	}
 
 	@Override
@@ -59,17 +55,17 @@ public class JournalContentHandler extends DefaultHandler {
 		if (nr) {
 			String s = new String(text, start, length);
 			s = s.replaceAll("DIV", "");
-			Transaction.getInstance().setId(Integer.valueOf(s));
+			transaction.setId(Integer.valueOf(s));
 			nr = false;
 		}
 		if (date) {
 			String s = new String(text, start, length);
-			Transaction.getInstance().setDate(Utils.toCalendar(s));
+			transaction.setDate(Utils.toCalendar(s));
 			date = false;
 		}
 		if (description) {
 			String s = new String(text, start, length);
-			Transaction.getInstance().setDescription(s);
+			transaction.setDescription(s);
 			description = false;
 		}
 		if (account) {
@@ -80,19 +76,22 @@ public class JournalContentHandler extends DefaultHandler {
 		if (debit) {
 			String s = new String(text, start, length);
 			BigDecimal amount = new BigDecimal(s);
-			Transaction.getInstance().debiteer(bookingAccount, amount);
+			transaction.debiteer(bookingAccount, amount);
 			debit = false;
 		}
 		if (credit) {
 			String s = new String(text, start, length);
 			BigDecimal amount = new BigDecimal(s);
-			Transaction.getInstance().crediteer(bookingAccount, amount);
+			transaction.crediteer(bookingAccount, amount);
 			credit = false;
 		}
 	}
 
-	@Override
-	public void endDocument() {
-		Transaction.getInstance().book(journal);
-	}
+
+    @Override
+    public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
+        if (qName.equals("action")){
+            transaction.book(journal);
+        }
+    }
 }

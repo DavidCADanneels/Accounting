@@ -22,19 +22,18 @@ public class JournalGUI extends JPanel implements ActionListener {
 	private final JournalDataModel journalDataModel;
 	private final JTextField debet, credit, dag, bewijs, ident;
 	private final JButton ok, clear;
-	protected String tekst;
-	protected Calendar datum;
+//	protected String tekst;
+	protected Calendar date;
 	private BigDecimal debettotaal, credittotaal;
 	private final Accountings accountings;
 
-	public JournalGUI(Accountings accountings) {
+	public JournalGUI(final Accountings accountings) {
 		this.accountings = accountings;
 		debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
-		datum = Calendar.getInstance();
-		tekst = "";
+		date = Calendar.getInstance();
 		setLayout(new BorderLayout());
-		journalDataModel = new JournalDataModel();
+		journalDataModel = new JournalDataModel(accountings);
 		JTable table = new JTable(journalDataModel);
 		table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -43,34 +42,25 @@ public class JournalGUI extends JPanel implements ActionListener {
 		ident = new JTextField(4);
 		ident.setEditable(false);
 		dag = new JTextField(8);
-		dag.setText(Utils.toString(datum));
+		dag.setText(Utils.toString(date));
 		dag.addFocusListener(new FocusListener() {
-			@Override
-			public void focusGained(FocusEvent fe) {
-			}
+            @Override
+            public void focusGained(FocusEvent fe) {
+            }
 
-			@Override
-			public void focusLost(FocusEvent fe) {
-				Calendar d = Utils.toCalendar(dag.getText());
-				if (d != null) datum = d;
-				Transaction.getInstance().setDate(datum);
-				dag.setText(Utils.toString(datum));
-			}
+            @Override
+            public void focusLost(FocusEvent fe) {
+                date = Utils.toCalendar(dag.getText());
+                if (date == null){
+                    JOptionPane.showMessageDialog(null,"invalid date");
+                    dag.setText("");
+                }else{
+                    dag.setText(Utils.toString(date));
+                }
+            }
 
-		});
+        });
 		bewijs = new JTextField(30);
-		bewijs.addFocusListener(new FocusListener() {
-			@Override
-			public void focusGained(FocusEvent fe) {
-			}
-
-			@Override
-			public void focusLost(FocusEvent fe) {
-				tekst = bewijs.getText();
-				Transaction.getInstance().setDescription(tekst);
-			}
-		});
-		Transaction.newInstance(datum, tekst);
 
 		ok = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("OK"));
 		ok.addActionListener(this);
@@ -119,30 +109,46 @@ public class JournalGUI extends JPanel implements ActionListener {
 	}
 
 	public void refresh() {
-		debettotaal = Transaction.getInstance().getDebetTotaal();
-		credittotaal = Transaction.getInstance().getCreditTotaal();
+		debettotaal = accountings.getCurrentAccounting().getCurrentTransaction().getDebetTotaal();
+		credittotaal = accountings.getCurrentAccounting().getCurrentTransaction().getCreditTotaal();
 		debet.setText(debettotaal.toString());
 		credit.setText(credittotaal.toString());
 		journalDataModel.fireTableDataChanged();
+        if(debettotaal.compareTo(credittotaal)==0){
+            ok.setEnabled(true);
+        }
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if ((JButton) e.getSource() == ok) {
-			Accounting accounting = accountings.getCurrentAccounting();
-			Transaction.getInstance().book(accounting.getCurrentJournal());
-			init();
-			clear();
-            AccountingMenuBar.refreshAllFrames();
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == ok) {
+            if(date == null){
+                JOptionPane.showMessageDialog(null, "Fill in date");
+            } else {
+                Accounting accounting = accountings.getCurrentAccounting();
+                Transaction transaction = accounting.getCurrentTransaction();
+                // TODO Encode text for XML / HTML
+                transaction.setDescription(bewijs.getText());
+                transaction.setDate(date);
+                transaction.book(accounting.getCurrentJournal());
+                init();
+                clear();
+                transaction = new Transaction();
+                transaction.setDate(date);
+                accounting.setCurrentTransaction(transaction);
+                AccountingMenuBar.refreshAllFrames();
+            }
 		}
-		if ((JButton) e.getSource() == clear) {
+		if (e.getSource() == clear) {
 			clear();
 		}
 	}
 
 	public void clear() {
 		ok.setEnabled(false);
-		Transaction.newInstance(datum, tekst);
+        Transaction transaction = new Transaction();
+        transaction.setDate(date);
+        accountings.getCurrentAccounting().setCurrentTransaction(transaction);
 		refresh();
 	}
 

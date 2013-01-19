@@ -26,9 +26,9 @@ public class AccountingGUIPanel extends JPanel {
 		// if(!checkID())
 		// System.exit(0);
 		journalGUI = new JournalGUI(accountings);
-		accountsGUI = new AccountsGUI(accountings, journalGUI);
-		journalsGUI = new JournalsGUI(accountings, journalGUI);
-		mortgagesGUI = new MortgagesGUI(accountings, journalGUI);
+		accountsGUI = new AccountsGUI(accountings);
+		journalsGUI = new JournalsGUI(accountings);
+		mortgagesGUI = new MortgagesGUI(accountings);
 
 		JPanel linksBoven = new JPanel(new BorderLayout());
 		linksBoven.add(accountsGUI, BorderLayout.CENTER);

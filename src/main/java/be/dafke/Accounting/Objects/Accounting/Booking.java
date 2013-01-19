@@ -62,8 +62,8 @@ public class Booking {
 	}
 
 	/**
-	 * Geeft de datum terug waarop deze boeking plaatsvond
-	 * @return de datum waarop deze boeking plaatsvond
+	 * Geeft de date terug waarop deze boeking plaatsvond
+	 * @return de date waarop deze boeking plaatsvond
 	 */
 	public Calendar getDate() {
 		return transaction.getDate();

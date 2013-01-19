@@ -5,7 +5,7 @@ import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.GregorianCalendar;
+import java.util.Calendar;
 import java.util.Iterator;
 
 /**
@@ -48,8 +48,9 @@ public class Project implements Serializable {
 	}
 
 	public Account close() {
-		Transaction.newInstance(new GregorianCalendar(),
-				java.util.ResourceBundle.getBundle("Accounting").getString("AFSLUITEN_PROJECT"));
+		Transaction transaction = new Transaction();
+        transaction.setDate(Calendar.getInstance());
+        transaction.setDescription(java.util.ResourceBundle.getBundle("Accounting").getString("AFSLUITEN_PROJECT"));
 		ArrayList<Account> teVerwijderen = new ArrayList<Account>();
 
 		BigDecimal totaalKost = new BigDecimal(0);
@@ -57,7 +58,7 @@ public class Project implements Serializable {
 		while (it1.hasNext()) {
 			Account kost = it1.next();
 			BigDecimal amount = kost.saldo();
-			Transaction.getInstance().crediteer(kost, amount);
+			transaction.crediteer(kost, amount);
 			totaalKost.add(amount);
 			teVerwijderen.add(kost);
 		}
@@ -67,7 +68,7 @@ public class Project implements Serializable {
 		while (it2.hasNext()) {
 			Account opbrengst = it2.next();
 			BigDecimal amount = opbrengst.saldo();
-			Transaction.getInstance().debiteer(opbrengst, amount);
+			transaction.debiteer(opbrengst, amount);
 			totaalOpbrengst.add(amount);
 			teVerwijderen.add(opbrengst);
 		}
@@ -78,14 +79,14 @@ public class Project implements Serializable {
 			result = new Account(java.util.ResourceBundle.getBundle("Accounting").getString(
 					"WINST_PROJECT")
 					+ naam, AccountType.Revenue);
-			Transaction.getInstance().crediteer(result, winst);
+			transaction.crediteer(result, winst);
 		} else {
 			BigDecimal verlies = totaalKost.subtract(totaalOpbrengst);
 			verlies = verlies.setScale(2);
 			result = new Account(java.util.ResourceBundle.getBundle("Accounting").getString(
 					"VERLIES_PROJECT")
 					+ naam, AccountType.Cost);
-			Transaction.getInstance().debiteer(result, verlies);
+			transaction.debiteer(result, verlies);
 		}
 		result.setAccounting(accounting);
 		accounting.getAccounts().add(result);

@@ -31,7 +31,7 @@ public class Transaction implements Serializable {
 	private final ArrayList<Mortgage> mortgages;
     private boolean sort = true; // for later use: default = true --> First all Debits, then all Credits
 
-    private Transaction() {
+    public Transaction() {
 		booked = false;
 		debettotaal = new BigDecimal(0);
 		debettotaal = debettotaal.setScale(2);
@@ -81,17 +81,6 @@ public class Transaction implements Serializable {
 
 	public void setDate(Calendar date) {
 		datum = date;
-	}
-
-	public static Transaction getInstance() {
-		if (trans == null) trans = new Transaction();
-		return trans;
-	}
-
-	public static void newInstance(Calendar date, String description) {
-		trans = new Transaction();
-		trans.setDate(date);
-		trans.setDescription(description);
 	}
 
 	public void addMortgage(Mortgage mortgage) {

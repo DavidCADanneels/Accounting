@@ -35,17 +35,17 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 	private final AlphabeticListModel model;
 	private final JList lijst;
 	private final JButton debet, credit, nieuw, details;
-	private final JournalGUI journalGUI;
-	private RefreshableFrame detailsGui;
+//	private final JournalGUI journalGUI;
+//	private RefreshableFrame detailsGui;
 	private final JCheckBox[] boxes;
 	private final Accountings accountings;
 
-	public AccountsGUI(Accountings accountings, JournalGUI journalGUI) {
+	public AccountsGUI(Accountings accountings) {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
                 "Accounting").getString("REKENINGEN")));
 		this.accountings = accountings;
-		this.journalGUI = journalGUI;
+//		this.journalGUI = journalGUI;
 		debet = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("DEBITEER"));
 		debet.setMnemonic(KeyEvent.VK_D);
 		credit = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("CREDITEER"));
@@ -147,21 +147,20 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 					BigDecimal amount = new BigDecimal(s);
 					amount = amount.setScale(2);
                     boolean merge = false;
-                    if(Transaction.getInstance().contains(rekening)){
+                    Transaction transaction = accountings.getCurrentAccounting().getCurrentTransaction();
+                    if(transaction.contains(rekening)){
                         merge = JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Merge Bookings?", "The current transaction already contains bookings for "
                                 + rekening +". Do you want to merge them?", JOptionPane.YES_NO_OPTION);
                     }
 					if (debit) {
 						// TODO: veranderen naar Transaction.addBooking(newBooking)?
-						Transaction.getInstance().debiteer(rekening, amount, merge);
+						transaction.debiteer(rekening, amount, merge);
 					} else {
-						Transaction.getInstance().crediteer(rekening, amount, merge);
+						transaction.crediteer(rekening, amount, merge);
 					}
-					journalGUI.refresh();
+//					journalGUI.refresh();
 					ok = true;
-					BigDecimal debettotaal = Transaction.getInstance().getDebetTotaal();
-					BigDecimal credittotaal = Transaction.getInstance().getCreditTotaal();
-					if (debettotaal.compareTo(credittotaal) == 0) journalGUI.setOK();
+                    AccountingMenuBar.refreshAllFrames();
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(this,
 							java.util.ResourceBundle.getBundle("Accounting").getString("INVALID_INPUT"));

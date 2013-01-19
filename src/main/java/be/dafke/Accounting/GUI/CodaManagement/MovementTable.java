@@ -215,7 +215,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 						account.setAccounting(accounting);
 					}
 					BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 4);
-					Transaction trans = Transaction.getInstance();
+					Transaction trans = accounting.getCurrentTransaction();
 					if (debet) {
 						trans.debiteer(account, amount);
 						trans.crediteer(bankAccount, amount);
@@ -229,7 +229,12 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 					String description = (String) tabel.getValueAt(i, 7);
 					trans.setDescription(description);
 					trans.book(journal);
-					Transaction.newInstance(date, description);
+
+                    trans = new Transaction();
+                    trans.setDate(date); // take the same date as previous transaction
+                    // leave the description empty
+
+                    accounting.setCurrentTransaction(trans);
 				}
 			}
 		}
