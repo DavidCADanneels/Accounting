@@ -51,8 +51,9 @@ public class AccountTest {
     @Test
     public void test_debit(){
         Account account = new Account("NAME", Account.AccountType.Active);
-//        account.toXML();
-        Booking booking = new Booking(null,"",account,BigDecimal.ONE,true, Calendar.getInstance());
+        Transaction transaction = new Transaction();
+        transaction.setDate(Calendar.getInstance());
+        Booking booking = new Booking(transaction,account,BigDecimal.ONE,true);
         Class[] classes= new Class[1];
         classes[0] = Booking.class;
         Booking[] args = new Booking[1];
@@ -60,7 +61,8 @@ public class AccountTest {
         try{
             PrivateAccessor.invoke(account, "addBooking",classes,args );
         }catch (Throwable e){
-             fail("error");
+            e.printStackTrace();
+             fail();
         }
         assertEquals(1,account.getBookings().size());
         BigDecimal ZERO = BigDecimal.ZERO.setScale(2);
