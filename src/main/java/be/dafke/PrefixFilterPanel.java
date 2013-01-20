@@ -26,8 +26,6 @@ public class PrefixFilterPanel<K> extends JPanel {
 	protected JTextField zoekveld;
     private PrefixFilter<K> filter;
     private DefaultListModel<K> model;
-	// protected HashMap map;
-//	protected ArrayList map;
 
 	/**
 	 * Constructor with model, panel and map
@@ -36,10 +34,8 @@ public class PrefixFilterPanel<K> extends JPanel {
 	 * @param map map met de gegevens uit de list
 	 */
 	public PrefixFilterPanel(DefaultListModel model, JList<K> list, ArrayList map) {
-        // TODO split up in Filter and GUI component !!!
         this.model = model;
         filter = new PrefixFilter<K>(model, map);
-        //list = new JList(model);
         this.list = list;
         scrol = new JScrollPane(list);
 		zoekveld = new JTextField(20);
@@ -81,8 +77,6 @@ public class PrefixFilterPanel<K> extends JPanel {
 	/**
 	 * verwijdert alle objecten uit de view en voegt enkel de objecten toe, waarvan de String-voorstelling begint met de
 	 * letters in het tekstveld
-	 * <p>
-	 * <i>(o.toString().startsWith(String s))</i>
 	 */
 	@Override
 	public void paintComponent(Graphics g) {

@@ -127,7 +127,7 @@ public class JournalGUI extends JPanel implements ActionListener {
             } else {
                 Accounting accounting = accountings.getCurrentAccounting();
                 Transaction transaction = accounting.getCurrentTransaction();
-                // TODO Encode text for XML / HTML
+                // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
                 transaction.setDescription(bewijs.getText());
                 transaction.setDate(date);
                 transaction.book(accounting.getCurrentJournal());

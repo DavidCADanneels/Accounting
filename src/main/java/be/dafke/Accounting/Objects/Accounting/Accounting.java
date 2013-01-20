@@ -483,7 +483,7 @@ public class Accounting implements Serializable {
 		return locationHTML;
 	}
 
-	protected File getLocationXml() {
+	public File getLocationXml() {
 		return locationXML;
 	}
 

@@ -27,6 +27,7 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
 		tabel.addMouseListener(this);
 	}
 
+    @Override
 	public void mouseClicked(MouseEvent me) {
 		Point cell = me.getPoint();
 //		Point location = me.getLocationOnScreen();
@@ -68,23 +69,19 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
 		}
 	}
 
-	public void mouseEntered(MouseEvent e) {
-		// TODO Auto-generated method stub
-
+    @Override
+    public void mouseEntered(MouseEvent e) {
 	}
 
+    @Override
 	public void mouseExited(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
+    @Override
 	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 
+    @Override
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
-
 	}
 }
