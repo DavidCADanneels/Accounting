@@ -112,4 +112,8 @@ public class Booking {
     public void setDebit(boolean debit) {
         this.debit = debit;
     }
+
+    public boolean isFirstBooking() {
+        return this == transaction.getBookings().get(0);
+    }
 }

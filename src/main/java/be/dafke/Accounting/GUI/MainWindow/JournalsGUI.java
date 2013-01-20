@@ -63,7 +63,6 @@ public class JournalsGUI extends JPanel implements ActionListener {
 			Journal journal = (Journal) combo.getSelectedItem();
 			Accounting accounting = accountings.getCurrentAccounting();
 			accounting.setCurrentJournal(journal);
-            AccountingMenuBar.refreshAllFrames();
 		}
 	}
 
@@ -74,8 +73,8 @@ public class JournalsGUI extends JPanel implements ActionListener {
 			Accounting accounting = accountings.getCurrentAccounting();
 			Journals journals = accounting.getJournals();
 			combo = new JComboBox(journals.values().toArray());
-			combo.addActionListener(this);
 			combo.setSelectedItem(accounting.getCurrentJournal());
+            combo.addActionListener(this);
 			add(combo);
 			revalidate();
 		} else {

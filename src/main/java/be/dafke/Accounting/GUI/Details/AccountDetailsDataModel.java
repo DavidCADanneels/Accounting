@@ -50,19 +50,21 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		Booking boeking = rekening.getBookings().get(row);
-		if (col == 0) {
-			return boeking.getAbbreviation() + boeking.getId();
-		} else if (col == 1) {
-			return Utils.toString(boeking.getDate());
-		} else if (col == 2) {
-			if (boeking.isDebit()) return boeking.getAmount();
-			return "";
-		} else if (col == 3) {
-			if (!boeking.isDebit()) return boeking.getAmount();
-			return "";
-		} else return boeking.getDescription();
-	}
+        Booking boeking = rekening.getBookings().get(row);
+        if (col == 0) {
+            return boeking.getAbbreviation() + boeking.getId();
+        } else if (col == 1) {
+            return Utils.toString(boeking.getDate());
+        } else if (col == 2) {
+            if (boeking.isDebit()) return boeking.getAmount();
+            return "";
+        } else if (col == 3) {
+            if (!boeking.isDebit()) return boeking.getAmount();
+            return "";
+        } else {
+            return boeking.getDescription();
+        }
+    }
 
 	@Override
 	public Class getColumnClass(int col) {

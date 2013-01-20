@@ -57,6 +57,9 @@ public class JournalDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
+        if(accountings == null || accountings.getCurrentAccounting() == null){
+            return 0;
+        }
 		return accountings.getCurrentAccounting().getCurrentTransaction().getBookings().size();
 	}
 

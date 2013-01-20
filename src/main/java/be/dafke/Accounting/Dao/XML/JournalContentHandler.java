@@ -21,7 +21,8 @@ public class JournalContentHandler extends DefaultHandler {
 	private boolean account = false;
 	private boolean debit = false;
 	private boolean credit = false;
-    private Transaction transaction = null;
+	private boolean action = false;
+    private Transaction transaction = new Transaction();
 
 //	private final Transaction transaction;
 
@@ -32,10 +33,13 @@ public class JournalContentHandler extends DefaultHandler {
 
 	@Override
 	public void startElement(String namespaceURI, String localName, String qName, Attributes atts) throws SAXException {
-        if (qName.equals("action")){
-            transaction = new Transaction();
-        }
 		if (qName.equals("nr")) {
+			if (action) {
+				transaction.book(journal);
+				transaction = new Transaction();
+			} else {
+				action = true;
+			}
 			nr = true;
 		} else if (qName.equals("date")) {
 			date = true;
@@ -54,7 +58,9 @@ public class JournalContentHandler extends DefaultHandler {
 	public void characters(char[] text, int start, int length) {
 		if (nr) {
 			String s = new String(text, start, length);
+            // TODO: split up in abbreviation and number / or make 2 separate tags
 			s = s.replaceAll("DIV", "");
+            transaction.setAbbreviation("DIV");
 			transaction.setId(Integer.valueOf(s));
 			nr = false;
 		}
@@ -87,11 +93,8 @@ public class JournalContentHandler extends DefaultHandler {
 		}
 	}
 
-
-    @Override
-    public void endElement(String namespaceURI, String localName, String qName) throws SAXException {
-        if (qName.equals("action")){
-            transaction.book(journal);
-        }
-    }
+	@Override
+	public void endDocument() {
+		transaction.book(journal);
+	}
 }

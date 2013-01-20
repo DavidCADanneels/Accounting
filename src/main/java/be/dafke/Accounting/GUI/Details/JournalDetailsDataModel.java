@@ -68,20 +68,29 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 			boekingen.addAll(trans.getBookings());
 		}
 		Booking boeking = boekingen.get(row);
-		if (col == 0) {
-			return boeking.getAbbreviation() + boeking.getId();
-		} else if (col == 1) {
-			return Utils.toString(boeking.getDate());
-		} else if (col == 2) {
-			return boeking.getAccount();
-		} else if (col == 3) {
-			if (boeking.isDebit()) return boeking.getAmount();
-			return "";
-		} else if (col == 4) {
-			if (!boeking.isDebit()) return boeking.getAmount();
-			return "";
-		} else return boeking.getDescription();
-	}
+        boolean first = boeking.isFirstBooking();
+        if (col == 0) {
+            if(first){
+                return boeking.getAbbreviation() + boeking.getId();
+            } else return "";
+        } else if (col == 1) {
+            if(first){
+                return Utils.toString(boeking.getDate());
+            } else return "";
+        } else if (col == 2) {
+            return boeking.getAccount();
+        } else if (col == 3) {
+            if (boeking.isDebit()) return boeking.getAmount();
+            return "";
+        } else if (col == 4) {
+            if (!boeking.isDebit()) return boeking.getAmount();
+            return "";
+        } else{
+            if(first){
+                return boeking.getDescription();
+            } else return "";
+        }
+    }
 
 	@Override
 	public Class getColumnClass(int col) {
