@@ -45,7 +45,7 @@ public class AccountingGUIPanel extends JPanel {
 	}
 
 	public void refresh() {
-		journalGUI.init();
+		journalGUI.refresh();
 		accountsGUI.refresh();
 		journalsGUI.refresh();
 		mortgagesGUI.refresh();

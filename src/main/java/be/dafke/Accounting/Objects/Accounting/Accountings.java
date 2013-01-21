@@ -1,8 +1,5 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import be.dafke.Accounting.Dao.XML.AccountingSAXParser;
-
-import javax.swing.*;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -34,30 +31,23 @@ public class Accountings {
 		return currentAccounting != null;
 	}
 
-	public void close() {
-		for(Accounting accounting : accountings.values()) {
-			accounting.close();
-		}
-		AccountingSAXParser.toXML(this);
-	}
-
 	public void open(String name) {
-		if (currentAccounting != null) {
-			currentAccounting.close();
-		}
+//		if (currentAccounting != null) {
+//			currentAccounting.close();
+//		}
 		currentAccounting = accountings.get(name);
 	}
 
-	public void openAccounting() {
-		if (currentAccounting != null) {
-			currentAccounting.close();
-		}
-		Object[] set = accountings.keySet().toArray();
-		Object obj = JOptionPane.showInputDialog(null, "Chooser", "Select an accounting",
-				JOptionPane.INFORMATION_MESSAGE, null, set, set[0]);
-		String s = (String) obj;
-		currentAccounting = accountings.get(s);
-	}
+//	public void openAccounting() {
+//		if (currentAccounting != null) {
+//			currentAccounting.close();
+//		}
+//		Object[] set = accountings.keySet().toArray();
+//		Object obj = JOptionPane.showInputDialog(null, "Chooser", "Select an accounting",
+//				JOptionPane.INFORMATION_MESSAGE, null, set, set[0]);
+//		String s = (String) obj;
+//		currentAccounting = accountings.get(s);
+//	}
 
 	public void addAccounting(String name) {
 		currentAccounting = new Accounting(name);

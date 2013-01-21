@@ -106,25 +106,6 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
 		return result;
 	}
 
-	/**
-	 * Schrijft alle gewijzigde rekeningen uit naar XML
-	 * @see be.dafke.Accounting.GUI.MainWindow.AccountingGUIFrame#windowClosing(java.awt.event.WindowEvent) oorzaak
-	 * windowClosing(WindowEvent)
-	 */
-	public void saveAllXML() {
-		for(Account account : values()) {
-//			if (!account.isSaved())
-			account.toXML();
-		}
-	}
-
-	public void saveAllHTML() {
-		for(Account account : values()) {
-//			if (!account.isSaved())
-			account.toHTML();
-		}
-	}
-
 	public void rename(String oldName, String newName) {
 		Account account = get(oldName);
 		account.setName(newName);

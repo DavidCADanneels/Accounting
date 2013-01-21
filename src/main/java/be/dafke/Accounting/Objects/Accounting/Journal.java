@@ -1,19 +1,10 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import be.dafke.Utils;
-
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.Serializable;
-import java.io.Writer;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Boekhoudkundig dagboek
@@ -33,10 +24,10 @@ public class Journal implements Serializable {
 	private Accounting accounting;
 	private JournalType journalType;
 //	private final String DEFAULT_XSL = "../../xsl/Journal.xsl";
-//	private final String styleSheet = DEFAULT_XSL;
+//	private final String xslFile = DEFAULT_XSL;
 	private File xmlFile;
 	private File htmlFile;
-	private File styleSheet;
+	private File xslFile;
 
 	/**
 	 * Constructor
@@ -67,7 +58,7 @@ public class Journal implements Serializable {
 	public void setAccounting(Accounting accounting) {
 		this.accounting = accounting;
 		xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getJournalLocationXml(), name + ".xml");
-		styleSheet = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Journal.xsl");
+		xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Journal.xsl");
 		htmlFile = FileSystemView.getFileSystemView().getChild(accounting.getJournalLocationHtml(), name + ".html");
 	}
 
@@ -124,51 +115,6 @@ public class Journal implements Serializable {
 //	protected void setSaved(boolean s) {
 //		save = s;
 //	}
-
-	/**
-	 * Schrijft het dagboek uit naar een XML-bestand: <b><i>naam dagboek</i>.xml</b> Alle XML bestanden horende bij
-	 * dagboeken worden in 1 map bewaard. Wanneer voor de eerste keer een dagboek naar XML wordt uitgeschreven, wordt
-	 * aan de gebruiker gevraagd deze map aan te duiden.
-	 */
-	public void toXML() {
-		xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getJournalLocationXml(), name + ".xml");
-		try {
-			Writer writer = new FileWriter(xmlFile);
-			writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-					+ "<?xml-stylesheet type=\"text/xsl\" href=\"" + styleSheet + "\"?>\r\n" + "<journal>\r\n"
-					+ "  <name>" + name + "</name>\r\n");
-			Iterator<Transaction> it = transacties.iterator();
-			while (it.hasNext()) {
-				Transaction trans = it.next();
-				ArrayList<Booking> list = trans.getBookings();
-				Booking booking = list.get(0);
-				writer.write("  <action>\r\n" + "    <nr>" + abbreviation + booking.getId() + "</nr>\r\n"
-						+ "    <date>" + Utils.toString(booking.getDate()) + "</date>\r\n" + "    <account>"
-						+ booking.getAccount() + "</account>\r\n" + "    <" + (booking.isDebit() ? "debet" : "credit")
-						+ ">" + booking.getAmount().toString() + "</" + (booking.isDebit() ? "debet" : "credit")
-						+ ">\r\n" + "    <description>" + booking.getDescription()
-						+ "</description>\r\n  </action>\r\n");
-				for(int i = 1; i < list.size(); i++) {
-					booking = list.get(i);
-					writer.write("  <action>\r\n" + "    <account>" + booking.getAccount() + "</account>\r\n" + "    <"
-							+ (booking.isDebit() ? "debet" : "credit") + ">" + booking.getAmount().toString() + "</"
-							+ (booking.isDebit() ? "debet" : "credit") + ">\r\n" + "  </action>\r\n");
-				}
-			}
-			writer.write("</journal>");
-			writer.flush();
-			writer.close();
-//			save = true;
-		} catch (FileNotFoundException ex) {
-			Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (IOException ex) {
-			Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-		}
-	}
-
-	public void toHTML() {
-		Utils.xmlToHtml(xmlFile, styleSheet, htmlFile, null);
-	}
 
 	/**
 	 * Verwijdert de gegeven transactie
@@ -278,4 +224,16 @@ public class Journal implements Serializable {
 	public void setAbbreviation(String newAbbreviation) {
 		abbreviation = newAbbreviation;
 	}
+
+    public File getXslFile() {
+        return xslFile;
+    }
+
+    public File getHtmlFile() {
+        return htmlFile;
+    }
+
+    public File getXmlFile() {
+        return xmlFile;
+    }
 }

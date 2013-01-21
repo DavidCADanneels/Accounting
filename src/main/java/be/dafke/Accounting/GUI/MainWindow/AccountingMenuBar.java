@@ -154,6 +154,12 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
         } else if (frames.containsKey(item.getActionCommand())) {
             frames.get(item.getActionCommand()).setVisible(true);
         } else if(accountings.contains(ae.getActionCommand())){
+            // TODO: save currentAccounting ? --> make toXML(accounting) public
+//            Accounting currentAccounting = accountings.getCurrentAccounting();
+//            if(currentAccounting != null){
+//                // TODO: ask user: save or not ?
+//                AccountingSAXParser.toXML(currentAccounting);
+//            }
             accountings.open(ae.getActionCommand());
         } else{
             System.err.println(ae.getActionCommand()+ " not supported");

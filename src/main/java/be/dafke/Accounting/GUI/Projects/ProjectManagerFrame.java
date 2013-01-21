@@ -183,31 +183,33 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 		}
 	}
 
-	@Override
-	public void refresh() {
-		Accounting accounting = accountings.getCurrentAccounting();
-		Accounts accounts = accounting.getAccounts();
-		zoeker.resetMap(accounts.getAccounts());
-		Projects projects = accounting.getProjects();
-		for(Project project : projects.values()) {
-			combo.addItem(project);
-		}
-		Project[] result = new Project[projects.size()];
-		projects.values().toArray(result);
-		if (result.length != 0) {
-			System.out.println("voor init");
-			combo.setSelectedItem(result[0]);
-			System.out.println("na init");
-		} else {
-			project = null;
-			ArrayList<Account> noProjectlijst = accounts.getAccounts(AccountType.getList());
-			Iterator<Account> it2 = noProjectlijst.iterator();
-			allAccountsModel.removeAllElements();
-			while (it2.hasNext()) {
-				Account account = it2.next();
+    @Override
+    public void refresh() {
+        if(accountings != null && accountings.getCurrentAccounting() != null){
+            Accounting accounting = accountings.getCurrentAccounting();
+            Accounts accounts = accounting.getAccounts();
+            zoeker.resetMap(accounts.getAccounts());
+            Projects projects = accounting.getProjects();
+            for(Project project : projects.values()) {
+                combo.addItem(project);
+            }
+            Project[] result = new Project[projects.size()];
+            projects.values().toArray(result);
+            if (result.length != 0) {
+                System.out.println("voor init");
+                combo.setSelectedItem(result[0]);
+                System.out.println("na init");
+            } else {
+                project = null;
+                ArrayList<Account> noProjectlijst = accounts.getAccounts(AccountType.getList());
+                Iterator<Account> it2 = noProjectlijst.iterator();
+                allAccountsModel.removeAllElements();
+                while (it2.hasNext()) {
+                    Account account = it2.next();
 //				System.out.println("No Project: " + project + " | account" + account);
-				allAccountsModel.addElement(account);
-			}
-		}
+                    allAccountsModel.addElement(account);
+                }
+            }
+        }
 	}
 }

@@ -187,25 +187,27 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 
 	@Override
 	public void refresh() {
-		Accounting accounting = accountings.getCurrentAccounting();
-		listModel = new DefaultListModel();
-		for(Mortgage mortgage : accounting.getMortgagesTables()) {
-			if (!listModel.contains(mortgage)) {
-				listModel.addElement(mortgage);
-			}
-		}
-		mortgagesList.setModel(listModel);
-		mortgagesList.revalidate();
+        if(accountings!=null && accountings.getCurrentAccounting()!=null){
+            Accounting accounting = accountings.getCurrentAccounting();
+            listModel = new DefaultListModel();
+            for(Mortgage mortgage : accounting.getMortgagesTables()) {
+                if (!listModel.contains(mortgage)) {
+                    listModel.addElement(mortgage);
+                }
+            }
+            mortgagesList.setModel(listModel);
+            mortgagesList.revalidate();
 
-		accounts = new Account[accounting.getAccounts().getAccounts().size()];
-		for(int i = 0; i < accounting.getAccounts().getAccounts().size(); i++) {
-			accounts[i] = accounting.getAccounts().getAccounts().get(i);
-		}
-		intrestModel = new DefaultComboBoxModel(accounts);
-		capitalModel = new DefaultComboBoxModel(accounts);
-		comboCapital.setModel(capitalModel);
-		comboIntrest.setModel(intrestModel);
-		comboCapital.revalidate();
-		comboIntrest.revalidate();
+            accounts = new Account[accounting.getAccounts().getAccounts().size()];
+            for(int i = 0; i < accounting.getAccounts().getAccounts().size(); i++) {
+                accounts[i] = accounting.getAccounts().getAccounts().get(i);
+            }
+            intrestModel = new DefaultComboBoxModel(accounts);
+            capitalModel = new DefaultComboBoxModel(accounts);
+            comboCapital.setModel(capitalModel);
+            comboIntrest.setModel(intrestModel);
+            comboCapital.revalidate();
+            comboIntrest.revalidate();
+        }
 	}
 }

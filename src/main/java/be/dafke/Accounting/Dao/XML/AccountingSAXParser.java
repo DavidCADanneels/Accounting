@@ -3,8 +3,14 @@ package be.dafke.Accounting.Dao.XML;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
+import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.Journal;
+import be.dafke.Accounting.Objects.Accounting.Transaction;
+import be.dafke.Accounting.Objects.Coda.BankAccount;
+import be.dafke.Accounting.Objects.Coda.CounterParty;
+import be.dafke.Accounting.Objects.Coda.Movement;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
+import be.dafke.Utils;
 import org.xml.sax.XMLReader;
 
 import javax.swing.filechooser.FileSystemView;
@@ -15,6 +21,10 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -180,6 +190,214 @@ public class AccountingSAXParser {
                 Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
+        for(Accounting accounting : accountings.getAccountings()) {
+            toXML(accounting);
+        }
     }
 
+    private static void toXML(Accounting accounting) {
+        System.out.println("Accounting.TOXML()");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Accounting.xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Accounting.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Accounting.dtd");
+        try {
+            Writer writer = new FileWriter(xmlFile);
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Accounting SYSTEM \""
+                    + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
+                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Accounting xsl=\"" + accounting.getLocationXSL() + "\">\r\n");
+            writer.write("  <Accounts xml=\"" + accounting.getAccountLocationXml() + "\" html=\"" + accounting.getAccountLocationHtml()
+                    + "\">\r\n");
+            for(Account account : accounting.getAccounts().getAccounts()) {
+                writer.write("    <Account>\r\n"
+                        + "      <account_name>"
+                        + account.getName()
+                        + "</account_name>\r\n"
+                        + "      <account_type>"
+                        + account.getType()
+                        + "</account_type>\r\n"
+                        + (account.getProject() == null ? "" : "      <account_project>" + account.getProject()
+                        + "</account_project>\r\n") + "    </Account>\r\n");
+            }
+            writer.write("  </Accounts>\r\n");
+            writer.write("  <Journals xml=\"" + accounting.getJournalLocationXml() + "\" html=\"" + accounting.getJournalLocationHtml()
+                    + "\">\r\n");
+            for(Journal journal : accounting.getJournals().getAllJournals()) {
+                writer.write("    <Journal>\r\n" + "      <journal_name>" + journal.getName() + "</journal_name>\r\n"
+                        + "      <journal_short>" + journal.getAbbreviation() + "</journal_short>\r\n"
+                        + "    </Journal>\r\n");
+            }
+            writer.write("  </Journals>\r\n");
+            writer.write("  <Balances xml=\"" + accounting.getBalanceLocationXml() + "\" html=\"" + accounting.getBalanceLocationHtml()
+                    + "\">\r\n");
+            writer.write("  </Balances>\r\n");
+            writer.write("  <Mortgages xml=\"" + accounting.getMortgageLocationXml() + "\" html=\"" + accounting.getMortgageLocationHtml()
+                    + "\">\r\n");
+            for(Mortgage mortgage : accounting.getMortgagesTables()) {
+                writer.write("    <Mortgage name=\"" + mortgage.toString() + "\" total=\"" + mortgage.getStartCapital()
+                        + "\">\r\n" + "      <nrPayed>" + mortgage.getNrPayed() + "</nrPayed>\r\n"
+                        + "      <capital_account>" + mortgage.getCapitalAccount() + "</capital_account>\r\n"
+                        + "      <intrest_account>" + mortgage.getIntrestAccount() + "</intrest_account>\r\n"
+                        + "    </Mortgage>\r\n");
+            }
+            writer.write("  </Mortgages>\r\n");
+            writer.write("  <Movements xml=\"" + accounting.getMovementLocationXml() + "\" html=\"" + accounting.getMovementLocationHtml()
+                    + "\">\r\n");
+            for(Movement movement : accounting.getMovements().getAllMovements()) {
+
+            }
+            writer.write("  </Movements>\r\n");
+            writer.write("  <Counterparties xml=\"" + accounting.getCounterPartyLocationXml() + "\" html=\""
+                    + accounting.getCounterPartyLocationHtml() + "\">\r\n");
+            for(CounterParty counterParty : accounting.getCounterParties().getCounterParties()) {
+                writer.write("    <Counterparty name =\""+counterParty.getName()+"\">\r\n");
+                writer.write("      <AccountName>");
+                if(counterParty.getAccount()!=null){
+                    writer.write(counterParty.getAccount().getName());
+                }
+                writer.write("</AccountName>\r\n");
+                if(counterParty.getBankAccounts()!=null){
+                    for(BankAccount account : counterParty.getBankAccounts().values()) {
+                        writer.write("      <BankAccount>" + account.getAccountNumber() + "</BankAccount>\r\n");
+                        writer.write("      <BIC>" + account.getBic().trim() + "</BIC>\r\n");
+                        writer.write("      <Currency>" + account.getCurrency() + "</Currency>\r\n");
+                    }
+                }
+                writer.write("    </Counterparty>\r\n");
+            }
+            writer.write("  </Counterparties>\r\n");
+            writer.write("</Accounting>\r\n");
+            writer.flush();
+            writer.close();
+//			setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        writeMortgages(accounting);
+
+        for(Account account:accounting.getAccounts().values()){
+//            TODO: add isSavedXML
+//            if(account.isSavedXML()){
+            toXML(account);
+//            }
+        }
+        for(Journal journal:accounting.getJournals().values()){
+//            TODO: add isSavedXML
+//            if(journal.isSavedXML()){
+            toXML(journal);
+//            }
+        }
+        toHtml(accounting);
+    }
+
+    private static void writeMortgages(Accounting accounting) {
+        for(Mortgage mortgage : accounting.getMortgagesTables()) {
+            File styleSheet = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Mortgage.xsl");
+            File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getMortgageLocationXml(),
+                    mortgage.toString() + ".xml");
+            try {
+                Writer writer = new FileWriter(xmlFile);
+                writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
+                        + "<?xml-stylesheet type=\"text/xsl\" href=\"" + styleSheet.getCanonicalPath() + "\"?>\r\n"
+                        + "<mortgageTable name=\"" + mortgage.toString() + "\">\r\n");
+                int teller = 1;
+                for(Vector<BigDecimal> vector : mortgage.getTable()) {
+                    writer.write("  <line>\r\n" + "    <nr>" + teller + "</nr>\r\n" + "    <mensuality>"
+                            + vector.get(0) + "</mensuality>\r\n" + "    <intrest>" + vector.get(1) + "</intrest>\r\n"
+                            + "    <capital>" + vector.get(2) + "</capital>\r\n" + "    <restCapital>" + vector.get(3)
+                            + "</restCapital>\r\n  </line>\r\n");
+                    teller++;
+                }
+                writer.write("</mortgageTable>");
+                writer.flush();
+                writer.close();
+                // setSaved(true);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    private static void toXML(Account account){
+        try {
+            Writer writer = new FileWriter(account.getXmlFile());
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
+                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + account.getXslFile().getCanonicalPath() + "\"?>\r\n"
+                    + "<account>\r\n" + "  <name>" + account.getName() + "</name>\r\n");
+            Iterator<Booking> it = account.getBookings().iterator();
+            while (it.hasNext()) {
+                Booking booking = it.next();
+                writer.write("  <action>\r\n" + "    <nr>" + booking.getAbbreviation() + booking.getId() + "</nr>\r\n"
+                        + "    <date>" + Utils.toString(booking.getDate()) + "</date>\r\n" + "    <"
+                        + (booking.isDebit() ? "debet" : "credit") + ">" + booking.getAmount().toString() + "</"
+                        + (booking.isDebit() ? "debet" : "credit") + ">\r\n" + "    <description>"
+                        + booking.getDescription() + "</description>\r\n  </action>\r\n");
+            }
+            writer.write("</account>");
+            writer.flush();
+            writer.close();
+//			setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void toXML(Journal journal) {
+//        xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getJournalLocationXml(), name + ".xml");
+        try {
+            Writer writer = new FileWriter(journal.getXmlFile());
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
+                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + journal.getXslFile() + "\"?>\r\n" + "<journal>\r\n"
+                    + "  <name>" + journal.getName() + "</name>\r\n");
+            for (Transaction transaction :journal.getTransactions()) {
+                ArrayList<Booking> list = transaction.getBookings();
+                Booking booking = list.get(0);
+                writer.write("  <action>\r\n" + "    <nr>" + journal.getAbbreviation() + booking.getId() + "</nr>\r\n"
+                        + "    <date>" + Utils.toString(booking.getDate()) + "</date>\r\n" + "    <account>"
+                        + booking.getAccount() + "</account>\r\n" + "    <" + (booking.isDebit() ? "debet" : "credit")
+                        + ">" + booking.getAmount().toString() + "</" + (booking.isDebit() ? "debet" : "credit")
+                        + ">\r\n" + "    <description>" + booking.getDescription()
+                        + "</description>\r\n  </action>\r\n");
+                for(int i = 1; i < list.size(); i++) {
+                    booking = list.get(i);
+                    writer.write("  <action>\r\n" + "    <account>" + booking.getAccount() + "</account>\r\n" + "    <"
+                            + (booking.isDebit() ? "debet" : "credit") + ">" + booking.getAmount().toString() + "</"
+                            + (booking.isDebit() ? "debet" : "credit") + ">\r\n" + "  </action>\r\n");
+                }
+            }
+            writer.write("</journal>");
+            writer.flush();
+            writer.close();
+//			save = true;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+
+    private static void toHtml(Accounting accounting){
+        if(accounting.getLocationHtml() == null){
+            accounting.createHTMLFolders();
+        }
+        Utils.xmlToHtml(accounting.getXMLFile(), accounting.getXSLFile(), accounting.getHTMLFile(), null);
+        for(Account account:accounting.getAccounts().values()){
+//            TODO: add isSavedHTML
+//            if(account.isSavedHTML()){
+            Utils.xmlToHtml(account.getXmlFile(), account.getXslFile(), account.getHtmlFile(), null);
+//            }
+        }
+        for(Journal journal:accounting.getJournals().values()){
+//            TODO: add isSavedHTML
+//            if(journal.isSavedHTML()){
+            Utils.xmlToHtml(journal.getXmlFile(), journal.getXslFile(), journal.getHtmlFile(), null);
+//            }
+        }
+    }
 }

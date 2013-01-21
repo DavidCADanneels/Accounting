@@ -29,25 +29,6 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
 	}
 
 	/**
-	 * Schrijft alle gewijzigde dagboeken uit naar XML
-	 * @see be.dafke.Accounting.GUI.MainWindow.AccountingGUIFrame#windowClosing(java.awt.event.WindowEvent) oorzaak
-	 * windowClosing(WindowEvent)
-	 */
-	public void saveAllXML() {
-		for(Journal journal : values()) {
-//			if (!journal.isSaved())
-			journal.toXML();
-		}
-	}
-
-	public void saveAllHTML() {
-		for(Journal journal : values()) {
-//			if (!journal.isSaved())
-			journal.toHTML();
-		}
-	}
-
-	/**
 	 * Geeft alle dagboeken terug behalve het gegeven dagboek
 	 * @param j het dagboek dat we willen uitsluiten
 	 * @return alle dagboeken behalve het gegeven dagboek

@@ -1,27 +1,16 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import be.dafke.Accounting.Objects.Coda.BankAccount;
 import be.dafke.Accounting.Objects.Coda.CounterParties;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
-import be.dafke.Accounting.Objects.Coda.Movement;
 import be.dafke.Accounting.Objects.Coda.Movements;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
-import be.dafke.Utils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.Serializable;
-import java.io.Writer;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Vector;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * @author David Danneels
@@ -82,7 +71,7 @@ public class Accounting implements Serializable {
 		return movements;
 	}
 
-	private void createHTMLFolders() {
+	public void createHTMLFolders() {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
@@ -245,170 +234,6 @@ public class Accounting implements Serializable {
 //		return accounting;
 //	}
 
-	public void close() {
-		save();
-	}
-
-	public void saveToXML() {
-//		if (!isSaved()) {
-//			int result = JOptionPane.showConfirmDialog(null,
-//					java.util.ResourceBundle.getBundle("Accounting").getString("SAVE_XML?"));
-//			if (result == JOptionPane.OK_OPTION) {
-		System.out.println("Accounting.saveToXML");
-		toXML();
-		getAccounts().saveAllXML();
-		getJournals().saveAllXML();
-//			setSavedXML(true);
-//		}
-	}
-
-	private void writeMortgages() {
-		for(Mortgage mortgage : getMortgagesTables()) {
-			File styleSheet = FileSystemView.getFileSystemView().getChild(getLocationXSL(), "Mortgage.xsl");
-			File xmlFile = FileSystemView.getFileSystemView().getChild(getMortgageLocationXml(),
-					mortgage.toString() + ".xml");
-			try {
-				Writer writer = new FileWriter(xmlFile);
-				writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-						+ "<?xml-stylesheet type=\"text/xsl\" href=\"" + styleSheet.getCanonicalPath() + "\"?>\r\n"
-						+ "<mortgageTable name=\"" + mortgage.toString() + "\">\r\n");
-				int teller = 1;
-				for(Vector<BigDecimal> vector : mortgage.getTable()) {
-					writer.write("  <line>\r\n" + "    <nr>" + teller + "</nr>\r\n" + "    <mensuality>"
-							+ vector.get(0) + "</mensuality>\r\n" + "    <intrest>" + vector.get(1) + "</intrest>\r\n"
-							+ "    <capital>" + vector.get(2) + "</capital>\r\n" + "    <restCapital>" + vector.get(3)
-							+ "</restCapital>\r\n  </line>\r\n");
-					teller++;
-				}
-				writer.write("</mortgageTable>");
-				writer.flush();
-				writer.close();
-				// setSaved(true);
-			} catch (FileNotFoundException ex) {
-				Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-			} catch (IOException ex) {
-				Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-			}
-		}
-	}
-
-	private void toXML() {
-		writeMortgages();
-		System.out.println("Accounting.TOXML()");
-		File xmlFile = FileSystemView.getFileSystemView().getChild(getLocationXml(), "Accounting.xml");
-		File xslFile = FileSystemView.getFileSystemView().getChild(getLocationXSL(), "Accounting.xsl");
-		File dtdFile = FileSystemView.getFileSystemView().getChild(getLocationXSL(), "Accounting.dtd");
-		try {
-			Writer writer = new FileWriter(xmlFile);
-			writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Accounting SYSTEM \""
-					+ dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-					+ xslFile.getCanonicalPath() + "\"?>\r\n" + "<Accounting xsl=\"" + getLocationXSL() + "\">\r\n");
-			writer.write("  <Accounts xml=\"" + getAccountLocationXml() + "\" html=\"" + getAccountLocationHtml()
-					+ "\">\r\n");
-			for(Account account : getAccounts().getAccounts()) {
-				writer.write("    <Account>\r\n"
-						+ "      <account_name>"
-						+ account.getName()
-						+ "</account_name>\r\n"
-						+ "      <account_type>"
-						+ account.getType()
-						+ "</account_type>\r\n"
-						+ (account.getProject() == null ? "" : "      <account_project>" + account.getProject()
-								+ "</account_project>\r\n") + "    </Account>\r\n");
-			}
-			writer.write("  </Accounts>\r\n");
-			writer.write("  <Journals xml=\"" + getJournalLocationXml() + "\" html=\"" + getJournalLocationHtml()
-					+ "\">\r\n");
-			for(Journal journal : getJournals().getAllJournals()) {
-				writer.write("    <Journal>\r\n" + "      <journal_name>" + journal.getName() + "</journal_name>\r\n"
-						+ "      <journal_short>" + journal.getAbbreviation() + "</journal_short>\r\n"
-						+ "    </Journal>\r\n");
-			}
-			writer.write("  </Journals>\r\n");
-			writer.write("  <Balances xml=\"" + getBalanceLocationXml() + "\" html=\"" + getBalanceLocationHtml()
-					+ "\">\r\n");
-			writer.write("  </Balances>\r\n");
-			writer.write("  <Mortgages xml=\"" + getMortgageLocationXml() + "\" html=\"" + getMortgageLocationHtml()
-					+ "\">\r\n");
-			for(Mortgage mortgage : getMortgagesTables()) {
-				writer.write("    <Mortgage name=\"" + mortgage.toString() + "\" total=\"" + mortgage.getStartCapital()
-						+ "\">\r\n" + "      <nrPayed>" + mortgage.getNrPayed() + "</nrPayed>\r\n"
-						+ "      <capital_account>" + mortgage.getCapitalAccount() + "</capital_account>\r\n"
-						+ "      <intrest_account>" + mortgage.getIntrestAccount() + "</intrest_account>\r\n"
-						+ "    </Mortgage>\r\n");
-			}
-			writer.write("  </Mortgages>\r\n");
-			writer.write("  <Movements xml=\"" + getMovementLocationXml() + "\" html=\"" + getMovementLocationHtml()
-					+ "\">\r\n");
-			for(Movement movement : movements.getAllMovements()) {
-
-			}
-			writer.write("  </Movements>\r\n");
-			writer.write("  <Counterparties xml=\"" + getCounterPartyLocationXml() + "\" html=\""
-					+ getCounterPartyLocationHtml() + "\">\r\n");
-			for(CounterParty counterParty : counterParties.getCounterParties()) {
-				writer.write("    <Counterparty name =\""+counterParty.getName()+"\">\r\n");
-				writer.write("      <AccountName>");
-                if(counterParty.getAccount()!=null){
-                    writer.write(counterParty.getAccount().getName());
-                }
-                writer.write("</AccountName>\r\n");
-                if(counterParty.getBankAccounts()!=null){
-                    for(BankAccount account : counterParty.getBankAccounts().values()) {
-                        writer.write("      <BankAccount>" + account.getAccountNumber() + "</BankAccount>\r\n");
-                        writer.write("      <BIC>" + account.getBic().trim() + "</BIC>\r\n");
-                        writer.write("      <Currency>" + account.getCurrency() + "</Currency>\r\n");
-                    }
-                }
-				writer.write("    </Counterparty>\r\n");
-			}
-			writer.write("  </Counterparties>\r\n");
-			writer.write("</Accounting>\r\n");
-			writer.flush();
-			writer.close();
-//			setSaved(true);
-		} catch (FileNotFoundException ex) {
-			Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-		} catch (IOException ex) {
-			Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-		}
-
-	}
-
-	private void saveToHTML() {
-//		int result = JOptionPane.showConfirmDialog(null,
-//				java.util.ResourceBundle.getBundle("Accounting").getString("SAVE_XML?"));
-//		if (result == JOptionPane.OK_OPTION) {
-		System.out.println("Accounting.saveToHTML");
-		toHtml();
-		getAccounts().saveAllHTML();
-		getJournals().saveAllHTML();
-//			setSavedHTML(true);
-//		}
-
-	}
-
-	private void toHtml() {
-		Utils.xmlToHtml(xmlFile, xslFile, htmlFile, null);
-	}
-
-	public void save() {
-		// null check and saved check should be together
-		// but isSaved is only changed after transactions
-		// not if only new accounts have been created
-		// TODO: setSaved(false) after creation/deleting/modifying accounts
-//		if (location.equals("")) {
-//			saveAs();
-//		} else {
-		if (locationHTML == null) {
-			createHTMLFolders();
-		}
-		saveToXML();
-		saveToHTML();
-//		serialiseer();
-//		}
-	}
-
 //	public Accounting saveAs() {
 //		JFileChooser kiezer = new JFileChooser();
 //		kiezer.setDialogTitle(java.util.ResourceBundle.getBundle("Accounting").getString("WAAR_OPSLAAN"));
@@ -421,45 +246,6 @@ public class Accounting implements Serializable {
 //		saveToHTML();
 	// serialiseer();
 //		return this;
-//	}
-
-//	public void serialiseer() {
-//		try {
-//			File object = FileSystemView.getFileSystemView().getChild(locationXML, "object");
-//			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(object));
-//			out.writeObject(this);
-//			out.flush();
-//			out.close();
-//		} catch (Exception e) {
-//			System.out.println(java.util.ResourceBundle.getBundle("Accounting").getString(
-//					"FOUT_SERIALISEREN")
-//					+ "Accounting");
-//			e.printStackTrace();
-//		}
-//		try {
-//			File counterparties = FileSystemView.getFileSystemView().getChild(locationXML, "counterparties");
-//			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(counterparties));
-//			out.writeObject(CounterParties.getInstance());
-//			out.flush();
-//			out.close();
-//		} catch (Exception e) {
-//			System.out.println(java.util.ResourceBundle.getBundle("Accounting").getString(
-//					"FOUT_SERIALISEREN")
-//					+ "Counterparties");
-//			e.printStackTrace();
-//		}
-//		try {
-//			File movements = FileSystemView.getFileSystemView().getChild(locationXML, "movements");
-//			ObjectOutputStream out = new ObjectOutputStream(new FileOutputStream(movements));
-//			out.writeObject(Movements.getAllMovements());
-//			out.flush();
-//			out.close();
-//		} catch (Exception e) {
-//			System.out.println(java.util.ResourceBundle.getBundle("Accounting").getString(
-//					"FOUT_SERIALISEREN")
-//					+ "Movements");
-//			e.printStackTrace();
-//		}
 //	}
 
 	public JournalTypes getJournalTypes() {
@@ -482,6 +268,18 @@ public class Accounting implements Serializable {
 	public File getLocationHtml() {
 		return locationHTML;
 	}
+
+    public File getHTMLFile(){
+        return htmlFile;
+    }
+
+    public File getXMLFile(){
+        return xmlFile;
+    }
+
+    public File getXSLFile(){
+        return xslFile;
+    }
 
 	public File getLocationXml() {
 		return locationXML;

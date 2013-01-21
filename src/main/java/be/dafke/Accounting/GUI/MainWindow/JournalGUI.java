@@ -104,18 +104,21 @@ public class JournalGUI extends JPanel implements ActionListener {
 		add(onder, BorderLayout.SOUTH);
 	}
 
-	public void setOK() {
-		ok.setEnabled(true);
-	}
-
 	public void refresh() {
-		debettotaal = accountings.getCurrentAccounting().getCurrentTransaction().getDebetTotaal();
-		credittotaal = accountings.getCurrentAccounting().getCurrentTransaction().getCreditTotaal();
-		debet.setText(debettotaal.toString());
-		credit.setText(credittotaal.toString());
-		journalDataModel.fireTableDataChanged();
-        if(debettotaal.compareTo(credittotaal)==0){
-            ok.setEnabled(true);
+        if(accountings!=null && accountings.getCurrentAccounting()!=null){
+            Accounting accounting = accountings.getCurrentAccounting();
+            journalDataModel.fireTableDataChanged();
+            debettotaal = accounting.getCurrentTransaction().getDebetTotaal();
+            credittotaal = accounting.getCurrentTransaction().getCreditTotaal();
+            debet.setText(debettotaal.toString());
+            credit.setText(credittotaal.toString());
+            journalDataModel.fireTableDataChanged();
+            ok.setEnabled(debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0);
+            ident.setText(accounting.getCurrentJournal().getAbbreviation() + " "
+                    + accounting.getCurrentJournal().getId());
+        } else{
+            ok.setEnabled(false);
+            ident.setText("");
         }
 	}
 
@@ -131,8 +134,8 @@ public class JournalGUI extends JPanel implements ActionListener {
                 transaction.setDescription(bewijs.getText());
                 transaction.setDate(date);
                 transaction.book(accounting.getCurrentJournal());
-                init();
                 clear();
+                bewijs.setText("");
                 transaction = new Transaction();
                 transaction.setDate(date);
                 accounting.setCurrentTransaction(transaction);
