@@ -74,6 +74,7 @@ public class JournalGUI extends JPanel implements ActionListener {
 		paneel1.add(ident);
 		paneel1.add(new JLabel(java.util.ResourceBundle.getBundle("Accounting").getString("DATUM")));
 		paneel1.add(dag);
+        paneel1.add(new JLabel("(d/m/yyyy)"));
 
 		JPanel paneel2 = new JPanel();
 		paneel2.add(new JLabel(java.util.ResourceBundle.getBundle("Accounting").getString(
