@@ -102,7 +102,7 @@ public class Calculate {
 	}
 
 	public static ArrayList<Vector<BigDecimal>> createDegressiveAmountTable(BigDecimal startKapitaal,
-			int aantalMaanden, BigDecimal mensualiteit, BigDecimal maandPercentage) {
+			int aantalMaanden, BigDecimal maandPercentage) {
 		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100));
 		ArrayList<Vector<BigDecimal>> aflossingsTabel = new ArrayList<Vector<BigDecimal>>();
 
@@ -155,7 +155,7 @@ public class Calculate {
 		vector.add(intrest);
 //		vector.add(kapitaal);
 		vector.add(restKapitaal);
-		vector.add(restKapitaal);
+		vector.add(BigDecimal.ZERO);
 		aflossingsTabel.add(vector);
 		System.out.println("totaalIntrest: " + totaleIntrest);
 		System.out.println("totaleSom: " + totaleSom);

@@ -167,7 +167,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 			if (fix.isSelected()) {
 				data = Calculate.createFixedAmountTable(startKapitaal, aantalMaanden, mensualiteit, maandPercentage);
 			} else {
-				data = Calculate.createDegressiveAmountTable(startKapitaal, aantalMaanden, mensualiteit,
+				data = Calculate.createDegressiveAmountTable(startKapitaal, aantalMaanden,
 						maandPercentage);
 			}
 			// if (show) {
@@ -184,7 +184,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 
 	private void calculateTablesAndTotals() {
 		fixedTable = Calculate.createFixedAmountTable(startKapitaal, aantalMaanden, mensualiteit, maandPercentage);
-		degressiveTable = Calculate.createDegressiveAmountTable(startKapitaal, aantalMaanden, mensualiteit,
+		degressiveTable = Calculate.createDegressiveAmountTable(startKapitaal, aantalMaanden,
 				maandPercentage);
 		BigDecimal totalIntrestFixedNr = Calculate.getTotalIntrest(fixedTable);
 		BigDecimal totalIntrestDegresNr = Calculate.getTotalIntrest(degressiveTable);
