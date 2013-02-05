@@ -26,7 +26,6 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 	private final Movement movement;
 	private final JRadioButton single, multiple;
 	private final ButtonGroup singleMultiple;
-	private final ComboBoxModel<CounterParty> model;
 	private final Accountings accountings;
 
 	public CounterPartySelector(JFrame parent, Movement movement, Accountings accountings) {
@@ -35,8 +34,7 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 		this.accountings = accountings;
 		counterParty = null;
 		// counterParty = (CounterParty) counterparties[0];
-		model = new DefaultComboBoxModel<CounterParty>();
-		combo = new JComboBox(model);
+		combo = new JComboBox(accountings.getCurrentAccounting().getCounterParties().getCounterParties().toArray());
 		combo.addItem(null);
 		combo.setSelectedItem(null);
 		// combo.setSelectedItem(counterparties[0]);
@@ -61,7 +59,7 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 		JScrollPane scroll2 = new JScrollPane(movementNoCounterpartyTable);
 		JPanel center = new JPanel();
 		single = new JRadioButton("Apply only for the selected movement");
-		multiple = new JRadioButton("Apply only for all similar movements");
+		multiple = new JRadioButton("Apply for all similar movements");
 		singleMultiple = new ButtonGroup();
 		singleMultiple.add(single);
 		singleMultiple.add(multiple);

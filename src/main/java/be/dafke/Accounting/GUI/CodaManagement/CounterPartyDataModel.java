@@ -83,5 +83,5 @@ public class CounterPartyDataModel extends AbstractTableModel {
 	// ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-	}
+    }
 }
