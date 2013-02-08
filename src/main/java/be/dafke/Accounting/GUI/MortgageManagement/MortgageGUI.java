@@ -1,6 +1,5 @@
 package be.dafke.Accounting.GUI.MortgageManagement;
 
-import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
@@ -110,7 +109,6 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		} else {
 			save.setText("Edit");
 		}
-//		save.setEnabled(active);
 	}
 
 	@Override
@@ -182,7 +180,6 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 				}
 			}
 		}
-        AccountingMenuBar.refreshAllFrames();
     }
 
 	@Override
