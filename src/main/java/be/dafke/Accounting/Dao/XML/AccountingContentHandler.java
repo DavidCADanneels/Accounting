@@ -1,6 +1,5 @@
 package be.dafke.Accounting.Dao.XML;
 
-import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Project;
@@ -11,7 +10,6 @@ import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.io.File;
-import java.math.BigDecimal;
 
 public class AccountingContentHandler extends DefaultHandler {
 	private final Accounting accounting;
@@ -57,39 +55,6 @@ public class AccountingContentHandler extends DefaultHandler {
 //        } else if (qName.equals("Currency")){
 //            String name = atts.getValue("name");
 //            counterParty = new CounterParty(name);
-		} else if (qName.equals("Mortgage")) {
-			String name = atts.getValue("name");
-			String totalString = atts.getValue("total");
-			BigDecimal amount = new BigDecimal(totalString);
-			mortgage = new Mortgage(name, amount);
-//			mortgage.setAccounting(accounting);
-			accounting.addMortgageTable(name, mortgage);
-		} else if (qName.equals("nrPayed")) {
-			b_nrPayed = true;
-		} else if (qName.equals("capital_account")) {
-			b_capital_account = true;
-		} else if (qName.equals("intrest_account")) {
-			b_intrest_account = true;
-		}
-	}
-
-	@Override
-	public void characters(char[] text, int start, int length) {
-		if (b_nrPayed) {
-			String nrString = new String(text, start, length);
-			int nr = Integer.valueOf(nrString);
-			mortgage.setPayed(nr);
-			b_nrPayed = false;
-		} else if (b_capital_account) {
-			String accountString = new String(text, start, length);
-			Account account = accounting.getAccounts().get(accountString);
-			mortgage.setCapitalAccount(account);
-			b_capital_account = false;
-		} else if (b_intrest_account) {
-			String accountString = new String(text, start, length);
-			Account account = accounting.getAccounts().get(accountString);
-			mortgage.setIntrestAccount(account);
-			b_intrest_account = false;
 		}
 	}
 

@@ -187,6 +187,32 @@ public class AccountingSAXParser {
                                 journal.setAccounting(accounting);
                                 accounting.getJournals().add(journal);
                             }
+
+                            // Handle Mortgages
+                            NodeList mortgages = ((Element)mortgagesNode).getElementsByTagName("Mortgage");
+                            for (int i = 0; i < mortgages.getLength(); i++) {
+                                Element element = (Element)mortgages.item(i);
+                                String mortgageName = element.getAttribute("name");
+                                String total = element.getAttribute("total");
+                                String nrPayed = element.getElementsByTagName("nrPayed").item(0).getChildNodes().item(0).getNodeValue();
+                                String capital_account = element.getElementsByTagName("capital_account").item(0).getChildNodes().item(0).getNodeValue();
+                                String intrest_account = element.getElementsByTagName("intrest_account").item(0).getChildNodes().item(0).getNodeValue();
+                                System.out.println("Mortgages: "+" | "+mortgageName+" | "+total+" | "+nrPayed+" | "+capital_account+" | "+intrest_account);
+                                BigDecimal amount = new BigDecimal(total);
+                                Mortgage mortgage = new Mortgage(mortgageName, amount);
+                                int nr = Integer.valueOf(nrPayed);
+                                mortgage.setPayed(nr);
+                                Account capital = accounting.getAccounts().get(capital_account);
+                                mortgage.setCapitalAccount(capital);
+                                Account intrest = accounting.getAccounts().get(intrest_account);
+                                mortgage.setCapitalAccount(intrest);
+//                    			mortgage.setAccounting(accounting);
+                                accounting.addMortgageTable(mortgageName, mortgage);
+
+                            }
+
+
+
                             SAXParserFactory factory = SAXParserFactory.newInstance();
                             factory.setValidating(true);
                             SAXParser parser = factory.newSAXParser();
