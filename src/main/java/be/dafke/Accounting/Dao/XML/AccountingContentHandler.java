@@ -58,12 +58,6 @@ public class AccountingContentHandler extends DefaultHandler {
 //        } else if (qName.equals("Currency")){
 //            String name = atts.getValue("name");
 //            counterParty = new CounterParty(name);
-		} else if (qName.equals("account_name")) {
-			b_account_name = true;
-		} else if (qName.equals("account_type")) {
-			b_account_type = true;
-		} else if (qName.equals("account_project")) {
-			b_account_project = true;
 		} else if (qName.equals("journal_name")) {
 			b_journal_name = true;
 		} else if (qName.equals("journal_short")) {
@@ -86,22 +80,7 @@ public class AccountingContentHandler extends DefaultHandler {
 
 	@Override
 	public void characters(char[] text, int start, int length) {
-		if (b_account_name) {
-			account_name = new String(text, start, length);
-			b_account_name = false;
-		} else if (b_account_type) {
-			String typeString = new String(text, start, length);
-			account_type = AccountType.valueOf(typeString);
-			b_account_type = false;
-		} else if (b_account_project) {
-			String projectString = new String(text, start, length);
-			project = accounting.getProjects().get(projectString);
-			if (project == null) {
-				project = new Project(projectString);
-				accounting.getProjects().put(projectString, project);
-			}
-			b_account_project = false;
-		} else if (b_journal_name) {
+		if (b_journal_name) {
 			journal_name = new String(text, start, length);
 			b_journal_name = false;
 		} else if (b_journal_short) {
@@ -127,15 +106,7 @@ public class AccountingContentHandler extends DefaultHandler {
 
 	@Override
 	public void endElement(String namespaceURI, String localName, String qName) {
-		if (qName.equals("Account")) {
-			Account account = new Account(account_name, account_type);
-			if (project != null) {
-				project.addAccount(account);
-				project = null;
-			}
-			account.setAccounting(accounting);
-			accounting.getAccounts().add(account);
-		} else if (qName.equals("Journal")) {
+		if (qName.equals("Journal")) {
 			Journal journal = new Journal(journal_name, journal_short);
 			journal.setAccounting(accounting);
 			accounting.getJournals().add(journal);

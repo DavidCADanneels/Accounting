@@ -5,6 +5,7 @@ import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.Journal;
+import be.dafke.Accounting.Objects.Accounting.Project;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.Accounting.Objects.Coda.BankAccount;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
@@ -157,6 +158,22 @@ public class AccountingSAXParser {
                                 String account_name = element.getElementsByTagName("account_name").item(0).getChildNodes().item(0).getNodeValue();
                                 String account_type = element.getElementsByTagName("account_type").item(0).getChildNodes().item(0).getNodeValue();
                                 System.out.println("Account: "+account_name+" | "+account_type);
+
+                                Account.AccountType type = Account.AccountType.valueOf(account_type);
+                                Account account = new Account(account_name, type);
+                                account.setAccounting(accounting);
+                                accounting.getAccounts().add(account);
+
+                                NodeList projectNodeList = element.getElementsByTagName("account_project");
+                                if(projectNodeList.getLength()>0){
+                                    String account_project = projectNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                                    Project project = accounting.getProjects().get(account_project);
+                                    if (project == null) {
+                                        project = new Project(account_project);
+                                        accounting.getProjects().put(account_project, project);
+                                    }
+                                    project.addAccount(account);
+                                }
                             }
 
                             SAXParserFactory factory = SAXParserFactory.newInstance();
