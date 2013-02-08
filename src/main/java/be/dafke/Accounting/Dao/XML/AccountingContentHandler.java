@@ -3,7 +3,6 @@ package be.dafke.Accounting.Dao.XML;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Project;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
@@ -58,10 +57,6 @@ public class AccountingContentHandler extends DefaultHandler {
 //        } else if (qName.equals("Currency")){
 //            String name = atts.getValue("name");
 //            counterParty = new CounterParty(name);
-		} else if (qName.equals("journal_name")) {
-			b_journal_name = true;
-		} else if (qName.equals("journal_short")) {
-			b_journal_short = true;
 		} else if (qName.equals("Mortgage")) {
 			String name = atts.getValue("name");
 			String totalString = atts.getValue("total");
@@ -80,13 +75,7 @@ public class AccountingContentHandler extends DefaultHandler {
 
 	@Override
 	public void characters(char[] text, int start, int length) {
-		if (b_journal_name) {
-			journal_name = new String(text, start, length);
-			b_journal_name = false;
-		} else if (b_journal_short) {
-			journal_short = new String(text, start, length);
-			b_journal_short = false;
-		} else if (b_nrPayed) {
+		if (b_nrPayed) {
 			String nrString = new String(text, start, length);
 			int nr = Integer.valueOf(nrString);
 			mortgage.setPayed(nr);
@@ -106,11 +95,7 @@ public class AccountingContentHandler extends DefaultHandler {
 
 	@Override
 	public void endElement(String namespaceURI, String localName, String qName) {
-		if (qName.equals("Journal")) {
-			Journal journal = new Journal(journal_name, journal_short);
-			journal.setAccounting(accounting);
-			accounting.getJournals().add(journal);
-        } else if (qName.equals("Counterparty")){
+		if (qName.equals("Counterparty")){
             accounting.addCounterparty(counterParty);
 //            accounting.getCounterParties().put(counterParty.getName(),counterParty);
 		}

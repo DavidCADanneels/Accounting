@@ -176,6 +176,17 @@ public class AccountingSAXParser {
                                 }
                             }
 
+                            // Handle Journals
+                            NodeList journals = ((Element)journalsNode).getElementsByTagName("Journal");
+                            for (int i = 0; i < journals.getLength(); i++) {
+                                Element element = (Element)journals.item(i);
+                                String journal_name = element.getElementsByTagName("journal_name").item(0).getChildNodes().item(0).getNodeValue();
+                                String journal_short = element.getElementsByTagName("journal_short").item(0).getChildNodes().item(0).getNodeValue();
+                                System.out.println("Journal: "+journal_name+" | "+journal_short);
+                                Journal journal = new Journal(journal_name, journal_short);
+                                journal.setAccounting(accounting);
+                                accounting.getJournals().add(journal);
+                            }
                             SAXParserFactory factory = SAXParserFactory.newInstance();
                             factory.setValidating(true);
                             SAXParser parser = factory.newSAXParser();
