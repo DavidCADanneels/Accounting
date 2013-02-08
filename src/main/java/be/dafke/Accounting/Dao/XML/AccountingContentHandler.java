@@ -44,36 +44,6 @@ public class AccountingContentHandler extends DefaultHandler {
 //			accounting.setLocation(new File(location));
 			String xsl = atts.getValue("xsl");
 			accounting.setLocationXSL(new File(xsl));
-		} else if (qName.equals("Accounts")) {
-			String xmlLocation = atts.getValue("xml");
-			accounting.setAccountLocationXml(new File(xmlLocation));
-			String htmlLocation = atts.getValue("html");
-			accounting.setAccountLocationHtml(new File(htmlLocation));
-		} else if (qName.equals("Journals")) {
-			String xmlLocation = atts.getValue("xml");
-			accounting.setJournalLocationXml(new File(xmlLocation));
-			String htmlLocation = atts.getValue("html");
-			accounting.setJournalLocationHtml(new File(htmlLocation));
-		} else if (qName.equals("Balances")) {
-			String xmlLocation = atts.getValue("xml");
-			accounting.setBalanceLocationXml(new File(xmlLocation));
-			String htmlLocation = atts.getValue("html");
-			accounting.setBalanceLocationHtml(new File(htmlLocation));
-		} else if (qName.equals("Mortgages")) {
-			String xmlLocation = atts.getValue("xml");
-			accounting.setMortgageLocationXml(new File(xmlLocation));
-			String htmlLocation = atts.getValue("html");
-			accounting.setMortgageLocationHtml(new File(htmlLocation));
-		} else if (qName.equals("Movements")) {
-			String xmlLocation = atts.getValue("xml");
-			accounting.setMovementLocationXml(new File(xmlLocation));
-			String htmlLocation = atts.getValue("html");
-			accounting.setMovementLocationHtml(new File(htmlLocation));
-		} else if (qName.equals("Counterparties")) {
-			String xmlLocation = atts.getValue("xml");
-			accounting.setCounterpartyLocationXml(new File(xmlLocation));
-			String htmlLocation = atts.getValue("html");
-			accounting.setCounterpartyLocationHtml(new File(htmlLocation));
         } else if (qName.equals("Counterparty")){
             String name = atts.getValue("name");
             counterParty = new CounterParty(name);

@@ -11,9 +11,15 @@ import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Coda.Movement;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
 import be.dafke.Utils;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.XMLReader;
 
 import javax.swing.filechooser.FileSystemView;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
@@ -96,6 +102,63 @@ public class AccountingSAXParser {
                         return accountings;
                     } else {
                         try {
+                            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
+                            Document doc = dBuilder.parse(subFile.getAbsolutePath());
+                            doc.getDocumentElement().normalize();
+                            Node accountsNode = doc.getElementsByTagName("Accounts").item(0);
+                            Node journalsNode = doc.getElementsByTagName("Journals").item(0);
+                            Node balancesNode = doc.getElementsByTagName("Balances").item(0);
+                            Node mortgagesNode = doc.getElementsByTagName("Mortgages").item(0);
+                            Node counterpartiesNode = doc.getElementsByTagName("Counterparties").item(0);
+                            Node movementsNode = doc.getElementsByTagName("Movements").item(0);
+
+                            if(accountsNode!=null){
+                                String htmlLocation = accountsNode.getAttributes().getNamedItem("html").getNodeValue();
+                                accounting.setAccountLocationHtml(new File(htmlLocation));
+                                String xmlLocation = accountsNode.getAttributes().getNamedItem("xml").getNodeValue();
+                                accounting.setAccountLocationXml(new File(xmlLocation));
+                            }
+                            if(journalsNode!=null){
+                                String htmlLocation = journalsNode.getAttributes().getNamedItem("html").getNodeValue();
+                                accounting.setJournalLocationHtml(new File(htmlLocation));
+                                String xmlLocation = journalsNode.getAttributes().getNamedItem("xml").getNodeValue();
+                                accounting.setJournalLocationXml(new File(xmlLocation));
+                            }
+                            if(balancesNode!=null){
+                                String htmlLocation = balancesNode.getAttributes().getNamedItem("html").getNodeValue();
+                                accounting.setBalanceLocationHtml(new File(htmlLocation));
+                                String xmlLocation = balancesNode.getAttributes().getNamedItem("xml").getNodeValue();
+                                accounting.setBalanceLocationXml(new File(xmlLocation));
+                            }
+                            if(mortgagesNode!=null){
+                                String htmlLocation = mortgagesNode.getAttributes().getNamedItem("html").getNodeValue();
+                                accounting.setMortgageLocationHtml(new File(htmlLocation));
+                                String xmlLocation = mortgagesNode.getAttributes().getNamedItem("xml").getNodeValue();
+                                accounting.setMortgageLocationXml(new File(xmlLocation));
+                            }
+                            if(counterpartiesNode!=null){
+                                String htmlLocation = counterpartiesNode.getAttributes().getNamedItem("html").getNodeValue();
+                                accounting.setCounterpartyLocationHtml(new File(htmlLocation));
+                                String xmlLocation = counterpartiesNode.getAttributes().getNamedItem("xml").getNodeValue();
+                                accounting.setCounterpartyLocationXml(new File(xmlLocation));
+                            }
+                            if(movementsNode!=null){
+                                String htmlLocation = movementsNode.getAttributes().getNamedItem("html").getNodeValue();
+                                accounting.setMovementLocationHtml(new File(htmlLocation));
+                                String xmlLocation = movementsNode.getAttributes().getNamedItem("xml").getNodeValue();
+                                accounting.setMovementLocationXml(new File(xmlLocation));
+                            }
+
+                            // Handle Accounts
+                            NodeList accounts = ((Element)accountsNode).getElementsByTagName("Account");
+                            for (int i = 0; i < accounts.getLength(); i++) {
+                                Element element = (Element)accounts.item(i);
+                                String account_name = element.getElementsByTagName("account_name").item(0).getChildNodes().item(0).getNodeValue();
+                                String account_type = element.getElementsByTagName("account_type").item(0).getChildNodes().item(0).getNodeValue();
+                                System.out.println("Account: "+account_name+" | "+account_type);
+                            }
+
                             SAXParserFactory factory = SAXParserFactory.newInstance();
                             factory.setValidating(true);
                             SAXParser parser = factory.newSAXParser();
