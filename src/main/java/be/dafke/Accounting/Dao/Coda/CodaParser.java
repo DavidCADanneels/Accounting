@@ -99,10 +99,10 @@ public class CodaParser {
 				toRemove.add(party);
 			}
 		}
-		for(CounterParty party : toRemove) {
-			System.err.println("remove " + party.getName());
-			counterParties.remove(party.getName());
-		}
+//		for(CounterParty party : toRemove) {
+//			System.err.println("remove " + party.getName());
+//			counterParties.remove(party.getName());
+//		}
 	}
 
 	public static Calendar convertDate(String date) {
