@@ -104,9 +104,15 @@ public class AccountingSAXParser {
                     } else {
                         try {
                             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+                            documentBuilderFactory.setValidating(true);
                             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
                             Document doc = dBuilder.parse(subFile.getAbsolutePath());
                             doc.getDocumentElement().normalize();
+
+                            Node accountingNode = doc.getElementsByTagName("Accounting").item(0);
+                            String xslLocation = accountingNode.getAttributes().getNamedItem("xsl").getNodeValue();
+                            accounting.setLocationXSL(new File(xslLocation));
+
                             Node accountsNode = doc.getElementsByTagName("Accounts").item(0);
                             Node journalsNode = doc.getElementsByTagName("Journals").item(0);
                             Node balancesNode = doc.getElementsByTagName("Balances").item(0);
@@ -208,18 +214,43 @@ public class AccountingSAXParser {
                                 mortgage.setCapitalAccount(intrest);
 //                    			mortgage.setAccounting(accounting);
                                 accounting.addMortgageTable(mortgageName, mortgage);
-
                             }
 
+                            // Handle Counterparties
+                            NodeList counterparties = ((Element)counterpartiesNode).getElementsByTagName("Counterparty");
+                            for (int i = 0; i < counterparties.getLength(); i++) {
+                                Element element = (Element)counterparties.item(i);
+                                String counterparty_name = element.getAttribute("name");
+                                CounterParty counterParty = new CounterParty(counterparty_name);
 
+                                NodeList accountNodeList = element.getElementsByTagName("AccountName");
+                                if(accountNodeList.getLength()>0){
+                                    String accountName = accountNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                                    Account account = accounting.getAccounts().get(accountName);
+                                    counterParty.setAccount(account);
+                                }
+                                NodeList bankAccountNodeList = element.getElementsByTagName("BankAccount");
+                                if(bankAccountNodeList.getLength()>0){
+                                    String accountName = bankAccountNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                                    BankAccount bankAccount = new BankAccount(accountName);
+                                    counterParty.addAccount(bankAccount);
+                                    NodeList bicNodeList = element.getElementsByTagName("BIC");
+                                    if(bicNodeList.getLength()>0){
+                                        String bic = bicNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                                        bankAccount.setBic(bic);
+                                    }
+                                    NodeList currencyNodeList = element.getElementsByTagName("Currency");
+                                    if(currencyNodeList.getLength()>0 && currencyNodeList.item(0).getChildNodes() != null
+                                            && currencyNodeList.item(0).getChildNodes().getLength()>0){
+                                        String currency = currencyNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                                        bankAccount.setCurrency(currency);
+                                    }
+                                }
+                                accounting.addCounterparty(counterParty);
+                            }
 
-                            SAXParserFactory factory = SAXParserFactory.newInstance();
-                            factory.setValidating(true);
-                            SAXParser parser = factory.newSAXParser();
-                            XMLReader reader = parser.getXMLReader();
-                            reader.setContentHandler(new AccountingContentHandler(accounting));
-                            reader.setErrorHandler(new FoutHandler());
-                            reader.parse(subFile.getAbsolutePath());
+                            // Handle Movements
+
                         } catch (IOException io) {
                             io.printStackTrace();
                             FileSystemView.getFileSystemView().createFileObject(subFolder, "Accounting.xml");
@@ -367,16 +398,20 @@ public class AccountingSAXParser {
                     + accounting.getCounterPartyLocationHtml() + "\">\r\n");
             for(CounterParty counterParty : accounting.getCounterParties().getCounterParties()) {
                 writer.write("    <Counterparty name =\""+counterParty.getName()+"\">\r\n");
-                writer.write("      <AccountName>");
                 if(counterParty.getAccount()!=null){
-                    writer.write(counterParty.getAccount().getName());
+                    writer.write("      <AccountName>" + counterParty.getAccount().getName() + "</AccountName>\r\n");
                 }
-                writer.write("</AccountName>\r\n");
                 if(counterParty.getBankAccounts()!=null){
                     for(BankAccount account : counterParty.getBankAccounts().values()) {
-                        writer.write("      <BankAccount>" + account.getAccountNumber() + "</BankAccount>\r\n");
-                        writer.write("      <BIC>" + account.getBic().trim() + "</BIC>\r\n");
-                        writer.write("      <Currency>" + account.getCurrency() + "</Currency>\r\n");
+                        if(account.getAccountNumber()!=null){
+                            writer.write("      <BankAccount>" + account.getAccountNumber() + "</BankAccount>\r\n");
+                        }
+                        if(account.getBic()!=null){
+                            writer.write("      <BIC>" + account.getBic().trim() + "</BIC>\r\n");
+                        }
+                        if(account.getCurrency()!=null){
+                            writer.write("      <Currency>" + account.getCurrency() + "</Currency>\r\n");
+                        }
                     }
                 }
                 writer.write("    </Counterparty>\r\n");
