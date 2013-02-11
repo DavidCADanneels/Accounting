@@ -45,8 +45,7 @@ public class AccountingSAXParser {
     private static File getFile() {
         String folderName = "Accounting";
         String fileName = "Accountings.xml";
-        File home = // FileSystemView.getFileSystemView().getDefaultDirectory();
-                new File(System.getProperty("user.home"));
+        File home = new File(System.getProperty("user.home"));
         File folder = new File(home, folderName);
         if (folder.exists() && !folder.isDirectory()) {
             File renamed = FileSystemView.getFileSystemView().createFileObject(home, folderName + "_file");
@@ -88,15 +87,12 @@ public class AccountingSAXParser {
             } catch (Exception e) {
                 e.printStackTrace();
             }
-//			Accounting tmpCurrent = currentAccounting;
             for(Accounting accounting : accountings.getAccountings()) {
-//				currentAccounting = accounting;
                 String name = accounting.toString();
                 File subFolder = FileSystemView.getFileSystemView().getChild(file.getParentFile(), name);
                 if (!subFolder.isDirectory()) {
                     System.err.println(name + " not found or no directory");
                 } else {
-                    // Accountings.openObject(subFile);
                     File subFile = FileSystemView.getFileSystemView().getChild(subFolder, "Accounting.xml");
                     if (!subFile.exists()) {
                         System.err.println("no XML file found in " + name);
@@ -157,97 +153,11 @@ public class AccountingSAXParser {
                                 accounting.setMovementLocationXml(new File(xmlLocation));
                             }
 
-                            // Handle Accounts
-                            NodeList accounts = ((Element)accountsNode).getElementsByTagName("Account");
-                            for (int i = 0; i < accounts.getLength(); i++) {
-                                Element element = (Element)accounts.item(i);
-                                String account_name = element.getElementsByTagName("account_name").item(0).getChildNodes().item(0).getNodeValue();
-                                String account_type = element.getElementsByTagName("account_type").item(0).getChildNodes().item(0).getNodeValue();
-                                System.out.println("Account: "+account_name+" | "+account_type);
+                            accountsFromXML(accounting, (Element)accountsNode);
+                            journalsFromXML(accounting, (Element) journalsNode);
+                            mortgagesFromXML(accounting, (Element) mortgagesNode);
+                            counterpartiesFromXML(accounting, (Element) counterpartiesNode);
 
-                                Account.AccountType type = Account.AccountType.valueOf(account_type);
-                                Account account = new Account(account_name, type);
-                                account.setAccounting(accounting);
-                                accounting.getAccounts().add(account);
-
-                                NodeList projectNodeList = element.getElementsByTagName("account_project");
-                                if(projectNodeList.getLength()>0){
-                                    String account_project = projectNodeList.item(0).getChildNodes().item(0).getNodeValue();
-                                    Project project = accounting.getProjects().get(account_project);
-                                    if (project == null) {
-                                        project = new Project(account_project);
-                                        accounting.getProjects().put(account_project, project);
-                                    }
-                                    project.addAccount(account);
-                                }
-                            }
-
-                            // Handle Journals
-                            NodeList journals = ((Element)journalsNode).getElementsByTagName("Journal");
-                            for (int i = 0; i < journals.getLength(); i++) {
-                                Element element = (Element)journals.item(i);
-                                String journal_name = element.getElementsByTagName("journal_name").item(0).getChildNodes().item(0).getNodeValue();
-                                String journal_short = element.getElementsByTagName("journal_short").item(0).getChildNodes().item(0).getNodeValue();
-                                System.out.println("Journal: "+journal_name+" | "+journal_short);
-                                Journal journal = new Journal(journal_name, journal_short);
-                                journal.setAccounting(accounting);
-                                accounting.getJournals().add(journal);
-                            }
-
-                            // Handle Mortgages
-                            NodeList mortgages = ((Element)mortgagesNode).getElementsByTagName("Mortgage");
-                            for (int i = 0; i < mortgages.getLength(); i++) {
-                                Element element = (Element)mortgages.item(i);
-                                String mortgageName = element.getAttribute("name");
-                                String total = element.getAttribute("total");
-                                String nrPayed = element.getElementsByTagName("nrPayed").item(0).getChildNodes().item(0).getNodeValue();
-                                String capital_account = element.getElementsByTagName("capital_account").item(0).getChildNodes().item(0).getNodeValue();
-                                String intrest_account = element.getElementsByTagName("intrest_account").item(0).getChildNodes().item(0).getNodeValue();
-                                System.out.println("Mortgages: "+" | "+mortgageName+" | "+total+" | "+nrPayed+" | "+capital_account+" | "+intrest_account);
-                                BigDecimal amount = new BigDecimal(total);
-                                Mortgage mortgage = new Mortgage(mortgageName, amount);
-                                int nr = Integer.valueOf(nrPayed);
-                                mortgage.setPayed(nr);
-                                Account capital = accounting.getAccounts().get(capital_account);
-                                mortgage.setCapitalAccount(capital);
-                                Account intrest = accounting.getAccounts().get(intrest_account);
-                                mortgage.setCapitalAccount(intrest);
-//                    			mortgage.setAccounting(accounting);
-                                accounting.addMortgageTable(mortgageName, mortgage);
-                            }
-
-                            // Handle Counterparties
-                            NodeList counterparties = ((Element)counterpartiesNode).getElementsByTagName("Counterparty");
-                            for (int i = 0; i < counterparties.getLength(); i++) {
-                                Element element = (Element)counterparties.item(i);
-                                String counterparty_name = element.getAttribute("name");
-                                CounterParty counterParty = new CounterParty(counterparty_name);
-
-                                NodeList accountNodeList = element.getElementsByTagName("AccountName");
-                                if(accountNodeList.getLength()>0){
-                                    String accountName = accountNodeList.item(0).getChildNodes().item(0).getNodeValue();
-                                    Account account = accounting.getAccounts().get(accountName);
-                                    counterParty.setAccount(account);
-                                }
-                                NodeList bankAccountNodeList = element.getElementsByTagName("BankAccount");
-                                if(bankAccountNodeList.getLength()>0){
-                                    String accountName = bankAccountNodeList.item(0).getChildNodes().item(0).getNodeValue();
-                                    BankAccount bankAccount = new BankAccount(accountName);
-                                    counterParty.addAccount(bankAccount);
-                                    NodeList bicNodeList = element.getElementsByTagName("BIC");
-                                    if(bicNodeList.getLength()>0){
-                                        String bic = bicNodeList.item(0).getChildNodes().item(0).getNodeValue();
-                                        bankAccount.setBic(bic);
-                                    }
-                                    NodeList currencyNodeList = element.getElementsByTagName("Currency");
-                                    if(currencyNodeList.getLength()>0 && currencyNodeList.item(0).getChildNodes() != null
-                                            && currencyNodeList.item(0).getChildNodes().getLength()>0){
-                                        String currency = currencyNodeList.item(0).getChildNodes().item(0).getNodeValue();
-                                        bankAccount.setCurrency(currency);
-                                    }
-                                }
-                                accounting.addCounterparty(counterParty);
-                            }
 
                             // Handle Movements
 
@@ -260,16 +170,49 @@ public class AccountingSAXParser {
                         }
 
                     }
-                    handleJournals(accounting);
-                    handleMortgages(accounting);
                 }
             }
-//			currentAccounting = tmpCurrent;
         }
         return accountings;
     }
 
-    private static void handleJournals(Accounting accounting) {
+    private static void accountsFromXML(Accounting accounting, Element accountsElement){
+        NodeList accounts = accountsElement.getElementsByTagName("Account");
+        for (int i = 0; i < accounts.getLength(); i++) {
+            Element element = (Element)accounts.item(i);
+            String account_name = element.getElementsByTagName("account_name").item(0).getChildNodes().item(0).getNodeValue();
+            String account_type = element.getElementsByTagName("account_type").item(0).getChildNodes().item(0).getNodeValue();
+
+            Account.AccountType type = Account.AccountType.valueOf(account_type);
+            Account account = new Account(account_name, type);
+            account.setAccounting(accounting);
+            accounting.getAccounts().add(account);
+
+            NodeList projectNodeList = element.getElementsByTagName("account_project");
+            if(projectNodeList.getLength()>0){
+                String account_project = projectNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                Project project = accounting.getProjects().get(account_project);
+                if (project == null) {
+                    project = new Project(account_project);
+                    accounting.getProjects().put(account_project, project);
+                }
+                project.addAccount(account);
+            }
+        }
+
+    }
+
+    private static void journalsFromXML(Accounting accounting, Element journalsElement) {
+        NodeList journals = journalsElement.getElementsByTagName("Journal");
+        for (int i = 0; i < journals.getLength(); i++) {
+            Element element = (Element)journals.item(i);
+            String journal_name = element.getElementsByTagName("journal_name").item(0).getChildNodes().item(0).getNodeValue();
+            String journal_short = element.getElementsByTagName("journal_short").item(0).getChildNodes().item(0).getNodeValue();
+            System.out.println("Journal: "+journal_name+" | "+journal_short);
+            Journal journal = new Journal(journal_name, journal_short);
+            journal.setAccounting(accounting);
+            accounting.getJournals().add(journal);
+        }
         File journalFiles[] = FileSystemView.getFileSystemView().getFiles(accounting.getJournalLocationXml(), false);
         for(File journalFile : journalFiles) {
             String journalName = journalFile.getName().replaceAll(".xml", "");
@@ -292,7 +235,26 @@ public class AccountingSAXParser {
         }
     }
 
-    private static void handleMortgages(Accounting accounting) {
+    private static void mortgagesFromXML(Accounting accounting, Element mortgagesElement) {
+        NodeList mortgages = mortgagesElement.getElementsByTagName("Mortgage");
+        for (int i = 0; i < mortgages.getLength(); i++) {
+            Element element = (Element)mortgages.item(i);
+            String mortgageName = element.getAttribute("name");
+            String total = element.getAttribute("total");
+            String nrPayed = element.getElementsByTagName("nrPayed").item(0).getChildNodes().item(0).getNodeValue();
+            String capital_account = element.getElementsByTagName("capital_account").item(0).getChildNodes().item(0).getNodeValue();
+            String intrest_account = element.getElementsByTagName("intrest_account").item(0).getChildNodes().item(0).getNodeValue();
+            System.out.println("Mortgages: "+" | "+mortgageName+" | "+total+" | "+nrPayed+" | "+capital_account+" | "+intrest_account);
+            BigDecimal amount = new BigDecimal(total);
+            Mortgage mortgage = new Mortgage(mortgageName, amount);
+            int nr = Integer.valueOf(nrPayed);
+            mortgage.setPayed(nr);
+            Account capital = accounting.getAccounts().get(capital_account);
+            mortgage.setCapitalAccount(capital);
+            Account intrest = accounting.getAccounts().get(intrest_account);
+            mortgage.setIntrestAccount(intrest);
+            accounting.addMortgageTable(mortgageName, mortgage);
+        }
         File mortgagesFiles[] = FileSystemView.getFileSystemView().getFiles(accounting.getMortgageLocationXml(), false);
         for(File mortgagesFile : mortgagesFiles) {
             String mortgageName = mortgagesFile.getName().replaceAll(".xml", "");
@@ -311,6 +273,40 @@ public class AccountingSAXParser {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    private static void counterpartiesFromXML(Accounting accounting, Element counterpartiesElement) {
+        NodeList counterparties = counterpartiesElement.getElementsByTagName("Counterparty");
+        for (int i = 0; i < counterparties.getLength(); i++) {
+            Element element = (Element)counterparties.item(i);
+            String counterparty_name = element.getAttribute("name");
+            CounterParty counterParty = new CounterParty(counterparty_name);
+
+            NodeList accountNodeList = element.getElementsByTagName("AccountName");
+            if(accountNodeList.getLength()>0){
+                String accountName = accountNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                Account account = accounting.getAccounts().get(accountName);
+                counterParty.setAccount(account);
+            }
+            NodeList bankAccountNodeList = element.getElementsByTagName("BankAccount");
+            if(bankAccountNodeList.getLength()>0){
+                String accountName = bankAccountNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                BankAccount bankAccount = new BankAccount(accountName);
+                counterParty.addAccount(bankAccount);
+                NodeList bicNodeList = element.getElementsByTagName("BIC");
+                if(bicNodeList.getLength()>0){
+                    String bic = bicNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                    bankAccount.setBic(bic);
+                }
+                NodeList currencyNodeList = element.getElementsByTagName("Currency");
+                if(currencyNodeList.getLength()>0 && currencyNodeList.item(0).getChildNodes() != null
+                        && currencyNodeList.item(0).getChildNodes().getLength()>0){
+                    String currency = currencyNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                    bankAccount.setCurrency(currency);
+                }
+            }
+            accounting.addCounterparty(counterParty);
         }
     }
 
