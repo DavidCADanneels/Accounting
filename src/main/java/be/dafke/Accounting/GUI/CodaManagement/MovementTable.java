@@ -89,18 +89,12 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 	}
 
 	private void openMovements() {
-		//CounterParties counterParties = accountings.getCurrentAccounting().getCounterParties();
 		JFileChooser chooser = new JFileChooser();
 		chooser.setMultiSelectionEnabled(true);
 		if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 			File[] files = chooser.getSelectedFiles();
 			CodaParser codaParser = new CodaParser();
 			codaParser.parseFile(files, accountings);
-			// Movements movements = accountings.getCurrentAccounting().getMovements();
-			// TODO: remove movements from MovementTable constructor
-			MovementTable gui = new MovementTable(accountings);
-			gui.setVisible(true);
-			gui.refresh();
 		}
 		refresh();
 	}
