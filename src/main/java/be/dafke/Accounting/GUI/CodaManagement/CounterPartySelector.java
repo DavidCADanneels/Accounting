@@ -91,9 +91,8 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 		} else if (e.getSource() == create) {
 			String s = JOptionPane.showInputDialog(this, "Enter a name for the new counterparty");
 			if (s != null && !s.equals("")) {
-				counterParty = new CounterParty(s);
 				CounterParties counterParties = accountings.getCurrentAccounting().getCounterParties();
-				counterParties.put(s, counterParty);
+				counterParty = counterParties.addCounterParty(s, null);
 				combo.addItem(counterParty);
 				combo.setSelectedItem(counterParty);
 			}

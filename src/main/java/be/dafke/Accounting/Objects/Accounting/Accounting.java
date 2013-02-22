@@ -131,7 +131,7 @@ public class Accounting implements Serializable {
 //		
 //	}
     public void addCounterparty(CounterParty counterParty){
-        counterParties.put(counterParty.toString(), counterParty);
+        counterParties.addCounterParty(counterParty);
     }
 
 	public void addMortgageTable(String mortgageName, Mortgage table) {

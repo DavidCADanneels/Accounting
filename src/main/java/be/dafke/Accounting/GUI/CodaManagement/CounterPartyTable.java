@@ -4,7 +4,6 @@ import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Coda.BankAccount;
-import be.dafke.Accounting.Objects.Coda.CounterParties;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.RefreshableTable;
 
@@ -58,9 +57,9 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
 					if (account != null) {
 						CounterParty counterParty = (CounterParty) tabel.getValueAt(row, 0);
 						counterParty.setAccount(account);
-						CounterParties counterParties = accounting.getCounterParties();
-						counterParties.remove(counterParty.getName());
-						counterParties.put(counterParty.getName(), counterParty);
+//						CounterParties counterParties = accounting.getCounterParties();
+//						counterParties.remove(counterParty.getName());
+//						counterParties.put(counterParty.getName(), counterParty);
 						super.refresh();
 					}
 				}

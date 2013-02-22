@@ -1,73 +1,118 @@
 package be.dafke.Accounting.Objects.Coda;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class CounterParties extends HashMap<String, CounterParty> implements Serializable {
+public class CounterParties {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
+    private ArrayList<CounterParty> counterParties;
+    private HashMap<String, CounterParty> counterPartiesByName, counterPartiesByAccountNumber;
+
+    public CounterParties(){
+        counterParties = new ArrayList<CounterParty>();
+        counterPartiesByName = new HashMap<String, CounterParty>();
+        counterPartiesByAccountNumber = new HashMap<String, CounterParty>();
+    }
 
 	public ArrayList<CounterParty> getCounterParties() {
-		ArrayList<CounterParty> result = new ArrayList<CounterParty>();
-		Iterator<CounterParty> it = values().iterator();
-		while (it.hasNext()) {
-			result.add(it.next());
-		}
-		return result;
-
+        return counterParties;
 	}
 
-	@Override
-	public CounterParty put(String key, CounterParty value) {
-		if (key == null) return null;
-		if (!containsKey(key)) {
-			super.put(key, value);
-			return value;
-		}
-		CounterParty result = super.get(key);
-		HashMap<String, BankAccount> oldAccounts = result.getBankAccounts();
-		for(BankAccount newAccount : value.getBankAccounts().values()) {
-			String accountKey = newAccount.getAccountNumber();
-			if (!oldAccounts.containsKey(accountKey)) {
-				result.addAccount(newAccount);
-				super.put(key, result);
-				System.err.println("account " + accountKey + " added for " + key);
-			} else {
-				BankAccount oldAccount = oldAccounts.get(accountKey);
-				String oldBic = oldAccount.getBic();
-				String newBic = newAccount.getBic();
-				String oldCurrency = oldAccount.getCurrency();
-				String newCurrency = newAccount.getCurrency();
-				if (oldBic == null) {
-					oldAccount.setBic(newBic);
-				} else if (newBic != null) {
-					if (!oldBic.equals(newBic)) {
-						System.err.println(oldBic + "!=" + newBic);
-					}
-				}
-				if (oldCurrency == null) {
-					oldAccount.setCurrency(newCurrency);
-				} else if (newCurrency != null) {
-					if (!oldCurrency.equals(newCurrency)) {
-						System.err.println(oldCurrency + "!=" + newCurrency);
-					}
-				}
-			}
-		}
-		return result;
-	}
+    public CounterParty getCounterPartyByName(String name){
+        return counterPartiesByName.get(name);
+    }
+
+    public CounterParty getCounterPartyByAccountNumber(String accountNumber){
+        return counterPartiesByAccountNumber.get(accountNumber);
+    }
+
+    public CounterParty addCounterParty(String name, BankAccount bankAccount){
+        if(name == null){
+            throw new RuntimeException("Counterparty should have a least a name");
+        }
+        if(bankAccount == null){
+            // no BankAccount provided: add new Counterparty without BankAccount (only name)
+            CounterParty counterParty = new CounterParty(name);
+            if(!counterPartiesByName.containsKey(name)){
+                counterParties.add(counterParty);
+                counterPartiesByName.put(name, counterParty);
+            }
+            return counterParty;
+        }
+        String accountNumber = bankAccount.getAccountNumber();
+        CounterParty counterPartyByName = counterPartiesByName.get(name);
+        CounterParty counterPartyByAccountNumber = counterPartiesByAccountNumber.get(accountNumber);
+        if(counterPartyByName == null && counterPartyByAccountNumber == null){
+            // Neither the Name nor the BankAccount are found: add new Counterparty with BankAccount in both Maps
+            CounterParty counterParty = new CounterParty(name);
+            counterParty.addAccount(bankAccount);
+            counterParties.add(counterParty);
+            counterPartiesByName.put(name, counterParty);
+            counterPartiesByAccountNumber.put(accountNumber,counterParty);
+            return counterParty;
+        } else if(counterPartyByName != null && counterPartyByAccountNumber == null){
+            // Counterparty was found in the named list: add the BankAccount and add this counterparty in the second Map
+            counterPartyByName.addAccount(bankAccount);
+            counterPartiesByAccountNumber.put(accountNumber,counterPartyByName);
+            return counterPartyByName;
+        } else if(counterPartyByName == null && counterPartyByAccountNumber != null){
+            // Counterparty was found in the account list: do nothing, this case should be impossible
+            counterPartyByAccountNumber.addAlias(name);
+            counterPartiesByName.put(name,counterPartyByAccountNumber);
+            return counterPartyByAccountNumber;
+        } else{
+            // Finally: a counterparty was found in both lists: trust the one from the named list and
+            // check whether the existing BankAccount should be updated or a new one should be added.
+
+            if(counterPartyByAccountNumber != counterPartyByName){
+                System.err.println("Both must refer to the same object --> Merge");
+                merge(counterPartyByAccountNumber,counterPartyByName);
+            }
+
+            return counterPartyByAccountNumber;
+        }
+    }
+
+    private void merge(CounterParty counterPartyByAccountNumber, CounterParty counterPartyByName){
+        if(!counterPartyByAccountNumber.getName().equals(counterPartyByName.getName())){
+            counterPartyByAccountNumber.addAlias(counterPartyByName.getName());
+            counterPartyByAccountNumber.getAliases().addAll(counterPartyByName.getAliases());
+        }
+        for(BankAccount bankAccount : counterPartyByName.getBankAccounts().values()){
+            if(!counterPartyByAccountNumber.getBankAccounts().containsKey(bankAccount.getAccountNumber())){
+                counterPartyByAccountNumber.getBankAccounts().put(bankAccount.getAccountNumber(),bankAccount);
+            } else{
+                BankAccount oldBankAccount = counterPartyByAccountNumber.getBankAccounts().get(bankAccount.getAccountNumber());
+                if(oldBankAccount.getBic() == null || oldBankAccount.getBic().trim().equals("")){
+                    oldBankAccount.setBic(bankAccount.getBic());
+                }
+                if(oldBankAccount.getCurrency() == null || oldBankAccount.getCurrency().trim().equals("")){
+                    oldBankAccount.setCurrency(bankAccount.getCurrency());
+                }
+            }
+        }
+        counterPartiesByName.remove(counterPartyByName.getName());
+        counterParties.remove(counterPartyByName);
+    }
 
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder("CounterParties:\r\n");
-		Iterator<CounterParty> it = values().iterator();
+		Iterator<CounterParty> it = counterParties.iterator();
 		while (it.hasNext()) {
 			builder.append(it.next());
 		}
 		return builder.toString();
 	}
+
+    public void addCounterParty(CounterParty counterParty) {
+        counterParties.add(counterParty);
+        counterPartiesByName.put(counterParty.getName(), counterParty);
+        for(BankAccount bankAccount : counterParty.getBankAccounts().values()){
+            counterPartiesByAccountNumber.put(bankAccount.getAccountNumber(),counterParty);
+        }
+    }
 }

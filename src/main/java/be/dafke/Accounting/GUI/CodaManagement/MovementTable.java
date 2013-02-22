@@ -186,7 +186,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 					Account account = counterParty.getAccount();
 					boolean debet = tabel.getValueAt(i, 3).equals("D");
 					if (account == null) {
-						CounterParty counterParty2 = accounting.getCounterParties().get(counterParty.getName());
+						CounterParty counterParty2 = accounting.getCounterParties().getCounterPartyByName(counterParty.getName());
 						if (counterParty2 != null) {
 							counterParty = counterParty2;
 							account = counterParty2.getAccount();

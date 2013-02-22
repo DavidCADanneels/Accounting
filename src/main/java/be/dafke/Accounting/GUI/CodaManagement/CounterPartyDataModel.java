@@ -2,7 +2,6 @@ package be.dafke.Accounting.GUI.CodaManagement;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
-import be.dafke.Accounting.Objects.Coda.BankAccount;
 import be.dafke.Accounting.Objects.Coda.CounterParties;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 
@@ -13,8 +12,8 @@ public class CounterPartyDataModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String[] columnNames = { "Name", "Account", "BIC", "Currency", "Account (for Accounting)" };
-	private final Class[] columnClasses = { CounterParty.class, String.class, String.class, String.class, Account.class };
+	private final String[] columnNames = { "Name", "Aliases", "BankAccounts", "BIC", "Currency", "Account (for Accounting)" };
+	private final Class[] columnClasses = { CounterParty.class, String.class, String.class, String.class, String.class, Account.class };
 
 	private final Accountings accountings;
 
@@ -30,22 +29,15 @@ public class CounterPartyDataModel extends AbstractTableModel {
 		CounterParty c = counterParties.getCounterParties().get(row);
 		if (col == 0) {
 			return c;
-		} else if (col == 1) {
-			if (c.getBankAccounts().isEmpty()) {
-				return "";
-			}
-			return ((BankAccount) c.getBankAccounts().values().toArray()[0]).getAccountNumber();
+        } else if (col == 1) {
+            return c.getAliasesString();
 		} else if (col == 2) {
-			if (c.getBankAccounts().isEmpty()) {
-				return "";
-			}
-			return ((BankAccount) c.getBankAccounts().values().toArray()[0]).getBic();
+			return c.getBankAccountsString();
 		} else if (col == 3) {
-			if (c.getBankAccounts().isEmpty()) {
-				return "";
-			}
-			return ((BankAccount) c.getBankAccounts().values().toArray()[0]).getCurrency();
+			return c.getBICString();
 		} else if (col == 4) {
+			return c.getCurrencyString();
+		} else if (col == 5) {
 			return c.getAccount();
 		} else return "";
 	}

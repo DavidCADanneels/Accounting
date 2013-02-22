@@ -118,17 +118,15 @@ public class Movement implements Serializable {
 		String counterPartyAccount = line.substring(10, 44).trim();
         String counterPartyCurrency = line.substring(44, 47).trim();
         String counterPartyName = line.substring(47, 82).trim();
-        counterParties.get(counterPartyName);
-		counterParty = new CounterParty(counterPartyName);
+        BankAccount bankAccount = null;
 		if (!counterPartyAccount.trim().equals("")) {
-			BankAccount account = new BankAccount(counterPartyAccount);
-			account.setBic(counterPartyBic);
-			account.setCurrency(counterPartyCurrency);
-			counterParty.addAccount(account);
+			bankAccount = new BankAccount(counterPartyAccount);
+            bankAccount.setBic(counterPartyBic);
+            bankAccount.setCurrency(counterPartyCurrency);
 		}
 		// CounterParties counterParties = CounterParties.getInstance();
 		// counterParties.remove(transactionCode);
-		counterParty = counterParties.put(counterPartyName, counterParty);
+		counterParty = counterParties.addCounterParty(counterPartyName.toUpperCase().trim(), bankAccount);
 	}
 
 	@Override
