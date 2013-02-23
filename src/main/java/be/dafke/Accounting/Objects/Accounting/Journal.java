@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Iterator;
 
 /**
  * Boekhoudkundig dagboek
@@ -66,7 +67,27 @@ public class Journal implements Serializable {
 		return accounting;
 	}
 
-	/**
+    public Booking getBooking(int row){
+        ArrayList<Booking> boekingen = new ArrayList<Booking>();
+        Iterator<Transaction> it = transacties.iterator();
+        while (it.hasNext()) {
+            Transaction trans = it.next();
+            boekingen.addAll(trans.getBookings());
+        }
+        return boekingen.get(row);
+    }
+
+    public Transaction getTransaction(int row){
+        ArrayList<Booking> boekingen = new ArrayList<Booking>();
+        Iterator<Transaction> it = transacties.iterator();
+        while (it.hasNext()) {
+            Transaction trans = it.next();
+            boekingen.addAll(trans.getBookings());
+        }
+        return boekingen.get(row).getTransaction();
+    }
+
+    /**
 	 * Geeft de naam van het dagboek en de bijhorende afkorting terug
 	 * @return de naam van het dagboek en de bijhorende afkorting <b><i>naam dagboek(afkorting)</i></b>
 	 */

@@ -26,7 +26,7 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
-	private Object selected;
+	private int selectedRow;
 	private final JMenuItem move, delete;
 	private final Journal journal;
 	private final Accountings accountings;
@@ -55,7 +55,7 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
 				int col = tabel.columnAtPoint(cell);
 				if (col == 0 && me.getClickCount() == 2) {
 					int row = tabel.rowAtPoint(cell);
-					selected = tabel.getValueAt(row, col);
+					selectedRow = row;
 					popup.show(null, location.x, location.y);
 				} else popup.setVisible(false);
 			}
@@ -107,12 +107,7 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
 
 	private void menuAction(JMenuItem source) {
 		popup.setVisible(false);
-		String s;
-		if (selected == null) s = "";
-		else s = selected.toString();
-		ArrayList<Transaction> transacties = journal.getTransactions();
-		int nr = Integer.parseInt(s.replaceFirst(journal.getAbbreviation(), ""));
-		Transaction transactie = transacties.get(nr - 1);
+		Transaction transaction = journal.getTransaction(selectedRow);
 		if (source == move) {
 			Accounting accounting = accountings.getCurrentAccounting();
 			ArrayList<Journal> dagboeken = accounting.getJournals().getAllJournalsExcept(journal);
@@ -122,7 +117,7 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
 					java.util.ResourceBundle.getBundle("Accounting").getString("DAGBOEK_KEUZE"),
 					JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, lijst, lijst[0]);
 			Journal newJournal = (Journal) lijst[keuze];
-			transactie.moveTransaction(journal, newJournal);
+            transaction.moveTransaction(journal, newJournal);
 
 			JOptionPane.showMessageDialog(
 					null,
@@ -132,7 +127,7 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
 							+ java.util.ResourceBundle.getBundle("Accounting").getString("NAAR")
 							+ newJournal);
 		} else if (source == delete) {
-			transactie.deleteTransaction(journal);
+			transaction.deleteTransaction(journal);
 			JOptionPane.showMessageDialog(
 					null,
 					java.util.ResourceBundle.getBundle("Accounting").getString(

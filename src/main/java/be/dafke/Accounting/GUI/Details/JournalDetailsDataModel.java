@@ -8,7 +8,6 @@ import be.dafke.Utils;
 
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 
@@ -20,7 +19,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final Journal dagboek;
+	private final Journal journal;
 	private final String[] columnNames = {
 			java.util.ResourceBundle.getBundle("Accounting").getString("NR"),
 			java.util.ResourceBundle.getBundle("Accounting").getString("DATUM"),
@@ -32,7 +31,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 			BigDecimal.class, String.class };
 
 	public JournalDetailsDataModel(Journal journal) {
-		dagboek = journal;
+		this.journal = journal;
 	}
 
 // DE GET METHODEN
@@ -41,7 +40,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 	@Override
 	public int getRowCount() {
 		int size = 0;
-		Iterator<Transaction> it = dagboek.getTransactions().iterator();
+		Iterator<Transaction> it = journal.getTransactions().iterator();
 		while (it.hasNext()) {
 			size += it.next().getBookings().size();
 		}
@@ -60,14 +59,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		ArrayList<Booking> boekingen = new ArrayList<Booking>();
-		ArrayList<Transaction> transacties = dagboek.getTransactions();
-		Iterator<Transaction> it = transacties.iterator();
-		while (it.hasNext()) {
-			Transaction trans = it.next();
-			boekingen.addAll(trans.getBookings());
-		}
-		Booking boeking = boekingen.get(row);
+		Booking boeking = journal.getBooking(row);
         boolean first = boeking.isFirstBooking();
         if (col == 0) {
             if(first){
@@ -107,14 +99,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		ArrayList<Booking> boekingen = new ArrayList<Booking>();
-		ArrayList<Transaction> transacties = dagboek.getTransactions();
-		Iterator<Transaction> it = transacties.iterator();
-		while (it.hasNext()) {
-			Transaction trans = it.next();
-			boekingen.addAll(trans.getBookings());
-		}
-		Booking boeking = boekingen.get(row);
+        Booking boeking = journal.getBooking(row);
 		if (col == 1) {
 			Calendar oudeDatum = boeking.getDate();
 			Calendar nieuweDatum = Utils.toCalendar((String) value);
