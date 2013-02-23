@@ -7,6 +7,8 @@ import be.dafke.Accounting.Objects.Coda.Movement;
 import be.dafke.Accounting.Objects.Coda.TmpCounterParty;
 
 import javax.swing.*;
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -77,11 +79,41 @@ public class CounterPartySelector extends JDialog implements ActionListener {
         transactionCode = new JTextField(10);
         transactionCode.setEnabled(false);
         transactionCode.setText(movement.getTransactionCode());
-        transactionCode.addActionListener(this);
+        transactionCode.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                setTransactionCode();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                setTransactionCode();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                setTransactionCode();
+            }
+        });
         communication = new JTextField(10);
         communication.setEnabled(false);
         communication.setText(movement.getCommunication());
-        communication.addActionListener(this);
+        communication.getDocument().addDocumentListener(new DocumentListener() {
+            @Override
+            public void changedUpdate(DocumentEvent e) {
+                setCommunication();
+            }
+
+            @Override
+            public void insertUpdate(DocumentEvent e) {
+                setCommunication();
+            }
+
+            @Override
+            public void removeUpdate(DocumentEvent e) {
+                setCommunication();
+            }
+        });
         singleMultiple = new ButtonGroup();
         singleMultiple.add(single);
         singleMultiple.add(multiple);
@@ -131,7 +163,17 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 		pack();
 	}
 
-	public CounterParty getSelection() {
+    private void setCommunication() {
+        searchOptionsNo.setCommunication(communication.getText());
+        fillInCounterParty();
+    }
+
+    private void setTransactionCode(){
+        searchOptionsNo.setTransactionCode(transactionCode.getText());
+        fillInCounterParty();
+    }
+
+    public CounterParty getSelection() {
 		return counterParty;
 	}
 
@@ -180,14 +222,8 @@ public class CounterPartySelector extends JDialog implements ActionListener {
             if(searchOnTransactionCode.isSelected()){
                 searchOptionsNo.searchForTransactionCode(transactionCode.getText());
             } else {
-                searchOptionsNo.setSearchOnCommunication(false);
+                searchOptionsNo.setSearchOnTransactionCode(false);
             }
-            fillInCounterParty();
-        } else if (e.getSource() == communication){
-            searchOptionsNo.setCommunication(communication.getText());
-            fillInCounterParty();
-        } else if (e.getSource() == transactionCode){
-            searchOptionsNo.setTransactionCode(transactionCode.getText());
             fillInCounterParty();
         }
 	}
