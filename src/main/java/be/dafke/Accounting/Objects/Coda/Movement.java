@@ -26,19 +26,19 @@ public class Movement implements Serializable {
 
 	public static Movement parse(String line, CounterParties counterParties) {
 		Movement.counterParties = counterParties;
-		String sequenceNumber = line.substring(2, 6);
-		String sign = line.substring(31, 32);
+		String sequenceNumber = line.substring(2, 6).trim();
+		String sign = line.substring(31, 32).trim();
 		boolean debit = "1".equals(sign);
-		String amountString = line.substring(32, 47);
+		String amountString = line.substring(32, 47).trim();
 		BigDecimal amount = CodaParser.convertBigDecimal(amountString);
-		String date = line.substring(47, 53);
+		String date = line.substring(47, 53).trim();
 		Calendar cal = CodaParser.convertDate(date);
 //		String transCode = line.substring(53, 61);
-		String transCode = line.substring(55, 58);
-		String struc = line.substring(61, 62);
+		String transCode = line.substring(55, 58).trim();
+		String struc = line.substring(61, 62).trim();
 		boolean structured = "1".equals(struc);
-		String comm = line.substring(62, 115);
-		String nr = line.substring(121, 124);
+		String comm = line.substring(62, 115).trim();
+		String nr = line.substring(121, 124).trim();
 		// trim numbers
 		while (nr.startsWith("0")) {
 			nr = nr.substring(1);
@@ -99,14 +99,14 @@ public class Movement implements Serializable {
     }
 
     public void addPart2(String line) {
-		String communication2 = line.substring(10, 63);
-		counterPartyBic = line.substring(98, 109);
+		String communication2 = line.substring(10, 63).trim();
+		counterPartyBic = line.substring(98, 109).trim();
         resetCommunication(communication2);
     }
 
 	public void addPart3(String line) {
-		String nr1 = line.substring(2, 6);
-		String nr2 = line.substring(6, 10);
+		String nr1 = line.substring(2, 6).trim();
+		String nr2 = line.substring(6, 10).trim();
 		while (nr1.startsWith("0")) {
 			nr1 = nr1.substring(1);
 		}
