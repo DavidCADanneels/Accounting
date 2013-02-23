@@ -45,7 +45,9 @@ public class CounterParty implements Serializable {
     }
 
     public void addAlias(String alias){
-        aliases.add(alias);
+        if(!aliases.contains(alias)){
+            aliases.add(alias);
+        }
     }
 
 	public String getName() {
