@@ -275,8 +275,8 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 				System.out.println(transactionCode);
 				System.out.println(ResourceBundle.getBundle("CODA").getString("00"+transactionCode+"000"));
                 SearchOptions searchOptions = new SearchOptions();
-                searchOptions.setCounterParty(null);
-                searchOptions.setSearchOnCounterParty(true);
+//                searchOptions.setCounterParty(null);
+                searchOptions.setSearchOnCounterParty(false);
                 searchOptions.setTransactionCode(transactionCode);
                 searchOptions.setSearchOnTransactionCode(true);
 				RefreshableTable refreshableTable = new GenericMovementTable(searchOptions, accountings);
