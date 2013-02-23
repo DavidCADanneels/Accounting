@@ -25,6 +25,8 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 	private final GenericMovementDataModel movementNoCounterpartyTableModel;
 	private final Movement movement;
 	private final JRadioButton single, multiple;
+    private final JCheckBox searchOnTransactionCode, searchOnCommunication;
+    private final JTextField transactionCode, communication;
 	private final ButtonGroup singleMultiple;
 	private final Accountings accountings;
 
@@ -34,6 +36,8 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 		this.accountings = accountings;
 		counterParty = null;
 		// counterParty = (CounterParty) counterparties[0];
+
+        // COMPONENTS
 		combo = new JComboBox(accountings.getCurrentAccounting().getCounterParties().getCounterParties().toArray());
 		combo.addItem(null);
 		combo.setSelectedItem(null);
@@ -43,48 +47,76 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 		ok.addActionListener(this);
 		create = new JButton("Create Counterparty");
 		create.addActionListener(this);
-		Container panel = getContentPane();
-		JPanel innerPanel = new JPanel(new BorderLayout());
-		JPanel north = new JPanel();
-		north.add(combo);
-		north.add(create);
+        //
         SearchOptions searchOptionsExisting = new SearchOptions();
         searchOptionsExisting.setCounterParty(counterParty);
         searchOptionsExisting.setSearchOnCounterParty(true);
-		movementExistingCounterpartyTableModel = new GenericMovementDataModel(searchOptionsExisting, accountings);
-		movementExistingCounterpartyTable = new JTable(movementExistingCounterpartyTableModel);
+        movementExistingCounterpartyTableModel = new GenericMovementDataModel(searchOptionsExisting, accountings);
+        movementExistingCounterpartyTable = new JTable(movementExistingCounterpartyTableModel);
         SearchOptions searchOptionsNo = new SearchOptions();
         searchOptionsNo.setCounterParty(null);
         searchOptionsNo.setSearchOnCounterParty(true);
         searchOptionsNo.setTransactionCode(movement.getTransactionCode());
         searchOptionsNo.setSearchOnTransactionCode(true);
-		movementNoCounterpartyTableModel = new GenericMovementDataModel(searchOptionsNo,
-				accountings);
-		movementNoCounterpartyTableModel.setSingleMovement(movement);
-		movementNoCounterpartyTable = new JTable(movementNoCounterpartyTableModel);
-		movementNoCounterpartyTable.setDefaultRenderer(CounterParty.class, new ColorRenderer());
-		JScrollPane scroll1 = new JScrollPane(movementExistingCounterpartyTable);
-		JScrollPane scroll2 = new JScrollPane(movementNoCounterpartyTable);
-		JPanel center = new JPanel();
-		single = new JRadioButton("Apply only for the selected movement");
-		multiple = new JRadioButton("Apply for all similar movements");
-		singleMultiple = new ButtonGroup();
-		singleMultiple.add(single);
-		singleMultiple.add(multiple);
-		single.setSelected(true);
-		single.addActionListener(this);
-		multiple.addActionListener(this);
-		apply = new JButton("Apply Changes");
-		apply.addActionListener(this);
-		north.add(apply);
-		north.add(single);
-		north.add(multiple);
-		center.add(scroll1);
-		center.add(scroll2);
-		innerPanel.add(north, BorderLayout.NORTH);
-		innerPanel.add(center, BorderLayout.CENTER);
-		innerPanel.add(ok, BorderLayout.SOUTH);
-		panel.add(innerPanel);
+        movementNoCounterpartyTableModel = new GenericMovementDataModel(searchOptionsNo,
+                accountings);
+        movementNoCounterpartyTableModel.setSingleMovement(movement);
+        movementNoCounterpartyTable = new JTable(movementNoCounterpartyTableModel);
+        movementNoCounterpartyTable.setDefaultRenderer(CounterParty.class, new ColorRenderer());
+        JScrollPane leftScrollPane = new JScrollPane(movementExistingCounterpartyTable);
+        JScrollPane rightScrollPane = new JScrollPane(movementNoCounterpartyTable);
+        //
+        single = new JRadioButton("Single movement");
+        multiple = new JRadioButton("Multiple movements");
+        searchOnTransactionCode = new JCheckBox("TransactionCode == ");
+        searchOnCommunication = new JCheckBox("Communication == ");
+        transactionCode = new JTextField(10);
+        communication = new JTextField(10);
+        singleMultiple = new ButtonGroup();
+        singleMultiple.add(single);
+        singleMultiple.add(multiple);
+        single.setSelected(true);
+        single.addActionListener(this);
+        multiple.addActionListener(this);
+        apply = new JButton("Apply Changes");
+        apply.addActionListener(this);
+
+        // Layout
+        //
+        // North
+        JPanel leftNorth = new JPanel(new GridLayout(0,1));
+        leftNorth.add(create);
+        leftNorth.add(combo);
+        leftNorth.add(apply);
+        //
+        JPanel rightNorthNorth = new JPanel();
+        rightNorthNorth.add(single);
+        rightNorthNorth.add(multiple);
+        //
+        JPanel searchOptionsPanel = new JPanel(new GridLayout(2,0));
+        searchOptionsPanel.add(searchOnTransactionCode);
+        searchOptionsPanel.add(transactionCode);
+        searchOptionsPanel.add(searchOnCommunication);
+        searchOptionsPanel.add(communication);
+        //
+        JPanel rightNorth = new JPanel(new BorderLayout());
+        rightNorth.add(rightNorthNorth,BorderLayout.NORTH);
+        rightNorth.add(searchOptionsPanel);
+        //
+        JPanel north = new JPanel();
+        north.add(leftNorth);
+        north.add(rightNorth);
+        //
+        // Center
+        JPanel center = new JPanel();
+        center.add(leftScrollPane);
+        center.add(rightScrollPane);
+        //
+        JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel.add(north, BorderLayout.NORTH);
+		contentPanel.add(center, BorderLayout.CENTER);
+		contentPanel.add(ok, BorderLayout.SOUTH);
+        setContentPane(contentPanel);
 		pack();
 	}
 
