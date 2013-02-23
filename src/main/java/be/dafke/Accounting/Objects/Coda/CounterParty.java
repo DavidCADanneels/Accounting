@@ -13,7 +13,7 @@ public class CounterParty implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String name;
+	private String name;
     private final ArrayList<String> aliases;
 	private final HashMap<String, BankAccount> accounts;
 	private final Collection<String> addressLines;
@@ -110,12 +110,20 @@ public class CounterParty implements Serializable {
         StringBuilder builder = new StringBuilder();
         if(it.hasNext()){
             String currency = it.next().getCurrency();
-            builder.append(currency!=null?currency:"");
+            builder.append(currency != null ? currency : "");
         }
         while(it.hasNext()){
             String currency = it.next().getCurrency();
             builder.append(" | " + (currency!=null?currency:""));
         }
         return builder.toString();
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void removeAlias(String alias) {
+        aliases.remove(alias);
     }
 }

@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.regex.Pattern;
 
 public class CounterPartyTable extends RefreshableTable implements MouseListener {
 	/**
@@ -47,6 +48,22 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
 				RefreshableTable refreshTable = new GenericMovementTable(searchOptions, accountings);
                 refreshTable.setVisible(true);
 				// parent.addChildFrame(refreshTable);
+            } else if (col == 1){
+                String alias = (String) tabel.getValueAt(row, col);
+                if(alias != null && !alias.equals("")){
+                    String aliases[] = alias.split(Pattern.quote(" | "));
+                    int result = JOptionPane.showOptionDialog(this,"Select new name", "Select new name",
+                            JOptionPane.OK_OPTION,JOptionPane.INFORMATION_MESSAGE, null,aliases,aliases[0]);
+                    if(result != JOptionPane.CLOSED_OPTION){
+                        CounterParty counterParty = (CounterParty) tabel.getValueAt(row, 0);
+                        String name = counterParty.getName();
+                        counterParty.setName(aliases[result]);
+                        counterParty.removeAlias(aliases[result]);
+                        // TODO: ask user if old name should be saved as alias
+                        counterParty.addAlias(name);
+                        model.fireTableDataChanged();
+                    }
+                }
 			} else if (col == 5) {
 				Account account = (Account) tabel.getValueAt(row, col);
 				boolean active = accountings.isActive();
