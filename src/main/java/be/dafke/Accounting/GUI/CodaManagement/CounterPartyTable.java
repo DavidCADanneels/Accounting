@@ -41,7 +41,10 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
 					System.out.println(account.getBic());
 					System.out.println(account.getCurrency());
 				}
-				RefreshableTable refreshTable = new GenericMovementTable(counterParty, null, accountings);
+                SearchOptions searchOptions = new SearchOptions();
+                searchOptions.setCounterParty(counterParty);
+                searchOptions.setSearchOnCounterParty(true);
+				RefreshableTable refreshTable = new GenericMovementTable(searchOptions, accountings);
                 refreshTable.setVisible(true);
 				// parent.addChildFrame(refreshTable);
 			} else if (col == 5) {

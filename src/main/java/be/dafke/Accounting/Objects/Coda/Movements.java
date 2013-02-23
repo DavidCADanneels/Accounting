@@ -1,5 +1,7 @@
 package be.dafke.Accounting.Objects.Coda;
 
+import be.dafke.Accounting.GUI.CodaManagement.SearchOptions;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -57,13 +59,31 @@ public class Movements implements Serializable {
 		return result;
 	}
 
-	public ArrayList<Movement> getMovements(CounterParty counterParty, String transactionCode) {
-		if (transactionCode == null) {
-			return getMovements(counterParty);
-		}
+    public ArrayList<Movement> getMovements(CounterParty counterParty, String transactionCode) {
+        if (transactionCode == null) {
+            return getMovements(counterParty);
+        }
+        ArrayList<Movement> result = new ArrayList<Movement>();
+        for(Movement movement : movements) {
+            if (movement.getTransactionCode().equals(transactionCode) && movement.getCounterParty() == counterParty) {
+                result.add(movement);
+            }
+        }
+        return result;
+    }
+
+	public ArrayList<Movement> getMovements(SearchOptions searchOptions) {
 		ArrayList<Movement> result = new ArrayList<Movement>();
+        CounterParty counterParty = searchOptions.getCounterParty();
+        String transactionCode = searchOptions.getTransactionCode();
+        String communication = searchOptions.getCommunication();
+        boolean searchOnCounterParty = searchOptions.isSearchOnCounterParty();
+        boolean searchOnTransactionCode = searchOptions.isSearchOnTransactionCode();
+        boolean searchOnCommunication = searchOptions.isSearchOnCommunication();
 		for(Movement movement : movements) {
-			if (movement.getTransactionCode().equals(transactionCode) && movement.getCounterParty() == counterParty) {
+			if ((!searchOnTransactionCode || transactionCode.equals(movement.getTransactionCode()))  &&
+                    (!searchOnCommunication || communication.equals(movement.getCommunication())) &&
+                    (!searchOnCounterParty || counterParty == movement.getCounterParty())) {
 				result.add(movement);
 			}
 		}

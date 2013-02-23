@@ -20,16 +20,13 @@ public class GenericMovementDataModel extends AbstractTableModel {
 			"TransactionCode", "Communication" };
 	private final Class[] columnClasses = { String.class, String.class, Calendar.class, String.class, BigDecimal.class,
 			CounterParty.class, String.class, String.class };
-	private final String transactionCode;
-	private CounterParty counterParty;
 	private Movement singleMovement;
 	private final Accountings accountings;
+    private SearchOptions searchOptions;
 
-	public GenericMovementDataModel(CounterParty counterParty, String transactionCode,
-			Accountings accountings) {
+	public GenericMovementDataModel(SearchOptions searchOptions, Accountings accountings) {
 		this.accountings = accountings;
-		this.counterParty = counterParty;
-		this.transactionCode = transactionCode;
+        this.searchOptions = searchOptions;
 	}
 
 	public void setSingleMovement(Movement movement) {
@@ -38,7 +35,7 @@ public class GenericMovementDataModel extends AbstractTableModel {
 	}
 
 	public void switchCounterParty(CounterParty newCounterparty) {
-		counterParty = newCounterparty;
+        searchOptions.setCounterParty(newCounterparty);
 		fireTableDataChanged();
 	}
 
@@ -46,14 +43,8 @@ public class GenericMovementDataModel extends AbstractTableModel {
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Movement m;
-		if (singleMovement != null) {
-			m = singleMovement;
-		} else {
-			Movements movements = accountings.getCurrentAccounting().getMovements();
-			m = movements.getMovements(counterParty, transactionCode).get(row);
-		}
-		if (col == 0) {
+		Movement m = getAllMovements().get(row);
+        if (col == 0) {
 			return m.getStatementNr();
 		} else if (col == 1) {
 			return m.getSequenceNr();
@@ -81,14 +72,7 @@ public class GenericMovementDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		if (accountings == null || accountings.getCurrentAccounting() == null) {
-			return 0;
-		}
-		if (singleMovement != null) {
-			return 1;
-		}
-		Movements movements = accountings.getCurrentAccounting().getMovements();
-		return movements.getMovements(counterParty, transactionCode).size();
+		return getAllMovements().size();
 	}
 
 	@Override
@@ -112,20 +96,16 @@ public class GenericMovementDataModel extends AbstractTableModel {
 	public void setValueAt(Object value, int row, int col) {
 	}
 
-	/*	public Movement getMovement(int row) {
-			if (singleMovement != null) {
-				return singleMovement;
-			}
-			return Movements.getMovements(counterParty, transactionCode, allowNull).get(row);
-		}*/
-
 	public ArrayList<Movement> getAllMovements() {
-		if (singleMovement != null) {
+        if (accountings == null || accountings.getCurrentAccounting() == null) {
+            return new ArrayList<Movement>();
+        }
+        if (singleMovement != null) {
 			ArrayList<Movement> result = new ArrayList<Movement>();
 			result.add(singleMovement);
 			return result;
 		}
 		Movements movements = accountings.getCurrentAccounting().getMovements();
-		return movements.getMovements(counterParty, transactionCode);
+		return movements.getMovements(searchOptions);
 	}
 }

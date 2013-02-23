@@ -137,7 +137,10 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 //				builder.append("\r\n" + movement);
 //			}
 			JOptionPane.showMessageDialog(this, builder.toString());
-			CounterPartyTable gui = new CounterPartyTable(accountings);
+            SearchOptions searchOptions = new SearchOptions();
+            searchOptions.setCounterParty(null);
+            searchOptions.setSearchOnCounterParty(true);
+			GenericMovementTable gui = new GenericMovementTable(searchOptions, accountings);
 			gui.setVisible(true);
 			return false;
 		}
@@ -260,14 +263,24 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 						System.out.println(account.getBic());
 						System.out.println(account.getCurrency());
 					}
-					RefreshableTable refreshableTable = new GenericMovementTable(counterParty, null, accountings);
+                    SearchOptions searchOptions = new SearchOptions();
+                    searchOptions.setCounterParty(counterParty);
+                    searchOptions.setSearchOnCounterParty(true);
+					RefreshableTable refreshableTable = new GenericMovementTable(searchOptions, accountings);
+                    refreshableTable.setVisible(true);
 					// parent.addChildFrame(refreshableTable);
 				}
 			} else if (col == 6) {
 				String transactionCode = (String) tabel.getValueAt(row, 6);
 				System.out.println(transactionCode);
-				System.out.println(ResourceBundle.getBundle("CODA").getString(transactionCode));
-				RefreshableTable refreshableTable = new GenericMovementTable(null, transactionCode, accountings);
+				System.out.println(ResourceBundle.getBundle("CODA").getString("00"+transactionCode+"000"));
+                SearchOptions searchOptions = new SearchOptions();
+                searchOptions.setCounterParty(null);
+                searchOptions.setSearchOnCounterParty(true);
+                searchOptions.setTransactionCode(transactionCode);
+                searchOptions.setSearchOnTransactionCode(true);
+				RefreshableTable refreshableTable = new GenericMovementTable(searchOptions, accountings);
+                refreshableTable.setVisible(true);
 				// parent.addChildFrame(refreshableTable);
 			}
 		}
