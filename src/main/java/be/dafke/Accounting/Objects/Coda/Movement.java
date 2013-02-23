@@ -14,7 +14,8 @@ public class Movement implements Serializable {
 	private final String sequenceNumber, transactionCode;
 	private String communication;
 	private final String statementNr;
-	private final boolean debit, structured;
+	private final boolean debit;
+    private boolean structured;
 	private final BigDecimal amount;
 	private final Calendar date;
 
@@ -31,33 +32,44 @@ public class Movement implements Serializable {
 		boolean debit = "1".equals(sign);
 		String amountString = line.substring(32, 47).trim();
 		BigDecimal amount = CodaParser.convertBigDecimal(amountString);
-		String date = line.substring(47, 53).trim();
-		Calendar cal = CodaParser.convertDate(date);
-//		String transCode = line.substring(53, 61);
-		String transCode = line.substring(55, 58).trim();
+		String dateString = line.substring(47, 53).trim();
+		Calendar date = CodaParser.convertDate(dateString);
+//		String transactionCode = line.substring(53, 61).trim;
+		String transactionCode = line.substring(55, 58).trim();
 		String struc = line.substring(61, 62).trim();
 		boolean structured = "1".equals(struc);
-		String comm = line.substring(62, 115).trim();
-		String nr = line.substring(121, 124).trim();
+		String communication = line.substring(62, 115).trim();
+		String statementNumber = line.substring(121, 124).trim();
 		// trim numbers
-		while (nr.startsWith("0")) {
-			nr = nr.substring(1);
+		while (statementNumber.startsWith("0")) {
+			statementNumber = statementNumber.substring(1);
 		}
 		while (sequenceNumber.startsWith("0")) {
 			sequenceNumber = sequenceNumber.substring(1);
 		}
-		return new Movement(sequenceNumber, debit, amount, cal, transCode, structured, comm, nr);
+		return new Movement(statementNumber, sequenceNumber, date, debit, amount, transactionCode, communication, structured);
 	}
 
-	public Movement(String sequenceNumber, boolean debit, BigDecimal amount,
-			Calendar date, String transactionCode, boolean structured, String communication,String statementNr) {
-		this.sequenceNumber = sequenceNumber;
-		this.debit = debit;
-		this.amount = amount;
-		this.date = date;
-		this.transactionCode = transactionCode.trim();
-		this.communication = communication;
-		this.statementNr = statementNr;
+    public Movement(String statementNr, String sequenceNumber, Calendar date, boolean debit, BigDecimal amount, CounterParty counterParty, String transactionCode, String communication){
+        this.statementNr = statementNr;
+        this.sequenceNumber = sequenceNumber;
+        this.date = date;
+        this.debit = debit;
+        this.amount = amount;
+        this.counterParty = counterParty;
+        this.transactionCode = transactionCode;
+        this.communication = communication;
+    }
+
+	private Movement(String statementNr, String sequenceNumber, Calendar date, boolean debit, BigDecimal amount,
+			 String transactionCode, String communication, boolean structured) {
+        this.statementNr = statementNr;
+        this.sequenceNumber = sequenceNumber;
+        this.date = date;
+        this.debit = debit;
+        this.amount = amount;
+        this.transactionCode = transactionCode.trim();
+        this.communication = communication;
         this.structured = structured;
         resetCommunication();
     }

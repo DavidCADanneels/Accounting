@@ -30,6 +30,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
@@ -158,8 +159,6 @@ public class AccountingSAXParser {
                             mortgagesFromXML(accounting, (Element) mortgagesNode);
                             counterpartiesFromXML(accounting, (Element) counterpartiesNode);
                             movementsFromXML(accounting, (Element) movementsNode);
-
-                            // Handle Movements
 
                         } catch (IOException io) {
                             io.printStackTrace();
@@ -316,17 +315,29 @@ public class AccountingSAXParser {
     }
 
     private static void movementsFromXML(Accounting accounting, Element movementsElement){
-//        NodeList movements = movementsElement.getElementsByTagName("Movement");
-//        for (int i = 0; i < movements.getLength(); i++) {
-//            Element movement = (Element)movements.item(i);
-//            .getChildNodes().item(0).getNodeValue();
-//            Account account = accounting.getAccounts().get(accountName);
-//            counterParty.setAccount(account);
-//            Element element = (Element)movements.item(i);
-//            String counterparty_name = element.getAttribute("name");
-//            Movement counterParty = new Movement();
-//
-//        }
+        NodeList movements = movementsElement.getElementsByTagName("Movement");
+        for (int i = 0; i < movements.getLength(); i++) {
+            Element element = (Element)movements.item(i);
+            String statementNr = element.getElementsByTagName("Statement").item(0).getChildNodes().item(0).getNodeValue();
+            String sequenceNr = element.getElementsByTagName("Sequence").item(0).getChildNodes().item(0).getNodeValue();
+            String dateString = element.getElementsByTagName("Date").item(0).getChildNodes().item(0).getNodeValue();
+            String debitString = element.getElementsByTagName("Sign").item(0).getChildNodes().item(0).getNodeValue();
+            String amountString = element.getElementsByTagName("Amount").item(0).getChildNodes().item(0).getNodeValue();
+            String counterpartyName = element.getElementsByTagName("CounterParty").item(0).getChildNodes().item(0).getNodeValue();
+            String transactionCode = element.getElementsByTagName("TransactionCode").item(0).getChildNodes().item(0).getNodeValue();
+            String communication = "";
+            // communication can be an empty tag "<Communication></Communication>"
+            NodeList communcationNodeList = element.getElementsByTagName("Communication").item(0).getChildNodes();
+            if(communcationNodeList.getLength()>0){
+                communication = communcationNodeList.item(0).getNodeValue();
+            }
+            BigDecimal amount = new BigDecimal(amountString);
+            Calendar date = Utils.toCalendar(dateString);
+            boolean debit = ("D".equals(debitString));
+            CounterParty counterParty = accounting.getCounterParties().getCounterPartyByName(counterpartyName);
+            Movement movement = new Movement(statementNr, sequenceNr, date, debit, amount, counterParty, transactionCode, communication);
+            accounting.getMovements().add(movement);
+        }
     }
 
     public static void toXML(Accountings accountings) {
@@ -406,7 +417,16 @@ public class AccountingSAXParser {
             writer.write("  <Movements xml=\"" + accounting.getMovementLocationXml() + "\" html=\"" + accounting.getMovementLocationHtml()
                     + "\">\r\n");
             for(Movement movement : accounting.getMovements().getAllMovements()) {
-
+                writer.write("    <Movement>\r\n");
+                writer.write("      <Statement>"+movement.getStatementNr()+"</Statement>\r\n");
+                writer.write("      <Sequence>"+movement.getSequenceNr()+"</Sequence>\r\n");
+                writer.write("      <Date>"+Utils.toString(movement.getDate())+"</Date>\r\n");
+                writer.write("      <Sign>"+(movement.isDebit()?"D":"C")+"</Sign>\r\n");
+                writer.write("      <Amount>"+movement.getAmount()+"</Amount>\r\n");
+                writer.write("      <CounterParty>"+movement.getCounterParty()+"</CounterParty>\r\n");
+                writer.write("      <TransactionCode>" + movement.getTransactionCode() + "</TransactionCode>\r\n");
+                writer.write("      <Communication>"+movement.getCommunication()+"</Communication>\r\n");
+                writer.write("    </Movement>\r\n");
             }
             writer.write("  </Movements>\r\n");
             writer.write("  <Counterparties xml=\"" + accounting.getCounterPartyLocationXml() + "\" html=\""
