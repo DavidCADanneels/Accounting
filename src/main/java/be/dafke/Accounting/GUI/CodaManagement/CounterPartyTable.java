@@ -42,8 +42,9 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
 					System.out.println(account.getCurrency());
 				}
 				RefreshableTable refreshTable = new GenericMovementTable(counterParty, null, true, accountings);
+                refreshTable.setVisible(true);
 				// parent.addChildFrame(refreshTable);
-			} else if (col == 4) {
+			} else if (col == 5) {
 				Account account = (Account) tabel.getValueAt(row, col);
 				boolean active = accountings.isActive();
 				if (!active) {
