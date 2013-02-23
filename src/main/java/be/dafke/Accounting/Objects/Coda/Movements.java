@@ -4,7 +4,6 @@ import be.dafke.Accounting.GUI.CodaManagement.SearchOptions;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Movements implements Serializable {
 	/**
@@ -19,10 +18,9 @@ public class Movements implements Serializable {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder("CounterParties:\r\n");
-		Iterator<Movement> it = movements.iterator();
-		while (it.hasNext()) {
-			builder.append(it.next());
+		StringBuilder builder = new StringBuilder("CounterParties:");
+		for (Movement movement : movements){
+			builder.append("\r\n").append(movement.toString());
 		}
 		return builder.toString();
 	}
