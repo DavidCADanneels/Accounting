@@ -69,9 +69,16 @@ public class CounterPartySelector extends JDialog implements ActionListener {
         single = new JRadioButton("Single movement");
         multiple = new JRadioButton("Multiple movements");
         searchOnTransactionCode = new JCheckBox("TransactionCode == ");
+        searchOnTransactionCode.setEnabled(false);
+        searchOnTransactionCode.setSelected(true);
         searchOnCommunication = new JCheckBox("Communication == ");
+        searchOnCommunication.setEnabled(false);
         transactionCode = new JTextField(10);
+        transactionCode.setEnabled(false);
+        transactionCode.setText(movement.getTransactionCode());
         communication = new JTextField(10);
+        communication.setEnabled(false);
+        communication.setText(movement.getCommunication());
         singleMultiple = new ButtonGroup();
         singleMultiple.add(single);
         singleMultiple.add(multiple);
@@ -80,6 +87,7 @@ public class CounterPartySelector extends JDialog implements ActionListener {
         multiple.addActionListener(this);
         apply = new JButton("Apply Changes");
         apply.addActionListener(this);
+        apply.setEnabled(false);
 
         // Layout
         //
@@ -139,12 +147,21 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 		} else if (e.getSource() == combo) {
 			counterParty = (CounterParty) combo.getSelectedItem();
 			movementExistingCounterpartyTableModel.switchCounterParty(counterParty);
+            apply.setEnabled(counterParty!=null);
 			fillInCounterParty();
 		} else if (e.getSource() == single) {
 			movementNoCounterpartyTableModel.setSingleMovement(movement);
+            searchOnTransactionCode.setEnabled(false);
+            searchOnCommunication.setEnabled(false);
+            transactionCode.setEnabled(false);
+            communication.setEnabled(false);
 			fillInCounterParty();
 		} else if (e.getSource() == multiple) {
 			movementNoCounterpartyTableModel.setSingleMovement(null);
+            searchOnTransactionCode.setEnabled(true);
+            searchOnCommunication.setEnabled(true);
+            transactionCode.setEnabled(true);
+            communication.setEnabled(true);
 			fillInCounterParty();
 		} else if (e.getSource() == apply) {
 			setCounterParty();
