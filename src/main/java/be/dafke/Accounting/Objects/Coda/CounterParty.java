@@ -76,44 +76,44 @@ public class CounterParty implements Serializable {
     }
 
     public String getBankAccountsString() {
-        if(accounts.size() == 0){
-            return "";
+        Iterator<BankAccount> it = accounts.values().iterator();
+        StringBuilder builder = new StringBuilder();
+        if(it.hasNext()){
+            String accountNumber = it.next().getAccountNumber();
+            builder.append(accountNumber!=null?accountNumber:"");
         }
-        else{
-            Iterator<BankAccount> it = accounts.values().iterator();
-            StringBuilder builder = new StringBuilder(it.next().getAccountNumber());
-            while(it.hasNext()){
-                builder.append(" | " + it.next().getAccountNumber());
-            }
-            return builder.toString();
+        while(it.hasNext()){
+            String accountNumber = it.next().getAccountNumber();
+            builder.append(" | " + (accountNumber!=null?accountNumber:""));
         }
+        return builder.toString();
     }
 
     public String getBICString() {
-        if(accounts.size() == 0){
-            return "";
+        Iterator<BankAccount> it = accounts.values().iterator();
+        StringBuilder builder = new StringBuilder();
+        if(it.hasNext()){
+            String bic = it.next().getBic();
+            builder.append(bic!=null?bic : "");
         }
-        else{
-            Iterator<BankAccount> it = accounts.values().iterator();
-            StringBuilder builder = new StringBuilder(it.next().getBic());
-            while(it.hasNext()){
-                builder.append(" | " + it.next().getBic());
-            }
-            return builder.toString();
+        while(it.hasNext()){
+            String bic = it.next().getBic();
+            builder.append(" | " + (bic!=null?bic : ""));
         }
+        return builder.toString();
     }
 
     public String getCurrencyString() {
-        if(accounts.size() == 0){
-            return "";
+        Iterator<BankAccount> it = accounts.values().iterator();
+        StringBuilder builder = new StringBuilder();
+        if(it.hasNext()){
+            String currency = it.next().getCurrency();
+            builder.append(currency!=null?currency:"");
         }
-        else{
-            Iterator<BankAccount> it = accounts.values().iterator();
-            StringBuilder builder = new StringBuilder(it.next().getCurrency());
-            while(it.hasNext()){
-                builder.append(" | " + it.next().getCurrency());
-            }
-            return builder.toString();
+        while(it.hasNext()){
+            String currency = it.next().getCurrency();
+            builder.append(" | " + (currency!=null?currency:""));
         }
+        return builder.toString();
     }
 }

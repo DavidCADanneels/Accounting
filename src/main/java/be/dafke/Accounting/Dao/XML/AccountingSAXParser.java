@@ -157,7 +157,7 @@ public class AccountingSAXParser {
                             journalsFromXML(accounting, (Element) journalsNode);
                             mortgagesFromXML(accounting, (Element) mortgagesNode);
                             counterpartiesFromXML(accounting, (Element) counterpartiesNode);
-
+                            movementsFromXML(accounting, (Element) movementsNode);
 
                             // Handle Movements
 
@@ -289,9 +289,14 @@ public class AccountingSAXParser {
                 Account account = accounting.getAccounts().get(accountName);
                 counterParty.setAccount(account);
             }
+            NodeList aliasNodeList = element.getElementsByTagName("Alias");
+            for(int j=0;j<aliasNodeList.getLength();j++){
+                String alias = aliasNodeList.item(j).getChildNodes().item(0).getNodeValue();
+                counterParty.addAlias(alias);
+            }
             NodeList bankAccountNodeList = element.getElementsByTagName("BankAccount");
-            if(bankAccountNodeList.getLength()>0){
-                String accountName = bankAccountNodeList.item(0).getChildNodes().item(0).getNodeValue();
+            for(int j=0;j<bankAccountNodeList.getLength();j++){
+                String accountName = bankAccountNodeList.item(j).getChildNodes().item(0).getNodeValue();
                 BankAccount bankAccount = new BankAccount(accountName);
                 counterParty.addAccount(bankAccount);
                 NodeList bicNodeList = element.getElementsByTagName("BIC");
@@ -308,6 +313,20 @@ public class AccountingSAXParser {
             }
             accounting.addCounterparty(counterParty);
         }
+    }
+
+    private static void movementsFromXML(Accounting accounting, Element movementsElement){
+//        NodeList movements = movementsElement.getElementsByTagName("Movement");
+//        for (int i = 0; i < movements.getLength(); i++) {
+//            Element movement = (Element)movements.item(i);
+//            .getChildNodes().item(0).getNodeValue();
+//            Account account = accounting.getAccounts().get(accountName);
+//            counterParty.setAccount(account);
+//            Element element = (Element)movements.item(i);
+//            String counterparty_name = element.getAttribute("name");
+//            Movement counterParty = new Movement();
+//
+//        }
     }
 
     public static void toXML(Accountings accountings) {
@@ -394,6 +413,11 @@ public class AccountingSAXParser {
                     + accounting.getCounterPartyLocationHtml() + "\">\r\n");
             for(CounterParty counterParty : accounting.getCounterParties().getCounterParties()) {
                 writer.write("    <Counterparty name =\""+counterParty.getName()+"\">\r\n");
+                if(counterParty.getAliases()!=null){
+                    for(String alias : counterParty.getAliases()){
+                        writer.write("      <Alias>"+alias+"</Alias>\r\n");
+                    }
+                }
                 if(counterParty.getAccount()!=null){
                     writer.write("      <AccountName>" + counterParty.getAccount().getName() + "</AccountName>\r\n");
                 }
@@ -403,7 +427,7 @@ public class AccountingSAXParser {
                             writer.write("      <BankAccount>" + account.getAccountNumber() + "</BankAccount>\r\n");
                         }
                         if(account.getBic()!=null){
-                            writer.write("      <BIC>" + account.getBic().trim() + "</BIC>\r\n");
+                            writer.write("      <BIC>" + account.getBic() + "</BIC>\r\n");
                         }
                         if(account.getCurrency()!=null){
                             writer.write("      <Currency>" + account.getCurrency() + "</Currency>\r\n");
