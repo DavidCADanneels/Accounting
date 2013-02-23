@@ -21,7 +21,7 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
     private AccountingMenuBar menuBar;
     private AccountingGUIPanel contentPanel;
 
-	public AccountingGUIFrame(String title, Accountings accountings/*, JMenuBar menuBar*/) {
+	public AccountingGUIFrame(String title, Accountings accountings) {
 		super(title);
 		this.accountings = accountings;
 		addWindowListener(this);

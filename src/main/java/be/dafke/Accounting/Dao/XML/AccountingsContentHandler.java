@@ -26,9 +26,11 @@ public class AccountingsContentHandler extends DefaultHandler {
 			acc.setLocationXml(new File(xml));
             String html = atts.getValue("html");
             acc.setLocationHtml(new File(html));
-			if (acc != null) {
-				accountings.addAccounting(acc);
-			}
+            accountings.addAccounting(acc);
+            String current = atts.getValue("current");
+            if("true".equals(current)){
+                accountings.setCurrentAccounting(name);
+            }
 		}
 	}
 }

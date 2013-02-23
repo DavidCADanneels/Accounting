@@ -134,6 +134,10 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
         banking.add(counterParties);
         banking.add(mortgage);
         add(banking);
+        activateButtons();
+        if(accountings.isActive()){
+            refreshAllFrames();
+        }
     }
 
     public void actionPerformed(ActionEvent ae) {
@@ -160,7 +164,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
 //                // TODO: ask user: save or not ?
 //                AccountingSAXParser.toXML(currentAccounting);
 //            }
-            accountings.open(ae.getActionCommand());
+            accountings.setCurrentAccounting(ae.getActionCommand());
         } else{
             System.err.println(ae.getActionCommand()+ " not supported");
         }

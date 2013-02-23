@@ -31,7 +31,7 @@ public class Accountings {
 		return currentAccounting != null;
 	}
 
-	public void open(String name) {
+	public void setCurrentAccounting(String name) {
 //		if (currentAccounting != null) {
 //			currentAccounting.close();
 //		}

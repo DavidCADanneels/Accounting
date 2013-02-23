@@ -342,27 +342,25 @@ public class AccountingSAXParser {
 
     public static void toXML(Accountings accountings) {
         Accounting currentAccounting = accountings.getCurrentAccounting();
-        if (currentAccounting != null) {
-            try {
-                Writer writer = new FileWriter(getFile());
-                writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-                        + "<!DOCTYPE Accountings SYSTEM \"C:\\Users\\Dafke\\Accounting\\xsl\\Accountings.dtd\">\r\n"
-                        + "<?xml-stylesheet type=\"text/xsl\" href=\"Accountings.xsl\"?>\r\n" + "<Accountings>\r\n");
-                for(Accounting acc : accountings.getAccountings()) {
-                    writer.write("  <Accounting name=\"" + acc.toString() + "\" xml=\"" + acc.getLocationXml()
-                            + "\" html=\"" + acc.getLocationHtml() + "\"/>\r\n");
-                }
-                writer.write("  <CurrentAccounting name=\"" + currentAccounting.toString() + "\" xml=\""
-                        + currentAccounting.getLocationXml() + "\" html=\"" + currentAccounting.getLocationHtml()
+        try {
+            Writer writer = new FileWriter(getFile());
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
+                    + "<!DOCTYPE Accountings SYSTEM \"C:\\Users\\Dafke\\Accounting\\xsl\\Accountings.dtd\">\r\n"
+                    + "<?xml-stylesheet type=\"text/xsl\" href=\"Accountings.xsl\"?>\r\n" + "<Accountings>\r\n");
+            for(Accounting acc : accountings.getAccountings()) {
+                writer.write("  <Accounting name=\"" + acc.toString()
+                        + "\" current=\"" + (acc == currentAccounting?"true":"false")
+                        + "\" xml=\"" + acc.getLocationXml()
+                        + "\" html=\"" + acc.getLocationHtml()
                         + "\"/>\r\n");
-                writer.write("</Accountings>");
-                writer.flush();
-                writer.close();
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
             }
+            writer.write("</Accountings>");
+            writer.flush();
+            writer.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
         for(Accounting accounting : accountings.getAccountings()) {
             toXML(accounting);
