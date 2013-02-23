@@ -11,9 +11,9 @@ public class GenericMovementTable extends RefreshableTable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public GenericMovementTable(CounterParty counterParty, String transactionCode, boolean allowNull,
+	public GenericMovementTable(CounterParty counterParty, String transactionCode,
 			Accountings accountings) {
-		super("Movements for counterparty", new GenericMovementDataModel(counterParty, transactionCode, allowNull,
+		super("Movements for counterparty", new GenericMovementDataModel(counterParty, transactionCode,
 				accountings));
 		// tabel.setAutoCreateRowSorter(true);
 	}

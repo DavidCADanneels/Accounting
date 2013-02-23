@@ -22,16 +22,14 @@ public class GenericMovementDataModel extends AbstractTableModel {
 			CounterParty.class, String.class, String.class };
 	private final String transactionCode;
 	private CounterParty counterParty;
-	private final boolean allowNull;
 	private Movement singleMovement;
 	private final Accountings accountings;
 
-	public GenericMovementDataModel(CounterParty counterParty, String transactionCode, boolean allowNull,
+	public GenericMovementDataModel(CounterParty counterParty, String transactionCode,
 			Accountings accountings) {
 		this.accountings = accountings;
 		this.counterParty = counterParty;
 		this.transactionCode = transactionCode;
-		this.allowNull = allowNull;
 	}
 
 	public void setSingleMovement(Movement movement) {
@@ -53,7 +51,7 @@ public class GenericMovementDataModel extends AbstractTableModel {
 			m = singleMovement;
 		} else {
 			Movements movements = accountings.getCurrentAccounting().getMovements();
-			m = movements.getMovements(counterParty, transactionCode, allowNull).get(row);
+			m = movements.getMovements(counterParty, transactionCode).get(row);
 		}
 		if (col == 0) {
 			return m.getStatementNr();
@@ -90,7 +88,7 @@ public class GenericMovementDataModel extends AbstractTableModel {
 			return 1;
 		}
 		Movements movements = accountings.getCurrentAccounting().getMovements();
-		return movements.getMovements(counterParty, transactionCode, allowNull).size();
+		return movements.getMovements(counterParty, transactionCode).size();
 	}
 
 	@Override
@@ -128,6 +126,6 @@ public class GenericMovementDataModel extends AbstractTableModel {
 			return result;
 		}
 		Movements movements = accountings.getCurrentAccounting().getMovements();
-		return movements.getMovements(counterParty, transactionCode, allowNull);
+		return movements.getMovements(counterParty, transactionCode);
 	}
 }

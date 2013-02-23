@@ -57,10 +57,7 @@ public class Movements implements Serializable {
 		return result;
 	}
 
-	public ArrayList<Movement> getMovements(CounterParty counterParty, String transactionCode, boolean allowNull) {
-		if (counterParty == null && !allowNull) {
-			return getMovements(transactionCode);
-		}
+	public ArrayList<Movement> getMovements(CounterParty counterParty, String transactionCode) {
 		if (transactionCode == null) {
 			return getMovements(counterParty);
 		}

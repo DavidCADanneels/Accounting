@@ -260,15 +260,14 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 						System.out.println(account.getBic());
 						System.out.println(account.getCurrency());
 					}
-					RefreshableTable refreshableTable = new GenericMovementTable(counterParty, null, true, accountings);
+					RefreshableTable refreshableTable = new GenericMovementTable(counterParty, null, accountings);
 					// parent.addChildFrame(refreshableTable);
 				}
 			} else if (col == 6) {
 				String transactionCode = (String) tabel.getValueAt(row, 6);
 				System.out.println(transactionCode);
 				System.out.println(ResourceBundle.getBundle("CODA").getString(transactionCode));
-				RefreshableTable refreshableTable = new GenericMovementTable(null, transactionCode, true, accountings); // false
-																														// ???
+				RefreshableTable refreshableTable = new GenericMovementTable(null, transactionCode, accountings);
 				// parent.addChildFrame(refreshableTable);
 			}
 		}

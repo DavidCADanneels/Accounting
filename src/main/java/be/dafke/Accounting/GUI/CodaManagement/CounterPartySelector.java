@@ -48,9 +48,9 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 		JPanel north = new JPanel();
 		north.add(combo);
 		north.add(create);
-		movementExistingCounterpartyTableModel = new GenericMovementDataModel(counterParty, null, true, accountings);
+		movementExistingCounterpartyTableModel = new GenericMovementDataModel(counterParty, null, accountings);
 		movementExistingCounterpartyTable = new JTable(movementExistingCounterpartyTableModel);
-		movementNoCounterpartyTableModel = new GenericMovementDataModel(null, movement.getTransactionCode(), true,
+		movementNoCounterpartyTableModel = new GenericMovementDataModel(null, movement.getTransactionCode(),
 				accountings);
 		movementNoCounterpartyTableModel.setSingleMovement(movement);
 		movementNoCounterpartyTable = new JTable(movementNoCounterpartyTableModel);
