@@ -4,6 +4,7 @@ import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Coda.Movement;
 import be.dafke.Accounting.Objects.Coda.Movements;
+import be.dafke.Accounting.Objects.Coda.TmpCounterParty;
 import be.dafke.Utils;
 
 import javax.swing.table.AbstractTableModel;
@@ -16,10 +17,10 @@ public class GenericMovementDataModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String[] columnNames = { "Statement", "Sequence", "Date", "D/C", "Amount", "CounterParty",
-			"TransactionCode", "Communication" };
+	private final String[] columnNames = { "Statement", "Sequence", "Date", "D/C", "Amount", "Old CounterParty",
+			"New CounterParty", "TransactionCode", "Communication" };
 	private final Class[] columnClasses = { String.class, String.class, Calendar.class, String.class, BigDecimal.class,
-			CounterParty.class, String.class, String.class };
+			CounterParty.class, TmpCounterParty.class, String.class, String.class };
 	private Movement singleMovement;
 	private final Accountings accountings;
     private SearchOptions searchOptions;
@@ -50,12 +51,12 @@ public class GenericMovementDataModel extends AbstractTableModel {
 		} else if (col == 4) {
 			return m.getAmount();
 		} else if (col == 5) {
-			CounterParty c = m.getCounterParty();
-			if (c == null) c = m.getTmpCounterParty();
-			return c;
-		} else if (col == 6) {
-			return m.getTransactionCode();
+			return m.getCounterParty();
+        } else if (col == 6) {
+		    return m.getTmpCounterParty();
 		} else if (col == 7) {
+			return m.getTransactionCode();
+		} else if (col == 8) {
 			return m.getCommunication();
 		} else return "";
 	}

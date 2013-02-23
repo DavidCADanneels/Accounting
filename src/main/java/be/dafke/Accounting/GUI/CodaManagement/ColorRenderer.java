@@ -18,9 +18,9 @@ public class ColorRenderer extends DefaultTableCellRenderer {
 			int row, int column) {
 		Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
 		if (value instanceof TmpCounterParty) {
-			cell.setForeground(Color.RED);
-		} else if (value instanceof CounterParty) {
 			cell.setForeground(Color.GREEN);
+		} else if (value instanceof CounterParty) {
+			cell.setForeground(Color.RED);
 		} else {
 			cell.setForeground(Color.BLACK);
 		}
