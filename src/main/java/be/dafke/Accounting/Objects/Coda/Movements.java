@@ -35,43 +35,6 @@ public class Movements implements Serializable {
 		return movements;
 	}
 
-//	public void setAllMovements(ArrayList<Movement> newMovements) {
-//		movements = newMovements;
-//	}
-
-	public ArrayList<Movement> getMovements(CounterParty counterParty) {
-		ArrayList<Movement> result = new ArrayList<Movement>();
-		for(Movement movement : movements) {
-			if (movement.getCounterParty() == counterParty) {
-				result.add(movement);
-			}
-		}
-		return result;
-	}
-
-	public ArrayList<Movement> getMovements(String transactionCode) {
-		ArrayList<Movement> result = new ArrayList<Movement>();
-		for(Movement movement : movements) {
-			if (movement.getTransactionCode().equals(transactionCode)) {
-				result.add(movement);
-			}
-		}
-		return result;
-	}
-
-    public ArrayList<Movement> getMovements(CounterParty counterParty, String transactionCode) {
-        if (transactionCode == null) {
-            return getMovements(counterParty);
-        }
-        ArrayList<Movement> result = new ArrayList<Movement>();
-        for(Movement movement : movements) {
-            if (movement.getTransactionCode().equals(transactionCode) && movement.getCounterParty() == counterParty) {
-                result.add(movement);
-            }
-        }
-        return result;
-    }
-
 	public ArrayList<Movement> getMovements(SearchOptions searchOptions) {
 		ArrayList<Movement> result = new ArrayList<Movement>();
         CounterParty counterParty = searchOptions.getCounterParty();
