@@ -12,8 +12,11 @@ public class GenericMovementTable extends RefreshableTable {
 
 	public GenericMovementTable(SearchOptions searchOptions,
 			Accountings accountings) {
-		super("Movements for counterparty", new GenericMovementDataModel(searchOptions,
-				accountings));
+		super("Movements where"+
+                (searchOptions.isSearchOnCounterParty()?" [counterParty = "+searchOptions.getCounterParty()+"]":"")+
+                (searchOptions.isSearchOnTransactionCode()? " [transactioncode = "+searchOptions.getTransactionCode()+"]":"")+
+                (searchOptions.isSearchOnCommunication()? " [communication = "+searchOptions.getCommunication()+"]":""),
+                new GenericMovementDataModel(searchOptions,accountings));
 		// tabel.setAutoCreateRowSorter(true);
 	}
 }

@@ -64,4 +64,20 @@ public class SearchOptions {
     public void setCounterParty(CounterParty counterParty) {
         this.counterParty = counterParty;
     }
+
+    // DoubleSetters
+    public void searchForCounterParty(CounterParty counterParty){
+        this.counterParty = counterParty;
+        this.searchOnCounterParty = true;
+    }
+
+    public void searchForTransactionCode(String transactionCode){
+        this.transactionCode = transactionCode;
+        this.searchOnTransactionCode = true;
+    }
+
+    public void searchForCommunication(String communication){
+        this.communication = communication;
+        this.searchOnCommunication = true;
+    }
 }

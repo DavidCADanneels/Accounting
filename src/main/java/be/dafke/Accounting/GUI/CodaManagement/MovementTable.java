@@ -26,7 +26,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
-import java.util.ResourceBundle;
 import java.util.Set;
 
 public class MovementTable extends RefreshableTable implements ActionListener, MouseListener {
@@ -138,8 +137,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 //			}
 			JOptionPane.showMessageDialog(this, builder.toString());
             SearchOptions searchOptions = new SearchOptions();
-            searchOptions.setCounterParty(null);
-            searchOptions.setSearchOnCounterParty(true);
+            searchOptions.searchForCounterParty(null);
 			GenericMovementTable gui = new GenericMovementTable(searchOptions, accountings);
 			gui.setVisible(true);
 			return false;
@@ -264,25 +262,26 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 						System.out.println(account.getCurrency());
 					}
                     SearchOptions searchOptions = new SearchOptions();
-                    searchOptions.setCounterParty(counterParty);
-                    searchOptions.setSearchOnCounterParty(true);
+                    searchOptions.searchForCounterParty(counterParty);
 					RefreshableTable refreshableTable = new GenericMovementTable(searchOptions, accountings);
                     refreshableTable.setVisible(true);
 					// parent.addChildFrame(refreshableTable);
 				}
 			} else if (col == 6) {
 				String transactionCode = (String) tabel.getValueAt(row, 6);
-				System.out.println(transactionCode);
-				System.out.println(ResourceBundle.getBundle("CODA").getString("00"+transactionCode+"000"));
                 SearchOptions searchOptions = new SearchOptions();
-//                searchOptions.setCounterParty(null);
-                searchOptions.setSearchOnCounterParty(false);
-                searchOptions.setTransactionCode(transactionCode);
-                searchOptions.setSearchOnTransactionCode(true);
+                searchOptions.searchForTransactionCode(transactionCode);
 				RefreshableTable refreshableTable = new GenericMovementTable(searchOptions, accountings);
                 refreshableTable.setVisible(true);
 				// parent.addChildFrame(refreshableTable);
-			}
+            } else if (col == 7){
+                String communication = (String) tabel.getValueAt(row, 7);
+                SearchOptions searchOptions = new SearchOptions();
+                searchOptions.searchForCommunication(communication);
+                RefreshableTable refreshableTable = new GenericMovementTable(searchOptions, accountings);
+                refreshableTable.setVisible(true);
+                // parent.addChildFrame(refreshableTable);
+            }
 		}
 	}
 

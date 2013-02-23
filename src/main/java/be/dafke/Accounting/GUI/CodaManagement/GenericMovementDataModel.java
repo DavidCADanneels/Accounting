@@ -34,11 +34,6 @@ public class GenericMovementDataModel extends AbstractTableModel {
 		fireTableDataChanged();
 	}
 
-	public void switchCounterParty(CounterParty newCounterparty) {
-        searchOptions.setCounterParty(newCounterparty);
-		fireTableDataChanged();
-	}
-
 	// DE GET METHODEN
 	// ===============
 	@Override

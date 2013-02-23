@@ -29,8 +29,10 @@ public class CounterPartySelector extends JDialog implements ActionListener {
     private final JTextField transactionCode, communication;
 	private final ButtonGroup singleMultiple;
 	private final Accountings accountings;
+    private final SearchOptions searchOptionsNo;
+    private final SearchOptions searchOptionsExisting;
 
-	public CounterPartySelector(JFrame parent, Movement movement, Accountings accountings) {
+    public CounterPartySelector(JFrame parent, Movement movement, Accountings accountings) {
 		super(parent, "Select Counterparty", true);
 		this.movement = movement;
 		this.accountings = accountings;
@@ -48,16 +50,13 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 		create = new JButton("Create Counterparty");
 		create.addActionListener(this);
         //
-        SearchOptions searchOptionsExisting = new SearchOptions();
-        searchOptionsExisting.setCounterParty(counterParty);
-        searchOptionsExisting.setSearchOnCounterParty(true);
+        searchOptionsExisting = new SearchOptions();
+        searchOptionsExisting.searchForCounterParty(counterParty);
         movementExistingCounterpartyTableModel = new GenericMovementDataModel(searchOptionsExisting, accountings);
         movementExistingCounterpartyTable = new JTable(movementExistingCounterpartyTableModel);
-        SearchOptions searchOptionsNo = new SearchOptions();
-        searchOptionsNo.setCounterParty(null);
-        searchOptionsNo.setSearchOnCounterParty(true);
-        searchOptionsNo.setTransactionCode(movement.getTransactionCode());
-        searchOptionsNo.setSearchOnTransactionCode(true);
+        searchOptionsNo = new SearchOptions();
+        searchOptionsNo.searchForCounterParty(null);
+        searchOptionsNo.searchForTransactionCode(movement.getTransactionCode());
         movementNoCounterpartyTableModel = new GenericMovementDataModel(searchOptionsNo,
                 accountings);
         movementNoCounterpartyTableModel.setSingleMovement(movement);
@@ -71,14 +70,18 @@ public class CounterPartySelector extends JDialog implements ActionListener {
         searchOnTransactionCode = new JCheckBox("TransactionCode == ");
         searchOnTransactionCode.setEnabled(false);
         searchOnTransactionCode.setSelected(true);
+        searchOnTransactionCode.addActionListener(this);
         searchOnCommunication = new JCheckBox("Communication == ");
         searchOnCommunication.setEnabled(false);
+        searchOnCommunication.addActionListener(this);
         transactionCode = new JTextField(10);
         transactionCode.setEnabled(false);
         transactionCode.setText(movement.getTransactionCode());
+        transactionCode.addActionListener(this);
         communication = new JTextField(10);
         communication.setEnabled(false);
         communication.setText(movement.getCommunication());
+        communication.addActionListener(this);
         singleMultiple = new ButtonGroup();
         singleMultiple.add(single);
         singleMultiple.add(multiple);
@@ -146,7 +149,8 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 			}
 		} else if (e.getSource() == combo) {
 			counterParty = (CounterParty) combo.getSelectedItem();
-			movementExistingCounterpartyTableModel.switchCounterParty(counterParty);
+			searchOptionsExisting.setCounterParty(counterParty); // TODO: or searchForCounterParty
+            movementExistingCounterpartyTableModel.fireTableDataChanged();
             apply.setEnabled(counterParty!=null);
 			fillInCounterParty();
 		} else if (e.getSource() == single) {
@@ -165,7 +169,27 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 			fillInCounterParty();
 		} else if (e.getSource() == apply) {
 			setCounterParty();
-		}
+		} else if (e.getSource() == searchOnCommunication){
+            if(searchOnCommunication.isSelected()){
+                searchOptionsNo.searchForCommunication(communication.getText());
+            } else {
+                searchOptionsNo.setSearchOnCommunication(false);
+            }
+            fillInCounterParty();
+        } else if (e.getSource() == searchOnTransactionCode){
+            if(searchOnTransactionCode.isSelected()){
+                searchOptionsNo.searchForTransactionCode(transactionCode.getText());
+            } else {
+                searchOptionsNo.setSearchOnCommunication(false);
+            }
+            fillInCounterParty();
+        } else if (e.getSource() == communication){
+            searchOptionsNo.setCommunication(communication.getText());
+            fillInCounterParty();
+        } else if (e.getSource() == transactionCode){
+            searchOptionsNo.setTransactionCode(transactionCode.getText());
+            fillInCounterParty();
+        }
 	}
 
 	private void setCounterParty() {
@@ -173,7 +197,7 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 			TmpCounterParty tmpCounterParty = m.getTmpCounterParty();
 			m.setCounterParty(tmpCounterParty.getCounterParty());
 		}
-		movementNoCounterpartyTableModel.switchCounterParty(null);
+        searchOptionsNo.setCounterParty(null); // TODO: or searchForCounterParty(null)
 		movementNoCounterpartyTableModel.fireTableDataChanged();
 		movementExistingCounterpartyTableModel.fireTableDataChanged();
 		combo.setEnabled(false);
