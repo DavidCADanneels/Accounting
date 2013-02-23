@@ -414,21 +414,6 @@ public class AccountingSAXParser {
                         + "    </Mortgage>\r\n");
             }
             writer.write("  </Mortgages>\r\n");
-            writer.write("  <Movements xml=\"" + accounting.getMovementLocationXml() + "\" html=\"" + accounting.getMovementLocationHtml()
-                    + "\">\r\n");
-            for(Movement movement : accounting.getMovements().getAllMovements()) {
-                writer.write("    <Movement>\r\n");
-                writer.write("      <Statement>"+movement.getStatementNr()+"</Statement>\r\n");
-                writer.write("      <Sequence>"+movement.getSequenceNr()+"</Sequence>\r\n");
-                writer.write("      <Date>"+Utils.toString(movement.getDate())+"</Date>\r\n");
-                writer.write("      <Sign>"+(movement.isDebit()?"D":"C")+"</Sign>\r\n");
-                writer.write("      <Amount>"+movement.getAmount()+"</Amount>\r\n");
-                writer.write("      <CounterParty>"+movement.getCounterParty()+"</CounterParty>\r\n");
-                writer.write("      <TransactionCode>" + movement.getTransactionCode() + "</TransactionCode>\r\n");
-                writer.write("      <Communication>"+movement.getCommunication()+"</Communication>\r\n");
-                writer.write("    </Movement>\r\n");
-            }
-            writer.write("  </Movements>\r\n");
             writer.write("  <Counterparties xml=\"" + accounting.getCounterPartyLocationXml() + "\" html=\""
                     + accounting.getCounterPartyLocationHtml() + "\">\r\n");
             for(CounterParty counterParty : accounting.getCounterParties().getCounterParties()) {
@@ -457,6 +442,21 @@ public class AccountingSAXParser {
                 writer.write("    </Counterparty>\r\n");
             }
             writer.write("  </Counterparties>\r\n");
+            writer.write("  <Movements xml=\"" + accounting.getMovementLocationXml() + "\" html=\"" + accounting.getMovementLocationHtml()
+                    + "\">\r\n");
+            for(Movement movement : accounting.getMovements().getAllMovements()) {
+                writer.write("    <Movement>\r\n");
+                writer.write("      <Statement>"+movement.getStatementNr()+"</Statement>\r\n");
+                writer.write("      <Sequence>"+movement.getSequenceNr()+"</Sequence>\r\n");
+                writer.write("      <Date>"+Utils.toString(movement.getDate())+"</Date>\r\n");
+                writer.write("      <Sign>"+(movement.isDebit()?"D":"C")+"</Sign>\r\n");
+                writer.write("      <Amount>"+movement.getAmount()+"</Amount>\r\n");
+                writer.write("      <CounterParty>"+movement.getCounterParty()+"</CounterParty>\r\n");
+                writer.write("      <TransactionCode>" + movement.getTransactionCode() + "</TransactionCode>\r\n");
+                writer.write("      <Communication>"+movement.getCommunication()+"</Communication>\r\n");
+                writer.write("    </Movement>\r\n");
+            }
+            writer.write("  </Movements>\r\n");
             writer.write("</Accounting>\r\n");
             writer.flush();
             writer.close();
