@@ -5,7 +5,7 @@ import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Journals;
-import be.dafke.RefreshableFrame;
+import be.dafke.RefreshableComponent;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -53,10 +53,10 @@ public class JournalsGUI extends JPanel implements ActionListener {
 			Journal journal = (Journal) combo.getSelectedItem();
             Accounting accounting = accountings.getCurrentAccounting();
             String key = "JOURNAL"+"_"+accounting.toString()+"_"+journal.getName();
-            RefreshableFrame gui = AccountingMenuBar.getFrame(key);
+            RefreshableComponent gui = AccountingMenuBar.getFrame(key);
             if(gui == null){
                 gui = new JournalDetails(journal, accounting);
-                AccountingMenuBar.addFrame(key, gui);
+                AccountingMenuBar.addRefreshableComponent(key, gui);
             }
             gui.setVisible(true);
 		} else if (e.getSource() == maak) {

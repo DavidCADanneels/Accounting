@@ -8,7 +8,7 @@ import be.dafke.Accounting.Objects.Accounting.Accountings;
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 
-public class NewAccountDataModel extends AbstractTableModel {
+public class AccountManagementTableModel extends AbstractTableModel {
 	/**
 	 * 
 	 */
@@ -17,7 +17,7 @@ public class NewAccountDataModel extends AbstractTableModel {
 	private final Class[] columnClasses = { Account.class, String.class, BigDecimal.class };
 	private final Accountings accountings;
 
-	public NewAccountDataModel(Accountings accountings) {
+	public AccountManagementTableModel(Accountings accountings) {
 		this.accountings = accountings;
 	}
 

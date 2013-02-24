@@ -12,7 +12,7 @@ public class PrefixFilter<K> {
     private final DefaultListModel<K> model;
     private final List<K> map;
 
-    public PrefixFilter(DefaultListModel model, List<K> map){
+    public PrefixFilter(DefaultListModel<K> model, List<K> map){
         this.model = model;
         this.map = map;
     }
@@ -22,6 +22,5 @@ public class PrefixFilter<K> {
         for(K o : map) {
             if (o.toString().startsWith(searchString)) model.addElement(o);
         }
-//        return model;
     }
 }

@@ -8,7 +8,7 @@ import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.AlphabeticListModel;
 import be.dafke.PrefixFilterPanel;
-import be.dafke.RefreshableFrame;
+import be.dafke.RefreshableComponent;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -116,7 +116,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		if (ae.getSource() == debet || ae.getSource() == credit) {
 			book(ae.getSource() == debet);
 		} else if (ae.getSource() == nieuw) {
-            RefreshableFrame frame = AccountingMenuBar.getFrame(AccountingMenuBar.NEW_ACCOUNT);
+            RefreshableComponent frame = AccountingMenuBar.getFrame(AccountingMenuBar.ACCOUNT_MANAGEMENT);
             if(frame == null){
                 System.err.println("frame not found");
             }
@@ -125,10 +125,10 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
             Account account = (Account) lijst.getSelectedValue();
             Accounting accounting = accountings.getCurrentAccounting();
             String key = "ACCOUNT"+"_"+accounting.toString()+"_"+account.getName();
-            RefreshableFrame gui = AccountingMenuBar.getFrame(key);
+            RefreshableComponent gui = AccountingMenuBar.getFrame(key);
             if(gui == null){
                 gui = new AccountDetails(account, accounting);
-                AccountingMenuBar.addFrame(key, gui);
+                AccountingMenuBar.addRefreshableComponent(key, gui);
             }
 			gui.setVisible(true);
 		} else if (ae.getSource() instanceof JCheckBox) {

@@ -18,17 +18,23 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+    private final Accounting accounting;
 
-	/**
-	 * Constructor
-	 * @see HashMap<String, Account>
-	 */
-	public Accounts() {
+	public Accounts(Accounting accounting) {
 		super();
+        this.accounting = accounting;
 	}
 
-	public Account add(Account value) {
-		return put(value.getName(), value);
+	public Account add(String accountName, AccountType accountType) throws DuplicateAccountNameException, EmptyAccountNameException {
+        if(accountName==null || "".equals(accountName.trim())){
+            throw new EmptyAccountNameException();
+        }
+        if(containsKey(accountName.trim())){
+            throw new DuplicateAccountNameException();
+        }
+        Account account = new Account(accountName.trim(), accountType);
+        account.setAccounting(accounting);
+        return put(account.getName(), account);
 	}
 
 	@Override
@@ -81,14 +87,6 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
 		ArrayList<Account> col = new ArrayList<Account>();
 		for(Account account : values()) {
 			if (account.getType() == type && account.saldo().compareTo(BigDecimal.ZERO) != 0) col.add(account);
-		}
-		return col;
-	}
-
-	public ArrayList<Account> getAccountsEmpty(AccountType type) {
-		ArrayList<Account> col = new ArrayList<Account>();
-		for(Account account : values()) {
-			if (account.getType() == type && account.saldo().compareTo(BigDecimal.ZERO) == 0) col.add(account);
 		}
 		return col;
 	}

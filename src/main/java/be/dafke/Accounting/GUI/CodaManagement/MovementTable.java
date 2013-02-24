@@ -2,7 +2,6 @@ package be.dafke.Accounting.GUI.CodaManagement;
 
 import be.dafke.Accounting.Dao.Coda.CodaParser;
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Journal;
@@ -177,11 +176,6 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 				if (bankAccount != null && journal != null) {
 					// TODO null checks
 				}
-				// Step 3:
-				// TODO: ask to make accounts automatically
-				// If yes ...
-				boolean auto = true;
-				JOptionPane.showMessageDialog(this, "Auto-create accounts");
 				for(int i : rows) {
 					CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 5);
 					Account account = counterParty.getAccount();
@@ -193,21 +187,10 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 							account = counterParty2.getAccount();
 						}
 					}
-					if (account == null) {
-						if (auto) {
-							if (debet) {
-								account = new Account(counterParty.getName(), AccountType.Credit);
-							} else {
-								account = new Account(counterParty.getName(), AccountType.Debit);
-							}
-							account.setAccounting(accounting);
-						} else {
-							account = (Account) JOptionPane.showInputDialog(this, "Select account", "Select account",
-									JOptionPane.INFORMATION_MESSAGE, null, accounts, null);
-						}
+					while (account == null) {
+                        account = (Account) JOptionPane.showInputDialog(this, "Select account", "Select account",
+                                JOptionPane.INFORMATION_MESSAGE, null, accounts, null);
 						counterParty.setAccount(account);
-						accounting.getAccounts().add(account);
-						account.setAccounting(accounting);
 					}
 					BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 4);
 					Transaction trans = accounting.getCurrentTransaction();
@@ -247,7 +230,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 				Movements movements = accountings.getCurrentAccounting().getMovements();
 				CounterParty counterParty = (CounterParty) tabel.getValueAt(row, col);
 				if (counterParty == null) {
-					CounterPartySelector sel = new CounterPartySelector(this, movements.getMovement(row), accountings);
+					CounterPartySelector sel = new CounterPartySelector(movements.getMovement(row), accountings);
 					sel.setVisible(true);
 					counterParty = sel.getSelection();
 				}

@@ -33,7 +33,7 @@ public class PrefixFilterPanel<K> extends JPanel {
 	 * @param list the list
 	 * @param map map met de gegevens uit de list
 	 */
-	public PrefixFilterPanel(DefaultListModel model, JList<K> list, ArrayList map) {
+	public PrefixFilterPanel(DefaultListModel<K> model, JList<K> list, ArrayList map) {
         this.model = model;
         filter = new PrefixFilter<K>(model, map);
         this.list = list;

@@ -5,6 +5,7 @@ import be.dafke.Accounting.Objects.Coda.CounterParties;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Coda.Movement;
 import be.dafke.Accounting.Objects.Coda.TmpCounterParty;
+import be.dafke.RefreshableDialog;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -13,7 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class CounterPartySelector extends JDialog implements ActionListener {
+public class CounterPartySelector extends RefreshableDialog implements ActionListener {
 	/**
 	 * 
 	 */
@@ -31,8 +32,8 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 	private final Accountings accountings;
     private final SearchOptions searchOptions;
 
-    public CounterPartySelector(JFrame parent, Movement movement, Accountings accountings) {
-		super(parent, "Select Counterparty", true);
+    public CounterPartySelector(Movement movement, Accountings accountings) {
+		setTitle("Select Counterparty");
 		this.movement = movement;
 		this.accountings = accountings;
 		oldCounterParty = null;
@@ -260,4 +261,9 @@ public class CounterPartySelector extends JDialog implements ActionListener {
 		}
 		movementDataModel.fireTableDataChanged();
 	}
+
+    @Override
+    public void refresh() {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

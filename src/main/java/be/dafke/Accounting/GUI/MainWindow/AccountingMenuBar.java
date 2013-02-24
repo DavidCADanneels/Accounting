@@ -1,5 +1,6 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
+import be.dafke.Accounting.GUI.AccountManagement.AccountManagementGUI;
 import be.dafke.Accounting.GUI.AccountManagement.NewAccountGUI;
 import be.dafke.Accounting.GUI.Balances.RelationsBalance;
 import be.dafke.Accounting.GUI.Balances.ResultBalance;
@@ -13,7 +14,7 @@ import be.dafke.Accounting.GUI.MortgageManagement.MortgageGUI;
 import be.dafke.Accounting.GUI.Projects.ProjectManagerFrame;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
-import be.dafke.RefreshableFrame;
+import be.dafke.RefreshableComponent;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -36,7 +37,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
     private final JMenuItem startNew;
     private final JMenuItem movements, counterParties, mortgage;
     private final Accountings accountings;
-    private static final HashMap<String, RefreshableFrame> frames = new HashMap<String, RefreshableFrame>();
+    private static final HashMap<String, RefreshableComponent> frames = new HashMap<String, RefreshableComponent>();
     public static final String OPEN_TEST_BALANCE = "test";
     public static final String OPEN_YEAR_BALANCE = "year";
     public static final String OPEN_RELATIONS_BALANCE = "relations";
@@ -45,6 +46,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
     public static final String OPEN_COUNTERPARTIES = "counterparties";
     public static final String OPEN_MORTGAGES = "mortgages";
     public static final String OPEN_PROJECTS = "projects";
+    public static final String ACCOUNT_MANAGEMENT = "accountManagement";
     public static final String NEW_ACCOUNT = "newAccounts";
     public static final String NEW_JOURNAL = "newJournal";
     public static final String NEW_JOURNAL_TYPE = "newJournalType";
@@ -75,6 +77,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
         frames.put(OPEN_MOVEMENTS, new MovementTable(accountings));
         frames.put(OPEN_COUNTERPARTIES, new CounterPartyTable(accountings));
         frames.put(OPEN_MORTGAGES, new MortgageGUI(accountings));
+        frames.put(ACCOUNT_MANAGEMENT, new AccountManagementGUI(accountings));
         frames.put(NEW_ACCOUNT, new NewAccountGUI(accountings));
         frames.put(NEW_JOURNAL, new NewJournalGUI(accountings));
         frames.put(NEW_JOURNAL_TYPE, new NewJournalTypeGUI(accountings));
@@ -175,19 +178,19 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
     }
 
     public static void closeAllFrames(){
-        Collection<RefreshableFrame> collection = frames.values();
-        for(RefreshableFrame frame: collection){
-            frame.dispose();
+        Collection<RefreshableComponent> collection = frames.values();
+        for(RefreshableComponent frame: collection){
+            frame.setVisible(false);
         }
     }
 
-    public static RefreshableFrame getFrame(String name){
+    public static RefreshableComponent getFrame(String name){
         return frames.get(name);
     }
 
     public static void refreshAllFrames(){
-        Collection<RefreshableFrame> collection = frames.values();
-        for(RefreshableFrame frame: collection){
+        Collection<RefreshableComponent> collection = frames.values();
+        for(RefreshableComponent frame: collection){
             frame.refresh();
         }
     }
@@ -203,7 +206,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
         // movements.setEnabled(active);
     }
 
-    public static void addFrame(String key, RefreshableFrame frame) {
+    public static void addRefreshableComponent(String key, RefreshableComponent frame) {
         frames.put(key,frame);
     }
 }

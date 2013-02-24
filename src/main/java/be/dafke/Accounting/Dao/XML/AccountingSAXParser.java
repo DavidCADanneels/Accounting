@@ -4,6 +4,8 @@ import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Booking;
+import be.dafke.Accounting.Objects.Accounting.DuplicateAccountNameException;
+import be.dafke.Accounting.Objects.Accounting.EmptyAccountNameException;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Project;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
@@ -183,22 +185,24 @@ public class AccountingSAXParser {
             String account_type = element.getElementsByTagName("account_type").item(0).getChildNodes().item(0).getNodeValue();
 
             Account.AccountType type = Account.AccountType.valueOf(account_type);
-            Account account = new Account(account_name, type);
-            account.setAccounting(accounting);
-            accounting.getAccounts().add(account);
-
-            NodeList projectNodeList = element.getElementsByTagName("account_project");
-            if(projectNodeList.getLength()>0){
-                String account_project = projectNodeList.item(0).getChildNodes().item(0).getNodeValue();
-                Project project = accounting.getProjects().get(account_project);
-                if (project == null) {
-                    project = new Project(account_project);
-                    accounting.getProjects().put(account_project, project);
+            try{
+                Account account = accounting.getAccounts().add(account_name,type);
+                NodeList projectNodeList = element.getElementsByTagName("account_project");
+                if(projectNodeList.getLength()>0){
+                    String account_project = projectNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                    Project project = accounting.getProjects().get(account_project);
+                    if (project == null) {
+                        project = new Project(account_project);
+                        accounting.getProjects().put(account_project, project);
+                    }
+                    project.addAccount(account);
                 }
-                project.addAccount(account);
+            } catch (DuplicateAccountNameException e) {
+                System.err.println("There is already an account with the name \""+account_name+"\".");
+            } catch (EmptyAccountNameException e) {
+                System.err.println("The name of the account is empty.");
             }
         }
-
     }
 
     private static void journalsFromXML(Accounting accounting, Element journalsElement) {

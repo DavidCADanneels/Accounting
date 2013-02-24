@@ -8,7 +8,7 @@ import javax.swing.*;
  * @since 01/10/2010
  * @see RefreshableFrame#refresh() refresh()
  */
-public abstract class RefreshableFrame extends JFrame {
+public abstract class RefreshableFrame extends JFrame implements RefreshableComponent{
 	/**
 	 * 
 	 */
@@ -21,7 +21,4 @@ public abstract class RefreshableFrame extends JFrame {
 		super(title);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
 	}
-
-	/** abstracte functie */
-	public abstract void refresh();
 }

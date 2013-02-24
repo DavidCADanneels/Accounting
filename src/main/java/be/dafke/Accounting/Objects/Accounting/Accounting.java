@@ -44,7 +44,7 @@ public class Accounting implements Serializable {
 		this.name = name;
 //		savedXML = true;
 //		savedHTML = false;// TODO: true ?
-		rekeningen = new Accounts();
+		rekeningen = new Accounts(this);
 		journals = new Journals();
 		projects = new Projects();
 		journalTypes = new JournalTypes();
@@ -176,7 +176,7 @@ public class Accounting implements Serializable {
 	}
 
 //	public Journal addNewJournal() {
-//		// TODO: implement a gui to create journals (using journalType) see NewAccountGUI
+//		// TODO: implement a gui to create journals (using journalType) see AccountManagementGUI
 //		String name = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
 //				"GEEF_NAAM_DAGBOEK"));
 //		while (name == null || name.equals(""))
