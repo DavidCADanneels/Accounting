@@ -10,5 +10,6 @@ import javax.swing.*;
 public abstract class RefreshableDialog extends JDialog implements RefreshableComponent{
     public RefreshableDialog(){
         setModal(true);
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }
 }

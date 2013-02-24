@@ -8,4 +8,5 @@ package be.dafke;
 public interface RefreshableComponent {
     public void refresh();
     public void setVisible(boolean visible);
+    public void dispose();
 }

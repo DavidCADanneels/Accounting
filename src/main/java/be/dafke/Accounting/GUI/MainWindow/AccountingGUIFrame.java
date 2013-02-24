@@ -45,7 +45,6 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
 	public void windowClosing(WindowEvent we) {
         AccountingSAXParser.toXML(accountings);
         AccountingMenuBar.closeAllFrames();
-//        dispose();
 	}
 
     @Override

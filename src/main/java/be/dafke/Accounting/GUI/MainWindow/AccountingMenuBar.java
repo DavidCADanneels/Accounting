@@ -50,6 +50,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
     public static final String NEW_ACCOUNT = "newAccounts";
     public static final String NEW_JOURNAL = "newJournal";
     public static final String NEW_JOURNAL_TYPE = "newJournalType";
+    public static final String MAIN = "mainPanel";
 
     public AccountingMenuBar(Accountings accountings, AccountingGUIFrame mainPanel) {
         this.accountings = accountings;
@@ -68,7 +69,6 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
         }
         add(file);
 
-//		frames = new HashMap<String, RefreshableFrame>();
         frames.put(OPEN_RELATIONS_BALANCE, new RelationsBalance(accountings));
         frames.put(OPEN_RESULT_BALANCE, new ResultBalance(accountings));
         frames.put(OPEN_TEST_BALANCE, new TestBalance(accountings));
@@ -81,7 +81,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
         frames.put(NEW_ACCOUNT, new NewAccountGUI(accountings));
         frames.put(NEW_JOURNAL, new NewJournalGUI(accountings));
         frames.put(NEW_JOURNAL_TYPE, new NewJournalTypeGUI(accountings));
-        frames.put("MAIN",mainPanel);
+        frames.put(MAIN,mainPanel);
 
         // Menu2
         balances = new JMenu(java.util.ResourceBundle.getBundle("Accounting").getString("BALANSEN"));
@@ -180,7 +180,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
     public static void closeAllFrames(){
         Collection<RefreshableComponent> collection = frames.values();
         for(RefreshableComponent frame: collection){
-            frame.setVisible(false);
+            frame.dispose();
         }
     }
 
