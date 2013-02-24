@@ -1,7 +1,6 @@
 package be.dafke.Accounting.GUI.Details;
 
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.RefreshableTable;
@@ -16,6 +15,8 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.ArrayList;
 
+import static java.util.ResourceBundle.getBundle;
+
 /**
  * @author David Danneels
  */
@@ -29,20 +30,17 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
 	private int selectedRow;
 	private final JMenuItem move, delete;
 	private final Journal journal;
-	private final Accountings accountings;
+	private final Accounting accounting;
 
-//	private final AccountingGUIFrame parent;
-
-	public JournalDetails(Journal journal, Accountings accountings) {
-		super(java.util.ResourceBundle.getBundle("Accounting").getString("DAGBOEK_DETAILS")
-				+ journal.toString(), new JournalDetailsDataModel(journal));
-		// this.parent = parent;
-		this.accountings = accountings;
+	public JournalDetails(Journal journal, Accounting accounting) {
+		super(getBundle("Accounting").getString("DAGBOEK_DETAILS")
+				+ accounting.toString()+"/"+journal.toString(), new JournalDetailsDataModel(journal));
+		this.accounting = accounting;
 		this.journal = journal;
 		tabel.setAutoCreateRowSorter(true);
 		popup = new JPopupMenu();
-		delete = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString("VERWIJDER"));
-		move = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString("VERPLAATS"));
+		delete = new JMenuItem(getBundle("Accounting").getString("VERWIJDER"));
+		move = new JMenuItem(getBundle("Accounting").getString("VERPLAATS"));
 		delete.addActionListener(this);
 		move.addActionListener(this);
 		popup.add(delete);
@@ -54,8 +52,7 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
 				Point location = me.getLocationOnScreen();
 				int col = tabel.columnAtPoint(cell);
 				if (col == 0 && me.getClickCount() == 2) {
-					int row = tabel.rowAtPoint(cell);
-					selectedRow = row;
+					selectedRow = tabel.rowAtPoint(cell);
 					popup.show(null, location.x, location.y);
 				} else popup.setVisible(false);
 			}
@@ -63,77 +60,52 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
 	}
 
     @Override
-    public void windowOpened(WindowEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void actionPerformed(ActionEvent ae) {
+        if (ae.getSource() instanceof JMenuItem) {
+            menuAction((JMenuItem) ae.getSource());
+        }
+    }
+
+    private void menuAction(JMenuItem source) {
+        popup.setVisible(false);
+        Transaction transaction = journal.getTransaction(selectedRow);
+        if (source == move) {
+            ArrayList<Journal> dagboeken = accounting.getJournals().getAllJournalsExcept(journal);
+            Object[] lijst = dagboeken.toArray();
+            int keuze = JOptionPane.showOptionDialog(null,
+                    getBundle("Accounting").getString("KIES_DAGBOEK"),
+                    getBundle("Accounting").getString("DAGBOEK_KEUZE"),
+                    JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, lijst, lijst[0]);
+            if(keuze!=JOptionPane.CANCEL_OPTION && keuze!=JOptionPane.CLOSED_OPTION){
+                Journal newJournal = (Journal) lijst[keuze];
+                transaction.moveTransaction(journal, newJournal);
+
+                JOptionPane.showMessageDialog(null,
+                        getBundle("Accounting").getString("TRANSACTIE_VERPLAATST_VAN") + journal +
+                                getBundle("Accounting").getString("NAAR") + newJournal);
+            }
+        } else if (source == delete) {
+            transaction.deleteTransaction(journal);
+            JOptionPane.showMessageDialog(null, getBundle("Accounting").getString("TRANSACTIE_VERWIJDERD_UIT") + journal);
+        }
+        super.refresh();
     }
 
     @Override
-	public void windowClosing(WindowEvent we) {
-//		super.windowClosing(we);
-		popup.setVisible(false);
-	}
-
-    @Override
-    public void windowClosed(WindowEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void windowClosing(WindowEvent we) {
+        popup.setVisible(false);
     }
 
     @Override
-    public void windowIconified(WindowEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
+    public void windowOpened(WindowEvent e) {}
     @Override
-    public void windowDeiconified(WindowEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
+    public void windowClosed(WindowEvent e) {}
     @Override
-    public void windowActivated(WindowEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
+    public void windowIconified(WindowEvent e) {}
     @Override
-    public void windowDeactivated(WindowEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
-    }
-
+    public void windowDeiconified(WindowEvent e) {}
     @Override
-	public void actionPerformed(ActionEvent ae) {
-		if (ae.getSource() instanceof JMenuItem) {
-			menuAction((JMenuItem) ae.getSource());
-		}
-	}
-
-	private void menuAction(JMenuItem source) {
-		popup.setVisible(false);
-		Transaction transaction = journal.getTransaction(selectedRow);
-		if (source == move) {
-			Accounting accounting = accountings.getCurrentAccounting();
-			ArrayList<Journal> dagboeken = accounting.getJournals().getAllJournalsExcept(journal);
-			Object[] lijst = dagboeken.toArray();
-			int keuze = JOptionPane.showOptionDialog(null,
-					java.util.ResourceBundle.getBundle("Accounting").getString("KIES_DAGBOEK"),
-					java.util.ResourceBundle.getBundle("Accounting").getString("DAGBOEK_KEUZE"),
-					JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, lijst, lijst[0]);
-			Journal newJournal = (Journal) lijst[keuze];
-            transaction.moveTransaction(journal, newJournal);
-
-			JOptionPane.showMessageDialog(
-					null,
-					java.util.ResourceBundle.getBundle("Accounting").getString(
-							"TRANSACTIE_VERPLAATST_VAN")
-							+ journal
-							+ java.util.ResourceBundle.getBundle("Accounting").getString("NAAR")
-							+ newJournal);
-		} else if (source == delete) {
-			transaction.deleteTransaction(journal);
-			JOptionPane.showMessageDialog(
-					null,
-					java.util.ResourceBundle.getBundle("Accounting").getString(
-							"TRANSACTIE_VERWIJDERD_UIT")
-							+ journal);
-		}
-		super.refresh();
-	}
+    public void windowActivated(WindowEvent e) {}
+    @Override
+    public void windowDeactivated(WindowEvent e) {}
 }

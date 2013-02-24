@@ -11,8 +11,7 @@ public class Main {
 	 */
 	public static void main(String[] args) {
         Accountings accountings = AccountingSAXParser.fromXML();
-        AccountingGUIFrame frame = new AccountingGUIFrame(
-				java.util.ResourceBundle.getBundle("Accounting").getString("BOEKHOUDING"), accountings);
+        AccountingGUIFrame frame = new AccountingGUIFrame(accountings);
         frame.setVisible(true);
 	}
 }

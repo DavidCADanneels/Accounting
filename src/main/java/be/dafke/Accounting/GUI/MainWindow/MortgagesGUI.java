@@ -38,6 +38,7 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 	}
 
 	public void refresh() {
+        listModel.clear();
 		Accounting accounting = accountings.getCurrentAccounting();
 		if (accounting != null) {
 			for(Mortgage mortgage : accounting.getMortgagesTables()) {

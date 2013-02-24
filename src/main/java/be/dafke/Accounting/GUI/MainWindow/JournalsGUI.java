@@ -51,10 +51,12 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == details) {
 			Journal journal = (Journal) combo.getSelectedItem();
-            RefreshableFrame gui = AccountingMenuBar.getFrame("JOURNAL_"+journal.getName());
+            Accounting accounting = accountings.getCurrentAccounting();
+            String key = "JOURNAL"+"_"+accounting.toString()+"_"+journal.getName();
+            RefreshableFrame gui = AccountingMenuBar.getFrame(key);
             if(gui == null){
-                gui = new JournalDetails(journal, accountings);
-                AccountingMenuBar.addFrame("JOURNAL_"+journal.getName(), gui);
+                gui = new JournalDetails(journal, accounting);
+                AccountingMenuBar.addFrame(key, gui);
             }
             gui.setVisible(true);
 		} else if (e.getSource() == maak) {

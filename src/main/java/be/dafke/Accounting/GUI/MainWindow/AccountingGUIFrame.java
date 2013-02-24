@@ -8,6 +8,8 @@ import javax.swing.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
+import static java.util.ResourceBundle.getBundle;
+
 /**
  * @author David Danneels
  */
@@ -21,8 +23,8 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
     private AccountingMenuBar menuBar;
     private AccountingGUIPanel contentPanel;
 
-	public AccountingGUIFrame(String title, Accountings accountings) {
-		super(title);
+	public AccountingGUIFrame(Accountings accountings) {
+		super(getBundle("Accounting").getString("BOEKHOUDING"));
 		this.accountings = accountings;
 		addWindowListener(this);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);//DO_NOTHING_ON_CLOSE);
@@ -68,6 +70,11 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
 
     @Override
     public void refresh() {
+        if(accountings!=null && accountings.getCurrentAccounting()!=null){
+            setTitle(getBundle("Accounting").getString("BOEKHOUDING")+":"+accountings.getCurrentAccounting().toString());
+        } else {
+            setTitle(getBundle("Accounting").getString("BOEKHOUDING"));
+        }
         contentPanel.refresh();
     }
 }

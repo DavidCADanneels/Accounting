@@ -123,10 +123,12 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
             frame.setVisible(true);
         } else if (ae.getSource() == details) {
             Account account = (Account) lijst.getSelectedValue();
-            RefreshableFrame gui = AccountingMenuBar.getFrame("ACCOUNT_"+account.getName());
+            Accounting accounting = accountings.getCurrentAccounting();
+            String key = "ACCOUNT"+"_"+accounting.toString()+"_"+account.getName();
+            RefreshableFrame gui = AccountingMenuBar.getFrame(key);
             if(gui == null){
-                gui = new AccountDetails(account);
-                AccountingMenuBar.addFrame("ACCOUNT_"+account.getName(), gui);
+                gui = new AccountDetails(account, accounting);
+                AccountingMenuBar.addFrame(key, gui);
             }
 			gui.setVisible(true);
 		} else if (ae.getSource() instanceof JCheckBox) {
