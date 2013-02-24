@@ -1,6 +1,7 @@
 package be.dafke.Accounting.GUI.CodaManagement;
 
 import be.dafke.Accounting.Dao.Coda.CodaParser;
+import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
@@ -10,6 +11,7 @@ import be.dafke.Accounting.Objects.Coda.BankAccount;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Coda.Movement;
 import be.dafke.Accounting.Objects.Coda.Movements;
+import be.dafke.RefreshableComponent;
 import be.dafke.RefreshableTable;
 import be.dafke.Utils;
 
@@ -59,7 +61,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == viewCounterParties) {
-			CounterPartyTable gui = new CounterPartyTable(accountings);
+			RefreshableComponent gui = AccountingMenuBar.getFrame(AccountingMenuBar.OPEN_COUNTERPARTIES);
 			gui.setVisible(true);
 		} else if (e.getSource() == openMovements) {
 			openMovements();
@@ -149,7 +151,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 				builder.append("\r\n" + counterParty);
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
-			CounterPartyTable gui = new CounterPartyTable(accountings);
+            RefreshableComponent gui = AccountingMenuBar.getFrame(AccountingMenuBar.OPEN_COUNTERPARTIES);
 			gui.setVisible(true);
 			return false;
 		}
