@@ -113,11 +113,6 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
 		put(newName, account);
 	}
 
-	public void setType(String accountName, AccountType newType) {
-		Account account = get(accountName);
-		account.setType(newType);
-	}
-
 	public ArrayList<Account> getAccounts() {
 		ArrayList<Account> col = new ArrayList<Account>();
 		for(Account account : values()) {
@@ -125,4 +120,12 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
 		}
 		return col;
 	}
+
+    public void removeAccount(Account account) throws AccountAlreadyHasBookings {
+        if(account.getBookings().isEmpty()){
+            remove(account.getName());
+        } else {
+            throw new AccountAlreadyHasBookings();
+        }
+    }
 }
