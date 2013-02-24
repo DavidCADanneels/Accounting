@@ -3,6 +3,7 @@ package be.dafke.Accounting.GUI.AccountManagement;
 import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
+import be.dafke.Accounting.Objects.Accounting.AccountAlreadyHasBookings;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.RefreshableFrame;
@@ -13,7 +14,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.math.BigDecimal;
+import java.util.ArrayList;
 
 public class NewAccountGUI extends RefreshableFrame implements ActionListener, ListSelectionListener {
 	/**
@@ -71,10 +72,8 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 		south.add(modifyType);
 		south.add(delete);
 		panel.add(south, BorderLayout.SOUTH);
-//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(panel);
 		pack();
-//		setVisible(true);
 	}
 
 	@Override
@@ -82,101 +81,90 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 		if (event.getSource() == add || event.getSource() == name) {
 			addAccount();
 		} else if (event.getSource() == modifyName) {
-			modifyName();
+            ArrayList<Account> accountList = getSelectedAccounts();
+            if(accountList!=null){
+			    modifyNames(accountList);
+            }
 		} else if (event.getSource() == modifyType) {
-			modifyType();
-		} else if (event.getSource() == delete) {
-			deleteAccount();
+            ArrayList<Account> accountList = getSelectedAccounts();
+            if(accountList!=null){
+                modifyTypes(accountList);
+            }
+        } else if (event.getSource() == delete) {
+            ArrayList<Account> accountList = getSelectedAccounts();
+            if(accountList!=null){
+                deleteAccounts(accountList);
+            }
 		}
         AccountingMenuBar.refreshAllFrames();
 	}
 
-	private void deleteAccount() {
+    private void deleteAccounts(ArrayList<Account> accountList) {
+		ArrayList<String> failed = new ArrayList<String>();
+        for(Account account : accountList) {
+            try{
+                accountings.getCurrentAccounting().getAccounts().removeAccount(account);
+            }catch (AccountAlreadyHasBookings e){
+                failed.add(account.getName());
+            }
+        }
+        if (failed.size() > 0) {
+            if (failed.size() == 1) {
+                JOptionPane.showMessageDialog(this, failed.get(0) + " already has bookings, so it can not be deleted.");
+            } else {
+                StringBuilder builder = new StringBuilder("The following accounts already have bookings, so they can not be deleted:\r\n");
+                for(String s : failed){
+                    builder.append("- "+s+"\r\n");
+                }
+                JOptionPane.showMessageDialog(this, builder.toString());
+            }
+        }
+	}
+
+	private void modifyNames(ArrayList<Account> accountList) {
 		Accounting accounting = accountings.getCurrentAccounting();
-		int[] rows = tabel.getSelectedRows();
-		int nrNotEmpty = 0;
-		if (rows.length == 0) {
-			JOptionPane.showMessageDialog(this, "Select an account first");
-		} else {
-			for(int row : rows) {
-				Account account = (Account) model.getValueAt(row, 0);
-				if (account.saldo().compareTo(BigDecimal.ZERO) != 0) {
-					nrNotEmpty++;
-				} else {
-					// TODO: close account ? = add trailer to XML-file
-					// or better: move account to list "To be closed"
-					// When saving files to XML, add trailer to closed accounts
-					// and remove them from the Accounts object
-					// Note: if account was never used: just remove.i
-					accounting.getAccounts().remove(account.getName());
-//                    RefreshEvent event = new RefreshEvent(this);
-//                    accountings.getApplicationEventPublisher().publishEvent(event);
-				}
-			}
-			if (nrNotEmpty > 0) {
-				if (nrNotEmpty == 1) {
-					if (rows.length == 1) {
-						JOptionPane.showMessageDialog(this, "The saldo of the account was not zero,"
-								+ "so it could not be deleted.");
-					} else {
-						JOptionPane.showMessageDialog(this, "The saldo of 1 account was not zero,"
-								+ "so it could not be deleted.");
-					}
-				} else {
-					JOptionPane.showMessageDialog(this, "The saldo of " + nrNotEmpty
-							+ " accounts were not zero, so they could not be deleted");
-				}
-			}
+        for(Account account : accountList){
+            String oldName = account.getName();
+            String newName = JOptionPane.showInputDialog("New name", oldName);
+            while(newName!=null && !newName.trim().equals(oldName) && (accounting.getAccounts().containsKey(newName.trim()) || "".equals(newName.trim()))){
+                if("".equals(newName)){
+                    newName = JOptionPane.showInputDialog("The name cannot be empty. Please provide another name", oldName);
+                }else{
+                    newName = JOptionPane.showInputDialog(accounting.toString() + " already contains an account with the name "+ newName +
+                            ". Please provide another name", oldName);
+                }
+            }
+            if(newName!=null && !newName.trim().equals(oldName)){
+                accounting.getAccounts().rename(oldName, newName.trim());
+            }
 		}
 	}
 
-	private void modifyName() {
-		Accounting accounting = accountings.getCurrentAccounting();
-		int[] rows = tabel.getSelectedRows();
-		if (rows.length == 0) {
-			JOptionPane.showMessageDialog(this, "Select an account first");
-		} else {
-			for(int row : rows) {
-				Account account = (Account) model.getValueAt(row, 0);
-				String oldName = account.getName();
-				String newName = JOptionPane.showInputDialog("New name", account.getName()).trim();
-				accounting.getAccounts().rename(oldName, newName);
-			}
-		}
-	}
-
-	private void modifyType() {
-		int[] rows = tabel.getSelectedRows();
-		if (rows.length == 0) {
-			JOptionPane.showMessageDialog(this, "Select an account first");
-		} else {
-			boolean singleMove;
-			if (rows.length == 1) {
-				singleMove = true;
-			} else {
-				int option = JOptionPane.showConfirmDialog(this, "Apply same type for all selected accounts?", "All",
-						JOptionPane.YES_NO_OPTION);
-				singleMove = (option == JOptionPane.YES_OPTION);
-			}
-			if (singleMove) {
-				AccountType[] types = AccountType.values();
-				int nr = JOptionPane.showOptionDialog(this, "Choose new type", "Change type",
-						JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
-				for(int row : rows) {
-					Account account = (Account) model.getValueAt(row, 0);
-					account.setType(types[nr]);
-				}
-			} else {
-				for(int row : rows) {
-					Account account = (Account) model.getValueAt(row, 0);
-					AccountType[] types = AccountType.values();
-					int nr = JOptionPane.showOptionDialog(this, "Choose new type for " + account.getName(),
-							"Change type", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
-							account.getType());
-					account.setType(types[nr]);
-				}
-			}
-		}
+	private void modifyTypes(ArrayList<Account> accountList) {
+        boolean singleMove;
+        if (accountList.size() == 1) {
+            singleMove = true;
+        } else {
+            int option = JOptionPane.showConfirmDialog(this, "Apply same type for all selected accounts?", "All",
+                    JOptionPane.YES_NO_OPTION);
+            singleMove = (option == JOptionPane.YES_OPTION);
+        }
+        if (singleMove) {
+            AccountType[] types = AccountType.values();
+            int nr = JOptionPane.showOptionDialog(this, "Choose new type", "Change type",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
+            for(Account account : accountList) {
+                account.setType(types[nr]);
+            }
+        } else {
+            for(Account account : accountList) {
+                AccountType[] types = AccountType.values();
+                int nr = JOptionPane.showOptionDialog(this, "Choose new type for " + account.getName(),
+                        "Change type", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
+                        account.getType());
+                account.setType(types[nr]);
+            }
+        }
 	}
 
 	private void addAccount() {
@@ -214,7 +202,25 @@ public class NewAccountGUI extends RefreshableFrame implements ActionListener, L
 				delete.setEnabled(true);
 				modifyName.setEnabled(true);
 				modifyType.setEnabled(true);
-			}
+			} else {
+                delete.setEnabled(false);
+                modifyName.setEnabled(false);
+                modifyType.setEnabled(false);
+            }
 		}
 	}
+
+    private ArrayList<Account> getSelectedAccounts() {
+        int[] rows = tabel.getSelectedRows();
+        if (rows.length == 0) {
+            JOptionPane.showMessageDialog(this, "Select an account first");
+            return null;
+        }
+        ArrayList<Account> accountList = new ArrayList<Account>();
+        for(int row : rows) {
+            Account account = (Account) model.getValueAt(row, 0);
+            accountList.add(account);
+        }
+        return accountList;
+    }
 }
