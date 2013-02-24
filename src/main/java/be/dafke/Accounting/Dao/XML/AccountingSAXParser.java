@@ -522,10 +522,15 @@ public class AccountingSAXParser {
                 Booking booking = it.next();
                 writer.write("  <action>\r\n" + "    <nr>" + booking.getAbbreviation() + booking.getId() + "</nr>\r\n"
                         + "    <date>" + Utils.toString(booking.getDate()) + "</date>\r\n" + "    <"
-                        + (booking.isDebit() ? "debet" : "credit") + ">" + booking.getAmount().toString() + "</"
-                        + (booking.isDebit() ? "debet" : "credit") + ">\r\n" + "    <description>"
+                        + (booking.isDebit() ? "debit" : "credit") + ">" + booking.getAmount().toString() + "</"
+                        + (booking.isDebit() ? "debit" : "credit") + ">\r\n" + "    <description>"
                         + booking.getDescription() + "</description>\r\n  </action>\r\n");
             }
+            BigDecimal saldo = account.saldo();
+            String resultType =(saldo.compareTo(BigDecimal.ZERO)<0)?"credit":"debit";
+            writer.write("  <closed type = \"" + resultType + "\">\r\n" + "    <debitTotal>" + account.getDebetTotal() + "</debitTotal>\r\n"
+                    + "    <creditTotal>" + account.getCreditTotal() + "</creditTotal>\r\n"
+                    + "    <saldo>" + saldo.abs() + "</saldo>\r\n  </closed>\r\n");
             writer.write("</account>");
             writer.flush();
             writer.close();
