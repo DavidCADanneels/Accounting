@@ -1,13 +1,6 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
-import be.dafke.Accounting.GUI.Balances.RelationsBalance;
-import be.dafke.Accounting.GUI.Balances.ResultBalance;
-import be.dafke.Accounting.GUI.Balances.TestBalance;
-import be.dafke.Accounting.GUI.Balances.YearBalance;
-import be.dafke.Accounting.GUI.CodaManagement.CounterPartyTable;
-import be.dafke.Accounting.GUI.CodaManagement.MovementTable;
-import be.dafke.Accounting.GUI.MortgageManagement.MortgageGUI;
-import be.dafke.Accounting.GUI.Projects.ProjectManagerFrame;
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.RefreshableComponent;
@@ -16,13 +9,11 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.util.Collection;
-import java.util.HashMap;
 
 /**
  * @author David Danneels
  */
-public class AccountingMenuBar extends JMenuBar implements ActionListener {
+public class AccountingMenuBar extends JMenuBar implements ActionListener, RefreshableComponent {
     /**
      *
      */
@@ -33,18 +24,8 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
     private final JMenuItem startNew;
     private final JMenuItem movements, counterParties, mortgage;
     private final Accountings accountings;
-    private static final HashMap<String, RefreshableComponent> frames = new HashMap<String, RefreshableComponent>();
-    public static final String OPEN_TEST_BALANCE = "test";
-    public static final String OPEN_YEAR_BALANCE = "year";
-    public static final String OPEN_RELATIONS_BALANCE = "relations";
-    public static final String OPEN_RESULT_BALANCE = "result";
-    public static final String OPEN_MOVEMENTS = "movements";
-    public static final String OPEN_COUNTERPARTIES = "counterparties";
-    public static final String OPEN_MORTGAGES = "mortgages";
-    public static final String OPEN_PROJECTS = "projects";
-    public static final String MAIN = "mainPanel";
 
-    public AccountingMenuBar(Accountings accountings, AccountingGUIFrame mainPanel) {
+    public AccountingMenuBar(Accountings accountings) {
         this.accountings = accountings;
 
         // Menu1
@@ -61,15 +42,6 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
         }
         add(file);
 
-        frames.put(OPEN_RELATIONS_BALANCE, new RelationsBalance(accountings));
-        frames.put(OPEN_RESULT_BALANCE, new ResultBalance(accountings));
-        frames.put(OPEN_TEST_BALANCE, new TestBalance(accountings));
-        frames.put(OPEN_YEAR_BALANCE, new YearBalance(accountings));
-        frames.put(OPEN_PROJECTS, new ProjectManagerFrame(accountings));
-        frames.put(OPEN_MOVEMENTS, new MovementTable(accountings));
-        frames.put(OPEN_COUNTERPARTIES, new CounterPartyTable(accountings));
-        frames.put(OPEN_MORTGAGES, new MortgageGUI(accountings));
-        frames.put(MAIN,mainPanel);
 
         // Menu2
         balances = new JMenu(java.util.ResourceBundle.getBundle("Accounting").getString("BALANSEN"));
@@ -85,10 +57,10 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
         year.addActionListener(this);
         result.addActionListener(this);
         relate.addActionListener(this);
-        test.setActionCommand(OPEN_TEST_BALANCE);
-        year.setActionCommand(OPEN_YEAR_BALANCE);
-        result.setActionCommand(OPEN_RESULT_BALANCE);
-        relate.setActionCommand(OPEN_RELATIONS_BALANCE);
+        test.setActionCommand(ComponentMap.OPEN_TEST_BALANCE);
+        year.setActionCommand(ComponentMap.OPEN_YEAR_BALANCE);
+        result.setActionCommand(ComponentMap.OPEN_RESULT_BALANCE);
+        relate.setActionCommand(ComponentMap.OPEN_RELATIONS_BALANCE);
         relate.setEnabled(false);
         result.setEnabled(false);
         test.setEnabled(false);
@@ -105,27 +77,26 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
                 "PROJECTMANAGER"));
         projects.addActionListener(this);
         projects.setEnabled(false);
-        projects.setActionCommand(OPEN_PROJECTS);
+        projects.setActionCommand(ComponentMap.OPEN_PROJECTS);
         projecten.add(projects);
         add(projecten);
 
         banking = new JMenu("Banking");
         movements = new JMenuItem("Show movements");
-        movements.setActionCommand(OPEN_MOVEMENTS);
+        movements.setActionCommand(ComponentMap.OPEN_MOVEMENTS);
         movements.addActionListener(this);
         // movements.setEnabled(false);
         counterParties = new JMenuItem("Show Counterparties");
-        counterParties.setActionCommand(OPEN_COUNTERPARTIES);
+        counterParties.setActionCommand(ComponentMap.OPEN_COUNTERPARTIES);
         counterParties.addActionListener(this);
 
         mortgage = new JMenuItem("Mortgages");
         mortgage.addActionListener(this);
-        mortgage.setActionCommand(OPEN_MORTGAGES);
+        mortgage.setActionCommand(ComponentMap.OPEN_MORTGAGES);
         banking.add(movements);
         banking.add(counterParties);
         banking.add(mortgage);
         add(banking);
-        refresh();
     }
 
     public void actionPerformed(ActionEvent ae) {
@@ -142,9 +113,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
                 name = JOptionPane.showInputDialog(null, "This name is empty or already exists. Enter another name");
             }
             accountings.addAccounting(name);
-            refreshAllFrames();
-        } else if (frames.containsKey(item.getActionCommand())) {
-            frames.get(item.getActionCommand()).setVisible(true);
+            ComponentMap.refreshAllFrames();
         } else if(accountings.contains(ae.getActionCommand())){
             // TODO: save currentAccounting ? --> make toXML(accounting) public
 //            Accounting currentAccounting = accountings.getCurrentAccounting();
@@ -153,36 +122,22 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
 //                AccountingSAXParser.toXML(currentAccounting);
 //            }
             accountings.setCurrentAccounting(ae.getActionCommand());
-        } else{
-            System.err.println(ae.getActionCommand()+ " not supported");
+        } else {
+            RefreshableComponent gui = ComponentMap.getDisposableComponent(item.getActionCommand());
+            if(gui != null){
+                gui.setVisible(true);
+            } else {
+                System.err.println(ae.getActionCommand()+ " not supported");
+            }
         }
-        refresh();
+        ComponentMap.refreshAllFrames();
     }
 
+    @Override
     public void refresh(){
         activateButtons();
-        if(accountings.isActive()){
-            refreshAllFrames();
-        }
     }
 
-    public static void closeAllFrames(){
-        Collection<RefreshableComponent> collection = frames.values();
-        for(RefreshableComponent frame: collection){
-            frame.dispose();
-        }
-    }
-
-    public static RefreshableComponent getFrame(String name){
-        return frames.get(name);
-    }
-
-    public static void refreshAllFrames(){
-        Collection<RefreshableComponent> collection = frames.values();
-        for(RefreshableComponent frame: collection){
-            frame.refresh();
-        }
-    }
 
     private void activateButtons() {
         boolean active = accountings.isActive();
@@ -195,7 +150,4 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
         // movements.setEnabled(active);
     }
 
-    public static void addRefreshableComponent(String key, RefreshableComponent frame) {
-        frames.put(key,frame);
-    }
 }

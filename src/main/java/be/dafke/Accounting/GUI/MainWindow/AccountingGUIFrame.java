@@ -1,6 +1,7 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.Dao.XML.AccountingSAXParser;
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.RefreshableFrame;
 
@@ -30,11 +31,11 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);//DO_NOTHING_ON_CLOSE);
         contentPanel = new AccountingGUIPanel(accountings);
 		setContentPane(contentPanel);
-        menuBar = new AccountingMenuBar(accountings, this);
+        menuBar = new AccountingMenuBar(accountings);
+        new ComponentMap(accountings, this, menuBar);
 		setJMenuBar(menuBar);
-//		setJMenuBar(new AccountingMenuBar(accountings));
 		pack();
-		//setVisible(true);
+        ComponentMap.refreshAllFrames();
 	}
 
     @Override
@@ -44,7 +45,7 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
     @Override
 	public void windowClosing(WindowEvent we) {
         AccountingSAXParser.toXML(accountings);
-        AccountingMenuBar.closeAllFrames();
+        ComponentMap.closeAllFrames();
 	}
 
     @Override

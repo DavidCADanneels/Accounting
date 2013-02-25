@@ -1,6 +1,6 @@
 package be.dafke.Accounting.GUI.JournalManagement;
 
-import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.RefreshableFrame;
@@ -129,7 +129,7 @@ public class NewJournalTypeGUI extends RefreshableFrame implements ActionListene
                 model.removeElement(type);
             }
 		}
-        AccountingMenuBar.refreshAllFrames();
+        ComponentMap.refreshAllFrames();
     }
 
 	@Override

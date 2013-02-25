@@ -1,5 +1,6 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
@@ -22,7 +23,6 @@ public class JournalGUI extends JPanel implements ActionListener {
 	private final JournalDataModel journalDataModel;
 	private final JTextField debet, credit, dag, bewijs, ident;
 	private final JButton ok, clear;
-//	protected String tekst;
 	protected Calendar date;
 	private BigDecimal debettotaal, credittotaal;
 	private final Accountings accountings;
@@ -140,7 +140,7 @@ public class JournalGUI extends JPanel implements ActionListener {
                 transaction = new Transaction();
                 transaction.setDate(date);
                 accounting.setCurrentTransaction(transaction);
-                AccountingMenuBar.refreshAllFrames();
+                ComponentMap.refreshAllFrames();
             }
 		}
 		if (e.getSource() == clear) {

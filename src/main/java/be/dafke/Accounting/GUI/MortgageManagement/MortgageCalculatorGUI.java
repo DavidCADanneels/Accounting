@@ -1,6 +1,6 @@
 package be.dafke.Accounting.GUI.MortgageManagement;
 
-import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Mortgage.Calculate;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
@@ -172,7 +172,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 			Mortgage newMortgage = new Mortgage("new Mortgage Table", startKapitaal);
 			newMortgage.setTable(data);
 			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, accountings);
-            AccountingMenuBar.addRefreshableComponent(gui.getTitle(),gui);
+            ComponentMap.addDisposableComponent(gui.getTitle(), gui);
 			gui.setVisible(true);
 		}
 	}

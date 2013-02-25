@@ -1,7 +1,7 @@
 package be.dafke.Accounting.GUI.CodaManagement;
 
 import be.dafke.Accounting.Dao.Coda.CodaParser;
-import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
@@ -11,7 +11,7 @@ import be.dafke.Accounting.Objects.Coda.BankAccount;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Coda.Movement;
 import be.dafke.Accounting.Objects.Coda.Movements;
-import be.dafke.RefreshableComponent;
+import be.dafke.DisposableComponent;
 import be.dafke.RefreshableTable;
 import be.dafke.Utils;
 
@@ -61,7 +61,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == viewCounterParties) {
-			RefreshableComponent gui = AccountingMenuBar.getFrame(AccountingMenuBar.OPEN_COUNTERPARTIES);
+			DisposableComponent gui = ComponentMap.getDisposableComponent(ComponentMap.OPEN_COUNTERPARTIES);
 			gui.setVisible(true);
 		} else if (e.getSource() == openMovements) {
 			openMovements();
@@ -132,10 +132,10 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 		if (!list.isEmpty()) {
 			System.err.println(list.size() + " movements have no counterparty:");
 			StringBuilder builder = new StringBuilder(list.size() + " movements have no counterparty:");
-//			for(Movement movement : list) {
-//				System.err.println(movement);
-//				builder.append("\r\n" + movement);
-//			}
+			for(Movement movement : list) {
+				System.err.println(movement);
+				builder.append("\r\n" + movement);
+			}
 			JOptionPane.showMessageDialog(this, builder.toString());
             SearchOptions searchOptions = new SearchOptions();
             searchOptions.searchForCounterParty(null);
@@ -148,10 +148,10 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 			StringBuilder builder = new StringBuilder(set.size() + " counterparties have no account:");
 			for(CounterParty counterParty : set) {
 				System.err.println(counterParty);
-				builder.append("\r\n" + counterParty);
+				builder.append("\r\n").append(counterParty);
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
-            RefreshableComponent gui = AccountingMenuBar.getFrame(AccountingMenuBar.OPEN_COUNTERPARTIES);
+            DisposableComponent gui = ComponentMap.getDisposableComponent(ComponentMap.OPEN_COUNTERPARTIES);
 			gui.setVisible(true);
 			return false;
 		}

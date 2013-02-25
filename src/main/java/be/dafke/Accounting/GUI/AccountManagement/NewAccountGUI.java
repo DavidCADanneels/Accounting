@@ -1,6 +1,6 @@
 package be.dafke.Accounting.GUI.AccountManagement;
 
-import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.DuplicateAccountNameException;
@@ -56,7 +56,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
         String name = nameField.getText().trim();
         try {
             accounting.getAccounts().add(name, (Account.AccountType) type.getSelectedItem());
-            AccountingMenuBar.refreshAllFrames();
+            ComponentMap.refreshAllFrames();
         } catch (DuplicateAccountNameException e) {
             JOptionPane.showMessageDialog(this, "There is already an account with the name \""+name+"\".\r\n"+
                     "Please provide a new name");

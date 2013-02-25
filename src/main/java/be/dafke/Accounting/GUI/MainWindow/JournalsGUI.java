@@ -1,12 +1,13 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.GUI.Details.JournalDetails;
 import be.dafke.Accounting.GUI.JournalManagement.NewJournalGUI;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Journals;
-import be.dafke.RefreshableComponent;
+import be.dafke.DisposableComponent;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -58,19 +59,19 @@ public class JournalsGUI extends JPanel implements ActionListener {
             String title = accounting.toString() + "/" +
                     getBundle("Accounting").getString("DAGBOEK_DETAILS") + "/"
                     + journal.toString();
-            RefreshableComponent gui = AccountingMenuBar.getFrame(title);
+            DisposableComponent gui = ComponentMap.getDisposableComponent(title);
             if(gui == null){
                 gui = new JournalDetails(title, journal, accounting);
-                AccountingMenuBar.addRefreshableComponent(title, gui);
+                ComponentMap.addDisposableComponent(title, gui);
             }
             gui.setVisible(true);
 		} else if (e.getSource() == maak) {
             Accounting accounting = accountings.getCurrentAccounting();
             String title = "Create and modify journals for " + accounting.toString();
-            RefreshableComponent gui = AccountingMenuBar.getFrame(title);
+            DisposableComponent gui = ComponentMap.getDisposableComponent(title);
             if(gui == null){
                 gui = new NewJournalGUI(title, accounting);
-                AccountingMenuBar.addRefreshableComponent(title, gui);
+                ComponentMap.addDisposableComponent(title, gui);
             }
             gui.setVisible(true);
 		} else if (e.getSource() == combo) {

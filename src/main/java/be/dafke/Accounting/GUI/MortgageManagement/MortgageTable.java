@@ -1,6 +1,6 @@
 package be.dafke.Accounting.GUI.MortgageManagement;
 
-import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
@@ -60,7 +60,7 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 //			mortgage.setAccounting(accounting);
 			mortgage.setTable(model.getData());
 			accounting.addMortgageTable(name, mortgage);
-            AccountingMenuBar.refreshAllFrames();
+            ComponentMap.refreshAllFrames();
             dispose();
 		}
 	}

@@ -1,11 +1,11 @@
 package be.dafke.Accounting.GUI.JournalManagement;
 
-import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.JournalType;
 import be.dafke.Accounting.Objects.Accounting.JournalTypes;
-import be.dafke.RefreshableComponent;
+import be.dafke.DisposableComponent;
 import be.dafke.RefreshableTable;
 
 import javax.swing.*;
@@ -117,14 +117,14 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 			deleteJournal();
 		} else if (e.getSource() == newType) {
             String title = "Create and modify journal types for " + accounting.toString();
-            RefreshableComponent gui = AccountingMenuBar.getFrame(title);
+            DisposableComponent gui = ComponentMap.getDisposableComponent(title);
             if(gui == null){
 			    gui = new NewJournalTypeGUI(title, accounting);
-                AccountingMenuBar.addRefreshableComponent(title,gui);
+                ComponentMap.addDisposableComponent(title, gui);
             }
 			gui.setVisible(true);
 		}
-        AccountingMenuBar.refreshAllFrames();
+        ComponentMap.refreshAllFrames();
 	}
 
 	private void deleteJournal() {
@@ -234,7 +234,7 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 				}
 				name.setText("");
 				abbr.setText("");
-                AccountingMenuBar.refreshAllFrames();
+                ComponentMap.refreshAllFrames();
 			}
 		}
 	}

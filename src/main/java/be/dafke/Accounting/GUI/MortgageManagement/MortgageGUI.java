@@ -1,6 +1,6 @@
 package be.dafke.Accounting.GUI.MortgageManagement;
 
-import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
@@ -139,7 +139,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == create) {
 			MortgageCalculatorGUI gui = new MortgageCalculatorGUI(accountings);
-            AccountingMenuBar.addRefreshableComponent(gui.getTitle(), gui);
+            ComponentMap.addDisposableComponent(gui.getTitle(), gui);
 			gui.setVisible(true);
 		} else if (e.getSource() == save) {
 			if (save.getText().equals("Edit")) {

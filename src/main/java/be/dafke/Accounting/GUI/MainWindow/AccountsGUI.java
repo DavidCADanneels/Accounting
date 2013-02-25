@@ -1,6 +1,7 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.AccountManagement.AccountManagementGUI;
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.GUI.Details.AccountDetails;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
@@ -8,8 +9,8 @@ import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.AlphabeticListModel;
+import be.dafke.DisposableComponent;
 import be.dafke.PrefixFilterPanel;
-import be.dafke.RefreshableComponent;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -119,10 +120,10 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		} else if (ae.getSource() == accountManagement) {
             Accounting accounting = accountings.getCurrentAccounting();
             String title = "Manage accounts for " + accounting.toString();
-            RefreshableComponent gui = AccountingMenuBar.getFrame(title);
+            DisposableComponent gui = ComponentMap.getDisposableComponent(title);
             if(gui == null){
                 gui = new AccountManagementGUI(title, accounting);
-                AccountingMenuBar.addRefreshableComponent(title, gui);
+                ComponentMap.addDisposableComponent(title, gui);
             }
             gui.setVisible(true);
         } else if (ae.getSource() == details) {
@@ -131,10 +132,10 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
             String title = accounting.toString() + "/" +
                     getBundle("Accounting").getString("REKENING_DETAILS") + "/"
                     + account.getName();
-            RefreshableComponent gui = AccountingMenuBar.getFrame(title);
+            DisposableComponent gui = ComponentMap.getDisposableComponent(title);
             if(gui == null){
                 gui = new AccountDetails(title, account);
-                AccountingMenuBar.addRefreshableComponent(title, gui);
+                ComponentMap.addDisposableComponent(title, gui);
             }
 			gui.setVisible(true);
 		} else if (ae.getSource() instanceof JCheckBox) {
@@ -167,7 +168,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 						transaction.crediteer(rekening, amount, merge);
 					}
 					ok = true;
-                    AccountingMenuBar.refreshAllFrames();
+                    ComponentMap.refreshAllFrames();
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(this,
 							java.util.ResourceBundle.getBundle("Accounting").getString("INVALID_INPUT"));

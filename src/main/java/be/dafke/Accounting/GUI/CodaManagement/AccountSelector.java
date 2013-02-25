@@ -1,7 +1,7 @@
 package be.dafke.Accounting.GUI.CodaManagement;
 
 import be.dafke.Accounting.GUI.AccountManagement.NewAccountGUI;
-import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
@@ -51,10 +51,10 @@ public class AccountSelector extends RefreshableDialog implements ActionListener
 			account = (Account) combo.getSelectedItem();
 		} else if (e.getSource() == create) {
             String title = "Create new Account in " + accounting.toString();
-            RefreshableComponent gui = AccountingMenuBar.getFrame(title);
+            RefreshableComponent gui = ComponentMap.getDisposableComponent(title);
             if(gui == null){
                 gui = new NewAccountGUI(title,accounting);
-                AccountingMenuBar.addRefreshableComponent(title, gui);
+                ComponentMap.addRefreshableComponent(title, gui);
             }
             gui.setVisible(true);
 		} else if (e.getSource() == ok) {

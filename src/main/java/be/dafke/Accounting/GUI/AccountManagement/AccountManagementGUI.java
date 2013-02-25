@@ -1,6 +1,6 @@
 package be.dafke.Accounting.GUI.AccountManagement;
 
-import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.AccountAlreadyHasBookings;
@@ -70,10 +70,10 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == add) {
             String title = "Create new Account in " + accounting.toString();
-            RefreshableComponent gui = AccountingMenuBar.getFrame(title);
+            RefreshableComponent gui = ComponentMap.getDisposableComponent(title);
             if(gui == null){
                 gui = new NewAccountGUI(title, accounting);
-                AccountingMenuBar.addRefreshableComponent(title, gui);
+                ComponentMap.addRefreshableComponent(title, gui);
             }
             gui.setVisible(true);
 		} else if (event.getSource() == modifyName) {
@@ -92,7 +92,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
                 deleteAccounts(accountList);
             }
 		}
-        AccountingMenuBar.refreshAllFrames();
+        ComponentMap.refreshAllFrames();
 	}
 
     private void deleteAccounts(ArrayList<Account> accountList) {
