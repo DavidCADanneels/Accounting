@@ -18,17 +18,17 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JList list;
+	private final JList<Mortgage> list;
 	private final JButton pay;// , newMortgage, details;
-	private final DefaultListModel listModel;
+	private final DefaultListModel<Mortgage> listModel;
 	private Accounting accounting;
 
 	public MortgagesGUI(Accounting accounting) {
 		this.accounting = accounting;
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Mortgages"));
-		list = new JList();
-		listModel = new DefaultListModel();
+		list = new JList<Mortgage>();
+		listModel = new DefaultListModel<Mortgage>();
 		list.setModel(listModel);
 		list.addListSelectionListener(this);
 		pay = new JButton("Pay");
@@ -51,14 +51,13 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 					listModel.addElement(mortgage);
 				}
 			}
-            pay.setEnabled(true);
 		}
 		list.revalidate();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Mortgage mortgage = (Mortgage) list.getSelectedValue();
+		Mortgage mortgage = list.getSelectedValue();
 		if (mortgage == null) {
 			return;
 		}
