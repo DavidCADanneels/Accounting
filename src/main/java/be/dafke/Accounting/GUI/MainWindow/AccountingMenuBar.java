@@ -79,11 +79,13 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
         banking = new JMenu("Banking");
         movements = new JMenuItem("Show movements");
         movements.addActionListener(this);
-        // movements.setEnabled(false);
+        movements.setEnabled(false);
         counterParties = new JMenuItem("Show Counterparties");
         counterParties.addActionListener(this);
+        counterParties.setEnabled(false);
         mortgage = new JMenuItem("Mortgages");
         mortgage.addActionListener(this);
+        mortgage.setEnabled(false);
         banking.add(movements);
         banking.add(counterParties);
         banking.add(mortgage);
@@ -139,7 +141,9 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
         resultBalance.setEnabled(active);
         testBalance.setEnabled(active);
         yearBalance.setEnabled(active);
-        // movements.setEnabled(active);
+        movements.setEnabled(active);
+        counterParties.setEnabled(active);
+        mortgage.setEnabled(active);
     }
 
     private void setActionCommands(){
