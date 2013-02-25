@@ -1,9 +1,11 @@
 package be.dafke.Accounting.GUI.MortgageManagement;
 
+import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Mortgage.Calculate;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
 import be.dafke.RefreshableFrame;
+import be.dafke.Utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,8 +24,6 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 	 */
 	private static final long serialVersionUID = 1L;
 
-	private static MortgageCalculatorGUI mortgage = null;
-
 	private final JTextField amountField, months, yearPercent, monthPercent, mensField, totalIntrestFixed,
 			totalToPayFixed, totalIntrestDegres, totalToPayDegres, totalIntrestDifference, totalToPayDifference;
 	private final JButton converter, create;
@@ -39,9 +39,10 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 
 	private final Accountings accountings;
 
+    private static int nr = 1;
 
 	public MortgageCalculatorGUI(Accountings accountings) {
-		super("Mortgage Calculator");
+		super("Mortgage Calculator"+ nr++);
 		this.accountings = accountings;
 
 		amountField = new JTextField(10);
@@ -123,15 +124,13 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 		panel.add(overview);
 		panel.add(line4);
 
-//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(panel);
 		pack();
 	}
 
 	@Override
 	public void refresh() {
-		// TODO Auto-generated method stub
-
+        // nothing to do
 	}
 
 	@Override
@@ -161,7 +160,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 		calculateTablesAndTotals();
 	}
 
-	private void createTable(/*boolean show*/) {
+	private void createTable() {
 		if (maandPercentage != null && mensualiteit != null && startKapitaal != null && aantalMaanden != 0) {
 			ArrayList<Vector<BigDecimal>> data;
 			if (fix.isSelected()) {
@@ -170,15 +169,11 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 				data = Calculate.createDegressiveAmountTable(startKapitaal, aantalMaanden,
 						maandPercentage);
 			}
-			// if (show) {
 			Mortgage newMortgage = new Mortgage("new Mortgage Table", startKapitaal);
-//			newMortgage.setAccounting(accounting);
 			newMortgage.setTable(data);
 			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, accountings);
-//			gui.setMortgage(newMortgage);
+            AccountingMenuBar.addRefreshableComponent(gui.getTitle(),gui);
 			gui.setVisible(true);
-			// dispose();
-			// }
 		}
 	}
 
@@ -206,17 +201,17 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 	public void focusLost(FocusEvent e) {
 		if (e.getSource() == amountField) {
 			String s = amountField.getText();
-			startKapitaal = parseBigDecimal(s);
+			startKapitaal = Utils.parseBigDecimal(s);
 			if (startKapitaal == null) {
 				amountField.setText("");
 			}
 		} else if (e.getSource() == months) {
-			aantalMaanden = parseInt(months.getText());
+			aantalMaanden = Utils.parseInt(months.getText());
 			if (aantalMaanden == 0) {
 				months.setText("");
 			}
 		} else if (e.getSource() == yearPercent) {
-			jaarPercentage = parseBigDecimal(yearPercent.getText());
+			jaarPercentage = Utils.parseBigDecimal(yearPercent.getText());
 			if (jaarPercentage == null) {
 				yearPercent.setText("");
 			} else {
@@ -224,7 +219,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 				monthPercent.setText(maandPercentage.toString());
 			}
 		} else if (e.getSource() == monthPercent) {
-			maandPercentage = parseBigDecimal(monthPercent.getText());
+			maandPercentage = Utils.parseBigDecimal(monthPercent.getText());
 			if (maandPercentage == null) {
 				monthPercent.setText("");
 			} else {
@@ -232,29 +227,11 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 				yearPercent.setText(jaarPercentage.toString());
 			}
 		} else if (e.getSource() == mensField) {
-			mensualiteit = parseBigDecimal(mensField.getText());
+			mensualiteit = Utils.parseBigDecimal(mensField.getText());
 			if (mensualiteit == null) {
 				mensField.setText("");
 			}
 		}
 		activateButtons();
 	}
-
-	private BigDecimal parseBigDecimal(String s) {
-		try {
-			BigDecimal result = new BigDecimal(s);
-			return result;
-		} catch (NumberFormatException nfe) {
-			return null;
-		}
-	}
-
-	private int parseInt(String s) {
-		try {
-			return Integer.parseInt(s);
-		} catch (NumberFormatException nfe) {
-			return 0;
-		}
-	}
-
 }

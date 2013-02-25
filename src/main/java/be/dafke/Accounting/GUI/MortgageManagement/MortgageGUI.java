@@ -1,10 +1,12 @@
 package be.dafke.Accounting.GUI.MortgageManagement;
 
+import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
 import be.dafke.RefreshableFrame;
+import be.dafke.Utils;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -18,11 +20,11 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JList mortgagesList;
+	private final JList<Mortgage> mortgagesList;
 	private final JButton create;
 	private final JTextField nrPayed;
 	private boolean init = true;
-	private final JComboBox comboIntrest, comboCapital;
+	private final JComboBox<Account> comboIntrest, comboCapital;
 	private Mortgage selectedMortgage = null;
 	private final MortgageDataModel model;
 	private Account[] accounts;
@@ -36,8 +38,8 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	public MortgageGUI(Accountings accountings) {
 		super("Mortgages");
 		this.accountings = accountings;
-		mortgagesList = new JList();
-		mortgagesList.setModel(new DefaultListModel());
+		mortgagesList = new JList<Mortgage>();
+		mortgagesList.setModel(new DefaultListModel<Mortgage>());
 		mortgagesList.addListSelectionListener(this);
 		create = new JButton("Create new Mortgage table");
 		create.addActionListener(this);
@@ -115,7 +117,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	public void valueChanged(ListSelectionEvent e) {
 		init = true;
 		if (!e.getValueIsAdjusting() && mortgagesList.getSelectedIndex() != -1) {
-			selectedMortgage = (Mortgage) mortgagesList.getSelectedValue();
+			selectedMortgage = mortgagesList.getSelectedValue();
 			comboIntrest.setSelectedItem(selectedMortgage.getIntrestAccount());
 			comboCapital.setSelectedItem(selectedMortgage.getCapitalAccount());
 			nrPayed.setText(selectedMortgage.getNrPayed() + "");
@@ -131,26 +133,22 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		model.revalidate(selectedMortgage);
 		table.revalidate();
 		init = false;
-//		repaint();
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == create) {
 			MortgageCalculatorGUI gui = new MortgageCalculatorGUI(accountings);
+            AccountingMenuBar.addRefreshableComponent(gui.getTitle(), gui);
 			gui.setVisible(true);
 		} else if (e.getSource() == save) {
 			if (save.getText().equals("Edit")) {
 				activateButtons(true);
 			} else {
 				if (selectedMortgage != null) {
-					try {
-						int nr = Integer.parseInt(nrPayed.getText());
-						selectedMortgage.setPayed(nr);
-					} catch (NumberFormatException nfe) {
-
-					}
-				}
+                    int nr = Utils.parseInt(nrPayed.getText());
+                    selectedMortgage.setPayed(nr);
+                }
 				activateButtons(false);
 			}
 		} else if (e.getSource() == delete) {
@@ -171,22 +169,20 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 				}
 			} else if (e.getSource() == nrPayed) {
 				if (selectedMortgage != null) {
-					try {
-						int nr = Integer.parseInt(nrPayed.getText());
-						selectedMortgage.setPayed(nr);
-					} catch (NumberFormatException nfe) {
-
-					}
+                    int nr = Utils.parseInt(nrPayed.getText());
+                    selectedMortgage.setPayed(nr);
 				}
 			}
 		}
     }
 
+
+
 	@Override
 	public void refresh() {
         if(accountings!=null && accountings.getCurrentAccounting()!=null){
             Accounting accounting = accountings.getCurrentAccounting();
-            listModel = new DefaultListModel();
+            listModel = new DefaultListModel<Mortgage>();
             for(Mortgage mortgage : accounting.getMortgagesTables()) {
                 if (!listModel.contains(mortgage)) {
                     listModel.addElement(mortgage);
@@ -199,8 +195,8 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
             for(int i = 0; i < accounting.getAccounts().getAccounts().size(); i++) {
                 accounts[i] = accounting.getAccounts().getAccounts().get(i);
             }
-            intrestModel = new DefaultComboBoxModel(accounts);
-            capitalModel = new DefaultComboBoxModel(accounts);
+            intrestModel = new DefaultComboBoxModel<Account>(accounts);
+            capitalModel = new DefaultComboBoxModel<Account>(accounts);
             comboCapital.setModel(capitalModel);
             comboIntrest.setModel(intrestModel);
             comboCapital.revalidate();

@@ -4,6 +4,7 @@ import org.apache.fop.cli.InputHandler;
 
 import java.io.File;
 import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Vector;
@@ -31,11 +32,11 @@ public class Utils {
 
 	/** Data -> "D/M/YYYY" */
 	public static String toString(Calendar c) {
-		StringBuffer buf = new StringBuffer();
-		buf.append(c.get(Calendar.DATE) + "/");
-		buf.append(c.get(Calendar.MONTH) + 1 + "/");
-		buf.append(c.get(Calendar.YEAR));
-		return buf.toString();
+		StringBuilder builder = new StringBuilder();
+		builder.append(c.get(Calendar.DATE)).append("/");
+		builder.append(c.get(Calendar.MONTH) + 1).append("/");
+		builder.append(c.get(Calendar.YEAR));
+		return builder.toString();
 	}
 
     public static void xmlToHtml(File xmlFile, File xslFile, File htmlFile, Vector params) {
@@ -51,6 +52,23 @@ public class Utils {
             e.printStackTrace();
         }
     }
+
+    public static BigDecimal parseBigDecimal(String s) {
+        try {
+            return new BigDecimal(s);
+        } catch (NumberFormatException nfe) {
+            return null;
+        }
+    }
+
+    public static int parseInt(String s) {
+        try {
+            return Integer.parseInt(s);
+        } catch (NumberFormatException nfe) {
+            return 0;
+        }
+    }
+
 
     public static void writeXml() {
         // TODO write generic function to write Xml file for Account, Journal, etc.

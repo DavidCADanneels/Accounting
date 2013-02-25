@@ -23,8 +23,10 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 	private final BigDecimal startCapital;
 	private final Accountings accountings;
 
+    private static int nr = 1;
+
 	public MortgageTable(Mortgage mortgage, BigDecimal startCapital, Accountings accountings) {
-		super("Aflossingstabel");
+		super("Aflossingstabel "+ nr++);
 		this.accountings = accountings;
 		this.startCapital = startCapital;
 		model = new MortgageDataModel(mortgage);
@@ -36,7 +38,6 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 		save = new JButton("Save table");
 		save.addActionListener(this);
 		panel.add(save, BorderLayout.SOUTH);
-//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(panel);
 		pack();
 		setVisible(true);
