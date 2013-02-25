@@ -155,19 +155,4 @@ public class JournalGUI extends JPanel implements ActionListener {
         accountings.getCurrentAccounting().setCurrentTransaction(transaction);
 		refresh();
 	}
-
-	public void init() {
-        // TODO check this init method (null pointers ???)
-		Accounting accounting = accountings.getCurrentAccounting();
-		if (accounting != null) {
-			if (accounting.getJournals().isEmpty()) {
-				AccountingMenuBar.getFrame(AccountingMenuBar.NEW_JOURNAL).setVisible(true);
-			} else {
-				ident.setText(accounting.getCurrentJournal().getAbbreviation() + " "
-						+ accounting.getCurrentJournal().getId());
-			}
-		} else {
-			ident.setText("");
-		}
-	}
 }

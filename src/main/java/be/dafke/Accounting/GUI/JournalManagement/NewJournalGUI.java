@@ -2,10 +2,10 @@ package be.dafke.Accounting.GUI.JournalManagement;
 
 import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.JournalType;
 import be.dafke.Accounting.Objects.Accounting.JournalTypes;
+import be.dafke.RefreshableComponent;
 import be.dafke.RefreshableTable;
 
 import javax.swing.*;
@@ -26,11 +26,11 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 	private JComboBox type;
 	private final JButton add, delete, modifyName, modifyType, newType, modifyAbbr;
 	private final DefaultListSelectionModel selection;
-	private final Accountings accountings;
+	private final Accounting accounting;
 
-	public NewJournalGUI(Accountings accountings) {
-		super("Create and modify journals", new NewJournalDataModel(accountings));
-		this.accountings = accountings;
+	public NewJournalGUI(String title, Accounting accounting) {
+		super(title, new NewJournalDataModel(accounting));
+		this.accounting = accounting;
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
 		tabel.setSelectionModel(selection);
@@ -98,10 +98,8 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 
     @Override
     public void refresh(){
-        if(accountings!=null && accountings.getCurrentAccounting()!=null){
-            JournalTypes journaltypes = accountings.getCurrentAccounting().getJournalTypes();
-            type = new JComboBox(journaltypes.values().toArray());
-        }
+        JournalTypes journaltypes = accounting.getJournalTypes();
+        type = new JComboBox(journaltypes.values().toArray());
         super.refresh();
     }
 
@@ -118,14 +116,18 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 		} else if (e.getSource() == delete) {
 			deleteJournal();
 		} else if (e.getSource() == newType) {
-			NewJournalTypeGUI gui = new NewJournalTypeGUI(accountings);
+            String title = "Create and modify journal types for " + accounting.toString();
+            RefreshableComponent gui = AccountingMenuBar.getFrame(title);
+            if(gui == null){
+			    gui = new NewJournalTypeGUI(title, accounting);
+                AccountingMenuBar.addRefreshableComponent(title,gui);
+            }
 			gui.setVisible(true);
 		}
         AccountingMenuBar.refreshAllFrames();
 	}
 
 	private void deleteJournal() {
-		Accounting accounting = accountings.getCurrentAccounting();
 		int[] rows = tabel.getSelectedRows();
 		int nrNotEmpty = 0;
 		if (rows.length == 0) {
@@ -157,7 +159,6 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 	}
 
 	private void modifyName() {
-		Accounting accounting = accountings.getCurrentAccounting();
 		int[] rows = tabel.getSelectedRows();
 		if (rows.length == 0) {
 			JOptionPane.showMessageDialog(this, "Select a journal first");
@@ -187,7 +188,6 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 	}
 
 	private void modifyAbbr() {
-		Accounting accounting = accountings.getCurrentAccounting();
 		int[] rows = tabel.getSelectedRows();
 		if (rows.length == 0) {
 			JOptionPane.showMessageDialog(this, "Select a journal first");
@@ -216,7 +216,6 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 	}
 
 	private void addJournal() {
-		Accounting accounting = accountings.getCurrentAccounting();
 		String newName = name.getText().trim();
 		String abbreviation = abbr.getText().trim();
 		if (newName.isEmpty() || abbreviation.isEmpty()) {
@@ -241,7 +240,6 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 	}
 
 	private void modifyType() {
-		Accounting accounting = accountings.getCurrentAccounting();
 		int[] rows = tabel.getSelectedRows();
 		if (rows.length == 0) {
 			JOptionPane.showMessageDialog(this, "Select a journal first");

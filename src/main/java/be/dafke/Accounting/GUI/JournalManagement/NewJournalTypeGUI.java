@@ -2,7 +2,7 @@ package be.dafke.Accounting.GUI.JournalManagement;
 
 import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
+import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.RefreshableFrame;
 
 import javax.swing.*;
@@ -10,21 +10,22 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.List;
 
 public class NewJournalTypeGUI extends RefreshableFrame implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JList debit, credit, types;
+	private final JList<AccountType> debit, credit, types;
 	private final JButton addLeft, addRight, removeLeft, removeRight;
 	private final ArrayList<AccountType> debitTypes, creditTypes;
 	private final DefaultListModel debitModel, creditModel;
-    private Accountings accountings;
+    private Accounting accounting;
 
-	public NewJournalTypeGUI(Accountings accountings) {
-		super("Create and modify journal types");
-        this.accountings = accountings;
+	public NewJournalTypeGUI(String title, Accounting accounting) {
+		super(title);
+        this.accounting = accounting;
 		debitTypes = new ArrayList<AccountType>();
 		creditTypes = new ArrayList<AccountType>();
 		debitModel = new DefaultListModel();
@@ -115,22 +116,18 @@ public class NewJournalTypeGUI extends RefreshableFrame implements ActionListene
 			}
 		} else if (e.getSource() == removeLeft) {
 			DefaultListModel model = (DefaultListModel) debit.getModel();
-			Object[] accountTypes = debit.getSelectedValues();
-			if (accountTypes.length != 0) {
-				for(Object type : accountTypes) {
-					debitTypes.remove(type);
-					model.removeElement(type);
-				}
-			}
+			List<AccountType> accountTypeList = debit.getSelectedValuesList();
+            for(AccountType type : accountTypeList) {
+                debitTypes.remove(type);
+                model.removeElement(type);
+            }
 		} else if (e.getSource() == removeRight) {
 			DefaultListModel model = (DefaultListModel) credit.getModel();
-			Object[] accountTypes = credit.getSelectedValues();
-			if (accountTypes.length != 0) {
-				for(Object type : accountTypes) {
-					creditTypes.remove(type);
-					model.removeElement(type);
-				}
-			}
+            List<AccountType> accountTypeList = credit.getSelectedValuesList();
+            for(AccountType type : accountTypeList) {
+                creditTypes.remove(type);
+                model.removeElement(type);
+            }
 		}
         AccountingMenuBar.refreshAllFrames();
     }

@@ -1,6 +1,7 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.Details.JournalDetails;
+import be.dafke.Accounting.GUI.JournalManagement.NewJournalGUI;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Journal;
@@ -64,7 +65,14 @@ public class JournalsGUI extends JPanel implements ActionListener {
             }
             gui.setVisible(true);
 		} else if (e.getSource() == maak) {
-            AccountingMenuBar.getFrame(AccountingMenuBar.NEW_JOURNAL).setVisible(true);
+            Accounting accounting = accountings.getCurrentAccounting();
+            String title = "Create and modify journals for " + accounting.toString();
+            RefreshableComponent gui = AccountingMenuBar.getFrame(title);
+            if(gui == null){
+                gui = new NewJournalGUI(title, accounting);
+                AccountingMenuBar.addRefreshableComponent(title, gui);
+            }
+            gui.setVisible(true);
 		} else if (e.getSource() == combo) {
 			Journal journal = (Journal) combo.getSelectedItem();
 			Accounting accounting = accountings.getCurrentAccounting();
