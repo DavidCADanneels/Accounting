@@ -3,12 +3,10 @@ package be.dafke.Accounting.GUI.Balances;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class YearBalanceDataModel extends AbstractTableModel {
 	/**
@@ -21,17 +19,16 @@ public class YearBalanceDataModel extends AbstractTableModel {
 			java.util.ResourceBundle.getBundle("Accounting").getString("BEDRAG"),
 			java.util.ResourceBundle.getBundle("Accounting").getString("PASSIVA") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, Account.class };
-	private final Accountings accountings;
+	private final Accounting accounting;
 
-	public YearBalanceDataModel(Accountings accountings) {
-		this.accountings = accountings;
+	public YearBalanceDataModel(Accounting accounting) {
+		this.accounting = accounting;
 	}
 
 // DE GET METHODEN
 // ===============
 
 	public Object getValueAt(int row, int col) {
-		Accounting accounting = accountings.getCurrentAccounting();
 		int size = getRowCount();
 		if (row == size - 1) {
 			// in de onderste rij komen totalen
@@ -49,22 +46,22 @@ public class YearBalanceDataModel extends AbstractTableModel {
 				BigDecimal totaalPassiva = new BigDecimal(0);
 				BigDecimal totaalKlanten = new BigDecimal(0);
 				BigDecimal totaalLeveranciers = new BigDecimal(0);
-				Iterator<Account> it1 = activa.iterator();
-				while (it1.hasNext())
-					totaalActiva = totaalActiva.add(it1.next().saldo());
-				Iterator<Account> it2 = passiva.iterator();
-				while (it2.hasNext())
-					totaalPassiva = totaalPassiva.add(it2.next().saldo());
-				Iterator<Account> it3 = klanten.iterator();
-				while (it3.hasNext())
-					totaalKlanten = totaalKlanten.add(it3.next().saldo());
-				Iterator<Account> it4 = leveranciers.iterator();
-				while (it4.hasNext())
-					totaalLeveranciers = totaalLeveranciers.add(it4.next().saldo());
-				totaalActiva.setScale(2);
-				totaalPassiva.setScale(2);
-				totaalKlanten.setScale(2);
-				totaalLeveranciers.setScale(2);
+                for(Account actief : activa){
+                    totaalActiva = totaalActiva.add(actief.saldo());
+                }
+                for(Account passief : passiva){
+                    totaalPassiva = totaalPassiva.add(passief.saldo());
+                }
+                for(Account klant : klanten){
+                    totaalKlanten = totaalKlanten.add(klant.saldo());
+                }
+                for(Account leverancier : leveranciers){
+                    totaalLeveranciers = totaalLeveranciers.add(leverancier.saldo());
+                }
+                totaalActiva = totaalActiva.setScale(2);
+                totaalPassiva = totaalPassiva.setScale(2);
+                totaalKlanten = totaalKlanten.setScale(2);
+                totaalLeveranciers = totaalLeveranciers.setScale(2);
 				BigDecimal totaalLinks = totaalActiva.add(totaalKlanten);
 				BigDecimal totaalRechts = totaalPassiva.add(totaalLeveranciers);
 				if (col == 1) return totaalLinks;
@@ -114,10 +111,6 @@ public class YearBalanceDataModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-		if (accountings == null || accountings.getCurrentAccounting() == null) {
-			return 0;
-		}
-		Accounting accounting = accountings.getCurrentAccounting();
 		ArrayList<Account> activa = accounting.getAccounts().getAccounts(AccountType.Active);
 		ArrayList<Account> passiva = accounting.getAccounts().getAccounts(AccountType.Passive);
 		ArrayList<Account> klanten = accounting.getAccounts().getAccounts(AccountType.Credit);

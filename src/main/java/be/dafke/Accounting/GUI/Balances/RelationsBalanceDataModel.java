@@ -3,12 +3,10 @@ package be.dafke.Accounting.GUI.Balances;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.util.Collection;
-import java.util.Iterator;
 
 public class RelationsBalanceDataModel extends AbstractTableModel {
 	/**
@@ -21,17 +19,16 @@ public class RelationsBalanceDataModel extends AbstractTableModel {
 			java.util.ResourceBundle.getBundle("Accounting").getString("BEDRAG"),
 			java.util.ResourceBundle.getBundle("Accounting").getString("SCHULDEN_AAN_LEVERANCIERS") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, Account.class };
-	private final Accountings accountings;
+	private final Accounting accounting;
 
-	public RelationsBalanceDataModel(Accountings accountings) {
-		this.accountings = accountings;
+	public RelationsBalanceDataModel(Accounting accounting) {
+		this.accounting = accounting;
 	}
 
 // DE GET METHODEN
 // ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Accounting accounting = accountings.getCurrentAccounting();
 		int size = getRowCount();
 		if (row == size - 2 || row == size - 1) {
 			// in de onderste 2 rijen komen totalen
@@ -47,14 +44,14 @@ public class RelationsBalanceDataModel extends AbstractTableModel {
 				Collection<Account> leveranciers = accounting.getAccounts().getAccounts(AccountType.Debit);
 				BigDecimal totaalKlanten = new BigDecimal(0);
 				BigDecimal totaalLeveranciers = new BigDecimal(0);
-				Iterator<Account> it1 = klanten.iterator();
-				while (it1.hasNext())
-					totaalKlanten = totaalKlanten.add(it1.next().saldo());
-				Iterator<Account> it2 = leveranciers.iterator();
-				while (it2.hasNext())
-					totaalLeveranciers = totaalLeveranciers.add(it2.next().saldo());
-				totaalKlanten.setScale(2);
-				totaalLeveranciers.setScale(2);
+                for(Account klant : klanten){
+                    totaalKlanten = totaalKlanten.add(klant.saldo());
+                }
+                for(Account leverancier : leveranciers){
+                    totaalLeveranciers = totaalLeveranciers.add(leverancier.saldo());
+                }
+                totaalKlanten = totaalKlanten.setScale(2);
+                totaalLeveranciers = totaalLeveranciers.setScale(2);
 				if (size != 0) {
 					if (row == size - 2 && col == 1) return totaalKlanten;
 					else if (row == size - 2 && col == 2) return BigDecimal.ZERO.subtract(totaalLeveranciers);
@@ -103,10 +100,6 @@ public class RelationsBalanceDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		if (accountings == null || accountings.getCurrentAccounting() == null) {
-			return 0;
-		}
-		Accounting accounting = accountings.getCurrentAccounting();
 		int size1 = accounting.getAccounts().getAccounts(AccountType.Credit).size();
 		int size2 = accounting.getAccounts().getAccounts(AccountType.Debit).size();
 		int size = size1 > size2 ? size1 : size2;

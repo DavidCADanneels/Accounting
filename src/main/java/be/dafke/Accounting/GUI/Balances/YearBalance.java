@@ -1,7 +1,9 @@
 package be.dafke.Accounting.GUI.Balances;
 
-import be.dafke.Accounting.Objects.Accounting.Accountings;
+import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.RefreshableTable;
+
+import static java.util.ResourceBundle.getBundle;
 
 public class YearBalance extends RefreshableTable {
 	/**
@@ -9,9 +11,9 @@ public class YearBalance extends RefreshableTable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public YearBalance(Accountings accountings) {
-		super(java.util.ResourceBundle.getBundle("Accounting").getString("EINDBALANS"),
-				new YearBalanceDataModel(accountings));
+	public YearBalance(Accounting accounting) {
+		super(getBundle("Accounting").getString("EINDBALANS")+ " (" + accounting.toString() + ")",
+				new YearBalanceDataModel(accounting));
 		tabel.setAutoCreateRowSorter(true);
 	}
 }

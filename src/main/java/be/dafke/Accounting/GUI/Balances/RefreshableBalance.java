@@ -3,7 +3,6 @@ package be.dafke.Accounting.GUI.Balances;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.RefreshableTable;
 
 import javax.swing.*;
@@ -29,12 +28,12 @@ public class RefreshableBalance extends RefreshableTable implements ActionListen
 	private final String name;
 	private final AccountType left, right;
 	private final JButton button;
-	private final Accountings accountings;
+	private final Accounting accounting;
 
 	public RefreshableBalance(String title, AbstractTableModel m, AccountType left, AccountType right,
-			Accountings accountings) {
+			Accounting accounting) {
 		super(title, m);
-		this.accountings = accountings;
+		this.accounting = accounting;
 		name = title;
 		this.left = left;
 		this.right = right;
@@ -44,8 +43,7 @@ public class RefreshableBalance extends RefreshableTable implements ActionListen
 	}
 
 	public void toXML() {
-		Accounting accounting = accountings.getCurrentAccounting(); //$NON-NLS-1$
-		if (accounting.getBalanceLocationXml().equals("")) { //$NON-NLS-1$
+		if (accounting.getBalanceLocationXml() == null) { //$NON-NLS-1$
 			JFileChooser dialoog = new JFileChooser();
 			dialoog.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			ResourceBundle bundle = ResourceBundle.getBundle("Accounting"); //$NON-NLS-1$

@@ -3,7 +3,6 @@ package be.dafke.Accounting.GUI.Balances;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
@@ -21,17 +20,16 @@ public class TestBalanceDataModel extends AbstractTableModel {
 			java.util.ResourceBundle.getBundle("Accounting").getString("SALDO(CREDIT)") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, BigDecimal.class,
 			BigDecimal.class };
-	private final Accountings accountings;
+	private final Accounting accounting;
 
-	public TestBalanceDataModel(Accountings accountings) {
-		this.accountings = accountings;
+	public TestBalanceDataModel(Accounting accounting) {
+		this.accounting = accounting;
 	}
 
 	// DE GET METHODEN
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Accounting accounting = accountings.getCurrentAccounting();
 		Account account = accounting.getAccounts().getAccounts(AccountType.getList()).get(row);
 		if (col == 0) return account;
 		else if (col == 1) return account.getDebetTotal();
@@ -52,10 +50,6 @@ public class TestBalanceDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		if (accountings == null || accountings.getCurrentAccounting() == null) {
-			return 0;
-		}
-		Accounting accounting = accountings.getCurrentAccounting();
 		return accounting.getAccounts().size();
 	}
 

@@ -10,6 +10,7 @@ import be.dafke.Accounting.GUI.MainWindow.AccountingGUIFrame;
 import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.GUI.MortgageManagement.MortgageGUI;
 import be.dafke.Accounting.GUI.Projects.ProjectManagerFrame;
+import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.DisposableComponent;
 import be.dafke.RefreshableComponent;
@@ -37,10 +38,12 @@ public class ComponentMap {
     private static final HashMap<String, DisposableComponent> disposableComponents = new HashMap<String, DisposableComponent>();
 
     public ComponentMap(Accountings accountings, AccountingGUIFrame mainPanel, AccountingMenuBar menuBar) {
-        disposableComponents.put(OPEN_RELATIONS_BALANCE, new RelationsBalance(accountings));
-        disposableComponents.put(OPEN_RESULT_BALANCE, new ResultBalance(accountings));
-        disposableComponents.put(OPEN_TEST_BALANCE, new TestBalance(accountings));
-        disposableComponents.put(OPEN_YEAR_BALANCE, new YearBalance(accountings));
+        for(Accounting accounting : accountings.getAccountings()){
+            disposableComponents.put(accounting.toString()+OPEN_RELATIONS_BALANCE, new RelationsBalance(accounting));
+            disposableComponents.put(accounting.toString()+OPEN_RESULT_BALANCE, new ResultBalance(accounting));
+            disposableComponents.put(accounting.toString()+OPEN_TEST_BALANCE, new TestBalance(accounting));
+            disposableComponents.put(accounting.toString()+OPEN_YEAR_BALANCE, new YearBalance(accounting));
+        }
         disposableComponents.put(OPEN_PROJECTS, new ProjectManagerFrame(accountings));
         disposableComponents.put(OPEN_MOVEMENTS, new MovementTable(accountings));
         disposableComponents.put(OPEN_COUNTERPARTIES, new CounterPartyTable(accountings));

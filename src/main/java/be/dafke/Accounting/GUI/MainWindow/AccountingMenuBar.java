@@ -19,7 +19,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
      */
     private static final long serialVersionUID = 1L;
     private final JMenu balances, projecten, file, banking;
-    private final JMenuItem test, year, result, relate;
+    private final JMenuItem testBalance, yearBalance, resultBalance, relationsBalance;
     private final JMenuItem projects;
     private final JMenuItem startNew;
     private final JMenuItem movements, counterParties, mortgage;
@@ -46,29 +46,25 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
         // Menu2
         balances = new JMenu(java.util.ResourceBundle.getBundle("Accounting").getString("BALANSEN"));
         balances.setMnemonic(KeyEvent.VK_B);
-        test = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString(
+        testBalance = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString(
                 "PROEF_EN_SALDI-BALANS"));
-        year = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString("EINDBALANS"));
-        result = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString(
+        yearBalance = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString("EINDBALANS"));
+        resultBalance = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString(
                 "RESULTATENBALANS"));
-        relate = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString(
+        relationsBalance = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString(
                 "RELATIES-BALANS"));
-        test.addActionListener(this);
-        year.addActionListener(this);
-        result.addActionListener(this);
-        relate.addActionListener(this);
-        test.setActionCommand(ComponentMap.OPEN_TEST_BALANCE);
-        year.setActionCommand(ComponentMap.OPEN_YEAR_BALANCE);
-        result.setActionCommand(ComponentMap.OPEN_RESULT_BALANCE);
-        relate.setActionCommand(ComponentMap.OPEN_RELATIONS_BALANCE);
-        relate.setEnabled(false);
-        result.setEnabled(false);
-        test.setEnabled(false);
-        year.setEnabled(false);
-        balances.add(test);
-        balances.add(result);
-        balances.add(year);
-        balances.add(relate);
+        testBalance.addActionListener(this);
+        yearBalance.addActionListener(this);
+        resultBalance.addActionListener(this);
+        relationsBalance.addActionListener(this);
+        relationsBalance.setEnabled(false);
+        resultBalance.setEnabled(false);
+        testBalance.setEnabled(false);
+        yearBalance.setEnabled(false);
+        balances.add(testBalance);
+        balances.add(resultBalance);
+        balances.add(yearBalance);
+        balances.add(relationsBalance);
         add(balances);
 
         projecten = new JMenu(java.util.ResourceBundle.getBundle("Accounting").getString("PROJECTEN"));
@@ -77,22 +73,17 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
                 "PROJECTMANAGER"));
         projects.addActionListener(this);
         projects.setEnabled(false);
-        projects.setActionCommand(ComponentMap.OPEN_PROJECTS);
         projecten.add(projects);
         add(projecten);
 
         banking = new JMenu("Banking");
         movements = new JMenuItem("Show movements");
-        movements.setActionCommand(ComponentMap.OPEN_MOVEMENTS);
         movements.addActionListener(this);
         // movements.setEnabled(false);
         counterParties = new JMenuItem("Show Counterparties");
-        counterParties.setActionCommand(ComponentMap.OPEN_COUNTERPARTIES);
         counterParties.addActionListener(this);
-
         mortgage = new JMenuItem("Mortgages");
         mortgage.addActionListener(this);
-        mortgage.setActionCommand(ComponentMap.OPEN_MORTGAGES);
         banking.add(movements);
         banking.add(counterParties);
         banking.add(mortgage);
@@ -122,7 +113,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
 //                AccountingSAXParser.toXML(currentAccounting);
 //            }
             accountings.setCurrentAccounting(ae.getActionCommand());
-        } else {
+        } else if(ae.getActionCommand().startsWith(accountings.getCurrentAccounting().toString())){
             RefreshableComponent gui = ComponentMap.getDisposableComponent(item.getActionCommand());
             if(gui != null){
                 gui.setVisible(true);
@@ -136,6 +127,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
     @Override
     public void refresh(){
         activateButtons();
+        setActionCommands();
     }
 
 
@@ -143,11 +135,27 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
         boolean active = accountings.isActive();
 //		startNew.setEnabled(!active);
         projects.setEnabled(active);
-        relate.setEnabled(active);
-        result.setEnabled(active);
-        test.setEnabled(active);
-        year.setEnabled(active);
+        relationsBalance.setEnabled(active);
+        resultBalance.setEnabled(active);
+        testBalance.setEnabled(active);
+        yearBalance.setEnabled(active);
         // movements.setEnabled(active);
+    }
+
+    private void setActionCommands(){
+        boolean active = accountings.isActive();
+        if(active){
+            String test = accountings.getCurrentAccounting().toString()+ComponentMap.OPEN_TEST_BALANCE;
+            testBalance.setActionCommand(test);
+//            ComponentMap.addDisposableComponent(test,new TestBalance(accountings));
+            yearBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.OPEN_YEAR_BALANCE);
+            resultBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.OPEN_RESULT_BALANCE);
+            relationsBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.OPEN_RELATIONS_BALANCE);
+            projects.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.OPEN_PROJECTS);
+            movements.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.OPEN_MOVEMENTS);
+            counterParties.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.OPEN_COUNTERPARTIES);
+            mortgage.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.OPEN_MORTGAGES);
+        }
     }
 
 }
