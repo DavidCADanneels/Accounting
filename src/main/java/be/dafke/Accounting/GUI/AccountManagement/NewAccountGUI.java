@@ -24,7 +24,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     private final Accountings accountings;
 
     public NewAccountGUI(Accountings accountings) {
-        setTitle("Create new Account");
+        super("Create new Account");
         this.accountings = accountings;
         JPanel north = new JPanel();
 		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));

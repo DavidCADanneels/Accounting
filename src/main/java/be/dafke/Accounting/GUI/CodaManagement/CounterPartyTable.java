@@ -1,7 +1,6 @@
 package be.dafke.Accounting.GUI.CodaManagement;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Coda.BankAccount;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
@@ -53,8 +52,8 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
                 if(alias != null && !alias.equals("")){
                     String aliases[] = alias.split(Pattern.quote(" | "));
                     int result = JOptionPane.showOptionDialog(this,"Select new name", "Select new name",
-                            JOptionPane.OK_OPTION,JOptionPane.INFORMATION_MESSAGE, null,aliases,aliases[0]);
-                    if(result != JOptionPane.CLOSED_OPTION){
+                            JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE, null,aliases,aliases[0]);
+                    if(result != JOptionPane.CLOSED_OPTION && result != JOptionPane.CANCEL_OPTION){
                         CounterParty counterParty = (CounterParty) tabel.getValueAt(row, 0);
                         String name = counterParty.getName();
                         counterParty.setName(aliases[result]);
@@ -65,22 +64,17 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
                     }
                 }
 			} else if (col == 5) {
-				Account account = (Account) tabel.getValueAt(row, col);
 				boolean active = accountings.isActive();
 				if (!active) {
 					JOptionPane.showMessageDialog(this, "Open an accounting first");
 				} else {
-					Accounting accounting = accountings.getCurrentAccounting();
-					AccountSelector sel = new AccountSelector(accountings);
+					AccountSelector sel = new AccountSelector(accountings.getCurrentAccounting());
 					sel.setVisible(true);
-					account = sel.getSelection();
+					Account account = sel.getSelection();
 
 					if (account != null) {
 						CounterParty counterParty = (CounterParty) tabel.getValueAt(row, 0);
 						counterParty.setAccount(account);
-//						CounterParties counterParties = accounting.getCounterParties();
-//						counterParties.remove(counterParty.getName());
-//						counterParties.put(counterParty.getName(), counterParty);
 						super.refresh();
 					}
 				}

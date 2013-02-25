@@ -8,7 +8,8 @@ import javax.swing.*;
  * Time: 13:18
  */
 public abstract class RefreshableDialog extends JDialog implements RefreshableComponent{
-    public RefreshableDialog(){
+    public RefreshableDialog(String title){
+        setTitle(title);
         setModal(true);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
     }

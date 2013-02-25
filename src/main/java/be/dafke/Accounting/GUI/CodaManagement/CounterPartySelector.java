@@ -20,7 +20,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JButton ok, create, apply;
-	private final JComboBox oldCounterPartyCombo, newCounterPartyCombo;
+	private final JComboBox<CounterParty> oldCounterPartyCombo, newCounterPartyCombo;
 	private CounterParty oldCounterParty, newCounterParty;
     private final JTable movementTable;
 	private final GenericMovementDataModel movementDataModel;
@@ -33,20 +33,26 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
     private final SearchOptions searchOptions;
 
     public CounterPartySelector(Movement movement, Accountings accountings) {
-		setTitle("Select Counterparty");
+		super("Select Counterparty");
 		this.movement = movement;
 		this.accountings = accountings;
 		oldCounterParty = null;
         newCounterParty = null;
 
         // COMPONENTS
-		oldCounterPartyCombo = new JComboBox(accountings.getCurrentAccounting().getCounterParties().getCounterParties().toArray());
+		oldCounterPartyCombo = new JComboBox<CounterParty>();
 		oldCounterPartyCombo.addItem(null);
-		oldCounterPartyCombo.setSelectedItem(null);
+        for(CounterParty counterParty : accountings.getCurrentAccounting().getCounterParties().getCounterParties()){
+            oldCounterPartyCombo.addItem(counterParty);
+        }
+        oldCounterPartyCombo.setSelectedItem(null);
 		oldCounterPartyCombo.addActionListener(this);
         oldCounterPartyCombo.setEnabled(false);
-        newCounterPartyCombo = new JComboBox(accountings.getCurrentAccounting().getCounterParties().getCounterParties().toArray());
+        newCounterPartyCombo = new JComboBox<CounterParty>();
         newCounterPartyCombo.addItem(null);
+        for(CounterParty counterParty : accountings.getCurrentAccounting().getCounterParties().getCounterParties()){
+            newCounterPartyCombo.addItem(counterParty);
+        }
         newCounterPartyCombo.setSelectedItem(null);
         newCounterPartyCombo.addActionListener(this);
 
@@ -264,6 +270,6 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 
     @Override
     public void refresh() {
-        //To change body of implemented methods use File | Settings | File Templates.
+        // nothing to do here
     }
 }
