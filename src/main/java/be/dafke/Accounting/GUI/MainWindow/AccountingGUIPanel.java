@@ -2,7 +2,7 @@ package be.dafke.Accounting.GUI.MainWindow;
 
 //import be.belgium.eid.*;
 
-import be.dafke.Accounting.Objects.Accounting.Accountings;
+import be.dafke.Accounting.Objects.Accounting.Accounting;
 
 import javax.swing.*;
 import java.awt.*;
@@ -22,13 +22,13 @@ public class AccountingGUIPanel extends JPanel {
 	private final JournalsGUI journalsGUI;
 	private final MortgagesGUI mortgagesGUI;
 
-	public AccountingGUIPanel(Accountings accountings) {
+	public AccountingGUIPanel(Accounting accounting) {
 		// if(!checkID())
 		// System.exit(0);
-		journalGUI = new JournalGUI(accountings);
-		accountsGUI = new AccountsGUI(accountings);
-		journalsGUI = new JournalsGUI(accountings);
-		mortgagesGUI = new MortgagesGUI(accountings);
+		journalGUI = new JournalGUI(accounting);
+		accountsGUI = new AccountsGUI(accounting);
+		journalsGUI = new JournalsGUI(accounting);
+		mortgagesGUI = new MortgagesGUI(accounting);
 
 		JPanel linksBoven = new JPanel(new BorderLayout());
 		linksBoven.add(accountsGUI, BorderLayout.CENTER);
@@ -44,11 +44,11 @@ public class AccountingGUIPanel extends JPanel {
 		add(links, BorderLayout.WEST);
 	}
 
-	public void refresh() {
-		journalGUI.refresh();
-		accountsGUI.refresh();
-		journalsGUI.refresh();
-		mortgagesGUI.refresh();
+	protected void setAccounting(Accounting accounting) {
+		journalGUI.setAccounting(accounting);
+		accountsGUI.setAccounting(accounting);
+		journalsGUI.setAccounting(accounting);
+		mortgagesGUI.setAccounting(accounting);
 	}
 
 	/*

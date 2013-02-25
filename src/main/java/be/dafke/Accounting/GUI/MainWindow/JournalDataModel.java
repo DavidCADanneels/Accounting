@@ -1,7 +1,7 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
+import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Booking;
 
 import javax.swing.table.AbstractTableModel;
@@ -21,17 +21,17 @@ public class JournalDataModel extends AbstractTableModel {
 			java.util.ResourceBundle.getBundle("Accounting").getString("D"),
 			java.util.ResourceBundle.getBundle("Accounting").getString("C") };
 	Class[] columnClasses = { Account.class, Account.class, BigDecimal.class, BigDecimal.class };
-    private final Accountings accountings;
+    private final Accounting accounting;
 
-    public JournalDataModel(Accountings accountings){
-        this.accountings = accountings;
+    public JournalDataModel(Accounting accounting){
+        this.accounting = accounting;
     }
     
 // DE GET METHODEN
 // ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Booking booking = accountings.getCurrentAccounting().getCurrentTransaction().getBookings().get(row);
+		Booking booking = accounting.getCurrentTransaction().getBookings().get(row);
 		if (booking.isDebit()) {
 			if (col == 0) {
 				return booking.getAccount();
@@ -57,10 +57,10 @@ public class JournalDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-        if(accountings == null || accountings.getCurrentAccounting() == null){
+        if(accounting == null){
             return 0;
         }
-		return accountings.getCurrentAccounting().getCurrentTransaction().getBookings().size();
+		return accounting.getCurrentTransaction().getBookings().size();
 	}
 
 	@Override

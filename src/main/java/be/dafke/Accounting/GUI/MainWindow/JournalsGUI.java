@@ -4,7 +4,6 @@ import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.GUI.Details.JournalDetails;
 import be.dafke.Accounting.GUI.JournalManagement.NewJournalGUI;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Journals;
 import be.dafke.DisposableComponent;
@@ -28,12 +27,12 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JComboBox<Journal> combo;
 	private final JButton maak, details;
-	private final Accountings accountings;
+	private Accounting accounting;
 
-	public JournalsGUI(Accountings accountings) {
+	public JournalsGUI(Accounting accounting) {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
 				"Accounting").getString("DAGBOEKEN")));
-		this.accountings = accountings;
+		this.accounting = accounting;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		combo = new JComboBox<Journal>();
 		combo.setEnabled(false);
@@ -55,7 +54,6 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == details) {
 			Journal journal = (Journal) combo.getSelectedItem();
-            Accounting accounting = accountings.getCurrentAccounting();
             String title = accounting.toString() + "/" +
                     getBundle("Accounting").getString("DAGBOEK_DETAILS") + "/"
                     + journal.toString();
@@ -66,7 +64,6 @@ public class JournalsGUI extends JPanel implements ActionListener {
             }
             gui.setVisible(true);
 		} else if (e.getSource() == maak) {
-            Accounting accounting = accountings.getCurrentAccounting();
             String title = "Create and modify journals for " + accounting.toString();
             DisposableComponent gui = ComponentMap.getDisposableComponent(title);
             if(gui == null){
@@ -76,16 +73,18 @@ public class JournalsGUI extends JPanel implements ActionListener {
             gui.setVisible(true);
 		} else if (e.getSource() == combo) {
 			Journal journal = (Journal) combo.getSelectedItem();
-			Accounting accounting = accountings.getCurrentAccounting();
 			accounting.setCurrentJournal(journal);
 		}
 	}
 
+    public void setAccounting(Accounting accounting){
+        this.accounting = accounting;
+        refresh();
+    }
+
 	public void refresh() {
         combo.removeAllItems();
-        boolean active = accountings.isActive();
-		if (active) {
-			Accounting accounting = accountings.getCurrentAccounting();
+		if (accounting!=null) {
 			Journals journals = accounting.getJournals();
             for(Journal journal: journals.values()){
                 combo.addItem(journal);
@@ -94,8 +93,8 @@ public class JournalsGUI extends JPanel implements ActionListener {
 		} else {
 			combo.setSelectedItem(null);
 		}
-		combo.setEnabled(active);
-		maak.setEnabled(active);
-		details.setEnabled(active);
+		combo.setEnabled(accounting!=null);
+		maak.setEnabled(accounting!=null);
+		details.setEnabled(accounting!=null);
 	}
 }

@@ -2,7 +2,6 @@ package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.Utils;
 
@@ -25,15 +24,15 @@ public class JournalGUI extends JPanel implements ActionListener {
 	private final JButton ok, clear;
 	protected Calendar date;
 	private BigDecimal debettotaal, credittotaal;
-	private final Accountings accountings;
+	private Accounting accounting;
 
-	public JournalGUI(final Accountings accountings) {
-		this.accountings = accountings;
+	public JournalGUI(final Accounting accounting) {
+		this.accounting = accounting;
 		debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
 		date = Calendar.getInstance();
 		setLayout(new BorderLayout());
-		journalDataModel = new JournalDataModel(accountings);
+		journalDataModel = new JournalDataModel(accounting);
 		JTable table = new JTable(journalDataModel);
 		table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -67,6 +66,7 @@ public class JournalGUI extends JPanel implements ActionListener {
 		ok.setEnabled(false);
 		clear = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("WIS_PANEEL"));
 		clear.addActionListener(this);
+        clear.setEnabled(false);
 
 		JPanel paneel1 = new JPanel();
 		paneel1.add(new JLabel(
@@ -105,9 +105,13 @@ public class JournalGUI extends JPanel implements ActionListener {
 		add(onder, BorderLayout.SOUTH);
 	}
 
-	public void refresh() {
-        if(accountings!=null && accountings.getCurrentAccounting()!=null){
-            Accounting accounting = accountings.getCurrentAccounting();
+    public void setAccounting(Accounting accounting){
+        this.accounting = accounting;
+        refresh();
+    }
+
+	private void refresh() {
+        if(accounting!=null){
             journalDataModel.fireTableDataChanged();
             debettotaal = accounting.getCurrentTransaction().getDebetTotaal();
             credittotaal = accounting.getCurrentTransaction().getCreditTotaal();
@@ -117,9 +121,11 @@ public class JournalGUI extends JPanel implements ActionListener {
             ok.setEnabled(debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0);
             ident.setText(accounting.getCurrentJournal().getAbbreviation() + " "
                     + accounting.getCurrentJournal().getId());
+            clear.setEnabled(true);
         } else{
             ok.setEnabled(false);
             ident.setText("");
+            clear.setEnabled(false);
         }
 	}
 
@@ -129,7 +135,6 @@ public class JournalGUI extends JPanel implements ActionListener {
             if(date == null){
                 JOptionPane.showMessageDialog(null, "Fill in date");
             } else {
-                Accounting accounting = accountings.getCurrentAccounting();
                 Transaction transaction = accounting.getCurrentTransaction();
                 // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
                 transaction.setDescription(bewijs.getText());
@@ -152,7 +157,7 @@ public class JournalGUI extends JPanel implements ActionListener {
 		ok.setEnabled(false);
         Transaction transaction = new Transaction();
         transaction.setDate(date);
-        accountings.getCurrentAccounting().setCurrentTransaction(transaction);
+        accounting.setCurrentTransaction(transaction);
 		refresh();
 	}
 }

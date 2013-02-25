@@ -30,7 +30,7 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
 		this.accountings = accountings;
 		addWindowListener(this);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);//DO_NOTHING_ON_CLOSE);
-        contentPanel = new AccountingGUIPanel(accountings);
+        contentPanel = new AccountingGUIPanel(accountings.getCurrentAccounting());
 		setContentPane(contentPanel);
         menuBar = new AccountingMenuBar(accountings);
         setJMenuBar(menuBar);
@@ -75,11 +75,12 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
 
     @Override
     public void refresh() {
-        if(accountings!=null && accountings.getCurrentAccounting()!=null){
-            setTitle(getBundle("Accounting").getString("BOEKHOUDING")+":"+accountings.getCurrentAccounting().toString());
+        Accounting accounting = accountings.getCurrentAccounting();
+        if(accounting!=null){
+            setTitle(getBundle("Accounting").getString("BOEKHOUDING")+": "+accounting.toString());
         } else {
             setTitle(getBundle("Accounting").getString("BOEKHOUDING"));
         }
-        contentPanel.refresh();
+        contentPanel.setAccounting(accounting);
     }
 }

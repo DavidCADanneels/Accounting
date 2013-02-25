@@ -2,7 +2,6 @@ package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
 
 import javax.swing.*;
@@ -22,10 +21,10 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 	private final JList list;
 	private final JButton pay;// , newMortgage, details;
 	private final DefaultListModel listModel;
-	private final Accountings accountings;
+	private Accounting accounting;
 
-	public MortgagesGUI(Accountings accountings) {
-		this.accountings = accountings;
+	public MortgagesGUI(Accounting accounting) {
+		this.accounting = accounting;
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Mortgages"));
 		list = new JList();
@@ -34,19 +33,25 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 		list.addListSelectionListener(this);
 		pay = new JButton("Pay");
 		pay.addActionListener(this);
+        pay.setEnabled(false);
 		add(list, BorderLayout.CENTER);
 		add(pay, BorderLayout.SOUTH);
 	}
 
-	public void refresh() {
+    public void setAccounting(Accounting accounting){
+        this.accounting = accounting;
+        refresh();
+    }
+
+	private void refresh() {
         listModel.clear();
-		Accounting accounting = accountings.getCurrentAccounting();
 		if (accounting != null) {
 			for(Mortgage mortgage : accounting.getMortgagesTables()) {
 				if (!listModel.contains(mortgage)) {
 					listModel.addElement(mortgage);
 				}
 			}
+            pay.setEnabled(true);
 		}
 		list.revalidate();
 	}
@@ -61,7 +66,7 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 			System.out.println("Payed Off already");
 			return;
 		}
-		mortgage.pay(accountings.getCurrentAccounting().getCurrentTransaction());
+		mortgage.pay(accounting.getCurrentTransaction());
         ComponentMap.refreshAllFrames();
 	}
 
