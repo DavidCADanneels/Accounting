@@ -134,7 +134,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 			StringBuilder builder = new StringBuilder(list.size() + " movements have no counterparty:");
 			for(Movement movement : list) {
 				System.err.println(movement);
-				builder.append("\r\n" + movement);
+				builder.append("\r\n").append(movement);
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
             SearchOptions searchOptions = new SearchOptions();
