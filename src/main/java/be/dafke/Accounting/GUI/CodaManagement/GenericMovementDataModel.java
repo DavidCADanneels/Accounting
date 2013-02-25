@@ -1,6 +1,6 @@
 package be.dafke.Accounting.GUI.CodaManagement;
 
-import be.dafke.Accounting.Objects.Accounting.Accountings;
+import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Coda.Movement;
 import be.dafke.Accounting.Objects.Coda.Movements;
@@ -22,11 +22,11 @@ public class GenericMovementDataModel extends AbstractTableModel {
 	private final Class[] columnClasses = { String.class, String.class, Calendar.class, String.class, BigDecimal.class,
 			CounterParty.class, TmpCounterParty.class, String.class, String.class };
 	private Movement singleMovement;
-	private final Accountings accountings;
+	private final Accounting accounting;
     private SearchOptions searchOptions;
 
-	public GenericMovementDataModel(SearchOptions searchOptions, Accountings accountings) {
-		this.accountings = accountings;
+	public GenericMovementDataModel(SearchOptions searchOptions, Accounting accounting) {
+		this.accounting = accounting;
         this.searchOptions = searchOptions;
 	}
 
@@ -93,15 +93,12 @@ public class GenericMovementDataModel extends AbstractTableModel {
 	}
 
 	public ArrayList<Movement> getAllMovements() {
-        if (accountings == null || accountings.getCurrentAccounting() == null) {
-            return new ArrayList<Movement>();
-        }
         if (singleMovement != null) {
 			ArrayList<Movement> result = new ArrayList<Movement>();
 			result.add(singleMovement);
 			return result;
 		}
-		Movements movements = accountings.getCurrentAccounting().getMovements();
+		Movements movements = accounting.getMovements();
 		return movements.getMovements(searchOptions);
 	}
 }

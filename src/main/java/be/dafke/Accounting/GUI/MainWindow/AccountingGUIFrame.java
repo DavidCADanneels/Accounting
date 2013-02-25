@@ -2,6 +2,7 @@ package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.Dao.XML.AccountingSAXParser;
 import be.dafke.Accounting.GUI.ComponentMap;
+import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.RefreshableFrame;
 
@@ -32,8 +33,12 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
         contentPanel = new AccountingGUIPanel(accountings);
 		setContentPane(contentPanel);
         menuBar = new AccountingMenuBar(accountings);
-        new ComponentMap(accountings, this, menuBar);
-		setJMenuBar(menuBar);
+        setJMenuBar(menuBar);
+        ComponentMap.addDisposableComponent(ComponentMap.MAIN, this);
+        ComponentMap.addRefreshableComponent(ComponentMap.MENU, menuBar);
+        for(Accounting accounting : accountings.getAccountings()){
+            ComponentMap.addAccountingComponents(accounting);
+        }
 		pack();
         ComponentMap.refreshAllFrames();
 	}

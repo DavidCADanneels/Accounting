@@ -5,7 +5,7 @@
 
 package be.dafke.Accounting.Dao.Coda;
 
-import be.dafke.Accounting.Objects.Accounting.Accountings;
+import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Coda.CounterParties;
 import be.dafke.Accounting.Objects.Coda.Movement;
 import be.dafke.Accounting.Objects.Coda.Movements;
@@ -25,9 +25,9 @@ import java.util.Date;
  * @author David C.A. Danneels
  */
 public class CodaParser {
-	public void parseFile(File[] files, Accountings accountings) {
-		CounterParties counterParties = accountings.getCurrentAccounting().getCounterParties();
-		Movements movements = accountings.getCurrentAccounting().getMovements();
+	public void parseFile(File[] files, Accounting accounting) {
+		CounterParties counterParties = accounting.getCounterParties();
+		Movements movements = accounting.getMovements();
 		Movement movement = null;
 		for(File file : files) {
 			try {

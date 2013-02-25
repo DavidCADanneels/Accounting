@@ -6,12 +6,9 @@ import be.dafke.Accounting.GUI.Balances.TestBalance;
 import be.dafke.Accounting.GUI.Balances.YearBalance;
 import be.dafke.Accounting.GUI.CodaManagement.CounterPartyTable;
 import be.dafke.Accounting.GUI.CodaManagement.MovementTable;
-import be.dafke.Accounting.GUI.MainWindow.AccountingGUIFrame;
-import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.GUI.MortgageManagement.MortgageGUI;
 import be.dafke.Accounting.GUI.Projects.ProjectManagerFrame;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.DisposableComponent;
 import be.dafke.RefreshableComponent;
 
@@ -37,20 +34,15 @@ public class ComponentMap {
     private static final HashMap<String, RefreshableComponent> refreshableComponents = new HashMap<String, RefreshableComponent>();
     private static final HashMap<String, DisposableComponent> disposableComponents = new HashMap<String, DisposableComponent>();
 
-    public ComponentMap(Accountings accountings, AccountingGUIFrame mainPanel, AccountingMenuBar menuBar) {
-        for(Accounting accounting : accountings.getAccountings()){
-            disposableComponents.put(accounting.toString()+OPEN_RELATIONS_BALANCE, new RelationsBalance(accounting));
-            disposableComponents.put(accounting.toString()+OPEN_RESULT_BALANCE, new ResultBalance(accounting));
-            disposableComponents.put(accounting.toString()+OPEN_TEST_BALANCE, new TestBalance(accounting));
-            disposableComponents.put(accounting.toString()+OPEN_YEAR_BALANCE, new YearBalance(accounting));
-        }
-        disposableComponents.put(OPEN_PROJECTS, new ProjectManagerFrame(accountings));
-        disposableComponents.put(OPEN_MOVEMENTS, new MovementTable(accountings));
-        disposableComponents.put(OPEN_COUNTERPARTIES, new CounterPartyTable(accountings));
-        disposableComponents.put(OPEN_MORTGAGES, new MortgageGUI(accountings));
-        disposableComponents.put(MAIN, mainPanel);
-        refreshableComponents.putAll(disposableComponents);
-        refreshableComponents.put(MENU, menuBar);
+    public static void addAccountingComponents(Accounting accounting){
+        addDisposableComponent(accounting.toString()+OPEN_RELATIONS_BALANCE, new RelationsBalance(accounting));
+        addDisposableComponent(accounting.toString()+OPEN_RESULT_BALANCE, new ResultBalance(accounting));
+        addDisposableComponent(accounting.toString()+OPEN_TEST_BALANCE, new TestBalance(accounting));
+        addDisposableComponent(accounting.toString()+OPEN_YEAR_BALANCE, new YearBalance(accounting));
+        addDisposableComponent(accounting.toString()+OPEN_PROJECTS, new ProjectManagerFrame(accounting));
+        addDisposableComponent(accounting.toString()+OPEN_MOVEMENTS, new MovementTable(accounting));
+        addDisposableComponent(accounting.toString()+OPEN_COUNTERPARTIES, new CounterPartyTable(accounting));
+        addDisposableComponent(accounting.toString()+OPEN_MORTGAGES, new MortgageGUI(accounting));
     }
 
     public static void closeAllFrames(){

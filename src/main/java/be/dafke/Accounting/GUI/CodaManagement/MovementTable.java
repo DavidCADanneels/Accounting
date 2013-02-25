@@ -4,7 +4,6 @@ import be.dafke.Accounting.Dao.Coda.CodaParser;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.Accounting.Objects.Coda.BankAccount;
@@ -35,11 +34,11 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JButton viewCounterParties, exportToJournal, openMovements, saveToAccounting;
-	private final Accountings accountings;
+	private final Accounting accounting;
 
-	public MovementTable(Accountings accountings) {
-		super("Movements", new MovementDataModel(accountings));
-		this.accountings = accountings;
+	public MovementTable(Accounting accounting) {
+		super("Movements (" + accounting.toString() + ")", new MovementDataModel(accounting));
+		this.accounting = accounting;
 		// tabel.setAutoCreateRowSorter(true);
 		tabel.addMouseListener(this);
 		viewCounterParties = new JButton("View Counterparties");
@@ -94,17 +93,12 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 		if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 			File[] files = chooser.getSelectedFiles();
 			CodaParser codaParser = new CodaParser();
-			codaParser.parseFile(files, accountings);
+			codaParser.parseFile(files, accounting);
 		}
 		refresh();
 	}
 
 	private boolean checkAccountAndSelection(int[] rows) {
-		Accounting accounting = accountings.getCurrentAccounting();
-		if (accounting == null) {
-			JOptionPane.showMessageDialog(this, "Open an accounting first");
-			return false;
-		}
 		if (rows.length == 0) {
 			JOptionPane.showMessageDialog(this, "Select some lines first");
 			return false;
@@ -123,7 +117,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 		for(int i : rows) {
 			CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 5);
 			if (counterParty == null) {
-				Movements movements = accountings.getCurrentAccounting().getMovements();
+				Movements movements = accounting.getMovements();
 				list.add(movements.getMovement(i));
 			} else if (counterParty.getAccount() == null) {
 				set.add(counterParty);
@@ -139,7 +133,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 			JOptionPane.showMessageDialog(this, builder.toString());
             SearchOptions searchOptions = new SearchOptions();
             searchOptions.searchForCounterParty(null);
-			GenericMovementTable gui = new GenericMovementTable(searchOptions, accountings);
+			GenericMovementTable gui = new GenericMovementTable(searchOptions, accounting);
 			gui.setVisible(true);
 			return false;
 		}
@@ -160,7 +154,6 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 
 	private void exportToJournal() {
 		// TODO save movements (and counterparties) into accounting [or with different button]
-		Accounting accounting = accountings.getCurrentAccounting();
 		int[] rows = tabel.getSelectedRows();
 		if (checkAccountAndSelection(rows)) {
 			if (checkCounterParties(rows)) {
@@ -229,10 +222,10 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 			int col = tabel.columnAtPoint(cell);
 			int row = tabel.rowAtPoint(cell);
 			if (col == 5) {
-				Movements movements = accountings.getCurrentAccounting().getMovements();
+				Movements movements = accounting.getMovements();
 				CounterParty counterParty = (CounterParty) tabel.getValueAt(row, col);
 				if (counterParty == null) {
-					CounterPartySelector sel = new CounterPartySelector(movements.getMovement(row), accountings);
+					CounterPartySelector sel = new CounterPartySelector(movements.getMovement(row), accounting);
 					sel.setVisible(true);
 					counterParty = sel.getSelection();
 				}
@@ -248,7 +241,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 					}
                     SearchOptions searchOptions = new SearchOptions();
                     searchOptions.searchForCounterParty(counterParty);
-					RefreshableTable refreshableTable = new GenericMovementTable(searchOptions, accountings);
+					RefreshableTable refreshableTable = new GenericMovementTable(searchOptions, accounting);
                     refreshableTable.setVisible(true);
 					// parent.addChildFrame(refreshableTable);
 				}
@@ -256,14 +249,14 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 				String transactionCode = (String) tabel.getValueAt(row, 6);
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.searchForTransactionCode(transactionCode);
-				RefreshableTable refreshableTable = new GenericMovementTable(searchOptions, accountings);
+				RefreshableTable refreshableTable = new GenericMovementTable(searchOptions, accounting);
                 refreshableTable.setVisible(true);
 				// parent.addChildFrame(refreshableTable);
             } else if (col == 7){
                 String communication = (String) tabel.getValueAt(row, 7);
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.searchForCommunication(communication);
-                RefreshableTable refreshableTable = new GenericMovementTable(searchOptions, accountings);
+                RefreshableTable refreshableTable = new GenericMovementTable(searchOptions, accounting);
                 refreshableTable.setVisible(true);
                 // parent.addChildFrame(refreshableTable);
             }

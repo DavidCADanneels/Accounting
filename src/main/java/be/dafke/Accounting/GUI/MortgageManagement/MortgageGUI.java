@@ -3,7 +3,6 @@ package be.dafke.Accounting.GUI.MortgageManagement;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
 import be.dafke.RefreshableFrame;
 import be.dafke.Utils;
@@ -33,11 +32,11 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 
 	private final JTable table;
 	private final JButton save, delete;
-	private final Accountings accountings;
+	private final Accounting accounting;
 
-	public MortgageGUI(Accountings accountings) {
-		super("Mortgages");
-		this.accountings = accountings;
+	public MortgageGUI(Accounting accounting) {
+		super("Mortgages (" + accounting.toString() + ")");
+		this.accounting = accounting;
 		mortgagesList = new JList<Mortgage>();
 		mortgagesList.setModel(new DefaultListModel<Mortgage>());
 		mortgagesList.addListSelectionListener(this);
@@ -138,7 +137,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == create) {
-			MortgageCalculatorGUI gui = new MortgageCalculatorGUI(accountings);
+			MortgageCalculatorGUI gui = new MortgageCalculatorGUI(accounting);
             ComponentMap.addDisposableComponent(gui.getTitle(), gui);
 			gui.setVisible(true);
 		} else if (e.getSource() == save) {
@@ -153,7 +152,6 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 			}
 		} else if (e.getSource() == delete) {
 			if (selectedMortgage != null) {
-				Accounting accounting = accountings.getCurrentAccounting();
 				accounting.removeMortgageTable(selectedMortgage);
 			}
 		} else if (!init) {
@@ -180,27 +178,24 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 
 	@Override
 	public void refresh() {
-        if(accountings!=null && accountings.getCurrentAccounting()!=null){
-            Accounting accounting = accountings.getCurrentAccounting();
-            listModel = new DefaultListModel<Mortgage>();
-            for(Mortgage mortgage : accounting.getMortgagesTables()) {
-                if (!listModel.contains(mortgage)) {
-                    listModel.addElement(mortgage);
-                }
+        listModel = new DefaultListModel<Mortgage>();
+        for(Mortgage mortgage : accounting.getMortgagesTables()) {
+            if (!listModel.contains(mortgage)) {
+                listModel.addElement(mortgage);
             }
-            mortgagesList.setModel(listModel);
-            mortgagesList.revalidate();
-
-            accounts = new Account[accounting.getAccounts().getAccounts().size()];
-            for(int i = 0; i < accounting.getAccounts().getAccounts().size(); i++) {
-                accounts[i] = accounting.getAccounts().getAccounts().get(i);
-            }
-            intrestModel = new DefaultComboBoxModel<Account>(accounts);
-            capitalModel = new DefaultComboBoxModel<Account>(accounts);
-            comboCapital.setModel(capitalModel);
-            comboIntrest.setModel(intrestModel);
-            comboCapital.revalidate();
-            comboIntrest.revalidate();
         }
+        mortgagesList.setModel(listModel);
+        mortgagesList.revalidate();
+
+        accounts = new Account[accounting.getAccounts().getAccounts().size()];
+        for(int i = 0; i < accounting.getAccounts().getAccounts().size(); i++) {
+            accounts[i] = accounting.getAccounts().getAccounts().get(i);
+        }
+        intrestModel = new DefaultComboBoxModel<Account>(accounts);
+        capitalModel = new DefaultComboBoxModel<Account>(accounts);
+        comboCapital.setModel(capitalModel);
+        comboIntrest.setModel(intrestModel);
+        comboCapital.revalidate();
+        comboIntrest.revalidate();
 	}
 }

@@ -1,7 +1,7 @@
 package be.dafke.Accounting.GUI.MortgageManagement;
 
 import be.dafke.Accounting.GUI.ComponentMap;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
+import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Mortgage.Calculate;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
 import be.dafke.RefreshableFrame;
@@ -37,13 +37,13 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 
 	List<Vector<BigDecimal>> fixedTable, degressiveTable;
 
-	private final Accountings accountings;
+	private final Accounting accounting;
 
     private static int nr = 1;
 
-	public MortgageCalculatorGUI(Accountings accountings) {
-		super("Mortgage Calculator"+ nr++);
-		this.accountings = accountings;
+	public MortgageCalculatorGUI(Accounting accounting) {
+		super("Mortgage Calculator (" + accounting.toString() + ") " + nr++);
+		this.accounting = accounting;
 
 		amountField = new JTextField(10);
 		months = new JTextField(10);
@@ -171,7 +171,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 			}
 			Mortgage newMortgage = new Mortgage("new Mortgage Table", startKapitaal);
 			newMortgage.setTable(data);
-			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, accountings);
+			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, accounting);
             ComponentMap.addDisposableComponent(gui.getTitle(), gui);
 			gui.setVisible(true);
 		}

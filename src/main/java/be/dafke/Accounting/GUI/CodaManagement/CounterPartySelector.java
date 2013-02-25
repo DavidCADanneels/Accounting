@@ -1,6 +1,6 @@
 package be.dafke.Accounting.GUI.CodaManagement;
 
-import be.dafke.Accounting.Objects.Accounting.Accountings;
+import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Coda.CounterParties;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Coda.Movement;
@@ -29,20 +29,20 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
     private final JCheckBox searchOnTransactionCode, searchOnCommunication, searchOnCounterParty;
     private final JTextField transactionCode, communication;
 	private final ButtonGroup singleMultiple;
-	private final Accountings accountings;
+	private final Accounting accounting;
     private final SearchOptions searchOptions;
 
-    public CounterPartySelector(Movement movement, Accountings accountings) {
+    public CounterPartySelector(Movement movement, Accounting accounting) {
 		super("Select Counterparty");
 		this.movement = movement;
-		this.accountings = accountings;
+		this.accounting = accounting;
 		oldCounterParty = null;
         newCounterParty = null;
 
         // COMPONENTS
 		oldCounterPartyCombo = new JComboBox<CounterParty>();
 		oldCounterPartyCombo.addItem(null);
-        for(CounterParty counterParty : accountings.getCurrentAccounting().getCounterParties().getCounterParties()){
+        for(CounterParty counterParty : accounting.getCounterParties().getCounterParties()){
             oldCounterPartyCombo.addItem(counterParty);
         }
         oldCounterPartyCombo.setSelectedItem(null);
@@ -50,7 +50,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         oldCounterPartyCombo.setEnabled(false);
         newCounterPartyCombo = new JComboBox<CounterParty>();
         newCounterPartyCombo.addItem(null);
-        for(CounterParty counterParty : accountings.getCurrentAccounting().getCounterParties().getCounterParties()){
+        for(CounterParty counterParty : accounting.getCounterParties().getCounterParties()){
             newCounterPartyCombo.addItem(counterParty);
         }
         newCounterPartyCombo.setSelectedItem(null);
@@ -65,7 +65,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         searchOptions.searchForCounterParty(null);
         searchOptions.searchForTransactionCode(movement.getTransactionCode());
         movementDataModel = new GenericMovementDataModel(searchOptions,
-                accountings);
+                accounting);
         movementDataModel.setSingleMovement(movement);
         movementTable = new JTable(movementDataModel);
         movementTable.setDefaultRenderer(CounterParty.class, new ColorRenderer());
@@ -177,7 +177,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 		} else if (e.getSource() == create) {
 			String s = JOptionPane.showInputDialog(this, "Enter a name for the new counterparty");
 			if (s != null && !s.equals("")) {
-				CounterParties counterParties = accountings.getCurrentAccounting().getCounterParties();
+				CounterParties counterParties = accounting.getCounterParties();
                 newCounterParty = counterParties.addCounterParty(s, null);
 				oldCounterPartyCombo.addItem(newCounterParty);
                 newCounterPartyCombo.addItem(newCounterParty);

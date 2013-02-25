@@ -1,7 +1,7 @@
 package be.dafke.Accounting.GUI.CodaManagement;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
+import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Coda.BankAccount;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.RefreshableTable;
@@ -17,11 +17,11 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final Accountings accountings;
+	private final Accounting accounting;
 
-	public CounterPartyTable(Accountings accountings) {
-		super("Counterparties", new CounterPartyDataModel(accountings));
-		this.accountings = accountings;
+	public CounterPartyTable(Accounting accounting) {
+		super("Counterparties (" + accounting.toString() + ")", new CounterPartyDataModel(accounting));
+		this.accounting = accounting;
 		// tabel.setAutoCreateRowSorter(true);
 		tabel.addMouseListener(this);
 	}
@@ -44,7 +44,7 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.setCounterParty(counterParty);
                 searchOptions.setSearchOnCounterParty(true);
-				RefreshableTable refreshTable = new GenericMovementTable(searchOptions, accountings);
+				RefreshableTable refreshTable = new GenericMovementTable(searchOptions, accounting);
                 refreshTable.setVisible(true);
 				// parent.addChildFrame(refreshTable);
             } else if (col == 1){
@@ -64,20 +64,15 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
                     }
                 }
 			} else if (col == 5) {
-				boolean active = accountings.isActive();
-				if (!active) {
-					JOptionPane.showMessageDialog(this, "Open an accounting first");
-				} else {
-					AccountSelector sel = new AccountSelector(accountings.getCurrentAccounting());
-					sel.setVisible(true);
-					Account account = sel.getSelection();
+                AccountSelector sel = new AccountSelector(accounting);
+                sel.setVisible(true);
+                Account account = sel.getSelection();
 
-					if (account != null) {
-						CounterParty counterParty = (CounterParty) tabel.getValueAt(row, 0);
-						counterParty.setAccount(account);
-						super.refresh();
-					}
-				}
+                if (account != null) {
+                    CounterParty counterParty = (CounterParty) tabel.getValueAt(row, 0);
+                    counterParty.setAccount(account);
+                    super.refresh();
+                }
 			}
 
 		}

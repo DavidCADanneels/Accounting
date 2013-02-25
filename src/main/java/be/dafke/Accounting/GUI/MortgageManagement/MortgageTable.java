@@ -2,7 +2,6 @@ package be.dafke.Accounting.GUI.MortgageManagement;
 
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
 import be.dafke.RefreshableFrame;
 
@@ -21,13 +20,13 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 	private final MortgageDataModel model;
 	private final JTable tabel;
 	private final BigDecimal startCapital;
-	private final Accountings accountings;
+	private final Accounting accounting;
 
     private static int nr = 1;
 
-	public MortgageTable(Mortgage mortgage, BigDecimal startCapital, Accountings accountings) {
-		super("Aflossingstabel "+ nr++);
-		this.accountings = accountings;
+	public MortgageTable(Mortgage mortgage, BigDecimal startCapital, Accounting accounting) {
+		super("Aflossingstabel (" + accounting.toString() + " ) " + nr++);
+		this.accounting = accounting;
 		this.startCapital = startCapital;
 		model = new MortgageDataModel(mortgage);
 		tabel = new JTable(model);
@@ -50,7 +49,6 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Accounting accounting = accountings.getCurrentAccounting();
 		String name = JOptionPane.showInputDialog(this, "Enter a name for the table.");
 		while (accounting.containsMortgageName(name)) {
 			name = JOptionPane.showInputDialog(this, "This name is already used. Enter another name.");

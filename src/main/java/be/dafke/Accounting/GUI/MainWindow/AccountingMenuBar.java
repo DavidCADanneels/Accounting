@@ -145,9 +145,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
     private void setActionCommands(){
         boolean active = accountings.isActive();
         if(active){
-            String test = accountings.getCurrentAccounting().toString()+ComponentMap.OPEN_TEST_BALANCE;
-            testBalance.setActionCommand(test);
-//            ComponentMap.addDisposableComponent(test,new TestBalance(accountings));
+            testBalance.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.OPEN_TEST_BALANCE);
             yearBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.OPEN_YEAR_BALANCE);
             resultBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.OPEN_RESULT_BALANCE);
             relationsBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.OPEN_RELATIONS_BALANCE);

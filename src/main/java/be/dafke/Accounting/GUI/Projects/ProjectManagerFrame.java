@@ -3,7 +3,6 @@ package be.dafke.Accounting.GUI.Projects;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Project;
 import be.dafke.Accounting.Objects.Accounting.Projects;
@@ -22,6 +21,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import static java.util.ResourceBundle.getBundle;
+
 /**
  * @author David Danneels
  */
@@ -36,22 +37,21 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 	private final JButton moveTo, moveBack, newProject;
 	private final JComboBox combo;
 	private Project project;
+	private final Accounting accounting;
 
-	private final Accountings accountings;
-
-	public ProjectManagerFrame(Accountings accountings) {
-		super(java.util.ResourceBundle.getBundle("Accounting").getString("PROJECTMANAGER"));
-		this.accountings = accountings;
+	public ProjectManagerFrame(Accounting accounting) {
+		super(getBundle("Accounting").getString("PROJECTMANAGER") + " (" + accounting.toString() + ")");
+		this.accounting = accounting;
 		JPanel hoofdPaneel = new JPanel();
 		hoofdPaneel.setLayout(new BoxLayout(hoofdPaneel, BoxLayout.X_AXIS));
 		//
 		// midden
 		JPanel onder = new JPanel();
-		moveTo = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("VOEG_TOE"));
+		moveTo = new JButton(getBundle("Accounting").getString("VOEG_TOE"));
 		moveTo.addActionListener(this);
 		moveTo.setEnabled(false);
 		onder.add(moveTo);
-		moveBack = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("VERWIJDER"));
+		moveBack = new JButton(getBundle("Accounting").getString("VERWIJDER"));
 		moveBack.addActionListener(this);
 		moveBack.setEnabled(false);
 		onder.add(moveBack);
@@ -67,8 +67,8 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 		zoeker = new PrefixFilterPanel(allAccountsModel, allAccounts, new ArrayList<Account>());
         zoeker.add(onder, BorderLayout.SOUTH);
 		paneelLinks.add(zoeker);
-		paneelLinks.setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
-				"Accounting").getString("REKENINGEN")));
+		paneelLinks.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
+                "Accounting").getString("REKENINGEN")));
 		hoofdPaneel.add(paneelLinks);
 		//
 		// rechts
@@ -99,7 +99,7 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 //				allAccountsModel.addElement(account);
 //			}
 //		}
-		newProject = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString(
+		newProject = new JButton(getBundle("Accounting").getString(
 				"NIEUW_PROJECT"));
 		newProject.addActionListener(this);
 		JPanel noord = new JPanel();
@@ -112,8 +112,8 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 
 		paneelRechts.add(scrol);
 
-		paneelRechts.setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
-				"Accounting").getString("PROJECTEN")));
+		paneelRechts.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
+                "Accounting").getString("PROJECTEN")));
 		hoofdPaneel.add(paneelRechts);
 		//
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -142,7 +142,6 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		Accounting accounting = accountings.getCurrentAccounting();
 		if (ae.getSource() == moveTo) {
 			for(Account account : allAccounts.getSelectedValuesList()) {
 				projectAccountsModel.addElement(account);
@@ -158,17 +157,17 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 				projectAccountsModel.removeElement(account);
 			}
 		} else if (ae.getSource() == newProject) {
-			String naam = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
+			String naam = JOptionPane.showInputDialog(getBundle("Accounting").getString(
 					"GEEF_NAAM"));
 			while (naam != null && naam.equals(""))
-				naam = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
+				naam = JOptionPane.showInputDialog(getBundle("Accounting").getString(
 						"GEEF_NAAM"));
 			if (naam != null) {
 				project = new Project(naam);
 				project.setAccounting(accounting);
 				accounting.getProjects().put(naam, project);
 				((DefaultComboBoxModel) combo.getModel()).addElement(project);
-				((DefaultComboBoxModel) combo.getModel()).setSelectedItem(project);
+				(combo.getModel()).setSelectedItem(project);
 			}
 		} else if (ae.getSource() == combo) {
 			System.out.println("action");
@@ -185,30 +184,27 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 
     @Override
     public void refresh() {
-        if(accountings != null && accountings.getCurrentAccounting() != null){
-            Accounting accounting = accountings.getCurrentAccounting();
-            Accounts accounts = accounting.getAccounts();
-            zoeker.resetMap(accounts.getAccounts());
-            Projects projects = accounting.getProjects();
-            for(Project project : projects.values()) {
-                combo.addItem(project);
-            }
-            Project[] result = new Project[projects.size()];
-            projects.values().toArray(result);
-            if (result.length != 0) {
-                System.out.println("voor init");
-                combo.setSelectedItem(result[0]);
-                System.out.println("na init");
-            } else {
-                project = null;
-                ArrayList<Account> noProjectlijst = accounts.getAccounts(AccountType.getList());
-                Iterator<Account> it2 = noProjectlijst.iterator();
-                allAccountsModel.removeAllElements();
-                while (it2.hasNext()) {
-                    Account account = it2.next();
+        Accounts accounts = accounting.getAccounts();
+        zoeker.resetMap(accounts.getAccounts());
+        Projects projects = accounting.getProjects();
+        for(Project project : projects.values()) {
+            combo.addItem(project);
+        }
+        Project[] result = new Project[projects.size()];
+        projects.values().toArray(result);
+        if (result.length != 0) {
+            System.out.println("voor init");
+            combo.setSelectedItem(result[0]);
+            System.out.println("na init");
+        } else {
+            project = null;
+            ArrayList<Account> noProjectlijst = accounts.getAccounts(AccountType.getList());
+            Iterator<Account> it2 = noProjectlijst.iterator();
+            allAccountsModel.removeAllElements();
+            while (it2.hasNext()) {
+                Account account = it2.next();
 //				System.out.println("No Project: " + project + " | account" + account);
-                    allAccountsModel.addElement(account);
-                }
+                allAccountsModel.addElement(account);
             }
         }
 	}

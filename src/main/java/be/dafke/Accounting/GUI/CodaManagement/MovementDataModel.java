@@ -1,6 +1,6 @@
 package be.dafke.Accounting.GUI.CodaManagement;
 
-import be.dafke.Accounting.Objects.Accounting.Accountings;
+import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Coda.Movement;
 import be.dafke.Utils;
@@ -17,17 +17,17 @@ public class MovementDataModel extends AbstractTableModel {
 			"TransactionCode", "Communication" };
 	private final Class[] columnClasses = { String.class, String.class, String.class, String.class, BigDecimal.class,
 			CounterParty.class, String.class, String.class };
-	private final Accountings accountings;
+	private final Accounting accounting;
 
-	public MovementDataModel(Accountings accountings) {
-		this.accountings = accountings;
+	public MovementDataModel(Accounting accounting) {
+		this.accounting = accounting;
 	}
 
 	// DE GET METHODEN
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Movement m = accountings.getCurrentAccounting().getMovements().getMovement(row);
+		Movement m = accounting.getMovements().getMovement(row);
 		if (col == 0) {
 			return m.getStatementNr();
 		} else if (col == 1) {
@@ -54,10 +54,7 @@ public class MovementDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		if (accountings == null || accountings.getCurrentAccounting() == null) {
-			return 0;
-		}
-		return accountings.getCurrentAccounting().getMovements().getSize();
+		return accounting.getMovements().getSize();
 	}
 
 	@Override
