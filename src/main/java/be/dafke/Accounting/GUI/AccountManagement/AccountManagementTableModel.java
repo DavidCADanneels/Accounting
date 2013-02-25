@@ -25,10 +25,6 @@ public class AccountManagementTableModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-        // redundant check: accounting should never be null
-        if(accounting==null){
-            return 0;
-        }
 		return accounting.getAccounts().size();
 	}
 
