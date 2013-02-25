@@ -148,8 +148,10 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
             AccountType[] types = AccountType.values();
             int nr = JOptionPane.showOptionDialog(this, "Choose new type", "Change type",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
-            for(Account account : accountList) {
-                account.setType(types[nr]);
+            if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
+                for(Account account : accountList) {
+                    account.setType(types[nr]);
+                }
             }
         } else {
             for(Account account : accountList) {
@@ -157,7 +159,9 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
                 int nr = JOptionPane.showOptionDialog(this, "Choose new type for " + account.getName(),
                         "Change type", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
                         account.getType());
-                account.setType(types[nr]);
+                if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
+                    account.setType(types[nr]);
+                }
             }
         }
 	}
