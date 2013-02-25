@@ -9,7 +9,7 @@ import javax.swing.*;
  * @since 28/07/2005
  * @see PrefixFilterPanel PrefixFilterPanel
  */
-public class AlphabeticListModel extends DefaultListModel {
+public class AlphabeticListModel<K> extends DefaultListModel<K> {
 
 	/**
 	 * 
@@ -33,7 +33,7 @@ public class AlphabeticListModel extends DefaultListModel {
 	 * @see javax.swing.DefaultListModel#addElement DefaultListModel.addElement
 	 */
 	@Override
-	public void addElement(Object p) {
+	public void addElement(K p) {
 		if (size() == capacity()) ensureCapacity(size());
 		if (isEmpty()) super.addElement(p);
 		else {
@@ -54,8 +54,8 @@ public class AlphabeticListModel extends DefaultListModel {
 	 * gevonden >> "duplicaat" indien niet vind men de plaats waar de persoon / het object moet worden toegevoegd
 	 * @see javax.swing.DefaultListModel#add(int index, java.lang.Object element)
 	 */
-	private void insert(Object nieuw, int links, int rechts) {
-		Object p1, p2, m;
+	private void insert(K nieuw, int links, int rechts) {
+		K p1, p2, m;
 		while (rechts - links > 1) {
 			int midden = (links + rechts) / 2;
 			p1 = elementAt(links);

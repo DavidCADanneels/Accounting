@@ -22,6 +22,8 @@ import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import static java.util.ResourceBundle.getBundle;
+
 /**
  * @author David Danneels
  */
@@ -31,12 +33,10 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final PrefixFilterPanel zoeker;
+	private final PrefixFilterPanel<Account> zoeker;
 	private final AlphabeticListModel model;
-	private final JList lijst;
-	private final JButton debet, credit, nieuw, details;
-//	private final JournalGUI journalGUI;
-//	private RefreshableFrame detailsGui;
+	private final JList<Account> lijst;
+	private final JButton debet, credit, accountManagement, details;
 	private final JCheckBox[] boxes;
 	private final Accountings accountings;
 
@@ -50,15 +50,15 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		debet.setMnemonic(KeyEvent.VK_D);
 		credit = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("CREDITEER"));
 		credit.setMnemonic(KeyEvent.VK_C);
-		nieuw = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString(
+		accountManagement = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString(
 				"BEHEER_REKENING"));
-		nieuw.setMnemonic(KeyEvent.VK_N);
-		nieuw.setEnabled(false);
+		accountManagement.setMnemonic(KeyEvent.VK_N);
+		accountManagement.setEnabled(false);
 		details = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString(
 				"BEKIJK_REKENING"));
 		debet.addActionListener(this);
 		credit.addActionListener(this);
-		nieuw.addActionListener(this);
+		accountManagement.addActionListener(this);
 		details.addActionListener(this);
 		debet.setEnabled(false);
 		credit.setEnabled(false);
@@ -69,16 +69,16 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		noord.add(credit);
 		JPanel midden = new JPanel();
 		// midden.setLayout(new BoxLayout(midden,BoxLayout.Y_AXIS));
-		midden.add(nieuw);
+		midden.add(accountManagement);
 		midden.add(details);
 		hoofdPaneel.add(noord, BorderLayout.NORTH);
 		hoofdPaneel.add(midden, BorderLayout.CENTER);
 
-		model = new AlphabeticListModel();
-		lijst = new JList(model);
+		model = new AlphabeticListModel<Account>();
+		lijst = new JList<Account>(model);
 		lijst.addListSelectionListener(this);
 		lijst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		zoeker = new PrefixFilterPanel(model, lijst, new ArrayList<Account>());
+		zoeker = new PrefixFilterPanel<Account>(model, lijst, new ArrayList<Account>());
         zoeker.add(hoofdPaneel, BorderLayout.SOUTH);
 		add(zoeker, BorderLayout.CENTER);
 
@@ -115,20 +115,19 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == debet || ae.getSource() == credit) {
 			book(ae.getSource() == debet);
-		} else if (ae.getSource() == nieuw) {
+		} else if (ae.getSource() == accountManagement) {
             RefreshableComponent frame = AccountingMenuBar.getFrame(AccountingMenuBar.ACCOUNT_MANAGEMENT);
-            if(frame == null){
-                System.err.println("frame not found");
-            }
             frame.setVisible(true);
         } else if (ae.getSource() == details) {
-            Account account = (Account) lijst.getSelectedValue();
+            Account account = lijst.getSelectedValue();
             Accounting accounting = accountings.getCurrentAccounting();
-            String key = "ACCOUNT"+"_"+accounting.toString()+"_"+account.getName();
-            RefreshableComponent gui = AccountingMenuBar.getFrame(key);
+            String title = accounting.toString() + "/" +
+                    getBundle("Accounting").getString("REKENING_DETAILS") + "/"
+                    + account.getName();
+            RefreshableComponent gui = AccountingMenuBar.getFrame(title);
             if(gui == null){
-                gui = new AccountDetails(account, accounting);
-                AccountingMenuBar.addRefreshableComponent(key, gui);
+                gui = new AccountDetails(title, account);
+                AccountingMenuBar.addRefreshableComponent(title, gui);
             }
 			gui.setVisible(true);
 		} else if (ae.getSource() instanceof JCheckBox) {
@@ -137,7 +136,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 	}
 
 	private void book(boolean debit) {
-		Account rekening = (Account) lijst.getSelectedValue();
+		Account rekening = lijst.getSelectedValue();
 		boolean ok = false;
 		while (!ok) {
 			String s = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
@@ -185,10 +184,10 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 
 	public void refresh() {
 		boolean active = accountings.isActive();
-		for(int i = 0; i < boxes.length; i++) {
-			boxes[i].setEnabled(active);
+		for(JCheckBox checkBox: boxes) {
+			checkBox.setEnabled(active);
 		}
-		nieuw.setEnabled(active);
+		accountManagement.setEnabled(active);
 		if (active) {
 			checkBoxes();
 		}

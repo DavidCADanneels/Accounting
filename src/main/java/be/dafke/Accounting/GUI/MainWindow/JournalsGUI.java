@@ -14,6 +14,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static java.util.ResourceBundle.getBundle;
+
 /**
  * @author David Danneels
  */
@@ -22,7 +24,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JComboBox combo;
+	private JComboBox<Journal> combo;
 	private final JButton maak, details;
 	private final Accountings accountings;
 
@@ -31,7 +33,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
 				"Accounting").getString("DAGBOEKEN")));
 		this.accountings = accountings;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		combo = new JComboBox();
+		combo = new JComboBox<Journal>();
 		combo.setEnabled(false);
 		add(combo);
 		JPanel paneel = new JPanel();
@@ -52,11 +54,13 @@ public class JournalsGUI extends JPanel implements ActionListener {
 		if (e.getSource() == details) {
 			Journal journal = (Journal) combo.getSelectedItem();
             Accounting accounting = accountings.getCurrentAccounting();
-            String key = "JOURNAL"+"_"+accounting.toString()+"_"+journal.getName();
-            RefreshableComponent gui = AccountingMenuBar.getFrame(key);
+            String title = accounting.toString() + "/" +
+                    getBundle("Accounting").getString("DAGBOEK_DETAILS") + "/"
+                    + journal.toString();
+            RefreshableComponent gui = AccountingMenuBar.getFrame(title);
             if(gui == null){
-                gui = new JournalDetails(journal, accounting);
-                AccountingMenuBar.addRefreshableComponent(key, gui);
+                gui = new JournalDetails(title, journal, accounting);
+                AccountingMenuBar.addRefreshableComponent(title, gui);
             }
             gui.setVisible(true);
 		} else if (e.getSource() == maak) {
@@ -69,22 +73,17 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	}
 
 	public void refresh() {
-		boolean active = accountings.isActive();
+        combo.removeAllItems();
+        boolean active = accountings.isActive();
 		if (active) {
-			remove(combo);
 			Accounting accounting = accountings.getCurrentAccounting();
 			Journals journals = accounting.getJournals();
-			combo = new JComboBox(journals.values().toArray());
+            for(Journal journal: journals.values()){
+                combo.addItem(journal);
+            }
 			combo.setSelectedItem(accounting.getCurrentJournal());
-            combo.addActionListener(this);
-			add(combo);
-			revalidate();
 		} else {
-			remove(combo);
-			combo = new JComboBox();
 			combo.setSelectedItem(null);
-			add(combo);
-			revalidate();
 		}
 		combo.setEnabled(active);
 		maak.setEnabled(active);
