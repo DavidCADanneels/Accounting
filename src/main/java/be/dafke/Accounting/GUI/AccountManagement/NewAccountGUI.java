@@ -1,10 +1,10 @@
 package be.dafke.Accounting.GUI.AccountManagement;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.DuplicateAccountNameException;
-import be.dafke.Accounting.Objects.Accounting.EmptyAccountNameException;
 import be.dafke.RefreshableDialog;
 
 import javax.swing.*;
@@ -57,11 +57,11 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
         try {
             accounting.getAccounts().add(name, (Account.AccountType) type.getSelectedItem());
             ComponentMap.refreshAllFrames();
-        } catch (DuplicateAccountNameException e) {
+        } catch (DuplicateNameException e) {
             JOptionPane.showMessageDialog(this, "There is already an account with the name \""+name+"\".\r\n"+
-                    "Please provide a new name");
-        } catch (EmptyAccountNameException e) {
-            JOptionPane.showMessageDialog(this, "The name cannot be empty.\r\nPlease provide a new name");
+                    "Please provide a new name.");
+        } catch (EmptyNameException e) {
+            JOptionPane.showMessageDialog(this, "The name cannot be empty.\r\nPlease provide a new name.");
         }
         nameField.setText("");
     }

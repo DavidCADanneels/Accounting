@@ -1,9 +1,9 @@
 package be.dafke.Accounting.GUI.AccountManagement;
 
+import be.dafke.Accounting.Exceptions.AccountAlreadyHasBookingsException;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
-import be.dafke.Accounting.Objects.Accounting.AccountAlreadyHasBookings;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.RefreshableComponent;
 import be.dafke.RefreshableFrame;
@@ -100,7 +100,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
         for(Account account : accountList) {
             try{
                 accounting.getAccounts().removeAccount(account);
-            }catch (AccountAlreadyHasBookings e){
+            }catch (AccountAlreadyHasBookingsException e){
                 failed.add(account.getName());
             }
         }

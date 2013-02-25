@@ -1,11 +1,11 @@
 package be.dafke.Accounting.Dao.XML;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Booking;
-import be.dafke.Accounting.Objects.Accounting.DuplicateAccountNameException;
-import be.dafke.Accounting.Objects.Accounting.EmptyAccountNameException;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Project;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
@@ -33,7 +33,6 @@ import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -197,9 +196,9 @@ public class AccountingSAXParser {
                     }
                     project.addAccount(account);
                 }
-            } catch (DuplicateAccountNameException e) {
+            } catch (DuplicateNameException e) {
                 System.err.println("There is already an account with the name \""+account_name+"\".");
-            } catch (EmptyAccountNameException e) {
+            } catch (EmptyNameException e) {
                 System.err.println("The name of the account is empty.");
             }
         }
@@ -521,9 +520,7 @@ public class AccountingSAXParser {
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
                     + "<?xml-stylesheet type=\"text/xsl\" href=\"" + account.getXslFile().getCanonicalPath() + "\"?>\r\n"
                     + "<account>\r\n" + "  <name>" + account.getName() + "</name>\r\n");
-            Iterator<Booking> it = account.getBookings().iterator();
-            while (it.hasNext()) {
-                Booking booking = it.next();
+            for(Booking booking : account.getBookings()){
                 writer.write("  <action>\r\n" + "    <nr>" + booking.getAbbreviation() + booking.getId() + "</nr>\r\n"
                         + "    <date>" + Utils.toString(booking.getDate()) + "</date>\r\n" + "    <"
                         + (booking.isDebit() ? "debit" : "credit") + ">" + booking.getAmount().toString() + "</"

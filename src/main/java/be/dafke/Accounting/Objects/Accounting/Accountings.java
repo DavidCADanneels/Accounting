@@ -1,5 +1,8 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
+
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -49,9 +52,16 @@ public class Accountings {
 //		currentAccounting = accountings.get(s);
 //	}
 
-	public void addAccounting(String name) {
-		currentAccounting = new Accounting(name);
-		addAccounting(currentAccounting);
+	public Accounting addAccounting(String name) throws EmptyNameException, DuplicateNameException {
+        if(name==null || "".equals(name.trim())){
+            throw new EmptyNameException();
+        }
+        if(contains(name.trim())){
+            throw new DuplicateNameException();
+        }
+		Accounting accounting = new Accounting(name);
+		addAccounting(accounting);
+        return accounting;
 	}
 
 //	public Accounting getAccounting(String name) {

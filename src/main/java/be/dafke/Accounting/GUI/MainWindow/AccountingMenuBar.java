@@ -1,6 +1,9 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.GUI.ComponentMap;
+import be.dafke.Accounting.GUI.JournalManagement.NewJournalGUI;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.RefreshableComponent;
@@ -95,17 +98,22 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
     public void actionPerformed(ActionEvent ae) {
         JMenuItem item = (JMenuItem) ae.getSource();
         if (item == startNew) {
-            if(accountings.getCurrentAccounting()!=null){
-                JOptionPane.showConfirmDialog(null, "Do you want to save the current Accounting");
-                // TODO: do something with the answer
-            }
             String name = JOptionPane.showInputDialog(null, "Enter a name");
-            // TODO: catch the Cancel button
-            while (name == null || accountings.contains(name) || name.trim().isEmpty()) {
-                // TODO: split up in empty/null response and name already exists
-                name = JOptionPane.showInputDialog(null, "This name is empty or already exists. Enter another name");
+            try {
+                Accounting accounting = accountings.addAccounting(name);
+                accountings.setCurrentAccounting(name);
+                ComponentMap.addAccountingComponents(accounting);
+                JOptionPane.showMessageDialog(this, "Please create a Journal.");
+                String title = "Create and modify journals for " + accounting.toString();
+                NewJournalGUI gui = new NewJournalGUI(title, accounting);
+                ComponentMap.addDisposableComponent(title, gui);
+                gui.setVisible(true);
+            } catch (DuplicateNameException e) {
+                JOptionPane.showMessageDialog(this, "There is already an accounting with the name \""+name+"\".\r\n"+
+                        "Please provide a new name.");
+            } catch (EmptyNameException e) {
+                JOptionPane.showMessageDialog(this, "The name cannot be empty.\r\nPlease provide a new name.");
             }
-            accountings.addAccounting(name);
             ComponentMap.refreshAllFrames();
         } else if(accountings.contains(ae.getActionCommand())){
             // TODO: save currentAccounting ? --> make toXML(accounting) public

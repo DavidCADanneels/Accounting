@@ -93,8 +93,8 @@ public class JournalsGUI extends JPanel implements ActionListener {
 		} else {
 			combo.setSelectedItem(null);
 		}
-		combo.setEnabled(accounting!=null);
+		combo.setEnabled(accounting!=null && accounting.getCurrentJournal()!=null);
 		maak.setEnabled(accounting!=null);
-		details.setEnabled(accounting!=null);
+		details.setEnabled(accounting!=null && accounting.getCurrentJournal()!=null);
 	}
 }

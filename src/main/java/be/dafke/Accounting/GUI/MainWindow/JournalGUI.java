@@ -119,8 +119,12 @@ public class JournalGUI extends JPanel implements ActionListener {
             credit.setText(credittotaal.toString());
             journalDataModel.fireTableDataChanged();
             ok.setEnabled(debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0);
-            ident.setText(accounting.getCurrentJournal().getAbbreviation() + " "
-                    + accounting.getCurrentJournal().getId());
+            if(accounting.getCurrentJournal()!=null){
+                ident.setText(accounting.getCurrentJournal().getAbbreviation() + " "
+                        + accounting.getCurrentJournal().getId());
+            } else {
+                ident.setText("");
+            }
             clear.setEnabled(true);
         } else{
             ok.setEnabled(false);
