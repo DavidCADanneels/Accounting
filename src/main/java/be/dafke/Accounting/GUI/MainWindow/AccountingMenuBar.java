@@ -1,7 +1,5 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
-import be.dafke.Accounting.GUI.AccountManagement.AccountManagementGUI;
-import be.dafke.Accounting.GUI.AccountManagement.NewAccountGUI;
 import be.dafke.Accounting.GUI.Balances.RelationsBalance;
 import be.dafke.Accounting.GUI.Balances.ResultBalance;
 import be.dafke.Accounting.GUI.Balances.TestBalance;
@@ -46,8 +44,6 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
     public static final String OPEN_COUNTERPARTIES = "counterparties";
     public static final String OPEN_MORTGAGES = "mortgages";
     public static final String OPEN_PROJECTS = "projects";
-    public static final String ACCOUNT_MANAGEMENT = "accountManagement";
-    public static final String NEW_ACCOUNT = "newAccounts";
     public static final String NEW_JOURNAL = "newJournal";
     public static final String NEW_JOURNAL_TYPE = "newJournalType";
     public static final String MAIN = "mainPanel";
@@ -77,8 +73,6 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
         frames.put(OPEN_MOVEMENTS, new MovementTable(accountings));
         frames.put(OPEN_COUNTERPARTIES, new CounterPartyTable(accountings));
         frames.put(OPEN_MORTGAGES, new MortgageGUI(accountings));
-        frames.put(ACCOUNT_MANAGEMENT, new AccountManagementGUI(accountings));
-        frames.put(NEW_ACCOUNT, new NewAccountGUI(accountings));
         frames.put(NEW_JOURNAL, new NewJournalGUI(accountings));
         frames.put(NEW_JOURNAL_TYPE, new NewJournalTypeGUI(accountings));
         frames.put(MAIN,mainPanel);

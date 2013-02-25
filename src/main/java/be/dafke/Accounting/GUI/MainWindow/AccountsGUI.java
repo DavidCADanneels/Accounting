@@ -1,5 +1,6 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
+import be.dafke.Accounting.GUI.AccountManagement.AccountManagementGUI;
 import be.dafke.Accounting.GUI.Details.AccountDetails;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
@@ -116,8 +117,14 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		if (ae.getSource() == debet || ae.getSource() == credit) {
 			book(ae.getSource() == debet);
 		} else if (ae.getSource() == accountManagement) {
-            RefreshableComponent frame = AccountingMenuBar.getFrame(AccountingMenuBar.ACCOUNT_MANAGEMENT);
-            frame.setVisible(true);
+            Accounting accounting = accountings.getCurrentAccounting();
+            String title = "Manage accounts for " + accounting.toString();
+            RefreshableComponent gui = AccountingMenuBar.getFrame(title);
+            if(gui == null){
+                gui = new AccountManagementGUI(title, accounting);
+                AccountingMenuBar.addRefreshableComponent(title, gui);
+            }
+            gui.setVisible(true);
         } else if (ae.getSource() == details) {
             Account account = lijst.getSelectedValue();
             Accounting accounting = accountings.getCurrentAccounting();
@@ -159,7 +166,6 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 					} else {
 						transaction.crediteer(rekening, amount, merge);
 					}
-//					journalGUI.refresh();
 					ok = true;
                     AccountingMenuBar.refreshAllFrames();
 				} catch (NumberFormatException nfe) {

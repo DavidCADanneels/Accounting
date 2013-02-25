@@ -3,7 +3,6 @@ package be.dafke.Accounting.GUI.AccountManagement;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
@@ -15,10 +14,10 @@ public class AccountManagementTableModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = { "Account (Name)", "Type", "Saldo" };
 	private final Class[] columnClasses = { Account.class, String.class, BigDecimal.class };
-	private final Accountings accountings;
+	private final Accounting accounting;
 
-	public AccountManagementTableModel(Accountings accountings) {
-		this.accountings = accountings;
+	public AccountManagementTableModel(Accounting accounting) {
+		this.accounting = accounting;
 	}
 
 	public int getColumnCount() {
@@ -26,15 +25,14 @@ public class AccountManagementTableModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-        if(accountings == null || accountings.getCurrentAccounting()==null){
+        // redundant check: accounting should never be null
+        if(accounting==null){
             return 0;
         }
-		Accounting accounting = accountings.getCurrentAccounting();
 		return accounting.getAccounts().size();
 	}
 
 	public Object getValueAt(int row, int col) {
-		Accounting accounting = accountings.getCurrentAccounting();
 		Account account = accounting.getAccounts().getAccounts(AccountType.getList()).get(row);
 		if (col == 1) {
 			return account.getType();

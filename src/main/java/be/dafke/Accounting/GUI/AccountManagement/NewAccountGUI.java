@@ -3,7 +3,6 @@ package be.dafke.Accounting.GUI.AccountManagement;
 import be.dafke.Accounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.DuplicateAccountNameException;
 import be.dafke.Accounting.Objects.Accounting.EmptyAccountNameException;
 import be.dafke.RefreshableDialog;
@@ -21,11 +20,11 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     private final JTextField nameField;
     private final JComboBox<Account.AccountType> type;
     private final JButton add;
-    private final Accountings accountings;
+    private final Accounting accounting;
 
-    public NewAccountGUI(Accountings accountings) {
-        super("Create new Account");
-        this.accountings = accountings;
+    public NewAccountGUI(String title, Accounting accounting) {
+        super(title);
+        this.accounting = accounting;
         JPanel north = new JPanel();
 		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
 		JPanel line1 = new JPanel();
@@ -54,7 +53,6 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     }
 
     private void addAccount() {
-        Accounting accounting = accountings.getCurrentAccounting();
         String name = nameField.getText().trim();
         try {
             accounting.getAccounts().add(name, (Account.AccountType) type.getSelectedItem());

@@ -5,7 +5,6 @@ import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.AccountAlreadyHasBookings;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.RefreshableComponent;
 import be.dafke.RefreshableFrame;
 
@@ -26,12 +25,12 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 	private final AccountManagementTableModel model;
 	private final JTable tabel;
 	private final DefaultListSelectionModel selection;
-	private final Accountings accountings;
+	private final Accounting accounting;
 
-	public AccountManagementGUI(Accountings accountings) {
-		super("Manage accounts");
-		this.accountings = accountings;
-		this.model = new AccountManagementTableModel(accountings);
+	public AccountManagementGUI(String title, Accounting accounting) {
+		super(title);
+		this.accounting = accounting;
+		this.model = new AccountManagementTableModel(accounting);
 
         // COMPONENTS
         //
@@ -70,8 +69,13 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == add) {
-			RefreshableComponent frame = AccountingMenuBar.getFrame(AccountingMenuBar.NEW_ACCOUNT);
-            frame.setVisible(true);
+            String title = "Create new Account in " + accounting.toString();
+            RefreshableComponent gui = AccountingMenuBar.getFrame(title);
+            if(gui == null){
+                gui = new NewAccountGUI(title, accounting);
+                AccountingMenuBar.addRefreshableComponent(title, gui);
+            }
+            gui.setVisible(true);
 		} else if (event.getSource() == modifyName) {
             ArrayList<Account> accountList = getSelectedAccounts();
             if(accountList!=null){
@@ -95,7 +99,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 		ArrayList<String> failed = new ArrayList<String>();
         for(Account account : accountList) {
             try{
-                accountings.getCurrentAccounting().getAccounts().removeAccount(account);
+                accounting.getAccounts().removeAccount(account);
             }catch (AccountAlreadyHasBookings e){
                 failed.add(account.getName());
             }
@@ -106,7 +110,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
             } else {
                 StringBuilder builder = new StringBuilder("The following accounts already have bookings, so they can not be deleted:\r\n");
                 for(String s : failed){
-                    builder.append("- "+s+"\r\n");
+                    builder.append("- ").append(s).append("\r\n");
                 }
                 JOptionPane.showMessageDialog(this, builder.toString());
             }
@@ -114,7 +118,6 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 	}
 
 	private void modifyNames(ArrayList<Account> accountList) {
-		Accounting accounting = accountings.getCurrentAccounting();
         for(Account account : accountList){
             String oldName = account.getName();
             String newName = JOptionPane.showInputDialog("New name", oldName);
