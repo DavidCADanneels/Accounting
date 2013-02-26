@@ -3,8 +3,11 @@ package be.dafke.Accounting.Actions;
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.GUI.ComponentMap;
+import be.dafke.Accounting.GUI.Details.JournalDetails;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
+import be.dafke.Accounting.Objects.Accounting.Journal;
+import be.dafke.DisposableComponent;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -45,6 +48,16 @@ public class AccountingActionListener implements ActionListener {
         } else if(actionCommand.startsWith(ComponentMap.OPEN_ACCOUNTING)){
             String accountingName = actionCommand.replaceAll(ComponentMap.OPEN_ACCOUNTING,"");
             accountings.setCurrentAccounting(accountingName);
+        } else if(actionCommand.equals(ComponentMap.JOURNAL_DETAILS)){
+            Accounting accounting = accountings.getCurrentAccounting();
+            Journal journal = accounting.getCurrentJournal();
+            String key = ComponentMap.JOURNAL_DETAILS + accounting.toString() + journal.toString();
+            DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+            if(gui == null){
+                gui = new JournalDetails(journal, accounting);
+                ComponentMap.addDisposableComponent(key, gui); // DETAILS
+            }
+            gui.setVisible(true);
         } else {
             String key = accountings.getCurrentAccounting().toString() + actionCommand;
             ComponentMap.getDisposableComponent(key).setVisible(true);

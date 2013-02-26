@@ -31,10 +31,10 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
 		this.accountings = accountings;
 		addWindowListener(this);
 		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        contentPanel = new AccountingGUIPanel(accountings.getCurrentAccounting());
+        AccountingActionListener actionListener = new AccountingActionListener(accountings);
+        contentPanel = new AccountingGUIPanel(accountings.getCurrentAccounting(), actionListener);
 		setContentPane(contentPanel);
-        AccountingActionListener accountingActionListener = new AccountingActionListener(accountings);
-        menuBar = new AccountingMenuBar(accountings, accountingActionListener);
+        menuBar = new AccountingMenuBar(accountings, actionListener);
         setJMenuBar(menuBar);
         ComponentMap.addDisposableComponent(ComponentMap.MAIN, this); // MAIN
         ComponentMap.addRefreshableComponent(ComponentMap.MENU, menuBar);

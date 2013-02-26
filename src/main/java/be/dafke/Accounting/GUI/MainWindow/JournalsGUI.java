@@ -1,11 +1,9 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.ComponentMap;
-import be.dafke.Accounting.GUI.Details.JournalDetails;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Journals;
-import be.dafke.DisposableComponent;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -28,7 +26,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	private final JButton maak, details;
 	private Accounting accounting;
 
-	public JournalsGUI(Accounting accounting) {
+	public JournalsGUI(Accounting accounting, ActionListener actionListener) {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("DAGBOEKEN")));
 		this.accounting = accounting;
@@ -41,9 +39,9 @@ public class JournalsGUI extends JPanel implements ActionListener {
 		maak.addActionListener(this);
 		maak.setEnabled(false);
 		paneel.add(maak);
-		details = new JButton(getBundle("Accounting").getString(
-				"DETAILS_DAGBOEK"));
-		details.addActionListener(this);
+		details = new JButton(getBundle("Accounting").getString("DETAILS_DAGBOEK"));
+		details.addActionListener(actionListener);
+        details.setActionCommand(ComponentMap.JOURNAL_DETAILS);
 		details.setEnabled(false);
 		paneel.add(details);
 		add(paneel);
@@ -51,16 +49,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == details) {
-			Journal journal = (Journal) combo.getSelectedItem();
-            String key = accounting.toString() + ComponentMap.JOURNAL_DETAILS + journal.toString();
-            DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
-            if(gui == null){
-                gui = new JournalDetails(journal, accounting);
-                ComponentMap.addDisposableComponent(key, gui); // DETAILS
-            }
-            gui.setVisible(true);
-		} else if (e.getSource() == maak) {
+		if (e.getSource() == maak) {
             String key = accounting.toString()+ComponentMap.JOURNAL_MANAGEMENT;
             ComponentMap.getDisposableComponent(key).setVisible(true);
 		} else if (e.getSource() == combo) {

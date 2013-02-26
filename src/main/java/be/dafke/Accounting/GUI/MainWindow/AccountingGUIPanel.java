@@ -6,6 +6,7 @@ import be.dafke.Accounting.Objects.Accounting.Accounting;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionListener;
 
 /**
  * @author David Danneels
@@ -22,12 +23,12 @@ public class AccountingGUIPanel extends JPanel {
 	private final JournalsGUI journalsGUI;
 	private final MortgagesGUI mortgagesGUI;
 
-	public AccountingGUIPanel(Accounting accounting) {
+	public AccountingGUIPanel(Accounting accounting, ActionListener actionListener) {
 		// if(!checkID())
 		// System.exit(0);
 		journalGUI = new JournalGUI(accounting);
 		accountsGUI = new AccountsGUI(accounting);
-		journalsGUI = new JournalsGUI(accounting);
+		journalsGUI = new JournalsGUI(accounting, actionListener);
 		mortgagesGUI = new MortgagesGUI(accounting);
 
 		JPanel linksBoven = new JPanel(new BorderLayout());

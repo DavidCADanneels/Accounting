@@ -33,8 +33,8 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
 	private final Accounting accounting;
 
 	public JournalDetails(Journal journal, Accounting accounting) {
-		super(accounting.toString() + "/" + getBundle("Accounting").getString("DAGBOEK_DETAILS")
-                + "/" + journal.toString(), new JournalDetailsDataModel(journal));
+		super(getBundle("Accounting").getString("DAGBOEK_DETAILS")
+                + " " + journal.toString() + " (" + accounting.toString() + ")", new JournalDetailsDataModel(journal));
 		this.accounting = accounting;
 		this.journal = journal;
 		tabel.setAutoCreateRowSorter(true);
