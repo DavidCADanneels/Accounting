@@ -123,7 +123,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
             DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
             if(gui == null){
                 gui = new AccountDetails(account, accounting);
-                ComponentMap.addDisposableComponent(key, gui);
+                ComponentMap.addDisposableComponent(key, gui); // DETAILS
             }
 			gui.setVisible(true);
 		} else if (ae.getSource() instanceof JCheckBox) {

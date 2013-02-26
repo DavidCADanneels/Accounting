@@ -39,10 +39,12 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 
 	private final Accounting accounting;
 
-    private static int nr = 1;
+    private static int counter = 1;
+    protected final int nr;
 
 	public MortgageCalculatorGUI(Accounting accounting) {
-		super("Mortgage Calculator (" + accounting.toString() + ") " + nr++);
+		super("Mortgage Calculator (" + accounting.toString() + ")");
+        nr = counter++;
 		this.accounting = accounting;
 
 		amountField = new JTextField(10);
@@ -172,7 +174,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 			Mortgage newMortgage = new Mortgage("new Mortgage Table", startKapitaal);
 			newMortgage.setTable(data);
 			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, accounting);
-            ComponentMap.addDisposableComponent(gui.getTitle(), gui);
+            ComponentMap.addDisposableComponent(ComponentMap.MORTGAGE_TABLE+gui.nr, gui);
 			gui.setVisible(true);
 		}
 	}

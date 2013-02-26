@@ -4,7 +4,7 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
-import java.util.ArrayList;
+import java.util.List;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -23,7 +23,6 @@ public class PrefixFilterPanel<K> extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JList list;
 	private JScrollPane scrol;
 	protected JTextField zoekveld;
     private PrefixFilter<K> filter;
@@ -35,10 +34,9 @@ public class PrefixFilterPanel<K> extends JPanel {
 	 * @param list the list
 	 * @param map map met de gegevens uit de list
 	 */
-	public PrefixFilterPanel(DefaultListModel<K> model, JList<K> list, ArrayList map) {
+	public PrefixFilterPanel(DefaultListModel<K> model, JList<K> list, List<K> map) {
         this.model = model;
         filter = new PrefixFilter<K>(model, map);
-        this.list = list;
         scrol = new JScrollPane(list);
 		zoekveld = new JTextField(20);
 		zoekveld.getDocument().addDocumentListener(new DocumentListener() {
@@ -71,7 +69,7 @@ public class PrefixFilterPanel<K> extends JPanel {
 	 * @param newMap de nieuwe map
 	 * @since 01/10/2010
 	 */
-	public void resetMap(ArrayList newMap) {
+	public void resetMap(List<K> newMap) {
 		filter = new PrefixFilter<K>(model,newMap);
 		repaint();
 	}

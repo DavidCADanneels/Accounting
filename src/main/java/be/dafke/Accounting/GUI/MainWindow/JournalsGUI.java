@@ -57,7 +57,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
             DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
             if(gui == null){
                 gui = new JournalDetails(journal, accounting);
-                ComponentMap.addDisposableComponent(key, gui);
+                ComponentMap.addDisposableComponent(key, gui); // DETAILS
             }
             gui.setVisible(true);
 		} else if (e.getSource() == maak) {

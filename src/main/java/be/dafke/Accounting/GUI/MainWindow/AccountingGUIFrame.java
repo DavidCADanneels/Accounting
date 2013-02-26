@@ -29,12 +29,12 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
 		super(getBundle("Accounting").getString("BOEKHOUDING"));
 		this.accountings = accountings;
 		addWindowListener(this);
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);//DO_NOTHING_ON_CLOSE);
+		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         contentPanel = new AccountingGUIPanel(accountings.getCurrentAccounting());
 		setContentPane(contentPanel);
         menuBar = new AccountingMenuBar(accountings);
         setJMenuBar(menuBar);
-        ComponentMap.addDisposableComponent(ComponentMap.MAIN, this);
+        ComponentMap.addDisposableComponent(ComponentMap.MAIN, this); // MAIN
         ComponentMap.addRefreshableComponent(ComponentMap.MENU, menuBar);
         for(Accounting accounting : accountings.getAccountings()){
             ComponentMap.addAccountingComponents(accounting);

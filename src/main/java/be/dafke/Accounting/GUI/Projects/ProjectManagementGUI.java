@@ -26,20 +26,20 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class ProjectManagerFrame extends RefreshableFrame implements ListSelectionListener, ActionListener {
+public class ProjectManagementGUI extends RefreshableFrame implements ListSelectionListener, ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final PrefixFilterPanel zoeker;
-	private final AlphabeticListModel allAccountsModel, projectAccountsModel;
+	private final PrefixFilterPanel<Account> zoeker;
+	private final AlphabeticListModel<Account> allAccountsModel, projectAccountsModel;
 	private final JList<Account> allAccounts, projectAccounts;
 	private final JButton moveTo, moveBack, newProject;
-	private final JComboBox combo;
+	private final JComboBox<Project> combo;
 	private Project project;
 	private final Accounting accounting;
 
-	public ProjectManagerFrame(Accounting accounting) {
+	public ProjectManagementGUI(Accounting accounting) {
 		super(getBundle("Accounting").getString("PROJECTMANAGER") + " (" + accounting.toString() + ")");
 		this.accounting = accounting;
 		JPanel hoofdPaneel = new JPanel();
@@ -58,13 +58,13 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 		//
 		// links
 		JPanel paneelLinks = new JPanel();
-		allAccountsModel = new AlphabeticListModel();
-		allAccounts = new JList(allAccountsModel);
+		allAccountsModel = new AlphabeticListModel<Account>();
+		allAccounts = new JList<Account>(allAccountsModel);
 		allAccounts.addListSelectionListener(this);
 		allAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 //		Accounting accounting = accountings.getCurrentAccounting();
 //		Accounts accounts = accounting.getAccounts();
-		zoeker = new PrefixFilterPanel(allAccountsModel, allAccounts, new ArrayList<Account>());
+		zoeker = new PrefixFilterPanel<Account>(allAccountsModel, allAccounts, new ArrayList<Account>());
         zoeker.add(onder, BorderLayout.SOUTH);
 		paneelLinks.add(zoeker);
 		paneelLinks.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
@@ -74,8 +74,8 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 		// rechts
 		JPanel paneelRechts = new JPanel(new BorderLayout());
 		// paneelRechts.setLayout(new BoxLayout(paneelRechts,BoxLayout.Y_AXIS));
-		projectAccountsModel = new AlphabeticListModel();
-		projectAccounts = new JList(projectAccountsModel);
+		projectAccountsModel = new AlphabeticListModel<Account>();
+		projectAccounts = new JList<Account>(projectAccountsModel);
 		projectAccounts.addListSelectionListener(this);
 		projectAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 //		Projects projects = accounting.getProjects();
@@ -103,7 +103,7 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 				"NIEUW_PROJECT"));
 		newProject.addActionListener(this);
 		JPanel noord = new JPanel();
-		combo = new JComboBox();
+		combo = new JComboBox<Project>();
 		combo.addActionListener(this);
 		noord.add(combo);
 		noord.add(newProject);
@@ -166,7 +166,7 @@ public class ProjectManagerFrame extends RefreshableFrame implements ListSelecti
 				project = new Project(naam);
 				project.setAccounting(accounting);
 				accounting.getProjects().put(naam, project);
-				((DefaultComboBoxModel) combo.getModel()).addElement(project);
+				((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
 				(combo.getModel()).setSelectedItem(project);
 			}
 		} else if (ae.getSource() == combo) {

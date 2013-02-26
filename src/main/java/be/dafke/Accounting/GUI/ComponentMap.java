@@ -10,7 +10,7 @@ import be.dafke.Accounting.GUI.CodaManagement.MovementTable;
 import be.dafke.Accounting.GUI.JournalManagement.JournalManagementGUI;
 import be.dafke.Accounting.GUI.JournalManagement.JournalTypeManagementGUI;
 import be.dafke.Accounting.GUI.MortgageManagement.MortgageGUI;
-import be.dafke.Accounting.GUI.Projects.ProjectManagerFrame;
+import be.dafke.Accounting.GUI.Projects.ProjectManagementGUI;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.DisposableComponent;
 import be.dafke.RefreshableComponent;
@@ -39,6 +39,8 @@ public class ComponentMap {
     public static final String JOURNAL_TYPE_MANAGEMENT = "JournalTypeManagement";
     public static final String JOURNAL_DETAILS = "JournalDetails";
     public static final String ACCOUNT_DETAILS = "AccountDetails";
+    public static final String MORTGAGE_CALCULATOR = "MortgageCalculator";
+    public static final String MORTGAGE_TABLE = "MortgageTable";
     private static final HashMap<String, RefreshableComponent> refreshableComponents = new HashMap<String, RefreshableComponent>();
     private static final HashMap<String, DisposableComponent> disposableComponents = new HashMap<String, DisposableComponent>();
 
@@ -47,7 +49,7 @@ public class ComponentMap {
         addDisposableComponent(accounting.toString() + RESULT_BALANCE, new ResultBalance(accounting));
         addDisposableComponent(accounting.toString() + TEST_BALANCE, new TestBalance(accounting));
         addDisposableComponent(accounting.toString() + YEAR_BALANCE, new YearBalance(accounting));
-        addDisposableComponent(accounting.toString() + PROJECTS, new ProjectManagerFrame(accounting));
+        addDisposableComponent(accounting.toString() + PROJECTS, new ProjectManagementGUI(accounting));
         addDisposableComponent(accounting.toString() + MOVEMENTS, new MovementTable(accounting));
         addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting));
         addDisposableComponent(accounting.toString() + MORTGAGES, new MortgageGUI(accounting));

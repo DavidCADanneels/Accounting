@@ -22,10 +22,13 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 	private final BigDecimal startCapital;
 	private final Accounting accounting;
 
-    private static int nr = 1;
+    private static int counter = 1;
+    protected final int nr;
+
 
 	public MortgageTable(Mortgage mortgage, BigDecimal startCapital, Accounting accounting) {
-		super("Aflossingstabel (" + accounting.toString() + " ) " + nr++);
+		super("Aflossingstabel (" + accounting.toString() + " )");
+        nr = counter++;
 		this.accounting = accounting;
 		this.startCapital = startCapital;
 		model = new MortgageDataModel(mortgage);

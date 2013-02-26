@@ -27,8 +27,8 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	private Mortgage selectedMortgage = null;
 	private final MortgageDataModel model;
 	private Account[] accounts;
-	private DefaultListModel listModel;
-	private DefaultComboBoxModel intrestModel, capitalModel;
+	private DefaultListModel<Mortgage> listModel;
+	private DefaultComboBoxModel<Account> intrestModel, capitalModel;
 
 	private final JTable table;
 	private final JButton save, delete;
@@ -55,9 +55,9 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		table.setPreferredScrollableViewportSize(new Dimension(600, 200));
 		JScrollPane scroll = new JScrollPane(table);
 
-		comboIntrest = new JComboBox();// comboModel);
+		comboIntrest = new JComboBox<Account>();// comboModel);
 		comboIntrest.addActionListener(this);
-		comboCapital = new JComboBox();// comboModel);
+		comboCapital = new JComboBox<Account>();// comboModel);
 		comboCapital.addActionListener(this);
 		nrPayed = new JTextField(4);
 		nrPayed.addActionListener(this);
@@ -138,7 +138,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == create) {
 			MortgageCalculatorGUI gui = new MortgageCalculatorGUI(accounting);
-            ComponentMap.addDisposableComponent(gui.getTitle(), gui);
+            ComponentMap.addDisposableComponent(ComponentMap.MORTGAGE_CALCULATOR +gui.nr, gui);
 			gui.setVisible(true);
 		} else if (e.getSource() == save) {
 			if (save.getText().equals("Edit")) {
