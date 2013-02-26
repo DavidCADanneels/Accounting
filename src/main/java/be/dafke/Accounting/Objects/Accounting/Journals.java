@@ -1,5 +1,10 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
+
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,12 +23,11 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
 
 //	private boolean save;
 
-	/**
-	 * Constructor
-	 * @see HashMap<String, Journal>
-	 */
-	public Journals() {
+    private Accounting accounting;
+
+	public Journals(Accounting accounting) {
 		super();
+        this.accounting = accounting;
 //		save = false;
 		abbreviations = new HashMap<String, Journal>();
 	}
@@ -56,11 +60,6 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
 //		this.save = save;
 //	}
 
-	public void add(Journal journal) {
-		super.put(journal.getName(), journal);
-		abbreviations.put(journal.getAbbreviation(), journal);
-	}
-
 	public boolean containsAbbreviation(String abbr) {
 		return abbreviations.containsKey(abbr);
 	}
@@ -71,4 +70,26 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
 		abbreviations.remove(oldName);
 		abbreviations.put(newName, journal);
 	}
+
+    public Journal addJournal(String name, String abbreviation, JournalType type) throws EmptyNameException, DuplicateNameException {
+        if(name==null || "".equals(name.trim())){
+            throw new EmptyNameException();
+        }
+        if(abbreviation==null || "".equals(abbreviation.trim())){
+            throw new EmptyNameException();
+        }
+        if(containsKey(name.trim()) || abbreviations.containsKey(abbreviation.trim())){
+            throw new DuplicateNameException();
+        }
+        Journal journal = new Journal(name.trim(), abbreviation.trim(), type);
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getJournalLocationXml(), name + ".xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Journal.xsl");
+        File htmlFile = FileSystemView.getFileSystemView().getChild(accounting.getJournalLocationHtml(), name + ".html");
+        journal.setXmlFile(xmlFile);
+        journal.setXslFile(xslFile);
+        journal.setHtmlFile(htmlFile);
+        super.put(journal.getName(), journal);
+        abbreviations.put(journal.getAbbreviation(), journal);
+        return journal;
+    }
 }

@@ -1,11 +1,9 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Iterator;
 
 /**
  * Boekhoudkundig dagboek
@@ -22,7 +20,6 @@ public class Journal implements Serializable {
 	private int id;
 	private final ArrayList<Transaction> transacties;
 //	private boolean save;
-	private Accounting accounting;
 	private JournalType journalType;
 //	private final String DEFAULT_XSL = "../../xsl/Journal.xsl";
 //	private final String xslFile = DEFAULT_XSL;
@@ -35,19 +32,9 @@ public class Journal implements Serializable {
 	 * @param name naam van het dagboek
 	 * @param abbreviation afkorting van het dagboek Deze afkorting wordt gebruikt in de transacties horende bij dit
 	 * dagboek
-	 */
-	public Journal(String name, String abbreviation) {
-		this(name, abbreviation, new JournalType());
-	}
-
-	/**
-	 * Constructor
-	 * @param name naam van het dagboek
-	 * @param abbreviation afkorting van het dagboek Deze afkorting wordt gebruikt in de transacties horende bij dit
-	 * dagboek
 	 * @param journalType the type of journal, e.g. purchase, sales, finance
 	 */
-	public Journal(String name, String abbreviation, JournalType journalType) {
+	protected Journal(String name, String abbreviation, JournalType journalType) {
 //		save = true;
 		transacties = new ArrayList<Transaction>();
 		this.name = name;
@@ -56,35 +43,16 @@ public class Journal implements Serializable {
 		this.journalType = journalType;
 	}
 
-	public void setAccounting(Accounting accounting) {
-		this.accounting = accounting;
-		xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getJournalLocationXml(), name + ".xml");
-		xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Journal.xsl");
-		htmlFile = FileSystemView.getFileSystemView().getChild(accounting.getJournalLocationHtml(), name + ".html");
-	}
-
-	public Accounting getAccounting() {
-		return accounting;
-	}
-
     public Booking getBooking(int row){
         ArrayList<Booking> boekingen = new ArrayList<Booking>();
-        Iterator<Transaction> it = transacties.iterator();
-        while (it.hasNext()) {
-            Transaction trans = it.next();
-            boekingen.addAll(trans.getBookings());
+        for(Transaction transaction : transacties){
+            boekingen.addAll(transaction.getBookings());
         }
         return boekingen.get(row);
     }
 
     public Transaction getTransaction(int row){
-        ArrayList<Booking> boekingen = new ArrayList<Booking>();
-        Iterator<Transaction> it = transacties.iterator();
-        while (it.hasNext()) {
-            Transaction trans = it.next();
-            boekingen.addAll(trans.getBookings());
-        }
-        return boekingen.get(row).getTransaction();
+        return getBooking(row).getTransaction();
     }
 
     /**
@@ -143,8 +111,7 @@ public class Journal implements Serializable {
 	 */
 	private void deleteTransaction(Transaction transaction) {
 		boolean found = false;
-		for(int i = 0; i < transacties.size(); i++) {
-			Transaction trans = transacties.get(i);
+		for(Transaction trans : transacties) {
 			if (found) {
 				trans.lowerID();
 			} else if (trans == transaction) {
@@ -195,8 +162,7 @@ public class Journal implements Serializable {
 	protected void unbook(Transaction transaction) {
 		deleteTransaction(transaction);
 		ArrayList<Booking> boekingen = transaction.getBookings();
-		for(int i = 0; i < boekingen.size(); i++) {
-			Booking boeking = boekingen.get(i);
+		for(Booking boeking : boekingen) {
 			Account account = boeking.getAccount();
 			account.unbook(boeking);
 		}
@@ -214,10 +180,8 @@ public class Journal implements Serializable {
         transaction.setAbbreviation(abbreviation);
 		addTransaction(transaction);
 		ArrayList<Booking> boekingen = transaction.getBookings();
-		for(int i = 0; i < boekingen.size(); i++) {
-			Booking boeking = boekingen.get(i);
+		for(Booking boeking : boekingen) {
 			Account rek = boeking.getAccount();
-//			boeking.setAbbreviation(abbreviation);
 			rek.book(boeking);
 		}
 		id++;
@@ -256,5 +220,17 @@ public class Journal implements Serializable {
 
     public File getXmlFile() {
         return xmlFile;
+    }
+
+    public void setXslFile(File xslFile) {
+        this.xslFile = xslFile;
+    }
+
+    public void setHtmlFile(File htmlFile) {
+        this.htmlFile = htmlFile;
+    }
+
+    public void setXmlFile(File xmlFile) {
+        this.xmlFile = xmlFile;
     }
 }

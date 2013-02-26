@@ -7,6 +7,7 @@ import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.Journal;
+import be.dafke.Accounting.Objects.Accounting.JournalType;
 import be.dafke.Accounting.Objects.Accounting.Project;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.Accounting.Objects.Coda.BankAccount;
@@ -211,9 +212,14 @@ public class AccountingSAXParser {
             String journal_name = element.getElementsByTagName("journal_name").item(0).getChildNodes().item(0).getNodeValue();
             String journal_short = element.getElementsByTagName("journal_short").item(0).getChildNodes().item(0).getNodeValue();
             System.out.println("Journal: "+journal_name+" | "+journal_short);
-            Journal journal = new Journal(journal_name, journal_short);
-            journal.setAccounting(accounting);
-            accounting.getJournals().add(journal);
+            // TODO: add journal Type to XML File
+            try{
+                accounting.getJournals().addJournal(journal_name, journal_short, new JournalType());
+            } catch (DuplicateNameException e) {
+                System.err.println("There is already an journal with the name \""+journal_name+"\" and/or abbreviation \""+journal_short+"\".");
+            } catch (EmptyNameException e) {
+                System.err.println("Journal name and abbreviation cannot be empty.");
+            }
         }
         File journalFiles[] = FileSystemView.getFileSystemView().getFiles(accounting.getJournalLocationXml(), false);
         for(File journalFile : journalFiles) {

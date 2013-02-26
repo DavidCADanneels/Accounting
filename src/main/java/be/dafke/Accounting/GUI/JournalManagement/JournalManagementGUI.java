@@ -1,5 +1,7 @@
 package be.dafke.Accounting.GUI.JournalManagement;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Journal;
@@ -44,7 +46,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 		line1.add(abbr);
 		JPanel line2 = new JPanel();
 		line2.add(new JLabel("Type:"));
-		type = new JComboBox();
+		type = new JComboBox<JournalType>();
 		line2.add(type);
 		add = new JButton("Create new journal");
 		add.addActionListener(this);
@@ -213,27 +215,25 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 	}
 
 	private void addJournal() {
-		String newName = name.getText().trim();
-		String abbreviation = abbr.getText().trim();
-		if (newName.isEmpty() || abbreviation.isEmpty()) {
-			JOptionPane.showMessageDialog(this, "Journal name and abbreviation cannot be empty");
-		} else {
-			if (accounting.getJournals().containsKey(newName)) {
-				JOptionPane.showMessageDialog(this, "Journal name already exists");
-			} else if (accounting.getJournals().containsAbbreviation(abbreviation)) {
-				JOptionPane.showMessageDialog(this, "This abbreviation already exists");
-			} else {
-				Journal journal = new Journal(name.getText(), abbr.getText(), (JournalType) type.getSelectedItem());
-				journal.setAccounting(accounting);
-				accounting.getJournals().add(journal);
-				if (accounting.getJournals().size() == 1) {
-					accounting.setCurrentJournal(journal);
-				}
-				name.setText("");
-				abbr.setText("");
-                ComponentMap.refreshAllFrames();
-			}
-		}
+        String newName = name.getText().trim();
+        String abbreviation = abbr.getText().trim();
+        if(!newName.isEmpty() && abbreviation.isEmpty() && newName.length() > 2) {
+            abbreviation = newName.substring(0, 3).toUpperCase();
+            abbr.setText(abbreviation);
+        }
+        JournalType journalType = (JournalType)type.getSelectedItem();
+        try {
+            Journal journal = accounting.getJournals().addJournal(newName, abbreviation, journalType);
+            accounting.setCurrentJournal(journal);
+            ComponentMap.refreshAllFrames();
+        } catch (DuplicateNameException e) {
+            JOptionPane.showMessageDialog(this, "There is already an journal with the name \""+newName+"\" and/or abbreviation \""+abbreviation+"\" .\r\n"+
+                    "Please provide a new name.");
+        } catch (EmptyNameException e) {
+            JOptionPane.showMessageDialog(this, "Journal name and abbreviation cannot be empty\r\nPlease provide a new name and/or abbreviation.");
+        }
+        name.setText("");
+        abbr.setText("");
 	}
 
 	private void modifyType() {
