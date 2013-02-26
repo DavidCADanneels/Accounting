@@ -22,29 +22,33 @@ public class Accounting implements Serializable {
 	private static final long serialVersionUID = 1L;
 	// private boolean savedXML;
 //	private boolean savedHTML;
-	private final Accounts rekeningen;
+	private final Accounts accounts;
 	private final Journals journals;
-	private Journal currentJournal;
 	private final Projects projects;
-	private final JournalTypes journalTypes;
-	private final HashMap<String, Mortgage> mortgageTables;
-	private final CounterParties counterParties;
-	private final Movements movements;
-	private final String name;
-	private File accountLocationXML, journalLocationXML, balanceLocationXML;
-	private File mortgageLocationXML, movementLocationXML, counterpartyLocationXML;
-	private File accountLocationHTML, journalLocationHTML, balanceLocationHTML;
-	private File mortgageLocationHTML, movementLocationHTML, counterpartyLocationHTML;
-	private File locationXSL, locationXML, locationHTML;
-	private File xmlFile, htmlFile, xslFile;
+    private final JournalTypes journalTypes;
+    private final HashMap<String, Mortgage> mortgageTables;
+    private final CounterParties counterParties;
+    private final Movements movements;
 
+    private File accountLocationXML, journalLocationXML, balanceLocationXML;
+
+    private File mortgageLocationXML, movementLocationXML, counterpartyLocationXML;
+    private File accountLocationHTML, journalLocationHTML, balanceLocationHTML;
+
+    private File mortgageLocationHTML, movementLocationHTML, counterpartyLocationHTML;
+
+    private final String name;
+    private File locationXSL, locationXML, locationHTML;
+    private File xmlFile, htmlFile, xslFile;
+
+    private Journal currentJournal;
     private Transaction currentTransaction = new Transaction();
 
 	public Accounting(String name) {
 		this.name = name;
 //		savedXML = true;
 //		savedHTML = false;// TODO: true ?
-		rekeningen = new Accounts(this);
+		accounts = new Accounts(this);
 		journals = new Journals();
 		projects = new Projects();
 		journalTypes = new JournalTypes();
@@ -85,7 +89,7 @@ public class Accounting implements Serializable {
 		journalLocationHTML = createSubFolderIfNotExist(locationHTML, "Journals");
 		balanceLocationHTML = createSubFolderIfNotExist(locationHTML, "Balances");
 		mortgageLocationHTML = createSubFolderIfNotExist(locationHTML, "Mortgages");
-		mortgageLocationHTML = createSubFolderIfNotExist(locationHTML, "Movements");
+		movementLocationHTML = createSubFolderIfNotExist(locationHTML, "Movements");
 		counterpartyLocationHTML = createSubFolderIfNotExist(locationHTML, "CounterParties");
 	}
 
@@ -97,7 +101,7 @@ public class Accounting implements Serializable {
 		journalLocationXML = createSubFolderIfNotExist(locationXML, "Journals");
 		balanceLocationXML = createSubFolderIfNotExist(locationXML, "Balances");
 		mortgageLocationXML = createSubFolderIfNotExist(locationXML, "Mortgages");
-		mortgageLocationXML = createSubFolderIfNotExist(locationXML, "Movements");
+		movementLocationXML = createSubFolderIfNotExist(locationXML, "Movements");
 		counterpartyLocationXML = createSubFolderIfNotExist(locationXML, "CounterParties");
 		//
 //		locationXSL = createSubFolderIfNotExist(folder, "xsl");
@@ -189,7 +193,7 @@ public class Accounting implements Serializable {
 	}
 
 	public Accounts getAccounts() {
-		return rekeningen;
+		return accounts;
 	}
 
 	public JournalTypes getJournalTypes() {
