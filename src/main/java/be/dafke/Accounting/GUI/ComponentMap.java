@@ -15,6 +15,7 @@ import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.DisposableComponent;
 import be.dafke.RefreshableComponent;
 
+import java.awt.event.ActionListener;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -48,13 +49,13 @@ public class ComponentMap {
     private static final HashMap<String, RefreshableComponent> refreshableComponents = new HashMap<String, RefreshableComponent>();
     private static final HashMap<String, DisposableComponent> disposableComponents = new HashMap<String, DisposableComponent>();
 
-    public static void addAccountingComponents(Accounting accounting){
+    public static void addAccountingComponents(Accounting accounting, ActionListener actionListener){
         addDisposableComponent(accounting.toString() + RELATIONS_BALANCE, new RelationsBalance(accounting));
         addDisposableComponent(accounting.toString() + RESULT_BALANCE, new ResultBalance(accounting));
         addDisposableComponent(accounting.toString() + TEST_BALANCE, new TestBalance(accounting));
         addDisposableComponent(accounting.toString() + YEAR_BALANCE, new YearBalance(accounting));
         addDisposableComponent(accounting.toString() + PROJECTS, new ProjectManagementGUI(accounting));
-        addDisposableComponent(accounting.toString() + MOVEMENTS, new MovementTable(accounting));
+        addDisposableComponent(accounting.toString() + MOVEMENTS, new MovementTable(accounting, actionListener));
         addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting));
         addDisposableComponent(accounting.toString() + MORTGAGES, new MortgageGUI(accounting));
         addDisposableComponent(accounting.toString() + ACCOUNT_MANAGEMENT, new AccountManagementGUI(accounting));

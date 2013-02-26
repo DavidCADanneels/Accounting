@@ -35,13 +35,14 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 	private final JButton viewCounterParties, exportToJournal, openMovements, saveToAccounting;
 	private final Accounting accounting;
 
-	public MovementTable(Accounting accounting) {
+	public MovementTable(Accounting accounting, ActionListener actionListener) {
 		super("Movements (" + accounting.toString() + ")", new MovementDataModel(accounting));
 		this.accounting = accounting;
 		// tabel.setAutoCreateRowSorter(true);
 		tabel.addMouseListener(this);
 		viewCounterParties = new JButton("View Counterparties");
-		viewCounterParties.addActionListener(this);
+		viewCounterParties.addActionListener(actionListener);
+        viewCounterParties.setActionCommand(ComponentMap.COUNTERPARTIES);
 		openMovements = new JButton("Read Coda file(s)");
 		openMovements.addActionListener(this);
 		saveToAccounting = new JButton("Save movements (all/selection)");
@@ -58,10 +59,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == viewCounterParties) {
-            String key = accounting.toString()+ComponentMap.COUNTERPARTIES;
-			ComponentMap.getDisposableComponent(key).setVisible(true);
-		} else if (e.getSource() == openMovements) {
+		if (e.getSource() == openMovements) {
 			openMovements();
 		} else if (e.getSource() == exportToJournal) {
 			exportToJournal();
@@ -144,8 +142,10 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 				builder.append("\r\n").append(counterParty);
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
+            // TODO: this is an existing Action in AccountingActionListener
             String key = accounting.toString()+ComponentMap.COUNTERPARTIES;
             ComponentMap.getDisposableComponent(key).setVisible(true);
+            // until here
 			return false;
 		}
 		return true;

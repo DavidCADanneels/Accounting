@@ -39,7 +39,7 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
         ComponentMap.addDisposableComponent(ComponentMap.MAIN, this); // MAIN
         ComponentMap.addRefreshableComponent(ComponentMap.MENU, menuBar);
         for(Accounting accounting : accountings.getAccountings()){
-            ComponentMap.addAccountingComponents(accounting);
+            ComponentMap.addAccountingComponents(accounting, actionListener);
         }
 		pack();
         ComponentMap.refreshAllFrames();

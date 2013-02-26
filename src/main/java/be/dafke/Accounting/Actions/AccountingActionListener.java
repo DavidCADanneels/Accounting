@@ -36,7 +36,7 @@ public class AccountingActionListener implements ActionListener {
             try {
                 Accounting accounting = accountings.addAccounting(name);
                 accountings.setCurrentAccounting(name);
-                ComponentMap.addAccountingComponents(accounting);
+                ComponentMap.addAccountingComponents(accounting, this);
                 JOptionPane.showMessageDialog(null, "Please create a Journal.");
                 String key = accounting.toString()+ComponentMap.JOURNAL_MANAGEMENT;
                 ComponentMap.getDisposableComponent(key).setVisible(true);
