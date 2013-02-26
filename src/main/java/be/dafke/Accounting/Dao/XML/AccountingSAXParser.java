@@ -371,7 +371,7 @@ public class AccountingSAXParser {
     }
 
     private static void toXML(Accounting accounting) {
-        System.out.println("Accounting.TOXML()");
+        System.out.println("Accounting.TOXML(" + accounting.toString() + ")");
         File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Accounting.xml");
         File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Accounting.xsl");
         File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Accounting.dtd");

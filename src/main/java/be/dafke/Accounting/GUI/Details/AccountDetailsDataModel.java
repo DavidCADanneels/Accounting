@@ -8,6 +8,8 @@ import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import static java.util.ResourceBundle.getBundle;
+
 /**
  * @author David Danneels
  */
@@ -18,11 +20,11 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private final Account rekening;
 	private final String[] columnNames = {
-			java.util.ResourceBundle.getBundle("Accounting").getString("NR"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("DATUM"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("DEBET"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("CREDIT"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("OMSCHRIJVING") };
+			getBundle("Accounting").getString("NR"),
+			getBundle("Accounting").getString("DATUM"),
+			getBundle("Accounting").getString("DEBET"),
+			getBundle("Accounting").getString("CREDIT"),
+			getBundle("Accounting").getString("OMSCHRIJVING") };
 	private final Class[] columnClasses = { String.class, String.class, BigDecimal.class, BigDecimal.class,
 			String.class };
 

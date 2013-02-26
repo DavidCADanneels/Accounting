@@ -13,6 +13,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
+import static java.util.ResourceBundle.getBundle;
+
 /**
  * @author David Danneels
  */
@@ -47,14 +49,14 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
 
 
         // Menu2
-        balances = new JMenu(java.util.ResourceBundle.getBundle("Accounting").getString("BALANSEN"));
+        balances = new JMenu(getBundle("Accounting").getString("BALANSEN"));
         balances.setMnemonic(KeyEvent.VK_B);
-        testBalance = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString(
+        testBalance = new JMenuItem(getBundle("Accounting").getString(
                 "PROEF_EN_SALDI-BALANS"));
-        yearBalance = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString("EINDBALANS"));
-        resultBalance = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString(
+        yearBalance = new JMenuItem(getBundle("Accounting").getString("EINDBALANS"));
+        resultBalance = new JMenuItem(getBundle("Accounting").getString(
                 "RESULTATENBALANS"));
-        relationsBalance = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString(
+        relationsBalance = new JMenuItem(getBundle("Accounting").getString(
                 "RELATIES-BALANS"));
         testBalance.addActionListener(this);
         yearBalance.addActionListener(this);
@@ -70,9 +72,9 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
         balances.add(relationsBalance);
         add(balances);
 
-        projecten = new JMenu(java.util.ResourceBundle.getBundle("Accounting").getString("PROJECTEN"));
+        projecten = new JMenu(getBundle("Accounting").getString("PROJECTEN"));
         projecten.setMnemonic(KeyEvent.VK_P);
-        projects = new JMenuItem(java.util.ResourceBundle.getBundle("Accounting").getString(
+        projects = new JMenuItem(getBundle("Accounting").getString(
                 "PROJECTMANAGER"));
         projects.addActionListener(this);
         projects.setEnabled(false);
@@ -116,12 +118,6 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
             }
             ComponentMap.refreshAllFrames();
         } else if(accountings.contains(ae.getActionCommand())){
-            // TODO: save currentAccounting ? --> make toXML(accounting) public
-//            Accounting currentAccounting = accountings.getCurrentAccounting();
-//            if(currentAccounting != null){
-//                // TODO: ask user: save or not ?
-//                AccountingSAXParser.toXML(currentAccounting);
-//            }
             accountings.setCurrentAccounting(ae.getActionCommand());
         } else if(ae.getActionCommand().startsWith(accountings.getCurrentAccounting().toString())){
             RefreshableComponent gui = ComponentMap.getDisposableComponent(item.getActionCommand());
@@ -142,8 +138,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
 
 
     private void activateButtons() {
-        boolean active = accountings.isActive();
-//		startNew.setEnabled(!active);
+        boolean active = (accountings.getCurrentAccounting()!=null);
         projects.setEnabled(active);
         relationsBalance.setEnabled(active);
         resultBalance.setEnabled(active);
@@ -155,7 +150,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
     }
 
     private void setActionCommands(){
-        boolean active = accountings.isActive();
+        boolean active = (accountings.getCurrentAccounting()!=null);
         if(active){
             testBalance.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.OPEN_TEST_BALANCE);
             yearBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.OPEN_YEAR_BALANCE);

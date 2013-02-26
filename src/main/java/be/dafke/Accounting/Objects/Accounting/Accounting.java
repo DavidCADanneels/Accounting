@@ -127,9 +127,6 @@ public class Accounting implements Serializable {
 		return subFolder;
 	}
 
-//	public static Accounting fromXML(){
-//		
-//	}
     public void addCounterparty(CounterParty counterParty){
         counterParties.addCounterParty(counterParty);
     }
@@ -175,24 +172,6 @@ public class Accounting implements Serializable {
 		return name;
 	}
 
-//	public Journal addNewJournal() {
-//		// TODO: implement a gui to create journals (using journalType) see AccountManagementGUI
-//		String name = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
-//				"GEEF_NAAM_DAGBOEK"));
-//		while (name == null || name.equals(""))
-//			name = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
-//					"GEEF_NAAM_DAGBOEK"));
-//		String abbr = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
-//				"GEEF_AFKORTING_DAGBOEK"));
-//		while (abbr == null || abbr.equals(""))
-//			abbr = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
-//					"GEEF_AFKORTING_DAGBOEK"));
-//		Journal journal = new Journal(name, abbr);
-//		journal.setAccounting(this);
-//		journals.put(journal.toString(),journal);
-//		return journal;
-//	}
-
 	public Journals getJournals() {
 		return journals;
 	}
@@ -212,41 +191,6 @@ public class Accounting implements Serializable {
 	public Accounts getAccounts() {
 		return rekeningen;
 	}
-
-//	public static Accounting newInstance(boolean transfer) {
-//		// closeInstance();
-//		if (transfer) {
-//			// OUDE REKENINGEN OVERNEMEN
-//			// later implementeren
-//			JOptionPane.showMessageDialog(
-//					null,
-//					java.util.ResourceBundle.getBundle("Accounting").getString(
-//							"NOG_NIET_GEIMPLEMENTEERD"));
-//			accounting = new Accounting("Transferred");
-//		} else {
-//			// VOLLEDIG NIEUW
-//			String name = JOptionPane.showInputDialog(null, "Enter a name");
-//			while (Accountings.contains(name)) {
-//				name = JOptionPane.showInputDialog(null, "Name already used, enter another name");
-//			}
-//			accounting = new Accounting(name);
-//		}
-//		return accounting;
-//	}
-
-//	public Accounting saveAs() {
-//		JFileChooser kiezer = new JFileChooser();
-//		kiezer.setDialogTitle(java.util.ResourceBundle.getBundle("Accounting").getString("WAAR_OPSLAAN"));
-//		int result = kiezer.showSaveDialog(null);
-//		while (result != JFileChooser.APPROVE_OPTION)
-//			result = kiezer.showSaveDialog(null);
-//		File bestand = kiezer.getSelectedFile();
-//		location = bestand.getPath();
-//		saveToXML();
-//		saveToHTML();
-	// serialiseer();
-//		return this;
-//	}
 
 	public JournalTypes getJournalTypes() {
 		return journalTypes;

@@ -43,18 +43,18 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 
 	public AccountsGUI(Accounting accounting) {
 		setLayout(new BorderLayout());
-		setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
+		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("REKENINGEN")));
 		this.accounting = accounting;
-		debet = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("DEBITEER"));
+		debet = new JButton(getBundle("Accounting").getString("DEBITEER"));
 		debet.setMnemonic(KeyEvent.VK_D);
-		credit = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("CREDITEER"));
+		credit = new JButton(getBundle("Accounting").getString("CREDITEER"));
 		credit.setMnemonic(KeyEvent.VK_C);
-		accountManagement = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString(
+		accountManagement = new JButton(getBundle("Accounting").getString(
 				"BEHEER_REKENING"));
 		accountManagement.setMnemonic(KeyEvent.VK_N);
 		accountManagement.setEnabled(false);
-		details = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString(
+		details = new JButton(getBundle("Accounting").getString(
 				"BEKIJK_REKENING"));
 		debet.addActionListener(this);
 		credit.addActionListener(this);
@@ -143,7 +143,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		Account rekening = lijst.getSelectedValue();
 		boolean ok = false;
 		while (!ok) {
-			String s = JOptionPane.showInputDialog(java.util.ResourceBundle.getBundle("Accounting").getString(
+			String s = JOptionPane.showInputDialog(getBundle("Accounting").getString(
 					"GEEF_BEDRAG"));
 			if (s == null || s.equals("")) {
 				ok = true;
@@ -167,7 +167,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
                     ComponentMap.refreshAllFrames();
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(this,
-							java.util.ResourceBundle.getBundle("Accounting").getString("INVALID_INPUT"));
+							getBundle("Accounting").getString("INVALID_INPUT"));
 				}
 			}
 		}

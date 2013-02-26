@@ -7,6 +7,8 @@ import be.dafke.Accounting.Objects.Accounting.Booking;
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 
+import static java.util.ResourceBundle.getBundle;
+
 /**
  * @author David Danneels
  */
@@ -16,10 +18,10 @@ public class JournalDataModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String[] columnNames = { java.util.ResourceBundle.getBundle("Accounting").getString("DEBET"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("CREDIT"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("D"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("C") };
+	String[] columnNames = { getBundle("Accounting").getString("DEBET"),
+			getBundle("Accounting").getString("CREDIT"),
+			getBundle("Accounting").getString("D"),
+			getBundle("Accounting").getString("C") };
 	Class[] columnClasses = { Account.class, Account.class, BigDecimal.class, BigDecimal.class };
     private final Accounting accounting;
 

@@ -8,16 +8,18 @@ import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.util.Collection;
 
+import static java.util.ResourceBundle.getBundle;
+
 public class RelationsBalanceDataModel extends AbstractTableModel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = {
-			java.util.ResourceBundle.getBundle("Accounting").getString("TEGOEDEN_VAN_KLANTEN"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("BEDRAG"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("BEDRAG"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("SCHULDEN_AAN_LEVERANCIERS") };
+			getBundle("Accounting").getString("TEGOEDEN_VAN_KLANTEN"),
+			getBundle("Accounting").getString("BEDRAG"),
+			getBundle("Accounting").getString("BEDRAG"),
+			getBundle("Accounting").getString("SCHULDEN_AAN_LEVERANCIERS") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, Account.class };
 	private final Accounting accounting;
 
@@ -32,10 +34,10 @@ public class RelationsBalanceDataModel extends AbstractTableModel {
 		int size = getRowCount();
 		if (row == size - 2 || row == size - 1) {
 			// in de onderste 2 rijen komen totalen
-			if (row == size - 2 && col == 0) return java.util.ResourceBundle.getBundle("Accounting").getString(
+			if (row == size - 2 && col == 0) return getBundle("Accounting").getString(
 					"TOTAAL_TEGOEDEN");
-			else if (row == size - 2 && col == 3) return java.util.ResourceBundle.getBundle(
-					"Accounting").getString("TOTAAL_SCHULDEN");
+			else if (row == size - 2 && col == 3) return getBundle(
+                    "Accounting").getString("TOTAAL_SCHULDEN");
 			else if (row == size - 1 && (col == 2 || col == 3)) {
 				return "";
 			} else {
@@ -59,10 +61,10 @@ public class RelationsBalanceDataModel extends AbstractTableModel {
 						String tekst;
 						BigDecimal resultaat = totaalLeveranciers.add(totaalKlanten);
 						if (resultaat.compareTo(BigDecimal.ZERO) > 0) {
-							tekst = java.util.ResourceBundle.getBundle("Accounting").getString(
+							tekst = getBundle("Accounting").getString(
 									"RESTEREND_TEGOED");
 						} else {
-							tekst = java.util.ResourceBundle.getBundle("Accounting").getString(
+							tekst = getBundle("Accounting").getString(
 									"RESTERENDE_SCHULD");
 							resultaat = BigDecimal.ZERO.subtract(resultaat);
 						}

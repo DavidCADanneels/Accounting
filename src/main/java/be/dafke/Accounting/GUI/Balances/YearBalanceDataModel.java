@@ -8,16 +8,18 @@ import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import static java.util.ResourceBundle.getBundle;
+
 public class YearBalanceDataModel extends AbstractTableModel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = {
-			java.util.ResourceBundle.getBundle("Accounting").getString("ACTIVA"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("BEDRAG"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("BEDRAG"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("PASSIVA") };
+			getBundle("Accounting").getString("ACTIVA"),
+			getBundle("Accounting").getString("BEDRAG"),
+			getBundle("Accounting").getString("BEDRAG"),
+			getBundle("Accounting").getString("PASSIVA") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, Account.class };
 	private final Accounting accounting;
 
@@ -32,9 +34,9 @@ public class YearBalanceDataModel extends AbstractTableModel {
 		int size = getRowCount();
 		if (row == size - 1) {
 			// in de onderste rij komen totalen
-			if (col == 0) return java.util.ResourceBundle.getBundle("Accounting").getString(
+			if (col == 0) return getBundle("Accounting").getString(
 					"TOTAAL_ACTIVA_TEGOEDEN");
-			else if (col == 3) return java.util.ResourceBundle.getBundle("Accounting").getString(
+			else if (col == 3) return getBundle("Accounting").getString(
 					"TOTAAL_PASSIVA_SCHULDEN");
 			else {
 				// Berekening totalen en resultaat

@@ -7,17 +7,19 @@ import be.dafke.Accounting.Objects.Accounting.Accounting;
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 
+import static java.util.ResourceBundle.getBundle;
+
 public class TestBalanceDataModel extends AbstractTableModel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = {
-			java.util.ResourceBundle.getBundle("Accounting").getString("REKENING"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("PROEF(DEBET)"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("PROEF(CREDIT)"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("SALDO(DEBET)"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("SALDO(CREDIT)") };
+			getBundle("Accounting").getString("REKENING"),
+			getBundle("Accounting").getString("PROEF(DEBET)"),
+			getBundle("Accounting").getString("PROEF(CREDIT)"),
+			getBundle("Accounting").getString("SALDO(DEBET)"),
+			getBundle("Accounting").getString("SALDO(CREDIT)") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, BigDecimal.class,
 			BigDecimal.class };
 	private final Accounting accounting;

@@ -26,45 +26,19 @@ public class Accountings {
 		return accountings.values();
 	}
 
-//	public void setCurrentAccounting(Accounting accounting) {
-//		currentAccounting = accounting;
-//	}
-
-	public boolean isActive() {
-		return currentAccounting != null;
-	}
-
 	public void setCurrentAccounting(String name) {
-//		if (currentAccounting != null) {
-//			currentAccounting.close();
-//		}
 		currentAccounting = accountings.get(name);
 	}
-
-//	public void openAccounting() {
-//		if (currentAccounting != null) {
-//			currentAccounting.close();
-//		}
-//		Object[] set = accountings.keySet().toArray();
-//		Object obj = JOptionPane.showInputDialog(null, "Chooser", "Select an accounting",
-//				JOptionPane.INFORMATION_MESSAGE, null, set, set[0]);
-//		String s = (String) obj;
-//		currentAccounting = accountings.get(s);
-//	}
 
 	public Accounting addAccounting(String name) throws EmptyNameException, DuplicateNameException {
         if(name==null || "".equals(name.trim())){
             throw new EmptyNameException();
         }
-        if(contains(name.trim())){
+        if(accountings.containsKey(name.trim())){
             throw new DuplicateNameException();
         }
 		Accounting accounting = new Accounting(name);
 		addAccounting(accounting);
         return accounting;
 	}
-
-//	public Accounting getAccounting(String name) {
-//		return accountings.get(name);
-//	}
 }

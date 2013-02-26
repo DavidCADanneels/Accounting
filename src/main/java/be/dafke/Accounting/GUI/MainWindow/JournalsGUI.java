@@ -30,19 +30,19 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	private Accounting accounting;
 
 	public JournalsGUI(Accounting accounting) {
-		setBorder(new TitledBorder(new LineBorder(Color.BLACK), java.util.ResourceBundle.getBundle(
-				"Accounting").getString("DAGBOEKEN")));
+		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
+                "Accounting").getString("DAGBOEKEN")));
 		this.accounting = accounting;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		combo = new JComboBox<Journal>();
 		combo.setEnabled(false);
 		add(combo);
 		JPanel paneel = new JPanel();
-		maak = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("NIEUW_DAGBOEK"));
+		maak = new JButton(getBundle("Accounting").getString("NIEUW_DAGBOEK"));
 		maak.addActionListener(this);
 		maak.setEnabled(false);
 		paneel.add(maak);
-		details = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString(
+		details = new JButton(getBundle("Accounting").getString(
 				"DETAILS_DAGBOEK"));
 		details.addActionListener(this);
 		details.setEnabled(false);

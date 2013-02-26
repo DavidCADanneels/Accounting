@@ -6,6 +6,8 @@ import javax.swing.event.DocumentListener;
 import java.awt.*;
 import java.util.ArrayList;
 
+import static java.util.ResourceBundle.getBundle;
+
 /**
  * Een paneel met list en tekstveld<br>
  * Van zodra je begint te tikken in het tekstveld, verdwijnen de personen/objecten uit de list (de view ervan) zodat de
@@ -57,7 +59,7 @@ public class PrefixFilterPanel<K> extends JPanel {
 		});
 
 		JPanel zoekpaneel = new JPanel();
-		zoekpaneel.add(new JLabel(java.util.ResourceBundle.getBundle("Dafke").getString("ZOEK")));
+		zoekpaneel.add(new JLabel(getBundle("Dafke").getString("ZOEK")));
 		zoekpaneel.add(zoekveld);
 		setLayout(new BorderLayout());
 		add(scrol, BorderLayout.CENTER);

@@ -14,6 +14,8 @@ import java.awt.event.FocusListener;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import static java.util.ResourceBundle.getBundle;
+
 public class JournalGUI extends JPanel implements ActionListener {
 	/**
 	 * 
@@ -61,23 +63,23 @@ public class JournalGUI extends JPanel implements ActionListener {
         });
 		bewijs = new JTextField(30);
 
-		ok = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("OK"));
+		ok = new JButton(getBundle("Accounting").getString("OK"));
 		ok.addActionListener(this);
 		ok.setEnabled(false);
-		clear = new JButton(java.util.ResourceBundle.getBundle("Accounting").getString("WIS_PANEEL"));
+		clear = new JButton(getBundle("Accounting").getString("WIS_PANEEL"));
 		clear.addActionListener(this);
         clear.setEnabled(false);
 
 		JPanel paneel1 = new JPanel();
 		paneel1.add(new JLabel(
-				java.util.ResourceBundle.getBundle("Accounting").getString("VERRICHTING")));
+				getBundle("Accounting").getString("VERRICHTING")));
 		paneel1.add(ident);
-		paneel1.add(new JLabel(java.util.ResourceBundle.getBundle("Accounting").getString("DATUM")));
+		paneel1.add(new JLabel(getBundle("Accounting").getString("DATUM")));
 		paneel1.add(dag);
         paneel1.add(new JLabel("(d/m/yyyy)"));
 
 		JPanel paneel2 = new JPanel();
-		paneel2.add(new JLabel(java.util.ResourceBundle.getBundle("Accounting").getString(
+		paneel2.add(new JLabel(getBundle("Accounting").getString(
 				"BEWIJS-STUK(KEN)")));
 		paneel2.add(bewijs);
 
@@ -91,9 +93,9 @@ public class JournalGUI extends JPanel implements ActionListener {
 		debet.setEditable(false);
 		credit.setEditable(false);
 		paneel3.add(new JLabel(
-				java.util.ResourceBundle.getBundle("Accounting").getString("DEBETTOTAAL")));
+				getBundle("Accounting").getString("DEBETTOTAAL")));
 		paneel3.add(debet);
-		paneel3.add(new JLabel(java.util.ResourceBundle.getBundle("Accounting").getString(
+		paneel3.add(new JLabel(getBundle("Accounting").getString(
 				"CREDITTOTAAL")));
 		paneel3.add(credit);
 

@@ -8,16 +8,18 @@ import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import static java.util.ResourceBundle.getBundle;
+
 public class ResultBalanceDataModel extends AbstractTableModel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = {
-			java.util.ResourceBundle.getBundle("Accounting").getString("KOSTEN"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("BEDRAG"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("BEDRAG"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("OPBRENGSTEN") };
+			getBundle("Accounting").getString("KOSTEN"),
+			getBundle("Accounting").getString("BEDRAG"),
+			getBundle("Accounting").getString("BEDRAG"),
+			getBundle("Accounting").getString("OPBRENGSTEN") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, Account.class };
 	private final Accounting accounting;
 
@@ -32,10 +34,10 @@ public class ResultBalanceDataModel extends AbstractTableModel {
 		int size = getRowCount();
 		if (row == size - 2 || row == size - 1) {
 			// in de onderste 2 rijen komen totalen
-			if (row == size - 2 && col == 0) return java.util.ResourceBundle.getBundle("Accounting").getString(
+			if (row == size - 2 && col == 0) return getBundle("Accounting").getString(
 					"TOTAAL_KOSTEN");
-			else if (row == size - 2 && col == 3) return java.util.ResourceBundle.getBundle(
-					"Accounting").getString("TOTAAL_OPBRENGSTEN");
+			else if (row == size - 2 && col == 3) return getBundle(
+                    "Accounting").getString("TOTAAL_OPBRENGSTEN");
 			else if (row == size - 1 && (col == 2 || col == 3)) {
 				return "";
 			} else {
@@ -59,10 +61,10 @@ public class ResultBalanceDataModel extends AbstractTableModel {
 						String tekst;
 						BigDecimal total = totaalKosten.add(totaalOpbrengsten);
 						if (total.compareTo(BigDecimal.ZERO) > 0) {
-							tekst = java.util.ResourceBundle.getBundle("Accounting").getString(
+							tekst = getBundle("Accounting").getString(
 									"VERLIES");
 						} else {
-							tekst = java.util.ResourceBundle.getBundle("Accounting").getString("WINST");
+							tekst = getBundle("Accounting").getString("WINST");
 							total = BigDecimal.ZERO.subtract(total);
 						}
 						if (row == size - 1 && col == 0) return tekst;

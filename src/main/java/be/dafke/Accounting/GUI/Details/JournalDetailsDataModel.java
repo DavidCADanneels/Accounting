@@ -9,7 +9,8 @@ import be.dafke.Utils;
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.util.Calendar;
-import java.util.Iterator;
+
+import static java.util.ResourceBundle.getBundle;
 
 /**
  * @author David Danneels
@@ -21,12 +22,12 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 	private static final long serialVersionUID = 1L;
 	private final Journal journal;
 	private final String[] columnNames = {
-			java.util.ResourceBundle.getBundle("Accounting").getString("NR"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("DATUM"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("REKENING"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("DEBET"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("CREDIT"),
-			java.util.ResourceBundle.getBundle("Accounting").getString("OMSCHRIJVING") };
+			getBundle("Accounting").getString("NR"),
+			getBundle("Accounting").getString("DATUM"),
+			getBundle("Accounting").getString("REKENING"),
+			getBundle("Accounting").getString("DEBET"),
+			getBundle("Accounting").getString("CREDIT"),
+			getBundle("Accounting").getString("OMSCHRIJVING") };
 	private final Class[] columnClasses = { String.class, String.class, Account.class, BigDecimal.class,
 			BigDecimal.class, String.class };
 
@@ -40,9 +41,8 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 	@Override
 	public int getRowCount() {
 		int size = 0;
-		Iterator<Transaction> it = journal.getTransactions().iterator();
-		while (it.hasNext()) {
-			size += it.next().getBookings().size();
+        for(Transaction transaction : journal.getTransactions()){
+			size += transaction.getBookings().size();
 		}
 		return size;
 	}
