@@ -2,9 +2,11 @@ package be.dafke.Accounting.Actions;
 
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
+import be.dafke.Accounting.GUI.AccountManagement.NewAccountGUI;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.GUI.Details.AccountDetails;
 import be.dafke.Accounting.GUI.Details.JournalDetails;
+import be.dafke.Accounting.GUI.MortgageManagement.MortgageCalculatorGUI;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
@@ -31,7 +33,9 @@ public class AccountingActionListener implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent ae) {
         String actionCommand = ae.getActionCommand();
-        if (actionCommand.equals(ComponentMap.NEW_ACCOUNTING)) {
+        if (actionCommand.equals(ComponentMap.NEW_ACCOUNT)){
+            new NewAccountGUI(accountings.getCurrentAccounting()).setVisible(true);
+        } else if (actionCommand.equals(ComponentMap.NEW_ACCOUNTING)) {
             String name = JOptionPane.showInputDialog(null, "Enter a name");
             try {
                 Accounting accounting = accountings.addAccounting(name);
@@ -48,7 +52,7 @@ public class AccountingActionListener implements ActionListener {
             }
             ComponentMap.refreshAllFrames();
         } else if(actionCommand.startsWith(ComponentMap.OPEN_ACCOUNTING)){
-            String accountingName = actionCommand.replaceAll(ComponentMap.OPEN_ACCOUNTING,"");
+            String accountingName = actionCommand.replaceAll(ComponentMap.OPEN_ACCOUNTING, "");
             accountings.setCurrentAccounting(accountingName);
         } else if(actionCommand.equals(ComponentMap.JOURNAL_DETAILS)){
             Accounting accounting = accountings.getCurrentAccounting();
@@ -69,6 +73,10 @@ public class AccountingActionListener implements ActionListener {
                 gui = new AccountDetails(account, accounting);
                 ComponentMap.addDisposableComponent(key, gui); // DETAILS
             }
+            gui.setVisible(true);
+        } else if(actionCommand.equals(ComponentMap.MORTGAGE_CALCULATOR)){
+            MortgageCalculatorGUI gui = new MortgageCalculatorGUI(accountings.getCurrentAccounting());
+            ComponentMap.addDisposableComponent(ComponentMap.MORTGAGE_CALCULATOR +gui.getNr(), gui);
             gui.setVisible(true);
         } else {
             String key = accountings.getCurrentAccounting().toString() + actionCommand;

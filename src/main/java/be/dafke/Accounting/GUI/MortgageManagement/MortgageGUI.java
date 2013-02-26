@@ -34,14 +34,15 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	private final JButton save, delete;
 	private final Accounting accounting;
 
-	public MortgageGUI(Accounting accounting) {
+	public MortgageGUI(Accounting accounting, ActionListener actionListener) {
 		super("Mortgages (" + accounting.toString() + ")");
 		this.accounting = accounting;
 		mortgagesList = new JList<Mortgage>();
 		mortgagesList.setModel(new DefaultListModel<Mortgage>());
 		mortgagesList.addListSelectionListener(this);
 		create = new JButton("Create new Mortgage table");
-		create.addActionListener(this);
+        create.setActionCommand(ComponentMap.MORTGAGE_CALCULATOR);
+		create.addActionListener(actionListener);
 
 		JPanel left = new JPanel(new BorderLayout());
 		left.add(mortgagesList, BorderLayout.CENTER);
@@ -136,11 +137,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == create) {
-			MortgageCalculatorGUI gui = new MortgageCalculatorGUI(accounting);
-            ComponentMap.addDisposableComponent(ComponentMap.MORTGAGE_CALCULATOR +gui.nr, gui);
-			gui.setVisible(true);
-		} else if (e.getSource() == save) {
+		if (e.getSource() == save) {
 			if (save.getText().equals("Edit")) {
 				activateButtons(true);
 			} else {

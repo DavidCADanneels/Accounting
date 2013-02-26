@@ -40,7 +40,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 	private final Accounting accounting;
 
     private static int counter = 1;
-    protected final int nr;
+    private final int nr;
 
 	public MortgageCalculatorGUI(Accounting accounting) {
 		super("Mortgage Calculator (" + accounting.toString() + ")");
@@ -236,4 +236,8 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 		}
 		activateButtons();
 	}
+
+    public int getNr() {
+        return nr;
+    }
 }

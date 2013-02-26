@@ -22,13 +22,13 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JButton add, delete, modifyName, modifyType;
+	private final JButton newAccount, delete, modifyName, modifyType;
 	private final AccountManagementTableModel model;
 	private final JTable tabel;
 	private final DefaultListSelectionModel selection;
 	private final Accounting accounting;
 
-	public AccountManagementGUI(Accounting accounting) {
+	public AccountManagementGUI(Accounting accounting, ActionListener actionListener) {
 		super("Manage accounts for " + accounting.toString());
 		this.accounting = accounting;
 		this.model = new AccountManagementTableModel(accounting);
@@ -50,18 +50,19 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 		modifyName = new JButton("Modify name");
 		modifyType = new JButton("Modify type");
 		delete = new JButton("Delete account");
-        add = new JButton(("Add account ..."));
+        newAccount = new JButton(("Add account ..."));
 		modifyName.addActionListener(this);
 		modifyType.addActionListener(this);
 		delete.addActionListener(this);
-        add.addActionListener(this);
+        newAccount.addActionListener(actionListener);
+        newAccount.setActionCommand(ComponentMap.NEW_ACCOUNT);
 		modifyName.setEnabled(false);
 		modifyType.setEnabled(false);
 		delete.setEnabled(false);
 		south.add(modifyName);
 		south.add(modifyType);
 		south.add(delete);
-        south.add(add);
+        south.add(newAccount);
 		panel.add(south, BorderLayout.SOUTH);
 		setContentPane(panel);
 		pack();
@@ -69,23 +70,19 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 
 	@Override
 	public void actionPerformed(ActionEvent event) {
-		if (event.getSource() == add) {
-            new NewAccountGUI(accounting).setVisible(true);
-		} else {
-            ArrayList<Account> accountList = getSelectedAccounts();
-            if(!accountList.isEmpty()){
-                if (event.getSource() == modifyName) {
-	    		    modifyNames(accountList);
-		        } else if (event.getSource() == modifyType) {
-                    modifyTypes(accountList);
-                } else if (event.getSource() == delete) {
-                    deleteAccounts(accountList);
-                }
-		    }
-            delete.setEnabled(false);
-            modifyName.setEnabled(false);
-            modifyType.setEnabled(false);
+        ArrayList<Account> accountList = getSelectedAccounts();
+        if(!accountList.isEmpty()){
+            if (event.getSource() == modifyName) {
+                modifyNames(accountList);
+            } else if (event.getSource() == modifyType) {
+                modifyTypes(accountList);
+            } else if (event.getSource() == delete) {
+                deleteAccounts(accountList);
+            }
         }
+        delete.setEnabled(false);
+        modifyName.setEnabled(false);
+        modifyType.setEnabled(false);
         ComponentMap.refreshAllFrames();
 	}
 

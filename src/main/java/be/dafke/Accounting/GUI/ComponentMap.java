@@ -45,6 +45,7 @@ public class ComponentMap {
     public static final String MORTGAGE_TABLE = "MortgageTable";
     public static final String NEW_ACCOUNTING = "NewAccounting";
     public static final String OPEN_ACCOUNTING = "OpenAccounting";
+    public static final String NEW_ACCOUNT = "NewAccount";
 
     private static final HashMap<String, RefreshableComponent> refreshableComponents = new HashMap<String, RefreshableComponent>();
     private static final HashMap<String, DisposableComponent> disposableComponents = new HashMap<String, DisposableComponent>();
@@ -56,9 +57,9 @@ public class ComponentMap {
         addDisposableComponent(accounting.toString() + YEAR_BALANCE, new YearBalance(accounting));
         addDisposableComponent(accounting.toString() + PROJECTS, new ProjectManagementGUI(accounting));
         addDisposableComponent(accounting.toString() + MOVEMENTS, new MovementTable(accounting, actionListener));
-        addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting));
-        addDisposableComponent(accounting.toString() + MORTGAGES, new MortgageGUI(accounting));
-        addDisposableComponent(accounting.toString() + ACCOUNT_MANAGEMENT, new AccountManagementGUI(accounting));
+        addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting, actionListener));
+        addDisposableComponent(accounting.toString() + MORTGAGES, new MortgageGUI(accounting, actionListener));
+        addDisposableComponent(accounting.toString() + ACCOUNT_MANAGEMENT, new AccountManagementGUI(accounting, actionListener));
         addDisposableComponent(accounting.toString() + JOURNAL_MANAGEMENT, new JournalManagementGUI(accounting, actionListener));
         addDisposableComponent(accounting.toString() + JOURNAL_TYPE_MANAGEMENT, new JournalTypeManagementGUI(accounting));
     }
