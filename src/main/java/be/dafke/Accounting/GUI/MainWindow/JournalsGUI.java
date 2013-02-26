@@ -23,7 +23,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JComboBox<Journal> combo;
-	private final JButton maak, details;
+	private final JButton journalManagement, details;
 	private Accounting accounting;
 
 	public JournalsGUI(Accounting accounting, ActionListener actionListener) {
@@ -32,13 +32,15 @@ public class JournalsGUI extends JPanel implements ActionListener {
 		this.accounting = accounting;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		combo = new JComboBox<Journal>();
+        combo.addActionListener(this);
 		combo.setEnabled(false);
 		add(combo);
 		JPanel paneel = new JPanel();
-		maak = new JButton(getBundle("Accounting").getString("NIEUW_DAGBOEK"));
-		maak.addActionListener(this);
-		maak.setEnabled(false);
-		paneel.add(maak);
+		journalManagement = new JButton(getBundle("Accounting").getString("NIEUW_DAGBOEK"));
+		journalManagement.addActionListener(actionListener);
+        journalManagement.setActionCommand(ComponentMap.JOURNAL_MANAGEMENT);
+		journalManagement.setEnabled(false);
+		paneel.add(journalManagement);
 		details = new JButton(getBundle("Accounting").getString("DETAILS_DAGBOEK"));
 		details.addActionListener(actionListener);
         details.setActionCommand(ComponentMap.JOURNAL_DETAILS);
@@ -49,12 +51,11 @@ public class JournalsGUI extends JPanel implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == maak) {
-            String key = accounting.toString()+ComponentMap.JOURNAL_MANAGEMENT;
-            ComponentMap.getDisposableComponent(key).setVisible(true);
-		} else if (e.getSource() == combo) {
+		if (e.getSource() == combo) {
 			Journal journal = (Journal) combo.getSelectedItem();
-			accounting.setCurrentJournal(journal);
+			if(journal!=null){
+                accounting.setCurrentJournal(journal);
+            }
 		}
 	}
 
@@ -75,7 +76,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
 			combo.setSelectedItem(null);
 		}
 		combo.setEnabled(accounting!=null && accounting.getCurrentJournal()!=null);
-		maak.setEnabled(accounting!=null);
+		journalManagement.setEnabled(accounting != null);
 		details.setEnabled(accounting!=null && accounting.getCurrentJournal()!=null);
 	}
 }
