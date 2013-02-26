@@ -50,7 +50,7 @@ public class Accounting implements Serializable {
 //		savedXML = true;
 //		savedHTML = false;// TODO: true ?
 		accounts = new Accounts(this);
-		journals = new Journals();
+		journals = new Journals(this);
 		projects = new Projects();
 		journalTypes = new JournalTypes();
 		mortgageTables = new HashMap<String, Mortgage>();

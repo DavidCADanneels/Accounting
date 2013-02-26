@@ -2,6 +2,7 @@ package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
+import be.dafke.Accounting.Exceptions.NotEmptyException;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
@@ -91,5 +92,14 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
         super.put(journal.getName(), journal);
         abbreviations.put(journal.getAbbreviation(), journal);
         return journal;
+    }
+
+    public void removeJournal(Journal journal) throws NotEmptyException {
+        if(journal.getTransactions().isEmpty()){
+            remove(journal.getName());
+        } else {
+            throw new NotEmptyException();
+        }
+
     }
 }

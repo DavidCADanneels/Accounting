@@ -2,11 +2,11 @@ package be.dafke.Accounting.GUI.JournalManagement;
 
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
+import be.dafke.Accounting.Exceptions.NotEmptyException;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.JournalType;
-import be.dafke.Accounting.Objects.Accounting.JournalTypes;
 import be.dafke.RefreshableTable;
 
 import javax.swing.*;
@@ -17,6 +17,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.util.ArrayList;
 
 public class JournalManagementGUI extends RefreshableTable implements ActionListener, ListSelectionListener, FocusListener {
 	/**
@@ -29,7 +30,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 	private final DefaultListSelectionModel selection;
 	private final Accounting accounting;
 
-	public JournalManagementGUI(Accounting accounting) {
+	public JournalManagementGUI(Accounting accounting, ActionListener actionListener) {
 		super("Create and modify journals for " + accounting.toString(), new NewJournalDataModel(accounting));
 		this.accounting = accounting;
 		selection = new DefaultListSelectionModel();
@@ -55,7 +56,8 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 		name.addFocusListener(this);
 		line2.add(add);
 		newType = new JButton("Manage types ...");
-		newType.addActionListener(this);
+        newType.setActionCommand(ComponentMap.JOURNAL_TYPE_MANAGEMENT);
+		newType.addActionListener(actionListener);
 		line2.add(newType);
 		north.add(line1);
 		north.add(line2);
@@ -78,10 +80,9 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 		south.add(modifyAbbr);
 		south.add(delete);
 		contentPanel.add(south, BorderLayout.SOUTH);
-//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(contentPanel);
 		pack();
-//		setVisible(true);
+        refresh();
 	}
 
     @Override
@@ -99,9 +100,8 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 
     @Override
     public void refresh(){
-        JournalTypes journaltypes = accounting.getJournalTypes();
-        type = new JComboBox<JournalType>();
-        for(JournalType journalType : journaltypes.values()){
+        type.removeAllItems();
+        for(JournalType journalType : accounting.getJournalTypes().getAllTypes()){
             type.addItem(journalType);
         }
         super.refresh();
@@ -111,107 +111,97 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == add || e.getSource() == name || e.getSource() == abbr) {
 			addJournal();
-		} else if (e.getSource() == modifyName) {
-			modifyName();
-		} else if (e.getSource() == modifyAbbr) {
-			modifyAbbr();
-		} else if (e.getSource() == modifyType) {
-			modifyType();
-		} else if (e.getSource() == delete) {
-			deleteJournal();
-		} else if (e.getSource() == newType) {
-            String key = accounting.toString()+ComponentMap.JOURNAL_TYPE_MANAGEMENT;
-            ComponentMap.getDisposableComponent(key).setVisible(true);
-		}
+		} else {
+            ArrayList<Journal> journalList = getSelectedJournals();
+            if(!journalList.isEmpty()){
+                if (e.getSource() == modifyName) {
+                    modifyNames(journalList);
+                } else if (e.getSource() == modifyAbbr) {
+                    modifyAbbr(journalList);
+                } else if (e.getSource() == modifyType) {
+                    modifyType(journalList);
+                } else if (e.getSource() == delete) {
+                    deleteJournal(journalList);
+                }
+            }
+            delete.setEnabled(false);
+            modifyName.setEnabled(false);
+            modifyAbbr.setEnabled(false);
+            modifyType.setEnabled(false);
+        }
         ComponentMap.refreshAllFrames();
+    }
+
+    private ArrayList<Journal> getSelectedJournals(){
+        int[] rows = tabel.getSelectedRows();
+        if (rows.length == 0) {
+            JOptionPane.showMessageDialog(this, "Select a journal first");
+        }
+        ArrayList<Journal> journalList = new ArrayList<Journal>();
+        for(int row : rows) {
+            Journal journal = (Journal) model.getValueAt(row, 0);
+            journalList.add(journal);
+        }
+        return journalList;
+
+    }
+
+	private void deleteJournal(ArrayList<Journal> journals) {
+        ArrayList<String> failed = new ArrayList<String>();
+        for(Journal journal : journals) {
+            try{
+                accounting.getJournals().removeJournal(journal);
+            }catch (NotEmptyException e){
+                failed.add(journal.getName());
+            }
+        }
+        if (failed.size() > 0) {
+            if (failed.size() == 1) {
+                JOptionPane.showMessageDialog(this, failed.get(0) + " already has transactions, so it can not be deleted.");
+            } else {
+                StringBuilder builder = new StringBuilder("The following accounts already have transactions, so they can not be deleted:\r\n");
+                for(String s : failed){
+                    builder.append("- ").append(s).append("\r\n");
+                }
+                JOptionPane.showMessageDialog(this, builder.toString());
+            }
+        }
 	}
 
-	private void deleteJournal() {
-		int[] rows = tabel.getSelectedRows();
-		int nrNotEmpty = 0;
-		if (rows.length == 0) {
-			JOptionPane.showMessageDialog(this, "Select a journal first");
-		} else {
-			for(int row : rows) {
-				Journal journal = (Journal) model.getValueAt(row, 0);
-				if (!journal.getTransactions().isEmpty()) {
-					nrNotEmpty++;
-				} else {
-					accounting.getJournals().remove(journal.toString());
-				}
-			}
-			if (nrNotEmpty > 0) {
-				if (nrNotEmpty == 1) {
-					if (rows.length == 1) {
-						JOptionPane.showMessageDialog(this, "The journal already contains transactions,"
-								+ "so it could not be deleted.");
-					} else {
-						JOptionPane.showMessageDialog(this, "The saldo of 1 journal already contains transactions,"
-								+ "so it could not be deleted.");
-					}
-				} else {
-					JOptionPane.showMessageDialog(this, "The saldo of " + nrNotEmpty
-							+ " journal already contain transactions, so they could not be deleted");
-				}
-			}
-		}
+	private void modifyNames(ArrayList<Journal> journalList) {
+        for(Journal journal : journalList){
+            String oldName = journal.getName();
+            String newName = JOptionPane.showInputDialog("New name", oldName);
+            while(newName!=null && !newName.trim().equals(oldName) && (accounting.getJournals().containsKey(newName.trim()) || "".equals(newName.trim()))){
+                if("".equals(newName)){
+                    newName = JOptionPane.showInputDialog("The name cannot be empty. Please provide another name", oldName);
+                }else{
+                    newName = JOptionPane.showInputDialog(accounting.toString() + " already contains a journal with the name "+ newName +
+                            ". Please provide another name", oldName);
+                }
+            }
+            if(newName!=null && !newName.trim().equals(oldName)){
+                accounting.getJournals().rename(oldName, newName.trim());
+            }
+        }
 	}
 
-	private void modifyName() {
-		int[] rows = tabel.getSelectedRows();
-		if (rows.length == 0) {
-			JOptionPane.showMessageDialog(this, "Select a journal first");
-		} else {
-			for(int row : rows) {
-				Journal journal = (Journal) model.getValueAt(row, 0);
-				String oldName = journal.getName();
-				String newName = JOptionPane.showInputDialog("New name", oldName);
-				if (newName == null) {
-					newName = oldName;
-				} else {
-					newName = newName.trim();
-				}
-				while (!oldName.equals(newName) && accounting.getJournals().containsKey(newName)) {
-					JOptionPane.showMessageDialog(this, "Journal name already exists");
-					newName = JOptionPane.showInputDialog("New name", oldName);
-					if (newName == null) {
-						newName = oldName;
-					} else {
-						newName = newName.trim();
-					}
-
-				}
-				accounting.getJournals().rename(oldName, newName);
-			}
-		}
-	}
-
-	private void modifyAbbr() {
-		int[] rows = tabel.getSelectedRows();
-		if (rows.length == 0) {
-			JOptionPane.showMessageDialog(this, "Select a journal first");
-		} else {
-			for(int row : rows) {
-				Journal journal = (Journal) model.getValueAt(row, 0);
-				String oldName = journal.getAbbreviation();
-				String newName = JOptionPane.showInputDialog("New abbreviation", oldName);
-				if (newName == null) {
-					newName = oldName;
-				} else {
-					newName = newName.trim();
-				}
-				while (!oldName.equals(newName) && accounting.getJournals().containsAbbreviation(newName)) {
-					JOptionPane.showMessageDialog(this, "This abbreviation already exists");
-					newName = JOptionPane.showInputDialog("New abbreviation", oldName);
-					if (newName == null) {
-						newName = oldName;
-					} else {
-						newName = newName.trim();
-					}
-				}
-				accounting.getJournals().reAbbrev(oldName, newName);
-			}
-		}
+	private void modifyAbbr(ArrayList<Journal> journalList) {
+        for(Journal journal : journalList){
+            String oldName = journal.getAbbreviation();
+            String newName = JOptionPane.showInputDialog("New abbreviation", oldName);
+            while(newName!=null && !newName.trim().equals(oldName) && (accounting.getJournals().containsAbbreviation(newName.trim()) || "".equals(newName.trim()))){
+                if("".equals(newName)){
+                    newName = JOptionPane.showInputDialog("The abbreviation cannot be empty. Please provide another abbreviation", oldName);
+                }else{
+                    newName = JOptionPane.showInputDialog(accounting.toString() + " already contains a journal with the abbreviation "+ newName +
+                            ". Please provide another abbreviation", oldName);
+                }
+            }
+            if(newName!=null && !newName.trim().equals(oldName)){
+                accounting.getJournals().reAbbrev(oldName, newName.trim());
+            }
+        }
 	}
 
 	private void addJournal() {
@@ -236,42 +226,36 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
         abbr.setText("");
 	}
 
-	private void modifyType() {
-		int[] rows = tabel.getSelectedRows();
-		if (rows.length == 0) {
-			JOptionPane.showMessageDialog(this, "Select a journal first");
-		} else {
-			boolean singleMove;
-			if (rows.length == 1) {
-				singleMove = true;
-			} else {
-				int option = JOptionPane.showConfirmDialog(this, "Apply same type for all selected journals?", "All",
-						JOptionPane.YES_NO_OPTION);
-				singleMove = (option == JOptionPane.YES_OPTION);
-			}
-			if (singleMove) {
-				Object[] types = accounting.getJournalTypes().getAllTypes().toArray();
-				int nr = JOptionPane.showOptionDialog(this, "Choose new type", "Change type",
-						JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
-				if (nr != -1) {
-					for(int row : rows) {
-						Journal journal = (Journal) model.getValueAt(row, 0);
-						journal.setType((JournalType) types[nr]);
-					}
-				}
-			} else {
-				for(int row : rows) {
-					Journal journal = (Journal) model.getValueAt(row, 0);
-					Object[] types = accounting.getJournalTypes().getAllTypes().toArray();
-					int nr = JOptionPane.showOptionDialog(this, "Choose new type for " + journal.toString(),
-							"Change type", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
-							journal.getType());
-					if (nr != -1) {
-						journal.setType((JournalType) types[nr]);
-					}
-				}
-			}
-		}
+	private void modifyType(ArrayList<Journal> journalList) {
+
+        boolean singleMove;
+        if (journalList.size() == 1) {
+            singleMove = true;
+        } else {
+            int option = JOptionPane.showConfirmDialog(this, "Apply same type for all selected journals?", "All",
+                    JOptionPane.YES_NO_OPTION);
+            singleMove = (option == JOptionPane.YES_OPTION);
+        }
+        if (singleMove) {
+            Object[] types = accounting.getJournalTypes().getAllTypes().toArray();
+            int nr = JOptionPane.showOptionDialog(this, "Choose new type", "Change type",
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
+            if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
+                for(Journal journal : journalList) {
+                    journal.setType((JournalType)types[nr]);
+                }
+            }
+        } else {
+            for(Journal journal : journalList) {
+                Object[] types = accounting.getJournalTypes().getAllTypes().toArray();
+                int nr = JOptionPane.showOptionDialog(this, "Choose new type for " + journal.getName(),
+                        "Change type", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
+                        journal.getType());
+                if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
+                    journal.setType((JournalType)types[nr]);
+                }
+            }
+        }
 	}
 
 	@Override

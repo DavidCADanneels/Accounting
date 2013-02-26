@@ -1,6 +1,6 @@
 package be.dafke.Accounting.GUI.AccountManagement;
 
-import be.dafke.Accounting.Exceptions.AccountAlreadyHasBookingsException;
+import be.dafke.Accounting.Exceptions.NotEmptyException;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
@@ -69,22 +69,21 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == add) {
             new NewAccountGUI(accounting).setVisible(true);
-		} else if (event.getSource() == modifyName) {
+		} else {
             ArrayList<Account> accountList = getSelectedAccounts();
-            if(accountList!=null){
-			    modifyNames(accountList);
-            }
-		} else if (event.getSource() == modifyType) {
-            ArrayList<Account> accountList = getSelectedAccounts();
-            if(accountList!=null){
-                modifyTypes(accountList);
-            }
-        } else if (event.getSource() == delete) {
-            ArrayList<Account> accountList = getSelectedAccounts();
-            if(accountList!=null){
-                deleteAccounts(accountList);
-            }
-		}
+            if(!accountList.isEmpty()){
+                if (event.getSource() == modifyName) {
+	    		    modifyNames(accountList);
+		        } else if (event.getSource() == modifyType) {
+                    modifyTypes(accountList);
+                } else if (event.getSource() == delete) {
+                    deleteAccounts(accountList);
+                }
+		    }
+            delete.setEnabled(false);
+            modifyName.setEnabled(false);
+            modifyType.setEnabled(false);
+        }
         ComponentMap.refreshAllFrames();
 	}
 
@@ -93,7 +92,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
         for(Account account : accountList) {
             try{
                 accounting.getAccounts().removeAccount(account);
-            }catch (AccountAlreadyHasBookingsException e){
+            }catch (NotEmptyException e){
                 failed.add(account.getName());
             }
         }
@@ -189,7 +188,6 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
         int[] rows = tabel.getSelectedRows();
         if (rows.length == 0) {
             JOptionPane.showMessageDialog(this, "Select an account first");
-            return null;
         }
         ArrayList<Account> accountList = new ArrayList<Account>();
         for(int row : rows) {

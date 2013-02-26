@@ -59,7 +59,7 @@ public class ComponentMap {
         addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting));
         addDisposableComponent(accounting.toString() + MORTGAGES, new MortgageGUI(accounting));
         addDisposableComponent(accounting.toString() + ACCOUNT_MANAGEMENT, new AccountManagementGUI(accounting));
-        addDisposableComponent(accounting.toString() + JOURNAL_MANAGEMENT, new JournalManagementGUI(accounting));
+        addDisposableComponent(accounting.toString() + JOURNAL_MANAGEMENT, new JournalManagementGUI(accounting, actionListener));
         addDisposableComponent(accounting.toString() + JOURNAL_TYPE_MANAGEMENT, new JournalTypeManagementGUI(accounting));
     }
 

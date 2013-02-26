@@ -5,5 +5,5 @@ package be.dafke.Accounting.Exceptions;
  * Date: 24/02/13
  * Time: 9:03
  */
-public class AccountAlreadyHasBookingsException extends Throwable {
+public class NotEmptyException extends Throwable {
 }

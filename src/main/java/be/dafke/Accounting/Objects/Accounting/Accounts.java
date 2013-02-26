@@ -1,8 +1,8 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import be.dafke.Accounting.Exceptions.AccountAlreadyHasBookingsException;
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
+import be.dafke.Accounting.Exceptions.NotEmptyException;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 
 import java.io.Serializable;
@@ -122,11 +122,11 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
 		return col;
 	}
 
-    public void removeAccount(Account account) throws AccountAlreadyHasBookingsException {
+    public void removeAccount(Account account) throws NotEmptyException {
         if(account.getBookings().isEmpty()){
             remove(account.getName());
         } else {
-            throw new AccountAlreadyHasBookingsException();
+            throw new NotEmptyException();
         }
     }
 }
