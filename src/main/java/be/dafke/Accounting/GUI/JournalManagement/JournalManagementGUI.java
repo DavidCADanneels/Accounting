@@ -171,17 +171,21 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 	private void modifyNames(ArrayList<Journal> journalList) {
         for(Journal journal : journalList){
             String oldName = journal.getName();
-            String newName = JOptionPane.showInputDialog("New name", oldName);
-            while(newName!=null && !newName.trim().equals(oldName) && (accounting.getJournals().containsKey(newName.trim()) || "".equals(newName.trim()))){
-                if("".equals(newName)){
-                    newName = JOptionPane.showInputDialog("The name cannot be empty. Please provide another name", oldName);
-                }else{
-                    newName = JOptionPane.showInputDialog(accounting.toString() + " already contains a journal with the name "+ newName +
-                            ". Please provide another name", oldName);
+            boolean retry = true;
+            while(retry){
+                String newName = JOptionPane.showInputDialog("New name", oldName);
+                try {
+                    if(newName!=null && !oldName.equals(newName)){
+                        accounting.getJournals().renameJournal(oldName, newName);
+                        ComponentMap.refreshAllFrames();
+                    }
+                    retry = false;
+                } catch (DuplicateNameException e) {
+                    JOptionPane.showMessageDialog(this, "There is already an journal with the name \""+newName+"\".\r\n"+
+                            "Please provide a new name.");
+                } catch (EmptyNameException e) {
+                    JOptionPane.showMessageDialog(this, "Journal name cannot be empty\r\nPlease provide a new name.");
                 }
-            }
-            if(newName!=null && !newName.trim().equals(oldName)){
-                accounting.getJournals().rename(oldName, newName.trim());
             }
         }
 	}
@@ -189,17 +193,21 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 	private void modifyAbbr(ArrayList<Journal> journalList) {
         for(Journal journal : journalList){
             String oldName = journal.getAbbreviation();
-            String newName = JOptionPane.showInputDialog("New abbreviation", oldName);
-            while(newName!=null && !newName.trim().equals(oldName) && (accounting.getJournals().containsAbbreviation(newName.trim()) || "".equals(newName.trim()))){
-                if("".equals(newName)){
-                    newName = JOptionPane.showInputDialog("The abbreviation cannot be empty. Please provide another abbreviation", oldName);
-                }else{
-                    newName = JOptionPane.showInputDialog(accounting.toString() + " already contains a journal with the abbreviation "+ newName +
-                            ". Please provide another abbreviation", oldName);
+            boolean retry = true;
+            while(retry){
+                String newName = JOptionPane.showInputDialog("New abbreviation", oldName);
+                try {
+                    if(newName!=null && !oldName.equals(newName)){
+                        accounting.getJournals().reAbbreviateJournal(oldName, newName);
+                        ComponentMap.refreshAllFrames();
+                    }
+                    retry = false;
+                } catch (DuplicateNameException e) {
+                    JOptionPane.showMessageDialog(this, "There is already an journal with the abbreviation \""+newName+"\".\r\n"+
+                            "Please provide a new abbreviation.");
+                } catch (EmptyNameException e) {
+                    JOptionPane.showMessageDialog(this, "Journal abbreviation cannot be empty\r\nPlease provide a new abbreviation.");
                 }
-            }
-            if(newName!=null && !newName.trim().equals(oldName)){
-                accounting.getJournals().reAbbrev(oldName, newName.trim());
             }
         }
 	}
