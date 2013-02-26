@@ -28,7 +28,7 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
         this.accounting = accounting;
 	}
 
-	public Account add(String accountName, AccountType accountType) throws DuplicateNameException, EmptyNameException {
+	public Account addAccount(String accountName, AccountType accountType) throws DuplicateNameException, EmptyNameException {
         if(accountName==null || "".equals(accountName.trim())){
             throw new EmptyNameException();
         }
@@ -107,11 +107,19 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
 		return result;
 	}
 
-	public void rename(String oldName, String newName) {
-		Account account = get(oldName);
-		account.setName(newName);
-		remove(oldName);
-		put(newName, account);
+	public Account modifyAccountName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
+        if(newName==null || "".equals(newName.trim())){
+            throw new EmptyNameException();
+        }
+        Account account = get(oldName);
+        remove(oldName);
+        if(containsKey(newName.trim())){
+            put(oldName, account);
+            throw new DuplicateNameException();
+        }
+        put(newName, account);
+        account.setName(newName.trim());
+        return account;
 	}
 
 	public ArrayList<Account> getAccounts() {

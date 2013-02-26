@@ -186,7 +186,7 @@ public class AccountingSAXParser {
 
             Account.AccountType type = Account.AccountType.valueOf(account_type);
             try{
-                Account account = accounting.getAccounts().add(account_name,type);
+                Account account = accounting.getAccounts().addAccount(account_name,type);
                 NodeList projectNodeList = element.getElementsByTagName("account_project");
                 if(projectNodeList.getLength()>0){
                     String account_project = projectNodeList.item(0).getChildNodes().item(0).getNodeValue();

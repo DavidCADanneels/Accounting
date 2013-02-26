@@ -173,15 +173,15 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
             String oldName = journal.getName();
             boolean retry = true;
             while(retry){
-                String newName = JOptionPane.showInputDialog("New name", oldName);
+                String newName = JOptionPane.showInputDialog("New name", oldName.trim());
                 try {
-                    if(newName!=null && !oldName.equals(newName)){
-                        accounting.getJournals().renameJournal(oldName, newName);
+                    if(newName!=null && !oldName.trim().equals(newName.trim())){
+                        accounting.getJournals().modifyJournalName(oldName, newName);
                         ComponentMap.refreshAllFrames();
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {
-                    JOptionPane.showMessageDialog(this, "There is already an journal with the name \""+newName+"\".\r\n"+
+                    JOptionPane.showMessageDialog(this, "There is already a journal with the name \""+newName.trim()+"\".\r\n"+
                             "Please provide a new name.");
                 } catch (EmptyNameException e) {
                     JOptionPane.showMessageDialog(this, "Journal name cannot be empty\r\nPlease provide a new name.");
@@ -192,18 +192,18 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 
 	private void modifyAbbr(ArrayList<Journal> journalList) {
         for(Journal journal : journalList){
-            String oldName = journal.getAbbreviation();
+            String oldAbbreviation = journal.getAbbreviation();
             boolean retry = true;
             while(retry){
-                String newName = JOptionPane.showInputDialog("New abbreviation", oldName);
+                String newAbbreviation = JOptionPane.showInputDialog("New abbreviation", oldAbbreviation.trim());
                 try {
-                    if(newName!=null && !oldName.equals(newName)){
-                        accounting.getJournals().reAbbreviateJournal(oldName, newName);
+                    if(newAbbreviation!=null && !oldAbbreviation.trim().equals(newAbbreviation.trim())){
+                        accounting.getJournals().modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
                         ComponentMap.refreshAllFrames();
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {
-                    JOptionPane.showMessageDialog(this, "There is already an journal with the abbreviation \""+newName+"\".\r\n"+
+                    JOptionPane.showMessageDialog(this, "There is already a journal with the abbreviation \""+newAbbreviation.trim()+"\".\r\n"+
                             "Please provide a new abbreviation.");
                 } catch (EmptyNameException e) {
                     JOptionPane.showMessageDialog(this, "Journal abbreviation cannot be empty\r\nPlease provide a new abbreviation.");
@@ -225,8 +225,8 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
             accounting.setCurrentJournal(journal);
             ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
-            JOptionPane.showMessageDialog(this, "There is already an journal with the name \""+newName+"\" and/or abbreviation \""+abbreviation+"\" .\r\n"+
-                    "Please provide a new name.");
+            JOptionPane.showMessageDialog(this, "There is already an journal with the name \""+newName.trim()+"\" and/or abbreviation \""+abbreviation.trim()+"\" .\r\n"+
+                    "Please provide a new name and/or abbreviation.");
         } catch (EmptyNameException e) {
             JOptionPane.showMessageDialog(this, "Journal name and abbreviation cannot be empty\r\nPlease provide a new name and/or abbreviation.");
         }

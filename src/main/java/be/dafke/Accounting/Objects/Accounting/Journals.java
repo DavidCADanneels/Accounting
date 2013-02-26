@@ -79,24 +79,39 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
     public void removeJournal(Journal journal) throws NotEmptyException {
         if(journal.getTransactions().isEmpty()){
             remove(journal.getName());
+            abbreviations.remove(journal.getAbbreviation());
         } else {
             throw new NotEmptyException();
         }
     }
 
-    public Journal renameJournal(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
+    public Journal modifyJournalName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
+        if(newName==null || "".equals(newName.trim())){
+            throw new EmptyNameException();
+        }
         Journal journal = get(oldName);
-        abbreviations.remove(journal.getAbbreviation());
-        journal = addJournal(newName, journal.getAbbreviation(),journal.getType());
         remove(oldName);
+        if(containsKey(newName.trim())){
+            put(oldName, journal);
+            throw new DuplicateNameException();
+        }
+        put(newName, journal);
+        journal.setName(newName.trim());
         return journal;
     }
 
-    public Journal reAbbreviateJournal(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
-        Journal journal = abbreviations.get(oldName);
-        remove(oldName);
-        journal = addJournal(newName, journal.getAbbreviation(),journal.getType());
-        abbreviations.remove(journal.getAbbreviation());
+    public Journal modifyJournalAbbreviation(String oldAbbreviation, String newAbbreviation) throws EmptyNameException, DuplicateNameException {
+        if(newAbbreviation==null || "".equals(newAbbreviation.trim())){
+            throw new EmptyNameException();
+        }
+        Journal journal = abbreviations.get(oldAbbreviation);
+        abbreviations.remove(oldAbbreviation);
+        if(abbreviations.containsKey(newAbbreviation.trim())){
+            abbreviations.put(oldAbbreviation, journal);
+            throw new DuplicateNameException();
+        }
+        abbreviations.put(newAbbreviation,journal);
+        journal.setAbbreviation(newAbbreviation.trim());
         return journal;
     }
 }

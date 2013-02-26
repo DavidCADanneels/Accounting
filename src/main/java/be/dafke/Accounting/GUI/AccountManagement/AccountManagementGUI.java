@@ -1,5 +1,7 @@
 package be.dafke.Accounting.GUI.AccountManagement;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Exceptions.NotEmptyException;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
@@ -112,20 +114,24 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 	private void modifyNames(ArrayList<Account> accountList) {
         for(Account account : accountList){
             String oldName = account.getName();
-            String newName = JOptionPane.showInputDialog("New name", oldName);
-            while(newName!=null && !newName.trim().equals(oldName) && (accounting.getAccounts().containsKey(newName.trim()) || "".equals(newName.trim()))){
-                if("".equals(newName)){
-                    newName = JOptionPane.showInputDialog("The name cannot be empty. Please provide another name", oldName);
-                }else{
-                    newName = JOptionPane.showInputDialog(accounting.toString() + " already contains an account with the name "+ newName +
-                            ". Please provide another name", oldName);
+            boolean retry = true;
+            while(retry){
+                String newName = JOptionPane.showInputDialog("New name", oldName.trim());
+                try{
+                    if(newName!=null && !oldName.trim().equals(newName.trim())){
+                        accounting.getAccounts().modifyAccountName(oldName, newName);
+                        ComponentMap.refreshAllFrames();
+                    }
+                    retry = false;
+                } catch (DuplicateNameException e) {
+                    JOptionPane.showMessageDialog(this, "There is already an account with the name \""+newName.trim()+"\".\r\n"+
+                            "Please provide a new name.");
+                } catch (EmptyNameException e) {
+                    JOptionPane.showMessageDialog(this, "Account name cannot be empty\r\nPlease provide a new name.");
                 }
             }
-            if(newName!=null && !newName.trim().equals(oldName)){
-                accounting.getAccounts().rename(oldName, newName.trim());
-            }
-		}
-	}
+        }
+    }
 
 	private void modifyTypes(ArrayList<Account> accountList) {
         boolean singleMove;
