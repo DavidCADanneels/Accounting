@@ -41,6 +41,7 @@ public class ComponentMap {
     public static final String ACCOUNT_DETAILS = "AccountDetails";
     public static final String MORTGAGE_CALCULATOR = "MortgageCalculator";
     public static final String MORTGAGE_TABLE = "MortgageTable";
+    public static final String NEW_ACCOUNTING = "NewAccounting";
     private static final HashMap<String, RefreshableComponent> refreshableComponents = new HashMap<String, RefreshableComponent>();
     private static final HashMap<String, DisposableComponent> disposableComponents = new HashMap<String, DisposableComponent>();
 
@@ -84,5 +85,4 @@ public class ComponentMap {
         refreshableComponents.put(key, frame);
         disposableComponents.put(key, frame);
     }
-
 }

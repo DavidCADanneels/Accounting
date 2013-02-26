@@ -1,14 +1,11 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
-import be.dafke.Accounting.Exceptions.DuplicateNameException;
-import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.RefreshableComponent;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
@@ -17,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class AccountingMenuBar extends JMenuBar implements ActionListener, RefreshableComponent {
+public class AccountingMenuBar extends JMenuBar implements RefreshableComponent {
     /**
      *
      */
@@ -29,18 +26,19 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
     private final JMenuItem movements, counterParties, mortgage;
     private final Accountings accountings;
 
-    public AccountingMenuBar(Accountings accountings) {
+    public AccountingMenuBar(Accountings accountings, ActionListener actionListener) {
         this.accountings = accountings;
 
         // Menu1
         file = new JMenu("Bestand");
         startNew = new JMenuItem("New");
-        startNew.addActionListener(this);
+        startNew.addActionListener(actionListener);
+        startNew.setActionCommand(ComponentMap.NEW_ACCOUNTING);
         file.add(startNew);
 
         for(Accounting acc : accountings.getAccountings()) {
             JMenuItem item = new JMenuItem(acc.toString());
-            item.addActionListener(this);
+            item.addActionListener(actionListener);
             item.setActionCommand(acc.toString());
             file.add(item);
         }
@@ -57,10 +55,10 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
                 "RESULTATENBALANS"));
         relationsBalance = new JMenuItem(getBundle("Accounting").getString(
                 "RELATIES-BALANS"));
-        testBalance.addActionListener(this);
-        yearBalance.addActionListener(this);
-        resultBalance.addActionListener(this);
-        relationsBalance.addActionListener(this);
+        testBalance.addActionListener(actionListener);
+        yearBalance.addActionListener(actionListener);
+        resultBalance.addActionListener(actionListener);
+        relationsBalance.addActionListener(actionListener);
         relationsBalance.setEnabled(false);
         resultBalance.setEnabled(false);
         testBalance.setEnabled(false);
@@ -75,20 +73,20 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
         projecten.setMnemonic(KeyEvent.VK_P);
         projects = new JMenuItem(getBundle("Accounting").getString(
                 "PROJECTMANAGER"));
-        projects.addActionListener(this);
+        projects.addActionListener(actionListener);
         projects.setEnabled(false);
         projecten.add(projects);
         add(projecten);
 
         banking = new JMenu("Banking");
         movements = new JMenuItem("Show movements");
-        movements.addActionListener(this);
+        movements.addActionListener(actionListener);
         movements.setEnabled(false);
         counterParties = new JMenuItem("Show Counterparties");
-        counterParties.addActionListener(this);
+        counterParties.addActionListener(actionListener);
         counterParties.setEnabled(false);
         mortgage = new JMenuItem("Mortgages");
-        mortgage.addActionListener(this);
+        mortgage.addActionListener(actionListener);
         mortgage.setEnabled(false);
         banking.add(movements);
         banking.add(counterParties);
@@ -96,38 +94,11 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
         add(banking);
     }
 
-    public void actionPerformed(ActionEvent ae) {
-        JMenuItem item = (JMenuItem) ae.getSource();
-        if (item == startNew) {
-            String name = JOptionPane.showInputDialog(null, "Enter a name");
-            try {
-                Accounting accounting = accountings.addAccounting(name);
-                accountings.setCurrentAccounting(name);
-                ComponentMap.addAccountingComponents(accounting);
-                JOptionPane.showMessageDialog(this, "Please create a Journal.");
-                String key = accounting.toString()+ComponentMap.JOURNAL_MANAGEMENT;
-                ComponentMap.getDisposableComponent(key).setVisible(true);
-            } catch (DuplicateNameException e) {
-                JOptionPane.showMessageDialog(this, "There is already an accounting with the name \""+name+"\".\r\n"+
-                        "Please provide a new name.");
-            } catch (EmptyNameException e) {
-                JOptionPane.showMessageDialog(this, "The name cannot be empty.\r\nPlease provide a new name.");
-            }
-            ComponentMap.refreshAllFrames();
-        } else if(accountings.contains(ae.getActionCommand())){
-            accountings.setCurrentAccounting(ae.getActionCommand());
-        } else if(ae.getActionCommand().startsWith(accountings.getCurrentAccounting().toString())){
-            ComponentMap.getDisposableComponent(item.getActionCommand()).setVisible(true);
-        }
-        ComponentMap.refreshAllFrames();
-    }
-
     @Override
     public void refresh(){
         activateButtons();
         setActionCommands();
     }
-
 
     private void activateButtons() {
         boolean active = (accountings.getCurrentAccounting()!=null);
