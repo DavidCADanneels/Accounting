@@ -5,7 +5,6 @@ import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.JournalType;
 import be.dafke.Accounting.Objects.Accounting.JournalTypes;
-import be.dafke.DisposableComponent;
 import be.dafke.RefreshableTable;
 
 import javax.swing.*;
@@ -17,19 +16,19 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 
-public class NewJournalGUI extends RefreshableTable implements ActionListener, ListSelectionListener, FocusListener {
+public class JournalManagementGUI extends RefreshableTable implements ActionListener, ListSelectionListener, FocusListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JTextField name, abbr;
-	private JComboBox type;
+	private JComboBox<JournalType> type;
 	private final JButton add, delete, modifyName, modifyType, newType, modifyAbbr;
 	private final DefaultListSelectionModel selection;
 	private final Accounting accounting;
 
-	public NewJournalGUI(String title, Accounting accounting) {
-		super(title, new NewJournalDataModel(accounting));
+	public JournalManagementGUI(Accounting accounting) {
+		super("Create and modify journals for " + accounting.toString(), new NewJournalDataModel(accounting));
 		this.accounting = accounting;
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
@@ -99,7 +98,10 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
     @Override
     public void refresh(){
         JournalTypes journaltypes = accounting.getJournalTypes();
-        type = new JComboBox(journaltypes.values().toArray());
+        type = new JComboBox<JournalType>();
+        for(JournalType journalType : journaltypes.values()){
+            type.addItem(journalType);
+        }
         super.refresh();
     }
 
@@ -116,13 +118,8 @@ public class NewJournalGUI extends RefreshableTable implements ActionListener, L
 		} else if (e.getSource() == delete) {
 			deleteJournal();
 		} else if (e.getSource() == newType) {
-            String title = "Create and modify journal types for " + accounting.toString();
-            DisposableComponent gui = ComponentMap.getDisposableComponent(title);
-            if(gui == null){
-			    gui = new NewJournalTypeGUI(title, accounting);
-                ComponentMap.addDisposableComponent(title, gui);
-            }
-			gui.setVisible(true);
+            String key = accounting.toString()+ComponentMap.JOURNAL_TYPE_MANAGEMENT;
+            ComponentMap.getDisposableComponent(key).setVisible(true);
 		}
         ComponentMap.refreshAllFrames();
 	}

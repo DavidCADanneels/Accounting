@@ -1,11 +1,14 @@
 package be.dafke.Accounting.GUI;
 
+import be.dafke.Accounting.GUI.AccountManagement.AccountManagementGUI;
 import be.dafke.Accounting.GUI.Balances.RelationsBalance;
 import be.dafke.Accounting.GUI.Balances.ResultBalance;
 import be.dafke.Accounting.GUI.Balances.TestBalance;
 import be.dafke.Accounting.GUI.Balances.YearBalance;
 import be.dafke.Accounting.GUI.CodaManagement.CounterPartyTable;
 import be.dafke.Accounting.GUI.CodaManagement.MovementTable;
+import be.dafke.Accounting.GUI.JournalManagement.JournalManagementGUI;
+import be.dafke.Accounting.GUI.JournalManagement.JournalTypeManagementGUI;
 import be.dafke.Accounting.GUI.MortgageManagement.MortgageGUI;
 import be.dafke.Accounting.GUI.Projects.ProjectManagerFrame;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
@@ -21,28 +24,36 @@ import java.util.HashMap;
  * Time: 6:05
  */
 public class ComponentMap {
-    public static final String OPEN_TEST_BALANCE = "test";
-    public static final String OPEN_YEAR_BALANCE = "year";
-    public static final String OPEN_RELATIONS_BALANCE = "relations";
-    public static final String OPEN_RESULT_BALANCE = "result";
-    public static final String OPEN_MOVEMENTS = "movements";
-    public static final String OPEN_COUNTERPARTIES = "counterparties";
-    public static final String OPEN_MORTGAGES = "mortgages";
-    public static final String OPEN_PROJECTS = "projects";
-    public static final String MAIN = "mainPanel";
-    public static final String MENU = "menuBar";
+    public static final String TEST_BALANCE = "TestBalance";
+    public static final String YEAR_BALANCE = "YearBalance";
+    public static final String RELATIONS_BALANCE = "RelationsBalance";
+    public static final String RESULT_BALANCE = "ResultBalance";
+    public static final String MOVEMENTS = "Movements";
+    public static final String COUNTERPARTIES = "Counterparties";
+    public static final String MORTGAGES = "Mortgages";
+    public static final String PROJECTS = "Projects";
+    public static final String MAIN = "MainPanel";
+    public static final String MENU = "MenuBar";
+    public static final String ACCOUNT_MANAGEMENT = "AccountManagement";
+    public static final String JOURNAL_MANAGEMENT = "JournalManagement";
+    public static final String JOURNAL_TYPE_MANAGEMENT = "JournalTypeManagement";
+    public static final String JOURNAL_DETAILS = "JournalDetails";
+    public static final String ACCOUNT_DETAILS = "AccountDetails";
     private static final HashMap<String, RefreshableComponent> refreshableComponents = new HashMap<String, RefreshableComponent>();
     private static final HashMap<String, DisposableComponent> disposableComponents = new HashMap<String, DisposableComponent>();
 
     public static void addAccountingComponents(Accounting accounting){
-        addDisposableComponent(accounting.toString()+OPEN_RELATIONS_BALANCE, new RelationsBalance(accounting));
-        addDisposableComponent(accounting.toString()+OPEN_RESULT_BALANCE, new ResultBalance(accounting));
-        addDisposableComponent(accounting.toString()+OPEN_TEST_BALANCE, new TestBalance(accounting));
-        addDisposableComponent(accounting.toString()+OPEN_YEAR_BALANCE, new YearBalance(accounting));
-        addDisposableComponent(accounting.toString()+OPEN_PROJECTS, new ProjectManagerFrame(accounting));
-        addDisposableComponent(accounting.toString()+OPEN_MOVEMENTS, new MovementTable(accounting));
-        addDisposableComponent(accounting.toString()+OPEN_COUNTERPARTIES, new CounterPartyTable(accounting));
-        addDisposableComponent(accounting.toString()+OPEN_MORTGAGES, new MortgageGUI(accounting));
+        addDisposableComponent(accounting.toString() + RELATIONS_BALANCE, new RelationsBalance(accounting));
+        addDisposableComponent(accounting.toString() + RESULT_BALANCE, new ResultBalance(accounting));
+        addDisposableComponent(accounting.toString() + TEST_BALANCE, new TestBalance(accounting));
+        addDisposableComponent(accounting.toString() + YEAR_BALANCE, new YearBalance(accounting));
+        addDisposableComponent(accounting.toString() + PROJECTS, new ProjectManagerFrame(accounting));
+        addDisposableComponent(accounting.toString() + MOVEMENTS, new MovementTable(accounting));
+        addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting));
+        addDisposableComponent(accounting.toString() + MORTGAGES, new MortgageGUI(accounting));
+        addDisposableComponent(accounting.toString() + ACCOUNT_MANAGEMENT, new AccountManagementGUI(accounting));
+        addDisposableComponent(accounting.toString() + JOURNAL_MANAGEMENT, new JournalManagementGUI(accounting));
+        addDisposableComponent(accounting.toString() + JOURNAL_TYPE_MANAGEMENT, new JournalTypeManagementGUI(accounting));
     }
 
     public static void closeAllFrames(){

@@ -10,7 +10,6 @@ import be.dafke.Accounting.Objects.Coda.BankAccount;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Coda.Movement;
 import be.dafke.Accounting.Objects.Coda.Movements;
-import be.dafke.DisposableComponent;
 import be.dafke.RefreshableTable;
 import be.dafke.Utils;
 
@@ -60,8 +59,8 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == viewCounterParties) {
-			DisposableComponent gui = ComponentMap.getDisposableComponent(ComponentMap.OPEN_COUNTERPARTIES);
-			gui.setVisible(true);
+            String key = accounting.toString()+ComponentMap.COUNTERPARTIES;
+			ComponentMap.getDisposableComponent(key).setVisible(true);
 		} else if (e.getSource() == openMovements) {
 			openMovements();
 		} else if (e.getSource() == exportToJournal) {
@@ -145,8 +144,8 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 				builder.append("\r\n").append(counterParty);
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
-            DisposableComponent gui = ComponentMap.getDisposableComponent(ComponentMap.OPEN_COUNTERPARTIES);
-			gui.setVisible(true);
+            String key = accounting.toString()+ComponentMap.COUNTERPARTIES;
+            ComponentMap.getDisposableComponent(key).setVisible(true);
 			return false;
 		}
 		return true;

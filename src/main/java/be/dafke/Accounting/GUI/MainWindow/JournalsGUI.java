@@ -2,7 +2,6 @@ package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.GUI.Details.JournalDetails;
-import be.dafke.Accounting.GUI.JournalManagement.NewJournalGUI;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Journals;
@@ -54,23 +53,16 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == details) {
 			Journal journal = (Journal) combo.getSelectedItem();
-            String title = accounting.toString() + "/" +
-                    getBundle("Accounting").getString("DAGBOEK_DETAILS") + "/"
-                    + journal.toString();
-            DisposableComponent gui = ComponentMap.getDisposableComponent(title);
+            String key = accounting.toString() + ComponentMap.JOURNAL_DETAILS + journal.toString();
+            DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
             if(gui == null){
-                gui = new JournalDetails(title, journal, accounting);
-                ComponentMap.addDisposableComponent(title, gui);
+                gui = new JournalDetails(journal, accounting);
+                ComponentMap.addDisposableComponent(key, gui);
             }
             gui.setVisible(true);
 		} else if (e.getSource() == maak) {
-            String title = "Create and modify journals for " + accounting.toString();
-            DisposableComponent gui = ComponentMap.getDisposableComponent(title);
-            if(gui == null){
-                gui = new NewJournalGUI(title, accounting);
-                ComponentMap.addDisposableComponent(title, gui);
-            }
-            gui.setVisible(true);
+            String key = accounting.toString()+ComponentMap.JOURNAL_MANAGEMENT;
+            ComponentMap.getDisposableComponent(key).setVisible(true);
 		} else if (e.getSource() == combo) {
 			Journal journal = (Journal) combo.getSelectedItem();
 			accounting.setCurrentJournal(journal);

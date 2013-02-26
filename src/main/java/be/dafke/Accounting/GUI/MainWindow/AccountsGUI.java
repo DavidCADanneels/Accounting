@@ -1,6 +1,5 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
-import be.dafke.Accounting.GUI.AccountManagement.AccountManagementGUI;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.GUI.Details.AccountDetails;
 import be.dafke.Accounting.Objects.Accounting.Account;
@@ -35,7 +34,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 	 */
 	private static final long serialVersionUID = 1L;
 	private final PrefixFilterPanel<Account> zoeker;
-	private final AlphabeticListModel model;
+	private final AlphabeticListModel<Account> model;
 	private final JList<Account> lijst;
 	private final JButton debet, credit, accountManagement, details;
 	private final JCheckBox[] boxes;
@@ -116,22 +115,15 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		if (ae.getSource() == debet || ae.getSource() == credit) {
 			book(ae.getSource() == debet);
 		} else if (ae.getSource() == accountManagement) {
-            String title = "Manage accounts for " + accounting.toString();
-            DisposableComponent gui = ComponentMap.getDisposableComponent(title);
-            if(gui == null){
-                gui = new AccountManagementGUI(title, accounting);
-                ComponentMap.addDisposableComponent(title, gui);
-            }
-            gui.setVisible(true);
+            String key = accounting.toString()+ComponentMap.ACCOUNT_MANAGEMENT;
+            ComponentMap.getDisposableComponent(key).setVisible(true);
         } else if (ae.getSource() == details) {
             Account account = lijst.getSelectedValue();
-            String title = accounting.toString() + "/" +
-                    getBundle("Accounting").getString("REKENING_DETAILS") + "/"
-                    + account.getName();
-            DisposableComponent gui = ComponentMap.getDisposableComponent(title);
+            String key = accounting.toString() + ComponentMap.ACCOUNT_DETAILS + account.getName();
+            DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
             if(gui == null){
-                gui = new AccountDetails(title, account);
-                ComponentMap.addDisposableComponent(title, gui);
+                gui = new AccountDetails(account, accounting);
+                ComponentMap.addDisposableComponent(key, gui);
             }
 			gui.setVisible(true);
 		} else if (ae.getSource() instanceof JCheckBox) {

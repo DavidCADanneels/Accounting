@@ -12,7 +12,7 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class NewJournalTypeGUI extends RefreshableFrame implements ActionListener {
+public class JournalTypeManagementGUI extends RefreshableFrame implements ActionListener {
 	/**
 	 * 
 	 */
@@ -20,17 +20,17 @@ public class NewJournalTypeGUI extends RefreshableFrame implements ActionListene
 	private final JList<AccountType> debit, credit, types;
 	private final JButton addLeft, addRight, removeLeft, removeRight;
 	private final ArrayList<AccountType> debitTypes, creditTypes;
-	private final DefaultListModel debitModel, creditModel;
+	private final DefaultListModel<AccountType> debitModel, creditModel;
     private Accounting accounting;
 
-	public NewJournalTypeGUI(String title, Accounting accounting) {
-		super(title);
+	public JournalTypeManagementGUI(Accounting accounting) {
+		super("Create and modify journal types for " + accounting.toString());
         this.accounting = accounting;
 		debitTypes = new ArrayList<AccountType>();
 		creditTypes = new ArrayList<AccountType>();
-		debitModel = new DefaultListModel();
+		debitModel = new DefaultListModel<AccountType>();
 		debit = new JList(debitModel);
-		creditModel = new DefaultListModel();
+		creditModel = new DefaultListModel<AccountType>();
 		credit = new JList(creditModel);
 		types = new JList(AccountType.values());
 		addLeft = new JButton("Add type to Debit types");
@@ -91,7 +91,7 @@ public class NewJournalTypeGUI extends RefreshableFrame implements ActionListene
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == addLeft) {
-			DefaultListModel model = (DefaultListModel) debit.getModel();
+			DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) debit.getModel();
 			int rows[] = types.getSelectedIndices();
 			if (rows.length != 0) {
 				for(int i : rows) {
@@ -103,7 +103,7 @@ public class NewJournalTypeGUI extends RefreshableFrame implements ActionListene
 				}
 			}
 		} else if (e.getSource() == addRight) {
-			DefaultListModel model = (DefaultListModel) credit.getModel();
+			DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) credit.getModel();
 			int rows[] = types.getSelectedIndices();
 			if (rows.length != 0) {
 				for(int i : rows) {
@@ -115,14 +115,14 @@ public class NewJournalTypeGUI extends RefreshableFrame implements ActionListene
 				}
 			}
 		} else if (e.getSource() == removeLeft) {
-			DefaultListModel model = (DefaultListModel) debit.getModel();
+			DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) debit.getModel();
 			List<AccountType> accountTypeList = debit.getSelectedValuesList();
             for(AccountType type : accountTypeList) {
                 debitTypes.remove(type);
                 model.removeElement(type);
             }
 		} else if (e.getSource() == removeRight) {
-			DefaultListModel model = (DefaultListModel) credit.getModel();
+			DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) credit.getModel();
             List<AccountType> accountTypeList = credit.getSelectedValuesList();
             for(AccountType type : accountTypeList) {
                 creditTypes.remove(type);
@@ -135,12 +135,12 @@ public class NewJournalTypeGUI extends RefreshableFrame implements ActionListene
 	@Override
 	public void refresh() {
 		repaint();
-		DefaultListModel model = (DefaultListModel) credit.getModel();
+		DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) credit.getModel();
 		model.removeAllElements();
 		for(AccountType type : creditTypes) {
 			model.addElement(type);
 		}
-		model = (DefaultListModel) debit.getModel();
+		model = (DefaultListModel<AccountType>) debit.getModel();
 		model.removeAllElements();
 		for(AccountType type : debitTypes) {
 			model.addElement(type);

@@ -5,7 +5,6 @@ import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.RefreshableComponent;
 import be.dafke.RefreshableFrame;
 
 import javax.swing.*;
@@ -27,8 +26,8 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 	private final DefaultListSelectionModel selection;
 	private final Accounting accounting;
 
-	public AccountManagementGUI(String title, Accounting accounting) {
-		super(title);
+	public AccountManagementGUI(Accounting accounting) {
+		super("Manage accounts for " + accounting.toString());
 		this.accounting = accounting;
 		this.model = new AccountManagementTableModel(accounting);
 
@@ -69,13 +68,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 	@Override
 	public void actionPerformed(ActionEvent event) {
 		if (event.getSource() == add) {
-            String title = "Create new Account in " + accounting.toString();
-            RefreshableComponent gui = ComponentMap.getDisposableComponent(title);
-            if(gui == null){
-                gui = new NewAccountGUI(title, accounting);
-                ComponentMap.addRefreshableComponent(title, gui);
-            }
-            gui.setVisible(true);
+            new NewAccountGUI(accounting).setVisible(true);
 		} else if (event.getSource() == modifyName) {
             ArrayList<Account> accountList = getSelectedAccounts();
             if(accountList!=null){

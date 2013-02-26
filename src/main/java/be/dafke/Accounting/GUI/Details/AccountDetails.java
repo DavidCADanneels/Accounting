@@ -6,7 +6,10 @@ package be.dafke.Accounting.GUI.Details;
  */
 
 import be.dafke.Accounting.Objects.Accounting.Account;
+import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.RefreshableTable;
+
+import static java.util.ResourceBundle.getBundle;
 
 public class AccountDetails extends RefreshableTable {
 
@@ -15,8 +18,10 @@ public class AccountDetails extends RefreshableTable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public AccountDetails(String title, Account account) {
-		super(title, new AccountDetailsDataModel(account));
+	public AccountDetails(Account account, Accounting accounting) {
+		super(accounting.toString() + "/" +
+                getBundle("Accounting").getString("REKENING_DETAILS") + "/"
+                + account.getName(), new AccountDetailsDataModel(account));
 		tabel.setAutoCreateRowSorter(true);
 	}
 }

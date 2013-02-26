@@ -3,7 +3,6 @@ package be.dafke.Accounting.GUI.MainWindow;
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.GUI.ComponentMap;
-import be.dafke.Accounting.GUI.JournalManagement.NewJournalGUI;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.RefreshableComponent;
@@ -106,10 +105,8 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
                 accountings.setCurrentAccounting(name);
                 ComponentMap.addAccountingComponents(accounting);
                 JOptionPane.showMessageDialog(this, "Please create a Journal.");
-                String title = "Create and modify journals for " + accounting.toString();
-                NewJournalGUI gui = new NewJournalGUI(title, accounting);
-                ComponentMap.addDisposableComponent(title, gui);
-                gui.setVisible(true);
+                String key = accounting.toString()+ComponentMap.JOURNAL_MANAGEMENT;
+                ComponentMap.getDisposableComponent(key).setVisible(true);
             } catch (DuplicateNameException e) {
                 JOptionPane.showMessageDialog(this, "There is already an accounting with the name \""+name+"\".\r\n"+
                         "Please provide a new name.");
@@ -120,12 +117,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
         } else if(accountings.contains(ae.getActionCommand())){
             accountings.setCurrentAccounting(ae.getActionCommand());
         } else if(ae.getActionCommand().startsWith(accountings.getCurrentAccounting().toString())){
-            RefreshableComponent gui = ComponentMap.getDisposableComponent(item.getActionCommand());
-            if(gui != null){
-                gui.setVisible(true);
-            } else {
-                System.err.println(ae.getActionCommand()+ " not supported");
-            }
+            ComponentMap.getDisposableComponent(item.getActionCommand()).setVisible(true);
         }
         ComponentMap.refreshAllFrames();
     }
@@ -152,14 +144,14 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener, Refre
     private void setActionCommands(){
         boolean active = (accountings.getCurrentAccounting()!=null);
         if(active){
-            testBalance.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.OPEN_TEST_BALANCE);
-            yearBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.OPEN_YEAR_BALANCE);
-            resultBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.OPEN_RESULT_BALANCE);
-            relationsBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.OPEN_RELATIONS_BALANCE);
-            projects.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.OPEN_PROJECTS);
-            movements.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.OPEN_MOVEMENTS);
-            counterParties.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.OPEN_COUNTERPARTIES);
-            mortgage.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.OPEN_MORTGAGES);
+            testBalance.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.TEST_BALANCE);
+            yearBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.YEAR_BALANCE);
+            resultBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.RESULT_BALANCE);
+            relationsBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.RELATIONS_BALANCE);
+            projects.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.PROJECTS);
+            movements.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.MOVEMENTS);
+            counterParties.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.COUNTERPARTIES);
+            mortgage.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.MORTGAGES);
         }
     }
 
