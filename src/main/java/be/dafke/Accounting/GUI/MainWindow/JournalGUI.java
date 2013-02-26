@@ -109,6 +109,7 @@ public class JournalGUI extends JPanel implements ActionListener {
 
     public void setAccounting(Accounting accounting){
         this.accounting = accounting;
+        journalDataModel.setAccounting(accounting);
         refresh();
     }
 

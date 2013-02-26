@@ -23,7 +23,7 @@ public class JournalDataModel extends AbstractTableModel {
 			getBundle("Accounting").getString("D"),
 			getBundle("Accounting").getString("C") };
 	Class[] columnClasses = { Account.class, Account.class, BigDecimal.class, BigDecimal.class };
-    private final Accounting accounting;
+    private Accounting accounting;
 
     public JournalDataModel(Accounting accounting){
         this.accounting = accounting;
@@ -86,4 +86,8 @@ public class JournalDataModel extends AbstractTableModel {
 	public void setValueAt(Object value, int row, int col) {
 //        data[row][col] = value;
 	}
+
+    public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
+    }
 }
