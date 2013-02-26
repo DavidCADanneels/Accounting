@@ -1,13 +1,11 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.ComponentMap;
-import be.dafke.Accounting.GUI.Details.AccountDetails;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.AlphabeticListModel;
-import be.dafke.DisposableComponent;
 import be.dafke.PrefixFilterPanel;
 
 import javax.swing.*;
@@ -36,32 +34,33 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 	private final PrefixFilterPanel<Account> zoeker;
 	private final AlphabeticListModel<Account> model;
 	private final JList<Account> lijst;
-	private final JButton debet, credit, accountManagement, details;
+	private final JButton debet, credit, accountManagement, accountDetails;
 	private final JCheckBox[] boxes;
 	private Accounting accounting;
 
-	public AccountsGUI(Accounting accounting) {
+	public AccountsGUI(Accounting accounting, ActionListener actionListener) {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("REKENINGEN")));
 		this.accounting = accounting;
 		debet = new JButton(getBundle("Accounting").getString("DEBITEER"));
-		debet.setMnemonic(KeyEvent.VK_D);
-		credit = new JButton(getBundle("Accounting").getString("CREDITEER"));
-		credit.setMnemonic(KeyEvent.VK_C);
-		accountManagement = new JButton(getBundle("Accounting").getString(
-				"BEHEER_REKENING"));
-		accountManagement.setMnemonic(KeyEvent.VK_N);
-		accountManagement.setEnabled(false);
-		details = new JButton(getBundle("Accounting").getString(
-				"BEKIJK_REKENING"));
+        credit = new JButton(getBundle("Accounting").getString("CREDITEER"));
+        accountManagement = new JButton(getBundle("Accounting").getString("BEHEER_REKENING"));
+        accountDetails = new JButton(getBundle("Accounting").getString("BEKIJK_REKENING"));
+        debet.setMnemonic(KeyEvent.VK_D);
+        credit.setMnemonic(KeyEvent.VK_C);
+        accountManagement.setMnemonic(KeyEvent.VK_M);
+        accountDetails.setMnemonic(KeyEvent.VK_T);
+        accountManagement.setEnabled(false);
 		debet.addActionListener(this);
 		credit.addActionListener(this);
-		accountManagement.addActionListener(this);
-		details.addActionListener(this);
+		accountManagement.addActionListener(actionListener);
+        accountDetails.addActionListener(actionListener);
+        accountManagement.setActionCommand(ComponentMap.ACCOUNT_MANAGEMENT);
+        accountDetails.setActionCommand(ComponentMap.ACCOUNT_DETAILS);
 		debet.setEnabled(false);
 		credit.setEnabled(false);
-		details.setEnabled(false);
+		accountDetails.setEnabled(false);
 		JPanel hoofdPaneel = new JPanel(new BorderLayout());
 		JPanel noord = new JPanel();
 		noord.add(debet);
@@ -69,7 +68,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		JPanel midden = new JPanel();
 		// midden.setLayout(new BoxLayout(midden,BoxLayout.Y_AXIS));
 		midden.add(accountManagement);
-		midden.add(details);
+		midden.add(accountDetails);
 		hoofdPaneel.add(noord, BorderLayout.NORTH);
 		hoofdPaneel.add(midden, BorderLayout.CENTER);
 
@@ -100,13 +99,15 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 	@Override
 	public void valueChanged(ListSelectionEvent lse) {
 		if (!lse.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
+            Account account = lijst.getSelectedValue();
+            accounting.setCurrentAccount(account);
 			debet.setEnabled(true);
 			credit.setEnabled(true);
-			details.setEnabled(true);
+			accountDetails.setEnabled(true);
 		} else {
 			debet.setEnabled(false);
 			credit.setEnabled(false);
-			details.setEnabled(false);
+			accountDetails.setEnabled(false);
 		}
 	}
 
@@ -114,18 +115,6 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == debet || ae.getSource() == credit) {
 			book(ae.getSource() == debet);
-		} else if (ae.getSource() == accountManagement) {
-            String key = accounting.toString()+ComponentMap.ACCOUNT_MANAGEMENT;
-            ComponentMap.getDisposableComponent(key).setVisible(true);
-        } else if (ae.getSource() == details) {
-            Account account = lijst.getSelectedValue();
-            String key = accounting.toString() + ComponentMap.ACCOUNT_DETAILS + account.getName();
-            DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
-            if(gui == null){
-                gui = new AccountDetails(account, accounting);
-                ComponentMap.addDisposableComponent(key, gui); // DETAILS
-            }
-			gui.setVisible(true);
 		} else if (ae.getSource() instanceof JCheckBox) {
 			checkBoxes();
 		}

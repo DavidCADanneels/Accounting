@@ -43,8 +43,9 @@ public class Accounting implements Serializable {
 
     private Journal currentJournal;
     private Transaction currentTransaction = new Transaction();
+    private Account currentAccount;
 
-	public Accounting(String name) {
+    public Accounting(String name) {
 		this.name = name;
 //		savedXML = true;
 //		savedHTML = false;// TODO: true ?
@@ -356,6 +357,14 @@ public class Accounting implements Serializable {
 	public File getCounterPartyLocationXml() {
 		return counterpartyLocationHTML;
 	}
+
+    public void setCurrentAccount(Account currentAccount) {
+        this.currentAccount = currentAccount;
+    }
+
+    public Account getCurrentAccount() {
+        return currentAccount;
+    }
 
 //	public void setSaved(boolean save) {
 //		setSavedHTML(save);

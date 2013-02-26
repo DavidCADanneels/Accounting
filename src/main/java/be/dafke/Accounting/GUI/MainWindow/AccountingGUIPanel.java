@@ -27,7 +27,7 @@ public class AccountingGUIPanel extends JPanel {
 		// if(!checkID())
 		// System.exit(0);
 		journalGUI = new JournalGUI(accounting);
-		accountsGUI = new AccountsGUI(accounting);
+		accountsGUI = new AccountsGUI(accounting, actionListener);
 		journalsGUI = new JournalsGUI(accounting, actionListener);
 		mortgagesGUI = new MortgagesGUI(accounting);
 

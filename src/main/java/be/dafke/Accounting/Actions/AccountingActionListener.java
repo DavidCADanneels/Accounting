@@ -3,7 +3,9 @@ package be.dafke.Accounting.Actions;
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.GUI.ComponentMap;
+import be.dafke.Accounting.GUI.Details.AccountDetails;
 import be.dafke.Accounting.GUI.Details.JournalDetails;
+import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Journal;
@@ -55,6 +57,16 @@ public class AccountingActionListener implements ActionListener {
             DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
             if(gui == null){
                 gui = new JournalDetails(journal, accounting);
+                ComponentMap.addDisposableComponent(key, gui); // DETAILS
+            }
+            gui.setVisible(true);
+        } else if(actionCommand.equals(ComponentMap.ACCOUNT_DETAILS)){
+            Accounting accounting = accountings.getCurrentAccounting();
+            Account account = accounting.getCurrentAccount();
+            String key = accounting.toString() + ComponentMap.ACCOUNT_DETAILS + account.getName();
+            DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+            if(gui == null){
+                gui = new AccountDetails(account, accounting);
                 ComponentMap.addDisposableComponent(key, gui); // DETAILS
             }
             gui.setVisible(true);
