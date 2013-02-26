@@ -25,7 +25,8 @@ public class AccountingActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        if (ae.getActionCommand().equals(ComponentMap.NEW_ACCOUNTING)) {
+        String actionCommand = ae.getActionCommand();
+        if (actionCommand.equals(ComponentMap.NEW_ACCOUNTING)) {
             String name = JOptionPane.showInputDialog(null, "Enter a name");
             try {
                 Accounting accounting = accountings.addAccounting(name);
@@ -41,12 +42,13 @@ public class AccountingActionListener implements ActionListener {
                 JOptionPane.showMessageDialog(null, "The name cannot be empty.\r\nPlease provide a new name.");
             }
             ComponentMap.refreshAllFrames();
-        } else if(accountings.contains(ae.getActionCommand())){
-            accountings.setCurrentAccounting(ae.getActionCommand());
-        } else if(ae.getActionCommand().startsWith(accountings.getCurrentAccounting().toString())){
-            ComponentMap.getDisposableComponent(ae.getActionCommand()).setVisible(true);
+        } else if(actionCommand.startsWith(ComponentMap.OPEN_ACCOUNTING)){
+            String accountingName = actionCommand.replaceAll(ComponentMap.OPEN_ACCOUNTING,"");
+            accountings.setCurrentAccounting(accountingName);
+        } else {
+            String key = accountings.getCurrentAccounting().toString() + actionCommand;
+            ComponentMap.getDisposableComponent(key).setVisible(true);
         }
         ComponentMap.refreshAllFrames();
-
     }
 }

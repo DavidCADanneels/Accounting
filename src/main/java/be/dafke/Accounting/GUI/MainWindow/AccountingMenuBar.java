@@ -39,7 +39,7 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         for(Accounting acc : accountings.getAccountings()) {
             JMenuItem item = new JMenuItem(acc.toString());
             item.addActionListener(actionListener);
-            item.setActionCommand(acc.toString());
+            item.setActionCommand(ComponentMap.OPEN_ACCOUNTING+acc.toString());
             file.add(item);
         }
         add(file);
@@ -115,14 +115,14 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
     private void setActionCommands(){
         boolean active = (accountings.getCurrentAccounting()!=null);
         if(active){
-            testBalance.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.TEST_BALANCE);
-            yearBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.YEAR_BALANCE);
-            resultBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.RESULT_BALANCE);
-            relationsBalance.setActionCommand(accountings.getCurrentAccounting().toString() + ComponentMap.RELATIONS_BALANCE);
-            projects.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.PROJECTS);
-            movements.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.MOVEMENTS);
-            counterParties.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.COUNTERPARTIES);
-            mortgage.setActionCommand(accountings.getCurrentAccounting().toString()+ComponentMap.MORTGAGES);
+            testBalance.setActionCommand(ComponentMap.TEST_BALANCE);
+            yearBalance.setActionCommand(ComponentMap.YEAR_BALANCE);
+            resultBalance.setActionCommand(ComponentMap.RESULT_BALANCE);
+            relationsBalance.setActionCommand(ComponentMap.RELATIONS_BALANCE);
+            projects.setActionCommand(ComponentMap.PROJECTS);
+            movements.setActionCommand(ComponentMap.MOVEMENTS);
+            counterParties.setActionCommand(ComponentMap.COUNTERPARTIES);
+            mortgage.setActionCommand(ComponentMap.MORTGAGES);
         }
     }
 

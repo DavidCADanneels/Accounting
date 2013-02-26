@@ -37,11 +37,14 @@ public class ComponentMap {
     public static final String ACCOUNT_MANAGEMENT = "AccountManagement";
     public static final String JOURNAL_MANAGEMENT = "JournalManagement";
     public static final String JOURNAL_TYPE_MANAGEMENT = "JournalTypeManagement";
+
     public static final String JOURNAL_DETAILS = "JournalDetails";
     public static final String ACCOUNT_DETAILS = "AccountDetails";
     public static final String MORTGAGE_CALCULATOR = "MortgageCalculator";
     public static final String MORTGAGE_TABLE = "MortgageTable";
     public static final String NEW_ACCOUNTING = "NewAccounting";
+    public static final String OPEN_ACCOUNTING = "OpenAccounting";
+
     private static final HashMap<String, RefreshableComponent> refreshableComponents = new HashMap<String, RefreshableComponent>();
     private static final HashMap<String, DisposableComponent> disposableComponents = new HashMap<String, DisposableComponent>();
 
