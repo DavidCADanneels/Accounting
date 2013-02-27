@@ -3,7 +3,6 @@ package be.dafke.Accounting.Objects.Accounting;
 import be.dafke.Accounting.Objects.Coda.CounterParties;
 import be.dafke.Accounting.Objects.Coda.Movements;
 import be.dafke.Accounting.Objects.Mortgage.Mortgages;
-import be.dafke.Utils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -76,27 +75,27 @@ public class Accounting implements Serializable {
 			htmlFolder = chooser.getSelectedFile();
 		} else {
 			File parent = FileSystemView.getFileSystemView().getHomeDirectory();
-			htmlFolder = Utils.createSubFolderIfNotExist(parent, name);
+			htmlFolder = FileSystemView.getFileSystemView().getChild(parent, name);
 		}
         htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, "Accounting.html");
-        balances.setBalanceLocationHtml(Utils.createSubFolderIfNotExist(htmlFolder, "Balances"));
-        mortgages.setMortgageLocationHtml(Utils.createSubFolderIfNotExist(htmlFolder, "Mortgages"));
-        accounts.setLocationHtml(Utils.createSubFolderIfNotExist(htmlFolder, "Accounts"));
-        journals.setLocationHtml(Utils.createSubFolderIfNotExist(htmlFolder, "Journals"));
-		movements.setLocationHtml(Utils.createSubFolderIfNotExist(htmlFolder, "Movements"));
-		counterParties.setLocationHtml(Utils.createSubFolderIfNotExist(htmlFolder, "CounterParties"));
+        balances.setHtmlFolder(FileSystemView.getFileSystemView().getChild(htmlFolder, "Balances"));
+        mortgages.setHtmlFolder(FileSystemView.getFileSystemView().getChild(htmlFolder, "Mortgages"));
+        accounts.setHtmlFolder(FileSystemView.getFileSystemView().getChild(htmlFolder, "Accounts"));
+        journals.setHtmlFolder(FileSystemView.getFileSystemView().getChild(htmlFolder, "Journals"));
+		movements.setHtmlFolder(FileSystemView.getFileSystemView().getChild(htmlFolder, "Movements"));
+		counterParties.setHtmlFolder(FileSystemView.getFileSystemView().getChild(htmlFolder, "CounterParties"));
 	}
 
 	private void createXMLFolders() {
 		File home = new File(System.getProperty("user.home"));
-		File folder = Utils.createSubFolderIfNotExist(home, "Accounting");
-		xmlFolder = Utils.createSubFolderIfNotExist(folder, name);
-        balances.setBalanceLocationXml(Utils.createSubFolderIfNotExist(xmlFolder, "Balances"));
-        mortgages.setMortgageLocationXml(Utils.createSubFolderIfNotExist(xmlFolder, "Mortgages"));
-        accounts.setLocationXml(Utils.createSubFolderIfNotExist(xmlFolder, "Accounts"));
-        journals.setLocationXml(Utils.createSubFolderIfNotExist(xmlFolder, "Journals"));
-		movements.setLocationXml(Utils.createSubFolderIfNotExist(xmlFolder, "Movements"));
-		counterParties.setLocationXml(Utils.createSubFolderIfNotExist(xmlFolder, "CounterParties"));
+		File folder = FileSystemView.getFileSystemView().getChild(home, "Accounting");
+		xmlFolder = FileSystemView.getFileSystemView().getChild(folder, name);
+        balances.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "Balances"));
+        mortgages.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "Mortgages"));
+        accounts.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "Accounts"));
+        journals.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "Journals"));
+		movements.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "Movements"));
+		counterParties.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "CounterParties"));
 	}
 
     public Mortgages getMortgages(){

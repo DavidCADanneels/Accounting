@@ -10,8 +10,8 @@ public class CounterParties {
 	 */
     private ArrayList<CounterParty> counterParties;
     private HashMap<String, CounterParty> counterPartiesByName, counterPartiesByAccountNumber;
-    private File locationXml;
-    private File locationHtml;
+    private File xmlFolder;
+    private File htmlFolder;
 
     public CounterParties(){
         counterParties = new ArrayList<CounterParty>();
@@ -117,28 +117,22 @@ public class CounterParties {
         }
     }
 
-    public void setLocationXml(File locationXml) {
-        this.locationXml = locationXml;
-        if(!this.locationXml.exists()){
-            this.locationXml.mkdir();
-        }
-//        xmlFile = FileSystemView.getFileSystemView().getChild(this.locationXml, "Accounts.xml");
+    public void setXmlFolder(File xmlFolder) {
+        this.xmlFolder = xmlFolder;
+//        xmlFile = FileSystemView.getFileSystemView().getChild(this.xmlFolder, "Accounts.xml");
     }
 
-    public File getLocationXml(){
-        return locationXml;
+    public File getXmlFolder(){
+        return xmlFolder;
     }
 
-    public void setLocationHtml(File locationHtml) {
-        this.locationHtml = locationHtml;
-        if(!this.locationHtml.exists()){
-            this.locationHtml.mkdir();
-        }
-//        htmlFile = FileSystemView.getFileSystemView().getChild(this.locationHtml, "Accounts.html");
+    public void setHtmlFolder(File htmlFolder) {
+        this.htmlFolder = htmlFolder;
+//        htmlFile = FileSystemView.getFileSystemView().getChild(this.htmlFolder, "Accounts.html");
     }
 
-    public File getLocationHtml(){
-        return locationHtml;
+    public File getHtmlFolder(){
+        return htmlFolder;
     }
 
 }

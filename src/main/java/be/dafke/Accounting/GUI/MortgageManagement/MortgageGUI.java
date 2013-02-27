@@ -184,9 +184,9 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
         mortgagesList.setModel(listModel);
         mortgagesList.revalidate();
 
-        accounts = new Account[accounting.getAccounts().getAccounts().size()];
-        for(int i = 0; i < accounting.getAccounts().getAccounts().size(); i++) {
-            accounts[i] = accounting.getAccounts().getAccounts().get(i);
+        accounts = new Account[accounting.getAccounts().getAllAccounts().size()];
+        for(int i = 0; i < accounting.getAccounts().getAllAccounts().size(); i++) {
+            accounts[i] = accounting.getAccounts().getAllAccounts().get(i);
         }
         intrestModel = new DefaultComboBoxModel<Account>(accounts);
         capitalModel = new DefaultComboBoxModel<Account>(accounts);

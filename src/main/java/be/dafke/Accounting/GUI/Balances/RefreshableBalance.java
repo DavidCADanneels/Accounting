@@ -43,7 +43,7 @@ public class RefreshableBalance extends RefreshableTable implements ActionListen
 	}
 
 	public void toXML() {
-		if (accounting.getBalances().getBalanceLocationXml() == null) { //$NON-NLS-1$
+		if (accounting.getBalances().getXmlFolder() == null) { //$NON-NLS-1$
 			JFileChooser dialoog = new JFileChooser();
 			dialoog.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 			ResourceBundle bundle = ResourceBundle.getBundle("Accounting"); //$NON-NLS-1$
@@ -51,9 +51,9 @@ public class RefreshableBalance extends RefreshableTable implements ActionListen
 			int result = dialoog.showSaveDialog(null);
 			while (result != JFileChooser.APPROVE_OPTION)
 				result = dialoog.showSaveDialog(null);
-			accounting.getBalances().setBalanceLocationXml(dialoog.getSelectedFile());
+			accounting.getBalances().setXmlFolder(dialoog.getSelectedFile());
 		}
-		String xml = accounting.getBalances().getBalanceLocationXml() + "//" + name + ".xml"; //$NON-NLS-1$ //$NON-NLS-2$
+		String xml = accounting.getBalances().getXmlFolder() + "//" + name + ".xml"; //$NON-NLS-1$ //$NON-NLS-2$
 		String xsl = accounting.getXslFolder().getAbsolutePath();
 		try {
 			Writer writer = new FileWriter(xml);

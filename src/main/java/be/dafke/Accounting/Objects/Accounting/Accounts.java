@@ -24,8 +24,8 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
     private final Accounting accounting;
-    private File locationXml;
-    private File locationHtml;
+    private File xmlFolder;
+    private File htmlFolder;
 //    private File xmlFile, htmlFile;
 
     public Accounts(Accounting accounting) {
@@ -41,9 +41,9 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
             throw new DuplicateNameException();
         }
         Account account = new Account(accountName.trim(), accountType);
-        File xmlFile = FileSystemView.getFileSystemView().getChild(locationXml, account.getName() + ".xml");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, account.getName() + ".xml");
         File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Account.xsl");
-        File htmlFile = FileSystemView.getFileSystemView().getChild(locationHtml, account.getName() + ".html");
+        File htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, account.getName() + ".html");
         account.setXmlFile(xmlFile);
         account.setXslFile(xslFile);
         account.setHtmlFile(htmlFile);
@@ -132,7 +132,7 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
         return account;
 	}
 
-	public ArrayList<Account> getAccounts() {
+	public ArrayList<Account> getAllAccounts() {
 		ArrayList<Account> col = new ArrayList<Account>();
 		for(Account account : values()) {
 			col.add(account);
@@ -148,27 +148,21 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
         }
     }
 
-    public void setLocationXml(File locationXml) {
-        this.locationXml = locationXml;
-        if(!this.locationXml.exists()){
-            this.locationXml.mkdir();
-        }
-//        xmlFile = FileSystemView.getFileSystemView().getChild(this.locationXml, "Accounts.xml");
+    public void setXmlFolder(File xmlFolder) {
+        this.xmlFolder = xmlFolder;
+//        xmlFile = FileSystemView.getFileSystemView().getChild(this.xmlFolder, "Accounts.xml");
     }
 
-    public File getLocationXml(){
-        return locationXml;
+    public File getXmlFolder(){
+        return xmlFolder;
     }
 
-    public void setLocationHtml(File locationHtml) {
-        this.locationHtml = locationHtml;
-        if(!this.locationHtml.exists()){
-            this.locationHtml.mkdir();
-        }
-//        htmlFile = FileSystemView.getFileSystemView().getChild(this.locationHtml, "Accounts.html");
+    public void setHtmlFolder(File htmlFolder) {
+        this.htmlFolder = htmlFolder;
+//        htmlFile = FileSystemView.getFileSystemView().getChild(this.htmlFolder, "Accounts.html");
     }
 
-    public File getLocationHtml(){
-        return locationHtml;
+    public File getHtmlFolder(){
+        return htmlFolder;
     }
 }

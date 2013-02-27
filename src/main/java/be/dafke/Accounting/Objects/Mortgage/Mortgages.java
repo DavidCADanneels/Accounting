@@ -10,8 +10,8 @@ import java.util.HashMap;
  */
 public class Mortgages {
     private final HashMap<String, Mortgage> mortgageTables;
-    private File mortgageLocationXML;
-    private File mortgageLocationHTML;
+    private File xmlFolder;
+    private File htmlFolder;
 
     public Mortgages(){
         mortgageTables = new HashMap<String, Mortgage>();
@@ -37,21 +37,19 @@ public class Mortgages {
         mortgageTables.remove(selectedMortgage.toString());
     }
 
-    public void setMortgageLocationHtml(File location) {
-        mortgageLocationHTML = location;
-        mortgageLocationHTML.mkdir();
+    public void setHtmlFolder(File htmlFolder) {
+        this.htmlFolder = htmlFolder;
     }
 
-    public void setMortgageLocationXml(File location) {
-        mortgageLocationXML = location;
-        mortgageLocationXML.mkdir();
+    public void setXmlFolder(File xmlFolder) {
+        this.xmlFolder = xmlFolder;
     }
 
-    public File getMortgageLocationHtml() {
-        return mortgageLocationHTML;
+    public File getHtmlFolder() {
+        return htmlFolder;
     }
 
-    public File getMortgageLocationXml() {
-        return mortgageLocationXML;
+    public File getXmlFolder() {
+        return xmlFolder;
     }
 }

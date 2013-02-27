@@ -17,8 +17,7 @@ public class Utils {
     public static File createSubFolderIfNotExist(File folder, String folderName) {
         File subFolder = FileSystemView.getFileSystemView().getChild(folder, folderName);
         if (!subFolder.exists()) {
-            File newFolder = FileSystemView.getFileSystemView().createFileObject(folder, folderName);
-            newFolder.mkdir();
+            subFolder.mkdir();
         }
         return subFolder;
     }

@@ -8,24 +8,22 @@ import java.io.File;
  * Time: 12:07
  */
 public class Balances {
-    private File balanceLocationXML;
-    private File balanceLocationHTML;
+    private File xmlFolder;
+    private File htmlFolder;
 
-    public void setBalanceLocationHtml(File location) {
-        balanceLocationHTML = location;
-        balanceLocationHTML.mkdir();
+    public void setHtmlFolder(File htmlFolder) {
+        this.htmlFolder = htmlFolder;
     }
 
-    public void setBalanceLocationXml(File location) {
-        balanceLocationXML = location;
-        balanceLocationXML.mkdir();
+    public void setXmlFolder(File xmlFolder) {
+        this.xmlFolder = xmlFolder;
     }
 
-    public File getBalanceLocationHtml() {
-        return balanceLocationHTML;
+    public File getHtmlFolder() {
+        return htmlFolder;
     }
 
-    public File getBalanceLocationXml() {
-        return balanceLocationXML;
+    public File getXmlFolder() {
+        return xmlFolder;
     }
 }

@@ -70,12 +70,12 @@ public class Project implements Serializable {
 //		if (totaalOpbrengst.compareTo(totaalKost) > 0) {
 //			BigDecimal winst = totaalOpbrengst.subtract(totaalKost);
 //			winst = winst.setScale(2);
-//			result = accounting.getAccounts().add(getBundle("Accounting").getString("WINST_PROJECT") + naam, AccountType.Revenue);
+//			result = accounting.getAllAccounts().add(getBundle("Accounting").getString("WINST_PROJECT") + naam, AccountType.Revenue);
 //			transaction.crediteer(result, winst);
 //		} else {
 //			BigDecimal verlies = totaalKost.subtract(totaalOpbrengst);
 //			verlies = verlies.setScale(2);
-//			result = accounting.getAccounts().add(getBundle("Accounting").getString("VERLIES_PROJECT") + naam, AccountType.Cost);
+//			result = accounting.getAllAccounts().add(getBundle("Accounting").getString("VERLIES_PROJECT") + naam, AccountType.Cost);
 //			transaction.debiteer(result, verlies);
 //		}
 		// TODO: transaction.book() !!!

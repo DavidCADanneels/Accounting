@@ -5,14 +5,17 @@ import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
+import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.Journal;
+import be.dafke.Accounting.Objects.Accounting.Journals;
 import be.dafke.Accounting.Objects.Accounting.Project;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.Accounting.Objects.Coda.BankAccount;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Coda.Movement;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
+import be.dafke.Accounting.Objects.Mortgage.Mortgages;
 import be.dafke.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -148,10 +151,10 @@ public class AccountingSAXParser {
             Node accountsNode = doc.getElementsByTagName("Accounts").item(0);
 
             String xmlLocation = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            accounting.getAccounts().setLocationXml(new File(xmlLocation));
+            accounting.getAccounts().setXmlFolder(new File(xmlLocation));
             // TODO: null-check: html can be empty
             String htmlLocation = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            accounting.getAccounts().setLocationHtml(new File(htmlLocation));
+            accounting.getAccounts().setHtmlFolder(new File(htmlLocation));
 
             accountsFromXML(accounting, (Element) accountsNode);
 
@@ -175,10 +178,10 @@ public class AccountingSAXParser {
             Node journalsNode = doc.getElementsByTagName("Journals").item(0);
 
             String xmlLocation = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            accounting.getJournals().setLocationXml(new File(xmlLocation));
+            accounting.getJournals().setXmlFolder(new File(xmlLocation));
             // TODO: null-check: html can be empty
             String htmlLocation = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            accounting.getJournals().setLocationHtml(new File(htmlLocation));
+            accounting.getJournals().setHtmlFolder(new File(htmlLocation));
 
             journalsFromXML(accounting, (Element) journalsNode);
 
@@ -202,10 +205,10 @@ public class AccountingSAXParser {
 //            Node balancesNode = doc.getElementsByTagName("Balances").item(0);
 
             String xmlLocation = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            accounting.getBalances().setBalanceLocationXml(new File(xmlLocation));
+            accounting.getBalances().setXmlFolder(new File(xmlLocation));
             // TODO: null-check: html can be empty
             String htmlLocation = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            accounting.getBalances().setBalanceLocationHtml(new File(htmlLocation));
+            accounting.getBalances().setHtmlFolder(new File(htmlLocation));
 
         } catch (IOException io) {
             io.printStackTrace();
@@ -227,10 +230,10 @@ public class AccountingSAXParser {
             Node mortgagesNode = doc.getElementsByTagName("Mortgages").item(0);
 
             String xmlLocation = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            accounting.getMortgages().setMortgageLocationXml(new File(xmlLocation));
+            accounting.getMortgages().setXmlFolder(new File(xmlLocation));
             // TODO: null-check: html can be empty
             String htmlLocation = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            accounting.getMortgages().setMortgageLocationHtml(new File(htmlLocation));
+            accounting.getMortgages().setHtmlFolder(new File(htmlLocation));
 
             mortgagesFromXML(accounting, (Element) mortgagesNode);
 
@@ -257,10 +260,10 @@ public class AccountingSAXParser {
 //            accounting.setLocationXSL(new File(xslLocation));
 
             String xmlLocation = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            accounting.getMovements().setLocationXml(new File(xmlLocation));
+            accounting.getMovements().setXmlFolder(new File(xmlLocation));
             // TODO: null-check: html can be empty
             String htmlLocation = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            accounting.getMovements().setLocationHtml(new File(htmlLocation));
+            accounting.getMovements().setHtmlFolder(new File(htmlLocation));
 
             movementsFromXML(accounting, (Element) movementsNode);
 
@@ -286,10 +289,10 @@ public class AccountingSAXParser {
 //            accounting.setLocationXSL(new File(xslLocation));
 
             String xmlLocation = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            accounting.getCounterParties().setLocationXml(new File(xmlLocation));
+            accounting.getCounterParties().setXmlFolder(new File(xmlLocation));
             // TODO: null-check: html can be empty
             String htmlLocation = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            accounting.getCounterParties().setLocationHtml(new File(htmlLocation));
+            accounting.getCounterParties().setHtmlFolder(new File(htmlLocation));
 
             counterpartiesFromXML(accounting, (Element) counterpartiesNode);
 
@@ -346,7 +349,7 @@ public class AccountingSAXParser {
                 System.err.println("Journal name and abbreviation cannot be empty.");
             }
         }
-        File journalFiles[] = FileSystemView.getFileSystemView().getFiles(accounting.getJournals().getLocationXml(), false);
+        File journalFiles[] = FileSystemView.getFileSystemView().getFiles(accounting.getJournals().getXmlFolder(), false);
         for(File journalFile : journalFiles) {
             String journalName = journalFile.getName().replaceAll(".xml", "");
             Journal journal = accounting.getJournals().get(journalName);
@@ -388,7 +391,7 @@ public class AccountingSAXParser {
             mortgage.setIntrestAccount(intrest);
             accounting.getMortgages().addMortgageTable(mortgageName, mortgage);
         }
-        File mortgagesFiles[] = FileSystemView.getFileSystemView().getFiles(accounting.getMortgages().getMortgageLocationXml(), false);
+        File mortgagesFiles[] = FileSystemView.getFileSystemView().getFiles(accounting.getMortgages().getXmlFolder(), false);
         for(File mortgagesFile : mortgagesFiles) {
             String mortgageName = mortgagesFile.getName().replaceAll(".xml", "");
             Mortgage mortgage = accounting.getMortgages().getMortgage(mortgageName);
@@ -506,19 +509,33 @@ public class AccountingSAXParser {
             writeCounterparties(accounting);
             writeMovements(accounting);
 
-            for(Account account:accounting.getAccounts().values()){
+            Accounts accounts = accounting.getAccounts();
+            if(!accounts.getXmlFolder().exists()){
+                accounts.getXmlFolder().mkdir();
+            }
+            for(Account account:accounts.getAllAccounts()){
 //            TODO: add isSavedXML
 //            if(account.isSavedXML()){
                 toXML(account);
 //            }
             }
-            for(Journal journal:accounting.getJournals().values()){
+
+            Journals journals = accounting.getJournals();
+            if(!journals.getXmlFolder().exists()){
+                journals.getXmlFolder().mkdir();
+            }
+            for(Journal journal:journals.getAllJournals()){
 //            TODO: add isSavedXML
 //            if(journal.isSavedXML()){
                 toXML(journal);
 //            }
             }
-            for(Mortgage mortgage:accounting.getMortgages().getMortgagesTables()){
+
+            Mortgages mortgages = accounting.getMortgages();
+            if(!mortgages.getXmlFolder().exists()){
+                mortgages.getXmlFolder().mkdir();
+            }
+            for(Mortgage mortgage:mortgages.getMortgagesTables()){
 //            TODO: add isSavedXML
 //            if(journal.isSavedXML()){
                 toXML(mortgage, accounting);
@@ -531,7 +548,7 @@ public class AccountingSAXParser {
     private static void toXML(Mortgage mortgage, Accounting accounting) {
         System.out.println("Mortgages.TOXML(" + mortgage.toString() + ")");
         File styleSheet = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Mortgage.xsl");
-        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getMortgages().getMortgageLocationXml(),
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getMortgages().getXmlFolder(),
                 mortgage.toString() + ".xml");
         try {
             Writer writer = new FileWriter(xmlFile);
@@ -567,8 +584,8 @@ public class AccountingSAXParser {
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Balances SYSTEM \""
                     + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
                     + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Balances>\r\n");
-            writer.write("  <xml>" + accounting.getBalances().getBalanceLocationXml() + "</xml>\r\n");
-            writer.write("  <html>" + accounting.getBalances().getBalanceLocationHtml() + "</html>\r\n");
+            writer.write("  <xml>" + accounting.getBalances().getXmlFolder() + "</xml>\r\n");
+            writer.write("  <html>" + accounting.getBalances().getHtmlFolder() + "</html>\r\n");
             writer.write("</Balances>\r\n");
             writer.flush();
             writer.close();
@@ -590,9 +607,9 @@ public class AccountingSAXParser {
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Accounts SYSTEM \""
                     + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
                     + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Accounts>\r\n");
-            writer.write("  <xml>" + accounting.getAccounts().getLocationXml() + "</xml>\r\n");
-            writer.write("  <html>" + accounting.getAccounts().getLocationHtml() + "</html>\r\n");
-            for(Account account : accounting.getAccounts().getAccounts()) {
+            writer.write("  <xml>" + accounting.getAccounts().getXmlFolder() + "</xml>\r\n");
+            writer.write("  <html>" + accounting.getAccounts().getHtmlFolder() + "</html>\r\n");
+            for(Account account : accounting.getAccounts().getAllAccounts()) {
                 writer.write("  <Account>\r\n");
                 writer.write("    <account_name>" + account.getName() + "</account_name>\r\n");
                 writer.write("    <account_type>" + account.getType() + "</account_type>\r\n");
@@ -621,8 +638,8 @@ public class AccountingSAXParser {
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Journals SYSTEM \""
                     + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
                     + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Journals>\r\n");
-            writer.write("  <xml>" + accounting.getJournals().getLocationXml() + "</xml>\r\n");
-            writer.write("  <html>" + accounting.getJournals().getLocationHtml() + "</html>\r\n");
+            writer.write("  <xml>" + accounting.getJournals().getXmlFolder() + "</xml>\r\n");
+            writer.write("  <html>" + accounting.getJournals().getHtmlFolder() + "</html>\r\n");
             for(Journal journal : accounting.getJournals().getAllJournals()) {
                 writer.write("  <Journal>\r\n");
                 writer.write("    <journal_name>" + journal.getName() + "</journal_name>\r\n");
@@ -651,8 +668,8 @@ public class AccountingSAXParser {
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Movements SYSTEM \""
                     + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
                     + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Movements xsl=\"" + accounting.getXslFolder() + "\">\r\n");
-            writer.write("  <xml>" + accounting.getMovements().getLocationXml() + "</xml>\r\n");
-            writer.write("  <html>"+ accounting.getMovements().getLocationHtml() + "</html>\r\n");
+            writer.write("  <xml>" + accounting.getMovements().getXmlFolder() + "</xml>\r\n");
+            writer.write("  <html>"+ accounting.getMovements().getHtmlFolder() + "</html>\r\n");
             for(Movement movement : accounting.getMovements().getAllMovements()) {
                 writer.write("  <Movement>\r\n");
                 writer.write("    <Statement>"+movement.getStatementNr()+"</Statement>\r\n");
@@ -686,8 +703,8 @@ public class AccountingSAXParser {
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Counterparties SYSTEM \""
                     + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
                     + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Counterparties xsl=\"" + accounting.getXslFolder() + "\">\r\n");
-            writer.write("  <xml>" + accounting.getCounterParties().getLocationXml() + "</xml>\r\n");
-            writer.write("  <html>"+ accounting.getCounterParties().getLocationHtml() + "</html>\r\n");
+            writer.write("  <xml>" + accounting.getCounterParties().getXmlFolder() + "</xml>\r\n");
+            writer.write("  <html>"+ accounting.getCounterParties().getHtmlFolder() + "</html>\r\n");
             for(CounterParty counterParty : accounting.getCounterParties().getCounterParties()) {
                 writer.write("  <Counterparty name =\""+counterParty.getName()+"\">\r\n");
                 if(counterParty.getAliases()!=null){
@@ -734,8 +751,8 @@ public class AccountingSAXParser {
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Mortgages SYSTEM \""
                     + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
                     + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Mortgages>\r\n");
-            writer.write("  <xml>" + accounting.getMortgages().getMortgageLocationXml() + "</xml>\r\n");
-            writer.write("  <html>" + accounting.getMortgages().getMortgageLocationHtml() + "</html>\r\n");
+            writer.write("  <xml>" + accounting.getMortgages().getXmlFolder() + "</xml>\r\n");
+            writer.write("  <html>" + accounting.getMortgages().getHtmlFolder() + "</html>\r\n");
             for(Mortgage mortgage : accounting.getMortgages().getMortgagesTables()) {
                 writer.write("  <Mortgage name=\"" + mortgage.toString() + "\" total=\"" + mortgage.getStartCapital() + "\">\r\n");
                 writer.write("    <nrPayed>" + mortgage.getNrPayed() + "</nrPayed>\r\n");
