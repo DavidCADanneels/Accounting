@@ -1,6 +1,5 @@
 package be.dafke.Accounting.Objects.Mortgage;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
@@ -10,8 +9,7 @@ import java.util.HashMap;
  */
 public class Mortgages {
     private final HashMap<String, Mortgage> mortgageTables;
-    private File xmlFolder;
-    private File htmlFolder;
+    private String folder;
 
     public Mortgages(){
         mortgageTables = new HashMap<String, Mortgage>();
@@ -37,19 +35,11 @@ public class Mortgages {
         mortgageTables.remove(selectedMortgage.toString());
     }
 
-    public void setHtmlFolder(File htmlFolder) {
-        this.htmlFolder = htmlFolder;
+    public String getFolder() {
+        return folder;
     }
 
-    public void setXmlFolder(File xmlFolder) {
-        this.xmlFolder = xmlFolder;
-    }
-
-    public File getHtmlFolder() {
-        return htmlFolder;
-    }
-
-    public File getXmlFolder() {
-        return xmlFolder;
+    public void setFolder(String folder) {
+        this.folder = folder;
     }
 }

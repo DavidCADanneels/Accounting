@@ -19,13 +19,13 @@ import java.util.HashMap;
  */
 public class Accounts extends HashMap<String, Account> implements Serializable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+    /**
+     *
+     */
+    private static final long serialVersionUID = 1L;
     private final Accounting accounting;
-    private File xmlFolder;
-    private File htmlFolder;
+    private String folder;
+
 //    private File xmlFile, htmlFile;
 
     public Accounts(Accounting accounting) {
@@ -41,9 +41,14 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
             throw new DuplicateNameException();
         }
         Account account = new Account(accountName.trim(), accountType);
+
+        File xmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), folder);
+        File htmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getHtmlFolder(), folder);
+
         File xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, account.getName() + ".xml");
         File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Account.xsl");
         File htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, account.getName() + ".html");
+
         account.setXmlFile(xmlFile);
         account.setXslFile(xslFile);
         account.setHtmlFile(htmlFile);
@@ -148,21 +153,11 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
         }
     }
 
-    public void setXmlFolder(File xmlFolder) {
-        this.xmlFolder = xmlFolder;
-//        xmlFile = FileSystemView.getFileSystemView().getChild(this.xmlFolder, "Accounts.xml");
+    public String getFolder() {
+        return folder;
     }
 
-    public File getXmlFolder(){
-        return xmlFolder;
-    }
-
-    public void setHtmlFolder(File htmlFolder) {
-        this.htmlFolder = htmlFolder;
-//        htmlFile = FileSystemView.getFileSystemView().getChild(this.htmlFolder, "Accounts.html");
-    }
-
-    public File getHtmlFolder(){
-        return htmlFolder;
+    public void setFolder(String folder) {
+        this.folder = folder;
     }
 }

@@ -58,7 +58,7 @@ public class Account implements Serializable {
 	 * </ul>
 	 * In balansen worden rekeningen van het even type steeds links weergegeven, die van het oneven type rechts
 	 */
-	public Account(String name, AccountType type) {
+	protected Account(String name, AccountType type) {
 		project = null;
 		this.name = name;
 		this.type = type;

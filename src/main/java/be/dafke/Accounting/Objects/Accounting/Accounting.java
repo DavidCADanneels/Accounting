@@ -78,12 +78,6 @@ public class Accounting implements Serializable {
 			htmlFolder = FileSystemView.getFileSystemView().getChild(parent, name);
 		}
         htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, "Accounting.html");
-        balances.setHtmlFolder(FileSystemView.getFileSystemView().getChild(htmlFolder, "Balances"));
-        mortgages.setHtmlFolder(FileSystemView.getFileSystemView().getChild(htmlFolder, "Mortgages"));
-        accounts.setHtmlFolder(FileSystemView.getFileSystemView().getChild(htmlFolder, "Accounts"));
-        journals.setHtmlFolder(FileSystemView.getFileSystemView().getChild(htmlFolder, "Journals"));
-		movements.setHtmlFolder(FileSystemView.getFileSystemView().getChild(htmlFolder, "Movements"));
-		counterParties.setHtmlFolder(FileSystemView.getFileSystemView().getChild(htmlFolder, "CounterParties"));
 	}
 
 	private void createXMLFolders() {
@@ -91,12 +85,12 @@ public class Accounting implements Serializable {
 		File folder = FileSystemView.getFileSystemView().getChild(home, "Accounting");
 		xmlFolder = FileSystemView.getFileSystemView().getChild(folder, name);
         xslFolder = FileSystemView.getFileSystemView().getChild(folder, "xsl");
-        balances.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "Balances"));
-        mortgages.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "Mortgages"));
-        accounts.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "Accounts"));
-        journals.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "Journals"));
-		movements.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "Movements"));
-		counterParties.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "CounterParties"));
+        balances.setFolder("Balances");
+        mortgages.setFolder("Mortgages");
+        accounts.setFolder("Accounts");
+        journals.setFolder("Journals");
+		movements.setFolder("Movements");
+		counterParties.setFolder("CounterParties");
 	}
 
     public Mortgages getMortgages(){

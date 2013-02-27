@@ -25,8 +25,8 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
 //	private boolean save;
 
     private Accounting accounting;
-    private File htmlFolder;
-    private File xmlFolder;
+    private String folder;
+
 //    private File xmlFile, htmlFile;
 
     public Journals(Accounting accounting) {
@@ -68,6 +68,10 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
             throw new DuplicateNameException();
         }
         Journal journal = new Journal(name.trim(), abbreviation.trim(), type);
+
+        File xmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), folder);
+        File htmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getHtmlFolder(), folder);
+
         File xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, journal.getName() + ".xml");
         File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Journal.xsl");
         File htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, journal.getName() + ".html");
@@ -118,21 +122,11 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
         return journal;
     }
 
-    public void setHtmlFolder(File htmlFolder) {
-        this.htmlFolder = htmlFolder;
-//        htmlFile = FileSystemView.getFileSystemView().getChild(this.htmlFolder, "Journals.html");
+    public String getFolder() {
+        return folder;
     }
 
-    public File getHtmlFolder(){
-        return htmlFolder;
-    }
-
-    public void setXmlFolder(File xmlFolder) {
-        this.xmlFolder = xmlFolder;
-//        xmlFile = FileSystemView.getFileSystemView().getChild(this.xmlFolder, "Journals.xml");
-    }
-
-    public File getXmlFolder(){
-        return xmlFolder;
+    public void setFolder(String folder) {
+        this.folder = folder;
     }
 }
