@@ -6,11 +6,8 @@ import be.dafke.Accounting.Objects.Accounting.Accountings;
 
 public class Main {
 
-	/**
-	 * @param args
-	 */
 	public static void main(String[] args) {
-        Accountings accountings = AccountingSAXParser.fromXML();
+        Accountings accountings = AccountingSAXParser.readAccountings();
         AccountingGUIFrame frame = new AccountingGUIFrame(accountings);
         frame.setVisible(true);
 	}

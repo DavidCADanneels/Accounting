@@ -9,11 +9,9 @@ import org.xml.sax.helpers.DefaultHandler;
 import java.io.File;
 
 public class AccountingsContentHandler extends DefaultHandler {
-	private final File file;
 	private final Accountings accountings;
 
-	public AccountingsContentHandler(File file, Accountings accountings) {
-		this.file = file;
+	public AccountingsContentHandler(Accountings accountings) {
 		this.accountings = accountings;
 	}
 
@@ -24,6 +22,8 @@ public class AccountingsContentHandler extends DefaultHandler {
 			Accounting acc = new Accounting(name);
 			String xml = atts.getValue("xml");
 			acc.setLocationXml(new File(xml));
+            String xsl = atts.getValue("xsl");
+            acc.setLocationXsl(new File(xsl));
             String html = atts.getValue("html");
             acc.setLocationHtml(new File(html));
             accountings.addAccounting(acc);

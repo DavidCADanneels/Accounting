@@ -238,8 +238,7 @@ public class Accounting implements Serializable {
 		return locationXSL;
 	}
 
-	// TODO call this function on load
-	public void setLocationXSL(File location) {
+	public void setLocationXsl(File location) {
 		locationXSL = location;
 		xslFile = FileSystemView.getFileSystemView().getChild(locationXSL, "Accounting.xsl");
 	}

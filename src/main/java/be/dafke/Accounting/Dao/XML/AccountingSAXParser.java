@@ -64,11 +64,10 @@ public class AccountingSAXParser {
         return file;
     }
 
-    public static Accountings fromXML() {
+    public static Accountings readAccountings() {
         Accountings accountings = new Accountings();
         System.out.println("fromXML");
         File file = getFile();
-        String pad = file.getAbsolutePath();
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -80,9 +79,9 @@ public class AccountingSAXParser {
                 factory.setValidating(true);
                 SAXParser parser = factory.newSAXParser();
                 XMLReader reader = parser.getXMLReader();
-                reader.setContentHandler(new AccountingsContentHandler(file, accountings));
+                reader.setContentHandler(new AccountingsContentHandler(accountings));
                 reader.setErrorHandler(new FoutHandler());
-                reader.parse(pad);
+                reader.parse(file.getAbsolutePath());
             } catch (IOException io) {
                 // FileSystemView.getFileSystemView().createFileObject(home, "TESTFILE");
                 // System.out.println(pad + " has been created");
@@ -126,10 +125,6 @@ public class AccountingSAXParser {
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(accountingFile.getAbsolutePath());
             doc.getDocumentElement().normalize();
-
-            Node accountingNode = doc.getElementsByTagName("Accounting").item(0);
-            String xslLocation = accountingNode.getAttributes().getNamedItem("xsl").getNodeValue();
-            accounting.setLocationXSL(new File(xslLocation));
 
             Node accountsNode = doc.getElementsByTagName("Accounts").item(0);
             Node journalsNode = doc.getElementsByTagName("Journals").item(0);
@@ -183,8 +178,8 @@ public class AccountingSAXParser {
             doc.getDocumentElement().normalize();
 
             Node movementsNode = doc.getElementsByTagName("Movements").item(0);
-            String xslLocation = movementsNode.getAttributes().getNamedItem("xsl").getNodeValue();
-            accounting.setLocationXSL(new File(xslLocation));
+//            String xslLocation = movementsNode.getAttributes().getNamedItem("xsl").getNodeValue();
+//            accounting.setLocationXSL(new File(xslLocation));
 
             String xmlLocation = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
             accounting.setMovementLocationXml(new File(xmlLocation));
@@ -212,8 +207,8 @@ public class AccountingSAXParser {
             doc.getDocumentElement().normalize();
 
             Node counterpartiesNode = doc.getElementsByTagName("Counterparties").item(0);
-            String xslLocation = counterpartiesNode.getAttributes().getNamedItem("xsl").getNodeValue();
-            accounting.setLocationXSL(new File(xslLocation));
+//            String xslLocation = counterpartiesNode.getAttributes().getNamedItem("xsl").getNodeValue();
+//            accounting.setLocationXSL(new File(xslLocation));
 
             String xmlLocation = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
             accounting.setCounterpartyLocationXml(new File(xmlLocation));
@@ -404,7 +399,7 @@ public class AccountingSAXParser {
         }
     }
 
-    public static void toXML(Accountings accountings) {
+    public static void writeAccountings(Accountings accountings) {
         Accounting currentAccounting = accountings.getCurrentAccounting();
         try {
             Writer writer = new FileWriter(getFile());
@@ -415,6 +410,7 @@ public class AccountingSAXParser {
                 writer.write("  <Accounting name=\"" + acc.toString()
                         + "\" current=\"" + (acc == currentAccounting?"true":"false")
                         + "\" xml=\"" + acc.getLocationXml()
+                        + "\" xsl=\"" + acc.getLocationXSL()
                         + "\" html=\"" + acc.getLocationHtml()
                         + "\"/>\r\n");
             }
@@ -457,7 +453,7 @@ public class AccountingSAXParser {
             Writer writer = new FileWriter(xmlFile);
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Accounting SYSTEM \""
                     + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Accounting xsl=\"" + accounting.getLocationXSL() + "\">\r\n");
+                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Accounting>\r\n");
             writer.write("  <Accounts xml=\"" + accounting.getAccountLocationXml() + "\" html=\"" + accounting.getAccountLocationHtml()
                     + "\">\r\n");
             for(Account account : accounting.getAccounts().getAccounts()) {
