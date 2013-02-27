@@ -94,13 +94,32 @@ public class AccountingSAXParser {
                 if (!subFolder.isDirectory()) {
                     System.err.println(name + " not found or no directory");
                 } else {
-                    File accountingFile = FileSystemView.getFileSystemView().getChild(subFolder, "Accounting.xml");
+                    // TODO read the names of these files from the index file "Accounting.xml"
+                    File accountsFile = FileSystemView.getFileSystemView().getChild(subFolder, "Accounts.xml");
+                    File journalsFile = FileSystemView.getFileSystemView().getChild(subFolder, "Journals.xml");
+                    File balancesFile = FileSystemView.getFileSystemView().getChild(subFolder, "Balances.xml");
+                    File mortgagesFile = FileSystemView.getFileSystemView().getChild(subFolder, "Mortgages.xml");
                     File counterpartiesFile = FileSystemView.getFileSystemView().getChild(subFolder, "Counterparties.xml");
                     File movementsFile = FileSystemView.getFileSystemView().getChild(subFolder, "Movements.xml");
-                    if (!accountingFile.exists()) {
-                        System.err.println("no Accounting.xml file found in " + name);
+                    if (!accountsFile.exists()) {
+                        System.err.println("no Accounts.xml file found in " + name);
                     } else {
-                        readAccounting(accounting, accountingFile);
+                        readAccounts(accounting, accountsFile);
+                    }
+                    if (!journalsFile.exists()) {
+                        System.err.println("no Journals.xml file found in " + name);
+                    } else {
+                        readJournals(accounting, journalsFile);
+                    }
+                    if (!balancesFile.exists()) {
+                        System.err.println("no Balances.xml file found in " + name);
+                    } else {
+                        readBalances(accounting, balancesFile);
+                    }
+                    if (!mortgagesFile.exists()) {
+                        System.err.println("no Mortgages.xml file found in " + name);
+                    } else {
+                        readMortgages(accounting, mortgagesFile);
                     }
                     if (!counterpartiesFile.exists()) {
                         System.err.println("no Counterparties.xml file found in " + name);
@@ -118,7 +137,7 @@ public class AccountingSAXParser {
         return accountings;
     }
 
-    private static void readAccounting(Accounting accounting, File accountingFile){
+    private static void readAccounts(Accounting accounting, File accountingFile){
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
@@ -127,38 +146,14 @@ public class AccountingSAXParser {
             doc.getDocumentElement().normalize();
 
             Node accountsNode = doc.getElementsByTagName("Accounts").item(0);
-            Node journalsNode = doc.getElementsByTagName("Journals").item(0);
-            Node balancesNode = doc.getElementsByTagName("Balances").item(0);
-            Node mortgagesNode = doc.getElementsByTagName("Mortgages").item(0);
 
-            if(accountsNode!=null){
-                String htmlLocation = accountsNode.getAttributes().getNamedItem("html").getNodeValue();
-                accounting.getAccounts().setLocationHtml(new File(htmlLocation));
-                String xmlLocation = accountsNode.getAttributes().getNamedItem("xml").getNodeValue();
-                accounting.getAccounts().setLocationXml(new File(xmlLocation));
-            }
-            if(journalsNode!=null){
-                String htmlLocation = journalsNode.getAttributes().getNamedItem("html").getNodeValue();
-                accounting.getJournals().setLocationHtml(new File(htmlLocation));
-                String xmlLocation = journalsNode.getAttributes().getNamedItem("xml").getNodeValue();
-                accounting.getJournals().setLocationXml(new File(xmlLocation));
-            }
-            if(balancesNode!=null){
-                String htmlLocation = balancesNode.getAttributes().getNamedItem("html").getNodeValue();
-                accounting.setBalanceLocationHtml(new File(htmlLocation));
-                String xmlLocation = balancesNode.getAttributes().getNamedItem("xml").getNodeValue();
-                accounting.setBalanceLocationXml(new File(xmlLocation));
-            }
-            if(mortgagesNode!=null){
-                String htmlLocation = mortgagesNode.getAttributes().getNamedItem("html").getNodeValue();
-                accounting.setMortgageLocationHtml(new File(htmlLocation));
-                String xmlLocation = mortgagesNode.getAttributes().getNamedItem("xml").getNodeValue();
-                accounting.setMortgageLocationXml(new File(xmlLocation));
-            }
+            String xmlLocation = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+            accounting.getAccounts().setLocationXml(new File(xmlLocation));
+            // TODO: null-check: html can be empty
+            String htmlLocation = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+            accounting.getAccounts().setLocationHtml(new File(htmlLocation));
 
-            accountsFromXML(accounting, (Element)accountsNode);
-            journalsFromXML(accounting, (Element) journalsNode);
-            mortgagesFromXML(accounting, (Element) mortgagesNode);
+            accountsFromXML(accounting, (Element) accountsNode);
 
         } catch (IOException io) {
             io.printStackTrace();
@@ -168,6 +163,86 @@ public class AccountingSAXParser {
             e.printStackTrace();
         }
     }
+
+    private static void readJournals(Accounting accounting, File accountingFile){
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            documentBuilderFactory.setValidating(true);
+            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(accountingFile.getAbsolutePath());
+            doc.getDocumentElement().normalize();
+
+            Node journalsNode = doc.getElementsByTagName("Journals").item(0);
+
+            String xmlLocation = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+            accounting.getJournals().setLocationXml(new File(xmlLocation));
+            // TODO: null-check: html can be empty
+            String htmlLocation = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+            accounting.getJournals().setLocationHtml(new File(htmlLocation));
+
+            journalsFromXML(accounting, (Element) journalsNode);
+
+        } catch (IOException io) {
+            io.printStackTrace();
+            FileSystemView.getFileSystemView().createFileObject("Journals.xml");
+            System.out.println(accountingFile.getAbsolutePath() + " has been created");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void readBalances(Accounting accounting, File accountingFile){
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            documentBuilderFactory.setValidating(true);
+            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(accountingFile.getAbsolutePath());
+            doc.getDocumentElement().normalize();
+
+            Node balancesNode = doc.getElementsByTagName("Balances").item(0);
+
+            String xmlLocation = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+            accounting.setBalanceLocationXml(new File(xmlLocation));
+            // TODO: null-check: html can be empty
+            String htmlLocation = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+            accounting.setBalanceLocationHtml(new File(htmlLocation));
+
+        } catch (IOException io) {
+            io.printStackTrace();
+            FileSystemView.getFileSystemView().createFileObject("Balances.xml");
+            System.out.println(accountingFile.getAbsolutePath() + " has been created");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void readMortgages(Accounting accounting, File accountingFile){
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            documentBuilderFactory.setValidating(true);
+            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(accountingFile.getAbsolutePath());
+            doc.getDocumentElement().normalize();
+
+            Node mortgagesNode = doc.getElementsByTagName("Mortgages").item(0);
+
+            String xmlLocation = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+            accounting.setMortgageLocationXml(new File(xmlLocation));
+            // TODO: null-check: html can be empty
+            String htmlLocation = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+            accounting.setMortgageLocationHtml(new File(htmlLocation));
+
+            mortgagesFromXML(accounting, (Element) mortgagesNode);
+
+        } catch (IOException io) {
+            io.printStackTrace();
+            FileSystemView.getFileSystemView().createFileObject("Mortgages.xml");
+            System.out.println(accountingFile.getAbsolutePath() + " has been created");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     private static void readMovements(Accounting accounting, File bankingFile){
         try {
@@ -423,7 +498,10 @@ public class AccountingSAXParser {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
         for(Accounting accounting : accountings.getAccountings()) {
-            writeAccounting(accounting);
+            //writeAccounting(accounting); // TODO write extra XML file to link at Accounts, Journals, ...
+            writeAccounts(accounting);
+            writeBalances(accounting);
+            writeJournals(accounting);
             writeMortgages(accounting);
             writeCounterparties(accounting);
             writeMovements(accounting);
@@ -440,57 +518,119 @@ public class AccountingSAXParser {
                 toXML(journal);
 //            }
             }
-            toHtml(accounting);
+            for(Mortgage mortgage:accounting.getMortgagesTables()){
+//            TODO: add isSavedXML
+//            if(journal.isSavedXML()){
+                toXML(mortgage, accounting);
+//            }
+            }
+            //toHtml(accounting);
         }
     }
 
-    private static void writeAccounting(Accounting accounting) {
-        System.out.println("Accounting.TOXML(" + accounting.toString() + ")");
-        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Accounting.xml");
-        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Accounting.xsl");
-        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Accounting.dtd");
+    private static void toXML(Mortgage mortgage, Accounting accounting) {
+        System.out.println("Mortgages.TOXML(" + mortgage.toString() + ")");
+        File styleSheet = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Mortgage.xsl");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getMortgageLocationXml(),
+                mortgage.toString() + ".xml");
         try {
             Writer writer = new FileWriter(xmlFile);
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Accounting SYSTEM \""
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
+                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + styleSheet.getCanonicalPath() + "\"?>\r\n"
+                    + "<mortgageTable name=\"" + mortgage.toString() + "\">\r\n");
+            int teller = 1;
+            for(Vector<BigDecimal> vector : mortgage.getTable()) {
+                writer.write("  <line>\r\n" + "    <nr>" + teller + "</nr>\r\n" + "    <mensuality>"
+                        + vector.get(0) + "</mensuality>\r\n" + "    <intrest>" + vector.get(1) + "</intrest>\r\n"
+                        + "    <capital>" + vector.get(2) + "</capital>\r\n" + "    <restCapital>" + vector.get(3)
+                        + "</restCapital>\r\n  </line>\r\n");
+                teller++;
+            }
+            writer.write("</mortgageTable>");
+            writer.flush();
+            writer.close();
+            // setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void writeBalances(Accounting accounting) {
+        System.out.println("Balances.TOXML(" + accounting.toString() + ")");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Balances.xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Balances.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Balances.dtd");
+        try {
+            Writer writer = new FileWriter(xmlFile);
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Balances SYSTEM \""
                     + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Accounting>\r\n");
-            writer.write("  <Accounts xml=\"" + accounting.getAccounts().getLocationXml() + "\" html=\"" + accounting.getAccounts().getLocationHtml()
-                    + "\">\r\n");
+                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Balances>\r\n");
+            writer.write("  <xml>" + accounting.getBalanceLocationXml() + "</xml>\r\n");
+            writer.write("  <html>" + accounting.getBalanceLocationHtml() + "</html>\r\n");
+            writer.write("</Balances>\r\n");
+            writer.flush();
+            writer.close();
+//			setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void writeAccounts(Accounting accounting) {
+        System.out.println("Accounts.TOXML(" + accounting.toString() + ")");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Accounts.xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Accounts.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Accounts.dtd");
+        try {
+            Writer writer = new FileWriter(xmlFile);
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Accounts SYSTEM \""
+                    + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
+                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Accounts>\r\n");
+            writer.write("  <xml>" + accounting.getAccounts().getLocationXml() + "</xml>\r\n");
+            writer.write("  <html>" + accounting.getAccounts().getLocationHtml() + "</html>\r\n");
             for(Account account : accounting.getAccounts().getAccounts()) {
-                writer.write("    <Account>\r\n"
-                        + "      <account_name>"
-                        + account.getName()
-                        + "</account_name>\r\n"
-                        + "      <account_type>"
-                        + account.getType()
-                        + "</account_type>\r\n"
-                        + (account.getProject() == null ? "" : "      <account_project>" + account.getProject()
-                        + "</account_project>\r\n") + "    </Account>\r\n");
+                writer.write("  <Account>\r\n");
+                writer.write("    <account_name>" + account.getName() + "</account_name>\r\n");
+                writer.write("    <account_type>" + account.getType() + "</account_type>\r\n");
+                writer.write((account.getProject() == null ? "" : "      <account_project>"
+                        + account.getProject() + "</account_project>\r\n"));
+                writer.write("  </Account>\r\n");
             }
-            writer.write("  </Accounts>\r\n");
-            writer.write("  <Journals xml=\"" + accounting.getJournals().getLocationXml() + "\" html=\"" + accounting.getJournals().getLocationHtml()
-                    + "\">\r\n");
+            writer.write("</Accounts>\r\n");
+            writer.flush();
+            writer.close();
+//			setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void writeJournals(Accounting accounting) {
+        System.out.println("Journals.TOXML(" + accounting.toString() + ")");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Journals.xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Journals.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Journals.dtd");
+        try {
+            Writer writer = new FileWriter(xmlFile);
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Journals SYSTEM \""
+                    + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
+                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Journals>\r\n");
+            writer.write("  <xml>" + accounting.getJournals().getLocationXml() + "</xml>\r\n");
+            writer.write("  <html>" + accounting.getJournals().getLocationHtml() + "</html>\r\n");
             for(Journal journal : accounting.getJournals().getAllJournals()) {
-                writer.write("    <Journal>\r\n" + "      <journal_name>" + journal.getName() + "</journal_name>\r\n"
-                        + "      <journal_short>" + journal.getAbbreviation() + "</journal_short>\r\n"
-                        + "      <journal_type>" + journal.getType().toString() + "</journal_type>\r\n"
-                        + "    </Journal>\r\n");
+                writer.write("  <Journal>\r\n");
+                writer.write("    <journal_name>" + journal.getName() + "</journal_name>\r\n");
+                writer.write("    <journal_short>" + journal.getAbbreviation() + "</journal_short>\r\n");
+                writer.write("    <journal_type>" + journal.getType().toString() + "</journal_type>\r\n");
+                writer.write("  </Journal>\r\n");
             }
-            writer.write("  </Journals>\r\n");
-            writer.write("  <Balances xml=\"" + accounting.getBalanceLocationXml() + "\" html=\"" + accounting.getBalanceLocationHtml()
-                    + "\">\r\n");
-            writer.write("  </Balances>\r\n");
-            writer.write("  <Mortgages xml=\"" + accounting.getMortgageLocationXml() + "\" html=\"" + accounting.getMortgageLocationHtml()
-                    + "\">\r\n");
-            for(Mortgage mortgage : accounting.getMortgagesTables()) {
-                writer.write("    <Mortgage name=\"" + mortgage.toString() + "\" total=\"" + mortgage.getStartCapital()
-                        + "\">\r\n" + "      <nrPayed>" + mortgage.getNrPayed() + "</nrPayed>\r\n"
-                        + "      <capital_account>" + mortgage.getCapitalAccount() + "</capital_account>\r\n"
-                        + "      <intrest_account>" + mortgage.getIntrestAccount() + "</intrest_account>\r\n"
-                        + "    </Mortgage>\r\n");
-            }
-            writer.write("  </Mortgages>\r\n");
-            writer.write("</Accounting>\r\n");
+            writer.write("</Journals>\r\n");
             writer.flush();
             writer.close();
 //			setSaved(true);
@@ -585,32 +725,32 @@ public class AccountingSAXParser {
     }
 
     private static void writeMortgages(Accounting accounting) {
-        for(Mortgage mortgage : accounting.getMortgagesTables()) {
-            File styleSheet = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Mortgage.xsl");
-            File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getMortgageLocationXml(),
-                    mortgage.toString() + ".xml");
-            try {
-                Writer writer = new FileWriter(xmlFile);
-                writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-                        + "<?xml-stylesheet type=\"text/xsl\" href=\"" + styleSheet.getCanonicalPath() + "\"?>\r\n"
-                        + "<mortgageTable name=\"" + mortgage.toString() + "\">\r\n");
-                int teller = 1;
-                for(Vector<BigDecimal> vector : mortgage.getTable()) {
-                    writer.write("  <line>\r\n" + "    <nr>" + teller + "</nr>\r\n" + "    <mensuality>"
-                            + vector.get(0) + "</mensuality>\r\n" + "    <intrest>" + vector.get(1) + "</intrest>\r\n"
-                            + "    <capital>" + vector.get(2) + "</capital>\r\n" + "    <restCapital>" + vector.get(3)
-                            + "</restCapital>\r\n  </line>\r\n");
-                    teller++;
-                }
-                writer.write("</mortgageTable>");
-                writer.flush();
-                writer.close();
-                // setSaved(true);
-            } catch (FileNotFoundException ex) {
-                Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-            } catch (IOException ex) {
-                Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        System.out.println("Mortgages.TOXML(" + accounting.toString() + ")");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Mortgages.xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Mortgages.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Mortgages.dtd");
+        try {
+            Writer writer = new FileWriter(xmlFile);
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Mortgages SYSTEM \""
+                    + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
+                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Mortgages>\r\n");
+            writer.write("  <xml>" + accounting.getMortgageLocationXml() + "</xml>\r\n");
+            writer.write("  <html>" + accounting.getMortgageLocationHtml() + "</html>\r\n");
+            for(Mortgage mortgage : accounting.getMortgagesTables()) {
+                writer.write("  <Mortgage name=\"" + mortgage.toString() + "\" total=\"" + mortgage.getStartCapital() + "\">\r\n");
+                writer.write("    <nrPayed>" + mortgage.getNrPayed() + "</nrPayed>\r\n");
+                writer.write("    <capital_account>" + mortgage.getCapitalAccount() + "</capital_account>\r\n");
+                writer.write("    <intrest_account>" + mortgage.getIntrestAccount() + "</intrest_account>\r\n");
+                writer.write("  </Mortgage>\r\n");
             }
+            writer.write("</Mortgages>\r\n");
+            writer.flush();
+            writer.close();
+//			setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
