@@ -42,7 +42,7 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
         }
         Account account = new Account(accountName.trim(), accountType);
         File xmlFile = FileSystemView.getFileSystemView().getChild(locationXml, account.getName() + ".xml");
-        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Account.xsl");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Account.xsl");
         File htmlFile = FileSystemView.getFileSystemView().getChild(locationHtml, account.getName() + ".html");
         account.setXmlFile(xmlFile);
         account.setXslFile(xslFile);

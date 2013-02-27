@@ -444,7 +444,7 @@ public class AccountingSAXParser {
                     bankAccount.setCurrency(currency);
                 }
             }
-            accounting.addCounterparty(counterParty);
+            accounting.getCounterParties().addCounterParty(counterParty);
         }
     }
 
@@ -484,9 +484,9 @@ public class AccountingSAXParser {
             for(Accounting acc : accountings.getAccountings()) {
                 writer.write("  <Accounting name=\"" + acc.toString()
                         + "\" current=\"" + (acc == currentAccounting?"true":"false")
-                        + "\" xml=\"" + acc.getLocationXml()
-                        + "\" xsl=\"" + acc.getLocationXSL()
-                        + "\" html=\"" + acc.getLocationHtml()
+                        + "\" xml=\"" + acc.getXmlFolder()
+                        + "\" xsl=\"" + acc.getXslFolder()
+                        + "\" html=\"" + acc.getHtmlFolder()
                         + "\"/>\r\n");
             }
             writer.write("</Accountings>");
@@ -530,7 +530,7 @@ public class AccountingSAXParser {
 
     private static void toXML(Mortgage mortgage, Accounting accounting) {
         System.out.println("Mortgages.TOXML(" + mortgage.toString() + ")");
-        File styleSheet = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Mortgage.xsl");
+        File styleSheet = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Mortgage.xsl");
         File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getMortgages().getMortgageLocationXml(),
                 mortgage.toString() + ".xml");
         try {
@@ -559,9 +559,9 @@ public class AccountingSAXParser {
 
     private static void writeBalances(Accounting accounting) {
         System.out.println("Balances.TOXML(" + accounting.toString() + ")");
-        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Balances.xml");
-        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Balances.xsl");
-        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Balances.dtd");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), "Balances.xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Balances.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Balances.dtd");
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Balances SYSTEM \""
@@ -582,9 +582,9 @@ public class AccountingSAXParser {
 
     private static void writeAccounts(Accounting accounting) {
         System.out.println("Accounts.TOXML(" + accounting.toString() + ")");
-        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Accounts.xml");
-        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Accounts.xsl");
-        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Accounts.dtd");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), "Accounts.xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Accounts.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Accounts.dtd");
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Accounts SYSTEM \""
@@ -613,9 +613,9 @@ public class AccountingSAXParser {
 
     private static void writeJournals(Accounting accounting) {
         System.out.println("Journals.TOXML(" + accounting.toString() + ")");
-        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Journals.xml");
-        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Journals.xsl");
-        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Journals.dtd");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), "Journals.xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Journals.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Journals.dtd");
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Journals SYSTEM \""
@@ -643,14 +643,14 @@ public class AccountingSAXParser {
 
     private static void writeMovements(Accounting accounting) {
         System.out.println("Movements.TOXML(" + accounting.toString() + ")");
-        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Movements.xml");
-        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Movements.xsl");
-        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Movements.dtd");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), "Movements.xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Movements.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Movements.dtd");
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Movements SYSTEM \""
                     + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Movements xsl=\"" + accounting.getLocationXSL() + "\">\r\n");
+                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Movements xsl=\"" + accounting.getXslFolder() + "\">\r\n");
             writer.write("  <xml>" + accounting.getMovements().getLocationXml() + "</xml>\r\n");
             writer.write("  <html>"+ accounting.getMovements().getLocationHtml() + "</html>\r\n");
             for(Movement movement : accounting.getMovements().getAllMovements()) {
@@ -678,14 +678,14 @@ public class AccountingSAXParser {
 
     private static void writeCounterparties(Accounting accounting) {
         System.out.println("Counterparties.TOXML(" + accounting.toString() + ")");
-        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Counterparties.xml");
-        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Counterparties.xsl");
-        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Counterparties.dtd");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), "Counterparties.xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Counterparties.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Counterparties.dtd");
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Counterparties SYSTEM \""
                     + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Counterparties xsl=\"" + accounting.getLocationXSL() + "\">\r\n");
+                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Counterparties xsl=\"" + accounting.getXslFolder() + "\">\r\n");
             writer.write("  <xml>" + accounting.getCounterParties().getLocationXml() + "</xml>\r\n");
             writer.write("  <html>"+ accounting.getCounterParties().getLocationHtml() + "</html>\r\n");
             for(CounterParty counterParty : accounting.getCounterParties().getCounterParties()) {
@@ -726,9 +726,9 @@ public class AccountingSAXParser {
 
     private static void writeMortgages(Accounting accounting) {
         System.out.println("Mortgages.TOXML(" + accounting.toString() + ")");
-        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Mortgages.xml");
-        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Mortgages.xsl");
-        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Mortgages.dtd");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), "Mortgages.xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Mortgages.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Mortgages.dtd");
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Mortgages SYSTEM \""
@@ -819,7 +819,7 @@ public class AccountingSAXParser {
 
 
     private static void toHtml(Accounting accounting){
-        if(accounting.getLocationHtml() == null){
+        if(accounting.getHtmlFolder() == null){
             accounting.createHTMLFolders();
         }
         Utils.xmlToHtml(accounting.getXMLFile(), accounting.getXSLFile(), accounting.getHTMLFile(), null);

@@ -54,7 +54,7 @@ public class RefreshableBalance extends RefreshableTable implements ActionListen
 			accounting.getBalances().setBalanceLocationXml(dialoog.getSelectedFile());
 		}
 		String xml = accounting.getBalances().getBalanceLocationXml() + "//" + name + ".xml"; //$NON-NLS-1$ //$NON-NLS-2$
-		String xsl = accounting.getLocationXSL().getAbsolutePath();
+		String xsl = accounting.getXslFolder().getAbsolutePath();
 		try {
 			Writer writer = new FileWriter(xml);
 			writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" //$NON-NLS-1$

@@ -1,7 +1,6 @@
 package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Objects.Coda.CounterParties;
-import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Coda.Movements;
 import be.dafke.Accounting.Objects.Mortgage.Mortgages;
 import be.dafke.Utils;
@@ -31,7 +30,7 @@ public class Accounting implements Serializable {
     private final Balances balances;
 
     private final String name;
-    private File locationXSL, locationXML, locationHTML;
+    private File xslFolder, xmlFolder, htmlFolder;
     private File xmlFile, htmlFile, xslFile;
 
     private Journal currentJournal;
@@ -74,35 +73,31 @@ public class Accounting implements Serializable {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
 		if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
-			locationHTML = chooser.getSelectedFile();
+			htmlFolder = chooser.getSelectedFile();
 		} else {
 			File parent = FileSystemView.getFileSystemView().getHomeDirectory();
-			locationHTML = Utils.createSubFolderIfNotExist(parent, name);
+			htmlFolder = Utils.createSubFolderIfNotExist(parent, name);
 		}
-        htmlFile = FileSystemView.getFileSystemView().getChild(locationHTML, "Accounting.html");
-        balances.setBalanceLocationHtml(Utils.createSubFolderIfNotExist(locationHTML, "Balances"));
-        mortgages.setMortgageLocationHtml(Utils.createSubFolderIfNotExist(locationHTML, "Mortgages"));
-        accounts.setLocationHtml(Utils.createSubFolderIfNotExist(locationHTML, "Accounts"));
-        journals.setLocationHtml(Utils.createSubFolderIfNotExist(locationHTML, "Journals"));
-		movements.setLocationHtml(Utils.createSubFolderIfNotExist(locationHTML, "Movements"));
-		counterParties.setLocationHtml(Utils.createSubFolderIfNotExist(locationHTML, "CounterParties"));
+        htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, "Accounting.html");
+        balances.setBalanceLocationHtml(Utils.createSubFolderIfNotExist(htmlFolder, "Balances"));
+        mortgages.setMortgageLocationHtml(Utils.createSubFolderIfNotExist(htmlFolder, "Mortgages"));
+        accounts.setLocationHtml(Utils.createSubFolderIfNotExist(htmlFolder, "Accounts"));
+        journals.setLocationHtml(Utils.createSubFolderIfNotExist(htmlFolder, "Journals"));
+		movements.setLocationHtml(Utils.createSubFolderIfNotExist(htmlFolder, "Movements"));
+		counterParties.setLocationHtml(Utils.createSubFolderIfNotExist(htmlFolder, "CounterParties"));
 	}
 
 	private void createXMLFolders() {
 		File home = new File(System.getProperty("user.home"));
 		File folder = Utils.createSubFolderIfNotExist(home, "Accounting");
-		locationXML = Utils.createSubFolderIfNotExist(folder, name);
-        balances.setBalanceLocationXml(Utils.createSubFolderIfNotExist(locationXML, "Balances"));
-        mortgages.setMortgageLocationXml(Utils.createSubFolderIfNotExist(locationXML, "Mortgages"));
-        accounts.setLocationXml(Utils.createSubFolderIfNotExist(locationXML, "Accounts"));
-        journals.setLocationXml(Utils.createSubFolderIfNotExist(locationXML, "Journals"));
-		movements.setLocationXml(Utils.createSubFolderIfNotExist(locationXML, "Movements"));
-		counterParties.setLocationXml(Utils.createSubFolderIfNotExist(locationXML, "CounterParties"));
+		xmlFolder = Utils.createSubFolderIfNotExist(folder, name);
+        balances.setBalanceLocationXml(Utils.createSubFolderIfNotExist(xmlFolder, "Balances"));
+        mortgages.setMortgageLocationXml(Utils.createSubFolderIfNotExist(xmlFolder, "Mortgages"));
+        accounts.setLocationXml(Utils.createSubFolderIfNotExist(xmlFolder, "Accounts"));
+        journals.setLocationXml(Utils.createSubFolderIfNotExist(xmlFolder, "Journals"));
+		movements.setLocationXml(Utils.createSubFolderIfNotExist(xmlFolder, "Movements"));
+		counterParties.setLocationXml(Utils.createSubFolderIfNotExist(xmlFolder, "CounterParties"));
 	}
-
-    public void addCounterparty(CounterParty counterParty){
-        counterParties.addCounterParty(counterParty);
-    }
 
     public Mortgages getMortgages(){
         return mortgages;
@@ -129,6 +124,14 @@ public class Accounting implements Serializable {
 		return name;
 	}
 
+    public Accounts getAccounts() {
+        return accounts;
+    }
+
+    public JournalTypes getJournalTypes() {
+        return journalTypes;
+    }
+
     public Balances getBalances(){
         return balances;
     }
@@ -141,6 +144,7 @@ public class Accounting implements Serializable {
 		return projects;
 	}
 
+    // Current Objects
 	public Journal getCurrentJournal() {
 		return currentJournal;
 	}
@@ -149,31 +153,45 @@ public class Accounting implements Serializable {
 		currentJournal = journal;
 	}
 
-	public Accounts getAccounts() {
-		return accounts;
+    public void setCurrentAccount(Account currentAccount) {
+        this.currentAccount = currentAccount;
+    }
+
+    public Account getCurrentAccount() {
+        return currentAccount;
+    }
+
+	// Folders
+	public void setHtmlFolder(File htmlFolder) {
+		this.htmlFolder = htmlFolder;
+		this.htmlFolder.mkdir();
+		htmlFile = FileSystemView.getFileSystemView().getChild(this.htmlFolder, "Accounting.html");
 	}
 
-	public JournalTypes getJournalTypes() {
-		return journalTypes;
+	public void setXmlFolder(File xmlFolder) {
+		this.xmlFolder = xmlFolder;
+		this.xmlFolder.mkdir();
+		xmlFile = FileSystemView.getFileSystemView().getChild(this.xmlFolder, "Accounting.xml");
 	}
 
-	// Default Location
-	public void setLocationHtml(File location) {
-		locationHTML = location;
-		locationHTML.mkdir();
-		htmlFile = FileSystemView.getFileSystemView().getChild(locationHTML, "Accounting.html");
-	}
+    public void setXslFolder(File xslFolder) {
+        this.xslFolder = xslFolder;
+        xslFile = FileSystemView.getFileSystemView().getChild(this.xslFolder, "Accounting.xsl");
+    }
 
-	public void setLocationXml(File location) {
-		locationXML = location;
-		locationXML.mkdir();
-		xmlFile = FileSystemView.getFileSystemView().getChild(locationXML, "Accounting.xml");
-	}
+    public File getHtmlFolder() {
+        return htmlFolder;
+    }
 
-	public File getLocationHtml() {
-		return locationHTML;
-	}
+    public File getXmlFolder() {
+        return xmlFolder;
+    }
 
+    public File getXslFolder() {
+        return xslFolder;
+    }
+
+    // Files
     public File getHTMLFile(){
         return htmlFile;
     }
@@ -184,27 +202,6 @@ public class Accounting implements Serializable {
 
     public File getXSLFile(){
         return xslFile;
-    }
-
-	public File getLocationXml() {
-		return locationXML;
-	}
-
-	public File getLocationXSL() {
-		return locationXSL;
-	}
-
-	public void setLocationXsl(File location) {
-		locationXSL = location;
-		xslFile = FileSystemView.getFileSystemView().getChild(locationXSL, "Accounting.xsl");
-	}
-
-    public void setCurrentAccount(Account currentAccount) {
-        this.currentAccount = currentAccount;
-    }
-
-    public Account getCurrentAccount() {
-        return currentAccount;
     }
 
 //	public void setSaved(boolean save) {
