@@ -20,7 +20,6 @@ public class Transaction implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private static Transaction trans = null;
 	private BigDecimal debettotaal, credittotaal;
 	private String description = "";
 	private Calendar datum = null;
@@ -206,6 +205,8 @@ public class Transaction implements Serializable {
 	}
 
 	public void book(Journal journal) {
+        // TODO: null check on journal OR Disable "Debit" and "Credit" button if there are no Journals
+        // if(journal == null) throw Exception --> catch Exception in GUI
 		journal.book(this);
 		booked = true;
 		for(Mortgage mortgage : mortgages) {

@@ -90,6 +90,7 @@ public class Accounting implements Serializable {
 		File home = new File(System.getProperty("user.home"));
 		File folder = FileSystemView.getFileSystemView().getChild(home, "Accounting");
 		xmlFolder = FileSystemView.getFileSystemView().getChild(folder, name);
+        xslFolder = FileSystemView.getFileSystemView().getChild(folder, "xsl");
         balances.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "Balances"));
         mortgages.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "Mortgages"));
         accounts.setXmlFolder(FileSystemView.getFileSystemView().getChild(xmlFolder, "Accounts"));
