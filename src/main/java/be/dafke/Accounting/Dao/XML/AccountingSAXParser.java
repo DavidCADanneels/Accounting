@@ -96,16 +96,22 @@ public class AccountingSAXParser {
                     System.err.println(name + " not found or no directory");
                 } else {
                     File accountingFile = FileSystemView.getFileSystemView().getChild(subFolder, "Accounting.xml");
-                    File bankingFile = FileSystemView.getFileSystemView().getChild(subFolder, "Banking.xml");
+                    File counterpartiesFile = FileSystemView.getFileSystemView().getChild(subFolder, "Counterparties.xml");
+                    File movementsFile = FileSystemView.getFileSystemView().getChild(subFolder, "Movements.xml");
                     if (!accountingFile.exists()) {
                         System.err.println("no Accounting.xml file found in " + name);
                     } else {
                         readAccounting(accounting, accountingFile);
                     }
-                    if (!bankingFile.exists()) {
-                        System.err.println("no Banking.xml file found in " + name);
+                    if (!counterpartiesFile.exists()) {
+                        System.err.println("no Counterparties.xml file found in " + name);
                     } else {
-                        readBanking(accounting, bankingFile);
+                        readCounterparties(accounting, counterpartiesFile);
+                    }
+                    if (!movementsFile.exists()) {
+                        System.err.println("no Movements.xml file found in " + name);
+                    } else {
+                        readMovements(accounting, movementsFile);
                     }
                 }
             }
@@ -168,7 +174,7 @@ public class AccountingSAXParser {
         }
     }
 
-    private static void readBanking(Accounting accounting, File bankingFile){
+    private static void readMovements(Accounting accounting, File bankingFile){
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
@@ -176,28 +182,46 @@ public class AccountingSAXParser {
             Document doc = dBuilder.parse(bankingFile.getAbsolutePath());
             doc.getDocumentElement().normalize();
 
-            Node accountingNode = doc.getElementsByTagName("Banking").item(0);
-            String xslLocation = accountingNode.getAttributes().getNamedItem("xsl").getNodeValue();
+            Node movementsNode = doc.getElementsByTagName("Movements").item(0);
+            String xslLocation = movementsNode.getAttributes().getNamedItem("xsl").getNodeValue();
             accounting.setLocationXSL(new File(xslLocation));
 
-            Node counterpartiesNode = doc.getElementsByTagName("Counterparties").item(0);
-            Node movementsNode = doc.getElementsByTagName("Movements").item(0);
+            String xmlLocation = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+            accounting.setMovementLocationXml(new File(xmlLocation));
+            // TODO: null-check: html can be empty
+            String htmlLocation = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+            accounting.setMovementLocationHtml(new File(htmlLocation));
 
-            if(counterpartiesNode!=null){
-                String htmlLocation = counterpartiesNode.getAttributes().getNamedItem("html").getNodeValue();
-                accounting.setCounterpartyLocationHtml(new File(htmlLocation));
-                String xmlLocation = counterpartiesNode.getAttributes().getNamedItem("xml").getNodeValue();
-                accounting.setCounterpartyLocationXml(new File(xmlLocation));
-            }
-            if(movementsNode!=null){
-                String htmlLocation = movementsNode.getAttributes().getNamedItem("html").getNodeValue();
-                accounting.setMovementLocationHtml(new File(htmlLocation));
-                String xmlLocation = movementsNode.getAttributes().getNamedItem("xml").getNodeValue();
-                accounting.setMovementLocationXml(new File(xmlLocation));
-            }
+            movementsFromXML(accounting, (Element) movementsNode);
+
+        } catch (IOException io) {
+            io.printStackTrace();
+            FileSystemView.getFileSystemView().createFileObject("Banking.xml");
+            System.out.println(bankingFile.getAbsolutePath() + " has been created");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void readCounterparties(Accounting accounting, File bankingFile){
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            documentBuilderFactory.setValidating(true);
+            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(bankingFile.getAbsolutePath());
+            doc.getDocumentElement().normalize();
+
+            Node counterpartiesNode = doc.getElementsByTagName("Counterparties").item(0);
+            String xslLocation = counterpartiesNode.getAttributes().getNamedItem("xsl").getNodeValue();
+            accounting.setLocationXSL(new File(xslLocation));
+
+            String xmlLocation = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+            accounting.setCounterpartyLocationXml(new File(xmlLocation));
+            // TODO: null-check: html can be empty
+            String htmlLocation = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+            accounting.setCounterpartyLocationHtml(new File(htmlLocation));
 
             counterpartiesFromXML(accounting, (Element) counterpartiesNode);
-            movementsFromXML(accounting, (Element) movementsNode);
 
         } catch (IOException io) {
             io.printStackTrace();
@@ -405,7 +429,8 @@ public class AccountingSAXParser {
         for(Accounting accounting : accountings.getAccountings()) {
             writeAccounting(accounting);
             writeMortgages(accounting);
-            writeBanking(accounting);
+            writeCounterparties(accounting);
+            writeMovements(accounting);
 
             for(Account account:accounting.getAccounts().values()){
 //            TODO: add isSavedXML
@@ -480,21 +505,55 @@ public class AccountingSAXParser {
         }
     }
 
-    private static void writeBanking(Accounting accounting) {
-        System.out.println("Banking.TOXML(" + accounting.toString() + ")");
-        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Banking.xml");
-        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Banking.xsl");
-        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Banking.dtd");
+    private static void writeMovements(Accounting accounting) {
+        System.out.println("Movements.TOXML(" + accounting.toString() + ")");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Movements.xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Movements.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Movements.dtd");
         try {
             Writer writer = new FileWriter(xmlFile);
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Banking SYSTEM \""
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Movements SYSTEM \""
                     + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Banking xsl=\"" + accounting.getLocationXSL() + "\">\r\n");
+                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Movements xsl=\"" + accounting.getLocationXSL() + "\">\r\n");
+            writer.write("  <xml>" + accounting.getMovementLocationXml() + "</xml>\r\n");
+            writer.write("  <html>"+ accounting.getMovementLocationHtml() + "</html>\r\n");
+            for(Movement movement : accounting.getMovements().getAllMovements()) {
+                writer.write("  <Movement>\r\n");
+                writer.write("    <Statement>"+movement.getStatementNr()+"</Statement>\r\n");
+                writer.write("    <Sequence>"+movement.getSequenceNr()+"</Sequence>\r\n");
+                writer.write("    <Date>"+Utils.toString(movement.getDate())+"</Date>\r\n");
+                writer.write("    <Sign>"+(movement.isDebit()?"D":"C")+"</Sign>\r\n");
+                writer.write("    <Amount>"+movement.getAmount()+"</Amount>\r\n");
+                writer.write("    <CounterParty>"+movement.getCounterParty()+"</CounterParty>\r\n");
+                writer.write("    <TransactionCode>" + movement.getTransactionCode() + "</TransactionCode>\r\n");
+                writer.write("    <Communication>"+movement.getCommunication()+"</Communication>\r\n");
+                writer.write("  </Movement>\r\n");
+            }
+            writer.write("</Movements>\r\n");
+            writer.flush();
+            writer.close();
+//			setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
-            writer.write("  <Counterparties xml=\"" + accounting.getCounterPartyLocationXml() + "\" html=\""
-                    + accounting.getCounterPartyLocationHtml() + "\">\r\n");
+    private static void writeCounterparties(Accounting accounting) {
+        System.out.println("Counterparties.TOXML(" + accounting.toString() + ")");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Counterparties.xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Counterparties.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Counterparties.dtd");
+        try {
+            Writer writer = new FileWriter(xmlFile);
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Counterparties SYSTEM \""
+                    + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
+                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Counterparties xsl=\"" + accounting.getLocationXSL() + "\">\r\n");
+            writer.write("  <xml>" + accounting.getCounterPartyLocationXml() + "</xml>\r\n");
+            writer.write("  <html>"+ accounting.getCounterPartyLocationHtml() + "</html>\r\n");
             for(CounterParty counterParty : accounting.getCounterParties().getCounterParties()) {
-                writer.write("    <Counterparty name =\""+counterParty.getName()+"\">\r\n");
+                writer.write("  <Counterparty name =\""+counterParty.getName()+"\">\r\n");
                 if(counterParty.getAliases()!=null){
                     for(String alias : counterParty.getAliases()){
                         writer.write("      <Alias>"+alias+"</Alias>\r\n");
@@ -516,25 +575,9 @@ public class AccountingSAXParser {
                         }
                     }
                 }
-                writer.write("    </Counterparty>\r\n");
+                writer.write("  </Counterparty>\r\n");
             }
-            writer.write("  </Counterparties>\r\n");
-            writer.write("  <Movements xml=\"" + accounting.getMovementLocationXml() + "\" html=\"" + accounting.getMovementLocationHtml()
-                    + "\">\r\n");
-            for(Movement movement : accounting.getMovements().getAllMovements()) {
-                writer.write("    <Movement>\r\n");
-                writer.write("      <Statement>"+movement.getStatementNr()+"</Statement>\r\n");
-                writer.write("      <Sequence>"+movement.getSequenceNr()+"</Sequence>\r\n");
-                writer.write("      <Date>"+Utils.toString(movement.getDate())+"</Date>\r\n");
-                writer.write("      <Sign>"+(movement.isDebit()?"D":"C")+"</Sign>\r\n");
-                writer.write("      <Amount>"+movement.getAmount()+"</Amount>\r\n");
-                writer.write("      <CounterParty>"+movement.getCounterParty()+"</CounterParty>\r\n");
-                writer.write("      <TransactionCode>" + movement.getTransactionCode() + "</TransactionCode>\r\n");
-                writer.write("      <Communication>"+movement.getCommunication()+"</Communication>\r\n");
-                writer.write("    </Movement>\r\n");
-            }
-            writer.write("  </Movements>\r\n");
-            writer.write("</Banking>\r\n");
+            writer.write("</Counterparties>\r\n");
             writer.flush();
             writer.close();
 //			setSaved(true);
