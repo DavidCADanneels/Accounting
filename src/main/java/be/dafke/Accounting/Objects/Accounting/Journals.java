@@ -25,8 +25,11 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
 //	private boolean save;
 
     private Accounting accounting;
+    private File locationHtml;
+    private File locationXml;
+//    private File xmlFile, htmlFile;
 
-	public Journals(Accounting accounting) {
+    public Journals(Accounting accounting) {
 		super();
         this.accounting = accounting;
 //		save = false;
@@ -65,9 +68,9 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
             throw new DuplicateNameException();
         }
         Journal journal = new Journal(name.trim(), abbreviation.trim(), type);
-        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getJournalLocationXml(), name + ".xml");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(locationXml, journal.getName() + ".xml");
         File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Journal.xsl");
-        File htmlFile = FileSystemView.getFileSystemView().getChild(accounting.getJournalLocationHtml(), name + ".html");
+        File htmlFile = FileSystemView.getFileSystemView().getChild(locationHtml, journal.getName() + ".html");
         journal.setXmlFile(xmlFile);
         journal.setXslFile(xslFile);
         journal.setHtmlFile(htmlFile);
@@ -113,5 +116,29 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
         abbreviations.put(newAbbreviation,journal);
         journal.setAbbreviation(newAbbreviation.trim());
         return journal;
+    }
+
+    public void setLocationHtml(File locationHtml) {
+        this.locationHtml = locationHtml;
+        if(!this.locationHtml.exists()){
+            this.locationHtml.mkdir();
+        }
+//        htmlFile = FileSystemView.getFileSystemView().getChild(this.locationHtml, "Journals.html");
+    }
+
+    public File getLocationHtml(){
+        return locationHtml;
+    }
+
+    public void setLocationXml(File locationXml) {
+        this.locationXml = locationXml;
+        if(!this.locationXml.exists()){
+            this.locationXml.mkdir();
+        }
+//        xmlFile = FileSystemView.getFileSystemView().getChild(this.locationXml, "Journals.xml");
+    }
+
+    public File getLocationXml(){
+        return locationXml;
     }
 }

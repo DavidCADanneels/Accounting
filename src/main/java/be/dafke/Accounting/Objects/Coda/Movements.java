@@ -2,6 +2,7 @@ package be.dafke.Accounting.Objects.Coda;
 
 import be.dafke.Accounting.GUI.CodaManagement.SearchOptions;
 
+import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
 
@@ -11,8 +12,10 @@ public class Movements implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Movement> movements = new ArrayList<Movement>();
+    private File locationHtml;
+    private File locationXml;
 
-	public void add(Movement value) {
+    public void add(Movement value) {
 		movements.add(value);
 	}
 
@@ -54,4 +57,29 @@ public class Movements implements Serializable {
 	public int getSize() {
 		return movements.size();
 	}
+
+    public void setLocationXml(File locationXml) {
+        this.locationXml = locationXml;
+        if(!this.locationXml.exists()){
+            this.locationXml.mkdir();
+        }
+//        xmlFile = FileSystemView.getFileSystemView().getChild(this.locationXml, "Accounts.xml");
+    }
+
+    public File getLocationXml(){
+        return locationXml;
+    }
+
+    public void setLocationHtml(File locationHtml) {
+        this.locationHtml = locationHtml;
+        if(!this.locationHtml.exists()){
+            this.locationHtml.mkdir();
+        }
+//        htmlFile = FileSystemView.getFileSystemView().getChild(this.locationHtml, "Accounts.html");
+    }
+
+    public File getLocationHtml(){
+        return locationHtml;
+    }
+
 }

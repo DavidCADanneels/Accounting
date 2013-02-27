@@ -4,6 +4,7 @@ import be.dafke.Accounting.Objects.Coda.CounterParties;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Coda.Movements;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
+import be.dafke.Utils;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileSystemView;
@@ -30,12 +31,10 @@ public class Accounting implements Serializable {
     private final CounterParties counterParties;
     private final Movements movements;
 
-    private File accountLocationXML, journalLocationXML, balanceLocationXML;
-
-    private File mortgageLocationXML, movementLocationXML, counterpartyLocationXML;
-    private File accountLocationHTML, journalLocationHTML, balanceLocationHTML;
-
-    private File mortgageLocationHTML, movementLocationHTML, counterpartyLocationHTML;
+    private File balanceLocationXML;
+    private File mortgageLocationXML;
+    private File balanceLocationHTML;
+    private File mortgageLocationHTML;
 
     private final String name;
     private File locationXSL, locationXML, locationHTML;
@@ -83,27 +82,27 @@ public class Accounting implements Serializable {
 			locationHTML = chooser.getSelectedFile();
 		} else {
 			File parent = FileSystemView.getFileSystemView().getHomeDirectory();
-			locationHTML = createSubFolderIfNotExist(parent, name);
+			locationHTML = Utils.createSubFolderIfNotExist(parent, name);
 		}
-        htmlFile = FileSystemView.getFileSystemView().getChild(locationHTML,"Accounting.html");
-		accountLocationHTML = createSubFolderIfNotExist(locationHTML, "Accounts");
-		journalLocationHTML = createSubFolderIfNotExist(locationHTML, "Journals");
-		balanceLocationHTML = createSubFolderIfNotExist(locationHTML, "Balances");
-		mortgageLocationHTML = createSubFolderIfNotExist(locationHTML, "Mortgages");
-		movementLocationHTML = createSubFolderIfNotExist(locationHTML, "Movements");
-		counterpartyLocationHTML = createSubFolderIfNotExist(locationHTML, "CounterParties");
+        htmlFile = FileSystemView.getFileSystemView().getChild(locationHTML, "Accounting.html");
+        balanceLocationHTML = Utils.createSubFolderIfNotExist(locationHTML, "Balances");
+        mortgageLocationHTML = Utils.createSubFolderIfNotExist(locationHTML, "Mortgages");
+        accounts.setLocationHtml(Utils.createSubFolderIfNotExist(locationHTML, "Accounts"));
+        journals.setLocationHtml(Utils.createSubFolderIfNotExist(locationHTML, "Journals"));
+		movements.setLocationHtml(Utils.createSubFolderIfNotExist(locationHTML, "Movements"));
+		counterParties.setLocationHtml(Utils.createSubFolderIfNotExist(locationHTML, "CounterParties"));
 	}
 
 	private void createXMLFolders() {
 		File home = new File(System.getProperty("user.home"));
-		File folder = createSubFolderIfNotExist(home, "Accounting");
-		locationXML = createSubFolderIfNotExist(folder, name);
-		accountLocationXML = createSubFolderIfNotExist(locationXML, "Accounts");
-		journalLocationXML = createSubFolderIfNotExist(locationXML, "Journals");
-		balanceLocationXML = createSubFolderIfNotExist(locationXML, "Balances");
-		mortgageLocationXML = createSubFolderIfNotExist(locationXML, "Mortgages");
-		movementLocationXML = createSubFolderIfNotExist(locationXML, "Movements");
-		counterpartyLocationXML = createSubFolderIfNotExist(locationXML, "CounterParties");
+		File folder = Utils.createSubFolderIfNotExist(home, "Accounting");
+		locationXML = Utils.createSubFolderIfNotExist(folder, name);
+        balanceLocationXML = Utils.createSubFolderIfNotExist(locationXML, "Balances");
+        mortgageLocationXML = Utils.createSubFolderIfNotExist(locationXML, "Mortgages");
+        accounts.setLocationXml(Utils.createSubFolderIfNotExist(locationXML, "Accounts"));
+        journals.setLocationXml(Utils.createSubFolderIfNotExist(locationXML, "Journals"));
+		movements.setLocationXml(Utils.createSubFolderIfNotExist(locationXML, "Movements"));
+		counterParties.setLocationXml(Utils.createSubFolderIfNotExist(locationXML, "CounterParties"));
 		//
 //		locationXSL = createSubFolderIfNotExist(folder, "xsl");
 //		File defaultFolder = new File("xsl");
@@ -121,15 +120,6 @@ public class Accounting implements Serializable {
 //			newFile.renameTo(file);
 //			FileSystemView.getFileSystemView().createFileObject(file, file.getName());
 //		}
-	}
-
-	private File createSubFolderIfNotExist(File folder, String folderName) {
-		File subFolder = FileSystemView.getFileSystemView().getChild(folder, folderName);
-		if (!subFolder.exists()) {
-			File newFolder = FileSystemView.getFileSystemView().createFileObject(folder, folderName);
-			newFolder.mkdir();
-		}
-		return subFolder;
 	}
 
     public void addCounterparty(CounterParty counterParty){
@@ -243,44 +233,6 @@ public class Accounting implements Serializable {
 		xslFile = FileSystemView.getFileSystemView().getChild(locationXSL, "Accounting.xsl");
 	}
 
-	// Account Locations
-	public void setAccountLocationHtml(File location) {
-		accountLocationHTML = location;
-		accountLocationHTML.mkdir();
-	}
-
-	public void setAccountLocationXml(File location) {
-		accountLocationXML = location;
-		accountLocationXML.mkdir();
-	}
-
-	public File getAccountLocationHtml() {
-		return accountLocationHTML;
-	}
-
-	public File getAccountLocationXml() {
-		return accountLocationXML;
-	}
-
-	// Journal Location
-	public void setJournalLocationHtml(File location) {
-		journalLocationHTML = location;
-		journalLocationHTML.mkdir();
-	}
-
-	public void setJournalLocationXml(File location) {
-		journalLocationXML = location;
-		journalLocationXML.mkdir();
-	}
-
-	public File getJournalLocationHtml() {
-		return journalLocationHTML;
-	}
-
-	public File getJournalLocationXml() {
-		return journalLocationXML;
-	}
-
 	// Balance Location
 	public void setBalanceLocationHtml(File location) {
 		balanceLocationHTML = location;
@@ -317,44 +269,6 @@ public class Accounting implements Serializable {
 
 	public File getMortgageLocationXml() {
 		return mortgageLocationXML;
-	}
-
-	// Movement Location
-	public void setMovementLocationHtml(File location) {
-		movementLocationHTML = location;
-		movementLocationHTML.mkdir();
-	}
-
-	public void setMovementLocationXml(File location) {
-		movementLocationXML = location;
-		movementLocationXML.mkdir();
-	}
-
-	public File getMovementLocationHtml() {
-		return movementLocationHTML;
-	}
-
-	public File getMovementLocationXml() {
-		return movementLocationXML;
-	}
-
-	// Counterparty location
-	public void setCounterpartyLocationHtml(File location) {
-		counterpartyLocationHTML = location;
-		counterpartyLocationHTML.mkdir();
-	}
-
-	public void setCounterpartyLocationXml(File location) {
-		counterpartyLocationXML = location;
-		counterpartyLocationXML.mkdir();
-	}
-
-	public File getCounterPartyLocationHtml() {
-		return counterpartyLocationHTML;
-	}
-
-	public File getCounterPartyLocationXml() {
-		return counterpartyLocationHTML;
 	}
 
     public void setCurrentAccount(Account currentAccount) {

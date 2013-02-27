@@ -5,6 +5,8 @@ import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Exceptions.NotEmptyException;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -22,8 +24,11 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
     private final Accounting accounting;
+    private File locationXml;
+    private File locationHtml;
+//    private File xmlFile, htmlFile;
 
-	public Accounts(Accounting accounting) {
+    public Accounts(Accounting accounting) {
 		super();
         this.accounting = accounting;
 	}
@@ -36,7 +41,12 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
             throw new DuplicateNameException();
         }
         Account account = new Account(accountName.trim(), accountType);
-        account.setAccounting(accounting);
+        File xmlFile = FileSystemView.getFileSystemView().getChild(locationXml, account.getName() + ".xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Account.xsl");
+        File htmlFile = FileSystemView.getFileSystemView().getChild(locationHtml, account.getName() + ".html");
+        account.setXmlFile(xmlFile);
+        account.setXslFile(xslFile);
+        account.setHtmlFile(htmlFile);
         return put(account.getName(), account);
 	}
 
@@ -136,5 +146,29 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
         } else {
             throw new NotEmptyException();
         }
+    }
+
+    public void setLocationXml(File locationXml) {
+        this.locationXml = locationXml;
+        if(!this.locationXml.exists()){
+            this.locationXml.mkdir();
+        }
+//        xmlFile = FileSystemView.getFileSystemView().getChild(this.locationXml, "Accounts.xml");
+    }
+
+    public File getLocationXml(){
+        return locationXml;
+    }
+
+    public void setLocationHtml(File locationHtml) {
+        this.locationHtml = locationHtml;
+        if(!this.locationHtml.exists()){
+            this.locationHtml.mkdir();
+        }
+//        htmlFile = FileSystemView.getFileSystemView().getChild(this.locationHtml, "Accounts.html");
+    }
+
+    public File getLocationHtml(){
+        return locationHtml;
     }
 }

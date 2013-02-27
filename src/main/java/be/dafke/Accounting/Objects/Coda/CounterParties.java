@@ -1,8 +1,8 @@
 package be.dafke.Accounting.Objects.Coda;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class CounterParties {
 	/**
@@ -10,6 +10,8 @@ public class CounterParties {
 	 */
     private ArrayList<CounterParty> counterParties;
     private HashMap<String, CounterParty> counterPartiesByName, counterPartiesByAccountNumber;
+    private File locationXml;
+    private File locationHtml;
 
     public CounterParties(){
         counterParties = new ArrayList<CounterParty>();
@@ -101,9 +103,8 @@ public class CounterParties {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder("CounterParties:\r\n");
-		Iterator<CounterParty> it = counterParties.iterator();
-		while (it.hasNext()) {
-			builder.append(it.next());
+        for(CounterParty counterParty : counterParties){
+			builder.append(counterParty);
 		}
 		return builder.toString();
 	}
@@ -115,4 +116,29 @@ public class CounterParties {
             counterPartiesByAccountNumber.put(bankAccount.getAccountNumber(),counterParty);
         }
     }
+
+    public void setLocationXml(File locationXml) {
+        this.locationXml = locationXml;
+        if(!this.locationXml.exists()){
+            this.locationXml.mkdir();
+        }
+//        xmlFile = FileSystemView.getFileSystemView().getChild(this.locationXml, "Accounts.xml");
+    }
+
+    public File getLocationXml(){
+        return locationXml;
+    }
+
+    public void setLocationHtml(File locationHtml) {
+        this.locationHtml = locationHtml;
+        if(!this.locationHtml.exists()){
+            this.locationHtml.mkdir();
+        }
+//        htmlFile = FileSystemView.getFileSystemView().getChild(this.locationHtml, "Accounts.html");
+    }
+
+    public File getLocationHtml(){
+        return locationHtml;
+    }
+
 }

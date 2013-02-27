@@ -1,6 +1,5 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import javax.swing.filechooser.FileSystemView;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -22,7 +21,7 @@ public class Account implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public enum AccountType {
+    public enum AccountType {
 		Active, Passive, Cost, Revenue, Credit, Debit;
 		public static ArrayList<AccountType> getList() {
 			ArrayList<AccountType> list = new ArrayList<AccountType>();
@@ -69,12 +68,6 @@ public class Account implements Serializable {
 		credittotaal = new BigDecimal(0);
 		credittotaal = credittotaal.setScale(2);
 //		setSaved(false);
-	}
-
-	public void setAccounting(Accounting accounting) {
-		xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getAccountLocationXml(), name + ".xml");
-		xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Account.xsl");
-		htmlFile = FileSystemView.getFileSystemView().getChild(accounting.getAccountLocationHtml(), name + ".html");
 	}
 
 	/**
@@ -219,6 +212,18 @@ public class Account implements Serializable {
 
     public File getHtmlFile(){
         return htmlFile;
+    }
+
+    public void setXmlFile(File xmlFile) {
+        this.xmlFile = xmlFile;
+    }
+
+    public void setXslFile(File xslFile) {
+        this.xslFile = xslFile;
+    }
+
+    public void setHtmlFile(File htmlFile) {
+        this.htmlFile = htmlFile;
     }
 
     /**
