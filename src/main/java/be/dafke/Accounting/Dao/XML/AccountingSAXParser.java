@@ -7,7 +7,6 @@ import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.Journal;
-import be.dafke.Accounting.Objects.Accounting.JournalType;
 import be.dafke.Accounting.Objects.Accounting.Project;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.Accounting.Objects.Coda.BankAccount;
@@ -243,10 +242,10 @@ public class AccountingSAXParser {
             Element element = (Element)journals.item(i);
             String journal_name = element.getElementsByTagName("journal_name").item(0).getChildNodes().item(0).getNodeValue();
             String journal_short = element.getElementsByTagName("journal_short").item(0).getChildNodes().item(0).getNodeValue();
-            System.out.println("Journal: "+journal_name+" | "+journal_short);
-            // TODO: add journal Type to XML File
+            String journal_type = element.getElementsByTagName("journal_type").item(0).getChildNodes().item(0).getNodeValue();
+            System.out.println("Journal: "+journal_name+" | "+journal_short+" | "+journal_type);
             try{
-                accounting.getJournals().addJournal(journal_name, journal_short, new JournalType());
+                accounting.getJournals().addJournal(journal_name, journal_short, accounting.getJournalTypes().get(journal_type));
             } catch (DuplicateNameException e) {
                 System.err.println("There is already an journal with the name \""+journal_name+"\" and/or abbreviation \""+journal_short+"\".");
             } catch (EmptyNameException e) {
@@ -404,9 +403,9 @@ public class AccountingSAXParser {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
         for(Accounting accounting : accountings.getAccountings()) {
-            accountingToXML(accounting);
-            bankingToXML(accounting);
+            writeAccounting(accounting);
             writeMortgages(accounting);
+            writeBanking(accounting);
 
             for(Account account:accounting.getAccounts().values()){
 //            TODO: add isSavedXML
@@ -424,7 +423,7 @@ public class AccountingSAXParser {
         }
     }
 
-    private static void accountingToXML(Accounting accounting) {
+    private static void writeAccounting(Accounting accounting) {
         System.out.println("Accounting.TOXML(" + accounting.toString() + ")");
         File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Accounting.xml");
         File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Accounting.xsl");
@@ -453,6 +452,7 @@ public class AccountingSAXParser {
             for(Journal journal : accounting.getJournals().getAllJournals()) {
                 writer.write("    <Journal>\r\n" + "      <journal_name>" + journal.getName() + "</journal_name>\r\n"
                         + "      <journal_short>" + journal.getAbbreviation() + "</journal_short>\r\n"
+                        + "      <journal_type>" + journal.getType().toString() + "</journal_type>\r\n"
                         + "    </Journal>\r\n");
             }
             writer.write("  </Journals>\r\n");
@@ -480,7 +480,7 @@ public class AccountingSAXParser {
         }
     }
 
-    private static void bankingToXML(Accounting accounting) {
+    private static void writeBanking(Accounting accounting) {
         System.out.println("Banking.TOXML(" + accounting.toString() + ")");
         File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Banking.xml");
         File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Banking.xsl");

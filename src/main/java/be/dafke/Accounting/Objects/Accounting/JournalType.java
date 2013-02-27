@@ -14,16 +14,16 @@ public class JournalType implements Serializable {
 	private final String name;
 
 	public JournalType(String name, ArrayList<AccountType> debetTypes, ArrayList<AccountType> creditTypes) {
-		this.debetTypes = debetTypes;
-		this.creditTypes = creditTypes;
-		this.name = name;
+        this.name = name;
+        this.debetTypes = debetTypes;
+        this.creditTypes = creditTypes;
 	}
 
 	/**
 	 * Default implementation: accepts all AccountTypes for both debit and credit.
 	 */
 	public JournalType() {
-		this("<default>", AccountType.getList(), AccountType.getList());
+		this("default", AccountType.getList(), AccountType.getList());
 	}
 
 	@Override

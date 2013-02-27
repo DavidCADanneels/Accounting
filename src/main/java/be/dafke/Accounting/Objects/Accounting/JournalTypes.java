@@ -20,7 +20,7 @@ public class JournalTypes extends HashMap<String, JournalType> implements Serial
 	private static final long serialVersionUID = 1L;
 
 	public JournalTypes() {
-		put("<default>", new JournalType());
+		put("default", new JournalType());
 	}
 
 	public ArrayList<JournalType> getAllTypes() {
