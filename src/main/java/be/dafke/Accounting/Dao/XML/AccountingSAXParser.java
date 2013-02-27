@@ -96,85 +96,117 @@ public class AccountingSAXParser {
                 if (!subFolder.isDirectory()) {
                     System.err.println(name + " not found or no directory");
                 } else {
-                    File subFile = FileSystemView.getFileSystemView().getChild(subFolder, "Accounting.xml");
-                    if (!subFile.exists()) {
-                        System.err.println("no XML file found in " + name);
-                        return accountings;
+                    File accountingFile = FileSystemView.getFileSystemView().getChild(subFolder, "Accounting.xml");
+                    File bankingFile = FileSystemView.getFileSystemView().getChild(subFolder, "Banking.xml");
+                    if (!accountingFile.exists()) {
+                        System.err.println("no Accounting.xml file found in " + name);
                     } else {
-                        try {
-                            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-                            documentBuilderFactory.setValidating(true);
-                            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
-                            Document doc = dBuilder.parse(subFile.getAbsolutePath());
-                            doc.getDocumentElement().normalize();
-
-                            Node accountingNode = doc.getElementsByTagName("Accounting").item(0);
-                            String xslLocation = accountingNode.getAttributes().getNamedItem("xsl").getNodeValue();
-                            accounting.setLocationXSL(new File(xslLocation));
-
-                            Node accountsNode = doc.getElementsByTagName("Accounts").item(0);
-                            Node journalsNode = doc.getElementsByTagName("Journals").item(0);
-                            Node balancesNode = doc.getElementsByTagName("Balances").item(0);
-                            Node mortgagesNode = doc.getElementsByTagName("Mortgages").item(0);
-                            Node counterpartiesNode = doc.getElementsByTagName("Counterparties").item(0);
-                            Node movementsNode = doc.getElementsByTagName("Movements").item(0);
-
-                            if(accountsNode!=null){
-                                String htmlLocation = accountsNode.getAttributes().getNamedItem("html").getNodeValue();
-                                accounting.setAccountLocationHtml(new File(htmlLocation));
-                                String xmlLocation = accountsNode.getAttributes().getNamedItem("xml").getNodeValue();
-                                accounting.setAccountLocationXml(new File(xmlLocation));
-                            }
-                            if(journalsNode!=null){
-                                String htmlLocation = journalsNode.getAttributes().getNamedItem("html").getNodeValue();
-                                accounting.setJournalLocationHtml(new File(htmlLocation));
-                                String xmlLocation = journalsNode.getAttributes().getNamedItem("xml").getNodeValue();
-                                accounting.setJournalLocationXml(new File(xmlLocation));
-                            }
-                            if(balancesNode!=null){
-                                String htmlLocation = balancesNode.getAttributes().getNamedItem("html").getNodeValue();
-                                accounting.setBalanceLocationHtml(new File(htmlLocation));
-                                String xmlLocation = balancesNode.getAttributes().getNamedItem("xml").getNodeValue();
-                                accounting.setBalanceLocationXml(new File(xmlLocation));
-                            }
-                            if(mortgagesNode!=null){
-                                String htmlLocation = mortgagesNode.getAttributes().getNamedItem("html").getNodeValue();
-                                accounting.setMortgageLocationHtml(new File(htmlLocation));
-                                String xmlLocation = mortgagesNode.getAttributes().getNamedItem("xml").getNodeValue();
-                                accounting.setMortgageLocationXml(new File(xmlLocation));
-                            }
-                            if(counterpartiesNode!=null){
-                                String htmlLocation = counterpartiesNode.getAttributes().getNamedItem("html").getNodeValue();
-                                accounting.setCounterpartyLocationHtml(new File(htmlLocation));
-                                String xmlLocation = counterpartiesNode.getAttributes().getNamedItem("xml").getNodeValue();
-                                accounting.setCounterpartyLocationXml(new File(xmlLocation));
-                            }
-                            if(movementsNode!=null){
-                                String htmlLocation = movementsNode.getAttributes().getNamedItem("html").getNodeValue();
-                                accounting.setMovementLocationHtml(new File(htmlLocation));
-                                String xmlLocation = movementsNode.getAttributes().getNamedItem("xml").getNodeValue();
-                                accounting.setMovementLocationXml(new File(xmlLocation));
-                            }
-
-                            accountsFromXML(accounting, (Element)accountsNode);
-                            journalsFromXML(accounting, (Element) journalsNode);
-                            mortgagesFromXML(accounting, (Element) mortgagesNode);
-                            counterpartiesFromXML(accounting, (Element) counterpartiesNode);
-                            movementsFromXML(accounting, (Element) movementsNode);
-
-                        } catch (IOException io) {
-                            io.printStackTrace();
-                            FileSystemView.getFileSystemView().createFileObject(subFolder, "Accounting.xml");
-                            System.out.println(subFile.getAbsolutePath() + " has been created");
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-
+                        readAccounting(accounting, accountingFile);
+                    }
+                    if (!bankingFile.exists()) {
+                        System.err.println("no Banking.xml file found in " + name);
+                    } else {
+                        readBanking(accounting, bankingFile);
                     }
                 }
             }
         }
         return accountings;
+    }
+
+    private static void readAccounting(Accounting accounting, File accountingFile){
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            documentBuilderFactory.setValidating(true);
+            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(accountingFile.getAbsolutePath());
+            doc.getDocumentElement().normalize();
+
+            Node accountingNode = doc.getElementsByTagName("Accounting").item(0);
+            String xslLocation = accountingNode.getAttributes().getNamedItem("xsl").getNodeValue();
+            accounting.setLocationXSL(new File(xslLocation));
+
+            Node accountsNode = doc.getElementsByTagName("Accounts").item(0);
+            Node journalsNode = doc.getElementsByTagName("Journals").item(0);
+            Node balancesNode = doc.getElementsByTagName("Balances").item(0);
+            Node mortgagesNode = doc.getElementsByTagName("Mortgages").item(0);
+
+            if(accountsNode!=null){
+                String htmlLocation = accountsNode.getAttributes().getNamedItem("html").getNodeValue();
+                accounting.setAccountLocationHtml(new File(htmlLocation));
+                String xmlLocation = accountsNode.getAttributes().getNamedItem("xml").getNodeValue();
+                accounting.setAccountLocationXml(new File(xmlLocation));
+            }
+            if(journalsNode!=null){
+                String htmlLocation = journalsNode.getAttributes().getNamedItem("html").getNodeValue();
+                accounting.setJournalLocationHtml(new File(htmlLocation));
+                String xmlLocation = journalsNode.getAttributes().getNamedItem("xml").getNodeValue();
+                accounting.setJournalLocationXml(new File(xmlLocation));
+            }
+            if(balancesNode!=null){
+                String htmlLocation = balancesNode.getAttributes().getNamedItem("html").getNodeValue();
+                accounting.setBalanceLocationHtml(new File(htmlLocation));
+                String xmlLocation = balancesNode.getAttributes().getNamedItem("xml").getNodeValue();
+                accounting.setBalanceLocationXml(new File(xmlLocation));
+            }
+            if(mortgagesNode!=null){
+                String htmlLocation = mortgagesNode.getAttributes().getNamedItem("html").getNodeValue();
+                accounting.setMortgageLocationHtml(new File(htmlLocation));
+                String xmlLocation = mortgagesNode.getAttributes().getNamedItem("xml").getNodeValue();
+                accounting.setMortgageLocationXml(new File(xmlLocation));
+            }
+
+            accountsFromXML(accounting, (Element)accountsNode);
+            journalsFromXML(accounting, (Element) journalsNode);
+            mortgagesFromXML(accounting, (Element) mortgagesNode);
+
+        } catch (IOException io) {
+            io.printStackTrace();
+            FileSystemView.getFileSystemView().createFileObject("Accounting.xml");
+            System.out.println(accountingFile.getAbsolutePath() + " has been created");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void readBanking(Accounting accounting, File bankingFile){
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            documentBuilderFactory.setValidating(true);
+            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(bankingFile.getAbsolutePath());
+            doc.getDocumentElement().normalize();
+
+            Node accountingNode = doc.getElementsByTagName("Banking").item(0);
+            String xslLocation = accountingNode.getAttributes().getNamedItem("xsl").getNodeValue();
+            accounting.setLocationXSL(new File(xslLocation));
+
+            Node counterpartiesNode = doc.getElementsByTagName("Counterparties").item(0);
+            Node movementsNode = doc.getElementsByTagName("Movements").item(0);
+
+            if(counterpartiesNode!=null){
+                String htmlLocation = counterpartiesNode.getAttributes().getNamedItem("html").getNodeValue();
+                accounting.setCounterpartyLocationHtml(new File(htmlLocation));
+                String xmlLocation = counterpartiesNode.getAttributes().getNamedItem("xml").getNodeValue();
+                accounting.setCounterpartyLocationXml(new File(xmlLocation));
+            }
+            if(movementsNode!=null){
+                String htmlLocation = movementsNode.getAttributes().getNamedItem("html").getNodeValue();
+                accounting.setMovementLocationHtml(new File(htmlLocation));
+                String xmlLocation = movementsNode.getAttributes().getNamedItem("xml").getNodeValue();
+                accounting.setMovementLocationXml(new File(xmlLocation));
+            }
+
+            counterpartiesFromXML(accounting, (Element) counterpartiesNode);
+            movementsFromXML(accounting, (Element) movementsNode);
+
+        } catch (IOException io) {
+            io.printStackTrace();
+            FileSystemView.getFileSystemView().createFileObject("Banking.xml");
+            System.out.println(bankingFile.getAbsolutePath() + " has been created");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private static void accountsFromXML(Accounting accounting, Element accountsElement){
@@ -372,11 +404,27 @@ public class AccountingSAXParser {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
         for(Accounting accounting : accountings.getAccountings()) {
-            toXML(accounting);
+            accountingToXML(accounting);
+            bankingToXML(accounting);
+            writeMortgages(accounting);
+
+            for(Account account:accounting.getAccounts().values()){
+//            TODO: add isSavedXML
+//            if(account.isSavedXML()){
+                toXML(account);
+//            }
+            }
+            for(Journal journal:accounting.getJournals().values()){
+//            TODO: add isSavedXML
+//            if(journal.isSavedXML()){
+                toXML(journal);
+//            }
+            }
+            toHtml(accounting);
         }
     }
 
-    private static void toXML(Accounting accounting) {
+    private static void accountingToXML(Accounting accounting) {
         System.out.println("Accounting.TOXML(" + accounting.toString() + ")");
         File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Accounting.xml");
         File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Accounting.xsl");
@@ -421,6 +469,28 @@ public class AccountingSAXParser {
                         + "    </Mortgage>\r\n");
             }
             writer.write("  </Mortgages>\r\n");
+            writer.write("</Accounting>\r\n");
+            writer.flush();
+            writer.close();
+//			setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void bankingToXML(Accounting accounting) {
+        System.out.println("Banking.TOXML(" + accounting.toString() + ")");
+        File xmlFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXml(), "Banking.xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Banking.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getLocationXSL(), "Banking.dtd");
+        try {
+            Writer writer = new FileWriter(xmlFile);
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Banking SYSTEM \""
+                    + dtdFile.getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
+                    + xslFile.getCanonicalPath() + "\"?>\r\n" + "<Banking xsl=\"" + accounting.getLocationXSL() + "\">\r\n");
+
             writer.write("  <Counterparties xml=\"" + accounting.getCounterPartyLocationXml() + "\" html=\""
                     + accounting.getCounterPartyLocationHtml() + "\">\r\n");
             for(CounterParty counterParty : accounting.getCounterParties().getCounterParties()) {
@@ -464,7 +534,7 @@ public class AccountingSAXParser {
                 writer.write("    </Movement>\r\n");
             }
             writer.write("  </Movements>\r\n");
-            writer.write("</Accounting>\r\n");
+            writer.write("</Banking>\r\n");
             writer.flush();
             writer.close();
 //			setSaved(true);
@@ -473,21 +543,6 @@ public class AccountingSAXParser {
         } catch (IOException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
-        writeMortgages(accounting);
-
-        for(Account account:accounting.getAccounts().values()){
-//            TODO: add isSavedXML
-//            if(account.isSavedXML()){
-            toXML(account);
-//            }
-        }
-        for(Journal journal:accounting.getJournals().values()){
-//            TODO: add isSavedXML
-//            if(journal.isSavedXML()){
-            toXML(journal);
-//            }
-        }
-        toHtml(accounting);
     }
 
     private static void writeMortgages(Accounting accounting) {
