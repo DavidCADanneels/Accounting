@@ -149,7 +149,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 			}
 		} else if (e.getSource() == delete) {
 			if (selectedMortgage != null) {
-				accounting.removeMortgageTable(selectedMortgage);
+				accounting.getMortgages().removeMortgageTable(selectedMortgage);
 			}
 		} else if (!init) {
 			if (e.getSource() == comboIntrest) {
@@ -176,7 +176,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	@Override
 	public void refresh() {
         listModel = new DefaultListModel<Mortgage>();
-        for(Mortgage mortgage : accounting.getMortgagesTables()) {
+        for(Mortgage mortgage : accounting.getMortgages().getMortgagesTables()) {
             if (!listModel.contains(mortgage)) {
                 listModel.addElement(mortgage);
             }

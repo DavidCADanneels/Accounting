@@ -53,14 +53,14 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		String name = JOptionPane.showInputDialog(this, "Enter a name for the table.");
-		while (accounting.containsMortgageName(name)) {
+		while (accounting.getMortgages().containsMortgageName(name)) {
 			name = JOptionPane.showInputDialog(this, "This name is already used. Enter another name.");
 		}
 		if (name != null) {
 			Mortgage mortgage = new Mortgage(name, startCapital);
 //			mortgage.setAccounting(accounting);
 			mortgage.setTable(model.getData());
-			accounting.addMortgageTable(name, mortgage);
+			accounting.getMortgages().addMortgageTable(name, mortgage);
             ComponentMap.refreshAllFrames();
             dispose();
 		}
