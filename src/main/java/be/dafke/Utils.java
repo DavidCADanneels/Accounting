@@ -2,7 +2,6 @@ package be.dafke;
 
 import org.apache.fop.cli.InputHandler;
 
-import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.OutputStream;
 import java.math.BigDecimal;
@@ -13,15 +12,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class Utils {
-
-    public static File createSubFolderIfNotExist(File folder, String folderName) {
-        File subFolder = FileSystemView.getFileSystemView().getChild(folder, folderName);
-        if (!subFolder.exists()) {
-            subFolder.mkdir();
-        }
-        return subFolder;
-    }
-
     /** "D/M/YYYY" -> Data */
 	public static Calendar toCalendar(String s) {
 		Pattern p = Pattern.compile("[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}");

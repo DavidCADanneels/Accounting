@@ -176,7 +176,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	@Override
 	public void refresh() {
         listModel = new DefaultListModel<Mortgage>();
-        for(Mortgage mortgage : accounting.getMortgages().getMortgagesTables()) {
+        for(Mortgage mortgage : accounting.getMortgages().getMortgages()) {
             if (!listModel.contains(mortgage)) {
                 listModel.addElement(mortgage);
             }

@@ -47,7 +47,7 @@ public class Mortgages {
         return mortgageTables.get(mortgageName);
     }
 
-    public ArrayList<Mortgage> getMortgagesTables() {
+    public ArrayList<Mortgage> getMortgages() {
         return new ArrayList<Mortgage>(mortgageTables.values());
     }
 

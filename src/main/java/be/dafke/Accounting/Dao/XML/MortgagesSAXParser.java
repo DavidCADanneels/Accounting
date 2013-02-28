@@ -116,7 +116,7 @@ public class MortgagesSAXParser {
             writer.write("  <location>" + mortgages.getFolder() + "</location>\r\n");
             writer.write("  <xml>" + mortgages.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + mortgages.getHtmlFile() + "</html>\r\n");
-            for(Mortgage mortgage : mortgages.getMortgagesTables()) {
+            for(Mortgage mortgage : mortgages.getMortgages()) {
                 writer.write("  <Mortgage name=\"" + mortgage.toString() + "\" total=\"" + mortgage.getStartCapital() + "\">\r\n");
                 writer.write("    <nrPayed>" + mortgage.getNrPayed() + "</nrPayed>\r\n");
                 writer.write("    <capital_account>" + mortgage.getCapitalAccount() + "</capital_account>\r\n");
@@ -132,7 +132,7 @@ public class MortgagesSAXParser {
         } catch (IOException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for(Mortgage mortgage:mortgages.getMortgagesTables()){
+        for(Mortgage mortgage:mortgages.getMortgages()){
 //            TODO: add isSavedXML
 //            if(journal.isSavedXML()){
             toXML(mortgage);
