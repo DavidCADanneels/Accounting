@@ -47,7 +47,7 @@ public class Accounting implements Serializable {
         mortgages = new Mortgages();
 		counterParties = new CounterParties();
 		movements = new Movements();
-        balances = new Balances();
+        balances = new Balances(this);
 		createXMLFolders();
 //		createHTMLFolders();
 	}

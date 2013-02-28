@@ -101,13 +101,21 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
 		return list;
 	}
 
-	public ArrayList<Account> getAccountsNotEmpty(AccountType type) {
+	public ArrayList<Account> getAccountsNotEmpty(ArrayList<AccountType> types) {
 		ArrayList<Account> col = new ArrayList<Account>();
-		for(Account account : values()) {
-			if (account.getType() == type && account.saldo().compareTo(BigDecimal.ZERO) != 0) col.add(account);
+		for(AccountType type : types) {
+			col.addAll(getAccountsNotEmpty(type));
 		}
 		return col;
 	}
+
+    private ArrayList<Account> getAccountsNotEmpty(AccountType type) {
+        ArrayList<Account> col = new ArrayList<Account>();
+        for(Account account : values()) {
+            if (account.getType() == type && account.saldo().compareTo(BigDecimal.ZERO) != 0) col.add(account);
+        }
+        return col;
+    }
 
 	/**
 	 * Geeft alle rekeningen terug die niet tot het gegeven project behoren

@@ -1,10 +1,8 @@
 package be.dafke.Accounting.GUI;
 
 import be.dafke.Accounting.GUI.AccountManagement.AccountManagementGUI;
-import be.dafke.Accounting.GUI.Balances.RelationsBalance;
-import be.dafke.Accounting.GUI.Balances.ResultBalance;
+import be.dafke.Accounting.GUI.Balances.BalanceGUI;
 import be.dafke.Accounting.GUI.Balances.TestBalance;
-import be.dafke.Accounting.GUI.Balances.YearBalance;
 import be.dafke.Accounting.GUI.CodaManagement.CounterPartyTable;
 import be.dafke.Accounting.GUI.CodaManagement.MovementTable;
 import be.dafke.Accounting.GUI.JournalManagement.JournalManagementGUI;
@@ -12,6 +10,7 @@ import be.dafke.Accounting.GUI.JournalManagement.JournalTypeManagementGUI;
 import be.dafke.Accounting.GUI.MortgageManagement.MortgageGUI;
 import be.dafke.Accounting.GUI.Projects.ProjectManagementGUI;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
+import be.dafke.Accounting.Objects.Accounting.Balances;
 import be.dafke.DisposableComponent;
 import be.dafke.RefreshableComponent;
 
@@ -27,7 +26,7 @@ import java.util.HashMap;
 public class ComponentMap {
     public static final String TEST_BALANCE = "TestBalance";
     public static final String YEAR_BALANCE = "YearBalance";
-    public static final String RELATIONS_BALANCE = "RelationsBalance";
+    public static final String RELATIONS_BALANCE = "BalanceGUI";
     public static final String RESULT_BALANCE = "ResultBalance";
     public static final String MOVEMENTS = "Movements";
     public static final String COUNTERPARTIES = "Counterparties";
@@ -51,10 +50,10 @@ public class ComponentMap {
     private static final HashMap<String, DisposableComponent> disposableComponents = new HashMap<String, DisposableComponent>();
 
     public static void addAccountingComponents(Accounting accounting, ActionListener actionListener){
-        addDisposableComponent(accounting.toString() + RELATIONS_BALANCE, new RelationsBalance(accounting));
-        addDisposableComponent(accounting.toString() + RESULT_BALANCE, new ResultBalance(accounting));
+        addDisposableComponent(accounting.toString() + RELATIONS_BALANCE, new BalanceGUI(accounting.getBalances().get(Balances.RELATIONS_BALANCE)));
+        addDisposableComponent(accounting.toString() + RESULT_BALANCE, new BalanceGUI(accounting.getBalances().get(Balances.RESULT_BALANCE)));
         addDisposableComponent(accounting.toString() + TEST_BALANCE, new TestBalance(accounting));
-        addDisposableComponent(accounting.toString() + YEAR_BALANCE, new YearBalance(accounting));
+        addDisposableComponent(accounting.toString() + YEAR_BALANCE, new BalanceGUI(accounting.getBalances().get(Balances.YEAR_BALANCE)));
         addDisposableComponent(accounting.toString() + PROJECTS, new ProjectManagementGUI(accounting));
         addDisposableComponent(accounting.toString() + MOVEMENTS, new MovementTable(accounting, actionListener));
         addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting, actionListener));

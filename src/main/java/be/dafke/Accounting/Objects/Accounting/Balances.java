@@ -1,12 +1,56 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+
+import static java.util.ResourceBundle.getBundle;
+
 /**
  * User: Dafke
  * Date: 27/02/13
  * Time: 12:07
  */
-public class Balances {
+public class Balances extends HashMap<String, Balance>{
     private String folder;
+    public static String RESULT_BALANCE = "ResultBalance";
+    public static String RELATIONS_BALANCE = "RelationsBalance";
+    public static String YEAR_BALANCE = "YearBalance";
+
+    public Balances(Accounting accounting){
+        ArrayList<Account.AccountType> costs = new ArrayList<Account.AccountType>();
+        ArrayList<Account.AccountType> revenues = new ArrayList<Account.AccountType>();
+        ArrayList<Account.AccountType> credit = new ArrayList<Account.AccountType>();
+        ArrayList<Account.AccountType> debit = new ArrayList<Account.AccountType>();
+        ArrayList<Account.AccountType> active = new ArrayList<Account.AccountType>();
+        ArrayList<Account.AccountType> passive = new ArrayList<Account.AccountType>();
+        costs.add(Account.AccountType.Cost);
+        revenues.add(Account.AccountType.Revenue);
+        credit.add(Account.AccountType.Credit);
+        debit.add(Account.AccountType.Debit);
+        active.add(Account.AccountType.Active);
+        active.add(Account.AccountType.Credit);
+        passive.add(Account.AccountType.Passive);
+        passive.add(Account.AccountType.Debit);
+        put(RESULT_BALANCE, new Balance(RESULT_BALANCE,
+                getBundle("Accounting").getString("KOSTEN"), getBundle("Accounting").getString("OPBRENGSTEN"),
+                getBundle("Accounting").getString("TOTAAL_KOSTEN"), getBundle("Accounting").getString("TOTAAL_OPBRENGSTEN"),
+                getBundle("Accounting").getString("VERLIES"), getBundle("Accounting").getString("WINST"),
+                costs, revenues,
+                accounting));
+        put(RELATIONS_BALANCE, new Balance(RELATIONS_BALANCE,
+                getBundle("Accounting").getString("TEGOEDEN_VAN_KLANTEN"), getBundle("Accounting").getString("SCHULDEN_AAN_LEVERANCIERS"),
+                getBundle("Accounting").getString("TOTAAL_TEGOEDEN"), getBundle("Accounting").getString("TOTAAL_SCHULDEN"),
+                getBundle("Accounting").getString("RESTEREND_TEGOED"), getBundle("Accounting").getString("RESTERENDE_SCHULD"),
+                credit, debit,
+                accounting));
+        put(YEAR_BALANCE, new Balance(YEAR_BALANCE,
+                getBundle("Accounting").getString("ACTIVA"), getBundle("Accounting").getString("PASSIVA"),
+                getBundle("Accounting").getString("TOTAAL_ACTIVA_TEGOEDEN"), getBundle("Accounting").getString("TOTAAL_PASSIVA_SCHULDEN"),
+                getBundle("Accounting").getString("WINST"), getBundle("Accounting").getString("VERLIES"),
+                active, passive,
+                accounting));
+    }
 
     public String getFolder() {
         return folder;
@@ -14,5 +58,9 @@ public class Balances {
 
     public void setFolder(String folder) {
         this.folder = folder;
+    }
+
+    public Collection<Balance> getBalances() {
+        return values();
     }
 }

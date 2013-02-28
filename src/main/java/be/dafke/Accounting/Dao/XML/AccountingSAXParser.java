@@ -6,6 +6,8 @@ import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
+import be.dafke.Accounting.Objects.Accounting.Balance;
+import be.dafke.Accounting.Objects.Accounting.Balances;
 import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Journals;
@@ -507,6 +509,15 @@ public class AccountingSAXParser {
 //            }
             }
 
+            Balances balances = accounting.getBalances();
+            xmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), balances.getFolder());
+            if(!xmlFolder.exists()) {
+                xmlFolder.mkdir();
+            }
+            for(Balance balance : balances.getBalances()){
+                toXML(balance, balances, accounting);
+            }
+
             Journals journals = accounting.getJournals();
             xmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), journals.getFolder());
             if(!xmlFolder.exists()){
@@ -531,35 +542,6 @@ public class AccountingSAXParser {
 //            }
             }
             //toHtml(accounting);
-        }
-    }
-
-    private static void toXML(Mortgage mortgage, Mortgages mortgages, Accounting accounting) {
-        System.out.println("Mortgages.TOXML(" + mortgage.toString() + ")");
-        File styleSheet = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Mortgage.xsl");
-        File xmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), mortgages.getFolder());
-        File xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder,mortgage.toString() + ".xml");
-        try {
-            Writer writer = new FileWriter(xmlFile);
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + styleSheet.getCanonicalPath() + "\"?>\r\n"
-                    + "<mortgageTable name=\"" + mortgage.toString() + "\">\r\n");
-            int teller = 1;
-            for(Vector<BigDecimal> vector : mortgage.getTable()) {
-                writer.write("  <line>\r\n" + "    <nr>" + teller + "</nr>\r\n" + "    <mensuality>"
-                        + vector.get(0) + "</mensuality>\r\n" + "    <intrest>" + vector.get(1) + "</intrest>\r\n"
-                        + "    <capital>" + vector.get(2) + "</capital>\r\n" + "    <restCapital>" + vector.get(3)
-                        + "</restCapital>\r\n  </line>\r\n");
-                teller++;
-            }
-            writer.write("</mortgageTable>");
-            writer.flush();
-            writer.close();
-            // setSaved(true);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -817,6 +799,86 @@ public class AccountingSAXParser {
         }
     }
 
+    private static void toXML(Mortgage mortgage, Mortgages mortgages, Accounting accounting) {
+        System.out.println("Mortgages.TOXML(" + mortgage.toString() + ")");
+        File styleSheet = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Mortgage.xsl");
+        File xmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), mortgages.getFolder());
+        File xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder,mortgage.toString() + ".xml");
+        try {
+            Writer writer = new FileWriter(xmlFile);
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
+                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + styleSheet.getCanonicalPath() + "\"?>\r\n"
+                    + "<mortgageTable name=\"" + mortgage.toString() + "\">\r\n");
+            int teller = 1;
+            for(Vector<BigDecimal> vector : mortgage.getTable()) {
+                writer.write("  <line>\r\n" + "    <nr>" + teller + "</nr>\r\n" + "    <mensuality>"
+                        + vector.get(0) + "</mensuality>\r\n" + "    <intrest>" + vector.get(1) + "</intrest>\r\n"
+                        + "    <capital>" + vector.get(2) + "</capital>\r\n" + "    <restCapital>" + vector.get(3)
+                        + "</restCapital>\r\n  </line>\r\n");
+                teller++;
+            }
+            writer.write("</mortgageTable>");
+            writer.flush();
+            writer.close();
+            // setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private static void toXML(Balance balance, Balances balances, Accounting accounting){
+        System.out.println("Balances.TOXML(" + balance.toString() + ")");
+        File styleSheet = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Balance.xsl");
+        File xmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), balances.getFolder());
+        File xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder,balance.getName() + ".xml");
+        try {
+            Writer writer = new FileWriter(xmlFile);
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
+                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + styleSheet.getCanonicalPath() + "\"?>\r\n"
+                    + "<balance>\r\n  <name>" + balance.getName() //$NON-NLS-1$ //$NON-NLS-2$
+                    + "</name>\r\n  <left>" + balance.getLeftName() + "</left>\r\n  <right>" + balance.getRightName() + "</right>\r\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            ArrayList<Account> leftAccounts = balance.getLeftAccounts();
+            ArrayList<Account> rightAccounts = balance.getRightAccounts();
+
+            int nrLeft = leftAccounts.size();
+            int nrRight = rightAccounts.size();
+            int max;
+            if (nrLeft > nrRight) {
+                max = nrLeft;
+            } else {
+                max = nrRight;
+            }
+            for(int i = 0; i < max; i++) {
+                writer.write("  <line>\r\n"); //$NON-NLS-1$
+                if (i < nrLeft) {
+                    writer.write("    <name1>" + leftAccounts.get(i).toString() + "</name1>\r\n"); //$NON-NLS-1$ //$NON-NLS-2$
+                    writer.write("    <amount1>" + leftAccounts.get(i).saldo() + "</amount1>\r\n"); //$NON-NLS-1$ //$NON-NLS-2$
+                } else {
+                    writer.write("    <name1></name1>\r\n"); //$NON-NLS-1$
+                    writer.write("    <amount1></amount1>\r\n"); //$NON-NLS-1$
+                }
+                if (i < nrRight) {
+                    writer.write("    <amount2>" + BigDecimal.ZERO.subtract(rightAccounts.get(i).saldo()) //$NON-NLS-1$
+                            + "</amount2>\r\n"); //$NON-NLS-1$
+                    writer.write("    <name2>" + rightAccounts.get(i).toString() + "</name2>\r\n"); //$NON-NLS-1$ //$NON-NLS-2$
+                } else {
+                    writer.write("    <amount2></amount2>\r\n"); //$NON-NLS-1$
+                    writer.write("    <name2></name2>\r\n"); //$NON-NLS-1$
+                }
+                writer.write("  </line>\r\n"); //$NON-NLS-1$
+            }
+            writer.write("</balance>"); //$NON-NLS-1$
+            writer.flush();
+            writer.close();
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
 
     private static void toHtml(Accounting accounting){
         if(accounting.getHtmlFolder() == null){
