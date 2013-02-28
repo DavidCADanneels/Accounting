@@ -1,7 +1,7 @@
 package be.dafke.Accounting.Dao.XML;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Accounting;
+import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.Utils;
@@ -13,7 +13,7 @@ import java.math.BigDecimal;
 
 public class JournalContentHandler extends DefaultHandler {
 	private final Journal journal;
-	private final Accounting accounting;
+	private final Accounts accounts;
 	private Account bookingAccount;
 	private boolean nr = false;
 	private boolean description = false;
@@ -26,9 +26,9 @@ public class JournalContentHandler extends DefaultHandler {
 
 //	private final Transaction transaction;
 
-	public JournalContentHandler(Accounting accounting, Journal journal) {
+	public JournalContentHandler(Accounts accounts, Journal journal) {
 		this.journal = journal;
-		this.accounting = accounting;
+		this.accounts = accounts;
 	}
 
 	@Override
@@ -76,7 +76,7 @@ public class JournalContentHandler extends DefaultHandler {
 		}
 		if (account) {
 			String s = new String(text, start, length);
-			bookingAccount = accounting.getAccounts().get(s);
+			bookingAccount = accounts.get(s);
 			account = false;
 		}
 		if (debit) {

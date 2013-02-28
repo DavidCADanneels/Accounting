@@ -1,7 +1,7 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.Actions.AccountingActionListener;
-import be.dafke.Accounting.Dao.XML.AccountingSAXParser;
+import be.dafke.Accounting.Dao.XML.AccountingsSAXParser;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
@@ -51,7 +51,7 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
 
     @Override
 	public void windowClosing(WindowEvent we) {
-        AccountingSAXParser.writeAccountings(accountings);
+        AccountingsSAXParser.writeAccountings(accountings);
         ComponentMap.closeAllFrames();
 	}
 
