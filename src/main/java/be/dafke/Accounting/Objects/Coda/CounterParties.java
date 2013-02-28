@@ -12,7 +12,8 @@ public class CounterParties {
     private HashMap<String, CounterParty> counterPartiesByName, counterPartiesByAccountNumber;
     private String folder;
     private File xmlFile;
-    private File xslFile;
+    private File xsl2XmlFile;
+    private File xsl2HtmlFile;
     private File dtdFile;
     private File htmlFile;
 
@@ -136,12 +137,20 @@ public class CounterParties {
         return xmlFile;
     }
 
-    public void setXslFile(File xslFile) {
-        this.xslFile = xslFile;
+    public void setXsl2XmlFile(File xsl2XmlFile) {
+        this.xsl2XmlFile = xsl2XmlFile;
     }
 
-    public File getXslFile() {
-        return xslFile;
+    public File getXsl2XmlFile() {
+        return xsl2XmlFile;
+    }
+
+    public File getXsl2HtmlFile() {
+        return xsl2HtmlFile;
+    }
+
+    public void setXsl2HtmlFile(File xsl2HtmlFile) {
+        this.xsl2HtmlFile = xsl2HtmlFile;
     }
 
     public void setDtdFile(File dtdFile) {

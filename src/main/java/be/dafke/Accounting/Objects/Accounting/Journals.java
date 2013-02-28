@@ -27,11 +27,10 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
     private Accounting accounting;
     private String folder;
     private File xmlFile;
-    private File xslFile;
+    private File xsl2XmlFile;
+    private File xsl2HtmlFile;
     private File dtdFile;
     private File htmlFile;
-
-//    private File xmlFile, htmlFile;
 
     public Journals(Accounting accounting) {
 		super();
@@ -142,12 +141,20 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
         return xmlFile;
     }
 
-    public void setXslFile(File xslFile) {
-        this.xslFile = xslFile;
+    public void setXsl2XmlFile(File xsl2XmlFile) {
+        this.xsl2XmlFile = xsl2XmlFile;
     }
 
-    public File getXslFile() {
-        return xslFile;
+    public File getXsl2XmlFile() {
+        return xsl2XmlFile;
+    }
+
+    public File getXsl2HtmlFile() {
+        return xsl2HtmlFile;
+    }
+
+    public void setXsl2HtmlFile(File xsl2HtmlFile) {
+        this.xsl2HtmlFile = xsl2HtmlFile;
     }
 
     public void setDtdFile(File dtdFile) {
@@ -165,4 +172,5 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
     public File getHtmlFile() {
         return htmlFile;
     }
+
 }

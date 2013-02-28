@@ -97,7 +97,7 @@ public class AccountsSAXParser {
             Writer writer = new FileWriter(accounts.getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Accounts SYSTEM \""
                     + accounts.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + accounts.getXslFile().getCanonicalPath() + "\"?>\r\n" + "<Accounts>\r\n");
+                    + accounts.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Accounts>\r\n");
             writer.write("  <location>" + accounts.getFolder() + "</location>\r\n");
             writer.write("  <xml>" + accounts.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + accounts.getHtmlFile() + "</html>\r\n");
@@ -122,7 +122,6 @@ public class AccountsSAXParser {
 //            TODO: add isSavedXML
 //            if(account.isSavedXML()){
             toXML(account);
-//            Utils.xmlToHtml(account.getXmlFile(),account.getXslFile(),account.getHtmlFile(), null);
 //            }
         }
     }

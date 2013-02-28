@@ -113,7 +113,7 @@ public class JournalsSAXParser {
             Writer writer = new FileWriter(journals.getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Journals SYSTEM \""
                     + journals.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + journals.getXslFile().getCanonicalPath() + "\"?>\r\n" + "<Journals>\r\n");
+                    + journals.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Journals>\r\n");
             writer.write("  <location>" + journals.getFolder() + "</location>\r\n");
             writer.write("  <xml>" + journals.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + journals.getHtmlFile() + "</html>\r\n");

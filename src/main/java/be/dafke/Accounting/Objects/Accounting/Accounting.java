@@ -27,7 +27,7 @@ public class Accounting implements Serializable {
     private final Balances balances;
     private final String name;
     private File xslFolder, xmlFolder, htmlFolder;
-    private File xmlFile, htmlFile, xslFile;
+    private File xmlFile, htmlFile, xsl2XmlFile, xsl2HtmlFile;
 
     private Journal currentJournal;
     private Transaction currentTransaction = new Transaction();
@@ -184,8 +184,16 @@ public class Accounting implements Serializable {
         this.xmlFile = xmlFile;
     }
     //
-    public void setXslFile(File xslFile) {
-        this.xslFile = xslFile;
+    public void setXsl2XmlFile(File xsl2XmlFile) {
+        this.xsl2XmlFile = xsl2XmlFile;
+    }
+    //
+    public void setXsl2HtmlFile(File xsl2HtmlFile) {
+        this.xsl2HtmlFile = xsl2HtmlFile;
+    }
+    //
+    public void setDtdFile(File dtdFile) {
+        this.dtdFile = dtdFile;
     }
     //
     // Getters
@@ -197,15 +205,15 @@ public class Accounting implements Serializable {
         return xmlFile;
     }
     //
-    public File getXslFile(){
-        return xslFile;
+    public File getXsl2XmlFile(){
+        return xsl2XmlFile;
     }
-
+    //
+    public File getXsl2HtmlFile() {
+        return xsl2HtmlFile;
+    }
+    //
     public File getDtdFile() {
         return dtdFile;
-    }
-
-    public void setDtdFile(File dtdFile) {
-        this.dtdFile = dtdFile;
     }
 }

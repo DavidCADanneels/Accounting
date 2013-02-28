@@ -95,7 +95,7 @@ public class MovementsSAXParser {
             Writer writer = new FileWriter(movements.getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Movements SYSTEM \""
                     + movements.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + movements.getXslFile().getCanonicalPath() + "\"?>\r\n" + "<Movements>\r\n");
+                    + movements.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Movements>\r\n");
             writer.write("  <location>" + movements.getFolder() + "</location>\r\n");
             writer.write("  <xml>" + movements.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + movements.getHtmlFile() + "</html>\r\n");

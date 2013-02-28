@@ -104,7 +104,7 @@ public class CounterPartiesSAXParser {
             Writer writer = new FileWriter(counterParties.getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Counterparties SYSTEM \""
                     + counterParties.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + counterParties.getXslFile().getCanonicalPath() + "\"?>\r\n" + "<Counterparties>\r\n");
+                    + counterParties.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Counterparties>\r\n");
             writer.write("  <location>" + counterParties.getFolder() + "</location>\r\n");
             writer.write("  <xml>" + counterParties.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + counterParties.getHtmlFile() + "</html>\r\n");

@@ -112,7 +112,7 @@ public class MortgagesSAXParser {
             Writer writer = new FileWriter(mortgages.getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Mortgages SYSTEM \""
                     + mortgages.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + mortgages.getXslFile().getCanonicalPath() + "\"?>\r\n" + "<Mortgages>\r\n");
+                    + mortgages.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Mortgages>\r\n");
             writer.write("  <location>" + mortgages.getFolder() + "</location>\r\n");
             writer.write("  <xml>" + mortgages.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + mortgages.getHtmlFile() + "</html>\r\n");
