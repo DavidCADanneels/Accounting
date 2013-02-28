@@ -4,8 +4,10 @@ import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
+import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.Project;
 import be.dafke.Accounting.Objects.Accounting.Projects;
+import be.dafke.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -15,7 +17,13 @@ import javax.swing.filechooser.FileSystemView;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
+import java.math.BigDecimal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * User: Dafke
@@ -23,6 +31,9 @@ import java.io.IOException;
  * Time: 4:59
  */
 public class AccountsSAXParser {
+
+    // READ
+    //
     public static void readAccounts(Accounts accounts, Projects projects, File accountingFile){
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -34,7 +45,11 @@ public class AccountsSAXParser {
             Node accountsNode = doc.getElementsByTagName("Accounts").item(0);
 
             String xmlLocation = doc.getElementsByTagName("location").item(0).getChildNodes().item(0).getNodeValue();
+            String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+            String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
             accounts.setFolder(xmlLocation);
+            accounts.setXmlFile(new File(xmlFile));
+            accounts.setHtmlFile(new File(htmlFile));
 
             accountsFromXML(accounts, projects, (Element) accountsNode);
 
@@ -46,7 +61,7 @@ public class AccountsSAXParser {
             e.printStackTrace();
         }
     }
-
+    //
     private static void accountsFromXML(Accounts accounts, Projects projects, Element accountsElement){
         NodeList accountsNode = accountsElement.getElementsByTagName("Account");
         for (int i = 0; i < accountsNode.getLength(); i++) {
@@ -74,4 +89,71 @@ public class AccountsSAXParser {
             }
         }
     }
+
+    // WRITE
+    //
+    public static void writeAccounts(Accounts accounts) {
+        try {
+            Writer writer = new FileWriter(accounts.getXmlFile());
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Accounts SYSTEM \""
+                    + accounts.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
+                    + accounts.getXslFile().getCanonicalPath() + "\"?>\r\n" + "<Accounts>\r\n");
+            writer.write("  <location>" + accounts.getFolder() + "</location>\r\n");
+            writer.write("  <xml>" + accounts.getXmlFile() + "</xml>\r\n");
+            writer.write("  <html>" + accounts.getHtmlFile() + "</html>\r\n");
+            for(Account account : accounts.getAllAccounts()) {
+                writer.write("  <Account>\r\n");
+                writer.write("    <account_name>" + account.getName() + "</account_name>\r\n");
+                writer.write("    <account_type>" + account.getType() + "</account_type>\r\n");
+                writer.write((account.getProject() == null ? "" : "      <account_project>"
+                        + account.getProject() + "</account_project>\r\n"));
+                writer.write("  </Account>\r\n");
+            }
+            writer.write("</Accounts>\r\n");
+            writer.flush();
+            writer.close();
+//			setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for(Account account:accounts.getAllAccounts()){
+//            TODO: add isSavedXML
+//            if(account.isSavedXML()){
+            toXML(account);
+//            Utils.xmlToHtml(account.getXmlFile(),account.getXslFile(),account.getHtmlFile(), null);
+//            }
+        }
+    }
+    //
+    private static void toXML(Account account){
+        try {
+            Writer writer = new FileWriter(account.getXmlFile());
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
+                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + account.getXslFile().getCanonicalPath() + "\"?>\r\n"
+                    + "<account>\r\n" + "  <name>" + account.getName() + "</name>\r\n");
+            for(Booking booking : account.getBookings()){
+                writer.write("  <action>\r\n" + "    <nr>" + booking.getAbbreviation() + booking.getId() + "</nr>\r\n"
+                        + "    <date>" + Utils.toString(booking.getDate()) + "</date>\r\n" + "    <"
+                        + (booking.isDebit() ? "debit" : "credit") + ">" + booking.getAmount().toString() + "</"
+                        + (booking.isDebit() ? "debit" : "credit") + ">\r\n" + "    <description>"
+                        + booking.getDescription() + "</description>\r\n  </action>\r\n");
+            }
+            BigDecimal saldo = account.saldo();
+            String resultType =(saldo.compareTo(BigDecimal.ZERO)<0)?"credit":"debit";
+            writer.write("  <closed type = \"" + resultType + "\">\r\n" + "    <debitTotal>" + account.getDebetTotal() + "</debitTotal>\r\n"
+                    + "    <creditTotal>" + account.getCreditTotal() + "</creditTotal>\r\n"
+                    + "    <saldo>" + saldo.abs() + "</saldo>\r\n  </closed>\r\n");
+            writer.write("</account>");
+            writer.flush();
+            writer.close();
+//			setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 }

@@ -1,5 +1,6 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -16,8 +17,12 @@ public class Balances extends HashMap<String, Balance>{
     public static String RESULT_BALANCE = "ResultBalance";
     public static String RELATIONS_BALANCE = "RelationsBalance";
     public static String YEAR_BALANCE = "YearBalance";
+    private File xmlFile;
+    private File xslFile;
+    private File dtdFile;
+    private File htmlFile;
 
-    public Balances(Accounting accounting){
+    public void addDefaultBalances(Accounting accounting){
         ArrayList<Account.AccountType> costs = new ArrayList<Account.AccountType>();
         ArrayList<Account.AccountType> revenues = new ArrayList<Account.AccountType>();
         ArrayList<Account.AccountType> credit = new ArrayList<Account.AccountType>();
@@ -62,5 +67,37 @@ public class Balances extends HashMap<String, Balance>{
 
     public Collection<Balance> getBalances() {
         return values();
+    }
+
+    public void setXmlFile(File xmlFile) {
+        this.xmlFile = xmlFile;
+    }
+
+    public File getXmlFile() {
+        return xmlFile;
+    }
+
+    public void setXslFile(File xslFile) {
+        this.xslFile = xslFile;
+    }
+
+    public File getXslFile() {
+        return xslFile;
+    }
+
+    public void setDtdFile(File dtdFile) {
+        this.dtdFile = dtdFile;
+    }
+
+    public File getDtdFile() {
+        return dtdFile;
+    }
+
+    public void setHtmlFile(File htmlFile) {
+        this.htmlFile = htmlFile;
+    }
+
+    public File getHtmlFile() {
+        return htmlFile;
     }
 }

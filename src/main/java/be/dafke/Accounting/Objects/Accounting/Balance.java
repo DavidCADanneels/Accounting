@@ -1,5 +1,7 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +21,8 @@ public class Balance {
     private final ArrayList<Account.AccountType> leftTypes;
     private final ArrayList<Account.AccountType> rightTypes;
     private final Accounting accounting;
+    private File xmlFile;
+    private File xslFile;
 
     public Balance(String name,
                    String leftName, String rightName,
@@ -36,6 +40,14 @@ public class Balance {
         this.leftTypes = leftTypes;
         this.rightTypes = rightTypes;
         this.accounting = accounting;
+        String folder = accounting.getBalances().getFolder();
+        File xmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), folder);
+        File htmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getHtmlFolder(), folder);
+
+        xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, name + ".xml");
+        xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Balance.xsl");
+        //htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name + ".html");
+
     }
 
     @Override
@@ -89,5 +101,21 @@ public class Balance {
 
     public String getRightResultName() {
         return rightResultName;
+    }
+
+    public File getXmlFile() {
+        return xmlFile;
+    }
+
+    public void setXmlFile(File xmlFile) {
+        this.xmlFile = xmlFile;
+    }
+
+    public File getXslFile() {
+        return xslFile;
+    }
+
+    public void setXslFile(File xslFile) {
+        this.xslFile = xslFile;
     }
 }

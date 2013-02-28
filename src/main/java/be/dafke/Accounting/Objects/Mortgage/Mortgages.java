@@ -1,5 +1,9 @@
 package be.dafke.Accounting.Objects.Mortgage;
 
+import be.dafke.Accounting.Objects.Accounting.Accounting;
+
+import javax.swing.filechooser.FileSystemView;
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 /**
@@ -10,13 +14,29 @@ import java.util.HashMap;
 public class Mortgages {
     private final HashMap<String, Mortgage> mortgageTables;
     private String folder;
+    private File xmlFile;
+    private File xslFile;
+    private File dtdFile;
+    private File htmlFile;
+    private Accounting accounting;
 
-    public Mortgages(){
+    public Mortgages(Accounting accounting){
+        this.accounting = accounting;
         mortgageTables = new HashMap<String, Mortgage>();
     }
 
     public void addMortgageTable(String mortgageName, Mortgage table) {
         mortgageTables.put(mortgageName, table);
+        File xmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), folder);
+        File htmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getHtmlFolder(), folder);
+
+        File xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, table.getName() + ".xml");
+        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Mortgage.xsl");
+        File htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, table.getName() + ".html");
+
+        table.setXmlFile(xmlFile);
+        table.setXslFile(xslFile);
+        table.setHtmlFile(htmlFile);
     }
 
     public boolean containsMortgageName(String mortgageName) {
@@ -41,5 +61,37 @@ public class Mortgages {
 
     public void setFolder(String folder) {
         this.folder = folder;
+    }
+
+    public void setXmlFile(File xmlFile) {
+        this.xmlFile = xmlFile;
+    }
+
+    public File getXmlFile() {
+        return xmlFile;
+    }
+
+    public void setXslFile(File xslFile) {
+        this.xslFile = xslFile;
+    }
+
+    public File getXslFile() {
+        return xslFile;
+    }
+
+    public void setDtdFile(File dtdFile) {
+        this.dtdFile = dtdFile;
+    }
+
+    public File getDtdFile() {
+        return dtdFile;
+    }
+
+    public void setHtmlFile(File htmlFile) {
+        this.htmlFile = htmlFile;
+    }
+
+    public File getHtmlFile() {
+        return htmlFile;
     }
 }

@@ -26,6 +26,10 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
 
     private Accounting accounting;
     private String folder;
+    private File xmlFile;
+    private File xslFile;
+    private File dtdFile;
+    private File htmlFile;
 
 //    private File xmlFile, htmlFile;
 
@@ -128,5 +132,37 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
 
     public void setFolder(String folder) {
         this.folder = folder;
+    }
+
+    public void setXmlFile(File xmlFile) {
+        this.xmlFile = xmlFile;
+    }
+
+    public File getXmlFile() {
+        return xmlFile;
+    }
+
+    public void setXslFile(File xslFile) {
+        this.xslFile = xslFile;
+    }
+
+    public File getXslFile() {
+        return xslFile;
+    }
+
+    public void setDtdFile(File dtdFile) {
+        this.dtdFile = dtdFile;
+    }
+
+    public File getDtdFile() {
+        return dtdFile;
+    }
+
+    public void setHtmlFile(File htmlFile) {
+        this.htmlFile = htmlFile;
+    }
+
+    public File getHtmlFile() {
+        return htmlFile;
     }
 }

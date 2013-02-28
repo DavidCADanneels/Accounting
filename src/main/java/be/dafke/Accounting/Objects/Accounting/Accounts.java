@@ -25,6 +25,10 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
     private static final long serialVersionUID = 1L;
     private final Accounting accounting;
     private String folder;
+    private File xmlFile;
+    private File htmlFile;
+    private File xslFile;
+    private File dtdFile;
 
 //    private File xmlFile, htmlFile;
 
@@ -167,5 +171,37 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
 
     public void setFolder(String folder) {
         this.folder = folder;
+    }
+
+    public void setXmlFile(File xmlFile) {
+        this.xmlFile = xmlFile;
+    }
+
+    public File getXmlFile() {
+        return xmlFile;
+    }
+
+    public void setHtmlFile(File htmlFile) {
+        this.htmlFile = htmlFile;
+    }
+
+    public File getHtmlFile() {
+        return htmlFile;
+    }
+
+    public void setXslFile(File xslFile) {
+        this.xslFile = xslFile;
+    }
+
+    public File getXslFile() {
+        return xslFile;
+    }
+
+    public void setDtdFile(File dtdFile) {
+        this.dtdFile = dtdFile;
+    }
+
+    public File getDtdFile() {
+        return dtdFile;
     }
 }

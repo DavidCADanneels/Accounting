@@ -14,7 +14,12 @@ import javax.swing.filechooser.FileSystemView;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * User: Dafke
@@ -22,6 +27,8 @@ import java.io.IOException;
  * Time: 5:09
  */
 public class CounterPartiesSAXParser {
+    // READ
+    //
     public static void readCounterparties(CounterParties counterParties, Accounts accounts, File bankingFile){
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -35,7 +42,11 @@ public class CounterPartiesSAXParser {
 //            accounting.setLocationXSL(new File(xslLocation));
 
             String xmlLocation = doc.getElementsByTagName("location").item(0).getChildNodes().item(0).getNodeValue();
+            String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+            String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
             counterParties.setFolder(xmlLocation);
+            accounts.setXmlFile(new File(xmlFile));
+            accounts.setHtmlFile(new File(htmlFile));
 
             counterpartiesFromXML(counterParties, accounts, (Element) counterpartiesNode);
 
@@ -47,7 +58,7 @@ public class CounterPartiesSAXParser {
             e.printStackTrace();
         }
     }
-
+    //
     private static void counterpartiesFromXML(CounterParties counterParties, Accounts accounts, Element counterpartiesElement) {
         NodeList counterparties = counterpartiesElement.getElementsByTagName("Counterparty");
         for (int i = 0; i < counterparties.getLength(); i++) {
@@ -84,6 +95,52 @@ public class CounterPartiesSAXParser {
                 }
             }
             counterParties.addCounterParty(counterParty);
+        }
+    }
+
+    // WRITE
+    public static void writeCounterparties(CounterParties counterParties) {
+        try {
+            Writer writer = new FileWriter(counterParties.getXmlFile());
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Counterparties SYSTEM \""
+                    + counterParties.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
+                    + counterParties.getXslFile().getCanonicalPath() + "\"?>\r\n" + "<Counterparties>\r\n");
+            writer.write("  <location>" + counterParties.getFolder() + "</location>\r\n");
+            writer.write("  <xml>" + counterParties.getXmlFile() + "</xml>\r\n");
+            writer.write("  <html>" + counterParties.getHtmlFile() + "</html>\r\n");
+            for(CounterParty counterParty : counterParties.getCounterParties()) {
+                writer.write("  <Counterparty name =\""+counterParty.getName()+"\">\r\n");
+                if(counterParty.getAliases()!=null){
+                    for(String alias : counterParty.getAliases()){
+                        writer.write("      <Alias>"+alias+"</Alias>\r\n");
+                    }
+                }
+                if(counterParty.getAccount()!=null){
+                    writer.write("      <AccountName>" + counterParty.getAccount().getName() + "</AccountName>\r\n");
+                }
+                if(counterParty.getBankAccounts()!=null){
+                    for(BankAccount account : counterParty.getBankAccounts().values()) {
+                        if(account.getAccountNumber()!=null){
+                            writer.write("      <BankAccount>" + account.getAccountNumber() + "</BankAccount>\r\n");
+                        }
+                        if(account.getBic()!=null){
+                            writer.write("      <BIC>" + account.getBic() + "</BIC>\r\n");
+                        }
+                        if(account.getCurrency()!=null){
+                            writer.write("      <Currency>" + account.getCurrency() + "</Currency>\r\n");
+                        }
+                    }
+                }
+                writer.write("  </Counterparty>\r\n");
+            }
+            writer.write("</Counterparties>\r\n");
+            writer.flush();
+            writer.close();
+//			setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

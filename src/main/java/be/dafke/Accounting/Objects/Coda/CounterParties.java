@@ -1,5 +1,6 @@
 package be.dafke.Accounting.Objects.Coda;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -10,6 +11,10 @@ public class CounterParties {
     private ArrayList<CounterParty> counterParties;
     private HashMap<String, CounterParty> counterPartiesByName, counterPartiesByAccountNumber;
     private String folder;
+    private File xmlFile;
+    private File xslFile;
+    private File dtdFile;
+    private File htmlFile;
 
     public CounterParties(){
         counterParties = new ArrayList<CounterParty>();
@@ -121,5 +126,37 @@ public class CounterParties {
 
     public void setFolder(String folder) {
         this.folder = folder;
+    }
+
+    public void setXmlFile(File xmlFile) {
+        this.xmlFile = xmlFile;
+    }
+
+    public File getXmlFile() {
+        return xmlFile;
+    }
+
+    public void setXslFile(File xslFile) {
+        this.xslFile = xslFile;
+    }
+
+    public File getXslFile() {
+        return xslFile;
+    }
+
+    public void setDtdFile(File dtdFile) {
+        this.dtdFile = dtdFile;
+    }
+
+    public File getDtdFile() {
+        return dtdFile;
+    }
+
+    public void setHtmlFile(File htmlFile) {
+        this.htmlFile = htmlFile;
+    }
+
+    public File getHtmlFile() {
+        return htmlFile;
     }
 }

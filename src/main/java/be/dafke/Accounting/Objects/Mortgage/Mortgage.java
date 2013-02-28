@@ -3,6 +3,7 @@ package be.dafke.Accounting.Objects.Mortgage;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 
+import java.io.File;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,11 +16,14 @@ public class Mortgage implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private ArrayList<Vector<BigDecimal>> table;
 	private int alreadyPayed = 0;
-	private final String name;
+    private final String name;
 	private Account capital, intrest;
 	private final BigDecimal startCapital;
+    private File xmlFile;
+    private File xslFile;
+    private File htmlFile;
 
-	public Mortgage(String name, BigDecimal startCapital) {
+    public Mortgage(String name, BigDecimal startCapital) {
 		this.name = name;
 		this.startCapital = startCapital;
 	}
@@ -69,7 +73,11 @@ public class Mortgage implements Serializable {
 		alreadyPayed++;
 	}
 
-	public void pay(BigDecimal amount, Transaction transaction) throws Exception {
+    public String getName() {
+        return name;
+    }
+
+    public void pay(BigDecimal amount, Transaction transaction) throws Exception {
 		if (alreadyPayed == table.size()) {
 			throw new Exception("Everything is already payed");
 		}
@@ -96,4 +104,28 @@ public class Mortgage implements Serializable {
 	public boolean isPayedOff() {
 		return alreadyPayed == table.size();
 	}
+
+    public File getXmlFile() {
+        return xmlFile;
+    }
+
+    public void setXmlFile(File xmlFile) {
+        this.xmlFile = xmlFile;
+    }
+
+    public File getXslFile() {
+        return xslFile;
+    }
+
+    public void setXslFile(File xslFile) {
+        this.xslFile = xslFile;
+    }
+
+    public void setHtmlFile(File htmlFile) {
+        this.htmlFile = htmlFile;
+    }
+
+    public File getHtmlFile() {
+        return htmlFile;
+    }
 }

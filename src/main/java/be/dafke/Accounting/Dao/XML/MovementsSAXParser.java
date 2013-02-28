@@ -1,5 +1,6 @@
 package be.dafke.Accounting.Dao.XML;
 
+import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Coda.CounterParties;
 import be.dafke.Accounting.Objects.Coda.CounterParty;
 import be.dafke.Accounting.Objects.Coda.Movement;
@@ -14,9 +15,14 @@ import javax.swing.filechooser.FileSystemView;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * User: Dafke
@@ -24,6 +30,8 @@ import java.util.Calendar;
  * Time: 5:08
  */
 public class MovementsSAXParser {
+    // READ
+    //
     public static void readMovements(Movements movements, CounterParties counterParties, File bankingFile){
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -37,7 +45,11 @@ public class MovementsSAXParser {
 //            accounting.setLocationXSL(new File(xslLocation));
 
             String xmlLocation = doc.getElementsByTagName("location").item(0).getChildNodes().item(0).getNodeValue();
+            String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+            String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
             movements.setFolder(xmlLocation);
+            movements.setXmlFile(new File(xmlFile));
+            movements.setHtmlFile(new File(htmlFile));
 
             movementsFromXML(movements, counterParties, (Element) movementsNode);
 
@@ -49,7 +61,7 @@ public class MovementsSAXParser {
             e.printStackTrace();
         }
     }
-
+    //
     private static void movementsFromXML(Movements movements, CounterParties counterParties, Element movementsElement){
         NodeList movementsNode = movementsElement.getElementsByTagName("Movement");
         for (int i = 0; i < movementsNode.getLength(); i++) {
@@ -73,6 +85,40 @@ public class MovementsSAXParser {
             CounterParty counterParty = counterParties.getCounterPartyByName(counterpartyName);
             Movement movement = new Movement(statementNr, sequenceNr, date, debit, amount, counterParty, transactionCode, communication);
             movements.add(movement);
+        }
+    }
+
+    // WRITE
+    //
+    public static void writeMovements(Movements movements) {
+        try {
+            Writer writer = new FileWriter(movements.getXmlFile());
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Movements SYSTEM \""
+                    + movements.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
+                    + movements.getXslFile().getCanonicalPath() + "\"?>\r\n" + "<Movements>\r\n");
+            writer.write("  <location>" + movements.getFolder() + "</location>\r\n");
+            writer.write("  <xml>" + movements.getXmlFile() + "</xml>\r\n");
+            writer.write("  <html>" + movements.getHtmlFile() + "</html>\r\n");
+            for(Movement movement : movements.getAllMovements()) {
+                writer.write("  <Movement>\r\n");
+                writer.write("    <Statement>"+movement.getStatementNr()+"</Statement>\r\n");
+                writer.write("    <Sequence>"+movement.getSequenceNr()+"</Sequence>\r\n");
+                writer.write("    <Date>"+Utils.toString(movement.getDate())+"</Date>\r\n");
+                writer.write("    <Sign>"+(movement.isDebit()?"D":"C")+"</Sign>\r\n");
+                writer.write("    <Amount>"+movement.getAmount()+"</Amount>\r\n");
+                writer.write("    <CounterParty>"+movement.getCounterParty()+"</CounterParty>\r\n");
+                writer.write("    <TransactionCode>" + movement.getTransactionCode() + "</TransactionCode>\r\n");
+                writer.write("    <Communication>"+movement.getCommunication()+"</Communication>\r\n");
+                writer.write("  </Movement>\r\n");
+            }
+            writer.write("</Movements>\r\n");
+            writer.flush();
+            writer.close();
+//			setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

@@ -42,13 +42,14 @@ public class Accounting implements Serializable {
 //		savedHTML = false;// TODO: true ?
 		accounts = new Accounts(this);
 		journals = new Journals(this);
-		projects = new Projects();
-		journalTypes = new JournalTypes();
-        mortgages = new Mortgages();
-		counterParties = new CounterParties();
-		movements = new Movements();
-        balances = new Balances(this);
+        balances = new Balances();
+        mortgages = new Mortgages(this);
+        counterParties = new CounterParties();
+        movements = new Movements();
+        projects = new Projects();
+        journalTypes = new JournalTypes();
 		createXMLFolders();
+        balances.addDefaultBalances(this);
 //		createHTMLFolders();
 	}
 
@@ -77,20 +78,50 @@ public class Accounting implements Serializable {
 			File parent = FileSystemView.getFileSystemView().getHomeDirectory();
 			htmlFolder = FileSystemView.getFileSystemView().getChild(parent, name);
 		}
-        htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, "Accounting.html");
-	}
+//        htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, "Accounting.html");
+        accounts.setHtmlFile(FileSystemView.getFileSystemView().getChild(htmlFolder, "Accounts.html"));
+        journals.setHtmlFile(FileSystemView.getFileSystemView().getChild(htmlFolder, "Journals.html"));
+        balances.setHtmlFile(FileSystemView.getFileSystemView().getChild(htmlFolder, "Balances.html"));
+        mortgages.setHtmlFile(FileSystemView.getFileSystemView().getChild(htmlFolder, "Mortgages.html"));
+        movements.setHtmlFile(FileSystemView.getFileSystemView().getChild(htmlFolder, "Movements.html"));
+        counterParties.setHtmlFile(FileSystemView.getFileSystemView().getChild(htmlFolder, "CounterParties.html"));
+    }
 
 	private void createXMLFolders() {
 		File home = new File(System.getProperty("user.home"));
-		File folder = FileSystemView.getFileSystemView().getChild(home, "Accounting");
-		xmlFolder = FileSystemView.getFileSystemView().getChild(folder, name);
-        xslFolder = FileSystemView.getFileSystemView().getChild(folder, "xsl");
-        balances.setFolder("Balances");
-        mortgages.setFolder("Mortgages");
+		File accountingFolder = FileSystemView.getFileSystemView().getChild(home, "Accounting");
+		xmlFolder = FileSystemView.getFileSystemView().getChild(accountingFolder, name);
+        xslFolder = FileSystemView.getFileSystemView().getChild(accountingFolder, "xsl");
+
         accounts.setFolder("Accounts");
+        accounts.setXmlFile(FileSystemView.getFileSystemView().getChild(xmlFolder, "Accounts.xml"));
+        accounts.setXslFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts.xsl"));
+        accounts.setDtdFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts.dtd"));
+
         journals.setFolder("Journals");
-		movements.setFolder("Movements");
-		counterParties.setFolder("CounterParties");
+        journals.setXmlFile(FileSystemView.getFileSystemView().getChild(xmlFolder, "Journals.xml"));
+        journals.setXslFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Journals.xsl"));
+        journals.setDtdFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Journals.dtd"));
+
+        balances.setFolder("Balances");
+        balances.setXmlFile(FileSystemView.getFileSystemView().getChild(xmlFolder, "Balances.xml"));
+        balances.setXslFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Balances.xsl"));
+        balances.setDtdFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Balances.dtd"));
+
+        mortgages.setFolder("Mortgages");
+        mortgages.setXmlFile(FileSystemView.getFileSystemView().getChild(xmlFolder, "Mortgages.xml"));
+        mortgages.setXslFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages.xsl"));
+        mortgages.setDtdFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages.dtd"));
+
+        movements.setFolder("Movements");
+        movements.setXmlFile(FileSystemView.getFileSystemView().getChild(xmlFolder, "Movements.xml"));
+        movements.setXslFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Movements.xsl"));
+        movements.setDtdFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Movements.dtd"));
+
+        counterParties.setFolder("CounterParties");
+        counterParties.setXmlFile(FileSystemView.getFileSystemView().getChild(xmlFolder, "CounterParties.xml"));
+        counterParties.setXslFile(FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParties.xsl"));
+        counterParties.setDtdFile(FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParties.dtd"));
 	}
 
     public Mortgages getMortgages(){
