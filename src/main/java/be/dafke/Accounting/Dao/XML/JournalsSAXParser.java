@@ -3,23 +3,19 @@ package be.dafke.Accounting.Dao.XML;
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Accounting;
+import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.Journal;
+import be.dafke.Accounting.Objects.Accounting.JournalTypes;
 import be.dafke.Accounting.Objects.Accounting.Journals;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
-import org.xml.sax.XMLReader;
 
-import javax.swing.filechooser.FileSystemView;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.SAXParser;
-import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -37,76 +33,99 @@ import java.util.logging.Logger;
 public class JournalsSAXParser {
     // READ
     //
-    public static void readJournals(Accounting accounting, File accountingFile){
+    public static void readJournals(Journals journals, JournalTypes journalTypes, Accounts accounts, File file){
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(accountingFile.getAbsolutePath());
+            Document doc = dBuilder.parse(file.getAbsolutePath());
             doc.getDocumentElement().normalize();
-
-            Node journalsNode = doc.getElementsByTagName("Journals").item(0);
 
             String xmlLocation = doc.getElementsByTagName("location").item(0).getChildNodes().item(0).getNodeValue();
             String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
             String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            Journals journals = accounting.getJournals();
             journals.setFolder(xmlLocation);
             journals.setXmlFile(new File(xmlFile));
             journals.setHtmlFile(new File(htmlFile));
 
-            journalsFromXML(accounting, (Element) journalsNode);
-
+            Element journalsElement = (Element)doc.getElementsByTagName("Journals").item(0);
+            NodeList journalsNode = journalsElement.getElementsByTagName("Journal");
+            for (int i = 0; i < journalsNode.getLength(); i++) {
+                Element element = (Element)journalsNode.item(i);
+                xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+                htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+                String journal_name = element.getElementsByTagName("journal_name").item(0).getChildNodes().item(0).getNodeValue();
+                String journal_short = element.getElementsByTagName("journal_short").item(0).getChildNodes().item(0).getNodeValue();
+                String journal_type = element.getElementsByTagName("journal_type").item(0).getChildNodes().item(0).getNodeValue();
+                System.out.println("Journal: "+journal_name+" | "+journal_short+" | "+journal_type);
+                try{
+                    Journal journal = journals.addJournal(journal_name, journal_short, journalTypes.get(journal_type));
+                    journal.setXmlFile(new File(xmlFile));
+                    journal.setHtmlFile(new File(htmlFile));
+                    readJournal(journal, accounts);
+                } catch (DuplicateNameException e) {
+                    System.err.println("There is already an journal with the name \""+journal_name+"\" and/or abbreviation \""+journal_short+"\".");
+                } catch (EmptyNameException e) {
+                    System.err.println("Journal name and abbreviation cannot be empty.");
+                }
+            }
         } catch (IOException io) {
             io.printStackTrace();
-            FileSystemView.getFileSystemView().createFileObject("Journals.xml");
-            System.out.println(accountingFile.getAbsolutePath() + " has been created");
+//            FileSystemView.getFileSystemView().createFileObject(file.getPath());
+//            System.out.println(file.getAbsolutePath() + " has been created");
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
     //
-    private static void journalsFromXML(Accounting accounting, Element journalsElement) {
-        NodeList journalsNode = journalsElement.getElementsByTagName("Journal");
-        for (int i = 0; i < journalsNode.getLength(); i++) {
-            Element element = (Element)journalsNode.item(i);
-            String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            String journal_name = element.getElementsByTagName("journal_name").item(0).getChildNodes().item(0).getNodeValue();
-            String journal_short = element.getElementsByTagName("journal_short").item(0).getChildNodes().item(0).getNodeValue();
-            String journal_type = element.getElementsByTagName("journal_type").item(0).getChildNodes().item(0).getNodeValue();
-            System.out.println("Journal: "+journal_name+" | "+journal_short+" | "+journal_type);
-            try{
-                Journal journal = accounting.getJournals().addJournal(journal_name, journal_short, accounting.getJournalTypes().get(journal_type));
-                journal.setXmlFile(new File(xmlFile));
-                journal.setHtmlFile(new File(htmlFile));
-            } catch (DuplicateNameException e) {
-                System.err.println("There is already an journal with the name \""+journal_name+"\" and/or abbreviation \""+journal_short+"\".");
-            } catch (EmptyNameException e) {
-                System.err.println("Journal name and abbreviation cannot be empty.");
+    private static void readJournal(Journal journal, Accounts accounts) {
+        try {
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            documentBuilderFactory.setValidating(true);
+            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(journal.getXmlFile().getAbsolutePath());
+            doc.getDocumentElement().normalize();
+
+//            String name = doc.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
+
+            Transaction transaction = new Transaction();
+            String abbreviation = journal.getAbbreviation();
+
+            NodeList actions = doc.getElementsByTagName("action");
+            for (int i = 0; i < actions.getLength(); i++) {
+                Element element = (Element)actions.item(i);
+                NodeList nodeListNr = element.getElementsByTagName("nr");
+                NodeList nodeListDate = element.getElementsByTagName("date");
+                NodeList nodeListDescription = element.getElementsByTagName("description");
+                if(nodeListNr.getLength()!=0 && nodeListDate.getLength()!=0 && nodeListDescription.getLength()!=0){
+                    String nr = nodeListNr.item(0).getChildNodes().item(0).getNodeValue();
+                    String date = nodeListDate.item(0).getChildNodes().item(0).getNodeValue();
+                    String description = nodeListDescription.item(0).getChildNodes().item(0).getNodeValue();
+                    transaction = new Transaction();
+                    transaction.setAbbreviation(abbreviation);
+                    transaction.setId(Utils.parseInt(nr.replaceAll(abbreviation,"")));
+                    transaction.setDate(Utils.toCalendar(date));
+                    transaction.setDescription(description);
+                }
+                String accountName = element.getElementsByTagName("account").item(0).getChildNodes().item(0).getNodeValue();
+                Account account = accounts.get(accountName);
+                NodeList nodeListDebet = element.getElementsByTagName("debet");
+                NodeList nodeListCredit = element.getElementsByTagName("credit");
+                if(nodeListDebet.getLength()!=0){
+                    String debet = nodeListDebet.item(0).getChildNodes().item(0).getNodeValue();
+                    transaction.debiteer(account,Utils.parseBigDecimal(debet));
+                }
+                if(nodeListCredit.getLength()!=0){
+                    String credit = nodeListCredit.item(0).getChildNodes().item(0).getNodeValue();
+                    transaction.crediteer(account,Utils.parseBigDecimal(credit));
+                }
+                transaction.book(journal);
             }
-        }
-        Journals journals = accounting.getJournals();
-        File xmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), journals.getFolder());
-        File journalFiles[] = FileSystemView.getFileSystemView().getFiles(xmlFolder, false);
-        for(File journalFile : journalFiles) {
-            String journalName = journalFile.getName().replaceAll(".xml", "");
-            Journal journal = accounting.getJournals().get(journalName);
-            accounting.setCurrentJournal(journal);
-            try {
-                SAXParserFactory factory = SAXParserFactory.newInstance();
-                factory.setValidating(false);
-                SAXParser parser = factory.newSAXParser();
-                XMLReader reader = parser.getXMLReader();
-                reader.setContentHandler(new JournalContentHandler(accounting.getAccounts(), journal));
-                reader.setErrorHandler(new FoutHandler());
-                reader.parse(journalFile.getAbsolutePath());
-            } catch (IOException io) {
+        } catch (IOException io) {
 //				FileSystemView.getFileSystemView().createFileObject(subFolder, "Accounting.xml");
 //				System.out.println(journalFile + " has been created");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
@@ -150,8 +169,9 @@ public class JournalsSAXParser {
     private static void toXML(Journal journal) {
         try {
             Writer writer = new FileWriter(journal.getXmlFile());
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + journal.getXslFile() + "\"?>\r\n" + "<journal>\r\n"
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Journal SYSTEM \""
+                    + journal.getDtdFile() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
+                    + journal.getXslFile() + "\"?>\r\n" + "<Journal>\r\n"
                     + "  <name>" + journal.getName() + "</name>\r\n");
             for (Transaction transaction :journal.getTransactions()) {
                 ArrayList<Booking> list = transaction.getBookings();
@@ -169,7 +189,7 @@ public class JournalsSAXParser {
                             + (booking.isDebit() ? "debet" : "credit") + ">\r\n" + "  </action>\r\n");
                 }
             }
-            writer.write("</journal>");
+            writer.write("</Journal>");
             writer.flush();
             writer.close();
 //			save = true;

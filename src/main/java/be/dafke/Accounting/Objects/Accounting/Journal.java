@@ -26,8 +26,9 @@ public class Journal implements Serializable {
 	private File xmlFile;
 	private File htmlFile;
 	private File xslFile;
+    private File dtdFile;
 
-	/**
+    /**
 	 * Constructor
 	 * @param name naam van het dagboek
 	 * @param abbreviation afkorting van het dagboek Deze afkorting wordt gebruikt in de transacties horende bij dit
@@ -222,6 +223,10 @@ public class Journal implements Serializable {
         return xmlFile;
     }
 
+    public File getDtdFile() {
+        return dtdFile;
+    }
+
     public void setXslFile(File xslFile) {
         this.xslFile = xslFile;
     }
@@ -232,5 +237,9 @@ public class Journal implements Serializable {
 
     public void setXmlFile(File xmlFile) {
         this.xmlFile = xmlFile;
+    }
+
+    public void setDtdFile(File dtdFile) {
+        this.dtdFile = dtdFile;
     }
 }

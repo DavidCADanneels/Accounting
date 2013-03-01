@@ -77,9 +77,11 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
 
         File xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, journal.getName() + ".xml");
         File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Journal.xsl");
+        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Journal.dtd");
         File htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, journal.getName() + ".html");
         journal.setXmlFile(xmlFile);
         journal.setXslFile(xslFile);
+        journal.setDtdFile(dtdFile);
         journal.setHtmlFile(htmlFile);
         put(journal.getName(), journal);
         abbreviations.put(journal.getAbbreviation(), journal);

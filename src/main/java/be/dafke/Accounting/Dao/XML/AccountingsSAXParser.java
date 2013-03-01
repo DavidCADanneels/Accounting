@@ -129,7 +129,7 @@ public class AccountingsSAXParser {
             if (!journalsFile.exists()) {
                 System.err.println("no Journals.xml file found in " + name);
             } else {
-                JournalsSAXParser.readJournals(accounting, journalsFile);
+                JournalsSAXParser.readJournals(accounting.getJournals(), accounting.getJournalTypes(), accounting.getAccounts(), journalsFile);
             }
             if (!balancesFile.exists()) {
                 System.err.println("no Balances.xml file found in " + name);

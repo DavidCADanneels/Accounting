@@ -13,7 +13,6 @@ public class Booking {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	private final Account account;
 	private BigDecimal amount;
 	private boolean debit;
@@ -30,7 +29,7 @@ public class Booking {
 	 * <li><i><b>false</b></i>: crediteren</li>
 	 * </ul>
 	 */
-	public Booking(Transaction transaction, Account account, BigDecimal amount, boolean debit) {
+	protected Booking(Transaction transaction, Account account, BigDecimal amount, boolean debit) {
 		this.transaction = transaction;
 		this.account = account;
 		this.amount = amount;
