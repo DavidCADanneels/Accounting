@@ -129,9 +129,6 @@ public class AccountingsSAXParser {
     }
 
     private static void readAccounting(Accounting accounting){
-        System.out.println(accounting.getXmlFile());
-        // TODO read the names of these files from the index file "Accounting.xml"
-        // and set XMLFiles of all collections
         File file = accounting.getXmlFile();
         if(file == null || !file.exists()){
             System.err.println(file.getAbsolutePath() + "not found");

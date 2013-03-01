@@ -56,25 +56,32 @@ public class MortgagesSAXParser {
             NodeList mortgagesNode = mortgagesElement.getElementsByTagName("Mortgage");
             for (int i = 0; i < mortgagesNode.getLength(); i++) {
                 Element element = (Element)mortgagesNode.item(i);
-                String mortgageName = element.getAttribute("name");
-                String total = element.getAttribute("total");
+
+                String name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
+                xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+                htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+                String total = element.getElementsByTagName("total").item(0).getChildNodes().item(0).getNodeValue();
                 String nrPayed = element.getElementsByTagName("nrPayed").item(0).getChildNodes().item(0).getNodeValue();
-                String capital_account = element.getElementsByTagName("capital_account").item(0).getChildNodes().item(0).getNodeValue();
-                String intrest_account = element.getElementsByTagName("intrest_account").item(0).getChildNodes().item(0).getNodeValue();
-                System.out.println("Mortgages: "+" | "+mortgageName+" | "+total+" | "+nrPayed+" | "+capital_account+" | "+intrest_account);
+                String capitalName = element.getElementsByTagName("capital_account_name").item(0).getChildNodes().item(0).getNodeValue();
+//                String capitalXml = element.getElementsByTagName("capital_account_xml").item(0).getChildNodes().item(0).getNodeValue();
+//                String capitalHtml = element.getElementsByTagName("capital_account_html").item(0).getChildNodes().item(0).getNodeValue();
+                String intrestName = element.getElementsByTagName("intrest_account_name").item(0).getChildNodes().item(0).getNodeValue();
+//                String intrestXml = element.getElementsByTagName("intrest_account_xml").item(0).getChildNodes().item(0).getNodeValue();
+//                String intrestHtml = element.getElementsByTagName("intrest_account_html").item(0).getChildNodes().item(0).getNodeValue();
+
                 BigDecimal amount = new BigDecimal(total);
-                Mortgage mortgage = new Mortgage(mortgageName, amount);
+                Mortgage mortgage = new Mortgage(name, amount);
+                mortgage.setXmlFile(new File(xmlFile));
+                mortgage.setHtmlFile(new File(htmlFile));
                 int nr = Integer.valueOf(nrPayed);
                 mortgage.setPayed(nr);
-                Account capital = accounting.getAccounts().get(capital_account);
+                Account capital = accounting.getAccounts().get(capitalName);
                 mortgage.setCapitalAccount(capital);
-                Account intrest = accounting.getAccounts().get(intrest_account);
+                Account intrest = accounting.getAccounts().get(intrestName);
                 mortgage.setIntrestAccount(intrest);
-                accounting.getMortgages().addMortgageTable(mortgageName, mortgage);
-//                mortgage.setXmlFile(dfghjkl);
+                accounting.getMortgages().addMortgageTable(name, mortgage);
                 readMortgage(mortgage);
             }
-
         } catch (IOException io) {
             io.printStackTrace();
 //            FileSystemView.getFileSystemView().createFileObject("Mortgages.xml");
@@ -113,12 +120,18 @@ public class MortgagesSAXParser {
             writer.write("  <xml>" + mortgages.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + mortgages.getHtmlFile() + "</html>\r\n");
             for(Mortgage mortgage : mortgages.getMortgages()) {
-                writer.write("  <Mortgage name=\"" + mortgage.toString() + "\" total=\"" + mortgage.getStartCapital() + "\">\r\n");
-                writer.write("    <nrPayed>" + mortgage.getNrPayed() + "</nrPayed>\r\n");
-                writer.write("    <capital_account>" + mortgage.getCapitalAccount() + "</capital_account>\r\n");
-                writer.write("    <intrest_account>" + mortgage.getIntrestAccount() + "</intrest_account>\r\n");
+                writer.write("  <Mortgage>\r\n");
+                writer.write("    <name>" + mortgage.toString() + "</name>\r\n");
                 writer.write("    <xml>" + mortgage.getXmlFile() + "</xml>\r\n");
                 writer.write("    <html>" + mortgage.getHtmlFile() + "</html>\r\n");
+                writer.write("    <total>" + mortgage.getStartCapital() + "</total>\r\n");
+                writer.write("    <nrPayed>" + mortgage.getNrPayed() + "</nrPayed>\r\n");
+                writer.write("    <capital_account_name>" + mortgage.getCapitalAccount() + "</capital_account_name>\r\n");
+                writer.write("    <capital_account_xml>" + mortgage.getCapitalAccount().getXmlFile() + "</capital_account_xml>\r\n");
+                writer.write("    <capital_account_html>" + mortgage.getCapitalAccount().getHtmlFile() + "</capital_account_html>\r\n");
+                writer.write("    <intrest_account_name>" + mortgage.getIntrestAccount() + "</intrest_account_name>\r\n");
+                writer.write("    <intrest_account_xml>" + mortgage.getIntrestAccount().getXmlFile() + "</intrest_account_xml>\r\n");
+                writer.write("    <intrest_account_html>" + mortgage.getIntrestAccount().getHtmlFile() + "</intrest_account_html>\r\n");
                 writer.write("  </Mortgage>\r\n");
             }
             writer.write("</Mortgages>\r\n");
