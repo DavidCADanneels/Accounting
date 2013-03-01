@@ -86,27 +86,7 @@ public class Transaction implements Serializable {
 		mortgages.add(mortgage);
 	}
 
-    public void debiteer(Account account, BigDecimal amount){
-        debiteer(account, amount, false);// do not merge by default
-    }
-
-    public void crediteer(Account account, BigDecimal amount){
-        crediteer(account, amount, false);// do not merge by default
-    }
-
-	public void debiteer(Account rek, BigDecimal amount, boolean merge) {
-        addBooking(rek, amount, true, merge);
-		debettotaal = debettotaal.add(amount);
-		debettotaal = debettotaal.setScale(2);
-	}
-
-	public void crediteer(Account rek, BigDecimal amount, boolean merge) {
-        addBooking(rek, amount, false, merge);
-		credittotaal = credittotaal.add(amount);
-		credittotaal = credittotaal.setScale(2);
-	}
-
-    private void addBooking(Account account, BigDecimal amount, boolean debit, boolean merge){
+    public void addBooking(Account account, BigDecimal amount, boolean debit, boolean merge){
         Booking booking = new Booking(this, account, amount, debit);
         if(!merge){
             // all Bookings
@@ -126,6 +106,8 @@ public class Transaction implements Serializable {
                 }
                 debitVector.add(booking);
                 debitBookings.put(account,debitVector);
+                debettotaal = debettotaal.add(amount);
+                debettotaal = debettotaal.setScale(2);
             } else {
                 // Credit
                 Vector<Booking> creditVector = creditBookings.get(account);
@@ -134,6 +116,8 @@ public class Transaction implements Serializable {
                 }
                 creditVector.add(booking);
                 creditBookings.put(account,creditVector);
+                credittotaal = credittotaal.add(amount);
+                credittotaal = credittotaal.setScale(2);
             }
         } else{
             // MERGE !!!

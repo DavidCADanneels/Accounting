@@ -59,25 +59,6 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
         return account;
 	}
 
-	@Override
-    @Deprecated
-	public Account put(String key, Account value) {
-        // TODO: do not use this function !!! use addAccount
-		if (key == null) return null;
-		if (!containsKey(key)) {
-			return super.put(key, value);
-		}
-		Account result = get(key);
-		if (result.equals(value)) {
-			return result;
-		}
-		System.err.println("account already exists with different data");
-		System.err.println(value);
-		System.err.println(result);
-		return super.put(key, value);
-		// return value;
-	}
-
 	/**
 	 * Geeft alle rekeningen terug van het gegeven type
 	 * @param type het type van de gevraagde rekeningen

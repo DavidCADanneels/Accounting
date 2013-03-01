@@ -53,7 +53,7 @@ public class Project implements Serializable {
 		BigDecimal totaalKost = new BigDecimal(0);
 		for (Account kost : rekeningen.getAccounts(AccountType.Cost)) {
 			BigDecimal amount = kost.saldo();
-			transaction.crediteer(kost, amount);
+			transaction.addBooking(kost, amount,false,false);
 			totaalKost = totaalKost.add(amount);
 			teVerwijderen.add(kost);
 		}
@@ -61,7 +61,7 @@ public class Project implements Serializable {
 		BigDecimal totaalOpbrengst = new BigDecimal(0);
 		for (Account opbrengst : rekeningen.getAccounts(AccountType.Revenue)) {
 			BigDecimal amount = opbrengst.saldo();
-			transaction.debiteer(opbrengst, amount);
+			transaction.addBooking(opbrengst,amount,true,false);
 			totaalOpbrengst = totaalOpbrengst.add(amount);
 			teVerwijderen.add(opbrengst);
 		}

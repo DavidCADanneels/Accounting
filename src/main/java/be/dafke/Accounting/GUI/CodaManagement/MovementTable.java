@@ -188,13 +188,8 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 					}
 					BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 4);
 					Transaction trans = accounting.getCurrentTransaction();
-					if (debet) {
-						trans.debiteer(account, amount);
-						trans.crediteer(bankAccount, amount);
-					} else {
-						trans.debiteer(bankAccount, amount);
-						trans.crediteer(account, amount);
-					}
+                    trans.addBooking(account,amount,debet,false);
+                    trans.addBooking(bankAccount,amount,!debet,false);
 					String cal = (String) tabel.getValueAt(i, 2);
 					Calendar date = Utils.toCalendar(cal);
 					trans.setDate(date);

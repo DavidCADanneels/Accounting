@@ -138,12 +138,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
                         merge = JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Merge Bookings?", "The current transaction already contains bookings for "
                                 + rekening +". Do you want to merge them?", JOptionPane.YES_NO_OPTION);
                     }
-					if (debit) {
-						// TODO: veranderen naar Transaction.addBooking(newBooking)?
-						transaction.debiteer(rekening, amount, merge);
-					} else {
-						transaction.crediteer(rekening, amount, merge);
-					}
+                    transaction.addBooking(rekening, amount,debit,merge);
 					ok = true;
                     ComponentMap.refreshAllFrames();
 				} catch (NumberFormatException nfe) {

@@ -68,11 +68,4 @@ public class Utils {
             return 0;
         }
     }
-
-
-    public static void writeXml() {
-        // TODO write generic function to write Xml file for Account, Journal, etc.
-        // or at least the header: links to xsl, dtd, etc. (Marshallers)
-        // or implement a Dao package + XmlDao (and later JdbcDao) implementation
-    }
 }

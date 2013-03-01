@@ -77,26 +77,12 @@ public class Mortgage implements Serializable {
         return name;
     }
 
-    public void pay(BigDecimal amount, Transaction transaction) throws Exception {
-		if (alreadyPayed == table.size()) {
-			throw new Exception("Everything is already payed");
-		}
-		BigDecimal mensualiteit = table.get(alreadyPayed).get(0);
-		if (amount.compareTo(mensualiteit) != 0) {
-			throw new Exception("Amount must be equal to: " + mensualiteit);
-		}
-		BigDecimal intrestAmount = table.get(alreadyPayed).get(1);
-		BigDecimal kapitalAmount = table.get(alreadyPayed).get(2);
-		transaction.debiteer(intrest, intrestAmount);
-		transaction.debiteer(capital, kapitalAmount);
-		System.out.println("Restkapitaal: " + table.get(alreadyPayed).get(3));
-	}
-
 	public void pay(Transaction transaction) {
+        // TODO: check if not everything is payed yet get(alreadyPayed) --> ArrayOutOfBoundsException
 		BigDecimal intrestAmount = table.get(alreadyPayed).get(1);
 		BigDecimal kapitalAmount = table.get(alreadyPayed).get(2);
-		transaction.debiteer(intrest, intrestAmount);
-		transaction.debiteer(capital, kapitalAmount);
+        transaction.addBooking(intrest,intrestAmount,true,false);
+        transaction.addBooking(capital, kapitalAmount,true,false);
 		transaction.addMortgage(this);
 		System.out.println("Restkapitaal: " + table.get(alreadyPayed).get(3));
 	}

@@ -36,7 +36,7 @@ public class JournalsSAXParser {
     public static void readJournals(Journals journals, JournalTypes journalTypes, Accounts accounts){
         File file = journals.getXmlFile();
         if(file == null || !file.exists()){
-            System.err.println(file.getAbsolutePath() + "not found");
+            System.err.println(file.getPath() + "not found");
         }
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -120,11 +120,11 @@ public class JournalsSAXParser {
                 NodeList nodeListCredit = element.getElementsByTagName("credit");
                 if(nodeListDebet.getLength()!=0){
                     String debet = nodeListDebet.item(0).getChildNodes().item(0).getNodeValue();
-                    transaction.debiteer(account,Utils.parseBigDecimal(debet));
+                    transaction.addBooking(account, Utils.parseBigDecimal(debet),true, false);
                 }
                 if(nodeListCredit.getLength()!=0){
                     String credit = nodeListCredit.item(0).getChildNodes().item(0).getNodeValue();
-                    transaction.crediteer(account,Utils.parseBigDecimal(credit));
+                    transaction.addBooking(account, Utils.parseBigDecimal(credit),false, false);
                 }
             }
         } catch (IOException io) {

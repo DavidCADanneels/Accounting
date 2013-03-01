@@ -635,8 +635,6 @@ public class AccountingsSAXParser {
 
         System.out.println("Movements.TOXML(" + accounting.toString() + ")");
         MovementsSAXParser.writeMovements(accounting.getMovements());
-
-//        toHtml(accounting);
     }
 
     private static void writeAccountingFile(Accounting accounting) {
