@@ -5,7 +5,6 @@ import be.dafke.Accounting.Objects.Accounting.Balance;
 import be.dafke.Accounting.Objects.Accounting.Balances;
 import org.w3c.dom.Document;
 
-import javax.swing.filechooser.FileSystemView;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
@@ -25,12 +24,16 @@ import java.util.logging.Logger;
  */
 public class BalancesSAXParser {
     // READ
-    public static void readBalances(Balances balances, File accountingFile){
+    public static void readBalances(Balances balances){
+        File file = balances.getXmlFile();
+        if(file == null || !file.exists()){
+            System.err.println(file.getAbsolutePath() + "not found");
+        }
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(accountingFile.getAbsolutePath());
+            Document doc = dBuilder.parse(file.getAbsolutePath());
             doc.getDocumentElement().normalize();
 
 //            Node balancesNode = doc.getElementsByTagName("Balances").item(0);
@@ -44,8 +47,8 @@ public class BalancesSAXParser {
 
         } catch (IOException io) {
             io.printStackTrace();
-            FileSystemView.getFileSystemView().createFileObject("Balances.xml");
-            System.out.println(accountingFile.getAbsolutePath() + " has been created");
+//            FileSystemView.getFileSystemView().createFileObject("Balances.xml");
+//            System.out.println(file.getAbsolutePath() + " has been created");
         } catch (Exception e) {
             e.printStackTrace();
         }

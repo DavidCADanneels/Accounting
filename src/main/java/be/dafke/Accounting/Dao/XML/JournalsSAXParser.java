@@ -33,7 +33,11 @@ import java.util.logging.Logger;
 public class JournalsSAXParser {
     // READ
     //
-    public static void readJournals(Journals journals, JournalTypes journalTypes, Accounts accounts, File file){
+    public static void readJournals(Journals journals, JournalTypes journalTypes, Accounts accounts){
+        File file = journals.getXmlFile();
+        if(file == null || !file.exists()){
+            System.err.println(file.getAbsolutePath() + "not found");
+        }
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
@@ -88,7 +92,7 @@ public class JournalsSAXParser {
 
 //            String name = doc.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
 
-            Transaction transaction = new Transaction();
+            Transaction transaction = null;
             String abbreviation = journal.getAbbreviation();
 
             NodeList actions = doc.getElementsByTagName("action");
@@ -98,6 +102,9 @@ public class JournalsSAXParser {
                 NodeList nodeListDate = element.getElementsByTagName("date");
                 NodeList nodeListDescription = element.getElementsByTagName("description");
                 if(nodeListNr.getLength()!=0 && nodeListDate.getLength()!=0 && nodeListDescription.getLength()!=0){
+                    if(transaction != null){
+                        transaction.book(journal);
+                    }
                     String nr = nodeListNr.item(0).getChildNodes().item(0).getNodeValue();
                     String date = nodeListDate.item(0).getChildNodes().item(0).getNodeValue();
                     String description = nodeListDescription.item(0).getChildNodes().item(0).getNodeValue();
@@ -119,7 +126,6 @@ public class JournalsSAXParser {
                     String credit = nodeListCredit.item(0).getChildNodes().item(0).getNodeValue();
                     transaction.crediteer(account,Utils.parseBigDecimal(credit));
                 }
-                transaction.book(journal);
             }
         } catch (IOException io) {
 //				FileSystemView.getFileSystemView().createFileObject(subFolder, "Accounting.xml");

@@ -18,10 +18,6 @@ public class Accountings {
 		accountings.put(accounting.toString(), accounting);
 	}
 
-	public boolean contains(String name) {
-		return accountings.containsKey(name);
-	}
-
 	public Collection<Accounting> getAccountings() {
 		return accountings.values();
 	}

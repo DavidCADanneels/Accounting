@@ -32,12 +32,16 @@ import java.util.logging.Logger;
 public class MovementsSAXParser {
     // READ
     //
-    public static void readMovements(Movements movements, CounterParties counterParties, File bankingFile){
+    public static void readMovements(Movements movements, CounterParties counterParties){
+        File file = movements.getXmlFile();
+        if(file == null || !file.exists()){
+            System.err.println(file.getAbsolutePath() + "not found");
+        }
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(bankingFile.getAbsolutePath());
+            Document doc = dBuilder.parse(file.getAbsolutePath());
             doc.getDocumentElement().normalize();
 
             Node movementsNode = doc.getElementsByTagName("Movements").item(0);
@@ -56,7 +60,7 @@ public class MovementsSAXParser {
         } catch (IOException io) {
             io.printStackTrace();
             FileSystemView.getFileSystemView().createFileObject("Banking.xml");
-            System.out.println(bankingFile.getAbsolutePath() + " has been created");
+            System.out.println(file.getAbsolutePath() + " has been created");
         } catch (Exception e) {
             e.printStackTrace();
         }

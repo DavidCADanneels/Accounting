@@ -10,7 +10,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.swing.filechooser.FileSystemView;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
@@ -29,12 +28,16 @@ import java.util.logging.Logger;
 public class CounterPartiesSAXParser {
     // READ
     //
-    public static void readCounterparties(CounterParties counterParties, Accounts accounts, File bankingFile){
+    public static void readCounterparties(CounterParties counterParties, Accounts accounts){
+        File file = counterParties.getXmlFile();
+        if(file == null || !file.exists()){
+            System.err.println(file.getAbsolutePath() + "not found");
+        }
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(bankingFile.getAbsolutePath());
+            Document doc = dBuilder.parse(file.getAbsolutePath());
             doc.getDocumentElement().normalize();
 
             Node counterpartiesNode = doc.getElementsByTagName("Counterparties").item(0);
@@ -52,8 +55,8 @@ public class CounterPartiesSAXParser {
 
         } catch (IOException io) {
             io.printStackTrace();
-            FileSystemView.getFileSystemView().createFileObject("Banking.xml");
-            System.out.println(bankingFile.getAbsolutePath() + " has been created");
+//            FileSystemView.getFileSystemView().createFileObject("Banking.xml");
+//            System.out.println(file.getAbsolutePath() + " has been created");
         } catch (Exception e) {
             e.printStackTrace();
         }
