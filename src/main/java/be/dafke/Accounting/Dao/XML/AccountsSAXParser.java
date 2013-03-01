@@ -66,12 +66,16 @@ public class AccountsSAXParser {
         NodeList accountsNode = accountsElement.getElementsByTagName("Account");
         for (int i = 0; i < accountsNode.getLength(); i++) {
             Element element = (Element)accountsNode.item(i);
+            String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+            String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
             String account_name = element.getElementsByTagName("account_name").item(0).getChildNodes().item(0).getNodeValue();
             String account_type = element.getElementsByTagName("account_type").item(0).getChildNodes().item(0).getNodeValue();
 
             Account.AccountType type = Account.AccountType.valueOf(account_type);
             try{
                 Account account = accounts.addAccount(account_name, type);
+                account.setXmlFile(new File(xmlFile));
+                account.setHtmlFile(new File(htmlFile));
                 NodeList projectNodeList = element.getElementsByTagName("account_project");
                 if(projectNodeList.getLength()>0){
                     String account_project = projectNodeList.item(0).getChildNodes().item(0).getNodeValue();
@@ -103,6 +107,8 @@ public class AccountsSAXParser {
             writer.write("  <html>" + accounts.getHtmlFile() + "</html>\r\n");
             for(Account account : accounts.getAllAccounts()) {
                 writer.write("  <Account>\r\n");
+                writer.write("    <xml>" + account.getXmlFile() + "</xml>\r\n");
+                writer.write("    <html>" + account.getHtmlFile() + "</html>\r\n");
                 writer.write("    <account_name>" + account.getName() + "</account_name>\r\n");
                 writer.write("    <account_type>" + account.getType() + "</account_type>\r\n");
                 writer.write((account.getProject() == null ? "" : "      <account_project>"

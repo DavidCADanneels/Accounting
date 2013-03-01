@@ -33,7 +33,7 @@ import java.util.logging.Logger;
  */
 public class AccountingsSAXParser {
 
-    private static File getFile() {
+    private static File getXmlFile() {
         String folderName = "Accounting";
         String fileName = "Accountings.xml";
         File home = new File(System.getProperty("user.home"));
@@ -53,10 +53,34 @@ public class AccountingsSAXParser {
         return file;
     }
 
+    private static File getXsl2XmlFile() {
+        String folderName = "Accounting";
+        File home = new File(System.getProperty("user.home"));
+        File folder = new File(home, folderName);
+        File xslFolder = new File(folder, "xsl");
+        return new File(xslFolder, "Accountings2xml.xsl");
+    }
+
+    private static File getXsl2HtmlFile() {
+        String folderName = "Accounting";
+        File home = new File(System.getProperty("user.home"));
+        File folder = new File(home, folderName);
+        File xslFolder = new File(folder, "xsl");
+        return new File(xslFolder, "Accountings2html.xsl");
+    }
+
+    private static File getDtdFile() {
+        String folderName = "Accounting";
+        File home = new File(System.getProperty("user.home"));
+        File folder = new File(home, folderName);
+        File xslFolder = new File(folder, "xsl");
+        return new File(xslFolder, "Accountings.dtd");
+    }
+
     public static Accountings readAccountings() {
         Accountings accountings = new Accountings();
         System.out.println("fromXML");
-        File file = getFile();
+        File file = getXmlFile();
         if (!file.exists()) {
             try {
                 file.createNewFile();
@@ -131,18 +155,23 @@ public class AccountingsSAXParser {
     }
 
     public static void writeAccountings(Accountings accountings) {
+        createDefaultValuesIfNull(accountings);
         Accounting currentAccounting = accountings.getCurrentAccounting();
         try {
-            Writer writer = new FileWriter(getFile());
+            Writer writer = new FileWriter(getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-                    + "<!DOCTYPE Accountings SYSTEM \"C:\\Users\\Dafke\\Accounting\\xsl\\Accountings.dtd\">\r\n"
-                    + "<?xml-stylesheet type=\"text/xsl\" href=\"Accountings.xsl\"?>\r\n" + "<Accountings>\r\n");
+                    + "<!DOCTYPE Accountings SYSTEM \"" + getDtdFile() +"\">\r\n"
+                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + getXsl2XmlFile() +"\"?>\r\n" + "<Accountings>\r\n");
             for(Accounting acc : accountings.getAccountings()) {
                 writer.write("  <Accounting name=\"" + acc.toString()
                         + "\" current=\"" + (acc == currentAccounting?"true":"false")
-                        + "\" xml=\"" + acc.getXmlFolder()
-                        + "\" xsl=\"" + acc.getXslFolder()
-                        + "\" html=\"" + acc.getHtmlFolder()
+                        + "\" xmlFolder=\"" + acc.getXmlFolder()
+                        + "\" xslFolder=\"" + acc.getXslFolder()
+                        + "\" htmlFolder=\"" + acc.getHtmlFolder()
+                        + "\" xml=\"" + acc.getXmlFile()
+                        + "\" html=\"" + acc.getHtmlFile()
+                        + "\" xsl2xml=\"" + acc.getXsl2XmlFile()
+                        + "\" xsl2html=\"" + acc.getXsl2HtmlFile()
                         + "\"/>\r\n");
             }
             writer.write("</Accountings>");
@@ -163,7 +192,7 @@ public class AccountingsSAXParser {
         // ACCOUNTING
         //
         File htmlFile = accounting.getHtmlFile();
-        if(htmlFile == null){
+        if(htmlFile == null || htmlFile.getPath().equals("null")){
             htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Accounting.html");
             accounting.setHtmlFile(htmlFile);
         }
@@ -172,7 +201,7 @@ public class AccountingsSAXParser {
         //
         Accounts accounts = accounting.getAccounts();
         htmlFile = accounts.getHtmlFile();
-        if(htmlFile == null){
+        if(htmlFile == null || htmlFile.getPath().equals("null")){
             htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Accounts.html");
             accounts.setHtmlFile(htmlFile);
         }
@@ -183,7 +212,7 @@ public class AccountingsSAXParser {
         //
         Journals journals = accounting.getJournals();
         htmlFile = journals.getHtmlFile();
-        if(htmlFile == null){
+        if(htmlFile == null || htmlFile.getPath().equals("null")){
             htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Journals.html");
             journals.setHtmlFile(htmlFile);
         }
@@ -194,7 +223,7 @@ public class AccountingsSAXParser {
         //
         Balances balances = accounting.getBalances();
         htmlFile = balances.getHtmlFile();
-        if(htmlFile == null){
+        if(htmlFile == null || htmlFile.getPath().equals("null")){
             htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Balances.html");
             balances.setHtmlFile(htmlFile);
         }
@@ -209,7 +238,7 @@ public class AccountingsSAXParser {
         //
         Mortgages mortgages = accounting.getMortgages();
         htmlFile = mortgages.getHtmlFile();
-        if(htmlFile == null){
+        if(htmlFile == null || htmlFile.getPath().equals("null")){
             htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Mortgages.html");
             mortgages.setHtmlFile(htmlFile);
         }
@@ -220,7 +249,7 @@ public class AccountingsSAXParser {
         //
         Movements movements = accounting.getMovements();
         htmlFile = movements.getHtmlFile();
-        if(htmlFile == null){
+        if(htmlFile == null || htmlFile.getPath().equals("null")){
             htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Movements.html");
             movements.setHtmlFile(htmlFile);
         }
@@ -231,12 +260,22 @@ public class AccountingsSAXParser {
         //
         CounterParties counterParties = accounting.getCounterParties();
         htmlFile = counterParties.getHtmlFile();
-        if(htmlFile == null){
+        if(htmlFile == null || htmlFile.getPath().equals("null")){
             htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "CounterParties.html");
             counterParties.setHtmlFile(htmlFile);
         }
         htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, counterParties.getFolder());
         htmlFolder.mkdirs();
+    }
+
+    private static void createDefaultValuesIfNull(Accountings accountings){
+        // ACCOUNTINGS
+
+
+
+        for(Accounting accounting:accountings.getAccountings()){
+            createXMLFolders(accounting);
+        }
     }
 
     public static void createXMLFolders(Accounting accounting) {
@@ -246,32 +285,32 @@ public class AccountingsSAXParser {
         // ACCOUNTING
         //
         File xmlFolder = accounting.getXmlFolder();
-        if(xmlFolder == null){
+        if(xmlFolder == null || xmlFolder.getPath().equals("null")){
             xmlFolder = FileSystemView.getFileSystemView().getChild(accountingFolder, accounting.getName());
             accounting.setXmlFolder(xmlFolder);
         }
         File xmlFile = accounting.getXmlFile();
-        if(xmlFile == null){
+        if(xmlFile == null || xmlFile.getPath().equals("null")){
             xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Accounting.xml");
             accounting.setXmlFile(xmlFile);
         }
         File xslFolder = accounting.getXslFolder();
-        if(xslFolder == null){
+        if(xslFolder == null || xslFolder.getPath().equals("null")){
             xslFolder = FileSystemView.getFileSystemView().getChild(accountingFolder, "xsl");
             accounting.setXslFolder(xslFolder);
         }
         File xsl2XmlFile = accounting.getXsl2XmlFile();
-        if(xsl2XmlFile == null){
+        if(xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
             xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting2xml.xsl");
             accounting.setXsl2XmlFile(xsl2XmlFile);
         }
         File xsl2HtmlFile = accounting.getXsl2HtmlFile();
-        if(xsl2HtmlFile == null){
+        if(xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
             xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting2html.xsl");
             accounting.setXsl2HtmlFile(xsl2HtmlFile);
         }
         File dtdFile = accounting.getDtdFile();
-        if(dtdFile == null){
+        if(dtdFile == null || dtdFile.getPath().equals("null")){
             dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting.dtd");
             accounting.setDtdFile(dtdFile);
         }
@@ -280,27 +319,27 @@ public class AccountingsSAXParser {
         //
         Accounts accounts = accounting.getAccounts();
         String folder = accounts.getFolder();
-        if(folder == null){
+        if(folder == null || folder.equals("null")){
             folder = "Accounts";
             accounts.setFolder(folder);
         }
         xmlFile = accounts.getXmlFile();
-        if(xmlFile == null){
+        if(xmlFile == null || xmlFile.getPath().equals("null")){
             xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Accounts.xml");
             accounts.setXmlFile(xmlFile);
         }
         xsl2XmlFile = accounts.getXsl2XmlFile();
-        if(xsl2XmlFile == null){
+        if(xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
             xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts2xml.xsl");
             accounts.setXsl2XmlFile(xsl2XmlFile);
         }
         xsl2HtmlFile = accounts.getXsl2HtmlFile();
-        if(xsl2HtmlFile == null){
+        if(xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
             xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts2html.xsl");
             accounts.setXsl2HtmlFile(xsl2HtmlFile);
         }
         dtdFile = accounts.getDtdFile();
-        if(dtdFile == null){
+        if(dtdFile == null || dtdFile.getPath().equals("null")){
             dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts.dtd");
             accounts.setDtdFile(dtdFile);
         }
@@ -309,27 +348,27 @@ public class AccountingsSAXParser {
         //
         Journals journals = accounting.getJournals();
         folder = journals.getFolder();
-        if(folder == null){
+        if(folder == null || folder.equals("null")){
             folder = "Journals";
             journals.setFolder(folder);
         }
         xmlFile = journals.getXmlFile();
-        if(xmlFile == null){
+        if(xmlFile == null || xmlFile.getPath().equals("null")){
             xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Journals.xml");
             journals.setXmlFile(xmlFile);
         }
         xsl2XmlFile = journals.getXsl2XmlFile();
-        if(xsl2XmlFile == null){
+        if(xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
             xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals2xml.xsl");
             journals.setXsl2XmlFile(xsl2XmlFile);
         }
         xsl2HtmlFile = journals.getXsl2HtmlFile();
-        if(xsl2HtmlFile == null){
+        if(xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
             xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals2html.xsl");
             journals.setXsl2HtmlFile(xsl2HtmlFile);
         }
         dtdFile = journals.getDtdFile();
-        if(dtdFile == null){
+        if(dtdFile == null || dtdFile.getPath().equals("null")){
             dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals.dtd");
             journals.setDtdFile(dtdFile);
         }
@@ -338,27 +377,27 @@ public class AccountingsSAXParser {
         //
         Balances balances = accounting.getBalances();
         folder = balances.getFolder();
-        if(folder == null){
+        if(folder == null || folder.equals("null")){
             folder = "Balances";
             balances.setFolder(folder);
         }
         xmlFile = balances.getXmlFile();
-        if(xmlFile == null){
+        if(xmlFile == null || xmlFile.getPath().equals("null")){
             xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Balances.xml");
             balances.setXmlFile(xmlFile);
         }
         xsl2XmlFile = balances.getXsl2XmlFile();
-        if(xsl2XmlFile == null){
+        if(xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
             xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balances2xml.xsl");
             balances.setXsl2XmlFile(xsl2XmlFile);
         }
         xsl2HtmlFile = balances.getXsl2HtmlFile();
-        if(xsl2HtmlFile == null){
+        if(xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
             xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balances2html.xsl");
             balances.setXsl2HtmlFile(xsl2HtmlFile);
         }
         dtdFile = balances.getDtdFile();
-        if(dtdFile == null){
+        if(dtdFile == null || dtdFile.getPath().equals("null")){
             dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balances.dtd");
             balances.setDtdFile(dtdFile);
         }
@@ -377,27 +416,27 @@ public class AccountingsSAXParser {
         //
         Mortgages mortgages = accounting.getMortgages();
         folder = mortgages.getFolder();
-        if(folder == null){
+        if(folder == null || folder.equals("null")){
             folder = "Mortgages";
             mortgages.setFolder(folder);
         }
         xmlFile = mortgages.getXmlFile();
-        if(xmlFile == null){
+        if(xmlFile == null || xmlFile.getPath().equals("null")){
             xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Mortgages.xml");
             mortgages.setXmlFile(xmlFile);
         }
         xsl2XmlFile = mortgages.getXsl2XmlFile();
-        if(xsl2XmlFile == null){
+        if(xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
             xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages2xml.xsl");
             mortgages.setXsl2XmlFile(xsl2XmlFile);
         }
         xsl2HtmlFile = mortgages.getXsl2HtmlFile();
-        if(xsl2HtmlFile == null){
+        if(xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
             xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages2html.xsl");
             mortgages.setXsl2HtmlFile(xsl2HtmlFile);
         }
         dtdFile = mortgages.getDtdFile();
-        if(dtdFile == null){
+        if(dtdFile == null || dtdFile.getPath().equals("null")){
             dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages.dtd");
             mortgages.setDtdFile(dtdFile);
         }
@@ -406,28 +445,28 @@ public class AccountingsSAXParser {
         //
         Movements movements = accounting.getMovements();
         folder = movements.getFolder();
-        if(folder == null){
+        if(folder == null || folder.equals("null")){
             folder = "Movements";
             movements.setFolder(folder);
         }
         xmlFile = movements.getXmlFile();
-        if(xmlFile == null){
+        if(xmlFile == null || xmlFile.getPath().equals("null")){
             xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Movements.xml");
             movements.setXmlFile(xmlFile);
         }
         xsl2XmlFile = movements.getXsl2XmlFile();
-        if(xsl2XmlFile == null){
+        if(xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
             xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Movements2xml.xsl");
             movements.setXsl2XmlFile(xsl2XmlFile);
         }
         xsl2HtmlFile = movements.getXsl2HtmlFile();
-        if(xsl2HtmlFile == null){
+        if(xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
             xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Movements2html.xsl");
             movements.setXsl2HtmlFile(xsl2HtmlFile);
         }
 
         dtdFile = movements.getDtdFile();
-        if(dtdFile == null){
+        if(dtdFile == null || dtdFile.getPath().equals("null")){
             dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Movements.dtd");
             movements.setDtdFile(dtdFile);
         }
@@ -436,34 +475,34 @@ public class AccountingsSAXParser {
         //
         CounterParties counterParties = accounting.getCounterParties();
         folder = counterParties.getFolder();
-        if(folder == null){
+        if(folder == null || folder.equals("null")){
             folder = "CounterParties";
             counterParties.setFolder(folder);
         }
         xmlFile = counterParties.getXmlFile();
-        if(xmlFile == null){
+        if(xmlFile == null || xmlFile.getPath().equals("null")){
             xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "CounterParties.xml");
             counterParties.setXmlFile(xmlFile);
         }
         xsl2XmlFile = counterParties.getXsl2XmlFile();
-        if(xsl2XmlFile == null){
+        if(xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
             xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParties2xml.xsl");
             counterParties.setXsl2XmlFile(xsl2XmlFile);
         }
         xsl2HtmlFile = counterParties.getXsl2HtmlFile();
-        if(xsl2HtmlFile == null){
+        if(xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
             xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParties2html.xsl");
             counterParties.setXsl2HtmlFile(xsl2HtmlFile);
         }
         dtdFile = counterParties.getDtdFile();
-        if(dtdFile == null){
+        if(dtdFile == null || dtdFile.getPath().equals("null")){
             dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParties.dtd");
             counterParties.setDtdFile(dtdFile);
         }
     }
 
     private static void writeAccounting(Accounting accounting){
-        createXMLFolders(accounting);
+//        createXMLFolders(accounting);
 
         writeAccountingFile(accounting);
 
@@ -512,8 +551,8 @@ public class AccountingsSAXParser {
         try {
             Writer writer = new FileWriter(accounting.getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Accounts SYSTEM \""
-                    + accounting.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + accounting.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Accounting>\r\n");
+                    + accounting.getDtdFile() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
+                    + accounting.getXsl2XmlFile() + "\"?>\r\n" + "<Accounting>\r\n");
             writer.write("  <name>" + accounting.getName() + "</name>\r\n");
             writer.write("  <link>\r\n");
             writer.write("    <name>Accounts</name>\r\n");
@@ -530,26 +569,26 @@ public class AccountingsSAXParser {
             writer.write("  <link>\r\n");
             writer.write("    <name>Balances</name>\r\n");
             writer.write("    <location>" + accounting.getBalances().getFolder() + "</location>\r\n");
-            writer.write("    <xml>" + accounting.getJournals().getXmlFile() + "</xml>\r\n");
-            writer.write("    <html>" + accounting.getJournals().getHtmlFile() + "</html>\r\n");
+            writer.write("    <xml>" + accounting.getBalances().getXmlFile() + "</xml>\r\n");
+            writer.write("    <html>" + accounting.getBalances().getHtmlFile() + "</html>\r\n");
             writer.write("  </link>\r\n");
             writer.write("  <link>\r\n");
             writer.write("    <name>Mortgages</name>\r\n");
             writer.write("    <location>" + accounting.getMortgages().getFolder() + "</location>\r\n");
-            writer.write("    <xml>" + accounting.getJournals().getXmlFile() + "</xml>\r\n");
-            writer.write("    <html>" + accounting.getJournals().getHtmlFile() + "</html>\r\n");
+            writer.write("    <xml>" + accounting.getMortgages().getXmlFile() + "</xml>\r\n");
+            writer.write("    <html>" + accounting.getMortgages().getHtmlFile() + "</html>\r\n");
             writer.write("  </link>\r\n");
             writer.write("  <link>\r\n");
             writer.write("    <name>CounterParties</name>\r\n");
             writer.write("    <location>" + accounting.getCounterParties().getFolder() + "</location>\r\n");
-            writer.write("    <xml>" + accounting.getJournals().getXmlFile() + "</xml>\r\n");
-            writer.write("    <html>" + accounting.getJournals().getHtmlFile() + "</html>\r\n");
+            writer.write("    <xml>" + accounting.getCounterParties().getXmlFile() + "</xml>\r\n");
+            writer.write("    <html>" + accounting.getCounterParties().getHtmlFile() + "</html>\r\n");
             writer.write("  </link>\r\n");
             writer.write("  <link>\r\n");
             writer.write("    <name>Movements</name>\r\n");
             writer.write("    <location>" + accounting.getMovements().getFolder() + "</location>\r\n");
-            writer.write("    <xml>" + accounting.getJournals().getXmlFile() + "</xml>\r\n");
-            writer.write("    <html>" + accounting.getJournals().getHtmlFile() + "</html>\r\n");
+            writer.write("    <xml>" + accounting.getMovements().getXmlFile() + "</xml>\r\n");
+            writer.write("    <html>" + accounting.getMovements().getHtmlFile() + "</html>\r\n");
             writer.write("  </link>\r\n");
             writer.write("</Accounting>\r\n");
             writer.flush();

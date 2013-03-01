@@ -43,7 +43,7 @@ public class Utils {
         InputHandler inputHandler = new InputHandler(xmlFile, xslFile, params);
         try {
             if (!htmlFile.exists()) {
-                htmlFile.getParentFile().mkdirs();
+//                htmlFile.getParentFile().mkdirs();
                 htmlFile.createNewFile();
             }
             OutputStream out = new java.io.BufferedOutputStream(new java.io.FileOutputStream(htmlFile));

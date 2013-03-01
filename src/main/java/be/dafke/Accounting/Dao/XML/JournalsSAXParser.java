@@ -70,12 +70,16 @@ public class JournalsSAXParser {
         NodeList journalsNode = journalsElement.getElementsByTagName("Journal");
         for (int i = 0; i < journalsNode.getLength(); i++) {
             Element element = (Element)journalsNode.item(i);
+            String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+            String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
             String journal_name = element.getElementsByTagName("journal_name").item(0).getChildNodes().item(0).getNodeValue();
             String journal_short = element.getElementsByTagName("journal_short").item(0).getChildNodes().item(0).getNodeValue();
             String journal_type = element.getElementsByTagName("journal_type").item(0).getChildNodes().item(0).getNodeValue();
             System.out.println("Journal: "+journal_name+" | "+journal_short+" | "+journal_type);
             try{
-                accounting.getJournals().addJournal(journal_name, journal_short, accounting.getJournalTypes().get(journal_type));
+                Journal journal = accounting.getJournals().addJournal(journal_name, journal_short, accounting.getJournalTypes().get(journal_type));
+                journal.setXmlFile(new File(xmlFile));
+                journal.setHtmlFile(new File(htmlFile));
             } catch (DuplicateNameException e) {
                 System.err.println("There is already an journal with the name \""+journal_name+"\" and/or abbreviation \""+journal_short+"\".");
             } catch (EmptyNameException e) {
@@ -119,6 +123,8 @@ public class JournalsSAXParser {
             writer.write("  <html>" + journals.getHtmlFile() + "</html>\r\n");
             for(Journal journal : journals.getAllJournals()) {
                 writer.write("  <Journal>\r\n");
+                writer.write("    <xml>" + journal.getXmlFile() + "</xml>\r\n");
+                writer.write("    <html>" + journal.getHtmlFile() + "</html>\r\n");
                 writer.write("    <journal_name>" + journal.getName() + "</journal_name>\r\n");
                 writer.write("    <journal_short>" + journal.getAbbreviation() + "</journal_short>\r\n");
                 writer.write("    <journal_type>" + journal.getType().toString() + "</journal_type>\r\n");

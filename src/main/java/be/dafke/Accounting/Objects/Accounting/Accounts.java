@@ -55,11 +55,14 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
         account.setXmlFile(xmlFile);
         account.setXslFile(xslFile);
         account.setHtmlFile(htmlFile);
-        return put(account.getName(), account);
+        super.put(account.getName(), account);
+        return account;
 	}
 
 	@Override
+    @Deprecated
 	public Account put(String key, Account value) {
+        // TODO: do not use this function !!! use addAccount
 		if (key == null) return null;
 		if (!containsKey(key)) {
 			return super.put(key, value);
@@ -140,10 +143,10 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
         Account account = get(oldName);
         remove(oldName);
         if(containsKey(newName.trim())){
-            put(oldName, account);
+            super.put(oldName, account);
             throw new DuplicateNameException();
         }
-        put(newName, account);
+        super.put(newName, account);
         account.setName(newName.trim());
         return account;
 	}

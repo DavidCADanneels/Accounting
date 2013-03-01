@@ -45,8 +45,8 @@ public class CounterPartiesSAXParser {
             String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
             String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
             counterParties.setFolder(xmlLocation);
-            accounts.setXmlFile(new File(xmlFile));
-            accounts.setHtmlFile(new File(htmlFile));
+            counterParties.setXmlFile(new File(xmlFile));
+            counterParties.setHtmlFile(new File(htmlFile));
 
             counterpartiesFromXML(counterParties, accounts, (Element) counterpartiesNode);
 
