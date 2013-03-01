@@ -55,6 +55,26 @@ public class AccountingsSAXParser {
         return file;
     }
 
+    private static File getHtmlFile() {
+        String folderName = "Accounting";
+        String fileName = "Accountings.html";
+        File home = new File(System.getProperty("user.home"));
+        File folder = new File(home, folderName);
+        if (folder.exists() && !folder.isDirectory()) {
+            File renamed = FileSystemView.getFileSystemView().createFileObject(home, folderName + "_file");
+            folder.renameTo(renamed);
+            folder = new File(home, folderName);
+        }
+        if (!folder.isDirectory()) {
+            folder.mkdir();
+        }
+        File file = FileSystemView.getFileSystemView().getChild(folder, fileName);
+        if (!file.exists()) {
+            file = FileSystemView.getFileSystemView().createFileObject(folder, fileName);
+        }
+        return file;
+    }
+
     private static File getXsl2XmlFile() {
         String folderName = "Accounting";
         File home = new File(System.getProperty("user.home"));
@@ -219,6 +239,11 @@ public class AccountingsSAXParser {
 
     public static void writeAccountings(Accountings accountings) {
         createDefaultValuesIfNull(accountings);
+        toXml(accountings);
+        toHtml(accountings);
+    }
+
+    private static void toXml(Accountings accountings){
         try {
             Writer writer = new FileWriter(getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
@@ -250,85 +275,88 @@ public class AccountingsSAXParser {
         }
     }
 
-    private static void createHtmlFolders(Accounting accounting, File rootFolder) {
-        rootFolder.mkdirs();
-        // ACCOUNTING
-        //
-        File htmlFile = accounting.getHtmlFile();
-        if(htmlFile == null || htmlFile.getPath().equals("null")){
-            htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Accounting.html");
-            accounting.setHtmlFile(htmlFile);
-        }
+    private static void createHtmlFolders(Accounting accounting) {
+        File rootFolder = accounting.getHtmlFolder();
+        if(rootFolder!=null){
+            rootFolder.mkdirs();
+            // ACCOUNTING
+            //
+            File htmlFile = accounting.getHtmlFile();
+            if(htmlFile == null || htmlFile.getPath().equals("null")){
+                htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Accounting.html");
+                accounting.setHtmlFile(htmlFile);
+            }
 
-        // ACCOUNTS
-        //
-        Accounts accounts = accounting.getAccounts();
-        htmlFile = accounts.getHtmlFile();
-        if(htmlFile == null || htmlFile.getPath().equals("null")){
-            htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Accounts.html");
-            accounts.setHtmlFile(htmlFile);
-        }
-        File htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, accounts.getFolder());
-        htmlFolder.mkdirs();
+            // ACCOUNTS
+            //
+            Accounts accounts = accounting.getAccounts();
+            htmlFile = accounts.getHtmlFile();
+            if(htmlFile == null || htmlFile.getPath().equals("null")){
+                htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Accounts.html");
+                accounts.setHtmlFile(htmlFile);
+            }
+            File htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, accounts.getFolder());
+            htmlFolder.mkdirs();
 
-        // JOURNALS
-        //
-        Journals journals = accounting.getJournals();
-        htmlFile = journals.getHtmlFile();
-        if(htmlFile == null || htmlFile.getPath().equals("null")){
-            htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Journals.html");
-            journals.setHtmlFile(htmlFile);
-        }
-        htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, journals.getFolder());
-        htmlFolder.mkdirs();
+            // JOURNALS
+            //
+            Journals journals = accounting.getJournals();
+            htmlFile = journals.getHtmlFile();
+            if(htmlFile == null || htmlFile.getPath().equals("null")){
+                htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Journals.html");
+                journals.setHtmlFile(htmlFile);
+            }
+            htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, journals.getFolder());
+            htmlFolder.mkdirs();
 
-        // BALANCES
-        //
-        Balances balances = accounting.getBalances();
-        htmlFile = balances.getHtmlFile();
-        if(htmlFile == null || htmlFile.getPath().equals("null")){
-            htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Balances.html");
-            balances.setHtmlFile(htmlFile);
-        }
-        htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, balances.getFolder());
-        htmlFolder.mkdirs();
-        for(Balance balance: balances.getBalances()){
-            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, balance.getName() + ".xml");
-            balance.setHtmlFile(htmlFile);
-        }
+            // BALANCES
+            //
+            Balances balances = accounting.getBalances();
+            htmlFile = balances.getHtmlFile();
+            if(htmlFile == null || htmlFile.getPath().equals("null")){
+                htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Balances.html");
+                balances.setHtmlFile(htmlFile);
+            }
+            htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, balances.getFolder());
+            htmlFolder.mkdirs();
+            for(Balance balance: balances.getBalances()){
+                htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, balance.getName() + ".html");
+                balance.setHtmlFile(htmlFile);
+            }
 
-        // MORTGAGES
-        //
-        Mortgages mortgages = accounting.getMortgages();
-        htmlFile = mortgages.getHtmlFile();
-        if(htmlFile == null || htmlFile.getPath().equals("null")){
-            htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Mortgages.html");
-            mortgages.setHtmlFile(htmlFile);
-        }
-        htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, mortgages.getFolder());
-        htmlFolder.mkdirs();
+            // MORTGAGES
+            //
+            Mortgages mortgages = accounting.getMortgages();
+            htmlFile = mortgages.getHtmlFile();
+            if(htmlFile == null || htmlFile.getPath().equals("null")){
+                htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Mortgages.html");
+                mortgages.setHtmlFile(htmlFile);
+            }
+            htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, mortgages.getFolder());
+            htmlFolder.mkdirs();
 
-        // MOVEMENTS
-        //
-        Movements movements = accounting.getMovements();
-        htmlFile = movements.getHtmlFile();
-        if(htmlFile == null || htmlFile.getPath().equals("null")){
-            htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Movements.html");
-            movements.setHtmlFile(htmlFile);
-        }
-        htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, movements.getFolder());
-        htmlFolder.mkdirs();
+            // MOVEMENTS
+            //
+            Movements movements = accounting.getMovements();
+            htmlFile = movements.getHtmlFile();
+            if(htmlFile == null || htmlFile.getPath().equals("null")){
+                htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Movements.html");
+                movements.setHtmlFile(htmlFile);
+            }
+            htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, movements.getFolder());
+            htmlFolder.mkdirs();
 
-        // COUNTERPARTIES
-        //
-        CounterParties counterParties = accounting.getCounterParties();
-        htmlFile = counterParties.getHtmlFile();
-        if(htmlFile == null || htmlFile.getPath().equals("null")){
-            htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "CounterParties.html");
-            counterParties.setHtmlFile(htmlFile);
+            // COUNTERPARTIES
+            //
+            CounterParties counterParties = accounting.getCounterParties();
+            htmlFile = counterParties.getHtmlFile();
+            if(htmlFile == null || htmlFile.getPath().equals("null")){
+                htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "CounterParties.html");
+                counterParties.setHtmlFile(htmlFile);
+            }
+            htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, counterParties.getFolder());
+            htmlFolder.mkdirs();
         }
-        htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, counterParties.getFolder());
-        htmlFolder.mkdirs();
     }
 
     private static void createDefaultValuesIfNull(Accountings accountings){
@@ -338,6 +366,7 @@ public class AccountingsSAXParser {
 
         for(Accounting accounting:accountings.getAccountings()){
             createXMLFolders(accounting);
+            createHtmlFolders(accounting);
         }
     }
 
@@ -607,7 +636,7 @@ public class AccountingsSAXParser {
         System.out.println("Movements.TOXML(" + accounting.toString() + ")");
         MovementsSAXParser.writeMovements(accounting.getMovements());
 
-        toHtml(accounting);
+//        toHtml(accounting);
     }
 
     private static void writeAccountingFile(Accounting accounting) {
@@ -665,10 +694,15 @@ public class AccountingsSAXParser {
         }
     }
 
+    private static void toHtml(Accountings accountings){
+        Utils.xmlToHtml(getXmlFile(),getXsl2HtmlFile(),getHtmlFile(),null);
+        for(Accounting accounting:accountings.getAccountings()){
+            toHtml(accounting);
+        }
+    }
+
     private static void toHtml(Accounting accounting){
         if(accounting.getHtmlFolder() != null){
-            createHtmlFolders(accounting, accounting.getHtmlFolder());
-
             Accounts accounts = accounting.getAccounts();
             Journals journals = accounting.getJournals();
             Balances balances = accounting.getBalances();

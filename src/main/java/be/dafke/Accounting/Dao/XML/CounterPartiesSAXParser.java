@@ -120,6 +120,8 @@ public class CounterPartiesSAXParser {
                 }
                 if(counterParty.getAccount()!=null){
                     writer.write("      <AccountName>" + counterParty.getAccount().getName() + "</AccountName>\r\n");
+                    writer.write("      <AccountXml>" + counterParty.getAccount().getXmlFile() + "</AccountXml>\r\n");
+                    writer.write("      <AccountHtml>" + counterParty.getAccount().getHtmlFile() + "</AccountHtml>\r\n");
                 }
                 if(counterParty.getBankAccounts()!=null){
                     for(BankAccount account : counterParty.getBankAccounts().values()) {

@@ -4,6 +4,7 @@ import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Balance;
 import be.dafke.Accounting.Objects.Accounting.Balances;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -36,11 +37,10 @@ public class BalancesSAXParser {
             Document doc = dBuilder.parse(file.getAbsolutePath());
             doc.getDocumentElement().normalize();
 
-//            Node balancesNode = doc.getElementsByTagName("Balances").item(0);
-
-            String xmlLocation = doc.getElementsByTagName("location").item(0).getChildNodes().item(0).getNodeValue();
-            String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+            Element element = (Element) doc.getElementsByTagName("Balances").item(0);
+            String xmlLocation = element.getElementsByTagName("location").item(0).getChildNodes().item(0).getNodeValue();
+            String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+            String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
             balances.setFolder(xmlLocation);
             balances.setXmlFile(new File(xmlFile));
             balances.setHtmlFile(new File(htmlFile));
@@ -60,10 +60,17 @@ public class BalancesSAXParser {
             Writer writer = new FileWriter(balances.getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Balances SYSTEM \""
                     + balances.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + balances.getDtdFile().getCanonicalPath() + "\"?>\r\n" + "<Balances>\r\n");
+                    + balances.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Balances>\r\n");
             writer.write("  <location>" + balances.getFolder() + "</location>\r\n");
             writer.write("  <xml>" + balances.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + balances.getHtmlFile() + "</html>\r\n");
+            for(Balance balance:balances.getBalances()){
+                writer.write("    <Balance>\r\n");
+                writer.write("      <name>" + balance.getName() + "</name>\r\n");
+                writer.write("      <xml>" + balance.getXmlFile() + "</xml>\r\n");
+                writer.write("      <html>" + balance.getHtmlFile() + "</html>\r\n");
+                writer.write("    </Balance>\r\n");
+            }
             writer.write("</Balances>\r\n");
             writer.flush();
             writer.close();
