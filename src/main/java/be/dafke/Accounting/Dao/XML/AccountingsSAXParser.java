@@ -421,13 +421,13 @@ public class AccountingsSAXParser {
             for(Account account:accounting.getAccounts().getAllAccounts()){
 //                TODO: add isSavedHTML
 //                if(account.isSavedHTML()){
-                Utils.xmlToHtml(account.getXmlFile(), account.getXslFile(), account.getHtmlFile(), null);
+                Utils.xmlToHtml(account.getXmlFile(), account.getXsl2HtmlFile(), account.getHtmlFile(), null);
 //                }
             }
             for(Journal journal:accounting.getJournals().getAllJournals()){
 //                TODO: add isSavedHTML
 //                if(journal.isSavedHTML()){
-                    Utils.xmlToHtml(journal.getXmlFile(), journal.getXslFile(), journal.getHtmlFile(), null);
+                    Utils.xmlToHtml(journal.getXmlFile(), journal.getXsl2HtmlFile(), journal.getHtmlFile(), null);
 //                }
             }
             for(Balance balance:accounting.getBalances().getBalances()){

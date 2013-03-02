@@ -21,6 +21,14 @@ public class Account implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 
+//    public File getDtdFile() {
+//        return dtdFile;
+//    }
+//
+//    public void setDtdFile(File dtdFile) {
+//        this.dtdFile = dtdFile;
+//    }
+
     public enum AccountType {
 		Active, Passive, Cost, Revenue, Credit, Debit;
 		public static ArrayList<AccountType> getList() {
@@ -41,7 +49,7 @@ public class Account implements Serializable {
 	private Project project;
 	private File xmlFile;
 	private File htmlFile;
-	private File xslFile;
+	private File xsl2XmlFile, xsl2HtmlFile, dtdFile;
 
 	/**
 	 * Constructor
@@ -206,8 +214,12 @@ public class Account implements Serializable {
         return xmlFile;
     }
 
-    public File getXslFile(){
-        return xslFile;
+    public File getXsl2XmlFile(){
+        return xsl2XmlFile;
+    }
+
+    public File getXsl2HtmlFile(){
+        return xsl2HtmlFile;
     }
 
     public File getHtmlFile(){
@@ -218,8 +230,12 @@ public class Account implements Serializable {
         this.xmlFile = xmlFile;
     }
 
-    public void setXslFile(File xslFile) {
-        this.xslFile = xslFile;
+    public void setXsl2XmlFile(File xslFile) {
+        this.xsl2XmlFile = xslFile;
+    }
+
+    public void setXsl2HtmlFile(File xslFile) {
+        this.xsl2HtmlFile = xslFile;
     }
 
     public void setHtmlFile(File htmlFile) {

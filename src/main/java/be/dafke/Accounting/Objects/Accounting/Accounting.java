@@ -33,10 +33,10 @@ public class Accounting {
 		this.name = name;
 //		savedXML = true;
 //		savedHTML = false;// TODO: true ?
-		accounts = new Accounts(this);
-		journals = new Journals(this);
+		accounts = new Accounts();
+		journals = new Journals();
         balances = new Balances();
-        mortgages = new Mortgages(this);
+        mortgages = new Mortgages();
         counterParties = new CounterParties();
         movements = new Movements();
         projects = new Projects();

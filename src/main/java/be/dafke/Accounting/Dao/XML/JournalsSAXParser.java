@@ -114,7 +114,7 @@ public class JournalsSAXParser {
                         transaction.setDescription(description);
                     }
                 }
-                String accountName = element.getElementsByTagName("account").item(0).getChildNodes().item(0).getNodeValue();
+                String accountName = element.getElementsByTagName("account_name").item(0).getChildNodes().item(0).getNodeValue();
                 Account account = accounts.get(accountName);
                 NodeList nodeListDebet = element.getElementsByTagName("debet");
                 NodeList nodeListCredit = element.getElementsByTagName("credit");
@@ -180,22 +180,32 @@ public class JournalsSAXParser {
             Writer writer = new FileWriter(journal.getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Journal SYSTEM \""
                     + journal.getDtdFile() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + journal.getXslFile() + "\"?>\r\n" + "<Journal>\r\n"
+                    + journal.getXsl2XmlFile() + "\"?>\r\n" + "<Journal>\r\n"
                     + "  <name>" + journal.getName() + "</name>\r\n");
             for (Transaction transaction :journal.getTransactions()) {
                 ArrayList<Booking> list = transaction.getBookings();
                 Booking booking = list.get(0);
-                writer.write("  <action>\r\n" + "    <nr>" + journal.getAbbreviation() + booking.getId() + "</nr>\r\n"
-                        + "    <date>" + Utils.toString(booking.getDate()) + "</date>\r\n" + "    <account>"
-                        + booking.getAccount() + "</account>\r\n" + "    <" + (booking.isDebit() ? "debet" : "credit")
-                        + ">" + booking.getAmount().toString() + "</" + (booking.isDebit() ? "debet" : "credit")
-                        + ">\r\n" + "    <description>" + booking.getDescription()
-                        + "</description>\r\n  </action>\r\n");
+                writer.write("  <action>\r\n");
+                writer.write("    <nr>" + journal.getAbbreviation() + booking.getId() + "</nr>\r\n");
+                writer.write("    <date>" + Utils.toString(booking.getDate()) + "</date>\r\n");
+                writer.write("    <account_name>" + booking.getAccount() + "</account_name>\r\n");
+                writer.write("    <account_xml>" + booking.getAccount().getXmlFile() + "</account_xml>\r\n");
+                writer.write("    <account_html>" + booking.getAccount().getHtmlFile() + "</account_html>\r\n");
+                writer.write("    <" + (booking.isDebit() ? "debet" : "credit") + ">"
+                                     + booking.getAmount().toString()
+                               + "</" + (booking.isDebit() ? "debet" : "credit") + ">\r\n");
+                writer.write("    <description>" + booking.getDescription() + "</description>\r\n");
+                writer.write("  </action>\r\n");
                 for(int i = 1; i < list.size(); i++) {
                     booking = list.get(i);
-                    writer.write("  <action>\r\n" + "    <account>" + booking.getAccount() + "</account>\r\n" + "    <"
-                            + (booking.isDebit() ? "debet" : "credit") + ">" + booking.getAmount().toString() + "</"
-                            + (booking.isDebit() ? "debet" : "credit") + ">\r\n" + "  </action>\r\n");
+                    writer.write("  <action>\r\n");
+                    writer.write("    <account_name>" + booking.getAccount() + "</account_name>\r\n");
+                    writer.write("    <account_xml>" + booking.getAccount().getXmlFile() + "</account_xml>\r\n");
+                    writer.write("    <account_html>" + booking.getAccount().getHtmlFile() + "</account_html>\r\n");
+                    writer.write("    <" + (booking.isDebit() ? "debet" : "credit") + ">"
+                                         + booking.getAmount().toString()
+                                   + "</" + (booking.isDebit() ? "debet" : "credit") + ">\r\n");
+                    writer.write("  </action>\r\n");
                 }
             }
             writer.write("</Journal>");

@@ -134,7 +134,7 @@ public class AccountsSAXParser {
         try {
             Writer writer = new FileWriter(account.getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + account.getXslFile().getCanonicalPath() + "\"?>\r\n"
+                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + account.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n"
                     + "<account>\r\n" + "  <name>" + account.getName() + "</name>\r\n");
             for(Booking booking : account.getBookings()){
                 writer.write("  <action>\r\n" + "    <nr>" + booking.getAbbreviation() + booking.getId() + "</nr>\r\n"

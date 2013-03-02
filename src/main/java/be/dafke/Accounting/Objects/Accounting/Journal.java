@@ -21,14 +21,13 @@ public class Journal implements Serializable {
 	private final ArrayList<Transaction> transacties;
 //	private boolean save;
 	private JournalType journalType;
-//	private final String DEFAULT_XSL = "../../xsl/Journal.xsl";
-//	private final String xslFile = DEFAULT_XSL;
 	private File xmlFile;
 	private File htmlFile;
-	private File xslFile;
+	private File xsl2XmlFile;
     private File dtdFile;
     private Transaction currentTransaction = new Transaction();
     private Account currentAccount;
+    private File xsl2HtmlFile;
 
     /**
 	 * Constructor
@@ -237,8 +236,8 @@ public class Journal implements Serializable {
 		abbreviation = newAbbreviation;
 	}
 
-    public File getXslFile() {
-        return xslFile;
+    public File getXsl2XmlFile() {
+        return xsl2XmlFile;
     }
 
     public File getHtmlFile() {
@@ -253,8 +252,8 @@ public class Journal implements Serializable {
         return dtdFile;
     }
 
-    public void setXslFile(File xslFile) {
-        this.xslFile = xslFile;
+    public void setXsl2XmlFile(File xsl2XmlFile) {
+        this.xsl2XmlFile = xsl2XmlFile;
     }
 
     public void setHtmlFile(File htmlFile) {
@@ -267,5 +266,13 @@ public class Journal implements Serializable {
 
     public void setDtdFile(File dtdFile) {
         this.dtdFile = dtdFile;
+    }
+
+    public File getXsl2HtmlFile() {
+        return xsl2HtmlFile;
+    }
+
+    public void setXsl2HtmlFile(File xsl2HtmlFile) {
+        this.xsl2HtmlFile = xsl2HtmlFile;
     }
 }

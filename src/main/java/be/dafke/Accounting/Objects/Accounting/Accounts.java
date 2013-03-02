@@ -21,7 +21,6 @@ public class Accounts extends HashMap<String, Account> {
     /**
      *
      */
-    private final Accounting accounting;
     private String folder;
     private File xmlFile;
     private File htmlFile;
@@ -29,9 +28,8 @@ public class Accounts extends HashMap<String, Account> {
     private File xsl2HtmlFile;
     private File dtdFile;
 
-    public Accounts(Accounting accounting) {
+    public Accounts() {
 		super();
-        this.accounting = accounting;
 	}
 
 	public Account addAccount(String accountName, AccountType accountType) throws DuplicateNameException, EmptyNameException {
@@ -42,17 +40,6 @@ public class Accounts extends HashMap<String, Account> {
             throw new DuplicateNameException();
         }
         Account account = new Account(accountName.trim(), accountType);
-
-        File xmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), folder);
-        File htmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getHtmlFolder(), folder);
-
-        File xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, account.getName() + ".xml");
-        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Account.xsl");
-        File htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, account.getName() + ".html");
-
-        account.setXmlFile(xmlFile);
-        account.setXslFile(xslFile);
-        account.setHtmlFile(htmlFile);
         super.put(account.getName(), account);
         return account;
 	}
@@ -225,7 +212,9 @@ public class Accounts extends HashMap<String, Account> {
         subFolder.mkdirs();
         for(Account account: getAllAccounts()){
             account.setXmlFile(FileSystemView.getFileSystemView().getChild(subFolder, account.getName() + ".xml"));
-            account.setXslFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Account.xsl"));
+//            account.setDtdFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Account.dtd"));
+            account.setXsl2XmlFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Account2xml.xsl"));
+            account.setXsl2HtmlFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Account2html.xsl"));
         }
 
     }

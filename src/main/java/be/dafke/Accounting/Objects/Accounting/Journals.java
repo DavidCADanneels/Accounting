@@ -24,7 +24,6 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
 
 //	private boolean save;
 
-    private Accounting accounting;
     private String folder;
     private File xmlFile;
     private File xsl2XmlFile;
@@ -33,9 +32,8 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
     private File htmlFile;
     private Journal currentJournal;
 
-    public Journals(Accounting accounting) {
+    public Journals() {
 		super();
-        this.accounting = accounting;
 //		save = false;
 		abbreviations = new HashMap<String, Journal>();
 	}
@@ -81,17 +79,6 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
         }
         Journal journal = new Journal(name.trim(), abbreviation.trim(), type);
 
-        File xmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), folder);
-        File htmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getHtmlFolder(), folder);
-
-        File xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, journal.getName() + ".xml");
-        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Journal.xsl");
-        File dtdFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Journal.dtd");
-        File htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, journal.getName() + ".html");
-        journal.setXmlFile(xmlFile);
-        journal.setXslFile(xslFile);
-        journal.setDtdFile(dtdFile);
-        journal.setHtmlFile(htmlFile);
         put(journal.getName(), journal);
         abbreviations.put(journal.getAbbreviation(), journal);
         return journal;
@@ -210,6 +197,14 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
         }
         if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
             dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals.dtd");
+        }
+        File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, folder);
+        subFolder.mkdirs();
+        for(Journal journal: getAllJournals()){
+            journal.setXmlFile(FileSystemView.getFileSystemView().getChild(subFolder, journal.getName() + ".xml"));
+            journal.setDtdFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Journal.dtd"));
+            journal.setXsl2XmlFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Journal2xml.xsl"));
+            journal.setXsl2HtmlFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Journal2html.xsl"));
         }
     }
 }

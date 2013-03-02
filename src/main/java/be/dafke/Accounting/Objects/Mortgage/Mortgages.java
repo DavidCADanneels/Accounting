@@ -1,7 +1,5 @@
 package be.dafke.Accounting.Objects.Mortgage;
 
-import be.dafke.Accounting.Objects.Accounting.Accounting;
-
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.util.ArrayList;
@@ -19,25 +17,13 @@ public class Mortgages {
     private File xsl2HtmlFile;
     private File dtdFile;
     private File htmlFile;
-    private Accounting accounting;
 
-    public Mortgages(Accounting accounting){
-        this.accounting = accounting;
+    public Mortgages(){
         mortgages = new HashMap<String, Mortgage>();
     }
 
     public void addMortgageTable(String mortgageName, Mortgage table) {
         mortgages.put(mortgageName, table);
-        File xmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), folder);
-        File htmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getHtmlFolder(), folder);
-
-        File xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, table.getName() + ".xml");
-        File xslFile = FileSystemView.getFileSystemView().getChild(accounting.getXslFolder(), "Mortgage.xsl");
-        File htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, table.getName() + ".html");
-
-        table.setXmlFile(xmlFile);
-        table.setXslFile(xslFile);
-        table.setHtmlFile(htmlFile);
     }
 
     public boolean containsMortgageName(String mortgageName) {
@@ -130,6 +116,14 @@ public class Mortgages {
         }
         if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
             dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages.dtd");
+        }
+        File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, folder);
+        subFolder.mkdirs();
+        for(Mortgage table:getMortgages()){
+            File xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, table.getName() + ".xml");
+            File xslFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgage.xsl");
+            table.setXmlFile(xmlFile);
+            table.setXslFile(xslFile);
         }
     }
 }
