@@ -285,9 +285,6 @@ public class AccountingsSAXParser {
 
     private static void createDefaultValuesIfNull(Accountings accountings){
         // ACCOUNTINGS
-
-
-
         for(Accounting accounting:accountings.getAccountings()){
             accounting.setDefaultXmlFoldersAndFiles(false);
             accounting.setDefaultHtmlFoldersAndFiles(false);
@@ -398,7 +395,9 @@ public class AccountingsSAXParser {
     private static void toHtml(Accountings accountings){
         Utils.xmlToHtml(getXmlFile(),getXsl2HtmlFile(),getHtmlFile(),null);
         for(Accounting accounting:accountings.getAccountings()){
-            toHtml(accounting);
+            if(accounting.getHtmlFolder()!=null && !accounting.getHtmlFolder().getPath().equals("null")){
+                toHtml(accounting);
+            }
         }
     }
 
