@@ -19,15 +19,10 @@ public class Project implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private final String naam;
 	private final ProjectAccounts rekeningen;
-	private Accounting accounting;
 
 	public Project(String name) {
 		naam = name;
-		rekeningen = new ProjectAccounts(accounting);
-	}
-
-	public void setAccounting(Accounting accounting) {
-		this.accounting = accounting;
+		rekeningen = new ProjectAccounts();
 	}
 
 	public void addAccount(Account account) {
@@ -91,8 +86,8 @@ public class Project implements Serializable {
 	}
 
     private class ProjectAccounts extends Accounts{
-        public ProjectAccounts(Accounting accounting){
-            super(accounting);
+        public ProjectAccounts(){
+            super();
         }
 
         public void add(Account account) {

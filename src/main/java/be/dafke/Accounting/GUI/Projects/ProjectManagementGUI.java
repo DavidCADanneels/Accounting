@@ -164,7 +164,6 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 						"GEEF_NAAM"));
 			if (naam != null) {
 				project = new Project(naam);
-				project.setAccounting(accounting);
 				accounting.getProjects().put(naam, project);
 				((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
 				(combo.getModel()).setSelectedItem(project);
