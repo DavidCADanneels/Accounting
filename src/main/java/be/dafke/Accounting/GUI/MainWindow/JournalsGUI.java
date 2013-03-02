@@ -4,6 +4,7 @@ import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Journals;
+import be.dafke.Accounting.Objects.Accounting.Transaction;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -51,10 +52,32 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == combo) {
-			Journal journal = (Journal) combo.getSelectedItem();
-			if(journal!=null){
-                journals.setCurrentJournal(journal);
-                // TODO: check if this change is seen in JournalGUI
+            Journal oldJournal = journals.getCurrentJournal();
+			Journal newJournal = (Journal) combo.getSelectedItem();
+            if(newJournal!=null){
+                if(oldJournal!=null){
+                    Transaction oldTransaction = oldJournal.getCurrentTransaction();
+                    Transaction newTransaction = newJournal.getCurrentTransaction();
+                    if(oldTransaction!=null && !oldTransaction.isEmpty()){
+                        StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
+                                .append(oldJournal).append(" to ").append(newJournal);
+                        if(newTransaction!=null && !newTransaction.isEmpty()){
+                            builder.append("\r\nWARNING: ").append(newJournal).append(" also has an open transactions, which will be lost if you select transfer");
+                        }
+                        int answer = JOptionPane.showConfirmDialog(null, builder.toString());
+                        if(answer == JOptionPane.YES_OPTION){
+                            newJournal.setCurrentTransaction(oldTransaction);
+                            oldJournal.setCurrentTransaction(new Transaction());
+                            journals.setCurrentJournal(newJournal);
+                        } else if(answer == JOptionPane.NO_OPTION){
+                            journals.setCurrentJournal(newJournal);
+                        } else {
+                            journals.setCurrentJournal(oldJournal);
+                        }
+                    } else {
+                        journals.setCurrentJournal(newJournal);
+                    }
+                }
                 ComponentMap.refreshAllFrames();
             }
 		}

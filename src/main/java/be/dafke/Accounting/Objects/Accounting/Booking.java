@@ -113,6 +113,6 @@ public class Booking {
     }
 
     public boolean isFirstBooking() {
-        return this == transaction.getBookings().get(0);
+        return this == transaction.get(0);
     }
 }

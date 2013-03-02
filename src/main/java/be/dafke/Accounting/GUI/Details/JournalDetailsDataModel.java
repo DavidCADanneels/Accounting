@@ -42,7 +42,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 	public int getRowCount() {
 		int size = 0;
         for(Transaction transaction : journal.getTransactions()){
-			size += transaction.getBookings().size();
+			size += transaction.size();
 		}
 		return size;
 	}

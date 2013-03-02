@@ -117,6 +117,7 @@ public class JournalGUI extends JPanel implements ActionListener {
             } else {
                 journalDataModel.setTransaction(accounting.getJournals().getCurrentJournal().getCurrentTransaction());
             }
+            journalDataModel.fireTableDataChanged();
         }
     }
 
@@ -129,14 +130,19 @@ public class JournalGUI extends JPanel implements ActionListener {
             Transaction transaction = journal.getCurrentTransaction();
             journalDataModel.setTransaction(transaction);
             journalDataModel.fireTableDataChanged();
-            debettotaal = transaction.getDebetTotaal();
-            credittotaal = transaction.getCreditTotaal();
+            if(transaction!=null){
+                debettotaal = transaction.getDebetTotaal();
+                credittotaal = transaction.getCreditTotaal();
+            } else {
+                debettotaal = BigDecimal.ZERO;
+                credittotaal = BigDecimal.ZERO;
+            }
             debet.setText(debettotaal.toString());
             credit.setText(credittotaal.toString());
             ident.setText(journal.getAbbreviation() + " "
                     + journal.getId());
-            boolean valid = transaction.getBookings().size()!=0 && debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0;
-            clear.setEnabled(transaction.getBookings().size()!=0);
+            boolean valid = transaction!=null && !transaction.isEmpty() && debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0;
+            clear.setEnabled(transaction!=null && !transaction.isEmpty());
             ok.setEnabled(valid);
         } else {
             ident.setText("");
@@ -153,14 +159,16 @@ public class JournalGUI extends JPanel implements ActionListener {
             } else {
                 // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
                 Transaction transaction = journal.getCurrentTransaction();
-                transaction.setDescription(bewijs.getText());
-                transaction.setDate(date);
-                transaction.book(journal);
-                clear();
-                bewijs.setText("");
-                transaction = new Transaction();
-                transaction.setDate(date);
-                journal.setCurrentTransaction(transaction);
+                if(transaction!=null){
+                    transaction.setDescription(bewijs.getText());
+                    transaction.setDate(date);
+                    transaction.book(journal);
+                    clear();
+                    bewijs.setText("");
+                    transaction = new Transaction();
+                    transaction.setDate(date);
+                    journal.setCurrentTransaction(transaction);
+                }
                 ComponentMap.refreshAllFrames();
             }
 		}
