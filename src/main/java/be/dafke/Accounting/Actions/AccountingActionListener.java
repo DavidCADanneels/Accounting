@@ -1,5 +1,6 @@
 package be.dafke.Accounting.Actions;
 
+import be.dafke.Accounting.Dao.XML.AccountingsSAXParser;
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.GUI.AccountManagement.NewAccountGUI;
@@ -16,18 +17,26 @@ import be.dafke.DisposableComponent;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 /**
  * User: Dafke
  * Date: 26/02/13
  * Time: 6:36
  */
-public class AccountingActionListener implements ActionListener {
+public class AccountingActionListener extends WindowAdapter implements ActionListener {
 
-    private Accountings accountings;
+    private final Accountings accountings;
 
     public AccountingActionListener(Accountings accountings){
         this.accountings = accountings;
+    }
+
+    @Override
+    public void windowClosing(WindowEvent we) {
+        AccountingsSAXParser.writeAccountings(accountings);
+        ComponentMap.closeAllFrames();
     }
 
     @Override
@@ -56,7 +65,7 @@ public class AccountingActionListener implements ActionListener {
             accountings.setCurrentAccounting(accountingName);
         } else if(actionCommand.equals(ComponentMap.JOURNAL_DETAILS)){
             Accounting accounting = accountings.getCurrentAccounting();
-            Journal journal = accounting.getCurrentJournal();
+            Journal journal = accounting.getJournals().getCurrentJournal();
             String key = ComponentMap.JOURNAL_DETAILS + accounting.toString() + journal.toString();
             DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
             if(gui == null){
@@ -66,7 +75,7 @@ public class AccountingActionListener implements ActionListener {
             gui.setVisible(true);
         } else if(actionCommand.equals(ComponentMap.ACCOUNT_DETAILS)){
             Accounting accounting = accountings.getCurrentAccounting();
-            Account account = accounting.getCurrentAccount();
+            Account account = accounting.getJournals().getCurrentJournal().getCurrentAccount();
             String key = accounting.toString() + ComponentMap.ACCOUNT_DETAILS + account.getName();
             DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
             if(gui == null){

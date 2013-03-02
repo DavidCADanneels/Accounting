@@ -31,6 +31,7 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
     private File xsl2HtmlFile;
     private File dtdFile;
     private File htmlFile;
+    private Journal currentJournal;
 
     public Journals(Accounting accounting) {
 		super();
@@ -39,7 +40,15 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
 		abbreviations = new HashMap<String, Journal>();
 	}
 
-	/**
+    public Journal getCurrentJournal() {
+        return currentJournal;
+    }
+    //
+    public void setCurrentJournal(Journal journal) {
+        currentJournal = journal;
+    }
+
+    /**
 	 * Geeft alle dagboeken terug behalve het gegeven dagboek
 	 * @param j het dagboek dat we willen uitsluiten
 	 * @return alle dagboeken behalve het gegeven dagboek

@@ -27,10 +27,6 @@ public class Accounting {
     private final String name;
     private File xslFolder, xmlFolder, htmlFolder;
     private File xmlFile, htmlFile, xsl2XmlFile, xsl2HtmlFile;
-
-    private Journal currentJournal;
-    private Transaction currentTransaction = new Transaction();
-    private Account currentAccount;
     private File dtdFile;
 
     public Accounting(String name) {
@@ -111,35 +107,6 @@ public class Accounting {
     //
     public Movements getMovements() {
         return movements;
-    }
-
-    // Current Objects
-    //
-    // Transaction
-    public Transaction getCurrentTransaction(){
-        return currentTransaction;
-    }
-
-    public void setCurrentTransaction(Transaction transaction){
-        currentTransaction = transaction;
-    }
-    //
-    // Journal
-	public Journal getCurrentJournal() {
-		return currentJournal;
-	}
-    //
-	public void setCurrentJournal(Journal journal) {
-		currentJournal = journal;
-	}
-    //
-    // Account
-    public void setCurrentAccount(Account currentAccount) {
-        this.currentAccount = currentAccount;
-    }
-    //
-    public Account getCurrentAccount() {
-        return currentAccount;
     }
 
 	// Folders

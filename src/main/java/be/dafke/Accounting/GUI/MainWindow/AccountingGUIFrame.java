@@ -1,15 +1,12 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.Actions.AccountingActionListener;
-import be.dafke.Accounting.Dao.XML.AccountingsSAXParser;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.RefreshableFrame;
 
 import javax.swing.*;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -17,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountingGUIFrame extends RefreshableFrame implements WindowListener {
+public class AccountingGUIFrame extends RefreshableFrame {
 	/**
 	 * 
 	 */
@@ -29,12 +26,12 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
 	public AccountingGUIFrame(Accountings accountings) {
 		super(getBundle("Accounting").getString("BOEKHOUDING"));
 		this.accountings = accountings;
-		addWindowListener(this);
-		setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         AccountingActionListener actionListener = new AccountingActionListener(accountings);
-        contentPanel = new AccountingGUIPanel(accountings.getCurrentAccounting(), actionListener);
+        addWindowListener(actionListener);
+        contentPanel = new AccountingGUIPanel(actionListener);
 		setContentPane(contentPanel);
-        menuBar = new AccountingMenuBar(accountings, actionListener);
+        menuBar = new AccountingMenuBar(actionListener);
         setJMenuBar(menuBar);
         ComponentMap.addDisposableComponent(ComponentMap.MAIN, this); // MAIN
         ComponentMap.addRefreshableComponent(ComponentMap.MENU, menuBar);
@@ -42,37 +39,7 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
             ComponentMap.addAccountingComponents(accounting, actionListener);
         }
 		pack();
-        ComponentMap.refreshAllFrames();
-	}
-
-    @Override
-	public void windowOpened(WindowEvent we) {
-	}
-
-    @Override
-	public void windowClosing(WindowEvent we) {
-        AccountingsSAXParser.writeAccountings(accountings);
-        ComponentMap.closeAllFrames();
-	}
-
-    @Override
-	public void windowClosed(WindowEvent we) {
-	}
-
-    @Override
-	public void windowIconified(WindowEvent we) {
-	}
-
-    @Override
-	public void windowDeiconified(WindowEvent we) {
-	}
-
-    @Override
-	public void windowActivated(WindowEvent we) {
-	}
-
-    @Override
-	public void windowDeactivated(WindowEvent we) {
+        refresh();
 	}
 
     @Override
@@ -83,6 +50,7 @@ public class AccountingGUIFrame extends RefreshableFrame implements WindowListen
         } else {
             setTitle(getBundle("Accounting").getString("BOEKHOUDING"));
         }
+        menuBar.setAccounting(accounting, accountings);
         contentPanel.setAccounting(accounting);
     }
 }

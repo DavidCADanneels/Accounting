@@ -24,12 +24,11 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
-	private Accounting accounting;
+    private Journals journals;
 
-	public JournalsGUI(Accounting accounting, ActionListener actionListener) {
+	public JournalsGUI(ActionListener actionListener) {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("DAGBOEKEN")));
-		this.accounting = accounting;
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		combo = new JComboBox<Journal>();
         combo.addActionListener(this);
@@ -54,29 +53,42 @@ public class JournalsGUI extends JPanel implements ActionListener {
 		if (e.getSource() == combo) {
 			Journal journal = (Journal) combo.getSelectedItem();
 			if(journal!=null){
-                accounting.setCurrentJournal(journal);
+                journals.setCurrentJournal(journal);
+                // TODO: check if this change is seen in JournalGUI
+                ComponentMap.refreshAllFrames();
             }
 		}
 	}
 
     public void setAccounting(Accounting accounting){
-        this.accounting = accounting;
-        refresh();
+        if(accounting==null){
+            setJournals(null);
+        } else {
+            setJournals(accounting.getJournals());
+        }
+    }
+
+    public void setJournals(Journals journals){
+        this.journals = journals;
     }
 
 	public void refresh() {
+        combo.removeActionListener(this);
         combo.removeAllItems();
-		if (accounting!=null) {
-			Journals journals = accounting.getJournals();
+		if (journals!=null) {
             for(Journal journal: journals.values()){
                 combo.addItem(journal);
             }
-			combo.setSelectedItem(accounting.getCurrentJournal());
+			combo.setSelectedItem(journals.getCurrentJournal());
+            details.setEnabled(journals!=null && journals.getCurrentJournal()!=null);
+            combo.setEnabled(journals!=null && journals.getCurrentJournal()!=null);
+            journalManagement.setEnabled(journals != null);
 		} else {
 			combo.setSelectedItem(null);
+            details.setEnabled(false);
+            combo.setEnabled(false);
+            journalManagement.setEnabled(false);
 		}
-		combo.setEnabled(accounting!=null && accounting.getCurrentJournal()!=null);
-		journalManagement.setEnabled(accounting != null);
-		details.setEnabled(accounting!=null && accounting.getCurrentJournal()!=null);
+        combo.addActionListener(this);
 	}
 }

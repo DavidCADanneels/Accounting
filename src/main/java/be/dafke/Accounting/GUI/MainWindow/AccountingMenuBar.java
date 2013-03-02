@@ -24,24 +24,17 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
     private final JMenuItem projects;
     private final JMenuItem startNew;
     private final JMenuItem movements, counterParties, mortgage;
-    private final Accountings accountings;
+    private final ActionListener actionListener;
+    private boolean active = false;
 
-    public AccountingMenuBar(Accountings accountings, ActionListener actionListener) {
-        this.accountings = accountings;
+    public AccountingMenuBar(ActionListener actionListener) {
+        this.actionListener = actionListener;
 
         // Menu1
         file = new JMenu("Bestand");
         startNew = new JMenuItem("New");
         startNew.addActionListener(actionListener);
         startNew.setActionCommand(ComponentMap.NEW_ACCOUNTING);
-        file.add(startNew);
-
-        for(Accounting acc : accountings.getAccountings()) {
-            JMenuItem item = new JMenuItem(acc.toString());
-            item.addActionListener(actionListener);
-            item.setActionCommand(ComponentMap.OPEN_ACCOUNTING+acc.toString());
-            file.add(item);
-        }
         add(file);
 
 
@@ -92,16 +85,11 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         banking.add(counterParties);
         banking.add(mortgage);
         add(banking);
+        setActionCommands();
     }
 
     @Override
     public void refresh(){
-        activateButtons();
-        setActionCommands();
-    }
-
-    private void activateButtons() {
-        boolean active = (accountings.getCurrentAccounting()!=null);
         projects.setEnabled(active);
         relationsBalance.setEnabled(active);
         resultBalance.setEnabled(active);
@@ -113,17 +101,27 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
     }
 
     private void setActionCommands(){
-        boolean active = (accountings.getCurrentAccounting()!=null);
-        if(active){
-            testBalance.setActionCommand(ComponentMap.TEST_BALANCE);
-            yearBalance.setActionCommand(ComponentMap.YEAR_BALANCE);
-            resultBalance.setActionCommand(ComponentMap.RESULT_BALANCE);
-            relationsBalance.setActionCommand(ComponentMap.RELATIONS_BALANCE);
-            projects.setActionCommand(ComponentMap.PROJECTS);
-            movements.setActionCommand(ComponentMap.MOVEMENTS);
-            counterParties.setActionCommand(ComponentMap.COUNTERPARTIES);
-            mortgage.setActionCommand(ComponentMap.MORTGAGES);
-        }
+        testBalance.setActionCommand(ComponentMap.TEST_BALANCE);
+        yearBalance.setActionCommand(ComponentMap.YEAR_BALANCE);
+        resultBalance.setActionCommand(ComponentMap.RESULT_BALANCE);
+        relationsBalance.setActionCommand(ComponentMap.RELATIONS_BALANCE);
+        projects.setActionCommand(ComponentMap.PROJECTS);
+        movements.setActionCommand(ComponentMap.MOVEMENTS);
+        counterParties.setActionCommand(ComponentMap.COUNTERPARTIES);
+        mortgage.setActionCommand(ComponentMap.MORTGAGES);
     }
 
+    public void setAccounting(Accounting accounting, Accountings accountings) {
+        active = accounting!=null;
+        file.removeAll();
+        file.add(startNew);
+        for(Accounting acc : accountings.getAccountings()) {
+            if(acc!=accounting){
+                JMenuItem item = new JMenuItem(acc.toString());
+                item.addActionListener(actionListener);
+                item.setActionCommand(ComponentMap.OPEN_ACCOUNTING+acc.toString());
+                file.add(item);
+            }
+        }
+    }
 }

@@ -27,6 +27,8 @@ public class Journal implements Serializable {
 	private File htmlFile;
 	private File xslFile;
     private File dtdFile;
+    private Transaction currentTransaction = new Transaction();
+    private Account currentAccount;
 
     /**
 	 * Constructor
@@ -54,6 +56,30 @@ public class Journal implements Serializable {
 
     public Transaction getTransaction(int row){
         return getBooking(row).getTransaction();
+    }
+
+    public void setCurrentAccount(Account currentAccount) {
+        this.currentAccount = currentAccount;
+    }
+
+    public Account getCurrentAccount() {
+        return currentAccount;
+    }
+
+    public Transaction getCurrentTransaction() {
+        return currentTransaction;
+    }
+
+    public void setCurrentTransaction(Transaction currentTransaction) {
+        this.currentTransaction = currentTransaction;
+    }
+
+    public JournalType getJournalType() {
+        return journalType;
+    }
+
+    public void setJournalType(JournalType journalType) {
+        this.journalType = journalType;
     }
 
     /**

@@ -23,13 +23,14 @@ public class AccountingGUIPanel extends JPanel {
 	private final JournalsGUI journalsGUI;
 	private final MortgagesGUI mortgagesGUI;
 
-	public AccountingGUIPanel(Accounting accounting, ActionListener actionListener) {
+	public AccountingGUIPanel(ActionListener actionListener) {
+//    public AccountingGUIPanel(ActionListener actionListener) {
 		// if(!checkID())
 		// System.exit(0);
-		journalGUI = new JournalGUI(accounting);
-		accountsGUI = new AccountsGUI(accounting, actionListener);
-		journalsGUI = new JournalsGUI(accounting, actionListener);
-		mortgagesGUI = new MortgagesGUI(accounting);
+		journalGUI = new JournalGUI();
+		accountsGUI = new AccountsGUI(actionListener);
+		journalsGUI = new JournalsGUI(actionListener);
+		mortgagesGUI = new MortgagesGUI();
 
 		JPanel linksBoven = new JPanel(new BorderLayout());
 		linksBoven.add(accountsGUI, BorderLayout.CENTER);
@@ -46,11 +47,42 @@ public class AccountingGUIPanel extends JPanel {
 	}
 
 	protected void setAccounting(Accounting accounting) {
-		journalGUI.setAccounting(accounting);
-		accountsGUI.setAccounting(accounting);
-		journalsGUI.setAccounting(accounting);
-		mortgagesGUI.setAccounting(accounting);
-	}
+        journalGUI.setAccounting(accounting);
+        accountsGUI.setAccounting(accounting);
+        journalsGUI.setAccounting(accounting);
+        mortgagesGUI.setAccounting(accounting);
+        refresh();
+    }
+
+//    private void setAccounting2(Accounting accounting){
+//        if(accounting==null){
+//            accountsGUI.setAccounts(null);
+//            mortgagesGUI.setMortgages(null);
+//            journalsGUI.setJournals(null);
+//            accountsGUI.setJournal(null);
+//            mortgagesGUI.setJournal(null);
+//            journalGUI.setJournal(null);
+//            journalGUI.setTransaction(null);
+//        } else{
+//            accountsGUI.setAccounts(accounting.getAccounts());
+//            mortgagesGUI.setMortgages(accounting.getMortgages());
+//            journalsGUI.setJournals(accounting.getJournals());
+//            if(accounting.getJournals()!=null){
+//                accountsGUI.setJournal(accounting.getJournals().getCurrentJournal());
+//                mortgagesGUI.setJournal(accounting.getJournals().getCurrentJournal());
+//                journalGUI.setJournal(accounting.getJournals().getCurrentJournal());
+//                if(accounting.getJournals().getCurrentJournal()!=null)
+//                journalGUI.setTransaction(accounting.getJournals().getCurrentJournal().getCurrentTransaction());
+//            }
+//        }
+//	}
+//
+    public void refresh(){
+        journalGUI.refresh();
+        accountsGUI.refresh();
+        journalsGUI.refresh();
+        mortgagesGUI.refresh();
+    }
 
 	/*
 	 * private boolean checkID(){ try{ System.loadLibrary("beidlibjni"); BEID_ID_Data IDData = new BEID_ID_Data();

@@ -187,7 +187,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 						counterParty.setAccount(account);
 					}
 					BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 4);
-					Transaction trans = accounting.getCurrentTransaction();
+					Transaction trans = accounting.getJournals().getCurrentJournal().getCurrentTransaction();
                     trans.addBooking(account,amount,debet,false);
                     trans.addBooking(bankAccount,amount,!debet,false);
 					String cal = (String) tabel.getValueAt(i, 2);
@@ -201,7 +201,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
                     trans.setDate(date); // take the same date as previous transaction
                     // leave the description empty
 
-                    accounting.setCurrentTransaction(trans);
+                    accounting.getJournals().getCurrentJournal().setCurrentTransaction(trans);
 				}
 			}
 		}

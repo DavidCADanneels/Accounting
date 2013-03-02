@@ -188,7 +188,7 @@ public class AccountingsSAXParser {
             if(current.getLength()>0){
                 String currentJournalName = current.item(0).getChildNodes().item(0).getNodeValue();
                 Journal currentJournal = journals.get(currentJournalName);
-                accounting.setCurrentJournal(currentJournal);
+                accounting.getJournals().setCurrentJournal(currentJournal);
             }
 
             Balances balances = accounting.getBalances();
@@ -357,8 +357,8 @@ public class AccountingsSAXParser {
             writer.write("    <xml>" + accounting.getJournals().getXmlFile() + "</xml>\r\n");
             writer.write("    <html>" + accounting.getJournals().getHtmlFile() + "</html>\r\n");
             writer.write("  </Journals>\r\n");
-            if(accounting.getCurrentJournal()!=null){
-                writer.write("  <CurrentJournal>" + accounting.getCurrentJournal().getName() + "</CurrentJournal>\r\n");
+            if(accounting.getJournals().getCurrentJournal()!=null){
+                writer.write("  <CurrentJournal>" + accounting.getJournals().getCurrentJournal().getName() + "</CurrentJournal>\r\n");
             }
             writer.write("  <Balances>\r\n");
             writer.write("    <name>Balances</name>\r\n");

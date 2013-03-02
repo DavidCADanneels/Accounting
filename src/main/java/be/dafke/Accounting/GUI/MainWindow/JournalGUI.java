@@ -27,15 +27,14 @@ public class JournalGUI extends JPanel implements ActionListener {
 	private final JButton ok, clear;
 	protected Calendar date;
 	private BigDecimal debettotaal, credittotaal;
-	private Accounting accounting;
+    private Journal journal;
 
-	public JournalGUI(final Accounting accounting) {
-		this.accounting = accounting;
+	public JournalGUI() {
 		debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
 		date = Calendar.getInstance();
 		setLayout(new BorderLayout());
-		journalDataModel = new JournalDataModel(accounting);
+		journalDataModel = new JournalDataModel();
 		JTable table = new JTable(journalDataModel);
 		table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 		JScrollPane scrollPane = new JScrollPane(table);
@@ -109,31 +108,39 @@ public class JournalGUI extends JPanel implements ActionListener {
 	}
 
     public void setAccounting(Accounting accounting){
-        this.accounting = accounting;
-        journalDataModel.setAccounting(accounting);
-        refresh();
+        if(accounting==null || accounting.getJournals()==null){
+            setJournal(null);
+        } else {
+            setJournal(accounting.getJournals().getCurrentJournal());
+            if(accounting.getJournals().getCurrentJournal()==null){
+                journalDataModel.setTransaction(null);
+            } else {
+                journalDataModel.setTransaction(accounting.getJournals().getCurrentJournal().getCurrentTransaction());
+            }
+        }
     }
 
-	private void refresh() {
-        if(accounting!=null){
+    public void setJournal(Journal journal){
+        this.journal = journal;
+    }
+
+	public void refresh() {
+        if(journal!=null){
+            Transaction transaction = journal.getCurrentTransaction();
+            journalDataModel.setTransaction(transaction);
             journalDataModel.fireTableDataChanged();
-            debettotaal = accounting.getCurrentTransaction().getDebetTotaal();
-            credittotaal = accounting.getCurrentTransaction().getCreditTotaal();
+            debettotaal = transaction.getDebetTotaal();
+            credittotaal = transaction.getCreditTotaal();
             debet.setText(debettotaal.toString());
             credit.setText(credittotaal.toString());
-            journalDataModel.fireTableDataChanged();
-            Journal currentJournal = accounting.getCurrentJournal();
-            ok.setEnabled(currentJournal!=null && debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0);
-            if(currentJournal!=null){
-                ident.setText(accounting.getCurrentJournal().getAbbreviation() + " "
-                        + accounting.getCurrentJournal().getId());
-            } else {
-                ident.setText("");
-            }
-            clear.setEnabled(true);
-        } else{
-            ok.setEnabled(false);
+            ident.setText(journal.getAbbreviation() + " "
+                    + journal.getId());
+            boolean valid = transaction.getBookings().size()!=0 && debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0;
+            clear.setEnabled(transaction.getBookings().size()!=0);
+            ok.setEnabled(valid);
+        } else {
             ident.setText("");
+            ok.setEnabled(false);
             clear.setEnabled(false);
         }
 	}
@@ -144,16 +151,16 @@ public class JournalGUI extends JPanel implements ActionListener {
             if(date == null){
                 JOptionPane.showMessageDialog(null, "Fill in date");
             } else {
-                Transaction transaction = accounting.getCurrentTransaction();
                 // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
+                Transaction transaction = journal.getCurrentTransaction();
                 transaction.setDescription(bewijs.getText());
                 transaction.setDate(date);
-                transaction.book(accounting.getCurrentJournal());
+                transaction.book(journal);
                 clear();
                 bewijs.setText("");
                 transaction = new Transaction();
                 transaction.setDate(date);
-                accounting.setCurrentTransaction(transaction);
+                journal.setCurrentTransaction(transaction);
                 ComponentMap.refreshAllFrames();
             }
 		}
@@ -163,10 +170,10 @@ public class JournalGUI extends JPanel implements ActionListener {
 	}
 
 	public void clear() {
-		ok.setEnabled(false);
         Transaction transaction = new Transaction();
         transaction.setDate(date);
-        accounting.setCurrentTransaction(transaction);
-		refresh();
+        journal.setCurrentTransaction(transaction);
+        ok.setEnabled(false);
+        refresh();
 	}
 }

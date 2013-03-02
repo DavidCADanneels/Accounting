@@ -222,7 +222,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
         JournalType journalType = (JournalType)type.getSelectedItem();
         try {
             Journal journal = accounting.getJournals().addJournal(newName, abbreviation, journalType);
-            accounting.setCurrentJournal(journal);
+            accounting.getJournals().setCurrentJournal(journal);
             ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
             JOptionPane.showMessageDialog(this, "There is already an journal with the name \""+newName.trim()+"\" and/or abbreviation \""+abbreviation.trim()+"\" .\r\n"+

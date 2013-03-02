@@ -4,6 +4,8 @@ import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
+import be.dafke.Accounting.Objects.Accounting.Accounts;
+import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.AlphabeticListModel;
 import be.dafke.PrefixFilterPanel;
@@ -36,13 +38,14 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 	private final JList<Account> lijst;
 	private final JButton debet, credit, accountManagement, accountDetails;
 	private final JCheckBox[] boxes;
-	private Accounting accounting;
 
-	public AccountsGUI(Accounting accounting, ActionListener actionListener) {
+    private Journal journal;
+    private Accounts accounts;
+
+    public AccountsGUI(ActionListener actionListener) {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("REKENINGEN")));
-		this.accounting = accounting;
 		debet = new JButton(getBundle("Accounting").getString("DEBITEER"));
         credit = new JButton(getBundle("Accounting").getString("CREDITEER"));
         accountManagement = new JButton(getBundle("Accounting").getString("BEHEER_REKENING"));
@@ -100,7 +103,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 	public void valueChanged(ListSelectionEvent lse) {
 		if (!lse.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
             Account account = lijst.getSelectedValue();
-            accounting.setCurrentAccount(account);
+            journal.setCurrentAccount(account);
 			debet.setEnabled(true);
 			credit.setEnabled(true);
 			accountDetails.setEnabled(true);
@@ -133,7 +136,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 					BigDecimal amount = new BigDecimal(s);
 					amount = amount.setScale(2);
                     boolean merge = false;
-                    Transaction transaction = accounting.getCurrentTransaction();
+                    Transaction transaction = journal.getCurrentTransaction();
                     if(transaction.contains(rekening)){
                         merge = JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Merge Bookings?", "The current transaction already contains bookings for "
                                 + rekening +". Do you want to merge them?", JOptionPane.YES_NO_OPTION);
@@ -156,18 +159,36 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 				types.add(AccountType.valueOf(box.getActionCommand()));
 			}
 		}
-		ArrayList<Account> map = accounting.getAccounts().getAccounts(types);
+		ArrayList<Account> map = accounts.getAccounts(types);
 		zoeker.resetMap(map);
 	}
 
     public void setAccounting(Accounting accounting){
-        this.accounting = accounting;
-        refresh();
+        if(accounting == null){
+            setAccounts(null);
+            setJournal(null);
+        } else {
+            setAccounts(accounting.getAccounts());
+            if(accounting.getJournals()==null){
+                setJournal(null);
+            } else {
+                setJournal(accounting.getJournals().getCurrentJournal());
+            }
+        }
     }
 
-	private void refresh() {
-		boolean active = accounting!=null;
-		for(JCheckBox checkBox: boxes) {
+
+    public void setAccounts(Accounts accounts){
+        this.accounts = accounts;
+    }
+
+    public void setJournal(Journal journal){
+        this.journal = journal;
+    }
+
+	public void refresh() {
+        boolean active = accounts!=null;
+        for(JCheckBox checkBox: boxes) {
 			checkBox.setEnabled(active);
 		}
 		accountManagement.setEnabled(active);

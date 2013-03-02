@@ -2,7 +2,9 @@ package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
+import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Mortgage.Mortgage;
+import be.dafke.Accounting.Objects.Mortgage.Mortgages;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -21,10 +23,11 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 	private final JList<Mortgage> list;
 	private final JButton pay;// , newMortgage, details;
 	private final DefaultListModel<Mortgage> listModel;
-	private Accounting accounting;
 
-	public MortgagesGUI(Accounting accounting) {
-		this.accounting = accounting;
+    private Mortgages mortgages;
+    private Journal journal;
+
+    public MortgagesGUI() {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Mortgages"));
 		list = new JList<Mortgage>();
@@ -38,20 +41,35 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 		add(pay, BorderLayout.SOUTH);
 	}
 
-    public void setAccounting(Accounting accounting){
-        this.accounting = accounting;
-        refresh();
+    public void setAccounting(Accounting accounting) {
+        if (accounting == null) {
+            setMortgages(null);
+            setJournal(null);
+        } else {
+            setMortgages(accounting.getMortgages());
+            if(accounting.getJournals()!=null){
+                setJournal(accounting.getJournals().getCurrentJournal());
+            }
+        }
     }
 
-	private void refresh() {
+    public void setMortgages(Mortgages mortgages) {
+        this.mortgages = mortgages;
+    }
+
+    public void setJournal(Journal journal) {
+        this.journal = journal;
+    }
+
+	public void refresh() {
         listModel.clear();
-		if (accounting != null) {
-			for(Mortgage mortgage : accounting.getMortgages().getMortgages()) {
-				if (!listModel.contains(mortgage)) {
-					listModel.addElement(mortgage);
-				}
-			}
-		}
+        if (mortgages != null) {
+            for(Mortgage mortgage : mortgages.getMortgages()) {
+                if (!listModel.contains(mortgage)) {
+                    listModel.addElement(mortgage);
+                }
+            }
+        }
 		list.revalidate();
 	}
 
@@ -65,7 +83,7 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 			System.out.println("Payed Off already");
 			return;
 		}
-		mortgage.pay(accounting.getCurrentTransaction());
+		mortgage.pay(journal.getCurrentTransaction());
         ComponentMap.refreshAllFrames();
 	}
 
