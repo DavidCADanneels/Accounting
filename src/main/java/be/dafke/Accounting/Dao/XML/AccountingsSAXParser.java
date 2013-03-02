@@ -134,8 +134,11 @@ public class AccountingsSAXParser {
                 acc.setXsl2HtmlFile(new File(xsl2HtmlFile));
                 accountings.addAccounting(acc);
             }
-            String currentAccountName = doc.getElementsByTagName("CurrentAccounting").item(0).getChildNodes().item(0).getNodeValue();
-            accountings.setCurrentAccounting(currentAccountName);
+            NodeList current = doc.getElementsByTagName("CurrentAccounting");
+            if(current.getLength()>0){
+                String currentAccountName = current.item(0).getChildNodes().item(0).getNodeValue();
+                accountings.setCurrentAccounting(currentAccountName);
+            }
         } catch (IOException io) {
             // FileSystemView.getFileSystemView().createFileObject(home, "TESTFILE");
             // System.out.println(pad + " has been created");
@@ -181,9 +184,12 @@ public class AccountingsSAXParser {
             journals.setXmlFile(new File(xmlFile));
             journals.setHtmlFile(new File(htmlFile));
             JournalsSAXParser.readJournals(accounting.getJournals(), accounting.getJournalTypes(), accounting.getAccounts());
-            String currentJournalName = doc.getElementsByTagName("CurrentJournal").item(0).getChildNodes().item(0).getNodeValue();
-            Journal currentJournal = journals.get(currentJournalName);
-            accounting.setCurrentJournal(currentJournal);
+            NodeList current = doc.getElementsByTagName("CurrentJournal");
+            if(current.getLength()>0){
+                String currentJournalName = current.item(0).getChildNodes().item(0).getNodeValue();
+                Journal currentJournal = journals.get(currentJournalName);
+                accounting.setCurrentJournal(currentJournal);
+            }
 
             Balances balances = accounting.getBalances();
             element = (Element)doc.getElementsByTagName("Balances").item(0);
@@ -261,7 +267,9 @@ public class AccountingsSAXParser {
                 writer.write("    <xsl2html>" + acc.getXsl2HtmlFile() + "</xsl2html>\r\n");
                 writer.write("  </Accounting>\r\n");
             }
-            writer.write("  <CurrentAccounting>" + accountings.getCurrentAccounting().getName() + "</CurrentAccounting>\r\n");
+            if(accountings.getCurrentAccounting()!=null){
+                writer.write("  <CurrentAccounting>" + accountings.getCurrentAccounting().getName() + "</CurrentAccounting>\r\n");
+            }
             writer.write("</Accountings>");
             writer.flush();
             writer.close();
@@ -275,321 +283,14 @@ public class AccountingsSAXParser {
         }
     }
 
-    private static void createHtmlFolders(Accounting accounting) {
-        File rootFolder = accounting.getHtmlFolder();
-        if(rootFolder!=null){
-            rootFolder.mkdirs();
-            // ACCOUNTING
-            //
-            File htmlFile = accounting.getHtmlFile();
-            if(htmlFile == null || htmlFile.getPath().equals("null")){
-                htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Accounting.html");
-                accounting.setHtmlFile(htmlFile);
-            }
-
-            // ACCOUNTS
-            //
-            Accounts accounts = accounting.getAccounts();
-            htmlFile = accounts.getHtmlFile();
-            if(htmlFile == null || htmlFile.getPath().equals("null")){
-                htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Accounts.html");
-                accounts.setHtmlFile(htmlFile);
-            }
-            File htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, accounts.getFolder());
-            htmlFolder.mkdirs();
-
-            // JOURNALS
-            //
-            Journals journals = accounting.getJournals();
-            htmlFile = journals.getHtmlFile();
-            if(htmlFile == null || htmlFile.getPath().equals("null")){
-                htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Journals.html");
-                journals.setHtmlFile(htmlFile);
-            }
-            htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, journals.getFolder());
-            htmlFolder.mkdirs();
-
-            // BALANCES
-            //
-            Balances balances = accounting.getBalances();
-            htmlFile = balances.getHtmlFile();
-            if(htmlFile == null || htmlFile.getPath().equals("null")){
-                htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Balances.html");
-                balances.setHtmlFile(htmlFile);
-            }
-            htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, balances.getFolder());
-            htmlFolder.mkdirs();
-            for(Balance balance: balances.getBalances()){
-                htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, balance.getName() + ".html");
-                balance.setHtmlFile(htmlFile);
-            }
-
-            // MORTGAGES
-            //
-            Mortgages mortgages = accounting.getMortgages();
-            htmlFile = mortgages.getHtmlFile();
-            if(htmlFile == null || htmlFile.getPath().equals("null")){
-                htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Mortgages.html");
-                mortgages.setHtmlFile(htmlFile);
-            }
-            htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, mortgages.getFolder());
-            htmlFolder.mkdirs();
-
-            // MOVEMENTS
-            //
-            Movements movements = accounting.getMovements();
-            htmlFile = movements.getHtmlFile();
-            if(htmlFile == null || htmlFile.getPath().equals("null")){
-                htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "Movements.html");
-                movements.setHtmlFile(htmlFile);
-            }
-            htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, movements.getFolder());
-            htmlFolder.mkdirs();
-
-            // COUNTERPARTIES
-            //
-            CounterParties counterParties = accounting.getCounterParties();
-            htmlFile = counterParties.getHtmlFile();
-            if(htmlFile == null || htmlFile.getPath().equals("null")){
-                htmlFile = FileSystemView.getFileSystemView().getChild(rootFolder, "CounterParties.html");
-                counterParties.setHtmlFile(htmlFile);
-            }
-            htmlFolder = FileSystemView.getFileSystemView().getChild(rootFolder, counterParties.getFolder());
-            htmlFolder.mkdirs();
-        }
-    }
-
     private static void createDefaultValuesIfNull(Accountings accountings){
         // ACCOUNTINGS
 
 
 
         for(Accounting accounting:accountings.getAccountings()){
-            createXMLFolders(accounting);
-            createHtmlFolders(accounting);
-        }
-    }
-
-    public static void createXMLFolders(Accounting accounting) {
-        File home = new File(System.getProperty("user.home"));
-        File accountingFolder = FileSystemView.getFileSystemView().getChild(home, "Accounting");
-
-        // ACCOUNTING
-        //
-        File xmlFolder = accounting.getXmlFolder();
-        if(xmlFolder == null || xmlFolder.getPath().equals("null")){
-            xmlFolder = FileSystemView.getFileSystemView().getChild(accountingFolder, accounting.getName());
-            accounting.setXmlFolder(xmlFolder);
-        }
-        File xmlFile = accounting.getXmlFile();
-        if(xmlFile == null || xmlFile.getPath().equals("null")){
-            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Accounting.xml");
-            accounting.setXmlFile(xmlFile);
-        }
-        File xslFolder = accounting.getXslFolder();
-        if(xslFolder == null || xslFolder.getPath().equals("null")){
-            xslFolder = FileSystemView.getFileSystemView().getChild(accountingFolder, "xsl");
-            accounting.setXslFolder(xslFolder);
-        }
-        File xsl2XmlFile = accounting.getXsl2XmlFile();
-        if(xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
-            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting2xml.xsl");
-            accounting.setXsl2XmlFile(xsl2XmlFile);
-        }
-        File xsl2HtmlFile = accounting.getXsl2HtmlFile();
-        if(xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
-            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting2html.xsl");
-            accounting.setXsl2HtmlFile(xsl2HtmlFile);
-        }
-        File dtdFile = accounting.getDtdFile();
-        if(dtdFile == null || dtdFile.getPath().equals("null")){
-            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting.dtd");
-            accounting.setDtdFile(dtdFile);
-        }
-
-        // ACCOUNTS
-        //
-        Accounts accounts = accounting.getAccounts();
-        String folder = accounts.getFolder();
-        if(folder == null || folder.equals("null")){
-            folder = "Accounts";
-            accounts.setFolder(folder);
-        }
-        xmlFile = accounts.getXmlFile();
-        if(xmlFile == null || xmlFile.getPath().equals("null")){
-            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Accounts.xml");
-            accounts.setXmlFile(xmlFile);
-        }
-        xsl2XmlFile = accounts.getXsl2XmlFile();
-        if(xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
-            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts2xml.xsl");
-            accounts.setXsl2XmlFile(xsl2XmlFile);
-        }
-        xsl2HtmlFile = accounts.getXsl2HtmlFile();
-        if(xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
-            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts2html.xsl");
-            accounts.setXsl2HtmlFile(xsl2HtmlFile);
-        }
-        dtdFile = accounts.getDtdFile();
-        if(dtdFile == null || dtdFile.getPath().equals("null")){
-            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts.dtd");
-            accounts.setDtdFile(dtdFile);
-        }
-
-        // JOURNALS
-        //
-        Journals journals = accounting.getJournals();
-        folder = journals.getFolder();
-        if(folder == null || folder.equals("null")){
-            folder = "Journals";
-            journals.setFolder(folder);
-        }
-        xmlFile = journals.getXmlFile();
-        if(xmlFile == null || xmlFile.getPath().equals("null")){
-            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Journals.xml");
-            journals.setXmlFile(xmlFile);
-        }
-        xsl2XmlFile = journals.getXsl2XmlFile();
-        if(xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
-            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals2xml.xsl");
-            journals.setXsl2XmlFile(xsl2XmlFile);
-        }
-        xsl2HtmlFile = journals.getXsl2HtmlFile();
-        if(xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
-            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals2html.xsl");
-            journals.setXsl2HtmlFile(xsl2HtmlFile);
-        }
-        dtdFile = journals.getDtdFile();
-        if(dtdFile == null || dtdFile.getPath().equals("null")){
-            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals.dtd");
-            journals.setDtdFile(dtdFile);
-        }
-
-        // BALANCES
-        //
-        Balances balances = accounting.getBalances();
-        folder = balances.getFolder();
-        if(folder == null || folder.equals("null")){
-            folder = "Balances";
-            balances.setFolder(folder);
-        }
-        xmlFile = balances.getXmlFile();
-        if(xmlFile == null || xmlFile.getPath().equals("null")){
-            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Balances.xml");
-            balances.setXmlFile(xmlFile);
-        }
-        xsl2XmlFile = balances.getXsl2XmlFile();
-        if(xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
-            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balances2xml.xsl");
-            balances.setXsl2XmlFile(xsl2XmlFile);
-        }
-        xsl2HtmlFile = balances.getXsl2HtmlFile();
-        if(xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
-            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balances2html.xsl");
-            balances.setXsl2HtmlFile(xsl2HtmlFile);
-        }
-        dtdFile = balances.getDtdFile();
-        if(dtdFile == null || dtdFile.getPath().equals("null")){
-            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balances.dtd");
-            balances.setDtdFile(dtdFile);
-        }
-        //
-        for(Balance balance: balances.getBalances()){
-            File xmlFolderBalances = FileSystemView.getFileSystemView().getChild(xmlFolder, folder);
-//            File htmlFolderBalances = FileSystemView.getFileSystemView().getChild(htmlFolder, folder);
-
-            balance.setXmlFile(FileSystemView.getFileSystemView().getChild(xmlFolderBalances, balance.getName() + ".xml"));
-            balance.setXslFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Balance.xsl"));
-            //htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name + ".html");
-        }
-
-
-        // MORTGAGES
-        //
-        Mortgages mortgages = accounting.getMortgages();
-        folder = mortgages.getFolder();
-        if(folder == null || folder.equals("null")){
-            folder = "Mortgages";
-            mortgages.setFolder(folder);
-        }
-        xmlFile = mortgages.getXmlFile();
-        if(xmlFile == null || xmlFile.getPath().equals("null")){
-            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Mortgages.xml");
-            mortgages.setXmlFile(xmlFile);
-        }
-        xsl2XmlFile = mortgages.getXsl2XmlFile();
-        if(xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
-            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages2xml.xsl");
-            mortgages.setXsl2XmlFile(xsl2XmlFile);
-        }
-        xsl2HtmlFile = mortgages.getXsl2HtmlFile();
-        if(xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
-            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages2html.xsl");
-            mortgages.setXsl2HtmlFile(xsl2HtmlFile);
-        }
-        dtdFile = mortgages.getDtdFile();
-        if(dtdFile == null || dtdFile.getPath().equals("null")){
-            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages.dtd");
-            mortgages.setDtdFile(dtdFile);
-        }
-
-        // MOVEMENTS
-        //
-        Movements movements = accounting.getMovements();
-        folder = movements.getFolder();
-        if(folder == null || folder.equals("null")){
-            folder = "Movements";
-            movements.setFolder(folder);
-        }
-        xmlFile = movements.getXmlFile();
-        if(xmlFile == null || xmlFile.getPath().equals("null")){
-            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Movements.xml");
-            movements.setXmlFile(xmlFile);
-        }
-        xsl2XmlFile = movements.getXsl2XmlFile();
-        if(xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
-            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Movements2xml.xsl");
-            movements.setXsl2XmlFile(xsl2XmlFile);
-        }
-        xsl2HtmlFile = movements.getXsl2HtmlFile();
-        if(xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
-            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Movements2html.xsl");
-            movements.setXsl2HtmlFile(xsl2HtmlFile);
-        }
-
-        dtdFile = movements.getDtdFile();
-        if(dtdFile == null || dtdFile.getPath().equals("null")){
-            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Movements.dtd");
-            movements.setDtdFile(dtdFile);
-        }
-
-        // COUNTERPARTIES
-        //
-        CounterParties counterParties = accounting.getCounterParties();
-        folder = counterParties.getFolder();
-        if(folder == null || folder.equals("null")){
-            folder = "CounterParties";
-            counterParties.setFolder(folder);
-        }
-        xmlFile = counterParties.getXmlFile();
-        if(xmlFile == null || xmlFile.getPath().equals("null")){
-            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "CounterParties.xml");
-            counterParties.setXmlFile(xmlFile);
-        }
-        xsl2XmlFile = counterParties.getXsl2XmlFile();
-        if(xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
-            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParties2xml.xsl");
-            counterParties.setXsl2XmlFile(xsl2XmlFile);
-        }
-        xsl2HtmlFile = counterParties.getXsl2HtmlFile();
-        if(xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
-            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParties2html.xsl");
-            counterParties.setXsl2HtmlFile(xsl2HtmlFile);
-        }
-        dtdFile = counterParties.getDtdFile();
-        if(dtdFile == null || dtdFile.getPath().equals("null")){
-            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParties.dtd");
-            counterParties.setDtdFile(dtdFile);
+            accounting.setDefaultXmlFoldersAndFiles(false);
+            accounting.setDefaultHtmlFoldersAndFiles(false);
         }
     }
 
@@ -656,7 +357,9 @@ public class AccountingsSAXParser {
             writer.write("    <xml>" + accounting.getJournals().getXmlFile() + "</xml>\r\n");
             writer.write("    <html>" + accounting.getJournals().getHtmlFile() + "</html>\r\n");
             writer.write("  </Journals>\r\n");
-            writer.write("  <CurrentJournal>" + accounting.getCurrentJournal().getName() + "</CurrentJournal>\r\n");
+            if(accounting.getCurrentJournal()!=null){
+                writer.write("  <CurrentJournal>" + accounting.getCurrentJournal().getName() + "</CurrentJournal>\r\n");
+            }
             writer.write("  <Balances>\r\n");
             writer.write("    <name>Balances</name>\r\n");
             writer.write("    <location>" + accounting.getBalances().getFolder() + "</location>\r\n");

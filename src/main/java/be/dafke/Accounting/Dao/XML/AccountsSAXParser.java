@@ -34,11 +34,8 @@ public class AccountsSAXParser {
     // READ
     //
     public static void readAccounts(Accounts accounts, Projects projects){
-        File file = accounts.getXmlFile();
-        if(file == null || !file.exists()){
-            System.err.println(file.getAbsolutePath() + "not found");
-        }
         try {
+            File file = accounts.getXmlFile();
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -58,8 +55,6 @@ public class AccountsSAXParser {
 
         } catch (IOException io) {
             io.printStackTrace();
-//            FileSystemView.getFileSystemView().createFileObject("Accounting.xml");
-//            System.out.println(accountingFile.getAbsolutePath() + " has been created");
         } catch (Exception e) {
             e.printStackTrace();
         }

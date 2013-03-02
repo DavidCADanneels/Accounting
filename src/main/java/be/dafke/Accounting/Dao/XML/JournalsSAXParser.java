@@ -34,11 +34,8 @@ public class JournalsSAXParser {
     // READ
     //
     public static void readJournals(Journals journals, JournalTypes journalTypes, Accounts accounts){
-        File file = journals.getXmlFile();
-        if(file == null || !file.exists()){
-            System.err.println(file.getPath() + "not found");
-        }
         try {
+            File file = journals.getXmlFile();
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -75,8 +72,6 @@ public class JournalsSAXParser {
             }
         } catch (IOException io) {
             io.printStackTrace();
-//            FileSystemView.getFileSystemView().createFileObject(file.getPath());
-//            System.out.println(file.getAbsolutePath() + " has been created");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -105,14 +100,19 @@ public class JournalsSAXParser {
                     if(transaction != null){
                         transaction.book(journal);
                     }
-                    String nr = nodeListNr.item(0).getChildNodes().item(0).getNodeValue();
-                    String date = nodeListDate.item(0).getChildNodes().item(0).getNodeValue();
-                    String description = nodeListDescription.item(0).getChildNodes().item(0).getNodeValue();
                     transaction = new Transaction();
                     transaction.setAbbreviation(abbreviation);
+
+                    String nr = nodeListNr.item(0).getChildNodes().item(0).getNodeValue();
                     transaction.setId(Utils.parseInt(nr.replaceAll(abbreviation,"")));
+
+                    String date = nodeListDate.item(0).getChildNodes().item(0).getNodeValue();
                     transaction.setDate(Utils.toCalendar(date));
-                    transaction.setDescription(description);
+
+                    if(nodeListDescription.item(0).getChildNodes().getLength()>0){
+                        String description = nodeListDescription.item(0).getChildNodes().item(0).getNodeValue();
+                        transaction.setDescription(description);
+                    }
                 }
                 String accountName = element.getElementsByTagName("account").item(0).getChildNodes().item(0).getNodeValue();
                 Account account = accounts.get(accountName);
@@ -126,6 +126,9 @@ public class JournalsSAXParser {
                     String credit = nodeListCredit.item(0).getChildNodes().item(0).getNodeValue();
                     transaction.addBooking(account, Utils.parseBigDecimal(credit),false, false);
                 }
+            }
+            if(transaction!=null){
+                transaction.book(journal);
             }
         } catch (IOException io) {
 //				FileSystemView.getFileSystemView().createFileObject(subFolder, "Accounting.xml");

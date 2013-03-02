@@ -11,11 +11,9 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-import javax.swing.filechooser.FileSystemView;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -33,11 +31,11 @@ public class MovementsSAXParser {
     // READ
     //
     public static void readMovements(Movements movements, CounterParties counterParties){
-        File file = movements.getXmlFile();
-        if(file == null || !file.exists()){
-            System.err.println(file.getAbsolutePath() + "not found");
-        }
         try {
+            File file = movements.getXmlFile();
+            if(file == null || !file.exists()){
+                System.err.println(file.getAbsolutePath() + "not found");
+            }
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -57,10 +55,6 @@ public class MovementsSAXParser {
 
             movementsFromXML(movements, counterParties, (Element) movementsNode);
 
-        } catch (IOException io) {
-            io.printStackTrace();
-            FileSystemView.getFileSystemView().createFileObject("Banking.xml");
-            System.out.println(file.getAbsolutePath() + " has been created");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -119,8 +113,6 @@ public class MovementsSAXParser {
             writer.flush();
             writer.close();
 //			setSaved(true);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }

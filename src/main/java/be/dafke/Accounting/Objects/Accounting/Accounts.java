@@ -7,7 +7,6 @@ import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -17,12 +16,11 @@ import java.util.HashMap;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Accounts extends HashMap<String, Account> implements Serializable {
+public class Accounts extends HashMap<String, Account> {
 
     /**
      *
      */
-    private static final long serialVersionUID = 1L;
     private final Accounting accounting;
     private String folder;
     private File xmlFile;
@@ -194,5 +192,41 @@ public class Accounts extends HashMap<String, Account> implements Serializable {
 
     public File getDtdFile() {
         return dtdFile;
+    }
+
+    public void setDefaultHtmlFolderAndFiles(File htmlFolder, String name, boolean overwrite){
+        if(overwrite || htmlFile == null || htmlFile.getPath().equals("null")){
+            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name);
+        }
+        File subFolder = FileSystemView.getFileSystemView().getChild(htmlFolder, folder);
+        subFolder.mkdirs();
+        for(Account account: getAllAccounts()){
+            account.setHtmlFile(FileSystemView.getFileSystemView().getChild(subFolder, account.getName() + ".html"));
+        }
+    }
+
+    public void setDefaultXmlFolderAndFiles(File xmlFolder, File xslFolder, String name, boolean overwrite) {
+        if(overwrite || folder == null || folder.equals("null")){
+            folder = name;
+        }
+        if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
+            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, name + ".xml");
+        }
+        if(overwrite || xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
+            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts2xml.xsl");
+        }
+        if(overwrite || xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
+            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts2html.xsl");
+        }
+        if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
+            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts.dtd");
+        }
+        File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, folder);
+        subFolder.mkdirs();
+        for(Account account: getAllAccounts()){
+            account.setXmlFile(FileSystemView.getFileSystemView().getChild(subFolder, account.getName() + ".xml"));
+            account.setXslFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Account.xsl"));
+        }
+
     }
 }

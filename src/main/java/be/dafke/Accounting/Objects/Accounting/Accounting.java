@@ -4,17 +4,16 @@ import be.dafke.Accounting.Objects.Coda.CounterParties;
 import be.dafke.Accounting.Objects.Coda.Movements;
 import be.dafke.Accounting.Objects.Mortgage.Mortgages;
 
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
-import java.io.Serializable;
 
 /**
  * @author David Danneels
  */
-public class Accounting implements Serializable {
+public class Accounting {
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
 	// private boolean savedXML;
 //	private boolean savedHTML;
 	private final Accounts accounts;
@@ -215,5 +214,54 @@ public class Accounting implements Serializable {
     //
     public File getDtdFile() {
         return dtdFile;
+    }
+
+    public void setDefaultHtmlFoldersAndFiles(boolean overwrite) {
+        if(htmlFolder!=null){// && htmlFolder.exists()){
+            htmlFolder.mkdirs();
+            if(htmlFile == null || htmlFile.getPath().equals("null")){
+                htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, "Accounting.html");
+//                htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name + ".html");
+            }
+            accounts.setDefaultHtmlFolderAndFiles(htmlFolder,"Accounts.html", overwrite);
+            journals.setDefaultHtmlFolderAndFiles(htmlFolder,"Journals.html", overwrite);
+            balances.setDefaultHtmlFolderAndFiles(htmlFolder, "Balances.html", overwrite);
+            mortgages.setDefaultHtmlFolderAndFiles(htmlFolder, "Mortgages.html", overwrite);
+            movements.setDefaultHtmlFolderAndFiles(htmlFolder, "Movements.html", overwrite);
+            counterParties.setDefaultHtmlFolderAndFiles(htmlFolder,"CounterParties.html", overwrite);
+        }
+    }
+
+    public void setDefaultXmlFoldersAndFiles(boolean overwrite){
+        File home = new File(System.getProperty("user.home"));
+        File accountingFolder = FileSystemView.getFileSystemView().getChild(home, "Accounting");
+
+        // ACCOUNTING
+        //
+        if(overwrite || xmlFolder == null || xmlFolder.getPath().equals("null")){
+            xmlFolder = FileSystemView.getFileSystemView().getChild(accountingFolder, name);
+        }
+        if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
+            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Accounting.xml");
+        }
+        if(overwrite || xslFolder == null || xslFolder.getPath().equals("null")){
+            xslFolder = FileSystemView.getFileSystemView().getChild(accountingFolder, "xsl");
+        }
+        if(overwrite || xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
+            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting2xml.xsl");
+        }
+        if(overwrite || xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
+            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting2html.xsl");
+        }
+        if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
+            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting.dtd");
+        }
+
+        accounts.setDefaultXmlFolderAndFiles(xmlFolder, xslFolder, "Accounts", overwrite);
+        journals.setDefaultXmlFolderAndFiles(xmlFolder, xslFolder, "Journals", overwrite);
+        balances.setDefaultXmlFolderAndFiles(xmlFolder, xslFolder, "Balances", overwrite);
+        mortgages.setDefaultXmlFolderAndFiles(xmlFolder, xslFolder, "Mortgages", overwrite);
+        movements.setDefaultXmlFolderAndFiles(xmlFolder, xslFolder, "Movements", overwrite);
+        counterParties.setDefaultXmlFolderAndFiles(xmlFolder, xslFolder, "CounterParties", overwrite);
     }
 }

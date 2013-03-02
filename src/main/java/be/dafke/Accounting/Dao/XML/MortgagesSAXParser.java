@@ -14,7 +14,6 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -32,11 +31,8 @@ public class MortgagesSAXParser {
     // READ
     //
     public static void readMortgages(Accounting accounting){
-        File file = accounting.getMortgages().getXmlFile();
-        if(file == null || !file.exists()){
-            System.err.println(file.getAbsolutePath() + "not found");
-        }
         try {
+            File file = accounting.getMortgages().getXmlFile();
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -82,10 +78,6 @@ public class MortgagesSAXParser {
                 accounting.getMortgages().addMortgageTable(name, mortgage);
                 readMortgage(mortgage);
             }
-        } catch (IOException io) {
-            io.printStackTrace();
-//            FileSystemView.getFileSystemView().createFileObject("Mortgages.xml");
-//            System.out.println(file.getAbsolutePath() + " has been created");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -100,9 +92,6 @@ public class MortgagesSAXParser {
             reader.setContentHandler(new MortgageContentHandler(mortgage));
             reader.setErrorHandler(new FoutHandler());
             reader.parse(mortgage.getXmlFile().getAbsolutePath());
-        } catch (IOException io) {
-//				FileSystemView.getFileSystemView().createFileObject(subFolder, "Accounting.xml");
-//				System.out.println(journalFile + " has been created");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -138,8 +127,6 @@ public class MortgagesSAXParser {
             writer.flush();
             writer.close();
 //			setSaved(true);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
@@ -170,8 +157,6 @@ public class MortgagesSAXParser {
             writer.flush();
             writer.close();
             // setSaved(true);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }

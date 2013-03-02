@@ -1,5 +1,6 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
@@ -108,5 +109,40 @@ public class Balances extends HashMap<String, Balance>{
 
     public File getHtmlFile() {
         return htmlFile;
+    }
+
+    public void setDefaultHtmlFolderAndFiles(File htmlFolder, String name, boolean overwrite){
+        if(overwrite || htmlFile == null || htmlFile.getPath().equals("null")){
+            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name);
+        }
+        File subFolder = FileSystemView.getFileSystemView().getChild(htmlFolder, folder);
+        subFolder.mkdirs();
+        for(Balance balance: getBalances()){
+            balance.setHtmlFile(FileSystemView.getFileSystemView().getChild(subFolder, balance.getName() + ".html"));
+        }
+    }
+
+    public void setDefaultXmlFolderAndFiles(File xmlFolder, File xslFolder, String name, boolean overwrite) {
+        if(overwrite || folder == null || folder.equals("null")){
+            folder = name;
+        }
+        if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
+            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, name + ".xml");
+        }
+        if(overwrite || xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
+            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balances2xml.xsl");
+        }
+        if(overwrite || xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
+            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balances2html.xsl");
+        }
+        if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
+            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balances.dtd");
+        }
+        File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, folder);
+        subFolder.mkdirs();
+        for(Balance balance: getBalances()){
+            balance.setXmlFile(FileSystemView.getFileSystemView().getChild(subFolder, balance.getName() + ".xml"));
+            balance.setXslFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Balance.xsl"));
+        }
     }
 }

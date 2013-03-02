@@ -2,6 +2,7 @@ package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
+import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.Utils;
 
@@ -121,8 +122,9 @@ public class JournalGUI extends JPanel implements ActionListener {
             debet.setText(debettotaal.toString());
             credit.setText(credittotaal.toString());
             journalDataModel.fireTableDataChanged();
-            ok.setEnabled(debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0);
-            if(accounting.getCurrentJournal()!=null){
+            Journal currentJournal = accounting.getCurrentJournal();
+            ok.setEnabled(currentJournal!=null && debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0);
+            if(currentJournal!=null){
                 ident.setText(accounting.getCurrentJournal().getAbbreviation() + " "
                         + accounting.getCurrentJournal().getId());
             } else {

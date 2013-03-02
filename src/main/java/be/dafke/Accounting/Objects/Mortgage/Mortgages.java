@@ -12,7 +12,7 @@ import java.util.HashMap;
  * Time: 11:06
  */
 public class Mortgages {
-    private final HashMap<String, Mortgage> mortgageTables;
+    private final HashMap<String, Mortgage> mortgages;
     private String folder;
     private File xmlFile;
     private File xsl2XmlFile;
@@ -23,11 +23,11 @@ public class Mortgages {
 
     public Mortgages(Accounting accounting){
         this.accounting = accounting;
-        mortgageTables = new HashMap<String, Mortgage>();
+        mortgages = new HashMap<String, Mortgage>();
     }
 
     public void addMortgageTable(String mortgageName, Mortgage table) {
-        mortgageTables.put(mortgageName, table);
+        mortgages.put(mortgageName, table);
         File xmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getXmlFolder(), folder);
         File htmlFolder = FileSystemView.getFileSystemView().getChild(accounting.getHtmlFolder(), folder);
 
@@ -41,19 +41,19 @@ public class Mortgages {
     }
 
     public boolean containsMortgageName(String mortgageName) {
-        return mortgageTables.containsKey(mortgageName);
+        return mortgages.containsKey(mortgageName);
     }
 
     public Mortgage getMortgage(String mortgageName) {
-        return mortgageTables.get(mortgageName);
+        return mortgages.get(mortgageName);
     }
 
     public ArrayList<Mortgage> getMortgages() {
-        return new ArrayList<Mortgage>(mortgageTables.values());
+        return new ArrayList<Mortgage>(mortgages.values());
     }
 
     public void removeMortgageTable(Mortgage selectedMortgage) {
-        mortgageTables.remove(selectedMortgage.toString());
+        mortgages.remove(selectedMortgage.toString());
     }
 
     public String getFolder() {
@@ -102,5 +102,34 @@ public class Mortgages {
 
     public File getHtmlFile() {
         return htmlFile;
+    }
+
+    public void setDefaultHtmlFolderAndFiles(File htmlFolder, String name, boolean overwrite){
+        if(overwrite || htmlFile == null || htmlFile.getPath().equals("null")){
+            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name);
+        }
+        File subFolder = FileSystemView.getFileSystemView().getChild(htmlFolder, folder);
+        subFolder.mkdirs();
+        for(Mortgage mortgage: getMortgages()){
+            mortgage.setHtmlFile(FileSystemView.getFileSystemView().getChild(subFolder, mortgage.getName() + ".html"));
+        }
+    }
+
+    public void setDefaultXmlFolderAndFiles(File xmlFolder, File xslFolder, String name, boolean overwrite) {
+        if(overwrite || folder == null || folder.equals("null")){
+            folder = name;
+        }
+        if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
+            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, name + ".xml");
+        }
+        if(overwrite || xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
+            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages2xml.xsl");
+        }
+        if(overwrite || xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
+            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages2html.xsl");
+        }
+        if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
+            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages.dtd");
+        }
     }
 }

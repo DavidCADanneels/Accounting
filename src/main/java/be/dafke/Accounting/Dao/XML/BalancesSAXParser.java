@@ -26,11 +26,8 @@ import java.util.logging.Logger;
 public class BalancesSAXParser {
     // READ
     public static void readBalances(Balances balances){
-        File file = balances.getXmlFile();
-        if(file == null || !file.exists()){
-            System.err.println(file.getAbsolutePath() + "not found");
-        }
         try {
+            File file = balances.getXmlFile();
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -47,8 +44,6 @@ public class BalancesSAXParser {
 
         } catch (IOException io) {
             io.printStackTrace();
-//            FileSystemView.getFileSystemView().createFileObject("Balances.xml");
-//            System.out.println(file.getAbsolutePath() + " has been created");
         } catch (Exception e) {
             e.printStackTrace();
         }

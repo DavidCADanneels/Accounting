@@ -29,11 +29,8 @@ public class CounterPartiesSAXParser {
     // READ
     //
     public static void readCounterparties(CounterParties counterParties, Accounts accounts){
-        File file = counterParties.getXmlFile();
-        if(file == null || !file.exists()){
-            System.err.println(file.getAbsolutePath() + "not found");
-        }
         try {
+            File file = counterParties.getXmlFile();
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -55,8 +52,6 @@ public class CounterPartiesSAXParser {
 
         } catch (IOException io) {
             io.printStackTrace();
-//            FileSystemView.getFileSystemView().createFileObject("Banking.xml");
-//            System.out.println(file.getAbsolutePath() + " has been created");
         } catch (Exception e) {
             e.printStackTrace();
         }

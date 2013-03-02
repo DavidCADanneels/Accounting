@@ -175,4 +175,32 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
         return htmlFile;
     }
 
+    public void setDefaultHtmlFolderAndFiles(File htmlFolder, String name, boolean overwrite){
+        if(overwrite || htmlFile == null || htmlFile.getPath().equals("null")){
+            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name);
+        }
+        File subFolder = FileSystemView.getFileSystemView().getChild(htmlFolder, folder);
+        subFolder.mkdirs();
+        for(Journal journal: getAllJournals()){
+            journal.setHtmlFile(FileSystemView.getFileSystemView().getChild(subFolder, journal.getName() + ".html"));
+        }
+    }
+
+    public void setDefaultXmlFolderAndFiles(File xmlFolder, File xslFolder, String name, boolean overwrite) {
+        if(overwrite || folder == null || folder.equals("null")){
+            folder = name;
+        }
+        if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
+            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, name + ".xml");
+        }
+        if(overwrite || xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
+            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals2xml.xsl");
+        }
+        if(overwrite || xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
+            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals2html.xsl");
+        }
+        if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
+            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals.dtd");
+        }
+    }
 }
