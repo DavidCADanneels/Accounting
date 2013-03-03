@@ -17,7 +17,6 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
-import javax.swing.filechooser.FileSystemView;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
@@ -35,74 +34,10 @@ import java.util.logging.Logger;
  */
 public class AccountingsSAXParser {
 
-    private static File getXmlFile() {
-        String folderName = "Accounting";
-        String fileName = "Accountings.xml";
-        File home = new File(System.getProperty("user.home"));
-        File folder = new File(home, folderName);
-        if (folder.exists() && !folder.isDirectory()) {
-            File renamed = FileSystemView.getFileSystemView().createFileObject(home, folderName + "_file");
-            folder.renameTo(renamed);
-            folder = new File(home, folderName);
-        }
-        if (!folder.isDirectory()) {
-            folder.mkdir();
-        }
-        File file = FileSystemView.getFileSystemView().getChild(folder, fileName);
-        if (!file.exists()) {
-            file = FileSystemView.getFileSystemView().createFileObject(folder, fileName);
-        }
-        return file;
-    }
-
-    private static File getHtmlFile() {
-        String folderName = "Accounting";
-        String fileName = "Accountings.html";
-        File home = new File(System.getProperty("user.home"));
-        File folder = new File(home, folderName);
-        if (folder.exists() && !folder.isDirectory()) {
-            File renamed = FileSystemView.getFileSystemView().createFileObject(home, folderName + "_file");
-            folder.renameTo(renamed);
-            folder = new File(home, folderName);
-        }
-        if (!folder.isDirectory()) {
-            folder.mkdir();
-        }
-        File file = FileSystemView.getFileSystemView().getChild(folder, fileName);
-        if (!file.exists()) {
-            file = FileSystemView.getFileSystemView().createFileObject(folder, fileName);
-        }
-        return file;
-    }
-
-    private static File getXsl2XmlFile() {
-        String folderName = "Accounting";
-        File home = new File(System.getProperty("user.home"));
-        File folder = new File(home, folderName);
-        File xslFolder = new File(folder, "xsl");
-        return new File(xslFolder, "Accountings2xml.xsl");
-    }
-
-    private static File getXsl2HtmlFile() {
-        String folderName = "Accounting";
-        File home = new File(System.getProperty("user.home"));
-        File folder = new File(home, folderName);
-        File xslFolder = new File(folder, "xsl");
-        return new File(xslFolder, "Accountings2html.xsl");
-    }
-
-    private static File getDtdFile() {
-        String folderName = "Accounting";
-        File home = new File(System.getProperty("user.home"));
-        File folder = new File(home, folderName);
-        File xslFolder = new File(folder, "xsl");
-        return new File(xslFolder, "Accountings.dtd");
-    }
-
     public static Accountings readAccountings() {
         Accountings accountings = new Accountings();
         System.out.println("fromXML");
-        File file = getXmlFile();
+        File file = accountings.getXmlFile();
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
@@ -231,10 +166,10 @@ public class AccountingsSAXParser {
 
     private static void toXml(Accountings accountings){
         try {
-            Writer writer = new FileWriter(getXmlFile());
+            Writer writer = new FileWriter(accountings.getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-                    + "<!DOCTYPE Accountings SYSTEM \"" + getDtdFile() +"\">\r\n"
-                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + getXsl2XmlFile() +"\"?>\r\n" + "<Accountings>\r\n");
+                    + "<!DOCTYPE Accountings SYSTEM \"" + accountings.getDtdFile() +"\">\r\n"
+                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + accountings.getXsl2XmlFile() +"\"?>\r\n" + "<Accountings>\r\n");
             for(Accounting acc : accountings.getAccountings()) {
                 writer.write("  <Accounting>\r\n");
                 writer.write("    <name>" + acc.toString() + "</name>\r\n");
@@ -346,7 +281,7 @@ public class AccountingsSAXParser {
     }
 
     private static void toHtml(Accountings accountings){
-        Utils.xmlToHtml(getXmlFile(),getXsl2HtmlFile(),getHtmlFile(),null);
+        Utils.xmlToHtml(accountings.getXmlFile(),accountings.getXsl2HtmlFile(),accountings.getHtmlFile(),null);
         for(Accounting accounting:accountings.getAccountings()){
             if(accounting.getHtmlFolder()!=null && !accounting.getHtmlFolder().getPath().equals("null")){
                 toHtml(accounting);
