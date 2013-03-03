@@ -114,12 +114,10 @@ public class Accounting {
     // Setters
 	public void setHtmlFolder(File htmlFolder) {
 		this.htmlFolder = htmlFolder;
-		this.htmlFolder.mkdir();
 	}
     //
 	public void setXmlFolder(File xmlFolder) {
 		this.xmlFolder = xmlFolder;
-		this.xmlFolder.mkdir();
 	}
     //
     public void setXslFolder(File xslFolder) {
@@ -184,7 +182,7 @@ public class Accounting {
     }
 
     public void setDefaultHtmlFoldersAndFiles(boolean overwrite) {
-        if(htmlFolder!=null){// && htmlFolder.exists()){
+        if(htmlFolder!=null && !htmlFolder.getPath().equals("null")){// && htmlFolder.exists()){
             htmlFolder.mkdirs();
             if(htmlFile == null || htmlFile.getPath().equals("null")){
                 htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, "Accounting.html");
