@@ -14,7 +14,6 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 12:07
  */
 public class Balances extends HashMap<String, Balance>{
-    private String folder;
     public static String RESULT_BALANCE = "ResultBalance";
     public static String RELATIONS_BALANCE = "RelationsBalance";
     public static String YEAR_BALANCE = "YearBalance";
@@ -57,14 +56,6 @@ public class Balances extends HashMap<String, Balance>{
                 getBundle("Accounting").getString("WINST"), getBundle("Accounting").getString("VERLIES"),
                 active, passive,
                 accounting));
-    }
-
-    public String getFolder() {
-        return folder;
-    }
-
-    public void setFolder(String folder) {
-        this.folder = folder;
     }
 
     public Collection<Balance> getBalances() {
@@ -111,21 +102,21 @@ public class Balances extends HashMap<String, Balance>{
         return htmlFile;
     }
 
-    public void setDefaultHtmlFolderAndFiles(File htmlFolder, String name, boolean overwrite){
+    public void setDefaultHtmlFolderAndFiles(Accounting accounting, String name, boolean overwrite){
+        File htmlFolder = accounting.getHtmlFolder();
         if(overwrite || htmlFile == null || htmlFile.getPath().equals("null")){
-            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name);
+            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name + ".html");
         }
-        File subFolder = FileSystemView.getFileSystemView().getChild(htmlFolder, folder);
+        File subFolder = FileSystemView.getFileSystemView().getChild(htmlFolder, name);
         subFolder.mkdirs();
         for(Balance balance: getBalances()){
             balance.setHtmlFile(FileSystemView.getFileSystemView().getChild(subFolder, balance.getName() + ".html"));
         }
     }
 
-    public void setDefaultXmlFolderAndFiles(File xmlFolder, File xslFolder, String name, boolean overwrite) {
-        if(overwrite || folder == null || folder.equals("null")){
-            folder = name;
-        }
+    public void setDefaultXmlFolderAndFiles(Accounting accounting, String name, boolean overwrite) {
+        File xmlFolder = accounting.getXmlFolder();
+        File xslFolder = accounting.getXslFolder();
         if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
             xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, name + ".xml");
         }
@@ -138,7 +129,8 @@ public class Balances extends HashMap<String, Balance>{
         if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
             dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balances.dtd");
         }
-        File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, folder);
+        File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, name
+        );
         subFolder.mkdirs();
         for(Balance balance: getBalances()){
             balance.setXmlFile(FileSystemView.getFileSystemView().getChild(subFolder, balance.getName() + ".xml"));

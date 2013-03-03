@@ -188,12 +188,12 @@ public class Accounting {
                 htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, "Accounting.html");
 //                htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name + ".html");
             }
-            accounts.setDefaultHtmlFolderAndFiles(htmlFolder,"Accounts.html", overwrite);
-            journals.setDefaultHtmlFolderAndFiles(htmlFolder,"Journals.html", overwrite);
-            balances.setDefaultHtmlFolderAndFiles(htmlFolder, "Balances.html", overwrite);
-            mortgages.setDefaultHtmlFolderAndFiles(htmlFolder, "Mortgages.html", overwrite);
-            movements.setDefaultHtmlFolderAndFiles(htmlFolder, "Movements.html", overwrite);
-            counterParties.setDefaultHtmlFolderAndFiles(htmlFolder,"CounterParties.html", overwrite);
+            accounts.setDefaultHtmlFolderAndFiles(this,"Accounts", overwrite);
+            journals.setDefaultHtmlFolderAndFiles(this,"Journals", overwrite);
+            balances.setDefaultHtmlFolderAndFiles(this, "Balances", overwrite);
+            mortgages.setDefaultHtmlFolderAndFiles(this, "Mortgages", overwrite);
+            movements.setDefaultHtmlFolderAndFiles(this, "Movements", overwrite);
+            counterParties.setDefaultHtmlFolderAndFiles(this,"CounterParties", overwrite);
         }
     }
 
@@ -222,11 +222,11 @@ public class Accounting {
             dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting.dtd");
         }
 
-        accounts.setDefaultXmlFolderAndFiles(xmlFolder, xslFolder, "Accounts", overwrite);
-        journals.setDefaultXmlFolderAndFiles(xmlFolder, xslFolder, "Journals", overwrite);
-        balances.setDefaultXmlFolderAndFiles(xmlFolder, xslFolder, "Balances", overwrite);
-        mortgages.setDefaultXmlFolderAndFiles(xmlFolder, xslFolder, "Mortgages", overwrite);
-        movements.setDefaultXmlFolderAndFiles(xmlFolder, xslFolder, "Movements", overwrite);
-        counterParties.setDefaultXmlFolderAndFiles(xmlFolder, xslFolder, "CounterParties", overwrite);
+        accounts.setDefaultXmlFolderAndFiles(this, "Accounts", overwrite);
+        journals.setDefaultXmlFolderAndFiles(this, "Journals", overwrite);
+        balances.setDefaultXmlFolderAndFiles(this, "Balances", overwrite);
+        mortgages.setDefaultXmlFolderAndFiles(this, "Mortgages", overwrite);
+        movements.setDefaultXmlFolderAndFiles(this, "Movements", overwrite);
+        counterParties.setDefaultXmlFolderAndFiles(this, "CounterParties", overwrite);
     }
 }

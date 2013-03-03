@@ -35,10 +35,8 @@ public class BalancesSAXParser {
             doc.getDocumentElement().normalize();
 
             Element element = (Element) doc.getElementsByTagName("Balances").item(0);
-            String xmlLocation = element.getElementsByTagName("location").item(0).getChildNodes().item(0).getNodeValue();
             String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
             String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            balances.setFolder(xmlLocation);
             balances.setXmlFile(new File(xmlFile));
             balances.setHtmlFile(new File(htmlFile));
 
@@ -56,7 +54,6 @@ public class BalancesSAXParser {
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Balances SYSTEM \""
                     + balances.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
                     + balances.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Balances>\r\n");
-            writer.write("  <location>" + balances.getFolder() + "</location>\r\n");
             writer.write("  <xml>" + balances.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + balances.getHtmlFile() + "</html>\r\n");
             for(Balance balance:balances.getBalances()){

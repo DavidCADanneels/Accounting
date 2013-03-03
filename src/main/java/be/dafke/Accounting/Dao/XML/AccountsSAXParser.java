@@ -44,10 +44,8 @@ public class AccountsSAXParser {
 
             Node accountsNode = doc.getElementsByTagName("Accounts").item(0);
 
-            String xmlLocation = doc.getElementsByTagName("location").item(0).getChildNodes().item(0).getNodeValue();
             String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
             String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            accounts.setFolder(xmlLocation);
             accounts.setXmlFile(new File(xmlFile));
             accounts.setHtmlFile(new File(htmlFile));
 
@@ -100,7 +98,6 @@ public class AccountsSAXParser {
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Accounts SYSTEM \""
                     + accounts.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
                     + accounts.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Accounts>\r\n");
-            writer.write("  <location>" + accounts.getFolder() + "</location>\r\n");
             writer.write("  <xml>" + accounts.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + accounts.getHtmlFile() + "</html>\r\n");
             for(Account account : accounts.getAllAccounts()) {

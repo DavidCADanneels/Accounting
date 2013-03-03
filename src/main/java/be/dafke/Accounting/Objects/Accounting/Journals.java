@@ -24,7 +24,6 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
 
 //	private boolean save;
 
-    private String folder;
     private File xmlFile;
     private File xsl2XmlFile;
     private File xsl2HtmlFile;
@@ -123,14 +122,6 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
         return journal;
     }
 
-    public String getFolder() {
-        return folder;
-    }
-
-    public void setFolder(String folder) {
-        this.folder = folder;
-    }
-
     public void setXmlFile(File xmlFile) {
         this.xmlFile = xmlFile;
     }
@@ -171,24 +162,21 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
         return htmlFile;
     }
 
-    public void setDefaultHtmlFolderAndFiles(File htmlFolder, String name, boolean overwrite){
+    public void setDefaultHtmlFolderAndFiles(Accounting accounting, String name, boolean overwrite){
+        File htmlFolder = accounting.getHtmlFolder();
         if(overwrite || htmlFile == null || htmlFile.getPath().equals("null")){
-            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name);
+            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name+".html");
         }
-        File subFolder = FileSystemView.getFileSystemView().getChild(htmlFolder, folder);
+        File subFolder = FileSystemView.getFileSystemView().getChild(htmlFolder, name);
         subFolder.mkdirs();
         for(Journal journal: getAllJournals()){
             journal.setHtmlFile(FileSystemView.getFileSystemView().getChild(subFolder, journal.getName() + ".html"));
         }
     }
 
-    public void setDefaultXmlFolderAndFiles(File xmlFolder, File xslFolder, String name, boolean overwrite) {
-        if(overwrite || folder == null || folder.equals("null")){
-            folder = name;
-        }
-        if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
-            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, name + ".xml");
-        }
+    public void setDefaultXmlFolderAndFiles(Accounting accounting, String name, boolean overwrite) {
+        File xmlFolder = accounting.getXmlFolder();
+        File xslFolder = accounting.getXslFolder();
         if(overwrite || xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
             xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals2xml.xsl");
         }
@@ -198,7 +186,7 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
         if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
             dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals.dtd");
         }
-        File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, folder);
+        File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, name);
         subFolder.mkdirs();
         for(Journal journal: getAllJournals()){
             journal.setXmlFile(FileSystemView.getFileSystemView().getChild(subFolder, journal.getName() + ".xml"));

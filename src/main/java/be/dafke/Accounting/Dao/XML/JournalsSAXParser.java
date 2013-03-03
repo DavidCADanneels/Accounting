@@ -42,10 +42,8 @@ public class JournalsSAXParser {
             Document doc = dBuilder.parse(file.getAbsolutePath());
             doc.getDocumentElement().normalize();
 
-            String xmlLocation = doc.getElementsByTagName("location").item(0).getChildNodes().item(0).getNodeValue();
             String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
             String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            journals.setFolder(xmlLocation);
             journals.setXmlFile(new File(xmlFile));
             journals.setHtmlFile(new File(htmlFile));
 
@@ -146,7 +144,6 @@ public class JournalsSAXParser {
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Journals SYSTEM \""
                     + journals.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
                     + journals.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Journals>\r\n");
-            writer.write("  <location>" + journals.getFolder() + "</location>\r\n");
             writer.write("  <xml>" + journals.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + journals.getHtmlFile() + "</html>\r\n");
             for(Journal journal : journals.getAllJournals()) {

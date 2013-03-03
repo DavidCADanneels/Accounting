@@ -38,13 +38,9 @@ public class CounterPartiesSAXParser {
             doc.getDocumentElement().normalize();
 
             Node counterpartiesNode = doc.getElementsByTagName("Counterparties").item(0);
-//            String xslLocation = counterpartiesNode.getAttributes().getNamedItem("xsl").getNodeValue();
-//            accounting.setLocationXSL(new File(xslLocation));
 
-            String xmlLocation = doc.getElementsByTagName("location").item(0).getChildNodes().item(0).getNodeValue();
             String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
             String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            counterParties.setFolder(xmlLocation);
             counterParties.setXmlFile(new File(xmlFile));
             counterParties.setHtmlFile(new File(htmlFile));
 
@@ -103,7 +99,6 @@ public class CounterPartiesSAXParser {
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Counterparties SYSTEM \""
                     + counterParties.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
                     + counterParties.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Counterparties>\r\n");
-            writer.write("  <location>" + counterParties.getFolder() + "</location>\r\n");
             writer.write("  <xml>" + counterParties.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + counterParties.getHtmlFile() + "</html>\r\n");
             for(CounterParty counterParty : counterParties.getCounterParties()) {

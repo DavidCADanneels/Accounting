@@ -1,5 +1,7 @@
 package be.dafke.Accounting.Objects.Mortgage;
 
+import be.dafke.Accounting.Objects.Accounting.Accounting;
+
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.util.ArrayList;
@@ -11,7 +13,6 @@ import java.util.HashMap;
  */
 public class Mortgages {
     private final HashMap<String, Mortgage> mortgages;
-    private String folder;
     private File xmlFile;
     private File xsl2XmlFile;
     private File xsl2HtmlFile;
@@ -40,14 +41,6 @@ public class Mortgages {
 
     public void removeMortgageTable(Mortgage selectedMortgage) {
         mortgages.remove(selectedMortgage.toString());
-    }
-
-    public String getFolder() {
-        return folder;
-    }
-
-    public void setFolder(String folder) {
-        this.folder = folder;
     }
 
     public void setXmlFile(File xmlFile) {
@@ -90,21 +83,21 @@ public class Mortgages {
         return htmlFile;
     }
 
-    public void setDefaultHtmlFolderAndFiles(File htmlFolder, String name, boolean overwrite){
+    public void setDefaultHtmlFolderAndFiles(Accounting accounting, String name, boolean overwrite){
+        File htmlFolder = accounting.getHtmlFolder();
         if(overwrite || htmlFile == null || htmlFile.getPath().equals("null")){
-            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name);
+            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name + ".html");
         }
-        File subFolder = FileSystemView.getFileSystemView().getChild(htmlFolder, folder);
+        File subFolder = FileSystemView.getFileSystemView().getChild(htmlFolder, name);
         subFolder.mkdirs();
         for(Mortgage mortgage: getMortgages()){
             mortgage.setHtmlFile(FileSystemView.getFileSystemView().getChild(subFolder, mortgage.getName() + ".html"));
         }
     }
 
-    public void setDefaultXmlFolderAndFiles(File xmlFolder, File xslFolder, String name, boolean overwrite) {
-        if(overwrite || folder == null || folder.equals("null")){
-            folder = name;
-        }
+    public void setDefaultXmlFolderAndFiles(Accounting accounting, String name, boolean overwrite) {
+        File xmlFolder = accounting.getXmlFolder();
+        File xslFolder = accounting.getXslFolder();
         if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
             xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, name + ".xml");
         }
@@ -117,7 +110,7 @@ public class Mortgages {
         if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
             dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages.dtd");
         }
-        File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, folder);
+        File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, name);
         subFolder.mkdirs();
         for(Mortgage table:getMortgages()){
             File xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, table.getName() + ".xml");

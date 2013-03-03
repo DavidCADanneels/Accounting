@@ -1,5 +1,7 @@
 package be.dafke.Accounting.Objects.Coda;
 
+import be.dafke.Accounting.Objects.Accounting.Accounting;
+
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.util.ArrayList;
@@ -11,7 +13,6 @@ public class CounterParties {
 	 */
     private ArrayList<CounterParty> counterParties;
     private HashMap<String, CounterParty> counterPartiesByName, counterPartiesByAccountNumber;
-    private String folder;
     private File xmlFile;
     private File xsl2XmlFile;
     private File xsl2HtmlFile;
@@ -65,7 +66,7 @@ public class CounterParties {
             counterPartyByName.addAccount(bankAccount);
             counterPartiesByAccountNumber.put(accountNumber,counterPartyByName);
             return counterPartyByName;
-        } else if(counterPartyByName == null && counterPartyByAccountNumber != null){
+        } else if(counterPartyByName == null){
             // Counterparty was found in the account list: do nothing, this case should be impossible
             counterPartyByAccountNumber.addAlias(name);
             counterPartiesByName.put(name,counterPartyByAccountNumber);
@@ -122,14 +123,6 @@ public class CounterParties {
         }
     }
 
-    public String getFolder() {
-        return folder;
-    }
-
-    public void setFolder(String folder) {
-        this.folder = folder;
-    }
-
     public void setXmlFile(File xmlFile) {
         this.xmlFile = xmlFile;
     }
@@ -170,21 +163,16 @@ public class CounterParties {
         return htmlFile;
     }
 
-    public void setDefaultHtmlFolderAndFiles(File htmlFolder, String name, boolean overwrite){
+    public void setDefaultHtmlFolderAndFiles(Accounting accounting, String name, boolean overwrite){
+        File htmlFolder = accounting.getHtmlFolder();
         if(overwrite || htmlFile == null || htmlFile.getPath().equals("null")){
-            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name);
+            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name + ".html");
         }
-//        File subFolder = FileSystemView.getFileSystemView().getChild(htmlFolder, folder);
-//        subFolder.mkdirs();
-//        for(CounterParty counterParty: getList()){
-//            counterParty.setHtmlFile(FileSystemView.getFileSystemView().getChild(subFolder, counterParty.getName() + ".html"));
-//        }
     }
 
-    public void setDefaultXmlFolderAndFiles(File xmlFolder, File xslFolder, String name, boolean overwrite) {
-        if(overwrite || folder == null || folder.equals("null")){
-            folder = name;
-        }
+    public void setDefaultXmlFolderAndFiles(Accounting accounting, String name, boolean overwrite) {
+        File xmlFolder = accounting.getXmlFolder();
+        File xslFolder = accounting.getXslFolder();
         if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
             xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, name + ".xml");
         }

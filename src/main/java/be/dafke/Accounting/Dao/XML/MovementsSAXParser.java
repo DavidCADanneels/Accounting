@@ -33,9 +33,6 @@ public class MovementsSAXParser {
     public static void readMovements(Movements movements, CounterParties counterParties){
         try {
             File file = movements.getXmlFile();
-            if(file == null || !file.exists()){
-                System.err.println(file.getAbsolutePath() + "not found");
-            }
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
@@ -43,13 +40,9 @@ public class MovementsSAXParser {
             doc.getDocumentElement().normalize();
 
             Node movementsNode = doc.getElementsByTagName("Movements").item(0);
-//            String xslLocation = movementsNode.getAttributes().getNamedItem("xsl").getNodeValue();
-//            accounting.setLocationXSL(new File(xslLocation));
 
-            String xmlLocation = doc.getElementsByTagName("location").item(0).getChildNodes().item(0).getNodeValue();
             String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
             String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            movements.setFolder(xmlLocation);
             movements.setXmlFile(new File(xmlFile));
             movements.setHtmlFile(new File(htmlFile));
 
@@ -94,7 +87,6 @@ public class MovementsSAXParser {
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Movements SYSTEM \""
                     + movements.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
                     + movements.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Movements>\r\n");
-            writer.write("  <location>" + movements.getFolder() + "</location>\r\n");
             writer.write("  <xml>" + movements.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + movements.getHtmlFile() + "</html>\r\n");
             for(Movement movement : movements.getAllMovements()) {
