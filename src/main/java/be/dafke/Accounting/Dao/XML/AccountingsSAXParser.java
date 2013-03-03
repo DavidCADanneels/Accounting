@@ -115,7 +115,6 @@ public class AccountingsSAXParser {
                 Element element = (Element)accountingNodes.item(i);
                 String name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
                 String xmlFolder = element.getElementsByTagName("xmlFolder").item(0).getChildNodes().item(0).getNodeValue();
-                String xslFolder = element.getElementsByTagName("xslFolder").item(0).getChildNodes().item(0).getNodeValue();
                 String htmlFolder = element.getElementsByTagName("htmlFolder").item(0).getChildNodes().item(0).getNodeValue();
                 String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
                 String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
@@ -123,7 +122,6 @@ public class AccountingsSAXParser {
                 String xsl2HtmlFile = element.getElementsByTagName("xsl2html").item(0).getChildNodes().item(0).getNodeValue();
                 Accounting acc = new Accounting(name);
                 acc.setXmlFolder(new File(xmlFolder));
-                acc.setXslFolder(new File(xslFolder));
                 acc.setHtmlFolder(new File(htmlFolder));
                 acc.setXmlFile(new File(xmlFile));
                 acc.setHtmlFile(new File(htmlFile));
@@ -241,7 +239,6 @@ public class AccountingsSAXParser {
                 writer.write("  <Accounting>\r\n");
                 writer.write("    <name>" + acc.toString() + "</name>\r\n");
                 writer.write("    <xmlFolder>" + acc.getXmlFolder() + "</xmlFolder>\r\n");
-                writer.write("    <xslFolder>" + acc.getXslFolder() + "</xslFolder>\r\n");
                 writer.write("    <htmlFolder>" + acc.getHtmlFolder() + "</htmlFolder>\r\n");
                 writer.write("    <xml>" + acc.getXmlFile() + "</xml>\r\n");
                 writer.write("    <html>" + acc.getHtmlFile() + "</html>\r\n");

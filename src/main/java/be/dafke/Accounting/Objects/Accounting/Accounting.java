@@ -116,10 +116,6 @@ public class Accounting {
 		this.xmlFolder = xmlFolder;
 	}
     //
-    public void setXslFolder(File xslFolder) {
-        this.xslFolder = xslFolder;
-    }
-    //
     // Getters
     public File getHtmlFolder() {
         return htmlFolder;
