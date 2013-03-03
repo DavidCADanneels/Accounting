@@ -199,4 +199,12 @@ public class Movement implements Serializable {
 	public TmpCounterParty getTmpCounterParty() {
 		return tmpCounterParty;
 	}
+
+//    protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
+//        xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
+//        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Movement.dtd");
+//        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Movement2xml.xsl");
+//        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Movement2html.xsl");
+//    }
+
 }

@@ -108,10 +108,7 @@ public class Mortgages {
         File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, name);
         subFolder.mkdirs();
         for(Mortgage table:getMortgages()){
-            File xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, table.getName() + ".xml");
-            File xslFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgage.xsl");
-            table.setXmlFile(xmlFile);
-            table.setXslFile(xslFile);
+            table.setDefaultFiles(subFolder,xslFolder,dtdFolder);
         }
     }
 }

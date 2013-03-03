@@ -1,5 +1,6 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -274,5 +275,12 @@ public class Journal implements Serializable {
 
     public void setXsl2HtmlFile(File xsl2HtmlFile) {
         this.xsl2HtmlFile = xsl2HtmlFile;
+    }
+
+    protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
+        xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
+        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Journal.dtd");
+        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journal2xml.xsl");
+        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journal2html.xsl");
     }
 }

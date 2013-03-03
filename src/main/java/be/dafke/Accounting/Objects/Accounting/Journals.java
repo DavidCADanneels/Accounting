@@ -189,10 +189,7 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
         File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, name);
         subFolder.mkdirs();
         for(Journal journal: getAllJournals()){
-            journal.setXmlFile(FileSystemView.getFileSystemView().getChild(subFolder, journal.getName() + ".xml"));
-            journal.setDtdFile(FileSystemView.getFileSystemView().getChild(dtdFolder, "Journal.dtd"));
-            journal.setXsl2XmlFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Journal2xml.xsl"));
-            journal.setXsl2HtmlFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Journal2html.xsl"));
+            journal.setDefaultFiles(subFolder,xslFolder,dtdFolder);
         }
     }
 }

@@ -1,5 +1,6 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import javax.swing.filechooser.FileSystemView;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
@@ -24,10 +25,6 @@ public class Account implements Serializable {
 //    public File getDtdFile() {
 //        return dtdFile;
 //    }
-//
-//    public void setDtdFile(File dtdFile) {
-//        this.dtdFile = dtdFile;
-//    }
 
     public enum AccountType {
 		Active, Passive, Cost, Revenue, Credit, Debit;
@@ -49,7 +46,7 @@ public class Account implements Serializable {
 	private Project project;
 	private File xmlFile;
 	private File htmlFile;
-	private File xsl2XmlFile, xsl2HtmlFile, dtdFile;
+	private File xsl2XmlFile, xsl2HtmlFile;//, dtdFile;
 
 	/**
 	 * Constructor
@@ -283,4 +280,11 @@ public class Account implements Serializable {
 	public String getName() {
 		return name;
 	}
+
+    protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
+        xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
+//        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Account.dtd");
+        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Account2xml.xsl");
+        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Account2html.xsl");
+    }
 }

@@ -180,7 +180,7 @@ public class Accounts extends HashMap<String, Account> {
         }
     }
 
-    public void setDefaultXmlFolderAndFiles(Accounting accounting, String name, boolean overwrite) {
+    protected void setDefaultXmlFolderAndFiles(Accounting accounting, String name, boolean overwrite) {
         File xmlFolder = accounting.getXmlFolder();
         File xslFolder = accounting.getXslFolder();
         File dtdFolder = accounting.getDtdFolder();
@@ -199,11 +199,7 @@ public class Accounts extends HashMap<String, Account> {
         File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, name);
         subFolder.mkdirs();
         for(Account account: getAllAccounts()){
-            account.setXmlFile(FileSystemView.getFileSystemView().getChild(subFolder, account.getName() + ".xml"));
-//            account.setDtdFile(FileSystemView.getFileSystemView().getChild(dtdFolder, "Account.dtd"));
-            account.setXsl2XmlFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Account2xml.xsl"));
-            account.setXsl2HtmlFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Account2html.xsl"));
+            account.setDefaultFiles(subFolder,xslFolder,dtdFolder);
         }
-
     }
 }

@@ -124,4 +124,12 @@ public class CounterParty implements Serializable {
     public void removeAlias(String alias) {
         aliases.remove(alias);
     }
+
+//    protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
+//        xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
+//        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "CounterParty.dtd");
+//        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParty2xml.xsl");
+//        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParty2html.xsl");
+//    }
+
 }

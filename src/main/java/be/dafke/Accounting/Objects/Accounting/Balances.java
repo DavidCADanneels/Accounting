@@ -126,12 +126,10 @@ public class Balances extends HashMap<String, Balance>{
         if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
             dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Balances.dtd");
         }
-        File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, name
-        );
+        File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, name);
         subFolder.mkdirs();
         for(Balance balance: getBalances()){
-            balance.setXmlFile(FileSystemView.getFileSystemView().getChild(subFolder, balance.getName() + ".xml"));
-            balance.setXslFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Balance.xsl"));
+            balance.setDefaultFiles(subFolder,xslFolder, dtdFolder);
         }
     }
 }

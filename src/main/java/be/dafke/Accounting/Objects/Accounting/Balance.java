@@ -1,5 +1,6 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -118,4 +119,13 @@ public class Balance {
     public void setHtmlFile(File htmlFile) {
         this.htmlFile = htmlFile;
     }
+    protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
+        xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
+
+//        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Balance.dtd");
+//        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balance2xml.xsl");
+//        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balance2html.xsl");
+        xslFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balance.xsl");
+    }
+
 }

@@ -1,5 +1,6 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -110,5 +111,13 @@ public class Mortgage implements Serializable {
 
     public File getHtmlFile() {
         return htmlFile;
+    }
+    protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
+        xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
+
+//        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Mortgage.dtd");
+//        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgage2xml.xsl");
+//        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgage2html.xsl");
+        xslFile = FileSystemView.getFileSystemView().getChild(xslFolder,"Mortgage.xsl");
     }
 }
