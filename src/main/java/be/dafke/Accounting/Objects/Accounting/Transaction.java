@@ -29,6 +29,7 @@ public class Transaction implements Serializable {
     private boolean booked;
 	private final ArrayList<Mortgage> mortgages;
     private boolean sort = true; // for later use: default = true --> First all Debits, then all Credits
+    private Journal journal;
 
     public Transaction() {
 		booked = false;
@@ -192,6 +193,7 @@ public class Transaction implements Serializable {
         // TODO: null check on journal OR Disable "Debit" and "Credit" button if there are no Journals
         // if(journal == null) throw Exception --> catch Exception in GUI
 		journal.book(this);
+        this.journal = journal;
 		booked = true;
 		for(Mortgage mortgage : mortgages) {
 			mortgage.increasePayed();
@@ -243,5 +245,9 @@ public class Transaction implements Serializable {
 
     public boolean contains(Account account) {
         return allBookings.containsKey(account);
+    }
+
+    public Journal getJournal() {
+        return journal;
     }
 }

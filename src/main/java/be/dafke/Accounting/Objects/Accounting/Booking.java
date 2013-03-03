@@ -52,6 +52,10 @@ public class Booking {
 		return transaction.getAbbreviation();
 	}
 
+    public Journal getJournal(){
+        return transaction.getJournal();
+    }
+
 	/**
 	 * Geeft het id-nummer van de boeking terug
 	 * @return het id-nummer van de boeking

@@ -185,7 +185,7 @@ public class JournalsSAXParser {
             for (Transaction transaction :journal.getTransactions()) {
                 ArrayList<Booking> list = transaction.getBookings();
                 Booking booking = list.get(0);
-                writer.write("  <action>\r\n");
+                writer.write("  <action id=\""+booking.getId()+"\">\r\n");
                 writer.write("    <nr>" + journal.getAbbreviation() + booking.getId() + "</nr>\r\n");
                 writer.write("    <date>" + Utils.toString(booking.getDate()) + "</date>\r\n");
                 writer.write("    <account_name>" + booking.getAccount() + "</account_name>\r\n");
