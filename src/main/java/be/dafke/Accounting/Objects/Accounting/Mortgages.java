@@ -65,10 +65,6 @@ public class Mortgages {
         this.xsl2HtmlFile = xsl2HtmlFile;
     }
 
-    public void setDtdFile(File dtdFile) {
-        this.dtdFile = dtdFile;
-    }
-
     public File getDtdFile() {
         return dtdFile;
     }
@@ -96,6 +92,7 @@ public class Mortgages {
     public void setDefaultXmlFolderAndFiles(Accounting accounting, String name, boolean overwrite) {
         File xmlFolder = accounting.getXmlFolder();
         File xslFolder = accounting.getXslFolder();
+        File dtdFolder = accounting.getDtdFolder();
         if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
             xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, name + ".xml");
         }
@@ -106,7 +103,7 @@ public class Mortgages {
             xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages2html.xsl");
         }
         if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
-            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgages.dtd");
+            dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Mortgages.dtd");
         }
         File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, name);
         subFolder.mkdirs();

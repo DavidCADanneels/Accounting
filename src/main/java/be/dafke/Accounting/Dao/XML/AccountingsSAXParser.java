@@ -159,7 +159,7 @@ public class AccountingsSAXParser {
     }
 
     public static void writeAccountings(Accountings accountings) {
-        createDefaultValuesIfNull(accountings);
+        accountings.createDefaultValuesIfNull();
         toXml(accountings);
         toHtml(accountings);
     }
@@ -197,17 +197,7 @@ public class AccountingsSAXParser {
         }
     }
 
-    private static void createDefaultValuesIfNull(Accountings accountings){
-        // ACCOUNTINGS
-        for(Accounting accounting:accountings.getAccountings()){
-            accounting.setDefaultXmlFoldersAndFiles(false);
-            accounting.setDefaultHtmlFoldersAndFiles(false);
-        }
-    }
-
     private static void writeAccounting(Accounting accounting){
-//        createXMLFolders(accounting);
-
         writeAccountingFile(accounting);
 
         System.out.println("Accounts.TOXML(" + accounting.toString() + ")");

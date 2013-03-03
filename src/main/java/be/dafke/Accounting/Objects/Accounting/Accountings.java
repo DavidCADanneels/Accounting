@@ -10,8 +10,7 @@ import java.util.HashMap;
 public class Accountings {
 	private final HashMap<String, Accounting> accountings = new HashMap<String, Accounting>();
 	private Accounting currentAccounting = null;
-    private final File xmlFolder;
-    private final File htmlFolder;
+    private final File homeFolder;
     private final File xslFolder;
     private final File dtdFolder;
     private final File xmlFile;
@@ -21,28 +20,29 @@ public class Accountings {
     private final File dtdFile;
 
     public Accountings(){
-        File home = new File(System.getProperty("user.home"));
+        File userHome = new File(System.getProperty("user.home"));
 
-        xmlFolder = new File(home, "Accounting");
-        xmlFile = new File(xmlFolder, "Accountings.xml");
+        homeFolder = new File(userHome, "Accounting");
+        xmlFile = new File(homeFolder, "Accountings.xml");
+        htmlFile = new File(homeFolder, "Accountings.html");
 
-        htmlFolder = new File(home, "Accounting");
-        htmlFile = new File(htmlFolder, "Accountings.html");
-
-        xslFolder = new File(xmlFolder, "xsl");
+        xslFolder = new File(homeFolder, "xsl");
         xsl2XmlFile = new File(xslFolder, "Accountings2Xml.xsl");
         xsl2HtmlFile = new File(xslFolder, "Accountings2Html.xsl");
 
-        dtdFolder = new File(xmlFolder, "xsl");
+        dtdFolder = new File(homeFolder, "xsl");
         dtdFile = new File(dtdFolder, "Accountings.dtd");
     }
 
-    public File getXmlFolder() {
-        return xmlFolder;
+    public void createDefaultValuesIfNull(){
+        for(Accounting accounting:getAccountings()){
+            accounting.setDefaultXmlFoldersAndFiles(this, false);
+            accounting.setDefaultHtmlFoldersAndFiles(false);
+        }
     }
 
-    public File getHtmlFolder() {
-        return htmlFolder;
+    public File getHomeFolder() {
+        return homeFolder;
     }
 
     public File getXslFolder() {

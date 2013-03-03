@@ -24,6 +24,7 @@ public class Accounting {
     private File xslFolder, xmlFolder, htmlFolder;
     private File xmlFile, htmlFile, xsl2XmlFile, xsl2HtmlFile;
     private File dtdFile;
+    private File dtdFolder;
 
     public Accounting(String name) {
 		this.name = name;
@@ -129,6 +130,10 @@ public class Accounting {
         return xslFolder;
     }
 
+    public File getDtdFolder() {
+        return dtdFolder;
+    }
+
     // Files
     //
     // Setters
@@ -146,10 +151,6 @@ public class Accounting {
     //
     public void setXsl2HtmlFile(File xsl2HtmlFile) {
         this.xsl2HtmlFile = xsl2HtmlFile;
-    }
-    //
-    public void setDtdFile(File dtdFile) {
-        this.dtdFile = dtdFile;
     }
     //
     // Getters
@@ -173,9 +174,11 @@ public class Accounting {
         return dtdFile;
     }
 
-    public void setDefaultHtmlFoldersAndFiles(boolean overwrite) {
+    protected void setDefaultHtmlFoldersAndFiles(boolean overwrite) {
         if(htmlFolder!=null && !htmlFolder.getPath().equals("null")){// && htmlFolder.exists()){
-            htmlFolder.mkdirs();
+            if(htmlFolder.mkdirs()){
+                System.out.println(xmlFolder.getPath() + " has been created");
+            }
             if(htmlFile == null || htmlFile.getPath().equals("null")){
                 htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, "Accounting.html");
 //                htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name + ".html");
@@ -189,20 +192,21 @@ public class Accounting {
         }
     }
 
-    public void setDefaultXmlFoldersAndFiles(boolean overwrite){
-        File home = new File(System.getProperty("user.home"));
-        File accountingFolder = FileSystemView.getFileSystemView().getChild(home, "Accounting");
+    protected void setDefaultXmlFoldersAndFiles(Accountings accountings, boolean overwrite){
+        File homeFolder = accountings.getHomeFolder();
+        xslFolder = accountings.getXslFolder();
+        dtdFolder = accountings.getDtdFolder();
 
         // ACCOUNTING
         //
         if(overwrite || xmlFolder == null || xmlFolder.getPath().equals("null")){
-            xmlFolder = FileSystemView.getFileSystemView().getChild(accountingFolder, name);
+            xmlFolder = FileSystemView.getFileSystemView().getChild(homeFolder, name);
+            if(xmlFolder.mkdirs()){
+                System.out.println(xmlFolder.getPath() + " has been created");
+            }
         }
         if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
             xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Accounting.xml");
-        }
-        if(overwrite || xslFolder == null || xslFolder.getPath().equals("null")){
-            xslFolder = FileSystemView.getFileSystemView().getChild(accountingFolder, "xsl");
         }
         if(overwrite || xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
             xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting2xml.xsl");
@@ -211,7 +215,7 @@ public class Accounting {
             xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting2html.xsl");
         }
         if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
-            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting.dtd");
+            dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Accounting.dtd");
         }
 
         accounts.setDefaultXmlFolderAndFiles(this, "Accounts", overwrite);

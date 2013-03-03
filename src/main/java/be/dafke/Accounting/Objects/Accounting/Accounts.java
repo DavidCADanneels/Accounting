@@ -164,10 +164,6 @@ public class Accounts extends HashMap<String, Account> {
         this.xsl2HtmlFile = xsl2HtmlFile;
     }
 
-    public void setDtdFile(File dtdFile) {
-        this.dtdFile = dtdFile;
-    }
-
     public File getDtdFile() {
         return dtdFile;
     }
@@ -187,6 +183,7 @@ public class Accounts extends HashMap<String, Account> {
     public void setDefaultXmlFolderAndFiles(Accounting accounting, String name, boolean overwrite) {
         File xmlFolder = accounting.getXmlFolder();
         File xslFolder = accounting.getXslFolder();
+        File dtdFolder = accounting.getDtdFolder();
         if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
             xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, name + ".xml");
         }
@@ -197,13 +194,13 @@ public class Accounts extends HashMap<String, Account> {
             xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts2html.xsl");
         }
         if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
-            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts.dtd");
+            dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Accounts.dtd");
         }
         File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, name);
         subFolder.mkdirs();
         for(Account account: getAllAccounts()){
             account.setXmlFile(FileSystemView.getFileSystemView().getChild(subFolder, account.getName() + ".xml"));
-//            account.setDtdFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Account.dtd"));
+//            account.setDtdFile(FileSystemView.getFileSystemView().getChild(dtdFolder, "Account.dtd"));
             account.setXsl2XmlFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Account2xml.xsl"));
             account.setXsl2HtmlFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Account2html.xsl"));
         }

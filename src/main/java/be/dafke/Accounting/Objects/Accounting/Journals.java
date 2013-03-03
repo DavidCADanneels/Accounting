@@ -146,10 +146,6 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
         this.xsl2HtmlFile = xsl2HtmlFile;
     }
 
-    public void setDtdFile(File dtdFile) {
-        this.dtdFile = dtdFile;
-    }
-
     public File getDtdFile() {
         return dtdFile;
     }
@@ -177,6 +173,10 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
     public void setDefaultXmlFolderAndFiles(Accounting accounting, String name, boolean overwrite) {
         File xmlFolder = accounting.getXmlFolder();
         File xslFolder = accounting.getXslFolder();
+        File dtdFolder = accounting.getDtdFolder();
+        if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
+            xmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals.xml");
+        }
         if(overwrite || xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
             xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals2xml.xsl");
         }
@@ -184,13 +184,13 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
             xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals2html.xsl");
         }
         if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
-            dtdFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals.dtd");
+            dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Journals.dtd");
         }
         File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, name);
         subFolder.mkdirs();
         for(Journal journal: getAllJournals()){
             journal.setXmlFile(FileSystemView.getFileSystemView().getChild(subFolder, journal.getName() + ".xml"));
-            journal.setDtdFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Journal.dtd"));
+            journal.setDtdFile(FileSystemView.getFileSystemView().getChild(dtdFolder, "Journal.dtd"));
             journal.setXsl2XmlFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Journal2xml.xsl"));
             journal.setXsl2HtmlFile(FileSystemView.getFileSystemView().getChild(xslFolder, "Journal2html.xsl"));
         }
