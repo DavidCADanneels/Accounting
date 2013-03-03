@@ -6,9 +6,9 @@
 package be.dafke.Accounting.Dao.Coda;
 
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Coda.CounterParties;
-import be.dafke.Accounting.Objects.Coda.Movement;
-import be.dafke.Accounting.Objects.Coda.Movements;
+import be.dafke.Accounting.Objects.Accounting.CounterParties;
+import be.dafke.Accounting.Objects.Accounting.Movement;
+import be.dafke.Accounting.Objects.Accounting.Movements;
 
 import java.io.BufferedReader;
 import java.io.File;

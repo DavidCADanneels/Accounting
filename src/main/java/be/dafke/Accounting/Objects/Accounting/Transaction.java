@@ -1,7 +1,5 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import be.dafke.Accounting.Objects.Mortgage.Mortgage;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;

@@ -1,7 +1,4 @@
-package be.dafke.Accounting.Objects.Mortgage;
-
-import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Transaction;
+package be.dafke.Accounting.Objects.Accounting;
 
 import java.io.File;
 import java.io.Serializable;

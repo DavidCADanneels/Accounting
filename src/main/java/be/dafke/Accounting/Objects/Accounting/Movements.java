@@ -1,7 +1,6 @@
-package be.dafke.Accounting.Objects.Coda;
+package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.GUI.CodaManagement.SearchOptions;
-import be.dafke.Accounting.Objects.Accounting.Accounting;
 
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;

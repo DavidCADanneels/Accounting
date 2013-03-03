@@ -3,8 +3,8 @@ package be.dafke.Accounting.GUI.MainWindow;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Journal;
-import be.dafke.Accounting.Objects.Mortgage.Mortgage;
-import be.dafke.Accounting.Objects.Mortgage.Mortgages;
+import be.dafke.Accounting.Objects.Accounting.Mortgage;
+import be.dafke.Accounting.Objects.Accounting.Mortgages;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

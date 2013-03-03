@@ -4,12 +4,12 @@ import be.dafke.Accounting.Dao.Coda.CodaParser;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
+import be.dafke.Accounting.Objects.Accounting.BankAccount;
+import be.dafke.Accounting.Objects.Accounting.CounterParty;
 import be.dafke.Accounting.Objects.Accounting.Journal;
+import be.dafke.Accounting.Objects.Accounting.Movement;
+import be.dafke.Accounting.Objects.Accounting.Movements;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
-import be.dafke.Accounting.Objects.Coda.BankAccount;
-import be.dafke.Accounting.Objects.Coda.CounterParty;
-import be.dafke.Accounting.Objects.Coda.Movement;
-import be.dafke.Accounting.Objects.Coda.Movements;
 import be.dafke.RefreshableTable;
 import be.dafke.Utils;
 

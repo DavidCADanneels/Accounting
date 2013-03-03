@@ -1,10 +1,10 @@
 package be.dafke.Accounting.Dao.XML;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Coda.CounterParties;
-import be.dafke.Accounting.Objects.Coda.CounterParty;
-import be.dafke.Accounting.Objects.Coda.Movement;
-import be.dafke.Accounting.Objects.Coda.Movements;
+import be.dafke.Accounting.Objects.Accounting.CounterParties;
+import be.dafke.Accounting.Objects.Accounting.CounterParty;
+import be.dafke.Accounting.Objects.Accounting.Movement;
+import be.dafke.Accounting.Objects.Accounting.Movements;
 import be.dafke.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;

@@ -1,6 +1,4 @@
-package be.dafke.Accounting.Objects.Coda;
-
-import be.dafke.Accounting.Objects.Accounting.Account;
+package be.dafke.Accounting.Objects.Accounting;
 
 import java.io.Serializable;
 import java.util.ArrayList;

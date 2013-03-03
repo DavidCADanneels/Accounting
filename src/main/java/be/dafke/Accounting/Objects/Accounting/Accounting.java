@@ -1,9 +1,5 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import be.dafke.Accounting.Objects.Coda.CounterParties;
-import be.dafke.Accounting.Objects.Coda.Movements;
-import be.dafke.Accounting.Objects.Mortgage.Mortgages;
-
 import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 

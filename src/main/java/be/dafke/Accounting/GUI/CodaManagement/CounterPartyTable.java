@@ -2,8 +2,8 @@ package be.dafke.Accounting.GUI.CodaManagement;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Coda.BankAccount;
-import be.dafke.Accounting.Objects.Coda.CounterParty;
+import be.dafke.Accounting.Objects.Accounting.BankAccount;
+import be.dafke.Accounting.Objects.Accounting.CounterParty;
 import be.dafke.RefreshableTable;
 
 import javax.swing.*;

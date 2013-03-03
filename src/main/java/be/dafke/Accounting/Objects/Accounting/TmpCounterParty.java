@@ -1,4 +1,4 @@
-package be.dafke.Accounting.Objects.Coda;
+package be.dafke.Accounting.Objects.Accounting;
 
 public class TmpCounterParty extends CounterParty {
 	/**

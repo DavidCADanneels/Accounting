@@ -2,8 +2,8 @@ package be.dafke.Accounting.GUI.CodaManagement;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Coda.CounterParties;
-import be.dafke.Accounting.Objects.Coda.CounterParty;
+import be.dafke.Accounting.Objects.Accounting.CounterParties;
+import be.dafke.Accounting.Objects.Accounting.CounterParty;
 
 import javax.swing.table.AbstractTableModel;
 

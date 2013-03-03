@@ -1,10 +1,10 @@
 package be.dafke.Accounting.GUI.CodaManagement;
 
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Coda.CounterParty;
-import be.dafke.Accounting.Objects.Coda.Movement;
-import be.dafke.Accounting.Objects.Coda.Movements;
-import be.dafke.Accounting.Objects.Coda.TmpCounterParty;
+import be.dafke.Accounting.Objects.Accounting.CounterParty;
+import be.dafke.Accounting.Objects.Accounting.Movement;
+import be.dafke.Accounting.Objects.Accounting.Movements;
+import be.dafke.Accounting.Objects.Accounting.TmpCounterParty;
 import be.dafke.Utils;
 
 import javax.swing.table.AbstractTableModel;

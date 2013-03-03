@@ -2,8 +2,8 @@ package be.dafke.Accounting.Dao.XML;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Mortgage.Mortgage;
-import be.dafke.Accounting.Objects.Mortgage.Mortgages;
+import be.dafke.Accounting.Objects.Accounting.Mortgage;
+import be.dafke.Accounting.Objects.Accounting.Mortgages;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;

@@ -2,7 +2,7 @@ package be.dafke.Accounting.GUI.MortgageManagement;
 
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Mortgage.Mortgage;
+import be.dafke.Accounting.Objects.Accounting.Mortgage;
 import be.dafke.RefreshableFrame;
 
 import javax.swing.*;

@@ -1,6 +1,6 @@
 package be.dafke.Accounting.Dao.XML;
 
-import be.dafke.Accounting.Objects.Mortgage.Mortgage;
+import be.dafke.Accounting.Objects.Accounting.Mortgage;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;

@@ -1,6 +1,6 @@
 package be.dafke.Accounting.GUI.MortgageManagement;
 
-import be.dafke.Accounting.Objects.Mortgage.Mortgage;
+import be.dafke.Accounting.Objects.Accounting.Mortgage;
 
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
