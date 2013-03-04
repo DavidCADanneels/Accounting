@@ -43,13 +43,13 @@ public class MovementsSAXParser {
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element)nodeList.item(i);
-                String statementNr = element.getElementsByTagName("Statement").item(0).getChildNodes().item(0).getNodeValue();
-                String sequenceNr = element.getElementsByTagName("Sequence").item(0).getChildNodes().item(0).getNodeValue();
-                String dateString = element.getElementsByTagName("Date").item(0).getChildNodes().item(0).getNodeValue();
-                String debitString = element.getElementsByTagName("Sign").item(0).getChildNodes().item(0).getNodeValue();
-                String amountString = element.getElementsByTagName("Amount").item(0).getChildNodes().item(0).getNodeValue();
-                String counterpartyName = element.getElementsByTagName("CounterParty").item(0).getChildNodes().item(0).getNodeValue();
-                String transactionCode = element.getElementsByTagName("TransactionCode").item(0).getChildNodes().item(0).getNodeValue();
+                String statementNr = Utils.getValue(element, "Statement");
+                String sequenceNr = Utils.getValue(element, "Sequence");
+                String dateString = Utils.getValue(element, "Date");
+                String debitString = Utils.getValue(element, "Sign");
+                String amountString = Utils.getValue(element, "Amount");
+                String counterpartyName = Utils.getValue(element, "CounterParty");
+                String transactionCode = Utils.getValue(element, "TransactionCode");
                 String communication = "";
                 // communication can be an empty tag "<Communication></Communication>"
                 NodeList communcationNodeList = element.getElementsByTagName("Communication").item(0).getChildNodes();
@@ -86,7 +86,9 @@ public class MovementsSAXParser {
                 writer.write("    <Date>"+Utils.toString(movement.getDate())+"</Date>\r\n");
                 writer.write("    <Sign>"+(movement.isDebit()?"D":"C")+"</Sign>\r\n");
                 writer.write("    <Amount>"+movement.getAmount()+"</Amount>\r\n");
-                writer.write("    <CounterParty>"+movement.getCounterParty()+"</CounterParty>\r\n");
+                if(movement.getCounterParty()!=null){
+                    writer.write("    <CounterParty>"+movement.getCounterParty()+"</CounterParty>\r\n");
+                }
                 writer.write("    <TransactionCode>" + movement.getTransactionCode() + "</TransactionCode>\r\n");
                 writer.write("    <Communication>"+movement.getCommunication()+"</Communication>\r\n");
                 writer.write("  </Movement>\r\n");

@@ -47,12 +47,11 @@ public class JournalsSAXParser {
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element)nodeList.item(i);
-                String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-                String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-                String journal_name = element.getElementsByTagName("journal_name").item(0).getChildNodes().item(0).getNodeValue();
-                String journal_short = element.getElementsByTagName("journal_short").item(0).getChildNodes().item(0).getNodeValue();
-                String journal_type = element.getElementsByTagName("journal_type").item(0).getChildNodes().item(0).getNodeValue();
-                System.out.println("Journal: "+journal_name+" | "+journal_short+" | "+journal_type);
+                String xmlFile = Utils.getValue(element, "xml");
+                String htmlFile = Utils.getValue(element, "html");
+                String journal_name = Utils.getValue(element, "journal_name");
+                String journal_short = Utils.getValue(element, "journal_short");
+                String journal_type = Utils.getValue(element, "journal_type");
                 try{
                     Journal journal = journals.addJournal(journal_name, journal_short, journalTypes.get(journal_type));
                     journal.setXmlFile(new File(xmlFile));
@@ -79,7 +78,7 @@ public class JournalsSAXParser {
             Document doc = dBuilder.parse(journal.getXmlFile().getAbsolutePath());
             doc.getDocumentElement().normalize();
 
-//            String name = doc.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
+//            String name = Utils.getValue(doc, "name");
 
             Transaction transaction = null;
             String abbreviation = journal.getAbbreviation();
@@ -87,38 +86,32 @@ public class JournalsSAXParser {
             NodeList actions = doc.getElementsByTagName("action");
             for (int i = 0; i < actions.getLength(); i++) {
                 Element element = (Element)actions.item(i);
-                NodeList nodeListNr = element.getElementsByTagName("nr");
-                NodeList nodeListDate = element.getElementsByTagName("date");
-                NodeList nodeListDescription = element.getElementsByTagName("description");
-                if(nodeListNr.getLength()!=0 && nodeListDate.getLength()!=0 && nodeListDescription.getLength()!=0){
+                String nr = Utils.getValue(element, "nr");
+                String date = Utils.getValue(element, "date");
+                String description = Utils.getValue(element, "description");
+                if(nr!=null){
                     if(transaction != null){
                         transaction.book(journal);
                     }
                     transaction = new Transaction();
                     transaction.setAbbreviation(abbreviation);
-
-                    String nr = nodeListNr.item(0).getChildNodes().item(0).getNodeValue();
                     transaction.setId(Utils.parseInt(nr.replaceAll(abbreviation,"")));
-
-                    String date = nodeListDate.item(0).getChildNodes().item(0).getNodeValue();
                     transaction.setDate(Utils.toCalendar(date));
-
-                    if(nodeListDescription.item(0).getChildNodes().getLength()>0){
-                        String description = nodeListDescription.item(0).getChildNodes().item(0).getNodeValue();
-                        transaction.setDescription(description);
-                    }
+                    transaction.setDescription(description);
                 }
-                String accountName = element.getElementsByTagName("account_name").item(0).getChildNodes().item(0).getNodeValue();
+                String accountName = Utils.getValue(element,  "account_name");
                 Account account = accounts.get(accountName);
-                NodeList nodeListDebet = element.getElementsByTagName("debet");
-                NodeList nodeListCredit = element.getElementsByTagName("credit");
-                if(nodeListDebet.getLength()!=0){
-                    String debet = nodeListDebet.item(0).getChildNodes().item(0).getNodeValue();
-                    transaction.addBooking(account, Utils.parseBigDecimal(debet),true, false);
-                }
-                if(nodeListCredit.getLength()!=0){
-                    String credit = nodeListCredit.item(0).getChildNodes().item(0).getNodeValue();
-                    transaction.addBooking(account, Utils.parseBigDecimal(credit),false, false);
+                String debit = Utils.getValue(element, "debet");
+                String credit = Utils.getValue(element, "credit");
+                if(transaction==null){
+                    System.err.println("Journals.xml is bad structured: each transaction should have a \"nr\" tag !");
+                } else {
+                    if(debit!=null){
+                        transaction.addBooking(account, Utils.parseBigDecimal(debit),true, false);
+                    }
+                    if(credit!=null){
+                        transaction.addBooking(account, Utils.parseBigDecimal(credit),false, false);
+                    }
                 }
             }
             if(transaction!=null){

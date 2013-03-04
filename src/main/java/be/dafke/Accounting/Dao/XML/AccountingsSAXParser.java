@@ -48,13 +48,13 @@ public class AccountingsSAXParser {
             NodeList accountingNodes = doc.getElementsByTagName("Accounting");
             for(int i=0;i<accountingNodes.getLength();i++){
                 Element element = (Element)accountingNodes.item(i);
-                String name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
-                String xmlFolder = element.getElementsByTagName("xmlFolder").item(0).getChildNodes().item(0).getNodeValue();
-                String htmlFolder = element.getElementsByTagName("htmlFolder").item(0).getChildNodes().item(0).getNodeValue();
-                String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-                String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-                String xsl2XmlFile = element.getElementsByTagName("xsl2xml").item(0).getChildNodes().item(0).getNodeValue();
-                String xsl2HtmlFile = element.getElementsByTagName("xsl2html").item(0).getChildNodes().item(0).getNodeValue();
+                String name = Utils.getValue(element, "name");
+                String xmlFolder = Utils.getValue(element, "xmlFolder");
+                String htmlFolder = Utils.getValue(element, "htmlFolder");
+                String xmlFile = Utils.getValue(element, "xml");
+                String htmlFile = Utils.getValue(element, "html");
+                String xsl2XmlFile = Utils.getValue(element, "xsl2xml");
+                String xsl2HtmlFile = Utils.getValue(element, "xsl2html");
                 Accounting acc = new Accounting(name);
                 acc.setXmlFolder(new File(xmlFolder));
                 acc.setHtmlFolder(new File(htmlFolder));
@@ -64,9 +64,8 @@ public class AccountingsSAXParser {
                 acc.setXsl2HtmlFile(new File(xsl2HtmlFile));
                 accountings.addAccounting(acc);
             }
-            NodeList current = doc.getElementsByTagName("CurrentAccounting");
-            if(current.getLength()>0){
-                String currentAccountName = current.item(0).getChildNodes().item(0).getNodeValue();
+            String currentAccountName = Utils.getValue(doc, "CurrentAccounting");
+            if(currentAccountName!=null){
                 accountings.setCurrentAccounting(currentAccountName);
             }
         } catch (IOException io) {
@@ -82,69 +81,68 @@ public class AccountingsSAXParser {
     }
 
     private static void readAccounting(Accounting accounting){
-        File file = accounting.getXmlFile();
+
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(file.getAbsolutePath());
+            Document doc = dBuilder.parse(accounting.getXmlFile().getAbsolutePath());
             doc.getDocumentElement().normalize();
 
             Accounts accounts = accounting.getAccounts();
             Element element = (Element)doc.getElementsByTagName("Accounts").item(0);
-//            String name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
-            String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+//            String name = Utils.getValue(element, "name");
+            String xmlFile = Utils.getValue(element, "xml");
+            String htmlFile = Utils.getValue(element, "html");
             accounts.setXmlFile(new File(xmlFile));
             accounts.setHtmlFile(new File(htmlFile));
             AccountsSAXParser.readAccounts(accounting.getAccounts(), accounting.getProjects());
 
             Journals journals = accounting.getJournals();
             element = (Element)doc.getElementsByTagName("Journals").item(0);
-//            name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
-            xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+//            name = Utils.getValue(element, "name");
+            xmlFile = Utils.getValue(element, "xml");
+            htmlFile = Utils.getValue(element, "html");
             journals.setXmlFile(new File(xmlFile));
             journals.setHtmlFile(new File(htmlFile));
             JournalsSAXParser.readJournals(accounting.getJournals(), accounting.getJournalTypes(), accounting.getAccounts());
-            NodeList current = doc.getElementsByTagName("CurrentJournal");
-            if(current.getLength()>0){
-                String currentJournalName = current.item(0).getChildNodes().item(0).getNodeValue();
+            String currentJournalName = Utils.getValue(doc, "CurrentJournal");
+            if(currentJournalName != null){
                 Journal currentJournal = journals.get(currentJournalName);
                 accounting.getJournals().setCurrentJournal(currentJournal);
             }
 
             Balances balances = accounting.getBalances();
             element = (Element)doc.getElementsByTagName("Balances").item(0);
-//            name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
-            xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+//            name = Utils.getValue(element, "name");
+            xmlFile = Utils.getValue(element, "xml");
+            htmlFile = Utils.getValue(element, "html");
             balances.setXmlFile(new File(xmlFile));
             balances.setHtmlFile(new File(htmlFile));
 
             Mortgages mortgages = accounting.getMortgages();
             element = (Element)doc.getElementsByTagName("Mortgages").item(0);
-//            name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
-            xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+//            name = Utils.getValue(element, "name");
+            xmlFile = Utils.getValue(element, "xml");
+            htmlFile = Utils.getValue(element, "html");
             mortgages.setXmlFile(new File(xmlFile));
             mortgages.setHtmlFile(new File(htmlFile));
             MortgagesSAXParser.readMortgages(mortgages, accounts);
 
             CounterParties counterParties = accounting.getCounterParties();
             element = (Element)doc.getElementsByTagName("CounterParties").item(0);
-//            name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
-            xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+//            name = Utils.getValue(element, "name");
+            xmlFile = Utils.getValue(element, "xml");
+            htmlFile = Utils.getValue(element, "html");
             counterParties.setXmlFile(new File(xmlFile));
             counterParties.setHtmlFile(new File(htmlFile));
             CounterPartiesSAXParser.readCounterparties(accounting.getCounterParties(), accounting.getAccounts());
 
             Movements movements = accounting.getMovements();
             element = (Element)doc.getElementsByTagName("Movements").item(0);
-//            name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
-            xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+//            name = Utils.getValue(element, "name");
+            xmlFile = Utils.getValue(element, "xml");
+            htmlFile = Utils.getValue(element, "html");
             movements.setXmlFile(new File(xmlFile));
             movements.setHtmlFile(new File(htmlFile));
             MovementsSAXParser.readMovements(accounting.getMovements(), accounting.getCounterParties());

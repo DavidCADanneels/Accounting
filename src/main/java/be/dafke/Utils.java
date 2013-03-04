@@ -1,11 +1,16 @@
 package be.dafke;
 
 import org.apache.fop.cli.InputHandler;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 import java.io.File;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.Vector;
 import java.util.regex.Matcher;
@@ -44,7 +49,9 @@ public class Utils {
         try {
             if (!htmlFile.exists()) {
 //                htmlFile.getParentFile().mkdirs();
-                htmlFile.createNewFile();
+                if(htmlFile.createNewFile()){
+                    System.out.println(htmlFile + " has been created");
+                }
             }
             OutputStream out = new java.io.BufferedOutputStream(new java.io.FileOutputStream(htmlFile));
             inputHandler.transformTo(out);
@@ -66,6 +73,45 @@ public class Utils {
             return Integer.parseInt(s);
         } catch (NumberFormatException nfe) {
             return 0;
+        }
+    }
+
+    public static String getValue(Document document, String name){
+        NodeList nodeList = document.getElementsByTagName(name);
+        return getValue(nodeList, name, 0);
+    }
+
+    public static String getValue(Element element, String name){
+        NodeList nodeList = element.getElementsByTagName(name);
+        return getValue(nodeList, name, 0);
+    }
+
+    public static Collection<String> getValues(Element element, String name){
+        NodeList nodeList = element.getElementsByTagName(name);
+        Collection<String> result = new ArrayList<String>();
+        for(int i=0;i<nodeList.getLength();i++){
+            result.add(getValue(nodeList, name, i)); // TODO add null values to the list too ?
+        }
+        return result;
+    }
+
+    private static String getValue(NodeList nodeList, String name, int index){
+        if(nodeList.getLength()==0){
+//            System.err.println("The tag " + name + " is not present.");
+            return null;
+            // the tag is not present
+        } else {
+            nodeList = nodeList.item(index).getChildNodes();
+            if(nodeList.getLength()==0){
+                System.err.println("The tag " + name + " is empty.");
+                return null;
+                // the tag is empty
+            } else {
+                if(nodeList.item(0).getNodeValue().equals("null")){
+                    System.err.println("The tag " + name + " equals \"null\"");
+                }
+                return nodeList.item(0).getNodeValue();
+            }
         }
     }
 }

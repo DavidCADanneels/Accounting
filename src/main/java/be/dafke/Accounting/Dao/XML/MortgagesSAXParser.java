@@ -4,6 +4,7 @@ import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Mortgage;
 import be.dafke.Accounting.Objects.Accounting.Mortgages;
+import be.dafke.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -44,17 +45,17 @@ public class MortgagesSAXParser {
             for (int i = 0; i < mortgagesNode.getLength(); i++) {
                 Element element = (Element)mortgagesNode.item(i);
 
-                String name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
-                String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-                String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-                String total = element.getElementsByTagName("total").item(0).getChildNodes().item(0).getNodeValue();
-                String nrPayed = element.getElementsByTagName("nrPayed").item(0).getChildNodes().item(0).getNodeValue();
-                String capitalName = element.getElementsByTagName("capital_account_name").item(0).getChildNodes().item(0).getNodeValue();
-//                String capitalXml = element.getElementsByTagName("capital_account_xml").item(0).getChildNodes().item(0).getNodeValue();
-//                String capitalHtml = element.getElementsByTagName("capital_account_html").item(0).getChildNodes().item(0).getNodeValue();
-                String intrestName = element.getElementsByTagName("intrest_account_name").item(0).getChildNodes().item(0).getNodeValue();
-//                String intrestXml = element.getElementsByTagName("intrest_account_xml").item(0).getChildNodes().item(0).getNodeValue();
-//                String intrestHtml = element.getElementsByTagName("intrest_account_html").item(0).getChildNodes().item(0).getNodeValue();
+                String name = Utils.getValue(element, "name");
+                String xmlFile = Utils.getValue(element, "xml");
+                String htmlFile = Utils.getValue(element, "html");
+                String total = Utils.getValue(element, "total");
+                String nrPayed = Utils.getValue(element, "nrPayed");
+                String capitalName = Utils.getValue(element, "capital_account_name");
+//                String capitalXml = Utils.getValue(element, "capital_account_xml");
+//                String capitalHtml = Utils.getValue(element, "capital_account_html");
+                String intrestName = Utils.getValue(element, "intrest_account_name");
+//                String intrestXml = Utils.getValue(element, "intrest_account_xml");
+//                String intrestHtml = Utils.getValue(element, "intrest_account_html");
 
                 BigDecimal amount = new BigDecimal(total);
                 Mortgage mortgage = new Mortgage(name, amount);

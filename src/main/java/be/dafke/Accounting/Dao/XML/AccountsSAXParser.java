@@ -46,19 +46,18 @@ public class AccountsSAXParser {
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element)nodeList.item(i);
-                String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-                String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-                String account_name = element.getElementsByTagName("account_name").item(0).getChildNodes().item(0).getNodeValue();
-                String account_type = element.getElementsByTagName("account_type").item(0).getChildNodes().item(0).getNodeValue();
+                String xmlFile = Utils.getValue(element, "xml");
+                String htmlFile = Utils.getValue(element, "html");
+                String account_name = Utils.getValue(element, "account_name");
+                String account_type = Utils.getValue(element, "account_type");
 
                 Account.AccountType type = Account.AccountType.valueOf(account_type);
                 try{
                     Account account = accounts.addAccount(account_name, type);
                     account.setXmlFile(new File(xmlFile));
                     account.setHtmlFile(new File(htmlFile));
-                    NodeList projectNodeList = element.getElementsByTagName("account_project");
-                    if(projectNodeList.getLength()>0){
-                        String account_project = projectNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                    String account_project = Utils.getValue(element, "account_project");
+                    if(account_project!=null){
                         Project project = projects.get(account_project);
                         if (project == null) {
                             project = new Project(account_project);

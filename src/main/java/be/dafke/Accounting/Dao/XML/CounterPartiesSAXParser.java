@@ -5,6 +5,7 @@ import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.BankAccount;
 import be.dafke.Accounting.Objects.Accounting.CounterParties;
 import be.dafke.Accounting.Objects.Accounting.CounterParty;
+import be.dafke.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -41,37 +42,29 @@ public class CounterPartiesSAXParser {
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element)nodeList.item(i);
+
                 String counterparty_name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
                 CounterParty counterParty = new CounterParty(counterparty_name);
 
-                NodeList accountNodeList = element.getElementsByTagName("AccountName");
-                if(accountNodeList.getLength()>0){
-                    String accountName = accountNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                String accountName = Utils.getValue(element, "AccountName");
+                if(accountName!=null){
                     Account account = accounts.get(accountName);
                     counterParty.setAccount(account);
                 }
-                NodeList aliasNodeList = element.getElementsByTagName("Alias");
-                for(int j=0;j<aliasNodeList.getLength();j++){
-                    String alias = aliasNodeList.item(j).getChildNodes().item(0).getNodeValue();
+                for(String alias: Utils.getValues(element, "Alias")){
                     counterParty.addAlias(alias);
                 }
                 NodeList bankAccountNodeList = element.getElementsByTagName("BankAccount");
                 for(int j=0;j<bankAccountNodeList.getLength();j++){
-                    String accountName = bankAccountNodeList.item(j).getChildNodes().item(0).getNodeValue();
-                    BankAccount bankAccount = new BankAccount(accountName);
-                    counterParty.addAccount(bankAccount);
-                    NodeList bicNodeList = element.getElementsByTagName("BIC");
-                    if(bicNodeList.getLength()>0){
-                        String bic = bicNodeList.item(0).getChildNodes().item(0).getNodeValue();
-                        bankAccount.setBic(bic);
-                    }
-                    NodeList currencyNodeList = element.getElementsByTagName("Currency");
-                    if(currencyNodeList.getLength()>0 && currencyNodeList.item(0).getChildNodes() != null
-                            && currencyNodeList.item(0).getChildNodes().getLength()>0){
-                        String currency = currencyNodeList.item(0).getChildNodes().item(0).getNodeValue();
-                        bankAccount.setCurrency(currency);
-                    }
+                    Element bankAccountElement = (Element)bankAccountNodeList.item(j);
+                    String accountNumber = Utils.getValue(bankAccountElement,"AccountNumber");
+                    String bic = Utils.getValue(bankAccountElement, "BIC");
+                    String currency = Utils.getValue(bankAccountElement, "Currency");
+                    BankAccount bankAccount = new BankAccount(accountNumber);
+                    bankAccount.setBic(bic);
+                    bankAccount.setCurrency(currency);
                 }
+
                 counterParties.addCounterParty(counterParty);
             }
 
@@ -107,15 +100,17 @@ public class CounterPartiesSAXParser {
                 }
                 if(counterParty.getBankAccounts()!=null){
                     for(BankAccount account : counterParty.getBankAccounts().values()) {
+                        writer.write("    <BankAccount>\r\n");
                         if(account.getAccountNumber()!=null){
-                            writer.write("    <BankAccount>" + account.getAccountNumber() + "</BankAccount>\r\n");
+                            writer.write("      <AccountNumber>" + account.getAccountNumber() + "</AccountNumber>\r\n");
                         }
                         if(account.getBic()!=null){
-                            writer.write("    <BIC>" + account.getBic() + "</BIC>\r\n");
+                            writer.write("      <BIC>" + account.getBic() + "</BIC>\r\n");
                         }
                         if(account.getCurrency()!=null){
-                            writer.write("    <Currency>" + account.getCurrency() + "</Currency>\r\n");
+                            writer.write("      <Currency>" + account.getCurrency() + "</Currency>\r\n");
                         }
+                        writer.write("    </BankAccount>\r\n");
                     }
                 }
                 writer.write("  </CounterParty>\r\n");
