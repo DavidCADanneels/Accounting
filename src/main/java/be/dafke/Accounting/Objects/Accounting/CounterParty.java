@@ -1,17 +1,14 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 
-public class CounterParty implements Serializable {
+public class CounterParty extends BusinessObject{
 	/**
 	 * 
 	 */
-	private static final long serialVersionUID = 1L;
-	private String name;
     private final ArrayList<String> aliases;
 	private final HashMap<String, BankAccount> accounts;
 	private final Collection<String> addressLines;
@@ -25,9 +22,9 @@ public class CounterParty implements Serializable {
     // private final ArrayList<Account> debetAccounts, creditAccounts;
 
 	public CounterParty(String name) {
+        super(name, "CounterParty");
 		accounts = new HashMap<String, BankAccount>();
 		addressLines = new ArrayList<String>();
-		this.name = name;
 		aliases = new ArrayList<String>();
 		// debetAccounts = new ArrayList<Account>();
 		// creditAccounts = new ArrayList<Account>();
@@ -35,11 +32,6 @@ public class CounterParty implements Serializable {
 
 	public void addAccount(BankAccount newAccount) {
 		accounts.put(newAccount.getAccountNumber(), newAccount);
-	}
-
-	@Override
-	public String toString() {
-		return name;
 	}
 
     public ArrayList<String> getAliases(){
@@ -51,10 +43,6 @@ public class CounterParty implements Serializable {
             aliases.add(alias);
         }
     }
-
-	public String getName() {
-		return name;
-	}
 
 	public HashMap<String, BankAccount> getBankAccounts() {
 		return accounts;
@@ -121,34 +109,7 @@ public class CounterParty implements Serializable {
         return builder.toString();
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public void removeAlias(String alias) {
         aliases.remove(alias);
     }
-
-//    public File getXmlFile() {
-//        return xmlFile;
-//    }
-//
-//    public File getDtdFile() {
-//        return dtdFile;
-//    }
-//
-//    public File getXsl2XmlFile() {
-//        return xsl2XmlFile;
-//    }
-//
-//    public File getXsl2HtmlFile() {
-//        return xsl2HtmlFile;
-//    }
-//
-//    protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
-//        xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
-//        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "CounterParty.dtd");
-//        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParty2xml.xsl");
-//        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParty2html.xsl");
-//    }
 }

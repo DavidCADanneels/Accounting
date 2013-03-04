@@ -6,9 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class CounterParties {
-	/**
-	 * 
-	 */
+
     private ArrayList<CounterParty> counterParties;
     private HashMap<String, CounterParty> counterPartiesByName, counterPartiesByAccountNumber;
     private File xmlFile;

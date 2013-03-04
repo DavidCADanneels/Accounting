@@ -16,10 +16,8 @@ import java.util.HashMap;
  * @since 01/10/2010
  */
 public class Journals extends HashMap<String, Journal> implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+
+    private static final long serialVersionUID = 1L;
 	private final HashMap<String, Journal> abbreviations;
 
 //	private boolean save;

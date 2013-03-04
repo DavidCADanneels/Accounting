@@ -1,11 +1,6 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import javax.swing.filechooser.FileSystemView;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlList;
 import javax.xml.bind.annotation.XmlRootElement;
-import java.io.File;
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,12 +11,7 @@ import java.util.Calendar;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Account implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-    private File dtdFile;
+public class Account extends BusinessObject{
 
     public enum AccountType {
 		Active, Passive, Cost, Revenue, Credit, Debit;
@@ -34,16 +24,12 @@ public class Account implements Serializable {
 		}
 	}
 
-//	private static final ResourceBundle bundle = ResourceBundle.getBundle("Accounting");
-	private String name;
 	private AccountType type;
-	private BigDecimal debettotaal, credittotaal;
-	private final ArrayList<Booking> boekingen;
-//	private boolean save;
-	private Project project;
-	private File xmlFile;
-	private File htmlFile;
-	private File xsl2XmlFile, xsl2HtmlFile;//, dtdFile;
+    private Project project;
+    private BigDecimal debettotaal, credittotaal;
+    private final ArrayList<Booking> boekingen;
+    //	private static final ResourceBundle bundle = ResourceBundle.getBundle("Accounting");
+    //	private boolean save;
 
 	/**
 	 * Constructor
@@ -61,8 +47,8 @@ public class Account implements Serializable {
 	 * In balansen worden rekeningen van het even type steeds links weergegeven, die van het oneven type rechts
 	 */
 	protected Account(String name, AccountType type) {
+        super(name, "Account");
 		project = null;
-		this.name = name;
 		this.type = type;
 		boekingen = new ArrayList<Booking>();
 		debettotaal = new BigDecimal(0);
@@ -88,24 +74,6 @@ public class Account implements Serializable {
 		project = p;
 	}
 
-//	/**
-//	 * Deelt mee of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
-//	 * @return of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
-//	 */
-//	public boolean isSaved() {
-//		return save;
-//	}
-//
-//	/**
-//	 * Stelt in of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
-//	 * @param save of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
-//	 */
-//	protected void setSaved(boolean save) {
-//		accounting.setSaved(save);
-//		this.save = save;
-//	}
-
-	@XmlList
 	/**
 	 * Geeft de boekingen terug die bij deze rekening horen
 	 * @return de boekingen die bij deze rekening horen
@@ -204,38 +172,6 @@ public class Account implements Serializable {
 		return result;
 	}
 
-    public File getXmlFile(){
-        return xmlFile;
-    }
-
-    public File getXsl2XmlFile(){
-        return xsl2XmlFile;
-    }
-
-    public File getXsl2HtmlFile(){
-        return xsl2HtmlFile;
-    }
-
-    public File getHtmlFile(){
-        return htmlFile;
-    }
-
-    public void setXmlFile(File xmlFile) {
-        this.xmlFile = xmlFile;
-    }
-
-    public void setXsl2XmlFile(File xslFile) {
-        this.xsl2XmlFile = xslFile;
-    }
-
-    public void setXsl2HtmlFile(File xslFile) {
-        this.xsl2HtmlFile = xslFile;
-    }
-
-    public void setHtmlFile(File htmlFile) {
-        this.htmlFile = htmlFile;
-    }
-
     /**
 	 * Geeft de naam van de rekening en het ev. bijhorende project terug
 	 * @return de naam van de rekening <b><i>naam rekening</i></b> of <b><i>naam rekening(naam project)</i></b> indien
@@ -244,8 +180,8 @@ public class Account implements Serializable {
 
 	@Override
 	public String toString() {
-		if (project == null) return name;
-		return name + " [" + project.toString() + "]";
+		if (project == null) return getName();
+		return getName() + " [" + project.toString() + "]";
 	}
 
 	/**
@@ -264,28 +200,8 @@ public class Account implements Serializable {
 //		setSaved(false);
 	}
 
-	public void setName(String newName) {
-		name = newName;
-//		setSaved(false);
-	}
 
 	public void setType(AccountType type) {
 		this.type = type;
 	}
-
-	@XmlElement
-	public String getName() {
-		return name;
-	}
-
-    public File getDtdFile() {
-        return dtdFile;
-    }
-
-    protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
-        xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
-        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Account.dtd");
-        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Account2xml.xsl");
-        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Account2html.xsl");
-    }
 }

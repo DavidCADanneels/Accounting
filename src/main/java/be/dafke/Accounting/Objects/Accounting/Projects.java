@@ -5,18 +5,13 @@
 
 package be.dafke.Accounting.Objects.Accounting;
 
-import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author David Danneels
  */
-public class Projects extends java.util.HashMap<String, Project> implements Serializable {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Projects extends HashMap<String, Project> {
 
 	public Projects() {
 		super();

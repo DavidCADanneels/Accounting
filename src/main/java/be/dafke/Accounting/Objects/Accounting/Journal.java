@@ -1,8 +1,5 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import javax.swing.filechooser.FileSystemView;
-import java.io.File;
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -11,24 +8,14 @@ import java.util.Calendar;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journal implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	private String name;
+public class Journal extends BusinessObject{
 	private String abbreviation;
 	private int id;
 	private final ArrayList<Transaction> transacties;
 //	private boolean save;
 	private JournalType journalType;
-	private File xmlFile;
-	private File htmlFile;
-	private File xsl2XmlFile;
-    private File dtdFile;
     private Transaction currentTransaction = new Transaction();
     private Account currentAccount;
-    private File xsl2HtmlFile;
 
     /**
 	 * Constructor
@@ -38,9 +25,9 @@ public class Journal implements Serializable {
 	 * @param journalType the type of journal, e.g. purchase, sales, finance
 	 */
 	protected Journal(String name, String abbreviation, JournalType journalType) {
+        super(name, "Journal");
 //		save = true;
 		transacties = new ArrayList<Transaction>();
-		this.name = name;
 		this.abbreviation = abbreviation;
 		id = 1;
 		this.journalType = journalType;
@@ -89,7 +76,7 @@ public class Journal implements Serializable {
 
 	@Override
 	public String toString() {
-		return name + " (" + abbreviation + ")";
+		return getName() + " (" + abbreviation + ")";
 	}
 
 	/**
@@ -115,22 +102,6 @@ public class Journal implements Serializable {
 	public String getAbbreviation() {
 		return abbreviation;
 	}
-
-	/**
-	 * Deelt mee of de laatste wijzigingen aan het dagboek reeds werden uitgeschreven naar een XML bestand
-	 * @return of de laatste wijzigingen aan het dagboek reeds werden uitgeschreven naar een XML bestand
-	 */
-//	public boolean isSaved() {
-//		return save;
-//	}
-
-	/**
-	 * Stelt in of de laatste wijzigingen aan het dagboek reeds werden uitgeschreven naar een XML bestand
-	 * @param s of de laatste wijzigingen aan het dagboek reeds werden uitgeschreven naar een XML bestand
-	 */
-//	protected void setSaved(boolean s) {
-//		save = s;
-//	}
 
 	/**
 	 * Verwijdert de gegeven transactie
@@ -221,66 +192,11 @@ public class Journal implements Serializable {
 		return journalType;
 	}
 
-	public void setName(String newName) {
-		name = newName;
-	}
-
 	public void setType(JournalType journalType) {
 		this.journalType = journalType;
-	}
-
-	public String getName() {
-		return name;
 	}
 
 	public void setAbbreviation(String newAbbreviation) {
 		abbreviation = newAbbreviation;
 	}
-
-    public File getXsl2XmlFile() {
-        return xsl2XmlFile;
-    }
-
-    public File getHtmlFile() {
-        return htmlFile;
-    }
-
-    public File getXmlFile() {
-        return xmlFile;
-    }
-
-    public File getDtdFile() {
-        return dtdFile;
-    }
-
-    public void setXsl2XmlFile(File xsl2XmlFile) {
-        this.xsl2XmlFile = xsl2XmlFile;
-    }
-
-    public void setHtmlFile(File htmlFile) {
-        this.htmlFile = htmlFile;
-    }
-
-    public void setXmlFile(File xmlFile) {
-        this.xmlFile = xmlFile;
-    }
-
-    public void setDtdFile(File dtdFile) {
-        this.dtdFile = dtdFile;
-    }
-
-    public File getXsl2HtmlFile() {
-        return xsl2HtmlFile;
-    }
-
-    public void setXsl2HtmlFile(File xsl2HtmlFile) {
-        this.xsl2HtmlFile = xsl2HtmlFile;
-    }
-
-    protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
-        xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
-        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Journal.dtd");
-        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journal2xml.xsl");
-        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journal2html.xsl");
-    }
 }

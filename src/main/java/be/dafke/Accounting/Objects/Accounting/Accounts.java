@@ -18,9 +18,6 @@ import java.util.HashMap;
  */
 public class Accounts extends HashMap<String, Account> {
 
-    /**
-     *
-     */
     private File xmlFile;
     private File htmlFile;
     private File xsl2XmlFile;
@@ -174,7 +171,9 @@ public class Accounts extends HashMap<String, Account> {
             htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name + "html");
         }
         File subFolder = FileSystemView.getFileSystemView().getChild(htmlFolder, name);
-        subFolder.mkdirs();
+        if(subFolder.mkdirs()){
+            System.out.println(subFolder + " has been created");
+        }
         for(Account account: getAllAccounts()){
             account.setHtmlFile(FileSystemView.getFileSystemView().getChild(subFolder, account.getName() + ".html"));
         }
@@ -197,7 +196,9 @@ public class Accounts extends HashMap<String, Account> {
             dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Accounts.dtd");
         }
         File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, name);
-        subFolder.mkdirs();
+        if(subFolder.mkdirs()){
+            System.out.println(subFolder + " has been created");
+        }
         for(Account account: getAllAccounts()){
             account.setDefaultFiles(subFolder,xslFolder,dtdFolder);
         }

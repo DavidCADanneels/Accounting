@@ -2,15 +2,10 @@ package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Dao.Coda.CodaParser;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-public class Movement implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Movement extends BusinessObject {
 	private final String sequenceNumber, transactionCode;
 	private String communication;
 	private final String statementNr;
@@ -24,11 +19,6 @@ public class Movement implements Serializable {
 	private CounterParty counterParty;
 	private TmpCounterParty tmpCounterParty;
 	private static CounterParties counterParties;
-//    private String name;
-//    private File xmlFile;
-//    private File dtdFile;
-//    private File xsl2XmlFile;
-//    private File xsl2HtmlFile;
 
     public static Movement parse(String line, CounterParties counterParties) {
 		Movement.counterParties = counterParties;
@@ -56,6 +46,7 @@ public class Movement implements Serializable {
 	}
 
     public Movement(String statementNr, String sequenceNumber, Calendar date, boolean debit, BigDecimal amount, CounterParty counterParty, String transactionCode, String communication){
+        super(statementNr + "-" + sequenceNumber,"Movement");
         this.statementNr = statementNr;
         this.sequenceNumber = sequenceNumber;
         this.date = date;
@@ -64,11 +55,11 @@ public class Movement implements Serializable {
         this.counterParty = counterParty;
         this.transactionCode = transactionCode;
         this.communication = communication;
-//        this.name = statementNr + "-" + sequenceNumber;
     }
 
 	private Movement(String statementNr, String sequenceNumber, Calendar date, boolean debit, BigDecimal amount,
 			 String transactionCode, String communication, boolean structured) {
+        super(statementNr + "-" + sequenceNumber,"Movement");
         this.statementNr = statementNr;
         this.sequenceNumber = sequenceNumber;
         this.date = date;
@@ -204,31 +195,4 @@ public class Movement implements Serializable {
 	public TmpCounterParty getTmpCounterParty() {
 		return tmpCounterParty;
 	}
-
-//    public String getName() {
-//        return name;
-//    }
-//
-//    public File getXmlFile() {
-//        return xmlFile;
-//    }
-//
-//    public File getDtdFile() {
-//        return dtdFile;
-//    }
-//
-//    public File getXsl2XmlFile() {
-//        return xsl2XmlFile;
-//    }
-//
-//    public File getXsl2HtmlFile() {
-//        return xsl2HtmlFile;
-//    }
-//
-//    protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
-//        xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
-//        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Movement.dtd");
-//        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Movement2xml.xsl");
-//        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Movement2html.xsl");
-//    }
 }

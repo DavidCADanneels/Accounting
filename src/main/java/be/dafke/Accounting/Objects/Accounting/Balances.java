@@ -14,6 +14,7 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 12:07
  */
 public class Balances extends HashMap<String, Balance>{
+
     public static String RESULT_BALANCE = "ResultBalance";
     public static String RELATIONS_BALANCE = "RelationsBalance";
     public static String YEAR_BALANCE = "YearBalance";
@@ -104,7 +105,9 @@ public class Balances extends HashMap<String, Balance>{
             htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name + ".html");
         }
         File subFolder = FileSystemView.getFileSystemView().getChild(htmlFolder, name);
-        subFolder.mkdirs();
+        if(subFolder.mkdirs()){
+            System.out.println("Html folder for Balances has been created");
+        }
         for(Balance balance: getBalances()){
             balance.setHtmlFile(FileSystemView.getFileSystemView().getChild(subFolder, balance.getName() + ".html"));
         }
@@ -127,7 +130,9 @@ public class Balances extends HashMap<String, Balance>{
             dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Balances.dtd");
         }
         File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, name);
-        subFolder.mkdirs();
+        if(subFolder.mkdirs()){
+            System.out.println("Xml folder for Balances has been created");
+        }
         for(Balance balance: getBalances()){
             balance.setDefaultFiles(subFolder,xslFolder, dtdFolder);
         }

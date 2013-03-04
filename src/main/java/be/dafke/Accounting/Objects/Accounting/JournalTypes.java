@@ -1,10 +1,10 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class JournalTypes extends HashMap<String, JournalType> implements Serializable {
+public class JournalTypes extends HashMap<String, JournalType> {
+
 //	private static JournalTypes types = null;
 //
 //	public static JournalTypes getInstance() {
@@ -13,11 +13,6 @@ public class JournalTypes extends HashMap<String, JournalType> implements Serial
 //		}
 //		return types;
 //	}
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 	public JournalTypes() {
 		put("default", new JournalType());

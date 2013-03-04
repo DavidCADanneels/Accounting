@@ -10,6 +10,7 @@ import java.util.HashMap;
  * Time: 11:06
  */
 public class Mortgages {
+
     private final HashMap<String, Mortgage> mortgages;
     private File xmlFile;
     private File xsl2XmlFile;

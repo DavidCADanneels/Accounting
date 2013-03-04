@@ -7,10 +7,8 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class Movements {
-	/**
-	 * 
-	 */
-	private ArrayList<Movement> movements = new ArrayList<Movement>();
+
+    private ArrayList<Movement> movements = new ArrayList<Movement>();
     private File xmlFile;
     private File xsl2XmlFile;
     private File xsl2HtmlFile;
