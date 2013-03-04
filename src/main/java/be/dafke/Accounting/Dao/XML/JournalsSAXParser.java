@@ -63,6 +63,13 @@ public class JournalsSAXParser {
                     System.err.println("Journal name and abbreviation cannot be empty.");
                 }
             }
+
+            String current = Utils.getValue(rootElement,"CurrentJournal");
+            if(current!=null){
+                Journal journal = journals.get(current);
+                journals.setCurrentJournal(journal);
+            }
+
         } catch (IOException io) {
             io.printStackTrace();
         } catch (Exception e) {
@@ -145,6 +152,10 @@ public class JournalsSAXParser {
                 writer.write("    <journal_type>" + journal.getType().toString() + "</journal_type>\r\n");
                 writer.write("  </Journal>\r\n");
             }
+            if(journals.getCurrentJournal()!=null){
+                writer.write("  <CurrentJournal>" + journals.getCurrentJournal().getName() + "</CurrentJournal>\r\n");
+            }
+
             writer.write("</Journals>\r\n");
             writer.flush();
             writer.close();
