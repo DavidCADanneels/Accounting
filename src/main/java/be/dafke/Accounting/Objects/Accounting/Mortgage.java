@@ -18,7 +18,7 @@ public class Mortgage implements Serializable {
 	private Account capital, intrest;
 	private final BigDecimal startCapital;
     private File xmlFile;
-    private File xslFile;
+    private File xsl2XmlFile, xsl2HtmlFile;
     private File htmlFile;
 
     public Mortgage(String name, BigDecimal startCapital) {
@@ -97,12 +97,20 @@ public class Mortgage implements Serializable {
         this.xmlFile = xmlFile;
     }
 
-    public File getXslFile() {
-        return xslFile;
+    public File getXsl2XmlFile() {
+        return xsl2XmlFile;
     }
 
-    public void setXslFile(File xslFile) {
-        this.xslFile = xslFile;
+    public File getXsl2HtmlFile() {
+        return xsl2HtmlFile;
+    }
+
+    public void setXsl2HtmlFile(File xsl2HtmlFile) {
+        this.xsl2HtmlFile = xsl2HtmlFile;
+    }
+
+    public void setXsl2XmlFile(File xsl2XmlFile) {
+        this.xsl2XmlFile = xsl2XmlFile;
     }
 
     public void setHtmlFile(File htmlFile) {
@@ -114,10 +122,8 @@ public class Mortgage implements Serializable {
     }
     protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
         xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
-
 //        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Mortgage.dtd");
-//        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgage2xml.xsl");
-//        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgage2html.xsl");
-        xslFile = FileSystemView.getFileSystemView().getChild(xslFolder,"Mortgage.xsl");
+        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgage2xml.xsl");
+        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgage2html.xsl");
     }
 }

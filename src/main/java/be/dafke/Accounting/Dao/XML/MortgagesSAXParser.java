@@ -140,7 +140,7 @@ public class MortgagesSAXParser {
         try {
             Writer writer = new FileWriter(mortgage.getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + mortgage.getXslFile().getCanonicalPath() + "\"?>\r\n"
+                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + mortgage.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n"
                     + "<mortgageTable name=\"" + mortgage.toString() + "\">\r\n");
             int teller = 1;
             for(Vector<BigDecimal> vector : mortgage.getTable()) {

@@ -82,7 +82,7 @@ public class BalancesSAXParser {
         try {
             Writer writer = new FileWriter(balance.getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + balance.getXslFile().getCanonicalPath() + "\"?>\r\n"
+                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + balance.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n"
                     + "<balance>\r\n  <name>" + balance.getName() //$NON-NLS-1$ //$NON-NLS-2$
                     + "</name>\r\n  <left>" + balance.getLeftName() + "</left>\r\n  <right>" + balance.getRightName() + "</right>\r\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             ArrayList<Account> leftAccounts = balance.getLeftAccounts();

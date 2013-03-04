@@ -175,7 +175,7 @@ public class Journals extends HashMap<String, Journal> implements Serializable {
         File xslFolder = accounting.getXslFolder();
         File dtdFolder = accounting.getDtdFolder();
         if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
-            xmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals.xml");
+            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Journals.xml");
         }
         if(overwrite || xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
             xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Journals2xml.xsl");

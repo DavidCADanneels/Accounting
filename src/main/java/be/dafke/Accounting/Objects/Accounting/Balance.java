@@ -22,7 +22,7 @@ public class Balance {
     private final ArrayList<Account.AccountType> rightTypes;
     private final Accounting accounting;
     private File xmlFile;
-    private File xslFile;
+    private File xsl2XmlFile, xsl2HtmlFile;
     private File htmlFile;
 
     public Balance(String name,
@@ -104,12 +104,20 @@ public class Balance {
         this.xmlFile = xmlFile;
     }
 
-    public File getXslFile() {
-        return xslFile;
+    public File getXsl2XmlFile() {
+        return xsl2XmlFile;
     }
 
-    public void setXslFile(File xslFile) {
-        this.xslFile = xslFile;
+    public void setXsl2XmlFile(File xsl2XmlFile) {
+        this.xsl2XmlFile = xsl2XmlFile;
+    }
+
+    public File getXsl2HtmlFile() {
+        return xsl2HtmlFile;
+    }
+
+    public void setXsl2HtmlFile(File xsl2HtmlFile) {
+        this.xsl2HtmlFile = xsl2HtmlFile;
     }
 
     public File getHtmlFile() {
@@ -121,11 +129,9 @@ public class Balance {
     }
     protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
         xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
-
 //        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Balance.dtd");
-//        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balance2xml.xsl");
-//        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balance2html.xsl");
-        xslFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balance.xsl");
+        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balance2xml.xsl");
+        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balance2html.xsl");
     }
 
 }

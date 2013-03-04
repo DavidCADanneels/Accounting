@@ -311,13 +311,13 @@ public class AccountingsSAXParser {
             for(Balance balance:accounting.getBalances().getBalances()){
 //                TODO: add isSavedHTML
 //              if(balance.isSavedHTML()){
-                    Utils.xmlToHtml(balance.getXmlFile(), balance.getXslFile(), balance.getHtmlFile(), null);
+                    Utils.xmlToHtml(balance.getXmlFile(), balance.getXsl2HtmlFile(), balance.getHtmlFile(), null);
 //                }
             }
             for(Mortgage mortgage:accounting.getMortgages().getMortgages()){
 //                TODO: add isSavedHTML
 //                if(mortgage.isSavedHTML()){
-                    Utils.xmlToHtml(mortgage.getXmlFile(), mortgage.getXslFile(), mortgage.getHtmlFile(), null);
+                    Utils.xmlToHtml(mortgage.getXmlFile(), mortgage.getXsl2HtmlFile(), mortgage.getHtmlFile(), null);
 //                }
             }
         }
