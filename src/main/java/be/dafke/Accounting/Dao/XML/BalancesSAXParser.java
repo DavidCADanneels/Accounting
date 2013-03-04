@@ -3,12 +3,7 @@ package be.dafke.Accounting.Dao.XML;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Balance;
 import be.dafke.Accounting.Objects.Accounting.Balances;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -24,28 +19,6 @@ import java.util.logging.Logger;
  * Time: 5:05
  */
 public class BalancesSAXParser {
-    // READ
-    public static void readBalances(Balances balances){
-        try {
-            File file = balances.getXmlFile();
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            documentBuilderFactory.setValidating(true);
-            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(file.getAbsolutePath());
-            doc.getDocumentElement().normalize();
-
-            Element element = (Element) doc.getElementsByTagName("Balances").item(0);
-            String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            balances.setXmlFile(new File(xmlFile));
-            balances.setHtmlFile(new File(htmlFile));
-
-        } catch (IOException io) {
-            io.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     // WRITE
     public static void writeBalances(Balances balances) {
@@ -57,8 +30,6 @@ public class BalancesSAXParser {
             writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + balances.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
 
             writer.write("<Balances>\r\n");
-            writer.write("  <xml>" + balances.getXmlFile() + "</xml>\r\n");
-            writer.write("  <html>" + balances.getHtmlFile() + "</html>\r\n");
             for(Balance balance:balances.getBalances()){
                 writer.write("    <Balance>\r\n");
                 writer.write("      <name>" + balance.getName() + "</name>\r\n");

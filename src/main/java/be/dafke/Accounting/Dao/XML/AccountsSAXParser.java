@@ -10,7 +10,6 @@ import be.dafke.Accounting.Objects.Accounting.Projects;
 import be.dafke.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -42,51 +41,42 @@ public class AccountsSAXParser {
             Document doc = dBuilder.parse(file.getAbsolutePath());
             doc.getDocumentElement().normalize();
 
-            Node accountsNode = doc.getElementsByTagName("Accounts").item(0);
+            Element rootElement = (Element) doc.getElementsByTagName("Accounts").item(0);
+            NodeList nodeList = rootElement.getElementsByTagName("Account");
 
-            String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            accounts.setXmlFile(new File(xmlFile));
-            accounts.setHtmlFile(new File(htmlFile));
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Element element = (Element)nodeList.item(i);
+                String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+                String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+                String account_name = element.getElementsByTagName("account_name").item(0).getChildNodes().item(0).getNodeValue();
+                String account_type = element.getElementsByTagName("account_type").item(0).getChildNodes().item(0).getNodeValue();
 
-            accountsFromXML(accounts, projects, (Element) accountsNode);
+                Account.AccountType type = Account.AccountType.valueOf(account_type);
+                try{
+                    Account account = accounts.addAccount(account_name, type);
+                    account.setXmlFile(new File(xmlFile));
+                    account.setHtmlFile(new File(htmlFile));
+                    NodeList projectNodeList = element.getElementsByTagName("account_project");
+                    if(projectNodeList.getLength()>0){
+                        String account_project = projectNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                        Project project = projects.get(account_project);
+                        if (project == null) {
+                            project = new Project(account_project);
+                            projects.put(account_project, project);
+                        }
+                        project.addAccount(account);
+                    }
+                } catch (DuplicateNameException e) {
+                    System.err.println("There is already an account with the name \""+account_name+"\".");
+                } catch (EmptyNameException e) {
+                    System.err.println("The name of the account is empty.");
+                }
+            }
 
         } catch (IOException io) {
             io.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-    //
-    private static void accountsFromXML(Accounts accounts, Projects projects, Element accountsElement){
-        NodeList accountsNode = accountsElement.getElementsByTagName("Account");
-        for (int i = 0; i < accountsNode.getLength(); i++) {
-            Element element = (Element)accountsNode.item(i);
-            String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            String account_name = element.getElementsByTagName("account_name").item(0).getChildNodes().item(0).getNodeValue();
-            String account_type = element.getElementsByTagName("account_type").item(0).getChildNodes().item(0).getNodeValue();
-
-            Account.AccountType type = Account.AccountType.valueOf(account_type);
-            try{
-                Account account = accounts.addAccount(account_name, type);
-                account.setXmlFile(new File(xmlFile));
-                account.setHtmlFile(new File(htmlFile));
-                NodeList projectNodeList = element.getElementsByTagName("account_project");
-                if(projectNodeList.getLength()>0){
-                    String account_project = projectNodeList.item(0).getChildNodes().item(0).getNodeValue();
-                    Project project = projects.get(account_project);
-                    if (project == null) {
-                        project = new Project(account_project);
-                        projects.put(account_project, project);
-                    }
-                    project.addAccount(account);
-                }
-            } catch (DuplicateNameException e) {
-                System.err.println("There is already an account with the name \""+account_name+"\".");
-            } catch (EmptyNameException e) {
-                System.err.println("The name of the account is empty.");
-            }
         }
     }
 
@@ -101,8 +91,6 @@ public class AccountsSAXParser {
             writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + accounts.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
 
             writer.write("<Accounts>\r\n");
-            writer.write("  <xml>" + accounts.getXmlFile() + "</xml>\r\n");
-            writer.write("  <html>" + accounts.getHtmlFile() + "</html>\r\n");
             for(Account account : accounts.getAllAccounts()) {
                 writer.write("  <Account>\r\n");
                 writer.write("    <xml>" + account.getXmlFile() + "</xml>\r\n");

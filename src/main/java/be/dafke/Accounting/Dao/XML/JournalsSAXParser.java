@@ -42,17 +42,13 @@ public class JournalsSAXParser {
             Document doc = dBuilder.parse(file.getAbsolutePath());
             doc.getDocumentElement().normalize();
 
-            String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            journals.setXmlFile(new File(xmlFile));
-            journals.setHtmlFile(new File(htmlFile));
+            Element rootElement = (Element) doc.getElementsByTagName("Journals").item(0);
+            NodeList nodeList = rootElement.getElementsByTagName("Journal");
 
-            Element journalsElement = (Element)doc.getElementsByTagName("Journals").item(0);
-            NodeList journalsNode = journalsElement.getElementsByTagName("Journal");
-            for (int i = 0; i < journalsNode.getLength(); i++) {
-                Element element = (Element)journalsNode.item(i);
-                xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-                htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Element element = (Element)nodeList.item(i);
+                String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+                String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
                 String journal_name = element.getElementsByTagName("journal_name").item(0).getChildNodes().item(0).getNodeValue();
                 String journal_short = element.getElementsByTagName("journal_short").item(0).getChildNodes().item(0).getNodeValue();
                 String journal_type = element.getElementsByTagName("journal_type").item(0).getChildNodes().item(0).getNodeValue();
@@ -147,8 +143,6 @@ public class JournalsSAXParser {
             writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + journals.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
 
             writer.write("<Journals>\r\n");
-            writer.write("  <xml>" + journals.getXmlFile() + "</xml>\r\n");
-            writer.write("  <html>" + journals.getHtmlFile() + "</html>\r\n");
             for(Journal journal : journals.getAllJournals()) {
                 writer.write("  <Journal>\r\n");
                 writer.write("    <xml>" + journal.getXmlFile() + "</xml>\r\n");

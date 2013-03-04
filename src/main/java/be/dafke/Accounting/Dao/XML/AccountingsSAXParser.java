@@ -121,7 +121,6 @@ public class AccountingsSAXParser {
             htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
             balances.setXmlFile(new File(xmlFile));
             balances.setHtmlFile(new File(htmlFile));
-            BalancesSAXParser.readBalances(accounting.getBalances());
 
             Mortgages mortgages = accounting.getMortgages();
             element = (Element)doc.getElementsByTagName("Mortgages").item(0);
@@ -130,7 +129,7 @@ public class AccountingsSAXParser {
             htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
             mortgages.setXmlFile(new File(xmlFile));
             mortgages.setHtmlFile(new File(htmlFile));
-            MortgagesSAXParser.readMortgages(accounting);
+            MortgagesSAXParser.readMortgages(mortgages, accounts);
 
             CounterParties counterParties = accounting.getCounterParties();
             element = (Element)doc.getElementsByTagName("CounterParties").item(0);

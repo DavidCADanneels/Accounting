@@ -1,7 +1,7 @@
 package be.dafke.Accounting.Dao.XML;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Accounting;
+import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Mortgage;
 import be.dafke.Accounting.Objects.Accounting.Mortgages;
 import org.w3c.dom.Document;
@@ -30,21 +30,14 @@ import java.util.logging.Logger;
 public class MortgagesSAXParser {
     // READ
     //
-    public static void readMortgages(Accounting accounting){
+    public static void readMortgages(Mortgages mortgages, Accounts accounts){
         try {
-            File file = accounting.getMortgages().getXmlFile();
+            File file = mortgages.getXmlFile();
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file.getAbsolutePath());
             doc.getDocumentElement().normalize();
-
-
-            String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            Mortgages mortgages = accounting.getMortgages();
-            mortgages.setXmlFile(new File(xmlFile));
-            mortgages.setHtmlFile(new File(htmlFile));
 
             Element mortgagesElement = (Element)doc.getElementsByTagName("Mortgages").item(0);
             NodeList mortgagesNode = mortgagesElement.getElementsByTagName("Mortgage");
@@ -52,8 +45,8 @@ public class MortgagesSAXParser {
                 Element element = (Element)mortgagesNode.item(i);
 
                 String name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
-                xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-                htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
+                String xmlFile = element.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
+                String htmlFile = element.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
                 String total = element.getElementsByTagName("total").item(0).getChildNodes().item(0).getNodeValue();
                 String nrPayed = element.getElementsByTagName("nrPayed").item(0).getChildNodes().item(0).getNodeValue();
                 String capitalName = element.getElementsByTagName("capital_account_name").item(0).getChildNodes().item(0).getNodeValue();
@@ -69,11 +62,11 @@ public class MortgagesSAXParser {
                 mortgage.setHtmlFile(new File(htmlFile));
                 int nr = Integer.valueOf(nrPayed);
                 mortgage.setPayed(nr);
-                Account capital = accounting.getAccounts().get(capitalName);
+                Account capital = accounts.get(capitalName);
                 mortgage.setCapitalAccount(capital);
-                Account intrest = accounting.getAccounts().get(intrestName);
+                Account intrest = accounts.get(intrestName);
                 mortgage.setIntrestAccount(intrest);
-                accounting.getMortgages().addMortgageTable(name, mortgage);
+                mortgages.addMortgageTable(name, mortgage);
                 readMortgage(mortgage);
             }
         } catch (Exception e) {
@@ -106,8 +99,6 @@ public class MortgagesSAXParser {
             writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + mortgages.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
 
             writer.write("<Mortgages>\r\n");
-            writer.write("  <xml>" + mortgages.getXmlFile() + "</xml>\r\n");
-            writer.write("  <html>" + mortgages.getHtmlFile() + "</html>\r\n");
             for(Mortgage mortgage : mortgages.getMortgages()) {
                 writer.write("  <Mortgage>\r\n");
                 writer.write("    <name>" + mortgage.toString() + "</name>\r\n");

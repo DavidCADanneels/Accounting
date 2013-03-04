@@ -8,7 +8,6 @@ import be.dafke.Accounting.Objects.Accounting.Movements;
 import be.dafke.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -39,43 +38,33 @@ public class MovementsSAXParser {
             Document doc = dBuilder.parse(file.getAbsolutePath());
             doc.getDocumentElement().normalize();
 
-            Node movementsNode = doc.getElementsByTagName("Movements").item(0);
+            Element rootElement = (Element) doc.getElementsByTagName("Movements").item(0);
+            NodeList nodeList = rootElement.getElementsByTagName("Movement");
 
-            String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            movements.setXmlFile(new File(xmlFile));
-            movements.setHtmlFile(new File(htmlFile));
-
-            movementsFromXML(movements, counterParties, (Element) movementsNode);
-
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Element element = (Element)nodeList.item(i);
+                String statementNr = element.getElementsByTagName("Statement").item(0).getChildNodes().item(0).getNodeValue();
+                String sequenceNr = element.getElementsByTagName("Sequence").item(0).getChildNodes().item(0).getNodeValue();
+                String dateString = element.getElementsByTagName("Date").item(0).getChildNodes().item(0).getNodeValue();
+                String debitString = element.getElementsByTagName("Sign").item(0).getChildNodes().item(0).getNodeValue();
+                String amountString = element.getElementsByTagName("Amount").item(0).getChildNodes().item(0).getNodeValue();
+                String counterpartyName = element.getElementsByTagName("CounterParty").item(0).getChildNodes().item(0).getNodeValue();
+                String transactionCode = element.getElementsByTagName("TransactionCode").item(0).getChildNodes().item(0).getNodeValue();
+                String communication = "";
+                // communication can be an empty tag "<Communication></Communication>"
+                NodeList communcationNodeList = element.getElementsByTagName("Communication").item(0).getChildNodes();
+                if(communcationNodeList.getLength()>0){
+                    communication = communcationNodeList.item(0).getNodeValue();
+                }
+                BigDecimal amount = new BigDecimal(amountString);
+                Calendar date = Utils.toCalendar(dateString);
+                boolean debit = ("D".equals(debitString));
+                CounterParty counterParty = counterParties.getCounterPartyByName(counterpartyName);
+                Movement movement = new Movement(statementNr, sequenceNr, date, debit, amount, counterParty, transactionCode, communication);
+                movements.add(movement);
+            }
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-    //
-    private static void movementsFromXML(Movements movements, CounterParties counterParties, Element movementsElement){
-        NodeList movementsNode = movementsElement.getElementsByTagName("Movement");
-        for (int i = 0; i < movementsNode.getLength(); i++) {
-            Element element = (Element)movementsNode.item(i);
-            String statementNr = element.getElementsByTagName("Statement").item(0).getChildNodes().item(0).getNodeValue();
-            String sequenceNr = element.getElementsByTagName("Sequence").item(0).getChildNodes().item(0).getNodeValue();
-            String dateString = element.getElementsByTagName("Date").item(0).getChildNodes().item(0).getNodeValue();
-            String debitString = element.getElementsByTagName("Sign").item(0).getChildNodes().item(0).getNodeValue();
-            String amountString = element.getElementsByTagName("Amount").item(0).getChildNodes().item(0).getNodeValue();
-            String counterpartyName = element.getElementsByTagName("CounterParty").item(0).getChildNodes().item(0).getNodeValue();
-            String transactionCode = element.getElementsByTagName("TransactionCode").item(0).getChildNodes().item(0).getNodeValue();
-            String communication = "";
-            // communication can be an empty tag "<Communication></Communication>"
-            NodeList communcationNodeList = element.getElementsByTagName("Communication").item(0).getChildNodes();
-            if(communcationNodeList.getLength()>0){
-                communication = communcationNodeList.item(0).getNodeValue();
-            }
-            BigDecimal amount = new BigDecimal(amountString);
-            Calendar date = Utils.toCalendar(dateString);
-            boolean debit = ("D".equals(debitString));
-            CounterParty counterParty = counterParties.getCounterPartyByName(counterpartyName);
-            Movement movement = new Movement(statementNr, sequenceNr, date, debit, amount, counterParty, transactionCode, communication);
-            movements.add(movement);
         }
     }
 
@@ -90,8 +79,6 @@ public class MovementsSAXParser {
             writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + movements.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
 
             writer.write("<Movements>\r\n");
-            writer.write("  <xml>" + movements.getXmlFile() + "</xml>\r\n");
-            writer.write("  <html>" + movements.getHtmlFile() + "</html>\r\n");
             for(Movement movement : movements.getAllMovements()) {
                 writer.write("  <Movement>\r\n");
                 writer.write("    <Statement>"+movement.getStatementNr()+"</Statement>\r\n");

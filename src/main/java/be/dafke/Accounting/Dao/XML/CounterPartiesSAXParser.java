@@ -7,7 +7,6 @@ import be.dafke.Accounting.Objects.Accounting.CounterParties;
 import be.dafke.Accounting.Objects.Accounting.CounterParty;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -37,58 +36,49 @@ public class CounterPartiesSAXParser {
             Document doc = dBuilder.parse(file.getAbsolutePath());
             doc.getDocumentElement().normalize();
 
-            Node counterpartiesNode = doc.getElementsByTagName("CounterParties").item(0);
+            Element rootElement = (Element) doc.getElementsByTagName("CounterParties").item(0);
+            NodeList nodeList = rootElement.getElementsByTagName("CounterParty");
 
-            String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
-            String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
-            counterParties.setXmlFile(new File(xmlFile));
-            counterParties.setHtmlFile(new File(htmlFile));
+            for (int i = 0; i < nodeList.getLength(); i++) {
+                Element element = (Element)nodeList.item(i);
+                String counterparty_name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
+                CounterParty counterParty = new CounterParty(counterparty_name);
 
-            counterpartiesFromXML(counterParties, accounts, (Element) counterpartiesNode);
+                NodeList accountNodeList = element.getElementsByTagName("AccountName");
+                if(accountNodeList.getLength()>0){
+                    String accountName = accountNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                    Account account = accounts.get(accountName);
+                    counterParty.setAccount(account);
+                }
+                NodeList aliasNodeList = element.getElementsByTagName("Alias");
+                for(int j=0;j<aliasNodeList.getLength();j++){
+                    String alias = aliasNodeList.item(j).getChildNodes().item(0).getNodeValue();
+                    counterParty.addAlias(alias);
+                }
+                NodeList bankAccountNodeList = element.getElementsByTagName("BankAccount");
+                for(int j=0;j<bankAccountNodeList.getLength();j++){
+                    String accountName = bankAccountNodeList.item(j).getChildNodes().item(0).getNodeValue();
+                    BankAccount bankAccount = new BankAccount(accountName);
+                    counterParty.addAccount(bankAccount);
+                    NodeList bicNodeList = element.getElementsByTagName("BIC");
+                    if(bicNodeList.getLength()>0){
+                        String bic = bicNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                        bankAccount.setBic(bic);
+                    }
+                    NodeList currencyNodeList = element.getElementsByTagName("Currency");
+                    if(currencyNodeList.getLength()>0 && currencyNodeList.item(0).getChildNodes() != null
+                            && currencyNodeList.item(0).getChildNodes().getLength()>0){
+                        String currency = currencyNodeList.item(0).getChildNodes().item(0).getNodeValue();
+                        bankAccount.setCurrency(currency);
+                    }
+                }
+                counterParties.addCounterParty(counterParty);
+            }
 
         } catch (IOException io) {
             io.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
-        }
-    }
-    //
-    private static void counterpartiesFromXML(CounterParties counterParties, Accounts accounts, Element counterpartiesElement) {
-        NodeList counterparties = counterpartiesElement.getElementsByTagName("CounterParty");
-        for (int i = 0; i < counterparties.getLength(); i++) {
-            Element element = (Element)counterparties.item(i);
-            String counterparty_name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
-            CounterParty counterParty = new CounterParty(counterparty_name);
-
-            NodeList accountNodeList = element.getElementsByTagName("AccountName");
-            if(accountNodeList.getLength()>0){
-                String accountName = accountNodeList.item(0).getChildNodes().item(0).getNodeValue();
-                Account account = accounts.get(accountName);
-                counterParty.setAccount(account);
-            }
-            NodeList aliasNodeList = element.getElementsByTagName("Alias");
-            for(int j=0;j<aliasNodeList.getLength();j++){
-                String alias = aliasNodeList.item(j).getChildNodes().item(0).getNodeValue();
-                counterParty.addAlias(alias);
-            }
-            NodeList bankAccountNodeList = element.getElementsByTagName("BankAccount");
-            for(int j=0;j<bankAccountNodeList.getLength();j++){
-                String accountName = bankAccountNodeList.item(j).getChildNodes().item(0).getNodeValue();
-                BankAccount bankAccount = new BankAccount(accountName);
-                counterParty.addAccount(bankAccount);
-                NodeList bicNodeList = element.getElementsByTagName("BIC");
-                if(bicNodeList.getLength()>0){
-                    String bic = bicNodeList.item(0).getChildNodes().item(0).getNodeValue();
-                    bankAccount.setBic(bic);
-                }
-                NodeList currencyNodeList = element.getElementsByTagName("Currency");
-                if(currencyNodeList.getLength()>0 && currencyNodeList.item(0).getChildNodes() != null
-                        && currencyNodeList.item(0).getChildNodes().getLength()>0){
-                    String currency = currencyNodeList.item(0).getChildNodes().item(0).getNodeValue();
-                    bankAccount.setCurrency(currency);
-                }
-            }
-            counterParties.addCounterParty(counterParty);
         }
     }
 
@@ -102,8 +92,6 @@ public class CounterPartiesSAXParser {
             writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + counterParties.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
 
             writer.write("<CounterParties>\r\n");
-            writer.write("  <xml>" + counterParties.getXmlFile() + "</xml>\r\n");
-            writer.write("  <html>" + counterParties.getHtmlFile() + "</html>\r\n");
             for(CounterParty counterParty : counterParties.getCounterParties()) {
                 writer.write("  <CounterParty>\r\n");
                 writer.write("    <name>" + counterParty.getName()+"</name>\r\n");
