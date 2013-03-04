@@ -20,6 +20,7 @@ public class Mortgage implements Serializable {
     private File xmlFile;
     private File xsl2XmlFile, xsl2HtmlFile;
     private File htmlFile;
+    private File dtdFile;
 
     public Mortgage(String name, BigDecimal startCapital) {
 		this.name = name;
@@ -105,6 +106,10 @@ public class Mortgage implements Serializable {
         return xsl2HtmlFile;
     }
 
+    public File getDtdFile() {
+        return dtdFile;
+    }
+
     public void setXsl2HtmlFile(File xsl2HtmlFile) {
         this.xsl2HtmlFile = xsl2HtmlFile;
     }
@@ -122,7 +127,7 @@ public class Mortgage implements Serializable {
     }
     protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
         xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
-//        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Mortgage.dtd");
+        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Mortgage.dtd");
         xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgage2xml.xsl");
         xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Mortgage2html.xsl");
     }

@@ -17,6 +17,10 @@ public class CounterParty implements Serializable {
 	private final Collection<String> addressLines;
 
 	private Account account;
+//    private File xmlFile;
+//    private File dtdFile;
+//    private File xsl2XmlFile;
+//    private File xsl2HtmlFile;
 
     // private final ArrayList<Account> debetAccounts, creditAccounts;
 
@@ -70,7 +74,7 @@ public class CounterParty implements Serializable {
         }
         StringBuilder builder = new StringBuilder(aliases.get(0));
         for(int i=1;i<aliases.size();i++){
-            builder.append(" | " + aliases.get(i));
+            builder.append(" | ").append(aliases.get(i));
         }
         return builder.toString();
     }
@@ -84,7 +88,7 @@ public class CounterParty implements Serializable {
         }
         while(it.hasNext()){
             String accountNumber = it.next().getAccountNumber();
-            builder.append(" | " + (accountNumber!=null?accountNumber:""));
+            builder.append(" | ").append(accountNumber!=null?accountNumber:"");
         }
         return builder.toString();
     }
@@ -98,7 +102,7 @@ public class CounterParty implements Serializable {
         }
         while(it.hasNext()){
             String bic = it.next().getBic();
-            builder.append(" | " + (bic!=null?bic : ""));
+            builder.append(" | ").append(bic!=null?bic : "");
         }
         return builder.toString();
     }
@@ -112,7 +116,7 @@ public class CounterParty implements Serializable {
         }
         while(it.hasNext()){
             String currency = it.next().getCurrency();
-            builder.append(" | " + (currency!=null?currency:""));
+            builder.append(" | ").append(currency!=null?currency:"");
         }
         return builder.toString();
     }
@@ -125,11 +129,26 @@ public class CounterParty implements Serializable {
         aliases.remove(alias);
     }
 
+//    public File getXmlFile() {
+//        return xmlFile;
+//    }
+//
+//    public File getDtdFile() {
+//        return dtdFile;
+//    }
+//
+//    public File getXsl2XmlFile() {
+//        return xsl2XmlFile;
+//    }
+//
+//    public File getXsl2HtmlFile() {
+//        return xsl2HtmlFile;
+//    }
+//
 //    protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
 //        xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
 //        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "CounterParty.dtd");
 //        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParty2xml.xsl");
 //        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParty2html.xsl");
 //    }
-
 }

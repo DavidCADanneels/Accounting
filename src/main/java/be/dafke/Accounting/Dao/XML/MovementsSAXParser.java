@@ -84,9 +84,12 @@ public class MovementsSAXParser {
     public static void writeMovements(Movements movements) {
         try {
             Writer writer = new FileWriter(movements.getXmlFile());
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Movements SYSTEM \""
-                    + movements.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + movements.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Movements>\r\n");
+
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+            writer.write("<!DOCTYPE Movements SYSTEM \"" + movements.getDtdFile().getCanonicalPath() + "\">\r\n");
+            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + movements.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+
+            writer.write("<Movements>\r\n");
             writer.write("  <xml>" + movements.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + movements.getHtmlFile() + "</html>\r\n");
             for(Movement movement : movements.getAllMovements()) {

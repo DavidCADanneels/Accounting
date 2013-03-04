@@ -95,9 +95,12 @@ public class AccountsSAXParser {
     public static void writeAccounts(Accounts accounts) {
         try {
             Writer writer = new FileWriter(accounts.getXmlFile());
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Accounts SYSTEM \""
-                    + accounts.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + accounts.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Accounts>\r\n");
+
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+            writer.write("<!DOCTYPE Accounts SYSTEM \"" + accounts.getDtdFile().getCanonicalPath() + "\">\r\n");
+            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + accounts.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+
+            writer.write("<Accounts>\r\n");
             writer.write("  <xml>" + accounts.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + accounts.getHtmlFile() + "</html>\r\n");
             for(Account account : accounts.getAllAccounts()) {
@@ -122,17 +125,20 @@ public class AccountsSAXParser {
         for(Account account:accounts.getAllAccounts()){
 //            TODO: add isSavedXML
 //            if(account.isSavedXML()){
-            toXML(account);
+            writeAccount(account);
 //            }
         }
     }
     //
-    private static void toXML(Account account){
+    private static void writeAccount(Account account){
         try {
             Writer writer = new FileWriter(account.getXmlFile());
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + account.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n"
-                    + "<account>\r\n" + "  <name>" + account.getName() + "</name>\r\n");
+
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+            writer.write("<!DOCTYPE Account SYSTEM \"" + account.getDtdFile().getCanonicalPath() + "\">\r\n");
+            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + account.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+
+            writer.write("<Account>\r\n" + "  <name>" + account.getName() + "</name>\r\n");
             for(Booking booking : account.getBookings()){
                 writer.write("  <action id=\""+booking.getId()+"\">\r\n");
                 writer.write("    <nr>" + booking.getAbbreviation() + booking.getId() + "</nr>\r\n");
@@ -150,7 +156,7 @@ public class AccountsSAXParser {
             writer.write("  <closed type = \"" + resultType + "\">\r\n" + "    <debitTotal>" + account.getDebetTotal() + "</debitTotal>\r\n"
                     + "    <creditTotal>" + account.getCreditTotal() + "</creditTotal>\r\n"
                     + "    <saldo>" + saldo.abs() + "</saldo>\r\n  </closed>\r\n");
-            writer.write("</account>");
+            writer.write("</Account>");
             writer.flush();
             writer.close();
 //			setSaved(true);

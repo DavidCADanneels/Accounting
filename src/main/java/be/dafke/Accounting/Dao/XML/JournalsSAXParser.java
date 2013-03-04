@@ -141,9 +141,12 @@ public class JournalsSAXParser {
     public static void writeJournals(Journals journals) {
         try {
             Writer writer = new FileWriter(journals.getXmlFile());
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Journals SYSTEM \""
-                    + journals.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + journals.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Journals>\r\n");
+
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+            writer.write("<!DOCTYPE Journals SYSTEM \"" + journals.getDtdFile().getCanonicalPath() + "\">\r\n");
+            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + journals.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+
+            writer.write("<Journals>\r\n");
             writer.write("  <xml>" + journals.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + journals.getHtmlFile() + "</html>\r\n");
             for(Journal journal : journals.getAllJournals()) {
@@ -167,17 +170,20 @@ public class JournalsSAXParser {
         for(Journal journal:journals.getAllJournals()){
 //            TODO: add isSavedXML
 //            if(journal.isSavedXML()){
-            toXML(journal);
+            writeJournal(journal);
 //            }
         }
     }
     //
-    private static void toXML(Journal journal) {
+    private static void writeJournal(Journal journal) {
         try {
             Writer writer = new FileWriter(journal.getXmlFile());
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Journal SYSTEM \""
-                    + journal.getDtdFile() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + journal.getXsl2XmlFile() + "\"?>\r\n" + "<Journal>\r\n"
+
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+            writer.write("<!DOCTYPE Journal SYSTEM \"" + journal.getDtdFile().getCanonicalPath() + "\">\r\n");
+            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + journal.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+
+            writer.write("<Journal>\r\n"
                     + "  <name>" + journal.getName() + "</name>\r\n");
             for (Transaction transaction :journal.getTransactions()) {
                 ArrayList<Booking> list = transaction.getBookings();

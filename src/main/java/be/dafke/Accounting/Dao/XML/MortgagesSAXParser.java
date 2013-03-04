@@ -100,9 +100,12 @@ public class MortgagesSAXParser {
     public static void writeMortgages(Mortgages mortgages) {
         try {
             Writer writer = new FileWriter(mortgages.getXmlFile());
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Mortgages SYSTEM \""
-                    + mortgages.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + mortgages.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Mortgages>\r\n");
+
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+            writer.write("<!DOCTYPE Mortgages SYSTEM \"" + mortgages.getDtdFile().getCanonicalPath() + "\">\r\n");
+            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + mortgages.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+
+            writer.write("<Mortgages>\r\n");
             writer.write("  <xml>" + mortgages.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + mortgages.getHtmlFile() + "</html>\r\n");
             for(Mortgage mortgage : mortgages.getMortgages()) {
@@ -130,18 +133,22 @@ public class MortgagesSAXParser {
         for(Mortgage mortgage:mortgages.getMortgages()){
 //            TODO: add isSavedXML
 //            if(journal.isSavedXML()){
-            toXML(mortgage);
+            writeMortgage(mortgage);
 //            }
         }
     }
     //
-    private static void toXML(Mortgage mortgage) {
+    private static void writeMortgage(Mortgage mortgage) {
         System.out.println("Mortgages.TOXML(" + mortgage.toString() + ")");
         try {
             Writer writer = new FileWriter(mortgage.getXmlFile());
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + mortgage.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n"
-                    + "<mortgageTable name=\"" + mortgage.toString() + "\">\r\n");
+
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+            writer.write("<!DOCTYPE Mortgage SYSTEM \"" + mortgage.getDtdFile().getCanonicalPath() + "\">\r\n");
+            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + mortgage.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+
+            writer.write("<Mortgage>");
+            writer.write("  <name>" + mortgage.toString() + "</name>\r\n");
             int teller = 1;
             for(Vector<BigDecimal> vector : mortgage.getTable()) {
                 writer.write("  <line>\r\n" + "    <nr>" + teller + "</nr>\r\n" + "    <mensuality>"
@@ -150,7 +157,7 @@ public class MortgagesSAXParser {
                         + "</restCapital>\r\n  </line>\r\n");
                 teller++;
             }
-            writer.write("</mortgageTable>");
+            writer.write("</Mortgage>");
             writer.flush();
             writer.close();
             // setSaved(true);

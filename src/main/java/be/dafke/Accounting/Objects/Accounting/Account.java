@@ -21,10 +21,7 @@ public class Account implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
-//    public File getDtdFile() {
-//        return dtdFile;
-//    }
+    private File dtdFile;
 
     public enum AccountType {
 		Active, Passive, Cost, Revenue, Credit, Debit;
@@ -281,9 +278,13 @@ public class Account implements Serializable {
 		return name;
 	}
 
+    public File getDtdFile() {
+        return dtdFile;
+    }
+
     protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
         xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
-//        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Account.dtd");
+        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Account.dtd");
         xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Account2xml.xsl");
         xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Account2html.xsl");
     }

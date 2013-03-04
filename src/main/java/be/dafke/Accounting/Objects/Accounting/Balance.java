@@ -24,6 +24,7 @@ public class Balance {
     private File xmlFile;
     private File xsl2XmlFile, xsl2HtmlFile;
     private File htmlFile;
+    private File dtdFile;
 
     public Balance(String name,
                    String leftName, String rightName,
@@ -127,9 +128,14 @@ public class Balance {
     public void setHtmlFile(File htmlFile) {
         this.htmlFile = htmlFile;
     }
+
+    public File getDtdFile() {
+        return dtdFile;
+    }
+
     protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
         xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
-//        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Balance.dtd");
+        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Balance.dtd");
         xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balance2xml.xsl");
         xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Balance2html.xsl");
     }

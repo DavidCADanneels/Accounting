@@ -37,7 +37,7 @@ public class CounterPartiesSAXParser {
             Document doc = dBuilder.parse(file.getAbsolutePath());
             doc.getDocumentElement().normalize();
 
-            Node counterpartiesNode = doc.getElementsByTagName("Counterparties").item(0);
+            Node counterpartiesNode = doc.getElementsByTagName("CounterParties").item(0);
 
             String xmlFile = doc.getElementsByTagName("xml").item(0).getChildNodes().item(0).getNodeValue();
             String htmlFile = doc.getElementsByTagName("html").item(0).getChildNodes().item(0).getNodeValue();
@@ -54,10 +54,10 @@ public class CounterPartiesSAXParser {
     }
     //
     private static void counterpartiesFromXML(CounterParties counterParties, Accounts accounts, Element counterpartiesElement) {
-        NodeList counterparties = counterpartiesElement.getElementsByTagName("Counterparty");
+        NodeList counterparties = counterpartiesElement.getElementsByTagName("CounterParty");
         for (int i = 0; i < counterparties.getLength(); i++) {
             Element element = (Element)counterparties.item(i);
-            String counterparty_name = element.getAttribute("name");
+            String counterparty_name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
             CounterParty counterParty = new CounterParty(counterparty_name);
 
             NodeList accountNodeList = element.getElementsByTagName("AccountName");
@@ -96,39 +96,43 @@ public class CounterPartiesSAXParser {
     public static void writeCounterparties(CounterParties counterParties) {
         try {
             Writer writer = new FileWriter(counterParties.getXmlFile());
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Counterparties SYSTEM \""
-                    + counterParties.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + counterParties.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Counterparties>\r\n");
+
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+            writer.write("<!DOCTYPE CounterParties SYSTEM \"" + counterParties.getDtdFile().getCanonicalPath() + "\">\r\n");
+            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + counterParties.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+
+            writer.write("<CounterParties>\r\n");
             writer.write("  <xml>" + counterParties.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + counterParties.getHtmlFile() + "</html>\r\n");
             for(CounterParty counterParty : counterParties.getCounterParties()) {
-                writer.write("  <Counterparty name =\""+counterParty.getName()+"\">\r\n");
+                writer.write("  <CounterParty>\r\n");
+                writer.write("    <name>" + counterParty.getName()+"</name>\r\n");
                 if(counterParty.getAliases()!=null){
                     for(String alias : counterParty.getAliases()){
-                        writer.write("      <Alias>"+alias+"</Alias>\r\n");
+                        writer.write("    <Alias>"+alias+"</Alias>\r\n");
                     }
                 }
                 if(counterParty.getAccount()!=null){
-                    writer.write("      <AccountName>" + counterParty.getAccount().getName() + "</AccountName>\r\n");
-                    writer.write("      <AccountXml>" + counterParty.getAccount().getXmlFile() + "</AccountXml>\r\n");
-                    writer.write("      <AccountHtml>" + counterParty.getAccount().getHtmlFile() + "</AccountHtml>\r\n");
+                    writer.write("    <AccountName>" + counterParty.getAccount().getName() + "</AccountName>\r\n");
+                    writer.write("    <AccountXml>" + counterParty.getAccount().getXmlFile() + "</AccountXml>\r\n");
+                    writer.write("    <AccountHtml>" + counterParty.getAccount().getHtmlFile() + "</AccountHtml>\r\n");
                 }
                 if(counterParty.getBankAccounts()!=null){
                     for(BankAccount account : counterParty.getBankAccounts().values()) {
                         if(account.getAccountNumber()!=null){
-                            writer.write("      <BankAccount>" + account.getAccountNumber() + "</BankAccount>\r\n");
+                            writer.write("    <BankAccount>" + account.getAccountNumber() + "</BankAccount>\r\n");
                         }
                         if(account.getBic()!=null){
-                            writer.write("      <BIC>" + account.getBic() + "</BIC>\r\n");
+                            writer.write("    <BIC>" + account.getBic() + "</BIC>\r\n");
                         }
                         if(account.getCurrency()!=null){
-                            writer.write("      <Currency>" + account.getCurrency() + "</Currency>\r\n");
+                            writer.write("    <Currency>" + account.getCurrency() + "</Currency>\r\n");
                         }
                     }
                 }
-                writer.write("  </Counterparty>\r\n");
+                writer.write("  </CounterParty>\r\n");
             }
-            writer.write("</Counterparties>\r\n");
+            writer.write("</CounterParties>\r\n");
             writer.flush();
             writer.close();
 //			setSaved(true);

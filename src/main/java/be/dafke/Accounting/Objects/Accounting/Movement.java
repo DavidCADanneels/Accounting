@@ -24,8 +24,13 @@ public class Movement implements Serializable {
 	private CounterParty counterParty;
 	private TmpCounterParty tmpCounterParty;
 	private static CounterParties counterParties;
+//    private String name;
+//    private File xmlFile;
+//    private File dtdFile;
+//    private File xsl2XmlFile;
+//    private File xsl2HtmlFile;
 
-	public static Movement parse(String line, CounterParties counterParties) {
+    public static Movement parse(String line, CounterParties counterParties) {
 		Movement.counterParties = counterParties;
 		String sequenceNumber = line.substring(2, 6).trim();
 		String sign = line.substring(31, 32).trim();
@@ -59,6 +64,7 @@ public class Movement implements Serializable {
         this.counterParty = counterParty;
         this.transactionCode = transactionCode;
         this.communication = communication;
+//        this.name = statementNr + "-" + sequenceNumber;
     }
 
 	private Movement(String statementNr, String sequenceNumber, Calendar date, boolean debit, BigDecimal amount,
@@ -144,15 +150,14 @@ public class Movement implements Serializable {
 	@Override
 	public String toString() {
 		StringBuilder builder = new StringBuilder("MOVEMENT\r\n");
-		builder.append("sequenceNumber=" + sequenceNumber + "\r\n");
-		if (debit) builder.append("D/C = D" + "\r\n");
-		else builder.append("D/C = C" + "\r\n");
-		builder.append("amount=" + amount + "\r\n");
-		builder.append("date=" + date.get(Calendar.DAY_OF_MONTH) + "/" + (date.get(Calendar.MONTH) + 1) + "/"
-				+ date.get(Calendar.YEAR) + "\r\n");
-		builder.append("transactionCode=" + transactionCode + "\r\n");
-		builder.append("communication=" + communication + "\r\n");
-		builder.append("statementNr=" + statementNr + "\r\n");
+		builder.append("sequenceNumber=").append(sequenceNumber).append("\r\n");
+		if (debit) builder.append("D/C = D\r\n");
+		else builder.append("D/C = C\r\n");
+		builder.append("amount=").append(amount).append("\r\n");
+		builder.append("date=").append(date.get(Calendar.DAY_OF_MONTH)).append("/").append((date.get(Calendar.MONTH) + 1)).append("/").append(date.get(Calendar.YEAR)).append("\r\n");
+		builder.append("transactionCode=").append(transactionCode).append("\r\n");
+		builder.append("communication=").append(communication).append("\r\n");
+		builder.append("statementNr=").append(statementNr).append("\r\n");
 		return builder.toString();
 	}
 
@@ -200,11 +205,30 @@ public class Movement implements Serializable {
 		return tmpCounterParty;
 	}
 
+//    public String getName() {
+//        return name;
+//    }
+//
+//    public File getXmlFile() {
+//        return xmlFile;
+//    }
+//
+//    public File getDtdFile() {
+//        return dtdFile;
+//    }
+//
+//    public File getXsl2XmlFile() {
+//        return xsl2XmlFile;
+//    }
+//
+//    public File getXsl2HtmlFile() {
+//        return xsl2HtmlFile;
+//    }
+//
 //    protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
 //        xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
 //        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Movement.dtd");
 //        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Movement2xml.xsl");
 //        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Movement2html.xsl");
 //    }
-
 }

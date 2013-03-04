@@ -51,9 +51,12 @@ public class BalancesSAXParser {
     public static void writeBalances(Balances balances) {
         try {
             Writer writer = new FileWriter(balances.getXmlFile());
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Balances SYSTEM \""
-                    + balances.getDtdFile().getCanonicalPath() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + balances.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n" + "<Balances>\r\n");
+
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+            writer.write("<!DOCTYPE Balances SYSTEM \"" + balances.getDtdFile().getCanonicalPath() + "\">\r\n");
+            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + balances.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+
+            writer.write("<Balances>\r\n");
             writer.write("  <xml>" + balances.getXmlFile() + "</xml>\r\n");
             writer.write("  <html>" + balances.getHtmlFile() + "</html>\r\n");
             for(Balance balance:balances.getBalances()){
@@ -73,17 +76,20 @@ public class BalancesSAXParser {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
         for(Balance balance : balances.getBalances()){
-            toXML(balance);
+            writeBalance(balance);
         }
     }
     //
-    private static void toXML(Balance balance){
+    private static void writeBalance(Balance balance){
         System.out.println("Balances.TOXML(" + balance.toString() + ")");
         try {
             Writer writer = new FileWriter(balance.getXmlFile());
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + balance.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n"
-                    + "<balance>\r\n  <name>" + balance.getName() //$NON-NLS-1$ //$NON-NLS-2$
+
+            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+            writer.write("<!DOCTYPE Balance SYSTEM \"" + balance.getDtdFile().getCanonicalPath() + "\">\r\n");
+            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + balance.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+
+            writer.write("<Balance>\r\n  <name>" + balance.getName() //$NON-NLS-1$ //$NON-NLS-2$
                     + "</name>\r\n  <left>" + balance.getLeftName() + "</left>\r\n  <right>" + balance.getRightName() + "</right>\r\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
             ArrayList<Account> leftAccounts = balance.getLeftAccounts();
             ArrayList<Account> rightAccounts = balance.getRightAccounts();
@@ -115,7 +121,7 @@ public class BalancesSAXParser {
                 }
                 writer.write("  </line>\r\n"); //$NON-NLS-1$
             }
-            writer.write("</balance>"); //$NON-NLS-1$
+            writer.write("</Balance>"); //$NON-NLS-1$
             writer.flush();
             writer.close();
         } catch (FileNotFoundException ex) {
