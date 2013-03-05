@@ -54,34 +54,38 @@ public class JournalsGUI extends JPanel implements ActionListener {
 		if (e.getSource() == combo) {
             Journal oldJournal = journals.getCurrentJournal();
 			Journal newJournal = (Journal) combo.getSelectedItem();
-            if(newJournal!=null){
-                if(oldJournal!=null){
-                    Transaction oldTransaction = oldJournal.getCurrentTransaction();
-                    Transaction newTransaction = newJournal.getCurrentTransaction();
-                    if(oldTransaction!=null && !oldTransaction.isEmpty()){
-                        StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
-                                .append(oldJournal).append(" to ").append(newJournal);
-                        if(newTransaction!=null && !newTransaction.isEmpty()){
-                            builder.append("\r\nWARNING: ").append(newJournal).append(" also has an open transactions, which will be lost if you select transfer");
-                        }
-                        int answer = JOptionPane.showConfirmDialog(null, builder.toString());
-                        if(answer == JOptionPane.YES_OPTION){
-                            newJournal.setCurrentTransaction(oldTransaction);
-                            oldJournal.setCurrentTransaction(new Transaction());
-                            journals.setCurrentJournal(newJournal);
-                        } else if(answer == JOptionPane.NO_OPTION){
-                            journals.setCurrentJournal(newJournal);
-                        } else {
-                            journals.setCurrentJournal(oldJournal);
-                        }
-                    } else {
-                        journals.setCurrentJournal(newJournal);
-                    }
-                }
-                ComponentMap.refreshAllFrames();
+            if(newJournal!=null && oldJournal!=null){
+                checkTransfer(oldJournal, newJournal);
+            } else {
+                journals.setCurrentJournal(newJournal);
             }
+            ComponentMap.refreshAllFrames();
 		}
 	}
+
+    private void checkTransfer(Journal oldJournal, Journal newJournal){
+        Transaction oldTransaction = oldJournal.getCurrentTransaction();
+        Transaction newTransaction = newJournal.getCurrentTransaction();
+        if(oldTransaction!=null && !oldTransaction.isEmpty()){
+            StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
+                    .append(oldJournal).append(" to ").append(newJournal);
+            if(newTransaction!=null && !newTransaction.isEmpty()){
+                builder.append("\r\nWARNING: ").append(newJournal).append(" also has an open transactions, which will be lost if you select transfer");
+            }
+            int answer = JOptionPane.showConfirmDialog(null, builder.toString());
+            if(answer == JOptionPane.YES_OPTION){
+                newJournal.setCurrentTransaction(oldTransaction);
+                oldJournal.setCurrentTransaction(new Transaction());
+                journals.setCurrentJournal(newJournal);
+            } else if(answer == JOptionPane.NO_OPTION){
+                journals.setCurrentJournal(newJournal);
+            } else {
+                journals.setCurrentJournal(oldJournal);
+            }
+        } else {
+            journals.setCurrentJournal(newJournal);
+        }
+    }
 
     public void setAccounting(Accounting accounting){
         if(accounting==null){
@@ -104,7 +108,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
             }
 			combo.setSelectedItem(journals.getCurrentJournal());
             details.setEnabled(journals!=null && journals.getCurrentJournal()!=null);
-            combo.setEnabled(journals!=null && journals.getCurrentJournal()!=null);
+            combo.setEnabled(journals!=null);
             journalManagement.setEnabled(journals != null);
 		} else {
 			combo.setSelectedItem(null);
