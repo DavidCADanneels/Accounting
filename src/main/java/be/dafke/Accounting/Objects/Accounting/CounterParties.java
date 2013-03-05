@@ -1,37 +1,33 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import javax.swing.filechooser.FileSystemView;
-import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class CounterParties {
+public class CounterParties extends BusinessCollection<CounterParty>{
 
     private ArrayList<CounterParty> counterParties;
     private HashMap<String, CounterParty> counterPartiesByName, counterPartiesByAccountNumber;
-    private File xmlFile;
-    private File xsl2XmlFile;
-    private File xsl2HtmlFile;
-    private File dtdFile;
-    private File htmlFile;
 
     public CounterParties(){
+        super("CounterParties");
         counterParties = new ArrayList<CounterParty>();
         counterPartiesByName = new HashMap<String, CounterParty>();
         counterPartiesByAccountNumber = new HashMap<String, CounterParty>();
     }
 
-	public ArrayList<CounterParty> getCounterParties() {
+    @Override
+	public ArrayList<CounterParty> getBusinessObjects() {
         return counterParties;
 	}
 
-    public CounterParty getCounterPartyByName(String name){
+    @Override
+    public CounterParty getBusinessObject(String name){
         return counterPartiesByName.get(name);
     }
 
-    public CounterParty getCounterPartyByAccountNumber(String accountNumber){
-        return counterPartiesByAccountNumber.get(accountNumber);
-    }
+//    public CounterParty getCounterPartyByAccountNumber(String accountNumber){
+//        return counterPartiesByAccountNumber.getBusinessObject(accountNumber);
+//    }
 
     public CounterParty addCounterParty(String name, BankAccount bankAccount){
         if(name == null){
@@ -116,67 +112,6 @@ public class CounterParties {
         counterPartiesByName.put(counterParty.getName(), counterParty);
         for(BankAccount bankAccount : counterParty.getBankAccounts().values()){
             counterPartiesByAccountNumber.put(bankAccount.getAccountNumber(),counterParty);
-        }
-    }
-
-    public void setXmlFile(File xmlFile) {
-        this.xmlFile = xmlFile;
-    }
-
-    public File getXmlFile() {
-        return xmlFile;
-    }
-
-    public void setXsl2XmlFile(File xsl2XmlFile) {
-        this.xsl2XmlFile = xsl2XmlFile;
-    }
-
-    public File getXsl2XmlFile() {
-        return xsl2XmlFile;
-    }
-
-    public File getXsl2HtmlFile() {
-        return xsl2HtmlFile;
-    }
-
-    public void setXsl2HtmlFile(File xsl2HtmlFile) {
-        this.xsl2HtmlFile = xsl2HtmlFile;
-    }
-
-    public File getDtdFile() {
-        return dtdFile;
-    }
-
-    public void setHtmlFile(File htmlFile) {
-        this.htmlFile = htmlFile;
-    }
-
-    public File getHtmlFile() {
-        return htmlFile;
-    }
-
-    public void setDefaultHtmlFolderAndFiles(Accounting accounting, String name, boolean overwrite){
-        File htmlFolder = accounting.getHtmlFolder();
-        if(overwrite || htmlFile == null || htmlFile.getPath().equals("null")){
-            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name + ".html");
-        }
-    }
-
-    public void setDefaultXmlFolderAndFiles(Accounting accounting, String name, boolean overwrite) {
-        File xmlFolder = accounting.getXmlFolder();
-        File xslFolder = accounting.getXslFolder();
-        File dtdFolder = accounting.getDtdFolder();
-        if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
-            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, name + ".xml");
-        }
-        if(overwrite || xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
-            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParties2xml.xsl");
-        }
-        if(overwrite || xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
-            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "CounterParties2html.xsl");
-        }
-        if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
-            dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "CounterParties.dtd");
         }
     }
 }

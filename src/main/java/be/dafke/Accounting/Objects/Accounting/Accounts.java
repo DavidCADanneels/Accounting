@@ -5,8 +5,6 @@ import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Exceptions.NotEmptyException;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 
-import javax.swing.filechooser.FileSystemView;
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -16,27 +14,24 @@ import java.util.HashMap;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Accounts extends HashMap<String, Account> {
+public class Accounts extends BusinessCollection<Account> {
 
-    private File xmlFile;
-    private File htmlFile;
-    private File xsl2XmlFile;
-    private File xsl2HtmlFile;
-    private File dtdFile;
+    private HashMap<String, Account> accounts;
 
     public Accounts() {
-		super();
-	}
+        super("Accounts");
+        accounts = new HashMap<String, Account>();
+    }
 
 	public Account addAccount(String accountName, AccountType accountType) throws DuplicateNameException, EmptyNameException {
         if(accountName==null || "".equals(accountName.trim())){
             throw new EmptyNameException();
         }
-        if(containsKey(accountName.trim())){
+        if(accounts.containsKey(accountName.trim())){
             throw new DuplicateNameException();
         }
         Account account = new Account(accountName.trim(), accountType);
-        super.put(account.getName(), account);
+        accounts.put(account.getName(), account);
         return account;
 	}
 
@@ -55,8 +50,8 @@ public class Accounts extends HashMap<String, Account> {
 	 */
 	public ArrayList<Account> getAccounts(AccountType type) {
 		ArrayList<Account> col = new ArrayList<Account>();
-		for(Account account : values()) {
-			if (account.getType() == type) col.add(account);
+		for(Account account : accounts.values()) {
+			if (account.getAccountType() == type) col.add(account);
 		}
 		return col;
 	}
@@ -79,8 +74,8 @@ public class Accounts extends HashMap<String, Account> {
 
     private ArrayList<Account> getAccountsNotEmpty(AccountType type) {
         ArrayList<Account> col = new ArrayList<Account>();
-        for(Account account : values()) {
-            if (account.getType() == type && account.saldo().compareTo(BigDecimal.ZERO) != 0) col.add(account);
+        for(Account account : accounts.values()) {
+            if (account.getAccountType() == type && account.saldo().compareTo(BigDecimal.ZERO) != 0) col.add(account);
         }
         return col;
     }
@@ -92,7 +87,7 @@ public class Accounts extends HashMap<String, Account> {
 	 */
 	public ArrayList<Account> getAccountNoMatchProject(Project project) {
 		ArrayList<Account> result = new ArrayList<Account>();
-		for(Account account : values()) {
+		for(Account account : accounts.values()) {
 			if (account.getProject() != project) result.add(account);
 		}
 		return result;
@@ -102,20 +97,26 @@ public class Accounts extends HashMap<String, Account> {
         if(newName==null || "".equals(newName.trim())){
             throw new EmptyNameException();
         }
-        Account account = get(oldName);
-        remove(oldName);
-        if(containsKey(newName.trim())){
-            super.put(oldName, account);
+        Account account = accounts.get(oldName);
+        accounts.remove(oldName);
+        if(accounts.containsKey(newName.trim())){
+            accounts.put(oldName, account);
             throw new DuplicateNameException();
         }
-        super.put(newName, account);
+        accounts.put(newName, account);
         account.setName(newName.trim());
         return account;
 	}
 
-	public ArrayList<Account> getAllAccounts() {
+    @Override
+    public Account getBusinessObject(String name) {
+        return accounts.get(name);
+    }
+
+    @Override
+    public ArrayList<Account> getBusinessObjects() {
 		ArrayList<Account> col = new ArrayList<Account>();
-		for(Account account : values()) {
+		for(Account account : accounts.values()) {
 			col.add(account);
 		}
 		return col;
@@ -123,84 +124,9 @@ public class Accounts extends HashMap<String, Account> {
 
     public void removeAccount(Account account) throws NotEmptyException {
         if(account.getBookings().isEmpty()){
-            remove(account.getName());
+            accounts.remove(account.getName());
         } else {
             throw new NotEmptyException();
-        }
-    }
-
-    public void setXmlFile(File xmlFile) {
-        this.xmlFile = xmlFile;
-    }
-
-    public File getXmlFile() {
-        return xmlFile;
-    }
-
-    public void setHtmlFile(File htmlFile) {
-        this.htmlFile = htmlFile;
-    }
-
-    public File getHtmlFile() {
-        return htmlFile;
-    }
-
-    public void setXsl2XmlFile(File xsl2XmlFile) {
-        this.xsl2XmlFile = xsl2XmlFile;
-    }
-
-    public File getXsl2XmlFile() {
-        return xsl2XmlFile;
-    }
-
-    public File getXsl2HtmlFile() {
-        return xsl2HtmlFile;
-    }
-
-    public void setXsl2HtmlFile(File xsl2HtmlFile) {
-        this.xsl2HtmlFile = xsl2HtmlFile;
-    }
-
-    public File getDtdFile() {
-        return dtdFile;
-    }
-
-    public void setDefaultHtmlFolderAndFiles(Accounting accounting, String name, boolean overwrite){
-        File htmlFolder = accounting.getHtmlFolder();
-        if(overwrite || htmlFile == null || htmlFile.getPath().equals("null")){
-            htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name + "html");
-        }
-        File subFolder = FileSystemView.getFileSystemView().getChild(htmlFolder, name);
-        if(subFolder.mkdirs()){
-            System.out.println(subFolder + " has been created");
-        }
-        for(Account account: getAllAccounts()){
-            account.setHtmlFile(FileSystemView.getFileSystemView().getChild(subFolder, account.getName() + ".html"));
-        }
-    }
-
-    protected void setDefaultXmlFolderAndFiles(Accounting accounting, String name, boolean overwrite) {
-        File xmlFolder = accounting.getXmlFolder();
-        File xslFolder = accounting.getXslFolder();
-        File dtdFolder = accounting.getDtdFolder();
-        if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
-            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, name + ".xml");
-        }
-        if(overwrite || xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
-            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts2xml.xsl");
-        }
-        if(overwrite || xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
-            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounts2html.xsl");
-        }
-        if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
-            dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Accounts.dtd");
-        }
-        File subFolder = FileSystemView.getFileSystemView().getChild(xmlFolder, name);
-        if(subFolder.mkdirs()){
-            System.out.println(subFolder + " has been created");
-        }
-        for(Account account: getAllAccounts()){
-            account.setDefaultFiles(subFolder,xslFolder,dtdFolder);
         }
     }
 }

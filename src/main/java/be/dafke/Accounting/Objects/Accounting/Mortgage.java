@@ -56,7 +56,7 @@ public class Mortgage extends BusinessObject {
 	}
 
 	public void pay(Transaction transaction) {
-        // TODO: check if not everything is payed yet get(alreadyPayed) --> ArrayOutOfBoundsException
+        // TODO: check if not everything is payed yet getBusinessObject(alreadyPayed) --> ArrayOutOfBoundsException
 		BigDecimal intrestAmount = table.get(alreadyPayed).get(1);
 		BigDecimal kapitalAmount = table.get(alreadyPayed).get(2);
         transaction.addBooking(intrest,intrestAmount,true,false);

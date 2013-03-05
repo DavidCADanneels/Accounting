@@ -47,12 +47,11 @@ public class AccountingsSAXParser {
             for(int i=0;i<accountingNodes.getLength();i++){
                 Element element = (Element)accountingNodes.item(i);
                 Accounting acc = new Accounting(Utils.getValue(element, "name"));
-                acc.setXmlFolder(new File(Utils.getValue(element, "xmlFolder")));
-                acc.setHtmlFolder(new File(Utils.getValue(element, "htmlFolder")));
-                acc.setXmlFile(new File(Utils.getValue(element, "xml")));
-                acc.setHtmlFile(new File(Utils.getValue(element, "html")));
-                acc.setXsl2XmlFile(new File(Utils.getValue(element, "xsl2xml")));
-                acc.setXsl2HtmlFile(new File(Utils.getValue(element, "xsl2html")));
+                acc.setHtmlFolder(Utils.getFile(element, "htmlFolder"));
+                acc.setXmlFile(Utils.getFile(element, "xml"));
+                acc.setHtmlFile(Utils.getFile(element, "html"));
+                acc.setXsl2XmlFile(Utils.getFile(element, "xsl2xml"));
+                acc.setXsl2HtmlFile(Utils.getFile(element, "xsl2html"));
                 accountings.addAccounting(acc);
             }
             String currentAccountName = Utils.getValue(doc, "CurrentAccounting");
@@ -86,45 +85,45 @@ public class AccountingsSAXParser {
 
             Element element = (Element)doc.getElementsByTagName("Accounts").item(0);
 //            String name = Utils.getValue(element, "name");
-            String xmlFile = Utils.getValue(element, "xml");
-            String htmlFile = Utils.getValue(element, "html");
-            accounts.setXmlFile(new File(xmlFile));
-            accounts.setHtmlFile(new File(htmlFile));
+            File xmlFile = Utils.getFile(element, "xml");
+            File htmlFile = Utils.getFile(element, "html");
+            accounts.setXmlFile(xmlFile);
+            accounts.setHtmlFile(htmlFile);
 
             element = (Element)doc.getElementsByTagName("Journals").item(0);
 //            name = Utils.getValue(element, "name");
-            xmlFile = Utils.getValue(element, "xml");
-            htmlFile = Utils.getValue(element, "html");
-            journals.setXmlFile(new File(xmlFile));
-            journals.setHtmlFile(new File(htmlFile));
+            xmlFile = Utils.getFile(element, "xml");
+            htmlFile = Utils.getFile(element, "html");
+            journals.setXmlFile(xmlFile);
+            journals.setHtmlFile(htmlFile);
 
             element = (Element)doc.getElementsByTagName("Balances").item(0);
 //            name = Utils.getValue(element, "name");
-            xmlFile = Utils.getValue(element, "xml");
-            htmlFile = Utils.getValue(element, "html");
-            balances.setXmlFile(new File(xmlFile));
-            balances.setHtmlFile(new File(htmlFile));
+            xmlFile = Utils.getFile(element, "xml");
+            htmlFile = Utils.getFile(element, "html");
+            balances.setXmlFile(xmlFile);
+            balances.setHtmlFile(htmlFile);
 
             element = (Element)doc.getElementsByTagName("Mortgages").item(0);
 //            name = Utils.getValue(element, "name");
-            xmlFile = Utils.getValue(element, "xml");
-            htmlFile = Utils.getValue(element, "html");
-            mortgages.setXmlFile(new File(xmlFile));
-            mortgages.setHtmlFile(new File(htmlFile));
+            xmlFile = Utils.getFile(element, "xml");
+            htmlFile = Utils.getFile(element, "html");
+            mortgages.setXmlFile(xmlFile);
+            mortgages.setHtmlFile(htmlFile);
 
             element = (Element)doc.getElementsByTagName("CounterParties").item(0);
 //            name = Utils.getValue(element, "name");
-            xmlFile = Utils.getValue(element, "xml");
-            htmlFile = Utils.getValue(element, "html");
-            counterParties.setXmlFile(new File(xmlFile));
-            counterParties.setHtmlFile(new File(htmlFile));
+            xmlFile = Utils.getFile(element, "xml");
+            htmlFile = Utils.getFile(element, "html");
+            counterParties.setXmlFile(xmlFile);
+            counterParties.setHtmlFile(htmlFile);
 
             element = (Element)doc.getElementsByTagName("Movements").item(0);
 //            name = Utils.getValue(element, "name");
-            xmlFile = Utils.getValue(element, "xml");
-            htmlFile = Utils.getValue(element, "html");
-            movements.setXmlFile(new File(xmlFile));
-            movements.setHtmlFile(new File(htmlFile));
+            xmlFile = Utils.getFile(element, "xml");
+            htmlFile = Utils.getFile(element, "html");
+            movements.setXmlFile(xmlFile);
+            movements.setHtmlFile(htmlFile);
 
             AccountsSAXParser.readAccounts(accounting.getAccounts(), accounting.getProjects());
             JournalsSAXParser.readJournals(accounting.getJournals(), accounting.getJournalTypes(), accounting.getAccounts());
@@ -151,7 +150,6 @@ public class AccountingsSAXParser {
             for(Accounting acc : accountings.getAccountings()) {
                 writer.write("  <Accounting>\r\n");
                 writer.write("    <name>" + acc.toString() + "</name>\r\n");
-                writer.write("    <xmlFolder>" + acc.getXmlFolder() + "</xmlFolder>\r\n");
                 writer.write("    <htmlFolder>" + acc.getHtmlFolder() + "</htmlFolder>\r\n");
                 writer.write("    <xml>" + acc.getXmlFile() + "</xml>\r\n");
                 writer.write("    <html>" + acc.getHtmlFile() + "</html>\r\n");
@@ -271,25 +269,25 @@ public class AccountingsSAXParser {
             Utils.xmlToHtml(mortgages.getXmlFile(), mortgages.getXsl2HtmlFile(), mortgages.getHtmlFile(), null);
             Utils.xmlToHtml(movements.getXmlFile(), movements.getXsl2HtmlFile(), movements.getHtmlFile(), null);
             Utils.xmlToHtml(counterParties.getXmlFile(), counterParties.getXsl2HtmlFile(), counterParties.getHtmlFile(), null);
-            for(Account account:accounting.getAccounts().getAllAccounts()){
+            for(Account account:accounting.getAccounts().getBusinessObjects()){
 //                TODO: add isSavedHTML
 //                if(account.isSavedHTML()){
                 Utils.xmlToHtml(account.getXmlFile(), account.getXsl2HtmlFile(), account.getHtmlFile(), null);
 //                }
             }
-            for(Journal journal:accounting.getJournals().getAllJournals()){
+            for(Journal journal:accounting.getJournals().getBusinessObjects()){
 //                TODO: add isSavedHTML
 //                if(journal.isSavedHTML()){
                     Utils.xmlToHtml(journal.getXmlFile(), journal.getXsl2HtmlFile(), journal.getHtmlFile(), null);
 //                }
             }
-            for(Balance balance:accounting.getBalances().getBalances()){
+            for(Balance balance:accounting.getBalances().getBusinessObjects()){
 //                TODO: add isSavedHTML
 //              if(balance.isSavedHTML()){
                     Utils.xmlToHtml(balance.getXmlFile(), balance.getXsl2HtmlFile(), balance.getHtmlFile(), null);
 //                }
             }
-            for(Mortgage mortgage:accounting.getMortgages().getMortgages()){
+            for(Mortgage mortgage:accounting.getMortgages().getBusinessObjects()){
 //                TODO: add isSavedHTML
 //                if(mortgage.isSavedHTML()){
                     Utils.xmlToHtml(mortgage.getXmlFile(), mortgage.getXsl2HtmlFile(), mortgage.getHtmlFile(), null);

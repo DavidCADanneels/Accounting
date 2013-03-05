@@ -47,15 +47,15 @@ public class JournalsSAXParser {
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element)nodeList.item(i);
-                String xmlFile = Utils.getValue(element, "xml");
-                String htmlFile = Utils.getValue(element, "html");
+                File xmlFile = Utils.getFile(element, "xml");
+                File htmlFile = Utils.getFile(element, "html");
                 String journal_name = Utils.getValue(element, "journal_name");
                 String journal_short = Utils.getValue(element, "journal_short");
                 String journal_type = Utils.getValue(element, "journal_type");
                 try{
                     Journal journal = journals.addJournal(journal_name, journal_short, journalTypes.get(journal_type));
-                    journal.setXmlFile(new File(xmlFile));
-                    journal.setHtmlFile(new File(htmlFile));
+                    journal.setXmlFile(xmlFile);
+                    journal.setHtmlFile(htmlFile);
                     readJournal(journal, accounts);
                 } catch (DuplicateNameException e) {
                     System.err.println("There is already an journal with the name \""+journal_name+"\" and/or abbreviation \""+journal_short+"\".");
@@ -66,7 +66,7 @@ public class JournalsSAXParser {
 
             String current = Utils.getValue(rootElement,"CurrentJournal");
             if(current!=null){
-                Journal journal = journals.get(current);
+                Journal journal = journals.getBusinessObject(current);
                 journals.setCurrentJournal(journal);
             }
 
@@ -106,7 +106,7 @@ public class JournalsSAXParser {
                     transaction.setDate(Utils.toCalendar(date));
                     transaction.setDescription(description);
                 }
-                String accountName = Utils.getValue(element,  "account_name");
+                String accountName = Utils.getValue(element, "account_name");
                 Account account = accounts.get(accountName);
                 String debit = Utils.getValue(element, "debet");
                 String credit = Utils.getValue(element, "credit");
@@ -143,13 +143,13 @@ public class JournalsSAXParser {
             writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + journals.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
 
             writer.write("<Journals>\r\n");
-            for(Journal journal : journals.getAllJournals()) {
+            for(Journal journal : journals.getBusinessObjects()) {
                 writer.write("  <Journal>\r\n");
                 writer.write("    <xml>" + journal.getXmlFile() + "</xml>\r\n");
                 writer.write("    <html>" + journal.getHtmlFile() + "</html>\r\n");
                 writer.write("    <journal_name>" + journal.getName() + "</journal_name>\r\n");
                 writer.write("    <journal_short>" + journal.getAbbreviation() + "</journal_short>\r\n");
-                writer.write("    <journal_type>" + journal.getType().toString() + "</journal_type>\r\n");
+                writer.write("    <journal_type>" + journal.getJournalType().toString() + "</journal_type>\r\n");
                 writer.write("  </Journal>\r\n");
             }
             if(journals.getCurrentJournal()!=null){
@@ -165,7 +165,7 @@ public class JournalsSAXParser {
         } catch (IOException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for(Journal journal:journals.getAllJournals()){
+        for(Journal journal:journals.getBusinessObjects()){
 //            TODO: add isSavedXML
 //            if(journal.isSavedXML()){
             writeJournal(journal);

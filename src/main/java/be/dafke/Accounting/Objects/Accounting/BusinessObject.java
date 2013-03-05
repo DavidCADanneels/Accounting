@@ -1,6 +1,5 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 
 /**
@@ -20,6 +19,11 @@ public class BusinessObject {
     protected BusinessObject(String name, String type){
         this.name = name;
         this.type = type;
+        File dtdFolder = new File(System.getProperty("Accountings_dtd"));
+        dtdFile = new File(dtdFolder, type + ".dtd");
+        File xslFolder = new File(System.getProperty("Accountings_xsl"));
+        xsl2XmlFile = new File(xslFolder, type + "2xml.xsl");
+        xsl2HtmlFile = new File(xslFolder, type + "2html.xsl");
     }
 
     @Override
@@ -27,13 +31,16 @@ public class BusinessObject {
         return name;
     }
 
+    public String getName() {
+        return name;
+    }
     public void setName(String newName) {
         name = newName;
 //		setSaved(false);
     }
 
-    public String getName() {
-        return name;
+    public String getType() {
+        return type;
     }
 
     public File getDtdFile() {
@@ -70,13 +77,6 @@ public class BusinessObject {
 
     public void setHtmlFile(File htmlFile) {
         this.htmlFile = htmlFile;
-    }
-
-    protected void setDefaultFiles(File subFolder, File xslFolder, File dtdFolder) {
-        xmlFile = FileSystemView.getFileSystemView().getChild(subFolder, name + ".xml");
-        dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, type + ".dtd");
-        xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, type + "2xml.xsl");
-        xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, type + "2html.xsl");
     }
 
 //	/**

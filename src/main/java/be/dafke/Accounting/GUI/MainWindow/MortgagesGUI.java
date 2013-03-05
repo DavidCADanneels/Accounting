@@ -64,7 +64,7 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 	public void refresh() {
         listModel.clear();
         if (mortgages != null) {
-            for(Mortgage mortgage : mortgages.getMortgages()) {
+            for(Mortgage mortgage : mortgages.getBusinessObjects()) {
                 if (!listModel.contains(mortgage)) {
                     listModel.addElement(mortgage);
                 }

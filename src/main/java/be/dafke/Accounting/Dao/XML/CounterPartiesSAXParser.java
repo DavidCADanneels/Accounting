@@ -85,7 +85,7 @@ public class CounterPartiesSAXParser {
             writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + counterParties.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
 
             writer.write("<CounterParties>\r\n");
-            for(CounterParty counterParty : counterParties.getCounterParties()) {
+            for(CounterParty counterParty : counterParties.getBusinessObjects()) {
                 writer.write("  <CounterParty>\r\n");
                 writer.write("    <name>" + counterParty.getName()+"</name>\r\n");
                 if(counterParty.getAliases()!=null){

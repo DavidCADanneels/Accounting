@@ -52,7 +52,7 @@ public class TestBalanceDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return accounting.getAccounts().size();
+		return accounting.getAccounts().getBusinessObjects().size();
 	}
 
 	@Override

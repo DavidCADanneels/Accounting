@@ -24,7 +24,7 @@ public class AccountTest {
 
         assertEquals("NAME",account.getName());
         assertEquals("NAME",account.toString());
-        assertEquals(Account.AccountType.Active,account.getType());
+        assertEquals(Account.AccountType.Active,account.getAccountType());
 
         BigDecimal ZERO = BigDecimal.ZERO.setScale(2);
         assertEquals(ZERO,account.getDebetTotal());
@@ -39,8 +39,8 @@ public class AccountTest {
         assertEquals("NEWNAME", account.getName());
         assertEquals("NEWNAME",account.toString());
 
-        account.setType(Account.AccountType.Cost);
-        assertEquals(Account.AccountType.Cost, account.getType());
+        account.setAccountType(Account.AccountType.Cost);
+        assertEquals(Account.AccountType.Cost, account.getAccountType());
 
         account.setProject(new Project("PROJECT"));
         assertNotNull(account.getProject());

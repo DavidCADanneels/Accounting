@@ -63,7 +63,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		allAccounts.addListSelectionListener(this);
 		allAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 //		Accounting accounting = accountings.getCurrentAccounting();
-//		Accounts accounts = accounting.getAllAccounts();
+//		Accounts accounts = accounting.getBusinessObjects();
 		zoeker = new PrefixFilterPanel<Account>(allAccountsModel, allAccounts, new ArrayList<Account>());
         zoeker.add(onder, BorderLayout.SOUTH);
 		paneelLinks.add(zoeker);
@@ -90,7 +90,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 //			System.out.println("na init");
 //		} else {
 //			project = null;
-//			ArrayList<Account> noProjectlijst = accounts.getAllAccounts(AccountType.getList());
+//			ArrayList<Account> noProjectlijst = accounts.getBusinessObjects(AccountType.getList());
 //			Iterator<Account> it2 = noProjectlijst.iterator();
 //			allAccountsModel.removeAllElements();
 //			while (it2.hasNext()) {
@@ -172,7 +172,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 			System.out.println("action");
 			project = (Project) combo.getSelectedItem();
 			projectAccountsModel.removeAllElements();
-			for(Account account : project.getAccounts().getAccounts(AccountType.getList())) {
+			for(Account account : project.getAccounts()) {
 				// System.out.println("Project: " + project + " | account" + account);
 				projectAccountsModel.addElement(account);
 			}
@@ -184,7 +184,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
     @Override
     public void refresh() {
         Accounts accounts = accounting.getAccounts();
-        zoeker.resetMap(accounts.getAllAccounts());
+        zoeker.resetMap(accounts.getBusinessObjects());
         Projects projects = accounting.getProjects();
         for(Project project : projects.values()) {
             combo.addItem(project);

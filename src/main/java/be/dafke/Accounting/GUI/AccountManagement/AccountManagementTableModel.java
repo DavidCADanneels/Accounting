@@ -25,15 +25,15 @@ public class AccountManagementTableModel extends AbstractTableModel {
 	}
 
 	public int getRowCount() {
-		return accounting.getAccounts().size();
+		return accounting.getAccounts().getBusinessObjects().size();
 	}
 
 	public Object getValueAt(int row, int col) {
 		Account account = accounting.getAccounts().getAccounts(AccountType.getList()).get(row);
 		if (col == 1) {
-			return account.getType();
+			return account.getAccountType();
 		} else if (col == 2) {
-			AccountType type = account.getType();
+			AccountType type = account.getAccountType();
 			switch (type) {
 				case Active:
 				case Cost:

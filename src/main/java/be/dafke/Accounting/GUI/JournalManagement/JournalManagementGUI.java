@@ -250,7 +250,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
             if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
                 for(Journal journal : journalList) {
-                    journal.setType((JournalType)types[nr]);
+                    journal.setJournalType((JournalType)types[nr]);
                 }
             }
         } else {
@@ -260,7 +260,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
                         "Change type", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
                         journal.getType());
                 if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
-                    journal.setType((JournalType)types[nr]);
+                    journal.setJournalType((JournalType)types[nr]);
                 }
             }
         }

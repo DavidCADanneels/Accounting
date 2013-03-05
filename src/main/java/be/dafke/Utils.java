@@ -76,42 +76,52 @@ public class Utils {
         }
     }
 
-    public static String getValue(Document document, String name){
-        NodeList nodeList = document.getElementsByTagName(name);
-        return getValue(nodeList, name, 0);
+    public static String getValue(Document document, String tagName){
+        NodeList nodeList = document.getElementsByTagName(tagName);
+        return getValue(nodeList, tagName, 0);
     }
 
-    public static String getValue(Element element, String name){
-        NodeList nodeList = element.getElementsByTagName(name);
-        return getValue(nodeList, name, 0);
+    public static String getValue(Element element, String tagName){
+        NodeList nodeList = element.getElementsByTagName(tagName);
+        return getValue(nodeList, tagName, 0);
     }
 
-    public static Collection<String> getValues(Element element, String name){
-        NodeList nodeList = element.getElementsByTagName(name);
+    public static Collection<String> getValues(Element element, String tagName){
+        NodeList nodeList = element.getElementsByTagName(tagName);
         Collection<String> result = new ArrayList<String>();
         for(int i=0;i<nodeList.getLength();i++){
-            result.add(getValue(nodeList, name, i)); // TODO add null values to the list too ?
+            result.add(getValue(nodeList, tagName, i)); // TODO add null values to the list too ?
         }
         return result;
     }
 
-    private static String getValue(NodeList nodeList, String name, int index){
+    private static String getValue(NodeList nodeList, String tagName, int index){
         if(nodeList.getLength()==0){
-//            System.err.println("The tag " + name + " is not present.");
+//            System.err.println("The tag " + tagName + " is not present.");
             return null;
             // the tag is not present
         } else {
             nodeList = nodeList.item(index).getChildNodes();
             if(nodeList.getLength()==0){
-                System.err.println("The tag " + name + " is empty.");
+                System.err.println("The tag " + tagName + " is empty.");
                 return null;
                 // the tag is empty
             } else {
                 if(nodeList.item(0).getNodeValue().equals("null")){
-                    System.err.println("The tag " + name + " equals \"null\"");
+                    System.err.println("The tag " + tagName + " equals \"null\"");
+                    return null;
                 }
                 return nodeList.item(0).getNodeValue();
             }
+        }
+    }
+
+    public static File getFile(Element element, String tagName) {
+        String fileName = getValue(element, tagName);
+        if(fileName == null){
+            return null;
+        } else {
+            return new File(fileName);
         }
     }
 }

@@ -46,16 +46,16 @@ public class AccountsSAXParser {
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element)nodeList.item(i);
-                String xmlFile = Utils.getValue(element, "xml");
-                String htmlFile = Utils.getValue(element, "html");
+                File xmlFile = Utils.getFile(element, "xml");
+                File htmlFile = Utils.getFile(element, "html");
                 String account_name = Utils.getValue(element, "account_name");
                 String account_type = Utils.getValue(element, "account_type");
 
                 Account.AccountType type = Account.AccountType.valueOf(account_type);
                 try{
                     Account account = accounts.addAccount(account_name, type);
-                    account.setXmlFile(new File(xmlFile));
-                    account.setHtmlFile(new File(htmlFile));
+                    account.setXmlFile(xmlFile);
+                    account.setHtmlFile(htmlFile);
                     String account_project = Utils.getValue(element, "account_project");
                     if(account_project!=null){
                         Project project = projects.get(account_project);
@@ -90,12 +90,12 @@ public class AccountsSAXParser {
             writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + accounts.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
 
             writer.write("<Accounts>\r\n");
-            for(Account account : accounts.getAllAccounts()) {
+            for(Account account : accounts.getBusinessObjects()) {
                 writer.write("  <Account>\r\n");
                 writer.write("    <xml>" + account.getXmlFile() + "</xml>\r\n");
                 writer.write("    <html>" + account.getHtmlFile() + "</html>\r\n");
                 writer.write("    <account_name>" + account.getName() + "</account_name>\r\n");
-                writer.write("    <account_type>" + account.getType() + "</account_type>\r\n");
+                writer.write("    <account_type>" + account.getAccountType() + "</account_type>\r\n");
                 writer.write((account.getProject() == null ? "" : "      <account_project>"
                         + account.getProject() + "</account_project>\r\n"));
                 writer.write("  </Account>\r\n");
@@ -109,7 +109,7 @@ public class AccountsSAXParser {
         } catch (IOException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for(Account account:accounts.getAllAccounts()){
+        for(Account account:accounts.getBusinessObjects()){
 //            TODO: add isSavedXML
 //            if(account.isSavedXML()){
             writeAccount(account);

@@ -156,12 +156,12 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 		int[] rows = tabel.getSelectedRows();
 		if (checkAccountAndSelection(rows)) {
 			if (checkCounterParties(rows)) {
-				Object[] accounts = accounting.getAccounts().values().toArray();
+				Object[] accounts = accounting.getAccounts().getBusinessObjects().toArray();
 				Account bankAccount = (Account) JOptionPane.showInputDialog(this, "Select Bank account",
 						"Select account", JOptionPane.INFORMATION_MESSAGE, null, accounts, null);
 				Journal journal;
-				Object[] journals = accounting.getJournals().values().toArray();
-				if (accounting.getJournals().size() == 1) {
+				Object[] journals = accounting.getJournals().getBusinessObjects().toArray();
+				if (accounting.getJournals().getBusinessObjects().size() == 1) {
 					journal = (Journal) journals[0];
 				} else {
 					journal = (Journal) JOptionPane.showInputDialog(this, "Select Journal", "Select journal",
@@ -175,7 +175,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 					Account account = counterParty.getAccount();
 					boolean debet = tabel.getValueAt(i, 3).equals("D");
 					if (account == null) {
-						CounterParty counterParty2 = accounting.getCounterParties().getCounterPartyByName(counterParty.getName());
+						CounterParty counterParty2 = accounting.getCounterParties().getBusinessObject(counterParty.getName());
 						if (counterParty2 != null) {
 							counterParty = counterParty2;
 							account = counterParty2.getAccount();

@@ -153,7 +153,7 @@ public class Account extends BusinessObject{
 	 * <li>5 : Schuld aan Leverancier</li>
 	 * </ul>
 	 */
-	public AccountType getType() {
+	public AccountType getAccountType() {
 		return type;
 	}
 
@@ -201,7 +201,7 @@ public class Account extends BusinessObject{
 	}
 
 
-	public void setType(AccountType type) {
+	public void setAccountType(AccountType type) {
 		this.type = type;
 	}
 }

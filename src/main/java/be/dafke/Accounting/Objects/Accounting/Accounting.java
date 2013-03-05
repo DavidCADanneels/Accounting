@@ -1,17 +1,11 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import javax.swing.filechooser.FileSystemView;
 import java.io.File;
 
 /**
  * @author David Danneels
  */
-public class Accounting {
-	/**
-	 * 
-	 */
-	// private boolean savedXML;
-//	private boolean savedHTML;
+public class Accounting extends BusinessObject{
 	private final Accounts accounts;
 	private final Journals journals;
 	private final Projects projects;
@@ -20,16 +14,10 @@ public class Accounting {
     private final CounterParties counterParties;
     private final Movements movements;
     private final Balances balances;
-    private final String name;
-    private File xslFolder, xmlFolder, htmlFolder;
-    private File xmlFile, htmlFile, xsl2XmlFile, xsl2HtmlFile;
-    private File dtdFile;
-    private File dtdFolder;
+    private File xmlFolder, htmlFolder;
 
     public Accounting(String name) {
-		this.name = name;
-//		savedXML = true;
-//		savedHTML = false;// TODO: true ?
+        super(name, "Accounting");
 		accounts = new Accounts();
 		journals = new Journals();
         balances = new Balances();
@@ -39,38 +27,9 @@ public class Accounting {
         projects = new Projects();
         journalTypes = new JournalTypes();
         balances.addDefaultBalances(this);
+
+        setXmlFolder();
 	}
-
-    @Override
-    public String toString() {
-        return name;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-//	private void setSavedXML(boolean saved) {
-//		savedXML = saved;
-//	}
-//
-//	public boolean isSavedXML() {
-//		return savedXML;
-//	}
-//
-//	private void setSavedHTML(boolean saved) {
-//		savedHTML = saved;
-//	}
-//
-//	public boolean isSaved() {
-//		return savedHTML;
-//	}
-//
-//	public void setSaved(boolean save) {
-//		setSavedHTML(save);
-//		setSavedXML(save);
-//	}
-
 
     // Collections
     //
@@ -108,121 +67,61 @@ public class Accounting {
 
 	// Folders
     //
-    // Setters
-	public void setHtmlFolder(File htmlFolder) {
-		this.htmlFolder = htmlFolder;
-	}
-    //
-	public void setXmlFolder(File xmlFolder) {
-		this.xmlFolder = xmlFolder;
-	}
-    //
     // Getters
     public File getHtmlFolder() {
         return htmlFolder;
     }
     //
-    public File getXmlFolder() {
-        return xmlFolder;
-    }
-    //
-    public File getXslFolder() {
-        return xslFolder;
-    }
-
-    public File getDtdFolder() {
-        return dtdFolder;
-    }
-
-    // Files
-    //
     // Setters
-    public void setHtmlFile(File htmlFile) {
-        this.htmlFile = htmlFile;
-    }
     //
-    public void setXmlFile(File xmlFile) {
-        this.xmlFile = xmlFile;
-    }
-    //
-    public void setXsl2XmlFile(File xsl2XmlFile) {
-        this.xsl2XmlFile = xsl2XmlFile;
-    }
-    //
-    public void setXsl2HtmlFile(File xsl2HtmlFile) {
-        this.xsl2HtmlFile = xsl2HtmlFile;
-    }
-    //
-    // Getters
-    public File getHtmlFile(){
-        return htmlFile;
-    }
-    //
-    public File getXmlFile(){
-        return xmlFile;
-    }
-    //
-    public File getXsl2XmlFile(){
-        return xsl2XmlFile;
-    }
-    //
-    public File getXsl2HtmlFile() {
-        return xsl2HtmlFile;
-    }
-    //
-    public File getDtdFile() {
-        return dtdFile;
+    public void setHtmlFolder(File htmlFolder) {
+        this.htmlFolder = htmlFolder;
+        setHtmlFile(new File(htmlFolder, "Accounting.html"));
+//        setHtmlFile(new File(htmlFolder, name + ".html"));
+        accounts.setHtmlFolder(htmlFolder);
+        journals.setHtmlFolder(htmlFolder);
+        balances.setHtmlFolder(htmlFolder);
+        mortgages.setHtmlFolder(htmlFolder);
+//        movements.setHtmlFolder(htmlFolder);
+//        counterParties.setHtmlFolder(htmlFolder);
     }
 
-    protected void setDefaultHtmlFoldersAndFiles(boolean overwrite) {
-        if(htmlFolder!=null && !htmlFolder.getPath().equals("null")){// && htmlFolder.exists()){
+    private void setXmlFolder(){
+        File homeFolder = new File(System.getProperty("Accountings_xml"));
+        xmlFolder = new File(homeFolder, getName());
+        setXmlFile(new File(xmlFolder, "Accounting.xml"));
+
+        accounts.setXmlFolder(xmlFolder);
+        journals.setXmlFolder(xmlFolder);
+        balances.setXmlFolder(xmlFolder);
+        mortgages.setXmlFolder(xmlFolder);
+        movements.setXmlFolder(xmlFolder);
+        counterParties.setXmlFolder(xmlFolder);
+    }
+
+    public void createXmlFolders() {
+        if(xmlFolder.mkdirs()){
+            System.out.println(xmlFolder.getPath() + " has been created");
+        }
+        accounts.createXmlFolder();
+        journals.createXmlFolder();
+        balances.createXmlFolder();
+        mortgages.createXmlFolder();
+//        movements.createXmlFolder();
+//        counterParties.createXmlFolder();
+    }
+
+    public void createHtmlFolders(){
+        if(htmlFolder!=null){
             if(htmlFolder.mkdirs()){
-                System.out.println(xmlFolder.getPath() + " has been created");
+                System.out.println(htmlFolder.getPath() + " has been created");
             }
-            if(htmlFile == null || htmlFile.getPath().equals("null")){
-                htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, "Accounting.html");
-//                htmlFile = FileSystemView.getFileSystemView().getChild(htmlFolder, name + ".html");
-            }
-            accounts.setDefaultHtmlFolderAndFiles(this,"Accounts", overwrite);
-            journals.setDefaultHtmlFolderAndFiles(this,"Journals", overwrite);
-            balances.setDefaultHtmlFolderAndFiles(this, "Balances", overwrite);
-            mortgages.setDefaultHtmlFolderAndFiles(this, "Mortgages", overwrite);
-            movements.setDefaultHtmlFolderAndFiles(this, "Movements", overwrite);
-            counterParties.setDefaultHtmlFolderAndFiles(this,"CounterParties", overwrite);
+            accounts.createHtmlFolder();
+            journals.createHtmlFolder();
+            balances.createHtmlFolder();
+            mortgages.createHtmlFolder();
+//            movements.createHtmlFolder();
+//            counterParties.createHtmlFolder();
         }
-    }
-
-    protected void setDefaultXmlFoldersAndFiles(Accountings accountings, boolean overwrite){
-        File homeFolder = accountings.getHomeFolder();
-        xslFolder = accountings.getXslFolder();
-        dtdFolder = accountings.getDtdFolder();
-
-        // ACCOUNTING
-        //
-        if(overwrite || xmlFolder == null || xmlFolder.getPath().equals("null")){
-            xmlFolder = FileSystemView.getFileSystemView().getChild(homeFolder, name);
-            if(xmlFolder.mkdirs()){
-                System.out.println(xmlFolder.getPath() + " has been created");
-            }
-        }
-        if(overwrite || xmlFile == null || xmlFile.getPath().equals("null")){
-            xmlFile = FileSystemView.getFileSystemView().getChild(xmlFolder, "Accounting.xml");
-        }
-        if(overwrite || xsl2XmlFile == null || xsl2XmlFile.getPath().equals("null")){
-            xsl2XmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting2xml.xsl");
-        }
-        if(overwrite || xsl2HtmlFile == null || xsl2HtmlFile.getPath().equals("null")){
-            xsl2HtmlFile = FileSystemView.getFileSystemView().getChild(xslFolder, "Accounting2html.xsl");
-        }
-        if(overwrite || dtdFile == null || dtdFile.getPath().equals("null")){
-            dtdFile = FileSystemView.getFileSystemView().getChild(dtdFolder, "Accounting.dtd");
-        }
-
-        accounts.setDefaultXmlFolderAndFiles(this, "Accounts", overwrite);
-        journals.setDefaultXmlFolderAndFiles(this, "Journals", overwrite);
-        balances.setDefaultXmlFolderAndFiles(this, "Balances", overwrite);
-        mortgages.setDefaultXmlFolderAndFiles(this, "Mortgages", overwrite);
-        movements.setDefaultXmlFolderAndFiles(this, "Movements", overwrite);
-        counterParties.setDefaultXmlFolderAndFiles(this, "CounterParties", overwrite);
     }
 }

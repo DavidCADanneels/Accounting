@@ -188,14 +188,6 @@ public class Journal extends BusinessObject{
 //		save = false;
 	}
 
-	public JournalType getType() {
-		return journalType;
-	}
-
-	public void setType(JournalType journalType) {
-		this.journalType = journalType;
-	}
-
 	public void setAbbreviation(String newAbbreviation) {
 		abbreviation = newAbbreviation;
 	}

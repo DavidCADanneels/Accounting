@@ -48,7 +48,7 @@ public class MortgageDataModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int row, int col) {
 		if (col == 0) {
-			return Integer.valueOf(row + 1);
+			return row + 1;
 		}
 		return data.get(row).get(col - 1);
 	}
@@ -82,7 +82,7 @@ public class MortgageDataModel extends AbstractTableModel {
 			BigDecimal amount = (BigDecimal) value;
 			Vector<BigDecimal> line = data.get(row);
 			BigDecimal mens = line.get(0);
-//			BigDecimal total = line.get(3);
+//			BigDecimal total = line.getBusinessObject(3);
 			BigDecimal amount2 = mens.subtract(amount);
 			if (col == 2) {
 				line.set(1, amount); // intrest

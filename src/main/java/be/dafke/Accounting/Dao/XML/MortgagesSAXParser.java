@@ -46,21 +46,21 @@ public class MortgagesSAXParser {
                 Element element = (Element)mortgagesNode.item(i);
 
                 String name = Utils.getValue(element, "name");
-                String xmlFile = Utils.getValue(element, "xml");
-                String htmlFile = Utils.getValue(element, "html");
+                File xmlFile = Utils.getFile(element, "xml");
+                File htmlFile = Utils.getFile(element, "html");
                 String total = Utils.getValue(element, "total");
                 String nrPayed = Utils.getValue(element, "nrPayed");
                 String capitalName = Utils.getValue(element, "capital_account_name");
-//                String capitalXml = Utils.getValue(element, "capital_account_xml");
-//                String capitalHtml = Utils.getValue(element, "capital_account_html");
+//                File capitalXml = Utils.getFile(element, "capital_account_xml");
+//                File capitalHtml = Utils.getFile(element, "capital_account_html");
                 String intrestName = Utils.getValue(element, "intrest_account_name");
-//                String intrestXml = Utils.getValue(element, "intrest_account_xml");
-//                String intrestHtml = Utils.getValue(element, "intrest_account_html");
+//                File intrestXml = Utils.getFile(element, "intrest_account_xml");
+//                File intrestHtml = Utils.getFile(element, "intrest_account_html");
 
                 BigDecimal amount = new BigDecimal(total);
                 Mortgage mortgage = new Mortgage(name, amount);
-                mortgage.setXmlFile(new File(xmlFile));
-                mortgage.setHtmlFile(new File(htmlFile));
+                mortgage.setXmlFile(xmlFile);
+                mortgage.setHtmlFile(htmlFile);
                 int nr = Integer.valueOf(nrPayed);
                 mortgage.setPayed(nr);
                 Account capital = accounts.get(capitalName);
@@ -100,7 +100,7 @@ public class MortgagesSAXParser {
             writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + mortgages.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
 
             writer.write("<Mortgages>\r\n");
-            for(Mortgage mortgage : mortgages.getMortgages()) {
+            for(Mortgage mortgage : mortgages.getBusinessObjects()) {
                 writer.write("  <Mortgage>\r\n");
                 writer.write("    <name>" + mortgage.toString() + "</name>\r\n");
                 writer.write("    <xml>" + mortgage.getXmlFile() + "</xml>\r\n");
@@ -122,7 +122,7 @@ public class MortgagesSAXParser {
         } catch (IOException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for(Mortgage mortgage:mortgages.getMortgages()){
+        for(Mortgage mortgage:mortgages.getBusinessObjects()){
 //            TODO: add isSavedXML
 //            if(journal.isSavedXML()){
             writeMortgage(mortgage);

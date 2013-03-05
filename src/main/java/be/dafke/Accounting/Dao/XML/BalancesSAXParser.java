@@ -30,7 +30,7 @@ public class BalancesSAXParser {
             writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + balances.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
 
             writer.write("<Balances>\r\n");
-            for(Balance balance:balances.getBalances()){
+            for(Balance balance:balances.getBusinessObjects()){
                 writer.write("    <Balance>\r\n");
                 writer.write("      <name>" + balance.getName() + "</name>\r\n");
                 writer.write("      <xml>" + balance.getXmlFile() + "</xml>\r\n");
@@ -46,7 +46,7 @@ public class BalancesSAXParser {
         } catch (IOException ex) {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
-        for(Balance balance : balances.getBalances()){
+        for(Balance balance : balances.getBusinessObjects()){
             writeBalance(balance);
         }
     }

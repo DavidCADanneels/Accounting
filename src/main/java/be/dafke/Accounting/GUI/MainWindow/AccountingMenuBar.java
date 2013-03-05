@@ -123,5 +123,6 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
                 file.add(item);
             }
         }
+        refresh();
     }
 }

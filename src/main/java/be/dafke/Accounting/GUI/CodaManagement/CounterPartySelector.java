@@ -42,7 +42,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         // COMPONENTS
 		oldCounterPartyCombo = new JComboBox<CounterParty>();
 		oldCounterPartyCombo.addItem(null);
-        for(CounterParty counterParty : accounting.getCounterParties().getCounterParties()){
+        for(CounterParty counterParty : accounting.getCounterParties().getBusinessObjects()){
             oldCounterPartyCombo.addItem(counterParty);
         }
         oldCounterPartyCombo.setSelectedItem(null);
@@ -50,7 +50,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         oldCounterPartyCombo.setEnabled(false);
         newCounterPartyCombo = new JComboBox<CounterParty>();
         newCounterPartyCombo.addItem(null);
-        for(CounterParty counterParty : accounting.getCounterParties().getCounterParties()){
+        for(CounterParty counterParty : accounting.getCounterParties().getBusinessObjects()){
             newCounterPartyCombo.addItem(counterParty);
         }
         newCounterPartyCombo.setSelectedItem(null);

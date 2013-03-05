@@ -25,12 +25,12 @@ public class NewJournalDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return accounting.getJournals().size();
+		return accounting.getJournals().getBusinessObjects().size();
 	}
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		Journal journal = accounting.getJournals().getAllJournals().get(row);
+		Journal journal = accounting.getJournals().getBusinessObjects().get(row);
 		if (col == 0) {
 			return journal;
 		} else if (col == 1) {

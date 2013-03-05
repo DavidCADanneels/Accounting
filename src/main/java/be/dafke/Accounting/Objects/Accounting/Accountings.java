@@ -10,9 +10,6 @@ import java.util.HashMap;
 public class Accountings {
 	private final HashMap<String, Accounting> accountings = new HashMap<String, Accounting>();
 	private Accounting currentAccounting = null;
-    private final File homeFolder;
-    private final File xslFolder;
-    private final File dtdFolder;
     private final File xmlFile;
     private final File htmlFile;
     private final File xsl2XmlFile;
@@ -22,35 +19,27 @@ public class Accountings {
     public Accountings(){
         File userHome = new File(System.getProperty("user.home"));
 
-        homeFolder = new File(userHome, "Accounting");
-        xmlFile = new File(homeFolder, "Accountings.xml");
-        htmlFile = new File(homeFolder, "Accountings.html");
+        File xmlFolder = new File(userHome, "Accounting");
+        xmlFile = new File(xmlFolder, "Accountings.xml");
+        htmlFile = new File(xmlFolder, "Accountings.html");
 
-        xslFolder = new File(homeFolder, "xsl");
+        File xslFolder = new File(xmlFolder, "xsl");
         xsl2XmlFile = new File(xslFolder, "Accountings2Xml.xsl");
         xsl2HtmlFile = new File(xslFolder, "Accountings2Html.xsl");
 
-        dtdFolder = new File(homeFolder, "xsl");
+        File dtdFolder = new File(xmlFolder, "xsl");
         dtdFile = new File(dtdFolder, "Accountings.dtd");
+
+        System.setProperty("Accountings_xml", xmlFolder.getPath());
+        System.setProperty("Accountings_xsl", xslFolder.getPath());
+        System.setProperty("Accountings_dtd", dtdFolder.getPath());
     }
 
     public void createDefaultValuesIfNull(){
         for(Accounting accounting:getAccountings()){
-            accounting.setDefaultXmlFoldersAndFiles(this, false);
-            accounting.setDefaultHtmlFoldersAndFiles(false);
+            accounting.createXmlFolders();
+            accounting.createHtmlFolders();
         }
-    }
-
-    public File getHomeFolder() {
-        return homeFolder;
-    }
-
-    public File getXslFolder() {
-        return xslFolder;
-    }
-
-    public File getDtdFolder() {
-        return dtdFolder;
     }
 
     public File getXmlFile() {

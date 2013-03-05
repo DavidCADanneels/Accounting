@@ -59,7 +59,7 @@ public class MovementsSAXParser {
                 BigDecimal amount = new BigDecimal(amountString);
                 Calendar date = Utils.toCalendar(dateString);
                 boolean debit = ("D".equals(debitString));
-                CounterParty counterParty = counterParties.getCounterPartyByName(counterpartyName);
+                CounterParty counterParty = counterParties.getBusinessObject(counterpartyName);
                 Movement movement = new Movement(statementNr, sequenceNr, date, debit, amount, counterParty, transactionCode, communication);
                 movements.add(movement);
             }
@@ -79,7 +79,7 @@ public class MovementsSAXParser {
             writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + movements.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
 
             writer.write("<Movements>\r\n");
-            for(Movement movement : movements.getAllMovements()) {
+            for(Movement movement : movements.getBusinessObjects()) {
                 writer.write("  <Movement>\r\n");
                 writer.write("    <Statement>"+movement.getStatementNr()+"</Statement>\r\n");
                 writer.write("    <Sequence>"+movement.getSequenceNr()+"</Sequence>\r\n");
@@ -90,7 +90,7 @@ public class MovementsSAXParser {
                     writer.write("    <CounterParty>"+movement.getCounterParty()+"</CounterParty>\r\n");
                 }
                 writer.write("    <TransactionCode>" + movement.getTransactionCode() + "</TransactionCode>\r\n");
-                writer.write("    <Communication>"+movement.getCommunication()+"</Communication>\r\n");
+                writer.write("    <Communication>" + movement.getCommunication() + "</Communication>\r\n");
                 writer.write("  </Movement>\r\n");
             }
             writer.write("</Movements>\r\n");
