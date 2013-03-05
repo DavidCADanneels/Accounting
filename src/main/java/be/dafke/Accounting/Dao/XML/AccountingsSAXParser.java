@@ -6,6 +6,7 @@ import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Balance;
 import be.dafke.Accounting.Objects.Accounting.Balances;
+import be.dafke.Accounting.Objects.Accounting.BusinessObject;
 import be.dafke.Accounting.Objects.Accounting.CounterParties;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Journals;
@@ -76,58 +77,20 @@ public class AccountingsSAXParser {
             Document doc = dBuilder.parse(accounting.getXmlFile().getAbsolutePath());
             doc.getDocumentElement().normalize();
 
-            Accounts accounts = accounting.getAccounts();
-            Journals journals = accounting.getJournals();
-            Balances balances = accounting.getBalances();
-            Mortgages mortgages = accounting.getMortgages();
-            CounterParties counterParties = accounting.getCounterParties();
-            Movements movements = accounting.getMovements();
-
-            Element element = (Element)doc.getElementsByTagName("Accounts").item(0);
-//            String name = Utils.getValue(element, "name");
-            File xmlFile = Utils.getFile(element, "xml");
-            File htmlFile = Utils.getFile(element, "html");
-            accounts.setXmlFile(xmlFile);
-            accounts.setHtmlFile(htmlFile);
-
-            element = (Element)doc.getElementsByTagName("Journals").item(0);
-//            name = Utils.getValue(element, "name");
-            xmlFile = Utils.getFile(element, "xml");
-            htmlFile = Utils.getFile(element, "html");
-            journals.setXmlFile(xmlFile);
-            journals.setHtmlFile(htmlFile);
-
-            element = (Element)doc.getElementsByTagName("Balances").item(0);
-//            name = Utils.getValue(element, "name");
-            xmlFile = Utils.getFile(element, "xml");
-            htmlFile = Utils.getFile(element, "html");
-            balances.setXmlFile(xmlFile);
-            balances.setHtmlFile(htmlFile);
-
-            element = (Element)doc.getElementsByTagName("Mortgages").item(0);
-//            name = Utils.getValue(element, "name");
-            xmlFile = Utils.getFile(element, "xml");
-            htmlFile = Utils.getFile(element, "html");
-            mortgages.setXmlFile(xmlFile);
-            mortgages.setHtmlFile(htmlFile);
-
-            element = (Element)doc.getElementsByTagName("CounterParties").item(0);
-//            name = Utils.getValue(element, "name");
-            xmlFile = Utils.getFile(element, "xml");
-            htmlFile = Utils.getFile(element, "html");
-            counterParties.setXmlFile(xmlFile);
-            counterParties.setHtmlFile(htmlFile);
-
-            element = (Element)doc.getElementsByTagName("Movements").item(0);
-//            name = Utils.getValue(element, "name");
-            xmlFile = Utils.getFile(element, "xml");
-            htmlFile = Utils.getFile(element, "html");
-            movements.setXmlFile(xmlFile);
-            movements.setHtmlFile(htmlFile);
+            for(String key:accounting.getKeys()) {
+                BusinessObject businessObject = accounting.getCollection(key);
+                Element element = (Element)doc.getElementsByTagName(key).item(0);
+                String name = Utils.getValue(element, "name");
+                System.out.println("parsing: " + name);
+                File xmlFile = Utils.getFile(element, "xml");
+                File htmlFile = Utils.getFile(element, "html");
+                businessObject.setXmlFile(xmlFile);
+                businessObject.setHtmlFile(htmlFile);
+            }
 
             AccountsSAXParser.readAccounts(accounting.getAccounts(), accounting.getProjects());
             JournalsSAXParser.readJournals(accounting.getJournals(), accounting.getJournalTypes(), accounting.getAccounts());
-            MortgagesSAXParser.readMortgages(mortgages, accounts);
+            MortgagesSAXParser.readMortgages(accounting.getMortgages(), accounting.getAccounts());
             CounterPartiesSAXParser.readCounterparties(accounting.getCounterParties(), accounting.getAccounts());
             MovementsSAXParser.readMovements(accounting.getMovements(), accounting.getCounterParties());
         } catch (Exception e) {
@@ -150,9 +113,13 @@ public class AccountingsSAXParser {
             for(Accounting acc : accountings.getAccountings()) {
                 writer.write("  <Accounting>\r\n");
                 writer.write("    <name>" + acc.toString() + "</name>\r\n");
-                writer.write("    <htmlFolder>" + acc.getHtmlFolder() + "</htmlFolder>\r\n");
+                if(acc.getHtmlFolder()!=null){
+                    writer.write("    <htmlFolder>" + acc.getHtmlFolder() + "</htmlFolder>\r\n");
+                }
                 writer.write("    <xml>" + acc.getXmlFile() + "</xml>\r\n");
-                writer.write("    <html>" + acc.getHtmlFile() + "</html>\r\n");
+                if(acc.getHtmlFile()!=null){
+                    writer.write("    <html>" + acc.getHtmlFile() + "</html>\r\n");
+                }
                 writer.write("    <xsl2xml>" + acc.getXsl2XmlFile() + "</xsl2xml>\r\n");
                 writer.write("    <xsl2html>" + acc.getXsl2HtmlFile() + "</xsl2html>\r\n");
                 writer.write("  </Accounting>\r\n");
@@ -202,36 +169,17 @@ public class AccountingsSAXParser {
                     + accounting.getDtdFile() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
                     + accounting.getXsl2XmlFile() + "\"?>\r\n" + "<Accounting>\r\n");
             writer.write("  <name>" + accounting.getName() + "</name>\r\n");
-            writer.write("  <Accounts>\r\n");
-            writer.write("    <name>Accounts</name>\r\n");
-            writer.write("    <xml>" + accounting.getAccounts().getXmlFile() + "</xml>\r\n");
-            writer.write("    <html>" + accounting.getAccounts().getHtmlFile() + "</html>\r\n");
-            writer.write("  </Accounts>\r\n");
-            writer.write("  <Journals>\r\n");
-            writer.write("    <name>Journals</name>\r\n");
-            writer.write("    <xml>" + accounting.getJournals().getXmlFile() + "</xml>\r\n");
-            writer.write("    <html>" + accounting.getJournals().getHtmlFile() + "</html>\r\n");
-            writer.write("  </Journals>\r\n");
-            writer.write("  <Balances>\r\n");
-            writer.write("    <name>Balances</name>\r\n");
-            writer.write("    <xml>" + accounting.getBalances().getXmlFile() + "</xml>\r\n");
-            writer.write("    <html>" + accounting.getBalances().getHtmlFile() + "</html>\r\n");
-            writer.write("  </Balances>\r\n");
-            writer.write("  <Mortgages>\r\n");
-            writer.write("    <name>Mortgages</name>\r\n");
-            writer.write("    <xml>" + accounting.getMortgages().getXmlFile() + "</xml>\r\n");
-            writer.write("    <html>" + accounting.getMortgages().getHtmlFile() + "</html>\r\n");
-            writer.write("  </Mortgages>\r\n");
-            writer.write("  <CounterParties>\r\n");
-            writer.write("    <name>CounterParties</name>\r\n");
-            writer.write("    <xml>" + accounting.getCounterParties().getXmlFile() + "</xml>\r\n");
-            writer.write("    <html>" + accounting.getCounterParties().getHtmlFile() + "</html>\r\n");
-            writer.write("  </CounterParties>\r\n");
-            writer.write("  <Movements>\r\n");
-            writer.write("    <name>Movements</name>\r\n");
-            writer.write("    <xml>" + accounting.getMovements().getXmlFile() + "</xml>\r\n");
-            writer.write("    <html>" + accounting.getMovements().getHtmlFile() + "</html>\r\n");
-            writer.write("  </Movements>\r\n");
+            for(String key:accounting.getKeys()) {
+                BusinessObject businessObject = accounting.getCollection(key);
+                System.out.println("writing: " + key);
+                writer.write("  <" + key + ">\r\n");
+                writer.write("    <name>" + key + "</name>\r\n");
+                writer.write("    <xml>" + businessObject.getXmlFile() + "</xml>\r\n");
+                if(businessObject.getHtmlFile()!=null){
+                    writer.write("    <html>" + businessObject.getHtmlFile() + "</html>\r\n");
+                }
+                writer.write("  </" + key + ">\r\n");
+            }
             writer.write("</Accounting>\r\n");
             writer.flush();
             writer.close();

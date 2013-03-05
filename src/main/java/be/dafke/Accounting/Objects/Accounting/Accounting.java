@@ -1,6 +1,8 @@
 package be.dafke.Accounting.Objects.Accounting;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * @author David Danneels
@@ -15,9 +17,12 @@ public class Accounting extends BusinessObject{
     private final Movements movements;
     private final Balances balances;
     private File xmlFolder, htmlFolder;
+    private HashMap<String, BusinessCollection<BusinessObject>> collections;
+    private ArrayList<String> keys;
 
     public Accounting(String name) {
         super(name, "Accounting");
+        // TODO use Accounts<Account> + modifiy Accounts file ... Accounts<T extends
 		accounts = new Accounts();
 		journals = new Journals();
         balances = new Balances();
@@ -28,8 +33,32 @@ public class Accounting extends BusinessObject{
         journalTypes = new JournalTypes();
         balances.addDefaultBalances(this);
 
+        collections = new HashMap<String, BusinessCollection<BusinessObject>>();
+        // TODO unchecked assignment: use put(..., (BusinessCollection<BusinessObject>) accounts)
+        collections.put(accounts.getType(),(BusinessCollection)accounts);
+        collections.put(journals.getType(),(BusinessCollection)journals);
+        collections.put(balances.getType(),(BusinessCollection)balances);
+        collections.put(mortgages.getType(),(BusinessCollection)mortgages);
+        collections.put(movements.getType(),(BusinessCollection)movements);
+        collections.put(counterParties.getType(),(BusinessCollection)counterParties);
+
+        keys = new ArrayList<String>();
+        keys.add(accounts.getType());
+        keys.add(journals.getType());
+        keys.add(balances.getType());
+        keys.add(mortgages.getType());
+        keys.add(counterParties.getType());
+        keys.add(movements.getType());
         setXmlFolder();
 	}
+
+    public ArrayList<String> getKeys() {
+        return keys;
+    }
+
+    public BusinessObject getCollection(String key) {
+        return collections.get(key);
+    }
 
     // Collections
     //
