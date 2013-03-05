@@ -13,10 +13,6 @@ public abstract class BusinessCollection<T extends BusinessObject> extends Busin
     private File htmlFolder;
     private File xmlFolder;
 
-    public BusinessCollection(String name){
-        super(name,name);
-    }
-
     public abstract T getBusinessObject(String name);
 
     public abstract ArrayList<T> getBusinessObjects();

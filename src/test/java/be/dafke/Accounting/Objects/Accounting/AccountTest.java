@@ -20,9 +20,11 @@ public class AccountTest {
 
     @Test
     public void test_init(){
-        Account account = new Account("NAME", Account.AccountType.Active);
+        Account account = new Account();
+        account.setName("NAME");
+        account.setAccountType(Account.AccountType.Active);
 
-        assertEquals("NAME",account.getName());
+        assertEquals("NAME", account.getName());
         assertEquals("NAME",account.toString());
         assertEquals(Account.AccountType.Active,account.getAccountType());
 
@@ -50,7 +52,7 @@ public class AccountTest {
 
     @Test
     public void test_debit(){
-        Account account = new Account("NAME", Account.AccountType.Active);
+        Account account = new Account();
         Transaction transaction = new Transaction();
         transaction.setDate(Calendar.getInstance());
         Booking booking = new Booking(transaction,account,BigDecimal.ONE,true);

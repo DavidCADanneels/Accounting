@@ -9,7 +9,6 @@ public class CounterParties extends BusinessCollection<CounterParty>{
     private HashMap<String, CounterParty> counterPartiesByName, counterPartiesByAccountNumber;
 
     public CounterParties(){
-        super("CounterParties");
         counterParties = new ArrayList<CounterParty>();
         counterPartiesByName = new HashMap<String, CounterParty>();
         counterPartiesByAccountNumber = new HashMap<String, CounterParty>();
@@ -35,7 +34,8 @@ public class CounterParties extends BusinessCollection<CounterParty>{
         }
         if(bankAccount == null){
             // no BankAccount provided: add new Counterparty without BankAccount (only name)
-            CounterParty counterParty = new CounterParty(name);
+            CounterParty counterParty = new CounterParty();
+            counterParty.setName(name);
             if(!counterPartiesByName.containsKey(name)){
                 counterParties.add(counterParty);
                 counterPartiesByName.put(name, counterParty);
@@ -47,7 +47,8 @@ public class CounterParties extends BusinessCollection<CounterParty>{
         CounterParty counterPartyByAccountNumber = counterPartiesByAccountNumber.get(accountNumber);
         if(counterPartyByName == null && counterPartyByAccountNumber == null){
             // Neither the Name nor the BankAccount are found: add new Counterparty with BankAccount in both Maps
-            CounterParty counterParty = new CounterParty(name);
+            CounterParty counterParty = new CounterParty();
+            counterParty.setName(name);
             counterParty.addAccount(bankAccount);
             counterParties.add(counterParty);
             counterPartiesByName.put(name, counterParty);

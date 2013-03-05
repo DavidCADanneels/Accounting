@@ -20,7 +20,6 @@ public class Journals extends BusinessCollection<Journal> {
     private Journal currentJournal;
 
     public Journals() {
-        super("Journals");
         abbreviations = new HashMap<String, Journal>();
         journals = new HashMap<String, Journal>();
 	}
@@ -64,7 +63,10 @@ public class Journals extends BusinessCollection<Journal> {
         if(journals.containsKey(name.trim()) || abbreviations.containsKey(abbreviation.trim())){
             throw new DuplicateNameException();
         }
-        Journal journal = new Journal(name.trim(), abbreviation.trim(), type);
+        Journal journal = new Journal();
+        journal.setName(name.trim());
+        journal.setAbbreviation(abbreviation.trim());
+        journal.setJournalType(type);
 
         journals.put(journal.getName(), journal);
         abbreviations.put(journal.getAbbreviation(), journal);

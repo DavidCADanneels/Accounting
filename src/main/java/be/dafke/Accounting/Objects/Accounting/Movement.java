@@ -6,13 +6,13 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 
 public class Movement extends BusinessObject {
-	private final String sequenceNumber, transactionCode;
+	private String sequenceNumber, transactionCode;
 	private String communication;
-	private final String statementNr;
-	private final boolean debit;
+	private String statementNr;
+	private boolean debit;
     private boolean structured;
-	private final BigDecimal amount;
-	private final Calendar date;
+	private BigDecimal amount;
+	private Calendar date;
 
 	private String counterPartyBic;
 
@@ -42,34 +42,19 @@ public class Movement extends BusinessObject {
 		while (sequenceNumber.startsWith("0")) {
 			sequenceNumber = sequenceNumber.substring(1);
 		}
-		return new Movement(statementNumber, sequenceNumber, date, debit, amount, transactionCode, communication, structured);
+        Movement movement = new Movement();
+        movement.setName(statementNumber+"-"+sequenceNumber);
+        movement.setStatementNr(statementNumber);
+        movement.setSequenceNumber(sequenceNumber);
+        movement.setDate(date);
+        movement.setDebit(debit);
+        movement.setAmount(amount);
+        movement.setTransactionCode(transactionCode);
+        movement.setCommunication(communication);
+        movement.setStructured(structured);
+        movement.resetCommunication();
+        return movement;
 	}
-
-    public Movement(String statementNr, String sequenceNumber, Calendar date, boolean debit, BigDecimal amount, CounterParty counterParty, String transactionCode, String communication){
-        super(statementNr + "-" + sequenceNumber,"Movement");
-        this.statementNr = statementNr;
-        this.sequenceNumber = sequenceNumber;
-        this.date = date;
-        this.debit = debit;
-        this.amount = amount;
-        this.counterParty = counterParty;
-        this.transactionCode = transactionCode;
-        this.communication = communication;
-    }
-
-	private Movement(String statementNr, String sequenceNumber, Calendar date, boolean debit, BigDecimal amount,
-			 String transactionCode, String communication, boolean structured) {
-        super(statementNr + "-" + sequenceNumber,"Movement");
-        this.statementNr = statementNr;
-        this.sequenceNumber = sequenceNumber;
-        this.date = date;
-        this.debit = debit;
-        this.amount = amount;
-        this.transactionCode = transactionCode.trim();
-        this.communication = communication;
-        this.structured = structured;
-        resetCommunication();
-    }
 
     private void resetCommunication(){
         if (transactionCode.equals("402") || transactionCode.equals("404")) {
@@ -152,6 +137,50 @@ public class Movement extends BusinessObject {
 		return builder.toString();
 	}
 
+    // SETTERS
+
+
+    public void setSequenceNumber(String sequenceNumber) {
+        this.sequenceNumber = sequenceNumber;
+    }
+
+    public void setTransactionCode(String transactionCode) {
+        this.transactionCode = transactionCode;
+    }
+
+    public void setCommunication(String communication) {
+        this.communication = communication;
+    }
+
+    public void setStatementNr(String statementNr) {
+        this.statementNr = statementNr;
+    }
+
+    public void setDebit(boolean debit) {
+        this.debit = debit;
+    }
+
+    public void setStructured(boolean structured) {
+        this.structured = structured;
+    }
+
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
+    }
+
+    public void setDate(Calendar date) {
+        this.date = date;
+    }
+
+    public void setCounterParty(CounterParty counterParty) {
+        this.counterParty = counterParty;
+    }
+
+    public void setTmpCounterParty(TmpCounterParty counterParty) {
+        this.tmpCounterParty = counterParty;
+    }
+
+    // GETTERS
 	public String getStatementNr() {
 		return statementNr;
 	}
@@ -176,23 +205,15 @@ public class Movement extends BusinessObject {
 		return transactionCode;
 	}
 
-	public CounterParty getCounterParty() {
-		return counterParty;
-	}
-
 	public String getCommunication() {
         return communication;
 	}
 
-	public void setCounterParty(CounterParty counterParty) {
-		this.counterParty = counterParty;
-	}
+    public CounterParty getCounterParty() {
+        return counterParty;
+    }
 
-	public void setTmpCounterParty(TmpCounterParty counterParty) {
-		this.tmpCounterParty = counterParty;
-	}
-
-	public TmpCounterParty getTmpCounterParty() {
+    public TmpCounterParty getTmpCounterParty() {
 		return tmpCounterParty;
 	}
 }

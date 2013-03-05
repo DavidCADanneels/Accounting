@@ -12,8 +12,6 @@ public class Mortgages extends BusinessCollection<Mortgage>{
     private final HashMap<String, Mortgage> mortgages;
 
     public Mortgages(){
-        super("Mortgages");
-
         mortgages = new HashMap<String, Mortgage>();
     }
 

@@ -47,7 +47,8 @@ public class AccountingsSAXParser {
             NodeList accountingNodes = doc.getElementsByTagName("Accounting");
             for(int i=0;i<accountingNodes.getLength();i++){
                 Element element = (Element)accountingNodes.item(i);
-                Accounting acc = new Accounting(Utils.getValue(element, "name"));
+                Accounting acc = new Accounting();
+                acc.setName(Utils.getValue(element, "name"));
                 acc.setHtmlFolder(Utils.getFile(element, "htmlFolder"));
                 acc.setXmlFile(Utils.getFile(element, "xml"));
                 acc.setHtmlFile(Utils.getFile(element, "html"));

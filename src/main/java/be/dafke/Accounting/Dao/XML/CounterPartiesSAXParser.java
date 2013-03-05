@@ -44,7 +44,8 @@ public class CounterPartiesSAXParser {
                 Element element = (Element)nodeList.item(i);
 
                 String counterparty_name = element.getElementsByTagName("name").item(0).getChildNodes().item(0).getNodeValue();
-                CounterParty counterParty = new CounterParty(counterparty_name);
+                CounterParty counterParty = new CounterParty();
+                counterParty.setName(counterparty_name);
 
                 String accountName = Utils.getValue(element, "AccountName");
                 if(accountName!=null){

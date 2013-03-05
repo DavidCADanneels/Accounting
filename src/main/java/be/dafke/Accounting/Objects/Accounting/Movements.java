@@ -9,10 +9,6 @@ public class Movements extends BusinessCollection<Movement>{
     private ArrayList<Movement> movements = new ArrayList<Movement>();
 //    private HashMap<String,Movement> movements = new HashMap<String, Movement>();
 
-    public Movements(){
-        super("Movements");
-    }
-
     public void add(Movement value) {
 		movements.add(value);
 	}

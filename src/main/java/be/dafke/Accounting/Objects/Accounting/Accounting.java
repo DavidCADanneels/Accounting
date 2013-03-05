@@ -20,8 +20,7 @@ public class Accounting extends BusinessObject{
     private HashMap<String, BusinessCollection<BusinessObject>> collections;
     private ArrayList<String> keys;
 
-    public Accounting(String name) {
-        super(name, "Accounting");
+    public Accounting() {
         // TODO use Accounts<Account> + modifiy Accounts file ... Accounts<T extends
 		accounts = new Accounts();
 		journals = new Journals();
@@ -49,8 +48,13 @@ public class Accounting extends BusinessObject{
         keys.add(mortgages.getType());
         keys.add(counterParties.getType());
         keys.add(movements.getType());
-        setXmlFolder();
 	}
+
+    @Override
+    public void setName(String name){
+        super.setName(name);
+        setXmlFolder();
+    }
 
     public ArrayList<String> getKeys() {
         return keys;

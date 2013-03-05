@@ -60,7 +60,16 @@ public class MovementsSAXParser {
                 Calendar date = Utils.toCalendar(dateString);
                 boolean debit = ("D".equals(debitString));
                 CounterParty counterParty = counterParties.getBusinessObject(counterpartyName);
-                Movement movement = new Movement(statementNr, sequenceNr, date, debit, amount, counterParty, transactionCode, communication);
+                Movement movement = new Movement();
+                movement.setName(statementNr+"-"+sequenceNr);
+                movement.setStatementNr(statementNr);
+                movement.setSequenceNumber(sequenceNr);
+                movement.setDate(date);
+                movement.setDebit(debit);
+                movement.setAmount(amount);
+                movement.setCounterParty(counterParty);
+                movement.setTransactionCode(transactionCode);
+                movement.setCommunication(communication);
                 movements.add(movement);
             }
         } catch (Exception e) {

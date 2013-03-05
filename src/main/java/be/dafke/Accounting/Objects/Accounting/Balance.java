@@ -9,33 +9,15 @@ import java.util.ArrayList;
  */
 public class Balance extends BusinessObject{
 
-    private final String leftName;
-    private final String rightName;
-    private final String leftTotalName;
-    private final String rightTotalName;
-    private final String leftResultName;
-    private final String rightResultName;
-    private final ArrayList<Account.AccountType> leftTypes;
-    private final ArrayList<Account.AccountType> rightTypes;
-    private final Accounting accounting;
-
-    public Balance(String name,
-                   String leftName, String rightName,
-                   String leftTotalName, String rightTotalName,
-                   String leftResultName, String rightResultName,
-                   ArrayList<Account.AccountType> leftTypes, ArrayList<Account.AccountType> rightTypes,
-                   Accounting accounting){
-        super(name, "Balance");
-        this.leftName = leftName;
-        this.rightName = rightName;
-        this.leftTotalName = leftTotalName;
-        this.rightTotalName = rightTotalName;
-        this.leftResultName = leftResultName;
-        this.rightResultName = rightResultName;
-        this.leftTypes = leftTypes;
-        this.rightTypes = rightTypes;
-        this.accounting = accounting;
-    }
+    private String leftName;
+    private String rightName;
+    private String leftTotalName;
+    private String rightTotalName;
+    private String leftResultName;
+    private String rightResultName;
+    private ArrayList<Account.AccountType> leftTypes;
+    private ArrayList<Account.AccountType> rightTypes;
+    private Accounting accounting;
 
     public String getLeftName() {
         return leftName;
@@ -79,5 +61,41 @@ public class Balance extends BusinessObject{
 
     public String getRightResultName() {
         return rightResultName;
+    }
+
+    public void setLeftName(String leftName) {
+        this.leftName = leftName;
+    }
+
+    public void setRightName(String rightName) {
+        this.rightName = rightName;
+    }
+
+    public void setLeftTotalName(String leftTotalName) {
+        this.leftTotalName = leftTotalName;
+    }
+
+    public void setRightTotalName(String rightTotalName) {
+        this.rightTotalName = rightTotalName;
+    }
+
+    public void setLeftResultName(String leftResultName) {
+        this.leftResultName = leftResultName;
+    }
+
+    public void setRightResultName(String rightResultName) {
+        this.rightResultName = rightResultName;
+    }
+
+    public void setLeftTypes(ArrayList<Account.AccountType> leftTypes) {
+        this.leftTypes = leftTypes;
+    }
+
+    public void setRightTypes(ArrayList<Account.AccountType> rightTypes) {
+        this.rightTypes = rightTypes;
+    }
+
+    public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
     }
 }

@@ -16,11 +16,7 @@ public class Balances extends BusinessCollection<Balance>{
     public static String RELATIONS_BALANCE = "RelationsBalance";
     public static String YEAR_BALANCE = "YearBalance";
 
-    private HashMap<String, Balance> balances = new HashMap<String,Balance>();
-
-    public Balances(){
-        super("Balances");
-    }
+    private HashMap<String, Balance> balances = new HashMap<String, Balance>();
 
     public void addDefaultBalances(Accounting accounting){
         ArrayList<Account.AccountType> costs = new ArrayList<Account.AccountType>();
@@ -37,24 +33,46 @@ public class Balances extends BusinessCollection<Balance>{
         active.add(Account.AccountType.Credit);
         passive.add(Account.AccountType.Passive);
         passive.add(Account.AccountType.Debit);
-        balances.put(RESULT_BALANCE, new Balance(RESULT_BALANCE,
-                getBundle("Accounting").getString("KOSTEN"), getBundle("Accounting").getString("OPBRENGSTEN"),
-                getBundle("Accounting").getString("TOTAAL_KOSTEN"), getBundle("Accounting").getString("TOTAAL_OPBRENGSTEN"),
-                getBundle("Accounting").getString("VERLIES"), getBundle("Accounting").getString("WINST"),
-                costs, revenues,
-                accounting));
-        balances.put(RELATIONS_BALANCE, new Balance(RELATIONS_BALANCE,
-                getBundle("Accounting").getString("TEGOEDEN_VAN_KLANTEN"), getBundle("Accounting").getString("SCHULDEN_AAN_LEVERANCIERS"),
-                getBundle("Accounting").getString("TOTAAL_TEGOEDEN"), getBundle("Accounting").getString("TOTAAL_SCHULDEN"),
-                getBundle("Accounting").getString("RESTEREND_TEGOED"), getBundle("Accounting").getString("RESTERENDE_SCHULD"),
-                credit, debit,
-                accounting));
-        balances.put(YEAR_BALANCE, new Balance(YEAR_BALANCE,
-                getBundle("Accounting").getString("ACTIVA"), getBundle("Accounting").getString("PASSIVA"),
-                getBundle("Accounting").getString("TOTAAL_ACTIVA_TEGOEDEN"), getBundle("Accounting").getString("TOTAAL_PASSIVA_SCHULDEN"),
-                getBundle("Accounting").getString("WINST"), getBundle("Accounting").getString("VERLIES"),
-                active, passive,
-                accounting));
+        
+        Balance resultBalance = new Balance();
+        resultBalance.setName(RESULT_BALANCE);
+        resultBalance.setLeftName(getBundle("Accounting").getString("KOSTEN"));
+        resultBalance.setRightName(getBundle("Accounting").getString("OPBRENGSTEN"));
+        resultBalance.setLeftTotalName(getBundle("Accounting").getString("TOTAAL_KOSTEN"));
+        resultBalance.setRightTotalName(getBundle("Accounting").getString("TOTAAL_OPBRENGSTEN"));
+        resultBalance.setLeftResultName(getBundle("Accounting").getString("VERLIES"));
+        resultBalance.setRightResultName(getBundle("Accounting").getString("WINST"));
+        resultBalance.setLeftTypes(costs);
+        resultBalance.setRightTypes(revenues);
+        resultBalance.setAccounting(accounting);
+
+        Balance relationsBalance = new Balance();
+        relationsBalance.setName(RELATIONS_BALANCE);
+        relationsBalance.setLeftName(getBundle("Accounting").getString("TEGOEDEN_VAN_KLANTEN"));
+        relationsBalance.setRightName(getBundle("Accounting").getString("SCHULDEN_AAN_LEVERANCIERS"));
+        relationsBalance.setLeftTotalName(getBundle("Accounting").getString("TOTAAL_TEGOEDEN"));
+        relationsBalance.setRightTotalName(getBundle("Accounting").getString("TOTAAL_SCHULDEN"));
+        relationsBalance.setLeftResultName(getBundle("Accounting").getString("RESTEREND_TEGOED"));
+        relationsBalance.setRightResultName(getBundle("Accounting").getString("RESTERENDE_SCHULD"));
+        relationsBalance.setLeftTypes(credit);
+        relationsBalance.setRightTypes(debit);
+        relationsBalance.setAccounting(accounting);
+        
+        Balance yearBalance = new Balance();
+        yearBalance.setName(YEAR_BALANCE);
+        yearBalance.setLeftName(getBundle("Accounting").getString("ACTIVA"));
+        yearBalance.setRightName(getBundle("Accounting").getString("PASSIVA"));
+        yearBalance.setLeftTotalName(getBundle("Accounting").getString("TOTAAL_ACTIVA_TEGOEDEN"));
+        yearBalance.setRightTotalName(getBundle("Accounting").getString("TOTAAL_PASSIVA_SCHULDEN"));
+        yearBalance.setLeftResultName(getBundle("Accounting").getString("WINST"));
+        yearBalance.setRightResultName(getBundle("Accounting").getString("VERLIES"));
+        yearBalance.setLeftTypes(active);
+        yearBalance.setRightTypes(passive);
+        yearBalance.setAccounting(accounting);
+        
+        balances.put(RESULT_BALANCE, resultBalance);
+        balances.put(RELATIONS_BALANCE, relationsBalance);
+        balances.put(YEAR_BALANCE, yearBalance);
     }
 
     @Override

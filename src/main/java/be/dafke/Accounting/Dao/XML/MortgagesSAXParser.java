@@ -58,7 +58,9 @@ public class MortgagesSAXParser {
 //                File intrestHtml = Utils.getFile(element, "intrest_account_html");
 
                 BigDecimal amount = new BigDecimal(total);
-                Mortgage mortgage = new Mortgage(name, amount);
+                Mortgage mortgage = new Mortgage();
+                mortgage.setName(name);
+                mortgage.setStartCapital(amount);
                 mortgage.setXmlFile(xmlFile);
                 mortgage.setHtmlFile(htmlFile);
                 int nr = Integer.valueOf(nrPayed);

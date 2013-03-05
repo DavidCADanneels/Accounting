@@ -263,7 +263,10 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 			} else {
 				name = newCounterParty.getName();
 			}
-			m.setTmpCounterParty(new TmpCounterParty(name, newCounterParty));
+            TmpCounterParty tmp = new TmpCounterParty();
+            tmp.setName(name);
+            tmp.setCounterParty(newCounterParty);
+			m.setTmpCounterParty(tmp);
 		}
 		movementDataModel.fireTableDataChanged();
 	}

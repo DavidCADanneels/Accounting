@@ -57,7 +57,9 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 			name = JOptionPane.showInputDialog(this, "This name is already used. Enter another name.");
 		}
 		if (name != null) {
-			Mortgage mortgage = new Mortgage(name, startCapital);
+			Mortgage mortgage = new Mortgage();
+            mortgage.setName(name);
+            mortgage.setStartCapital(startCapital);
 //			mortgage.setAccounting(accounting);
 			mortgage.setTable(model.getData());
 			accounting.getMortgages().addMortgageTable(name, mortgage);

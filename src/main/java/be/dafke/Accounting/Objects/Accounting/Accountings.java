@@ -85,7 +85,8 @@ public class Accountings {
         if(accountings.containsKey(name.trim())){
             throw new DuplicateNameException();
         }
-		Accounting accounting = new Accounting(name);
+		Accounting accounting = new Accounting();
+        accounting.setName(name);
 		addAccounting(accounting);
         return accounting;
 	}

@@ -8,18 +8,17 @@ public class Mortgage extends BusinessObject {
 	private ArrayList<Vector<BigDecimal>> table;
 	private int alreadyPayed = 0;
 	private Account capital, intrest;
-	private final BigDecimal startCapital;
-
-    public Mortgage(String name, BigDecimal startCapital) {
-        super(name, "Mortgage");
-		this.startCapital = startCapital;
-	}
+	private BigDecimal startCapital;
 
 	public BigDecimal getStartCapital() {
 		return startCapital;
 	}
 
-	public void setCapitalAccount(Account capital) {
+    public void setStartCapital(BigDecimal startCapital) {
+        this.startCapital = startCapital;
+    }
+
+    public void setCapitalAccount(Account capital) {
 		this.capital = capital;
 	}
 

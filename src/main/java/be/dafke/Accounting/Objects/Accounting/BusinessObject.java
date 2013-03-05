@@ -13,12 +13,11 @@ public class BusinessObject {
     private File xmlFile;
     private File htmlFile;
     private File xsl2XmlFile, xsl2HtmlFile;
-    private final String type;
+    private String type;
 //    private boolean isSaved;
 
-    protected BusinessObject(String name, String type){
-        this.name = name;
-        this.type = type;
+    protected BusinessObject(){
+        type = this.getClass().getSimpleName();
         File dtdFolder = new File(System.getProperty("Accountings_dtd"));
         dtdFile = new File(dtdFolder, type + ".dtd");
         File xslFolder = new File(System.getProperty("Accountings_xsl"));
@@ -34,8 +33,8 @@ public class BusinessObject {
     public String getName() {
         return name;
     }
-    public void setName(String newName) {
-        name = newName;
+    public void setName(String name) {
+        this.name = name;
 //		setSaved(false);
     }
 

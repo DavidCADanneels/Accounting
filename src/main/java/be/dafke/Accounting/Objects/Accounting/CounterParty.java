@@ -14,15 +14,10 @@ public class CounterParty extends BusinessObject{
 	private final Collection<String> addressLines;
 
 	private Account account;
-//    private File xmlFile;
-//    private File dtdFile;
-//    private File xsl2XmlFile;
-//    private File xsl2HtmlFile;
 
     // private final ArrayList<Account> debetAccounts, creditAccounts;
 
-	public CounterParty(String name) {
-        super(name, "CounterParty");
+	public CounterParty() {
 		accounts = new HashMap<String, BankAccount>();
 		addressLines = new ArrayList<String>();
 		aliases = new ArrayList<String>();

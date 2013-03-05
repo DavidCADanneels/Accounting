@@ -31,25 +31,8 @@ public class Account extends BusinessObject{
     //	private static final ResourceBundle bundle = ResourceBundle.getBundle("Accounting");
     //	private boolean save;
 
-	/**
-	 * Constructor
-	 * @param name naam van de rekening
-	 * @param type nr die het soort rekening aanduidt
-	 * <p>
-	 * <ul>
-	 * <li>0 : Actief</li>
-	 * <li>1 : Passief</li>
-	 * <li>2 : Kost</li>
-	 * <li>3 : Opbrengst</li>
-	 * <li>4 : Tegoed van Klant</li>
-	 * <li>5 : Schuld aan Leverancier</li>
-	 * </ul>
-	 * In balansen worden rekeningen van het even type steeds links weergegeven, die van het oneven type rechts
-	 */
-	protected Account(String name, AccountType type) {
-        super(name, "Account");
+	public Account() {
 		project = null;
-		this.type = type;
 		boekingen = new ArrayList<Booking>();
 		debettotaal = new BigDecimal(0);
 		debettotaal = debettotaal.setScale(2);

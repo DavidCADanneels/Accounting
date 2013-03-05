@@ -19,7 +19,6 @@ public class Accounts extends BusinessCollection<Account> {
     private HashMap<String, Account> accounts;
 
     public Accounts() {
-        super("Accounts");
         accounts = new HashMap<String, Account>();
     }
 
@@ -30,7 +29,9 @@ public class Accounts extends BusinessCollection<Account> {
         if(accounts.containsKey(accountName.trim())){
             throw new DuplicateNameException();
         }
-        Account account = new Account(accountName.trim(), accountType);
+        Account account = new Account();
+        account.setName(accountName.trim());
+        account.setAccountType(accountType);
         accounts.put(account.getName(), account);
         return account;
 	}

@@ -17,20 +17,10 @@ public class Journal extends BusinessObject{
     private Transaction currentTransaction = new Transaction();
     private Account currentAccount;
 
-    /**
-	 * Constructor
-	 * @param name naam van het dagboek
-	 * @param abbreviation afkorting van het dagboek Deze afkorting wordt gebruikt in de transacties horende bij dit
-	 * dagboek
-	 * @param journalType the type of journal, e.g. purchase, sales, finance
-	 */
-	protected Journal(String name, String abbreviation, JournalType journalType) {
-        super(name, "Journal");
+	protected Journal() {
 //		save = true;
 		transacties = new ArrayList<Transaction>();
-		this.abbreviation = abbreviation;
 		id = 1;
-		this.journalType = journalType;
 	}
 
     public Booking getBooking(int row){
