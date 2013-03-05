@@ -85,9 +85,7 @@ public class AccountsSAXParser {
         try {
             Writer writer = new FileWriter(accounts.getXmlFile());
 
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
-            writer.write("<!DOCTYPE Accounts SYSTEM \"" + accounts.getDtdFile().getCanonicalPath() + "\">\r\n");
-            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + accounts.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+            writer.write(Utils.getXmlHeader(accounts));
 
             writer.write("<Accounts>\r\n");
             for(Account account : accounts.getBusinessObjects()) {

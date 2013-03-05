@@ -165,9 +165,8 @@ public class AccountingsSAXParser {
     private static void writeAccountingFile(Accounting accounting) {
         try {
             Writer writer = new FileWriter(accounting.getXmlFile());
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" + "<!DOCTYPE Accounting SYSTEM \""
-                    + accounting.getDtdFile() + "\">\r\n" + "<?xml-stylesheet type=\"text/xsl\" href=\""
-                    + accounting.getXsl2XmlFile() + "\"?>\r\n" + "<Accounting>\r\n");
+            writer.write(Utils.getXmlHeader(accounting));
+            writer.write("<Accounting>\r\n");
             writer.write("  <name>" + accounting.getName() + "</name>\r\n");
             for(String key:accounting.getKeys()) {
                 BusinessObject businessObject = accounting.getCollection(key);

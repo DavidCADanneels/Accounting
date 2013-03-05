@@ -1,5 +1,6 @@
 package be.dafke;
 
+import be.dafke.Accounting.Objects.Accounting.BusinessObject;
 import org.apache.fop.cli.InputHandler;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -123,5 +124,12 @@ public class Utils {
         } else {
             return new File(fileName);
         }
+    }
+
+    public static String getXmlHeader(BusinessObject businessObject) {
+        return new StringBuilder("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n")
+        .append("<!DOCTYPE ").append(businessObject.getType()).append(" SYSTEM \"").append(businessObject.getDtdFile()).append("\">\r\n")
+        .append("<?xml-stylesheet type=\"text/xsl\" href=\"").append(businessObject.getXsl2XmlFile()).append("\"?>\r\n").toString();
+
     }
 }

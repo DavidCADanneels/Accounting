@@ -95,9 +95,7 @@ public class MortgagesSAXParser {
         try {
             Writer writer = new FileWriter(mortgages.getXmlFile());
 
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
-            writer.write("<!DOCTYPE Mortgages SYSTEM \"" + mortgages.getDtdFile().getCanonicalPath() + "\">\r\n");
-            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + mortgages.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+            writer.write(Utils.getXmlHeader(mortgages));
 
             writer.write("<Mortgages>\r\n");
             for(Mortgage mortgage : mortgages.getBusinessObjects()) {
@@ -135,9 +133,7 @@ public class MortgagesSAXParser {
         try {
             Writer writer = new FileWriter(mortgage.getXmlFile());
 
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
-            writer.write("<!DOCTYPE Mortgage SYSTEM \"" + mortgage.getDtdFile().getCanonicalPath() + "\">\r\n");
-            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + mortgage.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+            writer.write(Utils.getXmlHeader(mortgage));
 
             writer.write("<Mortgage>");
             writer.write("  <name>" + mortgage.toString() + "</name>\r\n");

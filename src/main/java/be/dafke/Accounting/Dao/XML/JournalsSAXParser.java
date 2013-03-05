@@ -138,9 +138,7 @@ public class JournalsSAXParser {
         try {
             Writer writer = new FileWriter(journals.getXmlFile());
 
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
-            writer.write("<!DOCTYPE Journals SYSTEM \"" + journals.getDtdFile().getCanonicalPath() + "\">\r\n");
-            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + journals.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+            writer.write(Utils.getXmlHeader(journals));
 
             writer.write("<Journals>\r\n");
             for(Journal journal : journals.getBusinessObjects()) {
@@ -177,9 +175,7 @@ public class JournalsSAXParser {
         try {
             Writer writer = new FileWriter(journal.getXmlFile());
 
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
-            writer.write("<!DOCTYPE Journal SYSTEM \"" + journal.getDtdFile().getCanonicalPath() + "\">\r\n");
-            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + journal.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+            writer.write(Utils.getXmlHeader(journal));
 
             writer.write("<Journal>\r\n"
                     + "  <name>" + journal.getName() + "</name>\r\n");

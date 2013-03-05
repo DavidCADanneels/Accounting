@@ -80,9 +80,7 @@ public class CounterPartiesSAXParser {
         try {
             Writer writer = new FileWriter(counterParties.getXmlFile());
 
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
-            writer.write("<!DOCTYPE CounterParties SYSTEM \"" + counterParties.getDtdFile().getCanonicalPath() + "\">\r\n");
-            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + counterParties.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+            writer.write(Utils.getXmlHeader(counterParties));
 
             writer.write("<CounterParties>\r\n");
             for(CounterParty counterParty : counterParties.getBusinessObjects()) {

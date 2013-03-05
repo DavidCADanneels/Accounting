@@ -74,9 +74,7 @@ public class MovementsSAXParser {
         try {
             Writer writer = new FileWriter(movements.getXmlFile());
 
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
-            writer.write("<!DOCTYPE Movements SYSTEM \"" + movements.getDtdFile().getCanonicalPath() + "\">\r\n");
-            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + movements.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+            writer.write(Utils.getXmlHeader(movements));
 
             writer.write("<Movements>\r\n");
             for(Movement movement : movements.getBusinessObjects()) {
