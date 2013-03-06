@@ -1,118 +1,63 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
+
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
 
 public class CounterParties extends BusinessCollection<CounterParty>{
 
-    private ArrayList<CounterParty> counterParties;
-    private HashMap<String, CounterParty> counterPartiesByName, counterPartiesByAccountNumber;
+    private static final String ACCOUNTNUMBER = "accountNumber";
 
     public CounterParties(){
-        counterParties = new ArrayList<CounterParty>();
-        counterPartiesByName = new HashMap<String, CounterParty>();
-        counterPartiesByAccountNumber = new HashMap<String, CounterParty>();
+        addKey(ACCOUNTNUMBER);
     }
 
     @Override
-	public ArrayList<CounterParty> getBusinessObjects() {
-        return counterParties;
-	}
+    public CounterParty addBusinessObject(CounterParty value) throws EmptyNameException, DuplicateNameException {
+        List<String> types = new ArrayList<String>();
+        List<String> keys = new ArrayList<String>();
+        types.add(NAME);
+        keys.add(value.getName());
+
+        for(BankAccount bankAccount : value.getBankAccounts().values()){
+            types.add(ACCOUNTNUMBER);
+            keys.add(bankAccount.getAccountNumber());
+        }
+        addBusinessObject(value, types, keys);
+        return value;
+    }
 
     @Override
-    public CounterParty getBusinessObject(String name){
-        return counterPartiesByName.get(name);
-    }
-
-//    public CounterParty getCounterPartyByAccountNumber(String accountNumber){
-//        return counterPartiesByAccountNumber.getBusinessObject(accountNumber);
-//    }
-
-    public CounterParty addCounterParty(String name, BankAccount bankAccount){
-        if(name == null){
-            throw new RuntimeException("Counterparty should have a least a name");
+    protected CounterParty merge(CounterParty toKeep, CounterParty toRemove) throws EmptyNameException, DuplicateNameException {
+        if(!toKeep.getName().equals(toRemove.getName())){
+            toKeep.addAlias(toRemove.getName());
+            System.out.println("Alias (" + toRemove.getName() + ") added for " + toKeep.getName());
+            toKeep.getAliases().addAll(toRemove.getAliases());
         }
-        if(bankAccount == null){
-            // no BankAccount provided: add new Counterparty without BankAccount (only name)
-            CounterParty counterParty = new CounterParty();
-            counterParty.setName(name);
-            if(!counterPartiesByName.containsKey(name)){
-                counterParties.add(counterParty);
-                counterPartiesByName.put(name, counterParty);
-            }
-            return counterParty;
-        }
-        String accountNumber = bankAccount.getAccountNumber();
-        CounterParty counterPartyByName = counterPartiesByName.get(name);
-        CounterParty counterPartyByAccountNumber = counterPartiesByAccountNumber.get(accountNumber);
-        if(counterPartyByName == null && counterPartyByAccountNumber == null){
-            // Neither the Name nor the BankAccount are found: add new Counterparty with BankAccount in both Maps
-            CounterParty counterParty = new CounterParty();
-            counterParty.setName(name);
-            counterParty.addAccount(bankAccount);
-            counterParties.add(counterParty);
-            counterPartiesByName.put(name, counterParty);
-            counterPartiesByAccountNumber.put(accountNumber,counterParty);
-            return counterParty;
-        } else if(counterPartyByName != null && counterPartyByAccountNumber == null){
-            // Counterparty was found in the named list: add the BankAccount and add this counterparty in the second Map
-            counterPartyByName.addAccount(bankAccount);
-            counterPartiesByAccountNumber.put(accountNumber,counterPartyByName);
-            return counterPartyByName;
-        } else if(counterPartyByName == null){
-            // Counterparty was found in the account list: do nothing, this case should be impossible
-            counterPartyByAccountNumber.addAlias(name);
-            counterPartiesByName.put(name,counterPartyByAccountNumber);
-            return counterPartyByAccountNumber;
-        } else{
-            // Finally: a counterparty was found in both lists: trust the one from the named list and
-            // check whether the existing BankAccount should be updated or a new one should be added.
-
-            if(counterPartyByAccountNumber != counterPartyByName){
-                System.err.println("Both must refer to the same object --> Merge");
-                merge(counterPartyByAccountNumber,counterPartyByName);
-            }
-
-            return counterPartyByAccountNumber;
-        }
-    }
-
-    private void merge(CounterParty counterPartyByAccountNumber, CounterParty counterPartyByName){
-        if(!counterPartyByAccountNumber.getName().equals(counterPartyByName.getName())){
-            counterPartyByAccountNumber.addAlias(counterPartyByName.getName());
-            counterPartyByAccountNumber.getAliases().addAll(counterPartyByName.getAliases());
-        }
-        for(BankAccount bankAccount : counterPartyByName.getBankAccounts().values()){
-            if(!counterPartyByAccountNumber.getBankAccounts().containsKey(bankAccount.getAccountNumber())){
-                counterPartyByAccountNumber.getBankAccounts().put(bankAccount.getAccountNumber(),bankAccount);
+        removeBusinessObject(NAME, toRemove.getName());
+        for(BankAccount bankAccountToRemove : toRemove.getBankAccounts().values()){
+            BankAccount bankAccountToKeep = toKeep.getBankAccounts().get(bankAccountToRemove.getAccountNumber());
+            if(bankAccountToKeep == null){
+                toKeep.addAccount(bankAccountToRemove);
+                System.out.println("BankAccount (" + bankAccountToRemove.getAccountNumber() + ") added for " + toKeep.getName());
             } else{
-                BankAccount oldBankAccount = counterPartyByAccountNumber.getBankAccounts().get(bankAccount.getAccountNumber());
-                if(oldBankAccount.getBic() == null || oldBankAccount.getBic().trim().equals("")){
-                    oldBankAccount.setBic(bankAccount.getBic());
+                if(bankAccountToKeep.getBic() == null || bankAccountToKeep.getBic().trim().equals("")){
+                    if(bankAccountToRemove.getBic() != null && !bankAccountToRemove.getBic().equals("") ){
+                        bankAccountToKeep.setBic(bankAccountToRemove.getBic());
+                        System.out.println("BIC (" + bankAccountToRemove.getBic() + ") updated for " + toKeep.getName());
+                    }
                 }
-                if(oldBankAccount.getCurrency() == null || oldBankAccount.getCurrency().trim().equals("")){
-                    oldBankAccount.setCurrency(bankAccount.getCurrency());
+                if(bankAccountToKeep.getCurrency() == null || bankAccountToKeep.getCurrency().trim().equals("")){
+                    if(bankAccountToRemove.getCurrency() != null && !bankAccountToRemove.getCurrency().equals("") ){
+                        bankAccountToKeep.setCurrency(bankAccountToRemove.getCurrency());
+                        System.out.println("Currency (" + bankAccountToRemove.getCurrency() + ") updated for " + toKeep.getName());
+                    }
                 }
+                removeBusinessObject(ACCOUNTNUMBER, bankAccountToRemove.getAccountNumber());
             }
         }
-        counterPartiesByName.remove(counterPartyByName.getName());
-        counterParties.remove(counterPartyByName);
-    }
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder("CounterParties:\r\n");
-        for(CounterParty counterParty : counterParties){
-			builder.append(counterParty);
-		}
-		return builder.toString();
-	}
-
-    public void addCounterParty(CounterParty counterParty) {
-        counterParties.add(counterParty);
-        counterPartiesByName.put(counterParty.getName(), counterParty);
-        for(BankAccount bankAccount : counterParty.getBankAccounts().values()){
-            counterPartiesByAccountNumber.put(bankAccount.getAccountNumber(),counterParty);
-        }
+        return toKeep;
     }
 }

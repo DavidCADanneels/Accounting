@@ -27,7 +27,7 @@ public class MovementDataModel extends AbstractTableModel {
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Movement m = accounting.getMovements().getMovement(row);
+		Movement m = accounting.getMovements().getBusinessObject(row);
 		if (col == 0) {
 			return m.getStatementNr();
 		} else if (col == 1) {

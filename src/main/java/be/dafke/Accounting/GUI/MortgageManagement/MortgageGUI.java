@@ -1,5 +1,6 @@
 package be.dafke.Accounting.GUI.MortgageManagement;
 
+import be.dafke.Accounting.Exceptions.NotEmptyException;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
@@ -149,8 +150,13 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 			}
 		} else if (e.getSource() == delete) {
 			if (selectedMortgage != null) {
-				accounting.getMortgages().removeMortgageTable(selectedMortgage);
-			}
+                try {
+                    accounting.getMortgages().removeBusinessObject(selectedMortgage);
+                } catch (NotEmptyException e1) {
+                    System.err.println("This mortgage is in use !");
+                    e1.printStackTrace();
+                }
+            }
 		} else if (!init) {
 			if (e.getSource() == comboIntrest) {
 				Account intrestAccount = (Account) comboIntrest.getSelectedItem();

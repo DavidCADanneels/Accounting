@@ -6,36 +6,6 @@ import java.util.ArrayList;
 
 public class Movements extends BusinessCollection<Movement>{
 
-    private ArrayList<Movement> movements = new ArrayList<Movement>();
-//    private HashMap<String,Movement> movements = new HashMap<String, Movement>();
-
-    public void add(Movement value) {
-		movements.add(value);
-	}
-
-	@Override
-	public String toString() {
-		StringBuilder builder = new StringBuilder("Movements:");
-		for (Movement movement : movements){
-			builder.append("\r\n").append(movement.toString());
-		}
-		return builder.toString();
-	}
-
-	public Movement getMovement(int nr) {
-		return movements.get(nr);
-	}
-
-    @Override
-    public Movement getBusinessObject(String name) {
-        return null;  // Not used yet
-    }
-
-    @Override
-	public ArrayList<Movement> getBusinessObjects() {
-		return movements;
-	}
-
 	public ArrayList<Movement> getMovements(SearchOptions searchOptions) {
 		ArrayList<Movement> result = new ArrayList<Movement>();
         CounterParty counterParty = searchOptions.getCounterParty();
@@ -44,7 +14,7 @@ public class Movements extends BusinessCollection<Movement>{
         boolean searchOnCounterParty = searchOptions.isSearchOnCounterParty();
         boolean searchOnTransactionCode = searchOptions.isSearchOnTransactionCode();
         boolean searchOnCommunication = searchOptions.isSearchOnCommunication();
-		for(Movement movement : movements) {
+		for(Movement movement : getBusinessObjects()) {
 			if ((!searchOnTransactionCode || transactionCode.equals(movement.getTransactionCode()))  &&
                     (!searchOnCommunication || communication.equals(movement.getCommunication())) &&
                     (!searchOnCounterParty || counterParty == movement.getCounterParty())) {
@@ -52,9 +22,5 @@ public class Movements extends BusinessCollection<Movement>{
 			}
 		}
 		return result;
-	}
-
-	public int getSize() {
-		return movements.size();
 	}
 }

@@ -1,5 +1,7 @@
 package be.dafke.Accounting.Dao.XML;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.BankAccount;
@@ -64,9 +66,15 @@ public class CounterPartiesSAXParser {
                     BankAccount bankAccount = new BankAccount(accountNumber);
                     bankAccount.setBic(bic);
                     bankAccount.setCurrency(currency);
+                    counterParty.addAccount(bankAccount);
                 }
-
-                counterParties.addCounterParty(counterParty);
+                try {
+                    counterParties.addBusinessObject(counterParty);
+                } catch (EmptyNameException e) {
+                    System.err.println("The Name of the CounterParty cannot be empty");
+                } catch (DuplicateNameException e) {
+                    System.err.println("The Name of the CounterParty already exists");
+                }
             }
 
         } catch (IOException io) {

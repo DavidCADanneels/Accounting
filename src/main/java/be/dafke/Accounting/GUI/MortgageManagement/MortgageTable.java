@@ -1,5 +1,7 @@
 package be.dafke.Accounting.GUI.MortgageManagement;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Mortgage;
@@ -53,18 +55,19 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		String name = JOptionPane.showInputDialog(this, "Enter a name for the table.");
-		while (accounting.getMortgages().containsMortgageName(name)) {
-			name = JOptionPane.showInputDialog(this, "This name is already used. Enter another name.");
-		}
-		if (name != null) {
-			Mortgage mortgage = new Mortgage();
-            mortgage.setName(name);
-            mortgage.setStartCapital(startCapital);
-//			mortgage.setAccounting(accounting);
-			mortgage.setTable(model.getData());
-			accounting.getMortgages().addMortgageTable(name, mortgage);
+        Mortgage mortgage = new Mortgage();
+        mortgage.setName(name);
+        mortgage.setStartCapital(startCapital);
+        mortgage.setTable(model.getData());
+        try {
+            accounting.getMortgages().addBusinessObject(mortgage);
             ComponentMap.refreshAllFrames();
             dispose();
-		}
+        } catch (DuplicateNameException e) {
+            JOptionPane.showMessageDialog(this, "There is already a mortgage table with the name \""+name.trim()+"\".\r\n"+
+                    "Please provide a new name.");
+        } catch (EmptyNameException e) {
+            JOptionPane.showMessageDialog(this, "Mortgage name cannot be empty.\r\nPlease provide a new name and/or abbreviation.");
+        }
 	}
 }

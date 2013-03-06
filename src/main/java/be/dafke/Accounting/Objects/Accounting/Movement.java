@@ -1,6 +1,8 @@
 package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Dao.Coda.CodaParser;
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
@@ -36,12 +38,12 @@ public class Movement extends BusinessObject {
 		String communication = line.substring(62, 115).trim();
 		String statementNumber = line.substring(121, 124).trim();
 		// trim numbers
-		while (statementNumber.startsWith("0")) {
-			statementNumber = statementNumber.substring(1);
-		}
-		while (sequenceNumber.startsWith("0")) {
-			sequenceNumber = sequenceNumber.substring(1);
-		}
+//		while (statementNumber.startsWith("0")) {
+//			statementNumber = statementNumber.substring(1);
+//		}
+//		while (sequenceNumber.startsWith("0")) {
+//			sequenceNumber = sequenceNumber.substring(1);
+//		}
         Movement movement = new Movement();
         movement.setName(statementNumber+"-"+sequenceNumber);
         movement.setStatementNr(statementNumber);
@@ -99,42 +101,29 @@ public class Movement extends BusinessObject {
     }
 
 	public void addPart3(String line) {
-		String nr1 = line.substring(2, 6).trim();
-		String nr2 = line.substring(6, 10).trim();
-		while (nr1.startsWith("0")) {
-			nr1 = nr1.substring(1);
-		}
-		while (nr2.startsWith("0")) {
-			nr2 = nr2.substring(1);
-		}
-		if (!nr1.equals(sequenceNumber)) System.err.println("SequenceNumber not equal [" + nr1 + "!=" + sequenceNumber
-				+ "]");
 		String counterPartyAccount = line.substring(10, 44).trim();
-        String counterPartyCurrency = line.substring(44, 47).trim();
-        String counterPartyName = line.substring(47, 82).trim();
-        BankAccount bankAccount = null;
-		if (!counterPartyAccount.trim().equals("")) {
-			bankAccount = new BankAccount(counterPartyAccount);
+        counterParty = new CounterParty();
+        if (!counterPartyAccount.trim().equals("")) {
+            BankAccount bankAccount = new BankAccount(counterPartyAccount);
             bankAccount.setBic(counterPartyBic);
+            String counterPartyCurrency = line.substring(44, 47).trim();
             bankAccount.setCurrency(counterPartyCurrency);
-		}
-		// CounterParties counterParties = CounterParties.getInstance();
-		// counterParties.remove(transactionCode);
-		counterParty = counterParties.addCounterParty(counterPartyName.toUpperCase().trim(), bankAccount);
-	}
+            counterParty.addAccount(bankAccount);
+        }
+        String counterPartyName = line.substring(47, 82).trim();
+        counterParty.setName(counterPartyName.toUpperCase().trim());
+        try {
+            counterParties.addBusinessObject(counterParty);
+        } catch (EmptyNameException e) {
+            System.err.println("The Name of the CounterParty cannot be empty");
+        } catch (DuplicateNameException e) {
+            System.err.println("The Name of the CounterParty already exists");
+        }
+    }
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder("MOVEMENT\r\n");
-		builder.append("sequenceNumber=").append(sequenceNumber).append("\r\n");
-		if (debit) builder.append("D/C = D\r\n");
-		else builder.append("D/C = C\r\n");
-		builder.append("amount=").append(amount).append("\r\n");
-		builder.append("date=").append(date.get(Calendar.DAY_OF_MONTH)).append("/").append((date.get(Calendar.MONTH) + 1)).append("/").append(date.get(Calendar.YEAR)).append("\r\n");
-		builder.append("transactionCode=").append(transactionCode).append("\r\n");
-		builder.append("communication=").append(communication).append("\r\n");
-		builder.append("statementNr=").append(statementNr).append("\r\n");
-		return builder.toString();
+		return getName();
 	}
 
     // SETTERS

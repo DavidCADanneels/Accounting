@@ -53,7 +53,10 @@ public class AccountsSAXParser {
 
                 Account.AccountType type = Account.AccountType.valueOf(account_type);
                 try{
-                    Account account = accounts.addAccount(account_name, type);
+                    Account account = new Account();
+                    account.setName(account_name.trim());
+                    account.setAccountType(type);
+                    accounts.addBusinessObject(account);
                     account.setXmlFile(xmlFile);
                     account.setHtmlFile(htmlFile);
                     String account_project = Utils.getValue(element, "account_project");

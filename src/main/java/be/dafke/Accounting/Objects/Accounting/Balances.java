@@ -1,7 +1,9 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
+
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -15,8 +17,6 @@ public class Balances extends BusinessCollection<Balance>{
     public static String RESULT_BALANCE = "ResultBalance";
     public static String RELATIONS_BALANCE = "RelationsBalance";
     public static String YEAR_BALANCE = "YearBalance";
-
-    private HashMap<String, Balance> balances = new HashMap<String, Balance>();
 
     public void addDefaultBalances(Accounting accounting){
         ArrayList<Account.AccountType> costs = new ArrayList<Account.AccountType>();
@@ -69,23 +69,15 @@ public class Balances extends BusinessCollection<Balance>{
         yearBalance.setLeftTypes(active);
         yearBalance.setRightTypes(passive);
         yearBalance.setAccounting(accounting);
-        
-        balances.put(RESULT_BALANCE, resultBalance);
-        balances.put(RELATIONS_BALANCE, relationsBalance);
-        balances.put(YEAR_BALANCE, yearBalance);
-    }
 
-    @Override
-    public Balance getBusinessObject(String name) {
-        return balances.get(name);
-    }
-
-    @Override
-    public ArrayList<Balance> getBusinessObjects() {
-        ArrayList<Balance> list = new ArrayList<Balance>();
-        for(Balance balance:balances.values()){
-            list.add(balance);
+        try {
+            addBusinessObject(resultBalance);
+            addBusinessObject(relationsBalance);
+            addBusinessObject(yearBalance);
+        } catch (EmptyNameException e) {
+            System.err.println("The Name of a Balance can not be empty.");
+        } catch (DuplicateNameException e) {
+            System.err.println("The Name of a Balance already exists.");
         }
-        return list;
     }
 }

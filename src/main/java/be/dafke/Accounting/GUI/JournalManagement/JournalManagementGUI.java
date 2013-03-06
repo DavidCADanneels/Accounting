@@ -150,7 +150,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
         ArrayList<String> failed = new ArrayList<String>();
         for(Journal journal : journals) {
             try{
-                accounting.getJournals().removeJournal(journal);
+                accounting.getJournals().removeBusinessObject(journal);
             }catch (NotEmptyException e){
                 failed.add(journal.getName());
             }
@@ -221,7 +221,11 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
         try {
-            Journal journal = accounting.getJournals().addJournal(newName, abbreviation, journalType);
+            Journal journal = new Journal();
+            journal.setName(newName);
+            journal.setAbbreviation(abbreviation);
+            journal.setJournalType(journalType);
+            accounting.getJournals().addBusinessObject(journal);
             accounting.getJournals().setCurrentJournal(journal);
             ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
@@ -250,7 +254,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
             if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
                 for(Journal journal : journalList) {
-                    journal.setJournalType((JournalType)types[nr]);
+                    journal.setJournalType((JournalType) types[nr]);
                 }
             }
         } else {
@@ -260,7 +264,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
                         "Change type", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
                         journal.getType());
                 if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
-                    journal.setJournalType((JournalType)types[nr]);
+                    journal.setJournalType((JournalType) types[nr]);
                 }
             }
         }

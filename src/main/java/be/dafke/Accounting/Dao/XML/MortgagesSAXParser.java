@@ -1,5 +1,7 @@
 package be.dafke.Accounting.Dao.XML;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Mortgage;
@@ -69,7 +71,13 @@ public class MortgagesSAXParser {
                 mortgage.setCapitalAccount(capital);
                 Account intrest = accounts.get(intrestName);
                 mortgage.setIntrestAccount(intrest);
-                mortgages.addMortgageTable(name, mortgage);
+                try {
+                    mortgages.addBusinessObject(mortgage);
+                } catch (EmptyNameException e) {
+                    System.err.println("Mortgage name is empty.");
+                } catch (DuplicateNameException e) {
+                    System.err.println("Mortgage name already exist.");
+                }
                 readMortgage(mortgage);
             }
         } catch (Exception e) {

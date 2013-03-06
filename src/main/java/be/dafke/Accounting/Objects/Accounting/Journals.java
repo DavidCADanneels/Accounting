@@ -43,17 +43,14 @@ public class Journals extends BusinessCollection<Journal> {
 		return result;
 	}
 
+    @Override
 	public ArrayList<Journal> getBusinessObjects() {
 		return new ArrayList<Journal>(journals.values());
 	}
 
-//	public void setSaved(boolean save) {
-//		accounting.setSavedXML(save);
-//		accounting.setSavedHTML(save);
-//		this.save = save;
-//	}
-
-    public Journal addJournal(String name, String abbreviation, JournalType type) throws EmptyNameException, DuplicateNameException {
+    public Journal addBusinessObject(Journal journal) throws EmptyNameException, DuplicateNameException {
+        String name = journal.getName();
+        String abbreviation = journal.getAbbreviation();
         if(name==null || "".equals(name.trim())){
             throw new EmptyNameException();
         }
@@ -63,17 +60,13 @@ public class Journals extends BusinessCollection<Journal> {
         if(journals.containsKey(name.trim()) || abbreviations.containsKey(abbreviation.trim())){
             throw new DuplicateNameException();
         }
-        Journal journal = new Journal();
-        journal.setName(name.trim());
-        journal.setAbbreviation(abbreviation.trim());
-        journal.setJournalType(type);
-
         journals.put(journal.getName(), journal);
         abbreviations.put(journal.getAbbreviation(), journal);
         return journal;
     }
 
-    public void removeJournal(Journal journal) throws NotEmptyException {
+    @Override
+    public void removeBusinessObject(Journal journal) throws NotEmptyException {
         if(journal.getTransactions().isEmpty()){
             journals.remove(journal.getName());
             abbreviations.remove(journal.getAbbreviation());

@@ -55,7 +55,10 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     private void addAccount() {
         String name = nameField.getText().trim();
         try {
-            accounting.getAccounts().addAccount(name, (Account.AccountType) type.getSelectedItem());
+            Account account = new Account();
+            account.setName(name.trim());
+            account.setAccountType((Account.AccountType) type.getSelectedItem());
+            accounting.getAccounts().addBusinessObject(account);
             ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
             JOptionPane.showMessageDialog(this, "There is already an account with the name \""+name+"\".\r\n"+

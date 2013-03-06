@@ -1,5 +1,7 @@
 package be.dafke.Accounting.GUI.CodaManagement;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.CounterParties;
 import be.dafke.Accounting.Objects.Accounting.CounterParty;
@@ -178,10 +180,18 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 			String s = JOptionPane.showInputDialog(this, "Enter a name for the new counterparty");
 			if (s != null && !s.equals("")) {
 				CounterParties counterParties = accounting.getCounterParties();
-                newCounterParty = counterParties.addCounterParty(s, null);
-				oldCounterPartyCombo.addItem(newCounterParty);
-                newCounterPartyCombo.addItem(newCounterParty);
-                newCounterPartyCombo.setSelectedItem(newCounterParty);
+                try {
+                    CounterParty counterParty = new CounterParty();
+                    counterParty.setName(s);
+                    newCounterParty = counterParties.addBusinessObject(counterParty);
+                    oldCounterPartyCombo.addItem(newCounterParty);
+                    newCounterPartyCombo.addItem(newCounterParty);
+                    newCounterPartyCombo.setSelectedItem(newCounterParty);
+                } catch (EmptyNameException e1) {
+                    JOptionPane.showMessageDialog(this, "The Name of the CounterParty cannot be empty.");
+                } catch (DuplicateNameException e1) {
+                    JOptionPane.showMessageDialog(this, "The Name of the CounterParty already exists.");
+                }
 			}
 		} else if (e.getSource() == oldCounterPartyCombo) {
 			oldCounterParty = (CounterParty) oldCounterPartyCombo.getSelectedItem();

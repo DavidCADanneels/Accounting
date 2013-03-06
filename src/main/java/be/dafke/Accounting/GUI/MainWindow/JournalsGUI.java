@@ -103,7 +103,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
         combo.removeActionListener(this);
         combo.removeAllItems();
 		if (journals!=null) {
-            for(Journal journal: journals.values()){
+            for(Journal journal: journals.getBusinessObjects()){
                 combo.addItem(journal);
             }
 			combo.setSelectedItem(journals.getCurrentJournal());

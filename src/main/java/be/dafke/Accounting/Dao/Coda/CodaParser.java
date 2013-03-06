@@ -5,6 +5,8 @@
 
 package be.dafke.Accounting.Dao.Coda;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.CounterParties;
 import be.dafke.Accounting.Objects.Accounting.Movement;
@@ -36,17 +38,31 @@ public class CodaParser {
 				while (line != null) {
 					if (line.startsWith("21")) {
 						movement = Movement.parse(line, counterParties);
-						movements.add(movement);
-					} else if (line.startsWith("22")) {
-						movement.addPart2(line);
+                        try {
+                            movements.addBusinessObject(movement);
+                        } catch (EmptyNameException e) {
+                            System.err.println("Movement name is empty.");
+                        } catch (DuplicateNameException e) {
+                            System.err.println("Movement name already exist.");
+                        }
+                    } else if (line.startsWith("22")) {
+                        if(movement!=null){
+						    movement.addPart2(line);
+                        } else {
+                            System.err.println("Corrupt CODA file: " + file.getName());
+                        }
 					} else if (line.startsWith("23")) {
-						movement.addPart3(line);
+                        if(movement!=null){
+						    movement.addPart3(line);
+                        } else {
+                            System.err.println("Corrupt CODA file: " + file.getName());
+                        }
 					}
 					line = reader.readLine();
 				}
 				reader.close();
 			} catch (IOException io) {
-
+                io.printStackTrace();
 			}
 		}
 	}
@@ -58,6 +74,7 @@ public class CodaParser {
 			Date datum = sdf.parse(date);
 			cal.setTime(datum);
 		} catch (ParseException p) {
+            p.printStackTrace();
 		}
 		return cal;
 	}

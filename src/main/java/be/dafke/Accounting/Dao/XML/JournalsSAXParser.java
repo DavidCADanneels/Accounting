@@ -53,7 +53,11 @@ public class JournalsSAXParser {
                 String journal_short = Utils.getValue(element, "journal_short");
                 String journal_type = Utils.getValue(element, "journal_type");
                 try{
-                    Journal journal = journals.addJournal(journal_name, journal_short, journalTypes.get(journal_type));
+                    Journal journal = new Journal();
+                    journal.setName(journal_name);
+                    journal.setAbbreviation(journal_short);
+                    journal.setJournalType(journalTypes.get(journal_type));
+                    journals.addBusinessObject(journal);
                     journal.setXmlFile(xmlFile);
                     journal.setHtmlFile(htmlFile);
                     readJournal(journal, accounts);

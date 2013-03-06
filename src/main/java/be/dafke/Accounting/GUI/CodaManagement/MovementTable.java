@@ -115,7 +115,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 			CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 5);
 			if (counterParty == null) {
 				Movements movements = accounting.getMovements();
-				list.add(movements.getMovement(i));
+				list.add(movements.getBusinessObject(i));
 			} else if (counterParty.getAccount() == null) {
 				set.add(counterParty);
 			}
@@ -219,12 +219,12 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 				Movements movements = accounting.getMovements();
 				CounterParty counterParty = (CounterParty) tabel.getValueAt(row, col);
 				if (counterParty == null) {
-					CounterPartySelector sel = new CounterPartySelector(movements.getMovement(row), accounting);
+					CounterPartySelector sel = new CounterPartySelector(movements.getBusinessObject(row), accounting);
 					sel.setVisible(true);
 					counterParty = sel.getSelection();
 				}
 				if (counterParty != null) {
-					Movement movement = movements.getMovement(row);
+					Movement movement = movements.getBusinessObject(row);
 					movement.setCounterParty(counterParty);
 					super.refresh();
 					System.out.println(counterParty.getName());

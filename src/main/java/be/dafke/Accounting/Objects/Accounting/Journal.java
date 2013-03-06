@@ -17,7 +17,7 @@ public class Journal extends BusinessObject{
     private Transaction currentTransaction = new Transaction();
     private Account currentAccount;
 
-	protected Journal() {
+	public Journal() {
 //		save = true;
 		transacties = new ArrayList<Transaction>();
 		id = 1;

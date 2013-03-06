@@ -1,7 +1,7 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import be.dafke.Accounting.Exceptions.NotEmptyException;
+
 /**
  * User: Dafke
  * Date: 27/02/13
@@ -9,31 +9,12 @@ import java.util.HashMap;
  */
 public class Mortgages extends BusinessCollection<Mortgage>{
 
-    private final HashMap<String, Mortgage> mortgages;
-
-    public Mortgages(){
-        mortgages = new HashMap<String, Mortgage>();
-    }
-
-    public void addMortgageTable(String mortgageName, Mortgage table) {
-        mortgages.put(mortgageName, table);
-    }
-
-    public boolean containsMortgageName(String mortgageName) {
-        return mortgages.containsKey(mortgageName);
-    }
-
     @Override
-    public Mortgage getBusinessObject(String mortgageName) {
-        return mortgages.get(mortgageName);
+    public void removeBusinessObject(Mortgage value) throws NotEmptyException {
+        if(value.getNrPayed()!=0 && !value.isPayedOff()){
+            throw new NotEmptyException();
+        }
+        removeBusinessObject(NAME, value.getName());
     }
 
-    @Override
-    public ArrayList<Mortgage> getBusinessObjects() {
-        return new ArrayList<Mortgage>(mortgages.values());
-    }
-
-    public void removeMortgageTable(Mortgage selectedMortgage) {
-        mortgages.remove(selectedMortgage.toString());
-    }
 }

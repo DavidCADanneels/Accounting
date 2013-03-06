@@ -90,7 +90,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 		ArrayList<String> failed = new ArrayList<String>();
         for(Account account : accountList) {
             try{
-                accounting.getAccounts().removeAccount(account);
+                accounting.getAccounts().removeBusinessObject(account);
             }catch (NotEmptyException e){
                 failed.add(account.getName());
             }

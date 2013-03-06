@@ -1,5 +1,7 @@
 package be.dafke.Accounting.Dao.XML;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.CounterParties;
 import be.dafke.Accounting.Objects.Accounting.CounterParty;
@@ -59,7 +61,6 @@ public class MovementsSAXParser {
                 BigDecimal amount = new BigDecimal(amountString);
                 Calendar date = Utils.toCalendar(dateString);
                 boolean debit = ("D".equals(debitString));
-                CounterParty counterParty = counterParties.getBusinessObject(counterpartyName);
                 Movement movement = new Movement();
                 movement.setName(statementNr+"-"+sequenceNr);
                 movement.setStatementNr(statementNr);
@@ -67,10 +68,19 @@ public class MovementsSAXParser {
                 movement.setDate(date);
                 movement.setDebit(debit);
                 movement.setAmount(amount);
-                movement.setCounterParty(counterParty);
+                if(counterpartyName!=null){
+                    CounterParty counterParty = counterParties.getBusinessObject(counterpartyName);
+                    movement.setCounterParty(counterParty);
+                }
                 movement.setTransactionCode(transactionCode);
                 movement.setCommunication(communication);
-                movements.add(movement);
+                try {
+                    movements.addBusinessObject(movement);
+                } catch (EmptyNameException e) {
+                    System.err.println("Movement name is empty.");
+                } catch (DuplicateNameException e) {
+                    System.err.println("Movement name already exist.");
+                }
             }
         } catch (Exception e) {
             e.printStackTrace();

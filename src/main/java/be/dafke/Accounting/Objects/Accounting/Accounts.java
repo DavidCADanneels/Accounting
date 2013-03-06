@@ -7,7 +7,6 @@ import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 /**
  * Serialiseerbare map die alle rekeningen bevat
@@ -16,27 +15,7 @@ import java.util.HashMap;
  */
 public class Accounts extends BusinessCollection<Account> {
 
-    private HashMap<String, Account> accounts;
-
-    public Accounts() {
-        accounts = new HashMap<String, Account>();
-    }
-
-	public Account addAccount(String accountName, AccountType accountType) throws DuplicateNameException, EmptyNameException {
-        if(accountName==null || "".equals(accountName.trim())){
-            throw new EmptyNameException();
-        }
-        if(accounts.containsKey(accountName.trim())){
-            throw new DuplicateNameException();
-        }
-        Account account = new Account();
-        account.setName(accountName.trim());
-        account.setAccountType(accountType);
-        accounts.put(account.getName(), account);
-        return account;
-	}
-
-	/**
+    /**
 	 * Geeft alle rekeningen terug van het gegeven type
 	 * @param type het type van de gevraagde rekeningen
 	 * <ul>
@@ -51,7 +30,7 @@ public class Accounts extends BusinessCollection<Account> {
 	 */
 	public ArrayList<Account> getAccounts(AccountType type) {
 		ArrayList<Account> col = new ArrayList<Account>();
-		for(Account account : accounts.values()) {
+		for(Account account : getBusinessObjects()) {
 			if (account.getAccountType() == type) col.add(account);
 		}
 		return col;
@@ -75,7 +54,7 @@ public class Accounts extends BusinessCollection<Account> {
 
     private ArrayList<Account> getAccountsNotEmpty(AccountType type) {
         ArrayList<Account> col = new ArrayList<Account>();
-        for(Account account : accounts.values()) {
+        for(Account account : getBusinessObjects()) {
             if (account.getAccountType() == type && account.saldo().compareTo(BigDecimal.ZERO) != 0) col.add(account);
         }
         return col;
@@ -88,7 +67,7 @@ public class Accounts extends BusinessCollection<Account> {
 	 */
 	public ArrayList<Account> getAccountNoMatchProject(Project project) {
 		ArrayList<Account> result = new ArrayList<Account>();
-		for(Account account : accounts.values()) {
+		for(Account account : getBusinessObjects()) {
 			if (account.getProject() != project) result.add(account);
 		}
 		return result;
@@ -98,34 +77,23 @@ public class Accounts extends BusinessCollection<Account> {
         if(newName==null || "".equals(newName.trim())){
             throw new EmptyNameException();
         }
-        Account account = accounts.get(oldName);
-        accounts.remove(oldName);
-        if(accounts.containsKey(newName.trim())){
-            accounts.put(oldName, account);
-            throw new DuplicateNameException();
-        }
-        accounts.put(newName, account);
+        Account account = get(oldName);
         account.setName(newName.trim());
+        removeBusinessObject(NAME,oldName);
+        try {
+            addBusinessObject(account, NAME, newName.trim());
+        } catch (DuplicateNameException e){
+            account.setName(oldName);
+            addBusinessObject(account);
+            throw e;
+        }
         return account;
 	}
 
     @Override
-    public Account getBusinessObject(String name) {
-        return accounts.get(name);
-    }
-
-    @Override
-    public ArrayList<Account> getBusinessObjects() {
-		ArrayList<Account> col = new ArrayList<Account>();
-		for(Account account : accounts.values()) {
-			col.add(account);
-		}
-		return col;
-	}
-
-    public void removeAccount(Account account) throws NotEmptyException {
+    public void removeBusinessObject(Account account) throws NotEmptyException {
         if(account.getBookings().isEmpty()){
-            accounts.remove(account.getName());
+            removeBusinessObject(NAME,account.getName());
         } else {
             throw new NotEmptyException();
         }
