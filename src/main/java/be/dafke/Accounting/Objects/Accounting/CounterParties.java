@@ -3,40 +3,63 @@ package be.dafke.Accounting.Objects.Accounting;
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.AbstractMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class CounterParties extends BusinessCollection<CounterParty>{
 
-    private static final String ACCOUNTNUMBER = "accountNumber";
-
     public CounterParties(){
-        addKey(ACCOUNTNUMBER);
+        addKey(CounterParty.ACCOUNTNUMBER);
     }
 
     @Override
-    public CounterParty addBusinessObject(CounterParty value) throws EmptyNameException, DuplicateNameException {
-        List<String> types = new ArrayList<String>();
-        List<String> keys = new ArrayList<String>();
-        types.add(NAME);
-        keys.add(value.getName());
-
-        for(BankAccount bankAccount : value.getBankAccounts().values()){
-            types.add(ACCOUNTNUMBER);
-            keys.add(bankAccount.getAccountNumber());
+    final protected CounterParty addBusinessObject(CounterParty value, Map<String,String> keyMap) throws EmptyNameException, DuplicateNameException {
+        if(value.getName()==null || "".equals(value.getName().trim())){
+            throw new EmptyNameException();
         }
-        addBusinessObject(value, types, keys);
+
+        // check for duplicate Accounts
+        for(Map.Entry<String,String> entry:keyMap.entrySet()){
+            String type = entry.getKey();
+            String key = entry.getValue();
+
+            TreeMap<String, CounterParty> map = dataTables.get(type);
+            CounterParty foundValue = map.get(key);
+
+            if(foundValue!=null){
+                if(value.isMergeable()){
+                    // update Accounts
+                    value = merge(foundValue, value);
+//                } else {
+//                    throw new DuplicateNameException();
+                }
+            } else {
+                map.put(key, value);
+            }
+        }
+        CounterParty foundByName = getBusinessObject(value.getName());
+        if(foundByName!=null){
+            if(value.isMergeable()){
+                value = merge(foundByName,value);
+            } else {
+                throw new DuplicateNameException();
+            }
+        }
+        dataTables.get(NAME).put(value.getName(),value);
+
+
         return value;
     }
 
-    @Override
-    protected CounterParty merge(CounterParty toKeep, CounterParty toRemove) throws EmptyNameException, DuplicateNameException {
+    private CounterParty merge(CounterParty toKeep, CounterParty toRemove) {
         if(!toKeep.getName().equals(toRemove.getName())){
             toKeep.addAlias(toRemove.getName());
             System.out.println("Alias (" + toRemove.getName() + ") added for " + toKeep.getName());
             toKeep.getAliases().addAll(toRemove.getAliases());
         }
-        removeBusinessObject(NAME, toRemove.getName());
+        Map.Entry<String,String> entry = new AbstractMap.SimpleImmutableEntry<String, String>(NAME,toRemove.getName());
+        removeBusinessObject(entry);
         for(BankAccount bankAccountToRemove : toRemove.getBankAccounts().values()){
             BankAccount bankAccountToKeep = toKeep.getBankAccounts().get(bankAccountToRemove.getAccountNumber());
             if(bankAccountToKeep == null){
@@ -55,7 +78,6 @@ public class CounterParties extends BusinessCollection<CounterParty>{
                         System.out.println("Currency (" + bankAccountToRemove.getCurrency() + ") updated for " + toKeep.getName());
                     }
                 }
-                removeBusinessObject(ACCOUNTNUMBER, bankAccountToRemove.getAccountNumber());
             }
         }
         return toKeep;

@@ -5,9 +5,11 @@ import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Exceptions.NotEmptyException;
 
 import java.io.File;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.TreeMap;
 
 /**
@@ -15,9 +17,8 @@ import java.util.TreeMap;
  * Date: 4/03/13
  * Time: 16:23
  */
-public abstract class BusinessCollection<V extends BusinessObject> extends BusinessObject{
+public class BusinessCollection<V extends BusinessObject> extends BusinessObject{
 
-    protected static final String NAME = "name";
 
     protected HashMap<String, TreeMap<String,V>> dataTables;
 
@@ -29,7 +30,7 @@ public abstract class BusinessCollection<V extends BusinessObject> extends Busin
         addKey(NAME);
     }
 
-    public void addKey(String key){
+    protected void addKey(String key){
         if(dataTables.containsKey(key)){
             System.err.println("This collection already contains this key");
         }
@@ -37,97 +38,14 @@ public abstract class BusinessCollection<V extends BusinessObject> extends Busin
         dataTables.put(key, newMap);
     }
 
-    public V getBusinessObject(int nr) {
-        return getBusinessObjects().get(nr);
-    }
-
-    public int getSize() {
-        return size();
-    }
-
-    public V getBusinessObject(String name){
-        return getBusinessObject(name, NAME);
-    }
-
-    public V getBusinessObject(String key, String type){
-        TreeMap<String, V> map = dataTables.get(type);
-        return map.get(key);
-    }
-
-    public V addBusinessObject(V value) throws EmptyNameException, DuplicateNameException{
-        return addBusinessObject(value, NAME, value.getName());
-    }
-
-    public V addBusinessObject(V value, List<String> types, List<String> keys) throws EmptyNameException, DuplicateNameException {
-        if(types.size() != keys.size()){
-            System.err.println("Inproper use: typeList and keyList have different lengths !!!");
-            return null;
-        }
-
-        for(int i=0;i<types.size();i++){
-            String type = types.get(i);
-            String key = keys.get(i);
-
-            TreeMap<String, V> map = dataTables.get(type);
-            V foundValue = map.get(key);
-
-            if(foundValue!=null){
-                value = merge(foundValue, value);
-            }
-            map.put(key,value);
-        }
-        return value;
-
-    }
-
-    protected V merge(V valueToKeep, V valueToRemove) throws EmptyNameException, DuplicateNameException {
-        return null;
-    }
-
-    public V addBusinessObject(V value, String type, String key) throws EmptyNameException, DuplicateNameException{
-        if(key == null || key.equals("")){
-            throw new EmptyNameException();
-        }
-        TreeMap<String, V> map = dataTables.get(type);
-        if(map.containsKey(key)){
-            throw new DuplicateNameException();
-        }
-
-        value.setXmlFile(new File(xmlFolder, value.getName() + ".xml"));
-        if(htmlFolder!=null){
-            value.setHtmlFile(new File(htmlFolder, value.getName() + ".html"));
-        }
-        map.put(key, value);
-        return value;
-    }
-
     public List<V> getBusinessObjects(){
         TreeMap<String,V> map = dataTables.get(NAME);
         return new ArrayList<V>(map.values());
     }
 
-    public V get(String name){
-        return getBusinessObject(name);
-    }
+    // -------------------------------------------------------------------------------------
 
-    public V get(int index){
-        return getBusinessObjects().get(index);
-    }
-
-    public int size(){
-        return getBusinessObjects().size();
-    }
-
-    public void removeBusinessObject(V value) throws NotEmptyException {
-//        if(!value.isDeletable()){
-            removeBusinessObject(NAME, value.getName());
-//        }
-    }
-
-    public void removeBusinessObject(String type, String key){
-        dataTables.get(type).remove(key);
-    }
-
+    // Folders
 
     public void setHtmlFolder(File parentFolder){
         setHtmlFile(new File(parentFolder, getType() + ".html"));
@@ -149,9 +67,9 @@ public abstract class BusinessCollection<V extends BusinessObject> extends Busin
 //        return xmlFolder;
 //    }
 //
-//    public File getHtmlFolder() {
-//        return htmlFolder;
-//    }
+    public File getHtmlFolder() {
+        return htmlFolder;
+    }
 
     protected void createXmlFolder(){
         if(xmlFolder.mkdirs()){
@@ -165,6 +83,8 @@ public abstract class BusinessCollection<V extends BusinessObject> extends Busin
         }
     }
 
+    // -------------------------------------------------------------------------------------
+
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(getType()).append(":\r\n");
@@ -174,4 +94,130 @@ public abstract class BusinessCollection<V extends BusinessObject> extends Busin
         return builder.toString();
     }
 
+    // -------------------------------------------------------------------------------------
+
+    // Get
+
+    public V getBusinessObject(String name){
+        Map.Entry<String, String> entry = new AbstractMap.SimpleEntry<String, String>(NAME, name);
+        return getBusinessObject(entry);
+    }
+
+    private V getBusinessObject(Map.Entry<String, String> entry){
+        String type = entry.getKey();
+        String key = entry.getValue();
+        TreeMap<String, V> map = dataTables.get(type);
+        return map.get(key);
+    }
+
+
+    // -------------------------------------------------------------------------------------
+
+    // Add
+
+    public V addBusinessObject(V value) throws EmptyNameException, DuplicateNameException{
+        return addBusinessObject(value, value.getKeyMap());
+    }
+
+    protected V addBusinessObject(V value, Map<String,String> keyMap) throws EmptyNameException, DuplicateNameException {
+        for(Map.Entry<String,String> entry:keyMap.entrySet()){
+            String key = entry.getValue();
+            if(key==null || "".equals(key.trim())){
+                throw new EmptyNameException();
+            }
+            V found = getBusinessObject(entry);
+            if(found!=null){
+                throw new DuplicateNameException(key);
+            }
+        }
+        for(Map.Entry<String,String> entry:keyMap.entrySet()){
+            // This will not throw any exceptions: we already handled them above.
+            addBusinessObject(value, entry);
+        }
+        return value;
+    }
+
+    /**For internal use:
+     * modify and merge
+     *
+     */
+    protected V addBusinessObject(V value, Map.Entry<String,String> mapEntry){
+        String type = mapEntry.getKey();
+        String key = mapEntry.getValue();
+        TreeMap<String, V> map = dataTables.get(type);
+
+        key = key.trim();
+
+        if(type.equals(NAME)){
+            value.setName(key);
+        }
+
+        value.setXmlFile(new File(xmlFolder, value.getName() + ".xml"));
+        if(htmlFolder!=null){
+            value.setHtmlFile(new File(htmlFolder, value.getName() + ".html"));
+        }
+
+        map.put(key, value);
+        return value;
+    }
+
+
+
+    // -------------------------------------------------------------------------------------
+
+    // Modify
+
+    public V modify(Map.Entry<String,String> oldEntry, Map.Entry<String,String> newEntry) throws EmptyNameException, DuplicateNameException{
+        if(!oldEntry.getKey().equals(oldEntry.getKey())){
+            throw new RuntimeException("Inproper use: keys should have the same value (modify)");
+        }
+        String key = newEntry.getValue();
+        if(key==null || "".equals(key.trim())){
+            throw new EmptyNameException();
+        }
+        V value = getBusinessObject(oldEntry);
+        removeBusinessObject(oldEntry);
+
+        V found = getBusinessObject(newEntry);
+        if(found!=null){
+            addBusinessObject(value, oldEntry);
+            throw new DuplicateNameException(key);
+        }
+        addBusinessObject(value, newEntry);
+        return value;
+    }
+
+
+
+    // -------------------------------------------------------------------------------------
+
+    // Remove
+
+    /**Removal function for external use: performs a check if the value is deletable
+     * @see be.dafke.Accounting.Objects.Accounting.BusinessObject#isDeletable()
+     * @param value the value to delete
+     * @throws NotEmptyException if the value is not deletable
+     */
+    public void removeBusinessObject(V value) throws NotEmptyException {
+        if(value.isDeletable()){
+            removeBusinessObject(value.getKeyMap());
+        } else {
+            throw new NotEmptyException();
+        }
+    }
+
+    private void removeBusinessObject(Map<String,String> entryMap){
+        for(Map.Entry<String,String> entry : entryMap.entrySet()){
+            removeBusinessObject(entry);
+        }
+    }
+
+    //
+    /**Remove function for interal use: performs no check
+     */
+    protected void removeBusinessObject(Map.Entry<String,String> entry){
+        String type = entry.getKey();
+        String key = entry.getValue();
+        dataTables.get(type).remove(key);
+    }
 }

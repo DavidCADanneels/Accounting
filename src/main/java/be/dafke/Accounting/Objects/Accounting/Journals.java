@@ -2,10 +2,10 @@ package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
-import be.dafke.Accounting.Exceptions.NotEmptyException;
 
+import java.util.AbstractMap;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Serialiseerbare map die alle dagboeken bevat
@@ -14,14 +14,10 @@ import java.util.HashMap;
  */
 public class Journals extends BusinessCollection<Journal> {
 
-	private final HashMap<String, Journal> abbreviations;
-    private final HashMap<String, Journal> journals;
-
     private Journal currentJournal;
 
     public Journals() {
-        abbreviations = new HashMap<String, Journal>();
-        journals = new HashMap<String, Journal>();
+        addKey(Journal.ABBREVIATION);
 	}
 
     public Journal getCurrentJournal() {
@@ -38,75 +34,24 @@ public class Journals extends BusinessCollection<Journal> {
 	 * @return alle dagboeken behalve het gegeven dagboek
 	 */
 	public ArrayList<Journal> getAllJournalsExcept(Journal j) {
-		ArrayList<Journal> result = new ArrayList<Journal>(journals.values());
+		ArrayList<Journal> result = new ArrayList<Journal>(getBusinessObjects());
 		result.remove(j);
 		return result;
 	}
 
-    @Override
-	public ArrayList<Journal> getBusinessObjects() {
-		return new ArrayList<Journal>(journals.values());
-	}
-
-    public Journal addBusinessObject(Journal journal) throws EmptyNameException, DuplicateNameException {
-        String name = journal.getName();
-        String abbreviation = journal.getAbbreviation();
-        if(name==null || "".equals(name.trim())){
-            throw new EmptyNameException();
-        }
-        if(abbreviation==null || "".equals(abbreviation.trim())){
-            throw new EmptyNameException();
-        }
-        if(journals.containsKey(name.trim()) || abbreviations.containsKey(abbreviation.trim())){
-            throw new DuplicateNameException();
-        }
-        journals.put(journal.getName(), journal);
-        abbreviations.put(journal.getAbbreviation(), journal);
-        return journal;
-    }
-
-    @Override
-    public void removeBusinessObject(Journal journal) throws NotEmptyException {
-        if(journal.getTransactions().isEmpty()){
-            journals.remove(journal.getName());
-            abbreviations.remove(journal.getAbbreviation());
-        } else {
-            throw new NotEmptyException();
-        }
-    }
-
     public Journal modifyJournalName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
-        if(newName==null || "".equals(newName.trim())){
-            throw new EmptyNameException();
-        }
-        Journal journal = journals.get(oldName);
-        journals.remove(oldName);
-        if(journals.containsKey(newName.trim())){
-            journals.put(oldName, journal);
-            throw new DuplicateNameException();
-        }
-        journals.put(newName, journal);
-        journal.setName(newName.trim());
-        return journal;
+        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(Journal.NAME, oldName);
+        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(Journal.NAME, newName);
+//        Name is modified in modify Function
+//        journal.setName(newName.trim());
+        return modify(oldEntry, newEntry);
     }
 
     public Journal modifyJournalAbbreviation(String oldAbbreviation, String newAbbreviation) throws EmptyNameException, DuplicateNameException {
-        if(newAbbreviation==null || "".equals(newAbbreviation.trim())){
-            throw new EmptyNameException();
-        }
-        Journal journal = abbreviations.get(oldAbbreviation);
-        abbreviations.remove(oldAbbreviation);
-        if(abbreviations.containsKey(newAbbreviation.trim())){
-            abbreviations.put(oldAbbreviation, journal);
-            throw new DuplicateNameException();
-        }
-        abbreviations.put(newAbbreviation,journal);
+        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(Journal.ABBREVIATION, oldAbbreviation);
+        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(Journal.ABBREVIATION, newAbbreviation);
+        Journal journal = modify(oldEntry, newEntry);
         journal.setAbbreviation(newAbbreviation.trim());
         return journal;
-    }
-
-    @Override
-    public Journal getBusinessObject(String current) {
-        return journals.get(current);
     }
 }

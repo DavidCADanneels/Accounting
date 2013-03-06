@@ -2,11 +2,12 @@ package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
-import be.dafke.Accounting.Exceptions.NotEmptyException;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 
 import java.math.BigDecimal;
+import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Serialiseerbare map die alle rekeningen bevat
@@ -74,28 +75,10 @@ public class Accounts extends BusinessCollection<Account> {
 	}
 
 	public Account modifyAccountName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
-        if(newName==null || "".equals(newName.trim())){
-            throw new EmptyNameException();
-        }
-        Account account = get(oldName);
-        account.setName(newName.trim());
-        removeBusinessObject(NAME,oldName);
-        try {
-            addBusinessObject(account, NAME, newName.trim());
-        } catch (DuplicateNameException e){
-            account.setName(oldName);
-            addBusinessObject(account);
-            throw e;
-        }
-        return account;
+        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(Account.NAME, oldName);
+        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(Account.NAME, newName);
+//        Name is modified in modify Function
+//        account.setName(newName.trim());
+        return modify(oldEntry, newEntry);
 	}
-
-    @Override
-    public void removeBusinessObject(Account account) throws NotEmptyException {
-        if(account.getBookings().isEmpty()){
-            removeBusinessObject(NAME,account.getName());
-        } else {
-            throw new NotEmptyException();
-        }
-    }
 }

@@ -57,10 +57,15 @@ public class Account extends BusinessObject{
 		project = p;
 	}
 
-	/**
-	 * Geeft de boekingen terug die bij deze rekening horen
-	 * @return de boekingen die bij deze rekening horen
-	 */
+    @Override
+    public boolean isDeletable(){
+        return boekingen.isEmpty();
+    }
+
+    /**
+     * Geeft de boekingen terug die bij deze rekening horen
+     * @return de boekingen die bij deze rekening horen
+     */
 	public ArrayList<Booking> getBookings() {
 		return boekingen;
 	}

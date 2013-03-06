@@ -10,6 +10,11 @@ public class Mortgage extends BusinessObject {
 	private Account capital, intrest;
 	private BigDecimal startCapital;
 
+    @Override
+    public boolean isDeletable(){
+        return alreadyPayed > 0 && alreadyPayed < table.size();
+    }
+
 	public BigDecimal getStartCapital() {
 		return startCapital;
 	}

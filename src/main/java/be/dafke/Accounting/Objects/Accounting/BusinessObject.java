@@ -1,6 +1,8 @@
 package be.dafke.Accounting.Objects.Accounting;
 
 import java.io.File;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * User: Dafke
@@ -16,6 +18,8 @@ public class BusinessObject {
     private String type;
 //    private boolean isSaved;
 
+    protected static final String NAME = "name";
+
     protected BusinessObject(){
         type = this.getClass().getSimpleName();
         File dtdFolder = new File(System.getProperty("Accountings_dtd"));
@@ -24,6 +28,13 @@ public class BusinessObject {
         xsl2XmlFile = new File(xslFolder, type + "2xml.xsl");
         xsl2HtmlFile = new File(xslFolder, type + "2html.xsl");
     }
+
+    public Map<String,String> getKeyMap(){
+        Map<String,String> keyMap = new HashMap<String, String>();
+        keyMap.put(NAME, name);
+        return keyMap;
+    }
+
 
     @Override
     public String toString() {
@@ -76,6 +87,17 @@ public class BusinessObject {
 
     public void setHtmlFile(File htmlFile) {
         this.htmlFile = htmlFile;
+    }
+
+    /**Checks if the BusinessObject is deletable:
+     * @return if the BusinessObject is deletable (default: false)
+     */
+    public boolean isDeletable() {
+        return false;
+    }
+
+    public boolean isMergeable(){
+        return false;
     }
 
 //	/**

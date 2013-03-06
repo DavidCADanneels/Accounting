@@ -182,6 +182,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 				CounterParties counterParties = accounting.getCounterParties();
                 try {
                     CounterParty counterParty = new CounterParty();
+                    counterParty.setMergeable(false);
                     counterParty.setName(s);
                     newCounterParty = counterParties.addBusinessObject(counterParty);
                     oldCounterPartyCombo.addItem(newCounterParty);

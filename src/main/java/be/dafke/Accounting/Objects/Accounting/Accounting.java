@@ -60,7 +60,7 @@ public class Accounting extends BusinessObject{
         return keys;
     }
 
-    public BusinessObject getCollection(String key) {
+    public BusinessCollection<BusinessObject> getCollection(String key) {
         return collections.get(key);
     }
 

@@ -67,9 +67,9 @@ public class MortgagesSAXParser {
                 mortgage.setHtmlFile(htmlFile);
                 int nr = Integer.valueOf(nrPayed);
                 mortgage.setPayed(nr);
-                Account capital = accounts.get(capitalName);
+                Account capital = accounts.getBusinessObject(capitalName);
                 mortgage.setCapitalAccount(capital);
-                Account intrest = accounts.get(intrestName);
+                Account intrest = accounts.getBusinessObject(intrestName);
                 mortgage.setIntrestAccount(intrest);
                 try {
                     mortgages.addBusinessObject(mortgage);

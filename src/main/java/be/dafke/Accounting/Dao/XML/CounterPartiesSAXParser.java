@@ -51,7 +51,7 @@ public class CounterPartiesSAXParser {
 
                 String accountName = Utils.getValue(element, "AccountName");
                 if(accountName!=null){
-                    Account account = accounts.get(accountName);
+                    Account account = accounts.getBusinessObject(accountName);
                     counterParty.setAccount(account);
                 }
                 for(String alias: Utils.getValues(element, "Alias")){

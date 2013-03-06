@@ -6,4 +6,10 @@ package be.dafke.Accounting.Exceptions;
  * Time: 11:54
  */
 public class DuplicateNameException extends Throwable {
+    public DuplicateNameException() {
+    }
+
+    public DuplicateNameException(String message) {
+        super(message);
+    }
 }

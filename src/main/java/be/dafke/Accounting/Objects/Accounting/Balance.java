@@ -19,6 +19,11 @@ public class Balance extends BusinessObject{
     private ArrayList<Account.AccountType> rightTypes;
     private Accounting accounting;
 
+    @Override
+    public boolean isDeletable(){
+        return !(getName().equals(Balances.YEAR_BALANCE) || getName().equals(Balances.RESULT_BALANCE) || getName().equals(Balances.RELATIONS_BALANCE));
+    }
+
     public String getLeftName() {
         return leftName;
     }

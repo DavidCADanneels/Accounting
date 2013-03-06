@@ -6,4 +6,10 @@ package be.dafke.Accounting.Exceptions;
  * Time: 12:07
  */
 public class EmptyNameException extends Throwable {
+    public EmptyNameException() {
+    }
+
+    public EmptyNameException(String message) {
+        super(message);
+    }
 }

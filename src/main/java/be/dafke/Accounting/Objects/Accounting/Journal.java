@@ -2,6 +2,8 @@ package be.dafke.Accounting.Objects.Accounting;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Boekhoudkundig dagboek
@@ -16,12 +18,26 @@ public class Journal extends BusinessObject{
 	private JournalType journalType;
     private Transaction currentTransaction = new Transaction();
     private Account currentAccount;
+    protected static final String ABBREVIATION = "abbreviation";
 
-	public Journal() {
+    public Journal() {
 //		save = true;
 		transacties = new ArrayList<Transaction>();
 		id = 1;
 	}
+
+    @Override
+    public Map<String,String> getKeyMap(){
+        Map<String,String> keyMap = new HashMap<String, String>();
+        keyMap.put(NAME, getName());
+        keyMap.put(ABBREVIATION, abbreviation);
+        return keyMap;
+    }
+
+    @Override
+    public boolean isDeletable(){
+        return transacties.isEmpty();
+    }
 
     public Booking getBooking(int row){
         ArrayList<Booking> boekingen = new ArrayList<Booking>();

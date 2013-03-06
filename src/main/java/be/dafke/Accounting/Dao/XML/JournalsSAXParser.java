@@ -111,7 +111,7 @@ public class JournalsSAXParser {
                     transaction.setDescription(description);
                 }
                 String accountName = Utils.getValue(element, "account_name");
-                Account account = accounts.get(accountName);
+                Account account = accounts.getBusinessObject(accountName);
                 String debit = Utils.getValue(element, "debet");
                 String credit = Utils.getValue(element, "credit");
                 if(transaction==null){
