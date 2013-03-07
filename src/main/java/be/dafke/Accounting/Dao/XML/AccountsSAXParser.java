@@ -128,15 +128,15 @@ public class AccountsSAXParser {
 
             writer.write("<Account>\r\n" + "  <name>" + account.getName() + "</name>\r\n");
             for(Booking booking : account.getBookings()){
-                writer.write("  <action id=\""+booking.getId()+"\">\r\n");
-                writer.write("    <nr>" + booking.getAbbreviation() + booking.getId() + "</nr>\r\n");
-                writer.write("    <journal_xml>" + booking.getJournal().getXmlFile() + "</journal_xml>\r\n");
-                writer.write("    <journal_html>" + booking.getJournal().getHtmlFile() + "</journal_html>\r\n");
-                writer.write("    <date>" + Utils.toString(booking.getDate()) + "</date>\r\n");
+                writer.write("  <action id=\""+booking.getTransaction().getId()+"\">\r\n");
+                writer.write("    <nr>" + booking.getTransaction().getAbbreviation() + booking.getTransaction().getId() + "</nr>\r\n");
+                writer.write("    <journal_xml>" + booking.getTransaction().getJournal().getXmlFile() + "</journal_xml>\r\n");
+                writer.write("    <journal_html>" + booking.getTransaction().getJournal().getHtmlFile() + "</journal_html>\r\n");
+                writer.write("    <date>" + Utils.toString(booking.getTransaction().getDate()) + "</date>\r\n");
                 writer.write("    <" + (booking.isDebit() ? "debit" : "credit") + ">"
                                      + booking.getAmount().toString()
                                + "</" + (booking.isDebit() ? "debit" : "credit") + ">\r\n");
-                writer.write("    <description>" + booking.getDescription() + "</description>\r\n");
+                writer.write("    <description>" + booking.getTransaction().getDescription() + "</description>\r\n");
                 writer.write("  </action>\r\n");
             }
             BigDecimal saldo = account.saldo();

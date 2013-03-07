@@ -193,14 +193,14 @@ public class JournalsSAXParser {
             for (Transaction transaction :journal.getTransactions()) {
                 ArrayList<Booking> list = transaction.getBookings();
                 Booking booking = list.get(0);
-                writer.write("  <action id=\""+booking.getId()+"\">\r\n");
-                writer.write("    <nr>" + journal.getAbbreviation() + booking.getId() + "</nr>\r\n");
-                writer.write("    <date>" + Utils.toString(booking.getDate()) + "</date>\r\n");
+                writer.write("  <action id=\""+booking.getTransaction().getId()+"\">\r\n");
+                writer.write("    <nr>" + journal.getAbbreviation() + booking.getTransaction().getId() + "</nr>\r\n");
+                writer.write("    <date>" + Utils.toString(booking.getTransaction().getDate()) + "</date>\r\n");
                 writer.write("    <account_name>" + booking.getAccount() + "</account_name>\r\n");
                 writer.write("    <account_xml>" + booking.getAccount().getXmlFile() + "</account_xml>\r\n");
                 writer.write("    <account_html>" + booking.getAccount().getHtmlFile() + "</account_html>\r\n");
                 writer.write("    <amount>" + booking.getAmount().toString() + "</amount>\r\n");
-                writer.write("    <description>" + booking.getDescription() + "</description>\r\n");
+                writer.write("    <description>" + booking.getTransaction().getDescription() + "</description>\r\n");
                 writer.write("  </action>\r\n");
                 for(int i = 1; i < list.size(); i++) {
                     booking = list.get(i);

@@ -54,9 +54,9 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 	public Object getValueAt(int row, int col) {
         Booking boeking = rekening.getBookings().get(row);
         if (col == 0) {
-            return boeking.getAbbreviation() + boeking.getId();
+            return boeking.getTransaction().getAbbreviation() + boeking.getTransaction().getId();
         } else if (col == 1) {
-            return Utils.toString(boeking.getDate());
+            return Utils.toString(boeking.getTransaction().getDate());
         } else if (col == 2) {
             if (boeking.isDebit()) return boeking.getAmount();
             return "";
@@ -64,7 +64,7 @@ public class AccountDetailsDataModel extends AbstractTableModel {
             if (!boeking.isDebit()) return boeking.getAmount();
             return "";
         } else {
-            return boeking.getDescription();
+            return boeking.getTransaction().getDescription();
         }
     }
 
@@ -85,7 +85,7 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 	public void setValueAt(Object value, int row, int col) {
 		Booking boeking = rekening.getBookings().get(row);
 		if (col == 1) {
-			Calendar oudeDatum = boeking.getDate();
+			Calendar oudeDatum = boeking.getTransaction().getDate();
 			Calendar nieuweDatum = Utils.toCalendar((String) value);
 			if (nieuweDatum != null) boeking.getTransaction().setDate(nieuweDatum);
 			else setValueAt(Utils.toString(oudeDatum), row, col);

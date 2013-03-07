@@ -75,14 +75,14 @@ public class Account extends BusinessObject{
 	 * @param booking de toe te voegen boeking
 	 */
 	private void addBooking(Booking booking) {
-		Calendar datum = booking.getDate();
-		if (boekingen.size() == 0 || datum.compareTo(boekingen.get(boekingen.size() - 1).getDate()) >= 0) boekingen.add(booking);
+		Calendar datum = booking.getTransaction().getDate();
+		if (boekingen.size() == 0 || datum.compareTo(boekingen.get(boekingen.size() - 1).getTransaction().getDate()) >= 0) boekingen.add(booking);
 		else {
 			int plaats = boekingen.size();
 			boolean found = false;
 			for(int i = 0; i < boekingen.size(); i++) {
 				Booking transactie = boekingen.get(i);
-				Calendar date = transactie.getDate();
+				Calendar date = transactie.getTransaction().getDate();
 				if (!found && date.compareTo(datum) > 0) {
 					plaats = i;
 					found = true;

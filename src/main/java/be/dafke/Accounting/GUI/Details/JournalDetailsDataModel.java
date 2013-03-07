@@ -60,14 +60,14 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int row, int col) {
 		Booking boeking = journal.getBooking(row);
-        boolean first = boeking.isFirstBooking();
+        boolean first = (boeking == boeking.getTransaction().get(0));
         if (col == 0) {
             if(first){
-                return boeking.getAbbreviation() + boeking.getId();
+                return boeking.getTransaction().getAbbreviation() + boeking.getTransaction().getId();
             } else return "";
         } else if (col == 1) {
             if(first){
-                return Utils.toString(boeking.getDate());
+                return Utils.toString(boeking.getTransaction().getDate());
             } else return "";
         } else if (col == 2) {
             return boeking.getAccount();
@@ -79,7 +79,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
             return "";
         } else{
             if(first){
-                return boeking.getDescription();
+                return boeking.getTransaction().getDescription();
             } else return "";
         }
     }
@@ -101,7 +101,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 	public void setValueAt(Object value, int row, int col) {
         Booking boeking = journal.getBooking(row);
 		if (col == 1) {
-			Calendar oudeDatum = boeking.getDate();
+			Calendar oudeDatum = boeking.getTransaction().getDate();
 			Calendar nieuweDatum = Utils.toCalendar((String) value);
 			if (nieuweDatum != null) boeking.getTransaction().setDate(nieuweDatum);
 			else setValueAt(Utils.toString(oudeDatum), row, col);
