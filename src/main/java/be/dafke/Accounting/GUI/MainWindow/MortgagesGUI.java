@@ -89,7 +89,7 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		if (!e.getValueIsAdjusting() && list.getSelectedIndex() != -1) {
+		if (journal!=null && !e.getValueIsAdjusting() && list.getSelectedIndex() != -1) {
 			pay.setEnabled(true);
 		} else {
 			pay.setEnabled(false);

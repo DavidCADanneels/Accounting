@@ -5,6 +5,7 @@ import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
+import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.AlphabeticListModel;
@@ -101,7 +102,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 
 	@Override
 	public void valueChanged(ListSelectionEvent lse) {
-		if (!lse.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
+		if (journal!=null && !lse.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
             Account account = lijst.getSelectedValue();
             journal.setCurrentAccount(account);
 			debet.setEnabled(true);
@@ -137,11 +138,12 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 					amount = amount.setScale(2);
                     boolean merge = false;
                     Transaction transaction = journal.getCurrentTransaction();
+                    Booking booking = new Booking(rekening, amount,debit);
                     if(transaction.contains(rekening)){
                         merge = JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Merge Bookings?", "The current transaction already contains bookings for "
                                 + rekening +". Do you want to merge them?", JOptionPane.YES_NO_OPTION);
                     }
-                    transaction.addBooking(rekening, amount,debit,merge);
+                    transaction.addBooking(booking, merge);
 					ok = true;
                     ComponentMap.refreshAllFrames();
 				} catch (NumberFormatException nfe) {

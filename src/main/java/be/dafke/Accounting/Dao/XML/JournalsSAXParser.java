@@ -21,6 +21,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -118,10 +119,14 @@ public class JournalsSAXParser {
                     System.err.println("Journals.xml is bad structured: each transaction should have a \"nr\" tag !");
                 } else {
                     if(debit!=null){
-                        transaction.addBooking(account, Utils.parseBigDecimal(debit),true, false);
+                        BigDecimal amount = Utils.parseBigDecimal(debit);
+                        Booking booking = new Booking(account, amount, true);
+                        transaction.addBooking(booking, false);
                     }
                     if(credit!=null){
-                        transaction.addBooking(account, Utils.parseBigDecimal(credit),false, false);
+                        BigDecimal amount = Utils.parseBigDecimal(credit);
+                        Booking booking = new Booking(account, amount, false);
+                        transaction.addBooking(booking, false);
                     }
                 }
             }
@@ -194,9 +199,7 @@ public class JournalsSAXParser {
                 writer.write("    <account_name>" + booking.getAccount() + "</account_name>\r\n");
                 writer.write("    <account_xml>" + booking.getAccount().getXmlFile() + "</account_xml>\r\n");
                 writer.write("    <account_html>" + booking.getAccount().getHtmlFile() + "</account_html>\r\n");
-                writer.write("    <" + (booking.isDebit() ? "debet" : "credit") + ">"
-                                     + booking.getAmount().toString()
-                               + "</" + (booking.isDebit() ? "debet" : "credit") + ">\r\n");
+                writer.write("    <amount>" + booking.getAmount().toString() + "</amount>\r\n");
                 writer.write("    <description>" + booking.getDescription() + "</description>\r\n");
                 writer.write("  </action>\r\n");
                 for(int i = 1; i < list.size(); i++) {
@@ -205,9 +208,7 @@ public class JournalsSAXParser {
                     writer.write("    <account_name>" + booking.getAccount() + "</account_name>\r\n");
                     writer.write("    <account_xml>" + booking.getAccount().getXmlFile() + "</account_xml>\r\n");
                     writer.write("    <account_html>" + booking.getAccount().getHtmlFile() + "</account_html>\r\n");
-                    writer.write("    <" + (booking.isDebit() ? "debet" : "credit") + ">"
-                                         + booking.getAmount().toString()
-                                   + "</" + (booking.isDebit() ? "debet" : "credit") + ">\r\n");
+                    writer.write("    <amount>" + booking.getAmount().toString() + "</amount>\r\n");
                     writer.write("  </action>\r\n");
                 }
             }

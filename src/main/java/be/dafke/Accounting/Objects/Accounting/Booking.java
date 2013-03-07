@@ -16,21 +16,19 @@ public class Booking {
 	private final Account account;
 	private BigDecimal amount;
 	private boolean debit;
-	private final Transaction transaction;
+	private Transaction transaction;
 
-	/**
+    /**
 	 * Constructor
-	 * @param transaction de transaction waartoe deze boeking behoort
-	 * @param account de account horende bij deze boeking
-	 * @param amount het amount waarmee de account gedebiteerd/gecrediteerd moet worden
+	 * @param account de transactie horende bij deze boeking
+	 * @param amount het bedrag waarmee de account gedebiteerd/gecrediteerd moet worden
 	 * @param debit of het amount gedebiteerd of gecrediteerd moet worden
 	 * <ul>
 	 * <li><i><b>true</b></i>: debiteren</li>
 	 * <li><i><b>false</b></i>: crediteren</li>
 	 * </ul>
 	 */
-	protected Booking(Transaction transaction, Account account, BigDecimal amount, boolean debit) {
-		this.transaction = transaction;
+	public Booking(Account account, BigDecimal amount, boolean debit) {
 		this.account = account;
 		this.amount = amount;
 		this.debit = debit;
@@ -44,7 +42,14 @@ public class Booking {
 		return transaction;
 	}
 
-	/**
+    /**
+     * @param transaction de transaction waartoe deze boeking behoort
+     */
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
+
+    /**
 	 * Geeft de afkorting van de boeking terug
 	 * @return de afkorting van de boeking
 	 */

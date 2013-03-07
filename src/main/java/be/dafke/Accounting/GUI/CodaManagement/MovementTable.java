@@ -5,6 +5,7 @@ import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.BankAccount;
+import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.CounterParty;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Movement;
@@ -188,8 +189,10 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 					}
 					BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 4);
 					Transaction trans = accounting.getJournals().getCurrentJournal().getCurrentTransaction();
-                    trans.addBooking(account,amount,debet,false);
-                    trans.addBooking(bankAccount,amount,!debet,false);
+                    Booking booking1 = new Booking(account, amount, debet);
+                    Booking booking2 = new Booking(bankAccount, amount, !debet);
+                    trans.addBooking(booking1, false);
+                    trans.addBooking(booking2, false);
 					String cal = (String) tabel.getValueAt(i, 2);
 					Calendar date = Utils.toCalendar(cal);
 					trans.setDate(date);

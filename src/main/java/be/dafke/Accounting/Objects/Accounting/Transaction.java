@@ -85,8 +85,12 @@ public class Transaction implements Serializable {
 		mortgages.add(mortgage);
 	}
 
-    public void addBooking(Account account, BigDecimal amount, boolean debit, boolean merge){
-        Booking booking = new Booking(this, account, amount, debit);
+
+    public void addBooking(Booking booking, boolean merge) {
+        booking.setTransaction(this);
+        Account account = booking.getAccount();
+        boolean debit = booking.isDebit();
+        BigDecimal amount = booking.getAmount();
         if(!merge){
             // all Bookings
             Vector<Booking> allVector = allBookings.get(account);
