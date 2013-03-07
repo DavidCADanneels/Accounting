@@ -94,7 +94,9 @@ public class AccountsSAXParser {
             for(Account account : accounts.getBusinessObjects()) {
                 writer.write("  <Account>\r\n");
                 writer.write("    <xml>" + account.getXmlFile() + "</xml>\r\n");
-                writer.write("    <html>" + account.getHtmlFile() + "</html>\r\n");
+                if(account.getHtmlFile()!=null){
+                    writer.write("    <html>" + account.getHtmlFile() + "</html>\r\n");
+                }
                 writer.write("    <account_name>" + account.getName() + "</account_name>\r\n");
                 writer.write("    <account_type>" + account.getAccountType() + "</account_type>\r\n");
                 writer.write((account.getProject() == null ? "" : "      <account_project>"
@@ -122,9 +124,7 @@ public class AccountsSAXParser {
         try {
             Writer writer = new FileWriter(account.getXmlFile());
 
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
-            writer.write("<!DOCTYPE Account SYSTEM \"" + account.getDtdFile().getCanonicalPath() + "\">\r\n");
-            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + account.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+            writer.write(Utils.getXmlHeader(account));
 
             writer.write("<Account>\r\n" + "  <name>" + account.getName() + "</name>\r\n");
             for(Booking booking : account.getBookings()){

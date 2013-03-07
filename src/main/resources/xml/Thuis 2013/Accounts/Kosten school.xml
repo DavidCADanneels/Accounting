@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Account.dtd">
+<Account>
+  <name>Kosten school</name>
+  <action id="35">
+    <nr>DIV35</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>17/1/2013</date>
+    <debit>23.40</debit>
+    <description>61050/+++</description>
+  </action>
+  <action id="77">
+    <nr>DIV77</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>12/2/2013</date>
+    <debit>39.00</debit>
+    <description>Maaltijden</description>
+  </action>
+  <closed type = "debit">
+    <debitTotal>62.40</debitTotal>
+    <creditTotal>0.00</creditTotal>
+    <saldo>62.40</saldo>
+  </closed>
+</Account>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Accountings2Xml.xsl"?>
+<!DOCTYPE Accountings SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Accountings.dtd">
+<Accountings>
+  <Accounting>
+    <name>Test</name>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Accounting.xml</xml>
+    <xsl2xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Accounting2xml.xsl</xsl2xml>
+    <xsl2html>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Accounting2html.xsl</xsl2html>
+  </Accounting>
+  <Accounting>
+    <name>Thuis 2013</name>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounting.xml</xml>
+    <xsl2xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Accounting2xml.xsl</xsl2xml>
+    <xsl2html>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Accounting2html.xsl</xsl2html>
+  </Accounting>
+  <Accounting>
+    <name>Thuis 2012</name>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounting.xml</xml>
+    <xsl2xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Accounting2xml.xsl</xsl2xml>
+    <xsl2html>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Accounting2html.xsl</xsl2html>
+  </Accounting>
+  <CurrentAccounting>Thuis 2013</CurrentAccounting>
+</Accountings>

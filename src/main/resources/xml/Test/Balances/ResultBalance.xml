@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Balance2xml.xsl"?>
+<!DOCTYPE Balance SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Balance.dtd">
+<Balance>
+  <name>ResultBalance</name>
+  <left>Kosten</left>
+  <right>Opbrengsten</right>
+</Balance>

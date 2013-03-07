@@ -112,7 +112,9 @@ public class MortgagesSAXParser {
                 writer.write("  <Mortgage>\r\n");
                 writer.write("    <name>" + mortgage.toString() + "</name>\r\n");
                 writer.write("    <xml>" + mortgage.getXmlFile() + "</xml>\r\n");
-                writer.write("    <html>" + mortgage.getHtmlFile() + "</html>\r\n");
+                if(mortgage.getHtmlFile()!=null){
+                    writer.write("    <html>" + mortgage.getHtmlFile() + "</html>\r\n");
+                }
                 writer.write("    <total>" + mortgage.getStartCapital() + "</total>\r\n");
                 writer.write("    <nrPayed>" + mortgage.getNrPayed() + "</nrPayed>\r\n");
                 writer.write("    <capital_account_name>" + mortgage.getCapitalAccount() + "</capital_account_name>\r\n");

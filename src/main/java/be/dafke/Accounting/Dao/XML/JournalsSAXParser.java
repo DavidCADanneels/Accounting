@@ -148,7 +148,9 @@ public class JournalsSAXParser {
             for(Journal journal : journals.getBusinessObjects()) {
                 writer.write("  <Journal>\r\n");
                 writer.write("    <xml>" + journal.getXmlFile() + "</xml>\r\n");
-                writer.write("    <html>" + journal.getHtmlFile() + "</html>\r\n");
+                if(journal.getHtmlFile()!=null){
+                    writer.write("    <html>" + journal.getHtmlFile() + "</html>\r\n");
+                }
                 writer.write("    <journal_name>" + journal.getName() + "</journal_name>\r\n");
                 writer.write("    <journal_short>" + journal.getAbbreviation() + "</journal_short>\r\n");
                 writer.write("    <journal_type>" + journal.getJournalType().toString() + "</journal_type>\r\n");

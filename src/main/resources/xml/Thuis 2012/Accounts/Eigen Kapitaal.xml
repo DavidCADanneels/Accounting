@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Account.dtd">
+<Account>
+  <name>Eigen Kapitaal</name>
+  <action id="1">
+    <nr>DIV1</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>1/1/2012</date>
+    <credit>3393.55</credit>
+    <description>beginbalans</description>
+  </action>
+  <action id="3">
+    <nr>DIV3</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>1/1/2012</date>
+    <debit>3393.55</debit>
+    <description>Correctie beginbalans Hypotheek</description>
+  </action>
+  <action id="3">
+    <nr>DIV3</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>1/1/2012</date>
+    <credit>3641.43</credit>
+    <description>Correctie beginbalans Hypotheek</description>
+  </action>
+  <closed type = "credit">
+    <debitTotal>3393.55</debitTotal>
+    <creditTotal>7034.98</creditTotal>
+    <saldo>3641.43</saldo>
+  </closed>
+</Account>

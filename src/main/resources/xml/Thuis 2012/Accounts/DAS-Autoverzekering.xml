@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Account.dtd">
+<Account>
+  <name>DAS-Autoverzekering</name>
+  <action id="454">
+    <nr>DIV454</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>19/9/2012</date>
+    <debit>29.25</debit>
+    <description>1077662336562421909121629662                        3|(2)5412040118</description>
+  </action>
+  <action id="583">
+    <nr>DIV583</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>11/12/2012</date>
+    <debit>29.25</debit>
+    <description>DAS autoverzekering</description>
+  </action>
+  <closed type = "debit">
+    <debitTotal>58.50</debitTotal>
+    <creditTotal>0.00</creditTotal>
+    <saldo>58.50</saldo>
+  </closed>
+</Account>

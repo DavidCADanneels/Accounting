@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Account.dtd">
+<Account>
+  <name>KBC Verzekeringen</name>
+  <action id="106">
+    <nr>DIV106</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>19/3/2012</date>
+    <debit>134.11</debit>
+    <description>SHO 110536737 MTH</description>
+  </action>
+  <closed type = "debit">
+    <debitTotal>134.11</debitTotal>
+    <creditTotal>0.00</creditTotal>
+    <saldo>134.11</saldo>
+  </closed>
+</Account>

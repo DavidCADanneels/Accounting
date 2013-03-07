@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Account.dtd">
+<Account>
+  <name>AXA-Autoverzekering</name>
+  <action id="16">
+    <nr>DIV16</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>4/1/2013</date>
+    <debit>25.93</debit>
+    <description>Verzekeringen januari</description>
+  </action>
+  <action id="69">
+    <nr>DIV69</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>6/2/2013</date>
+    <debit>25.93</debit>
+    <description>verzekeringen + Sophia</description>
+  </action>
+  <closed type = "debit">
+    <debitTotal>51.86</debitTotal>
+    <creditTotal>0.00</creditTotal>
+    <saldo>51.86</saldo>
+  </closed>
+</Account>

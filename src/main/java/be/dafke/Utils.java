@@ -128,8 +128,8 @@ public class Utils {
 
     public static String getXmlHeader(BusinessObject businessObject) {
         return new StringBuilder("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n")
-        .append("<!DOCTYPE ").append(businessObject.getType()).append(" SYSTEM \"").append(businessObject.getDtdFile()).append("\">\r\n")
-        .append("<?xml-stylesheet type=\"text/xsl\" href=\"").append(businessObject.getXsl2XmlFile()).append("\"?>\r\n").toString();
+        .append("<?xml-stylesheet type=\"text/xsl\" href=\"").append(businessObject.getXsl2XmlFile()).append("\"?>\r\n")
+        .append("<!DOCTYPE ").append(businessObject.getType()).append(" SYSTEM \"").append(businessObject.getDtdFile()).append("\">\r\n").toString();
 
     }
 }

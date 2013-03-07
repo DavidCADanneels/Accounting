@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Balances2xml.xsl"?>
+<!DOCTYPE Balances SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Balances.dtd">
+<Balances>
+    <Balance>
+      <name>RelationsBalance</name>
+      <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Balances\RelationsBalance.xml</xml>
+    <html>Balances\RelationsBalance.html</html>
+    </Balance>
+    <Balance>
+      <name>ResultBalance</name>
+      <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Balances\ResultBalance.xml</xml>
+    <html>Balances\ResultBalance.html</html>
+    </Balance>
+    <Balance>
+      <name>YearBalance</name>
+      <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Balances\YearBalance.xml</xml>
+    <html>Balances\YearBalance.html</html>
+    </Balance>
+</Balances>

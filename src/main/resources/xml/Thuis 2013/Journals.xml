@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Journals2xml.xsl"?>
+<!DOCTYPE Journals SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Journals.dtd">
+<Journals>
+  <Journal>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</xml>
+    <journal_name>Diversen</journal_name>
+    <journal_short>DIV</journal_short>
+    <journal_type>default</journal_type>
+  </Journal>
+</Journals>

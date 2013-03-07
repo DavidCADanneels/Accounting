@@ -1,5 +1,5 @@
 <!ELEMENT Balance (name,left,right,line*)>
-<!ELEMENT line (name1,amount1,amount2,name2)>
+<!ELEMENT line (name1?,amount1?,amount2?,name2?)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT left (#PCDATA)>
 <!ELEMENT right (#PCDATA)>

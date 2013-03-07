@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Account.dtd">
+<Account>
+  <name>Spaar David</name>
+  <action id="1">
+    <nr>DIV1</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>1/1/2012</date>
+    <debit>0.23</debit>
+    <description>beginbalans</description>
+  </action>
+  <action id="2">
+    <nr>DIV2</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>1/1/2012</date>
+    <debit>0.01</debit>
+    <description>intresten</description>
+  </action>
+  <action id="173">
+    <nr>DIV173</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>29/4/2012</date>
+    <debit>2000.00</debit>
+    <description>
+  </description>
+  </action>
+  <action id="216">
+    <nr>DIV216</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>23/5/2012</date>
+    <debit>600.00</debit>
+    <description>
+  </description>
+  </action>
+  <action id="219">
+    <nr>DIV219</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>27/5/2012</date>
+    <credit>2000.00</credit>
+    <description>
+  </description>
+  </action>
+  <action id="283">
+    <nr>DIV283</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>23/6/2012</date>
+    <debit>600.00</debit>
+    <description>
+  </description>
+  </action>
+  <action id="286">
+    <nr>DIV286</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>25/6/2012</date>
+    <credit>500.00</credit>
+    <description>
+  </description>
+  </action>
+  <action id="327">
+    <nr>DIV327</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>12/7/2012</date>
+    <credit>700.00</credit>
+    <description>
+  </description>
+  </action>
+  <closed type = "debit">
+    <debitTotal>3200.24</debitTotal>
+    <creditTotal>3200.00</creditTotal>
+    <saldo>0.24</saldo>
+  </closed>
+</Account>

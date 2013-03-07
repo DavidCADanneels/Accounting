@@ -3,6 +3,7 @@ package be.dafke.Accounting.Dao.XML;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Balance;
 import be.dafke.Accounting.Objects.Accounting.Balances;
+import be.dafke.Utils;
 
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -25,16 +26,16 @@ public class BalancesSAXParser {
         try {
             Writer writer = new FileWriter(balances.getXmlFile());
 
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
-            writer.write("<!DOCTYPE Balances SYSTEM \"" + balances.getDtdFile().getCanonicalPath() + "\">\r\n");
-            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + balances.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+            writer.write(Utils.getXmlHeader(balances));
 
             writer.write("<Balances>\r\n");
             for(Balance balance:balances.getBusinessObjects()){
                 writer.write("    <Balance>\r\n");
                 writer.write("      <name>" + balance.getName() + "</name>\r\n");
                 writer.write("      <xml>" + balance.getXmlFile() + "</xml>\r\n");
-                writer.write("      <html>" + balance.getHtmlFile() + "</html>\r\n");
+                if(balance.getHtmlFile()!=null){
+                    writer.write("    <html>" + balance.getHtmlFile() + "</html>\r\n");
+                }
                 writer.write("    </Balance>\r\n");
             }
             writer.write("</Balances>\r\n");
@@ -56,12 +57,12 @@ public class BalancesSAXParser {
         try {
             Writer writer = new FileWriter(balance.getXmlFile());
 
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
-            writer.write("<!DOCTYPE Balance SYSTEM \"" + balance.getDtdFile().getCanonicalPath() + "\">\r\n");
-            writer.write("<?xml-stylesheet type=\"text/xsl\" href=\"" + balance.getXsl2XmlFile().getCanonicalPath() + "\"?>\r\n");
+            writer.write(Utils.getXmlHeader(balance));
 
-            writer.write("<Balance>\r\n  <name>" + balance.getName() //$NON-NLS-1$ //$NON-NLS-2$
-                    + "</name>\r\n  <left>" + balance.getLeftName() + "</left>\r\n  <right>" + balance.getRightName() + "</right>\r\n"); //$NON-NLS-1$ //$NON-NLS-2$ //$NON-NLS-3$
+            writer.write("<Balance>\r\n");
+            writer.write("  <name>" + balance.getName() + "</name>\r\n");
+            writer.write("  <left>" + balance.getLeftName() + "</left>\r\n");
+            writer.write("  <right>" + balance.getRightName() + "</right>\r\n");
             ArrayList<Account> leftAccounts = balance.getLeftAccounts();
             ArrayList<Account> rightAccounts = balance.getRightAccounts();
 
@@ -74,23 +75,23 @@ public class BalancesSAXParser {
                 max = nrRight;
             }
             for(int i = 0; i < max; i++) {
-                writer.write("  <line>\r\n"); //$NON-NLS-1$
+                writer.write("  <line>\r\n");
                 if (i < nrLeft) {
-                    writer.write("    <name1>" + leftAccounts.get(i).toString() + "</name1>\r\n"); //$NON-NLS-1$ //$NON-NLS-2$
-                    writer.write("    <amount1>" + leftAccounts.get(i).saldo() + "</amount1>\r\n"); //$NON-NLS-1$ //$NON-NLS-2$
-                } else {
-                    writer.write("    <name1></name1>\r\n"); //$NON-NLS-1$
-                    writer.write("    <amount1></amount1>\r\n"); //$NON-NLS-1$
+                    writer.write("    <name1>" + leftAccounts.get(i).toString() + "</name1>\r\n");
+                    writer.write("    <amount1>" + leftAccounts.get(i).saldo() + "</amount1>\r\n");
+//                } else {
+//                    writer.write("    <name1></name1>\r\n");
+//                    writer.write("    <amount1></amount1>\r\n");
                 }
                 if (i < nrRight) {
-                    writer.write("    <amount2>" + BigDecimal.ZERO.subtract(rightAccounts.get(i).saldo()) //$NON-NLS-1$
-                            + "</amount2>\r\n"); //$NON-NLS-1$
-                    writer.write("    <name2>" + rightAccounts.get(i).toString() + "</name2>\r\n"); //$NON-NLS-1$ //$NON-NLS-2$
-                } else {
-                    writer.write("    <amount2></amount2>\r\n"); //$NON-NLS-1$
-                    writer.write("    <name2></name2>\r\n"); //$NON-NLS-1$
+                    writer.write("    <amount2>" + BigDecimal.ZERO.subtract(rightAccounts.get(i).saldo())
+                            + "</amount2>\r\n");
+                    writer.write("    <name2>" + rightAccounts.get(i).toString() + "</name2>\r\n");
+//                } else {
+//                    writer.write("    <amount2></amount2>\r\n");
+//                    writer.write("    <name2></name2>\r\n");
                 }
-                writer.write("  </line>\r\n"); //$NON-NLS-1$
+                writer.write("  </line>\r\n");
             }
             writer.write("</Balance>"); //$NON-NLS-1$
             writer.flush();

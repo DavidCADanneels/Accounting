@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Movements2xml.xsl"?>
+<!DOCTYPE Movements SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Movements.dtd">
+<Movements>
+  <Movement>
+    <Statement>1</Statement>
+    <Sequence>1</Sequence>
+    <Date>31/12/2011</Date>
+    <Sign>D</Sign>
+    <Amount>84.49</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>1</Statement>
+    <Sequence>2</Sequence>
+    <Date>1/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>802.71</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>774-2476251-77</Communication>
+  </Movement>
+</Movements>

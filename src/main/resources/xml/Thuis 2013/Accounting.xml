@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Accounting2xml.xsl"?>
+<!DOCTYPE Accounting SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Accounting.dtd">
+<Accounting>
+  <name>Thuis 2013</name>
+  <Accounts>
+    <name>Accounts</name>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts.xml</xml>
+  </Accounts>
+  <Journals>
+    <name>Journals</name>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals.xml</xml>
+  </Journals>
+  <Balances>
+    <name>Balances</name>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Balances.xml</xml>
+  </Balances>
+  <Mortgages>
+    <name>Mortgages</name>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Mortgages.xml</xml>
+  </Mortgages>
+  <CounterParties>
+    <name>CounterParties</name>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\CounterParties.xml</xml>
+  </CounterParties>
+  <Movements>
+    <name>Movements</name>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Movements.xml</xml>
+  </Movements>
+</Accounting>

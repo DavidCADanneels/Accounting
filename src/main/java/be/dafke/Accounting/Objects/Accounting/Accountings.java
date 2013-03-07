@@ -17,22 +17,17 @@ public class Accountings {
     private final File dtdFile;
 
     public Accountings(){
-        File userHome = new File(System.getProperty("user.home"));
+        File xmlFolder = new File(System.getProperty("Accountings_xml"));
+        File xslFolder = new File(System.getProperty("Accountings_xsl"));
+        File dtdFolder = new File(System.getProperty("Accountings_dtd"));
 
-        File xmlFolder = new File(userHome, "Accounting");
         xmlFile = new File(xmlFolder, "Accountings.xml");
         htmlFile = new File(xmlFolder, "Accountings.html");
 
-        File xslFolder = new File(xmlFolder, "xsl");
         xsl2XmlFile = new File(xslFolder, "Accountings2Xml.xsl");
         xsl2HtmlFile = new File(xslFolder, "Accountings2Html.xsl");
 
-        File dtdFolder = new File(xmlFolder, "xsl");
         dtdFile = new File(dtdFolder, "Accountings.dtd");
-
-        System.setProperty("Accountings_xml", xmlFolder.getPath());
-        System.setProperty("Accountings_xsl", xslFolder.getPath());
-        System.setProperty("Accountings_dtd", dtdFolder.getPath());
     }
 
     public void createDefaultValuesIfNull(){

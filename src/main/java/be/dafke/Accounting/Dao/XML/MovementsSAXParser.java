@@ -103,11 +103,13 @@ public class MovementsSAXParser {
                 writer.write("    <Date>"+Utils.toString(movement.getDate())+"</Date>\r\n");
                 writer.write("    <Sign>"+(movement.isDebit()?"D":"C")+"</Sign>\r\n");
                 writer.write("    <Amount>"+movement.getAmount()+"</Amount>\r\n");
-                if(movement.getCounterParty()!=null){
+                if(movement.getCounterParty()!=null && !movement.getCounterParty().toString().equals("")){
                     writer.write("    <CounterParty>"+movement.getCounterParty()+"</CounterParty>\r\n");
                 }
                 writer.write("    <TransactionCode>" + movement.getTransactionCode() + "</TransactionCode>\r\n");
-                writer.write("    <Communication>" + movement.getCommunication() + "</Communication>\r\n");
+                if(movement.getCommunication()!=null && !movement.getCommunication().equals("")){
+                    writer.write("    <Communication>" + movement.getCommunication() + "</Communication>\r\n");
+                }
                 writer.write("  </Movement>\r\n");
             }
             writer.write("</Movements>\r\n");

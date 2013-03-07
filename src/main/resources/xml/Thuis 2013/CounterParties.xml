@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\CounterParties2xml.xsl"?>
+<!DOCTYPE CounterParties SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\CounterParties.dtd">
+<CounterParties>
+  <CounterParty>
+    <name>ALPHA CREDIT</name>
+  </CounterParty>
+  <CounterParty>
+    <name>AXA BANK EUROPE</name>
+    <BankAccount>
+      <AccountNumber>BE80774247625177</AccountNumber>
+      <BIC>AXABBE22</BIC>
+      <Currency>EUR</Currency>
+    </BankAccount>
+  </CounterParty>
+  <CounterParty>
+    <name>AXA BELGIUM</name>
+    <BankAccount>
+      <AccountNumber>BE55210000076844</AccountNumber>
+      <BIC>GEBABEBB</BIC>
+      <Currency>EUR</Currency>
+    </BankAccount>
+  </CounterParty>
+  <CounterParty>
+    <name>AZ SINT JAN AV</name>
+  </CounterParty>
+  <CounterParty>
+    <name>BELASTINGEN</name>
+  </CounterParty>
+  <CounterParty>
+    <name>BENNIES FIT4LIFE</name>
+  </CounterParty>
+  <CounterParty>
+    <name>CHAITHONGKHAM KITSANA</name>
+  </CounterParty>
+  <CounterParty>
+    <name>CHRISTELIJKE MUTUALITEIT</name>
+    <BankAccount>
+      <AccountNumber>BE11775550177048</AccountNumber>
+      <BIC>GKCCBEBB</BIC>
+      <Currency>EUR</Currency>
+    </BankAccount>
+  </CounterParty>
+  <CounterParty>
+    <name>CLICTEUR RITA</name>
+    <Alias>RITA CLICTEUR</Alias>
+    <BankAccount>
+      <AccountNumber>BE07750605261166</AccountNumber>
+      <BIC>AXABBE22</BIC>
+      <Currency>EUR</Currency>
+    </BankAccount>
+  </CounterParty>
+  <CounterParty>
+    <name>CM BRUGGE</name>
+    <BankAccount>
+      <AccountNumber>BE48775550339827</AccountNumber>
+      <BIC>GKCCBEBB</BIC>
+      <Currency>EUR</Currency>
+    </BankAccount>
+  </CounterParty>
+  <CounterParty>
+    <name>CM-ZORGKAS BRUGGE</name>
+  </CounterParty>
+  <CounterParty>
+    <name>D A S  NV/SA</name>
+    <Alias>D A S</Alias>
+  </CounterParty>
+  <CounterParty>
+    <name>DALLE CARINE</name>
+  </CounterParty>
+  <CounterParty>
+    <name>DANNEELS DAVID</name>
+  </CounterParty>
+  <CounterParty>
+    <name>DARA SAENUDOM</name>
+    <Alias>SAENUDOM DARA</Alias>
+  </CounterParty>
+  <CounterParty>
+    <name>DKV BELGIUM</name>
+  </CounterParty>
+  <CounterParty>
+    <name>F O D  FINANCIEN</name>
+  </CounterParty>
+  <CounterParty>
+    <name>HIGHFIELDS VZW</name>
+  </CounterParty>
+  <CounterParty>
+    <name>ISABEL NV</name>
+    <BankAccount>
+      <AccountNumber>BE87210069204094</AccountNumber>
+      <BIC>GEBABEBB</BIC>
+      <Currency>EUR</Currency>
+    </BankAccount>
+  </CounterParty>
+  <CounterParty>
+    <name>ISABEL SA</name>
+  </CounterParty>
+  <CounterParty>
+    <name>KBC VERZEKERINGEN NV</name>
+  </CounterParty>
+  <CounterParty>
+    <name>MEVR EMMA DE SPIEGELAERE</name>
+  </CounterParty>
+  <CounterParty>
+    <name>MOBILE VIKINGS</name>
+  </CounterParty>
+  <CounterParty>
+    <name>OFF NAT VACANCES ANNUELLES</name>
+  </CounterParty>
+  <CounterParty>
+    <name>ONMIDDELLIJKE INNINGEN</name>
+    <BankAccount>
+      <AccountNumber>BE73679200301360</AccountNumber>
+      <BIC>PCHQBEBB</BIC>
+      <Currency>EUR</Currency>
+    </BankAccount>
+  </CounterParty>
+  <CounterParty>
+    <name>PROXIMUS</name>
+    <BankAccount>
+      <AccountNumber>BE31435411161155</AccountNumber>
+      <BIC>KREDBEBB</BIC>
+      <Currency>EUR</Currency>
+    </BankAccount>
+  </CounterParty>
+  <CounterParty>
+    <name>RIF NOUREDDINE</name>
+    <BankAccount>
+      <AccountNumber>BE09063205690757</AccountNumber>
+      <BIC>GKCCBEBB</BIC>
+      <Currency>EUR</Currency>
+    </BankAccount>
+  </CounterParty>
+  <CounterParty>
+    <name>SCHOLENGROEP BRUGGE-OOSTKUST</name>
+    <BankAccount>
+      <AccountNumber>BE14068217828883</AccountNumber>
+      <BIC>GKCCBEBB</BIC>
+      <Currency>EUR</Currency>
+    </BankAccount>
+  </CounterParty>
+  <CounterParty>
+    <name>VLAAMSE ZORGKAS VZW</name>
+  </CounterParty>
+  <CounterParty>
+    <name>VOIPBUSTER</name>
+  </CounterParty>
+</CounterParties>

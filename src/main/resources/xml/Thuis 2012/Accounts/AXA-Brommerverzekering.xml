@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Account.dtd">
+<Account>
+  <name>AXA-Brommerverzekering</name>
+  <action id="548">
+    <nr>DIV548</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>21/11/2012</date>
+    <debit>160.92</debit>
+    <description>verzekering brommer</description>
+  </action>
+  <closed type = "debit">
+    <debitTotal>160.92</debitTotal>
+    <creditTotal>0.00</creditTotal>
+    <saldo>160.92</saldo>
+  </closed>
+</Account>

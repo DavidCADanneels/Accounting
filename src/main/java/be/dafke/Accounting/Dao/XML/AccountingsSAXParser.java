@@ -96,8 +96,8 @@ public class AccountingsSAXParser {
         try {
             Writer writer = new FileWriter(accountings.getXmlFile());
             writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-                    + "<!DOCTYPE Accountings SYSTEM \"" + accountings.getDtdFile() +"\">\r\n"
-                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + accountings.getXsl2XmlFile() +"\"?>\r\n");
+                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + accountings.getXsl2XmlFile() +"\"?>\r\n"
+                    + "<!DOCTYPE Accountings SYSTEM \"" + accountings.getDtdFile() +"\">\r\n");
             writer.write("<Accountings>\r\n");
             for(Accounting acc : accountings.getAccountings()) {
                 writer.write("  <Accounting>\r\n");
