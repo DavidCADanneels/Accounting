@@ -54,9 +54,9 @@ public class MovementsSAXParser {
                 String transactionCode = Utils.getValue(element, "TransactionCode");
                 String communication = "";
                 // communication can be an empty tag "<Communication></Communication>"
-                NodeList communcationNodeList = element.getElementsByTagName("Communication").item(0).getChildNodes();
+                NodeList communcationNodeList = element.getElementsByTagName("Communication");
                 if(communcationNodeList.getLength()>0){
-                    communication = communcationNodeList.item(0).getNodeValue();
+                    communication = communcationNodeList.item(0).getChildNodes().item(0).getNodeValue();
                 }
                 BigDecimal amount = new BigDecimal(amountString);
                 Calendar date = Utils.toCalendar(dateString);

@@ -4,6 +4,7 @@ import be.dafke.Accounting.Dao.XML.AccountingsSAXParser;
 import be.dafke.Accounting.GUI.MainWindow.AccountingGUIFrame;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 
+import javax.swing.*;
 import java.io.File;
 
 public class Main {
@@ -15,11 +16,21 @@ public class Main {
 
         File userHome = new File(System.getProperty("user.home"));
         File xmlFolder;
+        if(mode == Mode.TEST){
+            int nr = JOptionPane.showOptionDialog(null,"TEST or PROD", "Which environment?",JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,null, Mode.values(),Mode.TEST);
+            if(nr == 0){
+                mode = Mode.PROD;
+            } else {
+                mode = Mode.TEST;
+            }
+        }
+
         if(mode == Mode.TEST) {
             xmlFolder = new File(userHome, "workspace/trunk/Accounting/src/main/resources/xml");
         } else {// if (mode == Mode.PROD) {
             xmlFolder = new File(userHome, "Accounting");
         }
+        System.out.println(mode.toString());
         System.out.println(xmlFolder);
 
         File xslFolder = new File(userHome, "workspace/trunk/Accounting/src/main/resources/xsl");
