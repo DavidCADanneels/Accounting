@@ -1,0 +1,8 @@
+<!ELEMENT Journals (Journal*,CurrentJournal?)>
+<!ELEMENT Journal (xml?,html?,journal_name, journal_short, journal_type)>
+<!ELEMENT xml (#PCDATA)>
+<!ELEMENT html (#PCDATA)>
+<!ELEMENT journal_name (#PCDATA)>
+<!ELEMENT journal_short (#PCDATA)>
+<!ELEMENT journal_type (#PCDATA)>
+<!ELEMENT CurrentJournal (#PCDATA)>

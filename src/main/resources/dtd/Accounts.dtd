@@ -1,0 +1,7 @@
+<!ELEMENT Accounts (Account*)>
+<!ELEMENT Account (xml?,html?,account_name, account_type,account_project?)>
+<!ELEMENT xml (#PCDATA)>
+<!ELEMENT html (#PCDATA)>
+<!ELEMENT account_name (#PCDATA)>
+<!ELEMENT account_type (#PCDATA)>
+<!ELEMENT account_project (#PCDATA)>

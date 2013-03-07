@@ -1,0 +1,10 @@
+<!ELEMENT Accounting (name,Accounts,Journals,Balances,Mortgages,CounterParties,Movements)>
+<!ELEMENT Accounts (name,xml,html?)>
+<!ELEMENT Journals (name,xml,html?)>
+<!ELEMENT Balances (name,xml,html?)>
+<!ELEMENT Mortgages (name,xml,html?)>
+<!ELEMENT CounterParties (name,xml,html?)>
+<!ELEMENT Movements (name,xml,html?)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT xml (#PCDATA)>
+<!ELEMENT html (#PCDATA)>

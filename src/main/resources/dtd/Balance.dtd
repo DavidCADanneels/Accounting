@@ -1,0 +1,9 @@
+<!ELEMENT Balance (name,left,right,line*)>
+<!ELEMENT line (name1,amount1,amount2,name2)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT left (#PCDATA)>
+<!ELEMENT right (#PCDATA)>
+<!ELEMENT name1 (#PCDATA)>
+<!ELEMENT amount1 (#PCDATA)>
+<!ELEMENT amount2 (#PCDATA)>
+<!ELEMENT name2 (#PCDATA)>

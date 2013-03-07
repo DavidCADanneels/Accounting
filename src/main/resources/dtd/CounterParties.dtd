@@ -1,0 +1,13 @@
+<!ELEMENT CounterParties (CounterParty*)>
+<!ELEMENT CounterParty (name,Alias*,(AccountName,AccountXml,AccountHtml)?,BankAccount*)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT xml (#PCDATA)>
+<!ELEMENT html (#PCDATA)>
+<!ELEMENT Alias (#PCDATA)>
+<!ELEMENT AccountName (#PCDATA)>
+<!ELEMENT AccountXml (#PCDATA)>
+<!ELEMENT AccountHtml (#PCDATA)>
+<!ELEMENT BankAccount (AccountNumber,BIC?,Currency?)>
+<!ELEMENT AccountNumber (#PCDATA)>
+<!ELEMENT BIC (#PCDATA)>
+<!ELEMENT Currency (#PCDATA)>
