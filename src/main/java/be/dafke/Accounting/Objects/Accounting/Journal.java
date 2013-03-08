@@ -112,8 +112,9 @@ public class Journal extends BusinessObject{
         transactions.removeValue(date, transaction);
 
         // Lower the remaining ID's
+        int id = transaction.getId();  // ID's of transactions start with 1 (in list start with 0)
         ArrayList<Transaction> list = transactions.values();
-        for(Transaction trans : list.subList(id, list.size())){
+        for(Transaction trans : list.subList(id-1, list.size())){
             trans.lowerID();
         }
 	}
