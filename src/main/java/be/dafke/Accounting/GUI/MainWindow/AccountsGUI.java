@@ -102,17 +102,15 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 
 	@Override
 	public void valueChanged(ListSelectionEvent lse) {
-		if (journal!=null && !lse.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
-            Account account = lijst.getSelectedValue();
-            journal.setCurrentAccount(account);
-			debet.setEnabled(true);
-			credit.setEnabled(true);
-			accountDetails.setEnabled(true);
-		} else {
-			debet.setEnabled(false);
-			credit.setEnabled(false);
-			accountDetails.setEnabled(false);
-		}
+        Account account = null;
+		if (!lse.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
+            account = lijst.getSelectedValue();
+            accounts.setCurrentAccount(account);
+        }
+        accountDetails.setEnabled(account!=null);
+        boolean active = (account!=null && journal!=null);
+        debet.setEnabled(active);
+        credit.setEnabled(active);
 	}
 
 	@Override

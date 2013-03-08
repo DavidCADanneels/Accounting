@@ -16,6 +16,8 @@ import java.util.Map;
  */
 public class Accounts extends BusinessCollection<Account> {
 
+    private Account currentAccount;
+
     /**
 	 * Geeft alle rekeningen terug van het gegeven type
 	 * @param type het type van de gevraagde rekeningen
@@ -81,4 +83,12 @@ public class Accounts extends BusinessCollection<Account> {
 //        account.setName(newName.trim());
         return modify(oldEntry, newEntry);
 	}
+
+    public Account getCurrentAccount() {
+        return currentAccount;
+    }
+
+    public void setCurrentAccount(Account currentAccount) {
+        this.currentAccount = currentAccount;
+    }
 }

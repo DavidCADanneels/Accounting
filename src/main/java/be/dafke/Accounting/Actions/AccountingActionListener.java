@@ -75,7 +75,7 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
             gui.setVisible(true);
         } else if(actionCommand.equals(ComponentMap.ACCOUNT_DETAILS)){
             Accounting accounting = accountings.getCurrentAccounting();
-            Account account = accounting.getJournals().getCurrentJournal().getCurrentAccount();
+            Account account = accounting.getAccounts().getCurrentAccount();
             String key = accounting.toString() + ComponentMap.ACCOUNT_DETAILS + account.getName();
             DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
             if(gui == null){

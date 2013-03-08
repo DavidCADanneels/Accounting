@@ -54,14 +54,6 @@ public class Journal extends BusinessObject{
         return getBooking(row).getTransaction();
     }
 
-    public void setCurrentAccount(Account currentAccount) {
-        this.currentAccount = currentAccount;
-    }
-
-    public Account getCurrentAccount() {
-        return currentAccount;
-    }
-
     public Transaction getCurrentTransaction() {
         return currentTransaction;
     }
@@ -130,9 +122,11 @@ public class Journal extends BusinessObject{
             transactions.remove(date);
         }
         // lower ID's
-        List<Transaction> subList = list.subList(index,list.size());
-        for(Transaction trans:subList){
-            trans.lowerID();
+        if(index<list.size()){
+            List<Transaction> subList = list.subList(index,list.size());
+            for(Transaction trans:subList){
+                trans.lowerID();
+            }
         }
         lowerIds(transactions.higherKey(date));
 	}
