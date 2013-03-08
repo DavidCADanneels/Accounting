@@ -78,14 +78,15 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, lijst, lijst[0]);
             if(keuze!=JOptionPane.CANCEL_OPTION && keuze!=JOptionPane.CLOSED_OPTION){
                 Journal newJournal = (Journal) lijst[keuze];
-                transaction.moveTransaction(journal, newJournal);
+                journal.unbook(transaction);
+                newJournal.book(transaction);
 
                 JOptionPane.showMessageDialog(null,
                         getBundle("Accounting").getString("TRANSACTIE_VERPLAATST_VAN") + journal +
                                 getBundle("Accounting").getString("NAAR") + newJournal);
             }
         } else if (source == delete) {
-            transaction.deleteTransaction(journal);
+            journal.unbook(transaction);
             JOptionPane.showMessageDialog(null, getBundle("Accounting").getString("TRANSACTIE_VERWIJDERD_UIT") + journal);
         }
         super.refresh();

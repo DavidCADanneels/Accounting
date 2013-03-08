@@ -169,7 +169,7 @@ public class Journal extends BusinessObject{
 	 * Verwijdert de gegeven transactie
 	 * @param transaction de te verwijderen transactie
 	 */
-	protected void unbook(Transaction transaction) {
+	public void unbook(Transaction transaction) {
 		deleteTransaction(transaction);
 		ArrayList<Booking> boekingen = transaction.getBookings();
 		for(Booking boeking : boekingen) {
@@ -187,7 +187,6 @@ public class Journal extends BusinessObject{
 	 * @param transaction de te boeken transactie
 	 */
 	public void book(Transaction transaction) {
-        transaction.setBooked(true);
         transaction.setJournal(this);
         transaction.setAbbreviation(abbreviation);
 		addTransaction(transaction);

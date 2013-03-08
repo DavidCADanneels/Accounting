@@ -15,7 +15,6 @@ public class Transaction {
     private BigDecimal creditTotal;
     private Journal journal;
 
-    private boolean booked;
     private int nrOfDebits = 0;
 
     private String description = "";
@@ -27,7 +26,6 @@ public class Transaction {
     private final ArrayList<Mortgage> mortgages;
 
     public Transaction() {
-		booked = false;
 		debitTotal = new BigDecimal(0);
 		debitTotal = debitTotal.setScale(2);
 		creditTotal = new BigDecimal(0);
@@ -42,17 +40,6 @@ public class Transaction {
 
     protected void raiseID() {
         id++;
-    }
-
-    public void moveTransaction(Journal oldJournal, Journal newJournal) {
-        if (booked) {
-            oldJournal.unbook(this);
-        }
-        newJournal.book(this);
-    }
-
-    public void deleteTransaction(Journal journal) {
-        if (booked) journal.unbook(this);
     }
 
     // Getters (without setters)
@@ -78,10 +65,6 @@ public class Transaction {
         return journal;
     }
 
-    public boolean isBooked() {
-        return booked;
-    }
-
     public String getAbbreviation() {
         return abbreviation;
     }
@@ -102,10 +85,6 @@ public class Transaction {
 
     public void setJournal(Journal journal) {
         this.journal = journal;
-    }
-
-    public void setBooked(boolean booked) {
-        this.booked = booked;
     }
 
     public void setId(int nr) {
