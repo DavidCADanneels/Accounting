@@ -1,15 +1,15 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
+import java.util.TreeMap;
 
-@XmlRootElement()
 /**
- * Boekhoudkundige rekening
- * @author David Danneels
- * @since 01/10/2010
+  * Boekhoudkundige rekening
+  * @author David Danneels
+  * @since 01/10/2010
  */
 public class Account extends BusinessObject{
 
@@ -27,13 +27,13 @@ public class Account extends BusinessObject{
 	private AccountType type;
     private Project project;
     private BigDecimal debettotaal, credittotaal;
-    private final ArrayList<Booking> boekingen;
+    private final TreeMap<Calendar,List<Booking>> boekingen;
     //	private static final ResourceBundle bundle = ResourceBundle.getBundle("Accounting");
     //	private boolean save;
 
 	public Account() {
 		project = null;
-		boekingen = new ArrayList<Booking>();
+		boekingen = new TreeMap<Calendar,List<Booking>>();
 		debettotaal = new BigDecimal(0);
 		debettotaal = debettotaal.setScale(2);
 		credittotaal = new BigDecimal(0);
@@ -67,7 +67,11 @@ public class Account extends BusinessObject{
      * @return de boekingen die bij deze rekening horen
      */
 	public ArrayList<Booking> getBookings() {
-		return boekingen;
+        ArrayList<Booking> result = new ArrayList<Booking>();
+        for(List<Booking> list : boekingen.values()){
+            result.addAll(list);
+        }
+		return result;
 	}
 
 	/**
@@ -76,26 +80,21 @@ public class Account extends BusinessObject{
 	 */
 	private void addBooking(Booking booking) {
 		Calendar datum = booking.getTransaction().getDate();
-		if (boekingen.size() == 0 || datum.compareTo(boekingen.get(boekingen.size() - 1).getTransaction().getDate()) >= 0) boekingen.add(booking);
-		else {
-			int plaats = boekingen.size();
-			boolean found = false;
-			for(int i = 0; i < boekingen.size(); i++) {
-				Booking transactie = boekingen.get(i);
-				Calendar date = transactie.getTransaction().getDate();
-				if (!found && date.compareTo(datum) > 0) {
-					plaats = i;
-					found = true;
-				}
-			}
-			if (!found) {
-				// hier kom je nooit
-				boekingen.add(booking);
-			} else {
-				boekingen.add(plaats, booking);
-			}
-		}
+        if(!boekingen.containsKey(datum)){
+            boekingen.put(datum, new ArrayList<Booking>());
+        }
+        List<Booking> list = boekingen.get(datum);
+        list.add(booking);
 	}
+
+    private void removeBooking(Booking booking){
+        Calendar datum = booking.getTransaction().getDate();
+        List<Booking> list = boekingen.get(datum);
+        list.remove(booking);
+        if(list.isEmpty()){
+            boekingen.remove(datum);
+        }
+    }
 
 	/**
 	 * Boek een nieuwe boeking
@@ -110,7 +109,6 @@ public class Account extends BusinessObject{
             credittotaal = credittotaal.add(booking.getAmount());
             credittotaal = credittotaal.setScale(2);
 		}
-//		setSaved(false);
 	}
 
 	/**
@@ -184,8 +182,7 @@ public class Account extends BusinessObject{
 			credittotaal = credittotaal.subtract(booking.getAmount());
 			credittotaal = credittotaal.setScale(2);
 		}
-		boekingen.remove(booking);
-//		setSaved(false);
+        removeBooking(booking);
 	}
 
 

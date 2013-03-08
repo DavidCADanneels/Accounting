@@ -2,8 +2,11 @@ package be.dafke.Accounting.Objects.Accounting;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Boekhoudkundig dagboek
@@ -13,7 +16,7 @@ import java.util.Map;
 public class Journal extends BusinessObject{
 	private String abbreviation;
 	private int id;
-	private final ArrayList<Transaction> transacties;
+	private final TreeMap<Calendar,List<Transaction>> transactions;
 //	private boolean save;
 	private JournalType journalType;
     private Transaction currentTransaction = new Transaction();
@@ -22,7 +25,7 @@ public class Journal extends BusinessObject{
 
     public Journal() {
 //		save = true;
-		transacties = new ArrayList<Transaction>();
+		transactions = new TreeMap<Calendar,List<Transaction>>();
 		id = 1;
 	}
 
@@ -36,12 +39,12 @@ public class Journal extends BusinessObject{
 
     @Override
     public boolean isDeletable(){
-        return transacties.isEmpty();
+        return transactions.isEmpty();
     }
 
     public Booking getBooking(int row){
         ArrayList<Booking> boekingen = new ArrayList<Booking>();
-        for(Transaction transaction : transacties){
+        for(Transaction transaction : getTransactions()){
             boekingen.addAll(transaction.getBookings());
         }
         return boekingen.get(row);
@@ -89,9 +92,14 @@ public class Journal extends BusinessObject{
 	 * Geeft de transacties terug die bij dit dagboek horen
 	 * @return de transacties die bij dit dagboek horen
 	 */
-	public ArrayList<Transaction> getTransactions() {
-		return transacties;
-	}
+	public Collection<Transaction> getTransactions() {
+        ArrayList<Transaction> result = new ArrayList<Transaction>();
+        for(List<Transaction> list : transactions.values()){
+            result.addAll(list);
+        }
+        return result;
+
+    }
 
 	/**
 	 * Geeft het id van de volgende transactie terug
@@ -109,54 +117,59 @@ public class Journal extends BusinessObject{
 		return abbreviation;
 	}
 
-	/**
+    /**
 	 * Verwijdert de gegeven transactie
 	 * @param transaction de te verwijderen transactie
 	 */
 	private void deleteTransaction(Transaction transaction) {
-		boolean found = false;
-		for(Transaction trans : transacties) {
-			if (found) {
-				trans.lowerID();
-			} else if (trans == transaction) {
-				found = true;
-			}
-		}
-		transacties.remove(transaction);
+        Calendar date = transaction.getDate();
+        List<Transaction> list = transactions.get(date);
+        int index = list.indexOf(transaction);
+        list.remove(transaction);
+        if(list.isEmpty()){
+            transactions.remove(date);
+        }
+        // lower ID's
+        List<Transaction> subList = list.subList(index,list.size());
+        for(Transaction trans:subList){
+            trans.lowerID();
+        }
+        lowerIds(transactions.higherKey(date));
 	}
 
-	/**
+    private void lowerIds(Calendar date){
+        while(date != null){
+            List<Transaction> list = transactions.get(date);
+            for(Transaction transaction:list){
+                transaction.lowerID();
+            }
+            date = transactions.higherKey(date);
+        }
+    }
+
+    private void raiseIds(Calendar date){
+        while(date != null){
+            List<Transaction> list = transactions.get(date);
+            for(Transaction transaction:list){
+                transaction.raiseID();
+            }
+            date = transactions.higherKey(date);
+        }
+    }
+
+    /**
 	 * Voegt een transactie toe
 	 * @param transaction de toe te voegen transactie
 	 */
 	private void addTransaction(Transaction transaction) {
-		Calendar datum = transaction.getDate();
-		int plaats = 0;
-		if (transacties.size() == 0 || datum.compareTo(transacties.get(transacties.size() - 1).getDate()) >= 0) {
-			transaction.setId(id);
-			transacties.add(transaction);
-		} else {
-			boolean found = false;
-			for(int i = 0; i < transacties.size(); i++) {
-				Transaction transactie = transacties.get(i);
-				Calendar date = transactie.getDate();
-				if (found) {
-					transactie.raiseID();
-				} else if (date.compareTo(datum) > 0) {
-					transactie.raiseID();
-					plaats = i;
-					found = true;
-				}
-			}
-			if (!found) {
-				// hier kom je nooit
-				transaction.setId(id);
-				transacties.add(transaction);
-			} else {
-				transaction.setId(plaats + 1);
-				transacties.add(plaats, transaction);
-			}
-		}
+        Calendar datum = transaction.getDate();
+        if(!transactions.containsKey(datum)){
+            transactions.put(datum, new ArrayList<Transaction>());
+        }
+        List<Transaction> list = transactions.get(datum);
+        list.add(transaction);
+        // raise ID's
+        raiseIds(transactions.higherKey(datum));
 	}
 
 	/**
