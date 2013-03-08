@@ -1,11 +1,8 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Vector;
 
 /**
  * Boekhoudkundige transactie Bevat minstens 2 boekingen
@@ -13,21 +10,17 @@ import java.util.Vector;
  * @since 01/10/2010
  * @see Booking
  */
-public class Transaction implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class Transaction {
 	private BigDecimal debettotaal, credittotaal;
 	private String description = "";
 	private Calendar datum = null;
     private int id;
     private String abbreviation;
-    private final HashMap<Account,Vector<Booking>> debitBookings, creditBookings, allBookings;
+    private final ArrayList<Booking> bookings;
     private boolean booked;
 	private final ArrayList<Mortgage> mortgages;
-    private boolean sort = true; // for later use: default = true --> First all Debits, then all Credits
     private Journal journal;
+    private int nrOfDebits = 0;
 
     public Transaction() {
 		booked = false;
@@ -35,9 +28,7 @@ public class Transaction implements Serializable {
 		debettotaal = debettotaal.setScale(2);
 		credittotaal = new BigDecimal(0);
 		credittotaal = credittotaal.setScale(2);
-        allBookings = new HashMap<Account,Vector<Booking>>();
-		debitBookings = new HashMap<Account,Vector<Booking>>();
-		creditBookings = new HashMap<Account,Vector<Booking>>();
+        bookings = new ArrayList<Booking>();
 		mortgages = new ArrayList<Mortgage>();
 	}
 
@@ -85,40 +76,18 @@ public class Transaction implements Serializable {
 		mortgages.add(mortgage);
 	}
 
-
     public void addBooking(Booking booking){
         booking.setTransaction(this);
-        Account account = booking.getAccount();
         boolean debit = booking.isDebit();
         BigDecimal amount = booking.getAmount();
 
-        // all Bookings
-        Vector<Booking> allVector = allBookings.get(account);
-        if(allVector==null){
-            allVector = new Vector<Booking>();
-        }
-        allVector.add(booking);
-        allBookings.put(account, allVector);
-
-        // Specific Bookings: Debit or Credit
         if(debit){
-            // Debit
-            Vector<Booking> debitVector = debitBookings.get(account);
-            if(debitVector==null){
-                debitVector = new Vector<Booking>();
-            }
-            debitVector.add(booking);
-            debitBookings.put(account,debitVector);
+            bookings.add(nrOfDebits, booking);
+            nrOfDebits++;
             debettotaal = debettotaal.add(amount);
             debettotaal = debettotaal.setScale(2);
         } else {
-            // Credit
-            Vector<Booking> creditVector = creditBookings.get(account);
-            if(creditVector==null){
-                creditVector = new Vector<Booking>();
-            }
-            creditVector.add(booking);
-            creditBookings.put(account,creditVector);
+            bookings.add(booking);
             credittotaal = credittotaal.add(amount);
             credittotaal = credittotaal.setScale(2);
         }
@@ -155,26 +124,7 @@ public class Transaction implements Serializable {
 	}
 
 	public ArrayList<Booking> getBookings() {
-        ArrayList<Booking> result = new ArrayList<Booking>();
-        if(sort){
-            for(Vector<Booking> vector: debitBookings.values()){
-                for(Booking booking: vector){
-                    result.add(booking);
-                }
-            }
-            for(Vector<Booking> vector: creditBookings.values()){
-                for(Booking booking: vector){
-                    result.add(booking);
-                }
-            }
-        } else {
-            for(Vector<Booking> vector: allBookings.values()){
-                for(Booking booking: vector){
-                    result.add(booking);
-                }
-            }
-        }
-        return result;
+        return bookings;
     }
 
     public Journal getJournal() {
