@@ -141,8 +141,8 @@ public class JournalGUI extends JPanel implements ActionListener {
             credit.setText(credittotaal.toString());
             ident.setText(journal.getAbbreviation() + " "
                     + journal.getId());
-            boolean valid = transaction!=null && !transaction.isEmpty() && debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0;
-            clear.setEnabled(transaction!=null && !transaction.isEmpty());
+            boolean valid = transaction!=null && !transaction.getBookings().isEmpty() && debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0;
+            clear.setEnabled(transaction!=null && !transaction.getBookings().isEmpty());
             ok.setEnabled(valid);
         } else {
             ident.setText("");

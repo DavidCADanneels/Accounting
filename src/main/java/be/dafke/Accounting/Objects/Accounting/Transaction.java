@@ -210,18 +210,6 @@ public class Transaction implements Serializable {
         id = nr;
 	}
 
-    public int size(){
-        return getBookings().size();
-    }
-
-    public boolean isEmpty(){
-        return getBookings().isEmpty();
-    }
-
-    public Booking get(int i){
-        return getBookings().get(i);
-    }
-
 	public ArrayList<Booking> getBookings() {
         ArrayList<Booking> result = new ArrayList<Booking>();
         if(sort){

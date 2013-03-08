@@ -30,7 +30,7 @@ public class JournalDataModel extends AbstractTableModel {
 // ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Booking booking = transaction.get(row);
+		Booking booking = transaction.getBookings().get(row);
 		if (booking.isDebit()) {
 			if (col == 0) {
 				return booking.getAccount();
@@ -59,7 +59,7 @@ public class JournalDataModel extends AbstractTableModel {
         if(transaction == null){
             return 0;
         }
-		return transaction.size();
+		return transaction.getBookings().size();
 	}
 
 	@Override

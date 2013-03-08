@@ -42,7 +42,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 	public int getRowCount() {
 		int size = 0;
         for(Transaction transaction : journal.getTransactions()){
-			size += transaction.size();
+			size += transaction.getBookings().size();
 		}
 		return size;
 	}
@@ -60,7 +60,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 	@Override
 	public Object getValueAt(int row, int col) {
 		Booking boeking = journal.getBooking(row);
-        boolean first = (boeking == boeking.getTransaction().get(0));
+        boolean first = (boeking == boeking.getTransaction().getBookings().get(0));
         if (col == 0) {
             if(first){
                 return boeking.getTransaction().getAbbreviation() + boeking.getTransaction().getId();
