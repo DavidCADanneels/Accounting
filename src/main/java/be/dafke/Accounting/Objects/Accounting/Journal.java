@@ -1,12 +1,11 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.MultiValueMap;
+
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * Boekhoudkundig dagboek
@@ -16,7 +15,7 @@ import java.util.TreeMap;
 public class Journal extends BusinessObject{
 	private String abbreviation;
 	private int id;
-	private final TreeMap<Calendar,List<Transaction>> transactions;
+	private final MultiValueMap<Calendar,Transaction> transactions;
 //	private boolean save;
 	private JournalType journalType;
     private Transaction currentTransaction = new Transaction();
@@ -24,7 +23,7 @@ public class Journal extends BusinessObject{
 
     public Journal() {
 //		save = true;
-		transactions = new TreeMap<Calendar,List<Transaction>>();
+		transactions = new MultiValueMap<Calendar,Transaction>();
 		id = 1;
 	}
 
@@ -83,13 +82,8 @@ public class Journal extends BusinessObject{
 	 * Geeft de transacties terug die bij dit dagboek horen
 	 * @return de transacties die bij dit dagboek horen
 	 */
-	public Collection<Transaction> getTransactions() {
-        ArrayList<Transaction> result = new ArrayList<Transaction>();
-        for(List<Transaction> list : transactions.values()){
-            result.addAll(list);
-        }
-        return result;
-
+	public ArrayList<Transaction> getTransactions() {
+        return transactions.values();
     }
 
 	/**
@@ -113,56 +107,35 @@ public class Journal extends BusinessObject{
 	 * @param transaction de te verwijderen transactie
 	 */
 	private void deleteTransaction(Transaction transaction) {
+        // Remove Key-Value Pair
         Calendar date = transaction.getDate();
-        List<Transaction> list = transactions.get(date);
-        int index = list.indexOf(transaction);
-        list.remove(transaction);
-        if(list.isEmpty()){
-            transactions.remove(date);
+        transactions.removeValue(date, transaction);
+
+        // Lower the remaining ID's
+        ArrayList<Transaction> list = transactions.values();
+        for(Transaction trans : list.subList(id, list.size())){
+            trans.lowerID();
         }
-        // lower ID's
-        if(index<list.size()){
-            List<Transaction> subList = list.subList(index,list.size());
-            for(Transaction trans:subList){
-                trans.lowerID();
-            }
-        }
-        lowerIds(transactions.higherKey(date));
 	}
-
-    private void lowerIds(Calendar date){
-        while(date != null){
-            List<Transaction> list = transactions.get(date);
-            for(Transaction transaction:list){
-                transaction.lowerID();
-            }
-            date = transactions.higherKey(date);
-        }
-    }
-
-    private void raiseIds(Calendar date){
-        while(date != null){
-            List<Transaction> list = transactions.get(date);
-            for(Transaction transaction:list){
-                transaction.raiseID();
-            }
-            date = transactions.higherKey(date);
-        }
-    }
 
     /**
 	 * Voegt een transactie toe
 	 * @param transaction de toe te voegen transactie
 	 */
 	private void addTransaction(Transaction transaction) {
-        Calendar datum = transaction.getDate();
-        if(!transactions.containsKey(datum)){
-            transactions.put(datum, new ArrayList<Transaction>());
+        // Add Key-Value Pair
+        Calendar date = transaction.getDate();
+        transactions.addValue(date, transaction);
+
+        // Set ID
+        ArrayList<Transaction> list = transactions.values();
+        int id = list.indexOf(transaction);
+        transaction.setId(id);
+
+        // Raise remaining ID's
+        for(Transaction trans : list.subList(id, list.size())){
+            trans.raiseID();
         }
-        List<Transaction> list = transactions.get(datum);
-        list.add(transaction);
-        // raise ID's
-        raiseIds(transactions.higherKey(datum));
 	}
 
 	/**
