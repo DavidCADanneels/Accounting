@@ -1,10 +1,10 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.MultiValueMap;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
-import java.util.TreeMap;
 
 /**
   * Boekhoudkundige rekening
@@ -27,13 +27,13 @@ public class Account extends BusinessObject{
 	private AccountType type;
     private Project project;
     private BigDecimal debettotaal, credittotaal;
-    private final TreeMap<Calendar,List<Booking>> boekingen;
+    private final MultiValueMap<Calendar,Booking> boekingen;
     //	private static final ResourceBundle bundle = ResourceBundle.getBundle("Accounting");
     //	private boolean save;
 
 	public Account() {
 		project = null;
-		boekingen = new TreeMap<Calendar,List<Booking>>();
+		boekingen = new MultiValueMap<Calendar,Booking>();
 		debettotaal = new BigDecimal(0);
 		debettotaal = debettotaal.setScale(2);
 		credittotaal = new BigDecimal(0);
@@ -67,11 +67,7 @@ public class Account extends BusinessObject{
      * @return de boekingen die bij deze rekening horen
      */
 	public ArrayList<Booking> getBookings() {
-        ArrayList<Booking> result = new ArrayList<Booking>();
-        for(List<Booking> list : boekingen.values()){
-            result.addAll(list);
-        }
-		return result;
+        return boekingen.values();
 	}
 
 	/**
@@ -79,21 +75,13 @@ public class Account extends BusinessObject{
 	 * @param booking de toe te voegen boeking
 	 */
 	private void addBooking(Booking booking) {
-		Calendar datum = booking.getTransaction().getDate();
-        if(!boekingen.containsKey(datum)){
-            boekingen.put(datum, new ArrayList<Booking>());
-        }
-        List<Booking> list = boekingen.get(datum);
-        list.add(booking);
+        Calendar date = booking.getTransaction().getDate();
+        boekingen.addValue(date, booking);
 	}
 
     private void removeBooking(Booking booking){
-        Calendar datum = booking.getTransaction().getDate();
-        List<Booking> list = boekingen.get(datum);
-        list.remove(booking);
-        if(list.isEmpty()){
-            boekingen.remove(datum);
-        }
+        Calendar date = booking.getTransaction().getDate();
+        boekingen.removeValue(date, booking);
     }
 
 	/**
