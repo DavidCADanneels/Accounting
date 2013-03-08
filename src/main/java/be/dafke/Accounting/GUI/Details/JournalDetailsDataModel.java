@@ -99,14 +99,19 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-        Booking boeking = journal.getBooking(row);
+        Booking booking = journal.getBooking(row);
+        Transaction transaction = booking.getTransaction();
 		if (col == 1) {
-			Calendar oudeDatum = boeking.getTransaction().getDate();
+			Calendar oudeDatum = transaction.getDate();
 			Calendar nieuweDatum = Utils.toCalendar((String) value);
-			if (nieuweDatum != null) boeking.getTransaction().setDate(nieuweDatum);
+			if (nieuweDatum != null){
+                journal.unbook(transaction);
+                transaction.setDate(nieuweDatum);
+                journal.book(transaction);
+            }
 			else setValueAt(Utils.toString(oudeDatum), row, col);
 		} else if (col == 5) {
-			boeking.getTransaction().setDescription((String) value);
+			transaction.setDescription((String) value);
 		}
 		// ouder.repaint();
 		// parent.repaintAllFrames();

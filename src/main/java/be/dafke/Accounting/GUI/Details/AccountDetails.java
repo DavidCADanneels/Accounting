@@ -13,11 +13,6 @@ import static java.util.ResourceBundle.getBundle;
 
 public class AccountDetails extends RefreshableTable {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	public AccountDetails(Account account, Accounting accounting) {
 		super(accounting.toString() + "/" +
                 getBundle("Accounting").getString("REKENING_DETAILS") + "/"
