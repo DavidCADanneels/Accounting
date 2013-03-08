@@ -121,12 +121,12 @@ public class JournalsSAXParser {
                     if(debit!=null){
                         BigDecimal amount = Utils.parseBigDecimal(debit);
                         Booking booking = new Booking(account, amount, true);
-                        transaction.addBooking(booking, false);
+                        transaction.addBooking(booking);
                     }
                     if(credit!=null){
                         BigDecimal amount = Utils.parseBigDecimal(credit);
                         Booking booking = new Booking(account, amount, false);
-                        transaction.addBooking(booking, false);
+                        transaction.addBooking(booking);
                     }
                 }
             }

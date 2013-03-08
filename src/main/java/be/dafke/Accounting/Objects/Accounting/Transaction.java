@@ -86,98 +86,42 @@ public class Transaction implements Serializable {
 	}
 
 
-    public void addBooking(Booking booking, boolean merge) {
+    public void addBooking(Booking booking){
         booking.setTransaction(this);
         Account account = booking.getAccount();
         boolean debit = booking.isDebit();
         BigDecimal amount = booking.getAmount();
-        if(!merge){
-            // all Bookings
-            Vector<Booking> allVector = allBookings.get(account);
-            if(allVector==null){
-                allVector = new Vector<Booking>();
-            }
-            allVector.add(booking);
-            allBookings.put(account, allVector);
 
-            // Specific Bookings: Debit or Credit
-            if(debit){
-                // Debit
-                Vector<Booking> debitVector = debitBookings.get(account);
-                if(debitVector==null){
-                    debitVector = new Vector<Booking>();
-                }
-                debitVector.add(booking);
-                debitBookings.put(account,debitVector);
-                debettotaal = debettotaal.add(amount);
-                debettotaal = debettotaal.setScale(2);
-            } else {
-                // Credit
-                Vector<Booking> creditVector = creditBookings.get(account);
-                if(creditVector==null){
-                    creditVector = new Vector<Booking>();
-                }
-                creditVector.add(booking);
-                creditBookings.put(account,creditVector);
-                credittotaal = credittotaal.add(amount);
-                credittotaal = credittotaal.setScale(2);
-            }
-        } else{
-            // MERGE !!!
-            Vector<Booking> vector = new Vector<Booking>();
+        // all Bookings
+        Vector<Booking> allVector = allBookings.get(account);
+        if(allVector==null){
+            allVector = new Vector<Booking>();
+        }
+        allVector.add(booking);
+        allBookings.put(account, allVector);
+
+        // Specific Bookings: Debit or Credit
+        if(debit){
+            // Debit
             Vector<Booking> debitVector = debitBookings.get(account);
+            if(debitVector==null){
+                debitVector = new Vector<Booking>();
+            }
+            debitVector.add(booking);
+            debitBookings.put(account,debitVector);
+            debettotaal = debettotaal.add(amount);
+            debettotaal = debettotaal.setScale(2);
+        } else {
+            // Credit
             Vector<Booking> creditVector = creditBookings.get(account);
-            vector.add(booking);
-            if(debitVector!=null){
-                vector.addAll(debitVector);
+            if(creditVector==null){
+                creditVector = new Vector<Booking>();
             }
-            if(creditVector!=null){
-                vector.addAll(creditVector);
-            }
-            booking = merge(vector);
-            vector = new Vector<Booking>();
-            vector.add(booking);
-            if(booking.getAmount().compareTo(BigDecimal.ZERO) == 0){
-                debitBookings.remove(account);
-                creditBookings.remove(account);
-                allBookings.remove(account);
-            } else {
-                if(booking.isDebit()){
-                    debitBookings.put(account, vector);
-                    creditBookings.remove(account);
-                } else {
-                    creditBookings.put(account, vector);
-                    debitBookings.remove(account);
-                }
-                allBookings.put(account, vector);
-            }
+            creditVector.add(booking);
+            creditBookings.put(account,creditVector);
+            credittotaal = credittotaal.add(amount);
+            credittotaal = credittotaal.setScale(2);
         }
-    }
-
-    private Booking merge(Vector<Booking> vector) {
-        if(vector.size()==1){
-            return vector.firstElement();
-        }
-        Booking result = vector.get(0);
-        BigDecimal amount = result.getAmount();
-        for(int i=1;i<vector.size();i++){
-            Booking nextBooking = vector.get(i);
-            if(result.isDebit() == nextBooking.isDebit()){
-                amount = amount.add(nextBooking.getAmount());
-//              amount.setScale(2);
-            }else{
-                amount = amount.subtract(nextBooking.getAmount());
-//              amount.setScale(2);
-            }
-            result.setAmount(amount);
-        }
-        if(amount.compareTo(BigDecimal.ONE)<0){
-            amount = amount.negate();
-            result.setDebit(!result.isDebit());
-            result.setAmount(amount);
-        }
-
-        return result;
     }
 
     public void moveTransaction(Journal oldJournal, Journal newJournal) {
@@ -231,10 +175,6 @@ public class Transaction implements Serializable {
             }
         }
         return result;
-    }
-
-    public boolean contains(Account account) {
-        return allBookings.containsKey(account);
     }
 
     public Journal getJournal() {

@@ -123,7 +123,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 	}
 
 	private void book(boolean debit) {
-		Account rekening = lijst.getSelectedValue();
+		Account account = lijst.getSelectedValue();
 		boolean ok = false;
 		while (!ok) {
 			String s = JOptionPane.showInputDialog(getBundle("Accounting").getString(
@@ -134,14 +134,9 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 				try {
 					BigDecimal amount = new BigDecimal(s);
 					amount = amount.setScale(2);
-                    boolean merge = false;
                     Transaction transaction = journal.getCurrentTransaction();
-                    Booking booking = new Booking(rekening, amount,debit);
-                    if(transaction.contains(rekening)){
-                        merge = JOptionPane.YES_OPTION == JOptionPane.showConfirmDialog(this, "Merge Bookings?", "The current transaction already contains bookings for "
-                                + rekening +". Do you want to merge them?", JOptionPane.YES_NO_OPTION);
-                    }
-                    transaction.addBooking(booking, merge);
+                    Booking booking = new Booking(account, amount,debit);
+                    transaction.addBooking(booking);
 					ok = true;
                     ComponentMap.refreshAllFrames();
 				} catch (NumberFormatException nfe) {

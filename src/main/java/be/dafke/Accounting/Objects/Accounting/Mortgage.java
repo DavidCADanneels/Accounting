@@ -65,8 +65,8 @@ public class Mortgage extends BusinessObject {
 		BigDecimal kapitalAmount = table.get(alreadyPayed).get(2);
         Booking booking1 = new Booking(intrest, intrestAmount, true);
         Booking booking2 = new Booking(capital, kapitalAmount, true);
-        transaction.addBooking(booking1, false);
-        transaction.addBooking(booking2, false);
+        transaction.addBooking(booking1);
+        transaction.addBooking(booking2);
 		transaction.addMortgage(this);
 		System.out.println("Restkapitaal: " + table.get(alreadyPayed).get(3));
 	}

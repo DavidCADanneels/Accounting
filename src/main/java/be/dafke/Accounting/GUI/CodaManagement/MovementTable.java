@@ -191,8 +191,8 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 					Transaction trans = accounting.getJournals().getCurrentJournal().getCurrentTransaction();
                     Booking booking1 = new Booking(account, amount, debet);
                     Booking booking2 = new Booking(bankAccount, amount, !debet);
-                    trans.addBooking(booking1, false);
-                    trans.addBooking(booking2, false);
+                    trans.addBooking(booking1);
+                    trans.addBooking(booking2);
 					String cal = (String) tabel.getValueAt(i, 2);
 					Calendar date = Utils.toCalendar(cal);
 					trans.setDate(date);
