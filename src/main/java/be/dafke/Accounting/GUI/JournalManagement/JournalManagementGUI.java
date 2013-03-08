@@ -262,7 +262,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
                 Object[] types = accounting.getJournalTypes().getAllTypes().toArray();
                 int nr = JOptionPane.showOptionDialog(this, "Choose new type for " + journal.getName(),
                         "Change type", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
-                        journal.getType());
+                        journal.getJournalType());
                 if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
                     journal.setJournalType((JournalType) types[nr]);
                 }
