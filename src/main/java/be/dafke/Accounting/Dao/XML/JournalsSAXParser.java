@@ -199,7 +199,9 @@ public class JournalsSAXParser {
                 writer.write("    <account_name>" + booking.getAccount() + "</account_name>\r\n");
                 writer.write("    <account_xml>" + booking.getAccount().getXmlFile() + "</account_xml>\r\n");
                 writer.write("    <account_html>" + booking.getAccount().getHtmlFile() + "</account_html>\r\n");
-                writer.write("    <amount>" + booking.getAmount().toString() + "</amount>\r\n");
+                writer.write("    <" + (booking.isDebit() ? "debet" : "credit") + ">"
+                                     + booking.getAmount().toString()
+                               + "</" + (booking.isDebit() ? "debet" : "credit") + ">\r\n");
                 writer.write("    <description>" + booking.getTransaction().getDescription() + "</description>\r\n");
                 writer.write("  </action>\r\n");
                 for(int i = 1; i < list.size(); i++) {
@@ -208,7 +210,9 @@ public class JournalsSAXParser {
                     writer.write("    <account_name>" + booking.getAccount() + "</account_name>\r\n");
                     writer.write("    <account_xml>" + booking.getAccount().getXmlFile() + "</account_xml>\r\n");
                     writer.write("    <account_html>" + booking.getAccount().getHtmlFile() + "</account_html>\r\n");
-                    writer.write("    <amount>" + booking.getAmount().toString() + "</amount>\r\n");
+                    writer.write("    <" + (booking.isDebit() ? "debet" : "credit") + ">"
+                            + booking.getAmount().toString()
+                            + "</" + (booking.isDebit() ? "debet" : "credit") + ">\r\n");
                     writer.write("  </action>\r\n");
                 }
             }

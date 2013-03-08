@@ -113,10 +113,10 @@ public class CounterPartiesSAXParser {
                         if(account.getAccountNumber()!=null){
                             writer.write("      <AccountNumber>" + account.getAccountNumber() + "</AccountNumber>\r\n");
                         }
-                        if(account.getBic()!=null){
+                        if(account.getBic()!=null && !account.getBic().equals("")){
                             writer.write("      <BIC>" + account.getBic() + "</BIC>\r\n");
                         }
-                        if(account.getCurrency()!=null){
+                        if(account.getCurrency()!=null && !account.getCurrency().equals("")){
                             writer.write("      <Currency>" + account.getCurrency() + "</Currency>\r\n");
                         }
                         writer.write("    </BankAccount>\r\n");

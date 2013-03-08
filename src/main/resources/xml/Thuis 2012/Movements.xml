@@ -3,8 +3,8 @@
 <!DOCTYPE Movements SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Movements.dtd">
 <Movements>
   <Movement>
-    <Statement>1</Statement>
-    <Sequence>1</Sequence>
+    <Statement>001</Statement>
+    <Sequence>0001</Sequence>
     <Date>31/12/2011</Date>
     <Sign>D</Sign>
     <Amount>84.49</Amount>
@@ -12,12 +12,3455 @@
     <Communication>GB PARTNER      ASSEBROEK</Communication>
   </Movement>
   <Movement>
-    <Statement>1</Statement>
-    <Sequence>2</Sequence>
+    <Statement>001</Statement>
+    <Sequence>0002</Sequence>
     <Date>1/1/2012</Date>
     <Sign>D</Sign>
     <Amount>802.71</Amount>
     <TransactionCode>501</TransactionCode>
     <Communication>774-2476251-77</Communication>
+  </Movement>
+  <Movement>
+    <Statement>001</Statement>
+    <Sequence>0003</Sequence>
+    <Date>1/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>30.86</Amount>
+    <TransactionCode>501</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>001</Statement>
+    <Sequence>0004</Sequence>
+    <Date>2/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
+    <TransactionCode>103</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>001</Statement>
+    <Sequence>0005</Sequence>
+    <Date>2/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>124.77</Amount>
+    <CounterParty>PROXIMUS</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++103/4389/42549+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>002</Statement>
+    <Sequence>0001</Sequence>
+    <Date>4/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>3.74</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>POWER ASSEBROEK ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>002</Statement>
+    <Sequence>0002</Sequence>
+    <Date>6/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>18.98</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10816121657</Communication>
+  </Movement>
+  <Movement>
+    <Statement>002</Statement>
+    <Sequence>0003</Sequence>
+    <Date>6/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.72</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10112244578</Communication>
+  </Movement>
+  <Movement>
+    <Statement>003</Statement>
+    <Sequence>0001</Sequence>
+    <Date>10/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>17.07</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>800922 261M45</Communication>
+  </Movement>
+  <Movement>
+    <Statement>003</Statement>
+    <Sequence>0002</Sequence>
+    <Date>16/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>61.39</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARREFOUR BRUGGESINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>004</Statement>
+    <Sequence>0001</Sequence>
+    <Date>17/1/2012</Date>
+    <Sign>C</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>huur</Communication>
+  </Movement>
+  <Movement>
+    <Statement>004</Statement>
+    <Sequence>0002</Sequence>
+    <Date>20/1/2012</Date>
+    <Sign>C</Sign>
+    <Amount>47.89</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  2 PREST HUISARTS           04/01/12 OFFICIEEL TARIEF    51,89 EUR 090315 044M35 011198180112/001</Communication>
+  </Movement>
+  <Movement>
+    <Statement>004</Statement>
+    <Sequence>0003</Sequence>
+    <Date>17/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.39</Amount>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++991/1347/38603+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>004</Statement>
+    <Sequence>0004</Sequence>
+    <Date>18/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>43.85</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>004</Statement>
+    <Sequence>0005</Sequence>
+    <Date>19/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>38.14</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>004</Statement>
+    <Sequence>0006</Sequence>
+    <Date>19/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>43.05</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>004</Statement>
+    <Sequence>0007</Sequence>
+    <Date>21/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>32.87</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>KRUIDVAT    BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>004</Statement>
+    <Sequence>0008</Sequence>
+    <Date>23/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-GARE CENTRALEBRUXELLES</Communication>
+  </Movement>
+  <Movement>
+    <Statement>005</Statement>
+    <Sequence>0001</Sequence>
+    <Date>26/1/2012</Date>
+    <Sign>C</Sign>
+    <Amount>1588.52</Amount>
+    <CounterParty>ISABEL NV</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+  </Movement>
+  <Movement>
+    <Statement>005</Statement>
+    <Sequence>0002</Sequence>
+    <Date>25/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>11.82</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>005</Statement>
+    <Sequence>0003</Sequence>
+    <Date>26/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>50.28</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>005</Statement>
+    <Sequence>0004</Sequence>
+    <Date>28/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>4.84</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>Q BRUGGE ST KRU</Communication>
+  </Movement>
+  <Movement>
+    <Statement>005</Statement>
+    <Sequence>0005</Sequence>
+    <Date>30/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>362.96</Amount>
+    <CounterParty>PROXIMUS</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++103/4389/42650+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>005</Statement>
+    <Sequence>0006</Sequence>
+    <Date>30/1/2012</Date>
+    <Sign>D</Sign>
+    <Amount>34.50</Amount>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++991/1378/83827+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>006</Statement>
+    <Sequence>0001</Sequence>
+    <Date>1/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>802.71</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>774-2476251-77</Communication>
+  </Movement>
+  <Movement>
+    <Statement>006</Statement>
+    <Sequence>0002</Sequence>
+    <Date>1/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
+    <TransactionCode>103</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>006</Statement>
+    <Sequence>0003</Sequence>
+    <Date>6/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>18.98</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10816121657</Communication>
+  </Movement>
+  <Movement>
+    <Statement>006</Statement>
+    <Sequence>0004</Sequence>
+    <Date>6/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.72</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10112244578</Communication>
+  </Movement>
+  <Movement>
+    <Statement>006</Statement>
+    <Sequence>0005</Sequence>
+    <Date>6/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>1113758940</Communication>
+  </Movement>
+  <Movement>
+    <Statement>007</Statement>
+    <Sequence>0001</Sequence>
+    <Date>8/2/2012</Date>
+    <Sign>C</Sign>
+    <Amount>28.24</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>DIVERSE TERUGBETALINGEN MUTUALITEITO REF :8918200602388 remgeld -3jaar</Communication>
+  </Movement>
+  <Movement>
+    <Statement>007</Statement>
+    <Sequence>0002</Sequence>
+    <Date>8/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>007</Statement>
+    <Sequence>0003</Sequence>
+    <Date>8/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>23.88</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>007</Statement>
+    <Sequence>0004</Sequence>
+    <Date>13/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>68.28</Amount>
+    <CounterParty>CM BRUGGE</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++702/0029/25964+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>007</Statement>
+    <Sequence>0005</Sequence>
+    <Date>13/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>28.50</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>KAM YUEN MARKET  BRUS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>008</Statement>
+    <Sequence>0001</Sequence>
+    <Date>16/2/2012</Date>
+    <Sign>C</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>huur</Communication>
+  </Movement>
+  <Movement>
+    <Statement>008</Statement>
+    <Sequence>0002</Sequence>
+    <Date>17/2/2012</Date>
+    <Sign>C</Sign>
+    <Amount>22.70</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST SPECIALIST         21/12/11 OFFICIEEL TARIEF    34,50 EUR 760712 268M46 093187150212/025</Communication>
+  </Movement>
+  <Movement>
+    <Statement>008</Statement>
+    <Sequence>0003</Sequence>
+    <Date>14/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>008</Statement>
+    <Sequence>0004</Sequence>
+    <Date>18/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>89.95</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GEBOX           MOUSCRON</Communication>
+  </Movement>
+  <Movement>
+    <Statement>008</Statement>
+    <Sequence>0005</Sequence>
+    <Date>19/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.33</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>009</Statement>
+    <Sequence>0001</Sequence>
+    <Date>27/2/2012</Date>
+    <Sign>C</Sign>
+    <Amount>1587.44</Amount>
+    <CounterParty>ISABEL NV</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+  </Movement>
+  <Movement>
+    <Statement>009</Statement>
+    <Sequence>0002</Sequence>
+    <Date>21/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>009</Statement>
+    <Sequence>0003</Sequence>
+    <Date>23/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>BRUS  ST HUBERT BRUSSEL</Communication>
+  </Movement>
+  <Movement>
+    <Statement>009</Statement>
+    <Sequence>0004</Sequence>
+    <Date>24/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>36.00</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>NMBS BRUGGE     BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>009</Statement>
+    <Sequence>0005</Sequence>
+    <Date>25/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>60.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>009</Statement>
+    <Sequence>0006</Sequence>
+    <Date>26/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>76.86</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>009</Statement>
+    <Sequence>0007</Sequence>
+    <Date>27/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>277.03</Amount>
+    <CounterParty>PROXIMUS</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++103/4389/42751+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>010</Statement>
+    <Sequence>0001</Sequence>
+    <Date>29/2/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>010</Statement>
+    <Sequence>0002</Sequence>
+    <Date>1/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>802.71</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>774-2476251-77</Communication>
+  </Movement>
+  <Movement>
+    <Statement>010</Statement>
+    <Sequence>0003</Sequence>
+    <Date>1/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
+    <TransactionCode>103</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>010</Statement>
+    <Sequence>0004</Sequence>
+    <Date>3/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>011</Statement>
+    <Sequence>0001</Sequence>
+    <Date>6/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>1113758940</Communication>
+  </Movement>
+  <Movement>
+    <Statement>011</Statement>
+    <Sequence>0002</Sequence>
+    <Date>6/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>18.98</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10816121657</Communication>
+  </Movement>
+  <Movement>
+    <Statement>011</Statement>
+    <Sequence>0003</Sequence>
+    <Date>6/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.72</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10112244578</Communication>
+  </Movement>
+  <Movement>
+    <Statement>011</Statement>
+    <Sequence>0004</Sequence>
+    <Date>8/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>60.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP GARE NORD BRUBRUXELLES</Communication>
+  </Movement>
+  <Movement>
+    <Statement>011</Statement>
+    <Sequence>0005</Sequence>
+    <Date>9/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>25.00</Amount>
+    <CounterParty>CM-ZORGKAS BRUGGE</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++913/3414/11236+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>011</Statement>
+    <Sequence>0006</Sequence>
+    <Date>9/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>27.90</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>ZARA         BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>011</Statement>
+    <Sequence>0007</Sequence>
+    <Date>10/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>101.83</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>011</Statement>
+    <Sequence>0008</Sequence>
+    <Date>10/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>5.21</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>TOTAL</Communication>
+  </Movement>
+  <Movement>
+    <Statement>011</Statement>
+    <Sequence>0009</Sequence>
+    <Date>11/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>14.10</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>NMBS BRUGGE     BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>011</Statement>
+    <Sequence>0010</Sequence>
+    <Date>11/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>100.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>012</Statement>
+    <Sequence>0001</Sequence>
+    <Date>16/3/2012</Date>
+    <Sign>C</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>huur</Communication>
+  </Movement>
+  <Movement>
+    <Statement>012</Statement>
+    <Sequence>0002</Sequence>
+    <Date>19/3/2012</Date>
+    <Sign>C</Sign>
+    <Amount>36.00</Amount>
+    <CounterParty>ISABEL SA</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>EXPENSE CLAIM 2012 DD</Communication>
+  </Movement>
+  <Movement>
+    <Statement>012</Statement>
+    <Sequence>0003</Sequence>
+    <Date>19/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>012</Statement>
+    <Sequence>0004</Sequence>
+    <Date>19/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>32.22</Amount>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++991/2013/47691+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>012</Statement>
+    <Sequence>0005</Sequence>
+    <Date>19/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>48.97</Amount>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++991/2013/37183+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>012</Statement>
+    <Sequence>0006</Sequence>
+    <Date>19/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>31.20</Amount>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++731/2000/41960+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>012</Statement>
+    <Sequence>0007</Sequence>
+    <Date>19/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>134.11</Amount>
+    <CounterParty>KBC VERZEKERINGEN NV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>SHO 110536737 MTH</Communication>
+  </Movement>
+  <Movement>
+    <Statement>013</Statement>
+    <Sequence>0001</Sequence>
+    <Date>20/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-GARE CENTRALEBRUXELLES</Communication>
+  </Movement>
+  <Movement>
+    <Statement>013</Statement>
+    <Sequence>0002</Sequence>
+    <Date>20/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>150.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>013</Statement>
+    <Sequence>0003</Sequence>
+    <Date>23/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>BRUS  ST HUBERT BRUSSEL</Communication>
+  </Movement>
+  <Movement>
+    <Statement>013</Statement>
+    <Sequence>0004</Sequence>
+    <Date>23/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>50.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>KBC BANK BRUSSELBRUSSEL</Communication>
+  </Movement>
+  <Movement>
+    <Statement>014</Statement>
+    <Sequence>0001</Sequence>
+    <Date>27/3/2012</Date>
+    <Sign>C</Sign>
+    <Amount>1586.34</Amount>
+    <CounterParty>ISABEL NV</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+  </Movement>
+  <Movement>
+    <Statement>014</Statement>
+    <Sequence>0002</Sequence>
+    <Date>24/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>6.95</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>QUICK ST KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>014</Statement>
+    <Sequence>0003</Sequence>
+    <Date>26/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>014</Statement>
+    <Sequence>0004</Sequence>
+    <Date>29/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>150.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>BRUGGE ST KRUIS BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>014</Statement>
+    <Sequence>0005</Sequence>
+    <Date>30/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>12.90</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>NMBS BRUGGE     BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>015</Statement>
+    <Sequence>0001</Sequence>
+    <Date>4/4/2012</Date>
+    <Sign>C</Sign>
+    <Amount>19.34</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST SPECIALIST         17/01/12 OFFICIEEL TARIEF    32,22 EUR 090315 044M35 093081020412/010</Communication>
+  </Movement>
+  <Movement>
+    <Statement>015</Statement>
+    <Sequence>0002</Sequence>
+    <Date>4/4/2012</Date>
+    <Sign>C</Sign>
+    <Amount>23.03</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST SPECIALIST         25/01/12 OFFICIEEL TARIEF    35,01 EUR 760712 268M46 093081020412/010</Communication>
+  </Movement>
+  <Movement>
+    <Statement>015</Statement>
+    <Sequence>0003</Sequence>
+    <Date>31/3/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>POST ATM        BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>015</Statement>
+    <Sequence>0004</Sequence>
+    <Date>1/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>802.71</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>774-2476251-77</Communication>
+  </Movement>
+  <Movement>
+    <Statement>015</Statement>
+    <Sequence>0005</Sequence>
+    <Date>2/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
+    <TransactionCode>103</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>015</Statement>
+    <Sequence>0006</Sequence>
+    <Date>2/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>17.07</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>800922 261M45</Communication>
+  </Movement>
+  <Movement>
+    <Statement>015</Statement>
+    <Sequence>0007</Sequence>
+    <Date>3/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>015</Statement>
+    <Sequence>0008</Sequence>
+    <Date>5/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>15.00</Amount>
+    <CounterParty>MOBILE VIKINGS</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++011/0470/87496+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>015</Statement>
+    <Sequence>0009</Sequence>
+    <Date>5/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>25.00</Amount>
+    <CounterParty>VLAAMSE ZORGKAS VZW</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++120/5115/14950+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>015</Statement>
+    <Sequence>0010</Sequence>
+    <Date>5/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>35.02</Amount>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++991/2047/10864+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>015</Statement>
+    <Sequence>0011</Sequence>
+    <Date>5/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>26.09</Amount>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++991/2049/13857+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>015</Statement>
+    <Sequence>0012</Sequence>
+    <Date>5/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>161.26</Amount>
+    <CounterParty>PROXIMUS</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++103/4389/42852+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>016</Statement>
+    <Sequence>0001</Sequence>
+    <Date>10/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>18.98</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10816121657</Communication>
+  </Movement>
+  <Movement>
+    <Statement>016</Statement>
+    <Sequence>0002</Sequence>
+    <Date>10/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.72</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10112244578</Communication>
+  </Movement>
+  <Movement>
+    <Statement>016</Statement>
+    <Sequence>0003</Sequence>
+    <Date>10/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>52.29</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>016</Statement>
+    <Sequence>0004</Sequence>
+    <Date>13/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>60.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>016</Statement>
+    <Sequence>0005</Sequence>
+    <Date>13/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>5.23</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>OCTA  ST KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>017</Statement>
+    <Sequence>0001</Sequence>
+    <Date>17/4/2012</Date>
+    <Sign>C</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>huur</Communication>
+  </Movement>
+  <Movement>
+    <Statement>017</Statement>
+    <Sequence>0002</Sequence>
+    <Date>18/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>017</Statement>
+    <Sequence>0003</Sequence>
+    <Date>19/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>50.28</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>KAM YUEN MARKET  BRUS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>017</Statement>
+    <Sequence>0004</Sequence>
+    <Date>20/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>6.26</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>017</Statement>
+    <Sequence>0005</Sequence>
+    <Date>23/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>018</Statement>
+    <Sequence>0001</Sequence>
+    <Date>26/4/2012</Date>
+    <Sign>C</Sign>
+    <Amount>2413.56</Amount>
+    <CounterParty>F O D  FINANCIEN</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>KOHIERARTIKEL: 720844783 DIENST : 05 04/01</Communication>
+  </Movement>
+  <Movement>
+    <Statement>018</Statement>
+    <Sequence>0002</Sequence>
+    <Date>27/4/2012</Date>
+    <Sign>C</Sign>
+    <Amount>1588.52</Amount>
+    <CounterParty>ISABEL NV</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+  </Movement>
+  <Movement>
+    <Statement>018</Statement>
+    <Sequence>0003</Sequence>
+    <Date>24/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>222.77</Amount>
+    <CounterParty>PROXIMUS</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++103/4389/42953+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>018</Statement>
+    <Sequence>0004</Sequence>
+    <Date>24/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>41.60</Amount>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++731/2000/77629+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>018</Statement>
+    <Sequence>0005</Sequence>
+    <Date>26/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>80.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>018</Statement>
+    <Sequence>0006</Sequence>
+    <Date>27/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>100.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>019</Statement>
+    <Sequence>0001</Sequence>
+    <Date>4/5/2012</Date>
+    <Sign>C</Sign>
+    <Amount>23.54</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>DIVERSE TERUGBETALINGEN MUTUALITEITO REF :8918200205130 remgeld -3jaar 800922 261M45</Communication>
+  </Movement>
+  <Movement>
+    <Statement>019</Statement>
+    <Sequence>0002</Sequence>
+    <Date>29/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>2000.00</Amount>
+    <CounterParty>DANNEELS DAVID</CounterParty>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>019</Statement>
+    <Sequence>0003</Sequence>
+    <Date>30/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>19.95</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>STREET ONE      BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>019</Statement>
+    <Sequence>0004</Sequence>
+    <Date>30/4/2012</Date>
+    <Sign>D</Sign>
+    <Amount>50.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>AUT MOD BRUGGE-CBRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>019</Statement>
+    <Sequence>0005</Sequence>
+    <Date>1/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>802.71</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>774-2476251-77</Communication>
+  </Movement>
+  <Movement>
+    <Statement>019</Statement>
+    <Sequence>0006</Sequence>
+    <Date>2/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
+    <TransactionCode>103</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>019</Statement>
+    <Sequence>0007</Sequence>
+    <Date>3/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>6.03</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>EXPR GB RAVENSTE BRUX</Communication>
+  </Movement>
+  <Movement>
+    <Statement>019</Statement>
+    <Sequence>0008</Sequence>
+    <Date>4/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.12</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10816121657</Communication>
+  </Movement>
+  <Movement>
+    <Statement>019</Statement>
+    <Sequence>0009</Sequence>
+    <Date>4/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.72</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10112244578</Communication>
+  </Movement>
+  <Movement>
+    <Statement>019</Statement>
+    <Sequence>0010</Sequence>
+    <Date>4/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>020</Statement>
+    <Sequence>0001</Sequence>
+    <Date>5/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>139.99</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>BELGACOM STORE  BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>020</Statement>
+    <Sequence>0002</Sequence>
+    <Date>6/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>47.08</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>020</Statement>
+    <Sequence>0003</Sequence>
+    <Date>7/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>1113758940</Communication>
+  </Movement>
+  <Movement>
+    <Statement>020</Statement>
+    <Sequence>0004</Sequence>
+    <Date>8/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>47.97</Amount>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++991/2082/01046+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>020</Statement>
+    <Sequence>0005</Sequence>
+    <Date>8/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>32.22</Amount>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++991/2082/12160+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>020</Statement>
+    <Sequence>0006</Sequence>
+    <Date>8/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>120.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>020</Statement>
+    <Sequence>0007</Sequence>
+    <Date>11/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>16.20</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>021</Statement>
+    <Sequence>0001</Sequence>
+    <Date>14/5/2012</Date>
+    <Sign>C</Sign>
+    <Amount>22.14</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST SPECIALIST         07/02/12 OFFICIEEL TARIEF    35,02 EUR 090315 044M35 093080100512/018</Communication>
+  </Movement>
+  <Movement>
+    <Statement>021</Statement>
+    <Sequence>0002</Sequence>
+    <Date>16/5/2012</Date>
+    <Sign>C</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>huur</Communication>
+  </Movement>
+  <Movement>
+    <Statement>021</Statement>
+    <Sequence>0003</Sequence>
+    <Date>21/5/2012</Date>
+    <Sign>C</Sign>
+    <Amount>361.67</Amount>
+    <CounterParty>ISABEL NV</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+  </Movement>
+  <Movement>
+    <Statement>021</Statement>
+    <Sequence>0004</Sequence>
+    <Date>14/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>18.20</Amount>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++731/2001/34415+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>021</Statement>
+    <Sequence>0005</Sequence>
+    <Date>14/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>021</Statement>
+    <Sequence>0006</Sequence>
+    <Date>15/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>35.00</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>KAM YUEN MARKET  BRUS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>021</Statement>
+    <Sequence>0007</Sequence>
+    <Date>16/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>021</Statement>
+    <Sequence>0008</Sequence>
+    <Date>21/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>15.00</Amount>
+    <CounterParty>HIGHFIELDS VZW</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>DAVID EN DARA (ENKEL BBQ MET VLEES)GEEN PINGPONG</Communication>
+  </Movement>
+  <Movement>
+    <Statement>022</Statement>
+    <Sequence>0001</Sequence>
+    <Date>23/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>DANNEELS DAVID</CounterParty>
+    <TransactionCode>103</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>022</Statement>
+    <Sequence>0002</Sequence>
+    <Date>25/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>18.10</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>KAM YUEN MARKET  BRUS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0001</Sequence>
+    <Date>29/5/2012</Date>
+    <Sign>C</Sign>
+    <Amount>1588.52</Amount>
+    <CounterParty>ISABEL NV</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0002</Sequence>
+    <Date>27/5/2012</Date>
+    <Sign>C</Sign>
+    <Amount>2000.00</Amount>
+    <CounterParty>DANNEELS DAVID</CounterParty>
+    <TransactionCode>150</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0003</Sequence>
+    <Date>31/5/2012</Date>
+    <Sign>C</Sign>
+    <Amount>190.71</Amount>
+    <CounterParty>OFF NAT VACANCES ANNUELLES</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/ 91RLMJ11 Vakantiegeld 2012</Communication>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0004</Sequence>
+    <Date>27/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>1000.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0005</Sequence>
+    <Date>27/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>15.96</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0006</Sequence>
+    <Date>29/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>120.54</Amount>
+    <CounterParty>PROXIMUS</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++103/4389/43054+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0007</Sequence>
+    <Date>28/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>1000.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0008</Sequence>
+    <Date>29/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>110.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>FAB-GRAND-PLACE BRUSSEL</Communication>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0009</Sequence>
+    <Date>30/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>5.75</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>DE VELTEM APOTH</Communication>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0010</Sequence>
+    <Date>31/5/2012</Date>
+    <Sign>D</Sign>
+    <Amount>38.99</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0011</Sequence>
+    <Date>1/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>802.71</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>774-2476251-77</Communication>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0012</Sequence>
+    <Date>1/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
+    <TransactionCode>103</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0013</Sequence>
+    <Date>2/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>70.49</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0014</Sequence>
+    <Date>2/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>13.50</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>POWER ASSEBROEK ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0015</Sequence>
+    <Date>2/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>99.00</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>FOCKE           SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0016</Sequence>
+    <Date>2/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>30.00</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>FOCKE           SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>023</Statement>
+    <Sequence>0017</Sequence>
+    <Date>2/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>025</Statement>
+    <Sequence>0001</Sequence>
+    <Date>7/6/2012</Date>
+    <Sign>C</Sign>
+    <Amount>28.99</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  2 PREST HUISARTS           19/05/12 OFFICIEEL TARIEF    34,99 EUR 930527 225M79 093187050612/065</Communication>
+  </Movement>
+  <Movement>
+    <Statement>025</Statement>
+    <Sequence>0002</Sequence>
+    <Date>7/6/2012</Date>
+    <Sign>C</Sign>
+    <Amount>19.34</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST SPECIALIST         26/03/12 OFFICIEEL TARIEF    32,22 EUR 090315 044M35 093187050612/065</Communication>
+  </Movement>
+  <Movement>
+    <Statement>025</Statement>
+    <Sequence>0003</Sequence>
+    <Date>7/6/2012</Date>
+    <Sign>C</Sign>
+    <Amount>40.00</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>1 PREST CM - VOORDEEL      24/05/12 OFFICIEEL TARIEF40,00 EUR 760712 268M46 093187050612/065</Communication>
+  </Movement>
+  <Movement>
+    <Statement>025</Statement>
+    <Sequence>0004</Sequence>
+    <Date>7/6/2012</Date>
+    <Sign>C</Sign>
+    <Amount>23.03</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST SPECIALIST         26/03/12 OFFICIEEL TARIEF    35,01 EUR 760712 268M46 093187050612/065</Communication>
+  </Movement>
+  <Movement>
+    <Statement>025</Statement>
+    <Sequence>0005</Sequence>
+    <Date>6/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>1113758940</Communication>
+  </Movement>
+  <Movement>
+    <Statement>025</Statement>
+    <Sequence>0006</Sequence>
+    <Date>6/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.12</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10816121657</Communication>
+  </Movement>
+  <Movement>
+    <Statement>025</Statement>
+    <Sequence>0007</Sequence>
+    <Date>6/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.72</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10112244578</Communication>
+  </Movement>
+  <Movement>
+    <Statement>025</Statement>
+    <Sequence>0008</Sequence>
+    <Date>6/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>120.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>BRUGGE ST KRUIS BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>025</Statement>
+    <Sequence>0009</Sequence>
+    <Date>11/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>31.20</Amount>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++731/2001/73518+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>025</Statement>
+    <Sequence>0010</Sequence>
+    <Date>10/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>55.03</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARSAN MIDDELEKEMIDDELKERK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>025</Statement>
+    <Sequence>0011</Sequence>
+    <Date>11/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>26.61</Amount>
+    <CounterParty>D A S</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++101/6296/62072+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>026</Statement>
+    <Sequence>0001</Sequence>
+    <Date>14/6/2012</Date>
+    <Sign>C</Sign>
+    <Amount>28.62</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  3 PREST SPECIALIST         06/06/12 OFFICIEEL TARIEF    37,52 EUR 760712 268M46 093187120612/004</Communication>
+  </Movement>
+  <Movement>
+    <Statement>026</Statement>
+    <Sequence>0002</Sequence>
+    <Date>16/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>14.31</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>027</Statement>
+    <Sequence>0001</Sequence>
+    <Date>19/6/2012</Date>
+    <Sign>C</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>huur</Communication>
+  </Movement>
+  <Movement>
+    <Statement>027</Statement>
+    <Sequence>0002</Sequence>
+    <Date>25/6/2012</Date>
+    <Sign>C</Sign>
+    <Amount>500.00</Amount>
+    <CounterParty>DANNEELS DAVID</CounterParty>
+    <TransactionCode>150</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>027</Statement>
+    <Sequence>0003</Sequence>
+    <Date>20/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>25.93</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10622198017</Communication>
+  </Movement>
+  <Movement>
+    <Statement>027</Statement>
+    <Sequence>0004</Sequence>
+    <Date>23/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>DANNEELS DAVID</CounterParty>
+    <TransactionCode>103</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>027</Statement>
+    <Sequence>0005</Sequence>
+    <Date>22/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>027</Statement>
+    <Sequence>0006</Sequence>
+    <Date>22/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>54.34</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>027</Statement>
+    <Sequence>0007</Sequence>
+    <Date>24/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>26.66</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>027</Statement>
+    <Sequence>0008</Sequence>
+    <Date>25/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>499.00</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>028</Statement>
+    <Sequence>0001</Sequence>
+    <Date>26/6/2012</Date>
+    <Sign>C</Sign>
+    <Amount>1588.52</Amount>
+    <CounterParty>ISABEL NV</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+  </Movement>
+  <Movement>
+    <Statement>028</Statement>
+    <Sequence>0002</Sequence>
+    <Date>27/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>KBC BANK BRUSSELBRUSSEL</Communication>
+  </Movement>
+  <Movement>
+    <Statement>028</Statement>
+    <Sequence>0003</Sequence>
+    <Date>27/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>46.94</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>028</Statement>
+    <Sequence>0004</Sequence>
+    <Date>28/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>50.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>028</Statement>
+    <Sequence>0005</Sequence>
+    <Date>29/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>19.95</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>ERDEBEE  N V</Communication>
+  </Movement>
+  <Movement>
+    <Statement>028</Statement>
+    <Sequence>0006</Sequence>
+    <Date>30/6/2012</Date>
+    <Sign>D</Sign>
+    <Amount>70.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>SINT-JOZEF-BR   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>028</Statement>
+    <Sequence>0007</Sequence>
+    <Date>1/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>802.71</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>774-2476251-77</Communication>
+  </Movement>
+  <Movement>
+    <Statement>028</Statement>
+    <Sequence>0008</Sequence>
+    <Date>2/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
+    <TransactionCode>103</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>028</Statement>
+    <Sequence>0009</Sequence>
+    <Date>2/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>282.05</Amount>
+    <CounterParty>ALPHA CREDIT</CounterParty>
+    <TransactionCode>103</TransactionCode>
+    <Communication>+++999/0001/08184+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>028</Statement>
+    <Sequence>0010</Sequence>
+    <Date>2/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>60.91</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>OCTA  ST KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>028</Statement>
+    <Sequence>0011</Sequence>
+    <Date>2/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>17.07</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>800922 261M45</Communication>
+  </Movement>
+  <Movement>
+    <Statement>028</Statement>
+    <Sequence>0012</Sequence>
+    <Date>2/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>31.20</Amount>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++731/2002/12621+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>029</Statement>
+    <Sequence>0001</Sequence>
+    <Date>5/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>34.33</Amount>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++991/2153/24684+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>029</Statement>
+    <Sequence>0002</Sequence>
+    <Date>6/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>1113758940</Communication>
+  </Movement>
+  <Movement>
+    <Statement>029</Statement>
+    <Sequence>0003</Sequence>
+    <Date>6/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>18.66</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10816121657</Communication>
+  </Movement>
+  <Movement>
+    <Statement>029</Statement>
+    <Sequence>0004</Sequence>
+    <Date>6/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.72</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10112244578</Communication>
+  </Movement>
+  <Movement>
+    <Statement>030</Statement>
+    <Sequence>0001</Sequence>
+    <Date>12/7/2012</Date>
+    <Sign>C</Sign>
+    <Amount>700.00</Amount>
+    <CounterParty>DANNEELS DAVID</CounterParty>
+    <TransactionCode>150</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>030</Statement>
+    <Sequence>0002</Sequence>
+    <Date>11/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>25.93</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10622198017</Communication>
+  </Movement>
+  <Movement>
+    <Statement>030</Statement>
+    <Sequence>0003</Sequence>
+    <Date>12/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>BRUS  ST HUBERT BRUSSEL</Communication>
+  </Movement>
+  <Movement>
+    <Statement>031</Statement>
+    <Sequence>0001</Sequence>
+    <Date>17/7/2012</Date>
+    <Sign>C</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>huur</Communication>
+  </Movement>
+  <Movement>
+    <Statement>031</Statement>
+    <Sequence>0002</Sequence>
+    <Date>18/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>031</Statement>
+    <Sequence>0003</Sequence>
+    <Date>19/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>488.98</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>SATURN BRUGGE   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>031</Statement>
+    <Sequence>0004</Sequence>
+    <Date>19/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>57.60</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>DEVOS THIERRY   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>031</Statement>
+    <Sequence>0005</Sequence>
+    <Date>19/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>5.67</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>LIDL         BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>031</Statement>
+    <Sequence>0006</Sequence>
+    <Date>19/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>22.86</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>LIDL         SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>031</Statement>
+    <Sequence>0007</Sequence>
+    <Date>20/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>TEXACO VOSSELA ZLILLE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>032</Statement>
+    <Sequence>0001</Sequence>
+    <Date>26/7/2012</Date>
+    <Sign>C</Sign>
+    <Amount>1662.26</Amount>
+    <CounterParty>ISABEL NV</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+  </Movement>
+  <Movement>
+    <Statement>032</Statement>
+    <Sequence>0002</Sequence>
+    <Date>23/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>64.00</Amount>
+    <TransactionCode>408</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>032</Statement>
+    <Sequence>0003</Sequence>
+    <Date>23/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>62.04</Amount>
+    <TransactionCode>408</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>032</Statement>
+    <Sequence>0004</Sequence>
+    <Date>23/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>100.00</Amount>
+    <TransactionCode>404</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>032</Statement>
+    <Sequence>0005</Sequence>
+    <Date>24/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.95</Amount>
+    <TransactionCode>408</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>032</Statement>
+    <Sequence>0006</Sequence>
+    <Date>23/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>70.00</Amount>
+    <TransactionCode>404</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>032</Statement>
+    <Sequence>0007</Sequence>
+    <Date>26/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>19.80</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>MEDIFARM BOSSUYTASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>032</Statement>
+    <Sequence>0008</Sequence>
+    <Date>25/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>71.40</Amount>
+    <TransactionCode>408</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>032</Statement>
+    <Sequence>0009</Sequence>
+    <Date>26/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>50.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>032</Statement>
+    <Sequence>0010</Sequence>
+    <Date>27/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>50.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>032</Statement>
+    <Sequence>0011</Sequence>
+    <Date>25/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>63.02</Amount>
+    <TransactionCode>408</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>032</Statement>
+    <Sequence>0012</Sequence>
+    <Date>28/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>5.29</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>BRICO ST KRUIS  SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>032</Statement>
+    <Sequence>0013</Sequence>
+    <Date>28/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>50.84</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>ZARA         BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>033</Statement>
+    <Sequence>0001</Sequence>
+    <Date>6/8/2012</Date>
+    <Sign>C</Sign>
+    <Amount>25.76</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>DIVERSE TERUGBETALINGEN MUTUALITEITO REF :8918200208020 remgeld -3jaar 800922 261M45</Communication>
+  </Movement>
+  <Movement>
+    <Statement>033</Statement>
+    <Sequence>0002</Sequence>
+    <Date>31/7/2012</Date>
+    <Sign>D</Sign>
+    <Amount>282.05</Amount>
+    <CounterParty>ALPHA CREDIT</CounterParty>
+    <TransactionCode>103</TransactionCode>
+    <Communication>+++999/0001/08184+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>033</Statement>
+    <Sequence>0003</Sequence>
+    <Date>1/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>802.71</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>774-2476251-77</Communication>
+  </Movement>
+  <Movement>
+    <Statement>033</Statement>
+    <Sequence>0004</Sequence>
+    <Date>1/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
+    <TransactionCode>103</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>033</Statement>
+    <Sequence>0005</Sequence>
+    <Date>6/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>25.93</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10622198017</Communication>
+  </Movement>
+  <Movement>
+    <Statement>033</Statement>
+    <Sequence>0006</Sequence>
+    <Date>6/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>1113758940</Communication>
+  </Movement>
+  <Movement>
+    <Statement>033</Statement>
+    <Sequence>0007</Sequence>
+    <Date>6/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>18.66</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10816121657</Communication>
+  </Movement>
+  <Movement>
+    <Statement>033</Statement>
+    <Sequence>0008</Sequence>
+    <Date>6/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.72</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10112244578</Communication>
+  </Movement>
+  <Movement>
+    <Statement>034</Statement>
+    <Sequence>0001</Sequence>
+    <Date>10/8/2012</Date>
+    <Sign>C</Sign>
+    <Amount>19.34</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST SPECIALIST         29/05/12 OFFICIEEL TARIEF    32,22 EUR 090315 044M35 011198080812/040</Communication>
+  </Movement>
+  <Movement>
+    <Statement>035</Statement>
+    <Sequence>0001</Sequence>
+    <Date>17/8/2012</Date>
+    <Sign>C</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>huur</Communication>
+  </Movement>
+  <Movement>
+    <Statement>035</Statement>
+    <Sequence>0002</Sequence>
+    <Date>14/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>BRUS  ST HUBERT BRUSSEL</Communication>
+  </Movement>
+  <Movement>
+    <Statement>035</Statement>
+    <Sequence>0003</Sequence>
+    <Date>20/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>47.97</Amount>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++991/2188/59225+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>035</Statement>
+    <Sequence>0004</Sequence>
+    <Date>20/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>12.31</Amount>
+    <CounterParty>VOIPBUSTER</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>KCLEU326995305</Communication>
+  </Movement>
+  <Movement>
+    <Statement>036</Statement>
+    <Sequence>0001</Sequence>
+    <Date>22/8/2012</Date>
+    <Sign>C</Sign>
+    <Amount>23.03</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST SPECIALIST         25/06/12 OFFICIEEL TARIEF    35,01 EUR 760712 268M46 093187200812/012</Communication>
+  </Movement>
+  <Movement>
+    <Statement>036</Statement>
+    <Sequence>0002</Sequence>
+    <Date>24/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>112.33</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>036</Statement>
+    <Sequence>0003</Sequence>
+    <Date>26/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>38.49</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>DEVOS THIERRY   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>036</Statement>
+    <Sequence>0004</Sequence>
+    <Date>27/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>SNCB BXL CENTRALBRUXELLES</Communication>
+  </Movement>
+  <Movement>
+    <Statement>037</Statement>
+    <Sequence>0001</Sequence>
+    <Date>28/8/2012</Date>
+    <Sign>C</Sign>
+    <Amount>1654.63</Amount>
+    <CounterParty>ISABEL NV</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+  </Movement>
+  <Movement>
+    <Statement>037</Statement>
+    <Sequence>0002</Sequence>
+    <Date>28/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>280.01</Amount>
+    <CounterParty>PROXIMUS</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>10343894</Communication>
+  </Movement>
+  <Movement>
+    <Statement>037</Statement>
+    <Sequence>0003</Sequence>
+    <Date>29/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>319.73</Amount>
+    <CounterParty>BELASTINGEN</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++125/1686/07515+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>037</Statement>
+    <Sequence>0004</Sequence>
+    <Date>29/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>249.68</Amount>
+    <CounterParty>BELASTINGEN</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++122/1846/24706+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>037</Statement>
+    <Sequence>0005</Sequence>
+    <Date>29/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>16.20</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>ZABOER ASIAN    BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>037</Statement>
+    <Sequence>0006</Sequence>
+    <Date>30/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>104.08</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>VISA    REF 23415542338-03/213715542338235</Communication>
+  </Movement>
+  <Movement>
+    <Statement>037</Statement>
+    <Sequence>0007</Sequence>
+    <Date>31/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>282.05</Amount>
+    <CounterParty>ALPHA CREDIT</CounterParty>
+    <TransactionCode>103</TransactionCode>
+    <Communication>+++999/0001/08184+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>037</Statement>
+    <Sequence>0008</Sequence>
+    <Date>31/8/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>MODULE ST HUBERTBRUSSEL</Communication>
+  </Movement>
+  <Movement>
+    <Statement>037</Statement>
+    <Sequence>0009</Sequence>
+    <Date>1/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>802.71</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>774-2476251-77</Communication>
+  </Movement>
+  <Movement>
+    <Statement>037</Statement>
+    <Sequence>0010</Sequence>
+    <Date>2/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>50.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>ING ZUID/BARA   ANDERLECHT</Communication>
+  </Movement>
+  <Movement>
+    <Statement>038</Statement>
+    <Sequence>0001</Sequence>
+    <Date>4/9/2012</Date>
+    <Sign>C</Sign>
+    <Amount>500.00</Amount>
+    <CounterParty>SAENUDOM DARA</CounterParty>
+    <TransactionCode>150</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>038</Statement>
+    <Sequence>0002</Sequence>
+    <Date>4/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
+    <TransactionCode>103</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>038</Statement>
+    <Sequence>0003</Sequence>
+    <Date>5/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>23.00</Amount>
+    <TransactionCode>437</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>038</Statement>
+    <Sequence>0004</Sequence>
+    <Date>6/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>18.66</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10816121657</Communication>
+  </Movement>
+  <Movement>
+    <Statement>038</Statement>
+    <Sequence>0005</Sequence>
+    <Date>6/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.72</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10112244578</Communication>
+  </Movement>
+  <Movement>
+    <Statement>038</Statement>
+    <Sequence>0006</Sequence>
+    <Date>6/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>25.93</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10622198017</Communication>
+  </Movement>
+  <Movement>
+    <Statement>038</Statement>
+    <Sequence>0007</Sequence>
+    <Date>6/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>1113758940</Communication>
+  </Movement>
+  <Movement>
+    <Statement>038</Statement>
+    <Sequence>0008</Sequence>
+    <Date>9/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>039</Statement>
+    <Sequence>0001</Sequence>
+    <Date>17/9/2012</Date>
+    <Sign>C</Sign>
+    <Amount>19.67</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST HUISARTS           28/08/12 OFFICIEEL TARIEF    23,67 EUR 090315 044M35 093039130912/015</Communication>
+  </Movement>
+  <Movement>
+    <Statement>040</Statement>
+    <Sequence>0001</Sequence>
+    <Date>19/9/2012</Date>
+    <Sign>C</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>huur</Communication>
+  </Movement>
+  <Movement>
+    <Statement>040</Statement>
+    <Sequence>0002</Sequence>
+    <Date>19/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.25</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>1629662</Communication>
+  </Movement>
+  <Movement>
+    <Statement>040</Statement>
+    <Sequence>0003</Sequence>
+    <Date>19/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>182.65</Amount>
+    <CounterParty>PROXIMUS</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++103/4389/43458+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>040</Statement>
+    <Sequence>0004</Sequence>
+    <Date>19/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>196.06</Amount>
+    <CounterParty>PROXIMUS</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>10343894</Communication>
+  </Movement>
+  <Movement>
+    <Statement>040</Statement>
+    <Sequence>0005</Sequence>
+    <Date>19/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>101.73</Amount>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++500/0656/11075+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>040</Statement>
+    <Sequence>0006</Sequence>
+    <Date>20/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>BRUS  ST HUBERT BRUSSEL</Communication>
+  </Movement>
+  <Movement>
+    <Statement>040</Statement>
+    <Sequence>0007</Sequence>
+    <Date>22/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>73.64</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>DELH ST-MICHIEL</Communication>
+  </Movement>
+  <Movement>
+    <Statement>041</Statement>
+    <Sequence>0001</Sequence>
+    <Date>27/9/2012</Date>
+    <Sign>C</Sign>
+    <Amount>1657.90</Amount>
+    <CounterParty>ISABEL NV</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+  </Movement>
+  <Movement>
+    <Statement>041</Statement>
+    <Sequence>0002</Sequence>
+    <Date>27/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>101.00</Amount>
+    <CounterParty>CHAITHONGKHAM KITSANA</CounterParty>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>041</Statement>
+    <Sequence>0003</Sequence>
+    <Date>28/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>51.87</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>HORECA TOTAL    BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>041</Statement>
+    <Sequence>0004</Sequence>
+    <Date>28/9/2012</Date>
+    <Sign>D</Sign>
+    <Amount>100.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>041</Statement>
+    <Sequence>0005</Sequence>
+    <Date>1/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
+    <TransactionCode>103</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>041</Statement>
+    <Sequence>0006</Sequence>
+    <Date>1/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>282.05</Amount>
+    <CounterParty>ALPHA CREDIT</CounterParty>
+    <TransactionCode>103</TransactionCode>
+    <Communication>+++999/0001/08184+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>041</Statement>
+    <Sequence>0007</Sequence>
+    <Date>1/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>802.71</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>774-2476251-77</Communication>
+  </Movement>
+  <Movement>
+    <Statement>042</Statement>
+    <Sequence>0001</Sequence>
+    <Date>2/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>17.07</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>800922 261M45</Communication>
+  </Movement>
+  <Movement>
+    <Statement>042</Statement>
+    <Sequence>0002</Sequence>
+    <Date>5/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>18.66</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10816121657</Communication>
+  </Movement>
+  <Movement>
+    <Statement>042</Statement>
+    <Sequence>0003</Sequence>
+    <Date>5/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.72</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10112244578</Communication>
+  </Movement>
+  <Movement>
+    <Statement>042</Statement>
+    <Sequence>0004</Sequence>
+    <Date>5/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>25.93</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10622198017</Communication>
+  </Movement>
+  <Movement>
+    <Statement>042</Statement>
+    <Sequence>0005</Sequence>
+    <Date>5/10/2012</Date>
+    <Sign>C</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
+    <TransactionCode>150</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>042</Statement>
+    <Sequence>0006</Sequence>
+    <Date>8/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>1113758940</Communication>
+  </Movement>
+  <Movement>
+    <Statement>042</Statement>
+    <Sequence>0007</Sequence>
+    <Date>8/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>SNCB BXL CENTRALBRUXELLES</Communication>
+  </Movement>
+  <Movement>
+    <Statement>043</Statement>
+    <Sequence>0001</Sequence>
+    <Date>11/10/2012</Date>
+    <Sign>C</Sign>
+    <Amount>17.19</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST SPECIALIST         19/09/12 OFFICIEEL TARIEF    27,90 EUR 930527 225M79 093187091012/012</Communication>
+  </Movement>
+  <Movement>
+    <Statement>043</Statement>
+    <Sequence>0002</Sequence>
+    <Date>11/10/2012</Date>
+    <Sign>C</Sign>
+    <Amount>22.47</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST SPECIALIST         27/08/12 OFFICIEEL TARIEF    35,54 EUR 090315 044M35 093187091012/012</Communication>
+  </Movement>
+  <Movement>
+    <Statement>043</Statement>
+    <Sequence>0003</Sequence>
+    <Date>11/10/2012</Date>
+    <Sign>C</Sign>
+    <Amount>15.00</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>1 PREST CM - VOORDEEL      24/09/12 OFFICIEEL TARIEF15,00 EUR 760712 268M46 093187091012/012</Communication>
+  </Movement>
+  <Movement>
+    <Statement>043</Statement>
+    <Sequence>0004</Sequence>
+    <Date>15/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>48.50</Amount>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++991/2257/33289+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>043</Statement>
+    <Sequence>0005</Sequence>
+    <Date>15/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>12.31</Amount>
+    <CounterParty>VOIPBUSTER</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>KCLEU326995305</Communication>
+  </Movement>
+  <Movement>
+    <Statement>044</Statement>
+    <Sequence>0001</Sequence>
+    <Date>17/10/2012</Date>
+    <Sign>C</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>huur</Communication>
+  </Movement>
+  <Movement>
+    <Statement>044</Statement>
+    <Sequence>0002</Sequence>
+    <Date>17/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>44.29</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>DEVOS THIERRY   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>044</Statement>
+    <Sequence>0003</Sequence>
+    <Date>17/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>16.47</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>HORECA TOTAL    BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>044</Statement>
+    <Sequence>0004</Sequence>
+    <Date>18/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>82.92</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>044</Statement>
+    <Sequence>0005</Sequence>
+    <Date>19/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>120.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>045</Statement>
+    <Sequence>0001</Sequence>
+    <Date>23/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>SNCB BXL CENTRALBRUXELLES</Communication>
+  </Movement>
+  <Movement>
+    <Statement>045</Statement>
+    <Sequence>0002</Sequence>
+    <Date>27/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>045</Statement>
+    <Sequence>0003</Sequence>
+    <Date>29/10/2012</Date>
+    <Sign>C</Sign>
+    <Amount>1653.54</Amount>
+    <CounterParty>ISABEL NV</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+  </Movement>
+  <Movement>
+    <Statement>046</Statement>
+    <Sequence>0001</Sequence>
+    <Date>29/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>16.40</Amount>
+    <TransactionCode>408</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>046</Statement>
+    <Sequence>0002</Sequence>
+    <Date>30/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>360.93</Amount>
+    <CounterParty>PROXIMUS</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++103/4389/43559+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>046</Statement>
+    <Sequence>0003</Sequence>
+    <Date>30/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>26.00</Amount>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++731/2002/47175+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>046</Statement>
+    <Sequence>0004</Sequence>
+    <Date>31/10/2012</Date>
+    <Sign>D</Sign>
+    <Amount>282.05</Amount>
+    <CounterParty>ALPHA CREDIT</CounterParty>
+    <TransactionCode>103</TransactionCode>
+    <Communication>+++999/0001/08184+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>046</Statement>
+    <Sequence>0005</Sequence>
+    <Date>1/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>802.71</Amount>
+    <CounterParty>AXA BANK EUROPE</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>774-2476251-77</Communication>
+  </Movement>
+  <Movement>
+    <Statement>046</Statement>
+    <Sequence>0006</Sequence>
+    <Date>1/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>60.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>LANDBOUWKR MOERKDAMME</Communication>
+  </Movement>
+  <Movement>
+    <Statement>046</Statement>
+    <Sequence>0007</Sequence>
+    <Date>2/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
+    <TransactionCode>103</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>046</Statement>
+    <Sequence>0008</Sequence>
+    <Date>5/11/2012</Date>
+    <Sign>C</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>SAENUDOM DARA</CounterParty>
+    <TransactionCode>150</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>047</Statement>
+    <Sequence>0001</Sequence>
+    <Date>6/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>25.93</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10622198017</Communication>
+  </Movement>
+  <Movement>
+    <Statement>047</Statement>
+    <Sequence>0002</Sequence>
+    <Date>6/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>18.66</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10816121657</Communication>
+  </Movement>
+  <Movement>
+    <Statement>047</Statement>
+    <Sequence>0003</Sequence>
+    <Date>6/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.72</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10112244578</Communication>
+  </Movement>
+  <Movement>
+    <Statement>047</Statement>
+    <Sequence>0004</Sequence>
+    <Date>6/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>1113758940</Communication>
+  </Movement>
+  <Movement>
+    <Statement>047</Statement>
+    <Sequence>0005</Sequence>
+    <Date>7/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>16.20</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>NMBS BRUGGE     BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>047</Statement>
+    <Sequence>0006</Sequence>
+    <Date>6/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>2.70</Amount>
+    <TransactionCode>408</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>047</Statement>
+    <Sequence>0007</Sequence>
+    <Date>9/11/2012</Date>
+    <Sign>C</Sign>
+    <Amount>15.71</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST SPECIALIST         27/09/12 OFFICIEEL TARIEF    23,67 EUR 760712 268M46 090081071112/012</Communication>
+  </Movement>
+  <Movement>
+    <Statement>047</Statement>
+    <Sequence>0008</Sequence>
+    <Date>9/11/2012</Date>
+    <Sign>C</Sign>
+    <Amount>22.47</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST SPECIALIST         07/09/12 OFFICIEEL TARIEF    35,54 EUR 760712 268M46 090081071112/012</Communication>
+  </Movement>
+  <Movement>
+    <Statement>047</Statement>
+    <Sequence>0009</Sequence>
+    <Date>9/11/2012</Date>
+    <Sign>C</Sign>
+    <Amount>48.66</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  2 PREST HUISARTS           30/10/12 OFFICIEEL TARIEF    52,66 EUR 760712 268M46 090081071112/012</Communication>
+  </Movement>
+  <Movement>
+    <Statement>047</Statement>
+    <Sequence>0010</Sequence>
+    <Date>9/11/2012</Date>
+    <Sign>C</Sign>
+    <Amount>23.38</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST SPECIALIST         24/09/12 OFFICIEEL TARIEF    35,53 EUR 760712 268M46 090081071112/012</Communication>
+  </Movement>
+  <Movement>
+    <Statement>048</Statement>
+    <Sequence>0001</Sequence>
+    <Date>14/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>48.49</Amount>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++991/2291/94775+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>048</Statement>
+    <Sequence>0002</Sequence>
+    <Date>14/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>59.21</Amount>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++991/2292/03869+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>048</Statement>
+    <Sequence>0003</Sequence>
+    <Date>19/11/2012</Date>
+    <Sign>C</Sign>
+    <Amount>19.67</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST HUISARTS           05/11/12 OFFICIEEL TARIEF    23,67 EUR 760712 268M46 381053151112/034</Communication>
+  </Movement>
+  <Movement>
+    <Statement>048</Statement>
+    <Sequence>0004</Sequence>
+    <Date>19/11/2012</Date>
+    <Sign>C</Sign>
+    <Amount>17.19</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST SPECIALIST         05/11/12 OFFICIEEL TARIEF    27,90 EUR 930527 225M79 381053151112/034</Communication>
+  </Movement>
+  <Movement>
+    <Statement>049</Statement>
+    <Sequence>0001</Sequence>
+    <Date>21/11/2012</Date>
+    <Sign>C</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>huur</Communication>
+  </Movement>
+  <Movement>
+    <Statement>049</Statement>
+    <Sequence>0002</Sequence>
+    <Date>22/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>16.20</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>NMBS AIRPORT    ZAVENTEM</Communication>
+  </Movement>
+  <Movement>
+    <Statement>049</Statement>
+    <Sequence>0003</Sequence>
+    <Date>22/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>58.66</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>DEVOS THIERRY   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>049</Statement>
+    <Sequence>0004</Sequence>
+    <Date>23/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>222.67</Amount>
+    <CounterParty>PROXIMUS</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++103/4389/43660+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>049</Statement>
+    <Sequence>0005</Sequence>
+    <Date>23/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>16.42</Amount>
+    <CounterParty>DKV BELGIUM</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>44006951/0000143 03 Medicard 15 11 2012</Communication>
+  </Movement>
+  <Movement>
+    <Statement>049</Statement>
+    <Sequence>0006</Sequence>
+    <Date>24/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>049</Statement>
+    <Sequence>0007</Sequence>
+    <Date>24/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>1.20</Amount>
+    <TransactionCode>408</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>049</Statement>
+    <Sequence>0008</Sequence>
+    <Date>26/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>62.47</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>049</Statement>
+    <Sequence>0009</Sequence>
+    <Date>26/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>4.37</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>Q BRUGGE ST KRU</Communication>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0001</Sequence>
+    <Date>27/11/2012</Date>
+    <Sign>C</Sign>
+    <Amount>1694.35</Amount>
+    <CounterParty>ISABEL NV</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0002</Sequence>
+    <Date>27/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>NMBS BRUGGE     BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0003</Sequence>
+    <Date>28/11/2012</Date>
+    <Sign>C</Sign>
+    <Amount>4128.29</Amount>
+    <CounterParty>F O D  FINANCIEN</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>KOHIERARTIKEL: 728168078 DIENST : 05 04/01</Communication>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0004</Sequence>
+    <Date>28/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>3000.00</Amount>
+    <TransactionCode>101</TransactionCode>
+    <Communication>vliegtuigticket, gas, electriciteit, Sophia, etc</Communication>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0005</Sequence>
+    <Date>29/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0006</Sequence>
+    <Date>30/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>282.05</Amount>
+    <CounterParty>ALPHA CREDIT</CounterParty>
+    <TransactionCode>103</TransactionCode>
+    <Communication>+++999/0001/08184+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0007</Sequence>
+    <Date>30/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>1000.00</Amount>
+    <TransactionCode>101</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0008</Sequence>
+    <Date>30/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>1071.00</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>VISA    REF 32615542338-03/213715542338235</Communication>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0009</Sequence>
+    <Date>30/11/2012</Date>
+    <Sign>D</Sign>
+    <Amount>59.34</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>DELH ST-KRUIS   SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0010</Sequence>
+    <Date>3/12/2012</Date>
+    <Sign>C</Sign>
+    <Amount>1000.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
+    <TransactionCode>150</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0011</Sequence>
+    <Date>1/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>802.71</Amount>
+    <CounterParty>AXA BANK EUROPE</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>774-2476251-77</Communication>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0012</Sequence>
+    <Date>1/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>63.01</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>TEX DRONGEN N   DRONGEN</Communication>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0013</Sequence>
+    <Date>1/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>100.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>KBC BANK BEERNEMBEERNEM</Communication>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0014</Sequence>
+    <Date>3/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>33.80</Amount>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++731/2002/86480+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0015</Sequence>
+    <Date>3/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
+    <TransactionCode>103</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>050</Statement>
+    <Sequence>0016</Sequence>
+    <Date>3/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>93.28</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>051</Statement>
+    <Sequence>0001</Sequence>
+    <Date>6/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>25.93</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10622198017</Communication>
+  </Movement>
+  <Movement>
+    <Statement>051</Statement>
+    <Sequence>0002</Sequence>
+    <Date>6/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>200.00</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>1113758940</Communication>
+  </Movement>
+  <Movement>
+    <Statement>051</Statement>
+    <Sequence>0003</Sequence>
+    <Date>6/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>18.66</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10816121657</Communication>
+  </Movement>
+  <Movement>
+    <Statement>051</Statement>
+    <Sequence>0004</Sequence>
+    <Date>6/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.72</Amount>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <TransactionCode>501</TransactionCode>
+    <Communication>10112244578</Communication>
+  </Movement>
+  <Movement>
+    <Statement>051</Statement>
+    <Sequence>0005</Sequence>
+    <Date>9/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>BRUGGE-SIMON STEBRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0001</Sequence>
+    <Date>11/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.25</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>1629662</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0002</Sequence>
+    <Date>12/12/2012</Date>
+    <Sign>C</Sign>
+    <Amount>15.00</Amount>
+    <CounterParty>MEVR EMMA DE SPIEGELAERE</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>steunkaartje    veel succes</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0003</Sequence>
+    <Date>12/12/2012</Date>
+    <Sign>C</Sign>
+    <Amount>45.00</Amount>
+    <CounterParty>DALLE CARINE</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>THAISE AVOND 3 PERSONEN</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0004</Sequence>
+    <Date>12/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>50.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>KBC BANK BRUGGE-ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0005</Sequence>
+    <Date>13/12/2012</Date>
+    <Sign>C</Sign>
+    <Amount>1275.73</Amount>
+    <CounterParty>ISABEL NV</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0006</Sequence>
+    <Date>13/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>66.95</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>HORECA TOTAL    BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0007</Sequence>
+    <Date>13/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>32.27</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>DEVOS THIERRY   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0008</Sequence>
+    <Date>13/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>330.00</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>DEVOS THIERRY   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0009</Sequence>
+    <Date>13/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>27.70</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CONCEPT STUDIO BSINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0010</Sequence>
+    <Date>14/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>32.77</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>LIDL         SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0011</Sequence>
+    <Date>14/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>31.84</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>VIME</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0012</Sequence>
+    <Date>14/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>79.65</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>COLRUYT     ST-ANDRIES</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0013</Sequence>
+    <Date>14/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>24.20</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>QUICK ST KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0014</Sequence>
+    <Date>15/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.10</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>COLRUYT     ST-ANDRIES</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0015</Sequence>
+    <Date>15/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>32.98</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARREFOUR   ST-ANDRIES</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0016</Sequence>
+    <Date>15/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>88.18</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>COLRUYT     ST-ANDRIES</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0017</Sequence>
+    <Date>16/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>60.02</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>Q BRUGGE ST KRU</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0018</Sequence>
+    <Date>17/12/2012</Date>
+    <Sign>C</Sign>
+    <Amount>19.67</Amount>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/C/  1 PREST HUISARTS           04/12/12 OFFICIEEL TARIEF    23,67 EUR 090315 044M35 530009131212/065</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0019</Sequence>
+    <Date>17/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>41.70</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0020</Sequence>
+    <Date>17/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>32.49</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0021</Sequence>
+    <Date>17/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>18.20</Amount>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++731/2003/23664+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>052</Statement>
+    <Sequence>0022</Sequence>
+    <Date>17/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>99.90</Amount>
+    <CounterParty>BENNIES FIT4LIFE</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>Klant: 007001740</Communication>
+  </Movement>
+  <Movement>
+    <Statement>053</Statement>
+    <Sequence>0001</Sequence>
+    <Date>18/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>11.60</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>NMBS BRUGGE     BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>053</Statement>
+    <Sequence>0002</Sequence>
+    <Date>19/12/2012</Date>
+    <Sign>C</Sign>
+    <Amount>670.00</Amount>
+    <CounterParty>DANNEELS DAVID</CounterParty>
+    <TransactionCode>152</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>053</Statement>
+    <Sequence>0003</Sequence>
+    <Date>20/12/2012</Date>
+    <Sign>C</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>DANNEELS DAVID</CounterParty>
+    <TransactionCode>152</TransactionCode>
+  </Movement>
+  <Movement>
+    <Statement>053</Statement>
+    <Sequence>0004</Sequence>
+    <Date>20/12/2012</Date>
+    <Sign>C</Sign>
+    <Amount>600.00</Amount>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>huur</Communication>
+  </Movement>
+  <Movement>
+    <Statement>053</Statement>
+    <Sequence>0005</Sequence>
+    <Date>21/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>242.91</Amount>
+    <CounterParty>PROXIMUS</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>+++103/4389/43761+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>053</Statement>
+    <Sequence>0006</Sequence>
+    <Date>21/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>55.01</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>Q BRUGGE ST KRU</Communication>
+  </Movement>
+  <Movement>
+    <Statement>054</Statement>
+    <Sequence>0001</Sequence>
+    <Date>25/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>40.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>POST ATM        BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>054</Statement>
+    <Sequence>0002</Sequence>
+    <Date>27/12/2012</Date>
+    <Sign>C</Sign>
+    <Amount>1632.72</Amount>
+    <CounterParty>ISABEL NV</CounterParty>
+    <TransactionCode>150</TransactionCode>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+  </Movement>
+  <Movement>
+    <Statement>054</Statement>
+    <Sequence>0003</Sequence>
+    <Date>27/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>115.14</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>DEVOS THIERRY   BRUGGE</Communication>
+  </Movement>
+  <Movement>
+    <Statement>054</Statement>
+    <Sequence>0004</Sequence>
+    <Date>27/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>31.99</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>LIDL         SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>054</Statement>
+    <Sequence>0005</Sequence>
+    <Date>28/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>82.36</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+  </Movement>
+  <Movement>
+    <Statement>054</Statement>
+    <Sequence>0006</Sequence>
+    <Date>28/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>20.00</Amount>
+    <TransactionCode>404</TransactionCode>
+    <Communication>KBC BANK BRUGGE-ASSEBROEK</Communication>
+  </Movement>
+  <Movement>
+    <Statement>054</Statement>
+    <Sequence>0007</Sequence>
+    <Date>28/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>29.56</Amount>
+    <CounterParty>VOIPBUSTER</CounterParty>
+    <TransactionCode>101</TransactionCode>
+    <Communication>KCLEU326995305</Communication>
+  </Movement>
+  <Movement>
+    <Statement>054</Statement>
+    <Sequence>0008</Sequence>
+    <Date>29/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>37.44</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>CARREFOUR   ST-ANDRIES</Communication>
+  </Movement>
+  <Movement>
+    <Statement>054</Statement>
+    <Sequence>0009</Sequence>
+    <Date>29/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>72.87</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>TOTAL</Communication>
+  </Movement>
+  <Movement>
+    <Statement>054</Statement>
+    <Sequence>0010</Sequence>
+    <Date>29/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>4.13</Amount>
+    <TransactionCode>402</TransactionCode>
+    <Communication>Q BRUGGE ST KRU</Communication>
+  </Movement>
+  <Movement>
+    <Statement>054</Statement>
+    <Sequence>0011</Sequence>
+    <Date>31/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>282.05</Amount>
+    <CounterParty>ALPHA CREDIT</CounterParty>
+    <TransactionCode>103</TransactionCode>
+    <Communication>+++999/0001/08184+++</Communication>
+  </Movement>
+  <Movement>
+    <Statement>054</Statement>
+    <Sequence>0012</Sequence>
+    <Date>31/12/2012</Date>
+    <Sign>D</Sign>
+    <Amount>506.74</Amount>
+    <TransactionCode>501</TransactionCode>
+    <Communication>VISA    REF 35615542338-03/213715542338235</Communication>
   </Movement>
 </Movements>
