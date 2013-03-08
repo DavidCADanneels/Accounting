@@ -56,24 +56,16 @@ public class Transaction {
     }
 
     public void book(Journal journal) {
-        // TODO: null check on journal OR Disable "Debit" and "Credit" button if there are no Journals
-        // if(journal == null) throw Exception --> catch Exception in GUI
         journal.book(this);
-        this.journal = journal;
-        booked = true;
-        for(Mortgage mortgage : mortgages) {
-            mortgage.increasePayed();
-        }
     }
 
     // Getters (without setters)
+    public ArrayList<Mortgage> getMortgages() {
+        return mortgages;
+    }
 
     public ArrayList<Booking> getBookings() {
         return bookings;
-    }
-
-    public Journal getJournal() {
-        return journal;
     }
 
 	public BigDecimal getDebetTotaal() {
@@ -85,6 +77,14 @@ public class Transaction {
 	}
 
     // Getters
+
+    public Journal getJournal() {
+        return journal;
+    }
+
+    public boolean isBooked() {
+        return booked;
+    }
 
     public String getAbbreviation() {
         return abbreviation;
@@ -103,6 +103,14 @@ public class Transaction {
     }
 
     // Setters
+
+    public void setJournal(Journal journal) {
+        this.journal = journal;
+    }
+
+    public void setBooked(boolean booked) {
+        this.booked = booked;
+    }
 
     public void setId(int nr) {
         id = nr;

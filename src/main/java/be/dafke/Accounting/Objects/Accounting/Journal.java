@@ -20,7 +20,6 @@ public class Journal extends BusinessObject{
 //	private boolean save;
 	private JournalType journalType;
     private Transaction currentTransaction = new Transaction();
-    private Account currentAccount;
     protected static final String ABBREVIATION = "abbreviation";
 
     public Journal() {
@@ -188,6 +187,8 @@ public class Journal extends BusinessObject{
 	 * @param transaction de te boeken transactie
 	 */
 	protected void book(Transaction transaction) {
+        transaction.setBooked(true);
+        transaction.setJournal(this);
         transaction.setAbbreviation(abbreviation);
 		addTransaction(transaction);
 		ArrayList<Booking> boekingen = transaction.getBookings();
@@ -195,7 +196,11 @@ public class Journal extends BusinessObject{
 			Account rek = boeking.getAccount();
 			rek.book(boeking);
 		}
-		id++;
+        for(Mortgage mortgage : transaction.getMortgages()) {
+            mortgage.increasePayed();
+        }
+
+        id++;
 //		accounting.setSavedXML(false);
 //		accounting.setSavedHTML(false);
 //		save = false;
