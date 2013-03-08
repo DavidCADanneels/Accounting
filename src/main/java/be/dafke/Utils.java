@@ -13,7 +13,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.GregorianCalendar;
-import java.util.Vector;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -44,22 +43,6 @@ public class Utils {
 		builder.append(c.get(Calendar.YEAR));
 		return builder.toString();
 	}
-
-    public static void xmlToHtml(File xmlFile, File xslFile, File htmlFile, Vector params) {
-        InputHandler inputHandler = new InputHandler(xmlFile, xslFile, params);
-        try {
-            if (!htmlFile.exists()) {
-//                htmlFile.getParentFile().mkdirs();
-                if(htmlFile.createNewFile()){
-                    System.out.println(htmlFile + " has been created");
-                }
-            }
-            OutputStream out = new java.io.BufferedOutputStream(new java.io.FileOutputStream(htmlFile));
-            inputHandler.transformTo(out);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public static BigDecimal parseBigDecimal(String s) {
         try {
@@ -127,9 +110,48 @@ public class Utils {
     }
 
     public static String getXmlHeader(BusinessObject businessObject) {
-        return new StringBuilder("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n")
-        .append("<?xml-stylesheet type=\"text/xsl\" href=\"").append(businessObject.getXsl2XmlFile()).append("\"?>\r\n")
-        .append("<!DOCTYPE ").append(businessObject.getType()).append(" SYSTEM \"").append(businessObject.getDtdFile()).append("\">\r\n").toString();
+        return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" +
+        "<?xml-stylesheet type=\"text/xsl\" href=\"" + getXsl2XmlFile(businessObject) + "\"?>\r\n" +
+        "<!DOCTYPE " + getType(businessObject) + " SYSTEM \"" + getDtdFile(businessObject) + "\">\r\n";
 
     }
+
+    public static String getType(BusinessObject businessObject){
+        return businessObject.getClass().getSimpleName();
+    }
+
+    public static File getDtdFile(BusinessObject businessObject){
+        File dtdFolder = new File(System.getProperty("Accountings_dtd"));
+        return new File(dtdFolder, businessObject.getType() + ".dtd");
+    }
+
+    public static File getXsl2XmlFile(BusinessObject businessObject){
+        File xslFolder = new File(System.getProperty("Accountings_xsl"));
+        return new File(xslFolder, businessObject.getType() + "2xml.xsl");
+    }
+
+    public static File getXsl2HtmlFile(BusinessObject businessObject){
+        File xslFolder = new File(System.getProperty("Accountings_xsl"));
+        return new File(xslFolder, businessObject.getType() + "2html.xsl");
+    }
+
+    public static void xmlToHtml(BusinessObject businessObject) {
+        File xslFile = getXsl2HtmlFile(businessObject);
+        File xmlFile = businessObject.getXmlFile();
+        File htmlFile = businessObject.getHtmlFile();
+        InputHandler inputHandler = new InputHandler(xmlFile, xslFile, null);
+        try {
+            if (!htmlFile.exists()) {
+//                htmlFile.getParentFile().mkdirs();
+                if(htmlFile.createNewFile()){
+                    System.out.println(htmlFile + " has been created");
+                }
+            }
+            OutputStream out = new java.io.BufferedOutputStream(new java.io.FileOutputStream(htmlFile));
+            inputHandler.transformTo(out);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 }

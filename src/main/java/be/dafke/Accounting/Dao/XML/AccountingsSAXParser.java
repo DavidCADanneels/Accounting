@@ -1,5 +1,7 @@
 package be.dafke.Accounting.Dao.XML;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 import be.dafke.Accounting.Objects.Accounting.BusinessCollection;
@@ -34,14 +36,21 @@ public class AccountingsSAXParser {
             NodeList accountingNodes = doc.getElementsByTagName("Accounting");
             for(int i=0;i<accountingNodes.getLength();i++){
                 Element element = (Element)accountingNodes.item(i);
-                Accounting acc = new Accounting();
-                acc.setName(Utils.getValue(element, "name"));
-                acc.setHtmlFolder(Utils.getFile(element, "htmlFolder"));
-                acc.setXmlFile(Utils.getFile(element, "xml"));
-                acc.setHtmlFile(Utils.getFile(element, "html"));
-                acc.setXsl2XmlFile(Utils.getFile(element, "xsl2xml"));
-                acc.setXsl2HtmlFile(Utils.getFile(element, "xsl2html"));
-                accountings.addAccounting(acc);
+                Accounting accounting = new Accounting();
+                String name = Utils.getValue(element, "name");
+                accounting.setName(name);
+                accounting.setHtmlFolder(Utils.getFile(element, "htmlFolder"));
+                accounting.setXmlFile(Utils.getFile(element, "xml"));
+                accounting.setHtmlFile(Utils.getFile(element, "html"));
+                accounting.setXsl2XmlFile(Utils.getFile(element, "xsl2xml"));
+                accounting.setXsl2HtmlFile(Utils.getFile(element, "xsl2html"));
+                try{
+                    accountings.addBusinessObject(accounting);
+                } catch (DuplicateNameException e) {
+                    System.err.println("There is already an accounting with the name \""+name+"\"");
+                } catch (EmptyNameException e) {
+                    System.err.println("The name cannot be empty.");
+                }
             }
             String currentAccountName = Utils.getValue(doc, "CurrentAccounting");
             if(currentAccountName!=null){
@@ -50,7 +59,7 @@ public class AccountingsSAXParser {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        for(Accounting accounting : accountings.getAccountings()) {
+        for(Accounting accounting : accountings.getBusinessObjects()) {
             readAccounting(accounting);
         }
         return accountings;
@@ -95,11 +104,11 @@ public class AccountingsSAXParser {
     private static void toXml(Accountings accountings){
         try {
             Writer writer = new FileWriter(accountings.getXmlFile());
-            writer.write("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n"
-                    + "<?xml-stylesheet type=\"text/xsl\" href=\"" + accountings.getXsl2XmlFile() +"\"?>\r\n"
-                    + "<!DOCTYPE Accountings SYSTEM \"" + accountings.getDtdFile() +"\">\r\n");
+
+            writer.write(Utils.getXmlHeader(accountings));
+
             writer.write("<Accountings>\r\n");
-            for(Accounting acc : accountings.getAccountings()) {
+            for(Accounting acc : accountings.getBusinessObjects()) {
                 writer.write("  <Accounting>\r\n");
                 writer.write("    <name>" + acc.toString() + "</name>\r\n");
                 if(acc.getHtmlFolder()!=null){
@@ -122,7 +131,7 @@ public class AccountingsSAXParser {
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-        for(Accounting accounting : accountings.getAccountings()) {
+        for(Accounting accounting : accountings.getBusinessObjects()) {
             writeAccounting(accounting);
         }
     }
@@ -176,8 +185,8 @@ public class AccountingsSAXParser {
     }
 
     private static void toHtml(Accountings accountings){
-        Utils.xmlToHtml(accountings.getXmlFile(),accountings.getXsl2HtmlFile(),accountings.getHtmlFile(),null);
-        for(Accounting accounting:accountings.getAccountings()){
+        Utils.xmlToHtml(accountings);
+        for(Accounting accounting:accountings.getBusinessObjects()){
             if(accounting.getHtmlFolder()!=null && !accounting.getHtmlFolder().getPath().equals("null")){
                 toHtml(accounting);
             }
@@ -187,16 +196,16 @@ public class AccountingsSAXParser {
     private static void toHtml(Accounting accounting){
         if(accounting.getHtmlFolder() != null){
 
-            Utils.xmlToHtml(accounting.getXmlFile(), accounting.getXsl2HtmlFile(), accounting.getHtmlFile(), null);
+            Utils.xmlToHtml(accounting);
 
             for(String key : accounting.getKeys()){
                 BusinessCollection<BusinessObject> collection = accounting.getCollection(key);
-                Utils.xmlToHtml(collection.getXmlFile(),collection.getXsl2HtmlFile(),collection.getHtmlFile(), null);
+                Utils.xmlToHtml(collection);
                 if(collection.getHtmlFolder()!=null){
                     for(BusinessObject businessObject : collection.getBusinessObjects()){
 //                        TODO: add isSavedHTML
 //                        if(businessObject.isSavedHTML()){
-                            Utils.xmlToHtml(businessObject.getXmlFile(), businessObject.getXsl2HtmlFile(), businessObject.getHtmlFile(), null);
+                            Utils.xmlToHtml(businessObject);
 //                        }
                     }
                 }

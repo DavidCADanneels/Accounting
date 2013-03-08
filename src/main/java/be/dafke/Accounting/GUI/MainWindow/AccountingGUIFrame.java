@@ -35,7 +35,7 @@ public class AccountingGUIFrame extends RefreshableFrame {
         setJMenuBar(menuBar);
         ComponentMap.addDisposableComponent(ComponentMap.MAIN, this); // MAIN
         ComponentMap.addRefreshableComponent(ComponentMap.MENU, menuBar);
-        for(Accounting accounting : accountings.getAccountings()){
+        for(Accounting accounting : accountings.getBusinessObjects()){
             ComponentMap.addAccountingComponents(accounting, actionListener);
         }
 		pack();

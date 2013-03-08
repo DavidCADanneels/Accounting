@@ -11,7 +11,6 @@ import java.util.Map;
  */
 public class BusinessObject {
     private String name;
-    private File dtdFile;
     private File xmlFile;
     private File htmlFile;
     private File xsl2XmlFile, xsl2HtmlFile;
@@ -22,8 +21,6 @@ public class BusinessObject {
 
     protected BusinessObject(){
         type = this.getClass().getSimpleName();
-        File dtdFolder = new File(System.getProperty("Accountings_dtd"));
-        dtdFile = new File(dtdFolder, type + ".dtd");
         File xslFolder = new File(System.getProperty("Accountings_xsl"));
         xsl2XmlFile = new File(xslFolder, type + "2xml.xsl");
         xsl2HtmlFile = new File(xslFolder, type + "2html.xsl");
@@ -51,10 +48,6 @@ public class BusinessObject {
 
     public String getType() {
         return type;
-    }
-
-    public File getDtdFile() {
-        return dtdFile;
     }
 
     public File getXmlFile(){

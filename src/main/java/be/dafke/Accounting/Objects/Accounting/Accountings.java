@@ -4,85 +4,41 @@ import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 
 import java.io.File;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.TreeMap;
 
-public class Accountings {
-	private final HashMap<String, Accounting> accountings = new HashMap<String, Accounting>();
+public class Accountings extends BusinessCollection<Accounting>{
 	private Accounting currentAccounting = null;
-    private final File xmlFile;
-    private final File htmlFile;
-    private final File xsl2XmlFile;
-    private final File xsl2HtmlFile;
-    private final File dtdFile;
 
     public Accountings(){
         File xmlFolder = new File(System.getProperty("Accountings_xml"));
-        File xslFolder = new File(System.getProperty("Accountings_xsl"));
-        File dtdFolder = new File(System.getProperty("Accountings_dtd"));
-
-        xmlFile = new File(xmlFolder, "Accountings.xml");
-        htmlFile = new File(xmlFolder, "Accountings.html");
-
-        xsl2XmlFile = new File(xslFolder, "Accountings2Xml.xsl");
-        xsl2HtmlFile = new File(xslFolder, "Accountings2Html.xsl");
-
-        dtdFile = new File(dtdFolder, "Accountings.dtd");
+        setXmlFile(new File(xmlFolder, "Accountings.xml"));
+        setHtmlFile(new File(xmlFolder, "Accountings.html"));
     }
 
     public void createDefaultValuesIfNull(){
-        for(Accounting accounting:getAccountings()){
+        for(Accounting accounting:getBusinessObjects()){
             accounting.createXmlFolders();
             accounting.createHtmlFolders();
         }
-    }
-
-    public File getXmlFile() {
-        return xmlFile;
-    }
-
-    public File getHtmlFile() {
-        return htmlFile;
-    }
-
-    public File getXsl2XmlFile() {
-        return xsl2XmlFile;
-    }
-
-    public File getXsl2HtmlFile() {
-        return xsl2HtmlFile;
-    }
-
-    public File getDtdFile() {
-        return dtdFile;
     }
 
     public Accounting getCurrentAccounting() {
 		return currentAccounting;
 	}
 
-	public void addAccounting(Accounting accounting) {
-		accountings.put(accounting.toString(), accounting);
-	}
-
-	public Collection<Accounting> getAccountings() {
-		return accountings.values();
-	}
-
 	public void setCurrentAccounting(String name) {
-		currentAccounting = accountings.get(name);
+		currentAccounting = dataTables.get(NAME).get(name);
 	}
 
-	public Accounting addAccounting(String name) throws EmptyNameException, DuplicateNameException {
-        if(name==null || "".equals(name.trim())){
+    @Override
+    public Accounting addBusinessObject(Accounting value) throws EmptyNameException, DuplicateNameException {
+        TreeMap<String, Accounting> map = dataTables.get(NAME);
+        if(value.getName()==null || value.getName().trim().equals("")){
             throw new EmptyNameException();
-        }
-        if(accountings.containsKey(name.trim())){
+        } else if(map.containsKey(value.getName().trim())){
             throw new DuplicateNameException();
         }
-		Accounting accounting = new Accounting();
-        accounting.setName(name);
-		addAccounting(accounting);
-        return accounting;
-	}
+        map.put(value.getName().trim(), value);
+        return value;
+    }
 }

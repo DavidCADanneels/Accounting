@@ -115,7 +115,7 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         active = accounting!=null;
         file.removeAll();
         file.add(startNew);
-        for(Accounting acc : accountings.getAccountings()) {
+        for(Accounting acc : accountings.getBusinessObjects()) {
             if(acc!=accounting){
                 JMenuItem item = new JMenuItem(acc.toString());
                 item.addActionListener(actionListener);

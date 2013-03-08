@@ -47,7 +47,9 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
         } else if (actionCommand.equals(ComponentMap.NEW_ACCOUNTING)) {
             String name = JOptionPane.showInputDialog(null, "Enter a name");
             try {
-                Accounting accounting = accountings.addAccounting(name);
+                Accounting accounting = new Accounting();
+                accounting.setName(name);
+                accountings.addBusinessObject(accounting);
                 accountings.setCurrentAccounting(name);
                 ComponentMap.addAccountingComponents(accounting, this);
                 JOptionPane.showMessageDialog(null, "Please create a Journal.");
