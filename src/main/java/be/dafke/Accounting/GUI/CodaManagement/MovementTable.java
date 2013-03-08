@@ -169,43 +169,42 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 							JOptionPane.INFORMATION_MESSAGE, null, journals, null);
 				}
 				if (bankAccount != null && journal != null) {
-					// TODO null checks
-				}
-				for(int i : rows) {
-					CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 5);
-					Account account = counterParty.getAccount();
-					boolean debet = tabel.getValueAt(i, 3).equals("D");
-					if (account == null) {
-						CounterParty counterParty2 = accounting.getCounterParties().getBusinessObject(counterParty.getName());
-						if (counterParty2 != null) {
-							counterParty = counterParty2;
-							account = counterParty2.getAccount();
-						}
-					}
-					while (account == null) {
-                        account = (Account) JOptionPane.showInputDialog(this, "Select account", "Select account",
-                                JOptionPane.INFORMATION_MESSAGE, null, accounts, null);
-						counterParty.setAccount(account);
-					}
-					BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 4);
-					Transaction trans = accounting.getJournals().getCurrentJournal().getCurrentTransaction();
-                    Booking booking1 = new Booking(account, amount, debet);
-                    Booking booking2 = new Booking(bankAccount, amount, !debet);
-                    trans.addBooking(booking1);
-                    trans.addBooking(booking2);
-					String cal = (String) tabel.getValueAt(i, 2);
-					Calendar date = Utils.toCalendar(cal);
-					trans.setDate(date);
-					String description = (String) tabel.getValueAt(i, 7);
-					trans.setDescription(description);
-					trans.book(journal);
+                    for(int i : rows) {
+                        CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 5);
+                        Account account = counterParty.getAccount();
+                        boolean debet = tabel.getValueAt(i, 3).equals("D");
+                        if (account == null) {
+                            CounterParty counterParty2 = accounting.getCounterParties().getBusinessObject(counterParty.getName());
+                            if (counterParty2 != null) {
+                                counterParty = counterParty2;
+                                account = counterParty2.getAccount();
+                            }
+                        }
+                        while (account == null) {
+                            account = (Account) JOptionPane.showInputDialog(this, "Select account", "Select account",
+                                    JOptionPane.INFORMATION_MESSAGE, null, accounts, null);
+                            counterParty.setAccount(account);
+                        }
+                        BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 4);
+                        Transaction transaction = accounting.getJournals().getCurrentJournal().getCurrentTransaction();
+                        Booking booking1 = new Booking(account, amount, debet);
+                        Booking booking2 = new Booking(bankAccount, amount, !debet);
+                        transaction.addBooking(booking1);
+                        transaction.addBooking(booking2);
+                        String cal = (String) tabel.getValueAt(i, 2);
+                        Calendar date = Utils.toCalendar(cal);
+                        transaction.setDate(date);
+                        String description = (String) tabel.getValueAt(i, 7);
+                        transaction.setDescription(description);
+                        journal.book(transaction);
 
-                    trans = new Transaction();
-                    trans.setDate(date); // take the same date as previous transaction
-                    // leave the description empty
+                        transaction = new Transaction();
+                        transaction.setDate(date); // take the same date as previous transaction
+                        // leave the description empty
 
-                    accounting.getJournals().getCurrentJournal().setCurrentTransaction(trans);
-				}
+                        accounting.getJournals().getCurrentJournal().setCurrentTransaction(transaction);
+                    }
+                }
 			}
 		}
 		super.refresh();

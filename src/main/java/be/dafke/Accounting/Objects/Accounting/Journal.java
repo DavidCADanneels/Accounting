@@ -186,7 +186,7 @@ public class Journal extends BusinessObject{
 	 * Boek de gegeven transactie
 	 * @param transaction de te boeken transactie
 	 */
-	protected void book(Transaction transaction) {
+	public void book(Transaction transaction) {
         transaction.setBooked(true);
         transaction.setJournal(this);
         transaction.setAbbreviation(abbreviation);

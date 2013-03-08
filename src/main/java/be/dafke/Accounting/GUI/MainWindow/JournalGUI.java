@@ -162,7 +162,7 @@ public class JournalGUI extends JPanel implements ActionListener {
                 if(transaction!=null){
                     transaction.setDescription(bewijs.getText());
                     transaction.setDate(date);
-                    transaction.book(journal);
+                    journal.book(transaction);
                     clear();
                     bewijs.setText("");
                     transaction = new Transaction();

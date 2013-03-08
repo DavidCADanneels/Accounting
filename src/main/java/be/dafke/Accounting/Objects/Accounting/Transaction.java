@@ -55,10 +55,6 @@ public class Transaction {
         if (booked) journal.unbook(this);
     }
 
-    public void book(Journal journal) {
-        journal.book(this);
-    }
-
     // Getters (without setters)
     public ArrayList<Mortgage> getMortgages() {
         return mortgages;

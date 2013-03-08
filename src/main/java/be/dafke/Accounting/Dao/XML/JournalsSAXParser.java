@@ -103,7 +103,7 @@ public class JournalsSAXParser {
                 String description = Utils.getValue(element, "description");
                 if(nr!=null){
                     if(transaction != null){
-                        transaction.book(journal);
+                        journal.book(transaction);
                     }
                     transaction = new Transaction();
                     transaction.setAbbreviation(abbreviation);
@@ -131,7 +131,7 @@ public class JournalsSAXParser {
                 }
             }
             if(transaction!=null){
-                transaction.book(journal);
+                journal.book(transaction);
             }
         } catch (IOException io) {
 //				FileSystemView.getFileSystemView().createFileObject(subFolder, "Accounting.xml");
