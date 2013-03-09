@@ -105,7 +105,7 @@ public class MortgagesSAXParser {
         try {
             Writer writer = new FileWriter(mortgages.getXmlFile());
 
-            writer.write(Utils.getXmlHeader(mortgages));
+            writer.write(mortgages.getXmlHeader());
 
             writer.write("<Mortgages>\r\n");
             for(Mortgage mortgage : mortgages.getBusinessObjects()) {
@@ -145,7 +145,7 @@ public class MortgagesSAXParser {
         try {
             Writer writer = new FileWriter(mortgage.getXmlFile());
 
-            writer.write(Utils.getXmlHeader(mortgage));
+            writer.write(mortgage.getXmlHeader());
 
             writer.write("<Mortgage>");
             writer.write("  <name>" + mortgage.toString() + "</name>\r\n");

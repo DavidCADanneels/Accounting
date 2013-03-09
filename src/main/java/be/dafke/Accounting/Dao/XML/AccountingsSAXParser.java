@@ -105,7 +105,7 @@ public class AccountingsSAXParser {
         try {
             Writer writer = new FileWriter(accountings.getXmlFile());
 
-            writer.write(Utils.getXmlHeader(accountings));
+            writer.write(accountings.getXmlHeader());
 
             writer.write("<Accountings>\r\n");
             for(Accounting acc : accountings.getBusinessObjects()) {
@@ -161,7 +161,7 @@ public class AccountingsSAXParser {
     private static void writeAccountingFile(Accounting accounting) {
         try {
             Writer writer = new FileWriter(accounting.getXmlFile());
-            writer.write(Utils.getXmlHeader(accounting));
+            writer.write(accounting.getXmlHeader());
             writer.write("<Accounting>\r\n");
             writer.write("  <name>" + accounting.getName() + "</name>\r\n");
             for(String key:accounting.getKeys()) {
@@ -185,7 +185,7 @@ public class AccountingsSAXParser {
     }
 
     private static void toHtml(Accountings accountings){
-        Utils.xmlToHtml(accountings);
+        accountings.xmlToHtml();
         for(Accounting accounting:accountings.getBusinessObjects()){
             if(accounting.getHtmlFolder()!=null && !accounting.getHtmlFolder().getPath().equals("null")){
                 toHtml(accounting);
@@ -196,16 +196,16 @@ public class AccountingsSAXParser {
     private static void toHtml(Accounting accounting){
         if(accounting.getHtmlFolder() != null){
 
-            Utils.xmlToHtml(accounting);
+            accounting.xmlToHtml();
 
             for(String key : accounting.getKeys()){
                 BusinessCollection<BusinessObject> collection = accounting.getCollection(key);
-                Utils.xmlToHtml(collection);
+                collection.xmlToHtml();
                 if(collection.getHtmlFolder()!=null){
                     for(BusinessObject businessObject : collection.getBusinessObjects()){
 //                        TODO: add isSavedHTML
 //                        if(businessObject.isSavedHTML()){
-                            Utils.xmlToHtml(businessObject);
+                            businessObject.xmlToHtml();
 //                        }
                     }
                 }

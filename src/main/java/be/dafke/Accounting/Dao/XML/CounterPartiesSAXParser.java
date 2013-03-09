@@ -89,7 +89,7 @@ public class CounterPartiesSAXParser {
         try {
             Writer writer = new FileWriter(counterParties.getXmlFile());
 
-            writer.write(Utils.getXmlHeader(counterParties));
+            writer.write(counterParties.getXmlHeader());
 
             writer.write("<CounterParties>\r\n");
             for(CounterParty counterParty : counterParties.getBusinessObjects()) {

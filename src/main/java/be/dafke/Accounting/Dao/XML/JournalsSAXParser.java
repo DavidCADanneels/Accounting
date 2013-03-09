@@ -147,7 +147,7 @@ public class JournalsSAXParser {
         try {
             Writer writer = new FileWriter(journals.getXmlFile());
 
-            writer.write(Utils.getXmlHeader(journals));
+            writer.write(journals.getXmlHeader());
 
             writer.write("<Journals>\r\n");
             for(Journal journal : journals.getBusinessObjects()) {
@@ -186,7 +186,7 @@ public class JournalsSAXParser {
         try {
             Writer writer = new FileWriter(journal.getXmlFile());
 
-            writer.write(Utils.getXmlHeader(journal));
+            writer.write(journal.getXmlHeader());
 
             writer.write("<Journal>\r\n"
                     + "  <name>" + journal.getName() + "</name>\r\n");

@@ -88,7 +88,7 @@ public class AccountsSAXParser {
         try {
             Writer writer = new FileWriter(accounts.getXmlFile());
 
-            writer.write(Utils.getXmlHeader(accounts));
+            writer.write(accounts.getXmlHeader());
 
             writer.write("<Accounts>\r\n");
             for(Account account : accounts.getBusinessObjects()) {
@@ -124,7 +124,7 @@ public class AccountsSAXParser {
         try {
             Writer writer = new FileWriter(account.getXmlFile());
 
-            writer.write(Utils.getXmlHeader(account));
+            writer.write(account.getXmlHeader());
 
             writer.write("<Account>\r\n" + "  <name>" + account.getName() + "</name>\r\n");
             for(Booking booking : account.getBookings()){

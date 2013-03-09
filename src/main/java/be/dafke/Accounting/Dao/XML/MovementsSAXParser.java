@@ -93,7 +93,7 @@ public class MovementsSAXParser {
         try {
             Writer writer = new FileWriter(movements.getXmlFile());
 
-            writer.write(Utils.getXmlHeader(movements));
+            writer.write(movements.getXmlHeader());
 
             writer.write("<Movements>\r\n");
             for(Movement movement : movements.getBusinessObjects()) {

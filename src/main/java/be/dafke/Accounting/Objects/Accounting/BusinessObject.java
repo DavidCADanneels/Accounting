@@ -1,5 +1,7 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Utils;
+
 import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
@@ -11,19 +13,34 @@ import java.util.Map;
  */
 public class BusinessObject {
     private String name;
-    private File xmlFile;
-    private File htmlFile;
+    private File xmlFile, htmlFile;
     private File xsl2XmlFile, xsl2HtmlFile;
+    private File dtdFile;
     private String type;
 //    private boolean isSaved;
 
-    protected static final String NAME = "name";
+    protected final static String NAME = "name";
 
     protected BusinessObject(){
         type = this.getClass().getSimpleName();
+
         File xslFolder = new File(System.getProperty("Accountings_xsl"));
         xsl2XmlFile = new File(xslFolder, type + "2xml.xsl");
         xsl2HtmlFile = new File(xslFolder, type + "2html.xsl");
+
+        File dtdFolder = new File(System.getProperty("Accountings_dtd"));
+        dtdFile = new File(dtdFolder, type + ".dtd");
+    }
+
+    public String getXmlHeader() {
+        return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" +
+                "<?xml-stylesheet type=\"text/xsl\" href=\"" + xsl2XmlFile + "\"?>\r\n" +
+                "<!DOCTYPE " + type + " SYSTEM \"" + dtdFile + "\">\r\n";
+
+    }
+
+    public void xmlToHtml() {
+        Utils.xmlToHtml(xmlFile, xsl2HtmlFile, htmlFile, null);
     }
 
     public Map<String,String> getKeyMap(){
@@ -31,7 +48,6 @@ public class BusinessObject {
         keyMap.put(NAME, name);
         return keyMap;
     }
-
 
     @Override
     public String toString() {

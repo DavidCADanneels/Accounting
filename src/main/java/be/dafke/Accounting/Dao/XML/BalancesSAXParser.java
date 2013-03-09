@@ -3,7 +3,6 @@ package be.dafke.Accounting.Dao.XML;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Balance;
 import be.dafke.Accounting.Objects.Accounting.Balances;
-import be.dafke.Utils;
 
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -26,7 +25,7 @@ public class BalancesSAXParser {
         try {
             Writer writer = new FileWriter(balances.getXmlFile());
 
-            writer.write(Utils.getXmlHeader(balances));
+            writer.write(balances.getXmlHeader());
 
             writer.write("<Balances>\r\n");
             for(Balance balance:balances.getBusinessObjects()){
@@ -57,7 +56,7 @@ public class BalancesSAXParser {
         try {
             Writer writer = new FileWriter(balance.getXmlFile());
 
-            writer.write(Utils.getXmlHeader(balance));
+            writer.write(balance.getXmlHeader());
 
             writer.write("<Balance>\r\n");
             writer.write("  <name>" + balance.getName() + "</name>\r\n");
