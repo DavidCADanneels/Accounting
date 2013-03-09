@@ -8,7 +8,8 @@ import java.util.HashMap;
  * @author David Danneels
  */
 public class Accounting extends WriteableBusinessObject {
-	private final Accounts accounts;
+    private final AccountTypes accountTypes;
+    private final Accounts accounts;
 	private final Journals journals;
 	private final Projects projects;
     private final JournalTypes journalTypes;
@@ -22,18 +23,21 @@ public class Accounting extends WriteableBusinessObject {
 
     public Accounting() {
         // TODO use Accounts<Account> + modifiy Accounts file ... Accounts<T extends
-		accounts = new Accounts();
-		journals = new Journals();
+        accountTypes = new AccountTypes();
+        accounts = new Accounts();
+        journalTypes = new JournalTypes();
+        journalTypes.addDefaultType(accountTypes);
+        journals = new Journals();
         balances = new Balances();
         mortgages = new Mortgages();
         counterParties = new CounterParties();
         movements = new Movements();
         projects = new Projects();
-        journalTypes = new JournalTypes();
         balances.addDefaultBalances(this);
 
         collections = new HashMap<String, WriteableBusinessCollection<WriteableBusinessObject>>();
         // TODO unchecked assignment: use put(..., (WriteableBusinessCollection<WriteableBusinessObject>) accounts)
+//        collections.put(accountTypes.getType(),(WriteableBusinessCollection)accountTypes);
         collections.put(accounts.getType(),(WriteableBusinessCollection)accounts);
         collections.put(journals.getType(),(WriteableBusinessCollection)journals);
         collections.put(balances.getType(),(WriteableBusinessCollection)balances);
@@ -42,6 +46,7 @@ public class Accounting extends WriteableBusinessObject {
         collections.put(counterParties.getType(),(WriteableBusinessCollection)counterParties);
 
         keys = new ArrayList<String>();
+//        keys.add(accountTypes.getType());
         keys.add(accounts.getType());
         keys.add(journals.getType());
         keys.add(balances.getType());
@@ -66,6 +71,11 @@ public class Accounting extends WriteableBusinessObject {
 
     // Collections
     //
+
+    public AccountTypes getAccountTypes() {
+        return accountTypes;
+    }
+
     public Accounts getAccounts() {
         return accounts;
     }

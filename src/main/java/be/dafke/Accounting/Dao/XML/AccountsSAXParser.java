@@ -3,6 +3,8 @@ package be.dafke.Accounting.Dao.XML;
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Account;
+import be.dafke.Accounting.Objects.Accounting.AccountType;
+import be.dafke.Accounting.Objects.Accounting.AccountTypes;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.Project;
@@ -32,7 +34,7 @@ public class AccountsSAXParser {
 
     // READ
     //
-    public static void readAccounts(Accounts accounts, Projects projects){
+    public static void readAccounts(Accounts accounts, AccountTypes accountTypes, Projects projects){
         try {
             File file = accounts.getXmlFile();
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -51,7 +53,7 @@ public class AccountsSAXParser {
                 String account_name = Utils.getValue(element, "account_name");
                 String account_type = Utils.getValue(element, "account_type");
 
-                Account.AccountType type = Account.AccountType.valueOf(account_type);
+                AccountType type = accountTypes.getBusinessObject(account_type);
                 try{
                     Account account = new Account();
                     account.setName(account_name.trim());
@@ -99,8 +101,6 @@ public class AccountsSAXParser {
                 }
                 writer.write("    <account_name>" + account.getName() + "</account_name>\r\n");
                 writer.write("    <account_type>" + account.getAccountType() + "</account_type>\r\n");
-                writer.write((account.getProject() == null ? "" : "      <account_project>"
-                        + account.getProject() + "</account_project>\r\n"));
                 writer.write("  </Account>\r\n");
             }
             writer.write("</Accounts>\r\n");

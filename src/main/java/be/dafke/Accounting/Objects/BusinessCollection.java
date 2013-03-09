@@ -8,7 +8,6 @@ import be.dafke.Accounting.Objects.Accounting.WriteableBusinessObject;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -33,7 +32,7 @@ public class BusinessCollection <V extends BusinessObject> extends BusinessObjec
         dataTables.put(key, newMap);
     }
 
-    public List<V> getBusinessObjects(){
+    public ArrayList<V> getBusinessObjects(){
         TreeMap<String,V> map = dataTables.get(NAME);
         return new ArrayList<V>(map.values());
     }

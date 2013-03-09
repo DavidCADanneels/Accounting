@@ -19,21 +19,30 @@ public class Balances extends WriteableBusinessCollection<Balance> {
     public static String YEAR_BALANCE = "YearBalance";
 
     public void addDefaultBalances(Accounting accounting){
-        ArrayList<Account.AccountType> costs = new ArrayList<Account.AccountType>();
-        ArrayList<Account.AccountType> revenues = new ArrayList<Account.AccountType>();
-        ArrayList<Account.AccountType> credit = new ArrayList<Account.AccountType>();
-        ArrayList<Account.AccountType> debit = new ArrayList<Account.AccountType>();
-        ArrayList<Account.AccountType> active = new ArrayList<Account.AccountType>();
-        ArrayList<Account.AccountType> passive = new ArrayList<Account.AccountType>();
-        costs.add(Account.AccountType.Cost);
-        revenues.add(Account.AccountType.Revenue);
-        credit.add(Account.AccountType.Credit);
-        debit.add(Account.AccountType.Debit);
-        active.add(Account.AccountType.Active);
-        active.add(Account.AccountType.Credit);
-        passive.add(Account.AccountType.Passive);
-        passive.add(Account.AccountType.Debit);
-        
+        ArrayList<AccountType> costs = new ArrayList<AccountType>();
+        ArrayList<AccountType> revenues = new ArrayList<AccountType>();
+        ArrayList<AccountType> credit = new ArrayList<AccountType>();
+        ArrayList<AccountType> debit = new ArrayList<AccountType>();
+        ArrayList<AccountType> active = new ArrayList<AccountType>();
+        ArrayList<AccountType> passive = new ArrayList<AccountType>();
+//        costs.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("KOST")));
+//        revenues.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("OPBRENGST")));
+//        credit.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("TEGOED_VAN_KLANT")));
+//        debit.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("SCHULD_AAN_LEVERANCIER")));
+//        active.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("ACTIEF")));
+//        active.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("TEGOED_VAN_KLANT")));
+//        passive.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("PASSIEF")));
+//        passive.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("SCHULD_AAN_LEVERANCIER")));
+
+        costs.add(accounting.getAccountTypes().getBusinessObject(("Cost")));
+        revenues.add(accounting.getAccountTypes().getBusinessObject(("Revenue")));
+        credit.add(accounting.getAccountTypes().getBusinessObject(("Credit")));
+        debit.add(accounting.getAccountTypes().getBusinessObject(("Debit")));
+        active.add(accounting.getAccountTypes().getBusinessObject(("Active")));
+        active.add(accounting.getAccountTypes().getBusinessObject(("Credit")));
+        passive.add(accounting.getAccountTypes().getBusinessObject(("Passive")));
+        passive.add(accounting.getAccountTypes().getBusinessObject(("Debit")));
+
         Balance resultBalance = new Balance();
         resultBalance.setName(RESULT_BALANCE);
         resultBalance.setLeftName(getBundle("Accounting").getString("KOSTEN"));

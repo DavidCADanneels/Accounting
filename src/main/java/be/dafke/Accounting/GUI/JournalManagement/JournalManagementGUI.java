@@ -101,7 +101,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
     @Override
     public void refresh(){
         type.removeAllItems();
-        for(JournalType journalType : accounting.getJournalTypes().getAllTypes()){
+        for(JournalType journalType : accounting.getJournalTypes().getBusinessObjects()){
             type.addItem(journalType);
         }
         super.refresh();
@@ -249,7 +249,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
             singleMove = (option == JOptionPane.YES_OPTION);
         }
         if (singleMove) {
-            Object[] types = accounting.getJournalTypes().getAllTypes().toArray();
+            Object[] types = accounting.getJournalTypes().getBusinessObjects().toArray();
             int nr = JOptionPane.showOptionDialog(this, "Choose new type", "Change type",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
             if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
@@ -259,7 +259,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
             }
         } else {
             for(Journal journal : journalList) {
-                Object[] types = accounting.getJournalTypes().getAllTypes().toArray();
+                Object[] types = accounting.getJournalTypes().getBusinessObjects().toArray();
                 int nr = JOptionPane.showOptionDialog(this, "Choose new type for " + journal.getName(),
                         "Change type", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
                         journal.getJournalType());

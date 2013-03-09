@@ -1,24 +1,21 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 
-public class JournalTypes extends HashMap<String, JournalType> {
+public class JournalTypes extends WriteableBusinessCollection<JournalType> {
 
-//	private static JournalTypes types = null;
-//
-//	public static JournalTypes getInstance() {
-//		if (types == null) {
-//			types = new JournalTypes();
-//		}
-//		return types;
-//	}
-
-	public JournalTypes() {
-		put("default", new JournalType());
-	}
-
-	public ArrayList<JournalType> getAllTypes() {
-		return new ArrayList<JournalType>(values());
-	}
+    public void addDefaultType(AccountTypes accountTypes) {
+        JournalType defaultType = new JournalType();
+        defaultType.setName("default");
+        defaultType.setDebetTypes(accountTypes.getBusinessObjects());
+        defaultType.setCreditTypes(accountTypes.getBusinessObjects());
+        try {
+            addBusinessObject(defaultType);
+        } catch (EmptyNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (DuplicateNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+    }
 }

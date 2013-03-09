@@ -15,8 +15,8 @@ public class Balance extends WriteableBusinessObject {
     private String rightTotalName;
     private String leftResultName;
     private String rightResultName;
-    private ArrayList<Account.AccountType> leftTypes;
-    private ArrayList<Account.AccountType> rightTypes;
+    private ArrayList<AccountType> leftTypes;
+    private ArrayList<AccountType> rightTypes;
     private Accounting accounting;
 
     @Override
@@ -32,11 +32,11 @@ public class Balance extends WriteableBusinessObject {
         return rightName;
     }
 
-    public ArrayList<Account.AccountType> getLeftTypes() {
+    public ArrayList<AccountType> getLeftTypes() {
         return leftTypes;
     }
 
-    public ArrayList<Account.AccountType> getRightTypes() {
+    public ArrayList<AccountType> getRightTypes() {
         return rightTypes;
     }
 
@@ -92,11 +92,11 @@ public class Balance extends WriteableBusinessObject {
         this.rightResultName = rightResultName;
     }
 
-    public void setLeftTypes(ArrayList<Account.AccountType> leftTypes) {
+    public void setLeftTypes(ArrayList<AccountType> leftTypes) {
         this.leftTypes = leftTypes;
     }
 
-    public void setRightTypes(ArrayList<Account.AccountType> rightTypes) {
+    public void setRightTypes(ArrayList<AccountType> rightTypes) {
         this.rightTypes = rightTypes;
     }
 

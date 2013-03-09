@@ -1,7 +1,6 @@
 package be.dafke.Accounting.GUI.Balances;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 
 import javax.swing.table.AbstractTableModel;
@@ -32,7 +31,7 @@ public class TestBalanceDataModel extends AbstractTableModel {
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Account account = accounting.getAccounts().getAccounts(AccountType.getList()).get(row);
+		Account account = accounting.getAccounts().getAccounts(accounting.getAccountTypes().getBusinessObjects()).get(row);
 		if (col == 0) return account;
 		else if (col == 1) return account.getDebetTotal();
 		else if (col == 2) return account.getCreditTotal();

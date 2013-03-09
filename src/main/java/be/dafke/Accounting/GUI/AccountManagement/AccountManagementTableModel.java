@@ -1,7 +1,7 @@
 package be.dafke.Accounting.GUI.AccountManagement;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
+import be.dafke.Accounting.Objects.Accounting.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 
 import javax.swing.table.AbstractTableModel;
@@ -29,23 +29,16 @@ public class AccountManagementTableModel extends AbstractTableModel {
 	}
 
 	public Object getValueAt(int row, int col) {
-		Account account = accounting.getAccounts().getAccounts(AccountType.getList()).get(row);
+		Account account = accounting.getAccounts().getAccounts(accounting.getAccountTypes().getBusinessObjects()).get(row);
 		if (col == 1) {
 			return account.getAccountType();
 		} else if (col == 2) {
 			AccountType type = account.getAccountType();
-			switch (type) {
-				case Active:
-				case Cost:
-				case Credit:
-					return account.getSaldo();
-				case Passive:
-				case Revenue:
-				case Debit:
-					return BigDecimal.ZERO.subtract(account.getSaldo());
-				default:
-					return "";
-			}
+            BigDecimal saldo = account.getSaldo();
+            if(type.isInverted()){
+                saldo = saldo.negate();
+            }
+            return saldo;
 		} else return account;
 	}
 

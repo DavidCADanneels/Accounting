@@ -38,9 +38,8 @@ public class AccountingGUIFrame extends RefreshableFrame {
         for(Accounting accounting : accountings.getBusinessObjects()){
             ComponentMap.addAccountingComponents(accounting, actionListener);
         }
-		pack();
         refresh();
-	}
+    }
 
     @Override
     public void refresh() {
@@ -52,5 +51,6 @@ public class AccountingGUIFrame extends RefreshableFrame {
         }
         menuBar.setAccounting(accounting, accountings);
         contentPanel.setAccounting(accounting);
+        pack();
     }
 }

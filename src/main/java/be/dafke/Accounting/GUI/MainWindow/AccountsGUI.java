@@ -2,7 +2,8 @@ package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
+import be.dafke.Accounting.Objects.Accounting.AccountType;
+import be.dafke.Accounting.Objects.Accounting.AccountTypes;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Booking;
@@ -22,6 +23,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -38,10 +40,12 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 	private final AlphabeticListModel<Account> model;
 	private final JList<Account> lijst;
 	private final JButton debet, credit, accountManagement, accountDetails;
-	private final JCheckBox[] boxes;
+	private final List<JCheckBox> boxes;
 
     private Journal journal;
     private Accounts accounts;
+    private AccountTypes accountTypes;
+    private final JPanel filter;
 
     public AccountsGUI(ActionListener actionListener) {
 		setLayout(new BorderLayout());
@@ -84,19 +88,9 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
         zoeker.add(hoofdPaneel, BorderLayout.SOUTH);
 		add(zoeker, BorderLayout.CENTER);
 
-		JPanel filter = new JPanel();
+		filter = new JPanel();
 		filter.setLayout(new GridLayout(0, 2));
-		AccountType[] types = AccountType.values();
-		boxes = new JCheckBox[types.length];
-		for(int i = 0; i < types.length; i++) {
-			boxes[i] = new JCheckBox(types[i].name());
-			boxes[i].setSelected(true);
-			boxes[i].setEnabled(false);
-			boxes[i].setActionCommand(types[i].name());
-			boxes[i].addActionListener(this);
-			filter.add(boxes[i]);
-		}
-
+        boxes = new ArrayList<JCheckBox>();
 		add(filter, BorderLayout.NORTH);
 	}
 
@@ -147,11 +141,28 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		}
 	}
 
+    private void addCheckBoxes(){
+        filter.removeAll();
+        boxes.clear();
+        if(accountTypes!=null){
+            for(AccountType type : accountTypes.getBusinessObjects()) {
+                JCheckBox checkBox = new JCheckBox(type.getName());
+                checkBox.setSelected(true);
+                checkBox.setEnabled(false);
+                checkBox.setActionCommand(type.getName());
+                checkBox.addActionListener(this);
+                boxes.add(checkBox);
+                filter.add(checkBox);
+            }
+        }
+//        revalidate();
+    }
+
 	private void checkBoxes() {
-		ArrayList<AccountType> types = new ArrayList<AccountType>();
+        ArrayList<AccountType> types = new ArrayList<AccountType>();
 		for(JCheckBox box : boxes) {
 			if (box.isSelected()) {
-				types.add(AccountType.valueOf(box.getActionCommand()));
+				types.add(accountTypes.getBusinessObject(box.getActionCommand()));
 			}
 		}
 		ArrayList<Account> map = accounts.getAccounts(types);
@@ -160,9 +171,11 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 
     public void setAccounting(Accounting accounting){
         if(accounting == null){
+            setAccountTypes(null);
             setAccounts(null);
             setJournal(null);
         } else {
+            setAccountTypes(accounting.getAccountTypes());
             setAccounts(accounting.getAccounts());
             if(accounting.getJournals()==null){
                 setJournal(null);
@@ -172,6 +185,9 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
         }
     }
 
+    public void setAccountTypes(AccountTypes accountTypes) {
+        this.accountTypes = accountTypes;
+    }
 
     public void setAccounts(Accounts accounts){
         this.accounts = accounts;
@@ -183,6 +199,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 
 	public void refresh() {
         boolean active = accounts!=null;
+        addCheckBoxes();
         for(JCheckBox checkBox: boxes) {
 			checkBox.setEnabled(active);
 		}

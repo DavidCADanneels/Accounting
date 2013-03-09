@@ -2,11 +2,11 @@ package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
-import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 
 import java.math.BigDecimal;
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -39,7 +39,7 @@ public class Accounts extends WriteableBusinessCollection<Account> {
 		return col;
 	}
 
-	public ArrayList<Account> getAccounts(ArrayList<AccountType> types) {
+	public ArrayList<Account> getAccounts(List<AccountType> types) {
 		ArrayList<Account> list = new ArrayList<Account>();
 		for(AccountType type : types) {
 			list.addAll(getAccounts(type));
@@ -71,7 +71,9 @@ public class Accounts extends WriteableBusinessCollection<Account> {
 	public ArrayList<Account> getAccountNoMatchProject(Project project) {
 		ArrayList<Account> result = new ArrayList<Account>();
 		for(Account account : getBusinessObjects()) {
-			if (account.getProject() != project) result.add(account);
+            if (!project.getAccounts().contains(account)){
+                result.add(account);
+            }
 		}
 		return result;
 	}

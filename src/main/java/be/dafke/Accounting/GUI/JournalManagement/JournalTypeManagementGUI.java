@@ -1,7 +1,7 @@
 package be.dafke.Accounting.GUI.JournalManagement;
 
 import be.dafke.Accounting.GUI.ComponentMap;
-import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
+import be.dafke.Accounting.Objects.Accounting.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.RefreshableFrame;
 
@@ -20,7 +20,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 	private final JList<AccountType> debit, credit, types;
 	private final JButton addLeft, addRight, removeLeft, removeRight;
 	private final ArrayList<AccountType> debitTypes, creditTypes;
-	private final DefaultListModel<AccountType> debitModel, creditModel;
+	private final DefaultListModel<AccountType> debitModel, creditModel, typesModel;
     private Accounting accounting;
 
 	public JournalTypeManagementGUI(Accounting accounting) {
@@ -29,10 +29,11 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 		debitTypes = new ArrayList<AccountType>();
 		creditTypes = new ArrayList<AccountType>();
 		debitModel = new DefaultListModel<AccountType>();
-		debit = new JList(debitModel);
+		debit = new JList<AccountType>(debitModel);
 		creditModel = new DefaultListModel<AccountType>();
-		credit = new JList(creditModel);
-		types = new JList(AccountType.values());
+		credit = new JList<AccountType>(creditModel);
+        typesModel = new DefaultListModel<AccountType>();
+		types = new JList<AccountType>(typesModel);
 		addLeft = new JButton("Add type to Debit types");
 		addRight = new JButton("Add type to Credit types");
 		removeLeft = new JButton("Remove type from Debit types");
@@ -95,7 +96,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 			int rows[] = types.getSelectedIndices();
 			if (rows.length != 0) {
 				for(int i : rows) {
-					AccountType type = AccountType.values()[i];
+					AccountType type = accounting.getAccountTypes().getBusinessObjects().get(i);
 					if (!debitTypes.contains(type)) {
 						debitTypes.add(type);
 						model.addElement(type);
@@ -107,8 +108,8 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 			int rows[] = types.getSelectedIndices();
 			if (rows.length != 0) {
 				for(int i : rows) {
-					AccountType type = AccountType.values()[i];
-					if (!creditTypes.contains(type)) {
+                    AccountType type = accounting.getAccountTypes().getBusinessObjects().get(i);
+                    if (!creditTypes.contains(type)) {
 						creditTypes.add(type);
 						model.addElement(type);
 					}

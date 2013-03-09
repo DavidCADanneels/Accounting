@@ -4,6 +4,7 @@ import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
+import be.dafke.Accounting.Objects.Accounting.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.RefreshableDialog;
 
@@ -18,7 +19,7 @@ import java.awt.event.ActionListener;
  */
 public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     private final JTextField nameField;
-    private final JComboBox<Account.AccountType> type;
+    private final JComboBox<AccountType> type;
     private final JButton add;
     private final Accounting accounting;
 
@@ -34,7 +35,12 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
 		line1.add(nameField);
 		JPanel line2 = new JPanel();
 		line2.add(new JLabel("Type:"));
-		type = new JComboBox<Account.AccountType>(Account.AccountType.values());
+		type = new JComboBox<AccountType>();
+        DefaultComboBoxModel<AccountType> model = new DefaultComboBoxModel<AccountType>();
+        for(AccountType accountType : accounting.getAccountTypes().getBusinessObjects()){
+            model.addElement(accountType);
+        }
+        type.setModel(model);
 		line2.add(type);
 		add = new JButton("Create new Account");
 		add.addActionListener(this);
@@ -57,7 +63,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
         try {
             Account account = new Account();
             account.setName(name.trim());
-            account.setAccountType((Account.AccountType) type.getSelectedItem());
+            account.setAccountType((AccountType) type.getSelectedItem());
             accounting.getAccounts().addBusinessObject(account);
             ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {

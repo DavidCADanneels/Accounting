@@ -15,25 +15,11 @@ import java.util.Calendar;
  */
 @XmlRootElement
 public class Account extends WriteableBusinessObject {
-
-    public enum AccountType {
-		Active, Passive, Cost, Revenue, Credit, Debit;
-		public static ArrayList<AccountType> getList() {
-			ArrayList<AccountType> list = new ArrayList<AccountType>();
-			for(AccountType type : values()) {
-				list.add(type);
-			}
-			return list;
-		}
-	}
-
 	private AccountType type;
-    private Project project;
     private BigDecimal debitTotal, creditTotal;
     private final MultiValueMap<Calendar,Booking> bookings;
 
     public Account() {
-        project = null;
         bookings = new MultiValueMap<Calendar,Booking>();
         debitTotal = BigDecimal.ZERO;
         debitTotal = debitTotal.setScale(2);
@@ -42,10 +28,6 @@ public class Account extends WriteableBusinessObject {
     }
 
     // Setters
-    @XmlElement
-    public void setProject(Project p) {
-        project = p;
-    }
     @XmlElement
     public void setAccountType(AccountType type) {
         this.type = type;
@@ -71,18 +53,8 @@ public class Account extends WriteableBusinessObject {
         return creditTotal;
     }
 
-    public Project getProject() {
-        return project;
-    }
-
     public ArrayList<Booking> getBookings() {
         return bookings.values();
-    }
-
-    @Override
-    public String toString() {
-        if (project == null) return getName();
-        return getName() + " [" + project.toString() + "]";
     }
 
     @Override

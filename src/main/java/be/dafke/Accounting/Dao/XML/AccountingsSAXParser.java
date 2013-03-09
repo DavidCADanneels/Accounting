@@ -85,7 +85,7 @@ public class AccountingsSAXParser {
                 writeableBusinessObject.setHtmlFile(htmlFile);
             }
 
-            AccountsSAXParser.readAccounts(accounting.getAccounts(), accounting.getProjects());
+            AccountsSAXParser.readAccounts(accounting.getAccounts(),accounting.getAccountTypes(), accounting.getProjects());
             JournalsSAXParser.readJournals(accounting.getJournals(), accounting.getJournalTypes(), accounting.getAccounts());
             MortgagesSAXParser.readMortgages(accounting.getMortgages(), accounting.getAccounts());
             CounterPartiesSAXParser.readCounterparties(accounting.getCounterParties(), accounting.getAccounts());
@@ -165,13 +165,13 @@ public class AccountingsSAXParser {
             writer.write("<Accounting>\r\n");
             writer.write("  <name>" + accounting.getName() + "</name>\r\n");
             for(String key:accounting.getKeys()) {
-                WriteableBusinessCollection<WriteableBusinessObject> writeableBusinessObject = accounting.getCollection(key);
+                WriteableBusinessCollection<WriteableBusinessObject> writeableBusinessCollection = accounting.getCollection(key);
                 System.out.println("writing: " + key);
                 writer.write("  <" + key + ">\r\n");
                 writer.write("    <name>" + key + "</name>\r\n");
-                writer.write("    <xml>" + writeableBusinessObject.getXmlFile() + "</xml>\r\n");
-                if(writeableBusinessObject.getHtmlFile()!=null){
-                    writer.write("    <html>" + writeableBusinessObject.getHtmlFile() + "</html>\r\n");
+                writer.write("    <xml>" + writeableBusinessCollection.getXmlFile() + "</xml>\r\n");
+                if(writeableBusinessCollection.getHtmlFile()!=null){
+                    writer.write("    <html>" + writeableBusinessCollection.getHtmlFile() + "</html>\r\n");
                 }
                 writer.write("  </" + key + ">\r\n");
             }

@@ -5,7 +5,7 @@ import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Exceptions.NotEmptyException;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
+import be.dafke.Accounting.Objects.Accounting.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.RefreshableFrame;
 
@@ -140,22 +140,22 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
             singleMove = (option == JOptionPane.YES_OPTION);
         }
         if (singleMove) {
-            AccountType[] types = AccountType.values();
+            Object[] types = accounting.getAccountTypes().getBusinessObjects().toArray();
             int nr = JOptionPane.showOptionDialog(this, "Choose new type", "Change type",
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
             if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
                 for(Account account : accountList) {
-                    account.setAccountType(types[nr]);
+                    account.setAccountType((AccountType)types[nr]);
                 }
             }
         } else {
             for(Account account : accountList) {
-                AccountType[] types = AccountType.values();
+                Object[] types = accounting.getAccountTypes().getBusinessObjects().toArray();
                 int nr = JOptionPane.showOptionDialog(this, "Choose new type for " + account.getName(),
                         "Change type", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
                         account.getAccountType());
                 if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
-                    account.setAccountType(types[nr]);
+                    account.setAccountType((AccountType)types[nr]);
                 }
             }
         }

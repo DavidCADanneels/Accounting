@@ -1,7 +1,6 @@
 package be.dafke.Accounting.GUI.Projects;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Account.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Project;
@@ -145,8 +144,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		if (ae.getSource() == moveTo) {
 			for(Account account : allAccounts.getSelectedValuesList()) {
 				projectAccountsModel.addElement(account);
-				Project p = account.getProject();
-				if (p != null) p.removeAccount(account);
+                // TODO check if account belongs to another project (and remove it there ?)
 				project.addAccount(account);
 				allAccountsModel.removeElement(account);
 			}
@@ -197,7 +195,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
             System.out.println("na init");
         } else {
             project = null;
-            ArrayList<Account> noProjectlijst = accounts.getAccounts(AccountType.getList());
+            ArrayList<Account> noProjectlijst = accounts.getAccounts(accounting.getAccountTypes().getBusinessObjects());
             Iterator<Account> it2 = noProjectlijst.iterator();
             allAccountsModel.removeAllElements();
             while (it2.hasNext()) {

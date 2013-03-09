@@ -20,11 +20,9 @@ public class Project {
 
 	public void addAccount(Account account) {
 		rekeningen.put(account.toString(),account);
-		account.setProject(this);
 	}
 
 	public void removeAccount(Account account) {
-		account.setProject(null);
 		rekeningen.remove(account.toString());
 	}
 

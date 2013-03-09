@@ -57,7 +57,7 @@ public class JournalsSAXParser {
                     Journal journal = new Journal();
                     journal.setName(journal_name);
                     journal.setAbbreviation(journal_short);
-                    journal.setJournalType(journalTypes.get(journal_type));
+                    journal.setJournalType(journalTypes.getBusinessObject(journal_type));
                     journals.addBusinessObject(journal);
                     journal.setXmlFile(xmlFile);
                     journal.setHtmlFile(htmlFile);
