@@ -1,61 +1,32 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import be.dafke.Accounting.Exceptions.DuplicateNameException;
-import be.dafke.Accounting.Exceptions.EmptyNameException;
-import be.dafke.Accounting.Exceptions.NotEmptyException;
+import be.dafke.Accounting.Objects.BusinessCollection;
+import be.dafke.Accounting.Objects.WriteableCollection;
+import be.dafke.Utils;
 
 import java.io.File;
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.TreeMap;
 
 /**
  * User: Dafke
  * Date: 4/03/13
  * Time: 16:23
  */
-public class WriteableBusinessCollection<V extends WriteableBusinessObject> extends WriteableBusinessObject {
-
-
-    protected HashMap<String, TreeMap<String,V>> dataTables;
-
+public class WriteableBusinessCollection<V extends WriteableBusinessObject> extends BusinessCollection<V> implements WriteableCollection{
     protected File htmlFolder;
     protected File xmlFolder;
 
-    public WriteableBusinessCollection(){
-        dataTables = new HashMap<String, TreeMap<String, V>>();
-        addKey(NAME);
-    }
-
-    protected void addKey(String key){
-        if(dataTables.containsKey(key)){
-            System.err.println("This collection already contains this key");
-        }
-        TreeMap<String, V> newMap = new TreeMap<String, V>();
-        dataTables.put(key, newMap);
-    }
-
-    public List<V> getBusinessObjects(){
-        TreeMap<String,V> map = dataTables.get(NAME);
-        return new ArrayList<V>(map.values());
-    }
-
-    // -------------------------------------------------------------------------------------
-
-    // Folders
-
+    @Override
     public void setHtmlFolder(File parentFolder){
         setHtmlFile(new File(parentFolder, getType() + ".html"));
         htmlFolder = new File(parentFolder, getType());
-        for(WriteableBusinessObject writeableBusinessObject : getBusinessObjects()){
+        for(V writeableBusinessObject : getBusinessObjects()){
             writeableBusinessObject.setHtmlFile(new File(htmlFolder, writeableBusinessObject.getName() + ".html"));
         }
     }
 
-    protected void setXmlFolder(File parentFolder) {
+    @Override
+    public void setXmlFolder(File parentFolder) {
         setXmlFile(new File(parentFolder, getType() + ".xml"));
         xmlFolder = new File(parentFolder, getType());
         for(WriteableBusinessObject writeableBusinessObject : getBusinessObjects()){
@@ -63,21 +34,25 @@ public class WriteableBusinessCollection<V extends WriteableBusinessObject> exte
         }
     }
 
+//    @Override
 //    protected File getXmlFolder(){
 //        return xmlFolder;
 //    }
 //
+    @Override
     public File getHtmlFolder() {
         return htmlFolder;
     }
 
-    protected void createXmlFolder(){
+    @Override
+    public void createXmlFolder(){
         if(xmlFolder.mkdirs()){
             System.out.println(xmlFolder + " has been created");
         }
     }
 
-    protected void createHtmlFolder(){
+    @Override
+    public void createHtmlFolder(){
         if(htmlFolder.mkdirs()){
             System.out.println(htmlFolder + " has been created");
         }
@@ -85,139 +60,88 @@ public class WriteableBusinessCollection<V extends WriteableBusinessObject> exte
 
     // -------------------------------------------------------------------------------------
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder(getType()).append(":\r\n");
-        for(WriteableBusinessObject writeableBusinessObject : getBusinessObjects()){
-            builder.append(writeableBusinessObject.toString());
-        }
-        return builder.toString();
-    }
-
-    // -------------------------------------------------------------------------------------
-
-    // Get
-
-    public V getBusinessObject(String name){
-        Map.Entry<String, String> entry = new AbstractMap.SimpleEntry<String, String>(NAME, name);
-        return getBusinessObject(entry);
-    }
-
-    private V getBusinessObject(Map.Entry<String, String> entry){
-        String type = entry.getKey();
-        String key = entry.getValue();
-        TreeMap<String, V> map = dataTables.get(type);
-        return map.get(key);
-    }
-
-
-    // -------------------------------------------------------------------------------------
-
-    // Add
-
-    public V addBusinessObject(V value) throws EmptyNameException, DuplicateNameException{
-        return addBusinessObject(value, value.getKeyMap());
-    }
-
-    protected V addBusinessObject(V value, Map<String,String> keyMap) throws EmptyNameException, DuplicateNameException {
-        for(Map.Entry<String,String> entry:keyMap.entrySet()){
-            String key = entry.getValue();
-            if(key==null || "".equals(key.trim())){
-                throw new EmptyNameException();
-            }
-            V found = getBusinessObject(entry);
-            if(found!=null){
-                throw new DuplicateNameException(key);
-            }
-        }
-        for(Map.Entry<String,String> entry:keyMap.entrySet()){
-            // This will not throw any exceptions: we already handled them above.
-            addBusinessObject(value, entry);
-        }
-        return value;
-    }
-
     /**For internal use:
      * modify and merge
      *
      */
+    @Override
     protected V addBusinessObject(V value, Map.Entry<String,String> mapEntry){
-        String type = mapEntry.getKey();
-        String key = mapEntry.getValue();
-        TreeMap<String, V> map = dataTables.get(type);
-
-        key = key.trim();
-
-        if(type.equals(NAME)){
-            value.setName(key);
-        }
-
+        super.addBusinessObject(value, mapEntry);
         value.setXmlFile(new File(xmlFolder, value.getName() + ".xml"));
         if(htmlFolder!=null){
             value.setHtmlFile(new File(htmlFolder, value.getName() + ".html"));
         }
-
-        map.put(key, value);
         return value;
     }
 
-
-
     // -------------------------------------------------------------------------------------
 
-    // Modify
+    // Duplicates from WriteableBusinessObject
 
-    public V modify(Map.Entry<String,String> oldEntry, Map.Entry<String,String> newEntry) throws EmptyNameException, DuplicateNameException{
-        if(!oldEntry.getKey().equals(oldEntry.getKey())){
-            throw new RuntimeException("Inproper use: keys should have the same value (modify)");
-        }
-        String key = newEntry.getValue();
-        if(key==null || "".equals(key.trim())){
-            throw new EmptyNameException();
-        }
-        V value = getBusinessObject(oldEntry);
-        removeBusinessObject(oldEntry);
+    private File xmlFile, htmlFile;
+    private File xsl2XmlFile, xsl2HtmlFile;
+    private File dtdFile;
+    private boolean saved;
 
-        V found = getBusinessObject(newEntry);
-        if(found!=null){
-            addBusinessObject(value, oldEntry);
-            throw new DuplicateNameException(key);
-        }
-        addBusinessObject(value, newEntry);
-        return value;
+    @Override
+    public boolean isSaved() {
+        return saved;
     }
 
-
-
-    // -------------------------------------------------------------------------------------
-
-    // Remove
-
-    /**Removal function for external use: performs a check if the value is deletable
-     * @see WriteableBusinessObject#isDeletable()
-     * @param value the value to delete
-     * @throws NotEmptyException if the value is not deletable
-     */
-    public void removeBusinessObject(V value) throws NotEmptyException {
-        if(value.isDeletable()){
-            removeBusinessObject(value.getKeyMap());
-        } else {
-            throw new NotEmptyException();
-        }
+    @Override
+    public void setSaved(boolean saved) {
+        this.saved = saved;
     }
 
-    private void removeBusinessObject(Map<String,String> entryMap){
-        for(Map.Entry<String,String> entry : entryMap.entrySet()){
-            removeBusinessObject(entry);
-        }
+    public WriteableBusinessCollection(){
+        File xslFolder = new File(System.getProperty("Accountings_xsl"));
+        xsl2XmlFile = new File(xslFolder, type + "2xml.xsl");
+        xsl2HtmlFile = new File(xslFolder, type + "2html.xsl");
+
+        File dtdFolder = new File(System.getProperty("Accountings_dtd"));
+        dtdFile = new File(dtdFolder, type + ".dtd");
     }
 
-    //
-    /**Remove function for interal use: performs no check
-     */
-    protected void removeBusinessObject(Map.Entry<String,String> entry){
-        String type = entry.getKey();
-        String key = entry.getValue();
-        dataTables.get(type).remove(key);
+    public String getXmlHeader() {
+        return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" +
+                "<?xml-stylesheet type=\"text/xsl\" href=\"" + xsl2XmlFile + "\"?>\r\n" +
+                "<!DOCTYPE " + type + " SYSTEM \"" + dtdFile + "\">\r\n";
+
+    }
+
+    public void xmlToHtml() {
+        Utils.xmlToHtml(xmlFile, xsl2HtmlFile, htmlFile, null);
+    }
+
+    public File getXmlFile(){
+        return xmlFile;
+    }
+
+    public File getXsl2XmlFile(){
+        return xsl2XmlFile;
+    }
+
+    public File getXsl2HtmlFile(){
+        return xsl2HtmlFile;
+    }
+
+    public File getHtmlFile(){
+        return htmlFile;
+    }
+
+    public void setXmlFile(File xmlFile) {
+        this.xmlFile = xmlFile;
+    }
+
+    public void setXsl2XmlFile(File xslFile) {
+        this.xsl2XmlFile = xslFile;
+    }
+
+    public void setXsl2HtmlFile(File xslFile) {
+        this.xsl2HtmlFile = xslFile;
+    }
+
+    public void setHtmlFile(File htmlFile) {
+        this.htmlFile = htmlFile;
     }
 }

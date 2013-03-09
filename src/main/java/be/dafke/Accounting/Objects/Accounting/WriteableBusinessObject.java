@@ -1,29 +1,18 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Objects.BusinessObject;
+import be.dafke.Accounting.Objects.Writeable;
 import be.dafke.Utils;
 
 import java.io.File;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * User: Dafke
  * Date: 4/03/13
  * Time: 13:19
  */
-public class WriteableBusinessObject {
-    private String name;
-    private File xmlFile, htmlFile;
-    private File xsl2XmlFile, xsl2HtmlFile;
-    private File dtdFile;
-    private String type;
-//    private boolean isSaved;
-
-    protected final static String NAME = "name";
-
+public class WriteableBusinessObject extends BusinessObject implements Writeable {
     protected WriteableBusinessObject(){
-        type = this.getClass().getSimpleName();
-
         File xslFolder = new File(System.getProperty("Accountings_xsl"));
         xsl2XmlFile = new File(xslFolder, type + "2xml.xsl");
         xsl2HtmlFile = new File(xslFolder, type + "2html.xsl");
@@ -32,6 +21,24 @@ public class WriteableBusinessObject {
         dtdFile = new File(dtdFolder, type + ".dtd");
     }
 
+    // implements Writeable
+
+    private File xmlFile, htmlFile;
+    private File xsl2XmlFile, xsl2HtmlFile;
+    private File dtdFile;
+    private boolean saved;
+
+    @Override
+    public boolean isSaved() {
+        return saved;
+    }
+
+    @Override
+    public void setSaved(boolean saved) {
+        this.saved = saved;
+    }
+
+    @Override
     public String getXmlHeader() {
         return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" +
                 "<?xml-stylesheet type=\"text/xsl\" href=\"" + xsl2XmlFile + "\"?>\r\n" +
@@ -39,90 +46,48 @@ public class WriteableBusinessObject {
 
     }
 
+    @Override
     public void xmlToHtml() {
         Utils.xmlToHtml(xmlFile, xsl2HtmlFile, htmlFile, null);
     }
 
-    public Map<String,String> getKeyMap(){
-        Map<String,String> keyMap = new HashMap<String, String>();
-        keyMap.put(NAME, name);
-        return keyMap;
-    }
-
     @Override
-    public String toString() {
-        return name;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-//		setSaved(false);
-    }
-
-    public String getType() {
-        return type;
-    }
-
     public File getXmlFile(){
         return xmlFile;
     }
 
+    @Override
     public File getXsl2XmlFile(){
         return xsl2XmlFile;
     }
 
+    @Override
     public File getXsl2HtmlFile(){
         return xsl2HtmlFile;
     }
 
+    @Override
     public File getHtmlFile(){
         return htmlFile;
     }
 
+    @Override
     public void setXmlFile(File xmlFile) {
         this.xmlFile = xmlFile;
     }
 
+    @Override
     public void setXsl2XmlFile(File xslFile) {
         this.xsl2XmlFile = xslFile;
     }
 
+    @Override
     public void setXsl2HtmlFile(File xslFile) {
         this.xsl2HtmlFile = xslFile;
     }
 
+    @Override
     public void setHtmlFile(File htmlFile) {
         this.htmlFile = htmlFile;
     }
-
-    /**Checks if the WriteableBusinessObject is deletable:
-     * @return if the WriteableBusinessObject is deletable (default: false)
-     */
-    public boolean isDeletable() {
-        return false;
-    }
-    // TODO: make interfaces: Mergeable etc
-    public boolean isMergeable(){
-        return false;
-    }
-
-//	/**
-//	 * Deelt mee of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
-//	 * @return of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
-//	 */
-//	public boolean isSaved() {
-//		return save;
-//	}
-//
-//	/**
-//	 * Stelt in of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
-//	 * @param save of de laatste wijzigingen aan de rekening reeds werden uitgeschreven naar een XML bestand
-//	 */
-//	protected void setSaved(boolean save) {
-//		accounting.setSaved(save);
-//		this.save = save;
-//	}
 }

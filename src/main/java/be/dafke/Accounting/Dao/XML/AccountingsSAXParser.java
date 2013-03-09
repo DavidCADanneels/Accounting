@@ -75,7 +75,7 @@ public class AccountingsSAXParser {
             doc.getDocumentElement().normalize();
 
             for(String key:accounting.getKeys()) {
-                WriteableBusinessObject writeableBusinessObject = accounting.getCollection(key);
+                WriteableBusinessCollection<WriteableBusinessObject> writeableBusinessObject = accounting.getCollection(key);
                 Element element = (Element)doc.getElementsByTagName(key).item(0);
                 String name = Utils.getValue(element, "name");
                 System.out.println("parsing: " + name);
@@ -165,7 +165,7 @@ public class AccountingsSAXParser {
             writer.write("<Accounting>\r\n");
             writer.write("  <name>" + accounting.getName() + "</name>\r\n");
             for(String key:accounting.getKeys()) {
-                WriteableBusinessObject writeableBusinessObject = accounting.getCollection(key);
+                WriteableBusinessCollection<WriteableBusinessObject> writeableBusinessObject = accounting.getCollection(key);
                 System.out.println("writing: " + key);
                 writer.write("  <" + key + ">\r\n");
                 writer.write("    <name>" + key + "</name>\r\n");
