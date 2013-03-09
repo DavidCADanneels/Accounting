@@ -12,7 +12,7 @@ import java.util.Map;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journal extends BusinessObject{
+public class Journal extends WriteableBusinessObject {
 	private String abbreviation;
 	private int id;
 	private final MultiValueMap<Calendar,Transaction> transactions;

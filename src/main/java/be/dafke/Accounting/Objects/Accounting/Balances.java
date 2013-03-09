@@ -12,7 +12,7 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 27/02/13
  * Time: 12:07
  */
-public class Balances extends BusinessCollection<Balance>{
+public class Balances extends WriteableBusinessCollection<Balance> {
 
     public static String RESULT_BALANCE = "ResultBalance";
     public static String RELATIONS_BALANCE = "RelationsBalance";

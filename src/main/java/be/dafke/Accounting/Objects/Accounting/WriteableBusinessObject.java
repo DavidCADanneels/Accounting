@@ -11,7 +11,7 @@ import java.util.Map;
  * Date: 4/03/13
  * Time: 13:19
  */
-public class BusinessObject {
+public class WriteableBusinessObject {
     private String name;
     private File xmlFile, htmlFile;
     private File xsl2XmlFile, xsl2HtmlFile;
@@ -21,7 +21,7 @@ public class BusinessObject {
 
     protected final static String NAME = "name";
 
-    protected BusinessObject(){
+    protected WriteableBusinessObject(){
         type = this.getClass().getSimpleName();
 
         File xslFolder = new File(System.getProperty("Accountings_xsl"));
@@ -98,8 +98,8 @@ public class BusinessObject {
         this.htmlFile = htmlFile;
     }
 
-    /**Checks if the BusinessObject is deletable:
-     * @return if the BusinessObject is deletable (default: false)
+    /**Checks if the WriteableBusinessObject is deletable:
+     * @return if the WriteableBusinessObject is deletable (default: false)
      */
     public boolean isDeletable() {
         return false;

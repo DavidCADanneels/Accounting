@@ -7,7 +7,7 @@ import java.util.AbstractMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class CounterParties extends BusinessCollection<CounterParty>{
+public class CounterParties extends WriteableBusinessCollection<CounterParty> {
 
     public CounterParties(){
         addKey(CounterParty.ACCOUNTNUMBER);

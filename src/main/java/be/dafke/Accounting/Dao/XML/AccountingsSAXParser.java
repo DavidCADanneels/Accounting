@@ -4,8 +4,8 @@ import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
-import be.dafke.Accounting.Objects.Accounting.BusinessCollection;
-import be.dafke.Accounting.Objects.Accounting.BusinessObject;
+import be.dafke.Accounting.Objects.Accounting.WriteableBusinessCollection;
+import be.dafke.Accounting.Objects.Accounting.WriteableBusinessObject;
 import be.dafke.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -75,14 +75,14 @@ public class AccountingsSAXParser {
             doc.getDocumentElement().normalize();
 
             for(String key:accounting.getKeys()) {
-                BusinessObject businessObject = accounting.getCollection(key);
+                WriteableBusinessObject writeableBusinessObject = accounting.getCollection(key);
                 Element element = (Element)doc.getElementsByTagName(key).item(0);
                 String name = Utils.getValue(element, "name");
                 System.out.println("parsing: " + name);
                 File xmlFile = Utils.getFile(element, "xml");
                 File htmlFile = Utils.getFile(element, "html");
-                businessObject.setXmlFile(xmlFile);
-                businessObject.setHtmlFile(htmlFile);
+                writeableBusinessObject.setXmlFile(xmlFile);
+                writeableBusinessObject.setHtmlFile(htmlFile);
             }
 
             AccountsSAXParser.readAccounts(accounting.getAccounts(), accounting.getProjects());
@@ -165,13 +165,13 @@ public class AccountingsSAXParser {
             writer.write("<Accounting>\r\n");
             writer.write("  <name>" + accounting.getName() + "</name>\r\n");
             for(String key:accounting.getKeys()) {
-                BusinessObject businessObject = accounting.getCollection(key);
+                WriteableBusinessObject writeableBusinessObject = accounting.getCollection(key);
                 System.out.println("writing: " + key);
                 writer.write("  <" + key + ">\r\n");
                 writer.write("    <name>" + key + "</name>\r\n");
-                writer.write("    <xml>" + businessObject.getXmlFile() + "</xml>\r\n");
-                if(businessObject.getHtmlFile()!=null){
-                    writer.write("    <html>" + businessObject.getHtmlFile() + "</html>\r\n");
+                writer.write("    <xml>" + writeableBusinessObject.getXmlFile() + "</xml>\r\n");
+                if(writeableBusinessObject.getHtmlFile()!=null){
+                    writer.write("    <html>" + writeableBusinessObject.getHtmlFile() + "</html>\r\n");
                 }
                 writer.write("  </" + key + ">\r\n");
             }
@@ -199,13 +199,13 @@ public class AccountingsSAXParser {
             accounting.xmlToHtml();
 
             for(String key : accounting.getKeys()){
-                BusinessCollection<BusinessObject> collection = accounting.getCollection(key);
+                WriteableBusinessCollection<WriteableBusinessObject> collection = accounting.getCollection(key);
                 collection.xmlToHtml();
                 if(collection.getHtmlFolder()!=null){
-                    for(BusinessObject businessObject : collection.getBusinessObjects()){
+                    for(WriteableBusinessObject writeableBusinessObject : collection.getBusinessObjects()){
 //                        TODO: add isSavedHTML
-//                        if(businessObject.isSavedHTML()){
-                            businessObject.xmlToHtml();
+//                        if(writeableBusinessObject.isSavedHTML()){
+                            writeableBusinessObject.xmlToHtml();
 //                        }
                     }
                 }

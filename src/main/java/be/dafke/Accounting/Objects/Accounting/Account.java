@@ -14,7 +14,7 @@ import java.util.Calendar;
   * @since 01/10/2010
  */
 @XmlRootElement
-public class Account extends BusinessObject{
+public class Account extends WriteableBusinessObject {
 
     public enum AccountType {
 		Active, Passive, Cost, Revenue, Credit, Debit;

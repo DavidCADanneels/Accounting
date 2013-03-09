@@ -4,7 +4,7 @@ import be.dafke.Accounting.GUI.CodaManagement.SearchOptions;
 
 import java.util.ArrayList;
 
-public class Movements extends BusinessCollection<Movement>{
+public class Movements extends WriteableBusinessCollection<Movement> {
 
 	public ArrayList<Movement> getMovements(SearchOptions searchOptions) {
 		ArrayList<Movement> result = new ArrayList<Movement>();

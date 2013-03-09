@@ -6,7 +6,7 @@ import be.dafke.Accounting.Exceptions.EmptyNameException;
 import java.io.File;
 import java.util.TreeMap;
 
-public class Accountings extends BusinessCollection<Accounting>{
+public class Accountings extends WriteableBusinessCollection<Accounting> {
 	private Accounting currentAccounting = null;
 
     public Accountings(){

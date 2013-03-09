@@ -5,7 +5,7 @@ package be.dafke.Accounting.Objects.Accounting;
  * Date: 27/02/13
  * Time: 11:06
  */
-public class Mortgages extends BusinessCollection<Mortgage>{
+public class Mortgages extends WriteableBusinessCollection<Mortgage> {
 
 
 }

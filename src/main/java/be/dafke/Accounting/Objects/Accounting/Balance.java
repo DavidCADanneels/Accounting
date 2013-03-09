@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Date: 28/02/13
  * Time: 0:54
  */
-public class Balance extends BusinessObject{
+public class Balance extends WriteableBusinessObject {
 
     private String leftName;
     private String rightName;

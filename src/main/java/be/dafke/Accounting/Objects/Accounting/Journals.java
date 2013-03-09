@@ -12,7 +12,7 @@ import java.util.Map;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journals extends BusinessCollection<Journal> {
+public class Journals extends WriteableBusinessCollection<Journal> {
 
     private Journal currentJournal;
 

@@ -6,7 +6,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class CounterParty extends BusinessObject{
+public class CounterParty extends WriteableBusinessObject {
 	/**
 	 * 
 	 */

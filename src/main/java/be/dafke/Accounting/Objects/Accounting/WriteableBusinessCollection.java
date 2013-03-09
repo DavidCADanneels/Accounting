@@ -17,7 +17,7 @@ import java.util.TreeMap;
  * Date: 4/03/13
  * Time: 16:23
  */
-public class BusinessCollection<V extends BusinessObject> extends BusinessObject{
+public class WriteableBusinessCollection<V extends WriteableBusinessObject> extends WriteableBusinessObject {
 
 
     protected HashMap<String, TreeMap<String,V>> dataTables;
@@ -25,7 +25,7 @@ public class BusinessCollection<V extends BusinessObject> extends BusinessObject
     protected File htmlFolder;
     protected File xmlFolder;
 
-    public BusinessCollection(){
+    public WriteableBusinessCollection(){
         dataTables = new HashMap<String, TreeMap<String, V>>();
         addKey(NAME);
     }
@@ -50,16 +50,16 @@ public class BusinessCollection<V extends BusinessObject> extends BusinessObject
     public void setHtmlFolder(File parentFolder){
         setHtmlFile(new File(parentFolder, getType() + ".html"));
         htmlFolder = new File(parentFolder, getType());
-        for(BusinessObject businessObject: getBusinessObjects()){
-            businessObject.setHtmlFile(new File(htmlFolder, businessObject.getName() + ".html"));
+        for(WriteableBusinessObject writeableBusinessObject : getBusinessObjects()){
+            writeableBusinessObject.setHtmlFile(new File(htmlFolder, writeableBusinessObject.getName() + ".html"));
         }
     }
 
     protected void setXmlFolder(File parentFolder) {
         setXmlFile(new File(parentFolder, getType() + ".xml"));
         xmlFolder = new File(parentFolder, getType());
-        for(BusinessObject businessObject: getBusinessObjects()){
-            businessObject.setXmlFile(new File(xmlFolder, businessObject.getName() + ".xml"));
+        for(WriteableBusinessObject writeableBusinessObject : getBusinessObjects()){
+            writeableBusinessObject.setXmlFile(new File(xmlFolder, writeableBusinessObject.getName() + ".xml"));
         }
     }
 
@@ -88,8 +88,8 @@ public class BusinessCollection<V extends BusinessObject> extends BusinessObject
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(getType()).append(":\r\n");
-        for(BusinessObject businessObject : getBusinessObjects()){
-            builder.append(businessObject.toString());
+        for(WriteableBusinessObject writeableBusinessObject : getBusinessObjects()){
+            builder.append(writeableBusinessObject.toString());
         }
         return builder.toString();
     }
@@ -194,7 +194,7 @@ public class BusinessCollection<V extends BusinessObject> extends BusinessObject
     // Remove
 
     /**Removal function for external use: performs a check if the value is deletable
-     * @see be.dafke.Accounting.Objects.Accounting.BusinessObject#isDeletable()
+     * @see WriteableBusinessObject#isDeletable()
      * @param value the value to delete
      * @throws NotEmptyException if the value is not deletable
      */

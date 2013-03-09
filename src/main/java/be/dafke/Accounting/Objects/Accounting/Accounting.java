@@ -7,7 +7,7 @@ import java.util.HashMap;
 /**
  * @author David Danneels
  */
-public class Accounting extends BusinessObject{
+public class Accounting extends WriteableBusinessObject {
 	private final Accounts accounts;
 	private final Journals journals;
 	private final Projects projects;
@@ -17,7 +17,7 @@ public class Accounting extends BusinessObject{
     private final Movements movements;
     private final Balances balances;
     private File xmlFolder, htmlFolder;
-    private HashMap<String, BusinessCollection<BusinessObject>> collections;
+    private HashMap<String, WriteableBusinessCollection<WriteableBusinessObject>> collections;
     private ArrayList<String> keys;
 
     public Accounting() {
@@ -32,14 +32,14 @@ public class Accounting extends BusinessObject{
         journalTypes = new JournalTypes();
         balances.addDefaultBalances(this);
 
-        collections = new HashMap<String, BusinessCollection<BusinessObject>>();
-        // TODO unchecked assignment: use put(..., (BusinessCollection<BusinessObject>) accounts)
-        collections.put(accounts.getType(),(BusinessCollection)accounts);
-        collections.put(journals.getType(),(BusinessCollection)journals);
-        collections.put(balances.getType(),(BusinessCollection)balances);
-        collections.put(mortgages.getType(),(BusinessCollection)mortgages);
-        collections.put(movements.getType(),(BusinessCollection)movements);
-        collections.put(counterParties.getType(),(BusinessCollection)counterParties);
+        collections = new HashMap<String, WriteableBusinessCollection<WriteableBusinessObject>>();
+        // TODO unchecked assignment: use put(..., (WriteableBusinessCollection<WriteableBusinessObject>) accounts)
+        collections.put(accounts.getType(),(WriteableBusinessCollection)accounts);
+        collections.put(journals.getType(),(WriteableBusinessCollection)journals);
+        collections.put(balances.getType(),(WriteableBusinessCollection)balances);
+        collections.put(mortgages.getType(),(WriteableBusinessCollection)mortgages);
+        collections.put(movements.getType(),(WriteableBusinessCollection)movements);
+        collections.put(counterParties.getType(),(WriteableBusinessCollection)counterParties);
 
         keys = new ArrayList<String>();
         keys.add(accounts.getType());
@@ -60,7 +60,7 @@ public class Accounting extends BusinessObject{
         return keys;
     }
 
-    public BusinessCollection<BusinessObject> getCollection(String key) {
+    public WriteableBusinessCollection<WriteableBusinessObject> getCollection(String key) {
         return collections.get(key);
     }
 

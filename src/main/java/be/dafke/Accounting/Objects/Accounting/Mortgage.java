@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class Mortgage extends BusinessObject {
+public class Mortgage extends WriteableBusinessObject {
 	private ArrayList<Vector<BigDecimal>> table;
 	private int alreadyPayed = 0;
 	private Account capital, intrest;

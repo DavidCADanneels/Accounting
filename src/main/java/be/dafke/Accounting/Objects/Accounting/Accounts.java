@@ -14,7 +14,7 @@ import java.util.Map;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Accounts extends BusinessCollection<Account> {
+public class Accounts extends WriteableBusinessCollection<Account> {
 
     private Account currentAccount;
 
