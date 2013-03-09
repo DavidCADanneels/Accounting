@@ -38,11 +38,11 @@ public class AccountManagementTableModel extends AbstractTableModel {
 				case Active:
 				case Cost:
 				case Credit:
-					return account.saldo();
+					return account.getSaldo();
 				case Passive:
 				case Revenue:
 				case Debit:
-					return BigDecimal.ZERO.subtract(account.saldo());
+					return BigDecimal.ZERO.subtract(account.getSaldo());
 				default:
 					return "";
 			}

@@ -88,7 +88,7 @@ public class BusinessObject {
     public boolean isDeletable() {
         return false;
     }
-
+    // TODO: make interfaces: Mergeable etc
     public boolean isMergeable(){
         return false;
     }

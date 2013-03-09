@@ -37,10 +37,10 @@ public class TestBalanceDataModel extends AbstractTableModel {
 		else if (col == 1) return account.getDebetTotal();
 		else if (col == 2) return account.getCreditTotal();
 		else if (col == 3) {
-			if (account.saldo().compareTo(BigDecimal.ZERO) > 0) return account.saldo();
+			if (account.getSaldo().compareTo(BigDecimal.ZERO) > 0) return account.getSaldo();
 			return "";
 		} else {// col==4)
-			if (account.saldo().compareTo(BigDecimal.ZERO) < 0) return BigDecimal.ZERO.subtract(account.saldo());
+			if (account.getSaldo().compareTo(BigDecimal.ZERO) < 0) return BigDecimal.ZERO.subtract(account.getSaldo());
 			return "";
 		}
 	}

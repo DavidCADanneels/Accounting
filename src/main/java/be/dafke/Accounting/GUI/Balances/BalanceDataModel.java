@@ -49,10 +49,10 @@ public class BalanceDataModel extends AbstractTableModel {
 				BigDecimal totalLeft = new BigDecimal(0);
 				BigDecimal totalRight = new BigDecimal(0);
                 for(Account left : leftAccounts){
-                    totalLeft = totalLeft.add(left.saldo());
+                    totalLeft = totalLeft.add(left.getSaldo());
                 }
                 for(Account right : rightAccounts){
-                    totalRight = totalRight.add(right.saldo());
+                    totalRight = totalRight.add(right.getSaldo());
                 }
                 totalLeft = totalLeft.setScale(2);
                 totalRight = totalRight.setScale(2);
@@ -82,7 +82,7 @@ public class BalanceDataModel extends AbstractTableModel {
 			if (row < balance.getLeftAccounts().size()) {
 				Account account = balance.getLeftAccounts().get(row);
 				if (col == 0) return account;
-				return account.saldo();
+				return account.getSaldo();
 			}
 			return "";
 		}
@@ -90,7 +90,7 @@ public class BalanceDataModel extends AbstractTableModel {
 		if (row < balance.getRightAccounts().size()) {
 			Account account = balance.getRightAccounts().get(row);
 			if (col == 3) return account;
-			return BigDecimal.ZERO.subtract(account.saldo());
+			return BigDecimal.ZERO.subtract(account.getSaldo());
 		}
 		return "";
 	}

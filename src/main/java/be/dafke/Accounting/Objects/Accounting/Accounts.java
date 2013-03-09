@@ -58,7 +58,7 @@ public class Accounts extends BusinessCollection<Account> {
     private ArrayList<Account> getAccountsNotEmpty(AccountType type) {
         ArrayList<Account> col = new ArrayList<Account>();
         for(Account account : getBusinessObjects()) {
-            if (account.getAccountType() == type && account.saldo().compareTo(BigDecimal.ZERO) != 0) col.add(account);
+            if (account.getAccountType() == type && account.getSaldo().compareTo(BigDecimal.ZERO) != 0) col.add(account);
         }
         return col;
     }

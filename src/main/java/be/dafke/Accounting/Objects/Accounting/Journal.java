@@ -22,7 +22,6 @@ public class Journal extends BusinessObject{
     protected static final String ABBREVIATION = "abbreviation";
 
     public Journal() {
-//		save = true;
 		transactions = new MultiValueMap<Calendar,Transaction>();
 		id = 1;
 	}
@@ -68,44 +67,27 @@ public class Journal extends BusinessObject{
         this.journalType = journalType;
     }
 
-    /**
-	 * Geeft de naam van het dagboek en de bijhorende afkorting terug
-	 * @return de naam van het dagboek en de bijhorende afkorting <b><i>naam dagboek(afkorting)</i></b>
-	 */
-
 	@Override
 	public String toString() {
 		return getName() + " (" + abbreviation + ")";
 	}
 
-	/**
-	 * Geeft de transacties terug die bij dit dagboek horen
-	 * @return de transacties die bij dit dagboek horen
-	 */
 	public ArrayList<Transaction> getTransactions() {
         return transactions.values();
     }
 
-	/**
-	 * Geeft het id van de volgende transactie terug
-	 * @return het id van de volgende transactie
-	 */
 	public int getId() {
 		return id;
 	}
 
-	/**
-	 * Geeft de afkorting van het dagboek terug
-	 * @return de afkorting van het dagboek
-	 */
 	public String getAbbreviation() {
 		return abbreviation;
 	}
 
-    /**
-	 * Verwijdert de gegeven transactie
-	 * @param transaction de te verwijderen transactie
-	 */
+    public void setAbbreviation(String newAbbreviation) {
+        abbreviation = newAbbreviation;
+    }
+
 	private void deleteTransaction(Transaction transaction) {
         // Remove Key-Value Pair
         Calendar date = transaction.getDate();
@@ -119,10 +101,6 @@ public class Journal extends BusinessObject{
         }
 	}
 
-    /**
-	 * Voegt een transactie toe
-	 * @param transaction de toe te voegen transactie
-	 */
 	private void addTransaction(Transaction transaction) {
         // Add Key-Value Pair
         Calendar date = transaction.getDate();
@@ -139,47 +117,29 @@ public class Journal extends BusinessObject{
         }
 	}
 
-	/**
-	 * Verwijdert de gegeven transactie
-	 * @param transaction de te verwijderen transactie
-	 */
 	public void unbook(Transaction transaction) {
 		deleteTransaction(transaction);
-		ArrayList<Booking> boekingen = transaction.getBookings();
-		for(Booking boeking : boekingen) {
-			Account account = boeking.getAccount();
-			account.unbook(boeking);
+		ArrayList<Booking> bookings = transaction.getBookings();
+		for(Booking booking : bookings) {
+			Account account = booking.getAccount();
+			account.unbook(booking);
 		}
 		id--;
-//		accounting.setSavedXML(false);
-//		accounting.setSavedHTML(false);
-//		save = false;
 	}
 
-	/**
-	 * Boek de gegeven transactie
-	 * @param transaction de te boeken transactie
-	 */
 	public void book(Transaction transaction) {
         transaction.setJournal(this);
         transaction.setAbbreviation(abbreviation);
 		addTransaction(transaction);
-		ArrayList<Booking> boekingen = transaction.getBookings();
-		for(Booking boeking : boekingen) {
-			Account rek = boeking.getAccount();
-			rek.book(boeking);
+		ArrayList<Booking> bookings = transaction.getBookings();
+		for(Booking booking : bookings) {
+			Account account = booking.getAccount();
+			account.book(booking);
 		}
         for(Mortgage mortgage : transaction.getMortgages()) {
             mortgage.increasePayed();
         }
 
         id++;
-//		accounting.setSavedXML(false);
-//		accounting.setSavedHTML(false);
-//		save = false;
-	}
-
-	public void setAbbreviation(String newAbbreviation) {
-		abbreviation = newAbbreviation;
 	}
 }

@@ -139,7 +139,7 @@ public class AccountsSAXParser {
                 writer.write("    <description>" + booking.getTransaction().getDescription() + "</description>\r\n");
                 writer.write("  </action>\r\n");
             }
-            BigDecimal saldo = account.saldo();
+            BigDecimal saldo = account.getSaldo();
             String resultType =(saldo.compareTo(BigDecimal.ZERO)<0)?"credit":"debit";
             writer.write("  <closed type = \"" + resultType + "\">\r\n" + "    <debitTotal>" + account.getDebetTotal() + "</debitTotal>\r\n"
                     + "    <creditTotal>" + account.getCreditTotal() + "</creditTotal>\r\n"

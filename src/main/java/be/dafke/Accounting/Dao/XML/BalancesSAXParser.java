@@ -78,13 +78,13 @@ public class BalancesSAXParser {
                 writer.write("  <line>\r\n");
                 if (i < nrLeft) {
                     writer.write("    <name1>" + leftAccounts.get(i).toString() + "</name1>\r\n");
-                    writer.write("    <amount1>" + leftAccounts.get(i).saldo() + "</amount1>\r\n");
+                    writer.write("    <amount1>" + leftAccounts.get(i).getSaldo() + "</amount1>\r\n");
 //                } else {
 //                    writer.write("    <name1></name1>\r\n");
 //                    writer.write("    <amount1></amount1>\r\n");
                 }
                 if (i < nrRight) {
-                    writer.write("    <amount2>" + BigDecimal.ZERO.subtract(rightAccounts.get(i).saldo())
+                    writer.write("    <amount2>" + BigDecimal.ZERO.subtract(rightAccounts.get(i).getSaldo())
                             + "</amount2>\r\n");
                     writer.write("    <name2>" + rightAccounts.get(i).toString() + "</name2>\r\n");
 //                } else {
