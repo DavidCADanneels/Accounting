@@ -4,7 +4,7 @@ import be.dafke.Accounting.GUI.AccountManagement.AccountManagementGUI;
 import be.dafke.Accounting.GUI.Balances.BalanceGUI;
 import be.dafke.Accounting.GUI.Balances.TestBalance;
 import be.dafke.Accounting.GUI.CodaManagement.CounterPartyTable;
-import be.dafke.Accounting.GUI.CodaManagement.MovementTable;
+import be.dafke.Accounting.GUI.CodaManagement.StatementTable;
 import be.dafke.Accounting.GUI.JournalManagement.JournalManagementGUI;
 import be.dafke.Accounting.GUI.JournalManagement.JournalTypeManagementGUI;
 import be.dafke.Accounting.GUI.MortgageManagement.MortgageGUI;
@@ -28,7 +28,7 @@ public class ComponentMap {
     public static final String YEAR_BALANCE = "YearBalance";
     public static final String RELATIONS_BALANCE = "BalanceGUI";
     public static final String RESULT_BALANCE = "ResultBalance";
-    public static final String MOVEMENTS = "Movements";
+    public static final String MOVEMENTS = "Statements";
     public static final String COUNTERPARTIES = "Counterparties";
     public static final String MORTGAGES = "Mortgages";
     public static final String PROJECTS = "Projects";
@@ -55,7 +55,7 @@ public class ComponentMap {
         addDisposableComponent(accounting.toString() + TEST_BALANCE, new TestBalance(accounting));
         addDisposableComponent(accounting.toString() + YEAR_BALANCE, new BalanceGUI(accounting.getBalances().getBusinessObject(Balances.YEAR_BALANCE)));
         addDisposableComponent(accounting.toString() + PROJECTS, new ProjectManagementGUI(accounting));
-        addDisposableComponent(accounting.toString() + MOVEMENTS, new MovementTable(accounting, actionListener));
+        addDisposableComponent(accounting.toString() + MOVEMENTS, new StatementTable(accounting, actionListener));
         addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting, actionListener));
         addDisposableComponent(accounting.toString() + MORTGAGES, new MortgageGUI(accounting, actionListener));
         addDisposableComponent(accounting.toString() + ACCOUNT_MANAGEMENT, new AccountManagementGUI(accounting, actionListener));

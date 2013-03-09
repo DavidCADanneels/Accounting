@@ -65,7 +65,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
           </xsl:element>
         </li>
         </xsl:for-each>
-        <xsl:for-each select="Movements">
+        <xsl:for-each select="Statements">
         <li>
           <xsl:element name="a">
             <xsl:attribute name="href">

@@ -15,7 +15,7 @@ public class Accounting extends WriteableBusinessObject {
     private final JournalTypes journalTypes;
     private final Mortgages mortgages;
     private final CounterParties counterParties;
-    private final Movements movements;
+    private final Statements statements;
     private final Balances balances;
     private File xmlFolder, htmlFolder;
     private HashMap<String, WriteableBusinessCollection<WriteableBusinessObject>> collections;
@@ -31,7 +31,7 @@ public class Accounting extends WriteableBusinessObject {
         balances = new Balances();
         mortgages = new Mortgages();
         counterParties = new CounterParties();
-        movements = new Movements();
+        statements = new Statements();
         projects = new Projects();
         balances.addDefaultBalances(this);
 
@@ -42,7 +42,7 @@ public class Accounting extends WriteableBusinessObject {
         collections.put(journals.getType(),(WriteableBusinessCollection)journals);
         collections.put(balances.getType(),(WriteableBusinessCollection)balances);
         collections.put(mortgages.getType(),(WriteableBusinessCollection)mortgages);
-        collections.put(movements.getType(),(WriteableBusinessCollection)movements);
+        collections.put(statements.getType(),(WriteableBusinessCollection) statements);
         collections.put(counterParties.getType(),(WriteableBusinessCollection)counterParties);
 
         keys = new ArrayList<String>();
@@ -52,7 +52,7 @@ public class Accounting extends WriteableBusinessObject {
         keys.add(balances.getType());
         keys.add(mortgages.getType());
         keys.add(counterParties.getType());
-        keys.add(movements.getType());
+        keys.add(statements.getType());
 	}
 
     @Override
@@ -104,8 +104,8 @@ public class Accounting extends WriteableBusinessObject {
         return counterParties;
     }
     //
-    public Movements getMovements() {
-        return movements;
+    public Statements getStatements() {
+        return statements;
     }
 
 	// Folders
@@ -125,7 +125,7 @@ public class Accounting extends WriteableBusinessObject {
         journals.setHtmlFolder(htmlFolder);
         balances.setHtmlFolder(htmlFolder);
         mortgages.setHtmlFolder(htmlFolder);
-//        movements.setHtmlFolder(htmlFolder);
+//        statements.setHtmlFolder(htmlFolder);
 //        counterParties.setHtmlFolder(htmlFolder);
     }
 
@@ -138,7 +138,7 @@ public class Accounting extends WriteableBusinessObject {
         journals.setXmlFolder(xmlFolder);
         balances.setXmlFolder(xmlFolder);
         mortgages.setXmlFolder(xmlFolder);
-        movements.setXmlFolder(xmlFolder);
+        statements.setXmlFolder(xmlFolder);
         counterParties.setXmlFolder(xmlFolder);
     }
 
@@ -150,7 +150,7 @@ public class Accounting extends WriteableBusinessObject {
         journals.createXmlFolder();
         balances.createXmlFolder();
         mortgages.createXmlFolder();
-//        movements.createXmlFolder();
+//        statements.createXmlFolder();
 //        counterParties.createXmlFolder();
     }
 
@@ -163,7 +163,7 @@ public class Accounting extends WriteableBusinessObject {
             journals.createHtmlFolder();
             balances.createHtmlFolder();
             mortgages.createHtmlFolder();
-//            movements.createHtmlFolder();
+//            statements.createHtmlFolder();
 //            counterParties.createHtmlFolder();
         }
     }

@@ -11,8 +11,8 @@ import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.BankAccount;
 import be.dafke.Accounting.Objects.Accounting.CounterParties;
 import be.dafke.Accounting.Objects.Accounting.CounterParty;
-import be.dafke.Accounting.Objects.Accounting.Movement;
-import be.dafke.Accounting.Objects.Accounting.Movements;
+import be.dafke.Accounting.Objects.Accounting.Statement;
+import be.dafke.Accounting.Objects.Accounting.Statements;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -35,31 +35,31 @@ public class CodaParser {
 
 	public void parseFile(File[] files, Accounting accounting) {
 		counterParties = accounting.getCounterParties();
-		Movements movements = accounting.getMovements();
-		Movement movement = null;
+		Statements statements = accounting.getStatements();
+		Statement statement = null;
 		for(File file : files) {
 			try {
 				BufferedReader reader = new BufferedReader(new FileReader(file));
 				String line = reader.readLine();
 				while (line != null) {
 					if (line.startsWith("21")) {
-                        movement = parse(line);
+                        statement = parse(line);
                         try {
-                            movements.addBusinessObject(movement);
+                            statements.addBusinessObject(statement);
                         } catch (EmptyNameException e) {
-                            System.err.println("Movement name is empty.");
+                            System.err.println("Statement name is empty.");
                         } catch (DuplicateNameException e) {
-                            System.err.println("Movement name already exist.");
+                            System.err.println("Statement name already exist.");
                         }
                     } else if (line.startsWith("22")) {
-                        if(movement!=null){
-						    addPart2(movement, line);
+                        if(statement !=null){
+						    addPart2(statement, line);
                         } else {
                             System.err.println("Corrupt CODA file: " + file.getName());
                         }
 					} else if (line.startsWith("23")) {
-                        if(movement!=null){
-						    addPart3(movement, line);
+                        if(statement !=null){
+						    addPart3(statement, line);
                         } else {
                             System.err.println("Corrupt CODA file: " + file.getName());
                         }
@@ -73,20 +73,20 @@ public class CodaParser {
 		}
 	}
 
-    public void addPart2(Movement movement, String line) {
+    public void addPart2(Statement statement, String line) {
         String communication2 = line.substring(10, 63).trim();
         counterPartyBic = line.substring(98, 109).trim();
 
         // Reset communicatie
-        String communication = movement.getCommunication();
-        String transactionCode = movement.getTransactionCode();
-        if (!movement.isStructured() && !transactionCode.equals("402") && !transactionCode.equals("404") && communication2 != null && !communication2.trim().isEmpty()) {
+        String communication = statement.getCommunication();
+        String transactionCode = statement.getTransactionCode();
+        if (!statement.isStructured() && !transactionCode.equals("402") && !transactionCode.equals("404") && communication2 != null && !communication2.trim().isEmpty()) {
             // momenteel enkel indien transactionCode = 150 (CM)
-            movement.setCommunication(communication.trim() + communication2.trim());
+            statement.setCommunication(communication.trim() + communication2.trim());
         }
     }
 
-    public void addPart3(Movement movement, String line) {
+    public void addPart3(Statement statement, String line) {
         String counterPartyAccount = line.substring(10, 44).trim();
         CounterParty counterParty = new CounterParty();
         if (!counterPartyAccount.trim().equals("")) {
@@ -98,7 +98,7 @@ public class CodaParser {
         }
         String counterPartyName = line.substring(47, 82).trim();
         counterParty.setName(counterPartyName.toUpperCase().trim());
-        movement.setCounterParty(counterParty);
+        statement.setCounterParty(counterParty);
         try {
             counterParties.addBusinessObject(counterParty);
         } catch (EmptyNameException e) {
@@ -128,7 +128,7 @@ public class CodaParser {
 		return amount;
 	}
 
-    public Movement parse(String line) {
+    public Statement parse(String line) {
         String sequenceNumber = line.substring(2, 6).trim();
         String sign = line.substring(31, 32).trim();
         boolean debit = "1".equals(sign);
@@ -149,23 +149,23 @@ public class CodaParser {
 //		while (sequenceNumber.startsWith("0")) {
 //			sequenceNumber = sequenceNumber.substring(1);
 //		}
-        Movement movement = new Movement();
-        movement.setName(statementNumber+"-"+sequenceNumber);
-        movement.setStatementNr(statementNumber);
-        movement.setSequenceNumber(sequenceNumber);
-        movement.setDate(date);
-        movement.setDebit(debit);
-        movement.setAmount(amount);
-        movement.setTransactionCode(transactionCode);
-        movement.setCommunication(communication);
-        movement.setStructured(structured);
-        resetCommunication(movement, structured);
-        return movement;
+        Statement statement = new Statement();
+        statement.setName(statementNumber+"-"+sequenceNumber);
+        statement.setStatementNr(statementNumber);
+        statement.setSequenceNumber(sequenceNumber);
+        statement.setDate(date);
+        statement.setDebit(debit);
+        statement.setAmount(amount);
+        statement.setTransactionCode(transactionCode);
+        statement.setCommunication(communication);
+        statement.setStructured(structured);
+        resetCommunication(statement, structured);
+        return statement;
     }
 
-    private void resetCommunication(Movement movement, boolean structured){
-        String transactionCode = movement.getTransactionCode();
-        String communication = movement.getCommunication();
+    private void resetCommunication(Statement statement, boolean structured){
+        String transactionCode = statement.getTransactionCode();
+        String communication = statement.getCommunication();
         if (transactionCode.equals("402") || transactionCode.equals("404")) {
             communication = communication.replaceAll("[0-9]", "");
             communication = communication.trim();
@@ -192,6 +192,6 @@ public class CodaParser {
                 communication = communication.trim();
             }
         }
-        movement.setCommunication(communication);
+        statement.setCommunication(communication);
     }
 }

@@ -5,8 +5,8 @@ import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.CounterParties;
 import be.dafke.Accounting.Objects.Accounting.CounterParty;
-import be.dafke.Accounting.Objects.Accounting.Movement;
-import be.dafke.Accounting.Objects.Accounting.Movements;
+import be.dafke.Accounting.Objects.Accounting.Statement;
+import be.dafke.Accounting.Objects.Accounting.Statements;
 import be.dafke.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -28,25 +28,25 @@ import java.util.logging.Logger;
  * Date: 28/02/13
  * Time: 5:08
  */
-public class MovementsSAXParser {
+public class StatementsSAXParser {
     // READ
     //
-    public static void readMovements(Movements movements, CounterParties counterParties){
+    public static void readStatements(Statements statements, CounterParties counterParties){
         try {
-            File file = movements.getXmlFile();
+            File file = statements.getXmlFile();
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(file.getAbsolutePath());
             doc.getDocumentElement().normalize();
 
-            Element rootElement = (Element) doc.getElementsByTagName("Movements").item(0);
-            NodeList nodeList = rootElement.getElementsByTagName("Movement");
+            Element rootElement = (Element) doc.getElementsByTagName("Statements").item(0);
+            NodeList nodeList = rootElement.getElementsByTagName("Statement");
 
             for (int i = 0; i < nodeList.getLength(); i++) {
                 Element element = (Element)nodeList.item(i);
-                String statementNr = Utils.getValue(element, "Statement");
-                String sequenceNr = Utils.getValue(element, "Sequence");
+                String statementNr = Utils.getValue(element, "ID1");
+                String sequenceNr = Utils.getValue(element, "ID2");
                 String dateString = Utils.getValue(element, "Date");
                 String debitString = Utils.getValue(element, "Sign");
                 String amountString = Utils.getValue(element, "Amount");
@@ -61,25 +61,25 @@ public class MovementsSAXParser {
                 BigDecimal amount = new BigDecimal(amountString);
                 Calendar date = Utils.toCalendar(dateString);
                 boolean debit = ("D".equals(debitString));
-                Movement movement = new Movement();
-                movement.setName(statementNr+"-"+sequenceNr);
-                movement.setStatementNr(statementNr);
-                movement.setSequenceNumber(sequenceNr);
-                movement.setDate(date);
-                movement.setDebit(debit);
-                movement.setAmount(amount);
+                Statement statement = new Statement();
+                statement.setName(statementNr+"-"+sequenceNr);
+                statement.setStatementNr(statementNr);
+                statement.setSequenceNumber(sequenceNr);
+                statement.setDate(date);
+                statement.setDebit(debit);
+                statement.setAmount(amount);
                 if(counterpartyName!=null){
                     CounterParty counterParty = counterParties.getBusinessObject(counterpartyName);
-                    movement.setCounterParty(counterParty);
+                    statement.setCounterParty(counterParty);
                 }
-                movement.setTransactionCode(transactionCode);
-                movement.setCommunication(communication);
+                statement.setTransactionCode(transactionCode);
+                statement.setCommunication(communication);
                 try {
-                    movements.addBusinessObject(movement);
+                    statements.addBusinessObject(statement);
                 } catch (EmptyNameException e) {
-                    System.err.println("Movement name is empty.");
+                    System.err.println("Statement name is empty.");
                 } catch (DuplicateNameException e) {
-                    System.err.println("Movement name already exist.");
+                    System.err.println("Statement name already exist.");
                 }
             }
         } catch (Exception e) {
@@ -89,30 +89,30 @@ public class MovementsSAXParser {
 
     // WRITE
     //
-    public static void writeMovements(Movements movements) {
+    public static void writeStatements(Statements statements) {
         try {
-            Writer writer = new FileWriter(movements.getXmlFile());
+            Writer writer = new FileWriter(statements.getXmlFile());
 
-            writer.write(movements.getXmlHeader());
+            writer.write(statements.getXmlHeader());
 
-            writer.write("<Movements>\r\n");
-            for(Movement movement : movements.getBusinessObjects()) {
-                writer.write("  <Movement>\r\n");
-                writer.write("    <Statement>"+movement.getStatementNr()+"</Statement>\r\n");
-                writer.write("    <Sequence>"+movement.getSequenceNr()+"</Sequence>\r\n");
-                writer.write("    <Date>"+Utils.toString(movement.getDate())+"</Date>\r\n");
-                writer.write("    <Sign>"+(movement.isDebit()?"D":"C")+"</Sign>\r\n");
-                writer.write("    <Amount>"+movement.getAmount()+"</Amount>\r\n");
-                if(movement.getCounterParty()!=null && !movement.getCounterParty().toString().equals("")){
-                    writer.write("    <CounterParty>"+movement.getCounterParty()+"</CounterParty>\r\n");
+            writer.write("<Statements>\r\n");
+            for(Statement statement : statements.getBusinessObjects()) {
+                writer.write("  <Statement>\r\n");
+                writer.write("    <ID1>"+ statement.getStatementNr()+"</ID1>\r\n");
+                writer.write("    <ID2>"+ statement.getSequenceNr()+"</ID2>\r\n");
+                writer.write("    <Date>"+Utils.toString(statement.getDate())+"</Date>\r\n");
+                writer.write("    <Sign>"+(statement.isDebit()?"D":"C")+"</Sign>\r\n");
+                writer.write("    <Amount>"+ statement.getAmount()+"</Amount>\r\n");
+                if(statement.getCounterParty()!=null && !statement.getCounterParty().toString().equals("")){
+                    writer.write("    <CounterParty>"+ statement.getCounterParty()+"</CounterParty>\r\n");
                 }
-                writer.write("    <TransactionCode>" + movement.getTransactionCode() + "</TransactionCode>\r\n");
-                if(movement.getCommunication()!=null && !movement.getCommunication().equals("")){
-                    writer.write("    <Communication>" + movement.getCommunication() + "</Communication>\r\n");
+                writer.write("    <TransactionCode>" + statement.getTransactionCode() + "</TransactionCode>\r\n");
+                if(statement.getCommunication()!=null && !statement.getCommunication().equals("")){
+                    writer.write("    <Communication>" + statement.getCommunication() + "</Communication>\r\n");
                 }
-                writer.write("  </Movement>\r\n");
+                writer.write("  </Statement>\r\n");
             }
-            writer.write("</Movements>\r\n");
+            writer.write("</Statements>\r\n");
             writer.flush();
             writer.close();
 //			setSaved(true);

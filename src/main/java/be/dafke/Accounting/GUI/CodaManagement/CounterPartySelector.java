@@ -5,7 +5,7 @@ import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.CounterParties;
 import be.dafke.Accounting.Objects.Accounting.CounterParty;
-import be.dafke.Accounting.Objects.Accounting.Movement;
+import be.dafke.Accounting.Objects.Accounting.Statement;
 import be.dafke.Accounting.Objects.Accounting.TmpCounterParty;
 import be.dafke.RefreshableDialog;
 
@@ -25,8 +25,8 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 	private final JComboBox<CounterParty> oldCounterPartyCombo, newCounterPartyCombo;
 	private CounterParty oldCounterParty, newCounterParty;
     private final JTable movementTable;
-	private final GenericMovementDataModel movementDataModel;
-	private final Movement movement;
+	private final GenericStatementDataModel movementDataModel;
+	private final Statement statement;
 	private final JRadioButton single, multiple;
     private final JCheckBox searchOnTransactionCode, searchOnCommunication, searchOnCounterParty;
     private final JTextField transactionCode, communication;
@@ -34,9 +34,9 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 	private final Accounting accounting;
     private final SearchOptions searchOptions;
 
-    public CounterPartySelector(Movement movement, Accounting accounting) {
+    public CounterPartySelector(Statement statement, Accounting accounting) {
 		super("Select Counterparty");
-		this.movement = movement;
+		this.statement = statement;
 		this.accounting = accounting;
 		oldCounterParty = null;
         newCounterParty = null;
@@ -65,16 +65,16 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         //
         searchOptions = new SearchOptions();
         searchOptions.searchForCounterParty(null);
-        searchOptions.searchForTransactionCode(movement.getTransactionCode());
-        movementDataModel = new GenericMovementDataModel(searchOptions,
+        searchOptions.searchForTransactionCode(statement.getTransactionCode());
+        movementDataModel = new GenericStatementDataModel(searchOptions,
                 accounting);
-        movementDataModel.setSingleMovement(movement);
+        movementDataModel.setSingleStatement(statement);
         movementTable = new JTable(movementDataModel);
         movementTable.setDefaultRenderer(CounterParty.class, new ColorRenderer());
         movementTable.setDefaultRenderer(TmpCounterParty.class, new ColorRenderer());
         JScrollPane scrollPane = new JScrollPane(movementTable);
         //
-        single = new JRadioButton("Single movement");
+        single = new JRadioButton("Single statement");
         multiple = new JRadioButton("Multiple movements");
         searchOnTransactionCode = new JCheckBox("TransactionCode == ");
         searchOnTransactionCode.setEnabled(false);
@@ -85,7 +85,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         searchOnCommunication.addActionListener(this);
         transactionCode = new JTextField(10);
         transactionCode.setEnabled(false);
-        transactionCode.setText(movement.getTransactionCode());
+        transactionCode.setText(statement.getTransactionCode());
         transactionCode.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -104,7 +104,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         });
         communication = new JTextField(10);
         communication.setEnabled(false);
-        communication.setText(movement.getCommunication());
+        communication.setText(statement.getCommunication());
         communication.getDocument().addDocumentListener(new DocumentListener() {
             @Override
             public void changedUpdate(DocumentEvent e) {
@@ -209,11 +209,11 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
             apply.setEnabled(newCounterParty != null);
             fillInCounterParty();
         } else if (e.getSource() == single) {
-			movementDataModel.setSingleMovement(movement);
+			movementDataModel.setSingleStatement(statement);
             enableSearchOptions(false);
 			fillInCounterParty();
 		} else if (e.getSource() == multiple) {
-			movementDataModel.setSingleMovement(null);
+			movementDataModel.setSingleStatement(null);
             enableSearchOptions(true);
 			fillInCounterParty();
 		} else if (e.getSource() == apply) {
@@ -252,7 +252,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
     }
 
 	private void setCounterParty() {
-		for(Movement m : movementDataModel.getAllMovements()) {
+		for(Statement m : movementDataModel.getAllStatements()) {
 			TmpCounterParty tmpCounterParty = m.getTmpCounterParty();
             // TODO: check if tmpCounterParty is not null (now null-safe through disabled buttons in GUI)
 			m.setCounterParty(tmpCounterParty.getCounterParty());
@@ -267,7 +267,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 	}
 
 	private void fillInCounterParty() {
-		for(Movement m : movementDataModel.getAllMovements()) {
+		for(Statement m : movementDataModel.getAllStatements()) {
 			String name;
 			if (newCounterParty == null) {
 				name = null;

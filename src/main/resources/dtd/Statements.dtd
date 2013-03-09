@@ -1,9 +1,9 @@
-<!ELEMENT Movements (Movement*)>
+<!ELEMENT Statements (Statement*)>
 <!ELEMENT xml (#PCDATA)>
 <!ELEMENT html (#PCDATA)>
-<!ELEMENT Movement (Statement,Sequence,Date,Sign,Amount,CounterParty?,TransactionCode,Communication?)>
-<!ELEMENT Statement (#PCDATA)>
-<!ELEMENT Sequence (#PCDATA)>
+<!ELEMENT Statement (ID1,ID2,Date,Sign,Amount,CounterParty?,TransactionCode,Communication?)>
+<!ELEMENT ID1 (#PCDATA)>
+<!ELEMENT ID2 (#PCDATA)>
 <!ELEMENT Date (#PCDATA)>
 <!ELEMENT Sign (#PCDATA)>
 <!ELEMENT Amount (#PCDATA)>

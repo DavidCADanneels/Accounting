@@ -89,7 +89,7 @@ public class AccountingsSAXParser {
             JournalsSAXParser.readJournals(accounting.getJournals(), accounting.getJournalTypes(), accounting.getAccounts());
             MortgagesSAXParser.readMortgages(accounting.getMortgages(), accounting.getAccounts());
             CounterPartiesSAXParser.readCounterparties(accounting.getCounterParties(), accounting.getAccounts());
-            MovementsSAXParser.readMovements(accounting.getMovements(), accounting.getCounterParties());
+            StatementsSAXParser.readStatements(accounting.getStatements(), accounting.getCounterParties());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -154,8 +154,8 @@ public class AccountingsSAXParser {
         System.out.println("Counterparties.TOXML(" + accounting.toString() + ")");
         CounterPartiesSAXParser.writeCounterparties(accounting.getCounterParties());
 
-        System.out.println("Movements.TOXML(" + accounting.toString() + ")");
-        MovementsSAXParser.writeMovements(accounting.getMovements());
+        System.out.println("Statements.TOXML(" + accounting.toString() + ")");
+        StatementsSAXParser.writeStatements(accounting.getStatements());
     }
 
     private static void writeAccountingFile(Accounting accounting) {

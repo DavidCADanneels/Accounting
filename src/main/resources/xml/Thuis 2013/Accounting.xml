@@ -23,8 +23,8 @@
     <name>CounterParties</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\CounterParties.xml</xml>
   </CounterParties>
-  <Movements>
-    <name>Movements</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Movements.xml</xml>
-  </Movements>
+  <Statements>
+    <name>Statements</name>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Statements.xml</xml>
+  </Statements>
 </Accounting>

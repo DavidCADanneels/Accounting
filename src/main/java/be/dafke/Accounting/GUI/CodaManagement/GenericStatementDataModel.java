@@ -2,8 +2,8 @@ package be.dafke.Accounting.GUI.CodaManagement;
 
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.CounterParty;
-import be.dafke.Accounting.Objects.Accounting.Movement;
-import be.dafke.Accounting.Objects.Accounting.Movements;
+import be.dafke.Accounting.Objects.Accounting.Statement;
+import be.dafke.Accounting.Objects.Accounting.Statements;
 import be.dafke.Accounting.Objects.Accounting.TmpCounterParty;
 import be.dafke.Utils;
 
@@ -12,7 +12,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class GenericMovementDataModel extends AbstractTableModel {
+public class GenericStatementDataModel extends AbstractTableModel {
 	/**
 	 * 
 	 */
@@ -21,17 +21,17 @@ public class GenericMovementDataModel extends AbstractTableModel {
 			"New CounterParty", "TransactionCode", "Communication" };
 	private final Class[] columnClasses = { String.class, String.class, Calendar.class, String.class, BigDecimal.class,
 			CounterParty.class, TmpCounterParty.class, String.class, String.class };
-	private Movement singleMovement;
+	private Statement singleStatement;
 	private final Accounting accounting;
     private SearchOptions searchOptions;
 
-	public GenericMovementDataModel(SearchOptions searchOptions, Accounting accounting) {
+	public GenericStatementDataModel(SearchOptions searchOptions, Accounting accounting) {
 		this.accounting = accounting;
         this.searchOptions = searchOptions;
 	}
 
-	public void setSingleMovement(Movement movement) {
-		singleMovement = movement;
+	public void setSingleStatement(Statement statement) {
+		singleStatement = statement;
 		fireTableDataChanged();
 	}
 
@@ -39,7 +39,7 @@ public class GenericMovementDataModel extends AbstractTableModel {
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Movement m = getAllMovements().get(row);
+		Statement m = getAllStatements().get(row);
         if (col == 0) {
 			return m.getStatementNr();
 		} else if (col == 1) {
@@ -68,7 +68,7 @@ public class GenericMovementDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return getAllMovements().size();
+		return getAllStatements().size();
 	}
 
 	@Override
@@ -92,13 +92,13 @@ public class GenericMovementDataModel extends AbstractTableModel {
 	public void setValueAt(Object value, int row, int col) {
 	}
 
-	public ArrayList<Movement> getAllMovements() {
-        if (singleMovement != null) {
-			ArrayList<Movement> result = new ArrayList<Movement>();
-			result.add(singleMovement);
+	public ArrayList<Statement> getAllStatements() {
+        if (singleStatement != null) {
+			ArrayList<Statement> result = new ArrayList<Statement>();
+			result.add(singleStatement);
 			return result;
 		}
-		Movements movements = accounting.getMovements();
-		return movements.getMovements(searchOptions);
+		Statements statements = accounting.getStatements();
+		return statements.getStatements(searchOptions);
 	}
 }

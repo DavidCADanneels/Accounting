@@ -6,8 +6,8 @@ import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.BankAccount;
 import be.dafke.Accounting.Objects.Accounting.CounterParties;
 import be.dafke.Accounting.Objects.Accounting.CounterParty;
-import be.dafke.Accounting.Objects.Accounting.Movement;
-import be.dafke.Accounting.Objects.Accounting.Movements;
+import be.dafke.Accounting.Objects.Accounting.Statement;
+import be.dafke.Accounting.Objects.Accounting.Statements;
 import be.dafke.Utils;
 
 import java.io.BufferedReader;
@@ -41,7 +41,7 @@ public class CsvParser {
 
     public void parseFile(File[] files, Accounting accounting) {
         CounterParties counterParties = accounting.getCounterParties();
-        Movements movements = accounting.getMovements();
+        Statements statements = accounting.getStatements();
         int counter = 0;
         for(File file : files) {
             try {
@@ -60,30 +60,30 @@ public class CsvParser {
                         sequenceNumber = "000"+sequenceNumber;
                     }
                     String[] parts = line.split(";");
-                    Movement movement = new Movement();
-                    movement.setDate(Utils.toCalendar(parts[0]));
-                    movement.setStatementNr("CSV");
-                    movement.setSequenceNumber(sequenceNumber);
-                    movement.setName("CSV-"+sequenceNumber);
+                    Statement statement = new Statement();
+                    statement.setDate(Utils.toCalendar(parts[0]));
+                    statement.setStatementNr("CSV");
+                    statement.setSequenceNumber(sequenceNumber);
+                    statement.setName("CSV-"+sequenceNumber);
                     BigDecimal amount = Utils.parseBigDecimal(parts[4].replace(',','.'));
                     boolean debit = true;
                     if(amount.compareTo(BigDecimal.ZERO)<0){
                         amount = amount.abs();
                         debit = false;
                     }
-                    movement.setDebit(debit);
-                    movement.setAmount(amount);
+                    statement.setDebit(debit);
+                    statement.setAmount(amount);
                     String codeWoord = parts[6];
                     System.out.println(codeWoord);
                     String shortWoord = codeWoord.replaceAll("\"", "");
                     String code = transactionCodes.get(shortWoord);
                     System.out.println(shortWoord);
-                    movement.setTransactionCode(code);
+                    statement.setTransactionCode(code);
                     System.out.println(code);
-                    movement.setTransactionCode(transactionCodes.get(parts[6].replaceAll("\"", "")));
-                    movement.setCommunication(parts[14].replaceAll("\"","").trim()+parts[15].replaceAll("\"","").trim());
+                    statement.setTransactionCode(transactionCodes.get(parts[6].replaceAll("\"", "")));
+                    statement.setCommunication(parts[14].replaceAll("\"","").trim()+parts[15].replaceAll("\"","").trim());
                     try {
-                        movements.addBusinessObject(movement);
+                        statements.addBusinessObject(statement);
                     } catch (EmptyNameException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     } catch (DuplicateNameException e) {

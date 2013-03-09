@@ -47,7 +47,7 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.setCounterParty(counterParty);
                 searchOptions.setSearchOnCounterParty(true);
-				RefreshableTable refreshTable = new GenericMovementTable(searchOptions, accounting);
+				RefreshableTable refreshTable = new GenericStatementTable(searchOptions, accounting);
                 refreshTable.setVisible(true);
 				// parent.addChildFrame(refreshTable);
             } else if (col == 1){

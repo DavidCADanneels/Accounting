@@ -3,7 +3,7 @@ package be.dafke.Accounting.Objects.Accounting;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-public class Movement extends WriteableBusinessObject {
+public class Statement extends WriteableBusinessObject {
     private String statementNr;
     private String sequenceNumber;
     private String transactionCode;

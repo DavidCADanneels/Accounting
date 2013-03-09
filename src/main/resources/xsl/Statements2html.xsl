@@ -7,14 +7,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
   <html>
     <head>
       <title>
-        Movements
+        Statements
       </title>
     </head>
     <body>
       <h1>
-        Movements
+        Statements
       </h1>
-      <xsl:for-each select="Movements">
+      <xsl:for-each select="Statements">
         <table>
           <tr>
             <th>Statement</th>
@@ -26,10 +26,10 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
             <th>TransactionCode</th>
             <th>Communication</th>
           </tr>
-          <xsl:for-each select="Movement">
+          <xsl:for-each select="Statement">
             <tr>
-              <td><xsl:value-of select="Statement"/></td>
-              <td><xsl:value-of select="Sequence"/></td>
+              <td><xsl:value-of select="ID1"/></td>
+              <td><xsl:value-of select="ID2"/></td>
               <td><xsl:value-of select="Date"/></td>
               <td><xsl:value-of select="Sign"/></td>
               <td><xsl:value-of select="Amount"/></td>

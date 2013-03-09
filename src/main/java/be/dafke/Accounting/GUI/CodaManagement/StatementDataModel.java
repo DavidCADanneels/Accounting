@@ -2,13 +2,13 @@ package be.dafke.Accounting.GUI.CodaManagement;
 
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.CounterParty;
-import be.dafke.Accounting.Objects.Accounting.Movement;
+import be.dafke.Accounting.Objects.Accounting.Statement;
 import be.dafke.Utils;
 
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 
-public class MovementDataModel extends AbstractTableModel {
+public class StatementDataModel extends AbstractTableModel {
 	/**
 	 * 
 	 */
@@ -19,7 +19,7 @@ public class MovementDataModel extends AbstractTableModel {
 			CounterParty.class, String.class, String.class };
 	private final Accounting accounting;
 
-	public MovementDataModel(Accounting accounting) {
+	public StatementDataModel(Accounting accounting) {
 		this.accounting = accounting;
 	}
 
@@ -27,7 +27,7 @@ public class MovementDataModel extends AbstractTableModel {
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Movement m = accounting.getMovements().getBusinessObjects().get(row);
+		Statement m = accounting.getStatements().getBusinessObjects().get(row);
 		if (col == 0) {
 			return m.getStatementNr();
 		} else if (col == 1) {
@@ -54,7 +54,7 @@ public class MovementDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return accounting.getMovements().getBusinessObjects().size();
+		return accounting.getStatements().getBusinessObjects().size();
 	}
 
 	@Override
