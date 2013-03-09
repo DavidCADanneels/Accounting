@@ -20,5 +20,4 @@
     <xsl2xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Accounting2xml.xsl</xsl2xml>
     <xsl2html>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Accounting2html.xsl</xsl2html>
   </Accounting>
-  <CurrentAccounting>Thuis 2013</CurrentAccounting>
 </Accountings>
