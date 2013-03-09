@@ -12,7 +12,7 @@ public class CounterParty extends WriteableBusinessObject {
 	 */
     private final ArrayList<String> aliases;
 	private final HashMap<String, BankAccount> accounts;
-	private final Collection<String> addressLines;
+	private Collection<String> addressLines;
     protected static final String ACCOUNTNUMBER = "accountNumber";
 
 	private Account account;
@@ -27,6 +27,10 @@ public class CounterParty extends WriteableBusinessObject {
 		// debetAccounts = new ArrayList<Account>();
 		// creditAccounts = new ArrayList<Account>();
 	}
+
+    public void setAddressLines(Collection<String> addressLines) {
+        this.addressLines = addressLines;
+    }
 
     @Override
     public Map<String,String> getKeyMap(){

@@ -1,6 +1,7 @@
 package be.dafke.Accounting.GUI.CodaManagement;
 
 import be.dafke.Accounting.Dao.Coda.CodaParser;
+import be.dafke.Accounting.Dao.Coda.CsvParser;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
@@ -33,7 +34,7 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JButton viewCounterParties, exportToJournal, openMovements, saveToAccounting;
+	private final JButton viewCounterParties, exportToJournal, readCoda, readCsv, saveToAccounting;
 	private final Accounting accounting;
 
 	public MovementTable(Accounting accounting, ActionListener actionListener) {
@@ -44,12 +45,15 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 		viewCounterParties = new JButton("View Counterparties");
 		viewCounterParties.addActionListener(actionListener);
         viewCounterParties.setActionCommand(ComponentMap.COUNTERPARTIES);
-		openMovements = new JButton("Read Coda file(s)");
-		openMovements.addActionListener(this);
+		readCoda = new JButton("Read Coda file(s)");
+		readCoda.addActionListener(this);
+        readCsv = new JButton("Read CSV file(s)");
+        readCsv.addActionListener(this);
 		saveToAccounting = new JButton("Save movements (all/selection)");
 		saveToAccounting.addActionListener(this);
 		JPanel north = new JPanel();
-		north.add(openMovements);
+		north.add(readCoda);
+        north.add(readCsv);
 		north.add(viewCounterParties);
 		getContentPane().add(north, BorderLayout.NORTH);
 		exportToJournal = new JButton("Export selected movements to a Journal");
@@ -60,9 +64,11 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == openMovements) {
-			openMovements();
-		} else if (e.getSource() == exportToJournal) {
+		if (e.getSource() == readCoda) {
+			readCodaFiles();
+		} else if (e.getSource() == readCsv) {
+            readCsvFiles();
+        } else if (e.getSource() == exportToJournal) {
 			exportToJournal();
 		} else if (e.getSource() == saveToAccounting) {
 			saveToAccounting();
@@ -85,7 +91,18 @@ public class MovementTable extends RefreshableTable implements ActionListener, M
 //		}
 	}
 
-	private void openMovements() {
+    private void readCsvFiles(){
+        JFileChooser chooser = new JFileChooser();
+        chooser.setMultiSelectionEnabled(true);
+        if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
+            File[] files = chooser.getSelectedFiles();
+            CsvParser codaParser = new CsvParser();
+            codaParser.parseFile(files, accounting);
+        }
+        refresh();
+    }
+
+	private void readCodaFiles() {
 		JFileChooser chooser = new JFileChooser();
 		chooser.setMultiSelectionEnabled(true);
 		if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {

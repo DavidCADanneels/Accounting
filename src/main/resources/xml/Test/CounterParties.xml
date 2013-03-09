@@ -3,247 +3,52 @@
 <!DOCTYPE CounterParties SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\CounterParties.dtd">
 <CounterParties>
   <CounterParty>
-    <name>ALPHA CREDIT</name>
+    <name>ALFA THUIS BVBA</name>
     <BankAccount>
-      <AccountNumber>BE62210007857961</AccountNumber>
-      <BIC>GEBABEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>AXA BANK EUROPE</name>
-    <BankAccount>
-      <AccountNumber>BE80774247625177</AccountNumber>
-      <BIC>AXABBE22</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>AXA BELGIUM</name>
-    <BankAccount>
-      <AccountNumber>BE55210000076844</AccountNumber>
-      <BIC>GEBABEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-    <BankAccount>
-      <AccountNumber>BE77210005149742</AccountNumber>
-      <BIC>GEBABEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>AZ SINT JAN AV</name>
-    <BankAccount>
-      <AccountNumber>BE95470036000158</AccountNumber>
+      <AccountNumber>BE55738016016944</AccountNumber>
       <BIC>KREDBEBB</BIC>
-      <Currency>EUR</Currency>
     </BankAccount>
   </CounterParty>
   <CounterParty>
-    <name>BELASTINGEN</name>
-    <BankAccount>
-      <AccountNumber>BE02375111099940</AccountNumber>
-      <BIC>BBRUBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>BENNIES FIT4LIFE</name>
+    <name>Bennies Fit 4 life</name>
     <BankAccount>
       <AccountNumber>BE42731018408854</AccountNumber>
       <BIC>KREDBEBB</BIC>
-      <Currency>EUR</Currency>
     </BankAccount>
   </CounterParty>
   <CounterParty>
-    <name>CHAITHONGKHAM KITSANA</name>
+    <name>David Danneels</name>
+    <Alias>DANNEELS DAVID</Alias>
     <BankAccount>
-      <AccountNumber>BE04750647171331</AccountNumber>
+      <AccountNumber>BE88750618984141</AccountNumber>
       <BIC>AXABBE22</BIC>
-      <Currency>EUR</Currency>
     </BankAccount>
   </CounterParty>
   <CounterParty>
-    <name>CHRISTELIJKE MUTUALITEIT</name>
+    <name>HVW    BRUGGE</name>
     <BankAccount>
-      <AccountNumber>BE11775550177048</AccountNumber>
-      <BIC>GKCCBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-    <BankAccount>
-      <AccountNumber>BE49775550101771</AccountNumber>
-      <BIC>GKCCBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>CLICTEUR RITA</name>
-    <Alias>RITA CLICTEUR</Alias>
-    <BankAccount>
-      <AccountNumber>BE07750605261166</AccountNumber>
-      <BIC>AXABBE22</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>CM BRUGGE</name>
-    <BankAccount>
-      <AccountNumber>BE48775550339827</AccountNumber>
-      <BIC>GKCCBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>CM-ZORGKAS BRUGGE</name>
-    <BankAccount>
-      <AccountNumber>BE87777594204494</AccountNumber>
-      <BIC>GKCCBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>D A S</name>
-    <Alias>D A S  NV/SA</Alias>
-    <BankAccount>
-      <AccountNumber>BE50435412040118</AccountNumber>
-      <BIC>KREDBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>DALLE CARINE</name>
-    <BankAccount>
-      <AccountNumber>BE24738120291338</AccountNumber>
-      <BIC>KREDBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>DANNEELS DAVID</name>
-    <BankAccount>
-      <AccountNumber>BE32755446136702</AccountNumber>
-      <BIC>AXABBE22</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>DKV BELGIUM</name>
-    <BankAccount>
-      <AccountNumber>BE54310100270097</AccountNumber>
-      <BIC>BBRUBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>F O D  FINANCIEN</name>
-    <BankAccount>
-      <AccountNumber>BE30679200209111</AccountNumber>
+      <AccountNumber>BE80679010183077</AccountNumber>
       <BIC>PCHQBEBB</BIC>
-      <Currency>EUR</Currency>
     </BankAccount>
   </CounterParty>
   <CounterParty>
-    <name>HIGHFIELDS VZW</name>
+    <name>R.V.A.</name>
     <BankAccount>
-      <AccountNumber>BE24738005084438</AccountNumber>
-      <BIC>KREDBEBB</BIC>
-      <Currency>EUR</Currency>
+      <AccountNumber>BE51679008299762</AccountNumber>
+      <BIC>PCHQBEBB</BIC>
     </BankAccount>
   </CounterParty>
   <CounterParty>
-    <name>ISABEL NV</name>
-    <BankAccount>
-      <AccountNumber>BE87210069204094</AccountNumber>
-      <BIC>GEBABEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>ISABEL SA</name>
-    <BankAccount>
-      <AccountNumber>BE14310120017883</AccountNumber>
-      <BIC>BBRUBEBB</BIC>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>KBC VERZEKERINGEN NV</name>
-    <BankAccount>
-      <AccountNumber>BE43730004200601</AccountNumber>
-      <BIC>KREDBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>MEVR EMMA DE SPIEGELAERE</name>
-    <BankAccount>
-      <AccountNumber>BE20377024601156</AccountNumber>
-      <BIC>BBRUBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>MOBILE VIKINGS</name>
-    <BankAccount>
-      <AccountNumber>BE02737026917240</AccountNumber>
-      <BIC>KREDBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>OFF NAT VACANCES ANNUELLES</name>
-    <BankAccount>
-      <AccountNumber>BE80091010422677</AccountNumber>
-      <BIC>GKCCBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>PROXIMUS</name>
-    <BankAccount>
-      <AccountNumber>BE31435411161155</AccountNumber>
-      <BIC>KREDBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>RIF NOUREDDINE</name>
-    <BankAccount>
-      <AccountNumber>BE09063205690757</AccountNumber>
-      <BIC>GKCCBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>SAENUDOM DARA</name>
-    <Alias>DARA SAENUDOM</Alias>
-    <BankAccount>
-      <AccountNumber>BE54750640290997</AccountNumber>
-      <BIC>AXABBE22</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>SCHOLENGROEP BRUGGE-OOSTKUST</name>
+    <name>Scholengroep Brugge-Oostkust</name>
     <BankAccount>
       <AccountNumber>BE14068217828883</AccountNumber>
       <BIC>GKCCBEBB</BIC>
-      <Currency>EUR</Currency>
     </BankAccount>
   </CounterParty>
   <CounterParty>
-    <name>VLAAMSE ZORGKAS VZW</name>
+    <name>XERIUS KINDERBIJSLAGFONDS</name>
     <BankAccount>
-      <AccountNumber>BE44091012514645</AccountNumber>
-      <BIC>GKCCBEBB</BIC>
-      <Currency>EUR</Currency>
-    </BankAccount>
-  </CounterParty>
-  <CounterParty>
-    <name>VOIPBUSTER</name>
-    <BankAccount>
-      <AccountNumber>BE88001526240941</AccountNumber>
-      <BIC>GEBABEBBXXX</BIC>
-      <Currency>EUR</Currency>
+      <AccountNumber>410-0033561-22</AccountNumber>
     </BankAccount>
   </CounterParty>
 </CounterParties>

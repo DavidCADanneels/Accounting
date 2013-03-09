@@ -4,9 +4,10 @@ import java.math.BigDecimal;
 import java.util.Calendar;
 
 public class Movement extends WriteableBusinessObject {
-	private String sequenceNumber, transactionCode;
-	private String communication;
-	private String statementNr;
+    private String statementNr;
+    private String sequenceNumber;
+    private String transactionCode;
+    private String communication;
 	private boolean debit;
     private boolean structured;
 	private BigDecimal amount;

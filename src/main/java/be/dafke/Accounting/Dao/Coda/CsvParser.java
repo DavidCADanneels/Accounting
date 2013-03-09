@@ -1,0 +1,124 @@
+package be.dafke.Accounting.Dao.Coda;
+
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
+import be.dafke.Accounting.Objects.Accounting.Accounting;
+import be.dafke.Accounting.Objects.Accounting.BankAccount;
+import be.dafke.Accounting.Objects.Accounting.CounterParties;
+import be.dafke.Accounting.Objects.Accounting.CounterParty;
+import be.dafke.Accounting.Objects.Accounting.Movement;
+import be.dafke.Accounting.Objects.Accounting.Movements;
+import be.dafke.Utils;
+
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
+
+/**
+ * User: Dafke
+ * Date: 7/03/13
+ * Time: 8:20
+ */
+public class CsvParser {
+    private HashMap<String,String> transactionCodes;
+
+    public CsvParser(){
+        transactionCodes = new HashMap<String, String>();
+        transactionCodes.put("Europese overschrijving","101");
+        transactionCodes.put("Storting vanwege","150");
+        transactionCodes.put("Aankoop met AXA bankkaart","402");
+        transactionCodes.put("Aankp buitenl.mt AXA bnkkrt","402");
+        transactionCodes.put("Geldopname met AXA bankkaart","404");
+        transactionCodes.put("Kapitalisatie","501");
+        transactionCodes.put("Domiciliëring","501");
+        transactionCodes.put("Geldafh. via SelfService", "404");
+        transactionCodes.put("Gldopn.buitenl.met bankkaart","404");
+    }
+
+    public void parseFile(File[] files, Accounting accounting) {
+        CounterParties counterParties = accounting.getCounterParties();
+        Movements movements = accounting.getMovements();
+        int counter = 0;
+        for(File file : files) {
+            try {
+                BufferedReader reader = new BufferedReader(new FileReader(file));
+                String line = reader.readLine();
+                System.out.println(line);
+                line = reader.readLine();
+                while (line != null) {
+                    counter++;
+                    String sequenceNumber = Integer.toString(counter);
+                    if(counter<10){
+                        sequenceNumber = "000"+sequenceNumber;
+                    } else if(counter<100){
+                        sequenceNumber = "00"+sequenceNumber;
+                    } else if(counter<1000){
+                        sequenceNumber = "000"+sequenceNumber;
+                    }
+                    String[] parts = line.split(";");
+                    Movement movement = new Movement();
+                    movement.setDate(Utils.toCalendar(parts[0]));
+                    movement.setStatementNr("CSV");
+                    movement.setSequenceNumber(sequenceNumber);
+                    movement.setName("CSV-"+sequenceNumber);
+                    BigDecimal amount = Utils.parseBigDecimal(parts[4].replace(',','.'));
+                    boolean debit = true;
+                    if(amount.compareTo(BigDecimal.ZERO)<0){
+                        amount = amount.abs();
+                        debit = false;
+                    }
+                    movement.setDebit(debit);
+                    movement.setAmount(amount);
+                    String codeWoord = parts[6];
+                    System.out.println(codeWoord);
+                    String shortWoord = codeWoord.replaceAll("\"", "");
+                    String code = transactionCodes.get(shortWoord);
+                    System.out.println(shortWoord);
+                    movement.setTransactionCode(code);
+                    System.out.println(code);
+                    movement.setTransactionCode(transactionCodes.get(parts[6].replaceAll("\"", "")));
+                    movement.setCommunication(parts[14].replaceAll("\"","").trim()+parts[15].replaceAll("\"","").trim());
+                    try {
+                        movements.addBusinessObject(movement);
+                    } catch (EmptyNameException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    } catch (DuplicateNameException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    }
+                    // TODO deal with counterParties
+
+                    String accountNumber = parts[7].replaceAll("\"","").trim();
+                    if(!"".equals(accountNumber)){
+                        BankAccount bankAccount = new BankAccount(accountNumber);
+                        bankAccount.setBic(parts[8].replaceAll("\"", "").trim());
+                        CounterParty counterParty = new CounterParty();
+                        counterParty.addAccount(bankAccount);
+                        counterParty.setName(parts[9].replaceAll("\"","").trim());
+                        String line1 = parts[10].replaceAll("\"","").trim()+" "+parts[11].replaceAll("\"","").trim();
+                        String line2 = parts[12].replaceAll("\"","").trim()+" "+parts[13].replaceAll("\"","").trim();
+                        ArrayList<String> addressLines = new ArrayList<String>();
+                        addressLines.add(line1.trim());
+                        addressLines.add(line2.trim());
+                        counterParty.setAddressLines(addressLines);
+                        try {
+                            counterParties.addBusinessObject(counterParty);
+                        } catch (EmptyNameException e) {
+                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        } catch (DuplicateNameException e) {
+                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        }
+                    }
+
+                    line = reader.readLine();
+                }
+                reader.close();
+            } catch (IOException io) {
+                io.printStackTrace();
+            }
+        }
+    }
+}
