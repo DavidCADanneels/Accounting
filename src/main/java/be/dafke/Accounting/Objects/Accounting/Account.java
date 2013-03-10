@@ -68,7 +68,7 @@ public class Account extends WriteableBusinessObject {
 		}
 	}
 
-	protected void unbook(Calendar date, Movement movement) {
+	protected Movement unbook(Calendar date, Movement movement) {
 		if (movement.isDebit()) {
 			debitTotal = debitTotal.subtract(movement.getAmount());
 			debitTotal = debitTotal.setScale(2);
@@ -77,5 +77,6 @@ public class Account extends WriteableBusinessObject {
 			creditTotal = creditTotal.setScale(2);
 		}
         movements.removeValue(date, movement);
+        return movement;
     }
 }

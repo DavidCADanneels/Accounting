@@ -12,10 +12,11 @@ public class Mortgage extends Account {
 	private int alreadyPayed = 0;
 	private Account capital, intrest;
 	private BigDecimal startCapital;
-    private final MultiValueMap<Movement,Movement> movements;
+    private final MultiValueMap<Calendar,Movement[]> movements;
+    private boolean compressed = true;
 
     public Mortgage(){
-        movements = new MultiValueMap<Movement, Movement>();
+        movements = new MultiValueMap<Calendar, Movement[]>();
     }
 
     @Override
@@ -67,46 +68,106 @@ public class Mortgage extends Account {
     protected void book(Calendar date, Movement movement){
         System.out.println("Mortgage.book()");
 
-        BigDecimal intrestAmount = table.get(alreadyPayed).get(1);
-        BigDecimal capitalAmount = table.get(alreadyPayed).get(2);
-        Movement movement1 = new Movement(intrestAmount, true);
-        Movement movement2 = new Movement(capitalAmount, true);
+        // Define new Amounts
+        BigDecimal newIntrestAmount = table.get(alreadyPayed).get(1);
+        BigDecimal newCapitalAmount = table.get(alreadyPayed).get(2);
 
-        movement1.setBooking(movement.getBooking());
-        movement2.setBooking(movement.getBooking());
+        // Check for more recent Movements
+        ArrayList<Movement[]> moreRecentMovements = movements.tailList(date, false);
+        if(!moreRecentMovements.isEmpty())  {
+            // TODO: insert
+            System.err.println("Insert needed");
 
-        movements.addValue(movement, movement1);
-        movements.addValue(movement, movement2);
+            // Check if the amount is equal to the amount of the most recent Movement
+            ArrayList<Movement[]> allMovements = movements.values();
+            Movement[] lastMovements = allMovements.get(allMovements.size()-1);
+            Movement lastMovement = lastMovements[0];
 
-        intrest.book(date, movement1);
-        capital.book(date,movement2);
-        super.book(date, movement);
+            if(lastMovement.getAmount().compareTo(movement.getAmount()) == 0){
+                // Amounts are equal
+                for(int i=moreRecentMovements.size()-1;i>=0;i--){
+                    Movement[] couple = moreRecentMovements.get(i);
+                    Movement oldIntrestMovement = couple[1];
+                    Movement oldCapitalMovement = couple[2];
+
+                    BigDecimal oldIntrestAmount = oldIntrestMovement.getAmount();
+                    BigDecimal oldCapitalAmount = oldCapitalMovement.getAmount();
+
+                    oldIntrestMovement.setAmount(newIntrestAmount);
+                    oldCapitalMovement.setAmount(newCapitalAmount);
+
+                    newIntrestAmount = oldIntrestAmount;
+                    newCapitalAmount = oldCapitalAmount;
+                }
+            } else {
+                // Amounts are not equal
+                System.err.println("Degressive");
+            }
+        }
+
+        // Define new Movements
+        Movement newIntrestMovement = new Movement(newIntrestAmount, true);
+        Movement newCapitalMovement = new Movement(newCapitalAmount, true);
+
+        // Copy booking reference to new Movements
+        newIntrestMovement.setBooking(movement.getBooking());
+        newCapitalMovement.setBooking(movement.getBooking());
 
         alreadyPayed++;
+
+        Movement[] couple = new Movement[3];
+        couple[0] = movement;
+        couple[1] = newIntrestMovement;
+        couple[2] = newCapitalMovement;
+
+        movements.addValue(date, couple);
+
+        intrest.book(date, newIntrestMovement);
+        capital.book(date,newCapitalMovement);
+        if(compressed){
+            super.book(date, movement);
+        } else {
+            Booking booking = movement.getBooking();
+            // TODO : booking.remove(Movement)
+            Transaction transaction = movement.getBooking().getTransaction();
+            transaction.removeBooking(booking);
+            Booking intrestBooking = new Booking(intrest);
+            intrestBooking.setMovement(newIntrestMovement);
+            Booking capitalBooking = new Booking(capital);
+            capitalBooking.setMovement(newCapitalMovement);
+            transaction.addBooking(intrestBooking);
+            transaction.addBooking(capitalBooking);
+        }
     }
 
     // TODO: check what happens if changing the date of an old (not last) Mortgage: --> unbook() + book(): amounts not correct !!!
 
     @Override
-    protected void unbook(Calendar date, Movement movement){
+    protected Movement unbook(Calendar date, Movement movement){
         System.out.println("Mortgage.unbook()");
 
-        ArrayList<Movement> subMovements = movements.get(movement);
+        // Check for more recent Movements
+        ArrayList<Movement[]> moreRecentMovements = movements.tailList(date,false);
+        if(moreRecentMovements.size()==1){
+            // only 1
+            Movement[] lastCouple = moreRecentMovements.get(0);
 
-        // check if last movement or not
-        ArrayList<Movement> allMovements = movements.values();
-        Movement lastMovement = allMovements.get(allMovements.size()-1);
-        if(movement!=lastMovement){
-            System.err.println("Mortgage.unbook(): WARNING: not last movement");
+            Movement lastMovement = lastCouple[0];
+            // TODO: check amounts: if not equal --> degressive mortgage --> extra actions needed
+
+            Movement intrestMovement = lastCouple[1];
+            Movement capitalMovement = lastCouple[2];
+
+            intrest.unbook(date, intrestMovement);
+            capital.unbook(date,capitalMovement);
+            super.unbook(date,movement);
+            alreadyPayed--;
+        } else {
+            // TODO: move
+            System.err.println("Moving needed");
         }
 
-        Movement movement1 = subMovements.get(0);
-        Movement movement2 = subMovements.get(1);
-
-        intrest.unbook(date, movement1);
-        capital.unbook(date,movement2);
-        super.unbook(date,movement);
-        alreadyPayed--;
+        return movement;
     }
 
     public BigDecimal getMensuality(){

@@ -127,14 +127,15 @@ public class Journal extends WriteableBusinessObject {
 
 	public void book(Transaction transaction) {
         Calendar date = transaction.getDate();
-        addTransaction(date, transaction);
         transaction.setJournal(this);
         transaction.setAbbreviation(abbreviation);
-		ArrayList<Booking> bookings = transaction.getBookings();
-		for(Booking booking : bookings) {
-			Account account = booking.getAccount();
-			account.book(date, booking.getMovement());
-		}
+        ArrayList<Booking> bookings = transaction.getBookings();
+        for(Booking booking : bookings) {
+            Account account = booking.getAccount();
+            account.book(date, booking.getMovement());
+        }
+        // TODO: update Transaction --> Booking --> (list of) Movement(s)
+        addTransaction(date, transaction);
         id++;
 	}
 }

@@ -7,7 +7,7 @@ import java.math.BigDecimal;
  * Date: 9/03/13
  * Time: 17:01
  */
-public class Movement implements Comparable<Movement>{
+public class Movement {
     private BigDecimal amount;
     private boolean debit;
     private Booking booking;
@@ -33,10 +33,7 @@ public class Movement implements Comparable<Movement>{
         return debit;
     }
 
-    @Override
-    public int compareTo(Movement o) {
-        Integer id1 = booking.getTransaction().getId();
-        Integer id2 = o.booking.getTransaction().getId();
-        return id1.compareTo(id2);
+    public void setAmount(BigDecimal amount) {
+        this.amount = amount;
     }
 }

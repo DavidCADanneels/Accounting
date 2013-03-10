@@ -2,6 +2,7 @@ package be.dafke;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.SortedMap;
 import java.util.TreeMap;
 
 /**
@@ -37,6 +38,15 @@ public class MultiValueMap<K,V> {
     public ArrayList<V> values(){
         ArrayList<V> result = new ArrayList<V>();
         for (List<V> list:data.values()){
+            result.addAll(list);
+        }
+        return result;
+    }
+
+    public ArrayList<V> tailList(K key, boolean inclusive){
+        ArrayList<V> result = new ArrayList<V>();
+        SortedMap<K,List<V>> tailMap = data.tailMap(key, inclusive);
+        for (List<V> list:tailMap.values()){
             result.addAll(list);
         }
         return result;

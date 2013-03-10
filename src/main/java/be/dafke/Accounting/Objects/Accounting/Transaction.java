@@ -115,4 +115,21 @@ public class Transaction {
             creditTotal = creditTotal.setScale(2);
         }
     }
+
+    public void removeBooking(Booking booking){
+        booking.setTransaction(null);
+        boolean debit = booking.getMovement().isDebit();
+        BigDecimal amount = booking.getMovement().getAmount();
+
+        bookings.remove(booking);
+        if(debit){
+            nrOfDebits--;
+            debitTotal = debitTotal.subtract(amount);
+            debitTotal = debitTotal.setScale(2);
+        } else {
+            creditTotal = creditTotal.subtract(amount);
+            creditTotal = creditTotal.setScale(2);
+        }
+
+    }
 }
