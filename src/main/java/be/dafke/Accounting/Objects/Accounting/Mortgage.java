@@ -13,7 +13,7 @@ public class Mortgage extends Account {
 	private Account capital, intrest;
 	private BigDecimal startCapital;
     private final MultiValueMap<Calendar,Movement[]> movements;
-    private boolean compressed = true;
+//    private boolean compressed = true;
 
     public Mortgage(){
         movements = new MultiValueMap<Calendar, Movement[]>();
@@ -64,8 +64,7 @@ public class Mortgage extends Account {
 		return alreadyPayed;
 	}
 
-    @Override
-    protected void book(Calendar date, Movement movement){
+    public ArrayList<Booking> expandBooking(Calendar date, Movement movement){
         System.out.println("Mortgage.book()");
 
         // Define new Amounts
@@ -122,26 +121,34 @@ public class Mortgage extends Account {
 
         movements.addValue(date, couple);
 
-        intrest.book(date, newIntrestMovement);
-        capital.book(date,newCapitalMovement);
-        if(compressed){
-            super.book(date, movement);
-        } else {
-            Booking booking = movement.getBooking();
-            // TODO : booking.remove(Movement)
-            Transaction transaction = movement.getBooking().getTransaction();
-            transaction.removeBooking(booking);
-            Booking intrestBooking = new Booking(intrest);
-            intrestBooking.setMovement(newIntrestMovement);
-            Booking capitalBooking = new Booking(capital);
-            capitalBooking.setMovement(newCapitalMovement);
-            transaction.addBooking(intrestBooking);
-            transaction.addBooking(capitalBooking);
-        }
+        Booking intrestBooking = new Booking(intrest);
+        intrestBooking.setMovement(newIntrestMovement);
+        Booking capitalBooking = new Booking(capital);
+        capitalBooking.setMovement(newCapitalMovement);
+
+        ArrayList<Booking> result = new ArrayList<Booking>();
+        result.add(intrestBooking);
+        result.add(capitalBooking);
+        return result;
     }
+
+    // TODO: activate this function
+//    @Override
+//    protected void book(Calendar date, Movement movement){
+//        ArrayList<Booking> bookings = expandBooking(date, movement);
+//        Booking intrestBooking = bookings.get(0);
+//        Booking captitalBooking = bookings.get(1);
+//        Movement newIntrestMovement = intrestBooking.getMovement();
+//        Movement newCapitalMovement = captitalBooking.getMovement();
+//        intrest.book(date, newIntrestMovement);
+//        capital.book(date, newCapitalMovement);
+//        if(compressed)
+//        super.book(date, movement);
+//    }
 
     // TODO: check what happens if changing the date of an old (not last) Mortgage: --> unbook() + book(): amounts not correct !!!
 
+    // TODO: fix unbook()
     @Override
     protected Movement unbook(Calendar date, Movement movement){
         System.out.println("Mortgage.unbook()");
