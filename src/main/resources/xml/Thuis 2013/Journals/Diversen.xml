@@ -25,9 +25,9 @@
     <debet>429.84</debet>
   </action>
   <action>
-    <account_name>Huis</account_name>
-    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Huis.xml</account_xml>
-    <account_html>null</account_html>
+    <account_name>Huis activa</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Huis activa.xml</account_xml>
+    <account_html>Accounts\Huis activa.html</account_html>
     <debet>156000.00</debet>
   </action>
   <action>
@@ -37,9 +37,9 @@
     <debet>2506.88</debet>
   </action>
   <action>
-    <account_name>Auto</account_name>
-    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Auto.xml</account_xml>
-    <account_html>null</account_html>
+    <account_name>Auto activa</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Auto activa.xml</account_xml>
+    <account_html>Accounts\Auto activa.html</account_html>
     <debet>15450.00</debet>
   </action>
   <action>

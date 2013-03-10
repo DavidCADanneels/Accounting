@@ -6,7 +6,7 @@
   <left>Activa</left>
   <right>Passiva</right>
   <line>
-    <name1>Auto</name1>
+    <name1>Auto activa</name1>
     <amount1>15450.00</amount1>
     <amount2>3641.43</amount2>
     <name2>Eigen Kapitaal</name2>
@@ -24,7 +24,7 @@
     <name2>Hypotheek</name2>
   </line>
   <line>
-    <name1>Huis</name1>
+    <name1>Huis activa</name1>
     <amount1>156000.00</amount1>
     <amount2>15400.00</amount2>
     <name2>Schulden aan ma</name2>
