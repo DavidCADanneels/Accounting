@@ -130,35 +130,10 @@ public class Journal extends WriteableBusinessObject {
         transaction.setJournal(this);
         transaction.setAbbreviation(abbreviation);
 
-        // TODO: delete all this
-        // Iterate Mortgage bookings
-        ArrayList<Booking> bookingsToRemove = new ArrayList<Booking>();
-        ArrayList<Booking> bookingsToAdd = new ArrayList<Booking>();
-        //
-        ArrayList<Booking> bookings = transaction.getBookings();
-        for(Booking booking : bookings) {
-            Account account = booking.getAccount();
-            if(account instanceof Mortgage){
-                Movement movement = booking.getMovement();
-                bookingsToRemove.add(booking);
-                bookingsToAdd.addAll(((Mortgage)account).expandBooking(date, movement));
-            }
-        }
-        //
-        // Expand transaction
-        for(Booking booking:bookingsToRemove){
-            transaction.removeBooking(booking);
-        }
-        for(Booking booking:bookingsToAdd){
-            transaction.addBooking(booking);
-        }
-        // TODO: untill here
-
-        for(Booking booking : bookings) {
+        for(Booking booking : transaction.getBookings()) {
             Account account = booking.getAccount();
             account.book(date, booking.getMovement());
         }
-        // TODO: update Transaction --> Booking --> (list of) Movement(s)
         addTransaction(date, transaction);
         id++;
 	}

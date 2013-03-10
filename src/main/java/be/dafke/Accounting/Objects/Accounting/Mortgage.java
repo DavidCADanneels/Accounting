@@ -13,7 +13,6 @@ public class Mortgage extends Account {
 	private Account capital, intrest;
 	private BigDecimal startCapital;
     private final MultiValueMap<Calendar,Movement[]> movements;
-//    private boolean compressed = true;
 
     public Mortgage(){
         movements = new MultiValueMap<Calendar, Movement[]>();
@@ -135,19 +134,21 @@ public class Mortgage extends Account {
         return result;
     }
 
-    // TODO: activate this function
-//    @Override
-//    protected void book(Calendar date, Movement movement){
-//        ArrayList<Booking> bookings = expandBooking(date, movement);
-//        Booking intrestBooking = bookings.get(0);
-//        Booking captitalBooking = bookings.get(1);
-//        Movement newIntrestMovement = intrestBooking.getMovement();
-//        Movement newCapitalMovement = captitalBooking.getMovement();
-//        intrest.book(date, newIntrestMovement);
-//        capital.book(date, newCapitalMovement);
-//        if(compressed)
-//        super.book(date, movement);
-//    }
+    @Override
+    protected void book(Calendar date, Movement movement){
+        ArrayList<Booking> bookings = expandBooking(date, movement);
+        Booking intrestBooking = bookings.get(0);
+        Booking captitalBooking = bookings.get(1);
+
+        Transaction transaction = movement.getBooking().getTransaction();
+        intrestBooking.setTransaction(transaction);
+        captitalBooking.setTransaction(transaction);
+
+        Movement newIntrestMovement = intrestBooking.getMovement();
+        Movement newCapitalMovement = captitalBooking.getMovement();
+        intrest.book(date, newIntrestMovement);
+        capital.book(date, newCapitalMovement);
+    }
 
     // TODO: check what happens if changing the date of an old (not last) Mortgage: --> unbook() + book(): amounts not correct !!!
 
