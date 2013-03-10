@@ -2,9 +2,12 @@ package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
+import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Mortgage;
 import be.dafke.Accounting.Objects.Accounting.Mortgages;
+import be.dafke.Accounting.Objects.Accounting.Movement;
+import be.dafke.Accounting.Objects.Accounting.Transaction;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -83,7 +86,10 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 			System.out.println("Payed Off already");
 			return;
 		}
-		mortgage.pay(journal.getCurrentTransaction());
+        Transaction transaction = journal.getCurrentTransaction();
+        Booking booking = new Booking(mortgage);
+        booking.setMovement(new Movement(mortgage.getMensuality(),true));
+        transaction.addBooking(booking);
         ComponentMap.refreshAllFrames();
 	}
 

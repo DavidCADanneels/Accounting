@@ -72,10 +72,10 @@ public class JournalDetailsDataModel extends AbstractTableModel {
         } else if (col == 2) {
             return boeking.getAccount();
         } else if (col == 3) {
-            if (boeking.isDebit()) return boeking.getAmount();
+            if (boeking.getMovement().isDebit()) return boeking.getMovement().getAmount();
             return "";
         } else if (col == 4) {
-            if (!boeking.isDebit()) return boeking.getAmount();
+            if (!boeking.getMovement().isDebit()) return boeking.getMovement().getAmount();
             return "";
         } else{
             if(first){

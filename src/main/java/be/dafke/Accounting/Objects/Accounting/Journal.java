@@ -16,7 +16,6 @@ public class Journal extends WriteableBusinessObject {
 	private String abbreviation;
 	private int id;
 	private final MultiValueMap<Calendar,Transaction> transactions;
-//	private boolean save;
 	private JournalType journalType;
     private Transaction currentTransaction = new Transaction();
     protected static final String ABBREVIATION = "abbreviation";
@@ -88,9 +87,8 @@ public class Journal extends WriteableBusinessObject {
         abbreviation = newAbbreviation;
     }
 
-	private void deleteTransaction(Transaction transaction) {
+	private void deleteTransaction(Calendar date, Transaction transaction) {
         // Remove Key-Value Pair
-        Calendar date = transaction.getDate();
         transactions.removeValue(date, transaction);
 
         // Lower the remaining ID's
@@ -101,9 +99,8 @@ public class Journal extends WriteableBusinessObject {
         }
 	}
 
-	private void addTransaction(Transaction transaction) {
+	private void addTransaction(Calendar date, Transaction transaction) {
         // Add Key-Value Pair
-        Calendar date = transaction.getDate();
         transactions.addValue(date, transaction);
 
         // Set ID
@@ -118,28 +115,26 @@ public class Journal extends WriteableBusinessObject {
 	}
 
 	public void unbook(Transaction transaction) {
-		deleteTransaction(transaction);
+        Calendar date = transaction.getDate();
+		deleteTransaction(date, transaction);
 		ArrayList<Booking> bookings = transaction.getBookings();
 		for(Booking booking : bookings) {
 			Account account = booking.getAccount();
-			account.unbook(booking);
+			account.unbook(date, booking.getMovement());
 		}
 		id--;
 	}
 
 	public void book(Transaction transaction) {
+        Calendar date = transaction.getDate();
+        addTransaction(date, transaction);
         transaction.setJournal(this);
         transaction.setAbbreviation(abbreviation);
-		addTransaction(transaction);
 		ArrayList<Booking> bookings = transaction.getBookings();
 		for(Booking booking : bookings) {
 			Account account = booking.getAccount();
-			account.book(booking);
+			account.book(date, booking.getMovement());
 		}
-        for(Mortgage mortgage : transaction.getMortgages()) {
-            mortgage.increasePayed();
-        }
-
         id++;
 	}
 }

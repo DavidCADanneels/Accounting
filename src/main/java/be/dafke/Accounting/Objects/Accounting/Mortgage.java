@@ -1,14 +1,22 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.MultiValueMap;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Vector;
 
-public class Mortgage extends WriteableBusinessObject {
+public class Mortgage extends Account {
 	private ArrayList<Vector<BigDecimal>> table;
 	private int alreadyPayed = 0;
 	private Account capital, intrest;
 	private BigDecimal startCapital;
+    private final MultiValueMap<Movement,Movement> movements;
+
+    public Mortgage(){
+        movements = new MultiValueMap<Movement, Movement>();
+    }
 
     @Override
     public boolean isDeletable(){
@@ -55,21 +63,55 @@ public class Mortgage extends WriteableBusinessObject {
 		return alreadyPayed;
 	}
 
-	public void increasePayed() {
-		alreadyPayed++;
-	}
+    @Override
+    protected void book(Calendar date, Movement movement){
+        System.out.println("Mortgage.book()");
 
-	public void pay(Transaction transaction) {
-        // TODO: check if not everything is payed yet getBusinessObject(alreadyPayed) --> ArrayOutOfBoundsException
-		BigDecimal intrestAmount = table.get(alreadyPayed).get(1);
-		BigDecimal kapitalAmount = table.get(alreadyPayed).get(2);
-        Booking booking1 = new Booking(intrest, intrestAmount, true);
-        Booking booking2 = new Booking(capital, kapitalAmount, true);
-        transaction.addBooking(booking1);
-        transaction.addBooking(booking2);
-		transaction.addMortgage(this);
-		System.out.println("Restkapitaal: " + table.get(alreadyPayed).get(3));
-	}
+        BigDecimal intrestAmount = table.get(alreadyPayed).get(1);
+        BigDecimal capitalAmount = table.get(alreadyPayed).get(2);
+        Movement movement1 = new Movement(intrestAmount, true);
+        Movement movement2 = new Movement(capitalAmount, true);
+
+        movement1.setBooking(movement.getBooking());
+        movement2.setBooking(movement.getBooking());
+
+        movements.addValue(movement, movement1);
+        movements.addValue(movement, movement2);
+
+        intrest.book(date, movement1);
+        capital.book(date,movement2);
+        super.book(date, movement);
+
+        alreadyPayed++;
+    }
+
+    // TODO: check what happens if changing the date of an old (not last) Mortgage: --> unbook() + book(): amounts not correct !!!
+
+    @Override
+    protected void unbook(Calendar date, Movement movement){
+        System.out.println("Mortgage.unbook()");
+
+        ArrayList<Movement> subMovements = movements.get(movement);
+
+        // check if last movement or not
+        ArrayList<Movement> allMovements = movements.values();
+        Movement lastMovement = allMovements.get(allMovements.size()-1);
+        if(movement!=lastMovement){
+            System.err.println("Mortgage.unbook(): WARNING: not last movement");
+        }
+
+        Movement movement1 = subMovements.get(0);
+        Movement movement2 = subMovements.get(1);
+
+        intrest.unbook(date, movement1);
+        capital.unbook(date,movement2);
+        super.unbook(date,movement);
+        alreadyPayed--;
+    }
+
+    public BigDecimal getMensuality(){
+        return table.get(alreadyPayed).get(0);
+    }
 
 	public boolean isPayedOff() {
 		return alreadyPayed == table.size();

@@ -45,4 +45,8 @@ public class MultiValueMap<K,V> {
     public boolean isEmpty(){
         return data.isEmpty();
     }
+
+    public ArrayList<V> get(K key){
+        return new ArrayList<V>(data.get(key));
+    }
 }

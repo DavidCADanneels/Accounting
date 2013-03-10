@@ -6,7 +6,7 @@ import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.AccountType;
 import be.dafke.Accounting.Objects.Accounting.AccountTypes;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
-import be.dafke.Accounting.Objects.Accounting.Booking;
+import be.dafke.Accounting.Objects.Accounting.Movement;
 import be.dafke.Accounting.Objects.Accounting.Project;
 import be.dafke.Accounting.Objects.Accounting.Projects;
 import be.dafke.Utils;
@@ -127,16 +127,16 @@ public class AccountsSAXParser {
             writer.write(account.getXmlHeader());
 
             writer.write("<Account>\r\n" + "  <name>" + account.getName() + "</name>\r\n");
-            for(Booking booking : account.getBookings()){
-                writer.write("  <action id=\""+booking.getTransaction().getId()+"\">\r\n");
-                writer.write("    <nr>" + booking.getTransaction().getAbbreviation() + booking.getTransaction().getId() + "</nr>\r\n");
-                writer.write("    <journal_xml>" + booking.getTransaction().getJournal().getXmlFile() + "</journal_xml>\r\n");
-                writer.write("    <journal_html>" + booking.getTransaction().getJournal().getHtmlFile() + "</journal_html>\r\n");
-                writer.write("    <date>" + Utils.toString(booking.getTransaction().getDate()) + "</date>\r\n");
-                writer.write("    <" + (booking.isDebit() ? "debit" : "credit") + ">"
-                                     + booking.getAmount().toString()
-                               + "</" + (booking.isDebit() ? "debit" : "credit") + ">\r\n");
-                writer.write("    <description>" + booking.getTransaction().getDescription() + "</description>\r\n");
+            for(Movement movement : account.getMovements()){
+                writer.write("  <action id=\""+movement.getBooking().getTransaction().getId()+"\">\r\n");
+                writer.write("    <nr>" + movement.getBooking().getTransaction().getAbbreviation() + movement.getBooking().getTransaction().getId() + "</nr>\r\n");
+                writer.write("    <journal_xml>" + movement.getBooking().getTransaction().getJournal().getXmlFile() + "</journal_xml>\r\n");
+                writer.write("    <journal_html>" + movement.getBooking().getTransaction().getJournal().getHtmlFile() + "</journal_html>\r\n");
+                writer.write("    <date>" + Utils.toString(movement.getBooking().getTransaction().getDate()) + "</date>\r\n");
+                writer.write("    <" + (movement.isDebit() ? "debit" : "credit") + ">"
+                                     + movement.getAmount().toString()
+                               + "</" + (movement.isDebit() ? "debit" : "credit") + ">\r\n");
+                writer.write("    <description>" + movement.getBooking().getTransaction().getDescription() + "</description>\r\n");
                 writer.write("  </action>\r\n");
             }
             BigDecimal saldo = account.getSaldo();

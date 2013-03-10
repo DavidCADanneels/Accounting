@@ -2,8 +2,6 @@ package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.MultiValueMap;
 
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,14 +11,13 @@ import java.util.Calendar;
   * @author David Danneels
   * @since 01/10/2010
  */
-@XmlRootElement
 public class Account extends WriteableBusinessObject {
 	private AccountType type;
     private BigDecimal debitTotal, creditTotal;
-    private final MultiValueMap<Calendar,Booking> bookings;
+    private final MultiValueMap<Calendar,Movement> movements;
 
     public Account() {
-        bookings = new MultiValueMap<Calendar,Booking>();
+        movements = new MultiValueMap<Calendar,Movement>();
         debitTotal = BigDecimal.ZERO;
         debitTotal = debitTotal.setScale(2);
         creditTotal = BigDecimal.ZERO;
@@ -28,13 +25,11 @@ public class Account extends WriteableBusinessObject {
     }
 
     // Setters
-    @XmlElement
     public void setAccountType(AccountType type) {
         this.type = type;
     }
 
     // Getters
-
     public AccountType getAccountType() {
         return type;
     }
@@ -53,36 +48,34 @@ public class Account extends WriteableBusinessObject {
         return creditTotal;
     }
 
-    public ArrayList<Booking> getBookings() {
-        return bookings.values();
+    public ArrayList<Movement> getMovements() {
+        return movements.values();
     }
 
     @Override
     public boolean isDeletable(){
-        return bookings.isEmpty();
+        return movements.isEmpty();
     }
 
-	protected void book(Booking booking) {
-        Calendar date = booking.getTransaction().getDate();
-        bookings.addValue(date, booking);
-		if (booking.isDebit()) {
-            debitTotal = debitTotal.add(booking.getAmount());
+	protected void book(Calendar date, Movement movement) {
+        movements.addValue(date, movement);
+		if (movement.isDebit()) {
+            debitTotal = debitTotal.add(movement.getAmount());
             debitTotal = debitTotal.setScale(2);
 		} else {
-            creditTotal = creditTotal.add(booking.getAmount());
+            creditTotal = creditTotal.add(movement.getAmount());
             creditTotal = creditTotal.setScale(2);
 		}
 	}
 
-	protected void unbook(Booking booking) {
-		if (booking.isDebit()) {
-			debitTotal = debitTotal.subtract(booking.getAmount());
+	protected void unbook(Calendar date, Movement movement) {
+		if (movement.isDebit()) {
+			debitTotal = debitTotal.subtract(movement.getAmount());
 			debitTotal = debitTotal.setScale(2);
 		} else {
-			creditTotal = creditTotal.subtract(booking.getAmount());
+			creditTotal = creditTotal.subtract(movement.getAmount());
 			creditTotal = creditTotal.setScale(2);
 		}
-        Calendar date = booking.getTransaction().getDate();
-        bookings.removeValue(date, booking);
+        movements.removeValue(date, movement);
     }
 }

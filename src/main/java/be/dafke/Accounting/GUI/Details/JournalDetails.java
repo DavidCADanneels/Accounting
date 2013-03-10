@@ -1,5 +1,6 @@
 package be.dafke.Accounting.GUI.Details;
 
+import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
@@ -89,7 +90,7 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
             journal.unbook(transaction);
             JOptionPane.showMessageDialog(null, getBundle("Accounting").getString("TRANSACTIE_VERWIJDERD_UIT") + journal);
         }
-        super.refresh();
+        ComponentMap.refreshAllFrames();
     }
 
     @Override

@@ -23,7 +23,6 @@ public class Transaction {
     private String abbreviation;
 
     private final ArrayList<Booking> bookings;
-    private final ArrayList<Mortgage> mortgages;
 
     public Transaction() {
 		debitTotal = new BigDecimal(0);
@@ -31,7 +30,6 @@ public class Transaction {
 		creditTotal = new BigDecimal(0);
 		creditTotal = creditTotal.setScale(2);
         bookings = new ArrayList<Booking>();
-		mortgages = new ArrayList<Mortgage>();
 	}
 
     protected void lowerID() {
@@ -43,10 +41,6 @@ public class Transaction {
     }
 
     // Getters (without setters)
-    public ArrayList<Mortgage> getMortgages() {
-        return mortgages;
-    }
-
     public ArrayList<Booking> getBookings() {
         return bookings;
     }
@@ -105,14 +99,10 @@ public class Transaction {
 
     // Adders
 
-	public void addMortgage(Mortgage mortgage) {
-		mortgages.add(mortgage);
-	}
-
-    public void addBooking(Booking booking){
+   public void addBooking(Booking booking){
         booking.setTransaction(this);
-        boolean debit = booking.isDebit();
-        BigDecimal amount = booking.getAmount();
+        boolean debit = booking.getMovement().isDebit();
+        BigDecimal amount = booking.getMovement().getAmount();
 
         if(debit){
             bookings.add(nrOfDebits, booking);

@@ -8,6 +8,7 @@ import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.Journal;
+import be.dafke.Accounting.Objects.Accounting.Movement;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.AlphabeticListModel;
 import be.dafke.PrefixFilterPanel;
@@ -32,10 +33,6 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class AccountsGUI extends JPanel implements ListSelectionListener, ActionListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private final PrefixFilterPanel<Account> zoeker;
 	private final AlphabeticListModel<Account> model;
 	private final JList<Account> lijst;
@@ -129,7 +126,8 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 					BigDecimal amount = new BigDecimal(s);
 					amount = amount.setScale(2);
                     Transaction transaction = journal.getCurrentTransaction();
-                    Booking booking = new Booking(account, amount,debit);
+                    Booking booking = new Booking(account);
+                    booking.setMovement(new Movement(amount,debit));
                     transaction.addBooking(booking);
 					ok = true;
                     ComponentMap.refreshAllFrames();

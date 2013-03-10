@@ -1,7 +1,7 @@
 package be.dafke.Accounting.GUI.Details;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Booking;
+import be.dafke.Accounting.Objects.Accounting.Movement;
 import be.dafke.Utils;
 
 import javax.swing.table.AbstractTableModel;
@@ -37,7 +37,7 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return rekening.getBookings().size();
+		return rekening.getMovements().size();
 	}
 
 	@Override
@@ -52,19 +52,19 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int row, int col) {
-        Booking boeking = rekening.getBookings().get(row);
+        Movement movement = rekening.getMovements().get(row);
         if (col == 0) {
-            return boeking.getTransaction().getAbbreviation() + boeking.getTransaction().getId();
+            return movement.getBooking().getTransaction().getAbbreviation() + movement.getBooking().getTransaction().getId();
         } else if (col == 1) {
-            return Utils.toString(boeking.getTransaction().getDate());
+            return Utils.toString(movement.getBooking().getTransaction().getDate());
         } else if (col == 2) {
-            if (boeking.isDebit()) return boeking.getAmount();
+            if (movement.isDebit()) return movement.getAmount();
             return "";
         } else if (col == 3) {
-            if (!boeking.isDebit()) return boeking.getAmount();
+            if (!movement.isDebit()) return movement.getAmount();
             return "";
         } else {
-            return boeking.getTransaction().getDescription();
+            return movement.getBooking().getTransaction().getDescription();
         }
     }
 
@@ -83,14 +83,14 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		Booking boeking = rekening.getBookings().get(row);
+		Movement movement = rekening.getMovements().get(row);
 		if (col == 1) {
-			Calendar oudeDatum = boeking.getTransaction().getDate();
+			Calendar oudeDatum = movement.getBooking().getTransaction().getDate();
 			Calendar nieuweDatum = Utils.toCalendar((String) value);
-			if (nieuweDatum != null) boeking.getTransaction().setDate(nieuweDatum);
+			if (nieuweDatum != null) movement.getBooking().getTransaction().setDate(nieuweDatum);
 			else setValueAt(Utils.toString(oudeDatum), row, col);
 		} else if (col == 4) {
-			boeking.getTransaction().setDescription((String) value);
+			movement.getBooking().getTransaction().setDescription((String) value);
 		}
 //		parent.repaintAllFrames();
 //		super.refresh();

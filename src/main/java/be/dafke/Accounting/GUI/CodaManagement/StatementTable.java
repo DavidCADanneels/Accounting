@@ -9,6 +9,7 @@ import be.dafke.Accounting.Objects.Accounting.BankAccount;
 import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.CounterParty;
 import be.dafke.Accounting.Objects.Accounting.Journal;
+import be.dafke.Accounting.Objects.Accounting.Movement;
 import be.dafke.Accounting.Objects.Accounting.Statement;
 import be.dafke.Accounting.Objects.Accounting.Statements;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
@@ -204,8 +205,10 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
                         }
                         BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 4);
                         Transaction transaction = accounting.getJournals().getCurrentJournal().getCurrentTransaction();
-                        Booking booking1 = new Booking(account, amount, debet);
-                        Booking booking2 = new Booking(bankAccount, amount, !debet);
+                        Booking booking1 = new Booking(account);
+                        booking1.setMovement(new Movement(amount, debet));
+                        Booking booking2 = new Booking(bankAccount);
+                        booking2.setMovement(new Movement(amount, !debet));
                         transaction.addBooking(booking1);
                         transaction.addBooking(booking2);
                         String cal = (String) tabel.getValueAt(i, 2);

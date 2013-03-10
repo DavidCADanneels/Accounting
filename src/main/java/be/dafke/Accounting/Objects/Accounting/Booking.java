@@ -1,7 +1,5 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import java.math.BigDecimal;
-
 /**
  * @author David Danneels
  * @since 01/10/2010
@@ -9,14 +7,11 @@ import java.math.BigDecimal;
  */
 public class Booking {
 	private Account account;
-	private BigDecimal amount;
-	private boolean debit;
+    private Movement movement;
 	private Transaction transaction;
 
-	public Booking(Account account, BigDecimal amount, boolean debit) {
+	public Booking(Account account) {
 		this.account = account;
-		this.amount = amount;
-		this.debit = debit;
 	}
 
     // Getters
@@ -25,16 +20,13 @@ public class Booking {
 		return transaction;
 	}
 
-	public Account getAccount() {
+    public void setMovement(Movement movement){
+        movement.setBooking(this);
+        this.movement = movement;
+    }
+
+    public Account getAccount() {
 		return account;
-	}
-
-	public BigDecimal getAmount() {
-		return amount;
-	}
-
-	public boolean isDebit() {
-		return debit;
 	}
 
     // Setters
@@ -43,16 +35,7 @@ public class Booking {
         this.transaction = transaction;
     }
 
-    public void setAccount(Account account) {
-        this.account = account;
+    public Movement getMovement() {
+        return movement;
     }
-
-    public void setAmount(BigDecimal amount) {
-        this.amount = amount;
-    }
-
-    public void setDebit(boolean debit) {
-        this.debit = debit;
-    }
-
 }
