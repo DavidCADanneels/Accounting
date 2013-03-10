@@ -67,10 +67,14 @@ public class MortgagesSAXParser {
                 mortgage.setHtmlFile(htmlFile);
                 int nr = Integer.valueOf(nrPayed);
                 mortgage.setPayed(nr);
-                Account capital = accounts.getBusinessObject(capitalName);
-                mortgage.setCapitalAccount(capital);
-                Account intrest = accounts.getBusinessObject(intrestName);
-                mortgage.setIntrestAccount(intrest);
+                if(capitalName!=null){
+                    Account capital = accounts.getBusinessObject(capitalName);
+                    mortgage.setCapitalAccount(capital);
+                }
+                if(intrestName!=null){
+                    Account intrest = accounts.getBusinessObject(intrestName);
+                    mortgage.setIntrestAccount(intrest);
+                }
                 try {
                     mortgages.addBusinessObject(mortgage);
                 } catch (EmptyNameException e) {
@@ -117,12 +121,16 @@ public class MortgagesSAXParser {
                 }
                 writer.write("    <total>" + mortgage.getStartCapital() + "</total>\r\n");
                 writer.write("    <nrPayed>" + mortgage.getNrPayed() + "</nrPayed>\r\n");
-                writer.write("    <capital_account_name>" + mortgage.getCapitalAccount() + "</capital_account_name>\r\n");
-                writer.write("    <capital_account_xml>" + mortgage.getCapitalAccount().getXmlFile() + "</capital_account_xml>\r\n");
-                writer.write("    <capital_account_html>" + mortgage.getCapitalAccount().getHtmlFile() + "</capital_account_html>\r\n");
-                writer.write("    <intrest_account_name>" + mortgage.getIntrestAccount() + "</intrest_account_name>\r\n");
-                writer.write("    <intrest_account_xml>" + mortgage.getIntrestAccount().getXmlFile() + "</intrest_account_xml>\r\n");
-                writer.write("    <intrest_account_html>" + mortgage.getIntrestAccount().getHtmlFile() + "</intrest_account_html>\r\n");
+                if(mortgage.getCapitalAccount()!=null){
+                    writer.write("    <capital_account_name>" + mortgage.getCapitalAccount() + "</capital_account_name>\r\n");
+                    writer.write("    <capital_account_xml>" + mortgage.getCapitalAccount().getXmlFile() + "</capital_account_xml>\r\n");
+                    writer.write("    <capital_account_html>" + mortgage.getCapitalAccount().getHtmlFile() + "</capital_account_html>\r\n");
+                }
+                if(mortgage.getIntrestAccount()!=null){
+                    writer.write("    <intrest_account_name>" + mortgage.getIntrestAccount() + "</intrest_account_name>\r\n");
+                    writer.write("    <intrest_account_xml>" + mortgage.getIntrestAccount().getXmlFile() + "</intrest_account_xml>\r\n");
+                    writer.write("    <intrest_account_html>" + mortgage.getIntrestAccount().getHtmlFile() + "</intrest_account_html>\r\n");
+                }
                 writer.write("  </Mortgage>\r\n");
             }
             writer.write("</Mortgages>\r\n");
@@ -147,7 +155,7 @@ public class MortgagesSAXParser {
 
             writer.write(mortgage.getXmlHeader());
 
-            writer.write("<Mortgage>");
+            writer.write("<Mortgage>\r\n");
             writer.write("  <name>" + mortgage.toString() + "</name>\r\n");
             int teller = 1;
             for(Vector<BigDecimal> vector : mortgage.getTable()) {

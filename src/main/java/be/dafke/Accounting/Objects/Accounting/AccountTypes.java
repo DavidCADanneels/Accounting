@@ -38,6 +38,10 @@ public class AccountTypes extends WriteableBusinessCollection<AccountType> {
         debit.setName("Debit");
         debit.setInverted(true);
 
+        AccountType mortgage = new AccountType();
+//        mortgage.setName(getBundle("Accounting").getString("MORTGAGE"));
+        mortgage.setName("Mortgage");
+
         try{
             addBusinessObject(active);
             addBusinessObject(passive);
@@ -45,6 +49,7 @@ public class AccountTypes extends WriteableBusinessCollection<AccountType> {
             addBusinessObject(revenue);
             addBusinessObject(credit);
             addBusinessObject(debit);
+            addBusinessObject(mortgage);
         } catch (EmptyNameException e) {
             System.err.println("The Name of an AccountType can not be empty.");
         } catch (DuplicateNameException e) {

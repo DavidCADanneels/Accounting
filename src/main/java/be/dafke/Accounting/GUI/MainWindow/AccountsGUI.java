@@ -144,13 +144,15 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
         boxes.clear();
         if(accountTypes!=null){
             for(AccountType type : accountTypes.getBusinessObjects()) {
-                JCheckBox checkBox = new JCheckBox(type.getName());
-                checkBox.setSelected(true);
-                checkBox.setEnabled(false);
-                checkBox.setActionCommand(type.getName());
-                checkBox.addActionListener(this);
-                boxes.add(checkBox);
-                filter.add(checkBox);
+                if(!type.getName().equals("Mortgage")){
+                    JCheckBox checkBox = new JCheckBox(type.getName());
+                    checkBox.setSelected(true);
+                    checkBox.setEnabled(false);
+                    checkBox.setActionCommand(type.getName());
+                    checkBox.addActionListener(this);
+                    boxes.add(checkBox);
+                    filter.add(checkBox);
+                }
             }
         }
 //        revalidate();

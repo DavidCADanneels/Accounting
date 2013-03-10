@@ -3,6 +3,7 @@ package be.dafke.Accounting.GUI.MortgageManagement;
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.GUI.ComponentMap;
+import be.dafke.Accounting.Objects.Accounting.AccountType;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Mortgage;
 import be.dafke.RefreshableFrame;
@@ -59,7 +60,10 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
         mortgage.setName(name);
         mortgage.setStartCapital(startCapital);
         mortgage.setTable(model.getData());
+        AccountType type = accounting.getAccountTypes().getBusinessObject("Mortgage");
+        mortgage.setAccountType(type);
         try {
+            accounting.getAccounts().addBusinessObject(mortgage);
             accounting.getMortgages().addBusinessObject(mortgage);
             ComponentMap.refreshAllFrames();
             dispose();

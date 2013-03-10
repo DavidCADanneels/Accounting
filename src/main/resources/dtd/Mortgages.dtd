@@ -1,5 +1,5 @@
 <!ELEMENT Mortgages (Mortgage*)>
-<!ELEMENT Mortgage (name,xml,html,total,nrPayed,capital_account_name,capital_account_xml,capital_account_html,intrest_account_name,intrest_account_xml,intrest_account_html)>
+<!ELEMENT Mortgage (name,xml,html,total,nrPayed,capital_account_name?,capital_account_xml?,capital_account_html?,intrest_account_name?,intrest_account_xml?,intrest_account_html?)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT xml (#PCDATA)>
 <!ELEMENT html (#PCDATA)>

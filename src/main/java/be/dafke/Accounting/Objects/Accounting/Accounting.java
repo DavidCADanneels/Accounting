@@ -48,9 +48,9 @@ public class Accounting extends WriteableBusinessObject {
         keys = new ArrayList<String>();
 //        keys.add(accountTypes.getType());
         keys.add(accounts.getType());
+        keys.add(mortgages.getType());
         keys.add(journals.getType());
         keys.add(balances.getType());
-        keys.add(mortgages.getType());
         keys.add(counterParties.getType());
         keys.add(statements.getType());
 	}

@@ -19,6 +19,9 @@ public class Mortgage extends Account {
         movements = new MultiValueMap<Calendar, Movement[]>();
     }
 
+    public boolean isBookable(){
+        return (capital!=null && intrest!=null);
+    }
     @Override
     public boolean isDeletable(){
         return alreadyPayed > 0 && alreadyPayed < table.size();
