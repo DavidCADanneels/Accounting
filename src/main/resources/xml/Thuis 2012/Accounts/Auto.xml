@@ -3,17 +3,9 @@
 <!DOCTYPE Account SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Account.dtd">
 <Account>
   <name>Auto</name>
-  <action id="223">
-    <nr>DIV223</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
-    <date>28/5/2012</date>
-    <debit>15450.00</debit>
-    <description>Aankoop auto</description>
-  </action>
   <closed type = "debit">
-    <debitTotal>15450.00</debitTotal>
+    <debitTotal>0.00</debitTotal>
     <creditTotal>0.00</creditTotal>
-    <saldo>15450.00</saldo>
+    <saldo>0.00</saldo>
   </closed>
 </Account>

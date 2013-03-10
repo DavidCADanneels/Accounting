@@ -7,6 +7,10 @@
     <name>Accounts</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Accounts.xml</xml>
   </Accounts>
+  <Mortgages>
+    <name>Mortgages</name>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Mortgages.xml</xml>
+  </Mortgages>
   <Journals>
     <name>Journals</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Journals.xml</xml>
@@ -15,10 +19,6 @@
     <name>Balances</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Balances.xml</xml>
   </Balances>
-  <Mortgages>
-    <name>Mortgages</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Mortgages.xml</xml>
-  </Mortgages>
   <CounterParties>
     <name>CounterParties</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\CounterParties.xml</xml>

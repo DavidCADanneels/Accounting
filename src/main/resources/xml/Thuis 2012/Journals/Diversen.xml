@@ -15,7 +15,7 @@
   <action>
     <account_name>Huis activa</account_name>
     <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Huis activa.xml</account_xml>
-    <account_html>Accounts\Huis activa.html</account_html>
+    <account_html>null</account_html>
     <debet>156000.00</debet>
   </action>
   <action>
@@ -3527,7 +3527,7 @@
     <date>28/5/2012</date>
     <account_name>Auto activa</account_name>
     <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Auto activa.xml</account_xml>
-    <account_html>Accounts\Auto activa.html</account_html>
+    <account_html>null</account_html>
     <debet>15450.00</debet>
     <description>Aankoop auto</description>
   </action>
