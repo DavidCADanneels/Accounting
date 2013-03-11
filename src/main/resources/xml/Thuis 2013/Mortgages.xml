@@ -28,11 +28,4 @@
     <intrest_account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Intrest Huis.xml</intrest_account_xml>
     <intrest_account_html>null</intrest_account_html>
   </Mortgage>
-  <Mortgage>
-    <name>Huis2</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Mortgages\Huis2.xml</xml>
-    <html>Mortgages\Huis2.html</html>
-    <total>84545</total>
-    <nrPayed>1</nrPayed>
-  </Mortgage>
 </Mortgages>

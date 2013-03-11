@@ -94,14 +94,16 @@ public class AccountsSAXParser {
 
             writer.write("<Accounts>\r\n");
             for(Account account : accounts.getBusinessObjects()) {
-                writer.write("  <Account>\r\n");
-                writer.write("    <xml>" + account.getXmlFile() + "</xml>\r\n");
-                if(account.getHtmlFile()!=null){
-                    writer.write("    <html>" + account.getHtmlFile() + "</html>\r\n");
+                if(account.getType().equals("Account")){
+                    writer.write("  <Account>\r\n");
+                    writer.write("    <xml>" + account.getXmlFile() + "</xml>\r\n");
+                    if(account.getHtmlFile()!=null){
+                        writer.write("    <html>" + account.getHtmlFile() + "</html>\r\n");
+                    }
+                    writer.write("    <account_name>" + account.getName() + "</account_name>\r\n");
+                    writer.write("    <account_type>" + account.getAccountType() + "</account_type>\r\n");
+                    writer.write("  </Account>\r\n");
                 }
-                writer.write("    <account_name>" + account.getName() + "</account_name>\r\n");
-                writer.write("    <account_type>" + account.getAccountType() + "</account_type>\r\n");
-                writer.write("  </Account>\r\n");
             }
             writer.write("</Accounts>\r\n");
             writer.flush();

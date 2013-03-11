@@ -33,11 +33,6 @@
     <account_type>Cost</account_type>
   </Account>
   <Account>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Auto.xml</xml>
-    <account_name>Auto</account_name>
-    <account_type>Mortgage</account_type>
-  </Account>
-  <Account>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Auto activa.xml</xml>
     <account_name>Auto activa</account_name>
     <account_type>Active</account_type>
@@ -98,21 +93,10 @@
     <account_type>Revenue</account_type>
   </Account>
   <Account>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Huis.xml</xml>
-    <account_name>Huis</account_name>
-    <account_type>Mortgage</account_type>
-  </Account>
-  <Account>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Huis activa.xml</xml>
     <html>Accounts\Huis activa.html</html>
     <account_name>Huis activa</account_name>
     <account_type>Active</account_type>
-  </Account>
-  <Account>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Mortgages\Huis2.xml</xml>
-    <html>Mortgages\Huis2.html</html>
-    <account_name>Huis2</account_name>
-    <account_type>Mortgage</account_type>
   </Account>
   <Account>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Huur 2012.xml</xml>

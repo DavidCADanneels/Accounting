@@ -76,6 +76,7 @@ public class MortgagesSAXParser {
                     mortgage.setIntrestAccount(intrest);
                 }
                 try {
+                    accounts.addBusinessObject(mortgage);
                     mortgages.addBusinessObject(mortgage);
                 } catch (EmptyNameException e) {
                     System.err.println("Mortgage name is empty.");

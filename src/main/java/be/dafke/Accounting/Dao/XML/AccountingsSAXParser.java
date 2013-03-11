@@ -86,8 +86,8 @@ public class AccountingsSAXParser {
             }
 
             AccountsSAXParser.readAccounts(accounting.getAccounts(),accounting.getAccountTypes(), accounting.getProjects());
-            JournalsSAXParser.readJournals(accounting.getJournals(), accounting.getJournalTypes(), accounting.getAccounts());
             MortgagesSAXParser.readMortgages(accounting.getMortgages(), accounting.getAccounts());
+            JournalsSAXParser.readJournals(accounting.getJournals(), accounting.getJournalTypes(), accounting.getAccounts());
             CounterPartiesSAXParser.readCounterparties(accounting.getCounterParties(), accounting.getAccounts());
             StatementsSAXParser.readStatements(accounting.getStatements(), accounting.getCounterParties());
         } catch (Exception e) {
