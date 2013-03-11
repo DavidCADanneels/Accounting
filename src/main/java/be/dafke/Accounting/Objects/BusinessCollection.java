@@ -41,7 +41,7 @@ public class BusinessCollection <V extends BusinessObject> extends BusinessObjec
 
     @Override
     public String toString() {
-        StringBuilder builder = new StringBuilder(getType()).append(":\r\n");
+        StringBuilder builder = new StringBuilder(getBusinessObjectType()).append(":\r\n");
         for(BusinessObject writeableBusinessObject : getBusinessObjects()){
             builder.append(writeableBusinessObject.toString());
         }

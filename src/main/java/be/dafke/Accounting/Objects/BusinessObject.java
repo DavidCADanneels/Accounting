@@ -10,17 +10,17 @@ import java.util.Map;
  */
 public class BusinessObject {
     private String name;
-    protected String type;
+    protected String businessObjectType;
     protected final static String NAME = "name";
 
 //    private boolean isSaved;
 
     protected BusinessObject(){
-        type = this.getClass().getSimpleName();
+        businessObjectType = this.getClass().getSimpleName();
     }
 
-    public String getType() {
-        return type;
+    public String getBusinessObjectType() {
+        return businessObjectType;
     }
 
     public Map<String,String> getKeyMap(){

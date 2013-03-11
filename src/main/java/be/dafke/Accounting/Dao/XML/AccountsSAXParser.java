@@ -94,7 +94,7 @@ public class AccountsSAXParser {
 
             writer.write("<Accounts>\r\n");
             for(Account account : accounts.getBusinessObjects()) {
-                if(account.getType().equals("Account")){
+                if(account.getBusinessObjectType().equals("Account")){
                     writer.write("  <Account>\r\n");
                     writer.write("    <xml>" + account.getXmlFile() + "</xml>\r\n");
                     if(account.getHtmlFile()!=null){

@@ -37,22 +37,22 @@ public class Accounting extends WriteableBusinessObject {
 
         collections = new HashMap<String, WriteableBusinessCollection<WriteableBusinessObject>>();
         // TODO unchecked assignment: use put(..., (WriteableBusinessCollection<WriteableBusinessObject>) accounts)
-//        collections.put(accountTypes.getType(),(WriteableBusinessCollection)accountTypes);
-        collections.put(accounts.getType(),(WriteableBusinessCollection)accounts);
-        collections.put(journals.getType(),(WriteableBusinessCollection)journals);
-        collections.put(balances.getType(),(WriteableBusinessCollection)balances);
-        collections.put(mortgages.getType(),(WriteableBusinessCollection)mortgages);
-        collections.put(statements.getType(),(WriteableBusinessCollection) statements);
-        collections.put(counterParties.getType(),(WriteableBusinessCollection)counterParties);
+//        collections.put(accountTypes.getBusinessObjectType(),(WriteableBusinessCollection)accountTypes);
+        collections.put(accounts.getBusinessObjectType(),(WriteableBusinessCollection)accounts);
+        collections.put(journals.getBusinessObjectType(),(WriteableBusinessCollection)journals);
+        collections.put(balances.getBusinessObjectType(),(WriteableBusinessCollection)balances);
+        collections.put(mortgages.getBusinessObjectType(),(WriteableBusinessCollection)mortgages);
+        collections.put(statements.getBusinessObjectType(),(WriteableBusinessCollection) statements);
+        collections.put(counterParties.getBusinessObjectType(),(WriteableBusinessCollection)counterParties);
 
         keys = new ArrayList<String>();
-//        keys.add(accountTypes.getType());
-        keys.add(accounts.getType());
-        keys.add(mortgages.getType());
-        keys.add(journals.getType());
-        keys.add(balances.getType());
-        keys.add(counterParties.getType());
-        keys.add(statements.getType());
+//        keys.add(accountTypes.getBusinessObjectType());
+        keys.add(accounts.getBusinessObjectType());
+        keys.add(mortgages.getBusinessObjectType());
+        keys.add(journals.getBusinessObjectType());
+        keys.add(balances.getBusinessObjectType());
+        keys.add(counterParties.getBusinessObjectType());
+        keys.add(statements.getBusinessObjectType());
 	}
 
     @Override

@@ -19,8 +19,8 @@ public class Accounts extends WriteableBusinessCollection<Account> {
     private Account currentAccount;
 
     /**
-	 * Geeft alle rekeningen terug van het gegeven type
-	 * @param type het type van de gevraagde rekeningen
+	 * Geeft alle rekeningen terug van het gegeven businessObjectType
+	 * @param type het businessObjectType van de gevraagde rekeningen
 	 * <ul>
 	 * <li>0 : Actief</li>
 	 * <li>1 : Passief</li>
@@ -29,7 +29,7 @@ public class Accounts extends WriteableBusinessCollection<Account> {
 	 * <li>4 : Tegoed van Klant</li>
 	 * <li>5 : Schuld aan Leverancier</li>
 	 * </ul>
-	 * @return alle rekeningen van het gevraagde type
+	 * @return alle rekeningen van het gevraagde businessObjectType
 	 */
 	public ArrayList<Account> getAccounts(AccountType type) {
 		ArrayList<Account> col = new ArrayList<Account>();

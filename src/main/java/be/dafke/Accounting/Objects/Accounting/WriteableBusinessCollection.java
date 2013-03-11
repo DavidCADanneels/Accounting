@@ -18,8 +18,8 @@ public class WriteableBusinessCollection<V extends WriteableBusinessObject> exte
 
     @Override
     public void setHtmlFolder(File parentFolder){
-        setHtmlFile(new File(parentFolder, getType() + ".html"));
-        htmlFolder = new File(parentFolder, getType());
+        setHtmlFile(new File(parentFolder, getBusinessObjectType() + ".html"));
+        htmlFolder = new File(parentFolder, getBusinessObjectType());
         for(V writeableBusinessObject : getBusinessObjects()){
             writeableBusinessObject.setHtmlFile(new File(htmlFolder, writeableBusinessObject.getName() + ".html"));
         }
@@ -27,8 +27,8 @@ public class WriteableBusinessCollection<V extends WriteableBusinessObject> exte
 
     @Override
     public void setXmlFolder(File parentFolder) {
-        setXmlFile(new File(parentFolder, getType() + ".xml"));
-        xmlFolder = new File(parentFolder, getType());
+        setXmlFile(new File(parentFolder, getBusinessObjectType() + ".xml"));
+        xmlFolder = new File(parentFolder, getBusinessObjectType());
         for(WriteableBusinessObject writeableBusinessObject : getBusinessObjects()){
             writeableBusinessObject.setXmlFile(new File(xmlFolder, writeableBusinessObject.getName() + ".xml"));
         }
@@ -95,17 +95,17 @@ public class WriteableBusinessCollection<V extends WriteableBusinessObject> exte
 
     public WriteableBusinessCollection(){
         File xslFolder = new File(System.getProperty("Accountings_xsl"));
-        xsl2XmlFile = new File(xslFolder, type + "2xml.xsl");
-        xsl2HtmlFile = new File(xslFolder, type + "2html.xsl");
+        xsl2XmlFile = new File(xslFolder, businessObjectType + "2xml.xsl");
+        xsl2HtmlFile = new File(xslFolder, businessObjectType + "2html.xsl");
 
         File dtdFolder = new File(System.getProperty("Accountings_dtd"));
-        dtdFile = new File(dtdFolder, type + ".dtd");
+        dtdFile = new File(dtdFolder, businessObjectType + ".dtd");
     }
 
     public String getXmlHeader() {
         return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" +
                 "<?xml-stylesheet type=\"text/xsl\" href=\"" + xsl2XmlFile + "\"?>\r\n" +
-                "<!DOCTYPE " + type + " SYSTEM \"" + dtdFile + "\">\r\n";
+                "<!DOCTYPE " + businessObjectType + " SYSTEM \"" + dtdFile + "\">\r\n";
 
     }
 

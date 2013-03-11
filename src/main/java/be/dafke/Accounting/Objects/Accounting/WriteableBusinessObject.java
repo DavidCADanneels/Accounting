@@ -14,11 +14,11 @@ import java.io.File;
 public class WriteableBusinessObject extends BusinessObject implements Writeable {
     protected WriteableBusinessObject(){
         File xslFolder = new File(System.getProperty("Accountings_xsl"));
-        xsl2XmlFile = new File(xslFolder, type + "2xml.xsl");
-        xsl2HtmlFile = new File(xslFolder, type + "2html.xsl");
+        xsl2XmlFile = new File(xslFolder, businessObjectType + "2xml.xsl");
+        xsl2HtmlFile = new File(xslFolder, businessObjectType + "2html.xsl");
 
         File dtdFolder = new File(System.getProperty("Accountings_dtd"));
-        dtdFile = new File(dtdFolder, type + ".dtd");
+        dtdFile = new File(dtdFolder, businessObjectType + ".dtd");
     }
 
     // implements Writeable
@@ -42,7 +42,7 @@ public class WriteableBusinessObject extends BusinessObject implements Writeable
     public String getXmlHeader() {
         return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" +
                 "<?xml-stylesheet type=\"text/xsl\" href=\"" + xsl2XmlFile + "\"?>\r\n" +
-                "<!DOCTYPE " + type + " SYSTEM \"" + dtdFile + "\">\r\n";
+                "<!DOCTYPE " + businessObjectType + " SYSTEM \"" + dtdFile + "\">\r\n";
 
     }
 
