@@ -22,9 +22,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                 <xsl:attribute name="href">
                   <xsl:value-of select="xml"/>
                 </xsl:attribute>
-                  <xsl:value-of select="journal_name"/>
+                  <xsl:value-of select="name"/>
               </xsl:element>
-              (<xsl:value-of select="journal_short"/> | <xsl:value-of select="journal_type"/>)
+              (<xsl:value-of select="abbreviation"/> | <xsl:value-of select="type"/>)
             </li>
           </xsl:for-each>
         </ul>

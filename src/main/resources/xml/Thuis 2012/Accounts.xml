@@ -3,198 +3,210 @@
 <!DOCTYPE Accounts SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Accounts.dtd">
 <Accounts>
   <Account>
+    <name>AXA-Autoverzekering</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\AXA-Autoverzekering.xml</xml>
-    <account_name>AXA-Autoverzekering</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>AXA-Bijstandsverzekering</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\AXA-Bijstandsverzekering.xml</xml>
-    <account_name>AXA-Bijstandsverzekering</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>AXA-Brommerverzekering</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\AXA-Brommerverzekering.xml</xml>
-    <account_name>AXA-Brommerverzekering</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>AXA-Levensverzekering</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\AXA-Levensverzekering.xml</xml>
-    <account_name>AXA-Levensverzekering</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>AXA-TEMP</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\AXA-TEMP.xml</xml>
-    <account_name>AXA-TEMP</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>Apotheek</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Apotheek.xml</xml>
-    <account_name>Apotheek</account_name>
-    <account_type>Cost</account_type>
   </Account>
+  <Mortgage>
+    <html>Mortgages\Auto.html</html>
+    <name>Auto</name>
+    <type>Mortgage</type>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Mortgages\Auto.xml</xml>
+  </Mortgage>
   <Account>
+    <name>Auto activa</name>
+    <type>Active</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Auto activa.xml</xml>
-    <account_name>Auto activa</account_name>
-    <account_type>Active</account_type>
   </Account>
   <Account>
+    <name>Autolening</name>
+    <type>Debit</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Autolening.xml</xml>
-    <account_name>Autolening</account_name>
-    <account_type>Debit</account_type>
   </Account>
   <Account>
+    <name>Bank Dara</name>
+    <type>Active</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Bank Dara.xml</xml>
-    <account_name>Bank Dara</account_name>
-    <account_type>Active</account_type>
   </Account>
   <Account>
+    <name>Bank David</name>
+    <type>Active</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Bank David.xml</xml>
-    <account_name>Bank David</account_name>
-    <account_type>Active</account_type>
   </Account>
   <Account>
+    <name>Belastingen</name>
+    <type>Revenue</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Belastingen.xml</xml>
-    <account_name>Belastingen</account_name>
-    <account_type>Revenue</account_type>
   </Account>
   <Account>
+    <name>CM</name>
+    <type>Revenue</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\CM.xml</xml>
-    <account_name>CM</account_name>
-    <account_type>Revenue</account_type>
   </Account>
   <Account>
+    <name>Consumptie</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Consumptie.xml</xml>
-    <account_name>Consumptie</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>DAS-Autoverzekering</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\DAS-Autoverzekering.xml</xml>
-    <account_name>DAS-Autoverzekering</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>Eigen Kapitaal</name>
+    <type>Passive</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Eigen Kapitaal.xml</xml>
-    <account_name>Eigen Kapitaal</account_name>
-    <account_type>Passive</account_type>
   </Account>
   <Account>
+    <name>Energiekosten</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Energiekosten.xml</xml>
-    <account_name>Energiekosten</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>Giften UK</name>
+    <type>Revenue</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Giften UK.xml</xml>
-    <account_name>Giften UK</account_name>
-    <account_type>Revenue</account_type>
   </Account>
+  <Mortgage>
+    <html>Mortgages\Huis.html</html>
+    <name>Huis</name>
+    <type>Mortgage</type>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Mortgages\Huis.xml</xml>
+  </Mortgage>
   <Account>
+    <name>Huis activa</name>
+    <type>Active</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Huis activa.xml</xml>
-    <account_name>Huis activa</account_name>
-    <account_type>Active</account_type>
   </Account>
   <Account>
+    <name>Huur 2012</name>
+    <type>Credit</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Huur 2012.xml</xml>
-    <account_name>Huur 2012</account_name>
-    <account_type>Credit</account_type>
   </Account>
   <Account>
+    <name>Hypotheek</name>
+    <type>Debit</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Hypotheek.xml</xml>
-    <account_name>Hypotheek</account_name>
-    <account_type>Debit</account_type>
   </Account>
   <Account>
+    <name>Intrest Huis</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Intrest Huis.xml</xml>
-    <account_name>Intrest Huis</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>Intrest autolening</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Intrest autolening.xml</xml>
-    <account_name>Intrest autolening</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>Intresten bank</name>
+    <type>Revenue</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Intresten bank.xml</xml>
-    <account_name>Intresten bank</account_name>
-    <account_type>Revenue</account_type>
   </Account>
   <Account>
+    <name>KBC Verzekeringen</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\KBC Verzekeringen.xml</xml>
-    <account_name>KBC Verzekeringen</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>Kindergeld</name>
+    <type>Revenue</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Kindergeld.xml</xml>
-    <account_name>Kindergeld</account_name>
-    <account_type>Revenue</account_type>
   </Account>
   <Account>
+    <name>Kosten Thailand</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Kosten Thailand.xml</xml>
-    <account_name>Kosten Thailand</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>Kosten school</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Kosten school.xml</xml>
-    <account_name>Kosten school</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>Netto Dara</name>
+    <type>Revenue</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Netto Dara.xml</xml>
-    <account_name>Netto Dara</account_name>
-    <account_type>Revenue</account_type>
   </Account>
   <Account>
+    <name>Netto David</name>
+    <type>Revenue</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Netto David.xml</xml>
-    <account_name>Netto David</account_name>
-    <account_type>Revenue</account_type>
   </Account>
   <Account>
+    <name>Opbrengst feestje</name>
+    <type>Revenue</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Opbrengst feestje.xml</xml>
-    <account_name>Opbrengst feestje</account_name>
-    <account_type>Revenue</account_type>
   </Account>
   <Account>
+    <name>Post Dara</name>
+    <type>Active</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Post Dara.xml</xml>
-    <account_name>Post Dara</account_name>
-    <account_type>Active</account_type>
   </Account>
   <Account>
+    <name>Schulden aan ma</name>
+    <type>Debit</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Schulden aan ma.xml</xml>
-    <account_name>Schulden aan ma</account_name>
-    <account_type>Debit</account_type>
   </Account>
   <Account>
+    <name>Spaar David</name>
+    <type>Active</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Spaar David.xml</xml>
-    <account_name>Spaar David</account_name>
-    <account_type>Active</account_type>
   </Account>
   <Account>
+    <name>Spaar Sophia</name>
+    <type>Active</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Spaar Sophia.xml</xml>
-    <account_name>Spaar Sophia</account_name>
-    <account_type>Active</account_type>
   </Account>
   <Account>
+    <name>Telefoonkosten</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Telefoonkosten.xml</xml>
-    <account_name>Telefoonkosten</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>Vakantiegeld Dara</name>
+    <type>Revenue</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Vakantiegeld Dara.xml</xml>
-    <account_name>Vakantiegeld Dara</account_name>
-    <account_type>Revenue</account_type>
   </Account>
   <Account>
+    <name>Vakantiegeld David</name>
+    <type>Revenue</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Vakantiegeld David.xml</xml>
-    <account_name>Vakantiegeld David</account_name>
-    <account_type>Revenue</account_type>
   </Account>
   <Account>
+    <name>Visa-kosten</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Visa-kosten.xml</xml>
-    <account_name>Visa-kosten</account_name>
-    <account_type>Cost</account_type>
   </Account>
   <Account>
+    <name>Ziekenhuiskosten</name>
+    <type>Cost</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Ziekenhuiskosten.xml</xml>
-    <account_name>Ziekenhuiskosten</account_name>
-    <account_type>Cost</account_type>
   </Account>
 </Accounts>

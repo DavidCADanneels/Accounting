@@ -1,7 +1,8 @@
-<!ELEMENT Accounts (Account*)>
-<!ELEMENT Account (xml?,html?,account_name, account_type,account_project?)>
+<!ELEMENT Accounts (Account*,Mortgage*)*>
+<!ELEMENT Account (html?,project?,name,type,xml)>
+<!ELEMENT Mortgage (html?,project?,name,type,xml)>
 <!ELEMENT xml (#PCDATA)>
 <!ELEMENT html (#PCDATA)>
-<!ELEMENT account_name (#PCDATA)>
-<!ELEMENT account_type (#PCDATA)>
-<!ELEMENT account_project (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT project (#PCDATA)>

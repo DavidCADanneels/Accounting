@@ -1,5 +1,5 @@
 <!ELEMENT Balances (Balance*)>
-<!ELEMENT Balance (name,xml,html)>
+<!ELEMENT Balance (html?,name,xml)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT xml (#PCDATA)>
 <!ELEMENT html (#PCDATA)>
