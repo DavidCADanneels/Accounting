@@ -31,9 +31,9 @@ public class AccountManagementTableModel extends AbstractTableModel {
 	public Object getValueAt(int row, int col) {
 		Account account = accounting.getAccounts().getAccounts(accounting.getAccountTypes().getBusinessObjects()).get(row);
 		if (col == 1) {
-			return account.getAccountType();
+			return account.getType();
 		} else if (col == 2) {
-			AccountType type = account.getAccountType();
+			AccountType type = account.getType();
             BigDecimal saldo = account.getSaldo();
             if(type.isInverted()){
                 saldo = saldo.negate();

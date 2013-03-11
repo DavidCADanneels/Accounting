@@ -7,7 +7,6 @@ import be.dafke.Accounting.Objects.Accounting.AccountType;
 import be.dafke.Accounting.Objects.Accounting.AccountTypes;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Movement;
-import be.dafke.Accounting.Objects.Accounting.Project;
 import be.dafke.Accounting.Objects.Accounting.Projects;
 import be.dafke.Utils;
 import org.w3c.dom.Document;
@@ -57,19 +56,10 @@ public class AccountsSAXParser {
                 try{
                     Account account = new Account();
                     account.setName(account_name.trim());
-                    account.setAccountType(type);
+                    account.setType(type);
                     accounts.addBusinessObject(account);
                     account.setXmlFile(xmlFile);
                     account.setHtmlFile(htmlFile);
-                    String account_project = Utils.getValue(element, "account_project");
-                    if(account_project!=null){
-                        Project project = projects.get(account_project);
-                        if (project == null) {
-                            project = new Project(account_project);
-                            projects.put(account_project, project);
-                        }
-                        project.addAccount(account);
-                    }
                 } catch (DuplicateNameException e) {
                     System.err.println("There is already an account with the name \""+account_name+"\".");
                 } catch (EmptyNameException e) {
@@ -100,8 +90,8 @@ public class AccountsSAXParser {
                     if(account.getHtmlFile()!=null){
                         writer.write("    <html>" + account.getHtmlFile() + "</html>\r\n");
                     }
-                    writer.write("    <account_name>" + account.getName() + "</account_name>\r\n");
-                    writer.write("    <account_type>" + account.getAccountType() + "</account_type>\r\n");
+                    writer.write("    <name>" + account.getName() + "</name>\r\n");
+                    writer.write("    <type>" + account.getType() + "</type>\r\n");
                     writer.write("  </Account>\r\n");
                 }
             }

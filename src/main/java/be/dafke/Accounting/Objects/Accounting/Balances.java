@@ -2,6 +2,7 @@ package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
+import be.dafke.Accounting.Objects.WriteableBusinessCollection;
 
 import java.util.ArrayList;
 

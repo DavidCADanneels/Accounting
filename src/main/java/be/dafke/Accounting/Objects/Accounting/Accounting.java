@@ -1,5 +1,8 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Objects.WriteableBusinessCollection;
+import be.dafke.Accounting.Objects.WriteableBusinessObject;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,9 +28,11 @@ public class Accounting extends WriteableBusinessObject {
         // TODO use Accounts<Account> + modifiy Accounts file ... Accounts<T extends
         accountTypes = new AccountTypes();
         accounts = new Accounts();
+        accounts.setBusinessTypeCollection(accountTypes);
         journalTypes = new JournalTypes();
         journalTypes.addDefaultType(accountTypes);
         journals = new Journals();
+        journals.setBusinessTypeCollection(journalTypes);
         balances = new Balances();
         mortgages = new Mortgages();
         counterParties = new CounterParties();

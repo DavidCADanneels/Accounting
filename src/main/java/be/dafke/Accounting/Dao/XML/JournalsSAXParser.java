@@ -58,7 +58,7 @@ public class JournalsSAXParser {
                     Journal journal = new Journal();
                     journal.setName(journal_name);
                     journal.setAbbreviation(journal_short);
-                    journal.setJournalType(journalTypes.getBusinessObject(journal_type));
+                    journal.setType(journalTypes.getBusinessObject(journal_type));
                     journals.addBusinessObject(journal);
                     journal.setXmlFile(xmlFile);
                     journal.setHtmlFile(htmlFile);
@@ -83,7 +83,7 @@ public class JournalsSAXParser {
         }
     }
     //
-    private static void readJournal(Journal journal, Accounts accounts) {
+    public static void readJournal(Journal journal, Accounts accounts) {
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
@@ -161,7 +161,7 @@ public class JournalsSAXParser {
                 }
                 writer.write("    <journal_name>" + journal.getName() + "</journal_name>\r\n");
                 writer.write("    <journal_short>" + journal.getAbbreviation() + "</journal_short>\r\n");
-                writer.write("    <journal_type>" + journal.getJournalType().toString() + "</journal_type>\r\n");
+                writer.write("    <journal_type>" + journal.getType().toString() + "</journal_type>\r\n");
                 writer.write("  </Journal>\r\n");
             }
             if(journals.getCurrentJournal()!=null){

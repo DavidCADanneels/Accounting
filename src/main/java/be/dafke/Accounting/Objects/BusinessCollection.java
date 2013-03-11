@@ -3,7 +3,6 @@ package be.dafke.Accounting.Objects;
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Exceptions.NotEmptyException;
-import be.dafke.Accounting.Objects.Accounting.WriteableBusinessObject;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;

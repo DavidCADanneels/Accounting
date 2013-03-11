@@ -224,7 +224,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
             Journal journal = new Journal();
             journal.setName(newName);
             journal.setAbbreviation(abbreviation);
-            journal.setJournalType(journalType);
+            journal.setType(journalType);
             accounting.getJournals().addBusinessObject(journal);
             accounting.getJournals().setCurrentJournal(journal);
             ComponentMap.refreshAllFrames();
@@ -254,7 +254,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
             if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
                 for(Journal journal : journalList) {
-                    journal.setJournalType((JournalType) types[nr]);
+                    journal.setType((JournalType) types[nr]);
                 }
             }
         } else {
@@ -262,9 +262,9 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
                 Object[] types = accounting.getJournalTypes().getBusinessObjects().toArray();
                 int nr = JOptionPane.showOptionDialog(this, "Choose new type for " + journal.getName(),
                         "Change type", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
-                        journal.getJournalType());
+                        journal.getType());
                 if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
-                    journal.setJournalType((JournalType) types[nr]);
+                    journal.setType((JournalType) types[nr]);
                 }
             }
         }

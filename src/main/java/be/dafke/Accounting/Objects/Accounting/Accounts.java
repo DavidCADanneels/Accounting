@@ -2,21 +2,35 @@ package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
+import be.dafke.Accounting.Objects.BusinessTypeCollection;
+import be.dafke.Accounting.Objects.BusinessTypeProvider;
+import be.dafke.Accounting.Objects.WriteableBusinessCollection;
 
 import java.math.BigDecimal;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Serialiseerbare map die alle rekeningen bevat
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Accounts extends WriteableBusinessCollection<Account> {
+public class Accounts extends WriteableBusinessCollection<Account> implements BusinessTypeProvider<AccountType> {
 
+    private static final String CURRENT = "CurrentAccount";
     private Account currentAccount;
+    private BusinessTypeCollection<AccountType> businessTypeCollection;
+
+    @Override
+    public TreeMap<String,String> getOutputMap() {
+        TreeMap<String,String> outputMap = new TreeMap<String, String>();
+        if(currentAccount!=null)
+            outputMap.put(CURRENT, currentAccount.getName());
+        return outputMap;
+    }
 
     /**
 	 * Geeft alle rekeningen terug van het gegeven businessObjectType
@@ -34,7 +48,7 @@ public class Accounts extends WriteableBusinessCollection<Account> {
 	public ArrayList<Account> getAccounts(AccountType type) {
 		ArrayList<Account> col = new ArrayList<Account>();
 		for(Account account : getBusinessObjects()) {
-			if (account.getAccountType() == type) col.add(account);
+			if (account.getType() == type) col.add(account);
 		}
 		return col;
 	}
@@ -58,7 +72,7 @@ public class Accounts extends WriteableBusinessCollection<Account> {
     private ArrayList<Account> getAccountsNotEmpty(AccountType type) {
         ArrayList<Account> col = new ArrayList<Account>();
         for(Account account : getBusinessObjects()) {
-            if (account.getAccountType() == type && account.getSaldo().compareTo(BigDecimal.ZERO) != 0) col.add(account);
+            if (account.getType() == type && account.getSaldo().compareTo(BigDecimal.ZERO) != 0) col.add(account);
         }
         return col;
     }
@@ -92,5 +106,15 @@ public class Accounts extends WriteableBusinessCollection<Account> {
 
     public void setCurrentAccount(Account currentAccount) {
         this.currentAccount = currentAccount;
+    }
+
+    @Override
+    public void setBusinessTypeCollection(BusinessTypeCollection<AccountType> businessTypeCollection) {
+        this.businessTypeCollection = businessTypeCollection;
+    }
+
+    @Override
+    public BusinessTypeCollection<AccountType> getBusinessTypeCollection() {
+        return businessTypeCollection;
     }
 }

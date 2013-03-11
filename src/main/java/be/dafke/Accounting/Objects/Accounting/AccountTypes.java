@@ -2,45 +2,53 @@ package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
+import be.dafke.Accounting.Objects.BusinessTypeCollection;
 
 /**
  * User: Dafke
  * Date: 9/03/13
  * Time: 6:25
  */
-public class AccountTypes extends WriteableBusinessCollection<AccountType> {
+public class AccountTypes extends BusinessTypeCollection<AccountType> {
+    public static final String ACTIVE = "Active";
+    public static final String PASSIVE = "Passive";
+    public static final String COST = "Cost";
+    public static final String REVENUE = "Revenue";
+    public static final String DEBIT = "Debit";
+    public static final String CREDIT = "Credit";
+    public static final String MORTGAGE = "Mortgage";
 
     public AccountTypes() {
         AccountType active = new AccountType();
 //        active.setName(getBundle("Accounting").getString("ACTIEF"));
-        active.setName("Active");
+        active.setName(ACTIVE);
 
         AccountType passive = new AccountType();
 //        passive.setName(getBundle("Accounting").getString("PASSIEF"));
-        passive.setName("Passive");
+        passive.setName(PASSIVE);
         passive.setInverted(true);
 
         AccountType cost = new AccountType();
 //        cost.setName(getBundle("Accounting").getString("KOST"));
-        cost.setName("Cost");
+        cost.setName(COST);
 
         AccountType revenue = new AccountType();
 //        revenue.setName(getBundle("Accounting").getString("OPBRENGST"));
-        revenue.setName("Revenue");
+        revenue.setName(REVENUE);
         revenue.setInverted(true);
 
         AccountType credit = new AccountType();
 //        credit.setName(getBundle("Accounting").getString("TEGOED_VAN_KLANT"));
-        credit.setName("Credit");
+        credit.setName(CREDIT);
 
         AccountType debit = new AccountType();
 //        debit.setName(getBundle("Accounting").getString("SCHULD_AAN_LEVERANCIER"));
-        debit.setName("Debit");
+        debit.setName(DEBIT);
         debit.setInverted(true);
 
         AccountType mortgage = new AccountType();
 //        mortgage.setName(getBundle("Accounting").getString("MORTGAGE"));
-        mortgage.setName("Mortgage");
+        mortgage.setName(MORTGAGE);
 
         try{
             addBusinessObject(active);

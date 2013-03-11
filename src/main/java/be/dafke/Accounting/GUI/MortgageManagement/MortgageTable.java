@@ -61,7 +61,7 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
         mortgage.setStartCapital(startCapital);
         mortgage.setTable(model.getData());
         AccountType type = accounting.getAccountTypes().getBusinessObject("Mortgage");
-        mortgage.setAccountType(type);
+        mortgage.setType(type);
         try {
             accounting.getAccounts().addBusinessObject(mortgage);
             accounting.getMortgages().addBusinessObject(mortgage);

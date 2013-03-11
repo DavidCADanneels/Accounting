@@ -1,8 +1,10 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Objects.BusinessType;
+
 import java.util.ArrayList;
 
-public class JournalType extends WriteableBusinessObject {
+public class JournalType extends BusinessType {
 	/**
 	 * 
 	 */

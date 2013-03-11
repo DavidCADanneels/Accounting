@@ -63,7 +63,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
         try {
             Account account = new Account();
             account.setName(name.trim());
-            account.setAccountType((AccountType) type.getSelectedItem());
+            account.setType((AccountType) type.getSelectedItem());
             accounting.getAccounts().addBusinessObject(account);
             ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {

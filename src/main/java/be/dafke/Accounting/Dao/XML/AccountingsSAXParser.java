@@ -4,8 +4,9 @@ import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
-import be.dafke.Accounting.Objects.Accounting.WriteableBusinessCollection;
-import be.dafke.Accounting.Objects.Accounting.WriteableBusinessObject;
+import be.dafke.Accounting.Objects.Accounting.Journal;
+import be.dafke.Accounting.Objects.WriteableBusinessCollection;
+import be.dafke.Accounting.Objects.WriteableBusinessObject;
 import be.dafke.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -85,9 +86,14 @@ public class AccountingsSAXParser {
                 writeableBusinessObject.setHtmlFile(htmlFile);
             }
 
-            AccountsSAXParser.readAccounts(accounting.getAccounts(),accounting.getAccountTypes(), accounting.getProjects());
-            MortgagesSAXParser.readMortgages(accounting.getMortgages(), accounting.getAccounts());
-            JournalsSAXParser.readJournals(accounting.getJournals(), accounting.getJournalTypes(), accounting.getAccounts());
+            CollectionSAXParser.readCollection(accounting.getCollection("Accounts"),
+                    "be.dafke.Accounting.Objects.Accounting.Account");
+            MortgagesSAXParser.readMortgages(accounting.getMortgages(), accounting.getAccounts(), accounting.getAccountTypes());
+            CollectionSAXParser.readCollection(accounting.getCollection("Journals"),
+                    "be.dafke.Accounting.Objects.Accounting.Journal");
+            for(Journal journal : accounting.getJournals().getBusinessObjects()){
+                JournalsSAXParser.readJournal(journal, accounting.getAccounts());
+            }
             CounterPartiesSAXParser.readCounterparties(accounting.getCounterParties(), accounting.getAccounts());
             StatementsSAXParser.readStatements(accounting.getStatements(), accounting.getCounterParties());
         } catch (Exception e) {
@@ -140,13 +146,13 @@ public class AccountingsSAXParser {
         writeAccountingFile(accounting);
 
         System.out.println("Accounts.TOXML(" + accounting.toString() + ")");
-        AccountsSAXParser.writeAccounts(accounting.getAccounts());
+        CollectionSAXParser.writeCollection(accounting.getCollection("Accounts"));
 
         System.out.println("Balances.TOXML(" + accounting.toString() + ")");
-        BalancesSAXParser.writeBalances(accounting.getBalances());
+        CollectionSAXParser.writeCollection(accounting.getCollection("Balances"));
 
         System.out.println("Journals.TOXML(" + accounting.toString() + ")");
-        JournalsSAXParser.writeJournals(accounting.getJournals());
+        CollectionSAXParser.writeCollection(accounting.getCollection("Journals"));
 
         System.out.println("Mortgages.TOXML(" + accounting.toString() + ")");
         MortgagesSAXParser.writeMortgages(accounting.getMortgages());

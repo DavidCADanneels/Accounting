@@ -1,5 +1,7 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Objects.WriteableBusinessObject;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;

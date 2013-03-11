@@ -1,5 +1,7 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Objects.WriteableBusinessObject;
+
 import java.math.BigDecimal;
 import java.util.Calendar;
 

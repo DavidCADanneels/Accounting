@@ -1,29 +1,57 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Objects.BusinessTypeCollection;
+import be.dafke.Accounting.Objects.BusinessTyped;
+import be.dafke.Accounting.Objects.WriteableBusinessObject;
 import be.dafke.MultiValueMap;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 /**
  * Boekhoudkundig dagboek
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journal extends WriteableBusinessObject {
-	private String abbreviation;
-	private int id;
-	private final MultiValueMap<Calendar,Transaction> transactions;
-	private JournalType journalType;
-    private Transaction currentTransaction = new Transaction();
+public class Journal extends WriteableBusinessObject implements BusinessTyped<JournalType> {
+    private static final String TYPE = "type";
     protected static final String ABBREVIATION = "abbreviation";
+    private String abbreviation;
+    private int id;
+    private final MultiValueMap<Calendar,Transaction> transactions;
+    private JournalType type;
+    private Transaction currentTransaction = new Transaction();
+    private BusinessTypeCollection businessTypeCollection;
 
     public Journal() {
+        keySet.add(TYPE);
+        keySet.add(ABBREVIATION);
 		transactions = new MultiValueMap<Calendar,Transaction>();
 		id = 1;
 	}
+
+    @Override
+    public void setProperties(TreeMap<String, String> inputMap) {
+        super.setProperties(inputMap);
+        abbreviation = inputMap.get(ABBREVIATION);
+        String typeName = inputMap.get(TYPE);
+        if(typeName!=null){
+            type = (JournalType) businessTypeCollection.getBusinessObject(typeName);
+        }
+    }
+
+
+    @Override
+    public TreeMap<String,String> getOutputMap() {
+        TreeMap<String,String> outputMap = super.getOutputMap();
+        outputMap.put(TYPE, getType().getName());
+        outputMap.put(ABBREVIATION, getAbbreviation());
+        return outputMap;
+    }
+
 
     @Override
     public Map<String,String> getKeyMap(){
@@ -58,12 +86,22 @@ public class Journal extends WriteableBusinessObject {
         this.currentTransaction = currentTransaction;
     }
 
-    public JournalType getJournalType() {
-        return journalType;
+    public JournalType getType() {
+        return type;
     }
 
-    public void setJournalType(JournalType journalType) {
-        this.journalType = journalType;
+    @Override
+    public void setBusinessTypeCollection(BusinessTypeCollection businessTypeCollection) {
+        this.businessTypeCollection = businessTypeCollection;
+    }
+
+    @Override
+    public BusinessTypeCollection getBusinessTypeCollection() {
+        return businessTypeCollection;
+    }
+
+    public void setType(JournalType type) {
+        this.type = type;
     }
 
 	@Override

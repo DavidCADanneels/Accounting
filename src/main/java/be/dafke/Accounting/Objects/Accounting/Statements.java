@@ -1,6 +1,7 @@
 package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.GUI.CodaManagement.SearchOptions;
+import be.dafke.Accounting.Objects.WriteableBusinessCollection;
 
 import java.util.ArrayList;
 

@@ -1,5 +1,7 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Objects.WriteableBusinessCollection;
+
 /**
  * User: Dafke
  * Date: 27/02/13

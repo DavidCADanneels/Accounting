@@ -2,8 +2,9 @@ package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
+import be.dafke.Accounting.Objects.BusinessTypeCollection;
 
-public class JournalTypes extends WriteableBusinessCollection<JournalType> {
+public class JournalTypes extends BusinessTypeCollection<JournalType> {
 
     public void addDefaultType(AccountTypes accountTypes) {
         JournalType defaultType = new JournalType();

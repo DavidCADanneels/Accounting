@@ -3,6 +3,8 @@ package be.dafke.Accounting.Dao.XML;
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Account;
+import be.dafke.Accounting.Objects.Accounting.AccountType;
+import be.dafke.Accounting.Objects.Accounting.AccountTypes;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Mortgage;
 import be.dafke.Accounting.Objects.Accounting.Mortgages;
@@ -33,7 +35,7 @@ import java.util.logging.Logger;
 public class MortgagesSAXParser {
     // READ
     //
-    public static void readMortgages(Mortgages mortgages, Accounts accounts){
+    public static void readMortgages(Mortgages mortgages, Accounts accounts, AccountTypes accountTypes){
         try {
             File file = mortgages.getXmlFile();
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -75,6 +77,9 @@ public class MortgagesSAXParser {
                     Account intrest = accounts.getBusinessObject(intrestName);
                     mortgage.setIntrestAccount(intrest);
                 }
+                AccountType type = accountTypes.getBusinessObject("Mortgage");
+                mortgage.setType(type);
+
                 try {
                     accounts.addBusinessObject(mortgage);
                     mortgages.addBusinessObject(mortgage);

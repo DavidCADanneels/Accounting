@@ -1,11 +1,12 @@
-package be.dafke.Accounting.Objects.Accounting;
+package be.dafke.Accounting.Objects;
 
-import be.dafke.Accounting.Objects.BusinessCollection;
-import be.dafke.Accounting.Objects.WriteableCollection;
 import be.dafke.Utils;
 
 import java.io.File;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * User: Dafke
@@ -13,8 +14,58 @@ import java.util.Map;
  * Time: 16:23
  */
 public class WriteableBusinessCollection<V extends WriteableBusinessObject> extends BusinessCollection<V> implements WriteableCollection{
+    private static final String XML = "xml";
+    private static final String HTML = "html";
+    private static final String XMLFOLDER = "xmlFolder";
+    private static final String HTMLFOLDER = "htmlFolder";
     protected File htmlFolder;
     protected File xmlFolder;
+    protected Set<String> keySet;
+
+    @Override
+    public TreeMap<String,String> getOutputMap() {
+        return new TreeMap<String, String>();
+    }
+
+    public TreeMap<String,String> getCollectionOutputMap() {
+        TreeMap<String, String> outputMap = new TreeMap<String, String>();
+        outputMap.put(NAME, getName());
+        if(xmlFile!=null){
+            outputMap.put(XML, xmlFile.getPath());
+        }
+        if(htmlFile!=null){
+            outputMap.put(HTML, htmlFile.getPath());
+        }
+        if(xmlFolder!=null){
+            outputMap.put(XMLFOLDER, xmlFolder.getPath());
+        }
+        if(htmlFolder!=null){
+            outputMap.put(HTMLFOLDER, htmlFolder.getPath());
+        }
+        return outputMap;
+    }
+
+    @Override
+    public void setProperties(TreeMap<String, String> inputMap) {
+        setName(inputMap.get(NAME));
+        String xmlPath = inputMap.get(XML);
+        String htmlPath = inputMap.get(HTML);
+        String xmlFolderPath = inputMap.get(XMLFOLDER);
+        String htmlFolderPath = inputMap.get(HTMLFOLDER);
+        if(xmlPath!=null){
+            xmlFile = new File(xmlPath);
+        }
+        if(htmlPath!=null){
+            htmlFile = new File(htmlPath);
+        }
+        if(xmlFolderPath!=null){
+            xmlFolder = new File(xmlFolderPath);
+        }
+        if(htmlFolderPath!=null){
+            htmlFolder = new File(htmlFolderPath);
+        }
+    }
+
 
     @Override
     public void setHtmlFolder(File parentFolder){
@@ -94,6 +145,11 @@ public class WriteableBusinessCollection<V extends WriteableBusinessObject> exte
     }
 
     public WriteableBusinessCollection(){
+        keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        keySet.add(XML);
+        keySet.add(HTML);
+
         File xslFolder = new File(System.getProperty("Accountings_xsl"));
         xsl2XmlFile = new File(xslFolder, businessObjectType + "2xml.xsl");
         xsl2HtmlFile = new File(xslFolder, businessObjectType + "2html.xsl");
@@ -107,6 +163,11 @@ public class WriteableBusinessCollection<V extends WriteableBusinessObject> exte
                 "<?xml-stylesheet type=\"text/xsl\" href=\"" + xsl2XmlFile + "\"?>\r\n" +
                 "<!DOCTYPE " + businessObjectType + " SYSTEM \"" + dtdFile + "\">\r\n";
 
+    }
+
+    @Override
+    public File getDtdFile() {
+        return dtdFile;
     }
 
     public void xmlToHtml() {
@@ -143,5 +204,9 @@ public class WriteableBusinessCollection<V extends WriteableBusinessObject> exte
 
     public void setHtmlFile(File htmlFile) {
         this.htmlFile = htmlFile;
+    }
+
+    public Set<String> getKeySet() {
+        return keySet;
     }
 }

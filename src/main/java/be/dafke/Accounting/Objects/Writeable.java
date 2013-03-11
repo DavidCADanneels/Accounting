@@ -1,6 +1,8 @@
 package be.dafke.Accounting.Objects;
 
 import java.io.File;
+import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * User: Dafke
@@ -9,7 +11,15 @@ import java.io.File;
  */
 public interface Writeable {
 
+    public Set<String> getKeySet();
+
     public String getXmlHeader();
+
+    public TreeMap<String, String> getOutputMap();
+
+    public void setProperties(TreeMap<String,String> inputMap);
+
+    public File getDtdFile();
 
     public void xmlToHtml();
 

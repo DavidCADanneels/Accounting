@@ -1,10 +1,11 @@
-package be.dafke.Accounting.Objects.Accounting;
+package be.dafke.Accounting.Objects;
 
-import be.dafke.Accounting.Objects.BusinessObject;
-import be.dafke.Accounting.Objects.Writeable;
 import be.dafke.Utils;
 
 import java.io.File;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * User: Dafke
@@ -12,7 +13,16 @@ import java.io.File;
  * Time: 13:19
  */
 public class WriteableBusinessObject extends BusinessObject implements Writeable {
+    private static final String XML = "xml";
+    private static final String HTML = "html";
+    protected Set<String> keySet;
+
     protected WriteableBusinessObject(){
+        keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        keySet.add(XML);
+        keySet.add(HTML);
+
         File xslFolder = new File(System.getProperty("Accountings_xsl"));
         xsl2XmlFile = new File(xslFolder, businessObjectType + "2xml.xsl");
         xsl2HtmlFile = new File(xslFolder, businessObjectType + "2html.xsl");
@@ -39,11 +49,46 @@ public class WriteableBusinessObject extends BusinessObject implements Writeable
     }
 
     @Override
+    public Set<String> getKeySet() {
+        return keySet;
+    }
+
+    @Override
     public String getXmlHeader() {
         return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" +
                 "<?xml-stylesheet type=\"text/xsl\" href=\"" + xsl2XmlFile + "\"?>\r\n" +
                 "<!DOCTYPE " + businessObjectType + " SYSTEM \"" + dtdFile + "\">\r\n";
 
+    }
+
+    @Override
+    public TreeMap<String,String> getOutputMap() {
+        TreeMap<String,String> outputMap = new TreeMap<String, String>();
+        outputMap.put(NAME, getName());
+        outputMap.put(XML, getXmlFile().getPath());
+        if(getHtmlFile()!=null){
+            outputMap.put(HTML, getHtmlFile().getPath());
+        }
+        return outputMap;
+    }
+
+    @Override
+    public void setProperties(TreeMap<String, String> inputMap) {
+        setName(inputMap.get(NAME));
+        String xmlPath = inputMap.get(XML);
+        String htmlPath = inputMap.get(HTML);
+        if(xmlPath!=null){
+            xmlFile = new File(xmlPath);
+        }
+        if(htmlPath!=null){
+            htmlFile = new File(htmlPath);
+        }
+    }
+
+
+    @Override
+    public File getDtdFile() {
+        return dtdFile;
     }
 
     @Override

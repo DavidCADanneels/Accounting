@@ -1,22 +1,29 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Objects.BusinessTypeCollection;
+import be.dafke.Accounting.Objects.BusinessTyped;
+import be.dafke.Accounting.Objects.WriteableBusinessObject;
 import be.dafke.MultiValueMap;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.TreeMap;
 
 /**
   * Boekhoudkundige rekening
   * @author David Danneels
   * @since 01/10/2010
  */
-public class Account extends WriteableBusinessObject {
-	private AccountType type;
+public class Account extends WriteableBusinessObject implements BusinessTyped<AccountType> {
+    private static final String TYPE = "type";
+    private AccountType type;
     private BigDecimal debitTotal, creditTotal;
     private final MultiValueMap<Calendar,Movement> movements;
+    private BusinessTypeCollection businessTypeCollection;
 
     public Account() {
+        keySet.add(TYPE);
         movements = new MultiValueMap<Calendar,Movement>();
         debitTotal = BigDecimal.ZERO;
         debitTotal = debitTotal.setScale(2);
@@ -24,13 +31,39 @@ public class Account extends WriteableBusinessObject {
         creditTotal = creditTotal.setScale(2);
     }
 
-    // Setters
-    public void setAccountType(AccountType type) {
+    @Override
+    public TreeMap<String,String> getOutputMap() {
+        TreeMap<String,String> outputMap = super.getOutputMap();
+        outputMap.put(TYPE, getType().getName());
+        return outputMap;
+    }
+
+    @Override
+    public void setProperties(TreeMap<String, String> inputMap) {
+        super.setProperties(inputMap);
+        String typeName = inputMap.get(TYPE);
+        if(typeName!=null){
+            type = (AccountType) businessTypeCollection.getBusinessObject(typeName);
+        }
+    }
+
+    @Override
+    public void setBusinessTypeCollection(BusinessTypeCollection businessTypeCollection) {
+        this.businessTypeCollection = businessTypeCollection;
+    }
+
+    @Override
+    public BusinessTypeCollection getBusinessTypeCollection() {
+        return businessTypeCollection;
+    }
+
+    @Override
+    public void setType(AccountType type) {
         this.type = type;
     }
 
-    // Getters
-    public AccountType getAccountType() {
+    @Override
+    public AccountType getType() {
         return type;
     }
 

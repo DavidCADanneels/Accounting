@@ -15,7 +15,7 @@ public class BusinessObject {
 
 //    private boolean isSaved;
 
-    protected BusinessObject(){
+    public BusinessObject(){
         businessObjectType = this.getClass().getSimpleName();
     }
 

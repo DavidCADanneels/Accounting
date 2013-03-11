@@ -34,7 +34,7 @@ public class NewJournalDataModel extends AbstractTableModel {
 		if (col == 0) {
 			return journal;
 		} else if (col == 1) {
-			return journal.getJournalType();
+			return journal.getType();
 		} else if (col == 2) {
 			return journal.getId();
 		} else return null;
