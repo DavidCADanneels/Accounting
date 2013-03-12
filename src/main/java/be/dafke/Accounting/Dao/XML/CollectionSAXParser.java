@@ -2,7 +2,6 @@ package be.dafke.Accounting.Dao.XML;
 
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
-import be.dafke.Accounting.Objects.BusinessCollection;
 import be.dafke.Accounting.Objects.BusinessCollectionDependent;
 import be.dafke.Accounting.Objects.BusinessCollectionProvider;
 import be.dafke.Accounting.Objects.BusinessTypeCollection;
@@ -169,7 +168,7 @@ public class CollectionSAXParser {
 
                     // if object is dependant on another collection, fetch this Collection from the collection
                     if(collection instanceof BusinessCollectionProvider && object instanceof BusinessCollectionDependent){
-                        BusinessCollection bc = ((BusinessCollectionProvider) collection).getBusinessCollection();
+                        WriteableBusinessCollection bc = ((BusinessCollectionProvider) collection).getBusinessCollection();
                         ((BusinessCollectionDependent)object).setBusinessCollection(bc);
                     }
 

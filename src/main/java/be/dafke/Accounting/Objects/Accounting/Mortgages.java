@@ -2,7 +2,6 @@ package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
-import be.dafke.Accounting.Objects.BusinessCollection;
 import be.dafke.Accounting.Objects.BusinessCollectionProvider;
 import be.dafke.Accounting.Objects.BusinessTypeCollection;
 import be.dafke.Accounting.Objects.BusinessTypeProvider;
@@ -15,7 +14,7 @@ import be.dafke.Accounting.Objects.WriteableBusinessCollection;
  */
 public class Mortgages extends WriteableBusinessCollection<Mortgage> implements BusinessTypeProvider<AccountType>, BusinessCollectionProvider<Account> {
     private BusinessTypeCollection<AccountType> businessTypeCollection;
-    private BusinessCollection<Account> businessCollection;
+    private WriteableBusinessCollection<Account> businessCollection;
 
     public Mortgage addBusinessObject(Mortgage value) throws EmptyNameException, DuplicateNameException {
         // TODO create pseudoAccount here and add this one to Accounts (= businessCollection)
@@ -35,12 +34,12 @@ public class Mortgages extends WriteableBusinessCollection<Mortgage> implements 
     }
 
     @Override
-    public BusinessCollection<Account> getBusinessCollection() {
+    public WriteableBusinessCollection<Account> getBusinessCollection() {
         return businessCollection;
     }
 
     @Override
-    public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
+    public void setBusinessCollection(WriteableBusinessCollection<Account> businessCollection) {
         this.businessCollection = businessCollection;
     }
 }

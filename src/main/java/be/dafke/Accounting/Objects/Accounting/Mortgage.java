@@ -1,8 +1,8 @@
 package be.dafke.Accounting.Objects.Accounting;
 
-import be.dafke.Accounting.Objects.BusinessCollection;
 import be.dafke.Accounting.Objects.BusinessCollectionDependent;
 import be.dafke.Accounting.Objects.BusinessTyped;
+import be.dafke.Accounting.Objects.WriteableBusinessCollection;
 import be.dafke.MultiValueMap;
 
 import java.math.BigDecimal;
@@ -26,7 +26,7 @@ public class Mortgage extends Account implements BusinessTyped<AccountType>, Bus
 	private Account capital, intrest;
 	private BigDecimal startCapital;
     private final MultiValueMap<Calendar,Movement[]> movements;
-    private BusinessCollection<Account> accounts;
+    private WriteableBusinessCollection<Account> accounts;
 
     public Mortgage(){
         movements = new MultiValueMap<Calendar, Movement[]>();
@@ -264,7 +264,7 @@ public class Mortgage extends Account implements BusinessTyped<AccountType>, Bus
     }
 
     @Override
-    public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
+    public void setBusinessCollection(WriteableBusinessCollection<Account> businessCollection) {
         accounts = businessCollection;
     }
 }

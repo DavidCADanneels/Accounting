@@ -5,8 +5,8 @@ package be.dafke.Accounting.Objects;
  * Date: 11/03/13
  * Time: 7:39
  */
-public interface BusinessCollectionDependent<T extends BusinessObject> {
+public interface BusinessCollectionDependent<T extends WriteableBusinessObject> {
 
-    public void setBusinessCollection(BusinessCollection<T> businessCollection);
+    public void setBusinessCollection(WriteableBusinessCollection<T> businessCollection);
 
 }

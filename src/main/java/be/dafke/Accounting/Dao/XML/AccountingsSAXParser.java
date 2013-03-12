@@ -56,27 +56,27 @@ public class AccountingsSAXParser {
                 writeableBusinessObject.setHtmlFile(htmlFile);
             }
 
-            CollectionSAXParser.readCollection(accounting.getCollection("Accounts"),
+            CollectionSAXParser.readCollection(accounting.getAccounts(),
                     "be.dafke.Accounting.Objects.Accounting.Account");
 
-            CollectionSAXParser.readCollection(accounting.getCollection("Mortgages"),
+            CollectionSAXParser.readCollection(accounting.getMortgages(),
                     "be.dafke.Accounting.Objects.Accounting.Mortgage");
             for(Mortgage mortgage : accounting.getMortgages().getBusinessObjects()){
                 MortgagesSAXParser.readMortgage(mortgage);
             }
 
-            CollectionSAXParser.readCollection(accounting.getCollection("Journals"),
+            CollectionSAXParser.readCollection(accounting.getJournals(),
                     "be.dafke.Accounting.Objects.Accounting.Journal");
             for(Journal journal : accounting.getJournals().getBusinessObjects()){
                 JournalsSAXParser.readJournal(journal, accounting.getAccounts());
             }
 
-            CollectionSAXParser.readCollection(accounting.getCollection("CounterParties"),
+            CollectionSAXParser.readCollection(accounting.getCounterParties(),
                     "be.dafke.Accounting.Objects.Accounting.CounterParty");
 
             StatementsSAXParser.readStatements(accounting.getStatements(), accounting.getCounterParties());
 
-            Journal currentJournal = (Journal)accounting.getCollection("Journals").getCurrentObject();
+            Journal currentJournal = accounting.getJournals().getCurrentObject();
             accounting.getJournals().setCurrentObject(currentJournal);
         } catch (Exception e) {
             e.printStackTrace();
