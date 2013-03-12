@@ -8,4 +8,5 @@
     <type>default</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</xml>
   </Journal>
+    <CurrentObject>Diversen</CurrentObject>
 </Journals>

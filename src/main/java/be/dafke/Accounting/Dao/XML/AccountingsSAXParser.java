@@ -1,7 +1,5 @@
 package be.dafke.Accounting.Dao.XML;
 
-import be.dafke.Accounting.Exceptions.DuplicateNameException;
-import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
@@ -13,7 +11,6 @@ import be.dafke.Accounting.Objects.WriteableBusinessObject;
 import be.dafke.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -30,39 +27,9 @@ public class AccountingsSAXParser {
 
     public static Accountings readAccountings() {
         Accountings accountings = new Accountings();
-        try {
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            documentBuilderFactory.setValidating(true);
-            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(accountings.getXmlFile().getAbsolutePath());
-            doc.getDocumentElement().normalize();
 
-            NodeList accountingNodes = doc.getElementsByTagName("Accounting");
-            for(int i=0;i<accountingNodes.getLength();i++){
-                Element element = (Element)accountingNodes.item(i);
-                Accounting accounting = new Accounting();
-                String name = Utils.getValue(element, "name");
-                accounting.setName(name);
-                accounting.setHtmlFolder(Utils.getFile(element, "htmlFolder"));
-                accounting.setXmlFile(Utils.getFile(element, "xml"));
-                accounting.setHtmlFile(Utils.getFile(element, "html"));
-//                accounting.setXsl2XmlFile(Utils.getFile(element, "xsl2xml"));
-//                accounting.setXsl2HtmlFile(Utils.getFile(element, "xsl2html"));
-                try{
-                    accountings.addBusinessObject(accounting);
-                } catch (DuplicateNameException e) {
-                    System.err.println("There is already an accounting with the name \""+name+"\"");
-                } catch (EmptyNameException e) {
-                    System.err.println("The name cannot be empty.");
-                }
-            }
-            String currentAccountName = Utils.getValue(doc, "CurrentAccounting");
-            if(currentAccountName!=null){
-                accountings.setCurrentAccounting(currentAccountName);
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        CollectionSAXParser.readCollection(accountings, "be.dafke.Accounting.Objects.Accounting.Accounting");
+
         for(Accounting accounting : accountings.getBusinessObjects()) {
             readAccounting(accounting);
         }
@@ -108,6 +75,9 @@ public class AccountingsSAXParser {
                     "be.dafke.Accounting.Objects.Accounting.CounterParty");
 
             StatementsSAXParser.readStatements(accounting.getStatements(), accounting.getCounterParties());
+
+            Journal currentJournal = (Journal)accounting.getCollection("Journals").getCurrentObject();
+            accounting.getJournals().setCurrentObject(currentJournal);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -142,7 +112,7 @@ public class AccountingsSAXParser {
                 writer.write("  </Accounting>\r\n");
             }
             if(accountings.getCurrentAccounting()!=null){
-                writer.write("  <CurrentAccounting>" + accountings.getCurrentAccounting().getName() + "</CurrentAccounting>\r\n");
+                writer.write("  <CurrentObject>" + accountings.getCurrentAccounting().getName() + "</CurrentObject>\r\n");
             }
             writer.write("</Accountings>");
             writer.flush();

@@ -131,7 +131,7 @@ public class CollectionSAXParser {
         // TODO iterate all 'Writeable' childeren and call this function (recursion)
     }
 
-    public static void readCollection(WriteableBusinessCollection<WriteableBusinessObject> collection, String objectName){
+    public static void readCollection(WriteableBusinessCollection collection, String objectName){
         try {
             File file = collection.getXmlFile();
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();

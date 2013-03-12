@@ -6,6 +6,7 @@ import be.dafke.Accounting.Objects.WriteableBusinessObject;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.TreeMap;
 
 /**
  * @author David Danneels
@@ -61,6 +62,11 @@ public class Accounting extends WriteableBusinessObject {
         keys.add(counterParties.getBusinessObjectType());
         keys.add(statements.getBusinessObjectType());
 	}
+
+    public void setInitProperties(TreeMap<String, String> properties){
+        super.setInitProperties(properties);
+        setXmlFolder();
+    }
 
     @Override
     public void setName(String name){

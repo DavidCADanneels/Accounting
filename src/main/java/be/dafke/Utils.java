@@ -1,16 +1,13 @@
 package be.dafke;
 
 import org.apache.fop.cli.InputHandler;
-import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import java.io.File;
 import java.io.OutputStream;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.GregorianCalendar;
 import java.util.Vector;
 import java.util.regex.Matcher;
@@ -60,23 +57,9 @@ public class Utils {
         }
     }
 
-    public static String getValue(Document document, String tagName){
-        NodeList nodeList = document.getElementsByTagName(tagName);
-        return getValue(nodeList, tagName, 0);
-    }
-
     public static String getValue(Element element, String tagName){
         NodeList nodeList = element.getElementsByTagName(tagName);
         return getValue(nodeList, tagName, 0);
-    }
-
-    public static Collection<String> getValues(Element element, String tagName){
-        NodeList nodeList = element.getElementsByTagName(tagName);
-        Collection<String> result = new ArrayList<String>();
-        for(int i=0;i<nodeList.getLength();i++){
-            result.add(getValue(nodeList, tagName, i)); // TODO add null values to the list too ?
-        }
-        return result;
     }
 
     private static String getValue(NodeList nodeList, String tagName, int index){

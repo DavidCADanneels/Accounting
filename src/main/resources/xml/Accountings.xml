@@ -14,5 +14,5 @@
     <name>Thuis 2013</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounting.xml</xml>
   </Accounting>
-  <CurrentAccounting>Test</CurrentAccounting>
+  <CurrentObject>Thuis 2012</CurrentObject>
 </Accountings>
