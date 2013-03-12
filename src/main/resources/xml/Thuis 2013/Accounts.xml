@@ -33,8 +33,14 @@
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Apotheek.xml</xml>
   </Account>
   <Mortgage>
+    <CapitalAccountName>Autolening</CapitalAccountName>
+    <CapitalAccountXml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Autolening.xml</CapitalAccountXml>
+    <IntrestAccountName>Intrest autolening</IntrestAccountName>
+    <IntrestAccountXml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Intrest autolening.xml</IntrestAccountXml>
     <html>Mortgages\Auto.html</html>
     <name>Auto</name>
+    <nrPayed>9</nrPayed>
+    <total>12450</total>
     <type>Mortgage</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Mortgages\Auto.xml</xml>
   </Mortgage>
@@ -99,8 +105,14 @@
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Giften UK.xml</xml>
   </Account>
   <Mortgage>
+    <CapitalAccountName>Hypotheek</CapitalAccountName>
+    <CapitalAccountXml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Hypotheek.xml</CapitalAccountXml>
+    <IntrestAccountName>Intrest Huis</IntrestAccountName>
+    <IntrestAccountXml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Intrest Huis.xml</IntrestAccountXml>
     <html>Mortgages\Huis.html</html>
     <name>Huis</name>
+    <nrPayed>70</nrPayed>
+    <total>156000</total>
     <type>Mortgage</type>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Mortgages\Huis.xml</xml>
   </Mortgage>

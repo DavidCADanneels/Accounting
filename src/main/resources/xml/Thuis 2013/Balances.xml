@@ -3,17 +3,14 @@
 <!DOCTYPE Balances SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Balances.dtd">
 <Balances>
   <Balance>
-    <html>Balances\RelationsBalance.html</html>
     <name>RelationsBalance</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Balances\RelationsBalance.xml</xml>
   </Balance>
   <Balance>
-    <html>Balances\ResultBalance.html</html>
     <name>ResultBalance</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Balances\ResultBalance.xml</xml>
   </Balance>
   <Balance>
-    <html>Balances\YearBalance.html</html>
     <name>YearBalance</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Balances\YearBalance.xml</xml>
   </Balance>

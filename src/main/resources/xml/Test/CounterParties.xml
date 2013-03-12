@@ -3,52 +3,38 @@
 <!DOCTYPE CounterParties SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\CounterParties.dtd">
 <CounterParties>
   <CounterParty>
+    <AccountNumber>BE55738016016944</AccountNumber>
+    <Bic>KREDBEBB</Bic>
     <name>ALFA THUIS BVBA</name>
-    <BankAccount>
-      <AccountNumber>BE55738016016944</AccountNumber>
-      <BIC>KREDBEBB</BIC>
-    </BankAccount>
   </CounterParty>
   <CounterParty>
+    <AccountNumber>BE42731018408854</AccountNumber>
+    <Bic>KREDBEBB</Bic>
     <name>Bennies Fit 4 life</name>
-    <BankAccount>
-      <AccountNumber>BE42731018408854</AccountNumber>
-      <BIC>KREDBEBB</BIC>
-    </BankAccount>
   </CounterParty>
   <CounterParty>
-    <name>David Danneels</name>
+    <AccountNumber>BE88750618984141</AccountNumber>
     <Alias>DANNEELS DAVID</Alias>
-    <BankAccount>
-      <AccountNumber>BE88750618984141</AccountNumber>
-      <BIC>AXABBE22</BIC>
-    </BankAccount>
+    <Bic>AXABBE22</Bic>
+    <name>David Danneels</name>
   </CounterParty>
   <CounterParty>
+    <AccountNumber>BE80679010183077</AccountNumber>
+    <Bic>PCHQBEBB</Bic>
     <name>HVW    BRUGGE</name>
-    <BankAccount>
-      <AccountNumber>BE80679010183077</AccountNumber>
-      <BIC>PCHQBEBB</BIC>
-    </BankAccount>
   </CounterParty>
   <CounterParty>
+    <AccountNumber>BE51679008299762</AccountNumber>
+    <Bic>PCHQBEBB</Bic>
     <name>R.V.A.</name>
-    <BankAccount>
-      <AccountNumber>BE51679008299762</AccountNumber>
-      <BIC>PCHQBEBB</BIC>
-    </BankAccount>
   </CounterParty>
   <CounterParty>
+    <AccountNumber>BE14068217828883</AccountNumber>
+    <Bic>GKCCBEBB</Bic>
     <name>Scholengroep Brugge-Oostkust</name>
-    <BankAccount>
-      <AccountNumber>BE14068217828883</AccountNumber>
-      <BIC>GKCCBEBB</BIC>
-    </BankAccount>
   </CounterParty>
   <CounterParty>
+    <AccountNumber>410-0033561-22</AccountNumber>
     <name>XERIUS KINDERBIJSLAGFONDS</name>
-    <BankAccount>
-      <AccountNumber>410-0033561-22</AccountNumber>
-    </BankAccount>
   </CounterParty>
 </CounterParties>
