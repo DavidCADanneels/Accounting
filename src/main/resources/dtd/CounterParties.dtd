@@ -1,5 +1,5 @@
 <!ELEMENT CounterParties (CounterParty*)>
-<!ELEMENT CounterParty (name,Alias*,(AccountName,AccountXml,AccountHtml)?,BankAccount*)>
+<!ELEMENT CounterParty (AccountName?,AccountNumber?,AccountHtml?,AccountXml?,Alias*,Bic?,Currency?,name)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT xml (#PCDATA)>
 <!ELEMENT html (#PCDATA)>
@@ -7,7 +7,6 @@
 <!ELEMENT AccountName (#PCDATA)>
 <!ELEMENT AccountXml (#PCDATA)>
 <!ELEMENT AccountHtml (#PCDATA)>
-<!ELEMENT BankAccount (AccountNumber,BIC?,Currency?)>
 <!ELEMENT AccountNumber (#PCDATA)>
-<!ELEMENT BIC (#PCDATA)>
+<!ELEMENT Bic (#PCDATA)>
 <!ELEMENT Currency (#PCDATA)>
