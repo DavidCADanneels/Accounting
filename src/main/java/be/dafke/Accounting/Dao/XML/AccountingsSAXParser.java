@@ -46,8 +46,8 @@ public class AccountingsSAXParser {
                 accounting.setHtmlFolder(Utils.getFile(element, "htmlFolder"));
                 accounting.setXmlFile(Utils.getFile(element, "xml"));
                 accounting.setHtmlFile(Utils.getFile(element, "html"));
-                accounting.setXsl2XmlFile(Utils.getFile(element, "xsl2xml"));
-                accounting.setXsl2HtmlFile(Utils.getFile(element, "xsl2html"));
+//                accounting.setXsl2XmlFile(Utils.getFile(element, "xsl2xml"));
+//                accounting.setXsl2HtmlFile(Utils.getFile(element, "xsl2html"));
                 try{
                     accountings.addBusinessObject(accounting);
                 } catch (DuplicateNameException e) {
@@ -92,12 +92,11 @@ public class AccountingsSAXParser {
             CollectionSAXParser.readCollection(accounting.getCollection("Accounts"),
                     "be.dafke.Accounting.Objects.Accounting.Account");
 
-            MortgagesSAXParser.readMortgages(accounting.getMortgages(), accounting.getAccounts(), accounting.getAccountTypes());
-//            CollectionSAXParser.readCollection(accounting.getCollection("Mortgages"),
-//                    "be.dafke.Accounting.Objects.Accounting.Mortgage");
-//            for(Mortgage mortgage : accounting.getMortgages().getBusinessObjects()){
-//                MortgagesSAXParser.readMortgage(mortgage);
-//            }
+            CollectionSAXParser.readCollection(accounting.getCollection("Mortgages"),
+                    "be.dafke.Accounting.Objects.Accounting.Mortgage");
+            for(Mortgage mortgage : accounting.getMortgages().getBusinessObjects()){
+                MortgagesSAXParser.readMortgage(mortgage);
+            }
 
             CollectionSAXParser.readCollection(accounting.getCollection("Journals"),
                     "be.dafke.Accounting.Objects.Accounting.Journal");
@@ -105,7 +104,6 @@ public class AccountingsSAXParser {
                 JournalsSAXParser.readJournal(journal, accounting.getAccounts());
             }
 
-//            CounterPartiesSAXParser.readCounterparties(accounting.getCounterParties(), accounting.getAccounts());
             CollectionSAXParser.readCollection(accounting.getCollection("CounterParties"),
                     "be.dafke.Accounting.Objects.Accounting.CounterParty");
 
@@ -139,8 +137,8 @@ public class AccountingsSAXParser {
                 if(acc.getHtmlFile()!=null){
                     writer.write("    <html>" + acc.getHtmlFile() + "</html>\r\n");
                 }
-                writer.write("    <xsl2xml>" + acc.getXsl2XmlFile() + "</xsl2xml>\r\n");
-                writer.write("    <xsl2html>" + acc.getXsl2HtmlFile() + "</xsl2html>\r\n");
+//                writer.write("    <xsl2xml>" + acc.getXsl2XmlFile() + "</xsl2xml>\r\n");
+//                writer.write("    <xsl2html>" + acc.getXsl2HtmlFile() + "</xsl2html>\r\n");
                 writer.write("  </Accounting>\r\n");
             }
             if(accountings.getCurrentAccounting()!=null){

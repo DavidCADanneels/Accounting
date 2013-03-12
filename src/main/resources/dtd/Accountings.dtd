@@ -1,9 +1,7 @@
 <!ELEMENT Accountings (Accounting*,CurrentAccounting?)>
-<!ELEMENT Accounting (name,htmlFolder?,xml,html?,xsl2xml,xsl2html)>
+<!ELEMENT Accounting (name,htmlFolder?,xml,html?)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT htmlFolder (#PCDATA)>
 <!ELEMENT html (#PCDATA)>
-<!ELEMENT xsl2xml (#PCDATA)>
-<!ELEMENT xsl2html (#PCDATA)>
 <!ELEMENT xml (#PCDATA)>
 <!ELEMENT CurrentAccounting (#PCDATA)>
