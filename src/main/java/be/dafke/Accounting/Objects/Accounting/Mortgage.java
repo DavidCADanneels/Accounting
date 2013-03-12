@@ -5,17 +5,32 @@ import be.dafke.MultiValueMap;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.Vector;
 
 public class Mortgage extends Account {
-	private ArrayList<Vector<BigDecimal>> table;
+    private final static String TOTAL = "total";
+    private final static String NRPAYED = "nrPayed";
+    private final static String CAPITAL_NAME = "CapitalAccountName";
+    private final static String CAPITAL_XML = "CapitalAccountXml";
+    private final static String CAPITAL_HTML = "CapitalAccountHtml";
+    private final static String INTREST_NAME = "IntrestAccountName";
+    private final static String INTREST_XML = "IntrestAccountXml";
+    private final static String INTREST_HTML = "IntrestAccountHtml";
+    private ArrayList<Vector<BigDecimal>> table;
 	private int alreadyPayed = 0;
 	private Account capital, intrest;
 	private BigDecimal startCapital;
     private final MultiValueMap<Calendar,Movement[]> movements;
+    private Accounts accounts;
 
     public Mortgage(){
         movements = new MultiValueMap<Calendar, Movement[]>();
+    }
+
+    public void setAccounts(Accounts accounts) {
+        this.accounts = accounts;
     }
 
     public boolean isBookable(){
@@ -183,6 +198,87 @@ public class Mortgage extends Account {
 
         intrest.unbook(date, intrestMovementToRemove);
         capital.unbook(date,capitalMovementToRemove);
+    }
+
+
+    @Override
+    public Set<String> getInitKeySet() {
+        Set<String> keySet = super.getInitKeySet();
+        keySet.add(TOTAL);
+        keySet.add(NRPAYED);
+        keySet.add(CAPITAL_NAME);
+        keySet.add(CAPITAL_XML);
+        keySet.add(CAPITAL_HTML);
+        keySet.add(INTREST_NAME);
+        keySet.add(INTREST_XML);
+        keySet.add(INTREST_HTML);
+        return keySet;
+    }
+
+    @Override
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String,String> properties = super.getInitProperties();
+        if(startCapital!=null){
+            properties.put(TOTAL, startCapital.toString());
+        }
+        properties.put(NRPAYED, Integer.toString(alreadyPayed));
+        if(capital!=null){
+            properties.put(CAPITAL_NAME,capital.getName());
+            if(capital.getXmlFile()!=null){
+                properties.put(CAPITAL_XML,capital.getXmlFile().getPath());
+            }
+            if(capital.getHtmlFile()!=null){
+                properties.put(CAPITAL_XML,capital.getHtmlFile().getPath());
+            }
+        }
+        if(intrest!=null){
+            properties.put(INTREST_NAME,intrest.getName());
+            if(intrest.getXmlFile()!=null){
+                properties.put(INTREST_XML,intrest.getXmlFile().getPath());
+            }
+            if(intrest.getHtmlFile()!=null){
+                properties.put(INTREST_HTML, intrest.getHtmlFile().getPath());
+            }
+        }
+        return properties;
+    }
+
+    @Override
+    public void setInitProperties(TreeMap<String, String> properties) {
+        super.setInitProperties(properties);
+        String startCapitalString = properties.get(TOTAL);
+        String nrPayedString = properties.get(NRPAYED);
+        if(startCapitalString!=null){
+            startCapital = new BigDecimal(startCapitalString);
+        }
+        if(nrPayedString!=null){
+            alreadyPayed = Integer.parseInt(nrPayedString);
+        }
+        String capitalAccount = properties.get(CAPITAL_NAME);
+        if(capitalAccount!=null){
+            capital = accounts.getBusinessObject(capitalAccount);
+        }
+        String intrestAccount = properties.get(INTREST_NAME);
+        if(intrestAccount!=null){
+            intrest = accounts.getBusinessObject(intrestAccount);
+        }
+    }
+
+    @Override
+    public TreeMap<String, String> getUniqueProperties(){
+        TreeMap<String,String> properties = super.getUniqueProperties();
+        return properties;
+    }
+
+    @Override
+    public TreeMap<String,String> getProperties() {
+        TreeMap<String, String> properties = super.getProperties();
+        return properties;
+    }
+
+    @Override
+    public void setProperties(TreeMap<String, String> properties){
+        super.setProperties(properties);
     }
 
 }

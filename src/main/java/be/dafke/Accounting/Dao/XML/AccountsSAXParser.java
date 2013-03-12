@@ -1,21 +1,9 @@
 package be.dafke.Accounting.Dao.XML;
 
-import be.dafke.Accounting.Exceptions.DuplicateNameException;
-import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.AccountType;
-import be.dafke.Accounting.Objects.Accounting.AccountTypes;
-import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Movement;
-import be.dafke.Accounting.Objects.Accounting.Projects;
 import be.dafke.Utils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -31,88 +19,9 @@ import java.util.logging.Logger;
  */
 public class AccountsSAXParser {
 
-    // READ
-    //
-    public static void readAccounts(Accounts accounts, AccountTypes accountTypes, Projects projects){
-        try {
-            File file = accounts.getXmlFile();
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            documentBuilderFactory.setValidating(true);
-            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(file.getAbsolutePath());
-            doc.getDocumentElement().normalize();
-
-            Element rootElement = (Element) doc.getElementsByTagName("Accounts").item(0);
-            NodeList nodeList = rootElement.getElementsByTagName("Account");
-
-            for (int i = 0; i < nodeList.getLength(); i++) {
-                Element element = (Element)nodeList.item(i);
-                File xmlFile = Utils.getFile(element, "xml");
-                File htmlFile = Utils.getFile(element, "html");
-                String account_name = Utils.getValue(element, "account_name");
-                String account_type = Utils.getValue(element, "account_type");
-
-                AccountType type = accountTypes.getBusinessObject(account_type);
-                try{
-                    Account account = new Account();
-                    account.setName(account_name.trim());
-                    account.setType(type);
-                    accounts.addBusinessObject(account);
-                    account.setXmlFile(xmlFile);
-                    account.setHtmlFile(htmlFile);
-                } catch (DuplicateNameException e) {
-                    System.err.println("There is already an account with the name \""+account_name+"\".");
-                } catch (EmptyNameException e) {
-                    System.err.println("The name of the account is empty.");
-                }
-            }
-
-        } catch (IOException io) {
-            io.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     // WRITE
     //
-    public static void writeAccounts(Accounts accounts) {
-        try {
-            Writer writer = new FileWriter(accounts.getXmlFile());
-
-            writer.write(accounts.getXmlHeader());
-
-            writer.write("<Accounts>\r\n");
-            for(Account account : accounts.getBusinessObjects()) {
-                if(account.getBusinessObjectType().equals("Account")){
-                    writer.write("  <Account>\r\n");
-                    writer.write("    <xml>" + account.getXmlFile() + "</xml>\r\n");
-                    if(account.getHtmlFile()!=null){
-                        writer.write("    <html>" + account.getHtmlFile() + "</html>\r\n");
-                    }
-                    writer.write("    <name>" + account.getName() + "</name>\r\n");
-                    writer.write("    <type>" + account.getType() + "</type>\r\n");
-                    writer.write("  </Account>\r\n");
-                }
-            }
-            writer.write("</Accounts>\r\n");
-            writer.flush();
-            writer.close();
-//			setSaved(true);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for(Account account:accounts.getBusinessObjects()){
-//            TODO: add isSavedXML
-//            if(account.isSavedXML()){
-            writeAccount(account);
-//            }
-        }
-    }
-    //
-    private static void writeAccount(Account account){
+    public static void writeAccount(Account account){
         try {
             Writer writer = new FileWriter(account.getXmlFile());
 
@@ -146,5 +55,4 @@ public class AccountsSAXParser {
             Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

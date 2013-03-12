@@ -6,7 +6,6 @@ import java.io.File;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 /**
  * User: Dafke
@@ -20,52 +19,6 @@ public class WriteableBusinessCollection<V extends WriteableBusinessObject> exte
     private static final String HTMLFOLDER = "htmlFolder";
     protected File htmlFolder;
     protected File xmlFolder;
-    protected Set<String> keySet;
-
-    @Override
-    public TreeMap<String,String> getOutputMap() {
-        return new TreeMap<String, String>();
-    }
-
-    public TreeMap<String,String> getCollectionOutputMap() {
-        TreeMap<String, String> outputMap = new TreeMap<String, String>();
-        outputMap.put(NAME, getName());
-        if(xmlFile!=null){
-            outputMap.put(XML, xmlFile.getPath());
-        }
-        if(htmlFile!=null){
-            outputMap.put(HTML, htmlFile.getPath());
-        }
-        if(xmlFolder!=null){
-            outputMap.put(XMLFOLDER, xmlFolder.getPath());
-        }
-        if(htmlFolder!=null){
-            outputMap.put(HTMLFOLDER, htmlFolder.getPath());
-        }
-        return outputMap;
-    }
-
-    @Override
-    public void setProperties(TreeMap<String, String> inputMap) {
-        setName(inputMap.get(NAME));
-        String xmlPath = inputMap.get(XML);
-        String htmlPath = inputMap.get(HTML);
-        String xmlFolderPath = inputMap.get(XMLFOLDER);
-        String htmlFolderPath = inputMap.get(HTMLFOLDER);
-        if(xmlPath!=null){
-            xmlFile = new File(xmlPath);
-        }
-        if(htmlPath!=null){
-            htmlFile = new File(htmlPath);
-        }
-        if(xmlFolderPath!=null){
-            xmlFolder = new File(xmlFolderPath);
-        }
-        if(htmlFolderPath!=null){
-            htmlFolder = new File(htmlFolderPath);
-        }
-    }
-
 
     @Override
     public void setHtmlFolder(File parentFolder){
@@ -145,11 +98,6 @@ public class WriteableBusinessCollection<V extends WriteableBusinessObject> exte
     }
 
     public WriteableBusinessCollection(){
-        keySet = new TreeSet<String>();
-        keySet.add(NAME);
-        keySet.add(XML);
-        keySet.add(HTML);
-
         File xslFolder = new File(System.getProperty("Accountings_xsl"));
         xsl2XmlFile = new File(xslFolder, businessObjectType + "2xml.xsl");
         xsl2HtmlFile = new File(xslFolder, businessObjectType + "2html.xsl");
@@ -206,7 +154,89 @@ public class WriteableBusinessCollection<V extends WriteableBusinessObject> exte
         this.htmlFile = htmlFile;
     }
 
-    public Set<String> getKeySet() {
+    // KeySets and Properties ==============================================
+
+    @Override
+    public Set<String> getInitKeySet() {
+        Set<String> keySet = super.getInitKeySet();
+        keySet.add(XML);
+        keySet.add(HTML);
+        keySet.add(XMLFOLDER);
+        keySet.add(HTMLFOLDER);
         return keySet;
+    }
+
+    @Override
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String, String> properties = super.getUniqueProperties();
+        if(xmlFile!=null){
+            properties.put(XML, xmlFile.getPath());
+        }
+        if(htmlFile!=null){
+            properties.put(HTML, htmlFile.getPath());
+        }
+        if(xmlFolder!=null){
+            properties.put(XMLFOLDER, xmlFolder.getPath());
+        }
+        if(htmlFolder!=null){
+            properties.put(HTMLFOLDER, htmlFolder.getPath());
+        }
+        return properties;
+    }
+
+    @Override
+    public void setInitProperties(TreeMap<String, String> properties) {
+        super.setInitProperties(properties);
+        String xmlPath = properties.get(XML);
+        String htmlPath = properties.get(HTML);
+        String xmlFolderPath = properties.get(XMLFOLDER);
+        String htmlFolderPath = properties.get(HTMLFOLDER);
+        if(xmlPath!=null){
+            xmlFile = new File(xmlPath);
+        }
+        if(htmlPath!=null){
+            htmlFile = new File(htmlPath);
+        }
+        if(xmlFolderPath!=null){
+            xmlFolder = new File(xmlFolderPath);
+        }
+        if(htmlFolderPath!=null){
+            htmlFolder = new File(htmlFolderPath);
+        }
+    }
+
+    @Override
+    public TreeMap<String,String> getUniqueProperties(){
+        TreeMap<String,String> properties = super.getUniqueProperties();
+//        if(xmlFile!=null){
+//            properties.put(XML, xmlFile.getPath());
+//        }
+//        if(htmlFile!=null){
+//            properties.put(HTML, htmlFile.getPath());
+//        }
+//        if(xmlFolder!=null){
+//            properties.put(XMLFOLDER, xmlFolder.getPath());
+//        }
+//        if(htmlFolder!=null){
+//            properties.put(HTMLFOLDER, htmlFolder.getPath());
+//        }
+        return properties;
+    }
+
+    @Override
+    public Set<String> getCollectionKeySet(){
+        Set<String> collectionKeySet = super.getCollectionKeySet();
+        return collectionKeySet;
+    }
+
+    @Override
+    public TreeMap<String,String> getProperties() {
+        TreeMap<String, String> outputMap = super.getProperties();
+        return outputMap;
+    }
+
+    @Override
+    public void setProperties(TreeMap<String, String> properties){
+        super.setProperties(properties);
     }
 }

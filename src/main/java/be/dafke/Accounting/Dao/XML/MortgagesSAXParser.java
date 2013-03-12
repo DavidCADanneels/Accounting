@@ -111,50 +111,7 @@ public class MortgagesSAXParser {
 
     // WRITE
     //
-    public static void writeMortgages(Mortgages mortgages) {
-        try {
-            Writer writer = new FileWriter(mortgages.getXmlFile());
-
-            writer.write(mortgages.getXmlHeader());
-
-            writer.write("<Mortgages>\r\n");
-            for(Mortgage mortgage : mortgages.getBusinessObjects()) {
-                writer.write("  <Mortgage>\r\n");
-                writer.write("    <name>" + mortgage.toString() + "</name>\r\n");
-                writer.write("    <xml>" + mortgage.getXmlFile() + "</xml>\r\n");
-                if(mortgage.getHtmlFile()!=null){
-                    writer.write("    <html>" + mortgage.getHtmlFile() + "</html>\r\n");
-                }
-                writer.write("    <total>" + mortgage.getStartCapital() + "</total>\r\n");
-                writer.write("    <nrPayed>" + mortgage.getNrPayed() + "</nrPayed>\r\n");
-                if(mortgage.getCapitalAccount()!=null){
-                    writer.write("    <capital_account_name>" + mortgage.getCapitalAccount() + "</capital_account_name>\r\n");
-                    writer.write("    <capital_account_xml>" + mortgage.getCapitalAccount().getXmlFile() + "</capital_account_xml>\r\n");
-                    writer.write("    <capital_account_html>" + mortgage.getCapitalAccount().getHtmlFile() + "</capital_account_html>\r\n");
-                }
-                if(mortgage.getIntrestAccount()!=null){
-                    writer.write("    <intrest_account_name>" + mortgage.getIntrestAccount() + "</intrest_account_name>\r\n");
-                    writer.write("    <intrest_account_xml>" + mortgage.getIntrestAccount().getXmlFile() + "</intrest_account_xml>\r\n");
-                    writer.write("    <intrest_account_html>" + mortgage.getIntrestAccount().getHtmlFile() + "</intrest_account_html>\r\n");
-                }
-                writer.write("  </Mortgage>\r\n");
-            }
-            writer.write("</Mortgages>\r\n");
-            writer.flush();
-            writer.close();
-//			setSaved(true);
-        } catch (IOException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for(Mortgage mortgage:mortgages.getBusinessObjects()){
-//            TODO: add isSavedXML
-//            if(journal.isSavedXML()){
-            writeMortgage(mortgage);
-//            }
-        }
-    }
-    //
-    private static void writeMortgage(Mortgage mortgage) {
+    public static void writeMortgage(Mortgage mortgage) {
         System.out.println("Mortgages.TOXML(" + mortgage.toString() + ")");
         try {
             Writer writer = new FileWriter(mortgage.getXmlFile());

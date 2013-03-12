@@ -7,8 +7,7 @@ import be.dafke.MultiValueMap;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -27,39 +26,9 @@ public class Journal extends WriteableBusinessObject implements BusinessTyped<Jo
     private BusinessTypeCollection businessTypeCollection;
 
     public Journal() {
-        keySet.add(TYPE);
-        keySet.add(ABBREVIATION);
 		transactions = new MultiValueMap<Calendar,Transaction>();
 		id = 1;
 	}
-
-    @Override
-    public void setProperties(TreeMap<String, String> inputMap) {
-        super.setProperties(inputMap);
-        abbreviation = inputMap.get(ABBREVIATION);
-        String typeName = inputMap.get(TYPE);
-        if(typeName!=null){
-            type = (JournalType) businessTypeCollection.getBusinessObject(typeName);
-        }
-    }
-
-
-    @Override
-    public TreeMap<String,String> getOutputMap() {
-        TreeMap<String,String> outputMap = super.getOutputMap();
-        outputMap.put(TYPE, getType().getName());
-        outputMap.put(ABBREVIATION, getAbbreviation());
-        return outputMap;
-    }
-
-
-    @Override
-    public Map<String,String> getKeyMap(){
-        Map<String,String> keyMap = new HashMap<String, String>();
-        keyMap.put(NAME, getName());
-        keyMap.put(ABBREVIATION, abbreviation);
-        return keyMap;
-    }
 
     @Override
     public boolean isDeletable(){
@@ -175,4 +144,49 @@ public class Journal extends WriteableBusinessObject implements BusinessTyped<Jo
         addTransaction(date, transaction);
         id++;
 	}
+
+    @Override
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = super.getInitKeySet();
+        keySet.add(ABBREVIATION);
+        keySet.add(TYPE);
+        return keySet;
+    }
+
+    @Override
+    public void setInitProperties(TreeMap<String, String> properties) {
+        super.setInitProperties(properties);
+        abbreviation = properties.get(ABBREVIATION);
+        String typeName = properties.get(TYPE);
+        if(typeName!=null){
+            type = (JournalType) businessTypeCollection.getBusinessObject(typeName);
+        }
+    }
+
+
+    @Override
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String,String> outputMap = super.getInitProperties();
+        outputMap.put(TYPE, getType().getName());
+        outputMap.put(ABBREVIATION, getAbbreviation());
+        return outputMap;
+    }
+
+    @Override
+    public TreeMap<String,String> getUniqueProperties(){
+        TreeMap<String,String> keyMap = super.getUniqueProperties();
+        keyMap.put(ABBREVIATION, abbreviation);
+        return keyMap;
+    }
+
+    @Override
+    public TreeMap<String,String> getProperties() {
+        TreeMap<String,String> outputMap = super.getProperties();
+        return outputMap;
+    }
+
+    @Override
+    public void setProperties(TreeMap<String, String> properties) {
+        super.setProperties(properties);
+    }
 }

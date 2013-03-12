@@ -5,7 +5,6 @@ import be.dafke.Utils;
 import java.io.File;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 /**
  * User: Dafke
@@ -15,14 +14,8 @@ import java.util.TreeSet;
 public class WriteableBusinessObject extends BusinessObject implements Writeable {
     private static final String XML = "xml";
     private static final String HTML = "html";
-    protected Set<String> keySet;
 
     protected WriteableBusinessObject(){
-        keySet = new TreeSet<String>();
-        keySet.add(NAME);
-        keySet.add(XML);
-        keySet.add(HTML);
-
         File xslFolder = new File(System.getProperty("Accountings_xsl"));
         xsl2XmlFile = new File(xslFolder, businessObjectType + "2xml.xsl");
         xsl2HtmlFile = new File(xslFolder, businessObjectType + "2html.xsl");
@@ -49,42 +42,12 @@ public class WriteableBusinessObject extends BusinessObject implements Writeable
     }
 
     @Override
-    public Set<String> getKeySet() {
-        return keySet;
-    }
-
-    @Override
     public String getXmlHeader() {
         return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" +
                 "<?xml-stylesheet type=\"text/xsl\" href=\"" + xsl2XmlFile + "\"?>\r\n" +
                 "<!DOCTYPE " + businessObjectType + " SYSTEM \"" + dtdFile + "\">\r\n";
 
     }
-
-    @Override
-    public TreeMap<String,String> getOutputMap() {
-        TreeMap<String,String> outputMap = new TreeMap<String, String>();
-        outputMap.put(NAME, getName());
-        outputMap.put(XML, getXmlFile().getPath());
-        if(getHtmlFile()!=null){
-            outputMap.put(HTML, getHtmlFile().getPath());
-        }
-        return outputMap;
-    }
-
-    @Override
-    public void setProperties(TreeMap<String, String> inputMap) {
-        setName(inputMap.get(NAME));
-        String xmlPath = inputMap.get(XML);
-        String htmlPath = inputMap.get(HTML);
-        if(xmlPath!=null){
-            xmlFile = new File(xmlPath);
-        }
-        if(htmlPath!=null){
-            htmlFile = new File(htmlPath);
-        }
-    }
-
 
     @Override
     public File getDtdFile() {
@@ -134,5 +97,61 @@ public class WriteableBusinessObject extends BusinessObject implements Writeable
     @Override
     public void setHtmlFile(File htmlFile) {
         this.htmlFile = htmlFile;
+    }
+
+    @Override
+    public Set<String> getInitKeySet() {
+        Set<String> keySet = super.getInitKeySet();
+        keySet.add(XML);
+        keySet.add(HTML);
+        return keySet;
+    }
+
+    @Override
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String,String> properties = super.getInitProperties();
+        if(xmlFile!=null){
+            properties.put(XML, xmlFile.getPath());
+        }
+        if(htmlFile!=null){
+            properties.put(HTML, htmlFile.getPath());
+        }
+        return properties;
+    }
+
+    @Override
+    public void setInitProperties(TreeMap<String, String> properties) {
+        super.setInitProperties(properties);
+        String xmlPath = properties.get(XML);
+        String htmlPath = properties.get(HTML);
+        if(xmlPath!=null){
+            xmlFile = new File(xmlPath);
+        }
+        if(htmlPath!=null){
+            htmlFile = new File(htmlPath);
+        }
+    }
+
+    @Override
+    public TreeMap<String, String> getUniqueProperties(){
+        TreeMap<String,String> properties = super.getUniqueProperties();
+//        if(xmlFile!=null){
+//            properties.put(XML, xmlFile.getPath());
+//        }
+//        if(htmlFile!=null){
+//            properties.put(HTML, htmlFile.getPath());
+//        }
+        return properties;
+    }
+
+    @Override
+    public TreeMap<String,String> getProperties() {
+        TreeMap<String, String> properties = super.getProperties();
+        return properties;
+    }
+
+    @Override
+    public void setProperties(TreeMap<String, String> properties){
+        super.setProperties(properties);
     }
 }

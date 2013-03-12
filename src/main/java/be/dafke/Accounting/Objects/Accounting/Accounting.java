@@ -124,14 +124,16 @@ public class Accounting extends WriteableBusinessObject {
     //
     public void setHtmlFolder(File htmlFolder) {
         this.htmlFolder = htmlFolder;
-        setHtmlFile(new File(htmlFolder, "Accounting.html"));
-//        setHtmlFile(new File(htmlFolder, name + ".html"));
-        accounts.setHtmlFolder(htmlFolder);
-        journals.setHtmlFolder(htmlFolder);
-        balances.setHtmlFolder(htmlFolder);
-        mortgages.setHtmlFolder(htmlFolder);
-//        statements.setHtmlFolder(htmlFolder);
-//        counterParties.setHtmlFolder(htmlFolder);
+        if(htmlFolder!=null){
+            setHtmlFile(new File(htmlFolder, "Accounting.html"));
+    //        setHtmlFile(new File(htmlFolder, name + ".html"));
+            accounts.setHtmlFolder(htmlFolder);
+            journals.setHtmlFolder(htmlFolder);
+            balances.setHtmlFolder(htmlFolder);
+            mortgages.setHtmlFolder(htmlFolder);
+    //        statements.setHtmlFolder(htmlFolder);
+    //        counterParties.setHtmlFolder(htmlFolder);
+        }
     }
 
     private void setXmlFolder(){

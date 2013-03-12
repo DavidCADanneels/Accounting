@@ -11,6 +11,7 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -20,17 +21,9 @@ import java.util.TreeMap;
  */
 public class Accounts extends WriteableBusinessCollection<Account> implements BusinessTypeProvider<AccountType> {
 
-    private static final String CURRENT = "CurrentAccount";
-    private Account currentAccount;
+//    private static final String CURRENT = "CurrentAccount";
+//    private Account currentAccount;
     private BusinessTypeCollection<AccountType> businessTypeCollection;
-
-    @Override
-    public TreeMap<String,String> getOutputMap() {
-        TreeMap<String,String> outputMap = new TreeMap<String, String>();
-        if(currentAccount!=null)
-            outputMap.put(CURRENT, currentAccount.getName());
-        return outputMap;
-    }
 
     /**
 	 * Geeft alle rekeningen terug van het gegeven businessObjectType
@@ -100,14 +93,6 @@ public class Accounts extends WriteableBusinessCollection<Account> implements Bu
         return modify(oldEntry, newEntry);
 	}
 
-    public Account getCurrentAccount() {
-        return currentAccount;
-    }
-
-    public void setCurrentAccount(Account currentAccount) {
-        this.currentAccount = currentAccount;
-    }
-
     @Override
     public void setBusinessTypeCollection(BusinessTypeCollection<AccountType> businessTypeCollection) {
         this.businessTypeCollection = businessTypeCollection;
@@ -116,5 +101,47 @@ public class Accounts extends WriteableBusinessCollection<Account> implements Bu
     @Override
     public BusinessTypeCollection<AccountType> getBusinessTypeCollection() {
         return businessTypeCollection;
+    }
+
+    // KeySets and Properties
+
+    @Override
+    public Set<String> getInitKeySet() {
+        Set<String> keySet = super.getInitKeySet();
+        return keySet;
+    }
+
+    @Override
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String, String> properties = super.getUniqueProperties();
+        return properties;
+    }
+
+    @Override
+    public void setInitProperties(TreeMap<String, String> properties) {
+        super.setInitProperties(properties);
+    }
+
+    @Override
+    public TreeMap<String,String> getUniqueProperties(){
+        TreeMap<String,String> properties = super.getUniqueProperties();
+        return properties;
+    }
+
+    @Override
+    public Set<String> getCollectionKeySet(){
+        Set<String> collectionKeySet = super.getCollectionKeySet();
+        return collectionKeySet;
+    }
+
+    @Override
+    public TreeMap<String,String> getProperties() {
+        TreeMap<String, String> outputMap = super.getProperties();
+        return outputMap;
+    }
+
+    @Override
+    public void setProperties(TreeMap<String, String> properties){
+        super.setProperties(properties);
     }
 }

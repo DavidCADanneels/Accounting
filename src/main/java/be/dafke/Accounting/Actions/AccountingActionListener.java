@@ -67,7 +67,7 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
             accountings.setCurrentAccounting(accountingName);
         } else if(actionCommand.equals(ComponentMap.JOURNAL_DETAILS)){
             Accounting accounting = accountings.getCurrentAccounting();
-            Journal journal = accounting.getJournals().getCurrentJournal();
+            Journal journal = accounting.getJournals().getCurrentObject();
             String key = ComponentMap.JOURNAL_DETAILS + accounting.toString() + journal.toString();
             DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
             if(gui == null){
@@ -77,7 +77,7 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
             gui.setVisible(true);
         } else if(actionCommand.equals(ComponentMap.ACCOUNT_DETAILS)){
             Accounting accounting = accountings.getCurrentAccounting();
-            Account account = accounting.getAccounts().getCurrentAccount();
+            Account account = accounting.getAccounts().getCurrentObject();
             String key = accounting.toString() + ComponentMap.ACCOUNT_DETAILS + account.getName();
             DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
             if(gui == null){

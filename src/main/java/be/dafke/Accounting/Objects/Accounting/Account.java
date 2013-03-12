@@ -8,6 +8,7 @@ import be.dafke.MultiValueMap;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -23,28 +24,11 @@ public class Account extends WriteableBusinessObject implements BusinessTyped<Ac
     private BusinessTypeCollection businessTypeCollection;
 
     public Account() {
-        keySet.add(TYPE);
         movements = new MultiValueMap<Calendar,Movement>();
         debitTotal = BigDecimal.ZERO;
         debitTotal = debitTotal.setScale(2);
         creditTotal = BigDecimal.ZERO;
         creditTotal = creditTotal.setScale(2);
-    }
-
-    @Override
-    public TreeMap<String,String> getOutputMap() {
-        TreeMap<String,String> outputMap = super.getOutputMap();
-        outputMap.put(TYPE, getType().getName());
-        return outputMap;
-    }
-
-    @Override
-    public void setProperties(TreeMap<String, String> inputMap) {
-        super.setProperties(inputMap);
-        String typeName = inputMap.get(TYPE);
-        if(typeName!=null){
-            type = (AccountType) businessTypeCollection.getBusinessObject(typeName);
-        }
     }
 
     @Override
@@ -110,5 +94,44 @@ public class Account extends WriteableBusinessObject implements BusinessTyped<Ac
 			creditTotal = creditTotal.setScale(2);
 		}
         movements.removeValue(date, movement);
+    }
+
+    @Override
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = super.getInitKeySet();
+        keySet.add(TYPE);
+        return keySet;
+    }
+
+    @Override
+    public TreeMap<String,String> getUniqueProperties() {
+        TreeMap<String,String> outputMap = super.getUniqueProperties();
+        return outputMap;
+    }
+
+    @Override
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String,String> outputMap = super.getInitProperties();
+        outputMap.put(TYPE, getType().getName());
+        return outputMap;
+    }
+
+    @Override
+    public void setInitProperties(TreeMap<String, String> properties) {
+        super.setInitProperties(properties);
+        String typeName = properties.get(TYPE);
+        if(typeName!=null){
+            type = (AccountType) businessTypeCollection.getBusinessObject(typeName);
+        }
+    }
+    @Override
+    public TreeMap<String,String> getProperties() {
+        TreeMap<String,String> outputMap = super.getProperties();
+        return outputMap;
+    }
+
+    @Override
+    public void setProperties(TreeMap<String, String> properties) {
+        super.setProperties(properties);
     }
 }

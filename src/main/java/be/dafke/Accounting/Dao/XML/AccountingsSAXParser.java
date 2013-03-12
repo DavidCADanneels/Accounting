@@ -2,9 +2,12 @@ package be.dafke.Accounting.Dao.XML;
 
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
+import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
+import be.dafke.Accounting.Objects.Accounting.Balance;
 import be.dafke.Accounting.Objects.Accounting.Journal;
+import be.dafke.Accounting.Objects.Accounting.Mortgage;
 import be.dafke.Accounting.Objects.WriteableBusinessCollection;
 import be.dafke.Accounting.Objects.WriteableBusinessObject;
 import be.dafke.Utils;
@@ -103,6 +106,7 @@ public class AccountingsSAXParser {
 
     public static void writeAccountings(Accountings accountings) {
         accountings.createDefaultValuesIfNull();
+//        CollectionSAXParser.writeCollection(accountings);
         toXml(accountings);
         toHtml(accountings);
     }
@@ -147,21 +151,36 @@ public class AccountingsSAXParser {
 
         System.out.println("Accounts.TOXML(" + accounting.toString() + ")");
         CollectionSAXParser.writeCollection(accounting.getCollection("Accounts"));
+        for(Account account : accounting.getAccounts().getBusinessObjects()){
+            AccountsSAXParser.writeAccount(account);
+        }
 
         System.out.println("Balances.TOXML(" + accounting.toString() + ")");
         CollectionSAXParser.writeCollection(accounting.getCollection("Balances"));
+        for(Balance balance : accounting.getBalances().getBusinessObjects()){
+            BalancesSAXParser.writeBalance(balance);
+        }
 
         System.out.println("Journals.TOXML(" + accounting.toString() + ")");
         CollectionSAXParser.writeCollection(accounting.getCollection("Journals"));
+        for(Journal journal : accounting.getJournals().getBusinessObjects()){
+            JournalsSAXParser.writeJournal(journal);
+        }
 
         System.out.println("Mortgages.TOXML(" + accounting.toString() + ")");
-        MortgagesSAXParser.writeMortgages(accounting.getMortgages());
+//        MortgagesSAXParser.writeMortgages(accounting.getMortgages());
+        CollectionSAXParser.writeCollection(accounting.getCollection("Mortgages"));
+        for(Mortgage mortgage:accounting.getMortgages().getBusinessObjects()){
+            MortgagesSAXParser.writeMortgage(mortgage);
+        }
 
         System.out.println("Counterparties.TOXML(" + accounting.toString() + ")");
-        CounterPartiesSAXParser.writeCounterparties(accounting.getCounterParties());
+//        CounterPartiesSAXParser.writeCounterparties(accounting.getCounterParties());
+        CollectionSAXParser.writeCollection(accounting.getCollection("CounterParties"));
 
         System.out.println("Statements.TOXML(" + accounting.toString() + ")");
         StatementsSAXParser.writeStatements(accounting.getStatements());
+//        CollectionSAXParser.writeCollection(accounting.getCollection("Statements"));
     }
 
     private static void writeAccountingFile(Accounting accounting) {

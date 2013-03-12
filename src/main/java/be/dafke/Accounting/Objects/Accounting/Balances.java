@@ -5,6 +5,8 @@ import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.WriteableBusinessCollection;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeMap;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -89,5 +91,47 @@ public class Balances extends WriteableBusinessCollection<Balance> {
         } catch (DuplicateNameException e) {
             System.err.println("The Name of a Balance already exists.");
         }
+    }
+
+    // KeySets and Properties
+
+    @Override
+    public Set<String> getInitKeySet() {
+        Set<String> keySet = super.getInitKeySet();
+        return keySet;
+    }
+
+    @Override
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String, String> properties = super.getUniqueProperties();
+        return properties;
+    }
+
+    @Override
+    public void setInitProperties(TreeMap<String, String> properties) {
+        super.setInitProperties(properties);
+    }
+
+    @Override
+    public TreeMap<String,String> getUniqueProperties(){
+        TreeMap<String,String> properties = super.getUniqueProperties();
+        return properties;
+    }
+
+    @Override
+    public Set<String> getCollectionKeySet(){
+        Set<String> collectionKeySet = super.getCollectionKeySet();
+        return collectionKeySet;
+    }
+
+    @Override
+    public TreeMap<String,String> getProperties() {
+        TreeMap<String, String> outputMap = super.getProperties();
+        return outputMap;
+    }
+
+    @Override
+    public void setProperties(TreeMap<String, String> properties){
+        super.setProperties(properties);
     }
 }

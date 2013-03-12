@@ -3,6 +3,8 @@ package be.dafke.Accounting.Objects.Accounting;
 import be.dafke.Accounting.Objects.WriteableBusinessObject;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * User: Dafke
@@ -11,6 +13,12 @@ import java.util.ArrayList;
  */
 public class Balance extends WriteableBusinessObject {
 
+    private final static String LEFTNAME = "LeftName";
+    private final static String RIGHTNAME = "RightName";
+    private final static String LEFTTOTALNAME = "LeftTotalName";
+    private final static String RIGHTTOTALNAME = "RightTotalName";
+    private final static String LEFTRESULTNAME = "LeftResultName";
+    private final static String RIGHTRESULTNAME = "RightResultName";
     private String leftName;
     private String rightName;
     private String leftTotalName;
@@ -104,5 +112,51 @@ public class Balance extends WriteableBusinessObject {
 
     public void setAccounting(Accounting accounting) {
         this.accounting = accounting;
+    }
+
+    @Override
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = super.getInitKeySet();
+        return keySet;
+    }
+
+    @Override
+    public TreeMap<String,String> getUniqueProperties() {
+        TreeMap<String,String> outputMap = super.getUniqueProperties();
+        return outputMap;
+    }
+
+    @Override
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String,String> outputMap = super.getInitProperties();
+        return outputMap;
+    }
+
+    @Override
+    public void setInitProperties(TreeMap<String, String> properties) {
+        super.setInitProperties(properties);
+    }
+
+    @Override
+    public TreeMap<String,String> getProperties() {
+        TreeMap<String,String> outputMap = super.getProperties();
+        outputMap.put(LEFTNAME,leftName);
+        outputMap.put(RIGHTNAME,rightName);
+        outputMap.put(LEFTTOTALNAME,leftTotalName);
+        outputMap.put(RIGHTTOTALNAME,rightTotalName);
+        outputMap.put(LEFTRESULTNAME,leftResultName);
+        outputMap.put(RIGHTRESULTNAME,rightResultName);
+        return outputMap;
+    }
+
+    @Override
+    public void setProperties(TreeMap<String, String> properties) {
+        super.setProperties(properties);
+        leftName = properties.get(LEFTNAME);
+        rightName = properties.get(RIGHTNAME);
+        leftTotalName = properties.get(LEFTTOTALNAME);
+        rightTotalName = properties.get(RIGHTTOTALNAME);
+        leftResultName = properties.get(LEFTRESULTNAME);
+        rightResultName = properties.get(RIGHTRESULTNAME);
     }
 }

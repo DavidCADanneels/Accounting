@@ -1,5 +1,6 @@
-<!ELEMENT Balances (Balance*)>
+<!ELEMENT Balances (Balance*,CurrentObject?)>
 <!ELEMENT Balance (html?,name,xml)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT xml (#PCDATA)>
 <!ELEMENT html (#PCDATA)>
+<!ELEMENT CurrentObject (#PCDATA)>

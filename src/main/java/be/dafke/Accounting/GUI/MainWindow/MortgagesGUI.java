@@ -51,7 +51,7 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
         } else {
             setMortgages(accounting.getMortgages());
             if(accounting.getJournals()!=null){
-                setJournal(accounting.getJournals().getCurrentJournal());
+                setJournal(accounting.getJournals().getCurrentObject());
             }
         }
     }

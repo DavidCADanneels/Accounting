@@ -9,6 +9,7 @@ import be.dafke.Accounting.Objects.WriteableBusinessCollection;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -18,31 +19,11 @@ import java.util.TreeMap;
  */
 public class Journals extends WriteableBusinessCollection<Journal> implements BusinessTypeProvider<JournalType> {
 
-    private static final String CURRENT = "CurrentJournal";
-    private Journal currentJournal;
     private BusinessTypeCollection<JournalType> businessTypeCollection;
 
     public Journals() {
-        addKey(Journal.ABBREVIATION);
-        keySet.add(CURRENT);
+        addSearchKey(Journal.ABBREVIATION);
 	}
-
-    @Override
-    public TreeMap<String,String> getOutputMap() {
-        TreeMap<String,String> outputMap = new TreeMap<String, String>();
-        if(currentJournal!=null)
-        outputMap.put(CURRENT, currentJournal.getName());
-        return outputMap;
-    }
-
-
-    public Journal getCurrentJournal() {
-        return currentJournal;
-    }
-    //
-    public void setCurrentJournal(Journal journal) {
-        currentJournal = journal;
-    }
 
     /**
 	 * Geeft alle dagboeken terug behalve het gegeven dagboek
@@ -79,5 +60,47 @@ public class Journals extends WriteableBusinessCollection<Journal> implements Bu
     @Override
     public BusinessTypeCollection<JournalType> getBusinessTypeCollection() {
         return businessTypeCollection;
+    }
+
+    // KeySets and Properties
+
+    @Override
+    public Set<String> getInitKeySet() {
+        Set<String> keySet = super.getInitKeySet();
+        return keySet;
+    }
+
+    @Override
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String, String> properties = super.getUniqueProperties();
+        return properties;
+    }
+
+    @Override
+    public void setInitProperties(TreeMap<String, String> properties) {
+        super.setInitProperties(properties);
+    }
+
+    @Override
+    public TreeMap<String,String> getUniqueProperties(){
+        TreeMap<String,String> properties = super.getUniqueProperties();
+        return properties;
+    }
+
+    @Override
+    public Set<String> getCollectionKeySet(){
+        Set<String> collectionKeySet = super.getCollectionKeySet();
+        return collectionKeySet;
+    }
+
+    @Override
+    public TreeMap<String,String> getProperties() {
+        TreeMap<String, String> outputMap = super.getProperties();
+        return outputMap;
+    }
+
+    @Override
+    public void setProperties(TreeMap<String, String> properties){
+        super.setProperties(properties);
     }
 }

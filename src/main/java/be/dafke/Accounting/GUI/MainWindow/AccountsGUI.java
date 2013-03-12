@@ -96,7 +96,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
         Account account = null;
 		if (!lse.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
             account = lijst.getSelectedValue();
-            accounts.setCurrentAccount(account);
+            accounts.setCurrentObject(account);
         }
         accountDetails.setEnabled(account!=null);
         boolean active = (account!=null && journal!=null);
@@ -180,7 +180,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
             if(accounting.getJournals()==null){
                 setJournal(null);
             } else {
-                setJournal(accounting.getJournals().getCurrentJournal());
+                setJournal(accounting.getJournals().getCurrentObject());
             }
         }
     }

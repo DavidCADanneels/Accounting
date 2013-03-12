@@ -111,11 +111,11 @@ public class JournalGUI extends JPanel implements ActionListener {
         if(accounting==null || accounting.getJournals()==null){
             setJournal(null);
         } else {
-            setJournal(accounting.getJournals().getCurrentJournal());
-            if(accounting.getJournals().getCurrentJournal()==null){
+            setJournal(accounting.getJournals().getCurrentObject());
+            if(accounting.getJournals().getCurrentObject()==null){
                 journalDataModel.setTransaction(null);
             } else {
-                journalDataModel.setTransaction(accounting.getJournals().getCurrentJournal().getCurrentTransaction());
+                journalDataModel.setTransaction(accounting.getJournals().getCurrentObject().getCurrentTransaction());
             }
             journalDataModel.fireTableDataChanged();
         }

@@ -1,13 +1,9 @@
 package be.dafke.Accounting.Dao.XML;
 
-import be.dafke.Accounting.Exceptions.DuplicateNameException;
-import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounts;
 import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.Journal;
-import be.dafke.Accounting.Objects.Accounting.JournalTypes;
-import be.dafke.Accounting.Objects.Accounting.Journals;
 import be.dafke.Accounting.Objects.Accounting.Movement;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.Utils;
@@ -17,7 +13,6 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -33,56 +28,6 @@ import java.util.logging.Logger;
  * Time: 5:02
  */
 public class JournalsSAXParser {
-    // READ
-    //
-    public static void readJournals(Journals journals, JournalTypes journalTypes, Accounts accounts){
-        try {
-            File file = journals.getXmlFile();
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            documentBuilderFactory.setValidating(true);
-            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(file.getAbsolutePath());
-            doc.getDocumentElement().normalize();
-
-            Element rootElement = (Element) doc.getElementsByTagName("Journals").item(0);
-            NodeList nodeList = rootElement.getElementsByTagName("Journal");
-
-            for (int i = 0; i < nodeList.getLength(); i++) {
-                Element element = (Element)nodeList.item(i);
-                File xmlFile = Utils.getFile(element, "xml");
-                File htmlFile = Utils.getFile(element, "html");
-                String journal_name = Utils.getValue(element, "journal_name");
-                String journal_short = Utils.getValue(element, "journal_short");
-                String journal_type = Utils.getValue(element, "journal_type");
-                try{
-                    Journal journal = new Journal();
-                    journal.setName(journal_name);
-                    journal.setAbbreviation(journal_short);
-                    journal.setType(journalTypes.getBusinessObject(journal_type));
-                    journals.addBusinessObject(journal);
-                    journal.setXmlFile(xmlFile);
-                    journal.setHtmlFile(htmlFile);
-                    readJournal(journal, accounts);
-                } catch (DuplicateNameException e) {
-                    System.err.println("There is already an journal with the name \""+journal_name+"\" and/or abbreviation \""+journal_short+"\".");
-                } catch (EmptyNameException e) {
-                    System.err.println("Journal name and abbreviation cannot be empty.");
-                }
-            }
-
-            String current = Utils.getValue(rootElement,"CurrentJournal");
-            if(current!=null){
-                Journal journal = journals.getBusinessObject(current);
-                journals.setCurrentJournal(journal);
-            }
-
-        } catch (IOException io) {
-            io.printStackTrace();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-    //
     public static void readJournal(Journal journal, Accounts accounts) {
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -144,48 +89,7 @@ public class JournalsSAXParser {
         }
     }
 
-    // WRITE
-    //
-    public static void writeJournals(Journals journals) {
-        try {
-            Writer writer = new FileWriter(journals.getXmlFile());
-
-            writer.write(journals.getXmlHeader());
-
-            writer.write("<Journals>\r\n");
-            for(Journal journal : journals.getBusinessObjects()) {
-                writer.write("  <Journal>\r\n");
-                writer.write("    <xml>" + journal.getXmlFile() + "</xml>\r\n");
-                if(journal.getHtmlFile()!=null){
-                    writer.write("    <html>" + journal.getHtmlFile() + "</html>\r\n");
-                }
-                writer.write("    <journal_name>" + journal.getName() + "</journal_name>\r\n");
-                writer.write("    <journal_short>" + journal.getAbbreviation() + "</journal_short>\r\n");
-                writer.write("    <journal_type>" + journal.getType().toString() + "</journal_type>\r\n");
-                writer.write("  </Journal>\r\n");
-            }
-            if(journals.getCurrentJournal()!=null){
-                writer.write("  <CurrentJournal>" + journals.getCurrentJournal().getName() + "</CurrentJournal>\r\n");
-            }
-
-            writer.write("</Journals>\r\n");
-            writer.flush();
-            writer.close();
-//			setSaved(true);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for(Journal journal:journals.getBusinessObjects()){
-//            TODO: add isSavedXML
-//            if(journal.isSavedXML()){
-            writeJournal(journal);
-//            }
-        }
-    }
-    //
-    private static void writeJournal(Journal journal) {
+    public static void writeJournal(Journal journal) {
         try {
             Writer writer = new FileWriter(journal.getXmlFile());
 

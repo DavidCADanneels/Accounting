@@ -1,7 +1,8 @@
 package be.dafke.Accounting.Objects;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * User: Dafke
@@ -21,12 +22,6 @@ public class BusinessObject {
 
     public String getBusinessObjectType() {
         return businessObjectType;
-    }
-
-    public Map<String,String> getKeyMap(){
-        Map<String,String> keyMap = new HashMap<String, String>();
-        keyMap.put(NAME, name);
-        return keyMap;
     }
 
     @Override
@@ -51,5 +46,37 @@ public class BusinessObject {
     // TODO: make interfaces: Mergeable etc
     public boolean isMergeable(){
         return false;
+    }
+
+    // KeySet and Properties
+    //
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        return keySet;
+    }
+    //
+    public void setInitProperties(TreeMap<String, String> properties){
+        name = properties.get(NAME);
+    }
+    //
+    public TreeMap<String, String> getInitProperties(){
+        TreeMap<String,String> properties = new TreeMap<String, String>();
+        properties.put(NAME,name);
+        return properties;
+    }
+    //
+    public TreeMap<String, String> getUniqueProperties(){
+        TreeMap<String,String> properties = new TreeMap<String, String>();
+        properties.put(NAME,name);
+        return properties;
+    }
+
+    public TreeMap<String,String> getProperties() {
+        TreeMap<String, String> properties = new TreeMap<String, String>();
+        return properties;
+    }
+
+    public void setProperties(TreeMap<String, String> properties){
     }
 }

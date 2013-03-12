@@ -52,12 +52,12 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == combo) {
-            Journal oldJournal = journals.getCurrentJournal();
+            Journal oldJournal = journals.getCurrentObject();
 			Journal newJournal = (Journal) combo.getSelectedItem();
             if(newJournal!=null && oldJournal!=null){
                 checkTransfer(oldJournal, newJournal);
             } else {
-                journals.setCurrentJournal(newJournal);
+                journals.setCurrentObject(newJournal);
             }
             ComponentMap.refreshAllFrames();
 		}
@@ -76,14 +76,14 @@ public class JournalsGUI extends JPanel implements ActionListener {
             if(answer == JOptionPane.YES_OPTION){
                 newJournal.setCurrentTransaction(oldTransaction);
                 oldJournal.setCurrentTransaction(new Transaction());
-                journals.setCurrentJournal(newJournal);
+                journals.setCurrentObject(newJournal);
             } else if(answer == JOptionPane.NO_OPTION){
-                journals.setCurrentJournal(newJournal);
+                journals.setCurrentObject(newJournal);
             } else {
-                journals.setCurrentJournal(oldJournal);
+                journals.setCurrentObject(oldJournal);
             }
         } else {
-            journals.setCurrentJournal(newJournal);
+            journals.setCurrentObject(newJournal);
         }
     }
 
@@ -106,8 +106,8 @@ public class JournalsGUI extends JPanel implements ActionListener {
             for(Journal journal: journals.getBusinessObjects()){
                 combo.addItem(journal);
             }
-			combo.setSelectedItem(journals.getCurrentJournal());
-            details.setEnabled(journals!=null && journals.getCurrentJournal()!=null);
+			combo.setSelectedItem(journals.getCurrentObject());
+            details.setEnabled(journals!=null && journals.getCurrentObject()!=null);
             combo.setEnabled(journals!=null);
             journalManagement.setEnabled(journals != null);
 		} else {

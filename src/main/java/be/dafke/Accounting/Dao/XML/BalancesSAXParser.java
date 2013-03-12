@@ -2,7 +2,6 @@ package be.dafke.Accounting.Dao.XML;
 
 import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Balance;
-import be.dafke.Accounting.Objects.Accounting.Balances;
 
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -21,37 +20,7 @@ import java.util.logging.Logger;
 public class BalancesSAXParser {
 
     // WRITE
-    public static void writeBalances(Balances balances) {
-        try {
-            Writer writer = new FileWriter(balances.getXmlFile());
-
-            writer.write(balances.getXmlHeader());
-
-            writer.write("<Balances>\r\n");
-            for(Balance balance:balances.getBusinessObjects()){
-                writer.write("    <Balance>\r\n");
-                writer.write("      <name>" + balance.getName() + "</name>\r\n");
-                writer.write("      <xml>" + balance.getXmlFile() + "</xml>\r\n");
-                if(balance.getHtmlFile()!=null){
-                    writer.write("    <html>" + balance.getHtmlFile() + "</html>\r\n");
-                }
-                writer.write("    </Balance>\r\n");
-            }
-            writer.write("</Balances>\r\n");
-            writer.flush();
-            writer.close();
-//			setSaved(true);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        for(Balance balance : balances.getBusinessObjects()){
-            writeBalance(balance);
-        }
-    }
-    //
-    private static void writeBalance(Balance balance){
+    public static void writeBalance(Balance balance){
         System.out.println("Balances.TOXML(" + balance.toString() + ")");
         try {
             Writer writer = new FileWriter(balance.getXmlFile());

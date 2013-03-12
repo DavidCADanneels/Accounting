@@ -8,7 +8,9 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * User: Dafke
@@ -17,13 +19,15 @@ import java.util.TreeMap;
  */
 public class BusinessCollection <V extends BusinessObject> extends BusinessObject {
     protected HashMap<String, TreeMap<String,V>> dataTables;
+    protected static final String CURRENT = "CurrentObject";
+    protected V currentObject;
 
     public BusinessCollection(){
         dataTables = new HashMap<String, TreeMap<String, V>>();
-        addKey(NAME);
+        addSearchKey(NAME);
     }
 
-    protected void addKey(String key){
+    protected void addSearchKey(String key){
         if(dataTables.containsKey(key)){
             System.err.println("This collection already contains this key");
         }
@@ -34,6 +38,14 @@ public class BusinessCollection <V extends BusinessObject> extends BusinessObjec
     public ArrayList<V> getBusinessObjects(){
         TreeMap<String,V> map = dataTables.get(NAME);
         return new ArrayList<V>(map.values());
+    }
+
+    public V getCurrentObject() {
+        return currentObject;
+    }
+
+    public void setCurrentObject(V currentObject) {
+        this.currentObject = currentObject;
     }
 
     // -------------------------------------------------------------------------------------
@@ -68,7 +80,7 @@ public class BusinessCollection <V extends BusinessObject> extends BusinessObjec
     // Add
 
     public V addBusinessObject(V value) throws EmptyNameException, DuplicateNameException {
-        return addBusinessObject(value, value.getKeyMap());
+        return addBusinessObject(value, value.getUniqueProperties());
     }
 
     protected V addBusinessObject(V value, Map<String,String> keyMap) throws EmptyNameException, DuplicateNameException {
@@ -143,7 +155,7 @@ public class BusinessCollection <V extends BusinessObject> extends BusinessObjec
      */
     public void removeBusinessObject(V value) throws NotEmptyException {
         if(value.isDeletable()){
-            removeBusinessObject(value.getKeyMap());
+            removeBusinessObject(value.getInitProperties());
         } else {
             throw new NotEmptyException();
         }
@@ -163,4 +175,47 @@ public class BusinessCollection <V extends BusinessObject> extends BusinessObjec
         String key = entry.getValue();
         dataTables.get(type).remove(key);
     }
+
+    public Set<String> getCollectionKeySet(){
+        Set<String> collectionKeySet = new TreeSet<String>();
+        collectionKeySet.add(CURRENT);
+        return collectionKeySet;
+    }
+
+    public TreeMap<String,String> getProperties() {
+        TreeMap<String, String> properties = new TreeMap<String, String>();
+        if(currentObject!=null){
+            properties.put(CURRENT, currentObject.getName());
+        }
+        return properties;
+    }
+
+    public void setProperties(TreeMap<String, String> properties){
+        String currentName = properties.get(CURRENT);
+        if(currentName!=null){
+            currentObject = getBusinessObject(currentName);
+        }
+    }
+
+    // Redundant functions: call super ===================
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = super.getInitKeySet();
+        return keySet;
+    }
+    //
+    public void setInitProperties(TreeMap<String, String> properties){
+        super.setInitProperties(properties);
+    }
+    //
+    public TreeMap<String, String> getInitProperties(){
+        TreeMap<String,String> properties = super.getInitProperties();
+        return properties;
+    }
+    //
+    public TreeMap<String, String> getUniqueProperties(){
+        TreeMap<String,String> properties = super.getUniqueProperties();
+        return properties;
+    }
+    //====================================================
+
 }
