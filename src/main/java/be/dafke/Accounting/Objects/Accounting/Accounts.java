@@ -11,8 +11,6 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
 
 /**
  * Serialiseerbare map die alle rekeningen bevat
@@ -21,23 +19,8 @@ import java.util.TreeMap;
  */
 public class Accounts extends WriteableBusinessCollection<Account> implements BusinessTypeProvider<AccountType> {
 
-//    private static final String CURRENT = "CurrentAccount";
-//    private Account currentAccount;
     private BusinessTypeCollection<AccountType> businessTypeCollection;
 
-    /**
-	 * Geeft alle rekeningen terug van het gegeven businessObjectType
-	 * @param type het businessObjectType van de gevraagde rekeningen
-	 * <ul>
-	 * <li>0 : Actief</li>
-	 * <li>1 : Passief</li>
-	 * <li>2 : Kost</li>
-	 * <li>3 : Opbrengst</li>
-	 * <li>4 : Tegoed van Klant</li>
-	 * <li>5 : Schuld aan Leverancier</li>
-	 * </ul>
-	 * @return alle rekeningen van het gevraagde businessObjectType
-	 */
 	public ArrayList<Account> getAccounts(AccountType type) {
 		ArrayList<Account> col = new ArrayList<Account>();
 		for(Account account : getBusinessObjects()) {
@@ -70,11 +53,6 @@ public class Accounts extends WriteableBusinessCollection<Account> implements Bu
         return col;
     }
 
-	/**
-	 * Geeft alle rekeningen terug die niet tot het gegeven project behoren
-	 * @param project het project waarvan we de rekeningen willen uitsluiten
-	 * @return alle rekeningen die niet tot het gegeven project behoren
-	 */
 	public ArrayList<Account> getAccountNoMatchProject(Project project) {
 		ArrayList<Account> result = new ArrayList<Account>();
 		for(Account account : getBusinessObjects()) {
@@ -101,47 +79,5 @@ public class Accounts extends WriteableBusinessCollection<Account> implements Bu
     @Override
     public BusinessTypeCollection<AccountType> getBusinessTypeCollection() {
         return businessTypeCollection;
-    }
-
-    // KeySets and Properties
-
-    @Override
-    public Set<String> getInitKeySet() {
-        Set<String> keySet = super.getInitKeySet();
-        return keySet;
-    }
-
-    @Override
-    public TreeMap<String,String> getInitProperties() {
-        TreeMap<String, String> properties = super.getUniqueProperties();
-        return properties;
-    }
-
-    @Override
-    public void setInitProperties(TreeMap<String, String> properties) {
-        super.setInitProperties(properties);
-    }
-
-    @Override
-    public TreeMap<String,String> getUniqueProperties(){
-        TreeMap<String,String> properties = super.getUniqueProperties();
-        return properties;
-    }
-
-    @Override
-    public Set<String> getCollectionKeySet(){
-        Set<String> collectionKeySet = super.getCollectionKeySet();
-        return collectionKeySet;
-    }
-
-    @Override
-    public TreeMap<String,String> getProperties() {
-        TreeMap<String, String> outputMap = super.getProperties();
-        return outputMap;
-    }
-
-    @Override
-    public void setProperties(TreeMap<String, String> properties){
-        super.setProperties(properties);
     }
 }

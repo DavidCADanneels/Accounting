@@ -144,14 +144,10 @@ public class WriteableBusinessObject extends BusinessObject implements Writeable
         return properties;
     }
 
-    @Override
     public TreeMap<String,String> getProperties() {
-        TreeMap<String, String> properties = super.getProperties();
-        return properties;
+        return new TreeMap<String, String>();
     }
 
-    @Override
     public void setProperties(TreeMap<String, String> properties){
-        super.setProperties(properties);
     }
 }

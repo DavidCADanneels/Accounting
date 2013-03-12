@@ -37,11 +37,6 @@ public class Account extends WriteableBusinessObject implements BusinessTyped<Ac
     }
 
     @Override
-    public BusinessTypeCollection getBusinessTypeCollection() {
-        return businessTypeCollection;
-    }
-
-    @Override
     public void setType(AccountType type) {
         this.type = type;
     }
@@ -103,11 +98,6 @@ public class Account extends WriteableBusinessObject implements BusinessTyped<Ac
         return keySet;
     }
 
-    @Override
-    public TreeMap<String,String> getUniqueProperties() {
-        TreeMap<String,String> outputMap = super.getUniqueProperties();
-        return outputMap;
-    }
 
     @Override
     public TreeMap<String,String> getInitProperties() {
@@ -123,15 +113,5 @@ public class Account extends WriteableBusinessObject implements BusinessTyped<Ac
         if(typeName!=null){
             type = (AccountType) businessTypeCollection.getBusinessObject(typeName);
         }
-    }
-    @Override
-    public TreeMap<String,String> getProperties() {
-        TreeMap<String,String> outputMap = super.getProperties();
-        return outputMap;
-    }
-
-    @Override
-    public void setProperties(TreeMap<String, String> properties) {
-        super.setProperties(properties);
     }
 }

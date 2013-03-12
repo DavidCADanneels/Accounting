@@ -75,18 +75,18 @@ public class CounterParty extends WriteableBusinessObject {
 
     private void parseAliasesString(String aliasesString){
         if(aliasesString!=null){
-            String[] aliasesStrings = aliasesString.split(" | ");
-            for(int i=0;i<aliasesStrings.length;i++){
-                addAlias(aliasesStrings[i]);
+            String[] aliasesStrings = aliasesString.split("\\Q | \\E");
+            for(String s : aliasesStrings){
+                addAlias(s);
             }
         }
     }
 
     private void parseAddressLinesString(String addressLinesString){
         if(addressLinesString!=null){
-            String[] addressLinesStrings = addressLinesString.split(" | ");
-            for(int i=0;i<addressLinesStrings.length;i++){
-                addressLines.add(addressLinesStrings[i]);
+            String[] addressLinesStrings = addressLinesString.split("\\Q | \\E");
+            for(String s : addressLinesStrings){
+                addressLines.add(s);
             }
         }
 
@@ -94,16 +94,16 @@ public class CounterParty extends WriteableBusinessObject {
 
     private void parseAccountNumberString(String accountNumberString){
         if(accountNumberString!=null){
-            String[] accountNumberStrings = accountNumberString.split(" | ");
-            for(int i=0;i<accountNumberStrings.length;i++){
-                addAccount(new BankAccount(accountNumberStrings[i]));
+            String[] accountNumberStrings = accountNumberString.split("\\Q | \\E");
+            for(String s : accountNumberStrings){
+                addAccount(new BankAccount(s));
             }
         }
     }
 
     private void parseBicsString(String bicsString){
         if(bicsString!=null){
-            String[] bicsStrings = bicsString.split(" | ");
+            String[] bicsStrings = bicsString.split("\\Q | \\E");
             for(int i=0;i<bicsStrings.length;i++){
                 accountsList.get(i).setBic(bicsStrings[i]);
             }
@@ -112,7 +112,7 @@ public class CounterParty extends WriteableBusinessObject {
 
     private void parseCurrenciesString(String currenciesString){
         if(currenciesString!=null){
-            String[] currenciesStrings = currenciesString.split(" | ");
+            String[] currenciesStrings = currenciesString.split("\\Q | \\E");
             for(int i=0;i<currenciesStrings.length;i++){
                 accountsList.get(i).setCurrency(currenciesStrings[i]);
             }
@@ -247,16 +247,5 @@ public class CounterParty extends WriteableBusinessObject {
             keyMap.put(ACCOUNTNUMBER, bankAccount.getAccountNumber());
         }
         return keyMap;
-    }
-
-    @Override
-    public TreeMap<String,String> getProperties(){
-        TreeMap<String,String> keyMap = super.getProperties();
-        return keyMap;
-    }
-
-    @Override
-    public void setProperties(TreeMap<String, String> properties){
-        super.setProperties(properties);
     }
 }

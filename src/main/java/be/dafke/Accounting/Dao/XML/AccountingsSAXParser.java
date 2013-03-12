@@ -91,13 +91,24 @@ public class AccountingsSAXParser {
 
             CollectionSAXParser.readCollection(accounting.getCollection("Accounts"),
                     "be.dafke.Accounting.Objects.Accounting.Account");
+
             MortgagesSAXParser.readMortgages(accounting.getMortgages(), accounting.getAccounts(), accounting.getAccountTypes());
+//            CollectionSAXParser.readCollection(accounting.getCollection("Mortgages"),
+//                    "be.dafke.Accounting.Objects.Accounting.Mortgage");
+//            for(Mortgage mortgage : accounting.getMortgages().getBusinessObjects()){
+//                MortgagesSAXParser.readMortgage(mortgage);
+//            }
+
             CollectionSAXParser.readCollection(accounting.getCollection("Journals"),
                     "be.dafke.Accounting.Objects.Accounting.Journal");
             for(Journal journal : accounting.getJournals().getBusinessObjects()){
                 JournalsSAXParser.readJournal(journal, accounting.getAccounts());
             }
-            CounterPartiesSAXParser.readCounterparties(accounting.getCounterParties(), accounting.getAccounts());
+
+//            CounterPartiesSAXParser.readCounterparties(accounting.getCounterParties(), accounting.getAccounts());
+            CollectionSAXParser.readCollection(accounting.getCollection("CounterParties"),
+                    "be.dafke.Accounting.Objects.Accounting.CounterParty");
+
             StatementsSAXParser.readStatements(accounting.getStatements(), accounting.getCounterParties());
         } catch (Exception e) {
             e.printStackTrace();
@@ -168,14 +179,12 @@ public class AccountingsSAXParser {
         }
 
         System.out.println("Mortgages.TOXML(" + accounting.toString() + ")");
-//        MortgagesSAXParser.writeMortgages(accounting.getMortgages());
         CollectionSAXParser.writeCollection(accounting.getCollection("Mortgages"));
         for(Mortgage mortgage:accounting.getMortgages().getBusinessObjects()){
             MortgagesSAXParser.writeMortgage(mortgage);
         }
 
         System.out.println("Counterparties.TOXML(" + accounting.toString() + ")");
-//        CounterPartiesSAXParser.writeCounterparties(accounting.getCounterParties());
         CollectionSAXParser.writeCollection(accounting.getCollection("CounterParties"));
 
         System.out.println("Statements.TOXML(" + accounting.toString() + ")");

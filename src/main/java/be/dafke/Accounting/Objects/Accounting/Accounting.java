@@ -35,6 +35,8 @@ public class Accounting extends WriteableBusinessObject {
         journals.setBusinessTypeCollection(journalTypes);
         balances = new Balances();
         mortgages = new Mortgages();
+        mortgages.setBusinessTypeCollection(accountTypes);
+        mortgages.setBusinessCollection(accounts);
         counterParties = new CounterParties();
         statements = new Statements();
         projects = new Projects();

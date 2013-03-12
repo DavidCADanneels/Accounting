@@ -63,7 +63,7 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
         AccountType type = accounting.getAccountTypes().getBusinessObject("Mortgage");
         mortgage.setType(type);
         try {
-            accounting.getAccounts().addBusinessObject(mortgage);
+//            accounting.getAccounts().addBusinessObject(mortgage);    // this is implicitely done in the next step
             accounting.getMortgages().addBusinessObject(mortgage);
             ComponentMap.refreshAllFrames();
             dispose();

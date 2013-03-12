@@ -196,26 +196,4 @@ public class BusinessCollection <V extends BusinessObject> extends BusinessObjec
             currentObject = getBusinessObject(currentName);
         }
     }
-
-    // Redundant functions: call super ===================
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = super.getInitKeySet();
-        return keySet;
-    }
-    //
-    public void setInitProperties(TreeMap<String, String> properties){
-        super.setInitProperties(properties);
-    }
-    //
-    public TreeMap<String, String> getInitProperties(){
-        TreeMap<String,String> properties = super.getInitProperties();
-        return properties;
-    }
-    //
-    public TreeMap<String, String> getUniqueProperties(){
-        TreeMap<String,String> properties = super.getUniqueProperties();
-        return properties;
-    }
-    //====================================================
-
 }

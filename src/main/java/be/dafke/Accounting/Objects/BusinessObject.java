@@ -50,6 +50,7 @@ public class BusinessObject {
 
     // KeySet and Properties
     //
+    // Keys found in the CollectionFile e.g. Account.NAME in Accounts.xml file
     public Set<String> getInitKeySet(){
         Set<String> keySet = new TreeSet<String>();
         keySet.add(NAME);
@@ -70,13 +71,5 @@ public class BusinessObject {
         TreeMap<String,String> properties = new TreeMap<String, String>();
         properties.put(NAME,name);
         return properties;
-    }
-
-    public TreeMap<String,String> getProperties() {
-        TreeMap<String, String> properties = new TreeMap<String, String>();
-        return properties;
-    }
-
-    public void setProperties(TreeMap<String, String> properties){
     }
 }

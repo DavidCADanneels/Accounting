@@ -1,57 +1,46 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
+import be.dafke.Accounting.Objects.BusinessCollection;
+import be.dafke.Accounting.Objects.BusinessCollectionProvider;
+import be.dafke.Accounting.Objects.BusinessTypeCollection;
+import be.dafke.Accounting.Objects.BusinessTypeProvider;
 import be.dafke.Accounting.Objects.WriteableBusinessCollection;
-
-import java.util.Set;
-import java.util.TreeMap;
 
 /**
  * User: Dafke
  * Date: 27/02/13
  * Time: 11:06
  */
-public class Mortgages extends WriteableBusinessCollection<Mortgage> {
+public class Mortgages extends WriteableBusinessCollection<Mortgage> implements BusinessTypeProvider<AccountType>, BusinessCollectionProvider<Account> {
+    private BusinessTypeCollection<AccountType> businessTypeCollection;
+    private BusinessCollection<Account> businessCollection;
 
-
-    // KeySets and Properties
-
-    @Override
-    public Set<String> getInitKeySet() {
-        Set<String> keySet = super.getInitKeySet();
-        return keySet;
+    public Mortgage addBusinessObject(Mortgage value) throws EmptyNameException, DuplicateNameException {
+        // TODO create pseudoAccount here and add this one to Accounts (= businessCollection)
+        businessCollection.addBusinessObject(value);
+        super.addBusinessObject(value);
+        return value;
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
-        TreeMap<String, String> properties = super.getUniqueProperties();
-        return properties;
+    public void setBusinessTypeCollection(BusinessTypeCollection<AccountType> businessTypeCollection) {
+        this.businessTypeCollection = businessTypeCollection;
     }
 
     @Override
-    public void setInitProperties(TreeMap<String, String> properties) {
-        super.setInitProperties(properties);
+    public BusinessTypeCollection<AccountType> getBusinessTypeCollection() {
+        return businessTypeCollection;
     }
 
     @Override
-    public TreeMap<String,String> getUniqueProperties(){
-        TreeMap<String,String> properties = super.getUniqueProperties();
-        return properties;
+    public BusinessCollection<Account> getBusinessCollection() {
+        return businessCollection;
     }
 
     @Override
-    public Set<String> getCollectionKeySet(){
-        Set<String> collectionKeySet = super.getCollectionKeySet();
-        return collectionKeySet;
-    }
-
-    @Override
-    public TreeMap<String,String> getProperties() {
-        TreeMap<String, String> outputMap = super.getProperties();
-        return outputMap;
-    }
-
-    @Override
-    public void setProperties(TreeMap<String, String> properties){
-        super.setProperties(properties);
+    public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
+        this.businessCollection = businessCollection;
     }
 }

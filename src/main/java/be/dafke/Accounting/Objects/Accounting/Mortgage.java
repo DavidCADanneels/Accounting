@@ -1,5 +1,8 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Objects.BusinessCollection;
+import be.dafke.Accounting.Objects.BusinessCollectionDependent;
+import be.dafke.Accounting.Objects.BusinessTyped;
 import be.dafke.MultiValueMap;
 
 import java.math.BigDecimal;
@@ -9,7 +12,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 
-public class Mortgage extends Account {
+public class Mortgage extends Account implements BusinessTyped<AccountType>, BusinessCollectionDependent<Account> {
     private final static String TOTAL = "total";
     private final static String NRPAYED = "nrPayed";
     private final static String CAPITAL_NAME = "CapitalAccountName";
@@ -23,14 +26,10 @@ public class Mortgage extends Account {
 	private Account capital, intrest;
 	private BigDecimal startCapital;
     private final MultiValueMap<Calendar,Movement[]> movements;
-    private Accounts accounts;
+    private BusinessCollection<Account> accounts;
 
     public Mortgage(){
         movements = new MultiValueMap<Calendar, Movement[]>();
-    }
-
-    public void setAccounts(Accounts accounts) {
-        this.accounts = accounts;
     }
 
     public boolean isBookable(){
@@ -265,20 +264,7 @@ public class Mortgage extends Account {
     }
 
     @Override
-    public TreeMap<String, String> getUniqueProperties(){
-        TreeMap<String,String> properties = super.getUniqueProperties();
-        return properties;
+    public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
+        accounts = businessCollection;
     }
-
-    @Override
-    public TreeMap<String,String> getProperties() {
-        TreeMap<String, String> properties = super.getProperties();
-        return properties;
-    }
-
-    @Override
-    public void setProperties(TreeMap<String, String> properties){
-        super.setProperties(properties);
-    }
-
 }

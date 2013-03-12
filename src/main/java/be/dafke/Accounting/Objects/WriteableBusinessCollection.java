@@ -222,21 +222,4 @@ public class WriteableBusinessCollection<V extends WriteableBusinessObject> exte
 //        }
         return properties;
     }
-
-    @Override
-    public Set<String> getCollectionKeySet(){
-        Set<String> collectionKeySet = super.getCollectionKeySet();
-        return collectionKeySet;
-    }
-
-    @Override
-    public TreeMap<String,String> getProperties() {
-        TreeMap<String, String> outputMap = super.getProperties();
-        return outputMap;
-    }
-
-    @Override
-    public void setProperties(TreeMap<String, String> properties){
-        super.setProperties(properties);
-    }
 }

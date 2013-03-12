@@ -64,11 +64,6 @@ public class Journal extends WriteableBusinessObject implements BusinessTyped<Jo
         this.businessTypeCollection = businessTypeCollection;
     }
 
-    @Override
-    public BusinessTypeCollection getBusinessTypeCollection() {
-        return businessTypeCollection;
-    }
-
     public void setType(JournalType type) {
         this.type = type;
     }
@@ -163,7 +158,6 @@ public class Journal extends WriteableBusinessObject implements BusinessTyped<Jo
         }
     }
 
-
     @Override
     public TreeMap<String,String> getInitProperties() {
         TreeMap<String,String> outputMap = super.getInitProperties();
@@ -177,16 +171,5 @@ public class Journal extends WriteableBusinessObject implements BusinessTyped<Jo
         TreeMap<String,String> keyMap = super.getUniqueProperties();
         keyMap.put(ABBREVIATION, abbreviation);
         return keyMap;
-    }
-
-    @Override
-    public TreeMap<String,String> getProperties() {
-        TreeMap<String,String> outputMap = super.getProperties();
-        return outputMap;
-    }
-
-    @Override
-    public void setProperties(TreeMap<String, String> properties) {
-        super.setProperties(properties);
     }
 }

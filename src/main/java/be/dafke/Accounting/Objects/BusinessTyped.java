@@ -9,8 +9,6 @@ public interface BusinessTyped<T extends BusinessType> {
 
     public void setBusinessTypeCollection(BusinessTypeCollection<T> businessTypeCollection);
 
-    public BusinessTypeCollection<T> getBusinessTypeCollection();
-
     public void setType(T type);
 
     public T getType();

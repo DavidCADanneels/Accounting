@@ -81,7 +81,7 @@ public class MortgagesSAXParser {
                 mortgage.setType(type);
 
                 try {
-                    accounts.addBusinessObject(mortgage);
+//                    accounts.addBusinessObject(mortgage);
                     mortgages.addBusinessObject(mortgage);
                 } catch (EmptyNameException e) {
                     System.err.println("Mortgage name is empty.");
@@ -95,7 +95,7 @@ public class MortgagesSAXParser {
         }
     }
     //
-    private static void readMortgage(Mortgage mortgage){
+    public static void readMortgage(Mortgage mortgage){
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             factory.setValidating(false);
