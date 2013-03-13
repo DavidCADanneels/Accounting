@@ -28,7 +28,7 @@ public class AccountingsSAXParser {
     public static Accountings readAccountings() {
         Accountings accountings = new Accountings();
 
-        CollectionSAXParser.readCollection(accountings, "be.dafke.Accounting.Objects.Accounting.Accounting");
+        accountings.readCollection("Accounting");
 
         for(Accounting accounting : accountings.getBusinessObjects()) {
             readAccounting(accounting);
@@ -56,28 +56,22 @@ public class AccountingsSAXParser {
                 writeableBusinessObject.setHtmlFile(htmlFile);
             }
 
-            CollectionSAXParser.readCollection(accounting.getAccounts(),
-                    "be.dafke.Accounting.Objects.Accounting.Account");
+            accounting.getAccounts().readCollection("Account");
+//            accounting.getAccounts().readCollection("Mortgage");
+            accounting.getMortgages().readCollection("Mortgage");
+            accounting.getJournals().readCollection("Journal");
+            accounting.getCounterParties().readCollection("CounterParty");
+//            accounting.getStatements().readCollection("be.dafke.Accounting.Objects.Accounting.Statements");
 
-            CollectionSAXParser.readCollection(accounting.getMortgages(),
-                    "be.dafke.Accounting.Objects.Accounting.Mortgage");
+            StatementsSAXParser.readStatements(accounting.getStatements(), accounting.getCounterParties());
+
             for(Mortgage mortgage : accounting.getMortgages().getBusinessObjects()){
                 MortgagesSAXParser.readMortgage(mortgage);
             }
 
-            CollectionSAXParser.readCollection(accounting.getJournals(),
-                    "be.dafke.Accounting.Objects.Accounting.Journal");
             for(Journal journal : accounting.getJournals().getBusinessObjects()){
                 JournalsSAXParser.readJournal(journal, accounting.getAccounts());
             }
-
-            CollectionSAXParser.readCollection(accounting.getCounterParties(),
-                    "be.dafke.Accounting.Objects.Accounting.CounterParty");
-
-            StatementsSAXParser.readStatements(accounting.getStatements(), accounting.getCounterParties());
-
-            Journal currentJournal = accounting.getJournals().getCurrentObject();
-            accounting.getJournals().setCurrentObject(currentJournal);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -111,8 +105,8 @@ public class AccountingsSAXParser {
 //                writer.write("    <xsl2html>" + acc.getXsl2HtmlFile() + "</xsl2html>\r\n");
                 writer.write("  </Accounting>\r\n");
             }
-            if(accountings.getCurrentAccounting()!=null){
-                writer.write("  <CurrentObject>" + accountings.getCurrentAccounting().getName() + "</CurrentObject>\r\n");
+            if(accountings.getCurrentObject()!=null){
+                writer.write("  <CurrentObject>" + accountings.getCurrentObject().getName() + "</CurrentObject>\r\n");
             }
             writer.write("</Accountings>");
             writer.flush();
@@ -129,35 +123,35 @@ public class AccountingsSAXParser {
         writeAccountingFile(accounting);
 
         System.out.println("Accounts.TOXML(" + accounting.toString() + ")");
-        CollectionSAXParser.writeCollection(accounting.getCollection("Accounts"));
+        accounting.getAccounts().writeCollection();
         for(Account account : accounting.getAccounts().getBusinessObjects()){
             AccountsSAXParser.writeAccount(account);
         }
 
         System.out.println("Balances.TOXML(" + accounting.toString() + ")");
-        CollectionSAXParser.writeCollection(accounting.getCollection("Balances"));
+        accounting.getBalances().writeCollection();
         for(Balance balance : accounting.getBalances().getBusinessObjects()){
             BalancesSAXParser.writeBalance(balance);
         }
 
         System.out.println("Journals.TOXML(" + accounting.toString() + ")");
-        CollectionSAXParser.writeCollection(accounting.getCollection("Journals"));
+        accounting.getJournals().writeCollection();
         for(Journal journal : accounting.getJournals().getBusinessObjects()){
             JournalsSAXParser.writeJournal(journal);
         }
 
         System.out.println("Mortgages.TOXML(" + accounting.toString() + ")");
-        CollectionSAXParser.writeCollection(accounting.getCollection("Mortgages"));
+        accounting.getMortgages().writeCollection();
         for(Mortgage mortgage:accounting.getMortgages().getBusinessObjects()){
             MortgagesSAXParser.writeMortgage(mortgage);
         }
 
         System.out.println("Counterparties.TOXML(" + accounting.toString() + ")");
-        CollectionSAXParser.writeCollection(accounting.getCollection("CounterParties"));
+        accounting.getCounterParties().writeCollection();
 
         System.out.println("Statements.TOXML(" + accounting.toString() + ")");
         StatementsSAXParser.writeStatements(accounting.getStatements());
-//        CollectionSAXParser.writeCollection(accounting.getCollection("Statements"));
+//        accounting.getStatements().writeCollection();
     }
 
     private static void writeAccountingFile(Accounting accounting) {

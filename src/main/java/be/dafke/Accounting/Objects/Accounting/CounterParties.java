@@ -15,6 +15,11 @@ public class CounterParties extends WriteableBusinessCollection<CounterParty> {
     }
 
     @Override
+    public CounterParty createNewChild() {
+        return new CounterParty();
+    }
+
+    @Override
     final protected CounterParty addBusinessObject(CounterParty value, Map<String,String> keyMap) throws EmptyNameException, DuplicateNameException {
         if(value.getName()==null || "".equals(value.getName().trim())){
             throw new EmptyNameException();

@@ -80,4 +80,9 @@ public class Accounts extends WriteableBusinessCollection<Account> implements Bu
     public BusinessTypeCollection<AccountType> getBusinessTypeCollection() {
         return businessTypeCollection;
     }
+
+    @Override
+    public Account createNewChild() {
+        return new Account();
+    }
 }

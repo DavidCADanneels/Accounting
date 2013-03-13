@@ -24,4 +24,9 @@ public class Statements extends WriteableBusinessCollection<Statement> {
 		}
 		return result;
 	}
+
+    @Override
+    public Statement createNewChild() {
+        return new Statement();
+    }
 }

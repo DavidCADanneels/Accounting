@@ -3,8 +3,17 @@ package be.dafke.Accounting.Objects;
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Exceptions.NotEmptyException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -12,13 +21,15 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * User: Dafke
  * Date: 4/03/13
  * Time: 16:23
  */
-public class WriteableBusinessCollection<V extends WriteableBusinessObject> extends WriteableBusinessObject implements WriteableCollection{
+public abstract class WriteableBusinessCollection<V extends WriteableBusinessObject> extends WriteableBusinessObject implements WriteableCollection{
     protected HashMap<String, TreeMap<String,V>> dataTables;
     protected static final String CURRENT = "CurrentObject";
     protected V currentObject;
@@ -29,6 +40,8 @@ public class WriteableBusinessCollection<V extends WriteableBusinessObject> exte
         dataTables = new HashMap<String, TreeMap<String, V>>();
         addSearchKey(NAME);
     }
+
+    public abstract V createNewChild();
 
     protected void addSearchKey(String key){
         if(dataTables.containsKey(key)){
@@ -329,4 +342,165 @@ public class WriteableBusinessCollection<V extends WriteableBusinessObject> exte
         }
     }
 
+    // WRITE
+
+    public String getXmlHeader() {
+        return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" +
+                "<?xml-stylesheet type=\"text/xsl\" href=\"" + getXsl2XmlFile() + "\"?>\r\n" +
+                "<!DOCTYPE " + getBusinessObjectType() + " SYSTEM \"" + getDtdFile() + "\">\r\n";
+    }
+
+    public void writeCollection(){
+        try {
+            String collectionName = getBusinessObjectType();
+            Writer writer = new FileWriter(getXmlFile());
+
+            // Write the header with correct XSL-File, DTD-File and DTD-Root-Element
+            writer.write(getXmlHeader());
+
+            // Write the root element e.g. <Accountings>
+            writer.write("<"+collectionName+">\r\n");
+
+            // Iterate children and write their data
+            for(WriteableBusinessObject object : getBusinessObjects()) {
+
+                String objectType = object.getBusinessObjectType();
+
+                // Write the tag for the child e.g. <Accounting>
+                writer.write("  <"+objectType+">\r\n");
+
+                // get the object's properties
+                TreeMap<String,String> objectProperties = object.getInitProperties();
+
+//                iterate the properties and write them out (if not null)
+                for(Map.Entry<String, String> entry : objectProperties.entrySet()){
+                    String key = entry.getKey();
+                    String objectProperty = entry.getValue();
+                    if(objectProperty!=null && !objectProperty.equals("")){
+                        writer.write("    <" + key + ">" + objectProperty + "</"+ key + ">\r\n");
+                    }
+                }
+                // The implementation used is more clear and similar to the read Method
+
+                // write the closing tag e.g. </Accounting>
+                writer.write("  </"+objectType+">\r\n");
+            }
+
+            if(getCurrentObject()!=null){
+                writer.write("    <CurrentObject>" + getCurrentObject().getName() + "</CurrentObject>\r\n");
+            }
+
+            writer.write("</"+collectionName+">\r\n");
+
+            writer.flush();
+            writer.close();
+//			setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(WriteableBusinessCollection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(WriteableBusinessCollection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // TODO iterate all 'Writeable' childeren and call this function (recursion)
+    }
+
+    // READ
+
+    public void readCollection(String shortName){
+        try {
+            File file = getXmlFile();
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            documentBuilderFactory.setValidating(true);
+            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(file.getAbsolutePath());
+            doc.getDocumentElement().normalize();
+
+            String collectionName = getBusinessObjectType();
+
+            // get Root Element e.g. <Accountings>
+            Element rootElement = (Element) doc.getElementsByTagName(collectionName).item(0);
+
+            // get Children e.g. <Accounting>
+            NodeList childrenNodeList = rootElement.getElementsByTagName(shortName);
+
+            // iterate children and create objects for them
+            for (int i = 0; i < childrenNodeList.getLength(); i++) {
+                try {
+                    // create new instance of object
+                    V object = createNewChild();
+
+                    // if object is Typed, fetch its TypeCollection from the collection
+                    if(this instanceof BusinessTypeProvider && object instanceof BusinessTyped){
+                        BusinessTypeCollection btc = ((BusinessTypeProvider) this).getBusinessTypeCollection();
+                        ((BusinessTyped)object).setBusinessTypeCollection(btc);
+                    }
+
+                    // if object is dependant on another collection, fetch this Collection from the collection
+                    if(this instanceof BusinessCollectionProvider && object instanceof BusinessCollectionDependent){
+                        WriteableBusinessCollection bc = ((BusinessCollectionProvider) this).getBusinessCollection();
+                        ((BusinessCollectionDependent)object).setBusinessCollection(bc);
+                    }
+
+                    // create empty properties TreeMap
+                    TreeMap<String,String> properties = new TreeMap<String, String>();
+
+                    // get the Object's keySet
+                    Set<String> keySet = object.getInitKeySet();
+
+                    // read all the tags which names are in the keySet
+                    // and add their value to the properties
+                    Element element = (Element)childrenNodeList.item(i);
+                    for(String key : keySet){
+                        String value = getValue(element, key);
+                        properties.put(key,value);
+                    }
+
+                    // provide the properties to the object
+                    object.setInitProperties(properties);
+
+                    // add the object to the collection
+                    addBusinessObject(object);
+
+                } catch (EmptyNameException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                } catch (DuplicateNameException e) {
+                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                }
+            }// for
+
+            String value = getValue(rootElement, CURRENT);
+            if(value!=null){
+                currentObject = getBusinessObject(value);
+                System.err.println(currentObject.toString());
+            }
+        } catch (IOException io) {
+            io.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        // TODO iterate all 'Writeable' childeren and call this function (recursion)
+    }
+
+    private static String getValue(Element element, String tagName){
+        NodeList nodeList = element.getElementsByTagName(tagName);
+        if(nodeList.getLength()==0){
+//            System.err.println("The tag " + tagName + " is not present.");
+            return null;
+            // the tag is not present
+        } else {
+            nodeList = nodeList.item(0).getChildNodes();
+            if(nodeList.getLength()==0){
+                System.err.println("The tag " + tagName + " is empty.");
+                return null;
+                // the tag is empty
+            } else {
+                if(nodeList.item(0).getNodeValue().equals("null")){
+                    System.err.println("The tag " + tagName + " equals \"null\"");
+                    return null;
+                }
+                return nodeList.item(0).getNodeValue();
+            }
+        }
+    }
 }

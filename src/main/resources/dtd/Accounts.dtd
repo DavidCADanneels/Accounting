@@ -1,4 +1,4 @@
-<!ELEMENT Accounts (Account*,Mortgage*)*>
+<!ELEMENT Accounts ((Account*,Mortgage*)*,CurrentObject?)>
 <!ELEMENT Account (html?,name,type,xml)>
 <!ELEMENT Mortgage (CapitalAccountHtml?,CapitalAccountName?,CapitalAccountXml?,IntrestAccountHtml?,IntrestAccountName?,IntrestAccountXml?,html?,name,nrPayed,total,type,xml)>
 <!ELEMENT xml (#PCDATA)>
@@ -14,3 +14,4 @@
 <!ELEMENT IntrestAccountName (#PCDATA)>
 <!ELEMENT IntrestAccountXml (#PCDATA)>
 <!ELEMENT IntrestAccountHtml (#PCDATA)>
+<!ELEMENT CurrentObject (#PCDATA)>

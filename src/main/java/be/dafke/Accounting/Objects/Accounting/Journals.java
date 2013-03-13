@@ -23,6 +23,11 @@ public class Journals extends WriteableBusinessCollection<Journal> implements Bu
         addSearchKey(Journal.ABBREVIATION);
 	}
 
+    @Override
+    public Journal createNewChild() {
+        return new Journal();
+    }
+
     /**
 	 * Geeft alle dagboeken terug behalve het gegeven dagboek
 	 * @param j het dagboek dat we willen uitsluiten

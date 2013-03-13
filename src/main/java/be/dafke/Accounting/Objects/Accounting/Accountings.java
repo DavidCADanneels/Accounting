@@ -8,12 +8,16 @@ import java.io.File;
 import java.util.TreeMap;
 
 public class Accountings extends WriteableBusinessCollection<Accounting> {
-	private Accounting currentAccounting = null;
 
     public Accountings(){
         File xmlFolder = new File(System.getProperty("Accountings_xml"));
         setXmlFile(new File(xmlFolder, "Accountings.xml"));
         setHtmlFile(new File(xmlFolder, "Accountings.html"));
+    }
+
+    @Override
+    public Accounting createNewChild() {
+        return new Accounting();
     }
 
     public void createDefaultValuesIfNull(){
@@ -23,12 +27,8 @@ public class Accountings extends WriteableBusinessCollection<Accounting> {
         }
     }
 
-    public Accounting getCurrentAccounting() {
-		return currentAccounting;
-	}
-
-	public void setCurrentAccounting(String name) {
-		currentAccounting = dataTables.get(NAME).get(name);
+	public void setCurrentObject(String name) {
+		currentObject = dataTables.get(NAME).get(name);
 	}
 
     @Override

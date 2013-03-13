@@ -16,6 +16,11 @@ public class Mortgages extends WriteableBusinessCollection<Mortgage> implements 
     private BusinessTypeCollection<AccountType> businessTypeCollection;
     private WriteableBusinessCollection<Account> businessCollection;
 
+    @Override
+    public Mortgage createNewChild() {
+        return new Mortgage();
+    }
+
     public Mortgage addBusinessObject(Mortgage value) throws EmptyNameException, DuplicateNameException {
         // TODO create pseudoAccount here and add this one to Accounts (= businessCollection)
         businessCollection.addBusinessObject(value);

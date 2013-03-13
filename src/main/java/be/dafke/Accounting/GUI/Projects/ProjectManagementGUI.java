@@ -61,7 +61,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		allAccounts = new JList<Account>(allAccountsModel);
 		allAccounts.addListSelectionListener(this);
 		allAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-//		Accounting accounting = accountings.getCurrentAccounting();
+//		Accounting accounting = accountings.getCurrentObject();
 //		Accounts accounts = accounting.getBusinessObjects();
 		zoeker = new PrefixFilterPanel<Account>(allAccountsModel, allAccounts, new ArrayList<Account>());
         zoeker.add(onder, BorderLayout.SOUTH);

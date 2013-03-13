@@ -43,7 +43,7 @@ public class AccountingGUIFrame extends RefreshableFrame {
 
     @Override
     public void refresh() {
-        Accounting accounting = accountings.getCurrentAccounting();
+        Accounting accounting = accountings.getCurrentObject();
         if(accounting!=null){
             setTitle(getBundle("Accounting").getString("BOEKHOUDING") + ": " + accounting.toString());
         } else {

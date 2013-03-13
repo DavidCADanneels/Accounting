@@ -90,4 +90,9 @@ public class Balances extends WriteableBusinessCollection<Balance> {
             System.err.println("The Name of a Balance already exists.");
         }
     }
+
+    @Override
+    public Balance createNewChild() {
+        return new Balance();
+    }
 }

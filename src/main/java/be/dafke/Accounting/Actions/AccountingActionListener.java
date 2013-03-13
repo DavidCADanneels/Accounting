@@ -43,14 +43,14 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
     public void actionPerformed(ActionEvent ae) {
         String actionCommand = ae.getActionCommand();
         if (actionCommand.equals(ComponentMap.NEW_ACCOUNT)){
-            new NewAccountGUI(accountings.getCurrentAccounting()).setVisible(true);
+            new NewAccountGUI(accountings.getCurrentObject()).setVisible(true);
         } else if (actionCommand.equals(ComponentMap.NEW_ACCOUNTING)) {
             String name = JOptionPane.showInputDialog(null, "Enter a name");
             try {
                 Accounting accounting = new Accounting();
                 accounting.setName(name);
                 accountings.addBusinessObject(accounting);
-                accountings.setCurrentAccounting(name);
+                accountings.setCurrentObject(name);
                 ComponentMap.addAccountingComponents(accounting, this);
                 JOptionPane.showMessageDialog(null, "Please create a Journal.");
                 String key = accounting.toString()+ComponentMap.JOURNAL_MANAGEMENT;
@@ -64,9 +64,9 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
             ComponentMap.refreshAllFrames();
         } else if(actionCommand.startsWith(ComponentMap.OPEN_ACCOUNTING)){
             String accountingName = actionCommand.replaceAll(ComponentMap.OPEN_ACCOUNTING, "");
-            accountings.setCurrentAccounting(accountingName);
+            accountings.setCurrentObject(accountingName);
         } else if(actionCommand.equals(ComponentMap.JOURNAL_DETAILS)){
-            Accounting accounting = accountings.getCurrentAccounting();
+            Accounting accounting = accountings.getCurrentObject();
             Journal journal = accounting.getJournals().getCurrentObject();
             String key = ComponentMap.JOURNAL_DETAILS + accounting.toString() + journal.toString();
             DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
@@ -76,7 +76,7 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
             }
             gui.setVisible(true);
         } else if(actionCommand.equals(ComponentMap.ACCOUNT_DETAILS)){
-            Accounting accounting = accountings.getCurrentAccounting();
+            Accounting accounting = accountings.getCurrentObject();
             Account account = accounting.getAccounts().getCurrentObject();
             String key = accounting.toString() + ComponentMap.ACCOUNT_DETAILS + account.getName();
             DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
@@ -86,11 +86,11 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
             }
             gui.setVisible(true);
         } else if(actionCommand.equals(ComponentMap.MORTGAGE_CALCULATOR)){
-            MortgageCalculatorGUI gui = new MortgageCalculatorGUI(accountings.getCurrentAccounting());
+            MortgageCalculatorGUI gui = new MortgageCalculatorGUI(accountings.getCurrentObject());
             ComponentMap.addDisposableComponent(ComponentMap.MORTGAGE_CALCULATOR +gui.getNr(), gui);
             gui.setVisible(true);
         } else {
-            String key = accountings.getCurrentAccounting().toString() + actionCommand;
+            String key = accountings.getCurrentObject().toString() + actionCommand;
             ComponentMap.getDisposableComponent(key).setVisible(true);
         }
         ComponentMap.refreshAllFrames();
