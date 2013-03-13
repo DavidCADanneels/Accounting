@@ -17,7 +17,7 @@ public class Mortgages extends WriteableBusinessCollection<Mortgage> implements 
     private WriteableBusinessCollection<Account> businessCollection;
 
     @Override
-    public Mortgage createNewChild() {
+    public Mortgage createNewChild(String name) {
         return new Mortgage();
     }
 
@@ -26,6 +26,11 @@ public class Mortgages extends WriteableBusinessCollection<Mortgage> implements 
         businessCollection.addBusinessObject(value);
         super.addBusinessObject(value);
         return value;
+    }
+
+    @Override
+    public void readCollection() {
+        readCollection("Mortgage");
     }
 
     @Override

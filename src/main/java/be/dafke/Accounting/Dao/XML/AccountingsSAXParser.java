@@ -28,7 +28,8 @@ public class AccountingsSAXParser {
     public static Accountings readAccountings() {
         Accountings accountings = new Accountings();
 
-        accountings.readCollection("Accounting");
+
+        accountings.readCollection();
 
         for(Accounting accounting : accountings.getBusinessObjects()) {
             readAccounting(accounting);
@@ -37,7 +38,6 @@ public class AccountingsSAXParser {
     }
 
     private static void readAccounting(Accounting accounting){
-
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
@@ -46,7 +46,7 @@ public class AccountingsSAXParser {
             doc.getDocumentElement().normalize();
 
             for(String key:accounting.getKeys()) {
-                WriteableBusinessCollection<WriteableBusinessObject> writeableBusinessObject = accounting.getCollection(key);
+                WriteableBusinessCollection<WriteableBusinessObject> writeableBusinessObject = accounting.getBusinessObject(key);
                 Element element = (Element)doc.getElementsByTagName(key).item(0);
                 String name = Utils.getValue(element, "name");
                 System.out.println("parsing: " + name);
@@ -56,14 +56,11 @@ public class AccountingsSAXParser {
                 writeableBusinessObject.setHtmlFile(htmlFile);
             }
 
-            accounting.getAccounts().readCollection("Account");
-//            accounting.getAccounts().readCollection("Mortgage");
-            accounting.getMortgages().readCollection("Mortgage");
-            accounting.getJournals().readCollection("Journal");
-            accounting.getCounterParties().readCollection("CounterParty");
-//            accounting.getStatements().readCollection("be.dafke.Accounting.Objects.Accounting.Statements");
-
-            StatementsSAXParser.readStatements(accounting.getStatements(), accounting.getCounterParties());
+            accounting.getAccounts().readCollection();
+            accounting.getMortgages().readCollection();
+            accounting.getJournals().readCollection();
+            accounting.getCounterParties().readCollection();
+            accounting.getStatements().readCollection();
 
             for(Mortgage mortgage : accounting.getMortgages().getBusinessObjects()){
                 MortgagesSAXParser.readMortgage(mortgage);
@@ -79,49 +76,17 @@ public class AccountingsSAXParser {
 
     public static void writeAccountings(Accountings accountings) {
         accountings.createDefaultValuesIfNull();
-//        CollectionSAXParser.writeCollection(accountings);
-        toXml(accountings);
+        accountings.writeCollection();
+        for(Accounting accounting : accountings.getBusinessObjects()) {
+            writeAccountingFile(accounting);
+
+            writeAccounting(accounting);
+        }
+
         toHtml(accountings);
     }
 
-    private static void toXml(Accountings accountings){
-        try {
-            Writer writer = new FileWriter(accountings.getXmlFile());
-
-            writer.write(accountings.getXmlHeader());
-
-            writer.write("<Accountings>\r\n");
-            for(Accounting acc : accountings.getBusinessObjects()) {
-                writer.write("  <Accounting>\r\n");
-                writer.write("    <name>" + acc.toString() + "</name>\r\n");
-                if(acc.getHtmlFolder()!=null){
-                    writer.write("    <htmlFolder>" + acc.getHtmlFolder() + "</htmlFolder>\r\n");
-                }
-                writer.write("    <xml>" + acc.getXmlFile() + "</xml>\r\n");
-                if(acc.getHtmlFile()!=null){
-                    writer.write("    <html>" + acc.getHtmlFile() + "</html>\r\n");
-                }
-//                writer.write("    <xsl2xml>" + acc.getXsl2XmlFile() + "</xsl2xml>\r\n");
-//                writer.write("    <xsl2html>" + acc.getXsl2HtmlFile() + "</xsl2html>\r\n");
-                writer.write("  </Accounting>\r\n");
-            }
-            if(accountings.getCurrentObject()!=null){
-                writer.write("  <CurrentObject>" + accountings.getCurrentObject().getName() + "</CurrentObject>\r\n");
-            }
-            writer.write("</Accountings>");
-            writer.flush();
-            writer.close();
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        for(Accounting accounting : accountings.getBusinessObjects()) {
-            writeAccounting(accounting);
-        }
-    }
-
     private static void writeAccounting(Accounting accounting){
-        writeAccountingFile(accounting);
-
         System.out.println("Accounts.TOXML(" + accounting.toString() + ")");
         accounting.getAccounts().writeCollection();
         for(Account account : accounting.getAccounts().getBusinessObjects()){
@@ -150,8 +115,7 @@ public class AccountingsSAXParser {
         accounting.getCounterParties().writeCollection();
 
         System.out.println("Statements.TOXML(" + accounting.toString() + ")");
-        StatementsSAXParser.writeStatements(accounting.getStatements());
-//        accounting.getStatements().writeCollection();
+        accounting.getStatements().writeCollection();
     }
 
     private static void writeAccountingFile(Accounting accounting) {
@@ -161,7 +125,7 @@ public class AccountingsSAXParser {
             writer.write("<Accounting>\r\n");
             writer.write("  <name>" + accounting.getName() + "</name>\r\n");
             for(String key:accounting.getKeys()) {
-                WriteableBusinessCollection<WriteableBusinessObject> writeableBusinessCollection = accounting.getCollection(key);
+                WriteableBusinessCollection<WriteableBusinessObject> writeableBusinessCollection = accounting.getBusinessObject(key);
                 System.out.println("writing: " + key);
                 writer.write("  <" + key + ">\r\n");
                 writer.write("    <name>" + key + "</name>\r\n");
@@ -195,7 +159,7 @@ public class AccountingsSAXParser {
             accounting.xmlToHtml();
 
             for(String key : accounting.getKeys()){
-                WriteableBusinessCollection<WriteableBusinessObject> collection = accounting.getCollection(key);
+                WriteableBusinessCollection<WriteableBusinessObject> collection = accounting.getBusinessObject(key);
                 collection.xmlToHtml();
                 if(collection.getHtmlFolder()!=null){
                     for(WriteableBusinessObject writeableBusinessObject : collection.getBusinessObjects()){

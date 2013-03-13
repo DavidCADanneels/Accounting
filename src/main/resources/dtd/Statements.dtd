@@ -1,9 +1,8 @@
 <!ELEMENT Statements (Statement*)>
 <!ELEMENT xml (#PCDATA)>
 <!ELEMENT html (#PCDATA)>
-<!ELEMENT Statement (ID1,ID2,Date,Sign,Amount,CounterParty?,TransactionCode,Communication?)>
-<!ELEMENT ID1 (#PCDATA)>
-<!ELEMENT ID2 (#PCDATA)>
+<!ELEMENT Statement (Amount,Communication?,CounterParty?,Date,Sign,TransactionCode,name)>
+<!ELEMENT name (#PCDATA)>
 <!ELEMENT Date (#PCDATA)>
 <!ELEMENT Sign (#PCDATA)>
 <!ELEMENT Amount (#PCDATA)>

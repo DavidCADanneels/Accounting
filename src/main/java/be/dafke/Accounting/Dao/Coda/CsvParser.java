@@ -62,8 +62,6 @@ public class CsvParser {
                     String[] parts = line.split(";");
                     Statement statement = new Statement();
                     statement.setDate(Utils.toCalendar(parts[0]));
-                    statement.setStatementNr("CSV");
-                    statement.setSequenceNumber(sequenceNumber);
                     statement.setName("CSV-"+sequenceNumber);
                     BigDecimal amount = Utils.parseBigDecimal(parts[4].replace(',','.'));
                     boolean debit = true;

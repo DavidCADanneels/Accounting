@@ -82,7 +82,12 @@ public class Accounts extends WriteableBusinessCollection<Account> implements Bu
     }
 
     @Override
-    public Account createNewChild() {
+    public Account createNewChild(String name) {
         return new Account();
+    }
+
+    @Override
+    public void readCollection() {
+        readCollection("Account");
     }
 }

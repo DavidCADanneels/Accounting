@@ -12,8 +12,8 @@ import java.util.TreeMap;
  * Time: 13:19
  */
 public class WriteableBusinessObject extends BusinessObject implements Writeable {
-    private static final String XML = "xml";
-    private static final String HTML = "html";
+    protected static final String XML = "xml";
+    protected static final String HTML = "html";
 
     protected WriteableBusinessObject(){
         File xslFolder = new File(System.getProperty("Accountings_xsl"));

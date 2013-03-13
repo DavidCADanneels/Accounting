@@ -3,3464 +3,3094 @@
 <!DOCTYPE Statements SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Statements.dtd">
 <Statements>
   <Statement>
-    <ID1>001</ID1>
-    <ID2>0001</ID2>
+    <Amount>84.49</Amount>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
     <Date>31/12/2011</Date>
     <Sign>D</Sign>
-    <Amount>84.49</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <name>001-0001</name>
   </Statement>
   <Statement>
-    <ID1>001</ID1>
-    <ID2>0002</ID2>
-    <Date>1/1/2012</Date>
-    <Sign>D</Sign>
     <Amount>802.71</Amount>
-    <TransactionCode>501</TransactionCode>
     <Communication>774-2476251-77</Communication>
-  </Statement>
-  <Statement>
-    <ID1>001</ID1>
-    <ID2>0003</ID2>
     <Date>1/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>30.86</Amount>
     <TransactionCode>501</TransactionCode>
+    <name>001-0002</name>
   </Statement>
   <Statement>
-    <ID1>001</ID1>
-    <ID2>0004</ID2>
-    <Date>2/1/2012</Date>
+    <Amount>30.86</Amount>
+    <Date>1/1/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>001-0003</name>
+  </Statement>
+  <Statement>
     <Amount>200.00</Amount>
     <CounterParty>CLICTEUR RITA</CounterParty>
-    <TransactionCode>103</TransactionCode>
-  </Statement>
-  <Statement>
-    <ID1>001</ID1>
-    <ID2>0005</ID2>
     <Date>2/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>124.77</Amount>
-    <CounterParty>PROXIMUS</CounterParty>
-    <TransactionCode>101</TransactionCode>
-    <Communication>+++103/4389/42549+++</Communication>
+    <TransactionCode>103</TransactionCode>
+    <name>001-0004</name>
   </Statement>
   <Statement>
-    <ID1>002</ID1>
-    <ID2>0001</ID2>
+    <Amount>124.77</Amount>
+    <Communication>+++103/4389/42549+++</Communication>
+    <CounterParty>PROXIMUS</CounterParty>
+    <Date>2/1/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>001-0005</name>
+  </Statement>
+  <Statement>
+    <Amount>3.74</Amount>
+    <Communication>POWER ASSEBROEK ASSEBROEK</Communication>
     <Date>4/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>3.74</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>POWER ASSEBROEK ASSEBROEK</Communication>
+    <name>002-0001</name>
   </Statement>
   <Statement>
-    <ID1>002</ID1>
-    <ID2>0002</ID2>
-    <Date>6/1/2012</Date>
-    <Sign>D</Sign>
     <Amount>18.98</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10816121657</Communication>
-  </Statement>
-  <Statement>
-    <ID1>002</ID1>
-    <ID2>0003</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>29.72</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
     <TransactionCode>501</TransactionCode>
-    <Communication>10112244578</Communication>
+    <name>002-0002</name>
   </Statement>
   <Statement>
-    <ID1>003</ID1>
-    <ID2>0001</ID2>
+    <Amount>29.72</Amount>
+    <Communication>10112244578</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <Date>6/1/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>002-0003</name>
+  </Statement>
+  <Statement>
+    <Amount>17.07</Amount>
+    <Communication>800922 261M45</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>10/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>17.07</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>501</TransactionCode>
-    <Communication>800922 261M45</Communication>
+    <name>003-0001</name>
   </Statement>
   <Statement>
-    <ID1>003</ID1>
-    <ID2>0002</ID2>
+    <Amount>61.39</Amount>
+    <Communication>CARREFOUR BRUGGESINT-KRUIS</Communication>
     <Date>16/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>61.39</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>CARREFOUR BRUGGESINT-KRUIS</Communication>
+    <name>003-0002</name>
   </Statement>
   <Statement>
-    <ID1>004</ID1>
-    <ID2>0001</ID2>
+    <Amount>600.00</Amount>
+    <Communication>huur</Communication>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
     <Date>17/1/2012</Date>
     <Sign>C</Sign>
-    <Amount>600.00</Amount>
-    <CounterParty>RIF NOUREDDINE</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>huur</Communication>
+    <name>004-0001</name>
   </Statement>
   <Statement>
-    <ID1>004</ID1>
-    <ID2>0002</ID2>
+    <Amount>47.89</Amount>
+    <Communication>/C/  2 PREST HUISARTS           04/01/12 OFFICIEEL TARIEF    51,89 EUR 090315 044M35 011198180112/001</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>20/1/2012</Date>
     <Sign>C</Sign>
-    <Amount>47.89</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/C/  2 PREST HUISARTS           04/01/12 OFFICIEEL TARIEF    51,89 EUR 090315 044M35 011198180112/001</Communication>
+    <name>004-0002</name>
   </Statement>
   <Statement>
-    <ID1>004</ID1>
-    <ID2>0003</ID2>
+    <Amount>29.39</Amount>
+    <Communication>+++991/1347/38603+++</Communication>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
     <Date>17/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>29.39</Amount>
-    <CounterParty>AZ SINT JAN AV</CounterParty>
     <TransactionCode>101</TransactionCode>
-    <Communication>+++991/1347/38603+++</Communication>
+    <name>004-0003</name>
   </Statement>
   <Statement>
-    <ID1>004</ID1>
-    <ID2>0004</ID2>
+    <Amount>43.85</Amount>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
     <Date>18/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>43.85</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <name>004-0004</name>
   </Statement>
   <Statement>
-    <ID1>004</ID1>
-    <ID2>0005</ID2>
-    <Date>19/1/2012</Date>
-    <Sign>D</Sign>
     <Amount>38.14</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>GB PARTNER      ASSEBROEK</Communication>
-  </Statement>
-  <Statement>
-    <ID1>004</ID1>
-    <ID2>0006</ID2>
     <Date>19/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>43.05</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <name>004-0005</name>
   </Statement>
   <Statement>
-    <ID1>004</ID1>
-    <ID2>0007</ID2>
+    <Amount>43.05</Amount>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <Date>19/1/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>004-0006</name>
+  </Statement>
+  <Statement>
+    <Amount>32.87</Amount>
+    <Communication>KRUIDVAT    BRUGGE</Communication>
     <Date>21/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>32.87</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>KRUIDVAT    BRUGGE</Communication>
+    <name>004-0007</name>
   </Statement>
   <Statement>
-    <ID1>004</ID1>
-    <ID2>0008</ID2>
+    <Amount>40.00</Amount>
+    <Communication>OP-GARE CENTRALEBRUXELLES</Communication>
     <Date>23/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>OP-GARE CENTRALEBRUXELLES</Communication>
+    <name>004-0008</name>
   </Statement>
   <Statement>
-    <ID1>005</ID1>
-    <ID2>0001</ID2>
+    <Amount>1588.52</Amount>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <CounterParty>ISABEL NV</CounterParty>
     <Date>26/1/2012</Date>
     <Sign>C</Sign>
-    <Amount>1588.52</Amount>
-    <CounterParty>ISABEL NV</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <name>005-0001</name>
   </Statement>
   <Statement>
-    <ID1>005</ID1>
-    <ID2>0002</ID2>
+    <Amount>11.82</Amount>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
     <Date>25/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>11.82</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <name>005-0002</name>
   </Statement>
   <Statement>
-    <ID1>005</ID1>
-    <ID2>0003</ID2>
+    <Amount>50.28</Amount>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
     <Date>26/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>50.28</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <name>005-0003</name>
   </Statement>
   <Statement>
-    <ID1>005</ID1>
-    <ID2>0004</ID2>
+    <Amount>4.84</Amount>
+    <Communication>Q BRUGGE ST KRU</Communication>
     <Date>28/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>4.84</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>Q BRUGGE ST KRU</Communication>
+    <name>005-0004</name>
   </Statement>
   <Statement>
-    <ID1>005</ID1>
-    <ID2>0005</ID2>
-    <Date>30/1/2012</Date>
-    <Sign>D</Sign>
     <Amount>362.96</Amount>
-    <CounterParty>PROXIMUS</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++103/4389/42650+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>005</ID1>
-    <ID2>0006</ID2>
+    <CounterParty>PROXIMUS</CounterParty>
     <Date>30/1/2012</Date>
     <Sign>D</Sign>
-    <Amount>34.50</Amount>
-    <CounterParty>AZ SINT JAN AV</CounterParty>
     <TransactionCode>101</TransactionCode>
+    <name>005-0005</name>
+  </Statement>
+  <Statement>
+    <Amount>34.50</Amount>
     <Communication>+++991/1378/83827+++</Communication>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <Date>30/1/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>005-0006</name>
   </Statement>
   <Statement>
-    <ID1>006</ID1>
-    <ID2>0001</ID2>
-    <Date>1/2/2012</Date>
-    <Sign>D</Sign>
     <Amount>802.71</Amount>
-    <TransactionCode>501</TransactionCode>
     <Communication>774-2476251-77</Communication>
-  </Statement>
-  <Statement>
-    <ID1>006</ID1>
-    <ID2>0002</ID2>
     <Date>1/2/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>006-0001</name>
+  </Statement>
+  <Statement>
     <Amount>200.00</Amount>
     <CounterParty>CLICTEUR RITA</CounterParty>
+    <Date>1/2/2012</Date>
+    <Sign>D</Sign>
     <TransactionCode>103</TransactionCode>
+    <name>006-0002</name>
   </Statement>
   <Statement>
-    <ID1>006</ID1>
-    <ID2>0003</ID2>
-    <Date>6/2/2012</Date>
-    <Sign>D</Sign>
     <Amount>18.98</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10816121657</Communication>
-  </Statement>
-  <Statement>
-    <ID1>006</ID1>
-    <ID2>0004</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/2/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>006-0003</name>
+  </Statement>
+  <Statement>
     <Amount>29.72</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10112244578</Communication>
-  </Statement>
-  <Statement>
-    <ID1>006</ID1>
-    <ID2>0005</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/2/2012</Date>
     <Sign>D</Sign>
-    <Amount>200.00</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
     <TransactionCode>501</TransactionCode>
-    <Communication>1113758940</Communication>
+    <name>006-0004</name>
   </Statement>
   <Statement>
-    <ID1>007</ID1>
-    <ID2>0001</ID2>
+    <Amount>200.00</Amount>
+    <Communication>1113758940</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <Date>6/2/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>006-0005</name>
+  </Statement>
+  <Statement>
+    <Amount>28.24</Amount>
+    <Communication>DIVERSE TERUGBETALINGEN MUTUALITEITO REF :8918200602388 remgeld -3jaar</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>8/2/2012</Date>
     <Sign>C</Sign>
-    <Amount>28.24</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>DIVERSE TERUGBETALINGEN MUTUALITEITO REF :8918200602388 remgeld -3jaar</Communication>
+    <name>007-0001</name>
   </Statement>
   <Statement>
-    <ID1>007</ID1>
-    <ID2>0002</ID2>
-    <Date>8/2/2012</Date>
-    <Sign>D</Sign>
     <Amount>40.00</Amount>
-    <TransactionCode>404</TransactionCode>
     <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
-  </Statement>
-  <Statement>
-    <ID1>007</ID1>
-    <ID2>0003</ID2>
     <Date>8/2/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>007-0002</name>
+  </Statement>
+  <Statement>
     <Amount>23.88</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>GB PARTNER      ASSEBROEK</Communication>
-  </Statement>
-  <Statement>
-    <ID1>007</ID1>
-    <ID2>0004</ID2>
-    <Date>13/2/2012</Date>
+    <Date>8/2/2012</Date>
     <Sign>D</Sign>
-    <Amount>68.28</Amount>
-    <CounterParty>CM BRUGGE</CounterParty>
-    <TransactionCode>101</TransactionCode>
-    <Communication>+++702/0029/25964+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>007</ID1>
-    <ID2>0005</ID2>
-    <Date>13/2/2012</Date>
-    <Sign>D</Sign>
-    <Amount>28.50</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>KAM YUEN MARKET  BRUS</Communication>
+    <name>007-0003</name>
   </Statement>
   <Statement>
-    <ID1>008</ID1>
-    <ID2>0001</ID2>
+    <Amount>68.28</Amount>
+    <Communication>+++702/0029/25964+++</Communication>
+    <CounterParty>CM BRUGGE</CounterParty>
+    <Date>13/2/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>007-0004</name>
+  </Statement>
+  <Statement>
+    <Amount>28.50</Amount>
+    <Communication>KAM YUEN MARKET  BRUS</Communication>
+    <Date>13/2/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>007-0005</name>
+  </Statement>
+  <Statement>
+    <Amount>600.00</Amount>
+    <Communication>huur</Communication>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
     <Date>16/2/2012</Date>
     <Sign>C</Sign>
-    <Amount>600.00</Amount>
-    <CounterParty>RIF NOUREDDINE</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>huur</Communication>
+    <name>008-0001</name>
   </Statement>
   <Statement>
-    <ID1>008</ID1>
-    <ID2>0002</ID2>
+    <Amount>22.70</Amount>
+    <Communication>/C/  1 PREST SPECIALIST         21/12/11 OFFICIEEL TARIEF    34,50 EUR 760712 268M46 093187150212/025</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>17/2/2012</Date>
     <Sign>C</Sign>
-    <Amount>22.70</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/C/  1 PREST SPECIALIST         21/12/11 OFFICIEEL TARIEF    34,50 EUR 760712 268M46 093187150212/025</Communication>
+    <name>008-0002</name>
   </Statement>
   <Statement>
-    <ID1>008</ID1>
-    <ID2>0003</ID2>
+    <Amount>200.00</Amount>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
     <Date>14/2/2012</Date>
     <Sign>D</Sign>
-    <Amount>200.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+    <name>008-0003</name>
   </Statement>
   <Statement>
-    <ID1>008</ID1>
-    <ID2>0004</ID2>
+    <Amount>89.95</Amount>
+    <Communication>GEBOX           MOUSCRON</Communication>
     <Date>18/2/2012</Date>
     <Sign>D</Sign>
-    <Amount>89.95</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>GEBOX           MOUSCRON</Communication>
+    <name>008-0004</name>
   </Statement>
   <Statement>
-    <ID1>008</ID1>
-    <ID2>0005</ID2>
+    <Amount>20.33</Amount>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
     <Date>19/2/2012</Date>
     <Sign>D</Sign>
-    <Amount>20.33</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <name>008-0005</name>
   </Statement>
   <Statement>
-    <ID1>009</ID1>
-    <ID2>0001</ID2>
+    <Amount>1587.44</Amount>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <CounterParty>ISABEL NV</CounterParty>
     <Date>27/2/2012</Date>
     <Sign>C</Sign>
-    <Amount>1587.44</Amount>
-    <CounterParty>ISABEL NV</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <name>009-0001</name>
   </Statement>
   <Statement>
-    <ID1>009</ID1>
-    <ID2>0002</ID2>
+    <Amount>20.00</Amount>
     <Date>21/2/2012</Date>
     <Sign>D</Sign>
-    <Amount>20.00</Amount>
     <TransactionCode>101</TransactionCode>
+    <name>009-0002</name>
   </Statement>
   <Statement>
-    <ID1>009</ID1>
-    <ID2>0003</ID2>
+    <Amount>20.00</Amount>
+    <Communication>BRUS  ST HUBERT BRUSSEL</Communication>
     <Date>23/2/2012</Date>
     <Sign>D</Sign>
-    <Amount>20.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>BRUS  ST HUBERT BRUSSEL</Communication>
+    <name>009-0003</name>
   </Statement>
   <Statement>
-    <ID1>009</ID1>
-    <ID2>0004</ID2>
+    <Amount>36.00</Amount>
+    <Communication>NMBS BRUGGE     BRUGGE</Communication>
     <Date>24/2/2012</Date>
     <Sign>D</Sign>
-    <Amount>36.00</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>NMBS BRUGGE     BRUGGE</Communication>
+    <name>009-0004</name>
   </Statement>
   <Statement>
-    <ID1>009</ID1>
-    <ID2>0005</ID2>
+    <Amount>60.00</Amount>
     <Date>25/2/2012</Date>
     <Sign>D</Sign>
-    <Amount>60.00</Amount>
     <TransactionCode>101</TransactionCode>
+    <name>009-0005</name>
   </Statement>
   <Statement>
-    <ID1>009</ID1>
-    <ID2>0006</ID2>
+    <Amount>76.86</Amount>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
     <Date>26/2/2012</Date>
     <Sign>D</Sign>
-    <Amount>76.86</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <name>009-0006</name>
   </Statement>
   <Statement>
-    <ID1>009</ID1>
-    <ID2>0007</ID2>
+    <Amount>277.03</Amount>
+    <Communication>+++103/4389/42751+++</Communication>
+    <CounterParty>PROXIMUS</CounterParty>
     <Date>27/2/2012</Date>
     <Sign>D</Sign>
-    <Amount>277.03</Amount>
-    <CounterParty>PROXIMUS</CounterParty>
     <TransactionCode>101</TransactionCode>
-    <Communication>+++103/4389/42751+++</Communication>
+    <name>009-0007</name>
   </Statement>
   <Statement>
-    <ID1>010</ID1>
-    <ID2>0001</ID2>
+    <Amount>40.00</Amount>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
     <Date>29/2/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+    <name>010-0001</name>
   </Statement>
   <Statement>
-    <ID1>010</ID1>
-    <ID2>0002</ID2>
-    <Date>1/3/2012</Date>
-    <Sign>D</Sign>
     <Amount>802.71</Amount>
-    <TransactionCode>501</TransactionCode>
     <Communication>774-2476251-77</Communication>
-  </Statement>
-  <Statement>
-    <ID1>010</ID1>
-    <ID2>0003</ID2>
     <Date>1/3/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>010-0002</name>
+  </Statement>
+  <Statement>
     <Amount>200.00</Amount>
     <CounterParty>CLICTEUR RITA</CounterParty>
+    <Date>1/3/2012</Date>
+    <Sign>D</Sign>
     <TransactionCode>103</TransactionCode>
+    <name>010-0003</name>
   </Statement>
   <Statement>
-    <ID1>010</ID1>
-    <ID2>0004</ID2>
+    <Amount>40.00</Amount>
     <Date>3/3/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>101</TransactionCode>
+    <name>010-0004</name>
   </Statement>
   <Statement>
-    <ID1>011</ID1>
-    <ID2>0001</ID2>
-    <Date>6/3/2012</Date>
-    <Sign>D</Sign>
     <Amount>200.00</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>1113758940</Communication>
-  </Statement>
-  <Statement>
-    <ID1>011</ID1>
-    <ID2>0002</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/3/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>011-0001</name>
+  </Statement>
+  <Statement>
     <Amount>18.98</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10816121657</Communication>
-  </Statement>
-  <Statement>
-    <ID1>011</ID1>
-    <ID2>0003</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/3/2012</Date>
     <Sign>D</Sign>
-    <Amount>29.72</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
     <TransactionCode>501</TransactionCode>
-    <Communication>10112244578</Communication>
+    <name>011-0002</name>
   </Statement>
   <Statement>
-    <ID1>011</ID1>
-    <ID2>0004</ID2>
+    <Amount>29.72</Amount>
+    <Communication>10112244578</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <Date>6/3/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>011-0003</name>
+  </Statement>
+  <Statement>
+    <Amount>60.00</Amount>
+    <Communication>OP GARE NORD BRUBRUXELLES</Communication>
     <Date>8/3/2012</Date>
     <Sign>D</Sign>
-    <Amount>60.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>OP GARE NORD BRUBRUXELLES</Communication>
+    <name>011-0004</name>
   </Statement>
   <Statement>
-    <ID1>011</ID1>
-    <ID2>0005</ID2>
-    <Date>9/3/2012</Date>
-    <Sign>D</Sign>
     <Amount>25.00</Amount>
-    <CounterParty>CM-ZORGKAS BRUGGE</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++913/3414/11236+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>011</ID1>
-    <ID2>0006</ID2>
+    <CounterParty>CM-ZORGKAS BRUGGE</CounterParty>
     <Date>9/3/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>011-0005</name>
+  </Statement>
+  <Statement>
     <Amount>27.90</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>ZARA         BRUGGE</Communication>
+    <Date>9/3/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>011-0006</name>
   </Statement>
   <Statement>
-    <ID1>011</ID1>
-    <ID2>0007</ID2>
-    <Date>10/3/2012</Date>
-    <Sign>D</Sign>
     <Amount>101.83</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>GB PARTNER      ASSEBROEK</Communication>
-  </Statement>
-  <Statement>
-    <ID1>011</ID1>
-    <ID2>0008</ID2>
     <Date>10/3/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>011-0007</name>
+  </Statement>
+  <Statement>
     <Amount>5.21</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>TOTAL</Communication>
-  </Statement>
-  <Statement>
-    <ID1>011</ID1>
-    <ID2>0009</ID2>
-    <Date>11/3/2012</Date>
+    <Date>10/3/2012</Date>
     <Sign>D</Sign>
-    <Amount>14.10</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>NMBS BRUGGE     BRUGGE</Communication>
+    <name>011-0008</name>
   </Statement>
   <Statement>
-    <ID1>011</ID1>
-    <ID2>0010</ID2>
+    <Amount>14.10</Amount>
+    <Communication>NMBS BRUGGE     BRUGGE</Communication>
     <Date>11/3/2012</Date>
     <Sign>D</Sign>
-    <Amount>100.00</Amount>
-    <TransactionCode>404</TransactionCode>
-    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+    <TransactionCode>402</TransactionCode>
+    <name>011-0009</name>
   </Statement>
   <Statement>
-    <ID1>012</ID1>
-    <ID2>0001</ID2>
+    <Amount>100.00</Amount>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+    <Date>11/3/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>011-0010</name>
+  </Statement>
+  <Statement>
+    <Amount>600.00</Amount>
+    <Communication>huur</Communication>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
     <Date>16/3/2012</Date>
     <Sign>C</Sign>
-    <Amount>600.00</Amount>
-    <CounterParty>RIF NOUREDDINE</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>huur</Communication>
+    <name>012-0001</name>
   </Statement>
   <Statement>
-    <ID1>012</ID1>
-    <ID2>0002</ID2>
+    <Amount>36.00</Amount>
+    <Communication>EXPENSE CLAIM 2012 DD</Communication>
+    <CounterParty>ISABEL SA</CounterParty>
     <Date>19/3/2012</Date>
     <Sign>C</Sign>
-    <Amount>36.00</Amount>
-    <CounterParty>ISABEL SA</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>EXPENSE CLAIM 2012 DD</Communication>
+    <name>012-0002</name>
   </Statement>
   <Statement>
-    <ID1>012</ID1>
-    <ID2>0003</ID2>
-    <Date>19/3/2012</Date>
-    <Sign>D</Sign>
     <Amount>20.00</Amount>
-    <TransactionCode>404</TransactionCode>
     <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
-  </Statement>
-  <Statement>
-    <ID1>012</ID1>
-    <ID2>0004</ID2>
     <Date>19/3/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>012-0003</name>
+  </Statement>
+  <Statement>
     <Amount>32.22</Amount>
-    <CounterParty>AZ SINT JAN AV</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++991/2013/47691+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>012</ID1>
-    <ID2>0005</ID2>
-    <Date>19/3/2012</Date>
-    <Sign>D</Sign>
-    <Amount>48.97</Amount>
     <CounterParty>AZ SINT JAN AV</CounterParty>
+    <Date>19/3/2012</Date>
+    <Sign>D</Sign>
     <TransactionCode>101</TransactionCode>
+    <name>012-0004</name>
+  </Statement>
+  <Statement>
+    <Amount>48.97</Amount>
     <Communication>+++991/2013/37183+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>012</ID1>
-    <ID2>0006</ID2>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
     <Date>19/3/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>012-0005</name>
+  </Statement>
+  <Statement>
     <Amount>31.20</Amount>
-    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++731/2000/41960+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>012</ID1>
-    <ID2>0007</ID2>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
     <Date>19/3/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>012-0006</name>
+  </Statement>
+  <Statement>
     <Amount>134.11</Amount>
-    <CounterParty>KBC VERZEKERINGEN NV</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>SHO 110536737 MTH</Communication>
-  </Statement>
-  <Statement>
-    <ID1>013</ID1>
-    <ID2>0001</ID2>
-    <Date>20/3/2012</Date>
+    <CounterParty>KBC VERZEKERINGEN NV</CounterParty>
+    <Date>19/3/2012</Date>
     <Sign>D</Sign>
-    <Amount>20.00</Amount>
-    <TransactionCode>404</TransactionCode>
-    <Communication>OP-GARE CENTRALEBRUXELLES</Communication>
-  </Statement>
-  <Statement>
-    <ID1>013</ID1>
-    <ID2>0002</ID2>
-    <Date>20/3/2012</Date>
-    <Sign>D</Sign>
-    <Amount>150.00</Amount>
     <TransactionCode>101</TransactionCode>
+    <name>012-0007</name>
   </Statement>
   <Statement>
-    <ID1>013</ID1>
-    <ID2>0003</ID2>
-    <Date>23/3/2012</Date>
+    <Amount>20.00</Amount>
+    <Communication>OP-GARE CENTRALEBRUXELLES</Communication>
+    <Date>20/3/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>013-0001</name>
+  </Statement>
+  <Statement>
+    <Amount>150.00</Amount>
+    <Date>20/3/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>013-0002</name>
+  </Statement>
+  <Statement>
     <Amount>40.00</Amount>
-    <TransactionCode>404</TransactionCode>
     <Communication>BRUS  ST HUBERT BRUSSEL</Communication>
-  </Statement>
-  <Statement>
-    <ID1>013</ID1>
-    <ID2>0004</ID2>
     <Date>23/3/2012</Date>
     <Sign>D</Sign>
-    <Amount>50.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>KBC BANK BRUSSELBRUSSEL</Communication>
+    <name>013-0003</name>
   </Statement>
   <Statement>
-    <ID1>014</ID1>
-    <ID2>0001</ID2>
+    <Amount>50.00</Amount>
+    <Communication>KBC BANK BRUSSELBRUSSEL</Communication>
+    <Date>23/3/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>013-0004</name>
+  </Statement>
+  <Statement>
+    <Amount>1586.34</Amount>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <CounterParty>ISABEL NV</CounterParty>
     <Date>27/3/2012</Date>
     <Sign>C</Sign>
-    <Amount>1586.34</Amount>
-    <CounterParty>ISABEL NV</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <name>014-0001</name>
   </Statement>
   <Statement>
-    <ID1>014</ID1>
-    <ID2>0002</ID2>
+    <Amount>6.95</Amount>
+    <Communication>QUICK ST KRUIS</Communication>
     <Date>24/3/2012</Date>
     <Sign>D</Sign>
-    <Amount>6.95</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>QUICK ST KRUIS</Communication>
+    <name>014-0002</name>
   </Statement>
   <Statement>
-    <ID1>014</ID1>
-    <ID2>0003</ID2>
+    <Amount>40.00</Amount>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
     <Date>26/3/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+    <name>014-0003</name>
   </Statement>
   <Statement>
-    <ID1>014</ID1>
-    <ID2>0004</ID2>
+    <Amount>150.00</Amount>
+    <Communication>BRUGGE ST KRUIS BRUGGE</Communication>
     <Date>29/3/2012</Date>
     <Sign>D</Sign>
-    <Amount>150.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>BRUGGE ST KRUIS BRUGGE</Communication>
+    <name>014-0004</name>
   </Statement>
   <Statement>
-    <ID1>014</ID1>
-    <ID2>0005</ID2>
+    <Amount>12.90</Amount>
+    <Communication>NMBS BRUGGE     BRUGGE</Communication>
     <Date>30/3/2012</Date>
     <Sign>D</Sign>
-    <Amount>12.90</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>NMBS BRUGGE     BRUGGE</Communication>
+    <name>014-0005</name>
   </Statement>
   <Statement>
-    <ID1>015</ID1>
-    <ID2>0001</ID2>
-    <Date>4/4/2012</Date>
-    <Sign>C</Sign>
     <Amount>19.34</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>/C/  1 PREST SPECIALIST         17/01/12 OFFICIEEL TARIEF    32,22 EUR 090315 044M35 093081020412/010</Communication>
-  </Statement>
-  <Statement>
-    <ID1>015</ID1>
-    <ID2>0002</ID2>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>4/4/2012</Date>
     <Sign>C</Sign>
-    <Amount>23.03</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/C/  1 PREST SPECIALIST         25/01/12 OFFICIEEL TARIEF    35,01 EUR 760712 268M46 093081020412/010</Communication>
+    <name>015-0001</name>
   </Statement>
   <Statement>
-    <ID1>015</ID1>
-    <ID2>0003</ID2>
+    <Amount>23.03</Amount>
+    <Communication>/C/  1 PREST SPECIALIST         25/01/12 OFFICIEEL TARIEF    35,01 EUR 760712 268M46 093081020412/010</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <Date>4/4/2012</Date>
+    <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>015-0002</name>
+  </Statement>
+  <Statement>
+    <Amount>40.00</Amount>
+    <Communication>POST ATM        BRUGGE</Communication>
     <Date>31/3/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>POST ATM        BRUGGE</Communication>
+    <name>015-0003</name>
   </Statement>
   <Statement>
-    <ID1>015</ID1>
-    <ID2>0004</ID2>
+    <Amount>802.71</Amount>
+    <Communication>774-2476251-77</Communication>
     <Date>1/4/2012</Date>
     <Sign>D</Sign>
-    <Amount>802.71</Amount>
     <TransactionCode>501</TransactionCode>
-    <Communication>774-2476251-77</Communication>
+    <name>015-0004</name>
   </Statement>
   <Statement>
-    <ID1>015</ID1>
-    <ID2>0005</ID2>
-    <Date>2/4/2012</Date>
-    <Sign>D</Sign>
     <Amount>200.00</Amount>
     <CounterParty>CLICTEUR RITA</CounterParty>
-    <TransactionCode>103</TransactionCode>
-  </Statement>
-  <Statement>
-    <ID1>015</ID1>
-    <ID2>0006</ID2>
     <Date>2/4/2012</Date>
     <Sign>D</Sign>
-    <Amount>17.07</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
-    <TransactionCode>501</TransactionCode>
-    <Communication>800922 261M45</Communication>
+    <TransactionCode>103</TransactionCode>
+    <name>015-0005</name>
   </Statement>
   <Statement>
-    <ID1>015</ID1>
-    <ID2>0007</ID2>
+    <Amount>17.07</Amount>
+    <Communication>800922 261M45</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <Date>2/4/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>015-0006</name>
+  </Statement>
+  <Statement>
+    <Amount>40.00</Amount>
+    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
     <Date>3/4/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
+    <name>015-0007</name>
   </Statement>
   <Statement>
-    <ID1>015</ID1>
-    <ID2>0008</ID2>
-    <Date>5/4/2012</Date>
-    <Sign>D</Sign>
     <Amount>15.00</Amount>
-    <CounterParty>MOBILE VIKINGS</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++011/0470/87496+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>015</ID1>
-    <ID2>0009</ID2>
+    <CounterParty>MOBILE VIKINGS</CounterParty>
     <Date>5/4/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>015-0008</name>
+  </Statement>
+  <Statement>
     <Amount>25.00</Amount>
-    <CounterParty>VLAAMSE ZORGKAS VZW</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++120/5115/14950+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>015</ID1>
-    <ID2>0010</ID2>
+    <CounterParty>VLAAMSE ZORGKAS VZW</CounterParty>
     <Date>5/4/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>015-0009</name>
+  </Statement>
+  <Statement>
     <Amount>35.02</Amount>
-    <CounterParty>AZ SINT JAN AV</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++991/2047/10864+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>015</ID1>
-    <ID2>0011</ID2>
-    <Date>5/4/2012</Date>
-    <Sign>D</Sign>
-    <Amount>26.09</Amount>
     <CounterParty>AZ SINT JAN AV</CounterParty>
-    <TransactionCode>101</TransactionCode>
-    <Communication>+++991/2049/13857+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>015</ID1>
-    <ID2>0012</ID2>
     <Date>5/4/2012</Date>
     <Sign>D</Sign>
-    <Amount>161.26</Amount>
-    <CounterParty>PROXIMUS</CounterParty>
     <TransactionCode>101</TransactionCode>
+    <name>015-0010</name>
+  </Statement>
+  <Statement>
+    <Amount>26.09</Amount>
+    <Communication>+++991/2049/13857+++</Communication>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <Date>5/4/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>015-0011</name>
+  </Statement>
+  <Statement>
+    <Amount>161.26</Amount>
     <Communication>+++103/4389/42852+++</Communication>
+    <CounterParty>PROXIMUS</CounterParty>
+    <Date>5/4/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>015-0012</name>
   </Statement>
   <Statement>
-    <ID1>016</ID1>
-    <ID2>0001</ID2>
-    <Date>10/4/2012</Date>
-    <Sign>D</Sign>
     <Amount>18.98</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10816121657</Communication>
-  </Statement>
-  <Statement>
-    <ID1>016</ID1>
-    <ID2>0002</ID2>
-    <Date>10/4/2012</Date>
-    <Sign>D</Sign>
-    <Amount>29.72</Amount>
     <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
-    <Communication>10112244578</Communication>
-  </Statement>
-  <Statement>
-    <ID1>016</ID1>
-    <ID2>0003</ID2>
     <Date>10/4/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>016-0001</name>
+  </Statement>
+  <Statement>
+    <Amount>29.72</Amount>
+    <Communication>10112244578</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <Date>10/4/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>016-0002</name>
+  </Statement>
+  <Statement>
     <Amount>52.29</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>GB PARTNER      ASSEBROEK</Communication>
-  </Statement>
-  <Statement>
-    <ID1>016</ID1>
-    <ID2>0004</ID2>
-    <Date>13/4/2012</Date>
+    <Date>10/4/2012</Date>
     <Sign>D</Sign>
-    <Amount>60.00</Amount>
-    <TransactionCode>404</TransactionCode>
-    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
-  </Statement>
-  <Statement>
-    <ID1>016</ID1>
-    <ID2>0005</ID2>
-    <Date>13/4/2012</Date>
-    <Sign>D</Sign>
-    <Amount>5.23</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>OCTA  ST KRUIS</Communication>
+    <name>016-0003</name>
   </Statement>
   <Statement>
-    <ID1>017</ID1>
-    <ID2>0001</ID2>
+    <Amount>60.00</Amount>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+    <Date>13/4/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>016-0004</name>
+  </Statement>
+  <Statement>
+    <Amount>5.23</Amount>
+    <Communication>OCTA  ST KRUIS</Communication>
+    <Date>13/4/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>016-0005</name>
+  </Statement>
+  <Statement>
+    <Amount>600.00</Amount>
+    <Communication>huur</Communication>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
     <Date>17/4/2012</Date>
     <Sign>C</Sign>
-    <Amount>600.00</Amount>
-    <CounterParty>RIF NOUREDDINE</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>huur</Communication>
+    <name>017-0001</name>
   </Statement>
   <Statement>
-    <ID1>017</ID1>
-    <ID2>0002</ID2>
+    <Amount>40.00</Amount>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
     <Date>18/4/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+    <name>017-0002</name>
   </Statement>
   <Statement>
-    <ID1>017</ID1>
-    <ID2>0003</ID2>
+    <Amount>50.28</Amount>
+    <Communication>KAM YUEN MARKET  BRUS</Communication>
     <Date>19/4/2012</Date>
     <Sign>D</Sign>
-    <Amount>50.28</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>KAM YUEN MARKET  BRUS</Communication>
+    <name>017-0003</name>
   </Statement>
   <Statement>
-    <ID1>017</ID1>
-    <ID2>0004</ID2>
+    <Amount>6.26</Amount>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
     <Date>20/4/2012</Date>
     <Sign>D</Sign>
-    <Amount>6.26</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <name>017-0004</name>
   </Statement>
   <Statement>
-    <ID1>017</ID1>
-    <ID2>0005</ID2>
+    <Amount>40.00</Amount>
+    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
     <Date>23/4/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
+    <name>017-0005</name>
   </Statement>
   <Statement>
-    <ID1>018</ID1>
-    <ID2>0001</ID2>
-    <Date>26/4/2012</Date>
-    <Sign>C</Sign>
     <Amount>2413.56</Amount>
-    <CounterParty>F O D  FINANCIEN</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>KOHIERARTIKEL: 720844783 DIENST : 05 04/01</Communication>
+    <CounterParty>F O D  FINANCIEN</CounterParty>
+    <Date>26/4/2012</Date>
+    <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>018-0001</name>
   </Statement>
   <Statement>
-    <ID1>018</ID1>
-    <ID2>0002</ID2>
+    <Amount>1588.52</Amount>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <CounterParty>ISABEL NV</CounterParty>
     <Date>27/4/2012</Date>
     <Sign>C</Sign>
-    <Amount>1588.52</Amount>
-    <CounterParty>ISABEL NV</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <name>018-0002</name>
   </Statement>
   <Statement>
-    <ID1>018</ID1>
-    <ID2>0003</ID2>
-    <Date>24/4/2012</Date>
-    <Sign>D</Sign>
     <Amount>222.77</Amount>
-    <CounterParty>PROXIMUS</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++103/4389/42953+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>018</ID1>
-    <ID2>0004</ID2>
+    <CounterParty>PROXIMUS</CounterParty>
     <Date>24/4/2012</Date>
     <Sign>D</Sign>
-    <Amount>41.60</Amount>
-    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
     <TransactionCode>101</TransactionCode>
-    <Communication>+++731/2000/77629+++</Communication>
+    <name>018-0003</name>
   </Statement>
   <Statement>
-    <ID1>018</ID1>
-    <ID2>0005</ID2>
+    <Amount>41.60</Amount>
+    <Communication>+++731/2000/77629+++</Communication>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
+    <Date>24/4/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>018-0004</name>
+  </Statement>
+  <Statement>
+    <Amount>80.00</Amount>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
     <Date>26/4/2012</Date>
     <Sign>D</Sign>
-    <Amount>80.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+    <name>018-0005</name>
   </Statement>
   <Statement>
-    <ID1>018</ID1>
-    <ID2>0006</ID2>
+    <Amount>100.00</Amount>
     <Date>27/4/2012</Date>
     <Sign>D</Sign>
-    <Amount>100.00</Amount>
     <TransactionCode>101</TransactionCode>
+    <name>018-0006</name>
   </Statement>
   <Statement>
-    <ID1>019</ID1>
-    <ID2>0001</ID2>
+    <Amount>23.54</Amount>
+    <Communication>DIVERSE TERUGBETALINGEN MUTUALITEITO REF :8918200205130 remgeld -3jaar 800922 261M45</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>4/5/2012</Date>
     <Sign>C</Sign>
-    <Amount>23.54</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>DIVERSE TERUGBETALINGEN MUTUALITEITO REF :8918200205130 remgeld -3jaar 800922 261M45</Communication>
+    <name>019-0001</name>
   </Statement>
   <Statement>
-    <ID1>019</ID1>
-    <ID2>0002</ID2>
+    <Amount>2000.00</Amount>
+    <CounterParty>DANNEELS DAVID</CounterParty>
     <Date>29/4/2012</Date>
     <Sign>D</Sign>
-    <Amount>2000.00</Amount>
-    <CounterParty>DANNEELS DAVID</CounterParty>
     <TransactionCode>101</TransactionCode>
+    <name>019-0002</name>
   </Statement>
   <Statement>
-    <ID1>019</ID1>
-    <ID2>0003</ID2>
-    <Date>30/4/2012</Date>
-    <Sign>D</Sign>
     <Amount>19.95</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>STREET ONE      BRUGGE</Communication>
-  </Statement>
-  <Statement>
-    <ID1>019</ID1>
-    <ID2>0004</ID2>
     <Date>30/4/2012</Date>
     <Sign>D</Sign>
-    <Amount>50.00</Amount>
-    <TransactionCode>404</TransactionCode>
-    <Communication>AUT MOD BRUGGE-CBRUGGE</Communication>
+    <TransactionCode>402</TransactionCode>
+    <name>019-0003</name>
   </Statement>
   <Statement>
-    <ID1>019</ID1>
-    <ID2>0005</ID2>
+    <Amount>50.00</Amount>
+    <Communication>AUT MOD BRUGGE-CBRUGGE</Communication>
+    <Date>30/4/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>019-0004</name>
+  </Statement>
+  <Statement>
+    <Amount>802.71</Amount>
+    <Communication>774-2476251-77</Communication>
     <Date>1/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>802.71</Amount>
     <TransactionCode>501</TransactionCode>
-    <Communication>774-2476251-77</Communication>
+    <name>019-0005</name>
   </Statement>
   <Statement>
-    <ID1>019</ID1>
-    <ID2>0006</ID2>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
     <Date>2/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>200.00</Amount>
-    <CounterParty>CLICTEUR RITA</CounterParty>
     <TransactionCode>103</TransactionCode>
+    <name>019-0006</name>
   </Statement>
   <Statement>
-    <ID1>019</ID1>
-    <ID2>0007</ID2>
+    <Amount>6.03</Amount>
+    <Communication>EXPR GB RAVENSTE BRUX</Communication>
     <Date>3/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>6.03</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>EXPR GB RAVENSTE BRUX</Communication>
+    <name>019-0007</name>
   </Statement>
   <Statement>
-    <ID1>019</ID1>
-    <ID2>0008</ID2>
-    <Date>4/5/2012</Date>
-    <Sign>D</Sign>
     <Amount>20.12</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10816121657</Communication>
-  </Statement>
-  <Statement>
-    <ID1>019</ID1>
-    <ID2>0009</ID2>
-    <Date>4/5/2012</Date>
-    <Sign>D</Sign>
-    <Amount>29.72</Amount>
     <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
-    <Communication>10112244578</Communication>
-  </Statement>
-  <Statement>
-    <ID1>019</ID1>
-    <ID2>0010</ID2>
     <Date>4/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>20.00</Amount>
-    <TransactionCode>404</TransactionCode>
-    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+    <TransactionCode>501</TransactionCode>
+    <name>019-0008</name>
   </Statement>
   <Statement>
-    <ID1>020</ID1>
-    <ID2>0001</ID2>
+    <Amount>29.72</Amount>
+    <Communication>10112244578</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <Date>4/5/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>019-0009</name>
+  </Statement>
+  <Statement>
+    <Amount>20.00</Amount>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+    <Date>4/5/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>019-0010</name>
+  </Statement>
+  <Statement>
+    <Amount>139.99</Amount>
+    <Communication>BELGACOM STORE  BRUGGE</Communication>
     <Date>5/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>139.99</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>BELGACOM STORE  BRUGGE</Communication>
+    <name>020-0001</name>
   </Statement>
   <Statement>
-    <ID1>020</ID1>
-    <ID2>0002</ID2>
+    <Amount>47.08</Amount>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
     <Date>6/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>47.08</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <name>020-0002</name>
   </Statement>
   <Statement>
-    <ID1>020</ID1>
-    <ID2>0003</ID2>
+    <Amount>200.00</Amount>
+    <Communication>1113758940</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>7/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>200.00</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
     <TransactionCode>501</TransactionCode>
-    <Communication>1113758940</Communication>
+    <name>020-0003</name>
   </Statement>
   <Statement>
-    <ID1>020</ID1>
-    <ID2>0004</ID2>
-    <Date>8/5/2012</Date>
-    <Sign>D</Sign>
     <Amount>47.97</Amount>
-    <CounterParty>AZ SINT JAN AV</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++991/2082/01046+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>020</ID1>
-    <ID2>0005</ID2>
-    <Date>8/5/2012</Date>
-    <Sign>D</Sign>
-    <Amount>32.22</Amount>
     <CounterParty>AZ SINT JAN AV</CounterParty>
-    <TransactionCode>101</TransactionCode>
-    <Communication>+++991/2082/12160+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>020</ID1>
-    <ID2>0006</ID2>
     <Date>8/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>120.00</Amount>
-    <TransactionCode>404</TransactionCode>
-    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+    <TransactionCode>101</TransactionCode>
+    <name>020-0004</name>
   </Statement>
   <Statement>
-    <ID1>020</ID1>
-    <ID2>0007</ID2>
+    <Amount>32.22</Amount>
+    <Communication>+++991/2082/12160+++</Communication>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <Date>8/5/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>020-0005</name>
+  </Statement>
+  <Statement>
+    <Amount>120.00</Amount>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+    <Date>8/5/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>020-0006</name>
+  </Statement>
+  <Statement>
+    <Amount>16.20</Amount>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
     <Date>11/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>16.20</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <name>020-0007</name>
   </Statement>
   <Statement>
-    <ID1>021</ID1>
-    <ID2>0001</ID2>
+    <Amount>22.14</Amount>
+    <Communication>/C/  1 PREST SPECIALIST         07/02/12 OFFICIEEL TARIEF    35,02 EUR 090315 044M35 093080100512/018</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>14/5/2012</Date>
     <Sign>C</Sign>
-    <Amount>22.14</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/C/  1 PREST SPECIALIST         07/02/12 OFFICIEEL TARIEF    35,02 EUR 090315 044M35 093080100512/018</Communication>
+    <name>021-0001</name>
   </Statement>
   <Statement>
-    <ID1>021</ID1>
-    <ID2>0002</ID2>
+    <Amount>600.00</Amount>
+    <Communication>huur</Communication>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
     <Date>16/5/2012</Date>
     <Sign>C</Sign>
-    <Amount>600.00</Amount>
-    <CounterParty>RIF NOUREDDINE</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>huur</Communication>
+    <name>021-0002</name>
   </Statement>
   <Statement>
-    <ID1>021</ID1>
-    <ID2>0003</ID2>
+    <Amount>361.67</Amount>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <CounterParty>ISABEL NV</CounterParty>
     <Date>21/5/2012</Date>
     <Sign>C</Sign>
-    <Amount>361.67</Amount>
-    <CounterParty>ISABEL NV</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <name>021-0003</name>
   </Statement>
   <Statement>
-    <ID1>021</ID1>
-    <ID2>0004</ID2>
-    <Date>14/5/2012</Date>
-    <Sign>D</Sign>
     <Amount>18.20</Amount>
-    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++731/2001/34415+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>021</ID1>
-    <ID2>0005</ID2>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
     <Date>14/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>20.00</Amount>
-    <TransactionCode>404</TransactionCode>
-    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+    <TransactionCode>101</TransactionCode>
+    <name>021-0004</name>
   </Statement>
   <Statement>
-    <ID1>021</ID1>
-    <ID2>0006</ID2>
+    <Amount>20.00</Amount>
+    <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
+    <Date>14/5/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>021-0005</name>
+  </Statement>
+  <Statement>
+    <Amount>35.00</Amount>
+    <Communication>KAM YUEN MARKET  BRUS</Communication>
     <Date>15/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>35.00</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>KAM YUEN MARKET  BRUS</Communication>
+    <name>021-0006</name>
   </Statement>
   <Statement>
-    <ID1>021</ID1>
-    <ID2>0007</ID2>
+    <Amount>20.00</Amount>
     <Date>16/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>20.00</Amount>
     <TransactionCode>101</TransactionCode>
+    <name>021-0007</name>
   </Statement>
   <Statement>
-    <ID1>021</ID1>
-    <ID2>0008</ID2>
+    <Amount>15.00</Amount>
+    <Communication>DAVID EN DARA (ENKEL BBQ MET VLEES)GEEN PINGPONG</Communication>
+    <CounterParty>HIGHFIELDS VZW</CounterParty>
     <Date>21/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>15.00</Amount>
-    <CounterParty>HIGHFIELDS VZW</CounterParty>
     <TransactionCode>101</TransactionCode>
-    <Communication>DAVID EN DARA (ENKEL BBQ MET VLEES)GEEN PINGPONG</Communication>
+    <name>021-0008</name>
   </Statement>
   <Statement>
-    <ID1>022</ID1>
-    <ID2>0001</ID2>
+    <Amount>600.00</Amount>
+    <CounterParty>DANNEELS DAVID</CounterParty>
     <Date>23/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>600.00</Amount>
-    <CounterParty>DANNEELS DAVID</CounterParty>
     <TransactionCode>103</TransactionCode>
+    <name>022-0001</name>
   </Statement>
   <Statement>
-    <ID1>022</ID1>
-    <ID2>0002</ID2>
+    <Amount>18.10</Amount>
+    <Communication>KAM YUEN MARKET  BRUS</Communication>
     <Date>25/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>18.10</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>KAM YUEN MARKET  BRUS</Communication>
+    <name>022-0002</name>
   </Statement>
   <Statement>
-    <ID1>023</ID1>
-    <ID2>0001</ID2>
+    <Amount>1588.52</Amount>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <CounterParty>ISABEL NV</CounterParty>
     <Date>29/5/2012</Date>
     <Sign>C</Sign>
-    <Amount>1588.52</Amount>
-    <CounterParty>ISABEL NV</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <name>023-0001</name>
   </Statement>
   <Statement>
-    <ID1>023</ID1>
-    <ID2>0002</ID2>
-    <Date>27/5/2012</Date>
-    <Sign>C</Sign>
     <Amount>2000.00</Amount>
     <CounterParty>DANNEELS DAVID</CounterParty>
+    <Date>27/5/2012</Date>
+    <Sign>C</Sign>
     <TransactionCode>150</TransactionCode>
+    <name>023-0002</name>
   </Statement>
   <Statement>
-    <ID1>023</ID1>
-    <ID2>0003</ID2>
+    <Amount>190.71</Amount>
+    <Communication>/A/ 91RLMJ11 Vakantiegeld 2012</Communication>
+    <CounterParty>OFF NAT VACANCES ANNUELLES</CounterParty>
     <Date>31/5/2012</Date>
     <Sign>C</Sign>
-    <Amount>190.71</Amount>
-    <CounterParty>OFF NAT VACANCES ANNUELLES</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/A/ 91RLMJ11 Vakantiegeld 2012</Communication>
+    <name>023-0003</name>
   </Statement>
   <Statement>
-    <ID1>023</ID1>
-    <ID2>0004</ID2>
-    <Date>27/5/2012</Date>
-    <Sign>D</Sign>
     <Amount>1000.00</Amount>
-    <TransactionCode>101</TransactionCode>
-  </Statement>
-  <Statement>
-    <ID1>023</ID1>
-    <ID2>0005</ID2>
     <Date>27/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>15.96</Amount>
-    <TransactionCode>402</TransactionCode>
-    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <TransactionCode>101</TransactionCode>
+    <name>023-0004</name>
   </Statement>
   <Statement>
-    <ID1>023</ID1>
-    <ID2>0006</ID2>
+    <Amount>15.96</Amount>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <Date>27/5/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>023-0005</name>
+  </Statement>
+  <Statement>
+    <Amount>120.54</Amount>
+    <Communication>+++103/4389/43054+++</Communication>
+    <CounterParty>PROXIMUS</CounterParty>
     <Date>29/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>120.54</Amount>
-    <CounterParty>PROXIMUS</CounterParty>
     <TransactionCode>101</TransactionCode>
-    <Communication>+++103/4389/43054+++</Communication>
+    <name>023-0006</name>
   </Statement>
   <Statement>
-    <ID1>023</ID1>
-    <ID2>0007</ID2>
+    <Amount>1000.00</Amount>
     <Date>28/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>1000.00</Amount>
     <TransactionCode>101</TransactionCode>
+    <name>023-0007</name>
   </Statement>
   <Statement>
-    <ID1>023</ID1>
-    <ID2>0008</ID2>
+    <Amount>110.00</Amount>
+    <Communication>FAB-GRAND-PLACE BRUSSEL</Communication>
     <Date>29/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>110.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>FAB-GRAND-PLACE BRUSSEL</Communication>
+    <name>023-0008</name>
   </Statement>
   <Statement>
-    <ID1>023</ID1>
-    <ID2>0009</ID2>
+    <Amount>5.75</Amount>
+    <Communication>DE VELTEM APOTH</Communication>
     <Date>30/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>5.75</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>DE VELTEM APOTH</Communication>
+    <name>023-0009</name>
   </Statement>
   <Statement>
-    <ID1>023</ID1>
-    <ID2>0010</ID2>
+    <Amount>38.99</Amount>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
     <Date>31/5/2012</Date>
     <Sign>D</Sign>
-    <Amount>38.99</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <name>023-0010</name>
   </Statement>
   <Statement>
-    <ID1>023</ID1>
-    <ID2>0011</ID2>
-    <Date>1/6/2012</Date>
-    <Sign>D</Sign>
     <Amount>802.71</Amount>
-    <TransactionCode>501</TransactionCode>
     <Communication>774-2476251-77</Communication>
-  </Statement>
-  <Statement>
-    <ID1>023</ID1>
-    <ID2>0012</ID2>
     <Date>1/6/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>023-0011</name>
+  </Statement>
+  <Statement>
     <Amount>200.00</Amount>
     <CounterParty>CLICTEUR RITA</CounterParty>
+    <Date>1/6/2012</Date>
+    <Sign>D</Sign>
     <TransactionCode>103</TransactionCode>
+    <name>023-0012</name>
   </Statement>
   <Statement>
-    <ID1>023</ID1>
-    <ID2>0013</ID2>
-    <Date>2/6/2012</Date>
-    <Sign>D</Sign>
     <Amount>70.49</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>CARREFOUR   SINT-KRUIS</Communication>
-  </Statement>
-  <Statement>
-    <ID1>023</ID1>
-    <ID2>0014</ID2>
     <Date>2/6/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>023-0013</name>
+  </Statement>
+  <Statement>
     <Amount>13.50</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>POWER ASSEBROEK ASSEBROEK</Communication>
-  </Statement>
-  <Statement>
-    <ID1>023</ID1>
-    <ID2>0015</ID2>
     <Date>2/6/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>023-0014</name>
+  </Statement>
+  <Statement>
     <Amount>99.00</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>FOCKE           SINT-KRUIS</Communication>
-  </Statement>
-  <Statement>
-    <ID1>023</ID1>
-    <ID2>0016</ID2>
     <Date>2/6/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>023-0015</name>
+  </Statement>
+  <Statement>
     <Amount>30.00</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>FOCKE           SINT-KRUIS</Communication>
-  </Statement>
-  <Statement>
-    <ID1>023</ID1>
-    <ID2>0017</ID2>
     <Date>2/6/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>023-0016</name>
+  </Statement>
+  <Statement>
     <Amount>40.00</Amount>
+    <Date>2/6/2012</Date>
+    <Sign>D</Sign>
     <TransactionCode>101</TransactionCode>
+    <name>023-0017</name>
   </Statement>
   <Statement>
-    <ID1>025</ID1>
-    <ID2>0001</ID2>
-    <Date>7/6/2012</Date>
-    <Sign>C</Sign>
     <Amount>28.99</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>/C/  2 PREST HUISARTS           19/05/12 OFFICIEEL TARIEF    34,99 EUR 930527 225M79 093187050612/065</Communication>
-  </Statement>
-  <Statement>
-    <ID1>025</ID1>
-    <ID2>0002</ID2>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>7/6/2012</Date>
     <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>025-0001</name>
+  </Statement>
+  <Statement>
     <Amount>19.34</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>/C/  1 PREST SPECIALIST         26/03/12 OFFICIEEL TARIEF    32,22 EUR 090315 044M35 093187050612/065</Communication>
-  </Statement>
-  <Statement>
-    <ID1>025</ID1>
-    <ID2>0003</ID2>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>7/6/2012</Date>
     <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>025-0002</name>
+  </Statement>
+  <Statement>
     <Amount>40.00</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>1 PREST CM - VOORDEEL      24/05/12 OFFICIEEL TARIEF40,00 EUR 760712 268M46 093187050612/065</Communication>
-  </Statement>
-  <Statement>
-    <ID1>025</ID1>
-    <ID2>0004</ID2>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>7/6/2012</Date>
     <Sign>C</Sign>
-    <Amount>23.03</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
+    <name>025-0003</name>
+  </Statement>
+  <Statement>
+    <Amount>23.03</Amount>
     <Communication>/C/  1 PREST SPECIALIST         26/03/12 OFFICIEEL TARIEF    35,01 EUR 760712 268M46 093187050612/065</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <Date>7/6/2012</Date>
+    <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>025-0004</name>
   </Statement>
   <Statement>
-    <ID1>025</ID1>
-    <ID2>0005</ID2>
-    <Date>6/6/2012</Date>
-    <Sign>D</Sign>
     <Amount>200.00</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>1113758940</Communication>
-  </Statement>
-  <Statement>
-    <ID1>025</ID1>
-    <ID2>0006</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/6/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>025-0005</name>
+  </Statement>
+  <Statement>
     <Amount>20.12</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10816121657</Communication>
-  </Statement>
-  <Statement>
-    <ID1>025</ID1>
-    <ID2>0007</ID2>
-    <Date>6/6/2012</Date>
-    <Sign>D</Sign>
-    <Amount>29.72</Amount>
     <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
-    <Communication>10112244578</Communication>
-  </Statement>
-  <Statement>
-    <ID1>025</ID1>
-    <ID2>0008</ID2>
     <Date>6/6/2012</Date>
     <Sign>D</Sign>
-    <Amount>120.00</Amount>
-    <TransactionCode>404</TransactionCode>
-    <Communication>BRUGGE ST KRUIS BRUGGE</Communication>
+    <TransactionCode>501</TransactionCode>
+    <name>025-0006</name>
   </Statement>
   <Statement>
-    <ID1>025</ID1>
-    <ID2>0009</ID2>
+    <Amount>29.72</Amount>
+    <Communication>10112244578</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <Date>6/6/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>025-0007</name>
+  </Statement>
+  <Statement>
+    <Amount>120.00</Amount>
+    <Communication>BRUGGE ST KRUIS BRUGGE</Communication>
+    <Date>6/6/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>025-0008</name>
+  </Statement>
+  <Statement>
+    <Amount>31.20</Amount>
+    <Communication>+++731/2001/73518+++</Communication>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
     <Date>11/6/2012</Date>
     <Sign>D</Sign>
-    <Amount>31.20</Amount>
-    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
     <TransactionCode>101</TransactionCode>
-    <Communication>+++731/2001/73518+++</Communication>
+    <name>025-0009</name>
   </Statement>
   <Statement>
-    <ID1>025</ID1>
-    <ID2>0010</ID2>
+    <Amount>55.03</Amount>
+    <Communication>CARSAN MIDDELEKEMIDDELKERK</Communication>
     <Date>10/6/2012</Date>
     <Sign>D</Sign>
-    <Amount>55.03</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>CARSAN MIDDELEKEMIDDELKERK</Communication>
+    <name>025-0010</name>
   </Statement>
   <Statement>
-    <ID1>025</ID1>
-    <ID2>0011</ID2>
+    <Amount>26.61</Amount>
+    <Communication>+++101/6296/62072+++</Communication>
+    <CounterParty>D A S</CounterParty>
     <Date>11/6/2012</Date>
     <Sign>D</Sign>
-    <Amount>26.61</Amount>
-    <CounterParty>D A S</CounterParty>
     <TransactionCode>101</TransactionCode>
-    <Communication>+++101/6296/62072+++</Communication>
+    <name>025-0011</name>
   </Statement>
   <Statement>
-    <ID1>026</ID1>
-    <ID2>0001</ID2>
+    <Amount>28.62</Amount>
+    <Communication>/C/  3 PREST SPECIALIST         06/06/12 OFFICIEEL TARIEF    37,52 EUR 760712 268M46 093187120612/004</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>14/6/2012</Date>
     <Sign>C</Sign>
-    <Amount>28.62</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/C/  3 PREST SPECIALIST         06/06/12 OFFICIEEL TARIEF    37,52 EUR 760712 268M46 093187120612/004</Communication>
+    <name>026-0001</name>
   </Statement>
   <Statement>
-    <ID1>026</ID1>
-    <ID2>0002</ID2>
+    <Amount>14.31</Amount>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
     <Date>16/6/2012</Date>
     <Sign>D</Sign>
-    <Amount>14.31</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <name>026-0002</name>
   </Statement>
   <Statement>
-    <ID1>027</ID1>
-    <ID2>0001</ID2>
+    <Amount>600.00</Amount>
+    <Communication>huur</Communication>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
     <Date>19/6/2012</Date>
     <Sign>C</Sign>
-    <Amount>600.00</Amount>
-    <CounterParty>RIF NOUREDDINE</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>huur</Communication>
+    <name>027-0001</name>
   </Statement>
   <Statement>
-    <ID1>027</ID1>
-    <ID2>0002</ID2>
-    <Date>25/6/2012</Date>
-    <Sign>C</Sign>
     <Amount>500.00</Amount>
     <CounterParty>DANNEELS DAVID</CounterParty>
+    <Date>25/6/2012</Date>
+    <Sign>C</Sign>
     <TransactionCode>150</TransactionCode>
+    <name>027-0002</name>
   </Statement>
   <Statement>
-    <ID1>027</ID1>
-    <ID2>0003</ID2>
+    <Amount>25.93</Amount>
+    <Communication>10622198017</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>20/6/2012</Date>
     <Sign>D</Sign>
-    <Amount>25.93</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
     <TransactionCode>501</TransactionCode>
-    <Communication>10622198017</Communication>
+    <name>027-0003</name>
   </Statement>
   <Statement>
-    <ID1>027</ID1>
-    <ID2>0004</ID2>
+    <Amount>600.00</Amount>
+    <CounterParty>DANNEELS DAVID</CounterParty>
     <Date>23/6/2012</Date>
     <Sign>D</Sign>
-    <Amount>600.00</Amount>
-    <CounterParty>DANNEELS DAVID</CounterParty>
     <TransactionCode>103</TransactionCode>
+    <name>027-0004</name>
   </Statement>
   <Statement>
-    <ID1>027</ID1>
-    <ID2>0005</ID2>
-    <Date>22/6/2012</Date>
-    <Sign>D</Sign>
     <Amount>20.00</Amount>
-    <TransactionCode>404</TransactionCode>
     <Communication>OP-NMBS BRUGGE   BRUGGE</Communication>
-  </Statement>
-  <Statement>
-    <ID1>027</ID1>
-    <ID2>0006</ID2>
     <Date>22/6/2012</Date>
     <Sign>D</Sign>
-    <Amount>54.34</Amount>
-    <TransactionCode>402</TransactionCode>
-    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+    <TransactionCode>404</TransactionCode>
+    <name>027-0005</name>
   </Statement>
   <Statement>
-    <ID1>027</ID1>
-    <ID2>0007</ID2>
+    <Amount>54.34</Amount>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+    <Date>22/6/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>027-0006</name>
+  </Statement>
+  <Statement>
+    <Amount>26.66</Amount>
+    <Communication>GB PARTNER      ASSEBROEK</Communication>
     <Date>24/6/2012</Date>
     <Sign>D</Sign>
-    <Amount>26.66</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>GB PARTNER      ASSEBROEK</Communication>
+    <name>027-0007</name>
   </Statement>
   <Statement>
-    <ID1>027</ID1>
-    <ID2>0008</ID2>
+    <Amount>499.00</Amount>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
     <Date>25/6/2012</Date>
     <Sign>D</Sign>
-    <Amount>499.00</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+    <name>027-0008</name>
   </Statement>
   <Statement>
-    <ID1>028</ID1>
-    <ID2>0001</ID2>
+    <Amount>1588.52</Amount>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <CounterParty>ISABEL NV</CounterParty>
     <Date>26/6/2012</Date>
     <Sign>C</Sign>
-    <Amount>1588.52</Amount>
-    <CounterParty>ISABEL NV</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <name>028-0001</name>
   </Statement>
   <Statement>
-    <ID1>028</ID1>
-    <ID2>0002</ID2>
-    <Date>27/6/2012</Date>
-    <Sign>D</Sign>
     <Amount>20.00</Amount>
-    <TransactionCode>404</TransactionCode>
     <Communication>KBC BANK BRUSSELBRUSSEL</Communication>
-  </Statement>
-  <Statement>
-    <ID1>028</ID1>
-    <ID2>0003</ID2>
     <Date>27/6/2012</Date>
     <Sign>D</Sign>
-    <Amount>46.94</Amount>
-    <TransactionCode>402</TransactionCode>
-    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+    <TransactionCode>404</TransactionCode>
+    <name>028-0002</name>
   </Statement>
   <Statement>
-    <ID1>028</ID1>
-    <ID2>0004</ID2>
+    <Amount>46.94</Amount>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+    <Date>27/6/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>028-0003</name>
+  </Statement>
+  <Statement>
+    <Amount>50.00</Amount>
+    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
     <Date>28/6/2012</Date>
     <Sign>D</Sign>
-    <Amount>50.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
+    <name>028-0004</name>
   </Statement>
   <Statement>
-    <ID1>028</ID1>
-    <ID2>0005</ID2>
+    <Amount>19.95</Amount>
+    <Communication>ERDEBEE  N V</Communication>
     <Date>29/6/2012</Date>
     <Sign>D</Sign>
-    <Amount>19.95</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>ERDEBEE  N V</Communication>
+    <name>028-0005</name>
   </Statement>
   <Statement>
-    <ID1>028</ID1>
-    <ID2>0006</ID2>
+    <Amount>70.00</Amount>
+    <Communication>SINT-JOZEF-BR   BRUGGE</Communication>
     <Date>30/6/2012</Date>
     <Sign>D</Sign>
-    <Amount>70.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>SINT-JOZEF-BR   BRUGGE</Communication>
+    <name>028-0006</name>
   </Statement>
   <Statement>
-    <ID1>028</ID1>
-    <ID2>0007</ID2>
+    <Amount>802.71</Amount>
+    <Communication>774-2476251-77</Communication>
     <Date>1/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>802.71</Amount>
     <TransactionCode>501</TransactionCode>
-    <Communication>774-2476251-77</Communication>
+    <name>028-0007</name>
   </Statement>
   <Statement>
-    <ID1>028</ID1>
-    <ID2>0008</ID2>
-    <Date>2/7/2012</Date>
-    <Sign>D</Sign>
     <Amount>200.00</Amount>
     <CounterParty>CLICTEUR RITA</CounterParty>
-    <TransactionCode>103</TransactionCode>
-  </Statement>
-  <Statement>
-    <ID1>028</ID1>
-    <ID2>0009</ID2>
     <Date>2/7/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>103</TransactionCode>
+    <name>028-0008</name>
+  </Statement>
+  <Statement>
     <Amount>282.05</Amount>
-    <CounterParty>ALPHA CREDIT</CounterParty>
-    <TransactionCode>103</TransactionCode>
     <Communication>+++999/0001/08184+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>028</ID1>
-    <ID2>0010</ID2>
+    <CounterParty>ALPHA CREDIT</CounterParty>
     <Date>2/7/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>103</TransactionCode>
+    <name>028-0009</name>
+  </Statement>
+  <Statement>
     <Amount>60.91</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>OCTA  ST KRUIS</Communication>
-  </Statement>
-  <Statement>
-    <ID1>028</ID1>
-    <ID2>0011</ID2>
     <Date>2/7/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>028-0010</name>
+  </Statement>
+  <Statement>
     <Amount>17.07</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>800922 261M45</Communication>
-  </Statement>
-  <Statement>
-    <ID1>028</ID1>
-    <ID2>0012</ID2>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>2/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>31.20</Amount>
-    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
-    <TransactionCode>101</TransactionCode>
-    <Communication>+++731/2002/12621+++</Communication>
+    <TransactionCode>501</TransactionCode>
+    <name>028-0011</name>
   </Statement>
   <Statement>
-    <ID1>029</ID1>
-    <ID2>0001</ID2>
+    <Amount>31.20</Amount>
+    <Communication>+++731/2002/12621+++</Communication>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
+    <Date>2/7/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>028-0012</name>
+  </Statement>
+  <Statement>
+    <Amount>34.33</Amount>
+    <Communication>+++991/2153/24684+++</Communication>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
     <Date>5/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>34.33</Amount>
-    <CounterParty>AZ SINT JAN AV</CounterParty>
     <TransactionCode>101</TransactionCode>
-    <Communication>+++991/2153/24684+++</Communication>
+    <name>029-0001</name>
   </Statement>
   <Statement>
-    <ID1>029</ID1>
-    <ID2>0002</ID2>
-    <Date>6/7/2012</Date>
-    <Sign>D</Sign>
     <Amount>200.00</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>1113758940</Communication>
-  </Statement>
-  <Statement>
-    <ID1>029</ID1>
-    <ID2>0003</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/7/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>029-0002</name>
+  </Statement>
+  <Statement>
     <Amount>18.66</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10816121657</Communication>
-  </Statement>
-  <Statement>
-    <ID1>029</ID1>
-    <ID2>0004</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>29.72</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
     <TransactionCode>501</TransactionCode>
-    <Communication>10112244578</Communication>
+    <name>029-0003</name>
   </Statement>
   <Statement>
-    <ID1>030</ID1>
-    <ID2>0001</ID2>
-    <Date>12/7/2012</Date>
-    <Sign>C</Sign>
+    <Amount>29.72</Amount>
+    <Communication>10112244578</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <Date>6/7/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>029-0004</name>
+  </Statement>
+  <Statement>
     <Amount>700.00</Amount>
     <CounterParty>DANNEELS DAVID</CounterParty>
+    <Date>12/7/2012</Date>
+    <Sign>C</Sign>
     <TransactionCode>150</TransactionCode>
+    <name>030-0001</name>
   </Statement>
   <Statement>
-    <ID1>030</ID1>
-    <ID2>0002</ID2>
+    <Amount>25.93</Amount>
+    <Communication>10622198017</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>11/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>25.93</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
     <TransactionCode>501</TransactionCode>
-    <Communication>10622198017</Communication>
+    <name>030-0002</name>
   </Statement>
   <Statement>
-    <ID1>030</ID1>
-    <ID2>0003</ID2>
+    <Amount>40.00</Amount>
+    <Communication>BRUS  ST HUBERT BRUSSEL</Communication>
     <Date>12/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>BRUS  ST HUBERT BRUSSEL</Communication>
+    <name>030-0003</name>
   </Statement>
   <Statement>
-    <ID1>031</ID1>
-    <ID2>0001</ID2>
+    <Amount>600.00</Amount>
+    <Communication>huur</Communication>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
     <Date>17/7/2012</Date>
     <Sign>C</Sign>
-    <Amount>600.00</Amount>
-    <CounterParty>RIF NOUREDDINE</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>huur</Communication>
+    <name>031-0001</name>
   </Statement>
   <Statement>
-    <ID1>031</ID1>
-    <ID2>0002</ID2>
+    <Amount>20.00</Amount>
+    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
     <Date>18/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>20.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
+    <name>031-0002</name>
   </Statement>
   <Statement>
-    <ID1>031</ID1>
-    <ID2>0003</ID2>
-    <Date>19/7/2012</Date>
-    <Sign>D</Sign>
     <Amount>488.98</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>SATURN BRUGGE   BRUGGE</Communication>
-  </Statement>
-  <Statement>
-    <ID1>031</ID1>
-    <ID2>0004</ID2>
     <Date>19/7/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>031-0003</name>
+  </Statement>
+  <Statement>
     <Amount>57.60</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>DEVOS THIERRY   BRUGGE</Communication>
-  </Statement>
-  <Statement>
-    <ID1>031</ID1>
-    <ID2>0005</ID2>
     <Date>19/7/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>031-0004</name>
+  </Statement>
+  <Statement>
     <Amount>5.67</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>LIDL         BRUGGE</Communication>
-  </Statement>
-  <Statement>
-    <ID1>031</ID1>
-    <ID2>0006</ID2>
     <Date>19/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>22.86</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>LIDL         SINT-KRUIS</Communication>
+    <name>031-0005</name>
   </Statement>
   <Statement>
-    <ID1>031</ID1>
-    <ID2>0007</ID2>
+    <Amount>22.86</Amount>
+    <Communication>LIDL         SINT-KRUIS</Communication>
+    <Date>19/7/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>031-0006</name>
+  </Statement>
+  <Statement>
+    <Amount>40.00</Amount>
+    <Communication>TEXACO VOSSELA ZLILLE</Communication>
     <Date>20/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>TEXACO VOSSELA ZLILLE</Communication>
+    <name>031-0007</name>
   </Statement>
   <Statement>
-    <ID1>032</ID1>
-    <ID2>0001</ID2>
+    <Amount>1662.26</Amount>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <CounterParty>ISABEL NV</CounterParty>
     <Date>26/7/2012</Date>
     <Sign>C</Sign>
-    <Amount>1662.26</Amount>
-    <CounterParty>ISABEL NV</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <name>032-0001</name>
   </Statement>
   <Statement>
-    <ID1>032</ID1>
-    <ID2>0002</ID2>
-    <Date>23/7/2012</Date>
-    <Sign>D</Sign>
     <Amount>64.00</Amount>
-    <TransactionCode>408</TransactionCode>
-  </Statement>
-  <Statement>
-    <ID1>032</ID1>
-    <ID2>0003</ID2>
     <Date>23/7/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>408</TransactionCode>
+    <name>032-0002</name>
+  </Statement>
+  <Statement>
     <Amount>62.04</Amount>
-    <TransactionCode>408</TransactionCode>
-  </Statement>
-  <Statement>
-    <ID1>032</ID1>
-    <ID2>0004</ID2>
     <Date>23/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>100.00</Amount>
-    <TransactionCode>404</TransactionCode>
+    <TransactionCode>408</TransactionCode>
+    <name>032-0003</name>
   </Statement>
   <Statement>
-    <ID1>032</ID1>
-    <ID2>0005</ID2>
+    <Amount>100.00</Amount>
+    <Date>23/7/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>032-0004</name>
+  </Statement>
+  <Statement>
+    <Amount>29.95</Amount>
     <Date>24/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>29.95</Amount>
     <TransactionCode>408</TransactionCode>
+    <name>032-0005</name>
   </Statement>
   <Statement>
-    <ID1>032</ID1>
-    <ID2>0006</ID2>
+    <Amount>70.00</Amount>
     <Date>23/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>70.00</Amount>
     <TransactionCode>404</TransactionCode>
+    <name>032-0006</name>
   </Statement>
   <Statement>
-    <ID1>032</ID1>
-    <ID2>0007</ID2>
+    <Amount>19.80</Amount>
+    <Communication>MEDIFARM BOSSUYTASSEBROEK</Communication>
     <Date>26/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>19.80</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>MEDIFARM BOSSUYTASSEBROEK</Communication>
+    <name>032-0007</name>
   </Statement>
   <Statement>
-    <ID1>032</ID1>
-    <ID2>0008</ID2>
+    <Amount>71.40</Amount>
     <Date>25/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>71.40</Amount>
     <TransactionCode>408</TransactionCode>
+    <name>032-0008</name>
   </Statement>
   <Statement>
-    <ID1>032</ID1>
-    <ID2>0009</ID2>
+    <Amount>50.00</Amount>
     <Date>26/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>50.00</Amount>
     <TransactionCode>101</TransactionCode>
+    <name>032-0009</name>
   </Statement>
   <Statement>
-    <ID1>032</ID1>
-    <ID2>0010</ID2>
+    <Amount>50.00</Amount>
     <Date>27/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>50.00</Amount>
     <TransactionCode>101</TransactionCode>
+    <name>032-0010</name>
   </Statement>
   <Statement>
-    <ID1>032</ID1>
-    <ID2>0011</ID2>
+    <Amount>63.02</Amount>
     <Date>25/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>63.02</Amount>
     <TransactionCode>408</TransactionCode>
+    <name>032-0011</name>
   </Statement>
   <Statement>
-    <ID1>032</ID1>
-    <ID2>0012</ID2>
-    <Date>28/7/2012</Date>
-    <Sign>D</Sign>
     <Amount>5.29</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>BRICO ST KRUIS  SINT-KRUIS</Communication>
-  </Statement>
-  <Statement>
-    <ID1>032</ID1>
-    <ID2>0013</ID2>
     <Date>28/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>50.84</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>ZARA         BRUGGE</Communication>
+    <name>032-0012</name>
   </Statement>
   <Statement>
-    <ID1>033</ID1>
-    <ID2>0001</ID2>
+    <Amount>50.84</Amount>
+    <Communication>ZARA         BRUGGE</Communication>
+    <Date>28/7/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>032-0013</name>
+  </Statement>
+  <Statement>
+    <Amount>25.76</Amount>
+    <Communication>DIVERSE TERUGBETALINGEN MUTUALITEITO REF :8918200208020 remgeld -3jaar 800922 261M45</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>6/8/2012</Date>
     <Sign>C</Sign>
-    <Amount>25.76</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>DIVERSE TERUGBETALINGEN MUTUALITEITO REF :8918200208020 remgeld -3jaar 800922 261M45</Communication>
+    <name>033-0001</name>
   </Statement>
   <Statement>
-    <ID1>033</ID1>
-    <ID2>0002</ID2>
+    <Amount>282.05</Amount>
+    <Communication>+++999/0001/08184+++</Communication>
+    <CounterParty>ALPHA CREDIT</CounterParty>
     <Date>31/7/2012</Date>
     <Sign>D</Sign>
-    <Amount>282.05</Amount>
-    <CounterParty>ALPHA CREDIT</CounterParty>
     <TransactionCode>103</TransactionCode>
-    <Communication>+++999/0001/08184+++</Communication>
+    <name>033-0002</name>
   </Statement>
   <Statement>
-    <ID1>033</ID1>
-    <ID2>0003</ID2>
-    <Date>1/8/2012</Date>
-    <Sign>D</Sign>
     <Amount>802.71</Amount>
-    <TransactionCode>501</TransactionCode>
     <Communication>774-2476251-77</Communication>
-  </Statement>
-  <Statement>
-    <ID1>033</ID1>
-    <ID2>0004</ID2>
     <Date>1/8/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>033-0003</name>
+  </Statement>
+  <Statement>
     <Amount>200.00</Amount>
     <CounterParty>CLICTEUR RITA</CounterParty>
+    <Date>1/8/2012</Date>
+    <Sign>D</Sign>
     <TransactionCode>103</TransactionCode>
+    <name>033-0004</name>
   </Statement>
   <Statement>
-    <ID1>033</ID1>
-    <ID2>0005</ID2>
-    <Date>6/8/2012</Date>
-    <Sign>D</Sign>
     <Amount>25.93</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10622198017</Communication>
-  </Statement>
-  <Statement>
-    <ID1>033</ID1>
-    <ID2>0006</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/8/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>033-0005</name>
+  </Statement>
+  <Statement>
     <Amount>200.00</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>1113758940</Communication>
-  </Statement>
-  <Statement>
-    <ID1>033</ID1>
-    <ID2>0007</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/8/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>033-0006</name>
+  </Statement>
+  <Statement>
     <Amount>18.66</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10816121657</Communication>
-  </Statement>
-  <Statement>
-    <ID1>033</ID1>
-    <ID2>0008</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/8/2012</Date>
     <Sign>D</Sign>
-    <Amount>29.72</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
     <TransactionCode>501</TransactionCode>
-    <Communication>10112244578</Communication>
+    <name>033-0007</name>
   </Statement>
   <Statement>
-    <ID1>034</ID1>
-    <ID2>0001</ID2>
+    <Amount>29.72</Amount>
+    <Communication>10112244578</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <Date>6/8/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>033-0008</name>
+  </Statement>
+  <Statement>
+    <Amount>19.34</Amount>
+    <Communication>/C/  1 PREST SPECIALIST         29/05/12 OFFICIEEL TARIEF    32,22 EUR 090315 044M35 011198080812/040</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>10/8/2012</Date>
     <Sign>C</Sign>
-    <Amount>19.34</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/C/  1 PREST SPECIALIST         29/05/12 OFFICIEEL TARIEF    32,22 EUR 090315 044M35 011198080812/040</Communication>
+    <name>034-0001</name>
   </Statement>
   <Statement>
-    <ID1>035</ID1>
-    <ID2>0001</ID2>
+    <Amount>600.00</Amount>
+    <Communication>huur</Communication>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
     <Date>17/8/2012</Date>
     <Sign>C</Sign>
-    <Amount>600.00</Amount>
-    <CounterParty>RIF NOUREDDINE</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>huur</Communication>
+    <name>035-0001</name>
   </Statement>
   <Statement>
-    <ID1>035</ID1>
-    <ID2>0002</ID2>
+    <Amount>20.00</Amount>
+    <Communication>BRUS  ST HUBERT BRUSSEL</Communication>
     <Date>14/8/2012</Date>
     <Sign>D</Sign>
-    <Amount>20.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>BRUS  ST HUBERT BRUSSEL</Communication>
+    <name>035-0002</name>
   </Statement>
   <Statement>
-    <ID1>035</ID1>
-    <ID2>0003</ID2>
-    <Date>20/8/2012</Date>
-    <Sign>D</Sign>
     <Amount>47.97</Amount>
-    <CounterParty>AZ SINT JAN AV</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++991/2188/59225+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>035</ID1>
-    <ID2>0004</ID2>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
     <Date>20/8/2012</Date>
     <Sign>D</Sign>
-    <Amount>12.31</Amount>
-    <CounterParty>VOIPBUSTER</CounterParty>
     <TransactionCode>101</TransactionCode>
-    <Communication>KCLEU326995305</Communication>
+    <name>035-0003</name>
   </Statement>
   <Statement>
-    <ID1>036</ID1>
-    <ID2>0001</ID2>
+    <Amount>12.31</Amount>
+    <Communication>KCLEU326995305</Communication>
+    <CounterParty>VOIPBUSTER</CounterParty>
+    <Date>20/8/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>035-0004</name>
+  </Statement>
+  <Statement>
+    <Amount>23.03</Amount>
+    <Communication>/C/  1 PREST SPECIALIST         25/06/12 OFFICIEEL TARIEF    35,01 EUR 760712 268M46 093187200812/012</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>22/8/2012</Date>
     <Sign>C</Sign>
-    <Amount>23.03</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/C/  1 PREST SPECIALIST         25/06/12 OFFICIEEL TARIEF    35,01 EUR 760712 268M46 093187200812/012</Communication>
+    <name>036-0001</name>
   </Statement>
   <Statement>
-    <ID1>036</ID1>
-    <ID2>0002</ID2>
+    <Amount>112.33</Amount>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
     <Date>24/8/2012</Date>
     <Sign>D</Sign>
-    <Amount>112.33</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+    <name>036-0002</name>
   </Statement>
   <Statement>
-    <ID1>036</ID1>
-    <ID2>0003</ID2>
+    <Amount>38.49</Amount>
+    <Communication>DEVOS THIERRY   BRUGGE</Communication>
     <Date>26/8/2012</Date>
     <Sign>D</Sign>
-    <Amount>38.49</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>DEVOS THIERRY   BRUGGE</Communication>
+    <name>036-0003</name>
   </Statement>
   <Statement>
-    <ID1>036</ID1>
-    <ID2>0004</ID2>
+    <Amount>20.00</Amount>
+    <Communication>SNCB BXL CENTRALBRUXELLES</Communication>
     <Date>27/8/2012</Date>
     <Sign>D</Sign>
-    <Amount>20.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>SNCB BXL CENTRALBRUXELLES</Communication>
+    <name>036-0004</name>
   </Statement>
   <Statement>
-    <ID1>037</ID1>
-    <ID2>0001</ID2>
+    <Amount>1654.63</Amount>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <CounterParty>ISABEL NV</CounterParty>
     <Date>28/8/2012</Date>
     <Sign>C</Sign>
-    <Amount>1654.63</Amount>
-    <CounterParty>ISABEL NV</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <name>037-0001</name>
   </Statement>
   <Statement>
-    <ID1>037</ID1>
-    <ID2>0002</ID2>
+    <Amount>280.01</Amount>
+    <Communication>10343894</Communication>
+    <CounterParty>PROXIMUS</CounterParty>
     <Date>28/8/2012</Date>
     <Sign>D</Sign>
-    <Amount>280.01</Amount>
-    <CounterParty>PROXIMUS</CounterParty>
     <TransactionCode>101</TransactionCode>
-    <Communication>10343894</Communication>
+    <name>037-0002</name>
   </Statement>
   <Statement>
-    <ID1>037</ID1>
-    <ID2>0003</ID2>
-    <Date>29/8/2012</Date>
-    <Sign>D</Sign>
     <Amount>319.73</Amount>
-    <CounterParty>BELASTINGEN</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++125/1686/07515+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>037</ID1>
-    <ID2>0004</ID2>
-    <Date>29/8/2012</Date>
-    <Sign>D</Sign>
-    <Amount>249.68</Amount>
     <CounterParty>BELASTINGEN</CounterParty>
-    <TransactionCode>101</TransactionCode>
-    <Communication>+++122/1846/24706+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>037</ID1>
-    <ID2>0005</ID2>
     <Date>29/8/2012</Date>
     <Sign>D</Sign>
-    <Amount>16.20</Amount>
-    <TransactionCode>402</TransactionCode>
-    <Communication>ZABOER ASIAN    BRUGGE</Communication>
+    <TransactionCode>101</TransactionCode>
+    <name>037-0003</name>
   </Statement>
   <Statement>
-    <ID1>037</ID1>
-    <ID2>0006</ID2>
+    <Amount>249.68</Amount>
+    <Communication>+++122/1846/24706+++</Communication>
+    <CounterParty>BELASTINGEN</CounterParty>
+    <Date>29/8/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>037-0004</name>
+  </Statement>
+  <Statement>
+    <Amount>16.20</Amount>
+    <Communication>ZABOER ASIAN    BRUGGE</Communication>
+    <Date>29/8/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>037-0005</name>
+  </Statement>
+  <Statement>
+    <Amount>104.08</Amount>
+    <Communication>VISA    REF 23415542338-03/213715542338235</Communication>
     <Date>30/8/2012</Date>
     <Sign>D</Sign>
-    <Amount>104.08</Amount>
     <TransactionCode>501</TransactionCode>
-    <Communication>VISA    REF 23415542338-03/213715542338235</Communication>
+    <name>037-0006</name>
   </Statement>
   <Statement>
-    <ID1>037</ID1>
-    <ID2>0007</ID2>
-    <Date>31/8/2012</Date>
-    <Sign>D</Sign>
     <Amount>282.05</Amount>
-    <CounterParty>ALPHA CREDIT</CounterParty>
-    <TransactionCode>103</TransactionCode>
     <Communication>+++999/0001/08184+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>037</ID1>
-    <ID2>0008</ID2>
+    <CounterParty>ALPHA CREDIT</CounterParty>
     <Date>31/8/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
-    <TransactionCode>404</TransactionCode>
-    <Communication>MODULE ST HUBERTBRUSSEL</Communication>
+    <TransactionCode>103</TransactionCode>
+    <name>037-0007</name>
   </Statement>
   <Statement>
-    <ID1>037</ID1>
-    <ID2>0009</ID2>
+    <Amount>40.00</Amount>
+    <Communication>MODULE ST HUBERTBRUSSEL</Communication>
+    <Date>31/8/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>037-0008</name>
+  </Statement>
+  <Statement>
+    <Amount>802.71</Amount>
+    <Communication>774-2476251-77</Communication>
     <Date>1/9/2012</Date>
     <Sign>D</Sign>
-    <Amount>802.71</Amount>
     <TransactionCode>501</TransactionCode>
-    <Communication>774-2476251-77</Communication>
+    <name>037-0009</name>
   </Statement>
   <Statement>
-    <ID1>037</ID1>
-    <ID2>0010</ID2>
+    <Amount>50.00</Amount>
+    <Communication>ING ZUID/BARA   ANDERLECHT</Communication>
     <Date>2/9/2012</Date>
     <Sign>D</Sign>
-    <Amount>50.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>ING ZUID/BARA   ANDERLECHT</Communication>
+    <name>037-0010</name>
   </Statement>
   <Statement>
-    <ID1>038</ID1>
-    <ID2>0001</ID2>
-    <Date>4/9/2012</Date>
-    <Sign>C</Sign>
     <Amount>500.00</Amount>
     <CounterParty>SAENUDOM DARA</CounterParty>
+    <Date>4/9/2012</Date>
+    <Sign>C</Sign>
     <TransactionCode>150</TransactionCode>
+    <name>038-0001</name>
   </Statement>
   <Statement>
-    <ID1>038</ID1>
-    <ID2>0002</ID2>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
     <Date>4/9/2012</Date>
     <Sign>D</Sign>
-    <Amount>200.00</Amount>
-    <CounterParty>CLICTEUR RITA</CounterParty>
     <TransactionCode>103</TransactionCode>
+    <name>038-0002</name>
   </Statement>
   <Statement>
-    <ID1>038</ID1>
-    <ID2>0003</ID2>
+    <Amount>23.00</Amount>
     <Date>5/9/2012</Date>
     <Sign>D</Sign>
-    <Amount>23.00</Amount>
     <TransactionCode>437</TransactionCode>
+    <name>038-0003</name>
   </Statement>
   <Statement>
-    <ID1>038</ID1>
-    <ID2>0004</ID2>
-    <Date>6/9/2012</Date>
-    <Sign>D</Sign>
     <Amount>18.66</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10816121657</Communication>
-  </Statement>
-  <Statement>
-    <ID1>038</ID1>
-    <ID2>0005</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/9/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>038-0004</name>
+  </Statement>
+  <Statement>
     <Amount>29.72</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10112244578</Communication>
-  </Statement>
-  <Statement>
-    <ID1>038</ID1>
-    <ID2>0006</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/9/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>038-0005</name>
+  </Statement>
+  <Statement>
     <Amount>25.93</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10622198017</Communication>
-  </Statement>
-  <Statement>
-    <ID1>038</ID1>
-    <ID2>0007</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/9/2012</Date>
     <Sign>D</Sign>
-    <Amount>200.00</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
     <TransactionCode>501</TransactionCode>
-    <Communication>1113758940</Communication>
+    <name>038-0006</name>
   </Statement>
   <Statement>
-    <ID1>038</ID1>
-    <ID2>0008</ID2>
+    <Amount>200.00</Amount>
+    <Communication>1113758940</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <Date>6/9/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>038-0007</name>
+  </Statement>
+  <Statement>
+    <Amount>20.00</Amount>
     <Date>9/9/2012</Date>
     <Sign>D</Sign>
-    <Amount>20.00</Amount>
     <TransactionCode>101</TransactionCode>
+    <name>038-0008</name>
   </Statement>
   <Statement>
-    <ID1>039</ID1>
-    <ID2>0001</ID2>
+    <Amount>19.67</Amount>
+    <Communication>/C/  1 PREST HUISARTS           28/08/12 OFFICIEEL TARIEF    23,67 EUR 090315 044M35 093039130912/015</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>17/9/2012</Date>
     <Sign>C</Sign>
-    <Amount>19.67</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/C/  1 PREST HUISARTS           28/08/12 OFFICIEEL TARIEF    23,67 EUR 090315 044M35 093039130912/015</Communication>
+    <name>039-0001</name>
   </Statement>
   <Statement>
-    <ID1>040</ID1>
-    <ID2>0001</ID2>
+    <Amount>600.00</Amount>
+    <Communication>huur</Communication>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
     <Date>19/9/2012</Date>
     <Sign>C</Sign>
-    <Amount>600.00</Amount>
-    <CounterParty>RIF NOUREDDINE</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>huur</Communication>
+    <name>040-0001</name>
   </Statement>
   <Statement>
-    <ID1>040</ID1>
-    <ID2>0002</ID2>
-    <Date>19/9/2012</Date>
-    <Sign>D</Sign>
     <Amount>29.25</Amount>
-    <TransactionCode>501</TransactionCode>
     <Communication>1629662</Communication>
-  </Statement>
-  <Statement>
-    <ID1>040</ID1>
-    <ID2>0003</ID2>
     <Date>19/9/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>040-0002</name>
+  </Statement>
+  <Statement>
     <Amount>182.65</Amount>
-    <CounterParty>PROXIMUS</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++103/4389/43458+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>040</ID1>
-    <ID2>0004</ID2>
-    <Date>19/9/2012</Date>
-    <Sign>D</Sign>
-    <Amount>196.06</Amount>
     <CounterParty>PROXIMUS</CounterParty>
-    <TransactionCode>101</TransactionCode>
-    <Communication>10343894</Communication>
-  </Statement>
-  <Statement>
-    <ID1>040</ID1>
-    <ID2>0005</ID2>
     <Date>19/9/2012</Date>
     <Sign>D</Sign>
-    <Amount>101.73</Amount>
-    <CounterParty>AZ SINT JAN AV</CounterParty>
     <TransactionCode>101</TransactionCode>
-    <Communication>+++500/0656/11075+++</Communication>
+    <name>040-0003</name>
   </Statement>
   <Statement>
-    <ID1>040</ID1>
-    <ID2>0006</ID2>
+    <Amount>196.06</Amount>
+    <Communication>10343894</Communication>
+    <CounterParty>PROXIMUS</CounterParty>
+    <Date>19/9/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>040-0004</name>
+  </Statement>
+  <Statement>
+    <Amount>101.73</Amount>
+    <Communication>+++500/0656/11075+++</Communication>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <Date>19/9/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>040-0005</name>
+  </Statement>
+  <Statement>
+    <Amount>40.00</Amount>
+    <Communication>BRUS  ST HUBERT BRUSSEL</Communication>
     <Date>20/9/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>BRUS  ST HUBERT BRUSSEL</Communication>
+    <name>040-0006</name>
   </Statement>
   <Statement>
-    <ID1>040</ID1>
-    <ID2>0007</ID2>
+    <Amount>73.64</Amount>
+    <Communication>DELH ST-MICHIEL</Communication>
     <Date>22/9/2012</Date>
     <Sign>D</Sign>
-    <Amount>73.64</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>DELH ST-MICHIEL</Communication>
+    <name>040-0007</name>
   </Statement>
   <Statement>
-    <ID1>041</ID1>
-    <ID2>0001</ID2>
+    <Amount>1657.90</Amount>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <CounterParty>ISABEL NV</CounterParty>
     <Date>27/9/2012</Date>
     <Sign>C</Sign>
-    <Amount>1657.90</Amount>
-    <CounterParty>ISABEL NV</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <name>041-0001</name>
   </Statement>
   <Statement>
-    <ID1>041</ID1>
-    <ID2>0002</ID2>
-    <Date>27/9/2012</Date>
-    <Sign>D</Sign>
     <Amount>101.00</Amount>
     <CounterParty>CHAITHONGKHAM KITSANA</CounterParty>
+    <Date>27/9/2012</Date>
+    <Sign>D</Sign>
     <TransactionCode>101</TransactionCode>
+    <name>041-0002</name>
   </Statement>
   <Statement>
-    <ID1>041</ID1>
-    <ID2>0003</ID2>
-    <Date>28/9/2012</Date>
-    <Sign>D</Sign>
     <Amount>51.87</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>HORECA TOTAL    BRUGGE</Communication>
-  </Statement>
-  <Statement>
-    <ID1>041</ID1>
-    <ID2>0004</ID2>
     <Date>28/9/2012</Date>
     <Sign>D</Sign>
-    <Amount>100.00</Amount>
-    <TransactionCode>101</TransactionCode>
+    <TransactionCode>402</TransactionCode>
+    <name>041-0003</name>
   </Statement>
   <Statement>
-    <ID1>041</ID1>
-    <ID2>0005</ID2>
-    <Date>1/10/2012</Date>
+    <Amount>100.00</Amount>
+    <Date>28/9/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>041-0004</name>
+  </Statement>
+  <Statement>
     <Amount>200.00</Amount>
     <CounterParty>CLICTEUR RITA</CounterParty>
-    <TransactionCode>103</TransactionCode>
-  </Statement>
-  <Statement>
-    <ID1>041</ID1>
-    <ID2>0006</ID2>
     <Date>1/10/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>103</TransactionCode>
+    <name>041-0005</name>
+  </Statement>
+  <Statement>
     <Amount>282.05</Amount>
-    <CounterParty>ALPHA CREDIT</CounterParty>
-    <TransactionCode>103</TransactionCode>
     <Communication>+++999/0001/08184+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>041</ID1>
-    <ID2>0007</ID2>
+    <CounterParty>ALPHA CREDIT</CounterParty>
     <Date>1/10/2012</Date>
     <Sign>D</Sign>
-    <Amount>802.71</Amount>
-    <TransactionCode>501</TransactionCode>
-    <Communication>774-2476251-77</Communication>
+    <TransactionCode>103</TransactionCode>
+    <name>041-0006</name>
   </Statement>
   <Statement>
-    <ID1>042</ID1>
-    <ID2>0001</ID2>
+    <Amount>802.71</Amount>
+    <Communication>774-2476251-77</Communication>
+    <Date>1/10/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>041-0007</name>
+  </Statement>
+  <Statement>
+    <Amount>17.07</Amount>
+    <Communication>800922 261M45</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>2/10/2012</Date>
     <Sign>D</Sign>
-    <Amount>17.07</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>501</TransactionCode>
-    <Communication>800922 261M45</Communication>
+    <name>042-0001</name>
   </Statement>
   <Statement>
-    <ID1>042</ID1>
-    <ID2>0002</ID2>
-    <Date>5/10/2012</Date>
-    <Sign>D</Sign>
     <Amount>18.66</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10816121657</Communication>
-  </Statement>
-  <Statement>
-    <ID1>042</ID1>
-    <ID2>0003</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>5/10/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>042-0002</name>
+  </Statement>
+  <Statement>
     <Amount>29.72</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10112244578</Communication>
-  </Statement>
-  <Statement>
-    <ID1>042</ID1>
-    <ID2>0004</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>5/10/2012</Date>
     <Sign>D</Sign>
-    <Amount>25.93</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
     <TransactionCode>501</TransactionCode>
-    <Communication>10622198017</Communication>
+    <name>042-0003</name>
   </Statement>
   <Statement>
-    <ID1>042</ID1>
-    <ID2>0005</ID2>
+    <Amount>25.93</Amount>
+    <Communication>10622198017</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>5/10/2012</Date>
-    <Sign>C</Sign>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>042-0004</name>
+  </Statement>
+  <Statement>
     <Amount>200.00</Amount>
     <CounterParty>CLICTEUR RITA</CounterParty>
+    <Date>5/10/2012</Date>
+    <Sign>C</Sign>
     <TransactionCode>150</TransactionCode>
+    <name>042-0005</name>
   </Statement>
   <Statement>
-    <ID1>042</ID1>
-    <ID2>0006</ID2>
-    <Date>8/10/2012</Date>
-    <Sign>D</Sign>
     <Amount>200.00</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>1113758940</Communication>
-  </Statement>
-  <Statement>
-    <ID1>042</ID1>
-    <ID2>0007</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>8/10/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>042-0006</name>
+  </Statement>
+  <Statement>
     <Amount>20.00</Amount>
-    <TransactionCode>404</TransactionCode>
     <Communication>SNCB BXL CENTRALBRUXELLES</Communication>
+    <Date>8/10/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>042-0007</name>
   </Statement>
   <Statement>
-    <ID1>043</ID1>
-    <ID2>0001</ID2>
-    <Date>11/10/2012</Date>
-    <Sign>C</Sign>
     <Amount>17.19</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>/C/  1 PREST SPECIALIST         19/09/12 OFFICIEEL TARIEF    27,90 EUR 930527 225M79 093187091012/012</Communication>
-  </Statement>
-  <Statement>
-    <ID1>043</ID1>
-    <ID2>0002</ID2>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>11/10/2012</Date>
     <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>043-0001</name>
+  </Statement>
+  <Statement>
     <Amount>22.47</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>/C/  1 PREST SPECIALIST         27/08/12 OFFICIEEL TARIEF    35,54 EUR 090315 044M35 093187091012/012</Communication>
-  </Statement>
-  <Statement>
-    <ID1>043</ID1>
-    <ID2>0003</ID2>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>11/10/2012</Date>
     <Sign>C</Sign>
-    <Amount>15.00</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
+    <name>043-0002</name>
+  </Statement>
+  <Statement>
+    <Amount>15.00</Amount>
     <Communication>1 PREST CM - VOORDEEL      24/09/12 OFFICIEEL TARIEF15,00 EUR 760712 268M46 093187091012/012</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <Date>11/10/2012</Date>
+    <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>043-0003</name>
   </Statement>
   <Statement>
-    <ID1>043</ID1>
-    <ID2>0004</ID2>
-    <Date>15/10/2012</Date>
-    <Sign>D</Sign>
     <Amount>48.50</Amount>
-    <CounterParty>AZ SINT JAN AV</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++991/2257/33289+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>043</ID1>
-    <ID2>0005</ID2>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
     <Date>15/10/2012</Date>
     <Sign>D</Sign>
-    <Amount>12.31</Amount>
-    <CounterParty>VOIPBUSTER</CounterParty>
     <TransactionCode>101</TransactionCode>
-    <Communication>KCLEU326995305</Communication>
+    <name>043-0004</name>
   </Statement>
   <Statement>
-    <ID1>044</ID1>
-    <ID2>0001</ID2>
+    <Amount>12.31</Amount>
+    <Communication>KCLEU326995305</Communication>
+    <CounterParty>VOIPBUSTER</CounterParty>
+    <Date>15/10/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>043-0005</name>
+  </Statement>
+  <Statement>
+    <Amount>600.00</Amount>
+    <Communication>huur</Communication>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
     <Date>17/10/2012</Date>
     <Sign>C</Sign>
-    <Amount>600.00</Amount>
-    <CounterParty>RIF NOUREDDINE</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>huur</Communication>
+    <name>044-0001</name>
   </Statement>
   <Statement>
-    <ID1>044</ID1>
-    <ID2>0002</ID2>
-    <Date>17/10/2012</Date>
-    <Sign>D</Sign>
     <Amount>44.29</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>DEVOS THIERRY   BRUGGE</Communication>
-  </Statement>
-  <Statement>
-    <ID1>044</ID1>
-    <ID2>0003</ID2>
     <Date>17/10/2012</Date>
     <Sign>D</Sign>
-    <Amount>16.47</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>HORECA TOTAL    BRUGGE</Communication>
+    <name>044-0002</name>
   </Statement>
   <Statement>
-    <ID1>044</ID1>
-    <ID2>0004</ID2>
+    <Amount>16.47</Amount>
+    <Communication>HORECA TOTAL    BRUGGE</Communication>
+    <Date>17/10/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>044-0003</name>
+  </Statement>
+  <Statement>
+    <Amount>82.92</Amount>
+    <Communication>CARREFOUR   SINT-KRUIS</Communication>
     <Date>18/10/2012</Date>
     <Sign>D</Sign>
-    <Amount>82.92</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>CARREFOUR   SINT-KRUIS</Communication>
+    <name>044-0004</name>
   </Statement>
   <Statement>
-    <ID1>044</ID1>
-    <ID2>0005</ID2>
+    <Amount>120.00</Amount>
     <Date>19/10/2012</Date>
     <Sign>D</Sign>
-    <Amount>120.00</Amount>
     <TransactionCode>101</TransactionCode>
+    <name>044-0005</name>
   </Statement>
   <Statement>
-    <ID1>045</ID1>
-    <ID2>0001</ID2>
+    <Amount>40.00</Amount>
+    <Communication>SNCB BXL CENTRALBRUXELLES</Communication>
     <Date>23/10/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>SNCB BXL CENTRALBRUXELLES</Communication>
+    <name>045-0001</name>
   </Statement>
   <Statement>
-    <ID1>045</ID1>
-    <ID2>0002</ID2>
+    <Amount>40.00</Amount>
     <Date>27/10/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>101</TransactionCode>
+    <name>045-0002</name>
   </Statement>
   <Statement>
-    <ID1>045</ID1>
-    <ID2>0003</ID2>
+    <Amount>1653.54</Amount>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <CounterParty>ISABEL NV</CounterParty>
     <Date>29/10/2012</Date>
     <Sign>C</Sign>
-    <Amount>1653.54</Amount>
-    <CounterParty>ISABEL NV</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <name>045-0003</name>
   </Statement>
   <Statement>
-    <ID1>046</ID1>
-    <ID2>0001</ID2>
+    <Amount>16.40</Amount>
     <Date>29/10/2012</Date>
     <Sign>D</Sign>
-    <Amount>16.40</Amount>
     <TransactionCode>408</TransactionCode>
+    <name>046-0001</name>
   </Statement>
   <Statement>
-    <ID1>046</ID1>
-    <ID2>0002</ID2>
-    <Date>30/10/2012</Date>
-    <Sign>D</Sign>
     <Amount>360.93</Amount>
-    <CounterParty>PROXIMUS</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++103/4389/43559+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>046</ID1>
-    <ID2>0003</ID2>
+    <CounterParty>PROXIMUS</CounterParty>
     <Date>30/10/2012</Date>
     <Sign>D</Sign>
-    <Amount>26.00</Amount>
-    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
     <TransactionCode>101</TransactionCode>
-    <Communication>+++731/2002/47175+++</Communication>
+    <name>046-0002</name>
   </Statement>
   <Statement>
-    <ID1>046</ID1>
-    <ID2>0004</ID2>
+    <Amount>26.00</Amount>
+    <Communication>+++731/2002/47175+++</Communication>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
+    <Date>30/10/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>046-0003</name>
+  </Statement>
+  <Statement>
+    <Amount>282.05</Amount>
+    <Communication>+++999/0001/08184+++</Communication>
+    <CounterParty>ALPHA CREDIT</CounterParty>
     <Date>31/10/2012</Date>
     <Sign>D</Sign>
-    <Amount>282.05</Amount>
-    <CounterParty>ALPHA CREDIT</CounterParty>
     <TransactionCode>103</TransactionCode>
-    <Communication>+++999/0001/08184+++</Communication>
+    <name>046-0004</name>
   </Statement>
   <Statement>
-    <ID1>046</ID1>
-    <ID2>0005</ID2>
-    <Date>1/11/2012</Date>
-    <Sign>D</Sign>
     <Amount>802.71</Amount>
-    <CounterParty>AXA BANK EUROPE</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>774-2476251-77</Communication>
-  </Statement>
-  <Statement>
-    <ID1>046</ID1>
-    <ID2>0006</ID2>
+    <CounterParty>AXA BANK EUROPE</CounterParty>
     <Date>1/11/2012</Date>
     <Sign>D</Sign>
-    <Amount>60.00</Amount>
-    <TransactionCode>404</TransactionCode>
-    <Communication>LANDBOUWKR MOERKDAMME</Communication>
+    <TransactionCode>501</TransactionCode>
+    <name>046-0005</name>
   </Statement>
   <Statement>
-    <ID1>046</ID1>
-    <ID2>0007</ID2>
+    <Amount>60.00</Amount>
+    <Communication>LANDBOUWKR MOERKDAMME</Communication>
+    <Date>1/11/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>046-0006</name>
+  </Statement>
+  <Statement>
+    <Amount>200.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
     <Date>2/11/2012</Date>
     <Sign>D</Sign>
-    <Amount>200.00</Amount>
-    <CounterParty>CLICTEUR RITA</CounterParty>
     <TransactionCode>103</TransactionCode>
+    <name>046-0007</name>
   </Statement>
   <Statement>
-    <ID1>046</ID1>
-    <ID2>0008</ID2>
-    <Date>5/11/2012</Date>
-    <Sign>C</Sign>
     <Amount>200.00</Amount>
     <CounterParty>SAENUDOM DARA</CounterParty>
+    <Date>5/11/2012</Date>
+    <Sign>C</Sign>
     <TransactionCode>150</TransactionCode>
+    <name>046-0008</name>
   </Statement>
   <Statement>
-    <ID1>047</ID1>
-    <ID2>0001</ID2>
-    <Date>6/11/2012</Date>
-    <Sign>D</Sign>
     <Amount>25.93</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10622198017</Communication>
-  </Statement>
-  <Statement>
-    <ID1>047</ID1>
-    <ID2>0002</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/11/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>047-0001</name>
+  </Statement>
+  <Statement>
     <Amount>18.66</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10816121657</Communication>
-  </Statement>
-  <Statement>
-    <ID1>047</ID1>
-    <ID2>0003</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/11/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>047-0002</name>
+  </Statement>
+  <Statement>
     <Amount>29.72</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10112244578</Communication>
-  </Statement>
-  <Statement>
-    <ID1>047</ID1>
-    <ID2>0004</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/11/2012</Date>
     <Sign>D</Sign>
-    <Amount>200.00</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
     <TransactionCode>501</TransactionCode>
-    <Communication>1113758940</Communication>
+    <name>047-0003</name>
   </Statement>
   <Statement>
-    <ID1>047</ID1>
-    <ID2>0005</ID2>
+    <Amount>200.00</Amount>
+    <Communication>1113758940</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <Date>6/11/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>047-0004</name>
+  </Statement>
+  <Statement>
+    <Amount>16.20</Amount>
+    <Communication>NMBS BRUGGE     BRUGGE</Communication>
     <Date>7/11/2012</Date>
     <Sign>D</Sign>
-    <Amount>16.20</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>NMBS BRUGGE     BRUGGE</Communication>
+    <name>047-0005</name>
   </Statement>
   <Statement>
-    <ID1>047</ID1>
-    <ID2>0006</ID2>
+    <Amount>2.70</Amount>
     <Date>6/11/2012</Date>
     <Sign>D</Sign>
-    <Amount>2.70</Amount>
     <TransactionCode>408</TransactionCode>
+    <name>047-0006</name>
   </Statement>
   <Statement>
-    <ID1>047</ID1>
-    <ID2>0007</ID2>
-    <Date>9/11/2012</Date>
-    <Sign>C</Sign>
     <Amount>15.71</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>/C/  1 PREST SPECIALIST         27/09/12 OFFICIEEL TARIEF    23,67 EUR 760712 268M46 090081071112/012</Communication>
-  </Statement>
-  <Statement>
-    <ID1>047</ID1>
-    <ID2>0008</ID2>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>9/11/2012</Date>
     <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>047-0007</name>
+  </Statement>
+  <Statement>
     <Amount>22.47</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>/C/  1 PREST SPECIALIST         07/09/12 OFFICIEEL TARIEF    35,54 EUR 760712 268M46 090081071112/012</Communication>
-  </Statement>
-  <Statement>
-    <ID1>047</ID1>
-    <ID2>0009</ID2>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>9/11/2012</Date>
     <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>047-0008</name>
+  </Statement>
+  <Statement>
     <Amount>48.66</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>/C/  2 PREST HUISARTS           30/10/12 OFFICIEEL TARIEF    52,66 EUR 760712 268M46 090081071112/012</Communication>
-  </Statement>
-  <Statement>
-    <ID1>047</ID1>
-    <ID2>0010</ID2>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>9/11/2012</Date>
     <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>047-0009</name>
+  </Statement>
+  <Statement>
     <Amount>23.38</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>/C/  1 PREST SPECIALIST         24/09/12 OFFICIEEL TARIEF    35,53 EUR 760712 268M46 090081071112/012</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <Date>9/11/2012</Date>
+    <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>047-0010</name>
   </Statement>
   <Statement>
-    <ID1>048</ID1>
-    <ID2>0001</ID2>
-    <Date>14/11/2012</Date>
-    <Sign>D</Sign>
     <Amount>48.49</Amount>
-    <CounterParty>AZ SINT JAN AV</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++991/2291/94775+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>048</ID1>
-    <ID2>0002</ID2>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
     <Date>14/11/2012</Date>
     <Sign>D</Sign>
-    <Amount>59.21</Amount>
-    <CounterParty>AZ SINT JAN AV</CounterParty>
     <TransactionCode>101</TransactionCode>
+    <name>048-0001</name>
+  </Statement>
+  <Statement>
+    <Amount>59.21</Amount>
     <Communication>+++991/2292/03869+++</Communication>
+    <CounterParty>AZ SINT JAN AV</CounterParty>
+    <Date>14/11/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>048-0002</name>
   </Statement>
   <Statement>
-    <ID1>048</ID1>
-    <ID2>0003</ID2>
-    <Date>19/11/2012</Date>
-    <Sign>C</Sign>
     <Amount>19.67</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>/C/  1 PREST HUISARTS           05/11/12 OFFICIEEL TARIEF    23,67 EUR 760712 268M46 381053151112/034</Communication>
-  </Statement>
-  <Statement>
-    <ID1>048</ID1>
-    <ID2>0004</ID2>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>19/11/2012</Date>
     <Sign>C</Sign>
-    <Amount>17.19</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/C/  1 PREST SPECIALIST         05/11/12 OFFICIEEL TARIEF    27,90 EUR 930527 225M79 381053151112/034</Communication>
+    <name>048-0003</name>
   </Statement>
   <Statement>
-    <ID1>049</ID1>
-    <ID2>0001</ID2>
+    <Amount>17.19</Amount>
+    <Communication>/C/  1 PREST SPECIALIST         05/11/12 OFFICIEEL TARIEF    27,90 EUR 930527 225M79 381053151112/034</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
+    <Date>19/11/2012</Date>
+    <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>048-0004</name>
+  </Statement>
+  <Statement>
+    <Amount>600.00</Amount>
+    <Communication>huur</Communication>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
     <Date>21/11/2012</Date>
     <Sign>C</Sign>
-    <Amount>600.00</Amount>
-    <CounterParty>RIF NOUREDDINE</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>huur</Communication>
+    <name>049-0001</name>
   </Statement>
   <Statement>
-    <ID1>049</ID1>
-    <ID2>0002</ID2>
-    <Date>22/11/2012</Date>
-    <Sign>D</Sign>
     <Amount>16.20</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>NMBS AIRPORT    ZAVENTEM</Communication>
-  </Statement>
-  <Statement>
-    <ID1>049</ID1>
-    <ID2>0003</ID2>
     <Date>22/11/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>049-0002</name>
+  </Statement>
+  <Statement>
     <Amount>58.66</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>DEVOS THIERRY   BRUGGE</Communication>
+    <Date>22/11/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>049-0003</name>
   </Statement>
   <Statement>
-    <ID1>049</ID1>
-    <ID2>0004</ID2>
-    <Date>23/11/2012</Date>
-    <Sign>D</Sign>
     <Amount>222.67</Amount>
-    <CounterParty>PROXIMUS</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++103/4389/43660+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>049</ID1>
-    <ID2>0005</ID2>
+    <CounterParty>PROXIMUS</CounterParty>
     <Date>23/11/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>049-0004</name>
+  </Statement>
+  <Statement>
     <Amount>16.42</Amount>
-    <CounterParty>DKV BELGIUM</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>44006951/0000143 03 Medicard 15 11 2012</Communication>
-  </Statement>
-  <Statement>
-    <ID1>049</ID1>
-    <ID2>0006</ID2>
-    <Date>24/11/2012</Date>
+    <CounterParty>DKV BELGIUM</CounterParty>
+    <Date>23/11/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>101</TransactionCode>
+    <name>049-0005</name>
   </Statement>
   <Statement>
-    <ID1>049</ID1>
-    <ID2>0007</ID2>
+    <Amount>40.00</Amount>
     <Date>24/11/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>049-0006</name>
+  </Statement>
+  <Statement>
     <Amount>1.20</Amount>
+    <Date>24/11/2012</Date>
+    <Sign>D</Sign>
     <TransactionCode>408</TransactionCode>
+    <name>049-0007</name>
   </Statement>
   <Statement>
-    <ID1>049</ID1>
-    <ID2>0008</ID2>
-    <Date>26/11/2012</Date>
-    <Sign>D</Sign>
     <Amount>62.47</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>CARREFOUR   SINT-KRUIS</Communication>
-  </Statement>
-  <Statement>
-    <ID1>049</ID1>
-    <ID2>0009</ID2>
     <Date>26/11/2012</Date>
     <Sign>D</Sign>
-    <Amount>4.37</Amount>
     <TransactionCode>402</TransactionCode>
+    <name>049-0008</name>
+  </Statement>
+  <Statement>
+    <Amount>4.37</Amount>
     <Communication>Q BRUGGE ST KRU</Communication>
+    <Date>26/11/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>049-0009</name>
   </Statement>
   <Statement>
-    <ID1>050</ID1>
-    <ID2>0001</ID2>
-    <Date>27/11/2012</Date>
-    <Sign>C</Sign>
     <Amount>1694.35</Amount>
-    <CounterParty>ISABEL NV</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>/A/         1BI0221-01-0000403</Communication>
+    <CounterParty>ISABEL NV</CounterParty>
+    <Date>27/11/2012</Date>
+    <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>050-0001</name>
   </Statement>
   <Statement>
-    <ID1>050</ID1>
-    <ID2>0002</ID2>
+    <Amount>40.00</Amount>
+    <Communication>NMBS BRUGGE     BRUGGE</Communication>
     <Date>27/11/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>NMBS BRUGGE     BRUGGE</Communication>
+    <name>050-0002</name>
   </Statement>
   <Statement>
-    <ID1>050</ID1>
-    <ID2>0003</ID2>
+    <Amount>4128.29</Amount>
+    <Communication>KOHIERARTIKEL: 728168078 DIENST : 05 04/01</Communication>
+    <CounterParty>F O D  FINANCIEN</CounterParty>
     <Date>28/11/2012</Date>
     <Sign>C</Sign>
-    <Amount>4128.29</Amount>
-    <CounterParty>F O D  FINANCIEN</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>KOHIERARTIKEL: 728168078 DIENST : 05 04/01</Communication>
+    <name>050-0003</name>
   </Statement>
   <Statement>
-    <ID1>050</ID1>
-    <ID2>0004</ID2>
+    <Amount>3000.00</Amount>
+    <Communication>vliegtuigticket, gas, electriciteit, Sophia, etc</Communication>
     <Date>28/11/2012</Date>
     <Sign>D</Sign>
-    <Amount>3000.00</Amount>
     <TransactionCode>101</TransactionCode>
-    <Communication>vliegtuigticket, gas, electriciteit, Sophia, etc</Communication>
+    <name>050-0004</name>
   </Statement>
   <Statement>
-    <ID1>050</ID1>
-    <ID2>0005</ID2>
+    <Amount>20.00</Amount>
+    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
     <Date>29/11/2012</Date>
     <Sign>D</Sign>
-    <Amount>20.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>KBC OP BRUGGE STBRUGGE</Communication>
+    <name>050-0005</name>
   </Statement>
   <Statement>
-    <ID1>050</ID1>
-    <ID2>0006</ID2>
-    <Date>30/11/2012</Date>
-    <Sign>D</Sign>
     <Amount>282.05</Amount>
-    <CounterParty>ALPHA CREDIT</CounterParty>
-    <TransactionCode>103</TransactionCode>
     <Communication>+++999/0001/08184+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>050</ID1>
-    <ID2>0007</ID2>
+    <CounterParty>ALPHA CREDIT</CounterParty>
     <Date>30/11/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>103</TransactionCode>
+    <name>050-0006</name>
+  </Statement>
+  <Statement>
     <Amount>1000.00</Amount>
+    <Date>30/11/2012</Date>
+    <Sign>D</Sign>
     <TransactionCode>101</TransactionCode>
+    <name>050-0007</name>
   </Statement>
   <Statement>
-    <ID1>050</ID1>
-    <ID2>0008</ID2>
-    <Date>30/11/2012</Date>
-    <Sign>D</Sign>
     <Amount>1071.00</Amount>
-    <TransactionCode>501</TransactionCode>
     <Communication>VISA    REF 32615542338-03/213715542338235</Communication>
-  </Statement>
-  <Statement>
-    <ID1>050</ID1>
-    <ID2>0009</ID2>
     <Date>30/11/2012</Date>
     <Sign>D</Sign>
-    <Amount>59.34</Amount>
-    <TransactionCode>402</TransactionCode>
-    <Communication>DELH ST-KRUIS   SINT-KRUIS</Communication>
+    <TransactionCode>501</TransactionCode>
+    <name>050-0008</name>
   </Statement>
   <Statement>
-    <ID1>050</ID1>
-    <ID2>0010</ID2>
+    <Amount>59.34</Amount>
+    <Communication>DELH ST-KRUIS   SINT-KRUIS</Communication>
+    <Date>30/11/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>050-0009</name>
+  </Statement>
+  <Statement>
+    <Amount>1000.00</Amount>
+    <CounterParty>CLICTEUR RITA</CounterParty>
     <Date>3/12/2012</Date>
     <Sign>C</Sign>
-    <Amount>1000.00</Amount>
-    <CounterParty>CLICTEUR RITA</CounterParty>
     <TransactionCode>150</TransactionCode>
+    <name>050-0010</name>
   </Statement>
   <Statement>
-    <ID1>050</ID1>
-    <ID2>0011</ID2>
-    <Date>1/12/2012</Date>
-    <Sign>D</Sign>
     <Amount>802.71</Amount>
-    <CounterParty>AXA BANK EUROPE</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>774-2476251-77</Communication>
-  </Statement>
-  <Statement>
-    <ID1>050</ID1>
-    <ID2>0012</ID2>
+    <CounterParty>AXA BANK EUROPE</CounterParty>
     <Date>1/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>050-0011</name>
+  </Statement>
+  <Statement>
     <Amount>63.01</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>TEX DRONGEN N   DRONGEN</Communication>
-  </Statement>
-  <Statement>
-    <ID1>050</ID1>
-    <ID2>0013</ID2>
     <Date>1/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>050-0012</name>
+  </Statement>
+  <Statement>
     <Amount>100.00</Amount>
-    <TransactionCode>404</TransactionCode>
     <Communication>KBC BANK BEERNEMBEERNEM</Communication>
+    <Date>1/12/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>050-0013</name>
   </Statement>
   <Statement>
-    <ID1>050</ID1>
-    <ID2>0014</ID2>
-    <Date>3/12/2012</Date>
-    <Sign>D</Sign>
     <Amount>33.80</Amount>
-    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++731/2002/86480+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>050</ID1>
-    <ID2>0015</ID2>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
     <Date>3/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>050-0014</name>
+  </Statement>
+  <Statement>
     <Amount>200.00</Amount>
     <CounterParty>CLICTEUR RITA</CounterParty>
-    <TransactionCode>103</TransactionCode>
-  </Statement>
-  <Statement>
-    <ID1>050</ID1>
-    <ID2>0016</ID2>
     <Date>3/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>103</TransactionCode>
+    <name>050-0015</name>
+  </Statement>
+  <Statement>
     <Amount>93.28</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>CARREFOUR   SINT-KRUIS</Communication>
+    <Date>3/12/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>050-0016</name>
   </Statement>
   <Statement>
-    <ID1>051</ID1>
-    <ID2>0001</ID2>
-    <Date>6/12/2012</Date>
-    <Sign>D</Sign>
     <Amount>25.93</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10622198017</Communication>
-  </Statement>
-  <Statement>
-    <ID1>051</ID1>
-    <ID2>0002</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>051-0001</name>
+  </Statement>
+  <Statement>
     <Amount>200.00</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>1113758940</Communication>
-  </Statement>
-  <Statement>
-    <ID1>051</ID1>
-    <ID2>0003</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>051-0002</name>
+  </Statement>
+  <Statement>
     <Amount>18.66</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
-    <TransactionCode>501</TransactionCode>
     <Communication>10816121657</Communication>
-  </Statement>
-  <Statement>
-    <ID1>051</ID1>
-    <ID2>0004</ID2>
+    <CounterParty>AXA BELGIUM</CounterParty>
     <Date>6/12/2012</Date>
     <Sign>D</Sign>
-    <Amount>29.72</Amount>
-    <CounterParty>AXA BELGIUM</CounterParty>
     <TransactionCode>501</TransactionCode>
-    <Communication>10112244578</Communication>
+    <name>051-0003</name>
   </Statement>
   <Statement>
-    <ID1>051</ID1>
-    <ID2>0005</ID2>
+    <Amount>29.72</Amount>
+    <Communication>10112244578</Communication>
+    <CounterParty>AXA BELGIUM</CounterParty>
+    <Date>6/12/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>051-0004</name>
+  </Statement>
+  <Statement>
+    <Amount>40.00</Amount>
+    <Communication>BRUGGE-SIMON STEBRUGGE</Communication>
     <Date>9/12/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>BRUGGE-SIMON STEBRUGGE</Communication>
+    <name>051-0005</name>
   </Statement>
   <Statement>
-    <ID1>052</ID1>
-    <ID2>0001</ID2>
+    <Amount>29.25</Amount>
+    <Communication>1629662</Communication>
     <Date>11/12/2012</Date>
     <Sign>D</Sign>
-    <Amount>29.25</Amount>
     <TransactionCode>501</TransactionCode>
-    <Communication>1629662</Communication>
+    <name>052-0001</name>
   </Statement>
   <Statement>
-    <ID1>052</ID1>
-    <ID2>0002</ID2>
-    <Date>12/12/2012</Date>
-    <Sign>C</Sign>
     <Amount>15.00</Amount>
-    <CounterParty>MEVR EMMA DE SPIEGELAERE</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>steunkaartje    veel succes</Communication>
-  </Statement>
-  <Statement>
-    <ID1>052</ID1>
-    <ID2>0003</ID2>
+    <CounterParty>MEVR EMMA DE SPIEGELAERE</CounterParty>
     <Date>12/12/2012</Date>
     <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>052-0002</name>
+  </Statement>
+  <Statement>
     <Amount>45.00</Amount>
-    <CounterParty>DALLE CARINE</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>THAISE AVOND 3 PERSONEN</Communication>
+    <CounterParty>DALLE CARINE</CounterParty>
+    <Date>12/12/2012</Date>
+    <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>052-0003</name>
   </Statement>
   <Statement>
-    <ID1>052</ID1>
-    <ID2>0004</ID2>
+    <Amount>50.00</Amount>
+    <Communication>KBC BANK BRUGGE-ASSEBROEK</Communication>
     <Date>12/12/2012</Date>
     <Sign>D</Sign>
-    <Amount>50.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>KBC BANK BRUGGE-ASSEBROEK</Communication>
+    <name>052-0004</name>
   </Statement>
   <Statement>
-    <ID1>052</ID1>
-    <ID2>0005</ID2>
+    <Amount>1275.73</Amount>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <CounterParty>ISABEL NV</CounterParty>
     <Date>13/12/2012</Date>
     <Sign>C</Sign>
-    <Amount>1275.73</Amount>
-    <CounterParty>ISABEL NV</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <name>052-0005</name>
   </Statement>
   <Statement>
-    <ID1>052</ID1>
-    <ID2>0006</ID2>
-    <Date>13/12/2012</Date>
-    <Sign>D</Sign>
     <Amount>66.95</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>HORECA TOTAL    BRUGGE</Communication>
-  </Statement>
-  <Statement>
-    <ID1>052</ID1>
-    <ID2>0007</ID2>
     <Date>13/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>052-0006</name>
+  </Statement>
+  <Statement>
     <Amount>32.27</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>DEVOS THIERRY   BRUGGE</Communication>
-  </Statement>
-  <Statement>
-    <ID1>052</ID1>
-    <ID2>0008</ID2>
     <Date>13/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>052-0007</name>
+  </Statement>
+  <Statement>
     <Amount>330.00</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>DEVOS THIERRY   BRUGGE</Communication>
-  </Statement>
-  <Statement>
-    <ID1>052</ID1>
-    <ID2>0009</ID2>
     <Date>13/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>052-0008</name>
+  </Statement>
+  <Statement>
     <Amount>27.70</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>CONCEPT STUDIO BSINT-KRUIS</Communication>
+    <Date>13/12/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>052-0009</name>
   </Statement>
   <Statement>
-    <ID1>052</ID1>
-    <ID2>0010</ID2>
-    <Date>14/12/2012</Date>
-    <Sign>D</Sign>
     <Amount>32.77</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>LIDL         SINT-KRUIS</Communication>
-  </Statement>
-  <Statement>
-    <ID1>052</ID1>
-    <ID2>0011</ID2>
     <Date>14/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>052-0010</name>
+  </Statement>
+  <Statement>
     <Amount>31.84</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>VIME</Communication>
-  </Statement>
-  <Statement>
-    <ID1>052</ID1>
-    <ID2>0012</ID2>
     <Date>14/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>052-0011</name>
+  </Statement>
+  <Statement>
     <Amount>79.65</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>COLRUYT     ST-ANDRIES</Communication>
-  </Statement>
-  <Statement>
-    <ID1>052</ID1>
-    <ID2>0013</ID2>
     <Date>14/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>052-0012</name>
+  </Statement>
+  <Statement>
     <Amount>24.20</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>QUICK ST KRUIS</Communication>
+    <Date>14/12/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>052-0013</name>
   </Statement>
   <Statement>
-    <ID1>052</ID1>
-    <ID2>0014</ID2>
-    <Date>15/12/2012</Date>
-    <Sign>D</Sign>
     <Amount>20.10</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>COLRUYT     ST-ANDRIES</Communication>
-  </Statement>
-  <Statement>
-    <ID1>052</ID1>
-    <ID2>0015</ID2>
     <Date>15/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>052-0014</name>
+  </Statement>
+  <Statement>
     <Amount>32.98</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>CARREFOUR   ST-ANDRIES</Communication>
-  </Statement>
-  <Statement>
-    <ID1>052</ID1>
-    <ID2>0016</ID2>
     <Date>15/12/2012</Date>
     <Sign>D</Sign>
-    <Amount>88.18</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>COLRUYT     ST-ANDRIES</Communication>
+    <name>052-0015</name>
   </Statement>
   <Statement>
-    <ID1>052</ID1>
-    <ID2>0017</ID2>
+    <Amount>88.18</Amount>
+    <Communication>COLRUYT     ST-ANDRIES</Communication>
+    <Date>15/12/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>052-0016</name>
+  </Statement>
+  <Statement>
+    <Amount>60.02</Amount>
+    <Communication>Q BRUGGE ST KRU</Communication>
     <Date>16/12/2012</Date>
     <Sign>D</Sign>
-    <Amount>60.02</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>Q BRUGGE ST KRU</Communication>
+    <name>052-0017</name>
   </Statement>
   <Statement>
-    <ID1>052</ID1>
-    <ID2>0018</ID2>
+    <Amount>19.67</Amount>
+    <Communication>/C/  1 PREST HUISARTS           04/12/12 OFFICIEEL TARIEF    23,67 EUR 090315 044M35 530009131212/065</Communication>
+    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <Date>17/12/2012</Date>
     <Sign>C</Sign>
-    <Amount>19.67</Amount>
-    <CounterParty>CHRISTELIJKE MUTUALITEIT</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/C/  1 PREST HUISARTS           04/12/12 OFFICIEEL TARIEF    23,67 EUR 090315 044M35 530009131212/065</Communication>
+    <name>052-0018</name>
   </Statement>
   <Statement>
-    <ID1>052</ID1>
-    <ID2>0019</ID2>
-    <Date>17/12/2012</Date>
-    <Sign>D</Sign>
     <Amount>41.70</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>CARREFOUR   SINT-KRUIS</Communication>
-  </Statement>
-  <Statement>
-    <ID1>052</ID1>
-    <ID2>0020</ID2>
     <Date>17/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>052-0019</name>
+  </Statement>
+  <Statement>
     <Amount>32.49</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>CARREFOUR   SINT-KRUIS</Communication>
-  </Statement>
-  <Statement>
-    <ID1>052</ID1>
-    <ID2>0021</ID2>
     <Date>17/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>052-0020</name>
+  </Statement>
+  <Statement>
     <Amount>18.20</Amount>
-    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++731/2003/23664+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>052</ID1>
-    <ID2>0022</ID2>
+    <CounterParty>SCHOLENGROEP BRUGGE-OOSTKUST</CounterParty>
     <Date>17/12/2012</Date>
     <Sign>D</Sign>
-    <Amount>99.90</Amount>
-    <CounterParty>BENNIES FIT4LIFE</CounterParty>
     <TransactionCode>101</TransactionCode>
-    <Communication>Klant: 007001740</Communication>
+    <name>052-0021</name>
   </Statement>
   <Statement>
-    <ID1>053</ID1>
-    <ID2>0001</ID2>
+    <Amount>99.90</Amount>
+    <Communication>Klant: 007001740</Communication>
+    <CounterParty>BENNIES FIT4LIFE</CounterParty>
+    <Date>17/12/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>052-0022</name>
+  </Statement>
+  <Statement>
+    <Amount>11.60</Amount>
+    <Communication>NMBS BRUGGE     BRUGGE</Communication>
     <Date>18/12/2012</Date>
     <Sign>D</Sign>
-    <Amount>11.60</Amount>
     <TransactionCode>402</TransactionCode>
-    <Communication>NMBS BRUGGE     BRUGGE</Communication>
+    <name>053-0001</name>
   </Statement>
   <Statement>
-    <ID1>053</ID1>
-    <ID2>0002</ID2>
-    <Date>19/12/2012</Date>
-    <Sign>C</Sign>
     <Amount>670.00</Amount>
     <CounterParty>DANNEELS DAVID</CounterParty>
+    <Date>19/12/2012</Date>
+    <Sign>C</Sign>
     <TransactionCode>152</TransactionCode>
+    <name>053-0002</name>
   </Statement>
   <Statement>
-    <ID1>053</ID1>
-    <ID2>0003</ID2>
-    <Date>20/12/2012</Date>
-    <Sign>C</Sign>
     <Amount>600.00</Amount>
     <CounterParty>DANNEELS DAVID</CounterParty>
-    <TransactionCode>152</TransactionCode>
-  </Statement>
-  <Statement>
-    <ID1>053</ID1>
-    <ID2>0004</ID2>
     <Date>20/12/2012</Date>
     <Sign>C</Sign>
+    <TransactionCode>152</TransactionCode>
+    <name>053-0003</name>
+  </Statement>
+  <Statement>
     <Amount>600.00</Amount>
-    <CounterParty>RIF NOUREDDINE</CounterParty>
-    <TransactionCode>150</TransactionCode>
     <Communication>huur</Communication>
+    <CounterParty>RIF NOUREDDINE</CounterParty>
+    <Date>20/12/2012</Date>
+    <Sign>C</Sign>
+    <TransactionCode>150</TransactionCode>
+    <name>053-0004</name>
   </Statement>
   <Statement>
-    <ID1>053</ID1>
-    <ID2>0005</ID2>
-    <Date>21/12/2012</Date>
-    <Sign>D</Sign>
     <Amount>242.91</Amount>
-    <CounterParty>PROXIMUS</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>+++103/4389/43761+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>053</ID1>
-    <ID2>0006</ID2>
+    <CounterParty>PROXIMUS</CounterParty>
     <Date>21/12/2012</Date>
     <Sign>D</Sign>
-    <Amount>55.01</Amount>
-    <TransactionCode>402</TransactionCode>
-    <Communication>Q BRUGGE ST KRU</Communication>
+    <TransactionCode>101</TransactionCode>
+    <name>053-0005</name>
   </Statement>
   <Statement>
-    <ID1>054</ID1>
-    <ID2>0001</ID2>
+    <Amount>55.01</Amount>
+    <Communication>Q BRUGGE ST KRU</Communication>
+    <Date>21/12/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>053-0006</name>
+  </Statement>
+  <Statement>
+    <Amount>40.00</Amount>
+    <Communication>POST ATM        BRUGGE</Communication>
     <Date>25/12/2012</Date>
     <Sign>D</Sign>
-    <Amount>40.00</Amount>
     <TransactionCode>404</TransactionCode>
-    <Communication>POST ATM        BRUGGE</Communication>
+    <name>054-0001</name>
   </Statement>
   <Statement>
-    <ID1>054</ID1>
-    <ID2>0002</ID2>
+    <Amount>1632.72</Amount>
+    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <CounterParty>ISABEL NV</CounterParty>
     <Date>27/12/2012</Date>
     <Sign>C</Sign>
-    <Amount>1632.72</Amount>
-    <CounterParty>ISABEL NV</CounterParty>
     <TransactionCode>150</TransactionCode>
-    <Communication>/A/         1BI0221-01-0000403</Communication>
+    <name>054-0002</name>
   </Statement>
   <Statement>
-    <ID1>054</ID1>
-    <ID2>0003</ID2>
-    <Date>27/12/2012</Date>
-    <Sign>D</Sign>
     <Amount>115.14</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>DEVOS THIERRY   BRUGGE</Communication>
-  </Statement>
-  <Statement>
-    <ID1>054</ID1>
-    <ID2>0004</ID2>
     <Date>27/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>054-0003</name>
+  </Statement>
+  <Statement>
     <Amount>31.99</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>LIDL         SINT-KRUIS</Communication>
+    <Date>27/12/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>054-0004</name>
   </Statement>
   <Statement>
-    <ID1>054</ID1>
-    <ID2>0005</ID2>
-    <Date>28/12/2012</Date>
-    <Sign>D</Sign>
     <Amount>82.36</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>CARREFOUR   SINT-KRUIS</Communication>
-  </Statement>
-  <Statement>
-    <ID1>054</ID1>
-    <ID2>0006</ID2>
     <Date>28/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>054-0005</name>
+  </Statement>
+  <Statement>
     <Amount>20.00</Amount>
-    <TransactionCode>404</TransactionCode>
     <Communication>KBC BANK BRUGGE-ASSEBROEK</Communication>
-  </Statement>
-  <Statement>
-    <ID1>054</ID1>
-    <ID2>0007</ID2>
     <Date>28/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>404</TransactionCode>
+    <name>054-0006</name>
+  </Statement>
+  <Statement>
     <Amount>29.56</Amount>
-    <CounterParty>VOIPBUSTER</CounterParty>
-    <TransactionCode>101</TransactionCode>
     <Communication>KCLEU326995305</Communication>
+    <CounterParty>VOIPBUSTER</CounterParty>
+    <Date>28/12/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>101</TransactionCode>
+    <name>054-0007</name>
   </Statement>
   <Statement>
-    <ID1>054</ID1>
-    <ID2>0008</ID2>
-    <Date>29/12/2012</Date>
-    <Sign>D</Sign>
     <Amount>37.44</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>CARREFOUR   ST-ANDRIES</Communication>
-  </Statement>
-  <Statement>
-    <ID1>054</ID1>
-    <ID2>0009</ID2>
     <Date>29/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>054-0008</name>
+  </Statement>
+  <Statement>
     <Amount>72.87</Amount>
-    <TransactionCode>402</TransactionCode>
     <Communication>TOTAL</Communication>
-  </Statement>
-  <Statement>
-    <ID1>054</ID1>
-    <ID2>0010</ID2>
     <Date>29/12/2012</Date>
     <Sign>D</Sign>
-    <Amount>4.13</Amount>
     <TransactionCode>402</TransactionCode>
+    <name>054-0009</name>
+  </Statement>
+  <Statement>
+    <Amount>4.13</Amount>
     <Communication>Q BRUGGE ST KRU</Communication>
+    <Date>29/12/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>402</TransactionCode>
+    <name>054-0010</name>
   </Statement>
   <Statement>
-    <ID1>054</ID1>
-    <ID2>0011</ID2>
-    <Date>31/12/2012</Date>
-    <Sign>D</Sign>
     <Amount>282.05</Amount>
-    <CounterParty>ALPHA CREDIT</CounterParty>
-    <TransactionCode>103</TransactionCode>
     <Communication>+++999/0001/08184+++</Communication>
-  </Statement>
-  <Statement>
-    <ID1>054</ID1>
-    <ID2>0012</ID2>
+    <CounterParty>ALPHA CREDIT</CounterParty>
     <Date>31/12/2012</Date>
     <Sign>D</Sign>
+    <TransactionCode>103</TransactionCode>
+    <name>054-0011</name>
+  </Statement>
+  <Statement>
     <Amount>506.74</Amount>
-    <TransactionCode>501</TransactionCode>
     <Communication>VISA    REF 35615542338-03/213715542338235</Communication>
+    <Date>31/12/2012</Date>
+    <Sign>D</Sign>
+    <TransactionCode>501</TransactionCode>
+    <name>054-0012</name>
   </Statement>
 </Statements>

@@ -1,13 +1,23 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Objects.BusinessCollectionDependent;
+import be.dafke.Accounting.Objects.WriteableBusinessCollection;
 import be.dafke.Accounting.Objects.WriteableBusinessObject;
+import be.dafke.Utils;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
-public class Statement extends WriteableBusinessObject {
-    private String statementNr;
-    private String sequenceNumber;
+public class Statement extends WriteableBusinessObject implements BusinessCollectionDependent<CounterParty>{
+    private static final String DATE = "Date";
+    private static final String SIGN = "Sign";
+    private static final String AMOUNT = "Amount";
+    private static final String COUNTERPARTY = "CounterParty";
+    private static final String TRANSACTIONCODE = "TransactionCode";
+    private static final String COMMUNICATION = "Communication";
     private String transactionCode;
     private String communication;
 	private boolean debit;
@@ -18,8 +28,9 @@ public class Statement extends WriteableBusinessObject {
 
 	private CounterParty counterParty;
 	private TmpCounterParty tmpCounterParty;
+    private WriteableBusinessCollection<CounterParty> businessCollection;
 
-	@Override
+    @Override
 	public String toString() {
 		return getName();
 	}
@@ -27,20 +38,12 @@ public class Statement extends WriteableBusinessObject {
     // SETTERS
 
 
-    public void setSequenceNumber(String sequenceNumber) {
-        this.sequenceNumber = sequenceNumber;
-    }
-
     public void setTransactionCode(String transactionCode) {
         this.transactionCode = transactionCode;
     }
 
     public void setCommunication(String communication) {
         this.communication = communication;
-    }
-
-    public void setStatementNr(String statementNr) {
-        this.statementNr = statementNr;
     }
 
     public void setDebit(boolean debit) {
@@ -68,14 +71,6 @@ public class Statement extends WriteableBusinessObject {
     }
 
     // GETTERS
-	public String getStatementNr() {
-		return statementNr;
-	}
-
-	public String getSequenceNr() {
-		return sequenceNumber;
-	}
-
 	public BigDecimal getAmount() {
 		return amount;
 	}
@@ -106,5 +101,53 @@ public class Statement extends WriteableBusinessObject {
 
     public boolean isStructured() {
         return structured;
+    }
+
+    // KeySet and Properties
+    //
+    // Keys found in the CollectionFile e.g. Account.NAME in Accounts.xml file
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        keySet.add(DATE);
+        keySet.add(SIGN);
+        keySet.add(AMOUNT);
+        keySet.add(COUNTERPARTY);
+        keySet.add(TRANSACTIONCODE);
+        keySet.add(COMMUNICATION);
+        return keySet;
+    }
+    //
+    public void setInitProperties(TreeMap<String, String> properties){
+        setName(properties.get(NAME));
+        setDate(Utils.toCalendar(properties.get(DATE)));
+        setAmount(Utils.parseBigDecimal(properties.get(AMOUNT)));
+        setCommunication(properties.get(COMMUNICATION));
+        setTransactionCode(properties.get(TRANSACTIONCODE));
+        String sign = properties.get(SIGN);
+        setDebit("D".equals(sign));
+        String counterPartyString = properties.get(COUNTERPARTY);
+        if(counterPartyString!=null && !counterPartyString.equals("")){
+            setCounterParty(businessCollection.getBusinessObject(counterPartyString));
+        }
+    }
+    //
+    public TreeMap<String, String> getInitProperties(){
+        TreeMap<String,String> properties = new TreeMap<String, String>();
+        properties.put(NAME,getName());
+        properties.put(DATE,Utils.toString(date));
+        properties.put(AMOUNT, amount.toString());
+        properties.put(COMMUNICATION, communication);
+        if(counterParty!=null){
+            properties.put(COUNTERPARTY,counterParty.getName());
+        }
+        properties.put(TRANSACTIONCODE,transactionCode);
+        properties.put(SIGN,isDebit()?"D":"C");
+        return properties;
+    }
+
+    @Override
+    public void setBusinessCollection(WriteableBusinessCollection<CounterParty> businessCollection) {
+        this.businessCollection = businessCollection;
     }
 }

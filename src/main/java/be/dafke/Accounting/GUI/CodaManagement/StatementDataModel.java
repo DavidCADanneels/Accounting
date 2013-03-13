@@ -13,9 +13,9 @@ public class StatementDataModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String[] columnNames = { "Statement", "Sequence", "Date", "D/C", "Amount", "CounterParty",
+	private final String[] columnNames = { "Name", "Date", "D/C", "Amount", "CounterParty",
 			"TransactionCode", "Communication" };
-	private final Class[] columnClasses = { String.class, String.class, String.class, String.class, BigDecimal.class,
+	private final Class[] columnClasses = { String.class, String.class, String.class, BigDecimal.class,
 			CounterParty.class, String.class, String.class };
 	private final Accounting accounting;
 
@@ -29,20 +29,18 @@ public class StatementDataModel extends AbstractTableModel {
 	public Object getValueAt(int row, int col) {
 		Statement m = accounting.getStatements().getBusinessObjects().get(row);
 		if (col == 0) {
-			return m.getStatementNr();
+			return m.getName();
 		} else if (col == 1) {
-			return m.getSequenceNr();
-		} else if (col == 2) {
 			return Utils.toString(m.getDate());
-		} else if (col == 3) {
+		} else if (col == 2) {
 			return (m.isDebit()) ? "D" : "C";
-		} else if (col == 4) {
+		} else if (col == 3) {
 			return m.getAmount();
-		} else if (col == 5) {
+		} else if (col == 4) {
 			return m.getCounterParty();
-		} else if (col == 6) {
+		} else if (col == 5) {
 			return m.getTransactionCode();
-		} else if (col == 7) {
+		} else if (col == 6) {
 			return m.getCommunication();
 		} else return "";
 	}

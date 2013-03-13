@@ -92,7 +92,12 @@ public class Balances extends WriteableBusinessCollection<Balance> {
     }
 
     @Override
-    public Balance createNewChild() {
+    public Balance createNewChild(String name) {
         return new Balance();
+    }
+
+    @Override
+    public void readCollection() {
+        readCollection("Balance");
     }
 }

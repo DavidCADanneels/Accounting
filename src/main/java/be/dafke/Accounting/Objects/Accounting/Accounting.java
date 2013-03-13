@@ -1,17 +1,20 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Exceptions.DuplicateNameException;
+import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.WriteableBusinessCollection;
 import be.dafke.Accounting.Objects.WriteableBusinessObject;
 
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Set;
 import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * @author David Danneels
  */
-public class Accounting extends WriteableBusinessObject {
+public class Accounting extends WriteableBusinessCollection<WriteableBusinessCollection<WriteableBusinessObject>> {
     private final AccountTypes accountTypes;
     private final Accounts accounts;
 	private final Journals journals;
@@ -22,7 +25,6 @@ public class Accounting extends WriteableBusinessObject {
     private final Statements statements;
     private final Balances balances;
     private File xmlFolder, htmlFolder;
-    private HashMap<String, WriteableBusinessCollection<WriteableBusinessObject>> collections;
     private ArrayList<String> keys;
 
     public Accounting() {
@@ -40,18 +42,29 @@ public class Accounting extends WriteableBusinessObject {
         mortgages.setBusinessCollection(accounts);
         counterParties = new CounterParties();
         statements = new Statements();
+        statements.setBusinessCollection(counterParties);
         projects = new Projects();
         balances.addDefaultBalances(this);
 
-        collections = new HashMap<String, WriteableBusinessCollection<WriteableBusinessObject>>();
-        // TODO unchecked assignment: use put(..., (WriteableBusinessCollection<WriteableBusinessObject>) accounts)
-//        collections.put(accountTypes.getBusinessObjectType(),(WriteableBusinessCollection)accountTypes);
-        collections.put(accounts.getBusinessObjectType(),(WriteableBusinessCollection)accounts);
-        collections.put(journals.getBusinessObjectType(),(WriteableBusinessCollection)journals);
-        collections.put(balances.getBusinessObjectType(),(WriteableBusinessCollection)balances);
-        collections.put(mortgages.getBusinessObjectType(),(WriteableBusinessCollection)mortgages);
-        collections.put(statements.getBusinessObjectType(),(WriteableBusinessCollection) statements);
-        collections.put(counterParties.getBusinessObjectType(),(WriteableBusinessCollection)counterParties);
+        accounts.setName(accounts.getBusinessObjectType());
+        journals.setName(journals.getBusinessObjectType());
+        balances.setName(balances.getBusinessObjectType());
+        mortgages.setName(mortgages.getBusinessObjectType());
+        counterParties.setName(counterParties.getBusinessObjectType());
+        statements.setName(statements.getBusinessObjectType());
+
+        try {
+            addBusinessObject((WriteableBusinessCollection)accounts);
+            addBusinessObject((WriteableBusinessCollection)journals);
+            addBusinessObject((WriteableBusinessCollection)balances);
+            addBusinessObject((WriteableBusinessCollection)mortgages);
+            addBusinessObject((WriteableBusinessCollection)statements);
+            addBusinessObject((WriteableBusinessCollection)counterParties);
+        } catch (EmptyNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (DuplicateNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
 
         keys = new ArrayList<String>();
 //        keys.add(accountTypes.getBusinessObjectType());
@@ -63,9 +76,24 @@ public class Accounting extends WriteableBusinessObject {
         keys.add(statements.getBusinessObjectType());
 	}
 
-    public void setInitProperties(TreeMap<String, String> properties){
-        super.setInitProperties(properties);
-        setXmlFolder();
+    public String toString(){
+        return getName();
+    }
+
+    @Override
+    public WriteableBusinessCollection createNewChild(String name) {
+        WriteableBusinessCollection<WriteableBusinessObject> collection = getBusinessObject(name);
+//        WriteableBusinessCollection<WriteableBusinessObject> collection = collections.get(name);
+        if(collection==null){
+//            collection =
+            System.err.println("Accounting does not have a collection with the name: " + name);
+        }
+        return collection;
+    }
+
+    @Override
+    public void readCollection() {
+        readCollection(keys);
     }
 
     @Override
@@ -78,13 +106,8 @@ public class Accounting extends WriteableBusinessObject {
         return keys;
     }
 
-    public WriteableBusinessCollection<WriteableBusinessObject> getCollection(String key) {
-        return collections.get(key);
-    }
-
     // Collections
     //
-
     public AccountTypes getAccountTypes() {
         return accountTypes;
     }
@@ -180,6 +203,40 @@ public class Accounting extends WriteableBusinessObject {
             mortgages.createHtmlFolder();
 //            statements.createHtmlFolder();
 //            counterParties.createHtmlFolder();
+        }
+    }
+    @Override
+    public Set<String> getInitKeySet() {
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        keySet.add(XML);
+        keySet.add(HTML);
+        return keySet;
+    }
+
+    @Override
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String,String> properties = new TreeMap<String, String>();
+        properties.put(NAME,getName());
+        if(getXmlFile()!=null){
+            properties.put(XML, getXmlFile().getPath());
+        }
+        if(getHtmlFile()!=null){
+            properties.put(HTML, getHtmlFile().getPath());
+        }
+        return properties;
+    }
+
+    @Override
+    public void setInitProperties(TreeMap<String, String> properties) {
+        setName(properties.get(NAME));
+        String xmlPath = properties.get(XML);
+        String htmlPath = properties.get(HTML);
+        if(xmlPath!=null){
+            setXmlFile(new File(xmlPath));
+        }
+        if(htmlPath!=null){
+            setHtmlFile(new File(htmlPath));
         }
     }
 }

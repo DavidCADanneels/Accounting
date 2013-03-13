@@ -24,8 +24,13 @@ public class Journals extends WriteableBusinessCollection<Journal> implements Bu
 	}
 
     @Override
-    public Journal createNewChild() {
+    public Journal createNewChild(String name) {
         return new Journal();
+    }
+
+    @Override
+    public void readCollection() {
+        readCollection("Journal");
     }
 
     /**

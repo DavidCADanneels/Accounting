@@ -151,8 +151,6 @@ public class CodaParser {
 //		}
         Statement statement = new Statement();
         statement.setName(statementNumber+"-"+sequenceNumber);
-        statement.setStatementNr(statementNumber);
-        statement.setSequenceNumber(sequenceNumber);
         statement.setDate(date);
         statement.setDebit(debit);
         statement.setAmount(amount);

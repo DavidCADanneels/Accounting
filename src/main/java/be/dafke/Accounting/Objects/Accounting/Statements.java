@@ -1,13 +1,16 @@
 package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.GUI.CodaManagement.SearchOptions;
+import be.dafke.Accounting.Objects.BusinessCollectionProvider;
 import be.dafke.Accounting.Objects.WriteableBusinessCollection;
 
 import java.util.ArrayList;
 
-public class Statements extends WriteableBusinessCollection<Statement> {
+public class Statements extends WriteableBusinessCollection<Statement> implements BusinessCollectionProvider<CounterParty>{
 
-	public ArrayList<Statement> getStatements(SearchOptions searchOptions) {
+    private WriteableBusinessCollection<CounterParty> businessCollection;
+
+    public ArrayList<Statement> getStatements(SearchOptions searchOptions) {
 		ArrayList<Statement> result = new ArrayList<Statement>();
         CounterParty counterParty = searchOptions.getCounterParty();
         String transactionCode = searchOptions.getTransactionCode();
@@ -26,7 +29,22 @@ public class Statements extends WriteableBusinessCollection<Statement> {
 	}
 
     @Override
-    public Statement createNewChild() {
+    public Statement createNewChild(String name) {
         return new Statement();
+    }
+
+    @Override
+    public void readCollection() {
+        readCollection("Statement");
+    }
+
+    @Override
+    public WriteableBusinessCollection<CounterParty> getBusinessCollection() {
+        return businessCollection;
+    }
+
+    @Override
+    public void setBusinessCollection(WriteableBusinessCollection<CounterParty> businessCollection) {
+        this.businessCollection = businessCollection;
     }
 }

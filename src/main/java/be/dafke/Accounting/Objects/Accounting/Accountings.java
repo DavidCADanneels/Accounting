@@ -16,7 +16,7 @@ public class Accountings extends WriteableBusinessCollection<Accounting> {
     }
 
     @Override
-    public Accounting createNewChild() {
+    public Accounting createNewChild(String name) {
         return new Accounting();
     }
 
@@ -41,5 +41,10 @@ public class Accountings extends WriteableBusinessCollection<Accounting> {
         }
         map.put(value.getName().trim(), value);
         return value;
+    }
+
+    @Override
+    public void readCollection() {
+        readCollection("Accounting");
     }
 }

@@ -15,7 +15,7 @@ public class CounterParties extends WriteableBusinessCollection<CounterParty> {
     }
 
     @Override
-    public CounterParty createNewChild() {
+    public CounterParty createNewChild(String name) {
         return new CounterParty();
     }
 
@@ -56,6 +56,11 @@ public class CounterParties extends WriteableBusinessCollection<CounterParty> {
 
 
         return value;
+    }
+
+    @Override
+    public void readCollection() {
+        readCollection("CounterParty");
     }
 
     private CounterParty merge(CounterParty toKeep, CounterParty toRemove) {

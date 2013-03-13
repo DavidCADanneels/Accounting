@@ -20,7 +20,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -41,7 +40,7 @@ public abstract class WriteableBusinessCollection<V extends WriteableBusinessObj
         addSearchKey(NAME);
     }
 
-    public abstract V createNewChild();
+    public abstract V createNewChild(String name);
 
     protected void addSearchKey(String key){
         if(dataTables.containsKey(key)){
@@ -270,7 +269,7 @@ public abstract class WriteableBusinessCollection<V extends WriteableBusinessObj
 
     @Override
     public TreeMap<String,String> getInitProperties() {
-        TreeMap<String, String> properties = super.getUniqueProperties();
+        TreeMap<String, String> properties = super.getInitProperties();
         if(xmlFolder!=null){
             properties.put(XMLFOLDER, xmlFolder.getPath());
         }
@@ -318,12 +317,6 @@ public abstract class WriteableBusinessCollection<V extends WriteableBusinessObj
     //============================================================================//
 
     // KeySets and Properties ==============================================
-
-    public Set<String> getCollectionKeySet(){
-        Set<String> collectionKeySet = new TreeSet<String>();
-        collectionKeySet.add(CURRENT);
-        return collectionKeySet;
-    }
 
     @Override
     public TreeMap<String,String> getProperties() {
@@ -383,7 +376,7 @@ public abstract class WriteableBusinessCollection<V extends WriteableBusinessObj
                 // The implementation used is more clear and similar to the read Method
 
                 // write the closing tag e.g. </Accounting>
-                writer.write("  </"+objectType+">\r\n");
+                writer.write("  </" + objectType + ">\r\n");
             }
 
             if(getCurrentObject()!=null){
@@ -406,7 +399,17 @@ public abstract class WriteableBusinessCollection<V extends WriteableBusinessObj
 
     // READ
 
+    public abstract void readCollection();
+//    {
+//        readCollection(getBusinessObjectNames());
+//    }
+
     public void readCollection(String shortName){
+        ArrayList<String> list = new ArrayList<String>();
+        list.add(shortName);
+        readCollection(list);
+    }
+    public void readCollection(ArrayList<String> shortNames){
         try {
             File file = getXmlFile();
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -420,64 +423,76 @@ public abstract class WriteableBusinessCollection<V extends WriteableBusinessObj
             // get Root Element e.g. <Accountings>
             Element rootElement = (Element) doc.getElementsByTagName(collectionName).item(0);
 
-            // get Children e.g. <Accounting>
-            NodeList childrenNodeList = rootElement.getElementsByTagName(shortName);
+            for(String shortName:shortNames){
 
-            // iterate children and create objects for them
-            for (int i = 0; i < childrenNodeList.getLength(); i++) {
-                try {
-                    // create new instance of object
-                    V object = createNewChild();
+                // get Children e.g. <Accounting>
+                NodeList childrenNodeList = rootElement.getElementsByTagName(shortName);
 
-                    // if object is Typed, fetch its TypeCollection from the collection
-                    if(this instanceof BusinessTypeProvider && object instanceof BusinessTyped){
-                        BusinessTypeCollection btc = ((BusinessTypeProvider) this).getBusinessTypeCollection();
-                        ((BusinessTyped)object).setBusinessTypeCollection(btc);
-                    }
+                // iterate children and create objects for them
+                for (int i = 0; i < childrenNodeList.getLength(); i++) {
+                    V object = getBusinessObject(shortName);
+                    if(object==null){
+                        try {
+                            // create new instance of object
+                            object = createNewChild(shortName);
 
-                    // if object is dependant on another collection, fetch this Collection from the collection
-                    if(this instanceof BusinessCollectionProvider && object instanceof BusinessCollectionDependent){
-                        WriteableBusinessCollection bc = ((BusinessCollectionProvider) this).getBusinessCollection();
-                        ((BusinessCollectionDependent)object).setBusinessCollection(bc);
-                    }
+                            // if object is Typed, fetch its TypeCollection from the collection
+                            if(this instanceof BusinessTypeProvider && object instanceof BusinessTyped){
+                                BusinessTypeCollection btc = ((BusinessTypeProvider) this).getBusinessTypeCollection();
+                                ((BusinessTyped)object).setBusinessTypeCollection(btc);
+                            }
 
-                    // create empty properties TreeMap
-                    TreeMap<String,String> properties = new TreeMap<String, String>();
+                            // if object is dependant on another collection, fetch this Collection from the collection
+                            if(this instanceof BusinessCollectionProvider && object instanceof BusinessCollectionDependent){
+                                WriteableBusinessCollection bc = ((BusinessCollectionProvider) this).getBusinessCollection();
+                                ((BusinessCollectionDependent)object).setBusinessCollection(bc);
+                            }
 
-                    // get the Object's keySet
-                    Set<String> keySet = object.getInitKeySet();
+                            // create empty properties TreeMap
+                            TreeMap<String,String> properties = new TreeMap<String, String>();
 
-                    // read all the tags which names are in the keySet
-                    // and add their value to the properties
-                    Element element = (Element)childrenNodeList.item(i);
-                    for(String key : keySet){
-                        String value = getValue(element, key);
-                        properties.put(key,value);
-                    }
+                            // get the Object's keySet
+                            Set<String> keySet = object.getInitKeySet();
 
-                    // provide the properties to the object
-                    object.setInitProperties(properties);
+                            // read all the tags which names are in the keySet
+                            // and add their value to the properties
+                            Element element = (Element)childrenNodeList.item(i);
+                            for(String key : keySet){
+                                String value = getValue(element, key);
+                                properties.put(key,value);
+                            }
 
-                    // add the object to the collection
-                    addBusinessObject(object);
+                            // provide the properties to the object
+                            object.setInitProperties(properties);
 
-                } catch (EmptyNameException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                } catch (DuplicateNameException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                }
-            }// for
+                            // add the object to the collection
+                            addBusinessObject(object);
 
+                        } catch (EmptyNameException e) {
+                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        } catch (DuplicateNameException e) {
+                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        }
+                    } // if null
+                }// for each ChildNode
+            }// for each name in ArrayList
             String value = getValue(rootElement, CURRENT);
             if(value!=null){
                 currentObject = getBusinessObject(value);
-                System.err.println(currentObject.toString());
+                System.err.println(currentObject.getName());
             }
         } catch (IOException io) {
             io.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+//        for(V accounting : getBusinessObjects()) {
+//            if(accounting instanceof WriteableBusinessCollection){
+//                WriteableBusinessCollection<WriteableBusinessObject> collection = ((WriteableBusinessCollection<WriteableBusinessObject>)accounting);
+//                collection.readCollection();
+//            }
+//        }
 
         // TODO iterate all 'Writeable' childeren and call this function (recursion)
     }
