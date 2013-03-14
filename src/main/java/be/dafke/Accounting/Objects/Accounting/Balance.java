@@ -151,7 +151,7 @@ public class Balance extends WriteableBusinessObject implements BusinessCollecti
 
     @Override
     public TreeMap<String,String> getInitProperties() {
-        TreeMap<String,String> properties = new TreeMap<String, String>();
+        TreeMap<String,String> properties = super.getInitProperties();
         properties.put(NAME, getName());
         properties.put(LEFTNAME, leftName);
         properties.put(RIGHTNAME, rightName);

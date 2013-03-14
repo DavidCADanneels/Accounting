@@ -122,8 +122,13 @@ public class Accounting extends WriteableBusinessCollection<WriteableBusinessCol
         setXmlFolder();
     }
 
-    public ArrayList<String> getKeys() {
-        return keys;
+    @Override
+    public ArrayList<WriteableBusinessCollection<WriteableBusinessObject>> getBusinessObjects(){
+        ArrayList<WriteableBusinessCollection<WriteableBusinessObject>> objects = new ArrayList<WriteableBusinessCollection<WriteableBusinessObject>>();
+        for(String key:keys){
+            objects.add(getBusinessObject(key));
+        }
+        return objects;
     }
 
     // Collections
@@ -237,7 +242,7 @@ public class Accounting extends WriteableBusinessCollection<WriteableBusinessCol
     @Override
     public TreeMap<String,String> getInitProperties() {
         TreeMap<String,String> properties = new TreeMap<String, String>();
-        properties.put(NAME,getName());
+        properties.put(NAME, getName());
         if(getXmlFile()!=null){
             properties.put(XML, getXmlFile().getPath());
         }

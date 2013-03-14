@@ -6,25 +6,31 @@
   <Accounts>
     <name>Accounts</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts.xml</xml>
+    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts</xmlFolder>
   </Accounts>
   <Mortgages>
     <name>Mortgages</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Mortgages.xml</xml>
+    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Mortgages</xmlFolder>
   </Mortgages>
   <Journals>
     <name>Journals</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals.xml</xml>
+    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals</xmlFolder>
   </Journals>
   <Balances>
     <name>Balances</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Balances.xml</xml>
+    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Balances</xmlFolder>
   </Balances>
   <CounterParties>
     <name>CounterParties</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\CounterParties.xml</xml>
+    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\CounterParties</xmlFolder>
   </CounterParties>
   <Statements>
     <name>Statements</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Statements.xml</xml>
+    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Statements</xmlFolder>
   </Statements>
 </Accounting>

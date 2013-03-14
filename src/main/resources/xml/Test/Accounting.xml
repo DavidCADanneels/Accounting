@@ -6,25 +6,31 @@
   <Accounts>
     <name>Accounts</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Accounts.xml</xml>
+    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Accounts</xmlFolder>
   </Accounts>
   <Mortgages>
     <name>Mortgages</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Mortgages.xml</xml>
+    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Mortgages</xmlFolder>
   </Mortgages>
   <Journals>
     <name>Journals</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Journals.xml</xml>
+    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Journals</xmlFolder>
   </Journals>
   <Balances>
     <name>Balances</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Balances.xml</xml>
+    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Balances</xmlFolder>
   </Balances>
   <CounterParties>
     <name>CounterParties</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\CounterParties.xml</xml>
+    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\CounterParties</xmlFolder>
   </CounterParties>
   <Statements>
     <name>Statements</name>
     <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Statements.xml</xml>
+    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Test\Statements</xmlFolder>
   </Statements>
 </Accounting>

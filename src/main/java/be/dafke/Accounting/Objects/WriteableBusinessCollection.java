@@ -292,55 +292,12 @@ public abstract class WriteableBusinessCollection<V extends WriteableBusinessObj
         }
     }
 
-    @Override
-    public TreeMap<String,String> getUniqueProperties(){
-        TreeMap<String,String> properties = super.getUniqueProperties();
-//        if(xmlFile!=null){
-//            properties.put(XML, xmlFile.getPath());
-//        }
-//        if(htmlFile!=null){
-//            properties.put(HTML, htmlFile.getPath());
-//        }
-//        if(xmlFolder!=null){
-//            properties.put(XMLFOLDER, xmlFolder.getPath());
-//        }
-//        if(htmlFolder!=null){
-//            properties.put(HTMLFOLDER, htmlFolder.getPath());
-//        }
-        return properties;
-    }
-
-    //============================================================================//
-    //                                                                            //
-    //                              BUSINESS COLLECTION                           //
-    //                                                                            //
-    //============================================================================//
-
-    // KeySets and Properties ==============================================
-
-    @Override
-    public TreeMap<String,String> getProperties() {
-        TreeMap<String, String> properties = new TreeMap<String, String>();
-        if(currentObject!=null){
-            properties.put(CURRENT, currentObject.getName());
-        }
-        return properties;
-    }
-
-    @Override
-    public void setProperties(TreeMap<String, String> properties){
-        String currentName = properties.get(CURRENT);
-        if(currentName!=null){
-            currentObject = getBusinessObject(currentName);
-        }
-    }
-
     // WRITE
 
     public String getXmlHeader() {
         return "<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n" +
-                "<?xml-stylesheet type=\"text/xsl\" href=\"" + getXsl2XmlFile() + "\"?>\r\n" +
-                "<!DOCTYPE " + getBusinessObjectType() + " SYSTEM \"" + getDtdFile() + "\">\r\n";
+                "<?xml-stylesheet type=\"text/xsl\" href=\"" + xsl2XmlFile + "\"?>\r\n" +
+                "<!DOCTYPE " + getBusinessObjectType() + " SYSTEM \"" + dtdFile + "\">\r\n";
     }
 
     public void writeCollection(){
@@ -352,8 +309,10 @@ public abstract class WriteableBusinessCollection<V extends WriteableBusinessObj
             writer.write(getXmlHeader());
 
             // Write the root element e.g. <Accountings>
-            writer.write("<"+collectionName+">\r\n");
-
+            writer.write("<" + collectionName + ">\r\n");
+            if(collectionName.equals("Accounting")){
+                writer.write("  <name>"+getName()+"</name>\r\n");
+            }
             // Iterate children and write their data
             for(WriteableBusinessObject object : getBusinessObjects()) {
 
@@ -394,7 +353,12 @@ public abstract class WriteableBusinessCollection<V extends WriteableBusinessObj
             Logger.getLogger(WriteableBusinessCollection.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        // TODO iterate all 'Writeable' childeren and call this function (recursion)
+        for(V businessObject : getBusinessObjects()) {
+            if(businessObject instanceof WriteableBusinessCollection){
+                WriteableBusinessCollection<WriteableBusinessObject> businessCollection = ((WriteableBusinessCollection<WriteableBusinessObject>)businessObject);
+                businessCollection.writeCollection();
+            }
+        }
     }
 
     // READ

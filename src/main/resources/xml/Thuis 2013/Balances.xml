@@ -12,6 +12,7 @@
     <RightTotalName>Totaal Schulden</RightTotalName>
     <RightTypes>Debit</RightTypes>
     <name>RelationsBalance</name>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Balances\RelationsBalance.xml</xml>
   </Balance>
   <Balance>
     <LeftName>Kosten</LeftName>
@@ -23,6 +24,7 @@
     <RightTotalName>Totaal Opbrengsten</RightTotalName>
     <RightTypes>Revenue</RightTypes>
     <name>ResultBalance</name>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Balances\ResultBalance.xml</xml>
   </Balance>
   <Balance>
     <LeftName>Activa</LeftName>
@@ -34,5 +36,6 @@
     <RightTotalName>Totaal Passiva</RightTotalName>
     <RightTypes>Passive | Debit</RightTypes>
     <name>YearBalance</name>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Balances\YearBalance.xml</xml>
   </Balance>
 </Balances>

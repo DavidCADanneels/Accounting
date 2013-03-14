@@ -26,10 +26,10 @@ public class WriteableBusinessObject extends BusinessObject implements Writeable
 
     // implements Writeable
 
-    private File xmlFile, htmlFile;
-    private File xsl2XmlFile, xsl2HtmlFile;
-    private File dtdFile;
-    private boolean saved;
+    protected File xmlFile, htmlFile;
+    protected File xsl2XmlFile, xsl2HtmlFile;
+    protected File dtdFile;
+    protected boolean saved;
 
     @Override
     public boolean isSaved() {
@@ -50,11 +50,6 @@ public class WriteableBusinessObject extends BusinessObject implements Writeable
     }
 
     @Override
-    public File getDtdFile() {
-        return dtdFile;
-    }
-
-    @Override
     public void xmlToHtml() {
         Utils.xmlToHtml(xmlFile, xsl2HtmlFile, htmlFile, null);
     }
@@ -62,11 +57,6 @@ public class WriteableBusinessObject extends BusinessObject implements Writeable
     @Override
     public File getXmlFile(){
         return xmlFile;
-    }
-
-    @Override
-    public File getXsl2XmlFile(){
-        return xsl2XmlFile;
     }
 
     @Override
@@ -82,11 +72,6 @@ public class WriteableBusinessObject extends BusinessObject implements Writeable
     @Override
     public void setXmlFile(File xmlFile) {
         this.xmlFile = xmlFile;
-    }
-
-    @Override
-    public void setXsl2XmlFile(File xslFile) {
-        this.xsl2XmlFile = xslFile;
     }
 
     @Override
@@ -130,24 +115,5 @@ public class WriteableBusinessObject extends BusinessObject implements Writeable
         if(htmlPath!=null){
             htmlFile = new File(htmlPath);
         }
-    }
-
-    @Override
-    public TreeMap<String, String> getUniqueProperties(){
-        TreeMap<String,String> properties = super.getUniqueProperties();
-//        if(xmlFile!=null){
-//            properties.put(XML, xmlFile.getPath());
-//        }
-//        if(htmlFile!=null){
-//            properties.put(HTML, htmlFile.getPath());
-//        }
-        return properties;
-    }
-
-    public TreeMap<String,String> getProperties() {
-        return new TreeMap<String, String>();
-    }
-
-    public void setProperties(TreeMap<String, String> properties){
     }
 }
