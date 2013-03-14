@@ -6,7 +6,6 @@ import be.dafke.Accounting.Objects.BusinessTypeCollection;
 import be.dafke.Accounting.Objects.BusinessTypeProvider;
 import be.dafke.Accounting.Objects.WriteableBusinessCollection;
 
-import java.math.BigDecimal;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,22 +35,6 @@ public class Accounts extends WriteableBusinessCollection<Account> implements Bu
 		}
 		return list;
 	}
-
-	public ArrayList<Account> getAccountsNotEmpty(ArrayList<AccountType> types) {
-		ArrayList<Account> col = new ArrayList<Account>();
-		for(AccountType type : types) {
-			col.addAll(getAccountsNotEmpty(type));
-		}
-		return col;
-	}
-
-    private ArrayList<Account> getAccountsNotEmpty(AccountType type) {
-        ArrayList<Account> col = new ArrayList<Account>();
-        for(Account account : getBusinessObjects()) {
-            if (account.getType() == type && account.getSaldo().compareTo(BigDecimal.ZERO) != 0) col.add(account);
-        }
-        return col;
-    }
 
 	public ArrayList<Account> getAccountNoMatchProject(Project project) {
 		ArrayList<Account> result = new ArrayList<Account>();

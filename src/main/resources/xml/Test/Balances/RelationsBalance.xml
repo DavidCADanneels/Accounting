@@ -3,6 +3,10 @@
 <!DOCTYPE Balance SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Balance.dtd">
 <Balance>
   <name>RelationsBalance</name>
-  <left>Tegoeden van Klanten</left>
-  <right>Schulden aan Leveranciers</right>
+  <LeftName>Tegoeden van Klanten</LeftName>
+  <RightName>Schulden aan Leveranciers</RightName>
+  <LeftTotalName>Totaal Tegoeden</LeftTotalName>
+  <RightTotalName>Totaal Schulden</RightTotalName>
+  <LeftResultName>Resterend Tegoed</LeftResultName>
+  <RightResultName>Resterende Schuld</RightResultName>
 </Balance>

@@ -3,8 +3,12 @@
 <!DOCTYPE Balance SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Balance.dtd">
 <Balance>
   <name>ResultBalance</name>
-  <left>Kosten</left>
-  <right>Opbrengsten</right>
+  <LeftName>Kosten</LeftName>
+  <RightName>Opbrengsten</RightName>
+  <LeftTotalName>Totaal Kosten</LeftTotalName>
+  <RightTotalName>Totaal Opbrengsten</RightTotalName>
+  <LeftResultName>Verlies</LeftResultName>
+  <RightResultName>Winst</RightResultName>
   <line>
     <name1>AXA-Autoverzekering</name1>
     <amount1>208.12</amount1>

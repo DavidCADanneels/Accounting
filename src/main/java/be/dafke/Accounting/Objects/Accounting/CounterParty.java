@@ -1,9 +1,9 @@
 package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Objects.WriteableBusinessObject;
+import be.dafke.Utils;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Set;
@@ -16,7 +16,7 @@ public class CounterParty extends WriteableBusinessObject {
     private final ArrayList<String> aliases;
 	private final HashMap<String, BankAccount> accounts;
     private final ArrayList<BankAccount> accountsList;
-	private Collection<String> addressLines;
+	private ArrayList<String> addressLines;
     protected static final String ACCOUNTNUMBER = "AccountNumber";
     protected static final String BIC = "Bic";
     protected static final String CURRENCY = "Currency";
@@ -37,7 +37,7 @@ public class CounterParty extends WriteableBusinessObject {
 		// creditAccounts = new ArrayList<Account>();
 	}
 
-    public void setAddressLines(Collection<String> addressLines) {
+    public void setAddressLines(ArrayList<String> addressLines) {
         this.addressLines = addressLines;
     }
 
@@ -73,34 +73,6 @@ public class CounterParty extends WriteableBusinessObject {
 		return account;
 	}
 
-    private void parseAliasesString(String aliasesString){
-        if(aliasesString!=null){
-            String[] aliasesStrings = aliasesString.split("\\Q | \\E");
-            for(String s : aliasesStrings){
-                addAlias(s);
-            }
-        }
-    }
-
-    private void parseAddressLinesString(String addressLinesString){
-        if(addressLinesString!=null){
-            String[] addressLinesStrings = addressLinesString.split("\\Q | \\E");
-            for(String s : addressLinesStrings){
-                addressLines.add(s);
-            }
-        }
-
-    }
-
-    private void parseAccountNumberString(String accountNumberString){
-        if(accountNumberString!=null){
-            String[] accountNumberStrings = accountNumberString.split("\\Q | \\E");
-            for(String s : accountNumberStrings){
-                addAccount(new BankAccount(s));
-            }
-        }
-    }
-
     private void parseBicsString(String bicsString){
         if(bicsString!=null){
             String[] bicsStrings = bicsString.split("\\Q | \\E");
@@ -117,28 +89,6 @@ public class CounterParty extends WriteableBusinessObject {
                 accountsList.get(i).setCurrency(currenciesStrings[i]);
             }
         }
-    }
-
-    public String getAliasesString() {
-        if(aliases.size()==0){
-            return "";
-        }
-        StringBuilder builder = new StringBuilder(aliases.get(0));
-        for(int i=1;i<aliases.size();i++){
-            builder.append(" | ").append(aliases.get(i));
-        }
-        return builder.toString();
-    }
-
-    public String getAddressLinesString() {
-        if(addressLines.size()==0){
-            return "";
-        }
-        StringBuilder builder = new StringBuilder(aliases.get(0));
-        for(int i=1;i<addressLines.size();i++){
-            builder.append(" | ").append(aliases.get(i));
-        }
-        return builder.toString();
     }
 
     public String getBankAccountsString() {
@@ -208,10 +158,10 @@ public class CounterParty extends WriteableBusinessObject {
     public TreeMap<String,String> getInitProperties() {
         TreeMap<String, String> properties = super.getUniqueProperties();
         properties.put(ACCOUNTNUMBER, getBankAccountsString());
-        properties.put(ALIAS, getAliasesString());
+        properties.put(ALIAS, Utils.toString(aliases));
         properties.put(BIC,getBICString());
         properties.put(CURRENCY,getCurrencyString());
-        properties.put(ADDRESS, getAddressLinesString());
+        properties.put(ADDRESS, Utils.toString(addressLines));
         return properties;
     }
 
@@ -220,15 +170,18 @@ public class CounterParty extends WriteableBusinessObject {
         super.setInitProperties(properties);
         String aliasesString = properties.get(ALIAS);
         if(aliasesString!=null){
-            parseAliasesString(aliasesString);
+            aliases.addAll(Utils.parseStringList(aliasesString));
         }
         String accountNumberString = properties.get(ACCOUNTNUMBER);
         if(accountNumberString!=null){
-            parseAccountNumberString(accountNumberString);
+            ArrayList<String> numberList = Utils.parseStringList(accountNumberString);
+            for(String s: numberList){
+                addAccount(new BankAccount(s));
+            }
         }
-        String addressLines = properties.get(ADDRESS);
-        if(addressLines!=null){
-            parseAddressLinesString(addressLines);
+        String addressLinesString = properties.get(ADDRESS);
+        if(addressLinesString!=null){
+            addressLines = (Utils.parseStringList(addressLinesString));
         }
         String bicString = properties.get(BIC);
         if(bicString!=null){

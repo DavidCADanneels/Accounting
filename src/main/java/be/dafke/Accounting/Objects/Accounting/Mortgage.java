@@ -1,6 +1,7 @@
 package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Objects.BusinessCollectionDependent;
+import be.dafke.Accounting.Objects.BusinessTypeCollectionDependent;
 import be.dafke.Accounting.Objects.BusinessTyped;
 import be.dafke.Accounting.Objects.WriteableBusinessCollection;
 import be.dafke.MultiValueMap;
@@ -12,7 +13,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 
-public class Mortgage extends Account implements BusinessTyped<AccountType>, BusinessCollectionDependent<Account> {
+public class Mortgage extends Account implements BusinessTypeCollectionDependent<AccountType>, BusinessTyped<AccountType>, BusinessCollectionDependent<Account> {
     private final static String TOTAL = "total";
     private final static String NRPAYED = "nrPayed";
     private final static String CAPITAL_NAME = "CapitalAccountName";

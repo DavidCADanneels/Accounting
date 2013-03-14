@@ -61,6 +61,7 @@ public class AccountingsSAXParser {
             accounting.getJournals().readCollection();
             accounting.getCounterParties().readCollection();
             accounting.getStatements().readCollection();
+            accounting.getBalances().readCollection();
 
             for(Mortgage mortgage : accounting.getMortgages().getBusinessObjects()){
                 MortgagesSAXParser.readMortgage(mortgage);

@@ -7,6 +7,7 @@ import org.w3c.dom.NodeList;
 import java.io.File;
 import java.io.OutputStream;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Vector;
@@ -106,5 +107,28 @@ public class Utils {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static ArrayList<String> parseStringList(String string){
+        ArrayList<String> result = new ArrayList<String>();
+        if(string!=null){
+            String[] aliasesStrings = string.split("\\Q | \\E");
+            for(String s : aliasesStrings){
+                result.add(s);
+            }
+        }
+        return result;
+    }
+
+    public static String toString(ArrayList<String> stringList){
+        if(stringList.size()==0){
+            return "";
+        }
+        StringBuilder builder = new StringBuilder(stringList.get(0));
+        for(int i=1;i<stringList.size();i++){
+            builder.append(" | ").append(stringList.get(i));
+        }
+        return builder.toString();
+
     }
 }

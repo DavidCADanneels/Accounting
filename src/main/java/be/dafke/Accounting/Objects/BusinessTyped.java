@@ -7,8 +7,6 @@ package be.dafke.Accounting.Objects;
  */
 public interface BusinessTyped<T extends BusinessType> {
 
-    public void setBusinessTypeCollection(BusinessTypeCollection<T> businessTypeCollection);
-
     public void setType(T type);
 
     public T getType();

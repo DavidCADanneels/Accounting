@@ -4,6 +4,7 @@ import be.dafke.Accounting.Objects.Accounting.Account;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
 import be.dafke.Accounting.Objects.Accounting.CounterParties;
 import be.dafke.Accounting.Objects.Accounting.CounterParty;
+import be.dafke.Utils;
 
 import javax.swing.table.AbstractTableModel;
 
@@ -30,7 +31,7 @@ public class CounterPartyDataModel extends AbstractTableModel {
 		if (col == 0) {
 			return c;
         } else if (col == 1) {
-            return c.getAliasesString();
+            return Utils.toString(c.getAliases());
 		} else if (col == 2) {
 			return c.getBankAccountsString();
 		} else if (col == 3) {

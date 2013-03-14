@@ -437,9 +437,9 @@ public abstract class WriteableBusinessCollection<V extends WriteableBusinessObj
                             object = createNewChild(shortName);
 
                             // if object is Typed, fetch its TypeCollection from the collection
-                            if(this instanceof BusinessTypeProvider && object instanceof BusinessTyped){
+                            if(this instanceof BusinessTypeProvider && object instanceof BusinessTypeCollectionDependent){
                                 BusinessTypeCollection btc = ((BusinessTypeProvider) this).getBusinessTypeCollection();
-                                ((BusinessTyped)object).setBusinessTypeCollection(btc);
+                                ((BusinessTypeCollectionDependent)object).setBusinessTypeCollection(btc);
                             }
 
                             // if object is dependant on another collection, fetch this Collection from the collection

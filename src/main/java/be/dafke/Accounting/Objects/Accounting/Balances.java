@@ -2,6 +2,9 @@ package be.dafke.Accounting.Objects.Accounting;
 
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
+import be.dafke.Accounting.Objects.BusinessCollectionProvider;
+import be.dafke.Accounting.Objects.BusinessTypeCollection;
+import be.dafke.Accounting.Objects.BusinessTypeProvider;
 import be.dafke.Accounting.Objects.WriteableBusinessCollection;
 
 import java.util.ArrayList;
@@ -13,11 +16,13 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 27/02/13
  * Time: 12:07
  */
-public class Balances extends WriteableBusinessCollection<Balance> {
+public class Balances extends WriteableBusinessCollection<Balance> implements BusinessCollectionProvider<Account>, BusinessTypeProvider<AccountType>{
 
     public static String RESULT_BALANCE = "ResultBalance";
     public static String RELATIONS_BALANCE = "RelationsBalance";
     public static String YEAR_BALANCE = "YearBalance";
+    private WriteableBusinessCollection<Account> businessCollection;
+    private BusinessTypeCollection<AccountType> businessTypeCollection;
 
     public void addDefaultBalances(Accounting accounting){
         ArrayList<AccountType> costs = new ArrayList<AccountType>();
@@ -54,7 +59,6 @@ public class Balances extends WriteableBusinessCollection<Balance> {
         resultBalance.setRightResultName(getBundle("Accounting").getString("WINST"));
         resultBalance.setLeftTypes(costs);
         resultBalance.setRightTypes(revenues);
-        resultBalance.setAccounting(accounting);
 
         Balance relationsBalance = new Balance();
         relationsBalance.setName(RELATIONS_BALANCE);
@@ -66,8 +70,7 @@ public class Balances extends WriteableBusinessCollection<Balance> {
         relationsBalance.setRightResultName(getBundle("Accounting").getString("RESTERENDE_SCHULD"));
         relationsBalance.setLeftTypes(credit);
         relationsBalance.setRightTypes(debit);
-        relationsBalance.setAccounting(accounting);
-        
+
         Balance yearBalance = new Balance();
         yearBalance.setName(YEAR_BALANCE);
         yearBalance.setLeftName(getBundle("Accounting").getString("ACTIVA"));
@@ -78,7 +81,6 @@ public class Balances extends WriteableBusinessCollection<Balance> {
         yearBalance.setRightResultName(getBundle("Accounting").getString("VERLIES"));
         yearBalance.setLeftTypes(active);
         yearBalance.setRightTypes(passive);
-        yearBalance.setAccounting(accounting);
 
         try {
             addBusinessObject(resultBalance);
@@ -99,5 +101,25 @@ public class Balances extends WriteableBusinessCollection<Balance> {
     @Override
     public void readCollection() {
         readCollection("Balance");
+    }
+
+    @Override
+    public WriteableBusinessCollection<Account> getBusinessCollection() {
+        return businessCollection;
+    }
+
+    @Override
+    public void setBusinessCollection(WriteableBusinessCollection<Account> businessCollection) {
+        this.businessCollection = businessCollection;
+    }
+
+    @Override
+    public BusinessTypeCollection<AccountType> getBusinessTypeCollection() {
+        return businessTypeCollection;
+    }
+
+    @Override
+    public void setBusinessTypeCollection(BusinessTypeCollection<AccountType> businessTypeCollection) {
+        this.businessTypeCollection = businessTypeCollection;
     }
 }

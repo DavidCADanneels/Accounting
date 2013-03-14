@@ -3,8 +3,12 @@
 <!DOCTYPE Balance SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Balance.dtd">
 <Balance>
   <name>YearBalance</name>
-  <left>Activa</left>
-  <right>Passiva</right>
+  <LeftName>Activa</LeftName>
+  <RightName>Passiva</RightName>
+  <LeftTotalName>Totaal Activa</LeftTotalName>
+  <RightTotalName>Totaal Passiva</RightTotalName>
+  <LeftResultName>Winst</LeftResultName>
+  <RightResultName>Verlies</RightResultName>
   <line>
     <name1>Auto activa</name1>
     <amount1>15450.00</amount1>

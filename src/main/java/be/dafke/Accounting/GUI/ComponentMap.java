@@ -50,10 +50,10 @@ public class ComponentMap {
     private static final HashMap<String, DisposableComponent> disposableComponents = new HashMap<String, DisposableComponent>();
 
     public static void addAccountingComponents(Accounting accounting, ActionListener actionListener){
-        addDisposableComponent(accounting.toString() + RELATIONS_BALANCE, new BalanceGUI(accounting.getBalances().getBusinessObject(Balances.RELATIONS_BALANCE)));
-        addDisposableComponent(accounting.toString() + RESULT_BALANCE, new BalanceGUI(accounting.getBalances().getBusinessObject(Balances.RESULT_BALANCE)));
+        addDisposableComponent(accounting.toString() + RELATIONS_BALANCE, new BalanceGUI(accounting,accounting.getBalances().getBusinessObject(Balances.RELATIONS_BALANCE)));
+        addDisposableComponent(accounting.toString() + RESULT_BALANCE, new BalanceGUI(accounting,accounting.getBalances().getBusinessObject(Balances.RESULT_BALANCE)));
+        addDisposableComponent(accounting.toString() + YEAR_BALANCE, new BalanceGUI(accounting,accounting.getBalances().getBusinessObject(Balances.YEAR_BALANCE)));
         addDisposableComponent(accounting.toString() + TEST_BALANCE, new TestBalance(accounting));
-        addDisposableComponent(accounting.toString() + YEAR_BALANCE, new BalanceGUI(accounting.getBalances().getBusinessObject(Balances.YEAR_BALANCE)));
         addDisposableComponent(accounting.toString() + PROJECTS, new ProjectManagementGUI(accounting));
         addDisposableComponent(accounting.toString() + MOVEMENTS, new StatementTable(accounting, actionListener));
         addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting, actionListener));

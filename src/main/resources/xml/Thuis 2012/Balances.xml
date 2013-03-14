@@ -3,15 +3,36 @@
 <!DOCTYPE Balances SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Balances.dtd">
 <Balances>
   <Balance>
+    <LeftName>Tegoeden van Klanten</LeftName>
+    <LeftResultName>Resterend Tegoed</LeftResultName>
+    <LeftTotalName>Totaal Tegoeden</LeftTotalName>
+    <LeftTypes>Credit</LeftTypes>
+    <RightName>Schulden aan Leveranciers</RightName>
+    <RightResultName>Resterende Schuld</RightResultName>
+    <RightTotalName>Totaal Schulden</RightTotalName>
+    <RightTypes>Debit</RightTypes>
     <name>RelationsBalance</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Balances\RelationsBalance.xml</xml>
   </Balance>
   <Balance>
+    <LeftName>Kosten</LeftName>
+    <LeftResultName>Verlies</LeftResultName>
+    <LeftTotalName>Totaal Kosten</LeftTotalName>
+    <LeftTypes>Cost</LeftTypes>
+    <RightName>Opbrengsten</RightName>
+    <RightResultName>Winst</RightResultName>
+    <RightTotalName>Totaal Opbrengsten</RightTotalName>
+    <RightTypes>Revenue</RightTypes>
     <name>ResultBalance</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Balances\ResultBalance.xml</xml>
   </Balance>
   <Balance>
+    <LeftName>Activa</LeftName>
+    <LeftResultName>Winst</LeftResultName>
+    <LeftTotalName>Totaal Activa</LeftTotalName>
+    <LeftTypes>Active | Credit</LeftTypes>
+    <RightName>Passiva</RightName>
+    <RightResultName>Verlies</RightResultName>
+    <RightTotalName>Totaal Passiva</RightTotalName>
+    <RightTypes>Passive | Debit</RightTypes>
     <name>YearBalance</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Balances\YearBalance.xml</xml>
   </Balance>
 </Balances>

@@ -29,8 +29,12 @@ public class BalancesSAXParser {
 
             writer.write("<Balance>\r\n");
             writer.write("  <name>" + balance.getName() + "</name>\r\n");
-            writer.write("  <left>" + balance.getLeftName() + "</left>\r\n");
-            writer.write("  <right>" + balance.getRightName() + "</right>\r\n");
+            writer.write("  <LeftName>" + balance.getLeftName() + "</LeftName>\r\n");
+            writer.write("  <RightName>" + balance.getRightName() + "</RightName>\r\n");
+            writer.write("  <LeftTotalName>" + balance.getLeftTotalName() + "</LeftTotalName>\r\n");
+            writer.write("  <RightTotalName>" + balance.getRightTotalName() + "</RightTotalName>\r\n");
+            writer.write("  <LeftResultName>" + balance.getLeftResultName() + "</LeftResultName>\r\n");
+            writer.write("  <RightResultName>" + balance.getRightResultName() + "</RightResultName>\r\n");
             ArrayList<Account> leftAccounts = balance.getLeftAccounts();
             ArrayList<Account> rightAccounts = balance.getRightAccounts();
 

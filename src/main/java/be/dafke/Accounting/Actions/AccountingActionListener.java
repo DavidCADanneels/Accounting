@@ -51,6 +51,7 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
                 accounting.setName(name);
                 accountings.addBusinessObject(accounting);
                 accountings.setCurrentObject(name);
+                accounting.getBalances().addDefaultBalances(accounting);
                 ComponentMap.addAccountingComponents(accounting, this);
                 JOptionPane.showMessageDialog(null, "Please create a Journal.");
                 String key = accounting.toString()+ComponentMap.JOURNAL_MANAGEMENT;

@@ -29,22 +29,32 @@ public class Accounting extends WriteableBusinessCollection<WriteableBusinessCol
 
     public Accounting() {
         // TODO use Accounts<Account> + modifiy Accounts file ... Accounts<T extends
+
         accountTypes = new AccountTypes();
+
         accounts = new Accounts();
         accounts.setBusinessTypeCollection(accountTypes);
+
         journalTypes = new JournalTypes();
         journalTypes.addDefaultType(accountTypes);
+
         journals = new Journals();
         journals.setBusinessTypeCollection(journalTypes);
+
         balances = new Balances();
+        balances.setBusinessCollection(accounts);
+        balances.setBusinessTypeCollection(accountTypes);
+
         mortgages = new Mortgages();
         mortgages.setBusinessTypeCollection(accountTypes);
         mortgages.setBusinessCollection(accounts);
+
         counterParties = new CounterParties();
+
         statements = new Statements();
         statements.setBusinessCollection(counterParties);
+
         projects = new Projects();
-        balances.addDefaultBalances(this);
 
         accounts.setName(accounts.getBusinessObjectType());
         journals.setName(journals.getBusinessObjectType());
