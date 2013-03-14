@@ -8,13 +8,7 @@ import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Mortgage;
 import be.dafke.Accounting.Objects.WriteableBusinessCollection;
 import be.dafke.Accounting.Objects.WriteableBusinessObject;
-import be.dafke.Utils;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
 import java.io.FileWriter;
 import java.io.Writer;
 
@@ -24,56 +18,6 @@ import java.io.Writer;
  * Time: 10:22
  */
 public class AccountingsSAXParser {
-
-    public static Accountings readAccountings() {
-        Accountings accountings = new Accountings();
-
-
-        accountings.readCollection();
-
-        for(Accounting accounting : accountings.getBusinessObjects()) {
-            readAccounting(accounting);
-        }
-        return accountings;
-    }
-
-    private static void readAccounting(Accounting accounting){
-        try {
-            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            documentBuilderFactory.setValidating(true);
-            DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(accounting.getXmlFile().getAbsolutePath());
-            doc.getDocumentElement().normalize();
-
-            for(String key:accounting.getKeys()) {
-                WriteableBusinessCollection<WriteableBusinessObject> writeableBusinessObject = accounting.getBusinessObject(key);
-                Element element = (Element)doc.getElementsByTagName(key).item(0);
-                String name = Utils.getValue(element, "name");
-                System.out.println("parsing: " + name);
-                File xmlFile = Utils.getFile(element, "xml");
-                File htmlFile = Utils.getFile(element, "html");
-                writeableBusinessObject.setXmlFile(xmlFile);
-                writeableBusinessObject.setHtmlFile(htmlFile);
-            }
-
-            accounting.getAccounts().readCollection();
-            accounting.getMortgages().readCollection();
-            accounting.getJournals().readCollection();
-            accounting.getCounterParties().readCollection();
-            accounting.getStatements().readCollection();
-            accounting.getBalances().readCollection();
-
-            for(Mortgage mortgage : accounting.getMortgages().getBusinessObjects()){
-                MortgagesSAXParser.readMortgage(mortgage);
-            }
-
-            for(Journal journal : accounting.getJournals().getBusinessObjects()){
-                JournalsSAXParser.readJournal(journal, accounting.getAccounts());
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 
     public static void writeAccountings(Accountings accountings) {
         accountings.createDefaultValuesIfNull();

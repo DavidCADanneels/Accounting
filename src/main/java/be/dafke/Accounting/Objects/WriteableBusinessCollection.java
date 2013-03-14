@@ -479,7 +479,7 @@ public abstract class WriteableBusinessCollection<V extends WriteableBusinessObj
             String value = getValue(rootElement, CURRENT);
             if(value!=null){
                 currentObject = getBusinessObject(value);
-                System.err.println(currentObject.getName());
+                System.err.println("current Object: "+currentObject.getName());
             }
         } catch (IOException io) {
             io.printStackTrace();
@@ -487,12 +487,12 @@ public abstract class WriteableBusinessCollection<V extends WriteableBusinessObj
             e.printStackTrace();
         }
 
-//        for(V accounting : getBusinessObjects()) {
-//            if(accounting instanceof WriteableBusinessCollection){
-//                WriteableBusinessCollection<WriteableBusinessObject> collection = ((WriteableBusinessCollection<WriteableBusinessObject>)accounting);
-//                collection.readCollection();
-//            }
-//        }
+        for(V businessObject : getBusinessObjects()) {
+            if(businessObject instanceof WriteableBusinessCollection){
+                WriteableBusinessCollection<WriteableBusinessObject> businessCollection = ((WriteableBusinessCollection<WriteableBusinessObject>)businessObject);
+                businessCollection.readCollection();
+            }
+        }
 
         // TODO iterate all 'Writeable' childeren and call this function (recursion)
     }

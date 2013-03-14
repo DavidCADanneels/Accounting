@@ -13,6 +13,7 @@ public class Accountings extends WriteableBusinessCollection<Accounting> {
         File xmlFolder = new File(System.getProperty("Accountings_xml"));
         setXmlFile(new File(xmlFolder, "Accountings.xml"));
         setHtmlFile(new File(xmlFolder, "Accountings.html"));
+        readCollection();
     }
 
     @Override

@@ -1,6 +1,5 @@
 package be.dafke.Accounting.GUI;
 
-import be.dafke.Accounting.Dao.XML.AccountingsSAXParser;
 import be.dafke.Accounting.GUI.MainWindow.AccountingGUIFrame;
 import be.dafke.Accounting.Objects.Accounting.Accountings;
 
@@ -39,7 +38,9 @@ public class Main {
         System.setProperty("Accountings_xsl", xslFolder.getPath());
         System.setProperty("Accountings_dtd", dtdFolder.getPath());
 
-        Accountings accountings = AccountingsSAXParser.readAccountings();
+        Accountings accountings = new Accountings();
+//        accountings.readCollection();
+
         AccountingGUIFrame frame = new AccountingGUIFrame(accountings);
         frame.setVisible(true);
 	}

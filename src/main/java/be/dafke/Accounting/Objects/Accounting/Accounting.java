@@ -1,5 +1,7 @@
 package be.dafke.Accounting.Objects.Accounting;
 
+import be.dafke.Accounting.Dao.XML.JournalsSAXParser;
+import be.dafke.Accounting.Dao.XML.MortgagesSAXParser;
 import be.dafke.Accounting.Exceptions.DuplicateNameException;
 import be.dafke.Accounting.Exceptions.EmptyNameException;
 import be.dafke.Accounting.Objects.WriteableBusinessCollection;
@@ -104,6 +106,14 @@ public class Accounting extends WriteableBusinessCollection<WriteableBusinessCol
     @Override
     public void readCollection() {
         readCollection(keys);
+        for(Mortgage mortgage : mortgages.getBusinessObjects()){
+            MortgagesSAXParser.readMortgage(mortgage);
+        }
+
+        for(Journal journal : journals.getBusinessObjects()){
+            JournalsSAXParser.readJournal(journal, accounts);
+        }
+
     }
 
     @Override
