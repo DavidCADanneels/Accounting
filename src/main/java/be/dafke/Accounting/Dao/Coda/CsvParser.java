@@ -57,13 +57,13 @@ public class CsvParser {
                     } else if(counter<100){
                         sequenceNumber = "00"+sequenceNumber;
                     } else if(counter<1000){
-                        sequenceNumber = "000"+sequenceNumber;
+                        sequenceNumber = "0"+sequenceNumber;
                     }
                     String[] parts = line.split(";");
                     Statement statement = new Statement();
                     statement.setDate(Utils.toCalendar(parts[0]));
                     statement.setName("CSV-"+sequenceNumber);
-                    BigDecimal amount = Utils.parseBigDecimal(parts[4].replace(',','.'));
+                    BigDecimal amount = Utils.parseBigDecimal(parts[4].replace(".","").replace(',','.'));
                     boolean debit = false;
                     if(amount.compareTo(BigDecimal.ZERO)<0){
                         amount = amount.negate();
