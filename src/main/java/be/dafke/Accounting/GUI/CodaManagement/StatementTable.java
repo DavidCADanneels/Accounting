@@ -131,7 +131,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 		Set<CounterParty> set = new HashSet<CounterParty>();
 		List<Statement> list = new ArrayList<Statement>();
 		for(int i : rows) {
-			CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 5);
+			CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 4);
 			if (counterParty == null) {
 				Statements statements = accounting.getStatements();
 				list.add(statements.getBusinessObjects().get(i));
@@ -188,9 +188,9 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 				}
 				if (bankAccount != null && journal != null) {
                     for(int i : rows) {
-                        CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 5);
+                        CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 4);
                         Account account = counterParty.getAccount();
-                        boolean debet = tabel.getValueAt(i, 3).equals("D");
+                        boolean debet = tabel.getValueAt(i, 2).equals("D");
                         if (account == null) {
                             CounterParty counterParty2 = accounting.getCounterParties().getBusinessObject(counterParty.getName());
                             if (counterParty2 != null) {
@@ -203,7 +203,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
                                     JOptionPane.INFORMATION_MESSAGE, null, accounts, null);
                             counterParty.setAccount(account);
                         }
-                        BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 4);
+                        BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 3);
                         Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentTransaction();
                         Booking booking1 = new Booking(account);
                         booking1.setMovement(new Movement(amount, debet));
@@ -211,10 +211,10 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
                         booking2.setMovement(new Movement(amount, !debet));
                         transaction.addBooking(booking1);
                         transaction.addBooking(booking2);
-                        String cal = (String) tabel.getValueAt(i, 2);
+                        String cal = (String) tabel.getValueAt(i, 1);
                         Calendar date = Utils.toCalendar(cal);
                         transaction.setDate(date);
-                        String description = (String) tabel.getValueAt(i, 7);
+                        String description = (String) tabel.getValueAt(i, 6);
                         transaction.setDescription(description);
                         journal.book(transaction);
 
@@ -234,10 +234,10 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 	public void mouseClicked(MouseEvent me) {
 		Point cell = me.getPoint();//
 		// Point location = me.getLocationOnScreen();
-		if (me.getClickCount() == 2) {
+		if (me.getClickCount() == 1) {
 			int col = tabel.columnAtPoint(cell);
 			int row = tabel.rowAtPoint(cell);
-			if (col == 5) {
+			if (col == 4) {
 				Statements statements = accounting.getStatements();
 				CounterParty counterParty = (CounterParty) tabel.getValueAt(row, col);
 				if (counterParty == null) {
@@ -261,14 +261,14 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
                     refreshableTable.setVisible(true);
 					// parent.addChildFrame(refreshableTable);
 				}
-			} else if (col == 6) {
+			} else if (col == 5) {
 				String transactionCode = (String) tabel.getValueAt(row, 6);
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.searchForTransactionCode(transactionCode);
 				RefreshableTable refreshableTable = new GenericStatementTable(searchOptions, accounting);
                 refreshableTable.setVisible(true);
 				// parent.addChildFrame(refreshableTable);
-            } else if (col == 7){
+            } else if (col == 6){
                 String communication = (String) tabel.getValueAt(row, 7);
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.searchForCommunication(communication);

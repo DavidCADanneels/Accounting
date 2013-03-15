@@ -64,10 +64,10 @@ public class CsvParser {
                     statement.setDate(Utils.toCalendar(parts[0]));
                     statement.setName("CSV-"+sequenceNumber);
                     BigDecimal amount = Utils.parseBigDecimal(parts[4].replace(',','.'));
-                    boolean debit = true;
+                    boolean debit = false;
                     if(amount.compareTo(BigDecimal.ZERO)<0){
-                        amount = amount.abs();
-                        debit = false;
+                        amount = amount.negate();
+                        debit = true;
                     }
                     statement.setDebit(debit);
                     statement.setAmount(amount);
@@ -87,7 +87,6 @@ public class CsvParser {
                     } catch (DuplicateNameException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
-                    // TODO deal with counterParties
 
                     String accountNumber = parts[7].replaceAll("\"","").trim();
                     if(!"".equals(accountNumber)){
@@ -102,6 +101,7 @@ public class CsvParser {
                         addressLines.add(line1.trim());
                         addressLines.add(line2.trim());
                         counterParty.setAddressLines(addressLines);
+                        statement.setCounterParty(counterParty);
                         try {
                             counterParties.addBusinessObject(counterParty);
                         } catch (EmptyNameException e) {
@@ -110,7 +110,6 @@ public class CsvParser {
                             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                         }
                     }
-
                     line = reader.readLine();
                 }
                 reader.close();

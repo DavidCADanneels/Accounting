@@ -33,7 +33,7 @@ public class StatementDataModel extends AbstractTableModel {
 		} else if (col == 1) {
 			return Utils.toString(m.getDate());
 		} else if (col == 2) {
-			return (m.isDebit()) ? "D" : "C";
+			return (m.isDebit()) ? "(D) -" : "(C) +";
 		} else if (col == 3) {
 			return m.getAmount();
 		} else if (col == 4) {
