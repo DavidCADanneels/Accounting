@@ -125,7 +125,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 				try {
 					BigDecimal amount = new BigDecimal(s);
 					amount = amount.setScale(2);
-                    Transaction transaction = journal.getCurrentTransaction();
+                    Transaction transaction = journal.getCurrentObject();
                     Booking booking = new Booking(account);
                     booking.setMovement(new Movement(amount,debit));
                     transaction.addBooking(booking);

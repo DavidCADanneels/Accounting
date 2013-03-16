@@ -30,7 +30,7 @@ public class Journals extends WriteableBusinessCollection<Journal> implements Bu
 
     @Override
     public void readCollection() {
-        readCollection("Journal");
+        readCollection("Journal", true);
     }
 
     /**

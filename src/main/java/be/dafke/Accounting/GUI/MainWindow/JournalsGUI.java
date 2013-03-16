@@ -64,8 +64,8 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	}
 
     private void checkTransfer(Journal oldJournal, Journal newJournal){
-        Transaction oldTransaction = oldJournal.getCurrentTransaction();
-        Transaction newTransaction = newJournal.getCurrentTransaction();
+        Transaction oldTransaction = oldJournal.getCurrentObject();
+        Transaction newTransaction = newJournal.getCurrentObject();
         if(oldTransaction!=null && !oldTransaction.getBookings().isEmpty()){
             StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
                     .append(oldJournal).append(" to ").append(newJournal);
@@ -74,8 +74,8 @@ public class JournalsGUI extends JPanel implements ActionListener {
             }
             int answer = JOptionPane.showConfirmDialog(null, builder.toString());
             if(answer == JOptionPane.YES_OPTION){
-                newJournal.setCurrentTransaction(oldTransaction);
-                oldJournal.setCurrentTransaction(new Transaction());
+                newJournal.setCurrentObject(oldTransaction);
+                oldJournal.setCurrentObject(new Transaction());
                 journals.setCurrentObject(newJournal);
             } else if(answer == JOptionPane.NO_OPTION){
                 journals.setCurrentObject(newJournal);

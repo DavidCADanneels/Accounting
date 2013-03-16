@@ -49,7 +49,7 @@ public class JournalsSAXParser {
                 String description = Utils.getValue(element, "description");
                 if(nr!=null){
                     if(transaction != null){
-                        journal.book(transaction);
+                        journal.addBusinessObject(transaction);
                     }
                     transaction = new Transaction();
                     transaction.setAbbreviation(abbreviation);
@@ -79,7 +79,7 @@ public class JournalsSAXParser {
                 }
             }
             if(transaction!=null){
-                journal.book(transaction);
+                journal.addBusinessObject(transaction);
             }
         } catch (IOException io) {
 //				FileSystemView.getFileSystemView().createFileObject(subFolder, "Accounting.xml");
@@ -97,7 +97,7 @@ public class JournalsSAXParser {
 
             writer.write("<Journal>\r\n"
                     + "  <name>" + journal.getName() + "</name>\r\n");
-            for (Transaction transaction :journal.getTransactions()) {
+            for (Transaction transaction :journal.getBusinessObjects()) {
                 ArrayList<Booking> list = transaction.getBookings();
                 Booking booking = list.get(0);
                 writer.write("  <action id=\""+booking.getTransaction().getId()+"\">\r\n");

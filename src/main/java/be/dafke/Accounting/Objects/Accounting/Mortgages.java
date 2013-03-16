@@ -30,7 +30,7 @@ public class Mortgages extends WriteableBusinessCollection<Mortgage> implements 
 
     @Override
     public void readCollection() {
-        readCollection("Mortgage");
+        readCollection("Mortgage",true);
     }
 
     @Override

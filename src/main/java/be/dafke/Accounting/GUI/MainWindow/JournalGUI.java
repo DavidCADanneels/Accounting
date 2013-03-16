@@ -115,7 +115,7 @@ public class JournalGUI extends JPanel implements ActionListener {
             if(accounting.getJournals().getCurrentObject()==null){
                 journalDataModel.setTransaction(null);
             } else {
-                journalDataModel.setTransaction(accounting.getJournals().getCurrentObject().getCurrentTransaction());
+                journalDataModel.setTransaction(accounting.getJournals().getCurrentObject().getCurrentObject());
             }
             journalDataModel.fireTableDataChanged();
         }
@@ -127,7 +127,7 @@ public class JournalGUI extends JPanel implements ActionListener {
 
 	public void refresh() {
         if(journal!=null){
-            Transaction transaction = journal.getCurrentTransaction();
+            Transaction transaction = journal.getCurrentObject();
             journalDataModel.setTransaction(transaction);
             journalDataModel.fireTableDataChanged();
             if(transaction!=null){
@@ -158,16 +158,16 @@ public class JournalGUI extends JPanel implements ActionListener {
                 JOptionPane.showMessageDialog(null, "Fill in date");
             } else {
                 // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
-                Transaction transaction = journal.getCurrentTransaction();
+                Transaction transaction = journal.getCurrentObject();
                 if(transaction!=null){
                     transaction.setDescription(bewijs.getText());
                     transaction.setDate(date);
-                    journal.book(transaction);
+                    journal.addBusinessObject(transaction);
                     clear();
                     bewijs.setText("");
                     transaction = new Transaction();
                     transaction.setDate(date);
-                    journal.setCurrentTransaction(transaction);
+                    journal.setCurrentObject(transaction);
                 }
                 ComponentMap.refreshAllFrames();
             }
@@ -180,7 +180,7 @@ public class JournalGUI extends JPanel implements ActionListener {
 	public void clear() {
         Transaction transaction = new Transaction();
         transaction.setDate(date);
-        journal.setCurrentTransaction(transaction);
+        journal.setCurrentObject(transaction);
         ok.setEnabled(false);
         refresh();
 	}

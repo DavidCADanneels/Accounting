@@ -72,7 +72,7 @@ public class AccountingGUIPanel extends JPanel {
 //                mortgagesGUI.setJournal(accounting.getJournals().getCurrentObject());
 //                journalGUI.setJournal(accounting.getJournals().getCurrentObject());
 //                if(accounting.getJournals().getCurrentObject()!=null)
-//                journalGUI.setTransaction(accounting.getJournals().getCurrentObject().getCurrentTransaction());
+//                journalGUI.setTransaction(accounting.getJournals().getCurrentObject().getCurrentObject());
 //            }
 //        }
 //	}

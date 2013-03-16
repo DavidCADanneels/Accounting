@@ -36,23 +36,11 @@ public class Journal extends WriteableBusinessObject implements BusinessTypeColl
         return transactions.isEmpty();
     }
 
-    public Booking getBooking(int row){
-        ArrayList<Booking> boekingen = new ArrayList<Booking>();
-        for(Transaction transaction : getTransactions()){
-            boekingen.addAll(transaction.getBookings());
-        }
-        return boekingen.get(row);
-    }
-
-    public Transaction getTransaction(int row){
-        return getBooking(row).getTransaction();
-    }
-
-    public Transaction getCurrentTransaction() {
+    public Transaction getCurrentObject() {
         return currentTransaction;
     }
 
-    public void setCurrentTransaction(Transaction currentTransaction) {
+    public void setCurrentObject(Transaction currentTransaction) {
         this.currentTransaction = currentTransaction;
     }
 
@@ -74,7 +62,7 @@ public class Journal extends WriteableBusinessObject implements BusinessTypeColl
 		return getName() + " (" + abbreviation + ")";
 	}
 
-	public ArrayList<Transaction> getTransactions() {
+	public ArrayList<Transaction> getBusinessObjects() {
         return transactions.values();
     }
 
@@ -117,7 +105,7 @@ public class Journal extends WriteableBusinessObject implements BusinessTypeColl
         }
 	}
 
-	public void unbook(Transaction transaction) {
+	public void removeBusinessObject(Transaction transaction) {
         Calendar date = transaction.getDate();
 		deleteTransaction(date, transaction);
 		ArrayList<Booking> bookings = transaction.getBookings();
@@ -128,7 +116,7 @@ public class Journal extends WriteableBusinessObject implements BusinessTypeColl
 		id--;
 	}
 
-	public void book(Transaction transaction) {
+	public void addBusinessObject(Transaction transaction) {
         Calendar date = transaction.getDate();
         transaction.setJournal(this);
         transaction.setAbbreviation(abbreviation);

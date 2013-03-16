@@ -105,7 +105,7 @@ public class Accounting extends WriteableBusinessCollection<WriteableBusinessCol
 
     @Override
     public void readCollection() {
-        readCollection(keys);
+        readCollection(keys, true);
         for(Mortgage mortgage : mortgages.getBusinessObjects()){
             MortgagesSAXParser.readMortgage(mortgage);
         }

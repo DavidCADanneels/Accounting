@@ -8,6 +8,7 @@ import be.dafke.Utils;
 
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import static java.util.ResourceBundle.getBundle;
@@ -41,7 +42,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 	@Override
 	public int getRowCount() {
 		int size = 0;
-        for(Transaction transaction : journal.getTransactions()){
+        for(Transaction transaction : journal.getBusinessObjects()){
 			size += transaction.getBookings().size();
 		}
 		return size;
@@ -59,7 +60,11 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int row, int col) {
-		Booking boeking = journal.getBooking(row);
+        ArrayList<Booking> boekingen = new ArrayList<Booking>();
+        for(Transaction transaction : journal.getBusinessObjects()){
+            boekingen.addAll(transaction.getBookings());
+        }
+		Booking boeking = boekingen.get(row);
         boolean first = (boeking == boeking.getTransaction().getBookings().get(0));
         if (col == 0) {
             if(first){
@@ -99,15 +104,19 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-        Booking booking = journal.getBooking(row);
+        ArrayList<Booking> boekingen = new ArrayList<Booking>();
+        for(Transaction transaction : journal.getBusinessObjects()){
+            boekingen.addAll(transaction.getBookings());
+        }
+        Booking booking = boekingen.get(row);
         Transaction transaction = booking.getTransaction();
 		if (col == 1) {
 			Calendar oudeDatum = transaction.getDate();
 			Calendar nieuweDatum = Utils.toCalendar((String) value);
 			if (nieuweDatum != null){
-                journal.unbook(transaction);
+                journal.removeBusinessObject(transaction);
                 transaction.setDate(nieuweDatum);
-                journal.book(transaction);
+                journal.addBusinessObject(transaction);
             }
 			else setValueAt(Utils.toString(oudeDatum), row, col);
 		} else if (col == 5) {

@@ -71,6 +71,6 @@ public class Accounts extends WriteableBusinessCollection<Account> implements Bu
 
     @Override
     public void readCollection() {
-        readCollection("Account");
+        readCollection("Account", false);
     }
 }

@@ -46,6 +46,6 @@ public class Accountings extends WriteableBusinessCollection<Accounting> {
 
     @Override
     public void readCollection() {
-        readCollection("Accounting");
+        readCollection("Accounting", true);
     }
 }

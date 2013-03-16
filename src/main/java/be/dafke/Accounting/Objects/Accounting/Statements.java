@@ -35,7 +35,7 @@ public class Statements extends WriteableBusinessCollection<Statement> implement
 
     @Override
     public void readCollection() {
-        readCollection("Statement");
+        readCollection("Statement", false);
     }
 
     @Override

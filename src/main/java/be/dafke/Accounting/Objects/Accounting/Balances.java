@@ -100,7 +100,7 @@ public class Balances extends WriteableBusinessCollection<Balance> implements Bu
 
     @Override
     public void readCollection() {
-        readCollection("Balance");
+        readCollection("Balance", false);
     }
 
     @Override

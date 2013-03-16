@@ -60,7 +60,7 @@ public class CounterParties extends WriteableBusinessCollection<CounterParty> {
 
     @Override
     public void readCollection() {
-        readCollection("CounterParty");
+        readCollection("CounterParty", false);
     }
 
     private CounterParty merge(CounterParty toKeep, CounterParty toRemove) {

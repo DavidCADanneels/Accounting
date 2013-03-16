@@ -21,7 +21,7 @@ public class AccountingsSAXParser {
         accountings.writeCollection();
 
         for(Accounting accounting : accountings.getBusinessObjects()) {
-            accounting.writeCollection();
+//            accounting.writeCollection();
 
             for(Account account : accounting.getAccounts().getBusinessObjects()){
                 AccountsSAXParser.writeAccount(account);

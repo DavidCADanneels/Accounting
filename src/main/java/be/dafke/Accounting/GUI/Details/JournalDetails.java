@@ -2,6 +2,7 @@ package be.dafke.Accounting.GUI.Details;
 
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.Objects.Accounting.Accounting;
+import be.dafke.Accounting.Objects.Accounting.Booking;
 import be.dafke.Accounting.Objects.Accounting.Journal;
 import be.dafke.Accounting.Objects.Accounting.Transaction;
 import be.dafke.RefreshableTable;
@@ -69,7 +70,12 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
 
     private void menuAction(JMenuItem source) {
         popup.setVisible(false);
-        Transaction transaction = journal.getTransaction(selectedRow);
+        ArrayList<Booking> boekingen = new ArrayList<Booking>();
+        for(Transaction transaction : journal.getBusinessObjects()){
+            boekingen.addAll(transaction.getBookings());
+        }
+        Booking booking = boekingen.get(selectedRow);
+        Transaction transaction = booking.getTransaction();
         if (source == move) {
             ArrayList<Journal> dagboeken = accounting.getJournals().getAllJournalsExcept(journal);
             Object[] lijst = dagboeken.toArray();
@@ -79,15 +85,15 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, lijst, lijst[0]);
             if(keuze!=JOptionPane.CANCEL_OPTION && keuze!=JOptionPane.CLOSED_OPTION){
                 Journal newJournal = (Journal) lijst[keuze];
-                journal.unbook(transaction);
-                newJournal.book(transaction);
+                journal.removeBusinessObject(transaction);
+                newJournal.addBusinessObject(transaction);
 
                 JOptionPane.showMessageDialog(null,
                         getBundle("Accounting").getString("TRANSACTIE_VERPLAATST_VAN") + journal +
                                 getBundle("Accounting").getString("NAAR") + newJournal);
             }
         } else if (source == delete) {
-            journal.unbook(transaction);
+            journal.removeBusinessObject(transaction);
             JOptionPane.showMessageDialog(null, getBundle("Accounting").getString("TRANSACTIE_VERWIJDERD_UIT") + journal);
         }
         ComponentMap.refreshAllFrames();

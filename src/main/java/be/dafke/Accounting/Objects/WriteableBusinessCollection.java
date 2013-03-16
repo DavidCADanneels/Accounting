@@ -368,12 +368,12 @@ public abstract class WriteableBusinessCollection<V extends WriteableBusinessObj
 //        readCollection(getBusinessObjectNames());
 //    }
 
-    public void readCollection(String shortName){
+    public void readCollection(String shortName, boolean recursive){
         ArrayList<String> list = new ArrayList<String>();
         list.add(shortName);
-        readCollection(list);
+        readCollection(list, recursive);
     }
-    public void readCollection(ArrayList<String> shortNames){
+    public void readCollection(ArrayList<String> shortNames, boolean recursive){
         try {
             File file = getXmlFile();
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -450,11 +450,12 @@ public abstract class WriteableBusinessCollection<V extends WriteableBusinessObj
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        for(V businessObject : getBusinessObjects()) {
-            if(businessObject instanceof WriteableBusinessCollection){
-                WriteableBusinessCollection<WriteableBusinessObject> businessCollection = ((WriteableBusinessCollection<WriteableBusinessObject>)businessObject);
-                businessCollection.readCollection();
+        if(recursive){
+            for(V businessObject : getBusinessObjects()) {
+                if(businessObject instanceof WriteableBusinessCollection){
+                    WriteableBusinessCollection<WriteableBusinessObject> businessCollection = ((WriteableBusinessCollection<WriteableBusinessObject>)businessObject);
+                    businessCollection.readCollection();
+                }
             }
         }
 

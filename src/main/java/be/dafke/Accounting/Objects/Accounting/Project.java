@@ -64,7 +64,7 @@ public class Project {
 ////			result = accounting.getBusinessObjects().add(getBundle("Accounting").getString("VERLIES_PROJECT") + naam, AccountType.Cost);
 ////			transaction.debiteer(result, verlies);
 ////		}
-//		// TODO: transaction.book() !!!
+//		// TODO: transaction.addBusinessObject() !!!
 //		for(Account account : teVerwijderen) {
 //			rekeningen.remove(account);
 //		}

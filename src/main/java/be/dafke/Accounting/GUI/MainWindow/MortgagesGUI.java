@@ -86,7 +86,7 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 			System.out.println("Payed Off already");
 			return;
 		}
-        Transaction transaction = journal.getCurrentTransaction();
+        Transaction transaction = journal.getCurrentObject();
         Booking booking = new Booking(mortgage);
         booking.setMovement(new Movement(mortgage.getMensuality(),true));
         transaction.addBooking(booking);

@@ -204,7 +204,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
                             counterParty.setAccount(account);
                         }
                         BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 3);
-                        Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentTransaction();
+                        Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
                         Booking booking1 = new Booking(account);
                         booking1.setMovement(new Movement(amount, debet));
                         Booking booking2 = new Booking(bankAccount);
@@ -216,13 +216,13 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
                         transaction.setDate(date);
                         String description = (String) tabel.getValueAt(i, 6);
                         transaction.setDescription(description);
-                        journal.book(transaction);
+                        journal.addBusinessObject(transaction);
 
                         transaction = new Transaction();
                         transaction.setDate(date); // take the same date as previous transaction
                         // leave the description empty
 
-                        accounting.getJournals().getCurrentObject().setCurrentTransaction(transaction);
+                        accounting.getJournals().getCurrentObject().setCurrentObject(transaction);
                     }
                 }
 			}

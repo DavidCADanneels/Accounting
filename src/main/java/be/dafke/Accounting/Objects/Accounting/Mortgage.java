@@ -91,7 +91,7 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
 
     @Override
     protected void book(Calendar date, Movement movement){
-        System.out.println("Mortgage.book()");
+        System.out.println("Mortgage.addBusinessObject()");
 
         // Define new Amounts
         BigDecimal newIntrestAmount = table.get(alreadyPayed).get(1);
@@ -152,7 +152,7 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
 
     @Override
     protected void unbook(Calendar date, Movement movement){
-        System.out.println("Mortgage.unbook()");
+        System.out.println("Mortgage.removeBusinessObject()");
 
         alreadyPayed--;
 
