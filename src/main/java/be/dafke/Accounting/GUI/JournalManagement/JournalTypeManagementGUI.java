@@ -1,9 +1,9 @@
 package be.dafke.Accounting.GUI.JournalManagement;
 
 import be.dafke.Accounting.GUI.ComponentMap;
-import be.dafke.Accounting.Objects.Accounting.AccountType;
-import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.RefreshableFrame;
+import be.dafke.Accounting.Objects.AccountType;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.ComponentModel.RefreshableFrame;
 
 import javax.swing.*;
 import java.awt.*;

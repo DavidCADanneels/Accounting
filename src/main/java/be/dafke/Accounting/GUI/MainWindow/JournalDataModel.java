@@ -1,8 +1,8 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
-import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Booking;
-import be.dafke.Accounting.Objects.Accounting.Transaction;
+import be.dafke.Accounting.Objects.Account;
+import be.dafke.Accounting.Objects.Booking;
+import be.dafke.Accounting.Objects.Transaction;
 
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;

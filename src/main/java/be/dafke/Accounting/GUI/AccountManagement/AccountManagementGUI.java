@@ -1,13 +1,13 @@
 package be.dafke.Accounting.GUI.AccountManagement;
 
-import be.dafke.Accounting.Exceptions.DuplicateNameException;
-import be.dafke.Accounting.Exceptions.EmptyNameException;
-import be.dafke.Accounting.Exceptions.NotEmptyException;
 import be.dafke.Accounting.GUI.ComponentMap;
-import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.AccountType;
-import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.RefreshableFrame;
+import be.dafke.Accounting.Objects.Account;
+import be.dafke.Accounting.Objects.AccountType;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.ComponentModel.RefreshableFrame;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;

@@ -1,7 +1,7 @@
 package be.dafke.Accounting.GUI.JournalManagement;
 
-import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Journal;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.Accounting.Objects.Journal;
 
 import javax.swing.table.AbstractTableModel;
 

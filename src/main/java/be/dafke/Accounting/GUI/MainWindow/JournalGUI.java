@@ -1,10 +1,10 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.ComponentMap;
-import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Journal;
-import be.dafke.Accounting.Objects.Accounting.Transaction;
-import be.dafke.Utils;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.Accounting.Objects.Journal;
+import be.dafke.Accounting.Objects.Transaction;
+import be.dafke.Utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;

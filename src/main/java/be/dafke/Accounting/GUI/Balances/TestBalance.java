@@ -1,7 +1,7 @@
 package be.dafke.Accounting.GUI.Balances;
 
-import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.RefreshableTable;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.ComponentModel.RefreshableTable;
 
 import static java.util.ResourceBundle.getBundle;
 

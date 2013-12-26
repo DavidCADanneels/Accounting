@@ -1,13 +1,13 @@
 package be.dafke.Accounting.GUI.JournalManagement;
 
-import be.dafke.Accounting.Exceptions.DuplicateNameException;
-import be.dafke.Accounting.Exceptions.EmptyNameException;
-import be.dafke.Accounting.Exceptions.NotEmptyException;
 import be.dafke.Accounting.GUI.ComponentMap;
-import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Journal;
-import be.dafke.Accounting.Objects.Accounting.JournalType;
-import be.dafke.RefreshableTable;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.Accounting.Objects.Journal;
+import be.dafke.Accounting.Objects.JournalType;
+import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;

@@ -1,13 +1,13 @@
 package be.dafke.Accounting.GUI.Projects;
 
-import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accounts;
-import be.dafke.Accounting.Objects.Accounting.Project;
-import be.dafke.Accounting.Objects.Accounting.Projects;
-import be.dafke.AlphabeticListModel;
-import be.dafke.PrefixFilterPanel;
-import be.dafke.RefreshableFrame;
+import be.dafke.Accounting.Objects.Account;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.Accounting.Objects.Accounts;
+import be.dafke.Accounting.Objects.Project;
+import be.dafke.Accounting.Objects.Projects;
+import be.dafke.ComponentModel.RefreshableFrame;
+import be.dafke.Utils.AlphabeticListModel;
+import be.dafke.Utils.PrefixFilterPanel;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

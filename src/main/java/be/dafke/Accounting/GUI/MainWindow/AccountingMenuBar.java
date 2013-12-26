@@ -1,9 +1,9 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.ComponentMap;
-import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
-import be.dafke.RefreshableComponent;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.ComponentModel.RefreshableComponent;
 
 import javax.swing.*;
 import java.awt.event.ActionListener;

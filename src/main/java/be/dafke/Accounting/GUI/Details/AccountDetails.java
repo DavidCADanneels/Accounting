@@ -5,9 +5,9 @@ package be.dafke.Accounting.GUI.Details;
  * @author David Danneels
  */
 
-import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.RefreshableTable;
+import be.dafke.Accounting.Objects.Account;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.ComponentModel.RefreshableTable;
 
 import static java.util.ResourceBundle.getBundle;
 

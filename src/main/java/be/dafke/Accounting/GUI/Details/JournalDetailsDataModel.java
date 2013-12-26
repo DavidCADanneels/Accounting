@@ -1,10 +1,10 @@
 package be.dafke.Accounting.GUI.Details;
 
-import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Booking;
-import be.dafke.Accounting.Objects.Accounting.Journal;
-import be.dafke.Accounting.Objects.Accounting.Transaction;
-import be.dafke.Utils;
+import be.dafke.Accounting.Objects.Account;
+import be.dafke.Accounting.Objects.Booking;
+import be.dafke.Accounting.Objects.Journal;
+import be.dafke.Accounting.Objects.Transaction;
+import be.dafke.Utils.Utils;
 
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;

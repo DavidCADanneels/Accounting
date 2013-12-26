@@ -1,17 +1,17 @@
 package be.dafke.Accounting.GUI.MainWindow;
 
 import be.dafke.Accounting.GUI.ComponentMap;
-import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.AccountType;
-import be.dafke.Accounting.Objects.Accounting.AccountTypes;
-import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accounts;
-import be.dafke.Accounting.Objects.Accounting.Booking;
-import be.dafke.Accounting.Objects.Accounting.Journal;
-import be.dafke.Accounting.Objects.Accounting.Movement;
-import be.dafke.Accounting.Objects.Accounting.Transaction;
-import be.dafke.AlphabeticListModel;
-import be.dafke.PrefixFilterPanel;
+import be.dafke.Accounting.Objects.Account;
+import be.dafke.Accounting.Objects.AccountType;
+import be.dafke.Accounting.Objects.AccountTypes;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.Accounting.Objects.Accounts;
+import be.dafke.Accounting.Objects.Booking;
+import be.dafke.Accounting.Objects.Journal;
+import be.dafke.Accounting.Objects.Movement;
+import be.dafke.Accounting.Objects.Transaction;
+import be.dafke.Utils.AlphabeticListModel;
+import be.dafke.Utils.PrefixFilterPanel;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;

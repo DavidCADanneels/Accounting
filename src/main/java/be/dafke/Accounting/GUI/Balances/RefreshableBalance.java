@@ -1,6 +1,6 @@
 package be.dafke.Accounting.GUI.Balances;
 
-import be.dafke.RefreshableTable;
+import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.table.AbstractTableModel;
 

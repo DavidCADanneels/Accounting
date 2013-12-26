@@ -1,18 +1,18 @@
 package be.dafke.Accounting.Actions;
 
-import be.dafke.Accounting.Dao.XML.AccountingsSAXParser;
-import be.dafke.Accounting.Exceptions.DuplicateNameException;
-import be.dafke.Accounting.Exceptions.EmptyNameException;
+import be.dafke.Accounting.Dao.AccountingsSAXParser;
 import be.dafke.Accounting.GUI.AccountManagement.NewAccountGUI;
 import be.dafke.Accounting.GUI.ComponentMap;
 import be.dafke.Accounting.GUI.Details.AccountDetails;
 import be.dafke.Accounting.GUI.Details.JournalDetails;
-import be.dafke.Accounting.GUI.MortgageManagement.MortgageCalculatorGUI;
-import be.dafke.Accounting.Objects.Accounting.Account;
-import be.dafke.Accounting.Objects.Accounting.Accounting;
-import be.dafke.Accounting.Objects.Accounting.Accountings;
-import be.dafke.Accounting.Objects.Accounting.Journal;
-import be.dafke.DisposableComponent;
+import be.dafke.Accounting.Objects.Account;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.Accounting.Objects.Accountings;
+import be.dafke.Accounting.Objects.Journal;
+import be.dafke.ComponentModel.DisposableComponent;
+import be.dafke.Mortgage.GUI.MortgageCalculatorGUI;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

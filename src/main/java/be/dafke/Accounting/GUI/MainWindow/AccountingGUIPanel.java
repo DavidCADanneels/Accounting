@@ -2,7 +2,8 @@ package be.dafke.Accounting.GUI.MainWindow;
 
 //import be.belgium.eid.*;
 
-import be.dafke.Accounting.Objects.Accounting.Accounting;
+import be.dafke.Accounting.Objects.Accounting;
+import be.dafke.Mortgage.GUI.MortgagesGUI;
 
 import javax.swing.*;
 import java.awt.*;
