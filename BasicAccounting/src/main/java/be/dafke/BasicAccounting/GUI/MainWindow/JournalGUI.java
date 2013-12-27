@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.GUI.ComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Transaction;
@@ -169,7 +169,7 @@ public class JournalGUI extends JPanel implements ActionListener {
                     transaction.setDate(date);
                     journal.setCurrentObject(transaction);
                 }
-                ComponentMap.refreshAllFrames();
+                AccountingComponentMap.refreshAllFrames();
             }
 		}
 		if (e.getSource() == clear) {

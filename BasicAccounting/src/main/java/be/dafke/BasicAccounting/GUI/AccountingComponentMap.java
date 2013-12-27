@@ -10,20 +10,17 @@ import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Balances;
 import be.dafke.Coda.GUI.CounterPartyTable;
 import be.dafke.Coda.GUI.StatementTable;
-import be.dafke.ComponentModel.DisposableComponent;
-import be.dafke.ComponentModel.RefreshableComponent;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.Mortgage.GUI.MortgageGUI;
 
 import java.awt.event.ActionListener;
-import java.util.Collection;
-import java.util.HashMap;
 
 /**
  * User: Dafke
  * Date: 25/02/13
  * Time: 6:05
  */
-public class ComponentMap {
+public class AccountingComponentMap extends ComponentMap{
     public static final String TEST_BALANCE = "TestBalance";
     public static final String YEAR_BALANCE = "YearBalance";
     public static final String RELATIONS_BALANCE = "BalanceGUI";
@@ -46,8 +43,6 @@ public class ComponentMap {
     public static final String OPEN_ACCOUNTING = "OpenAccounting";
     public static final String NEW_ACCOUNT = "NewAccount";
 
-    private static final HashMap<String, RefreshableComponent> refreshableComponents = new HashMap<String, RefreshableComponent>();
-    private static final HashMap<String, DisposableComponent> disposableComponents = new HashMap<String, DisposableComponent>();
 
     public static void addAccountingComponents(Accounting accounting, ActionListener actionListener){
         addDisposableComponent(accounting.toString() + RELATIONS_BALANCE, new BalanceGUI(accounting,accounting.getBalances().getBusinessObject(Balances.RELATIONS_BALANCE)));
@@ -63,30 +58,4 @@ public class ComponentMap {
         addDisposableComponent(accounting.toString() + JOURNAL_TYPE_MANAGEMENT, new JournalTypeManagementGUI(accounting));
     }
 
-    public static void closeAllFrames(){
-        Collection<DisposableComponent> collection = disposableComponents.values();
-        for(DisposableComponent frame: collection){
-            frame.dispose();
-        }
-    }
-
-    public static DisposableComponent getDisposableComponent(String name){
-        return disposableComponents.get(name);
-    }
-
-    public static void refreshAllFrames(){
-        Collection<RefreshableComponent> collection = refreshableComponents.values();
-        for(RefreshableComponent frame: collection){
-            frame.refresh();
-        }
-    }
-
-    public static void addRefreshableComponent(String key, RefreshableComponent frame) {
-        refreshableComponents.put(key, frame);
-    }
-
-    public static void addDisposableComponent(String key, DisposableComponent frame) {
-        refreshableComponents.put(key, frame);
-        disposableComponents.put(key, frame);
-    }
 }

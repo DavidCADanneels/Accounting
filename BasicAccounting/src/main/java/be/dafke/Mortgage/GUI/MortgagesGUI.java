@@ -1,6 +1,6 @@
 package be.dafke.Mortgage.GUI;
 
-import be.dafke.BasicAccounting.GUI.ComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
@@ -90,7 +90,7 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
         Booking booking = new Booking(mortgage);
         booking.setMovement(new Movement(mortgage.getMensuality(),true));
         transaction.addBooking(booking);
-        ComponentMap.refreshAllFrames();
+        AccountingComponentMap.refreshAllFrames();
 	}
 
 	@Override

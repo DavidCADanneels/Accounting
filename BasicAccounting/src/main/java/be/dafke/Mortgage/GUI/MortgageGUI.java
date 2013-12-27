@@ -1,6 +1,6 @@
 package be.dafke.Mortgage.GUI;
 
-import be.dafke.BasicAccounting.GUI.ComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ComponentModel.RefreshableFrame;
@@ -42,7 +42,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		mortgagesList.setModel(new DefaultListModel<Mortgage>());
 		mortgagesList.addListSelectionListener(this);
 		create = new JButton("Create new Mortgage table");
-        create.setActionCommand(ComponentMap.MORTGAGE_CALCULATOR);
+        create.setActionCommand(AccountingComponentMap.MORTGAGE_CALCULATOR);
 		create.addActionListener(actionListener);
 
 		JPanel left = new JPanel(new BorderLayout());

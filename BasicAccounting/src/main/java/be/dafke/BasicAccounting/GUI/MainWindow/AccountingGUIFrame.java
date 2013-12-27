@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
 import be.dafke.BasicAccounting.Actions.AccountingActionListener;
-import be.dafke.BasicAccounting.GUI.ComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.ComponentModel.RefreshableFrame;
@@ -33,10 +33,10 @@ public class AccountingGUIFrame extends RefreshableFrame {
 		setContentPane(contentPanel);
         menuBar = new AccountingMenuBar(actionListener);
         setJMenuBar(menuBar);
-        ComponentMap.addDisposableComponent(ComponentMap.MAIN, this); // MAIN
-        ComponentMap.addRefreshableComponent(ComponentMap.MENU, menuBar);
+        AccountingComponentMap.addDisposableComponent(AccountingComponentMap.MAIN, this); // MAIN
+        AccountingComponentMap.addRefreshableComponent(AccountingComponentMap.MENU, menuBar);
         for(Accounting accounting : accountings.getBusinessObjects()){
-            ComponentMap.addAccountingComponents(accounting, actionListener);
+            AccountingComponentMap.addAccountingComponents(accounting, actionListener);
         }
         refresh();
     }

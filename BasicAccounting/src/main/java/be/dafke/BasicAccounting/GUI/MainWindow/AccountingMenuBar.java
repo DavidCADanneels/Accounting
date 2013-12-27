@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.GUI.ComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.ComponentModel.RefreshableComponent;
@@ -34,7 +34,7 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         file = new JMenu("Bestand");
         startNew = new JMenuItem("New");
         startNew.addActionListener(actionListener);
-        startNew.setActionCommand(ComponentMap.NEW_ACCOUNTING);
+        startNew.setActionCommand(AccountingComponentMap.NEW_ACCOUNTING);
         add(file);
 
 
@@ -101,14 +101,14 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
     }
 
     private void setActionCommands(){
-        testBalance.setActionCommand(ComponentMap.TEST_BALANCE);
-        yearBalance.setActionCommand(ComponentMap.YEAR_BALANCE);
-        resultBalance.setActionCommand(ComponentMap.RESULT_BALANCE);
-        relationsBalance.setActionCommand(ComponentMap.RELATIONS_BALANCE);
-        projects.setActionCommand(ComponentMap.PROJECTS);
-        movements.setActionCommand(ComponentMap.MOVEMENTS);
-        counterParties.setActionCommand(ComponentMap.COUNTERPARTIES);
-        mortgage.setActionCommand(ComponentMap.MORTGAGES);
+        testBalance.setActionCommand(AccountingComponentMap.TEST_BALANCE);
+        yearBalance.setActionCommand(AccountingComponentMap.YEAR_BALANCE);
+        resultBalance.setActionCommand(AccountingComponentMap.RESULT_BALANCE);
+        relationsBalance.setActionCommand(AccountingComponentMap.RELATIONS_BALANCE);
+        projects.setActionCommand(AccountingComponentMap.PROJECTS);
+        movements.setActionCommand(AccountingComponentMap.MOVEMENTS);
+        counterParties.setActionCommand(AccountingComponentMap.COUNTERPARTIES);
+        mortgage.setActionCommand(AccountingComponentMap.MORTGAGES);
     }
 
     public void setAccounting(Accounting accounting, Accountings accountings) {
@@ -119,7 +119,7 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
             if(acc!=accounting){
                 JMenuItem item = new JMenuItem(acc.toString());
                 item.addActionListener(actionListener);
-                item.setActionCommand(ComponentMap.OPEN_ACCOUNTING+acc.toString());
+                item.setActionCommand(AccountingComponentMap.OPEN_ACCOUNTING+acc.toString());
                 file.add(item);
             }
         }

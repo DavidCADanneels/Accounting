@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI.AccountManagement;
 
-import be.dafke.BasicAccounting.GUI.ComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.Accounting;
@@ -65,7 +65,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
 //            account.setName(name.trim());
             account.setType((AccountType) type.getSelectedItem());
             accounting.getAccounts().addBusinessObject(account);
-            ComponentMap.refreshAllFrames();
+            AccountingComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
             JOptionPane.showMessageDialog(this, "There is already an account with the name \""+name+"\".\r\n"+
                     "Please provide a new name.");

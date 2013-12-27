@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI.Details;
 
-import be.dafke.BasicAccounting.GUI.ComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
@@ -96,7 +96,7 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
             journal.removeBusinessObject(transaction);
             JOptionPane.showMessageDialog(null, getBundle("Accounting").getString("TRANSACTIE_VERWIJDERD_UIT") + journal);
         }
-        ComponentMap.refreshAllFrames();
+        AccountingComponentMap.refreshAllFrames();
     }
 
     @Override

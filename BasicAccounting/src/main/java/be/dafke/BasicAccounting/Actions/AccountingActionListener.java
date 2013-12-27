@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.Dao.AccountingsSAXParser;
 import be.dafke.BasicAccounting.GUI.AccountManagement.NewAccountGUI;
-import be.dafke.BasicAccounting.GUI.ComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.Details.AccountDetails;
 import be.dafke.BasicAccounting.GUI.Details.JournalDetails;
 import be.dafke.BasicAccounting.Objects.Account;
@@ -36,15 +36,15 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
     @Override
     public void windowClosing(WindowEvent we) {
         AccountingsSAXParser.writeAccountings(accountings);
-        ComponentMap.closeAllFrames();
+        AccountingComponentMap.closeAllFrames();
     }
 
     @Override
     public void actionPerformed(ActionEvent ae) {
         String actionCommand = ae.getActionCommand();
-        if (actionCommand.equals(ComponentMap.NEW_ACCOUNT)){
+        if (actionCommand.equals(AccountingComponentMap.NEW_ACCOUNT)){
             new NewAccountGUI(accountings.getCurrentObject()).setVisible(true);
-        } else if (actionCommand.equals(ComponentMap.NEW_ACCOUNTING)) {
+        } else if (actionCommand.equals(AccountingComponentMap.NEW_ACCOUNTING)) {
             String name = JOptionPane.showInputDialog(null, "Enter a name");
             try {
                 Accounting accounting = new Accounting(name);
@@ -52,48 +52,48 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
                 accountings.addBusinessObject(accounting);
                 accountings.setCurrentObject(name);
                 accounting.getBalances().addDefaultBalances(accounting);
-                ComponentMap.addAccountingComponents(accounting, this);
+                AccountingComponentMap.addAccountingComponents(accounting, this);
                 JOptionPane.showMessageDialog(null, "Please create a Journal.");
-                String key = accounting.toString()+ComponentMap.JOURNAL_MANAGEMENT;
-                ComponentMap.getDisposableComponent(key).setVisible(true);
+                String key = accounting.toString()+ AccountingComponentMap.JOURNAL_MANAGEMENT;
+                AccountingComponentMap.getDisposableComponent(key).setVisible(true);
             } catch (DuplicateNameException e) {
                 JOptionPane.showMessageDialog(null, "There is already an accounting with the name \""+name+"\".\r\n"+
                         "Please provide a new name.");
             } catch (EmptyNameException e) {
                 JOptionPane.showMessageDialog(null, "The name cannot be empty.\r\nPlease provide a new name.");
             }
-            ComponentMap.refreshAllFrames();
-        } else if(actionCommand.startsWith(ComponentMap.OPEN_ACCOUNTING)){
-            String accountingName = actionCommand.replaceAll(ComponentMap.OPEN_ACCOUNTING, "");
+            AccountingComponentMap.refreshAllFrames();
+        } else if(actionCommand.startsWith(AccountingComponentMap.OPEN_ACCOUNTING)){
+            String accountingName = actionCommand.replaceAll(AccountingComponentMap.OPEN_ACCOUNTING, "");
             accountings.setCurrentObject(accountingName);
-        } else if(actionCommand.equals(ComponentMap.JOURNAL_DETAILS)){
+        } else if(actionCommand.equals(AccountingComponentMap.JOURNAL_DETAILS)){
             Accounting accounting = accountings.getCurrentObject();
             Journal journal = accounting.getJournals().getCurrentObject();
-            String key = ComponentMap.JOURNAL_DETAILS + accounting.toString() + journal.toString();
-            DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+            String key = AccountingComponentMap.JOURNAL_DETAILS + accounting.toString() + journal.toString();
+            DisposableComponent gui = AccountingComponentMap.getDisposableComponent(key); // DETAILS
             if(gui == null){
                 gui = new JournalDetails(journal, accounting);
-                ComponentMap.addDisposableComponent(key, gui); // DETAILS
+                AccountingComponentMap.addDisposableComponent(key, gui); // DETAILS
             }
             gui.setVisible(true);
-        } else if(actionCommand.equals(ComponentMap.ACCOUNT_DETAILS)){
+        } else if(actionCommand.equals(AccountingComponentMap.ACCOUNT_DETAILS)){
             Accounting accounting = accountings.getCurrentObject();
             Account account = accounting.getAccounts().getCurrentObject();
-            String key = accounting.toString() + ComponentMap.ACCOUNT_DETAILS + account.getName();
-            DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+            String key = accounting.toString() + AccountingComponentMap.ACCOUNT_DETAILS + account.getName();
+            DisposableComponent gui = AccountingComponentMap.getDisposableComponent(key); // DETAILS
             if(gui == null){
                 gui = new AccountDetails(account, accounting);
-                ComponentMap.addDisposableComponent(key, gui); // DETAILS
+                AccountingComponentMap.addDisposableComponent(key, gui); // DETAILS
             }
             gui.setVisible(true);
-        } else if(actionCommand.equals(ComponentMap.MORTGAGE_CALCULATOR)){
+        } else if(actionCommand.equals(AccountingComponentMap.MORTGAGE_CALCULATOR)){
             MortgageCalculatorGUI gui = new MortgageCalculatorGUI(accountings.getCurrentObject());
-            ComponentMap.addDisposableComponent(ComponentMap.MORTGAGE_CALCULATOR +gui.getNr(), gui);
+            AccountingComponentMap.addDisposableComponent(AccountingComponentMap.MORTGAGE_CALCULATOR + gui.getNr(), gui);
             gui.setVisible(true);
         } else {
             String key = accountings.getCurrentObject().toString() + actionCommand;
-            ComponentMap.getDisposableComponent(key).setVisible(true);
+            AccountingComponentMap.getDisposableComponent(key).setVisible(true);
         }
-        ComponentMap.refreshAllFrames();
+        AccountingComponentMap.refreshAllFrames();
     }
 }

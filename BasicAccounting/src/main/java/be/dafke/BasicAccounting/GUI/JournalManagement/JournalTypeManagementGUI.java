@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI.JournalManagement;
 
-import be.dafke.BasicAccounting.GUI.ComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ComponentModel.RefreshableFrame;
@@ -130,7 +130,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
                 model.removeElement(type);
             }
 		}
-        ComponentMap.refreshAllFrames();
+        AccountingComponentMap.refreshAllFrames();
     }
 
 	@Override

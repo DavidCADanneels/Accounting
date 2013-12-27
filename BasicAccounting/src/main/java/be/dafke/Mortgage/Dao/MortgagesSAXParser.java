@@ -1,6 +1,5 @@
 package be.dafke.Mortgage.Dao;
 
-import be.dafke.BasicAccounting.Dao.FoutHandler;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.Mortgage.Objects.Mortgage;
 import org.xml.sax.XMLReader;

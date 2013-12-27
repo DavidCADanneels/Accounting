@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI.AccountManagement;
 
-import be.dafke.BasicAccounting.GUI.ComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.Accounting;
@@ -55,7 +55,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 		modifyType.addActionListener(this);
 		delete.addActionListener(this);
         newAccount.addActionListener(actionListener);
-        newAccount.setActionCommand(ComponentMap.NEW_ACCOUNT);
+        newAccount.setActionCommand(AccountingComponentMap.NEW_ACCOUNT);
 		modifyName.setEnabled(false);
 		modifyType.setEnabled(false);
 		delete.setEnabled(false);
@@ -83,7 +83,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
         delete.setEnabled(false);
         modifyName.setEnabled(false);
         modifyType.setEnabled(false);
-        ComponentMap.refreshAllFrames();
+        AccountingComponentMap.refreshAllFrames();
 	}
 
     private void deleteAccounts(ArrayList<Account> accountList) {
@@ -117,7 +117,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
                 try{
                     if(newName!=null && !oldName.trim().equals(newName.trim())){
                         accounting.getAccounts().modifyAccountName(oldName, newName);
-                        ComponentMap.refreshAllFrames();
+                        AccountingComponentMap.refreshAllFrames();
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {

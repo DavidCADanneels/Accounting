@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI.JournalManagement;
 
-import be.dafke.BasicAccounting.GUI.ComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.JournalType;
@@ -56,7 +56,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 		name.addFocusListener(this);
 		line2.add(add);
 		newType = new JButton("Manage types ...");
-        newType.setActionCommand(ComponentMap.JOURNAL_TYPE_MANAGEMENT);
+        newType.setActionCommand(AccountingComponentMap.JOURNAL_TYPE_MANAGEMENT);
 		newType.addActionListener(actionListener);
 		line2.add(newType);
 		north.add(line1);
@@ -129,7 +129,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
             modifyAbbr.setEnabled(false);
             modifyType.setEnabled(false);
         }
-        ComponentMap.refreshAllFrames();
+        AccountingComponentMap.refreshAllFrames();
     }
 
     private ArrayList<Journal> getSelectedJournals(){
@@ -177,7 +177,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
                 try {
                     if(newName!=null && !oldName.trim().equals(newName.trim())){
                         accounting.getJournals().modifyJournalName(oldName, newName);
-                        ComponentMap.refreshAllFrames();
+                        AccountingComponentMap.refreshAllFrames();
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {
@@ -199,7 +199,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
                 try {
                     if(newAbbreviation!=null && !oldAbbreviation.trim().equals(newAbbreviation.trim())){
                         accounting.getJournals().modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
-                        ComponentMap.refreshAllFrames();
+                        AccountingComponentMap.refreshAllFrames();
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {
@@ -227,7 +227,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
             journal.setType(journalType);
             accounting.getJournals().addBusinessObject(journal);
             accounting.getJournals().setCurrentObject(journal);
-            ComponentMap.refreshAllFrames();
+            AccountingComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
             JOptionPane.showMessageDialog(this, "There is already an journal with the name \""+newName.trim()+"\" and/or abbreviation \""+abbreviation.trim()+"\" .\r\n"+
                     "Please provide a new name and/or abbreviation.");

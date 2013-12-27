@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.GUI.ComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.AccountTypes;
@@ -61,8 +61,8 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
 		credit.addActionListener(this);
 		accountManagement.addActionListener(actionListener);
         accountDetails.addActionListener(actionListener);
-        accountManagement.setActionCommand(ComponentMap.ACCOUNT_MANAGEMENT);
-        accountDetails.setActionCommand(ComponentMap.ACCOUNT_DETAILS);
+        accountManagement.setActionCommand(AccountingComponentMap.ACCOUNT_MANAGEMENT);
+        accountDetails.setActionCommand(AccountingComponentMap.ACCOUNT_DETAILS);
 		debet.setEnabled(false);
 		credit.setEnabled(false);
 		accountDetails.setEnabled(false);
@@ -130,7 +130,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, Action
                     booking.setMovement(new Movement(amount,debit));
                     transaction.addBooking(booking);
 					ok = true;
-                    ComponentMap.refreshAllFrames();
+                    AccountingComponentMap.refreshAllFrames();
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(this,
 							getBundle("Accounting").getString("INVALID_INPUT"));
