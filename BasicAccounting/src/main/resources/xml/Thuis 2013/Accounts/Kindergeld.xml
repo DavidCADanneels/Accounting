@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Account2xml.xsl"?>
-<!DOCTYPE Account SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Account.dtd">
+<?xml-stylesheet type="text/xsl" href="../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../dtd/Account.dtd">
 <Account>
   <name>Kindergeld</name>
   <action id="19">
     <nr>DIV19</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>8/1/2013</date>
     <credit>90.28</credit>
     <description>kindergeld december</description>
   </action>
   <action id="73">
     <nr>DIV73</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>8/2/2013</date>
     <credit>90.28</credit>
     <description>Kindergeld januari</description>

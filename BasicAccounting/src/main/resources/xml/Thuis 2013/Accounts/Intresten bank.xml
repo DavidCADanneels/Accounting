@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Account2xml.xsl"?>
-<!DOCTYPE Account SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Account.dtd">
+<?xml-stylesheet type="text/xsl" href="../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../dtd/Account.dtd">
 <Account>
   <name>Intresten bank</name>
   <action id="2">
     <nr>DIV2</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/1/2013</date>
     <credit>1.23</credit>
     <description>Intrest spaarboekje</description>
   </action>
   <action id="6">
     <nr>DIV6</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>2/1/2013</date>
     <debit>25.80</debit>
     <description>kapitalisatie</description>
   </action>
   <action id="10">
     <nr>DIV10</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>2/1/2013</date>
     <debit>33.70</debit>
     <description>Kapitalisatie</description>

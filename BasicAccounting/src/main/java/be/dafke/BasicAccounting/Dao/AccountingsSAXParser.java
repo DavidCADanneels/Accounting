@@ -178,6 +178,22 @@ public class AccountingsSAXParser {
 
     // READ
 
+    public static void readCollection(Accountings accountings, File xmlFolder) {
+        readCollection(accountings, true, xmlFolder);
+        for(Accounting accounting : accountings.getBusinessObjects()){
+            File rootFolder = new File(xmlFolder, accounting.getName());
+            for(Mortgage mortgage : accounting.getMortgages().getBusinessObjects()){
+                File mortgagesFolder = new File(rootFolder, "Mortgages");
+                MortgagesSAXParser.readMortgage(mortgage, new File(mortgagesFolder, mortgage.getName()+".xml"));
+            }
+
+            for(Journal journal : accounting.getJournals().getBusinessObjects()){
+                File journalsFolder = new File(rootFolder, "Journals");
+                JournalsSAXParser.readJournal(journal, accounting.getAccounts(), new File(journalsFolder, journal.getName()+".xml"));
+            }
+        }
+    }
+
     public static void readCollection(BusinessCollection businessCollection, boolean recursive, File parentFolder){
 //        ArrayList<String> list = new ArrayList<String>();
 //        list.add(shortName);

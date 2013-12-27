@@ -1,20 +1,20 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Account2xml.xsl"?>
-<!DOCTYPE Account SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Account.dtd">
+<?xml-stylesheet type="text/xsl" href="../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../dtd/Account.dtd">
 <Account>
   <name>Kosten school</name>
   <action id="35">
     <nr>DIV35</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>17/1/2013</date>
     <debit>23.40</debit>
     <description>61050/+++</description>
   </action>
   <action id="77">
     <nr>DIV77</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>12/2/2013</date>
     <debit>39.00</debit>
     <description>Maaltijden</description>

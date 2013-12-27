@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Account2xml.xsl"?>
-<!DOCTYPE Account SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Account.dtd">
+<?xml-stylesheet type="text/xsl" href="../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../dtd/Account.dtd">
 <Account>
   <name>Belastingen</name>
   <action id="169">
     <nr>DIV169</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>26/4/2012</date>
     <credit>2413.56</credit>
     <description>KOHIERARTIKEL: 720844783 DIENST : 05 04/01</description>
   </action>
   <action id="420">
     <nr>DIV420</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>29/8/2012</date>
     <debit>319.73</debit>
     <description>101125168607515</description>
   </action>
   <action id="421">
     <nr>DIV421</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>29/8/2012</date>
     <debit>249.68</debit>
     <description>101122184624706</description>
   </action>
   <action id="560">
     <nr>DIV560</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>28/11/2012</date>
     <credit>4128.29</credit>
     <description>KOHIERARTIKEL: 728168078 DIENST : 05 04/01</description>

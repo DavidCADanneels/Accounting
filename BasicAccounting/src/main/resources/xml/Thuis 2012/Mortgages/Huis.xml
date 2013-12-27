@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Mortgage2xml.xsl"?>
-<!DOCTYPE Mortgage SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Mortgage.dtd">
+<?xml-stylesheet type="text/xsl" href="../../xsl/Mortgage2xml.xsl"?>
+<!DOCTYPE Mortgage SYSTEM "../../dtd/Mortgage.dtd">
 <Mortgage>
   <name>Huis</name>
   <line>
@@ -159,7 +159,7 @@
   </line>
   <line>
     <nr>23</nr>
-    <mensuality>802.71</mensuality>
+    <mensuality>802</mensuality>
     <intrest>584.42</intrest>
     <capital>218.29</capital>
     <restCapital>151186.12</restCapital>
@@ -1987,7 +1987,7 @@
   <line>
     <nr>284</nr>
     <mensuality>802.71</mensuality>
-    <intrest>206.05</intrest>
+    <intrest>206</intrest>
     <capital>596.66</capital>
     <restCapital>52785.34</restCapital>
   </line>
@@ -2154,7 +2154,7 @@
   </line>
   <line>
     <nr>308</nr>
-    <mensuality>802.71</mensuality>
+    <mensuality>802</mensuality>
     <intrest>148.26</intrest>
     <capital>654.45</capital>
     <restCapital>37753.79</restCapital>

@@ -41,7 +41,7 @@ public class Main {
 
         Accountings accountings = new Accountings(xmlFolder, xslFolder, dtdFolder);
 
-        AccountingsSAXParser.readCollection(accountings, true, xmlFolder);
+        AccountingsSAXParser.readCollection(accountings, xmlFolder);
 
         AccountingGUIFrame frame = new AccountingGUIFrame(accountings);
         frame.setVisible(true);

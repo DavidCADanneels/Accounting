@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Mortgage2xml.xsl"?>
-<!DOCTYPE Mortgage SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Mortgage.dtd">
+<?xml-stylesheet type="text/xsl" href="../../xsl/Mortgage2xml.xsl"?>
+<!DOCTYPE Mortgage SYSTEM "../../dtd/Mortgage.dtd">
 <Mortgage>
   <name>Auto</name>
   <line>
@@ -330,7 +330,7 @@
     <mensuality>282.05</mensuality>
     <intrest>1.95</intrest>
     <capital>280.10</capital>
-    <restCapital>281.08</restCapital>
+    <restCapital>281.0</restCapital>
   </line>
   <line>
     <nr>48</nr>

@@ -1,116 +1,116 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Account2xml.xsl"?>
-<!DOCTYPE Account SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Account.dtd">
+<?xml-stylesheet type="text/xsl" href="../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../dtd/Account.dtd">
 <Account>
   <name>Hypotheek</name>
   <action id="1">
     <nr>DIV1</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/1/2012</date>
     <credit>143737.72</credit>
     <description>beginbalans</description>
   </action>
   <action id="3">
     <nr>DIV3</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/1/2012</date>
     <debit>143737.72</debit>
     <description>Correctie beginbalans Hypotheek</description>
   </action>
   <action id="3">
     <nr>DIV3</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/1/2012</date>
     <credit>143489.84</credit>
     <description>Correctie beginbalans Hypotheek</description>
   </action>
   <action id="28">
     <nr>DIV28</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/2/2012</date>
     <debit>248.84</debit>
     <description>afbetaling februari</description>
   </action>
   <action id="72">
     <nr>DIV72</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/3/2012</date>
     <debit>249.80</debit>
     <description>afbetaling maart</description>
   </action>
   <action id="127">
     <nr>DIV127</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/4/2012</date>
     <debit>250.76</debit>
     <description>afbetaling april</description>
   </action>
   <action id="178">
     <nr>DIV178</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/5/2012</date>
     <debit>251.73</debit>
     <description>afbetaling mei</description>
   </action>
   <action id="233">
     <nr>DIV233</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/6/2012</date>
     <debit>252.70</debit>
     <description>afbetaling juni</description>
   </action>
   <action id="297">
     <nr>DIV297</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/7/2012</date>
     <debit>253.68</debit>
     <description>afbetaling juli</description>
   </action>
   <action id="379">
     <nr>DIV379</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/8/2012</date>
     <debit>254.66</debit>
     <description>afbetaling augustus</description>
   </action>
   <action id="429">
     <nr>DIV429</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/9/2012</date>
     <debit>255.64</debit>
     <description>afbetaling september</description>
   </action>
   <action id="471">
     <nr>DIV471</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/10/2012</date>
     <debit>256.63</debit>
     <description>afbetaling september</description>
   </action>
   <action id="520">
     <nr>DIV520</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/11/2012</date>
     <debit>257.62</debit>
     <description>afbetaling oktober</description>
   </action>
   <action id="572">
     <nr>DIV572</nr>
-    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
-    <journal_html>null</journal_html>
+    <journal_xml>../Journals/Diversen.xml</journal_xml>
+    <journal_html>../Journals/Diversen.html</journal_html>
     <date>1/12/2012</date>
     <debit>258.61</debit>
     <description>afbetaling november</description>
