@@ -61,8 +61,8 @@
     <orderEntry type="library" name="Maven: batik:batik-script:1.6-1" level="project" />
     <orderEntry type="library" name="Maven: batik:batik-transcoder:1.6-1" level="project" />
     <orderEntry type="library" name="Maven: batik:batik-extension:1.6-1" level="project" />
-    <orderEntry type="module" module-name="Utils" />
     <orderEntry type="module" module-name="ObjectModelDao" />
+    <orderEntry type="module" module-name="Utils" />
   </component>
 </module>
 

@@ -34,7 +34,7 @@ public class JournalsSAXParser {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(xmlFile);
+            Document doc = dBuilder.parse(xmlFile.getAbsoluteFile());
             doc.getDocumentElement().normalize();
 
 //            String name = Utils.getValue(doc, "name");
@@ -83,6 +83,7 @@ public class JournalsSAXParser {
                 journal.addBusinessObject(transaction);
             }
         } catch (IOException io) {
+            io.printStackTrace();
 //				FileSystemView.getFileSystemView().createFileObject(subFolder, "Accounting.xml");
 //				System.out.println(journalFile + " has been created");
         } catch (Exception e) {
@@ -107,7 +108,7 @@ public class JournalsSAXParser {
                 writer.write("    <date>" + Utils.toString(transaction.getDate()) + "</date>\r\n");
                 writer.write("    <account_name>" + booking.getAccount() + "</account_name>\r\n");
                 writer.write("    <account_xml>../Accounts/" + booking.getAccount().getName() + ".xml</account_xml>\r\n");
-                writer.write("    <account_html>../Accounts" + booking.getAccount().getName() + ".html</account_html>\r\n");
+                writer.write("    <account_html>../Accounts/" + booking.getAccount().getName() + ".html</account_html>\r\n");
                 writer.write("    <" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">"
                                      + booking.getMovement().getAmount().toString()
                                + "</" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">\r\n");
@@ -118,7 +119,7 @@ public class JournalsSAXParser {
                     writer.write("  <action>\r\n");
                     writer.write("    <account_name>" + booking.getAccount() + "</account_name>\r\n");
                     writer.write("    <account_xml>../Accounts/" + booking.getAccount().getName() + ".xml</account_xml>\r\n");
-                    writer.write("    <account_html>../Accounts" + booking.getAccount().getName() + ".html</account_html>\r\n");
+                    writer.write("    <account_html>../Accounts/" + booking.getAccount().getName() + ".html</account_html>\r\n");
                     writer.write("    <" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">"
                             + booking.getMovement().getAmount().toString()
                             + "</" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">\r\n");

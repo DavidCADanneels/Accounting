@@ -6,7 +6,3 @@
 <!ELEMENT CounterParties (name)>
 <!ELEMENT Statements (name)>
 <!ELEMENT name (#PCDATA)>
-<!ELEMENT xml (#PCDATA)>
-<!ELEMENT html (#PCDATA)>
-<!ELEMENT xmlFolder (#PCDATA)>
-<!ELEMENT htmlFolder (#PCDATA)>
