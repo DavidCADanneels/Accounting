@@ -1,36 +1,24 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Accounting2xml.xsl"?>
-<!DOCTYPE Accounting SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Accounting.dtd">
+<?xml-stylesheet type="text/xsl" href="../../xsl/Accounting2xml.xsl"?>
+<!DOCTYPE Accounting SYSTEM "../../dtd/Accounting.dtd">
 <Accounting>
   <name>Thuis 2012</name>
   <Accounts>
     <name>Accounts</name>
-    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Accounts.xml</xml>
-    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Accounts</xmlFolder>
   </Accounts>
   <Mortgages>
     <name>Mortgages</name>
-    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Mortgages.xml</xml>
-    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Mortgages</xmlFolder>
   </Mortgages>
   <Journals>
     <name>Journals</name>
-    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals.xml</xml>
-    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals</xmlFolder>
   </Journals>
   <Balances>
     <name>Balances</name>
-    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Balances.xml</xml>
-    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Balances</xmlFolder>
   </Balances>
   <CounterParties>
     <name>CounterParties</name>
-    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/CounterParties.xml</xml>
-    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/CounterParties</xmlFolder>
   </CounterParties>
   <Statements>
     <name>Statements</name>
-    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Statements.xml</xml>
-    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Statements</xmlFolder>
   </Statements>
 </Accounting>

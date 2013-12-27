@@ -1,18 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Accountings2xml.xsl"?>
-<!DOCTYPE Accountings SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Accountings.dtd">
+<?xml-stylesheet type="text/xsl" href="../xsl/Accountings2xml.xsl"?>
+<!DOCTYPE Accountings SYSTEM "../dtd/Accountings.dtd">
 <Accountings>
-    <Accounting>
-        <name>Test</name>
-        <xml>BasicAccounting/src/main/resources/xml/Test/Accounting.xml</xml>
-    </Accounting>
-    <Accounting>
-        <name>Thuis 2012</name>
-        <xml>BasicAccounting/src/main/resources/xml/Thuis 2012/Accounting.xml</xml>
-    </Accounting>
-    <Accounting>
-        <name>Thuis 2013</name>
-        <xml>BasicAccounting/src/main/resources/xml/Thuis 2013/Accounting.xml</xml>
-    </Accounting>
-    <CurrentObject>Thuis 2013</CurrentObject>
+  <Accounting>
+    <name>Test</name>
+  </Accounting>
+  <Accounting>
+    <name>Thuis 2012</name>
+  </Accounting>
+  <Accounting>
+    <name>Thuis 2013</name>
+  </Accounting>
+    <CurrentObject>Thuis 2012</CurrentObject>
 </Accountings>

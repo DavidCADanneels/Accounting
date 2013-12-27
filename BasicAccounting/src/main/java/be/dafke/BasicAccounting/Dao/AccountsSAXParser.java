@@ -1,7 +1,9 @@
 package be.dafke.BasicAccounting.Dao;
 
 import be.dafke.BasicAccounting.Objects.Account;
+import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Movement;
+import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.Utils.Utils;
 
 import java.io.File;
@@ -31,15 +33,20 @@ public class AccountsSAXParser {
 
             writer.write("<Account>\r\n" + "  <name>" + account.getName() + "</name>\r\n");
             for(Movement movement : account.getMovements()){
-                writer.write("  <action id=\""+movement.getBooking().getTransaction().getId()+"\">\r\n");
-                writer.write("    <nr>" + movement.getBooking().getTransaction().getAbbreviation() + movement.getBooking().getTransaction().getId() + "</nr>\r\n");
-//                writer.write("    <journal_xml>" + movement.getBooking().getTransaction().getJournal().getXmlFile() + "</journal_xml>\r\n");
-//                writer.write("    <journal_html>" + movement.getBooking().getTransaction().getJournal().getHtmlFile() + "</journal_html>\r\n");
-                writer.write("    <date>" + Utils.toString(movement.getBooking().getTransaction().getDate()) + "</date>\r\n");
+                Transaction transaction = movement.getBooking().getTransaction();
+                Journal journal = transaction.getJournal();
+
+                writer.write("  <action id=\""+transaction.getId()+"\">\r\n");
+                writer.write("    <nr>" + transaction.getAbbreviation() + transaction.getId() + "</nr>\r\n");
+                writer.write("    <journal_xml>../Journals/" + journal.getName() + ".xml</journal_xml>\r\n");
+                writer.write("    <journal_html>../Journals/" + journal.getName() + ".html</journal_html>\r\n");
+//                writer.write("    <journal_xml>" + transaction.getJournal().getXmlFile() + "</journal_xml>\r\n");
+//                writer.write("    <journal_html>" + transaction.getJournal().getHtmlFile() + "</journal_html>\r\n");
+                writer.write("    <date>" + Utils.toString(transaction.getDate()) + "</date>\r\n");
                 writer.write("    <" + (movement.isDebit() ? "debit" : "credit") + ">"
                                      + movement.getAmount().toString()
                                + "</" + (movement.isDebit() ? "debit" : "credit") + ">\r\n");
-                writer.write("    <description>" + movement.getBooking().getTransaction().getDescription() + "</description>\r\n");
+                writer.write("    <description>" + transaction.getDescription() + "</description>\r\n");
                 writer.write("  </action>\r\n");
             }
             BigDecimal saldo = account.getSaldo();

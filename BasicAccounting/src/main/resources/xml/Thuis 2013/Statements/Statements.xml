@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Statements2xml.xsl"?>
-<!DOCTYPE Statements SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Statements.dtd">
+<?xml-stylesheet type="text/xsl" href="../../../xsl/Statements2xml.xsl"?>
+<!DOCTYPE Statements SYSTEM "../../../dtd/Statements.dtd">
 <Statements>
 </Statements>

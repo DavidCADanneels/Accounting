@@ -102,21 +102,25 @@ public class JournalsSAXParser {
             for (Transaction transaction :journal.getBusinessObjects()) {
                 ArrayList<Booking> list = transaction.getBookings();
                 Booking booking = list.get(0);
-                writer.write("  <action id=\""+booking.getTransaction().getId()+"\">\r\n");
-                writer.write("    <nr>" + journal.getAbbreviation() + booking.getTransaction().getId() + "</nr>\r\n");
-                writer.write("    <date>" + Utils.toString(booking.getTransaction().getDate()) + "</date>\r\n");
+                writer.write("  <action id=\""+transaction.getId()+"\">\r\n");
+                writer.write("    <nr>" + journal.getAbbreviation() + transaction.getId() + "</nr>\r\n");
+                writer.write("    <date>" + Utils.toString(transaction.getDate()) + "</date>\r\n");
                 writer.write("    <account_name>" + booking.getAccount() + "</account_name>\r\n");
+                writer.write("    <account_xml>../Accounts/" + booking.getAccount().getName() + ".xml</account_xml>\r\n");
+                writer.write("    <account_html>../Accounts" + booking.getAccount().getName() + ".html</account_html>\r\n");
 //                writer.write("    <account_xml>" + booking.getAccount().getXmlFile() + "</account_xml>\r\n");
 //                writer.write("    <account_html>" + booking.getAccount().getHtmlFile() + "</account_html>\r\n");
                 writer.write("    <" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">"
                                      + booking.getMovement().getAmount().toString()
                                + "</" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">\r\n");
-                writer.write("    <description>" + booking.getTransaction().getDescription() + "</description>\r\n");
+                writer.write("    <description>" + transaction.getDescription() + "</description>\r\n");
                 writer.write("  </action>\r\n");
                 for(int i = 1; i < list.size(); i++) {
                     booking = list.get(i);
                     writer.write("  <action>\r\n");
                     writer.write("    <account_name>" + booking.getAccount() + "</account_name>\r\n");
+                    writer.write("    <account_xml>../Accounts/" + booking.getAccount().getName() + ".xml</account_xml>\r\n");
+                    writer.write("    <account_html>../Accounts" + booking.getAccount().getName() + ".html</account_html>\r\n");
 //                    writer.write("    <account_xml>" + booking.getAccount().getXmlFile() + "</account_xml>\r\n");
 //                    writer.write("    <account_html>" + booking.getAccount().getHtmlFile() + "</account_html>\r\n");
                     writer.write("    <" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">"

@@ -12,6 +12,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -51,12 +52,15 @@ public class MortgagesSAXParser {
             writer.write("<Mortgage>\r\n");
             writer.write("  <name>" + mortgage.toString() + "</name>\r\n");
             int teller = 1;
-            for(Vector<BigDecimal> vector : mortgage.getTable()) {
-                writer.write("  <line>\r\n" + "    <nr>" + teller + "</nr>\r\n" + "    <mensuality>"
-                        + vector.get(0) + "</mensuality>\r\n" + "    <intrest>" + vector.get(1) + "</intrest>\r\n"
-                        + "    <capital>" + vector.get(2) + "</capital>\r\n" + "    <restCapital>" + vector.get(3)
-                        + "</restCapital>\r\n  </line>\r\n");
-                teller++;
+            ArrayList<Vector<BigDecimal>> table = mortgage.getTable();
+            if(table!=null){
+                for(Vector<BigDecimal> vector : table) {
+                    writer.write("  <line>\r\n" + "    <nr>" + teller + "</nr>\r\n" + "    <mensuality>"
+                            + vector.get(0) + "</mensuality>\r\n" + "    <intrest>" + vector.get(1) + "</intrest>\r\n"
+                            + "    <capital>" + vector.get(2) + "</capital>\r\n" + "    <restCapital>" + vector.get(3)
+                            + "</restCapital>\r\n  </line>\r\n");
+                    teller++;
+                }
             }
             writer.write("</Mortgage>");
             writer.flush();

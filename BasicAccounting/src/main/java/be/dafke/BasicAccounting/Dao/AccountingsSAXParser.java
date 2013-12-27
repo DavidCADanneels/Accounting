@@ -124,13 +124,16 @@ public class AccountingsSAXParser {
         File xmlFolder = accountings.getXmlFolder();
         xmlFolder.mkdirs();
         writeCollection(accountings, xmlFolder, 0);
-        File accountsFolder = new File(xmlFolder, "Accounts");
-        File balancesFolder = new File(xmlFolder, "Balances");
-        File journalsFolder = new File(xmlFolder, "Journals");
-        File mortgagesFolder = new File(xmlFolder, "Mortgages");
+
 
         for(Accounting accounting : accountings.getBusinessObjects()) {
 //            accounting.writeCollection();
+            File rootFolder = new File(xmlFolder, accounting.getName());
+
+            File accountsFolder = new File(rootFolder, "Accounts");
+            File balancesFolder = new File(rootFolder, "Balances");
+            File journalsFolder = new File(rootFolder, "Journals");
+            File mortgagesFolder = new File(rootFolder, "Mortgages");
 
 
             for(Account account : accounting.getAccounts().getBusinessObjects()){
