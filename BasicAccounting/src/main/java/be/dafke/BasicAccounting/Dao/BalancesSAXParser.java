@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Dao;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Balance;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -20,12 +21,13 @@ import java.util.logging.Logger;
 public class BalancesSAXParser {
 
     // WRITE
-    public static void writeBalance(Balance balance){
+    public static void writeBalance(Balance balance, File xmlFolder, String header){
         System.out.println("Balances.TOXML(" + balance.toString() + ")");
         try {
-            Writer writer = new FileWriter(balance.getXmlFile());
+            File xmlFile = new File(xmlFolder, balance.getName()+".xml");
+            Writer writer = new FileWriter(xmlFile);
 
-            writer.write(balance.getXmlHeader());
+            writer.write(header);
 
             writer.write("<Balance>\r\n");
             writer.write("  <name>" + balance.getName() + "</name>\r\n");

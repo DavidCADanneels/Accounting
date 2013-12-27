@@ -4,6 +4,7 @@ import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.Utils.Utils;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -21,18 +22,19 @@ public class AccountsSAXParser {
 
     // WRITE
     //
-    public static void writeAccount(Account account){
+    public static void writeAccount(Account account, File xmlFolder, String header){
         try {
-            Writer writer = new FileWriter(account.getXmlFile());
+            File xmlFile = new File(xmlFolder, account.getName()+".xml");
+            Writer writer = new FileWriter(xmlFile);
 
-            writer.write(account.getXmlHeader());
+            writer.write(header);
 
             writer.write("<Account>\r\n" + "  <name>" + account.getName() + "</name>\r\n");
             for(Movement movement : account.getMovements()){
                 writer.write("  <action id=\""+movement.getBooking().getTransaction().getId()+"\">\r\n");
                 writer.write("    <nr>" + movement.getBooking().getTransaction().getAbbreviation() + movement.getBooking().getTransaction().getId() + "</nr>\r\n");
-                writer.write("    <journal_xml>" + movement.getBooking().getTransaction().getJournal().getXmlFile() + "</journal_xml>\r\n");
-                writer.write("    <journal_html>" + movement.getBooking().getTransaction().getJournal().getHtmlFile() + "</journal_html>\r\n");
+//                writer.write("    <journal_xml>" + movement.getBooking().getTransaction().getJournal().getXmlFile() + "</journal_xml>\r\n");
+//                writer.write("    <journal_html>" + movement.getBooking().getTransaction().getJournal().getHtmlFile() + "</journal_html>\r\n");
                 writer.write("    <date>" + Utils.toString(movement.getBooking().getTransaction().getDate()) + "</date>\r\n");
                 writer.write("    <" + (movement.isDebit() ? "debit" : "credit") + ">"
                                      + movement.getAmount().toString()

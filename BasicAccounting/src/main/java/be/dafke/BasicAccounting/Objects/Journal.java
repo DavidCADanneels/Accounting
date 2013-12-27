@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.Objects;
 
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
 import be.dafke.ObjectModel.BusinessTyped;
-import be.dafke.ObjectModel.WriteableBusinessObject;
 import be.dafke.Utils.MultiValueMap;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.TreeMap;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journal extends WriteableBusinessObject implements BusinessTypeCollectionDependent<JournalType>, BusinessTyped<JournalType> {
+public class Journal extends BusinessObject implements BusinessTypeCollectionDependent<JournalType>, BusinessTyped<JournalType> {
     private static final String TYPE = "type";
     protected static final String ABBREVIATION = "abbreviation";
     private String abbreviation;

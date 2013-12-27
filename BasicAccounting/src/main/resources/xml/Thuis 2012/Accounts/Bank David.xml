@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Account2xml.xsl"?>
-<!DOCTYPE Account SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Account.dtd">
+<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Account.dtd">
 <Account>
   <name>Bank David</name>
   <action id="1">
     <nr>DIV1</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/1/2012</date>
     <debit>179.96</debit>
@@ -13,7 +13,7 @@
   </action>
   <action id="1">
     <nr>DIV1</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/1/2012</date>
     <credit>506.74</credit>
@@ -21,7 +21,7 @@
   </action>
   <action id="7">
     <nr>DIV7</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>16/1/2012</date>
     <credit>61.39</credit>
@@ -29,7 +29,7 @@
   </action>
   <action id="8">
     <nr>DIV8</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/1/2012</date>
     <debit>600.00</debit>
@@ -37,7 +37,7 @@
   </action>
   <action id="9">
     <nr>DIV9</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/1/2012</date>
     <credit>29.39</credit>
@@ -45,7 +45,7 @@
   </action>
   <action id="12">
     <nr>DIV12</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>18/1/2012</date>
     <credit>43.85</credit>
@@ -53,7 +53,7 @@
   </action>
   <action id="13">
     <nr>DIV13</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/1/2012</date>
     <credit>38.14</credit>
@@ -61,7 +61,7 @@
   </action>
   <action id="14">
     <nr>DIV14</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/1/2012</date>
     <credit>43.05</credit>
@@ -69,7 +69,7 @@
   </action>
   <action id="16">
     <nr>DIV16</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>20/1/2012</date>
     <debit>47.89</debit>
@@ -77,7 +77,7 @@
   </action>
   <action id="18">
     <nr>DIV18</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>21/1/2012</date>
     <credit>32.87</credit>
@@ -85,7 +85,7 @@
   </action>
   <action id="19">
     <nr>DIV19</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>23/1/2012</date>
     <credit>40.00</credit>
@@ -93,7 +93,7 @@
   </action>
   <action id="20">
     <nr>DIV20</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>25/1/2012</date>
     <credit>11.82</credit>
@@ -101,7 +101,7 @@
   </action>
   <action id="21">
     <nr>DIV21</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>26/1/2012</date>
     <debit>1588.52</debit>
@@ -109,7 +109,7 @@
   </action>
   <action id="22">
     <nr>DIV22</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>26/1/2012</date>
     <credit>50.28</credit>
@@ -117,7 +117,7 @@
   </action>
   <action id="23">
     <nr>DIV23</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>28/1/2012</date>
     <credit>4.84</credit>
@@ -125,7 +125,7 @@
   </action>
   <action id="24">
     <nr>DIV24</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>30/1/2012</date>
     <credit>362.96</credit>
@@ -133,7 +133,7 @@
   </action>
   <action id="25">
     <nr>DIV25</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>30/1/2012</date>
     <credit>34.50</credit>
@@ -141,7 +141,7 @@
   </action>
   <action id="26">
     <nr>DIV26</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/2/2012</date>
     <credit>802.71</credit>
@@ -149,7 +149,7 @@
   </action>
   <action id="27">
     <nr>DIV27</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/2/2012</date>
     <credit>200.00</credit>
@@ -158,7 +158,7 @@
   </action>
   <action id="32">
     <nr>DIV32</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/2/2012</date>
     <credit>18.98</credit>
@@ -166,7 +166,7 @@
   </action>
   <action id="33">
     <nr>DIV33</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/2/2012</date>
     <credit>29.72</credit>
@@ -174,7 +174,7 @@
   </action>
   <action id="34">
     <nr>DIV34</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/2/2012</date>
     <credit>200.00</credit>
@@ -182,7 +182,7 @@
   </action>
   <action id="37">
     <nr>DIV37</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>8/2/2012</date>
     <debit>28.24</debit>
@@ -190,7 +190,7 @@
   </action>
   <action id="38">
     <nr>DIV38</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>8/2/2012</date>
     <credit>40.00</credit>
@@ -198,7 +198,7 @@
   </action>
   <action id="39">
     <nr>DIV39</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>8/2/2012</date>
     <credit>23.88</credit>
@@ -206,7 +206,7 @@
   </action>
   <action id="45">
     <nr>DIV45</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>13/2/2012</date>
     <credit>68.28</credit>
@@ -214,7 +214,7 @@
   </action>
   <action id="46">
     <nr>DIV46</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>13/2/2012</date>
     <credit>28.50</credit>
@@ -222,7 +222,7 @@
   </action>
   <action id="47">
     <nr>DIV47</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>14/2/2012</date>
     <credit>200.00</credit>
@@ -230,7 +230,7 @@
   </action>
   <action id="49">
     <nr>DIV49</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>16/2/2012</date>
     <debit>600.00</debit>
@@ -238,7 +238,7 @@
   </action>
   <action id="52">
     <nr>DIV52</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/2/2012</date>
     <debit>22.70</debit>
@@ -246,7 +246,7 @@
   </action>
   <action id="54">
     <nr>DIV54</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>18/2/2012</date>
     <credit>89.95</credit>
@@ -254,7 +254,7 @@
   </action>
   <action id="56">
     <nr>DIV56</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/2/2012</date>
     <credit>20.33</credit>
@@ -262,7 +262,7 @@
   </action>
   <action id="58">
     <nr>DIV58</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>21/2/2012</date>
     <credit>20.00</credit>
@@ -271,7 +271,7 @@
   </action>
   <action id="59">
     <nr>DIV59</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>23/2/2012</date>
     <credit>20.00</credit>
@@ -279,7 +279,7 @@
   </action>
   <action id="63">
     <nr>DIV63</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>24/2/2012</date>
     <credit>36.00</credit>
@@ -287,7 +287,7 @@
   </action>
   <action id="65">
     <nr>DIV65</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>25/2/2012</date>
     <credit>60.00</credit>
@@ -296,7 +296,7 @@
   </action>
   <action id="66">
     <nr>DIV66</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>26/2/2012</date>
     <credit>76.86</credit>
@@ -304,7 +304,7 @@
   </action>
   <action id="67">
     <nr>DIV67</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/2/2012</date>
     <debit>1587.44</debit>
@@ -312,7 +312,7 @@
   </action>
   <action id="68">
     <nr>DIV68</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/2/2012</date>
     <credit>277.03</credit>
@@ -320,7 +320,7 @@
   </action>
   <action id="69">
     <nr>DIV69</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>29/2/2012</date>
     <credit>40.00</credit>
@@ -328,7 +328,7 @@
   </action>
   <action id="70">
     <nr>DIV70</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/3/2012</date>
     <credit>802.71</credit>
@@ -336,7 +336,7 @@
   </action>
   <action id="71">
     <nr>DIV71</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/3/2012</date>
     <credit>200.00</credit>
@@ -345,7 +345,7 @@
   </action>
   <action id="77">
     <nr>DIV77</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>3/3/2012</date>
     <credit>40.00</credit>
@@ -354,7 +354,7 @@
   </action>
   <action id="78">
     <nr>DIV78</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/3/2012</date>
     <credit>200.00</credit>
@@ -362,7 +362,7 @@
   </action>
   <action id="79">
     <nr>DIV79</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/3/2012</date>
     <credit>18.98</credit>
@@ -370,7 +370,7 @@
   </action>
   <action id="80">
     <nr>DIV80</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/3/2012</date>
     <credit>29.72</credit>
@@ -378,7 +378,7 @@
   </action>
   <action id="84">
     <nr>DIV84</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>8/3/2012</date>
     <credit>60.00</credit>
@@ -386,7 +386,7 @@
   </action>
   <action id="86">
     <nr>DIV86</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>9/3/2012</date>
     <credit>25.00</credit>
@@ -394,7 +394,7 @@
   </action>
   <action id="87">
     <nr>DIV87</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>9/3/2012</date>
     <credit>27.90</credit>
@@ -402,7 +402,7 @@
   </action>
   <action id="90">
     <nr>DIV90</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>10/3/2012</date>
     <credit>101.83</credit>
@@ -410,7 +410,7 @@
   </action>
   <action id="91">
     <nr>DIV91</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>10/3/2012</date>
     <credit>5.21</credit>
@@ -418,7 +418,7 @@
   </action>
   <action id="92">
     <nr>DIV92</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>11/3/2012</date>
     <credit>14.10</credit>
@@ -426,7 +426,7 @@
   </action>
   <action id="93">
     <nr>DIV93</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>11/3/2012</date>
     <credit>100.00</credit>
@@ -434,7 +434,7 @@
   </action>
   <action id="96">
     <nr>DIV96</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>16/3/2012</date>
     <debit>600.00</debit>
@@ -442,7 +442,7 @@
   </action>
   <action id="101">
     <nr>DIV101</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/3/2012</date>
     <debit>36.00</debit>
@@ -450,7 +450,7 @@
   </action>
   <action id="102">
     <nr>DIV102</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/3/2012</date>
     <credit>20.00</credit>
@@ -458,7 +458,7 @@
   </action>
   <action id="103">
     <nr>DIV103</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/3/2012</date>
     <credit>32.22</credit>
@@ -466,7 +466,7 @@
   </action>
   <action id="104">
     <nr>DIV104</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/3/2012</date>
     <credit>48.97</credit>
@@ -474,7 +474,7 @@
   </action>
   <action id="105">
     <nr>DIV105</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/3/2012</date>
     <credit>31.20</credit>
@@ -482,7 +482,7 @@
   </action>
   <action id="106">
     <nr>DIV106</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/3/2012</date>
     <credit>134.11</credit>
@@ -490,7 +490,7 @@
   </action>
   <action id="110">
     <nr>DIV110</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>20/3/2012</date>
     <credit>20.00</credit>
@@ -498,7 +498,7 @@
   </action>
   <action id="111">
     <nr>DIV111</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>20/3/2012</date>
     <credit>150.00</credit>
@@ -507,7 +507,7 @@
   </action>
   <action id="115">
     <nr>DIV115</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>23/3/2012</date>
     <credit>40.00</credit>
@@ -515,7 +515,7 @@
   </action>
   <action id="116">
     <nr>DIV116</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>23/3/2012</date>
     <credit>50.00</credit>
@@ -523,7 +523,7 @@
   </action>
   <action id="119">
     <nr>DIV119</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>24/3/2012</date>
     <credit>6.95</credit>
@@ -531,7 +531,7 @@
   </action>
   <action id="120">
     <nr>DIV120</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>26/3/2012</date>
     <credit>40.00</credit>
@@ -539,7 +539,7 @@
   </action>
   <action id="122">
     <nr>DIV122</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/3/2012</date>
     <debit>1586.34</debit>
@@ -547,7 +547,7 @@
   </action>
   <action id="123">
     <nr>DIV123</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>29/3/2012</date>
     <credit>150.00</credit>
@@ -555,7 +555,7 @@
   </action>
   <action id="124">
     <nr>DIV124</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>30/3/2012</date>
     <credit>12.90</credit>
@@ -563,7 +563,7 @@
   </action>
   <action id="125">
     <nr>DIV125</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>31/3/2012</date>
     <credit>40.00</credit>
@@ -571,7 +571,7 @@
   </action>
   <action id="126">
     <nr>DIV126</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/4/2012</date>
     <credit>802.71</credit>
@@ -579,7 +579,7 @@
   </action>
   <action id="128">
     <nr>DIV128</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/4/2012</date>
     <credit>200.00</credit>
@@ -588,7 +588,7 @@
   </action>
   <action id="129">
     <nr>DIV129</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/4/2012</date>
     <credit>17.07</credit>
@@ -596,7 +596,7 @@
   </action>
   <action id="130">
     <nr>DIV130</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>3/4/2012</date>
     <credit>40.00</credit>
@@ -604,7 +604,7 @@
   </action>
   <action id="133">
     <nr>DIV133</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>4/4/2012</date>
     <debit>19.34</debit>
@@ -612,7 +612,7 @@
   </action>
   <action id="134">
     <nr>DIV134</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>4/4/2012</date>
     <debit>23.03</debit>
@@ -620,7 +620,7 @@
   </action>
   <action id="136">
     <nr>DIV136</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>5/4/2012</date>
     <credit>15.00</credit>
@@ -628,7 +628,7 @@
   </action>
   <action id="137">
     <nr>DIV137</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>5/4/2012</date>
     <credit>25.00</credit>
@@ -636,7 +636,7 @@
   </action>
   <action id="138">
     <nr>DIV138</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>5/4/2012</date>
     <credit>35.02</credit>
@@ -644,7 +644,7 @@
   </action>
   <action id="139">
     <nr>DIV139</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>5/4/2012</date>
     <credit>26.09</credit>
@@ -652,7 +652,7 @@
   </action>
   <action id="140">
     <nr>DIV140</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>5/4/2012</date>
     <credit>161.26</credit>
@@ -660,7 +660,7 @@
   </action>
   <action id="144">
     <nr>DIV144</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>10/4/2012</date>
     <credit>18.98</credit>
@@ -668,7 +668,7 @@
   </action>
   <action id="145">
     <nr>DIV145</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>10/4/2012</date>
     <credit>29.72</credit>
@@ -676,7 +676,7 @@
   </action>
   <action id="146">
     <nr>DIV146</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>10/4/2012</date>
     <credit>52.29</credit>
@@ -684,7 +684,7 @@
   </action>
   <action id="151">
     <nr>DIV151</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>13/4/2012</date>
     <credit>60.00</credit>
@@ -692,7 +692,7 @@
   </action>
   <action id="152">
     <nr>DIV152</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>13/4/2012</date>
     <credit>5.23</credit>
@@ -700,7 +700,7 @@
   </action>
   <action id="155">
     <nr>DIV155</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/4/2012</date>
     <debit>600.00</debit>
@@ -708,7 +708,7 @@
   </action>
   <action id="158">
     <nr>DIV158</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>18/4/2012</date>
     <credit>40.00</credit>
@@ -716,7 +716,7 @@
   </action>
   <action id="161">
     <nr>DIV161</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/4/2012</date>
     <credit>50.28</credit>
@@ -724,7 +724,7 @@
   </action>
   <action id="163">
     <nr>DIV163</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>20/4/2012</date>
     <credit>6.26</credit>
@@ -732,7 +732,7 @@
   </action>
   <action id="165">
     <nr>DIV165</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>23/4/2012</date>
     <credit>40.00</credit>
@@ -740,7 +740,7 @@
   </action>
   <action id="166">
     <nr>DIV166</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>24/4/2012</date>
     <credit>222.77</credit>
@@ -748,7 +748,7 @@
   </action>
   <action id="167">
     <nr>DIV167</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>24/4/2012</date>
     <credit>41.60</credit>
@@ -756,7 +756,7 @@
   </action>
   <action id="169">
     <nr>DIV169</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>26/4/2012</date>
     <debit>2413.56</debit>
@@ -764,7 +764,7 @@
   </action>
   <action id="170">
     <nr>DIV170</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>26/4/2012</date>
     <credit>80.00</credit>
@@ -772,7 +772,7 @@
   </action>
   <action id="171">
     <nr>DIV171</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/4/2012</date>
     <debit>1588.52</debit>
@@ -780,7 +780,7 @@
   </action>
   <action id="172">
     <nr>DIV172</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/4/2012</date>
     <credit>100.00</credit>
@@ -789,7 +789,7 @@
   </action>
   <action id="173">
     <nr>DIV173</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>29/4/2012</date>
     <credit>2000.00</credit>
@@ -798,7 +798,7 @@
   </action>
   <action id="175">
     <nr>DIV175</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>30/4/2012</date>
     <credit>19.95</credit>
@@ -806,7 +806,7 @@
   </action>
   <action id="176">
     <nr>DIV176</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>30/4/2012</date>
     <credit>50.00</credit>
@@ -814,7 +814,7 @@
   </action>
   <action id="177">
     <nr>DIV177</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/5/2012</date>
     <credit>802.71</credit>
@@ -822,7 +822,7 @@
   </action>
   <action id="179">
     <nr>DIV179</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/5/2012</date>
     <credit>200.00</credit>
@@ -831,7 +831,7 @@
   </action>
   <action id="180">
     <nr>DIV180</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>3/5/2012</date>
     <credit>6.03</credit>
@@ -839,7 +839,7 @@
   </action>
   <action id="182">
     <nr>DIV182</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>4/5/2012</date>
     <debit>23.54</debit>
@@ -847,7 +847,7 @@
   </action>
   <action id="183">
     <nr>DIV183</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>4/5/2012</date>
     <credit>20.12</credit>
@@ -855,7 +855,7 @@
   </action>
   <action id="184">
     <nr>DIV184</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>4/5/2012</date>
     <credit>29.72</credit>
@@ -863,7 +863,7 @@
   </action>
   <action id="185">
     <nr>DIV185</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>4/5/2012</date>
     <credit>20.00</credit>
@@ -871,7 +871,7 @@
   </action>
   <action id="187">
     <nr>DIV187</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>5/5/2012</date>
     <credit>139.99</credit>
@@ -879,7 +879,7 @@
   </action>
   <action id="189">
     <nr>DIV189</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/5/2012</date>
     <credit>47.08</credit>
@@ -887,7 +887,7 @@
   </action>
   <action id="190">
     <nr>DIV190</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>7/5/2012</date>
     <credit>200.00</credit>
@@ -895,7 +895,7 @@
   </action>
   <action id="192">
     <nr>DIV192</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>8/5/2012</date>
     <credit>47.97</credit>
@@ -903,7 +903,7 @@
   </action>
   <action id="193">
     <nr>DIV193</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>8/5/2012</date>
     <credit>32.22</credit>
@@ -911,7 +911,7 @@
   </action>
   <action id="194">
     <nr>DIV194</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>8/5/2012</date>
     <credit>120.00</credit>
@@ -919,7 +919,7 @@
   </action>
   <action id="198">
     <nr>DIV198</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>11/5/2012</date>
     <credit>16.20</credit>
@@ -927,7 +927,7 @@
   </action>
   <action id="200">
     <nr>DIV200</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>14/5/2012</date>
     <debit>22.14</debit>
@@ -935,7 +935,7 @@
   </action>
   <action id="201">
     <nr>DIV201</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>14/5/2012</date>
     <credit>18.20</credit>
@@ -943,7 +943,7 @@
   </action>
   <action id="202">
     <nr>DIV202</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>14/5/2012</date>
     <credit>20.00</credit>
@@ -951,7 +951,7 @@
   </action>
   <action id="203">
     <nr>DIV203</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>15/5/2012</date>
     <credit>35.00</credit>
@@ -959,7 +959,7 @@
   </action>
   <action id="205">
     <nr>DIV205</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>16/5/2012</date>
     <debit>600.00</debit>
@@ -967,7 +967,7 @@
   </action>
   <action id="206">
     <nr>DIV206</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>16/5/2012</date>
     <credit>20.00</credit>
@@ -976,7 +976,7 @@
   </action>
   <action id="213">
     <nr>DIV213</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>21/5/2012</date>
     <debit>361.67</debit>
@@ -984,7 +984,7 @@
   </action>
   <action id="214">
     <nr>DIV214</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>21/5/2012</date>
     <credit>15.00</credit>
@@ -992,7 +992,7 @@
   </action>
   <action id="216">
     <nr>DIV216</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>23/5/2012</date>
     <credit>600.00</credit>
@@ -1001,7 +1001,7 @@
   </action>
   <action id="217">
     <nr>DIV217</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>25/5/2012</date>
     <credit>18.10</credit>
@@ -1009,7 +1009,7 @@
   </action>
   <action id="219">
     <nr>DIV219</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/5/2012</date>
     <debit>2000.00</debit>
@@ -1018,7 +1018,7 @@
   </action>
   <action id="220">
     <nr>DIV220</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/5/2012</date>
     <credit>1000.00</credit>
@@ -1027,7 +1027,7 @@
   </action>
   <action id="221">
     <nr>DIV221</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/5/2012</date>
     <credit>15.96</credit>
@@ -1035,7 +1035,7 @@
   </action>
   <action id="222">
     <nr>DIV222</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>28/5/2012</date>
     <credit>1000.00</credit>
@@ -1044,7 +1044,7 @@
   </action>
   <action id="225">
     <nr>DIV225</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>29/5/2012</date>
     <debit>1588.52</debit>
@@ -1052,7 +1052,7 @@
   </action>
   <action id="226">
     <nr>DIV226</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>29/5/2012</date>
     <credit>120.54</credit>
@@ -1060,7 +1060,7 @@
   </action>
   <action id="227">
     <nr>DIV227</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>29/5/2012</date>
     <credit>110.00</credit>
@@ -1068,7 +1068,7 @@
   </action>
   <action id="228">
     <nr>DIV228</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>30/5/2012</date>
     <credit>5.75</credit>
@@ -1076,7 +1076,7 @@
   </action>
   <action id="229">
     <nr>DIV229</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>31/5/2012</date>
     <debit>190.71</debit>
@@ -1084,7 +1084,7 @@
   </action>
   <action id="230">
     <nr>DIV230</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>31/5/2012</date>
     <credit>38.99</credit>
@@ -1092,7 +1092,7 @@
   </action>
   <action id="231">
     <nr>DIV231</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/6/2012</date>
     <credit>802.71</credit>
@@ -1100,7 +1100,7 @@
   </action>
   <action id="232">
     <nr>DIV232</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/6/2012</date>
     <credit>200.00</credit>
@@ -1109,7 +1109,7 @@
   </action>
   <action id="235">
     <nr>DIV235</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/6/2012</date>
     <credit>70.49</credit>
@@ -1117,7 +1117,7 @@
   </action>
   <action id="236">
     <nr>DIV236</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/6/2012</date>
     <credit>13.50</credit>
@@ -1125,7 +1125,7 @@
   </action>
   <action id="237">
     <nr>DIV237</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/6/2012</date>
     <credit>99.00</credit>
@@ -1133,7 +1133,7 @@
   </action>
   <action id="238">
     <nr>DIV238</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/6/2012</date>
     <credit>30.00</credit>
@@ -1141,7 +1141,7 @@
   </action>
   <action id="239">
     <nr>DIV239</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/6/2012</date>
     <credit>40.00</credit>
@@ -1150,7 +1150,7 @@
   </action>
   <action id="245">
     <nr>DIV245</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/6/2012</date>
     <credit>200.00</credit>
@@ -1158,7 +1158,7 @@
   </action>
   <action id="246">
     <nr>DIV246</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/6/2012</date>
     <credit>20.12</credit>
@@ -1166,7 +1166,7 @@
   </action>
   <action id="247">
     <nr>DIV247</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/6/2012</date>
     <credit>29.72</credit>
@@ -1174,7 +1174,7 @@
   </action>
   <action id="248">
     <nr>DIV248</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/6/2012</date>
     <credit>120.00</credit>
@@ -1182,7 +1182,7 @@
   </action>
   <action id="251">
     <nr>DIV251</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>7/6/2012</date>
     <debit>28.99</debit>
@@ -1190,7 +1190,7 @@
   </action>
   <action id="252">
     <nr>DIV252</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>7/6/2012</date>
     <debit>19.34</debit>
@@ -1198,7 +1198,7 @@
   </action>
   <action id="253">
     <nr>DIV253</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>7/6/2012</date>
     <debit>40.00</debit>
@@ -1206,7 +1206,7 @@
   </action>
   <action id="254">
     <nr>DIV254</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>7/6/2012</date>
     <debit>23.03</debit>
@@ -1214,7 +1214,7 @@
   </action>
   <action id="260">
     <nr>DIV260</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>10/6/2012</date>
     <credit>55.03</credit>
@@ -1222,7 +1222,7 @@
   </action>
   <action id="262">
     <nr>DIV262</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>11/6/2012</date>
     <credit>31.20</credit>
@@ -1230,7 +1230,7 @@
   </action>
   <action id="263">
     <nr>DIV263</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>11/6/2012</date>
     <credit>26.61</credit>
@@ -1238,7 +1238,7 @@
   </action>
   <action id="266">
     <nr>DIV266</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>14/6/2012</date>
     <debit>28.62</debit>
@@ -1246,7 +1246,7 @@
   </action>
   <action id="272">
     <nr>DIV272</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>16/6/2012</date>
     <credit>14.31</credit>
@@ -1254,7 +1254,7 @@
   </action>
   <action id="276">
     <nr>DIV276</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/6/2012</date>
     <debit>600.00</debit>
@@ -1262,7 +1262,7 @@
   </action>
   <action id="277">
     <nr>DIV277</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>20/6/2012</date>
     <credit>25.93</credit>
@@ -1270,7 +1270,7 @@
   </action>
   <action id="281">
     <nr>DIV281</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>22/6/2012</date>
     <credit>20.00</credit>
@@ -1278,7 +1278,7 @@
   </action>
   <action id="282">
     <nr>DIV282</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>22/6/2012</date>
     <credit>54.34</credit>
@@ -1286,7 +1286,7 @@
   </action>
   <action id="283">
     <nr>DIV283</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>23/6/2012</date>
     <credit>600.00</credit>
@@ -1295,7 +1295,7 @@
   </action>
   <action id="284">
     <nr>DIV284</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>24/6/2012</date>
     <credit>26.66</credit>
@@ -1303,7 +1303,7 @@
   </action>
   <action id="286">
     <nr>DIV286</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>25/6/2012</date>
     <debit>500.00</debit>
@@ -1312,7 +1312,7 @@
   </action>
   <action id="287">
     <nr>DIV287</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>25/6/2012</date>
     <credit>499.00</credit>
@@ -1320,7 +1320,7 @@
   </action>
   <action id="288">
     <nr>DIV288</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>26/6/2012</date>
     <debit>1588.52</debit>
@@ -1328,7 +1328,7 @@
   </action>
   <action id="289">
     <nr>DIV289</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/6/2012</date>
     <credit>20.00</credit>
@@ -1336,7 +1336,7 @@
   </action>
   <action id="290">
     <nr>DIV290</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/6/2012</date>
     <credit>46.94</credit>
@@ -1344,7 +1344,7 @@
   </action>
   <action id="291">
     <nr>DIV291</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>28/6/2012</date>
     <credit>50.00</credit>
@@ -1352,7 +1352,7 @@
   </action>
   <action id="292">
     <nr>DIV292</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>29/6/2012</date>
     <credit>19.95</credit>
@@ -1360,7 +1360,7 @@
   </action>
   <action id="294">
     <nr>DIV294</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>30/6/2012</date>
     <credit>70.00</credit>
@@ -1368,7 +1368,7 @@
   </action>
   <action id="296">
     <nr>DIV296</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/7/2012</date>
     <credit>802.71</credit>
@@ -1376,7 +1376,7 @@
   </action>
   <action id="298">
     <nr>DIV298</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/7/2012</date>
     <credit>200.00</credit>
@@ -1385,7 +1385,7 @@
   </action>
   <action id="299">
     <nr>DIV299</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/7/2012</date>
     <credit>282.05</credit>
@@ -1393,7 +1393,7 @@
   </action>
   <action id="300">
     <nr>DIV300</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/7/2012</date>
     <credit>60.91</credit>
@@ -1401,7 +1401,7 @@
   </action>
   <action id="301">
     <nr>DIV301</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/7/2012</date>
     <credit>17.07</credit>
@@ -1409,7 +1409,7 @@
   </action>
   <action id="302">
     <nr>DIV302</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/7/2012</date>
     <credit>31.20</credit>
@@ -1417,7 +1417,7 @@
   </action>
   <action id="308">
     <nr>DIV308</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>5/7/2012</date>
     <credit>34.33</credit>
@@ -1425,7 +1425,7 @@
   </action>
   <action id="310">
     <nr>DIV310</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/7/2012</date>
     <credit>200.00</credit>
@@ -1433,7 +1433,7 @@
   </action>
   <action id="311">
     <nr>DIV311</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/7/2012</date>
     <credit>18.66</credit>
@@ -1441,7 +1441,7 @@
   </action>
   <action id="312">
     <nr>DIV312</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/7/2012</date>
     <credit>29.72</credit>
@@ -1449,7 +1449,7 @@
   </action>
   <action id="323">
     <nr>DIV323</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>11/7/2012</date>
     <credit>25.93</credit>
@@ -1457,7 +1457,7 @@
   </action>
   <action id="327">
     <nr>DIV327</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>12/7/2012</date>
     <debit>700.00</debit>
@@ -1466,7 +1466,7 @@
   </action>
   <action id="328">
     <nr>DIV328</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>12/7/2012</date>
     <credit>40.00</credit>
@@ -1474,7 +1474,7 @@
   </action>
   <action id="334">
     <nr>DIV334</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/7/2012</date>
     <debit>600.00</debit>
@@ -1482,7 +1482,7 @@
   </action>
   <action id="338">
     <nr>DIV338</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>18/7/2012</date>
     <credit>20.00</credit>
@@ -1490,7 +1490,7 @@
   </action>
   <action id="340">
     <nr>DIV340</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/7/2012</date>
     <credit>488.98</credit>
@@ -1498,7 +1498,7 @@
   </action>
   <action id="341">
     <nr>DIV341</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/7/2012</date>
     <credit>57.60</credit>
@@ -1506,7 +1506,7 @@
   </action>
   <action id="342">
     <nr>DIV342</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/7/2012</date>
     <credit>5.67</credit>
@@ -1514,7 +1514,7 @@
   </action>
   <action id="343">
     <nr>DIV343</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/7/2012</date>
     <credit>22.86</credit>
@@ -1522,7 +1522,7 @@
   </action>
   <action id="344">
     <nr>DIV344</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>20/7/2012</date>
     <credit>40.00</credit>
@@ -1530,7 +1530,7 @@
   </action>
   <action id="346">
     <nr>DIV346</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>23/7/2012</date>
     <credit>64.00</credit>
@@ -1539,7 +1539,7 @@
   </action>
   <action id="347">
     <nr>DIV347</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>23/7/2012</date>
     <credit>62.04</credit>
@@ -1548,7 +1548,7 @@
   </action>
   <action id="348">
     <nr>DIV348</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>23/7/2012</date>
     <credit>100.00</credit>
@@ -1557,7 +1557,7 @@
   </action>
   <action id="349">
     <nr>DIV349</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>23/7/2012</date>
     <credit>70.00</credit>
@@ -1566,7 +1566,7 @@
   </action>
   <action id="352">
     <nr>DIV352</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>24/7/2012</date>
     <credit>29.95</credit>
@@ -1575,7 +1575,7 @@
   </action>
   <action id="355">
     <nr>DIV355</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>25/7/2012</date>
     <credit>71.40</credit>
@@ -1584,7 +1584,7 @@
   </action>
   <action id="356">
     <nr>DIV356</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>25/7/2012</date>
     <credit>63.02</credit>
@@ -1593,7 +1593,7 @@
   </action>
   <action id="359">
     <nr>DIV359</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>26/7/2012</date>
     <debit>1662.26</debit>
@@ -1601,7 +1601,7 @@
   </action>
   <action id="360">
     <nr>DIV360</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>26/7/2012</date>
     <credit>19.80</credit>
@@ -1609,7 +1609,7 @@
   </action>
   <action id="361">
     <nr>DIV361</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>26/7/2012</date>
     <credit>50.00</credit>
@@ -1618,7 +1618,7 @@
   </action>
   <action id="364">
     <nr>DIV364</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/7/2012</date>
     <credit>50.00</credit>
@@ -1627,7 +1627,7 @@
   </action>
   <action id="369">
     <nr>DIV369</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>28/7/2012</date>
     <credit>5.29</credit>
@@ -1635,7 +1635,7 @@
   </action>
   <action id="370">
     <nr>DIV370</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>28/7/2012</date>
     <credit>50.84</credit>
@@ -1643,7 +1643,7 @@
   </action>
   <action id="375">
     <nr>DIV375</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>31/7/2012</date>
     <credit>282.05</credit>
@@ -1651,7 +1651,7 @@
   </action>
   <action id="377">
     <nr>DIV377</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/8/2012</date>
     <credit>802.71</credit>
@@ -1659,7 +1659,7 @@
   </action>
   <action id="378">
     <nr>DIV378</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/8/2012</date>
     <credit>200.00</credit>
@@ -1668,7 +1668,7 @@
   </action>
   <action id="385">
     <nr>DIV385</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/8/2012</date>
     <debit>25.76</debit>
@@ -1676,7 +1676,7 @@
   </action>
   <action id="386">
     <nr>DIV386</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/8/2012</date>
     <credit>25.93</credit>
@@ -1684,7 +1684,7 @@
   </action>
   <action id="387">
     <nr>DIV387</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/8/2012</date>
     <credit>200.00</credit>
@@ -1692,7 +1692,7 @@
   </action>
   <action id="388">
     <nr>DIV388</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/8/2012</date>
     <credit>18.66</credit>
@@ -1700,7 +1700,7 @@
   </action>
   <action id="389">
     <nr>DIV389</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/8/2012</date>
     <credit>29.72</credit>
@@ -1708,7 +1708,7 @@
   </action>
   <action id="398">
     <nr>DIV398</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>10/8/2012</date>
     <debit>19.34</debit>
@@ -1716,7 +1716,7 @@
   </action>
   <action id="401">
     <nr>DIV401</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>14/8/2012</date>
     <credit>20.00</credit>
@@ -1724,7 +1724,7 @@
   </action>
   <action id="405">
     <nr>DIV405</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/8/2012</date>
     <debit>600.00</debit>
@@ -1732,7 +1732,7 @@
   </action>
   <action id="408">
     <nr>DIV408</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>20/8/2012</date>
     <credit>47.97</credit>
@@ -1740,7 +1740,7 @@
   </action>
   <action id="409">
     <nr>DIV409</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>20/8/2012</date>
     <credit>12.31</credit>
@@ -1748,7 +1748,7 @@
   </action>
   <action id="412">
     <nr>DIV412</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>22/8/2012</date>
     <debit>23.03</debit>
@@ -1756,7 +1756,7 @@
   </action>
   <action id="414">
     <nr>DIV414</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>24/8/2012</date>
     <credit>112.33</credit>
@@ -1764,7 +1764,7 @@
   </action>
   <action id="415">
     <nr>DIV415</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>26/8/2012</date>
     <credit>38.49</credit>
@@ -1772,7 +1772,7 @@
   </action>
   <action id="416">
     <nr>DIV416</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/8/2012</date>
     <credit>20.00</credit>
@@ -1780,7 +1780,7 @@
   </action>
   <action id="417">
     <nr>DIV417</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>28/8/2012</date>
     <debit>1654.63</debit>
@@ -1788,7 +1788,7 @@
   </action>
   <action id="418">
     <nr>DIV418</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>28/8/2012</date>
     <credit>280.01</credit>
@@ -1796,7 +1796,7 @@
   </action>
   <action id="420">
     <nr>DIV420</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>29/8/2012</date>
     <credit>319.73</credit>
@@ -1804,7 +1804,7 @@
   </action>
   <action id="421">
     <nr>DIV421</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>29/8/2012</date>
     <credit>249.68</credit>
@@ -1812,7 +1812,7 @@
   </action>
   <action id="422">
     <nr>DIV422</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>29/8/2012</date>
     <credit>16.20</credit>
@@ -1820,7 +1820,7 @@
   </action>
   <action id="423">
     <nr>DIV423</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>30/8/2012</date>
     <credit>104.08</credit>
@@ -1828,7 +1828,7 @@
   </action>
   <action id="425">
     <nr>DIV425</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>31/8/2012</date>
     <credit>282.05</credit>
@@ -1836,7 +1836,7 @@
   </action>
   <action id="426">
     <nr>DIV426</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>31/8/2012</date>
     <credit>40.00</credit>
@@ -1844,7 +1844,7 @@
   </action>
   <action id="428">
     <nr>DIV428</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/9/2012</date>
     <credit>802.71</credit>
@@ -1852,7 +1852,7 @@
   </action>
   <action id="430">
     <nr>DIV430</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/9/2012</date>
     <credit>50.00</credit>
@@ -1860,7 +1860,7 @@
   </action>
   <action id="432">
     <nr>DIV432</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>4/9/2012</date>
     <debit>500.00</debit>
@@ -1869,7 +1869,7 @@
   </action>
   <action id="433">
     <nr>DIV433</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>4/9/2012</date>
     <credit>200.00</credit>
@@ -1878,7 +1878,7 @@
   </action>
   <action id="434">
     <nr>DIV434</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>5/9/2012</date>
     <credit>23.00</credit>
@@ -1887,7 +1887,7 @@
   </action>
   <action id="437">
     <nr>DIV437</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/9/2012</date>
     <credit>18.66</credit>
@@ -1895,7 +1895,7 @@
   </action>
   <action id="438">
     <nr>DIV438</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/9/2012</date>
     <credit>29.72</credit>
@@ -1903,7 +1903,7 @@
   </action>
   <action id="439">
     <nr>DIV439</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/9/2012</date>
     <credit>25.93</credit>
@@ -1911,7 +1911,7 @@
   </action>
   <action id="440">
     <nr>DIV440</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/9/2012</date>
     <credit>200.00</credit>
@@ -1919,7 +1919,7 @@
   </action>
   <action id="444">
     <nr>DIV444</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>9/9/2012</date>
     <credit>20.00</credit>
@@ -1928,7 +1928,7 @@
   </action>
   <action id="451">
     <nr>DIV451</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/9/2012</date>
     <debit>19.67</debit>
@@ -1936,7 +1936,7 @@
   </action>
   <action id="453">
     <nr>DIV453</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/9/2012</date>
     <debit>600.00</debit>
@@ -1944,7 +1944,7 @@
   </action>
   <action id="454">
     <nr>DIV454</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/9/2012</date>
     <credit>29.25</credit>
@@ -1952,7 +1952,7 @@
   </action>
   <action id="455">
     <nr>DIV455</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/9/2012</date>
     <credit>182.65</credit>
@@ -1960,7 +1960,7 @@
   </action>
   <action id="456">
     <nr>DIV456</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/9/2012</date>
     <credit>196.06</credit>
@@ -1968,7 +1968,7 @@
   </action>
   <action id="457">
     <nr>DIV457</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/9/2012</date>
     <credit>101.73</credit>
@@ -1976,7 +1976,7 @@
   </action>
   <action id="459">
     <nr>DIV459</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>20/9/2012</date>
     <credit>40.00</credit>
@@ -1984,7 +1984,7 @@
   </action>
   <action id="461">
     <nr>DIV461</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>22/9/2012</date>
     <credit>73.64</credit>
@@ -1992,7 +1992,7 @@
   </action>
   <action id="463">
     <nr>DIV463</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/9/2012</date>
     <debit>1657.90</debit>
@@ -2000,7 +2000,7 @@
   </action>
   <action id="464">
     <nr>DIV464</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/9/2012</date>
     <credit>101.00</credit>
@@ -2009,7 +2009,7 @@
   </action>
   <action id="465">
     <nr>DIV465</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>28/9/2012</date>
     <credit>51.87</credit>
@@ -2017,7 +2017,7 @@
   </action>
   <action id="466">
     <nr>DIV466</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>28/9/2012</date>
     <credit>100.00</credit>
@@ -2026,7 +2026,7 @@
   </action>
   <action id="467">
     <nr>DIV467</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/10/2012</date>
     <credit>200.00</credit>
@@ -2035,7 +2035,7 @@
   </action>
   <action id="468">
     <nr>DIV468</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/10/2012</date>
     <credit>282.05</credit>
@@ -2043,7 +2043,7 @@
   </action>
   <action id="469">
     <nr>DIV469</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/10/2012</date>
     <credit>802.71</credit>
@@ -2051,7 +2051,7 @@
   </action>
   <action id="475">
     <nr>DIV475</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/10/2012</date>
     <credit>17.07</credit>
@@ -2059,7 +2059,7 @@
   </action>
   <action id="479">
     <nr>DIV479</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>5/10/2012</date>
     <credit>18.66</credit>
@@ -2067,7 +2067,7 @@
   </action>
   <action id="480">
     <nr>DIV480</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>5/10/2012</date>
     <credit>29.72</credit>
@@ -2075,7 +2075,7 @@
   </action>
   <action id="481">
     <nr>DIV481</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>5/10/2012</date>
     <credit>25.93</credit>
@@ -2083,7 +2083,7 @@
   </action>
   <action id="482">
     <nr>DIV482</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>5/10/2012</date>
     <debit>200.00</debit>
@@ -2092,7 +2092,7 @@
   </action>
   <action id="488">
     <nr>DIV488</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>8/10/2012</date>
     <credit>200.00</credit>
@@ -2100,7 +2100,7 @@
   </action>
   <action id="489">
     <nr>DIV489</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>8/10/2012</date>
     <credit>20.00</credit>
@@ -2108,7 +2108,7 @@
   </action>
   <action id="492">
     <nr>DIV492</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>11/10/2012</date>
     <debit>17.19</debit>
@@ -2116,7 +2116,7 @@
   </action>
   <action id="493">
     <nr>DIV493</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>11/10/2012</date>
     <debit>22.47</debit>
@@ -2124,7 +2124,7 @@
   </action>
   <action id="494">
     <nr>DIV494</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>11/10/2012</date>
     <debit>15.00</debit>
@@ -2132,7 +2132,7 @@
   </action>
   <action id="496">
     <nr>DIV496</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>15/10/2012</date>
     <credit>48.50</credit>
@@ -2140,7 +2140,7 @@
   </action>
   <action id="497">
     <nr>DIV497</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>15/10/2012</date>
     <credit>12.31</credit>
@@ -2148,7 +2148,7 @@
   </action>
   <action id="500">
     <nr>DIV500</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/10/2012</date>
     <debit>600.00</debit>
@@ -2156,7 +2156,7 @@
   </action>
   <action id="501">
     <nr>DIV501</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/10/2012</date>
     <credit>44.29</credit>
@@ -2164,7 +2164,7 @@
   </action>
   <action id="502">
     <nr>DIV502</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/10/2012</date>
     <credit>16.47</credit>
@@ -2172,7 +2172,7 @@
   </action>
   <action id="503">
     <nr>DIV503</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>18/10/2012</date>
     <credit>82.92</credit>
@@ -2180,7 +2180,7 @@
   </action>
   <action id="504">
     <nr>DIV504</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/10/2012</date>
     <credit>120.00</credit>
@@ -2189,7 +2189,7 @@
   </action>
   <action id="508">
     <nr>DIV508</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>23/10/2012</date>
     <credit>40.00</credit>
@@ -2197,7 +2197,7 @@
   </action>
   <action id="510">
     <nr>DIV510</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/10/2012</date>
     <credit>40.00</credit>
@@ -2206,7 +2206,7 @@
   </action>
   <action id="511">
     <nr>DIV511</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>29/10/2012</date>
     <debit>1653.54</debit>
@@ -2214,7 +2214,7 @@
   </action>
   <action id="512">
     <nr>DIV512</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>29/10/2012</date>
     <credit>16.40</credit>
@@ -2223,7 +2223,7 @@
   </action>
   <action id="514">
     <nr>DIV514</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>30/10/2012</date>
     <credit>360.93</credit>
@@ -2231,7 +2231,7 @@
   </action>
   <action id="515">
     <nr>DIV515</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>30/10/2012</date>
     <credit>26.00</credit>
@@ -2239,7 +2239,7 @@
   </action>
   <action id="516">
     <nr>DIV516</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>31/10/2012</date>
     <credit>282.05</credit>
@@ -2247,7 +2247,7 @@
   </action>
   <action id="518">
     <nr>DIV518</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/11/2012</date>
     <credit>802.71</credit>
@@ -2255,7 +2255,7 @@
   </action>
   <action id="519">
     <nr>DIV519</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/11/2012</date>
     <credit>60.00</credit>
@@ -2263,7 +2263,7 @@
   </action>
   <action id="521">
     <nr>DIV521</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>2/11/2012</date>
     <credit>200.00</credit>
@@ -2272,7 +2272,7 @@
   </action>
   <action id="522">
     <nr>DIV522</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>5/11/2012</date>
     <debit>200.00</debit>
@@ -2281,7 +2281,7 @@
   </action>
   <action id="526">
     <nr>DIV526</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/11/2012</date>
     <credit>25.93</credit>
@@ -2289,7 +2289,7 @@
   </action>
   <action id="527">
     <nr>DIV527</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/11/2012</date>
     <credit>18.66</credit>
@@ -2297,7 +2297,7 @@
   </action>
   <action id="528">
     <nr>DIV528</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/11/2012</date>
     <credit>29.72</credit>
@@ -2305,7 +2305,7 @@
   </action>
   <action id="529">
     <nr>DIV529</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/11/2012</date>
     <credit>200.00</credit>
@@ -2313,7 +2313,7 @@
   </action>
   <action id="530">
     <nr>DIV530</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/11/2012</date>
     <credit>2.70</credit>
@@ -2322,7 +2322,7 @@
   </action>
   <action id="536">
     <nr>DIV536</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>7/11/2012</date>
     <credit>16.20</credit>
@@ -2330,7 +2330,7 @@
   </action>
   <action id="538">
     <nr>DIV538</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>9/11/2012</date>
     <debit>15.71</debit>
@@ -2338,7 +2338,7 @@
   </action>
   <action id="539">
     <nr>DIV539</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>9/11/2012</date>
     <debit>22.47</debit>
@@ -2346,7 +2346,7 @@
   </action>
   <action id="540">
     <nr>DIV540</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>9/11/2012</date>
     <debit>48.66</debit>
@@ -2354,7 +2354,7 @@
   </action>
   <action id="541">
     <nr>DIV541</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>9/11/2012</date>
     <debit>23.38</debit>
@@ -2362,7 +2362,7 @@
   </action>
   <action id="542">
     <nr>DIV542</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>14/11/2012</date>
     <credit>48.49</credit>
@@ -2370,7 +2370,7 @@
   </action>
   <action id="543">
     <nr>DIV543</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>14/11/2012</date>
     <credit>59.21</credit>
@@ -2378,7 +2378,7 @@
   </action>
   <action id="545">
     <nr>DIV545</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/11/2012</date>
     <debit>19.67</debit>
@@ -2386,7 +2386,7 @@
   </action>
   <action id="546">
     <nr>DIV546</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/11/2012</date>
     <debit>17.19</debit>
@@ -2394,7 +2394,7 @@
   </action>
   <action id="547">
     <nr>DIV547</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>21/11/2012</date>
     <debit>600.00</debit>
@@ -2402,7 +2402,7 @@
   </action>
   <action id="549">
     <nr>DIV549</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>22/11/2012</date>
     <credit>16.20</credit>
@@ -2410,7 +2410,7 @@
   </action>
   <action id="550">
     <nr>DIV550</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>22/11/2012</date>
     <credit>58.66</credit>
@@ -2418,7 +2418,7 @@
   </action>
   <action id="551">
     <nr>DIV551</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>23/11/2012</date>
     <credit>222.67</credit>
@@ -2426,7 +2426,7 @@
   </action>
   <action id="552">
     <nr>DIV552</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>23/11/2012</date>
     <credit>16.42</credit>
@@ -2434,7 +2434,7 @@
   </action>
   <action id="553">
     <nr>DIV553</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>24/11/2012</date>
     <credit>40.00</credit>
@@ -2443,7 +2443,7 @@
   </action>
   <action id="554">
     <nr>DIV554</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>24/11/2012</date>
     <credit>1.20</credit>
@@ -2452,7 +2452,7 @@
   </action>
   <action id="555">
     <nr>DIV555</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>26/11/2012</date>
     <credit>62.47</credit>
@@ -2460,7 +2460,7 @@
   </action>
   <action id="556">
     <nr>DIV556</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>26/11/2012</date>
     <credit>4.37</credit>
@@ -2468,7 +2468,7 @@
   </action>
   <action id="557">
     <nr>DIV557</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/11/2012</date>
     <debit>1694.35</debit>
@@ -2476,7 +2476,7 @@
   </action>
   <action id="558">
     <nr>DIV558</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>27/11/2012</date>
     <credit>40.00</credit>
@@ -2484,7 +2484,7 @@
   </action>
   <action id="560">
     <nr>DIV560</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>28/11/2012</date>
     <debit>4128.29</debit>
@@ -2492,7 +2492,7 @@
   </action>
   <action id="561">
     <nr>DIV561</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>28/11/2012</date>
     <credit>3000.00</credit>
@@ -2500,7 +2500,7 @@
   </action>
   <action id="562">
     <nr>DIV562</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>29/11/2012</date>
     <credit>20.00</credit>
@@ -2508,7 +2508,7 @@
   </action>
   <action id="563">
     <nr>DIV563</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>30/11/2012</date>
     <credit>282.05</credit>
@@ -2516,7 +2516,7 @@
   </action>
   <action id="564">
     <nr>DIV564</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>30/11/2012</date>
     <credit>1000.00</credit>
@@ -2525,7 +2525,7 @@
   </action>
   <action id="565">
     <nr>DIV565</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>30/11/2012</date>
     <credit>1071.00</credit>
@@ -2533,7 +2533,7 @@
   </action>
   <action id="566">
     <nr>DIV566</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>30/11/2012</date>
     <credit>59.34</credit>
@@ -2541,7 +2541,7 @@
   </action>
   <action id="569">
     <nr>DIV569</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/12/2012</date>
     <credit>802.71</credit>
@@ -2549,7 +2549,7 @@
   </action>
   <action id="570">
     <nr>DIV570</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/12/2012</date>
     <credit>63.01</credit>
@@ -2557,7 +2557,7 @@
   </action>
   <action id="571">
     <nr>DIV571</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>1/12/2012</date>
     <credit>100.00</credit>
@@ -2565,7 +2565,7 @@
   </action>
   <action id="573">
     <nr>DIV573</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>3/12/2012</date>
     <debit>1000.00</debit>
@@ -2574,7 +2574,7 @@
   </action>
   <action id="574">
     <nr>DIV574</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>3/12/2012</date>
     <credit>33.80</credit>
@@ -2582,7 +2582,7 @@
   </action>
   <action id="575">
     <nr>DIV575</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>3/12/2012</date>
     <credit>200.00</credit>
@@ -2591,7 +2591,7 @@
   </action>
   <action id="576">
     <nr>DIV576</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>3/12/2012</date>
     <credit>93.28</credit>
@@ -2599,7 +2599,7 @@
   </action>
   <action id="578">
     <nr>DIV578</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/12/2012</date>
     <credit>25.93</credit>
@@ -2607,7 +2607,7 @@
   </action>
   <action id="578">
     <nr>DIV578</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/12/2012</date>
     <credit>18.66</credit>
@@ -2615,7 +2615,7 @@
   </action>
   <action id="578">
     <nr>DIV578</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/12/2012</date>
     <credit>29.72</credit>
@@ -2623,7 +2623,7 @@
   </action>
   <action id="578">
     <nr>DIV578</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>6/12/2012</date>
     <credit>200.00</credit>
@@ -2631,7 +2631,7 @@
   </action>
   <action id="579">
     <nr>DIV579</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>10/12/2012</date>
     <credit>40.00</credit>
@@ -2639,7 +2639,7 @@
   </action>
   <action id="583">
     <nr>DIV583</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>11/12/2012</date>
     <credit>29.25</credit>
@@ -2647,7 +2647,7 @@
   </action>
   <action id="586">
     <nr>DIV586</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>12/12/2012</date>
     <debit>15.00</debit>
@@ -2655,7 +2655,7 @@
   </action>
   <action id="586">
     <nr>DIV586</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>12/12/2012</date>
     <debit>45.00</debit>
@@ -2663,7 +2663,7 @@
   </action>
   <action id="587">
     <nr>DIV587</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>12/12/2012</date>
     <credit>50.00</credit>
@@ -2671,7 +2671,7 @@
   </action>
   <action id="588">
     <nr>DIV588</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>13/12/2012</date>
     <debit>1275.73</debit>
@@ -2679,7 +2679,7 @@
   </action>
   <action id="589">
     <nr>DIV589</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>13/12/2012</date>
     <credit>66.95</credit>
@@ -2687,7 +2687,7 @@
   </action>
   <action id="590">
     <nr>DIV590</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>13/12/2012</date>
     <credit>330.00</credit>
@@ -2695,7 +2695,7 @@
   </action>
   <action id="590">
     <nr>DIV590</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>13/12/2012</date>
     <credit>32.27</credit>
@@ -2703,7 +2703,7 @@
   </action>
   <action id="591">
     <nr>DIV591</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>13/12/2012</date>
     <credit>27.70</credit>
@@ -2711,7 +2711,7 @@
   </action>
   <action id="592">
     <nr>DIV592</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>14/12/2012</date>
     <credit>32.77</credit>
@@ -2719,7 +2719,7 @@
   </action>
   <action id="592">
     <nr>DIV592</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>14/12/2012</date>
     <credit>31.84</credit>
@@ -2727,7 +2727,7 @@
   </action>
   <action id="592">
     <nr>DIV592</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>14/12/2012</date>
     <credit>79.65</credit>
@@ -2735,7 +2735,7 @@
   </action>
   <action id="592">
     <nr>DIV592</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>14/12/2012</date>
     <credit>24.20</credit>
@@ -2743,7 +2743,7 @@
   </action>
   <action id="593">
     <nr>DIV593</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/12/2012</date>
     <credit>20.10</credit>
@@ -2751,7 +2751,7 @@
   </action>
   <action id="593">
     <nr>DIV593</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/12/2012</date>
     <credit>32.98</credit>
@@ -2759,7 +2759,7 @@
   </action>
   <action id="593">
     <nr>DIV593</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/12/2012</date>
     <credit>88.18</credit>
@@ -2767,7 +2767,7 @@
   </action>
   <action id="594">
     <nr>DIV594</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/12/2012</date>
     <debit>19.67</debit>
@@ -2775,7 +2775,7 @@
   </action>
   <action id="595">
     <nr>DIV595</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/12/2012</date>
     <credit>60.02</credit>
@@ -2783,7 +2783,7 @@
   </action>
   <action id="596">
     <nr>DIV596</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/12/2012</date>
     <credit>41.70</credit>
@@ -2791,7 +2791,7 @@
   </action>
   <action id="596">
     <nr>DIV596</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/12/2012</date>
     <credit>32.49</credit>
@@ -2799,7 +2799,7 @@
   </action>
   <action id="597">
     <nr>DIV597</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/12/2012</date>
     <credit>18.20</credit>
@@ -2807,7 +2807,7 @@
   </action>
   <action id="598">
     <nr>DIV598</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>17/12/2012</date>
     <credit>99.90</credit>
@@ -2815,7 +2815,7 @@
   </action>
   <action id="600">
     <nr>DIV600</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>18/12/2012</date>
     <credit>11.60</credit>
@@ -2823,7 +2823,7 @@
   </action>
   <action id="603">
     <nr>DIV603</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>19/12/2012</date>
     <debit>670.00</debit>
@@ -2831,7 +2831,7 @@
   </action>
   <action id="604">
     <nr>DIV604</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>20/12/2012</date>
     <debit>600.00</debit>
@@ -2839,7 +2839,7 @@
   </action>
   <action id="605">
     <nr>DIV605</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>20/12/2012</date>
     <debit>600.00</debit>
@@ -2847,7 +2847,7 @@
   </action>
   <action id="606">
     <nr>DIV606</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>21/12/2012</date>
     <credit>242.91</credit>
@@ -2855,7 +2855,7 @@
   </action>
   <action id="607">
     <nr>DIV607</nr>
-    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</journal_xml>
     <journal_html>null</journal_html>
     <date>21/12/2012</date>
     <credit>55.01</credit>

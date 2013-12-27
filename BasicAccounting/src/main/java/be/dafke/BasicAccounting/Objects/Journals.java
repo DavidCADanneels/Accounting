@@ -1,12 +1,11 @@
 package be.dafke.BasicAccounting.Objects;
 
+import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.ObjectModel.WriteableBusinessCollection;
 
-import java.io.File;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Map;
@@ -16,12 +15,16 @@ import java.util.Map;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journals extends WriteableBusinessCollection<Journal> implements BusinessTypeProvider<JournalType> {
+public class Journals extends BusinessCollection<Journal> implements BusinessTypeProvider<JournalType> {
+
+    @Override
+    public String getChildType(){
+        return "Journal";
+    }
 
     private BusinessTypeCollection<JournalType> businessTypeCollection;
 
-    public Journals(File xmlFolder) {
-        super(xmlFolder);
+    public Journals() {
         addSearchKey(Journal.ABBREVIATION);
 	}
 
@@ -30,10 +33,10 @@ public class Journals extends WriteableBusinessCollection<Journal> implements Bu
         return new Journal();
     }
 
-    @Override
+   /* @Override
     public void readCollection() {
         readCollection("Journal", true);
-    }
+    }*/
 
     /**
 	 * Geeft alle dagboeken terug behalve het gegeven dagboek

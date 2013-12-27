@@ -1,12 +1,11 @@
 package be.dafke.BasicAccounting.Objects;
 
+import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.ObjectModel.WriteableBusinessCollection;
 
-import java.io.File;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,12 +16,13 @@ import java.util.Map;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Accounts extends WriteableBusinessCollection<Account> implements BusinessTypeProvider<AccountType> {
+public class Accounts extends BusinessCollection<Account> implements BusinessTypeProvider<AccountType> {
 
     private BusinessTypeCollection<AccountType> businessTypeCollection;
 
-    public Accounts(File xmlFolder) {
-        super(xmlFolder);
+    @Override
+    public String getChildType(){
+        return "Account";
     }
 
     public ArrayList<Account> getAccounts(AccountType type) {
@@ -71,11 +71,11 @@ public class Accounts extends WriteableBusinessCollection<Account> implements Bu
 
     @Override
     public Account createNewChild(String name) {
-        return new Account();
+        return new Account(name);
     }
 
-    @Override
-    public void readCollection() {
-        readCollection("Account", false);
-    }
+//    @Override
+//    public void readCollection() {
+//        readCollection("Account", false);
+//    }
 }

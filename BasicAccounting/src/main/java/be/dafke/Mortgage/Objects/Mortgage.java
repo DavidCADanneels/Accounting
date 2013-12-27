@@ -3,10 +3,10 @@ package be.dafke.Mortgage.Objects;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.Movement;
+import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionDependent;
 import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
 import be.dafke.ObjectModel.BusinessTyped;
-import be.dafke.ObjectModel.WriteableBusinessCollection;
 import be.dafke.Utils.MultiValueMap;
 
 import java.math.BigDecimal;
@@ -30,9 +30,10 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
 	private Account capital, intrest;
 	private BigDecimal startCapital;
     private final MultiValueMap<Calendar,Movement[]> movements;
-    private WriteableBusinessCollection<Account> accounts;
+    private BusinessCollection<Account> accounts;
 
-    public Mortgage(){
+    public Mortgage(String name){
+        super(name);
         movements = new MultiValueMap<Calendar, Movement[]>();
     }
 
@@ -227,21 +228,21 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
         properties.put(NRPAYED, Integer.toString(alreadyPayed));
         if(capital!=null){
             properties.put(CAPITAL_NAME,capital.getName());
-            if(capital.getXmlFile()!=null){
-                properties.put(CAPITAL_XML,capital.getXmlFile().getPath());
-            }
-            if(capital.getHtmlFile()!=null){
-                properties.put(CAPITAL_XML,capital.getHtmlFile().getPath());
-            }
+//            if(capital.getXmlFile()!=null){
+//                properties.put(CAPITAL_XML,capital.getXmlFile().getPath());
+//            }
+//            if(capital.getHtmlFile()!=null){
+//                properties.put(CAPITAL_XML,capital.getHtmlFile().getPath());
+//            }
         }
         if(intrest!=null){
             properties.put(INTREST_NAME,intrest.getName());
-            if(intrest.getXmlFile()!=null){
-                properties.put(INTREST_XML,intrest.getXmlFile().getPath());
-            }
-            if(intrest.getHtmlFile()!=null){
-                properties.put(INTREST_HTML, intrest.getHtmlFile().getPath());
-            }
+//            if(intrest.getXmlFile()!=null){
+//                properties.put(INTREST_XML,intrest.getXmlFile().getPath());
+//            }
+//            if(intrest.getHtmlFile()!=null){
+//                properties.put(INTREST_HTML, intrest.getHtmlFile().getPath());
+//            }
         }
         return properties;
     }
@@ -268,7 +269,7 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
     }
 
     @Override
-    public void setBusinessCollection(WriteableBusinessCollection<Account> businessCollection) {
+    public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
         accounts = businessCollection;
     }
 }

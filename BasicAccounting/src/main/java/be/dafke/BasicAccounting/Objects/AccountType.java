@@ -8,6 +8,11 @@ import be.dafke.ObjectModel.BusinessType;
  * Time: 6:25
  */
 public class AccountType extends BusinessType {
+
+    public AccountType(String name){
+        super.setName(name);
+    }
+
     public boolean isInverted() {
         return inverted;
     }

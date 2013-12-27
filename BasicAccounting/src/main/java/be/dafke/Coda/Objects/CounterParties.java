@@ -1,18 +1,21 @@
 package be.dafke.Coda.Objects;
 
+import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.ObjectModel.WriteableBusinessCollection;
 
-import java.io.File;
 import java.util.AbstractMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class CounterParties extends WriteableBusinessCollection<CounterParty> {
+public class CounterParties extends BusinessCollection<CounterParty> {
 
-    public CounterParties(File xmlFolder){
-        super(xmlFolder);
+    @Override
+    public String getChildType(){
+        return "CounterParty";
+    }
+
+    public CounterParties(){
         addSearchKey(CounterParty.ACCOUNTNUMBER);
     }
 
@@ -60,10 +63,10 @@ public class CounterParties extends WriteableBusinessCollection<CounterParty> {
         return value;
     }
 
-    @Override
-    public void readCollection() {
-        readCollection("CounterParty", false);
-    }
+//    @Override
+//    public void readCollection() {
+//        readCollection("CounterParty", false);
+//    }
 
     private CounterParty merge(CounterParty toKeep, CounterParty toRemove) {
         if(!toKeep.getName().equals(toRemove.getName())){

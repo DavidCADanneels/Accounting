@@ -2,9 +2,17 @@
 <?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Accountings2xml.xsl"?>
 <!DOCTYPE Accountings SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Accountings.dtd">
 <Accountings>
-  <Accounting>
-    <name>Test</name>
-    <xml>BasicAccounting/src/main/resources/xml/Test/Accounting.xml</xml>
-  </Accounting>
-    <CurrentObject>Test</CurrentObject>
+    <Accounting>
+        <name>Test</name>
+        <xml>BasicAccounting/src/main/resources/xml/Test/Accounting.xml</xml>
+    </Accounting>
+    <Accounting>
+        <name>Thuis 2012</name>
+        <xml>BasicAccounting/src/main/resources/xml/Thuis 2012/Accounting.xml</xml>
+    </Accounting>
+    <Accounting>
+        <name>Thuis 2013</name>
+        <xml>BasicAccounting/src/main/resources/xml/Thuis 2013/Accounting.xml</xml>
+    </Accounting>
+    <CurrentObject>Thuis 2013</CurrentObject>
 </Accountings>

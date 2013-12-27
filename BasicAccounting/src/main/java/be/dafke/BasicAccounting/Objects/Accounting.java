@@ -1,26 +1,19 @@
 package be.dafke.BasicAccounting.Objects;
 
-import be.dafke.BasicAccounting.Dao.JournalsSAXParser;
 import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.Statements;
-import be.dafke.Mortgage.Dao.MortgagesSAXParser;
-import be.dafke.Mortgage.Objects.Mortgage;
 import be.dafke.Mortgage.Objects.Mortgages;
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.ObjectModel.WriteableBusinessCollection;
-import be.dafke.ObjectModel.WriteableBusinessObject;
 
-import java.io.File;
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 /**
  * @author David Danneels
  */
-public class Accounting extends WriteableBusinessCollection<WriteableBusinessCollection<WriteableBusinessObject>> {
+public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> {
     private final AccountTypes accountTypes;
     private final Accounts accounts;
 	private final Journals journals;
@@ -30,35 +23,40 @@ public class Accounting extends WriteableBusinessCollection<WriteableBusinessCol
     private final CounterParties counterParties;
     private final Statements statements;
     private final Balances balances;
-    private File xmlFolder, htmlFolder;
     private ArrayList<String> keys;
 
-    public Accounting(File xmlFolder) {
-        super(new File(xmlFolder,"Accounting"));
+    @Override
+    public String getChildType(){
+        return "";
+    }
+
+    public Accounting(String name) {
+        setName(name);
         // TODO use Accounts<Account> + modifiy Accounts file ... Accounts<T extends
 
         accountTypes = new AccountTypes();
 
-        accounts = new Accounts(new File(xmlFolder,"Accounts"));
+        accounts = new Accounts();
         accounts.setBusinessTypeCollection(accountTypes);
 
         journalTypes = new JournalTypes();
         journalTypes.addDefaultType(accountTypes);
 
-        journals = new Journals(new File(xmlFolder,"Journals"));
+        journals = new Journals();
         journals.setBusinessTypeCollection(journalTypes);
 
-        balances = new Balances(new File(xmlFolder,"Balances"));
+        balances = new Balances();
         balances.setBusinessCollection(accounts);
         balances.setBusinessTypeCollection(accountTypes);
+//        balances.addDefaultBalances(this);
 
-        mortgages = new Mortgages(new File(xmlFolder,"Mortgages"));
+        mortgages = new Mortgages();
         mortgages.setBusinessTypeCollection(accountTypes);
         mortgages.setBusinessCollection(accounts);
 
-        counterParties = new CounterParties(new File(xmlFolder,"CounterParties"));
+        counterParties = new CounterParties();
 
-        statements = new Statements(new File(xmlFolder,"Statements"));
+        statements = new Statements();
         statements.setBusinessCollection(counterParties);
 
         projects = new Projects();
@@ -71,12 +69,12 @@ public class Accounting extends WriteableBusinessCollection<WriteableBusinessCol
         statements.setName(statements.getBusinessObjectType());
 
         try {
-            addBusinessObject((WriteableBusinessCollection)accounts);
-            addBusinessObject((WriteableBusinessCollection)journals);
-            addBusinessObject((WriteableBusinessCollection)balances);
-            addBusinessObject((WriteableBusinessCollection)mortgages);
-            addBusinessObject((WriteableBusinessCollection)statements);
-            addBusinessObject((WriteableBusinessCollection)counterParties);
+            addBusinessObject((BusinessCollection)accounts);
+            addBusinessObject((BusinessCollection)journals);
+            addBusinessObject((BusinessCollection)balances);
+            addBusinessObject((BusinessCollection)mortgages);
+            addBusinessObject((BusinessCollection)statements);
+            addBusinessObject((BusinessCollection)counterParties);
         } catch (EmptyNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (DuplicateNameException e) {
@@ -98,8 +96,8 @@ public class Accounting extends WriteableBusinessCollection<WriteableBusinessCol
     }
 
     @Override
-    public WriteableBusinessCollection createNewChild(String name) {
-        WriteableBusinessCollection<WriteableBusinessObject> collection = getBusinessObject(name);
+    public BusinessCollection createNewChild(String name) {
+        BusinessCollection<BusinessObject> collection = getBusinessObject(name);
 //        WriteableBusinessCollection<WriteableBusinessObject> collection = collections.get(name);
         if(collection==null){
 //            collection =
@@ -108,28 +106,28 @@ public class Accounting extends WriteableBusinessCollection<WriteableBusinessCol
         return collection;
     }
 
+//    @Override
+//    public void readCollection() {
+//        readCollection(keys, true);
+//        for(Mortgage mortgage : mortgages.getBusinessObjects()){
+//            MortgagesSAXParser.readMortgage(mortgage);
+//        }
+//
+//        for(Journal journal : journals.getBusinessObjects()){
+//            JournalsSAXParser.readJournal(journal, accounts);
+//        }
+//
+//    }
+
+//    @Override
+//    public void setName(String name){
+//        super.setName(name);
+//        setXmlFolder();
+//    }
+
     @Override
-    public void readCollection() {
-        readCollection(keys, true);
-        for(Mortgage mortgage : mortgages.getBusinessObjects()){
-            MortgagesSAXParser.readMortgage(mortgage);
-        }
-
-        for(Journal journal : journals.getBusinessObjects()){
-            JournalsSAXParser.readJournal(journal, accounts);
-        }
-
-    }
-
-    @Override
-    public void setName(String name){
-        super.setName(name);
-        setXmlFolder();
-    }
-
-    @Override
-    public ArrayList<WriteableBusinessCollection<WriteableBusinessObject>> getBusinessObjects(){
-        ArrayList<WriteableBusinessCollection<WriteableBusinessObject>> objects = new ArrayList<WriteableBusinessCollection<WriteableBusinessObject>>();
+    public ArrayList<BusinessCollection<BusinessObject>> getBusinessObjects(){
+        ArrayList<BusinessCollection<BusinessObject>> objects = new ArrayList<BusinessCollection<BusinessObject>>();
         for(String key:keys){
             objects.add(getBusinessObject(key));
         }
@@ -177,39 +175,38 @@ public class Accounting extends WriteableBusinessCollection<WriteableBusinessCol
 	// Folders
     //
     // Getters
-    public File getHtmlFolder() {
-        return htmlFolder;
-    }
-    //
-    // Setters
-    //
-    public void setHtmlFolder(File htmlFolder) {
-        this.htmlFolder = htmlFolder;
-        if(htmlFolder!=null){
-            setHtmlFile(new File(htmlFolder, "Accounting.html"));
-    //        setHtmlFile(new File(htmlFolder, name + ".html"));
-            accounts.setHtmlFolder(htmlFolder);
-            journals.setHtmlFolder(htmlFolder);
-            balances.setHtmlFolder(htmlFolder);
-            mortgages.setHtmlFolder(htmlFolder);
-    //        statements.setHtmlFolder(htmlFolder);
-    //        counterParties.setHtmlFolder(htmlFolder);
-        }
-    }
+//    public File getHtmlFolder() {
+//        return htmlFolder;
+//    }
+//    //
+//    // Setters
+//    //
+//    public void setHtmlFolder(File htmlFolder) {
+//        this.htmlFolder = htmlFolder;
+//        if(htmlFolder!=null){
+//            setHtmlFile(new File(htmlFolder, "Accounting.html"));
+//    //        setHtmlFile(new File(htmlFolder, name + ".html"));
+//            accounts.setHtmlFolder(htmlFolder);
+//            journals.setHtmlFolder(htmlFolder);
+//            balances.setHtmlFolder(htmlFolder);
+//            mortgages.setHtmlFolder(htmlFolder);
+//    //        statements.setHtmlFolder(htmlFolder);
+//    //        counterParties.setHtmlFolder(htmlFolder);
+//        }
+//    }
 
-    private void setXmlFolder(){
-        xmlFolder = new File(System.getProperty("Accountings_xml"), getName());
-        setXmlFile(new File(xmlFolder, "Accounting.xml"));
-
-        accounts.setXmlFolder(xmlFolder);
-        journals.setXmlFolder(xmlFolder);
-        balances.setXmlFolder(xmlFolder);
-        mortgages.setXmlFolder(xmlFolder);
-        statements.setXmlFolder(xmlFolder);
-        counterParties.setXmlFolder(xmlFolder);
-    }
-
-    public void createXmlFolders() {
+//    private void setXmlFolder(){
+//        setXmlFile(new File(xmlFolder, "Accounting.xml"));
+//
+//        accounts.setXmlFolder(xmlFolder);
+//        journals.setXmlFolder(xmlFolder);
+//        balances.setXmlFolder(xmlFolder);
+//        mortgages.setXmlFolder(xmlFolder);
+//        statements.setXmlFolder(xmlFolder);
+//        counterParties.setXmlFolder(xmlFolder);
+//    }
+//
+/*    public void createXmlFolders() {
         if(xmlFolder.mkdirs()){
             System.out.println(xmlFolder.getPath() + " has been created");
         }
@@ -219,9 +216,9 @@ public class Accounting extends WriteableBusinessCollection<WriteableBusinessCol
         mortgages.createXmlFolder();
 //        statements.createXmlFolder();
 //        counterParties.createXmlFolder();
-    }
+    } */
 
-    public void createHtmlFolders(){
+  /*  public void createHtmlFolders(){
         if(htmlFolder!=null){
             if(htmlFolder.mkdirs()){
                 System.out.println(htmlFolder.getPath() + " has been created");
@@ -233,39 +230,41 @@ public class Accounting extends WriteableBusinessCollection<WriteableBusinessCol
 //            statements.createHtmlFolder();
 //            counterParties.createHtmlFolder();
         }
-    }
-    @Override
-    public Set<String> getInitKeySet() {
-        Set<String> keySet = new TreeSet<String>();
-        keySet.add(NAME);
-        keySet.add(XML);
-        keySet.add(HTML);
-        return keySet;
-    }
+    }*/
 
-    @Override
-    public TreeMap<String,String> getInitProperties() {
-        TreeMap<String,String> properties = new TreeMap<String, String>();
-        properties.put(NAME, getName());
-        if(getXmlFile()!=null){
-            properties.put(XML, getXmlFile().getPath());
-        }
-        if(getHtmlFile()!=null){
-            properties.put(HTML, getHtmlFile().getPath());
-        }
-        return properties;
-    }
 
-    @Override
-    public void setInitProperties(TreeMap<String, String> properties) {
-        setName(properties.get(NAME));
-        String xmlPath = properties.get(XML);
-        String htmlPath = properties.get(HTML);
-        if(xmlPath!=null){
-            setXmlFile(new File(xmlPath));
-        }
-        if(htmlPath!=null){
-            setHtmlFile(new File(htmlPath));
-        }
-    }
+//    @Override
+//    public Set<String> getInitKeySet() {
+//        Set<String> keySet = new TreeSet<String>();
+//        keySet.add(NAME);
+//        keySet.add(XML);
+//        keySet.add(HTML);
+//        return keySet;
+//    }
+
+//    @Override
+//    public TreeMap<String,String> getInitProperties() {
+//        TreeMap<String,String> properties = new TreeMap<String, String>();
+//        properties.put(NAME, getName());
+//        if(getXmlFile()!=null){
+//            properties.put(XML, getXmlFile().getPath());
+//        }
+//        if(getHtmlFile()!=null){
+//            properties.put(HTML, getHtmlFile().getPath());
+//        }
+//        return properties;
+//    }
+
+//    @Override
+//    public void setInitProperties(TreeMap<String, String> properties) {
+//        setName(properties.get(NAME));
+//        String xmlPath = properties.get(XML);
+//        String htmlPath = properties.get(HTML);
+//        if(xmlPath!=null){
+//            setXmlFile(new File(xmlPath));
+//        }
+//        if(htmlPath!=null){
+//            setHtmlFile(new File(htmlPath));
+//        }
+//    }
 }

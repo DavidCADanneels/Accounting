@@ -1,8 +1,8 @@
 package be.dafke.Coda.Objects;
 
+import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionDependent;
-import be.dafke.ObjectModel.WriteableBusinessCollection;
-import be.dafke.ObjectModel.WriteableBusinessObject;
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
@@ -11,7 +11,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-public class Statement extends WriteableBusinessObject implements BusinessCollectionDependent<CounterParty>{
+public class Statement extends BusinessObject implements BusinessCollectionDependent<CounterParty>{
     private static final String DATE = "Date";
     private static final String SIGN = "Sign";
     private static final String AMOUNT = "Amount";
@@ -28,12 +28,13 @@ public class Statement extends WriteableBusinessObject implements BusinessCollec
 
 	private CounterParty counterParty;
 	private TmpCounterParty tmpCounterParty;
-    private WriteableBusinessCollection<CounterParty> businessCollection;
+    private BusinessCollection<CounterParty> businessCollection;
 
     @Override
 	public String toString() {
 		return getName();
 	}
+
 
     // SETTERS
 
@@ -147,7 +148,7 @@ public class Statement extends WriteableBusinessObject implements BusinessCollec
     }
 
     @Override
-    public void setBusinessCollection(WriteableBusinessCollection<CounterParty> businessCollection) {
+    public void setBusinessCollection(BusinessCollection<CounterParty> businessCollection) {
         this.businessCollection = businessCollection;
     }
 }

@@ -1,36 +1,36 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Accounting2xml.xsl"?>
-<!DOCTYPE Accounting SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Accounting.dtd">
+<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Accounting2xml.xsl"?>
+<!DOCTYPE Accounting SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Accounting.dtd">
 <Accounting>
   <name>Thuis 2013</name>
   <Accounts>
     <name>Accounts</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts.xml</xml>
-    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts</xmlFolder>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Accounts.xml</xml>
+    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Accounts</xmlFolder>
   </Accounts>
   <Mortgages>
     <name>Mortgages</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Mortgages.xml</xml>
-    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Mortgages</xmlFolder>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Mortgages.xml</xml>
+    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Mortgages</xmlFolder>
   </Mortgages>
   <Journals>
     <name>Journals</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals.xml</xml>
-    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals</xmlFolder>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Journals.xml</xml>
+    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Journals</xmlFolder>
   </Journals>
   <Balances>
     <name>Balances</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Balances.xml</xml>
-    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Balances</xmlFolder>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Balances.xml</xml>
+    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Balances</xmlFolder>
   </Balances>
   <CounterParties>
     <name>CounterParties</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\CounterParties.xml</xml>
-    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\CounterParties</xmlFolder>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/CounterParties.xml</xml>
+    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/CounterParties</xmlFolder>
   </CounterParties>
   <Statements>
     <name>Statements</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Statements.xml</xml>
-    <xmlFolder>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Statements</xmlFolder>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Statements.xml</xml>
+    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2013/Statements</xmlFolder>
   </Statements>
 </Accounting>

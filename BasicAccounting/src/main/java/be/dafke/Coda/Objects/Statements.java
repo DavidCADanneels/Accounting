@@ -1,19 +1,19 @@
 package be.dafke.Coda.Objects;
 
 import be.dafke.Coda.GUI.SearchOptions;
+import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
-import be.dafke.ObjectModel.WriteableBusinessCollection;
 
-import java.io.File;
 import java.util.ArrayList;
 
-public class Statements extends WriteableBusinessCollection<Statement> implements BusinessCollectionProvider<CounterParty>{
+public class Statements extends BusinessCollection<Statement> implements BusinessCollectionProvider<CounterParty>{
 
-    private WriteableBusinessCollection<CounterParty> businessCollection;
-
-    public Statements(File xmlFolder) {
-        super(xmlFolder);
+    @Override
+    public String getChildType(){
+        return "Statement";
     }
+
+    private BusinessCollection<CounterParty> businessCollection;
 
     public ArrayList<Statement> getStatements(SearchOptions searchOptions) {
 		ArrayList<Statement> result = new ArrayList<Statement>();
@@ -38,18 +38,18 @@ public class Statements extends WriteableBusinessCollection<Statement> implement
         return new Statement();
     }
 
-    @Override
-    public void readCollection() {
-        readCollection("Statement", false);
-    }
+//    @Override
+//    public void readCollection() {
+//        readCollection("Statement", false);
+//    }
 
     @Override
-    public WriteableBusinessCollection<CounterParty> getBusinessCollection() {
+    public BusinessCollection<CounterParty> getBusinessCollection() {
         return businessCollection;
     }
 
     @Override
-    public void setBusinessCollection(WriteableBusinessCollection<CounterParty> businessCollection) {
+    public void setBusinessCollection(BusinessCollection<CounterParty> businessCollection) {
         this.businessCollection = businessCollection;
     }
 }

@@ -1,7 +1,7 @@
 package be.dafke.Coda.Objects;
 
 import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.ObjectModel.WriteableBusinessObject;
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import java.util.ArrayList;
@@ -10,7 +10,7 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.TreeMap;
 
-public class CounterParty extends WriteableBusinessObject {
+public class CounterParty extends BusinessObject {
 	/**
 	 * 
 	 */

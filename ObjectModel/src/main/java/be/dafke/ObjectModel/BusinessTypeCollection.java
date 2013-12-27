@@ -5,5 +5,5 @@ package be.dafke.ObjectModel;
  * Date: 11/03/13
  * Time: 10:11
  */
-public class BusinessTypeCollection<T extends BusinessType> extends BusinessCollection<T>{
+public abstract class BusinessTypeCollection<T extends BusinessType> extends BusinessCollection<T>{
 }

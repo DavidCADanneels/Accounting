@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Journals2xml.xsl"?>
+<!DOCTYPE Journals SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Journals.dtd">
+<Journals>
+  <Journal>
+    <abbreviation>DIV</abbreviation>
+    <name>Diversen</name>
+    <type>default</type>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Journals/Diversen.xml</xml>
+  </Journal>
+    <CurrentObject>Diversen</CurrentObject>
+</Journals>

@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.Objects;
 
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
 import be.dafke.ObjectModel.BusinessTyped;
-import be.dafke.ObjectModel.WriteableBusinessObject;
 import be.dafke.Utils.MultiValueMap;
 
 import java.math.BigDecimal;
@@ -17,14 +17,15 @@ import java.util.TreeMap;
   * @author David Danneels
   * @since 01/10/2010
  */
-public class Account extends WriteableBusinessObject implements BusinessTypeCollectionDependent<AccountType>, BusinessTyped<AccountType> {
+public class Account extends BusinessObject implements BusinessTypeCollectionDependent<AccountType>, BusinessTyped<AccountType> {
     private static final String TYPE = "type";
     private AccountType type;
     private BigDecimal debitTotal, creditTotal;
     private final MultiValueMap<Calendar,Movement> movements;
     private BusinessTypeCollection businessTypeCollection;
 
-    public Account() {
+    public Account(String name) {
+        super.setName(name);
         movements = new MultiValueMap<Calendar,Movement>();
         debitTotal = BigDecimal.ZERO;
         debitTotal = debitTotal.setScale(2);

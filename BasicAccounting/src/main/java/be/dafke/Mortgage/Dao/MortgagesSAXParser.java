@@ -7,6 +7,7 @@ import org.xml.sax.XMLReader;
 
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
@@ -23,7 +24,7 @@ import java.util.logging.Logger;
 public class MortgagesSAXParser {
     // READ
     //
-    public static void readMortgage(Mortgage mortgage){
+    public static void readMortgage(Mortgage mortgage, File xmlFile){
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             factory.setValidating(false);
@@ -31,7 +32,7 @@ public class MortgagesSAXParser {
             XMLReader reader = parser.getXMLReader();
             reader.setContentHandler(new MortgageContentHandler(mortgage));
             reader.setErrorHandler(new FoutHandler());
-            reader.parse(mortgage.getXmlFile().getAbsolutePath());
+            reader.parse(xmlFile.getAbsolutePath());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -39,12 +40,13 @@ public class MortgagesSAXParser {
 
     // WRITE
     //
-    public static void writeMortgage(Mortgage mortgage) {
+    public static void writeMortgage(Mortgage mortgage, File xmlFolder, String header) {
         System.out.println("Mortgages.TOXML(" + mortgage.toString() + ")");
         try {
-            Writer writer = new FileWriter(mortgage.getXmlFile());
+            File xmlFile = new File(xmlFolder, mortgage.getName()+".xml");
+            Writer writer = new FileWriter(xmlFile);
 
-            writer.write(mortgage.getXmlHeader());
+            writer.write(header);
 
             writer.write("<Mortgage>\r\n");
             writer.write("  <name>" + mortgage.toString() + "</name>\r\n");

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Balances2xml.xsl"?>
-<!DOCTYPE Balances SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Balances.dtd">
+<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Balances2xml.xsl"?>
+<!DOCTYPE Balances SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Balances.dtd">
 <Balances>
   <Balance>
     <LeftName>Tegoeden van Klanten</LeftName>
@@ -12,7 +12,7 @@
     <RightTotalName>Totaal Schulden</RightTotalName>
     <RightTypes>Debit</RightTypes>
     <name>RelationsBalance</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Balances\RelationsBalance.xml</xml>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Balances/RelationsBalance.xml</xml>
   </Balance>
   <Balance>
     <LeftName>Kosten</LeftName>
@@ -24,7 +24,7 @@
     <RightTotalName>Totaal Opbrengsten</RightTotalName>
     <RightTypes>Revenue</RightTypes>
     <name>ResultBalance</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Balances\ResultBalance.xml</xml>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Balances/ResultBalance.xml</xml>
   </Balance>
   <Balance>
     <LeftName>Activa</LeftName>
@@ -36,6 +36,6 @@
     <RightTotalName>Totaal Passiva</RightTotalName>
     <RightTypes>Passive | Debit</RightTypes>
     <name>YearBalance</name>
-    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Balances\YearBalance.xml</xml>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Thuis 2012/Balances/YearBalance.xml</xml>
   </Balance>
 </Balances>

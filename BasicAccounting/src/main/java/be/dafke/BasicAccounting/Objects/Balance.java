@@ -1,10 +1,10 @@
 package be.dafke.BasicAccounting.Objects;
 
+import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionDependent;
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
-import be.dafke.ObjectModel.WriteableBusinessCollection;
-import be.dafke.ObjectModel.WriteableBusinessObject;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
@@ -18,7 +18,7 @@ import java.util.TreeSet;
  * Date: 28/02/13
  * Time: 0:54
  */
-public class Balance extends WriteableBusinessObject implements BusinessCollectionDependent<Account>, BusinessTypeCollectionDependent<AccountType>{
+public class Balance extends BusinessObject implements BusinessCollectionDependent<Account>, BusinessTypeCollectionDependent<AccountType>{
 
     private final static String LEFTNAME = "LeftName";
     private final static String RIGHTNAME = "RightName";
@@ -36,8 +36,12 @@ public class Balance extends WriteableBusinessObject implements BusinessCollecti
     private String rightResultName;
     private ArrayList<AccountType> leftTypes;
     private ArrayList<AccountType> rightTypes;
-    private WriteableBusinessCollection<Account> businessCollection;
+    private BusinessCollection<Account> businessCollection;
     private BusinessTypeCollection<AccountType> businessTypeCollection;
+
+    public Balance(String name){
+        setName(name);
+    }
 
     @Override
     public boolean isDeletable(){
@@ -194,7 +198,7 @@ public class Balance extends WriteableBusinessObject implements BusinessCollecti
     }
 
     @Override
-    public void setBusinessCollection(WriteableBusinessCollection<Account> businessCollection) {
+    public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
         this.businessCollection = businessCollection;
     }
 

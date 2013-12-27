@@ -13,6 +13,7 @@ import org.w3c.dom.NodeList;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -28,12 +29,12 @@ import java.util.logging.Logger;
  * Time: 5:02
  */
 public class JournalsSAXParser {
-    public static void readJournal(Journal journal, Accounts accounts) {
+    public static void readJournal(Journal journal, Accounts accounts, File xmlFile) {
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
             documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(journal.getXmlFile().getAbsolutePath());
+            Document doc = dBuilder.parse(xmlFile);
             doc.getDocumentElement().normalize();
 
 //            String name = Utils.getValue(doc, "name");
@@ -89,11 +90,12 @@ public class JournalsSAXParser {
         }
     }
 
-    public static void writeJournal(Journal journal) {
+    public static void writeJournal(Journal journal, File xmlFolder, String header) {
         try {
-            Writer writer = new FileWriter(journal.getXmlFile());
+            File xmlFile = new File(xmlFolder, journal.getName()+".xml");
+            Writer writer = new FileWriter(xmlFile);
 
-            writer.write(journal.getXmlHeader());
+            writer.write(header);
 
             writer.write("<Journal>\r\n"
                     + "  <name>" + journal.getName() + "</name>\r\n");
@@ -104,8 +106,8 @@ public class JournalsSAXParser {
                 writer.write("    <nr>" + journal.getAbbreviation() + booking.getTransaction().getId() + "</nr>\r\n");
                 writer.write("    <date>" + Utils.toString(booking.getTransaction().getDate()) + "</date>\r\n");
                 writer.write("    <account_name>" + booking.getAccount() + "</account_name>\r\n");
-                writer.write("    <account_xml>" + booking.getAccount().getXmlFile() + "</account_xml>\r\n");
-                writer.write("    <account_html>" + booking.getAccount().getHtmlFile() + "</account_html>\r\n");
+//                writer.write("    <account_xml>" + booking.getAccount().getXmlFile() + "</account_xml>\r\n");
+//                writer.write("    <account_html>" + booking.getAccount().getHtmlFile() + "</account_html>\r\n");
                 writer.write("    <" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">"
                                      + booking.getMovement().getAmount().toString()
                                + "</" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">\r\n");
@@ -115,8 +117,8 @@ public class JournalsSAXParser {
                     booking = list.get(i);
                     writer.write("  <action>\r\n");
                     writer.write("    <account_name>" + booking.getAccount() + "</account_name>\r\n");
-                    writer.write("    <account_xml>" + booking.getAccount().getXmlFile() + "</account_xml>\r\n");
-                    writer.write("    <account_html>" + booking.getAccount().getHtmlFile() + "</account_html>\r\n");
+//                    writer.write("    <account_xml>" + booking.getAccount().getXmlFile() + "</account_xml>\r\n");
+//                    writer.write("    <account_html>" + booking.getAccount().getHtmlFile() + "</account_html>\r\n");
                     writer.write("    <" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">"
                             + booking.getMovement().getAmount().toString()
                             + "</" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">\r\n");

@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.GUI;
 
+import be.dafke.BasicAccounting.Dao.AccountingsSAXParser;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingGUIFrame;
 import be.dafke.BasicAccounting.Objects.Accountings;
 
@@ -34,12 +35,13 @@ public class Main {
 
         File xslFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/xsl");
         File dtdFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/dtd");
-        System.setProperty("Accountings_xml", xmlFolder.getPath());
-        System.setProperty("Accountings_xsl", xslFolder.getPath());
-        System.setProperty("Accountings_dtd", dtdFolder.getPath());
+//        System.setProperty("Accountings_xml", xmlFolder.getPath());
+//        System.setProperty("Accountings_xsl", xslFolder.getPath());
+//        System.setProperty("Accountings_dtd", dtdFolder.getPath());
 
-        Accountings accountings = new Accountings(xmlFolder);
-//        accountings.readCollection();
+        Accountings accountings = new Accountings(xmlFolder, xslFolder, dtdFolder);
+
+        AccountingsSAXParser.readCollection(accountings, true, xmlFolder);
 
         AccountingGUIFrame frame = new AccountingGUIFrame(accountings);
         frame.setVisible(true);

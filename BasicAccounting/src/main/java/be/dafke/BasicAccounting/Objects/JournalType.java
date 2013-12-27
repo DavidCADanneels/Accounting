@@ -6,8 +6,12 @@ import java.util.ArrayList;
 
 public class JournalType extends BusinessType {
 	/**
-	 * 
+	 *
 	 */
+    public JournalType(String name){
+        super.setName(name);
+    }
+
 	private ArrayList<AccountType> debetTypes, creditTypes;
 
     public ArrayList<AccountType> getDebetTypes() {

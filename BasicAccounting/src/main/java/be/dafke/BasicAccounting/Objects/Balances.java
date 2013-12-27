@@ -1,13 +1,12 @@
 package be.dafke.BasicAccounting.Objects;
 
+import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
 import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.ObjectModel.WriteableBusinessCollection;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
@@ -17,17 +16,18 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 27/02/13
  * Time: 12:07
  */
-public class Balances extends WriteableBusinessCollection<Balance> implements BusinessCollectionProvider<Account>, BusinessTypeProvider<AccountType>{
+public class Balances extends BusinessCollection<Balance> implements BusinessCollectionProvider<Account>, BusinessTypeProvider<AccountType>{
+
+    @Override
+    public String getChildType(){
+        return "Balance";
+    }
 
     public static String RESULT_BALANCE = "ResultBalance";
     public static String RELATIONS_BALANCE = "RelationsBalance";
     public static String YEAR_BALANCE = "YearBalance";
-    private WriteableBusinessCollection<Account> businessCollection;
+    private BusinessCollection<Account> businessCollection;
     private BusinessTypeCollection<AccountType> businessTypeCollection;
-
-    public Balances(File xmlFolder) {
-        super(xmlFolder);
-    }
 
     public void addDefaultBalances(Accounting accounting){
         ArrayList<AccountType> costs = new ArrayList<AccountType>();
@@ -54,8 +54,7 @@ public class Balances extends WriteableBusinessCollection<Balance> implements Bu
         passive.add(accounting.getAccountTypes().getBusinessObject(("Passive")));
         passive.add(accounting.getAccountTypes().getBusinessObject(("Debit")));
 
-        Balance resultBalance = new Balance();
-        resultBalance.setName(RESULT_BALANCE);
+        Balance resultBalance = createNewChild(RESULT_BALANCE);
         resultBalance.setLeftName(getBundle("Accounting").getString("KOSTEN"));
         resultBalance.setRightName(getBundle("Accounting").getString("OPBRENGSTEN"));
         resultBalance.setLeftTotalName(getBundle("Accounting").getString("TOTAAL_KOSTEN"));
@@ -65,8 +64,7 @@ public class Balances extends WriteableBusinessCollection<Balance> implements Bu
         resultBalance.setLeftTypes(costs);
         resultBalance.setRightTypes(revenues);
 
-        Balance relationsBalance = new Balance();
-        relationsBalance.setName(RELATIONS_BALANCE);
+        Balance relationsBalance = createNewChild(RELATIONS_BALANCE);
         relationsBalance.setLeftName(getBundle("Accounting").getString("TEGOEDEN_VAN_KLANTEN"));
         relationsBalance.setRightName(getBundle("Accounting").getString("SCHULDEN_AAN_LEVERANCIERS"));
         relationsBalance.setLeftTotalName(getBundle("Accounting").getString("TOTAAL_TEGOEDEN"));
@@ -76,8 +74,7 @@ public class Balances extends WriteableBusinessCollection<Balance> implements Bu
         relationsBalance.setLeftTypes(credit);
         relationsBalance.setRightTypes(debit);
 
-        Balance yearBalance = new Balance();
-        yearBalance.setName(YEAR_BALANCE);
+        Balance yearBalance = createNewChild(YEAR_BALANCE);
         yearBalance.setLeftName(getBundle("Accounting").getString("ACTIVA"));
         yearBalance.setRightName(getBundle("Accounting").getString("PASSIVA"));
         yearBalance.setLeftTotalName(getBundle("Accounting").getString("TOTAAL_ACTIVA_TEGOEDEN"));
@@ -100,21 +97,24 @@ public class Balances extends WriteableBusinessCollection<Balance> implements Bu
 
     @Override
     public Balance createNewChild(String name) {
-        return new Balance();
+        Balance balance = new Balance(name);
+        balance.setBusinessCollection(businessCollection);
+        balance.setBusinessTypeCollection(businessTypeCollection);
+        return balance;
     }
 
-    @Override
+    /*@Override
     public void readCollection() {
         readCollection("Balance", false);
-    }
+    }*/
 
     @Override
-    public WriteableBusinessCollection<Account> getBusinessCollection() {
+    public BusinessCollection<Account> getBusinessCollection() {
         return businessCollection;
     }
 
     @Override
-    public void setBusinessCollection(WriteableBusinessCollection<Account> businessCollection) {
+    public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
         this.businessCollection = businessCollection;
     }
 

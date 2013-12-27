@@ -18,37 +18,40 @@ public class AccountTypes extends BusinessTypeCollection<AccountType> {
     public static final String CREDIT = "Credit";
     public static final String MORTGAGE = "Mortgage";
 
-    public AccountTypes() {
-        AccountType active = new AccountType();
-//        active.setName(getBundle("Accounting").getString("ACTIEF"));
-        active.setName(ACTIVE);
+    @Override
+    public String getChildType(){
+        return "AccountType";
+    }
 
-        AccountType passive = new AccountType();
+    @Override
+    public AccountType createNewChild(String name) {
+        return new AccountType(name);
+    }
+
+    public AccountTypes() {
+        AccountType active = new AccountType(ACTIVE);
+//        active.setName(getBundle("Accounting").getString("ACTIEF"));
+
+        AccountType passive = new AccountType(PASSIVE);
 //        passive.setName(getBundle("Accounting").getString("PASSIEF"));
-        passive.setName(PASSIVE);
         passive.setInverted(true);
 
-        AccountType cost = new AccountType();
+        AccountType cost = new AccountType(COST);
 //        cost.setName(getBundle("Accounting").getString("KOST"));
-        cost.setName(COST);
 
-        AccountType revenue = new AccountType();
+        AccountType revenue = new AccountType(REVENUE);
 //        revenue.setName(getBundle("Accounting").getString("OPBRENGST"));
-        revenue.setName(REVENUE);
         revenue.setInverted(true);
 
-        AccountType credit = new AccountType();
+        AccountType credit = new AccountType(CREDIT);
 //        credit.setName(getBundle("Accounting").getString("TEGOED_VAN_KLANT"));
-        credit.setName(CREDIT);
 
-        AccountType debit = new AccountType();
+        AccountType debit = new AccountType(DEBIT);
 //        debit.setName(getBundle("Accounting").getString("SCHULD_AAN_LEVERANCIER"));
-        debit.setName(DEBIT);
         debit.setInverted(true);
 
-        AccountType mortgage = new AccountType();
+        AccountType mortgage = new AccountType(MORTGAGE);
 //        mortgage.setName(getBundle("Accounting").getString("MORTGAGE"));
-        mortgage.setName(MORTGAGE);
 
         try{
             addBusinessObject(active);
