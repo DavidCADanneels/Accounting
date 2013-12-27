@@ -2,7 +2,6 @@
 <?xml-stylesheet type="text/xsl" href="../../xsl/Accounting2xml.xsl"?>
 <!DOCTYPE Accounting SYSTEM "../../dtd/Accounting.dtd">
 <Accounting>
-  <name>Thuis 2012</name>
   <Accounts>
     <name>Accounts</name>
   </Accounts>
