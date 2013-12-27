@@ -246,7 +246,7 @@
     <mensuality>802.71</mensuality>
     <intrest>574.09</intrest>
     <capital>228.62</capital>
-    <restCapital>148499.99</restCapital>
+    <restCapital>148499</restCapital>
   </line>
   <line>
     <nr>36</nr>
@@ -580,7 +580,7 @@
   <line>
     <nr>83</nr>
     <mensuality>802.71</mensuality>
-    <intrest>527.65</intrest>
+    <intrest>527</intrest>
     <capital>275.06</capital>
     <restCapital>136422.95</restCapital>
   </line>
@@ -1742,7 +1742,7 @@
   <line>
     <nr>249</nr>
     <mensuality>802.71</mensuality>
-    <intrest>281.32</intrest>
+    <intrest>281</intrest>
     <capital>521.39</capital>
     <restCapital>72359.21</restCapital>
   </line>
@@ -1909,7 +1909,7 @@
   </line>
   <line>
     <nr>273</nr>
-    <mensuality>802.71</mensuality>
+    <mensuality>802</mensuality>
     <intrest>230.81</intrest>
     <capital>571.90</capital>
     <restCapital>59223.82</restCapital>
