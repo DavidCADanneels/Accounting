@@ -1,6 +1,6 @@
 <!ELEMENT Accounts ((Account*,Mortgage*)*,CurrentObject?)>
-<!ELEMENT Account (html?,name,type,xml)>
-<!ELEMENT Mortgage (CapitalAccountHtml?,CapitalAccountName?,CapitalAccountXml?,IntrestAccountHtml?,IntrestAccountName?,IntrestAccountXml?,html?,name,nrPayed,total,type,xml)>
+<!ELEMENT Account (name,type)>
+<!ELEMENT Mortgage (CapitalAccountHtml?,CapitalAccountName?,CapitalAccountXml?,IntrestAccountHtml?,IntrestAccountName?,IntrestAccountXml?,name,nrPayed,total,type)>
 <!ELEMENT xml (#PCDATA)>
 <!ELEMENT html (#PCDATA)>
 <!ELEMENT name (#PCDATA)>

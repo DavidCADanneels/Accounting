@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../xsl/Mortgage2xml.xsl"?>
-<!DOCTYPE Mortgage SYSTEM "../../dtd/Mortgage.dtd">
+<?xml-stylesheet type="text/xsl" href="../../../xsl/Mortgage2xml.xsl"?>
+<!DOCTYPE Mortgage SYSTEM "../../../dtd/Mortgage.dtd">
 <Mortgage>
   <name>Auto</name>
   <line>
