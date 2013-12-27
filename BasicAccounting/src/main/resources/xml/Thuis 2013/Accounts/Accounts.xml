@@ -178,4 +178,5 @@
     <name>Ziekenhuiskosten</name>
     <type>Cost</type>
   </Account>
+    <CurrentObject>AXA-Levensverzekering</CurrentObject>
 </Accounts>
