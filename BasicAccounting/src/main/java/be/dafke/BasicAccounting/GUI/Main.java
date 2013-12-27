@@ -33,15 +33,7 @@ public class Main {
         System.out.println(mode.toString());
         System.out.println(xmlFolder);
 
-        File xslFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/xsl");
-        File dtdFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/dtd");
-//        System.setProperty("Accountings_xml", xmlFolder.getPath());
-//        System.setProperty("Accountings_xsl", xslFolder.getPath());
-//        System.setProperty("Accountings_dtd", dtdFolder.getPath());
-
-        Accountings accountings = new Accountings(xmlFolder, xslFolder, dtdFolder);
-
-        AccountingsSAXParser.readCollection(accountings, xmlFolder);
+        Accountings accountings = AccountingsSAXParser.readCollection(xmlFolder);
 
         AccountingGUIFrame frame = new AccountingGUIFrame(accountings);
         frame.setVisible(true);

@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting;
+package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.Dao.AccountingsSAXParser;
 import be.dafke.BasicAccounting.GUI.AccountManagement.NewAccountGUI;

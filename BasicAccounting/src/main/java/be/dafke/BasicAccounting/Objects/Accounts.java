@@ -73,9 +73,4 @@ public class Accounts extends BusinessCollection<Account> implements BusinessTyp
     public Account createNewChild(String name) {
         return new Account(name);
     }
-
-//    @Override
-//    public void readCollection() {
-//        readCollection("Account", false);
-//    }
 }

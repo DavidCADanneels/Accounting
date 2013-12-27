@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.AccountingActionListener;
+import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.GUI.ComponentMap;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;

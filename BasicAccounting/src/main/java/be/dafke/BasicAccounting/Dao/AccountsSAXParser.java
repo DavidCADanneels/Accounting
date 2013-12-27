@@ -40,8 +40,6 @@ public class AccountsSAXParser {
                 writer.write("    <nr>" + transaction.getAbbreviation() + transaction.getId() + "</nr>\r\n");
                 writer.write("    <journal_xml>../Journals/" + journal.getName() + ".xml</journal_xml>\r\n");
                 writer.write("    <journal_html>../Journals/" + journal.getName() + ".html</journal_html>\r\n");
-//                writer.write("    <journal_xml>" + transaction.getJournal().getXmlFile() + "</journal_xml>\r\n");
-//                writer.write("    <journal_html>" + transaction.getJournal().getHtmlFile() + "</journal_html>\r\n");
                 writer.write("    <date>" + Utils.toString(transaction.getDate()) + "</date>\r\n");
                 writer.write("    <" + (movement.isDebit() ? "debit" : "credit") + ">"
                                      + movement.getAmount().toString()

@@ -178,7 +178,8 @@ public class AccountingsSAXParser {
 
     // READ
 
-    public static void readCollection(Accountings accountings, File xmlFolder) {
+    public static Accountings readCollection(File xmlFolder) {
+        Accountings accountings = new Accountings(xmlFolder);
         readCollection(accountings, true, xmlFolder);
         for(Accounting accounting : accountings.getBusinessObjects()){
             File rootFolder = new File(xmlFolder, accounting.getName());
@@ -192,15 +193,10 @@ public class AccountingsSAXParser {
                 JournalsSAXParser.readJournal(journal, accounting.getAccounts(), new File(journalsFolder, journal.getName()+".xml"));
             }
         }
+        return accountings;
     }
 
     public static void readCollection(BusinessCollection businessCollection, boolean recursive, File parentFolder){
-//        ArrayList<String> list = new ArrayList<String>();
-//        list.add(shortName);
-//        readCollection(businessCollection, list, recursive, parentFolder);
-//    }
-//
-//    public static void readCollection(BusinessCollection businessCollection, ArrayList<String> shortNames, boolean recursive, File parentFolder){
         String className = businessCollection.getBusinessObjectType();
         String shortName = businessCollection.getChildType();
         String name = businessCollection.getName();
