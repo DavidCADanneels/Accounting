@@ -1,0 +1,7 @@
+<!ELEMENT Accountings (Accounting*,CurrentObject?)>
+<!ELEMENT Accounting (name,htmlFolder?,xml,html?)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT htmlFolder (#PCDATA)>
+<!ELEMENT html (#PCDATA)>
+<!ELEMENT xml (#PCDATA)>
+<!ELEMENT CurrentObject (#PCDATA)>

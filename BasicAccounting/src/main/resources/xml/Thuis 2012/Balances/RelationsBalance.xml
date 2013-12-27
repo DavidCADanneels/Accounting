@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Balance2xml.xsl"?>
+<!DOCTYPE Balance SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Balance.dtd">
+<Balance>
+  <name>RelationsBalance</name>
+  <LeftName>Tegoeden van Klanten</LeftName>
+  <RightName>Schulden aan Leveranciers</RightName>
+  <LeftTotalName>Totaal Tegoeden</LeftTotalName>
+  <RightTotalName>Totaal Schulden</RightTotalName>
+  <LeftResultName>Resterend Tegoed</LeftResultName>
+  <RightResultName>Resterende Schuld</RightResultName>
+  <line>
+    <amount2>11004.69</amount2>
+    <name2>Autolening</name2>
+  </line>
+  <line>
+    <amount2>140699.17</amount2>
+    <name2>Hypotheek</name2>
+  </line>
+  <line>
+    <amount2>15400.00</amount2>
+    <name2>Schulden aan ma</name2>
+  </line>
+</Balance>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Account.dtd">
+<Account>
+  <name>Apotheek</name>
+  <action id="58">
+    <nr>DIV58</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>30/1/2013</date>
+    <debit>23.62</debit>
+    <description>apotheek</description>
+  </action>
+  <action id="72">
+    <nr>DIV72</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>7/2/2013</date>
+    <debit>97.98</debit>
+    <description>???</description>
+  </action>
+  <closed type = "debit">
+    <debitTotal>121.60</debitTotal>
+    <creditTotal>0.00</creditTotal>
+    <saldo>121.60</saldo>
+  </closed>
+</Account>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Mortgages2xml.xsl"?>
+<!DOCTYPE Mortgages SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Mortgages.dtd">
+<Mortgages>
+  <Mortgage>
+    <CapitalAccountName>Autolening</CapitalAccountName>
+    <CapitalAccountXml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Autolening.xml</CapitalAccountXml>
+    <IntrestAccountName>Intrest autolening</IntrestAccountName>
+    <IntrestAccountXml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Intrest autolening.xml</IntrestAccountXml>
+    <html>Mortgages\Auto.html</html>
+    <name>Auto</name>
+    <nrPayed>7</nrPayed>
+    <total>12450</total>
+    <type>Mortgage</type>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Mortgages\Auto.xml</xml>
+  </Mortgage>
+  <Mortgage>
+    <CapitalAccountName>Hypotheek</CapitalAccountName>
+    <CapitalAccountXml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Hypotheek.xml</CapitalAccountXml>
+    <IntrestAccountName>Intrest Huis</IntrestAccountName>
+    <IntrestAccountXml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Accounts\Intrest Huis.xml</IntrestAccountXml>
+    <html>Mortgages\Huis.html</html>
+    <name>Huis</name>
+    <nrPayed>67</nrPayed>
+    <total>156000</total>
+    <type>Mortgage</type>
+    <xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Mortgages\Huis.xml</xml>
+  </Mortgage>
+</Mortgages>

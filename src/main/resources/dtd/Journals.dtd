@@ -1,8 +1,0 @@
-<!ELEMENT Journals (Journal*,CurrentObject?)>
-<!ELEMENT Journal (abbreviation,html?,name,type,xml)>
-<!ELEMENT xml (#PCDATA)>
-<!ELEMENT html (#PCDATA)>
-<!ELEMENT name (#PCDATA)>
-<!ELEMENT abbreviation (#PCDATA)>
-<!ELEMENT type (#PCDATA)>
-<!ELEMENT CurrentObject (#PCDATA)>

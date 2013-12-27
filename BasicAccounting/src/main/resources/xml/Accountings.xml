@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Accountings2xml.xsl"?>
+<!DOCTYPE Accountings SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Accountings.dtd">
+<Accountings>
+  <Accounting>
+    <name>Test</name>
+    <xml>BasicAccounting/src/main/resources/xml/Test/Accounting.xml</xml>
+  </Accounting>
+    <CurrentObject>Test</CurrentObject>
+</Accountings>

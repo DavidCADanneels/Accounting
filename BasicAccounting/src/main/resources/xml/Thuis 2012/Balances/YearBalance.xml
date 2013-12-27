@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Balance2xml.xsl"?>
+<!DOCTYPE Balance SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Balance.dtd">
+<Balance>
+  <name>YearBalance</name>
+  <LeftName>Activa</LeftName>
+  <RightName>Passiva</RightName>
+  <LeftTotalName>Totaal Activa</LeftTotalName>
+  <RightTotalName>Totaal Passiva</RightTotalName>
+  <LeftResultName>Winst</LeftResultName>
+  <RightResultName>Verlies</RightResultName>
+  <line>
+    <name1>Auto activa</name1>
+    <amount1>15450.00</amount1>
+    <amount2>3641.43</amount2>
+    <name2>Eigen Kapitaal</name2>
+  </line>
+  <line>
+    <name1>Bank Dara</name1>
+    <amount1>576.16</amount1>
+    <amount2>11004.69</amount2>
+    <name2>Autolening</name2>
+  </line>
+  <line>
+    <name1>Bank David</name1>
+    <amount1>1343.33</amount1>
+    <amount2>140699.17</amount2>
+    <name2>Hypotheek</name2>
+  </line>
+  <line>
+    <name1>Huis activa</name1>
+    <amount1>156000.00</amount1>
+    <amount2>15400.00</amount2>
+    <name2>Schulden aan ma</name2>
+  </line>
+  <line>
+    <name1>Post Dara</name1>
+    <amount1>2506.88</amount1>
+  </line>
+  <line>
+    <name1>Spaar David</name1>
+    <amount1>0.24</amount1>
+  </line>
+  <line>
+    <name1>Spaar Sophia</name1>
+    <amount1>2200.00</amount1>
+  </line>
+</Balance>

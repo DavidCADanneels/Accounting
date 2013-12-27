@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Account.dtd">
+<Account>
+  <name>Hypotheek</name>
+  <action id="1">
+    <nr>DIV1</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>1/1/2013</date>
+    <credit>140699.17</credit>
+    <description>Beginbalans</description>
+  </action>
+  <action id="5">
+    <nr>DIV5</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>2/1/2013</date>
+    <debit>259.61</debit>
+    <description>afbetaling januari</description>
+  </action>
+  <action id="67">
+    <nr>DIV67</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>4/2/2013</date>
+    <debit>260.61</debit>
+    <description>afbetaling februari</description>
+  </action>
+  <action id="90">
+    <nr>DIV90</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>1/3/2013</date>
+    <debit>261.62</debit>
+    <description>afbetaling maart</description>
+  </action>
+  <closed type = "credit">
+    <debitTotal>781.84</debitTotal>
+    <creditTotal>140699.17</creditTotal>
+    <saldo>139917.33</saldo>
+  </closed>
+</Account>

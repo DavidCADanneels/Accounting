@@ -1,0 +1,16 @@
+<!ELEMENT Account (name,action*,closed?)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT action (nr,journal_xml,journal_html,date,debit?,credit?,description)>
+<!ELEMENT nr (#PCDATA)>
+<!ELEMENT journal_xml (#PCDATA)>
+<!ELEMENT journal_html (#PCDATA)>
+<!ELEMENT date (#PCDATA)>
+<!ELEMENT debit (#PCDATA)>
+<!ELEMENT credit (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
+<!ELEMENT closed (debitTotal,creditTotal,saldo)>
+<!ELEMENT debitTotal (#PCDATA)>
+<!ELEMENT creditTotal (#PCDATA)>
+<!ELEMENT saldo (#PCDATA)>
+<!ATTLIST action id CDATA #REQUIRED>
+<!ATTLIST closed type CDATA #REQUIRED>

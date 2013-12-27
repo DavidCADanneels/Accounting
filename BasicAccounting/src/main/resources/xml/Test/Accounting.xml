@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Accounting2xml.xsl"?>
+<!DOCTYPE Accounting SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Accounting.dtd">
+<Accounting>
+  <name>Test</name>
+  <Accounts>
+    <name>Accounts</name>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Test/Accounts.xml</xml>
+    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Test/Accounts</xmlFolder>
+  </Accounts>
+  <Mortgages>
+    <name>Mortgages</name>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Test/Mortgages.xml</xml>
+    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Test/Mortgages</xmlFolder>
+  </Mortgages>
+  <Journals>
+    <name>Journals</name>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Test/Journals.xml</xml>
+    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Test/Journals</xmlFolder>
+  </Journals>
+  <Balances>
+    <name>Balances</name>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Test/Balances.xml</xml>
+    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Test/Balances</xmlFolder>
+  </Balances>
+  <CounterParties>
+    <name>CounterParties</name>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Test/CounterParties.xml</xml>
+    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Test/CounterParties</xmlFolder>
+  </CounterParties>
+  <Statements>
+    <name>Statements</name>
+    <xml>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Test/Statements.xml</xml>
+    <xmlFolder>/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xml/Test/Statements</xmlFolder>
+  </Statements>
+</Accounting>

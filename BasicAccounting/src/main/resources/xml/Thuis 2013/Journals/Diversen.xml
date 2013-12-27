@@ -1,0 +1,1555 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Journal2xml.xsl"?>
+<!DOCTYPE Journal SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Journal.dtd">
+<Journal>
+  <name>Diversen</name>
+  <action id="1">
+    <nr>DIV1</nr>
+    <date>1/1/2013</date>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>2260.51</debet>
+    <description>Beginbalans</description>
+  </action>
+  <action>
+    <account_name>Spaar Sophia</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Spaar Sophia.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>2200.00</debet>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>429.84</debet>
+  </action>
+  <action>
+    <account_name>Huis activa</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Huis activa.xml</account_xml>
+    <account_html>Accounts\Huis activa.html</account_html>
+    <debet>156000.00</debet>
+  </action>
+  <action>
+    <account_name>Post Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Post Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>2506.88</debet>
+  </action>
+  <action>
+    <account_name>Auto activa</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Auto activa.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>15450.00</debet>
+  </action>
+  <action>
+    <account_name>Spaar David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Spaar David.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>0.24</debet>
+  </action>
+  <action>
+    <account_name>Autolening</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Autolening.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>10760.87</credit>
+  </action>
+  <action>
+    <account_name>Eigen Kapitaal</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Eigen Kapitaal.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>11987.43</credit>
+  </action>
+  <action>
+    <account_name>Schulden aan ma</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Schulden aan ma.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>15400.00</credit>
+  </action>
+  <action>
+    <account_name>Hypotheek</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Hypotheek.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>140699.17</credit>
+  </action>
+  <action id="2">
+    <nr>DIV2</nr>
+    <date>1/1/2013</date>
+    <account_name>Spaar David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Spaar David.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>1.23</debet>
+    <description>Intrest spaarboekje</description>
+  </action>
+  <action>
+    <account_name>Intresten bank</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Intresten bank.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>1.23</credit>
+  </action>
+  <action id="3">
+    <nr>DIV3</nr>
+    <date>1/1/2013</date>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>75.55</debet>
+    <description>correctie beginbalans (Bank Dara)</description>
+  </action>
+  <action>
+    <account_name>Eigen Kapitaal</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Eigen Kapitaal.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>11987.43</debet>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>429.84</credit>
+  </action>
+  <action>
+    <account_name>Eigen Kapitaal</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Eigen Kapitaal.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>11633.14</credit>
+  </action>
+  <action id="4">
+    <nr>DIV4</nr>
+    <date>2/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>40.00</debet>
+    <description>ATM</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>40.00</credit>
+  </action>
+  <action id="5">
+    <nr>DIV5</nr>
+    <date>2/1/2013</date>
+    <account_name>Intrest Huis</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Intrest Huis.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>543.10</debet>
+    <description>afbetaling januari</description>
+  </action>
+  <action>
+    <account_name>Hypotheek</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Hypotheek.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>259.61</debet>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>802.71</credit>
+  </action>
+  <action id="6">
+    <nr>DIV6</nr>
+    <date>2/1/2013</date>
+    <account_name>Intresten bank</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Intresten bank.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>25.80</debet>
+    <description>kapitalisatie</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>25.80</credit>
+  </action>
+  <action id="7">
+    <nr>DIV7</nr>
+    <date>2/1/2013</date>
+    <account_name>Schulden aan ma</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Schulden aan ma.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>200.00</debet>
+    <description>aflossing januari</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>200.00</credit>
+  </action>
+  <action id="8">
+    <nr>DIV8</nr>
+    <date>2/1/2013</date>
+    <account_name>CM</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\CM.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>85.08</debet>
+    <description>CM Tay</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>85.08</credit>
+  </action>
+  <action id="9">
+    <nr>DIV9</nr>
+    <date>2/1/2013</date>
+    <account_name>Schulden aan ma</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Schulden aan ma.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>1000.00</debet>
+    <description>extra aflossing</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>1000.00</credit>
+  </action>
+  <action id="10">
+    <nr>DIV10</nr>
+    <date>2/1/2013</date>
+    <account_name>Intresten bank</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Intresten bank.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>33.70</debet>
+    <description>Kapitalisatie</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>33.70</credit>
+  </action>
+  <action id="11">
+    <nr>DIV11</nr>
+    <date>3/1/2013</date>
+    <account_name>CM</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\CM.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>17.07</debet>
+    <description>CM</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>17.07</credit>
+  </action>
+  <action id="12">
+    <nr>DIV12</nr>
+    <date>3/1/2013</date>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>456.56</debet>
+    <description>rest december</description>
+  </action>
+  <action>
+    <account_name>Netto Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Netto Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>456.56</credit>
+  </action>
+  <action id="13">
+    <nr>DIV13</nr>
+    <date>3/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>49.95</debet>
+    <description>Bennies fitnes</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>49.95</credit>
+  </action>
+  <action id="14">
+    <nr>DIV14</nr>
+    <date>3/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>24.95</debet>
+    <description>INNO</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>24.95</credit>
+  </action>
+  <action id="15">
+    <nr>DIV15</nr>
+    <date>3/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>2.40</debet>
+    <description>Parking</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>2.40</credit>
+  </action>
+  <action id="16">
+    <nr>DIV16</nr>
+    <date>4/1/2013</date>
+    <account_name>AXA-Bijstandsverzekering</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\AXA-Bijstandsverzekering.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>18.66</debet>
+    <description>Verzekeringen januari</description>
+  </action>
+  <action>
+    <account_name>AXA-Levensverzekering</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\AXA-Levensverzekering.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>29.72</debet>
+  </action>
+  <action>
+    <account_name>AXA-Autoverzekering</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\AXA-Autoverzekering.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>25.93</debet>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>29.72</credit>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>18.66</credit>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>25.93</credit>
+  </action>
+  <action id="17">
+    <nr>DIV17</nr>
+    <date>4/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>59.48</debet>
+    <description>Redstores</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>59.48</credit>
+  </action>
+  <action id="18">
+    <nr>DIV18</nr>
+    <date>4/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>9.09</debet>
+    <description>Zeeman</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>9.09</credit>
+  </action>
+  <action id="19">
+    <nr>DIV19</nr>
+    <date>8/1/2013</date>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>90.28</debet>
+    <description>kindergeld december</description>
+  </action>
+  <action>
+    <account_name>Kindergeld</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Kindergeld.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>90.28</credit>
+  </action>
+  <action id="20">
+    <nr>DIV20</nr>
+    <date>9/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>43.64</debet>
+    <description>Carrefour</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>43.64</credit>
+  </action>
+  <action id="21">
+    <nr>DIV21</nr>
+    <date>9/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>40.00</debet>
+    <description>ATM</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>40.00</credit>
+  </action>
+  <action id="22">
+    <nr>DIV22</nr>
+    <date>11/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>64.12</debet>
+    <description>Thai shop</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>64.12</credit>
+  </action>
+  <action id="23">
+    <nr>DIV23</nr>
+    <date>11/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>16.06</debet>
+    <description>Delhaize</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>16.06</credit>
+  </action>
+  <action id="24">
+    <nr>DIV24</nr>
+    <date>11/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>76.49</debet>
+    <description>Carrefour</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>76.49</credit>
+  </action>
+  <action id="25">
+    <nr>DIV25</nr>
+    <date>12/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>42.30</debet>
+    <description>Colruyt</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>42.30</credit>
+  </action>
+  <action id="26">
+    <nr>DIV26</nr>
+    <date>14/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>57.25</debet>
+    <description>Carrefour</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>57.25</credit>
+  </action>
+  <action id="27">
+    <nr>DIV27</nr>
+    <date>15/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>50.00</debet>
+    <description>ATM</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>50.00</credit>
+  </action>
+  <action id="28">
+    <nr>DIV28</nr>
+    <date>15/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>6.90</debet>
+    <description>Quick</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>6.90</credit>
+  </action>
+  <action id="29">
+    <nr>DIV29</nr>
+    <date>16/1/2013</date>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>250.00</debet>
+    <description>voorschot januari</description>
+  </action>
+  <action>
+    <account_name>Netto Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Netto Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>250.00</credit>
+  </action>
+  <action id="30">
+    <nr>DIV30</nr>
+    <date>16/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>20.00</credit>
+  </action>
+  <action id="31">
+    <nr>DIV31</nr>
+    <date>16/1/2013</date>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>600.00</debet>
+    <description>huur</description>
+  </action>
+  <action>
+    <account_name>Huur 2012</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Huur 2012.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>600.00</credit>
+  </action>
+  <action id="32">
+    <nr>DIV32</nr>
+    <date>17/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>64.60</debet>
+    <description>tankbeurt auto</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>64.60</credit>
+  </action>
+  <action id="33">
+    <nr>DIV33</nr>
+    <date>17/1/2013</date>
+    <account_name>CM</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\CM.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>68.28</debet>
+    <description>48878/+++</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>68.28</credit>
+  </action>
+  <action id="34">
+    <nr>DIV34</nr>
+    <date>17/1/2013</date>
+    <account_name>CM</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\CM.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>17.07</debet>
+    <description>59711/+++</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>17.07</credit>
+  </action>
+  <action id="35">
+    <nr>DIV35</nr>
+    <date>17/1/2013</date>
+    <account_name>Kosten school</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Kosten school.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>23.40</debet>
+    <description>61050/+++</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>23.40</credit>
+  </action>
+  <action id="36">
+    <nr>DIV36</nr>
+    <date>17/1/2013</date>
+    <account_name>Boetes</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Boetes.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>50.00</debet>
+    <description>23142/+++</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>50.00</credit>
+  </action>
+  <action id="37">
+    <nr>DIV37</nr>
+    <date>18/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>80.00</debet>
+    <description>ATM</description>
+  </action>
+  <action>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>10.00</debet>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>80.00</credit>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>10.00</credit>
+  </action>
+  <action id="38">
+    <nr>DIV38</nr>
+    <date>18/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>40.00</debet>
+    <description>FINTRO BERLAIMONBRUXELLES</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>40.00</credit>
+  </action>
+  <action id="39">
+    <nr>DIV39</nr>
+    <date>18/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>75.41</debet>
+    <description>GB PARTNER      ASSEBROEK</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>75.41</credit>
+  </action>
+  <action id="40">
+    <nr>DIV40</nr>
+    <date>19/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>18.40</debet>
+    <description>WIBRA        BRUGGE</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>18.40</credit>
+  </action>
+  <action id="41">
+    <nr>DIV41</nr>
+    <date>19/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>59.02</debet>
+    <description>STOCK AMERICAIN BRUGGE</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>59.02</credit>
+  </action>
+  <action id="42">
+    <nr>DIV42</nr>
+    <date>19/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>33.58</debet>
+    <description>DEVOS THIERRY   BRUGGE</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>33.58</credit>
+  </action>
+  <action id="43">
+    <nr>DIV43</nr>
+    <date>20/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>100.00</debet>
+    <description>EUROPABANK      BRUGGE</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>100.00</credit>
+  </action>
+  <action id="44">
+    <nr>DIV44</nr>
+    <date>22/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>20.00</debet>
+    <description>
+  </description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>20.00</credit>
+  </action>
+  <action id="45">
+    <nr>DIV45</nr>
+    <date>24/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>7.73</debet>
+    <description>EXPRESS BRUGGE  BRUGGE</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>7.73</credit>
+  </action>
+  <action id="46">
+    <nr>DIV46</nr>
+    <date>25/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>56.06</debet>
+    <description>Thai shop</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>56.06</credit>
+  </action>
+  <action id="47">
+    <nr>DIV47</nr>
+    <date>25/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>47.10</debet>
+    <description>LIDL         SINT-KRUIS</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>47.10</credit>
+  </action>
+  <action id="48">
+    <nr>DIV48</nr>
+    <date>25/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>10.83</debet>
+    <description>VIME</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>10.83</credit>
+  </action>
+  <action id="49">
+    <nr>DIV49</nr>
+    <date>26/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>42.23</debet>
+    <description>Carrefour</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>42.23</credit>
+  </action>
+  <action id="50">
+    <nr>DIV50</nr>
+    <date>26/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>44.70</debet>
+    <description>OCTA  ST KRUIS</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>44.70</credit>
+  </action>
+  <action id="51">
+    <nr>DIV51</nr>
+    <date>28/1/2013</date>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>1695.09</debet>
+    <description>/A/         1BI0221-01-0000403</description>
+  </action>
+  <action>
+    <account_name>Netto David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Netto David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>1695.09</credit>
+  </action>
+  <action id="52">
+    <nr>DIV52</nr>
+    <date>28/1/2013</date>
+    <account_name>Telefoonkosten</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Telefoonkosten.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>240.31</debet>
+    <description>43862/+++</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>240.31</credit>
+  </action>
+  <action id="53">
+    <nr>DIV53</nr>
+    <date>28/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>6.28</debet>
+    <description>EXPRESS BRUGGE  BRUGGE</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>6.28</credit>
+  </action>
+  <action id="54">
+    <nr>DIV54</nr>
+    <date>29/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>40.00</debet>
+    <description>ATM</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>40.00</credit>
+  </action>
+  <action id="55">
+    <nr>DIV55</nr>
+    <date>30/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>128.90</debet>
+    <description>Visa</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>128.90</credit>
+  </action>
+  <action id="56">
+    <nr>DIV56</nr>
+    <date>30/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>30.40</debet>
+    <description>Concept</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>30.40</credit>
+  </action>
+  <action id="57">
+    <nr>DIV57</nr>
+    <date>30/1/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>62.07</debet>
+    <description>Carrefour</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>62.07</credit>
+  </action>
+  <action id="58">
+    <nr>DIV58</nr>
+    <date>30/1/2013</date>
+    <account_name>Apotheek</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Apotheek.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>23.62</debet>
+    <description>apotheek</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>23.62</credit>
+  </action>
+  <action id="59">
+    <nr>DIV59</nr>
+    <date>31/1/2013</date>
+    <account_name>Intrest autolening</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Intrest autolening.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>37.38</debet>
+    <description>afbetaling januari</description>
+  </action>
+  <action>
+    <account_name>Autolening</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Autolening.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>244.67</debet>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>282.05</credit>
+  </action>
+  <action id="60">
+    <nr>DIV60</nr>
+    <date>1/2/2013</date>
+    <account_name>Schulden aan ma</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Schulden aan ma.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>200.00</debet>
+    <description>aflossing februari</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>200.00</credit>
+  </action>
+  <action id="61">
+    <nr>DIV61</nr>
+    <date>2/2/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>40.00</debet>
+    <description>ATM</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>40.00</credit>
+  </action>
+  <action id="62">
+    <nr>DIV62</nr>
+    <date>3/2/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>70.02</debet>
+    <description>benzine auto</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>70.02</credit>
+  </action>
+  <action id="63">
+    <nr>DIV63</nr>
+    <date>3/2/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>50.00</debet>
+    <description>ATM</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>50.00</credit>
+  </action>
+  <action id="64">
+    <nr>DIV64</nr>
+    <date>4/2/2013</date>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>664.32</debet>
+    <description>rest januari</description>
+  </action>
+  <action>
+    <account_name>Netto Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Netto Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>664.32</credit>
+  </action>
+  <action id="65">
+    <nr>DIV65</nr>
+    <date>4/2/2013</date>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>450.00</debet>
+    <description>hulp voor lening</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>450.00</credit>
+  </action>
+  <action id="66">
+    <nr>DIV66</nr>
+    <date>4/2/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>63.00</debet>
+    <description>Voorschot zaal</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>63.00</credit>
+  </action>
+  <action id="67">
+    <nr>DIV67</nr>
+    <date>4/2/2013</date>
+    <account_name>Intrest Huis</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Intrest Huis.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>542.10</debet>
+    <description>afbetaling februari</description>
+  </action>
+  <action>
+    <account_name>Hypotheek</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Hypotheek.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>260.61</debet>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>802.71</credit>
+  </action>
+  <action id="68">
+    <nr>DIV68</nr>
+    <date>6/2/2013</date>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>692.64</debet>
+    <description>Bonus 2012</description>
+  </action>
+  <action>
+    <account_name>Netto David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Netto David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>692.64</credit>
+  </action>
+  <action id="69">
+    <nr>DIV69</nr>
+    <date>6/2/2013</date>
+    <account_name>AXA-Bijstandsverzekering</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\AXA-Bijstandsverzekering.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>18.66</debet>
+    <description>verzekeringen + Sophia</description>
+  </action>
+  <action>
+    <account_name>Spaar Sophia</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Spaar Sophia.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>200.00</debet>
+  </action>
+  <action>
+    <account_name>AXA-Levensverzekering</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\AXA-Levensverzekering.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>29.72</debet>
+  </action>
+  <action>
+    <account_name>AXA-Autoverzekering</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\AXA-Autoverzekering.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>25.93</debet>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>29.72</credit>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>25.93</credit>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>18.66</credit>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>200.00</credit>
+  </action>
+  <action id="70">
+    <nr>DIV70</nr>
+    <date>6/2/2013</date>
+    <account_name>KBC Verzekeringen</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\KBC Verzekeringen.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>24.44</debet>
+    <description>ziekenhuiskosten Sophia</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>24.44</credit>
+  </action>
+  <action id="71">
+    <nr>DIV71</nr>
+    <date>6/2/2013</date>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>450.00</debet>
+    <description>terugbetaling hulp voor lening</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>450.00</credit>
+  </action>
+  <action id="72">
+    <nr>DIV72</nr>
+    <date>7/2/2013</date>
+    <account_name>Apotheek</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Apotheek.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>97.98</debet>
+    <description>???</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>97.98</credit>
+  </action>
+  <action id="73">
+    <nr>DIV73</nr>
+    <date>8/2/2013</date>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>90.28</debet>
+    <description>Kindergeld januari</description>
+  </action>
+  <action>
+    <account_name>Kindergeld</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Kindergeld.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>90.28</credit>
+  </action>
+  <action id="74">
+    <nr>DIV74</nr>
+    <date>8/2/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>42.91</debet>
+    <description>Carrefour</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>42.91</credit>
+  </action>
+  <action id="75">
+    <nr>DIV75</nr>
+    <date>9/2/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>70.94</debet>
+    <description>Thai shop</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>70.94</credit>
+  </action>
+  <action id="76">
+    <nr>DIV76</nr>
+    <date>11/2/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>16.10</debet>
+    <description>Juthose bvba ???</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>16.10</credit>
+  </action>
+  <action id="77">
+    <nr>DIV77</nr>
+    <date>12/2/2013</date>
+    <account_name>Kosten school</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Kosten school.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>39.00</debet>
+    <description>Maaltijden</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>39.00</credit>
+  </action>
+  <action id="78">
+    <nr>DIV78</nr>
+    <date>12/2/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>1.20</debet>
+    <description>Parking</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>1.20</credit>
+  </action>
+  <action id="79">
+    <nr>DIV79</nr>
+    <date>12/2/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>22.69</debet>
+    <description>Horeca Totaal</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>22.69</credit>
+  </action>
+  <action id="80">
+    <nr>DIV80</nr>
+    <date>13/2/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>48.20</debet>
+    <description>Carrefour</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>48.20</credit>
+  </action>
+  <action id="81">
+    <nr>DIV81</nr>
+    <date>14/2/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>2.40</debet>
+    <description>parking</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>2.40</credit>
+  </action>
+  <action id="82">
+    <nr>DIV82</nr>
+    <date>14/2/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>49.95</debet>
+    <description>Fitness</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>49.95</credit>
+  </action>
+  <action id="83">
+    <nr>DIV83</nr>
+    <date>18/2/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>100.00</debet>
+    <description>afhalen SelfService</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>100.00</credit>
+  </action>
+  <action id="84">
+    <nr>DIV84</nr>
+    <date>18/2/2013</date>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>16.32</debet>
+    <description>Werkloosheidsvergoeding</description>
+  </action>
+  <action>
+    <account_name>Netto Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Netto Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>16.32</credit>
+  </action>
+  <action id="85">
+    <nr>DIV85</nr>
+    <date>19/2/2013</date>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>100.00</debet>
+    <description>Voorschot januari</description>
+  </action>
+  <action>
+    <account_name>Netto Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Netto Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>100.00</credit>
+  </action>
+  <action id="86">
+    <nr>DIV86</nr>
+    <date>21/2/2013</date>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>19.67</debet>
+    <description>terugbetaling Sophia/Tay</description>
+  </action>
+  <action>
+    <account_name>CM</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\CM.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>19.67</credit>
+  </action>
+  <action id="87">
+    <nr>DIV87</nr>
+    <date>21/2/2013</date>
+    <account_name>Consumptie</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Consumptie.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>267.21</debet>
+    <description>ATM Thailand: 10.000 THB</description>
+  </action>
+  <action>
+    <account_name>Bank Dara</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank Dara.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>267.21</credit>
+  </action>
+  <action id="88">
+    <nr>DIV88</nr>
+    <date>25/2/2013</date>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>1707.07</debet>
+    <description>loon februari</description>
+  </action>
+  <action>
+    <account_name>Netto David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Netto David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>1707.07</credit>
+  </action>
+  <action id="89">
+    <nr>DIV89</nr>
+    <date>28/2/2013</date>
+    <account_name>Intrest autolening</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Intrest autolening.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>36.53</debet>
+    <description>afbetaling februari</description>
+  </action>
+  <action>
+    <account_name>Autolening</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Autolening.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>245.52</debet>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>282.05</credit>
+  </action>
+  <action id="90">
+    <nr>DIV90</nr>
+    <date>1/3/2013</date>
+    <account_name>Intrest Huis</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Intrest Huis.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>541.09</debet>
+    <description>afbetaling maart</description>
+  </action>
+  <action>
+    <account_name>Hypotheek</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Hypotheek.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>261.62</debet>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>802.71</credit>
+  </action>
+  <action id="91">
+    <nr>DIV91</nr>
+    <date>1/3/2013</date>
+    <account_name>Schulden aan ma</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Schulden aan ma.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>200.00</debet>
+    <description>aflossing maart</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>200.00</credit>
+  </action>
+  <action id="92">
+    <nr>DIV92</nr>
+    <date>1/3/2013</date>
+    <account_name>Spaar David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Spaar David.xml</account_xml>
+    <account_html>null</account_html>
+    <debet>300.00</debet>
+    <description>veiligstelling</description>
+  </action>
+  <action>
+    <account_name>Bank David</account_name>
+    <account_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Accounts\Bank David.xml</account_xml>
+    <account_html>null</account_html>
+    <credit>300.00</credit>
+  </action>
+</Journal>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Account.dtd">
+<Account>
+  <name>Netto Dara</name>
+  <action id="12">
+    <nr>DIV12</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>3/1/2013</date>
+    <credit>456.56</credit>
+    <description>rest december</description>
+  </action>
+  <action id="29">
+    <nr>DIV29</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>16/1/2013</date>
+    <credit>250.00</credit>
+    <description>voorschot januari</description>
+  </action>
+  <action id="64">
+    <nr>DIV64</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>4/2/2013</date>
+    <credit>664.32</credit>
+    <description>rest januari</description>
+  </action>
+  <action id="84">
+    <nr>DIV84</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>18/2/2013</date>
+    <credit>16.32</credit>
+    <description>Werkloosheidsvergoeding</description>
+  </action>
+  <action id="85">
+    <nr>DIV85</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2013\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>19/2/2013</date>
+    <credit>100.00</credit>
+    <description>Voorschot januari</description>
+  </action>
+  <closed type = "credit">
+    <debitTotal>0.00</debitTotal>
+    <creditTotal>1487.20</creditTotal>
+    <saldo>1487.20</saldo>
+  </closed>
+</Account>

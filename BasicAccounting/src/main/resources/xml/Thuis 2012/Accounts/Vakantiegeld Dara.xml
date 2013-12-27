@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Account.dtd">
+<Account>
+  <name>Vakantiegeld Dara</name>
+  <action id="265">
+    <nr>DIV265</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>13/6/2012</date>
+    <credit>825.08</credit>
+    <description>vakantiegeld Dara</description>
+  </action>
+  <closed type = "credit">
+    <debitTotal>0.00</debitTotal>
+    <creditTotal>825.08</creditTotal>
+    <saldo>825.08</saldo>
+  </closed>
+</Account>

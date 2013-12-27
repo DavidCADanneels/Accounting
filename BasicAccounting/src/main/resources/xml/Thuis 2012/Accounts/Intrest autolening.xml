@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xsl\Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\dtd\Account.dtd">
+<Account>
+  <name>Intrest autolening</name>
+  <action id="304">
+    <nr>DIV304</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>2/7/2012</date>
+    <debit>43.25</debit>
+    <description>afbetaling juni</description>
+  </action>
+  <action id="376">
+    <nr>DIV376</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>31/7/2012</date>
+    <debit>42.42</debit>
+    <description>afbetaling juli</description>
+  </action>
+  <action id="427">
+    <nr>DIV427</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>31/8/2012</date>
+    <debit>41.59</debit>
+    <description>afbetaling augustus</description>
+  </action>
+  <action id="470">
+    <nr>DIV470</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>1/10/2012</date>
+    <debit>40.75</debit>
+    <description>afbetaling september</description>
+  </action>
+  <action id="517">
+    <nr>DIV517</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>31/10/2012</date>
+    <debit>39.91</debit>
+    <description>afbetaling oktober</description>
+  </action>
+  <action id="567">
+    <nr>DIV567</nr>
+    <journal_xml>C:\Users\Dafke\workspace\trunk\Accounting\src\main\resources\xml\Thuis 2012\Journals\Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>30/11/2012</date>
+    <debit>39.07</debit>
+    <description>afbetaling november</description>
+  </action>
+  <closed type = "debit">
+    <debitTotal>246.99</debitTotal>
+    <creditTotal>0.00</creditTotal>
+    <saldo>246.99</saldo>
+  </closed>
+</Account>

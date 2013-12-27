@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="/home/david/workspace/Accounting/BasicAccounting/src/main/resources/xsl/Balance2xml.xsl"?>
+<!DOCTYPE Balance SYSTEM "/home/david/workspace/Accounting/BasicAccounting/src/main/resources/dtd/Balance.dtd">
+<Balance>
+  <name>YearBalance</name>
+  <LeftName>Activa</LeftName>
+  <RightName>Passiva</RightName>
+  <LeftTotalName>Totaal Activa</LeftTotalName>
+  <RightTotalName>Totaal Passiva</RightTotalName>
+  <LeftResultName>Winst</LeftResultName>
+  <RightResultName>Verlies</RightResultName>
+</Balance>
