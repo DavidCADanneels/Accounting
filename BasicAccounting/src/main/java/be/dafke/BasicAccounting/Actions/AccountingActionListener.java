@@ -31,8 +31,6 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
     public static final String YEAR_BALANCE = "YearBalance";
     public static final String RELATIONS_BALANCE = "BalanceGUI";
     public static final String RESULT_BALANCE = "ResultBalance";
-    public static final String MOVEMENTS = "Statements";
-    public static final String COUNTERPARTIES = "Counterparties";
     public static final String PROJECTS = "Projects";
     public static final String MAIN = "MainPanel";
     public static final String MENU = "MenuBar";

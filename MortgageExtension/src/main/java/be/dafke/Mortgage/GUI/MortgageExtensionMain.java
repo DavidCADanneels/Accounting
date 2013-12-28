@@ -68,19 +68,11 @@ public class MortgageExtensionMain extends BasicAccounting {
     }
 
     private static void createMenu(AccountingMenuBar menuBar, MortgageActionListener actionListener) {
-        JMenu banking = new JMenu("Banking");
-//        movements = new JMenuItem("Show movements");
-//        movements.addActionListener(actionListener);
-//        movements.setEnabled(false);
-//        counterParties = new JMenuItem("Show Counterparties");
-//        counterParties.addActionListener(actionListener);
-//        counterParties.setEnabled(false);
+        JMenu banking = new JMenu("Mortgage");
         JMenuItem mortgage = new JMenuItem("Mortgages");
         mortgage.addActionListener(actionListener);
         mortgage.setEnabled(false);
         mortgage.setActionCommand(MortgageActionListener.MORTGAGES);
-//        banking.add(movements);
-//        banking.add(counterParties);
         banking.add(mortgage);
         menuBar.addRefreshableMenuItem(mortgage);
         menuBar.add(banking);

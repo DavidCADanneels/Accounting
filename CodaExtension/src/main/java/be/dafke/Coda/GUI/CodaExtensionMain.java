@@ -8,8 +8,10 @@ import be.dafke.BasicAccounting.GUI.MainWindow.AccountingGUIFrame;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.Coda.Action.CodaActionListener;
 import be.dafke.Coda.Objects.CodaExtension;
 
+import javax.swing.*;
 import java.io.File;
 
 /**
@@ -29,6 +31,7 @@ public class CodaExtensionMain extends BasicAccounting{
 
         AccountingActionListener actionListener = new AccountingActionListener(accountings);
         AccountingMenuBar menuBar = createMenuBar(actionListener);
+        createMenu(menuBar, actionListener);
 
         createComponents(actionListener);
 
@@ -37,11 +40,29 @@ public class CodaExtensionMain extends BasicAccounting{
         completeFrame(accountings, frame, menuBar, contentPanel, actionListener);
 
         for(Accounting accounting : accountings.getBusinessObjects()){
-            AccountingComponentMap.addDisposableComponent(accounting.toString() + AccountingActionListener.MOVEMENTS, new StatementTable(accounting, actionListener));
-            AccountingComponentMap.addDisposableComponent(accounting.toString() + AccountingActionListener.COUNTERPARTIES, new CounterPartyTable(accounting, actionListener));
+            AccountingComponentMap.addDisposableComponent(accounting.toString() + CodaActionListener.MOVEMENTS, new StatementTable(accounting, actionListener));
+            AccountingComponentMap.addDisposableComponent(accounting.toString() + CodaActionListener.COUNTERPARTIES, new CounterPartyTable(accounting, actionListener));
         }
 
         frame.setVisible(true);
         frame.refresh();
+    }
+
+    private static void createMenu(AccountingMenuBar menuBar, AccountingActionListener actionListener) {
+        JMenu banking = new JMenu("Banking");
+        JMenuItem movements = new JMenuItem("Show movements");
+        movements.addActionListener(actionListener);
+        movements.setActionCommand(CodaActionListener.MOVEMENTS);
+        movements.setEnabled(false);
+        JMenuItem counterParties = new JMenuItem("Show Counterparties");
+        counterParties.addActionListener(actionListener);
+        counterParties.setActionCommand(CodaActionListener.COUNTERPARTIES);
+        counterParties.setEnabled(false);
+
+        banking.add(movements);
+        banking.add(counterParties);
+        menuBar.addRefreshableMenuItem(movements);
+        menuBar.addRefreshableMenuItem(counterParties);
+        menuBar.add(banking);
     }
 }
