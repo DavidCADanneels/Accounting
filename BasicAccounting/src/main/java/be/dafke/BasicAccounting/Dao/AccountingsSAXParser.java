@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Dao;
 
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.AccountingExtension;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Balance;
 import be.dafke.BasicAccounting.Objects.Journal;
@@ -14,6 +15,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
@@ -170,5 +172,9 @@ public class AccountingsSAXParser {
                 JournalsSAXParser.readJournal(journal, accounting.getAccounts(), new File(journalsFolder, journal.getName()+".xml"));
             }
         }
+        List<AccountingExtension> extensions = accountings.getExtensions();
+            for(AccountingExtension extension : extensions){
+                extension.extendReadCollection(accountings,xmlFolder);
+            }
     }
 }

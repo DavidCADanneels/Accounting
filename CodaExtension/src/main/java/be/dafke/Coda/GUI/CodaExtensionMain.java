@@ -3,7 +3,7 @@ package be.dafke.Coda.GUI;
 import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
-import be.dafke.BasicAccounting.GUI.BasicAccounting;
+import be.dafke.BasicAccounting.GUI.BasicAccountingMain;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingGUIFrame;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
@@ -19,7 +19,7 @@ import java.io.File;
  * Date: 28-12-13
  * Time: 14:41
  */
-public class CodaExtensionMain extends BasicAccounting{
+public class CodaExtensionMain extends BasicAccountingMain {
 
     public static void main(String[] args) {
         File xmlFolder = getXmlFolder();
@@ -31,6 +31,7 @@ public class CodaExtensionMain extends BasicAccounting{
 
         AccountingActionListener actionListener = new AccountingActionListener(accountings);
         AccountingMenuBar menuBar = createMenuBar(actionListener);
+
         createMenu(menuBar, actionListener);
 
         createComponents(actionListener);

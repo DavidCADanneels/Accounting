@@ -37,7 +37,7 @@ public class Accountings extends BusinessCollection<Accounting> {
     public Accounting createNewChild(String name) {
         Accounting accounting = new Accounting(name);
         for(AccountingExtension extension : extensions){
-            extension.extend(accounting);
+            extension.extendConstructor(accounting);
         }
         return accounting;
     }
@@ -56,5 +56,9 @@ public class Accountings extends BusinessCollection<Accounting> {
         }
         map.put(value.getName().trim(), value);
         return value;
+    }
+
+    public List<AccountingExtension> getExtensions() {
+        return extensions;
     }
 }

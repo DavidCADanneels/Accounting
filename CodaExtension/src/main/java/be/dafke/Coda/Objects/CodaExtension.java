@@ -2,9 +2,12 @@ package be.dafke.Coda.Objects;
 
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.AccountingExtension;
+import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+
+import java.io.File;
 
 /**
  * User: david
@@ -12,7 +15,7 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
  * Time: 16:22
  */
 public class CodaExtension implements AccountingExtension{
-    public void extend(Accounting accounting){
+    public void extendConstructor(Accounting accounting){
         CounterParties counterParties = new CounterParties();
 
         Statements statements = new Statements();
@@ -29,5 +32,9 @@ public class CodaExtension implements AccountingExtension{
         }
         accounting.addKey(counterParties.getBusinessObjectType());
         accounting.addKey(statements.getBusinessObjectType());
+    }
+
+    public void extendReadCollection(Accountings accountings, File xmlFolder){
+
     }
 }

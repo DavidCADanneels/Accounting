@@ -14,7 +14,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
-public class BasicAccounting {
+public class BasicAccountingMain {
 
     private enum Mode{ PROD, TEST}
 

@@ -3,17 +3,13 @@ package be.dafke.Mortgage.GUI;
 import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
-import be.dafke.BasicAccounting.GUI.BasicAccounting;
+import be.dafke.BasicAccounting.GUI.BasicAccountingMain;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingGUIFrame;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.Mortgage.Action.MortgageActionListener;
-import be.dafke.Mortgage.Dao.MortgagesSAXParser;
-import be.dafke.Mortgage.Objects.Mortgage;
 import be.dafke.Mortgage.Objects.MortgageExtension;
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -24,7 +20,7 @@ import java.io.File;
  * Date: 28-12-13
  * Time: 1:02
  */
-public class MortgageExtensionMain extends BasicAccounting {
+public class MortgageExtensionMain extends BasicAccountingMain {
     protected static MortgagesGUI mortgagesGUI;
 
     public static void main(String[] args) {
@@ -32,17 +28,6 @@ public class MortgageExtensionMain extends BasicAccounting {
         Accountings accountings = new Accountings(xmlFolder);
         accountings.addExtension(new MortgageExtension());
         getAccountings(accountings, xmlFolder);
-
-        for(Accounting accounting : accountings.getBusinessObjects()){
-            File rootFolder = new File(xmlFolder, accounting.getName());
-            BusinessCollection<BusinessObject> mortgages = accounting.getBusinessObject("Mortgages");
-            for(BusinessObject businessObject : mortgages.getBusinessObjects()){
-                Mortgage mortgage = (Mortgage) businessObject;
-                File mortgagesFolder = new File(rootFolder, "Mortgages");
-                MortgagesSAXParser.readMortgage(mortgage, new File(mortgagesFolder, mortgage.getName() + ".xml"));
-            }
-
-        }
 
         AccountingGUIFrame frame = getFrame(accountings);
 
