@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Transaction;
@@ -17,7 +18,7 @@ import java.util.Calendar;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class JournalGUI extends JPanel implements ActionListener {
+public class JournalGUI extends AccountingPanel implements ActionListener {
 	/**
 	 * 
 	 */

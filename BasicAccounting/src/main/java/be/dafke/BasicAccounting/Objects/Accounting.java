@@ -2,7 +2,6 @@ package be.dafke.BasicAccounting.Objects;
 
 import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.Statements;
-import be.dafke.Mortgage.Objects.Mortgages;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -19,7 +18,6 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 	private final Journals journals;
 	private final Projects projects;
     private final JournalTypes journalTypes;
-    private final Mortgages mortgages;
     private final CounterParties counterParties;
     private final Statements statements;
     private final Balances balances;
@@ -50,10 +48,6 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         balances.setBusinessTypeCollection(accountTypes);
 //        balances.addDefaultBalances(this);
 
-        mortgages = new Mortgages();
-        mortgages.setBusinessTypeCollection(accountTypes);
-        mortgages.setBusinessCollection(accounts);
-
         counterParties = new CounterParties();
 
         statements = new Statements();
@@ -64,7 +58,6 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         accounts.setName(accounts.getBusinessObjectType());
         journals.setName(journals.getBusinessObjectType());
         balances.setName(balances.getBusinessObjectType());
-        mortgages.setName(mortgages.getBusinessObjectType());
         counterParties.setName(counterParties.getBusinessObjectType());
         statements.setName(statements.getBusinessObjectType());
 
@@ -72,7 +65,6 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
             addBusinessObject((BusinessCollection)accounts);
             addBusinessObject((BusinessCollection)journals);
             addBusinessObject((BusinessCollection)balances);
-            addBusinessObject((BusinessCollection)mortgages);
             addBusinessObject((BusinessCollection)statements);
             addBusinessObject((BusinessCollection)counterParties);
         } catch (EmptyNameException e) {
@@ -84,12 +76,15 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         keys = new ArrayList<String>();
 //        keys.add(accountTypes.getBusinessObjectType());
         keys.add(accounts.getBusinessObjectType());
-        keys.add(mortgages.getBusinessObjectType());
         keys.add(journals.getBusinessObjectType());
         keys.add(balances.getBusinessObjectType());
         keys.add(counterParties.getBusinessObjectType());
         keys.add(statements.getBusinessObjectType());
 	}
+
+    public void addKey(String key){
+        keys.add(key);
+    }
 
     public String toString(){
         return getName();
@@ -139,10 +134,6 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     //
     public Balances getBalances(){
         return balances;
-    }
-    //
-    public Mortgages getMortgages(){
-        return mortgages;
     }
     //
     public CounterParties getCounterParties() {

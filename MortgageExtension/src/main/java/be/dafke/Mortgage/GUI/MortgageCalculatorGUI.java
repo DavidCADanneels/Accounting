@@ -1,6 +1,5 @@
 package be.dafke.Mortgage.GUI;
 
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.Mortgage.Calculate;
@@ -175,7 +174,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
             newMortgage.setStartCapital(startKapitaal);
 			newMortgage.setTable(data);
 			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, accounting);
-            AccountingComponentMap.addDisposableComponent(AccountingComponentMap.MORTGAGE_TABLE + gui.nr, gui);
+            MortgageComponentMap.addDisposableComponent(MortgageComponentMap.MORTGAGE_TABLE + gui.nr, gui);
 			gui.setVisible(true);
 		}
 	}

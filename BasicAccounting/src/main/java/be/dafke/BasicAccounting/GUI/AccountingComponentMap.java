@@ -11,7 +11,6 @@ import be.dafke.BasicAccounting.Objects.Balances;
 import be.dafke.Coda.GUI.CounterPartyTable;
 import be.dafke.Coda.GUI.StatementTable;
 import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.Mortgage.GUI.MortgageGUI;
 
 import java.awt.event.ActionListener;
 
@@ -27,7 +26,6 @@ public class AccountingComponentMap extends ComponentMap{
     public static final String RESULT_BALANCE = "ResultBalance";
     public static final String MOVEMENTS = "Statements";
     public static final String COUNTERPARTIES = "Counterparties";
-    public static final String MORTGAGES = "Mortgages";
     public static final String PROJECTS = "Projects";
     public static final String MAIN = "MainPanel";
     public static final String MENU = "MenuBar";
@@ -37,8 +35,6 @@ public class AccountingComponentMap extends ComponentMap{
 
     public static final String JOURNAL_DETAILS = "JournalDetails";
     public static final String ACCOUNT_DETAILS = "AccountDetails";
-    public static final String MORTGAGE_CALCULATOR = "MortgageCalculator";
-    public static final String MORTGAGE_TABLE = "MortgageTable";
     public static final String NEW_ACCOUNTING = "NewAccounting";
     public static final String OPEN_ACCOUNTING = "OpenAccounting";
     public static final String NEW_ACCOUNT = "NewAccount";
@@ -52,7 +48,7 @@ public class AccountingComponentMap extends ComponentMap{
         addDisposableComponent(accounting.toString() + PROJECTS, new ProjectManagementGUI(accounting));
         addDisposableComponent(accounting.toString() + MOVEMENTS, new StatementTable(accounting, actionListener));
         addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting, actionListener));
-        addDisposableComponent(accounting.toString() + MORTGAGES, new MortgageGUI(accounting, actionListener));
+
         addDisposableComponent(accounting.toString() + ACCOUNT_MANAGEMENT, new AccountManagementGUI(accounting, actionListener));
         addDisposableComponent(accounting.toString() + JOURNAL_MANAGEMENT, new JournalManagementGUI(accounting, actionListener));
         addDisposableComponent(accounting.toString() + JOURNAL_TYPE_MANAGEMENT, new JournalTypeManagementGUI(accounting));

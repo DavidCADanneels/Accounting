@@ -10,7 +10,6 @@ import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.ComponentModel.DisposableComponent;
-import be.dafke.Mortgage.GUI.MortgageCalculatorGUI;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -27,7 +26,7 @@ import java.awt.event.WindowEvent;
  */
 public class AccountingActionListener extends WindowAdapter implements ActionListener {
 
-    private final Accountings accountings;
+    protected final Accountings accountings;
 
     public AccountingActionListener(Accountings accountings){
         this.accountings = accountings;
@@ -85,10 +84,6 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
                 gui = new AccountDetails(account, accounting);
                 AccountingComponentMap.addDisposableComponent(key, gui); // DETAILS
             }
-            gui.setVisible(true);
-        } else if(actionCommand.equals(AccountingComponentMap.MORTGAGE_CALCULATOR)){
-            MortgageCalculatorGUI gui = new MortgageCalculatorGUI(accountings.getCurrentObject());
-            AccountingComponentMap.addDisposableComponent(AccountingComponentMap.MORTGAGE_CALCULATOR + gui.getNr(), gui);
             gui.setVisible(true);
         } else {
             String key = accountings.getCurrentObject().toString() + actionCommand;

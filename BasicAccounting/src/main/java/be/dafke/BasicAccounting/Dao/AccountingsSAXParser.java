@@ -5,8 +5,6 @@ import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Balance;
 import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.Mortgage.Dao.MortgagesSAXParser;
-import be.dafke.Mortgage.Objects.Mortgage;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModelDao.ObjectModelSAXParser;
@@ -121,7 +119,6 @@ public class AccountingsSAXParser {
             File accountsFolder = new File(rootFolder, "Accounts");
             File balancesFolder = new File(rootFolder, "Balances");
             File journalsFolder = new File(rootFolder, "Journals");
-            File mortgagesFolder = new File(rootFolder, "Mortgages");
 
 
             for(Account account : accounting.getAccounts().getBusinessObjects()){
@@ -133,9 +130,6 @@ public class AccountingsSAXParser {
 
             for(Journal journal : accounting.getJournals().getBusinessObjects()){
                 JournalsSAXParser.writeJournal(journal, journalsFolder, getXmlHeader(journal, 2));
-            }
-            for(Mortgage mortgage:accounting.getMortgages().getBusinessObjects()){
-                MortgagesSAXParser.writeMortgage(mortgage, mortgagesFolder, getXmlHeader(mortgage, 2));
             }
         }
 
@@ -166,21 +160,15 @@ public class AccountingsSAXParser {
 
     // READ
 
-    public static Accountings readCollection(File xmlFolder) {
-        Accountings accountings = new Accountings(xmlFolder);
+    public static void readCollection(Accountings accountings, File xmlFolder) {
         ObjectModelSAXParser.readCollection(accountings, true, xmlFolder);
         for(Accounting accounting : accountings.getBusinessObjects()){
             File rootFolder = new File(xmlFolder, accounting.getName());
-            for(Mortgage mortgage : accounting.getMortgages().getBusinessObjects()){
-                File mortgagesFolder = new File(rootFolder, "Mortgages");
-                MortgagesSAXParser.readMortgage(mortgage, new File(mortgagesFolder, mortgage.getName()+".xml"));
-            }
 
             for(Journal journal : accounting.getJournals().getBusinessObjects()){
                 File journalsFolder = new File(rootFolder, "Journals");
                 JournalsSAXParser.readJournal(journal, accounting.getAccounts(), new File(journalsFolder, journal.getName()+".xml"));
             }
         }
-        return accountings;
     }
 }

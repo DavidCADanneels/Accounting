@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.Actions.AccountingActionListener;
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.ComponentModel.RefreshableFrame;
@@ -21,24 +20,24 @@ public class AccountingGUIFrame extends RefreshableFrame {
 	private static final long serialVersionUID = 1L;
 	private final Accountings accountings;
     private AccountingMenuBar menuBar;
-    private AccountingGUIPanel contentPanel;
+    private AccountingMultiPanel contentPanel;
 
 	public AccountingGUIFrame(Accountings accountings) {
 		super(getBundle("Accounting").getString("BOEKHOUDING"));
 		this.accountings = accountings;
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        AccountingActionListener actionListener = new AccountingActionListener(accountings);
-        addWindowListener(actionListener);
-        contentPanel = new AccountingGUIPanel(actionListener);
-		setContentPane(contentPanel);
-        menuBar = new AccountingMenuBar(actionListener);
+
+
+    }
+
+    public void setContentPanel(AccountingMultiPanel contentPanel){
+        this.contentPanel = contentPanel;
+        setContentPane(contentPanel);
+    }
+
+    public void setMenuBar(AccountingMenuBar menuBar){
+        this.menuBar = menuBar;
         setJMenuBar(menuBar);
-        AccountingComponentMap.addDisposableComponent(AccountingComponentMap.MAIN, this); // MAIN
-        AccountingComponentMap.addRefreshableComponent(AccountingComponentMap.MENU, menuBar);
-        for(Accounting accounting : accountings.getBusinessObjects()){
-            AccountingComponentMap.addAccountingComponents(accounting, actionListener);
-        }
-        refresh();
     }
 
     @Override

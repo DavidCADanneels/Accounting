@@ -1,13 +1,15 @@
 package be.dafke.Mortgage.GUI;
 
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.Mortgage.Objects.Mortgage;
-import be.dafke.Mortgage.Objects.Mortgages;
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessObject;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -18,23 +20,23 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MortgagesGUI extends JPanel implements ListSelectionListener, ActionListener {
+public class MortgagesGUI extends AccountingPanel implements ListSelectionListener, ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JList<Mortgage> list;
+	private final JList<BusinessObject> list;
 	private final JButton pay;// , newMortgage, details;
-	private final DefaultListModel<Mortgage> listModel;
+	private final DefaultListModel<BusinessObject> listModel;
 
-    private Mortgages mortgages;
+    private BusinessCollection<BusinessObject> mortgages;
     private Journal journal;
 
     public MortgagesGUI() {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Mortgages"));
-		list = new JList<Mortgage>();
-		listModel = new DefaultListModel<Mortgage>();
+		list = new JList<BusinessObject>();
+		listModel = new DefaultListModel<BusinessObject>();
 		list.setModel(listModel);
 		list.addListSelectionListener(this);
 		pay = new JButton("Pay");
@@ -49,14 +51,15 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
             setMortgages(null);
             setJournal(null);
         } else {
-            setMortgages(accounting.getMortgages());
+            BusinessCollection<BusinessObject> mortgages1 = accounting.getBusinessObject("Mortgages");
+            setMortgages(mortgages1);
             if(accounting.getJournals()!=null){
                 setJournal(accounting.getJournals().getCurrentObject());
             }
         }
     }
 
-    public void setMortgages(Mortgages mortgages) {
+    public void setMortgages(BusinessCollection<BusinessObject> mortgages) {
         this.mortgages = mortgages;
     }
 
@@ -67,7 +70,7 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 	public void refresh() {
         listModel.clear();
         if (mortgages != null) {
-            for(Mortgage mortgage : mortgages.getBusinessObjects()) {
+            for(BusinessObject mortgage : mortgages.getBusinessObjects()) {
                 if (!listModel.contains(mortgage)) {
                     listModel.addElement(mortgage);
                 }
@@ -78,7 +81,7 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
-		Mortgage mortgage = list.getSelectedValue();
+		Mortgage mortgage = (Mortgage)list.getSelectedValue();
 		if (mortgage == null) {
 			return;
 		}
@@ -96,7 +99,7 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		if (journal!=null && !e.getValueIsAdjusting() && list.getSelectedIndex() != -1) {
-			pay.setEnabled(list.getSelectedValue().isBookable());
+			pay.setEnabled(/*list.getSelectedValue().isBookable()*/true);
 		} else {
 			pay.setEnabled(false);
 		}

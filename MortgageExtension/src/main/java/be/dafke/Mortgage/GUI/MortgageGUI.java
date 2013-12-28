@@ -1,10 +1,11 @@
 package be.dafke.Mortgage.GUI;
 
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.Mortgage.Objects.Mortgage;
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 import be.dafke.Utils.Utils;
 
@@ -42,7 +43,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		mortgagesList.setModel(new DefaultListModel<Mortgage>());
 		mortgagesList.addListSelectionListener(this);
 		create = new JButton("Create new Mortgage table");
-        create.setActionCommand(AccountingComponentMap.MORTGAGE_CALCULATOR);
+        create.setActionCommand(MortgageComponentMap.MORTGAGE_CALCULATOR);
 		create.addActionListener(actionListener);
 
 		JPanel left = new JPanel(new BorderLayout());
@@ -151,7 +152,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		} else if (e.getSource() == delete) {
 			if (selectedMortgage != null) {
                 try {
-                    accounting.getMortgages().removeBusinessObject(selectedMortgage);
+                    accounting.getBusinessObject("Mortgages").removeBusinessObject(selectedMortgage);
                 } catch (NotEmptyException e1) {
                     System.err.println("This mortgage is in use !");
                     e1.printStackTrace();
@@ -182,7 +183,9 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	@Override
 	public void refresh() {
         listModel = new DefaultListModel<Mortgage>();
-        for(Mortgage mortgage : accounting.getMortgages().getBusinessObjects()) {
+        BusinessCollection<BusinessObject> mortgages = accounting.getBusinessObject("Mortgages");
+        for(BusinessObject businessObject :mortgages.getBusinessObjects()) {
+            Mortgage mortgage =(Mortgage) businessObject;
             if (!listModel.contains(mortgage)) {
                 listModel.addElement(mortgage);
             }

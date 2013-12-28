@@ -11,6 +11,7 @@
         <module>ComponentModel</module>
         <module>BasicAccounting</module>
         <module>ObjectModelDao</module>
+        <module>MortgageExtension</module>
     </modules>
 
     <dependencies>
