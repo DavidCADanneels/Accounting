@@ -7,7 +7,6 @@ import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.Mortgage.Dao.MortgagesSAXParser;
 import be.dafke.Mortgage.GUI.MortgageCalculatorGUI;
-import be.dafke.Mortgage.GUI.MortgageComponentMap;
 import be.dafke.Mortgage.Objects.Mortgage;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
@@ -24,6 +23,10 @@ import java.io.File;
 public class MortgageActionListener extends AccountingActionListener{
 
     private final Accountings accountings;
+
+    public static final String MORTGAGES = "Mortgages";
+    public static final String MORTGAGE_CALCULATOR = "MortgageCalculator";
+    public static final String MORTGAGE_TABLE = "MortgageTable";
 
     public MortgageActionListener(Accountings accountings){
         super(accountings);
@@ -49,9 +52,9 @@ public class MortgageActionListener extends AccountingActionListener{
     @Override
     public void actionPerformed(ActionEvent ae){
         String actionCommand = ae.getActionCommand();
-        if(actionCommand.equals(MortgageComponentMap.MORTGAGE_CALCULATOR)){
+        if(actionCommand.equals(MORTGAGE_CALCULATOR)){
             MortgageCalculatorGUI gui = new MortgageCalculatorGUI(accountings.getCurrentObject());
-            AccountingComponentMap.addDisposableComponent(MortgageComponentMap.MORTGAGE_CALCULATOR + gui.getNr(), gui);
+            AccountingComponentMap.addDisposableComponent(MORTGAGE_CALCULATOR + gui.getNr(), gui);
             gui.setVisible(true);
         } else {
             String key = accountings.getCurrentObject().toString() + actionCommand;

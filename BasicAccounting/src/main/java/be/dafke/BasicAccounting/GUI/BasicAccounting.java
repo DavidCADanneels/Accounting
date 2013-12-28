@@ -67,8 +67,8 @@ public class BasicAccounting {
         for(Accounting accounting : accountings.getBusinessObjects()){
             AccountingComponentMap.addAccountingComponents(accounting, actionListener);
         }
-        AccountingComponentMap.addDisposableComponent(AccountingComponentMap.MAIN, frame); // MAIN
-        AccountingComponentMap.addRefreshableComponent(AccountingComponentMap.MENU, menuBar);
+        AccountingComponentMap.addDisposableComponent(AccountingActionListener.MAIN, frame); // MAIN
+        AccountingComponentMap.addRefreshableComponent(AccountingActionListener.MENU, menuBar);
     }
 
     public static AccountingMenuBar createMenuBar(AccountingActionListener actionListener){

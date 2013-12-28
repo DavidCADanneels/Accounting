@@ -27,6 +27,24 @@ import java.awt.event.WindowEvent;
 public class AccountingActionListener extends WindowAdapter implements ActionListener {
 
     protected final Accountings accountings;
+    public static final String TEST_BALANCE = "TestBalance";
+    public static final String YEAR_BALANCE = "YearBalance";
+    public static final String RELATIONS_BALANCE = "BalanceGUI";
+    public static final String RESULT_BALANCE = "ResultBalance";
+    public static final String MOVEMENTS = "Statements";
+    public static final String COUNTERPARTIES = "Counterparties";
+    public static final String PROJECTS = "Projects";
+    public static final String MAIN = "MainPanel";
+    public static final String MENU = "MenuBar";
+    public static final String ACCOUNT_MANAGEMENT = "AccountManagement";
+    public static final String JOURNAL_MANAGEMENT = "JournalManagement";
+    public static final String JOURNAL_TYPE_MANAGEMENT = "JournalTypeManagement";
+
+    public static final String JOURNAL_DETAILS = "JournalDetails";
+    public static final String ACCOUNT_DETAILS = "AccountDetails";
+    public static final String NEW_ACCOUNTING = "NewAccounting";
+    public static final String OPEN_ACCOUNTING = "OpenAccounting";
+    public static final String NEW_ACCOUNT = "NewAccount";
 
     public AccountingActionListener(Accountings accountings){
         this.accountings = accountings;
@@ -41,9 +59,9 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
     @Override
     public void actionPerformed(ActionEvent ae) {
         String actionCommand = ae.getActionCommand();
-        if (actionCommand.equals(AccountingComponentMap.NEW_ACCOUNT)){
+        if (actionCommand.equals(AccountingActionListener.NEW_ACCOUNT)){
             new NewAccountGUI(accountings.getCurrentObject()).setVisible(true);
-        } else if (actionCommand.equals(AccountingComponentMap.NEW_ACCOUNTING)) {
+        } else if (actionCommand.equals(AccountingActionListener.NEW_ACCOUNTING)) {
             String name = JOptionPane.showInputDialog(null, "Enter a name");
             try {
                 Accounting accounting = new Accounting(name);
@@ -53,7 +71,7 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
                 accounting.getBalances().addDefaultBalances(accounting);
                 AccountingComponentMap.addAccountingComponents(accounting, this);
                 JOptionPane.showMessageDialog(null, "Please create a Journal.");
-                String key = accounting.toString()+ AccountingComponentMap.JOURNAL_MANAGEMENT;
+                String key = accounting.toString()+ AccountingActionListener.JOURNAL_MANAGEMENT;
                 AccountingComponentMap.getDisposableComponent(key).setVisible(true);
             } catch (DuplicateNameException e) {
                 JOptionPane.showMessageDialog(null, "There is already an accounting with the name \""+name+"\".\r\n"+
@@ -62,23 +80,23 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
                 JOptionPane.showMessageDialog(null, "The name cannot be empty.\r\nPlease provide a new name.");
             }
             AccountingComponentMap.refreshAllFrames();
-        } else if(actionCommand.startsWith(AccountingComponentMap.OPEN_ACCOUNTING)){
-            String accountingName = actionCommand.replaceAll(AccountingComponentMap.OPEN_ACCOUNTING, "");
+        } else if(actionCommand.startsWith(AccountingActionListener.OPEN_ACCOUNTING)){
+            String accountingName = actionCommand.replaceAll(AccountingActionListener.OPEN_ACCOUNTING, "");
             accountings.setCurrentObject(accountingName);
-        } else if(actionCommand.equals(AccountingComponentMap.JOURNAL_DETAILS)){
+        } else if(actionCommand.equals(AccountingActionListener.JOURNAL_DETAILS)){
             Accounting accounting = accountings.getCurrentObject();
             Journal journal = accounting.getJournals().getCurrentObject();
-            String key = AccountingComponentMap.JOURNAL_DETAILS + accounting.toString() + journal.toString();
+            String key = AccountingActionListener.JOURNAL_DETAILS + accounting.toString() + journal.toString();
             DisposableComponent gui = AccountingComponentMap.getDisposableComponent(key); // DETAILS
             if(gui == null){
                 gui = new JournalDetails(journal, accounting);
                 AccountingComponentMap.addDisposableComponent(key, gui); // DETAILS
             }
             gui.setVisible(true);
-        } else if(actionCommand.equals(AccountingComponentMap.ACCOUNT_DETAILS)){
+        } else if(actionCommand.equals(AccountingActionListener.ACCOUNT_DETAILS)){
             Accounting accounting = accountings.getCurrentObject();
             Account account = accounting.getAccounts().getCurrentObject();
-            String key = accounting.toString() + AccountingComponentMap.ACCOUNT_DETAILS + account.getName();
+            String key = accounting.toString() + AccountingActionListener.ACCOUNT_DETAILS + account.getName();
             DisposableComponent gui = AccountingComponentMap.getDisposableComponent(key); // DETAILS
             if(gui == null){
                 gui = new AccountDetails(account, accounting);

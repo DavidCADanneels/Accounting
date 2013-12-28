@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.GUI.AccountManagement;
 
+import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
@@ -55,7 +56,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 		modifyType.addActionListener(this);
 		delete.addActionListener(this);
         newAccount.addActionListener(actionListener);
-        newAccount.setActionCommand(AccountingComponentMap.NEW_ACCOUNT);
+        newAccount.setActionCommand(AccountingActionListener.NEW_ACCOUNT);
 		modifyName.setEnabled(false);
 		modifyType.setEnabled(false);
 		delete.setEnabled(false);

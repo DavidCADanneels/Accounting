@@ -69,8 +69,7 @@ public class Main extends BasicAccounting {
         completeFrame(accountings, frame, menuBar, contentPanel, actionListener);
 
         for(Accounting accounting : accountings.getBusinessObjects()){
-            AccountingComponentMap.addDisposableComponent(accounting.toString() + MortgageComponentMap.MORTGAGES, new MortgageGUI(accounting, mortgageActionListener));
-//            MortgageComponentMap.addAccountingComponents(accounting,mortgageActionListener);
+            AccountingComponentMap.addDisposableComponent(accounting.toString() + MortgageActionListener.MORTGAGES, new MortgageGUI(accounting, mortgageActionListener));
         }
 
         frame.setVisible(true);
@@ -88,7 +87,7 @@ public class Main extends BasicAccounting {
         JMenuItem mortgage = new JMenuItem("Mortgages");
         mortgage.addActionListener(actionListener);
         mortgage.setEnabled(false);
-        mortgage.setActionCommand(MortgageComponentMap.MORTGAGES);
+        mortgage.setActionCommand(MortgageActionListener.MORTGAGES);
 //        banking.add(movements);
 //        banking.add(counterParties);
         banking.add(mortgage);

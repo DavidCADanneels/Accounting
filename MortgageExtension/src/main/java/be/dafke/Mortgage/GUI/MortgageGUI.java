@@ -3,6 +3,7 @@ package be.dafke.Mortgage.GUI;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ComponentModel.RefreshableFrame;
+import be.dafke.Mortgage.Action.MortgageActionListener;
 import be.dafke.Mortgage.Objects.Mortgage;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
@@ -43,7 +44,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		mortgagesList.setModel(new DefaultListModel<Mortgage>());
 		mortgagesList.addListSelectionListener(this);
 		create = new JButton("Create new Mortgage table");
-        create.setActionCommand(MortgageComponentMap.MORTGAGE_CALCULATOR);
+        create.setActionCommand(MortgageActionListener.MORTGAGE_CALCULATOR);
 		create.addActionListener(actionListener);
 
 		JPanel left = new JPanel(new BorderLayout());

@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
+import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
@@ -39,12 +40,12 @@ public class JournalsGUI extends AccountingPanel implements ActionListener {
 		JPanel paneel = new JPanel();
 		journalManagement = new JButton(getBundle("Accounting").getString("NIEUW_DAGBOEK"));
 		journalManagement.addActionListener(actionListener);
-        journalManagement.setActionCommand(AccountingComponentMap.JOURNAL_MANAGEMENT);
+        journalManagement.setActionCommand(AccountingActionListener.JOURNAL_MANAGEMENT);
 		journalManagement.setEnabled(false);
 		paneel.add(journalManagement);
 		details = new JButton(getBundle("Accounting").getString("DETAILS_DAGBOEK"));
 		details.addActionListener(actionListener);
-        details.setActionCommand(AccountingComponentMap.JOURNAL_DETAILS);
+        details.setActionCommand(AccountingActionListener.JOURNAL_DETAILS);
 		details.setEnabled(false);
 		paneel.add(details);
 		add(paneel);

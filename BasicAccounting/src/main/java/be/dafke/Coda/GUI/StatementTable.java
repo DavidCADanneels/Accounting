@@ -1,5 +1,6 @@
 package be.dafke.Coda.GUI;
 
+import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
@@ -45,7 +46,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 		tabel.addMouseListener(this);
 		viewCounterParties = new JButton("View Counterparties");
 		viewCounterParties.addActionListener(actionListener);
-        viewCounterParties.setActionCommand(AccountingComponentMap.COUNTERPARTIES);
+        viewCounterParties.setActionCommand(AccountingActionListener.COUNTERPARTIES);
 		readCoda = new JButton("Read Coda file(s)");
 		readCoda.addActionListener(this);
         readCsv = new JButton("Read CSV file(s)");
@@ -162,7 +163,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
             // TODO: this is an existing Action in AccountingActionListener
-            String key = accounting.toString()+ AccountingComponentMap.COUNTERPARTIES;
+            String key = accounting.toString()+ AccountingActionListener.COUNTERPARTIES;
             AccountingComponentMap.getDisposableComponent(key).setVisible(true);
             // until here
 			return false;

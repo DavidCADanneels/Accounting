@@ -1,6 +1,6 @@
 package be.dafke.Coda.GUI;
 
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accounts;
@@ -30,7 +30,7 @@ public class AccountSelector extends RefreshableDialog implements ActionListener
 		combo.addActionListener(this);
 		create = new JButton("Add account(s) ...");
 		create.addActionListener(actionListener);
-        create.setActionCommand(AccountingComponentMap.NEW_ACCOUNT);
+        create.setActionCommand(AccountingActionListener.NEW_ACCOUNT);
 		ok = new JButton("Ok (Close popup)");
 		ok.addActionListener(this);
 		JPanel innerPanel = new JPanel(new BorderLayout());

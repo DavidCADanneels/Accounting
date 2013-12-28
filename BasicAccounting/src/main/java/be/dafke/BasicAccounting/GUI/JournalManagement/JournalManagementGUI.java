@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.GUI.JournalManagement;
 
+import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Journal;
@@ -56,7 +57,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 		name.addFocusListener(this);
 		line2.add(add);
 		newType = new JButton("Manage types ...");
-        newType.setActionCommand(AccountingComponentMap.JOURNAL_TYPE_MANAGEMENT);
+        newType.setActionCommand(AccountingActionListener.JOURNAL_TYPE_MANAGEMENT);
 		newType.addActionListener(actionListener);
 		line2.add(newType);
 		north.add(line1);

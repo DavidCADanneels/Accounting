@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.ComponentModel.RefreshableComponent;
@@ -39,7 +39,7 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         file = new JMenu("Bestand");
         startNew = new JMenuItem("New");
         startNew.addActionListener(actionListener);
-        startNew.setActionCommand(AccountingComponentMap.NEW_ACCOUNTING);
+        startNew.setActionCommand(AccountingActionListener.NEW_ACCOUNTING);
         add(file);
 
 
@@ -114,11 +114,11 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
     }
 
     private void setActionCommands(){
-        testBalance.setActionCommand(AccountingComponentMap.TEST_BALANCE);
-        yearBalance.setActionCommand(AccountingComponentMap.YEAR_BALANCE);
-        resultBalance.setActionCommand(AccountingComponentMap.RESULT_BALANCE);
-        relationsBalance.setActionCommand(AccountingComponentMap.RELATIONS_BALANCE);
-        projects.setActionCommand(AccountingComponentMap.PROJECTS);
+        testBalance.setActionCommand(AccountingActionListener.TEST_BALANCE);
+        yearBalance.setActionCommand(AccountingActionListener.YEAR_BALANCE);
+        resultBalance.setActionCommand(AccountingActionListener.RESULT_BALANCE);
+        relationsBalance.setActionCommand(AccountingActionListener.RELATIONS_BALANCE);
+        projects.setActionCommand(AccountingActionListener.PROJECTS);
 //        movements.setActionCommand(AccountingComponentMap.MOVEMENTS);
 //        counterParties.setActionCommand(AccountingComponentMap.COUNTERPARTIES);
 //        mortgage.setActionCommand(AccountingComponentMap.MORTGAGES);
@@ -132,7 +132,7 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
             if(acc!=accounting){
                 JMenuItem item = new JMenuItem(acc.toString());
                 item.addActionListener(actionListener);
-                item.setActionCommand(AccountingComponentMap.OPEN_ACCOUNTING+acc.toString());
+                item.setActionCommand(AccountingActionListener.OPEN_ACCOUNTING+acc.toString());
                 file.add(item);
             }
         }
