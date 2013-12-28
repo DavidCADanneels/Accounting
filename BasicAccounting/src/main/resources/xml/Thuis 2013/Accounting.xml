@@ -5,9 +5,6 @@
   <Accounts>
     <name>Accounts</name>
   </Accounts>
-  <Mortgages>
-    <name>Mortgages</name>
-  </Mortgages>
   <Journals>
     <name>Journals</name>
   </Journals>
@@ -20,4 +17,7 @@
   <Statements>
     <name>Statements</name>
   </Statements>
+  <Mortgages>
+    <name>Mortgages</name>
+  </Mortgages>
 </Accounting>
