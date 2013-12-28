@@ -1,7 +1,5 @@
 package be.dafke.BasicAccounting.Objects;
 
-import be.dafke.Coda.Objects.CounterParties;
-import be.dafke.Coda.Objects.Statements;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -18,8 +16,6 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 	private final Journals journals;
 	private final Projects projects;
     private final JournalTypes journalTypes;
-    private final CounterParties counterParties;
-    private final Statements statements;
     private final Balances balances;
     private ArrayList<String> keys;
 
@@ -48,38 +44,27 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         balances.setBusinessTypeCollection(accountTypes);
 //        balances.addDefaultBalances(this);
 
-        counterParties = new CounterParties();
-
-        statements = new Statements();
-        statements.setBusinessCollection(counterParties);
-
         projects = new Projects();
 
         accounts.setName(accounts.getBusinessObjectType());
         journals.setName(journals.getBusinessObjectType());
         balances.setName(balances.getBusinessObjectType());
-        counterParties.setName(counterParties.getBusinessObjectType());
-        statements.setName(statements.getBusinessObjectType());
 
         try {
             addBusinessObject((BusinessCollection)accounts);
             addBusinessObject((BusinessCollection)journals);
             addBusinessObject((BusinessCollection)balances);
-            addBusinessObject((BusinessCollection)statements);
-            addBusinessObject((BusinessCollection)counterParties);
+
         } catch (EmptyNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (DuplicateNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-
         keys = new ArrayList<String>();
 //        keys.add(accountTypes.getBusinessObjectType());
         keys.add(accounts.getBusinessObjectType());
         keys.add(journals.getBusinessObjectType());
         keys.add(balances.getBusinessObjectType());
-        keys.add(counterParties.getBusinessObjectType());
-        keys.add(statements.getBusinessObjectType());
 	}
 
     public void addKey(String key){
@@ -93,7 +78,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     @Override
     public BusinessCollection createNewChild(String name) {
         BusinessCollection<BusinessObject> collection = getBusinessObject(name);
-//        WriteableBusinessCollection<WriteableBusinessObject> collection = collections.get(name);
+//        BusinessCollection<WriteableBusinessObject> collection = collections.get(name);
         if(collection==null){
 //            collection =
             System.err.println("Accounting does not have a collection with the name: " + name);
@@ -134,13 +119,5 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     //
     public Balances getBalances(){
         return balances;
-    }
-    //
-    public CounterParties getCounterParties() {
-        return counterParties;
-    }
-    //
-    public Statements getStatements() {
-        return statements;
     }
 }

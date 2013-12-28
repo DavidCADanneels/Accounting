@@ -12,6 +12,7 @@
         <module>BasicAccounting</module>
         <module>ObjectModelDao</module>
         <module>MortgageExtension</module>
+        <module>CodaExtension</module>
     </modules>
 
     <dependencies>

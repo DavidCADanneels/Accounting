@@ -1,11 +1,12 @@
 package be.dafke.Coda.GUI;
 
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
 import be.dafke.Coda.Objects.TmpCounterParty;
 import be.dafke.ComponentModel.RefreshableDialog;
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -22,8 +23,8 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JButton ok, create, apply;
-	private final JComboBox<CounterParty> oldCounterPartyCombo, newCounterPartyCombo;
-	private CounterParty oldCounterParty, newCounterParty;
+	private final JComboBox<BusinessObject> oldCounterPartyCombo, newCounterPartyCombo;
+	private BusinessObject oldCounterParty, newCounterParty;
     private final JTable movementTable;
 	private final GenericStatementDataModel movementDataModel;
 	private final Statement statement;
@@ -42,17 +43,17 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         newCounterParty = null;
 
         // COMPONENTS
-		oldCounterPartyCombo = new JComboBox<CounterParty>();
+		oldCounterPartyCombo = new JComboBox<BusinessObject>();
 		oldCounterPartyCombo.addItem(null);
-        for(CounterParty counterParty : accounting.getCounterParties().getBusinessObjects()){
+        for(BusinessObject counterParty : accounting.getBusinessObject("CounterParties").getBusinessObjects()){
             oldCounterPartyCombo.addItem(counterParty);
         }
         oldCounterPartyCombo.setSelectedItem(null);
 		oldCounterPartyCombo.addActionListener(this);
         oldCounterPartyCombo.setEnabled(false);
-        newCounterPartyCombo = new JComboBox<CounterParty>();
+        newCounterPartyCombo = new JComboBox<BusinessObject>();
         newCounterPartyCombo.addItem(null);
-        for(CounterParty counterParty : accounting.getCounterParties().getBusinessObjects()){
+        for(BusinessObject counterParty : accounting.getBusinessObject("CounterParties").getBusinessObjects()){
             newCounterPartyCombo.addItem(counterParty);
         }
         newCounterPartyCombo.setSelectedItem(null);
@@ -168,7 +169,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         fillInCounterParty();
     }
 
-    public CounterParty getSelection() {
+    public BusinessObject getSelection() {
 		return newCounterParty;
 	}
 
@@ -179,7 +180,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 		} else if (e.getSource() == create) {
 			String s = JOptionPane.showInputDialog(this, "Enter a name for the new counterparty");
 			if (s != null && !s.equals("")) {
-				CounterParties counterParties = accounting.getCounterParties();
+				BusinessCollection<BusinessObject> counterParties = accounting.getBusinessObject("CounterParties");
                 try {
                     CounterParty counterParty = new CounterParty();
                     counterParty.setMergeable(false);

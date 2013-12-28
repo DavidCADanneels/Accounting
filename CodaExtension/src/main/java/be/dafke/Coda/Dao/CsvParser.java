@@ -2,10 +2,10 @@ package be.dafke.Coda.Dao;
 
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.Objects.BankAccount;
-import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
-import be.dafke.Coda.Objects.Statements;
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;
@@ -40,8 +40,8 @@ public class CsvParser {
     }
 
     public void parseFile(File[] files, Accounting accounting) {
-        CounterParties counterParties = accounting.getCounterParties();
-        Statements statements = accounting.getStatements();
+        BusinessCollection<BusinessObject> counterParties = accounting.getBusinessObject("CounterParties");
+        BusinessCollection<BusinessObject> statements = accounting.getBusinessObject("Statements");
         int counter = 0;
         for(File file : files) {
             try {

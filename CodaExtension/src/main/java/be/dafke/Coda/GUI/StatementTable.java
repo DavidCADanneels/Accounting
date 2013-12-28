@@ -13,8 +13,9 @@ import be.dafke.Coda.Dao.CsvParser;
 import be.dafke.Coda.Objects.BankAccount;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
-import be.dafke.Coda.Objects.Statements;
 import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
@@ -130,11 +131,11 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 		// but as the user for input.
 		JOptionPane.showMessageDialog(this, "TODO: link transactioncode + extra data to counterparties");
 		Set<CounterParty> set = new HashSet<CounterParty>();
-		List<Statement> list = new ArrayList<Statement>();
+		List<BusinessObject> list = new ArrayList<BusinessObject>();
 		for(int i : rows) {
 			CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 4);
 			if (counterParty == null) {
-				Statements statements = accounting.getStatements();
+                BusinessCollection<BusinessObject> statements = accounting.getBusinessObject("Statements");
 				list.add(statements.getBusinessObjects().get(i));
 			} else if (counterParty.getAccount() == null) {
 				set.add(counterParty);
@@ -143,7 +144,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 		if (!list.isEmpty()) {
 			System.err.println(list.size() + " movements have no counterparty:");
 			StringBuilder builder = new StringBuilder(list.size() + " movements have no counterparty:");
-			for(Statement statement : list) {
+			for(BusinessObject statement : list) {
 				System.err.println(statement);
 				builder.append("\r\n").append(statement);
 			}
@@ -189,20 +190,20 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 				}
 				if (bankAccount != null && journal != null) {
                     for(int i : rows) {
-                        CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 4);
-                        Account account = counterParty.getAccount();
+                        BusinessObject counterParty = (BusinessObject) tabel.getValueAt(i, 4);
+                        Account account = ((CounterParty)counterParty).getAccount();
                         boolean debet = tabel.getValueAt(i, 2).equals("D");
                         if (account == null) {
-                            CounterParty counterParty2 = accounting.getCounterParties().getBusinessObject(counterParty.getName());
+                            BusinessObject counterParty2 = accounting.getBusinessObject("CounterParties").getBusinessObject(counterParty.getName());
                             if (counterParty2 != null) {
                                 counterParty = counterParty2;
-                                account = counterParty2.getAccount();
+                                account = ((CounterParty)counterParty2).getAccount();
                             }
                         }
                         while (account == null) {
                             account = (Account) JOptionPane.showInputDialog(this, "Select account", "Select account",
                                     JOptionPane.INFORMATION_MESSAGE, null, accounts, null);
-                            counterParty.setAccount(account);
+                            ((CounterParty)counterParty).setAccount(account);
                         }
                         BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 3);
                         Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
@@ -239,19 +240,19 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 			int col = tabel.columnAtPoint(cell);
 			int row = tabel.rowAtPoint(cell);
 			if (col == 4) {
-				Statements statements = accounting.getStatements();
-				CounterParty counterParty = (CounterParty) tabel.getValueAt(row, col);
+                BusinessCollection<BusinessObject> statements = accounting.getBusinessObject("Statements");
+                BusinessObject counterParty = (BusinessObject) tabel.getValueAt(row, col);
 				if (counterParty == null) {
-					CounterPartySelector sel = new CounterPartySelector(statements.getBusinessObjects().get(row), accounting);
+					CounterPartySelector sel = new CounterPartySelector((Statement)statements.getBusinessObjects().get(row), accounting);
 					sel.setVisible(true);
 					counterParty = sel.getSelection();
 				}
 				if (counterParty != null) {
-					Statement statement = statements.getBusinessObjects().get(row);
-					statement.setCounterParty(counterParty);
+					BusinessObject statement = statements.getBusinessObjects().get(row);
+                    ((Statement)statement).setCounterParty(counterParty);
 					super.refresh();
 					System.out.println(counterParty.getName());
-					for(BankAccount account : counterParty.getBankAccounts().values()) {
+					for(BankAccount account : ((CounterParty)counterParty).getBankAccounts().values()) {
 						System.out.println(account.getAccountNumber());
 						System.out.println(account.getBic());
 						System.out.println(account.getCurrency());

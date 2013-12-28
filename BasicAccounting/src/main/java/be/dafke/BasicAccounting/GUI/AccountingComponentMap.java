@@ -9,8 +9,6 @@ import be.dafke.BasicAccounting.GUI.JournalManagement.JournalTypeManagementGUI;
 import be.dafke.BasicAccounting.GUI.Projects.ProjectManagementGUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Balances;
-import be.dafke.Coda.GUI.CounterPartyTable;
-import be.dafke.Coda.GUI.StatementTable;
 import be.dafke.ComponentModel.ComponentMap;
 
 import java.awt.event.ActionListener;
@@ -30,8 +28,6 @@ public class AccountingComponentMap extends ComponentMap{
         addDisposableComponent(accounting.toString() + AccountingActionListener.YEAR_BALANCE, new BalanceGUI(accounting,accounting.getBalances().getBusinessObject(Balances.YEAR_BALANCE)));
         addDisposableComponent(accounting.toString() + AccountingActionListener.TEST_BALANCE, new TestBalance(accounting));
         addDisposableComponent(accounting.toString() + AccountingActionListener.PROJECTS, new ProjectManagementGUI(accounting));
-        addDisposableComponent(accounting.toString() + AccountingActionListener.MOVEMENTS, new StatementTable(accounting, actionListener));
-        addDisposableComponent(accounting.toString() + AccountingActionListener.COUNTERPARTIES, new CounterPartyTable(accounting, actionListener));
 
         addDisposableComponent(accounting.toString() + AccountingActionListener.ACCOUNT_MANAGEMENT, new AccountManagementGUI(accounting, actionListener));
         addDisposableComponent(accounting.toString() + AccountingActionListener.JOURNAL_MANAGEMENT, new JournalManagementGUI(accounting, actionListener));

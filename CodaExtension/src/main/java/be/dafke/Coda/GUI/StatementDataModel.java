@@ -3,6 +3,7 @@ package be.dafke.Coda.GUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import javax.swing.table.AbstractTableModel;
@@ -27,7 +28,8 @@ public class StatementDataModel extends AbstractTableModel {
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Statement m = accounting.getStatements().getBusinessObjects().get(row);
+		BusinessObject object = accounting.getBusinessObject("Statements").getBusinessObjects().get(row);
+        Statement m = (Statement)object;
 		if (col == 0) {
 			return m.getName();
 		} else if (col == 1) {
@@ -52,7 +54,7 @@ public class StatementDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return accounting.getStatements().getBusinessObjects().size();
+		return accounting.getBusinessObject("Statements").getBusinessObjects().size();
 	}
 
 	@Override

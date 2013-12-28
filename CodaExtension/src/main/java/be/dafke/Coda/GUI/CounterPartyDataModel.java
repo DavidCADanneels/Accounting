@@ -2,8 +2,9 @@ package be.dafke.Coda.GUI;
 
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.CounterParty;
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import javax.swing.table.AbstractTableModel;
@@ -26,8 +27,9 @@ public class CounterPartyDataModel extends AbstractTableModel {
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		CounterParties counterParties = accounting.getCounterParties();
-		CounterParty c = counterParties.getBusinessObjects().get(row);
+        BusinessCollection<BusinessObject> counterParties = accounting.getBusinessObject("CounterParties");
+		BusinessObject object = counterParties.getBusinessObjects().get(row);
+        CounterParty c = (CounterParty)object;
 		if (col == 0) {
 			return c;
         } else if (col == 1) {
@@ -50,7 +52,7 @@ public class CounterPartyDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return accounting.getCounterParties().getBusinessObjects().size();
+		return accounting.getBusinessObject("CounterParties").getBusinessObjects().size();
 	}
 
 	@Override

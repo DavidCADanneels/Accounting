@@ -5,6 +5,7 @@ import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
 import be.dafke.Coda.Objects.Statements;
 import be.dafke.Coda.Objects.TmpCounterParty;
+import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.Utils.Utils;
 
 import javax.swing.table.AbstractTableModel;
@@ -96,7 +97,8 @@ public class GenericStatementDataModel extends AbstractTableModel {
 			result.add(singleStatement);
 			return result;
 		}
-		Statements statements = accounting.getStatements();
+		BusinessCollection collection = accounting.getBusinessObject("Statements");
+        Statements statements = (Statements)collection;
 		return statements.getStatements(searchOptions);
 	}
 }
