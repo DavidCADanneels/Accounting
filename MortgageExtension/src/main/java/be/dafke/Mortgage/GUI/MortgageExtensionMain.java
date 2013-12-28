@@ -7,10 +7,11 @@ import be.dafke.BasicAccounting.GUI.BasicAccounting;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingGUIFrame;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.Mortgage.Action.MortgageActionListener;
 import be.dafke.Mortgage.Dao.MortgagesSAXParser;
-import be.dafke.Mortgage.Objects.AccountingsWithMortgage;
 import be.dafke.Mortgage.Objects.Mortgage;
+import be.dafke.Mortgage.Objects.MortgageExtension;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 
@@ -23,12 +24,13 @@ import java.io.File;
  * Date: 28-12-13
  * Time: 1:02
  */
-public class Main extends BasicAccounting {
+public class MortgageExtensionMain extends BasicAccounting {
     protected static MortgagesGUI mortgagesGUI;
 
     public static void main(String[] args) {
         File xmlFolder = getXmlFolder();
-        AccountingsWithMortgage accountings = new AccountingsWithMortgage(xmlFolder);
+        Accountings accountings = new Accountings(xmlFolder);
+        accountings.addExtension(new MortgageExtension());
         getAccountings(accountings, xmlFolder);
 
         for(Accounting accounting : accountings.getBusinessObjects()){
@@ -41,17 +43,6 @@ public class Main extends BasicAccounting {
             }
 
         }
-
-
-//        for(Accounting accounting : accountings.getBusinessObjects()){
-//            File rootFolder = new File(xmlFolder, accounting.getName());
-//            Mortgages mortgages = ((AccountingWithMortgage)accounting).getMortgages();
-//            for(Mortgage mortgage : mortgages.getBusinessObjects()){
-////                Mortgage mortgage = (Mortgage) businessObject;
-//                File mortgagesFolder = new File(rootFolder, "Mortgages");
-//                MortgagesSAXParser.readMortgage(mortgage, new File(mortgagesFolder, mortgage.getName() + ".xml"));
-//            }
-//        }
 
         AccountingGUIFrame frame = getFrame(accountings);
 

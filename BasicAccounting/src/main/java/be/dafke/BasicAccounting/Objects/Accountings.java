@@ -5,11 +5,18 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.TreeMap;
 
 public class Accountings extends BusinessCollection<Accounting> {
 
     private final File xmlFolder;
+    private List<AccountingExtension> extensions;
+
+    public void addExtension(AccountingExtension extension){
+        extensions.add(extension);
+    }
 
     @Override
     public String getChildType(){
@@ -19,6 +26,7 @@ public class Accountings extends BusinessCollection<Accounting> {
     public Accountings(File xmlFolder){
         this.xmlFolder = xmlFolder;
         super.setName("");
+        extensions = new ArrayList<AccountingExtension>();
     }
 
     public File getXmlFolder(){
@@ -27,7 +35,11 @@ public class Accountings extends BusinessCollection<Accounting> {
 
     @Override
     public Accounting createNewChild(String name) {
-        return new Accounting(name);
+        Accounting accounting = new Accounting(name);
+        for(AccountingExtension extension : extensions){
+            extension.extend(accounting);
+        }
+        return accounting;
     }
 
 	public void setCurrentObject(String name) {
