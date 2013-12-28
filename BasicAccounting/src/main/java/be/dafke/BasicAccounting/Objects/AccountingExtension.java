@@ -11,4 +11,6 @@ public interface AccountingExtension {
     public void extendConstructor(Accounting accounting);
 
     public void extendReadCollection(Accountings accountings, File xmlFolder);
+
+    public void extendAccountingComponentMap(Accountings accountings);
 }

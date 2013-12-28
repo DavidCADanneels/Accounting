@@ -1,14 +1,20 @@
 package be.dafke.Mortgage.Objects;
 
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.AccountingExtension;
 import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.Mortgage.Action.MortgageActionListener;
 import be.dafke.Mortgage.Dao.MortgagesSAXParser;
+import be.dafke.Mortgage.GUI.MortgageGUI;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
+import javax.swing.*;
+import java.awt.event.ActionListener;
 import java.io.File;
 
 /**
@@ -17,6 +23,23 @@ import java.io.File;
  * Time: 16:09
  */
 public class MortgageExtension implements AccountingExtension{
+    private final ActionListener actionListener;
+
+    public MortgageExtension(ActionListener actionListener, AccountingMenuBar menuBar){
+        this.actionListener = actionListener;
+        createMenu(menuBar, actionListener);
+    }
+
+    private static void createMenu(AccountingMenuBar menuBar, ActionListener actionListener) {
+        JMenu banking = new JMenu("Mortgage");
+        JMenuItem mortgage = new JMenuItem("Mortgages");
+        mortgage.addActionListener(actionListener);
+        mortgage.setEnabled(false);
+        mortgage.setActionCommand(MortgageActionListener.MORTGAGES);
+        banking.add(mortgage);
+        menuBar.addRefreshableMenuItem(mortgage);
+        menuBar.add(banking);
+    }
     @Override
     public void extendConstructor(Accounting accounting){
         Mortgages mortgages = new Mortgages();
@@ -43,6 +66,11 @@ public class MortgageExtension implements AccountingExtension{
                 MortgagesSAXParser.readMortgage(mortgage, new File(mortgagesFolder, mortgage.getName() + ".xml"));
             }
 
+        }
+    }
+    public void extendAccountingComponentMap(Accountings accountings){
+        for(Accounting accounting : accountings.getBusinessObjects()){
+            AccountingComponentMap.addDisposableComponent(accounting.toString() + MortgageActionListener.MORTGAGES, new MortgageGUI(accounting, actionListener));
         }
     }
 }

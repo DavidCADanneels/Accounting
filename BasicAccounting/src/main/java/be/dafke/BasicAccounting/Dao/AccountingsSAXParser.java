@@ -173,8 +173,8 @@ public class AccountingsSAXParser {
             }
         }
         List<AccountingExtension> extensions = accountings.getExtensions();
-            for(AccountingExtension extension : extensions){
-                extension.extendReadCollection(accountings,xmlFolder);
-            }
+        for(AccountingExtension extension : extensions){
+            extension.extendReadCollection(accountings,xmlFolder);
+        }
     }
 }

@@ -8,6 +8,7 @@ import be.dafke.BasicAccounting.GUI.MainWindow.AccountsGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.AccountingExtension;
 import be.dafke.BasicAccounting.Objects.Accountings;
 
 import javax.swing.*;
@@ -16,51 +17,70 @@ import java.io.File;
 
 public class BasicAccountingMain {
 
-    private enum Mode{ PROD, TEST}
+    protected static Accountings accountings;
+    protected static File xmlFolder;
+    protected static AccountingMenuBar menuBar;
+    protected static AccountingActionListener actionListener;
+    protected static AccountingMultiPanel contentPanel;
+    protected static AccountingGUIFrame frame;
+
+    protected enum Mode{ PROD, TEST}
 
     protected static JournalGUI journalGUI;
     protected static AccountsGUI accountsGUI;
     protected static JournalsGUI journalsGUI;
 
+
 	public static void main(String[] args) {
-        File xmlFolder = getXmlFolder();
-        Accountings accountings = new Accountings(xmlFolder);
-        getAccountings(accountings, xmlFolder);
+//        doIt();
+//    }
+//
+//    public static void doIt(){
+        createAccountings();
+        createComponents();
+        extensions();
+        getAccountings();
+        getFrame();
+        composePanel();
+        completeFrame();
+        launch();
+    }
 
-        AccountingGUIFrame frame = getFrame(accountings);
-
-        AccountingActionListener actionListener = new AccountingActionListener(accountings);
-        AccountingMenuBar menuBar = createMenuBar(actionListener);
-
-        createComponents(actionListener);
-
-        AccountingMultiPanel contentPanel = composePanel();
-
-        completeFrame(accountings, frame, menuBar, contentPanel, actionListener);
-
+    protected static void launch() {
         frame.setVisible(true);
         frame.refresh();
     }
 
-    public static void createComponents(AccountingActionListener actionListener) {
+    protected static void extensions() {
+        // Nothing here
+    }
+
+    protected static void createAccountings() {
+        xmlFolder = getXmlFolder();
+        accountings = new Accountings(xmlFolder);
+    }
+
+
+    protected static void createComponents() {
+        actionListener = new AccountingActionListener(accountings);
         journalGUI = new JournalGUI();
         accountsGUI = new AccountsGUI(actionListener);
         journalsGUI = new JournalsGUI(actionListener);
+        menuBar = createMenuBar(actionListener);
     }
 
-    public static AccountingMultiPanel composePanel(){
+    protected static void composePanel(){
         AccountingMultiPanel links = new AccountingMultiPanel();
         links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
         links.add(accountsGUI);
         links.add(journalsGUI);
-        AccountingMultiPanel main = new AccountingMultiPanel();
-        main.setLayout(new BorderLayout());
-        main.add(journalGUI, BorderLayout.CENTER);
-        main.add(links, BorderLayout.WEST);
-        return main;
+        contentPanel = new AccountingMultiPanel();
+        contentPanel.setLayout(new BorderLayout());
+        contentPanel.add(journalGUI, BorderLayout.CENTER);
+        contentPanel.add(links, BorderLayout.WEST);
     }
 
-    public static void completeFrame(Accountings accountings, AccountingGUIFrame frame, AccountingMenuBar menuBar, AccountingMultiPanel contentPanel, AccountingActionListener actionListener){
+    protected static void completeFrame(){
         frame.setMenuBar(menuBar);
         frame.setContentPanel(contentPanel);
         frame.addWindowListener(actionListener);
@@ -69,13 +89,16 @@ public class BasicAccountingMain {
         }
         AccountingComponentMap.addDisposableComponent(AccountingActionListener.MAIN, frame); // MAIN
         AccountingComponentMap.addRefreshableComponent(AccountingActionListener.MENU, menuBar);
+        for(AccountingExtension extension : accountings.getExtensions()){
+            extension.extendAccountingComponentMap(accountings);
+        }
     }
 
-    public static AccountingMenuBar createMenuBar(AccountingActionListener actionListener){
+    protected static AccountingMenuBar createMenuBar(AccountingActionListener actionListener){
         return new AccountingMenuBar(actionListener);
     }
 
-    public static File getXmlFolder(){
+    protected static File getXmlFolder(){
         Mode mode = Mode.TEST;
 
         File userHome = new File(System.getProperty("user.home"));
@@ -99,13 +122,12 @@ public class BasicAccountingMain {
         return xmlFolder;
     }
 
-    public static Accountings getAccountings(Accountings accountings, File xmlFolder){
+    protected static void getAccountings(){
         AccountingsSAXParser.readCollection(accountings, xmlFolder);
-        return accountings;
     }
 
-    public static AccountingGUIFrame getFrame(Accountings accountings){
-        return new AccountingGUIFrame(accountings);
+    protected static void getFrame(){
+        frame = new AccountingGUIFrame(accountings);
     }
 
 }
