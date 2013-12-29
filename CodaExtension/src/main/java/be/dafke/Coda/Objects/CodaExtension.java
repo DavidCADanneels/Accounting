@@ -4,7 +4,6 @@ import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.AccountingExtension;
-import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.Coda.GUI.CounterPartyTable;
 import be.dafke.Coda.GUI.StatementTable;
 import be.dafke.ObjectModel.BusinessCollection;
@@ -21,6 +20,7 @@ import java.io.File;
  * Time: 16:22
  */
 public class CodaExtension implements AccountingExtension{
+    private static JMenu banking = null;
     private final ActionListener actionListener;
     private CounterParties counterParties;
     private Statements statements;
@@ -29,11 +29,13 @@ public class CodaExtension implements AccountingExtension{
 
     public CodaExtension(ActionListener actionListener, AccountingMenuBar menuBar){
         this.actionListener = actionListener;
-        createMenu(menuBar, actionListener);
+        if(banking == null){
+            createMenu(menuBar, actionListener);
+        }
     }
 
     private static void createMenu(AccountingMenuBar menuBar, ActionListener actionListener) {
-        JMenu banking = new JMenu("Banking");
+        banking = new JMenu("Banking");
         JMenuItem movements = new JMenuItem("Show movements");
         movements.addActionListener(actionListener);
         movements.setActionCommand(MOVEMENTS);
@@ -71,20 +73,18 @@ public class CodaExtension implements AccountingExtension{
     }
 
     @Override
-    public void extendReadCollection(Accountings accountings, File xmlFolder){
+    public void extendReadCollection(Accounting accounting, File xmlFolder){
 
     }
 
     @Override
-    public void extendAccountingComponentMap(Accountings accountings){
-        for(Accounting accounting : accountings.getBusinessObjects()){
-            AccountingComponentMap.addDisposableComponent(accounting.toString() + MOVEMENTS, new StatementTable(accounting, statements, counterParties, actionListener));
-            AccountingComponentMap.addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting, counterParties, statements, actionListener));
-        }
+    public void extendAccountingComponentMap(Accounting accounting){
+        AccountingComponentMap.addDisposableComponent(accounting.toString() + MOVEMENTS, new StatementTable(accounting, statements, counterParties, actionListener));
+        AccountingComponentMap.addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting, counterParties, statements, actionListener));
     }
 
     @Override
-    public void extendClosing(Accountings accountings){
+    public void extendWriteCollection(Accounting accounting, File xmlFolder){
 
     }
 }

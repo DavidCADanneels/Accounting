@@ -10,9 +10,9 @@ import java.io.File;
 public interface AccountingExtension {
     public void extendConstructor(Accounting accounting);
 
-    public void extendReadCollection(Accountings accountings, File xmlFolder);
+    public void extendReadCollection(Accounting accounting, File xmlFolder);
 
-    public void extendAccountingComponentMap(Accountings accountings);
+    public void extendAccountingComponentMap(Accounting accounting);
 
-    public void extendClosing(Accountings accountings);
+    public void extendWriteCollection(Accounting accounting, File xmlFolder);
 }

@@ -2,6 +2,7 @@ package be.dafke.Mortgage.GUI;
 
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
 import be.dafke.BasicAccounting.GUI.BasicAccountingMain;
+import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Mortgage.Objects.MortgageExtension;
 
 import javax.swing.*;
@@ -19,8 +20,9 @@ public class MortgageExtensionMain extends BasicAccountingMain {
 //        doIt();
         createAccountings();
         createComponents();
+        readBasicXmlFile();
         extensions();
-        getAccountings();
+        readXmlFile();
         getFrame();
         composePanel();
         completeFrame();
@@ -29,8 +31,17 @@ public class MortgageExtensionMain extends BasicAccountingMain {
 
     protected static void extensions(){
 //        MortgageActionListener mortgageActionListener = new MortgageActionListener(accountings);
-        accountings.addExtension(new MortgageExtension(actionListener, menuBar));
+        for(Accounting accounting: accountings.getBusinessObjects()){
+            MortgageExtension mortgageExtension = new MortgageExtension(actionListener, menuBar);
+            accounting.addExtension(mortgageExtension);
+//            mortgageExtension.extendConstructor(accounting);
+        }
         mortgagesGUI = new MortgagesGUI();
+//        mortgagesGUI.setMortgages(accountings.);
+    }
+
+    protected static void extensions2(){
+
     }
 
     protected static void composePanel(){

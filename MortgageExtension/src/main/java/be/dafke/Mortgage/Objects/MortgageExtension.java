@@ -5,7 +5,6 @@ import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.AccountingExtension;
-import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.Mortgage.Dao.MortgagesSAXParser;
 import be.dafke.Mortgage.GUI.MortgageCalculatorGUI;
 import be.dafke.Mortgage.GUI.MortgageGUI;
@@ -30,14 +29,15 @@ public class MortgageExtension implements AccountingExtension{
     public static final String MORTGAGES = "Mortgages";
     public static final String MORTGAGE_CALCULATOR = "MortgageCalculator";
     public static final String MORTGAGE_TABLE = "MortgageTable";
+    private static JMenu banking = null;
 
     public MortgageExtension(ActionListener actionListener, AccountingMenuBar menuBar){
         this.actionListener = actionListener;
-        createMenu(menuBar, actionListener);
+        if(banking == null) createMenu(menuBar, actionListener);
     }
 
-    private static void createMenu(AccountingMenuBar menuBar, ActionListener actionListener) {
-        JMenu banking = new JMenu("Mortgage");
+    private void createMenu(AccountingMenuBar menuBar, ActionListener actionListener) {
+        banking = new JMenu("Mortgage");
         JMenuItem mortgage = new JMenuItem("Mortgages");
         mortgage.addActionListener(actionListener);
         mortgage.setEnabled(false);
@@ -63,37 +63,28 @@ public class MortgageExtension implements AccountingExtension{
     }
 
     @Override
-    public void extendReadCollection(Accountings accountings, File xmlFolder){
-        for(Accounting accounting : accountings.getBusinessObjects()){
-            File rootFolder = new File(xmlFolder, accounting.getName());
-            for(BusinessObject businessObject : mortgages.getBusinessObjects()){
-                Mortgage mortgage = (Mortgage) businessObject;
-                File mortgagesFolder = new File(rootFolder, "Mortgages");
-                MortgagesSAXParser.readMortgage(mortgage, new File(mortgagesFolder, mortgage.getName() + ".xml"));
-            }
-        }
-    }
-
-    @Override
-    public void extendAccountingComponentMap(Accountings accountings){
-        for(Accounting accounting : accountings.getBusinessObjects()){
-            AccountingComponentMap.addDisposableComponent(accounting.toString() + MORTGAGES, new MortgageGUI(accounting, mortgages, actionListener));
-            AccountingComponentMap.addDisposableComponent(accounting.toString() + MORTGAGE_CALCULATOR, new MortgageCalculatorGUI(accounting, mortgages));
-        }
-    }
-
-    @Override
-    public void extendClosing(Accountings accountings){
-        File xmlFolder = accountings.getXmlFolder();
-        for(Accounting accounting : accountings.getBusinessObjects()) {
-            File rootFolder = new File(xmlFolder, accounting.getName());
+    public void extendReadCollection(Accounting accounting, File xmlFolder){
+        File rootFolder = new File(xmlFolder, accounting.getName());
+        for(BusinessObject businessObject : mortgages.getBusinessObjects()){
+            Mortgage mortgage = (Mortgage) businessObject;
             File mortgagesFolder = new File(rootFolder, "Mortgages");
-            BusinessCollection<BusinessObject> mortgages = accounting.getBusinessObject("Mortgages");
-            for(BusinessObject businessObject : mortgages.getBusinessObjects()){
-                Mortgage mortgage = (Mortgage) businessObject;
-                MortgagesSAXParser.writeMortgage(mortgage, mortgagesFolder, AccountingsSAXParser.getXmlHeader(mortgage, 2));
-            }
+            MortgagesSAXParser.readMortgage(mortgage, new File(mortgagesFolder, mortgage.getName() + ".xml"));
         }
+    }
 
+    @Override
+    public void extendAccountingComponentMap(Accounting accounting){
+        AccountingComponentMap.addDisposableComponent(accounting.toString() + MORTGAGES, new MortgageGUI(accounting, mortgages, actionListener));
+        AccountingComponentMap.addDisposableComponent(accounting.toString() + MORTGAGE_CALCULATOR, new MortgageCalculatorGUI(accounting, mortgages));
+    }
+
+    @Override
+    public void extendWriteCollection(Accounting accounting, File xmlFolder){
+        File mortgagesFolder = new File(xmlFolder, "Mortgages");
+        BusinessCollection<BusinessObject> mortgages = accounting.getBusinessObject("Mortgages");
+        for(BusinessObject businessObject : mortgages.getBusinessObjects()){
+            Mortgage mortgage = (Mortgage) businessObject;
+            MortgagesSAXParser.writeMortgage(mortgage, mortgagesFolder, AccountingsSAXParser.getXmlHeader(mortgage, 2));
+        }
     }
 }

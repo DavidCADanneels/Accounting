@@ -19,6 +19,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 
 /**
  * User: Dafke
@@ -52,8 +53,11 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
     @Override
     public void windowClosing(WindowEvent we) {
         AccountingsSAXParser.writeAccountings(accountings);
-        for(AccountingExtension extension: accountings.getExtensions()){
-            extension.extendClosing(accountings);
+        for(Accounting accounting : accountings.getBusinessObjects()){
+            for(AccountingExtension extension: accounting.getExtensions()){
+                File rootFolder = new File(accountings.getXmlFolder(), accounting.getName());
+                extension.extendWriteCollection(accounting, rootFolder);
+            }
         }
         AccountingComponentMap.closeAllFrames();
     }

@@ -1,6 +1,7 @@
 package be.dafke.Coda.GUI;
 
 import be.dafke.BasicAccounting.GUI.BasicAccountingMain;
+import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.Objects.CodaExtension;
 
 /**
@@ -14,8 +15,10 @@ public class CodaExtensionMain extends BasicAccountingMain {
 //        doIt();
         createAccountings();
         createComponents();
+        readBasicXmlFile();
         extensions();
-        getAccountings();
+        readXmlFile();
+        extensions2();
         getFrame();
         composePanel();
         completeFrame();
@@ -23,8 +26,13 @@ public class CodaExtensionMain extends BasicAccountingMain {
     }
 
     public static void extensions(){
-        accountings.addExtension(new CodaExtension(actionListener, menuBar));
+        for(Accounting accounting: accountings.getBusinessObjects()){
+            CodaExtension codaExtension = new CodaExtension(actionListener, menuBar);
+            accounting.addExtension(codaExtension);
+        }
     }
 
+    protected static void extensions2(){
 
+    }
 }

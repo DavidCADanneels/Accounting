@@ -10,10 +10,12 @@ import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.AccountingExtension;
 import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.ObjectModelDao.ObjectModelSAXParser;
 
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.List;
 
 public class BasicAccountingMain {
 
@@ -38,8 +40,9 @@ public class BasicAccountingMain {
 //    public static void doIt(){
         createAccountings();
         createComponents();
+        readBasicXmlFile();
         extensions();
-        getAccountings();
+        readXmlFile();
         getFrame();
         composePanel();
         completeFrame();
@@ -89,8 +92,11 @@ public class BasicAccountingMain {
         }
         AccountingComponentMap.addDisposableComponent(AccountingActionListener.MAIN, frame); // MAIN
         AccountingComponentMap.addRefreshableComponent(AccountingActionListener.MENU, menuBar);
-        for(AccountingExtension extension : accountings.getExtensions()){
-            extension.extendAccountingComponentMap(accountings);
+
+        for(Accounting accounting : accountings.getBusinessObjects()){
+            for(AccountingExtension extension : accounting.getExtensions()){
+                extension.extendAccountingComponentMap(accounting);
+            }
         }
     }
 
@@ -122,8 +128,22 @@ public class BasicAccountingMain {
         return xmlFolder;
     }
 
-    protected static void getAccountings(){
+    protected static void readBasicXmlFile(){
+        ObjectModelSAXParser.readCollection(accountings, false, xmlFolder);
+    }
+    protected static void readXmlFile(){
+        for(Accounting accounting : accountings.getBusinessObjects()){
+            ObjectModelSAXParser.readCollection(accounting, true, xmlFolder);
+        }
+
         AccountingsSAXParser.readCollection(accountings, xmlFolder);
+
+        for(Accounting accounting : accountings.getBusinessObjects()){
+            List<AccountingExtension> extensions = accounting.getExtensions();
+            for(AccountingExtension extension : extensions){
+                extension.extendReadCollection(accounting,xmlFolder);
+            }
+        }
     }
 
     protected static void getFrame(){
