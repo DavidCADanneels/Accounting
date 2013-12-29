@@ -12,27 +12,21 @@ import be.dafke.Coda.Objects.CodaExtension;
 public class CodaExtensionMain extends BasicAccountingMain {
 
     public static void main(String[] args) {
-//        doIt();
-        createAccountings();
-        createComponents();
-        readBasicXmlFile();
-        extensions();
-        readXmlFile();
-        extensions2();
-        getFrame();
-        composePanel();
-        completeFrame();
+        startReadingXmlFile();
+        createBasicComponents();
+
+        applyExtensions();
+
+        continueReadingXmlFile();
+        composeContentPanel();
+        composeFrames();
         launch();
     }
 
-    public static void extensions(){
+    public static void applyExtensions(){
         for(Accounting accounting: accountings.getBusinessObjects()){
             CodaExtension codaExtension = new CodaExtension(actionListener, menuBar);
             accounting.addExtension(codaExtension);
         }
-    }
-
-    protected static void extensions2(){
-
     }
 }

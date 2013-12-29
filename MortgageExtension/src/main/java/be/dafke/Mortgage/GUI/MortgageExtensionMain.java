@@ -17,38 +17,29 @@ public class MortgageExtensionMain extends BasicAccountingMain {
     protected static MortgagesGUI mortgagesGUI;
 
     public static void main(String[] args) {
-//        doIt();
-        createAccountings();
-        createComponents();
-        readBasicXmlFile();
-        extensions();
-        readXmlFile();
-        getFrame();
-        composePanel();
-        completeFrame();
+        startReadingXmlFile();
+        createBasicComponents();
+
+        applyExtensions();
+
+        continueReadingXmlFile();
+        composeContentPanel();
+        composeFrames();
         launch();
     }
 
-    protected static void extensions(){
-//        MortgageActionListener mortgageActionListener = new MortgageActionListener(accountings);
+    protected static void applyExtensions(){
         for(Accounting accounting: accountings.getBusinessObjects()){
             MortgageExtension mortgageExtension = new MortgageExtension(actionListener, menuBar);
             accounting.addExtension(mortgageExtension);
-//            mortgageExtension.extendConstructor(accounting);
         }
-        mortgagesGUI = new MortgagesGUI();
-//        mortgagesGUI.setMortgages(accountings.);
     }
 
-    protected static void extensions2(){
-
-    }
-
-    protected static void composePanel(){
+    protected static void composeContentPanel(){
         AccountingMultiPanel links = new AccountingMultiPanel();
         links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
         links.add(accountsGUI);
-        links.add(mortgagesGUI);
+        links.add(new MortgagesGUI());
         links.add(journalsGUI);
         contentPanel = new AccountingMultiPanel();
         contentPanel.setLayout(new BorderLayout());

@@ -34,45 +34,45 @@ public class BasicAccountingMain {
 
 
 	public static void main(String[] args) {
-//        doIt();
-//    }
-//
-//    public static void doIt(){
-        createAccountings();
-        createComponents();
-        readBasicXmlFile();
-        extensions();
-        readXmlFile();
-        getFrame();
-        composePanel();
-        completeFrame();
+        startReadingXmlFile();
+        createBasicComponents();
+
+        continueReadingXmlFile();
+        composeContentPanel();
+        composeFrames();
         launch();
     }
 
-    protected static void launch() {
-        frame.setVisible(true);
-        frame.refresh();
-    }
-
-    protected static void extensions() {
-        // Nothing here
-    }
-
-    protected static void createAccountings() {
+    protected static void startReadingXmlFile() {
         xmlFolder = getXmlFolder();
         accountings = new Accountings(xmlFolder);
+        ObjectModelSAXParser.readCollection(accountings, false, xmlFolder);
     }
 
+    protected static void continueReadingXmlFile(){
+        for(Accounting accounting : accountings.getBusinessObjects()){
+            ObjectModelSAXParser.readCollection(accounting, true, xmlFolder);
+        }
 
-    protected static void createComponents() {
+        AccountingsSAXParser.readCollection(accountings, xmlFolder);
+
+        for(Accounting accounting : accountings.getBusinessObjects()){
+            List<AccountingExtension> extensions = accounting.getExtensions();
+            for(AccountingExtension extension : extensions){
+                extension.extendReadCollection(accounting,xmlFolder);
+            }
+        }
+    }
+
+    protected static void createBasicComponents(){
         actionListener = new AccountingActionListener(accountings);
         journalGUI = new JournalGUI();
         accountsGUI = new AccountsGUI(actionListener);
         journalsGUI = new JournalsGUI(actionListener);
-        menuBar = createMenuBar(actionListener);
+        menuBar = new AccountingMenuBar(actionListener);
     }
 
-    protected static void composePanel(){
+    protected static void composeContentPanel(){
         AccountingMultiPanel links = new AccountingMultiPanel();
         links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
         links.add(accountsGUI);
@@ -83,7 +83,8 @@ public class BasicAccountingMain {
         contentPanel.add(links, BorderLayout.WEST);
     }
 
-    protected static void completeFrame(){
+    protected static void composeFrames() {
+        frame = new AccountingGUIFrame(accountings);
         frame.setMenuBar(menuBar);
         frame.setContentPanel(contentPanel);
         frame.addWindowListener(actionListener);
@@ -99,12 +100,12 @@ public class BasicAccountingMain {
             }
         }
     }
-
-    protected static AccountingMenuBar createMenuBar(AccountingActionListener actionListener){
-        return new AccountingMenuBar(actionListener);
+    protected static void launch() {
+        frame.setVisible(true);
+        frame.refresh();
     }
 
-    protected static File getXmlFolder(){
+    private static File getXmlFolder(){
         Mode mode = Mode.TEST;
 
         File userHome = new File(System.getProperty("user.home"));
@@ -127,27 +128,4 @@ public class BasicAccountingMain {
         System.out.println(xmlFolder);
         return xmlFolder;
     }
-
-    protected static void readBasicXmlFile(){
-        ObjectModelSAXParser.readCollection(accountings, false, xmlFolder);
-    }
-    protected static void readXmlFile(){
-        for(Accounting accounting : accountings.getBusinessObjects()){
-            ObjectModelSAXParser.readCollection(accounting, true, xmlFolder);
-        }
-
-        AccountingsSAXParser.readCollection(accountings, xmlFolder);
-
-        for(Accounting accounting : accountings.getBusinessObjects()){
-            List<AccountingExtension> extensions = accounting.getExtensions();
-            for(AccountingExtension extension : extensions){
-                extension.extendReadCollection(accounting,xmlFolder);
-            }
-        }
-    }
-
-    protected static void getFrame(){
-        frame = new AccountingGUIFrame(accountings);
-    }
-
 }
