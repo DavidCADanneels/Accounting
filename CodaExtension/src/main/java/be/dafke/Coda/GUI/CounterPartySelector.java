@@ -1,12 +1,11 @@
 package be.dafke.Coda.GUI;
 
-import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
+import be.dafke.Coda.Objects.Statements;
 import be.dafke.Coda.Objects.TmpCounterParty;
 import be.dafke.ComponentModel.RefreshableDialog;
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -23,8 +22,10 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JButton ok, create, apply;
-	private final JComboBox<BusinessObject> oldCounterPartyCombo, newCounterPartyCombo;
-	private BusinessObject oldCounterParty, newCounterParty;
+	private final JComboBox<CounterParty> oldCounterPartyCombo, newCounterPartyCombo;
+    private final Statements statements;
+    private final CounterParties counterParties;
+    private CounterParty oldCounterParty, newCounterParty;
     private final JTable movementTable;
 	private final GenericStatementDataModel movementDataModel;
 	private final Statement statement;
@@ -32,28 +33,29 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
     private final JCheckBox searchOnTransactionCode, searchOnCommunication, searchOnCounterParty;
     private final JTextField transactionCode, communication;
 	private final ButtonGroup singleMultiple;
-	private final Accounting accounting;
+//	private final Accounting accounting;
     private final SearchOptions searchOptions;
 
-    public CounterPartySelector(Statement statement, Accounting accounting) {
+    public CounterPartySelector(Statement statement, Statements statements, CounterParties counterParties) {
 		super("Select Counterparty");
 		this.statement = statement;
-		this.accounting = accounting;
+        this.statements = statements;
+        this.counterParties = counterParties;
 		oldCounterParty = null;
         newCounterParty = null;
 
         // COMPONENTS
-		oldCounterPartyCombo = new JComboBox<BusinessObject>();
+		oldCounterPartyCombo = new JComboBox<CounterParty>();
 		oldCounterPartyCombo.addItem(null);
-        for(BusinessObject counterParty : accounting.getBusinessObject("CounterParties").getBusinessObjects()){
+        for(CounterParty counterParty : counterParties.getBusinessObjects()){
             oldCounterPartyCombo.addItem(counterParty);
         }
         oldCounterPartyCombo.setSelectedItem(null);
 		oldCounterPartyCombo.addActionListener(this);
         oldCounterPartyCombo.setEnabled(false);
-        newCounterPartyCombo = new JComboBox<BusinessObject>();
+        newCounterPartyCombo = new JComboBox<CounterParty>();
         newCounterPartyCombo.addItem(null);
-        for(BusinessObject counterParty : accounting.getBusinessObject("CounterParties").getBusinessObjects()){
+        for(CounterParty counterParty : counterParties.getBusinessObjects()){
             newCounterPartyCombo.addItem(counterParty);
         }
         newCounterPartyCombo.setSelectedItem(null);
@@ -68,7 +70,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         searchOptions.searchForCounterParty(null);
         searchOptions.searchForTransactionCode(statement.getTransactionCode());
         movementDataModel = new GenericStatementDataModel(searchOptions,
-                accounting);
+                statements);
         movementDataModel.setSingleStatement(statement);
         movementTable = new JTable(movementDataModel);
         movementTable.setDefaultRenderer(CounterParty.class, new ColorRenderer());
@@ -169,7 +171,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         fillInCounterParty();
     }
 
-    public BusinessObject getSelection() {
+    public CounterParty getSelection() {
 		return newCounterParty;
 	}
 
@@ -180,7 +182,6 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 		} else if (e.getSource() == create) {
 			String s = JOptionPane.showInputDialog(this, "Enter a name for the new counterparty");
 			if (s != null && !s.equals("")) {
-				BusinessCollection<BusinessObject> counterParties = accounting.getBusinessObject("CounterParties");
                 try {
                     CounterParty counterParty = new CounterParty();
                     counterParty.setMergeable(false);

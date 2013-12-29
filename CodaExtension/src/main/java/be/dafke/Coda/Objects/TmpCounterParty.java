@@ -1,18 +1,16 @@
 package be.dafke.Coda.Objects;
 
-import be.dafke.ObjectModel.BusinessObject;
-
 public class TmpCounterParty extends CounterParty {
 	/**
 	 * 
 	 */
-    BusinessObject counterParty;
+    CounterParty counterParty;
 
-    public void setCounterParty(BusinessObject counterParty) {
+    public void setCounterParty(CounterParty counterParty) {
         this.counterParty = counterParty;
     }
 
-    public BusinessObject getCounterParty() {
+    public CounterParty getCounterParty() {
 		return counterParty;
 	}
 }

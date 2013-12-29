@@ -3,7 +3,6 @@ package be.dafke.Coda.Objects;
 import be.dafke.Coda.GUI.SearchOptions;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
-import be.dafke.ObjectModel.BusinessObject;
 
 import java.util.ArrayList;
 
@@ -18,7 +17,7 @@ public class Statements extends BusinessCollection<Statement> implements Busines
 
     public ArrayList<Statement> getStatements(SearchOptions searchOptions) {
 		ArrayList<Statement> result = new ArrayList<Statement>();
-        BusinessObject counterParty = searchOptions.getCounterParty();
+        CounterParty counterParty = searchOptions.getCounterParty();
         String transactionCode = searchOptions.getTransactionCode();
         String communication = searchOptions.getCommunication();
         boolean searchOnCounterParty = searchOptions.isSearchOnCounterParty();

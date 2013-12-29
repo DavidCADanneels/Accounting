@@ -1,11 +1,9 @@
 package be.dafke.Coda.GUI;
 
-import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
 import be.dafke.Coda.Objects.Statements;
 import be.dafke.Coda.Objects.TmpCounterParty;
-import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.Utils.Utils;
 
 import javax.swing.table.AbstractTableModel;
@@ -23,11 +21,11 @@ public class GenericStatementDataModel extends AbstractTableModel {
 	private final Class[] columnClasses = { String.class, Calendar.class, String.class, BigDecimal.class,
 			CounterParty.class, TmpCounterParty.class, String.class, String.class };
 	private Statement singleStatement;
-	private final Accounting accounting;
     private SearchOptions searchOptions;
+    private Statements statements;
 
-	public GenericStatementDataModel(SearchOptions searchOptions, Accounting accounting) {
-		this.accounting = accounting;
+    public GenericStatementDataModel(SearchOptions searchOptions, Statements statements) {
+		this.statements = statements;
         this.searchOptions = searchOptions;
 	}
 
@@ -97,8 +95,6 @@ public class GenericStatementDataModel extends AbstractTableModel {
 			result.add(singleStatement);
 			return result;
 		}
-		BusinessCollection collection = accounting.getBusinessObject("Statements");
-        Statements statements = (Statements)collection;
 		return statements.getStatements(searchOptions);
 	}
 }

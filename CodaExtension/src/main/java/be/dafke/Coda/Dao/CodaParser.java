@@ -5,12 +5,11 @@
 
 package be.dafke.Coda.Dao;
 
-import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.Objects.BankAccount;
+import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.Coda.Objects.Statements;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -30,12 +29,13 @@ import java.util.Date;
  */
 public class CodaParser {
 
-    private BusinessCollection<BusinessObject> counterParties;
+    private CounterParties counterParties;
+    private Statements statements;
     private String counterPartyBic;
 
-	public void parseFile(File[] files, Accounting accounting) {
-		counterParties = accounting.getBusinessObject("CounterParties");
-		BusinessCollection<BusinessObject> statements = accounting.getBusinessObject("Statements");
+    public void parseFile(File[] files, CounterParties counterParties, Statements statements) {
+		this.counterParties = counterParties;
+        this.statements = statements;
 		Statement statement = null;
 		for(File file : files) {
 			try {

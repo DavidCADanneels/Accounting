@@ -23,6 +23,8 @@ import java.io.File;
  */
 public class CodaExtension implements AccountingExtension{
     private final ActionListener actionListener;
+    private CounterParties counterParties;
+    private Statements statements;
 
     public CodaExtension(ActionListener actionListener, AccountingMenuBar menuBar){
         this.actionListener = actionListener;
@@ -48,11 +50,11 @@ public class CodaExtension implements AccountingExtension{
     }
 
     public void extendConstructor(Accounting accounting){
-        CounterParties counterParties = new CounterParties();
-
-        Statements statements = new Statements();
-        statements.setBusinessCollection(counterParties);
+        counterParties = new CounterParties();
         counterParties.setName(counterParties.getBusinessObjectType());
+
+        statements = new Statements();
+        statements.setBusinessCollection(counterParties);
         statements.setName(statements.getBusinessObjectType());
         try {
             accounting.addBusinessObject((BusinessCollection)statements);
@@ -72,8 +74,8 @@ public class CodaExtension implements AccountingExtension{
 
     public void extendAccountingComponentMap(Accountings accountings){
         for(Accounting accounting : accountings.getBusinessObjects()){
-            AccountingComponentMap.addDisposableComponent(accounting.toString() + CodaActionListener.MOVEMENTS, new StatementTable(accounting, actionListener));
-            AccountingComponentMap.addDisposableComponent(accounting.toString() + CodaActionListener.COUNTERPARTIES, new CounterPartyTable(accounting, actionListener));
+            AccountingComponentMap.addDisposableComponent(accounting.toString() + CodaActionListener.MOVEMENTS, new StatementTable(accounting, statements, counterParties, actionListener));
+            AccountingComponentMap.addDisposableComponent(accounting.toString() + CodaActionListener.COUNTERPARTIES, new CounterPartyTable(accounting, counterParties, statements, actionListener));
         }
     }
 }

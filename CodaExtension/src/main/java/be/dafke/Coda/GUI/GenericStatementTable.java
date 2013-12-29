@@ -1,6 +1,6 @@
 package be.dafke.Coda.GUI;
 
-import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.Coda.Objects.Statements;
 import be.dafke.ComponentModel.RefreshableTable;
 
 public class GenericStatementTable extends RefreshableTable {
@@ -11,12 +11,12 @@ public class GenericStatementTable extends RefreshableTable {
 	private static final long serialVersionUID = 1L;
 
 	public GenericStatementTable(SearchOptions searchOptions,
-                                 Accounting accounting) {
+                                 Statements statements) {
 		super("Statements where"+
                 (searchOptions.isSearchOnCounterParty()?" [counterParty = "+searchOptions.getCounterParty()+"]":"")+
                 (searchOptions.isSearchOnTransactionCode()? " [transactioncode = "+searchOptions.getTransactionCode()+"]":"")+
                 (searchOptions.isSearchOnCommunication()? " [communication = "+searchOptions.getCommunication()+"]":""),
-                new GenericStatementDataModel(searchOptions,accounting));
+                new GenericStatementDataModel(searchOptions,statements));
 		// tabel.setAutoCreateRowSorter(true);
 	}
 }

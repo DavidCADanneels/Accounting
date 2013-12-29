@@ -1,10 +1,8 @@
 package be.dafke.Coda.GUI;
 
 import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.CounterParty;
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import javax.swing.table.AbstractTableModel;
@@ -17,19 +15,17 @@ public class CounterPartyDataModel extends AbstractTableModel {
 	private final String[] columnNames = { "Name", "Aliases", "BankAccounts", "BIC", "Currency", "Account (for Accounting)" };
 	private final Class[] columnClasses = { CounterParty.class, String.class, String.class, String.class, String.class, Account.class };
 
-	private final Accounting accounting;
+	private final CounterParties counterParties;
 
-	public CounterPartyDataModel(Accounting accounting) {
-		this.accounting = accounting;
+	public CounterPartyDataModel(CounterParties counterParties) {
+		this.counterParties = counterParties;
 	}
 
 	// DE GET METHODEN
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-        BusinessCollection<BusinessObject> counterParties = accounting.getBusinessObject("CounterParties");
-		BusinessObject object = counterParties.getBusinessObjects().get(row);
-        CounterParty c = (CounterParty)object;
+		CounterParty c = counterParties.getBusinessObjects().get(row);
 		if (col == 0) {
 			return c;
         } else if (col == 1) {
@@ -52,7 +48,7 @@ public class CounterPartyDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return accounting.getBusinessObject("CounterParties").getBusinessObjects().size();
+		return counterParties.getBusinessObjects().size();
 	}
 
 	@Override

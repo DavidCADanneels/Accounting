@@ -26,7 +26,7 @@ public class Statement extends BusinessObject implements BusinessCollectionDepen
 	private Calendar date;
 
 
-	private BusinessObject counterParty;
+	private CounterParty counterParty;
 	private TmpCounterParty tmpCounterParty;
     private BusinessCollection<CounterParty> businessCollection;
 
@@ -63,7 +63,7 @@ public class Statement extends BusinessObject implements BusinessCollectionDepen
         this.date = date;
     }
 
-    public void setCounterParty(BusinessObject counterParty) {
+    public void setCounterParty(CounterParty counterParty) {
         this.counterParty = counterParty;
     }
 
@@ -92,7 +92,7 @@ public class Statement extends BusinessObject implements BusinessCollectionDepen
         return communication;
 	}
 
-    public BusinessObject getCounterParty() {
+    public CounterParty getCounterParty() {
         return counterParty;
     }
 

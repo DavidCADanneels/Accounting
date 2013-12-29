@@ -1,7 +1,6 @@
 package be.dafke.Coda.GUI;
 
 import be.dafke.Coda.Objects.CounterParty;
-import be.dafke.ObjectModel.BusinessObject;
 
 /**
  * User: Dafke
@@ -13,7 +12,7 @@ public class SearchOptions {
     private boolean searchOnTransactionCode = false;
     private boolean searchOnCommunication = false;
     private boolean searchOnCounterParty = false;
-    private BusinessObject counterParty = null;
+    private CounterParty counterParty = null;
     private String communication = null;
     private String transactionCode = null;
 
@@ -38,7 +37,7 @@ public class SearchOptions {
         return transactionCode;
     }
 
-    public BusinessObject getCounterParty() {
+    public CounterParty getCounterParty() {
         return counterParty;
     }
 
@@ -67,7 +66,7 @@ public class SearchOptions {
     }
 
     // DoubleSetters
-    public void searchForCounterParty(BusinessObject counterParty){
+    public void searchForCounterParty(CounterParty counterParty){
         this.counterParty = counterParty;
         this.searchOnCounterParty = true;
     }

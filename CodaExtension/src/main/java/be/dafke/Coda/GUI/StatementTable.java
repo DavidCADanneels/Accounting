@@ -11,11 +11,11 @@ import be.dafke.Coda.Action.CodaActionListener;
 import be.dafke.Coda.Dao.CodaParser;
 import be.dafke.Coda.Dao.CsvParser;
 import be.dafke.Coda.Objects.BankAccount;
+import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
+import be.dafke.Coda.Objects.Statements;
 import be.dafke.ComponentModel.RefreshableTable;
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
@@ -38,11 +38,15 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JButton viewCounterParties, exportToJournal, readCoda, readCsv, saveToAccounting;
-	private final Accounting accounting;
+    private final Statements statements;
+    private final CounterParties counterParties;
+    private final Accounting accounting;
 
-	public StatementTable(Accounting accounting, ActionListener actionListener) {
-		super("Statements (" + accounting.toString() + ")", new StatementDataModel(accounting));
-		this.accounting = accounting;
+    public StatementTable(Accounting accounting, Statements statements, CounterParties counterParties, ActionListener actionListener) {
+		super("Statements (" + accounting.toString() + ")", new StatementDataModel(statements));
+		this.statements = statements;
+        this.counterParties = counterParties;
+        this.accounting = accounting;
 		// tabel.setAutoCreateRowSorter(true);
 		tabel.addMouseListener(this);
 		viewCounterParties = new JButton("View Counterparties");
@@ -100,7 +104,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
         if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
             File[] files = chooser.getSelectedFiles();
             CsvParser codaParser = new CsvParser();
-            codaParser.parseFile(files, accounting);
+            codaParser.parseFile(files, counterParties, statements);
         }
         refresh();
     }
@@ -111,7 +115,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 		if (chooser.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
 			File[] files = chooser.getSelectedFiles();
 			CodaParser codaParser = new CodaParser();
-			codaParser.parseFile(files, accounting);
+			codaParser.parseFile(files, counterParties, statements);
 		}
 		refresh();
 	}
@@ -131,11 +135,10 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 		// but as the user for input.
 		JOptionPane.showMessageDialog(this, "TODO: link transactioncode + extra data to counterparties");
 		Set<CounterParty> set = new HashSet<CounterParty>();
-		List<BusinessObject> list = new ArrayList<BusinessObject>();
+		List<Statement> list = new ArrayList<Statement>();
 		for(int i : rows) {
 			CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 4);
 			if (counterParty == null) {
-                BusinessCollection<BusinessObject> statements = accounting.getBusinessObject("Statements");
 				list.add(statements.getBusinessObjects().get(i));
 			} else if (counterParty.getAccount() == null) {
 				set.add(counterParty);
@@ -144,14 +147,14 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 		if (!list.isEmpty()) {
 			System.err.println(list.size() + " movements have no counterparty:");
 			StringBuilder builder = new StringBuilder(list.size() + " movements have no counterparty:");
-			for(BusinessObject statement : list) {
+			for(Statement statement : list) {
 				System.err.println(statement);
 				builder.append("\r\n").append(statement);
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
             SearchOptions searchOptions = new SearchOptions();
             searchOptions.searchForCounterParty(null);
-			GenericStatementTable gui = new GenericStatementTable(searchOptions, accounting);
+			GenericStatementTable gui = new GenericStatementTable(searchOptions, statements);
 			gui.setVisible(true);
 			return false;
 		}
@@ -190,11 +193,11 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 				}
 				if (bankAccount != null && journal != null) {
                     for(int i : rows) {
-                        BusinessObject counterParty = (BusinessObject) tabel.getValueAt(i, 4);
+                        CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 4);
                         Account account = ((CounterParty)counterParty).getAccount();
                         boolean debet = tabel.getValueAt(i, 2).equals("D");
                         if (account == null) {
-                            BusinessObject counterParty2 = accounting.getBusinessObject("CounterParties").getBusinessObject(counterParty.getName());
+                            CounterParty counterParty2 = counterParties.getBusinessObject(counterParty.getName());
                             if (counterParty2 != null) {
                                 counterParty = counterParty2;
                                 account = ((CounterParty)counterParty2).getAccount();
@@ -240,16 +243,15 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 			int col = tabel.columnAtPoint(cell);
 			int row = tabel.rowAtPoint(cell);
 			if (col == 4) {
-                BusinessCollection<BusinessObject> statements = accounting.getBusinessObject("Statements");
-                BusinessObject counterParty = (BusinessObject) tabel.getValueAt(row, col);
+                CounterParty counterParty = (CounterParty) tabel.getValueAt(row, col);
 				if (counterParty == null) {
-					CounterPartySelector sel = new CounterPartySelector((Statement)statements.getBusinessObjects().get(row), accounting);
+					CounterPartySelector sel = new CounterPartySelector(statements.getBusinessObjects().get(row), statements, counterParties);
 					sel.setVisible(true);
 					counterParty = sel.getSelection();
 				}
 				if (counterParty != null) {
-					BusinessObject statement = statements.getBusinessObjects().get(row);
-                    ((Statement)statement).setCounterParty(counterParty);
+					Statement statement = statements.getBusinessObjects().get(row);
+                    statement.setCounterParty(counterParty);
 					super.refresh();
 					System.out.println(counterParty.getName());
 					for(BankAccount account : ((CounterParty)counterParty).getBankAccounts().values()) {
@@ -259,7 +261,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 					}
                     SearchOptions searchOptions = new SearchOptions();
                     searchOptions.searchForCounterParty(counterParty);
-					RefreshableTable refreshableTable = new GenericStatementTable(searchOptions, accounting);
+					RefreshableTable refreshableTable = new GenericStatementTable(searchOptions, statements);
                     refreshableTable.setVisible(true);
 					// parent.addChildFrame(refreshableTable);
 				}
@@ -267,14 +269,14 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 				String transactionCode = (String) tabel.getValueAt(row, 6);
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.searchForTransactionCode(transactionCode);
-				RefreshableTable refreshableTable = new GenericStatementTable(searchOptions, accounting);
+				RefreshableTable refreshableTable = new GenericStatementTable(searchOptions, statements);
                 refreshableTable.setVisible(true);
 				// parent.addChildFrame(refreshableTable);
             } else if (col == 6){
                 String communication = (String) tabel.getValueAt(row, 7);
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.searchForCommunication(communication);
-                RefreshableTable refreshableTable = new GenericStatementTable(searchOptions, accounting);
+                RefreshableTable refreshableTable = new GenericStatementTable(searchOptions, statements);
                 refreshableTable.setVisible(true);
                 // parent.addChildFrame(refreshableTable);
             }

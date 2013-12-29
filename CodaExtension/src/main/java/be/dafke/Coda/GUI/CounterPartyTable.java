@@ -3,7 +3,9 @@ package be.dafke.Coda.GUI;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.Objects.BankAccount;
+import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.CounterParty;
+import be.dafke.Coda.Objects.Statements;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
@@ -20,10 +22,12 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
 	private static final long serialVersionUID = 1L;
 	private final Accounting accounting;
     private final ActionListener actionListener;
+    private final Statements statements;
 
-    public CounterPartyTable(Accounting accounting, ActionListener actionListener) {
-		super("Counterparties (" + accounting.toString() + ")", new CounterPartyDataModel(accounting));
+    public CounterPartyTable(Accounting accounting, CounterParties counterParties, Statements statements, ActionListener actionListener) {
+		super("Counterparties (" + accounting.toString() + ")", new CounterPartyDataModel(counterParties));
 		this.accounting = accounting;
+        this.statements = statements;
         this.actionListener = actionListener;
 		// tabel.setAutoCreateRowSorter(true);
 		tabel.addMouseListener(this);
@@ -47,7 +51,7 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.setCounterParty(counterParty);
                 searchOptions.setSearchOnCounterParty(true);
-				RefreshableTable refreshTable = new GenericStatementTable(searchOptions, accounting);
+				RefreshableTable refreshTable = new GenericStatementTable(searchOptions, statements);
                 refreshTable.setVisible(true);
 				// parent.addChildFrame(refreshTable);
             } else if (col == 1){
@@ -67,7 +71,7 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
                     }
                 }
 			} else if (col == 5) {
-                AccountSelector sel = new AccountSelector(accounting, actionListener);
+                AccountSelector sel = new AccountSelector(accounting.getAccounts(), actionListener);
                 sel.setVisible(true);
                 Account account = sel.getSelection();
 

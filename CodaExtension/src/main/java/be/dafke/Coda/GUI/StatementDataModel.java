@@ -1,9 +1,8 @@
 package be.dafke.Coda.GUI;
 
-import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
-import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.Coda.Objects.Statements;
 import be.dafke.Utils.Utils;
 
 import javax.swing.table.AbstractTableModel;
@@ -18,18 +17,17 @@ public class StatementDataModel extends AbstractTableModel {
 			"TransactionCode", "Communication" };
 	private final Class[] columnClasses = { String.class, String.class, String.class, BigDecimal.class,
 			CounterParty.class, String.class, String.class };
-	private final Accounting accounting;
+    private final Statements statements;
 
-	public StatementDataModel(Accounting accounting) {
-		this.accounting = accounting;
+	public StatementDataModel(Statements statements) {
+		this.statements = statements;
 	}
 
 	// DE GET METHODEN
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		BusinessObject object = accounting.getBusinessObject("Statements").getBusinessObjects().get(row);
-        Statement m = (Statement)object;
+		Statement m = statements.getBusinessObjects().get(row);
 		if (col == 0) {
 			return m.getName();
 		} else if (col == 1) {
@@ -54,7 +52,7 @@ public class StatementDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return accounting.getBusinessObject("Statements").getBusinessObjects().size();
+		return statements.getBusinessObjects().size();
 	}
 
 	@Override
