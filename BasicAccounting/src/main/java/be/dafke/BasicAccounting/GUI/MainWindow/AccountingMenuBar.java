@@ -22,13 +22,10 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
      */
     private static final long serialVersionUID = 1L;
     private final JMenu balances, projecten, file;
-//    private final JMenu banking;
     private final JMenuItem testBalance, yearBalance, resultBalance, relationsBalance;
     private final JMenuItem projects;
     private final JMenuItem startNew;
     private List<JMenuItem> itemsToRefresh;
-//    private final JMenuItem movements, counterParties;
-//    private final JMenuItem mortgage;
     private final ActionListener actionListener;
     private boolean active = false;
 
@@ -76,20 +73,6 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         projecten.add(projects);
         add(projecten);
 
-//        banking = new JMenu("Banking");
-//        movements = new JMenuItem("Show movements");
-//        movements.addActionListener(actionListener);
-//        movements.setEnabled(false);
-//        counterParties = new JMenuItem("Show Counterparties");
-//        counterParties.addActionListener(actionListener);
-//        counterParties.setEnabled(false);
-//        mortgage = new JMenuItem("Mortgages");
-//        mortgage.addActionListener(actionListener);
-//        mortgage.setEnabled(false);
-//        banking.add(movements);
-//        banking.add(counterParties);
-//        banking.add(mortgage);
-//        add(banking);
         itemsToRefresh = new ArrayList<JMenuItem>();
         itemsToRefresh.add(testBalance);
         itemsToRefresh.add(resultBalance);
@@ -108,9 +91,6 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         for(JMenuItem item:itemsToRefresh){
             item.setEnabled(active);
         }
-//        movements.setEnabled(active);
-//        counterParties.setEnabled(active);
-//        mortgage.setEnabled(active);
     }
 
     private void setActionCommands(){
@@ -119,9 +99,6 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         resultBalance.setActionCommand(AccountingActionListener.RESULT_BALANCE);
         relationsBalance.setActionCommand(AccountingActionListener.RELATIONS_BALANCE);
         projects.setActionCommand(AccountingActionListener.PROJECTS);
-//        movements.setActionCommand(AccountingComponentMap.MOVEMENTS);
-//        counterParties.setActionCommand(AccountingComponentMap.COUNTERPARTIES);
-//        mortgage.setActionCommand(AccountingComponentMap.MORTGAGES);
     }
 
     public void setAccounting(Accounting accounting, Accountings accountings) {

@@ -6,7 +6,6 @@ import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.AccountingExtension;
 import be.dafke.BasicAccounting.Objects.Accountings;
-import be.dafke.Mortgage.Action.MortgageActionListener;
 import be.dafke.Mortgage.Dao.MortgagesSAXParser;
 import be.dafke.Mortgage.GUI.MortgageCalculatorGUI;
 import be.dafke.Mortgage.GUI.MortgageGUI;
@@ -28,6 +27,10 @@ public class MortgageExtension implements AccountingExtension{
     private final ActionListener actionListener;
     private Mortgages mortgages;
 
+    public static final String MORTGAGES = "Mortgages";
+    public static final String MORTGAGE_CALCULATOR = "MortgageCalculator";
+    public static final String MORTGAGE_TABLE = "MortgageTable";
+
     public MortgageExtension(ActionListener actionListener, AccountingMenuBar menuBar){
         this.actionListener = actionListener;
         createMenu(menuBar, actionListener);
@@ -38,7 +41,7 @@ public class MortgageExtension implements AccountingExtension{
         JMenuItem mortgage = new JMenuItem("Mortgages");
         mortgage.addActionListener(actionListener);
         mortgage.setEnabled(false);
-        mortgage.setActionCommand(MortgageActionListener.MORTGAGES);
+        mortgage.setActionCommand(MortgageExtension.MORTGAGES);
         banking.add(mortgage);
         menuBar.addRefreshableMenuItem(mortgage);
         menuBar.add(banking);
@@ -74,8 +77,8 @@ public class MortgageExtension implements AccountingExtension{
     @Override
     public void extendAccountingComponentMap(Accountings accountings){
         for(Accounting accounting : accountings.getBusinessObjects()){
-            AccountingComponentMap.addDisposableComponent(accounting.toString() + MortgageActionListener.MORTGAGES, new MortgageGUI(accounting, mortgages, actionListener));
-            AccountingComponentMap.addDisposableComponent(accounting.toString() + MortgageActionListener.MORTGAGE_CALCULATOR, new MortgageCalculatorGUI(accounting, mortgages));
+            AccountingComponentMap.addDisposableComponent(accounting.toString() + MORTGAGES, new MortgageGUI(accounting, mortgages, actionListener));
+            AccountingComponentMap.addDisposableComponent(accounting.toString() + MORTGAGE_CALCULATOR, new MortgageCalculatorGUI(accounting, mortgages));
         }
     }
 

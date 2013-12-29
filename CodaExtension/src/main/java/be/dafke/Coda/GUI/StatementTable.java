@@ -7,10 +7,10 @@ import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.BasicAccounting.Objects.Transaction;
-import be.dafke.Coda.Action.CodaActionListener;
 import be.dafke.Coda.Dao.CodaParser;
 import be.dafke.Coda.Dao.CsvParser;
 import be.dafke.Coda.Objects.BankAccount;
+import be.dafke.Coda.Objects.CodaExtension;
 import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
@@ -51,7 +51,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 		tabel.addMouseListener(this);
 		viewCounterParties = new JButton("View Counterparties");
 		viewCounterParties.addActionListener(actionListener);
-        viewCounterParties.setActionCommand(CodaActionListener.COUNTERPARTIES);
+        viewCounterParties.setActionCommand(CodaExtension.COUNTERPARTIES);
 		readCoda = new JButton("Read Coda file(s)");
 		readCoda.addActionListener(this);
         readCsv = new JButton("Read CSV file(s)");
@@ -167,7 +167,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
             // TODO: this is an existing Action in CodaActionListener
-            String key = accounting.toString()+ CodaActionListener.COUNTERPARTIES;
+            String key = accounting.toString()+ CodaExtension.COUNTERPARTIES;
             AccountingComponentMap.getDisposableComponent(key).setVisible(true);
             // until here
 			return false;

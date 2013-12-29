@@ -5,7 +5,6 @@ import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.AccountingExtension;
 import be.dafke.BasicAccounting.Objects.Accountings;
-import be.dafke.Coda.Action.CodaActionListener;
 import be.dafke.Coda.GUI.CounterPartyTable;
 import be.dafke.Coda.GUI.StatementTable;
 import be.dafke.ObjectModel.BusinessCollection;
@@ -25,6 +24,8 @@ public class CodaExtension implements AccountingExtension{
     private final ActionListener actionListener;
     private CounterParties counterParties;
     private Statements statements;
+    public static final String MOVEMENTS = "Statements";
+    public static final String COUNTERPARTIES = "Counterparties";
 
     public CodaExtension(ActionListener actionListener, AccountingMenuBar menuBar){
         this.actionListener = actionListener;
@@ -35,11 +36,11 @@ public class CodaExtension implements AccountingExtension{
         JMenu banking = new JMenu("Banking");
         JMenuItem movements = new JMenuItem("Show movements");
         movements.addActionListener(actionListener);
-        movements.setActionCommand(CodaActionListener.MOVEMENTS);
+        movements.setActionCommand(MOVEMENTS);
         movements.setEnabled(false);
         JMenuItem counterParties = new JMenuItem("Show Counterparties");
         counterParties.addActionListener(actionListener);
-        counterParties.setActionCommand(CodaActionListener.COUNTERPARTIES);
+        counterParties.setActionCommand(COUNTERPARTIES);
         counterParties.setEnabled(false);
 
         banking.add(movements);
@@ -77,8 +78,8 @@ public class CodaExtension implements AccountingExtension{
     @Override
     public void extendAccountingComponentMap(Accountings accountings){
         for(Accounting accounting : accountings.getBusinessObjects()){
-            AccountingComponentMap.addDisposableComponent(accounting.toString() + CodaActionListener.MOVEMENTS, new StatementTable(accounting, statements, counterParties, actionListener));
-            AccountingComponentMap.addDisposableComponent(accounting.toString() + CodaActionListener.COUNTERPARTIES, new CounterPartyTable(accounting, counterParties, statements, actionListener));
+            AccountingComponentMap.addDisposableComponent(accounting.toString() + MOVEMENTS, new StatementTable(accounting, statements, counterParties, actionListener));
+            AccountingComponentMap.addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting, counterParties, statements, actionListener));
         }
     }
 
