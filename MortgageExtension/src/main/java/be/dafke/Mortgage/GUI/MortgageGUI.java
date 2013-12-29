@@ -2,10 +2,11 @@ package be.dafke.Mortgage.GUI;
 
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.Mortgage.Action.MortgageActionListener;
 import be.dafke.Mortgage.Objects.Mortgage;
-import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.Mortgage.Objects.Mortgages;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 import be.dafke.Utils.Utils;
@@ -25,21 +26,23 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	private final JList<Mortgage> mortgagesList;
 	private final JButton create;
 	private final JTextField nrPayed;
-	private boolean init = true;
+    private final Mortgages mortgages;
+    private boolean init = true;
 	private final JComboBox<Account> comboIntrest, comboCapital;
 	private Mortgage selectedMortgage = null;
 	private final MortgageDataModel model;
-	private Account[] accounts;
+//	private Account[] accounts;
 	private DefaultListModel<Mortgage> listModel;
 	private DefaultComboBoxModel<Account> intrestModel, capitalModel;
 
 	private final JTable table;
 	private final JButton save, delete;
-	private final Accounting accounting;
+	private final Accounts accounts;
 
-	public MortgageGUI(Accounting accounting, ActionListener actionListener) {
+	public MortgageGUI(Accounting accounting, Mortgages mortgages, ActionListener actionListener) {
 		super("Mortgages (" + accounting.toString() + ")");
-		this.accounting = accounting;
+		this.accounts = accounting.getAccounts();
+        this.mortgages = mortgages;
 		mortgagesList = new JList<Mortgage>();
 		mortgagesList.setModel(new DefaultListModel<Mortgage>());
 		mortgagesList.addListSelectionListener(this);
@@ -153,7 +156,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		} else if (e.getSource() == delete) {
 			if (selectedMortgage != null) {
                 try {
-                    accounting.getBusinessObject("Mortgages").removeBusinessObject(selectedMortgage);
+                    mortgages.removeBusinessObject(selectedMortgage);
                 } catch (NotEmptyException e1) {
                     System.err.println("This mortgage is in use !");
                     e1.printStackTrace();
@@ -184,7 +187,6 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	@Override
 	public void refresh() {
         listModel = new DefaultListModel<Mortgage>();
-        BusinessCollection<BusinessObject> mortgages = accounting.getBusinessObject("Mortgages");
         for(BusinessObject businessObject :mortgages.getBusinessObjects()) {
             Mortgage mortgage =(Mortgage) businessObject;
             if (!listModel.contains(mortgage)) {
@@ -194,12 +196,12 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
         mortgagesList.setModel(listModel);
         mortgagesList.revalidate();
 
-        accounts = new Account[accounting.getAccounts().getBusinessObjects().size()];
-        for(int i = 0; i < accounting.getAccounts().getBusinessObjects().size(); i++) {
-            accounts[i] = accounting.getAccounts().getBusinessObjects().get(i);
+        Account[] allAccounts = new Account[accounts.getBusinessObjects().size()];
+        for(int i = 0; i < accounts.getBusinessObjects().size(); i++) {
+            allAccounts[i] = accounts.getBusinessObjects().get(i);
         }
-        intrestModel = new DefaultComboBoxModel<Account>(accounts);
-        capitalModel = new DefaultComboBoxModel<Account>(accounts);
+        intrestModel = new DefaultComboBoxModel<Account>(allAccounts);
+        capitalModel = new DefaultComboBoxModel<Account>(allAccounts);
         comboCapital.setModel(capitalModel);
         comboIntrest.setModel(intrestModel);
         comboCapital.revalidate();

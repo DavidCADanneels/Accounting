@@ -8,8 +8,7 @@ import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.Mortgage.Objects.Mortgage;
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.Mortgage.Objects.Mortgages;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -25,18 +24,18 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JList<BusinessObject> list;
+	private final JList<Mortgage> list;
 	private final JButton pay;// , newMortgage, details;
-	private final DefaultListModel<BusinessObject> listModel;
+	private final DefaultListModel<Mortgage> listModel;
 
-    private BusinessCollection<BusinessObject> mortgages;
+    private Mortgages mortgages;
     private Journal journal;
 
     public MortgagesGUI() {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Mortgages"));
-		list = new JList<BusinessObject>();
-		listModel = new DefaultListModel<BusinessObject>();
+		list = new JList<Mortgage>();
+		listModel = new DefaultListModel<Mortgage>();
 		list.setModel(listModel);
 		list.addListSelectionListener(this);
 		pay = new JButton("Pay");
@@ -51,15 +50,14 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
             setMortgages(null);
             setJournal(null);
         } else {
-            BusinessCollection<BusinessObject> mortgages1 = accounting.getBusinessObject("Mortgages");
-            setMortgages(mortgages1);
+            setMortgages(mortgages);
             if(accounting.getJournals()!=null){
                 setJournal(accounting.getJournals().getCurrentObject());
             }
         }
     }
 
-    public void setMortgages(BusinessCollection<BusinessObject> mortgages) {
+    public void setMortgages(Mortgages mortgages) {
         this.mortgages = mortgages;
     }
 
@@ -70,7 +68,7 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
 	public void refresh() {
         listModel.clear();
         if (mortgages != null) {
-            for(BusinessObject mortgage : mortgages.getBusinessObjects()) {
+            for(Mortgage mortgage : mortgages.getBusinessObjects()) {
                 if (!listModel.contains(mortgage)) {
                     listModel.addElement(mortgage);
                 }

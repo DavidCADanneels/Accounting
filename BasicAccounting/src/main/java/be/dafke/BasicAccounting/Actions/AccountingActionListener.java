@@ -7,6 +7,7 @@ import be.dafke.BasicAccounting.GUI.Details.AccountDetails;
 import be.dafke.BasicAccounting.GUI.Details.JournalDetails;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.AccountingExtension;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.ComponentModel.DisposableComponent;
@@ -51,6 +52,9 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
     @Override
     public void windowClosing(WindowEvent we) {
         AccountingsSAXParser.writeAccountings(accountings);
+        for(AccountingExtension extension: accountings.getExtensions()){
+            extension.extendClosing(accountings);
+        }
         AccountingComponentMap.closeAllFrames();
     }
 

@@ -6,6 +6,7 @@ import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.Mortgage.Action.MortgageActionListener;
 import be.dafke.Mortgage.Calculate;
 import be.dafke.Mortgage.Objects.Mortgage;
+import be.dafke.Mortgage.Objects.Mortgages;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
@@ -29,8 +30,9 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 			totalToPayFixed, totalIntrestDegres, totalToPayDegres, totalIntrestDifference, totalToPayDifference;
 	private final JButton converter, create;
 	private final JRadioButton fix, degres;
+    private final Mortgages mortgages;
 
-	BigDecimal jaarPercentage = null;
+    BigDecimal jaarPercentage = null;
 	BigDecimal maandPercentage = null;
 	BigDecimal startKapitaal = null;
 	BigDecimal mensualiteit = null;
@@ -43,10 +45,11 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
     private static int counter = 1;
     private final int nr;
 
-	public MortgageCalculatorGUI(Accounting accounting) {
+	public MortgageCalculatorGUI(Accounting accounting, Mortgages mortgages) {
 		super("Mortgage Calculator (" + accounting.toString() + ")");
         nr = counter++;
 		this.accounting = accounting;
+        this.mortgages = mortgages;
 
 		amountField = new JTextField(10);
 		months = new JTextField(10);
@@ -175,7 +178,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 			Mortgage newMortgage = new Mortgage("new Mortgage Table");
             newMortgage.setStartCapital(startKapitaal);
 			newMortgage.setTable(data);
-			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, accounting);
+			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, accounting, mortgages);
             AccountingComponentMap.addDisposableComponent(MortgageActionListener.MORTGAGE_TABLE + gui.nr, gui);
 			gui.setVisible(true);
 		}

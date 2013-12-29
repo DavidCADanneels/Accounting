@@ -5,6 +5,7 @@ import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.Mortgage.Objects.Mortgage;
+import be.dafke.Mortgage.Objects.Mortgages;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -27,11 +28,13 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 
     private static int counter = 1;
     protected final int nr;
+    private Mortgages mortgages;
 
 
-	public MortgageTable(Mortgage mortgage, BigDecimal startCapital, Accounting accounting) {
+    public MortgageTable(Mortgage mortgage, BigDecimal startCapital, Accounting accounting, Mortgages mortgages) {
 		super("Aflossingstabel (" + accounting.toString() + " )");
         nr = counter++;
+        this.mortgages = mortgages;
 		this.accounting = accounting;
 		this.startCapital = startCapital;
 		model = new MortgageDataModel(mortgage);
@@ -63,7 +66,7 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
         mortgage.setType(type);
         try {
 //            accounting.getAccounts().addBusinessObject(mortgage);    // this is implicitely done in the next step
-            accounting.getBusinessObject("Mortgages").addBusinessObject(mortgage);
+            mortgages.addBusinessObject(mortgage);
             AccountingComponentMap.refreshAllFrames();
             dispose();
         } catch (DuplicateNameException e) {

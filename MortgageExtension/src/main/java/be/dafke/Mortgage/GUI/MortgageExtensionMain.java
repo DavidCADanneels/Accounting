@@ -2,7 +2,6 @@ package be.dafke.Mortgage.GUI;
 
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
 import be.dafke.BasicAccounting.GUI.BasicAccountingMain;
-import be.dafke.Mortgage.Action.MortgageActionListener;
 import be.dafke.Mortgage.Objects.MortgageExtension;
 
 import javax.swing.*;
@@ -29,8 +28,8 @@ public class MortgageExtensionMain extends BasicAccountingMain {
     }
 
     protected static void extensions(){
-        MortgageActionListener mortgageActionListener = new MortgageActionListener(accountings);
-        accountings.addExtension(new MortgageExtension(mortgageActionListener, menuBar));
+//        MortgageActionListener mortgageActionListener = new MortgageActionListener(accountings);
+        accountings.addExtension(new MortgageExtension(actionListener, menuBar));
         mortgagesGUI = new MortgagesGUI();
     }
 

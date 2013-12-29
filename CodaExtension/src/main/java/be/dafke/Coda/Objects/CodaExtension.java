@@ -49,6 +49,7 @@ public class CodaExtension implements AccountingExtension{
         menuBar.add(banking);
     }
 
+    @Override
     public void extendConstructor(Accounting accounting){
         counterParties = new CounterParties();
         counterParties.setName(counterParties.getBusinessObjectType());
@@ -68,14 +69,21 @@ public class CodaExtension implements AccountingExtension{
         accounting.addKey(statements.getBusinessObjectType());
     }
 
+    @Override
     public void extendReadCollection(Accountings accountings, File xmlFolder){
 
     }
 
+    @Override
     public void extendAccountingComponentMap(Accountings accountings){
         for(Accounting accounting : accountings.getBusinessObjects()){
             AccountingComponentMap.addDisposableComponent(accounting.toString() + CodaActionListener.MOVEMENTS, new StatementTable(accounting, statements, counterParties, actionListener));
             AccountingComponentMap.addDisposableComponent(accounting.toString() + CodaActionListener.COUNTERPARTIES, new CounterPartyTable(accounting, counterParties, statements, actionListener));
         }
+    }
+
+    @Override
+    public void extendClosing(Accountings accountings){
+
     }
 }
