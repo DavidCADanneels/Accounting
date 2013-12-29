@@ -13,6 +13,7 @@
         <module>ObjectModelDao</module>
         <module>MortgageExtension</module>
         <module>CodaExtension</module>
+        <module>ApplicationLauncher</module>
     </modules>
 
     <dependencies>

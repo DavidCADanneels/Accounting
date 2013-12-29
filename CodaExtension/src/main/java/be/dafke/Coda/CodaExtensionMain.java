@@ -1,8 +1,7 @@
-package be.dafke.Coda.GUI;
+package be.dafke.Coda;
 
 import be.dafke.BasicAccounting.GUI.BasicAccountingMain;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.Coda.Objects.CodaExtension;
 
 /**
  * User: david

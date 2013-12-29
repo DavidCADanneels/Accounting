@@ -1,4 +1,4 @@
-package be.dafke.Coda.Objects;
+package be.dafke.Coda;
 
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
@@ -6,6 +6,8 @@ import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.AccountingExtension;
 import be.dafke.Coda.GUI.CounterPartyTable;
 import be.dafke.Coda.GUI.StatementTable;
+import be.dafke.Coda.Objects.CounterParties;
+import be.dafke.Coda.Objects.Statements;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;

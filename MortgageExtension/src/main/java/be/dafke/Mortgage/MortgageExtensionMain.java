@@ -1,9 +1,9 @@
-package be.dafke.Mortgage.GUI;
+package be.dafke.Mortgage;
 
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
 import be.dafke.BasicAccounting.GUI.BasicAccountingMain;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.Mortgage.Objects.MortgageExtension;
+import be.dafke.Mortgage.GUI.MortgagesGUI;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,8 +14,6 @@ import java.awt.*;
  * Time: 1:02
  */
 public class MortgageExtensionMain extends BasicAccountingMain {
-    protected static MortgagesGUI mortgagesGUI;
-
     public static void main(String[] args) {
         startReadingXmlFile();
         createBasicComponents();

@@ -1,4 +1,4 @@
-package be.dafke.Mortgage.Objects;
+package be.dafke.Mortgage;
 
 import be.dafke.BasicAccounting.Dao.AccountingsSAXParser;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
@@ -8,6 +8,8 @@ import be.dafke.BasicAccounting.Objects.AccountingExtension;
 import be.dafke.Mortgage.Dao.MortgagesSAXParser;
 import be.dafke.Mortgage.GUI.MortgageCalculatorGUI;
 import be.dafke.Mortgage.GUI.MortgageGUI;
+import be.dafke.Mortgage.Objects.Mortgage;
+import be.dafke.Mortgage.Objects.Mortgages;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
