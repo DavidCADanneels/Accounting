@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.GUI;
 
+import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.Dao.AccountingsSAXParser;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingGUIFrame;
@@ -8,7 +9,6 @@ import be.dafke.BasicAccounting.GUI.MainWindow.AccountsGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.AccountingExtension;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.ObjectModelDao.ObjectModelSAXParser;
 

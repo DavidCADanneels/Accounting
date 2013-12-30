@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Objects;
 
+import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;

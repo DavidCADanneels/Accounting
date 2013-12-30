@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Actions;
 
+import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.BasicAccounting.Dao.AccountingsSAXParser;
 import be.dafke.BasicAccounting.GUI.AccountManagement.NewAccountGUI;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
@@ -7,7 +8,6 @@ import be.dafke.BasicAccounting.GUI.Details.AccountDetails;
 import be.dafke.BasicAccounting.GUI.Details.JournalDetails;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.AccountingExtension;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.ComponentModel.DisposableComponent;

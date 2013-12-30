@@ -1,10 +1,10 @@
 package be.dafke.Mortgage;
 
+import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.BasicAccounting.Dao.AccountingsSAXParser;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.AccountingExtension;
 import be.dafke.Mortgage.Dao.MortgagesSAXParser;
 import be.dafke.Mortgage.GUI.MortgageCalculatorGUI;
 import be.dafke.Mortgage.GUI.MortgageGUI;

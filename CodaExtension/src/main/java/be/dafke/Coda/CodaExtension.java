@@ -1,9 +1,9 @@
 package be.dafke.Coda;
 
+import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.AccountingExtension;
 import be.dafke.Coda.GUI.CounterPartyTable;
 import be.dafke.Coda.GUI.StatementTable;
 import be.dafke.Coda.Objects.CounterParties;

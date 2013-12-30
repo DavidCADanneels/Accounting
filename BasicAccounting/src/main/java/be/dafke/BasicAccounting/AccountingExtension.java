@@ -1,4 +1,6 @@
-package be.dafke.BasicAccounting.Objects;
+package be.dafke.BasicAccounting;
+
+import be.dafke.BasicAccounting.Objects.Accounting;
 
 import java.io.File;
 
