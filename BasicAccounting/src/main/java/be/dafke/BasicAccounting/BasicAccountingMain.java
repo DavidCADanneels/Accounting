@@ -1,8 +1,9 @@
-package be.dafke.BasicAccounting.GUI;
+package be.dafke.BasicAccounting;
 
-import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.Dao.AccountingsSAXParser;
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingGUIFrame;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountsGUI;

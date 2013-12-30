@@ -1,4 +1,6 @@
-package be.dafke.BasicAccounting.Objects;
+package be.dafke.Project.Objects;
+
+import be.dafke.BasicAccounting.Objects.Account;
 
 import java.util.Collection;
 import java.util.HashMap;

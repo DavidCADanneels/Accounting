@@ -9,8 +9,9 @@
         <module>Utils</module>
         <module>ObjectModel</module>
         <module>ComponentModel</module>
-        <module>BasicAccounting</module>
         <module>ObjectModelDao</module>
+        <module>BasicAccounting</module>
+        <module>ProjectExtension</module>
         <module>MortgageExtension</module>
         <module>CodaExtension</module>
         <module>ApplicationLauncher</module>

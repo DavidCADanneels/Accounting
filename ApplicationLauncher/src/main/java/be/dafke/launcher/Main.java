@@ -1,9 +1,9 @@
 package be.dafke.launcher;
 
+import be.dafke.BasicAccounting.BasicAccountingMain;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
-import be.dafke.BasicAccounting.GUI.BasicAccountingMain;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.Coda.Objects.CodaExtension;
+import be.dafke.Coda.CodaExtension;
 import be.dafke.Mortgage.GUI.MortgagesGUI;
 import be.dafke.Mortgage.MortgageExtension;
 

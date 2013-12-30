@@ -1,11 +1,11 @@
-package be.dafke.BasicAccounting.GUI.Projects;
+package be.dafke.Project.GUI;
 
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accounts;
-import be.dafke.BasicAccounting.Objects.Project;
-import be.dafke.BasicAccounting.Objects.Projects;
 import be.dafke.ComponentModel.RefreshableFrame;
+import be.dafke.Project.Objects.Project;
+import be.dafke.Project.Objects.Projects;
 import be.dafke.Utils.AlphabeticListModel;
 import be.dafke.Utils.PrefixFilterPanel;
 
@@ -37,10 +37,12 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 	private final JComboBox<Project> combo;
 	private Project project;
 	private final Accounting accounting;
+    private final Projects projects;
 
-	public ProjectManagementGUI(Accounting accounting) {
+    public ProjectManagementGUI(Accounting accounting, Projects projects) {
 		super(getBundle("Accounting").getString("PROJECTMANAGER") + " (" + accounting.toString() + ")");
 		this.accounting = accounting;
+        this.projects = projects;
 		JPanel hoofdPaneel = new JPanel();
 		hoofdPaneel.setLayout(new BoxLayout(hoofdPaneel, BoxLayout.X_AXIS));
 		//
@@ -162,7 +164,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 						"GEEF_NAAM"));
 			if (naam != null) {
 				project = new Project(naam);
-				accounting.getProjects().put(naam, project);
+				projects.put(naam, project);
 				((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
 				(combo.getModel()).setSelectedItem(project);
 			}
@@ -174,16 +176,25 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 				// System.out.println("Project: " + project + " | account" + account);
 				projectAccountsModel.addElement(account);
 			}
-			ArrayList<Account> noProjectlijst = accounting.getAccounts().getAccountNoMatchProject(project);
+			ArrayList<Account> noProjectlijst = getAccountNoMatchProject(project);
 			zoeker.resetMap(noProjectlijst);
 		}
+	}
+
+    public ArrayList<Account> getAccountNoMatchProject(Project project) {
+		ArrayList<Account> result = new ArrayList<Account>();
+		for(Account account : accounting.getAccounts().getBusinessObjects()) {
+            if (!project.getAccounts().contains(account)){
+                result.add(account);
+            }
+		}
+		return result;
 	}
 
     @Override
     public void refresh() {
         Accounts accounts = accounting.getAccounts();
         zoeker.resetMap(accounts.getBusinessObjects());
-        Projects projects = accounting.getProjects();
         for(Project project : projects.values()) {
             combo.addItem(project);
         }

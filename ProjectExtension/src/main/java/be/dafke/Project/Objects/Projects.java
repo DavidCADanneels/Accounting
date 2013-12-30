@@ -3,7 +3,7 @@
  * and open the template in the editor.
  */
 
-package be.dafke.BasicAccounting.Objects;
+package be.dafke.Project.Objects;
 
 import java.util.ArrayList;
 import java.util.HashMap;

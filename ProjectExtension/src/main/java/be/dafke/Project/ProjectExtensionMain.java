@@ -1,15 +1,14 @@
-package be.dafke.Coda;
+package be.dafke.Project;
 
 import be.dafke.BasicAccounting.BasicAccountingMain;
 import be.dafke.BasicAccounting.Objects.Accounting;
 
 /**
  * User: david
- * Date: 28-12-13
- * Time: 14:41
+ * Date: 30-12-13
+ * Time: 10:15
  */
-public class CodaExtensionMain extends BasicAccountingMain {
-
+public class ProjectExtensionMain extends BasicAccountingMain {
     public static void main(String[] args) {
         startReadingXmlFile();
         createBasicComponents();
@@ -22,10 +21,9 @@ public class CodaExtensionMain extends BasicAccountingMain {
         launch();
     }
 
-    public static void applyExtensions(){
+    protected static void applyExtensions(){
         for(Accounting accounting: accountings.getBusinessObjects()){
-            CodaExtension codaExtension = new CodaExtension(actionListener, menuBar);
-            accounting.addExtension(codaExtension);
+            accounting.addExtension(new ProjectExtension(actionListener, menuBar));
         }
     }
 }

@@ -21,9 +21,8 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
      *
      */
     private static final long serialVersionUID = 1L;
-    private final JMenu balances, projecten, file;
+    private final JMenu balances, file;
     private final JMenuItem testBalance, yearBalance, resultBalance, relationsBalance;
-    private final JMenuItem projects;
     private final JMenuItem startNew;
     private List<JMenuItem> itemsToRefresh;
     private final ActionListener actionListener;
@@ -64,21 +63,11 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         balances.add(relationsBalance);
         add(balances);
 
-        projecten = new JMenu(getBundle("Accounting").getString("PROJECTEN"));
-        projecten.setMnemonic(KeyEvent.VK_P);
-        projects = new JMenuItem(getBundle("Accounting").getString(
-                "PROJECTMANAGER"));
-        projects.addActionListener(actionListener);
-        projects.setEnabled(false);
-        projecten.add(projects);
-        add(projecten);
-
         itemsToRefresh = new ArrayList<JMenuItem>();
         itemsToRefresh.add(testBalance);
         itemsToRefresh.add(resultBalance);
         itemsToRefresh.add(yearBalance);
         itemsToRefresh.add(relationsBalance);
-        itemsToRefresh.add(projects);
         setActionCommands();
     }
 
@@ -98,7 +87,6 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         yearBalance.setActionCommand(AccountingActionListener.YEAR_BALANCE);
         resultBalance.setActionCommand(AccountingActionListener.RESULT_BALANCE);
         relationsBalance.setActionCommand(AccountingActionListener.RELATIONS_BALANCE);
-        projects.setActionCommand(AccountingActionListener.PROJECTS);
     }
 
     public void setAccounting(Accounting accounting, Accountings accountings) {

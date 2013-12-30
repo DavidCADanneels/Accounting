@@ -1,7 +1,7 @@
 package be.dafke.Mortgage;
 
+import be.dafke.BasicAccounting.BasicAccountingMain;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
-import be.dafke.BasicAccounting.GUI.BasicAccountingMain;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Mortgage.GUI.MortgagesGUI;
 

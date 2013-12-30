@@ -16,7 +16,6 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     private final AccountTypes accountTypes;
     private final Accounts accounts;
 	private final Journals journals;
-	private final Projects projects;
     private final JournalTypes journalTypes;
     private final Balances balances;
     private ArrayList<String> keys;
@@ -54,8 +53,6 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         balances.setBusinessCollection(accounts);
         balances.setBusinessTypeCollection(accountTypes);
 //        balances.addDefaultBalances(this);
-
-        projects = new Projects();
 
         accounts.setName(accounts.getBusinessObjectType());
         journals.setName(journals.getBusinessObjectType());
@@ -114,10 +111,6 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     public Accounts getAccounts() {
         return accounts;
-    }
-    //
-    public Projects getProjects() {
-        return projects;
     }
     //
     public Journals getJournals() {

@@ -41,15 +41,6 @@ public class Accounts extends BusinessCollection<Account> implements BusinessTyp
 		return list;
 	}
 
-	public ArrayList<Account> getAccountNoMatchProject(Project project) {
-		ArrayList<Account> result = new ArrayList<Account>();
-		for(Account account : getBusinessObjects()) {
-            if (!project.getAccounts().contains(account)){
-                result.add(account);
-            }
-		}
-		return result;
-	}
 
 	public Account modifyAccountName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
         Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(NAME, oldName);
