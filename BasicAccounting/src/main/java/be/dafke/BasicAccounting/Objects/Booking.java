@@ -6,6 +6,7 @@ package be.dafke.BasicAccounting.Objects;
  * @see Transaction
  */
 public class Booking {
+    // TODO: extend from BusinessObject
 	private Account account;
     private Movement movement;
 	private Transaction transaction;

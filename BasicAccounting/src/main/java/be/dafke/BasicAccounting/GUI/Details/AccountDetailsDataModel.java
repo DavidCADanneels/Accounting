@@ -21,10 +21,10 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 	private final Account rekening;
 	private final String[] columnNames = {
 			getBundle("Accounting").getString("NR"),
-			getBundle("Accounting").getString("DATUM"),
-			getBundle("Accounting").getString("DEBET"),
+			getBundle("Accounting").getString("DATE"),
+			getBundle("Accounting").getString("DEBIT"),
 			getBundle("Accounting").getString("CREDIT"),
-			getBundle("Accounting").getString("OMSCHRIJVING") };
+			getBundle("Accounting").getString("DESCRIPTION") };
 	private final Class[] columnClasses = { String.class, String.class, BigDecimal.class, BigDecimal.class,
 			String.class };
 

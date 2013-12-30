@@ -15,7 +15,7 @@ public class AccountDetails extends RefreshableTable {
 
 	public AccountDetails(Account account, Accounting accounting) {
 		super(accounting.toString() + "/" +
-                getBundle("Accounting").getString("REKENING_DETAILS") + "/"
+                getBundle("Accounting").getString("ACCOUNT_DETAILS") + "/"
                 + account.getName(), new AccountDetailsDataModel(account));
 		tabel.setAutoCreateRowSorter(true);
 	}

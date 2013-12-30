@@ -11,6 +11,7 @@ import java.util.Calendar;
  * @see Booking
  */
 public class Transaction {
+    // TODO: transform this into BusinessCollection<Booking>
 	private BigDecimal debitTotal;
     private BigDecimal creditTotal;
     private Journal journal;

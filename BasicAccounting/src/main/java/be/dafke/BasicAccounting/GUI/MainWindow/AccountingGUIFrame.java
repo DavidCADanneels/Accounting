@@ -23,7 +23,7 @@ public class AccountingGUIFrame extends RefreshableFrame {
     private AccountingMultiPanel contentPanel;
 
 	public AccountingGUIFrame(Accountings accountings) {
-		super(getBundle("Accounting").getString("BOEKHOUDING"));
+		super(getBundle("Accounting").getString("ACCOUNTING"));
 		this.accountings = accountings;
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -44,9 +44,9 @@ public class AccountingGUIFrame extends RefreshableFrame {
     public void refresh() {
         Accounting accounting = accountings.getCurrentObject();
         if(accounting!=null){
-            setTitle(getBundle("Accounting").getString("BOEKHOUDING") + ": " + accounting.toString());
+            setTitle(getBundle("Accounting").getString("ACCOUNTING") + ": " + accounting.toString());
         } else {
-            setTitle(getBundle("Accounting").getString("BOEKHOUDING"));
+            setTitle(getBundle("Accounting").getString("ACCOUNTING"));
         }
         menuBar.setAccounting(accounting, accountings);
         contentPanel.setAccounting(accounting);

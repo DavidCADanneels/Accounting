@@ -15,10 +15,6 @@ public class BalanceDataModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames;// = {
-//			getBundle("Accounting").getString("TEGOEDEN_VAN_KLANTEN"),
-//			getBundle("Accounting").getString("BEDRAG"),
-//			getBundle("Accounting").getString("BEDRAG"),
-//			getBundle("Accounting").getString("SCHULDEN_AAN_LEVERANCIERS") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, Account.class };
 	private final Balance balance;
 
@@ -26,8 +22,8 @@ public class BalanceDataModel extends AbstractTableModel {
 		this.balance = balance;
         columnNames = new String[]{
                 balance.getLeftName(),
-                getBundle("Accounting").getString("BEDRAG"),
-                getBundle("Accounting").getString("BEDRAG"),
+                getBundle("Accounting").getString("AMOUNT"),
+                getBundle("Accounting").getString("AMOUNT"),
                 balance.getRightName()};
 	}
 

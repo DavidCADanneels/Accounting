@@ -10,8 +10,8 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
  * Time: 6:25
  */
 public class AccountTypes extends BusinessTypeCollection<AccountType> {
-    public static final String ACTIVE = "Active";
-    public static final String PASSIVE = "Passive";
+    public static final String ASSET = "Asset";
+    public static final String LIABILITY = "Liability";
     public static final String COST = "Cost";
     public static final String REVENUE = "Revenue";
     public static final String DEBIT = "Debit";
@@ -29,25 +29,25 @@ public class AccountTypes extends BusinessTypeCollection<AccountType> {
     }
 
     public AccountTypes() {
-        AccountType active = new AccountType(ACTIVE);
-//        active.setName(getBundle("Accounting").getString("ACTIEF"));
+        AccountType active = new AccountType(ASSET);
+//        active.setName(getBundle("Accounting").getString("ASSET"));
 
-        AccountType passive = new AccountType(PASSIVE);
-//        passive.setName(getBundle("Accounting").getString("PASSIEF"));
+        AccountType passive = new AccountType(LIABILITY);
+//        passive.setName(getBundle("Accounting").getString("LIABILITY"));
         passive.setInverted(true);
 
         AccountType cost = new AccountType(COST);
-//        cost.setName(getBundle("Accounting").getString("KOST"));
+//        cost.setName(getBundle("Accounting").getString("COST"));
 
         AccountType revenue = new AccountType(REVENUE);
-//        revenue.setName(getBundle("Accounting").getString("OPBRENGST"));
+//        revenue.setName(getBundle("Accounting").getString("REVENUE"));
         revenue.setInverted(true);
 
         AccountType credit = new AccountType(CREDIT);
-//        credit.setName(getBundle("Accounting").getString("TEGOED_VAN_KLANT"));
+//        credit.setName(getBundle("Accounting").getString("FUND_FROM_CUSTOMER"));
 
         AccountType debit = new AccountType(DEBIT);
-//        debit.setName(getBundle("Accounting").getString("SCHULD_AAN_LEVERANCIER"));
+//        debit.setName(getBundle("Accounting").getString("DEBT_TO_SUPPLIER"));
         debit.setInverted(true);
 
         AccountType mortgage = new AccountType(MORTGAGE);

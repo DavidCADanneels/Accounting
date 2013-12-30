@@ -35,7 +35,7 @@ public class Project {
 //	public Account close() {
 //		Transaction transaction = new Transaction();
 //        transaction.setDate(Calendar.getInstance());
-//        transaction.setDescription(getBundle("Accounting").getString("AFSLUITEN_PROJECT"));
+//        transaction.setDescription(getBundle("Projects").getString("CLOSE_PROJECT"));
 //		ArrayList<Account> teVerwijderen = new ArrayList<Account>();
 //
 //		BigDecimal totaalKost = new BigDecimal(0);
@@ -58,12 +58,12 @@ public class Project {
 ////		if (totaalOpbrengst.compareTo(totaalKost) > 0) {
 ////			BigDecimal winst = totaalOpbrengst.subtract(totaalKost);
 ////			winst = winst.setScale(2);
-////			result = accounting.getBusinessObjects().add(getBundle("Accounting").getString("WINST_PROJECT") + naam, AccountType.Revenue);
+////			result = accounting.getBusinessObjects().add(getBundle("Projects").getString("GAIN_PROJECT") + naam, AccountType.Revenue);
 ////			transaction.crediteer(result, winst);
 ////		} else {
 ////			BigDecimal verlies = totaalKost.subtract(totaalOpbrengst);
 ////			verlies = verlies.setScale(2);
-////			result = accounting.getBusinessObjects().add(getBundle("Accounting").getString("VERLIES_PROJECT") + naam, AccountType.Cost);
+////			result = accounting.getBusinessObjects().add(getBundle("Projects").getString("LOSS_PROJECT") + naam, AccountType.Cost);
 ////			transaction.debiteer(result, verlies);
 ////		}
 //		// TODO: transaction.addBusinessObject() !!!

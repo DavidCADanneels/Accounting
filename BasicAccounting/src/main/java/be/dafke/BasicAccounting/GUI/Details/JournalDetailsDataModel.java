@@ -24,11 +24,11 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 	private final Journal journal;
 	private final String[] columnNames = {
 			getBundle("Accounting").getString("NR"),
-			getBundle("Accounting").getString("DATUM"),
-			getBundle("Accounting").getString("REKENING"),
-			getBundle("Accounting").getString("DEBET"),
+			getBundle("Accounting").getString("DATE"),
+			getBundle("Accounting").getString("ACCOUNT"),
+			getBundle("Accounting").getString("DEBIT"),
 			getBundle("Accounting").getString("CREDIT"),
-			getBundle("Accounting").getString("OMSCHRIJVING") };
+			getBundle("Accounting").getString("DESCRIPTION") };
 	private final Class[] columnClasses = { String.class, String.class, Account.class, BigDecimal.class,
 			BigDecimal.class, String.class };
 

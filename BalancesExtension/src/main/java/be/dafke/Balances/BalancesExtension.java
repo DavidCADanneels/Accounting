@@ -31,7 +31,7 @@ public class BalancesExtension implements AccountingExtension {
     private static JMenu balancesMenu = null;
     public static final String TEST_BALANCE = "TestBalance";
     public static final String YEAR_BALANCE = "YearBalance";
-    public static final String RELATIONS_BALANCE = "BalanceGUI";
+    public static final String RELATIONS_BALANCE = "RelationsBalance";
     public static final String RESULT_BALANCE = "ResultBalance";
     private Balances balances;
 
@@ -42,15 +42,15 @@ public class BalancesExtension implements AccountingExtension {
     }
 
     private void createMenu(AccountingMenuBar menuBar, ActionListener actionListener) {
-        balancesMenu = new JMenu(getBundle("Accounting").getString("BALANSEN"));
+        balancesMenu = new JMenu(getBundle("Balances").getString("BALANSES"));
         balancesMenu.setMnemonic(KeyEvent.VK_B);
-        JMenuItem testBalance = new JMenuItem(getBundle("Accounting").getString(
-                "PROEF_EN_SALDI-BALANS"));
-        JMenuItem yearBalance = new JMenuItem(getBundle("Accounting").getString("EINDBALANS"));
-        JMenuItem resultBalance = new JMenuItem(getBundle("Accounting").getString(
-                "RESULTATENBALANS"));
-        JMenuItem relationsBalance = new JMenuItem(getBundle("Accounting").getString(
-                "RELATIES-BALANS"));
+        JMenuItem testBalance = new JMenuItem(getBundle("Balances").getString(
+                "TESTBALANCE"));
+        JMenuItem yearBalance = new JMenuItem(getBundle("Balances").getString("YEARBALANCE"));
+        JMenuItem resultBalance = new JMenuItem(getBundle("AccoBalancesunting").getString(
+                "RESULTBALANCE"));
+        JMenuItem relationsBalance = new JMenuItem(getBundle("Balances").getString(
+                "RELATIONSBALANCE"));
         testBalance.addActionListener(actionListener);
         yearBalance.addActionListener(actionListener);
         resultBalance.addActionListener(actionListener);

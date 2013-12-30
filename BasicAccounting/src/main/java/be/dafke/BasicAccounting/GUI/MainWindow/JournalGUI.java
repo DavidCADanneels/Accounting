@@ -67,21 +67,21 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
 		ok = new JButton(getBundle("Accounting").getString("OK"));
 		ok.addActionListener(this);
 		ok.setEnabled(false);
-		clear = new JButton(getBundle("Accounting").getString("WIS_PANEEL"));
+		clear = new JButton(getBundle("Accounting").getString("CLEAR_PANEL"));
 		clear.addActionListener(this);
         clear.setEnabled(false);
 
 		JPanel paneel1 = new JPanel();
 		paneel1.add(new JLabel(
-				getBundle("Accounting").getString("VERRICHTING")));
+				getBundle("Accounting").getString("TRANSACTION")));
 		paneel1.add(ident);
-		paneel1.add(new JLabel(getBundle("Accounting").getString("DATUM")));
+		paneel1.add(new JLabel(getBundle("Accounting").getString("DATE")));
 		paneel1.add(dag);
         paneel1.add(new JLabel("(d/m/yyyy)"));
 
 		JPanel paneel2 = new JPanel();
 		paneel2.add(new JLabel(getBundle("Accounting").getString(
-				"BEWIJS-STUK(KEN)")));
+				"MESSAGE")));
 		paneel2.add(bewijs);
 
 		JPanel paneel3 = new JPanel();
@@ -94,10 +94,10 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
 		debet.setEditable(false);
 		credit.setEditable(false);
 		paneel3.add(new JLabel(
-				getBundle("Accounting").getString("DEBETTOTAAL")));
+				getBundle("Accounting").getString("TOTAL_DEBIT")));
 		paneel3.add(debet);
 		paneel3.add(new JLabel(getBundle("Accounting").getString(
-				"CREDITTOTAAL")));
+				"TOTAL_CREDIT")));
 		paneel3.add(credit);
 
 		JPanel onder = new JPanel(new GridLayout(0, 1));

@@ -40,7 +40,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
     private final Projects projects;
 
     public ProjectManagementGUI(Accounting accounting, Projects projects) {
-		super(getBundle("Accounting").getString("PROJECTMANAGER") + " (" + accounting.toString() + ")");
+		super(getBundle("Projects").getString("PROJECTMANAGER") + " (" + accounting.toString() + ")");
 		this.accounting = accounting;
         this.projects = projects;
 		JPanel hoofdPaneel = new JPanel();
@@ -48,11 +48,11 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		//
 		// midden
 		JPanel onder = new JPanel();
-		moveTo = new JButton(getBundle("Accounting").getString("VOEG_TOE"));
+		moveTo = new JButton(getBundle("Projects").getString("ADD"));
 		moveTo.addActionListener(this);
 		moveTo.setEnabled(false);
 		onder.add(moveTo);
-		moveBack = new JButton(getBundle("Accounting").getString("VERWIJDER"));
+		moveBack = new JButton(getBundle("Projects").getString("DELETE"));
 		moveBack.addActionListener(this);
 		moveBack.setEnabled(false);
 		onder.add(moveBack);
@@ -69,7 +69,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
         zoeker.add(onder, BorderLayout.SOUTH);
 		paneelLinks.add(zoeker);
 		paneelLinks.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
-                "Accounting").getString("REKENINGEN")));
+                "Projects").getString("ACCOUNTS")));
 		hoofdPaneel.add(paneelLinks);
 		//
 		// rechts
@@ -100,8 +100,8 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 //				allAccountsModel.addElement(account);
 //			}
 //		}
-		newProject = new JButton(getBundle("Accounting").getString(
-				"NIEUW_PROJECT"));
+		newProject = new JButton(getBundle("Projects").getString(
+				"NEW_PROJECT"));
 		newProject.addActionListener(this);
 		JPanel noord = new JPanel();
 		combo = new JComboBox<Project>();
@@ -114,7 +114,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		paneelRechts.add(scrol);
 
 		paneelRechts.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
-                "Accounting").getString("PROJECTEN")));
+                "Projects").getString("PROJECTS")));
 		hoofdPaneel.add(paneelRechts);
 		//
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -157,11 +157,11 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 				projectAccountsModel.removeElement(account);
 			}
 		} else if (ae.getSource() == newProject) {
-			String naam = JOptionPane.showInputDialog(getBundle("Accounting").getString(
-					"GEEF_NAAM"));
+			String naam = JOptionPane.showInputDialog(getBundle("Projects").getString(
+					"ENTER_NAME_FOR_PROJECT"));
 			while (naam != null && naam.equals(""))
-				naam = JOptionPane.showInputDialog(getBundle("Accounting").getString(
-						"GEEF_NAAM"));
+				naam = JOptionPane.showInputDialog(getBundle("Projects").getString(
+						"ENTER_NAME_FOR_PROJECT"));
 			if (naam != null) {
 				project = new Project(naam);
 				projects.put(naam, project);

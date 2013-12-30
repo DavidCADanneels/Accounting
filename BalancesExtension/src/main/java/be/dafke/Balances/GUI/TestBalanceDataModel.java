@@ -14,11 +14,11 @@ public class TestBalanceDataModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = {
-			getBundle("Accounting").getString("REKENING"),
-			getBundle("Accounting").getString("PROEF(DEBET)"),
-			getBundle("Accounting").getString("PROEF(CREDIT)"),
-			getBundle("Accounting").getString("SALDO(DEBET)"),
-			getBundle("Accounting").getString("SALDO(CREDIT)") };
+			getBundle("Balances").getString("ACCOUNT"),
+			getBundle("Balances").getString("TEST_DEBIT"),
+			getBundle("Balances").getString("TEST_CREDIT"),
+			getBundle("Balances").getString("SALDO_DEBIT"),
+			getBundle("Balances").getString("SALDO_CREDIT") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, BigDecimal.class,
 			BigDecimal.class };
 	private final Accounting accounting;

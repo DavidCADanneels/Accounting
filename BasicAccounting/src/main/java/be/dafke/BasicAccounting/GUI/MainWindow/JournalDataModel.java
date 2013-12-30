@@ -18,7 +18,7 @@ public class JournalDataModel extends AbstractTableModel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String[] columnNames = { getBundle("Accounting").getString("DEBET"),
+	String[] columnNames = { getBundle("Accounting").getString("DEBIT"),
 			getBundle("Accounting").getString("CREDIT"),
 			getBundle("Accounting").getString("D"),
 			getBundle("Accounting").getString("C") };

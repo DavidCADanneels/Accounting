@@ -49,11 +49,11 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     public AccountsGUI(ActionListener actionListener) {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
-                "Accounting").getString("REKENINGEN")));
-		debet = new JButton(getBundle("Accounting").getString("DEBITEER"));
-        credit = new JButton(getBundle("Accounting").getString("CREDITEER"));
-        accountManagement = new JButton(getBundle("Accounting").getString("BEHEER_REKENING"));
-        accountDetails = new JButton(getBundle("Accounting").getString("BEKIJK_REKENING"));
+                "Accounting").getString("ACCOUNTS")));
+		debet = new JButton(getBundle("Accounting").getString("DEBIT_ACTION"));
+        credit = new JButton(getBundle("Accounting").getString("CREDIT_ACTION"));
+        accountManagement = new JButton(getBundle("Accounting").getString("MANAGE_ACCOUNT"));
+        accountDetails = new JButton(getBundle("Accounting").getString("VIEW_ACCOUNT"));
         debet.setMnemonic(KeyEvent.VK_D);
         credit.setMnemonic(KeyEvent.VK_C);
         accountManagement.setMnemonic(KeyEvent.VK_M);
@@ -120,7 +120,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 		boolean ok = false;
 		while (!ok) {
 			String s = JOptionPane.showInputDialog(getBundle("Accounting").getString(
-					"GEEF_BEDRAG"));
+					"ENTER_AMOUNT"));
 			if (s == null || s.equals("")) {
 				ok = true;
 			} else {

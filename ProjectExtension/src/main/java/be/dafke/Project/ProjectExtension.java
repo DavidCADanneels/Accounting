@@ -31,9 +31,9 @@ public class ProjectExtension implements AccountingExtension{
     }
 
     private void createMenu(AccountingMenuBar menuBar, ActionListener actionListener) {
-        projecten = new JMenu(getBundle("Accounting").getString("PROJECTEN"));
+        projecten = new JMenu(getBundle("Projects").getString("PROJECTS"));
         projecten.setMnemonic(KeyEvent.VK_P);
-        JMenuItem projects = new JMenuItem(getBundle("Accounting").getString(
+        JMenuItem projects = new JMenuItem(getBundle("Projects").getString(
                 "PROJECTMANAGER"));
         projects.addActionListener(actionListener);
         projects.setActionCommand(PROJECTS);

@@ -39,15 +39,8 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         ArrayList<AccountType> debit = new ArrayList<AccountType>();
         ArrayList<AccountType> active = new ArrayList<AccountType>();
         ArrayList<AccountType> passive = new ArrayList<AccountType>();
-//        costs.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("KOST")));
-//        revenues.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("OPBRENGST")));
-//        credit.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("TEGOED_VAN_KLANT")));
-//        debit.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("SCHULD_AAN_LEVERANCIER")));
-//        active.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("ACTIEF")));
-//        active.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("TEGOED_VAN_KLANT")));
-//        passive.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("PASSIEF")));
-//        passive.add(accounting.getAccountTypes().getBusinessObject(getBundle("Accounting").getString("SCHULD_AAN_LEVERANCIER")));
 
+        // TODO: define AccountType.Cost etc (the default types)
         costs.add(accounting.getAccountTypes().getBusinessObject(("Cost")));
         revenues.add(accounting.getAccountTypes().getBusinessObject(("Revenue")));
         credit.add(accounting.getAccountTypes().getBusinessObject(("Credit")));
@@ -58,32 +51,32 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         passive.add(accounting.getAccountTypes().getBusinessObject(("Debit")));
 
         Balance resultBalance = createNewChild(RESULT_BALANCE);
-        resultBalance.setLeftName(getBundle("Accounting").getString("KOSTEN"));
-        resultBalance.setRightName(getBundle("Accounting").getString("OPBRENGSTEN"));
-        resultBalance.setLeftTotalName(getBundle("Accounting").getString("TOTAAL_KOSTEN"));
-        resultBalance.setRightTotalName(getBundle("Accounting").getString("TOTAAL_OPBRENGSTEN"));
-        resultBalance.setLeftResultName(getBundle("Accounting").getString("VERLIES"));
-        resultBalance.setRightResultName(getBundle("Accounting").getString("WINST"));
+        resultBalance.setLeftName(getBundle("Balances").getString("COSTS"));
+        resultBalance.setRightName(getBundle("Balances").getString("REVENUE"));
+        resultBalance.setLeftTotalName(getBundle("Balances").getString("COSTS_TOTAL"));
+        resultBalance.setRightTotalName(getBundle("Balances").getString("REVENUE_TOTAL"));
+        resultBalance.setLeftResultName(getBundle("Balances").getString("LOSS"));
+        resultBalance.setRightResultName(getBundle("Balances").getString("GAIN"));
         resultBalance.setLeftTypes(costs);
         resultBalance.setRightTypes(revenues);
 
         Balance relationsBalance = createNewChild(RELATIONS_BALANCE);
-        relationsBalance.setLeftName(getBundle("Accounting").getString("TEGOEDEN_VAN_KLANTEN"));
-        relationsBalance.setRightName(getBundle("Accounting").getString("SCHULDEN_AAN_LEVERANCIERS"));
-        relationsBalance.setLeftTotalName(getBundle("Accounting").getString("TOTAAL_TEGOEDEN"));
-        relationsBalance.setRightTotalName(getBundle("Accounting").getString("TOTAAL_SCHULDEN"));
-        relationsBalance.setLeftResultName(getBundle("Accounting").getString("RESTEREND_TEGOED"));
-        relationsBalance.setRightResultName(getBundle("Accounting").getString("RESTERENDE_SCHULD"));
+        relationsBalance.setLeftName(getBundle("Balances").getString("FUNDS_FROM_CUSTOMERS"));
+        relationsBalance.setRightName(getBundle("Balances").getString("DEBT_TO_SUPPLIERS"));
+        relationsBalance.setLeftTotalName(getBundle("Balances").getString("FUNDS_TOTAL"));
+        relationsBalance.setRightTotalName(getBundle("Balances").getString("DEBTS_TOTAL"));
+        relationsBalance.setLeftResultName(getBundle("Balances").getString("FUND_REMAINING"));
+        relationsBalance.setRightResultName(getBundle("Balances").getString("DEBT_REMAINING"));
         relationsBalance.setLeftTypes(credit);
         relationsBalance.setRightTypes(debit);
 
         Balance yearBalance = createNewChild(YEAR_BALANCE);
-        yearBalance.setLeftName(getBundle("Accounting").getString("ACTIVA"));
-        yearBalance.setRightName(getBundle("Accounting").getString("PASSIVA"));
-        yearBalance.setLeftTotalName(getBundle("Accounting").getString("TOTAAL_ACTIVA_TEGOEDEN"));
-        yearBalance.setRightTotalName(getBundle("Accounting").getString("TOTAAL_PASSIVA_SCHULDEN"));
-        yearBalance.setLeftResultName(getBundle("Accounting").getString("WINST"));
-        yearBalance.setRightResultName(getBundle("Accounting").getString("VERLIES"));
+        yearBalance.setLeftName(getBundle("Balances").getString("ASSETS"));
+        yearBalance.setRightName(getBundle("Balances").getString("LIABILITIES"));
+        yearBalance.setLeftTotalName(getBundle("Balances").getString("ASSETS_FUNDS_TOTAL"));
+        yearBalance.setRightTotalName(getBundle("Balances").getString("LIABILITIES_DEBTS_TOTAL"));
+        yearBalance.setLeftResultName(getBundle("Balances").getString("GAIN"));
+        yearBalance.setRightResultName(getBundle("Balances").getString("LOSS"));
         yearBalance.setLeftTypes(active);
         yearBalance.setRightTypes(passive);
 

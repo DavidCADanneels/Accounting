@@ -35,14 +35,14 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
 	private final Accounting accounting;
 
 	public JournalDetails(Journal journal, Accounting accounting) {
-		super(getBundle("Accounting").getString("DAGBOEK_DETAILS")
+		super(getBundle("Accounting").getString("JOURNAL_DETAILS")
                 + " " + journal.toString() + " (" + accounting.toString() + ")", new JournalDetailsDataModel(journal));
 		this.accounting = accounting;
 		this.journal = journal;
 		tabel.setAutoCreateRowSorter(true);
 		popup = new JPopupMenu();
-		delete = new JMenuItem(getBundle("Accounting").getString("VERWIJDER"));
-		move = new JMenuItem(getBundle("Accounting").getString("VERPLAATS"));
+		delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
+		move = new JMenuItem(getBundle("Accounting").getString("MOVE"));
 		delete.addActionListener(this);
 		move.addActionListener(this);
 		popup.add(delete);
@@ -80,8 +80,8 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
             ArrayList<Journal> dagboeken = accounting.getJournals().getAllJournalsExcept(journal);
             Object[] lijst = dagboeken.toArray();
             int keuze = JOptionPane.showOptionDialog(null,
-                    getBundle("Accounting").getString("KIES_DAGBOEK"),
-                    getBundle("Accounting").getString("DAGBOEK_KEUZE"),
+                    getBundle("Accounting").getString("CHOOSE_JOURNAL"),
+                    getBundle("Accounting").getString("JOURNAL_CHOICE"),
                     JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, lijst, lijst[0]);
             if(keuze!=JOptionPane.CANCEL_OPTION && keuze!=JOptionPane.CLOSED_OPTION){
                 Journal newJournal = (Journal) lijst[keuze];
@@ -89,12 +89,12 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
                 newJournal.addBusinessObject(transaction);
 
                 JOptionPane.showMessageDialog(null,
-                        getBundle("Accounting").getString("TRANSACTIE_VERPLAATST_VAN") + journal +
-                                getBundle("Accounting").getString("NAAR") + newJournal);
+                        getBundle("Accounting").getString("TRANSACTION_MOVED_FROM") + journal +
+                                getBundle("Accounting").getString("TO") + newJournal);
             }
         } else if (source == delete) {
             journal.removeBusinessObject(transaction);
-            JOptionPane.showMessageDialog(null, getBundle("Accounting").getString("TRANSACTIE_VERWIJDERD_UIT") + journal);
+            JOptionPane.showMessageDialog(null, getBundle("Accounting").getString("TRANSACTION_REMOVED_FROM") + journal);
         }
         AccountingComponentMap.refreshAllFrames();
     }

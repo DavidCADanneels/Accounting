@@ -31,19 +31,19 @@ public class JournalsGUI extends AccountingPanel implements ActionListener {
 
 	public JournalsGUI(ActionListener actionListener) {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
-                "Accounting").getString("DAGBOEKEN")));
+                "Journal").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		combo = new JComboBox<Journal>();
         combo.addActionListener(this);
 		combo.setEnabled(false);
 		add(combo);
 		JPanel paneel = new JPanel();
-		journalManagement = new JButton(getBundle("Accounting").getString("NIEUW_DAGBOEK"));
+		journalManagement = new JButton(getBundle("Accounting").getString("JOURNAL_MANAGEMENT"));
 		journalManagement.addActionListener(actionListener);
         journalManagement.setActionCommand(AccountingActionListener.JOURNAL_MANAGEMENT);
 		journalManagement.setEnabled(false);
 		paneel.add(journalManagement);
-		details = new JButton(getBundle("Accounting").getString("DETAILS_DAGBOEK"));
+		details = new JButton(getBundle("Accounting").getString("VIEW_JOURNAL_DETAILS"));
 		details.addActionListener(actionListener);
         details.setActionCommand(AccountingActionListener.JOURNAL_DETAILS);
 		details.setEnabled(false);
