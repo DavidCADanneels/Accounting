@@ -58,7 +58,7 @@ public class JournalsSAXParser {
                     transaction.setDate(Utils.toCalendar(date));
                     transaction.setDescription(description);
                 }
-                String accountName = Utils.getValue(element, "account_name");
+                String accountName = Utils.getValue(element, "account");
                 Account account = accounts.getBusinessObject(accountName);
                 String debit = Utils.getValue(element, "debet");
                 String credit = Utils.getValue(element, "credit");

@@ -161,8 +161,10 @@ public class AccountingsSAXParser {
 //                TODO: add isSavedHTML
 //                    if(writeableBusinessObject.isSavedHTML()){
                     xmlFile = new File(collectionXmlFolder, object.getName()+".xml");
-                    htmlFile = new File(collectionHtmlFolder, object.getName()+".html");
-                    Utils.xmlToHtml(xmlFile, new File(xslFolder, object.getBusinessObjectType()+"2html.xsl"),htmlFile, null);
+                    if(xmlFile.exists()){
+                        htmlFile = new File(collectionHtmlFolder, object.getName()+".html");
+                        Utils.xmlToHtml(xmlFile, new File(xslFolder, object.getBusinessObjectType()+"2html.xsl"),htmlFile, null);
+                    }
 //                    }
                 }
             }
