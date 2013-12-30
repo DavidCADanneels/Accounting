@@ -29,11 +29,6 @@ import java.io.File;
 public class AccountingActionListener extends WindowAdapter implements ActionListener {
 
     protected final Accountings accountings;
-    public static final String TEST_BALANCE = "TestBalance";
-    public static final String YEAR_BALANCE = "YearBalance";
-    public static final String RELATIONS_BALANCE = "BalanceGUI";
-    public static final String RESULT_BALANCE = "ResultBalance";
-    public static final String PROJECTS = "Projects";
     public static final String MAIN = "MainPanel";
     public static final String MENU = "MenuBar";
     public static final String ACCOUNT_MANAGEMENT = "AccountManagement";
@@ -74,7 +69,6 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
 //                accounting.setName(name);
                 accountings.addBusinessObject(accounting);
                 accountings.setCurrentObject(name);
-                accounting.getBalances().addDefaultBalances(accounting);
                 AccountingComponentMap.addAccountingComponents(accounting, this);
                 JOptionPane.showMessageDialog(null, "Please create a Journal.");
                 String key = accounting.toString()+ AccountingActionListener.JOURNAL_MANAGEMENT;

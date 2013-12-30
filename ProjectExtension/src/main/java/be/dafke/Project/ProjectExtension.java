@@ -1,7 +1,6 @@
 package be.dafke.Project;
 
 import be.dafke.BasicAccounting.AccountingExtension;
-import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
@@ -24,6 +23,7 @@ public class ProjectExtension implements AccountingExtension{
     private final ActionListener actionListener;
     private static JMenu projecten = null;
     private Projects projects;
+    public static final String PROJECTS = "Projects";
 
     public ProjectExtension(ActionListener actionListener, AccountingMenuBar menuBar){
         this.actionListener = actionListener;
@@ -36,7 +36,7 @@ public class ProjectExtension implements AccountingExtension{
         JMenuItem projects = new JMenuItem(getBundle("Accounting").getString(
                 "PROJECTMANAGER"));
         projects.addActionListener(actionListener);
-        projects.setActionCommand(AccountingActionListener.PROJECTS);
+        projects.setActionCommand(PROJECTS);
         projects.setEnabled(false);
         projecten.add(projects);
         menuBar.addRefreshableMenuItem(projects);
@@ -52,7 +52,7 @@ public class ProjectExtension implements AccountingExtension{
     }
 
     public void extendAccountingComponentMap(Accounting accounting){
-        AccountingComponentMap.addDisposableComponent(accounting.toString() + AccountingActionListener.PROJECTS, new ProjectManagementGUI(accounting, projects));
+        AccountingComponentMap.addDisposableComponent(accounting.toString() + PROJECTS, new ProjectManagementGUI(accounting, projects));
     }
 
     public void extendWriteCollection(Accounting accounting, File xmlFolder){

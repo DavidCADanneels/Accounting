@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting.GUI.Balances;
+package be.dafke.Balances.GUI;
 
 import be.dafke.ComponentModel.RefreshableTable;
 

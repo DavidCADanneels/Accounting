@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Dao;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
-import be.dafke.BasicAccounting.Objects.Balance;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
@@ -115,16 +114,11 @@ public class AccountingsSAXParser {
 //            accounting.writeCollection();
             File rootFolder = new File(xmlFolder, accounting.getName());
 
-            File accountsFolder = new File(rootFolder, "Accounts");
-            File balancesFolder = new File(rootFolder, "Balances");
             File journalsFolder = new File(rootFolder, "Journals");
-
+            File accountsFolder = new File(rootFolder, "Accounts");
 
             for(Account account : accounting.getAccounts().getBusinessObjects()){
                 AccountsSAXParser.writeAccount(account, accountsFolder, getXmlHeader(account, 2));
-            }
-            for(Balance balance : accounting.getBalances().getBusinessObjects()){
-                BalancesSAXParser.writeBalance(balance, balancesFolder, getXmlHeader(balance, 2));
             }
 
             for(Journal journal : accounting.getJournals().getBusinessObjects()){

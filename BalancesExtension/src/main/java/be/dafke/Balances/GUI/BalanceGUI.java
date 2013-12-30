@@ -1,7 +1,7 @@
-package be.dafke.BasicAccounting.GUI.Balances;
+package be.dafke.Balances.GUI;
 
+import be.dafke.Balances.Objects.Balance;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Balance;
 
 public class BalanceGUI extends RefreshableBalance {
 	/**

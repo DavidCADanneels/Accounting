@@ -1,7 +1,7 @@
-package be.dafke.BasicAccounting.Dao;
+package be.dafke.Balances.Dao;
 
+import be.dafke.Balances.Objects.Balance;
 import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Balance;
 
 import java.io.File;
 import java.io.FileNotFoundException;

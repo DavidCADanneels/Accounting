@@ -1,5 +1,6 @@
 package be.dafke.launcher;
 
+import be.dafke.Balances.BalancesExtension;
 import be.dafke.BasicAccounting.BasicAccountingMain;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
@@ -30,6 +31,7 @@ public class Main extends BasicAccountingMain{
 
     protected static void applyExtensions(){
         for(Accounting accounting: accountings.getBusinessObjects()){
+            accounting.addExtension(new BalancesExtension(actionListener, menuBar));
             accounting.addExtension(new CodaExtension(actionListener, menuBar));
             accounting.addExtension(new MortgageExtension(actionListener, menuBar));
         }

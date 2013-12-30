@@ -1,5 +1,8 @@
-package be.dafke.BasicAccounting.Objects;
+package be.dafke.Balances.Objects;
 
+import be.dafke.BasicAccounting.Objects.Account;
+import be.dafke.BasicAccounting.Objects.AccountType;
+import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
 import be.dafke.ObjectModel.BusinessTypeCollection;
@@ -91,7 +94,7 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         } catch (EmptyNameException e) {
             System.err.println("The Name of a Balance can not be empty.");
         } catch (DuplicateNameException e) {
-            System.err.println("The Name of a Balance already exists.");
+            System.err.println("The Name of a Balance already exists. ");
         }
     }
 
@@ -103,6 +106,20 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         return balance;
     }
 
+    @Override
+    public Balance addBusinessObject(Balance value) throws EmptyNameException, DuplicateNameException {
+        try {
+            return addBusinessObject(value, value.getUniqueProperties());
+        } catch (DuplicateNameException ex) {
+            String name = value.getName();
+            if(YEAR_BALANCE.equals(name) || RESULT_BALANCE.equals(name) || RELATIONS_BALANCE.equals(name)){
+                System.err.println("Default Balance ("+name+") already exists!");
+                return getBusinessObject(name);
+            } else {
+                throw ex;
+            }
+        }
+    }
     /*@Override
     public void readCollection() {
         readCollection("Balance", false);

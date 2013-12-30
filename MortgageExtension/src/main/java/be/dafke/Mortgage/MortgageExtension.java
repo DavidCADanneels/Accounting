@@ -43,7 +43,7 @@ public class MortgageExtension implements AccountingExtension{
         JMenuItem mortgage = new JMenuItem("Mortgages");
         mortgage.addActionListener(actionListener);
         mortgage.setEnabled(false);
-        mortgage.setActionCommand(MortgageExtension.MORTGAGES);
+        mortgage.setActionCommand(MORTGAGES);
         banking.add(mortgage);
         menuBar.addRefreshableMenuItem(mortgage);
         menuBar.add(banking);

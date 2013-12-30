@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting.GUI.Balances;
+package be.dafke.Balances.GUI;
 
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
