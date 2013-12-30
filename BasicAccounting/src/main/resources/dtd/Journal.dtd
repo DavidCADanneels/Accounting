@@ -1,11 +1,9 @@
 <!ELEMENT Journal (name,action*)>
-<!ELEMENT action (nr?,date?,account_name,account_xml,account_html,debet?,credit?,description?)>
+<!ELEMENT action (nr?,date?,account,debet?,credit?,description?)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT nr (#PCDATA)>
 <!ELEMENT date (#PCDATA)>
-<!ELEMENT account_name (#PCDATA)>
-<!ELEMENT account_xml (#PCDATA)>
-<!ELEMENT account_html (#PCDATA)>
+<!ELEMENT account (#PCDATA)>
 <!ELEMENT debet (#PCDATA)>
 <!ELEMENT credit (#PCDATA)>
 <!ELEMENT description (#PCDATA)>

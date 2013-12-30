@@ -5,8 +5,8 @@
   <name>RelationsBalance</name>
   <LeftName>Tegoeden van Klanten</LeftName>
   <RightName>Schulden aan Leveranciers</RightName>
-  <LeftTotalName>Totaal Tegoeden</LeftTotalName>
-  <RightTotalName>Totaal Schulden</RightTotalName>
-  <LeftResultName>Resterend Tegoed</LeftResultName>
-  <RightResultName>Resterende Schuld</RightResultName>
+  <LeftTotalName>TOTAAL TEGOEDEN</LeftTotalName>
+  <RightTotalName>TOTAAL SCHULDEN</RightTotalName>
+  <LeftResultName>RESTEREND TEGOED</LeftResultName>
+  <RightResultName>RESTERENDE SCHULD</RightResultName>
 </Balance>

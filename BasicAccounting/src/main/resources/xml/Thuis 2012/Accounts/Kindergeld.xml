@@ -5,88 +5,77 @@
   <name>Kindergeld</name>
   <action id="40">
     <nr>DIV40</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>8/2/2012</date>
     <credit>86.77</credit>
     <description>kindergeld januari</description>
   </action>
   <action id="85">
     <nr>DIV85</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>8/3/2012</date>
     <credit>88.51</credit>
     <description>kindergeld februari</description>
   </action>
   <action id="141">
     <nr>DIV141</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>5/4/2012</date>
     <credit>88.51</credit>
     <description>Kindergeld maart</description>
   </action>
   <action id="195">
     <nr>DIV195</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>8/5/2012</date>
     <credit>88.51</credit>
     <description>kindergeld april</description>
   </action>
   <action id="255">
     <nr>DIV255</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>8/6/2012</date>
     <credit>88.51</credit>
     <description>kindergeld mei</description>
   </action>
   <action id="315">
     <nr>DIV315</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>6/7/2012</date>
     <credit>88.51</credit>
     <description>kindergeld juni</description>
   </action>
   <action id="396">
     <nr>DIV396</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>8/8/2012</date>
     <credit>88.51</credit>
     <description>kindergeld juli + extra</description>
   </action>
   <action id="396">
     <nr>DIV396</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>8/8/2012</date>
     <credit>27.06</credit>
     <description>kindergeld juli + extra</description>
   </action>
   <action id="443">
     <nr>DIV443</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>7/9/2012</date>
     <credit>88.51</credit>
     <description>kindergeld augustus</description>
   </action>
   <action id="487">
     <nr>DIV487</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>8/10/2012</date>
     <credit>88.51</credit>
     <description>kindergeld september</description>
   </action>
   <action id="537">
     <nr>DIV537</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>8/11/2012</date>
     <credit>88.51</credit>
     <description>kindergeld oktober</description>

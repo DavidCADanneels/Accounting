@@ -5,112 +5,98 @@
   <name>Netto David</name>
   <action id="21">
     <nr>DIV21</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>26/1/2012</date>
     <credit>1588.52</credit>
     <description>/A/         1BI0221-01-0000403</description>
   </action>
   <action id="67">
     <nr>DIV67</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>27/2/2012</date>
     <credit>1587.44</credit>
     <description>/A/         1BI0221-01-0000403</description>
   </action>
   <action id="101">
     <nr>DIV101</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>19/3/2012</date>
     <credit>36.00</credit>
     <description>EXPENSE CLAIM 2012 DD</description>
   </action>
   <action id="122">
     <nr>DIV122</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>27/3/2012</date>
     <credit>1586.34</credit>
     <description>/A/         1BI0221-01-0000403</description>
   </action>
   <action id="171">
     <nr>DIV171</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>27/4/2012</date>
     <credit>1588.52</credit>
     <description>/A/         1BI0221-01-0000403</description>
   </action>
   <action id="213">
     <nr>DIV213</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>21/5/2012</date>
     <credit>361.67</credit>
     <description>/A/         1BI0221-01-0000403</description>
   </action>
   <action id="225">
     <nr>DIV225</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>29/5/2012</date>
     <credit>1588.52</credit>
     <description>/A/         1BI0221-01-0000403</description>
   </action>
   <action id="288">
     <nr>DIV288</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>26/6/2012</date>
     <credit>1588.52</credit>
     <description>/A/         1BI0221-01-0000403</description>
   </action>
   <action id="359">
     <nr>DIV359</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>26/7/2012</date>
     <credit>1662.26</credit>
     <description>/A/         1BI0221-01-0000403</description>
   </action>
   <action id="417">
     <nr>DIV417</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>28/8/2012</date>
     <credit>1654.63</credit>
     <description>/A/         1BI0221-01-0000403</description>
   </action>
   <action id="463">
     <nr>DIV463</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>27/9/2012</date>
     <credit>1657.90</credit>
     <description>/A/         1BI0221-01-0000403</description>
   </action>
   <action id="511">
     <nr>DIV511</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>29/10/2012</date>
     <credit>1653.54</credit>
     <description>/A/         1BI0221-01-0000403</description>
   </action>
   <action id="557">
     <nr>DIV557</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>27/11/2012</date>
     <credit>1694.35</credit>
     <description>/A/         1BI0221-01-0000403</description>
   </action>
   <action id="588">
     <nr>DIV588</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>13/12/2012</date>
     <credit>1275.73</credit>
     <description>Eindejaarspremie</description>

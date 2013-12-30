@@ -5,8 +5,7 @@
   <name>Huur 2012</name>
   <action id="31">
     <nr>DIV31</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>16/1/2013</date>
     <credit>600.00</credit>
     <description>huur</description>

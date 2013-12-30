@@ -18,9 +18,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <xsl:for-each select="Accounts">
         <li>
           <xsl:element name="a">
-            <xsl:attribute name="href">
-              <xsl:value-of select="html"/>
-            </xsl:attribute>
+            <xsl:attribute name="href">Accounts/<xsl:value-of select="name"/>.html</xsl:attribute>
             <xsl:value-of select="name"/>
           </xsl:element>
         </li>
@@ -28,9 +26,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <xsl:for-each select="Journals">
         <li>
           <xsl:element name="a">
-            <xsl:attribute name="href">
-              <xsl:value-of select="html"/>
-            </xsl:attribute>
+            <xsl:attribute name="href">Journals/<xsl:value-of select="name"/>.html</xsl:attribute>
             <xsl:value-of select="name"/>
           </xsl:element>
         </li>
@@ -38,9 +34,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <xsl:for-each select="Balances">
         <li>
           <xsl:element name="a">
-            <xsl:attribute name="href">
-              <xsl:value-of select="html"/>
-            </xsl:attribute>
+            <xsl:attribute name="href">Balances/<xsl:value-of select="name"/>.html</xsl:attribute>
             <xsl:value-of select="name"/>
           </xsl:element>
         </li>
@@ -48,9 +42,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <xsl:for-each select="Mortgages">
         <li>
           <xsl:element name="a">
-            <xsl:attribute name="href">
-              <xsl:value-of select="html"/>
-            </xsl:attribute>
+            <xsl:attribute name="href">Mortgages/<xsl:value-of select="name"/>.html</xsl:attribute>
             <xsl:value-of select="name"/>
           </xsl:element>
         </li>
@@ -58,9 +50,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <xsl:for-each select="CounterParties">
         <li>
           <xsl:element name="a">
-            <xsl:attribute name="href">
-              <xsl:value-of select="html"/>
-            </xsl:attribute>
+            <xsl:attribute name="href">CounterParties/<xsl:value-of select="name"/>.html</xsl:attribute>
             <xsl:value-of select="name"/>
           </xsl:element>
         </li>
@@ -68,9 +58,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <xsl:for-each select="Statements">
         <li>
           <xsl:element name="a">
-            <xsl:attribute name="href">
-              <xsl:value-of select="html"/>
-            </xsl:attribute>
+            <xsl:attribute name="href">Statements/<xsl:value-of select="name"/>.html</xsl:attribute>
             <xsl:value-of select="name"/>
           </xsl:element>
         </li>

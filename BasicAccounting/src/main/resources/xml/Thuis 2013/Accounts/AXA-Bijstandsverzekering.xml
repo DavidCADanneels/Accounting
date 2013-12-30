@@ -5,16 +5,14 @@
   <name>AXA-Bijstandsverzekering</name>
   <action id="16">
     <nr>DIV16</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>4/1/2013</date>
     <debit>18.66</debit>
     <description>Verzekeringen januari</description>
   </action>
   <action id="69">
     <nr>DIV69</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>6/2/2013</date>
     <debit>18.66</debit>
     <description>verzekeringen + Sophia</description>

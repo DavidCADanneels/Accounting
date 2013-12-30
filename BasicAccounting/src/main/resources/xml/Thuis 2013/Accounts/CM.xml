@@ -5,40 +5,35 @@
   <name>CM</name>
   <action id="8">
     <nr>DIV8</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>2/1/2013</date>
     <debit>85.08</debit>
     <description>CM Tay</description>
   </action>
   <action id="11">
     <nr>DIV11</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>3/1/2013</date>
     <debit>17.07</debit>
     <description>CM</description>
   </action>
   <action id="33">
     <nr>DIV33</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>17/1/2013</date>
     <debit>68.28</debit>
     <description>48878/+++</description>
   </action>
   <action id="34">
     <nr>DIV34</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>17/1/2013</date>
     <debit>17.07</debit>
     <description>59711/+++</description>
   </action>
   <action id="86">
     <nr>DIV86</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>21/2/2013</date>
     <credit>19.67</credit>
     <description>terugbetaling Sophia/Tay</description>

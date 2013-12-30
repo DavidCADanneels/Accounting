@@ -5,40 +5,35 @@
   <name>Netto Dara</name>
   <action id="12">
     <nr>DIV12</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>3/1/2013</date>
     <credit>456.56</credit>
     <description>rest december</description>
   </action>
   <action id="29">
     <nr>DIV29</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>16/1/2013</date>
     <credit>250.00</credit>
     <description>voorschot januari</description>
   </action>
   <action id="64">
     <nr>DIV64</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>4/2/2013</date>
     <credit>664.32</credit>
     <description>rest januari</description>
   </action>
   <action id="84">
     <nr>DIV84</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>18/2/2013</date>
     <credit>16.32</credit>
     <description>Werkloosheidsvergoeding</description>
   </action>
   <action id="85">
     <nr>DIV85</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>19/2/2013</date>
     <credit>100.00</credit>
     <description>Voorschot januari</description>

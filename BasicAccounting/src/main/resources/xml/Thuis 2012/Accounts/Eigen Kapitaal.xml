@@ -5,24 +5,21 @@
   <name>Eigen Kapitaal</name>
   <action id="1">
     <nr>DIV1</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>1/1/2012</date>
     <credit>3393.55</credit>
     <description>beginbalans</description>
   </action>
   <action id="3">
     <nr>DIV3</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>1/1/2012</date>
     <debit>3393.55</debit>
     <description>Correctie beginbalans Hypotheek</description>
   </action>
   <action id="3">
     <nr>DIV3</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>1/1/2012</date>
     <credit>3641.43</credit>
     <description>Correctie beginbalans Hypotheek</description>

@@ -5,8 +5,8 @@
   <name>ResultBalance</name>
   <LeftName>Kosten</LeftName>
   <RightName>Opbrengsten</RightName>
-  <LeftTotalName>Totaal Kosten</LeftTotalName>
-  <RightTotalName>Totaal Opbrengsten</RightTotalName>
-  <LeftResultName>Verlies</LeftResultName>
-  <RightResultName>Winst</RightResultName>
+  <LeftTotalName>TOTAAL KOSTEN</LeftTotalName>
+  <RightTotalName>TOTAAL OPBRENGSTEN</RightTotalName>
+  <LeftResultName>VERLIES</LeftResultName>
+  <RightResultName>WINST</RightResultName>
 </Balance>

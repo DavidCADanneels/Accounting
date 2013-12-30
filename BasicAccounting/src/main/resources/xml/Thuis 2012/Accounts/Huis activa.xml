@@ -5,8 +5,7 @@
   <name>Huis activa</name>
   <action id="1">
     <nr>DIV1</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>1/1/2012</date>
     <debit>156000.00</debit>
     <description>beginbalans</description>

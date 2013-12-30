@@ -5,16 +5,14 @@
   <name>Kindergeld</name>
   <action id="19">
     <nr>DIV19</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>8/1/2013</date>
     <credit>90.28</credit>
     <description>kindergeld december</description>
   </action>
   <action id="73">
     <nr>DIV73</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>8/2/2013</date>
     <credit>90.28</credit>
     <description>Kindergeld januari</description>

@@ -5,8 +5,7 @@
   <name>Boetes</name>
   <action id="36">
     <nr>DIV36</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>17/1/2013</date>
     <debit>50.00</debit>
     <description>23142/+++</description>

@@ -5,8 +5,7 @@
   <name>Energiekosten</name>
   <action id="532">
     <nr>DIV532</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>6/11/2012</date>
     <debit>600.00</debit>
     <description>voorgeschoten door ma: dokter-apotheek-gas-electriciteit</description>

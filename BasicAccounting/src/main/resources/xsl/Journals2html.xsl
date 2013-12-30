@@ -19,9 +19,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
           <xsl:for-each select="Journal">
             <li>
               <xsl:element name="a">
-                <xsl:attribute name="href">
-                  <xsl:value-of select="html"/>
-                </xsl:attribute>
+                <xsl:attribute name="href"><xsl:value-of select="name"/>.html</xsl:attribute>
                   <xsl:value-of select="name"/>
               </xsl:element>
               (<xsl:value-of select="abbreviation"/> | <xsl:value-of select="type"/>)

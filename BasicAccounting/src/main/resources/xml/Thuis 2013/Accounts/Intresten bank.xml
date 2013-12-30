@@ -5,24 +5,21 @@
   <name>Intresten bank</name>
   <action id="2">
     <nr>DIV2</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>1/1/2013</date>
     <credit>1.23</credit>
     <description>Intrest spaarboekje</description>
   </action>
   <action id="6">
     <nr>DIV6</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>2/1/2013</date>
     <debit>25.80</debit>
     <description>kapitalisatie</description>
   </action>
   <action id="10">
     <nr>DIV10</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>2/1/2013</date>
     <debit>33.70</debit>
     <description>Kapitalisatie</description>

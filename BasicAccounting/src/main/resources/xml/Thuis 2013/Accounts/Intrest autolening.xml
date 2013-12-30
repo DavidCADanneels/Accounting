@@ -5,16 +5,14 @@
   <name>Intrest autolening</name>
   <action id="59">
     <nr>DIV59</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>31/1/2013</date>
     <debit>37.38</debit>
     <description>afbetaling januari</description>
   </action>
   <action id="89">
     <nr>DIV89</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>28/2/2013</date>
     <debit>36.53</debit>
     <description>afbetaling februari</description>

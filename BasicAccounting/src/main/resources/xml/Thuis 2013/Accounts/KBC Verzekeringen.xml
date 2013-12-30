@@ -5,8 +5,7 @@
   <name>KBC Verzekeringen</name>
   <action id="70">
     <nr>DIV70</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>6/2/2013</date>
     <debit>24.44</debit>
     <description>ziekenhuiskosten Sophia</description>

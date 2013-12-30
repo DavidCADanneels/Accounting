@@ -5,8 +5,7 @@
   <name>Intresten bank</name>
   <action id="2">
     <nr>DIV2</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>1/1/2012</date>
     <credit>0.01</credit>
     <description>intresten</description>

@@ -20,10 +20,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
             <td><xsl:value-of select="date"/></td>
             <td>
               <xsl:element name="a">
-                <xsl:attribute name="href">
-                  <xsl:value-of select="account_xml"/>#<xsl:value-of select="@id"/>
+                  <xsl:attribute name="href">../Accounts/<xsl:value-of select="account"/>.xml#<xsl:value-of select="@id"/>
                 </xsl:attribute>
-                <xsl:value-of select="account_name"/>
+                <xsl:value-of select="account"/>
               </xsl:element>
             </td>
             <td><xsl:value-of select="debet"/></td>

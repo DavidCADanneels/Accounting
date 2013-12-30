@@ -5,8 +5,7 @@
   <name>AXA-Brommerverzekering</name>
   <action id="548">
     <nr>DIV548</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>21/11/2012</date>
     <debit>160.92</debit>
     <description>verzekering brommer</description>

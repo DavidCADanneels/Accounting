@@ -4,6 +4,7 @@ import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.FOP.Utils;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 
@@ -126,29 +127,48 @@ public class AccountingsSAXParser {
             }
         }
 
-//        toHtml(accountings);
+        toHtml(accountings);
     }
 
-//    private static void toHtml(Accountings accountings){
-//        accountings.xmlToHtml();
-//        for(Accounting accounting:accountings.getBusinessObjects()){
-//            if(accounting.getHtmlFolder()!=null && !accounting.getHtmlFolder().getPath().equals("null")){
-//                accounting.xmlToHtml();
-//
-//                for(BusinessCollection<BusinessObject> collection : accounting.getBusinessObjects()){
-//                    collection.xmlToHtml();
-//                    if(collection.getHtmlFolder()!=null){
-//                        for(BusinessObject writeableBusinessObject : collection.getBusinessObjects()){
-////                        TODO: add isSavedHTML
-////                        if(writeableBusinessObject.isSavedHTML()){
-//                            writeableBusinessObject.xmlToHtml();
-////                        }
-//                        }
+    private static void toHtml(Accountings accountings){
+        File userHome = new File(System.getProperty("user.home"));
+        File xslFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/xsl");
+        File htmlFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/html");
+        File xmlFolder = accountings.getXmlFolder();
+
+        File xmlFile = new File(xmlFolder, "Accountings.xml");
+        htmlFolder.mkdirs();
+        File htmlFile = new File(htmlFolder, "Accountings.html");
+
+        Utils.xmlToHtml(xmlFile, new File(xslFolder, "Accountings2html.xsl"), htmlFile,null);
+        for(Accounting accounting:accountings.getBusinessObjects()){
+            String accountingName = accounting.getName();
+            File accountingXmlFolder = new File(xmlFolder, accountingName);
+            File accountingHtmlFolder = new File(htmlFolder, accountingName);
+            accountingHtmlFolder.mkdirs();
+            xmlFile = new File(accountingXmlFolder, "Accounting.xml");
+            htmlFile = new File(accountingHtmlFolder, "Accounting.html");
+            Utils.xmlToHtml(xmlFile, new File(xslFolder, "Accounting2html.xsl"), htmlFile, null);
+
+            for(BusinessCollection<BusinessObject> collection : accounting.getBusinessObjects()){
+                File collectionXmlFolder = new File(accountingXmlFolder, collection.getName());
+                xmlFile = new File(collectionXmlFolder, collection.getName()+".xml");
+                File collectionHtmlFolder = new File(accountingHtmlFolder, collection.getName());
+                collectionHtmlFolder.mkdirs();
+                htmlFile = new File(collectionHtmlFolder, collection.getName()+".html");
+                Utils.xmlToHtml(xmlFile, new File(xslFolder, collection.getName()+"2html.xsl"),htmlFile, null);
+                for(BusinessObject object : collection.getBusinessObjects()){
+//                TODO: add isSavedHTML
+//                    if(writeableBusinessObject.isSavedHTML()){
+                    xmlFile = new File(collectionXmlFolder, object.getName()+".xml");
+                    htmlFile = new File(collectionHtmlFolder, object.getName()+".html");
+                    Utils.xmlToHtml(xmlFile, new File(xslFolder, object.getBusinessObjectType()+"2html.xsl"),htmlFile, null);
 //                    }
-//                }
-//            }
-//        }
-//    }
+                }
+            }
+
+        }
+    }
 
 
     // READ

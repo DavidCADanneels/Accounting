@@ -5,24 +5,21 @@
   <name>Eigen Kapitaal</name>
   <action id="1">
     <nr>DIV1</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>1/1/2013</date>
     <credit>11987.43</credit>
     <description>Beginbalans</description>
   </action>
   <action id="3">
     <nr>DIV3</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>1/1/2013</date>
     <debit>11987.43</debit>
     <description>correctie beginbalans (Bank Dara)</description>
   </action>
   <action id="3">
     <nr>DIV3</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>1/1/2013</date>
     <credit>11633.14</credit>
     <description>correctie beginbalans (Bank Dara)</description>

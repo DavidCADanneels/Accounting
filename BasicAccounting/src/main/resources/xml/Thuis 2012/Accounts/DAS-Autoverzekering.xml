@@ -5,16 +5,14 @@
   <name>DAS-Autoverzekering</name>
   <action id="454">
     <nr>DIV454</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>19/9/2012</date>
     <debit>29.25</debit>
     <description>1077662336562421909121629662                        3|(2)5412040118</description>
   </action>
   <action id="583">
     <nr>DIV583</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>11/12/2012</date>
     <debit>29.25</debit>
     <description>DAS autoverzekering</description>

@@ -30,9 +30,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
               <td><xsl:value-of select="Alias"/></td>
               <td>
                 <xsl:element name="a">
-                  <xsl:attribute name="href">
-                    <xsl:value-of select="AccountHtml"/>
-                  </xsl:attribute>
+                    <xsl:attribute name="href">../Accounts/<xsl:value-of select="AccountName"/>.xml</xsl:attribute>
                   <xsl:value-of select="AccountName"/>
                 </xsl:element>
               </td>

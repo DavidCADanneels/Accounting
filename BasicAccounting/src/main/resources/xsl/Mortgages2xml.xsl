@@ -27,9 +27,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
             <tr>
               <td>
                 <xsl:element name="a">
-                  <xsl:attribute name="href">
-                    <xsl:value-of select="xml"/>
-                  </xsl:attribute>
+                    <xsl:attribute name="href"><xsl:value-of select="name"/>.xml</xsl:attribute>
                   <xsl:value-of select="name"/>
                 </xsl:element>
               </td>
@@ -41,17 +39,13 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
               </td>
               <td>
                 <xsl:element name="a">
-                  <xsl:attribute name="href">
-                    <xsl:value-of select="capital_account_xml"/>
-                  </xsl:attribute>
+                    <xsl:attribute name="href"><xsl:value-of select="capital_account_name"/>.xml</xsl:attribute>
                   <xsl:value-of select="capital_account_name"/>
                 </xsl:element>
               </td>
               <td>
                 <xsl:element name="a">
-                  <xsl:attribute name="href">
-                    <xsl:value-of select="intrest_account_xml"/>
-                  </xsl:attribute>
+                    <xsl:attribute name="href"><xsl:value-of select="intrest_account_name"/>.xml</xsl:attribute>
                   <xsl:value-of select="intrest_account_name"/>
                 </xsl:element>
               </td>

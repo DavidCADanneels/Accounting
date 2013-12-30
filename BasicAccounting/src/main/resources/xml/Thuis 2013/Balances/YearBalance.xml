@@ -5,10 +5,10 @@
   <name>YearBalance</name>
   <LeftName>Activa</LeftName>
   <RightName>Passiva</RightName>
-  <LeftTotalName>Totaal Activa</LeftTotalName>
-  <RightTotalName>Totaal Passiva</RightTotalName>
-  <LeftResultName>Winst</LeftResultName>
-  <RightResultName>Verlies</RightResultName>
+  <LeftTotalName>TOTAAL ACTIVA/TEGOEDEN</LeftTotalName>
+  <RightTotalName>TOTAAL PASSIVA/SCHULDEN</RightTotalName>
+  <LeftResultName>WINST</LeftResultName>
+  <RightResultName>VERLIES</RightResultName>
   <line>
     <name1>Auto activa</name1>
     <amount1>15450.00</amount1>

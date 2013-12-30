@@ -5,72 +5,63 @@
   <name>Apotheek</name>
   <action id="30">
     <nr>DIV30</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>2/2/2012</date>
     <debit>28.30</debit>
     <description>apotheek</description>
   </action>
   <action id="48">
     <nr>DIV48</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>14/2/2012</date>
     <debit>61.70</debit>
     <description>apotheek</description>
   </action>
   <action id="148">
     <nr>DIV148</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>11/4/2012</date>
     <debit>40.20</debit>
     <description>Apotheek</description>
   </action>
   <action id="148">
     <nr>DIV148</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>11/4/2012</date>
     <debit>22.90</debit>
     <description>Apotheek</description>
   </action>
   <action id="196">
     <nr>DIV196</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>10/5/2012</date>
     <debit>62.83</debit>
     <description>apotheek</description>
   </action>
   <action id="275">
     <nr>DIV275</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>19/6/2012</date>
     <debit>18.24</debit>
     <description>apotheek</description>
   </action>
   <action id="374">
     <nr>DIV374</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>31/7/2012</date>
     <debit>8.35</debit>
     <description>apotheek</description>
   </action>
   <action id="447">
     <nr>DIV447</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>10/9/2012</date>
     <debit>8.50</debit>
     <description>tankbeurt</description>
   </action>
   <action id="532">
     <nr>DIV532</nr>
-    <journal_xml>../Journals/Diversen.xml</journal_xml>
-    <journal_html>../Journals/Diversen.html</journal_html>
+    <journal>Diversen</journal>
     <date>6/11/2012</date>
     <debit>100.00</debit>
     <description>voorgeschoten door ma: dokter-apotheek-gas-electriciteit</description>
