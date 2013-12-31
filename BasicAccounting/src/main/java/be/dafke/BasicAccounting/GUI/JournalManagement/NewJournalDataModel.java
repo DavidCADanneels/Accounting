@@ -5,12 +5,15 @@ import be.dafke.BasicAccounting.Objects.Journal;
 
 import javax.swing.table.AbstractTableModel;
 
+import static java.util.ResourceBundle.getBundle;
+
 public class NewJournalDataModel extends AbstractTableModel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String[] columnNames = { "Journal (Name)", "Type", "Next Index" };
+	private final String[] columnNames = { getBundle("Accounting").getString("JOURNAL_NAME"),
+            getBundle("Accounting").getString("TYPE"), getBundle("Accounting").getString("NEXT_INDEX") };
 	private final Class[] columnClasses = { Journal.class, String.class, Integer.class };
 	private final Accounting accounting;
 

@@ -10,6 +10,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.ResourceBundle.getBundle;
+
 /**
  * @author David Danneels
  */
@@ -28,7 +30,7 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         this.actionListener = actionListener;
 
         file = new JMenu("Accounting");
-        startNew = new JMenuItem("New");
+        startNew = new JMenuItem(getBundle("Accounting").getString("NEW_ACCOUNTING"));
         startNew.addActionListener(actionListener);
         startNew.setActionCommand(AccountingActionListener.NEW_ACCOUNTING);
         add(file);

@@ -87,14 +87,14 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
                 Journal newJournal = (Journal) lijst[keuze];
                 journal.removeBusinessObject(transaction);
                 newJournal.addBusinessObject(transaction);
-
+                // TODO: create translationkeys with parameters !!!
                 JOptionPane.showMessageDialog(null,
-                        getBundle("Accounting").getString("TRANSACTION_MOVED_FROM") + journal +
-                                getBundle("Accounting").getString("TO") + newJournal);
+                        getBundle("Accounting").getString("TRANSACTION_MOVED_FROM") + " " + journal + " "+
+                                getBundle("Accounting").getString("TO") +" " + newJournal);
             }
         } else if (source == delete) {
             journal.removeBusinessObject(transaction);
-            JOptionPane.showMessageDialog(null, getBundle("Accounting").getString("TRANSACTION_REMOVED_FROM") + journal);
+            JOptionPane.showMessageDialog(null, getBundle("Accounting").getString("TRANSACTION_REMOVED_FROM")+ " " + journal);
         }
         AccountingComponentMap.refreshAllFrames();
     }

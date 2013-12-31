@@ -20,6 +20,8 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.util.ArrayList;
 
+import static java.util.ResourceBundle.getBundle;
+
 public class JournalManagementGUI extends RefreshableTable implements ActionListener, ListSelectionListener, FocusListener {
 	/**
 	 * 
@@ -32,7 +34,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 	private final Accounting accounting;
 
 	public JournalManagementGUI(Accounting accounting, ActionListener actionListener) {
-		super("Create and modify journals for " + accounting.toString(), new NewJournalDataModel(accounting));
+		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE") + " " + accounting.toString(), new NewJournalDataModel(accounting));
 		this.accounting = accounting;
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
@@ -40,23 +42,23 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 		JPanel north = new JPanel();
 		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
 		JPanel line1 = new JPanel();
-		line1.add(new JLabel("Name:"));
+		line1.add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")));
 		name = new JTextField(20);
 		abbr = new JTextField(6);
 		line1.add(name);
-		line1.add(new JLabel("Abbreviation:"));
+		line1.add(new JLabel(getBundle("Accounting").getString("ABBR_LABEL")));
 		line1.add(abbr);
 		JPanel line2 = new JPanel();
-		line2.add(new JLabel("Type:"));
+		line2.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
 		type = new JComboBox<JournalType>();
 		line2.add(type);
-		add = new JButton("Create new journal");
+		add = new JButton(getBundle("Accounting").getString("CREATE_NEW_JOURNAL"));
 		add.addActionListener(this);
 		name.addActionListener(this);
 		abbr.addActionListener(this);
 		name.addFocusListener(this);
 		line2.add(add);
-		newType = new JButton("Manage types ...");
+		newType = new JButton(getBundle("Accounting").getString("MANAGE_TYPES"));
         newType.setActionCommand(AccountingActionListener.JOURNAL_TYPE_MANAGEMENT);
 		newType.addActionListener(actionListener);
 		line2.add(newType);
@@ -64,10 +66,10 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 		north.add(line2);
 		contentPanel.add(north, BorderLayout.NORTH);
 		JPanel south = new JPanel();
-		modifyName = new JButton("Modify name");
-		modifyAbbr = new JButton("Modify abbreviation");
-		modifyType = new JButton("Modify type");
-		delete = new JButton("Delete journal");
+		modifyName = new JButton(getBundle("Accounting").getString("MODIFY_NAME"));
+		modifyAbbr = new JButton(getBundle("Accounting").getString("MODIFY_ABBR"));
+		modifyType = new JButton(getBundle("Accounting").getString("MODIFY_TYPE"));
+		delete = new JButton(getBundle("Accounting").getString("DELETE_JOURNAL"));
 		modifyName.addActionListener(this);
 		modifyType.addActionListener(this);
 		modifyAbbr.addActionListener(this);
@@ -136,7 +138,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
     private ArrayList<Journal> getSelectedJournals(){
         int[] rows = tabel.getSelectedRows();
         if (rows.length == 0) {
-            JOptionPane.showMessageDialog(this, "Select a journal first");
+            JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("SELECT_JOURNAL_FIRST"));
         }
         ArrayList<Journal> journalList = new ArrayList<Journal>();
         for(int row : rows) {
@@ -158,9 +160,9 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
         }
         if (failed.size() > 0) {
             if (failed.size() == 1) {
-                JOptionPane.showMessageDialog(this, failed.get(0) + " already has transactions, so it can not be deleted.");
+                JOptionPane.showMessageDialog(this, failed.get(0) + " "+ getBundle("Accounting").getString("JOURNAL_NOT_EMPTY"));
             } else {
-                StringBuilder builder = new StringBuilder("The following accounts already have transactions, so they can not be deleted:\r\n");
+                StringBuilder builder = new StringBuilder(getBundle("Accounting").getString("MULTIPLE_JOURNALS_NOT_EMPTY")+"\r\n");
                 for(String s : failed){
                     builder.append("- ").append(s).append("\r\n");
                 }
@@ -174,7 +176,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
             String oldName = journal.getName();
             boolean retry = true;
             while(retry){
-                String newName = JOptionPane.showInputDialog("New name", oldName.trim());
+                String newName = JOptionPane.showInputDialog(getBundle("Accounting").getString("NEW_NAME"), oldName.trim());
                 try {
                     if(newName!=null && !oldName.trim().equals(newName.trim())){
                         accounting.getJournals().modifyJournalName(oldName, newName);
@@ -182,10 +184,11 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {
-                    JOptionPane.showMessageDialog(this, "There is already a journal with the name \""+newName.trim()+"\".\r\n"+
-                            "Please provide a new name.");
+                    JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("JOURNAL_DUPLICATE_NAME") +" \"" +newName.trim()+"\".\r\n"+
+                            getBundle("Accounting").getString("PROVIDE_NEW_NAME"));
                 } catch (EmptyNameException e) {
-                    JOptionPane.showMessageDialog(this, "Journal name cannot be empty\r\nPlease provide a new name.");
+                    JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("JOURNAL_NAME_EMPTY")+"\r\n"+
+                            getBundle("Accounting").getString("PROVIDE_NEW_NAME"));
                 }
             }
         }
@@ -196,7 +199,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
             String oldAbbreviation = journal.getAbbreviation();
             boolean retry = true;
             while(retry){
-                String newAbbreviation = JOptionPane.showInputDialog("New abbreviation", oldAbbreviation.trim());
+                String newAbbreviation = JOptionPane.showInputDialog(getBundle("Accounting").getString("NEW_ABBR"), oldAbbreviation.trim());
                 try {
                     if(newAbbreviation!=null && !oldAbbreviation.trim().equals(newAbbreviation.trim())){
                         accounting.getJournals().modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
@@ -204,10 +207,11 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {
-                    JOptionPane.showMessageDialog(this, "There is already a journal with the abbreviation \""+newAbbreviation.trim()+"\".\r\n"+
-                            "Please provide a new abbreviation.");
+                    JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("JOURNAL_DUPLICATE_ABBR")+" \""+newAbbreviation.trim()+"\".\r\n"+
+                            getBundle("Accounting").getString("PROVIDE_NEW_ABBR"));
                 } catch (EmptyNameException e) {
-                    JOptionPane.showMessageDialog(this, "Journal abbreviation cannot be empty\r\nPlease provide a new abbreviation.");
+                    JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("JOURNAL_ABBR_EMPTY")+"\r\n"+
+                            getBundle("Accounting").getString("PROVIDE_NEW_ABBR"));
                 }
             }
         }
@@ -230,10 +234,13 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
             accounting.getJournals().setCurrentObject(journal);
             AccountingComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
-            JOptionPane.showMessageDialog(this, "There is already an journal with the name \""+newName.trim()+"\" and/or abbreviation \""+abbreviation.trim()+"\" .\r\n"+
-                    "Please provide a new name and/or abbreviation.");
+            JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("JOURNAL_DUPLICATE_NAME")
+                    +" \""+newName.trim()+"\" "+getBundle("Accounting").getString("AND_OR_ABBR")
+                    +" \""+abbreviation.trim()+"\" .\r\n"+
+                    getBundle("Accounting").getString("PROVIDE_NEW_NAME_ABBR"));
         } catch (EmptyNameException e) {
-            JOptionPane.showMessageDialog(this, "Journal name and abbreviation cannot be empty\r\nPlease provide a new name and/or abbreviation.");
+            JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("JOURNAL_NAME_ABBR_EMPTY")+
+                    "\r\n"+getBundle("Accounting").getString("PROVIDE_NEW_NAME_ABBR"));
         }
         name.setText("");
         abbr.setText("");
@@ -245,13 +252,15 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
         if (journalList.size() == 1) {
             singleMove = true;
         } else {
-            int option = JOptionPane.showConfirmDialog(this, "Apply same type for all selected journals?", "All",
+            int option = JOptionPane.showConfirmDialog(this, getBundle("Accounting").getString("APPLY_SAME_TYPE_FOR_ALL_JOURNALS"),
+                    getBundle("Accounting").getString("ALL"),
                     JOptionPane.YES_NO_OPTION);
             singleMove = (option == JOptionPane.YES_OPTION);
         }
         if (singleMove) {
             Object[] types = accounting.getJournalTypes().getBusinessObjects().toArray();
-            int nr = JOptionPane.showOptionDialog(this, "Choose new type", "Change type",
+            int nr = JOptionPane.showOptionDialog(this, getBundle("Accounting").getString("CHOOSE_NEW_TYPE"),
+                    getBundle("Accounting").getString("CHANGE_TYPE"),
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
             if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
                 for(Journal journal : journalList) {
@@ -261,8 +270,8 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
         } else {
             for(Journal journal : journalList) {
                 Object[] types = accounting.getJournalTypes().getBusinessObjects().toArray();
-                int nr = JOptionPane.showOptionDialog(this, "Choose new type for " + journal.getName(),
-                        "Change type", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
+                int nr = JOptionPane.showOptionDialog(this, getBundle("Accounting").getString("CHOOSE_NEW_TYPE_FOR")+" " + journal.getName(),
+                        getBundle("Accounting").getString("CHANGE_TYPE"), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
                         journal.getType());
                 if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
                     journal.setType((JournalType) types[nr]);

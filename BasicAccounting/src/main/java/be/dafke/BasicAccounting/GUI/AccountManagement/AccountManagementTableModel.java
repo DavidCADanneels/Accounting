@@ -7,12 +7,16 @@ import be.dafke.BasicAccounting.Objects.Accounting;
 import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 
+import static java.util.ResourceBundle.getBundle;
+
 public class AccountManagementTableModel extends AbstractTableModel {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String[] columnNames = { "Account (Name)", "Type", "Saldo" };
+	private final String[] columnNames = { getBundle("Accounting").getString("ACCOUNT_NAME"),
+            getBundle("Accounting").getString("TYPE"),
+            getBundle("Accounting").getString("SALDO")};
 	private final Class[] columnClasses = { Account.class, String.class, BigDecimal.class };
 	private final Accounting accounting;
 

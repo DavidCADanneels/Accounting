@@ -12,6 +12,8 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static java.util.ResourceBundle.getBundle;
+
 /**
  * User: Dafke
  * Date: 24/02/13
@@ -24,17 +26,17 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     private final Accounting accounting;
 
     public NewAccountGUI(Accounting accounting) {
-        super("Create new Account in " + accounting.toString());
+        super(getBundle("Accounting").getString("NEW_ACCOUNT_GUI_TITLE")+" " + accounting.toString());
         this.accounting = accounting;
         JPanel north = new JPanel();
 		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
 		JPanel line1 = new JPanel();
-		line1.add(new JLabel("Name:"));
+		line1.add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")));
 		nameField = new JTextField(20);
 		nameField.addActionListener(this);
 		line1.add(nameField);
 		JPanel line2 = new JPanel();
-		line2.add(new JLabel("Type:"));
+		line2.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
 		type = new JComboBox<AccountType>();
         DefaultComboBoxModel<AccountType> model = new DefaultComboBoxModel<AccountType>();
         for(AccountType accountType : accounting.getAccountTypes().getBusinessObjects()){
@@ -42,7 +44,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
         }
         type.setModel(model);
 		line2.add(type);
-		add = new JButton("Create new Account");
+		add = new JButton(getBundle("Accounting").getString("CREATE_NEW_ACCOUNT"));
 		add.addActionListener(this);
 		line2.add(add);
 		north.add(line1);
@@ -67,10 +69,13 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
             accounting.getAccounts().addBusinessObject(account);
             AccountingComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
-            JOptionPane.showMessageDialog(this, "There is already an account with the name \""+name+"\".\r\n"+
-                    "Please provide a new name.");
+            JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("ACCOUNT_DUPLICATE_NAME")
+                    +" \""+name+"\".\r\n"+
+                    getBundle("Accounting").getString("PROVIDE_NEW_NAME"));
         } catch (EmptyNameException e) {
-            JOptionPane.showMessageDialog(this, "The name cannot be empty.\r\nPlease provide a new name.");
+            JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("ACCOUNT_NAME_EMPTY")
+                    +"\r\n"+
+                    getBundle("Accounting").getString("PROVIDE_NEW_NAME"));
         }
         nameField.setText("");
     }

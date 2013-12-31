@@ -12,6 +12,8 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+import static java.util.ResourceBundle.getBundle;
+
 public class JournalTypeManagementGUI extends RefreshableFrame implements ActionListener {
 	/**
 	 * 
@@ -24,7 +26,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
     private Accounting accounting;
 
 	public JournalTypeManagementGUI(Accounting accounting) {
-		super("Create and modify journal types for " + accounting.toString());
+		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE")+ " " + accounting.toString());
         this.accounting = accounting;
 		debitTypes = new ArrayList<AccountType>();
 		creditTypes = new ArrayList<AccountType>();
@@ -34,10 +36,10 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 		credit = new JList<AccountType>(creditModel);
         typesModel = new DefaultListModel<AccountType>();
 		types = new JList<AccountType>(typesModel);
-		addLeft = new JButton("Add type to Debit types");
-		addRight = new JButton("Add type to Credit types");
-		removeLeft = new JButton("Remove type from Debit types");
-		removeRight = new JButton("Remove type from Credit types");
+		addLeft = new JButton(getBundle("Accounting").getString("ADD_TYPE_TO_DEBITS"));
+		addRight = new JButton(getBundle("Accounting").getString("ADD_TYPE_TO_CREDITS"));
+		removeLeft = new JButton(getBundle("Accounting").getString("REMOVE_TYPE_FROM_DEBITS"));
+		removeRight = new JButton(getBundle("Accounting").getString("REMOVE_TYPE_FROM_CREDITS"));
 		addLeft.addActionListener(this);
 		addRight.addActionListener(this);
 		removeLeft.addActionListener(this);
@@ -53,13 +55,13 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 		east.setLayout(new BorderLayout());
 		west.setLayout(new BorderLayout());
 		center.setLayout(new BorderLayout());
-		west.add(new JLabel("Debit Types"), BorderLayout.NORTH);
+		west.add(new JLabel(getBundle("Accounting").getString("DEBIT_TYPES")), BorderLayout.NORTH);
 		JScrollPane debitScroll = new JScrollPane(debit);
 		west.add(debitScroll, BorderLayout.CENTER);
-		east.add(new JLabel("Credit Types"), BorderLayout.NORTH);
+		east.add(new JLabel(getBundle("Accounting").getString("CREDIT_TYPES")), BorderLayout.NORTH);
 		JScrollPane creditScroll = new JScrollPane(credit);
 		east.add(creditScroll, BorderLayout.CENTER);
-		center.add(new JLabel("All Types"), BorderLayout.NORTH);
+		center.add(new JLabel(getBundle("Accounting").getString("ALL_TYPES")), BorderLayout.NORTH);
 		JScrollPane typesScroll = new JScrollPane(types);
 		center.add(typesScroll, BorderLayout.CENTER);
 		south.add(addLeft);

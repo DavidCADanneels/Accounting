@@ -18,6 +18,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import static java.util.ResourceBundle.getBundle;
+
 public class AccountManagementGUI extends RefreshableFrame implements ActionListener, ListSelectionListener {
 	/**
 	 * 
@@ -30,7 +32,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 	private final Accounting accounting;
 
 	public AccountManagementGUI(Accounting accounting, ActionListener actionListener) {
-		super("Manage accounts for " + accounting.toString());
+		super(getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE")+" " + accounting.toString());
 		this.accounting = accounting;
 		this.model = new AccountManagementTableModel(accounting);
 
@@ -48,10 +50,10 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 		panel.add(scrollPane, BorderLayout.CENTER);
 
 		JPanel south = new JPanel();
-		modifyName = new JButton("Modify name");
-		modifyType = new JButton("Modify type");
-		delete = new JButton("Delete account");
-        newAccount = new JButton(("Add account ..."));
+		modifyName = new JButton(getBundle("Accounting").getString("MODIFY_NAME"));
+		modifyType = new JButton(getBundle("Accounting").getString("MODIFY_TYPE"));
+		delete = new JButton(getBundle("Accounting").getString("DELETE_ACCOUNT"));
+        newAccount = new JButton(getBundle("Accounting").getString("ADD_ACCOUNT"));
 		modifyName.addActionListener(this);
 		modifyType.addActionListener(this);
 		delete.addActionListener(this);
@@ -98,9 +100,9 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
         }
         if (failed.size() > 0) {
             if (failed.size() == 1) {
-                JOptionPane.showMessageDialog(this, failed.get(0) + " already has bookings, so it can not be deleted.");
+                JOptionPane.showMessageDialog(this, failed.get(0) + " "+getBundle("Accounting").getString("ACCOUNT_NOT_EMPTY"));
             } else {
-                StringBuilder builder = new StringBuilder("The following accounts already have bookings, so they can not be deleted:\r\n");
+                StringBuilder builder = new StringBuilder(getBundle("Accounting").getString("MULTIPLE_ACCOUNTS_NOT_EMPTY")+"\r\n");
                 for(String s : failed){
                     builder.append("- ").append(s).append("\r\n");
                 }
@@ -114,7 +116,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
             String oldName = account.getName();
             boolean retry = true;
             while(retry){
-                String newName = JOptionPane.showInputDialog("New name", oldName.trim());
+                String newName = JOptionPane.showInputDialog(getBundle("Accounting").getString("NEW_NAME"), oldName.trim());
                 try{
                     if(newName!=null && !oldName.trim().equals(newName.trim())){
                         accounting.getAccounts().modifyAccountName(oldName, newName);
@@ -122,10 +124,12 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {
-                    JOptionPane.showMessageDialog(this, "There is already an account with the name \""+newName.trim()+"\".\r\n"+
-                            "Please provide a new name.");
+                    JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("ACCOUNT_DUPLICATE_NAME")+
+                            " \""+newName.trim()+"\".\r\n"+
+                            getBundle("Accounting").getString("PROVIDE_NEW_NAME"));
                 } catch (EmptyNameException e) {
-                    JOptionPane.showMessageDialog(this, "Account name cannot be empty\r\nPlease provide a new name.");
+                    JOptionPane.showMessageDialog(this, "Account name cannot be empty"+"\r\n"+
+                            getBundle("Accounting").getString("PROVIDE_NEW_NAME"));
                 }
             }
         }
@@ -136,13 +140,15 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
         if (accountList.size() == 1) {
             singleMove = true;
         } else {
-            int option = JOptionPane.showConfirmDialog(this, "Apply same type for all selected accounts?", "All",
+            int option = JOptionPane.showConfirmDialog(this, getBundle("Accounting").getString("APPLY_SAME_TYPE_FOR_ALL_ACCOUNTS"),
+                    getBundle("Accounting").getString("ALL"),
                     JOptionPane.YES_NO_OPTION);
             singleMove = (option == JOptionPane.YES_OPTION);
         }
         if (singleMove) {
             Object[] types = accounting.getAccountTypes().getBusinessObjects().toArray();
-            int nr = JOptionPane.showOptionDialog(this, "Choose new type", "Change type",
+            int nr = JOptionPane.showOptionDialog(this, getBundle("Accounting").getString("CHOOSE_NEW_TYPE"),
+                    getBundle("Accounting").getString("CHANGE_TYPE"),
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
             if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
                 for(Account account : accountList) {
@@ -152,8 +158,9 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
         } else {
             for(Account account : accountList) {
                 Object[] types = accounting.getAccountTypes().getBusinessObjects().toArray();
-                int nr = JOptionPane.showOptionDialog(this, "Choose new type for " + account.getName(),
-                        "Change type", JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
+                int nr = JOptionPane.showOptionDialog(this, getBundle("Accounting").getString("CHOOSE_NEW_TYPE_FOR")
+                        +" " + account.getName(),
+                        getBundle("Accounting").getString("CHANGE_TYPE"), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
                         account.getType());
                 if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
                     account.setType((AccountType) types[nr]);
@@ -191,7 +198,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
     private ArrayList<Account> getSelectedAccounts() {
         int[] rows = tabel.getSelectedRows();
         if (rows.length == 0) {
-            JOptionPane.showMessageDialog(this, "Select an account first");
+            JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("SELECT_ACCOUNT_FIRST"));
         }
         ArrayList<Account> accountList = new ArrayList<Account>();
         for(int row : rows) {
