@@ -39,14 +39,14 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
               </td>
               <td>
                 <xsl:element name="a">
-                  <xsl:attribute name="href"><xsl:value-of select="capital_account_name"/>.html</xsl:attribute>
-                  <xsl:value-of select="capital_account_name"/>
+                  <xsl:attribute name="href"><xsl:value-of select="capital_account"/>.html</xsl:attribute>
+                  <xsl:value-of select="CapitalAccount"/>
                 </xsl:element>
               </td>
               <td>
                 <xsl:element name="a">
-                  <xsl:attribute name="href"><xsl:value-of select="intrest_account_name"/>.html</xsl:attribute>
-                  <xsl:value-of select="intrest_account_name"/>
+                  <xsl:attribute name="href"><xsl:value-of select="intrest_account"/>.html</xsl:attribute>
+                  <xsl:value-of select="IntrestAccount"/>
                 </xsl:element>
               </td>
             </tr>

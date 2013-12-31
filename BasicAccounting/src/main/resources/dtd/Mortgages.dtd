@@ -1,13 +1,9 @@
 <!ELEMENT Mortgages (Mortgage*,CurrentObject?)>
-<!ELEMENT Mortgage (CapitalAccountHtml?,CapitalAccountName?,CapitalAccountXml?,IntrestAccountHtml?,IntrestAccountName?,IntrestAccountXml?,name,nrPayed,total,type)>
+<!ELEMENT Mortgage (CapitalAccount,IntrestAccount,name,nrPayed,total,type)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT type (#PCDATA)>
 <!ELEMENT total (#PCDATA)>
 <!ELEMENT nrPayed (#PCDATA)>
-<!ELEMENT CapitalAccountName (#PCDATA)>
-<!ELEMENT CapitalAccountXml (#PCDATA)>
-<!ELEMENT CapitalAccountHtml (#PCDATA)>
-<!ELEMENT IntrestAccountName (#PCDATA)>
-<!ELEMENT IntrestAccountXml (#PCDATA)>
-<!ELEMENT IntrestAccountHtml (#PCDATA)>
+<!ELEMENT CapitalAccount (#PCDATA)>
+<!ELEMENT IntrestAccount (#PCDATA)>
 <!ELEMENT CurrentObject (#PCDATA)>

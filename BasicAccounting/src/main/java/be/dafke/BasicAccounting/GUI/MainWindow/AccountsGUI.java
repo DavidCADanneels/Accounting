@@ -147,7 +147,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         if(accountTypes!=null){
             for(AccountType type : accountTypes.getBusinessObjects()) {
                 if(!type.getName().equals("Mortgage")){
-                    JCheckBox checkBox = new JCheckBox(type.getName());
+                    JCheckBox checkBox = new JCheckBox(getBundle("Accounting").getString(type.getName().toUpperCase()));
                     checkBox.setSelected(true);
                     checkBox.setEnabled(false);
                     checkBox.setActionCommand(type.getName());

@@ -19,12 +19,8 @@ import java.util.Vector;
 public class Mortgage extends Account implements BusinessTypeCollectionDependent<AccountType>, BusinessTyped<AccountType>, BusinessCollectionDependent<Account> {
     private final static String TOTAL = "total";
     private final static String NRPAYED = "nrPayed";
-    private final static String CAPITAL_NAME = "CapitalAccountName";
-    private final static String CAPITAL_XML = "CapitalAccountXml";
-    private final static String CAPITAL_HTML = "CapitalAccountHtml";
-    private final static String INTREST_NAME = "IntrestAccountName";
-    private final static String INTREST_XML = "IntrestAccountXml";
-    private final static String INTREST_HTML = "IntrestAccountHtml";
+    private final static String CAPITAL_ACCOUNT = "CapitalAccount";
+    private final static String INTREST_ACCOUNT = "IntrestAccount";
     private ArrayList<Vector<BigDecimal>> table;
 	private int alreadyPayed = 0;
 	private Account capital, intrest;
@@ -210,12 +206,8 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
         Set<String> keySet = super.getInitKeySet();
         keySet.add(TOTAL);
         keySet.add(NRPAYED);
-        keySet.add(CAPITAL_NAME);
-        keySet.add(CAPITAL_XML);
-        keySet.add(CAPITAL_HTML);
-        keySet.add(INTREST_NAME);
-        keySet.add(INTREST_XML);
-        keySet.add(INTREST_HTML);
+        keySet.add(CAPITAL_ACCOUNT);
+        keySet.add(INTREST_ACCOUNT);
         return keySet;
     }
 
@@ -227,22 +219,10 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
         }
         properties.put(NRPAYED, Integer.toString(alreadyPayed));
         if(capital!=null){
-            properties.put(CAPITAL_NAME,capital.getName());
-//            if(capital.getXmlFile()!=null){
-//                properties.put(CAPITAL_XML,capital.getXmlFile().getPath());
-//            }
-//            if(capital.getHtmlFile()!=null){
-//                properties.put(CAPITAL_XML,capital.getHtmlFile().getPath());
-//            }
+            properties.put(CAPITAL_ACCOUNT,capital.getName());
         }
         if(intrest!=null){
-            properties.put(INTREST_NAME,intrest.getName());
-//            if(intrest.getXmlFile()!=null){
-//                properties.put(INTREST_XML,intrest.getXmlFile().getPath());
-//            }
-//            if(intrest.getHtmlFile()!=null){
-//                properties.put(INTREST_HTML, intrest.getHtmlFile().getPath());
-//            }
+            properties.put(INTREST_ACCOUNT,intrest.getName());
         }
         return properties;
     }
@@ -258,11 +238,11 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
         if(nrPayedString!=null){
             alreadyPayed = Integer.parseInt(nrPayedString);
         }
-        String capitalAccount = properties.get(CAPITAL_NAME);
+        String capitalAccount = properties.get(CAPITAL_ACCOUNT);
         if(capitalAccount!=null){
             capital = accounts.getBusinessObject(capitalAccount);
         }
-        String intrestAccount = properties.get(INTREST_NAME);
+        String intrestAccount = properties.get(INTREST_ACCOUNT);
         if(intrestAccount!=null){
             intrest = accounts.getBusinessObject(intrestAccount);
         }
