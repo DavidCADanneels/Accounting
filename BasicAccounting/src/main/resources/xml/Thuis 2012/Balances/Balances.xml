@@ -28,11 +28,11 @@
     <LeftName>Activa</LeftName>
     <LeftResultName>WINST</LeftResultName>
     <LeftTotalName>TOTAAL ACTIVA/TEGOEDEN</LeftTotalName>
-    <LeftTypes>Active | Credit</LeftTypes>
+    <LeftTypes>Asset | Credit</LeftTypes>
     <RightName>Passiva</RightName>
     <RightResultName>VERLIES</RightResultName>
     <RightTotalName>TOTAAL PASSIVA/SCHULDEN</RightTotalName>
-    <RightTypes>Passive | Debit</RightTypes>
+    <RightTypes>Liability | Debit</RightTypes>
     <name>YearBalance</name>
   </Balance>
 </Balances>

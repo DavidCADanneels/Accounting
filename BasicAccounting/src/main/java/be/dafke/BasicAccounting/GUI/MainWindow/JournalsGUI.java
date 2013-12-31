@@ -31,7 +31,7 @@ public class JournalsGUI extends AccountingPanel implements ActionListener {
 
 	public JournalsGUI(ActionListener actionListener) {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
-                "Journal").getString("JOURNALS")));
+                "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		combo = new JComboBox<Journal>();
         combo.addActionListener(this);

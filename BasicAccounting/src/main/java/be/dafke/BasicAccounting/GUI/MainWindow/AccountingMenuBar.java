@@ -29,7 +29,7 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
     public AccountingMenuBar(ActionListener actionListener) {
         this.actionListener = actionListener;
 
-        file = new JMenu("Accounting");
+        file = new JMenu(getBundle("Accounting").getString("ACCOUNTING"));
         startNew = new JMenuItem(getBundle("Accounting").getString("NEW_ACCOUNTING"));
         startNew.addActionListener(actionListener);
         startNew.setActionCommand(AccountingActionListener.NEW_ACCOUNTING);

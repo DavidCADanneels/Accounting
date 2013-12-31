@@ -12,7 +12,7 @@ public class TestBalance extends RefreshableTable {
 	private static final long serialVersionUID = 1L;
 
 	public TestBalance(Accounting accounting) {
-		super(getBundle("Accounting").getString("PROEF_EN_SALDI-BALANS") + " (" + accounting.toString() + ")",
+		super(getBundle("Balances").getString("TESTBALANCE") + " (" + accounting.toString() + ")",
 				new TestBalanceDataModel(accounting));
 		tabel.setAutoCreateRowSorter(true);
 	}

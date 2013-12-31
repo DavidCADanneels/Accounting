@@ -36,7 +36,7 @@
   </Mortgage>
   <Account>
     <name>Auto activa</name>
-    <type>Active</type>
+    <type>Asset</type>
   </Account>
   <Account>
     <name>Autolening</name>
@@ -44,11 +44,11 @@
   </Account>
   <Account>
     <name>Bank Dara</name>
-    <type>Active</type>
+    <type>Asset</type>
   </Account>
   <Account>
     <name>Bank David</name>
-    <type>Active</type>
+    <type>Asset</type>
   </Account>
   <Account>
     <name>Belastingen</name>
@@ -68,7 +68,7 @@
   </Account>
   <Account>
     <name>Eigen Kapitaal</name>
-    <type>Passive</type>
+    <type>Liability</type>
   </Account>
   <Account>
     <name>Energiekosten</name>
@@ -88,7 +88,7 @@
   </Mortgage>
   <Account>
     <name>Huis activa</name>
-    <type>Active</type>
+    <type>Asset</type>
   </Account>
   <Account>
     <name>Huur 2012</name>
@@ -140,7 +140,7 @@
   </Account>
   <Account>
     <name>Post Dara</name>
-    <type>Active</type>
+    <type>Asset</type>
   </Account>
   <Account>
     <name>Schulden aan ma</name>
@@ -148,11 +148,11 @@
   </Account>
   <Account>
     <name>Spaar David</name>
-    <type>Active</type>
+    <type>Asset</type>
   </Account>
   <Account>
     <name>Spaar Sophia</name>
-    <type>Active</type>
+    <type>Asset</type>
   </Account>
   <Account>
     <name>Telefoonkosten</name>

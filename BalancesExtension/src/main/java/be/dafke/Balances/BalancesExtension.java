@@ -47,7 +47,7 @@ public class BalancesExtension implements AccountingExtension {
         JMenuItem testBalance = new JMenuItem(getBundle("Balances").getString(
                 "TESTBALANCE"));
         JMenuItem yearBalance = new JMenuItem(getBundle("Balances").getString("YEARBALANCE"));
-        JMenuItem resultBalance = new JMenuItem(getBundle("AccoBalancesunting").getString(
+        JMenuItem resultBalance = new JMenuItem(getBundle("Balances").getString(
                 "RESULTBALANCE"));
         JMenuItem relationsBalance = new JMenuItem(getBundle("Balances").getString(
                 "RELATIONSBALANCE"));

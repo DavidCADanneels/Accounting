@@ -2,6 +2,7 @@ package be.dafke.Balances.Objects;
 
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
+import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
@@ -41,14 +42,14 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         ArrayList<AccountType> passive = new ArrayList<AccountType>();
 
         // TODO: define AccountType.Cost etc (the default types)
-        costs.add(accounting.getAccountTypes().getBusinessObject(("Cost")));
-        revenues.add(accounting.getAccountTypes().getBusinessObject(("Revenue")));
-        credit.add(accounting.getAccountTypes().getBusinessObject(("Credit")));
-        debit.add(accounting.getAccountTypes().getBusinessObject(("Debit")));
-        active.add(accounting.getAccountTypes().getBusinessObject(("Active")));
-        active.add(accounting.getAccountTypes().getBusinessObject(("Credit")));
-        passive.add(accounting.getAccountTypes().getBusinessObject(("Passive")));
-        passive.add(accounting.getAccountTypes().getBusinessObject(("Debit")));
+        costs.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.COST));
+        revenues.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.REVENUE));
+        credit.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.CREDIT));
+        debit.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.DEBIT));
+        active.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.ASSET));
+        active.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.CREDIT));
+        passive.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.LIABILITY));
+        passive.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.DEBIT));
 
         Balance resultBalance = createNewChild(RESULT_BALANCE);
         resultBalance.setLeftName(getBundle("Balances").getString("COSTS"));
