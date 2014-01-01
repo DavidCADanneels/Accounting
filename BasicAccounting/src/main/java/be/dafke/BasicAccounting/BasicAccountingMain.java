@@ -22,6 +22,7 @@ public class BasicAccountingMain {
 
     protected static Accountings accountings;
     protected static File xmlFolder;
+    protected static File htmlFolder;
     protected static AccountingMenuBar menuBar;
     protected static AccountingActionListener actionListener;
     protected static AccountingMultiPanel contentPanel;
@@ -45,8 +46,8 @@ public class BasicAccountingMain {
     }
 
     protected static void startReadingXmlFile() {
-        xmlFolder = getXmlFolder();
-        accountings = new Accountings(xmlFolder);
+        setXmlFolder();
+        accountings = new Accountings(xmlFolder, htmlFolder);
         ObjectModelSAXParser.readCollection(accountings, false, xmlFolder);
     }
 
@@ -106,11 +107,10 @@ public class BasicAccountingMain {
         frame.refresh();
     }
 
-    private static File getXmlFolder(){
+    private static void setXmlFolder(){
         Mode mode = Mode.TEST;
 
         File userHome = new File(System.getProperty("user.home"));
-        File xmlFolder;
         if(mode == Mode.TEST){
             int nr = JOptionPane.showOptionDialog(null,"TEST or PROD", "Which environment?",JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,null, Mode.values(),Mode.TEST);
             if(nr == 0){
@@ -122,11 +122,14 @@ public class BasicAccountingMain {
 
         if(mode == Mode.TEST) {
             xmlFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/xml");
+            htmlFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/html");
         } else {// if (mode == Mode.PROD) {
-            xmlFolder = new File(userHome, "Accounting");
+            File parentFolder = new File(userHome, "Accounting");
+            xmlFolder = new File(parentFolder, "xml");
+            htmlFolder = new File(userHome, "AccountingHTML");
         }
         System.out.println(mode.toString());
         System.out.println(xmlFolder);
-        return xmlFolder;
+        System.out.println(htmlFolder);
     }
 }

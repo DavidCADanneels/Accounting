@@ -10,19 +10,25 @@ import java.util.TreeMap;
 public class Accountings extends BusinessCollection<Accounting> {
 
     private final File xmlFolder;
+    private final File htmlFolder;
 
     @Override
     public String getChildType(){
         return "Accounting";
     }
 
-    public Accountings(File xmlFolder){
+    public Accountings(File xmlFolder, File htmlFolder){
         this.xmlFolder = xmlFolder;
+        this.htmlFolder = htmlFolder;
         super.setName("");
     }
 
     public File getXmlFolder(){
         return xmlFolder;
+    }
+
+    public File getHtmlFolder(){
+        return htmlFolder;
     }
 
     @Override

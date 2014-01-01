@@ -133,8 +133,8 @@ public class AccountingsSAXParser {
     private static void toHtml(Accountings accountings){
         File userHome = new File(System.getProperty("user.home"));
         File xslFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/xsl");
-        File htmlFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/html");
         File xmlFolder = accountings.getXmlFolder();
+        File htmlFolder = accountings.getHtmlFolder();
 
         File xmlFile = new File(xmlFolder, "Accountings.xml");
         htmlFolder.mkdirs();
