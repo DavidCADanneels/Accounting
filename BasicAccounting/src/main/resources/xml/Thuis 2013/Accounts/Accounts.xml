@@ -27,8 +27,8 @@
     <type>Cost</type>
   </Account>
   <Mortgage>
-    <CapitalAccountName>Autolening</CapitalAccountName>
-    <IntrestAccountName>Intrest autolening</IntrestAccountName>
+    <CapitalAccount>Autolening</CapitalAccount>
+    <IntrestAccount>Intrest autolening</IntrestAccount>
     <name>Auto</name>
     <nrPayed>9</nrPayed>
     <total>12450</total>
@@ -83,8 +83,8 @@
     <type>Revenue</type>
   </Account>
   <Mortgage>
-    <CapitalAccountName>Hypotheek</CapitalAccountName>
-    <IntrestAccountName>Intrest Huis</IntrestAccountName>
+    <CapitalAccount>Hypotheek</CapitalAccount>
+    <IntrestAccount>Intrest Huis</IntrestAccount>
     <name>Huis</name>
     <nrPayed>70</nrPayed>
     <total>156000</total>
