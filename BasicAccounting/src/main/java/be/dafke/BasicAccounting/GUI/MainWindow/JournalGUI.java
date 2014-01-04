@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.GUI.MainWindow;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.Utils.Utils;
@@ -13,6 +14,8 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
@@ -26,20 +29,51 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
 	private final JournalDataModel journalDataModel;
 	private final JTextField debet, credit, dag, bewijs, ident;
 	private final JButton ok, clear;
-	protected Calendar date;
+    private final JPopupMenu popup;
+    private final JTable table;
+    private final JMenuItem delete;
+//    private final JMenuItem edit;
+    protected Calendar date;
 	private BigDecimal debettotaal, credittotaal;
     private Journal journal;
+    private int selectedRow;
 
-	public JournalGUI() {
+    public JournalGUI() {
 		debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
 		date = Calendar.getInstance();
 		setLayout(new BorderLayout());
 		journalDataModel = new JournalDataModel();
-		JTable table = new JTable(journalDataModel);
+		table = new JTable(journalDataModel);
 		table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 		JScrollPane scrollPane = new JScrollPane(table);
 		add(scrollPane, BorderLayout.CENTER);
+
+        popup = new JPopupMenu();
+        delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
+//        edit = new JMenuItem(getBundle("Accounting").getString("EDIT"));
+        delete.addActionListener(this);
+//        edit.addActionListener(this);
+        popup.add(delete);
+//        popup.add(edit);
+        table.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                Point cell = me.getPoint();//
+                Point location = me.getLocationOnScreen();
+                selectedRow = table.rowAtPoint(cell);
+                if(selectedRow !=-1){
+                    popup.show(null, location.x, location.y);
+                }
+            }
+        });
+
+        scrollPane.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+               popup.setVisible(false);
+            }
+        });
 
 		ident = new JTextField(4);
 		ident.setEditable(false);
@@ -152,9 +186,23 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
         }
 	}
 
+    private void menuAction(JMenuItem source) {
+        popup.setVisible(false);
+        Booking booking = journalDataModel.getValueAt(selectedRow);
+        Transaction transaction = booking.getTransaction();
+        if (source == delete) {
+            transaction.removeBooking(booking);
+//        } else if (source == edit) {
+//
+        }
+        AccountingComponentMap.refreshAllFrames();
+    }
+
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == ok) {
+        if (e.getSource() instanceof JMenuItem) {
+            menuAction((JMenuItem) e.getSource());
+        } else if (e.getSource() == ok) {
             if(date == null){
                 JOptionPane.showMessageDialog(null, "Fill in date");
             } else {
@@ -172,8 +220,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
                 }
                 AccountingComponentMap.refreshAllFrames();
             }
-		}
-		if (e.getSource() == clear) {
+		} else if (e.getSource() == clear) {
 			clear();
 		}
 	}

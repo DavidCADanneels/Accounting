@@ -26,6 +26,10 @@ public class JournalDataModel extends AbstractTableModel {
 
     private Transaction transaction;
 
+    public Booking getValueAt(int row) {
+        return transaction.getBookings().get(row);
+    }
+
 // DE GET METHODEN
 // ===============
 	@Override
