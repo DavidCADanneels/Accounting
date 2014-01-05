@@ -31,6 +31,7 @@ public class Transaction {
 		creditTotal = new BigDecimal(0);
 		creditTotal = creditTotal.setScale(2);
         bookings = new ArrayList<Booking>();
+        date = Calendar.getInstance();
 	}
 
     protected void lowerID() {

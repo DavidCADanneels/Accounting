@@ -83,6 +83,7 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
         } else if(actionCommand.startsWith(AccountingActionListener.OPEN_ACCOUNTING)){
             String accountingName = actionCommand.replaceAll(AccountingActionListener.OPEN_ACCOUNTING, "");
             accountings.setCurrentObject(accountingName);
+            AccountingComponentMap.refreshAllFrames();
         } else if(actionCommand.equals(AccountingActionListener.JOURNAL_DETAILS)){
             Accounting accounting = accountings.getCurrentObject();
             Journal journal = accounting.getJournals().getCurrentObject();
@@ -107,6 +108,5 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
             String key = accountings.getCurrentObject().toString() + actionCommand;
             AccountingComponentMap.getDisposableComponent(key).setVisible(true);
         }
-        AccountingComponentMap.refreshAllFrames();
     }
 }

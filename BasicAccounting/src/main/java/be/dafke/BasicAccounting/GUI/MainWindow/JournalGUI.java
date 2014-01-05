@@ -21,7 +21,7 @@ import java.util.Calendar;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class JournalGUI extends AccountingPanel implements ActionListener {
+public class JournalGUI extends AccountingPanel implements ActionListener, FocusListener {
 	/**
 	 * 
 	 */
@@ -33,7 +33,6 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
     private final JTable table;
     private final JMenuItem delete;
 //    private final JMenuItem edit;
-    protected Calendar date;
 	private BigDecimal debettotaal, credittotaal;
     private Journal journal;
     private int selectedRow;
@@ -41,7 +40,6 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
     public JournalGUI() {
 		debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
-		date = Calendar.getInstance();
 		setLayout(new BorderLayout());
 		journalDataModel = new JournalDataModel();
 		table = new JTable(journalDataModel);
@@ -78,32 +76,14 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
 		ident = new JTextField(4);
 		ident.setEditable(false);
 		dag = new JTextField(8);
-		dag.setText(Utils.toString(date));
-		dag.addFocusListener(new FocusListener() {
-            @Override
-            public void focusGained(FocusEvent fe) {
-            }
-
-            @Override
-            public void focusLost(FocusEvent fe) {
-                date = Utils.toCalendar(dag.getText());
-                if (date == null){
-                    JOptionPane.showMessageDialog(null,"invalid date");
-                    dag.setText("");
-                }else{
-                    dag.setText(Utils.toString(date));
-                }
-            }
-
-        });
+		dag.addFocusListener(this);
 		bewijs = new JTextField(30);
+        bewijs.addFocusListener(this);
 
 		ok = new JButton(getBundle("Accounting").getString("OK"));
 		ok.addActionListener(this);
-		ok.setEnabled(false);
 		clear = new JButton(getBundle("Accounting").getString("CLEAR_PANEL"));
 		clear.addActionListener(this);
-        clear.setEnabled(false);
 
 		JPanel paneel1 = new JPanel();
 		paneel1.add(new JLabel(
@@ -123,8 +103,6 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
 		paneel3.add(clear);
 		debet = new JTextField(8);
 		credit = new JTextField(8);
-		debet.setText(debettotaal.toString());
-		credit.setText(credittotaal.toString());
 		debet.setEditable(false);
 		credit.setEditable(false);
 		paneel3.add(new JLabel(
@@ -140,24 +118,60 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
 		onder.add(paneel3);
 
 		add(onder, BorderLayout.SOUTH);
+
+        refresh();
 	}
+
+    @Override
+    public void focusGained(FocusEvent fe) {
+    }
+
+    @Override
+    public void focusLost(FocusEvent fe) {
+        Transaction transaction = journal.getCurrentObject();
+        if(transaction!=null){
+            Object source = fe.getSource();
+            if(source == dag){
+                Calendar date = Utils.toCalendar(dag.getText());
+                transaction.setDate(date);
+                if (date == null){
+                    dag.setText("");
+                    JOptionPane.showMessageDialog(null,"invalid date");
+                }else{
+                    dag.setText(Utils.toString(date));
+                }
+            } else if (source == bewijs){
+                // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
+                transaction.setDescription(bewijs.getText().trim());
+            }
+        }
+    }
 
     public void setAccounting(Accounting accounting){
         if(accounting==null || accounting.getJournals()==null){
             journal = null;
         } else {
             journal = accounting.getJournals().getCurrentObject();
-            if(journal==null){
-                journalDataModel.setTransaction(null);
-            } else {
-                Transaction transaction = journal.getCurrentObject();
-                journalDataModel.setTransaction(transaction);
-            }
-            journalDataModel.fireTableDataChanged();
         }
+        if(journal==null){
+            journalDataModel.setTransaction(null);
+        } else {
+            Transaction transaction = journal.getCurrentObject();
+            journalDataModel.setTransaction(transaction);
+        }
+        journalDataModel.fireTableDataChanged();
     }
 
 	public void refresh() {
+        debettotaal = BigDecimal.ZERO;
+        credittotaal = BigDecimal.ZERO;
+        boolean okEnabled = false;
+        boolean clearEnabled = false;
+        String identification = "";
+        String description = "";
+        Calendar date = Calendar.getInstance();
+        bewijs.setEnabled(false);
+        dag.setEnabled(false);
         if(journal!=null){
             Transaction transaction = journal.getCurrentObject();
             journalDataModel.setTransaction(transaction);
@@ -165,23 +179,23 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
             if(transaction!=null){
                 debettotaal = transaction.getDebetTotaal();
                 credittotaal = transaction.getCreditTotaal();
-            } else {
-                debettotaal = BigDecimal.ZERO;
-                credittotaal = BigDecimal.ZERO;
+                date = transaction.getDate();
+                description = transaction.getDescription();
+                bewijs.setEnabled(true);
+                dag.setEnabled(true);
             }
-            debet.setText(debettotaal.toString());
-            credit.setText(credittotaal.toString());
-            ident.setText(journal.getAbbreviation() + " "
-                    + journal.getId());
-            boolean valid = transaction!=null && !transaction.getBookings().isEmpty() && debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0;
-            clear.setEnabled(transaction!=null && !transaction.getBookings().isEmpty());
-            ok.setEnabled(valid);
-        } else {
-            ident.setText("");
-            ok.setEnabled(false);
-            clear.setEnabled(false);
-	    }
-	}
+            identification = journal.getAbbreviation() + " " + journal.getId();
+            okEnabled = transaction!=null && !transaction.getBookings().isEmpty() && debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0;
+            clearEnabled = transaction!=null && !transaction.getBookings().isEmpty();
+        }
+        ident.setText(identification);
+        clear.setEnabled(clearEnabled);
+        ok.setEnabled(okEnabled);
+        dag.setText(Utils.toString(date));
+        bewijs.setText(description);
+        debet.setText(debettotaal.toString());
+        credit.setText(credittotaal.toString());
+    }
 
     private void menuAction(JMenuItem source) {
         popup.setVisible(false);
@@ -200,22 +214,16 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
         if (e.getSource() instanceof JMenuItem) {
             menuAction((JMenuItem) e.getSource());
         } else if (e.getSource() == ok) {
-            if(date == null){
-                JOptionPane.showMessageDialog(null, "Fill in date");
-            } else {
-                // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
-                Transaction transaction = journal.getCurrentObject();
-                if(transaction!=null){
-                    transaction.setDescription(bewijs.getText().trim());
-                    transaction.setDate(date);
+            Transaction transaction = journal.getCurrentObject();
+            if(transaction!=null){
+                Calendar date = transaction.getDate();
+                if(date == null){
+                    JOptionPane.showMessageDialog(null, "Fill in date");
+                } else {
                     journal.addBusinessObject(transaction);
                     clear();
-                    bewijs.setText("");
-                    transaction = new Transaction();
-                    transaction.setDate(date);
-                    journal.setCurrentObject(transaction);
+                    AccountingComponentMap.refreshAllFrames();
                 }
-                AccountingComponentMap.refreshAllFrames();
             }
 		} else if (e.getSource() == clear) {
 			clear();
@@ -224,9 +232,8 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
 
 	public void clear() {
         Transaction transaction = new Transaction();
-        transaction.setDate(date);
+        transaction.setDate(Utils.toCalendar(dag.getText().trim()));
         journal.setCurrentObject(transaction);
-        ok.setEnabled(false);
         refresh();
 	}
 }
