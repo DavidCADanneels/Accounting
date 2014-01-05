@@ -144,20 +144,17 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
 
     public void setAccounting(Accounting accounting){
         if(accounting==null || accounting.getJournals()==null){
-            setJournal(null);
+            journal = null;
         } else {
-            setJournal(accounting.getJournals().getCurrentObject());
-            if(accounting.getJournals().getCurrentObject()==null){
+            journal = accounting.getJournals().getCurrentObject();
+            if(journal==null){
                 journalDataModel.setTransaction(null);
             } else {
-                journalDataModel.setTransaction(accounting.getJournals().getCurrentObject().getCurrentObject());
+                Transaction transaction = journal.getCurrentObject();
+                journalDataModel.setTransaction(transaction);
             }
             journalDataModel.fireTableDataChanged();
         }
-    }
-
-    public void setJournal(Journal journal){
-        this.journal = journal;
     }
 
 	public void refresh() {
@@ -183,7 +180,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
             ident.setText("");
             ok.setEnabled(false);
             clear.setEnabled(false);
-        }
+	    }
 	}
 
     private void menuAction(JMenuItem source) {
@@ -209,7 +206,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener {
                 // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
                 Transaction transaction = journal.getCurrentObject();
                 if(transaction!=null){
-                    transaction.setDescription(bewijs.getText());
+                    transaction.setDescription(bewijs.getText().trim());
                     transaction.setDate(date);
                     journal.addBusinessObject(transaction);
                     clear();

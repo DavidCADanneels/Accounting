@@ -20,7 +20,7 @@ public class Transaction {
 
     private String description = "";
     private Calendar date = null;
-    private int id;
+    private int id = 0;
     private String abbreviation;
 
     private final ArrayList<Booking> bookings;

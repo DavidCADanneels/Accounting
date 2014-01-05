@@ -30,7 +30,7 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
 	private int selectedRow;
-	private final JMenuItem move, delete;
+	private final JMenuItem move, delete, edit;
 	private final Journal journal;
 	private final Accounting accounting;
 
@@ -43,10 +43,13 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
 		popup = new JPopupMenu();
 		delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
 		move = new JMenuItem(getBundle("Accounting").getString("MOVE"));
+		edit = new JMenuItem(getBundle("Accounting").getString("EDIT"));
 		delete.addActionListener(this);
 		move.addActionListener(this);
+		edit.addActionListener(this);
 		popup.add(delete);
 		popup.add(move);
+		popup.add(edit);
 		tabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent me) {
@@ -95,6 +98,11 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
         } else if (source == delete) {
             journal.removeBusinessObject(transaction);
             JOptionPane.showMessageDialog(null, getBundle("Accounting").getString("TRANSACTION_REMOVED_FROM")+ " " + journal);
+        } else if (source == edit) {
+            journal.removeBusinessObject(transaction);
+            journal.setCurrentObject(transaction);
+            accounting.getJournals().setCurrentObject(journal);
+            JOptionPane.showMessageDialog(null, getBundle("Accounting").getString("TRANSACTION_REMOVED_FROM") + " " + journal);
         }
         AccountingComponentMap.refreshAllFrames();
     }
