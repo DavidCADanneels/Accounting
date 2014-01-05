@@ -116,18 +116,35 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 	}
 
 	private void book(boolean debit) {
-		Account account = lijst.getSelectedValue();
-		boolean ok = false;
+		Account account = accounts.getCurrentObject();
+        Transaction transaction = journal.getCurrentObject();
+        BigDecimal creditTotal = transaction.getCreditTotaal();
+        BigDecimal debitTotal = transaction.getDebetTotaal();
+        boolean suggestion = false;
+        BigDecimal suggestedAmount = null;
+        if(creditTotal.compareTo(debitTotal)>0 && debit){
+            suggestion = true;
+            suggestedAmount = creditTotal.subtract(debitTotal);
+        } else if(debitTotal.compareTo(creditTotal)>0 && !debit){
+            suggestion = true;
+            suggestedAmount = debitTotal.subtract(creditTotal);
+        }
+        boolean ok = false;
 		while (!ok) {
-			String s = JOptionPane.showInputDialog(getBundle("Accounting").getString(
-					"ENTER_AMOUNT"));
+			String s;
+            if(suggestion){
+                s = JOptionPane.showInputDialog(getBundle("Accounting").getString(
+					"ENTER_AMOUNT"), suggestedAmount.toString());
+            } else {
+                s = JOptionPane.showInputDialog(getBundle("Accounting").getString(
+                        "ENTER_AMOUNT"));
+            }
 			if (s == null || s.equals("")) {
 				ok = true;
 			} else {
 				try {
 					BigDecimal amount = new BigDecimal(s);
 					amount = amount.setScale(2);
-                    Transaction transaction = journal.getCurrentObject();
                     Booking booking = new Booking(account);
                     booking.setMovement(new Movement(amount,debit));
                     transaction.addBooking(booking);
