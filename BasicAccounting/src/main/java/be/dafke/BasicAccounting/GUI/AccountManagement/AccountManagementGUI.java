@@ -16,6 +16,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
@@ -25,7 +26,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JButton newAccount, delete, modifyName, modifyType;
+	private final JButton newAccount, delete, modifyName, modifyType, modifyDefaultAmount;
 	private final AccountManagementTableModel model;
 	private final JTable tabel;
 	private final DefaultListSelectionModel selection;
@@ -54,17 +55,21 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 		modifyType = new JButton(getBundle("Accounting").getString("MODIFY_TYPE"));
 		delete = new JButton(getBundle("Accounting").getString("DELETE_ACCOUNT"));
         newAccount = new JButton(getBundle("Accounting").getString("ADD_ACCOUNT"));
+        modifyDefaultAmount = new JButton(getBundle("Accounting").getString("MODIFY_DEFAULT_AMOUNT"));
 		modifyName.addActionListener(this);
 		modifyType.addActionListener(this);
 		delete.addActionListener(this);
+        modifyDefaultAmount.addActionListener(this);
         newAccount.addActionListener(actionListener);
         newAccount.setActionCommand(AccountingActionListener.NEW_ACCOUNT);
 		modifyName.setEnabled(false);
 		modifyType.setEnabled(false);
 		delete.setEnabled(false);
+        modifyDefaultAmount.setEnabled(false);
 		south.add(modifyName);
 		south.add(modifyType);
-		south.add(delete);
+        south.add(modifyDefaultAmount);
+        south.add(delete);
         south.add(newAccount);
 		panel.add(south, BorderLayout.SOUTH);
 		setContentPane(panel);
@@ -75,17 +80,21 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 	public void actionPerformed(ActionEvent event) {
         ArrayList<Account> accountList = getSelectedAccounts();
         if(!accountList.isEmpty()){
-            if (event.getSource() == modifyName) {
+            Object source = event.getSource();
+            if (source == modifyName) {
                 modifyNames(accountList);
-            } else if (event.getSource() == modifyType) {
+            } else if (source == modifyType) {
                 modifyTypes(accountList);
-            } else if (event.getSource() == delete) {
+            } else if (source == delete) {
                 deleteAccounts(accountList);
+            } else if (source == modifyDefaultAmount) {
+                modifyAmount(accountList);
             }
         }
         delete.setEnabled(false);
         modifyName.setEnabled(false);
         modifyType.setEnabled(false);
+        modifyDefaultAmount.setEnabled(false);
         AccountingComponentMap.refreshAllFrames();
 	}
 
@@ -111,7 +120,24 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
         }
 	}
 
-	private void modifyNames(ArrayList<Account> accountList) {
+    private void modifyAmount(ArrayList<Account> accountList) {
+        for(Account account : accountList){
+            BigDecimal defaultAmount = account.getDefaultAmount();
+            boolean retry = true;
+            while(retry){
+                String amount = JOptionPane.showInputDialog(account.getName() + ": " + getBundle("Accounting").getString("DEFAULT_AMOUNT"), defaultAmount);
+                try{
+                    defaultAmount = new BigDecimal(amount);
+                    defaultAmount = defaultAmount.setScale(2);
+                    account.setDefaultAmount(defaultAmount);
+                    retry = false;
+                } catch (NumberFormatException nfe) {
+                }
+            }
+        }
+    }
+
+    private void modifyNames(ArrayList<Account> accountList) {
         for(Account account : accountList){
             String oldName = account.getName();
             boolean retry = true;
@@ -187,10 +213,12 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 				delete.setEnabled(true);
 				modifyName.setEnabled(true);
 				modifyType.setEnabled(true);
+                modifyDefaultAmount.setEnabled(true);
 			} else {
                 delete.setEnabled(false);
                 modifyName.setEnabled(false);
                 modifyType.setEnabled(false);
+                modifyDefaultAmount.setEnabled(false);
             }
 		}
 	}

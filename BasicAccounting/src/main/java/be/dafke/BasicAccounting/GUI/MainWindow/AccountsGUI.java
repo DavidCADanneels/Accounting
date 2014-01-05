@@ -128,6 +128,12 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         } else if(debitTotal.compareTo(creditTotal)>0 && !debit){
             suggestion = true;
             suggestedAmount = debitTotal.subtract(creditTotal);
+        } else {
+            BigDecimal defaultAmount = account.getDefaultAmount();
+            if(defaultAmount!=null){
+                suggestion = true;
+                suggestedAmount = defaultAmount;
+            }
         }
         boolean ok = false;
 		while (!ok) {

@@ -19,10 +19,12 @@ import java.util.TreeMap;
  */
 public class Account extends BusinessObject implements BusinessTypeCollectionDependent<AccountType>, BusinessTyped<AccountType> {
     private static final String TYPE = "type";
+    private static final String DEFAULTAMOUNT = "defaultAmount";
     private AccountType type;
     private BigDecimal debitTotal, creditTotal;
     private final MultiValueMap<Calendar,Movement> movements;
     private BusinessTypeCollection businessTypeCollection;
+    private BigDecimal defaultAmount = null;
 
     public Account(String name) {
         super.setName(name);
@@ -46,6 +48,14 @@ public class Account extends BusinessObject implements BusinessTypeCollectionDep
     @Override
     public AccountType getType() {
         return type;
+    }
+
+    public void setDefaultAmount(BigDecimal defaultAmount) {
+        this.defaultAmount = defaultAmount;
+    }
+
+    public BigDecimal getDefaultAmount() {
+        return defaultAmount;
     }
 
     public BigDecimal getSaldo() {
@@ -97,6 +107,7 @@ public class Account extends BusinessObject implements BusinessTypeCollectionDep
     public Set<String> getInitKeySet(){
         Set<String> keySet = super.getInitKeySet();
         keySet.add(TYPE);
+        keySet.add(DEFAULTAMOUNT);
         return keySet;
     }
 
@@ -105,6 +116,9 @@ public class Account extends BusinessObject implements BusinessTypeCollectionDep
     public TreeMap<String,String> getInitProperties() {
         TreeMap<String,String> outputMap = super.getInitProperties();
         outputMap.put(TYPE, getType().getName());
+        if(defaultAmount!=null){
+            outputMap.put(DEFAULTAMOUNT, defaultAmount.toString());
+        }
         return outputMap;
     }
 
@@ -114,6 +128,14 @@ public class Account extends BusinessObject implements BusinessTypeCollectionDep
         String typeName = properties.get(TYPE);
         if(typeName!=null){
             type = (AccountType) businessTypeCollection.getBusinessObject(typeName);
+        }
+        String defaultAmountString = properties.get(DEFAULTAMOUNT);
+        if(defaultAmountString!=null){
+            try{
+                defaultAmount = new BigDecimal(defaultAmountString);
+            } catch (NumberFormatException nfe){
+                defaultAmount = null;
+            }
         }
     }
 }

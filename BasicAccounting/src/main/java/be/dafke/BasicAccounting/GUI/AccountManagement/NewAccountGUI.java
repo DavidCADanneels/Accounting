@@ -11,6 +11,7 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -20,7 +21,7 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 11:34
  */
 public class NewAccountGUI extends RefreshableDialog implements ActionListener{
-    private final JTextField nameField;
+    private final JTextField nameField, defaultAmountField;
     private final JComboBox<AccountType> type;
     private final JButton add;
     private final Accounting accounting;
@@ -34,7 +35,10 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
 		line1.add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")));
 		nameField = new JTextField(20);
 		nameField.addActionListener(this);
+        defaultAmountField = new JTextField(10);
 		line1.add(nameField);
+        line1.add(new JLabel(getBundle("Accounting").getString("DEFAULT_AMOUNT_LABEL")));
+        line1.add(defaultAmountField);
 		JPanel line2 = new JPanel();
 		line2.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
 		type = new JComboBox<AccountType>();
@@ -66,6 +70,16 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
             Account account = new Account(name.trim());
 //            account.setName(name.trim());
             account.setType((AccountType) type.getSelectedItem());
+            String text = defaultAmountField.getText();
+            if(text!=null && !text.trim().equals("")){
+                try{
+                    BigDecimal defaultAmount = new BigDecimal(text);
+                    defaultAmount = defaultAmount.setScale(2);
+                    account.setDefaultAmount(defaultAmount);
+                } catch (NumberFormatException nfe){
+                    account.setDefaultAmount(null);
+                }
+            }
             accounting.getAccounts().addBusinessObject(account);
             AccountingComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
@@ -78,6 +92,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
                     getBundle("Accounting").getString("PROVIDE_NEW_NAME"));
         }
         nameField.setText("");
+        defaultAmountField.setText("");
     }
 
     @Override

@@ -1,8 +1,7 @@
 <!ELEMENT Accounts ((Account*,Mortgage*)*,CurrentObject?)>
-<!ELEMENT Account (name,type)>
+<!ELEMENT Account (defaultAmount?,name,type)>
 <!ELEMENT Mortgage (CapitalAccount,IntrestAccount,name,nrPayed,total,type)>
-<!ELEMENT xml (#PCDATA)>
-<!ELEMENT html (#PCDATA)>
+<!ELEMENT defaultAmount (#PCDATA)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT type (#PCDATA)>
 <!ELEMENT project (#PCDATA)>

@@ -15,9 +15,9 @@ public class AccountManagementTableModel extends AbstractTableModel {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = { getBundle("Accounting").getString("ACCOUNT_NAME"),
-            getBundle("Accounting").getString("TYPE"),
-            getBundle("Accounting").getString("SALDO")};
-	private final Class[] columnClasses = { Account.class, String.class, BigDecimal.class };
+            getBundle("Accounting").getString("TYPE"), getBundle("Accounting").getString("SALDO"),
+            getBundle("Accounting").getString("DEFAULT_AMOUNT")};
+	private final Class[] columnClasses = { Account.class, String.class, BigDecimal.class,  BigDecimal.class };
 	private final Accounting accounting;
 
 	public AccountManagementTableModel(Accounting accounting) {
@@ -43,7 +43,14 @@ public class AccountManagementTableModel extends AbstractTableModel {
                 saldo = saldo.negate();
             }
             return saldo;
-		} else return account;
+        } else if (col == 3) {
+            BigDecimal defaultAmount = account.getDefaultAmount();
+            if(defaultAmount!=null){
+                return defaultAmount;
+            } else {
+                return null;
+            }
+        } else return account;
 	}
 
 	@Override
