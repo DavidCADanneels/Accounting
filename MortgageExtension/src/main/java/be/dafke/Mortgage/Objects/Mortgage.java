@@ -33,6 +33,10 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
         movements = new MultiValueMap<Calendar, Movement[]>();
     }
 
+//    public ArrayList<Movement> getBusinessObjects() {
+//        return movements.values();
+//    }
+
     public boolean isBookable(){
         return (capital!=null && intrest!=null);
     }

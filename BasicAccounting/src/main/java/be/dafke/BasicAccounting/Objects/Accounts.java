@@ -25,6 +25,11 @@ public class Accounts extends BusinessCollection<Account> implements BusinessTyp
         return "Account";
     }
 
+    @Override
+    public boolean mustBeRead(){
+        return true;
+    }
+
     public ArrayList<Account> getAccounts(AccountType type) {
 		ArrayList<Account> col = new ArrayList<Account>();
 		for(Account account : getBusinessObjects()) {

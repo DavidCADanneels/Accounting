@@ -22,6 +22,11 @@ public class Journals extends BusinessCollection<Journal> implements BusinessTyp
         return "Journal";
     }
 
+    @Override
+    public boolean mustBeRead(){
+        return true;
+    }
+
     private BusinessTypeCollection<JournalType> businessTypeCollection;
 
     public Journals() {

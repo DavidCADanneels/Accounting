@@ -15,6 +15,11 @@ public class CounterParties extends BusinessCollection<CounterParty> {
         return "CounterParty";
     }
 
+    @Override
+    public boolean mustBeRead(){
+        return false;
+    }
+
     public CounterParties(){
         addSearchKey(CounterParty.ACCOUNTNUMBER);
     }

@@ -176,4 +176,6 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         String key = entry.getValue();
         dataTables.get(type).remove(key);
     }
+
+    public abstract boolean mustBeRead();
 }

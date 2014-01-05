@@ -20,6 +20,11 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     private ArrayList<String> keys;
     private List<AccountingExtension> extensions;
 
+    @Override
+    public boolean mustBeRead(){
+        return true;
+    }
+
     public void addExtension(AccountingExtension extension){
         extensions.add(extension);
         extension.extendConstructor(this);

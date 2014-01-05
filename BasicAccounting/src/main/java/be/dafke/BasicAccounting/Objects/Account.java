@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Objects;
 
-import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
 import be.dafke.ObjectModel.BusinessTyped;
@@ -17,7 +17,7 @@ import java.util.TreeMap;
   * @author David Danneels
   * @since 01/10/2010
  */
-public class Account extends BusinessObject implements BusinessTypeCollectionDependent<AccountType>, BusinessTyped<AccountType> {
+public class Account extends BusinessCollection<Movement> implements BusinessTypeCollectionDependent<AccountType>, BusinessTyped<AccountType> {
     private static final String TYPE = "type";
     private static final String DEFAULTAMOUNT = "defaultAmount";
     private AccountType type;
@@ -33,6 +33,26 @@ public class Account extends BusinessObject implements BusinessTypeCollectionDep
         debitTotal = debitTotal.setScale(2);
         creditTotal = BigDecimal.ZERO;
         creditTotal = creditTotal.setScale(2);
+    }
+
+    @Override
+    public Movement createNewChild(String name){
+        return null;
+    }
+
+    @Override
+    public boolean mustBeRead(){
+        return false;
+    }
+
+    @Override
+    public String toString(){
+        return getName();
+    }
+
+    @Override
+    public String getChildType(){
+        return "Movement";
     }
 
     @Override
@@ -72,7 +92,8 @@ public class Account extends BusinessObject implements BusinessTypeCollectionDep
         return creditTotal;
     }
 
-    public ArrayList<Movement> getMovements() {
+    @Override
+    public ArrayList<Movement> getBusinessObjects() {
         return movements.values();
     }
 

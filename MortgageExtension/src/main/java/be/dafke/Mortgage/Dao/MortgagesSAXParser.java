@@ -40,10 +40,10 @@ public class MortgagesSAXParser {
 
     // WRITE
     //
-    public static void writeMortgage(Mortgage mortgage, File xmlFolder, String header) {
+    public static void writeMortgage(Mortgage mortgage, File mortgagesFolder, File accountsFolder, String header) {
         System.out.println("Mortgages.TOXML(" + mortgage.toString() + ")");
         try {
-            File xmlFile = new File(xmlFolder, mortgage.getName()+".xml");
+            File xmlFile = new File(mortgagesFolder, mortgage.getName()+".xml");
             Writer writer = new FileWriter(xmlFile);
 
             writer.write(header);

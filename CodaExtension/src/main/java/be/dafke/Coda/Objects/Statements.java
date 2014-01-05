@@ -13,6 +13,11 @@ public class Statements extends BusinessCollection<Statement> implements Busines
         return "Statement";
     }
 
+    @Override
+    public boolean mustBeRead(){
+        return false;
+    }
+
     private BusinessCollection<CounterParty> businessCollection;
 
     public ArrayList<Statement> getStatements(SearchOptions searchOptions) {

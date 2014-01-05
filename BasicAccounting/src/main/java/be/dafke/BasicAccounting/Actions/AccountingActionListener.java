@@ -50,8 +50,9 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
         AccountingsSAXParser.writeAccountings(accountings);
         for(Accounting accounting : accountings.getBusinessObjects()){
             for(AccountingExtension extension: accounting.getExtensions()){
-                File rootFolder = new File(accountings.getXmlFolder(), accounting.getName());
-                extension.extendWriteCollection(accounting, rootFolder);
+                File rootFolder = new File(accountings.getXmlFolder(), "Accountings");
+                File subFolder = new File(rootFolder, accounting.getName());
+                extension.extendWriteCollection(accounting, subFolder);
             }
         }
         AccountingComponentMap.closeAllFrames();

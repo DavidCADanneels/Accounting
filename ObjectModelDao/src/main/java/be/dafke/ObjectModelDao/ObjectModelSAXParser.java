@@ -31,7 +31,7 @@ public class ObjectModelSAXParser {
         String shortName = businessCollection.getChildType();
         String name = businessCollection.getName();
         File childFolder = new File(parentFolder, name);
-        File xmlFile = new File(childFolder, className+".xml");
+        File xmlFile = new File(parentFolder, name+".xml");
 
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -113,7 +113,9 @@ public class ObjectModelSAXParser {
             for(Object businessObject : businessCollection.getBusinessObjects()) {
                 if(businessObject instanceof BusinessCollection){
                     BusinessCollection<BusinessObject> subCollection = ((BusinessCollection<BusinessObject>)businessObject);
-                    readCollection(subCollection, true, childFolder);
+                    if(subCollection.mustBeRead()){
+                        readCollection(subCollection, true, childFolder);
+                    }
                 }
             }
         }

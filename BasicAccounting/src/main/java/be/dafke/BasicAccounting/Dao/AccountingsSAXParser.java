@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Dao;
 
-import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Journal;
@@ -44,7 +43,7 @@ public class AccountingsSAXParser {
         String className = collection.getBusinessObjectType();
         String name = collection.getName();
         File childFolder = new File(parentFolder, name);
-        File xmlFile = new File(childFolder, className+".xml");
+        File xmlFile = new File(parentFolder, name+".xml");
         try {
             Writer writer = new FileWriter(xmlFile);
 
@@ -53,6 +52,7 @@ public class AccountingsSAXParser {
 
             // Write the root element e.g. <Accountings>
             writer.write("<" + className + ">\r\n");
+            writer.write("  <name>"+name+"</name>\r\n");
 //            if(className.equals("Accounting")){
 //                writer.write("  <name>"+collection.getName()+"</name>\r\n");
 //            }
@@ -118,16 +118,16 @@ public class AccountingsSAXParser {
             File journalsFolder = new File(rootFolder, "Journals");
             File accountsFolder = new File(rootFolder, "Accounts");
 
-            for(Account account : accounting.getAccounts().getBusinessObjects()){
-                AccountsSAXParser.writeAccount(account, accountsFolder, getXmlHeader(account, 2));
-            }
+//            for(Account account : accounting.getAccounts().getBusinessObjects()){
+//                AccountsSAXParser.writeAccount(account, accountsFolder, getXmlHeader(account, 2));
+//            }
 
             for(Journal journal : accounting.getJournals().getBusinessObjects()){
                 JournalsSAXParser.writeJournal(journal, journalsFolder, getXmlHeader(journal, 2));
             }
         }
 
-        toHtml(accountings);
+//        toHtml(accountings);
     }
 
     private static void toHtml(Accountings accountings){

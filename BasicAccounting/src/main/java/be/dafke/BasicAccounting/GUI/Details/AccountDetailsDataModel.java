@@ -37,7 +37,7 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 
 	@Override
 	public int getRowCount() {
-		return rekening.getMovements().size();
+		return rekening.getBusinessObjects().size();
 	}
 
 	@Override
@@ -52,7 +52,7 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int row, int col) {
-        Movement movement = rekening.getMovements().get(row);
+        Movement movement = rekening.getBusinessObjects().get(row);
         if (col == 0) {
             return movement.getBooking().getTransaction().getAbbreviation() + movement.getBooking().getTransaction().getId();
         } else if (col == 1) {
@@ -83,7 +83,7 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		Movement movement = rekening.getMovements().get(row);
+		Movement movement = rekening.getBusinessObjects().get(row);
 		if (col == 1) {
 			Calendar oudeDatum = movement.getBooking().getTransaction().getDate();
 			Calendar nieuweDatum = Utils.toCalendar((String) value);

@@ -12,6 +12,11 @@ public class JournalTypes extends BusinessTypeCollection<JournalType> {
     }
 
     @Override
+    public boolean mustBeRead(){
+        return false;
+    }
+
+    @Override
     public JournalType createNewChild(String name) {
         return new JournalType(name);
     }

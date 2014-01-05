@@ -83,10 +83,11 @@ public class MortgageExtension implements AccountingExtension{
     @Override
     public void extendWriteCollection(Accounting accounting, File xmlFolder){
         File mortgagesFolder = new File(xmlFolder, "Mortgages");
+        File accountsFolder = new File(xmlFolder, "Accounts");
         BusinessCollection<BusinessObject> mortgages = accounting.getBusinessObject("Mortgages");
         for(BusinessObject businessObject : mortgages.getBusinessObjects()){
             Mortgage mortgage = (Mortgage) businessObject;
-            MortgagesSAXParser.writeMortgage(mortgage, mortgagesFolder, AccountingsSAXParser.getXmlHeader(mortgage, 2));
+            MortgagesSAXParser.writeMortgage(mortgage, mortgagesFolder, accountsFolder, AccountingsSAXParser.getXmlHeader(mortgage, 2));
         }
     }
 }

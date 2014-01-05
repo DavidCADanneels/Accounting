@@ -27,6 +27,11 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         return "Balance";
     }
 
+    @Override
+    public boolean mustBeRead(){
+        return false;
+    }
+
     public static String RESULT_BALANCE = "ResultBalance";
     public static String RELATIONS_BALANCE = "RelationsBalance";
     public static String YEAR_BALANCE = "YearBalance";

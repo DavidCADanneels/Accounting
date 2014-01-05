@@ -32,7 +32,7 @@ public class AccountsSAXParser {
                 writer.write(header);
 
                 writer.write("<"+account.getBusinessObjectType()+">\r\n" + "  <name>" + account.getName() + "</name>\r\n");
-                for(Movement movement : account.getMovements()){
+                for(Movement movement : account.getBusinessObjects()){
                     Transaction transaction = movement.getBooking().getTransaction();
                     Journal journal = transaction.getJournal();
 
