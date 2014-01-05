@@ -25,40 +25,42 @@ public class AccountsSAXParser {
     // WRITE
     //
     public static void writeAccount(Account account, File xmlFolder, String header){
-        try {
-            File xmlFile = new File(xmlFolder, account.getName()+".xml");
-            Writer writer = new FileWriter(xmlFile);
+        if(account.getBusinessObjectType().equals("Account")){
+            try {
+                File xmlFile = new File(xmlFolder, account.getName()+".xml");
+                Writer writer = new FileWriter(xmlFile);
 
-            writer.write(header);
+                writer.write(header);
 
-            writer.write("<Account>\r\n" + "  <name>" + account.getName() + "</name>\r\n");
-            for(Movement movement : account.getMovements()){
-                Transaction transaction = movement.getBooking().getTransaction();
-                Journal journal = transaction.getJournal();
+                writer.write("<"+account.getBusinessObjectType()+">\r\n" + "  <name>" + account.getName() + "</name>\r\n");
+                for(Movement movement : account.getMovements()){
+                    Transaction transaction = movement.getBooking().getTransaction();
+                    Journal journal = transaction.getJournal();
 
-                writer.write("  <action id=\""+transaction.getId()+"\">\r\n");
-                writer.write("    <nr>" + transaction.getAbbreviation() + transaction.getId() + "</nr>\r\n");
-                writer.write("    <journal>" + journal.getName() + "</journal>\r\n");
-                writer.write("    <date>" + Utils.toString(transaction.getDate()) + "</date>\r\n");
-                writer.write("    <" + (movement.isDebit() ? "debit" : "credit") + ">"
-                                     + movement.getAmount().toString()
-                               + "</" + (movement.isDebit() ? "debit" : "credit") + ">\r\n");
-                writer.write("    <description>" + transaction.getDescription() + "</description>\r\n");
-                writer.write("  </action>\r\n");
+                    writer.write("  <action id=\""+transaction.getId()+"\">\r\n");
+                    writer.write("    <nr>" + transaction.getAbbreviation() + transaction.getId() + "</nr>\r\n");
+                    writer.write("    <journal>" + journal.getName() + "</journal>\r\n");
+                    writer.write("    <date>" + Utils.toString(transaction.getDate()) + "</date>\r\n");
+                    writer.write("    <" + (movement.isDebit() ? "debit" : "credit") + ">"
+                                         + movement.getAmount().toString()
+                                   + "</" + (movement.isDebit() ? "debit" : "credit") + ">\r\n");
+                    writer.write("    <description>" + transaction.getDescription() + "</description>\r\n");
+                    writer.write("  </action>\r\n");
+                }
+                BigDecimal saldo = account.getSaldo();
+                String resultType =(saldo.compareTo(BigDecimal.ZERO)<0)?"credit":"debit";
+                writer.write("  <closed type = \"" + resultType + "\">\r\n" + "    <debitTotal>" + account.getDebetTotal() + "</debitTotal>\r\n"
+                        + "    <creditTotal>" + account.getCreditTotal() + "</creditTotal>\r\n"
+                        + "    <saldo>" + saldo.abs() + "</saldo>\r\n  </closed>\r\n");
+                writer.write("</"+account.getBusinessObjectType()+">");
+                writer.flush();
+                writer.close();
+    //			setSaved(true);
+            } catch (FileNotFoundException ex) {
+                Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
             }
-            BigDecimal saldo = account.getSaldo();
-            String resultType =(saldo.compareTo(BigDecimal.ZERO)<0)?"credit":"debit";
-            writer.write("  <closed type = \"" + resultType + "\">\r\n" + "    <debitTotal>" + account.getDebetTotal() + "</debitTotal>\r\n"
-                    + "    <creditTotal>" + account.getCreditTotal() + "</creditTotal>\r\n"
-                    + "    <saldo>" + saldo.abs() + "</saldo>\r\n  </closed>\r\n");
-            writer.write("</Account>");
-            writer.flush();
-            writer.close();
-//			setSaved(true);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

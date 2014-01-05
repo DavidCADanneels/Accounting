@@ -56,14 +56,14 @@ public class BasicAccountingMain {
             ObjectModelSAXParser.readCollection(accounting, true, xmlFolder);
         }
 
-        AccountingsSAXParser.readCollection(accountings, xmlFolder);
-
         for(Accounting accounting : accountings.getBusinessObjects()){
             List<AccountingExtension> extensions = accounting.getExtensions();
             for(AccountingExtension extension : extensions){
                 extension.extendReadCollection(accounting,xmlFolder);
             }
         }
+
+        AccountingsSAXParser.readCollection(accountings, xmlFolder);
     }
 
     protected static void createBasicComponents(){
