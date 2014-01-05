@@ -24,9 +24,4 @@
     <credit>3641.43</credit>
     <description>Correctie beginbalans Hypotheek</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>3393.55</debitTotal>
-    <creditTotal>7034.98</creditTotal>
-    <saldo>3641.43</saldo>
-  </closed>
 </Account>

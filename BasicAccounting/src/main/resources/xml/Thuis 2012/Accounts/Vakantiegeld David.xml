@@ -10,9 +10,4 @@
     <credit>190.71</credit>
     <description>/A/ 91RLMJ11 Vakantiegeld 2012</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>0.00</debitTotal>
-    <creditTotal>190.71</creditTotal>
-    <saldo>190.71</saldo>
-  </closed>
 </Account>

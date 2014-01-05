@@ -10,9 +10,4 @@
     <debit>2506.88</debit>
     <description>Beginbalans</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>2506.88</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>2506.88</saldo>
-  </closed>
 </Account>

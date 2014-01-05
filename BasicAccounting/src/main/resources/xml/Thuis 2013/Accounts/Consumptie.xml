@@ -361,9 +361,4 @@
     <debit>267.21</debit>
     <description>ATM Thailand: 10.000 THB</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>2424.56</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>2424.56</saldo>
-  </closed>
 </Account>

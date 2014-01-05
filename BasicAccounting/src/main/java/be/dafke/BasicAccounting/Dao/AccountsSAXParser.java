@@ -11,7 +11,6 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,7 +24,7 @@ public class AccountsSAXParser {
     // WRITE
     //
     public static void writeAccount(Account account, File xmlFolder, String header){
-        if(account.getBusinessObjectType().equals("Account")){
+//        if(account.getBusinessObjectType().equals("Account")){
             try {
                 File xmlFile = new File(xmlFolder, account.getName()+".xml");
                 Writer writer = new FileWriter(xmlFile);
@@ -47,11 +46,11 @@ public class AccountsSAXParser {
                     writer.write("    <description>" + transaction.getDescription() + "</description>\r\n");
                     writer.write("  </action>\r\n");
                 }
-                BigDecimal saldo = account.getSaldo();
-                String resultType =(saldo.compareTo(BigDecimal.ZERO)<0)?"credit":"debit";
-                writer.write("  <closed type = \"" + resultType + "\">\r\n" + "    <debitTotal>" + account.getDebetTotal() + "</debitTotal>\r\n"
-                        + "    <creditTotal>" + account.getCreditTotal() + "</creditTotal>\r\n"
-                        + "    <saldo>" + saldo.abs() + "</saldo>\r\n  </closed>\r\n");
+//                BigDecimal saldo = account.getSaldo();
+//                String resultType =(saldo.compareTo(BigDecimal.ZERO)<0)?"credit":"debit";
+//                writer.write("  <closed type = \"" + resultType + "\">\r\n" + "    <debitTotal>" + account.getDebetTotal() + "</debitTotal>\r\n"
+//                        + "    <creditTotal>" + account.getCreditTotal() + "</creditTotal>\r\n"
+//                        + "    <saldo>" + saldo.abs() + "</saldo>\r\n  </closed>\r\n");
                 writer.write("</"+account.getBusinessObjectType()+">");
                 writer.flush();
                 writer.close();
@@ -61,6 +60,6 @@ public class AccountsSAXParser {
             } catch (IOException ex) {
                 Logger.getLogger(Account.class.getName()).log(Level.SEVERE, null, ex);
             }
-        }
+//        }
     }
 }

@@ -101,9 +101,4 @@
     <debit>242.91</debit>
     <description>Proximus</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>2669.41</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>2669.41</saldo>
-  </closed>
 </Account>

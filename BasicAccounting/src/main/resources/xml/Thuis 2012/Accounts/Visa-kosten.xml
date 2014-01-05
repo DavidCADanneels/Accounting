@@ -10,9 +10,4 @@
     <debit>23.00</debit>
     <description>visa kosten</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>23.00</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>23.00</saldo>
-  </closed>
 </Account>

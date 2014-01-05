@@ -145,9 +145,4 @@
     <debit>2500.00</debit>
     <description>overschot feestje</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>5506.88</debitTotal>
-    <creditTotal>3000.00</creditTotal>
-    <saldo>2506.88</saldo>
-  </closed>
 </Account>

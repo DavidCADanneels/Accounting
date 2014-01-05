@@ -403,9 +403,11 @@
     <credit>300.00</credit>
     <description>veiligstelling</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>7424.98</debitTotal>
-    <creditTotal>7249.46</creditTotal>
-    <saldo>175.52</saldo>
-  </closed>
+  <action id="93">
+    <nr>DIV93</nr>
+    <journal>Diversen</journal>
+    <date>5/1/2014</date>
+    <credit>802.71</credit>
+    <description>null</description>
+  </action>
 </Account>

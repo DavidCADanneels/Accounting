@@ -10,9 +10,4 @@
     <credit>825.08</credit>
     <description>vakantiegeld Dara</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>0.00</debitTotal>
-    <creditTotal>825.08</creditTotal>
-    <saldo>825.08</saldo>
-  </closed>
 </Account>

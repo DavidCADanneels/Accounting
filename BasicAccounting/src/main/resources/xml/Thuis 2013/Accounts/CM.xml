@@ -38,9 +38,4 @@
     <credit>19.67</credit>
     <description>terugbetaling Sophia/Tay</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>187.50</debitTotal>
-    <creditTotal>19.67</creditTotal>
-    <saldo>167.83</saldo>
-  </closed>
 </Account>

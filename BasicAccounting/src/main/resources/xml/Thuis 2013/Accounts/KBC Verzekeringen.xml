@@ -10,9 +10,4 @@
     <debit>24.44</debit>
     <description>ziekenhuiskosten Sophia</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>24.44</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>24.44</saldo>
-  </closed>
 </Account>

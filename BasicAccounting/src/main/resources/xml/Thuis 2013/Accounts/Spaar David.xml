@@ -24,9 +24,4 @@
     <debit>300.00</debit>
     <description>veiligstelling</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>301.47</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>301.47</saldo>
-  </closed>
 </Account>

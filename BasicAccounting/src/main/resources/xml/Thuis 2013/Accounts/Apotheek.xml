@@ -17,9 +17,4 @@
     <debit>97.98</debit>
     <description>???</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>121.60</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>121.60</saldo>
-  </closed>
 </Account>

@@ -24,9 +24,11 @@
     <debit>541.09</debit>
     <description>afbetaling maart</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>1626.29</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>1626.29</saldo>
-  </closed>
+  <action id="93">
+    <nr>DIV93</nr>
+    <journal>Diversen</journal>
+    <date>5/1/2014</date>
+    <debit>537.03</debit>
+    <description>null</description>
+  </action>
 </Account>

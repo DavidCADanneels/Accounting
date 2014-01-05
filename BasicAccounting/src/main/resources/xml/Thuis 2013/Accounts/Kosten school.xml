@@ -17,9 +17,4 @@
     <debit>39.00</debit>
     <description>Maaltijden</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>62.40</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>62.40</saldo>
-  </closed>
 </Account>

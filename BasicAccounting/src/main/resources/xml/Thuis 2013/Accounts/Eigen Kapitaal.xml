@@ -24,9 +24,4 @@
     <credit>11633.14</credit>
     <description>correctie beginbalans (Bank Dara)</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>11987.43</debitTotal>
-    <creditTotal>23620.57</creditTotal>
-    <saldo>11633.14</saldo>
-  </closed>
 </Account>

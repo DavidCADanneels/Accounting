@@ -17,9 +17,4 @@
     <debit>25.93</debit>
     <description>verzekeringen + Sophia</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>51.86</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>51.86</saldo>
-  </closed>
 </Account>

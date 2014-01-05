@@ -31,9 +31,4 @@
     <credit>4128.29</credit>
     <description>KOHIERARTIKEL: 728168078 DIENST : 05 04/01</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>569.41</debitTotal>
-    <creditTotal>6541.85</creditTotal>
-    <saldo>5972.44</saldo>
-  </closed>
 </Account>

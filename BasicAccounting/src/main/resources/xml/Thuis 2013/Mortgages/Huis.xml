@@ -237,7 +237,7 @@
   <line>
     <nr>34</nr>
     <mensuality>802.71</mensuality>
-    <intrest>574.97</intrest>
+    <intrest>574.9</intrest>
     <capital>227.74</capital>
     <restCapital>148728.61</restCapital>
   </line>
@@ -637,7 +637,7 @@
     <nr>91</nr>
     <mensuality>802.71</mensuality>
     <intrest>519.04</intrest>
-    <capital>283.67</capital>
+    <capital>283</capital>
     <restCapital>134183.93</restCapital>
   </line>
   <line>
@@ -1513,7 +1513,7 @@
     <mensuality>802.71</mensuality>
     <intrest>343.57</intrest>
     <capital>459.14</capital>
-    <restCapital>88547.45</restCapital>
+    <restCapital>88547</restCapital>
   </line>
   <line>
     <nr>217</nr>
@@ -1594,7 +1594,7 @@
   </line>
   <line>
     <nr>228</nr>
-    <mensuality>802.71</mensuality>
+    <mensuality>802.7</mensuality>
     <intrest>321.84</intrest>
     <capital>480.87</capital>
     <restCapital>82897.50</restCapital>
@@ -1674,7 +1674,7 @@
     <mensuality>802.71</mensuality>
     <intrest>301.02</intrest>
     <capital>501.69</capital>
-    <restCapital>77483.83</restCapital>
+    <restCapital>7748</restCapital>
   </line>
   <line>
     <nr>240</nr>
@@ -2234,7 +2234,7 @@
     <mensuality>802.71</mensuality>
     <intrest>119.93</intrest>
     <capital>682.78</capital>
-    <restCapital>30385.91</restCapital>
+    <restCapital>30385</restCapital>
   </line>
   <line>
     <nr>320</nr>
@@ -2316,7 +2316,7 @@
   <line>
     <nr>331</nr>
     <mensuality>802.71</mensuality>
-    <intrest>87.62</intrest>
+    <intrest>87</intrest>
     <capital>715.09</capital>
     <restCapital>21983.99</restCapital>
   </line>
@@ -2476,7 +2476,7 @@
   </line>
   <line>
     <nr>354</nr>
-    <mensuality>802.71</mensuality>
+    <mensuality>802.7</mensuality>
     <intrest>21.36</intrest>
     <capital>781.35</capital>
     <restCapital>4753.05</restCapital>

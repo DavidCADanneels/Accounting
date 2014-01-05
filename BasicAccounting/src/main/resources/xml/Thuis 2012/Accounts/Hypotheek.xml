@@ -101,9 +101,4 @@
     <debit>258.61</debit>
     <description>afbetaling november</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>146528.39</debitTotal>
-    <creditTotal>287227.56</creditTotal>
-    <saldo>140699.17</saldo>
-  </closed>
 </Account>

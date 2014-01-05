@@ -38,9 +38,4 @@
     <credit>100.00</credit>
     <description>Voorschot januari</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>0.00</debitTotal>
-    <creditTotal>1487.20</creditTotal>
-    <saldo>1487.20</saldo>
-  </closed>
 </Account>

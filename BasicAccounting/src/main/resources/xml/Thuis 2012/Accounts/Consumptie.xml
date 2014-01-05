@@ -2288,9 +2288,4 @@
     <debit>55.01</debit>
     <description>tankbeurt auto</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>19962.20</debitTotal>
-    <creditTotal>4201.00</creditTotal>
-    <saldo>15761.20</saldo>
-  </closed>
 </Account>

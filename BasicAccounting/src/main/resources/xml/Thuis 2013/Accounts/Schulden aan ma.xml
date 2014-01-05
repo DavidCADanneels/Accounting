@@ -38,9 +38,4 @@
     <debit>200.00</debit>
     <description>aflossing maart</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>1600.00</debitTotal>
-    <creditTotal>15400.00</creditTotal>
-    <saldo>13800.00</saldo>
-  </closed>
 </Account>

@@ -10,9 +10,4 @@
     <debit>160.92</debit>
     <description>verzekering brommer</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>160.92</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>160.92</saldo>
-  </closed>
 </Account>

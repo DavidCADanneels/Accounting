@@ -14,7 +14,7 @@
     <CapitalAccount>Hypotheek</CapitalAccount>
     <IntrestAccount>Intrest Huis</IntrestAccount>
     <name>Huis</name>
-    <nrPayed>70</nrPayed>
+    <nrPayed>74</nrPayed>
     <total>156000</total>
     <type>Mortgage</type>
   </Mortgage>

@@ -1497,9 +1497,4 @@
     <debit>159.79</debit>
     <description>eindejaarspremie</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>13645.73</debitTotal>
-    <creditTotal>13069.57</creditTotal>
-    <saldo>576.16</saldo>
-  </closed>
 </Account>

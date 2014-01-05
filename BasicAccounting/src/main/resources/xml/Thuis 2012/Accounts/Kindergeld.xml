@@ -80,9 +80,4 @@
     <credit>88.51</credit>
     <description>kindergeld oktober</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>0.00</debitTotal>
-    <creditTotal>910.42</creditTotal>
-    <saldo>910.42</saldo>
-  </closed>
 </Account>

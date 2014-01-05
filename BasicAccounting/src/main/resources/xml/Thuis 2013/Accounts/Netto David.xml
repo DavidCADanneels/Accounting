@@ -24,9 +24,4 @@
     <credit>1707.07</credit>
     <description>loon februari</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>0.00</debitTotal>
-    <creditTotal>4094.80</creditTotal>
-    <saldo>4094.80</saldo>
-  </closed>
 </Account>

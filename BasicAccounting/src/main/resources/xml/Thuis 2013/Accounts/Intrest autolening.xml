@@ -17,9 +17,4 @@
     <debit>36.53</debit>
     <description>afbetaling februari</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>73.91</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>73.91</saldo>
-  </closed>
 </Account>

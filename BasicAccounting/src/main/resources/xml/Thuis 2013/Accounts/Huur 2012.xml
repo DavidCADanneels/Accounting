@@ -10,9 +10,4 @@
     <credit>600.00</credit>
     <description>huur</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>0.00</debitTotal>
-    <creditTotal>600.00</creditTotal>
-    <saldo>600.00</saldo>
-  </closed>
 </Account>

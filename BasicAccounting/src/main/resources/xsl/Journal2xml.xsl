@@ -9,7 +9,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
       <h1><xsl:value-of select="name"/></h1>
       <table>
         <tr><th>Nr</th><th>Datum</th><th>Rekening</th><th>Debet</th><th>Credit</th><th>Omschrijving</th></tr>
-        <xsl:for-each select="action">
+        <xsl:for-each select="Transaction">
           <tr>
             <xsl:element name="td">
               <xsl:attribute name="id">
@@ -20,9 +20,9 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
             <td><xsl:value-of select="date"/></td>
             <td>
               <xsl:element name="a">
-                  <xsl:attribute name="href">../Accounts/<xsl:value-of select="account"/>.xml#<xsl:value-of select="@id"/>
+                  <xsl:attribute name="href">../Accounts/<xsl:value-of select="Account"/>.xml#<xsl:value-of select="@id"/>
                 </xsl:attribute>
-                <xsl:value-of select="account"/>
+                <xsl:value-of select="Account"/>
               </xsl:element>
             </td>
             <td><xsl:value-of select="debet"/></td>

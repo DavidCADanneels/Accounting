@@ -10,9 +10,4 @@
     <credit>2500.00</credit>
     <description>overschot feestje</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>0.00</debitTotal>
-    <creditTotal>2500.00</creditTotal>
-    <saldo>2500.00</saldo>
-  </closed>
 </Account>

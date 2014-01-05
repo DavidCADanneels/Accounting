@@ -42,7 +42,7 @@ public class JournalsSAXParser {
             Transaction transaction = null;
             String abbreviation = journal.getAbbreviation();
 
-            NodeList actions = doc.getElementsByTagName("action");
+            NodeList actions = doc.getElementsByTagName("Transaction");
             for (int i = 0; i < actions.getLength(); i++) {
                 Element element = (Element)actions.item(i);
                 String nr = Utils.getValue(element, "nr");
@@ -58,7 +58,7 @@ public class JournalsSAXParser {
                     transaction.setDate(Utils.toCalendar(date));
                     transaction.setDescription(description);
                 }
-                String accountName = Utils.getValue(element, "account");
+                String accountName = Utils.getValue(element, "Account");
                 Account account = accounts.getBusinessObject(accountName);
                 String debit = Utils.getValue(element, "debet");
                 String credit = Utils.getValue(element, "credit");
@@ -78,7 +78,7 @@ public class JournalsSAXParser {
                         transaction.addBooking(booking);
                     }
                 }
-            }
+                }
             if(transaction!=null){
                 journal.addBusinessObject(transaction);
             }
@@ -103,23 +103,23 @@ public class JournalsSAXParser {
             for (Transaction transaction :journal.getBusinessObjects()) {
                 ArrayList<Booking> list = transaction.getBookings();
                 Booking booking = list.get(0);
-                writer.write("  <action id=\""+transaction.getId()+"\">\r\n");
+                writer.write("  <Transaction id=\""+transaction.getId()+"\">\r\n");
                 writer.write("    <nr>" + journal.getAbbreviation() + transaction.getId() + "</nr>\r\n");
                 writer.write("    <date>" + Utils.toString(transaction.getDate()) + "</date>\r\n");
-                writer.write("    <account>" + booking.getAccount() + "</account>\r\n");
+                writer.write("    <Account>" + booking.getAccount() + "</Account>\r\n");
                 writer.write("    <" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">"
                                      + booking.getMovement().getAmount().toString()
                                + "</" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">\r\n");
                 writer.write("    <description>" + transaction.getDescription() + "</description>\r\n");
-                writer.write("  </action>\r\n");
+                writer.write("  </Transaction>\r\n");
                 for(int i = 1; i < list.size(); i++) {
                     booking = list.get(i);
-                    writer.write("  <action>\r\n");
-                    writer.write("    <account>" + booking.getAccount() + "</account>\r\n");
+                    writer.write("  <Transaction>\r\n");
+                    writer.write("    <Account>" + booking.getAccount() + "</Account>\r\n");
                     writer.write("    <" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">"
                             + booking.getMovement().getAmount().toString()
                             + "</" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">\r\n");
-                    writer.write("  </action>\r\n");
+                    writer.write("  </Transaction>\r\n");
                 }
             }
             writer.write("</Journal>");

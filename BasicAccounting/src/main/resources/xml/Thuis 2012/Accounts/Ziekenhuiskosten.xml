@@ -115,9 +115,4 @@
     <debit>16.42</debit>
     <description>44006951/0000143 03 Medicard 15 11 2012</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>743.03</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>743.03</saldo>
-  </closed>
 </Account>

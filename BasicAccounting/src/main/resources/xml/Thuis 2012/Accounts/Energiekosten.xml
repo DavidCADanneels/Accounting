@@ -10,9 +10,4 @@
     <debit>600.00</debit>
     <description>voorgeschoten door ma: dokter-apotheek-gas-electriciteit</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>600.00</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>600.00</saldo>
-  </closed>
 </Account>

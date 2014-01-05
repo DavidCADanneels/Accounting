@@ -10,9 +10,4 @@
     <credit>0.01</credit>
     <description>intresten</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>0.00</debitTotal>
-    <creditTotal>0.01</creditTotal>
-    <saldo>0.01</saldo>
-  </closed>
 </Account>

@@ -3,9 +3,4 @@
 <!DOCTYPE Account SYSTEM "../../../dtd/Account.dtd">
 <Account>
   <name>AXA-TEMP</name>
-  <closed type = "debit">
-    <debitTotal>0.00</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>0.00</saldo>
-  </closed>
 </Account>

@@ -101,9 +101,4 @@
     <credit>1275.73</credit>
     <description>Eindejaarspremie</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>0.00</debitTotal>
-    <creditTotal>19523.94</creditTotal>
-    <saldo>19523.94</saldo>
-  </closed>
 </Account>

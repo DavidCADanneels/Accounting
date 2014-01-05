@@ -24,9 +24,4 @@
     <debit>33.70</debit>
     <description>Kapitalisatie</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>59.50</debitTotal>
-    <creditTotal>1.23</creditTotal>
-    <saldo>58.27</saldo>
-  </closed>
 </Account>

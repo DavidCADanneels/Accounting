@@ -17,9 +17,4 @@
     <debit>29.25</debit>
     <description>DAS autoverzekering</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>58.50</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>58.50</saldo>
-  </closed>
 </Account>

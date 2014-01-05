@@ -10,9 +10,4 @@
     <debit>50.00</debit>
     <description>23142/+++</description>
   </action>
-  <closed type = "debit">
-    <debitTotal>50.00</debitTotal>
-    <creditTotal>0.00</creditTotal>
-    <saldo>50.00</saldo>
-  </closed>
 </Account>

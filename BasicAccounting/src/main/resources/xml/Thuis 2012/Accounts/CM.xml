@@ -227,9 +227,4 @@
     <credit>19.67</credit>
     <description>CM</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>169.49</debitTotal>
-    <creditTotal>636.07</creditTotal>
-    <saldo>466.58</saldo>
-  </closed>
 </Account>

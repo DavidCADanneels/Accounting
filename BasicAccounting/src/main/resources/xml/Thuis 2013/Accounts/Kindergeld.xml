@@ -17,9 +17,4 @@
     <credit>90.28</credit>
     <description>Kindergeld januari</description>
   </action>
-  <closed type = "credit">
-    <debitTotal>0.00</debitTotal>
-    <creditTotal>180.56</creditTotal>
-    <saldo>180.56</saldo>
-  </closed>
 </Account>
