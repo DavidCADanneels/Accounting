@@ -34,7 +34,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 	private final Accounting accounting;
 
 	public JournalManagementGUI(Accounting accounting, ActionListener actionListener) {
-		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE") + " " + accounting.toString(), new NewJournalDataModel(accounting));
+		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE") + " " + accounting.toString(), new JournalManagementTableModel(accounting));
 		this.accounting = accounting;
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
