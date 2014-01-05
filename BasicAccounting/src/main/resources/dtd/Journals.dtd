@@ -1,4 +1,4 @@
-<!ELEMENT Journals (Journal*,CurrentObject?)>
+<!ELEMENT Journals (name, Journal*,CurrentObject?)>
 <!ELEMENT Journal (abbreviation,name,type)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT abbreviation (#PCDATA)>

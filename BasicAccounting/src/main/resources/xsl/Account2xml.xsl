@@ -13,14 +13,14 @@
       <h1><xsl:value-of select="name"/></h1>
       <table>
         <tr><th>Nr</th><th>Datum</th><th>Debet</th><th>Credit</th><th>Omschrijving</th></tr>
-        <xsl:for-each select="action">
+        <xsl:for-each select="Movement">
           <tr>
             <td>
               <xsl:element name="a">
                   <xsl:attribute name="href">../Journals/<xsl:value-of select="journal"/>.xml#<xsl:value-of select="@id"/>
                 </xsl:attribute>
                 <xsl:attribute name="id">
-                  <xsl:value-of select="@id"/>
+                  <xsl:value-of select="nr"/>
                 </xsl:attribute>
                 <xsl:value-of select="nr"/>
               </xsl:element>

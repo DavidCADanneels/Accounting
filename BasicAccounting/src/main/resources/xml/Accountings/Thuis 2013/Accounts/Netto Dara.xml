@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <Movement>
+    <credit>456.56</credit>
+    <date>3/1/2013</date>
+    <description>3/1/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV12</nr>
+  </Movement>
+  <Movement>
+    <credit>250.00</credit>
+    <date>16/1/2013</date>
+    <description>16/1/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV29</nr>
+  </Movement>
+  <Movement>
+    <credit>664.32</credit>
+    <date>4/2/2013</date>
+    <description>4/2/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV64</nr>
+  </Movement>
+  <Movement>
+    <credit>16.32</credit>
+    <date>18/2/2013</date>
+    <description>18/2/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV84</nr>
+  </Movement>
+  <Movement>
+    <credit>100.00</credit>
+    <date>19/2/2013</date>
+    <description>19/2/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV85</nr>
+  </Movement>
+</Account>

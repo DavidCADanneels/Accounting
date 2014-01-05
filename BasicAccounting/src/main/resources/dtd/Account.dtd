@@ -1,6 +1,6 @@
-<!ELEMENT Account (name,action*,closed?)>
+<!ELEMENT Account (name,Movement*,closed?)>
 <!ELEMENT name (#PCDATA)>
-<!ELEMENT action (nr,journal,date,debit?,credit?,description)>
+<!ELEMENT Movement (credit?,date,debit?,description,journal,nr)>
 <!ELEMENT nr (#PCDATA)>
 <!ELEMENT journal (#PCDATA)>
 <!ELEMENT date (#PCDATA)>

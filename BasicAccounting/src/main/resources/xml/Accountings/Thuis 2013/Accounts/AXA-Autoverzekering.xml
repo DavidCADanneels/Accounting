@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <Movement>
+    <date>4/1/2013</date>
+    <debit>25.93</debit>
+    <description>4/1/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV16</nr>
+  </Movement>
+  <Movement>
+    <date>6/2/2013</date>
+    <debit>25.93</debit>
+    <description>6/2/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV69</nr>
+  </Movement>
+</Account>

@@ -1,4 +1,4 @@
-<!ELEMENT Accounting (Accounts,Journals,Balances,CounterParties?,Statements?,Mortgages?)>
+<!ELEMENT Accounting (name, Accounts,Journals,Balances,CounterParties?,Statements?,Mortgages?)>
 <!ELEMENT Accounts (name)>
 <!ELEMENT Journals (name)>
 <!ELEMENT Balances (name)>
