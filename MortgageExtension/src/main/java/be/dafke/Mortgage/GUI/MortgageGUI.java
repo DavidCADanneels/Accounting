@@ -75,27 +75,29 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		activateButtons(false);
 		save.setEnabled(false);
 
-		JPanel block1 = new JPanel();
-		block1.add(new JLabel("Intrest Account:"));
-		block1.add(comboIntrest);
-		JPanel block2 = new JPanel();
-		block2.add(new JLabel("Capital Account:"));
-		block2.add(comboCapital);
+        JPanel accounts = new JPanel();
+        accounts.setLayout(new GridLayout(2,0));
+        accounts.add(new JLabel("Intrest Account:"));
+        accounts.add(comboIntrest);
+        accounts.add(new JLabel("Capital Account:"));
+        accounts.add(comboCapital);
 		//
-		JPanel block3 = new JPanel();
-		block3.add(new JLabel("Already payed:"));
-		block3.add(nrPayed);
+		JPanel block3a = new JPanel();
+		block3a.add(new JLabel("Already payed:"));
+		block3a.add(nrPayed);
 		//
-		JPanel block4 = new JPanel();
-		block4.add(save);
-		block4.add(delete);
-		//
-		JPanel north = new JPanel();
-		north.setLayout(new GridLayout(2, 0));
-		north.add(block1);
+		JPanel block3b = new JPanel();
+		block3b.add(save);
+        block3b.add(delete);
+        //
+        JPanel block3 = new JPanel();
+        block3.setLayout(new BoxLayout(block3, BoxLayout.Y_AXIS));
+        block3.add(block3a);
+        block3.add(block3b);
+        //
+        JPanel north = new JPanel();
+		north.add(accounts);
 		north.add(block3);
-		north.add(block2);
-		north.add(block4);
 
 		JPanel right = new JPanel(new BorderLayout());
 		right.add(scroll, BorderLayout.CENTER);
@@ -104,6 +106,8 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		panel.add(right, BorderLayout.CENTER);
 		setContentPane(panel);
 		pack();
+
+        refresh();
 	}
 
 	private void activateButtons(boolean active) {
@@ -180,8 +184,6 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 			}
 		}
     }
-
-
 
 	@Override
 	public void refresh() {
