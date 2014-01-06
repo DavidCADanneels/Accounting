@@ -2,5 +2,11 @@
 <?xml-stylesheet type="text/xsl" href="../../../xsl/Journals2xml.xsl"?>
 <!DOCTYPE Journals SYSTEM "../../../dtd/Journals.dtd">
 <Journals>
-  <name>Journals</name>
+    <name>Journals</name>
+    <Journal>
+        <abbreviation>DIV</abbreviation>
+        <name>Diversen</name>
+        <type>default</type>
+    </Journal>
+    <CurrentObject>Diversen</CurrentObject>
 </Journals>

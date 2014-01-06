@@ -122,8 +122,8 @@ public class BasicAccountingMain {
         }
 
         if(mode == Mode.TEST) {
-            xmlFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/xml");
-            htmlFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/html");
+            xmlFolder = new File("BasicAccounting/src/main/resources/xml");
+            htmlFolder = new File("BasicAccounting/src/main/resources/html");
         } else {// if (mode == Mode.PROD) {
             File parentFolder = new File(userHome, "Accounting");
             xmlFolder = new File(parentFolder, "xml");

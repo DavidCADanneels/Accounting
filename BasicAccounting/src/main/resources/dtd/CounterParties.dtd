@@ -1,4 +1,4 @@
-<!ELEMENT CounterParties (CounterParty*,CurrentObject?)>
+<!ELEMENT CounterParties (name, CounterParty*,CurrentObject?)>
 <!ELEMENT CounterParty (AccountName?,AccountNumber?,AccountHtml?,AccountXml?,Address?,Alias*,Bic?,Currency?,name)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT xml (#PCDATA)>

@@ -34,7 +34,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     }
     @Override
     public String getChildType(){
-        return "";
+        return "Accounting";
     }
 
     public Accounting(String name) {

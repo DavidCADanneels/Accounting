@@ -1,4 +1,4 @@
-<!ELEMENT Balances (Balance*,CurrentObject?)>
+<!ELEMENT Balances (name, Balance*,CurrentObject?)>
 <!ELEMENT Balance (LeftName,LeftResultName,LeftTotalName,LeftTypes,RightName,RightResultName,RightTotalName,RightTypes,html?,name,xml?)>
 <!ELEMENT LeftName (#PCDATA)>
 <!ELEMENT RightName (#PCDATA)>

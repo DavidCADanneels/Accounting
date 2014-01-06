@@ -87,7 +87,7 @@ public class MortgageExtension implements AccountingExtension{
         BusinessCollection<BusinessObject> mortgages = accounting.getBusinessObject("Mortgages");
         for(BusinessObject businessObject : mortgages.getBusinessObjects()){
             Mortgage mortgage = (Mortgage) businessObject;
-            MortgagesSAXParser.writeMortgage(mortgage, mortgagesFolder, accountsFolder, AccountingsSAXParser.getXmlHeader(mortgage, 2));
+            MortgagesSAXParser.writeMortgage(mortgage, mortgagesFolder, accountsFolder, AccountingsSAXParser.getXmlHeader(mortgage, 3));
         }
     }
 }
