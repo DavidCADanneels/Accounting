@@ -1,4 +1,4 @@
-<!ELEMENT Statements (Statement*)>
+<!ELEMENT Statements (name,Statement*)>
 <!ELEMENT xml (#PCDATA)>
 <!ELEMENT html (#PCDATA)>
 <!ELEMENT Statement (Amount,Communication?,CounterParty?,Date,Sign,TransactionCode?,name)>

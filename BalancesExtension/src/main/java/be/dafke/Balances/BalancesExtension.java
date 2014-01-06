@@ -1,5 +1,13 @@
 package be.dafke.Balances;
 
+import static java.util.ResourceBundle.getBundle;
+
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.io.File;
+
+import javax.swing.*;
+
 import be.dafke.Balances.Dao.BalancesSAXParser;
 import be.dafke.Balances.GUI.BalanceGUI;
 import be.dafke.Balances.GUI.TestBalance;
@@ -13,13 +21,6 @@ import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-
-import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.io.File;
-
-import static java.util.ResourceBundle.getBundle;
 
 /**
  * User: david
@@ -104,7 +105,7 @@ public class BalancesExtension implements AccountingExtension {
     public void extendWriteCollection(Accounting accounting, File xmlFolder){
         File balancesFolder = new File(xmlFolder, "Balances");
         for(Balance balance : balances.getBusinessObjects()){
-            BalancesSAXParser.writeBalance(balance, balancesFolder, AccountingsSAXParser.getXmlHeader(balance, 2));
+            BalancesSAXParser.writeBalance(balance, balancesFolder, AccountingsSAXParser.getXmlHeader(balance, 3));
         }
 
     }

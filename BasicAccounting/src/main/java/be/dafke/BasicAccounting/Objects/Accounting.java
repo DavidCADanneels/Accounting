@@ -1,13 +1,13 @@
 package be.dafke.BasicAccounting.Objects;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author David Danneels
@@ -34,7 +34,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     }
     @Override
     public String getChildType(){
-        return "";
+        return "Accounting";
     }
 
     public Accounting(String name) {

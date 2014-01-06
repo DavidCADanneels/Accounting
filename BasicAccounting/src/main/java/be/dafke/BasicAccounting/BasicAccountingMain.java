@@ -1,5 +1,11 @@
 package be.dafke.BasicAccounting;
 
+import java.awt.*;
+import java.io.File;
+import java.util.List;
+
+import javax.swing.*;
+
 import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.Dao.AccountingsSAXParser;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
@@ -12,11 +18,6 @@ import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.ObjectModelDao.ObjectModelSAXParser;
-
-import javax.swing.*;
-import java.awt.*;
-import java.io.File;
-import java.util.List;
 
 public class BasicAccountingMain {
 
@@ -122,8 +123,8 @@ public class BasicAccountingMain {
         }
 
         if(mode == Mode.TEST) {
-            xmlFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/xml");
-            htmlFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/html");
+            xmlFolder = new File("BasicAccounting/src/main/resources/xml");
+            htmlFolder = new File("BasicAccounting/src/main/resources/html");
         } else {// if (mode == Mode.PROD) {
             File parentFolder = new File(userHome, "Accounting");
             xmlFolder = new File(parentFolder, "xml");

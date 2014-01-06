@@ -1,5 +1,10 @@
 package be.dafke.Mortgage;
 
+import java.awt.event.ActionListener;
+import java.io.File;
+
+import javax.swing.*;
+
 import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.BasicAccounting.Dao.AccountingsSAXParser;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
@@ -14,10 +19,6 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-
-import javax.swing.*;
-import java.awt.event.ActionListener;
-import java.io.File;
 
 /**
  * User: david
@@ -87,7 +88,7 @@ public class MortgageExtension implements AccountingExtension{
         BusinessCollection<BusinessObject> mortgages = accounting.getBusinessObject("Mortgages");
         for(BusinessObject businessObject : mortgages.getBusinessObjects()){
             Mortgage mortgage = (Mortgage) businessObject;
-            MortgagesSAXParser.writeMortgage(mortgage, mortgagesFolder, accountsFolder, AccountingsSAXParser.getXmlHeader(mortgage, 2));
+            MortgagesSAXParser.writeMortgage(mortgage, mortgagesFolder, accountsFolder, AccountingsSAXParser.getXmlHeader(mortgage, 3));
         }
     }
 }

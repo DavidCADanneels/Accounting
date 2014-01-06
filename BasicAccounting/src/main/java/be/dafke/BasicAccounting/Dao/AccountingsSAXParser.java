@@ -1,12 +1,5 @@
 package be.dafke.BasicAccounting.Dao;
 
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
-import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.FOP.Utils;
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessObject;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -16,6 +9,13 @@ import java.util.Map;
 import java.util.TreeMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
+import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.FOP.Utils;
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessObject;
 
 /**
  * User: Dafke
@@ -113,26 +113,24 @@ public class AccountingsSAXParser {
 
         for(Accounting accounting : accountings.getBusinessObjects()) {
 //            accounting.writeCollection();
-            File rootFolder = new File(xmlFolder, accounting.getName());
-
-            File journalsFolder = new File(rootFolder, "Journals");
-            File accountsFolder = new File(rootFolder, "Accounts");
+            File rootFolder = new File(xmlFolder, "Accountings");
+            File subFolder = new File(rootFolder, accounting.getName());
+            File journalsFolder = new File(subFolder, "Journals");
 
 //            for(Account account : accounting.getAccounts().getBusinessObjects()){
 //                AccountsSAXParser.writeAccount(account, accountsFolder, getXmlHeader(account, 2));
 //            }
 
             for(Journal journal : accounting.getJournals().getBusinessObjects()){
-                JournalsSAXParser.writeJournal(journal, journalsFolder, getXmlHeader(journal, 2));
+                JournalsSAXParser.writeJournal(journal, journalsFolder, getXmlHeader(journal, 3));
             }
         }
 
-//        toHtml(accountings);
+        toHtml(accountings);
     }
 
     private static void toHtml(Accountings accountings){
-        File userHome = new File(System.getProperty("user.home"));
-        File xslFolder = new File(userHome, "workspace/Accounting/BasicAccounting/src/main/resources/xsl");
+        File xslFolder = new File("BasicAccounting/src/main/resources/xsl");
         File xmlFolder = accountings.getXmlFolder();
         File htmlFolder = accountings.getHtmlFolder();
 
@@ -141,28 +139,35 @@ public class AccountingsSAXParser {
         File htmlFile = new File(htmlFolder, "Accountings.html");
 
         Utils.xmlToHtml(xmlFile, new File(xslFolder, "Accountings2html.xsl"), htmlFile,null);
+
+        File accountingsXmlFolder = new File(xmlFolder, "Accountings");
+        File accountingsHtmlFolder = new File(htmlFolder, "Accountings");
         for(Accounting accounting:accountings.getBusinessObjects()){
             String accountingName = accounting.getName();
-            File accountingXmlFolder = new File(xmlFolder, accountingName);
-            File accountingHtmlFolder = new File(htmlFolder, accountingName);
+            File accountingXmlFolder = new File(accountingsXmlFolder, accountingName);
+            File accountingHtmlFolder = new File(accountingsHtmlFolder, accountingName);
             accountingHtmlFolder.mkdirs();
-            xmlFile = new File(accountingXmlFolder, "Accounting.xml");
-            htmlFile = new File(accountingHtmlFolder, "Accounting.html");
+            xmlFile = new File(accountingsXmlFolder, accountingName+".xml");
+            htmlFile = new File(accountingsHtmlFolder, accountingName+".html");
+
             Utils.xmlToHtml(xmlFile, new File(xslFolder, "Accounting2html.xsl"), htmlFile, null);
 
             for(BusinessCollection<BusinessObject> collection : accounting.getBusinessObjects()){
                 File collectionXmlFolder = new File(accountingXmlFolder, collection.getName());
-                xmlFile = new File(collectionXmlFolder, collection.getName()+".xml");
+                xmlFile = new File(accountingXmlFolder, collection.getName()+".xml");
                 File collectionHtmlFolder = new File(accountingHtmlFolder, collection.getName());
                 collectionHtmlFolder.mkdirs();
-                htmlFile = new File(collectionHtmlFolder, collection.getName()+".html");
+                htmlFile = new File(accountingHtmlFolder, collection.getName()+".html");
+
                 Utils.xmlToHtml(xmlFile, new File(xslFolder, collection.getName()+"2html.xsl"),htmlFile, null);
+
                 for(BusinessObject object : collection.getBusinessObjects()){
 //                TODO: add isSavedHTML
 //                    if(writeableBusinessObject.isSavedHTML()){
                     xmlFile = new File(collectionXmlFolder, object.getName()+".xml");
                     if(xmlFile.exists()){
                         htmlFile = new File(collectionHtmlFolder, object.getName()+".html");
+
                         Utils.xmlToHtml(xmlFile, new File(xslFolder, object.getBusinessObjectType()+"2html.xsl"),htmlFile, null);
                     }
 //                    }
@@ -177,10 +182,11 @@ public class AccountingsSAXParser {
 
     public static void readCollection(Accountings accountings, File xmlFolder) {
         for(Accounting accounting : accountings.getBusinessObjects()){
-            File rootFolder = new File(xmlFolder, accounting.getName());
 
             for(Journal journal : accounting.getJournals().getBusinessObjects()){
-                File journalsFolder = new File(rootFolder, "Journals");
+                File rootFolder = new File(accountings.getXmlFolder(), "Accountings");
+                File subFolder = new File(rootFolder, accounting.getName());
+                File journalsFolder = new File(subFolder, "Journals");
                 JournalsSAXParser.readJournal(journal, accounting.getAccounts(), new File(journalsFolder, journal.getName()+".xml"));
             }
         }
