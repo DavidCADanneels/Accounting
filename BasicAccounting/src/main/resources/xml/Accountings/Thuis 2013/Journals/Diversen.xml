@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../xsl/Journal2xml.xsl"?>
-<!DOCTYPE Journal SYSTEM "../../../dtd/Journal.dtd">
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/Journal2xml.xsl"?>
+<!DOCTYPE Journal SYSTEM "../../../../dtd/Journal.dtd">
 <Journal>
   <name>Diversen</name>
   <Transaction id="1">
@@ -11,44 +11,44 @@
     <description>Beginbalans</description>
   </Transaction>
   <Transaction>
-    <Account>Spaar Sophia</Account>
-    <debet>2200.00</debet>
-  </Transaction>
-  <Transaction>
-    <Account>Bank Dara</Account>
-    <debet>429.84</debet>
-  </Transaction>
-  <Transaction>
     <Account>Huis activa</Account>
     <debet>156000.00</debet>
-  </Transaction>
-  <Transaction>
-    <Account>Post Dara</Account>
-    <debet>2506.88</debet>
   </Transaction>
   <Transaction>
     <Account>Auto activa</Account>
     <debet>15450.00</debet>
   </Transaction>
   <Transaction>
+    <Account>Spaar Sophia</Account>
+    <debet>2200.00</debet>
+  </Transaction>
+  <Transaction>
     <Account>Spaar David</Account>
     <debet>0.24</debet>
   </Transaction>
   <Transaction>
-    <Account>Autolening</Account>
-    <credit>10760.87</credit>
+    <Account>Bank Dara</Account>
+    <debet>429.84</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Post Dara</Account>
+    <debet>2506.88</debet>
   </Transaction>
   <Transaction>
     <Account>Eigen Kapitaal</Account>
     <credit>11987.43</credit>
   </Transaction>
   <Transaction>
-    <Account>Schulden aan ma</Account>
-    <credit>15400.00</credit>
-  </Transaction>
-  <Transaction>
     <Account>Hypotheek</Account>
     <credit>140699.17</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Autolening</Account>
+    <credit>10760.87</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Schulden aan ma</Account>
+    <credit>15400.00</credit>
   </Transaction>
   <Transaction id="2">
     <nr>DIV2</nr>
@@ -64,24 +64,35 @@
   <Transaction id="3">
     <nr>DIV3</nr>
     <date>1/1/2013</date>
-    <Account>Bank Dara</Account>
-    <debet>75.55</debet>
+    <Account>Eigen Kapitaal</Account>
+    <debet>11987.43</debet>
     <description>correctie beginbalans (Bank Dara)</description>
   </Transaction>
   <Transaction>
-    <Account>Eigen Kapitaal</Account>
-    <debet>11987.43</debet>
-  </Transaction>
-  <Transaction>
     <Account>Bank Dara</Account>
-    <credit>429.84</credit>
+    <debet>75.55</debet>
   </Transaction>
   <Transaction>
     <Account>Eigen Kapitaal</Account>
     <credit>11633.14</credit>
   </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>429.84</credit>
+  </Transaction>
   <Transaction id="4">
     <nr>DIV4</nr>
+    <date>1/1/2013</date>
+    <Account>Post Dara</Account>
+    <debet>14.98</debet>
+    <description>Intrest</description>
+  </Transaction>
+  <Transaction>
+    <Account>Intresten bank</Account>
+    <credit>14.98</credit>
+  </Transaction>
+  <Transaction id="5">
+    <nr>DIV5</nr>
     <date>2/1/2013</date>
     <Account>Consumptie</Account>
     <debet>40.00</debet>
@@ -91,8 +102,8 @@
     <Account>Bank David</Account>
     <credit>40.00</credit>
   </Transaction>
-  <Transaction id="5">
-    <nr>DIV5</nr>
+  <Transaction id="6">
+    <nr>DIV6</nr>
     <date>2/1/2013</date>
     <Account>Intrest Huis</Account>
     <debet>543.10</debet>
@@ -106,8 +117,8 @@
     <Account>Bank David</Account>
     <credit>802.71</credit>
   </Transaction>
-  <Transaction id="6">
-    <nr>DIV6</nr>
+  <Transaction id="7">
+    <nr>DIV7</nr>
     <date>2/1/2013</date>
     <Account>Intresten bank</Account>
     <debet>25.80</debet>
@@ -117,8 +128,8 @@
     <Account>Bank David</Account>
     <credit>25.80</credit>
   </Transaction>
-  <Transaction id="7">
-    <nr>DIV7</nr>
+  <Transaction id="8">
+    <nr>DIV8</nr>
     <date>2/1/2013</date>
     <Account>Schulden aan ma</Account>
     <debet>200.00</debet>
@@ -128,8 +139,8 @@
     <Account>Bank David</Account>
     <credit>200.00</credit>
   </Transaction>
-  <Transaction id="8">
-    <nr>DIV8</nr>
+  <Transaction id="9">
+    <nr>DIV9</nr>
     <date>2/1/2013</date>
     <Account>CM</Account>
     <debet>85.08</debet>
@@ -139,8 +150,8 @@
     <Account>Bank David</Account>
     <credit>85.08</credit>
   </Transaction>
-  <Transaction id="9">
-    <nr>DIV9</nr>
+  <Transaction id="10">
+    <nr>DIV10</nr>
     <date>2/1/2013</date>
     <Account>Schulden aan ma</Account>
     <debet>1000.00</debet>
@@ -150,8 +161,8 @@
     <Account>Bank David</Account>
     <credit>1000.00</credit>
   </Transaction>
-  <Transaction id="10">
-    <nr>DIV10</nr>
+  <Transaction id="11">
+    <nr>DIV11</nr>
     <date>2/1/2013</date>
     <Account>Intresten bank</Account>
     <debet>33.70</debet>
@@ -161,8 +172,19 @@
     <Account>Bank Dara</Account>
     <credit>33.70</credit>
   </Transaction>
-  <Transaction id="11">
-    <nr>DIV11</nr>
+  <Transaction id="12">
+    <nr>DIV12</nr>
+    <date>2/1/2013</date>
+    <Account>Kosten Thailand</Account>
+    <debet>600.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Post Dara</Account>
+    <credit>600.00</credit>
+  </Transaction>
+  <Transaction id="13">
+    <nr>DIV13</nr>
     <date>3/1/2013</date>
     <Account>CM</Account>
     <debet>17.07</debet>
@@ -172,8 +194,8 @@
     <Account>Bank David</Account>
     <credit>17.07</credit>
   </Transaction>
-  <Transaction id="12">
-    <nr>DIV12</nr>
+  <Transaction id="14">
+    <nr>DIV14</nr>
     <date>3/1/2013</date>
     <Account>Bank Dara</Account>
     <debet>456.56</debet>
@@ -183,8 +205,8 @@
     <Account>Netto Dara</Account>
     <credit>456.56</credit>
   </Transaction>
-  <Transaction id="13">
-    <nr>DIV13</nr>
+  <Transaction id="15">
+    <nr>DIV15</nr>
     <date>3/1/2013</date>
     <Account>Consumptie</Account>
     <debet>49.95</debet>
@@ -194,8 +216,8 @@
     <Account>Bank Dara</Account>
     <credit>49.95</credit>
   </Transaction>
-  <Transaction id="14">
-    <nr>DIV14</nr>
+  <Transaction id="16">
+    <nr>DIV16</nr>
     <date>3/1/2013</date>
     <Account>Consumptie</Account>
     <debet>24.95</debet>
@@ -205,8 +227,8 @@
     <Account>Bank Dara</Account>
     <credit>24.95</credit>
   </Transaction>
-  <Transaction id="15">
-    <nr>DIV15</nr>
+  <Transaction id="17">
+    <nr>DIV17</nr>
     <date>3/1/2013</date>
     <Account>Consumptie</Account>
     <debet>2.40</debet>
@@ -216,11 +238,11 @@
     <Account>Bank Dara</Account>
     <credit>2.40</credit>
   </Transaction>
-  <Transaction id="16">
-    <nr>DIV16</nr>
+  <Transaction id="18">
+    <nr>DIV18</nr>
     <date>4/1/2013</date>
-    <Account>AXA-Bijstandsverzekering</Account>
-    <debet>18.66</debet>
+    <Account>AXA-Autoverzekering</Account>
+    <debet>25.93</debet>
     <description>Verzekeringen januari</description>
   </Transaction>
   <Transaction>
@@ -228,8 +250,8 @@
     <debet>29.72</debet>
   </Transaction>
   <Transaction>
-    <Account>AXA-Autoverzekering</Account>
-    <debet>25.93</debet>
+    <Account>AXA-Bijstandsverzekering</Account>
+    <debet>18.66</debet>
   </Transaction>
   <Transaction>
     <Account>Bank David</Account>
@@ -243,8 +265,8 @@
     <Account>Bank David</Account>
     <credit>25.93</credit>
   </Transaction>
-  <Transaction id="17">
-    <nr>DIV17</nr>
+  <Transaction id="19">
+    <nr>DIV19</nr>
     <date>4/1/2013</date>
     <Account>Consumptie</Account>
     <debet>59.48</debet>
@@ -254,8 +276,8 @@
     <Account>Bank Dara</Account>
     <credit>59.48</credit>
   </Transaction>
-  <Transaction id="18">
-    <nr>DIV18</nr>
+  <Transaction id="20">
+    <nr>DIV20</nr>
     <date>4/1/2013</date>
     <Account>Consumptie</Account>
     <debet>9.09</debet>
@@ -265,8 +287,8 @@
     <Account>Bank Dara</Account>
     <credit>9.09</credit>
   </Transaction>
-  <Transaction id="19">
-    <nr>DIV19</nr>
+  <Transaction id="21">
+    <nr>DIV21</nr>
     <date>8/1/2013</date>
     <Account>Bank Dara</Account>
     <debet>90.28</debet>
@@ -276,8 +298,8 @@
     <Account>Kindergeld</Account>
     <credit>90.28</credit>
   </Transaction>
-  <Transaction id="20">
-    <nr>DIV20</nr>
+  <Transaction id="22">
+    <nr>DIV22</nr>
     <date>9/1/2013</date>
     <Account>Consumptie</Account>
     <debet>43.64</debet>
@@ -287,8 +309,8 @@
     <Account>Bank Dara</Account>
     <credit>43.64</credit>
   </Transaction>
-  <Transaction id="21">
-    <nr>DIV21</nr>
+  <Transaction id="23">
+    <nr>DIV23</nr>
     <date>9/1/2013</date>
     <Account>Consumptie</Account>
     <debet>40.00</debet>
@@ -298,8 +320,8 @@
     <Account>Bank Dara</Account>
     <credit>40.00</credit>
   </Transaction>
-  <Transaction id="22">
-    <nr>DIV22</nr>
+  <Transaction id="24">
+    <nr>DIV24</nr>
     <date>11/1/2013</date>
     <Account>Consumptie</Account>
     <debet>64.12</debet>
@@ -309,8 +331,8 @@
     <Account>Bank Dara</Account>
     <credit>64.12</credit>
   </Transaction>
-  <Transaction id="23">
-    <nr>DIV23</nr>
+  <Transaction id="25">
+    <nr>DIV25</nr>
     <date>11/1/2013</date>
     <Account>Consumptie</Account>
     <debet>16.06</debet>
@@ -320,8 +342,8 @@
     <Account>Bank Dara</Account>
     <credit>16.06</credit>
   </Transaction>
-  <Transaction id="24">
-    <nr>DIV24</nr>
+  <Transaction id="26">
+    <nr>DIV26</nr>
     <date>11/1/2013</date>
     <Account>Consumptie</Account>
     <debet>76.49</debet>
@@ -331,8 +353,8 @@
     <Account>Bank Dara</Account>
     <credit>76.49</credit>
   </Transaction>
-  <Transaction id="25">
-    <nr>DIV25</nr>
+  <Transaction id="27">
+    <nr>DIV27</nr>
     <date>12/1/2013</date>
     <Account>Consumptie</Account>
     <debet>42.30</debet>
@@ -342,8 +364,8 @@
     <Account>Bank Dara</Account>
     <credit>42.30</credit>
   </Transaction>
-  <Transaction id="26">
-    <nr>DIV26</nr>
+  <Transaction id="28">
+    <nr>DIV28</nr>
     <date>14/1/2013</date>
     <Account>Consumptie</Account>
     <debet>57.25</debet>
@@ -353,8 +375,8 @@
     <Account>Bank Dara</Account>
     <credit>57.25</credit>
   </Transaction>
-  <Transaction id="27">
-    <nr>DIV27</nr>
+  <Transaction id="29">
+    <nr>DIV29</nr>
     <date>15/1/2013</date>
     <Account>Consumptie</Account>
     <debet>50.00</debet>
@@ -364,8 +386,8 @@
     <Account>Bank Dara</Account>
     <credit>50.00</credit>
   </Transaction>
-  <Transaction id="28">
-    <nr>DIV28</nr>
+  <Transaction id="30">
+    <nr>DIV30</nr>
     <date>15/1/2013</date>
     <Account>Consumptie</Account>
     <debet>6.90</debet>
@@ -375,8 +397,8 @@
     <Account>Bank Dara</Account>
     <credit>6.90</credit>
   </Transaction>
-  <Transaction id="29">
-    <nr>DIV29</nr>
+  <Transaction id="31">
+    <nr>DIV31</nr>
     <date>16/1/2013</date>
     <Account>Bank Dara</Account>
     <debet>250.00</debet>
@@ -386,8 +408,8 @@
     <Account>Netto Dara</Account>
     <credit>250.00</credit>
   </Transaction>
-  <Transaction id="30">
-    <nr>DIV30</nr>
+  <Transaction id="32">
+    <nr>DIV32</nr>
     <date>16/1/2013</date>
     <Account>Consumptie</Account>
     <debet>20.00</debet>
@@ -397,19 +419,19 @@
     <Account>Bank Dara</Account>
     <credit>20.00</credit>
   </Transaction>
-  <Transaction id="31">
-    <nr>DIV31</nr>
+  <Transaction id="33">
+    <nr>DIV33</nr>
     <date>16/1/2013</date>
     <Account>Bank David</Account>
     <debet>600.00</debet>
     <description>huur</description>
   </Transaction>
   <Transaction>
-    <Account>Huur 2012</Account>
+    <Account>Huur 2013</Account>
     <credit>600.00</credit>
   </Transaction>
-  <Transaction id="32">
-    <nr>DIV32</nr>
+  <Transaction id="34">
+    <nr>DIV34</nr>
     <date>17/1/2013</date>
     <Account>Consumptie</Account>
     <debet>64.60</debet>
@@ -419,8 +441,8 @@
     <Account>Bank Dara</Account>
     <credit>64.60</credit>
   </Transaction>
-  <Transaction id="33">
-    <nr>DIV33</nr>
+  <Transaction id="35">
+    <nr>DIV35</nr>
     <date>17/1/2013</date>
     <Account>CM</Account>
     <debet>68.28</debet>
@@ -430,8 +452,8 @@
     <Account>Bank David</Account>
     <credit>68.28</credit>
   </Transaction>
-  <Transaction id="34">
-    <nr>DIV34</nr>
+  <Transaction id="36">
+    <nr>DIV36</nr>
     <date>17/1/2013</date>
     <Account>CM</Account>
     <debet>17.07</debet>
@@ -441,8 +463,8 @@
     <Account>Bank David</Account>
     <credit>17.07</credit>
   </Transaction>
-  <Transaction id="35">
-    <nr>DIV35</nr>
+  <Transaction id="37">
+    <nr>DIV37</nr>
     <date>17/1/2013</date>
     <Account>Kosten school</Account>
     <debet>23.40</debet>
@@ -452,8 +474,8 @@
     <Account>Bank David</Account>
     <credit>23.40</credit>
   </Transaction>
-  <Transaction id="36">
-    <nr>DIV36</nr>
+  <Transaction id="38">
+    <nr>DIV38</nr>
     <date>17/1/2013</date>
     <Account>Boetes</Account>
     <debet>50.00</debet>
@@ -463,8 +485,8 @@
     <Account>Bank David</Account>
     <credit>50.00</credit>
   </Transaction>
-  <Transaction id="37">
-    <nr>DIV37</nr>
+  <Transaction id="39">
+    <nr>DIV39</nr>
     <date>18/1/2013</date>
     <Account>Consumptie</Account>
     <debet>80.00</debet>
@@ -482,8 +504,8 @@
     <Account>Bank Dara</Account>
     <credit>10.00</credit>
   </Transaction>
-  <Transaction id="38">
-    <nr>DIV38</nr>
+  <Transaction id="40">
+    <nr>DIV40</nr>
     <date>18/1/2013</date>
     <Account>Consumptie</Account>
     <debet>40.00</debet>
@@ -493,8 +515,8 @@
     <Account>Bank David</Account>
     <credit>40.00</credit>
   </Transaction>
-  <Transaction id="39">
-    <nr>DIV39</nr>
+  <Transaction id="41">
+    <nr>DIV41</nr>
     <date>18/1/2013</date>
     <Account>Consumptie</Account>
     <debet>75.41</debet>
@@ -504,8 +526,19 @@
     <Account>Bank David</Account>
     <credit>75.41</credit>
   </Transaction>
-  <Transaction id="40">
-    <nr>DIV40</nr>
+  <Transaction id="42">
+    <nr>DIV42</nr>
+    <date>18/1/2013</date>
+    <Account>Post Dara</Account>
+    <debet>304.67</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Giften UK</Account>
+    <credit>304.67</credit>
+  </Transaction>
+  <Transaction id="43">
+    <nr>DIV43</nr>
     <date>19/1/2013</date>
     <Account>Consumptie</Account>
     <debet>18.40</debet>
@@ -515,8 +548,8 @@
     <Account>Bank David</Account>
     <credit>18.40</credit>
   </Transaction>
-  <Transaction id="41">
-    <nr>DIV41</nr>
+  <Transaction id="44">
+    <nr>DIV44</nr>
     <date>19/1/2013</date>
     <Account>Consumptie</Account>
     <debet>59.02</debet>
@@ -526,8 +559,8 @@
     <Account>Bank David</Account>
     <credit>59.02</credit>
   </Transaction>
-  <Transaction id="42">
-    <nr>DIV42</nr>
+  <Transaction id="45">
+    <nr>DIV45</nr>
     <date>19/1/2013</date>
     <Account>Consumptie</Account>
     <debet>33.58</debet>
@@ -537,8 +570,8 @@
     <Account>Bank David</Account>
     <credit>33.58</credit>
   </Transaction>
-  <Transaction id="43">
-    <nr>DIV43</nr>
+  <Transaction id="46">
+    <nr>DIV46</nr>
     <date>20/1/2013</date>
     <Account>Consumptie</Account>
     <debet>100.00</debet>
@@ -548,8 +581,8 @@
     <Account>Bank David</Account>
     <credit>100.00</credit>
   </Transaction>
-  <Transaction id="44">
-    <nr>DIV44</nr>
+  <Transaction id="47">
+    <nr>DIV47</nr>
     <date>22/1/2013</date>
     <Account>Consumptie</Account>
     <debet>20.00</debet>
@@ -560,8 +593,8 @@
     <Account>Bank David</Account>
     <credit>20.00</credit>
   </Transaction>
-  <Transaction id="45">
-    <nr>DIV45</nr>
+  <Transaction id="48">
+    <nr>DIV48</nr>
     <date>24/1/2013</date>
     <Account>Consumptie</Account>
     <debet>7.73</debet>
@@ -571,8 +604,8 @@
     <Account>Bank David</Account>
     <credit>7.73</credit>
   </Transaction>
-  <Transaction id="46">
-    <nr>DIV46</nr>
+  <Transaction id="49">
+    <nr>DIV49</nr>
     <date>25/1/2013</date>
     <Account>Consumptie</Account>
     <debet>56.06</debet>
@@ -582,8 +615,8 @@
     <Account>Bank Dara</Account>
     <credit>56.06</credit>
   </Transaction>
-  <Transaction id="47">
-    <nr>DIV47</nr>
+  <Transaction id="50">
+    <nr>DIV50</nr>
     <date>25/1/2013</date>
     <Account>Consumptie</Account>
     <debet>47.10</debet>
@@ -593,8 +626,8 @@
     <Account>Bank David</Account>
     <credit>47.10</credit>
   </Transaction>
-  <Transaction id="48">
-    <nr>DIV48</nr>
+  <Transaction id="51">
+    <nr>DIV51</nr>
     <date>25/1/2013</date>
     <Account>Consumptie</Account>
     <debet>10.83</debet>
@@ -604,8 +637,8 @@
     <Account>Bank David</Account>
     <credit>10.83</credit>
   </Transaction>
-  <Transaction id="49">
-    <nr>DIV49</nr>
+  <Transaction id="52">
+    <nr>DIV52</nr>
     <date>26/1/2013</date>
     <Account>Consumptie</Account>
     <debet>42.23</debet>
@@ -615,8 +648,8 @@
     <Account>Bank Dara</Account>
     <credit>42.23</credit>
   </Transaction>
-  <Transaction id="50">
-    <nr>DIV50</nr>
+  <Transaction id="53">
+    <nr>DIV53</nr>
     <date>26/1/2013</date>
     <Account>Consumptie</Account>
     <debet>44.70</debet>
@@ -626,8 +659,19 @@
     <Account>Bank David</Account>
     <credit>44.70</credit>
   </Transaction>
-  <Transaction id="51">
-    <nr>DIV51</nr>
+  <Transaction id="54">
+    <nr>DIV54</nr>
+    <date>26/1/2013</date>
+    <Account>Kosten Thailand</Account>
+    <debet>115.50</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Post Dara</Account>
+    <credit>115.50</credit>
+  </Transaction>
+  <Transaction id="55">
+    <nr>DIV55</nr>
     <date>28/1/2013</date>
     <Account>Bank David</Account>
     <debet>1695.09</debet>
@@ -637,8 +681,8 @@
     <Account>Netto David</Account>
     <credit>1695.09</credit>
   </Transaction>
-  <Transaction id="52">
-    <nr>DIV52</nr>
+  <Transaction id="56">
+    <nr>DIV56</nr>
     <date>28/1/2013</date>
     <Account>Telefoonkosten</Account>
     <debet>240.31</debet>
@@ -648,8 +692,8 @@
     <Account>Bank David</Account>
     <credit>240.31</credit>
   </Transaction>
-  <Transaction id="53">
-    <nr>DIV53</nr>
+  <Transaction id="57">
+    <nr>DIV57</nr>
     <date>28/1/2013</date>
     <Account>Consumptie</Account>
     <debet>6.28</debet>
@@ -659,8 +703,8 @@
     <Account>Bank David</Account>
     <credit>6.28</credit>
   </Transaction>
-  <Transaction id="54">
-    <nr>DIV54</nr>
+  <Transaction id="58">
+    <nr>DIV58</nr>
     <date>29/1/2013</date>
     <Account>Consumptie</Account>
     <debet>40.00</debet>
@@ -670,8 +714,8 @@
     <Account>Bank David</Account>
     <credit>40.00</credit>
   </Transaction>
-  <Transaction id="55">
-    <nr>DIV55</nr>
+  <Transaction id="59">
+    <nr>DIV59</nr>
     <date>30/1/2013</date>
     <Account>Consumptie</Account>
     <debet>128.90</debet>
@@ -681,8 +725,8 @@
     <Account>Bank David</Account>
     <credit>128.90</credit>
   </Transaction>
-  <Transaction id="56">
-    <nr>DIV56</nr>
+  <Transaction id="60">
+    <nr>DIV60</nr>
     <date>30/1/2013</date>
     <Account>Consumptie</Account>
     <debet>30.40</debet>
@@ -692,8 +736,8 @@
     <Account>Bank David</Account>
     <credit>30.40</credit>
   </Transaction>
-  <Transaction id="57">
-    <nr>DIV57</nr>
+  <Transaction id="61">
+    <nr>DIV61</nr>
     <date>30/1/2013</date>
     <Account>Consumptie</Account>
     <debet>62.07</debet>
@@ -703,8 +747,8 @@
     <Account>Bank David</Account>
     <credit>62.07</credit>
   </Transaction>
-  <Transaction id="58">
-    <nr>DIV58</nr>
+  <Transaction id="62">
+    <nr>DIV62</nr>
     <date>30/1/2013</date>
     <Account>Apotheek</Account>
     <debet>23.62</debet>
@@ -714,8 +758,8 @@
     <Account>Bank David</Account>
     <credit>23.62</credit>
   </Transaction>
-  <Transaction id="59">
-    <nr>DIV59</nr>
+  <Transaction id="63">
+    <nr>DIV63</nr>
     <date>31/1/2013</date>
     <Account>Intrest autolening</Account>
     <debet>37.38</debet>
@@ -729,8 +773,8 @@
     <Account>Bank David</Account>
     <credit>282.05</credit>
   </Transaction>
-  <Transaction id="60">
-    <nr>DIV60</nr>
+  <Transaction id="64">
+    <nr>DIV64</nr>
     <date>1/2/2013</date>
     <Account>Schulden aan ma</Account>
     <debet>200.00</debet>
@@ -740,8 +784,8 @@
     <Account>Bank David</Account>
     <credit>200.00</credit>
   </Transaction>
-  <Transaction id="61">
-    <nr>DIV61</nr>
+  <Transaction id="65">
+    <nr>DIV65</nr>
     <date>2/2/2013</date>
     <Account>Consumptie</Account>
     <debet>40.00</debet>
@@ -751,8 +795,8 @@
     <Account>Bank David</Account>
     <credit>40.00</credit>
   </Transaction>
-  <Transaction id="62">
-    <nr>DIV62</nr>
+  <Transaction id="66">
+    <nr>DIV66</nr>
     <date>3/2/2013</date>
     <Account>Consumptie</Account>
     <debet>70.02</debet>
@@ -762,8 +806,8 @@
     <Account>Bank David</Account>
     <credit>70.02</credit>
   </Transaction>
-  <Transaction id="63">
-    <nr>DIV63</nr>
+  <Transaction id="67">
+    <nr>DIV67</nr>
     <date>3/2/2013</date>
     <Account>Consumptie</Account>
     <debet>50.00</debet>
@@ -773,8 +817,8 @@
     <Account>Bank David</Account>
     <credit>50.00</credit>
   </Transaction>
-  <Transaction id="64">
-    <nr>DIV64</nr>
+  <Transaction id="68">
+    <nr>DIV68</nr>
     <date>4/2/2013</date>
     <Account>Bank Dara</Account>
     <debet>664.32</debet>
@@ -784,8 +828,8 @@
     <Account>Netto Dara</Account>
     <credit>664.32</credit>
   </Transaction>
-  <Transaction id="65">
-    <nr>DIV65</nr>
+  <Transaction id="69">
+    <nr>DIV69</nr>
     <date>4/2/2013</date>
     <Account>Bank David</Account>
     <debet>450.00</debet>
@@ -795,8 +839,8 @@
     <Account>Bank Dara</Account>
     <credit>450.00</credit>
   </Transaction>
-  <Transaction id="66">
-    <nr>DIV66</nr>
+  <Transaction id="70">
+    <nr>DIV70</nr>
     <date>4/2/2013</date>
     <Account>Consumptie</Account>
     <debet>63.00</debet>
@@ -806,8 +850,8 @@
     <Account>Bank David</Account>
     <credit>63.00</credit>
   </Transaction>
-  <Transaction id="67">
-    <nr>DIV67</nr>
+  <Transaction id="71">
+    <nr>DIV71</nr>
     <date>4/2/2013</date>
     <Account>Intrest Huis</Account>
     <debet>542.10</debet>
@@ -821,8 +865,8 @@
     <Account>Bank David</Account>
     <credit>802.71</credit>
   </Transaction>
-  <Transaction id="68">
-    <nr>DIV68</nr>
+  <Transaction id="72">
+    <nr>DIV72</nr>
     <date>6/2/2013</date>
     <Account>Bank David</Account>
     <debet>692.64</debet>
@@ -832,11 +876,11 @@
     <Account>Netto David</Account>
     <credit>692.64</credit>
   </Transaction>
-  <Transaction id="69">
-    <nr>DIV69</nr>
+  <Transaction id="73">
+    <nr>DIV73</nr>
     <date>6/2/2013</date>
-    <Account>AXA-Bijstandsverzekering</Account>
-    <debet>18.66</debet>
+    <Account>AXA-Autoverzekering</Account>
+    <debet>25.93</debet>
     <description>verzekeringen + Sophia</description>
   </Transaction>
   <Transaction>
@@ -848,8 +892,8 @@
     <debet>29.72</debet>
   </Transaction>
   <Transaction>
-    <Account>AXA-Autoverzekering</Account>
-    <debet>25.93</debet>
+    <Account>AXA-Bijstandsverzekering</Account>
+    <debet>18.66</debet>
   </Transaction>
   <Transaction>
     <Account>Bank David</Account>
@@ -867,8 +911,8 @@
     <Account>Bank David</Account>
     <credit>200.00</credit>
   </Transaction>
-  <Transaction id="70">
-    <nr>DIV70</nr>
+  <Transaction id="74">
+    <nr>DIV74</nr>
     <date>6/2/2013</date>
     <Account>KBC Verzekeringen</Account>
     <debet>24.44</debet>
@@ -878,8 +922,8 @@
     <Account>Bank David</Account>
     <credit>24.44</credit>
   </Transaction>
-  <Transaction id="71">
-    <nr>DIV71</nr>
+  <Transaction id="75">
+    <nr>DIV75</nr>
     <date>6/2/2013</date>
     <Account>Bank Dara</Account>
     <debet>450.00</debet>
@@ -889,8 +933,8 @@
     <Account>Bank David</Account>
     <credit>450.00</credit>
   </Transaction>
-  <Transaction id="72">
-    <nr>DIV72</nr>
+  <Transaction id="76">
+    <nr>DIV76</nr>
     <date>7/2/2013</date>
     <Account>Apotheek</Account>
     <debet>97.98</debet>
@@ -900,8 +944,8 @@
     <Account>Bank Dara</Account>
     <credit>97.98</credit>
   </Transaction>
-  <Transaction id="73">
-    <nr>DIV73</nr>
+  <Transaction id="77">
+    <nr>DIV77</nr>
     <date>8/2/2013</date>
     <Account>Bank Dara</Account>
     <debet>90.28</debet>
@@ -911,8 +955,8 @@
     <Account>Kindergeld</Account>
     <credit>90.28</credit>
   </Transaction>
-  <Transaction id="74">
-    <nr>DIV74</nr>
+  <Transaction id="78">
+    <nr>DIV78</nr>
     <date>8/2/2013</date>
     <Account>Consumptie</Account>
     <debet>42.91</debet>
@@ -922,8 +966,19 @@
     <Account>Bank Dara</Account>
     <credit>42.91</credit>
   </Transaction>
-  <Transaction id="75">
-    <nr>DIV75</nr>
+  <Transaction id="79">
+    <nr>DIV79</nr>
+    <date>8/2/2013</date>
+    <Account>Kosten Thailand</Account>
+    <debet>2111.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Post Dara</Account>
+    <credit>2111.00</credit>
+  </Transaction>
+  <Transaction id="80">
+    <nr>DIV80</nr>
     <date>9/2/2013</date>
     <Account>Consumptie</Account>
     <debet>70.94</debet>
@@ -933,8 +988,8 @@
     <Account>Bank Dara</Account>
     <credit>70.94</credit>
   </Transaction>
-  <Transaction id="76">
-    <nr>DIV76</nr>
+  <Transaction id="81">
+    <nr>DIV81</nr>
     <date>11/2/2013</date>
     <Account>Consumptie</Account>
     <debet>16.10</debet>
@@ -944,8 +999,8 @@
     <Account>Bank David</Account>
     <credit>16.10</credit>
   </Transaction>
-  <Transaction id="77">
-    <nr>DIV77</nr>
+  <Transaction id="82">
+    <nr>DIV82</nr>
     <date>12/2/2013</date>
     <Account>Kosten school</Account>
     <debet>39.00</debet>
@@ -955,8 +1010,8 @@
     <Account>Bank Dara</Account>
     <credit>39.00</credit>
   </Transaction>
-  <Transaction id="78">
-    <nr>DIV78</nr>
+  <Transaction id="83">
+    <nr>DIV83</nr>
     <date>12/2/2013</date>
     <Account>Consumptie</Account>
     <debet>1.20</debet>
@@ -966,8 +1021,8 @@
     <Account>Bank Dara</Account>
     <credit>1.20</credit>
   </Transaction>
-  <Transaction id="79">
-    <nr>DIV79</nr>
+  <Transaction id="84">
+    <nr>DIV84</nr>
     <date>12/2/2013</date>
     <Account>Consumptie</Account>
     <debet>22.69</debet>
@@ -977,8 +1032,8 @@
     <Account>Bank Dara</Account>
     <credit>22.69</credit>
   </Transaction>
-  <Transaction id="80">
-    <nr>DIV80</nr>
+  <Transaction id="85">
+    <nr>DIV85</nr>
     <date>13/2/2013</date>
     <Account>Consumptie</Account>
     <debet>48.20</debet>
@@ -988,8 +1043,8 @@
     <Account>Bank Dara</Account>
     <credit>48.20</credit>
   </Transaction>
-  <Transaction id="81">
-    <nr>DIV81</nr>
+  <Transaction id="86">
+    <nr>DIV86</nr>
     <date>14/2/2013</date>
     <Account>Consumptie</Account>
     <debet>2.40</debet>
@@ -999,8 +1054,8 @@
     <Account>Bank Dara</Account>
     <credit>2.40</credit>
   </Transaction>
-  <Transaction id="82">
-    <nr>DIV82</nr>
+  <Transaction id="87">
+    <nr>DIV87</nr>
     <date>14/2/2013</date>
     <Account>Consumptie</Account>
     <debet>49.95</debet>
@@ -1010,8 +1065,8 @@
     <Account>Bank Dara</Account>
     <credit>49.95</credit>
   </Transaction>
-  <Transaction id="83">
-    <nr>DIV83</nr>
+  <Transaction id="88">
+    <nr>DIV88</nr>
     <date>18/2/2013</date>
     <Account>Consumptie</Account>
     <debet>100.00</debet>
@@ -1021,8 +1076,8 @@
     <Account>Bank Dara</Account>
     <credit>100.00</credit>
   </Transaction>
-  <Transaction id="84">
-    <nr>DIV84</nr>
+  <Transaction id="89">
+    <nr>DIV89</nr>
     <date>18/2/2013</date>
     <Account>Bank Dara</Account>
     <debet>16.32</debet>
@@ -1032,8 +1087,8 @@
     <Account>Netto Dara</Account>
     <credit>16.32</credit>
   </Transaction>
-  <Transaction id="85">
-    <nr>DIV85</nr>
+  <Transaction id="90">
+    <nr>DIV90</nr>
     <date>19/2/2013</date>
     <Account>Bank Dara</Account>
     <debet>100.00</debet>
@@ -1043,8 +1098,19 @@
     <Account>Netto Dara</Account>
     <credit>100.00</credit>
   </Transaction>
-  <Transaction id="86">
-    <nr>DIV86</nr>
+  <Transaction id="91">
+    <nr>DIV91</nr>
+    <date>20/2/2013</date>
+    <Account>Consumptie</Account>
+    <debet>267.21</debet>
+    <description>ATM Thailand: 10.000 THB</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>267.21</credit>
+  </Transaction>
+  <Transaction id="92">
+    <nr>DIV92</nr>
     <date>21/2/2013</date>
     <Account>Bank David</Account>
     <debet>19.67</debet>
@@ -1054,19 +1120,19 @@
     <Account>CM</Account>
     <credit>19.67</credit>
   </Transaction>
-  <Transaction id="87">
-    <nr>DIV87</nr>
+  <Transaction id="93">
+    <nr>DIV93</nr>
     <date>21/2/2013</date>
     <Account>Consumptie</Account>
-    <debet>267.21</debet>
-    <description>ATM Thailand: 10.000 THB</description>
+    <debet>138.38</debet>
+    <description>ATM Bangkok</description>
   </Transaction>
   <Transaction>
     <Account>Bank Dara</Account>
-    <credit>267.21</credit>
+    <credit>138.38</credit>
   </Transaction>
-  <Transaction id="88">
-    <nr>DIV88</nr>
+  <Transaction id="94">
+    <nr>DIV94</nr>
     <date>25/2/2013</date>
     <Account>Bank David</Account>
     <debet>1707.07</debet>
@@ -1076,8 +1142,8 @@
     <Account>Netto David</Account>
     <credit>1707.07</credit>
   </Transaction>
-  <Transaction id="89">
-    <nr>DIV89</nr>
+  <Transaction id="95">
+    <nr>DIV95</nr>
     <date>28/2/2013</date>
     <Account>Intrest autolening</Account>
     <debet>36.53</debet>
@@ -1091,8 +1157,8 @@
     <Account>Bank David</Account>
     <credit>282.05</credit>
   </Transaction>
-  <Transaction id="90">
-    <nr>DIV90</nr>
+  <Transaction id="96">
+    <nr>DIV96</nr>
     <date>1/3/2013</date>
     <Account>Intrest Huis</Account>
     <debet>541.09</debet>
@@ -1106,8 +1172,8 @@
     <Account>Bank David</Account>
     <credit>802.71</credit>
   </Transaction>
-  <Transaction id="91">
-    <nr>DIV91</nr>
+  <Transaction id="97">
+    <nr>DIV97</nr>
     <date>1/3/2013</date>
     <Account>Schulden aan ma</Account>
     <debet>200.00</debet>
@@ -1117,8 +1183,8 @@
     <Account>Bank David</Account>
     <credit>200.00</credit>
   </Transaction>
-  <Transaction id="92">
-    <nr>DIV92</nr>
+  <Transaction id="98">
+    <nr>DIV98</nr>
     <date>1/3/2013</date>
     <Account>Spaar David</Account>
     <debet>300.00</debet>
@@ -1127,5 +1193,6269 @@
   <Transaction>
     <Account>Bank David</Account>
     <credit>300.00</credit>
+  </Transaction>
+  <Transaction id="99">
+    <nr>DIV99</nr>
+    <date>4/3/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>160.49</debet>
+    <description>/A/ BETALING LOON</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>160.49</credit>
+  </Transaction>
+  <Transaction id="100">
+    <nr>DIV100</nr>
+    <date>4/3/2013</date>
+    <Account>Consumptie</Account>
+    <debet>345.61</debet>
+    <description>VISA: deel TV + vluchten Bangkok-UdonThani</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>345.61</credit>
+  </Transaction>
+  <Transaction id="101">
+    <nr>DIV101</nr>
+    <date>5/3/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>251.92</debet>
+    <description>RVA loopbaanonderbreking</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>251.92</credit>
+  </Transaction>
+  <Transaction id="102">
+    <nr>DIV102</nr>
+    <date>5/3/2013</date>
+    <Account>Consumptie</Account>
+    <debet>140.56</debet>
+    <description>ATM Udon Thani</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>140.56</credit>
+  </Transaction>
+  <Transaction id="103">
+    <nr>DIV103</nr>
+    <date>7/3/2013</date>
+    <Account>Bank David</Account>
+    <debet>300.00</debet>
+    <description>terugstorting</description>
+  </Transaction>
+  <Transaction>
+    <Account>Spaar David</Account>
+    <credit>300.00</credit>
+  </Transaction>
+  <Transaction id="104">
+    <nr>DIV104</nr>
+    <date>7/3/2013</date>
+    <Account>AXA-Autoverzekering</Account>
+    <debet>25.93</debet>
+    <description>verzekeringen maart (manueel)</description>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-Levensverzekering</Account>
+    <debet>29.72</debet>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-Bijstandsverzekering</Account>
+    <debet>18.66</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>25.93</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>29.72</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>18.66</credit>
+  </Transaction>
+  <Transaction id="105">
+    <nr>DIV105</nr>
+    <date>7/3/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>16.89</debet>
+    <description>HVW: werkloosheid</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>16.89</credit>
+  </Transaction>
+  <Transaction id="106">
+    <nr>DIV106</nr>
+    <date>8/3/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>90.28</debet>
+    <description>kindergeld april</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kindergeld</Account>
+    <credit>90.28</credit>
+  </Transaction>
+  <Transaction id="107">
+    <nr>DIV107</nr>
+    <date>12/3/2013</date>
+    <Account>DAS-Autoverzekering</Account>
+    <debet>29.25</debet>
+    <description>verzekering maart</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>29.25</credit>
+  </Transaction>
+  <Transaction id="108">
+    <nr>DIV108</nr>
+    <date>12/3/2013</date>
+    <Account>Bank David</Account>
+    <debet>45182.82</debet>
+    <description>Verkoop huis</description>
+  </Transaction>
+  <Transaction>
+    <Account>Verkoop - Kosten Notaris</Account>
+    <debet>605.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Verkoop - kosten documenten</Account>
+    <debet>209.67</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Verkoop - BTW etc</Account>
+    <debet>922.94</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Verkoop - kosten IMMO</Account>
+    <debet>6500.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Hypotheek</Account>
+    <debet>139917.33</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Intrest Huis</Account>
+    <debet>243.93</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Verkoop - Wederbeleggingsvergoeding</Account>
+    <debet>1620.24</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Huis activa</Account>
+    <credit>156000.00</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Verkoop - Meerwaarde Huis</Account>
+    <credit>39000.00</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Verkoop - Onroerende voorheffing</Account>
+    <credit>201.93</credit>
+  </Transaction>
+  <Transaction id="109">
+    <nr>DIV109</nr>
+    <date>14/3/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>2000.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>2000.00</credit>
+  </Transaction>
+  <Transaction id="110">
+    <nr>DIV110</nr>
+    <date>14/3/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>112.87</debet>
+    <description>Aanmoedigingspremie</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>112.87</credit>
+  </Transaction>
+  <Transaction id="111">
+    <nr>DIV111</nr>
+    <date>15/3/2013</date>
+    <Account>Huis activa</Account>
+    <debet>12950.00</debet>
+    <description>Voorschot nieuwe huis</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>12950.00</credit>
+  </Transaction>
+  <Transaction id="112">
+    <nr>DIV112</nr>
+    <date>15/3/2013</date>
+    <Account>Consumptie</Account>
+    <debet>170.98</debet>
+    <description>ATM Nongkhai</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>170.98</credit>
+  </Transaction>
+  <Transaction id="113">
+    <nr>DIV113</nr>
+    <date>16/3/2013</date>
+    <Account>Consumptie</Account>
+    <debet>276.79</debet>
+    <description>ATM Nongkhai</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>276.79</credit>
+  </Transaction>
+  <Transaction id="114">
+    <nr>DIV114</nr>
+    <date>18/3/2013</date>
+    <Account>Consumptie</Account>
+    <debet>49.95</debet>
+    <description>Fitness Dara</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>49.95</credit>
+  </Transaction>
+  <Transaction id="115">
+    <nr>DIV115</nr>
+    <date>18/3/2013</date>
+    <Account>CM</Account>
+    <debet>25.00</debet>
+    <description>Zorgkas</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>25.00</credit>
+  </Transaction>
+  <Transaction id="116">
+    <nr>DIV116</nr>
+    <date>18/3/2013</date>
+    <Account>Telefoonkosten</Account>
+    <debet>115.81</debet>
+    <description>Voipbuster</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>115.81</credit>
+  </Transaction>
+  <Transaction id="117">
+    <nr>DIV117</nr>
+    <date>18/3/2013</date>
+    <Account>CM</Account>
+    <debet>25.00</debet>
+    <description>Zorgkas</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>25.00</credit>
+  </Transaction>
+  <Transaction id="118">
+    <nr>DIV118</nr>
+    <date>18/3/2013</date>
+    <Account>Telefoonkosten</Account>
+    <debet>240.83</debet>
+    <description>Proximus febr/maart</description>
+  </Transaction>
+  <Transaction>
+    <Account>Telefoonkosten</Account>
+    <debet>119.38</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>240.83</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>119.38</credit>
+  </Transaction>
+  <Transaction id="119">
+    <nr>DIV119</nr>
+    <date>18/3/2013</date>
+    <Account>De Morgen</Account>
+    <debet>285.00</debet>
+    <description>Abonnement 15 maanden</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>285.00</credit>
+  </Transaction>
+  <Transaction id="120">
+    <nr>DIV120</nr>
+    <date>18/3/2013</date>
+    <Account>Consumptie</Account>
+    <debet>416.51</debet>
+    <description>ATM Nongkhai</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>416.51</credit>
+  </Transaction>
+  <Transaction id="121">
+    <nr>DIV121</nr>
+    <date>19/3/2013</date>
+    <Account>Bank David</Account>
+    <debet>52.29</debet>
+    <description>Correctie: kapitaal 3 dagen vroeger terugbetaald dan voorzien</description>
+  </Transaction>
+  <Transaction>
+    <Account>Verkoop - Wederbeleggingsvergoeding</Account>
+    <credit>52.29</credit>
+  </Transaction>
+  <Transaction id="122">
+    <nr>DIV122</nr>
+    <date>19/3/2013</date>
+    <Account>Consumptie</Account>
+    <debet>5.80</debet>
+    <description>Aangetekende zending Alpha Credit</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>5.80</credit>
+  </Transaction>
+  <Transaction id="123">
+    <nr>DIV123</nr>
+    <date>20/3/2013</date>
+    <Account>AXA-Brandverzekering</Account>
+    <debet>28.54</debet>
+    <description>Brandverzekering nieuw huis</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>28.54</credit>
+  </Transaction>
+  <Transaction id="124">
+    <nr>DIV124</nr>
+    <date>20/3/2013</date>
+    <Account>Consumptie</Account>
+    <debet>55.01</debet>
+    <description>tankbeurt auto</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>55.01</credit>
+  </Transaction>
+  <Transaction id="125">
+    <nr>DIV125</nr>
+    <date>21/3/2013</date>
+    <Account>Spaar David</Account>
+    <debet>20000.00</debet>
+    <description>veiligstelling</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20000.00</credit>
+  </Transaction>
+  <Transaction id="126">
+    <nr>DIV126</nr>
+    <date>21/3/2013</date>
+    <Account>Consumptie</Account>
+    <debet>88.00</debet>
+    <description>restbedrag zaal feestje</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>88.00</credit>
+  </Transaction>
+  <Transaction id="127">
+    <nr>DIV127</nr>
+    <date>21/3/2013</date>
+    <Account>Ziekenhuiskosten</Account>
+    <debet>51.68</debet>
+    <description>factuur Sophia</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>51.68</credit>
+  </Transaction>
+  <Transaction id="128">
+    <nr>DIV128</nr>
+    <date>21/3/2013</date>
+    <Account>Consumptie</Account>
+    <debet>283.81</debet>
+    <description>ATM Nongkhai</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>283.81</credit>
+  </Transaction>
+  <Transaction id="129">
+    <nr>DIV129</nr>
+    <date>23/3/2013</date>
+    <Account>Consumptie</Account>
+    <debet>44.99</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>44.99</credit>
+  </Transaction>
+  <Transaction id="130">
+    <nr>DIV130</nr>
+    <date>24/3/2013</date>
+    <Account>Consumptie</Account>
+    <debet>50.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>50.00</credit>
+  </Transaction>
+  <Transaction id="131">
+    <nr>DIV131</nr>
+    <date>24/3/2013</date>
+    <Account>Consumptie</Account>
+    <debet>283.06</debet>
+    <description>ATM Nongkhai</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>283.06</credit>
+  </Transaction>
+  <Transaction id="132">
+    <nr>DIV132</nr>
+    <date>26/3/2013</date>
+    <Account>Bank David</Account>
+    <debet>1709.26</debet>
+    <description>loon maart</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto David</Account>
+    <credit>1709.26</credit>
+  </Transaction>
+  <Transaction id="133">
+    <nr>DIV133</nr>
+    <date>27/3/2013</date>
+    <Account>Bank David</Account>
+    <debet>300.00</debet>
+    <description>afhaling spaarboek</description>
+  </Transaction>
+  <Transaction>
+    <Account>Spaar David</Account>
+    <credit>300.00</credit>
+  </Transaction>
+  <Transaction id="134">
+    <nr>DIV134</nr>
+    <date>28/3/2013</date>
+    <Account>Autolening</Account>
+    <debet>10270.68</debet>
+    <description>Totale afbetaling Alpha Credit</description>
+  </Transaction>
+  <Transaction>
+    <Account>Intrest autolening</Account>
+    <debet>137.91</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>10408.59</credit>
+  </Transaction>
+  <Transaction id="135">
+    <nr>DIV135</nr>
+    <date>30/3/2013</date>
+    <Account>Consumptie</Account>
+    <debet>50.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>50.00</credit>
+  </Transaction>
+  <Transaction id="136">
+    <nr>DIV136</nr>
+    <date>2/4/2013</date>
+    <Account>Schulden aan ma</Account>
+    <debet>200.00</debet>
+    <description>aflossing april</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>200.00</credit>
+  </Transaction>
+  <Transaction id="137">
+    <nr>DIV137</nr>
+    <date>2/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>40.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>40.00</credit>
+  </Transaction>
+  <Transaction id="138">
+    <nr>DIV138</nr>
+    <date>2/4/2013</date>
+    <Account>Bank David</Account>
+    <debet>26.57</debet>
+    <description>Terugbetaling Sophia</description>
+  </Transaction>
+  <Transaction>
+    <Account>CM</Account>
+    <credit>26.57</credit>
+  </Transaction>
+  <Transaction id="139">
+    <nr>DIV139</nr>
+    <date>2/4/2013</date>
+    <Account>CM</Account>
+    <debet>17.07</debet>
+    <description>Maandelijkse bijdrage</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>17.07</credit>
+  </Transaction>
+  <Transaction id="140">
+    <nr>DIV140</nr>
+    <date>2/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>388.79</debet>
+    <description>VISA</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>388.79</credit>
+  </Transaction>
+  <Transaction id="141">
+    <nr>DIV141</nr>
+    <date>2/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>172.50</debet>
+    <description>ATM Nongkhai</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>172.50</credit>
+  </Transaction>
+  <Transaction id="142">
+    <nr>DIV142</nr>
+    <date>3/4/2013</date>
+    <Account>Bank David</Account>
+    <debet>100.00</debet>
+    <description>afhaling spaarboek</description>
+  </Transaction>
+  <Transaction>
+    <Account>Spaar David</Account>
+    <credit>100.00</credit>
+  </Transaction>
+  <Transaction id="143">
+    <nr>DIV143</nr>
+    <date>3/4/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>8.21</debet>
+    <description>Alfa Thuis</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>8.21</credit>
+  </Transaction>
+  <Transaction id="144">
+    <nr>DIV144</nr>
+    <date>4/4/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>409.36</debet>
+    <description>RVA: Loonbaanonderbreking</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>409.36</credit>
+  </Transaction>
+  <Transaction id="145">
+    <nr>DIV145</nr>
+    <date>5/4/2013</date>
+    <Account>AXA-Autoverzekering</Account>
+    <debet>25.93</debet>
+    <description>Verzekeringen april</description>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-Levensverzekering</Account>
+    <debet>29.72</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>25.93</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>29.72</credit>
+  </Transaction>
+  <Transaction id="146">
+    <nr>DIV146</nr>
+    <date>5/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>40.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>40.00</credit>
+  </Transaction>
+  <Transaction id="147">
+    <nr>DIV147</nr>
+    <date>6/4/2013</date>
+    <Account>Renovatie Huis</Account>
+    <debet>49.68</debet>
+    <description>Gamma: verf</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>49.68</credit>
+  </Transaction>
+  <Transaction id="148">
+    <nr>DIV148</nr>
+    <date>7/4/2013</date>
+    <Account>Bank David</Account>
+    <debet>100.00</debet>
+    <description>afhaling spaarboek</description>
+  </Transaction>
+  <Transaction>
+    <Account>Spaar David</Account>
+    <credit>100.00</credit>
+  </Transaction>
+  <Transaction id="149">
+    <nr>DIV149</nr>
+    <date>7/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>143.89</debet>
+    <description>ATM Nongkhai</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>143.89</credit>
+  </Transaction>
+  <Transaction id="150">
+    <nr>DIV150</nr>
+    <date>8/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>10.50</debet>
+    <description>Ticket Dub feestje</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>10.50</credit>
+  </Transaction>
+  <Transaction id="151">
+    <nr>DIV151</nr>
+    <date>8/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>16.33</debet>
+    <description>GB Express</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>16.33</credit>
+  </Transaction>
+  <Transaction id="152">
+    <nr>DIV152</nr>
+    <date>8/4/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>90.28</debet>
+    <description>Kindergeld maart</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kindergeld</Account>
+    <credit>90.28</credit>
+  </Transaction>
+  <Transaction id="153">
+    <nr>DIV153</nr>
+    <date>10/4/2013</date>
+    <Account>Ziekenhuiskosten</Account>
+    <debet>36.25</debet>
+    <description>Consultatie Sophia</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>36.25</credit>
+  </Transaction>
+  <Transaction id="154">
+    <nr>DIV154</nr>
+    <date>10/4/2013</date>
+    <Account>AXA-Bijstandsverzekering</Account>
+    <debet>18.66</debet>
+    <description>verzekering april</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>18.66</credit>
+  </Transaction>
+  <Transaction id="155">
+    <nr>DIV155</nr>
+    <date>10/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>49.95</debet>
+    <description>Fitness Bennies</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>49.95</credit>
+  </Transaction>
+  <Transaction id="156">
+    <nr>DIV156</nr>
+    <date>12/4/2013</date>
+    <Account>Bank David</Account>
+    <debet>500.00</debet>
+    <description>afhaling spaarboek</description>
+  </Transaction>
+  <Transaction>
+    <Account>Spaar David</Account>
+    <credit>500.00</credit>
+  </Transaction>
+  <Transaction id="157">
+    <nr>DIV157</nr>
+    <date>12/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>21.99</debet>
+    <description>GB Express</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>21.99</credit>
+  </Transaction>
+  <Transaction id="158">
+    <nr>DIV158</nr>
+    <date>12/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>5.00</debet>
+    <description>tankbeurt brommer</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>5.00</credit>
+  </Transaction>
+  <Transaction id="159">
+    <nr>DIV159</nr>
+    <date>15/4/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>112.87</debet>
+    <description>Aanmoedigingspremie</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>112.87</credit>
+  </Transaction>
+  <Transaction id="160">
+    <nr>DIV160</nr>
+    <date>15/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>142.89</debet>
+    <description>ATM Udon</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>142.89</credit>
+  </Transaction>
+  <Transaction id="161">
+    <nr>DIV161</nr>
+    <date>16/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>90.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>90.00</credit>
+  </Transaction>
+  <Transaction id="162">
+    <nr>DIV162</nr>
+    <date>16/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>10.25</debet>
+    <description>GB Express</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>10.25</credit>
+  </Transaction>
+  <Transaction id="163">
+    <nr>DIV163</nr>
+    <date>16/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>170.87</debet>
+    <description>ATM Udon</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>170.87</credit>
+  </Transaction>
+  <Transaction id="164">
+    <nr>DIV164</nr>
+    <date>17/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>170.84</debet>
+    <description>ATM Udon</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>170.84</credit>
+  </Transaction>
+  <Transaction id="165">
+    <nr>DIV165</nr>
+    <date>20/4/2013</date>
+    <Account>Renovatie Huis</Account>
+    <debet>101.11</debet>
+    <description>Hubo: verf/electriciteit</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>101.11</credit>
+  </Transaction>
+  <Transaction id="166">
+    <nr>DIV166</nr>
+    <date>21/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>60.00</debet>
+    <description>tankbeurt auto</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>60.00</credit>
+  </Transaction>
+  <Transaction id="167">
+    <nr>DIV167</nr>
+    <date>21/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>50.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>50.00</credit>
+  </Transaction>
+  <Transaction id="168">
+    <nr>DIV168</nr>
+    <date>22/4/2013</date>
+    <Account>Bank David</Account>
+    <debet>22.92</debet>
+    <description>terugbetaling Sophia</description>
+  </Transaction>
+  <Transaction>
+    <Account>CM</Account>
+    <credit>22.92</credit>
+  </Transaction>
+  <Transaction id="169">
+    <nr>DIV169</nr>
+    <date>26/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>282.19</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>282.19</credit>
+  </Transaction>
+  <Transaction id="170">
+    <nr>DIV170</nr>
+    <date>26/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>143.35</debet>
+    <description>ATM Nongkhai</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>143.35</credit>
+  </Transaction>
+  <Transaction id="171">
+    <nr>DIV171</nr>
+    <date>26/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>50.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>50.00</credit>
+  </Transaction>
+  <Transaction id="172">
+    <nr>DIV172</nr>
+    <date>27/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>400.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Huur 2013</Account>
+    <credit>400.00</credit>
+  </Transaction>
+  <Transaction id="173">
+    <nr>DIV173</nr>
+    <date>27/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>195.69</debet>
+    <description>ATM Bangkok</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>195.69</credit>
+  </Transaction>
+  <Transaction id="174">
+    <nr>DIV174</nr>
+    <date>27/4/2013</date>
+    <Account>Bank David</Account>
+    <debet>19000.00</debet>
+    <description>afhaling spaarboek</description>
+  </Transaction>
+  <Transaction>
+    <Account>Spaar David</Account>
+    <credit>19000.00</credit>
+  </Transaction>
+  <Transaction id="175">
+    <nr>DIV175</nr>
+    <date>27/4/2013</date>
+    <Account>Renovatie Huis</Account>
+    <debet>88.50</debet>
+    <description>Goethals: kabels TV en internet</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>88.50</credit>
+  </Transaction>
+  <Transaction id="176">
+    <nr>DIV176</nr>
+    <date>27/4/2013</date>
+    <Account>Renovatie Huis</Account>
+    <debet>150.54</debet>
+    <description>Hubo: electriciteit</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>150.54</credit>
+  </Transaction>
+  <Transaction id="177">
+    <nr>DIV177</nr>
+    <date>29/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>168.67</debet>
+    <description>ATM Bangkok</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>168.67</credit>
+  </Transaction>
+  <Transaction id="178">
+    <nr>DIV178</nr>
+    <date>29/4/2013</date>
+    <Account>Bank David</Account>
+    <debet>1696.18</debet>
+    <description>loon maart</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto David</Account>
+    <credit>1696.18</credit>
+  </Transaction>
+  <Transaction id="179">
+    <nr>DIV179</nr>
+    <date>29/4/2013</date>
+    <Account>Aankoop - kosten krediet akte</Account>
+    <debet>5929.48</debet>
+    <description>Vereffening notaris - aankoop Invalidenstraat</description>
+  </Transaction>
+  <Transaction>
+    <Account>Aankoop - kosten aankoopakte</Account>
+    <debet>23246.68</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Aankoop - fout kosten aankoopakte</Account>
+    <debet>2725.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Aankoop - dossierkosten AXA</Account>
+    <debet>330.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Aankoop - Onroerende voorheffing</Account>
+    <debet>598.21</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Huis activa</Account>
+    <debet>246050.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Hypotheek</Account>
+    <credit>259000.00</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>19879.37</credit>
+  </Transaction>
+  <Transaction id="180">
+    <nr>DIV180</nr>
+    <date>30/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>60.57</debet>
+    <description>ATM Bangkok</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>60.57</credit>
+  </Transaction>
+  <Transaction id="181">
+    <nr>DIV181</nr>
+    <date>30/4/2013</date>
+    <Account>Consumptie</Account>
+    <debet>75.00</debet>
+    <description>Visa</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>75.00</credit>
+  </Transaction>
+  <Transaction id="182">
+    <nr>DIV182</nr>
+    <date>2/5/2013</date>
+    <Account>Schulden aan ma</Account>
+    <debet>200.00</debet>
+    <description>aflossing mei</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>200.00</credit>
+  </Transaction>
+  <Transaction id="183">
+    <nr>DIV183</nr>
+    <date>3/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>40.47</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>40.47</credit>
+  </Transaction>
+  <Transaction id="184">
+    <nr>DIV184</nr>
+    <date>6/5/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>409.36</debet>
+    <description>RVA</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>409.36</credit>
+  </Transaction>
+  <Transaction id="185">
+    <nr>DIV185</nr>
+    <date>6/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>6.87</debet>
+    <description>VIME</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>6.87</credit>
+  </Transaction>
+  <Transaction id="186">
+    <nr>DIV186</nr>
+    <date>6/5/2013</date>
+    <Account>Telefoonkosten</Account>
+    <debet>294.28</debet>
+    <description>Proximus</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>294.28</credit>
+  </Transaction>
+  <Transaction id="187">
+    <nr>DIV187</nr>
+    <date>6/5/2013</date>
+    <Account>Kosten school</Account>
+    <debet>7.80</debet>
+    <description>maaltijden Sophia</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>7.80</credit>
+  </Transaction>
+  <Transaction id="188">
+    <nr>DIV188</nr>
+    <date>6/5/2013</date>
+    <Account>Renovatie Huis</Account>
+    <debet>64.75</debet>
+    <description>Gamma: behang en muurverf</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>64.75</credit>
+  </Transaction>
+  <Transaction id="189">
+    <nr>DIV189</nr>
+    <date>6/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>60.80</debet>
+    <description>tankbeurt auto</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>60.80</credit>
+  </Transaction>
+  <Transaction id="190">
+    <nr>DIV190</nr>
+    <date>7/5/2013</date>
+    <Account>Bank David</Account>
+    <debet>100.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>100.00</credit>
+  </Transaction>
+  <Transaction id="191">
+    <nr>DIV191</nr>
+    <date>7/5/2013</date>
+    <Account>Renovatie Huis</Account>
+    <debet>109.10</debet>
+    <description>HUBO: verf</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>109.10</credit>
+  </Transaction>
+  <Transaction id="192">
+    <nr>DIV192</nr>
+    <date>7/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>69.93</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>69.93</credit>
+  </Transaction>
+  <Transaction id="193">
+    <nr>DIV193</nr>
+    <date>7/5/2013</date>
+    <Account>Meubilair</Account>
+    <debet>4000.00</debet>
+    <description>correctie aankoopakte</description>
+  </Transaction>
+  <Transaction>
+    <Account>Huis activa</Account>
+    <credit>4000.00</credit>
+  </Transaction>
+  <Transaction id="194">
+    <nr>DIV194</nr>
+    <date>7/5/2013</date>
+    <Account>Meubilair</Account>
+    <debet>33.98</debet>
+    <description>Dumpi: kussens</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>33.98</credit>
+  </Transaction>
+  <Transaction id="195">
+    <nr>DIV195</nr>
+    <date>7/5/2013</date>
+    <Account>Meubilair</Account>
+    <debet>26.50</debet>
+    <description>Bloemen Chris: inrichting hall</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>26.50</credit>
+  </Transaction>
+  <Transaction id="196">
+    <nr>DIV196</nr>
+    <date>7/5/2013</date>
+    <Account>Bank David</Account>
+    <debet>2725.00</debet>
+    <description>correctie notaris</description>
+  </Transaction>
+  <Transaction>
+    <Account>Aankoop - fout kosten aankoopakte</Account>
+    <credit>2725.00</credit>
+  </Transaction>
+  <Transaction id="197">
+    <nr>DIV197</nr>
+    <date>7/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>19.00</debet>
+    <description>Barbecue reunie KA</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>19.00</credit>
+  </Transaction>
+  <Transaction id="198">
+    <nr>DIV198</nr>
+    <date>7/5/2013</date>
+    <Account>AXA-Autoverzekering</Account>
+    <debet>25.93</debet>
+    <description>Verzekeringen mei</description>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-Levensverzekering</Account>
+    <debet>29.72</debet>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-Brandverzekering</Account>
+    <debet>36.01</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>25.93</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>29.72</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>36.01</credit>
+  </Transaction>
+  <Transaction id="199">
+    <nr>DIV199</nr>
+    <date>7/5/2013</date>
+    <Account>Bank David</Account>
+    <debet>1.09</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto David</Account>
+    <credit>1.09</credit>
+  </Transaction>
+  <Transaction id="200">
+    <nr>DIV200</nr>
+    <date>8/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>49.95</debet>
+    <description>Fitness Bennies</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>49.95</credit>
+  </Transaction>
+  <Transaction id="201">
+    <nr>DIV201</nr>
+    <date>8/5/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>90.28</debet>
+    <description>kindergeld april</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kindergeld</Account>
+    <credit>90.28</credit>
+  </Transaction>
+  <Transaction id="202">
+    <nr>DIV202</nr>
+    <date>8/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>80.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>80.00</credit>
+  </Transaction>
+  <Transaction id="203">
+    <nr>DIV203</nr>
+    <date>8/5/2013</date>
+    <Account>Meubilair</Account>
+    <debet>89.90</debet>
+    <description>DUMPI: TV-meubel</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>89.90</credit>
+  </Transaction>
+  <Transaction id="204">
+    <nr>DIV204</nr>
+    <date>8/5/2013</date>
+    <Account>Meubilair</Account>
+    <debet>134.14</debet>
+    <description>BRICO: tapijtjes, kaders, WC-rol houder</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>134.14</credit>
+  </Transaction>
+  <Transaction id="205">
+    <nr>DIV205</nr>
+    <date>13/5/2013</date>
+    <Account>Telenet</Account>
+    <debet>63.50</debet>
+    <description>eerste aanrekening</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>63.50</credit>
+  </Transaction>
+  <Transaction id="206">
+    <nr>DIV206</nr>
+    <date>13/5/2013</date>
+    <Account>Moto</Account>
+    <debet>500.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>500.00</credit>
+  </Transaction>
+  <Transaction id="207">
+    <nr>DIV207</nr>
+    <date>13/5/2013</date>
+    <Account>Opbrengst feestje</Account>
+    <debet>55.70</debet>
+    <description>Colruyt: wijn etc.</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>55.70</credit>
+  </Transaction>
+  <Transaction id="208">
+    <nr>DIV208</nr>
+    <date>13/5/2013</date>
+    <Account>Opbrengst feestje</Account>
+    <debet>109.32</debet>
+    <description>Colruyt: wijn</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>109.32</credit>
+  </Transaction>
+  <Transaction id="209">
+    <nr>DIV209</nr>
+    <date>13/5/2013</date>
+    <Account>Kassa feestje</Account>
+    <debet>2136.90</debet>
+    <description>inkomsten feestje</description>
+  </Transaction>
+  <Transaction>
+    <Account>Opbrengst feestje</Account>
+    <credit>2136.90</credit>
+  </Transaction>
+  <Transaction id="210">
+    <nr>DIV210</nr>
+    <date>13/5/2013</date>
+    <Account>Opbrengst feestje</Account>
+    <debet>544.00</debet>
+    <description>afrekening Thai shop: Chang en Singha</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kassa feestje</Account>
+    <credit>544.00</credit>
+  </Transaction>
+  <Transaction id="211">
+    <nr>DIV211</nr>
+    <date>13/5/2013</date>
+    <Account>Opbrengst feestje</Account>
+    <debet>63.00</debet>
+    <description>reeds betaald voor zaal: huur + waarborg 25 euro</description>
+  </Transaction>
+  <Transaction>
+    <Account>Opbrengst feestje</Account>
+    <debet>88.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>63.00</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>88.00</credit>
+  </Transaction>
+  <Transaction id="212">
+    <nr>DIV212</nr>
+    <date>13/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>8.57</debet>
+    <description>GB-Express</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>8.57</credit>
+  </Transaction>
+  <Transaction id="213">
+    <nr>DIV213</nr>
+    <date>13/5/2013</date>
+    <Account>Inrichting huis</Account>
+    <debet>33.98</debet>
+    <description>correctie: inrichting = kost, meubilair = activa</description>
+  </Transaction>
+  <Transaction>
+    <Account>Inrichting huis</Account>
+    <debet>26.50</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Inrichting huis</Account>
+    <debet>89.90</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Inrichting huis</Account>
+    <debet>134.14</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Meubilair</Account>
+    <credit>33.98</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Meubilair</Account>
+    <credit>26.50</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Meubilair</Account>
+    <credit>89.90</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Meubilair</Account>
+    <credit>134.14</credit>
+  </Transaction>
+  <Transaction id="214">
+    <nr>DIV214</nr>
+    <date>13/5/2013</date>
+    <Account>Fitness</Account>
+    <debet>49.95</debet>
+    <description>correctie: boek fitness op aparte rekening</description>
+  </Transaction>
+  <Transaction>
+    <Account>Fitness</Account>
+    <debet>49.95</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Fitness</Account>
+    <debet>49.95</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Fitness</Account>
+    <debet>49.95</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Fitness</Account>
+    <debet>49.95</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>49.95</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>49.95</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>49.95</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>49.95</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>49.95</credit>
+  </Transaction>
+  <Transaction id="215">
+    <nr>DIV215</nr>
+    <date>13/5/2013</date>
+    <Account>Benzine</Account>
+    <debet>64.60</debet>
+    <description>correctie: boek benzine apart</description>
+  </Transaction>
+  <Transaction>
+    <Account>Benzine</Account>
+    <debet>44.70</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Benzine</Account>
+    <debet>70.02</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Benzine</Account>
+    <debet>55.01</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Benzine</Account>
+    <debet>5.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Benzine</Account>
+    <debet>60.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Benzine</Account>
+    <debet>60.80</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>64.60</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>44.70</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>70.02</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>55.01</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>5.00</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>60.00</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>60.80</credit>
+  </Transaction>
+  <Transaction id="216">
+    <nr>DIV216</nr>
+    <date>13/5/2013</date>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>267.21</debet>
+    <description>correctie: boek kosten reis apart</description>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>138.38</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>140.56</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>170.98</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>276.79</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>416.51</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>283.81</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>283.06</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>172.50</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>143.89</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>142.89</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>170.87</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>170.87</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>143.32</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>195.69</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>168.67</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>60.57</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>267.21</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>138.38</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>140.38</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>140.56</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>30.60</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>276.79</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>416.51</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>283.81</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>283.06</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>172.50</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>143.89</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>142.89</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>170.87</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>170.84</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>143.35</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>195.69</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>168.67</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>60.57</credit>
+  </Transaction>
+  <Transaction id="217">
+    <nr>DIV217</nr>
+    <date>13/5/2013</date>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>2000.00</debet>
+    <description>correctie: boek uitgaven Thailand apart</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>2000.00</credit>
+  </Transaction>
+  <Transaction id="218">
+    <nr>DIV218</nr>
+    <date>13/5/2013</date>
+    <Account>Eco-cheques</Account>
+    <debet>444.00</debet>
+    <description>Eco-cheques David, Dara en Pong</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto David</Account>
+    <credit>444.00</credit>
+  </Transaction>
+  <Transaction id="219">
+    <nr>DIV219</nr>
+    <date>13/5/2013</date>
+    <Account>Meubilair</Account>
+    <debet>399.00</debet>
+    <description>Visa: aankoop TV, friteuse (TH) en vluchten naar Udon</description>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>45.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>141.76</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Eco-cheques</Account>
+    <credit>444.00</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>141.76</credit>
+  </Transaction>
+  <Transaction id="220">
+    <nr>DIV220</nr>
+    <date>13/5/2013</date>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>55.92</debet>
+    <description>Visa: vlucht Tay naar Udon + 2 x ATM (en kost)</description>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>160.26</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>162.61</debet>
+  </Transaction>
+  <Transaction>
+    <Account>uitgaven reis Thailand</Account>
+    <debet>10.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>388.79</credit>
+  </Transaction>
+  <Transaction id="221">
+    <nr>DIV221</nr>
+    <date>13/5/2013</date>
+    <Account>Renovatie Huis</Account>
+    <debet>151.40</debet>
+    <description>Hebo</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <credit>151.40</credit>
+  </Transaction>
+  <Transaction id="222">
+    <nr>DIV222</nr>
+    <date>13/5/2013</date>
+    <Account>Belastingen</Account>
+    <debet>598.21</debet>
+    <description>Onroerende voorheffing op oud en nieuw huis</description>
+  </Transaction>
+  <Transaction>
+    <Account>Verkoop - Onroerende voorheffing</Account>
+    <debet>201.93</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Belastingen</Account>
+    <credit>201.93</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Aankoop - Onroerende voorheffing</Account>
+    <credit>598.21</credit>
+  </Transaction>
+  <Transaction id="223">
+    <nr>DIV223</nr>
+    <date>13/5/2013</date>
+    <Account>Verkoop - Meerwaarde Huis</Account>
+    <debet>39000.00</debet>
+    <description>Afronden aankoop-verkoop</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kosten Aankoop-Verkoop Huis</Account>
+    <debet>311.72</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Aankoop - dossierkosten AXA</Account>
+    <credit>330.00</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Aankoop - kosten aankoopakte</Account>
+    <credit>23246.68</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Aankoop - kosten krediet akte</Account>
+    <credit>5929.48</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Verkoop - BTW etc</Account>
+    <credit>922.94</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Verkoop - Kosten Notaris</Account>
+    <credit>605.00</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Verkoop - Wederbeleggingsvergoeding</Account>
+    <credit>1567.95</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Verkoop - kosten IMMO</Account>
+    <credit>6500.00</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Verkoop - kosten documenten</Account>
+    <credit>209.67</credit>
+  </Transaction>
+  <Transaction id="224">
+    <nr>DIV224</nr>
+    <date>13/5/2013</date>
+    <Account>Inrichting huis</Account>
+    <debet>49.00</debet>
+    <description>Heytens</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>49.00</credit>
+  </Transaction>
+  <Transaction id="225">
+    <nr>DIV225</nr>
+    <date>13/5/2013</date>
+    <Account>Inrichting huis</Account>
+    <debet>24.99</debet>
+    <description>Saturn</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>24.99</credit>
+  </Transaction>
+  <Transaction id="226">
+    <nr>DIV226</nr>
+    <date>13/5/2013</date>
+    <Account>IT</Account>
+    <debet>79.99</debet>
+    <description>Info-Occases: HTPC box</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kassa feestje</Account>
+    <credit>79.99</credit>
+  </Transaction>
+  <Transaction id="227">
+    <nr>DIV227</nr>
+    <date>14/5/2013</date>
+    <Account>IT</Account>
+    <debet>339.95</debet>
+    <description>Info-Occases: HTPC parts</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>339.95</credit>
+  </Transaction>
+  <Transaction id="228">
+    <nr>DIV228</nr>
+    <date>16/5/2013</date>
+    <Account>Mazout</Account>
+    <debet>1013.96</debet>
+    <description>Comfort Energie</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>1013.96</credit>
+  </Transaction>
+  <Transaction id="229">
+    <nr>DIV229</nr>
+    <date>16/5/2013</date>
+    <Account>Bank David</Account>
+    <debet>585.77</debet>
+    <description>Vakantiegeld</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto David</Account>
+    <credit>585.77</credit>
+  </Transaction>
+  <Transaction id="230">
+    <nr>DIV230</nr>
+    <date>16/5/2013</date>
+    <Account>Opbrengst feestje</Account>
+    <debet>172.75</debet>
+    <description>Feestje: afrekening zaal</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>172.75</credit>
+  </Transaction>
+  <Transaction id="231">
+    <nr>DIV231</nr>
+    <date>16/5/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>125.00</debet>
+    <description>Alfathuis</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>125.00</credit>
+  </Transaction>
+  <Transaction id="232">
+    <nr>DIV232</nr>
+    <date>16/5/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>112.87</debet>
+    <description>Aanmoedigingspremie</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>112.87</credit>
+  </Transaction>
+  <Transaction id="233">
+    <nr>DIV233</nr>
+    <date>17/5/2013</date>
+    <Account>Inrichting huis</Account>
+    <debet>488.00</debet>
+    <description>Saturn: frigo</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>488.00</credit>
+  </Transaction>
+  <Transaction id="234">
+    <nr>DIV234</nr>
+    <date>17/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>96.32</debet>
+    <description>Colruyt</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>96.32</credit>
+  </Transaction>
+  <Transaction id="235">
+    <nr>DIV235</nr>
+    <date>20/5/2013</date>
+    <Account>Telefoonkosten</Account>
+    <debet>133.15</debet>
+    <description>Proximus</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>133.15</credit>
+  </Transaction>
+  <Transaction id="236">
+    <nr>DIV236</nr>
+    <date>20/5/2013</date>
+    <Account>Opbrengst feestje</Account>
+    <debet>600.00</debet>
+    <description>Tempel Roubaix</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kassa feestje</Account>
+    <credit>600.00</credit>
+  </Transaction>
+  <Transaction id="237">
+    <nr>DIV237</nr>
+    <date>20/5/2013</date>
+    <Account>Post Dara</Account>
+    <debet>1000.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kassa feestje</Account>
+    <credit>1000.00</credit>
+  </Transaction>
+  <Transaction id="238">
+    <nr>DIV238</nr>
+    <date>20/5/2013</date>
+    <Account>Kassa feestje</Account>
+    <debet>600.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Post Dara</Account>
+    <credit>600.00</credit>
+  </Transaction>
+  <Transaction id="239">
+    <nr>DIV239</nr>
+    <date>21/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>48.87</debet>
+    <description>Thai shop</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>48.87</credit>
+  </Transaction>
+  <Transaction id="240">
+    <nr>DIV240</nr>
+    <date>21/5/2013</date>
+    <Account>Benzine</Account>
+    <debet>66.06</debet>
+    <description>Tankbeurt auto (Aartrijke)</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>66.06</credit>
+  </Transaction>
+  <Transaction id="241">
+    <nr>DIV241</nr>
+    <date>21/5/2013</date>
+    <Account>Bank David</Account>
+    <debet>89.16</debet>
+    <description>afrekening verzekering oud huis</description>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-TEMP</Account>
+    <credit>89.16</credit>
+  </Transaction>
+  <Transaction id="242">
+    <nr>DIV242</nr>
+    <date>22/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>30.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>30.00</credit>
+  </Transaction>
+  <Transaction id="243">
+    <nr>DIV243</nr>
+    <date>22/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>24.86</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>24.86</credit>
+  </Transaction>
+  <Transaction id="244">
+    <nr>DIV244</nr>
+    <date>25/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>2.50</debet>
+    <description>parkeren</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>2.50</credit>
+  </Transaction>
+  <Transaction id="245">
+    <nr>DIV245</nr>
+    <date>27/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="246">
+    <nr>DIV246</nr>
+    <date>27/5/2013</date>
+    <Account>AXA-TEMP</Account>
+    <debet>46.43</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>46.43</credit>
+  </Transaction>
+  <Transaction id="247">
+    <nr>DIV247</nr>
+    <date>28/5/2013</date>
+    <Account>Bank David</Account>
+    <debet>1646.89</debet>
+    <description>loon mei</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto David</Account>
+    <credit>1646.89</credit>
+  </Transaction>
+  <Transaction id="248">
+    <nr>DIV248</nr>
+    <date>28/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="249">
+    <nr>DIV249</nr>
+    <date>30/5/2013</date>
+    <Account>Consumptie</Account>
+    <debet>108.77</debet>
+    <description>Visa-kaart</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <debet>151.40</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>260.17</credit>
+  </Transaction>
+  <Transaction id="250">
+    <nr>DIV250</nr>
+    <date>1/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>44.09</debet>
+    <description>Colruyt</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>44.09</credit>
+  </Transaction>
+  <Transaction id="251">
+    <nr>DIV251</nr>
+    <date>2/6/2013</date>
+    <Account>Benzine</Account>
+    <debet>6.88</debet>
+    <description>brommer</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>6.88</credit>
+  </Transaction>
+  <Transaction id="252">
+    <nr>DIV252</nr>
+    <date>2/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>8.70</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>8.70</credit>
+  </Transaction>
+  <Transaction id="253">
+    <nr>DIV253</nr>
+    <date>3/6/2013</date>
+    <Account>Schulden aan ma</Account>
+    <debet>200.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>200.00</credit>
+  </Transaction>
+  <Transaction id="254">
+    <nr>DIV254</nr>
+    <date>3/6/2013</date>
+    <Account>Intrest Huis</Account>
+    <debet>745.91</debet>
+    <description>afbetaling 1</description>
+  </Transaction>
+  <Transaction>
+    <Account>Hypotheek</Account>
+    <debet>410.76</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>1156.67</credit>
+  </Transaction>
+  <Transaction id="255">
+    <nr>DIV255</nr>
+    <date>4/6/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>559.57</debet>
+    <description>Rest mei</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>559.57</credit>
+  </Transaction>
+  <Transaction id="256">
+    <nr>DIV256</nr>
+    <date>4/6/2013</date>
+    <Account>Bank David</Account>
+    <debet>120.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>120.00</credit>
+  </Transaction>
+  <Transaction id="257">
+    <nr>DIV257</nr>
+    <date>4/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>10.15</debet>
+    <description>Picard: feestneus Isabel</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>10.15</credit>
+  </Transaction>
+  <Transaction id="258">
+    <nr>DIV258</nr>
+    <date>5/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>45.44</debet>
+    <description>Horeca Totaal</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>45.44</credit>
+  </Transaction>
+  <Transaction id="259">
+    <nr>DIV259</nr>
+    <date>5/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>50.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>50.00</credit>
+  </Transaction>
+  <Transaction id="260">
+    <nr>DIV260</nr>
+    <date>5/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="261">
+    <nr>DIV261</nr>
+    <date>6/6/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>141.70</debet>
+    <description>RVA - Loopbaanonderbreking</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>141.70</credit>
+  </Transaction>
+  <Transaction id="262">
+    <nr>DIV262</nr>
+    <date>6/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>121.53</debet>
+    <description>Colruyt</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>121.53</credit>
+  </Transaction>
+  <Transaction id="263">
+    <nr>DIV263</nr>
+    <date>6/6/2013</date>
+    <Account>AXA-Bijstandsverzekering</Account>
+    <debet>25.56</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>25.56</credit>
+  </Transaction>
+  <Transaction id="264">
+    <nr>DIV264</nr>
+    <date>7/6/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>90.28</debet>
+    <description>Kindergeld mei</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kindergeld</Account>
+    <credit>90.28</credit>
+  </Transaction>
+  <Transaction id="265">
+    <nr>DIV265</nr>
+    <date>7/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>53.13</debet>
+    <description>Vime</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>53.13</credit>
+  </Transaction>
+  <Transaction id="266">
+    <nr>DIV266</nr>
+    <date>8/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>21.95</debet>
+    <description>Aankoop Sint-Kruis (= 3616)</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>21.95</credit>
+  </Transaction>
+  <Transaction id="267">
+    <nr>DIV267</nr>
+    <date>9/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>100.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>100.00</credit>
+  </Transaction>
+  <Transaction id="268">
+    <nr>DIV268</nr>
+    <date>10/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>38.77</debet>
+    <description>Blokker</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>38.77</credit>
+  </Transaction>
+  <Transaction id="269">
+    <nr>DIV269</nr>
+    <date>10/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>62.00</debet>
+    <description>Dumpi Mart</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>62.00</credit>
+  </Transaction>
+  <Transaction id="270">
+    <nr>DIV270</nr>
+    <date>10/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>44.51</debet>
+    <description>Bpost</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>44.51</credit>
+  </Transaction>
+  <Transaction id="271">
+    <nr>DIV271</nr>
+    <date>10/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="272">
+    <nr>DIV272</nr>
+    <date>11/6/2013</date>
+    <Account>DAS-Autoverzekering</Account>
+    <debet>29.25</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>29.25</credit>
+  </Transaction>
+  <Transaction id="273">
+    <nr>DIV273</nr>
+    <date>11/6/2013</date>
+    <Account>Bank David</Account>
+    <debet>94.81</debet>
+    <description>010816121657 verbreking</description>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-TEMP</Account>
+    <credit>94.81</credit>
+  </Transaction>
+  <Transaction id="274">
+    <nr>DIV274</nr>
+    <date>12/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>60.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>60.00</credit>
+  </Transaction>
+  <Transaction id="275">
+    <nr>DIV275</nr>
+    <date>12/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>30.00</debet>
+    <description>Highfields pingpong</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>30.00</credit>
+  </Transaction>
+  <Transaction id="276">
+    <nr>DIV276</nr>
+    <date>12/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="277">
+    <nr>DIV277</nr>
+    <date>15/6/2013</date>
+    <Account>Kosten school</Account>
+    <debet>36.40</debet>
+    <description>afrekening eindejaar</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>36.40</credit>
+  </Transaction>
+  <Transaction id="278">
+    <nr>DIV278</nr>
+    <date>15/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>5.51</debet>
+    <description>Aldi</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>5.51</credit>
+  </Transaction>
+  <Transaction id="279">
+    <nr>DIV279</nr>
+    <date>15/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>2.90</debet>
+    <description>Delhaize</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <debet>15.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>2.90</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>15.00</credit>
+  </Transaction>
+  <Transaction id="280">
+    <nr>DIV280</nr>
+    <date>15/6/2013</date>
+    <Account>Benzine</Account>
+    <debet>55.52</debet>
+    <description>Q8 auto</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>55.52</credit>
+  </Transaction>
+  <Transaction id="281">
+    <nr>DIV281</nr>
+    <date>17/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>11.66</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>11.66</credit>
+  </Transaction>
+  <Transaction id="282">
+    <nr>DIV282</nr>
+    <date>18/6/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>350.00</debet>
+    <description>voorschot juni</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>350.00</credit>
+  </Transaction>
+  <Transaction id="283">
+    <nr>DIV283</nr>
+    <date>19/6/2013</date>
+    <Account>Benzine</Account>
+    <debet>34.98</debet>
+    <description>tankbeurt auto</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>34.98</credit>
+  </Transaction>
+  <Transaction id="284">
+    <nr>DIV284</nr>
+    <date>19/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>34.98</debet>
+    <description>Correctie: Bart Smit ipv tankbeurt</description>
+  </Transaction>
+  <Transaction>
+    <Account>Benzine</Account>
+    <credit>34.98</credit>
+  </Transaction>
+  <Transaction id="285">
+    <nr>DIV285</nr>
+    <date>19/6/2013</date>
+    <Account>Benzine</Account>
+    <debet>7.64</debet>
+    <description>tankbeurt</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>7.64</credit>
+  </Transaction>
+  <Transaction id="286">
+    <nr>DIV286</nr>
+    <date>19/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>112.43</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>112.43</credit>
+  </Transaction>
+  <Transaction id="287">
+    <nr>DIV287</nr>
+    <date>19/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>37.76</debet>
+    <description>Blokker</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>37.76</credit>
+  </Transaction>
+  <Transaction id="288">
+    <nr>DIV288</nr>
+    <date>21/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>45.83</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>45.83</credit>
+  </Transaction>
+  <Transaction id="289">
+    <nr>DIV289</nr>
+    <date>22/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>30.02</debet>
+    <description>Delhaize</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>30.02</credit>
+  </Transaction>
+  <Transaction id="290">
+    <nr>DIV290</nr>
+    <date>23/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>50.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>50.00</credit>
+  </Transaction>
+  <Transaction id="291">
+    <nr>DIV291</nr>
+    <date>24/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>74.18</debet>
+    <description>Colora: verf?</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>74.18</credit>
+  </Transaction>
+  <Transaction id="292">
+    <nr>DIV292</nr>
+    <date>24/6/2013</date>
+    <Account>Bank David</Account>
+    <debet>10.40</debet>
+    <description>Terugbetaling reiskosten Isabel</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>10.40</credit>
+  </Transaction>
+  <Transaction id="293">
+    <nr>DIV293</nr>
+    <date>25/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>32.39</debet>
+    <description>GB Express</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>32.39</credit>
+  </Transaction>
+  <Transaction id="294">
+    <nr>DIV294</nr>
+    <date>26/6/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>1222.87</debet>
+    <description>vakantiegeld</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>1222.87</credit>
+  </Transaction>
+  <Transaction id="295">
+    <nr>DIV295</nr>
+    <date>26/6/2013</date>
+    <Account>Bank David</Account>
+    <debet>54.77</debet>
+    <description>terugstorting Notaris</description>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-TEMP</Account>
+    <credit>54.77</credit>
+  </Transaction>
+  <Transaction id="296">
+    <nr>DIV296</nr>
+    <date>26/6/2013</date>
+    <Account>Bank David</Account>
+    <debet>1698.36</debet>
+    <description>loon juni</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto David</Account>
+    <credit>1698.36</credit>
+  </Transaction>
+  <Transaction id="297">
+    <nr>DIV297</nr>
+    <date>26/6/2013</date>
+    <Account>Telefoonkosten</Account>
+    <debet>109.18</debet>
+    <description>Proximus: 103438944367</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>109.18</credit>
+  </Transaction>
+  <Transaction id="298">
+    <nr>DIV298</nr>
+    <date>26/6/2013</date>
+    <Account>Telenet</Account>
+    <debet>63.50</debet>
+    <description>068782352214</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>63.50</credit>
+  </Transaction>
+  <Transaction id="299">
+    <nr>DIV299</nr>
+    <date>26/6/2013</date>
+    <Account>Essent</Account>
+    <debet>19.25</debet>
+    <description>130236197612</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>19.25</credit>
+  </Transaction>
+  <Transaction id="300">
+    <nr>DIV300</nr>
+    <date>26/6/2013</date>
+    <Account>AXA-Levensverzekering</Account>
+    <debet>57.12</debet>
+    <description>112.487.384.051</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>57.12</credit>
+  </Transaction>
+  <Transaction id="301">
+    <nr>DIV301</nr>
+    <date>27/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="302">
+    <nr>DIV302</nr>
+    <date>30/6/2013</date>
+    <Account>Consumptie</Account>
+    <debet>80.32</debet>
+    <description>Proxy Malehoek</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>80.32</credit>
+  </Transaction>
+  <Transaction id="303">
+    <nr>DIV303</nr>
+    <date>1/7/2013</date>
+    <Account>Kosten school</Account>
+    <debet>15.40</debet>
+    <description>maaltijden Sophia</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>15.40</credit>
+  </Transaction>
+  <Transaction id="304">
+    <nr>DIV304</nr>
+    <date>1/7/2013</date>
+    <Account>Belastingen</Account>
+    <debet>61.50</debet>
+    <description>tax scooter</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>61.50</credit>
+  </Transaction>
+  <Transaction id="305">
+    <nr>DIV305</nr>
+    <date>1/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>221.50</debet>
+    <description>tax auto</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>221.50</credit>
+  </Transaction>
+  <Transaction id="306">
+    <nr>DIV306</nr>
+    <date>1/7/2013</date>
+    <Account>Fitness</Account>
+    <debet>99.90</debet>
+    <description>Bennies</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>99.90</credit>
+  </Transaction>
+  <Transaction id="307">
+    <nr>DIV307</nr>
+    <date>1/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>30.05</debet>
+    <description>Blokker</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>30.05</credit>
+  </Transaction>
+  <Transaction id="308">
+    <nr>DIV308</nr>
+    <date>1/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>11.90</debet>
+    <description>Fun</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>11.90</credit>
+  </Transaction>
+  <Transaction id="309">
+    <nr>DIV309</nr>
+    <date>1/7/2013</date>
+    <Account>Inrichting huis</Account>
+    <debet>89.99</debet>
+    <description>Leenbakker: schommelstoel?</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>89.99</credit>
+  </Transaction>
+  <Transaction id="310">
+    <nr>DIV310</nr>
+    <date>1/7/2013</date>
+    <Account>Belastingen</Account>
+    <debet>221.50</debet>
+    <description>Correctie: tax auto</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>221.50</credit>
+  </Transaction>
+  <Transaction id="311">
+    <nr>DIV311</nr>
+    <date>1/7/2013</date>
+    <Account>Schulden aan ma</Account>
+    <debet>200.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>200.00</credit>
+  </Transaction>
+  <Transaction id="312">
+    <nr>DIV312</nr>
+    <date>1/7/2013</date>
+    <Account>Bank David</Account>
+    <debet>18.15</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>CM</Account>
+    <credit>18.15</credit>
+  </Transaction>
+  <Transaction id="313">
+    <nr>DIV313</nr>
+    <date>1/7/2013</date>
+    <Account>CM</Account>
+    <debet>17.07</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>17.07</credit>
+  </Transaction>
+  <Transaction id="314">
+    <nr>DIV314</nr>
+    <date>2/7/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>628.98</debet>
+    <description>rest juni</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>628.98</credit>
+  </Transaction>
+  <Transaction id="315">
+    <nr>DIV315</nr>
+    <date>2/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>27.64</debet>
+    <description>Etos Sluis</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>27.64</credit>
+  </Transaction>
+  <Transaction id="316">
+    <nr>DIV316</nr>
+    <date>2/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>21.30</debet>
+    <description>Viane</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>21.30</credit>
+  </Transaction>
+  <Transaction id="317">
+    <nr>DIV317</nr>
+    <date>2/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>40.90</debet>
+    <description>aankoop in Sluis</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>40.90</credit>
+  </Transaction>
+  <Transaction id="318">
+    <nr>DIV318</nr>
+    <date>3/7/2013</date>
+    <Account>Meubilair</Account>
+    <debet>138.98</debet>
+    <description>Saturn: frigo</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>138.98</credit>
+  </Transaction>
+  <Transaction id="319">
+    <nr>DIV319</nr>
+    <date>3/7/2013</date>
+    <Account>Intrest Huis</Account>
+    <debet>744.74</debet>
+    <description>afbetaling 2</description>
+  </Transaction>
+  <Transaction>
+    <Account>Hypotheek</Account>
+    <debet>411.93</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>1156.67</credit>
+  </Transaction>
+  <Transaction id="320">
+    <nr>DIV320</nr>
+    <date>3/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="321">
+    <nr>DIV321</nr>
+    <date>4/7/2013</date>
+    <Account>Bank David</Account>
+    <debet>150.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>150.00</credit>
+  </Transaction>
+  <Transaction id="322">
+    <nr>DIV322</nr>
+    <date>4/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>13.61</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>13.61</credit>
+  </Transaction>
+  <Transaction id="323">
+    <nr>DIV323</nr>
+    <date>4/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>29.95</debet>
+    <description>Stapper</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>29.95</credit>
+  </Transaction>
+  <Transaction id="324">
+    <nr>DIV324</nr>
+    <date>4/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>25.67</debet>
+    <description>Aankopen in Sluis</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <debet>19.95</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <debet>83.17</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>25.67</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>19.95</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>83.17</credit>
+  </Transaction>
+  <Transaction id="325">
+    <nr>DIV325</nr>
+    <date>4/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>50.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>50.00</credit>
+  </Transaction>
+  <Transaction id="326">
+    <nr>DIV326</nr>
+    <date>5/7/2013</date>
+    <Account>AXA-Bijstandsverzekering</Account>
+    <debet>25.56</debet>
+    <description>010.622.198.017</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>25.56</credit>
+  </Transaction>
+  <Transaction id="327">
+    <nr>DIV327</nr>
+    <date>6/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>19.84</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>19.84</credit>
+  </Transaction>
+  <Transaction id="328">
+    <nr>DIV328</nr>
+    <date>7/7/2013</date>
+    <Account>Ziekenhuiskosten</Account>
+    <debet>56.18</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>56.18</credit>
+  </Transaction>
+  <Transaction id="329">
+    <nr>DIV329</nr>
+    <date>7/7/2013</date>
+    <Account>Belastingen</Account>
+    <debet>256.46</debet>
+    <description>tax oude huis</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>256.46</credit>
+  </Transaction>
+  <Transaction id="330">
+    <nr>DIV330</nr>
+    <date>7/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>100.00</debet>
+    <description>ATM Knokke</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>100.00</credit>
+  </Transaction>
+  <Transaction id="331">
+    <nr>DIV331</nr>
+    <date>8/7/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>90.28</debet>
+    <description>Kindergeld juni</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kindergeld</Account>
+    <credit>90.28</credit>
+  </Transaction>
+  <Transaction id="332">
+    <nr>DIV332</nr>
+    <date>8/7/2013</date>
+    <Account>Benzine</Account>
+    <debet>72.00</debet>
+    <description>tankbeurt auto</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>72.00</credit>
+  </Transaction>
+  <Transaction id="333">
+    <nr>DIV333</nr>
+    <date>8/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>18.90</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>18.90</credit>
+  </Transaction>
+  <Transaction id="334">
+    <nr>DIV334</nr>
+    <date>8/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>50.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>50.00</credit>
+  </Transaction>
+  <Transaction id="335">
+    <nr>DIV335</nr>
+    <date>10/7/2013</date>
+    <Account>AXA-TEMP</Account>
+    <debet>94.81</debet>
+    <description>heropstart brandverzekering (juni-juli)</description>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-Brandverzekering</Account>
+    <debet>36.01</debet>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-Brandverzekering</Account>
+    <debet>36.01</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>166.83</credit>
+  </Transaction>
+  <Transaction id="336">
+    <nr>DIV336</nr>
+    <date>11/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>3.00</debet>
+    <description>parkeren</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>3.00</credit>
+  </Transaction>
+  <Transaction id="337">
+    <nr>DIV337</nr>
+    <date>16/7/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>350.00</debet>
+    <description>voorschot juli</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>350.00</credit>
+  </Transaction>
+  <Transaction id="338">
+    <nr>DIV338</nr>
+    <date>16/7/2013</date>
+    <Account>Bank David</Account>
+    <debet>100.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>100.00</credit>
+  </Transaction>
+  <Transaction id="339">
+    <nr>DIV339</nr>
+    <date>16/7/2013</date>
+    <Account>AXA-TEMP</Account>
+    <debet>46.43</debet>
+    <description>622340217025</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>46.43</credit>
+  </Transaction>
+  <Transaction id="340">
+    <nr>DIV340</nr>
+    <date>16/7/2013</date>
+    <Account>Benzine</Account>
+    <debet>7.70</debet>
+    <description>Octa+</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>7.70</credit>
+  </Transaction>
+  <Transaction id="341">
+    <nr>DIV341</nr>
+    <date>17/7/2013</date>
+    <Account>Bank David</Account>
+    <debet>27.11</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>CM</Account>
+    <credit>27.11</credit>
+  </Transaction>
+  <Transaction id="342">
+    <nr>DIV342</nr>
+    <date>17/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>58.72</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>58.72</credit>
+  </Transaction>
+  <Transaction id="343">
+    <nr>DIV343</nr>
+    <date>17/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>26.62</debet>
+    <description>Vime</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>26.62</credit>
+  </Transaction>
+  <Transaction id="344">
+    <nr>DIV344</nr>
+    <date>18/7/2013</date>
+    <Account>Telefoonkosten</Account>
+    <debet>91.58</debet>
+    <description>Proximus: 103438944468</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>91.58</credit>
+  </Transaction>
+  <Transaction id="345">
+    <nr>DIV345</nr>
+    <date>19/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>23.17</debet>
+    <description>Pro-duo</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>23.17</credit>
+  </Transaction>
+  <Transaction id="346">
+    <nr>DIV346</nr>
+    <date>20/7/2013</date>
+    <Account>Inrichting huis</Account>
+    <debet>1.80</debet>
+    <description>Containerpark</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>1.80</credit>
+  </Transaction>
+  <Transaction id="347">
+    <nr>DIV347</nr>
+    <date>21/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>60.00</debet>
+    <description>ATM Oostende</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>60.00</credit>
+  </Transaction>
+  <Transaction id="348">
+    <nr>DIV348</nr>
+    <date>21/7/2013</date>
+    <Account>Benzine</Account>
+    <debet>54.38</debet>
+    <description>tankbeurt auto</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>54.38</credit>
+  </Transaction>
+  <Transaction id="349">
+    <nr>DIV349</nr>
+    <date>22/7/2013</date>
+    <Account>AXA Reisverzekering Sophia</Account>
+    <debet>37.00</debet>
+    <description>Europ Assistance</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>37.00</credit>
+  </Transaction>
+  <Transaction id="350">
+    <nr>DIV350</nr>
+    <date>22/7/2013</date>
+    <Account>Bank David</Account>
+    <debet>900.00</debet>
+    <description>Voorschot Tay: vlucht Noi</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <credit>900.00</credit>
+  </Transaction>
+  <Transaction id="351">
+    <nr>DIV351</nr>
+    <date>22/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>15.40</debet>
+    <description>GCK 1</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>15.40</credit>
+  </Transaction>
+  <Transaction id="352">
+    <nr>DIV352</nr>
+    <date>23/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="353">
+    <nr>DIV353</nr>
+    <date>25/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>16.79</debet>
+    <description>GB Express</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>16.79</credit>
+  </Transaction>
+  <Transaction id="354">
+    <nr>DIV354</nr>
+    <date>26/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>32.29</debet>
+    <description>Aankoop Sint-Kruis 3616</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>32.29</credit>
+  </Transaction>
+  <Transaction id="355">
+    <nr>DIV355</nr>
+    <date>26/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>16.31</debet>
+    <description>Renmans</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>16.31</credit>
+  </Transaction>
+  <Transaction id="356">
+    <nr>DIV356</nr>
+    <date>26/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>16.02</debet>
+    <description>Aldi</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>16.02</credit>
+  </Transaction>
+  <Transaction id="357">
+    <nr>DIV357</nr>
+    <date>26/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>2.49</debet>
+    <description>Aldi</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>2.49</credit>
+  </Transaction>
+  <Transaction id="358">
+    <nr>DIV358</nr>
+    <date>26/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>50.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>50.00</credit>
+  </Transaction>
+  <Transaction id="359">
+    <nr>DIV359</nr>
+    <date>27/7/2013</date>
+    <Account>Inrichting huis</Account>
+    <debet>11.20</debet>
+    <description>Containerpark</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>11.20</credit>
+  </Transaction>
+  <Transaction id="360">
+    <nr>DIV360</nr>
+    <date>27/7/2013</date>
+    <Account>Inrichting huis</Account>
+    <debet>215.84</debet>
+    <description>Gipsplaten + huur camionette + waarborg (3616 = Brico)</description>
+  </Transaction>
+  <Transaction>
+    <Account>Inrichting huis</Account>
+    <debet>20.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <debet>230.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>465.84</credit>
+  </Transaction>
+  <Transaction id="361">
+    <nr>DIV361</nr>
+    <date>29/7/2013</date>
+    <Account>Consumptie</Account>
+    <debet>12.87</debet>
+    <description>Lidl</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>12.87</credit>
+  </Transaction>
+  <Transaction id="362">
+    <nr>DIV362</nr>
+    <date>29/7/2013</date>
+    <Account>Bank David</Account>
+    <debet>1694.00</debet>
+    <description>loon juli</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto David</Account>
+    <credit>1694.00</credit>
+  </Transaction>
+  <Transaction id="363">
+    <nr>DIV363</nr>
+    <date>29/7/2013</date>
+    <Account>Renovatie Huis</Account>
+    <debet>1.80</debet>
+    <description>Correctie: renovatie ipv inrichting</description>
+  </Transaction>
+  <Transaction>
+    <Account>Renovatie Huis</Account>
+    <debet>11.20</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Renovatie Huis</Account>
+    <debet>215.84</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Renovatie Huis</Account>
+    <debet>20.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Inrichting huis</Account>
+    <credit>1.80</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Inrichting huis</Account>
+    <credit>11.20</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Inrichting huis</Account>
+    <credit>215.84</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Inrichting huis</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="364">
+    <nr>DIV364</nr>
+    <date>30/7/2013</date>
+    <Account>Renovatie Huis</Account>
+    <debet>230.00</debet>
+    <description>afrekening Visa: 200 voor isolatie / rest vlucht Noi</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <debet>900.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>1046.86</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Tay</Account>
+    <credit>83.14</credit>
+  </Transaction>
+  <Transaction id="365">
+    <nr>DIV365</nr>
+    <date>31/7/2013</date>
+    <Account>Bank David</Account>
+    <debet>130.00</debet>
+    <description>Storting Dara</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>130.00</credit>
+  </Transaction>
+  <Transaction id="366">
+    <nr>DIV366</nr>
+    <date>1/8/2013</date>
+    <Account>Schulden aan ma</Account>
+    <debet>200.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>200.00</credit>
+  </Transaction>
+  <Transaction id="367">
+    <nr>DIV367</nr>
+    <date>1/8/2013</date>
+    <Account>Consumptie</Account>
+    <debet>17.00</debet>
+    <description>Irish Pub</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>17.00</credit>
+  </Transaction>
+  <Transaction id="368">
+    <nr>DIV368</nr>
+    <date>2/8/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>295.20</debet>
+    <description>rest juli</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>295.20</credit>
+  </Transaction>
+  <Transaction id="369">
+    <nr>DIV369</nr>
+    <date>2/8/2013</date>
+    <Account>Apotheek</Account>
+    <debet>65.78</debet>
+    <description>apotheek</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>65.78</credit>
+  </Transaction>
+  <Transaction id="370">
+    <nr>DIV370</nr>
+    <date>2/8/2013</date>
+    <Account>Consumptie</Account>
+    <debet>46.20</debet>
+    <description>Aankoop Sint-Kruis 3616</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>46.20</credit>
+  </Transaction>
+  <Transaction id="371">
+    <nr>DIV371</nr>
+    <date>2/8/2013</date>
+    <Account>AXA-Levensverzekering</Account>
+    <debet>57.12</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>57.12</credit>
+  </Transaction>
+  <Transaction id="372">
+    <nr>DIV372</nr>
+    <date>3/8/2013</date>
+    <Account>Intrest Huis</Account>
+    <debet>743.54</debet>
+    <description>afbetaling 3</description>
+  </Transaction>
+  <Transaction>
+    <Account>Hypotheek</Account>
+    <debet>413.13</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>1156.67</credit>
+  </Transaction>
+  <Transaction id="373">
+    <nr>DIV373</nr>
+    <date>4/8/2013</date>
+    <Account>Bank David</Account>
+    <debet>50.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Tay</Account>
+    <credit>50.00</credit>
+  </Transaction>
+  <Transaction id="374">
+    <nr>DIV374</nr>
+    <date>4/8/2013</date>
+    <Account>Bank David</Account>
+    <debet>200.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>200.00</credit>
+  </Transaction>
+  <Transaction id="375">
+    <nr>DIV375</nr>
+    <date>6/8/2013</date>
+    <Account>Bank David</Account>
+    <debet>18.15</debet>
+    <description>terugbetaling Sophia</description>
+  </Transaction>
+  <Transaction>
+    <Account>CM</Account>
+    <credit>18.15</credit>
+  </Transaction>
+  <Transaction id="376">
+    <nr>DIV376</nr>
+    <date>8/8/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>112.28</debet>
+    <description>Kindergeld juli</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kindergeld</Account>
+    <credit>112.28</credit>
+  </Transaction>
+  <Transaction id="377">
+    <nr>DIV377</nr>
+    <date>8/8/2013</date>
+    <Account>Bank David</Account>
+    <debet>100.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>100.00</credit>
+  </Transaction>
+  <Transaction id="378">
+    <nr>DIV378</nr>
+    <date>8/8/2013</date>
+    <Account>Telenet</Account>
+    <debet>52.37</debet>
+    <description>afrekening juli</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>52.37</credit>
+  </Transaction>
+  <Transaction id="379">
+    <nr>DIV379</nr>
+    <date>8/8/2013</date>
+    <Account>AXA-Bijstandsverzekering</Account>
+    <debet>25.56</debet>
+    <description>verzekeringen augustus</description>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-Brandverzekering</Account>
+    <debet>36.01</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>25.56</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>36.01</credit>
+  </Transaction>
+  <Transaction id="380">
+    <nr>DIV380</nr>
+    <date>11/8/2013</date>
+    <Account>Renovatie Huis</Account>
+    <debet>464.24</debet>
+    <description>Brico</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <credit>464.24</credit>
+  </Transaction>
+  <Transaction id="381">
+    <nr>DIV381</nr>
+    <date>12/8/2013</date>
+    <Account>Bank David</Account>
+    <debet>100.00</debet>
+    <description>Storting via ma</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>100.00</credit>
+  </Transaction>
+  <Transaction id="382">
+    <nr>DIV382</nr>
+    <date>12/8/2013</date>
+    <Account>Telenet</Account>
+    <debet>84.60</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>84.60</credit>
+  </Transaction>
+  <Transaction id="383">
+    <nr>DIV383</nr>
+    <date>15/8/2013</date>
+    <Account>Consumptie</Account>
+    <debet>12.00</debet>
+    <description>Parking schiphol</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>12.00</credit>
+  </Transaction>
+  <Transaction id="384">
+    <nr>DIV384</nr>
+    <date>15/8/2013</date>
+    <Account>Consumptie</Account>
+    <debet>4.26</debet>
+    <description>aankoop schiphol</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>4.26</credit>
+  </Transaction>
+  <Transaction id="385">
+    <nr>DIV385</nr>
+    <date>19/8/2013</date>
+    <Account>Bank David</Account>
+    <debet>300.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>300.00</credit>
+  </Transaction>
+  <Transaction id="386">
+    <nr>DIV386</nr>
+    <date>19/8/2013</date>
+    <Account>AXA-Levensverzekering</Account>
+    <debet>57.12</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>57.12</credit>
+  </Transaction>
+  <Transaction id="387">
+    <nr>DIV387</nr>
+    <date>19/8/2013</date>
+    <Account>Water</Account>
+    <debet>160.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>160.00</credit>
+  </Transaction>
+  <Transaction id="388">
+    <nr>DIV388</nr>
+    <date>19/8/2013</date>
+    <Account>Bank David</Account>
+    <debet>13.33</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>CM</Account>
+    <credit>13.33</credit>
+  </Transaction>
+  <Transaction id="389">
+    <nr>DIV389</nr>
+    <date>19/8/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>350.00</debet>
+    <description>voorschot augustus</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>350.00</credit>
+  </Transaction>
+  <Transaction id="390">
+    <nr>DIV390</nr>
+    <date>19/8/2013</date>
+    <Account>Consumptie</Account>
+    <debet>33.08</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>33.08</credit>
+  </Transaction>
+  <Transaction id="391">
+    <nr>DIV391</nr>
+    <date>21/8/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="392">
+    <nr>DIV392</nr>
+    <date>22/8/2013</date>
+    <Account>Consumptie</Account>
+    <debet>22.00</debet>
+    <description>Irish Pub</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>22.00</credit>
+  </Transaction>
+  <Transaction id="393">
+    <nr>DIV393</nr>
+    <date>25/8/2013</date>
+    <Account>Inrichting huis</Account>
+    <debet>101.27</debet>
+    <description>Blokker/Casa/Brico</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <credit>101.27</credit>
+  </Transaction>
+  <Transaction id="394">
+    <nr>DIV394</nr>
+    <date>26/8/2013</date>
+    <Account>Consumptie</Account>
+    <debet>25.28</debet>
+    <description>Colruyt</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>25.28</credit>
+  </Transaction>
+  <Transaction id="395">
+    <nr>DIV395</nr>
+    <date>26/8/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>17.23</debet>
+    <description>Hvw</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>17.23</credit>
+  </Transaction>
+  <Transaction id="396">
+    <nr>DIV396</nr>
+    <date>26/8/2013</date>
+    <Account>Bank David</Account>
+    <debet>1697.26</debet>
+    <description>loon augustus</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto David</Account>
+    <credit>1697.26</credit>
+  </Transaction>
+  <Transaction id="397">
+    <nr>DIV397</nr>
+    <date>28/8/2013</date>
+    <Account>Consumptie</Account>
+    <debet>15.59</debet>
+    <description>GB-Express</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>15.59</credit>
+  </Transaction>
+  <Transaction id="398">
+    <nr>DIV398</nr>
+    <date>28/8/2013</date>
+    <Account>Consumptie</Account>
+    <debet>78.23</debet>
+    <description>Visa: Thai shop</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <credit>78.23</credit>
+  </Transaction>
+  <Transaction id="399">
+    <nr>DIV399</nr>
+    <date>29/8/2013</date>
+    <Account>Consumptie</Account>
+    <debet>17.00</debet>
+    <description>Irish Pub</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>17.00</credit>
+  </Transaction>
+  <Transaction id="400">
+    <nr>DIV400</nr>
+    <date>30/8/2013</date>
+    <Account>VISA</Account>
+    <debet>464.24</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>464.24</credit>
+  </Transaction>
+  <Transaction id="401">
+    <nr>DIV401</nr>
+    <date>30/8/2013</date>
+    <Account>Bank David</Account>
+    <debet>200.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Tay</Account>
+    <credit>200.00</credit>
+  </Transaction>
+  <Transaction id="402">
+    <nr>DIV402</nr>
+    <date>30/8/2013</date>
+    <Account>Consumptie</Account>
+    <debet>74.87</debet>
+    <description>Aankoop Sluis</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>74.87</credit>
+  </Transaction>
+  <Transaction id="403">
+    <nr>DIV403</nr>
+    <date>31/8/2013</date>
+    <Account>Consumptie</Account>
+    <debet>40.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>40.00</credit>
+  </Transaction>
+  <Transaction id="404">
+    <nr>DIV404</nr>
+    <date>2/9/2013</date>
+    <Account>Schulden aan ma</Account>
+    <debet>200.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>200.00</credit>
+  </Transaction>
+  <Transaction id="405">
+    <nr>DIV405</nr>
+    <date>2/9/2013</date>
+    <Account>Bank David</Account>
+    <debet>453.75</debet>
+    <description>terugbetaling Brucon-Isabel</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <credit>453.75</credit>
+  </Transaction>
+  <Transaction id="406">
+    <nr>DIV406</nr>
+    <date>3/9/2013</date>
+    <Account>Hypotheek</Account>
+    <debet>414.31</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Intrest Huis</Account>
+    <debet>742.36</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>1156.67</credit>
+  </Transaction>
+  <Transaction id="407">
+    <nr>DIV407</nr>
+    <date>3/9/2013</date>
+    <Account>Telefoonkosten</Account>
+    <debet>103.27</debet>
+    <description>Proximus</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>103.27</credit>
+  </Transaction>
+  <Transaction id="408">
+    <nr>DIV408</nr>
+    <date>3/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>70.00</debet>
+    <description>Trouwkado Dries</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>70.00</credit>
+  </Transaction>
+  <Transaction id="409">
+    <nr>DIV409</nr>
+    <date>3/9/2013</date>
+    <Account>Boetes</Account>
+    <debet>55.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>55.00</credit>
+  </Transaction>
+  <Transaction id="410">
+    <nr>DIV410</nr>
+    <date>3/9/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>707.06</debet>
+    <description>rest augustus</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>707.06</credit>
+  </Transaction>
+  <Transaction id="411">
+    <nr>DIV411</nr>
+    <date>3/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>5.85</debet>
+    <description>Aankoop Lidl+beenhouwerij</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <debet>27.51</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>5.85</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>27.51</credit>
+  </Transaction>
+  <Transaction id="412">
+    <nr>DIV412</nr>
+    <date>4/9/2013</date>
+    <Account>Fitness</Account>
+    <debet>99.90</debet>
+    <description>2 maand lidgeld (domiciliering)</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>99.90</credit>
+  </Transaction>
+  <Transaction id="413">
+    <nr>DIV413</nr>
+    <date>4/9/2013</date>
+    <Account>Benzine</Account>
+    <debet>66.83</debet>
+    <description>Total - Jabbeke</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>66.83</credit>
+  </Transaction>
+  <Transaction id="414">
+    <nr>DIV414</nr>
+    <date>4/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>70.00</debet>
+    <description>ATM Oostende</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <debet>70.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>70.00</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>70.00</credit>
+  </Transaction>
+  <Transaction id="415">
+    <nr>DIV415</nr>
+    <date>5/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>25.00</debet>
+    <description>kosten Visa-kaart</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>25.00</credit>
+  </Transaction>
+  <Transaction id="416">
+    <nr>DIV416</nr>
+    <date>5/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>15.00</debet>
+    <description>Irish Pub</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>15.00</credit>
+  </Transaction>
+  <Transaction id="417">
+    <nr>DIV417</nr>
+    <date>5/9/2013</date>
+    <Account>Benzine</Account>
+    <debet>6.89</debet>
+    <description>Q8 - Brugge</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>6.89</credit>
+  </Transaction>
+  <Transaction id="418">
+    <nr>DIV418</nr>
+    <date>6/9/2013</date>
+    <Account>AXA-Bijstandsverzekering</Account>
+    <debet>25.56</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-Brandverzekering</Account>
+    <debet>36.01</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>25.56</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>36.01</credit>
+  </Transaction>
+  <Transaction id="419">
+    <nr>DIV419</nr>
+    <date>6/9/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>90.28</debet>
+    <description>kindergeld augustus</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kindergeld</Account>
+    <credit>90.28</credit>
+  </Transaction>
+  <Transaction id="420">
+    <nr>DIV420</nr>
+    <date>7/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>5.00</debet>
+    <description>Parking Schiphol</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>5.00</credit>
+  </Transaction>
+  <Transaction id="421">
+    <nr>DIV421</nr>
+    <date>7/9/2013</date>
+    <Account>Benzine</Account>
+    <debet>58.50</debet>
+    <description>Total</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>58.50</credit>
+  </Transaction>
+  <Transaction id="422">
+    <nr>DIV422</nr>
+    <date>8/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>150.00</debet>
+    <description>ATM - Post Brugge</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>150.00</credit>
+  </Transaction>
+  <Transaction id="423">
+    <nr>DIV423</nr>
+    <date>9/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>7.68</debet>
+    <description>GB-Express</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>7.68</credit>
+  </Transaction>
+  <Transaction id="424">
+    <nr>DIV424</nr>
+    <date>9/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>47.63</debet>
+    <description>Delhaize</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>47.63</credit>
+  </Transaction>
+  <Transaction id="425">
+    <nr>DIV425</nr>
+    <date>9/9/2013</date>
+    <Account>Boetes</Account>
+    <debet>50.00</debet>
+    <description>Gentbrugge Viaduct</description>
+  </Transaction>
+  <Transaction>
+    <Account>Boetes</Account>
+    <debet>50.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>50.00</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>50.00</credit>
+  </Transaction>
+  <Transaction id="426">
+    <nr>DIV426</nr>
+    <date>10/9/2013</date>
+    <Account>DAS-Autoverzekering</Account>
+    <debet>29.25</debet>
+    <description>1629662  141629662008  </description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>29.25</credit>
+  </Transaction>
+  <Transaction id="427">
+    <nr>DIV427</nr>
+    <date>11/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>57.41</debet>
+    <description>Vansassenbroek (nazicht moto)</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>57.41</credit>
+  </Transaction>
+  <Transaction id="428">
+    <nr>DIV428</nr>
+    <date>12/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>56.13</debet>
+    <description>Thai shop</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>56.13</credit>
+  </Transaction>
+  <Transaction id="429">
+    <nr>DIV429</nr>
+    <date>13/9/2013</date>
+    <Account>Bank David</Account>
+    <debet>65.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>65.00</credit>
+  </Transaction>
+  <Transaction id="430">
+    <nr>DIV430</nr>
+    <date>13/9/2013</date>
+    <Account>AXA-Levensverzekering</Account>
+    <debet>57.12</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>57.12</credit>
+  </Transaction>
+  <Transaction id="431">
+    <nr>DIV431</nr>
+    <date>17/9/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>350.00</debet>
+    <description>voorschot september</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>350.00</credit>
+  </Transaction>
+  <Transaction id="432">
+    <nr>DIV432</nr>
+    <date>17/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>250.00</debet>
+    <description>lening Pong</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>250.00</credit>
+  </Transaction>
+  <Transaction id="433">
+    <nr>DIV433</nr>
+    <date>18/9/2013</date>
+    <Account>Apotheek</Account>
+    <debet>19.35</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>19.35</credit>
+  </Transaction>
+  <Transaction id="434">
+    <nr>DIV434</nr>
+    <date>18/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>16.27</debet>
+    <description>Colruyt</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>16.27</credit>
+  </Transaction>
+  <Transaction id="435">
+    <nr>DIV435</nr>
+    <date>19/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>9.64</debet>
+    <description>Delhaize</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>9.64</credit>
+  </Transaction>
+  <Transaction id="436">
+    <nr>DIV436</nr>
+    <date>19/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>17.00</debet>
+    <description>Irish Pub</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>17.00</credit>
+  </Transaction>
+  <Transaction id="437">
+    <nr>DIV437</nr>
+    <date>20/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>50.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>50.00</credit>
+  </Transaction>
+  <Transaction id="438">
+    <nr>DIV438</nr>
+    <date>20/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>105.00</debet>
+    <description>ATM + kosten</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <credit>105.00</credit>
+  </Transaction>
+  <Transaction id="439">
+    <nr>DIV439</nr>
+    <date>22/9/2013</date>
+    <Account>Benzine</Account>
+    <debet>3.77</debet>
+    <description>Q8 Brugge</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>3.77</credit>
+  </Transaction>
+  <Transaction id="440">
+    <nr>DIV440</nr>
+    <date>22/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>105.00</debet>
+    <description>Visa: ATM + kosten</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <credit>105.00</credit>
+  </Transaction>
+  <Transaction id="441">
+    <nr>DIV441</nr>
+    <date>23/9/2013</date>
+    <Account>Bank David</Account>
+    <debet>75.00</debet>
+    <description>Storting via ma</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <credit>75.00</credit>
+  </Transaction>
+  <Transaction id="442">
+    <nr>DIV442</nr>
+    <date>23/9/2013</date>
+    <Account>Telenet</Account>
+    <debet>68.62</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>68.62</credit>
+  </Transaction>
+  <Transaction id="443">
+    <nr>DIV443</nr>
+    <date>27/9/2013</date>
+    <Account>Bank David</Account>
+    <debet>1697.27</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto David</Account>
+    <credit>1697.27</credit>
+  </Transaction>
+  <Transaction id="444">
+    <nr>DIV444</nr>
+    <date>28/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>60.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>60.00</credit>
+  </Transaction>
+  <Transaction id="445">
+    <nr>DIV445</nr>
+    <date>29/9/2013</date>
+    <Account>Consumptie</Account>
+    <debet>60.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>60.00</credit>
+  </Transaction>
+  <Transaction id="446">
+    <nr>DIV446</nr>
+    <date>29/9/2013</date>
+    <Account>Boetes</Account>
+    <debet>87.00</debet>
+    <description>Leidschendam (NL)</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>87.00</credit>
+  </Transaction>
+  <Transaction id="447">
+    <nr>DIV447</nr>
+    <date>30/9/2013</date>
+    <Account>VISA</Account>
+    <debet>738.25</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>738.25</credit>
+  </Transaction>
+  <Transaction id="448">
+    <nr>DIV448</nr>
+    <date>1/10/2013</date>
+    <Account>Schulden aan ma</Account>
+    <debet>200.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>200.00</credit>
+  </Transaction>
+  <Transaction id="449">
+    <nr>DIV449</nr>
+    <date>2/10/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>609.81</debet>
+    <description>rest september</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>609.81</credit>
+  </Transaction>
+  <Transaction id="450">
+    <nr>DIV450</nr>
+    <date>2/10/2013</date>
+    <Account>Bank David</Account>
+    <debet>600.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>600.00</credit>
+  </Transaction>
+  <Transaction id="451">
+    <nr>DIV451</nr>
+    <date>2/10/2013</date>
+    <Account>CM</Account>
+    <debet>17.07</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>17.07</credit>
+  </Transaction>
+  <Transaction id="452">
+    <nr>DIV452</nr>
+    <date>2/10/2013</date>
+    <Account>Bank David</Account>
+    <debet>300.00</debet>
+    <description>extra lening</description>
+  </Transaction>
+  <Transaction>
+    <Account>Schulden aan ma</Account>
+    <credit>300.00</credit>
+  </Transaction>
+  <Transaction id="453">
+    <nr>DIV453</nr>
+    <date>3/10/2013</date>
+    <Account>Hypotheek</Account>
+    <debet>415.51</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Intrest Huis</Account>
+    <debet>741.16</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>1156.67</credit>
+  </Transaction>
+  <Transaction id="454">
+    <nr>DIV454</nr>
+    <date>3/10/2013</date>
+    <Account>Spaar David</Account>
+    <debet>90.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>90.00</credit>
+  </Transaction>
+  <Transaction id="455">
+    <nr>DIV455</nr>
+    <date>4/10/2013</date>
+    <Account>AXA-Bijstandsverzekering</Account>
+    <debet>25.56</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-Brandverzekering</Account>
+    <debet>36.01</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>25.56</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>36.01</credit>
+  </Transaction>
+  <Transaction id="456">
+    <nr>DIV456</nr>
+    <date>7/10/2013</date>
+    <Account>Telefoonkosten</Account>
+    <debet>121.08</debet>
+    <description>Proximus</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>121.08</credit>
+  </Transaction>
+  <Transaction id="457">
+    <nr>DIV457</nr>
+    <date>7/10/2013</date>
+    <Account>Bank David</Account>
+    <debet>91.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Spaar David</Account>
+    <credit>91.00</credit>
+  </Transaction>
+  <Transaction id="458">
+    <nr>DIV458</nr>
+    <date>7/10/2013</date>
+    <Account>Consumptie</Account>
+    <debet>26.26</debet>
+    <description>Doo Tv</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <credit>26.26</credit>
+  </Transaction>
+  <Transaction id="459">
+    <nr>DIV459</nr>
+    <date>8/10/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>90.28</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kindergeld</Account>
+    <credit>90.28</credit>
+  </Transaction>
+  <Transaction id="460">
+    <nr>DIV460</nr>
+    <date>8/10/2013</date>
+    <Account>Bank David</Account>
+    <debet>105.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>105.00</credit>
+  </Transaction>
+  <Transaction id="461">
+    <nr>DIV461</nr>
+    <date>8/10/2013</date>
+    <Account>Consumptie</Account>
+    <debet>10.15</debet>
+    <description>Delhaize</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>10.15</credit>
+  </Transaction>
+  <Transaction id="462">
+    <nr>DIV462</nr>
+    <date>10/10/2013</date>
+    <Account>Essent</Account>
+    <debet>19.25</debet>
+    <description>1303519435  </description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>19.25</credit>
+  </Transaction>
+  <Transaction id="463">
+    <nr>DIV463</nr>
+    <date>14/10/2013</date>
+    <Account>Consumptie</Account>
+    <debet>35.13</debet>
+    <description>Horeca Totaal</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>35.13</credit>
+  </Transaction>
+  <Transaction id="464">
+    <nr>DIV464</nr>
+    <date>15/10/2013</date>
+    <Account>Essent</Account>
+    <debet>19.25</debet>
+    <description>1303142140</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>19.25</credit>
+  </Transaction>
+  <Transaction id="465">
+    <nr>DIV465</nr>
+    <date>15/10/2013</date>
+    <Account>Essent</Account>
+    <debet>19.25</debet>
+    <description>1302744662</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>19.25</credit>
+  </Transaction>
+  <Transaction id="466">
+    <nr>DIV466</nr>
+    <date>15/10/2013</date>
+    <Account>AXA-Levensverzekering</Account>
+    <debet>57.12</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>57.12</credit>
+  </Transaction>
+  <Transaction id="467">
+    <nr>DIV467</nr>
+    <date>15/10/2013</date>
+    <Account>Benzine</Account>
+    <debet>48.99</debet>
+    <description>Q8 Brugge</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>48.99</credit>
+  </Transaction>
+  <Transaction id="468">
+    <nr>DIV468</nr>
+    <date>16/10/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>350.00</debet>
+    <description>voorschot oktober</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>350.00</credit>
+  </Transaction>
+  <Transaction id="469">
+    <nr>DIV469</nr>
+    <date>16/10/2013</date>
+    <Account>Bank David</Account>
+    <debet>100.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>100.00</credit>
+  </Transaction>
+  <Transaction id="470">
+    <nr>DIV470</nr>
+    <date>17/10/2013</date>
+    <Account>Ziekenhuiskosten</Account>
+    <debet>112.85</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>112.85</credit>
+  </Transaction>
+  <Transaction id="471">
+    <nr>DIV471</nr>
+    <date>17/10/2013</date>
+    <Account>Kosten school</Account>
+    <debet>46.40</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>46.40</credit>
+  </Transaction>
+  <Transaction id="472">
+    <nr>DIV472</nr>
+    <date>17/10/2013</date>
+    <Account>Consumptie</Account>
+    <debet>60.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>60.00</credit>
+  </Transaction>
+  <Transaction id="473">
+    <nr>DIV473</nr>
+    <date>21/10/2013</date>
+    <Account>Telenet</Account>
+    <debet>72.88</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>72.88</credit>
+  </Transaction>
+  <Transaction id="474">
+    <nr>DIV474</nr>
+    <date>23/10/2013</date>
+    <Account>Consumptie</Account>
+    <debet>27.44</debet>
+    <description>Lidl-beenhouwerij</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>27.44</credit>
+  </Transaction>
+  <Transaction id="475">
+    <nr>DIV475</nr>
+    <date>28/10/2013</date>
+    <Account>Bank David</Account>
+    <debet>15.92</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>CM</Account>
+    <credit>15.92</credit>
+  </Transaction>
+  <Transaction id="476">
+    <nr>DIV476</nr>
+    <date>28/10/2013</date>
+    <Account>Bank David</Account>
+    <debet>1694.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto David</Account>
+    <credit>1694.00</credit>
+  </Transaction>
+  <Transaction id="477">
+    <nr>DIV477</nr>
+    <date>29/10/2013</date>
+    <Account>Telefoonkosten</Account>
+    <debet>131.82</debet>
+    <description>Proximus</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>131.82</credit>
+  </Transaction>
+  <Transaction id="478">
+    <nr>DIV478</nr>
+    <date>29/10/2013</date>
+    <Account>Consumptie</Account>
+    <debet>114.20</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>114.20</credit>
+  </Transaction>
+  <Transaction id="479">
+    <nr>DIV479</nr>
+    <date>30/10/2013</date>
+    <Account>VISA</Account>
+    <debet>131.26</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>131.26</credit>
+  </Transaction>
+  <Transaction id="480">
+    <nr>DIV480</nr>
+    <date>30/10/2013</date>
+    <Account>Consumptie</Account>
+    <debet>40.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>40.00</credit>
+  </Transaction>
+  <Transaction id="481">
+    <nr>DIV481</nr>
+    <date>30/10/2013</date>
+    <Account>Consumptie</Account>
+    <debet>16.00</debet>
+    <description>Irish Pub</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>16.00</credit>
+  </Transaction>
+  <Transaction id="482">
+    <nr>DIV482</nr>
+    <date>31/10/2013</date>
+    <Account>Essent</Account>
+    <debet>19.25</debet>
+    <description>1303877826</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>19.25</credit>
+  </Transaction>
+  <Transaction id="483">
+    <nr>DIV483</nr>
+    <date>31/10/2013</date>
+    <Account>Consumptie</Account>
+    <debet>5.46</debet>
+    <description>China Supermarket (BXL)</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>5.46</credit>
+  </Transaction>
+  <Transaction id="484">
+    <nr>DIV484</nr>
+    <date>2/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>34.15</debet>
+    <description>Colruyt</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>34.15</credit>
+  </Transaction>
+  <Transaction id="485">
+    <nr>DIV485</nr>
+    <date>2/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>0.20</debet>
+    <description>Containerpark</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>0.20</credit>
+  </Transaction>
+  <Transaction id="486">
+    <nr>DIV486</nr>
+    <date>2/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>9.70</debet>
+    <description>Delhaize</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>9.70</credit>
+  </Transaction>
+  <Transaction id="487">
+    <nr>DIV487</nr>
+    <date>3/11/2013</date>
+    <Account>Hypotheek</Account>
+    <debet>416.71</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Intrest Huis</Account>
+    <debet>739.96</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>1156.67</credit>
+  </Transaction>
+  <Transaction id="488">
+    <nr>DIV488</nr>
+    <date>3/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="489">
+    <nr>DIV489</nr>
+    <date>5/11/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>732.31</debet>
+    <description>rest oktober</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>732.31</credit>
+  </Transaction>
+  <Transaction id="490">
+    <nr>DIV490</nr>
+    <date>5/11/2013</date>
+    <Account>Benzine</Account>
+    <debet>2.70</debet>
+    <description>Total</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>2.70</credit>
+  </Transaction>
+  <Transaction id="491">
+    <nr>DIV491</nr>
+    <date>5/11/2013</date>
+    <Account>Ziekenhuiskosten</Account>
+    <debet>123.36</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>123.36</credit>
+  </Transaction>
+  <Transaction id="492">
+    <nr>DIV492</nr>
+    <date>5/11/2013</date>
+    <Account>AXA-TEMP</Account>
+    <debet>165.59</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-TEMP</Account>
+    <debet>46.43</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>165.59</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>46.43</credit>
+  </Transaction>
+  <Transaction id="493">
+    <nr>DIV493</nr>
+    <date>5/11/2013</date>
+    <Account>Bank David</Account>
+    <debet>140.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>140.00</credit>
+  </Transaction>
+  <Transaction id="494">
+    <nr>DIV494</nr>
+    <date>6/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM AZ Sint Jan</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="495">
+    <nr>DIV495</nr>
+    <date>6/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>55.67</debet>
+    <description>Thai shop</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>55.67</credit>
+  </Transaction>
+  <Transaction id="496">
+    <nr>DIV496</nr>
+    <date>6/11/2013</date>
+    <Account>AXA-Bijstandsverzekering</Account>
+    <debet>25.56</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-Brandverzekering</Account>
+    <debet>36.01</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>25.56</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>36.01</credit>
+  </Transaction>
+  <Transaction id="497">
+    <nr>DIV497</nr>
+    <date>8/11/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>90.28</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kindergeld</Account>
+    <credit>90.28</credit>
+  </Transaction>
+  <Transaction id="498">
+    <nr>DIV498</nr>
+    <date>8/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>21.23</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>21.23</credit>
+  </Transaction>
+  <Transaction id="499">
+    <nr>DIV499</nr>
+    <date>8/11/2013</date>
+    <Account>Bank David</Account>
+    <debet>62.94</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>CM</Account>
+    <credit>62.94</credit>
+  </Transaction>
+  <Transaction id="500">
+    <nr>DIV500</nr>
+    <date>9/11/2013</date>
+    <Account>Benzine</Account>
+    <debet>64.03</debet>
+    <description>Total</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>64.03</credit>
+  </Transaction>
+  <Transaction id="501">
+    <nr>DIV501</nr>
+    <date>12/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>30.56</debet>
+    <description>GB Express</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>30.56</credit>
+  </Transaction>
+  <Transaction id="502">
+    <nr>DIV502</nr>
+    <date>13/11/2013</date>
+    <Account>Materiaal Provicie</Account>
+    <debet>47.50</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>47.50</credit>
+  </Transaction>
+  <Transaction id="503">
+    <nr>DIV503</nr>
+    <date>13/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="504">
+    <nr>DIV504</nr>
+    <date>14/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>64.48</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>64.48</credit>
+  </Transaction>
+  <Transaction id="505">
+    <nr>DIV505</nr>
+    <date>15/11/2013</date>
+    <Account>AXA-Levensverzekering</Account>
+    <debet>57.12</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>57.12</credit>
+  </Transaction>
+  <Transaction id="506">
+    <nr>DIV506</nr>
+    <date>15/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>18.96</debet>
+    <description>Lidl + beenhouwerij</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <debet>19.66</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>18.96</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>19.66</credit>
+  </Transaction>
+  <Transaction id="507">
+    <nr>DIV507</nr>
+    <date>15/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>13.10</debet>
+    <description>Quick</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <debet>7.50</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>13.10</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>7.50</credit>
+  </Transaction>
+  <Transaction id="508">
+    <nr>DIV508</nr>
+    <date>16/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="509">
+    <nr>DIV509</nr>
+    <date>17/11/2013</date>
+    <Account>Inrichting huis</Account>
+    <debet>168.27</debet>
+    <description>Brico</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <credit>168.27</credit>
+  </Transaction>
+  <Transaction id="510">
+    <nr>DIV510</nr>
+    <date>18/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="511">
+    <nr>DIV511</nr>
+    <date>18/11/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>350.00</debet>
+    <description>voorschot november</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>350.00</credit>
+  </Transaction>
+  <Transaction id="512">
+    <nr>DIV512</nr>
+    <date>19/11/2013</date>
+    <Account>Bank David</Account>
+    <debet>100.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>100.00</credit>
+  </Transaction>
+  <Transaction id="513">
+    <nr>DIV513</nr>
+    <date>19/11/2013</date>
+    <Account>Benzine</Account>
+    <debet>13.40</debet>
+    <description>GB Express</description>
+  </Transaction>
+  <Transaction>
+    <Account>Apotheek</Account>
+    <debet>37.10</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <debet>41.46</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>13.40</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>37.10</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>41.46</credit>
+  </Transaction>
+  <Transaction id="514">
+    <nr>DIV514</nr>
+    <date>20/11/2013</date>
+    <Account>Telenet</Account>
+    <debet>89.27</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>89.27</credit>
+  </Transaction>
+  <Transaction id="515">
+    <nr>DIV515</nr>
+    <date>20/11/2013</date>
+    <Account>Bank David</Account>
+    <debet>43.14</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>CM</Account>
+    <credit>43.14</credit>
+  </Transaction>
+  <Transaction id="516">
+    <nr>DIV516</nr>
+    <date>20/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="517">
+    <nr>DIV517</nr>
+    <date>20/11/2013</date>
+    <Account>Water</Account>
+    <debet>160.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>160.00</credit>
+  </Transaction>
+  <Transaction id="518">
+    <nr>DIV518</nr>
+    <date>20/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>58.46</debet>
+    <description>Thai shop</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>58.46</credit>
+  </Transaction>
+  <Transaction id="519">
+    <nr>DIV519</nr>
+    <date>20/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>31.60</debet>
+    <description>Colruyt</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>31.60</credit>
+  </Transaction>
+  <Transaction id="520">
+    <nr>DIV520</nr>
+    <date>21/11/2013</date>
+    <Account>Bank David</Account>
+    <debet>100.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>100.00</credit>
+  </Transaction>
+  <Transaction id="521">
+    <nr>DIV521</nr>
+    <date>27/11/2013</date>
+    <Account>Bank David</Account>
+    <debet>1698.35</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto David</Account>
+    <credit>1698.35</credit>
+  </Transaction>
+  <Transaction id="522">
+    <nr>DIV522</nr>
+    <date>28/11/2013</date>
+    <Account>Kosten school</Account>
+    <debet>67.70</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>67.70</credit>
+  </Transaction>
+  <Transaction id="523">
+    <nr>DIV523</nr>
+    <date>28/11/2013</date>
+    <Account>Kosten school</Account>
+    <debet>40.60</debet>
+    <description>Correctie: eindafrekening Proximus</description>
+  </Transaction>
+  <Transaction>
+    <Account>Telefoonkosten</Account>
+    <debet>67.70</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Kosten school</Account>
+    <credit>67.70</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>40.60</credit>
+  </Transaction>
+  <Transaction id="524">
+    <nr>DIV524</nr>
+    <date>29/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="525">
+    <nr>DIV525</nr>
+    <date>30/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>53.84</debet>
+    <description>Thai shop</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>53.84</credit>
+  </Transaction>
+  <Transaction id="526">
+    <nr>DIV526</nr>
+    <date>30/11/2013</date>
+    <Account>Consumptie</Account>
+    <debet>2.00</debet>
+    <description>IKEA</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>2.00</credit>
+  </Transaction>
+  <Transaction id="527">
+    <nr>DIV527</nr>
+    <date>1/12/2013</date>
+    <Account>Benzine</Account>
+    <debet>46.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>46.00</credit>
+  </Transaction>
+  <Transaction id="528">
+    <nr>DIV528</nr>
+    <date>2/12/2013</date>
+    <Account>Schulden aan ma</Account>
+    <debet>200.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>200.00</credit>
+  </Transaction>
+  <Transaction id="529">
+    <nr>DIV529</nr>
+    <date>2/12/2013</date>
+    <Account>VISA</Account>
+    <debet>168.27</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>168.27</credit>
+  </Transaction>
+  <Transaction id="530">
+    <nr>DIV530</nr>
+    <date>2/12/2013</date>
+    <Account>Bank David</Account>
+    <debet>342.15</debet>
+    <description>Tay voorschot vlucht</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <credit>342.15</credit>
+  </Transaction>
+  <Transaction id="531">
+    <nr>DIV531</nr>
+    <date>3/12/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>671.57</debet>
+    <description>rest november</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>671.57</credit>
+  </Transaction>
+  <Transaction id="532">
+    <nr>DIV532</nr>
+    <date>3/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>48.49</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>48.49</credit>
+  </Transaction>
+  <Transaction id="533">
+    <nr>DIV533</nr>
+    <date>3/12/2013</date>
+    <Account>Hypotheek</Account>
+    <debet>417.90</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Intrest Huis</Account>
+    <debet>738.77</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>1156.67</credit>
+  </Transaction>
+  <Transaction id="534">
+    <nr>DIV534</nr>
+    <date>3/12/2013</date>
+    <Account>Essent</Account>
+    <debet>19.25</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>19.25</credit>
+  </Transaction>
+  <Transaction id="535">
+    <nr>DIV535</nr>
+    <date>3/12/2013</date>
+    <Account>Spaar David</Account>
+    <debet>80.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>80.00</credit>
+  </Transaction>
+  <Transaction id="536">
+    <nr>DIV536</nr>
+    <date>3/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>40.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>40.00</credit>
+  </Transaction>
+  <Transaction id="537">
+    <nr>DIV537</nr>
+    <date>4/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>82.59</debet>
+    <description>Colruyt</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>82.59</credit>
+  </Transaction>
+  <Transaction id="538">
+    <nr>DIV538</nr>
+    <date>4/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="539">
+    <nr>DIV539</nr>
+    <date>4/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>1.80</debet>
+    <description>Parking?</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>1.80</credit>
+  </Transaction>
+  <Transaction id="540">
+    <nr>DIV540</nr>
+    <date>5/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>40.50</debet>
+    <description>C en A / Zara</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <debet>51.90</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>40.50</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>51.90</credit>
+  </Transaction>
+  <Transaction id="541">
+    <nr>DIV541</nr>
+    <date>5/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>49.99</debet>
+    <description>Bart Smit</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>49.99</credit>
+  </Transaction>
+  <Transaction id="542">
+    <nr>DIV542</nr>
+    <date>5/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>4.10</debet>
+    <description>Parking</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>4.10</credit>
+  </Transaction>
+  <Transaction id="543">
+    <nr>DIV543</nr>
+    <date>6/12/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>90.28</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kindergeld</Account>
+    <credit>90.28</credit>
+  </Transaction>
+  <Transaction id="544">
+    <nr>DIV544</nr>
+    <date>6/12/2013</date>
+    <Account>AXA-Bijstandsverzekering</Account>
+    <debet>25.56</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>AXA-Brandverzekering</Account>
+    <debet>36.01</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>25.56</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>36.01</credit>
+  </Transaction>
+  <Transaction id="545">
+    <nr>DIV545</nr>
+    <date>7/12/2013</date>
+    <Account>Ziekenhuiskosten</Account>
+    <debet>42.30</debet>
+    <description>+++991/3451/93035+++</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>42.30</credit>
+  </Transaction>
+  <Transaction id="546">
+    <nr>DIV546</nr>
+    <date>7/12/2013</date>
+    <Account>Bank David</Account>
+    <debet>80.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Spaar David</Account>
+    <credit>80.00</credit>
+  </Transaction>
+  <Transaction id="547">
+    <nr>DIV547</nr>
+    <date>7/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>2.20</debet>
+    <description>Parking</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>2.20</credit>
+  </Transaction>
+  <Transaction id="548">
+    <nr>DIV548</nr>
+    <date>9/12/2013</date>
+    <Account>Bank David</Account>
+    <debet>200.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>200.00</credit>
+  </Transaction>
+  <Transaction id="549">
+    <nr>DIV549</nr>
+    <date>9/12/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>218.02</debet>
+    <description>Eindejaarspremie</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>218.02</credit>
+  </Transaction>
+  <Transaction id="550">
+    <nr>DIV550</nr>
+    <date>9/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="551">
+    <nr>DIV551</nr>
+    <date>10/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>50.93</debet>
+    <description>Colruyt</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>50.93</credit>
+  </Transaction>
+  <Transaction id="552">
+    <nr>DIV552</nr>
+    <date>10/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>6.99</debet>
+    <description>Bart Smit</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>6.99</credit>
+  </Transaction>
+  <Transaction id="553">
+    <nr>DIV553</nr>
+    <date>10/12/2013</date>
+    <Account>Vakbond</Account>
+    <debet>29.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>29.00</credit>
+  </Transaction>
+  <Transaction id="554">
+    <nr>DIV554</nr>
+    <date>10/12/2013</date>
+    <Account>DAS-Autoverzekering</Account>
+    <debet>29.25</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>29.25</credit>
+  </Transaction>
+  <Transaction id="555">
+    <nr>DIV555</nr>
+    <date>10/12/2013</date>
+    <Account>Bank David</Account>
+    <debet>500.00</debet>
+    <description>Tay rest vlucht</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <credit>500.00</credit>
+  </Transaction>
+  <Transaction id="556">
+    <nr>DIV556</nr>
+    <date>11/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>48.65</debet>
+    <description>Thai shop</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>48.65</credit>
+  </Transaction>
+  <Transaction id="557">
+    <nr>DIV557</nr>
+    <date>11/12/2013</date>
+    <Account>Bank David</Account>
+    <debet>1305.72</debet>
+    <description>Eindejaarspremie</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto David</Account>
+    <credit>1305.72</credit>
+  </Transaction>
+  <Transaction id="558">
+    <nr>DIV558</nr>
+    <date>11/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>20.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>20.00</credit>
+  </Transaction>
+  <Transaction id="559">
+    <nr>DIV559</nr>
+    <date>12/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>93.13</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>93.13</credit>
+  </Transaction>
+  <Transaction id="560">
+    <nr>DIV560</nr>
+    <date>13/12/2013</date>
+    <Account>AXA-Levensverzekering</Account>
+    <debet>57.12</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>57.12</credit>
+  </Transaction>
+  <Transaction id="561">
+    <nr>DIV561</nr>
+    <date>14/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>21.30</debet>
+    <description>Viane</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>21.30</credit>
+  </Transaction>
+  <Transaction id="562">
+    <nr>DIV562</nr>
+    <date>14/12/2013</date>
+    <Account>Mazout</Account>
+    <debet>1298.32</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>1298.32</credit>
+  </Transaction>
+  <Transaction id="563">
+    <nr>DIV563</nr>
+    <date>14/12/2013</date>
+    <Account>Benzine</Account>
+    <debet>59.05</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>59.05</credit>
+  </Transaction>
+  <Transaction id="564">
+    <nr>DIV564</nr>
+    <date>14/12/2013</date>
+    <Account>IT</Account>
+    <debet>84.98</debet>
+    <description>Krefel: 5.1 speaker set</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>84.98</credit>
+  </Transaction>
+  <Transaction id="565">
+    <nr>DIV565</nr>
+    <date>14/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>2.00</debet>
+    <description>Parking Sluis</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>2.00</credit>
+  </Transaction>
+  <Transaction id="566">
+    <nr>DIV566</nr>
+    <date>14/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>43.50</debet>
+    <description>Pizzeria Sluis</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>43.50</credit>
+  </Transaction>
+  <Transaction id="567">
+    <nr>DIV567</nr>
+    <date>14/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>30.97</debet>
+    <description>Viswinkel Sluis</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>30.97</credit>
+  </Transaction>
+  <Transaction id="568">
+    <nr>DIV568</nr>
+    <date>15/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>4.50</debet>
+    <description>tankstation Jabbeke</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>4.50</credit>
+  </Transaction>
+  <Transaction id="569">
+    <nr>DIV569</nr>
+    <date>15/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>67.40</debet>
+    <description>Cafe Leffe</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>67.40</credit>
+  </Transaction>
+  <Transaction id="570">
+    <nr>DIV570</nr>
+    <date>15/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>40.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>40.00</credit>
+  </Transaction>
+  <Transaction id="571">
+    <nr>DIV571</nr>
+    <date>15/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>2.40</debet>
+    <description>Parking</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>2.40</credit>
+  </Transaction>
+  <Transaction id="572">
+    <nr>DIV572</nr>
+    <date>17/12/2013</date>
+    <Account>Kosten school</Account>
+    <debet>37.70</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>37.70</credit>
+  </Transaction>
+  <Transaction id="573">
+    <nr>DIV573</nr>
+    <date>17/12/2013</date>
+    <Account>Bank Dara</Account>
+    <debet>150.00</debet>
+    <description>voorschot december</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto Dara</Account>
+    <credit>150.00</credit>
+  </Transaction>
+  <Transaction id="574">
+    <nr>DIV574</nr>
+    <date>18/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>40.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>40.00</credit>
+  </Transaction>
+  <Transaction id="575">
+    <nr>DIV575</nr>
+    <date>19/12/2013</date>
+    <Account>Meubilair</Account>
+    <debet>175.00</debet>
+    <description>Bed grote kamer</description>
+  </Transaction>
+  <Transaction>
+    <Account>VISA</Account>
+    <credit>146.00</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>29.00</credit>
+  </Transaction>
+  <Transaction id="576">
+    <nr>DIV576</nr>
+    <date>19/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>100.00</debet>
+    <description>ATM</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>100.00</credit>
+  </Transaction>
+  <Transaction id="577">
+    <nr>DIV577</nr>
+    <date>19/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>92.60</debet>
+    <description>Thai shop</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>92.60</credit>
+  </Transaction>
+  <Transaction id="578">
+    <nr>DIV578</nr>
+    <date>19/12/2013</date>
+    <Account>Meubilair</Account>
+    <debet>269.00</debet>
+    <description>ATM: Bed Sophia</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <debet>31.00</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>300.00</credit>
+  </Transaction>
+  <Transaction id="579">
+    <nr>DIV579</nr>
+    <date>21/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>1.50</debet>
+    <description>Containerpark</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>1.50</credit>
+  </Transaction>
+  <Transaction id="580">
+    <nr>DIV580</nr>
+    <date>23/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>43.54</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>43.54</credit>
+  </Transaction>
+  <Transaction id="581">
+    <nr>DIV581</nr>
+    <date>23/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>14.98</debet>
+    <description>Aldi + Renmans</description>
+  </Transaction>
+  <Transaction>
+    <Account>Consumptie</Account>
+    <debet>15.26</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>14.98</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>15.26</credit>
+  </Transaction>
+  <Transaction id="582">
+    <nr>DIV582</nr>
+    <date>23/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>19.99</debet>
+    <description>VandenBorre: Wekker</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>19.99</credit>
+  </Transaction>
+  <Transaction id="583">
+    <nr>DIV583</nr>
+    <date>24/12/2013</date>
+    <Account>Bank David</Account>
+    <debet>1676.43</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Netto David</Account>
+    <credit>1676.43</credit>
+  </Transaction>
+  <Transaction id="584">
+    <nr>DIV584</nr>
+    <date>24/12/2013</date>
+    <Account>Schulden aan ma</Account>
+    <debet>500.00</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>500.00</credit>
+  </Transaction>
+  <Transaction id="585">
+    <nr>DIV585</nr>
+    <date>24/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>49.95</debet>
+    <description>AS Adventure: wereldbol</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>49.95</credit>
+  </Transaction>
+  <Transaction id="586">
+    <nr>DIV586</nr>
+    <date>24/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>37.33</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>37.33</credit>
+  </Transaction>
+  <Transaction id="587">
+    <nr>DIV587</nr>
+    <date>24/12/2013</date>
+    <Account>Bank David</Account>
+    <debet>2770.35</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Belastingen</Account>
+    <credit>2770.35</credit>
+  </Transaction>
+  <Transaction id="588">
+    <nr>DIV588</nr>
+    <date>27/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>166.61</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>166.61</credit>
+  </Transaction>
+  <Transaction id="589">
+    <nr>DIV589</nr>
+    <date>28/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>3.50</debet>
+    <description>Parking</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>3.50</credit>
+  </Transaction>
+  <Transaction id="590">
+    <nr>DIV590</nr>
+    <date>28/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>122.16</debet>
+    <description>Thai shop</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>122.16</credit>
+  </Transaction>
+  <Transaction id="591">
+    <nr>DIV591</nr>
+    <date>28/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>29.99</debet>
+    <description>New Look</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>29.99</credit>
+  </Transaction>
+  <Transaction id="592">
+    <nr>DIV592</nr>
+    <date>28/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>37.90</debet>
+    <description>Zara</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>37.90</credit>
+  </Transaction>
+  <Transaction id="593">
+    <nr>DIV593</nr>
+    <date>29/12/2013</date>
+    <Account>Telefoonkosten</Account>
+    <debet>116.61</debet>
+    <description>VoipBuster 100 euro belwaarde</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>116.61</credit>
+  </Transaction>
+  <Transaction id="594">
+    <nr>DIV594</nr>
+    <date>30/12/2013</date>
+    <Account>Benzine</Account>
+    <debet>7.14</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>7.14</credit>
+  </Transaction>
+  <Transaction id="595">
+    <nr>DIV595</nr>
+    <date>30/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>14.95</debet>
+    <description>Premaman: Steunband Dara</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>14.95</credit>
+  </Transaction>
+  <Transaction id="596">
+    <nr>DIV596</nr>
+    <date>30/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>6.27</debet>
+    <description>Zeeman: kadootjes oudejaar</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>6.27</credit>
+  </Transaction>
+  <Transaction id="597">
+    <nr>DIV597</nr>
+    <date>30/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>7.99</debet>
+    <description>Blokker</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>7.99</credit>
+  </Transaction>
+  <Transaction id="598">
+    <nr>DIV598</nr>
+    <date>30/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>40.64</debet>
+    <description>Thai shop</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>40.64</credit>
+  </Transaction>
+  <Transaction id="599">
+    <nr>DIV599</nr>
+    <date>30/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>5.14</debet>
+    <description>Carrefour</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>5.14</credit>
+  </Transaction>
+  <Transaction id="600">
+    <nr>DIV600</nr>
+    <date>30/12/2013</date>
+    <Account>VISA</Account>
+    <debet>842.15</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>842.15</credit>
+  </Transaction>
+  <Transaction id="601">
+    <nr>DIV601</nr>
+    <date>31/12/2013</date>
+    <Account>Intresten bank</Account>
+    <debet>34.09</debet>
+    <description>Kapitalisatie</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank Dara</Account>
+    <credit>34.09</credit>
+  </Transaction>
+  <Transaction id="602">
+    <nr>DIV602</nr>
+    <date>31/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>18.70</debet>
+    <description>McDonalds Gent</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>18.70</credit>
+  </Transaction>
+  <Transaction id="603">
+    <nr>DIV603</nr>
+    <date>31/12/2013</date>
+    <Account>Ziekenhuiskosten</Account>
+    <debet>66.33</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Ziekenhuiskosten</Account>
+    <debet>36.25</debet>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>66.33</credit>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>36.25</credit>
+  </Transaction>
+  <Transaction id="604">
+    <nr>DIV604</nr>
+    <date>31/12/2013</date>
+    <Account>Intresten bank</Account>
+    <debet>27.18</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Bank David</Account>
+    <credit>27.18</credit>
+  </Transaction>
+  <Transaction id="605">
+    <nr>DIV605</nr>
+    <date>31/12/2013</date>
+    <Account>Spaar David</Account>
+    <debet>9.60</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Intresten bank</Account>
+    <credit>9.60</credit>
+  </Transaction>
+  <Transaction id="606">
+    <nr>DIV606</nr>
+    <date>31/12/2013</date>
+    <Account>Consumptie</Account>
+    <debet>512.91</debet>
+    <description>null</description>
+  </Transaction>
+  <Transaction>
+    <Account>Kassa feestje</Account>
+    <credit>512.91</credit>
   </Transaction>
 </Journal>

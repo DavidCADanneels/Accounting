@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Aankoop - Onroerende voorheffing</name>
+  <Movement>
+    <date>29/4/2013</date>
+    <debit>598.21</debit>
+    <description>29/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV179</nr>
+  </Movement>
+  <Movement>
+    <credit>598.21</credit>
+    <date>13/5/2013</date>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV222</nr>
+  </Movement>
+</Account>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Vakbond</name>
+  <Movement>
+    <date>10/12/2013</date>
+    <debit>29.00</debit>
+    <description>10/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV553</nr>
+  </Movement>
+</Account>

@@ -2,6 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>Intresten bank</name>
   <Movement>
     <credit>1.23</credit>
     <date>1/1/2013</date>
@@ -10,17 +11,45 @@
     <nr>DIV2</nr>
   </Movement>
   <Movement>
+    <credit>14.98</credit>
+    <date>1/1/2013</date>
+    <description>1/1/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV4</nr>
+  </Movement>
+  <Movement>
     <date>2/1/2013</date>
     <debit>25.80</debit>
     <description>2/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV6</nr>
+    <nr>DIV7</nr>
   </Movement>
   <Movement>
     <date>2/1/2013</date>
     <debit>33.70</debit>
     <description>2/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV10</nr>
+    <nr>DIV11</nr>
+  </Movement>
+  <Movement>
+    <date>31/12/2013</date>
+    <debit>34.09</debit>
+    <description>31/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV601</nr>
+  </Movement>
+  <Movement>
+    <date>31/12/2013</date>
+    <debit>27.18</debit>
+    <description>31/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV604</nr>
+  </Movement>
+  <Movement>
+    <credit>9.60</credit>
+    <date>31/12/2013</date>
+    <description>31/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV605</nr>
   </Movement>
 </Account>

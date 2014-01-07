@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Kassa feestje</name>
+  <Movement>
+    <date>13/5/2013</date>
+    <debit>2136.90</debit>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV209</nr>
+  </Movement>
+  <Movement>
+    <credit>544.00</credit>
+    <date>13/5/2013</date>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV210</nr>
+  </Movement>
+  <Movement>
+    <credit>79.99</credit>
+    <date>13/5/2013</date>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV226</nr>
+  </Movement>
+  <Movement>
+    <credit>600.00</credit>
+    <date>20/5/2013</date>
+    <description>20/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV236</nr>
+  </Movement>
+  <Movement>
+    <credit>1000.00</credit>
+    <date>20/5/2013</date>
+    <description>20/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV237</nr>
+  </Movement>
+  <Movement>
+    <date>20/5/2013</date>
+    <debit>600.00</debit>
+    <description>20/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV238</nr>
+  </Movement>
+  <Movement>
+    <credit>512.91</credit>
+    <date>31/12/2013</date>
+    <description>31/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV606</nr>
+  </Movement>
+</Account>

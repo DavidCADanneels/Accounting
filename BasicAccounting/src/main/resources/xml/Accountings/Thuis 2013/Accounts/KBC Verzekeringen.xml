@@ -2,11 +2,12 @@
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>KBC Verzekeringen</name>
   <Movement>
     <date>6/2/2013</date>
     <debit>24.44</debit>
     <description>6/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV70</nr>
+    <nr>DIV74</nr>
   </Movement>
 </Account>

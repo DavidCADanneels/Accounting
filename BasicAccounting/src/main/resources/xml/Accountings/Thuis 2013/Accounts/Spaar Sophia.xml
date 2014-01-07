@@ -2,6 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>Spaar Sophia</name>
   <Movement>
     <date>1/1/2013</date>
     <debit>2200.00</debit>
@@ -14,6 +15,6 @@
     <debit>200.00</debit>
     <description>6/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV69</nr>
+    <nr>DIV73</nr>
   </Movement>
 </Account>

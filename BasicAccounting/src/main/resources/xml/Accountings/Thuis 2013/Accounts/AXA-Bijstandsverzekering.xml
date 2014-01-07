@@ -2,18 +2,82 @@
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>AXA-Bijstandsverzekering</name>
   <Movement>
     <date>4/1/2013</date>
     <debit>18.66</debit>
     <description>4/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV16</nr>
+    <nr>DIV18</nr>
   </Movement>
   <Movement>
     <date>6/2/2013</date>
     <debit>18.66</debit>
     <description>6/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV69</nr>
+    <nr>DIV73</nr>
+  </Movement>
+  <Movement>
+    <date>7/3/2013</date>
+    <debit>18.66</debit>
+    <description>7/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV104</nr>
+  </Movement>
+  <Movement>
+    <date>10/4/2013</date>
+    <debit>18.66</debit>
+    <description>10/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV154</nr>
+  </Movement>
+  <Movement>
+    <date>6/6/2013</date>
+    <debit>25.56</debit>
+    <description>6/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV263</nr>
+  </Movement>
+  <Movement>
+    <date>5/7/2013</date>
+    <debit>25.56</debit>
+    <description>5/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV326</nr>
+  </Movement>
+  <Movement>
+    <date>8/8/2013</date>
+    <debit>25.56</debit>
+    <description>8/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV379</nr>
+  </Movement>
+  <Movement>
+    <date>6/9/2013</date>
+    <debit>25.56</debit>
+    <description>6/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV418</nr>
+  </Movement>
+  <Movement>
+    <date>4/10/2013</date>
+    <debit>25.56</debit>
+    <description>4/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV455</nr>
+  </Movement>
+  <Movement>
+    <date>6/11/2013</date>
+    <debit>25.56</debit>
+    <description>6/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV496</nr>
+  </Movement>
+  <Movement>
+    <date>6/12/2013</date>
+    <debit>25.56</debit>
+    <description>6/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV544</nr>
   </Movement>
 </Account>

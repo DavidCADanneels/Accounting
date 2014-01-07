@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../xsl/Balance2xml.xsl"?>
-<!DOCTYPE Balance SYSTEM "../../../dtd/Balance.dtd">
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/Balance2xml.xsl"?>
+<!DOCTYPE Balance SYSTEM "../../../../dtd/Balance.dtd">
 <Balance>
   <name>RelationsBalance</name>
   <LeftName>Tegoeden van Klanten</LeftName>
@@ -9,4 +9,16 @@
   <RightTotalName>TOTAAL SCHULDEN</RightTotalName>
   <LeftResultName>RESTEREND TEGOED</LeftResultName>
   <RightResultName>RESTERENDE SCHULD</RightResultName>
+  <line>
+    <amount2>256099.75</amount2>
+    <name2>Hypotheek</name2>
+  </line>
+  <line>
+    <amount2>12000.00</amount2>
+    <name2>Schulden aan ma</name2>
+  </line>
+  <line>
+    <amount2>146.00</amount2>
+    <name2>VISA</name2>
+  </line>
 </Balance>

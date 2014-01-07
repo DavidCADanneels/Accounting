@@ -2,18 +2,40 @@
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>AXA-Autoverzekering</name>
   <Movement>
     <date>4/1/2013</date>
     <debit>25.93</debit>
     <description>4/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV16</nr>
+    <nr>DIV18</nr>
   </Movement>
   <Movement>
     <date>6/2/2013</date>
     <debit>25.93</debit>
     <description>6/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV69</nr>
+    <nr>DIV73</nr>
+  </Movement>
+  <Movement>
+    <date>7/3/2013</date>
+    <debit>25.93</debit>
+    <description>7/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV104</nr>
+  </Movement>
+  <Movement>
+    <date>5/4/2013</date>
+    <debit>25.93</debit>
+    <description>5/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV145</nr>
+  </Movement>
+  <Movement>
+    <date>7/5/2013</date>
+    <debit>25.93</debit>
+    <description>7/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV198</nr>
   </Movement>
 </Account>

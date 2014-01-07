@@ -2,4 +2,12 @@
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>Giften UK</name>
+  <Movement>
+    <credit>304.67</credit>
+    <date>18/1/2013</date>
+    <description>18/1/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV42</nr>
+  </Movement>
 </Account>

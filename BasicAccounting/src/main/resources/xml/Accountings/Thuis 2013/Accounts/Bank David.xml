@@ -2,6 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>Bank David</name>
   <Movement>
     <date>1/1/2013</date>
     <debit>2260.51</debit>
@@ -14,391 +15,2540 @@
     <date>2/1/2013</date>
     <description>2/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV4</nr>
-  </Movement>
-  <Movement>
-    <credit>802.71</credit>
-    <date>2/1/2013</date>
-    <description>2/1/2013</description>
-    <journal>Diversen</journal>
     <nr>DIV5</nr>
   </Movement>
   <Movement>
-    <credit>25.80</credit>
+    <credit>802.71</credit>
     <date>2/1/2013</date>
     <description>2/1/2013</description>
     <journal>Diversen</journal>
     <nr>DIV6</nr>
   </Movement>
   <Movement>
-    <credit>200.00</credit>
+    <credit>25.80</credit>
     <date>2/1/2013</date>
     <description>2/1/2013</description>
     <journal>Diversen</journal>
     <nr>DIV7</nr>
   </Movement>
   <Movement>
-    <credit>85.08</credit>
+    <credit>200.00</credit>
     <date>2/1/2013</date>
     <description>2/1/2013</description>
     <journal>Diversen</journal>
     <nr>DIV8</nr>
   </Movement>
   <Movement>
-    <credit>1000.00</credit>
+    <credit>85.08</credit>
     <date>2/1/2013</date>
     <description>2/1/2013</description>
     <journal>Diversen</journal>
     <nr>DIV9</nr>
   </Movement>
   <Movement>
+    <credit>1000.00</credit>
+    <date>2/1/2013</date>
+    <description>2/1/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV10</nr>
+  </Movement>
+  <Movement>
     <credit>17.07</credit>
     <date>3/1/2013</date>
     <description>3/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV11</nr>
+    <nr>DIV13</nr>
   </Movement>
   <Movement>
     <credit>29.72</credit>
     <date>4/1/2013</date>
     <description>4/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV16</nr>
+    <nr>DIV18</nr>
   </Movement>
   <Movement>
     <credit>18.66</credit>
     <date>4/1/2013</date>
     <description>4/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV16</nr>
+    <nr>DIV18</nr>
   </Movement>
   <Movement>
     <credit>25.93</credit>
     <date>4/1/2013</date>
     <description>4/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV16</nr>
+    <nr>DIV18</nr>
   </Movement>
   <Movement>
     <date>16/1/2013</date>
     <debit>600.00</debit>
     <description>16/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV31</nr>
+    <nr>DIV33</nr>
   </Movement>
   <Movement>
     <credit>68.28</credit>
     <date>17/1/2013</date>
     <description>17/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV33</nr>
+    <nr>DIV35</nr>
   </Movement>
   <Movement>
     <credit>17.07</credit>
     <date>17/1/2013</date>
     <description>17/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV34</nr>
+    <nr>DIV36</nr>
   </Movement>
   <Movement>
     <credit>23.40</credit>
     <date>17/1/2013</date>
     <description>17/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV35</nr>
+    <nr>DIV37</nr>
   </Movement>
   <Movement>
     <credit>50.00</credit>
     <date>17/1/2013</date>
     <description>17/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV36</nr>
+    <nr>DIV38</nr>
   </Movement>
   <Movement>
     <credit>40.00</credit>
     <date>18/1/2013</date>
     <description>18/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV38</nr>
+    <nr>DIV40</nr>
   </Movement>
   <Movement>
     <credit>75.41</credit>
     <date>18/1/2013</date>
     <description>18/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV39</nr>
+    <nr>DIV41</nr>
   </Movement>
   <Movement>
     <credit>18.40</credit>
     <date>19/1/2013</date>
     <description>19/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV40</nr>
+    <nr>DIV43</nr>
   </Movement>
   <Movement>
     <credit>59.02</credit>
     <date>19/1/2013</date>
     <description>19/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV41</nr>
+    <nr>DIV44</nr>
   </Movement>
   <Movement>
     <credit>33.58</credit>
     <date>19/1/2013</date>
     <description>19/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV42</nr>
+    <nr>DIV45</nr>
   </Movement>
   <Movement>
     <credit>100.00</credit>
     <date>20/1/2013</date>
     <description>20/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV43</nr>
+    <nr>DIV46</nr>
   </Movement>
   <Movement>
     <credit>20.00</credit>
     <date>22/1/2013</date>
     <description>22/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV44</nr>
+    <nr>DIV47</nr>
   </Movement>
   <Movement>
     <credit>7.73</credit>
     <date>24/1/2013</date>
     <description>24/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV45</nr>
+    <nr>DIV48</nr>
   </Movement>
   <Movement>
     <credit>47.10</credit>
     <date>25/1/2013</date>
     <description>25/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV47</nr>
+    <nr>DIV50</nr>
   </Movement>
   <Movement>
     <credit>10.83</credit>
     <date>25/1/2013</date>
     <description>25/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV48</nr>
+    <nr>DIV51</nr>
   </Movement>
   <Movement>
     <credit>44.70</credit>
     <date>26/1/2013</date>
     <description>26/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV50</nr>
+    <nr>DIV53</nr>
   </Movement>
   <Movement>
     <date>28/1/2013</date>
     <debit>1695.09</debit>
     <description>28/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV51</nr>
+    <nr>DIV55</nr>
   </Movement>
   <Movement>
     <credit>240.31</credit>
     <date>28/1/2013</date>
     <description>28/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV52</nr>
+    <nr>DIV56</nr>
   </Movement>
   <Movement>
     <credit>6.28</credit>
     <date>28/1/2013</date>
     <description>28/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV53</nr>
+    <nr>DIV57</nr>
   </Movement>
   <Movement>
     <credit>40.00</credit>
     <date>29/1/2013</date>
     <description>29/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV54</nr>
+    <nr>DIV58</nr>
   </Movement>
   <Movement>
     <credit>128.90</credit>
     <date>30/1/2013</date>
     <description>30/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV55</nr>
+    <nr>DIV59</nr>
   </Movement>
   <Movement>
     <credit>30.40</credit>
     <date>30/1/2013</date>
     <description>30/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV56</nr>
+    <nr>DIV60</nr>
   </Movement>
   <Movement>
     <credit>62.07</credit>
     <date>30/1/2013</date>
     <description>30/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV57</nr>
+    <nr>DIV61</nr>
   </Movement>
   <Movement>
     <credit>23.62</credit>
     <date>30/1/2013</date>
     <description>30/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV58</nr>
+    <nr>DIV62</nr>
   </Movement>
   <Movement>
     <credit>282.05</credit>
     <date>31/1/2013</date>
     <description>31/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV59</nr>
+    <nr>DIV63</nr>
   </Movement>
   <Movement>
     <credit>200.00</credit>
     <date>1/2/2013</date>
     <description>1/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV60</nr>
+    <nr>DIV64</nr>
   </Movement>
   <Movement>
     <credit>40.00</credit>
     <date>2/2/2013</date>
     <description>2/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV61</nr>
+    <nr>DIV65</nr>
   </Movement>
   <Movement>
     <credit>70.02</credit>
     <date>3/2/2013</date>
     <description>3/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV62</nr>
+    <nr>DIV66</nr>
   </Movement>
   <Movement>
     <credit>50.00</credit>
     <date>3/2/2013</date>
     <description>3/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV63</nr>
+    <nr>DIV67</nr>
   </Movement>
   <Movement>
     <date>4/2/2013</date>
     <debit>450.00</debit>
     <description>4/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV65</nr>
+    <nr>DIV69</nr>
   </Movement>
   <Movement>
     <credit>63.00</credit>
     <date>4/2/2013</date>
     <description>4/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV66</nr>
+    <nr>DIV70</nr>
   </Movement>
   <Movement>
     <credit>802.71</credit>
     <date>4/2/2013</date>
     <description>4/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV67</nr>
+    <nr>DIV71</nr>
   </Movement>
   <Movement>
     <date>6/2/2013</date>
     <debit>692.64</debit>
     <description>6/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV68</nr>
+    <nr>DIV72</nr>
   </Movement>
   <Movement>
     <credit>29.72</credit>
     <date>6/2/2013</date>
     <description>6/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV69</nr>
+    <nr>DIV73</nr>
   </Movement>
   <Movement>
     <credit>25.93</credit>
     <date>6/2/2013</date>
     <description>6/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV69</nr>
+    <nr>DIV73</nr>
   </Movement>
   <Movement>
     <credit>18.66</credit>
     <date>6/2/2013</date>
     <description>6/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV69</nr>
+    <nr>DIV73</nr>
   </Movement>
   <Movement>
     <credit>200.00</credit>
     <date>6/2/2013</date>
     <description>6/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV69</nr>
+    <nr>DIV73</nr>
   </Movement>
   <Movement>
     <credit>24.44</credit>
     <date>6/2/2013</date>
     <description>6/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV70</nr>
+    <nr>DIV74</nr>
   </Movement>
   <Movement>
     <credit>450.00</credit>
     <date>6/2/2013</date>
     <description>6/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV71</nr>
+    <nr>DIV75</nr>
   </Movement>
   <Movement>
     <credit>16.10</credit>
     <date>11/2/2013</date>
     <description>11/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV76</nr>
+    <nr>DIV81</nr>
   </Movement>
   <Movement>
     <date>21/2/2013</date>
     <debit>19.67</debit>
     <description>21/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV86</nr>
+    <nr>DIV92</nr>
   </Movement>
   <Movement>
     <date>25/2/2013</date>
     <debit>1707.07</debit>
     <description>25/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV88</nr>
+    <nr>DIV94</nr>
   </Movement>
   <Movement>
     <credit>282.05</credit>
     <date>28/2/2013</date>
     <description>28/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV89</nr>
+    <nr>DIV95</nr>
   </Movement>
   <Movement>
     <credit>802.71</credit>
     <date>1/3/2013</date>
     <description>1/3/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV90</nr>
+    <nr>DIV96</nr>
   </Movement>
   <Movement>
     <credit>200.00</credit>
     <date>1/3/2013</date>
     <description>1/3/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV91</nr>
+    <nr>DIV97</nr>
   </Movement>
   <Movement>
     <credit>300.00</credit>
     <date>1/3/2013</date>
     <description>1/3/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV92</nr>
+    <nr>DIV98</nr>
+  </Movement>
+  <Movement>
+    <credit>345.61</credit>
+    <date>4/3/2013</date>
+    <description>4/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV100</nr>
+  </Movement>
+  <Movement>
+    <date>7/3/2013</date>
+    <debit>300.00</debit>
+    <description>7/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV103</nr>
+  </Movement>
+  <Movement>
+    <credit>25.93</credit>
+    <date>7/3/2013</date>
+    <description>7/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV104</nr>
+  </Movement>
+  <Movement>
+    <credit>29.72</credit>
+    <date>7/3/2013</date>
+    <description>7/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV104</nr>
+  </Movement>
+  <Movement>
+    <credit>18.66</credit>
+    <date>7/3/2013</date>
+    <description>7/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV104</nr>
+  </Movement>
+  <Movement>
+    <credit>29.25</credit>
+    <date>12/3/2013</date>
+    <description>12/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV107</nr>
+  </Movement>
+  <Movement>
+    <date>12/3/2013</date>
+    <debit>45182.82</debit>
+    <description>12/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV108</nr>
+  </Movement>
+  <Movement>
+    <credit>2000.00</credit>
+    <date>14/3/2013</date>
+    <description>14/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV109</nr>
+  </Movement>
+  <Movement>
+    <credit>12950.00</credit>
+    <date>15/3/2013</date>
+    <description>15/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV111</nr>
+  </Movement>
+  <Movement>
+    <credit>49.95</credit>
+    <date>18/3/2013</date>
+    <description>18/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV114</nr>
+  </Movement>
+  <Movement>
+    <credit>25.00</credit>
+    <date>18/3/2013</date>
+    <description>18/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV115</nr>
+  </Movement>
+  <Movement>
+    <credit>115.81</credit>
+    <date>18/3/2013</date>
+    <description>18/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV116</nr>
+  </Movement>
+  <Movement>
+    <credit>25.00</credit>
+    <date>18/3/2013</date>
+    <description>18/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV117</nr>
+  </Movement>
+  <Movement>
+    <credit>240.83</credit>
+    <date>18/3/2013</date>
+    <description>18/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV118</nr>
+  </Movement>
+  <Movement>
+    <credit>119.38</credit>
+    <date>18/3/2013</date>
+    <description>18/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV118</nr>
+  </Movement>
+  <Movement>
+    <credit>285.00</credit>
+    <date>18/3/2013</date>
+    <description>18/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV119</nr>
+  </Movement>
+  <Movement>
+    <date>19/3/2013</date>
+    <debit>52.29</debit>
+    <description>19/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV121</nr>
+  </Movement>
+  <Movement>
+    <credit>5.80</credit>
+    <date>19/3/2013</date>
+    <description>19/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV122</nr>
+  </Movement>
+  <Movement>
+    <credit>28.54</credit>
+    <date>20/3/2013</date>
+    <description>20/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV123</nr>
+  </Movement>
+  <Movement>
+    <credit>55.01</credit>
+    <date>20/3/2013</date>
+    <description>20/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV124</nr>
+  </Movement>
+  <Movement>
+    <credit>20000.00</credit>
+    <date>21/3/2013</date>
+    <description>21/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV125</nr>
+  </Movement>
+  <Movement>
+    <credit>88.00</credit>
+    <date>21/3/2013</date>
+    <description>21/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV126</nr>
+  </Movement>
+  <Movement>
+    <credit>51.68</credit>
+    <date>21/3/2013</date>
+    <description>21/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV127</nr>
+  </Movement>
+  <Movement>
+    <credit>44.99</credit>
+    <date>23/3/2013</date>
+    <description>23/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV129</nr>
+  </Movement>
+  <Movement>
+    <credit>50.00</credit>
+    <date>24/3/2013</date>
+    <description>24/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV130</nr>
+  </Movement>
+  <Movement>
+    <date>26/3/2013</date>
+    <debit>1709.26</debit>
+    <description>26/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV132</nr>
+  </Movement>
+  <Movement>
+    <date>27/3/2013</date>
+    <debit>300.00</debit>
+    <description>27/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV133</nr>
+  </Movement>
+  <Movement>
+    <credit>10408.59</credit>
+    <date>28/3/2013</date>
+    <description>28/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV134</nr>
+  </Movement>
+  <Movement>
+    <credit>50.00</credit>
+    <date>30/3/2013</date>
+    <description>30/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV135</nr>
+  </Movement>
+  <Movement>
+    <credit>200.00</credit>
+    <date>2/4/2013</date>
+    <description>2/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV136</nr>
+  </Movement>
+  <Movement>
+    <credit>40.00</credit>
+    <date>2/4/2013</date>
+    <description>2/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV137</nr>
+  </Movement>
+  <Movement>
+    <date>2/4/2013</date>
+    <debit>26.57</debit>
+    <description>2/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV138</nr>
+  </Movement>
+  <Movement>
+    <credit>17.07</credit>
+    <date>2/4/2013</date>
+    <description>2/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV139</nr>
+  </Movement>
+  <Movement>
+    <credit>388.79</credit>
+    <date>2/4/2013</date>
+    <description>2/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV140</nr>
+  </Movement>
+  <Movement>
+    <date>3/4/2013</date>
+    <debit>100.00</debit>
+    <description>3/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV142</nr>
+  </Movement>
+  <Movement>
+    <credit>25.93</credit>
+    <date>5/4/2013</date>
+    <description>5/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV145</nr>
+  </Movement>
+  <Movement>
+    <credit>29.72</credit>
+    <date>5/4/2013</date>
+    <description>5/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV145</nr>
+  </Movement>
+  <Movement>
+    <credit>40.00</credit>
+    <date>5/4/2013</date>
+    <description>5/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV146</nr>
+  </Movement>
+  <Movement>
+    <credit>49.68</credit>
+    <date>6/4/2013</date>
+    <description>6/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV147</nr>
+  </Movement>
+  <Movement>
+    <date>7/4/2013</date>
+    <debit>100.00</debit>
+    <description>7/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV148</nr>
+  </Movement>
+  <Movement>
+    <credit>10.50</credit>
+    <date>8/4/2013</date>
+    <description>8/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV150</nr>
+  </Movement>
+  <Movement>
+    <credit>16.33</credit>
+    <date>8/4/2013</date>
+    <description>8/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV151</nr>
+  </Movement>
+  <Movement>
+    <credit>36.25</credit>
+    <date>10/4/2013</date>
+    <description>10/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV153</nr>
+  </Movement>
+  <Movement>
+    <credit>18.66</credit>
+    <date>10/4/2013</date>
+    <description>10/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV154</nr>
+  </Movement>
+  <Movement>
+    <date>12/4/2013</date>
+    <debit>500.00</debit>
+    <description>12/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV156</nr>
+  </Movement>
+  <Movement>
+    <credit>21.99</credit>
+    <date>12/4/2013</date>
+    <description>12/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV157</nr>
+  </Movement>
+  <Movement>
+    <credit>5.00</credit>
+    <date>12/4/2013</date>
+    <description>12/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV158</nr>
+  </Movement>
+  <Movement>
+    <credit>90.00</credit>
+    <date>16/4/2013</date>
+    <description>16/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV161</nr>
+  </Movement>
+  <Movement>
+    <credit>10.25</credit>
+    <date>16/4/2013</date>
+    <description>16/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV162</nr>
+  </Movement>
+  <Movement>
+    <credit>101.11</credit>
+    <date>20/4/2013</date>
+    <description>20/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV165</nr>
+  </Movement>
+  <Movement>
+    <credit>60.00</credit>
+    <date>21/4/2013</date>
+    <description>21/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV166</nr>
+  </Movement>
+  <Movement>
+    <credit>50.00</credit>
+    <date>21/4/2013</date>
+    <description>21/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV167</nr>
+  </Movement>
+  <Movement>
+    <date>22/4/2013</date>
+    <debit>22.92</debit>
+    <description>22/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV168</nr>
+  </Movement>
+  <Movement>
+    <credit>50.00</credit>
+    <date>26/4/2013</date>
+    <description>26/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV171</nr>
+  </Movement>
+  <Movement>
+    <date>27/4/2013</date>
+    <debit>19000.00</debit>
+    <description>27/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV174</nr>
+  </Movement>
+  <Movement>
+    <credit>88.50</credit>
+    <date>27/4/2013</date>
+    <description>27/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV175</nr>
+  </Movement>
+  <Movement>
+    <credit>150.54</credit>
+    <date>27/4/2013</date>
+    <description>27/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV176</nr>
+  </Movement>
+  <Movement>
+    <date>29/4/2013</date>
+    <debit>1696.18</debit>
+    <description>29/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV178</nr>
+  </Movement>
+  <Movement>
+    <credit>19879.37</credit>
+    <date>29/4/2013</date>
+    <description>29/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV179</nr>
+  </Movement>
+  <Movement>
+    <credit>75.00</credit>
+    <date>30/4/2013</date>
+    <description>30/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV181</nr>
+  </Movement>
+  <Movement>
+    <credit>200.00</credit>
+    <date>2/5/2013</date>
+    <description>2/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV182</nr>
+  </Movement>
+  <Movement>
+    <credit>40.47</credit>
+    <date>3/5/2013</date>
+    <description>3/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV183</nr>
+  </Movement>
+  <Movement>
+    <credit>294.28</credit>
+    <date>6/5/2013</date>
+    <description>6/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV186</nr>
+  </Movement>
+  <Movement>
+    <credit>7.80</credit>
+    <date>6/5/2013</date>
+    <description>6/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV187</nr>
+  </Movement>
+  <Movement>
+    <credit>64.75</credit>
+    <date>6/5/2013</date>
+    <description>6/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV188</nr>
+  </Movement>
+  <Movement>
+    <credit>60.80</credit>
+    <date>6/5/2013</date>
+    <description>6/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV189</nr>
+  </Movement>
+  <Movement>
+    <date>7/5/2013</date>
+    <debit>100.00</debit>
+    <description>7/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV190</nr>
+  </Movement>
+  <Movement>
+    <date>7/5/2013</date>
+    <debit>2725.00</debit>
+    <description>7/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV196</nr>
+  </Movement>
+  <Movement>
+    <credit>19.00</credit>
+    <date>7/5/2013</date>
+    <description>7/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV197</nr>
+  </Movement>
+  <Movement>
+    <credit>25.93</credit>
+    <date>7/5/2013</date>
+    <description>7/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV198</nr>
+  </Movement>
+  <Movement>
+    <credit>29.72</credit>
+    <date>7/5/2013</date>
+    <description>7/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV198</nr>
+  </Movement>
+  <Movement>
+    <credit>36.01</credit>
+    <date>7/5/2013</date>
+    <description>7/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV198</nr>
+  </Movement>
+  <Movement>
+    <date>7/5/2013</date>
+    <debit>1.09</debit>
+    <description>7/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV199</nr>
+  </Movement>
+  <Movement>
+    <credit>80.00</credit>
+    <date>8/5/2013</date>
+    <description>8/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV202</nr>
+  </Movement>
+  <Movement>
+    <credit>89.90</credit>
+    <date>8/5/2013</date>
+    <description>8/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV203</nr>
+  </Movement>
+  <Movement>
+    <credit>134.14</credit>
+    <date>8/5/2013</date>
+    <description>8/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV204</nr>
+  </Movement>
+  <Movement>
+    <credit>63.50</credit>
+    <date>13/5/2013</date>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV205</nr>
+  </Movement>
+  <Movement>
+    <credit>500.00</credit>
+    <date>13/5/2013</date>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV206</nr>
+  </Movement>
+  <Movement>
+    <credit>55.70</credit>
+    <date>13/5/2013</date>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV207</nr>
+  </Movement>
+  <Movement>
+    <credit>109.32</credit>
+    <date>13/5/2013</date>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV208</nr>
+  </Movement>
+  <Movement>
+    <credit>8.57</credit>
+    <date>13/5/2013</date>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV212</nr>
+  </Movement>
+  <Movement>
+    <credit>339.95</credit>
+    <date>14/5/2013</date>
+    <description>14/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV227</nr>
+  </Movement>
+  <Movement>
+    <credit>1013.96</credit>
+    <date>16/5/2013</date>
+    <description>16/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV228</nr>
+  </Movement>
+  <Movement>
+    <date>16/5/2013</date>
+    <debit>585.77</debit>
+    <description>16/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV229</nr>
+  </Movement>
+  <Movement>
+    <credit>172.75</credit>
+    <date>16/5/2013</date>
+    <description>16/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV230</nr>
+  </Movement>
+  <Movement>
+    <credit>488.00</credit>
+    <date>17/5/2013</date>
+    <description>17/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV233</nr>
+  </Movement>
+  <Movement>
+    <credit>96.32</credit>
+    <date>17/5/2013</date>
+    <description>17/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV234</nr>
+  </Movement>
+  <Movement>
+    <credit>66.06</credit>
+    <date>21/5/2013</date>
+    <description>21/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV240</nr>
+  </Movement>
+  <Movement>
+    <date>21/5/2013</date>
+    <debit>89.16</debit>
+    <description>21/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV241</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>27/5/2013</date>
+    <description>27/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV245</nr>
+  </Movement>
+  <Movement>
+    <credit>46.43</credit>
+    <date>27/5/2013</date>
+    <description>27/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV246</nr>
+  </Movement>
+  <Movement>
+    <date>28/5/2013</date>
+    <debit>1646.89</debit>
+    <description>28/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV247</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>28/5/2013</date>
+    <description>28/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV248</nr>
+  </Movement>
+  <Movement>
+    <credit>260.17</credit>
+    <date>30/5/2013</date>
+    <description>30/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV249</nr>
+  </Movement>
+  <Movement>
+    <credit>44.09</credit>
+    <date>1/6/2013</date>
+    <description>1/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV250</nr>
+  </Movement>
+  <Movement>
+    <credit>6.88</credit>
+    <date>2/6/2013</date>
+    <description>2/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV251</nr>
+  </Movement>
+  <Movement>
+    <credit>8.70</credit>
+    <date>2/6/2013</date>
+    <description>2/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV252</nr>
+  </Movement>
+  <Movement>
+    <credit>200.00</credit>
+    <date>3/6/2013</date>
+    <description>3/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV253</nr>
+  </Movement>
+  <Movement>
+    <credit>1156.67</credit>
+    <date>3/6/2013</date>
+    <description>3/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV254</nr>
+  </Movement>
+  <Movement>
+    <date>4/6/2013</date>
+    <debit>120.00</debit>
+    <description>4/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV256</nr>
+  </Movement>
+  <Movement>
+    <credit>10.15</credit>
+    <date>4/6/2013</date>
+    <description>4/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV257</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>5/6/2013</date>
+    <description>5/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV260</nr>
+  </Movement>
+  <Movement>
+    <credit>25.56</credit>
+    <date>6/6/2013</date>
+    <description>6/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV263</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>10/6/2013</date>
+    <description>10/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV271</nr>
+  </Movement>
+  <Movement>
+    <credit>29.25</credit>
+    <date>11/6/2013</date>
+    <description>11/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV272</nr>
+  </Movement>
+  <Movement>
+    <date>11/6/2013</date>
+    <debit>94.81</debit>
+    <description>11/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV273</nr>
+  </Movement>
+  <Movement>
+    <credit>30.00</credit>
+    <date>12/6/2013</date>
+    <description>12/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV275</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>12/6/2013</date>
+    <description>12/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV276</nr>
+  </Movement>
+  <Movement>
+    <credit>36.40</credit>
+    <date>15/6/2013</date>
+    <description>15/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV277</nr>
+  </Movement>
+  <Movement>
+    <credit>5.51</credit>
+    <date>15/6/2013</date>
+    <description>15/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV278</nr>
+  </Movement>
+  <Movement>
+    <credit>2.90</credit>
+    <date>15/6/2013</date>
+    <description>15/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV279</nr>
+  </Movement>
+  <Movement>
+    <credit>15.00</credit>
+    <date>15/6/2013</date>
+    <description>15/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV279</nr>
+  </Movement>
+  <Movement>
+    <credit>55.52</credit>
+    <date>15/6/2013</date>
+    <description>15/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV280</nr>
+  </Movement>
+  <Movement>
+    <date>24/6/2013</date>
+    <debit>10.40</debit>
+    <description>24/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV292</nr>
+  </Movement>
+  <Movement>
+    <date>26/6/2013</date>
+    <debit>54.77</debit>
+    <description>26/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV295</nr>
+  </Movement>
+  <Movement>
+    <date>26/6/2013</date>
+    <debit>1698.36</debit>
+    <description>26/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV296</nr>
+  </Movement>
+  <Movement>
+    <credit>109.18</credit>
+    <date>26/6/2013</date>
+    <description>26/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV297</nr>
+  </Movement>
+  <Movement>
+    <credit>63.50</credit>
+    <date>26/6/2013</date>
+    <description>26/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV298</nr>
+  </Movement>
+  <Movement>
+    <credit>19.25</credit>
+    <date>26/6/2013</date>
+    <description>26/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV299</nr>
+  </Movement>
+  <Movement>
+    <credit>57.12</credit>
+    <date>26/6/2013</date>
+    <description>26/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV300</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>27/6/2013</date>
+    <description>27/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV301</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>27/6/2013</date>
+    <description>27/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV301</nr>
+  </Movement>
+  <Movement>
+    <credit>200.00</credit>
+    <date>1/7/2013</date>
+    <description>1/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV311</nr>
+  </Movement>
+  <Movement>
+    <date>1/7/2013</date>
+    <debit>18.15</debit>
+    <description>1/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV312</nr>
+  </Movement>
+  <Movement>
+    <credit>17.07</credit>
+    <date>1/7/2013</date>
+    <description>1/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV313</nr>
+  </Movement>
+  <Movement>
+    <credit>1156.67</credit>
+    <date>3/7/2013</date>
+    <description>3/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV319</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>3/7/2013</date>
+    <description>3/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV320</nr>
+  </Movement>
+  <Movement>
+    <date>4/7/2013</date>
+    <debit>150.00</debit>
+    <description>4/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV321</nr>
+  </Movement>
+  <Movement>
+    <credit>50.00</credit>
+    <date>4/7/2013</date>
+    <description>4/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV325</nr>
+  </Movement>
+  <Movement>
+    <credit>25.56</credit>
+    <date>5/7/2013</date>
+    <description>5/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV326</nr>
+  </Movement>
+  <Movement>
+    <credit>166.83</credit>
+    <date>10/7/2013</date>
+    <description>10/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV335</nr>
+  </Movement>
+  <Movement>
+    <date>16/7/2013</date>
+    <debit>100.00</debit>
+    <description>16/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV338</nr>
+  </Movement>
+  <Movement>
+    <credit>7.70</credit>
+    <date>16/7/2013</date>
+    <description>16/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV340</nr>
+  </Movement>
+  <Movement>
+    <date>17/7/2013</date>
+    <debit>27.11</debit>
+    <description>17/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV341</nr>
+  </Movement>
+  <Movement>
+    <credit>91.58</credit>
+    <date>18/7/2013</date>
+    <description>18/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV344</nr>
+  </Movement>
+  <Movement>
+    <credit>1.80</credit>
+    <date>20/7/2013</date>
+    <description>20/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV346</nr>
+  </Movement>
+  <Movement>
+    <date>22/7/2013</date>
+    <debit>900.00</debit>
+    <description>22/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV350</nr>
+  </Movement>
+  <Movement>
+    <credit>15.40</credit>
+    <date>22/7/2013</date>
+    <description>22/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV351</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>23/7/2013</date>
+    <description>23/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV352</nr>
+  </Movement>
+  <Movement>
+    <credit>16.79</credit>
+    <date>25/7/2013</date>
+    <description>25/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV353</nr>
+  </Movement>
+  <Movement>
+    <credit>11.20</credit>
+    <date>27/7/2013</date>
+    <description>27/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV359</nr>
+  </Movement>
+  <Movement>
+    <credit>465.84</credit>
+    <date>27/7/2013</date>
+    <description>27/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV360</nr>
+  </Movement>
+  <Movement>
+    <date>29/7/2013</date>
+    <debit>1694.00</debit>
+    <description>29/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV362</nr>
+  </Movement>
+  <Movement>
+    <credit>1046.86</credit>
+    <date>30/7/2013</date>
+    <description>30/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV364</nr>
+  </Movement>
+  <Movement>
+    <date>31/7/2013</date>
+    <debit>130.00</debit>
+    <description>31/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV365</nr>
+  </Movement>
+  <Movement>
+    <credit>200.00</credit>
+    <date>1/8/2013</date>
+    <description>1/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV366</nr>
+  </Movement>
+  <Movement>
+    <credit>17.00</credit>
+    <date>1/8/2013</date>
+    <description>1/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV367</nr>
+  </Movement>
+  <Movement>
+    <credit>57.12</credit>
+    <date>2/8/2013</date>
+    <description>2/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV371</nr>
+  </Movement>
+  <Movement>
+    <credit>1156.67</credit>
+    <date>3/8/2013</date>
+    <description>3/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV372</nr>
+  </Movement>
+  <Movement>
+    <date>4/8/2013</date>
+    <debit>50.00</debit>
+    <description>4/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV373</nr>
+  </Movement>
+  <Movement>
+    <date>4/8/2013</date>
+    <debit>200.00</debit>
+    <description>4/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV374</nr>
+  </Movement>
+  <Movement>
+    <date>6/8/2013</date>
+    <debit>18.15</debit>
+    <description>6/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV375</nr>
+  </Movement>
+  <Movement>
+    <date>8/8/2013</date>
+    <debit>100.00</debit>
+    <description>8/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV377</nr>
+  </Movement>
+  <Movement>
+    <credit>52.37</credit>
+    <date>8/8/2013</date>
+    <description>8/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV378</nr>
+  </Movement>
+  <Movement>
+    <credit>25.56</credit>
+    <date>8/8/2013</date>
+    <description>8/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV379</nr>
+  </Movement>
+  <Movement>
+    <credit>36.01</credit>
+    <date>8/8/2013</date>
+    <description>8/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV379</nr>
+  </Movement>
+  <Movement>
+    <date>12/8/2013</date>
+    <debit>100.00</debit>
+    <description>12/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV381</nr>
+  </Movement>
+  <Movement>
+    <credit>84.60</credit>
+    <date>12/8/2013</date>
+    <description>12/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV382</nr>
+  </Movement>
+  <Movement>
+    <credit>12.00</credit>
+    <date>15/8/2013</date>
+    <description>15/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV383</nr>
+  </Movement>
+  <Movement>
+    <date>19/8/2013</date>
+    <debit>300.00</debit>
+    <description>19/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV385</nr>
+  </Movement>
+  <Movement>
+    <credit>57.12</credit>
+    <date>19/8/2013</date>
+    <description>19/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV386</nr>
+  </Movement>
+  <Movement>
+    <credit>160.00</credit>
+    <date>19/8/2013</date>
+    <description>19/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV387</nr>
+  </Movement>
+  <Movement>
+    <date>19/8/2013</date>
+    <debit>13.33</debit>
+    <description>19/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV388</nr>
+  </Movement>
+  <Movement>
+    <credit>22.00</credit>
+    <date>22/8/2013</date>
+    <description>22/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV392</nr>
+  </Movement>
+  <Movement>
+    <credit>25.28</credit>
+    <date>26/8/2013</date>
+    <description>26/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV394</nr>
+  </Movement>
+  <Movement>
+    <date>26/8/2013</date>
+    <debit>1697.26</debit>
+    <description>26/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV396</nr>
+  </Movement>
+  <Movement>
+    <credit>15.59</credit>
+    <date>28/8/2013</date>
+    <description>28/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV397</nr>
+  </Movement>
+  <Movement>
+    <credit>17.00</credit>
+    <date>29/8/2013</date>
+    <description>29/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV399</nr>
+  </Movement>
+  <Movement>
+    <credit>464.24</credit>
+    <date>30/8/2013</date>
+    <description>30/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV400</nr>
+  </Movement>
+  <Movement>
+    <date>30/8/2013</date>
+    <debit>200.00</debit>
+    <description>30/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV401</nr>
+  </Movement>
+  <Movement>
+    <credit>74.87</credit>
+    <date>30/8/2013</date>
+    <description>30/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV402</nr>
+  </Movement>
+  <Movement>
+    <credit>40.00</credit>
+    <date>31/8/2013</date>
+    <description>31/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV403</nr>
+  </Movement>
+  <Movement>
+    <credit>200.00</credit>
+    <date>2/9/2013</date>
+    <description>2/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV404</nr>
+  </Movement>
+  <Movement>
+    <date>2/9/2013</date>
+    <debit>453.75</debit>
+    <description>2/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV405</nr>
+  </Movement>
+  <Movement>
+    <credit>1156.67</credit>
+    <date>3/9/2013</date>
+    <description>3/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV406</nr>
+  </Movement>
+  <Movement>
+    <credit>103.27</credit>
+    <date>3/9/2013</date>
+    <description>3/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV407</nr>
+  </Movement>
+  <Movement>
+    <credit>70.00</credit>
+    <date>3/9/2013</date>
+    <description>3/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV408</nr>
+  </Movement>
+  <Movement>
+    <credit>55.00</credit>
+    <date>3/9/2013</date>
+    <description>3/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV409</nr>
+  </Movement>
+  <Movement>
+    <credit>25.00</credit>
+    <date>5/9/2013</date>
+    <description>5/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV415</nr>
+  </Movement>
+  <Movement>
+    <credit>15.00</credit>
+    <date>5/9/2013</date>
+    <description>5/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV416</nr>
+  </Movement>
+  <Movement>
+    <credit>25.56</credit>
+    <date>6/9/2013</date>
+    <description>6/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV418</nr>
+  </Movement>
+  <Movement>
+    <credit>36.01</credit>
+    <date>6/9/2013</date>
+    <description>6/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV418</nr>
+  </Movement>
+  <Movement>
+    <credit>5.00</credit>
+    <date>7/9/2013</date>
+    <description>7/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV420</nr>
+  </Movement>
+  <Movement>
+    <credit>7.68</credit>
+    <date>9/9/2013</date>
+    <description>9/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV423</nr>
+  </Movement>
+  <Movement>
+    <credit>29.25</credit>
+    <date>10/9/2013</date>
+    <description>10/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV426</nr>
+  </Movement>
+  <Movement>
+    <credit>57.41</credit>
+    <date>11/9/2013</date>
+    <description>11/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV427</nr>
+  </Movement>
+  <Movement>
+    <date>13/9/2013</date>
+    <debit>65.00</debit>
+    <description>13/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV429</nr>
+  </Movement>
+  <Movement>
+    <credit>57.12</credit>
+    <date>13/9/2013</date>
+    <description>13/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV430</nr>
+  </Movement>
+  <Movement>
+    <credit>17.00</credit>
+    <date>19/9/2013</date>
+    <description>19/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV436</nr>
+  </Movement>
+  <Movement>
+    <date>23/9/2013</date>
+    <debit>75.00</debit>
+    <description>23/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV441</nr>
+  </Movement>
+  <Movement>
+    <credit>68.62</credit>
+    <date>23/9/2013</date>
+    <description>23/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV442</nr>
+  </Movement>
+  <Movement>
+    <date>27/9/2013</date>
+    <debit>1697.27</debit>
+    <description>27/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV443</nr>
+  </Movement>
+  <Movement>
+    <credit>60.00</credit>
+    <date>28/9/2013</date>
+    <description>28/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV444</nr>
+  </Movement>
+  <Movement>
+    <credit>60.00</credit>
+    <date>29/9/2013</date>
+    <description>29/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV445</nr>
+  </Movement>
+  <Movement>
+    <credit>87.00</credit>
+    <date>29/9/2013</date>
+    <description>29/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV446</nr>
+  </Movement>
+  <Movement>
+    <credit>738.25</credit>
+    <date>30/9/2013</date>
+    <description>30/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV447</nr>
+  </Movement>
+  <Movement>
+    <credit>200.00</credit>
+    <date>1/10/2013</date>
+    <description>1/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV448</nr>
+  </Movement>
+  <Movement>
+    <date>2/10/2013</date>
+    <debit>600.00</debit>
+    <description>2/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV450</nr>
+  </Movement>
+  <Movement>
+    <credit>17.07</credit>
+    <date>2/10/2013</date>
+    <description>2/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV451</nr>
+  </Movement>
+  <Movement>
+    <date>2/10/2013</date>
+    <debit>300.00</debit>
+    <description>2/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV452</nr>
+  </Movement>
+  <Movement>
+    <credit>1156.67</credit>
+    <date>3/10/2013</date>
+    <description>3/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV453</nr>
+  </Movement>
+  <Movement>
+    <credit>90.00</credit>
+    <date>3/10/2013</date>
+    <description>3/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV454</nr>
+  </Movement>
+  <Movement>
+    <credit>25.56</credit>
+    <date>4/10/2013</date>
+    <description>4/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV455</nr>
+  </Movement>
+  <Movement>
+    <credit>36.01</credit>
+    <date>4/10/2013</date>
+    <description>4/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV455</nr>
+  </Movement>
+  <Movement>
+    <credit>121.08</credit>
+    <date>7/10/2013</date>
+    <description>7/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV456</nr>
+  </Movement>
+  <Movement>
+    <date>7/10/2013</date>
+    <debit>91.00</debit>
+    <description>7/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV457</nr>
+  </Movement>
+  <Movement>
+    <date>8/10/2013</date>
+    <debit>105.00</debit>
+    <description>8/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV460</nr>
+  </Movement>
+  <Movement>
+    <credit>10.15</credit>
+    <date>8/10/2013</date>
+    <description>8/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV461</nr>
+  </Movement>
+  <Movement>
+    <credit>19.25</credit>
+    <date>10/10/2013</date>
+    <description>10/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV462</nr>
+  </Movement>
+  <Movement>
+    <credit>35.13</credit>
+    <date>14/10/2013</date>
+    <description>14/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV463</nr>
+  </Movement>
+  <Movement>
+    <credit>19.25</credit>
+    <date>15/10/2013</date>
+    <description>15/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV464</nr>
+  </Movement>
+  <Movement>
+    <credit>19.25</credit>
+    <date>15/10/2013</date>
+    <description>15/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV465</nr>
+  </Movement>
+  <Movement>
+    <credit>57.12</credit>
+    <date>15/10/2013</date>
+    <description>15/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV466</nr>
+  </Movement>
+  <Movement>
+    <credit>48.99</credit>
+    <date>15/10/2013</date>
+    <description>15/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV467</nr>
+  </Movement>
+  <Movement>
+    <date>16/10/2013</date>
+    <debit>100.00</debit>
+    <description>16/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV469</nr>
+  </Movement>
+  <Movement>
+    <credit>72.88</credit>
+    <date>21/10/2013</date>
+    <description>21/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV473</nr>
+  </Movement>
+  <Movement>
+    <date>28/10/2013</date>
+    <debit>15.92</debit>
+    <description>28/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV475</nr>
+  </Movement>
+  <Movement>
+    <date>28/10/2013</date>
+    <debit>1694.00</debit>
+    <description>28/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV476</nr>
+  </Movement>
+  <Movement>
+    <credit>131.82</credit>
+    <date>29/10/2013</date>
+    <description>29/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV477</nr>
+  </Movement>
+  <Movement>
+    <credit>114.20</credit>
+    <date>29/10/2013</date>
+    <description>29/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV478</nr>
+  </Movement>
+  <Movement>
+    <credit>131.26</credit>
+    <date>30/10/2013</date>
+    <description>30/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV479</nr>
+  </Movement>
+  <Movement>
+    <credit>40.00</credit>
+    <date>30/10/2013</date>
+    <description>30/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV480</nr>
+  </Movement>
+  <Movement>
+    <credit>16.00</credit>
+    <date>30/10/2013</date>
+    <description>30/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV481</nr>
+  </Movement>
+  <Movement>
+    <credit>19.25</credit>
+    <date>31/10/2013</date>
+    <description>31/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV482</nr>
+  </Movement>
+  <Movement>
+    <credit>5.46</credit>
+    <date>31/10/2013</date>
+    <description>31/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV483</nr>
+  </Movement>
+  <Movement>
+    <credit>34.15</credit>
+    <date>2/11/2013</date>
+    <description>2/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV484</nr>
+  </Movement>
+  <Movement>
+    <credit>0.20</credit>
+    <date>2/11/2013</date>
+    <description>2/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV485</nr>
+  </Movement>
+  <Movement>
+    <credit>9.70</credit>
+    <date>2/11/2013</date>
+    <description>2/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV486</nr>
+  </Movement>
+  <Movement>
+    <credit>1156.67</credit>
+    <date>3/11/2013</date>
+    <description>3/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV487</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>3/11/2013</date>
+    <description>3/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV488</nr>
+  </Movement>
+  <Movement>
+    <date>5/11/2013</date>
+    <debit>140.00</debit>
+    <description>5/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV493</nr>
+  </Movement>
+  <Movement>
+    <credit>25.56</credit>
+    <date>6/11/2013</date>
+    <description>6/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV496</nr>
+  </Movement>
+  <Movement>
+    <credit>36.01</credit>
+    <date>6/11/2013</date>
+    <description>6/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV496</nr>
+  </Movement>
+  <Movement>
+    <date>8/11/2013</date>
+    <debit>62.94</debit>
+    <description>8/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV499</nr>
+  </Movement>
+  <Movement>
+    <credit>47.50</credit>
+    <date>13/11/2013</date>
+    <description>13/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV502</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>13/11/2013</date>
+    <description>13/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV503</nr>
+  </Movement>
+  <Movement>
+    <credit>57.12</credit>
+    <date>15/11/2013</date>
+    <description>15/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV505</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>16/11/2013</date>
+    <description>16/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV508</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>18/11/2013</date>
+    <description>18/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV510</nr>
+  </Movement>
+  <Movement>
+    <date>19/11/2013</date>
+    <debit>100.00</debit>
+    <description>19/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV512</nr>
+  </Movement>
+  <Movement>
+    <credit>89.27</credit>
+    <date>20/11/2013</date>
+    <description>20/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV514</nr>
+  </Movement>
+  <Movement>
+    <date>20/11/2013</date>
+    <debit>43.14</debit>
+    <description>20/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV515</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>20/11/2013</date>
+    <description>20/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV516</nr>
+  </Movement>
+  <Movement>
+    <credit>160.00</credit>
+    <date>20/11/2013</date>
+    <description>20/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV517</nr>
+  </Movement>
+  <Movement>
+    <date>21/11/2013</date>
+    <debit>100.00</debit>
+    <description>21/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV520</nr>
+  </Movement>
+  <Movement>
+    <date>27/11/2013</date>
+    <debit>1698.35</debit>
+    <description>27/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV521</nr>
+  </Movement>
+  <Movement>
+    <credit>67.70</credit>
+    <date>28/11/2013</date>
+    <description>28/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV522</nr>
+  </Movement>
+  <Movement>
+    <credit>40.60</credit>
+    <date>28/11/2013</date>
+    <description>28/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV523</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>29/11/2013</date>
+    <description>29/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV524</nr>
+  </Movement>
+  <Movement>
+    <credit>53.84</credit>
+    <date>30/11/2013</date>
+    <description>30/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV525</nr>
+  </Movement>
+  <Movement>
+    <credit>2.00</credit>
+    <date>30/11/2013</date>
+    <description>30/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV526</nr>
+  </Movement>
+  <Movement>
+    <credit>46.00</credit>
+    <date>1/12/2013</date>
+    <description>1/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV527</nr>
+  </Movement>
+  <Movement>
+    <credit>200.00</credit>
+    <date>2/12/2013</date>
+    <description>2/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV528</nr>
+  </Movement>
+  <Movement>
+    <credit>168.27</credit>
+    <date>2/12/2013</date>
+    <description>2/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV529</nr>
+  </Movement>
+  <Movement>
+    <date>2/12/2013</date>
+    <debit>342.15</debit>
+    <description>2/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV530</nr>
+  </Movement>
+  <Movement>
+    <credit>1156.67</credit>
+    <date>3/12/2013</date>
+    <description>3/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV533</nr>
+  </Movement>
+  <Movement>
+    <credit>19.25</credit>
+    <date>3/12/2013</date>
+    <description>3/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV534</nr>
+  </Movement>
+  <Movement>
+    <credit>80.00</credit>
+    <date>3/12/2013</date>
+    <description>3/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV535</nr>
+  </Movement>
+  <Movement>
+    <credit>40.00</credit>
+    <date>3/12/2013</date>
+    <description>3/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV536</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>4/12/2013</date>
+    <description>4/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV538</nr>
+  </Movement>
+  <Movement>
+    <credit>1.80</credit>
+    <date>4/12/2013</date>
+    <description>4/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV539</nr>
+  </Movement>
+  <Movement>
+    <credit>25.56</credit>
+    <date>6/12/2013</date>
+    <description>6/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV544</nr>
+  </Movement>
+  <Movement>
+    <credit>36.01</credit>
+    <date>6/12/2013</date>
+    <description>6/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV544</nr>
+  </Movement>
+  <Movement>
+    <credit>42.30</credit>
+    <date>7/12/2013</date>
+    <description>7/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV545</nr>
+  </Movement>
+  <Movement>
+    <date>7/12/2013</date>
+    <debit>80.00</debit>
+    <description>7/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV546</nr>
+  </Movement>
+  <Movement>
+    <credit>2.20</credit>
+    <date>7/12/2013</date>
+    <description>7/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV547</nr>
+  </Movement>
+  <Movement>
+    <date>9/12/2013</date>
+    <debit>200.00</debit>
+    <description>9/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV548</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>9/12/2013</date>
+    <description>9/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV550</nr>
+  </Movement>
+  <Movement>
+    <credit>29.00</credit>
+    <date>10/12/2013</date>
+    <description>10/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV553</nr>
+  </Movement>
+  <Movement>
+    <credit>29.25</credit>
+    <date>10/12/2013</date>
+    <description>10/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV554</nr>
+  </Movement>
+  <Movement>
+    <date>10/12/2013</date>
+    <debit>500.00</debit>
+    <description>10/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV555</nr>
+  </Movement>
+  <Movement>
+    <date>11/12/2013</date>
+    <debit>1305.72</debit>
+    <description>11/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV557</nr>
+  </Movement>
+  <Movement>
+    <credit>20.00</credit>
+    <date>11/12/2013</date>
+    <description>11/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV558</nr>
+  </Movement>
+  <Movement>
+    <credit>57.12</credit>
+    <date>13/12/2013</date>
+    <description>13/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV560</nr>
+  </Movement>
+  <Movement>
+    <credit>1298.32</credit>
+    <date>14/12/2013</date>
+    <description>14/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV562</nr>
+  </Movement>
+  <Movement>
+    <credit>59.05</credit>
+    <date>14/12/2013</date>
+    <description>14/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV563</nr>
+  </Movement>
+  <Movement>
+    <credit>84.98</credit>
+    <date>14/12/2013</date>
+    <description>14/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV564</nr>
+  </Movement>
+  <Movement>
+    <credit>2.00</credit>
+    <date>14/12/2013</date>
+    <description>14/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV565</nr>
+  </Movement>
+  <Movement>
+    <credit>43.50</credit>
+    <date>14/12/2013</date>
+    <description>14/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV566</nr>
+  </Movement>
+  <Movement>
+    <credit>30.97</credit>
+    <date>14/12/2013</date>
+    <description>14/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV567</nr>
+  </Movement>
+  <Movement>
+    <credit>40.00</credit>
+    <date>15/12/2013</date>
+    <description>15/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV570</nr>
+  </Movement>
+  <Movement>
+    <credit>2.40</credit>
+    <date>15/12/2013</date>
+    <description>15/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV571</nr>
+  </Movement>
+  <Movement>
+    <credit>40.00</credit>
+    <date>18/12/2013</date>
+    <description>18/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV574</nr>
+  </Movement>
+  <Movement>
+    <credit>300.00</credit>
+    <date>19/12/2013</date>
+    <description>19/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV578</nr>
+  </Movement>
+  <Movement>
+    <credit>1.50</credit>
+    <date>21/12/2013</date>
+    <description>21/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV579</nr>
+  </Movement>
+  <Movement>
+    <credit>19.99</credit>
+    <date>23/12/2013</date>
+    <description>23/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV582</nr>
+  </Movement>
+  <Movement>
+    <date>24/12/2013</date>
+    <debit>1676.43</debit>
+    <description>24/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV583</nr>
+  </Movement>
+  <Movement>
+    <credit>500.00</credit>
+    <date>24/12/2013</date>
+    <description>24/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV584</nr>
+  </Movement>
+  <Movement>
+    <credit>49.95</credit>
+    <date>24/12/2013</date>
+    <description>24/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV585</nr>
+  </Movement>
+  <Movement>
+    <credit>37.33</credit>
+    <date>24/12/2013</date>
+    <description>24/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV586</nr>
+  </Movement>
+  <Movement>
+    <date>24/12/2013</date>
+    <debit>2770.35</debit>
+    <description>24/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV587</nr>
+  </Movement>
+  <Movement>
+    <credit>166.61</credit>
+    <date>27/12/2013</date>
+    <description>27/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV588</nr>
+  </Movement>
+  <Movement>
+    <credit>122.16</credit>
+    <date>28/12/2013</date>
+    <description>28/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV590</nr>
+  </Movement>
+  <Movement>
+    <credit>29.99</credit>
+    <date>28/12/2013</date>
+    <description>28/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV591</nr>
+  </Movement>
+  <Movement>
+    <credit>37.90</credit>
+    <date>28/12/2013</date>
+    <description>28/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV592</nr>
+  </Movement>
+  <Movement>
+    <credit>116.61</credit>
+    <date>29/12/2013</date>
+    <description>29/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV593</nr>
+  </Movement>
+  <Movement>
+    <credit>7.14</credit>
+    <date>30/12/2013</date>
+    <description>30/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV594</nr>
+  </Movement>
+  <Movement>
+    <credit>14.95</credit>
+    <date>30/12/2013</date>
+    <description>30/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV595</nr>
+  </Movement>
+  <Movement>
+    <credit>6.27</credit>
+    <date>30/12/2013</date>
+    <description>30/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV596</nr>
+  </Movement>
+  <Movement>
+    <credit>7.99</credit>
+    <date>30/12/2013</date>
+    <description>30/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV597</nr>
+  </Movement>
+  <Movement>
+    <credit>40.64</credit>
+    <date>30/12/2013</date>
+    <description>30/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV598</nr>
+  </Movement>
+  <Movement>
+    <credit>5.14</credit>
+    <date>30/12/2013</date>
+    <description>30/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV599</nr>
+  </Movement>
+  <Movement>
+    <credit>842.15</credit>
+    <date>30/12/2013</date>
+    <description>30/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV600</nr>
+  </Movement>
+  <Movement>
+    <credit>18.70</credit>
+    <date>31/12/2013</date>
+    <description>31/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV602</nr>
+  </Movement>
+  <Movement>
+    <credit>66.33</credit>
+    <date>31/12/2013</date>
+    <description>31/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV603</nr>
+  </Movement>
+  <Movement>
+    <credit>36.25</credit>
+    <date>31/12/2013</date>
+    <description>31/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV603</nr>
+  </Movement>
+  <Movement>
+    <credit>27.18</credit>
+    <date>31/12/2013</date>
+    <description>31/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV604</nr>
   </Movement>
 </Account>

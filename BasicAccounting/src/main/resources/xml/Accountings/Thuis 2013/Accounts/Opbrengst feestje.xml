@@ -2,4 +2,61 @@
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>Opbrengst feestje</name>
+  <Movement>
+    <date>13/5/2013</date>
+    <debit>55.70</debit>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV207</nr>
+  </Movement>
+  <Movement>
+    <date>13/5/2013</date>
+    <debit>109.32</debit>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV208</nr>
+  </Movement>
+  <Movement>
+    <credit>2136.90</credit>
+    <date>13/5/2013</date>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV209</nr>
+  </Movement>
+  <Movement>
+    <date>13/5/2013</date>
+    <debit>544.00</debit>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV210</nr>
+  </Movement>
+  <Movement>
+    <date>13/5/2013</date>
+    <debit>63.00</debit>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV211</nr>
+  </Movement>
+  <Movement>
+    <date>13/5/2013</date>
+    <debit>88.00</debit>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV211</nr>
+  </Movement>
+  <Movement>
+    <date>16/5/2013</date>
+    <debit>172.75</debit>
+    <description>16/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV230</nr>
+  </Movement>
+  <Movement>
+    <date>20/5/2013</date>
+    <debit>600.00</debit>
+    <description>20/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV236</nr>
+  </Movement>
 </Account>

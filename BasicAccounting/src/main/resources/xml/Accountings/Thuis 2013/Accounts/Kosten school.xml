@@ -2,18 +2,75 @@
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>Kosten school</name>
   <Movement>
     <date>17/1/2013</date>
     <debit>23.40</debit>
     <description>17/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV35</nr>
+    <nr>DIV37</nr>
   </Movement>
   <Movement>
     <date>12/2/2013</date>
     <debit>39.00</debit>
     <description>12/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV77</nr>
+    <nr>DIV82</nr>
+  </Movement>
+  <Movement>
+    <date>6/5/2013</date>
+    <debit>7.80</debit>
+    <description>6/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV187</nr>
+  </Movement>
+  <Movement>
+    <date>15/6/2013</date>
+    <debit>36.40</debit>
+    <description>15/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV277</nr>
+  </Movement>
+  <Movement>
+    <date>1/7/2013</date>
+    <debit>15.40</debit>
+    <description>1/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV303</nr>
+  </Movement>
+  <Movement>
+    <date>17/10/2013</date>
+    <debit>46.40</debit>
+    <description>17/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV471</nr>
+  </Movement>
+  <Movement>
+    <date>28/11/2013</date>
+    <debit>67.70</debit>
+    <description>28/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV522</nr>
+  </Movement>
+  <Movement>
+    <date>28/11/2013</date>
+    <debit>40.60</debit>
+    <description>28/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV523</nr>
+  </Movement>
+  <Movement>
+    <credit>67.70</credit>
+    <date>28/11/2013</date>
+    <description>28/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV523</nr>
+  </Movement>
+  <Movement>
+    <date>17/12/2013</date>
+    <debit>37.70</debit>
+    <description>17/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV572</nr>
   </Movement>
 </Account>

@@ -2,11 +2,96 @@
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>Telefoonkosten</name>
   <Movement>
     <date>28/1/2013</date>
     <debit>240.31</debit>
     <description>28/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV52</nr>
+    <nr>DIV56</nr>
+  </Movement>
+  <Movement>
+    <date>18/3/2013</date>
+    <debit>115.81</debit>
+    <description>18/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV116</nr>
+  </Movement>
+  <Movement>
+    <date>18/3/2013</date>
+    <debit>240.83</debit>
+    <description>18/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV118</nr>
+  </Movement>
+  <Movement>
+    <date>18/3/2013</date>
+    <debit>119.38</debit>
+    <description>18/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV118</nr>
+  </Movement>
+  <Movement>
+    <date>6/5/2013</date>
+    <debit>294.28</debit>
+    <description>6/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV186</nr>
+  </Movement>
+  <Movement>
+    <date>20/5/2013</date>
+    <debit>133.15</debit>
+    <description>20/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV235</nr>
+  </Movement>
+  <Movement>
+    <date>26/6/2013</date>
+    <debit>109.18</debit>
+    <description>26/6/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV297</nr>
+  </Movement>
+  <Movement>
+    <date>18/7/2013</date>
+    <debit>91.58</debit>
+    <description>18/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV344</nr>
+  </Movement>
+  <Movement>
+    <date>3/9/2013</date>
+    <debit>103.27</debit>
+    <description>3/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV407</nr>
+  </Movement>
+  <Movement>
+    <date>7/10/2013</date>
+    <debit>121.08</debit>
+    <description>7/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV456</nr>
+  </Movement>
+  <Movement>
+    <date>29/10/2013</date>
+    <debit>131.82</debit>
+    <description>29/10/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV477</nr>
+  </Movement>
+  <Movement>
+    <date>28/11/2013</date>
+    <debit>67.70</debit>
+    <description>28/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV523</nr>
+  </Movement>
+  <Movement>
+    <date>29/12/2013</date>
+    <debit>116.61</debit>
+    <description>29/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV593</nr>
   </Movement>
 </Account>

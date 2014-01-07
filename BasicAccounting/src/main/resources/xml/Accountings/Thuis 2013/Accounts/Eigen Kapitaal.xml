@@ -2,6 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>Eigen Kapitaal</name>
   <Movement>
     <credit>11987.43</credit>
     <date>1/1/2013</date>

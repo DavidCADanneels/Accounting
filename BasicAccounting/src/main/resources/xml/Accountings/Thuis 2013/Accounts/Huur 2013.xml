@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Huur 2013</name>
+  <Movement>
+    <credit>600.00</credit>
+    <date>16/1/2013</date>
+    <description>16/1/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV33</nr>
+  </Movement>
+  <Movement>
+    <credit>400.00</credit>
+    <date>27/4/2013</date>
+    <description>27/4/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV172</nr>
+  </Movement>
+</Account>

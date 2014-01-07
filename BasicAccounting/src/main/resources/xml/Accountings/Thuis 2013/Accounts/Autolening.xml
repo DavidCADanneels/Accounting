@@ -2,6 +2,7 @@
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>Autolening</name>
   <Movement>
     <credit>10760.87</credit>
     <date>1/1/2013</date>
@@ -14,13 +15,20 @@
     <debit>244.67</debit>
     <description>31/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV59</nr>
+    <nr>DIV63</nr>
   </Movement>
   <Movement>
     <date>28/2/2013</date>
     <debit>245.52</debit>
     <description>28/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV89</nr>
+    <nr>DIV95</nr>
+  </Movement>
+  <Movement>
+    <date>28/3/2013</date>
+    <debit>10270.68</debit>
+    <description>28/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV134</nr>
   </Movement>
 </Account>

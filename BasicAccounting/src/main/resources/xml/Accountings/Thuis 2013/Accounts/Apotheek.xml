@@ -2,18 +2,40 @@
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>Apotheek</name>
   <Movement>
     <date>30/1/2013</date>
     <debit>23.62</debit>
     <description>30/1/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV58</nr>
+    <nr>DIV62</nr>
   </Movement>
   <Movement>
     <date>7/2/2013</date>
     <debit>97.98</debit>
     <description>7/2/2013</description>
     <journal>Diversen</journal>
-    <nr>DIV72</nr>
+    <nr>DIV76</nr>
+  </Movement>
+  <Movement>
+    <date>2/8/2013</date>
+    <debit>65.78</debit>
+    <description>2/8/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV369</nr>
+  </Movement>
+  <Movement>
+    <date>18/9/2013</date>
+    <debit>19.35</debit>
+    <description>18/9/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV433</nr>
+  </Movement>
+  <Movement>
+    <date>19/11/2013</date>
+    <debit>37.10</debit>
+    <description>19/11/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV513</nr>
   </Movement>
 </Account>

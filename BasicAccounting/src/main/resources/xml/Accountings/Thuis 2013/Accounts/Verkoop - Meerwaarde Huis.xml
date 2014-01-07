@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Verkoop - Meerwaarde Huis</name>
+  <Movement>
+    <credit>39000.00</credit>
+    <date>12/3/2013</date>
+    <description>12/3/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV108</nr>
+  </Movement>
+  <Movement>
+    <date>13/5/2013</date>
+    <debit>39000.00</debit>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV223</nr>
+  </Movement>
+</Account>

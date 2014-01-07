@@ -2,4 +2,47 @@
 <?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>Belastingen</name>
+  <Movement>
+    <date>13/5/2013</date>
+    <debit>598.21</debit>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV222</nr>
+  </Movement>
+  <Movement>
+    <credit>201.93</credit>
+    <date>13/5/2013</date>
+    <description>13/5/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV222</nr>
+  </Movement>
+  <Movement>
+    <date>1/7/2013</date>
+    <debit>61.50</debit>
+    <description>1/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV304</nr>
+  </Movement>
+  <Movement>
+    <date>1/7/2013</date>
+    <debit>221.50</debit>
+    <description>1/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV310</nr>
+  </Movement>
+  <Movement>
+    <date>7/7/2013</date>
+    <debit>256.46</debit>
+    <description>7/7/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV329</nr>
+  </Movement>
+  <Movement>
+    <credit>2770.35</credit>
+    <date>24/12/2013</date>
+    <description>24/12/2013</description>
+    <journal>Diversen</journal>
+    <nr>DIV587</nr>
+  </Movement>
 </Account>
