@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Belastingen</name>
@@ -7,6 +6,7 @@
     <date>13/5/2013</date>
     <debit>598.21</debit>
     <description>13/5/2013</description>
+    <id>566</id>
     <journal>Diversen</journal>
     <nr>DIV222</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <credit>201.93</credit>
     <date>13/5/2013</date>
     <description>13/5/2013</description>
+    <id>568</id>
     <journal>Diversen</journal>
     <nr>DIV222</nr>
   </Movement>
@@ -21,6 +22,7 @@
     <date>1/7/2013</date>
     <debit>61.50</debit>
     <description>1/7/2013</description>
+    <id>746</id>
     <journal>Diversen</journal>
     <nr>DIV304</nr>
   </Movement>
@@ -28,6 +30,7 @@
     <date>1/7/2013</date>
     <debit>221.50</debit>
     <description>1/7/2013</description>
+    <id>758</id>
     <journal>Diversen</journal>
     <nr>DIV310</nr>
   </Movement>
@@ -35,6 +38,7 @@
     <date>7/7/2013</date>
     <debit>256.46</debit>
     <description>7/7/2013</description>
+    <id>801</id>
     <journal>Diversen</journal>
     <nr>DIV329</nr>
   </Movement>
@@ -42,6 +46,7 @@
     <credit>2770.35</credit>
     <date>24/12/2013</date>
     <description>24/12/2013</description>
+    <id>1369</id>
     <journal>Diversen</journal>
     <nr>DIV587</nr>
   </Movement>

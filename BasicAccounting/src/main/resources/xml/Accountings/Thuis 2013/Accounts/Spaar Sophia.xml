@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Spaar Sophia</name>
@@ -7,6 +6,7 @@
     <date>1/1/2013</date>
     <debit>2200.00</debit>
     <description>1/1/2013</description>
+    <id>4</id>
     <journal>Diversen</journal>
     <nr>DIV1</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <date>6/2/2013</date>
     <debit>200.00</debit>
     <description>6/2/2013</description>
+    <id>166</id>
     <journal>Diversen</journal>
     <nr>DIV73</nr>
   </Movement>

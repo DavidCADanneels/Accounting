@@ -1,11 +1,12 @@
-<!ELEMENT Journal (name,Transaction*)>
-<!ELEMENT Transaction (nr?,date?,(Account|Mortgage),debet?,credit?,description?)>
+<!ELEMENT Journal (name,abbr,Transaction*)>
+<!ELEMENT Transaction (id,description,date,Booking*)>
+<!ELEMENT Booking (id, (Account|Mortgage),(debet|credit))>
 <!ELEMENT name (#PCDATA)>
-<!ELEMENT nr (#PCDATA)>
+<!ELEMENT abbr (#PCDATA)>
+<!ELEMENT id (#PCDATA)>
 <!ELEMENT date (#PCDATA)>
+<!ELEMENT description (#PCDATA)>
 <!ELEMENT Account (#PCDATA)>
 <!ELEMENT Mortgage (#PCDATA)>
 <!ELEMENT debet (#PCDATA)>
 <!ELEMENT credit (#PCDATA)>
-<!ELEMENT description (#PCDATA)>
-<!ATTLIST Transaction id CDATA #IMPLIED>

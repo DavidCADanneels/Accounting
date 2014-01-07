@@ -27,11 +27,7 @@ public class AccountingsSAXParser {
     public static String getXmlHeader(BusinessObject object, int depth) {
         String className = object.getBusinessObjectType();
         StringBuilder builder = new StringBuilder("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
-        builder.append("<?xml-stylesheet type=\"text/xsl\" href=\"");
-        for(int i=0 ; i<depth; i++){
-            builder.append("../");
-        }
-        builder.append("../xsl/").append(className).append("2xml.xsl\"?>\r\n").append("<!DOCTYPE ").append(className).append(" SYSTEM \"");
+        builder.append("<!DOCTYPE ").append(className).append(" SYSTEM \"");
         for(int i=0 ; i<depth; i++){
             builder.append("../");
         }
@@ -138,7 +134,7 @@ public class AccountingsSAXParser {
         htmlFolder.mkdirs();
         File htmlFile = new File(htmlFolder, "Accountings.html");
 
-        Utils.xmlToHtml(xmlFile, new File(xslFolder, "Accountings2html.xsl"), htmlFile,null);
+        Utils.xmlToHtml(xmlFile, new File(xslFolder, "Accountings.xsl"), htmlFile,null);
 
         File accountingsXmlFolder = new File(xmlFolder, "Accountings");
         File accountingsHtmlFolder = new File(htmlFolder, "Accountings");
@@ -150,7 +146,7 @@ public class AccountingsSAXParser {
             xmlFile = new File(accountingsXmlFolder, accountingName+".xml");
             htmlFile = new File(accountingsHtmlFolder, accountingName+".html");
 
-            Utils.xmlToHtml(xmlFile, new File(xslFolder, "Accounting2html.xsl"), htmlFile, null);
+            Utils.xmlToHtml(xmlFile, new File(xslFolder, "Accounting.xsl"), htmlFile, null);
 
             for(BusinessCollection<BusinessObject> collection : accounting.getBusinessObjects()){
                 File collectionXmlFolder = new File(accountingXmlFolder, collection.getName());
@@ -159,7 +155,7 @@ public class AccountingsSAXParser {
                 collectionHtmlFolder.mkdirs();
                 htmlFile = new File(accountingHtmlFolder, collection.getName()+".html");
 
-                Utils.xmlToHtml(xmlFile, new File(xslFolder, collection.getName()+"2html.xsl"),htmlFile, null);
+                Utils.xmlToHtml(xmlFile, new File(xslFolder, collection.getName()+".xsl"),htmlFile, null);
 
                 for(BusinessObject object : collection.getBusinessObjects()){
 //                TODO: add isSavedHTML
@@ -168,7 +164,7 @@ public class AccountingsSAXParser {
                     if(xmlFile.exists()){
                         htmlFile = new File(collectionHtmlFolder, object.getName()+".html");
 
-                        Utils.xmlToHtml(xmlFile, new File(xslFolder, object.getBusinessObjectType()+"2html.xsl"),htmlFile, null);
+                        Utils.xmlToHtml(xmlFile, new File(xslFolder, object.getBusinessObjectType()+".xsl"),htmlFile, null);
                     }
 //                    }
                 }

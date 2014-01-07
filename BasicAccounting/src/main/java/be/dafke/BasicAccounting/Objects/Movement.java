@@ -12,25 +12,30 @@ import java.util.TreeMap;
  * Time: 17:01
  */
 public class Movement extends BusinessObject{
+    private static int count = 0;
     private static final String JOURNAL = "journal";
     private static final String DATE = "date";
     private static final String DEBIT = "debit";
     private static final String CREDIT = "credit";
     private static final String DESCRIPTION = "description";
     private static final String NR = "nr";
+    private static final String ID = "id";
     private BigDecimal amount;
     private boolean debit;
     private Booking booking;
+    private Integer id;
 
     public Movement(BigDecimal amount, boolean debit){
         this.amount = amount;
         this.debit = debit;
+        id = ++count;
     }
 
     @Override
     public TreeMap<String,String> getInitProperties() {
         TreeMap<String,String> properties = super.getInitProperties();
         Transaction transaction = booking.getTransaction();
+        properties.put(ID,id.toString());
         properties.put(NR,transaction.getAbbreviation() + transaction.getId());
         properties.put(JOURNAL,transaction.getJournal().getName());
         properties.put(DATE, Utils.toString(transaction.getDate()));
@@ -62,5 +67,9 @@ public class Movement extends BusinessObject{
 
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
+    }
+
+    public int getId() {
+        return id;
     }
 }

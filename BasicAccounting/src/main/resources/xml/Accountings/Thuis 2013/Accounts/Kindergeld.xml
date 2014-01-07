@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Kindergeld</name>
@@ -7,6 +6,7 @@
     <credit>90.28</credit>
     <date>8/1/2013</date>
     <description>8/1/2013</description>
+    <id>58</id>
     <journal>Diversen</journal>
     <nr>DIV21</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <credit>90.28</credit>
     <date>8/2/2013</date>
     <description>8/2/2013</description>
+    <id>180</id>
     <journal>Diversen</journal>
     <nr>DIV77</nr>
   </Movement>
@@ -21,6 +22,7 @@
     <credit>90.28</credit>
     <date>8/3/2013</date>
     <description>8/3/2013</description>
+    <id>244</id>
     <journal>Diversen</journal>
     <nr>DIV106</nr>
   </Movement>
@@ -28,6 +30,7 @@
     <credit>90.28</credit>
     <date>8/4/2013</date>
     <description>8/4/2013</description>
+    <id>350</id>
     <journal>Diversen</journal>
     <nr>DIV152</nr>
   </Movement>
@@ -35,6 +38,7 @@
     <credit>90.28</credit>
     <date>8/5/2013</date>
     <description>8/5/2013</description>
+    <id>458</id>
     <journal>Diversen</journal>
     <nr>DIV201</nr>
   </Movement>
@@ -42,6 +46,7 @@
     <credit>90.28</credit>
     <date>7/6/2013</date>
     <description>7/6/2013</description>
+    <id>663</id>
     <journal>Diversen</journal>
     <nr>DIV264</nr>
   </Movement>
@@ -49,6 +54,7 @@
     <credit>90.28</credit>
     <date>8/7/2013</date>
     <description>8/7/2013</description>
+    <id>806</id>
     <journal>Diversen</journal>
     <nr>DIV331</nr>
   </Movement>
@@ -56,6 +62,7 @@
     <credit>112.28</credit>
     <date>8/8/2013</date>
     <description>8/8/2013</description>
+    <id>909</id>
     <journal>Diversen</journal>
     <nr>DIV376</nr>
   </Movement>
@@ -63,6 +70,7 @@
     <credit>90.28</credit>
     <date>6/9/2013</date>
     <description>6/9/2013</description>
+    <id>1004</id>
     <journal>Diversen</journal>
     <nr>DIV419</nr>
   </Movement>
@@ -70,6 +78,7 @@
     <credit>90.28</credit>
     <date>8/10/2013</date>
     <description>8/10/2013</description>
+    <id>1089</id>
     <journal>Diversen</journal>
     <nr>DIV459</nr>
   </Movement>
@@ -77,6 +86,7 @@
     <credit>90.28</credit>
     <date>8/11/2013</date>
     <description>8/11/2013</description>
+    <id>1170</id>
     <journal>Diversen</journal>
     <nr>DIV497</nr>
   </Movement>
@@ -84,6 +94,7 @@
     <credit>90.28</credit>
     <date>6/12/2013</date>
     <description>6/12/2013</description>
+    <id>1275</id>
     <journal>Diversen</journal>
     <nr>DIV543</nr>
   </Movement>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Telenet</name>
@@ -7,6 +6,7 @@
     <date>13/5/2013</date>
     <debit>63.50</debit>
     <description>13/5/2013</description>
+    <id>465</id>
     <journal>Diversen</journal>
     <nr>DIV205</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <date>26/6/2013</date>
     <debit>63.50</debit>
     <description>26/6/2013</description>
+    <id>732</id>
     <journal>Diversen</journal>
     <nr>DIV298</nr>
   </Movement>
@@ -21,6 +22,7 @@
     <date>8/8/2013</date>
     <debit>52.37</debit>
     <description>8/8/2013</description>
+    <id>912</id>
     <journal>Diversen</journal>
     <nr>DIV378</nr>
   </Movement>
@@ -28,6 +30,7 @@
     <date>12/8/2013</date>
     <debit>84.60</debit>
     <description>12/8/2013</description>
+    <id>922</id>
     <journal>Diversen</journal>
     <nr>DIV382</nr>
   </Movement>
@@ -35,6 +38,7 @@
     <date>23/9/2013</date>
     <debit>68.62</debit>
     <description>23/9/2013</description>
+    <id>1051</id>
     <journal>Diversen</journal>
     <nr>DIV442</nr>
   </Movement>
@@ -42,6 +46,7 @@
     <date>21/10/2013</date>
     <debit>72.88</debit>
     <description>21/10/2013</description>
+    <id>1116</id>
     <journal>Diversen</journal>
     <nr>DIV473</nr>
   </Movement>
@@ -49,6 +54,7 @@
     <date>20/11/2013</date>
     <debit>89.27</debit>
     <description>20/11/2013</description>
+    <id>1211</id>
     <journal>Diversen</journal>
     <nr>DIV514</nr>
   </Movement>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>DAS-Autoverzekering</name>
@@ -7,6 +6,7 @@
     <date>12/3/2013</date>
     <debit>29.25</debit>
     <description>12/3/2013</description>
+    <id>245</id>
     <journal>Diversen</journal>
     <nr>DIV107</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <date>11/6/2013</date>
     <debit>29.25</debit>
     <description>11/6/2013</description>
+    <id>678</id>
     <journal>Diversen</journal>
     <nr>DIV272</nr>
   </Movement>
@@ -21,6 +22,7 @@
     <date>10/9/2013</date>
     <debit>29.25</debit>
     <description>10/9/2013</description>
+    <id>1019</id>
     <journal>Diversen</journal>
     <nr>DIV426</nr>
   </Movement>
@@ -28,6 +30,7 @@
     <date>10/12/2013</date>
     <debit>29.25</debit>
     <description>10/12/2013</description>
+    <id>1298</id>
     <journal>Diversen</journal>
     <nr>DIV554</nr>
   </Movement>

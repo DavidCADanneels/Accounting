@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Post Dara</name>
@@ -7,6 +6,7 @@
     <date>1/1/2013</date>
     <debit>2506.88</debit>
     <description>1/1/2013</description>
+    <id>7</id>
     <journal>Diversen</journal>
     <nr>DIV1</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <date>1/1/2013</date>
     <debit>14.98</debit>
     <description>1/1/2013</description>
+    <id>18</id>
     <journal>Diversen</journal>
     <nr>DIV4</nr>
   </Movement>
@@ -21,6 +22,7 @@
     <credit>600.00</credit>
     <date>2/1/2013</date>
     <description>2/1/2013</description>
+    <id>36</id>
     <journal>Diversen</journal>
     <nr>DIV12</nr>
   </Movement>
@@ -28,6 +30,7 @@
     <date>18/1/2013</date>
     <debit>304.67</debit>
     <description>18/1/2013</description>
+    <id>101</id>
     <journal>Diversen</journal>
     <nr>DIV42</nr>
   </Movement>
@@ -35,6 +38,7 @@
     <credit>115.50</credit>
     <date>26/1/2013</date>
     <description>26/1/2013</description>
+    <id>126</id>
     <journal>Diversen</journal>
     <nr>DIV54</nr>
   </Movement>
@@ -42,6 +46,7 @@
     <credit>2111.00</credit>
     <date>8/2/2013</date>
     <description>8/2/2013</description>
+    <id>184</id>
     <journal>Diversen</journal>
     <nr>DIV79</nr>
   </Movement>
@@ -49,6 +54,7 @@
     <date>20/5/2013</date>
     <debit>1000.00</debit>
     <description>20/5/2013</description>
+    <id>606</id>
     <journal>Diversen</journal>
     <nr>DIV237</nr>
   </Movement>
@@ -56,6 +62,7 @@
     <credit>600.00</credit>
     <date>20/5/2013</date>
     <description>20/5/2013</description>
+    <id>609</id>
     <journal>Diversen</journal>
     <nr>DIV238</nr>
   </Movement>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Aankoop - fout kosten aankoopakte</name>
@@ -7,6 +6,7 @@
     <date>29/4/2013</date>
     <debit>2725.00</debit>
     <description>29/4/2013</description>
+    <id>405</id>
     <journal>Diversen</journal>
     <nr>DIV179</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <credit>2725.00</credit>
     <date>7/5/2013</date>
     <description>7/5/2013</description>
+    <id>444</id>
     <journal>Diversen</journal>
     <nr>DIV196</nr>
   </Movement>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Kosten Thailand</name>
@@ -7,6 +6,7 @@
     <date>2/1/2013</date>
     <debit>600.00</debit>
     <description>2/1/2013</description>
+    <id>35</id>
     <journal>Diversen</journal>
     <nr>DIV12</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <date>26/1/2013</date>
     <debit>115.50</debit>
     <description>26/1/2013</description>
+    <id>125</id>
     <journal>Diversen</journal>
     <nr>DIV54</nr>
   </Movement>
@@ -21,6 +22,7 @@
     <date>8/2/2013</date>
     <debit>2111.00</debit>
     <description>8/2/2013</description>
+    <id>183</id>
     <journal>Diversen</journal>
     <nr>DIV79</nr>
   </Movement>

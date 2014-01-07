@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Ziekenhuiskosten</name>
@@ -7,6 +6,7 @@
     <date>21/3/2013</date>
     <debit>51.68</debit>
     <description>21/3/2013</description>
+    <id>296</id>
     <journal>Diversen</journal>
     <nr>DIV127</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <date>10/4/2013</date>
     <debit>36.25</debit>
     <description>10/4/2013</description>
+    <id>351</id>
     <journal>Diversen</journal>
     <nr>DIV153</nr>
   </Movement>
@@ -21,6 +22,7 @@
     <date>7/7/2013</date>
     <debit>56.18</debit>
     <description>7/7/2013</description>
+    <id>799</id>
     <journal>Diversen</journal>
     <nr>DIV328</nr>
   </Movement>
@@ -28,6 +30,7 @@
     <date>17/10/2013</date>
     <debit>112.85</debit>
     <description>17/10/2013</description>
+    <id>1110</id>
     <journal>Diversen</journal>
     <nr>DIV470</nr>
   </Movement>
@@ -35,6 +38,7 @@
     <date>5/11/2013</date>
     <debit>123.36</debit>
     <description>5/11/2013</description>
+    <id>1153</id>
     <journal>Diversen</journal>
     <nr>DIV491</nr>
   </Movement>
@@ -42,6 +46,7 @@
     <date>7/12/2013</date>
     <debit>42.30</debit>
     <description>7/12/2013</description>
+    <id>1280</id>
     <journal>Diversen</journal>
     <nr>DIV545</nr>
   </Movement>
@@ -49,6 +54,7 @@
     <date>31/12/2013</date>
     <debit>66.33</debit>
     <description>31/12/2013</description>
+    <id>1400</id>
     <journal>Diversen</journal>
     <nr>DIV603</nr>
   </Movement>
@@ -56,6 +62,7 @@
     <date>31/12/2013</date>
     <debit>36.25</debit>
     <description>31/12/2013</description>
+    <id>1401</id>
     <journal>Diversen</journal>
     <nr>DIV603</nr>
   </Movement>

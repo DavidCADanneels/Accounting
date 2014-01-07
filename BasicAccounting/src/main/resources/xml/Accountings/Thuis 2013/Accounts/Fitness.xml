@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Fitness</name>
@@ -7,6 +6,7 @@
     <date>13/5/2013</date>
     <debit>49.95</debit>
     <description>13/5/2013</description>
+    <id>491</id>
     <journal>Diversen</journal>
     <nr>DIV214</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <date>13/5/2013</date>
     <debit>49.95</debit>
     <description>13/5/2013</description>
+    <id>492</id>
     <journal>Diversen</journal>
     <nr>DIV214</nr>
   </Movement>
@@ -21,6 +22,7 @@
     <date>13/5/2013</date>
     <debit>49.95</debit>
     <description>13/5/2013</description>
+    <id>493</id>
     <journal>Diversen</journal>
     <nr>DIV214</nr>
   </Movement>
@@ -28,6 +30,7 @@
     <date>13/5/2013</date>
     <debit>49.95</debit>
     <description>13/5/2013</description>
+    <id>494</id>
     <journal>Diversen</journal>
     <nr>DIV214</nr>
   </Movement>
@@ -35,6 +38,7 @@
     <date>13/5/2013</date>
     <debit>49.95</debit>
     <description>13/5/2013</description>
+    <id>495</id>
     <journal>Diversen</journal>
     <nr>DIV214</nr>
   </Movement>
@@ -42,6 +46,7 @@
     <date>1/7/2013</date>
     <debit>99.90</debit>
     <description>1/7/2013</description>
+    <id>750</id>
     <journal>Diversen</journal>
     <nr>DIV306</nr>
   </Movement>
@@ -49,6 +54,7 @@
     <date>4/9/2013</date>
     <debit>99.90</debit>
     <description>4/9/2013</description>
+    <id>985</id>
     <journal>Diversen</journal>
     <nr>DIV412</nr>
   </Movement>

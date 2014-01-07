@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Essent</name>
@@ -7,6 +6,7 @@
     <date>26/6/2013</date>
     <debit>19.25</debit>
     <description>26/6/2013</description>
+    <id>734</id>
     <journal>Diversen</journal>
     <nr>DIV299</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <date>10/10/2013</date>
     <debit>19.25</debit>
     <description>10/10/2013</description>
+    <id>1094</id>
     <journal>Diversen</journal>
     <nr>DIV462</nr>
   </Movement>
@@ -21,6 +22,7 @@
     <date>15/10/2013</date>
     <debit>19.25</debit>
     <description>15/10/2013</description>
+    <id>1098</id>
     <journal>Diversen</journal>
     <nr>DIV464</nr>
   </Movement>
@@ -28,6 +30,7 @@
     <date>15/10/2013</date>
     <debit>19.25</debit>
     <description>15/10/2013</description>
+    <id>1100</id>
     <journal>Diversen</journal>
     <nr>DIV465</nr>
   </Movement>
@@ -35,6 +38,7 @@
     <date>31/10/2013</date>
     <debit>19.25</debit>
     <description>31/10/2013</description>
+    <id>1134</id>
     <journal>Diversen</journal>
     <nr>DIV482</nr>
   </Movement>
@@ -42,6 +46,7 @@
     <date>3/12/2013</date>
     <debit>19.25</debit>
     <description>3/12/2013</description>
+    <id>1254</id>
     <journal>Diversen</journal>
     <nr>DIV534</nr>
   </Movement>

@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>AXA-TEMP</name>
@@ -7,6 +6,7 @@
     <credit>89.16</credit>
     <date>21/5/2013</date>
     <description>21/5/2013</description>
+    <id>615</id>
     <journal>Diversen</journal>
     <nr>DIV241</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <date>27/5/2013</date>
     <debit>46.43</debit>
     <description>27/5/2013</description>
+    <id>624</id>
     <journal>Diversen</journal>
     <nr>DIV246</nr>
   </Movement>
@@ -21,6 +22,7 @@
     <credit>94.81</credit>
     <date>11/6/2013</date>
     <description>11/6/2013</description>
+    <id>681</id>
     <journal>Diversen</journal>
     <nr>DIV273</nr>
   </Movement>
@@ -28,6 +30,7 @@
     <credit>54.77</credit>
     <date>26/6/2013</date>
     <description>26/6/2013</description>
+    <id>727</id>
     <journal>Diversen</journal>
     <nr>DIV295</nr>
   </Movement>
@@ -35,6 +38,7 @@
     <date>10/7/2013</date>
     <debit>94.81</debit>
     <description>10/7/2013</description>
+    <id>813</id>
     <journal>Diversen</journal>
     <nr>DIV335</nr>
   </Movement>
@@ -42,6 +46,7 @@
     <date>16/7/2013</date>
     <debit>46.43</debit>
     <description>16/7/2013</description>
+    <id>823</id>
     <journal>Diversen</journal>
     <nr>DIV339</nr>
   </Movement>
@@ -49,6 +54,7 @@
     <date>5/11/2013</date>
     <debit>165.59</debit>
     <description>5/11/2013</description>
+    <id>1155</id>
     <journal>Diversen</journal>
     <nr>DIV492</nr>
   </Movement>
@@ -56,6 +62,7 @@
     <date>5/11/2013</date>
     <debit>46.43</debit>
     <description>5/11/2013</description>
+    <id>1156</id>
     <journal>Diversen</journal>
     <nr>DIV492</nr>
   </Movement>

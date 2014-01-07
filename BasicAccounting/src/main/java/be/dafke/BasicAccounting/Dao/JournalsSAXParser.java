@@ -19,7 +19,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -98,28 +97,24 @@ public class JournalsSAXParser {
             writer.write(header);
 
             writer.write("<Journal>\r\n"
-                    + "  <name>" + journal.getName() + "</name>\r\n");
+                    + "  <name>" + journal.getName() + "</name>\r\n"
+                    + "  <abbr>" + journal.getAbbreviation() + "</abbr>\r\n");
             for (Transaction transaction :journal.getBusinessObjects()) {
-                ArrayList<Booking> list = transaction.getBookings();
-                Booking booking = list.get(0);
-                writer.write("  <Transaction id=\""+transaction.getId()+"\">\r\n");
-                writer.write("    <nr>" + journal.getAbbreviation() + journal.getId(transaction) + "</nr>\r\n");
+                writer.write("  <Transaction>\r\n");
+                writer.write("    <id>" + journal.getId(transaction) + "</id>\r\n");
+                writer.write("    <description>" + transaction.getDescription() + "</description>\r\n");
                 writer.write("    <date>" + Utils.toString(transaction.getDate()) + "</date>\r\n");
-                writer.write("    <Account>" + booking.getAccount() + "</Account>\r\n");
-                writer.write("    <" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">"
+
+                for (Booking booking : transaction.getBookings()){
+                writer.write("    <Booking>\r\n");
+                writer.write("      <id>" + booking.getMovement().getId() + "</id>\r\n");
+                writer.write("      <Account>" + booking.getAccount() + "</Account>\r\n");
+                writer.write("      <" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">"
                                      + booking.getMovement().getAmount().toString()
                                + "</" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">\r\n");
-                writer.write("    <description>" + transaction.getDescription() + "</description>\r\n");
-                writer.write("  </Transaction>\r\n");
-                for(int i = 1; i < list.size(); i++) {
-                    booking = list.get(i);
-                    writer.write("  <Transaction>\r\n");
-                    writer.write("    <Account>" + booking.getAccount() + "</Account>\r\n");
-                    writer.write("    <" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">"
-                            + booking.getMovement().getAmount().toString()
-                            + "</" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">\r\n");
-                    writer.write("  </Transaction>\r\n");
+                writer.write("    </Booking>\r\n");
                 }
+                writer.write("  </Transaction>\r\n");
             }
             writer.write("</Journal>");
             writer.flush();

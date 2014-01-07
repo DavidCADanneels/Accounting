@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Eigen Kapitaal</name>
@@ -7,6 +6,7 @@
     <credit>11987.43</credit>
     <date>1/1/2013</date>
     <description>1/1/2013</description>
+    <id>8</id>
     <journal>Diversen</journal>
     <nr>DIV1</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <date>1/1/2013</date>
     <debit>11987.43</debit>
     <description>1/1/2013</description>
+    <id>14</id>
     <journal>Diversen</journal>
     <nr>DIV3</nr>
   </Movement>
@@ -21,6 +22,7 @@
     <credit>11633.14</credit>
     <date>1/1/2013</date>
     <description>1/1/2013</description>
+    <id>16</id>
     <journal>Diversen</journal>
     <nr>DIV3</nr>
   </Movement>

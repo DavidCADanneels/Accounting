@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Netto Dara</name>
@@ -7,6 +6,7 @@
     <credit>456.56</credit>
     <date>3/1/2013</date>
     <description>3/1/2013</description>
+    <id>40</id>
     <journal>Diversen</journal>
     <nr>DIV14</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <credit>250.00</credit>
     <date>16/1/2013</date>
     <description>16/1/2013</description>
+    <id>78</id>
     <journal>Diversen</journal>
     <nr>DIV31</nr>
   </Movement>
@@ -21,6 +22,7 @@
     <credit>664.32</credit>
     <date>4/2/2013</date>
     <description>4/2/2013</description>
+    <id>155</id>
     <journal>Diversen</journal>
     <nr>DIV68</nr>
   </Movement>
@@ -28,6 +30,7 @@
     <credit>16.32</credit>
     <date>18/2/2013</date>
     <description>18/2/2013</description>
+    <id>204</id>
     <journal>Diversen</journal>
     <nr>DIV89</nr>
   </Movement>
@@ -35,6 +38,7 @@
     <credit>100.00</credit>
     <date>19/2/2013</date>
     <description>19/2/2013</description>
+    <id>206</id>
     <journal>Diversen</journal>
     <nr>DIV90</nr>
   </Movement>
@@ -42,6 +46,7 @@
     <credit>160.49</credit>
     <date>4/3/2013</date>
     <description>4/3/2013</description>
+    <id>226</id>
     <journal>Diversen</journal>
     <nr>DIV99</nr>
   </Movement>
@@ -49,6 +54,7 @@
     <credit>251.92</credit>
     <date>5/3/2013</date>
     <description>5/3/2013</description>
+    <id>230</id>
     <journal>Diversen</journal>
     <nr>DIV101</nr>
   </Movement>
@@ -56,6 +62,7 @@
     <credit>16.89</credit>
     <date>7/3/2013</date>
     <description>7/3/2013</description>
+    <id>242</id>
     <journal>Diversen</journal>
     <nr>DIV105</nr>
   </Movement>
@@ -63,6 +70,7 @@
     <credit>112.87</credit>
     <date>14/3/2013</date>
     <description>14/3/2013</description>
+    <id>261</id>
     <journal>Diversen</journal>
     <nr>DIV110</nr>
   </Movement>
@@ -70,6 +78,7 @@
     <credit>8.21</credit>
     <date>3/4/2013</date>
     <description>3/4/2013</description>
+    <id>330</id>
     <journal>Diversen</journal>
     <nr>DIV143</nr>
   </Movement>
@@ -77,6 +86,7 @@
     <credit>409.36</credit>
     <date>4/4/2013</date>
     <description>4/4/2013</description>
+    <id>332</id>
     <journal>Diversen</journal>
     <nr>DIV144</nr>
   </Movement>
@@ -84,6 +94,7 @@
     <credit>112.87</credit>
     <date>15/4/2013</date>
     <description>15/4/2013</description>
+    <id>364</id>
     <journal>Diversen</journal>
     <nr>DIV159</nr>
   </Movement>
@@ -91,6 +102,7 @@
     <credit>409.36</credit>
     <date>6/5/2013</date>
     <description>6/5/2013</description>
+    <id>420</id>
     <journal>Diversen</journal>
     <nr>DIV184</nr>
   </Movement>
@@ -98,6 +110,7 @@
     <credit>125.00</credit>
     <date>16/5/2013</date>
     <description>16/5/2013</description>
+    <id>595</id>
     <journal>Diversen</journal>
     <nr>DIV231</nr>
   </Movement>
@@ -105,6 +118,7 @@
     <credit>112.87</credit>
     <date>16/5/2013</date>
     <description>16/5/2013</description>
+    <id>597</id>
     <journal>Diversen</journal>
     <nr>DIV232</nr>
   </Movement>
@@ -112,6 +126,7 @@
     <credit>559.57</credit>
     <date>4/6/2013</date>
     <description>4/6/2013</description>
+    <id>645</id>
     <journal>Diversen</journal>
     <nr>DIV255</nr>
   </Movement>
@@ -119,6 +134,7 @@
     <credit>141.70</credit>
     <date>6/6/2013</date>
     <description>6/6/2013</description>
+    <id>657</id>
     <journal>Diversen</journal>
     <nr>DIV261</nr>
   </Movement>
@@ -126,6 +142,7 @@
     <credit>350.00</credit>
     <date>18/6/2013</date>
     <description>18/6/2013</description>
+    <id>701</id>
     <journal>Diversen</journal>
     <nr>DIV282</nr>
   </Movement>
@@ -133,6 +150,7 @@
     <credit>1222.87</credit>
     <date>26/6/2013</date>
     <description>26/6/2013</description>
+    <id>725</id>
     <journal>Diversen</journal>
     <nr>DIV294</nr>
   </Movement>
@@ -140,6 +158,7 @@
     <credit>628.98</credit>
     <date>2/7/2013</date>
     <description>2/7/2013</description>
+    <id>767</id>
     <journal>Diversen</journal>
     <nr>DIV314</nr>
   </Movement>
@@ -147,6 +166,7 @@
     <credit>350.00</credit>
     <date>16/7/2013</date>
     <description>16/7/2013</description>
+    <id>820</id>
     <journal>Diversen</journal>
     <nr>DIV337</nr>
   </Movement>
@@ -154,6 +174,7 @@
     <credit>295.20</credit>
     <date>2/8/2013</date>
     <description>2/8/2013</description>
+    <id>892</id>
     <journal>Diversen</journal>
     <nr>DIV368</nr>
   </Movement>
@@ -161,6 +182,7 @@
     <credit>350.00</credit>
     <date>19/8/2013</date>
     <description>19/8/2013</description>
+    <id>937</id>
     <journal>Diversen</journal>
     <nr>DIV389</nr>
   </Movement>
@@ -168,6 +190,7 @@
     <credit>17.23</credit>
     <date>26/8/2013</date>
     <description>26/8/2013</description>
+    <id>949</id>
     <journal>Diversen</journal>
     <nr>DIV395</nr>
   </Movement>
@@ -175,6 +198,7 @@
     <credit>707.06</credit>
     <date>3/9/2013</date>
     <description>3/9/2013</description>
+    <id>980</id>
     <journal>Diversen</journal>
     <nr>DIV410</nr>
   </Movement>
@@ -182,6 +206,7 @@
     <credit>350.00</credit>
     <date>17/9/2013</date>
     <description>17/9/2013</description>
+    <id>1030</id>
     <journal>Diversen</journal>
     <nr>DIV431</nr>
   </Movement>
@@ -189,6 +214,7 @@
     <credit>609.81</credit>
     <date>2/10/2013</date>
     <description>2/10/2013</description>
+    <id>1066</id>
     <journal>Diversen</journal>
     <nr>DIV449</nr>
   </Movement>
@@ -196,6 +222,7 @@
     <credit>350.00</credit>
     <date>16/10/2013</date>
     <description>16/10/2013</description>
+    <id>1107</id>
     <journal>Diversen</journal>
     <nr>DIV468</nr>
   </Movement>
@@ -203,6 +230,7 @@
     <credit>732.31</credit>
     <date>5/11/2013</date>
     <description>5/11/2013</description>
+    <id>1150</id>
     <journal>Diversen</journal>
     <nr>DIV489</nr>
   </Movement>
@@ -210,6 +238,7 @@
     <credit>350.00</credit>
     <date>18/11/2013</date>
     <description>18/11/2013</description>
+    <id>1202</id>
     <journal>Diversen</journal>
     <nr>DIV511</nr>
   </Movement>
@@ -217,6 +246,7 @@
     <credit>671.57</credit>
     <date>3/12/2013</date>
     <description>3/12/2013</description>
+    <id>1248</id>
     <journal>Diversen</journal>
     <nr>DIV531</nr>
   </Movement>
@@ -224,6 +254,7 @@
     <credit>218.02</credit>
     <date>9/12/2013</date>
     <description>9/12/2013</description>
+    <id>1289</id>
     <journal>Diversen</journal>
     <nr>DIV549</nr>
   </Movement>
@@ -231,6 +262,7 @@
     <credit>150.00</credit>
     <date>17/12/2013</date>
     <description>17/12/2013</description>
+    <id>1337</id>
     <journal>Diversen</journal>
     <nr>DIV573</nr>
   </Movement>

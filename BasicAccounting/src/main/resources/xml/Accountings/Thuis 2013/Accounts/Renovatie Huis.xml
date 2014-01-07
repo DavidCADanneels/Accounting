@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Renovatie Huis</name>
@@ -7,6 +6,7 @@
     <date>6/4/2013</date>
     <debit>49.68</debit>
     <description>6/4/2013</description>
+    <id>339</id>
     <journal>Diversen</journal>
     <nr>DIV147</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <date>20/4/2013</date>
     <debit>101.11</debit>
     <description>20/4/2013</description>
+    <id>375</id>
     <journal>Diversen</journal>
     <nr>DIV165</nr>
   </Movement>
@@ -21,6 +22,7 @@
     <date>27/4/2013</date>
     <debit>88.50</debit>
     <description>27/4/2013</description>
+    <id>395</id>
     <journal>Diversen</journal>
     <nr>DIV175</nr>
   </Movement>
@@ -28,6 +30,7 @@
     <date>27/4/2013</date>
     <debit>150.54</debit>
     <description>27/4/2013</description>
+    <id>397</id>
     <journal>Diversen</journal>
     <nr>DIV176</nr>
   </Movement>
@@ -35,6 +38,7 @@
     <date>6/5/2013</date>
     <debit>64.75</debit>
     <description>6/5/2013</description>
+    <id>427</id>
     <journal>Diversen</journal>
     <nr>DIV188</nr>
   </Movement>
@@ -42,6 +46,7 @@
     <date>7/5/2013</date>
     <debit>109.10</debit>
     <description>7/5/2013</description>
+    <id>433</id>
     <journal>Diversen</journal>
     <nr>DIV191</nr>
   </Movement>
@@ -49,6 +54,7 @@
     <date>13/5/2013</date>
     <debit>151.40</debit>
     <description>13/5/2013</description>
+    <id>564</id>
     <journal>Diversen</journal>
     <nr>DIV221</nr>
   </Movement>
@@ -56,6 +62,7 @@
     <date>29/7/2013</date>
     <debit>1.80</debit>
     <description>29/7/2013</description>
+    <id>873</id>
     <journal>Diversen</journal>
     <nr>DIV363</nr>
   </Movement>
@@ -63,6 +70,7 @@
     <date>29/7/2013</date>
     <debit>11.20</debit>
     <description>29/7/2013</description>
+    <id>874</id>
     <journal>Diversen</journal>
     <nr>DIV363</nr>
   </Movement>
@@ -70,6 +78,7 @@
     <date>29/7/2013</date>
     <debit>215.84</debit>
     <description>29/7/2013</description>
+    <id>875</id>
     <journal>Diversen</journal>
     <nr>DIV363</nr>
   </Movement>
@@ -77,6 +86,7 @@
     <date>29/7/2013</date>
     <debit>20.00</debit>
     <description>29/7/2013</description>
+    <id>876</id>
     <journal>Diversen</journal>
     <nr>DIV363</nr>
   </Movement>
@@ -84,6 +94,7 @@
     <date>30/7/2013</date>
     <debit>230.00</debit>
     <description>30/7/2013</description>
+    <id>881</id>
     <journal>Diversen</journal>
     <nr>DIV364</nr>
   </Movement>
@@ -91,6 +102,7 @@
     <date>11/8/2013</date>
     <debit>464.24</debit>
     <description>11/8/2013</description>
+    <id>918</id>
     <journal>Diversen</journal>
     <nr>DIV380</nr>
   </Movement>

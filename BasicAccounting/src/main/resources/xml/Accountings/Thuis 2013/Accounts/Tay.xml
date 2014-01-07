@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Tay</name>
@@ -7,6 +6,7 @@
     <credit>83.14</credit>
     <date>30/7/2013</date>
     <description>30/7/2013</description>
+    <id>884</id>
     <journal>Diversen</journal>
     <nr>DIV364</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <credit>50.00</credit>
     <date>4/8/2013</date>
     <description>4/8/2013</description>
+    <id>903</id>
     <journal>Diversen</journal>
     <nr>DIV373</nr>
   </Movement>
@@ -21,6 +22,7 @@
     <credit>200.00</credit>
     <date>30/8/2013</date>
     <description>30/8/2013</description>
+    <id>961</id>
     <journal>Diversen</journal>
     <nr>DIV401</nr>
   </Movement>

@@ -55,7 +55,7 @@ public class Transaction {
         return journal.getAbbreviation();
     }
 
-    public int getId(){
+    public Integer getId(){
         return journal.getId(this);
     }
 

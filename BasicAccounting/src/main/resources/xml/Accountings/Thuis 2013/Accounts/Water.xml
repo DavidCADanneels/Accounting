@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Water</name>
@@ -7,6 +6,7 @@
     <date>19/8/2013</date>
     <debit>160.00</debit>
     <description>19/8/2013</description>
+    <id>932</id>
     <journal>Diversen</journal>
     <nr>DIV387</nr>
   </Movement>
@@ -14,6 +14,7 @@
     <date>20/11/2013</date>
     <debit>160.00</debit>
     <description>20/11/2013</description>
+    <id>1217</id>
     <journal>Diversen</journal>
     <nr>DIV517</nr>
   </Movement>
