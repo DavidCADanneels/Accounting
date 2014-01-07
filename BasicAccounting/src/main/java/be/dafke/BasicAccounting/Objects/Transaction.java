@@ -20,8 +20,6 @@ public class Transaction {
 
     private String description = "";
     private Calendar date = null;
-    private int id = 0;
-    private String abbreviation;
 
     private final ArrayList<Booking> bookings;
 
@@ -33,14 +31,6 @@ public class Transaction {
         bookings = new ArrayList<Booking>();
         date = Calendar.getInstance();
 	}
-
-    protected void lowerID() {
-        id--;
-    }
-
-    protected void raiseID() {
-        id++;
-    }
 
     // Getters (without setters)
     public ArrayList<Booking> getBookings() {
@@ -62,11 +52,11 @@ public class Transaction {
     }
 
     public String getAbbreviation() {
-        return abbreviation;
+        return journal.getAbbreviation();
     }
 
     public int getId(){
-        return id;
+        return journal.getId(this);
     }
 
     public String getDescription(){
@@ -81,14 +71,6 @@ public class Transaction {
 
     public void setJournal(Journal journal) {
         this.journal = journal;
-    }
-
-    public void setId(int nr) {
-        id = nr;
-    }
-
-    public void setAbbreviation(String abbreviation) {
-        this.abbreviation = abbreviation;
     }
 
 	public void setDescription(String description) {

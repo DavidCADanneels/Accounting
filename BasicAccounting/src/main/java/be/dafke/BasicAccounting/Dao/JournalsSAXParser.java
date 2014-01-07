@@ -53,8 +53,7 @@ public class JournalsSAXParser {
                         journal.addBusinessObject(transaction);
                     }
                     transaction = new Transaction();
-                    transaction.setAbbreviation(abbreviation);
-                    transaction.setId(Utils.parseInt(nr.replaceAll(abbreviation,"")));
+                    transaction.setJournal(journal);
                     transaction.setDate(Utils.toCalendar(date));
                     transaction.setDescription(description);
                 }
@@ -104,7 +103,7 @@ public class JournalsSAXParser {
                 ArrayList<Booking> list = transaction.getBookings();
                 Booking booking = list.get(0);
                 writer.write("  <Transaction id=\""+transaction.getId()+"\">\r\n");
-                writer.write("    <nr>" + journal.getAbbreviation() + transaction.getId() + "</nr>\r\n");
+                writer.write("    <nr>" + journal.getAbbreviation() + journal.getId(transaction) + "</nr>\r\n");
                 writer.write("    <date>" + Utils.toString(transaction.getDate()) + "</date>\r\n");
                 writer.write("    <Account>" + booking.getAccount() + "</Account>\r\n");
                 writer.write("    <" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">"
