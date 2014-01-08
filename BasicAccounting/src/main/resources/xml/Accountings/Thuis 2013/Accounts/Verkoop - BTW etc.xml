@@ -5,7 +5,7 @@
   <Movement>
     <date>12/3/2013</date>
     <debit>922.94</debit>
-    <description>12/3/2013</description>
+    <description>Verkoop huis</description>
     <id>250</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>108</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <credit>922.94</credit>
     <date>13/5/2013</date>
-    <description>13/5/2013</description>
+    <description>Afronden aankoop-verkoop</description>
     <id>575</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>223</journalId>

@@ -5,7 +5,7 @@
   <Movement>
     <date>6/4/2013</date>
     <debit>49.68</debit>
-    <description>6/4/2013</description>
+    <description>Gamma: verf</description>
     <id>339</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>147</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <date>20/4/2013</date>
     <debit>101.11</debit>
-    <description>20/4/2013</description>
+    <description>Hubo: verf/electriciteit</description>
     <id>375</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>165</journalId>
@@ -23,7 +23,7 @@
   <Movement>
     <date>27/4/2013</date>
     <debit>88.50</debit>
-    <description>27/4/2013</description>
+    <description>Goethals: kabels TV en internet</description>
     <id>395</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>175</journalId>
@@ -32,7 +32,7 @@
   <Movement>
     <date>27/4/2013</date>
     <debit>150.54</debit>
-    <description>27/4/2013</description>
+    <description>Hubo: electriciteit</description>
     <id>397</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>176</journalId>
@@ -41,7 +41,7 @@
   <Movement>
     <date>6/5/2013</date>
     <debit>64.75</debit>
-    <description>6/5/2013</description>
+    <description>Gamma: behang en muurverf</description>
     <id>427</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>188</journalId>
@@ -50,7 +50,7 @@
   <Movement>
     <date>7/5/2013</date>
     <debit>109.10</debit>
-    <description>7/5/2013</description>
+    <description>HUBO: verf</description>
     <id>433</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>191</journalId>
@@ -59,7 +59,7 @@
   <Movement>
     <date>13/5/2013</date>
     <debit>151.40</debit>
-    <description>13/5/2013</description>
+    <description>Hebo</description>
     <id>564</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>221</journalId>
@@ -68,7 +68,7 @@
   <Movement>
     <date>29/7/2013</date>
     <debit>1.80</debit>
-    <description>29/7/2013</description>
+    <description>Correctie: renovatie ipv inrichting</description>
     <id>873</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>363</journalId>
@@ -77,7 +77,7 @@
   <Movement>
     <date>29/7/2013</date>
     <debit>11.20</debit>
-    <description>29/7/2013</description>
+    <description>Correctie: renovatie ipv inrichting</description>
     <id>874</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>363</journalId>
@@ -86,7 +86,7 @@
   <Movement>
     <date>29/7/2013</date>
     <debit>215.84</debit>
-    <description>29/7/2013</description>
+    <description>Correctie: renovatie ipv inrichting</description>
     <id>875</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>363</journalId>
@@ -95,7 +95,7 @@
   <Movement>
     <date>29/7/2013</date>
     <debit>20.00</debit>
-    <description>29/7/2013</description>
+    <description>Correctie: renovatie ipv inrichting</description>
     <id>876</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>363</journalId>
@@ -104,7 +104,7 @@
   <Movement>
     <date>30/7/2013</date>
     <debit>230.00</debit>
-    <description>30/7/2013</description>
+    <description>afrekening Visa: 200 voor isolatie / rest vlucht Noi</description>
     <id>881</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>364</journalId>
@@ -113,7 +113,7 @@
   <Movement>
     <date>11/8/2013</date>
     <debit>464.24</debit>
-    <description>11/8/2013</description>
+    <description>Brico</description>
     <id>918</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>380</journalId>

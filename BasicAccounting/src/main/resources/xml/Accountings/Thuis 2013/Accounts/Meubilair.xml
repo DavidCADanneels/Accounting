@@ -5,7 +5,7 @@
   <Movement>
     <date>7/5/2013</date>
     <debit>4000.00</debit>
-    <description>7/5/2013</description>
+    <description>correctie aankoopakte</description>
     <id>437</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>193</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <date>7/5/2013</date>
     <debit>33.98</debit>
-    <description>7/5/2013</description>
+    <description>Dumpi: kussens</description>
     <id>439</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>194</journalId>
@@ -23,7 +23,7 @@
   <Movement>
     <date>7/5/2013</date>
     <debit>26.50</debit>
-    <description>7/5/2013</description>
+    <description>Bloemen Chris: inrichting hall</description>
     <id>441</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>195</journalId>
@@ -32,7 +32,7 @@
   <Movement>
     <date>8/5/2013</date>
     <debit>89.90</debit>
-    <description>8/5/2013</description>
+    <description>DUMPI: TV-meubel</description>
     <id>461</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>203</journalId>
@@ -41,7 +41,7 @@
   <Movement>
     <date>8/5/2013</date>
     <debit>134.14</debit>
-    <description>8/5/2013</description>
+    <description>BRICO: tapijtjes, kaders, WC-rol houder</description>
     <id>463</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>204</journalId>
@@ -50,7 +50,7 @@
   <Movement>
     <credit>33.98</credit>
     <date>13/5/2013</date>
-    <description>13/5/2013</description>
+    <description>correctie: inrichting = kost, meubilair = activa</description>
     <id>487</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>213</journalId>
@@ -59,7 +59,7 @@
   <Movement>
     <credit>26.50</credit>
     <date>13/5/2013</date>
-    <description>13/5/2013</description>
+    <description>correctie: inrichting = kost, meubilair = activa</description>
     <id>488</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>213</journalId>
@@ -68,7 +68,7 @@
   <Movement>
     <credit>89.90</credit>
     <date>13/5/2013</date>
-    <description>13/5/2013</description>
+    <description>correctie: inrichting = kost, meubilair = activa</description>
     <id>489</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>213</journalId>
@@ -77,7 +77,7 @@
   <Movement>
     <credit>134.14</credit>
     <date>13/5/2013</date>
-    <description>13/5/2013</description>
+    <description>correctie: inrichting = kost, meubilair = activa</description>
     <id>490</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>213</journalId>
@@ -86,7 +86,7 @@
   <Movement>
     <date>13/5/2013</date>
     <debit>399.00</debit>
-    <description>13/5/2013</description>
+    <description>Visa: aankoop TV, friteuse (TH) en vluchten naar Udon</description>
     <id>554</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>219</journalId>
@@ -95,7 +95,7 @@
   <Movement>
     <date>3/7/2013</date>
     <debit>138.98</debit>
-    <description>3/7/2013</description>
+    <description>Saturn: frigo</description>
     <id>774</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>318</journalId>
@@ -104,7 +104,7 @@
   <Movement>
     <date>19/12/2013</date>
     <debit>175.00</debit>
-    <description>19/12/2013</description>
+    <description>Bed grote kamer</description>
     <id>1340</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>575</journalId>
@@ -113,7 +113,7 @@
   <Movement>
     <date>19/12/2013</date>
     <debit>269.00</debit>
-    <description>19/12/2013</description>
+    <description>ATM: Bed Sophia</description>
     <id>1347</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>578</journalId>

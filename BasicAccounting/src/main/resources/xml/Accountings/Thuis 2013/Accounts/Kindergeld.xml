@@ -5,7 +5,7 @@
   <Movement>
     <credit>90.28</credit>
     <date>8/1/2013</date>
-    <description>8/1/2013</description>
+    <description>kindergeld december</description>
     <id>58</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>21</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <credit>90.28</credit>
     <date>8/2/2013</date>
-    <description>8/2/2013</description>
+    <description>Kindergeld januari</description>
     <id>180</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>77</journalId>
@@ -23,7 +23,7 @@
   <Movement>
     <credit>90.28</credit>
     <date>8/3/2013</date>
-    <description>8/3/2013</description>
+    <description>kindergeld april</description>
     <id>244</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>106</journalId>
@@ -32,7 +32,7 @@
   <Movement>
     <credit>90.28</credit>
     <date>8/4/2013</date>
-    <description>8/4/2013</description>
+    <description>Kindergeld maart</description>
     <id>350</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>152</journalId>
@@ -41,7 +41,7 @@
   <Movement>
     <credit>90.28</credit>
     <date>8/5/2013</date>
-    <description>8/5/2013</description>
+    <description>kindergeld april</description>
     <id>458</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>201</journalId>
@@ -50,7 +50,7 @@
   <Movement>
     <credit>90.28</credit>
     <date>7/6/2013</date>
-    <description>7/6/2013</description>
+    <description>Kindergeld mei</description>
     <id>663</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>264</journalId>
@@ -59,7 +59,7 @@
   <Movement>
     <credit>90.28</credit>
     <date>8/7/2013</date>
-    <description>8/7/2013</description>
+    <description>Kindergeld juni</description>
     <id>806</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>331</journalId>
@@ -68,7 +68,7 @@
   <Movement>
     <credit>112.28</credit>
     <date>8/8/2013</date>
-    <description>8/8/2013</description>
+    <description>Kindergeld juli</description>
     <id>909</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>376</journalId>
@@ -77,7 +77,7 @@
   <Movement>
     <credit>90.28</credit>
     <date>6/9/2013</date>
-    <description>6/9/2013</description>
+    <description>kindergeld augustus</description>
     <id>1004</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>419</journalId>
@@ -86,7 +86,6 @@
   <Movement>
     <credit>90.28</credit>
     <date>8/10/2013</date>
-    <description>8/10/2013</description>
     <id>1089</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>459</journalId>
@@ -95,7 +94,6 @@
   <Movement>
     <credit>90.28</credit>
     <date>8/11/2013</date>
-    <description>8/11/2013</description>
     <id>1170</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>497</journalId>
@@ -104,7 +102,6 @@
   <Movement>
     <credit>90.28</credit>
     <date>6/12/2013</date>
-    <description>6/12/2013</description>
     <id>1275</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>543</journalId>

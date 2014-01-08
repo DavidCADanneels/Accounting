@@ -5,7 +5,7 @@
   <Movement>
     <date>4/1/2013</date>
     <debit>25.93</debit>
-    <description>4/1/2013</description>
+    <description>Verzekeringen januari</description>
     <id>47</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>18</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <date>6/2/2013</date>
     <debit>25.93</debit>
-    <description>6/2/2013</description>
+    <description>verzekeringen + Sophia</description>
     <id>165</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>73</journalId>
@@ -23,7 +23,7 @@
   <Movement>
     <date>7/3/2013</date>
     <debit>25.93</debit>
-    <description>7/3/2013</description>
+    <description>verzekeringen maart (manueel)</description>
     <id>235</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>104</journalId>
@@ -32,7 +32,7 @@
   <Movement>
     <date>5/4/2013</date>
     <debit>25.93</debit>
-    <description>5/4/2013</description>
+    <description>Verzekeringen april</description>
     <id>333</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>145</journalId>
@@ -41,7 +41,7 @@
   <Movement>
     <date>7/5/2013</date>
     <debit>25.93</debit>
-    <description>7/5/2013</description>
+    <description>Verzekeringen mei</description>
     <id>447</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>198</journalId>

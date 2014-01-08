@@ -5,7 +5,7 @@
   <Movement>
     <date>29/4/2013</date>
     <debit>598.21</debit>
-    <description>29/4/2013</description>
+    <description>Vereffening notaris - aankoop Invalidenstraat</description>
     <id>407</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>179</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <credit>598.21</credit>
     <date>13/5/2013</date>
-    <description>13/5/2013</description>
+    <description>Onroerende voorheffing op oud en nieuw huis</description>
     <id>569</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>222</journalId>

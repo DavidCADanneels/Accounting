@@ -5,7 +5,7 @@
   <Movement>
     <date>1/1/2013</date>
     <debit>429.84</debit>
-    <description>1/1/2013</description>
+    <description>Beginbalans</description>
     <id>6</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>1</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <date>1/1/2013</date>
     <debit>75.55</debit>
-    <description>1/1/2013</description>
+    <description>correctie beginbalans (Bank Dara)</description>
     <id>15</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>3</journalId>
@@ -23,7 +23,7 @@
   <Movement>
     <credit>429.84</credit>
     <date>1/1/2013</date>
-    <description>1/1/2013</description>
+    <description>correctie beginbalans (Bank Dara)</description>
     <id>17</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>3</journalId>
@@ -32,7 +32,7 @@
   <Movement>
     <credit>33.70</credit>
     <date>2/1/2013</date>
-    <description>2/1/2013</description>
+    <description>Kapitalisatie</description>
     <id>34</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>11</journalId>
@@ -41,7 +41,7 @@
   <Movement>
     <date>3/1/2013</date>
     <debit>456.56</debit>
-    <description>3/1/2013</description>
+    <description>rest december</description>
     <id>39</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>14</journalId>
@@ -50,7 +50,7 @@
   <Movement>
     <credit>49.95</credit>
     <date>3/1/2013</date>
-    <description>3/1/2013</description>
+    <description>Bennies fitnes</description>
     <id>42</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>15</journalId>
@@ -59,7 +59,7 @@
   <Movement>
     <credit>24.95</credit>
     <date>3/1/2013</date>
-    <description>3/1/2013</description>
+    <description>INNO</description>
     <id>44</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>16</journalId>
@@ -68,7 +68,7 @@
   <Movement>
     <credit>2.40</credit>
     <date>3/1/2013</date>
-    <description>3/1/2013</description>
+    <description>Parking</description>
     <id>46</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>17</journalId>
@@ -77,7 +77,7 @@
   <Movement>
     <credit>59.48</credit>
     <date>4/1/2013</date>
-    <description>4/1/2013</description>
+    <description>Redstores</description>
     <id>54</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>19</journalId>
@@ -86,7 +86,7 @@
   <Movement>
     <credit>9.09</credit>
     <date>4/1/2013</date>
-    <description>4/1/2013</description>
+    <description>Zeeman</description>
     <id>56</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>20</journalId>
@@ -95,7 +95,7 @@
   <Movement>
     <date>8/1/2013</date>
     <debit>90.28</debit>
-    <description>8/1/2013</description>
+    <description>kindergeld december</description>
     <id>57</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>21</journalId>
@@ -104,7 +104,7 @@
   <Movement>
     <credit>43.64</credit>
     <date>9/1/2013</date>
-    <description>9/1/2013</description>
+    <description>Carrefour</description>
     <id>60</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>22</journalId>
@@ -113,7 +113,7 @@
   <Movement>
     <credit>40.00</credit>
     <date>9/1/2013</date>
-    <description>9/1/2013</description>
+    <description>ATM</description>
     <id>62</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>23</journalId>
@@ -122,7 +122,7 @@
   <Movement>
     <credit>64.12</credit>
     <date>11/1/2013</date>
-    <description>11/1/2013</description>
+    <description>Thai shop</description>
     <id>64</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>24</journalId>
@@ -131,7 +131,7 @@
   <Movement>
     <credit>16.06</credit>
     <date>11/1/2013</date>
-    <description>11/1/2013</description>
+    <description>Delhaize</description>
     <id>66</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>25</journalId>
@@ -140,7 +140,7 @@
   <Movement>
     <credit>76.49</credit>
     <date>11/1/2013</date>
-    <description>11/1/2013</description>
+    <description>Carrefour</description>
     <id>68</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>26</journalId>
@@ -149,7 +149,7 @@
   <Movement>
     <credit>42.30</credit>
     <date>12/1/2013</date>
-    <description>12/1/2013</description>
+    <description>Colruyt</description>
     <id>70</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>27</journalId>
@@ -158,7 +158,7 @@
   <Movement>
     <credit>57.25</credit>
     <date>14/1/2013</date>
-    <description>14/1/2013</description>
+    <description>Carrefour</description>
     <id>72</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>28</journalId>
@@ -167,7 +167,7 @@
   <Movement>
     <credit>50.00</credit>
     <date>15/1/2013</date>
-    <description>15/1/2013</description>
+    <description>ATM</description>
     <id>74</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>29</journalId>
@@ -176,7 +176,7 @@
   <Movement>
     <credit>6.90</credit>
     <date>15/1/2013</date>
-    <description>15/1/2013</description>
+    <description>Quick</description>
     <id>76</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>30</journalId>
@@ -185,7 +185,7 @@
   <Movement>
     <date>16/1/2013</date>
     <debit>250.00</debit>
-    <description>16/1/2013</description>
+    <description>voorschot januari</description>
     <id>77</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>31</journalId>
@@ -194,7 +194,7 @@
   <Movement>
     <credit>20.00</credit>
     <date>16/1/2013</date>
-    <description>16/1/2013</description>
+    <description>ATM</description>
     <id>80</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>32</journalId>
@@ -203,7 +203,7 @@
   <Movement>
     <credit>64.60</credit>
     <date>17/1/2013</date>
-    <description>17/1/2013</description>
+    <description>tankbeurt auto</description>
     <id>84</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>34</journalId>
@@ -212,7 +212,7 @@
   <Movement>
     <credit>80.00</credit>
     <date>18/1/2013</date>
-    <description>18/1/2013</description>
+    <description>ATM</description>
     <id>95</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>39</journalId>
@@ -221,7 +221,7 @@
   <Movement>
     <credit>10.00</credit>
     <date>18/1/2013</date>
-    <description>18/1/2013</description>
+    <description>ATM</description>
     <id>96</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>39</journalId>
@@ -230,7 +230,7 @@
   <Movement>
     <credit>56.06</credit>
     <date>25/1/2013</date>
-    <description>25/1/2013</description>
+    <description>Thai shop</description>
     <id>116</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>49</journalId>
@@ -239,7 +239,7 @@
   <Movement>
     <credit>42.23</credit>
     <date>26/1/2013</date>
-    <description>26/1/2013</description>
+    <description>Carrefour</description>
     <id>122</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>52</journalId>
@@ -248,7 +248,7 @@
   <Movement>
     <date>4/2/2013</date>
     <debit>664.32</debit>
-    <description>4/2/2013</description>
+    <description>rest januari</description>
     <id>154</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>68</journalId>
@@ -257,7 +257,7 @@
   <Movement>
     <credit>450.00</credit>
     <date>4/2/2013</date>
-    <description>4/2/2013</description>
+    <description>hulp voor lening</description>
     <id>157</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>69</journalId>
@@ -266,7 +266,7 @@
   <Movement>
     <date>6/2/2013</date>
     <debit>450.00</debit>
-    <description>6/2/2013</description>
+    <description>terugbetaling hulp voor lening</description>
     <id>175</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>75</journalId>
@@ -275,7 +275,7 @@
   <Movement>
     <credit>97.98</credit>
     <date>7/2/2013</date>
-    <description>7/2/2013</description>
+    <description>???</description>
     <id>178</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>76</journalId>
@@ -284,7 +284,7 @@
   <Movement>
     <date>8/2/2013</date>
     <debit>90.28</debit>
-    <description>8/2/2013</description>
+    <description>Kindergeld januari</description>
     <id>179</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>77</journalId>
@@ -293,7 +293,7 @@
   <Movement>
     <credit>42.91</credit>
     <date>8/2/2013</date>
-    <description>8/2/2013</description>
+    <description>Carrefour</description>
     <id>182</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>78</journalId>
@@ -302,7 +302,7 @@
   <Movement>
     <credit>70.94</credit>
     <date>9/2/2013</date>
-    <description>9/2/2013</description>
+    <description>Thai shop</description>
     <id>186</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>80</journalId>
@@ -311,7 +311,7 @@
   <Movement>
     <credit>39.00</credit>
     <date>12/2/2013</date>
-    <description>12/2/2013</description>
+    <description>Maaltijden</description>
     <id>190</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>82</journalId>
@@ -320,7 +320,7 @@
   <Movement>
     <credit>1.20</credit>
     <date>12/2/2013</date>
-    <description>12/2/2013</description>
+    <description>Parking</description>
     <id>192</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>83</journalId>
@@ -329,7 +329,7 @@
   <Movement>
     <credit>22.69</credit>
     <date>12/2/2013</date>
-    <description>12/2/2013</description>
+    <description>Horeca Totaal</description>
     <id>194</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>84</journalId>
@@ -338,7 +338,7 @@
   <Movement>
     <credit>48.20</credit>
     <date>13/2/2013</date>
-    <description>13/2/2013</description>
+    <description>Carrefour</description>
     <id>196</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>85</journalId>
@@ -347,7 +347,7 @@
   <Movement>
     <credit>2.40</credit>
     <date>14/2/2013</date>
-    <description>14/2/2013</description>
+    <description>parking</description>
     <id>198</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>86</journalId>
@@ -356,7 +356,7 @@
   <Movement>
     <credit>49.95</credit>
     <date>14/2/2013</date>
-    <description>14/2/2013</description>
+    <description>Fitness</description>
     <id>200</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>87</journalId>
@@ -365,7 +365,7 @@
   <Movement>
     <credit>100.00</credit>
     <date>18/2/2013</date>
-    <description>18/2/2013</description>
+    <description>afhalen SelfService</description>
     <id>202</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>88</journalId>
@@ -374,7 +374,7 @@
   <Movement>
     <date>18/2/2013</date>
     <debit>16.32</debit>
-    <description>18/2/2013</description>
+    <description>Werkloosheidsvergoeding</description>
     <id>203</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>89</journalId>
@@ -383,7 +383,7 @@
   <Movement>
     <date>19/2/2013</date>
     <debit>100.00</debit>
-    <description>19/2/2013</description>
+    <description>Voorschot januari</description>
     <id>205</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>90</journalId>
@@ -392,7 +392,7 @@
   <Movement>
     <credit>267.21</credit>
     <date>20/2/2013</date>
-    <description>20/2/2013</description>
+    <description>ATM Thailand: 10.000 THB</description>
     <id>208</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>91</journalId>
@@ -401,7 +401,7 @@
   <Movement>
     <credit>138.38</credit>
     <date>21/2/2013</date>
-    <description>21/2/2013</description>
+    <description>ATM Bangkok</description>
     <id>212</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>93</journalId>
@@ -410,7 +410,7 @@
   <Movement>
     <date>4/3/2013</date>
     <debit>160.49</debit>
-    <description>4/3/2013</description>
+    <description>/A/ BETALING LOON</description>
     <id>225</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>99</journalId>
@@ -419,7 +419,7 @@
   <Movement>
     <date>5/3/2013</date>
     <debit>251.92</debit>
-    <description>5/3/2013</description>
+    <description>RVA loopbaanonderbreking</description>
     <id>229</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>101</journalId>
@@ -428,7 +428,7 @@
   <Movement>
     <credit>140.56</credit>
     <date>5/3/2013</date>
-    <description>5/3/2013</description>
+    <description>ATM Udon Thani</description>
     <id>232</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>102</journalId>
@@ -437,7 +437,7 @@
   <Movement>
     <date>7/3/2013</date>
     <debit>16.89</debit>
-    <description>7/3/2013</description>
+    <description>HVW: werkloosheid</description>
     <id>241</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>105</journalId>
@@ -446,7 +446,7 @@
   <Movement>
     <date>8/3/2013</date>
     <debit>90.28</debit>
-    <description>8/3/2013</description>
+    <description>kindergeld april</description>
     <id>243</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>106</journalId>
@@ -455,7 +455,6 @@
   <Movement>
     <date>14/3/2013</date>
     <debit>2000.00</debit>
-    <description>14/3/2013</description>
     <id>258</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>109</journalId>
@@ -464,7 +463,7 @@
   <Movement>
     <date>14/3/2013</date>
     <debit>112.87</debit>
-    <description>14/3/2013</description>
+    <description>Aanmoedigingspremie</description>
     <id>260</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>110</journalId>
@@ -473,7 +472,7 @@
   <Movement>
     <credit>170.98</credit>
     <date>15/3/2013</date>
-    <description>15/3/2013</description>
+    <description>ATM Nongkhai</description>
     <id>265</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>112</journalId>
@@ -482,7 +481,7 @@
   <Movement>
     <credit>276.79</credit>
     <date>16/3/2013</date>
-    <description>16/3/2013</description>
+    <description>ATM Nongkhai</description>
     <id>267</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>113</journalId>
@@ -491,7 +490,7 @@
   <Movement>
     <credit>416.51</credit>
     <date>18/3/2013</date>
-    <description>18/3/2013</description>
+    <description>ATM Nongkhai</description>
     <id>283</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>120</journalId>
@@ -500,7 +499,7 @@
   <Movement>
     <credit>283.81</credit>
     <date>21/3/2013</date>
-    <description>21/3/2013</description>
+    <description>ATM Nongkhai</description>
     <id>299</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>128</journalId>
@@ -509,7 +508,7 @@
   <Movement>
     <credit>283.06</credit>
     <date>24/3/2013</date>
-    <description>24/3/2013</description>
+    <description>ATM Nongkhai</description>
     <id>305</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>131</journalId>
@@ -518,7 +517,7 @@
   <Movement>
     <credit>172.50</credit>
     <date>2/4/2013</date>
-    <description>2/4/2013</description>
+    <description>ATM Nongkhai</description>
     <id>326</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>141</journalId>
@@ -527,7 +526,7 @@
   <Movement>
     <date>3/4/2013</date>
     <debit>8.21</debit>
-    <description>3/4/2013</description>
+    <description>Alfa Thuis</description>
     <id>329</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>143</journalId>
@@ -536,7 +535,7 @@
   <Movement>
     <date>4/4/2013</date>
     <debit>409.36</debit>
-    <description>4/4/2013</description>
+    <description>RVA: Loonbaanonderbreking</description>
     <id>331</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>144</journalId>
@@ -545,7 +544,7 @@
   <Movement>
     <credit>143.89</credit>
     <date>7/4/2013</date>
-    <description>7/4/2013</description>
+    <description>ATM Nongkhai</description>
     <id>344</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>149</journalId>
@@ -554,7 +553,7 @@
   <Movement>
     <date>8/4/2013</date>
     <debit>90.28</debit>
-    <description>8/4/2013</description>
+    <description>Kindergeld maart</description>
     <id>349</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>152</journalId>
@@ -563,7 +562,7 @@
   <Movement>
     <credit>49.95</credit>
     <date>10/4/2013</date>
-    <description>10/4/2013</description>
+    <description>Fitness Bennies</description>
     <id>356</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>155</journalId>
@@ -572,7 +571,7 @@
   <Movement>
     <date>15/4/2013</date>
     <debit>112.87</debit>
-    <description>15/4/2013</description>
+    <description>Aanmoedigingspremie</description>
     <id>363</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>159</journalId>
@@ -581,7 +580,7 @@
   <Movement>
     <credit>142.89</credit>
     <date>15/4/2013</date>
-    <description>15/4/2013</description>
+    <description>ATM Udon</description>
     <id>366</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>160</journalId>
@@ -590,7 +589,7 @@
   <Movement>
     <credit>170.87</credit>
     <date>16/4/2013</date>
-    <description>16/4/2013</description>
+    <description>ATM Udon</description>
     <id>372</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>163</journalId>
@@ -599,7 +598,7 @@
   <Movement>
     <credit>170.84</credit>
     <date>17/4/2013</date>
-    <description>17/4/2013</description>
+    <description>ATM Udon</description>
     <id>374</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>164</journalId>
@@ -608,7 +607,7 @@
   <Movement>
     <credit>282.19</credit>
     <date>26/4/2013</date>
-    <description>26/4/2013</description>
+    <description>ATM</description>
     <id>384</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>169</journalId>
@@ -617,7 +616,7 @@
   <Movement>
     <credit>143.35</credit>
     <date>26/4/2013</date>
-    <description>26/4/2013</description>
+    <description>ATM Nongkhai</description>
     <id>386</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>170</journalId>
@@ -626,7 +625,7 @@
   <Movement>
     <credit>195.69</credit>
     <date>27/4/2013</date>
-    <description>27/4/2013</description>
+    <description>ATM Bangkok</description>
     <id>392</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>173</journalId>
@@ -635,7 +634,7 @@
   <Movement>
     <credit>168.67</credit>
     <date>29/4/2013</date>
-    <description>29/4/2013</description>
+    <description>ATM Bangkok</description>
     <id>400</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>177</journalId>
@@ -644,7 +643,7 @@
   <Movement>
     <credit>60.57</credit>
     <date>30/4/2013</date>
-    <description>30/4/2013</description>
+    <description>ATM Bangkok</description>
     <id>412</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>180</journalId>
@@ -653,7 +652,7 @@
   <Movement>
     <date>6/5/2013</date>
     <debit>409.36</debit>
-    <description>6/5/2013</description>
+    <description>RVA</description>
     <id>419</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>184</journalId>
@@ -662,7 +661,7 @@
   <Movement>
     <credit>6.87</credit>
     <date>6/5/2013</date>
-    <description>6/5/2013</description>
+    <description>VIME</description>
     <id>422</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>185</journalId>
@@ -671,7 +670,6 @@
   <Movement>
     <credit>100.00</credit>
     <date>7/5/2013</date>
-    <description>7/5/2013</description>
     <id>432</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>190</journalId>
@@ -680,7 +678,7 @@
   <Movement>
     <credit>109.10</credit>
     <date>7/5/2013</date>
-    <description>7/5/2013</description>
+    <description>HUBO: verf</description>
     <id>434</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>191</journalId>
@@ -689,7 +687,7 @@
   <Movement>
     <credit>69.93</credit>
     <date>7/5/2013</date>
-    <description>7/5/2013</description>
+    <description>Carrefour</description>
     <id>436</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>192</journalId>
@@ -698,7 +696,7 @@
   <Movement>
     <credit>33.98</credit>
     <date>7/5/2013</date>
-    <description>7/5/2013</description>
+    <description>Dumpi: kussens</description>
     <id>440</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>194</journalId>
@@ -707,7 +705,7 @@
   <Movement>
     <credit>26.50</credit>
     <date>7/5/2013</date>
-    <description>7/5/2013</description>
+    <description>Bloemen Chris: inrichting hall</description>
     <id>442</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>195</journalId>
@@ -716,7 +714,7 @@
   <Movement>
     <credit>49.95</credit>
     <date>8/5/2013</date>
-    <description>8/5/2013</description>
+    <description>Fitness Bennies</description>
     <id>456</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>200</journalId>
@@ -725,7 +723,7 @@
   <Movement>
     <date>8/5/2013</date>
     <debit>90.28</debit>
-    <description>8/5/2013</description>
+    <description>kindergeld april</description>
     <id>457</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>201</journalId>
@@ -734,7 +732,7 @@
   <Movement>
     <credit>49.00</credit>
     <date>13/5/2013</date>
-    <description>13/5/2013</description>
+    <description>Heytens</description>
     <id>581</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>224</journalId>
@@ -743,7 +741,7 @@
   <Movement>
     <credit>24.99</credit>
     <date>13/5/2013</date>
-    <description>13/5/2013</description>
+    <description>Saturn</description>
     <id>583</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>225</journalId>
@@ -752,7 +750,7 @@
   <Movement>
     <date>16/5/2013</date>
     <debit>125.00</debit>
-    <description>16/5/2013</description>
+    <description>Alfathuis</description>
     <id>594</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>231</journalId>
@@ -761,7 +759,7 @@
   <Movement>
     <date>16/5/2013</date>
     <debit>112.87</debit>
-    <description>16/5/2013</description>
+    <description>Aanmoedigingspremie</description>
     <id>596</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>232</journalId>
@@ -770,7 +768,7 @@
   <Movement>
     <credit>133.15</credit>
     <date>20/5/2013</date>
-    <description>20/5/2013</description>
+    <description>Proximus</description>
     <id>603</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>235</journalId>
@@ -779,7 +777,7 @@
   <Movement>
     <credit>48.87</credit>
     <date>21/5/2013</date>
-    <description>21/5/2013</description>
+    <description>Thai shop</description>
     <id>611</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>239</journalId>
@@ -788,7 +786,7 @@
   <Movement>
     <credit>30.00</credit>
     <date>22/5/2013</date>
-    <description>22/5/2013</description>
+    <description>ATM</description>
     <id>617</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>242</journalId>
@@ -797,7 +795,7 @@
   <Movement>
     <credit>24.86</credit>
     <date>22/5/2013</date>
-    <description>22/5/2013</description>
+    <description>Carrefour</description>
     <id>619</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>243</journalId>
@@ -806,7 +804,7 @@
   <Movement>
     <credit>2.50</credit>
     <date>25/5/2013</date>
-    <description>25/5/2013</description>
+    <description>parkeren</description>
     <id>621</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>244</journalId>
@@ -815,7 +813,7 @@
   <Movement>
     <date>4/6/2013</date>
     <debit>559.57</debit>
-    <description>4/6/2013</description>
+    <description>Rest mei</description>
     <id>644</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>255</journalId>
@@ -824,7 +822,6 @@
   <Movement>
     <credit>120.00</credit>
     <date>4/6/2013</date>
-    <description>4/6/2013</description>
     <id>647</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>256</journalId>
@@ -833,7 +830,7 @@
   <Movement>
     <credit>45.44</credit>
     <date>5/6/2013</date>
-    <description>5/6/2013</description>
+    <description>Horeca Totaal</description>
     <id>651</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>258</journalId>
@@ -842,7 +839,7 @@
   <Movement>
     <credit>50.00</credit>
     <date>5/6/2013</date>
-    <description>5/6/2013</description>
+    <description>ATM</description>
     <id>653</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>259</journalId>
@@ -851,7 +848,7 @@
   <Movement>
     <date>6/6/2013</date>
     <debit>141.70</debit>
-    <description>6/6/2013</description>
+    <description>RVA - Loopbaanonderbreking</description>
     <id>656</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>261</journalId>
@@ -860,7 +857,7 @@
   <Movement>
     <credit>121.53</credit>
     <date>6/6/2013</date>
-    <description>6/6/2013</description>
+    <description>Colruyt</description>
     <id>659</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>262</journalId>
@@ -869,7 +866,7 @@
   <Movement>
     <date>7/6/2013</date>
     <debit>90.28</debit>
-    <description>7/6/2013</description>
+    <description>Kindergeld mei</description>
     <id>662</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>264</journalId>
@@ -878,7 +875,7 @@
   <Movement>
     <credit>53.13</credit>
     <date>7/6/2013</date>
-    <description>7/6/2013</description>
+    <description>Vime</description>
     <id>665</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>265</journalId>
@@ -887,7 +884,7 @@
   <Movement>
     <credit>21.95</credit>
     <date>8/6/2013</date>
-    <description>8/6/2013</description>
+    <description>Aankoop Sint-Kruis (= 3616)</description>
     <id>667</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>266</journalId>
@@ -896,7 +893,7 @@
   <Movement>
     <credit>100.00</credit>
     <date>9/6/2013</date>
-    <description>9/6/2013</description>
+    <description>ATM</description>
     <id>669</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>267</journalId>
@@ -905,7 +902,7 @@
   <Movement>
     <credit>38.77</credit>
     <date>10/6/2013</date>
-    <description>10/6/2013</description>
+    <description>Blokker</description>
     <id>671</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>268</journalId>
@@ -914,7 +911,7 @@
   <Movement>
     <credit>62.00</credit>
     <date>10/6/2013</date>
-    <description>10/6/2013</description>
+    <description>Dumpi Mart</description>
     <id>673</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>269</journalId>
@@ -923,7 +920,7 @@
   <Movement>
     <credit>44.51</credit>
     <date>10/6/2013</date>
-    <description>10/6/2013</description>
+    <description>Bpost</description>
     <id>675</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>270</journalId>
@@ -932,7 +929,7 @@
   <Movement>
     <credit>60.00</credit>
     <date>12/6/2013</date>
-    <description>12/6/2013</description>
+    <description>ATM</description>
     <id>683</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>274</journalId>
@@ -941,7 +938,7 @@
   <Movement>
     <credit>11.66</credit>
     <date>17/6/2013</date>
-    <description>17/6/2013</description>
+    <description>Carrefour</description>
     <id>699</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>281</journalId>
@@ -950,7 +947,7 @@
   <Movement>
     <date>18/6/2013</date>
     <debit>350.00</debit>
-    <description>18/6/2013</description>
+    <description>voorschot juni</description>
     <id>700</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>282</journalId>
@@ -959,7 +956,7 @@
   <Movement>
     <credit>34.98</credit>
     <date>19/6/2013</date>
-    <description>19/6/2013</description>
+    <description>tankbeurt auto</description>
     <id>703</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>283</journalId>
@@ -968,7 +965,7 @@
   <Movement>
     <credit>7.64</credit>
     <date>19/6/2013</date>
-    <description>19/6/2013</description>
+    <description>tankbeurt</description>
     <id>707</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>285</journalId>
@@ -977,7 +974,7 @@
   <Movement>
     <credit>112.43</credit>
     <date>19/6/2013</date>
-    <description>19/6/2013</description>
+    <description>Carrefour</description>
     <id>709</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>286</journalId>
@@ -986,7 +983,7 @@
   <Movement>
     <credit>37.76</credit>
     <date>19/6/2013</date>
-    <description>19/6/2013</description>
+    <description>Blokker</description>
     <id>711</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>287</journalId>
@@ -995,7 +992,7 @@
   <Movement>
     <credit>45.83</credit>
     <date>21/6/2013</date>
-    <description>21/6/2013</description>
+    <description>Carrefour</description>
     <id>713</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>288</journalId>
@@ -1004,7 +1001,7 @@
   <Movement>
     <credit>30.02</credit>
     <date>22/6/2013</date>
-    <description>22/6/2013</description>
+    <description>Delhaize</description>
     <id>715</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>289</journalId>
@@ -1013,7 +1010,7 @@
   <Movement>
     <credit>50.00</credit>
     <date>23/6/2013</date>
-    <description>23/6/2013</description>
+    <description>ATM</description>
     <id>717</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>290</journalId>
@@ -1022,7 +1019,7 @@
   <Movement>
     <credit>74.18</credit>
     <date>24/6/2013</date>
-    <description>24/6/2013</description>
+    <description>Colora: verf?</description>
     <id>719</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>291</journalId>
@@ -1031,7 +1028,7 @@
   <Movement>
     <credit>32.39</credit>
     <date>25/6/2013</date>
-    <description>25/6/2013</description>
+    <description>GB Express</description>
     <id>723</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>293</journalId>
@@ -1040,7 +1037,7 @@
   <Movement>
     <date>26/6/2013</date>
     <debit>1222.87</debit>
-    <description>26/6/2013</description>
+    <description>vakantiegeld</description>
     <id>724</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>294</journalId>
@@ -1049,7 +1046,7 @@
   <Movement>
     <credit>80.32</credit>
     <date>30/6/2013</date>
-    <description>30/6/2013</description>
+    <description>Proxy Malehoek</description>
     <id>743</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>302</journalId>
@@ -1058,7 +1055,7 @@
   <Movement>
     <credit>15.40</credit>
     <date>1/7/2013</date>
-    <description>1/7/2013</description>
+    <description>maaltijden Sophia</description>
     <id>745</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>303</journalId>
@@ -1067,7 +1064,7 @@
   <Movement>
     <credit>61.50</credit>
     <date>1/7/2013</date>
-    <description>1/7/2013</description>
+    <description>tax scooter</description>
     <id>747</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>304</journalId>
@@ -1076,7 +1073,7 @@
   <Movement>
     <credit>221.50</credit>
     <date>1/7/2013</date>
-    <description>1/7/2013</description>
+    <description>tax auto</description>
     <id>749</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>305</journalId>
@@ -1085,7 +1082,7 @@
   <Movement>
     <credit>99.90</credit>
     <date>1/7/2013</date>
-    <description>1/7/2013</description>
+    <description>Bennies</description>
     <id>751</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>306</journalId>
@@ -1094,7 +1091,7 @@
   <Movement>
     <credit>30.05</credit>
     <date>1/7/2013</date>
-    <description>1/7/2013</description>
+    <description>Blokker</description>
     <id>753</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>307</journalId>
@@ -1103,7 +1100,7 @@
   <Movement>
     <credit>11.90</credit>
     <date>1/7/2013</date>
-    <description>1/7/2013</description>
+    <description>Fun</description>
     <id>755</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>308</journalId>
@@ -1112,7 +1109,7 @@
   <Movement>
     <credit>89.99</credit>
     <date>1/7/2013</date>
-    <description>1/7/2013</description>
+    <description>Leenbakker: schommelstoel?</description>
     <id>757</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>309</journalId>
@@ -1121,7 +1118,7 @@
   <Movement>
     <date>2/7/2013</date>
     <debit>628.98</debit>
-    <description>2/7/2013</description>
+    <description>rest juni</description>
     <id>766</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>314</journalId>
@@ -1130,7 +1127,7 @@
   <Movement>
     <credit>27.64</credit>
     <date>2/7/2013</date>
-    <description>2/7/2013</description>
+    <description>Etos Sluis</description>
     <id>769</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>315</journalId>
@@ -1139,7 +1136,7 @@
   <Movement>
     <credit>21.30</credit>
     <date>2/7/2013</date>
-    <description>2/7/2013</description>
+    <description>Viane</description>
     <id>771</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>316</journalId>
@@ -1148,7 +1145,7 @@
   <Movement>
     <credit>40.90</credit>
     <date>2/7/2013</date>
-    <description>2/7/2013</description>
+    <description>aankoop in Sluis</description>
     <id>773</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>317</journalId>
@@ -1157,7 +1154,7 @@
   <Movement>
     <credit>138.98</credit>
     <date>3/7/2013</date>
-    <description>3/7/2013</description>
+    <description>Saturn: frigo</description>
     <id>775</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>318</journalId>
@@ -1166,7 +1163,6 @@
   <Movement>
     <credit>150.00</credit>
     <date>4/7/2013</date>
-    <description>4/7/2013</description>
     <id>782</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>321</journalId>
@@ -1175,7 +1171,7 @@
   <Movement>
     <credit>13.61</credit>
     <date>4/7/2013</date>
-    <description>4/7/2013</description>
+    <description>Carrefour</description>
     <id>784</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>322</journalId>
@@ -1184,7 +1180,7 @@
   <Movement>
     <credit>29.95</credit>
     <date>4/7/2013</date>
-    <description>4/7/2013</description>
+    <description>Stapper</description>
     <id>786</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>323</journalId>
@@ -1193,7 +1189,7 @@
   <Movement>
     <credit>25.67</credit>
     <date>4/7/2013</date>
-    <description>4/7/2013</description>
+    <description>Aankopen in Sluis</description>
     <id>790</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>324</journalId>
@@ -1202,7 +1198,7 @@
   <Movement>
     <credit>19.95</credit>
     <date>4/7/2013</date>
-    <description>4/7/2013</description>
+    <description>Aankopen in Sluis</description>
     <id>791</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>324</journalId>
@@ -1211,7 +1207,7 @@
   <Movement>
     <credit>83.17</credit>
     <date>4/7/2013</date>
-    <description>4/7/2013</description>
+    <description>Aankopen in Sluis</description>
     <id>792</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>324</journalId>
@@ -1220,7 +1216,7 @@
   <Movement>
     <credit>19.84</credit>
     <date>6/7/2013</date>
-    <description>6/7/2013</description>
+    <description>Carrefour</description>
     <id>798</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>327</journalId>
@@ -1229,7 +1225,6 @@
   <Movement>
     <credit>56.18</credit>
     <date>7/7/2013</date>
-    <description>7/7/2013</description>
     <id>800</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>328</journalId>
@@ -1238,7 +1233,7 @@
   <Movement>
     <credit>256.46</credit>
     <date>7/7/2013</date>
-    <description>7/7/2013</description>
+    <description>tax oude huis</description>
     <id>802</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>329</journalId>
@@ -1247,7 +1242,7 @@
   <Movement>
     <credit>100.00</credit>
     <date>7/7/2013</date>
-    <description>7/7/2013</description>
+    <description>ATM Knokke</description>
     <id>804</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>330</journalId>
@@ -1256,7 +1251,7 @@
   <Movement>
     <date>8/7/2013</date>
     <debit>90.28</debit>
-    <description>8/7/2013</description>
+    <description>Kindergeld juni</description>
     <id>805</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>331</journalId>
@@ -1265,7 +1260,7 @@
   <Movement>
     <credit>72.00</credit>
     <date>8/7/2013</date>
-    <description>8/7/2013</description>
+    <description>tankbeurt auto</description>
     <id>808</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>332</journalId>
@@ -1274,7 +1269,7 @@
   <Movement>
     <credit>18.90</credit>
     <date>8/7/2013</date>
-    <description>8/7/2013</description>
+    <description>Carrefour</description>
     <id>810</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>333</journalId>
@@ -1283,7 +1278,7 @@
   <Movement>
     <credit>50.00</credit>
     <date>8/7/2013</date>
-    <description>8/7/2013</description>
+    <description>ATM</description>
     <id>812</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>334</journalId>
@@ -1292,7 +1287,7 @@
   <Movement>
     <credit>3.00</credit>
     <date>11/7/2013</date>
-    <description>11/7/2013</description>
+    <description>parkeren</description>
     <id>818</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>336</journalId>
@@ -1301,7 +1296,7 @@
   <Movement>
     <date>16/7/2013</date>
     <debit>350.00</debit>
-    <description>16/7/2013</description>
+    <description>voorschot juli</description>
     <id>819</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>337</journalId>
@@ -1310,7 +1305,6 @@
   <Movement>
     <credit>100.00</credit>
     <date>16/7/2013</date>
-    <description>16/7/2013</description>
     <id>822</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>338</journalId>
@@ -1319,7 +1313,7 @@
   <Movement>
     <credit>46.43</credit>
     <date>16/7/2013</date>
-    <description>16/7/2013</description>
+    <description>622340217025</description>
     <id>824</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>339</journalId>
@@ -1328,7 +1322,7 @@
   <Movement>
     <credit>58.72</credit>
     <date>17/7/2013</date>
-    <description>17/7/2013</description>
+    <description>Carrefour</description>
     <id>830</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>342</journalId>
@@ -1337,7 +1331,7 @@
   <Movement>
     <credit>26.62</credit>
     <date>17/7/2013</date>
-    <description>17/7/2013</description>
+    <description>Vime</description>
     <id>832</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>343</journalId>
@@ -1346,7 +1340,7 @@
   <Movement>
     <credit>23.17</credit>
     <date>19/7/2013</date>
-    <description>19/7/2013</description>
+    <description>Pro-duo</description>
     <id>836</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>345</journalId>
@@ -1355,7 +1349,7 @@
   <Movement>
     <credit>60.00</credit>
     <date>21/7/2013</date>
-    <description>21/7/2013</description>
+    <description>ATM Oostende</description>
     <id>840</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>347</journalId>
@@ -1364,7 +1358,7 @@
   <Movement>
     <credit>54.38</credit>
     <date>21/7/2013</date>
-    <description>21/7/2013</description>
+    <description>tankbeurt auto</description>
     <id>842</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>348</journalId>
@@ -1373,7 +1367,7 @@
   <Movement>
     <credit>37.00</credit>
     <date>22/7/2013</date>
-    <description>22/7/2013</description>
+    <description>Europ Assistance</description>
     <id>844</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>349</journalId>
@@ -1382,7 +1376,7 @@
   <Movement>
     <credit>32.29</credit>
     <date>26/7/2013</date>
-    <description>26/7/2013</description>
+    <description>Aankoop Sint-Kruis 3616</description>
     <id>854</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>354</journalId>
@@ -1391,7 +1385,7 @@
   <Movement>
     <credit>16.31</credit>
     <date>26/7/2013</date>
-    <description>26/7/2013</description>
+    <description>Renmans</description>
     <id>856</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>355</journalId>
@@ -1400,7 +1394,7 @@
   <Movement>
     <credit>16.02</credit>
     <date>26/7/2013</date>
-    <description>26/7/2013</description>
+    <description>Aldi</description>
     <id>858</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>356</journalId>
@@ -1409,7 +1403,7 @@
   <Movement>
     <credit>2.49</credit>
     <date>26/7/2013</date>
-    <description>26/7/2013</description>
+    <description>Aldi</description>
     <id>860</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>357</journalId>
@@ -1418,7 +1412,7 @@
   <Movement>
     <credit>50.00</credit>
     <date>26/7/2013</date>
-    <description>26/7/2013</description>
+    <description>ATM</description>
     <id>862</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>358</journalId>
@@ -1427,7 +1421,7 @@
   <Movement>
     <credit>12.87</credit>
     <date>29/7/2013</date>
-    <description>29/7/2013</description>
+    <description>Lidl</description>
     <id>870</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>361</journalId>
@@ -1436,7 +1430,7 @@
   <Movement>
     <date>2/8/2013</date>
     <debit>295.20</debit>
-    <description>2/8/2013</description>
+    <description>rest juli</description>
     <id>891</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>368</journalId>
@@ -1445,7 +1439,7 @@
   <Movement>
     <credit>65.78</credit>
     <date>2/8/2013</date>
-    <description>2/8/2013</description>
+    <description>apotheek</description>
     <id>894</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>369</journalId>
@@ -1454,7 +1448,7 @@
   <Movement>
     <credit>46.20</credit>
     <date>2/8/2013</date>
-    <description>2/8/2013</description>
+    <description>Aankoop Sint-Kruis 3616</description>
     <id>896</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>370</journalId>
@@ -1463,7 +1457,6 @@
   <Movement>
     <credit>200.00</credit>
     <date>4/8/2013</date>
-    <description>4/8/2013</description>
     <id>905</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>374</journalId>
@@ -1472,7 +1465,7 @@
   <Movement>
     <date>8/8/2013</date>
     <debit>112.28</debit>
-    <description>8/8/2013</description>
+    <description>Kindergeld juli</description>
     <id>908</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>376</journalId>
@@ -1481,7 +1474,6 @@
   <Movement>
     <credit>100.00</credit>
     <date>8/8/2013</date>
-    <description>8/8/2013</description>
     <id>911</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>377</journalId>
@@ -1490,7 +1482,7 @@
   <Movement>
     <credit>4.26</credit>
     <date>15/8/2013</date>
-    <description>15/8/2013</description>
+    <description>aankoop schiphol</description>
     <id>927</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>384</journalId>
@@ -1499,7 +1491,6 @@
   <Movement>
     <credit>300.00</credit>
     <date>19/8/2013</date>
-    <description>19/8/2013</description>
     <id>929</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>385</journalId>
@@ -1508,7 +1499,7 @@
   <Movement>
     <date>19/8/2013</date>
     <debit>350.00</debit>
-    <description>19/8/2013</description>
+    <description>voorschot augustus</description>
     <id>936</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>389</journalId>
@@ -1517,7 +1508,7 @@
   <Movement>
     <credit>33.08</credit>
     <date>19/8/2013</date>
-    <description>19/8/2013</description>
+    <description>Carrefour</description>
     <id>939</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>390</journalId>
@@ -1526,7 +1517,7 @@
   <Movement>
     <credit>20.00</credit>
     <date>21/8/2013</date>
-    <description>21/8/2013</description>
+    <description>ATM</description>
     <id>941</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>391</journalId>
@@ -1535,7 +1526,7 @@
   <Movement>
     <date>26/8/2013</date>
     <debit>17.23</debit>
-    <description>26/8/2013</description>
+    <description>Hvw</description>
     <id>948</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>395</journalId>
@@ -1544,7 +1535,7 @@
   <Movement>
     <date>3/9/2013</date>
     <debit>707.06</debit>
-    <description>3/9/2013</description>
+    <description>rest augustus</description>
     <id>979</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>410</journalId>
@@ -1553,7 +1544,7 @@
   <Movement>
     <credit>5.85</credit>
     <date>3/9/2013</date>
-    <description>3/9/2013</description>
+    <description>Aankoop Lidl+beenhouwerij</description>
     <id>983</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>411</journalId>
@@ -1562,7 +1553,7 @@
   <Movement>
     <credit>27.51</credit>
     <date>3/9/2013</date>
-    <description>3/9/2013</description>
+    <description>Aankoop Lidl+beenhouwerij</description>
     <id>984</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>411</journalId>
@@ -1571,7 +1562,7 @@
   <Movement>
     <credit>99.90</credit>
     <date>4/9/2013</date>
-    <description>4/9/2013</description>
+    <description>2 maand lidgeld (domiciliering)</description>
     <id>986</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>412</journalId>
@@ -1580,7 +1571,7 @@
   <Movement>
     <credit>66.83</credit>
     <date>4/9/2013</date>
-    <description>4/9/2013</description>
+    <description>Total - Jabbeke</description>
     <id>988</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>413</journalId>
@@ -1589,7 +1580,7 @@
   <Movement>
     <credit>70.00</credit>
     <date>4/9/2013</date>
-    <description>4/9/2013</description>
+    <description>ATM Oostende</description>
     <id>991</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>414</journalId>
@@ -1598,7 +1589,7 @@
   <Movement>
     <credit>70.00</credit>
     <date>4/9/2013</date>
-    <description>4/9/2013</description>
+    <description>ATM Oostende</description>
     <id>992</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>414</journalId>
@@ -1607,7 +1598,7 @@
   <Movement>
     <credit>6.89</credit>
     <date>5/9/2013</date>
-    <description>5/9/2013</description>
+    <description>Q8 - Brugge</description>
     <id>998</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>417</journalId>
@@ -1616,7 +1607,7 @@
   <Movement>
     <date>6/9/2013</date>
     <debit>90.28</debit>
-    <description>6/9/2013</description>
+    <description>kindergeld augustus</description>
     <id>1003</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>419</journalId>
@@ -1625,7 +1616,7 @@
   <Movement>
     <credit>58.50</credit>
     <date>7/9/2013</date>
-    <description>7/9/2013</description>
+    <description>Total</description>
     <id>1008</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>421</journalId>
@@ -1634,7 +1625,7 @@
   <Movement>
     <credit>150.00</credit>
     <date>8/9/2013</date>
-    <description>8/9/2013</description>
+    <description>ATM - Post Brugge</description>
     <id>1010</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>422</journalId>
@@ -1643,7 +1634,7 @@
   <Movement>
     <credit>47.63</credit>
     <date>9/9/2013</date>
-    <description>9/9/2013</description>
+    <description>Delhaize</description>
     <id>1014</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>424</journalId>
@@ -1652,7 +1643,7 @@
   <Movement>
     <credit>50.00</credit>
     <date>9/9/2013</date>
-    <description>9/9/2013</description>
+    <description>Gentbrugge Viaduct</description>
     <id>1017</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>425</journalId>
@@ -1661,7 +1652,7 @@
   <Movement>
     <credit>50.00</credit>
     <date>9/9/2013</date>
-    <description>9/9/2013</description>
+    <description>Gentbrugge Viaduct</description>
     <id>1018</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>425</journalId>
@@ -1670,7 +1661,7 @@
   <Movement>
     <credit>56.13</credit>
     <date>12/9/2013</date>
-    <description>12/9/2013</description>
+    <description>Thai shop</description>
     <id>1024</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>428</journalId>
@@ -1679,7 +1670,6 @@
   <Movement>
     <credit>65.00</credit>
     <date>13/9/2013</date>
-    <description>13/9/2013</description>
     <id>1026</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>429</journalId>
@@ -1688,7 +1678,7 @@
   <Movement>
     <date>17/9/2013</date>
     <debit>350.00</debit>
-    <description>17/9/2013</description>
+    <description>voorschot september</description>
     <id>1029</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>431</journalId>
@@ -1697,7 +1687,7 @@
   <Movement>
     <credit>250.00</credit>
     <date>17/9/2013</date>
-    <description>17/9/2013</description>
+    <description>lening Pong</description>
     <id>1032</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>432</journalId>
@@ -1706,7 +1696,6 @@
   <Movement>
     <credit>19.35</credit>
     <date>18/9/2013</date>
-    <description>18/9/2013</description>
     <id>1034</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>433</journalId>
@@ -1715,7 +1704,7 @@
   <Movement>
     <credit>16.27</credit>
     <date>18/9/2013</date>
-    <description>18/9/2013</description>
+    <description>Colruyt</description>
     <id>1036</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>434</journalId>
@@ -1724,7 +1713,7 @@
   <Movement>
     <credit>9.64</credit>
     <date>19/9/2013</date>
-    <description>19/9/2013</description>
+    <description>Delhaize</description>
     <id>1038</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>435</journalId>
@@ -1733,7 +1722,7 @@
   <Movement>
     <credit>50.00</credit>
     <date>20/9/2013</date>
-    <description>20/9/2013</description>
+    <description>ATM</description>
     <id>1042</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>437</journalId>
@@ -1742,7 +1731,7 @@
   <Movement>
     <credit>3.77</credit>
     <date>22/9/2013</date>
-    <description>22/9/2013</description>
+    <description>Q8 Brugge</description>
     <id>1046</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>439</journalId>
@@ -1751,7 +1740,7 @@
   <Movement>
     <date>2/10/2013</date>
     <debit>609.81</debit>
-    <description>2/10/2013</description>
+    <description>rest september</description>
     <id>1065</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>449</journalId>
@@ -1760,7 +1749,6 @@
   <Movement>
     <credit>600.00</credit>
     <date>2/10/2013</date>
-    <description>2/10/2013</description>
     <id>1068</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>450</journalId>
@@ -1769,7 +1757,6 @@
   <Movement>
     <date>8/10/2013</date>
     <debit>90.28</debit>
-    <description>8/10/2013</description>
     <id>1088</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>459</journalId>
@@ -1778,7 +1765,6 @@
   <Movement>
     <credit>105.00</credit>
     <date>8/10/2013</date>
-    <description>8/10/2013</description>
     <id>1091</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>460</journalId>
@@ -1787,7 +1773,7 @@
   <Movement>
     <date>16/10/2013</date>
     <debit>350.00</debit>
-    <description>16/10/2013</description>
+    <description>voorschot oktober</description>
     <id>1106</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>468</journalId>
@@ -1796,7 +1782,6 @@
   <Movement>
     <credit>100.00</credit>
     <date>16/10/2013</date>
-    <description>16/10/2013</description>
     <id>1109</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>469</journalId>
@@ -1805,7 +1790,6 @@
   <Movement>
     <credit>112.85</credit>
     <date>17/10/2013</date>
-    <description>17/10/2013</description>
     <id>1111</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>470</journalId>
@@ -1814,7 +1798,6 @@
   <Movement>
     <credit>46.40</credit>
     <date>17/10/2013</date>
-    <description>17/10/2013</description>
     <id>1113</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>471</journalId>
@@ -1823,7 +1806,7 @@
   <Movement>
     <credit>60.00</credit>
     <date>17/10/2013</date>
-    <description>17/10/2013</description>
+    <description>ATM</description>
     <id>1115</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>472</journalId>
@@ -1832,7 +1815,7 @@
   <Movement>
     <credit>27.44</credit>
     <date>23/10/2013</date>
-    <description>23/10/2013</description>
+    <description>Lidl-beenhouwerij</description>
     <id>1119</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>474</journalId>
@@ -1841,7 +1824,7 @@
   <Movement>
     <date>5/11/2013</date>
     <debit>732.31</debit>
-    <description>5/11/2013</description>
+    <description>rest oktober</description>
     <id>1149</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>489</journalId>
@@ -1850,7 +1833,7 @@
   <Movement>
     <credit>2.70</credit>
     <date>5/11/2013</date>
-    <description>5/11/2013</description>
+    <description>Total</description>
     <id>1152</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>490</journalId>
@@ -1859,7 +1842,6 @@
   <Movement>
     <credit>123.36</credit>
     <date>5/11/2013</date>
-    <description>5/11/2013</description>
     <id>1154</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>491</journalId>
@@ -1868,7 +1850,6 @@
   <Movement>
     <credit>165.59</credit>
     <date>5/11/2013</date>
-    <description>5/11/2013</description>
     <id>1157</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>492</journalId>
@@ -1877,7 +1858,6 @@
   <Movement>
     <credit>46.43</credit>
     <date>5/11/2013</date>
-    <description>5/11/2013</description>
     <id>1158</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>492</journalId>
@@ -1886,7 +1866,6 @@
   <Movement>
     <credit>140.00</credit>
     <date>5/11/2013</date>
-    <description>5/11/2013</description>
     <id>1160</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>493</journalId>
@@ -1895,7 +1874,7 @@
   <Movement>
     <credit>20.00</credit>
     <date>6/11/2013</date>
-    <description>6/11/2013</description>
+    <description>ATM AZ Sint Jan</description>
     <id>1162</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>494</journalId>
@@ -1904,7 +1883,7 @@
   <Movement>
     <credit>55.67</credit>
     <date>6/11/2013</date>
-    <description>6/11/2013</description>
+    <description>Thai shop</description>
     <id>1164</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>495</journalId>
@@ -1913,7 +1892,6 @@
   <Movement>
     <date>8/11/2013</date>
     <debit>90.28</debit>
-    <description>8/11/2013</description>
     <id>1169</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>497</journalId>
@@ -1922,7 +1900,7 @@
   <Movement>
     <credit>21.23</credit>
     <date>8/11/2013</date>
-    <description>8/11/2013</description>
+    <description>Carrefour</description>
     <id>1172</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>498</journalId>
@@ -1931,7 +1909,7 @@
   <Movement>
     <credit>64.03</credit>
     <date>9/11/2013</date>
-    <description>9/11/2013</description>
+    <description>Total</description>
     <id>1176</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>500</journalId>
@@ -1940,7 +1918,7 @@
   <Movement>
     <credit>30.56</credit>
     <date>12/11/2013</date>
-    <description>12/11/2013</description>
+    <description>GB Express</description>
     <id>1178</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>501</journalId>
@@ -1949,7 +1927,7 @@
   <Movement>
     <credit>64.48</credit>
     <date>14/11/2013</date>
-    <description>14/11/2013</description>
+    <description>Carrefour</description>
     <id>1184</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>504</journalId>
@@ -1958,7 +1936,7 @@
   <Movement>
     <credit>18.96</credit>
     <date>15/11/2013</date>
-    <description>15/11/2013</description>
+    <description>Lidl + beenhouwerij</description>
     <id>1189</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>506</journalId>
@@ -1967,7 +1945,7 @@
   <Movement>
     <credit>19.66</credit>
     <date>15/11/2013</date>
-    <description>15/11/2013</description>
+    <description>Lidl + beenhouwerij</description>
     <id>1190</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>506</journalId>
@@ -1976,7 +1954,7 @@
   <Movement>
     <credit>13.10</credit>
     <date>15/11/2013</date>
-    <description>15/11/2013</description>
+    <description>Quick</description>
     <id>1193</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>507</journalId>
@@ -1985,7 +1963,7 @@
   <Movement>
     <credit>7.50</credit>
     <date>15/11/2013</date>
-    <description>15/11/2013</description>
+    <description>Quick</description>
     <id>1194</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>507</journalId>
@@ -1994,7 +1972,7 @@
   <Movement>
     <date>18/11/2013</date>
     <debit>350.00</debit>
-    <description>18/11/2013</description>
+    <description>voorschot november</description>
     <id>1201</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>511</journalId>
@@ -2003,7 +1981,6 @@
   <Movement>
     <credit>100.00</credit>
     <date>19/11/2013</date>
-    <description>19/11/2013</description>
     <id>1204</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>512</journalId>
@@ -2012,7 +1989,7 @@
   <Movement>
     <credit>13.40</credit>
     <date>19/11/2013</date>
-    <description>19/11/2013</description>
+    <description>GB Express</description>
     <id>1208</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>513</journalId>
@@ -2021,7 +1998,7 @@
   <Movement>
     <credit>37.10</credit>
     <date>19/11/2013</date>
-    <description>19/11/2013</description>
+    <description>GB Express</description>
     <id>1209</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>513</journalId>
@@ -2030,7 +2007,7 @@
   <Movement>
     <credit>41.46</credit>
     <date>19/11/2013</date>
-    <description>19/11/2013</description>
+    <description>GB Express</description>
     <id>1210</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>513</journalId>
@@ -2039,7 +2016,7 @@
   <Movement>
     <credit>58.46</credit>
     <date>20/11/2013</date>
-    <description>20/11/2013</description>
+    <description>Thai shop</description>
     <id>1220</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>518</journalId>
@@ -2048,7 +2025,7 @@
   <Movement>
     <credit>31.60</credit>
     <date>20/11/2013</date>
-    <description>20/11/2013</description>
+    <description>Colruyt</description>
     <id>1222</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>519</journalId>
@@ -2057,7 +2034,6 @@
   <Movement>
     <credit>100.00</credit>
     <date>21/11/2013</date>
-    <description>21/11/2013</description>
     <id>1224</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>520</journalId>
@@ -2066,7 +2042,7 @@
   <Movement>
     <date>3/12/2013</date>
     <debit>671.57</debit>
-    <description>3/12/2013</description>
+    <description>rest november</description>
     <id>1247</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>531</journalId>
@@ -2075,7 +2051,7 @@
   <Movement>
     <credit>48.49</credit>
     <date>3/12/2013</date>
-    <description>3/12/2013</description>
+    <description>Carrefour</description>
     <id>1250</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>532</journalId>
@@ -2084,7 +2060,7 @@
   <Movement>
     <credit>82.59</credit>
     <date>4/12/2013</date>
-    <description>4/12/2013</description>
+    <description>Colruyt</description>
     <id>1261</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>537</journalId>
@@ -2093,7 +2069,7 @@
   <Movement>
     <credit>40.50</credit>
     <date>5/12/2013</date>
-    <description>5/12/2013</description>
+    <description>C en A / Zara</description>
     <id>1268</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>540</journalId>
@@ -2102,7 +2078,7 @@
   <Movement>
     <credit>51.90</credit>
     <date>5/12/2013</date>
-    <description>5/12/2013</description>
+    <description>C en A / Zara</description>
     <id>1269</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>540</journalId>
@@ -2111,7 +2087,7 @@
   <Movement>
     <credit>49.99</credit>
     <date>5/12/2013</date>
-    <description>5/12/2013</description>
+    <description>Bart Smit</description>
     <id>1271</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>541</journalId>
@@ -2120,7 +2096,7 @@
   <Movement>
     <credit>4.10</credit>
     <date>5/12/2013</date>
-    <description>5/12/2013</description>
+    <description>Parking</description>
     <id>1273</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>542</journalId>
@@ -2129,7 +2105,6 @@
   <Movement>
     <date>6/12/2013</date>
     <debit>90.28</debit>
-    <description>6/12/2013</description>
     <id>1274</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>543</journalId>
@@ -2138,7 +2113,6 @@
   <Movement>
     <credit>200.00</credit>
     <date>9/12/2013</date>
-    <description>9/12/2013</description>
     <id>1287</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>548</journalId>
@@ -2147,7 +2121,7 @@
   <Movement>
     <date>9/12/2013</date>
     <debit>218.02</debit>
-    <description>9/12/2013</description>
+    <description>Eindejaarspremie</description>
     <id>1288</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>549</journalId>
@@ -2156,7 +2130,7 @@
   <Movement>
     <credit>50.93</credit>
     <date>10/12/2013</date>
-    <description>10/12/2013</description>
+    <description>Colruyt</description>
     <id>1293</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>551</journalId>
@@ -2165,7 +2139,7 @@
   <Movement>
     <credit>6.99</credit>
     <date>10/12/2013</date>
-    <description>10/12/2013</description>
+    <description>Bart Smit</description>
     <id>1295</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>552</journalId>
@@ -2174,7 +2148,7 @@
   <Movement>
     <credit>48.65</credit>
     <date>11/12/2013</date>
-    <description>11/12/2013</description>
+    <description>Thai shop</description>
     <id>1303</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>556</journalId>
@@ -2183,7 +2157,7 @@
   <Movement>
     <credit>93.13</credit>
     <date>12/12/2013</date>
-    <description>12/12/2013</description>
+    <description>Carrefour</description>
     <id>1309</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>559</journalId>
@@ -2192,7 +2166,7 @@
   <Movement>
     <credit>21.30</credit>
     <date>14/12/2013</date>
-    <description>14/12/2013</description>
+    <description>Viane</description>
     <id>1313</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>561</journalId>
@@ -2201,7 +2175,7 @@
   <Movement>
     <credit>4.50</credit>
     <date>15/12/2013</date>
-    <description>15/12/2013</description>
+    <description>tankstation Jabbeke</description>
     <id>1327</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>568</journalId>
@@ -2210,7 +2184,7 @@
   <Movement>
     <credit>67.40</credit>
     <date>15/12/2013</date>
-    <description>15/12/2013</description>
+    <description>Cafe Leffe</description>
     <id>1329</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>569</journalId>
@@ -2219,7 +2193,6 @@
   <Movement>
     <credit>37.70</credit>
     <date>17/12/2013</date>
-    <description>17/12/2013</description>
     <id>1335</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>572</journalId>
@@ -2228,7 +2201,7 @@
   <Movement>
     <date>17/12/2013</date>
     <debit>150.00</debit>
-    <description>17/12/2013</description>
+    <description>voorschot december</description>
     <id>1336</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>573</journalId>
@@ -2237,7 +2210,7 @@
   <Movement>
     <credit>29.00</credit>
     <date>19/12/2013</date>
-    <description>19/12/2013</description>
+    <description>Bed grote kamer</description>
     <id>1342</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>575</journalId>
@@ -2246,7 +2219,7 @@
   <Movement>
     <credit>100.00</credit>
     <date>19/12/2013</date>
-    <description>19/12/2013</description>
+    <description>ATM</description>
     <id>1344</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>576</journalId>
@@ -2255,7 +2228,7 @@
   <Movement>
     <credit>92.60</credit>
     <date>19/12/2013</date>
-    <description>19/12/2013</description>
+    <description>Thai shop</description>
     <id>1346</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>577</journalId>
@@ -2264,7 +2237,7 @@
   <Movement>
     <credit>43.54</credit>
     <date>23/12/2013</date>
-    <description>23/12/2013</description>
+    <description>Carrefour</description>
     <id>1353</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>580</journalId>
@@ -2273,7 +2246,7 @@
   <Movement>
     <credit>14.98</credit>
     <date>23/12/2013</date>
-    <description>23/12/2013</description>
+    <description>Aldi + Renmans</description>
     <id>1356</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>581</journalId>
@@ -2282,7 +2255,7 @@
   <Movement>
     <credit>15.26</credit>
     <date>23/12/2013</date>
-    <description>23/12/2013</description>
+    <description>Aldi + Renmans</description>
     <id>1357</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>581</journalId>
@@ -2291,7 +2264,7 @@
   <Movement>
     <credit>3.50</credit>
     <date>28/12/2013</date>
-    <description>28/12/2013</description>
+    <description>Parking</description>
     <id>1373</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>589</journalId>
@@ -2300,7 +2273,7 @@
   <Movement>
     <credit>34.09</credit>
     <date>31/12/2013</date>
-    <description>31/12/2013</description>
+    <description>Kapitalisatie</description>
     <id>1397</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>601</journalId>

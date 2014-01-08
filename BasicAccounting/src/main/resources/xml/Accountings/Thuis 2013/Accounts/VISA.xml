@@ -5,7 +5,7 @@
   <Movement>
     <credit>151.40</credit>
     <date>13/5/2013</date>
-    <description>13/5/2013</description>
+    <description>Hebo</description>
     <id>565</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>221</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <date>30/5/2013</date>
     <debit>151.40</debit>
-    <description>30/5/2013</description>
+    <description>Visa-kaart</description>
     <id>631</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>249</journalId>
@@ -23,7 +23,7 @@
   <Movement>
     <credit>900.00</credit>
     <date>22/7/2013</date>
-    <description>22/7/2013</description>
+    <description>Voorschot Tay: vlucht Noi</description>
     <id>846</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>350</journalId>
@@ -32,7 +32,7 @@
   <Movement>
     <date>30/7/2013</date>
     <debit>900.00</debit>
-    <description>30/7/2013</description>
+    <description>afrekening Visa: 200 voor isolatie / rest vlucht Noi</description>
     <id>882</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>364</journalId>
@@ -41,7 +41,7 @@
   <Movement>
     <credit>464.24</credit>
     <date>11/8/2013</date>
-    <description>11/8/2013</description>
+    <description>Brico</description>
     <id>919</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>380</journalId>
@@ -50,7 +50,7 @@
   <Movement>
     <credit>101.27</credit>
     <date>25/8/2013</date>
-    <description>25/8/2013</description>
+    <description>Blokker/Casa/Brico</description>
     <id>945</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>393</journalId>
@@ -59,7 +59,7 @@
   <Movement>
     <credit>78.23</credit>
     <date>28/8/2013</date>
-    <description>28/8/2013</description>
+    <description>Visa: Thai shop</description>
     <id>955</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>398</journalId>
@@ -68,7 +68,6 @@
   <Movement>
     <date>30/8/2013</date>
     <debit>464.24</debit>
-    <description>30/8/2013</description>
     <id>958</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>400</journalId>
@@ -77,7 +76,7 @@
   <Movement>
     <credit>453.75</credit>
     <date>2/9/2013</date>
-    <description>2/9/2013</description>
+    <description>terugbetaling Brucon-Isabel</description>
     <id>969</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>405</journalId>
@@ -86,7 +85,7 @@
   <Movement>
     <credit>105.00</credit>
     <date>20/9/2013</date>
-    <description>20/9/2013</description>
+    <description>ATM + kosten</description>
     <id>1044</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>438</journalId>
@@ -95,7 +94,7 @@
   <Movement>
     <credit>105.00</credit>
     <date>22/9/2013</date>
-    <description>22/9/2013</description>
+    <description>Visa: ATM + kosten</description>
     <id>1048</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>440</journalId>
@@ -104,7 +103,6 @@
   <Movement>
     <date>30/9/2013</date>
     <debit>738.25</debit>
-    <description>30/9/2013</description>
     <id>1061</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>447</journalId>
@@ -113,7 +111,7 @@
   <Movement>
     <credit>26.26</credit>
     <date>7/10/2013</date>
-    <description>7/10/2013</description>
+    <description>Doo Tv</description>
     <id>1087</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>458</journalId>
@@ -122,7 +120,6 @@
   <Movement>
     <date>30/10/2013</date>
     <debit>131.26</debit>
-    <description>30/10/2013</description>
     <id>1128</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>479</journalId>
@@ -131,7 +128,7 @@
   <Movement>
     <credit>168.27</credit>
     <date>17/11/2013</date>
-    <description>17/11/2013</description>
+    <description>Brico</description>
     <id>1198</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>509</journalId>
@@ -140,7 +137,6 @@
   <Movement>
     <date>2/12/2013</date>
     <debit>168.27</debit>
-    <description>2/12/2013</description>
     <id>1243</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>529</journalId>
@@ -149,7 +145,7 @@
   <Movement>
     <credit>342.15</credit>
     <date>2/12/2013</date>
-    <description>2/12/2013</description>
+    <description>Tay voorschot vlucht</description>
     <id>1246</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>530</journalId>
@@ -158,7 +154,7 @@
   <Movement>
     <credit>500.00</credit>
     <date>10/12/2013</date>
-    <description>10/12/2013</description>
+    <description>Tay rest vlucht</description>
     <id>1301</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>555</journalId>
@@ -167,7 +163,7 @@
   <Movement>
     <credit>146.00</credit>
     <date>19/12/2013</date>
-    <description>19/12/2013</description>
+    <description>Bed grote kamer</description>
     <id>1341</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>575</journalId>
@@ -176,7 +172,6 @@
   <Movement>
     <date>30/12/2013</date>
     <debit>842.15</debit>
-    <description>30/12/2013</description>
     <id>1394</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>600</journalId>

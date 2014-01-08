@@ -5,7 +5,7 @@
   <Movement>
     <date>1/1/2013</date>
     <debit>2506.88</debit>
-    <description>1/1/2013</description>
+    <description>Beginbalans</description>
     <id>7</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>1</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <date>1/1/2013</date>
     <debit>14.98</debit>
-    <description>1/1/2013</description>
+    <description>Intrest</description>
     <id>18</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>4</journalId>
@@ -23,7 +23,6 @@
   <Movement>
     <credit>600.00</credit>
     <date>2/1/2013</date>
-    <description>2/1/2013</description>
     <id>36</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>12</journalId>
@@ -32,7 +31,6 @@
   <Movement>
     <date>18/1/2013</date>
     <debit>304.67</debit>
-    <description>18/1/2013</description>
     <id>101</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>42</journalId>
@@ -41,7 +39,6 @@
   <Movement>
     <credit>115.50</credit>
     <date>26/1/2013</date>
-    <description>26/1/2013</description>
     <id>126</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>54</journalId>
@@ -50,7 +47,6 @@
   <Movement>
     <credit>2111.00</credit>
     <date>8/2/2013</date>
-    <description>8/2/2013</description>
     <id>184</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>79</journalId>
@@ -59,7 +55,6 @@
   <Movement>
     <date>20/5/2013</date>
     <debit>1000.00</debit>
-    <description>20/5/2013</description>
     <id>606</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>237</journalId>
@@ -68,7 +63,6 @@
   <Movement>
     <credit>600.00</credit>
     <date>20/5/2013</date>
-    <description>20/5/2013</description>
     <id>609</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>238</journalId>

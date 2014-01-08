@@ -5,7 +5,7 @@
   <Movement>
     <credit>1695.09</credit>
     <date>28/1/2013</date>
-    <description>28/1/2013</description>
+    <description>/A/         1BI0221-01-0000403</description>
     <id>128</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>55</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <credit>692.64</credit>
     <date>6/2/2013</date>
-    <description>6/2/2013</description>
+    <description>Bonus 2012</description>
     <id>164</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>72</journalId>
@@ -23,7 +23,7 @@
   <Movement>
     <credit>1707.07</credit>
     <date>25/2/2013</date>
-    <description>25/2/2013</description>
+    <description>loon februari</description>
     <id>214</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>94</journalId>
@@ -32,7 +32,7 @@
   <Movement>
     <credit>1709.26</credit>
     <date>26/3/2013</date>
-    <description>26/3/2013</description>
+    <description>loon maart</description>
     <id>307</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>132</journalId>
@@ -41,7 +41,7 @@
   <Movement>
     <credit>1696.18</credit>
     <date>29/4/2013</date>
-    <description>29/4/2013</description>
+    <description>loon maart</description>
     <id>402</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>178</journalId>
@@ -50,7 +50,6 @@
   <Movement>
     <credit>1.09</credit>
     <date>7/5/2013</date>
-    <description>7/5/2013</description>
     <id>454</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>199</journalId>
@@ -59,7 +58,7 @@
   <Movement>
     <credit>444.00</credit>
     <date>13/5/2013</date>
-    <description>13/5/2013</description>
+    <description>Eco-cheques David, Dara en Pong</description>
     <id>553</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>218</journalId>
@@ -68,7 +67,7 @@
   <Movement>
     <credit>585.77</credit>
     <date>16/5/2013</date>
-    <description>16/5/2013</description>
+    <description>Vakantiegeld</description>
     <id>591</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>229</journalId>
@@ -77,7 +76,7 @@
   <Movement>
     <credit>1646.89</credit>
     <date>28/5/2013</date>
-    <description>28/5/2013</description>
+    <description>loon mei</description>
     <id>627</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>247</journalId>
@@ -86,7 +85,7 @@
   <Movement>
     <credit>1698.36</credit>
     <date>26/6/2013</date>
-    <description>26/6/2013</description>
+    <description>loon juni</description>
     <id>729</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>296</journalId>
@@ -95,7 +94,7 @@
   <Movement>
     <credit>1694.00</credit>
     <date>29/7/2013</date>
-    <description>29/7/2013</description>
+    <description>loon juli</description>
     <id>872</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>362</journalId>
@@ -104,7 +103,7 @@
   <Movement>
     <credit>1697.26</credit>
     <date>26/8/2013</date>
-    <description>26/8/2013</description>
+    <description>loon augustus</description>
     <id>951</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>396</journalId>
@@ -113,7 +112,6 @@
   <Movement>
     <credit>1697.27</credit>
     <date>27/9/2013</date>
-    <description>27/9/2013</description>
     <id>1054</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>443</journalId>
@@ -122,7 +120,6 @@
   <Movement>
     <credit>1694.00</credit>
     <date>28/10/2013</date>
-    <description>28/10/2013</description>
     <id>1123</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>476</journalId>
@@ -131,7 +128,6 @@
   <Movement>
     <credit>1698.35</credit>
     <date>27/11/2013</date>
-    <description>27/11/2013</description>
     <id>1226</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>521</journalId>
@@ -140,7 +136,7 @@
   <Movement>
     <credit>1305.72</credit>
     <date>11/12/2013</date>
-    <description>11/12/2013</description>
+    <description>Eindejaarspremie</description>
     <id>1305</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>557</journalId>
@@ -149,7 +145,6 @@
   <Movement>
     <credit>1676.43</credit>
     <date>24/12/2013</date>
-    <description>24/12/2013</description>
     <id>1361</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>583</journalId>
