@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Balance SYSTEM "../../../../dtd/Balance.dtd">
+<Balance>
+  <name>YearBalance</name>
+  <LeftName>Activa</LeftName>
+  <RightName>Passiva</RightName>
+  <LeftTotalName>TOTAAL ACTIVA/TEGOEDEN</LeftTotalName>
+  <RightTotalName>TOTAAL PASSIVA/SCHULDEN</RightTotalName>
+  <LeftResultName>WINST</LeftResultName>
+  <RightResultName>VERLIES</RightResultName>
+</Balance>
