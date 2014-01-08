@@ -19,15 +19,16 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
         <xsl:apply-templates select="Booking"/>
     </xsl:template>
 
-    <xsl:template match="Booking">
+    <xsl:template match="Transaction/Booking">
         <tr>
+            <!--<td><xsl:value-of select="position()"/></td><td></td>-->
             <xsl:choose>
-                <xsl:when test="position()=first">
+                <xsl:when test="position()=1">
                     <xsl:element name="td">
-                        <xsl:attribute name="id"><xsl:value-of select="Transaction/id"/></xsl:attribute>
-                        <xsl:value-of select="Journal/abbr"/><xsl:value-of select="Transaction/id"/>
+                    <xsl:attribute name="id"><xsl:value-of select="../id"/></xsl:attribute>
+                    <xsl:value-of select="../../abbr"/><xsl:value-of select="../id"/>
                     </xsl:element>
-                    <td><xsl:value-of select="date"/></td>
+                    <td><xsl:value-of select="../date"/></td>
                 </xsl:when>
                 <xsl:otherwise>
                     <td></td><td></td>
@@ -44,11 +45,11 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
             <td><xsl:value-of select="credit"/></td>
 
             <xsl:choose>
-                <xsl:when test="position() = first">
-                    <td><xsl:value-of select="description"/></td>
+                <xsl:when test="position()!=1">
+                    <td></td>
                 </xsl:when>
                 <xsl:otherwise>
-                    <td></td>
+                    <td><xsl:value-of select="../description"/></td>
                 </xsl:otherwise>
             </xsl:choose>
         </tr>
