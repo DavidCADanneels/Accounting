@@ -13,12 +13,13 @@ import java.util.TreeMap;
  */
 public class Movement extends BusinessObject{
     private static int count = 0;
-    private static final String JOURNAL = "journal";
+    private static final String JOURNAL_NAME = "journalName";
     private static final String DATE = "date";
     private static final String DEBIT = "debit";
     private static final String CREDIT = "credit";
     private static final String DESCRIPTION = "description";
-    private static final String NR = "nr";
+    private static final String JOURNAL_ID = "journalId";
+    private static final String JOURNAL_ABBR = "journalAbbr";
     private static final String ID = "id";
     private BigDecimal amount;
     private boolean debit;
@@ -36,8 +37,9 @@ public class Movement extends BusinessObject{
         TreeMap<String,String> properties = super.getInitProperties();
         Transaction transaction = booking.getTransaction();
         properties.put(ID,id.toString());
-        properties.put(NR,transaction.getAbbreviation() + transaction.getId());
-        properties.put(JOURNAL,transaction.getJournal().getName());
+        properties.put(JOURNAL_NAME,transaction.getJournal().getName());
+        properties.put(JOURNAL_ID,transaction.getId().toString());
+        properties.put(JOURNAL_ABBR,transaction.getJournal().getAbbreviation());
         properties.put(DATE, Utils.toString(transaction.getDate()));
         if(debit){
             properties.put(DEBIT, amount.toString());

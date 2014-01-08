@@ -7,15 +7,17 @@
     <debit>23246.68</debit>
     <description>29/4/2013</description>
     <id>404</id>
-    <journal>Diversen</journal>
-    <nr>DIV179</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>179</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <credit>23246.68</credit>
     <date>13/5/2013</date>
     <description>13/5/2013</description>
     <id>573</id>
-    <journal>Diversen</journal>
-    <nr>DIV223</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>223</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
 </Account>

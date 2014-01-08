@@ -38,46 +38,44 @@ public class JournalsSAXParser {
 
 //            String name = Utils.getValue(doc, "name");
 
-            Transaction transaction = null;
             String abbreviation = journal.getAbbreviation();
 
             NodeList actions = doc.getElementsByTagName("Transaction");
             for (int i = 0; i < actions.getLength(); i++) {
+                Transaction transaction = new Transaction();
+                transaction.setJournal(journal);
                 Element element = (Element)actions.item(i);
-                String nr = Utils.getValue(element, "nr");
+//                String nr = Utils.getValue(element, "id");
                 String date = Utils.getValue(element, "date");
                 String description = Utils.getValue(element, "description");
-                if(nr!=null){
-                    if(transaction != null){
-                        journal.addBusinessObject(transaction);
+                transaction.setDate(Utils.toCalendar(date));
+                transaction.setDescription(description);
+
+                NodeList list = element.getElementsByTagName("Booking");
+                for (int j = 0; j < list.getLength(); j++) {
+//                    String id = Utils.getValue(element, "id");
+                    element = (Element)list.item(j);
+                    String accountName = Utils.getValue(element, "Account");
+                    Account account = accounts.getBusinessObject(accountName);
+                    String debit = Utils.getValue(element, "debet");
+                    String credit = Utils.getValue(element, "credit");
+                    if(transaction==null){
+                        System.err.println("Journals.xml is bad structured: each transaction should have a \"nr\" tag !");
+                    } else {
+                        if(debit!=null){
+                            BigDecimal amount = Utils.parseBigDecimal(debit);
+                            Booking booking = new Booking(account);
+                            booking.setMovement(new Movement(amount, true));
+                            transaction.addBooking(booking);
+                        }
+                        if(credit!=null){
+                            BigDecimal amount = Utils.parseBigDecimal(credit);
+                            Booking booking = new Booking(account);
+                            booking.setMovement(new Movement(amount, false));
+                            transaction.addBooking(booking);
+                        }
                     }
-                    transaction = new Transaction();
-                    transaction.setJournal(journal);
-                    transaction.setDate(Utils.toCalendar(date));
-                    transaction.setDescription(description);
                 }
-                String accountName = Utils.getValue(element, "Account");
-                Account account = accounts.getBusinessObject(accountName);
-                String debit = Utils.getValue(element, "debet");
-                String credit = Utils.getValue(element, "credit");
-                if(transaction==null){
-                    System.err.println("Journals.xml is bad structured: each transaction should have a \"nr\" tag !");
-                } else {
-                    if(debit!=null){
-                        BigDecimal amount = Utils.parseBigDecimal(debit);
-                        Booking booking = new Booking(account);
-                        booking.setMovement(new Movement(amount, true));
-                        transaction.addBooking(booking);
-                    }
-                    if(credit!=null){
-                        BigDecimal amount = Utils.parseBigDecimal(credit);
-                        Booking booking = new Booking(account);
-                        booking.setMovement(new Movement(amount, false));
-                        transaction.addBooking(booking);
-                    }
-                }
-                }
-            if(transaction!=null){
                 journal.addBusinessObject(transaction);
             }
         } catch (IOException io) {

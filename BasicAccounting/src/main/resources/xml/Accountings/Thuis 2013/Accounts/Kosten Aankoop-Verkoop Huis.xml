@@ -7,7 +7,8 @@
     <debit>311.72</debit>
     <description>13/5/2013</description>
     <id>571</id>
-    <journal>Diversen</journal>
-    <nr>DIV223</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>223</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
 </Account>

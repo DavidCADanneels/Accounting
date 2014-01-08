@@ -7,15 +7,17 @@
     <date>16/1/2013</date>
     <description>16/1/2013</description>
     <id>82</id>
-    <journal>Diversen</journal>
-    <nr>DIV33</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>33</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <credit>400.00</credit>
     <date>27/4/2013</date>
     <description>27/4/2013</description>
     <id>390</id>
-    <journal>Diversen</journal>
-    <nr>DIV172</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>172</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
 </Account>

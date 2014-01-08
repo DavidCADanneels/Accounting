@@ -7,7 +7,8 @@
     <date>18/1/2013</date>
     <description>18/1/2013</description>
     <id>102</id>
-    <journal>Diversen</journal>
-    <nr>DIV42</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>42</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
 </Account>

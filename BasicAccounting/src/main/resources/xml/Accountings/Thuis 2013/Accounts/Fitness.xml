@@ -7,55 +7,62 @@
     <debit>49.95</debit>
     <description>13/5/2013</description>
     <id>491</id>
-    <journal>Diversen</journal>
-    <nr>DIV214</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>214</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>13/5/2013</date>
     <debit>49.95</debit>
     <description>13/5/2013</description>
     <id>492</id>
-    <journal>Diversen</journal>
-    <nr>DIV214</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>214</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>13/5/2013</date>
     <debit>49.95</debit>
     <description>13/5/2013</description>
     <id>493</id>
-    <journal>Diversen</journal>
-    <nr>DIV214</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>214</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>13/5/2013</date>
     <debit>49.95</debit>
     <description>13/5/2013</description>
     <id>494</id>
-    <journal>Diversen</journal>
-    <nr>DIV214</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>214</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>13/5/2013</date>
     <debit>49.95</debit>
     <description>13/5/2013</description>
     <id>495</id>
-    <journal>Diversen</journal>
-    <nr>DIV214</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>214</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>1/7/2013</date>
     <debit>99.90</debit>
     <description>1/7/2013</description>
     <id>750</id>
-    <journal>Diversen</journal>
-    <nr>DIV306</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>306</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>4/9/2013</date>
     <debit>99.90</debit>
     <description>4/9/2013</description>
     <id>985</id>
-    <journal>Diversen</journal>
-    <nr>DIV412</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>412</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
 </Account>

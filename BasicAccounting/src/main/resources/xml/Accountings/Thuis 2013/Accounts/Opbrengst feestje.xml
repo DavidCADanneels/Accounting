@@ -7,63 +7,71 @@
     <debit>55.70</debit>
     <description>13/5/2013</description>
     <id>469</id>
-    <journal>Diversen</journal>
-    <nr>DIV207</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>207</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>13/5/2013</date>
     <debit>109.32</debit>
     <description>13/5/2013</description>
     <id>471</id>
-    <journal>Diversen</journal>
-    <nr>DIV208</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>208</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <credit>2136.90</credit>
     <date>13/5/2013</date>
     <description>13/5/2013</description>
     <id>474</id>
-    <journal>Diversen</journal>
-    <nr>DIV209</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>209</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>13/5/2013</date>
     <debit>544.00</debit>
     <description>13/5/2013</description>
     <id>475</id>
-    <journal>Diversen</journal>
-    <nr>DIV210</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>210</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>13/5/2013</date>
     <debit>63.00</debit>
     <description>13/5/2013</description>
     <id>477</id>
-    <journal>Diversen</journal>
-    <nr>DIV211</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>211</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>13/5/2013</date>
     <debit>88.00</debit>
     <description>13/5/2013</description>
     <id>478</id>
-    <journal>Diversen</journal>
-    <nr>DIV211</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>211</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>16/5/2013</date>
     <debit>172.75</debit>
     <description>16/5/2013</description>
     <id>592</id>
-    <journal>Diversen</journal>
-    <nr>DIV230</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>230</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>20/5/2013</date>
     <debit>600.00</debit>
     <description>20/5/2013</description>
     <id>604</id>
-    <journal>Diversen</journal>
-    <nr>DIV236</nr>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>236</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
 </Account>
