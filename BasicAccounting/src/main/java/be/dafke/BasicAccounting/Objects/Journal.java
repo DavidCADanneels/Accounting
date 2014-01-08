@@ -20,7 +20,6 @@ public class Journal extends BusinessObject implements BusinessTypeCollectionDep
     private static final String TYPE = "type";
     protected static final String ABBREVIATION = "abbreviation";
     private String abbreviation;
-    private int id;
     private final MultiValueMap<Calendar,Transaction> transactions;
     private JournalType type;
     private Transaction currentTransaction = new Transaction();
@@ -28,7 +27,6 @@ public class Journal extends BusinessObject implements BusinessTypeCollectionDep
 
     public Journal() {
 		transactions = new MultiValueMap<Calendar,Transaction>();
-		id = 1;
 	}
 
     @Override
@@ -67,66 +65,40 @@ public class Journal extends BusinessObject implements BusinessTypeCollectionDep
     }
 
 	public int getId() {
-		return id;
+		return transactions.values().size()+1;
 	}
 
 	public String getAbbreviation() {
 		return abbreviation;
 	}
 
-    public void setAbbreviation(String newAbbreviation) {
-        abbreviation = newAbbreviation;
+    public void setAbbreviation(String abbreviation) {
+        this.abbreviation = abbreviation;
     }
 
-	private void deleteTransaction(Calendar date, Transaction transaction) {
-        // Remove Key-Value Pair
-        transactions.removeValue(date, transaction);
-
-        // Lower the remaining ID's
-        int id = transaction.getId();  // ID's of transactions start with 1 (in list start with 0)
-        ArrayList<Transaction> list = transactions.values();
-        for(Transaction trans : list.subList(id-1, list.size())){
-            trans.lowerID();
-        }
-	}
-
-	private void addTransaction(Calendar date, Transaction transaction) {
-        // Add Key-Value Pair
-        transactions.addValue(date, transaction);
-
-        // Set ID
-        ArrayList<Transaction> list = transactions.values();
-        int id = list.indexOf(transaction);
-        transaction.setId(id);
-
-        // Raise remaining ID's
-        for(Transaction trans : list.subList(id, list.size())){
-            trans.raiseID();
-        }
-	}
+    public int getId(Transaction transaction){
+        return transactions.values().indexOf(transaction)+1;
+    }
 
 	public void removeBusinessObject(Transaction transaction) {
         Calendar date = transaction.getDate();
-		deleteTransaction(date, transaction);
+        transactions.removeValue(date, transaction);
 		ArrayList<Booking> bookings = transaction.getBookings();
 		for(Booking booking : bookings) {
 			Account account = booking.getAccount();
 			account.unbook(date, booking.getMovement());
 		}
-		id--;
 	}
 
 	public void addBusinessObject(Transaction transaction) {
         Calendar date = transaction.getDate();
         transaction.setJournal(this);
-        transaction.setAbbreviation(abbreviation);
 
         for(Booking booking : transaction.getBookings()) {
             Account account = booking.getAccount();
             account.book(date, booking.getMovement());
         }
-        addTransaction(date, transaction);
-        id++;
+        transactions.addValue(date, transaction);
 	}
 
     @Override

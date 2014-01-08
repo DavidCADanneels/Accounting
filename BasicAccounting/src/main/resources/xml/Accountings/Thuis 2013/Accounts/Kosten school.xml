@@ -1,19 +1,95 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>Kosten school</name>
   <Movement>
     <date>17/1/2013</date>
     <debit>23.40</debit>
     <description>17/1/2013</description>
-    <journal>Diversen</journal>
-    <nr>DIV35</nr>
+    <id>89</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>37</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>12/2/2013</date>
     <debit>39.00</debit>
     <description>12/2/2013</description>
-    <journal>Diversen</journal>
-    <nr>DIV77</nr>
+    <id>189</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>82</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>6/5/2013</date>
+    <debit>7.80</debit>
+    <description>6/5/2013</description>
+    <id>425</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>187</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>15/6/2013</date>
+    <debit>36.40</debit>
+    <description>15/6/2013</description>
+    <id>688</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>277</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>1/7/2013</date>
+    <debit>15.40</debit>
+    <description>1/7/2013</description>
+    <id>744</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>303</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>17/10/2013</date>
+    <debit>46.40</debit>
+    <description>17/10/2013</description>
+    <id>1112</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>471</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>28/11/2013</date>
+    <debit>67.70</debit>
+    <description>28/11/2013</description>
+    <id>1227</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>522</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>28/11/2013</date>
+    <debit>40.60</debit>
+    <description>28/11/2013</description>
+    <id>1229</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>523</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>67.70</credit>
+    <date>28/11/2013</date>
+    <description>28/11/2013</description>
+    <id>1231</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>523</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>17/12/2013</date>
+    <debit>37.70</debit>
+    <description>17/12/2013</description>
+    <id>1334</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>572</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
 </Account>

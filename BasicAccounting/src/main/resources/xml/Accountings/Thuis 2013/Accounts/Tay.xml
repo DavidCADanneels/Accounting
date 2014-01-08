@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Tay</name>
+  <Movement>
+    <credit>83.14</credit>
+    <date>30/7/2013</date>
+    <description>30/7/2013</description>
+    <id>884</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>364</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>50.00</credit>
+    <date>4/8/2013</date>
+    <description>4/8/2013</description>
+    <id>903</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>373</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>200.00</credit>
+    <date>30/8/2013</date>
+    <description>30/8/2013</description>
+    <id>961</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>401</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

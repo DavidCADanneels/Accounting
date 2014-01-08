@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Verkoop - Onroerende voorheffing</name>
+  <Movement>
+    <credit>201.93</credit>
+    <date>12/3/2013</date>
+    <description>12/3/2013</description>
+    <id>257</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>108</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>13/5/2013</date>
+    <debit>201.93</debit>
+    <description>13/5/2013</description>
+    <id>567</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>222</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

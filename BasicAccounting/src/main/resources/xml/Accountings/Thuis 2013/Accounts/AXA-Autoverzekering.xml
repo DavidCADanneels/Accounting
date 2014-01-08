@@ -1,19 +1,50 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>AXA-Autoverzekering</name>
   <Movement>
     <date>4/1/2013</date>
     <debit>25.93</debit>
     <description>4/1/2013</description>
-    <journal>Diversen</journal>
-    <nr>DIV16</nr>
+    <id>47</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>18</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>6/2/2013</date>
     <debit>25.93</debit>
     <description>6/2/2013</description>
-    <journal>Diversen</journal>
-    <nr>DIV69</nr>
+    <id>165</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>73</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>7/3/2013</date>
+    <debit>25.93</debit>
+    <description>7/3/2013</description>
+    <id>235</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>104</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>5/4/2013</date>
+    <debit>25.93</debit>
+    <description>5/4/2013</description>
+    <id>333</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>145</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>7/5/2013</date>
+    <debit>25.93</debit>
+    <description>7/5/2013</description>
+    <id>447</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>198</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
 </Account>

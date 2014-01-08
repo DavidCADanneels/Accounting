@@ -1,26 +1,68 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
-<?xml-stylesheet type="text/xsl" href="../../../../xsl/Account2xml.xsl"?>
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
+  <name>Intresten bank</name>
   <Movement>
     <credit>1.23</credit>
     <date>1/1/2013</date>
     <description>1/1/2013</description>
-    <journal>Diversen</journal>
-    <nr>DIV2</nr>
+    <id>13</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>2</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>14.98</credit>
+    <date>1/1/2013</date>
+    <description>1/1/2013</description>
+    <id>19</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>4</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>2/1/2013</date>
     <debit>25.80</debit>
     <description>2/1/2013</description>
-    <journal>Diversen</journal>
-    <nr>DIV6</nr>
+    <id>25</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>7</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
   <Movement>
     <date>2/1/2013</date>
     <debit>33.70</debit>
     <description>2/1/2013</description>
-    <journal>Diversen</journal>
-    <nr>DIV10</nr>
+    <id>33</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>11</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>31/12/2013</date>
+    <debit>34.09</debit>
+    <description>31/12/2013</description>
+    <id>1396</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>601</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>31/12/2013</date>
+    <debit>27.18</debit>
+    <description>31/12/2013</description>
+    <id>1404</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>604</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>9.60</credit>
+    <date>31/12/2013</date>
+    <description>31/12/2013</description>
+    <id>1407</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>605</journalId>
+    <journalName>Diversen</journalName>
   </Movement>
 </Account>

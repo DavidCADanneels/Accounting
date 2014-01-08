@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Aankoop - kosten krediet akte</name>
+  <Movement>
+    <date>29/4/2013</date>
+    <debit>5929.48</debit>
+    <description>29/4/2013</description>
+    <id>403</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>179</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>5929.48</credit>
+    <date>13/5/2013</date>
+    <description>13/5/2013</description>
+    <id>574</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>223</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

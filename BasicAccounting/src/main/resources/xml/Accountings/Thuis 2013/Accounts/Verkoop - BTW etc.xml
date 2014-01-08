@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Verkoop - BTW etc</name>
+  <Movement>
+    <date>12/3/2013</date>
+    <debit>922.94</debit>
+    <description>12/3/2013</description>
+    <id>250</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>108</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>922.94</credit>
+    <date>13/5/2013</date>
+    <description>13/5/2013</description>
+    <id>575</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>223</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

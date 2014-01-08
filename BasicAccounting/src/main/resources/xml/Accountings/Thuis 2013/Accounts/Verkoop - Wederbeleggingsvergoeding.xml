@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Verkoop - Wederbeleggingsvergoeding</name>
+  <Movement>
+    <date>12/3/2013</date>
+    <debit>1620.24</debit>
+    <description>12/3/2013</description>
+    <id>254</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>108</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>52.29</credit>
+    <date>19/3/2013</date>
+    <description>19/3/2013</description>
+    <id>285</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>121</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>1567.95</credit>
+    <date>13/5/2013</date>
+    <description>13/5/2013</description>
+    <id>577</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>223</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

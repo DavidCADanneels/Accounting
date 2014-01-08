@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Water</name>
+  <Movement>
+    <date>19/8/2013</date>
+    <debit>160.00</debit>
+    <description>19/8/2013</description>
+    <id>932</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>387</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>20/11/2013</date>
+    <debit>160.00</debit>
+    <description>20/11/2013</description>
+    <id>1217</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>517</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>
