@@ -48,7 +48,17 @@ public class BasicAccountingMain {
     protected static void startReadingXmlFile() {
         setXmlFolder();
         accountings = new Accountings(xmlFolder, htmlFolder);
-        ObjectModelSAXParser.readCollection(accountings, false, xmlFolder);
+        if(!xmlFolder.exists()){
+            xmlFolder.mkdirs();
+        }
+        File subFolder = new File(xmlFolder, "Accountings");
+        if(!subFolder.exists()){
+            subFolder.mkdir();
+        }
+        File file = new File(xmlFolder, "Accountings.xml");
+        if(file.exists()){
+            ObjectModelSAXParser.readCollection(accountings, false, xmlFolder);
+        }
     }
 
     protected static void continueReadingXmlFile(){

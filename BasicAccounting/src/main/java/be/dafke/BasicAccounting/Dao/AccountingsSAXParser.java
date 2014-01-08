@@ -38,6 +38,7 @@ public class AccountingsSAXParser {
     public static void writeCollection(BusinessCollection collection, File parentFolder, int depth){
         String className = collection.getBusinessObjectType();
         String name = collection.getName();
+        parentFolder.mkdirs();
         File childFolder = new File(parentFolder, name);
         File xmlFile = new File(parentFolder, name+".xml");
         try {
