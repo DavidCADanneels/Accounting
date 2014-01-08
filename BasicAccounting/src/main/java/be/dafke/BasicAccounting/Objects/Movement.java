@@ -46,7 +46,7 @@ public class Movement extends BusinessObject{
         } else {
             properties.put(CREDIT, amount.toString());
         }
-        properties.put(DESCRIPTION, Utils.toString(transaction.getDate()));
+        properties.put(DESCRIPTION, transaction.getDescription());
 
         return properties;
     }
