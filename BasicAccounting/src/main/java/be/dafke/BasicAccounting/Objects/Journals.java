@@ -1,21 +1,24 @@
 package be.dafke.BasicAccounting.Objects;
 
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Map;
+
 import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessCollectionProvider;
 import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Map;
 
 /**
  * Serialiseerbare map die alle dagboeken bevat
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journals extends BusinessCollection<Journal> implements BusinessTypeProvider<JournalType> {
+public class Journals extends BusinessCollection<Journal> implements BusinessTypeProvider<JournalType>, BusinessCollectionProvider<Account> {
+
+    private BusinessCollection<Account> businessCollection;
 
     @Override
     public String getChildType(){
@@ -25,6 +28,16 @@ public class Journals extends BusinessCollection<Journal> implements BusinessTyp
     @Override
     public boolean mustBeRead(){
         return true;
+    }
+
+    @Override
+    public void setBusinessCollection(BusinessCollection<Account> businessCollection){
+        this.businessCollection = businessCollection;
+    }
+
+    @Override
+    public BusinessCollection<Account> getBusinessCollection() {
+        return businessCollection;
     }
 
     private BusinessTypeCollection<JournalType> businessTypeCollection;

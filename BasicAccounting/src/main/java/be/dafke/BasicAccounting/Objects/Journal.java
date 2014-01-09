@@ -1,22 +1,24 @@
 package be.dafke.BasicAccounting.Objects;
 
-import be.dafke.ObjectModel.BusinessObject;
-import be.dafke.ObjectModel.BusinessTypeCollection;
-import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
-import be.dafke.ObjectModel.BusinessTyped;
-import be.dafke.Utils.MultiValueMap;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeMap;
+
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessCollectionDependent;
+import be.dafke.ObjectModel.BusinessCollectionProvider;
+import be.dafke.ObjectModel.BusinessTypeCollection;
+import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
+import be.dafke.ObjectModel.BusinessTyped;
+import be.dafke.Utils.MultiValueMap;
 
 /**
  * Boekhoudkundig dagboek
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journal extends BusinessObject implements BusinessTypeCollectionDependent<JournalType>, BusinessTyped<JournalType> {
+public class Journal extends BusinessCollection<Transaction> implements BusinessCollectionDependent<Account>,BusinessTypeCollectionDependent<JournalType>, BusinessTyped<JournalType>, BusinessCollectionProvider<Account> {
     private static final String TYPE = "type";
     protected static final String ABBREVIATION = "abbreviation";
     private String abbreviation;
@@ -24,10 +26,36 @@ public class Journal extends BusinessObject implements BusinessTypeCollectionDep
     private JournalType type;
     private Transaction currentTransaction = new Transaction();
     private BusinessTypeCollection businessTypeCollection;
+    private BusinessCollection<Account> businessCollection;
 
     public Journal() {
 		transactions = new MultiValueMap<Calendar,Transaction>();
 	}
+
+    @Override
+    public void setBusinessCollection(BusinessCollection<Account> businessCollection){
+        this.businessCollection = businessCollection;
+    }
+
+    @Override
+    public BusinessCollection<Account> getBusinessCollection() {
+        return businessCollection;
+    }
+
+    @Override
+    public Transaction createNewChild(String name){
+        return new Transaction();
+    }
+
+    @Override
+    public boolean mustBeRead(){
+        return true;
+    }
+
+    @Override
+    public String getChildType(){
+        return "Transaction";
+    }
 
     @Override
     public boolean isDeletable(){
@@ -90,7 +118,7 @@ public class Journal extends BusinessObject implements BusinessTypeCollectionDep
 		}
 	}
 
-	public void addBusinessObject(Transaction transaction) {
+	public Transaction addBusinessObject(Transaction transaction) {
         Calendar date = transaction.getDate();
         transaction.setJournal(this);
 
@@ -99,6 +127,7 @@ public class Journal extends BusinessObject implements BusinessTypeCollectionDep
             account.book(date, booking.getMovement());
         }
         transactions.addValue(date, transaction);
+        return transaction;
 	}
 
     @Override

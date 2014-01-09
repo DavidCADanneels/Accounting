@@ -1,5 +1,18 @@
 package be.dafke.BasicAccounting.GUI.JournalManagement;
 
+import static java.util.ResourceBundle.getBundle;
+
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.util.ArrayList;
+
+import javax.swing.*;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Accounting;
@@ -9,18 +22,6 @@ import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
-
-import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.util.ArrayList;
-
-import static java.util.ResourceBundle.getBundle;
 
 public class JournalManagementGUI extends RefreshableTable implements ActionListener, ListSelectionListener, FocusListener {
 	/**
@@ -226,8 +227,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
         try {
-            Journal journal = new Journal();
-            journal.setName(newName);
+            Journal journal = accounting.getJournals().createNewChild(newName);
             journal.setAbbreviation(abbreviation);
             journal.setType(journalType);
             accounting.getJournals().addBusinessObject(journal);

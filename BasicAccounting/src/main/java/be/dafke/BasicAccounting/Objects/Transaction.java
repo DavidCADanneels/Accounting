@@ -3,6 +3,14 @@ package be.dafke.BasicAccounting.Objects;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
+
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessCollectionDependent;
+import be.dafke.ObjectModel.BusinessCollectionProvider;
+import be.dafke.Utils.Utils;
 
 /**
  * Boekhoudkundige transactie Bevat minstens 2 boekingen
@@ -10,8 +18,9 @@ import java.util.Calendar;
  * @since 01/10/2010
  * @see Booking
  */
-public class Transaction {
-    // TODO: transform this into BusinessCollection<Booking>
+public class Transaction extends BusinessCollection<Booking> implements BusinessCollectionProvider<Account>, BusinessCollectionDependent<Account> {
+    private static final String DATE = "date";
+    private static final String DESCRIPTION = "description";
 	private BigDecimal debitTotal;
     private BigDecimal creditTotal;
     private Journal journal;
@@ -22,6 +31,7 @@ public class Transaction {
     private Calendar date = null;
 
     private final ArrayList<Booking> bookings;
+    private BusinessCollection<Account> businessCollection;
 
     public Transaction() {
 		debitTotal = new BigDecimal(0);
@@ -31,6 +41,57 @@ public class Transaction {
         bookings = new ArrayList<Booking>();
         date = Calendar.getInstance();
 	}
+
+    @Override
+    public TreeMap<String, String> getUniqueProperties(){
+        return new TreeMap<String, String>();
+    }
+
+    @Override
+    public void setBusinessCollection(BusinessCollection<Account> businessCollection){
+        this.businessCollection = businessCollection;
+    }
+
+    @Override
+    public BusinessCollection<Account> getBusinessCollection() {
+        return businessCollection;
+    }
+
+    @Override
+    public Booking createNewChild(String name){
+        return new Booking();
+    }
+
+    @Override
+    public boolean mustBeRead(){
+        return false;
+    }
+
+    @Override
+    public String getChildType(){
+        return "Booking";
+    }
+
+    @Override
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String,String> properties = new TreeMap<String, String>();
+        properties.put(DATE, Utils.toString(date));
+        properties.put(DESCRIPTION, description);
+
+        return properties;
+    }
+
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(DATE);
+        keySet.add(DESCRIPTION);
+        return keySet;
+    }
+    //
+    public void setInitProperties(TreeMap<String, String> properties){
+        date = Utils.toCalendar(properties.get(DATE));
+        description = properties.get(DESCRIPTION);
+    }
 
     // Getters (without setters)
     public ArrayList<Booking> getBookings() {
@@ -82,8 +143,8 @@ public class Transaction {
 	}
 
     // Adders
-
-   public void addBooking(Booking booking){
+    @Override
+    public Booking addBusinessObject(Booking booking){
         booking.setTransaction(this);
         boolean debit = booking.getMovement().isDebit();
         BigDecimal amount = booking.getMovement().getAmount();
@@ -98,9 +159,11 @@ public class Transaction {
             creditTotal = creditTotal.add(amount);
             creditTotal = creditTotal.setScale(2);
         }
+        return booking;
     }
 
-    public void removeBooking(Booking booking){
+    @Override
+    public void removeBusinessObject(Booking booking){
         booking.setTransaction(null);
         boolean debit = booking.getMovement().isDebit();
         BigDecimal amount = booking.getMovement().getAmount();

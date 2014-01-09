@@ -1,5 +1,20 @@
 package be.dafke.Coda.GUI;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.io.File;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.swing.*;
+
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
@@ -17,20 +32,6 @@ import be.dafke.Coda.Objects.Statement;
 import be.dafke.Coda.Objects.Statements;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Utils.Utils;
-
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.io.File;
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 
 public class StatementTable extends RefreshableTable implements ActionListener, MouseListener {
 	/**
@@ -211,11 +212,11 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
                         BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 3);
                         Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
                         Booking booking1 = new Booking(account);
-                        booking1.setMovement(new Movement(amount, debet));
+                        booking1.addBusinessObject(new Movement(amount, debet));
                         Booking booking2 = new Booking(bankAccount);
-                        booking2.setMovement(new Movement(amount, !debet));
-                        transaction.addBooking(booking1);
-                        transaction.addBooking(booking2);
+                        booking2.addBusinessObject(new Movement(amount, !debet));
+                        transaction.addBusinessObject(booking1);
+                        transaction.addBusinessObject(booking2);
                         String cal = (String) tabel.getValueAt(i, 1);
                         Calendar date = Utils.toCalendar(cal);
                         transaction.setDate(date);

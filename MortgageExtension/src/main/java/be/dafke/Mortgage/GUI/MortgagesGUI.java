@@ -1,5 +1,15 @@
 package be.dafke.Mortgage.GUI;
 
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
+
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
@@ -10,15 +20,6 @@ import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.Mortgage.Objects.Mortgage;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
-
-import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 public class MortgagesGUI extends AccountingPanel implements ListSelectionListener, ActionListener {
 	/**
@@ -90,8 +91,8 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
 		}
         Transaction transaction = journal.getCurrentObject();
         Booking booking = new Booking(mortgage);
-        booking.setMovement(new Movement(mortgage.getMensuality(),true));
-        transaction.addBooking(booking);
+        booking.addBusinessObject(new Movement(mortgage.getMensuality(),true));
+        transaction.addBusinessObject(booking);
         AccountingComponentMap.refreshAllFrames();
 	}
 

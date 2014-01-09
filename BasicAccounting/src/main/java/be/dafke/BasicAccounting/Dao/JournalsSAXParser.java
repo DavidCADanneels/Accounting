@@ -1,5 +1,17 @@
 package be.dafke.BasicAccounting.Dao;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.math.BigDecimal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.BasicAccounting.Objects.Booking;
@@ -10,17 +22,6 @@ import be.dafke.Utils.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.math.BigDecimal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * User: Dafke
@@ -65,14 +66,14 @@ public class JournalsSAXParser {
                         if(debit!=null){
                             BigDecimal amount = Utils.parseBigDecimal(debit);
                             Booking booking = new Booking(account);
-                            booking.setMovement(new Movement(amount, true));
-                            transaction.addBooking(booking);
+                            booking.addBusinessObject(new Movement(amount, true));
+                            transaction.addBusinessObject(booking);
                         }
                         if(credit!=null){
                             BigDecimal amount = Utils.parseBigDecimal(credit);
                             Booking booking = new Booking(account);
-                            booking.setMovement(new Movement(amount, false));
-                            transaction.addBooking(booking);
+                            booking.addBusinessObject(new Movement(amount, false));
+                            transaction.addBusinessObject(booking);
                         }
                     }
                 }

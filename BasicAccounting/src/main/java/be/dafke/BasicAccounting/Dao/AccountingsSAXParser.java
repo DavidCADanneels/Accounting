@@ -180,12 +180,12 @@ public class AccountingsSAXParser {
     public static void readCollection(Accountings accountings, File xmlFolder) {
         for(Accounting accounting : accountings.getBusinessObjects()){
 
-            for(Journal journal : accounting.getJournals().getBusinessObjects()){
-                File rootFolder = new File(accountings.getXmlFolder(), "Accountings");
-                File subFolder = new File(rootFolder, accounting.getName());
-                File journalsFolder = new File(subFolder, "Journals");
-                JournalsSAXParser.readJournal(journal, accounting.getAccounts(), new File(journalsFolder, journal.getName()+".xml"));
-            }
+//            for(Journal journal : accounting.getJournals().getBusinessObjects()){
+//                File rootFolder = new File(accountings.getXmlFolder(), "Accountings");
+//                File subFolder = new File(rootFolder, accounting.getName());
+//                File journalsFolder = new File(subFolder, "Journals");
+//                JournalsSAXParser.readJournal(journal, accounting.getAccounts(), new File(journalsFolder, journal.getName()+".xml"));
+//            }
         }
     }
 }
