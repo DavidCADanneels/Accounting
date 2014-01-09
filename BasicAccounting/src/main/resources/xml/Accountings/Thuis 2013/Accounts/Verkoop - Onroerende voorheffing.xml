@@ -5,7 +5,7 @@
   <Movement>
     <credit>201.93</credit>
     <date>12/3/2013</date>
-    <description>12/3/2013</description>
+    <description>Verkoop huis</description>
     <id>257</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>108</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <date>13/5/2013</date>
     <debit>201.93</debit>
-    <description>13/5/2013</description>
+    <description>Onroerende voorheffing op oud en nieuw huis</description>
     <id>567</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>222</journalId>

@@ -5,7 +5,6 @@
   <Movement>
     <date>2/1/2013</date>
     <debit>600.00</debit>
-    <description>2/1/2013</description>
     <id>35</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>12</journalId>
@@ -14,7 +13,6 @@
   <Movement>
     <date>26/1/2013</date>
     <debit>115.50</debit>
-    <description>26/1/2013</description>
     <id>125</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>54</journalId>
@@ -23,7 +21,6 @@
   <Movement>
     <date>8/2/2013</date>
     <debit>2111.00</debit>
-    <description>8/2/2013</description>
     <id>183</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>79</journalId>

@@ -23,8 +23,8 @@
         <tr>
             <td>
                 <xsl:element name="a">
-                    <xsl:attribute name="href">../Journals/<xsl:value-of select="journalName"/>.html#<xsl:value-of select="id"/></xsl:attribute>
-                    <xsl:attribute name="id"><xsl:value-of select="journalId"/></xsl:attribute>
+                    <xsl:attribute name="href">../Journals/<xsl:value-of select="journalName"/>.html#<xsl:value-of select="journalId"/></xsl:attribute>
+                    <xsl:attribute name="id"><xsl:value-of select="id"/></xsl:attribute>
                     <xsl:value-of select="journalAbbr"/><xsl:value-of select="journalId"/>
                 </xsl:element>
             </td>

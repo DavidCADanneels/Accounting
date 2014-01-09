@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Journals SYSTEM "../../../dtd/Journals.dtd">
+<Journals>
+  <name>Journals</name>
+  <Journal>
+    <abbreviation>DIV</abbreviation>
+    <name>Diversen</name>
+    <type>default</type>
+  </Journal>
+    <CurrentObject>Diversen</CurrentObject>
+</Journals>

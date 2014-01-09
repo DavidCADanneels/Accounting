@@ -5,7 +5,7 @@
   <Movement>
     <date>1/1/2013</date>
     <debit>0.24</debit>
-    <description>1/1/2013</description>
+    <description>Beginbalans</description>
     <id>5</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>1</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <date>1/1/2013</date>
     <debit>1.23</debit>
-    <description>1/1/2013</description>
+    <description>Intrest spaarboekje</description>
     <id>12</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>2</journalId>
@@ -23,7 +23,7 @@
   <Movement>
     <date>1/3/2013</date>
     <debit>300.00</debit>
-    <description>1/3/2013</description>
+    <description>veiligstelling</description>
     <id>223</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>98</journalId>
@@ -32,7 +32,7 @@
   <Movement>
     <credit>300.00</credit>
     <date>7/3/2013</date>
-    <description>7/3/2013</description>
+    <description>terugstorting</description>
     <id>234</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>103</journalId>
@@ -41,7 +41,7 @@
   <Movement>
     <date>21/3/2013</date>
     <debit>20000.00</debit>
-    <description>21/3/2013</description>
+    <description>veiligstelling</description>
     <id>292</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>125</journalId>
@@ -50,7 +50,7 @@
   <Movement>
     <credit>300.00</credit>
     <date>27/3/2013</date>
-    <description>27/3/2013</description>
+    <description>afhaling spaarboek</description>
     <id>309</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>133</journalId>
@@ -59,7 +59,7 @@
   <Movement>
     <credit>100.00</credit>
     <date>3/4/2013</date>
-    <description>3/4/2013</description>
+    <description>afhaling spaarboek</description>
     <id>328</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>142</journalId>
@@ -68,7 +68,7 @@
   <Movement>
     <credit>100.00</credit>
     <date>7/4/2013</date>
-    <description>7/4/2013</description>
+    <description>afhaling spaarboek</description>
     <id>342</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>148</journalId>
@@ -77,7 +77,7 @@
   <Movement>
     <credit>500.00</credit>
     <date>12/4/2013</date>
-    <description>12/4/2013</description>
+    <description>afhaling spaarboek</description>
     <id>358</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>156</journalId>
@@ -86,7 +86,7 @@
   <Movement>
     <credit>19000.00</credit>
     <date>27/4/2013</date>
-    <description>27/4/2013</description>
+    <description>afhaling spaarboek</description>
     <id>394</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>174</journalId>
@@ -95,7 +95,6 @@
   <Movement>
     <date>3/10/2013</date>
     <debit>90.00</debit>
-    <description>3/10/2013</description>
     <id>1076</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>454</journalId>
@@ -104,7 +103,6 @@
   <Movement>
     <credit>91.00</credit>
     <date>7/10/2013</date>
-    <description>7/10/2013</description>
     <id>1085</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>457</journalId>
@@ -113,7 +111,6 @@
   <Movement>
     <date>3/12/2013</date>
     <debit>80.00</debit>
-    <description>3/12/2013</description>
     <id>1256</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>535</journalId>
@@ -122,7 +119,6 @@
   <Movement>
     <credit>80.00</credit>
     <date>7/12/2013</date>
-    <description>7/12/2013</description>
     <id>1283</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>546</journalId>
@@ -131,7 +127,6 @@
   <Movement>
     <date>31/12/2013</date>
     <debit>9.60</debit>
-    <description>31/12/2013</description>
     <id>1406</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>605</journalId>

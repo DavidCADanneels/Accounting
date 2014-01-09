@@ -5,7 +5,7 @@
   <Movement>
     <date>20/3/2013</date>
     <debit>28.54</debit>
-    <description>20/3/2013</description>
+    <description>Brandverzekering nieuw huis</description>
     <id>288</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>123</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <date>7/5/2013</date>
     <debit>36.01</debit>
-    <description>7/5/2013</description>
+    <description>Verzekeringen mei</description>
     <id>449</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>198</journalId>
@@ -23,7 +23,7 @@
   <Movement>
     <date>10/7/2013</date>
     <debit>36.01</debit>
-    <description>10/7/2013</description>
+    <description>heropstart brandverzekering (juni-juli)</description>
     <id>814</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>335</journalId>
@@ -32,7 +32,7 @@
   <Movement>
     <date>10/7/2013</date>
     <debit>36.01</debit>
-    <description>10/7/2013</description>
+    <description>heropstart brandverzekering (juni-juli)</description>
     <id>815</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>335</journalId>
@@ -41,7 +41,7 @@
   <Movement>
     <date>8/8/2013</date>
     <debit>36.01</debit>
-    <description>8/8/2013</description>
+    <description>verzekeringen augustus</description>
     <id>915</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>379</journalId>
@@ -50,7 +50,6 @@
   <Movement>
     <date>6/9/2013</date>
     <debit>36.01</debit>
-    <description>6/9/2013</description>
     <id>1000</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>418</journalId>
@@ -59,7 +58,6 @@
   <Movement>
     <date>4/10/2013</date>
     <debit>36.01</debit>
-    <description>4/10/2013</description>
     <id>1079</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>455</journalId>
@@ -68,7 +66,6 @@
   <Movement>
     <date>6/11/2013</date>
     <debit>36.01</debit>
-    <description>6/11/2013</description>
     <id>1166</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>496</journalId>
@@ -77,7 +74,6 @@
   <Movement>
     <date>6/12/2013</date>
     <debit>36.01</debit>
-    <description>6/12/2013</description>
     <id>1277</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>544</journalId>

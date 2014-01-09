@@ -5,7 +5,7 @@
   <Movement>
     <credit>600.00</credit>
     <date>16/1/2013</date>
-    <description>16/1/2013</description>
+    <description>huur</description>
     <id>82</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>33</journalId>
@@ -14,7 +14,6 @@
   <Movement>
     <credit>400.00</credit>
     <date>27/4/2013</date>
-    <description>27/4/2013</description>
     <id>390</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>172</journalId>

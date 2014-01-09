@@ -5,7 +5,7 @@
   <Movement>
     <date>31/1/2013</date>
     <debit>37.38</debit>
-    <description>31/1/2013</description>
+    <description>afbetaling januari</description>
     <id>143</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>63</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <date>28/2/2013</date>
     <debit>36.53</debit>
-    <description>28/2/2013</description>
+    <description>afbetaling februari</description>
     <id>215</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>95</journalId>
@@ -23,7 +23,7 @@
   <Movement>
     <date>28/3/2013</date>
     <debit>137.91</debit>
-    <description>28/3/2013</description>
+    <description>Totale afbetaling Alpha Credit</description>
     <id>311</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>134</journalId>

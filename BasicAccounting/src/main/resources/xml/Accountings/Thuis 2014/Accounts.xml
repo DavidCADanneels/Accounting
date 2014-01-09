@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Accounts SYSTEM "../../../dtd/Accounts.dtd">
+<Accounts>
+  <name>Accounts</name>
+  <Account>
+    <name>Bank David</name>
+    <type>Asset</type>
+  </Account>
+</Accounts>

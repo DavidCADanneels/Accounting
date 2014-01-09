@@ -5,7 +5,7 @@
   <Movement>
     <date>28/1/2013</date>
     <debit>240.31</debit>
-    <description>28/1/2013</description>
+    <description>43862/+++</description>
     <id>129</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>56</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <date>18/3/2013</date>
     <debit>115.81</debit>
-    <description>18/3/2013</description>
+    <description>Voipbuster</description>
     <id>272</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>116</journalId>
@@ -23,7 +23,7 @@
   <Movement>
     <date>18/3/2013</date>
     <debit>240.83</debit>
-    <description>18/3/2013</description>
+    <description>Proximus febr/maart</description>
     <id>276</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>118</journalId>
@@ -32,7 +32,7 @@
   <Movement>
     <date>18/3/2013</date>
     <debit>119.38</debit>
-    <description>18/3/2013</description>
+    <description>Proximus febr/maart</description>
     <id>277</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>118</journalId>
@@ -41,7 +41,7 @@
   <Movement>
     <date>6/5/2013</date>
     <debit>294.28</debit>
-    <description>6/5/2013</description>
+    <description>Proximus</description>
     <id>423</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>186</journalId>
@@ -50,7 +50,7 @@
   <Movement>
     <date>20/5/2013</date>
     <debit>133.15</debit>
-    <description>20/5/2013</description>
+    <description>Proximus</description>
     <id>602</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>235</journalId>
@@ -59,7 +59,7 @@
   <Movement>
     <date>26/6/2013</date>
     <debit>109.18</debit>
-    <description>26/6/2013</description>
+    <description>Proximus: 103438944367</description>
     <id>730</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>297</journalId>
@@ -68,7 +68,7 @@
   <Movement>
     <date>18/7/2013</date>
     <debit>91.58</debit>
-    <description>18/7/2013</description>
+    <description>Proximus: 103438944468</description>
     <id>833</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>344</journalId>
@@ -77,7 +77,7 @@
   <Movement>
     <date>3/9/2013</date>
     <debit>103.27</debit>
-    <description>3/9/2013</description>
+    <description>Proximus</description>
     <id>973</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>407</journalId>
@@ -86,7 +86,7 @@
   <Movement>
     <date>7/10/2013</date>
     <debit>121.08</debit>
-    <description>7/10/2013</description>
+    <description>Proximus</description>
     <id>1082</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>456</journalId>
@@ -95,7 +95,7 @@
   <Movement>
     <date>29/10/2013</date>
     <debit>131.82</debit>
-    <description>29/10/2013</description>
+    <description>Proximus</description>
     <id>1124</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>477</journalId>
@@ -104,7 +104,7 @@
   <Movement>
     <date>28/11/2013</date>
     <debit>67.70</debit>
-    <description>28/11/2013</description>
+    <description>Correctie: eindafrekening Proximus</description>
     <id>1230</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>523</journalId>
@@ -113,7 +113,7 @@
   <Movement>
     <date>29/12/2013</date>
     <debit>116.61</debit>
-    <description>29/12/2013</description>
+    <description>VoipBuster 100 euro belwaarde</description>
     <id>1380</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>593</journalId>

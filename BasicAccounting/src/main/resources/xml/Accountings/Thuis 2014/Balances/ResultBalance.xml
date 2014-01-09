@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Balance SYSTEM "../../../../dtd/Balance.dtd">
+<Balance>
+  <name>ResultBalance</name>
+  <LeftName>Kosten</LeftName>
+  <RightName>Opbrengsten</RightName>
+  <LeftTotalName>TOTAAL KOSTEN</LeftTotalName>
+  <RightTotalName>TOTAAL OPBRENGSTEN</RightTotalName>
+  <LeftResultName>VERLIES</LeftResultName>
+  <RightResultName>WINST</RightResultName>
+</Balance>

@@ -5,7 +5,7 @@
   <Movement>
     <credit>89.16</credit>
     <date>21/5/2013</date>
-    <description>21/5/2013</description>
+    <description>afrekening verzekering oud huis</description>
     <id>615</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>241</journalId>
@@ -14,7 +14,6 @@
   <Movement>
     <date>27/5/2013</date>
     <debit>46.43</debit>
-    <description>27/5/2013</description>
     <id>624</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>246</journalId>
@@ -23,7 +22,7 @@
   <Movement>
     <credit>94.81</credit>
     <date>11/6/2013</date>
-    <description>11/6/2013</description>
+    <description>010816121657 verbreking</description>
     <id>681</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>273</journalId>
@@ -32,7 +31,7 @@
   <Movement>
     <credit>54.77</credit>
     <date>26/6/2013</date>
-    <description>26/6/2013</description>
+    <description>terugstorting Notaris</description>
     <id>727</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>295</journalId>
@@ -41,7 +40,7 @@
   <Movement>
     <date>10/7/2013</date>
     <debit>94.81</debit>
-    <description>10/7/2013</description>
+    <description>heropstart brandverzekering (juni-juli)</description>
     <id>813</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>335</journalId>
@@ -50,7 +49,7 @@
   <Movement>
     <date>16/7/2013</date>
     <debit>46.43</debit>
-    <description>16/7/2013</description>
+    <description>622340217025</description>
     <id>823</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>339</journalId>
@@ -59,7 +58,6 @@
   <Movement>
     <date>5/11/2013</date>
     <debit>165.59</debit>
-    <description>5/11/2013</description>
     <id>1155</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>492</journalId>
@@ -68,7 +66,6 @@
   <Movement>
     <date>5/11/2013</date>
     <debit>46.43</debit>
-    <description>5/11/2013</description>
     <id>1156</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>492</journalId>

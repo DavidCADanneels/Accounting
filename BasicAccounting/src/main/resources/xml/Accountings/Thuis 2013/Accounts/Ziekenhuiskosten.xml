@@ -5,7 +5,7 @@
   <Movement>
     <date>21/3/2013</date>
     <debit>51.68</debit>
-    <description>21/3/2013</description>
+    <description>factuur Sophia</description>
     <id>296</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>127</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <date>10/4/2013</date>
     <debit>36.25</debit>
-    <description>10/4/2013</description>
+    <description>Consultatie Sophia</description>
     <id>351</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>153</journalId>
@@ -23,7 +23,6 @@
   <Movement>
     <date>7/7/2013</date>
     <debit>56.18</debit>
-    <description>7/7/2013</description>
     <id>799</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>328</journalId>
@@ -32,7 +31,6 @@
   <Movement>
     <date>17/10/2013</date>
     <debit>112.85</debit>
-    <description>17/10/2013</description>
     <id>1110</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>470</journalId>
@@ -41,7 +39,6 @@
   <Movement>
     <date>5/11/2013</date>
     <debit>123.36</debit>
-    <description>5/11/2013</description>
     <id>1153</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>491</journalId>
@@ -50,7 +47,7 @@
   <Movement>
     <date>7/12/2013</date>
     <debit>42.30</debit>
-    <description>7/12/2013</description>
+    <description>+++991/3451/93035+++</description>
     <id>1280</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>545</journalId>
@@ -59,7 +56,6 @@
   <Movement>
     <date>31/12/2013</date>
     <debit>66.33</debit>
-    <description>31/12/2013</description>
     <id>1400</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>603</journalId>
@@ -68,7 +64,6 @@
   <Movement>
     <date>31/12/2013</date>
     <debit>36.25</debit>
-    <description>31/12/2013</description>
     <id>1401</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>603</journalId>

@@ -5,7 +5,7 @@
   <Movement>
     <date>13/5/2013</date>
     <debit>55.70</debit>
-    <description>13/5/2013</description>
+    <description>Colruyt: wijn etc.</description>
     <id>469</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>207</journalId>
@@ -14,7 +14,7 @@
   <Movement>
     <date>13/5/2013</date>
     <debit>109.32</debit>
-    <description>13/5/2013</description>
+    <description>Colruyt: wijn</description>
     <id>471</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>208</journalId>
@@ -23,7 +23,7 @@
   <Movement>
     <credit>2136.90</credit>
     <date>13/5/2013</date>
-    <description>13/5/2013</description>
+    <description>inkomsten feestje</description>
     <id>474</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>209</journalId>
@@ -32,7 +32,7 @@
   <Movement>
     <date>13/5/2013</date>
     <debit>544.00</debit>
-    <description>13/5/2013</description>
+    <description>afrekening Thai shop: Chang en Singha</description>
     <id>475</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>210</journalId>
@@ -41,7 +41,7 @@
   <Movement>
     <date>13/5/2013</date>
     <debit>63.00</debit>
-    <description>13/5/2013</description>
+    <description>reeds betaald voor zaal: huur + waarborg 25 euro</description>
     <id>477</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>211</journalId>
@@ -50,7 +50,7 @@
   <Movement>
     <date>13/5/2013</date>
     <debit>88.00</debit>
-    <description>13/5/2013</description>
+    <description>reeds betaald voor zaal: huur + waarborg 25 euro</description>
     <id>478</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>211</journalId>
@@ -59,7 +59,7 @@
   <Movement>
     <date>16/5/2013</date>
     <debit>172.75</debit>
-    <description>16/5/2013</description>
+    <description>Feestje: afrekening zaal</description>
     <id>592</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>230</journalId>
@@ -68,7 +68,7 @@
   <Movement>
     <date>20/5/2013</date>
     <debit>600.00</debit>
-    <description>20/5/2013</description>
+    <description>Tempel Roubaix</description>
     <id>604</id>
     <journalAbbr>DIV</journalAbbr>
     <journalId>236</journalId>
