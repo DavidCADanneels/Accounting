@@ -1,7 +1,14 @@
 package be.dafke.BasicAccounting.Actions;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+
+import javax.swing.*;
+
 import be.dafke.BasicAccounting.AccountingExtension;
-import be.dafke.BasicAccounting.Dao.AccountingsSAXParser;
 import be.dafke.BasicAccounting.GUI.AccountManagement.NewAccountGUI;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.Details.AccountDetails;
@@ -13,13 +20,7 @@ import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.ComponentModel.DisposableComponent;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.io.File;
+import be.dafke.ObjectModelDao.ObjectModelSAXParser;
 
 /**
  * User: Dafke
@@ -47,7 +48,28 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
 
     @Override
     public void windowClosing(WindowEvent we) {
-        AccountingsSAXParser.writeAccountings(accountings);
+        File xmlFolder = accountings.getXmlFolder();
+        xmlFolder.mkdirs();
+        ObjectModelSAXParser.writeCollection(accountings, xmlFolder, 0);
+
+        File xslFolder = new File("BasicAccounting/src/main/resources/xsl");
+        File htmlFolder = accountings.getHtmlFolder();
+        htmlFolder.mkdirs();
+//        ///
+//        File xmlFile = new File(xmlFolder, "Accountings.xml");
+//        File htmlFile = new File(htmlFolder, "Accountings.html");
+//
+//        Utils.xmlToHtml(xmlFile, new File(xslFolder, "Accountings.xsl"), htmlFile, null);
+
+//        File accountingsXmlFolder = new File(xmlFolder, "Accountings");
+//        File accountingsHtmlFolder = new File(htmlFolder, "Accountings");
+
+           ///
+
+
+//        ObjectModelSAXParser.toHtml(accountings, xmlFolder, xslFolder, htmlFolder);
+
+        // TODO: remove this by refactoring Extension and write methods
         for(Accounting accounting : accountings.getBusinessObjects()){
             for(AccountingExtension extension: accounting.getExtensions()){
                 File rootFolder = new File(accountings.getXmlFolder(), "Accountings");

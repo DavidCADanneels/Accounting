@@ -7,7 +7,6 @@ import java.util.List;
 import javax.swing.*;
 
 import be.dafke.BasicAccounting.Actions.AccountingActionListener;
-import be.dafke.BasicAccounting.Dao.AccountingsSAXParser;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingGUIFrame;
@@ -75,7 +74,6 @@ public class BasicAccountingMain {
             }
         }
 
-        AccountingsSAXParser.readCollection(accountings, xmlFolder);
     }
 
     protected static void createBasicComponents(){

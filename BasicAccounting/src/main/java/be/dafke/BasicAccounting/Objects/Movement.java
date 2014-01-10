@@ -16,7 +16,7 @@ public class Movement extends BusinessObject{
     private static int count = 0;
     private static final String JOURNAL_NAME = "journalName";
     private static final String DATE = "date";
-    private static final String DEBIT = "debet";
+    private static final String DEBIT = "debit";
     private static final String CREDIT = "credit";
     private static final String DESCRIPTION = "description";
     private static final String JOURNAL_ID = "journalId";

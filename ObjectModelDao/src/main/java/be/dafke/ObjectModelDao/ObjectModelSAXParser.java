@@ -1,13 +1,20 @@
 package be.dafke.ObjectModelDao;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.Writer;
+import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
+import be.dafke.FOP.Utils;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionDependent;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
@@ -27,8 +34,154 @@ import org.w3c.dom.NodeList;
  * Time: 20:55
  */
 public class ObjectModelSAXParser {
+    public static String getXmlHeader(BusinessObject object, int depth) {
+        String className = object.getBusinessObjectType();
+        StringBuilder builder = new StringBuilder("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+        builder.append("<!DOCTYPE ").append(className).append(" SYSTEM \"");
+        for(int i=0 ; i<depth; i++){
+            builder.append("../");
+        }
+        builder.append("../dtd/").append(className).append(".dtd\">\r\n");
+        return builder.toString();
+    }
+
+    public static void toHtml(BusinessCollection businessCollection, File xmlFolder, File xslFolder, File htmlFolder){
+        String businessCollectionName = businessCollection.getName();
+        String businessCollectionType = businessCollection.getBusinessObjectType();
+        File xmlFile = new File(xmlFolder, businessCollectionName + ".xml");
+        File htmlFile = new File(htmlFolder, businessCollectionName + ".html");
+        Utils.xmlToHtml(xmlFile, new File(xslFolder, businessCollectionType + ".xsl"), htmlFile, null);
+        for(Object object:businessCollection.getBusinessObjects()){
+            if(object instanceof BusinessCollection){
+                BusinessCollection subCollection = (BusinessCollection)object;
+                String subCollectionName = subCollection.getName();
+                if(subCollection!=null){
+                    // Unnamed collections such as Transaction, Booking, Movement should be written in a separate file
+                    // TODO: add abstract method BusinessCollection.shouldBeWritten(): returns false is those cases ?
+                    File subXmlFolder = new File(xmlFolder, subCollectionName + ".xml");
+                    File subHtmlFolder = new File(htmlFolder, subCollectionName + ".html");
+                    toHtml(subCollection, subXmlFolder, xslFolder, subHtmlFolder);
+                }
+            } else if(object instanceof BusinessObject){
+                BusinessObject businessObject = (BusinessObject)object;
+                String businessObjectName = businessObject.getName();
+                String businessObjectType = businessObject.getBusinessObjectType();
+                // TODO: ensure that collections such as Accounts, Journals, Balances, Mortgages, Statements and Counterparties
+                // have the same name as their type (= simple class name)
+                File xmlCollectionFolder = new File(xmlFolder, businessObjectName);
+                File htmlCollectionFolder = new File(htmlFolder, businessObjectName);
+                htmlCollectionFolder.mkdirs();
+                File objectXmlFile = new File(xmlFolder, businessObjectName+".xml");
+                File objectHtmlFile = new File(htmlFolder, businessObjectName+".html");
+
+                Utils.xmlToHtml(objectXmlFile, new File(xslFolder, businessObjectType+".xsl"), objectHtmlFile, null);
+            }
+
+        }
+    }
+
+    public static void writeCollection(BusinessCollection collection, File parentFolder, int depth){
+        String className = collection.getBusinessObjectType();
+        String name = collection.getName();
+        parentFolder.mkdirs();
+        File childFolder = null;
+        try{
+            childFolder = new File(parentFolder, name);
+        } catch (NullPointerException npe){
+            npe.printStackTrace();
+        }
+        File xmlFile = new File(parentFolder, name+".xml");
+        try {
+            Writer writer = new FileWriter(xmlFile);
+
+            // Write the header with correct XSL-File, DTD-File and DTD-Root-Element
+            writer.write(getXmlHeader(collection, depth));
+
+            // Write the root element e.g. <Accountings>
+            writer.write("<" + className + ">\r\n");
+//            writer.write("  <name>"+name+"</name>\r\n");
+            // TODO: write collection.getInitProperties not only name
+            // get the object's properties
+            TreeMap<String,String> collectionProperties = collection.getInitProperties();
+
+//                iterate the properties and write them out (if not null)
+            for(Map.Entry<String, String> entry : collectionProperties.entrySet()){
+                String key = entry.getKey();
+                String objectProperty = entry.getValue();
+                if(objectProperty!=null && !objectProperty.equals("")){
+                    writer.write("  <" + key + ">" + objectProperty + "</"+ key + ">\r\n");
+                }
+            }
+//            if(className.equals("Accounting")){
+//                writer.write("  <name>"+collection.getName()+"</name>\r\n");
+//            }
+
+            writeChildren(writer, collection);
+
+            if(collection.getCurrentObject()!=null){
+                writer.write("    <CurrentObject>" + collection.getCurrentObject().getName() + "</CurrentObject>\r\n");
+            }
+
+            writer.write("</"+className+">\r\n");
+
+            writer.flush();
+            writer.close();
+//			setSaved(true);
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(BusinessCollection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            Logger.getLogger(BusinessCollection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        for(Object businessObject : collection.getBusinessObjects()) {
+            if(businessObject instanceof BusinessCollection && ((BusinessCollection) businessObject).getName()!=null){
+                BusinessCollection<BusinessObject> businessCollection = ((BusinessCollection<BusinessObject>)businessObject);
+                writeCollection(businessCollection, childFolder, depth+1);
+            }
+        }
+    }
+
+    private static void writeChildren(Writer writer, BusinessCollection collection) {
+        try{
+            // Iterate children and write their data
+            for(Object object : collection.getBusinessObjects()) {
+                BusinessObject businessObject = (BusinessObject) object;
+                String objectName = businessObject.getName();
+                // TODO: remove this if to get more details in the parent file
+                if(objectName!=null){
+                    String objectType = businessObject.getBusinessObjectType();
+
+                    // Write the tag for the child e.g. <Accounting>
+                    writer.write("  <"+objectType+">\r\n");
+
+                    // get the object's properties
+                    TreeMap<String,String> objectProperties = businessObject.getInitProperties();
+
+                    // iterate the properties and write them out (if not null)
+                    for(Map.Entry<String, String> entry : objectProperties.entrySet()){
+                        String key = entry.getKey();
+                        String objectProperty = entry.getValue();
+                        if(objectProperty!=null && !objectProperty.equals("")){
+                            writer.write("    <" + key + ">" + objectProperty + "</"+ key + ">\r\n");
+                        }
+                    }
+                    // The implementation used is more clear and similar to the read Method
+                    if(object instanceof BusinessCollection){
+                        BusinessCollection subCollection = (BusinessCollection) object;
+                        writeChildren(writer, subCollection);
+                    }
+
+                    // write the closing tag e.g. </Accounting>
+                    writer.write("  </" + objectType + ">\r\n");
+                }
+            }
+        }catch (IOException io){
+            io.printStackTrace();
+        }
+    }
+
     public static void readCollection(BusinessCollection businessCollection, boolean recursive, File parentFolder){
-        String className = businessCollection.getBusinessObjectType();
+//        String className = businessCollection.getBusinessObjectType();
         String name = businessCollection.getName();
         File childFolder = new File(parentFolder, name);
         File xmlFile = new File(parentFolder, name+".xml");
@@ -67,7 +220,7 @@ public class ObjectModelSAXParser {
         String shortName = businessCollection.getChildType();
 
         // get Children e.g. <Accounting>
-            NodeList childrenNodeList = rootElement.getElementsByTagName(shortName);
+        NodeList childrenNodeList = rootElement.getElementsByTagName(shortName);
 
         // iterate children and create objects for them
         for (int i = 0; i < childrenNodeList.getLength(); i++) {

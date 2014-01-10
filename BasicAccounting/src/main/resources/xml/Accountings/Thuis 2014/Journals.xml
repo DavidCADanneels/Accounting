@@ -3,7 +3,7 @@
 <Journals>
   <name>Journals</name>
   <Journal>
-    <abbreviation>DIV</abbreviation>
+    <abbr>DIV</abbr>
     <name>Diversen</name>
     <type>default</type>
   </Journal>

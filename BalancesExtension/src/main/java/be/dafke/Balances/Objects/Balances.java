@@ -1,5 +1,9 @@
 package be.dafke.Balances.Objects;
 
+import static java.util.ResourceBundle.getBundle;
+
+import java.util.ArrayList;
+
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.AccountTypes;
@@ -11,16 +15,16 @@ import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import java.util.ArrayList;
-
-import static java.util.ResourceBundle.getBundle;
-
 /**
  * User: Dafke
  * Date: 27/02/13
  * Time: 12:07
  */
 public class Balances extends BusinessCollection<Balance> implements BusinessCollectionProvider<Account>, BusinessTypeProvider<AccountType>{
+
+    public Balances(){
+        setName("Balances");
+    }
 
     @Override
     public String getChildType(){

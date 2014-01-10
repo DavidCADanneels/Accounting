@@ -44,6 +44,7 @@ public class Journals extends BusinessCollection<Journal> implements BusinessTyp
 
     public Journals() {
         addSearchKey(Journal.ABBREVIATION);
+        setName("Journals");
 	}
 
     @Override

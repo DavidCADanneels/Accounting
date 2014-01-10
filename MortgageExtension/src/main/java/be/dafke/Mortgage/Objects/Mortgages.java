@@ -18,6 +18,10 @@ public class Mortgages extends BusinessCollection<Mortgage> implements BusinessT
     private BusinessTypeCollection<AccountType> businessTypeCollection;
     private BusinessCollection<Account> businessCollection;
 
+    public Mortgages(){
+        setName("Mortgages");
+    }
+
     @Override
     public String getChildType(){
         return "Mortgage";

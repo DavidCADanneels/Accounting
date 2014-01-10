@@ -19,6 +19,7 @@ import be.dafke.Utils.Utils;
  * @see Booking
  */
 public class Transaction extends BusinessCollection<Booking> implements BusinessCollectionProvider<Account>, BusinessCollectionDependent<Account> {
+    private static final String ID = "id";
     private static final String DATE = "date";
     private static final String DESCRIPTION = "description";
 	private BigDecimal debitTotal;
@@ -75,6 +76,7 @@ public class Transaction extends BusinessCollection<Booking> implements Business
     @Override
     public TreeMap<String,String> getInitProperties() {
         TreeMap<String,String> properties = new TreeMap<String, String>();
+        properties.put(ID, new Integer(journal.getId(this)).toString());
         properties.put(DATE, Utils.toString(date));
         properties.put(DESCRIPTION, description);
 

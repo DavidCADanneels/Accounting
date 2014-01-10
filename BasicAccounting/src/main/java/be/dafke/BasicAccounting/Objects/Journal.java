@@ -20,7 +20,7 @@ import be.dafke.Utils.MultiValueMap;
  */
 public class Journal extends BusinessCollection<Transaction> implements BusinessCollectionDependent<Account>,BusinessTypeCollectionDependent<JournalType>, BusinessTyped<JournalType>, BusinessCollectionProvider<Account> {
     private static final String TYPE = "type";
-    protected static final String ABBREVIATION = "abbreviation";
+    protected static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
     private String abbreviation;
     private final MultiValueMap<Calendar,Transaction> transactions;
     private JournalType type;
@@ -88,6 +88,7 @@ public class Journal extends BusinessCollection<Transaction> implements Business
 		return getName() + " (" + abbreviation + ")";
 	}
 
+    @Override
 	public ArrayList<Transaction> getBusinessObjects() {
         return transactions.values();
     }
