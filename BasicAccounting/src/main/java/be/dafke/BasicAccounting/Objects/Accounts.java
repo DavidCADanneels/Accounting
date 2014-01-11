@@ -25,18 +25,8 @@ public class Accounts extends BusinessCollection<Account> implements BusinessTyp
     }
 
     @Override
-    public boolean separateFile(){
-        return true;
-    }
-
-    @Override
     public String getChildType(){
         return "Account";
-    }
-
-    @Override
-    public boolean mustBeRead(){
-        return true;
     }
 
     public ArrayList<Account> getAccounts(AccountType type) {

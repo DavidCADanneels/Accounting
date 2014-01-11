@@ -15,16 +15,6 @@ public class CounterParties extends BusinessCollection<CounterParty> {
         return "CounterParty";
     }
 
-    @Override
-    public boolean separateFile(){
-        return true;
-    }
-
-    @Override
-    public boolean mustBeRead(){
-        return false;
-    }
-
     public CounterParties(){
         addSearchKey(CounterParty.ACCOUNTNUMBER);
         setName("CounterParties");

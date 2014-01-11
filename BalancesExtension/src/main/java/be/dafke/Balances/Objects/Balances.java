@@ -27,18 +27,8 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
     }
 
     @Override
-    public boolean separateFile(){
-        return true;
-    }
-
-    @Override
     public String getChildType(){
         return "Balance";
-    }
-
-    @Override
-    public boolean mustBeRead(){
-        return false;
     }
 
     public static String RESULT_BALANCE = "ResultBalance";

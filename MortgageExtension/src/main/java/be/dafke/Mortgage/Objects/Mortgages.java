@@ -28,16 +28,6 @@ public class Mortgages extends BusinessCollection<Mortgage> implements BusinessT
     }
 
     @Override
-    public boolean separateFile(){
-        return true;
-    }
-
-    @Override
-    public boolean mustBeRead(){
-        return false;
-    }
-
-    @Override
     public Mortgage createNewChild(String name) {
         return new Mortgage(name);
     }

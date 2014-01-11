@@ -9,7 +9,7 @@ import java.util.TreeSet;
  * Date: 9/03/13
  * Time: 3:41
  */
-public abstract class BusinessObject {
+public class BusinessObject {
     private String name;
     protected String businessObjectType;
     protected final static String NAME = "name";
@@ -72,6 +72,4 @@ public abstract class BusinessObject {
         properties.put(NAME,name);
         return properties;
     }
-
-    public abstract boolean separateFile();
 }

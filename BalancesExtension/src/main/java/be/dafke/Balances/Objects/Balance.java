@@ -55,17 +55,7 @@ public class Balance extends BusinessCollection<BalanceLine> implements Business
     }
 
     @Override
-    public boolean mustBeRead(){
-        return false;
-    }
-
-    @Override
     public boolean writeGrandChildren(){
-        return true;
-    }
-
-    @Override
-    public boolean separateFile(){
         return true;
     }
 

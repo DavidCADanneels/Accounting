@@ -21,11 +21,6 @@ public class BalanceLine extends BusinessObject {
     private final static String AMOUNT2 = "amount2";
     private Account leftAccount, rightAccount;
 
-    @Override
-    public boolean separateFile(){
-        return false;
-    }
-
     public BalanceLine(Account leftAccount, Account rightAccount){
         this.leftAccount = leftAccount;
         this.rightAccount = rightAccount;

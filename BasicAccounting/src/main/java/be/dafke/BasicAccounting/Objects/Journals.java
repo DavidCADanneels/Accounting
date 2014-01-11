@@ -26,16 +26,6 @@ public class Journals extends BusinessCollection<Journal> implements BusinessTyp
     }
 
     @Override
-    public boolean separateFile(){
-        return true;
-    }
-
-    @Override
-    public boolean mustBeRead(){
-        return true;
-    }
-
-    @Override
     public void setBusinessCollection(BusinessCollection<Account> businessCollection){
         this.businessCollection = businessCollection;
     }

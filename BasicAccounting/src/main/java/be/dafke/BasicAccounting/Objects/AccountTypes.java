@@ -24,11 +24,6 @@ public class AccountTypes extends BusinessTypeCollection<AccountType> {
     }
 
     @Override
-    public boolean mustBeRead(){
-        return false;
-    }
-
-    @Override
     public AccountType createNewChild(String name) {
         return new AccountType(name);
     }

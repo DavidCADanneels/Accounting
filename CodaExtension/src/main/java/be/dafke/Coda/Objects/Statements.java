@@ -13,18 +13,8 @@ public class Statements extends BusinessCollection<Statement> implements Busines
     }
 
     @Override
-    public boolean separateFile(){
-        return true;
-    }
-
-    @Override
     public String getChildType(){
         return "Statement";
-    }
-
-    @Override
-    public boolean mustBeRead(){
-        return false;
     }
 
     private BusinessCollection<CounterParty> businessCollection;

@@ -6,6 +6,7 @@ import be.dafke.ObjectModel.BusinessCollectionProvider;
 import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
 import be.dafke.ObjectModel.BusinessTyped;
+import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.MultiValueMap;
 
 import java.util.ArrayList;
@@ -18,7 +19,7 @@ import java.util.TreeMap;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journal extends BusinessCollection<Transaction> implements BusinessCollectionDependent<Account>,BusinessTypeCollectionDependent<JournalType>, BusinessTyped<JournalType>, BusinessCollectionProvider<Account> {
+public class Journal extends BusinessCollection<Transaction> implements BusinessCollectionDependent<Account>,BusinessTypeCollectionDependent<JournalType>, BusinessTyped<JournalType>, BusinessCollectionProvider<Account>, MustBeRead {
     private static final String TYPE = "type";
     protected static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
     private String abbreviation;
@@ -31,11 +32,6 @@ public class Journal extends BusinessCollection<Transaction> implements Business
     public Journal() {
 		transactions = new MultiValueMap<Calendar,Transaction>();
 	}
-
-    @Override
-    public boolean separateFile(){
-        return true;
-    }
 
     @Override
     public boolean writeGrandChildren(){
@@ -55,11 +51,6 @@ public class Journal extends BusinessCollection<Transaction> implements Business
     @Override
     public Transaction createNewChild(String name){
         return new Transaction();
-    }
-
-    @Override
-    public boolean mustBeRead(){
-        return true;
     }
 
     @Override

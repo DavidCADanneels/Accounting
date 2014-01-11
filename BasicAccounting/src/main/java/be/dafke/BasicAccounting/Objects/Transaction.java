@@ -44,11 +44,6 @@ public class Transaction extends BusinessCollection<Booking> implements Business
 	}
 
     @Override
-    public boolean separateFile(){
-        return false;
-    }
-
-    @Override
     public boolean writeGrandChildren(){
         return true;
     }
@@ -71,11 +66,6 @@ public class Transaction extends BusinessCollection<Booking> implements Business
     @Override
     public Booking createNewChild(String name){
         return new Booking();
-    }
-
-    @Override
-    public boolean mustBeRead(){
-        return false;
     }
 
     @Override

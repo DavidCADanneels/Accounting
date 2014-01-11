@@ -10,6 +10,7 @@ import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
 import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.ObjectModel.MustBeRead;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -149,9 +150,13 @@ public class ObjectModelSAXParser {
 
         if(businessObject instanceof BusinessCollection){
             BusinessCollection businessCollection = (BusinessCollection)businessObject;
-            for(Object childObject : businessCollection.getBusinessObjects()) {
-                if(childObject instanceof BusinessObject && ((BusinessObject) childObject).separateFile()){
-                    writeCollection((BusinessObject) childObject, childFolder, depth+1);
+            for(Object object : businessCollection.getBusinessObjects()) {
+                if(object instanceof BusinessObject){
+                    BusinessObject childObject = (BusinessObject) object;
+                    String type = childObject.getBusinessObjectType();
+                    if(childObject.getName()!=null){
+                        writeCollection(childObject, childFolder, depth + 1);
+                    }
                 }
             }
         }
@@ -194,10 +199,9 @@ public class ObjectModelSAXParser {
     }
 
     public static void readCollection(BusinessCollection businessCollection, boolean recursive, File parentFolder){
-//        String className = businessCollection.getBusinessObjectType();
-        String name = businessCollection.getName();
-        File childFolder = new File(parentFolder, name);
-        File xmlFile = new File(parentFolder, name+".xml");
+        String businessCollectionName = businessCollection.getName();
+        File childFolder = new File(parentFolder, businessCollectionName);
+        File xmlFile = new File(parentFolder, businessCollectionName+".xml");
 
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -221,7 +225,9 @@ public class ObjectModelSAXParser {
             for(Object businessObject : businessCollection.getBusinessObjects()) {
                 if(businessObject instanceof BusinessCollection){
                     BusinessCollection<BusinessObject> subCollection = ((BusinessCollection<BusinessObject>)businessObject);
-                    if(subCollection.mustBeRead()){
+                    String type = subCollection.getBusinessObjectType();
+                    String name = subCollection.getName();
+                    if(type.equals(name) || (subCollection instanceof MustBeRead)){
                         readCollection(subCollection, true, childFolder);
                     }
                 }

@@ -40,18 +40,8 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
     }
 
     @Override
-    public boolean separateFile(){
-        return false;
-    }
-
-    @Override
     public Movement createNewChild(String name){
         return new Movement(BigDecimal.ZERO, true);
-    }
-
-    @Override
-    public boolean mustBeRead(){
-        return false;
     }
 
     @Override

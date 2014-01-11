@@ -6,9 +6,4 @@ package be.dafke.ObjectModel;
  * Time: 10:11
  */
 public abstract class BusinessTypeCollection<T extends BusinessType> extends BusinessCollection<T>{
-    @Override
-    public boolean separateFile(){
-        return false;
-    }
-
 }

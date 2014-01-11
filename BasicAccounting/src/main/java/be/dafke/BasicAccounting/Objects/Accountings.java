@@ -17,16 +17,6 @@ public class Accountings extends BusinessCollection<Accounting> {
         return "Accounting";
     }
 
-    @Override
-    public boolean separateFile(){
-        return true;
-    }
-
-    @Override
-    public boolean mustBeRead(){
-        return true;
-    }
-
     public Accountings(File xmlFolder, File htmlFolder){
         this.xmlFolder = xmlFolder;
         this.htmlFolder = htmlFolder;

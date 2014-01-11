@@ -36,11 +36,6 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
     }
 
     @Override
-    public boolean separateFile(){
-        return true;
-    }
-
-    @Override
     public boolean writeGrandChildren(){
         return true;
     }
@@ -48,11 +43,6 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
     @Override
     public Movement createNewChild(String name){
         return null;
-    }
-
-    @Override
-    public boolean mustBeRead(){
-        return false;
     }
 
     @Override

@@ -35,14 +35,7 @@ public class Statement extends BusinessObject implements BusinessCollectionDepen
 		return getName();
 	}
 
-    @Override
-    public boolean separateFile(){
-        return false;
-    }
-
     // SETTERS
-
-
     public void setTransactionCode(String transactionCode) {
         this.transactionCode = transactionCode;
     }

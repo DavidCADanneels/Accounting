@@ -6,9 +6,4 @@ package be.dafke.ObjectModel;
  * Time: 15:30
  */
 public class BusinessType extends BusinessObject {
-    @Override
-    public boolean separateFile(){
-        return false;
-    }
-
 }
