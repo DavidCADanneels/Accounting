@@ -18,6 +18,11 @@ public class Accountings extends BusinessCollection<Accounting> {
     }
 
     @Override
+    public boolean separateFile(){
+        return true;
+    }
+
+    @Override
     public boolean mustBeRead(){
         return true;
     }

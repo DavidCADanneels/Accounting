@@ -39,6 +39,11 @@ public class CounterParty extends BusinessObject {
 		// creditAccounts = new ArrayList<Account>();
 	}
 
+    @Override
+    public boolean separateFile(){
+        return false;
+    }
+
     public void setAddressLines(ArrayList<String> addressLines) {
         this.addressLines = addressLines;
     }

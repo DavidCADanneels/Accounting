@@ -16,6 +16,11 @@ public class CounterParties extends BusinessCollection<CounterParty> {
     }
 
     @Override
+    public boolean separateFile(){
+        return true;
+    }
+
+    @Override
     public boolean mustBeRead(){
         return false;
     }

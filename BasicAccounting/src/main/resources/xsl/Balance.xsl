@@ -14,7 +14,7 @@
                         <th>Totaal</th>
                         <th><xsl:value-of select="right"/></th>
                     </tr>
-                    <xsl:for-each select="line">
+                    <xsl:for-each select="BalanceLine">
                         <tr>
                             <xsl:choose>
                                 <xsl:when test="name1">

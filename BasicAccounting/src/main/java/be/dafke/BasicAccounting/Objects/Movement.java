@@ -35,6 +35,11 @@ public class Movement extends BusinessObject{
     }
 
     @Override
+    public boolean separateFile(){
+        return false;
+    }
+
+    @Override
     public TreeMap<String, String> getUniqueProperties(){
         TreeMap<String,String> properties = new TreeMap<String, String>();
 //        properties.put(ID,id.toString());

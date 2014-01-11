@@ -27,6 +27,11 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
     }
 
     @Override
+    public boolean separateFile(){
+        return true;
+    }
+
+    @Override
     public String getChildType(){
         return "Balance";
     }

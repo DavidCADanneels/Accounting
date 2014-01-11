@@ -1,23 +1,25 @@
 <?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE Balance SYSTEM "../../../../dtd/Balance.dtd">
 <Balance>
-  <name>RelationsBalance</name>
   <LeftName>Tegoeden van Klanten</LeftName>
-  <RightName>Schulden aan Leveranciers</RightName>
-  <LeftTotalName>TOTAAL TEGOEDEN</LeftTotalName>
-  <RightTotalName>TOTAAL SCHULDEN</RightTotalName>
   <LeftResultName>RESTEREND TEGOED</LeftResultName>
+  <LeftTotalName>TOTAAL TEGOEDEN</LeftTotalName>
+  <LeftTypes>Credit</LeftTypes>
+  <RightName>Schulden aan Leveranciers</RightName>
   <RightResultName>RESTERENDE SCHULD</RightResultName>
-  <line>
+  <RightTotalName>TOTAAL SCHULDEN</RightTotalName>
+  <RightTypes>Debit</RightTypes>
+  <name>RelationsBalance</name>
+  <BalanceLine>
     <amount2>256099.75</amount2>
     <name2>Hypotheek</name2>
-  </line>
-  <line>
+  </BalanceLine>
+  <BalanceLine>
     <amount2>12000.00</amount2>
     <name2>Schulden aan ma</name2>
-  </line>
-  <line>
+  </BalanceLine>
+  <BalanceLine>
     <amount2>146.00</amount2>
     <name2>VISA</name2>
-  </line>
+  </BalanceLine>
 </Balance>

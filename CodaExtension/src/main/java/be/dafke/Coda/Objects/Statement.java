@@ -35,6 +35,10 @@ public class Statement extends BusinessObject implements BusinessCollectionDepen
 		return getName();
 	}
 
+    @Override
+    public boolean separateFile(){
+        return false;
+    }
 
     // SETTERS
 

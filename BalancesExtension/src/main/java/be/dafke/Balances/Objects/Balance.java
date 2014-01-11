@@ -4,7 +4,6 @@ import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionDependent;
-import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
 import be.dafke.Utils.Utils;
@@ -20,7 +19,7 @@ import java.util.TreeSet;
  * Date: 28/02/13
  * Time: 0:54
  */
-public class Balance extends BusinessObject implements BusinessCollectionDependent<Account>, BusinessTypeCollectionDependent<AccountType>{
+public class Balance extends BusinessCollection<BalanceLine> implements BusinessCollectionDependent<Account>, BusinessTypeCollectionDependent<AccountType>{
 
     private final static String LEFTNAME = "LeftName";
     private final static String RIGHTNAME = "RightName";
@@ -43,6 +42,31 @@ public class Balance extends BusinessObject implements BusinessCollectionDepende
 
     public Balance(String name){
         setName(name);
+    }
+
+    @Override
+    public String getChildType(){
+        return "BalanceLine";
+    }
+
+    @Override
+    public BalanceLine createNewChild(String name){
+        return null;
+    }
+
+    @Override
+    public boolean mustBeRead(){
+        return false;
+    }
+
+    @Override
+    public boolean writeGrandChildren(){
+        return true;
+    }
+
+    @Override
+    public boolean separateFile(){
+        return true;
     }
 
     @Override
@@ -90,7 +114,38 @@ public class Balance extends BusinessObject implements BusinessCollectionDepende
         return col;
     }
 
+    @Override
+    public ArrayList<BalanceLine> getBusinessObjects(){
+        ArrayList<Account> leftAccounts = getLeftAccounts();
+        ArrayList<Account> rightAccounts = getRightAccounts();
 
+        int nrLeft = leftAccounts.size();
+        int nrRight = rightAccounts.size();
+        int min,max;
+        if (nrLeft > nrRight) {
+            max = nrLeft;
+            min = nrRight;
+        } else {
+            max = nrRight;
+            min = nrLeft;
+        }
+        ArrayList<BalanceLine> balanceLines = new ArrayList<BalanceLine>();
+        for(int i = 0; i < min; i++) {
+            Account leftAccount = leftAccounts.get(i);
+            Account rightAccount = rightAccounts.get(i);
+            balanceLines.add(new BalanceLine(leftAccount,rightAccount));
+        }
+        for(int i = min; i < max; i++) {
+            if(nrLeft > nrRight) {
+                Account leftAccount = leftAccounts.get(i);
+                balanceLines.add(new BalanceLine(leftAccount,null));
+            } else {
+                Account rightAccount = rightAccounts.get(i);
+                balanceLines.add(new BalanceLine(null,rightAccount));
+            }
+        }
+        return balanceLines;
+    }
 
     public String getLeftTotalName() {
         return leftTotalName;

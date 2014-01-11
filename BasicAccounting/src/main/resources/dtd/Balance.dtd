@@ -1,5 +1,5 @@
-<!ELEMENT Balance (name,LeftName,RightName,LeftTotalName,RightTotalName,LeftResultName,RightResultName,line*)>
-<!ELEMENT line (name1?,amount1?,amount2?,name2?)>
+<!ELEMENT Balance (LeftName,LeftResultName,LeftTotalName,LeftTypes,RightName,RightResultName,RightTotalName,RightTypes,name,BalanceLine*)>
+<!ELEMENT BalanceLine (amount1?,amount2?,name1?,name2?)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT LeftName (#PCDATA)>
 <!ELEMENT RightName (#PCDATA)>
@@ -7,6 +7,8 @@
 <!ELEMENT RightTotalName (#PCDATA)>
 <!ELEMENT LeftResultName (#PCDATA)>
 <!ELEMENT RightResultName (#PCDATA)>
+<!ELEMENT LeftTypes (#PCDATA)>
+<!ELEMENT RightTypes (#PCDATA)>
 <!ELEMENT name1 (#PCDATA)>
 <!ELEMENT amount1 (#PCDATA)>
 <!ELEMENT amount2 (#PCDATA)>

@@ -25,6 +25,11 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         return true;
     }
 
+    @Override
+    public boolean separateFile(){
+        return true;
+    }
+
     public void addExtension(AccountingExtension extension){
         extensions.add(extension);
         extension.extendConstructor(this);

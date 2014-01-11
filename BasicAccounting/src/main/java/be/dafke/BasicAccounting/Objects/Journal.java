@@ -33,6 +33,11 @@ public class Journal extends BusinessCollection<Transaction> implements Business
 	}
 
     @Override
+    public boolean separateFile(){
+        return true;
+    }
+
+    @Override
     public boolean writeGrandChildren(){
         return true;
     }

@@ -91,29 +91,29 @@ public class ObjectModelSAXParser {
         }
     }
 
-    public static void writeCollection(BusinessCollection collection, File parentFolder, int depth){
-        String businessCollectionName = collection.getName();
-        String businessCollectionType = collection.getBusinessObjectType();
+    public static void writeCollection(BusinessObject businessObject, File parentFolder, int depth){
+        String businessObjectName = businessObject.getName();
+        String businessObjectType = businessObject.getBusinessObjectType();
         parentFolder.mkdirs();
         File childFolder = null;
         try{
-            childFolder = new File(parentFolder, businessCollectionName);
+            childFolder = new File(parentFolder, businessObjectName);
         } catch (NullPointerException npe){
             npe.printStackTrace();
         }
-        File xmlFile = new File(parentFolder, businessCollectionName+".xml");
+        File xmlFile = new File(parentFolder, businessObjectName+".xml");
         try {
             Writer writer = new FileWriter(xmlFile);
 
             // Write the header with correct XSL-File, DTD-File and DTD-Root-Element
-            writer.write(getXmlHeader(collection, depth));
+            writer.write(getXmlHeader(businessObject, depth));
 
             // Write the root element e.g. <Accountings>
-            writer.write("<" + businessCollectionType + ">\r\n");
+            writer.write("<" + businessObjectType + ">\r\n");
 //            writer.write("  <name>"+name+"</name>\r\n");
             // TODO: write collection.getInitProperties not only name
             // get the object's properties
-            TreeMap<String,String> collectionProperties = collection.getInitProperties(null);
+            TreeMap<String,String> collectionProperties = businessObject.getInitProperties(null);
 
 //                iterate the properties and write them out (if not null)
             for(Map.Entry<String, String> entry : collectionProperties.entrySet()){
@@ -127,13 +127,16 @@ public class ObjectModelSAXParser {
 //                writer.write("  <name>"+collection.getName()+"</name>\r\n");
 //            }
 
-            writeChildren(writer, collection);
+            if(businessObject instanceof BusinessCollection){
+                BusinessCollection businessCollection = (BusinessCollection)businessObject;
+                writeChildren(writer, businessCollection);
 
-            if(collection.getCurrentObject()!=null){
-                writer.write("    <CurrentObject>" + collection.getCurrentObject().getName() + "</CurrentObject>\r\n");
+                if(businessCollection.getCurrentObject()!=null){
+                    writer.write("    <CurrentObject>" + businessCollection.getCurrentObject().getName() + "</CurrentObject>\r\n");
+                }
             }
 
-            writer.write("</"+businessCollectionType+">\r\n");
+            writer.write("</"+businessObjectType+">\r\n");
 
             writer.flush();
             writer.close();
@@ -144,10 +147,12 @@ public class ObjectModelSAXParser {
             Logger.getLogger(BusinessCollection.class.getName()).log(Level.SEVERE, null, ex);
         }
 
-        for(Object businessObject : collection.getBusinessObjects()) {
-            if(businessObject instanceof BusinessCollection && ((BusinessCollection) businessObject).getName()!=null){
-                BusinessCollection<BusinessObject> businessCollection = ((BusinessCollection<BusinessObject>)businessObject);
-                writeCollection(businessCollection, childFolder, depth+1);
+        if(businessObject instanceof BusinessCollection){
+            BusinessCollection businessCollection = (BusinessCollection)businessObject;
+            for(Object childObject : businessCollection.getBusinessObjects()) {
+                if(childObject instanceof BusinessObject && ((BusinessObject) childObject).separateFile()){
+                    writeCollection((BusinessObject) childObject, childFolder, depth+1);
+                }
             }
         }
     }

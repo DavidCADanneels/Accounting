@@ -25,6 +25,11 @@ public class Accounts extends BusinessCollection<Account> implements BusinessTyp
     }
 
     @Override
+    public boolean separateFile(){
+        return true;
+    }
+
+    @Override
     public String getChildType(){
         return "Account";
     }
