@@ -1,17 +1,5 @@
 package be.dafke.BasicAccounting.Dao;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.math.BigDecimal;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.BasicAccounting.Objects.Booking;
@@ -22,6 +10,17 @@ import be.dafke.Utils.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.math.BigDecimal;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * User: Dafke
@@ -104,13 +103,13 @@ public class JournalsSAXParser {
                 writer.write("    <description>" + transaction.getDescription() + "</description>\r\n");
                 writer.write("    <date>" + Utils.toString(transaction.getDate()) + "</date>\r\n");
 
-                for (Booking booking : transaction.getBookings()){
+                for (Booking booking : transaction.getBusinessObjects()){
                 writer.write("    <Booking>\r\n");
-                writer.write("      <id>" + booking.getMovement().getId() + "</id>\r\n");
+                writer.write("      <id>" + booking.getBusinessObjects().get(0).getId() + "</id>\r\n");
                 writer.write("      <Account>" + booking.getAccount() + "</Account>\r\n");
-                writer.write("      <" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">"
-                                     + booking.getMovement().getAmount().toString()
-                               + "</" + (booking.getMovement().isDebit() ? "debet" : "credit") + ">\r\n");
+                writer.write("      <" + (booking.getBusinessObjects().get(0).isDebit() ? "debet" : "credit") + ">"
+                                     + booking.getBusinessObjects().get(0).getAmount().toString()
+                               + "</" + (booking.getBusinessObjects().get(0).isDebit() ? "debet" : "credit") + ">\r\n");
                 writer.write("    </Booking>\r\n");
                 }
                 writer.write("  </Transaction>\r\n");

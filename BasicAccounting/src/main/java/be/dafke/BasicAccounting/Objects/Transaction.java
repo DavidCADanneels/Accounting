@@ -1,16 +1,16 @@
 package be.dafke.BasicAccounting.Objects;
 
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessCollectionDependent;
+import be.dafke.ObjectModel.BusinessCollectionProvider;
+import be.dafke.Utils.Utils;
+
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionDependent;
-import be.dafke.ObjectModel.BusinessCollectionProvider;
-import be.dafke.Utils.Utils;
 
 /**
  * Boekhoudkundige transactie Bevat minstens 2 boekingen
@@ -44,6 +44,11 @@ public class Transaction extends BusinessCollection<Booking> implements Business
 	}
 
     @Override
+    public boolean writeGrandChildren(){
+        return true;
+    }
+
+    @Override
     public TreeMap<String, String> getUniqueProperties(){
         return new TreeMap<String, String>();
     }
@@ -74,7 +79,7 @@ public class Transaction extends BusinessCollection<Booking> implements Business
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
+    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
         TreeMap<String,String> properties = new TreeMap<String, String>();
         properties.put(ID, new Integer(journal.getId(this)).toString());
         properties.put(DATE, Utils.toString(date));
@@ -93,11 +98,6 @@ public class Transaction extends BusinessCollection<Booking> implements Business
     public void setInitProperties(TreeMap<String, String> properties){
         date = Utils.toCalendar(properties.get(DATE));
         description = properties.get(DESCRIPTION);
-    }
-
-    // Getters (without setters)
-    public ArrayList<Booking> getBookings() {
-        return bookings;
     }
 
 	public BigDecimal getDebetTotaal() {
@@ -144,12 +144,17 @@ public class Transaction extends BusinessCollection<Booking> implements Business
 		this.date = date;
 	}
 
+    @Override
+    public ArrayList<Booking> getBusinessObjects(){
+        return bookings;
+    }
+
     // Adders
     @Override
     public Booking addBusinessObject(Booking booking){
         booking.setTransaction(this);
-        boolean debit = booking.getMovement().isDebit();
-        BigDecimal amount = booking.getMovement().getAmount();
+        boolean debit = booking.getBusinessObjects().get(0).isDebit();
+        BigDecimal amount = booking.getBusinessObjects().get(0).getAmount();
 
         if(debit){
             bookings.add(nrOfDebits, booking);
@@ -167,8 +172,8 @@ public class Transaction extends BusinessCollection<Booking> implements Business
     @Override
     public void removeBusinessObject(Booking booking){
         booking.setTransaction(null);
-        boolean debit = booking.getMovement().isDebit();
-        BigDecimal amount = booking.getMovement().getAmount();
+        boolean debit = booking.getBusinessObjects().get(0).isDebit();
+        BigDecimal amount = booking.getBusinessObjects().get(0).getAmount();
 
         bookings.remove(booking);
         if(debit){

@@ -27,6 +27,10 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         addSearchKey(NAME);
     }
 
+    public boolean writeGrandChildren(){
+        return false;
+    }
+
     public abstract V createNewChild(String name);
 
     protected void addSearchKey(String key){
@@ -156,7 +160,7 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
      */
     public void removeBusinessObject(V value) throws NotEmptyException {
         if(value.isDeletable()){
-            removeBusinessObject(value.getInitProperties());
+            removeBusinessObject(value.getInitProperties(this));
         } else {
             throw new NotEmptyException();
         }

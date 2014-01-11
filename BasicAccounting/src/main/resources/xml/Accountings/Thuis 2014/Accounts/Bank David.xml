@@ -2,4 +2,5 @@
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Bank David</name>
+  <type>Asset</type>
 </Account>

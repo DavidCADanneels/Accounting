@@ -1,7 +1,14 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import static java.util.ResourceBundle.getBundle;
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.GUI.AccountingPanel;
+import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Booking;
+import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.Utils.Utils;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,15 +19,7 @@ import java.awt.event.MouseEvent;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
-import javax.swing.*;
-
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
-import be.dafke.BasicAccounting.GUI.AccountingPanel;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Booking;
-import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.BasicAccounting.Objects.Transaction;
-import be.dafke.Utils.Utils;
+import static java.util.ResourceBundle.getBundle;
 
 public class JournalGUI extends AccountingPanel implements ActionListener, FocusListener {
 	/**
@@ -186,8 +185,8 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
                 dag.setEnabled(true);
             }
             identification = journal.getAbbreviation() + " " + journal.getId();
-            okEnabled = transaction!=null && !transaction.getBookings().isEmpty() && debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0;
-            clearEnabled = transaction!=null && !transaction.getBookings().isEmpty();
+            okEnabled = transaction!=null && !transaction.getBusinessObjects().isEmpty() && debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0;
+            clearEnabled = transaction!=null && !transaction.getBusinessObjects().isEmpty();
         }
         ident.setText(identification);
         clear.setEnabled(clearEnabled);

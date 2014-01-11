@@ -1,10 +1,5 @@
 package be.dafke.Mortgage;
 
-import java.awt.event.ActionListener;
-import java.io.File;
-
-import javax.swing.*;
-
 import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
@@ -19,6 +14,10 @@ import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModelDao.ObjectModelSAXParser;
+
+import javax.swing.*;
+import java.awt.event.ActionListener;
+import java.io.File;
 
 /**
  * User: david

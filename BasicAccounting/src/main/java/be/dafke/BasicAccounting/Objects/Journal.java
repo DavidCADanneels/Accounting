@@ -1,10 +1,5 @@
 package be.dafke.BasicAccounting.Objects;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Set;
-import java.util.TreeMap;
-
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionDependent;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
@@ -12,6 +7,11 @@ import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
 import be.dafke.ObjectModel.BusinessTyped;
 import be.dafke.Utils.MultiValueMap;
+
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Set;
+import java.util.TreeMap;
 
 /**
  * Boekhoudkundig dagboek
@@ -31,6 +31,11 @@ public class Journal extends BusinessCollection<Transaction> implements Business
     public Journal() {
 		transactions = new MultiValueMap<Calendar,Transaction>();
 	}
+
+    @Override
+    public boolean writeGrandChildren(){
+        return true;
+    }
 
     @Override
     public void setBusinessCollection(BusinessCollection<Account> businessCollection){
@@ -112,10 +117,10 @@ public class Journal extends BusinessCollection<Transaction> implements Business
 	public void removeBusinessObject(Transaction transaction) {
         Calendar date = transaction.getDate();
         transactions.removeValue(date, transaction);
-		ArrayList<Booking> bookings = transaction.getBookings();
+		ArrayList<Booking> bookings = transaction.getBusinessObjects();
 		for(Booking booking : bookings) {
 			Account account = booking.getAccount();
-			account.unbook(date, booking.getMovement());
+			account.unbook(date, booking.getBusinessObjects().get(0));
 		}
 	}
 
@@ -123,9 +128,9 @@ public class Journal extends BusinessCollection<Transaction> implements Business
         Calendar date = transaction.getDate();
         transaction.setJournal(this);
 
-        for(Booking booking : transaction.getBookings()) {
+        for(Booking booking : transaction.getBusinessObjects()) {
             Account account = booking.getAccount();
-            account.book(date, booking.getMovement());
+            account.book(date, booking.getBusinessObjects().get(0));
         }
         transactions.addValue(date, transaction);
         return transaction;
@@ -150,8 +155,8 @@ public class Journal extends BusinessCollection<Transaction> implements Business
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
-        TreeMap<String,String> outputMap = super.getInitProperties();
+    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
+        TreeMap<String,String> outputMap = super.getInitProperties(collection);
         outputMap.put(TYPE, getType().getName());
         outputMap.put(ABBREVIATION, getAbbreviation());
         return outputMap;

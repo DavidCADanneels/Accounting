@@ -2,6 +2,7 @@
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Kosten Aankoop-Verkoop Huis</name>
+  <type>Cost</type>
   <Movement>
     <date>13/5/2013</date>
     <debit>311.72</debit>

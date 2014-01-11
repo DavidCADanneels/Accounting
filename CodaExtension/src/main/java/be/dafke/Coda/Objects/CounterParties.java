@@ -1,12 +1,12 @@
 package be.dafke.Coda.Objects;
 
-import java.util.AbstractMap;
-import java.util.Map;
-import java.util.TreeMap;
-
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+
+import java.util.AbstractMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class CounterParties extends BusinessCollection<CounterParty> {
 

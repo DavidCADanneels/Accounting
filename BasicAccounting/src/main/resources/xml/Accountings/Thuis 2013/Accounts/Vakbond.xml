@@ -2,6 +2,7 @@
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Vakbond</name>
+  <type>Cost</type>
   <Movement>
     <date>10/12/2013</date>
     <debit>29.00</debit>

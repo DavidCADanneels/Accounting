@@ -2,4 +2,5 @@
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Visa-kosten</name>
+  <type>Cost</type>
 </Account>

@@ -2,6 +2,7 @@
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Aankoop - fout kosten aankoopakte</name>
+  <type>Cost</type>
   <Movement>
     <date>29/4/2013</date>
     <debit>2725.00</debit>

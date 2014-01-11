@@ -1,19 +1,5 @@
 package be.dafke.ObjectModelDao;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.Writer;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-
 import be.dafke.FOP.Utils;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionDependent;
@@ -27,6 +13,19 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * User: david
@@ -102,7 +101,7 @@ public class ObjectModelSAXParser {
 //            writer.write("  <name>"+name+"</name>\r\n");
             // TODO: write collection.getInitProperties not only name
             // get the object's properties
-            TreeMap<String,String> collectionProperties = collection.getInitProperties();
+            TreeMap<String,String> collectionProperties = collection.getInitProperties(null);
 
 //                iterate the properties and write them out (if not null)
             for(Map.Entry<String, String> entry : collectionProperties.entrySet()){
@@ -148,32 +147,29 @@ public class ObjectModelSAXParser {
                 BusinessObject businessObject = (BusinessObject) object;
                 String objectName = businessObject.getName();
                 // TODO: remove this if to get more details in the parent file
-                if(objectName!=null){
-                    String objectType = businessObject.getBusinessObjectType();
+                String objectType = businessObject.getBusinessObjectType();
 
-                    // Write the tag for the child e.g. <Accounting>
-                    writer.write("  <"+objectType+">\r\n");
+                // Write the tag for the child e.g. <Accounting>
+                writer.write("  <"+objectType+">\r\n");
 
-                    // get the object's properties
-                    TreeMap<String,String> objectProperties = businessObject.getInitProperties();
+                // get the object's properties
+                TreeMap<String,String> objectProperties = businessObject.getInitProperties(collection);
 
-                    // iterate the properties and write them out (if not null)
-                    for(Map.Entry<String, String> entry : objectProperties.entrySet()){
-                        String key = entry.getKey();
-                        String objectProperty = entry.getValue();
-                        if(objectProperty!=null && !objectProperty.equals("")){
-                            writer.write("    <" + key + ">" + objectProperty + "</"+ key + ">\r\n");
-                        }
+                // iterate the properties and write them out (if not null)
+                for(Map.Entry<String, String> entry : objectProperties.entrySet()){
+                    String key = entry.getKey();
+                    String objectProperty = entry.getValue();
+                    if(objectProperty!=null && !objectProperty.equals("")){
+                        writer.write("    <" + key + ">" + objectProperty + "</"+ key + ">\r\n");
                     }
-                    // The implementation used is more clear and similar to the read Method
-                    if(object instanceof BusinessCollection){
-                        BusinessCollection subCollection = (BusinessCollection) object;
-                        writeChildren(writer, subCollection);
-                    }
-
-                    // write the closing tag e.g. </Accounting>
-                    writer.write("  </" + objectType + ">\r\n");
                 }
+                // The implementation used is more clear and similar to the read Method
+                if(object instanceof BusinessCollection && collection.writeGrandChildren()){
+                    BusinessCollection subCollection = (BusinessCollection) object;
+                    writeChildren(writer, subCollection);
+                }
+                // write the closing tag e.g. </Accounting>
+                writer.write("  </" + objectType + ">\r\n");
             }
         }catch (IOException io){
             io.printStackTrace();

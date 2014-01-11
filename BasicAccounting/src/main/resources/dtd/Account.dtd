@@ -1,5 +1,6 @@
-<!ELEMENT Account (name,Movement*,closed?)>
+<!ELEMENT Account (name,type,Movement*,closed?)>
 <!ELEMENT name (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
 <!ELEMENT Movement (credit?,date,debit?,description?,id,journalAbbr,journalId,journalName)>
 <!ELEMENT id (#PCDATA)>
 <!ELEMENT journalName (#PCDATA)>

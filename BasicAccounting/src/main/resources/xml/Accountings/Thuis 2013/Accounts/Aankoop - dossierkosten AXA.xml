@@ -2,6 +2,7 @@
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Aankoop - dossierkosten AXA</name>
+  <type>Cost</type>
   <Movement>
     <date>29/4/2013</date>
     <debit>330.00</debit>

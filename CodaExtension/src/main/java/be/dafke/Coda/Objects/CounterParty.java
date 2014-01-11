@@ -1,6 +1,7 @@
 package be.dafke.Coda.Objects;
 
 import be.dafke.BasicAccounting.Objects.Account;
+import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
@@ -156,7 +157,7 @@ public class CounterParty extends BusinessObject {
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
+    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
         TreeMap<String, String> properties = super.getUniqueProperties();
         properties.put(ACCOUNTNUMBER, getBankAccountsString());
         properties.put(ALIAS, Utils.toString(aliases));

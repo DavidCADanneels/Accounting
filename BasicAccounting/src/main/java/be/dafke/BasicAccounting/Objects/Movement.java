@@ -1,11 +1,12 @@
 package be.dafke.BasicAccounting.Objects;
 
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.Utils.Utils;
+
 import java.math.BigDecimal;
 import java.util.Set;
 import java.util.TreeMap;
-
-import be.dafke.ObjectModel.BusinessObject;
-import be.dafke.Utils.Utils;
 
 /**
  * User: Dafke
@@ -49,21 +50,22 @@ public class Movement extends BusinessObject{
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
-        TreeMap<String,String> properties = super.getInitProperties();
+    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
+        TreeMap<String,String> properties = super.getInitProperties(collection);
         Transaction transaction = booking.getTransaction();
         properties.put(ID,id.toString());
-        properties.put(JOURNAL_NAME,transaction.getJournal().getName());
-        properties.put(JOURNAL_ID,transaction.getId().toString());
-        properties.put(JOURNAL_ABBR,transaction.getJournal().getAbbreviation());
-        properties.put(DATE, Utils.toString(transaction.getDate()));
         if(debit){
             properties.put(DEBIT, amount.toString());
         } else {
             properties.put(CREDIT, amount.toString());
         }
-        properties.put(DESCRIPTION, transaction.getDescription());
-
+        if(collection instanceof Account){
+            properties.put(JOURNAL_NAME,transaction.getJournal().getName());
+            properties.put(JOURNAL_ID,transaction.getId().toString());
+            properties.put(JOURNAL_ABBR,transaction.getJournal().getAbbreviation());
+            properties.put(DATE, Utils.toString(transaction.getDate()));
+            properties.put(DESCRIPTION, transaction.getDescription());
+        }
         return properties;
     }
 

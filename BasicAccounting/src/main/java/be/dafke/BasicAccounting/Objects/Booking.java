@@ -1,12 +1,13 @@
 package be.dafke.BasicAccounting.Objects;
 
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessCollectionDependent;
+
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
-
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionDependent;
 
 /**
  * @author David Danneels
@@ -16,7 +17,7 @@ import be.dafke.ObjectModel.BusinessCollectionDependent;
 public class Booking extends BusinessCollection<Movement> implements BusinessCollectionDependent<Account>{
     private static final String ACCOUNT = "Account";
     private Account account;
-    private Movement movement;
+    private ArrayList<Movement> movements;
 	private Transaction transaction;
     private BusinessCollection<Account> businessCollection;
 
@@ -24,8 +25,19 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
 		this.account = account;
     }
     public Booking(){
+        movements = new ArrayList<Movement>();
 //        account = businessCollection.getBusinessObject(name);
 	}
+
+    @Override
+    public ArrayList<Movement> getBusinessObjects(){
+        return movements;
+    }
+
+    @Override
+    public boolean writeGrandChildren(){
+        return true;
+    }
 
     @Override
     public Movement createNewChild(String name){
@@ -48,7 +60,7 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
+    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
         TreeMap<String,String> properties = new TreeMap<String, String>();
         properties.put(ACCOUNT, account.getName());
         return properties;
@@ -73,7 +85,7 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
     @Override
     public Movement addBusinessObject(Movement movement){
         movement.setBooking(this);
-        this.movement = movement;
+        movements.add(movement);
         return movement;
     }
 
@@ -85,10 +97,6 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
 
     public void setTransaction(Transaction transaction) {
         this.transaction = transaction;
-    }
-
-    public Movement getMovement() {
-        return movement;
     }
 
     @Override

@@ -2,6 +2,7 @@
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>AXA-Brandverzekering</name>
+  <type>Cost</type>
   <Movement>
     <date>20/3/2013</date>
     <debit>28.54</debit>

@@ -1,10 +1,10 @@
 package be.dafke.Coda.Objects;
 
-import java.util.ArrayList;
-
 import be.dafke.Coda.GUI.SearchOptions;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
+
+import java.util.ArrayList;
 
 public class Statements extends BusinessCollection<Statement> implements BusinessCollectionProvider<CounterParty>{
 

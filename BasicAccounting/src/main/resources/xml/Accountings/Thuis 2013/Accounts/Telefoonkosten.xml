@@ -2,6 +2,7 @@
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Telefoonkosten</name>
+  <type>Cost</type>
   <Movement>
     <date>28/1/2013</date>
     <debit>240.31</debit>

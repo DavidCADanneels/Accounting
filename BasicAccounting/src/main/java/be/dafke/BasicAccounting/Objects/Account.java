@@ -36,6 +36,11 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
     }
 
     @Override
+    public boolean writeGrandChildren(){
+        return true;
+    }
+
+    @Override
     public Movement createNewChild(String name){
         return null;
     }
@@ -134,8 +139,8 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
 
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
-        TreeMap<String,String> outputMap = super.getInitProperties();
+    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
+        TreeMap<String,String> outputMap = super.getInitProperties(collection);
         outputMap.put(TYPE, getType().getName());
         if(defaultAmount!=null){
             outputMap.put(DEFAULTAMOUNT, defaultAmount.toString());

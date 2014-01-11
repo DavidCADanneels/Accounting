@@ -37,7 +37,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
             <td>
                 <xsl:element name="a">
-                    <xsl:attribute name="href">../Accounts/<xsl:value-of select="Account"/>.html#<xsl:value-of select="id"/></xsl:attribute>
+                    <xsl:attribute name="href">../Accounts/<xsl:value-of select="Account"/>.html#<xsl:value-of select="Movement/id"/></xsl:attribute>
                     <xsl:value-of select="Account"/>
               </xsl:element>
             </td>

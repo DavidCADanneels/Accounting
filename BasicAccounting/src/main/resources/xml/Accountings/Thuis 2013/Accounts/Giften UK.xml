@@ -2,6 +2,7 @@
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Giften UK</name>
+  <type>Revenue</type>
   <Movement>
     <credit>304.67</credit>
     <date>18/1/2013</date>

@@ -2,6 +2,7 @@
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>AXA-TEMP</name>
+  <type>Cost</type>
   <Movement>
     <credit>89.16</credit>
     <date>21/5/2013</date>

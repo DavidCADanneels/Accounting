@@ -1,9 +1,5 @@
 package be.dafke.Balances.Objects;
 
-import static java.util.ResourceBundle.getBundle;
-
-import java.util.ArrayList;
-
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.AccountTypes;
@@ -14,6 +10,10 @@ import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+
+import java.util.ArrayList;
+
+import static java.util.ResourceBundle.getBundle;
 
 /**
  * User: Dafke

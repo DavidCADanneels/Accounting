@@ -43,7 +43,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 	public int getRowCount() {
 		int size = 0;
         for(Transaction transaction : journal.getBusinessObjects()){
-			size += transaction.getBookings().size();
+			size += transaction.getBusinessObjects().size();
 		}
 		return size;
 	}
@@ -62,10 +62,10 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 	public Object getValueAt(int row, int col) {
         ArrayList<Booking> boekingen = new ArrayList<Booking>();
         for(Transaction transaction : journal.getBusinessObjects()){
-            boekingen.addAll(transaction.getBookings());
+            boekingen.addAll(transaction.getBusinessObjects());
         }
 		Booking boeking = boekingen.get(row);
-        boolean first = (boeking == boeking.getTransaction().getBookings().get(0));
+        boolean first = (boeking == boeking.getTransaction().getBusinessObjects().get(0));
         if (col == 0) {
             if(first){
                 return boeking.getTransaction().getAbbreviation() + boeking.getTransaction().getId();
@@ -77,10 +77,10 @@ public class JournalDetailsDataModel extends AbstractTableModel {
         } else if (col == 2) {
             return boeking.getAccount();
         } else if (col == 3) {
-            if (boeking.getMovement().isDebit()) return boeking.getMovement().getAmount();
+            if (boeking.getBusinessObjects().get(0).isDebit()) return boeking.getBusinessObjects().get(0).getAmount();
             return "";
         } else if (col == 4) {
-            if (!boeking.getMovement().isDebit()) return boeking.getMovement().getAmount();
+            if (!boeking.getBusinessObjects().get(0).isDebit()) return boeking.getBusinessObjects().get(0).getAmount();
             return "";
         } else{
             if(first){
@@ -106,7 +106,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 	public void setValueAt(Object value, int row, int col) {
         ArrayList<Booking> boekingen = new ArrayList<Booking>();
         for(Transaction transaction : journal.getBusinessObjects()){
-            boekingen.addAll(transaction.getBookings());
+            boekingen.addAll(transaction.getBusinessObjects());
         }
         Booking booking = boekingen.get(row);
         Transaction transaction = booking.getTransaction();

@@ -2,6 +2,7 @@
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>DAS-Autoverzekering</name>
+  <type>Cost</type>
   <Movement>
     <date>12/3/2013</date>
     <debit>29.25</debit>

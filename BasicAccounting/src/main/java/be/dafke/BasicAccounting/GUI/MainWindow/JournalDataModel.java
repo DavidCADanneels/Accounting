@@ -27,20 +27,20 @@ public class JournalDataModel extends AbstractTableModel {
     private Transaction transaction;
 
     public Booking getValueAt(int row) {
-        return transaction.getBookings().get(row);
+        return transaction.getBusinessObjects().get(row);
     }
 
 // DE GET METHODEN
 // ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Booking booking = transaction.getBookings().get(row);
-		if (booking.getMovement().isDebit()) {
+		Booking booking = transaction.getBusinessObjects().get(row);
+		if (booking.getBusinessObjects().get(0).isDebit()) {
 			if (col == 0) {
 				return booking.getAccount();
 			}
 			if (col == 2) {
-				return booking.getMovement().getAmount();
+				return booking.getBusinessObjects().get(0).getAmount();
 			}
 			return null;
 		}// else credit
@@ -48,7 +48,7 @@ public class JournalDataModel extends AbstractTableModel {
 			return booking.getAccount();
 		}
 		if (col == 3) {
-			return booking.getMovement().getAmount();
+			return booking.getBusinessObjects().get(0).getAmount();
 		}
 		return null;
 	}
@@ -63,7 +63,7 @@ public class JournalDataModel extends AbstractTableModel {
         if(transaction == null){
             return 0;
         }
-		return transaction.getBookings().size();
+		return transaction.getBusinessObjects().size();
 	}
 
 	@Override

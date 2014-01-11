@@ -68,10 +68,10 @@ public class JournalsGUI extends AccountingPanel implements ActionListener {
     private void checkTransfer(Journal oldJournal, Journal newJournal){
         Transaction oldTransaction = oldJournal.getCurrentObject();
         Transaction newTransaction = newJournal.getCurrentObject();
-        if(oldTransaction!=null && !oldTransaction.getBookings().isEmpty()){
+        if(oldTransaction!=null && !oldTransaction.getBusinessObjects().isEmpty()){
             StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
                     .append(oldJournal).append(" to ").append(newJournal);
-            if(newTransaction!=null && !newTransaction.getBookings().isEmpty()){
+            if(newTransaction!=null && !newTransaction.getBusinessObjects().isEmpty()){
                 builder.append("\r\nWARNING: ").append(newJournal).append(" also has an open transactions, which will be lost if you select transfer");
             }
             int answer = JOptionPane.showConfirmDialog(null, builder.toString());

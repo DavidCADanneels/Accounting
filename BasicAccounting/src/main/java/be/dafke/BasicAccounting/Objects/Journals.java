@@ -1,15 +1,15 @@
 package be.dafke.BasicAccounting.Objects;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Map;
-
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
 import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Serialiseerbare map die alle dagboeken bevat

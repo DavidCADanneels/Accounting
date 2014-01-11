@@ -2,6 +2,7 @@
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Schulden aan ma</name>
+  <type>Debit</type>
   <Movement>
     <credit>15400.00</credit>
     <date>1/1/2013</date>

@@ -2,4 +2,5 @@
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>Vakantiegeld David</name>
+  <type>Revenue</type>
 </Account>

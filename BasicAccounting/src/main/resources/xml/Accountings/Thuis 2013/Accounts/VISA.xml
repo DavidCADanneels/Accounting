@@ -2,6 +2,7 @@
 <!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
 <Account>
   <name>VISA</name>
+  <type>Debit</type>
   <Movement>
     <credit>151.40</credit>
     <date>13/5/2013</date>

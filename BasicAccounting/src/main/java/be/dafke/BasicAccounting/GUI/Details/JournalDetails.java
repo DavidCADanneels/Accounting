@@ -75,7 +75,7 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
         popup.setVisible(false);
         ArrayList<Booking> boekingen = new ArrayList<Booking>();
         for(Transaction transaction : journal.getBusinessObjects()){
-            boekingen.addAll(transaction.getBookings());
+            boekingen.addAll(transaction.getBusinessObjects());
         }
         Booking booking = boekingen.get(selectedRow);
         Transaction transaction = booking.getTransaction();
