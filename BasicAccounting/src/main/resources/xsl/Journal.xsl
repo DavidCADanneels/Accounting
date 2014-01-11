@@ -3,6 +3,10 @@
 <xsl:stylesheet version="1.0"
 xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
+    <xsl:template match="name|abbr|type|CurrentObject">
+            <xsl:apply-templates/>
+    </xsl:template>
+
     <xsl:template match="Journal">
         <html>
             <body>
@@ -41,8 +45,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                     <xsl:value-of select="Account"/>
               </xsl:element>
             </td>
-            <td><xsl:value-of select="debet"/></td>
-            <td><xsl:value-of select="credit"/></td>
+            <td><xsl:value-of select="Movement/debit"/></td>
+            <td><xsl:value-of select="Movement/credit"/></td>
 
             <xsl:choose>
                 <xsl:when test="position()!=1">

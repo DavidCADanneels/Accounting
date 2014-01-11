@@ -54,19 +54,8 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
         File xslFolder = new File("BasicAccounting/src/main/resources/xsl");
         File htmlFolder = accountings.getHtmlFolder();
         htmlFolder.mkdirs();
-//        ///
-//        File xmlFile = new File(xmlFolder, "Accountings.xml");
-//        File htmlFile = new File(htmlFolder, "Accountings.html");
-//
-//        Utils.xmlToHtml(xmlFile, new File(xslFolder, "Accountings.xsl"), htmlFile, null);
 
-//        File accountingsXmlFolder = new File(xmlFolder, "Accountings");
-//        File accountingsHtmlFolder = new File(htmlFolder, "Accountings");
-
-           ///
-
-
-//        ObjectModelSAXParser.toHtml(accountings, xmlFolder, xslFolder, htmlFolder);
+        ObjectModelSAXParser.toHtml(accountings, xmlFolder, xslFolder, htmlFolder);
 
         // TODO: remove this by refactoring Extension and write methods
         for(Accounting accounting : accountings.getBusinessObjects()){

@@ -49,47 +49,59 @@ public class ObjectModelSAXParser {
         String businessCollectionType = businessCollection.getBusinessObjectType();
         File xmlFile = new File(xmlFolder, businessCollectionName + ".xml");
         File htmlFile = new File(htmlFolder, businessCollectionName + ".html");
-        Utils.xmlToHtml(xmlFile, new File(xslFolder, businessCollectionType + ".xsl"), htmlFile, null);
+        if(businessCollectionName!=null){
+            Utils.xmlToHtml(xmlFile, new File(xslFolder, businessCollectionType + ".xsl"), htmlFile, null);
+        }else {
+            System.err.println("null 1");
+        }
+
+        File xmlCollectionFolder = new File(xmlFolder, businessCollectionName);
+        File htmlCollectionFolder = new File(htmlFolder, businessCollectionName);
+        htmlCollectionFolder.mkdirs();
+
+//        businessCollection.writeGrandChildren()
+
         for(Object object:businessCollection.getBusinessObjects()){
-            if(object instanceof BusinessCollection){
-                BusinessCollection subCollection = (BusinessCollection)object;
-                String subCollectionName = subCollection.getName();
-                if(subCollection!=null){
-                    // Unnamed collections such as Transaction, Booking, Movement should be written in a separate file
-                    // TODO: add abstract method BusinessCollection.shouldBeWritten(): returns false is those cases ?
-                    File subXmlFolder = new File(xmlFolder, subCollectionName + ".xml");
-                    File subHtmlFolder = new File(htmlFolder, subCollectionName + ".html");
-                    toHtml(subCollection, subXmlFolder, xslFolder, subHtmlFolder);
-                }
-            } else if(object instanceof BusinessObject){
-                BusinessObject businessObject = (BusinessObject)object;
-                String businessObjectName = businessObject.getName();
+            BusinessObject businessObject = (BusinessObject)object;
+            String businessObjectName = businessObject.getName();
+
+            if(businessObjectName==null){
+                System.err.println("null 2");
+            }else {
                 String businessObjectType = businessObject.getBusinessObjectType();
                 // TODO: ensure that collections such as Accounts, Journals, Balances, Mortgages, Statements and Counterparties
                 // have the same name as their type (= simple class name)
-                File xmlCollectionFolder = new File(xmlFolder, businessObjectName);
-                File htmlCollectionFolder = new File(htmlFolder, businessObjectName);
-                htmlCollectionFolder.mkdirs();
-                File objectXmlFile = new File(xmlFolder, businessObjectName+".xml");
-                File objectHtmlFile = new File(htmlFolder, businessObjectName+".html");
+
+
+                File objectXmlFile = new File(xmlCollectionFolder, businessObjectName+".xml");
+                File objectHtmlFile = new File(htmlCollectionFolder, businessObjectName+".html");
 
                 Utils.xmlToHtml(objectXmlFile, new File(xslFolder, businessObjectType+".xsl"), objectHtmlFile, null);
-            }
 
+                if(object instanceof BusinessCollection && !((BusinessCollection)object).writeGrandChildren()){
+                    BusinessCollection subCollection = (BusinessCollection)object;
+                    String subCollectionName = subCollection.getName();
+                    if(subCollectionName!=null){
+                        toHtml(subCollection, xmlCollectionFolder, xslFolder, htmlCollectionFolder);
+                    }else {
+                        System.err.println("null 3");
+                    }
+                }
+            }
         }
     }
 
     public static void writeCollection(BusinessCollection collection, File parentFolder, int depth){
-        String className = collection.getBusinessObjectType();
-        String name = collection.getName();
+        String businessCollectionName = collection.getName();
+        String businessCollectionType = collection.getBusinessObjectType();
         parentFolder.mkdirs();
         File childFolder = null;
         try{
-            childFolder = new File(parentFolder, name);
+            childFolder = new File(parentFolder, businessCollectionName);
         } catch (NullPointerException npe){
             npe.printStackTrace();
         }
-        File xmlFile = new File(parentFolder, name+".xml");
+        File xmlFile = new File(parentFolder, businessCollectionName+".xml");
         try {
             Writer writer = new FileWriter(xmlFile);
 
@@ -97,7 +109,7 @@ public class ObjectModelSAXParser {
             writer.write(getXmlHeader(collection, depth));
 
             // Write the root element e.g. <Accountings>
-            writer.write("<" + className + ">\r\n");
+            writer.write("<" + businessCollectionType + ">\r\n");
 //            writer.write("  <name>"+name+"</name>\r\n");
             // TODO: write collection.getInitProperties not only name
             // get the object's properties
@@ -121,7 +133,7 @@ public class ObjectModelSAXParser {
                 writer.write("    <CurrentObject>" + collection.getCurrentObject().getName() + "</CurrentObject>\r\n");
             }
 
-            writer.write("</"+className+">\r\n");
+            writer.write("</"+businessCollectionType+">\r\n");
 
             writer.flush();
             writer.close();
