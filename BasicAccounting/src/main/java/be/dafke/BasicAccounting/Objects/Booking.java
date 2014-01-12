@@ -40,7 +40,7 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
     }
 
     @Override
-    public Movement createNewChild(String name){
+    public Movement createNewChild(){
         return new Movement(BigDecimal.ZERO, true);
     }
 

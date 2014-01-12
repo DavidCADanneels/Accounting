@@ -26,8 +26,7 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
     private BusinessTypeCollection businessTypeCollection;
     private BigDecimal defaultAmount = null;
 
-    public Account(String name) {
-        super.setName(name);
+    public Account() {
         movements = new MultiValueMap<Calendar,Movement>();
         debitTotal = BigDecimal.ZERO;
         debitTotal = debitTotal.setScale(2);
@@ -41,7 +40,7 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
     }
 
     @Override
-    public Movement createNewChild(String name){
+    public Movement createNewChild(){
         return null;
     }
 

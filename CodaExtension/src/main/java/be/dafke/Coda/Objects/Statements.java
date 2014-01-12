@@ -38,7 +38,7 @@ public class Statements extends BusinessCollection<Statement> implements Busines
 	}
 
     @Override
-    public Statement createNewChild(String name) {
+    public Statement createNewChild() {
         return new Statement();
     }
 

@@ -32,8 +32,8 @@ public class Accountings extends BusinessCollection<Accounting> {
     }
 
     @Override
-    public Accounting createNewChild(String name) {
-        return new Accounting(name);
+    public Accounting createNewChild() {
+        return new Accounting();
     }
 
 	public void setCurrentObject(String name) {

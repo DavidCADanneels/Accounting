@@ -64,7 +64,7 @@ public class Transaction extends BusinessCollection<Booking> implements Business
     }
 
     @Override
-    public Booking createNewChild(String name){
+    public Booking createNewChild(){
         return new Booking();
     }
 

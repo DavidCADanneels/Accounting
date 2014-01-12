@@ -225,55 +225,51 @@ public class ObjectModelSAXParser {
 
         // iterate children and create objects for them
         for (int i = 0; i < childrenNodeList.getLength(); i++) {
-            BusinessObject object = businessCollection.getBusinessObject(shortName);
-            if(object==null) {
-                try {
-                    // create new instance of object
-                    object = businessCollection.createNewChild(shortName);
+            try {
+                // create new instance of object
+                BusinessObject object = businessCollection.createNewChild();
 
-                    // if object is Typed, fetch its TypeCollection from the collection
-                    if (businessCollection instanceof BusinessTypeProvider && object instanceof BusinessTypeCollectionDependent) {
-                        BusinessTypeCollection btc = ((BusinessTypeProvider) businessCollection).getBusinessTypeCollection();
-                        ((BusinessTypeCollectionDependent) object).setBusinessTypeCollection(btc);
-                    }
-
-                    // if object is dependant on another collection, fetch this Collection from the collection
-                    if (businessCollection instanceof BusinessCollectionProvider && object instanceof BusinessCollectionDependent) {
-                        BusinessCollection bc = ((BusinessCollectionProvider) businessCollection).getBusinessCollection();
-                        ((BusinessCollectionDependent) object).setBusinessCollection(bc);
-                    }
-
-                    // create empty properties TreeMap
-                    TreeMap<String, String> properties = new TreeMap<String, String>();
-
-                    // get the Object's keySet
-                    Set<String> keySet = object.getInitKeySet();
-
-                    // read all the tags which names are in the keySet
-                    // and add their value to the properties
-                    Element element = (Element) childrenNodeList.item(i);
-                    for (String key : keySet) {
-                        String value = getValue(element, key);
-                        properties.put(key, value);
-                    }
-
-                    // provide the properties to the object
-                    object.setInitProperties(properties);
-
-                    if(object instanceof BusinessCollection){
-                        readChildren((Element)childrenNodeList.item(i),(BusinessCollection)object);
-                    }
-
-                    // add the object to the collection
-                    businessCollection.addBusinessObject(object);
-
-                } catch (EmptyNameException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                } catch (DuplicateNameException e) {
-                    e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                // if object is Typed, fetch its TypeCollection from the collection
+                if (businessCollection instanceof BusinessTypeProvider && object instanceof BusinessTypeCollectionDependent) {
+                    BusinessTypeCollection btc = ((BusinessTypeProvider) businessCollection).getBusinessTypeCollection();
+                    ((BusinessTypeCollectionDependent) object).setBusinessTypeCollection(btc);
                 }
+
+                // if object is dependant on another collection, fetch this Collection from the collection
+                if (businessCollection instanceof BusinessCollectionProvider && object instanceof BusinessCollectionDependent) {
+                    BusinessCollection bc = ((BusinessCollectionProvider) businessCollection).getBusinessCollection();
+                    ((BusinessCollectionDependent) object).setBusinessCollection(bc);
+                }
+
+                // create empty properties TreeMap
+                TreeMap<String, String> properties = new TreeMap<String, String>();
+
+                // get the Object's keySet
+                Set<String> keySet = object.getInitKeySet();
+
+                // read all the tags which names are in the keySet
+                // and add their value to the properties
+                Element element = (Element) childrenNodeList.item(i);
+                for (String key : keySet) {
+                    String value = getValue(element, key);
+                    properties.put(key, value);
+                }
+
+                // provide the properties to the object
+                object.setInitProperties(properties);
+
+                if(object instanceof BusinessCollection){
+                    readChildren((Element)childrenNodeList.item(i),(BusinessCollection)object);
+                }
+
+                // add the object to the collection
+                businessCollection.addBusinessObject(object);
+
+            } catch (EmptyNameException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (DuplicateNameException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
-            // if null
         }// for each ChildNode
 //            }// for each name in ArrayList
         String value = getValue(rootElement, businessCollection.CURRENT);

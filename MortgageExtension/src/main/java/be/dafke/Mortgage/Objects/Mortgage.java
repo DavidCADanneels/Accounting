@@ -28,8 +28,7 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
     private final MultiValueMap<Calendar,Movement[]> movements;
     private BusinessCollection<Account> accounts;
 
-    public Mortgage(String name){
-        super(name);
+    public Mortgage(){
         movements = new MultiValueMap<Calendar, Movement[]>();
     }
 
@@ -201,7 +200,7 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
         Movement capitalMovementToRemove = lastMovementOnThatDay[2];
 
         intrest.unbook(date, intrestMovementToRemove);
-        capital.unbook(date,capitalMovementToRemove);
+        capital.unbook(date, capitalMovementToRemove);
     }
 
 

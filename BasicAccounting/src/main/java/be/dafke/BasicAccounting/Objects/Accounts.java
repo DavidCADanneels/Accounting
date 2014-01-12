@@ -65,7 +65,7 @@ public class Accounts extends BusinessCollection<Account> implements BusinessTyp
     }
 
     @Override
-    public Account createNewChild(String name) {
-        return new Account(name);
+    public Account createNewChild() {
+        return new Account();
     }
 }

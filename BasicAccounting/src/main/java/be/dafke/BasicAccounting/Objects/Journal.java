@@ -49,7 +49,7 @@ public class Journal extends BusinessCollection<Transaction> implements Business
     }
 
     @Override
-    public Transaction createNewChild(String name){
+    public Transaction createNewChild(){
         return new Transaction();
     }
 

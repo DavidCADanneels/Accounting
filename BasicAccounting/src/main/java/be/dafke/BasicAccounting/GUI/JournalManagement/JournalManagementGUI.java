@@ -226,7 +226,8 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
         try {
-            Journal journal = accounting.getJournals().createNewChild(newName);
+            Journal journal = new Journal();
+            journal.setName(newName);
             journal.setAbbreviation(abbreviation);
             journal.setType(journalType);
             accounting.getJournals().addBusinessObject(journal);

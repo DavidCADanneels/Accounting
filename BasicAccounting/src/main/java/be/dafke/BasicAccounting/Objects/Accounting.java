@@ -32,8 +32,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         return "Accounting";
     }
 
-    public Accounting(String name) {
-        setName(name);
+    public Accounting() {
         extensions = new ArrayList<AccountingExtension>();
         // TODO use Accounts<Account> + modifiy Accounts file ... Accounts<T extends
 
@@ -75,14 +74,9 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     }
 
     @Override
-    public BusinessCollection createNewChild(String name) {
-        BusinessCollection<BusinessObject> collection = getBusinessObject(name);
-//        BusinessCollection<BusinessObject> collection = collections.get(name);
-        if(collection==null){
-//            collection =
-            System.err.println("Accounting does not have a collection with the name: " + name);
-        }
-        return collection;
+    public BusinessCollection createNewChild() {
+       System.err.println("Never called ??");
+        return null;
     }
 
     @Override

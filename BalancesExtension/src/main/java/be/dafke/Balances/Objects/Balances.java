@@ -55,7 +55,8 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         passive.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.LIABILITY));
         passive.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.DEBIT));
 
-        Balance resultBalance = createNewChild(RESULT_BALANCE);
+        Balance resultBalance = createNewChild();
+        resultBalance.setName(RESULT_BALANCE);
         resultBalance.setLeftName(getBundle("Accounting").getString("COSTS"));
         resultBalance.setRightName(getBundle("Accounting").getString("REVENUES"));
         resultBalance.setLeftTotalName(getBundle("Balances").getString("COSTS_TOTAL"));
@@ -65,7 +66,8 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         resultBalance.setLeftTypes(costs);
         resultBalance.setRightTypes(revenues);
 
-        Balance relationsBalance = createNewChild(RELATIONS_BALANCE);
+        Balance relationsBalance = createNewChild();
+        relationsBalance.setName(RELATIONS_BALANCE);
         relationsBalance.setLeftName(getBundle("Accounting").getString("FUNDS_FROM_CUSTOMERS"));
         relationsBalance.setRightName(getBundle("Accounting").getString("DEBTS_TO_SUPPLIERS"));
         relationsBalance.setLeftTotalName(getBundle("Balances").getString("FUNDS_TOTAL"));
@@ -75,7 +77,8 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         relationsBalance.setLeftTypes(credit);
         relationsBalance.setRightTypes(debit);
 
-        Balance yearBalance = createNewChild(YEAR_BALANCE);
+        Balance yearBalance = createNewChild();
+        yearBalance.setName(YEAR_BALANCE);
         yearBalance.setLeftName(getBundle("Accounting").getString("ASSETS"));
         yearBalance.setRightName(getBundle("Accounting").getString("LIABILITIES"));
         yearBalance.setLeftTotalName(getBundle("Balances").getString("ASSETS_FUNDS_TOTAL"));
@@ -97,8 +100,8 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
     }
 
     @Override
-    public Balance createNewChild(String name) {
-        Balance balance = new Balance(name);
+    public Balance createNewChild() {
+        Balance balance = new Balance();
         balance.setBusinessCollection(businessCollection);
         balance.setBusinessTypeCollection(businessTypeCollection);
         return balance;

@@ -12,12 +12,13 @@ public class JournalTypes extends BusinessTypeCollection<JournalType> {
     }
 
     @Override
-    public JournalType createNewChild(String name) {
-        return new JournalType(name);
+    public JournalType createNewChild() {
+        return new JournalType();
     }
 
     public void addDefaultType(AccountTypes accountTypes) {
-        JournalType defaultType = new JournalType("default");
+        JournalType defaultType = new JournalType();
+        defaultType.setName("default");
         defaultType.setDebetTypes(accountTypes.getBusinessObjects());
         defaultType.setCreditTypes(accountTypes.getBusinessObjects());
         try {

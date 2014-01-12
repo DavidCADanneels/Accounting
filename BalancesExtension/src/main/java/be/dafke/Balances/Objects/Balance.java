@@ -40,17 +40,13 @@ public class Balance extends BusinessCollection<BalanceLine> implements Business
     private BusinessCollection<Account> businessCollection;
     private BusinessTypeCollection<AccountType> businessTypeCollection;
 
-    public Balance(String name){
-        setName(name);
-    }
-
     @Override
     public String getChildType(){
         return "BalanceLine";
     }
 
     @Override
-    public BalanceLine createNewChild(String name){
+    public BalanceLine createNewChild(){
         return null;
     }
 

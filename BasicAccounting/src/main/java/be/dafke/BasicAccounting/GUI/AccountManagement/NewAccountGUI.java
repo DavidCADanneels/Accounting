@@ -67,8 +67,8 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     private void addAccount() {
         String name = nameField.getText().trim();
         try {
-            Account account = new Account(name.trim());
-//            account.setName(name.trim());
+            Account account = new Account();
+            account.setName(name.trim());
             account.setType((AccountType) type.getSelectedItem());
             String text = defaultAmountField.getText();
             if(text!=null && !text.trim().equals("")){

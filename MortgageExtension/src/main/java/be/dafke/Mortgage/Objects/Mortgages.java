@@ -28,8 +28,8 @@ public class Mortgages extends BusinessCollection<Mortgage> implements BusinessT
     }
 
     @Override
-    public Mortgage createNewChild(String name) {
-        return new Mortgage(name);
+    public Mortgage createNewChild() {
+        return new Mortgage();
     }
 
     public Mortgage addBusinessObject(Mortgage value) throws EmptyNameException, DuplicateNameException {

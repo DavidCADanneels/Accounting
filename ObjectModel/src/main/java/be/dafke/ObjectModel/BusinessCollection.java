@@ -31,7 +31,7 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         return false;
     }
 
-    public abstract V createNewChild(String name);
+    public abstract V createNewChild();
 
     protected void addSearchKey(String key){
         if(dataTables.containsKey(key)){

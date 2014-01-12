@@ -43,7 +43,7 @@ public class Journals extends BusinessCollection<Journal> implements BusinessTyp
 	}
 
     @Override
-    public Journal createNewChild(String name) {
+    public Journal createNewChild() {
         return new Journal();
     }
 

@@ -21,7 +21,7 @@ public class CounterParties extends BusinessCollection<CounterParty> {
     }
 
     @Override
-    public CounterParty createNewChild(String name) {
+    public CounterParty createNewChild() {
         return new CounterParty();
     }
 

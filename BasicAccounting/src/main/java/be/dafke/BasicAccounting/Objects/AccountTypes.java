@@ -24,33 +24,40 @@ public class AccountTypes extends BusinessTypeCollection<AccountType> {
     }
 
     @Override
-    public AccountType createNewChild(String name) {
-        return new AccountType(name);
+    public AccountType createNewChild() {
+        return new AccountType();
     }
 
     public AccountTypes() {
-        AccountType active = new AccountType(ASSET);
+        AccountType active = new AccountType();
+        active.setName(ASSET);
 //        active.setName(getBundle("Accounting").getString("ASSET"));
 
-        AccountType passive = new AccountType(LIABILITY);
+        AccountType passive = new AccountType();
+        passive.setName(LIABILITY);
 //        passive.setName(getBundle("Accounting").getString("LIABILITY"));
         passive.setInverted(true);
 
-        AccountType cost = new AccountType(COST);
+        AccountType cost = new AccountType();
+        cost.setName(COST);
 //        cost.setName(getBundle("Accounting").getString("COST"));
 
-        AccountType revenue = new AccountType(REVENUE);
+        AccountType revenue = new AccountType();
+        revenue.setName(REVENUE);
 //        revenue.setName(getBundle("Accounting").getString("REVENUE"));
         revenue.setInverted(true);
 
-        AccountType credit = new AccountType(CREDIT);
+        AccountType credit = new AccountType();
+        credit.setName(CREDIT);
 //        credit.setName(getBundle("Accounting").getString("FUND_FROM_CUSTOMER"));
 
-        AccountType debit = new AccountType(DEBIT);
+        AccountType debit = new AccountType();
+        debit.setName(DEBIT);
 //        debit.setName(getBundle("Accounting").getString("DEBT_TO_SUPPLIER"));
         debit.setInverted(true);
 
-        AccountType mortgage = new AccountType(MORTGAGE);
+        AccountType mortgage = new AccountType();
+        mortgage.setName(MORTGAGE);
 //        mortgage.setName(getBundle("Accounting").getString("MORTGAGE"));
 
         try{
