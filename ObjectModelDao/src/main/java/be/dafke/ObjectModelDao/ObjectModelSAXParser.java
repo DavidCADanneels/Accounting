@@ -50,43 +50,29 @@ public class ObjectModelSAXParser {
         String businessCollectionType = businessCollection.getBusinessObjectType();
         File xmlFile = new File(xmlFolder, businessCollectionName + ".xml");
         File htmlFile = new File(htmlFolder, businessCollectionName + ".html");
-        if(businessCollectionName!=null){
-            Utils.xmlToHtml(xmlFile, new File(xslFolder, businessCollectionType + ".xsl"), htmlFile, null);
-        }else {
-            System.err.println("null 1");
-        }
+
+        Utils.xmlToHtml(xmlFile, new File(xslFolder, businessCollectionType + ".xsl"), htmlFile, null);
 
         File xmlCollectionFolder = new File(xmlFolder, businessCollectionName);
         File htmlCollectionFolder = new File(htmlFolder, businessCollectionName);
         htmlCollectionFolder.mkdirs();
 
-//        businessCollection.writeGrandChildren()
-
         for(Object object:businessCollection.getBusinessObjects()){
             BusinessObject businessObject = (BusinessObject)object;
             String businessObjectName = businessObject.getName();
 
-            if(businessObjectName==null){
-                System.err.println("null 2");
-            }else {
-                String businessObjectType = businessObject.getBusinessObjectType();
-                // TODO: ensure that collections such as Accounts, Journals, Balances, Mortgages, Statements and Counterparties
-                // have the same name as their type (= simple class name)
+            String businessObjectType = businessObject.getBusinessObjectType();
 
+            File objectXmlFile = new File(xmlCollectionFolder, businessObjectName+".xml");
+            File objectHtmlFile = new File(htmlCollectionFolder, businessObjectName+".html");
 
-                File objectXmlFile = new File(xmlCollectionFolder, businessObjectName+".xml");
-                File objectHtmlFile = new File(htmlCollectionFolder, businessObjectName+".html");
+            Utils.xmlToHtml(objectXmlFile, new File(xslFolder, businessObjectType+".xsl"), objectHtmlFile, null);
 
-                Utils.xmlToHtml(objectXmlFile, new File(xslFolder, businessObjectType+".xsl"), objectHtmlFile, null);
-
-                if(object instanceof BusinessCollection && !((BusinessCollection)object).writeGrandChildren()){
-                    BusinessCollection subCollection = (BusinessCollection)object;
-                    String subCollectionName = subCollection.getName();
-                    if(subCollectionName!=null){
-                        toHtml(subCollection, xmlCollectionFolder, xslFolder, htmlCollectionFolder);
-                    }else {
-                        System.err.println("null 3");
-                    }
+            if(object instanceof BusinessCollection && !((BusinessCollection)object).writeGrandChildren()){
+                BusinessCollection subCollection = (BusinessCollection)object;
+                String subCollectionName = subCollection.getName();
+                if(subCollectionName!=null){
+                    toHtml(subCollection, xmlCollectionFolder, xslFolder, htmlCollectionFolder);
                 }
             }
         }
@@ -111,8 +97,7 @@ public class ObjectModelSAXParser {
 
             // Write the root element e.g. <Accountings>
             writer.write("<" + businessObjectType + ">\r\n");
-//            writer.write("  <name>"+name+"</name>\r\n");
-            // TODO: write collection.getInitProperties not only name
+
             // get the object's properties
             TreeMap<String,String> collectionProperties = businessObject.getInitProperties(null);
 
@@ -124,9 +109,6 @@ public class ObjectModelSAXParser {
                     writer.write("  <" + key + ">" + objectProperty + "</"+ key + ">\r\n");
                 }
             }
-//            if(className.equals("Accounting")){
-//                writer.write("  <name>"+collection.getName()+"</name>\r\n");
-//            }
 
             if(businessObject instanceof BusinessCollection){
                 BusinessCollection businessCollection = (BusinessCollection)businessObject;
