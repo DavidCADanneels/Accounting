@@ -280,12 +280,6 @@ public class ObjectModelSAXParser {
 
                     if(object instanceof BusinessCollection){
                         readChildren((Element)childrenNodeList.item(i),(BusinessCollection)object);
-//                            BusinessCollection collection = (BusinessCollection)object;
-//                            String childType = collection.getChildType();
-//                            NodeList elementsByTagName = ((Element) childrenNodeList.item(i)).getElementsByTagName(childType);
-//                            for (int j = 0; j < elementsByTagName.getLength(); j++) {
-//
-//                            }
                     }
 
                     // add the object to the collection
