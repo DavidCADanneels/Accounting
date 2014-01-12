@@ -99,10 +99,5 @@ public class BalancesExtension implements AccountingExtension {
     }
 
     public void extendWriteCollection(Accounting accounting, File xmlFolder){
-//        File balancesFolder = new File(xmlFolder, "Balances");
-//        for(Balance balance : balances.getBusinessObjects()){
-//            BalancesSAXParser.writeBalance(balance, balancesFolder, ObjectModelSAXParser.getXmlHeader(balance, 3));
-//        }
-
     }
 }
