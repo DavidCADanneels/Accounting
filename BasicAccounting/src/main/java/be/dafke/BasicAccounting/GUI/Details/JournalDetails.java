@@ -1,13 +1,7 @@
 package be.dafke.BasicAccounting.GUI.Details;
 
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Booking;
-import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.BasicAccounting.Objects.Transaction;
-import be.dafke.ComponentModel.RefreshableTable;
+import static java.util.ResourceBundle.getBundle;
 
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -15,9 +9,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.text.MessageFormat;
 import java.util.ArrayList;
 
-import static java.util.ResourceBundle.getBundle;
+import javax.swing.*;
+
+import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Booking;
+import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.ComponentModel.RefreshableTable;
 
 /**
  * @author David Danneels
@@ -90,19 +92,28 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
                 Journal newJournal = (Journal) lijst[keuze];
                 journal.removeBusinessObject(transaction);
                 newJournal.addBusinessObject(transaction);
-                // TODO: create translationkeys with parameters !!!
-                JOptionPane.showMessageDialog(null,
-                        getBundle("Accounting").getString("TRANSACTION_MOVED_FROM") + " " + journal + " "+
-                                getBundle("Accounting").getString("TO") +" " + newJournal);
+                String text = getBundle("Accounting").getString("TRANSACTION_MOVED");
+                Object[] messageArguments = {journal.getName(), newJournal.getName()};
+                MessageFormat formatter = new MessageFormat(text);
+                String output = formatter.format(messageArguments);
+                JOptionPane.showMessageDialog(null,output);
             }
         } else if (source == delete) {
             journal.removeBusinessObject(transaction);
-            JOptionPane.showMessageDialog(null, getBundle("Accounting").getString("TRANSACTION_REMOVED_FROM")+ " " + journal);
+            String text = getBundle("Accounting").getString("TRANSACTION_REMOVED");
+            Object[] messageArguments = {journal.getName()};
+            MessageFormat formatter = new MessageFormat(text);
+            String output = formatter.format(messageArguments);
+            JOptionPane.showMessageDialog(null, output);
         } else if (source == edit) {
             journal.removeBusinessObject(transaction);
             journal.setCurrentObject(transaction);
             accounting.getJournals().setCurrentObject(journal);
-            JOptionPane.showMessageDialog(null, getBundle("Accounting").getString("TRANSACTION_REMOVED_FROM") + " " + journal);
+            String text = getBundle("Accounting").getString("TRANSACTION_REMOVED");
+            Object[] messageArguments = {journal.getName()};
+            MessageFormat formatter = new MessageFormat(text);
+            String output = formatter.format(messageArguments);
+            JOptionPane.showMessageDialog(null, output);
         }
         AccountingComponentMap.refreshAllFrames();
     }
