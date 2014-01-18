@@ -23,6 +23,7 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
 
     public Booking(Account account) {
 		this.account = account;
+        movements = new ArrayList<Movement>();
     }
     public Booking(){
         movements = new ArrayList<Movement>();
