@@ -43,10 +43,10 @@ public class Main extends BasicAccountingMain{
         links.add(accountsGUI);
         links.add(new MortgagesGUI());
         links.add(journalsGUI);
+        links.add(saveButton);
         contentPanel = new AccountingMultiPanel();
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(journalGUI, BorderLayout.CENTER);
         contentPanel.add(links, BorderLayout.WEST);
     }
 }
-

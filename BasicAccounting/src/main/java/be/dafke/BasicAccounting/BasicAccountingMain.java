@@ -27,8 +27,9 @@ public class BasicAccountingMain {
     protected static AccountingMultiPanel contentPanel;
     protected static AccountingGUIFrame frame;
 
-    protected enum Mode{ PROD, TEST}
+    protected enum Mode{ PROD, TEST;}
 
+    protected static JButton saveButton;
     protected static JournalGUI journalGUI;
     protected static AccountsGUI accountsGUI;
     protected static JournalsGUI journalsGUI;
@@ -81,6 +82,9 @@ public class BasicAccountingMain {
         accountsGUI = new AccountsGUI(actionListener);
         journalsGUI = new JournalsGUI(actionListener);
         menuBar = new AccountingMenuBar(actionListener);
+        saveButton = new JButton("Save all");
+        saveButton.setActionCommand(AccountingActionListener.SAVE_ALL);
+        saveButton.addActionListener(actionListener);
     }
 
     protected static void composeContentPanel(){
@@ -88,6 +92,7 @@ public class BasicAccountingMain {
         links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
         links.add(accountsGUI);
         links.add(journalsGUI);
+        links.add(saveButton);
         contentPanel = new AccountingMultiPanel();
         contentPanel.setLayout(new BorderLayout());
         contentPanel.add(journalGUI, BorderLayout.CENTER);

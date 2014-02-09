@@ -28,8 +28,10 @@ public class JournalsGUI extends AccountingPanel implements ActionListener {
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
     private Journals journals;
+    private AccountingActionListener actionListener;
 
-	public JournalsGUI(ActionListener actionListener) {
+	public JournalsGUI(AccountingActionListener actionListener) {
+        this.actionListener = actionListener;
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -61,6 +63,7 @@ public class JournalsGUI extends AccountingPanel implements ActionListener {
             } else {
                 journals.setCurrentObject(newJournal);
             }
+            actionListener.saveData();
             AccountingComponentMap.refreshAllFrames();
 		}
 	}
