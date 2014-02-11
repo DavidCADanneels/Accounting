@@ -11,6 +11,7 @@ import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
+import org.owasp.encoder.Encode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -79,6 +80,7 @@ public class ObjectModelSAXParser {
     }
 
     public static void writeCollection(BusinessObject businessObject, File parentFolder, int depth){
+        System.out.println(Encode.forXmlContent("Test & deploy"));
         String businessObjectName = businessObject.getName();
         String businessObjectType = businessObject.getBusinessObjectType();
         parentFolder.mkdirs();
@@ -135,7 +137,7 @@ public class ObjectModelSAXParser {
             for(Object object : businessCollection.getBusinessObjects()) {
                 if(object instanceof BusinessObject){
                     BusinessObject childObject = (BusinessObject) object;
-                    String type = childObject.getBusinessObjectType();
+//                    String type = childObject.getBusinessObjectType();
                     if(childObject.getName()!=null){
                         writeCollection(childObject, childFolder, depth + 1);
                     }
