@@ -154,7 +154,7 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
     // Remove
 
     /**Removal function for external use: performs a check if the value is deletable
-     * @see WriteableBusinessObject#isDeletable()
+     * @see BusinessObject#isDeletable()
      * @param value the value to delete
      * @throws be.dafke.ObjectModel.Exceptions.NotEmptyException if the value is not deletable
      */

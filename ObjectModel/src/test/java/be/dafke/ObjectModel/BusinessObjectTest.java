@@ -13,19 +13,18 @@ import static org.junit.Assert.assertNull;
  * Created by David Danneels on 16/08/2014.
  */
 public class BusinessObjectTest {
+    protected BusinessObject businessObject = new BusinessObject();
+    protected String businessObjectType = businessObject.getClass().getSimpleName();
+
     @Test
     public void defaultObjectType(){
-        BusinessObject businessObject=new BusinessObject();
-        assertEquals(businessObject.getClass().getSimpleName(), businessObject.getBusinessObjectType());
-        // HERE:
-//        assertEquals("BusinessObject", businessObject.getBusinessObjectType());
+        assertEquals(businessObjectType, businessObject.getBusinessObjectType());
     }
 
     @Test
-    public void toStringReturnsName(){
-        BusinessObject businessObject=new BusinessObject();
+    public void defaultToString(){
         assertNull(businessObject.getName());
-        assertNull( businessObject.toString());
+        assertNull(businessObject.toString());
         final String NAME = "Just a name";
         businessObject.setName(NAME);
         assertEquals(NAME,businessObject.getName());
@@ -34,8 +33,6 @@ public class BusinessObjectTest {
 
     @Test
     public void defaultValues(){
-        BusinessObject businessObject=new BusinessObject();
-        assertEquals("BusinessObject", businessObject.getBusinessObjectType());
         assertNull(businessObject.getName());
         assertFalse(businessObject.isDeletable());
         assertFalse(businessObject.isMergeable());
@@ -45,8 +42,6 @@ public class BusinessObjectTest {
     public void defaultKeysAndProperties(){
         final String NAME="name";
         final int NR_OF_KEYS = 1;
-
-        BusinessObject businessObject=new BusinessObject();
 
         final Set<String> initKeySet = businessObject.getInitKeySet();
         assertEquals(NR_OF_KEYS,initKeySet.size());
