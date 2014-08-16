@@ -52,7 +52,7 @@ public class BusinessObjectTest {
         assertEquals(NR_OF_KEYS,initKeySet.size());
         assertEquals(NAME,initKeySet.iterator().next());
 
-        final TreeMap<String, String> initProperties = businessObject.getInitProperties();
+        final TreeMap<String, String> initProperties = businessObject.getInitProperties(null);
         assertEquals(NR_OF_KEYS,initProperties.size());
         assertEquals(NAME,initProperties.firstKey());
         assertNull(initProperties.get(NAME));
