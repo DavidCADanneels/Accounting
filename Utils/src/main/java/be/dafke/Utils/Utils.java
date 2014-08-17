@@ -1,9 +1,5 @@
 package be.dafke.Utils;
 
-import org.w3c.dom.Element;
-import org.w3c.dom.NodeList;
-
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -52,41 +48,6 @@ public class Utils {
             return Integer.parseInt(s);
         } catch (NumberFormatException nfe) {
             return 0;
-        }
-    }
-
-    public static String getValue(Element element, String tagName){
-        NodeList nodeList = element.getElementsByTagName(tagName);
-        return getValue(nodeList, tagName, 0);
-    }
-
-    private static String getValue(NodeList nodeList, String tagName, int index){
-        if(nodeList.getLength()==0){
-//            System.err.println("The tag " + tagName + " is not present.");
-            return null;
-            // the tag is not present
-        } else {
-            nodeList = nodeList.item(index).getChildNodes();
-            if(nodeList.getLength()==0){
-                System.err.println("The tag " + tagName + " is empty.");
-                return null;
-                // the tag is empty
-            } else {
-                if(nodeList.item(0).getNodeValue().equals("null")){
-                    System.err.println("The tag " + tagName + " equals \"null\"");
-                    return null;
-                }
-                return nodeList.item(0).getNodeValue();
-            }
-        }
-    }
-
-    public static File getFile(Element element, String tagName) {
-        String fileName = getValue(element, tagName);
-        if(fileName == null){
-            return null;
-        } else {
-            return new File(fileName);
         }
     }
 
