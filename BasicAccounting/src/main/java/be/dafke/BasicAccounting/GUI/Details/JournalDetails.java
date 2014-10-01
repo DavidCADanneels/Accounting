@@ -45,7 +45,7 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
 		popup = new JPopupMenu();
 		delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
 		move = new JMenuItem(getBundle("Accounting").getString("MOVE"));
-		edit = new JMenuItem(getBundle("Accounting").getString("EDIT"));
+		edit = new JMenuItem(getBundle("Accounting").getString("EDIT_TRANSACTION"));
 		delete.addActionListener(this);
 		move.addActionListener(this);
 		edit.addActionListener(this);

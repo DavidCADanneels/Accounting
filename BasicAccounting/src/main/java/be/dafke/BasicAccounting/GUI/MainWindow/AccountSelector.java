@@ -1,4 +1,4 @@
-package be.dafke.Coda.GUI;
+package be.dafke.BasicAccounting.GUI.MainWindow;
 
 import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.Objects.Account;

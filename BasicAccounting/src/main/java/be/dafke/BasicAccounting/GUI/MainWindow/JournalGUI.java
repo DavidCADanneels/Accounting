@@ -1,8 +1,12 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
+import be.dafke.BasicAccounting.Actions.AccountingActionListener;
+import be.dafke.BasicAccounting.GUI.AccountManagement.NewAccountGUI;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
+import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Transaction;
@@ -32,10 +36,13 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     private final JPopupMenu popup;
     private final JTable table;
     private final JMenuItem delete;
-//    private final JMenuItem edit;
+    private final JMenuItem edit;
+    private final JMenuItem change;
 	private BigDecimal debettotaal, credittotaal;
     private Journal journal;
     private int selectedRow;
+    private Accounts accounts;
+    private Accounting accounting;
 
     public JournalGUI() {
 		debettotaal = new BigDecimal(0);
@@ -49,11 +56,14 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 
         popup = new JPopupMenu();
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
-//        edit = new JMenuItem(getBundle("Accounting").getString("EDIT"));
+        edit = new JMenuItem(getBundle("Accounting").getString("EDIT_AMOUNT"));
+        change = new JMenuItem(getBundle("Accounting").getString("CHANGE_ACCOUNT"));
         delete.addActionListener(this);
-//        edit.addActionListener(this);
+        edit.addActionListener(this);
+        change.addActionListener(this);
         popup.add(delete);
-//        popup.add(edit);
+        popup.add(edit);
+        popup.add(change);
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
@@ -148,10 +158,13 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     }
 
     public void setAccounting(Accounting accounting){
+        this.accounting = accounting;
         if(accounting==null || accounting.getJournals()==null){
             journal = null;
+            accounts = null;
         } else {
             journal = accounting.getJournals().getCurrentObject();
+            accounts = accounting.getAccounts();
         }
         if(journal==null){
             journalDataModel.setTransaction(null);
@@ -203,14 +216,27 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         Transaction transaction = booking.getTransaction();
         if (source == delete) {
             transaction.removeBusinessObject(booking);
-//        } else if (source == edit) {
-//
+        } else if (source == edit) {
+
+        } else if (source == change) {
+            AccountSelector sel = new AccountSelector(accounts, this);
+            sel.setVisible(true);
+            Account account = sel.getSelection();
+            if(account!=null){
+                booking.setAccount(account);
+            }
         }
         AccountingComponentMap.refreshAllFrames();
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        // TODO: implement ActionListener in AccountSelector or separate Action
+        if(AccountingActionListener.NEW_ACCOUNT.equals(e.getActionCommand())){
+            new NewAccountGUI(accounting).setVisible(true);
+        }
+
+        // TODO: use actionCommand i.s.o. Object (getSource()) --> or later: Actions
         if (e.getSource() instanceof JMenuItem) {
             menuAction((JMenuItem) e.getSource());
         } else if (e.getSource() == ok) {

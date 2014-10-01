@@ -1,5 +1,6 @@
 package be.dafke.Coda.GUI;
 
+import be.dafke.BasicAccounting.GUI.MainWindow.AccountSelector;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.Objects.BankAccount;

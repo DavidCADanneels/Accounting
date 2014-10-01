@@ -85,6 +85,10 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
         return movement;
     }
 
+    public void setAccount(Account account) {
+        this.account = account;
+    }
+
     public Account getAccount() {
 		return account;
 	}
