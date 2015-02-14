@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.GUI.MainWindow;
 
 import be.dafke.BasicAccounting.Actions.AccountDetailsActionListener;
 import be.dafke.BasicAccounting.Actions.AccountManagementActionListener;
+import be.dafke.BasicAccounting.Actions.AddBookingToTransactionActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
@@ -9,11 +10,7 @@ import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Accounts;
-import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.BasicAccounting.Objects.Movement;
-import be.dafke.BasicAccounting.Objects.Transaction;
-import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.Utils.AlphabeticListModel;
 import be.dafke.Utils.PrefixFilterPanel;
 
@@ -26,7 +23,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,8 +57,9 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         accountManagement.setMnemonic(KeyEvent.VK_M);
         accountDetails.setMnemonic(KeyEvent.VK_T);
         accountManagement.setEnabled(false);
-		debet.addActionListener(this);
-		credit.addActionListener(this);
+        AddBookingToTransactionActionListener listener = new AddBookingToTransactionActionListener(accountings);
+		debet.addActionListener(listener);
+		credit.addActionListener(listener);
 		accountManagement.addActionListener(new AccountManagementActionListener(accountings));
         accountDetails.addActionListener(new AccountDetailsActionListener(accountings));
 		debet.setEnabled(false);
@@ -108,59 +105,8 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 
 	@Override
 	public void actionPerformed(ActionEvent ae) {
-		if (ae.getSource() == debet || ae.getSource() == credit) {
-			book(ae.getSource() == debet);
-		} else if (ae.getSource() instanceof JCheckBox) {
+		if (ae.getSource() instanceof JCheckBox) {
 			checkBoxes();
-		}
-	}
-
-	private void book(boolean debit) {
-		Account account = accounts.getCurrentObject();
-        Transaction transaction = journal.getCurrentObject();
-        BigDecimal creditTotal = transaction.getCreditTotaal();
-        BigDecimal debitTotal = transaction.getDebetTotaal();
-        boolean suggestion = false;
-        BigDecimal suggestedAmount = null;
-        if(creditTotal.compareTo(debitTotal)>0 && debit){
-            suggestion = true;
-            suggestedAmount = creditTotal.subtract(debitTotal);
-        } else if(debitTotal.compareTo(creditTotal)>0 && !debit){
-            suggestion = true;
-            suggestedAmount = debitTotal.subtract(creditTotal);
-        } else {
-            BigDecimal defaultAmount = account.getDefaultAmount();
-            if(defaultAmount!=null){
-                suggestion = true;
-                suggestedAmount = defaultAmount;
-            }
-        }
-        boolean ok = false;
-		while (!ok) {
-			String s;
-            if(suggestion){
-                s = JOptionPane.showInputDialog(getBundle("Accounting").getString(
-					"ENTER_AMOUNT"), suggestedAmount.toString());
-            } else {
-                s = JOptionPane.showInputDialog(getBundle("Accounting").getString(
-                        "ENTER_AMOUNT"));
-            }
-			if (s == null || s.equals("")) {
-				ok = true;
-			} else {
-				try {
-					BigDecimal amount = new BigDecimal(s);
-					amount = amount.setScale(2);
-                    Booking booking = new Booking(account);
-                    booking.addBusinessObject(new Movement(amount,debit));
-                    transaction.addBusinessObject(booking);
-					ok = true;
-                    ComponentMap.refreshAllFrames();
-				} catch (NumberFormatException nfe) {
-					JOptionPane.showMessageDialog(this,
-							getBundle("Accounting").getString("INVALID_INPUT"));
-				}
-			}
 		}
 	}
 
