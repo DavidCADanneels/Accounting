@@ -64,6 +64,8 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         accountDetails.addActionListener(new AccountDetailsActionListener(accountings));
 		debet.setEnabled(false);
 		credit.setEnabled(false);
+        debet.setActionCommand(AddBookingToTransactionActionListener.DEBIT);
+        credit.setActionCommand(AddBookingToTransactionActionListener.CREDIT);
 		accountDetails.setEnabled(false);
 		JPanel hoofdPaneel = new JPanel(new BorderLayout());
 		JPanel noord = new JPanel();
