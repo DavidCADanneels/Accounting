@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting;
 
-import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.Actions.SaveAllActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingGUIFrame;
@@ -20,11 +19,11 @@ import java.util.List;
 
 public class BasicAccountingMain {
 
+    private static final String MAIN = "MainPanel";
     protected static Accountings accountings;
     protected static File xmlFolder;
     protected static File htmlFolder;
     protected static AccountingMenuBar menuBar;
-    protected static AccountingActionListener actionListener;
     protected static AccountingMultiPanel contentPanel;
     protected static AccountingGUIFrame frame;
 
@@ -77,7 +76,6 @@ public class BasicAccountingMain {
     }
 
     protected static void createBasicComponents(){
-        actionListener = new AccountingActionListener(accountings);
         journalGUI = new JournalGUI();
         accountsGUI = new AccountsGUI(accountings);
         journalsGUI = new JournalsGUI(accountings);
@@ -103,7 +101,7 @@ public class BasicAccountingMain {
         frame.setMenuBar(menuBar);
         frame.setContentPanel(contentPanel);
         frame.addWindowListener(new SaveAllActionListener(accountings));
-        ComponentMap.addDisposableComponent(AccountingActionListener.MAIN, frame); // MAIN
+        ComponentMap.addDisposableComponent(MAIN, frame); // MAIN
         ComponentMap.addRefreshableComponent(menuBar);
     }
     protected static void launch() {
