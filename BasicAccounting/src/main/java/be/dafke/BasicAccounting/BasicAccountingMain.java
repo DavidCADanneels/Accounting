@@ -24,6 +24,7 @@ public class BasicAccountingMain {
     protected static File xmlFolder;
     protected static File htmlFolder;
     protected static AccountingMenuBar menuBar;
+    protected static AccountingActionListener actionListener;
     protected static AccountingMultiPanel contentPanel;
     protected static AccountingGUIFrame frame;
 
@@ -77,6 +78,7 @@ public class BasicAccountingMain {
     }
 
     protected static void createBasicComponents(){
+        actionListener = new AccountingActionListener(accountings);
         journalGUI = new JournalGUI();
         accountsGUI = new AccountsGUI(accountings);
         journalsGUI = new JournalsGUI(accountings);
