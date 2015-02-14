@@ -4,6 +4,9 @@ import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.ComponentModel.RefreshableFrame;
+import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Project.Objects.Project;
 import be.dafke.Project.Objects.Projects;
 import be.dafke.Utils.AlphabeticListModel;
@@ -164,7 +167,13 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 						"ENTER_NAME_FOR_PROJECT"));
 			if (naam != null) {
 				project = new Project(naam);
-				projects.put(naam, project);
+				try {
+					projects.addBusinessObject(project);
+				} catch (EmptyNameException e) {
+					e.printStackTrace();
+				} catch (DuplicateNameException e) {
+					e.printStackTrace();
+				}
 				((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
 				(combo.getModel()).setSelectedItem(project);
 			}
@@ -195,11 +204,11 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
     public void refresh() {
         Accounts accounts = accounting.getAccounts();
         zoeker.resetMap(accounts.getBusinessObjects());
-        for(Project project : projects.values()) {
-            combo.addItem(project);
+        for(BusinessObject project : projects.getBusinessObjects()) {
+            combo.addItem((Project)project);
         }
-        Project[] result = new Project[projects.size()];
-        projects.values().toArray(result);
+        Project[] result = new Project[projects.getBusinessObjects().size()];
+        projects.getBusinessObjects().toArray(result);
         if (result.length != 0) {
             System.out.println("voor init");
             combo.setSelectedItem(result[0]);

@@ -1,6 +1,7 @@
 package be.dafke.Project.Objects;
 
 import be.dafke.BasicAccounting.Objects.Account;
+import be.dafke.ObjectModel.BusinessObject;
 
 import java.util.Collection;
 import java.util.HashMap;
@@ -8,7 +9,7 @@ import java.util.HashMap;
 /**
  * @author David Danneels
  */
-public class Project {
+public class Project extends BusinessObject{
 	/**
 	 * 
 	 */
