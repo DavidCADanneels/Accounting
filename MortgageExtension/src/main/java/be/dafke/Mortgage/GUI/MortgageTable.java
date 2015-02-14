@@ -1,8 +1,8 @@
 package be.dafke.Mortgage.GUI;
 
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.Mortgage.Objects.Mortgage;
 import be.dafke.Mortgage.Objects.Mortgages;
@@ -68,7 +68,7 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
         try {
 //            accounting.getAccounts().addBusinessObject(mortgage);    // this is implicitely done in the next step
             mortgages.addBusinessObject(mortgage);
-            AccountingComponentMap.refreshAllFrames();
+            ComponentMap.refreshAllFrames();
             dispose();
         } catch (DuplicateNameException e) {
             JOptionPane.showMessageDialog(this, "There is already a mortgage table with the name \""+name.trim()+"\".\r\n"+

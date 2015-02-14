@@ -1,12 +1,12 @@
 package be.dafke.Mortgage.GUI;
 
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.Mortgage.Objects.Mortgage;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
@@ -92,7 +92,7 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
         Booking booking = new Booking(mortgage);
         booking.addBusinessObject(new Movement(mortgage.getMensuality(),true));
         transaction.addBusinessObject(booking);
-        AccountingComponentMap.refreshAllFrames();
+        ComponentMap.refreshAllFrames();
 	}
 
 	@Override

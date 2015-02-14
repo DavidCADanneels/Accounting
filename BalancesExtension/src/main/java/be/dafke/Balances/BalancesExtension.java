@@ -4,9 +4,9 @@ import be.dafke.Balances.GUI.BalanceGUI;
 import be.dafke.Balances.GUI.TestBalance;
 import be.dafke.Balances.Objects.Balances;
 import be.dafke.BasicAccounting.AccountingExtension;
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
@@ -24,7 +24,6 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 11:03
  */
 public class BalancesExtension implements AccountingExtension {
-    private final ActionListener actionListener;
     private static JMenu balancesMenu = null;
     public static final String TEST_BALANCE = "TestBalance";
     public static final String YEAR_BALANCE = "YearBalance";
@@ -34,7 +33,6 @@ public class BalancesExtension implements AccountingExtension {
 
 
     public BalancesExtension(ActionListener actionListener, AccountingMenuBar menuBar){
-        this.actionListener = actionListener;
         if(balancesMenu == null) createMenu(menuBar, actionListener);
     }
 
@@ -91,10 +89,10 @@ public class BalancesExtension implements AccountingExtension {
     }
 
     public void extendAccountingComponentMap(Accounting accounting){
-        AccountingComponentMap.addDisposableComponent(accounting.toString() + RELATIONS_BALANCE, new BalanceGUI(accounting, balances.getBusinessObject(Balances.RELATIONS_BALANCE)));
-        AccountingComponentMap.addDisposableComponent(accounting.toString() + RESULT_BALANCE, new BalanceGUI(accounting, balances.getBusinessObject(Balances.RESULT_BALANCE)));
-        AccountingComponentMap.addDisposableComponent(accounting.toString() + YEAR_BALANCE, new BalanceGUI(accounting, balances.getBusinessObject(Balances.YEAR_BALANCE)));
-        AccountingComponentMap.addDisposableComponent(accounting.toString() + TEST_BALANCE, new TestBalance(accounting));
+        ComponentMap.addDisposableComponent(accounting.toString() + RELATIONS_BALANCE, new BalanceGUI(accounting, balances.getBusinessObject(Balances.RELATIONS_BALANCE)));
+        ComponentMap.addDisposableComponent(accounting.toString() + RESULT_BALANCE, new BalanceGUI(accounting, balances.getBusinessObject(Balances.RESULT_BALANCE)));
+        ComponentMap.addDisposableComponent(accounting.toString() + YEAR_BALANCE, new BalanceGUI(accounting, balances.getBusinessObject(Balances.YEAR_BALANCE)));
+        ComponentMap.addDisposableComponent(accounting.toString() + TEST_BALANCE, new TestBalance(accounting));
 
     }
 

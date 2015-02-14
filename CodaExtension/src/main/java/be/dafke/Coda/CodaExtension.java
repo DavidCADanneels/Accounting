@@ -1,13 +1,13 @@
 package be.dafke.Coda;
 
 import be.dafke.BasicAccounting.AccountingExtension;
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.GUI.CounterPartyTable;
 import be.dafke.Coda.GUI.StatementTable;
 import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.Statements;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
@@ -81,8 +81,8 @@ public class CodaExtension implements AccountingExtension{
 
     @Override
     public void extendAccountingComponentMap(Accounting accounting){
-        AccountingComponentMap.addDisposableComponent(accounting.toString() + MOVEMENTS, new StatementTable(accounting, statements, counterParties, actionListener));
-        AccountingComponentMap.addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting, counterParties, statements, actionListener));
+        ComponentMap.addDisposableComponent(accounting.toString() + MOVEMENTS, new StatementTable(accounting, statements, counterParties, actionListener));
+        ComponentMap.addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting, counterParties, statements));
     }
 
     @Override

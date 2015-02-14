@@ -1,17 +1,19 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.Actions.AccountingActionListener;
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.Actions.AccountDetailsActionListener;
+import be.dafke.BasicAccounting.Actions.AccountManagementActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.Utils.AlphabeticListModel;
 import be.dafke.Utils.PrefixFilterPanel;
 
@@ -46,7 +48,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     private AccountTypes accountTypes;
     private final JPanel filter;
 
-    public AccountsGUI(ActionListener actionListener) {
+    public AccountsGUI(ActionListener actionListener, Accountings accountings) {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("ACCOUNTS")));
@@ -61,10 +63,8 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         accountManagement.setEnabled(false);
 		debet.addActionListener(this);
 		credit.addActionListener(this);
-		accountManagement.addActionListener(actionListener);
-        accountDetails.addActionListener(actionListener);
-        accountManagement.setActionCommand(AccountingActionListener.ACCOUNT_MANAGEMENT);
-        accountDetails.setActionCommand(AccountingActionListener.ACCOUNT_DETAILS);
+		accountManagement.addActionListener(new AccountManagementActionListener(accountings));
+        accountDetails.addActionListener(new AccountDetailsActionListener(accountings));
 		debet.setEnabled(false);
 		credit.setEnabled(false);
 		accountDetails.setEnabled(false);
@@ -155,7 +155,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
                     booking.addBusinessObject(new Movement(amount,debit));
                     transaction.addBusinessObject(booking);
 					ok = true;
-                    AccountingComponentMap.refreshAllFrames();
+                    ComponentMap.refreshAllFrames();
 				} catch (NumberFormatException nfe) {
 					JOptionPane.showMessageDialog(this,
 							getBundle("Accounting").getString("INVALID_INPUT"));

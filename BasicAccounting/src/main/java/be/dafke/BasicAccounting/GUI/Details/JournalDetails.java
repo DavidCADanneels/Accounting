@@ -1,7 +1,13 @@
 package be.dafke.BasicAccounting.GUI.Details;
 
-import static java.util.ResourceBundle.getBundle;
+import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Booking;
+import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.ComponentModel.RefreshableTable;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -12,14 +18,7 @@ import java.awt.event.WindowListener;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
-import javax.swing.*;
-
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Booking;
-import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.BasicAccounting.Objects.Transaction;
-import be.dafke.ComponentModel.RefreshableTable;
+import static java.util.ResourceBundle.getBundle;
 
 /**
  * @author David Danneels
@@ -115,7 +114,7 @@ public class JournalDetails extends RefreshableTable implements ActionListener, 
             String output = formatter.format(messageArguments);
             JOptionPane.showMessageDialog(null, output);
         }
-        AccountingComponentMap.refreshAllFrames();
+        ComponentMap.refreshAllFrames();
     }
 
     @Override

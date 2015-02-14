@@ -1,9 +1,9 @@
 package be.dafke.Mortgage;
 
 import be.dafke.BasicAccounting.AccountingExtension;
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.Mortgage.Dao.MortgagesSAXParser;
 import be.dafke.Mortgage.GUI.MortgageCalculatorGUI;
 import be.dafke.Mortgage.GUI.MortgageGUI;
@@ -76,8 +76,8 @@ public class MortgageExtension implements AccountingExtension{
 
     @Override
     public void extendAccountingComponentMap(Accounting accounting){
-        AccountingComponentMap.addDisposableComponent(accounting.toString() + MORTGAGES, new MortgageGUI(accounting, mortgages, actionListener));
-        AccountingComponentMap.addDisposableComponent(accounting.toString() + MORTGAGE_CALCULATOR, new MortgageCalculatorGUI(accounting, mortgages));
+        ComponentMap.addDisposableComponent(accounting.toString() + MORTGAGES, new MortgageGUI(accounting, mortgages, actionListener));
+        ComponentMap.addDisposableComponent(accounting.toString() + MORTGAGE_CALCULATOR, new MortgageCalculatorGUI(accounting, mortgages));
     }
 
     @Override

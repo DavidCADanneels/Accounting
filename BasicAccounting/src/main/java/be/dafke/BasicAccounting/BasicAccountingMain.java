@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Actions.AccountingActionListener;
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingGUIFrame;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
@@ -10,6 +9,7 @@ import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModelDao.ObjectModelSAXParser;
 
 import javax.swing.*;
@@ -79,8 +79,8 @@ public class BasicAccountingMain {
     protected static void createBasicComponents(){
         actionListener = new AccountingActionListener(accountings);
         journalGUI = new JournalGUI();
-        accountsGUI = new AccountsGUI(actionListener);
-        journalsGUI = new JournalsGUI(actionListener);
+        accountsGUI = new AccountsGUI(actionListener, accountings);
+        journalsGUI = new JournalsGUI(actionListener, accountings);
         menuBar = new AccountingMenuBar(actionListener);
         saveButton = new JButton("Save all");
         saveButton.setActionCommand(AccountingActionListener.SAVE_ALL);
@@ -104,11 +104,8 @@ public class BasicAccountingMain {
         frame.setMenuBar(menuBar);
         frame.setContentPanel(contentPanel);
         frame.addWindowListener(actionListener);
-        for(Accounting accounting : accountings.getBusinessObjects()){
-            AccountingComponentMap.addAccountingComponents(accounting, actionListener);
-        }
-        AccountingComponentMap.addDisposableComponent(AccountingActionListener.MAIN, frame); // MAIN
-        AccountingComponentMap.addRefreshableComponent(menuBar);
+        ComponentMap.addDisposableComponent(AccountingActionListener.MAIN, frame); // MAIN
+        ComponentMap.addRefreshableComponent(menuBar);
 
         for(Accounting accounting : accountings.getBusinessObjects()){
             for(AccountingExtension extension : accounting.getExtensions()){

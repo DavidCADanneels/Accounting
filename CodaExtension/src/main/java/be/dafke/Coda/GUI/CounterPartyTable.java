@@ -11,7 +11,6 @@ import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.regex.Pattern;
@@ -22,14 +21,12 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
 	 */
 	private static final long serialVersionUID = 1L;
 	private final Accounting accounting;
-    private final ActionListener actionListener;
     private final Statements statements;
 
-    public CounterPartyTable(Accounting accounting, CounterParties counterParties, Statements statements, ActionListener actionListener) {
+    public CounterPartyTable(Accounting accounting, CounterParties counterParties, Statements statements) {
 		super("Counterparties (" + accounting.toString() + ")", new CounterPartyDataModel(counterParties));
 		this.accounting = accounting;
         this.statements = statements;
-        this.actionListener = actionListener;
 		// tabel.setAutoCreateRowSorter(true);
 		tabel.addMouseListener(this);
 	}
@@ -72,7 +69,7 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
                     }
                 }
 			} else if (col == 5) {
-                AccountSelector sel = new AccountSelector(accounting, actionListener);
+                AccountSelector sel = new AccountSelector(accounting);
                 sel.setVisible(true);
                 Account account = sel.getSelection();
 

@@ -1,10 +1,10 @@
 package be.dafke.BasicAccounting.GUI.JournalManagement;
 
-import be.dafke.BasicAccounting.Actions.AccountingActionListener;
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.Actions.JournalTypeManagementActionListener;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.JournalType;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
@@ -33,7 +33,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 	private final DefaultListSelectionModel selection;
 	private final Accounting accounting;
 
-	public JournalManagementGUI(Accounting accounting, ActionListener actionListener) {
+	public JournalManagementGUI(Accounting accounting) {
 		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE") + " " + accounting.toString(), new JournalManagementTableModel(accounting));
 		this.accounting = accounting;
 		selection = new DefaultListSelectionModel();
@@ -59,8 +59,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 		name.addFocusListener(this);
 		line2.add(add);
 		newType = new JButton(getBundle("Accounting").getString("MANAGE_TYPES"));
-        newType.setActionCommand(AccountingActionListener.JOURNAL_TYPE_MANAGEMENT);
-		newType.addActionListener(actionListener);
+		newType.addActionListener(new JournalTypeManagementActionListener(accounting));
 		line2.add(newType);
 		north.add(line1);
 		north.add(line2);
@@ -132,7 +131,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
             modifyAbbr.setEnabled(false);
             modifyType.setEnabled(false);
         }
-        AccountingComponentMap.refreshAllFrames();
+        ComponentMap.refreshAllFrames();
     }
 
     private ArrayList<Journal> getSelectedJournals(){
@@ -180,7 +179,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
                 try {
                     if(newName!=null && !oldName.trim().equals(newName.trim())){
                         accounting.getJournals().modifyJournalName(oldName, newName);
-                        AccountingComponentMap.refreshAllFrames();
+                        ComponentMap.refreshAllFrames();
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {
@@ -203,7 +202,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
                 try {
                     if(newAbbreviation!=null && !oldAbbreviation.trim().equals(newAbbreviation.trim())){
                         accounting.getJournals().modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
-                        AccountingComponentMap.refreshAllFrames();
+                        ComponentMap.refreshAllFrames();
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {
@@ -232,7 +231,7 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
             journal.setType(journalType);
             accounting.getJournals().addBusinessObject(journal);
             accounting.getJournals().setCurrentObject(journal);
-            AccountingComponentMap.refreshAllFrames();
+            ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
             JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("JOURNAL_DUPLICATE_NAME")
                     +" \""+newName.trim()+"\" "+getBundle("Accounting").getString("AND_OR_ABBR")

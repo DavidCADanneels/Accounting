@@ -1,6 +1,5 @@
 package be.dafke.Coda.GUI;
 
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
@@ -15,6 +14,7 @@ import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
 import be.dafke.Coda.Objects.Statements;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Utils.Utils;
 
@@ -168,7 +168,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 			JOptionPane.showMessageDialog(this, builder.toString());
             // TODO: this is an existing Action in CodaActionListener
             String key = accounting.toString()+ CodaExtension.COUNTERPARTIES;
-            AccountingComponentMap.getDisposableComponent(key).setVisible(true);
+            ComponentMap.getDisposableComponent(key).setVisible(true);
             // until here
 			return false;
 		}

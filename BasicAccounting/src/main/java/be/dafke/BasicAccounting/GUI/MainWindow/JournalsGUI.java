@@ -1,12 +1,14 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.Actions.AccountingActionListener;
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.Actions.JournalDetailsActionListener;
+import be.dafke.BasicAccounting.Actions.JournalManagementActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Journals;
 import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.ComponentModel.ComponentMap;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -29,7 +31,7 @@ public class JournalsGUI extends AccountingPanel implements ActionListener {
 	private final JButton journalManagement, details;
     private Journals journals;
 
-	public JournalsGUI(ActionListener actionListener) {
+	public JournalsGUI(ActionListener actionListener, Accountings accountings) {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -39,13 +41,11 @@ public class JournalsGUI extends AccountingPanel implements ActionListener {
 		add(combo);
 		JPanel paneel = new JPanel();
 		journalManagement = new JButton(getBundle("Accounting").getString("JOURNAL_MANAGEMENT"));
-		journalManagement.addActionListener(actionListener);
-        journalManagement.setActionCommand(AccountingActionListener.JOURNAL_MANAGEMENT);
+		journalManagement.addActionListener(new JournalManagementActionListener(accountings));
 		journalManagement.setEnabled(false);
 		paneel.add(journalManagement);
 		details = new JButton(getBundle("Accounting").getString("VIEW_JOURNAL_DETAILS"));
-		details.addActionListener(actionListener);
-        details.setActionCommand(AccountingActionListener.JOURNAL_DETAILS);
+		details.addActionListener(new JournalDetailsActionListener(accountings));
 		details.setEnabled(false);
 		paneel.add(details);
 		add(paneel);
@@ -61,7 +61,7 @@ public class JournalsGUI extends AccountingPanel implements ActionListener {
             } else {
                 journals.setCurrentObject(newJournal);
             }
-            AccountingComponentMap.refreshAllFrames();
+            ComponentMap.refreshAllFrames();
 		}
 	}
 

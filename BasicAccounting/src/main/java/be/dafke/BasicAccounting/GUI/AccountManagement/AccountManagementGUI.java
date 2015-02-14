@@ -1,10 +1,10 @@
 package be.dafke.BasicAccounting.GUI.AccountManagement;
 
-import be.dafke.BasicAccounting.Actions.AccountingActionListener;
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.Actions.NewAccountActionListener;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
@@ -32,7 +32,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 	private final DefaultListSelectionModel selection;
 	private final Accounting accounting;
 
-	public AccountManagementGUI(Accounting accounting, ActionListener actionListener) {
+	public AccountManagementGUI(Accounting accounting) {
 		super(getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE")+" " + accounting.toString());
 		this.accounting = accounting;
 		this.model = new AccountManagementTableModel(accounting);
@@ -60,8 +60,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
 		modifyType.addActionListener(this);
 		delete.addActionListener(this);
         modifyDefaultAmount.addActionListener(this);
-        newAccount.addActionListener(actionListener);
-        newAccount.setActionCommand(AccountingActionListener.NEW_ACCOUNT);
+        newAccount.addActionListener(new NewAccountActionListener(accounting));
 		modifyName.setEnabled(false);
 		modifyType.setEnabled(false);
 		delete.setEnabled(false);
@@ -95,7 +94,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
         modifyName.setEnabled(false);
         modifyType.setEnabled(false);
         modifyDefaultAmount.setEnabled(false);
-        AccountingComponentMap.refreshAllFrames();
+        ComponentMap.refreshAllFrames();
 	}
 
     private void deleteAccounts(ArrayList<Account> accountList) {
@@ -146,7 +145,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ActionList
                 try{
                     if(newName!=null && !oldName.trim().equals(newName.trim())){
                         accounting.getAccounts().modifyAccountName(oldName, newName);
-                        AccountingComponentMap.refreshAllFrames();
+                        ComponentMap.refreshAllFrames();
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {
