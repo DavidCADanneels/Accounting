@@ -22,8 +22,10 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class Balances extends BusinessCollection<Balance> implements BusinessCollectionProvider<Account>, BusinessTypeProvider<AccountType>{
 
+    public static final String BALANCES = "Balances";
+
     public Balances(){
-        setName("Balances");
+        setName(BALANCES);
     }
 
     @Override

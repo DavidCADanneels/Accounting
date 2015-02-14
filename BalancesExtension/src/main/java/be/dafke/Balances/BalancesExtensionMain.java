@@ -23,7 +23,7 @@ public class BalancesExtensionMain extends BasicAccountingMain {
 
     protected static void applyExtensions(){
         for(Accounting accounting: accountings.getBusinessObjects()){
-            accounting.addExtension(new BalancesExtension(actionListener, menuBar));
+            accounting.addExtension(new BalancesExtension(accountings, menuBar));
         }
     }
 

@@ -1,18 +1,17 @@
 package be.dafke.Balances;
 
-import be.dafke.Balances.GUI.BalanceGUI;
-import be.dafke.Balances.GUI.TestBalance;
+import be.dafke.Balances.Actions.BalanceActionListener;
+import be.dafke.Balances.Actions.TestBalanceActionListener;
 import be.dafke.Balances.Objects.Balances;
 import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
@@ -25,18 +24,14 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class BalancesExtension implements AccountingExtension {
     private static JMenu balancesMenu = null;
-    public static final String TEST_BALANCE = "TestBalance";
-    public static final String YEAR_BALANCE = "YearBalance";
-    public static final String RELATIONS_BALANCE = "RelationsBalance";
-    public static final String RESULT_BALANCE = "ResultBalance";
     private Balances balances;
 
 
-    public BalancesExtension(ActionListener actionListener, AccountingMenuBar menuBar){
-        if(balancesMenu == null) createMenu(menuBar, actionListener);
+    public BalancesExtension(Accountings accountings, AccountingMenuBar menuBar){
+        if(balancesMenu == null) createMenu(menuBar, accountings);
     }
 
-    private void createMenu(AccountingMenuBar menuBar, ActionListener actionListener) {
+    private void createMenu(AccountingMenuBar menuBar, Accountings accountings) {
         balancesMenu = new JMenu(getBundle("Balances").getString("BALANSES"));
         balancesMenu.setMnemonic(KeyEvent.VK_B);
         JMenuItem testBalance = new JMenuItem(getBundle("Balances").getString(
@@ -46,14 +41,10 @@ public class BalancesExtension implements AccountingExtension {
                 "RESULTBALANCE"));
         JMenuItem relationsBalance = new JMenuItem(getBundle("Balances").getString(
                 "RELATIONSBALANCE"));
-        testBalance.addActionListener(actionListener);
-        yearBalance.addActionListener(actionListener);
-        resultBalance.addActionListener(actionListener);
-        relationsBalance.addActionListener(actionListener);
-        testBalance.setActionCommand(TEST_BALANCE);
-        yearBalance.setActionCommand(YEAR_BALANCE);
-        resultBalance.setActionCommand(RESULT_BALANCE);
-        relationsBalance.setActionCommand(RELATIONS_BALANCE);
+        testBalance.addActionListener(new TestBalanceActionListener(accountings));
+        yearBalance.addActionListener(new BalanceActionListener(accountings, Balances.YEAR_BALANCE));
+        resultBalance.addActionListener(new BalanceActionListener(accountings, Balances.RESULT_BALANCE));
+        relationsBalance.addActionListener(new BalanceActionListener(accountings, Balances.RELATIONS_BALANCE));
         relationsBalance.setEnabled(false);
         resultBalance.setEnabled(false);
         testBalance.setEnabled(false);
@@ -89,11 +80,6 @@ public class BalancesExtension implements AccountingExtension {
     }
 
     public void extendAccountingComponentMap(Accounting accounting){
-        ComponentMap.addDisposableComponent(accounting.toString() + RELATIONS_BALANCE, new BalanceGUI(accounting, balances.getBusinessObject(Balances.RELATIONS_BALANCE)));
-        ComponentMap.addDisposableComponent(accounting.toString() + RESULT_BALANCE, new BalanceGUI(accounting, balances.getBusinessObject(Balances.RESULT_BALANCE)));
-        ComponentMap.addDisposableComponent(accounting.toString() + YEAR_BALANCE, new BalanceGUI(accounting, balances.getBusinessObject(Balances.YEAR_BALANCE)));
-        ComponentMap.addDisposableComponent(accounting.toString() + TEST_BALANCE, new TestBalance(accounting));
-
     }
 
     public void extendWriteCollection(Accounting accounting, File xmlFolder){
