@@ -74,6 +74,7 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
                 accountings.addBusinessObject(accounting);
                 accountings.setCurrentObject(name);
                 JOptionPane.showMessageDialog(null, "Please create a Journal.");
+                // TODO: remove this command string --> call JOURNAL_MANAGEMENT gui differently
                 String key = accounting.toString()+ JOURNAL_MANAGEMENT;
                 ComponentMap.getDisposableComponent(key).setVisible(true);
             } catch (DuplicateNameException e) {
@@ -87,6 +88,9 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
             String accountingName = actionCommand.replaceAll(OPEN_ACCOUNTING, "");
             accountings.setCurrentObject(accountingName);
             ComponentMap.refreshAllFrames();
+        } else {
+            String key = accountings.getCurrentObject().toString() + actionCommand;
+            ComponentMap.getDisposableComponent(key).setVisible(true);
         }
     }
 }

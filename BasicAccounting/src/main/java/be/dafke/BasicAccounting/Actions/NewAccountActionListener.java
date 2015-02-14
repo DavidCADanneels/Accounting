@@ -22,7 +22,7 @@ public class NewAccountActionListener implements ActionListener{
         // or
         /*
         NewAccountGUI gui = new NewAccountGUI(accounting);
-        AccountingComponentMap.addRefreshableComponent(gui);
+        ComponentMap.addRefreshableComponent(gui);
         gui.setVisible(true);
         */
     }
