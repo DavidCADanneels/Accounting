@@ -106,12 +106,6 @@ public class BasicAccountingMain {
         frame.addWindowListener(new SaveAllActionListener(accountings));
         ComponentMap.addDisposableComponent(AccountingActionListener.MAIN, frame); // MAIN
         ComponentMap.addRefreshableComponent(menuBar);
-
-        for(Accounting accounting : accountings.getBusinessObjects()){
-            for(AccountingExtension extension : accounting.getExtensions()){
-                extension.extendAccountingComponentMap(accounting);
-            }
-        }
     }
     protected static void launch() {
         frame.setVisible(true);
