@@ -46,6 +46,7 @@ public class SaveAllActionListener extends WindowAdapter implements ActionListen
         ObjectModelSAXParser.toHtml(accountings, xmlFolder, xslFolder, htmlFolder);
 
         // TODO: remove this by refactoring Extension and write methods
+        // only used for Mortgages, does not work well
         for(Accounting accounting : accountings.getBusinessObjects()){
             for(AccountingExtension extension: accounting.getExtensions()){
                 File rootFolder = new File(accountings.getXmlFolder(), "Accountings");

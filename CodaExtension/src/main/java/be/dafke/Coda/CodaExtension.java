@@ -24,7 +24,6 @@ public class CodaExtension implements AccountingExtension{
     private static JMenu banking = null;
     private CounterParties counterParties;
     private Statements statements;
-;
 
     public CodaExtension(Accountings accountings, AccountingMenuBar menuBar){
         if(banking == null){

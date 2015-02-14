@@ -25,9 +25,6 @@ import java.io.File;
 public class MortgageExtension implements AccountingExtension{
     private Mortgages mortgages;
 
-    public static final String MORTGAGES = "Mortgages";
-    public static final String MORTGAGE_CALCULATOR = "MortgageCalculator";
-    public static final String MORTGAGE_TABLE = "MortgageTable";
     private static JMenu banking = null;
 
     public MortgageExtension(Accountings accountings, AccountingMenuBar menuBar){

@@ -52,7 +52,7 @@ public class BasicAccountingMain {
         if(!xmlFolder.exists()){
             xmlFolder.mkdirs();
         }
-        File subFolder = new File(xmlFolder, "Accountings");
+        File subFolder = new File(xmlFolder, Accountings.ACCOUNTINGS);
         if(!subFolder.exists()){
             subFolder.mkdir();
         }
@@ -63,7 +63,7 @@ public class BasicAccountingMain {
     }
 
     protected static void continueReadingXmlFile(){
-        File subFolder = new File(xmlFolder, "Accountings");
+        File subFolder = new File(xmlFolder, Accountings.ACCOUNTINGS);
         for(Accounting accounting : accountings.getBusinessObjects()){
             ObjectModelSAXParser.readCollection(accounting, true, subFolder);
         }
@@ -74,7 +74,6 @@ public class BasicAccountingMain {
                 extension.extendReadCollection(accounting,xmlFolder);
             }
         }
-
     }
 
     protected static void createBasicComponents(){
@@ -129,7 +128,7 @@ public class BasicAccountingMain {
             xmlFolder = new File("BasicAccounting/src/main/resources/xml");
             htmlFolder = new File("BasicAccounting/src/main/resources/html");
         } else {// if (mode == Mode.PROD) {
-            File parentFolder = new File(userHome, "Accounting");
+            File parentFolder = new File(userHome, Accountings.ACCOUNTING);
             xmlFolder = new File(parentFolder, "xml");
             htmlFolder = new File(userHome, "AccountingHTML");
         }

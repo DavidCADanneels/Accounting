@@ -4,7 +4,6 @@ import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.Mortgage.Calculate;
-import be.dafke.Mortgage.MortgageExtension;
 import be.dafke.Mortgage.Objects.Mortgage;
 import be.dafke.Mortgage.Objects.Mortgages;
 import be.dafke.Utils.Utils;
@@ -25,7 +24,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-
+	public static final String MORTGAGE_TABLE = "MortgageTable";
 	private final JTextField amountField, months, yearPercent, monthPercent, mensField, totalIntrestFixed,
 			totalToPayFixed, totalIntrestDegres, totalToPayDegres, totalIntrestDifference, totalToPayDifference;
 	private final JButton converter, create;
@@ -180,7 +179,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
             newMortgage.setStartCapital(startKapitaal);
 			newMortgage.setTable(data);
 			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, accounting, mortgages);
-            ComponentMap.addDisposableComponent(MortgageExtension.MORTGAGE_TABLE + gui.nr, gui);
+            ComponentMap.addDisposableComponent(MORTGAGE_TABLE + gui.nr, gui);
 			gui.setVisible(true);
 		}
 	}
