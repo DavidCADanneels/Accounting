@@ -217,7 +217,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 
         } else if (source == change) {
             AccountSelector sel = new AccountSelector(accounting, this);
-            AccountingComponentMap.addRefreshableComponent("bar", sel);
+            AccountingComponentMap.addRefreshableComponent(sel);
             sel.setVisible(true);
             Account account = sel.getSelection();
             if(account!=null){
@@ -232,7 +232,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         // TODO: implement ActionListener in AccountSelector or separate Action
         if(AccountingActionListener.NEW_ACCOUNT.equals(e.getActionCommand())){
             NewAccountGUI gui = new NewAccountGUI(accounting);
-            AccountingComponentMap.addRefreshableComponent("foo", gui);
+            AccountingComponentMap.addRefreshableComponent(gui);
             gui.setVisible(true);
         }
 

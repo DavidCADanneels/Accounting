@@ -108,7 +108,7 @@ public class BasicAccountingMain {
             AccountingComponentMap.addAccountingComponents(accounting, actionListener);
         }
         AccountingComponentMap.addDisposableComponent(AccountingActionListener.MAIN, frame); // MAIN
-        AccountingComponentMap.addRefreshableComponent(AccountingActionListener.MENU, menuBar);
+        AccountingComponentMap.addRefreshableComponent(menuBar);
 
         for(Accounting accounting : accountings.getBusinessObjects()){
             for(AccountingExtension extension : accounting.getExtensions()){

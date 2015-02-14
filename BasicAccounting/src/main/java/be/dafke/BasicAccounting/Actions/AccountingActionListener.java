@@ -31,7 +31,6 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
     public static final String SAVE_ALL = "SaveAll";
     protected final Accountings accountings;
     public static final String MAIN = "MainPanel";
-    public static final String MENU = "MenuBar";
     public static final String ACCOUNT_MANAGEMENT = "AccountManagement";
     public static final String JOURNAL_MANAGEMENT = "JournalManagement";
     public static final String JOURNAL_TYPE_MANAGEMENT = "JournalTypeManagement";
