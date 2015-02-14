@@ -2,27 +2,24 @@ package be.dafke.BasicAccounting.GUI.MainWindow;
 
 import be.dafke.BasicAccounting.Actions.JournalDetailsActionListener;
 import be.dafke.BasicAccounting.Actions.JournalManagementActionListener;
+import be.dafke.BasicAccounting.Actions.SwitchJournalActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Journals;
-import be.dafke.BasicAccounting.Objects.Transaction;
-import be.dafke.ComponentModel.ComponentMap;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import static java.util.ResourceBundle.getBundle;
 
 /**
  * @author David Danneels
  */
-public class JournalsGUI extends AccountingPanel implements ActionListener {
+public class JournalsGUI extends AccountingPanel {
 	/**
 	 * 
 	 */
@@ -30,13 +27,15 @@ public class JournalsGUI extends AccountingPanel implements ActionListener {
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
     private Journals journals;
+    private SwitchJournalActionListener switchJournalActionListener;
 
 	public JournalsGUI(Accountings accountings) {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		combo = new JComboBox<Journal>();
-        combo.addActionListener(this);
+        switchJournalActionListener = new SwitchJournalActionListener(accountings, combo);
+        combo.addActionListener(switchJournalActionListener);
 		combo.setEnabled(false);
 		add(combo);
 		JPanel paneel = new JPanel();
@@ -51,58 +50,16 @@ public class JournalsGUI extends AccountingPanel implements ActionListener {
 		add(paneel);
 	}
 
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == combo) {
-            Journal oldJournal = journals.getCurrentObject();
-			Journal newJournal = (Journal) combo.getSelectedItem();
-            if(newJournal!=null && oldJournal!=null){
-                checkTransfer(oldJournal, newJournal);
-            } else {
-                journals.setCurrentObject(newJournal);
-            }
-            ComponentMap.refreshAllFrames();
-		}
-	}
-
-    private void checkTransfer(Journal oldJournal, Journal newJournal){
-        Transaction oldTransaction = oldJournal.getCurrentObject();
-        Transaction newTransaction = newJournal.getCurrentObject();
-        if(oldTransaction!=null && !oldTransaction.getBusinessObjects().isEmpty()){
-            StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
-                    .append(oldJournal).append(" to ").append(newJournal);
-            if(newTransaction!=null && !newTransaction.getBusinessObjects().isEmpty()){
-                builder.append("\r\nWARNING: ").append(newJournal).append(" also has an open transactions, which will be lost if you select transfer");
-            }
-            int answer = JOptionPane.showConfirmDialog(null, builder.toString());
-            if(answer == JOptionPane.YES_OPTION){
-                newJournal.setCurrentObject(oldTransaction);
-                oldJournal.setCurrentObject(new Transaction());
-                journals.setCurrentObject(newJournal);
-            } else if(answer == JOptionPane.NO_OPTION){
-                journals.setCurrentObject(newJournal);
-            } else {
-                journals.setCurrentObject(oldJournal);
-            }
-        } else {
-            journals.setCurrentObject(newJournal);
-        }
-    }
-
     public void setAccounting(Accounting accounting){
         if(accounting==null){
-            setJournals(null);
+            journals = null;
         } else {
-            setJournals(accounting.getJournals());
+            this.journals = accounting.getJournals();
         }
-    }
-
-    public void setJournals(Journals journals){
-        this.journals = journals;
     }
 
 	public void refresh() {
-        combo.removeActionListener(this);
+        combo.removeActionListener(switchJournalActionListener);
         combo.removeAllItems();
 		if (journals!=null) {
             for(Journal journal: journals.getBusinessObjects()){
@@ -118,6 +75,6 @@ public class JournalsGUI extends AccountingPanel implements ActionListener {
             combo.setEnabled(false);
             journalManagement.setEnabled(false);
 		}
-        combo.addActionListener(this);
+        combo.addActionListener(switchJournalActionListener);
 	}
 }
