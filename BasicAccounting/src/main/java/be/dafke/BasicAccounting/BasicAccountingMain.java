@@ -81,7 +81,7 @@ public class BasicAccountingMain {
         journalGUI = new JournalGUI();
         accountsGUI = new AccountsGUI(actionListener, accountings);
         journalsGUI = new JournalsGUI(actionListener, accountings);
-        menuBar = new AccountingMenuBar(actionListener);
+        menuBar = new AccountingMenuBar(accountings);
         saveButton = new JButton("Save all");
         saveButton.setActionCommand(AccountingActionListener.SAVE_ALL);
         saveButton.addActionListener(actionListener);

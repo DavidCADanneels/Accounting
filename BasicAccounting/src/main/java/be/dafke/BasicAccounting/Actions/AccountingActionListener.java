@@ -4,11 +4,8 @@ import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModelDao.ObjectModelSAXParser;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
@@ -26,7 +23,6 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
     protected final Accountings accountings;
     public static final String MAIN = "MainPanel";
     public static final String JOURNAL_MANAGEMENT = "JournalManagement";
-    public static final String NEW_ACCOUNTING = "NewAccounting";
 
     public AccountingActionListener(Accountings accountings){
         this.accountings = accountings;
@@ -65,24 +61,6 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
         String actionCommand = ae.getActionCommand();
         if(actionCommand.equals(SAVE_ALL)){
             saveData();
-        } else if (actionCommand.equals(NEW_ACCOUNTING)) {
-            String name = JOptionPane.showInputDialog(null, "Enter a name");
-            try {
-                Accounting accounting = new Accounting();
-                accounting.setName(name);
-                accountings.addBusinessObject(accounting);
-                accountings.setCurrentObject(name);
-                JOptionPane.showMessageDialog(null, "Please create a Journal.");
-                // TODO: remove this command string --> call JOURNAL_MANAGEMENT gui differently
-                String key = accounting.toString()+ JOURNAL_MANAGEMENT;
-                ComponentMap.getDisposableComponent(key).setVisible(true);
-            } catch (DuplicateNameException e) {
-                JOptionPane.showMessageDialog(null, "There is already an accounting with the name \""+name+"\".\r\n"+
-                        "Please provide a new name.");
-            } catch (EmptyNameException e) {
-                JOptionPane.showMessageDialog(null, "The name cannot be empty.\r\nPlease provide a new name.");
-            }
-            ComponentMap.refreshAllFrames();
         } else {
             String key = accountings.getCurrentObject().toString() + actionCommand;
             ComponentMap.getDisposableComponent(key).setVisible(true);
