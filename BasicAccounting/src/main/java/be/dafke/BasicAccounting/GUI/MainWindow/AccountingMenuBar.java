@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
 import be.dafke.BasicAccounting.Actions.AccountingActionListener;
+import be.dafke.BasicAccounting.Actions.OpenAccountingActionListener;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.ComponentModel.RefreshableComponent;
@@ -56,8 +57,8 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         for(Accounting acc : accountings.getBusinessObjects()) {
             if(acc!=accounting){
                 JMenuItem item = new JMenuItem(acc.toString());
-                item.addActionListener(actionListener);
-                item.setActionCommand(AccountingActionListener.OPEN_ACCOUNTING+acc.toString());
+                OpenAccountingActionListener openAccountingActionListener = new OpenAccountingActionListener(accountings, acc);
+                item.addActionListener(openAccountingActionListener);
                 file.add(item);
             }
         }

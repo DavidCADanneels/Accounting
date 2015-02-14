@@ -27,7 +27,6 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
     public static final String MAIN = "MainPanel";
     public static final String JOURNAL_MANAGEMENT = "JournalManagement";
     public static final String NEW_ACCOUNTING = "NewAccounting";
-    public static final String OPEN_ACCOUNTING = "OpenAccounting";
 
     public AccountingActionListener(Accountings accountings){
         this.accountings = accountings;
@@ -83,10 +82,6 @@ public class AccountingActionListener extends WindowAdapter implements ActionLis
             } catch (EmptyNameException e) {
                 JOptionPane.showMessageDialog(null, "The name cannot be empty.\r\nPlease provide a new name.");
             }
-            ComponentMap.refreshAllFrames();
-        } else if(actionCommand.startsWith(OPEN_ACCOUNTING)){
-            String accountingName = actionCommand.replaceAll(OPEN_ACCOUNTING, "");
-            accountings.setCurrentObject(accountingName);
             ComponentMap.refreshAllFrames();
         } else {
             String key = accountings.getCurrentObject().toString() + actionCommand;
