@@ -1,6 +1,6 @@
 package be.dafke.Coda.GUI;
 
-import be.dafke.BasicAccounting.GUI.MainWindow.AccountSelector;
+import be.dafke.BasicAccounting.GUI.InputWindows.AccountSelector;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.Objects.BankAccount;
@@ -72,7 +72,7 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
                     }
                 }
 			} else if (col == 5) {
-                AccountSelector sel = new AccountSelector(accounting.getAccounts(), actionListener);
+                AccountSelector sel = new AccountSelector(accounting, actionListener);
                 sel.setVisible(true);
                 Account account = sel.getSelection();
 

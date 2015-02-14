@@ -4,9 +4,9 @@ import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.GUI.AccountManagement.NewAccountGUI;
 import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
+import be.dafke.BasicAccounting.GUI.InputWindows.AccountSelector;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Transaction;
@@ -41,7 +41,6 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 	private BigDecimal debettotaal, credittotaal;
     private Journal journal;
     private int selectedRow;
-    private Accounts accounts;
     private Accounting accounting;
 
     public JournalGUI() {
@@ -161,10 +160,8 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         this.accounting = accounting;
         if(accounting==null || accounting.getJournals()==null){
             journal = null;
-            accounts = null;
         } else {
             journal = accounting.getJournals().getCurrentObject();
-            accounts = accounting.getAccounts();
         }
         if(journal==null){
             journalDataModel.setTransaction(null);
@@ -219,7 +216,8 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         } else if (source == edit) {
 
         } else if (source == change) {
-            AccountSelector sel = new AccountSelector(accounts, this);
+            AccountSelector sel = new AccountSelector(accounting, this);
+            AccountingComponentMap.addRefreshableComponent("bar", sel);
             sel.setVisible(true);
             Account account = sel.getSelection();
             if(account!=null){
@@ -233,7 +231,9 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     public void actionPerformed(ActionEvent e) {
         // TODO: implement ActionListener in AccountSelector or separate Action
         if(AccountingActionListener.NEW_ACCOUNT.equals(e.getActionCommand())){
-            new NewAccountGUI(accounting).setVisible(true);
+            NewAccountGUI gui = new NewAccountGUI(accounting);
+            AccountingComponentMap.addRefreshableComponent("foo", gui);
+            gui.setVisible(true);
         }
 
         // TODO: use actionCommand i.s.o. Object (getSource()) --> or later: Actions

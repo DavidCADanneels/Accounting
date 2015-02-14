@@ -1,7 +1,8 @@
-package be.dafke.BasicAccounting.GUI.MainWindow;
+package be.dafke.BasicAccounting.GUI.InputWindows;
 
 import be.dafke.BasicAccounting.Actions.AccountingActionListener;
 import be.dafke.BasicAccounting.Objects.Account;
+import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.ComponentModel.RefreshableDialog;
 
@@ -19,11 +20,11 @@ public class AccountSelector extends RefreshableDialog implements ActionListener
 	private Account account;
 	private final JComboBox<Account> combo;
     private final DefaultComboBoxModel<Account> model;
-	private final Accounts accounts;
+	private final Accounting accounting;
 
-	public AccountSelector(Accounts accounts, ActionListener actionListener) {
+	public AccountSelector(Accounting accounting, ActionListener actionListener) {
         super("Select Account");
-        this.accounts = accounts;
+        this.accounting = accounting;
         model = new DefaultComboBoxModel<Account>();
 		combo = new JComboBox<Account>(model);
 		combo.addActionListener(this);
@@ -59,9 +60,11 @@ public class AccountSelector extends RefreshableDialog implements ActionListener
     @Override
     public void refresh() {
         model.removeAllElements();
-//        Accounts accounts = accounting.getAccounts();
+        Accounts accounts = accounting.getAccounts();
         for(Account account : accounts.getBusinessObjects()) {
             model.addElement(account);
         }
+        invalidate();
+        combo.invalidate();
     }
 }

@@ -61,6 +61,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == add || event.getSource() == nameField) {
             addAccount();
+            AccountingComponentMap.refreshAllFrames();
         }
     }
 
