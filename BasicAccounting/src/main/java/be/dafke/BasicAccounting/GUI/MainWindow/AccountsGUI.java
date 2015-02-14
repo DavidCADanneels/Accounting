@@ -48,7 +48,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     private AccountTypes accountTypes;
     private final JPanel filter;
 
-    public AccountsGUI(ActionListener actionListener, Accountings accountings) {
+    public AccountsGUI(Accountings accountings) {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("ACCOUNTS")));

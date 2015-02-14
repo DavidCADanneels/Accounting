@@ -24,7 +24,6 @@ public class BasicAccountingMain {
     protected static File xmlFolder;
     protected static File htmlFolder;
     protected static AccountingMenuBar menuBar;
-    protected static AccountingActionListener actionListener;
     protected static AccountingMultiPanel contentPanel;
     protected static AccountingGUIFrame frame;
 
@@ -78,10 +77,9 @@ public class BasicAccountingMain {
     }
 
     protected static void createBasicComponents(){
-        actionListener = new AccountingActionListener(accountings);
         journalGUI = new JournalGUI();
-        accountsGUI = new AccountsGUI(actionListener, accountings);
-        journalsGUI = new JournalsGUI(actionListener, accountings);
+        accountsGUI = new AccountsGUI(accountings);
+        journalsGUI = new JournalsGUI(accountings);
         menuBar = new AccountingMenuBar(accountings);
         saveButton = new JButton("Save all");
         saveButton.addActionListener(new SaveAllActionListener(accountings));

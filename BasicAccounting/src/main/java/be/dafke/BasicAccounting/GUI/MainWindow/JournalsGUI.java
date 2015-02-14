@@ -31,7 +31,7 @@ public class JournalsGUI extends AccountingPanel implements ActionListener {
 	private final JButton journalManagement, details;
     private Journals journals;
 
-	public JournalsGUI(ActionListener actionListener, Accountings accountings) {
+	public JournalsGUI(Accountings accountings) {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
