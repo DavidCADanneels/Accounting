@@ -79,9 +79,6 @@ public class BalancesExtension implements AccountingExtension {
 
     }
 
-    public void extendAccountingComponentMap(Accounting accounting){
-    }
-
     public void extendWriteCollection(Accounting accounting, File xmlFolder){
     }
 }

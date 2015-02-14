@@ -70,10 +70,6 @@ public class MortgageExtension implements AccountingExtension{
     }
 
     @Override
-    public void extendAccountingComponentMap(Accounting accounting){
-    }
-
-    @Override
     public void extendWriteCollection(Accounting accounting, File xmlFolder){
         File mortgagesFolder = new File(xmlFolder, "Mortgages");
         File accountsFolder = new File(xmlFolder, "Accounts");

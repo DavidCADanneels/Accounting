@@ -5,19 +5,21 @@
 
 package be.dafke.Project.Objects;
 
-import java.util.ArrayList;
-import java.util.HashMap;
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessObject;
 
 /**
  * @author David Danneels
  */
-public class Projects extends HashMap<String, Project> {
+public class Projects extends BusinessCollection<BusinessObject> {
 
-	public Projects() {
-		super();
+	@Override
+	public String getChildType() {
+		return null;
 	}
 
-	public ArrayList<Project> getProjects() {
-		return new ArrayList<Project>(values());
+	@Override
+	public BusinessObject createNewChild() {
+		return null;
 	}
 }

@@ -74,10 +74,6 @@ public class CodaExtension implements AccountingExtension{
     }
 
     @Override
-    public void extendAccountingComponentMap(Accounting accounting){
-    }
-
-    @Override
     public void extendWriteCollection(Accounting accounting, File xmlFolder){
 
     }
