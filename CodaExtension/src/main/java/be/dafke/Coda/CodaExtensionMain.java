@@ -24,7 +24,7 @@ public class CodaExtensionMain extends BasicAccountingMain {
 
     public static void applyExtensions(){
         for(Accounting accounting: accountings.getBusinessObjects()){
-            CodaExtension codaExtension = new CodaExtension(actionListener, menuBar);
+            CodaExtension codaExtension = new CodaExtension(accountings, menuBar);
             accounting.addExtension(codaExtension);
         }
     }

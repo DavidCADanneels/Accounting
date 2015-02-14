@@ -2,11 +2,12 @@ package be.dafke.Coda.GUI;
 
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.BasicAccounting.Objects.Transaction;
-import be.dafke.Coda.CodaExtension;
+import be.dafke.Coda.Actions.ShowCounterpartiesActionListener;
 import be.dafke.Coda.Dao.CodaParser;
 import be.dafke.Coda.Dao.CsvParser;
 import be.dafke.Coda.Objects.BankAccount;
@@ -16,6 +17,7 @@ import be.dafke.Coda.Objects.Statement;
 import be.dafke.Coda.Objects.Statements;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
@@ -42,7 +44,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
     private final CounterParties counterParties;
     private final Accounting accounting;
 
-    public StatementTable(Accounting accounting, Statements statements, CounterParties counterParties, ActionListener actionListener) {
+    public StatementTable(Accountings accountings, Accounting accounting, Statements statements, CounterParties counterParties) {
 		super("Statements (" + accounting.toString() + ")", new StatementDataModel(statements));
 		this.statements = statements;
         this.counterParties = counterParties;
@@ -50,8 +52,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 		// tabel.setAutoCreateRowSorter(true);
 		tabel.addMouseListener(this);
 		viewCounterParties = new JButton("View Counterparties");
-		viewCounterParties.addActionListener(actionListener);
-        viewCounterParties.setActionCommand(CodaExtension.COUNTERPARTIES);
+		viewCounterParties.addActionListener(new ShowCounterpartiesActionListener(accountings));
 		readCoda = new JButton("Read Coda file(s)");
 		readCoda.addActionListener(this);
         readCsv = new JButton("Read CSV file(s)");
@@ -135,7 +136,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 		// but as the user for input.
 		JOptionPane.showMessageDialog(this, "TODO: link transactioncode + extra data to counterparties");
 		Set<CounterParty> set = new HashSet<CounterParty>();
-		List<Statement> list = new ArrayList<Statement>();
+		List<BusinessObject> list = new ArrayList<BusinessObject>();
 		for(int i : rows) {
 			CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 4);
 			if (counterParty == null) {
@@ -147,7 +148,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 		if (!list.isEmpty()) {
 			System.err.println(list.size() + " movements have no counterparty:");
 			StringBuilder builder = new StringBuilder(list.size() + " movements have no counterparty:");
-			for(Statement statement : list) {
+			for(BusinessObject statement : list) {
 				System.err.println(statement);
 				builder.append("\r\n").append(statement);
 			}
@@ -167,7 +168,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
             // TODO: this is an existing Action in CodaActionListener
-            String key = accounting.toString()+ CodaExtension.COUNTERPARTIES;
+            String key = accounting.toString()+ CounterParties.COUNTERPARTIES;
             ComponentMap.getDisposableComponent(key).setVisible(true);
             // until here
 			return false;
@@ -193,11 +194,11 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 				}
 				if (bankAccount != null && journal != null) {
                     for(int i : rows) {
-                        CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 4);
+                        BusinessObject counterParty = (BusinessObject) tabel.getValueAt(i, 4);
                         Account account = ((CounterParty)counterParty).getAccount();
                         boolean debet = tabel.getValueAt(i, 2).equals("D");
                         if (account == null) {
-                            CounterParty counterParty2 = counterParties.getBusinessObject(counterParty.getName());
+                            BusinessObject counterParty2 = counterParties.getBusinessObject(counterParty.getName());
                             if (counterParty2 != null) {
                                 counterParty = counterParty2;
                                 account = ((CounterParty)counterParty2).getAccount();
@@ -245,12 +246,12 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 			if (col == 4) {
                 CounterParty counterParty = (CounterParty) tabel.getValueAt(row, col);
 				if (counterParty == null) {
-					CounterPartySelector sel = new CounterPartySelector(statements.getBusinessObjects().get(row), statements, counterParties);
+					CounterPartySelector sel = new CounterPartySelector((Statement)statements.getBusinessObjects().get(row), statements, counterParties);
 					sel.setVisible(true);
 					counterParty = sel.getSelection();
 				}
 				if (counterParty != null) {
-					Statement statement = statements.getBusinessObjects().get(row);
+					Statement statement = (Statement)statements.getBusinessObjects().get(row);
                     statement.setCounterParty(counterParty);
 					super.refresh();
 					System.out.println(counterParty.getName());

@@ -27,7 +27,7 @@ public class StatementDataModel extends AbstractTableModel {
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Statement m = statements.getBusinessObjects().get(row);
+		Statement m = (Statement)statements.getBusinessObjects().get(row);
 		if (col == 0) {
 			return m.getName();
 		} else if (col == 1) {

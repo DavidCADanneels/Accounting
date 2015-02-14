@@ -3,10 +3,9 @@ package be.dafke.Mortgage;
 import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.Mortgage.Actions.ShowMortgagesActionListener;
 import be.dafke.Mortgage.Dao.MortgagesSAXParser;
-import be.dafke.Mortgage.GUI.MortgageCalculatorGUI;
-import be.dafke.Mortgage.GUI.MortgageGUI;
 import be.dafke.Mortgage.Objects.Mortgage;
 import be.dafke.Mortgage.Objects.Mortgages;
 import be.dafke.ObjectModel.BusinessCollection;
@@ -16,7 +15,6 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModelDao.ObjectModelSAXParser;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 /**
@@ -25,7 +23,6 @@ import java.io.File;
  * Time: 16:09
  */
 public class MortgageExtension implements AccountingExtension{
-    private final ActionListener actionListener;
     private Mortgages mortgages;
 
     public static final String MORTGAGES = "Mortgages";
@@ -33,17 +30,15 @@ public class MortgageExtension implements AccountingExtension{
     public static final String MORTGAGE_TABLE = "MortgageTable";
     private static JMenu banking = null;
 
-    public MortgageExtension(ActionListener actionListener, AccountingMenuBar menuBar){
-        this.actionListener = actionListener;
-        if(banking == null) createMenu(menuBar, actionListener);
+    public MortgageExtension(Accountings accountings, AccountingMenuBar menuBar){
+        if(banking == null) createMenu(menuBar, accountings);
     }
 
-    private void createMenu(AccountingMenuBar menuBar, ActionListener actionListener) {
+    private void createMenu(AccountingMenuBar menuBar, Accountings accountings) {
         banking = new JMenu("Mortgage");
         JMenuItem mortgage = new JMenuItem("Mortgages");
-        mortgage.addActionListener(actionListener);
+        mortgage.addActionListener(new ShowMortgagesActionListener(accountings));
         mortgage.setEnabled(false);
-        mortgage.setActionCommand(MORTGAGES);
         banking.add(mortgage);
         menuBar.addRefreshableMenuItem(mortgage);
         menuBar.add(banking);
@@ -76,8 +71,6 @@ public class MortgageExtension implements AccountingExtension{
 
     @Override
     public void extendAccountingComponentMap(Accounting accounting){
-        ComponentMap.addDisposableComponent(accounting.toString() + MORTGAGES, new MortgageGUI(accounting, mortgages, actionListener));
-        ComponentMap.addDisposableComponent(accounting.toString() + MORTGAGE_CALCULATOR, new MortgageCalculatorGUI(accounting, mortgages));
     }
 
     @Override

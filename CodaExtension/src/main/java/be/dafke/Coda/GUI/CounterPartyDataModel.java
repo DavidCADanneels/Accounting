@@ -25,7 +25,7 @@ public class CounterPartyDataModel extends AbstractTableModel {
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		CounterParty c = counterParties.getBusinessObjects().get(row);
+		CounterParty c = (CounterParty)counterParties.getBusinessObjects().get(row);
 		if (col == 0) {
 			return c;
         } else if (col == 1) {

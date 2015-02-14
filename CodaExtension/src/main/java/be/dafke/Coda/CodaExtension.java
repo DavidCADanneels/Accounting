@@ -3,17 +3,16 @@ package be.dafke.Coda;
 import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.Coda.GUI.CounterPartyTable;
-import be.dafke.Coda.GUI.StatementTable;
+import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.Coda.Actions.ShowCounterpartiesActionListener;
+import be.dafke.Coda.Actions.ShowStatementsActionListener;
 import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.Statements;
-import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.io.File;
 
 /**
@@ -23,28 +22,23 @@ import java.io.File;
  */
 public class CodaExtension implements AccountingExtension{
     private static JMenu banking = null;
-    private final ActionListener actionListener;
     private CounterParties counterParties;
     private Statements statements;
-    public static final String MOVEMENTS = "Statements";
-    public static final String COUNTERPARTIES = "Counterparties";
+;
 
-    public CodaExtension(ActionListener actionListener, AccountingMenuBar menuBar){
-        this.actionListener = actionListener;
+    public CodaExtension(Accountings accountings, AccountingMenuBar menuBar){
         if(banking == null){
-            createMenu(menuBar, actionListener);
+            createMenu(menuBar, accountings);
         }
     }
 
-    private static void createMenu(AccountingMenuBar menuBar, ActionListener actionListener) {
+    private static void createMenu(AccountingMenuBar menuBar, Accountings accountings) {
         banking = new JMenu("Banking");
         JMenuItem movements = new JMenuItem("Show movements");
-        movements.addActionListener(actionListener);
-        movements.setActionCommand(MOVEMENTS);
+        movements.addActionListener(new ShowStatementsActionListener(accountings));
         movements.setEnabled(false);
         JMenuItem counterParties = new JMenuItem("Show Counterparties");
-        counterParties.addActionListener(actionListener);
-        counterParties.setActionCommand(COUNTERPARTIES);
+        counterParties.addActionListener(new ShowCounterpartiesActionListener(accountings));
         counterParties.setEnabled(false);
 
         banking.add(movements);
@@ -81,8 +75,6 @@ public class CodaExtension implements AccountingExtension{
 
     @Override
     public void extendAccountingComponentMap(Accounting accounting){
-        ComponentMap.addDisposableComponent(accounting.toString() + MOVEMENTS, new StatementTable(accounting, statements, counterParties, actionListener));
-        ComponentMap.addDisposableComponent(accounting.toString() + COUNTERPARTIES, new CounterPartyTable(accounting, counterParties, statements));
     }
 
     @Override

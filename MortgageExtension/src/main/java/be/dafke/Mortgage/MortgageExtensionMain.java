@@ -28,7 +28,7 @@ public class MortgageExtensionMain extends BasicAccountingMain {
 
     protected static void applyExtensions(){
         for(Accounting accounting: accountings.getBusinessObjects()){
-            MortgageExtension mortgageExtension = new MortgageExtension(actionListener, menuBar);
+            MortgageExtension mortgageExtension = new MortgageExtension(accountings, menuBar);
             accounting.addExtension(mortgageExtension);
         }
     }

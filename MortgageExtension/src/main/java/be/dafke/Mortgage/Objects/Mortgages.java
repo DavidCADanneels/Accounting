@@ -4,6 +4,7 @@ import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -14,17 +15,20 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
  * Date: 27/02/13
  * Time: 11:06
  */
-public class Mortgages extends BusinessCollection<Mortgage> implements BusinessTypeProvider<AccountType>, BusinessCollectionProvider<Account> {
+public class Mortgages extends BusinessCollection<BusinessObject> implements BusinessTypeProvider<AccountType>, BusinessCollectionProvider<Account> {
     private BusinessTypeCollection<AccountType> businessTypeCollection;
     private BusinessCollection<Account> businessCollection;
 
+    public static final String MORTGAGES = "Mortgages";
+    public static final String MORTGAGE = "Mortgage";
+
     public Mortgages(){
-        setName("Mortgages");
+        setName(MORTGAGES);
     }
 
     @Override
-    public String getChildType(){
-        return "Mortgage";
+        public String getChildType(){
+            return MORTGAGE;
     }
 
     @Override
