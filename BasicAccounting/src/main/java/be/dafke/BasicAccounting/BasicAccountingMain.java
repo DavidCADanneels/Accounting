@@ -76,7 +76,7 @@ public class BasicAccountingMain {
     }
 
     protected static void createBasicComponents(){
-        journalGUI = new JournalGUI();
+        journalGUI = new JournalGUI(accountings);
         accountsGUI = new AccountsGUI(accountings);
         journalsGUI = new JournalsGUI(accountings);
         menuBar = new AccountingMenuBar(accountings);

@@ -1,9 +1,11 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
+import be.dafke.BasicAccounting.Actions.BookTransactionActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.GUI.InputWindows.AccountSelector;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Transaction;
@@ -40,9 +42,11 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     private Journal journal;
     private int selectedRow;
     private Accounting accounting;
+    private Accountings accountings;
 
-    public JournalGUI() {
-		debettotaal = new BigDecimal(0);
+    public JournalGUI(Accountings accountings) {
+        this.accountings = accountings;
+        debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
 		setLayout(new BorderLayout());
 		journalDataModel = new JournalDataModel();
@@ -88,7 +92,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         bewijs.addFocusListener(this);
 
 		ok = new JButton(getBundle("Accounting").getString("OK"));
-		ok.addActionListener(this);
+		ok.addActionListener(new BookTransactionActionListener(this.accountings,this));
 		clear = new JButton(getBundle("Accounting").getString("CLEAR_PANEL"));
 		clear.addActionListener(this);
 
@@ -214,7 +218,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         } else if (source == edit) {
 
         } else if (source == change) {
-            AccountSelector sel = new AccountSelector(accounting);
+            AccountSelector sel = new AccountSelector(accountings.getCurrentObject());
             ComponentMap.addRefreshableComponent(sel);
             sel.setVisible(true);
             Account account = sel.getSelection();
@@ -230,18 +234,6 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         // TODO: use actionCommand i.s.o. Object (getSource()) --> or later: Actions
         if (e.getSource() instanceof JMenuItem) {
             menuAction((JMenuItem) e.getSource());
-        } else if (e.getSource() == ok) {
-            Transaction transaction = journal.getCurrentObject();
-            if(transaction!=null){
-                Calendar date = transaction.getDate();
-                if(date == null){
-                    JOptionPane.showMessageDialog(null, "Fill in date");
-                } else {
-                    journal.addBusinessObject(transaction);
-                    clear();
-                    ComponentMap.refreshAllFrames();
-                }
-            }
 		} else if (e.getSource() == clear) {
 			clear();
 		}
