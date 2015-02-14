@@ -8,10 +8,8 @@ import be.dafke.BasicAccounting.Objects.Journals;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.Calendar;
 
 /**
  * Created by ddanneel on 14/02/2015.
@@ -30,16 +28,12 @@ public class BookTransactionActionListener implements ActionListener {
         Accounting accounting = accountings.getCurrentObject();
         Journals journals = accounting.getJournals();
         Journal journal = journals.getCurrentObject();
-        Transaction transaction = journal.getCurrentObject();
+        //Transaction transaction = journal.getCurrentObject();
+        Transaction transaction = gui.saveTransaction();
         if(transaction!=null){
-            Calendar date = transaction.getDate();
-            if(date == null){
-                JOptionPane.showMessageDialog(null, "Fill in date");
-            } else {
-                journal.addBusinessObject(transaction);
-                gui.clear();
-                ComponentMap.refreshAllFrames();
-            }
+            journal.addBusinessObject(transaction);
+            gui.clear();
+            ComponentMap.refreshAllFrames();
         }
     }
 }
