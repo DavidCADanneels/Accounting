@@ -27,7 +27,7 @@ public class BasicAccountingMain {
     protected static AccountingMultiPanel contentPanel;
     protected static AccountingGUIFrame frame;
 
-    protected enum Mode{ PROD, TEST;}
+    protected enum Mode{ PROD, TEST}
 
     protected static JButton saveButton;
     protected static JournalGUI journalGUI;

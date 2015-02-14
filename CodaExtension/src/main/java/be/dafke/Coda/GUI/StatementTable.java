@@ -255,7 +255,7 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
                     statement.setCounterParty(counterParty);
 					super.refresh();
 					System.out.println(counterParty.getName());
-					for(BankAccount account : ((CounterParty)counterParty).getBankAccounts().values()) {
+					for(BankAccount account : counterParty.getBankAccounts().values()) {
 						System.out.println(account.getAccountNumber());
 						System.out.println(account.getBic());
 						System.out.println(account.getCurrency());
