@@ -20,9 +20,7 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneel on 15/02/2015.
  */
 public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
-    private final JMenuItem delete;
-    private final JMenuItem edit;
-    private final JMenuItem change;
+    private final JMenuItem delete, edit, change;
     private final JournalGUI gui;
     private final Accountings accountings;
 
@@ -62,7 +60,6 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
                 // booking must be removed and re-added to Transaction to re-calculate the totals
                 transaction.removeBusinessObject(booking);
                 movement.setAmount(amount);
-                //booking.addBusinessObject(movement); // this will override the previous one: see Booking.addBusinessObject()
                 transaction.addBusinessObject(booking);
             }
         } else if (source == change) {
