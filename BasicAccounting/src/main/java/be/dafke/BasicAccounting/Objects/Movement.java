@@ -103,6 +103,10 @@ public class Movement extends BusinessObject{
         return debit;
     }
 
+    public void setDebit(boolean debit) {
+        this.debit = debit;
+    }
+
     public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }

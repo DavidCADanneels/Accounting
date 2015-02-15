@@ -20,7 +20,7 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneel on 15/02/2015.
  */
 public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
-    private final JMenuItem delete, edit, change;
+    private final JMenuItem delete, edit, change, debitCredit;
     private final JournalGUI gui;
     private final Accountings accountings;
 
@@ -30,12 +30,15 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_AMOUNT"));
         change = new JMenuItem(getBundle("Accounting").getString("CHANGE_ACCOUNT"));
+        debitCredit = new JMenuItem(getBundle("Accounting").getString("D_C"));
         delete.addActionListener(this);
         edit.addActionListener(this);
         change.addActionListener(this);
+        debitCredit.addActionListener(this);
         add(delete);
         add(edit);
         add(change);
+        add(debitCredit);
     }
 
     @Override
@@ -62,6 +65,11 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
                 movement.setAmount(amount);
                 transaction.addBusinessObject(booking);
             }
+        } else if (source == debitCredit){
+            transaction.removeBusinessObject(booking);
+            Movement movement = booking.getBusinessObjects().get(0);
+            movement.setDebit(!movement.isDebit());
+            transaction.addBusinessObject(booking);
         } else if (source == change) {
             AccountSelector sel = new AccountSelector(accountings.getCurrentObject());
             ComponentMap.addRefreshableComponent(sel);
