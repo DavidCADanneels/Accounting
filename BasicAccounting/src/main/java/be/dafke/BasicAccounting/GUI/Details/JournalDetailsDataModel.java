@@ -68,11 +68,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 
 	@Override
 	public Object getValueAt(int row, int col) {
-        ArrayList<Booking> boekingen = new ArrayList<Booking>();
-        for(Transaction transaction : journal.getBusinessObjects()){
-            boekingen.addAll(transaction.getBusinessObjects());
-        }
-		Booking boeking = boekingen.get(row);
+		Booking boeking = getValueAt(row);
         boolean first = (boeking == boeking.getTransaction().getBusinessObjects().get(0));
         if (col == 0) {
             if(first){

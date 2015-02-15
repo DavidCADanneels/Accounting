@@ -47,10 +47,6 @@ public class JournalDetailsPopupMenu extends JPopupMenu  implements ActionListen
 
     private void menuAction(JMenuItem source) {
         setVisible(false);
-        ArrayList<Booking> boekingen = new ArrayList<Booking>();
-        for(Transaction transaction : journal.getBusinessObjects()){
-            boekingen.addAll(transaction.getBusinessObjects());
-        }
         Booking booking = gui.getSelectedBooking();
         Transaction transaction = booking.getTransaction();
         if (source == move) {
