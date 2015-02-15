@@ -20,18 +20,17 @@ import static java.util.ResourceBundle.getBundle;
 public class EditTransactionActionListener implements ActionListener {
     private Accounting accounting;
     private RefreshableTable<Booking> gui;
-    private Journal journal;
 
-    public EditTransactionActionListener(Accounting accounting, RefreshableTable<Booking> gui, Journal journal) {
+    public EditTransactionActionListener(Accounting accounting, RefreshableTable<Booking> gui) {
         this.accounting = accounting;
         this.gui = gui;
-        this.journal = journal;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Booking booking = gui.getSelectedObject();
         Transaction transaction = booking.getTransaction();
+        Journal journal = transaction.getJournal();
         journal.removeBusinessObject(transaction);
         journal.setCurrentObject(transaction);
         accounting.getJournals().setCurrentObject(journal);

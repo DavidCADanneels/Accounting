@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.GUI.Details;
 
 import be.dafke.BasicAccounting.Objects.Account;
+import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.Utils.Utils;
 
@@ -48,6 +49,10 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 	@Override
 	public String getColumnName(int col) {
 		return columnNames[col];
+	}
+
+	public Booking getValueAt(int row) {
+		return rekening.getBusinessObjects().get(row).getBooking();
 	}
 
 	@Override

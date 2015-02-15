@@ -18,17 +18,16 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class DeleteTransactionActionListener implements ActionListener {
     private RefreshableTable<Booking> gui;
-    private Journal journal;
 
-    public DeleteTransactionActionListener(RefreshableTable<Booking> gui, Journal journal) {
+    public DeleteTransactionActionListener(RefreshableTable<Booking> gui) {
         this.gui = gui;
-        this.journal = journal;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Booking booking = gui.getSelectedObject();
         Transaction transaction = booking.getTransaction();
+        Journal journal = transaction.getJournal();
         journal.removeBusinessObject(transaction);
         String text = getBundle("Accounting").getString("TRANSACTION_REMOVED");
         Object[] messageArguments = {journal.getName()};

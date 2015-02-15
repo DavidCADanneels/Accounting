@@ -21,18 +21,17 @@ import static java.util.ResourceBundle.getBundle;
 public class MoveTransactionActionListener implements ActionListener {
     private Accounting accounting;
     private RefreshableTable<Booking> gui;
-    private Journal journal;
 
-    public MoveTransactionActionListener(Accounting accounting, RefreshableTable<Booking> gui, Journal journal) {
+    public MoveTransactionActionListener(Accounting accounting, RefreshableTable<Booking> gui) {
         this.accounting = accounting;
         this.gui = gui;
-        this.journal = journal;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         Booking booking = gui.getSelectedObject();
         Transaction transaction = booking.getTransaction();
+        Journal journal = transaction.getJournal();
         ArrayList<Journal> dagboeken = accounting.getJournals().getAllJournalsExcept(journal);
         Object[] lijst = dagboeken.toArray();
         int keuze = JOptionPane.showOptionDialog(null,
