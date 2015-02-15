@@ -33,14 +33,25 @@ public class AddBookingToTransactionActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        String actionCommand = ae.getActionCommand();
-        boolean debit = actionCommand.equals(DEBIT);
         Accounting accounting = accountings.getCurrentObject();
         Accounts accounts = accounting.getAccounts();
         Journals journals = accounting.getJournals();
         Journal journal = journals.getCurrentObject();
         Account account = accounts.getCurrentObject();
         Transaction transaction = journal.getCurrentObject();
+
+        String actionCommand = ae.getActionCommand();
+        boolean debit = actionCommand.equals(DEBIT);
+        BigDecimal amount = askAmount(transaction, account, debit);
+        if(amount!=null) {
+            Booking booking = new Booking(account);
+            booking.addBusinessObject(new Movement(amount, debit));
+            transaction.addBusinessObject(booking);
+            ComponentMap.refreshAllFrames();
+        }
+    }
+
+    public static BigDecimal askAmount(Transaction transaction, Account account, boolean debit){
         BigDecimal creditTotal = transaction.getCreditTotaal();
         BigDecimal debitTotal = transaction.getDebetTotaal();
         boolean suggestion = false;
@@ -59,6 +70,7 @@ public class AddBookingToTransactionActionListener implements ActionListener {
             }
         }
         boolean ok = false;
+        BigDecimal amount = null;
         while (!ok) {
             String s;
             if(suggestion){
@@ -70,20 +82,18 @@ public class AddBookingToTransactionActionListener implements ActionListener {
             }
             if (s == null || s.equals("")) {
                 ok = true;
+                amount = null;
             } else {
                 try {
-                    BigDecimal amount = new BigDecimal(s);
+                    amount = new BigDecimal(s);
                     amount = amount.setScale(2);
-                    Booking booking = new Booking(account);
-                    booking.addBusinessObject(new Movement(amount,debit));
-                    transaction.addBusinessObject(booking);
                     ok = true;
-                    ComponentMap.refreshAllFrames();
                 } catch (NumberFormatException nfe) {
                     JOptionPane.showMessageDialog(null,
                             getBundle("Accounting").getString("INVALID_INPUT"));
                 }
             }
         }
+        return amount;
     }
 }
