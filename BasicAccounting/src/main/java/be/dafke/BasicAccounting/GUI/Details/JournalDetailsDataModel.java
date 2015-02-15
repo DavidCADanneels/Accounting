@@ -58,6 +58,14 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 		return columnNames[col];
 	}
 
+	public Booking getValueAt(int row) {
+		ArrayList<Booking> boekingen = new ArrayList<Booking>();
+		for(Transaction transaction : journal.getBusinessObjects()){
+			boekingen.addAll(transaction.getBusinessObjects());
+		}
+		return boekingen.get(row);
+	}
+
 	@Override
 	public Object getValueAt(int row, int col) {
         ArrayList<Booking> boekingen = new ArrayList<Booking>();
