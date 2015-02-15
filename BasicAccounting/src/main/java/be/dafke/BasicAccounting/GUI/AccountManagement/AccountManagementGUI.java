@@ -4,6 +4,7 @@ import be.dafke.BasicAccounting.Actions.DeleteAccountsAction;
 import be.dafke.BasicAccounting.Actions.ModifyAccountDefaultAmountsAction;
 import be.dafke.BasicAccounting.Actions.ModifyAccountNamesAction;
 import be.dafke.BasicAccounting.Actions.ModifyAccountTypesAction;
+import be.dafke.BasicAccounting.Actions.NewAccountActionListener;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ComponentModel.RefreshableFrame;
@@ -12,13 +13,11 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class AccountManagementGUI extends RefreshableFrame implements ListSelectionListener, ActionListener {
+public class AccountManagementGUI extends RefreshableFrame implements ListSelectionListener {
 	/**
 	 * 
 	 */
@@ -65,7 +64,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 		modifyType.addActionListener(modifyAccountTypesAction);
 		delete.addActionListener(deleteAccountsAction);
         modifyDefaultAmount.addActionListener(modifyAccountDefaultAmountsAction);
-        newAccount.addActionListener(this);
+		newAccount.addActionListener(new NewAccountActionListener(accounting));
 		modifyName.setEnabled(false);
 		modifyType.setEnabled(false);
 		delete.setEnabled(false);
@@ -129,15 +128,4 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
         }
         return accountList;
     }
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		new NewAccountGUI(accounting).setVisible(true);
-		// or
-        /*
-        NewAccountGUI gui = new NewAccountGUI(accounting);
-        ComponentMap.addRefreshableComponent(gui);
-        gui.setVisible(true);
-        */
-	}
 }
