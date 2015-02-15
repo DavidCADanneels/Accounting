@@ -1,9 +1,10 @@
 package be.dafke.Coda.GUI;
 
+import be.dafke.Coda.Objects.Statement;
 import be.dafke.Coda.Objects.Statements;
 import be.dafke.ComponentModel.RefreshableTable;
 
-public class GenericStatementTable extends RefreshableTable {
+public class GenericStatementTable extends RefreshableTable<Statement> {
 
 	/**
 	 * 
@@ -19,4 +20,9 @@ public class GenericStatementTable extends RefreshableTable {
                 new GenericStatementDataModel(searchOptions,statements));
 		// tabel.setAutoCreateRowSorter(true);
 	}
+
+    @Override
+    public Statement getSelectedObject() {
+        return null;
+    }
 }

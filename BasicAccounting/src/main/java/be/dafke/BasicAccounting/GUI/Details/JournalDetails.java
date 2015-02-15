@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI.Details;
 
-import be.dafke.BasicAccounting.Actions.JournalDetailsPopupMenu;
+import be.dafke.BasicAccounting.Actions.DetailsPopupMenu;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
@@ -19,7 +19,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class JournalDetails extends RefreshableTable implements WindowListener {
+public class JournalDetails extends RefreshableTable<Booking> implements WindowListener {
 	/**
 	 * 
 	 */
@@ -31,7 +31,7 @@ public class JournalDetails extends RefreshableTable implements WindowListener {
 		super(getBundle("Accounting").getString("JOURNAL_DETAILS")
                 + " " + journal.toString() + " (" + accounting.toString() + ")", new JournalDetailsDataModel(journal));
 		tabel.setAutoCreateRowSorter(true);
-		popup = new JournalDetailsPopupMenu(accounting, this, journal);
+		popup = new DetailsPopupMenu(accounting, this, journal);
 		tabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent me) {
@@ -47,7 +47,8 @@ public class JournalDetails extends RefreshableTable implements WindowListener {
 		});
 	}
 
-    public Booking getSelectedBooking(){
+	@Override
+    public Booking getSelectedObject(){
         return ((JournalDetailsDataModel)tabel.getModel()).getValueAt(selectedRow);
     }
 

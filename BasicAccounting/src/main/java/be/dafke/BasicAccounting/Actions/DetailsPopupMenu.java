@@ -1,8 +1,9 @@
 package be.dafke.BasicAccounting.Actions;
 
-import be.dafke.BasicAccounting.GUI.Details.JournalDetails;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -13,10 +14,10 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneel on 15/02/2015.
  */
-public class JournalDetailsPopupMenu extends JPopupMenu implements ActionListener {
+public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
     private final JMenuItem move, delete, edit;
 
-    public JournalDetailsPopupMenu(Accounting accounting, JournalDetails gui, Journal journal) {
+    public DetailsPopupMenu(Accounting accounting, RefreshableTable<Booking> gui, Journal journal) {
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         move = new JMenuItem(getBundle("Accounting").getString("MOVE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_TRANSACTION"));

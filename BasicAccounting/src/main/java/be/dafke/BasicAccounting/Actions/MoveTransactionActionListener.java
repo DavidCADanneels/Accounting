@@ -1,11 +1,11 @@
 package be.dafke.BasicAccounting.Actions;
 
-import be.dafke.BasicAccounting.GUI.Details.JournalDetails;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,10 +20,10 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class MoveTransactionActionListener implements ActionListener {
     private Accounting accounting;
-    private JournalDetails gui;
+    private RefreshableTable<Booking> gui;
     private Journal journal;
 
-    public MoveTransactionActionListener(Accounting accounting, JournalDetails gui, Journal journal) {
+    public MoveTransactionActionListener(Accounting accounting, RefreshableTable<Booking> gui, Journal journal) {
         this.accounting = accounting;
         this.gui = gui;
         this.journal = journal;
@@ -31,7 +31,7 @@ public class MoveTransactionActionListener implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Booking booking = gui.getSelectedBooking();
+        Booking booking = gui.getSelectedObject();
         Transaction transaction = booking.getTransaction();
         ArrayList<Journal> dagboeken = accounting.getJournals().getAllJournalsExcept(journal);
         Object[] lijst = dagboeken.toArray();

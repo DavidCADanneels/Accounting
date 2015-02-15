@@ -10,7 +10,7 @@ import java.awt.*;
  * @since 01/10/2010
  * @see #refresh()
  */
-public class RefreshableTable extends RefreshableFrame {
+public abstract class RefreshableTable<BusinessObject> extends RefreshableFrame {
 	/**
 	 * 
 	 */
@@ -40,6 +40,8 @@ public class RefreshableTable extends RefreshableFrame {
 		pack();
 //		setVisible(true);
 	}
+
+	public abstract BusinessObject getSelectedObject();
 
 	/**
 	 * Herlaadt de data van de tabel

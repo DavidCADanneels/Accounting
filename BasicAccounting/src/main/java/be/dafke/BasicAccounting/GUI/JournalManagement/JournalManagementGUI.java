@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.GUI.JournalManagement;
 
 import be.dafke.BasicAccounting.Actions.JournalTypeManagementActionListener;
+import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.JournalType;
@@ -22,7 +23,7 @@ import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class JournalManagementGUI extends RefreshableTable implements ActionListener, ListSelectionListener, FocusListener {
+public class JournalManagementGUI extends RefreshableTable<Account> implements ActionListener, ListSelectionListener, FocusListener {
 	/**
 	 * 
 	 */
@@ -99,6 +100,11 @@ public class JournalManagementGUI extends RefreshableTable implements ActionList
 			}
 		}
 	}
+
+    @Override
+    public Account getSelectedObject() {
+        return null;
+    }
 
     @Override
     public void refresh(){

@@ -13,4 +13,9 @@ public class RefreshableBalance extends RefreshableTable {
 	public RefreshableBalance(String title, AbstractTableModel m) {
 		super(title, m);
 	}
+
+	@Override
+	public Object getSelectedObject() {
+		return null;
+	}
 }

@@ -34,7 +34,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class StatementTable extends RefreshableTable implements ActionListener, MouseListener {
+public class StatementTable extends RefreshableTable<Statement> implements ActionListener, MouseListener {
 	/**
 	 * 
 	 */
@@ -86,6 +86,11 @@ public class StatementTable extends RefreshableTable implements ActionListener, 
 	private void saveToAccounting() {
 		// TODO Auto-generated method stub
 
+	}
+
+	@Override
+	public Statement getSelectedObject() {
+		return null;
 	}
 
 	@Override

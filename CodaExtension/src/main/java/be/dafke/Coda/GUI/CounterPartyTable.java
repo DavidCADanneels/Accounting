@@ -15,7 +15,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.regex.Pattern;
 
-public class CounterPartyTable extends RefreshableTable implements MouseListener {
+public class CounterPartyTable extends RefreshableTable<CounterParty> implements MouseListener {
 	/**
 	 * 
 	 */
@@ -98,4 +98,9 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
     @Override
 	public void mouseReleased(MouseEvent e) {
 	}
+
+    @Override
+    public CounterParty getSelectedObject() {
+        return null;
+    }
 }
