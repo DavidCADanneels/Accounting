@@ -5,12 +5,14 @@ import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Booking;
+import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -50,7 +52,19 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
         if (source == delete) {
             transaction.removeBusinessObject(booking);
         } else if (source == edit) {
-
+            Account account = booking.getAccount();
+            //TODO: booking contains list of Movement (should be 1 movement?)
+            //TODO: or JournalGUI.table should contain Movements iso Bookings
+            Movement movement = booking.getBusinessObjects().get(0);
+            boolean debit = movement.isDebit();
+            BigDecimal amount = AddBookingToTransactionActionListener.askAmount(transaction, account, debit);
+            if(amount != null){
+                // booking must be removed and re-added to Transaction to re-calculate the totals
+                transaction.removeBusinessObject(booking);
+                movement.setAmount(amount);
+                //booking.addBusinessObject(movement); // this will override the previous one: see Booking.addBusinessObject()
+                transaction.addBusinessObject(booking);
+            }
         } else if (source == change) {
             AccountSelector sel = new AccountSelector(accountings.getCurrentObject());
             ComponentMap.addRefreshableComponent(sel);
