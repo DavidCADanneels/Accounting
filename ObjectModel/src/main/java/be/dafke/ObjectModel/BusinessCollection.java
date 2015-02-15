@@ -160,7 +160,7 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
      */
     public void removeBusinessObject(V value) throws NotEmptyException {
         if(value.isDeletable()){
-            removeBusinessObject(value.getInitProperties(this));
+            removeBusinessObject(value.getUniqueProperties());
         } else {
             throw new NotEmptyException();
         }
