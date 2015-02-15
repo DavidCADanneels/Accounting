@@ -38,7 +38,8 @@ public class JournalDetails extends RefreshableTable implements WindowListener {
 				Point cell = me.getPoint();//
 				Point location = me.getLocationOnScreen();
 				int col = tabel.columnAtPoint(cell);
-				if (col == 0 && me.getClickCount() == 2) {
+				boolean clickable = (col == 0 || col == 2 || col == 3 || col == 4);
+				if (clickable && me.getClickCount() == 2) {
 					selectedRow = tabel.rowAtPoint(cell);
 					popup.show(null, location.x, location.y);
 				} else popup.setVisible(false);
