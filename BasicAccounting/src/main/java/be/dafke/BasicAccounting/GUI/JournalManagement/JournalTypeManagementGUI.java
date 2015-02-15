@@ -21,7 +21,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 	private static final long serialVersionUID = 1L;
 	private final JList<AccountType> debit, credit, types;
 	private final JButton addLeft, addRight, removeLeft, removeRight;
-	private final ArrayList<AccountType> debitTypes, creditTypes;
+	private final ArrayList<AccountType> debitTypes, creditTypes, allTypes;
 	private final DefaultListModel<AccountType> debitModel, creditModel, typesModel;
     private Accounting accounting;
 
@@ -30,6 +30,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
         this.accounting = accounting;
 		debitTypes = new ArrayList<AccountType>();
 		creditTypes = new ArrayList<AccountType>();
+		allTypes = new ArrayList<AccountType>();
 		debitModel = new DefaultListModel<AccountType>();
 		debit = new JList<AccountType>(debitModel);
 		creditModel = new DefaultListModel<AccountType>();
@@ -146,6 +147,11 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 		model = (DefaultListModel<AccountType>) debit.getModel();
 		model.removeAllElements();
 		for(AccountType type : debitTypes) {
+			model.addElement(type);
+		}
+		model = (DefaultListModel<AccountType>) types.getModel();
+		model.removeAllElements();
+		for(AccountType type : allTypes) {
 			model.addElement(type);
 		}
 	}

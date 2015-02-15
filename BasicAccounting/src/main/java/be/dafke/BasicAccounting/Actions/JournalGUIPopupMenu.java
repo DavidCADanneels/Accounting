@@ -66,6 +66,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
                 transaction.addBusinessObject(booking);
             }
         } else if (source == debitCredit){
+            // booking must be removed and re-added to Transaction to re-calculate the totals
             transaction.removeBusinessObject(booking);
             Movement movement = booking.getBusinessObjects().get(0);
             movement.setDebit(!movement.isDebit());
