@@ -89,6 +89,11 @@ public class StatementTable extends RefreshableTable<Statement> implements Actio
 	}
 
 	@Override
+	public void selectObject(Statement statement) {
+
+	}
+
+	@Override
 	public Statement getSelectedObject() {
 		return null;
 	}

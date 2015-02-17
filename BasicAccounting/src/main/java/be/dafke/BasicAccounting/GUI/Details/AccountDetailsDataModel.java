@@ -55,6 +55,18 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 		return rekening.getBusinessObjects().get(row).getBooking();
 	}
 
+	public int getRow(Booking booking){
+		int row=0;
+		for(Movement movement:rekening.getBusinessObjects()){
+			if(movement.getBooking()!=booking){
+				row++;
+			} else{
+				return row;
+			}
+		}
+		return 0;
+	}
+
 	@Override
 	public Object getValueAt(int row, int col) {
         Movement movement = rekening.getBusinessObjects().get(row);

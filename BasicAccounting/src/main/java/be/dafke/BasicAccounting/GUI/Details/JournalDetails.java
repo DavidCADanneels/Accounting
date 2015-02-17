@@ -48,6 +48,11 @@ public class JournalDetails extends RefreshableTable<Booking> implements WindowL
 	}
 
 	@Override
+	public void selectObject(Booking booking) {
+
+	}
+
+	@Override
     public Booking getSelectedObject(){
         return ((JournalDetailsDataModel)tabel.getModel()).getValueAt(selectedRow);
     }

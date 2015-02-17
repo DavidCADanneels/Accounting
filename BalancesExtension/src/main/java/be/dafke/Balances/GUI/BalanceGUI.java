@@ -42,6 +42,11 @@ public class BalanceGUI extends RefreshableBalance {
 	}
 
 	@Override
+	public void selectObject(Account account) {
+
+	}
+
+	@Override
 	public Account getSelectedObject(){
 		if(selectedColumn == 0 || selectedColumn == 1) {
 			return (Account)(tabel.getModel()).getValueAt(selectedRow, 0);

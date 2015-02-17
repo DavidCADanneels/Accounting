@@ -41,6 +41,8 @@ public abstract class RefreshableTable<BusinessObject> extends RefreshableFrame 
 //		setVisible(true);
 	}
 
+	public abstract void selectObject(BusinessObject object);
+
 	public abstract BusinessObject getSelectedObject();
 
 	/**

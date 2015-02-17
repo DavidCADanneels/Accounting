@@ -22,6 +22,11 @@ public class GenericStatementTable extends RefreshableTable<Statement> {
 	}
 
     @Override
+    public void selectObject(Statement statement) {
+
+    }
+
+    @Override
     public Statement getSelectedObject() {
         return null;
     }

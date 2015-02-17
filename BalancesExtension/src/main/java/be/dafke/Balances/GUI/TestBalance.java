@@ -19,6 +19,11 @@ public class TestBalance extends RefreshableTable<Account> {
 	}
 
 	@Override
+	public void selectObject(Account account) {
+
+	}
+
+	@Override
 	public Account getSelectedObject() {
 		return null;
 	}

@@ -50,6 +50,12 @@ public class AccountDetails extends RefreshableTable<Booking> implements WindowL
 	}
 
 	@Override
+	public void selectObject(Booking booking) {
+		int row = ((AccountDetailsDataModel) tabel.getModel()).getRow(booking);
+		tabel.setRowSelectionInterval(row,row);
+	}
+
+	@Override
 	public Booking getSelectedObject(){
 		return ((AccountDetailsDataModel)tabel.getModel()).getValueAt(selectedRow);
 	}

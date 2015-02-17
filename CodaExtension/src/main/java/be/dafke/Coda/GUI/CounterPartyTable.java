@@ -100,6 +100,11 @@ public class CounterPartyTable extends RefreshableTable<CounterParty> implements
 	}
 
     @Override
+    public void selectObject(CounterParty counterParty) {
+
+    }
+
+    @Override
     public CounterParty getSelectedObject() {
         return null;
     }

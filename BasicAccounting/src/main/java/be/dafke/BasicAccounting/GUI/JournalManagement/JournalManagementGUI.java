@@ -102,6 +102,11 @@ public class JournalManagementGUI extends RefreshableTable<Account> implements A
 	}
 
     @Override
+    public void selectObject(Account account) {
+
+    }
+
+    @Override
     public Account getSelectedObject() {
         return null;
     }
