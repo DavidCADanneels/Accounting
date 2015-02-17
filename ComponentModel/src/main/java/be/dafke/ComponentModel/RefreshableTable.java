@@ -32,7 +32,8 @@ public abstract class RefreshableTable<BusinessObject> extends RefreshableFrame 
 		this.model = model;
 		tabel = new JTable(model);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
-		tabel.setAutoCreateRowSorter(true);
+		//tabel.setAutoCreateRowSorter(true);
+		tabel.setRowSorter(null);
 		JScrollPane scrollPane = new JScrollPane(tabel);
 		contentPanel = new JPanel(new BorderLayout());
 		contentPanel.add(scrollPane, BorderLayout.CENTER);

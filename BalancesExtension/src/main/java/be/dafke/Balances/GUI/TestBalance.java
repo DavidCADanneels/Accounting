@@ -15,7 +15,8 @@ public class TestBalance extends RefreshableTable<Account> {
 	public TestBalance(Accounting accounting) {
 		super(getBundle("Balances").getString("TESTBALANCE") + " (" + accounting.toString() + ")",
 				new TestBalanceDataModel(accounting));
-		tabel.setAutoCreateRowSorter(true);
+		//tabel.setAutoCreateRowSorter(true);
+		tabel.setRowSorter(null);
 	}
 
 	@Override

@@ -32,6 +32,7 @@ public class AccountDetails extends RefreshableTable<Booking> implements WindowL
                 getBundle("Accounting").getString("ACCOUNT_DETAILS") + "/"
                 + account.getName(), new AccountDetailsDataModel(account));
 		//tabel.setAutoCreateRowSorter(true);
+		tabel.setRowSorter(null);
 		popup = new DetailsPopupMenu(accounting, this, DetailsPopupMenu.Mode.ACCOUNT);
 		tabel.addMouseListener(new MouseAdapter() {
 			@Override

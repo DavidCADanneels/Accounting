@@ -19,6 +19,7 @@ public class GenericStatementTable extends RefreshableTable<Statement> {
                 (searchOptions.isSearchOnCommunication()? " [communication = "+searchOptions.getCommunication()+"]":""),
                 new GenericStatementDataModel(searchOptions,statements));
 		// tabel.setAutoCreateRowSorter(true);
+        tabel.setRowSorter(null);
 	}
 
     @Override

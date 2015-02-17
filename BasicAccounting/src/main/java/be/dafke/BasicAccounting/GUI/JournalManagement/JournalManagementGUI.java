@@ -39,6 +39,7 @@ public class JournalManagementGUI extends RefreshableTable<Journal> implements A
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
 		tabel.setSelectionModel(selection);
+        tabel.setRowSorter(null);
 		JPanel north = new JPanel();
 		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
 		JPanel line1 = new JPanel();

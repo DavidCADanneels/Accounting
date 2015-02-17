@@ -29,6 +29,7 @@ public class CounterPartyTable extends RefreshableTable<CounterParty> implements
         this.statements = statements;
 		// tabel.setAutoCreateRowSorter(true);
 		tabel.addMouseListener(this);
+        tabel.setRowSorter(null);
 	}
 
     @Override

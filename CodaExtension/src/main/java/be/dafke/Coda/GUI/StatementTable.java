@@ -50,6 +50,7 @@ public class StatementTable extends RefreshableTable<Statement> implements Actio
         this.counterParties = counterParties;
         this.accounting = accounting;
 		// tabel.setAutoCreateRowSorter(true);
+		tabel.setRowSorter(null);
 		tabel.addMouseListener(this);
 		viewCounterParties = new JButton("View Counterparties");
 		viewCounterParties.addActionListener(new ShowCounterpartiesActionListener(accountings));

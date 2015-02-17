@@ -31,6 +31,7 @@ public class JournalDetails extends RefreshableTable<Booking> implements WindowL
 		super(getBundle("Accounting").getString("JOURNAL_DETAILS")
                 + " " + journal.toString() + " (" + accounting.toString() + ")", new JournalDetailsDataModel(journal));
 		//tabel.setAutoCreateRowSorter(true);
+		tabel.setRowSorter(null);
 		popup = new DetailsPopupMenu(accounting, this, DetailsPopupMenu.Mode.JOURNAL);
 		tabel.addMouseListener(new MouseAdapter() {
 			@Override
