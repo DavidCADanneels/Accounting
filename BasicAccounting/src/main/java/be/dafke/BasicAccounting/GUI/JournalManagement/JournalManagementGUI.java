@@ -152,7 +152,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
         }
         ArrayList<Journal> journalList = new ArrayList<Journal>();
         for(int row : rows) {
-            Journal journal = (Journal) model.getValueAt(row, 0);
+            Journal journal = (Journal) tabel.getModel().getValueAt(row, 0);
             journalList.add(journal);
         }
         return journalList;

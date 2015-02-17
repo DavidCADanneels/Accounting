@@ -8,6 +8,8 @@ import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statements;
 import be.dafke.ComponentModel.RefreshableTableFrame;
+import be.dafke.ComponentModel.RefreshableTableModel;
+import be.dafke.ObjectModel.BusinessObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,7 +68,7 @@ public class CounterPartyTableFrame extends RefreshableTableFrame<CounterParty> 
                         counterParty.removeAlias(aliases[result]);
                         // TODO: ask user if old name should be saved as alias
                         counterParty.addAlias(name);
-                        model.fireTableDataChanged();
+                        ((RefreshableTableModel<BusinessObject>)tabel.getModel()).fireTableDataChanged();
                     }
                 }
 			} else if (col == 5) {

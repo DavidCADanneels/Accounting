@@ -13,7 +13,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class JournalDataModel extends RefreshableTableModel<Account> {
+public class JournalDataModel extends RefreshableTableModel<Booking> {
 	/**
 	 * 
 	 */
@@ -25,10 +25,6 @@ public class JournalDataModel extends RefreshableTableModel<Account> {
 	Class[] columnClasses = { Account.class, Account.class, BigDecimal.class, BigDecimal.class };
 
     private Transaction transaction;
-
-    public Booking getValueAt(int row) {
-        return transaction.getBusinessObjects().get(row);
-    }
 
 // DE GET METHODEN
 // ===============
@@ -93,12 +89,12 @@ public class JournalDataModel extends RefreshableTableModel<Account> {
     }
 
 	@Override
-	public Account getObject(int row, int col) {
-		return null;
+	public Booking getObject(int row, int col) {
+		return transaction.getBusinessObjects().get(row);
 	}
 
 	@Override
-	public int getRow(Account account) {
+	public int getRow(Booking booking) {
 		return 0;
 	}
 }

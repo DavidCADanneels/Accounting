@@ -1,13 +1,13 @@
 package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.GUI.InputWindows.AccountSelector;
-import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -20,21 +20,26 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneel on 15/02/2015.
  */
 public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
-    private final JMenuItem delete, edit, change, debitCredit;
-    private final JournalGUI gui;
+    private final JMenuItem delete, edit, change, debitCredit, details;
+    private final RefreshableTable<Booking> table;
     private final Accountings accountings;
+    private final AccountDetailsActionListener accountDetailsActionListener;
 
-    public JournalGUIPopupMenu(JournalGUI gui, Accountings accountings) {
+    public JournalGUIPopupMenu(RefreshableTable<Booking> table, Accountings accountings) {
         this.accountings = accountings;
-        this.gui = gui;
+        this.table = table;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_AMOUNT"));
         change = new JMenuItem(getBundle("Accounting").getString("CHANGE_ACCOUNT"));
         debitCredit = new JMenuItem(getBundle("Accounting").getString("D_C"));
+        details = new JMenuItem(getBundle("Accounting").getString("GO_TO_ACCOUNT_DETAILS"));
+        add(details);
         delete.addActionListener(this);
         edit.addActionListener(this);
         change.addActionListener(this);
         debitCredit.addActionListener(this);
+        details.addActionListener(this);
+        accountDetailsActionListener = new AccountDetailsActionListener(accountings);
         add(delete);
         add(edit);
         add(change);
@@ -48,7 +53,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
 
     private void menuAction(JMenuItem source) {
         setVisible(false);
-        Booking booking = gui.getSelectedBooking();
+        Booking booking = table.getSelectedObject();
         Transaction transaction = booking.getTransaction();
         if (source == delete) {
             transaction.removeBusinessObject(booking);
@@ -79,6 +84,9 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
             if(account!=null){
                 booking.setAccount(account);
             }
+        } else if (source == details){
+            Account account = booking.getAccount();
+            accountDetailsActionListener.showDetails(accountings.getCurrentObject(), account);
         }
         ComponentMap.refreshAllFrames();
     }

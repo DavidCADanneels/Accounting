@@ -16,8 +16,6 @@ public abstract class RefreshableTableFrame<BusinessObject> extends RefreshableF
 	private static final long serialVersionUID = 1L;
 	protected RefreshableTable<BusinessObject> tabel;
 	protected JPanel contentPanel;
-	protected int selectedRow;
-	protected int selectedColumn;
 
 	/**
 	 * Constructor
@@ -42,13 +40,11 @@ public abstract class RefreshableTableFrame<BusinessObject> extends RefreshableF
 	}
 
 	public void selectObject(BusinessObject object){
-		int row = tabel.getModel().getRow(object);
-		tabel.setRowSelectionInterval(row,row);
-		tabel.scrollRectToVisible(tabel.getCellRect(row,0,false));
+		tabel.selectObject(object);
 	}
 
 	public BusinessObject getSelectedObject(){
-		return tabel.getModel().getObject(selectedRow,selectedColumn);
+		return tabel.getSelectedObject();
 	}
 
 	/**
@@ -57,6 +53,6 @@ public abstract class RefreshableTableFrame<BusinessObject> extends RefreshableF
 	 */
 	@Override
 	public void refresh() {
-		tabel.getModel().fireTableDataChanged();
+		tabel.refresh();
 	}
 }

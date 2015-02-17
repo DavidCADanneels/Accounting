@@ -4,7 +4,7 @@ import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.RefreshableTableFrame;
+import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -17,15 +17,15 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneel on 15/02/2015.
  */
 public class DeleteTransactionActionListener implements ActionListener {
-    private RefreshableTableFrame<Booking> gui;
+    private RefreshableTable<Booking> table;
 
-    public DeleteTransactionActionListener(RefreshableTableFrame<Booking> gui) {
-        this.gui = gui;
+    public DeleteTransactionActionListener(RefreshableTable<Booking> table) {
+        this.table = table;
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        Booking booking = gui.getSelectedObject();
+        Booking booking = table.getSelectedObject();
         Transaction transaction = booking.getTransaction();
         Journal journal = transaction.getJournal();
         journal.removeBusinessObject(transaction);

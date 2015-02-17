@@ -128,7 +128,11 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
 
 	@Override
 	public Account getObject(int row, int col) {
-		return null;
+		if(col == 0 || col == 1) {
+			return (Account)getValueAt(row, 0);
+		}else {
+			return (Account)getValueAt(row, 3);
+		}
 	}
 
 	@Override

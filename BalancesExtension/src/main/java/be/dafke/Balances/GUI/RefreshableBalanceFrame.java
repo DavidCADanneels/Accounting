@@ -14,13 +14,4 @@ public class RefreshableBalanceFrame extends RefreshableTableFrame<Account> {
 		super(title, m);
 	}
 
-	@Override
-	public void selectObject(Account account) {
-
-	}
-
-	@Override
-	public Account getSelectedObject() {
-		return null;
-	}
 }

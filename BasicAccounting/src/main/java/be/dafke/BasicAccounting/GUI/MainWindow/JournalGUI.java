@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.GUI.MainWindow;
 import be.dafke.BasicAccounting.Actions.BookTransactionActionListener;
 import be.dafke.BasicAccounting.Actions.JournalGUIPopupMenu;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
-import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Booking;
@@ -34,10 +33,9 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 	private final JTextField debet, credit, dag, maand, jaar, bewijs, ident;
 	private final JButton ok, save, clear;
     private final JPopupMenu popup;
-    private final RefreshableTable<Account> table;
+    private final RefreshableTable<Booking> table;
 	private BigDecimal debettotaal, credittotaal;
     private Journal journal;
-    private int selectedRow;
     private Accountings accountings;
 
     public JournalGUI(Accountings accountings) {
@@ -46,19 +44,20 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 		credittotaal = new BigDecimal(0);
 		setLayout(new BorderLayout());
 		journalDataModel = new JournalDataModel();
-		table = new RefreshableTable<Account>(journalDataModel);
+		table = new RefreshableTable<Booking>(journalDataModel);
 		table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 		JScrollPane scrollPane = new JScrollPane(table);
 		add(scrollPane, BorderLayout.CENTER);
 
-        popup = new JournalGUIPopupMenu(this, accountings);
+        popup = new JournalGUIPopupMenu(table, accountings);
         table.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
                 Point cell = me.getPoint();//
                 Point location = me.getLocationOnScreen();
-                selectedRow = table.rowAtPoint(cell);
-                if(selectedRow !=-1){
+                int row = table.rowAtPoint(cell);
+                if(row !=-1){
+                    table.setSelectedRow(row);
                     popup.show(null, location.x, location.y);
                 }
             }
@@ -228,10 +227,6 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         bewijs.setText(description);
         debet.setText(debettotaal.toString());
         credit.setText(credittotaal.toString());
-    }
-
-    public Booking getSelectedBooking(){
-        return journalDataModel.getValueAt(selectedRow);
     }
 
     @Override

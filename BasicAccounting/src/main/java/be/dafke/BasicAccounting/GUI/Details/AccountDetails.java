@@ -33,7 +33,7 @@ public class AccountDetails extends RefreshableTableFrame<Booking> implements Wi
                 + account.getName(), new AccountDetailsDataModel(account));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
-		popup = new DetailsPopupMenu(accounting, this, DetailsPopupMenu.Mode.ACCOUNT);
+		popup = new DetailsPopupMenu(accounting, tabel, DetailsPopupMenu.Mode.ACCOUNT);
 		tabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent me) {
@@ -42,7 +42,8 @@ public class AccountDetails extends RefreshableTableFrame<Booking> implements Wi
 				int col = tabel.columnAtPoint(cell);
 				boolean clickable = (col == 0 || col == 2 || col == 3);
 				if (clickable && me.getClickCount() == 2) {
-					selectedRow = tabel.rowAtPoint(cell);
+					int row = tabel.rowAtPoint(cell);
+					tabel.setSelectedRow(row);
 					popup.show(null, location.x, location.y);
 				} else popup.setVisible(false);
 			}

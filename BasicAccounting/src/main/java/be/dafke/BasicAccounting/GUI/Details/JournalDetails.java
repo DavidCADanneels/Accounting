@@ -32,7 +32,7 @@ public class JournalDetails extends RefreshableTableFrame<Booking> implements Wi
                 + " " + journal.toString() + " (" + accounting.toString() + ")", new JournalDetailsDataModel(journal));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
-		popup = new DetailsPopupMenu(accounting, this, DetailsPopupMenu.Mode.JOURNAL);
+		popup = new DetailsPopupMenu(accounting, tabel, DetailsPopupMenu.Mode.JOURNAL);
 		tabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent me) {
@@ -41,7 +41,8 @@ public class JournalDetails extends RefreshableTableFrame<Booking> implements Wi
 				int col = tabel.columnAtPoint(cell);
 				boolean clickable = (col == 0 || col == 2 || col == 3 || col == 4);
 				if (clickable && me.getClickCount() == 2) {
-					selectedRow = tabel.rowAtPoint(cell);
+					int row = tabel.rowAtPoint(cell);
+					tabel.setSelectedRow(row);
 					popup.show(null, location.x, location.y);
 				} else popup.setVisible(false);
 			}
