@@ -45,6 +45,7 @@ public abstract class RefreshableTable<BusinessObject> extends RefreshableFrame 
 	public void selectObject(BusinessObject object){
 		int row = model.getRow(object);
 		tabel.setRowSelectionInterval(row,row);
+		tabel.scrollRectToVisible(tabel.getCellRect(row,0,false));
 	}
 
 	public BusinessObject getSelectedObject(){
