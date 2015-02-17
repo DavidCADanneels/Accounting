@@ -15,24 +15,34 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
     private final JMenuItem move, delete, edit;
+//    private final JMenuItem details;
+//    private final AccountDetailsActionListener accountDetailsActionListener;
 
     public DetailsPopupMenu(Accounting accounting, RefreshableTable<Booking> gui) {
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         move = new JMenuItem(getBundle("Accounting").getString("MOVE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_TRANSACTION"));
+//        details = new JMenuItem(getBundle("Accounting").getString("DETAILS"));
         delete.addActionListener(this);
         move.addActionListener(this);
         edit.addActionListener(this);
+//        details.addActionListener(this);
         delete.addActionListener(new DeleteTransactionActionListener(gui));
-        move.addActionListener(new MoveTransactionActionListener(accounting, gui));
-        edit.addActionListener(new EditTransactionActionListener(accounting, gui));
+        move.addActionListener(new MoveTransactionActionListener(accounting.getJournals(), gui));
+        edit.addActionListener(new EditTransactionActionListener(accounting.getJournals(), gui));
+//        accountDetailsActionListener = new AccountDetailsActionListener(null);
         add(delete);
         add(move);
         add(edit);
+//        add(details);
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         setVisible(false);
+//        if(e.getSource() == details){
+//            // getActionCommand
+//            accountDetailsActionListener.showDetails();
+//        }
     }
 }

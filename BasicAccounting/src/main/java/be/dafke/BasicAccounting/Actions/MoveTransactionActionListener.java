@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Actions;
 
-import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.BasicAccounting.Objects.Journals;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
@@ -19,11 +19,11 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneel on 15/02/2015.
  */
 public class MoveTransactionActionListener implements ActionListener {
-    private Accounting accounting;
+    private Journals journals;
     private RefreshableTable<Booking> gui;
 
-    public MoveTransactionActionListener(Accounting accounting, RefreshableTable<Booking> gui) {
-        this.accounting = accounting;
+    public MoveTransactionActionListener(Journals journals, RefreshableTable<Booking> gui) {
+        this.journals = journals;
         this.gui = gui;
     }
 
@@ -32,7 +32,7 @@ public class MoveTransactionActionListener implements ActionListener {
         Booking booking = gui.getSelectedObject();
         Transaction transaction = booking.getTransaction();
         Journal journal = transaction.getJournal();
-        ArrayList<Journal> dagboeken = accounting.getJournals().getAllJournalsExcept(journal);
+        ArrayList<Journal> dagboeken = journals.getAllJournalsExcept(journal);
         Object[] lijst = dagboeken.toArray();
         int keuze = JOptionPane.showOptionDialog(null,
                 getBundle("Accounting").getString("CHOOSE_JOURNAL"),
