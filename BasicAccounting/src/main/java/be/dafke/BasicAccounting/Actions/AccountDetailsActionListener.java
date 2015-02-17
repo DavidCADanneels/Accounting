@@ -7,7 +7,7 @@ import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,7 +30,7 @@ public class AccountDetailsActionListener implements ActionListener{
         showDetails(accounting, account);
     }
 
-    public RefreshableTable<Booking> showDetails(Accounting accounting, Account account){
+    public RefreshableTableFrame<Booking> showDetails(Accounting accounting, Account account){
         String key = accounting.toString() + ACCOUNT_DETAILS + account.getName();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
@@ -38,6 +38,6 @@ public class AccountDetailsActionListener implements ActionListener{
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
-        return (RefreshableTable<Booking>)gui;
+        return (RefreshableTableFrame<Booking>)gui;
     }
 }

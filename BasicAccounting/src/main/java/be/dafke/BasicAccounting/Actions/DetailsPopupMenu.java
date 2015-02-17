@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -18,11 +18,11 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
     public enum Mode{ JOURNAL, ACCOUNT}
     private Mode mode;
     private Accounting accounting;
-    private RefreshableTable<Booking> gui;
+    private RefreshableTableFrame<Booking> gui;
     private final AccountDetailsActionListener accountDetailsActionListener;
     private final JournalDetailsActionListener journalDetailsActionListener;
 
-    public DetailsPopupMenu(Accounting accounting, RefreshableTable<Booking> gui, Mode mode) {
+    public DetailsPopupMenu(Accounting accounting, RefreshableTableFrame<Booking> gui, Mode mode) {
         this.mode = mode;
         this.gui = gui;
         this.accounting = accounting;
@@ -53,7 +53,7 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         setVisible(false);
-        RefreshableTable<Booking> newGui;
+        RefreshableTableFrame<Booking> newGui;
         if(e.getSource() == details){
             Booking booking = gui.getSelectedObject();
             if(mode == Mode.JOURNAL) {

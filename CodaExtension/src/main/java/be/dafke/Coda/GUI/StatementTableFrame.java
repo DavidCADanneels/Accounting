@@ -16,7 +16,7 @@ import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
 import be.dafke.Coda.Objects.Statements;
 import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.RefreshableTableFrame;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
@@ -34,7 +34,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-public class StatementTable extends RefreshableTable<Statement> implements ActionListener, MouseListener {
+public class StatementTableFrame extends RefreshableTableFrame<Statement> implements ActionListener, MouseListener {
 	/**
 	 * 
 	 */
@@ -44,7 +44,7 @@ public class StatementTable extends RefreshableTable<Statement> implements Actio
     private final CounterParties counterParties;
     private final Accounting accounting;
 
-    public StatementTable(Accountings accountings, Accounting accounting, Statements statements, CounterParties counterParties) {
+    public StatementTableFrame(Accountings accountings, Accounting accounting, Statements statements, CounterParties counterParties) {
 		super("Statements (" + accounting.toString() + ")", new StatementDataModel(statements));
 		this.statements = statements;
         this.counterParties = counterParties;
@@ -166,7 +166,7 @@ public class StatementTable extends RefreshableTable<Statement> implements Actio
 			JOptionPane.showMessageDialog(this, builder.toString());
             SearchOptions searchOptions = new SearchOptions();
             searchOptions.searchForCounterParty(null);
-			GenericStatementTable gui = new GenericStatementTable(searchOptions, statements);
+			GenericStatementTableFrame gui = new GenericStatementTableFrame(searchOptions, statements);
 			gui.setVisible(true);
 			return false;
 		}
@@ -273,23 +273,23 @@ public class StatementTable extends RefreshableTable<Statement> implements Actio
 					}
                     SearchOptions searchOptions = new SearchOptions();
                     searchOptions.searchForCounterParty(counterParty);
-					RefreshableTable refreshableTable = new GenericStatementTable(searchOptions, statements);
-                    refreshableTable.setVisible(true);
+					RefreshableTableFrame refreshableTableFrame = new GenericStatementTableFrame(searchOptions, statements);
+                    refreshableTableFrame.setVisible(true);
 					// parent.addChildFrame(refreshableTable);
 				}
 			} else if (col == 5) {
 				String transactionCode = (String) tabel.getValueAt(row, 6);
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.searchForTransactionCode(transactionCode);
-				RefreshableTable refreshableTable = new GenericStatementTable(searchOptions, statements);
-                refreshableTable.setVisible(true);
+				RefreshableTableFrame refreshableTableFrame = new GenericStatementTableFrame(searchOptions, statements);
+                refreshableTableFrame.setVisible(true);
 				// parent.addChildFrame(refreshableTable);
             } else if (col == 6){
                 String communication = (String) tabel.getValueAt(row, 7);
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.searchForCommunication(communication);
-                RefreshableTable refreshableTable = new GenericStatementTable(searchOptions, statements);
-                refreshableTable.setVisible(true);
+                RefreshableTableFrame refreshableTableFrame = new GenericStatementTableFrame(searchOptions, statements);
+                refreshableTableFrame.setVisible(true);
                 // parent.addChildFrame(refreshableTable);
             }
 		}

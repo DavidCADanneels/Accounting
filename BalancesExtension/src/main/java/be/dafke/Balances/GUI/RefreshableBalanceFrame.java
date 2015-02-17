@@ -1,16 +1,16 @@
 package be.dafke.Balances.GUI;
 
 import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.RefreshableTableFrame;
 import be.dafke.ComponentModel.RefreshableTableModel;
 
-public class RefreshableBalance extends RefreshableTable<Account> {
+public class RefreshableBalanceFrame extends RefreshableTableFrame<Account> {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	public RefreshableBalance(String title, RefreshableTableModel<Account> m) {
+	public RefreshableBalanceFrame(String title, RefreshableTableModel<Account> m) {
 		super(title, m);
 	}
 

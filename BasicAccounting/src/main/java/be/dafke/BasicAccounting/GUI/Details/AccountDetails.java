@@ -9,7 +9,7 @@ import be.dafke.BasicAccounting.Actions.DetailsPopupMenu;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,7 @@ import java.awt.event.WindowListener;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class AccountDetails extends RefreshableTable<Booking> implements WindowListener {
+public class AccountDetails extends RefreshableTableFrame<Booking> implements WindowListener {
 	/**
 	 *
 	 */

@@ -2,7 +2,7 @@ package be.dafke.Coda.Actions;
 
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
-import be.dafke.Coda.GUI.StatementTable;
+import be.dafke.Coda.GUI.StatementTableFrame;
 import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.Statements;
 import be.dafke.ComponentModel.ComponentMap;
@@ -31,7 +31,7 @@ public class ShowStatementsActionListener implements ActionListener{
         String key = accounting.toString() + Statements.STATEMENTS;
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new StatementTable(accountings, accounting, (Statements)statements, (CounterParties)counterParties);
+            gui = new StatementTableFrame(accountings, accounting, (Statements)statements, (CounterParties)counterParties);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);

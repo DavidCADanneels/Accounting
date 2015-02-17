@@ -9,7 +9,7 @@ import java.awt.*;
  * @since 01/10/2010
  * @see #refresh()
  */
-public abstract class RefreshableTable<BusinessObject> extends RefreshableFrame {
+public abstract class RefreshableTableFrame<BusinessObject> extends RefreshableFrame {
 	/**
 	 * 
 	 */
@@ -27,7 +27,7 @@ public abstract class RefreshableTable<BusinessObject> extends RefreshableFrame 
 	 * @see RefreshableFrame#RefreshableFrame(java.lang.String) RefreshableFrame(String)
 	 * @see javax.swing.table.AbstractTableModel
 	 */
-	public RefreshableTable(String title, RefreshableTableModel<BusinessObject> model) {
+	public RefreshableTableFrame(String title, RefreshableTableModel<BusinessObject> model) {
 		super(title);
 		this.model = model;
 		tabel = new JTable(model);

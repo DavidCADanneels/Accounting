@@ -7,7 +7,7 @@ import be.dafke.Coda.Objects.BankAccount;
 import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statements;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.regex.Pattern;
 
-public class CounterPartyTable extends RefreshableTable<CounterParty> implements MouseListener {
+public class CounterPartyTableFrame extends RefreshableTableFrame<CounterParty> implements MouseListener {
 	/**
 	 * 
 	 */
@@ -23,7 +23,7 @@ public class CounterPartyTable extends RefreshableTable<CounterParty> implements
 	private final Accounting accounting;
     private final Statements statements;
 
-    public CounterPartyTable(Accounting accounting, CounterParties counterParties, Statements statements) {
+    public CounterPartyTableFrame(Accounting accounting, CounterParties counterParties, Statements statements) {
 		super("Counterparties (" + accounting.toString() + ")", new CounterPartyDataModel(counterParties));
 		this.accounting = accounting;
         this.statements = statements;
@@ -50,7 +50,7 @@ public class CounterPartyTable extends RefreshableTable<CounterParty> implements
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.setCounterParty(counterParty);
                 searchOptions.setSearchOnCounterParty(true);
-				RefreshableTable refreshTable = new GenericStatementTable(searchOptions, statements);
+				RefreshableTableFrame refreshTable = new GenericStatementTableFrame(searchOptions, statements);
                 refreshTable.setVisible(true);
 				// parent.addChildFrame(refreshTable);
             } else if (col == 1){

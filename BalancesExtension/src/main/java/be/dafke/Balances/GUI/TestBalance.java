@@ -2,11 +2,11 @@ package be.dafke.Balances.GUI;
 
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class TestBalance extends RefreshableTable<Account> {
+public class TestBalance extends RefreshableTableFrame<Account> {
 	/**
 	 * 
 	 */

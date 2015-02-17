@@ -4,7 +4,7 @@ import be.dafke.BasicAccounting.Actions.DetailsPopupMenu;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +19,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class JournalDetails extends RefreshableTable<Booking> implements WindowListener {
+public class JournalDetails extends RefreshableTableFrame<Booking> implements WindowListener {
 	/**
 	 * 
 	 */

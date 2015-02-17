@@ -5,7 +5,7 @@ import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.JournalType;
 import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.RefreshableTableFrame;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class JournalManagementGUI extends RefreshableTable<Journal> implements ActionListener, ListSelectionListener, FocusListener {
+public class JournalManagementGUI extends RefreshableTableFrame<Journal> implements ActionListener, ListSelectionListener, FocusListener {
 	/**
 	 * 
 	 */

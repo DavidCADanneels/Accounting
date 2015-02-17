@@ -7,7 +7,7 @@ import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -29,7 +29,7 @@ public class JournalDetailsActionListener implements ActionListener{
         showDetails(accounting, journal);
     }
 
-    public RefreshableTable<Booking> showDetails(Accounting accounting, Journal journal){
+    public RefreshableTableFrame<Booking> showDetails(Accounting accounting, Journal journal){
         String key = JOURNAL_DETAILS + accounting.toString() + journal.toString();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
@@ -37,6 +37,6 @@ public class JournalDetailsActionListener implements ActionListener{
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
-        return (RefreshableTable<Booking>)gui;
+        return (RefreshableTableFrame<Booking>)gui;
     }
 }
