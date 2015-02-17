@@ -23,7 +23,7 @@ public class BalancePopupMenu extends JPopupMenu implements ActionListener {
     public BalancePopupMenu(Accountings accountings, Accounting accounting, RefreshableTable<Account> gui) {
         this.accounting = accounting;
         this.gui = gui;
-        details = new JMenuItem(getBundle("Accounting").getString("DETAILS"));
+        details = new JMenuItem(getBundle("Accounting").getString("GO_TO_ACCOUNT_DETAILS"));
         details.addActionListener(this);
         accountDetailsActionListener = new AccountDetailsActionListener(accountings);
         add(details);

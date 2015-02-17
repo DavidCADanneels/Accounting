@@ -2,8 +2,7 @@ package be.dafke.BasicAccounting.GUI.JournalManagement;
 
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Journal;
-
-import javax.swing.table.AbstractTableModel;
+import be.dafke.ComponentModel.RefreshableTableModel;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -12,7 +11,7 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 5-1-14
  * Time: 16:22
  */
-public class JournalManagementTableModel extends AbstractTableModel {
+public class JournalManagementTableModel extends RefreshableTableModel<Journal> {
     /**
      *
      */
@@ -67,5 +66,15 @@ public class JournalManagementTableModel extends AbstractTableModel {
     // ===============
     @Override
     public void setValueAt(Object value, int row, int col) {
+    }
+
+    @Override
+    public Journal getObject(int row, int col) {
+        return null;
+    }
+
+    @Override
+    public int getRow(Journal o) {
+        return 0;
     }
 }

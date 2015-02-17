@@ -1,7 +1,6 @@
 package be.dafke.ComponentModel;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import java.awt.*;
 
 /**
@@ -15,20 +14,22 @@ public abstract class RefreshableTable<BusinessObject> extends RefreshableFrame 
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected final AbstractTableModel model;
+	protected final RefreshableTableModel<BusinessObject> model;
 	protected JTable tabel;
 	protected JPanel contentPanel;
+	protected int selectedRow;
+	protected int selectedColumn;
 
 	/**
 	 * Constructor
 	 * @param title titel van het RefreshableFrame
-	 * @param m het TableModel van de tabel
+	 * @param model het TableModel van de tabel
 	 * @see RefreshableFrame#RefreshableFrame(java.lang.String) RefreshableFrame(String)
 	 * @see javax.swing.table.AbstractTableModel
 	 */
-	public RefreshableTable(String title, AbstractTableModel m) {
+	public RefreshableTable(String title, RefreshableTableModel<BusinessObject> model) {
 		super(title);
-		model = m;
+		this.model = model;
 		tabel = new JTable(model);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		tabel.setAutoCreateRowSorter(true);
@@ -41,9 +42,14 @@ public abstract class RefreshableTable<BusinessObject> extends RefreshableFrame 
 //		setVisible(true);
 	}
 
-	public abstract void selectObject(BusinessObject object);
+	public void selectObject(BusinessObject object){
+		int row = model.getRow(object);
+		tabel.setRowSelectionInterval(row,row);
+	}
 
-	public abstract BusinessObject getSelectedObject();
+	public BusinessObject getSelectedObject(){
+		return model.getObject(selectedRow,selectedColumn);
+	}
 
 	/**
 	 * Herlaadt de data van de tabel

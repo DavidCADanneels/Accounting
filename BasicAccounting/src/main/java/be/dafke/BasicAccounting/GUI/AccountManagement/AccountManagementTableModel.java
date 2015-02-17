@@ -3,13 +3,13 @@ package be.dafke.BasicAccounting.GUI.AccountManagement;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.ComponentModel.RefreshableTableModel;
 
-import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class AccountManagementTableModel extends AbstractTableModel {
+public class AccountManagementTableModel extends RefreshableTableModel<Account> {
 	/**
 	 * 
 	 */
@@ -72,5 +72,15 @@ public class AccountManagementTableModel extends AbstractTableModel {
 	// ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
+	}
+
+	@Override
+	public Account getObject(int row, int col) {
+		return null;
+	}
+
+	@Override
+	public int getRow(Account account) {
+		return 0;
 	}
 }

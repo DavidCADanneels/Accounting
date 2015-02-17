@@ -25,13 +25,13 @@ public class JournalDetails extends RefreshableTable<Booking> implements WindowL
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
-	private int selectedRow;
+
 
 	public JournalDetails(Journal journal, Accounting accounting) {
 		super(getBundle("Accounting").getString("JOURNAL_DETAILS")
                 + " " + journal.toString() + " (" + accounting.toString() + ")", new JournalDetailsDataModel(journal));
-		tabel.setAutoCreateRowSorter(true);
-		popup = new DetailsPopupMenu(accounting, this);
+		//tabel.setAutoCreateRowSorter(true);
+		popup = new DetailsPopupMenu(accounting, this, DetailsPopupMenu.Mode.JOURNAL);
 		tabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent me) {
@@ -46,16 +46,6 @@ public class JournalDetails extends RefreshableTable<Booking> implements WindowL
 			}
 		});
 	}
-
-	@Override
-	public void selectObject(Booking booking) {
-
-	}
-
-	@Override
-    public Booking getSelectedObject(){
-        return ((JournalDetailsDataModel)tabel.getModel()).getValueAt(selectedRow);
-    }
 
     @Override
     public void windowClosing(WindowEvent we) {

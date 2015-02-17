@@ -4,9 +4,9 @@ import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.Utils.Utils;
 
-import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,7 +16,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class JournalDetailsDataModel extends AbstractTableModel {
+public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 	/**
 	 * 
 	 */
@@ -108,11 +108,7 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-        ArrayList<Booking> boekingen = new ArrayList<Booking>();
-        for(Transaction transaction : journal.getBusinessObjects()){
-            boekingen.addAll(transaction.getBusinessObjects());
-        }
-        Booking booking = boekingen.get(row);
+        Booking booking = getObject(row,col);
         Transaction transaction = booking.getTransaction();
 		if (col == 1) {
 			Calendar oudeDatum = transaction.getDate();
@@ -129,5 +125,31 @@ public class JournalDetailsDataModel extends AbstractTableModel {
 		// ouder.repaint();
 		// parent.repaintAllFrames();
 //		super.refresh();
+	}
+
+	@Override
+	public Booking getObject(int row, int col) {
+		ArrayList<Booking> boekingen = new ArrayList<Booking>();
+		for(Transaction transaction : journal.getBusinessObjects()){
+			boekingen.addAll(transaction.getBusinessObjects());
+		}
+		return boekingen.get(row);
+	}
+
+	@Override
+	public int getRow(Booking booking) {
+		int row = 0;
+		ArrayList<Booking> boekingen = new ArrayList<Booking>();
+		for(Transaction transaction : journal.getBusinessObjects()){
+			boekingen.addAll(transaction.getBusinessObjects());
+		}
+		for(Booking booking1:boekingen){
+			if(booking1!=booking){
+				row++;
+			} else{
+				return row;
+			}
+		}
+		return 0;
 	}
 }

@@ -26,14 +26,13 @@ public class AccountDetails extends RefreshableTable<Booking> implements WindowL
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
-	private int selectedRow;
 
 	public AccountDetails(Account account, Accounting accounting) {
 		super(accounting.toString() + "/" +
                 getBundle("Accounting").getString("ACCOUNT_DETAILS") + "/"
                 + account.getName(), new AccountDetailsDataModel(account));
-		tabel.setAutoCreateRowSorter(true);
-		popup = new DetailsPopupMenu(accounting, this);
+		//tabel.setAutoCreateRowSorter(true);
+		popup = new DetailsPopupMenu(accounting, this, DetailsPopupMenu.Mode.ACCOUNT);
 		tabel.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent me) {
@@ -47,17 +46,6 @@ public class AccountDetails extends RefreshableTable<Booking> implements WindowL
 				} else popup.setVisible(false);
 			}
 		});
-	}
-
-	@Override
-	public void selectObject(Booking booking) {
-		int row = ((AccountDetailsDataModel) tabel.getModel()).getRow(booking);
-		tabel.setRowSelectionInterval(row,row);
-	}
-
-	@Override
-	public Booking getSelectedObject(){
-		return ((AccountDetailsDataModel)tabel.getModel()).getValueAt(selectedRow);
 	}
 
 	@Override

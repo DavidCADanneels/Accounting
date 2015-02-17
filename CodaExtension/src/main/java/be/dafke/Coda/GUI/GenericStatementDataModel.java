@@ -4,14 +4,14 @@ import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
 import be.dafke.Coda.Objects.Statements;
 import be.dafke.Coda.Objects.TmpCounterParty;
+import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.Utils.Utils;
 
-import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class GenericStatementDataModel extends AbstractTableModel {
+public class GenericStatementDataModel extends RefreshableTableModel<Statement> {
 	/**
 	 * 
 	 */
@@ -96,5 +96,15 @@ public class GenericStatementDataModel extends AbstractTableModel {
 			return result;
 		}
 		return statements.getStatements(searchOptions);
+	}
+
+	@Override
+	public Statement getObject(int row, int col) {
+		return null;
+	}
+
+	@Override
+	public int getRow(Statement statement) {
+		return 0;
 	}
 }

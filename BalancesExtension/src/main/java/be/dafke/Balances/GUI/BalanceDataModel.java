@@ -2,14 +2,14 @@ package be.dafke.Balances.GUI;
 
 import be.dafke.Balances.Objects.Balance;
 import be.dafke.BasicAccounting.Objects.Account;
+import be.dafke.ComponentModel.RefreshableTableModel;
 
-import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class BalanceDataModel extends AbstractTableModel {
+public class BalanceDataModel extends RefreshableTableModel<Account> {
 	/**
 	 * 
 	 */
@@ -124,5 +124,15 @@ public class BalanceDataModel extends AbstractTableModel {
 // ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
+	}
+
+	@Override
+	public Account getObject(int row, int col) {
+		return null;
+	}
+
+	@Override
+	public int getRow(Account account) {
+		return 0;
 	}
 }
