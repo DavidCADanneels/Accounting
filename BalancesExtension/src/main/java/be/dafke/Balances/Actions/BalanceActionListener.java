@@ -33,7 +33,7 @@ public class BalanceActionListener implements ActionListener {
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             Balance balance = (Balance)balances.getBusinessObject(balanceName);
-            gui = new BalanceGUI(accounting, balance);
+            gui = new BalanceGUI(accountings, accounting, balance);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);

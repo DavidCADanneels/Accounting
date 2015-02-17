@@ -1,10 +1,11 @@
 package be.dafke.Balances.GUI;
 
+import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.table.AbstractTableModel;
 
-public class RefreshableBalance extends RefreshableTable {
+public class RefreshableBalance extends RefreshableTable<Account> {
 	/**
 	 * 
 	 */
@@ -15,7 +16,7 @@ public class RefreshableBalance extends RefreshableTable {
 	}
 
 	@Override
-	public Object getSelectedObject() {
+	public Account getSelectedObject() {
 		return null;
 	}
 }

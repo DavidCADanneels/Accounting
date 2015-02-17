@@ -25,6 +25,10 @@ public class AccountDetailsActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         Accounting accounting = accountings.getCurrentObject();
         Account account = accounting.getAccounts().getCurrentObject();
+        showDetails(accounting, account);
+    }
+
+    public void showDetails(Accounting accounting, Account account){
         String key = accounting.toString() + ACCOUNT_DETAILS + account.getName();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
