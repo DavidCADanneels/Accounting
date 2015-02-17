@@ -8,6 +8,7 @@ import be.dafke.BasicAccounting.Actions.NewAccountActionListener;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ComponentModel.RefreshableFrame;
+import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -24,23 +25,21 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 	private static final long serialVersionUID = 1L;
 	private final JButton newAccount, delete, modifyName, modifyType, modifyDefaultAmount;
 	private final AccountManagementTableModel model;
-	private final JTable tabel;
+	private final RefreshableTable<Account> tabel;
 	private final DefaultListSelectionModel selection;
     private ModifyAccountDefaultAmountsAction modifyAccountDefaultAmountsAction;
 	private ModifyAccountNamesAction modifyAccountNamesAction;
 	private ModifyAccountTypesAction modifyAccountTypesAction;
 	private DeleteAccountsAction deleteAccountsAction;
-	private final Accounting accounting;
 
 	public AccountManagementGUI(Accounting accounting) {
 		super(getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE")+" " + accounting.toString());
-		this.accounting = accounting;
 		this.model = new AccountManagementTableModel(accounting);
 
         // COMPONENTS
         //
         // Table
-		tabel = new JTable(model);
+		tabel = new RefreshableTable<Account>(model);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);

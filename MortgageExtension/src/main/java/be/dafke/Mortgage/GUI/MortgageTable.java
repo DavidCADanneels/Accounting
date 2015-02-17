@@ -4,6 +4,7 @@ import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableFrame;
+import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Mortgage.Objects.Mortgage;
 import be.dafke.Mortgage.Objects.Mortgages;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -22,7 +23,7 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private final JButton save;
 	private final MortgageDataModel model;
-	private final JTable tabel;
+	private final RefreshableTable<Mortgage> tabel;
 	private final BigDecimal startCapital;
 	private final Accounting accounting;
 
@@ -38,7 +39,7 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 		this.accounting = accounting;
 		this.startCapital = startCapital;
 		model = new MortgageDataModel(mortgage);
-		tabel = new JTable(model);
+		tabel = new RefreshableTable<Mortgage>(model);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		JScrollPane scrollPane = new JScrollPane(tabel);
 		JPanel panel = new JPanel(new BorderLayout());

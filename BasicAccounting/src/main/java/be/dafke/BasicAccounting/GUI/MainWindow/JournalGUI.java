@@ -3,11 +3,13 @@ package be.dafke.BasicAccounting.GUI.MainWindow;
 import be.dafke.BasicAccounting.Actions.BookTransactionActionListener;
 import be.dafke.BasicAccounting.Actions.JournalGUIPopupMenu;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
+import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
@@ -32,7 +34,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 	private final JTextField debet, credit, dag, maand, jaar, bewijs, ident;
 	private final JButton ok, save, clear;
     private final JPopupMenu popup;
-    private final JTable table;
+    private final RefreshableTable<Account> table;
 	private BigDecimal debettotaal, credittotaal;
     private Journal journal;
     private int selectedRow;
@@ -44,7 +46,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 		credittotaal = new BigDecimal(0);
 		setLayout(new BorderLayout());
 		journalDataModel = new JournalDataModel();
-		table = new JTable(journalDataModel);
+		table = new RefreshableTable<Account>(journalDataModel);
 		table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 		JScrollPane scrollPane = new JScrollPane(table);
 		add(scrollPane, BorderLayout.CENTER);

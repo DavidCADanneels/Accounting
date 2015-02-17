@@ -5,6 +5,7 @@ import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.ComponentModel.RefreshableFrame;
+import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Mortgage.Actions.ShowMortgageCalculatorActionListener;
 import be.dafke.Mortgage.Objects.Mortgage;
 import be.dafke.Mortgage.Objects.Mortgages;
@@ -36,7 +37,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	private DefaultListModel<BusinessObject> listModel;
 	private DefaultComboBoxModel<Account> intrestModel, capitalModel;
 
-	private final JTable table;
+	private final RefreshableTable<Mortgage> table;
 	private final JButton save, delete;
 	private final Accounts accounts;
 
@@ -58,7 +59,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		panel.add(left, BorderLayout.WEST);
 
 		model = new MortgageDataModel(selectedMortgage);
-		table = new JTable(model);
+		table = new RefreshableTable<Mortgage>(model);
 		table.setPreferredScrollableViewportSize(new Dimension(600, 200));
 		JScrollPane scroll = new JScrollPane(table);
 

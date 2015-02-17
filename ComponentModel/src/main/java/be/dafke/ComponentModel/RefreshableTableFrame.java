@@ -14,8 +14,7 @@ public abstract class RefreshableTableFrame<BusinessObject> extends RefreshableF
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	protected final RefreshableTableModel<BusinessObject> model;
-	protected JTable tabel;
+	protected RefreshableTable<BusinessObject> tabel;
 	protected JPanel contentPanel;
 	protected int selectedRow;
 	protected int selectedColumn;
@@ -29,8 +28,7 @@ public abstract class RefreshableTableFrame<BusinessObject> extends RefreshableF
 	 */
 	public RefreshableTableFrame(String title, RefreshableTableModel<BusinessObject> model) {
 		super(title);
-		this.model = model;
-		tabel = new JTable(model);
+		tabel = new RefreshableTable<BusinessObject>(model);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
@@ -44,13 +42,13 @@ public abstract class RefreshableTableFrame<BusinessObject> extends RefreshableF
 	}
 
 	public void selectObject(BusinessObject object){
-		int row = model.getRow(object);
+		int row = tabel.getModel().getRow(object);
 		tabel.setRowSelectionInterval(row,row);
 		tabel.scrollRectToVisible(tabel.getCellRect(row,0,false));
 	}
 
 	public BusinessObject getSelectedObject(){
-		return model.getObject(selectedRow,selectedColumn);
+		return tabel.getModel().getObject(selectedRow,selectedColumn);
 	}
 
 	/**
@@ -59,6 +57,6 @@ public abstract class RefreshableTableFrame<BusinessObject> extends RefreshableF
 	 */
 	@Override
 	public void refresh() {
-		model.fireTableDataChanged();
+		tabel.getModel().fireTableDataChanged();
 	}
 }

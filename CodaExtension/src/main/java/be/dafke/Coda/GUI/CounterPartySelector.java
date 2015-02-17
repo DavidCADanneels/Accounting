@@ -6,6 +6,7 @@ import be.dafke.Coda.Objects.Statement;
 import be.dafke.Coda.Objects.Statements;
 import be.dafke.Coda.Objects.TmpCounterParty;
 import be.dafke.ComponentModel.RefreshableDialog;
+import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
@@ -26,7 +27,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 	private final JComboBox<BusinessObject> oldCounterPartyCombo, newCounterPartyCombo;
     private final CounterParties counterParties;
     private CounterParty oldCounterParty, newCounterParty;
-    private final JTable movementTable;
+    private final RefreshableTable<Statement> movementTable;
 	private final GenericStatementDataModel movementDataModel;
 	private final Statement statement;
 	private final JRadioButton single, multiple;
@@ -70,7 +71,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         movementDataModel = new GenericStatementDataModel(searchOptions,
                 statements);
         movementDataModel.setSingleStatement(statement);
-        movementTable = new JTable(movementDataModel);
+        movementTable = new RefreshableTable<Statement>(movementDataModel);
         movementTable.setDefaultRenderer(CounterParty.class, new ColorRenderer());
         movementTable.setDefaultRenderer(TmpCounterParty.class, new ColorRenderer());
         JScrollPane scrollPane = new JScrollPane(movementTable);
