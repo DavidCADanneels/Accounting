@@ -1,15 +1,13 @@
 package be.dafke.BasicAccounting.GUI.Details;
 
 import be.dafke.BasicAccounting.Actions.DetailsPopupMenu;
+import be.dafke.BasicAccounting.Actions.PopupActivator;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -33,20 +31,7 @@ public class JournalDetails extends RefreshableTableFrame<Booking> implements Wi
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
 		popup = new DetailsPopupMenu(accounting, tabel, DetailsPopupMenu.Mode.JOURNAL);
-		tabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent me) {
-				Point cell = me.getPoint();//
-				Point location = me.getLocationOnScreen();
-				int col = tabel.columnAtPoint(cell);
-				boolean clickable = (col == 0 || col == 2 || col == 3 || col == 4);
-				if (clickable && me.getButton() == 3) {
-					int row = tabel.rowAtPoint(cell);
-					tabel.setSelectedRow(row);
-					popup.show(null, location.x, location.y);
-				} else popup.setVisible(false);
-			}
-		});
+		tabel.addMouseListener(new PopupActivator(popup,tabel, 0,2,3,4));
 	}
 
     @Override

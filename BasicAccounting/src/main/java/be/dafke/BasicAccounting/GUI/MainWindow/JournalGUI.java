@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.GUI.MainWindow;
 
 import be.dafke.BasicAccounting.Actions.BookTransactionActionListener;
 import be.dafke.BasicAccounting.Actions.JournalGUIPopupMenu;
+import be.dafke.BasicAccounting.Actions.PopupActivator;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
@@ -50,18 +51,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 		add(scrollPane, BorderLayout.CENTER);
 
         popup = new JournalGUIPopupMenu(table, accountings);
-        table.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent me) {
-                Point cell = me.getPoint();//
-                Point location = me.getLocationOnScreen();
-                int row = table.rowAtPoint(cell);
-                if(row !=-1){
-                    table.setSelectedRow(row);
-                    popup.show(null, location.x, location.y);
-                }
-            }
-        });
+        table.addMouseListener(new PopupActivator(popup,table));
 
         scrollPane.addMouseListener(new MouseAdapter() {
             @Override

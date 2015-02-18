@@ -1,15 +1,13 @@
 package be.dafke.Balances.GUI;
 
 import be.dafke.BasicAccounting.Actions.BalancePopupMenu;
+import be.dafke.BasicAccounting.Actions.PopupActivator;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.*;
-import java.awt.*;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -26,20 +24,7 @@ public class TestBalance extends RefreshableTableFrame<Account> {
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
 		popup = new BalancePopupMenu(accountings, accounting, tabel);
-		tabel.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent me) {
-				Point cell = me.getPoint();//
-				Point location = me.getLocationOnScreen();
-				int col = tabel.columnAtPoint(cell);
-				if (me.getButton() == 3) {
-					int row = tabel.rowAtPoint(cell);
-					tabel.setSelectedRow(row);
-					tabel.setSelectedColumn(col);
-					popup.show(null, location.x, location.y);
-				} else popup.setVisible(false);
-			}
-		});
+		tabel.addMouseListener(new PopupActivator(popup,tabel));
 	}
 
 	@Override
