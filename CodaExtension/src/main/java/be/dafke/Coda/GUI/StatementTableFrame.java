@@ -249,8 +249,7 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
 
     @Override
 	public void mouseClicked(MouseEvent me) {
-		Point cell = me.getPoint();//
-		// Point location = me.getLocationOnScreen();
+		Point cell = me.getPoint();
 		if (me.getClickCount() == 1) {
 			int col = tabel.columnAtPoint(cell);
 			int row = tabel.rowAtPoint(cell);

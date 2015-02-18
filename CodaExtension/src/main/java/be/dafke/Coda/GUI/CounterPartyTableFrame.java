@@ -38,7 +38,7 @@ public class CounterPartyTableFrame extends RefreshableTableFrame<CounterParty> 
 	public void mouseClicked(MouseEvent me) {
 		Point cell = me.getPoint();
 //		Point location = me.getLocationOnScreen();
-		if (me.getClickCount() == 2) {
+		if (me.getButton() == 3) {
 			int col = tabel.columnAtPoint(cell);
 			int row = tabel.rowAtPoint(cell);
 			if (col == 0) {

@@ -26,7 +26,7 @@ public class TestBalanceActionListener implements ActionListener {
         String key = accounting.toString() + TEST_BALANCE;
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new TestBalance(accounting);
+            gui = new TestBalance(accountings, accounting);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);

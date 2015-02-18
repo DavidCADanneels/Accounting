@@ -41,7 +41,7 @@ public class AccountDetails extends RefreshableTableFrame<Booking> implements Wi
 				Point location = me.getLocationOnScreen();
 				int col = tabel.columnAtPoint(cell);
 				boolean clickable = (col == 0 || col == 2 || col == 3);
-				if (clickable && me.getClickCount() == 2) {
+				if (clickable && me.getButton() == 3) {
 					int row = tabel.rowAtPoint(cell);
 					tabel.setSelectedRow(row);
 					popup.show(null, location.x, location.y);
