@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.GUI.AccountManagement;
 
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
@@ -61,6 +61,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == add || event.getSource() == nameField) {
             addAccount();
+            ComponentMap.refreshAllFrames();
         }
     }
 
@@ -81,7 +82,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
                 }
             }
             accounting.getAccounts().addBusinessObject(account);
-            AccountingComponentMap.refreshAllFrames();
+            ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
             JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("ACCOUNT_DUPLICATE_NAME")
                     +" \""+name+"\".\r\n"+

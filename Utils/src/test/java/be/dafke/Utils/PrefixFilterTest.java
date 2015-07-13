@@ -6,7 +6,7 @@ import org.junit.Test;
 import javax.swing.*;
 import java.util.ArrayList;
 
-import static junit.framework.Assert.assertEquals;
+import static org.junit.Assert.assertEquals;
 
 /**
  * User: Dafke

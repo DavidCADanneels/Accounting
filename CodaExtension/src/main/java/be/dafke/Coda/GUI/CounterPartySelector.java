@@ -6,6 +6,8 @@ import be.dafke.Coda.Objects.Statement;
 import be.dafke.Coda.Objects.Statements;
 import be.dafke.Coda.Objects.TmpCounterParty;
 import be.dafke.ComponentModel.RefreshableDialog;
+import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -22,40 +24,37 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JButton ok, create, apply;
-	private final JComboBox<CounterParty> oldCounterPartyCombo, newCounterPartyCombo;
-    private final Statements statements;
+	private final JComboBox<BusinessObject> oldCounterPartyCombo, newCounterPartyCombo;
     private final CounterParties counterParties;
     private CounterParty oldCounterParty, newCounterParty;
-    private final JTable movementTable;
+    private final RefreshableTable<Statement> movementTable;
 	private final GenericStatementDataModel movementDataModel;
 	private final Statement statement;
 	private final JRadioButton single, multiple;
     private final JCheckBox searchOnTransactionCode, searchOnCommunication, searchOnCounterParty;
     private final JTextField transactionCode, communication;
 	private final ButtonGroup singleMultiple;
-//	private final Accounting accounting;
     private final SearchOptions searchOptions;
 
     public CounterPartySelector(Statement statement, Statements statements, CounterParties counterParties) {
 		super("Select Counterparty");
 		this.statement = statement;
-        this.statements = statements;
         this.counterParties = counterParties;
 		oldCounterParty = null;
         newCounterParty = null;
 
         // COMPONENTS
-		oldCounterPartyCombo = new JComboBox<CounterParty>();
+		oldCounterPartyCombo = new JComboBox<BusinessObject>();
 		oldCounterPartyCombo.addItem(null);
-        for(CounterParty counterParty : counterParties.getBusinessObjects()){
+        for(BusinessObject counterParty : counterParties.getBusinessObjects()){
             oldCounterPartyCombo.addItem(counterParty);
         }
         oldCounterPartyCombo.setSelectedItem(null);
 		oldCounterPartyCombo.addActionListener(this);
         oldCounterPartyCombo.setEnabled(false);
-        newCounterPartyCombo = new JComboBox<CounterParty>();
+        newCounterPartyCombo = new JComboBox<BusinessObject>();
         newCounterPartyCombo.addItem(null);
-        for(CounterParty counterParty : counterParties.getBusinessObjects()){
+        for(BusinessObject counterParty : counterParties.getBusinessObjects()){
             newCounterPartyCombo.addItem(counterParty);
         }
         newCounterPartyCombo.setSelectedItem(null);
@@ -72,7 +71,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         movementDataModel = new GenericStatementDataModel(searchOptions,
                 statements);
         movementDataModel.setSingleStatement(statement);
-        movementTable = new JTable(movementDataModel);
+        movementTable = new RefreshableTable<Statement>(movementDataModel);
         movementTable.setDefaultRenderer(CounterParty.class, new ColorRenderer());
         movementTable.setDefaultRenderer(TmpCounterParty.class, new ColorRenderer());
         JScrollPane scrollPane = new JScrollPane(movementTable);
@@ -186,7 +185,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
                     CounterParty counterParty = new CounterParty();
                     counterParty.setMergeable(false);
                     counterParty.setName(s);
-                    newCounterParty = counterParties.addBusinessObject(counterParty);
+                    newCounterParty = (CounterParty)counterParties.addBusinessObject(counterParty);
                     oldCounterPartyCombo.addItem(newCounterParty);
                     newCounterPartyCombo.addItem(newCounterParty);
                     newCounterPartyCombo.setSelectedItem(newCounterParty);

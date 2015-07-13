@@ -23,7 +23,7 @@ public class ProjectExtensionMain extends BasicAccountingMain {
 
     protected static void applyExtensions(){
         for(Accounting accounting: accountings.getBusinessObjects()){
-            accounting.addExtension(new ProjectExtension(actionListener, menuBar));
+            accounting.addExtension(new ProjectExtension(accountings,menuBar));
         }
     }
 }

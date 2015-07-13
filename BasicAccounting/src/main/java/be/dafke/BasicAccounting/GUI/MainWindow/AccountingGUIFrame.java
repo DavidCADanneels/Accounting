@@ -48,7 +48,7 @@ public class AccountingGUIFrame extends RefreshableFrame {
         } else {
             setTitle(getBundle("Accounting").getString("ACCOUNTING"));
         }
-        menuBar.setAccounting(accounting, accountings);
+        menuBar.setAccounting(accounting);
         contentPanel.setAccounting(accounting);
         pack();
     }

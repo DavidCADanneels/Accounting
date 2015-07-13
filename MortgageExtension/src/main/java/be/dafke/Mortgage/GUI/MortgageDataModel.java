@@ -1,13 +1,13 @@
 package be.dafke.Mortgage.GUI;
 
+import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.Mortgage.Objects.Mortgage;
 
-import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Vector;
 
-public class MortgageDataModel extends AbstractTableModel {
+public class MortgageDataModel extends RefreshableTableModel<Mortgage> {
 	/**
 	 * 
 	 */
@@ -100,5 +100,15 @@ public class MortgageDataModel extends AbstractTableModel {
 
 	public ArrayList<Vector<BigDecimal>> getData() {
 		return data;
+	}
+
+	@Override
+	public Mortgage getObject(int row, int col) {
+		return null;
+	}
+
+	@Override
+	public int getRow(Mortgage mortgage) {
+		return 0;
 	}
 }

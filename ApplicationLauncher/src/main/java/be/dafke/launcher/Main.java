@@ -31,9 +31,9 @@ public class Main extends BasicAccountingMain{
 
     protected static void applyExtensions(){
         for(Accounting accounting: accountings.getBusinessObjects()){
-            accounting.addExtension(new BalancesExtension(actionListener, menuBar));
-            accounting.addExtension(new CodaExtension(actionListener, menuBar));
-            accounting.addExtension(new MortgageExtension(actionListener, menuBar));
+            accounting.addExtension(new BalancesExtension(accountings, menuBar));
+            accounting.addExtension(new CodaExtension(accountings, menuBar));
+            accounting.addExtension(new MortgageExtension(accountings, menuBar));
         }
     }
 

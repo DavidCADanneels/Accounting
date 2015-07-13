@@ -274,7 +274,7 @@ public class ObjectModelSAXParser {
             }
         }// for each ChildNode
 //            }// for each name in ArrayList
-        String value = getValue(rootElement, businessCollection.CURRENT);
+        String value = getValue(rootElement, BusinessCollection.CURRENT);
         if(value!=null){
             businessCollection.setCurrentObject(businessCollection.getBusinessObject(value));
 //                System.err.println("current Object: "+businessCollection.getCurrentObject().getName());

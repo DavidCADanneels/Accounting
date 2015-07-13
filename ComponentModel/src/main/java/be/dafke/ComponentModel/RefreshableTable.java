@@ -1,52 +1,45 @@
 package be.dafke.ComponentModel;
 
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
-import java.awt.*;
 
 /**
- * Uitbreiding op RefreshableFrame, refresh() herlaad de gegevens van de tabel
- * @author David Danneels
- * @since 01/10/2010
- * @see #refresh()
+ * Created by ddanneel on 17/02/2015.
  */
-public class RefreshableTable extends RefreshableFrame {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-	protected final AbstractTableModel model;
-	protected JTable tabel;
-	protected JPanel contentPanel;
+public class RefreshableTable<BusinessObject> extends JTable{
+    RefreshableTableModel<BusinessObject> model;
+    protected int selectedRow;
+    protected int selectedColumn;
 
-	/**
-	 * Constructor
-	 * @param title titel van het RefreshableFrame
-	 * @param m het TableModel van de tabel
-	 * @see RefreshableFrame#RefreshableFrame(java.lang.String) RefreshableFrame(String)
-	 * @see javax.swing.table.AbstractTableModel
-	 */
-	public RefreshableTable(String title, AbstractTableModel m) {
-		super(title);
-		model = m;
-		tabel = new JTable(model);
-		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
-		tabel.setAutoCreateRowSorter(true);
-		JScrollPane scrollPane = new JScrollPane(tabel);
-		contentPanel = new JPanel(new BorderLayout());
-		contentPanel.add(scrollPane, BorderLayout.CENTER);
-//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setContentPane(contentPanel);
-		pack();
-//		setVisible(true);
-	}
+    public RefreshableTable(RefreshableTableModel<BusinessObject> model) {
+        super(model);
+        this.model = model;
+    }
 
-	/**
-	 * Herlaadt de data van de tabel
-	 * @see javax.swing.table.AbstractTableModel#fireTableDataChanged()
-	 */
-	@Override
-	public void refresh() {
-		model.fireTableDataChanged();
-	}
+    public void setSelectedRow(int row){
+        selectedRow = row;
+    }
+
+    public void setSelectedColumn(int col){
+        selectedColumn = col;
+    }
+
+    // Overriding this method causes empty tables !!!
+//    @Override
+//    public RefreshableTableModel<BusinessObject> getModel(){
+//        return model;
+//    }
+
+    public BusinessObject getSelectedObject(){
+        return model.getObject(selectedRow, selectedColumn);
+    }
+
+    public void selectObject(BusinessObject object){
+        int row = model.getRow(object);
+        setRowSelectionInterval(row, row);
+        scrollRectToVisible(getCellRect(row, 0, false));
+    }
+
+    public void refresh() {
+        model.fireTableDataChanged();
+    }
 }

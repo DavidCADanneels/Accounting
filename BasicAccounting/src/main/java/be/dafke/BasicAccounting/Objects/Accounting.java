@@ -29,12 +29,12 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     }
     @Override
     public String getChildType(){
-        return "Accounting";
+        return Accountings.ACCOUNTING;
     }
 
     public Accounting() {
         extensions = new ArrayList<AccountingExtension>();
-        // TODO use Accounts<Account> + modifiy Accounts file ... Accounts<T extends
+        // TODO use Accounts<Account> + modify Accounts file ... Accounts<T extends
 
         accountTypes = new AccountTypes();
 

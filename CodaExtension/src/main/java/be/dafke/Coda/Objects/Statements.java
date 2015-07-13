@@ -3,21 +3,25 @@ package be.dafke.Coda.Objects;
 import be.dafke.Coda.GUI.SearchOptions;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
+import be.dafke.ObjectModel.BusinessObject;
 
 import java.util.ArrayList;
 
-public class Statements extends BusinessCollection<Statement> implements BusinessCollectionProvider<CounterParty>{
+public class Statements extends BusinessCollection<BusinessObject> implements BusinessCollectionProvider<BusinessObject>{
+
+    public static final String STATEMENTS = "Statements";
+    public static final String STATEMENT = "Statement";
 
     public Statements(){
-        setName("Statements");
+        setName(STATEMENTS);
     }
 
     @Override
     public String getChildType(){
-        return "Statement";
+        return STATEMENT;
     }
 
-    private BusinessCollection<CounterParty> businessCollection;
+    private BusinessCollection<BusinessObject> businessCollection;
 
     public ArrayList<Statement> getStatements(SearchOptions searchOptions) {
 		ArrayList<Statement> result = new ArrayList<Statement>();
@@ -27,7 +31,8 @@ public class Statements extends BusinessCollection<Statement> implements Busines
         boolean searchOnCounterParty = searchOptions.isSearchOnCounterParty();
         boolean searchOnTransactionCode = searchOptions.isSearchOnTransactionCode();
         boolean searchOnCommunication = searchOptions.isSearchOnCommunication();
-		for(Statement statement : getBusinessObjects()) {
+		for(BusinessObject businessObject : getBusinessObjects()) {
+            Statement statement = (Statement)businessObject;
 			if ((!searchOnTransactionCode || transactionCode.equals(statement.getTransactionCode()))  &&
                     (!searchOnCommunication || communication.equals(statement.getCommunication())) &&
                     (!searchOnCounterParty || counterParty == statement.getCounterParty())) {
@@ -48,12 +53,12 @@ public class Statements extends BusinessCollection<Statement> implements Busines
 //    }
 
     @Override
-    public BusinessCollection<CounterParty> getBusinessCollection() {
+    public BusinessCollection<BusinessObject> getBusinessCollection() {
         return businessCollection;
     }
 
     @Override
-    public void setBusinessCollection(BusinessCollection<CounterParty> businessCollection) {
+    public void setBusinessCollection(BusinessCollection<BusinessObject> businessCollection) {
         this.businessCollection = businessCollection;
     }
 }

@@ -3,12 +3,12 @@ package be.dafke.Coda.GUI;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statement;
 import be.dafke.Coda.Objects.Statements;
+import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.Utils.Utils;
 
-import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 
-public class StatementDataModel extends AbstractTableModel {
+public class StatementDataModel extends RefreshableTableModel<Statement> {
 	/**
 	 * 
 	 */
@@ -27,7 +27,7 @@ public class StatementDataModel extends AbstractTableModel {
 	// ===============
 	@Override
 	public Object getValueAt(int row, int col) {
-		Statement m = statements.getBusinessObjects().get(row);
+		Statement m = (Statement)statements.getBusinessObjects().get(row);
 		if (col == 0) {
 			return m.getName();
 		} else if (col == 1) {
@@ -74,5 +74,15 @@ public class StatementDataModel extends AbstractTableModel {
 	// ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
+	}
+
+	@Override
+	public Statement getObject(int row, int col) {
+		return null;
+	}
+
+	@Override
+	public int getRow(Statement statement) {
+		return 0;
 	}
 }

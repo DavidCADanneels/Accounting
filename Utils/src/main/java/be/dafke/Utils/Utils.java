@@ -26,7 +26,24 @@ public class Utils {
 		return null;
 	}
 
-	/** Data -> "D/M/YYYY" */
+    /** "D, M, YYYY" -> Data */
+    public static Calendar toCalendar(String day, String month, String year) {
+        try {
+            int jaar = Integer.parseInt(year);
+            int maand = Integer.parseInt(month);
+            int dag = Integer.parseInt(day);
+            return new GregorianCalendar(jaar, maand-1, dag);
+        } catch (NumberFormatException nfe) {
+            return null;
+        }
+    }
+
+    /** "D, M, YYYY" -> Data */
+    public static Calendar toCalendar(int day, int month, int year) {
+        return new GregorianCalendar(year, month-1, day);
+    }
+
+	/** Date -> "D/M/YYYY" */
 	public static String toString(Calendar c) {
 		StringBuilder builder = new StringBuilder();
 		builder.append(c.get(Calendar.DATE)).append("/");
@@ -34,6 +51,21 @@ public class Utils {
 		builder.append(c.get(Calendar.YEAR));
 		return builder.toString();
 	}
+
+    /** Date -> "Day" */
+    public static int toDay(Calendar c) {
+        return c.get(Calendar.DATE);
+    }
+
+    /** Date -> "Month" */
+    public static int toMonth(Calendar c){
+        return c.get(Calendar.MONTH) + 1;
+    }
+
+    /** Date -> "Year" */
+    public static int toYear(Calendar c){
+        return c.get(Calendar.YEAR);
+    }
 
     public static BigDecimal parseBigDecimal(String s) {
         try {

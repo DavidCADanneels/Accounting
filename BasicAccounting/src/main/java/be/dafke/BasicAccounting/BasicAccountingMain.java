@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting;
 
-import be.dafke.BasicAccounting.Actions.AccountingActionListener;
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.Actions.SaveAllActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingGUIFrame;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
@@ -10,6 +9,7 @@ import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModelDao.ObjectModelSAXParser;
 
 import javax.swing.*;
@@ -19,15 +19,15 @@ import java.util.List;
 
 public class BasicAccountingMain {
 
+    private static final String MAIN = "MainPanel";
     protected static Accountings accountings;
     protected static File xmlFolder;
     protected static File htmlFolder;
     protected static AccountingMenuBar menuBar;
-    protected static AccountingActionListener actionListener;
     protected static AccountingMultiPanel contentPanel;
     protected static AccountingGUIFrame frame;
 
-    protected enum Mode{ PROD, TEST;}
+    protected enum Mode{ PROD, TEST}
 
     protected static JButton saveButton;
     protected static JournalGUI journalGUI;
@@ -51,7 +51,7 @@ public class BasicAccountingMain {
         if(!xmlFolder.exists()){
             xmlFolder.mkdirs();
         }
-        File subFolder = new File(xmlFolder, "Accountings");
+        File subFolder = new File(xmlFolder, Accountings.ACCOUNTINGS);
         if(!subFolder.exists()){
             subFolder.mkdir();
         }
@@ -62,7 +62,7 @@ public class BasicAccountingMain {
     }
 
     protected static void continueReadingXmlFile(){
-        File subFolder = new File(xmlFolder, "Accountings");
+        File subFolder = new File(xmlFolder, Accountings.ACCOUNTINGS);
         for(Accounting accounting : accountings.getBusinessObjects()){
             ObjectModelSAXParser.readCollection(accounting, true, subFolder);
         }
@@ -73,18 +73,15 @@ public class BasicAccountingMain {
                 extension.extendReadCollection(accounting,xmlFolder);
             }
         }
-
     }
 
     protected static void createBasicComponents(){
-        actionListener = new AccountingActionListener(accountings);
-        journalGUI = new JournalGUI();
-        accountsGUI = new AccountsGUI(actionListener);
-        journalsGUI = new JournalsGUI(actionListener);
-        menuBar = new AccountingMenuBar(actionListener);
+        journalGUI = new JournalGUI(accountings);
+        accountsGUI = new AccountsGUI(accountings);
+        journalsGUI = new JournalsGUI(accountings);
+        menuBar = new AccountingMenuBar(accountings);
         saveButton = new JButton("Save all");
-        saveButton.setActionCommand(AccountingActionListener.SAVE_ALL);
-        saveButton.addActionListener(actionListener);
+        saveButton.addActionListener(new SaveAllActionListener(accountings));
     }
 
     protected static void composeContentPanel(){
@@ -103,18 +100,9 @@ public class BasicAccountingMain {
         frame = new AccountingGUIFrame(accountings);
         frame.setMenuBar(menuBar);
         frame.setContentPanel(contentPanel);
-        frame.addWindowListener(actionListener);
-        for(Accounting accounting : accountings.getBusinessObjects()){
-            AccountingComponentMap.addAccountingComponents(accounting, actionListener);
-        }
-        AccountingComponentMap.addDisposableComponent(AccountingActionListener.MAIN, frame); // MAIN
-        AccountingComponentMap.addRefreshableComponent(AccountingActionListener.MENU, menuBar);
-
-        for(Accounting accounting : accountings.getBusinessObjects()){
-            for(AccountingExtension extension : accounting.getExtensions()){
-                extension.extendAccountingComponentMap(accounting);
-            }
-        }
+        frame.addWindowListener(new SaveAllActionListener(accountings));
+        ComponentMap.addDisposableComponent(MAIN, frame); // MAIN
+        ComponentMap.addRefreshableComponent(menuBar);
     }
     protected static void launch() {
         frame.setVisible(true);
@@ -138,7 +126,7 @@ public class BasicAccountingMain {
             xmlFolder = new File("BasicAccounting/src/main/resources/xml");
             htmlFolder = new File("BasicAccounting/src/main/resources/html");
         } else {// if (mode == Mode.PROD) {
-            File parentFolder = new File(userHome, "Accounting");
+            File parentFolder = new File(userHome, Accountings.ACCOUNTING);
             xmlFolder = new File(parentFolder, "xml");
             htmlFolder = new File(userHome, "AccountingHTML");
         }

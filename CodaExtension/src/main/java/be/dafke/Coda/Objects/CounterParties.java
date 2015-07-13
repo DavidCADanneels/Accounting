@@ -1,6 +1,7 @@
 package be.dafke.Coda.Objects;
 
 import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -8,16 +9,19 @@ import java.util.AbstractMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-public class CounterParties extends BusinessCollection<CounterParty> {
+public class CounterParties extends BusinessCollection<BusinessObject> {
+
+    public static final String COUNTERPARTIES = "CounterParties";
+    public static final String COUNTERPARTY = "CounterParty";
 
     @Override
     public String getChildType(){
-        return "CounterParty";
+        return COUNTERPARTY;
     }
 
     public CounterParties(){
         addSearchKey(CounterParty.ACCOUNTNUMBER);
-        setName("CounterParties");
+        setName(COUNTERPARTIES);
     }
 
     @Override
@@ -26,8 +30,9 @@ public class CounterParties extends BusinessCollection<CounterParty> {
     }
 
     @Override
-    final protected CounterParty addBusinessObject(CounterParty value, Map<String,String> keyMap) throws EmptyNameException, DuplicateNameException {
-        if(value.getName()==null || "".equals(value.getName().trim())){
+    final protected CounterParty addBusinessObject(BusinessObject value, Map<String,String> keyMap) throws EmptyNameException, DuplicateNameException {
+        CounterParty counterParty = (CounterParty)value;
+        if(counterParty.getName()==null || "".equals(counterParty.getName().trim())){
             throw new EmptyNameException();
         }
 
@@ -36,32 +41,32 @@ public class CounterParties extends BusinessCollection<CounterParty> {
             String type = entry.getKey();
             String key = entry.getValue();
 
-            TreeMap<String, CounterParty> map = dataTables.get(type);
-            CounterParty foundValue = map.get(key);
+            TreeMap<String, BusinessObject> map = dataTables.get(type);
+            CounterParty foundValue = (CounterParty)map.get(key);
 
             if(foundValue!=null){
-                if(value.isMergeable()){
+                if(counterParty.isMergeable()){
                     // update Accounts
-                    value = merge(foundValue, value);
+                    counterParty = merge(foundValue, counterParty);
 //                } else {
 //                    throw new DuplicateNameException();
                 }
             } else {
-                map.put(key, value);
+                map.put(key, counterParty);
             }
         }
-        CounterParty foundByName = getBusinessObject(value.getName());
+        CounterParty foundByName = (CounterParty)getBusinessObject(counterParty.getName());
         if(foundByName!=null){
-            if(value.isMergeable()){
-                value = merge(foundByName,value);
+            if(counterParty.isMergeable()){
+                counterParty = merge(foundByName,counterParty);
             } else {
                 throw new DuplicateNameException();
             }
         }
-        dataTables.get(NAME).put(value.getName(),value);
+        dataTables.get(NAME).put(counterParty.getName(),counterParty);
 
 
-        return value;
+        return counterParty;
     }
 
 //    @Override

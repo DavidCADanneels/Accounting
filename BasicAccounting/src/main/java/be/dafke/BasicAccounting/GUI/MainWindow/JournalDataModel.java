@@ -3,8 +3,8 @@ package be.dafke.BasicAccounting.GUI.MainWindow;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.ComponentModel.RefreshableTableModel;
 
-import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 
 import static java.util.ResourceBundle.getBundle;
@@ -13,7 +13,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class JournalDataModel extends AbstractTableModel {
+public class JournalDataModel extends RefreshableTableModel<Booking> {
 	/**
 	 * 
 	 */
@@ -25,10 +25,6 @@ public class JournalDataModel extends AbstractTableModel {
 	Class[] columnClasses = { Account.class, Account.class, BigDecimal.class, BigDecimal.class };
 
     private Transaction transaction;
-
-    public Booking getValueAt(int row) {
-        return transaction.getBusinessObjects().get(row);
-    }
 
 // DE GET METHODEN
 // ===============
@@ -91,4 +87,14 @@ public class JournalDataModel extends AbstractTableModel {
     public void setTransaction(Transaction transaction) {
         this.transaction = transaction;
     }
+
+	@Override
+	public Booking getObject(int row, int col) {
+		return transaction.getBusinessObjects().get(row);
+	}
+
+	@Override
+	public int getRow(Booking booking) {
+		return 0;
+	}
 }

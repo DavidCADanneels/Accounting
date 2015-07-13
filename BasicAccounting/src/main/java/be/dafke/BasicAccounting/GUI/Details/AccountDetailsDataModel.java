@@ -1,10 +1,11 @@
 package be.dafke.BasicAccounting.GUI.Details;
 
 import be.dafke.BasicAccounting.Objects.Account;
+import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Movement;
+import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.Utils.Utils;
 
-import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
@@ -13,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class AccountDetailsDataModel extends AbstractTableModel {
+public class AccountDetailsDataModel extends RefreshableTableModel<Booking> {
 	/**
 	 * 
 	 */
@@ -48,6 +49,22 @@ public class AccountDetailsDataModel extends AbstractTableModel {
 	@Override
 	public String getColumnName(int col) {
 		return columnNames[col];
+	}
+
+	public Booking getObject(int row, int col) {
+		return rekening.getBusinessObjects().get(row).getBooking();
+	}
+
+	public int getRow(Booking booking){
+		int row=0;
+		for(Movement movement:rekening.getBusinessObjects()){
+			if(movement.getBooking()!=booking){
+				row++;
+			} else{
+				return row;
+			}
+		}
+		return 0;
 	}
 
 	@Override

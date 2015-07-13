@@ -1,5 +1,6 @@
 package be.dafke.ComponentModel;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
@@ -9,7 +10,7 @@ import java.util.HashMap;
  * Time: 0:01
  */
 public class ComponentMap {
-    private static final HashMap<String, RefreshableComponent> refreshableComponents = new HashMap<String, RefreshableComponent>();
+    private static final ArrayList<RefreshableComponent> refreshableComponents = new ArrayList<RefreshableComponent>();
     private static final HashMap<String, DisposableComponent> disposableComponents = new HashMap<String, DisposableComponent>();
 
     public static void closeAllFrames(){
@@ -24,18 +25,17 @@ public class ComponentMap {
     }
 
     public static void refreshAllFrames(){
-        Collection<RefreshableComponent> collection = refreshableComponents.values();
-        for(RefreshableComponent frame: collection){
+        for(RefreshableComponent frame: refreshableComponents){
             frame.refresh();
         }
     }
 
-    public static void addRefreshableComponent(String key, RefreshableComponent frame) {
-        refreshableComponents.put(key, frame);
+    public static void addRefreshableComponent(RefreshableComponent frame) {
+        refreshableComponents.add(frame);
     }
 
     public static void addDisposableComponent(String key, DisposableComponent frame) {
-        refreshableComponents.put(key, frame);
+        refreshableComponents.add(frame);
         disposableComponents.put(key, frame);
     }
 }

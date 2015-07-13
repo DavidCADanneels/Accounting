@@ -1,11 +1,15 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
+import be.dafke.BasicAccounting.Actions.BookTransactionActionListener;
+import be.dafke.BasicAccounting.Actions.JournalGUIPopupMenu;
+import be.dafke.BasicAccounting.Actions.PopupActivator;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
@@ -27,44 +31,27 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JournalDataModel journalDataModel;
-	private final JTextField debet, credit, dag, bewijs, ident;
-	private final JButton ok, clear;
+	private final JTextField debet, credit, dag, maand, jaar, bewijs, ident;
+	private final JButton ok, save, clear;
     private final JPopupMenu popup;
-    private final JTable table;
-    private final JMenuItem delete;
-//    private final JMenuItem edit;
+    private final RefreshableTable<Booking> table;
 	private BigDecimal debettotaal, credittotaal;
     private Journal journal;
-    private int selectedRow;
+    private Accountings accountings;
 
-    public JournalGUI() {
-		debettotaal = new BigDecimal(0);
+    public JournalGUI(Accountings accountings) {
+        this.accountings = accountings;
+        debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
 		setLayout(new BorderLayout());
 		journalDataModel = new JournalDataModel();
-		table = new JTable(journalDataModel);
+		table = new RefreshableTable<Booking>(journalDataModel);
 		table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 		JScrollPane scrollPane = new JScrollPane(table);
 		add(scrollPane, BorderLayout.CENTER);
 
-        popup = new JPopupMenu();
-        delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
-//        edit = new JMenuItem(getBundle("Accounting").getString("EDIT"));
-        delete.addActionListener(this);
-//        edit.addActionListener(this);
-        popup.add(delete);
-//        popup.add(edit);
-        table.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent me) {
-                Point cell = me.getPoint();//
-                Point location = me.getLocationOnScreen();
-                selectedRow = table.rowAtPoint(cell);
-                if(selectedRow !=-1){
-                    popup.show(null, location.x, location.y);
-                }
-            }
-        });
+        popup = new JournalGUIPopupMenu(table, accountings);
+        table.addMouseListener(new PopupActivator(popup,table));
 
         scrollPane.addMouseListener(new MouseAdapter() {
             @Override
@@ -75,14 +62,20 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 
 		ident = new JTextField(4);
 		ident.setEditable(false);
-		dag = new JTextField(8);
-		dag.addFocusListener(this);
+		dag = new JTextField(2);
+		maand = new JTextField(2);
+		jaar = new JTextField(4);
+        dag.addFocusListener(this);
+        maand.addFocusListener(this);
+        jaar.addFocusListener(this);
 		bewijs = new JTextField(30);
         bewijs.addFocusListener(this);
 
 		ok = new JButton(getBundle("Accounting").getString("OK"));
-		ok.addActionListener(this);
-		clear = new JButton(getBundle("Accounting").getString("CLEAR_PANEL"));
+		ok.addActionListener(new BookTransactionActionListener(this.accountings,this));
+        save = new JButton(getBundle("Accounting").getString("SAVE"));
+        save.addActionListener(this);
+        clear = new JButton(getBundle("Accounting").getString("CLEAR_PANEL"));
 		clear.addActionListener(this);
 
 		JPanel paneel1 = new JPanel();
@@ -91,6 +84,10 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 		paneel1.add(ident);
 		paneel1.add(new JLabel(getBundle("Accounting").getString("DATE")));
 		paneel1.add(dag);
+        paneel1.add(new JLabel("/"));
+		paneel1.add(maand);
+        paneel1.add(new JLabel("/"));
+		paneel1.add(jaar);
         paneel1.add(new JLabel("(d/m/yyyy)"));
 
 		JPanel paneel2 = new JPanel();
@@ -101,6 +98,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 		JPanel paneel3 = new JPanel();
 		paneel3.add(ok);
 		paneel3.add(clear);
+        paneel3.add(save);
 		debet = new JTextField(8);
 		credit = new JTextField(8);
 		debet.setEditable(false);
@@ -126,19 +124,38 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     public void focusGained(FocusEvent fe) {
     }
 
+    private void setDate(Calendar date){
+        if (date == null){
+            dag.setText("");
+            maand.setText("");
+            jaar.setText("");
+        }else{
+            dag.setText(Utils.toDay(date)+"");
+            maand.setText(Utils.toMonth(date)+"");
+            jaar.setText(Utils.toYear(date)+"");
+        }
+    }
+
+    private Calendar getDate(){
+        return Utils.toCalendar(dag.getText(),maand.getText(),jaar.getText());
+    }
+
+    private String getDescription(){
+        return bewijs.getText().trim();
+    }
+
     @Override
     public void focusLost(FocusEvent fe) {
         Transaction transaction = journal.getCurrentObject();
         if(transaction!=null){
             Object source = fe.getSource();
-            if(source == dag){
-                Calendar date = Utils.toCalendar(dag.getText());
-                transaction.setDate(date);
-                if (date == null){
-                    dag.setText("");
-                    JOptionPane.showMessageDialog(null,"invalid date");
-                }else{
-                    dag.setText(Utils.toString(date));
+            if(source == dag || source == maand || source == jaar){
+                Calendar date = getDate();
+                if (date != null){
+                    transaction.setDate(date);
+                    dag.setText(Utils.toDay(date)+"");
+                    maand.setText(Utils.toMonth(date)+"");
+                    jaar.setText(Utils.toYear(date)+"");
                 }
             } else if (source == bewijs){
                 // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
@@ -172,6 +189,8 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         Calendar date = Calendar.getInstance();
         bewijs.setEnabled(false);
         dag.setEnabled(false);
+        maand.setEnabled(false);
+        jaar.setEnabled(false);
         if(journal!=null){
             Transaction transaction = journal.getCurrentObject();
             journalDataModel.setTransaction(transaction);
@@ -183,6 +202,8 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
                 description = transaction.getDescription();
                 bewijs.setEnabled(true);
                 dag.setEnabled(true);
+                maand.setEnabled(true);
+                jaar.setEnabled(true);
             }
             identification = journal.getAbbreviation() + " " + journal.getId();
             okEnabled = transaction!=null && !transaction.getBusinessObjects().isEmpty() && debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0;
@@ -191,48 +212,41 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         ident.setText(identification);
         clear.setEnabled(clearEnabled);
         ok.setEnabled(okEnabled);
-        dag.setText(Utils.toString(date));
+        save.setEnabled(clearEnabled);
+        setDate(date);
         bewijs.setText(description);
         debet.setText(debettotaal.toString());
         credit.setText(credittotaal.toString());
     }
 
-    private void menuAction(JMenuItem source) {
-        popup.setVisible(false);
-        Booking booking = journalDataModel.getValueAt(selectedRow);
-        Transaction transaction = booking.getTransaction();
-        if (source == delete) {
-            transaction.removeBusinessObject(booking);
-//        } else if (source == edit) {
-//
-        }
-        AccountingComponentMap.refreshAllFrames();
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
-        if (e.getSource() instanceof JMenuItem) {
-            menuAction((JMenuItem) e.getSource());
-        } else if (e.getSource() == ok) {
-            Transaction transaction = journal.getCurrentObject();
-            if(transaction!=null){
-                Calendar date = transaction.getDate();
-                if(date == null){
-                    JOptionPane.showMessageDialog(null, "Fill in date");
-                } else {
-                    journal.addBusinessObject(transaction);
-                    clear();
-                    AccountingComponentMap.refreshAllFrames();
-                }
-            }
-		} else if (e.getSource() == clear) {
+        if (e.getSource() == clear) {
 			clear();
-		}
+		} else if (e.getSource() == save) {
+            saveTransaction();
+        }
 	}
+
+    public Transaction saveTransaction(){
+        Transaction transaction = journal.getCurrentObject();
+        if(transaction!=null){
+            Calendar date = getDate();
+            if(date == null){
+                JOptionPane.showMessageDialog(null, "Fill in date");
+                return null;
+            } else {
+                // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
+                transaction.setDescription(getDescription());
+                transaction.setDate(getDate());
+            }
+        }
+        return transaction;
+    }
 
 	public void clear() {
         Transaction transaction = new Transaction();
-        transaction.setDate(Utils.toCalendar(dag.getText().trim()));
+        transaction.setDate(getDate());
         journal.setCurrentObject(transaction);
         refresh();
 	}

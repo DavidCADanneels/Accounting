@@ -1,14 +1,16 @@
 package be.dafke.Project;
 
 import be.dafke.BasicAccounting.AccountingExtension;
-import be.dafke.BasicAccounting.GUI.AccountingComponentMap;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.Project.GUI.ProjectManagementGUI;
+import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Project.Actions.ShowProjectsActionListener;
 import be.dafke.Project.Objects.Projects;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.io.File;
 
@@ -20,23 +22,19 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 10:04
  */
 public class ProjectExtension implements AccountingExtension{
-    private final ActionListener actionListener;
     private static JMenu projecten = null;
     private Projects projects;
-    public static final String PROJECTS = "Projects";
 
-    public ProjectExtension(ActionListener actionListener, AccountingMenuBar menuBar){
-        this.actionListener = actionListener;
-        if(projecten == null) createMenu(menuBar, actionListener);
+    public ProjectExtension(Accountings accountings, AccountingMenuBar menuBar){
+        if(projecten == null) createMenu(accountings, menuBar);
     }
 
-    private void createMenu(AccountingMenuBar menuBar, ActionListener actionListener) {
+    private void createMenu(Accountings accountings, AccountingMenuBar menuBar) {
         projecten = new JMenu(getBundle("Projects").getString("PROJECTS"));
         projecten.setMnemonic(KeyEvent.VK_P);
         JMenuItem projects = new JMenuItem(getBundle("Projects").getString(
                 "PROJECTMANAGER"));
-        projects.addActionListener(actionListener);
-        projects.setActionCommand(PROJECTS);
+        projects.addActionListener(new ShowProjectsActionListener(accountings));
         projects.setEnabled(false);
         projecten.add(projects);
         menuBar.addRefreshableMenuItem(projects);
@@ -45,14 +43,18 @@ public class ProjectExtension implements AccountingExtension{
 
     public void extendConstructor(Accounting accounting){
         projects = new Projects();
+        try {
+            accounting.addBusinessObject((BusinessCollection)projects);
+        } catch (EmptyNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (DuplicateNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        accounting.addKey(projects.getBusinessObjectType());
     }
 
     public void extendReadCollection(Accounting accounting, File xmlFolder){
 
-    }
-
-    public void extendAccountingComponentMap(Accounting accounting){
-        AccountingComponentMap.addDisposableComponent(accounting.toString() + PROJECTS, new ProjectManagementGUI(accounting, projects));
     }
 
     public void extendWriteCollection(Accounting accounting, File xmlFolder){

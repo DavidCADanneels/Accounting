@@ -1,12 +1,12 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.Actions.AccountingActionListener;
+import be.dafke.BasicAccounting.Actions.NewAccountingActionListener;
+import be.dafke.BasicAccounting.Actions.OpenAccountingActionListener;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.ComponentModel.RefreshableComponent;
 
 import javax.swing.*;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,16 +23,15 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
     private final JMenu file;
     private final JMenuItem startNew;
     private List<JMenuItem> itemsToRefresh;
-    private final ActionListener actionListener;
     private boolean active = false;
+    private Accountings accountings;
 
-    public AccountingMenuBar(ActionListener actionListener) {
-        this.actionListener = actionListener;
+    public AccountingMenuBar(Accountings accountings) {
+        this.accountings = accountings;
 
         file = new JMenu(getBundle("Accounting").getString("ACCOUNTING"));
         startNew = new JMenuItem(getBundle("Accounting").getString("NEW_ACCOUNTING"));
-        startNew.addActionListener(actionListener);
-        startNew.setActionCommand(AccountingActionListener.NEW_ACCOUNTING);
+        startNew.addActionListener(new NewAccountingActionListener(accountings));
         add(file);
 
         itemsToRefresh = new ArrayList<JMenuItem>();
@@ -49,15 +48,15 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         }
     }
 
-    public void setAccounting(Accounting accounting, Accountings accountings) {
+    public void setAccounting(Accounting accounting) {
         active = accounting!=null;
         file.removeAll();
         file.add(startNew);
         for(Accounting acc : accountings.getBusinessObjects()) {
             if(acc!=accounting){
                 JMenuItem item = new JMenuItem(acc.toString());
-                item.addActionListener(actionListener);
-                item.setActionCommand(AccountingActionListener.OPEN_ACCOUNTING+acc.toString());
+                OpenAccountingActionListener openAccountingActionListener = new OpenAccountingActionListener(accountings, acc);
+                item.addActionListener(openAccountingActionListener);
                 file.add(item);
             }
         }

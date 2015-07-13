@@ -1,43 +1,44 @@
 package be.dafke.Coda.GUI;
 
+import be.dafke.BasicAccounting.GUI.InputWindows.AccountSelector;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.Objects.BankAccount;
 import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.CounterParty;
 import be.dafke.Coda.Objects.Statements;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.RefreshableTableFrame;
+import be.dafke.ComponentModel.RefreshableTableModel;
+import be.dafke.ObjectModel.BusinessObject;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.regex.Pattern;
 
-public class CounterPartyTable extends RefreshableTable implements MouseListener {
+public class CounterPartyTableFrame extends RefreshableTableFrame<CounterParty> implements MouseListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final Accounting accounting;
-    private final ActionListener actionListener;
     private final Statements statements;
 
-    public CounterPartyTable(Accounting accounting, CounterParties counterParties, Statements statements, ActionListener actionListener) {
+    public CounterPartyTableFrame(Accounting accounting, CounterParties counterParties, Statements statements) {
 		super("Counterparties (" + accounting.toString() + ")", new CounterPartyDataModel(counterParties));
 		this.accounting = accounting;
         this.statements = statements;
-        this.actionListener = actionListener;
 		// tabel.setAutoCreateRowSorter(true);
 		tabel.addMouseListener(this);
+        tabel.setRowSorter(null);
 	}
 
     @Override
 	public void mouseClicked(MouseEvent me) {
 		Point cell = me.getPoint();
 //		Point location = me.getLocationOnScreen();
-		if (me.getClickCount() == 2) {
+		if (me.getButton() == 3) {
 			int col = tabel.columnAtPoint(cell);
 			int row = tabel.rowAtPoint(cell);
 			if (col == 0) {
@@ -51,7 +52,7 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.setCounterParty(counterParty);
                 searchOptions.setSearchOnCounterParty(true);
-				RefreshableTable refreshTable = new GenericStatementTable(searchOptions, statements);
+				RefreshableTableFrame refreshTable = new GenericStatementTableFrame(searchOptions, statements);
                 refreshTable.setVisible(true);
 				// parent.addChildFrame(refreshTable);
             } else if (col == 1){
@@ -67,11 +68,11 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
                         counterParty.removeAlias(aliases[result]);
                         // TODO: ask user if old name should be saved as alias
                         counterParty.addAlias(name);
-                        model.fireTableDataChanged();
+                        ((RefreshableTableModel<BusinessObject>)tabel.getModel()).fireTableDataChanged();
                     }
                 }
 			} else if (col == 5) {
-                AccountSelector sel = new AccountSelector(accounting.getAccounts(), actionListener);
+                AccountSelector sel = new AccountSelector(accounting);
                 sel.setVisible(true);
                 Account account = sel.getSelection();
 
@@ -100,4 +101,14 @@ public class CounterPartyTable extends RefreshableTable implements MouseListener
     @Override
 	public void mouseReleased(MouseEvent e) {
 	}
+
+    @Override
+    public void selectObject(CounterParty counterParty) {
+
+    }
+
+    @Override
+    public CounterParty getSelectedObject() {
+        return null;
+    }
 }

@@ -81,8 +81,13 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
     @Override
     public Movement addBusinessObject(Movement movement){
         movement.setBooking(this);
+        //movements.clear(); // clear to ensure only Booking contains only 1 Movement
         movements.add(movement);
         return movement;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 
     public Account getAccount() {
