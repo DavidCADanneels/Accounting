@@ -42,18 +42,7 @@ public class MortgageExtension implements AccountingExtension{
     }
     @Override
     public void extendConstructor(Accounting accounting){
-        mortgages = new Mortgages();
-        mortgages.setBusinessTypeCollection(accounting.getAccountTypes());
-        mortgages.setBusinessCollection(accounting.getAccounts());
-        mortgages.setName(mortgages.getBusinessObjectType());
-        try{
-            accounting.addBusinessObject((BusinessCollection) mortgages);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (DuplicateNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        accounting.addKey(mortgages.getBusinessObjectType());
+        mortgages = new Mortgages(accounting);
     }
 
     @Override

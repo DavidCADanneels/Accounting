@@ -1,9 +1,12 @@
 package be.dafke.Coda.Objects;
 
+import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.GUI.SearchOptions;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
 import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.util.ArrayList;
 
@@ -12,8 +15,18 @@ public class Statements extends BusinessCollection<BusinessObject> implements Bu
     public static final String STATEMENTS = "Statements";
     public static final String STATEMENT = "Statement";
 
-    public Statements(){
+    public Statements(Accounting accounting){
         setName(STATEMENTS);
+        setBusinessCollection(accounting.getBusinessObject(CounterParties.COUNTERPARTIES));
+        try {
+            accounting.addBusinessObject(this);
+        } catch (EmptyNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (DuplicateNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        accounting.addKey(STATEMENTS);
+
     }
 
     @Override

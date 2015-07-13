@@ -1,5 +1,6 @@
 package be.dafke.Coda.Objects;
 
+import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -19,9 +20,17 @@ public class CounterParties extends BusinessCollection<BusinessObject> {
         return COUNTERPARTY;
     }
 
-    public CounterParties(){
+    public CounterParties(Accounting accounting){
         addSearchKey(CounterParty.ACCOUNTNUMBER);
         setName(COUNTERPARTIES);
+        try {
+            accounting.addBusinessObject(this);
+        } catch (EmptyNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (DuplicateNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        accounting.addKey(COUNTERPARTIES);
     }
 
     @Override

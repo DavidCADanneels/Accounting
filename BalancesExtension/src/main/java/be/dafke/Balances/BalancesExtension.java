@@ -24,7 +24,6 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class BalancesExtension implements AccountingExtension {
     private static JMenu balancesMenu = null;
-    private Balances balances;
 
 
     public BalancesExtension(Accountings accountings, AccountingMenuBar menuBar){
@@ -60,19 +59,7 @@ public class BalancesExtension implements AccountingExtension {
         menuBar.add(balancesMenu);
     }
     public void extendConstructor(Accounting accounting){
-        balances = new Balances();
-        balances.setBusinessCollection(accounting.getAccounts());
-        balances.setBusinessTypeCollection(accounting.getAccountTypes());
-        balances.addDefaultBalances(accounting);
-        balances.setName(balances.getBusinessObjectType());
-        try{
-            accounting.addBusinessObject((BusinessCollection) balances);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (DuplicateNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        accounting.addKey(balances.getBusinessObjectType());
+        new Balances(accounting);
     }
 
     public void extendReadCollection(Accounting accounting, File xmlFolder){

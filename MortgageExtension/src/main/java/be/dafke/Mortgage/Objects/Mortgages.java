@@ -2,6 +2,7 @@ package be.dafke.Mortgage.Objects;
 
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
+import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
 import be.dafke.ObjectModel.BusinessObject;
@@ -22,8 +23,18 @@ public class Mortgages extends BusinessCollection<BusinessObject> implements Bus
     public static final String MORTGAGES = "Mortgages";
     public static final String MORTGAGE = "Mortgage";
 
-    public Mortgages(){
+    public Mortgages(Accounting accounting){
         setName(MORTGAGES);
+        setBusinessTypeCollection(accounting.getAccountTypes());
+        setBusinessCollection(accounting.getAccounts());
+        try{
+            accounting.addBusinessObject(this);
+        } catch (EmptyNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (DuplicateNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        accounting.addKey(MORTGAGES);
     }
 
     @Override

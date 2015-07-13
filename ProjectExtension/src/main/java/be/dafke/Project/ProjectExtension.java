@@ -42,15 +42,8 @@ public class ProjectExtension implements AccountingExtension{
     }
 
     public void extendConstructor(Accounting accounting){
-        projects = new Projects();
-        try {
-            accounting.addBusinessObject((BusinessCollection)projects);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (DuplicateNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        accounting.addKey(projects.getBusinessObjectType());
+        projects = new Projects(accounting);
+
     }
 
     public void extendReadCollection(Accounting accounting, File xmlFolder){

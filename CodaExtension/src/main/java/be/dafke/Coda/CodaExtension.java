@@ -22,8 +22,6 @@ import java.io.File;
  */
 public class CodaExtension implements AccountingExtension{
     private static JMenu banking = null;
-    private CounterParties counterParties;
-    private Statements statements;
 
     public CodaExtension(Accountings accountings, AccountingMenuBar menuBar){
         if(banking == null){
@@ -49,22 +47,8 @@ public class CodaExtension implements AccountingExtension{
 
     @Override
     public void extendConstructor(Accounting accounting){
-        counterParties = new CounterParties();
-        counterParties.setName(counterParties.getBusinessObjectType());
-
-        statements = new Statements();
-        statements.setBusinessCollection(counterParties);
-        statements.setName(statements.getBusinessObjectType());
-        try {
-            accounting.addBusinessObject((BusinessCollection)statements);
-            accounting.addBusinessObject((BusinessCollection)counterParties);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (DuplicateNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        accounting.addKey(counterParties.getBusinessObjectType());
-        accounting.addKey(statements.getBusinessObjectType());
+        new CounterParties(accounting);
+        new Statements(accounting);
     }
 
     @Override

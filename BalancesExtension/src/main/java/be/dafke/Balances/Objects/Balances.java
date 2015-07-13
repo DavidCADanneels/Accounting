@@ -24,8 +24,19 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
 
     public static final String BALANCES = "Balances";
 
-    public Balances(){
+    public Balances(Accounting accounting){
         setName(BALANCES);
+        setBusinessCollection(accounting.getAccounts());
+        setBusinessTypeCollection(accounting.getAccountTypes());
+        addDefaultBalances(accounting);
+        try{
+            accounting.addBusinessObject((BusinessCollection) this);
+        } catch (EmptyNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (DuplicateNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        }
+        accounting.addKey(BALANCES);
     }
 
     @Override
