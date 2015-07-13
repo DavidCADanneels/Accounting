@@ -122,7 +122,7 @@ public class BasicAccountingMain {
     }
 
     private static void setXmlFolder(){
-        Mode mode = Mode.TEST;
+        Mode mode = Mode.PROD;
 
         File userHome = new File(System.getProperty("user.home"));
         if(mode == Mode.TEST){
