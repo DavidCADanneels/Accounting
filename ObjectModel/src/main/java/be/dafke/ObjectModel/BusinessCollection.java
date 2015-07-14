@@ -55,8 +55,8 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
     @Override
     public String toString() {
         StringBuilder builder = new StringBuilder(getBusinessObjectType()).append(":\r\n");
-        for(BusinessObject writeableBusinessObject : getBusinessObjects()){
-            builder.append(writeableBusinessObject.toString());
+        for(BusinessObject businessObject : getBusinessObjects()){
+            builder.append(businessObject.toString());
         }
         return builder.toString();
     }
@@ -130,7 +130,7 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
     // Modify
 
     public V modify(Map.Entry<String,String> oldEntry, Map.Entry<String,String> newEntry) throws EmptyNameException, DuplicateNameException{
-        if(!oldEntry.getKey().equals(oldEntry.getKey())){
+        if(!oldEntry.getKey().equals(newEntry.getKey())){
             throw new RuntimeException("Inproper use: keys should have the same value (modify)");
         }
         String key = newEntry.getValue();
