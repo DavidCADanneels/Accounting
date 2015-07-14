@@ -18,8 +18,9 @@ import java.util.TreeMap;
   * @since 01/10/2010
  */
 public class Account extends BusinessCollection<Movement> implements BusinessTypeCollectionDependent<AccountType>, BusinessTyped<AccountType> {
-    private static final String TYPE = "type";
-    private static final String DEFAULTAMOUNT = "defaultAmount";
+    public static final String TYPE = "type";
+    public static final String DEFAULTAMOUNT = "defaultAmount";
+    public static final String MOVEMENT = "Movement";
     private AccountType type;
     private BigDecimal debitTotal, creditTotal;
     private final MultiValueMap<Calendar,Movement> movements;
@@ -51,7 +52,7 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
 
     @Override
     public String getChildType(){
-        return "Movement";
+        return MOVEMENT;
     }
 
     @Override
@@ -135,6 +136,7 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
     @Override
     public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
         TreeMap<String,String> outputMap = super.getInitProperties(collection);
+        // FIXME NullPointerException if type==null / Type must be defined
         outputMap.put(TYPE, getType().getName());
         if(defaultAmount!=null){
             outputMap.put(DEFAULTAMOUNT, defaultAmount.toString());

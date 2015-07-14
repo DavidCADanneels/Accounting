@@ -12,7 +12,7 @@ import java.util.TreeSet;
 public class BusinessObject {
     private String name;
     protected String businessObjectType;
-    protected final static String NAME = "name";
+    public final static String NAME = "name";
 
 //    private boolean isSaved;
 

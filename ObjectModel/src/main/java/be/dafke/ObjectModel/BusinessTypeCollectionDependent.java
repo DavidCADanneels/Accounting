@@ -7,6 +7,6 @@ package be.dafke.ObjectModel;
  */
 public interface BusinessTypeCollectionDependent<T extends BusinessType> {
 
-    public void setBusinessTypeCollection(BusinessTypeCollection<T> businessTypeCollection);
+    void setBusinessTypeCollection(BusinessTypeCollection<T> businessTypeCollection);
 
 }
