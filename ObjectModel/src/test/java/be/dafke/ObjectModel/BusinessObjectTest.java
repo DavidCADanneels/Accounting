@@ -57,4 +57,15 @@ public class BusinessObjectTest {
         assertEquals(NAME,uniqueProperties.firstKey());
         assertNull(uniqueProperties.get(NAME));
     }
+
+    @Test
+    public void setInitProperties(){
+        TreeMap<String, String> initProperties = new TreeMap<String, String>();
+        businessObject.setInitProperties(initProperties);
+        assertEquals(null, businessObject.getName());
+        final String NEW_NAME = "new name";
+        initProperties.put(businessObject.NAME, NEW_NAME);
+        businessObject.setInitProperties(initProperties);
+        assertEquals(NEW_NAME, businessObject.getName());
+    }
 }
