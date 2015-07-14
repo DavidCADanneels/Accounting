@@ -132,8 +132,9 @@ public class AccountTest {
     public void setInitProperties(){
         // TODO: check dependencies
         Account account = new Account();
-        account.setBusinessTypeCollection(new AccountTypes());
-        AccountType active = new AccountType();
+        AccountTypes accountTypes = new AccountTypes();
+        account.setBusinessTypeCollection(accountTypes);
+        AccountType active = accountTypes.createNewChild();
         active.setName(AccountTypes.ASSET);
         account.setType(active);
         TreeMap<String, String> initProperties = account.getInitProperties(null);

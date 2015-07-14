@@ -17,10 +17,11 @@ public class AccountTypes extends BusinessTypeCollection<AccountType> {
     public static final String DEBIT = "Debit";
     public static final String CREDIT = "Credit";
     public static final String MORTGAGE = "Mortgage";
+    public static final String ACCOUNT_TYPE = "AccountType";
 
     @Override
     public String getChildType(){
-        return "AccountType";
+        return ACCOUNT_TYPE;
     }
 
     @Override
