@@ -4,7 +4,6 @@ import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import org.junit.Test;
 
 import java.math.BigDecimal;
