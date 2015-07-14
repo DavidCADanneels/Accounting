@@ -28,6 +28,10 @@ public class BalancesExtension implements AccountingExtension {
 
     public BalancesExtension(Accountings accountings, AccountingMenuBar menuBar){
         if(balancesMenu == null) createMenu(menuBar, accountings);
+        for(Accounting accounting: accountings.getBusinessObjects()) {
+            new Balances(accounting);
+            accounting.addExtension(this);
+        }
     }
 
     private void createMenu(AccountingMenuBar menuBar, Accountings accountings) {
@@ -58,14 +62,13 @@ public class BalancesExtension implements AccountingExtension {
         menuBar.addRefreshableMenuItem(relationsBalance);
         menuBar.add(balancesMenu);
     }
-    public void extendConstructor(Accounting accounting){
-        new Balances(accounting);
-    }
 
+    @Override
     public void extendReadCollection(Accounting accounting, File xmlFolder){
 
     }
 
+    @Override
     public void extendWriteCollection(Accounting accounting, File xmlFolder){
     }
 }

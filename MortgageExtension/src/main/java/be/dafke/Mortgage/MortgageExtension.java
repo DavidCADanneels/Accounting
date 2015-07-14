@@ -29,6 +29,10 @@ public class MortgageExtension implements AccountingExtension{
 
     public MortgageExtension(Accountings accountings, AccountingMenuBar menuBar){
         if(banking == null) createMenu(menuBar, accountings);
+        for(Accounting accounting: accountings.getBusinessObjects()) {
+            mortgages = new Mortgages(accounting);
+            accounting.addExtension(this);
+        }
     }
 
     private void createMenu(AccountingMenuBar menuBar, Accountings accountings) {
@@ -39,10 +43,6 @@ public class MortgageExtension implements AccountingExtension{
         banking.add(mortgage);
         menuBar.addRefreshableMenuItem(mortgage);
         menuBar.add(banking);
-    }
-    @Override
-    public void extendConstructor(Accounting accounting){
-        mortgages = new Mortgages(accounting);
     }
 
     @Override

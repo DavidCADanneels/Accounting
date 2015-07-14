@@ -27,6 +27,11 @@ public class CodaExtension implements AccountingExtension{
         if(banking == null){
             createMenu(menuBar, accountings);
         }
+        for(Accounting accounting: accountings.getBusinessObjects()) {
+            new CounterParties(accounting);
+            new Statements(accounting);
+            accounting.addExtension(this);
+        }
     }
 
     private static void createMenu(AccountingMenuBar menuBar, Accountings accountings) {
@@ -43,12 +48,6 @@ public class CodaExtension implements AccountingExtension{
         menuBar.addRefreshableMenuItem(movements);
         menuBar.addRefreshableMenuItem(counterParties);
         menuBar.add(banking);
-    }
-
-    @Override
-    public void extendConstructor(Accounting accounting){
-        new CounterParties(accounting);
-        new Statements(accounting);
     }
 
     @Override

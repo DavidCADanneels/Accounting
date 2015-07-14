@@ -23,10 +23,13 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class ProjectExtension implements AccountingExtension{
     private static JMenu projecten = null;
-    private Projects projects;
 
     public ProjectExtension(Accountings accountings, AccountingMenuBar menuBar){
         if(projecten == null) createMenu(accountings, menuBar);
+        for(Accounting accounting: accountings.getBusinessObjects()) {
+            new Projects(accounting);
+            accounting.addExtension(this);
+        }
     }
 
     private void createMenu(Accountings accountings, AccountingMenuBar menuBar) {
@@ -39,11 +42,6 @@ public class ProjectExtension implements AccountingExtension{
         projecten.add(projects);
         menuBar.addRefreshableMenuItem(projects);
         menuBar.add(projecten);
-    }
-
-    public void extendConstructor(Accounting accounting){
-        projects = new Projects(accounting);
-
     }
 
     public void extendReadCollection(Accounting accounting, File xmlFolder){

@@ -22,7 +22,6 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     public void addExtension(AccountingExtension extension){
         extensions.add(extension);
-        extension.extendConstructor(this);
     }
     public List<AccountingExtension> getExtensions() {
         return extensions;
