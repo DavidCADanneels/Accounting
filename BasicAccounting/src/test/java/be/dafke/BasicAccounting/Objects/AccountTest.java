@@ -142,6 +142,17 @@ public class AccountTest {
         assertEquals(3, initProperties.size());
         assertTrue(initProperties.containsKey(NEW_KEY));
         assertEquals(NEW_VALUE, initProperties.get(NEW_KEY));
+        String correctValue = "30.25";
+        String wrongValue = "30+25";
+        initProperties.put(Account.DEFAULTAMOUNT, correctValue);
+        account.setInitProperties(initProperties);
+        assertEquals(new BigDecimal(correctValue), account.getDefaultAmount());
+        initProperties.put(Account.DEFAULTAMOUNT, wrongValue);
+        account.setInitProperties(initProperties);
+        assertNull(account.getDefaultAmount());
+        initProperties.put(Account.DEFAULTAMOUNT, null);
+        account.setInitProperties(initProperties);
+        assertNull(account.getDefaultAmount());
     }
 
     @Test
