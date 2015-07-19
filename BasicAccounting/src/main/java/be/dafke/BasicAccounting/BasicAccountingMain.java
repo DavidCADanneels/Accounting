@@ -112,7 +112,6 @@ public class BasicAccountingMain {
     private static void setXmlFolder(){
         Mode mode = Mode.PROD;
 
-        File userHome = new File(System.getProperty("user.home"));
         if(mode == Mode.TEST){
             int nr = JOptionPane.showOptionDialog(null,"TEST or PROD", "Which environment?",JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,null, Mode.values(),Mode.TEST);
             if(nr == 0){
@@ -126,6 +125,8 @@ public class BasicAccountingMain {
             xmlFolder = new File("BasicAccounting/src/main/resources/xml");
             htmlFolder = new File("BasicAccounting/src/main/resources/html");
         } else {// if (mode == Mode.PROD) {
+//            File userHome = new File(System.getProperty("user.home"));
+            File userHome = new File("data");
             File parentFolder = new File(userHome, Accountings.ACCOUNTING);
             xmlFolder = new File(parentFolder, "xml");
             htmlFolder = new File(userHome, "AccountingHTML");
