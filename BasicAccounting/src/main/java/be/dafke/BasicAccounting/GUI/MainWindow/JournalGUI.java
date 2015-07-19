@@ -122,6 +122,8 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 
     @Override
     public void focusGained(FocusEvent fe) {
+        JTextField field = (JTextField)fe.getComponent();
+        field.selectAll();
     }
 
     private void setDate(Calendar date){
