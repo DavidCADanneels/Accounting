@@ -32,7 +32,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 	private static final long serialVersionUID = 1L;
 	private final JournalDataModel journalDataModel;
 	private final JTextField debet, credit, dag, maand, jaar, bewijs, ident;
-	private final JButton ok, save, clear;
+	private final JButton singleBook, save, clear;
     private final JPopupMenu popup;
     private final RefreshableTable<Booking> table;
 	private BigDecimal debettotaal, credittotaal;
@@ -71,8 +71,8 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 		bewijs = new JTextField(30);
         bewijs.addFocusListener(this);
 
-		ok = new JButton(getBundle("Accounting").getString("OK"));
-		ok.addActionListener(new BookTransactionActionListener(this.accountings,this));
+		singleBook = new JButton(getBundle("Accounting").getString("OK"));
+		singleBook.addActionListener(new BookTransactionActionListener(this.accountings, this));
         save = new JButton(getBundle("Accounting").getString("SAVE"));
         save.addActionListener(this);
         clear = new JButton(getBundle("Accounting").getString("CLEAR_PANEL"));
@@ -96,7 +96,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 		paneel2.add(bewijs);
 
 		JPanel paneel3 = new JPanel();
-		paneel3.add(ok);
+		paneel3.add(singleBook);
 		paneel3.add(clear);
         paneel3.add(save);
 		debet = new JTextField(8);
@@ -213,7 +213,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         }
         ident.setText(identification);
         clear.setEnabled(clearEnabled);
-        ok.setEnabled(okEnabled);
+        singleBook.setEnabled(okEnabled);
         save.setEnabled(clearEnabled);
         setDate(date);
         bewijs.setText(description);
