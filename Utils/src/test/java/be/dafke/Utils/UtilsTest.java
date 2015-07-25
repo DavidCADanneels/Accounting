@@ -16,18 +16,34 @@ import static org.junit.Assert.assertNull;
 public class UtilsTest {
 
     @Test
-    public void stringToCalendar(){
-        Calendar calendar = Utils.toCalendar("01/03/2000");
-        assertEquals(1, calendar.get(Calendar.DATE));
-        assertEquals(2, calendar.get(Calendar.MONTH));  // 2+1=3 (March)
-        assertEquals(2000, calendar.get(Calendar.YEAR));
+    public void toCalendarSingleString() {
+        Calendar calendar = Utils.toCalendar("1/3/2000");
+        assertEquals(1, Utils.toDay(calendar));
+        assertEquals(3, Utils.toMonth(calendar));
+        assertEquals(2000, Utils.toYear(calendar));
         assertEquals("1/3/2000", Utils.toString(calendar));
 
-        Calendar calendar2 = Utils.toCalendar("5/6/1998");
-        assertEquals(5, calendar2.get(Calendar.DATE));
-        assertEquals(5, calendar2.get(Calendar.MONTH));  // 2+1=3 (March)
-        assertEquals(1998, calendar2.get(Calendar.YEAR));
-        assertEquals("5/6/1998", Utils.toString(calendar2));
+        assertNull(Utils.toCalendar("invalid"));
+    }
+
+    @Test
+    public void toCalendarMultipleStrings(){
+        Calendar calendar = Utils.toCalendar("5","6","1998");
+        assertEquals(5, Utils.toDay(calendar));
+        assertEquals(6, Utils.toMonth(calendar));
+        assertEquals(1998, Utils.toYear(calendar));
+        assertEquals("5/6/1998", Utils.toString(calendar));
+
+        assertNull(Utils.toCalendar("ab", "cd", "efgh"));
+    }
+
+    @Test
+    public void toCalendarIntegers(){
+        Calendar calendar = Utils.toCalendar(5,6,1998);
+        assertEquals(5, Utils.toDay(calendar));
+        assertEquals(6, Utils.toMonth(calendar));
+        assertEquals(1998, Utils.toYear(calendar));
+        assertEquals("5/6/1998", Utils.toString(calendar));
     }
 
     @Test
@@ -78,6 +94,7 @@ public class UtilsTest {
     @Test
     public void ArrayListToString(){
         ArrayList<String> list = new ArrayList<String>();
+        assertEquals("", Utils.toString(list));
         list.add("A");
         list.add("B");
         list.add("C");

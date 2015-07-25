@@ -39,9 +39,9 @@ public class AlphabeticListModel<K> extends DefaultListModel<K> {
 		else {
 			Object p1 = elementAt(0);
 			Object p2 = elementAt(size() - 1);
-			if (p.toString().compareTo(p1.toString()) < 0) {
+			if (p.toString().compareTo(p1.toString()) <= 0) {
 				insertElementAt(p, 0);
-			} else if (p.toString().compareTo(p2.toString()) > 0) {
+			} else if (p.toString().compareTo(p2.toString()) >= 0) {
 				insertElementAt(p, size());
 			} else {
 				insert(p, 0, size() - 1);
@@ -55,18 +55,14 @@ public class AlphabeticListModel<K> extends DefaultListModel<K> {
 	 * @see javax.swing.DefaultListModel#add(int index, java.lang.Object element)
 	 */
 	private void insert(K nieuw, int links, int rechts) {
-		K p1, p2, m;
+		K m;
 		while (rechts - links > 1) {
 			int midden = (links + rechts) / 2;
-			p1 = elementAt(links);
-			p2 = elementAt(rechts);
 			m = elementAt(midden);
-			if (nieuw.toString().compareTo(p1.toString()) > 0 && nieuw.toString().compareTo(m.toString()) < 0) {
+			if (nieuw.toString().compareTo(m.toString()) <= 0) {
 				rechts = midden;
-			} else if (nieuw.toString().compareTo(m.toString()) > 0 && nieuw.toString().compareTo(p2.toString()) < 0) {
-				links = midden;
 			} else {
-				System.out.println("duplicaat");
+				links = midden;
 			}
 		}
 		add(rechts, nieuw);
