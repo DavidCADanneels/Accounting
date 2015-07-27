@@ -6,6 +6,7 @@ import org.junit.Test;
 import java.util.ArrayList;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -52,27 +53,40 @@ public class MultiValueMapTest {
     }
 
     @Test
-    public void addValuesWithSameKey(){
-
+    public void getKeyMaps(){
+        createDefaultMap();
         assertEquals(2, map.get(KEY1).size());
         assertTrue(map.get(KEY1).contains(VALUE1));
         assertTrue(map.get(KEY1).contains(VALUE2));
+
+        assertEquals(2, map.get(KEY2).size());
+        assertTrue(map.get(KEY2).contains(VALUE3));
+        assertTrue(map.get(KEY2).contains(VALUE4));
+
+        assertEquals(3, map.get(KEY3).size());
+        assertTrue(map.get(KEY3).contains(VALUE5));
+        assertTrue(map.get(KEY3).contains(VALUE6));
+        assertTrue(map.get(KEY3).contains(VALUE7));
+
+        assertEquals(2, map.get(KEY4).size());
+        assertTrue(map.get(KEY4).contains(VALUE8));
+        assertTrue(map.get(KEY4).contains(VALUE9));
     }
 
     @Test
     public void totalSizeOfMap(){
-        assertEquals(2, map.values().size());
+        createDefaultMap();
+        assertEquals(9, map.values().size());
     }
 
     @Test
-    public void addValuesWithDifferentKey(){
-        map.addValue(KEY1, VALUE1);
-        map.addValue(KEY2, VALUE2);
-        assertEquals(2, map.values().size());
-        assertEquals(1, map.get(KEY1).size());
-        assertEquals(1, map.get(KEY2).size());
-        assertTrue(map.get(KEY1).contains(VALUE1));
-        assertTrue(map.get(KEY2).contains(VALUE2));
+    public void removeKeys(){
+        createDefaultMap();
+        map.removeValue(KEY3, VALUE6);
+        assertEquals(2, map.get(KEY3).size());
+        assertTrue(map.get(KEY3).contains(VALUE5));
+        assertFalse(map.get(KEY3).contains(VALUE6));
+        assertTrue(map.get(KEY3).contains(VALUE7));
     }
 
     @Test
