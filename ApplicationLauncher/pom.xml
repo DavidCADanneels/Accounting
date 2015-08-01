@@ -10,7 +10,7 @@
     <parent>
         <artifactId>Accounting</artifactId>
         <groupId>be.dafke</groupId>
-        <version>2.0</version>
+        <version>2.1</version>
     </parent>
 
     <dependencies>
@@ -22,17 +22,17 @@
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>BalancesExtension</artifactId>
-            <version>2.0</version>
+            <version>2.1</version>
         </dependency>
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>CodaExtension</artifactId>
-            <version>2.0</version>
+            <version>2.1</version>
         </dependency>
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>MortgageExtension</artifactId>
-            <version>2.0</version>
+            <version>2.1</version>
         </dependency>
     </dependencies>
 

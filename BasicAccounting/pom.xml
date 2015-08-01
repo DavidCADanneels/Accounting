@@ -11,34 +11,34 @@
     <parent>
         <groupId>be.dafke</groupId>
         <artifactId>Accounting</artifactId>
-        <version>2.0</version>
+        <version>2.1</version>
     </parent>
 
     <dependencies>
         <!--<dependency>-->
             <!--<groupId>be.dafke.Accounting</groupId>-->
             <!--<artifactId>Mortgage</artifactId>-->
-            <!--<version>2.0</version>-->
+            <!--<version>2.1</version>-->
         <!--</dependency>-->
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>ComponentModel</artifactId>
-            <version>2.0</version>
+            <version>2.1</version>
         </dependency>
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>ObjectModel</artifactId>
-            <version>2.0</version>
+            <version>2.1</version>
         </dependency>
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>ObjectModelDao</artifactId>
-            <version>2.0</version>
+            <version>2.1</version>
         </dependency>
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>Utils</artifactId>
-            <version>2.0</version>
+            <version>2.1</version>
         </dependency>
 
         <dependency>
@@ -48,4 +48,33 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>0.5.5.201112152213</version>
+                <configuration>
+                    <destFile>${basedir}/target/coverage-reports/jacoco-unit.exec</destFile>
+                    <dataFile>${basedir}/target/coverage-reports/jacoco-unit.exec</dataFile>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>jacoco-initialize</id>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>jacoco-site</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
 </project>
