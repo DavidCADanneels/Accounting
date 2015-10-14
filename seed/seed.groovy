@@ -7,7 +7,7 @@ mavenJob("01_UnitTests"){
             remote {
                 url "https://github.com/DavidCADanneels/Accounting.git"
             }
-            branch "master"
+            branch "feature/saveLocal"
             createTag false
         }
     }
