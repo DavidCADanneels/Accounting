@@ -251,7 +251,6 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
         }
     }
 
-    @Override
     public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
         accounts = businessCollection;
     }

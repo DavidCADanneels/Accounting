@@ -55,17 +55,14 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
         return MOVEMENT;
     }
 
-    @Override
     public void setBusinessTypeCollection(BusinessTypeCollection businessTypeCollection) {
         this.businessTypeCollection = businessTypeCollection;
     }
 
-    @Override
     public void setType(AccountType type) {
         this.type = type;
     }
 
-    @Override
     public AccountType getType() {
         return type;
     }

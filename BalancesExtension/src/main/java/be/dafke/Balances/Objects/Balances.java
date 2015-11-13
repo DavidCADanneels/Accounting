@@ -139,22 +139,18 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         readCollection("Balance", false);
     }*/
 
-    @Override
     public BusinessCollection<Account> getBusinessCollection() {
         return businessCollection;
     }
 
-    @Override
     public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
         this.businessCollection = businessCollection;
     }
 
-    @Override
     public BusinessTypeCollection<AccountType> getBusinessTypeCollection() {
         return businessTypeCollection;
     }
 
-    @Override
     public void setBusinessTypeCollection(BusinessTypeCollection<AccountType> businessTypeCollection) {
         this.businessTypeCollection = businessTypeCollection;
     }

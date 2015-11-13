@@ -28,7 +28,6 @@ public class JournalDataModel extends RefreshableTableModel<Booking> {
 
 // DE GET METHODEN
 // ===============
-	@Override
 	public Object getValueAt(int row, int col) {
 		Booking booking = transaction.getBusinessObjects().get(row);
 		if (booking.getBusinessObjects().get(0).isDebit()) {
@@ -49,12 +48,10 @@ public class JournalDataModel extends RefreshableTableModel<Booking> {
 		return null;
 	}
 
-	@Override
 	public int getColumnCount() {
 		return columnNames.length;
 	}
 
-	@Override
 	public int getRowCount() {
         if(transaction == null){
             return 0;

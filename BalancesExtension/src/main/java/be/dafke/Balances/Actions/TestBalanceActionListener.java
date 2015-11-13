@@ -20,7 +20,6 @@ public class TestBalanceActionListener implements ActionListener {
         this.accountings=accountings;
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         Accounting accounting = accountings.getCurrentObject();
         String key = accounting.toString() + TEST_BALANCE;

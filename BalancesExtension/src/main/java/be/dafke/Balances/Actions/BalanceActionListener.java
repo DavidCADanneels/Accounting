@@ -25,7 +25,6 @@ public class BalanceActionListener implements ActionListener {
         this.balanceName=balanceName;
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         Accounting accounting = accountings.getCurrentObject();
         BusinessCollection<BusinessObject> balances = accounting.getBusinessObject(Balances.BALANCES);

@@ -43,7 +43,6 @@ public class AccountSelector extends RefreshableDialog implements ActionListener
         pack();
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == combo) {
 			account = (Account) combo.getSelectedItem();
@@ -56,7 +55,6 @@ public class AccountSelector extends RefreshableDialog implements ActionListener
 		return account;
 	}
 
-    @Override
     public void refresh() {
         model.removeAllElements();
         Accounts accounts = accounting.getAccounts();

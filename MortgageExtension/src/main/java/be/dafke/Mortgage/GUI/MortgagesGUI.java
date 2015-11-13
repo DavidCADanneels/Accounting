@@ -78,7 +78,6 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
 		list.revalidate();
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		Mortgage mortgage = (Mortgage)list.getSelectedValue();
 		if (mortgage == null) {
@@ -95,7 +94,6 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
         ComponentMap.refreshAllFrames();
 	}
 
-	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		if (journal!=null && !e.getValueIsAdjusting() && list.getSelectedIndex() != -1) {
 			pay.setEnabled(/*list.getSelectedValue().isBookable()*/true);

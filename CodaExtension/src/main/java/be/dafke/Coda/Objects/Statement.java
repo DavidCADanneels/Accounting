@@ -145,7 +145,6 @@ public class Statement extends BusinessObject implements BusinessCollectionDepen
         return properties;
     }
 
-    @Override
     public void setBusinessCollection(BusinessCollection<CounterParty> businessCollection) {
         this.businessCollection = businessCollection;
     }

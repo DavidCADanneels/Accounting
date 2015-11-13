@@ -20,7 +20,6 @@ public class NewAccountingActionListener implements ActionListener {
         this.accountings = accountings;
     }
 
-    @Override
     public void actionPerformed(ActionEvent ae) {
         String name = JOptionPane.showInputDialog(null, "Enter a name");
         try {

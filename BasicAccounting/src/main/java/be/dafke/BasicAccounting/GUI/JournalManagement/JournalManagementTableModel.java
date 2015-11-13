@@ -25,17 +25,14 @@ public class JournalManagementTableModel extends RefreshableTableModel<Journal> 
         this.accounting = accounting;
     }
 
-    @Override
     public int getColumnCount() {
         return columnClasses.length;
     }
 
-    @Override
     public int getRowCount() {
         return accounting.getJournals().getBusinessObjects().size();
     }
 
-    @Override
     public Object getValueAt(int row, int col) {
         Journal journal = accounting.getJournals().getBusinessObjects().get(row);
         if (col == 0) {

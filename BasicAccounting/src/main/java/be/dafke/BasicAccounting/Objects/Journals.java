@@ -25,12 +25,10 @@ public class Journals extends BusinessCollection<Journal> implements BusinessTyp
         return "Journal";
     }
 
-    @Override
     public void setBusinessCollection(BusinessCollection<Account> businessCollection){
         this.businessCollection = businessCollection;
     }
 
-    @Override
     public BusinessCollection<Account> getBusinessCollection() {
         return businessCollection;
     }
@@ -79,12 +77,10 @@ public class Journals extends BusinessCollection<Journal> implements BusinessTyp
         return journal;
     }
 
-    @Override
     public void setBusinessTypeCollection(BusinessTypeCollection<JournalType> businessTypeCollection) {
         this.businessTypeCollection = businessTypeCollection;
     }
 
-    @Override
     public BusinessTypeCollection<JournalType> getBusinessTypeCollection() {
         return businessTypeCollection;
     }

@@ -63,12 +63,10 @@ public class BalancesExtension implements AccountingExtension {
         menuBar.add(balancesMenu);
     }
 
-    @Override
     public void extendReadCollection(Accounting accounting, File xmlFolder){
 
     }
 
-    @Override
     public void extendWriteCollection(Accounting accounting, File xmlFolder){
     }
 }

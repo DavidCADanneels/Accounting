@@ -83,12 +83,10 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 	 * @see javax.swing.table.AbstractTableModel#fireTableDataChanged()
 	 */
 
-	@Override
 	public void refresh() {
 		model.fireTableDataChanged();
 	}
 
-	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		if (!e.getValueIsAdjusting()) {
 			int[] rows = tabel.getSelectedRows();

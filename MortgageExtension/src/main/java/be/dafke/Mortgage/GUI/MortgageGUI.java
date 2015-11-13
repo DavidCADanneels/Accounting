@@ -124,7 +124,6 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		}
 	}
 
-	@Override
 	public void valueChanged(ListSelectionEvent e) {
 		init = true;
 		if (!e.getValueIsAdjusting() && mortgagesList.getSelectedIndex() != -1) {
@@ -146,7 +145,6 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		init = false;
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == save) {
 			if (save.getText().equals("Edit")) {
@@ -187,7 +185,6 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		}
     }
 
-	@Override
 	public void refresh() {
         listModel = new DefaultListModel<BusinessObject>();
         for(BusinessObject mortgage :mortgages.getBusinessObjects()) {

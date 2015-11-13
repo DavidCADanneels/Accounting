@@ -12,32 +12,26 @@ import java.util.ArrayList;
 public abstract class ModifyAccountAction implements Action{
     protected ArrayList<Account> accountList;
 
-    @Override
     public Object getValue(String key) {
         return null;
     }
 
-    @Override
     public void putValue(String key, Object value) {
         accountList = (ArrayList<Account>)value;
     }
 
-    @Override
     public void setEnabled(boolean b) {
 
     }
 
-    @Override
     public boolean isEnabled() {
         return true;
     }
 
-    @Override
     public void addPropertyChangeListener(PropertyChangeListener listener) {
 
     }
 
-    @Override
     public void removePropertyChangeListener(PropertyChangeListener listener) {
 
     }

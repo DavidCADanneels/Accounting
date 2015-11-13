@@ -54,12 +54,10 @@ public class Accounts extends BusinessCollection<Account> implements BusinessTyp
         return modify(oldEntry, newEntry);
 	}
 
-    @Override
     public void setBusinessTypeCollection(BusinessTypeCollection<AccountType> businessTypeCollection) {
         this.businessTypeCollection = businessTypeCollection;
     }
 
-    @Override
     public BusinessTypeCollection<AccountType> getBusinessTypeCollection() {
         return businessTypeCollection;
     }

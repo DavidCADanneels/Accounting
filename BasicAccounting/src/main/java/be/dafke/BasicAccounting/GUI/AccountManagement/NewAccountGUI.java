@@ -57,7 +57,6 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
         pack();
     }
 
-    @Override
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == add || event.getSource() == nameField) {
             addAccount();
@@ -96,7 +95,6 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
         defaultAmountField.setText("");
     }
 
-    @Override
     public void refresh() {
         // nothing to do here
     }

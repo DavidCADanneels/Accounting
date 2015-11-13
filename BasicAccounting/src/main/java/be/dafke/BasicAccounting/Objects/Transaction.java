@@ -53,12 +53,10 @@ public class Transaction extends BusinessCollection<Booking> implements Business
         return new TreeMap<String, String>();
     }
 
-    @Override
     public void setBusinessCollection(BusinessCollection<Account> businessCollection){
         this.businessCollection = businessCollection;
     }
 
-    @Override
     public BusinessCollection<Account> getBusinessCollection() {
         return businessCollection;
     }

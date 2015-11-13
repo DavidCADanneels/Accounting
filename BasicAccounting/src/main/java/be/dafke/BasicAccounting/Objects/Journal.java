@@ -38,12 +38,10 @@ public class Journal extends BusinessCollection<Transaction> implements Business
         return true;
     }
 
-    @Override
     public void setBusinessCollection(BusinessCollection<Account> businessCollection){
         this.businessCollection = businessCollection;
     }
 
-    @Override
     public BusinessCollection<Account> getBusinessCollection() {
         return businessCollection;
     }
@@ -75,7 +73,6 @@ public class Journal extends BusinessCollection<Transaction> implements Business
         return type;
     }
 
-    @Override
     public void setBusinessTypeCollection(BusinessTypeCollection businessTypeCollection) {
         this.businessTypeCollection = businessTypeCollection;
     }

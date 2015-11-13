@@ -133,12 +133,10 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 		pack();
 	}
 
-	@Override
 	public void refresh() {
         // nothing to do
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == converter) {
 			berekenMensualiteit();
@@ -200,11 +198,9 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 		totalToPayDifference.setText(totalToPayFixedNr.subtract(totalToPayDegresNr).toString());
 	}
 
-	@Override
 	public void focusGained(FocusEvent arg0) {
 	}
 
-	@Override
 	public void focusLost(FocusEvent e) {
 		if (e.getSource() == amountField) {
 			String s = amountField.getText();

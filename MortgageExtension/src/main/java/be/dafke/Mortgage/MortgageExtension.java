@@ -45,7 +45,6 @@ public class MortgageExtension implements AccountingExtension{
         menuBar.add(banking);
     }
 
-    @Override
     public void extendReadCollection(Accounting accounting, File xmlFolder){
         File rootFolder = new File(xmlFolder, accounting.getName());
         for(BusinessObject businessObject : mortgages.getBusinessObjects()){
@@ -55,7 +54,6 @@ public class MortgageExtension implements AccountingExtension{
         }
     }
 
-    @Override
     public void extendWriteCollection(Accounting accounting, File xmlFolder){
         File mortgagesFolder = new File(xmlFolder, "Mortgages");
         File accountsFolder = new File(xmlFolder, "Accounts");

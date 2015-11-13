@@ -21,7 +21,6 @@ public class DeleteAccountsAction extends ModifyAccountAction {
         this.accounting = accounting;
     }
 
-    @Override
     public void actionPerformed(ActionEvent ae) {
         if(!accountList.isEmpty()) {
             ArrayList<String> failed = new ArrayList<String>();

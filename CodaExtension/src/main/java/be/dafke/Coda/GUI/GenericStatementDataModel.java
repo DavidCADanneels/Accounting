@@ -36,7 +36,6 @@ public class GenericStatementDataModel extends RefreshableTableModel<Statement> 
 
 	// DE GET METHODEN
 	// ===============
-	@Override
 	public Object getValueAt(int row, int col) {
 		Statement m = getAllStatements().get(row);
         if (col == 0) {
@@ -58,12 +57,10 @@ public class GenericStatementDataModel extends RefreshableTableModel<Statement> 
 		} else return "";
 	}
 
-	@Override
 	public int getColumnCount() {
 		return columnNames.length;
 	}
 
-	@Override
 	public int getRowCount() {
 		return getAllStatements().size();
 	}

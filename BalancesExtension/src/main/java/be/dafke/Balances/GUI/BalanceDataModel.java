@@ -29,7 +29,6 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
 
 // DE GET METHODEN
 // ===============
-	@Override
 	public Object getValueAt(int row, int col) {
 		int size = getRowCount();
 		if (row == size - 2 || row == size - 1) {
@@ -91,12 +90,10 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
 		return "";
 	}
 
-	@Override
 	public int getColumnCount() {
 		return columnNames.length;
 	}
 
-	@Override
 	public int getRowCount() {
 		int size1 = balance.getLeftAccounts().size();
 		int size2 = balance.getRightAccounts().size();

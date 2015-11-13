@@ -28,7 +28,6 @@ public class SaveAllActionListener extends WindowAdapter implements ActionListen
         ComponentMap.closeAllFrames();
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         saveData();
     }

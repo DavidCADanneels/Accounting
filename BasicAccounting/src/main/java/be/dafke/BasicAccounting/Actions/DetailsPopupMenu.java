@@ -51,7 +51,6 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
         add(details);
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         setVisible(false);
         RefreshableTableFrame<Booking> newGui;

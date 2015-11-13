@@ -23,7 +23,6 @@ public class SwitchJournalActionListener implements ActionListener {
         this.combo = combo;
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         Accounting accounting = accountings.getCurrentObject();
         Journals journals = accounting.getJournals();

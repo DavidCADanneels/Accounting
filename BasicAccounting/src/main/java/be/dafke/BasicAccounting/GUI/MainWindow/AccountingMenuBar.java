@@ -41,7 +41,6 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         itemsToRefresh.add(item);
     }
 
-    @Override
     public void refresh(){
         for(JMenuItem item:itemsToRefresh){
             item.setEnabled(active);

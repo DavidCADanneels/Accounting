@@ -34,21 +34,14 @@ public class JournalDetails extends RefreshableTableFrame<Booking> implements Wi
 		tabel.addMouseListener(new PopupActivator(popup,tabel, 0,2,3,4));
 	}
 
-    @Override
     public void windowClosing(WindowEvent we) {
         popup.setVisible(false);
     }
 
-    @Override
     public void windowOpened(WindowEvent e) {}
-    @Override
     public void windowClosed(WindowEvent e) {}
-    @Override
     public void windowIconified(WindowEvent e) {}
-    @Override
     public void windowDeiconified(WindowEvent e) {}
-    @Override
     public void windowActivated(WindowEvent e) {}
-    @Override
     public void windowDeactivated(WindowEvent e) {}
 }

@@ -126,7 +126,6 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		// setVisible(true);
 	}
 
-	@Override
 	public void valueChanged(ListSelectionEvent lse) {
 		JList list = (JList) lse.getSource();
 		if (list == allAccounts) {
@@ -144,7 +143,6 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		}
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() == moveTo) {
 			for(Account account : allAccounts.getSelectedValuesList()) {
@@ -200,7 +198,6 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		return result;
 	}
 
-    @Override
     public void refresh() {
         Accounts accounts = accounting.getAccounts();
         zoeker.resetMap(accounts.getBusinessObjects());

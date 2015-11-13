@@ -26,7 +26,6 @@ public class PopupActivator extends MouseAdapter {
         }
     }
 
-    @Override
     public void mouseClicked(MouseEvent me) {
         Point cell = me.getPoint();//
         Point location = me.getLocationOnScreen();

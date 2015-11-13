@@ -23,7 +23,6 @@ public class ShowCounterpartiesActionListener implements ActionListener{
         this.accountings = accountings;
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         Accounting accounting = accountings.getCurrentObject();
         BusinessCollection<BusinessObject> counterParties = accounting.getBusinessObject(CounterParties.COUNTERPARTIES);

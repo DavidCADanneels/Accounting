@@ -29,7 +29,6 @@ public class BalancePopupMenu extends JPopupMenu implements ActionListener {
         add(details);
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         Account account = gui.getSelectedObject();
         accountDetailsActionListener.showDetails(accounting, account);

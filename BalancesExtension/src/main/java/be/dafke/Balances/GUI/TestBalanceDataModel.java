@@ -30,7 +30,6 @@ public class TestBalanceDataModel extends RefreshableTableModel<Account> {
 
 	// DE GET METHODEN
 	// ===============
-	@Override
 	public Object getValueAt(int row, int col) {
 		Account account = getObject(row, col);
 		if (col == 0) return account;
@@ -45,12 +44,10 @@ public class TestBalanceDataModel extends RefreshableTableModel<Account> {
 		}
 	}
 
-	@Override
 	public int getColumnCount() {
 		return columnNames.length;
 	}
 
-	@Override
 	public int getRowCount() {
 		return accounting.getAccounts().getBusinessObjects().size();
 	}

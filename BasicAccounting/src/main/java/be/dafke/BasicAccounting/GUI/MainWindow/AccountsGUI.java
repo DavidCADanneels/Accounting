@@ -44,6 +44,12 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     private AccountTypes accountTypes;
     private final JPanel filter;
 
+    public Account getSelectedAccount() {
+        return selectedAccount;
+    }
+
+    private Account selectedAccount = null;
+
     public AccountsGUI(Accountings accountings) {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
@@ -57,7 +63,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         accountManagement.setMnemonic(KeyEvent.VK_M);
         accountDetails.setMnemonic(KeyEvent.VK_T);
         accountManagement.setEnabled(false);
-        AddBookingToTransactionActionListener listener = new AddBookingToTransactionActionListener(accountings);
+        AddBookingToTransactionActionListener listener = new AddBookingToTransactionActionListener(accountings, this);
 		debet.addActionListener(listener);
 		credit.addActionListener(listener);
 		accountManagement.addActionListener(new AccountManagementActionListener(accountings));
@@ -92,20 +98,18 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 		add(filter, BorderLayout.NORTH);
 	}
 
-	@Override
 	public void valueChanged(ListSelectionEvent lse) {
-        Account account = null;
+        selectedAccount = null;
 		if (!lse.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
-            account = lijst.getSelectedValue();
-            accounts.setCurrentObject(account);
+            selectedAccount = lijst.getSelectedValue();
+            accounts.setCurrentObject(selectedAccount);
         }
-        accountDetails.setEnabled(account!=null);
-        boolean active = (account!=null && journal!=null);
+        accountDetails.setEnabled(selectedAccount !=null);
+        boolean active = (selectedAccount !=null && journal!=null);
         debet.setEnabled(active);
         credit.setEnabled(active);
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() instanceof JCheckBox) {
 			checkBoxes();

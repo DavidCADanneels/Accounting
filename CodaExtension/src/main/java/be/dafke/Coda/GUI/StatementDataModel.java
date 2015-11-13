@@ -25,7 +25,6 @@ public class StatementDataModel extends RefreshableTableModel<Statement> {
 
 	// DE GET METHODEN
 	// ===============
-	@Override
 	public Object getValueAt(int row, int col) {
 		Statement m = (Statement)statements.getBusinessObjects().get(row);
 		if (col == 0) {
@@ -45,12 +44,10 @@ public class StatementDataModel extends RefreshableTableModel<Statement> {
 		} else return "";
 	}
 
-	@Override
 	public int getColumnCount() {
 		return columnNames.length;
 	}
 
-	@Override
 	public int getRowCount() {
 		return statements.getBusinessObjects().size();
 	}

@@ -23,7 +23,6 @@ public class BookTransactionActionListener implements ActionListener {
         this.gui = gui;
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         Accounting accounting = accountings.getCurrentObject();
         Journals journals = accounting.getJournals();

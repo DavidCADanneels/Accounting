@@ -46,7 +46,6 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
         add(debitCredit);
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         menuAction((JMenuItem) e.getSource());
     }

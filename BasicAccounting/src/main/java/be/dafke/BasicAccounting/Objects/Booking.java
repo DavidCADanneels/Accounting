@@ -100,7 +100,6 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
         this.transaction = transaction;
     }
 
-    @Override
     public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
         this.businessCollection = businessCollection;
     }

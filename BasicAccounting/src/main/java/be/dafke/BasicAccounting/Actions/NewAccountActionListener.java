@@ -16,7 +16,6 @@ public class NewAccountActionListener implements ActionListener{
         this.accounting=accounting;
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         new NewAccountGUI(accounting).setVisible(true);
         // or

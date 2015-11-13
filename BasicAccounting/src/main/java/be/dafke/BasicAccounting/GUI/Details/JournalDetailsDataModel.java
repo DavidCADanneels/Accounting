@@ -39,7 +39,6 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 // DE GET METHODEN
 // ===============
 
-	@Override
 	public int getRowCount() {
 		int size = 0;
         for(Transaction transaction : journal.getBusinessObjects()){
@@ -48,7 +47,6 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 		return size;
 	}
 
-	@Override
 	public int getColumnCount() {
 		return 6;
 	}
@@ -66,7 +64,6 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 		return boekingen.get(row);
 	}
 
-	@Override
 	public Object getValueAt(int row, int col) {
 		Booking boeking = getValueAt(row);
         boolean first = (boeking == boeking.getTransaction().getBusinessObjects().get(0));

@@ -65,12 +65,10 @@ public class Statements extends BusinessCollection<BusinessObject> implements Bu
 //        readCollection("Statement", false);
 //    }
 
-    @Override
     public BusinessCollection<BusinessObject> getBusinessCollection() {
         return businessCollection;
     }
 
-    @Override
     public void setBusinessCollection(BusinessCollection<BusinessObject> businessCollection) {
         this.businessCollection = businessCollection;
     }

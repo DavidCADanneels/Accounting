@@ -36,12 +36,10 @@ public class AccountDetailsDataModel extends RefreshableTableModel<Booking> {
 // DE GET METHODEN
 // ===============
 
-	@Override
 	public int getRowCount() {
 		return rekening.getBusinessObjects().size();
 	}
 
-	@Override
 	public int getColumnCount() {
 		return 5;
 	}
@@ -67,7 +65,6 @@ public class AccountDetailsDataModel extends RefreshableTableModel<Booking> {
 		return 0;
 	}
 
-	@Override
 	public Object getValueAt(int row, int col) {
         Movement movement = rekening.getBusinessObjects().get(row);
         if (col == 0) {

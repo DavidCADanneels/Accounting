@@ -89,17 +89,12 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         transactionCode.setEnabled(false);
         transactionCode.setText(statement.getTransactionCode());
         transactionCode.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
             public void changedUpdate(DocumentEvent e) {
                 setTransactionCode();
             }
-
-            @Override
             public void insertUpdate(DocumentEvent e) {
                 setTransactionCode();
             }
-
-            @Override
             public void removeUpdate(DocumentEvent e) {
                 setTransactionCode();
             }
@@ -108,17 +103,12 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         communication.setEnabled(false);
         communication.setText(statement.getCommunication());
         communication.getDocument().addDocumentListener(new DocumentListener() {
-            @Override
             public void changedUpdate(DocumentEvent e) {
                 setCommunication();
             }
-
-            @Override
             public void insertUpdate(DocumentEvent e) {
                 setCommunication();
             }
-
-            @Override
             public void removeUpdate(DocumentEvent e) {
                 setCommunication();
             }
@@ -174,7 +164,6 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 		return newCounterParty;
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == ok) {
 			dispose();
@@ -283,7 +272,6 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 		movementDataModel.fireTableDataChanged();
 	}
 
-    @Override
     public void refresh() {
         // nothing to do here
     }

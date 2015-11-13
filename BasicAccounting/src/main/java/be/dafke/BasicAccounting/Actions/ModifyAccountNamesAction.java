@@ -21,7 +21,6 @@ public class ModifyAccountNamesAction extends ModifyAccountAction {
         this.accounting = accounting;
     }
 
-    @Override
     public void actionPerformed(ActionEvent ae) {
         if (!accountList.isEmpty()) {
             for (Account account : accountList) {

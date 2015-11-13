@@ -23,7 +23,6 @@ public class ShowProjectsActionListener implements ActionListener {
         this.accountings = accountings;
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         Accounting accounting = accountings.getCurrentObject();
         BusinessCollection<BusinessObject> projects = accounting.getBusinessObject(PROJECTS);

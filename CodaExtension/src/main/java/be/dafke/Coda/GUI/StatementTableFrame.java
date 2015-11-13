@@ -247,7 +247,6 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
 		super.refresh();
 	}
 
-    @Override
 	public void mouseClicked(MouseEvent me) {
 		Point cell = me.getPoint();
 		if (me.getClickCount() == 1) {
@@ -294,19 +293,15 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
 		}
 	}
 
-    @Override
 	public void mouseEntered(MouseEvent e) {
 	}
 
-    @Override
 	public void mouseExited(MouseEvent e) {
 	}
 
-    @Override
 	public void mousePressed(MouseEvent e) {
 	}
 
-    @Override
 	public void mouseReleased(MouseEvent e) {
 	}
 }

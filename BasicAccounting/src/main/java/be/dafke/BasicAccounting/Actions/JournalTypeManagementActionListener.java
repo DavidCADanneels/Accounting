@@ -19,7 +19,6 @@ public class JournalTypeManagementActionListener implements ActionListener{
         this.accounting=accounting;
     }
 
-    @Override
     public void actionPerformed(ActionEvent ae) {
         //Accounting accounting = accountings.getCurrentObject();
         String key = accounting.toString() + JOURNAL_TYPE_MANAGEMENT;

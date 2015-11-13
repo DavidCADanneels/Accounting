@@ -1,8 +1,13 @@
 package be.dafke.launcher;
 
 import be.dafke.Balances.BalancesExtension;
+import be.dafke.BasicAccounting.Actions.SaveAllActionListener;
 import be.dafke.BasicAccounting.BasicAccountingMain;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
+import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
+import be.dafke.BasicAccounting.GUI.MainWindow.AccountsGUI;
+import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
+import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.CodaExtension;
 import be.dafke.Mortgage.GUI.MortgagesGUI;
@@ -17,6 +22,10 @@ import java.awt.*;
  * Time: 22:07
  */
 public class Main extends BasicAccountingMain{
+
+    protected static AccountsGUI accountsGUILeft;
+    protected static AccountsGUI accountsGUIRight;
+
     public static void main(String[] args) {
         startReadingXmlFile();
         createBasicComponents();
@@ -35,10 +44,21 @@ public class Main extends BasicAccountingMain{
         new MortgageExtension(accountings, menuBar);
     }
 
+    protected static void createBasicComponents(){
+        journalGUI = new JournalGUI(accountings);
+        accountsGUILeft = new AccountsGUI(accountings);
+        accountsGUIRight = new AccountsGUI(accountings);
+        journalsGUI = new JournalsGUI(accountings);
+        menuBar = new AccountingMenuBar(accountings);
+        saveButton = new JButton("Save all");
+        saveButton.addActionListener(new SaveAllActionListener(accountings));
+    }
+
     protected static void composeContentPanel(){
         AccountingMultiPanel links = new AccountingMultiPanel();
         links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
-        links.add(accountsGUI);
+        links.add(accountsGUILeft);
+        links.add(accountsGUIRight);
         links.add(new MortgagesGUI());
         links.add(journalsGUI);
         links.add(saveButton);

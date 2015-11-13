@@ -23,7 +23,6 @@ public class AccountDetailsActionListener implements ActionListener{
         this.accountings=accountings;
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         Accounting accounting = accountings.getCurrentObject();
         Account account = accounting.getAccounts().getCurrentObject();

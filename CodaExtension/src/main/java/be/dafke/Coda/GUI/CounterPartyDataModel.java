@@ -22,7 +22,6 @@ public class CounterPartyDataModel extends RefreshableTableModel<CounterParty> {
 
 	// DE GET METHODEN
 	// ===============
-	@Override
 	public Object getValueAt(int row, int col) {
 		CounterParty c = (CounterParty)counterParties.getBusinessObjects().get(row);
 		if (col == 0) {
@@ -40,12 +39,10 @@ public class CounterPartyDataModel extends RefreshableTableModel<CounterParty> {
 		} else return "";
 	}
 
-	@Override
 	public int getColumnCount() {
 		return columnNames.length;
 	}
 
-	@Override
 	public int getRowCount() {
 		return counterParties.getBusinessObjects().size();
 	}

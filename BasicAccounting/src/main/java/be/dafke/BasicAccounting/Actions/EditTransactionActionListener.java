@@ -26,7 +26,6 @@ public class EditTransactionActionListener implements ActionListener {
         this.table = table;
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         Booking booking = table.getSelectedObject();
         Transaction transaction = booking.getTransaction();

@@ -51,7 +51,6 @@ public abstract class RefreshableTableFrame<BusinessObject> extends RefreshableF
 	 * Herlaadt de data van de tabel
 	 * @see javax.swing.table.AbstractTableModel#fireTableDataChanged()
 	 */
-	@Override
 	public void refresh() {
 		tabel.refresh();
 	}

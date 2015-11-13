@@ -50,12 +50,10 @@ public class CodaExtension implements AccountingExtension{
         menuBar.add(banking);
     }
 
-    @Override
     public void extendReadCollection(Accounting accounting, File xmlFolder){
 
     }
 
-    @Override
     public void extendWriteCollection(Accounting accounting, File xmlFolder){
 
     }

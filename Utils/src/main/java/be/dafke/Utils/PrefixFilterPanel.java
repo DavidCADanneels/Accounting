@@ -40,17 +40,12 @@ public class PrefixFilterPanel<K> extends JPanel {
         scrol = new JScrollPane(list);
 		zoekveld = new JTextField(20);
 		zoekveld.getDocument().addDocumentListener(new DocumentListener() {
-			@Override
 			public void changedUpdate(DocumentEvent e) {
 				repaint();
 			}
-
-			@Override
 			public void insertUpdate(DocumentEvent e) {
 				repaint();
 			}
-
-			@Override
 			public void removeUpdate(DocumentEvent e) {
 				repaint();
 			}

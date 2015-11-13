@@ -20,7 +20,6 @@ public class OpenAccountingActionListener implements ActionListener{
         this.accounting = accounting;
     }
 
-    @Override
     public void actionPerformed(ActionEvent ae) {
         accountings.setCurrentObject(accounting.getName());
         ComponentMap.refreshAllFrames();

@@ -92,7 +92,6 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 		pack();
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == addLeft) {
 			DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) debit.getModel();
@@ -136,7 +135,6 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
         ComponentMap.refreshAllFrames();
     }
 
-	@Override
 	public void refresh() {
 		repaint();
 		DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) credit.getModel();

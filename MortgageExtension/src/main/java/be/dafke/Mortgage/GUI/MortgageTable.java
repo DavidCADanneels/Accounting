@@ -52,12 +52,10 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 		setVisible(true);
 	}
 
-	@Override
 	public void refresh() {
 		model.fireTableDataChanged();
 	}
 
-	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		String name = JOptionPane.showInputDialog(this, "Enter a name for the table.");
         Mortgage mortgage = new Mortgage();

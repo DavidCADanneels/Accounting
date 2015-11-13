@@ -35,17 +35,14 @@ public class MortgageDataModel extends RefreshableTableModel<Mortgage> {
 		}
 	}
 
-	@Override
 	public int getColumnCount() {
 		return 5;
 	}
 
-	@Override
 	public int getRowCount() {
 		return data.size();
 	}
 
-	@Override
 	public Object getValueAt(int row, int col) {
 		if (col == 0) {
 			return row + 1;

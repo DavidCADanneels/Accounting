@@ -40,7 +40,6 @@ public class AccountingGUIFrame extends RefreshableFrame {
         setJMenuBar(menuBar);
     }
 
-    @Override
     public void refresh() {
         Accounting accounting = accountings.getCurrentObject();
         if(accounting!=null){

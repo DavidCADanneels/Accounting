@@ -120,7 +120,6 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         refresh();
 	}
 
-    @Override
     public void focusGained(FocusEvent fe) {
         JTextField field = (JTextField)fe.getComponent();
         field.selectAll();
@@ -146,7 +145,6 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         return bewijs.getText().trim();
     }
 
-    @Override
     public void focusLost(FocusEvent fe) {
         Transaction transaction = journal.getCurrentObject();
         if(transaction!=null){
@@ -221,7 +219,6 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         credit.setText(credittotaal.toString());
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == clear) {
 			clear();

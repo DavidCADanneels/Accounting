@@ -20,7 +20,6 @@ public class ModifyAccountTypesAction extends ModifyAccountAction {
         this.accounting = accounting;
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         if(!accountList.isEmpty()) {
             boolean singleMove;

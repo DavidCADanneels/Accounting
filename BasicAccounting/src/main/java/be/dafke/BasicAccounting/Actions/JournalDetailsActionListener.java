@@ -22,7 +22,6 @@ public class JournalDetailsActionListener implements ActionListener{
         this.accountings=accountings;
     }
 
-    @Override
     public void actionPerformed(ActionEvent e) {
         Accounting accounting = accountings.getCurrentObject();
         Journal journal = accounting.getJournals().getCurrentObject();

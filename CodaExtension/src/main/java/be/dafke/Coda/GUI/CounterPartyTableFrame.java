@@ -34,7 +34,6 @@ public class CounterPartyTableFrame extends RefreshableTableFrame<CounterParty> 
         tabel.setRowSorter(null);
 	}
 
-    @Override
 	public void mouseClicked(MouseEvent me) {
 		Point cell = me.getPoint();
 //		Point location = me.getLocationOnScreen();
@@ -86,19 +85,15 @@ public class CounterPartyTableFrame extends RefreshableTableFrame<CounterParty> 
 		}
 	}
 
-    @Override
     public void mouseEntered(MouseEvent e) {
 	}
 
-    @Override
 	public void mouseExited(MouseEvent e) {
 	}
 
-    @Override
 	public void mousePressed(MouseEvent e) {
 	}
 
-    @Override
 	public void mouseReleased(MouseEvent e) {
 	}
 

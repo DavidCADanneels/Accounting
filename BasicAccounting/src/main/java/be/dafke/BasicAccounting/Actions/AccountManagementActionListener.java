@@ -20,7 +20,6 @@ public class AccountManagementActionListener implements ActionListener{
         this.accountings=accountings;
     }
 
-    @Override
     public void actionPerformed(ActionEvent ae) {
         Accounting accounting = accountings.getCurrentObject();
         String key = accounting.toString() + ACCOUNT_MANAGEMENT;

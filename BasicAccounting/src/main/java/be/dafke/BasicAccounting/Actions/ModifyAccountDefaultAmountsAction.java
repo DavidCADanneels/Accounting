@@ -13,7 +13,6 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneel on 15/02/2015.
  */
 public class ModifyAccountDefaultAmountsAction extends ModifyAccountAction {
-    @Override
     public void actionPerformed(ActionEvent e) {
         if(!accountList.isEmpty()) {
             for(Account account : accountList){

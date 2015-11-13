@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Actions;
 
+import be.dafke.BasicAccounting.GUI.MainWindow.AccountsGUI;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
@@ -23,21 +24,21 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class AddBookingToTransactionActionListener implements ActionListener {
     private Accountings accountings;
+    private AccountsGUI accountsGUI;
 
     public static final String DEBIT = "DEBIT";
     public static final String CREDIT = "CREDIT";
 
-    public AddBookingToTransactionActionListener(Accountings accountings) {
+    public AddBookingToTransactionActionListener(Accountings accountings, AccountsGUI accountsGUI) {
         this.accountings = accountings;
+        this.accountsGUI = accountsGUI;
     }
 
-    @Override
     public void actionPerformed(ActionEvent ae) {
         Accounting accounting = accountings.getCurrentObject();
-        Accounts accounts = accounting.getAccounts();
         Journals journals = accounting.getJournals();
         Journal journal = journals.getCurrentObject();
-        Account account = accounts.getCurrentObject();
+        Account account = accountsGUI.getSelectedAccount();
         Transaction transaction = journal.getCurrentObject();
 
         String actionCommand = ae.getActionCommand();

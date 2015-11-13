@@ -88,7 +88,6 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
         refresh();
 	}
 
-    @Override
 	public void valueChanged(ListSelectionEvent e) {
 		if (!e.getValueIsAdjusting()) {
 			int[] rows = tabel.getSelectedRows();
@@ -120,7 +119,6 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
         super.refresh();
     }
 
-	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == add || e.getSource() == name || e.getSource() == abbr) {
 			addJournal();
@@ -290,11 +288,9 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
         }
 	}
 
-	@Override
 	public void focusGained(FocusEvent arg0) {
 	}
 
-	@Override
 	public void focusLost(FocusEvent e) {
 		if (e.getSource() == name) {
 			String text = name.getText();
