@@ -13,4 +13,11 @@ mavenJob("01_UnitTests"){
     }
 //    rootPOM("pom.xml")
     goals "clean package"
+
+    publishers {
+        archiveArtifacts {
+            pattern('**/*.jar')
+            onlyIfSuccessful()
+        }
+    }
 }
