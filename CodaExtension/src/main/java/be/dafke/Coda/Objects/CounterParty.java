@@ -157,7 +157,7 @@ public class CounterParty extends BusinessObject {
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
+    public TreeMap<String,String> getInitProperties() {
         TreeMap<String, String> properties = super.getUniqueProperties();
         properties.put(ACCOUNTNUMBER, getBankAccountsString());
         properties.put(ALIAS, Utils.toString(aliases));

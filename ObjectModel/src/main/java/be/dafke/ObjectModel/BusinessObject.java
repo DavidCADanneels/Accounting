@@ -61,7 +61,7 @@ public class BusinessObject {
         name = properties.get(NAME);
     }
     //
-    public TreeMap<String, String> getInitProperties(BusinessCollection collection){
+    public TreeMap<String, String> getInitProperties(){
         TreeMap<String,String> properties = new TreeMap<String, String>();
         properties.put(NAME,name);
         return properties;

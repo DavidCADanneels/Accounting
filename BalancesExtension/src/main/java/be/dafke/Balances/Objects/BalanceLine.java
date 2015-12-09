@@ -42,7 +42,7 @@ public class BalanceLine extends BusinessObject {
     }
 
     @Override
-    public TreeMap<String, String> getInitProperties(BusinessCollection collection){
+    public TreeMap<String, String> getInitProperties(){
         TreeMap<String,String> properties = new TreeMap<String, String>();
         if(leftAccount!=null){
             properties.put(NAME1,leftAccount.getName());

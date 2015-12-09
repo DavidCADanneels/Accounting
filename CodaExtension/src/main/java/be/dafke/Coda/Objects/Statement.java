@@ -131,7 +131,7 @@ public class Statement extends BusinessObject implements BusinessCollectionDepen
     }
     //
     @Override
-    public TreeMap<String, String> getInitProperties(BusinessCollection collection){
+    public TreeMap<String, String> getInitProperties(){
         TreeMap<String,String> properties = new TreeMap<String, String>();
         properties.put(NAME,getName());
         properties.put(DATE,Utils.toString(date));

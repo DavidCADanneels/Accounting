@@ -50,8 +50,8 @@ public class Movement extends BusinessObject{
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
-        TreeMap<String,String> properties = super.getInitProperties(collection);
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String,String> properties = super.getInitProperties();
         Transaction transaction = booking.getTransaction();
         properties.put(ID,id.toString());
         if(debit){

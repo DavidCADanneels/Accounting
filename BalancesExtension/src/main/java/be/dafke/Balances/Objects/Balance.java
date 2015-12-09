@@ -197,8 +197,8 @@ public class Balance extends BusinessCollection<BalanceLine> implements Business
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
-        TreeMap<String,String> properties = super.getInitProperties(collection);
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String,String> properties = super.getInitProperties();
         properties.put(NAME, getName());
         properties.put(LEFTNAME, leftName);
         properties.put(RIGHTNAME, rightName);

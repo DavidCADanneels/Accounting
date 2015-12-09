@@ -131,8 +131,8 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
 
 
     @Override
-    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
-        TreeMap<String,String> outputMap = super.getInitProperties(collection);
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String,String> outputMap = super.getInitProperties();
         // FIXME NullPointerException if type==null / Type must be defined
         outputMap.put(TYPE, getType().getName());
         if(defaultAmount!=null){

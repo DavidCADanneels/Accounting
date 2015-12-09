@@ -56,7 +56,7 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
+    public TreeMap<String,String> getInitProperties() {
         TreeMap<String,String> properties = new TreeMap<String, String>();
         properties.put(ACCOUNT, account.getName());
         return properties;

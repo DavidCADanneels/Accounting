@@ -148,8 +148,8 @@ public class Journal extends BusinessCollection<Transaction> implements Business
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
-        TreeMap<String,String> outputMap = super.getInitProperties(collection);
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String,String> outputMap = super.getInitProperties();
         outputMap.put(TYPE, getType().getName());
         outputMap.put(ABBREVIATION, getAbbreviation());
         return outputMap;

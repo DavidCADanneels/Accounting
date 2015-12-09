@@ -72,7 +72,7 @@ public class Transaction extends BusinessCollection<Booking> implements Business
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
+    public TreeMap<String,String> getInitProperties() {
         TreeMap<String,String> properties = new TreeMap<String, String>();
         properties.put(ID, new Integer(journal.getId(this)).toString());
         properties.put(DATE, Utils.toString(date));

@@ -215,8 +215,8 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
-        TreeMap<String,String> properties = super.getInitProperties(collection);
+    public TreeMap<String,String> getInitProperties() {
+        TreeMap<String,String> properties = super.getInitProperties();
         if(startCapital!=null){
             properties.put(TOTAL, startCapital.toString());
         }
