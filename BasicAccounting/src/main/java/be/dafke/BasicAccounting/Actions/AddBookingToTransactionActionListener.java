@@ -35,20 +35,22 @@ public class AddBookingToTransactionActionListener implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent ae) {
-        Accounting accounting = accountings.getCurrentObject();
-        Journals journals = accounting.getJournals();
-        Journal journal = journals.getCurrentObject();
         Account account = accountsGUI.getSelectedAccount();
-        Transaction transaction = journal.getCurrentObject();
+        if(account!=null) {
+            Accounting accounting = accountings.getCurrentObject();
+            Journals journals = accounting.getJournals();
+            Journal journal = journals.getCurrentObject();
+            Transaction transaction = journal.getCurrentObject();
 
-        String actionCommand = ae.getActionCommand();
-        boolean debit = actionCommand.equals(DEBIT);
-        BigDecimal amount = askAmount(transaction, account, debit);
-        if(amount!=null) {
-            Booking booking = new Booking(account);
-            booking.addBusinessObject(new Movement(amount, debit));
-            transaction.addBusinessObject(booking);
-            ComponentMap.refreshAllFrames();
+            String actionCommand = ae.getActionCommand();
+            boolean debit = actionCommand.equals(DEBIT);
+            BigDecimal amount = askAmount(transaction, account, debit);
+            if (amount != null) {
+                Booking booking = new Booking(account);
+                booking.addBusinessObject(new Movement(amount, debit));
+                transaction.addBusinessObject(booking);
+                ComponentMap.refreshAllFrames();
+            }
         }
     }
 
