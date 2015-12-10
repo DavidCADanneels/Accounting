@@ -240,12 +240,10 @@ public class Balance extends BusinessCollection<BalanceLine> implements Business
         }
     }
 
-    @Override
     public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
         this.businessCollection = businessCollection;
     }
 
-    @Override
     public void setBusinessTypeCollection(BusinessTypeCollection<AccountType> businessTypeCollection) {
         this.businessTypeCollection = businessTypeCollection;
     }
