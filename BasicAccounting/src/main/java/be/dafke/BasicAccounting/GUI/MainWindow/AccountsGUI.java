@@ -2,7 +2,9 @@ package be.dafke.BasicAccounting.GUI.MainWindow;
 
 import be.dafke.BasicAccounting.Actions.AccountDetailsActionListener;
 import be.dafke.BasicAccounting.Actions.AccountManagementActionListener;
+import be.dafke.BasicAccounting.Actions.AccountsPopupMenu;
 import be.dafke.BasicAccounting.Actions.AddBookingToTransactionActionListener;
+import be.dafke.BasicAccounting.Actions.PopupForListActivator;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
@@ -43,6 +45,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     private Accounts accounts;
     private AccountTypes accountTypes;
     private final JPanel filter;
+    private AccountsPopupMenu popup;
 
     public Account getSelectedAccount() {
         return selectedAccount;
@@ -84,9 +87,12 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 		hoofdPaneel.add(noord, BorderLayout.NORTH);
 		hoofdPaneel.add(midden, BorderLayout.CENTER);
 
+        popup = new AccountsPopupMenu(accountings, this);
+
 		model = new AlphabeticListModel<Account>();
 		lijst = new JList<Account>(model);
 		lijst.addListSelectionListener(this);
+        lijst.addMouseListener(new PopupForListActivator(popup, lijst));
 		lijst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		zoeker = new PrefixFilterPanel<Account>(model, lijst, new ArrayList<Account>());
         zoeker.add(hoofdPaneel, BorderLayout.SOUTH);
