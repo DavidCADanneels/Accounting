@@ -12,12 +12,12 @@ import java.util.ArrayList;
 /**
  * Created by ddanneel on 18/02/2015.
  */
-public class PopupActivator extends MouseAdapter {
+public class PopupForTableActivator extends MouseAdapter {
     private final RefreshableTable<BusinessObject> tabel;
     private final JPopupMenu popup;
     private ArrayList<Integer> activeColumns;
 
-    public PopupActivator(JPopupMenu popup, RefreshableTable tabel, int ... activeColumns) {
+    public PopupForTableActivator(JPopupMenu popup, RefreshableTable tabel, int ... activeColumns) {
         this.popup = popup;
         this.tabel = tabel;
         this.activeColumns = new ArrayList<Integer>();

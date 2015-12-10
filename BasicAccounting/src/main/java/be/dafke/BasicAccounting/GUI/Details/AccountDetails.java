@@ -6,7 +6,7 @@ package be.dafke.BasicAccounting.GUI.Details;
  */
 
 import be.dafke.BasicAccounting.Actions.DetailsPopupMenu;
-import be.dafke.BasicAccounting.Actions.PopupActivator;
+import be.dafke.BasicAccounting.Actions.PopupForTableActivator;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
@@ -32,7 +32,7 @@ public class AccountDetails extends RefreshableTableFrame<Booking> implements Wi
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
 		popup = new DetailsPopupMenu(accounting, tabel, DetailsPopupMenu.Mode.ACCOUNT);
-		tabel.addMouseListener(new PopupActivator(popup,tabel, 0,2,3));
+		tabel.addMouseListener(new PopupForTableActivator(popup,tabel, 0,2,3));
 	}
 
 	public void windowClosing(WindowEvent we) {

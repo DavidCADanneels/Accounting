@@ -2,7 +2,7 @@ package be.dafke.Balances.GUI;
 
 import be.dafke.Balances.Objects.Balance;
 import be.dafke.BasicAccounting.Actions.BalancePopupMenu;
-import be.dafke.BasicAccounting.Actions.PopupActivator;
+import be.dafke.BasicAccounting.Actions.PopupForTableActivator;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 
@@ -20,6 +20,6 @@ public class BalanceGUI extends RefreshableBalanceFrame {
 				new BalanceDataModel(balance));
 		// tabel.setAutoCreateRowSorter(true);
 		popup = new BalancePopupMenu(accountings, accounting, tabel);
-		tabel.addMouseListener(new PopupActivator(popup,tabel));
+		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
 	}
 }
