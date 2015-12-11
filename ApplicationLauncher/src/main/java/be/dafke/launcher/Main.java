@@ -8,6 +8,7 @@ import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountsGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
+import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.CodaExtension;
 import be.dafke.Mortgage.GUI.MortgagesGUI;
 import be.dafke.Mortgage.MortgageExtension;
@@ -45,9 +46,10 @@ public class Main extends BasicAccountingMain{
     }
 
     protected static void createBasicComponents(){
-        journalGUI = new JournalGUI(accountings);
-        accountsGUILeft = new AccountsGUI(accountings.getCurrentObject());
-        accountsGUIRight = new AccountsGUI(accountings.getCurrentObject());
+        Accounting accounting = accountings.getCurrentObject();
+        journalGUI = new JournalGUI(accounting);
+        accountsGUILeft = new AccountsGUI(accounting);
+        accountsGUIRight = new AccountsGUI(accounting);
         journalsGUI = new JournalsGUI(accountings);
         menuBar = new AccountingMenuBar(accountings);
         saveButton = new JButton("Save all");

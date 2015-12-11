@@ -76,8 +76,9 @@ public class BasicAccountingMain {
     }
 
     protected static void createBasicComponents(){
-        journalGUI = new JournalGUI(accountings);
-        accountsGUI = new AccountsGUI(accountings.getCurrentObject());
+        Accounting accounting = accountings.getCurrentObject();
+        journalGUI = new JournalGUI(accounting);
+        accountsGUI = new AccountsGUI(accounting);
         journalsGUI = new JournalsGUI(accountings);
         menuBar = new AccountingMenuBar(accountings);
         saveButton = new JButton("Save all");

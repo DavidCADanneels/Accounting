@@ -179,4 +179,8 @@ public class Transaction extends BusinessCollection<Booking> implements Business
         }
 
     }
+
+    public boolean isBookable() {
+        return !getBusinessObjects().isEmpty() && debitTotal.compareTo(creditTotal) == 0 && debitTotal.compareTo(BigDecimal.ZERO) != 0;
+    }
 }

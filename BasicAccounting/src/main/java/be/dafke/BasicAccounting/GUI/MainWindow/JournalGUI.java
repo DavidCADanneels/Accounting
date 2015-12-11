@@ -1,19 +1,26 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.Actions.BookTransactionActionListener;
 import be.dafke.BasicAccounting.Actions.JournalGUIPopupMenu;
 import be.dafke.BasicAccounting.Actions.PopupForTableActivator;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Utils.Utils;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JPopupMenu;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -26,7 +33,7 @@ import java.util.Calendar;
 import static java.util.ResourceBundle.getBundle;
 
 public class JournalGUI extends AccountingPanel implements ActionListener, FocusListener {
-	/**
+    /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
@@ -37,10 +44,8 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     private final RefreshableTable<Booking> table;
 	private BigDecimal debettotaal, credittotaal;
     private Journal journal;
-    private Accountings accountings;
 
-    public JournalGUI(Accountings accountings) {
-        this.accountings = accountings;
+    public JournalGUI(Accounting accounting) {
         debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
 		setLayout(new BorderLayout());
@@ -50,7 +55,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 		JScrollPane scrollPane = new JScrollPane(table);
 		add(scrollPane, BorderLayout.CENTER);
 
-        popup = new JournalGUIPopupMenu(table, accountings);
+        popup = new JournalGUIPopupMenu(table, accounting);
         table.addMouseListener(new PopupForTableActivator(popup,table));
 
         scrollPane.addMouseListener(new MouseAdapter() {
@@ -71,8 +76,8 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 		bewijs = new JTextField(30);
         bewijs.addFocusListener(this);
 
-		singleBook = new JButton(getBundle("Accounting").getString("OK"));
-		singleBook.addActionListener(new BookTransactionActionListener(this.accountings, this));
+        singleBook = new JButton(getBundle("Accounting").getString("OK"));
+		singleBook.addActionListener(this);
         save = new JButton(getBundle("Accounting").getString("SAVE"));
         save.addActionListener(this);
         clear = new JButton(getBundle("Accounting").getString("CLEAR_PANEL"));
@@ -206,7 +211,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
                 jaar.setEnabled(true);
             }
             identification = journal.getAbbreviation() + " " + journal.getId();
-            okEnabled = transaction!=null && !transaction.getBusinessObjects().isEmpty() && debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0;
+            okEnabled = transaction!=null && transaction.isBookable();
             clearEnabled = transaction!=null && !transaction.getBusinessObjects().isEmpty();
         }
         ident.setText(identification);
@@ -224,6 +229,13 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 			clear();
 		} else if (e.getSource() == save) {
             saveTransaction();
+        } else if (e.getSource() == singleBook){
+            Transaction transaction = saveTransaction();
+            if(journal!=null && transaction!=null && transaction.isBookable()){
+                journal.addBusinessObject(transaction);
+                clear();
+                ComponentMap.refreshAllFrames();
+            }
         }
 	}
 
