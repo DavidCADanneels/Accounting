@@ -230,6 +230,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     public void mouseClicked(MouseEvent me) {
         int clickCount = me.getClickCount();
         int button = me.getButton();
+        popup.setVisible(false);
         if(clickCount==2){
             accountDetailsLauncher.showDetails(accountings.getCurrentObject(),selectedAccount);
         } else if (button == 3){// && lijst.getSelectedIndex() != -1) {
