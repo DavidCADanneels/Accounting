@@ -57,8 +57,8 @@ public class AccountTypes extends BusinessTypeCollection<AccountType> {
 //        debit.setName(getBundle("Accounting").getString("DEBT_TO_SUPPLIER"));
         debit.setInverted(true);
 
-        AccountType mortgage = new AccountType();
-        mortgage.setName(MORTGAGE);
+//        AccountType mortgage = new AccountType();
+//        mortgage.setName(MORTGAGE);
 //        mortgage.setName(getBundle("Accounting").getString("MORTGAGE"));
 
         try{
@@ -68,7 +68,7 @@ public class AccountTypes extends BusinessTypeCollection<AccountType> {
             addBusinessObject(revenue);
             addBusinessObject(credit);
             addBusinessObject(debit);
-            addBusinessObject(mortgage);
+//            addBusinessObject(mortgage);
         } catch (EmptyNameException e) {
             System.err.println("The Name of an AccountType can not be empty.");
         } catch (DuplicateNameException e) {

@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Actions;
 
-import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.BasicAccounting.Objects.Accounting;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
@@ -16,10 +16,10 @@ public class AccountsPopupMenu extends JPopupMenu implements ActionListener{
     private final JMenuItem manage;
     final AccountManagementLauncher accountManagementLauncher = new AccountManagementLauncher();
     public final String MANAGE = "manage";
-    private Accountings accountings;
+    private Accounting accounting;
 
-    public AccountsPopupMenu(final Accountings accountings) {
-        this.accountings = accountings;
+    public AccountsPopupMenu(final Accounting accounting) {
+        this.accounting = accounting;
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_ACCOUNT"));
         manage.setActionCommand(MANAGE);
         add(manage);
@@ -27,7 +27,7 @@ public class AccountsPopupMenu extends JPopupMenu implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent ae) {
-        accountManagementLauncher.showAccountManager(accountings.getCurrentObject());
+        accountManagementLauncher.showAccountManager(accounting);
         setVisible(false);
     }
 }

@@ -9,7 +9,6 @@ import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Transaction;
@@ -56,7 +55,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     private final JPanel filter;
     private AccountsPopupMenu popup;
 
-    private Accountings accountings;
+    private Accounting accounting;
 
     public final String DEBIT = "debit";
     public final String CREDIT = "credit";
@@ -67,8 +66,8 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     final AccountManagementLauncher accountManagementLauncher = new AccountManagementLauncher();
     final AccountDetailsLauncher accountDetailsLauncher = new AccountDetailsLauncher();
 
-    public AccountsGUI(final Accountings accountings) {
-        this.accountings = accountings;
+    public AccountsGUI(final Accounting accounting) {
+        this.accounting = accounting;
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("ACCOUNTS")));
@@ -80,7 +79,6 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         credit.setMnemonic(KeyEvent.VK_C);
         accountManagement.setMnemonic(KeyEvent.VK_M);
         accountDetails.setMnemonic(KeyEvent.VK_T);
-//        accountsActionListener = new AccountsActionListener(accountings);
 
         debet.setActionCommand(DEBIT);
         credit.setActionCommand(CREDIT);
@@ -109,7 +107,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 		lijst = new JList<Account>(model);
 		lijst.addListSelectionListener(this);
 
-        popup = new AccountsPopupMenu(accountings);
+        popup = new AccountsPopupMenu(accounting);
 
         lijst.addMouseListener(this);//new PopupForListActivator(popup, lijst));//, new AccountDetailsLauncher(accountings)));
 		lijst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -120,7 +118,20 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 		filter = new JPanel();
 		filter.setLayout(new GridLayout(0, 2));
         boxes = new ArrayList<JCheckBox>();
-		add(filter, BorderLayout.NORTH);
+
+        setAccounting(accounting);
+
+        for(AccountType type : accountTypes.getBusinessObjects()) {
+            JCheckBox checkBox = new JCheckBox(getBundle("Accounting").getString(type.getName().toUpperCase()));
+            checkBox.setSelected(true);
+            checkBox.setEnabled(false);
+            checkBox.setActionCommand(type.getName());
+            checkBox.addActionListener(this);
+            boxes.add(checkBox);
+            filter.add(checkBox);
+        }
+
+        add(filter, BorderLayout.NORTH);
 	}
 
 	public void valueChanged(ListSelectionEvent lse) {
@@ -135,7 +146,6 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 	}
 
     public void buttonClicked(String actionCommand){
-        Accounting accounting = accountings.getCurrentObject();
         Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
 
         if(DEBIT.equals(actionCommand)){
@@ -155,25 +165,6 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         } else{
             buttonClicked(ae.getActionCommand());
         }
-    }
-
-    private void addCheckBoxes(){
-        filter.removeAll();
-        boxes.clear();
-        if(accountTypes!=null){
-            for(AccountType type : accountTypes.getBusinessObjects()) {
-                if(!type.getName().equals("Mortgage")){
-                    JCheckBox checkBox = new JCheckBox(getBundle("Accounting").getString(type.getName().toUpperCase()));
-                    checkBox.setSelected(true);
-                    checkBox.setEnabled(false);
-                    checkBox.setActionCommand(type.getName());
-                    checkBox.addActionListener(this);
-                    boxes.add(checkBox);
-                    filter.add(checkBox);
-                }
-            }
-        }
-//        revalidate();
     }
 
 	private void checkBoxes() {
@@ -217,7 +208,6 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 
 	public void refresh() {
         boolean active = accounts!=null;
-        addCheckBoxes();
         for(JCheckBox checkBox: boxes) {
 			checkBox.setEnabled(active);
 		}
@@ -232,8 +222,8 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         int button = me.getButton();
         popup.setVisible(false);
         if(clickCount==2){
-            accountDetailsLauncher.showDetails(accountings.getCurrentObject(),selectedAccount);
-        } else if (button == 3){// && lijst.getSelectedIndex() != -1) {
+            accountDetailsLauncher.showDetails(accounting,selectedAccount);
+        } else if (button == 3){
             Point location = me.getLocationOnScreen();
             popup.show(null, location.x, location.y);
         }
