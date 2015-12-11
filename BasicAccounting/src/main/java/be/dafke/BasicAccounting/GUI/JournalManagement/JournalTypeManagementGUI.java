@@ -26,7 +26,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
     private Accounting accounting;
 
 	public JournalTypeManagementGUI(Accounting accounting) {
-		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE")+ " " + accounting.toString());
+		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
         this.accounting = accounting;
 		debitTypes = new ArrayList<AccountType>();
 		creditTypes = new ArrayList<AccountType>();

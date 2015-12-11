@@ -42,7 +42,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	private final Accounts accounts;
 
 	public MortgageGUI(Accountings accountings, Accounting accounting, Mortgages mortgages) {
-		super("Mortgages (" + accounting.toString() + ")");
+		super("Mortgages");
 		this.accounts = accounting.getAccounts();
         this.mortgages = mortgages;
 		mortgagesList = new JList<BusinessObject>();

@@ -12,7 +12,7 @@ import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
-import javax.swing.*;
+import javax.swing.JPopupMenu;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -26,8 +26,7 @@ public class AccountDetails extends RefreshableTableFrame<Booking> implements Wi
 	private final JPopupMenu popup;
 
 	public AccountDetails(Account account, Accounting accounting) {
-		super(accounting.toString() + "/" +
-                getBundle("Accounting").getString("ACCOUNT_DETAILS") + "/"
+		super(getBundle("Accounting").getString("ACCOUNT_DETAILS")+ " "
                 + account.getName(), new AccountDetailsDataModel(account));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);

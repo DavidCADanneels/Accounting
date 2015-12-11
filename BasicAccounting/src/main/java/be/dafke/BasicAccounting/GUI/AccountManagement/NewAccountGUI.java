@@ -27,7 +27,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     private final Accounting accounting;
 
     public NewAccountGUI(Accounting accounting) {
-        super(getBundle("Accounting").getString("NEW_ACCOUNT_GUI_TITLE")+" " + accounting.toString());
+        super(getBundle("Accounting").getString("NEW_ACCOUNT_GUI_TITLE"));
         this.accounting = accounting;
         JPanel north = new JPanel();
 		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));

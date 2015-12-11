@@ -16,7 +16,7 @@ public class BalanceGUI extends RefreshableBalanceFrame {
 	private final JPopupMenu popup;
 
 	public BalanceGUI(Accountings accountings, Accounting accounting, Balance balance) {
-		super(balance.getName() + " (" + accounting.toString() + ")",
+		super(balance.getName(),
 				new BalanceDataModel(balance));
 		// tabel.setAutoCreateRowSorter(true);
 		popup = new BalancePopupMenu(accountings, accounting, tabel);

@@ -26,7 +26,7 @@ public class CounterPartyTableFrame extends RefreshableTableFrame<CounterParty> 
     private final Statements statements;
 
     public CounterPartyTableFrame(Accounting accounting, CounterParties counterParties, Statements statements) {
-		super("Counterparties (" + accounting.toString() + ")", new CounterPartyDataModel(counterParties));
+		super("Counterparties", new CounterPartyDataModel(counterParties));
 		this.accounting = accounting;
         this.statements = statements;
 		// tabel.setAutoCreateRowSorter(true);

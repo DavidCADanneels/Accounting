@@ -45,7 +45,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
     private final int nr;
 
 	public MortgageCalculatorGUI(Accounting accounting, Mortgages mortgages) {
-		super("Mortgage Calculator (" + accounting.toString() + ")");
+		super("Mortgage Calculator");
         nr = counter++;
 		this.accounting = accounting;
         this.mortgages = mortgages;

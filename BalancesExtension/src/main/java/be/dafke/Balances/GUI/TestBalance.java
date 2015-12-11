@@ -19,7 +19,7 @@ public class TestBalance extends RefreshableTableFrame<Account> {
 	private final JPopupMenu popup;
 
 	public TestBalance(Accountings accountings, Accounting accounting) {
-		super(getBundle("Balances").getString("TESTBALANCE") + " (" + accounting.toString() + ")",
+		super(getBundle("Balances").getString("TESTBALANCE"),
 				new TestBalanceDataModel(accounting));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);

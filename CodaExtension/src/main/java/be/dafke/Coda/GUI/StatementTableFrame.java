@@ -45,7 +45,7 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
     private final Accounting accounting;
 
     public StatementTableFrame(Accountings accountings, Accounting accounting, Statements statements, CounterParties counterParties) {
-		super("Statements (" + accounting.toString() + ")", new StatementDataModel(statements));
+		super("Statements", new StatementDataModel(statements));
 		this.statements = statements;
         this.counterParties = counterParties;
         this.accounting = accounting;
