@@ -48,7 +48,7 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 
 		JPanel paneel = new JPanel();
 
-		journalManagement = new JButton(getBundle("Accounting").getString("JOURNAL_MANAGEMENT"));
+		journalManagement = new JButton(getBundle("Accounting").getString("MANAGE_JOURNALS"));
 		journalManagement.addActionListener(this);
 		journalManagement.setEnabled(false);
 		journalManagement.setActionCommand(MANAGE);

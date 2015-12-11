@@ -61,7 +61,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
 		abbr.addActionListener(this);
 		name.addFocusListener(this);
 		line2.add(add);
-		newType = new JButton(getBundle("Accounting").getString("MANAGE_TYPES"));
+		newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
         newType.addActionListener(this);
 		line2.add(newType);
 		north.add(line1);
