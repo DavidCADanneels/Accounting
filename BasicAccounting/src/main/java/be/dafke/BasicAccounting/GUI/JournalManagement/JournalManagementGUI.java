@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI.JournalManagement;
 
-import be.dafke.BasicAccounting.Actions.JournalTypeManagementActionListener;
+import be.dafke.BasicAccounting.Actions.JournalTypeManagementLauncher;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.JournalType;
@@ -32,9 +32,11 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
 	private final JButton add, delete, modifyName, modifyType, newType, modifyAbbr;
 	private final DefaultListSelectionModel selection;
 	private final Accounting accounting;
+    private final JournalTypeManagementLauncher journalTypeManagementLauncher = new JournalTypeManagementLauncher();
 
-	public JournalManagementGUI(Accounting accounting) {
-		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE") + " " + accounting.toString(), new JournalManagementTableModel(accounting));
+
+    public JournalManagementGUI(final Accounting accounting) {
+		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE"), new JournalManagementTableModel(accounting));
 		this.accounting = accounting;
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
@@ -59,8 +61,8 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
 		abbr.addActionListener(this);
 		name.addFocusListener(this);
 		line2.add(add);
-		newType = new JButton(getBundle("Accounting").getString("MANAGE_TYPES"));
-		newType.addActionListener(new JournalTypeManagementActionListener(accounting));
+		newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
+        newType.addActionListener(this);
 		line2.add(newType);
 		north.add(line1);
 		north.add(line2);
@@ -122,7 +124,9 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == add || e.getSource() == name || e.getSource() == abbr) {
 			addJournal();
-		} else {
+		} if (e.getSource() == newType) {
+            journalTypeManagementLauncher.showJournalTypeManager(accounting);
+        } else {
             ArrayList<Journal> journalList = getSelectedJournals();
             if(!journalList.isEmpty()){
                 if (e.getSource() == modifyName) {

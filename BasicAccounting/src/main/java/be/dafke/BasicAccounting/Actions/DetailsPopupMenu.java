@@ -5,7 +5,8 @@ import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
-import javax.swing.*;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,8 +21,8 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
     private Mode mode;
     private Accounting accounting;
     private RefreshableTable<Booking> gui;
-    private final AccountDetailsActionListener accountDetailsActionListener;
-    private final JournalDetailsActionListener journalDetailsActionListener;
+    private final AccountDetailsLauncher accountDetailsLauncher;
+    private final JournalDetailsLauncher journalDetailsLauncher;
 
     public DetailsPopupMenu(Accounting accounting, RefreshableTable<Booking> gui, Mode mode) {
         this.mode = mode;
@@ -43,8 +44,8 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
         delete.addActionListener(new DeleteTransactionActionListener(gui));
         move.addActionListener(new MoveTransactionActionListener(accounting.getJournals(), gui));
         edit.addActionListener(new EditTransactionActionListener(accounting.getJournals(), gui));
-        accountDetailsActionListener = new AccountDetailsActionListener(null);
-        journalDetailsActionListener = new JournalDetailsActionListener(null);
+        accountDetailsLauncher = new AccountDetailsLauncher();
+        journalDetailsLauncher = new JournalDetailsLauncher();
         add(delete);
         add(move);
         add(edit);
@@ -57,9 +58,9 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
         if(e.getSource() == details){
             Booking booking = gui.getSelectedObject();
             if(mode == Mode.JOURNAL) {
-                newGui = accountDetailsActionListener.showDetails(accounting, booking.getAccount());
+                newGui = accountDetailsLauncher.showDetails(accounting, booking.getAccount());
             } else {
-                newGui = journalDetailsActionListener.showDetails(accounting, booking.getTransaction().getJournal());
+                newGui = journalDetailsLauncher.showDetails(accounting, booking.getTransaction().getJournal());
             }
             newGui.selectObject(booking);
         }

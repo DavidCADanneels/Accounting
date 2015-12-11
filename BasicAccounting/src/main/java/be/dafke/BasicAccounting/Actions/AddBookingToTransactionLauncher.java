@@ -1,20 +1,12 @@
 package be.dafke.BasicAccounting.Actions;
 
-import be.dafke.BasicAccounting.GUI.MainWindow.AccountsGUI;
 import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
-import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.BasicAccounting.Objects.Booking;
-import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.BasicAccounting.Objects.Journals;
 import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import java.math.BigDecimal;
 
 import static java.util.ResourceBundle.getBundle;
@@ -22,29 +14,11 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneel on 14/02/2015.
  */
-public class AddBookingToTransactionActionListener implements ActionListener {
-    private Accountings accountings;
-    private AccountsGUI accountsGUI;
+public class AddBookingToTransactionLauncher {
 
-    public static final String DEBIT = "DEBIT";
-    public static final String CREDIT = "CREDIT";
-
-    public AddBookingToTransactionActionListener(Accountings accountings, AccountsGUI accountsGUI) {
-        this.accountings = accountings;
-        this.accountsGUI = accountsGUI;
-    }
-
-    public void actionPerformed(ActionEvent ae) {
-        Accounting accounting = accountings.getCurrentObject();
-        Journals journals = accounting.getJournals();
-        Journal journal = journals.getCurrentObject();
-        Account account = accountsGUI.getSelectedAccount();
-        Transaction transaction = journal.getCurrentObject();
-
-        String actionCommand = ae.getActionCommand();
-        boolean debit = actionCommand.equals(DEBIT);
+    public void addBookingToTransaction(Account account, Transaction transaction, boolean debit) {
         BigDecimal amount = askAmount(transaction, account, debit);
-        if(amount!=null) {
+        if (amount != null) {
             Booking booking = new Booking(account);
             booking.addBusinessObject(new Movement(amount, debit));
             transaction.addBusinessObject(booking);

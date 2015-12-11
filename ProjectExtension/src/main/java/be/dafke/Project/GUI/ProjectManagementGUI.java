@@ -43,7 +43,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
     private final Projects projects;
 
     public ProjectManagementGUI(Accounting accounting, Projects projects) {
-		super(getBundle("Projects").getString("PROJECTMANAGER") + " (" + accounting.toString() + ")");
+		super(getBundle("Projects").getString("PROJECTMANAGER"));
 		this.accounting = accounting;
         this.projects = projects;
 		JPanel hoofdPaneel = new JPanel();

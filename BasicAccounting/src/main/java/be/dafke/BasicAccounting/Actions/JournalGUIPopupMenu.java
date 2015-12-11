@@ -23,7 +23,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
     private final JMenuItem delete, edit, change, debitCredit, details;
     private final RefreshableTable<Booking> table;
     private final Accountings accountings;
-    private final AccountDetailsActionListener accountDetailsActionListener;
+    private final AccountDetailsLauncher accountDetailsLauncher;
 
     public JournalGUIPopupMenu(RefreshableTable<Booking> table, Accountings accountings) {
         this.accountings = accountings;
@@ -39,7 +39,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
         change.addActionListener(this);
         debitCredit.addActionListener(this);
         details.addActionListener(this);
-        accountDetailsActionListener = new AccountDetailsActionListener(accountings);
+        accountDetailsLauncher = new AccountDetailsLauncher();
         add(delete);
         add(edit);
         add(change);
@@ -62,7 +62,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
             //TODO: or JournalGUI.table should contain Movements iso Bookings
             Movement movement = booking.getBusinessObjects().get(0);
             boolean debit = movement.isDebit();
-            BigDecimal amount = AddBookingToTransactionActionListener.askAmount(transaction, account, debit);
+            BigDecimal amount = AddBookingToTransactionLauncher.askAmount(transaction, account, debit);
             if(amount != null){
                 // booking must be removed and re-added to Transaction to re-calculate the totals
                 transaction.removeBusinessObject(booking);
@@ -85,7 +85,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
             }
         } else if (source == details){
             Account account = booking.getAccount();
-            accountDetailsActionListener.showDetails(accountings.getCurrentObject(), account);
+            accountDetailsLauncher.showDetails(accountings.getCurrentObject(), account);
         }
         ComponentMap.refreshAllFrames();
     }

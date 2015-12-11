@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.Actions.JournalDetailsActionListener;
-import be.dafke.BasicAccounting.Actions.JournalManagementActionListener;
+import be.dafke.BasicAccounting.Actions.JournalDetailsLauncher;
+import be.dafke.BasicAccounting.Actions.JournalManagementLauncher;
 import be.dafke.BasicAccounting.Actions.SwitchJournalActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
@@ -13,13 +13,15 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 import static java.util.ResourceBundle.getBundle;
 
 /**
  * @author David Danneels
  */
-public class JournalsGUI extends AccountingPanel {
+public class JournalsGUI extends AccountingPanel implements ActionListener{
 	/**
 	 * 
 	 */
@@ -28,8 +30,13 @@ public class JournalsGUI extends AccountingPanel {
 	private final JButton journalManagement, details;
     private Journals journals;
     private SwitchJournalActionListener switchJournalActionListener;
+	private Accounting accounting;
+	public final String MANAGE = "manage";
+	public final String DETAILS = "details";
+	private final JournalDetailsLauncher journalDetailsLauncher = new JournalDetailsLauncher();
+	private final JournalManagementLauncher journalManagementLauncher = new JournalManagementLauncher();
 
-	public JournalsGUI(Accountings accountings) {
+	public JournalsGUI(final Accountings accountings) {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -38,19 +45,34 @@ public class JournalsGUI extends AccountingPanel {
         combo.addActionListener(switchJournalActionListener);
 		combo.setEnabled(false);
 		add(combo);
+
 		JPanel paneel = new JPanel();
-		journalManagement = new JButton(getBundle("Accounting").getString("JOURNAL_MANAGEMENT"));
-		journalManagement.addActionListener(new JournalManagementActionListener(accountings));
+
+		journalManagement = new JButton(getBundle("Accounting").getString("MANAGE_JOURNALS"));
+		journalManagement.addActionListener(this);
 		journalManagement.setEnabled(false);
-		paneel.add(journalManagement);
+		journalManagement.setActionCommand(MANAGE);
 		details = new JButton(getBundle("Accounting").getString("VIEW_JOURNAL_DETAILS"));
-		details.addActionListener(new JournalDetailsActionListener(accountings));
+		details.addActionListener(this);
 		details.setEnabled(false);
+		details.setActionCommand(DETAILS);
+
+		paneel.add(journalManagement);
 		paneel.add(details);
 		add(paneel);
 	}
 
+	public void actionPerformed(ActionEvent ae) {
+		String actionCommand = ae.getActionCommand();
+		if(MANAGE.equals(actionCommand)){
+			journalManagementLauncher.showJournalManager(accounting);
+		} else if (DETAILS.equals(actionCommand)){
+			journalDetailsLauncher.showDetails(accounting, journals.getCurrentObject());
+		}
+	}
+
     public void setAccounting(Accounting accounting){
+		this.accounting = accounting;
         if(accounting==null){
             journals = null;
         } else {

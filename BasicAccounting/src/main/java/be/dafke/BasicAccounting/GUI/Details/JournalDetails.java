@@ -1,13 +1,13 @@
 package be.dafke.BasicAccounting.GUI.Details;
 
 import be.dafke.BasicAccounting.Actions.DetailsPopupMenu;
-import be.dafke.BasicAccounting.Actions.PopupActivator;
+import be.dafke.BasicAccounting.Actions.PopupForTableActivator;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
-import javax.swing.*;
+import javax.swing.JPopupMenu;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -26,12 +26,12 @@ public class JournalDetails extends RefreshableTableFrame<Booking> implements Wi
 
 
 	public JournalDetails(Journal journal, Accounting accounting) {
-		super(getBundle("Accounting").getString("JOURNAL_DETAILS")
-                + " " + journal.toString() + " (" + accounting.toString() + ")", new JournalDetailsDataModel(journal));
+		super(getBundle("Accounting").getString("JOURNAL_DETAILS") + " "
+                + journal.toString(), new JournalDetailsDataModel(journal));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
 		popup = new DetailsPopupMenu(accounting, tabel, DetailsPopupMenu.Mode.JOURNAL);
-		tabel.addMouseListener(new PopupActivator(popup,tabel, 0,2,3,4));
+		tabel.addMouseListener(new PopupForTableActivator(popup,tabel, 0,2,3,4));
 	}
 
     public void windowClosing(WindowEvent we) {

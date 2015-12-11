@@ -33,7 +33,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 	private DeleteAccountsAction deleteAccountsAction;
 
 	public AccountManagementGUI(Accounting accounting) {
-		super(getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE")+" " + accounting.toString());
+		super(getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE"));
 		this.model = new AccountManagementTableModel(accounting);
 
         // COMPONENTS
