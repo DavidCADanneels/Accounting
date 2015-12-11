@@ -1,7 +1,11 @@
 package be.dafke.BasicAccounting.Actions;
 
+import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
+import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.BasicAccounting.Objects.Journals;
+import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
@@ -21,8 +25,11 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
     private Mode mode;
     private Accounting accounting;
     private RefreshableTable<Booking> gui;
-    private final AccountDetailsLauncher accountDetailsLauncher;
-    private final JournalDetailsLauncher journalDetailsLauncher;
+    private final AccountDetailsLauncher accountDetailsLauncher = new AccountDetailsLauncher();
+    private final JournalDetailsLauncher journalDetailsLauncher = new JournalDetailsLauncher();
+    private final MoveTransactionLauncher moveTransactionLauncher = new MoveTransactionLauncher();
+    private final EditTransactionLauncher editTransactionLauncher = new EditTransactionLauncher();
+    private final DeleteTransactionLauncher deleteTransactionLauncher = new DeleteTransactionLauncher();
 
     public DetailsPopupMenu(Accounting accounting, RefreshableTable<Booking> gui, Mode mode) {
         this.mode = mode;
@@ -41,11 +48,7 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
         move.addActionListener(this);
         edit.addActionListener(this);
         details.addActionListener(this);
-        delete.addActionListener(new DeleteTransactionActionListener(gui));
-        move.addActionListener(new MoveTransactionActionListener(accounting.getJournals(), gui));
-        edit.addActionListener(new EditTransactionActionListener(accounting.getJournals(), gui));
-        accountDetailsLauncher = new AccountDetailsLauncher();
-        journalDetailsLauncher = new JournalDetailsLauncher();
+
         add(delete);
         add(move);
         add(edit);
@@ -55,14 +58,24 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         setVisible(false);
         RefreshableTableFrame<Booking> newGui;
+        Booking booking = gui.getSelectedObject();
+        Transaction transaction = booking.getTransaction();
+        Journals journals = accounting.getJournals();
         if(e.getSource() == details){
-            Booking booking = gui.getSelectedObject();
             if(mode == Mode.JOURNAL) {
-                newGui = accountDetailsLauncher.showDetails(accounting, booking.getAccount());
+                Account account = booking.getAccount();
+                newGui = accountDetailsLauncher.showDetails(accounting, account);
             } else {
-                newGui = journalDetailsLauncher.showDetails(accounting, booking.getTransaction().getJournal());
+                Journal journal = transaction.getJournal();
+                newGui = journalDetailsLauncher.showDetails(accounting, journal);
             }
             newGui.selectObject(booking);
+        } else if (e.getSource() == move){
+            moveTransactionLauncher.moveTransaction(transaction, journals);
+        } else if (e.getSource() == edit){
+            editTransactionLauncher.editTransaction(transaction, journals);
+        } else if (e.getSource() == delete){
+            deleteTransactionLauncher.deleteTransaction(transaction);
         }
     }
 }

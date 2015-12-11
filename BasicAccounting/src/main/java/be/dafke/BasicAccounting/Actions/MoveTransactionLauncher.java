@@ -1,15 +1,11 @@
 package be.dafke.BasicAccounting.Actions;
 
-import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Journals;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.RefreshableTable;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 
@@ -18,18 +14,9 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneel on 15/02/2015.
  */
-public class MoveTransactionActionListener implements ActionListener {
-    private Journals journals;
-    private RefreshableTable<Booking> table;
+public class MoveTransactionLauncher {
 
-    public MoveTransactionActionListener(Journals journals, RefreshableTable<Booking> table) {
-        this.journals = journals;
-        this.table = table;
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        Booking booking = table.getSelectedObject();
-        Transaction transaction = booking.getTransaction();
+    public void moveTransaction(Transaction transaction, Journals journals) {
         Journal journal = transaction.getJournal();
         ArrayList<Journal> dagboeken = journals.getAllJournalsExcept(journal);
         Object[] lijst = dagboeken.toArray();
