@@ -14,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class AccountsPopupMenu extends JPopupMenu implements ActionListener{
     private final JMenuItem manage;
-    final AccountManagementActionListener accountManagementActionListener = new AccountManagementActionListener();
+    final AccountManagementLauncher accountManagementLauncher = new AccountManagementLauncher();
     public final String MANAGE = "manage";
     private Accountings accountings;
 
@@ -27,7 +27,7 @@ public class AccountsPopupMenu extends JPopupMenu implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent ae) {
-        accountManagementActionListener.showAccountManager(accountings.getCurrentObject());
+        accountManagementLauncher.showAccountManager(accountings.getCurrentObject());
         setVisible(false);
     }
 }

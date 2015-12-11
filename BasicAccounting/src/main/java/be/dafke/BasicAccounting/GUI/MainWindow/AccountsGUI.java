@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.Actions.AccountDetailsActionListener;
-import be.dafke.BasicAccounting.Actions.AccountManagementActionListener;
+import be.dafke.BasicAccounting.Actions.AccountDetailsLauncher;
+import be.dafke.BasicAccounting.Actions.AccountManagementLauncher;
 import be.dafke.BasicAccounting.Actions.AccountsPopupMenu;
-import be.dafke.BasicAccounting.Actions.AddBookingToTransactionActionListener;
+import be.dafke.BasicAccounting.Actions.AddBookingToTransactionLauncher;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
@@ -63,9 +63,9 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     public final String MANAGE = "manage";
     public final String DETAILS = "details";
     private Account selectedAccount = null;
-    final AddBookingToTransactionActionListener addBookingToTransactionActionListener = new AddBookingToTransactionActionListener();
-    final AccountManagementActionListener accountManagementActionListener = new AccountManagementActionListener();
-    final AccountDetailsActionListener accountDetailsActionListener = new AccountDetailsActionListener();
+    final AddBookingToTransactionLauncher addBookingToTransactionLauncher = new AddBookingToTransactionLauncher();
+    final AccountManagementLauncher accountManagementLauncher = new AccountManagementLauncher();
+    final AccountDetailsLauncher accountDetailsLauncher = new AccountDetailsLauncher();
 
     public AccountsGUI(final Accountings accountings) {
         this.accountings = accountings;
@@ -111,7 +111,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 
         popup = new AccountsPopupMenu(accountings);
 
-        lijst.addMouseListener(this);//new PopupForListActivator(popup, lijst));//, new AccountDetailsActionListener(accountings)));
+        lijst.addMouseListener(this);//new PopupForListActivator(popup, lijst));//, new AccountDetailsLauncher(accountings)));
 		lijst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		zoeker = new PrefixFilterPanel<Account>(model, lijst, new ArrayList<Account>());
         zoeker.add(hoofdPaneel, BorderLayout.SOUTH);
@@ -139,13 +139,13 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
 
         if(DEBIT.equals(actionCommand)){
-            addBookingToTransactionActionListener.addBookingToTransaction(selectedAccount, transaction, true);
+            addBookingToTransactionLauncher.addBookingToTransaction(selectedAccount, transaction, true);
         } else if (CREDIT.equals(actionCommand)){
-            addBookingToTransactionActionListener.addBookingToTransaction(selectedAccount, transaction, false);
+            addBookingToTransactionLauncher.addBookingToTransaction(selectedAccount, transaction, false);
         } else if (MANAGE.equals(actionCommand)){
-            accountManagementActionListener.showAccountManager(accounting);
+            accountManagementLauncher.showAccountManager(accounting);
         } else if (DETAILS.equals(actionCommand)){
-            accountDetailsActionListener.showDetails(accounting,lijst.getSelectedValue());
+            accountDetailsLauncher.showDetails(accounting,lijst.getSelectedValue());
         }
     }
 
@@ -231,7 +231,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         int clickCount = me.getClickCount();
         int button = me.getButton();
         if(clickCount==2){
-            accountDetailsActionListener.showDetails(accountings.getCurrentObject(),selectedAccount);
+            accountDetailsLauncher.showDetails(accountings.getCurrentObject(),selectedAccount);
         } else if (button == 3){// && lijst.getSelectedIndex() != -1) {
             Point location = me.getLocationOnScreen();
             popup.show(null, location.x, location.y);

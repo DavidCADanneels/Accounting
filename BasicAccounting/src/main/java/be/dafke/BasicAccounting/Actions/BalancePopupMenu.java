@@ -16,7 +16,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class BalancePopupMenu extends JPopupMenu implements ActionListener {
     private final JMenuItem details;
-    private final AccountDetailsActionListener accountDetailsActionListener;
+    private final AccountDetailsLauncher accountDetailsLauncher;
     private Accounting accounting;
     private RefreshableTable<Account> gui;
 
@@ -25,13 +25,13 @@ public class BalancePopupMenu extends JPopupMenu implements ActionListener {
         this.gui = gui;
         details = new JMenuItem(getBundle("Accounting").getString("GO_TO_ACCOUNT_DETAILS"));
         details.addActionListener(this);
-        accountDetailsActionListener = new AccountDetailsActionListener();
+        accountDetailsLauncher = new AccountDetailsLauncher();
         add(details);
     }
 
     public void actionPerformed(ActionEvent e) {
         Account account = gui.getSelectedObject();
-        accountDetailsActionListener.showDetails(accounting, account);
+        accountDetailsLauncher.showDetails(accounting, account);
         setVisible(false);
     }
 }

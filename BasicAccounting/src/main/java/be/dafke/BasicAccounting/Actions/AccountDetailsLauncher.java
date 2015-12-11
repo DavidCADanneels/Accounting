@@ -11,7 +11,7 @@ import be.dafke.ComponentModel.RefreshableTableFrame;
 /**
  * Created by ddanneel on 14/02/2015.
  */
-public class AccountDetailsActionListener {
+public class AccountDetailsLauncher {
     private static final String ACCOUNT_DETAILS = "AccountDetails";
 
     public RefreshableTableFrame<Booking> showDetails(Accounting accounting, Account account){

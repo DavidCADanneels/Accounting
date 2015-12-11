@@ -20,7 +20,7 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
     private Mode mode;
     private Accounting accounting;
     private RefreshableTable<Booking> gui;
-    private final AccountDetailsActionListener accountDetailsActionListener;
+    private final AccountDetailsLauncher accountDetailsLauncher;
     private final JournalDetailsActionListener journalDetailsActionListener;
 
     public DetailsPopupMenu(Accounting accounting, RefreshableTable<Booking> gui, Mode mode) {
@@ -43,7 +43,7 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
         delete.addActionListener(new DeleteTransactionActionListener(gui));
         move.addActionListener(new MoveTransactionActionListener(accounting.getJournals(), gui));
         edit.addActionListener(new EditTransactionActionListener(accounting.getJournals(), gui));
-        accountDetailsActionListener = new AccountDetailsActionListener();
+        accountDetailsLauncher = new AccountDetailsLauncher();
         journalDetailsActionListener = new JournalDetailsActionListener(null);
         add(delete);
         add(move);
@@ -57,7 +57,7 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
         if(e.getSource() == details){
             Booking booking = gui.getSelectedObject();
             if(mode == Mode.JOURNAL) {
-                newGui = accountDetailsActionListener.showDetails(accounting, booking.getAccount());
+                newGui = accountDetailsLauncher.showDetails(accounting, booking.getAccount());
             } else {
                 newGui = journalDetailsActionListener.showDetails(accounting, booking.getTransaction().getJournal());
             }

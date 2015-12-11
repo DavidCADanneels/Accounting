@@ -8,7 +8,7 @@ import be.dafke.ComponentModel.DisposableComponent;
 /**
  * Created by ddanneel on 14/02/2015.
  */
-public class AccountManagementActionListener {
+public class AccountManagementLauncher {
     public static final String ACCOUNT_MANAGEMENT = "AccountManagement";
 
     public void showAccountManager(Accounting accounting) {
