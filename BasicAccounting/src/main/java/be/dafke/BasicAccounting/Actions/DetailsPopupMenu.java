@@ -43,7 +43,7 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
         delete.addActionListener(new DeleteTransactionActionListener(gui));
         move.addActionListener(new MoveTransactionActionListener(accounting.getJournals(), gui));
         edit.addActionListener(new EditTransactionActionListener(accounting.getJournals(), gui));
-        accountDetailsActionListener = new AccountDetailsActionListener(null);
+        accountDetailsActionListener = new AccountDetailsActionListener();
         journalDetailsActionListener = new JournalDetailsActionListener(null);
         add(delete);
         add(move);

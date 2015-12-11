@@ -39,7 +39,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
         change.addActionListener(this);
         debitCredit.addActionListener(this);
         details.addActionListener(this);
-        accountDetailsActionListener = new AccountDetailsActionListener(accountings);
+        accountDetailsActionListener = new AccountDetailsActionListener();
         add(delete);
         add(edit);
         add(change);
