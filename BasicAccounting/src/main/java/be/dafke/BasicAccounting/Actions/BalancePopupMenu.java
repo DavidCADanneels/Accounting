@@ -2,10 +2,10 @@ package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.ComponentModel.RefreshableTable;
 
-import javax.swing.*;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,7 +20,7 @@ public class BalancePopupMenu extends JPopupMenu implements ActionListener {
     private Accounting accounting;
     private RefreshableTable<Account> gui;
 
-    public BalancePopupMenu(Accountings accountings, Accounting accounting, RefreshableTable<Account> gui) {
+    public BalancePopupMenu(Accounting accounting, RefreshableTable<Account> gui) {
         this.accounting = accounting;
         this.gui = gui;
         details = new JMenuItem(getBundle("Accounting").getString("GO_TO_ACCOUNT_DETAILS"));

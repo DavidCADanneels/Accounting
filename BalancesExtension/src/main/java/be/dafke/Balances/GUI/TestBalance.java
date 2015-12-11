@@ -4,10 +4,9 @@ import be.dafke.BasicAccounting.Actions.BalancePopupMenu;
 import be.dafke.BasicAccounting.Actions.PopupForTableActivator;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
-import javax.swing.*;
+import javax.swing.JPopupMenu;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -18,12 +17,12 @@ public class TestBalance extends RefreshableTableFrame<Account> {
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
 
-	public TestBalance(Accountings accountings, Accounting accounting) {
+	public TestBalance(Accounting accounting) {
 		super(getBundle("Balances").getString("TESTBALANCE"),
 				new TestBalanceDataModel(accounting));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
-		popup = new BalancePopupMenu(accountings, accounting, tabel);
+		popup = new BalancePopupMenu(accounting, tabel);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
 	}
 

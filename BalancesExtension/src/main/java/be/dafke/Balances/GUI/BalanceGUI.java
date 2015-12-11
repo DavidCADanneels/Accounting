@@ -4,9 +4,8 @@ import be.dafke.Balances.Objects.Balance;
 import be.dafke.BasicAccounting.Actions.BalancePopupMenu;
 import be.dafke.BasicAccounting.Actions.PopupForTableActivator;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
 
-import javax.swing.*;
+import javax.swing.JPopupMenu;
 
 public class BalanceGUI extends RefreshableBalanceFrame {
 	/**
@@ -15,11 +14,11 @@ public class BalanceGUI extends RefreshableBalanceFrame {
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
 
-	public BalanceGUI(Accountings accountings, Accounting accounting, Balance balance) {
+	public BalanceGUI(Accounting accounting, Balance balance) {
 		super(balance.getName(),
 				new BalanceDataModel(balance));
 		// tabel.setAutoCreateRowSorter(true);
-		popup = new BalancePopupMenu(accountings, accounting, tabel);
+		popup = new BalancePopupMenu(accounting, tabel);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
 	}
 }
