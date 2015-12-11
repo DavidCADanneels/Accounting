@@ -77,7 +77,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
             movement.setDebit(!movement.isDebit());
             transaction.addBusinessObject(booking);
         } else if (source == change) {
-            AccountSelector sel = new AccountSelector(accounting);
+            AccountSelector sel = new AccountSelector(accounting.getAccounts(), accounting.getAccountTypes());
             ComponentMap.addRefreshableComponent(sel);
             sel.setVisible(true);
             Account account = sel.getSelection();

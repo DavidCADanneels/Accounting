@@ -71,7 +71,7 @@ public class CounterPartyTableFrame extends RefreshableTableFrame<CounterParty> 
                     }
                 }
 			} else if (col == 5) {
-                AccountSelector sel = new AccountSelector(accounting);
+                AccountSelector sel = new AccountSelector(accounting.getAccounts(), accounting.getAccountTypes());
                 sel.setVisible(true);
                 Account account = sel.getSelection();
 
