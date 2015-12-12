@@ -1,7 +1,5 @@
-package be.dafke.Balances.Objects;
+package be.dafke.BasicAccounting.Objects;
 
-import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionDependent;
 import be.dafke.ObjectModel.BusinessTypeCollection;

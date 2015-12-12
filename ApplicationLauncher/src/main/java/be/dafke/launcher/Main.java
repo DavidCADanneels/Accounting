@@ -1,6 +1,5 @@
 package be.dafke.launcher;
 
-import be.dafke.Balances.BalancesExtension;
 import be.dafke.BasicAccounting.Actions.SaveAllActionListener;
 import be.dafke.BasicAccounting.BasicAccountingMain;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
@@ -31,8 +30,9 @@ public class Main extends BasicAccountingMain{
         startReadingXmlFile();
         createBasicComponents();
 
-        applyExtensions();
+//        applyExtensions();
 
+        addBalances();
         continueReadingXmlFile();
         composeContentPanel();
         composeFrames();
@@ -40,7 +40,6 @@ public class Main extends BasicAccountingMain{
     }
 
     protected static void applyExtensions(){
-        new BalancesExtension(accountings, menuBar);
         new CodaExtension(accountings, menuBar);
         new MortgageExtension(accountings, menuBar);
     }

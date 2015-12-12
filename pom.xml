@@ -11,7 +11,6 @@
         <module>ComponentModel</module>
         <module>ObjectModelDao</module>
         <module>BasicAccounting</module>
-        <module>BalancesExtension</module>
         <module>ProjectExtension</module>
         <module>MortgageExtension</module>
         <module>CodaExtension</module>

@@ -1,4 +1,4 @@
-package be.dafke.Balances.GUI;
+package be.dafke.BasicAccounting.GUI.Balances;
 
 import be.dafke.BasicAccounting.Actions.BalancePopupMenu;
 import be.dafke.BasicAccounting.Actions.PopupForTableActivator;

@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting;
 
+import be.dafke.BasicAccounting.Actions.BalancesMenu;
 import be.dafke.BasicAccounting.Actions.SaveAllActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingGUIFrame;
@@ -9,11 +10,14 @@ import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.BasicAccounting.Objects.Balances;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModelDao.ObjectModelSAXParser;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import java.awt.BorderLayout;
 import java.io.File;
 import java.util.List;
 
@@ -38,11 +42,18 @@ public class BasicAccountingMain {
 	public static void main(String[] args) {
         startReadingXmlFile();
         createBasicComponents();
-
+        addBalances();
         continueReadingXmlFile();
         composeContentPanel();
         composeFrames();
         launch();
+    }
+
+    protected static void addBalances() {
+        for(Accounting accounting: accountings.getBusinessObjects()) {
+            new Balances(accounting);
+        }
+        menuBar.add(new BalancesMenu(accountings, menuBar));
     }
 
     protected static void startReadingXmlFile() {
