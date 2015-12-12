@@ -17,6 +17,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     private final Accounts accounts;
 	private final Journals journals;
     private final JournalTypes journalTypes;
+    private final Balances balances;
     private ArrayList<String> keys;
     private List<AccountingExtension> extensions;
 
@@ -47,12 +48,18 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         journals.setBusinessTypeCollection(journalTypes);
         journals.setBusinessCollection(accounts);
 
+        balances = new Balances();
+        balances.setBusinessCollection(accounts);
+        balances.setBusinessTypeCollection(accountTypes);
+        balances.addDefaultBalances(accountTypes);
+
         accounts.setName(accounts.getBusinessObjectType());
         journals.setName(journals.getBusinessObjectType());
 
         try {
             addBusinessObject((BusinessCollection)accounts);
             addBusinessObject((BusinessCollection)journals);
+            addBusinessObject((BusinessCollection)balances);
         } catch (EmptyNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (DuplicateNameException e) {
@@ -62,6 +69,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 //        keys.add(accountTypes.getBusinessObjectType());
         keys.add(accounts.getBusinessObjectType());
         keys.add(journals.getBusinessObjectType());
+        keys.add(balances.getBusinessObjectType());
 	}
 
     public void addKey(String key){
@@ -103,5 +111,9 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     //
     public JournalTypes getJournalTypes() {
         return journalTypes;
+    }
+
+    public Balances getBalances() {
+        return balances;
     }
 }

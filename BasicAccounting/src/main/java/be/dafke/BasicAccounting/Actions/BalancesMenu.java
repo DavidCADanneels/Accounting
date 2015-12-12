@@ -5,8 +5,6 @@ import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Balance;
 import be.dafke.BasicAccounting.Objects.Balances;
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessObject;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -57,14 +55,14 @@ public class BalancesMenu extends JMenu implements ActionListener {
         if (e.getSource() == testBalance) {
             BalanceActions.showTestBalance(accounting.getJournals(), accounting.getAccounts(), accounting.getAccountTypes());
         } else{
-            BusinessCollection<BusinessObject> balances = accounting.getBusinessObject(Balances.BALANCES);
+            Balances balances = accounting.getBalances();
             Balance balance = null;
             if (e.getSource() == yearBalance) {
-                balance = (Balance)balances.getBusinessObject(Balances.YEAR_BALANCE);
+                balance = balances.getBusinessObject(Balances.YEAR_BALANCE);
             } else if (e.getSource() == resultBalance) {
-                balance = (Balance)balances.getBusinessObject(Balances.RESULT_BALANCE);
+                balance = balances.getBusinessObject(Balances.RESULT_BALANCE);
             } else if (e.getSource() == relationsBalance) {
-                balance = (Balance)balances.getBusinessObject(Balances.RELATIONS_BALANCE);
+                balance = balances.getBusinessObject(Balances.RELATIONS_BALANCE);
             }
             BalanceActions.showBalance(accounting.getJournals(), balance);
         }

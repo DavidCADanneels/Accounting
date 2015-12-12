@@ -10,7 +10,6 @@ import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
-import be.dafke.BasicAccounting.Objects.Balances;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModelDao.ObjectModelSAXParser;
 
@@ -50,9 +49,6 @@ public class BasicAccountingMain {
     }
 
     protected static void addBalances() {
-        for(Accounting accounting: accountings.getBusinessObjects()) {
-            new Balances(accounting);
-        }
         menuBar.add(new BalancesMenu(accountings, menuBar));
     }
 

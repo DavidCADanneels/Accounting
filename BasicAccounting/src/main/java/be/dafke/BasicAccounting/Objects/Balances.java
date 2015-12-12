@@ -20,19 +20,8 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
 
     public static final String BALANCES = "Balances";
 
-    public Balances(Accounting accounting){
+    public Balances(){
         setName(BALANCES);
-        setBusinessCollection(accounting.getAccounts());
-        setBusinessTypeCollection(accounting.getAccountTypes());
-        addDefaultBalances(accounting);
-        try{
-            accounting.addBusinessObject((BusinessCollection) this);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (DuplicateNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-        accounting.addKey(BALANCES);
     }
 
     @Override
@@ -46,7 +35,7 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
     private BusinessCollection<Account> businessCollection;
     private BusinessTypeCollection<AccountType> businessTypeCollection;
 
-    public void addDefaultBalances(Accounting accounting){
+    public void addDefaultBalances(AccountTypes accountTypes){
         ArrayList<AccountType> costs = new ArrayList<AccountType>();
         ArrayList<AccountType> revenues = new ArrayList<AccountType>();
         ArrayList<AccountType> credit = new ArrayList<AccountType>();
@@ -55,14 +44,14 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         ArrayList<AccountType> passive = new ArrayList<AccountType>();
 
         // TODO: define AccountType.Cost etc (the default types)
-        costs.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.COST));
-        revenues.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.REVENUE));
-        credit.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.CREDIT));
-        debit.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.DEBIT));
-        active.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.ASSET));
-        active.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.CREDIT));
-        passive.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.LIABILITY));
-        passive.add(accounting.getAccountTypes().getBusinessObject(AccountTypes.DEBIT));
+        costs.add(accountTypes.getBusinessObject(AccountTypes.COST));
+        revenues.add(accountTypes.getBusinessObject(AccountTypes.REVENUE));
+        credit.add(accountTypes.getBusinessObject(AccountTypes.CREDIT));
+        debit.add(accountTypes.getBusinessObject(AccountTypes.DEBIT));
+        active.add(accountTypes.getBusinessObject(AccountTypes.ASSET));
+        active.add(accountTypes.getBusinessObject(AccountTypes.CREDIT));
+        passive.add(accountTypes.getBusinessObject(AccountTypes.LIABILITY));
+        passive.add(accountTypes.getBusinessObject(AccountTypes.DEBIT));
 
         Balance resultBalance = createNewChild();
         resultBalance.setName(RESULT_BALANCE);
