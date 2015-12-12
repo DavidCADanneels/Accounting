@@ -1,33 +1,18 @@
 package be.dafke.BasicAccounting.Actions;
 
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Journals;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  * Created by ddanneel on 14/02/2015.
  */
-public class SwitchJournalActionListener implements ActionListener {
-    private Accountings accountings;
-    private JComboBox<Journal> combo;
-
-    public SwitchJournalActionListener(Accountings accountings, JComboBox<Journal> combo) {
-        this.accountings = accountings;
-        this.combo = combo;
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        Accounting accounting = accountings.getCurrentObject();
-        Journals journals = accounting.getJournals();
+public class SwitchJournalLauncher {
+    public void switchJournal(Journals journals, Journal newJournal) {
         Journal oldJournal = journals.getCurrentObject();
-        Journal newJournal = (Journal) combo.getSelectedItem();
         if(newJournal!=null && oldJournal!=null){
             checkTransfer(journals, oldJournal, newJournal);
         } else {

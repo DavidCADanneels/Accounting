@@ -79,7 +79,7 @@ public class BasicAccountingMain {
         Accounting accounting = accountings.getCurrentObject();
         journalGUI = new JournalGUI(accounting.getJournals(), accounting.getAccounts(), accounting.getAccountTypes());
         accountsGUI = new AccountsGUI(accounting.getAccounts(), accounting.getAccountTypes(),accounting.getJournals());
-        journalsGUI = new JournalsGUI(accountings);
+        journalsGUI = new JournalsGUI(accounting.getJournals(), accounting.getJournalTypes(), accounting.getAccountTypes());
         menuBar = new AccountingMenuBar(accountings);
         saveButton = new JButton("Save all");
         saveButton.addActionListener(new SaveAllActionListener(accountings));

@@ -2,11 +2,10 @@ package be.dafke.BasicAccounting.GUI.MainWindow;
 
 import be.dafke.BasicAccounting.Actions.JournalDetailsLauncher;
 import be.dafke.BasicAccounting.Actions.JournalManagementLauncher;
-import be.dafke.BasicAccounting.Actions.SwitchJournalActionListener;
+import be.dafke.BasicAccounting.Actions.SwitchJournalLauncher;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.JournalTypes;
 import be.dafke.BasicAccounting.Objects.Journals;
@@ -31,25 +30,26 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final String SWITCH = "SWITCH";
+	public static final String MANAGE = "manage";
+	public static final String DETAILS = "details";
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
     private Journals journals;
     private JournalTypes journalTypes;
     private AccountTypes accountTypes;
-    private SwitchJournalActionListener switchJournalActionListener;
-//	private Accounting accounting;
-	public final String MANAGE = "manage";
-	public final String DETAILS = "details";
 	private final JournalDetailsLauncher journalDetailsLauncher = new JournalDetailsLauncher();
 	private final JournalManagementLauncher journalManagementLauncher = new JournalManagementLauncher();
+	private final SwitchJournalLauncher switchJournalLauncher = new SwitchJournalLauncher();
 
-	public JournalsGUI(final Accountings accountings) {
+	public JournalsGUI(final Journals journals, final JournalTypes journalTypes, final AccountTypes accountTypes) {
+		setAccounting(journals,journalTypes, accountTypes);
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		combo = new JComboBox<Journal>();
-        switchJournalActionListener = new SwitchJournalActionListener(accountings, combo);
-        combo.addActionListener(switchJournalActionListener);
+        combo.setActionCommand(SWITCH);
+        combo.addActionListener(this);
 		combo.setEnabled(false);
 		add(combo);
 
@@ -75,23 +75,27 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 			journalManagementLauncher.showJournalManager(journals,journalTypes,accountTypes);
 		} else if (DETAILS.equals(actionCommand)){
 			journalDetailsLauncher.showDetails(journals.getCurrentObject(), journals);
+		} else if (SWITCH.equals(actionCommand)){
+			Journal newJournal = (Journal)combo.getSelectedItem();
+			switchJournalLauncher.switchJournal(journals, newJournal);
 		}
 	}
 
     public void setAccounting(Accounting accounting){
-        if(accounting==null){
-            journals = null;
-			journalTypes = null;
-			accountTypes = null;
-        } else {
-            journals = accounting.getJournals();
-			journalTypes = accounting.getJournalTypes();
-			accountTypes = accounting.getAccountTypes();
-        }
+		if(accounting==null){
+			setAccounting(null,null,null);
+		} else {
+			setAccounting(accounting.getJournals(),accounting.getJournalTypes(), accounting.getAccountTypes());
+		}
+	}
+    public void setAccounting(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes){
+        this.journals = journals;
+		this.journalTypes = journalTypes;
+		this.accountTypes = accountTypes;
     }
 
 	public void refresh() {
-        combo.removeActionListener(switchJournalActionListener);
+        combo.removeActionListener(this);
         combo.removeAllItems();
 		if (journals!=null) {
             for(Journal journal: journals.getBusinessObjects()){
@@ -107,6 +111,6 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
             combo.setEnabled(false);
             journalManagement.setEnabled(false);
 		}
-        combo.addActionListener(switchJournalActionListener);
+        combo.addActionListener(this);
 	}
 }
