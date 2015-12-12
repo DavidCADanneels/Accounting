@@ -16,12 +16,12 @@ public class BalanceLauncher {
 
     public void showBalance(Accounting accounting, String balanceName) {
         BusinessCollection<BusinessObject> balances = accounting.getBusinessObject(Balances.BALANCES);
-        String key = balanceName;
+        String key = accounting.toString() + balanceName;
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            Balance balance = (Balance)balances.getBusinessObject(key);
+            Balance balance = (Balance)balances.getBusinessObject(balanceName);
             gui = new BalanceGUI(accounting, balance);
-            ComponentMap.addDisposableComponent(balanceName, gui); // DETAILS
+            ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
     }

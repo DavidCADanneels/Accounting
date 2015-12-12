@@ -25,7 +25,7 @@ public class ShowMortgagesActionListener implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         Accounting accounting = accountings.getCurrentObject();
         BusinessCollection<BusinessObject> mortgages = accounting.getBusinessObject(Mortgages.MORTGAGES);
-        String key = Mortgages.MORTGAGES;
+        String key = accounting.toString() + Mortgages.MORTGAGES;
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             gui = new MortgageGUI(accountings, accounting, (Mortgages)mortgages);

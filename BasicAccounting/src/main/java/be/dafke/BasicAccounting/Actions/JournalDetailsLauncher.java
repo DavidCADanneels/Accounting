@@ -15,7 +15,7 @@ public class JournalDetailsLauncher {
     private static final String JOURNAL_DETAILS = "JournalDetails";
 
     public RefreshableTableFrame<Booking> showDetails(Accounting accounting, Journal journal){
-        String key = JOURNAL_DETAILS + journal.toString();
+        String key = JOURNAL_DETAILS + accounting.toString() + journal.toString();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             gui = new JournalDetails(journal, accounting);

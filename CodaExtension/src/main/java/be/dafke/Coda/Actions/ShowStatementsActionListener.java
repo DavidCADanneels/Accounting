@@ -27,7 +27,7 @@ public class ShowStatementsActionListener implements ActionListener{
         Accounting accounting = accountings.getCurrentObject();
         BusinessCollection<BusinessObject> counterParties = accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
         BusinessCollection<BusinessObject> statements = accounting.getBusinessObject(Statements.STATEMENTS);
-        String key = Statements.STATEMENTS;
+        String key = accounting.toString() + Statements.STATEMENTS;
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             gui = new StatementTableFrame(accountings, accounting, (Statements)statements, (CounterParties)counterParties);

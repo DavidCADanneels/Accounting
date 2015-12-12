@@ -12,7 +12,7 @@ public class JournalTypeManagementLauncher {
     public static final String JOURNAL_TYPE_MANAGEMENT = "JournalTypeManagement";
 
     public void showJournalTypeManager(Accounting accounting) {
-        String key = JOURNAL_TYPE_MANAGEMENT;
+        String key = accounting.toString() + JOURNAL_TYPE_MANAGEMENT;
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             gui = new JournalTypeManagementGUI(accounting);
