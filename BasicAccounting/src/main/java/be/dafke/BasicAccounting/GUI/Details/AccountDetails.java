@@ -8,8 +8,8 @@ package be.dafke.BasicAccounting.GUI.Details;
 import be.dafke.BasicAccounting.Actions.DetailsPopupMenu;
 import be.dafke.BasicAccounting.Actions.PopupForTableActivator;
 import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
+import be.dafke.BasicAccounting.Objects.Journals;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.JPopupMenu;
@@ -25,12 +25,12 @@ public class AccountDetails extends RefreshableTableFrame<Booking> implements Wi
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
 
-	public AccountDetails(Account account, Accounting accounting) {
+	public AccountDetails(Account account, Journals journals) {
 		super(getBundle("Accounting").getString("ACCOUNT_DETAILS")+ " "
                 + account.getName(), new AccountDetailsDataModel(account));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
-		popup = new DetailsPopupMenu(accounting, tabel, DetailsPopupMenu.Mode.ACCOUNT);
+		popup = new DetailsPopupMenu(journals, tabel, DetailsPopupMenu.Mode.ACCOUNT);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel, 0,2,3));
 	}
 

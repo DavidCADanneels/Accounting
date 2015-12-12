@@ -4,15 +4,20 @@ import be.dafke.BasicAccounting.Actions.JournalDetailsLauncher;
 import be.dafke.BasicAccounting.Actions.JournalManagementLauncher;
 import be.dafke.BasicAccounting.Actions.SwitchJournalActionListener;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
+import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.BasicAccounting.Objects.JournalTypes;
 import be.dafke.BasicAccounting.Objects.Journals;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import java.awt.*;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -29,8 +34,10 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
     private Journals journals;
+    private JournalTypes journalTypes;
+    private AccountTypes accountTypes;
     private SwitchJournalActionListener switchJournalActionListener;
-	private Accounting accounting;
+//	private Accounting accounting;
 	public final String MANAGE = "manage";
 	public final String DETAILS = "details";
 	private final JournalDetailsLauncher journalDetailsLauncher = new JournalDetailsLauncher();
@@ -65,18 +72,21 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	public void actionPerformed(ActionEvent ae) {
 		String actionCommand = ae.getActionCommand();
 		if(MANAGE.equals(actionCommand)){
-			journalManagementLauncher.showJournalManager(accounting);
+			journalManagementLauncher.showJournalManager(journals,journalTypes,accountTypes);
 		} else if (DETAILS.equals(actionCommand)){
-			journalDetailsLauncher.showDetails(accounting, journals.getCurrentObject());
+			journalDetailsLauncher.showDetails(journals.getCurrentObject(), journals);
 		}
 	}
 
     public void setAccounting(Accounting accounting){
-		this.accounting = accounting;
         if(accounting==null){
             journals = null;
+			journalTypes = null;
+			accountTypes = null;
         } else {
-            this.journals = accounting.getJournals();
+            journals = accounting.getJournals();
+			journalTypes = accounting.getJournalTypes();
+			accountTypes = accounting.getAccountTypes();
         }
     }
 

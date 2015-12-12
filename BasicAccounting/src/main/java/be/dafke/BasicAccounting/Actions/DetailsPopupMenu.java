@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Journals;
@@ -23,18 +22,18 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
     private final JMenuItem move, delete, edit, details;
     public enum Mode{ JOURNAL, ACCOUNT}
     private Mode mode;
-    private Accounting accounting;
     private RefreshableTable<Booking> gui;
     private final AccountDetailsLauncher accountDetailsLauncher = new AccountDetailsLauncher();
     private final JournalDetailsLauncher journalDetailsLauncher = new JournalDetailsLauncher();
     private final MoveTransactionLauncher moveTransactionLauncher = new MoveTransactionLauncher();
     private final EditTransactionLauncher editTransactionLauncher = new EditTransactionLauncher();
     private final DeleteTransactionLauncher deleteTransactionLauncher = new DeleteTransactionLauncher();
+    private Journals journals;
 
-    public DetailsPopupMenu(Accounting accounting, RefreshableTable<Booking> gui, Mode mode) {
+    public DetailsPopupMenu(Journals journals, RefreshableTable<Booking> gui, Mode mode) {
         this.mode = mode;
         this.gui = gui;
-        this.accounting = accounting;
+        this.journals = journals;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         move = new JMenuItem(getBundle("Accounting").getString("MOVE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_TRANSACTION"));
@@ -60,14 +59,13 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
         RefreshableTableFrame<Booking> newGui;
         Booking booking = gui.getSelectedObject();
         Transaction transaction = booking.getTransaction();
-        Journals journals = accounting.getJournals();
         if(e.getSource() == details){
             if(mode == Mode.JOURNAL) {
                 Account account = booking.getAccount();
-                newGui = accountDetailsLauncher.showDetails(accounting, account);
+                newGui = accountDetailsLauncher.showDetails(account, journals);
             } else {
                 Journal journal = transaction.getJournal();
-                newGui = journalDetailsLauncher.showDetails(accounting, journal);
+                newGui = journalDetailsLauncher.showDetails(journal, journals);
             }
             newGui.selectObject(booking);
         } else if (e.getSource() == move){

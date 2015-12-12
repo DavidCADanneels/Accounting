@@ -2,9 +2,9 @@ package be.dafke.BasicAccounting.GUI.Details;
 
 import be.dafke.BasicAccounting.Actions.DetailsPopupMenu;
 import be.dafke.BasicAccounting.Actions.PopupForTableActivator;
-import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.BasicAccounting.Objects.Journals;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.JPopupMenu;
@@ -25,12 +25,12 @@ public class JournalDetails extends RefreshableTableFrame<Booking> implements Wi
 	private final JPopupMenu popup;
 
 
-	public JournalDetails(Journal journal, Accounting accounting) {
+	public JournalDetails(Journal journal, Journals journals) {
 		super(getBundle("Accounting").getString("JOURNAL_DETAILS") + " "
                 + journal.toString(), new JournalDetailsDataModel(journal));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
-		popup = new DetailsPopupMenu(accounting, tabel, DetailsPopupMenu.Mode.JOURNAL);
+		popup = new DetailsPopupMenu(journals, tabel, DetailsPopupMenu.Mode.JOURNAL);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel, 0,2,3,4));
 	}
 

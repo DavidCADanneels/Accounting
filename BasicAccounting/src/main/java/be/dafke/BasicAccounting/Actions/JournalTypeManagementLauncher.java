@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.GUI.JournalManagement.JournalTypeManagementGUI;
-import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
 
@@ -9,13 +9,11 @@ import be.dafke.ComponentModel.DisposableComponent;
  * Created by ddanneel on 14/02/2015.
  */
 public class JournalTypeManagementLauncher {
-    public static final String JOURNAL_TYPE_MANAGEMENT = "JournalTypeManagement";
-
-    public void showJournalTypeManager(Accounting accounting) {
-        String key = accounting.toString() + JOURNAL_TYPE_MANAGEMENT;
+    public void showJournalTypeManager(AccountTypes accountTypes) {
+        String key = "" + accountTypes.hashCode();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new JournalTypeManagementGUI(accounting.getAccountTypes());
+            gui = new JournalTypeManagementGUI(accountTypes);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
