@@ -26,7 +26,6 @@ import static java.util.ResourceBundle.getBundle;
 public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
     private final JMenuItem delete, edit, change, debitCredit, details;
     private final RefreshableTable<Booking> table;
-    private final AccountDetailsLauncher accountDetailsLauncher;
     private Journals journals;
     private Accounts accounts;
     private AccountTypes accountTypes;
@@ -45,7 +44,6 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
         change.addActionListener(this);
         debitCredit.addActionListener(this);
         details.addActionListener(this);
-        accountDetailsLauncher = new AccountDetailsLauncher();
         add(delete);
         add(edit);
         add(change);
@@ -78,7 +76,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
             //TODO: or JournalGUI.table should contain Movements iso Bookings
             Movement movement = booking.getBusinessObjects().get(0);
             boolean debit = movement.isDebit();
-            BigDecimal amount = AddBookingToTransactionLauncher.askAmount(transaction, account, debit);
+            BigDecimal amount = TransactionActions.askAmount(transaction, account, debit);
             if(amount != null){
                 // booking must be removed and re-added to Transaction to re-calculate the totals
                 transaction.removeBusinessObject(booking);
@@ -101,7 +99,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
             }
         } else if (source == details){
             Account account = booking.getAccount();
-            accountDetailsLauncher.showDetails(account, journals);
+            AccountActions.showDetails(account, journals);
         }
         ComponentMap.refreshAllFrames();
     }

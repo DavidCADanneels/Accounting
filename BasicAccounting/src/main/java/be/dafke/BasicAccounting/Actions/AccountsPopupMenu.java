@@ -15,7 +15,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class AccountsPopupMenu extends JPopupMenu implements ActionListener{
     private final JMenuItem manage;
-    final AccountManagementLauncher accountManagementLauncher = new AccountManagementLauncher();
+    final AccountActions accountActions = new AccountActions();
     public final String MANAGE = "manage";
     private Accounts accounts;
     private AccountTypes accountTypes;
@@ -30,7 +30,7 @@ public class AccountsPopupMenu extends JPopupMenu implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent ae) {
-        accountManagementLauncher.showAccountManager(accounts, accountTypes);
+        accountActions.showAccountManager(accounts, accountTypes);
         setVisible(false);
     }
 }

@@ -1,17 +1,45 @@
 package be.dafke.BasicAccounting.Actions;
 
+import be.dafke.BasicAccounting.GUI.Details.JournalDetails;
+import be.dafke.BasicAccounting.GUI.JournalManagement.JournalManagementGUI;
+import be.dafke.BasicAccounting.Objects.AccountTypes;
+import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.BasicAccounting.Objects.JournalTypes;
 import be.dafke.BasicAccounting.Objects.Journals;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.ComponentModel.DisposableComponent;
+import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.JOptionPane;
 
 /**
  * Created by ddanneel on 14/02/2015.
  */
-public class SwitchJournalLauncher {
-    public void switchJournal(Journals journals, Journal newJournal) {
+public class JournalActions {
+    public static void showJournalManager(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
+        String key = "" + journals.hashCode();
+        DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+        if(gui == null){
+            gui = new JournalManagementGUI(journals, journalTypes, accountTypes);
+            ComponentMap.addDisposableComponent(key, gui); // DETAILS
+        }
+        gui.setVisible(true);
+    }
+
+    public static RefreshableTableFrame<Booking> showDetails(Journal journal, Journals journals){
+        String key = "Details" + journal.hashCode();
+        DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+        if(gui == null){
+            gui = new JournalDetails(journal, journals);
+            ComponentMap.addDisposableComponent(key, gui); // DETAILS
+        }
+        gui.setVisible(true);
+        return (RefreshableTableFrame<Booking>)gui;
+    }
+
+    public static void switchJournal(Journals journals, Journal newJournal) {
         Journal oldJournal = journals.getCurrentObject();
         if(newJournal!=null && oldJournal!=null){
             checkTransfer(journals, oldJournal, newJournal);
@@ -21,7 +49,7 @@ public class SwitchJournalLauncher {
         ComponentMap.refreshAllFrames();
     }
 
-    private void checkTransfer(Journals journals, Journal oldJournal, Journal newJournal){
+    private static void checkTransfer(Journals journals, Journal oldJournal, Journal newJournal){
         Transaction oldTransaction = oldJournal.getCurrentObject();
         Transaction newTransaction = newJournal.getCurrentObject();
         if(oldTransaction!=null && !oldTransaction.getBusinessObjects().isEmpty()){

@@ -188,7 +188,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         journalDataModel.fireTableDataChanged();
     }
 
-	public void  refresh() {
+	public void refresh() {
         debettotaal = BigDecimal.ZERO;
         credittotaal = BigDecimal.ZERO;
         boolean okEnabled = false;

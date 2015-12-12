@@ -23,11 +23,6 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
     public enum Mode{ JOURNAL, ACCOUNT}
     private Mode mode;
     private RefreshableTable<Booking> gui;
-    private final AccountDetailsLauncher accountDetailsLauncher = new AccountDetailsLauncher();
-    private final JournalDetailsLauncher journalDetailsLauncher = new JournalDetailsLauncher();
-    private final MoveTransactionLauncher moveTransactionLauncher = new MoveTransactionLauncher();
-    private final EditTransactionLauncher editTransactionLauncher = new EditTransactionLauncher();
-    private final DeleteTransactionLauncher deleteTransactionLauncher = new DeleteTransactionLauncher();
     private Journals journals;
 
     public DetailsPopupMenu(Journals journals, RefreshableTable<Booking> gui, Mode mode) {
@@ -62,18 +57,18 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
         if(e.getSource() == details){
             if(mode == Mode.JOURNAL) {
                 Account account = booking.getAccount();
-                newGui = accountDetailsLauncher.showDetails(account, journals);
+                newGui = AccountActions.showDetails(account, journals);
             } else {
                 Journal journal = transaction.getJournal();
-                newGui = journalDetailsLauncher.showDetails(journal, journals);
+                newGui = JournalActions.showDetails(journal, journals);
             }
             newGui.selectObject(booking);
         } else if (e.getSource() == move){
-            moveTransactionLauncher.moveTransaction(transaction, journals);
+            TransactionActions.moveTransaction(transaction, journals);
         } else if (e.getSource() == edit){
-            editTransactionLauncher.editTransaction(transaction, journals);
+            TransactionActions.editTransaction(transaction, journals);
         } else if (e.getSource() == delete){
-            deleteTransactionLauncher.deleteTransaction(transaction);
+            TransactionActions.deleteTransaction(transaction);
         }
     }
 }

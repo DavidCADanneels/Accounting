@@ -1,8 +1,6 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.Actions.JournalDetailsLauncher;
-import be.dafke.BasicAccounting.Actions.JournalManagementLauncher;
-import be.dafke.BasicAccounting.Actions.SwitchJournalLauncher;
+import be.dafke.BasicAccounting.Actions.JournalActions;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.BasicAccounting.Objects.Accounting;
@@ -38,9 +36,6 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
     private Journals journals;
     private JournalTypes journalTypes;
     private AccountTypes accountTypes;
-	private final JournalDetailsLauncher journalDetailsLauncher = new JournalDetailsLauncher();
-	private final JournalManagementLauncher journalManagementLauncher = new JournalManagementLauncher();
-	private final SwitchJournalLauncher switchJournalLauncher = new SwitchJournalLauncher();
 
 	public JournalsGUI(final Journals journals, final JournalTypes journalTypes, final AccountTypes accountTypes) {
 		setAccounting(journals,journalTypes, accountTypes);
@@ -72,12 +67,12 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	public void actionPerformed(ActionEvent ae) {
 		String actionCommand = ae.getActionCommand();
 		if(MANAGE.equals(actionCommand)){
-			journalManagementLauncher.showJournalManager(journals,journalTypes,accountTypes);
+			JournalActions.showJournalManager(journals,journalTypes,accountTypes);
 		} else if (DETAILS.equals(actionCommand)){
-			journalDetailsLauncher.showDetails(journals.getCurrentObject(), journals);
+			JournalActions.showDetails(journals.getCurrentObject(), journals);
 		} else if (SWITCH.equals(actionCommand)){
 			Journal newJournal = (Journal)combo.getSelectedItem();
-			switchJournalLauncher.switchJournal(journals, newJournal);
+			JournalActions.switchJournal(journals, newJournal);
 		}
 	}
 

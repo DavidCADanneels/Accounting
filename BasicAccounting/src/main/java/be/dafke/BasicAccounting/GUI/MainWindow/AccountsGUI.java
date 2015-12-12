@@ -1,9 +1,8 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.Actions.AccountDetailsLauncher;
-import be.dafke.BasicAccounting.Actions.AccountManagementLauncher;
+import be.dafke.BasicAccounting.Actions.AccountActions;
 import be.dafke.BasicAccounting.Actions.AccountsPopupMenu;
-import be.dafke.BasicAccounting.Actions.AddBookingToTransactionLauncher;
+import be.dafke.BasicAccounting.Actions.TransactionActions;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
@@ -62,9 +61,6 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     public final String MANAGE = "manage";
     public final String DETAILS = "details";
     private Account selectedAccount = null;
-    final AddBookingToTransactionLauncher addBookingToTransactionLauncher = new AddBookingToTransactionLauncher();
-    final AccountManagementLauncher accountManagementLauncher = new AccountManagementLauncher();
-    final AccountDetailsLauncher accountDetailsLauncher = new AccountDetailsLauncher();
 
     public AccountsGUI(Accounts accounts, AccountTypes accountTypes, Journals journals) {
 		setLayout(new BorderLayout());
@@ -148,13 +144,13 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         Transaction transaction = journals.getCurrentObject().getCurrentObject();
 
         if(DEBIT.equals(actionCommand)){
-            addBookingToTransactionLauncher.addBookingToTransaction(selectedAccount, transaction, true);
+            TransactionActions.addBookingToTransaction(selectedAccount, transaction, true);
         } else if (CREDIT.equals(actionCommand)){
-            addBookingToTransactionLauncher.addBookingToTransaction(selectedAccount, transaction, false);
+            TransactionActions.addBookingToTransaction(selectedAccount, transaction, false);
         } else if (MANAGE.equals(actionCommand)){
-            accountManagementLauncher.showAccountManager(accounts, accountTypes);
+            AccountActions.showAccountManager(accounts, accountTypes);
         } else if (DETAILS.equals(actionCommand)){
-            accountDetailsLauncher.showDetails(lijst.getSelectedValue(),journals);
+            AccountActions.showDetails(lijst.getSelectedValue(),journals);
         }
     }
 
@@ -211,7 +207,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         int button = me.getButton();
         popup.setVisible(false);
         if(clickCount==2){
-            accountDetailsLauncher.showDetails(selectedAccount, journals);
+            AccountActions.showDetails(selectedAccount, journals);
         } else if (button == 3){
             Point location = me.getLocationOnScreen();
             popup.show(null, location.x, location.y);
