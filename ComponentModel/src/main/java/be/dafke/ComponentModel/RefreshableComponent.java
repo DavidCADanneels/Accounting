@@ -6,6 +6,6 @@ package be.dafke.ComponentModel;
  * Time: 13:20
  */
 public interface RefreshableComponent {
-    public void refresh();
-    public void setVisible(boolean visible);
+    void refresh();
+    void setVisible(boolean visible);
 }
