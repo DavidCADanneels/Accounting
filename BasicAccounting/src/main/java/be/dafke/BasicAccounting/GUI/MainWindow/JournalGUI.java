@@ -3,9 +3,12 @@ package be.dafke.BasicAccounting.GUI.MainWindow;
 import be.dafke.BasicAccounting.Actions.JournalGUIPopupMenu;
 import be.dafke.BasicAccounting.Actions.PopupForTableActivator;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
+import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.BasicAccounting.Objects.Journals;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
@@ -45,7 +48,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 	private BigDecimal debettotaal, credittotaal;
     private Journal journal;
 
-    public JournalGUI(Accounting accounting) {
+    public JournalGUI(Journals journals, Accounts accounts, AccountTypes accountTypes) {
         debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
 		setLayout(new BorderLayout());
@@ -55,7 +58,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 		JScrollPane scrollPane = new JScrollPane(table);
 		add(scrollPane, BorderLayout.CENTER);
 
-        popup = new JournalGUIPopupMenu(table, accounting.getJournals(), accounting.getAccounts(), accounting.getAccountTypes());
+        popup = new JournalGUIPopupMenu(table, journals, accounts, accountTypes);
         table.addMouseListener(new PopupForTableActivator(popup,table));
 
         scrollPane.addMouseListener(new MouseAdapter() {

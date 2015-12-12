@@ -47,7 +47,7 @@ public class Main extends BasicAccountingMain{
 
     protected static void createBasicComponents(){
         Accounting accounting = accountings.getCurrentObject();
-        journalGUI = new JournalGUI(accounting);
+        journalGUI = new JournalGUI(accounting.getJournals(), accounting.getAccounts(), accounting.getAccountTypes());
         accountsGUILeft = new AccountsGUI(accounting.getAccounts(), accounting.getAccountTypes(),accounting.getJournals());
         accountsGUIRight = new AccountsGUI(accounting.getAccounts(), accounting.getAccountTypes(),accounting.getJournals());
         journalsGUI = new JournalsGUI(accountings);
