@@ -10,7 +10,7 @@ import java.io.File;
  * Time: 16:01
  */
 public interface AccountingExtension {
-    public void extendReadCollection(Accounting accounting, File xmlFolder);
+    void extendReadCollection(Accounting accounting, File xmlFolder);
 
-    public void extendWriteCollection(Accounting accounting, File xmlFolder);
+    void extendWriteCollection(Accounting accounting, File xmlFolder);
 }
