@@ -15,7 +15,7 @@ public class AccountManagementLauncher {
         String key = accounting.toString() + ACCOUNT_MANAGEMENT;
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new AccountManagementGUI(accounting);
+            gui = new AccountManagementGUI(accounting.getAccounts(), accounting.getAccountTypes());
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);

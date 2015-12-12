@@ -1,11 +1,11 @@
 package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
@@ -15,10 +15,10 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneel on 15/02/2015.
  */
 public class DeleteAccountsAction extends ModifyAccountAction {
-    private Accounting accounting;
+    private Accounts accounts;
 
-    public DeleteAccountsAction(Accounting accounting) {
-        this.accounting = accounting;
+    public DeleteAccountsAction(Accounts accounts) {
+        this.accounts = accounts;
     }
 
     public void actionPerformed(ActionEvent ae) {
@@ -26,7 +26,7 @@ public class DeleteAccountsAction extends ModifyAccountAction {
             ArrayList<String> failed = new ArrayList<String>();
             for(Account account : accountList) {
                 try{
-                    accounting.getAccounts().removeBusinessObject(account);
+                    accounts.removeBusinessObject(account);
                 }catch (NotEmptyException e){
                     failed.add(account.getName());
                 }

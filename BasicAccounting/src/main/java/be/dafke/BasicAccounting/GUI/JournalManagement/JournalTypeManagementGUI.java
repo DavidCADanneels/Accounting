@@ -1,12 +1,18 @@
 package be.dafke.BasicAccounting.GUI.JournalManagement;
 
 import be.dafke.BasicAccounting.Objects.AccountType;
-import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableFrame;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -23,11 +29,11 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 	private final JButton addLeft, addRight, removeLeft, removeRight;
 	private final ArrayList<AccountType> debitTypes, creditTypes, allTypes;
 	private final DefaultListModel<AccountType> debitModel, creditModel, typesModel;
-    private Accounting accounting;
+	private final AccountTypes accountTypes;
 
-	public JournalTypeManagementGUI(Accounting accounting) {
+	public JournalTypeManagementGUI(AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
-        this.accounting = accounting;
+		this.accountTypes = accountTypes;
 		debitTypes = new ArrayList<AccountType>();
 		creditTypes = new ArrayList<AccountType>();
 		allTypes = new ArrayList<AccountType>();
@@ -98,7 +104,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 			int rows[] = types.getSelectedIndices();
 			if (rows.length != 0) {
 				for(int i : rows) {
-					AccountType type = accounting.getAccountTypes().getBusinessObjects().get(i);
+					AccountType type = accountTypes.getBusinessObjects().get(i);
 					if (!debitTypes.contains(type)) {
 						debitTypes.add(type);
 						model.addElement(type);
@@ -110,7 +116,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 			int rows[] = types.getSelectedIndices();
 			if (rows.length != 0) {
 				for(int i : rows) {
-                    AccountType type = accounting.getAccountTypes().getBusinessObjects().get(i);
+                    AccountType type = accountTypes.getBusinessObjects().get(i);
                     if (!creditTypes.contains(type)) {
 						creditTypes.add(type);
 						model.addElement(type);

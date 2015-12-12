@@ -5,7 +5,8 @@ import be.dafke.BasicAccounting.Actions.ModifyAccountDefaultAmountsAction;
 import be.dafke.BasicAccounting.Actions.ModifyAccountNamesAction;
 import be.dafke.BasicAccounting.Actions.ModifyAccountTypesAction;
 import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.AccountTypes;
+import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 
@@ -38,9 +39,9 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 	private ModifyAccountTypesAction modifyAccountTypesAction;
 	private DeleteAccountsAction deleteAccountsAction;
 
-	public AccountManagementGUI(final Accounting accounting) {
+	public AccountManagementGUI(final Accounts accounts, final AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE"));
-		this.model = new AccountManagementTableModel(accounting);
+		this.model = new AccountManagementTableModel(accounts, accountTypes);
 
         // COMPONENTS
         //
@@ -61,9 +62,9 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 		delete = new JButton(getBundle("Accounting").getString("DELETE_ACCOUNT"));
         newAccount = new JButton(getBundle("Accounting").getString("ADD_ACCOUNT"));
         modifyDefaultAmount = new JButton(getBundle("Accounting").getString("MODIFY_DEFAULT_AMOUNT"));
-		modifyAccountNamesAction = new ModifyAccountNamesAction(accounting);
-		modifyAccountTypesAction = new ModifyAccountTypesAction(accounting);
-		deleteAccountsAction = new DeleteAccountsAction(accounting);
+		modifyAccountNamesAction = new ModifyAccountNamesAction(accounts);
+		modifyAccountTypesAction = new ModifyAccountTypesAction(accountTypes);
+		deleteAccountsAction = new DeleteAccountsAction(accounts);
 		modifyAccountDefaultAmountsAction = new ModifyAccountDefaultAmountsAction();
 		modifyName.addActionListener(modifyAccountNamesAction);
 		modifyType.addActionListener(modifyAccountTypesAction);
@@ -71,7 +72,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
         modifyDefaultAmount.addActionListener(modifyAccountDefaultAmountsAction);
 		newAccount.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new NewAccountGUI(accounting.getAccounts(),accounting.getAccountTypes()).setVisible(true);
+				new NewAccountGUI(accounts, accountTypes).setVisible(true);
 			}
 		});
 		modifyName.setEnabled(false);

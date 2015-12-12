@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.GUI.JournalManagement;
 
-import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.BasicAccounting.Objects.Journals;
 import be.dafke.ComponentModel.RefreshableTableModel;
 
 import static java.util.ResourceBundle.getBundle;
@@ -19,10 +19,10 @@ public class JournalManagementTableModel extends RefreshableTableModel<Journal> 
     private final String[] columnNames = { getBundle("Accounting").getString("JOURNAL_NAME"),
             getBundle("Accounting").getString("TYPE"), getBundle("Accounting").getString("NEXT_INDEX") };
     private final Class[] columnClasses = { Journal.class, String.class, Integer.class };
-    private final Accounting accounting;
+    private final Journals journals;
 
-    public JournalManagementTableModel(Accounting accounting) {
-        this.accounting = accounting;
+    public JournalManagementTableModel(Journals journals) {
+        this.journals = journals;
     }
 
     public int getColumnCount() {
@@ -30,11 +30,11 @@ public class JournalManagementTableModel extends RefreshableTableModel<Journal> 
     }
 
     public int getRowCount() {
-        return accounting.getJournals().getBusinessObjects().size();
+        return journals.getBusinessObjects().size();
     }
 
     public Object getValueAt(int row, int col) {
-        Journal journal = accounting.getJournals().getBusinessObjects().get(row);
+        Journal journal = journals.getBusinessObjects().get(row);
         if (col == 0) {
             return journal;
         } else if (col == 1) {

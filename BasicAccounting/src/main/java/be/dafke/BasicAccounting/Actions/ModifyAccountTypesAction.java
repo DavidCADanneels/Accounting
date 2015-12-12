@@ -2,10 +2,10 @@ package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountType;
-import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.ComponentModel.ComponentMap;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.awt.event.ActionEvent;
 
 import static java.util.ResourceBundle.getBundle;
@@ -14,10 +14,10 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneel on 15/02/2015.
  */
 public class ModifyAccountTypesAction extends ModifyAccountAction {
-    private Accounting accounting;
+    private AccountTypes accountTypes;
 
-    public ModifyAccountTypesAction(Accounting accounting) {
-        this.accounting = accounting;
+    public ModifyAccountTypesAction(AccountTypes accountTypes) {
+        this.accountTypes = accountTypes;
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -32,7 +32,7 @@ public class ModifyAccountTypesAction extends ModifyAccountAction {
                 singleMove = (option == JOptionPane.YES_OPTION);
             }
             if (singleMove) {
-                Object[] types = accounting.getAccountTypes().getBusinessObjects().toArray();
+                Object[] types = accountTypes.getBusinessObjects().toArray();
                 int nr = JOptionPane.showOptionDialog(null, getBundle("Accounting").getString("CHOOSE_NEW_TYPE"),
                         getBundle("Accounting").getString("CHANGE_TYPE"),
                         JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
@@ -43,7 +43,7 @@ public class ModifyAccountTypesAction extends ModifyAccountAction {
                 }
             } else {
                 for (Account account : accountList) {
-                    Object[] types = accounting.getAccountTypes().getBusinessObjects().toArray();
+                    Object[] types = accountTypes.getBusinessObjects().toArray();
                     int nr = JOptionPane.showOptionDialog(null, getBundle("Accounting").getString("CHOOSE_NEW_TYPE_FOR")
                                     + " " + account.getName(),
                             getBundle("Accounting").getString("CHANGE_TYPE"), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,

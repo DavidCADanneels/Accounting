@@ -36,7 +36,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
 
 
     public JournalManagementGUI(final Accounting accounting) {
-		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE"), new JournalManagementTableModel(accounting));
+		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE"), new JournalManagementTableModel(accounting.getJournals()));
 		this.accounting = accounting;
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);

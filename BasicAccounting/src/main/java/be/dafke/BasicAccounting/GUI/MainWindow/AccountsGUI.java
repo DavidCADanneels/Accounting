@@ -179,31 +179,20 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 	}
 
     public void setAccounting(Accounting accounting){
+        this.accounting = accounting;
         if(accounting == null){
-            setAccountTypes(null);
-            setAccounts(null);
-            setJournal(null);
+            accountTypes = null;
+            accounts = null;
+            journal = null;
         } else {
-            setAccountTypes(accounting.getAccountTypes());
-            setAccounts(accounting.getAccounts());
+            accountTypes = accounting.getAccountTypes();
+            accounts = accounting.getAccounts();
             if(accounting.getJournals()==null){
-                setJournal(null);
+                journal = null;
             } else {
-                setJournal(accounting.getJournals().getCurrentObject());
+                journal = accounting.getJournals().getCurrentObject();
             }
         }
-    }
-
-    public void setAccountTypes(AccountTypes accountTypes) {
-        this.accountTypes = accountTypes;
-    }
-
-    public void setAccounts(Accounts accounts){
-        this.accounts = accounts;
-    }
-
-    public void setJournal(Journal journal){
-        this.journal = journal;
     }
 
 	public void refresh() {

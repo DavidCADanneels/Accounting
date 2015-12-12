@@ -15,7 +15,7 @@ public class JournalTypeManagementLauncher {
         String key = accounting.toString() + JOURNAL_TYPE_MANAGEMENT;
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new JournalTypeManagementGUI(accounting);
+            gui = new JournalTypeManagementGUI(accounting.getAccountTypes());
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
