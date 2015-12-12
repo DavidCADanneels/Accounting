@@ -2,11 +2,14 @@ package be.dafke.Balances;
 
 import be.dafke.Balances.Actions.BalanceLauncher;
 import be.dafke.Balances.Actions.TestBalanceLauncher;
+import be.dafke.Balances.Objects.Balance;
 import be.dafke.Balances.Objects.Balances;
 import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessObject;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -67,13 +70,18 @@ public class BalancesExtension implements AccountingExtension, ActionListener {
     public void actionPerformed(ActionEvent e) {
         Accounting accounting = accountings.getCurrentObject();
         if (e.getSource() == testBalance) {
-            testBalanceLauncher.showBalance(accounting);
-        } else if (e.getSource() == yearBalance) {
-            balanceLauncher.showBalance(accounting, Balances.YEAR_BALANCE);
-        } else if (e.getSource() == resultBalance) {
-            balanceLauncher.showBalance(accounting, Balances.RESULT_BALANCE);
-        } else if (e.getSource() == relationsBalance) {
-            balanceLauncher.showBalance(accounting, Balances.RELATIONS_BALANCE);
+            testBalanceLauncher.showBalance(accounting.getJournals(), accounting.getAccounts(), accounting.getAccountTypes());
+        } else{
+            BusinessCollection<BusinessObject> balances = accounting.getBusinessObject(Balances.BALANCES);
+            Balance balance = null;
+            if (e.getSource() == yearBalance) {
+                balance = (Balance)balances.getBusinessObject(Balances.YEAR_BALANCE);
+            } else if (e.getSource() == resultBalance) {
+                balance = (Balance)balances.getBusinessObject(Balances.RESULT_BALANCE);
+            } else if (e.getSource() == relationsBalance) {
+                balance = (Balance)balances.getBusinessObject(Balances.RELATIONS_BALANCE);
+            }
+            balanceLauncher.showBalance(accounting.getJournals(), balance);
         }
     }
     public void extendReadCollection(Accounting accounting, File xmlFolder){

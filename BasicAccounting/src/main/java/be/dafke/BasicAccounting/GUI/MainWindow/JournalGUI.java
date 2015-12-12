@@ -15,7 +15,6 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import javax.swing.JPopupMenu;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import java.awt.BorderLayout;
@@ -27,12 +26,13 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class JournalGUI extends AccountingPanel implements ActionListener, FocusListener {
+public class JournalGUI extends AccountingPanel implements ActionListener, FocusListener, MouseListener {
     /**
 	 * 
 	 */
@@ -40,7 +40,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 	private final JournalDataModel journalDataModel;
 	private final JTextField debet, credit, dag, maand, jaar, bewijs, ident;
 	private final JButton singleBook, save, clear;
-    private final JPopupMenu popup;
+    private final JournalGUIPopupMenu popup;
     private final RefreshableTable<Booking> table;
 	private BigDecimal debettotaal, credittotaal;
     private Journal journal;
@@ -55,7 +55,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 		JScrollPane scrollPane = new JScrollPane(table);
 		add(scrollPane, BorderLayout.CENTER);
 
-        popup = new JournalGUIPopupMenu(table, accounting);
+        popup = new JournalGUIPopupMenu(table, accounting.getJournals(), accounting.getAccounts(), accounting.getAccountTypes());
         table.addMouseListener(new PopupForTableActivator(popup,table));
 
         scrollPane.addMouseListener(new MouseAdapter() {
@@ -170,6 +170,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     }
 
     public void setAccounting(Accounting accounting){
+        popup.setAccounting(accounting);
         if(accounting==null || accounting.getJournals()==null){
             journal = null;
         } else {
@@ -184,7 +185,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         journalDataModel.fireTableDataChanged();
     }
 
-	public void refresh() {
+	public void  refresh() {
         debettotaal = BigDecimal.ZERO;
         credittotaal = BigDecimal.ZERO;
         boolean okEnabled = false;
@@ -261,4 +262,24 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         journal.setCurrentObject(transaction);
         refresh();
 	}
+
+    public void mouseClicked(MouseEvent e) {
+
+    }
+
+    public void mousePressed(MouseEvent e) {
+
+    }
+
+    public void mouseReleased(MouseEvent e) {
+
+    }
+
+    public void mouseEntered(MouseEvent e) {
+
+    }
+
+    public void mouseExited(MouseEvent e) {
+
+    }
 }

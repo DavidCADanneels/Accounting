@@ -1,7 +1,8 @@
 package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.GUI.AccountManagement.AccountManagementGUI;
-import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.AccountTypes;
+import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
 
@@ -9,13 +10,11 @@ import be.dafke.ComponentModel.DisposableComponent;
  * Created by ddanneel on 14/02/2015.
  */
 public class AccountManagementLauncher {
-    public static final String ACCOUNT_MANAGEMENT = "AccountManagement";
-
-    public void showAccountManager(Accounting accounting) {
-        String key = accounting.toString() + ACCOUNT_MANAGEMENT;
+    public void showAccountManager(Accounts accounts, AccountTypes accountTypes) {
+        String key = ""+accounts.hashCode();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new AccountManagementGUI(accounting.getAccounts(), accounting.getAccountTypes());
+            gui = new AccountManagementGUI(accounts, accountTypes);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);

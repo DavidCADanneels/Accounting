@@ -1,7 +1,8 @@
 package be.dafke.Balances.GUI;
 
 import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.AccountTypes;
+import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.ComponentModel.RefreshableTableModel;
 
 import java.math.BigDecimal;
@@ -22,10 +23,12 @@ public class TestBalanceDataModel extends RefreshableTableModel<Account> {
 			getBundle("Balances").getString("SALDO_CREDIT") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, BigDecimal.class,
 			BigDecimal.class };
-	private final Accounting accounting;
+	private final Accounts accounts;
+	private final AccountTypes accountTypes;
 
-	public TestBalanceDataModel(Accounting accounting) {
-		this.accounting = accounting;
+	public TestBalanceDataModel(final Accounts accounts, final AccountTypes accountTypes) {
+		this.accounts = accounts;
+		this.accountTypes = accountTypes;
 	}
 
 	// DE GET METHODEN
@@ -49,7 +52,7 @@ public class TestBalanceDataModel extends RefreshableTableModel<Account> {
 	}
 
 	public int getRowCount() {
-		return accounting.getAccounts().getBusinessObjects().size();
+		return accounts.getBusinessObjects().size();
 	}
 
 	@Override
@@ -75,14 +78,14 @@ public class TestBalanceDataModel extends RefreshableTableModel<Account> {
 
 	@Override
 	public Account getObject(int row, int col) {
-		return accounting.getAccounts().getAccounts(accounting.getAccountTypes().getBusinessObjects()).get(row);
+		return accounts.getAccounts(accountTypes.getBusinessObjects()).get(row);
 	}
 
 	@Override
 	public int getRow(Account o) {
 		int row = 0;
-		ArrayList<Account> accounts = accounting.getAccounts().getAccounts(accounting.getAccountTypes().getBusinessObjects());
-		for(Account account : accounts){
+		ArrayList<Account> accountList = accounts.getAccounts(accountTypes.getBusinessObjects());
+		for(Account account : accountList){
 			if(account != o){
 				row++;
 			}
