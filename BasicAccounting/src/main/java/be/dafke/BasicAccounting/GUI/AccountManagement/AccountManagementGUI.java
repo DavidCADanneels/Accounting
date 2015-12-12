@@ -1,9 +1,6 @@
 package be.dafke.BasicAccounting.GUI.AccountManagement;
 
-import be.dafke.BasicAccounting.Actions.DeleteAccountsAction;
-import be.dafke.BasicAccounting.Actions.ModifyAccountDefaultAmountsAction;
-import be.dafke.BasicAccounting.Actions.ModifyAccountNamesAction;
-import be.dafke.BasicAccounting.Actions.ModifyAccountTypesAction;
+import be.dafke.BasicAccounting.Actions.AccountActions;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.BasicAccounting.Objects.Accounts;
@@ -25,22 +22,27 @@ import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class AccountManagementGUI extends RefreshableFrame implements ListSelectionListener {
+public class AccountManagementGUI extends RefreshableFrame implements ListSelectionListener, ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final String MODIFY_NAME = "MODIFY_NAME";
+	public static final String MODIFY_TYPE = "MODIFY_TYPE";
+	public static final String NEW_ACCOUNT = "NEW_ACCOUNT";
+	public static final String DELETE = "DELETE";
+	public static final String MODIFY_DEFAULT_AMOUNT = "MODIFY_DEFAULT_AMOUNT";
 	private final JButton newAccount, delete, modifyName, modifyType, modifyDefaultAmount;
 	private final AccountManagementTableModel model;
 	private final RefreshableTable<Account> tabel;
 	private final DefaultListSelectionModel selection;
-    private ModifyAccountDefaultAmountsAction modifyAccountDefaultAmountsAction;
-	private ModifyAccountNamesAction modifyAccountNamesAction;
-	private ModifyAccountTypesAction modifyAccountTypesAction;
-	private DeleteAccountsAction deleteAccountsAction;
+	private Accounts accounts;
+	private AccountTypes accountTypes;
 
 	public AccountManagementGUI(final Accounts accounts, final AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE"));
+		this.accounts = accounts;
+		this.accountTypes = accountTypes;
 		this.model = new AccountManagementTableModel(accounts, accountTypes);
 
         // COMPONENTS
@@ -61,20 +63,17 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 		modifyType = new JButton(getBundle("Accounting").getString("MODIFY_TYPE"));
 		delete = new JButton(getBundle("Accounting").getString("DELETE_ACCOUNT"));
         newAccount = new JButton(getBundle("Accounting").getString("ADD_ACCOUNT"));
-        modifyDefaultAmount = new JButton(getBundle("Accounting").getString("MODIFY_DEFAULT_AMOUNT"));
-		modifyAccountNamesAction = new ModifyAccountNamesAction(accounts);
-		modifyAccountTypesAction = new ModifyAccountTypesAction(accountTypes);
-		deleteAccountsAction = new DeleteAccountsAction(accounts);
-		modifyAccountDefaultAmountsAction = new ModifyAccountDefaultAmountsAction();
-		modifyName.addActionListener(modifyAccountNamesAction);
-		modifyType.addActionListener(modifyAccountTypesAction);
-		delete.addActionListener(deleteAccountsAction);
-        modifyDefaultAmount.addActionListener(modifyAccountDefaultAmountsAction);
-		newAccount.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new NewAccountGUI(accounts, accountTypes).setVisible(true);
-			}
-		});
+		modifyDefaultAmount = new JButton(getBundle("Accounting").getString("MODIFY_DEFAULT_AMOUNT"));
+		modifyName.setActionCommand(MODIFY_NAME);
+		modifyType.setActionCommand(MODIFY_TYPE);
+		modifyDefaultAmount.setActionCommand(MODIFY_DEFAULT_AMOUNT);
+		delete.setActionCommand(DELETE);
+		newAccount.setActionCommand(NEW_ACCOUNT);
+		modifyName.addActionListener(this);
+		modifyType.addActionListener(this);
+		delete.addActionListener(this);
+        modifyDefaultAmount.addActionListener(this);
+		newAccount.addActionListener(this);
 		modifyName.setEnabled(false);
 		modifyType.setEnabled(false);
 		delete.setEnabled(false);
@@ -106,20 +105,11 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 				modifyName.setEnabled(true);
 				modifyType.setEnabled(true);
                 modifyDefaultAmount.setEnabled(true);
-                ArrayList<Account> selectedAccounts = getSelectedAccounts();
-                modifyAccountDefaultAmountsAction.putValue("", selectedAccounts);
-                modifyAccountNamesAction.putValue("", selectedAccounts);
-                modifyAccountTypesAction.putValue("", selectedAccounts);
-                deleteAccountsAction.putValue("", selectedAccounts);
 			} else {
                 delete.setEnabled(false);
                 modifyName.setEnabled(false);
                 modifyType.setEnabled(false);
                 modifyDefaultAmount.setEnabled(false);
-				modifyAccountDefaultAmountsAction.putValue("", null);
-				modifyAccountNamesAction.putValue("", null);
-				modifyAccountTypesAction.putValue("", null);
-				deleteAccountsAction.putValue("", null);
             }
 		}
 	}
@@ -136,4 +126,19 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
         }
         return accountList;
     }
+
+	public void actionPerformed(ActionEvent ae) {
+		String actionCommand = ae.getActionCommand();
+		if(MODIFY_NAME.equals(actionCommand)) {
+			AccountActions.modifyAccountNames(getSelectedAccounts(), accounts);
+		} else if(MODIFY_TYPE.equals(actionCommand)){
+			AccountActions.modifyAccountTypes(getSelectedAccounts(), accountTypes);
+		} else if(MODIFY_DEFAULT_AMOUNT.equals(actionCommand)){
+			AccountActions.modifyDefaultAmounts(getSelectedAccounts(), accounts);
+		} else if(DELETE.equals(actionCommand)){
+			AccountActions.deleteAccounts(getSelectedAccounts(), accounts);
+		} else if(NEW_ACCOUNT.equals(actionCommand)){
+			new NewAccountGUI(accounts, accountTypes).setVisible(true);
+		}
+	}
 }
