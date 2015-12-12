@@ -22,10 +22,10 @@ public class MovementTest {
     @Test
     public void getId(){
         Movement movement = new Movement(AMOUNT, true);
-        assertEquals(1,movement.getId());
+        int id = movement.getId();
 
         movement = new Movement(AMOUNT, false);
-        assertEquals(2,movement.getId());
+        assertEquals(id+1,movement.getId());
     }
 
     @Test
