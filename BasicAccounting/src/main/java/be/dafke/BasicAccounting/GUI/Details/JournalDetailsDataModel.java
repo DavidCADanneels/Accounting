@@ -21,7 +21,7 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final Journal journal;
+	private Journal journal;
 	private final String[] columnNames = {
 			getBundle("Accounting").getString("NR"),
 			getBundle("Accounting").getString("DATE"),
@@ -36,10 +36,16 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 		this.journal = journal;
 	}
 
+
+	public void setJournal(Journal journal) {
+		this.journal = journal;
+	}
+
 // DE GET METHODEN
 // ===============
 
 	public int getRowCount() {
+		if(journal==null) return 0;
 		int size = 0;
         for(Transaction transaction : journal.getBusinessObjects()){
 			size += transaction.getBusinessObjects().size();
