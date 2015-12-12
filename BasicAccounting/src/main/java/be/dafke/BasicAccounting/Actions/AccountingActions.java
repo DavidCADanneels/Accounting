@@ -6,21 +6,14 @@ import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 /**
  * Created by ddanneel on 14/02/2015.
  */
-public class NewAccountingActionListener implements ActionListener {
-    private Accountings accountings;
+public class AccountingActions {
 
-    public NewAccountingActionListener(Accountings accountings) {
-        this.accountings = accountings;
-    }
-
-    public void actionPerformed(ActionEvent ae) {
+    public static void newAccounting(Accountings accountings) {
         String name = JOptionPane.showInputDialog(null, "Enter a name");
         try {
             Accounting accounting = new Accounting();
@@ -33,6 +26,11 @@ public class NewAccountingActionListener implements ActionListener {
         } catch (EmptyNameException e) {
             JOptionPane.showMessageDialog(null, "The name cannot be empty.\r\nPlease provide a new name.");
         }
+        ComponentMap.refreshAllFrames();
+    }
+
+    public static void openAccounting(Accountings accountings, Accounting accounting) {
+        accountings.setCurrentObject(accounting.getName());
         ComponentMap.refreshAllFrames();
     }
 }

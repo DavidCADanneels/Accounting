@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.GUI.Details.JournalDetails;
 import be.dafke.BasicAccounting.GUI.JournalManagement.JournalManagementGUI;
+import be.dafke.BasicAccounting.GUI.JournalManagement.JournalTypeManagementGUI;
 import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
@@ -23,6 +24,16 @@ public class JournalActions {
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             gui = new JournalManagementGUI(journals, journalTypes, accountTypes);
+            ComponentMap.addDisposableComponent(key, gui); // DETAILS
+        }
+        gui.setVisible(true);
+    }
+
+    public static void showJournalTypeManager(AccountTypes accountTypes) {
+        String key = "" + accountTypes.hashCode();
+        DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+        if(gui == null){
+            gui = new JournalTypeManagementGUI(accountTypes);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);

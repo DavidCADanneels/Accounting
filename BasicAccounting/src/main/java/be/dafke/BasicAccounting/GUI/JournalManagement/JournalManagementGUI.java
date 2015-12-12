@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI.JournalManagement;
 
-import be.dafke.BasicAccounting.Actions.JournalTypeManagementLauncher;
+import be.dafke.BasicAccounting.Actions.JournalActions;
 import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.JournalType;
@@ -40,7 +40,6 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
 	private JComboBox<JournalType> type;
 	private final JButton add, delete, modifyName, modifyType, newType, modifyAbbr;
 	private final DefaultListSelectionModel selection;
-    private final JournalTypeManagementLauncher journalTypeManagementLauncher = new JournalTypeManagementLauncher();
     private Journals journals;
     private JournalTypes journalTypes;
     private AccountTypes accountTypes;
@@ -137,7 +136,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
 		if (e.getSource() == add || e.getSource() == name || e.getSource() == abbr) {
 			addJournal();
 		} if (e.getSource() == newType) {
-            journalTypeManagementLauncher.showJournalTypeManager(accountTypes);
+            JournalActions.showJournalTypeManager(accountTypes);
         } else {
             ArrayList<Journal> journalList = getSelectedJournals();
             if(!journalList.isEmpty()){
