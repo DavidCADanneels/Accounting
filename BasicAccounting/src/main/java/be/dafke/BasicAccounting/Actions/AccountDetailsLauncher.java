@@ -15,7 +15,7 @@ public class AccountDetailsLauncher {
     private static final String ACCOUNT_DETAILS = "AccountDetails";
 
     public RefreshableTableFrame<Booking> showDetails(Accounting accounting, Account account){
-        String key = accounting.toString() + ACCOUNT_DETAILS + account.getName();
+        String key = ACCOUNT_DETAILS + account.getName();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             gui = new AccountDetails(account, accounting);

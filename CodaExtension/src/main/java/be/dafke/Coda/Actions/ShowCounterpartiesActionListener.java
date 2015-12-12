@@ -27,7 +27,7 @@ public class ShowCounterpartiesActionListener implements ActionListener{
         Accounting accounting = accountings.getCurrentObject();
         BusinessCollection<BusinessObject> counterParties = accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
         BusinessCollection<BusinessObject> statements = accounting.getBusinessObject(Statements.STATEMENTS);
-        String key = accounting.toString() + CounterParties.COUNTERPARTIES;
+        String key = CounterParties.COUNTERPARTIES;
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             gui = new CounterPartyTableFrame(accounting, (CounterParties)counterParties, (Statements)statements);

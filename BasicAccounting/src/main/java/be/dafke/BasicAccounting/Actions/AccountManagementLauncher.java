@@ -12,7 +12,7 @@ public class AccountManagementLauncher {
     public static final String ACCOUNT_MANAGEMENT = "AccountManagement";
 
     public void showAccountManager(Accounting accounting) {
-        String key = accounting.toString() + ACCOUNT_MANAGEMENT;
+        String key = ACCOUNT_MANAGEMENT;
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             gui = new AccountManagementGUI(accounting);

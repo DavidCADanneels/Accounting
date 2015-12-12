@@ -179,7 +179,7 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
             // TODO: this is an existing Action in CodaActionListener
-            String key = accounting.toString()+ CounterParties.COUNTERPARTIES;
+            String key = CounterParties.COUNTERPARTIES;
             ComponentMap.getDisposableComponent(key).setVisible(true);
             // until here
 			return false;
