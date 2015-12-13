@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.Objects.Account;
+import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Journals;
@@ -47,6 +48,14 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
         add(move);
         add(edit);
         add(details);
+    }
+
+    public void setAccounting(Accounting accounting){
+        if (accounting==null){
+            journals = null;
+        } else {
+            journals = accounting.getJournals();
+        }
     }
 
     public void actionPerformed(ActionEvent e) {

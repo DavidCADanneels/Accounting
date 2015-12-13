@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
+import be.dafke.BasicAccounting.Actions.DetailsPopupMenu;
 import be.dafke.BasicAccounting.Actions.JournalGUIPopupMenu;
 import be.dafke.BasicAccounting.Actions.PopupForTableActivator;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
@@ -31,24 +32,24 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class JournalGUI extends AccountingPanel implements ActionListener, FocusListener, MouseListener {
+public class JournalGUI extends AccountingPanel implements ActionListener, FocusListener {
     /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JournalDataModel journalDataModel;
-    private final JournalDetailsDataModel journalDetailsDataModel;
 	private final JTextField debet, credit, dag, maand, jaar, bewijs, ident;
-	private final JButton singleBook, save, clear;
-    private final JournalGUIPopupMenu popup;
-    private final RefreshableTable<Booking> table, view;
-	private BigDecimal debettotaal, credittotaal;
+    private final JButton singleBook, save, clear;
+    private final JournalDataModel journalDataModel;
+    private final JournalDetailsDataModel journalDetailsDataModel;
+    private final RefreshableTable<Booking> inputTable, viewTable;
+    private final JournalGUIPopupMenu inputPopup;
+    private final DetailsPopupMenu viewPopup;
+    private BigDecimal debettotaal, credittotaal;
     private Journal journal;
 
     public JournalGUI(Journals journals, Accounts accounts, AccountTypes accountTypes) {
@@ -58,25 +59,28 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 		setLayout(new BorderLayout());
 		journalDataModel = new JournalDataModel();
         journalDetailsDataModel = new JournalDetailsDataModel(journal);
-        view = new RefreshableTable<Booking>(journalDetailsDataModel);
-		view.setPreferredScrollableViewportSize(new Dimension(800, 200));
-		table = new RefreshableTable<Booking>(journalDataModel);
-		table.setPreferredScrollableViewportSize(new Dimension(800, 200));
-		JScrollPane scrollPane1 = new JScrollPane(view);
-		JScrollPane scrollPane2 = new JScrollPane(table);
+        viewTable = new RefreshableTable<Booking>(journalDetailsDataModel);
+		viewTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
+        viewPopup = new DetailsPopupMenu(journals, viewTable, DetailsPopupMenu.Mode.JOURNAL);
+        viewTable.addMouseListener(new PopupForTableActivator(viewPopup, viewTable, 0,2,3,4));
+
+        inputTable = new RefreshableTable<Booking>(journalDataModel);
+		inputTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
+		JScrollPane scrollPane1 = new JScrollPane(viewTable);
+		JScrollPane scrollPane2 = new JScrollPane(inputTable);
         JPanel center = new JPanel();
         center.setLayout(new BoxLayout(center,BoxLayout.Y_AXIS));
         center.add(scrollPane1);
         center.add(scrollPane2);
 		add(center, BorderLayout.CENTER);
 
-        popup = new JournalGUIPopupMenu(table, journals, accounts, accountTypes);
-        table.addMouseListener(new PopupForTableActivator(popup,table));
+        inputPopup = new JournalGUIPopupMenu(inputTable, journals, accounts, accountTypes);
+        inputTable.addMouseListener(new PopupForTableActivator(inputPopup, inputTable));
 
         scrollPane2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
-               popup.setVisible(false);
+               inputPopup.setVisible(false);
             }
         });
 
@@ -185,7 +189,8 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     }
 
     public void setAccounting(Accounting accounting){
-        popup.setAccounting(accounting);
+        inputPopup.setAccounting(accounting);
+        viewPopup.setAccounting(accounting);
         if(accounting==null || accounting.getJournals()==null){
             journal = null;
         } else {
@@ -217,6 +222,8 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
             Transaction transaction = journal.getCurrentObject();
             journalDataModel.setTransaction(transaction);
             journalDataModel.fireTableDataChanged();
+            journalDetailsDataModel.setJournal(journal);
+            journalDetailsDataModel.fireTableDataChanged();
             if(transaction!=null){
                 debettotaal = transaction.getDebetTotaal();
                 credittotaal = transaction.getCreditTotaal();
@@ -278,24 +285,4 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         journal.setCurrentObject(transaction);
         refresh();
 	}
-
-    public void mouseClicked(MouseEvent e) {
-
-    }
-
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    public void mouseExited(MouseEvent e) {
-
-    }
 }
