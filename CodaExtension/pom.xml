@@ -5,20 +5,20 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>be.dafke.Accounting</groupId>
     <artifactId>CodaExtension</artifactId>
-    <version>2.1</version>
+    <version>2.2</version>
     <!--<packaging></packaging>-->
 
     <parent>
         <artifactId>Accounting</artifactId>
         <groupId>be.dafke</groupId>
-        <version>2.1</version>
+        <version>2.2</version>
     </parent>
 
     <dependencies>
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>BasicAccounting</artifactId>
-            <version>2.1</version>
+            <version>2.2</version>
         </dependency>
     </dependencies>
 
