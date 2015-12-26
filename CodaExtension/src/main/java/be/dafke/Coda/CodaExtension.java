@@ -1,6 +1,5 @@
 package be.dafke.Coda;
 
-import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
@@ -8,19 +7,16 @@ import be.dafke.Coda.Actions.ShowCounterpartiesActionListener;
 import be.dafke.Coda.Actions.ShowStatementsActionListener;
 import be.dafke.Coda.Objects.CounterParties;
 import be.dafke.Coda.Objects.Statements;
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import javax.swing.*;
-import java.io.File;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 
 /**
  * User: david
  * Date: 28-12-13
  * Time: 16:22
  */
-public class CodaExtension implements AccountingExtension{
+public class CodaExtension {
     private static JMenu banking = null;
 
     public CodaExtension(Accountings accountings, AccountingMenuBar menuBar){
@@ -30,7 +26,6 @@ public class CodaExtension implements AccountingExtension{
         for(Accounting accounting: accountings.getBusinessObjects()) {
             new CounterParties(accounting);
             new Statements(accounting);
-            accounting.addExtension(this);
         }
     }
 
@@ -48,13 +43,5 @@ public class CodaExtension implements AccountingExtension{
         menuBar.addRefreshableMenuItem(movements);
         menuBar.addRefreshableMenuItem(counterParties);
         menuBar.add(banking);
-    }
-
-    public void extendReadCollection(Accounting accounting, File xmlFolder){
-
-    }
-
-    public void extendWriteCollection(Accounting accounting, File xmlFolder){
-
     }
 }

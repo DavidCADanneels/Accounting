@@ -1,7 +1,6 @@
 package be.dafke.Coda;
 
 import be.dafke.BasicAccounting.BasicAccountingMain;
-import be.dafke.BasicAccounting.Objects.Accounting;
 
 /**
  * User: david
@@ -14,18 +13,11 @@ public class CodaExtensionMain extends BasicAccountingMain {
         startReadingXmlFile();
         createBasicComponents();
 
-        applyExtensions();
+//        applyExtensions();
 
         continueReadingXmlFile();
         composeContentPanel();
         composeFrames();
         launch();
-    }
-
-    public static void applyExtensions(){
-        for(Accounting accounting: accountings.getBusinessObjects()){
-            CodaExtension codaExtension = new CodaExtension(accountings, menuBar);
-            accounting.addExtension(codaExtension);
-        }
     }
 }

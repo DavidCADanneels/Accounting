@@ -1,18 +1,14 @@
 package be.dafke.Project;
 
-import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Project.Actions.ShowProjectsActionListener;
 import be.dafke.Project.Objects.Projects;
 
-import javax.swing.*;
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import java.awt.event.KeyEvent;
-import java.io.File;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -21,14 +17,13 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 30-12-13
  * Time: 10:04
  */
-public class ProjectExtension implements AccountingExtension{
+public class ProjectExtension {
     private static JMenu projecten = null;
 
     public ProjectExtension(Accountings accountings, AccountingMenuBar menuBar){
         if(projecten == null) createMenu(accountings, menuBar);
         for(Accounting accounting: accountings.getBusinessObjects()) {
             new Projects(accounting);
-            accounting.addExtension(this);
         }
     }
 
@@ -43,13 +38,4 @@ public class ProjectExtension implements AccountingExtension{
         menuBar.addRefreshableMenuItem(projects);
         menuBar.add(projecten);
     }
-
-    public void extendReadCollection(Accounting accounting, File xmlFolder){
-
-    }
-
-    public void extendWriteCollection(Accounting accounting, File xmlFolder){
-
-    }
-
 }
