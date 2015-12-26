@@ -11,4 +11,7 @@
   <Balances>
     <name>Balances</name>
   </Balances>
+  <Mortgages>
+    <name>Mortgages</name>
+  </Mortgages>
 </Accounting>
