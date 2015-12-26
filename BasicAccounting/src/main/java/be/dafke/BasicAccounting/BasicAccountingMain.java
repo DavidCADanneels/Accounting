@@ -44,26 +44,21 @@ public class BasicAccountingMain {
 
 
 	public static void main(String[] args) {
-        startReadingXmlFile();
-
+        readXmlData();
         createBasicComponents();
-        addBalances();
-        addMortgages();
-
+        createMenu();
         composeContentPanel();
         composeFrames();
         launch();
     }
 
-    protected static void addBalances() {
+    protected static void createMenu() {
+        menuBar = new AccountingMenuBar(accountings);
         menuBar.add(new BalancesMenu(accountings, menuBar));
-    }
-
-    protected static void addMortgages() {
         menuBar.add(new MorgagesMenu(accountings, menuBar));
     }
 
-    protected static void startReadingXmlFile() {
+    protected static void readXmlData() {
         setXmlFolder();
         accountings = new Accountings(xmlFolder, xslFolder, htmlFolder);
         if(!xmlFolder.exists()){
@@ -95,7 +90,6 @@ public class BasicAccountingMain {
         journalGUI = new JournalGUI(accounting.getJournals(), accounting.getAccounts(), accounting.getAccountTypes());
         accountsGUI = new AccountsGUI(accounting.getAccounts(), accounting.getAccountTypes(),accounting.getJournals());
         journalsGUI = new JournalsGUI(accounting.getJournals(), accounting.getJournalTypes(), accounting.getAccountTypes());
-        menuBar = new AccountingMenuBar(accountings);
         saveButton = new JButton("Save all");
         saveButton.addActionListener(new SaveAllActionListener(accountings));
     }

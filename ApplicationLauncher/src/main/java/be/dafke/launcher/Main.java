@@ -26,10 +26,9 @@ public class Main extends BasicAccountingMain{
     protected static AccountsGUI accountsGUIRight;
 
     public static void main(String[] args) {
-        startReadingXmlFile();
+        readXmlData();
         createBasicComponents();
-        addBalances();
-        addMortgages();
+        createMenu();
         composeContentPanel();
         composeFrames();
         launch();

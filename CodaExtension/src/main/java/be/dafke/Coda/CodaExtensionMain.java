@@ -10,7 +10,7 @@ import be.dafke.BasicAccounting.BasicAccountingMain;
 public class CodaExtensionMain extends BasicAccountingMain {
 
     public static void main(String[] args) {
-        startReadingXmlFile();
+        readXmlData();
         createBasicComponents();
         composeContentPanel();
         composeFrames();

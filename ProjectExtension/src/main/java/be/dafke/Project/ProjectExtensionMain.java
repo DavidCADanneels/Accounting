@@ -9,7 +9,7 @@ import be.dafke.BasicAccounting.BasicAccountingMain;
  */
 public class ProjectExtensionMain extends BasicAccountingMain {
     public static void main(String[] args) {
-        startReadingXmlFile();
+        readXmlData();
         createBasicComponents();
 
 //        applyExtensions();
