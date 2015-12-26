@@ -8,7 +8,7 @@
     <credit>153.25</credit>
     <date>1/10/2015</date>
     <description>te betalen voor 24-11-15</description>
-    <id>7989</id>
+    <id>8001</id>
     <journalAbbr>SCH</journalAbbr>
     <journalId>2</journalId>
     <journalName>Schulden</journalName>
@@ -16,7 +16,7 @@
   <Movement>
     <date>3/11/2015</date>
     <debit>153.25</debit>
-    <id>8002</id>
+    <id>8014</id>
     <journalAbbr>SCH</journalAbbr>
     <journalId>9</journalId>
     <journalName>Schulden</journalName>

@@ -6,7 +6,7 @@
   <Movement>
     <credit>145.35</credit>
     <date>1/10/2015</date>
-    <id>7995</id>
+    <id>8007</id>
     <journalAbbr>SCH</journalAbbr>
     <journalId>5</journalId>
     <journalName>Schulden</journalName>
@@ -15,7 +15,7 @@
     <date>24/10/2015</date>
     <debit>145.35</debit>
     <description>september</description>
-    <id>8000</id>
+    <id>8012</id>
     <journalAbbr>SCH</journalAbbr>
     <journalId>8</journalId>
     <journalName>Schulden</journalName>

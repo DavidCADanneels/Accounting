@@ -227,7 +227,7 @@
   <Movement>
     <date>11/9/2015</date>
     <debit>1.70</debit>
-    <id>8161</id>
+    <id>8173</id>
     <journalAbbr>TAY</journalAbbr>
     <journalId>68</journalId>
     <journalName>Tay</journalName>
@@ -267,7 +267,7 @@
   <Movement>
     <date>18/12/2015</date>
     <debit>7.20</debit>
-    <id>7978</id>
+    <id>7988</id>
     <journalAbbr>FAM</journalAbbr>
     <journalId>986</journalId>
     <journalName>Family</journalName>
