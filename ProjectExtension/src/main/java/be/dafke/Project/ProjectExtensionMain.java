@@ -1,7 +1,6 @@
 package be.dafke.Project;
 
 import be.dafke.BasicAccounting.BasicAccountingMain;
-import be.dafke.BasicAccounting.Objects.Accounting;
 
 /**
  * User: david
@@ -13,7 +12,7 @@ public class ProjectExtensionMain extends BasicAccountingMain {
         startReadingXmlFile();
         createBasicComponents();
 
-        applyExtensions();
+//        applyExtensions();
 
         continueReadingXmlFile();
         composeContentPanel();
@@ -21,9 +20,4 @@ public class ProjectExtensionMain extends BasicAccountingMain {
         launch();
     }
 
-    protected static void applyExtensions(){
-        for(Accounting accounting: accountings.getBusinessObjects()){
-            accounting.addExtension(new ProjectExtension(accountings,menuBar));
-        }
-    }
 }
