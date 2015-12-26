@@ -128,7 +128,7 @@ public class BasicAccountingMain {
     }
 
     private static void setXmlFolder(){
-        Mode mode = Mode.PROD;
+        Mode mode = Mode.TEST;
 
         if(mode == Mode.TEST){
             int nr = JOptionPane.showOptionDialog(null,"TEST or PROD", "Which environment?",JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,null, Mode.values(),Mode.TEST);
@@ -140,8 +140,8 @@ public class BasicAccountingMain {
         }
 
         if(mode == Mode.TEST) {
-            xmlFolder = new File("BasicAccounting/src/main/resources/xml");
-            htmlFolder = new File("BasicAccounting/src/main/resources/html");
+            xmlFolder = new File("BasicAccounting/src/test/resources/xml");
+            htmlFolder = new File("BasicAccounting/src/test/resources/html");
         } else {// if (mode == Mode.PROD) {
 //            File userHome = new File(System.getProperty("user.home"));
             File userHome = new File("data");
