@@ -50,7 +50,7 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
     }
 
     public boolean isBookable(){
-        return (capital!=null && intrest!=null);
+        return (capital!=null && intrest!=null && !isPayedOff());
     }
     @Override
     public boolean isDeletable(){
