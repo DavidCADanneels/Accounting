@@ -1,4 +1,4 @@
-package be.dafke.Mortgage;
+package be.dafke.BasicAccounting;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

@@ -1,4 +1,4 @@
-package be.dafke.Mortgage.Dao;
+package be.dafke.BasicAccounting.Dao;
 
 import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;

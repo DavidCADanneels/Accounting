@@ -1,8 +1,5 @@
-package be.dafke.Mortgage.Objects;
+package be.dafke.BasicAccounting.Objects;
 
-import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.AccountType;
-import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionDependent;
 import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
@@ -16,7 +13,9 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 
-public class Mortgage extends Account implements BusinessTypeCollectionDependent<AccountType>, BusinessTyped<AccountType>, BusinessCollectionDependent<Account> {
+public class Mortgage extends Account implements BusinessTypeCollectionDependent<AccountType>, BusinessTyped<AccountType>, BusinessCollectionDependent<Account>
+//        , MustBeRead
+{
     private final static String TOTAL = "total";
     private final static String NRPAYED = "nrPayed";
     private final static String CAPITAL_ACCOUNT = "CapitalAccount";

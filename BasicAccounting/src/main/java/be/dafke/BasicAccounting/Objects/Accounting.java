@@ -1,13 +1,11 @@
 package be.dafke.BasicAccounting.Objects;
 
-import be.dafke.BasicAccounting.AccountingExtension;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author David Danneels
@@ -18,24 +16,15 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 	private final Journals journals;
     private final JournalTypes journalTypes;
     private final Balances balances;
+    private final Mortgages mortgages;
     private ArrayList<String> keys;
-    private List<AccountingExtension> extensions;
 
-    public void addExtension(AccountingExtension extension){
-        extensions.add(extension);
-    }
-    public List<AccountingExtension> getExtensions() {
-        return extensions;
-    }
     @Override
     public String getChildType(){
         return Accountings.ACCOUNTING;
     }
 
     public Accounting() {
-        extensions = new ArrayList<AccountingExtension>();
-        // TODO use Accounts<Account> + modify Accounts file ... Accounts<T extends
-
         accountTypes = new AccountTypes();
 
         accounts = new Accounts();
@@ -53,6 +42,10 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         balances.setBusinessTypeCollection(accountTypes);
         balances.addDefaultBalances(accountTypes);
 
+        mortgages = new Mortgages();
+        mortgages.setBusinessTypeCollection(accountTypes);
+        mortgages.setBusinessCollection(accounts);
+
         accounts.setName(accounts.getBusinessObjectType());
         journals.setName(journals.getBusinessObjectType());
 
@@ -60,6 +53,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
             addBusinessObject((BusinessCollection)accounts);
             addBusinessObject((BusinessCollection)journals);
             addBusinessObject((BusinessCollection)balances);
+            addBusinessObject((BusinessCollection)mortgages);
         } catch (EmptyNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (DuplicateNameException e) {
@@ -70,6 +64,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         keys.add(accounts.getBusinessObjectType());
         keys.add(journals.getBusinessObjectType());
         keys.add(balances.getBusinessObjectType());
+        keys.add(mortgages.getBusinessObjectType());
 	}
 
     public void addKey(String key){
@@ -115,5 +110,9 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     public Balances getBalances() {
         return balances;
+    }
+
+    public Mortgages getMortgages() {
+        return mortgages;
     }
 }

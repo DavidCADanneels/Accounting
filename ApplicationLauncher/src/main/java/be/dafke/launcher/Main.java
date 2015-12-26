@@ -7,10 +7,9 @@ import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountsGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
+import be.dafke.BasicAccounting.GUI.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.Coda.CodaExtension;
-import be.dafke.Mortgage.GUI.MortgagesGUI;
-import be.dafke.Mortgage.MortgageExtension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -33,6 +32,7 @@ public class Main extends BasicAccountingMain{
 //        applyExtensions();
 
         addBalances();
+        addMortgages();
         continueReadingXmlFile();
         composeContentPanel();
         composeFrames();
@@ -41,7 +41,7 @@ public class Main extends BasicAccountingMain{
 
     protected static void applyExtensions(){
         new CodaExtension(accountings, menuBar);
-        new MortgageExtension(accountings, menuBar);
+//        new MortgageExtension(accountings, menuBar);
     }
 
     protected static void createBasicComponents(){

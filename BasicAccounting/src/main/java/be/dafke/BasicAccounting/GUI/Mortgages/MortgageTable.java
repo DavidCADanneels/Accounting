@@ -1,12 +1,12 @@
-package be.dafke.Mortgage.GUI;
+package be.dafke.BasicAccounting.GUI.Mortgages;
 
 import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
-import be.dafke.Mortgage.Objects.Mortgage;
-import be.dafke.Mortgage.Objects.Mortgages;
+import be.dafke.BasicAccounting.Objects.Mortgage;
+import be.dafke.BasicAccounting.Objects.Mortgages;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 

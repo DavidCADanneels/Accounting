@@ -1,7 +1,7 @@
-package be.dafke.Mortgage.Dao;
+package be.dafke.BasicAccounting.Dao;
 
 import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.Mortgage.Objects.Mortgage;
+import be.dafke.BasicAccounting.Objects.Mortgage;
 import org.xml.sax.XMLReader;
 
 import javax.xml.parsers.SAXParser;
@@ -24,7 +24,7 @@ import java.util.logging.Logger;
 public class MortgagesSAXParser {
     // READ
     //
-    public static void readMortgage(Mortgage mortgage, File xmlFile){
+    public static void readCollection(Mortgage mortgage, File xmlFile){
         try {
             SAXParserFactory factory = SAXParserFactory.newInstance();
             factory.setValidating(false);
@@ -40,7 +40,7 @@ public class MortgagesSAXParser {
 
     // WRITE
     //
-    public static void writeMortgage(Mortgage mortgage, File mortgagesFolder, File accountsFolder, String header) {
+    public static void writeMortgage(Mortgage mortgage, File mortgagesFolder, String header) {
         System.out.println("Mortgages.TOXML(" + mortgage.toString() + ")");
         try {
             File xmlFile = new File(mortgagesFolder, mortgage.getName()+".xml");

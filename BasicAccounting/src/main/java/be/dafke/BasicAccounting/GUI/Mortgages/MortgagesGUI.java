@@ -1,4 +1,4 @@
-package be.dafke.Mortgage.GUI;
+package be.dafke.BasicAccounting.GUI.Mortgages;
 
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
@@ -7,7 +7,7 @@ import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.Mortgage.Objects.Mortgage;
+import be.dafke.BasicAccounting.Objects.Mortgage;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 

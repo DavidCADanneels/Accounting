@@ -1,22 +1,33 @@
-package be.dafke.Mortgage.GUI;
+package be.dafke.BasicAccounting.GUI.Mortgages;
 
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Accounts;
+import be.dafke.BasicAccounting.Objects.Mortgage;
+import be.dafke.BasicAccounting.Objects.Mortgages;
+import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.ComponentModel.DisposableComponent;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
-import be.dafke.Mortgage.Actions.ShowMortgageCalculatorActionListener;
-import be.dafke.Mortgage.Objects.Mortgage;
-import be.dafke.Mortgage.Objects.Mortgages;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 import be.dafke.Utils.Utils;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -40,8 +51,9 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	private final RefreshableTable<Mortgage> table;
 	private final JButton save, delete;
 	private final Accounts accounts;
+	private static final String MORTGAGE_CALCULATOR = "MortgageCalculator";
 
-	public MortgageGUI(Accountings accountings, Accounting accounting, Mortgages mortgages) {
+	public MortgageGUI(final Accounting accounting, Mortgages mortgages) {
 		super("Mortgages");
 		this.accounts = accounting.getAccounts();
         this.mortgages = mortgages;
@@ -49,7 +61,18 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		mortgagesList.setModel(new DefaultListModel<BusinessObject>());
 		mortgagesList.addListSelectionListener(this);
 		create = new JButton("Create new Mortgage table");
-		create.addActionListener(new ShowMortgageCalculatorActionListener(accountings));
+		create.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				Mortgages mortgages = accounting.getMortgages();
+				String key = accounting.toString() + MORTGAGE_CALCULATOR;
+				DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+				if(gui == null){
+					gui = new MortgageCalculatorGUI(accounting, mortgages);
+					ComponentMap.addDisposableComponent(key, gui); // DETAILS
+				}
+				gui.setVisible(true);
+			}
+		});
 
 		JPanel left = new JPanel(new BorderLayout());
 		left.add(mortgagesList, BorderLayout.CENTER);
