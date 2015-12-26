@@ -19,6 +19,14 @@ import static java.util.ResourceBundle.getBundle;
 public class Balances extends BusinessCollection<Balance> implements BusinessCollectionProvider<Account>, BusinessTypeProvider<AccountType>{
 
     public static final String BALANCES = "Balances";
+    public static final String BALANCE = "Balance";
+
+    public static String RESULT_BALANCE = "ResultBalance";
+    public static String RELATIONS_BALANCE = "RelationsBalance";
+    public static String YEAR_BALANCE = "YearBalance";
+
+    private BusinessCollection<Account> businessCollection;
+    private BusinessTypeCollection<AccountType> businessTypeCollection;
 
     public Balances(){
         setName(BALANCES);
@@ -26,14 +34,8 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
 
     @Override
     public String getChildType(){
-        return "Balance";
+        return BALANCE;
     }
-
-    public static String RESULT_BALANCE = "ResultBalance";
-    public static String RELATIONS_BALANCE = "RelationsBalance";
-    public static String YEAR_BALANCE = "YearBalance";
-    private BusinessCollection<Account> businessCollection;
-    private BusinessTypeCollection<AccountType> businessTypeCollection;
 
     public void addDefaultBalances(AccountTypes accountTypes){
         ArrayList<AccountType> costs = new ArrayList<AccountType>();
