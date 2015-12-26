@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Journal SYSTEM "../../../../dtd/Journal.dtd">
+<Journal>
+  <abbr>TRF</abbr>
+  <name>Transfer</name>
+  <type>default</type>
+    <CurrentObject>null</CurrentObject>
+</Journal>

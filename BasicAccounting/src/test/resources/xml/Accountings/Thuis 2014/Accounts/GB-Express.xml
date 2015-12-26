@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>GB-Express</name>
+  <type>Cost</type>
+  <Movement>
+    <date>26/2/2014</date>
+    <debit>5.04</debit>
+    <id>3900</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>159</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>6/3/2014</date>
+    <debit>8.33</debit>
+    <id>3979</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>195</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>29/4/2014</date>
+    <debit>14.45</debit>
+    <id>4339</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>357</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>20/8/2014</date>
+    <debit>12.49</debit>
+    <id>5084</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>694</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>31/10/2014</date>
+    <debit>42.12</debit>
+    <id>5359</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>816</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>11/11/2014</date>
+    <debit>48.38</debit>
+    <id>5417</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>843</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/Balances2xml.xsl"?>
+<!DOCTYPE Balances SYSTEM "../../../dtd/Balances.dtd">
+<Balances>
+  <name>Balances</name>
+  <Balance>
+    <LeftName>Tegoeden van Klanten</LeftName>
+    <LeftResultName>RESTEREND TEGOED</LeftResultName>
+    <LeftTotalName>TOTAAL TEGOEDEN</LeftTotalName>
+    <LeftTypes>Credit</LeftTypes>
+    <RightName>Schulden aan Leveranciers</RightName>
+    <RightResultName>RESTERENDE SCHULD</RightResultName>
+    <RightTotalName>TOTAAL SCHULDEN</RightTotalName>
+    <RightTypes>Debit</RightTypes>
+    <name>RelationsBalance</name>
+  </Balance>
+  <Balance>
+    <LeftName>Kosten</LeftName>
+    <LeftResultName>VERLIES</LeftResultName>
+    <LeftTotalName>TOTAAL KOSTEN</LeftTotalName>
+    <LeftTypes>Cost</LeftTypes>
+    <RightName>Opbrengsten</RightName>
+    <RightResultName>WINST</RightResultName>
+    <RightTotalName>TOTAAL OPBRENGSTEN</RightTotalName>
+    <RightTypes>Revenue</RightTypes>
+    <name>ResultBalance</name>
+  </Balance>
+  <Balance>
+    <LeftName>Activa</LeftName>
+    <LeftResultName>WINST</LeftResultName>
+    <LeftTotalName>TOTAAL ACTIVA/TEGOEDEN</LeftTotalName>
+    <LeftTypes>Asset | Credit</LeftTypes>
+    <RightName>Passiva</RightName>
+    <RightResultName>VERLIES</RightResultName>
+    <RightTotalName>TOTAAL PASSIVA/SCHULDEN</RightTotalName>
+    <RightTypes>Liability | Debit</RightTypes>
+    <name>YearBalance</name>
+  </Balance>
+</Balances>

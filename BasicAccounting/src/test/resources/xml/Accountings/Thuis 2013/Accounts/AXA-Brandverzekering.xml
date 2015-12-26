@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>AXA-Brandverzekering</name>
+  <type>Cost</type>
+  <Movement>
+    <date>20/3/2013</date>
+    <debit>28.54</debit>
+    <id>2271</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>120</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>7/5/2013</date>
+    <debit>36.01</debit>
+    <description>Verzekeringen mei</description>
+    <id>2423</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>190</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>10/7/2013</date>
+    <debit>36.01</debit>
+    <description>heropstart brandverzekering (juni-juli)</description>
+    <id>2693</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>313</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>10/7/2013</date>
+    <debit>36.01</debit>
+    <description>heropstart brandverzekering (juni-juli)</description>
+    <id>2694</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>313</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>8/8/2013</date>
+    <debit>36.01</debit>
+    <id>2785</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>356</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>6/9/2013</date>
+    <debit>36.01</debit>
+    <id>2868</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>394</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>4/10/2013</date>
+    <debit>36.01</debit>
+    <id>2947</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>431</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>6/11/2013</date>
+    <debit>36.01</debit>
+    <id>3032</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>471</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>6/12/2013</date>
+    <debit>36.01</debit>
+    <id>3141</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>519</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

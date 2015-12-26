@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Essent</name>
+  <type>Cost</type>
+  <Movement>
+    <date>26/6/2013</date>
+    <debit>19.25</debit>
+    <id>2614</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>277</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>10/10/2013</date>
+    <debit>19.25</debit>
+    <id>2962</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>438</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>15/10/2013</date>
+    <debit>19.25</debit>
+    <id>2966</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>440</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>15/10/2013</date>
+    <debit>19.25</debit>
+    <id>2968</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>441</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>31/10/2013</date>
+    <debit>19.25</debit>
+    <id>3002</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>458</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>3/12/2013</date>
+    <debit>19.25</debit>
+    <id>3116</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>508</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

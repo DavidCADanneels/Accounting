@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Afdak</name>
+  <type>Cost</type>
+  <Movement>
+    <date>4/4/2015</date>
+    <debit>21.10</debit>
+    <description>pinnen voor palen (Brico)</description>
+    <id>6353</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>234</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>7/4/2015</date>
+    <debit>12.00</debit>
+    <description>zand en cement (Batsleer)</description>
+    <id>6371</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>242</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>12/4/2015</date>
+    <debit>300.00</debit>
+    <description>Ais</description>
+    <id>6424</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>263</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>12/4/2015</date>
+    <debit>144.44</debit>
+    <description>Dakplaten en nagels</description>
+    <id>6426</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>264</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+</Account>

@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Aldi</name>
+  <type>Cost</type>
+  <Movement>
+    <date>15/6/2013</date>
+    <debit>5.51</debit>
+    <id>2580</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>260</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>26/7/2013</date>
+    <debit>16.02</debit>
+    <id>2739</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>335</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>26/7/2013</date>
+    <debit>2.49</debit>
+    <id>2743</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>337</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>23/12/2013</date>
+    <debit>14.98</debit>
+    <description>of vice versa</description>
+    <id>3216</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>555</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

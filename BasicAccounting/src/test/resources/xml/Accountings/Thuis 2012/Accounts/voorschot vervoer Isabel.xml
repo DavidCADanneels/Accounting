@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>voorschot vervoer Isabel</name>
+  <type>Credit</type>
+  <Movement>
+    <date>24/2/2012</date>
+    <debit>36.00</debit>
+    <id>662</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>64</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>36.00</credit>
+    <date>19/3/2012</date>
+    <id>738</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>94</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

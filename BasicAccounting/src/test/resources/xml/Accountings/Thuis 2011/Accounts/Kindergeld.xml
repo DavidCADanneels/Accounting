@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>86.77</defaultAmount>
+  <name>Kindergeld</name>
+  <type>Revenue</type>
+  <Movement>
+    <credit>85.07</credit>
+    <date>10/1/2011</date>
+    <id>26</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>9</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>85.07</credit>
+    <date>8/2/2011</date>
+    <id>35</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>13</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>85.07</credit>
+    <date>8/3/2011</date>
+    <id>52</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>21</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>85.07</credit>
+    <date>8/4/2011</date>
+    <id>69</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>29</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>5.10</credit>
+    <date>8/11/2011</date>
+    <id>354</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>158</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>86.77</credit>
+    <date>8/12/2011</date>
+    <id>399</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>178</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

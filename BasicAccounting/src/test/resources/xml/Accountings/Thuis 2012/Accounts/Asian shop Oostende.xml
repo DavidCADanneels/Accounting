@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Asian shop Oostende</name>
+  <type>Cost</type>
+  <Movement>
+    <date>23/2/2012</date>
+    <debit>34.95</debit>
+    <id>655</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>61</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>10/5/2012</date>
+    <debit>60.56</debit>
+    <id>909</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>169</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>18/5/2012</date>
+    <debit>37.47</debit>
+    <id>931</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>179</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>2/6/2012</date>
+    <debit>62.65</debit>
+    <id>983</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>202</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>10/6/2012</date>
+    <debit>49.02</debit>
+    <id>1029</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>218</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>16/6/2012</date>
+    <debit>43.60</debit>
+    <id>1055</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>228</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

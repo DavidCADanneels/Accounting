@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../dtd/Account.dtd">
+<Account>
+  <name>Telefoonkosten</name>
+  <action id="88">
+    <nr>DIV88</nr>
+    <journal>Diversen</journal>
+    <date>23/8/2012</date>
+    <debit>12.31</debit>
+    <description>Voipbuster</description>
+  </action>
+  <action id="94">
+    <nr>DIV94</nr>
+    <journal>Diversen</journal>
+    <date>3/9/2012</date>
+    <debit>12.31</debit>
+    <description>Voipbuster</description>
+  </action>
+  <action id="95">
+    <nr>DIV95</nr>
+    <journal>Diversen</journal>
+    <date>4/9/2012</date>
+    <debit>58.31</debit>
+    <description>Voipbuster</description>
+  </action>
+  <action id="115">
+    <nr>DIV115</nr>
+    <journal>Diversen</journal>
+    <date>12/10/2012</date>
+    <debit>58.31</debit>
+    <description>Voipbuster</description>
+  </action>
+  <action id="135">
+    <nr>DIV135</nr>
+    <journal>Diversen</journal>
+    <date>6/1/2013</date>
+    <debit>29.56</debit>
+    <description>Voipbuster</description>
+  </action>
+  <action id="138">
+    <nr>DIV138</nr>
+    <journal>Diversen</journal>
+    <date>15/1/2013</date>
+    <debit>58.31</debit>
+    <description>Voipbuster</description>
+  </action>
+</Account>

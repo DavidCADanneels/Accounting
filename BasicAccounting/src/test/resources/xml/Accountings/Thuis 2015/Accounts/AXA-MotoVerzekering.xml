@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>50.57</defaultAmount>
+  <name>AXA-MotoVerzekering</name>
+  <type>Cost</type>
+  <Movement>
+    <date>17/2/2015</date>
+    <debit>48.15</debit>
+    <id>6091</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>124</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>13/5/2015</date>
+    <debit>50.57</debit>
+    <id>6633</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>360</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>18/8/2015</date>
+    <debit>50.57</debit>
+    <id>7249</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>641</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>17/11/2015</date>
+    <debit>50.57</debit>
+    <id>7801</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>897</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+</Account>

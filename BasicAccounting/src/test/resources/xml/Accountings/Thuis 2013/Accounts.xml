@@ -1,0 +1,563 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Accounts SYSTEM "../../../dtd/Accounts.dtd">
+<Accounts>
+  <name>Accounts</name>
+  <Account>
+    <name>AS Adventure</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>ATM</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>ATM Tay</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>AXA Reisverzekering Sophia</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>AXA-Autoverzekering</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>AXA-Bijstandsverzekering</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>AXA-Brandverzekering</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>AXA-Brommerverzekering</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>AXA-Levensverzekering</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>AXA-TEMP</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>AXA-omschakeling Brandverzekering</name>
+    <type>Debit</type>
+  </Account>
+  <Account>
+    <name>Aankoop - Onroerende voorheffing</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Aankoop - dossierkosten AXA</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Aankoop - fout kosten aankoopakte</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Aankoop - kosten aankoopakte</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Aankoop - kosten krediet akte</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Aldi</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Apotheek</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Apple Store</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Auto activa</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Autolening</name>
+    <type>Debit</type>
+  </Account>
+  <Account>
+    <name>Bank Dara</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Bank David</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Bank Tay</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Bart Smit</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Belastingen</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Belastingen Tay</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Beltegoed internet</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Benzine</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Blokker</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Boetes</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Brico</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Brommer</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Brommer onderhoud</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Buurtslagers</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>C and A</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>CM</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Carrefour</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Cash</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Chinese import-brol</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Colora</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Colruyt</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Concept Studio</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Containerpark</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>DAS-Autoverzekering</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Danneels</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>De Morgen</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Decathlon</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Delhaize</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Doo Tv</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Dumpi</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Eco-cheques</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Eigen Kapitaal</name>
+    <type>Liability</type>
+  </Account>
+  <Account>
+    <name>Energiekosten</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Essent</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Feestje Isabel</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Fitness</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Fun</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>GB Express</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Giften UK</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>H and M</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Highfields BBQ</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Horeca Total</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Huis activa</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Huur 2013</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Hypotheek</name>
+    <type>Debit</type>
+  </Account>
+  <Account>
+    <name>IT</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Inno</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Inrichting huis</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Intrest Huis</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Intrest autolening</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Intresten Bank</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Intresten Bank Tay</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Juthose</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>KBC Verzekeringen</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Kapitaal Tay</name>
+    <type>Liability</type>
+  </Account>
+  <Account>
+    <name>Kassa feestje</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Kindergeld</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Kosten Aankoop-Verkoop Huis</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Leenbakker</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Lening Pong</name>
+    <type>Credit</type>
+  </Account>
+  <Account>
+    <name>Lidl</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Materiaal Provicie</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Mazout</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Meubilair</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Moto</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Music Tay</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Netto Dara</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Netto David</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Netto Tay</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>New Look</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Onbekend Tay</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Opbrengst feestje</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Pandora Jewelry</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Parking</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Post Dara</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Premaman</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Pro-duo</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Proximus</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Quick</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Redstores</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Reis Thailand</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Renmans</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Renovatie Huis</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Reunie KA</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>School</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <defaultAmount>200.00</defaultAmount>
+    <name>Schulden aan ma</name>
+    <type>Debit</type>
+  </Account>
+  <Account>
+    <name>Six nations</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Sluis</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Spaar David</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Spaar Sophia</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Stapper</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Stock Americain</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>TV toestel</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Telenet</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Thai shop</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Thailand</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Thailand Tay</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Uitgaan</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Uitleendienst provincie</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>VISA</name>
+    <type>Debit</type>
+  </Account>
+  <Account>
+    <name>Vakbond</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Verkoop - BTW etc</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Verkoop - Kosten Notaris</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Verkoop - Meerwaarde Huis</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Verkoop - Onroerende voorheffing</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Verkoop - Wederbeleggingsvergoeding</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Verkoop - kosten IMMO</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Verkoop - kosten documenten</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Verzendingskosten</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Viane</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Visa-kosten</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Vlucht Tay</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Voipbuster</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Water</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Wibra</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Zara</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Zeeman</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Ziekenhuis</name>
+    <type>Cost</type>
+  </Account>
+    <CurrentObject>Meubilair</CurrentObject>
+</Accounts>

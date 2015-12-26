@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Kosten Werk</name>
+  <type>Credit</type>
+  <Movement>
+    <date>18/4/2015</date>
+    <debit>65.03</debit>
+    <description>Diesel</description>
+    <id>6452</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>277</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <credit>65.03</credit>
+    <date>18/5/2015</date>
+    <id>6657</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>369</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>3/7/2015</date>
+    <debit>11.19</debit>
+    <id>6982</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>521</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>3/7/2015</date>
+    <debit>18.09</debit>
+    <id>6986</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>522</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <credit>11.19</credit>
+    <date>3/7/2015</date>
+    <id>6988</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>522</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <credit>18.09</credit>
+    <date>2/10/2015</date>
+    <id>7503</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>761</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+</Account>

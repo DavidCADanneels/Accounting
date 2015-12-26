@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Intresten Bank</name>
+  <type>Cost</type>
+  <Movement>
+    <credit>1.23</credit>
+    <date>1/1/2013</date>
+    <id>1989</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>1</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>14.98</credit>
+    <date>1/1/2013</date>
+    <id>3273</id>
+    <journalAbbr>POS</journalAbbr>
+    <journalId>1</journalId>
+    <journalName>Post</journalName>
+  </Movement>
+  <Movement>
+    <date>2/1/2013</date>
+    <debit>25.80</debit>
+    <id>2010</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>5</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>2/1/2013</date>
+    <debit>33.70</debit>
+    <id>2018</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>9</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>31/12/2013</date>
+    <debit>34.09</debit>
+    <description>Kapitalisatie</description>
+    <id>3258</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>575</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>31/12/2013</date>
+    <debit>27.18</debit>
+    <id>3264</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>577</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>9.60</credit>
+    <date>31/12/2013</date>
+    <id>3267</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>578</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>TV toestel</name>
+  <type>Cost</type>
+  <Movement>
+    <date>14/2/2013</date>
+    <debit>203.85</debit>
+    <id>2178</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>82</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

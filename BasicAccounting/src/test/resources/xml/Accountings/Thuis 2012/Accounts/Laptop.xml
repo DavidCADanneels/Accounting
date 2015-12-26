@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>499.00</defaultAmount>
+  <name>Laptop</name>
+  <type>Cost</type>
+  <Movement>
+    <date>25/6/2012</date>
+    <debit>499.00</debit>
+    <description>Carrefour</description>
+    <id>1083</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>242</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

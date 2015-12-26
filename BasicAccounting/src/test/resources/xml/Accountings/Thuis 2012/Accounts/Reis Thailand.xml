@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Reis Thailand</name>
+  <type>Cost</type>
+  <Movement>
+    <date>7/11/2012</date>
+    <debit>3071.00</debit>
+    <description>vluchten Airstop</description>
+    <id>1521</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>420</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>6/11/2014</date>
+    <debit>700.00</debit>
+    <id>1768</id>
+    <journalAbbr>POS</journalAbbr>
+    <journalId>19</journalId>
+    <journalName>POST</journalName>
+  </Movement>
+</Account>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Pandora Jewelry</name>
+  <type>Cost</type>
+  <Movement>
+    <date>30/8/2013</date>
+    <debit>599.00</debit>
+    <id>3395</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>41</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>30/8/2013</date>
+    <debit>129.00</debit>
+    <id>3396</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>41</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+</Account>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Accounting SYSTEM "../../dtd/Accounting.dtd">
+<Accounting>
+  <name>Thuis 2014</name>
+  <Accounts>
+    <name>Accounts</name>
+  </Accounts>
+  <Journals>
+    <name>Journals</name>
+  </Journals>
+  <Balances>
+    <name>Balances</name>
+  </Balances>
+</Accounting>
