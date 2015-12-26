@@ -40,8 +40,7 @@ public class SaveAllActionListener extends WindowAdapter implements ActionListen
         xmlFolder.mkdirs();
         ObjectModelSAXParser.writeCollection(accountings, xmlFolder, 0);
 
-        // TODO: check this location
-        File xslFolder = new File("BasicAccounting/src/main/resources/xsl");
+        File xslFolder = accountings.getXslFolder();
         File htmlFolder = accountings.getHtmlFolder();
         htmlFolder.mkdirs();
 

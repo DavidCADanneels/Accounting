@@ -26,6 +26,7 @@ public class BasicAccountingMain {
     public static final String MORTGAGES = "Mortgages";
     protected static Accountings accountings;
     protected static File xmlFolder;
+    protected static File xslFolder;
     protected static File htmlFolder;
     protected static AccountingMenuBar menuBar;
     protected static AccountingMultiPanel contentPanel;
@@ -62,7 +63,7 @@ public class BasicAccountingMain {
 
     protected static void startReadingXmlFile() {
         setXmlFolder();
-        accountings = new Accountings(xmlFolder, htmlFolder);
+        accountings = new Accountings(xmlFolder, xslFolder, htmlFolder);
         if(!xmlFolder.exists()){
             xmlFolder.mkdirs();
         }
@@ -141,13 +142,14 @@ public class BasicAccountingMain {
 
         if(mode == Mode.TEST) {
             xmlFolder = new File("BasicAccounting/src/test/resources/xml");
+            xslFolder = new File("BasicAccounting/src/test/resources/xsl");
             htmlFolder = new File("BasicAccounting/src/test/resources/html");
         } else {// if (mode == Mode.PROD) {
 //            File userHome = new File(System.getProperty("user.home"));
-            File userHome = new File("data");
-            File parentFolder = new File(userHome, Accountings.ACCOUNTING);
+            File parentFolder = new File("data");
             xmlFolder = new File(parentFolder, "xml");
-            htmlFolder = new File(userHome, "AccountingHTML");
+            xslFolder = new File(parentFolder, "xsl");
+            htmlFolder = new File(parentFolder, "html");
         }
         System.out.println(mode.toString());
         System.out.println(xmlFolder);
