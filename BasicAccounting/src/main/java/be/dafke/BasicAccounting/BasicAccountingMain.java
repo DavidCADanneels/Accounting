@@ -86,7 +86,7 @@ public class BasicAccountingMain {
             ObjectModelSAXParser.readCollection(accounting, true, subFolder);
 
             Mortgages mortgages = accounting.getMortgages();
-            File rootFolder = new File(xmlFolder, accounting.getName());
+            File rootFolder = new File(subFolder, accounting.getName());
             File mortgagesFolder = new File(rootFolder, MORTGAGES);
             for(Mortgage mortgage : mortgages.getBusinessObjects()){
                 MortgagesSAXParser.readCollection(mortgage, new File(mortgagesFolder, mortgage.getName() + ".xml"));
