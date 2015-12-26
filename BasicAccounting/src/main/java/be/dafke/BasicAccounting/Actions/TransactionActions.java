@@ -4,6 +4,8 @@ import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Journals;
+import be.dafke.BasicAccounting.Objects.Mortgage;
+import be.dafke.BasicAccounting.Objects.MortgageTransaction;
 import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
@@ -19,6 +21,33 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneel on 14/02/2015.
  */
 public class TransactionActions {
+
+    public static void createMortgageTransaction(Mortgage mortgage, Transaction transaction){
+        if (mortgage.isPayedOff()) {
+            System.out.println("Payed Off already");
+            return;
+        }
+        Account capitalAccount = mortgage.getCapitalAccount();
+        Account intrestAccount = mortgage.getIntrestAccount();
+        if(capitalAccount==null || intrestAccount==null){
+            return;
+        }
+        Booking capitalBooking = new Booking((capitalAccount));
+        Booking intrestBooking = new Booking((intrestAccount));
+
+        capitalBooking.addBusinessObject(new Movement(mortgage.getNextCapitalAmount(),true));
+        intrestBooking.addBusinessObject(new Movement(mortgage.getNextIntrestAmount(),true));
+
+        transaction.addBusinessObject(capitalBooking);
+        transaction.addBusinessObject(intrestBooking);
+
+        MortgageTransaction mortgageTransaction = mortgage.createNewChild();
+        mortgageTransaction.addBusinessObject(capitalBooking);
+        mortgageTransaction.addBusinessObject(intrestBooking);
+        mortgage.addBusinessObject(mortgageTransaction);
+
+        ComponentMap.refreshAllFrames();
+    }
 
     public static void addBookingToTransaction(Account account, Transaction transaction, boolean debit) {
         BigDecimal amount = askAmount(transaction, account, debit);

@@ -1,9 +1,7 @@
 package be.dafke.BasicAccounting.Objects;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionDependent;
-import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
-import be.dafke.ObjectModel.BusinessTyped;
+import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.MultiValueMap;
 
 import java.math.BigDecimal;
@@ -13,27 +11,42 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 
-public class Mortgage extends Account implements BusinessTypeCollectionDependent<AccountType>, BusinessTyped<AccountType>, BusinessCollectionDependent<Account>
-//        , MustBeRead
-{
+public class Mortgage extends BusinessCollection<MortgageTransaction> implements MustBeRead {
     private final static String TOTAL = "total";
     private final static String NRPAYED = "nrPayed";
     private final static String CAPITAL_ACCOUNT = "CapitalAccount";
     private final static String INTREST_ACCOUNT = "IntrestAccount";
+    public static final String MORTGAGE_TRANSACTION = "MortgageTransaction";
     private ArrayList<Vector<BigDecimal>> table;
 	private int alreadyPayed = 0;
 	private Account capital, intrest;
 	private BigDecimal startCapital;
-    private final MultiValueMap<Calendar,Movement[]> movements;
     private BusinessCollection<Account> accounts;
+    private final MultiValueMap<Calendar,MortgageTransaction> bookedtransactions;
 
-    public Mortgage(){
-        movements = new MultiValueMap<Calendar, Movement[]>();
+    @Override
+    public String getChildType() {
+        return MORTGAGE_TRANSACTION;
     }
 
-//    public ArrayList<Movement> getBusinessObjects() {
-//        return movements.values();
-//    }
+    public Mortgage(){
+        bookedtransactions = new MultiValueMap<Calendar,MortgageTransaction>();
+    }
+
+    @Override
+    public MortgageTransaction createNewChild() {
+        MortgageTransaction mortgageTransaction = new MortgageTransaction();
+        mortgageTransaction.setMortgage(this);
+        return mortgageTransaction;
+    }
+
+
+    @Override
+    public TreeMap<String, String> getUniqueProperties(){
+        TreeMap<String,String> properties = new TreeMap<String, String>();
+        properties.put(NAME,getName());
+        return properties;
+    }
 
     public boolean isBookable(){
         return (capital!=null && intrest!=null);
@@ -91,115 +104,26 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
 		return alreadyPayed == table.size();
 	}
 
-    @Override
-    public void book(Calendar date, Movement movement){
-        System.out.println("Mortgage.addBusinessObject()");
+    public BigDecimal getNextIntrestAmount(){
+        return table.get(alreadyPayed).get(1);
+    }
 
-        // Define new Amounts
-        BigDecimal newIntrestAmount = table.get(alreadyPayed).get(1);
-        BigDecimal newCapitalAmount = table.get(alreadyPayed).get(2);
-
-        // Check for more recent Movements
-        ArrayList<Movement[]> moreRecentMovements = movements.tailList(date, false);
-        if(!moreRecentMovements.isEmpty())  {
-            System.err.println("Insert needed");
-
-            // Check if the amount is equal to the amount of the most recent Movement
-            ArrayList<Movement[]> allMovements = movements.values();
-            Movement[] lastMovements = allMovements.get(allMovements.size()-1);
-            Movement lastMovement = lastMovements[0];
-
-            if(lastMovement.getAmount().compareTo(movement.getAmount()) == 0){  // if fixed
-                // Amounts are equal
-                for(int i=moreRecentMovements.size()-1;i>=0;i--){
-                    Movement[] couple = moreRecentMovements.get(i);
-                    Movement oldIntrestMovement = couple[1];
-                    Movement oldCapitalMovement = couple[2];
-
-                    BigDecimal oldIntrestAmount = oldIntrestMovement.getAmount();
-                    BigDecimal oldCapitalAmount = oldCapitalMovement.getAmount();
-
-                    oldIntrestMovement.setAmount(newIntrestAmount);
-                    oldCapitalMovement.setAmount(newCapitalAmount);
-
-                    newIntrestAmount = oldIntrestAmount;
-                    newCapitalAmount = oldCapitalAmount;
-                }
-            } else {
-                // Amounts are not equal
-                System.err.println("Degressive");
-            }
-        }
-
-        // Define new Movements
-        Movement newIntrestMovement = new Movement(newIntrestAmount, true);
-        Movement newCapitalMovement = new Movement(newCapitalAmount, true);
-
-        // Copy booking reference to new Movements
-        newIntrestMovement.setBooking(movement.getBooking());
-        newCapitalMovement.setBooking(movement.getBooking());
-
-        alreadyPayed++;
-
-        // Save data in Mortgages
-        Movement[] couple = new Movement[3];
-        couple[0] = movement;
-        couple[1] = newIntrestMovement;
-        couple[2] = newCapitalMovement;
-        movements.addValue(date, couple);
-
-        intrest.book(date, newIntrestMovement);
-        capital.book(date, newCapitalMovement);
+    public BigDecimal getNextCapitalAmount(){
+        return table.get(alreadyPayed).get(2);
     }
 
     @Override
-    public void unbook(Calendar date, Movement movement){
-        System.out.println("Mortgage.removeBusinessObject()");
+    public MortgageTransaction addBusinessObject(MortgageTransaction mortgageTransaction) {
+        Calendar date = mortgageTransaction.getDate();
+        alreadyPayed++;
+        return bookedtransactions.addValue(date, mortgageTransaction);
+    }
 
+    @Override
+    public void removeBusinessObject(MortgageTransaction mortgageTransaction){
+        Calendar date = mortgageTransaction.getDate();
+        bookedtransactions.removeValue(date, mortgageTransaction);
         alreadyPayed--;
-
-        // Define new Amounts
-        BigDecimal newIntrestAmount = table.get(alreadyPayed).get(1);
-        BigDecimal newCapitalAmount = table.get(alreadyPayed).get(2);
-
-        // Check for more recent Movements
-        ArrayList<Movement[]> moreRecentMovements = movements.tailList(date, false);
-        if(!moreRecentMovements.isEmpty())  {
-            System.err.println("Insert needed");
-
-            // Check if the amount is equal to the amount of the most recent Movement
-            ArrayList<Movement[]> allMovements = movements.values();
-            Movement[] lastMovements = allMovements.get(allMovements.size()-1);
-            Movement lastMovement = lastMovements[0];
-
-            if(lastMovement.getAmount().compareTo(movement.getAmount()) == 0){  // if fixed
-                // Amounts are equal
-                for(Movement[] couple:moreRecentMovements){
-                    Movement oldIntrestMovement = couple[1];
-                    Movement oldCapitalMovement = couple[2];
-
-                    BigDecimal oldIntrestAmount = oldIntrestMovement.getAmount();
-                    BigDecimal oldCapitalAmount = oldCapitalMovement.getAmount();
-
-                    oldIntrestMovement.setAmount(newIntrestAmount);
-                    oldCapitalMovement.setAmount(newCapitalAmount);
-
-                    newIntrestAmount = oldIntrestAmount;
-                    newCapitalAmount = oldCapitalAmount;
-                }
-            } else {
-                // Amounts are not equal
-                System.err.println("Degressive");
-            }
-        }
-
-        ArrayList<Movement[]> movementsOnThatDay = movements.get(date);
-        Movement[] lastMovementOnThatDay = movementsOnThatDay.get(movementsOnThatDay.size()-1);
-        Movement intrestMovementToRemove = lastMovementOnThatDay[1];
-        Movement capitalMovementToRemove = lastMovementOnThatDay[2];
-
-        intrest.unbook(date, intrestMovementToRemove);
-        capital.unbook(date, capitalMovementToRemove);
     }
 
 
@@ -215,7 +139,8 @@ public class Mortgage extends Account implements BusinessTypeCollectionDependent
 
     @Override
     public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
-        TreeMap<String,String> properties = super.getInitProperties(collection);
+        TreeMap<String,String> properties = new TreeMap<String, String>();
+        properties.put(NAME,getName());
         if(startCapital!=null){
             properties.put(TOTAL, startCapital.toString());
         }

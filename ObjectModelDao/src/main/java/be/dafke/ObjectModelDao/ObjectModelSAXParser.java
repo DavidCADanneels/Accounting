@@ -11,6 +11,7 @@ import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
+import org.owasp.encoder.Encode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;

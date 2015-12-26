@@ -1,24 +1,27 @@
 package be.dafke.BasicAccounting.GUI.Mortgages;
 
-import be.dafke.BasicAccounting.Objects.AccountType;
 import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Mortgage;
+import be.dafke.BasicAccounting.Objects.Mortgages;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
-import be.dafke.BasicAccounting.Objects.Mortgage;
-import be.dafke.BasicAccounting.Objects.Mortgages;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 
 public class MortgageTable extends RefreshableFrame implements ActionListener {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JButton save;
@@ -62,8 +65,6 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
         mortgage.setName(name);
         mortgage.setStartCapital(startCapital);
         mortgage.setTable(model.getData());
-        AccountType type = accounting.getAccountTypes().getBusinessObject("Mortgage");
-        mortgage.setType(type);
         try {
 //            accounting.getAccounts().addBusinessObject(mortgage);    // this is implicitely done in the next step
             mortgages.addBusinessObject(mortgage);

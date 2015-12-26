@@ -5,6 +5,7 @@ import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -113,5 +114,9 @@ public class Movement extends BusinessObject{
 
     public int getId() {
         return id;
+    }
+
+    public Calendar getDate() {
+        return booking.getTransaction().getDate();
     }
 }

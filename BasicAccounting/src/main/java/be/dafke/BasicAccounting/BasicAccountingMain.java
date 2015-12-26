@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting;
 import be.dafke.BasicAccounting.Actions.BalancesMenu;
 import be.dafke.BasicAccounting.Actions.MorgagesMenu;
 import be.dafke.BasicAccounting.Actions.SaveAllActionListener;
+import be.dafke.BasicAccounting.Dao.MortgagesSAXParser;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingGUIFrame;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
@@ -11,6 +12,8 @@ import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.BasicAccounting.Objects.Mortgage;
+import be.dafke.BasicAccounting.Objects.Mortgages;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModelDao.ObjectModelSAXParser;
 
@@ -81,16 +84,14 @@ public class BasicAccountingMain {
         File subFolder = new File(xmlFolder, Accountings.ACCOUNTINGS);
         for(Accounting accounting : accountings.getBusinessObjects()){
             ObjectModelSAXParser.readCollection(accounting, true, subFolder);
-        }
 
-//        for(Accounting accounting : accountings.getBusinessObjects()){
-//            Mortgages mortgages = accounting.getMortgages();
-//            File rootFolder = new File(xmlFolder, accounting.getName());
-//            File mortgagesFolder = new File(rootFolder, MORTGAGES);
-//            for(Mortgage mortgage : mortgages.getBusinessObjects()){
-//                MortgagesSAXParser.readCollection(mortgage, new File(mortgagesFolder, mortgage.getName() + ".xml"));
-//            }
-//        }
+            Mortgages mortgages = accounting.getMortgages();
+            File rootFolder = new File(xmlFolder, accounting.getName());
+            File mortgagesFolder = new File(rootFolder, MORTGAGES);
+            for(Mortgage mortgage : mortgages.getBusinessObjects()){
+                MortgagesSAXParser.readCollection(mortgage, new File(mortgagesFolder, mortgage.getName() + ".xml"));
+            }
+        }
     }
 
     protected static void createBasicComponents(){

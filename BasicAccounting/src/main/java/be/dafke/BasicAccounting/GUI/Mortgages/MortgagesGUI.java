@@ -1,28 +1,29 @@
 package be.dafke.BasicAccounting.GUI.Mortgages;
 
+import be.dafke.BasicAccounting.Actions.TransactionActions;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.BasicAccounting.Objects.Movement;
-import be.dafke.BasicAccounting.Objects.Transaction;
-import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.BasicAccounting.Objects.Mortgage;
+import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 
-import javax.swing.*;
+import javax.swing.DefaultListModel;
+import javax.swing.JButton;
+import javax.swing.JList;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class MortgagesGUI extends AccountingPanel implements ListSelectionListener, ActionListener {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JList<BusinessObject> list;
@@ -80,18 +81,10 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
 
 	public void actionPerformed(ActionEvent arg0) {
 		Mortgage mortgage = (Mortgage)list.getSelectedValue();
-		if (mortgage == null) {
-			return;
+		Transaction transaction = journal.getCurrentObject();
+		if (mortgage != null) {
+			TransactionActions.createMortgageTransaction(mortgage, transaction);
 		}
-		if (mortgage.isPayedOff()) {
-			System.out.println("Payed Off already");
-			return;
-		}
-        Transaction transaction = journal.getCurrentObject();
-        Booking booking = new Booking(mortgage);
-        booking.addBusinessObject(new Movement(mortgage.getMensuality(),true));
-        transaction.addBusinessObject(booking);
-        ComponentMap.refreshAllFrames();
 	}
 
 	public void valueChanged(ListSelectionEvent e) {
