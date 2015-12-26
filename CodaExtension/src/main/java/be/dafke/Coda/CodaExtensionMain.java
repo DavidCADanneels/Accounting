@@ -12,10 +12,6 @@ public class CodaExtensionMain extends BasicAccountingMain {
     public static void main(String[] args) {
         startReadingXmlFile();
         createBasicComponents();
-
-//        applyExtensions();
-
-        continueReadingXmlFile();
         composeContentPanel();
         composeFrames();
         launch();

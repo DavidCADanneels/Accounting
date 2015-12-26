@@ -28,12 +28,8 @@ public class Main extends BasicAccountingMain{
     public static void main(String[] args) {
         startReadingXmlFile();
         createBasicComponents();
-
-//        applyExtensions();
-
         addBalances();
         addMortgages();
-        continueReadingXmlFile();
         composeContentPanel();
         composeFrames();
         launch();

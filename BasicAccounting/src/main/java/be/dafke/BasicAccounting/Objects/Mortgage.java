@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Objects;
 
 import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessCollectionDependent;
 import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.MultiValueMap;
 
@@ -11,7 +12,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 
-public class Mortgage extends BusinessCollection<MortgageTransaction> implements MustBeRead {
+public class Mortgage extends BusinessCollection<MortgageTransaction> implements MustBeRead, BusinessCollectionDependent<Account> {
     private final static String TOTAL = "total";
     private final static String NRPAYED = "nrPayed";
     private final static String CAPITAL_ACCOUNT = "CapitalAccount";

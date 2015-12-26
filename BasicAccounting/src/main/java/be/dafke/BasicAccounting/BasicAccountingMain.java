@@ -45,7 +45,6 @@ public class BasicAccountingMain {
 
 	public static void main(String[] args) {
         startReadingXmlFile();
-        continueReadingXmlFile();
 
         createBasicComponents();
         addBalances();
@@ -78,10 +77,7 @@ public class BasicAccountingMain {
         if(file.exists()){
             ObjectModelSAXParser.readCollection(accountings, false, xmlFolder);
         }
-    }
 
-    protected static void continueReadingXmlFile(){
-        File subFolder = new File(xmlFolder, Accountings.ACCOUNTINGS);
         for(Accounting accounting : accountings.getBusinessObjects()){
             ObjectModelSAXParser.readCollection(accounting, true, subFolder);
 
