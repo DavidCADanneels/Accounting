@@ -8,186 +8,146 @@
     <date>1/10/2015</date>
     <description>te betalen voor 23-11-15</description>
     <id>1</id>
-  <Booking>
-    <Account>Belastingen</Account>
-  <Movement>
-    <debit>797.69</debit>
-    <id>7998</id>
-  </Movement>
-  </Booking>
-  <Booking>
-    <Account>Belastingen Tay</Account>
-  <Movement>
-    <credit>797.69</credit>
-    <id>7999</id>
-  </Movement>
-  </Booking>
+    <Booking>
+      <Account>Belastingen</Account>
+      <debit>797.69</debit>
+      <id>7998</id>
+    </Booking>
+    <Booking>
+      <Account>Belastingen Tay</Account>
+      <credit>797.69</credit>
+      <id>7999</id>
+    </Booking>
   </Transaction>
   <Transaction>
     <date>1/10/2015</date>
     <description>te betalen voor 24-11-15</description>
     <id>2</id>
-  <Booking>
-    <Account>AXA-BrommerVerzekering</Account>
-  <Movement>
-    <debit>153.25</debit>
-    <id>8000</id>
-  </Movement>
-  </Booking>
-  <Booking>
-    <Account>AXA Dara</Account>
-  <Movement>
-    <credit>153.25</credit>
-    <id>8001</id>
-  </Movement>
-  </Booking>
+    <Booking>
+      <Account>AXA-BrommerVerzekering</Account>
+      <debit>153.25</debit>
+      <id>8000</id>
+    </Booking>
+    <Booking>
+      <Account>AXA Dara</Account>
+      <credit>153.25</credit>
+      <id>8001</id>
+    </Booking>
   </Transaction>
   <Transaction>
     <date>1/10/2015</date>
     <description>te betalen voor 22-10-15</description>
     <id>3</id>
-  <Booking>
-    <Account>Ziekenhuis</Account>
-  <Movement>
-    <debit>130.31</debit>
-    <id>8002</id>
-  </Movement>
-  </Booking>
-  <Booking>
-    <Account>Ziekenhuis Dara</Account>
-  <Movement>
-    <credit>130.31</credit>
-    <id>8003</id>
-  </Movement>
-  </Booking>
+    <Booking>
+      <Account>Ziekenhuis</Account>
+      <debit>130.31</debit>
+      <id>8002</id>
+    </Booking>
+    <Booking>
+      <Account>Ziekenhuis Dara</Account>
+      <credit>130.31</credit>
+      <id>8003</id>
+    </Booking>
   </Transaction>
   <Transaction>
     <date>1/10/2015</date>
     <description>te betalen voor 30-10-15</description>
     <id>4</id>
-  <Booking>
-    <Account>Telenet</Account>
-  <Movement>
-    <debit>55.03</debit>
-    <id>8004</id>
-  </Movement>
-  </Booking>
-  <Booking>
-    <Account>Schuld Telenet</Account>
-  <Movement>
-    <credit>55.03</credit>
-    <id>8005</id>
-  </Movement>
-  </Booking>
+    <Booking>
+      <Account>Telenet</Account>
+      <debit>55.03</debit>
+      <id>8004</id>
+    </Booking>
+    <Booking>
+      <Account>Schuld Telenet</Account>
+      <credit>55.03</credit>
+      <id>8005</id>
+    </Booking>
   </Transaction>
   <Transaction>
     <date>1/10/2015</date>
     <id>5</id>
-  <Booking>
-    <Account>KinderOpvang</Account>
-  <Movement>
-    <debit>145.35</debit>
-    <id>8006</id>
-  </Movement>
-  </Booking>
-  <Booking>
-    <Account>Schuld Opvang</Account>
-  <Movement>
-    <credit>145.35</credit>
-    <id>8007</id>
-  </Movement>
-  </Booking>
+    <Booking>
+      <Account>KinderOpvang</Account>
+      <debit>145.35</debit>
+      <id>8006</id>
+    </Booking>
+    <Booking>
+      <Account>Schuld Opvang</Account>
+      <credit>145.35</credit>
+      <id>8007</id>
+    </Booking>
   </Transaction>
   <Transaction>
     <date>14/10/2015</date>
     <id>6</id>
-  <Booking>
-    <Account>Schuld Telenet</Account>
-  <Movement>
-    <debit>55.03</debit>
-    <id>8008</id>
-  </Movement>
-  </Booking>
-  <Booking>
-    <Account>Bank David</Account>
-  <Movement>
-    <credit>55.03</credit>
-    <id>8009</id>
-  </Movement>
-  </Booking>
+    <Booking>
+      <Account>Schuld Telenet</Account>
+      <debit>55.03</debit>
+      <id>8008</id>
+    </Booking>
+    <Booking>
+      <Account>Bank David</Account>
+      <credit>55.03</credit>
+      <id>8009</id>
+    </Booking>
   </Transaction>
   <Transaction>
     <date>24/10/2015</date>
     <id>7</id>
-  <Booking>
-    <Account>Ziekenhuis Dara</Account>
-  <Movement>
-    <debit>130.31</debit>
-    <id>8010</id>
-  </Movement>
-  </Booking>
-  <Booking>
-    <Account>Bank David</Account>
-  <Movement>
-    <credit>130.31</credit>
-    <id>8011</id>
-  </Movement>
-  </Booking>
+    <Booking>
+      <Account>Ziekenhuis Dara</Account>
+      <debit>130.31</debit>
+      <id>8010</id>
+    </Booking>
+    <Booking>
+      <Account>Bank David</Account>
+      <credit>130.31</credit>
+      <id>8011</id>
+    </Booking>
   </Transaction>
   <Transaction>
     <date>24/10/2015</date>
     <description>september</description>
     <id>8</id>
-  <Booking>
-    <Account>Schuld Opvang</Account>
-  <Movement>
-    <debit>145.35</debit>
-    <id>8012</id>
-  </Movement>
-  </Booking>
-  <Booking>
-    <Account>Bank David</Account>
-  <Movement>
-    <credit>145.35</credit>
-    <id>8013</id>
-  </Movement>
-  </Booking>
+    <Booking>
+      <Account>Schuld Opvang</Account>
+      <debit>145.35</debit>
+      <id>8012</id>
+    </Booking>
+    <Booking>
+      <Account>Bank David</Account>
+      <credit>145.35</credit>
+      <id>8013</id>
+    </Booking>
   </Transaction>
   <Transaction>
     <date>3/11/2015</date>
     <id>9</id>
-  <Booking>
-    <Account>AXA Dara</Account>
-  <Movement>
-    <debit>153.25</debit>
-    <id>8014</id>
-  </Movement>
-  </Booking>
-  <Booking>
-    <Account>Bank Dara</Account>
-  <Movement>
-    <credit>153.25</credit>
-    <id>8015</id>
-  </Movement>
-  </Booking>
+    <Booking>
+      <Account>AXA Dara</Account>
+      <debit>153.25</debit>
+      <id>8014</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Dara</Account>
+      <credit>153.25</credit>
+      <id>8015</id>
+    </Booking>
   </Transaction>
   <Transaction>
     <date>5/11/2015</date>
     <id>10</id>
-  <Booking>
-    <Account>Belastingen Tay</Account>
-  <Movement>
-    <debit>797.69</debit>
-    <id>8016</id>
-  </Movement>
-  </Booking>
-  <Booking>
-    <Account>Bank Tay</Account>
-  <Movement>
-    <credit>797.69</credit>
-    <id>8017</id>
-  </Movement>
-  </Booking>
+    <Booking>
+      <Account>Belastingen Tay</Account>
+      <debit>797.69</debit>
+      <id>8016</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>797.69</credit>
+      <id>8017</id>
+    </Booking>
   </Transaction>
     <CurrentObject>null</CurrentObject>
 </Journal>
