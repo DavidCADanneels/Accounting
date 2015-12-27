@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Objects;
 
-import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
@@ -60,13 +59,13 @@ public class Movement extends BusinessObject{
         } else {
             properties.put(CREDIT, amount.toString());
         }
-        if(collection instanceof Account){
+//        if(collection instanceof Account){
             properties.put(JOURNAL_NAME,transaction.getJournal().getName());
             properties.put(JOURNAL_ID,transaction.getId().toString());
             properties.put(JOURNAL_ABBR,transaction.getJournal().getAbbreviation());
             properties.put(DATE, Utils.toString(transaction.getDate()));
             properties.put(DESCRIPTION, transaction.getDescription());
-        }
+//        }
         return properties;
     }
 

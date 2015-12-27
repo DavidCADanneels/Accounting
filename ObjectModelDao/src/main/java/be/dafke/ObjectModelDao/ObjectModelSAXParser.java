@@ -11,7 +11,6 @@ import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
-import org.owasp.encoder.Encode;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -101,7 +100,7 @@ public class ObjectModelSAXParser {
             writer.write("<" + businessObjectType + ">\r\n");
 
             // get the object's properties
-            TreeMap<String,String> collectionProperties = businessObject.getInitProperties(null);
+            TreeMap<String,String> collectionProperties = businessObject.getInitProperties();
 
 //                iterate the properties and write them out (if not null)
             for(Map.Entry<String, String> entry : collectionProperties.entrySet()){
@@ -159,7 +158,7 @@ public class ObjectModelSAXParser {
                 writer.write("  <"+objectType+">\r\n");
 
                 // get the object's properties
-                TreeMap<String,String> objectProperties = businessObject.getInitProperties(collection);
+                TreeMap<String,String> objectProperties = businessObject.getInitProperties();
 
                 // iterate the properties and write them out (if not null)
                 for(Map.Entry<String, String> entry : objectProperties.entrySet()){

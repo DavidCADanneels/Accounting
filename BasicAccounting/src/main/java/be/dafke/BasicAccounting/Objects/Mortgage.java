@@ -139,7 +139,7 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties(BusinessCollection collection) {
+    public TreeMap<String,String> getInitProperties() {
         TreeMap<String,String> properties = new TreeMap<String, String>();
         properties.put(NAME,getName());
         if(startCapital!=null){

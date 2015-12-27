@@ -99,7 +99,7 @@ public class AccountTest {
     public void initPropertiesNameOnly() {
         Account account = new Account();
         // TODO: Account must be typed
-        account.getInitProperties(null);
+        account.getInitProperties();
     }
 
     @Test
@@ -108,7 +108,7 @@ public class AccountTest {
         AccountType accountType = new AccountType();
         accountType.setName(ACCOUNT_TYPE_NAME);
         account.setType(accountType);
-        TreeMap<String, String> initProperties = account.getInitProperties(null);
+        TreeMap<String, String> initProperties = account.getInitProperties();
         assertEquals(2, initProperties.size());
         assertTrue(initProperties.containsKey(BusinessObject.NAME));
         assertEquals(account.getName(), initProperties.get(BusinessObject.NAME));
@@ -124,7 +124,7 @@ public class AccountTest {
         account.setType(accountType);
         BigDecimal amount = BigDecimal.TEN;
         account.setDefaultAmount(amount);
-        TreeMap<String, String> initProperties = account.getInitProperties(null);
+        TreeMap<String, String> initProperties = account.getInitProperties();
         assertEquals(3, initProperties.size());
         assertTrue(initProperties.containsKey(Account.TYPE));
         assertEquals(ACCOUNT_TYPE_NAME, initProperties.get(Account.TYPE));
@@ -141,7 +141,7 @@ public class AccountTest {
         AccountType active = accountTypes.createNewChild();
         active.setName(AccountTypes.ASSET);
         account.setType(active);
-        TreeMap<String, String> initProperties = account.getInitProperties(null);
+        TreeMap<String, String> initProperties = account.getInitProperties();
         initProperties.put(NEW_KEY, NEW_VALUE);
         account.setInitProperties(initProperties);
         assertEquals(3, initProperties.size());
