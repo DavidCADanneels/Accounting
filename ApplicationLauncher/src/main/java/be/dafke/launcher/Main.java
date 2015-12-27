@@ -9,7 +9,6 @@ import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
 import be.dafke.BasicAccounting.GUI.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.Coda.CodaExtension;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -32,11 +31,6 @@ public class Main extends BasicAccountingMain{
         composeContentPanel();
         composeFrames();
         launch();
-    }
-
-    protected static void applyExtensions(){
-        new CodaExtension(accountings, menuBar);
-//        new MortgageExtension(accountings, menuBar);
     }
 
     protected static void createBasicComponents(){

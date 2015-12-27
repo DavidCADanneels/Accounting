@@ -10,8 +10,6 @@ import java.util.ArrayList;
 import java.util.Vector;
 
 public class MortgageContentHandler extends DefaultHandler {
-	private int nr;
-	private BigDecimal mensuality, capital, intrest, restCapital;
 	private final Mortgage mortgage;
 	private boolean b_nr = false;
 	private boolean b_mensuality = false;
