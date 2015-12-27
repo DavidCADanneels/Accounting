@@ -1,7 +1,14 @@
 package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
+import be.dafke.BasicAccounting.GUI.Projects.ProjectManagementGUI;
+import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.BasicAccounting.Objects.Projects;
+import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.ComponentModel.DisposableComponent;
+import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.BusinessObject;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -16,13 +23,16 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class ProjectsMenu extends JMenu implements ActionListener {
     private JMenuItem projects;
+    private final Accountings accountings;
+    public static final String PROJECTS = "Projects";
 
     public ProjectsMenu(Accountings accountings, AccountingMenuBar menuBar) {
+        this.accountings = accountings;
         projects = new JMenu(getBundle("Projects").getString("PROJECTS"));
         projects.setMnemonic(KeyEvent.VK_P);
         JMenuItem projects = new JMenuItem(getBundle("Projects").getString(
                 "PROJECTMANAGER"));
-        projects.addActionListener(new ShowProjectsActionListener(accountings));
+        projects.addActionListener(this);
         projects.setEnabled(false);
         this.projects.add(projects);
         menuBar.addRefreshableMenuItem(projects);
@@ -30,6 +40,14 @@ public class ProjectsMenu extends JMenu implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-
+        Accounting accounting = accountings.getCurrentObject();
+        BusinessCollection<BusinessObject> projects = accounting.getBusinessObject(PROJECTS);
+        String key = accounting.toString() + PROJECTS;
+        DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+        if(gui == null){
+            gui = new ProjectManagementGUI(accounting, (Projects)projects);
+            ComponentMap.addDisposableComponent(key, gui); // DETAILS
+        }
+        gui.setVisible(true);
     }
 }
