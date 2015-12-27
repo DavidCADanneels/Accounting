@@ -27,16 +27,15 @@ public class ProjectsMenu extends JMenu implements ActionListener {
     public static final String PROJECTS = "Projects";
 
     public ProjectsMenu(Accountings accountings, AccountingMenuBar menuBar) {
+        super(getBundle("Projects").getString("PROJECTS"));
         this.accountings = accountings;
-        projects = new JMenu(getBundle("Projects").getString("PROJECTS"));
-        projects.setMnemonic(KeyEvent.VK_P);
-        JMenuItem projects = new JMenuItem(getBundle("Projects").getString(
+        setMnemonic(KeyEvent.VK_P);
+        projects = new JMenuItem(getBundle("Projects").getString(
                 "PROJECTMANAGER"));
         projects.addActionListener(this);
         projects.setEnabled(false);
-        this.projects.add(projects);
+        add(projects);
         menuBar.addRefreshableMenuItem(projects);
-        menuBar.add(this.projects);
     }
 
     public void actionPerformed(ActionEvent e) {

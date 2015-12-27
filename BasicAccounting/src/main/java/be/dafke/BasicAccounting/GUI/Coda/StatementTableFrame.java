@@ -1,27 +1,32 @@
-package be.dafke.Coda.GUI;
+package be.dafke.BasicAccounting.GUI.Coda;
 
+import be.dafke.BasicAccounting.Dao.CodaParser;
+import be.dafke.BasicAccounting.Dao.CsvParser;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.BasicAccounting.Objects.BankAccount;
 import be.dafke.BasicAccounting.Objects.Booking;
+import be.dafke.BasicAccounting.Objects.CounterParties;
+import be.dafke.BasicAccounting.Objects.CounterParty;
 import be.dafke.BasicAccounting.Objects.Journal;
 import be.dafke.BasicAccounting.Objects.Movement;
+import be.dafke.BasicAccounting.Objects.Statement;
+import be.dafke.BasicAccounting.Objects.Statements;
 import be.dafke.BasicAccounting.Objects.Transaction;
-import be.dafke.Coda.Actions.ShowCounterpartiesActionListener;
-import be.dafke.Coda.Dao.CodaParser;
-import be.dafke.Coda.Dao.CsvParser;
-import be.dafke.Coda.Objects.BankAccount;
-import be.dafke.Coda.Objects.CounterParties;
-import be.dafke.Coda.Objects.CounterParty;
-import be.dafke.Coda.Objects.Statement;
-import be.dafke.Coda.Objects.Statements;
 import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.ComponentModel.DisposableComponent;
 import be.dafke.ComponentModel.RefreshableTableFrame;
+import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.awt.Point;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -43,9 +48,11 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
     private final Statements statements;
     private final CounterParties counterParties;
     private final Accounting accounting;
+//    private final Accountings accountings;
 
     public StatementTableFrame(Accountings accountings, Accounting accounting, Statements statements, CounterParties counterParties) {
 		super("Statements", new StatementDataModel(statements));
+//		this.accountings = accountings;
 		this.statements = statements;
         this.counterParties = counterParties;
         this.accounting = accounting;
@@ -53,7 +60,7 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
 		tabel.setRowSorter(null);
 		tabel.addMouseListener(this);
 		viewCounterParties = new JButton("View Counterparties");
-		viewCounterParties.addActionListener(new ShowCounterpartiesActionListener(accountings));
+		viewCounterParties.addActionListener(this);
 		readCoda = new JButton("Read Coda file(s)");
 		readCoda.addActionListener(this);
         readCsv = new JButton("Read CSV file(s)");
@@ -76,11 +83,22 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
 		if (e.getSource() == readCoda) {
 			readCodaFiles();
 		} else if (e.getSource() == readCsv) {
-            readCsvFiles();
-        } else if (e.getSource() == exportToJournal) {
+			readCsvFiles();
+		} else if (e.getSource() == exportToJournal) {
 			exportToJournal();
 		} else if (e.getSource() == saveToAccounting) {
 			saveToAccounting();
+		} else if (e.getSource() == viewCounterParties) {
+//			Accounting accounting = accountings.getCurrentObject();
+			BusinessCollection<BusinessObject> counterParties = accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
+			BusinessCollection<BusinessObject> statements = accounting.getBusinessObject(Statements.STATEMENTS);
+			String key = accounting.toString() + CounterParties.COUNTERPARTIES;
+			DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+			if (gui == null) {
+				gui = new CounterPartyTableFrame(accounting, (CounterParties) counterParties, (Statements) statements);
+				ComponentMap.addDisposableComponent(key, gui); // DETAILS
+			}
+			gui.setVisible(true);
 		}
 	}
 

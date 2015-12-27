@@ -3,13 +3,13 @@
  * and open the template in the editor.
  */
 
-package be.dafke.Coda.Dao;
+package be.dafke.BasicAccounting.Dao;
 
-import be.dafke.Coda.Objects.BankAccount;
-import be.dafke.Coda.Objects.CounterParties;
-import be.dafke.Coda.Objects.CounterParty;
-import be.dafke.Coda.Objects.Statement;
-import be.dafke.Coda.Objects.Statements;
+import be.dafke.BasicAccounting.Objects.BankAccount;
+import be.dafke.BasicAccounting.Objects.CounterParties;
+import be.dafke.BasicAccounting.Objects.CounterParty;
+import be.dafke.BasicAccounting.Objects.Statement;
+import be.dafke.BasicAccounting.Objects.Statements;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 

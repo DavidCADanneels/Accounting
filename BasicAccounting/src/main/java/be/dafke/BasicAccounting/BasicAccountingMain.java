@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Actions.BalancesMenu;
+import be.dafke.BasicAccounting.Actions.CodaMenu;
 import be.dafke.BasicAccounting.Actions.MorgagesMenu;
 import be.dafke.BasicAccounting.Actions.ProjectsMenu;
 import be.dafke.BasicAccounting.Actions.SaveAllActionListener;
@@ -58,6 +59,7 @@ public class BasicAccountingMain {
         menuBar.add(new BalancesMenu(accountings, menuBar));
         menuBar.add(new MorgagesMenu(accountings, menuBar));
         menuBar.add(new ProjectsMenu(accountings, menuBar));
+        menuBar.add(new CodaMenu(accountings, menuBar));
     }
 
     protected static void readXmlData() {

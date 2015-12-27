@@ -1,7 +1,6 @@
-package be.dafke.launcher;
+package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Actions.SaveAllActionListener;
-import be.dafke.BasicAccounting.BasicAccountingMain;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountsGUI;

@@ -1,4 +1,4 @@
-package be.dafke.Coda.Objects;
+package be.dafke.BasicAccounting.Objects;
 
 import java.io.Serializable;
 

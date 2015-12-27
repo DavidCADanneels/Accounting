@@ -11,8 +11,6 @@
         <module>ComponentModel</module>
         <module>ObjectModelDao</module>
         <module>BasicAccounting</module>
-        <module>CodaExtension</module>
-        <module>ApplicationLauncher</module>
     </modules>
 
     <dependencies>
@@ -56,10 +54,5 @@
           <artifactId>surefire-junit47</artifactId>
           <version>2.16</version>
       </dependency>
-      <!--<dependency>-->
-          <!--<groupId>ObjectModel</groupId>-->
-          <!--<artifactId>ObjectModel</artifactId>-->
-          <!--<version>2.3</version>-->
-      <!--</dependency>-->
   </dependencies>
 </project>

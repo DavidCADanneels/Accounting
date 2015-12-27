@@ -1,7 +1,7 @@
-package be.dafke.Coda.GUI;
+package be.dafke.BasicAccounting.GUI.Coda;
 
-import be.dafke.Coda.Objects.Statement;
-import be.dafke.Coda.Objects.Statements;
+import be.dafke.BasicAccounting.Objects.Statement;
+import be.dafke.BasicAccounting.Objects.Statements;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
 public class GenericStatementTableFrame extends RefreshableTableFrame<Statement> {

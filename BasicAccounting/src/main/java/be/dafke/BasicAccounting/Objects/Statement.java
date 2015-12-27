@@ -1,4 +1,4 @@
-package be.dafke.Coda.Objects;
+package be.dafke.BasicAccounting.Objects;
 
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionDependent;

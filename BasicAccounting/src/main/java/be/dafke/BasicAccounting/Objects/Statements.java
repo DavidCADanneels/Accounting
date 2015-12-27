@@ -1,7 +1,6 @@
-package be.dafke.Coda.Objects;
+package be.dafke.BasicAccounting.Objects;
 
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.Coda.GUI.SearchOptions;
+import be.dafke.BasicAccounting.GUI.Coda.SearchOptions;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
 import be.dafke.ObjectModel.BusinessObject;

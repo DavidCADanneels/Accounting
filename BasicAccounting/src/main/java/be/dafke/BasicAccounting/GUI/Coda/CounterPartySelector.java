@@ -1,10 +1,10 @@
-package be.dafke.Coda.GUI;
+package be.dafke.BasicAccounting.GUI.Coda;
 
-import be.dafke.Coda.Objects.CounterParties;
-import be.dafke.Coda.Objects.CounterParty;
-import be.dafke.Coda.Objects.Statement;
-import be.dafke.Coda.Objects.Statements;
-import be.dafke.Coda.Objects.TmpCounterParty;
+import be.dafke.BasicAccounting.Objects.CounterParties;
+import be.dafke.BasicAccounting.Objects.CounterParty;
+import be.dafke.BasicAccounting.Objects.Statement;
+import be.dafke.BasicAccounting.Objects.Statements;
+import be.dafke.BasicAccounting.Objects.TmpCounterParty;
 import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.BusinessObject;

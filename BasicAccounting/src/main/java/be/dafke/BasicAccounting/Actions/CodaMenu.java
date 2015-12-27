@@ -1,26 +1,41 @@
-package be.dafke.Coda.Actions;
+package be.dafke.BasicAccounting.Actions;
 
+import be.dafke.BasicAccounting.GUI.Coda.StatementTableFrame;
+import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
-import be.dafke.Coda.GUI.StatementTableFrame;
-import be.dafke.Coda.Objects.CounterParties;
-import be.dafke.Coda.Objects.Statements;
+import be.dafke.BasicAccounting.Objects.CounterParties;
+import be.dafke.BasicAccounting.Objects.Statements;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 
+import javax.swing.JMenu;
+import javax.swing.JMenuItem;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 /**
- * Created by ddanneel on 14/02/2015.
+ * Created by ddanneels on 27/12/2015.
  */
-public class ShowStatementsActionListener implements ActionListener{
-    private Accountings accountings;
+public class CodaMenu extends JMenu implements ActionListener {
+    private final Accountings accountings;
+    private JMenuItem movements, counterParties;
 
-    public ShowStatementsActionListener(Accountings accountings) {
-        this.accountings = accountings;
+    public CodaMenu(Accountings accountings, AccountingMenuBar menuBar){
+        this.accountings=accountings;
+        movements = new JMenuItem("Show movements");
+        movements.addActionListener(this);
+        movements.setEnabled(false);
+        counterParties = new JMenuItem("Show Counterparties");
+        counterParties.addActionListener(this);
+        counterParties.setEnabled(false);
+
+        add(movements);
+        add(counterParties);
+        menuBar.addRefreshableMenuItem(movements);
+        menuBar.addRefreshableMenuItem(counterParties);
     }
 
     public void actionPerformed(ActionEvent e) {

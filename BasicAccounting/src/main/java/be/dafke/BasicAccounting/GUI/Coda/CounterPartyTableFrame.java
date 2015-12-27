@@ -1,12 +1,12 @@
-package be.dafke.Coda.GUI;
+package be.dafke.BasicAccounting.GUI.Coda;
 
 import be.dafke.BasicAccounting.GUI.InputWindows.AccountSelector;
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.Coda.Objects.BankAccount;
-import be.dafke.Coda.Objects.CounterParties;
-import be.dafke.Coda.Objects.CounterParty;
-import be.dafke.Coda.Objects.Statements;
+import be.dafke.BasicAccounting.Objects.BankAccount;
+import be.dafke.BasicAccounting.Objects.CounterParties;
+import be.dafke.BasicAccounting.Objects.CounterParty;
+import be.dafke.BasicAccounting.Objects.Statements;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.ObjectModel.BusinessObject;
