@@ -79,7 +79,6 @@ public class ObjectModelSAXParser {
     }
 
     public static void writeCollection(BusinessObject businessObject, File parentFolder, int depth){
-//        System.out.println(Encode.forXmlContent("Test & deploy"));
         String businessObjectName = businessObject.getName();
         String businessObjectType = businessObject.getBusinessObjectType();
         parentFolder.mkdirs();
@@ -113,7 +112,7 @@ public class ObjectModelSAXParser {
 
             if(businessObject instanceof BusinessCollection){
                 BusinessCollection businessCollection = (BusinessCollection)businessObject;
-                writeChildren(writer, businessCollection);
+                writeChildren(writer, businessCollection, 0);
 
                 if(businessCollection.getCurrentObject()!=null){
                     writer.write("    <CurrentObject>" + businessCollection.getCurrentObject().getName() + "</CurrentObject>\r\n");
@@ -145,16 +144,17 @@ public class ObjectModelSAXParser {
         }
     }
 
-    private static void writeChildren(Writer writer, BusinessCollection collection) {
+    private static void writeChildren(Writer writer, BusinessCollection collection, int depth) {
         try{
             // Iterate children and write their data
             for(Object object : collection.getBusinessObjects()) {
                 BusinessObject businessObject = (BusinessObject) object;
                 String objectName = businessObject.getName();
-                // TODO: remove this if to get more details in the parent file
+                // TODO: remove this to get more details in the parent file
                 String objectType = businessObject.getBusinessObjectType();
 
                 // Write the tag for the child e.g. <Accounting>
+                for(int i=0;i<depth;i++) writer.write("  ");
                 writer.write("  <"+objectType+">\r\n");
 
                 // get the object's properties
@@ -165,15 +165,17 @@ public class ObjectModelSAXParser {
                     String key = entry.getKey();
                     String objectProperty = entry.getValue();
                     if(objectProperty!=null && !objectProperty.equals("")){
+                        for(int i=0;i<depth;i++) writer.write("  ");
                         writer.write("    <" + key + ">" + objectProperty + "</"+ key + ">\r\n");
                     }
                 }
                 // The implementation used is more clear and similar to the read Method
                 if(object instanceof BusinessCollection && collection.writeGrandChildren()){
                     BusinessCollection subCollection = (BusinessCollection) object;
-                    writeChildren(writer, subCollection);
+                    writeChildren(writer, subCollection, depth+1);
                 }
                 // write the closing tag e.g. </Accounting>
+                for(int i=0;i<depth;i++) writer.write("  ");
                 writer.write("  </" + objectType + ">\r\n");
             }
         }catch (IOException io){
