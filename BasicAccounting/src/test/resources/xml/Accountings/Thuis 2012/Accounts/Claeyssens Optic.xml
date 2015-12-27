@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Claeyssens Optic</name>
+  <type>Cost</type>
+  <Movement>
+    <date>26/7/2012</date>
+    <debit>138.00</debit>
+    <id>1876</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>50</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+</Account>

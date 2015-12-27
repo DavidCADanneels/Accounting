@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../dtd/Account.dtd">
+<Account>
+  <name>Flights</name>
+  <action id="33">
+    <nr>DIV33</nr>
+    <journal>Diversen</journal>
+    <date>6/2/2012</date>
+    <debit>625.00</debit>
+    <description>Airstop</description>
+  </action>
+  <action id="110">
+    <nr>DIV110</nr>
+    <journal>Diversen</journal>
+    <date>3/10/2012</date>
+    <debit>527.00</debit>
+    <description>Airstop</description>
+  </action>
+  <action id="156">
+    <nr>DIV156</nr>
+    <journal>Diversen</journal>
+    <date>9/7/2013</date>
+    <debit>841.86</debit>
+    <description>afhaling in kantoor</description>
+  </action>
+</Account>

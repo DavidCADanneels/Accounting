@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Optreden Tay</name>
+  <type>Revenue</type>
+  <Movement>
+    <credit>100.00</credit>
+    <date>2/3/2014</date>
+    <id>3935</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>175</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>1065.00</credit>
+    <date>29/11/2014</date>
+    <id>5472</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>870</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>30/11/2014</date>
+    <debit>1064.55</debit>
+    <description>afrekening drank</description>
+    <id>5477</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>873</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

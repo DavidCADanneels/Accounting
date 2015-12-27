@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../xsl/Accounting2xml.xsl"?>
+<!DOCTYPE Accounting SYSTEM "../../dtd/Accounting.dtd">
+<Accounting>
+  <name>Tay 2014</name>
+  <Accounts>
+    <name>Accounts</name>
+  </Accounts>
+  <Journals>
+    <name>Journals</name>
+  </Journals>
+  <Balances>
+    <name>Balances</name>
+  </Balances>
+  <CounterParties>
+    <name>CounterParties</name>
+  </CounterParties>
+  <Statements>
+    <name>Statements</name>
+  </Statements>
+  <Mortgages>
+    <name>Mortgages</name>
+  </Mortgages>
+</Accounting>

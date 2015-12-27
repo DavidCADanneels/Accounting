@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Reis Thailand</name>
+  <type>Cost</type>
+  <Movement>
+    <date>31/1/2015</date>
+    <debit>39.92</debit>
+    <description>Groune loper</description>
+    <id>6030</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>97</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>1/2/2015</date>
+    <debit>155.18</debit>
+    <description>Vluchten BKK-Udon</description>
+    <id>6032</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>98</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>5/2/2015</date>
+    <debit>23.50</debit>
+    <description>Treintickets heen</description>
+    <id>6052</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>107</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>5/2/2015</date>
+    <debit>240.00</debit>
+    <description>ATM</description>
+    <id>6054</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>108</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>5/2/2015</date>
+    <debit>240.00</debit>
+    <description>ATM</description>
+    <id>6055</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>108</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>9/2/2015</date>
+    <debit>564.30</debit>
+    <description>deel bruidschat</description>
+    <id>6069</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>114</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>9/2/2015</date>
+    <debit>151.75</debit>
+    <description>ATM</description>
+    <id>6073</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>116</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>10/2/2015</date>
+    <debit>1345.08</debit>
+    <id>6075</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>117</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>12/2/2015</date>
+    <debit>77.61</debit>
+    <description>tickets Udon-BKK (Rita/David)</description>
+    <id>6081</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>119</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>12/2/2015</date>
+    <debit>72.07</debit>
+    <description>tickets Udon-BKK (Dara/Sophia/Leander)</description>
+    <id>6083</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>120</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>12/2/2015</date>
+    <debit>152.94</debit>
+    <description>ATM</description>
+    <id>6087</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>122</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>20/2/2015</date>
+    <debit>13.50</debit>
+    <description>treintickets terug</description>
+    <id>6097</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>127</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>23/2/2015</date>
+    <debit>289.29</debit>
+    <description>ATM</description>
+    <id>6114</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>135</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+</Account>

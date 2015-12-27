@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../dtd/Account.dtd">
+<Account>
+  <name>Support parents</name>
+  <action id="104">
+    <nr>DIV104</nr>
+    <journal>Diversen</journal>
+    <date>27/9/2012</date>
+    <debit>101.00</debit>
+    <description>null</description>
+  </action>
+  <action id="105">
+    <nr>DIV105</nr>
+    <journal>Diversen</journal>
+    <date>27/9/2012</date>
+    <credit>101.00</credit>
+    <description>Correctie: 101 gekregen ipv gegeven</description>
+  </action>
+  <action id="105">
+    <nr>DIV105</nr>
+    <journal>Diversen</journal>
+    <date>27/9/2012</date>
+    <credit>101.00</credit>
+    <description>Correctie: 101 gekregen ipv gegeven</description>
+  </action>
+  <action id="109">
+    <nr>DIV109</nr>
+    <journal>Diversen</journal>
+    <date>2/10/2012</date>
+    <credit>170.00</credit>
+    <description>null</description>
+  </action>
+  <action id="119">
+    <nr>DIV119</nr>
+    <journal>Diversen</journal>
+    <date>19/10/2012</date>
+    <debit>300.00</debit>
+    <description>null</description>
+  </action>
+  <action id="125">
+    <nr>DIV125</nr>
+    <journal>Diversen</journal>
+    <date>5/11/2012</date>
+    <credit>100.00</credit>
+    <description>null</description>
+  </action>
+  <action id="126">
+    <nr>DIV126</nr>
+    <journal>Diversen</journal>
+    <date>6/11/2012</date>
+    <debit>920.00</debit>
+    <description>afhaling voor Thailand: begrafenis oma</description>
+  </action>
+  <action id="127">
+    <nr>DIV127</nr>
+    <journal>Diversen</journal>
+    <date>30/11/2012</date>
+    <credit>1200.00</credit>
+    <description>terugbetaling lening begrafenis</description>
+  </action>
+  <action id="150">
+    <nr>DIV150</nr>
+    <journal>Diversen</journal>
+    <date>28/6/2013</date>
+    <debit>1000.00</debit>
+    <description>afhaling in kantoor</description>
+  </action>
+  <action id="156">
+    <nr>DIV156</nr>
+    <journal>Diversen</journal>
+    <date>9/7/2013</date>
+    <debit>58.14</debit>
+    <description>afhaling in kantoor</description>
+  </action>
+  <action id="162">
+    <nr>DIV162</nr>
+    <journal>Diversen</journal>
+    <date>4/8/2013</date>
+    <debit>50.00</debit>
+    <description>null</description>
+  </action>
+</Account>

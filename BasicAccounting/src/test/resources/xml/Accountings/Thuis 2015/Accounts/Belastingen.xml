@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Belastingen</name>
+  <type>Revenue</type>
+  <Movement>
+    <credit>4095.33</credit>
+    <date>27/3/2015</date>
+    <id>6294</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>211</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>24/8/2015</date>
+    <debit>224.93</debit>
+    <description>Verkeersbelasting</description>
+    <id>7273</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>652</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>9/9/2015</date>
+    <debit>39.00</debit>
+    <id>7376</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>701</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>9/9/2015</date>
+    <debit>937.70</debit>
+    <id>7377</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>701</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>1/10/2015</date>
+    <debit>797.69</debit>
+    <description>te betalen voor 23-11-15</description>
+    <id>7998</id>
+    <journalAbbr>SCH</journalAbbr>
+    <journalId>1</journalId>
+    <journalName>Schulden</journalName>
+  </Movement>
+</Account>

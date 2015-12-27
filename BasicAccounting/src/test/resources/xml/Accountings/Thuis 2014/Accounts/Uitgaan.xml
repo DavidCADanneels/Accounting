@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Uitgaan</name>
+  <type>Cost</type>
+  <Movement>
+    <date>31/1/2014</date>
+    <debit>5.70</debit>
+    <description>Biberium</description>
+    <id>3750</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>92</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>26/4/2014</date>
+    <debit>18.30</debit>
+    <description>Leffe cafe</description>
+    <id>4329</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>352</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>10/5/2014</date>
+    <debit>30.00</debit>
+    <description>Crash fuif</description>
+    <id>4437</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>400</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>17/5/2014</date>
+    <debit>20.00</debit>
+    <description>Magdalenazaal</description>
+    <id>4482</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>421</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>6/6/2014</date>
+    <debit>24.50</debit>
+    <description>KaraokeBar</description>
+    <id>4586</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>469</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>7/6/2014</date>
+    <debit>15.00</debit>
+    <description>Night out with the girls</description>
+    <id>4598</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>475</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>7/6/2014</date>
+    <debit>100.00</debit>
+    <description>Thai feest markt</description>
+    <id>4602</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>477</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>8/6/2014</date>
+    <debit>5.00</debit>
+    <description>Fiesta Solar</description>
+    <id>4610</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>480</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>14/7/2014</date>
+    <debit>55.00</debit>
+    <description>Cactus</description>
+    <id>4892</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>607</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>1/8/2014</date>
+    <debit>165.00</debit>
+    <id>4999</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>657</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>23/8/2014</date>
+    <debit>17.00</debit>
+    <description>Varkentje bij Koen</description>
+    <id>5089</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>696</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

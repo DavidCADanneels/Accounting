@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Inno</name>
+  <type>Cost</type>
+  <Movement>
+    <date>11/2/2012</date>
+    <debit>10.49</debit>
+    <id>624</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>46</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>15/6/2012</date>
+    <debit>49.08</debit>
+    <id>1046</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>225</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>26/7/2012</date>
+    <debit>14.95</debit>
+    <id>1878</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>51</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+</Account>

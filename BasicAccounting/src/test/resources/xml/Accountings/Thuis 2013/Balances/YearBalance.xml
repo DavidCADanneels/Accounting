@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Balance SYSTEM "../../../../dtd/Balance.dtd">
+<Balance>
+  <LeftName>Assets</LeftName>
+  <LeftResultName>GAIN</LeftResultName>
+  <LeftTotalName>TOTAL ASSETS/FUNDS</LeftTotalName>
+  <LeftTypes>Asset | Credit</LeftTypes>
+  <RightName>Liabilities</RightName>
+  <RightResultName>LOSS</RightResultName>
+  <RightTotalName>TOTAL LIABILITIES/DEBTS</RightTotalName>
+  <RightTypes>Liability | Debit</RightTypes>
+  <name>YearBalance</name>
+  <BalanceLine>
+    <amount1>10815.00</amount1>
+    <amount2>8698.14</amount2>
+    <name1>Auto activa</name1>
+    <name2>Eigen Kapitaal</name2>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>-9.97</amount1>
+    <amount2>0.88</amount2>
+    <name1>Bank Dara</name1>
+    <name2>Kapitaal Tay</name2>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>2348.46</amount1>
+    <amount2>256099.75</amount2>
+    <name1>Bank David</name1>
+    <name2>Hypotheek</name2>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>1107.49</amount1>
+    <amount2>12000.00</amount2>
+    <name1>Bank Tay</name1>
+    <name2>Schulden aan ma</name2>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>255000.00</amount1>
+    <amount2>146.00</amount2>
+    <name1>Huis activa</name1>
+    <name2>VISA</name2>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>4981.98</amount1>
+    <name1>Meubilair</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>2620.14</amount1>
+    <name1>Music Tay</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>0.03</amount1>
+    <name1>Post Dara</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>10.07</amount1>
+    <name1>Spaar David</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>2400.00</amount1>
+    <name1>Spaar Sophia</name1>
+  </BalanceLine>
+</Balance>

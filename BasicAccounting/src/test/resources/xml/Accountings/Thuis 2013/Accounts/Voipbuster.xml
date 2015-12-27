@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Voipbuster</name>
+  <type>Cost</type>
+  <Movement>
+    <date>6/1/2013</date>
+    <debit>29.56</debit>
+    <id>3316</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>3</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>15/1/2013</date>
+    <debit>58.31</debit>
+    <id>3322</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>6</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>18/3/2013</date>
+    <debit>115.81</debit>
+    <id>2261</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>116</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>29/12/2013</date>
+    <debit>116.61</debit>
+    <id>3242</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>567</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

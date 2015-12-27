@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Horeca Total</name>
+  <type>Cost</type>
+  <Movement>
+    <date>12/2/2013</date>
+    <debit>22.69</debit>
+    <id>2170</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>78</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>5/6/2013</date>
+    <debit>45.44</debit>
+    <id>2538</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>240</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>14/10/2013</date>
+    <debit>35.13</debit>
+    <id>2964</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>439</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

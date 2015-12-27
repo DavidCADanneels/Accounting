@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Balance SYSTEM "../../../../dtd/Balance.dtd">
+<Balance>
+  <LeftName>Costs</LeftName>
+  <LeftResultName>LOSS</LeftResultName>
+  <LeftTotalName>TOTAL COSTS</LeftTotalName>
+  <LeftTypes>Cost</LeftTypes>
+  <RightName>Revenue</RightName>
+  <RightResultName>GAIN</RightResultName>
+  <RightTotalName>TOTAL INCOME</RightTotalName>
+  <RightTypes>Revenue</RightTypes>
+  <name>ResultBalance</name>
+  <BalanceLine>
+    <amount1>911.70</amount1>
+    <amount2>3589.36</amount2>
+    <name1>ATM</name1>
+    <name2>Belastingen</name2>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>1470.00</amount1>
+    <amount2>7200.00</amount2>
+    <name1>ATM Tay</name1>
+    <name2>Huur</name2>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>573.22</amount1>
+    <amount2>432.15</amount2>
+    <name1>AXA</name1>
+    <name2>Kindergeld</name2>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>60.00</amount1>
+    <amount2>4876.92</amount2>
+    <name1>Alumni etentje</name1>
+    <name2>Netto Dara</name2>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>211.48</amount1>
+    <amount2>8220.62</amount2>
+    <name1>Asian Shop Oostende</name1>
+    <name2>Netto David</name2>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>20.00</amount1>
+    <amount2>3993.35</amount2>
+    <name1>Belgacom Store</name1>
+    <name2>Netto Tay</name2>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>14.79</amount1>
+    <name1>Benzine</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>40.25</amount1>
+    <name1>CM</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>89.80</amount1>
+    <name1>Carrefour</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>81.42</amount1>
+    <name1>Colruyt</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>7.99</amount1>
+    <name1>Compact</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>57.00</amount1>
+    <name1>De Lijn</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>25.90</amount1>
+    <name1>Decathlon</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>20.03</amount1>
+    <name1>Fnac Tay</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>569.89</amount1>
+    <name1>GB Express</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>30.85</amount1>
+    <name1>H and M</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>74.62</amount1>
+    <name1>Intresten Bank</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>6731.25</amount1>
+    <name1>Intresten Lening</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>25.42</amount1>
+    <name1>Kruidvat</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>167.20</amount1>
+    <name1>NMBS</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>49.99</amount1>
+    <name1>Nokia 2220 Tay</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>46.60</amount1>
+    <name1>Onbekend</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>325.94</amount1>
+    <name1>Proximus</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>15.44</amount1>
+    <name1>Renmans</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>19.99</amount1>
+    <name1>Saturn Tay</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>151.10</amount1>
+    <name1>Sinterklaasshow</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>54.24</amount1>
+    <name1>Tai Chong Hong</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>4847.40</amount1>
+    <name1>Thailand</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>3824.70</amount1>
+    <name1>Thailand Tay</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>3600.32</amount1>
+    <name1>VISA</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>46.42</amount1>
+    <name1>Wibra</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>30.90</amount1>
+    <name1>Zara</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>639.99</amount1>
+    <name1>iPhone Tay</name1>
+  </BalanceLine>
+</Balance>

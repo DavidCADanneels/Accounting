@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Spaar Sophia</name>
+  <type>Asset</type>
+  <Movement>
+    <date>1/1/2015</date>
+    <debit>2600.00</debit>
+    <description>Beginbalans</description>
+    <id>5813</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>4</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+</Account>

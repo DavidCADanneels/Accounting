@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Renmans</name>
+  <type>Cost</type>
+  <Movement>
+    <date>22/1/2014</date>
+    <debit>6.30</debit>
+    <id>3681</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>63</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>8/12/2014</date>
+    <debit>11.60</debit>
+    <id>5536</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>899</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>12/12/2014</date>
+    <debit>9.25</debit>
+    <id>5570</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>914</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>26/12/2014</date>
+    <debit>14.95</debit>
+    <id>5633</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>945</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

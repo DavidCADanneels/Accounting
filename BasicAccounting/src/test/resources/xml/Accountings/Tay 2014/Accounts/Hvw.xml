@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../dtd/Account.dtd">
+<Account>
+  <name>Hvw</name>
+  <action id="3">
+    <nr>DIV3</nr>
+    <journal>Diversen</journal>
+    <date>20/10/2011</date>
+    <credit>231.30</credit>
+    <description>null</description>
+  </action>
+  <action id="12">
+    <nr>DIV12</nr>
+    <journal>Diversen</journal>
+    <date>10/11/2011</date>
+    <credit>400.92</credit>
+    <description>null</description>
+  </action>
+  <action id="16">
+    <nr>DIV16</nr>
+    <journal>Diversen</journal>
+    <date>8/12/2011</date>
+    <credit>400.92</credit>
+    <description>null</description>
+  </action>
+</Account>

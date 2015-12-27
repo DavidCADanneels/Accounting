@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Onbekend</name>
+  <type>Cost</type>
+  <Movement>
+    <date>26/3/2011</date>
+    <debit>25.00</debit>
+    <description>CM?</description>
+    <id>59</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>25</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>24/9/2011</date>
+    <debit>21.60</debit>
+    <description>Brussel: eten?</description>
+    <id>275</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>124</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

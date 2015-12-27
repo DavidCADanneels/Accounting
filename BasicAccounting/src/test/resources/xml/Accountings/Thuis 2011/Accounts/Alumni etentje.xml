@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>60.00</defaultAmount>
+  <name>Alumni etentje</name>
+  <type>Cost</type>
+  <Movement>
+    <date>8/9/2011</date>
+    <debit>60.00</debit>
+    <id>231</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>104</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

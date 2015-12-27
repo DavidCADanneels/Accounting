@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../dtd/Account.dtd">
+<Account>
+  <name>Send To Thailand</name>
+  <action id="13">
+    <nr>DIV13</nr>
+    <journal_xml>/home/david/Accounting/Tay/Journals/Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>10/11/2011</date>
+    <debit>1261.85</debit>
+    <description>null</description>
+  </action>
+  <action id="19">
+    <nr>DIV19</nr>
+    <journal_xml>/home/david/Accounting/Tay/Journals/Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>13/12/2011</date>
+    <debit>1211.85</debit>
+    <description>null</description>
+  </action>
+  <action id="68">
+    <nr>DIV68</nr>
+    <journal_xml>/home/david/Accounting/Tay/Journals/Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>4/7/2012</date>
+    <debit>1161.85</debit>
+    <description>null</description>
+  </action>
+  <closed type = "debit">
+    <debitTotal>3635.55</debitTotal>
+    <creditTotal>0.00</creditTotal>
+    <saldo>3635.55</saldo>
+  </closed>
+</Account>

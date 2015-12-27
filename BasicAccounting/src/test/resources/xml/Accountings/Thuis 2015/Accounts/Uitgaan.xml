@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Uitgaan</name>
+  <type>Cost</type>
+  <Movement>
+    <date>20/2/2015</date>
+    <debit>40.00</debit>
+    <id>6099</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>128</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>21/2/2015</date>
+    <debit>40.00</debit>
+    <id>6105</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>131</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+</Account>

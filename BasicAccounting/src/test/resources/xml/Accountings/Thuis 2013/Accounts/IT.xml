@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>IT</name>
+  <type>Cost</type>
+  <Movement>
+    <date>13/5/2013</date>
+    <debit>79.99</debit>
+    <description>Info-Occases: HTPC box</description>
+    <id>3292</id>
+    <journalAbbr>POS</journalAbbr>
+    <journalId>11</journalId>
+    <journalName>Post</journalName>
+  </Movement>
+  <Movement>
+    <date>14/5/2013</date>
+    <debit>339.95</debit>
+    <description>Info-Occases: HTPC parts</description>
+    <id>2478</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>211</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>14/12/2013</date>
+    <debit>84.98</debit>
+    <description>Krefel: 5.1 speaker set</description>
+    <id>3178</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>537</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

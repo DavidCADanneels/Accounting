@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../dtd/Account.dtd">
+<Account>
+  <name>Hotel</name>
+  <action id="134">
+    <nr>DIV134</nr>
+    <journal>Diversen</journal>
+    <date>4/1/2013</date>
+    <credit>139.20</credit>
+    <description>Interim (Daoust) 28/12/2012 - 30/12/2012  </description>
+  </action>
+  <action id="137">
+    <nr>DIV137</nr>
+    <journal>Diversen</journal>
+    <date>10/1/2013</date>
+    <credit>148.29</credit>
+    <description>Interim (Daoust) 3/1/2013 - 4/1/2013</description>
+  </action>
+  <action id="140">
+    <nr>DIV140</nr>
+    <journal>Diversen</journal>
+    <date>8/2/2013</date>
+    <credit>30.53</credit>
+    <description>Interim (Daoust) 2/2/2013</description>
+  </action>
+  <action id="144">
+    <nr>DIV144</nr>
+    <journal>Diversen</journal>
+    <date>6/6/2013</date>
+    <credit>233.60</credit>
+    <description>Interim (Daoust) 27/5/2013 - 30/5/2013</description>
+  </action>
+  <action id="146">
+    <nr>DIV146</nr>
+    <journal>Diversen</journal>
+    <date>17/6/2013</date>
+    <credit>200.00</credit>
+    <description>voorschot juni</description>
+  </action>
+  <action id="149">
+    <nr>DIV149</nr>
+    <journal>Diversen</journal>
+    <date>28/6/2013</date>
+    <credit>1167.60</credit>
+    <description>rest juni</description>
+  </action>
+  <action id="157">
+    <nr>DIV157</nr>
+    <journal>Diversen</journal>
+    <date>16/7/2013</date>
+    <credit>250.00</credit>
+    <description>voorschot juli</description>
+  </action>
+  <action id="160">
+    <nr>DIV160</nr>
+    <journal>Diversen</journal>
+    <date>30/7/2013</date>
+    <credit>1160.11</credit>
+    <description>rest juli</description>
+  </action>
+  <action id="165">
+    <nr>DIV165</nr>
+    <journal>Diversen</journal>
+    <date>16/8/2013</date>
+    <credit>250.00</credit>
+    <description>voorschot augustus</description>
+  </action>
+</Account>

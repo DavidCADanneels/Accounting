@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>AXA-omschakeling Brandverzekering</name>
+  <type>Debit</type>
+  <Movement>
+    <credit>94.81</credit>
+    <date>11/6/2013</date>
+    <description>010816121657 verbreking</description>
+    <id>2565</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>253</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>10/7/2013</date>
+    <debit>94.81</debit>
+    <description>heropstart brandverzekering (juni-juli)</description>
+    <id>2695</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>313</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

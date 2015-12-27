@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Balances SYSTEM "../../../dtd/Balances.dtd">
+<Balances>
+  <name>Balances</name>
+  <Balance>
+    <LeftName>Funds from customers</LeftName>
+    <LeftResultName>REMAINING FUND</LeftResultName>
+    <LeftTotalName>TOTAL FUNDS</LeftTotalName>
+    <LeftTypes>Credit</LeftTypes>
+    <RightName>Debts to Suppliers</RightName>
+    <RightResultName>REMAINING DEBT</RightResultName>
+    <RightTotalName>TOTAL DEBTS</RightTotalName>
+    <RightTypes>Debit</RightTypes>
+    <name>RelationsBalance</name>
+  </Balance>
+  <Balance>
+    <LeftName>Costs</LeftName>
+    <LeftResultName>LOSS</LeftResultName>
+    <LeftTotalName>TOTAL COSTS</LeftTotalName>
+    <LeftTypes>Cost</LeftTypes>
+    <RightName>Revenue</RightName>
+    <RightResultName>GAIN</RightResultName>
+    <RightTotalName>TOTAL INCOME</RightTotalName>
+    <RightTypes>Revenue</RightTypes>
+    <name>ResultBalance</name>
+  </Balance>
+  <Balance>
+    <LeftName>Assets</LeftName>
+    <LeftResultName>GAIN</LeftResultName>
+    <LeftTotalName>TOTAL ASSETS/FUNDS</LeftTotalName>
+    <LeftTypes>Asset | Credit</LeftTypes>
+    <RightName>Liabilities</RightName>
+    <RightResultName>LOSS</RightResultName>
+    <RightTotalName>TOTAL LIABILITIES/DEBTS</RightTotalName>
+    <RightTypes>Liability | Debit</RightTypes>
+    <name>YearBalance</name>
+  </Balance>
+</Balances>

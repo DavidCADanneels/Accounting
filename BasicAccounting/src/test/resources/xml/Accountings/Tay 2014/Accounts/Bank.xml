@@ -1,0 +1,1203 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../dtd/Account.dtd">
+<Account>
+  <name>Bank</name>
+  <action id="1">
+    <nr>DIV1</nr>
+    <journal>Diversen</journal>
+    <date>17/10/2011</date>
+    <debit>539.55</debit>
+    <description>Beginbalans</description>
+  </action>
+  <action id="2">
+    <nr>DIV2</nr>
+    <journal>Diversen</journal>
+    <date>17/10/2011</date>
+    <credit>50.00</credit>
+    <description>null</description>
+  </action>
+  <action id="3">
+    <nr>DIV3</nr>
+    <journal>Diversen</journal>
+    <date>20/10/2011</date>
+    <debit>231.30</debit>
+    <description>null</description>
+  </action>
+  <action id="4">
+    <nr>DIV4</nr>
+    <journal>Diversen</journal>
+    <date>24/10/2011</date>
+    <credit>50.00</credit>
+    <description>null</description>
+  </action>
+  <action id="5">
+    <nr>DIV5</nr>
+    <journal>Diversen</journal>
+    <date>26/10/2011</date>
+    <credit>200.00</credit>
+    <description>null</description>
+  </action>
+  <action id="6">
+    <nr>DIV6</nr>
+    <journal>Diversen</journal>
+    <date>28/10/2011</date>
+    <credit>50.00</credit>
+    <description>null</description>
+  </action>
+  <action id="7">
+    <nr>DIV7</nr>
+    <journal>Diversen</journal>
+    <date>3/11/2011</date>
+    <credit>200.00</credit>
+    <description>null</description>
+  </action>
+  <action id="8">
+    <nr>DIV8</nr>
+    <journal>Diversen</journal>
+    <date>4/11/2011</date>
+    <credit>200.00</credit>
+    <description>null</description>
+  </action>
+  <action id="9">
+    <nr>DIV9</nr>
+    <journal>Diversen</journal>
+    <date>7/11/2011</date>
+    <credit>20.00</credit>
+    <description>null</description>
+  </action>
+  <action id="10">
+    <nr>DIV10</nr>
+    <journal>Diversen</journal>
+    <date>8/11/2011</date>
+    <debit>954.73</debit>
+    <description>null</description>
+  </action>
+  <action id="11">
+    <nr>DIV11</nr>
+    <journal>Diversen</journal>
+    <date>9/11/2011</date>
+    <credit>40.00</credit>
+    <description>null</description>
+  </action>
+  <action id="12">
+    <nr>DIV12</nr>
+    <journal>Diversen</journal>
+    <date>10/11/2011</date>
+    <debit>400.92</debit>
+    <description>null</description>
+  </action>
+  <action id="13">
+    <nr>DIV13</nr>
+    <journal>Diversen</journal>
+    <date>10/11/2011</date>
+    <credit>1261.85</credit>
+    <description>null</description>
+  </action>
+  <action id="14">
+    <nr>DIV14</nr>
+    <journal>Diversen</journal>
+    <date>11/11/2011</date>
+    <credit>20.00</credit>
+    <description>null</description>
+  </action>
+  <action id="14">
+    <nr>DIV14</nr>
+    <journal>Diversen</journal>
+    <date>11/11/2011</date>
+    <credit>20.00</credit>
+    <description>null</description>
+  </action>
+  <action id="15">
+    <nr>DIV15</nr>
+    <journal>Diversen</journal>
+    <date>7/12/2011</date>
+    <debit>1005.48</debit>
+    <description>null</description>
+  </action>
+  <action id="16">
+    <nr>DIV16</nr>
+    <journal>Diversen</journal>
+    <date>8/12/2011</date>
+    <debit>400.92</debit>
+    <description>null</description>
+  </action>
+  <action id="18">
+    <nr>DIV18</nr>
+    <journal>Diversen</journal>
+    <date>9/12/2011</date>
+    <credit>200.00</credit>
+    <description>null</description>
+  </action>
+  <action id="19">
+    <nr>DIV19</nr>
+    <journal>Diversen</journal>
+    <date>13/12/2011</date>
+    <credit>1211.85</credit>
+    <description>null</description>
+  </action>
+  <action id="20">
+    <nr>DIV20</nr>
+    <journal>Diversen</journal>
+    <date>15/12/2011</date>
+    <debit>500.00</debit>
+    <description>voorschot loon december 2011</description>
+  </action>
+  <action id="21">
+    <nr>DIV21</nr>
+    <journal>Diversen</journal>
+    <date>18/12/2011</date>
+    <credit>50.00</credit>
+    <description>null</description>
+  </action>
+  <action id="21">
+    <nr>DIV21</nr>
+    <journal>Diversen</journal>
+    <date>18/12/2011</date>
+    <credit>50.00</credit>
+    <description>null</description>
+  </action>
+  <action id="22">
+    <nr>DIV22</nr>
+    <journal>Diversen</journal>
+    <date>20/12/2011</date>
+    <credit>200.00</credit>
+    <description>null</description>
+  </action>
+  <action id="23">
+    <nr>DIV23</nr>
+    <journal>Diversen</journal>
+    <date>23/12/2011</date>
+    <credit>20.00</credit>
+    <description>null</description>
+  </action>
+  <action id="24">
+    <nr>DIV24</nr>
+    <journal>Diversen</journal>
+    <date>26/12/2011</date>
+    <credit>19.99</credit>
+    <description>Saturn</description>
+  </action>
+  <action id="25">
+    <nr>DIV25</nr>
+    <journal>Diversen</journal>
+    <date>27/12/2011</date>
+    <credit>20.03</credit>
+    <description>Fnac</description>
+  </action>
+  <action id="26">
+    <nr>DIV26</nr>
+    <journal>Diversen</journal>
+    <date>29/12/2011</date>
+    <credit>100.00</credit>
+    <description>null</description>
+  </action>
+  <action id="27">
+    <nr>DIV27</nr>
+    <journal>Diversen</journal>
+    <date>30/12/2011</date>
+    <debit>500.00</debit>
+    <description>Saldo loon december 2011</description>
+  </action>
+  <action id="28">
+    <nr>DIV28</nr>
+    <journal>Diversen</journal>
+    <date>31/12/2011</date>
+    <credit>0.24</credit>
+    <description>null</description>
+  </action>
+  <action id="29">
+    <nr>DIV29</nr>
+    <journal>Diversen</journal>
+    <date>3/1/2012</date>
+    <credit>500.00</credit>
+    <description>null</description>
+  </action>
+  <action id="30">
+    <nr>DIV30</nr>
+    <journal>Diversen</journal>
+    <date>16/1/2012</date>
+    <debit>250.00</debit>
+    <description>voorschot januari</description>
+  </action>
+  <action id="31">
+    <nr>DIV31</nr>
+    <journal>Diversen</journal>
+    <date>26/1/2012</date>
+    <credit>200.00</credit>
+    <description>null</description>
+  </action>
+  <action id="32">
+    <nr>DIV32</nr>
+    <journal>Diversen</journal>
+    <date>2/2/2012</date>
+    <debit>774.55</debit>
+    <description>rest januari</description>
+  </action>
+  <action id="33">
+    <nr>DIV33</nr>
+    <journal>Diversen</journal>
+    <date>6/2/2012</date>
+    <credit>625.00</credit>
+    <description>Airstop</description>
+  </action>
+  <action id="34">
+    <nr>DIV34</nr>
+    <journal>Diversen</journal>
+    <date>15/2/2012</date>
+    <debit>500.00</debit>
+    <description>voorschot februari</description>
+  </action>
+  <action id="35">
+    <nr>DIV35</nr>
+    <journal>Diversen</journal>
+    <date>20/2/2012</date>
+    <credit>29.94</credit>
+    <description>Fnac</description>
+  </action>
+  <action id="36">
+    <nr>DIV36</nr>
+    <journal>Diversen</journal>
+    <date>22/2/2012</date>
+    <credit>20.00</credit>
+    <description>null</description>
+  </action>
+  <action id="37">
+    <nr>DIV37</nr>
+    <journal>Diversen</journal>
+    <date>29/2/2012</date>
+    <credit>200.00</credit>
+    <description>null</description>
+  </action>
+  <action id="37">
+    <nr>DIV37</nr>
+    <journal>Diversen</journal>
+    <date>29/2/2012</date>
+    <credit>100.00</credit>
+    <description>null</description>
+  </action>
+  <action id="38">
+    <nr>DIV38</nr>
+    <journal>Diversen</journal>
+    <date>1/3/2012</date>
+    <debit>615.86</debit>
+    <description>rest februari</description>
+  </action>
+  <action id="39">
+    <nr>DIV39</nr>
+    <journal>Diversen</journal>
+    <date>9/3/2012</date>
+    <credit>1010.00</credit>
+    <description>null</description>
+  </action>
+  <action id="40">
+    <nr>DIV40</nr>
+    <journal>Diversen</journal>
+    <date>15/3/2012</date>
+    <debit>500.00</debit>
+    <description>voorschot maart</description>
+  </action>
+  <action id="41">
+    <nr>DIV41</nr>
+    <journal>Diversen</journal>
+    <date>16/3/2012</date>
+    <credit>266.85</credit>
+    <description>ATM Thailand</description>
+  </action>
+  <action id="42">
+    <nr>DIV42</nr>
+    <journal>Diversen</journal>
+    <date>18/3/2012</date>
+    <credit>214.62</credit>
+    <description>ATM Thailand</description>
+  </action>
+  <action id="43">
+    <nr>DIV43</nr>
+    <journal>Diversen</journal>
+    <date>2/4/2012</date>
+    <debit>500.00</debit>
+    <description>rest maart</description>
+  </action>
+  <action id="44">
+    <nr>DIV44</nr>
+    <journal>Diversen</journal>
+    <date>4/4/2012</date>
+    <credit>500.00</credit>
+    <description>null</description>
+  </action>
+  <action id="45">
+    <nr>DIV45</nr>
+    <journal>Diversen</journal>
+    <date>16/4/2012</date>
+    <debit>500.00</debit>
+    <description>voorschot april</description>
+  </action>
+  <action id="46">
+    <nr>DIV46</nr>
+    <journal>Diversen</journal>
+    <date>16/4/2012</date>
+    <credit>20.00</credit>
+    <description>null</description>
+  </action>
+  <action id="47">
+    <nr>DIV47</nr>
+    <journal>Diversen</journal>
+    <date>18/4/2012</date>
+    <credit>100.00</credit>
+    <description>null</description>
+  </action>
+  <action id="48">
+    <nr>DIV48</nr>
+    <journal>Diversen</journal>
+    <date>24/4/2012</date>
+    <credit>400.00</credit>
+    <description>null</description>
+  </action>
+  <action id="49">
+    <nr>DIV49</nr>
+    <journal>Diversen</journal>
+    <date>2/5/2012</date>
+    <debit>807.01</debit>
+    <description>rest april</description>
+  </action>
+  <action id="50">
+    <nr>DIV50</nr>
+    <journal>Diversen</journal>
+    <date>4/5/2012</date>
+    <credit>200.00</credit>
+    <description>null</description>
+  </action>
+  <action id="51">
+    <nr>DIV51</nr>
+    <journal>Diversen</journal>
+    <date>10/5/2012</date>
+    <credit>100.00</credit>
+    <description>null</description>
+  </action>
+  <action id="52">
+    <nr>DIV52</nr>
+    <journal>Diversen</journal>
+    <date>16/5/2012</date>
+    <debit>500.00</debit>
+    <description>voorschot mei</description>
+  </action>
+  <action id="52">
+    <nr>DIV52</nr>
+    <journal>Diversen</journal>
+    <date>16/5/2012</date>
+    <credit>100.00</credit>
+    <description>voorschot mei</description>
+  </action>
+  <action id="53">
+    <nr>DIV53</nr>
+    <journal>Diversen</journal>
+    <date>24/5/2012</date>
+    <credit>100.00</credit>
+    <description>null</description>
+  </action>
+  <action id="54">
+    <nr>DIV54</nr>
+    <journal>Diversen</journal>
+    <date>25/5/2012</date>
+    <credit>100.00</credit>
+    <description>null</description>
+  </action>
+  <action id="55">
+    <nr>DIV55</nr>
+    <journal>Diversen</journal>
+    <date>28/5/2012</date>
+    <credit>100.00</credit>
+    <description>null</description>
+  </action>
+  <action id="56">
+    <nr>DIV56</nr>
+    <journal>Diversen</journal>
+    <date>31/5/2012</date>
+    <credit>300.00</credit>
+    <description>null</description>
+  </action>
+  <action id="57">
+    <nr>DIV57</nr>
+    <journal>Diversen</journal>
+    <date>1/6/2012</date>
+    <debit>680.71</debit>
+    <description>rest mei</description>
+  </action>
+  <action id="58">
+    <nr>DIV58</nr>
+    <journal>Diversen</journal>
+    <date>5/6/2012</date>
+    <credit>980.00</credit>
+    <description>null</description>
+  </action>
+  <action id="59">
+    <nr>DIV59</nr>
+    <journal>Diversen</journal>
+    <date>15/6/2012</date>
+    <debit>500.00</debit>
+    <description>voorschot juni</description>
+  </action>
+  <action id="60">
+    <nr>DIV60</nr>
+    <journal>Diversen</journal>
+    <date>16/6/2012</date>
+    <credit>250.00</credit>
+    <description>null</description>
+  </action>
+  <action id="61">
+    <nr>DIV61</nr>
+    <journal>Diversen</journal>
+    <date>18/6/2012</date>
+    <credit>27.00</credit>
+    <description>Meyns Gilbert</description>
+  </action>
+  <action id="62">
+    <nr>DIV62</nr>
+    <journal>Diversen</journal>
+    <date>18/6/2012</date>
+    <credit>140.00</credit>
+    <description>null</description>
+  </action>
+  <action id="63">
+    <nr>DIV63</nr>
+    <journal>Diversen</journal>
+    <date>20/6/2012</date>
+    <credit>4.91</credit>
+    <description>Q8</description>
+  </action>
+  <action id="64">
+    <nr>DIV64</nr>
+    <journal>Diversen</journal>
+    <date>27/6/2012</date>
+    <debit>206.94</debit>
+    <description>null</description>
+  </action>
+  <action id="65">
+    <nr>DIV65</nr>
+    <journal>Diversen</journal>
+    <date>1/7/2012</date>
+    <credit>4.86</credit>
+    <description>Total</description>
+  </action>
+  <action id="66">
+    <nr>DIV66</nr>
+    <journal>Diversen</journal>
+    <date>2/7/2012</date>
+    <debit>608.36</debit>
+    <description>rest juni</description>
+  </action>
+  <action id="67">
+    <nr>DIV67</nr>
+    <journal>Diversen</journal>
+    <date>4/7/2012</date>
+    <debit>255.00</debit>
+    <description>null</description>
+  </action>
+  <action id="67">
+    <nr>DIV67</nr>
+    <journal>Diversen</journal>
+    <date>4/7/2012</date>
+    <debit>10.00</debit>
+    <description>null</description>
+  </action>
+  <action id="68">
+    <nr>DIV68</nr>
+    <journal>Diversen</journal>
+    <date>4/7/2012</date>
+    <credit>1161.85</credit>
+    <description>null</description>
+  </action>
+  <action id="69">
+    <nr>DIV69</nr>
+    <journal>Diversen</journal>
+    <date>16/7/2012</date>
+    <debit>500.00</debit>
+    <description>voorschot juli</description>
+  </action>
+  <action id="70">
+    <nr>DIV70</nr>
+    <journal>Diversen</journal>
+    <date>16/7/2012</date>
+    <credit>114.00</credit>
+    <description>A093</description>
+  </action>
+  <action id="71">
+    <nr>DIV71</nr>
+    <journal>Diversen</journal>
+    <date>20/7/2012</date>
+    <credit>20.00</credit>
+    <description>null</description>
+  </action>
+  <action id="72">
+    <nr>DIV72</nr>
+    <journal>Diversen</journal>
+    <date>21/7/2012</date>
+    <credit>40.00</credit>
+    <description>null</description>
+  </action>
+  <action id="73">
+    <nr>DIV73</nr>
+    <journal>Diversen</journal>
+    <date>22/7/2012</date>
+    <credit>5.24</credit>
+    <description>null</description>
+  </action>
+  <action id="74">
+    <nr>DIV74</nr>
+    <journal>Diversen</journal>
+    <date>24/7/2012</date>
+    <credit>10.20</credit>
+    <description>Anna Durga</description>
+  </action>
+  <action id="75">
+    <nr>DIV75</nr>
+    <journal>Diversen</journal>
+    <date>26/7/2012</date>
+    <credit>50.00</credit>
+    <description>null</description>
+  </action>
+  <action id="76">
+    <nr>DIV76</nr>
+    <journal>Diversen</journal>
+    <date>26/7/2012</date>
+    <credit>40.00</credit>
+    <description>null</description>
+  </action>
+  <action id="77">
+    <nr>DIV77</nr>
+    <journal>Diversen</journal>
+    <date>26/7/2012</date>
+    <credit>138.00</credit>
+    <description>Claeyssens Optic</description>
+  </action>
+  <action id="78">
+    <nr>DIV78</nr>
+    <journal>Diversen</journal>
+    <date>26/7/2012</date>
+    <credit>14.95</credit>
+    <description>Inno</description>
+  </action>
+  <action id="79">
+    <nr>DIV79</nr>
+    <journal>Diversen</journal>
+    <date>28/7/2012</date>
+    <credit>5.20</credit>
+    <description>Anna Durga</description>
+  </action>
+  <action id="80">
+    <nr>DIV80</nr>
+    <journal>Diversen</journal>
+    <date>29/7/2012</date>
+    <credit>10.20</credit>
+    <description>Anna Durga</description>
+  </action>
+  <action id="81">
+    <nr>DIV81</nr>
+    <journal>Diversen</journal>
+    <date>31/7/2012</date>
+    <credit>5.53</credit>
+    <description>Total</description>
+  </action>
+  <action id="82">
+    <nr>DIV82</nr>
+    <journal>Diversen</journal>
+    <date>31/7/2012</date>
+    <credit>20.20</credit>
+    <description>Anna Durga</description>
+  </action>
+  <action id="83">
+    <nr>DIV83</nr>
+    <journal>Diversen</journal>
+    <date>2/8/2012</date>
+    <debit>641.14</debit>
+    <description>rest juli</description>
+  </action>
+  <action id="84">
+    <nr>DIV84</nr>
+    <journal>Diversen</journal>
+    <date>2/8/2012</date>
+    <credit>25.20</credit>
+    <description>Beligir</description>
+  </action>
+  <action id="85">
+    <nr>DIV85</nr>
+    <journal>Diversen</journal>
+    <date>4/8/2012</date>
+    <credit>75.00</credit>
+    <description>Anna Durga</description>
+  </action>
+  <action id="86">
+    <nr>DIV86</nr>
+    <journal>Diversen</journal>
+    <date>16/8/2012</date>
+    <debit>500.00</debit>
+    <description>voorschot augustus</description>
+  </action>
+  <action id="87">
+    <nr>DIV87</nr>
+    <journal>Diversen</journal>
+    <date>18/8/2012</date>
+    <credit>5.51</credit>
+    <description>null</description>
+  </action>
+  <action id="88">
+    <nr>DIV88</nr>
+    <journal>Diversen</journal>
+    <date>23/8/2012</date>
+    <credit>12.31</credit>
+    <description>Voipbuster</description>
+  </action>
+  <action id="89">
+    <nr>DIV89</nr>
+    <journal>Diversen</journal>
+    <date>28/8/2012</date>
+    <credit>4.92</credit>
+    <description>null</description>
+  </action>
+  <action id="90">
+    <nr>DIV90</nr>
+    <journal>Diversen</journal>
+    <date>28/8/2012</date>
+    <credit>150.00</credit>
+    <description>null</description>
+  </action>
+  <action id="91">
+    <nr>DIV91</nr>
+    <journal>Diversen</journal>
+    <date>1/9/2012</date>
+    <credit>52.96</credit>
+    <description>New Look</description>
+  </action>
+  <action id="92">
+    <nr>DIV92</nr>
+    <journal>Diversen</journal>
+    <date>1/9/2012</date>
+    <credit>4.99</credit>
+    <description>New Look</description>
+  </action>
+  <action id="93">
+    <nr>DIV93</nr>
+    <journal>Diversen</journal>
+    <date>3/9/2012</date>
+    <debit>763.45</debit>
+    <description>rest augustus</description>
+  </action>
+  <action id="94">
+    <nr>DIV94</nr>
+    <journal>Diversen</journal>
+    <date>3/9/2012</date>
+    <credit>12.31</credit>
+    <description>Voipbuster</description>
+  </action>
+  <action id="95">
+    <nr>DIV95</nr>
+    <journal>Diversen</journal>
+    <date>4/9/2012</date>
+    <credit>58.31</credit>
+    <description>Voipbuster</description>
+  </action>
+  <action id="96">
+    <nr>DIV96</nr>
+    <journal>Diversen</journal>
+    <date>5/9/2012</date>
+    <debit>145.00</debit>
+    <description>null</description>
+  </action>
+  <action id="97">
+    <nr>DIV97</nr>
+    <journal>Diversen</journal>
+    <date>5/9/2012</date>
+    <credit>1661.85</credit>
+    <description>null</description>
+  </action>
+  <action id="98">
+    <nr>DIV98</nr>
+    <journal>Diversen</journal>
+    <date>17/9/2012</date>
+    <debit>500.00</debit>
+    <description>voorschot september</description>
+  </action>
+  <action id="99">
+    <nr>DIV99</nr>
+    <journal>Diversen</journal>
+    <date>18/9/2012</date>
+    <credit>93.00</credit>
+    <description>Decathlon</description>
+  </action>
+  <action id="100">
+    <nr>DIV100</nr>
+    <journal>Diversen</journal>
+    <date>19/9/2012</date>
+    <credit>42.21</credit>
+    <description>Apotheek</description>
+  </action>
+  <action id="101">
+    <nr>DIV101</nr>
+    <journal>Diversen</journal>
+    <date>21/9/2012</date>
+    <credit>43.32</credit>
+    <description>Colruyt</description>
+  </action>
+  <action id="102">
+    <nr>DIV102</nr>
+    <journal>Diversen</journal>
+    <date>22/9/2012</date>
+    <credit>56.55</credit>
+    <description>Horeca totaal</description>
+  </action>
+  <action id="103">
+    <nr>DIV103</nr>
+    <journal>Diversen</journal>
+    <date>26/9/2012</date>
+    <debit>517.36</debit>
+    <description>KOHIERARTIKEL: 722752268 DIENST : 05.04/01  </description>
+  </action>
+  <action id="104">
+    <nr>DIV104</nr>
+    <journal>Diversen</journal>
+    <date>27/9/2012</date>
+    <credit>101.00</credit>
+    <description>null</description>
+  </action>
+  <action id="105">
+    <nr>DIV105</nr>
+    <journal>Diversen</journal>
+    <date>27/9/2012</date>
+    <debit>101.00</debit>
+    <description>Correctie: 101 gekregen ipv gegeven</description>
+  </action>
+  <action id="105">
+    <nr>DIV105</nr>
+    <journal>Diversen</journal>
+    <date>27/9/2012</date>
+    <debit>101.00</debit>
+    <description>Correctie: 101 gekregen ipv gegeven</description>
+  </action>
+  <action id="106">
+    <nr>DIV106</nr>
+    <journal>Diversen</journal>
+    <date>30/9/2012</date>
+    <credit>150.00</credit>
+    <description>null</description>
+  </action>
+  <action id="107">
+    <nr>DIV107</nr>
+    <journal>Diversen</journal>
+    <date>30/9/2012</date>
+    <credit>16.79</credit>
+    <description>63827-0415107  </description>
+  </action>
+  <action id="108">
+    <nr>DIV108</nr>
+    <journal>Diversen</journal>
+    <date>2/10/2012</date>
+    <debit>679.55</debit>
+    <description>rest september</description>
+  </action>
+  <action id="109">
+    <nr>DIV109</nr>
+    <journal>Diversen</journal>
+    <date>2/10/2012</date>
+    <debit>170.00</debit>
+    <description>null</description>
+  </action>
+  <action id="110">
+    <nr>DIV110</nr>
+    <journal>Diversen</journal>
+    <date>3/10/2012</date>
+    <credit>527.00</credit>
+    <description>Airstop</description>
+  </action>
+  <action id="111">
+    <nr>DIV111</nr>
+    <journal>Diversen</journal>
+    <date>9/10/2012</date>
+    <credit>659.00</credit>
+    <description>Fnac</description>
+  </action>
+  <action id="112">
+    <nr>DIV112</nr>
+    <journal>Diversen</journal>
+    <date>11/10/2012</date>
+    <credit>34.99</credit>
+    <description>Footlocker</description>
+  </action>
+  <action id="113">
+    <nr>DIV113</nr>
+    <journal>Diversen</journal>
+    <date>11/10/2012</date>
+    <credit>52.98</credit>
+    <description>Men at work</description>
+  </action>
+  <action id="114">
+    <nr>DIV114</nr>
+    <journal>Diversen</journal>
+    <date>11/10/2012</date>
+    <credit>40.00</credit>
+    <description>null</description>
+  </action>
+  <action id="115">
+    <nr>DIV115</nr>
+    <journal>Diversen</journal>
+    <date>12/10/2012</date>
+    <credit>58.31</credit>
+    <description>Voipbuster</description>
+  </action>
+  <action id="116">
+    <nr>DIV116</nr>
+    <journal>Diversen</journal>
+    <date>14/10/2012</date>
+    <credit>5.76</credit>
+    <description>null</description>
+  </action>
+  <action id="117">
+    <nr>DIV117</nr>
+    <journal>Diversen</journal>
+    <date>15/10/2012</date>
+    <debit>500.00</debit>
+    <description>voorschot oktober</description>
+  </action>
+  <action id="118">
+    <nr>DIV118</nr>
+    <journal>Diversen</journal>
+    <date>17/10/2012</date>
+    <credit>99.99</credit>
+    <description>Fnac</description>
+  </action>
+  <action id="119">
+    <nr>DIV119</nr>
+    <journal>Diversen</journal>
+    <date>19/10/2012</date>
+    <credit>300.00</credit>
+    <description>null</description>
+  </action>
+  <action id="120">
+    <nr>DIV120</nr>
+    <journal>Diversen</journal>
+    <date>24/10/2012</date>
+    <credit>80.00</credit>
+    <description>null</description>
+  </action>
+  <action id="121">
+    <nr>DIV121</nr>
+    <journal>Diversen</journal>
+    <date>24/10/2012</date>
+    <credit>20.00</credit>
+    <description>null</description>
+  </action>
+  <action id="122">
+    <nr>DIV122</nr>
+    <journal>Diversen</journal>
+    <date>3/11/2012</date>
+    <credit>5.63</credit>
+    <description>null</description>
+  </action>
+  <action id="123">
+    <nr>DIV123</nr>
+    <journal>Diversen</journal>
+    <date>5/11/2012</date>
+    <debit>738.32</debit>
+    <description>rest oktober</description>
+  </action>
+  <action id="124">
+    <nr>DIV124</nr>
+    <journal>Diversen</journal>
+    <date>5/11/2012</date>
+    <credit>106.57</credit>
+    <description>apotheek</description>
+  </action>
+  <action id="125">
+    <nr>DIV125</nr>
+    <journal>Diversen</journal>
+    <date>5/11/2012</date>
+    <debit>100.00</debit>
+    <description>null</description>
+  </action>
+  <action id="126">
+    <nr>DIV126</nr>
+    <journal>Diversen</journal>
+    <date>6/11/2012</date>
+    <credit>920.00</credit>
+    <description>afhaling voor Thailand: begrafenis oma</description>
+  </action>
+  <action id="127">
+    <nr>DIV127</nr>
+    <journal>Diversen</journal>
+    <date>30/11/2012</date>
+    <debit>1200.00</debit>
+    <description>terugbetaling lening begrafenis</description>
+  </action>
+  <action id="128">
+    <nr>DIV128</nr>
+    <journal>Diversen</journal>
+    <date>30/11/2012</date>
+    <credit>1211.85</credit>
+    <description>null</description>
+  </action>
+  <action id="129">
+    <nr>DIV129</nr>
+    <journal>Diversen</journal>
+    <date>3/12/2012</date>
+    <debit>267.75</debit>
+    <description>rest november</description>
+  </action>
+  <action id="130">
+    <nr>DIV130</nr>
+    <journal>Diversen</journal>
+    <date>6/12/2012</date>
+    <credit>179.00</credit>
+    <description>Zara</description>
+  </action>
+  <action id="131">
+    <nr>DIV131</nr>
+    <journal>Diversen</journal>
+    <date>10/12/2012</date>
+    <credit>40.00</credit>
+    <description>ATM + Proton</description>
+  </action>
+  <action id="131">
+    <nr>DIV131</nr>
+    <journal>Diversen</journal>
+    <date>10/12/2012</date>
+    <credit>40.00</credit>
+    <description>ATM + Proton</description>
+  </action>
+  <action id="132">
+    <nr>DIV132</nr>
+    <journal>Diversen</journal>
+    <date>11/12/2012</date>
+    <credit>5.20</credit>
+    <description>Beligir</description>
+  </action>
+  <action id="133">
+    <nr>DIV133</nr>
+    <journal>Diversen</journal>
+    <date>31/12/2012</date>
+    <debit>0.96</debit>
+    <description>null</description>
+  </action>
+  <action id="134">
+    <nr>DIV134</nr>
+    <journal>Diversen</journal>
+    <date>4/1/2013</date>
+    <debit>139.20</debit>
+    <description>Interim (Daoust) 28/12/2012 - 30/12/2012  </description>
+  </action>
+  <action id="135">
+    <nr>DIV135</nr>
+    <journal>Diversen</journal>
+    <date>6/1/2013</date>
+    <credit>29.56</credit>
+    <description>Voipbuster</description>
+  </action>
+  <action id="136">
+    <nr>DIV136</nr>
+    <journal>Diversen</journal>
+    <date>7/1/2013</date>
+    <credit>100.00</credit>
+    <description>afhaling in kantoor</description>
+  </action>
+  <action id="137">
+    <nr>DIV137</nr>
+    <journal>Diversen</journal>
+    <date>10/1/2013</date>
+    <debit>148.29</debit>
+    <description>Interim (Daoust) 3/1/2013 - 4/1/2013</description>
+  </action>
+  <action id="138">
+    <nr>DIV138</nr>
+    <journal>Diversen</journal>
+    <date>15/1/2013</date>
+    <credit>58.31</credit>
+    <description>Voipbuster</description>
+  </action>
+  <action id="139">
+    <nr>DIV139</nr>
+    <journal>Diversen</journal>
+    <date>15/1/2013</date>
+    <credit>100.00</credit>
+    <description>afhaling in kantoor</description>
+  </action>
+  <action id="140">
+    <nr>DIV140</nr>
+    <journal>Diversen</journal>
+    <date>8/2/2013</date>
+    <debit>30.53</debit>
+    <description>Interim (Daoust) 2/2/2013</description>
+  </action>
+  <action id="141">
+    <nr>DIV141</nr>
+    <journal>Diversen</journal>
+    <date>8/2/2013</date>
+    <credit>21.90</credit>
+    <description>Brico</description>
+  </action>
+  <action id="142">
+    <nr>DIV142</nr>
+    <journal>Diversen</journal>
+    <date>14/2/2013</date>
+    <debit>19.68</debit>
+    <description>null</description>
+  </action>
+  <action id="143">
+    <nr>DIV143</nr>
+    <journal>Diversen</journal>
+    <date>2/4/2013</date>
+    <credit>17.07</credit>
+    <description>null</description>
+  </action>
+  <action id="144">
+    <nr>DIV144</nr>
+    <journal>Diversen</journal>
+    <date>6/6/2013</date>
+    <debit>233.60</debit>
+    <description>Interim (Daoust) 27/5/2013 - 30/5/2013</description>
+  </action>
+  <action id="145">
+    <nr>DIV145</nr>
+    <journal>Diversen</journal>
+    <date>11/6/2013</date>
+    <credit>176.00</credit>
+    <description>Danneels</description>
+  </action>
+  <action id="146">
+    <nr>DIV146</nr>
+    <journal>Diversen</journal>
+    <date>17/6/2013</date>
+    <debit>200.00</debit>
+    <description>voorschot juni</description>
+  </action>
+  <action id="147">
+    <nr>DIV147</nr>
+    <journal>Diversen</journal>
+    <date>19/6/2013</date>
+    <credit>250.00</credit>
+    <description>null</description>
+  </action>
+  <action id="148">
+    <nr>DIV148</nr>
+    <journal>Diversen</journal>
+    <date>26/6/2013</date>
+    <debit>1777.61</debit>
+    <description>null</description>
+  </action>
+  <action id="149">
+    <nr>DIV149</nr>
+    <journal>Diversen</journal>
+    <date>28/6/2013</date>
+    <debit>1167.60</debit>
+    <description>rest juni</description>
+  </action>
+  <action id="150">
+    <nr>DIV150</nr>
+    <journal>Diversen</journal>
+    <date>28/6/2013</date>
+    <credit>1000.00</credit>
+    <description>afhaling in kantoor</description>
+  </action>
+  <action id="151">
+    <nr>DIV151</nr>
+    <journal>Diversen</journal>
+    <date>28/6/2013</date>
+    <credit>112.50</credit>
+    <description>Leenbakker</description>
+  </action>
+  <action id="152">
+    <nr>DIV152</nr>
+    <journal>Diversen</journal>
+    <date>28/6/2013</date>
+    <credit>39.85</credit>
+    <description>Decathlon</description>
+  </action>
+  <action id="153">
+    <nr>DIV153</nr>
+    <journal>Diversen</journal>
+    <date>28/6/2013</date>
+    <credit>45.53</credit>
+    <description>Thai shop</description>
+  </action>
+  <action id="154">
+    <nr>DIV154</nr>
+    <journal>Diversen</journal>
+    <date>29/6/2013</date>
+    <credit>115.81</credit>
+    <description>Carrefour</description>
+  </action>
+  <action id="155">
+    <nr>DIV155</nr>
+    <journal>Diversen</journal>
+    <date>1/7/2013</date>
+    <credit>17.07</credit>
+    <description>null</description>
+  </action>
+  <action id="156">
+    <nr>DIV156</nr>
+    <journal>Diversen</journal>
+    <date>9/7/2013</date>
+    <credit>1000.00</credit>
+    <description>afhaling in kantoor</description>
+  </action>
+  <action id="157">
+    <nr>DIV157</nr>
+    <journal>Diversen</journal>
+    <date>16/7/2013</date>
+    <debit>250.00</debit>
+    <description>voorschot juli</description>
+  </action>
+  <action id="158">
+    <nr>DIV158</nr>
+    <journal>Diversen</journal>
+    <date>17/7/2013</date>
+    <debit>18.15</debit>
+    <description>null</description>
+  </action>
+  <action id="159">
+    <nr>DIV159</nr>
+    <journal>Diversen</journal>
+    <date>18/7/2013</date>
+    <credit>800.00</credit>
+    <description>null</description>
+  </action>
+  <action id="160">
+    <nr>DIV160</nr>
+    <journal>Diversen</journal>
+    <date>30/7/2013</date>
+    <debit>1160.11</debit>
+    <description>rest juli</description>
+  </action>
+  <action id="161">
+    <nr>DIV161</nr>
+    <journal>Diversen</journal>
+    <date>1/8/2013</date>
+    <credit>1109.20</credit>
+    <description>Dumpi</description>
+  </action>
+  <action id="162">
+    <nr>DIV162</nr>
+    <journal>Diversen</journal>
+    <date>4/8/2013</date>
+    <credit>50.00</credit>
+    <description>null</description>
+  </action>
+  <action id="163">
+    <nr>DIV163</nr>
+    <journal>Diversen</journal>
+    <date>14/8/2013</date>
+    <credit>33.41</credit>
+    <description>Carrefour</description>
+  </action>
+  <action id="164">
+    <nr>DIV164</nr>
+    <journal>Diversen</journal>
+    <date>15/8/2013</date>
+    <credit>50.00</credit>
+    <description>Texaco Drongen: op weg naar Schiphol</description>
+  </action>
+  <action id="165">
+    <nr>DIV165</nr>
+    <journal>Diversen</journal>
+    <date>16/8/2013</date>
+    <debit>250.00</debit>
+    <description>voorschot augustus</description>
+  </action>
+</Account>

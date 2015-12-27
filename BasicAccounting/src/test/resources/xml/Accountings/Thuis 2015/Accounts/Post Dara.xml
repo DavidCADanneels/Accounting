@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Post Dara</name>
+  <type>Asset</type>
+  <Movement>
+    <credit>5.70</credit>
+    <date>1/1/2015</date>
+    <id>5803</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>3</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>1/1/2015</date>
+    <debit>882.74</debit>
+    <description>Beginbalans</description>
+    <id>5811</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>4</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <credit>400.00</credit>
+    <date>7/1/2015</date>
+    <id>5886</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>31</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <credit>400.00</credit>
+    <date>23/1/2015</date>
+    <id>5998</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>83</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <credit>62.00</credit>
+    <date>16/3/2015</date>
+    <id>6252</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>191</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+</Account>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>499.01</defaultAmount>
+  <name>Velux</name>
+  <type>Cost</type>
+  <Movement>
+    <date>17/5/2014</date>
+    <debit>499.01</debit>
+    <description>Brico Plan-It</description>
+    <id>4475</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>418</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>
