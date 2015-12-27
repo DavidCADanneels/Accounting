@@ -59,13 +59,11 @@ public class Movement extends BusinessObject{
         } else {
             properties.put(CREDIT, amount.toString());
         }
-//        if(collection instanceof Account){
-            properties.put(JOURNAL_NAME,transaction.getJournal().getName());
-            properties.put(JOURNAL_ID,transaction.getId().toString());
-            properties.put(JOURNAL_ABBR,transaction.getJournal().getAbbreviation());
-            properties.put(DATE, Utils.toString(transaction.getDate()));
-            properties.put(DESCRIPTION, transaction.getDescription());
-//        }
+        properties.put(JOURNAL_NAME,transaction.getJournal().getName());
+        properties.put(JOURNAL_ID,transaction.getId().toString());
+        properties.put(JOURNAL_ABBR,transaction.getJournal().getAbbreviation());
+        properties.put(DATE, Utils.toString(transaction.getDate()));
+        properties.put(DESCRIPTION, transaction.getDescription());
         return properties;
     }
 
@@ -111,7 +109,7 @@ public class Movement extends BusinessObject{
         this.amount = amount;
     }
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 

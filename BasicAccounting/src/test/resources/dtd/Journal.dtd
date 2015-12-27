@@ -1,7 +1,6 @@
 <!ELEMENT Journal (abbr,name,type,Transaction*,CurrentObject)>
 <!ELEMENT Transaction (date,description?,id,Booking*)>
-<!ELEMENT Booking ((Account|Mortgage),Movement)>
-<!ELEMENT Movement ((debit|credit),id)>
+<!ELEMENT Booking (Account,(debit|credit),id)>
 <!ELEMENT abbr (#PCDATA)>
 <!ELEMENT name (#PCDATA)>
 <!ELEMENT type (#PCDATA)>

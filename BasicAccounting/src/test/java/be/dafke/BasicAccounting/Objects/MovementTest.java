@@ -25,7 +25,7 @@ public class MovementTest {
         int id = movement.getId();
 
         movement = new Movement(AMOUNT, false);
-        assertEquals(id+1,movement.getId());
+        assertEquals(id+1,movement.getId().intValue());
     }
 
     @Test

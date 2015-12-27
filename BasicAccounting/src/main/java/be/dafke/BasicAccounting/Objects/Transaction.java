@@ -45,7 +45,7 @@ public class Transaction extends BusinessCollection<Booking> implements Business
 
     @Override
     public boolean writeGrandChildren(){
-        return true;
+        return false;
     }
 
     @Override

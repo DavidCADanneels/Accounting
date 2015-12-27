@@ -16,18 +16,21 @@ import java.util.TreeSet;
  */
 public class Booking extends BusinessCollection<Movement> implements BusinessCollectionDependent<Account>{
     private static final String ACCOUNT = "Account";
+    public static final String ID = "id";
+    public static final String DEBIT = "debit";
+    public static final String CREDIT = "credit";
     private Account account;
     private ArrayList<Movement> movements;
 	private Transaction transaction;
     private BusinessCollection<Account> businessCollection;
 
     public Booking(Account account) {
+        super();
 		this.account = account;
-        movements = new ArrayList<Movement>();
     }
+
     public Booking(){
         movements = new ArrayList<Movement>();
-//        account = businessCollection.getBusinessObject(name);
 	}
 
     @Override
@@ -37,7 +40,7 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
 
     @Override
     public boolean writeGrandChildren(){
-        return true;
+        return false;
     }
 
     @Override
@@ -59,15 +62,26 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
     public TreeMap<String,String> getInitProperties() {
         TreeMap<String,String> properties = new TreeMap<String, String>();
         properties.put(ACCOUNT, account.getName());
+        properties.put(ID, movements.get(0).getId().toString());
+        if(movements.get(0).isDebit()){
+            properties.put(DEBIT, movements.get(0).getAmount().toString());
+        } else {
+            properties.put(CREDIT, movements.get(0).getAmount().toString());
+        }
         return properties;
     }
 
+    // FOR READING
+    // Define keys to read from xml, required to initialize Object attributes
     public Set<String> getInitKeySet(){
         Set<String> keySet = new TreeSet<String>();
         keySet.add(ACCOUNT);
+        // TODO: wait to update read method
+//        keySet.add(DEBIT);
+//        keySet.add(CREDIT);
         return keySet;
     }
-    //
+    // Set initial values for each key in InitKeySet, while reading xml
     public void setInitProperties(TreeMap<String, String> properties){
         account = businessCollection.getBusinessObject(properties.get(ACCOUNT));
     }
@@ -78,7 +92,6 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
 		return transaction;
 	}
 
-    @Override
     public Movement addBusinessObject(Movement movement){
         movement.setBooking(this);
         //movements.clear(); // clear to ensure only Booking contains only 1 Movement
