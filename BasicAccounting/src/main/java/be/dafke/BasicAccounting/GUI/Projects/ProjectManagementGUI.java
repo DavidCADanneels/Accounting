@@ -1,4 +1,4 @@
-package be.dafke.Project.GUI;
+package be.dafke.BasicAccounting.GUI.Projects;
 
 import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
@@ -7,8 +7,8 @@ import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.Project.Objects.Project;
-import be.dafke.Project.Objects.Projects;
+import be.dafke.BasicAccounting.Objects.Project;
+import be.dafke.BasicAccounting.Objects.Projects;
 import be.dafke.Utils.AlphabeticListModel;
 import be.dafke.Utils.PrefixFilterPanel;
 

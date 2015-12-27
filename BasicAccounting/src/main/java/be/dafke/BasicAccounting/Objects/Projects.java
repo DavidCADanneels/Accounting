@@ -3,9 +3,8 @@
  * and open the template in the editor.
  */
 
-package be.dafke.Project.Objects;
+package be.dafke.BasicAccounting.Objects;
 
-import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;

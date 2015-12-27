@@ -1,6 +1,5 @@
-package be.dafke.Project.Objects;
+package be.dafke.BasicAccounting.Objects;
 
-import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.ObjectModel.BusinessObject;
 
 import java.util.Collection;

@@ -1,4 +1,4 @@
-package be.dafke.Project.Actions;
+package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
@@ -6,8 +6,8 @@ import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
-import be.dafke.Project.GUI.ProjectManagementGUI;
-import be.dafke.Project.Objects.Projects;
+import be.dafke.BasicAccounting.GUI.Projects.ProjectManagementGUI;
+import be.dafke.BasicAccounting.Objects.Projects;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
