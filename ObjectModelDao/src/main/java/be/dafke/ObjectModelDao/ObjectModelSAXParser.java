@@ -80,7 +80,7 @@ public class ObjectModelSAXParser {
     }
 
     public static void writeCollection(BusinessObject businessObject, File parentFolder, int depth){
-        System.out.println(Encode.forXmlContent("Test & deploy"));
+//        System.out.println(Encode.forXmlContent("Test & deploy"));
         String businessObjectName = businessObject.getName();
         String businessObjectType = businessObject.getBusinessObjectType();
         parentFolder.mkdirs();

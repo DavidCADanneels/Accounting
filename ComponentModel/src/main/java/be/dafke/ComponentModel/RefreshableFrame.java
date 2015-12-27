@@ -8,7 +8,7 @@ import javax.swing.*;
  * @since 01/10/2010
  * @see RefreshableFrame#refresh() refresh()
  */
-public abstract class RefreshableFrame extends JFrame implements RefreshableComponent, DisposableComponent{
+public abstract class RefreshableFrame extends JFrame implements DisposableComponent{
 	/**
 	 * 
 	 */

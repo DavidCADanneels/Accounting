@@ -12,6 +12,7 @@ public class Accountings extends BusinessCollection<Accounting> {
     public static final String ACCOUNTINGS = "Accountings";
     public static final String ACCOUNTING = "Accounting";
     private final File xmlFolder;
+    private final File xslFolder;
     private final File htmlFolder;
 
     @Override
@@ -19,8 +20,9 @@ public class Accountings extends BusinessCollection<Accounting> {
         return ACCOUNTING;
     }
 
-    public Accountings(File xmlFolder, File htmlFolder){
+    public Accountings(File xmlFolder, File xslFolder, File htmlFolder){
         this.xmlFolder = xmlFolder;
+        this.xslFolder = xslFolder;
         this.htmlFolder = htmlFolder;
         setName(ACCOUNTINGS);
     }
@@ -31,6 +33,10 @@ public class Accountings extends BusinessCollection<Accounting> {
 
     public File getHtmlFolder(){
         return htmlFolder;
+    }
+
+    public File getXslFolder() {
+        return xslFolder;
     }
 
     @Override

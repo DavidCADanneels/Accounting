@@ -1,13 +1,16 @@
 package be.dafke.BasicAccounting.GUI.InputWindows;
 
-import be.dafke.BasicAccounting.Actions.NewAccountActionListener;
+import be.dafke.BasicAccounting.GUI.AccountManagement.NewAccountGUI;
 import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.ComponentModel.RefreshableDialog;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -20,16 +23,20 @@ public class AccountSelector extends RefreshableDialog implements ActionListener
 	private Account account;
 	private final JComboBox<Account> combo;
     private final DefaultComboBoxModel<Account> model;
-	private final Accounting accounting;
+	private final Accounts accounts;
 
-	public AccountSelector(Accounting accounting) {
+	public AccountSelector(final Accounts accounts, final AccountTypes accountTypes) {
         super("Select Account");
-        this.accounting = accounting;
+        this.accounts = accounts;
         model = new DefaultComboBoxModel<Account>();
 		combo = new JComboBox<Account>(model);
 		combo.addActionListener(this);
 		create = new JButton("Add account(s) ...");
-		create.addActionListener(new NewAccountActionListener(accounting));
+		create.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				new NewAccountGUI(accounts, accountTypes).setVisible(true);
+			}
+		});
 		ok = new JButton("Ok (Close popup)");
 		ok.addActionListener(this);
 		JPanel innerPanel = new JPanel(new BorderLayout());
@@ -57,7 +64,6 @@ public class AccountSelector extends RefreshableDialog implements ActionListener
 
     public void refresh() {
         model.removeAllElements();
-        Accounts accounts = accounting.getAccounts();
         for(Account account : accounts.getBusinessObjects()) {
             model.addElement(account);
         }

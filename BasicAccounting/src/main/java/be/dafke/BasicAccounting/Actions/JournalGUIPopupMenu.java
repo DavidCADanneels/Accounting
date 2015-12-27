@@ -2,14 +2,18 @@ package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.GUI.InputWindows.AccountSelector;
 import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.BasicAccounting.Objects.AccountTypes;
+import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.BasicAccounting.Objects.Booking;
+import be.dafke.BasicAccounting.Objects.Journals;
 import be.dafke.BasicAccounting.Objects.Movement;
 import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
 
-import javax.swing.*;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -22,11 +26,12 @@ import static java.util.ResourceBundle.getBundle;
 public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
     private final JMenuItem delete, edit, change, debitCredit, details;
     private final RefreshableTable<Booking> table;
-    private final Accountings accountings;
-    private final AccountDetailsActionListener accountDetailsActionListener;
+    private Journals journals;
+    private Accounts accounts;
+    private AccountTypes accountTypes;
 
-    public JournalGUIPopupMenu(RefreshableTable<Booking> table, Accountings accountings) {
-        this.accountings = accountings;
+    public JournalGUIPopupMenu(RefreshableTable<Booking> table, Journals journals, Accounts accounts, AccountTypes accountTypes) {
+        setAccounting(journals, accounts, accountTypes);
         this.table = table;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_AMOUNT"));
@@ -39,11 +44,20 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
         change.addActionListener(this);
         debitCredit.addActionListener(this);
         details.addActionListener(this);
-        accountDetailsActionListener = new AccountDetailsActionListener(accountings);
         add(delete);
         add(edit);
         add(change);
         add(debitCredit);
+    }
+
+    public void setAccounting(Accounting accounting){
+        setAccounting(accounting.getJournals(),accounting.getAccounts(),accounting.getAccountTypes());
+    }
+
+    public void setAccounting(Journals journals, Accounts accounts, AccountTypes accountTypes){
+        this.journals = journals;
+        this.accounts = accounts;
+        this.accountTypes = accountTypes;
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -62,7 +76,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
             //TODO: or JournalGUI.table should contain Movements iso Bookings
             Movement movement = booking.getBusinessObjects().get(0);
             boolean debit = movement.isDebit();
-            BigDecimal amount = AddBookingToTransactionActionListener.askAmount(transaction, account, debit);
+            BigDecimal amount = TransactionActions.askAmount(transaction, account, debit);
             if(amount != null){
                 // booking must be removed and re-added to Transaction to re-calculate the totals
                 transaction.removeBusinessObject(booking);
@@ -76,7 +90,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
             movement.setDebit(!movement.isDebit());
             transaction.addBusinessObject(booking);
         } else if (source == change) {
-            AccountSelector sel = new AccountSelector(accountings.getCurrentObject());
+            AccountSelector sel = new AccountSelector(accounts, accountTypes);
             ComponentMap.addRefreshableComponent(sel);
             sel.setVisible(true);
             Account account = sel.getSelection();
@@ -85,7 +99,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
             }
         } else if (source == details){
             Account account = booking.getAccount();
-            accountDetailsActionListener.showDetails(accountings.getCurrentObject(), account);
+            AccountActions.showDetails(account, journals);
         }
         ComponentMap.refreshAllFrames();
     }

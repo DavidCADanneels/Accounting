@@ -1,11 +1,16 @@
 package be.dafke.BasicAccounting.Actions;
 
+import be.dafke.BasicAccounting.Objects.Account;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Booking;
+import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.BasicAccounting.Objects.Journals;
+import be.dafke.BasicAccounting.Objects.Transaction;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
-import javax.swing.*;
+import javax.swing.JMenuItem;
+import javax.swing.JPopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,15 +23,13 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
     private final JMenuItem move, delete, edit, details;
     public enum Mode{ JOURNAL, ACCOUNT}
     private Mode mode;
-    private Accounting accounting;
     private RefreshableTable<Booking> gui;
-    private final AccountDetailsActionListener accountDetailsActionListener;
-    private final JournalDetailsActionListener journalDetailsActionListener;
+    private Journals journals;
 
-    public DetailsPopupMenu(Accounting accounting, RefreshableTable<Booking> gui, Mode mode) {
+    public DetailsPopupMenu(Journals journals, RefreshableTable<Booking> gui, Mode mode) {
         this.mode = mode;
         this.gui = gui;
-        this.accounting = accounting;
+        this.journals = journals;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         move = new JMenuItem(getBundle("Accounting").getString("MOVE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_TRANSACTION"));
@@ -40,28 +43,41 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
         move.addActionListener(this);
         edit.addActionListener(this);
         details.addActionListener(this);
-        delete.addActionListener(new DeleteTransactionActionListener(gui));
-        move.addActionListener(new MoveTransactionActionListener(accounting.getJournals(), gui));
-        edit.addActionListener(new EditTransactionActionListener(accounting.getJournals(), gui));
-        accountDetailsActionListener = new AccountDetailsActionListener(null);
-        journalDetailsActionListener = new JournalDetailsActionListener(null);
+
         add(delete);
         add(move);
         add(edit);
         add(details);
     }
 
+    public void setAccounting(Accounting accounting){
+        if (accounting==null){
+            journals = null;
+        } else {
+            journals = accounting.getJournals();
+        }
+    }
+
     public void actionPerformed(ActionEvent e) {
         setVisible(false);
         RefreshableTableFrame<Booking> newGui;
+        Booking booking = gui.getSelectedObject();
+        Transaction transaction = booking.getTransaction();
         if(e.getSource() == details){
-            Booking booking = gui.getSelectedObject();
             if(mode == Mode.JOURNAL) {
-                newGui = accountDetailsActionListener.showDetails(accounting, booking.getAccount());
+                Account account = booking.getAccount();
+                newGui = AccountActions.showDetails(account, journals);
             } else {
-                newGui = journalDetailsActionListener.showDetails(accounting, booking.getTransaction().getJournal());
+                Journal journal = transaction.getJournal();
+                newGui = JournalActions.showDetails(journal, journals);
             }
             newGui.selectObject(booking);
+        } else if (e.getSource() == move){
+            TransactionActions.moveTransaction(transaction, journals);
+        } else if (e.getSource() == edit){
+            TransactionActions.editTransaction(transaction, journals);
+        } else if (e.getSource() == delete){
+            TransactionActions.deleteTransaction(transaction);
         }
     }
 }

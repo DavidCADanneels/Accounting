@@ -23,7 +23,7 @@ public class Journal extends BusinessCollection<Transaction> implements Business
     private static final String TYPE = "type";
     protected static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
     private String abbreviation;
-    private final MultiValueMap<Calendar,Transaction> transactions;
+    private final MultiValueMap<Calendar,Transaction > transactions;
     private JournalType type;
     private Transaction currentTransaction = new Transaction();
     private BusinessTypeCollection businessTypeCollection;
@@ -113,8 +113,13 @@ public class Journal extends BusinessCollection<Transaction> implements Business
 		ArrayList<Booking> bookings = transaction.getBusinessObjects();
 		for(Booking booking : bookings) {
 			Account account = booking.getAccount();
-			account.unbook(date, booking.getBusinessObjects().get(0));
+			account.removeBusinessObject(booking.getBusinessObjects().get(0));
 		}
+        if (transaction instanceof MortgageTransaction){
+            MortgageTransaction mortgageTransaction = (MortgageTransaction) transaction;
+            Mortgage mortgage = mortgageTransaction.getMortgage();
+            mortgage.removeBusinessObject(mortgageTransaction);
+        }
 	}
 
 	public Transaction addBusinessObject(Transaction transaction) {
@@ -123,9 +128,16 @@ public class Journal extends BusinessCollection<Transaction> implements Business
 
         for(Booking booking : transaction.getBusinessObjects()) {
             Account account = booking.getAccount();
-            account.book(date, booking.getBusinessObjects().get(0));
+            account.addBusinessObject(booking.getBusinessObjects().get(0));
         }
         transactions.addValue(date, transaction);
+
+        if (transaction instanceof MortgageTransaction){
+            MortgageTransaction mortgageTransaction = (MortgageTransaction) transaction;
+            Mortgage mortgage = mortgageTransaction.getMortgage();
+            mortgage.addBusinessObject(mortgageTransaction);
+        }
+
         return transaction;
 	}
 

@@ -3,7 +3,7 @@
     <groupId>be.dafke</groupId>
     <artifactId>Accounting</artifactId>
     <packaging>pom</packaging>
-    <version>2.1</version>
+    <version>2.3</version>
     <modules>
         <module>FOP</module>
         <module>Utils</module>
@@ -11,11 +11,6 @@
         <module>ComponentModel</module>
         <module>ObjectModelDao</module>
         <module>BasicAccounting</module>
-        <module>BalancesExtension</module>
-        <module>ProjectExtension</module>
-        <module>MortgageExtension</module>
-        <module>CodaExtension</module>
-        <module>ApplicationLauncher</module>
     </modules>
 
     <dependencies>
@@ -59,10 +54,5 @@
           <artifactId>surefire-junit47</artifactId>
           <version>2.16</version>
       </dependency>
-      <!--<dependency>-->
-          <!--<groupId>ObjectModel</groupId>-->
-          <!--<artifactId>ObjectModel</artifactId>-->
-          <!--<version>2.1</version>-->
-      <!--</dependency>-->
   </dependencies>
 </project>

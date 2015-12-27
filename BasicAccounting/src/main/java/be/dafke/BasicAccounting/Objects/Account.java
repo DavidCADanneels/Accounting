@@ -99,7 +99,7 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
         return movements.isEmpty();
     }
 
-    public void book(Calendar date, Movement movement) {
+    protected void book(Calendar date, Movement movement) {
         movements.addValue(date, movement);
 		if (movement.isDebit()) {
             debitTotal = debitTotal.add(movement.getAmount());
@@ -110,7 +110,7 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
 		}
 	}
 
-    public void unbook(Calendar date, Movement movement) {
+    protected void unbook(Calendar date, Movement movement) {
 		if (movement.isDebit()) {
 			debitTotal = debitTotal.subtract(movement.getAmount());
 			debitTotal = debitTotal.setScale(2);
@@ -119,6 +119,19 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
 			creditTotal = creditTotal.setScale(2);
 		}
         movements.removeValue(date, movement);
+    }
+
+    @Override
+    public Movement addBusinessObject(Movement movement){
+        Calendar date = movement.getDate();
+        book(date,movement);
+        return movement;
+    }
+
+    @Override
+    public void removeBusinessObject(Movement movement){
+        Calendar date = movement.getDate();
+        unbook(date,movement);
     }
 
     @Override

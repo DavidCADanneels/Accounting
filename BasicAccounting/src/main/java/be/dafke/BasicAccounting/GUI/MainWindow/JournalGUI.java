@@ -1,19 +1,31 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.Actions.BookTransactionActionListener;
+import be.dafke.BasicAccounting.Actions.DetailsPopupMenu;
 import be.dafke.BasicAccounting.Actions.JournalGUIPopupMenu;
-import be.dafke.BasicAccounting.Actions.PopupActivator;
+import be.dafke.BasicAccounting.Actions.PopupForTableActivator;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
+import be.dafke.BasicAccounting.GUI.Details.JournalDetailsDataModel;
+import be.dafke.BasicAccounting.Objects.AccountTypes;
 import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.BasicAccounting.Objects.Accounts;
 import be.dafke.BasicAccounting.Objects.Booking;
 import be.dafke.BasicAccounting.Objects.Journal;
+import be.dafke.BasicAccounting.Objects.Journals;
 import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Utils.Utils;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
@@ -26,37 +38,49 @@ import java.util.Calendar;
 import static java.util.ResourceBundle.getBundle;
 
 public class JournalGUI extends AccountingPanel implements ActionListener, FocusListener {
-	/**
+    /**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JournalDataModel journalDataModel;
 	private final JTextField debet, credit, dag, maand, jaar, bewijs, ident;
-	private final JButton singleBook, save, clear;
-    private final JPopupMenu popup;
-    private final RefreshableTable<Booking> table;
-	private BigDecimal debettotaal, credittotaal;
+    private final JButton singleBook, save, clear;
+    private final JournalDataModel journalDataModel;
+    private final JournalDetailsDataModel journalDetailsDataModel;
+    private final RefreshableTable<Booking> inputTable, viewTable;
+    private final JournalGUIPopupMenu inputPopup;
+    private final DetailsPopupMenu viewPopup;
+    private BigDecimal debettotaal, credittotaal;
     private Journal journal;
-    private Accountings accountings;
 
-    public JournalGUI(Accountings accountings) {
-        this.accountings = accountings;
+    public JournalGUI(Journals journals, Accounts accounts, AccountTypes accountTypes) {
+        journal = journals.getCurrentObject();
         debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
 		setLayout(new BorderLayout());
 		journalDataModel = new JournalDataModel();
-		table = new RefreshableTable<Booking>(journalDataModel);
-		table.setPreferredScrollableViewportSize(new Dimension(800, 200));
-		JScrollPane scrollPane = new JScrollPane(table);
-		add(scrollPane, BorderLayout.CENTER);
+        journalDetailsDataModel = new JournalDetailsDataModel(journal);
+        viewTable = new RefreshableTable<Booking>(journalDetailsDataModel);
+		viewTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
+        viewPopup = new DetailsPopupMenu(journals, viewTable, DetailsPopupMenu.Mode.JOURNAL);
+        viewTable.addMouseListener(new PopupForTableActivator(viewPopup, viewTable, 0,2,3,4));
 
-        popup = new JournalGUIPopupMenu(table, accountings);
-        table.addMouseListener(new PopupActivator(popup,table));
+        inputTable = new RefreshableTable<Booking>(journalDataModel);
+		inputTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
+		JScrollPane scrollPane1 = new JScrollPane(viewTable);
+		JScrollPane scrollPane2 = new JScrollPane(inputTable);
+        JPanel center = new JPanel();
+        center.setLayout(new BoxLayout(center,BoxLayout.Y_AXIS));
+        center.add(scrollPane1);
+        center.add(scrollPane2);
+		add(center, BorderLayout.CENTER);
 
-        scrollPane.addMouseListener(new MouseAdapter() {
+        inputPopup = new JournalGUIPopupMenu(inputTable, journals, accounts, accountTypes);
+        inputTable.addMouseListener(new PopupForTableActivator(inputPopup, inputTable));
+
+        scrollPane2.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
-               popup.setVisible(false);
+               inputPopup.setVisible(false);
             }
         });
 
@@ -71,8 +95,8 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 		bewijs = new JTextField(30);
         bewijs.addFocusListener(this);
 
-		singleBook = new JButton(getBundle("Accounting").getString("OK"));
-		singleBook.addActionListener(new BookTransactionActionListener(this.accountings, this));
+        singleBook = new JButton(getBundle("Accounting").getString("OK"));
+		singleBook.addActionListener(this);
         save = new JButton(getBundle("Accounting").getString("SAVE"));
         save.addActionListener(this);
         clear = new JButton(getBundle("Accounting").getString("CLEAR_PANEL"));
@@ -165,11 +189,14 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     }
 
     public void setAccounting(Accounting accounting){
+        inputPopup.setAccounting(accounting);
+        viewPopup.setAccounting(accounting);
         if(accounting==null || accounting.getJournals()==null){
             journal = null;
         } else {
             journal = accounting.getJournals().getCurrentObject();
         }
+        journalDetailsDataModel.setJournal(journal);
         if(journal==null){
             journalDataModel.setTransaction(null);
         } else {
@@ -195,6 +222,8 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
             Transaction transaction = journal.getCurrentObject();
             journalDataModel.setTransaction(transaction);
             journalDataModel.fireTableDataChanged();
+            journalDetailsDataModel.setJournal(journal);
+            journalDetailsDataModel.fireTableDataChanged();
             if(transaction!=null){
                 debettotaal = transaction.getDebetTotaal();
                 credittotaal = transaction.getCreditTotaal();
@@ -206,7 +235,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
                 jaar.setEnabled(true);
             }
             identification = journal.getAbbreviation() + " " + journal.getId();
-            okEnabled = transaction!=null && !transaction.getBusinessObjects().isEmpty() && debettotaal.compareTo(credittotaal)==0 && debettotaal.compareTo(BigDecimal.ZERO)!=0;
+            okEnabled = transaction!=null && transaction.isBookable();
             clearEnabled = transaction!=null && !transaction.getBusinessObjects().isEmpty();
         }
         ident.setText(identification);
@@ -224,6 +253,13 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 			clear();
 		} else if (e.getSource() == save) {
             saveTransaction();
+        } else if (e.getSource() == singleBook){
+            Transaction transaction = saveTransaction();
+            if(journal!=null && transaction!=null && transaction.isBookable()){
+                journal.addBusinessObject(transaction);
+                clear();
+                ComponentMap.refreshAllFrames();
+            }
         }
 	}
 

@@ -5,6 +5,7 @@ import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -15,14 +16,14 @@ import java.util.TreeMap;
  */
 public class Movement extends BusinessObject{
     private static int count = 0;
-    private static final String JOURNAL_NAME = "journalName";
-    private static final String DATE = "date";
-    private static final String DEBIT = "debit";
-    private static final String CREDIT = "credit";
-    private static final String DESCRIPTION = "description";
-    private static final String JOURNAL_ID = "journalId";
-    private static final String JOURNAL_ABBR = "journalAbbr";
-    private static final String ID = "id";
+    public static final String JOURNAL_NAME = "journalName";
+    public static final String DATE = "date";
+    public static final String DEBIT = "debit";
+    public static final String CREDIT = "credit";
+    public static final String DESCRIPTION = "description";
+    public static final String JOURNAL_ID = "journalId";
+    public static final String JOURNAL_ABBR = "journalAbbr";
+    public static final String ID = "id";
     private BigDecimal amount;
     private boolean debit;
     private Booking booking;
@@ -113,5 +114,9 @@ public class Movement extends BusinessObject{
 
     public int getId() {
         return id;
+    }
+
+    public Calendar getDate() {
+        return booking.getTransaction().getDate();
     }
 }

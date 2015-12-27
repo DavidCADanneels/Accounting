@@ -6,5 +6,5 @@ package be.dafke.ComponentModel;
  * Time: 6:07
  */
 public interface DisposableComponent extends RefreshableComponent{
-    public void dispose();
+    void dispose();
 }

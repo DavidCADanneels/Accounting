@@ -26,8 +26,6 @@ public class AccountingGUIFrame extends RefreshableFrame {
 		super(getBundle("Accounting").getString("ACCOUNTING"));
 		this.accountings = accountings;
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-
-
     }
 
     public void setContentPanel(AccountingMultiPanel contentPanel){

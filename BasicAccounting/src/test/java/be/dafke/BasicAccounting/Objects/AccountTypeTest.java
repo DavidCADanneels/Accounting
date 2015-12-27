@@ -32,7 +32,7 @@ public class AccountTypeTest {
         AccountTypes accountTypes = new AccountTypes();
         accountTypes.getBusinessObjects();
         ArrayList<AccountType> businessObjects = accountTypes.getBusinessObjects();
-        assertEquals(7, businessObjects.size());
+        assertEquals(6, businessObjects.size());
     }
 
 
@@ -52,6 +52,7 @@ public class AccountTypeTest {
         assertTrue(names.contains(AccountTypes.DEBIT));
         assertTrue(names.contains(AccountTypes.LIABILITY));
         assertTrue(names.contains(AccountTypes.REVENUE));
-        assertTrue(names.contains(AccountTypes.MORTGAGE));
+        // FIXME: temp. removed Mortgages from AccountTypes
+//        assertTrue(names.contains(AccountTypes.MORTGAGE));
     }
 }

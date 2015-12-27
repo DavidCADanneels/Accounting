@@ -1,6 +1,11 @@
 package be.dafke.BasicAccounting;
 
+import be.dafke.BasicAccounting.Actions.BalancesMenu;
+import be.dafke.BasicAccounting.Actions.CodaMenu;
+import be.dafke.BasicAccounting.Actions.MorgagesMenu;
+import be.dafke.BasicAccounting.Actions.ProjectsMenu;
 import be.dafke.BasicAccounting.Actions.SaveAllActionListener;
+import be.dafke.BasicAccounting.Dao.MortgagesSAXParser;
 import be.dafke.BasicAccounting.GUI.AccountingMultiPanel;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingGUIFrame;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
@@ -9,19 +14,24 @@ import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
 import be.dafke.BasicAccounting.Objects.Accounting;
 import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.BasicAccounting.Objects.Mortgage;
+import be.dafke.BasicAccounting.Objects.Mortgages;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModelDao.ObjectModelSAXParser;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JOptionPane;
+import java.awt.BorderLayout;
 import java.io.File;
-import java.util.List;
 
 public class BasicAccountingMain {
 
     private static final String MAIN = "MainPanel";
+    public static final String MORTGAGES = "Mortgages";
     protected static Accountings accountings;
     protected static File xmlFolder;
+    protected static File xslFolder;
     protected static File htmlFolder;
     protected static AccountingMenuBar menuBar;
     protected static AccountingMultiPanel contentPanel;
@@ -36,18 +46,25 @@ public class BasicAccountingMain {
 
 
 	public static void main(String[] args) {
-        startReadingXmlFile();
+        readXmlData();
         createBasicComponents();
-
-        continueReadingXmlFile();
+        createMenu();
         composeContentPanel();
         composeFrames();
         launch();
     }
 
-    protected static void startReadingXmlFile() {
+    protected static void createMenu() {
+        menuBar = new AccountingMenuBar(accountings);
+        menuBar.add(new BalancesMenu(accountings, menuBar));
+        menuBar.add(new MorgagesMenu(accountings, menuBar));
+        menuBar.add(new ProjectsMenu(accountings, menuBar));
+        menuBar.add(new CodaMenu(accountings, menuBar));
+    }
+
+    protected static void readXmlData() {
         setXmlFolder();
-        accountings = new Accountings(xmlFolder, htmlFolder);
+        accountings = new Accountings(xmlFolder, xslFolder, htmlFolder);
         if(!xmlFolder.exists()){
             xmlFolder.mkdirs();
         }
@@ -59,27 +76,24 @@ public class BasicAccountingMain {
         if(file.exists()){
             ObjectModelSAXParser.readCollection(accountings, false, xmlFolder);
         }
-    }
 
-    protected static void continueReadingXmlFile(){
-        File subFolder = new File(xmlFolder, Accountings.ACCOUNTINGS);
         for(Accounting accounting : accountings.getBusinessObjects()){
             ObjectModelSAXParser.readCollection(accounting, true, subFolder);
-        }
 
-        for(Accounting accounting : accountings.getBusinessObjects()){
-            List<AccountingExtension> extensions = accounting.getExtensions();
-            for(AccountingExtension extension : extensions){
-                extension.extendReadCollection(accounting,xmlFolder);
+            Mortgages mortgages = accounting.getMortgages();
+            File rootFolder = new File(subFolder, accounting.getName());
+            File mortgagesFolder = new File(rootFolder, MORTGAGES);
+            for(Mortgage mortgage : mortgages.getBusinessObjects()){
+                MortgagesSAXParser.readCollection(mortgage, new File(mortgagesFolder, mortgage.getName() + ".xml"));
             }
         }
     }
 
     protected static void createBasicComponents(){
-        journalGUI = new JournalGUI(accountings);
-        accountsGUI = new AccountsGUI(accountings);
-        journalsGUI = new JournalsGUI(accountings);
-        menuBar = new AccountingMenuBar(accountings);
+        Accounting accounting = accountings.getCurrentObject();
+        journalGUI = new JournalGUI(accounting.getJournals(), accounting.getAccounts(), accounting.getAccountTypes());
+        accountsGUI = new AccountsGUI(accounting.getAccounts(), accounting.getAccountTypes(),accounting.getJournals());
+        journalsGUI = new JournalsGUI(accounting.getJournals(), accounting.getJournalTypes(), accounting.getAccountTypes());
         saveButton = new JButton("Save all");
         saveButton.addActionListener(new SaveAllActionListener(accountings));
     }
@@ -122,14 +136,15 @@ public class BasicAccountingMain {
         }
 
         if(mode == Mode.TEST) {
-            xmlFolder = new File("BasicAccounting/src/main/resources/xml");
-            htmlFolder = new File("BasicAccounting/src/main/resources/html");
+            xmlFolder = new File("BasicAccounting/src/test/resources/xml");
+            xslFolder = new File("BasicAccounting/src/test/resources/xsl");
+            htmlFolder = new File("BasicAccounting/src/test/resources/html");
         } else {// if (mode == Mode.PROD) {
 //            File userHome = new File(System.getProperty("user.home"));
-            File userHome = new File("data");
-            File parentFolder = new File(userHome, Accountings.ACCOUNTING);
+            File parentFolder = new File("data");
             xmlFolder = new File(parentFolder, "xml");
-            htmlFolder = new File(userHome, "AccountingHTML");
+            xslFolder = new File(parentFolder, "xsl");
+            htmlFolder = new File(parentFolder, "html");
         }
         System.out.println(mode.toString());
         System.out.println(xmlFolder);
