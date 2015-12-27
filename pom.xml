@@ -3,7 +3,7 @@
     <groupId>be.dafke</groupId>
     <artifactId>Accounting</artifactId>
     <packaging>pom</packaging>
-    <version>2.3</version>
+    <version>3.0</version>
     <modules>
         <module>FOP</module>
         <module>Utils</module>

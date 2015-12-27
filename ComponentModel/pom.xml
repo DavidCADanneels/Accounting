@@ -5,13 +5,13 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>be.dafke.Accounting</groupId>
     <artifactId>ComponentModel</artifactId>
-    <version>2.3</version>
+    <version>3.0</version>
     <!--<packaging></packaging>-->
 
     <parent>
         <groupId>be.dafke</groupId>
         <artifactId>Accounting</artifactId>
-        <version>2.3</version>
+        <version>3.0</version>
     </parent>
 
     <dependencies>
