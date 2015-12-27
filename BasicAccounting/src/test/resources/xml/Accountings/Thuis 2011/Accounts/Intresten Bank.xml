@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Intresten Bank</name>
+  <type>Cost</type>
+  <Movement>
+    <date>1/1/2011</date>
+    <debit>39.94</debit>
+    <id>8</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>2</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>1/1/2011</date>
+    <debit>42.70</debit>
+    <id>9</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>2</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>8.25</credit>
+    <date>7/1/2011</date>
+    <description>Terugbetaling kosten 2010</description>
+    <id>24</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>8</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>0.01</credit>
+    <date>31/12/2011</date>
+    <id>449</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>200</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>31/12/2011</date>
+    <debit>0.24</debit>
+    <id>517</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>31</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+</Account>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Tandarts</name>
+  <type>Cost</type>
+  <Movement>
+    <date>17/6/2015</date>
+    <debit>75.00</debit>
+    <id>6861</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>467</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>23/6/2015</date>
+    <debit>105.00</debit>
+    <id>6898</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>484</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>6/7/2015</date>
+    <debit>149.50</debit>
+    <id>6993</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>525</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>13/7/2015</date>
+    <debit>149.50</debit>
+    <id>7049</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>548</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>10/11/2015</date>
+    <debit>52.76</debit>
+    <id>7775</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>885</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+</Account>

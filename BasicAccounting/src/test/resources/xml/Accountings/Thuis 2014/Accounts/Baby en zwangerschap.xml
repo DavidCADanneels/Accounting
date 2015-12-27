@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Baby en zwangerschap</name>
+  <type>Cost</type>
+  <Movement>
+    <date>2/1/2014</date>
+    <debit>27.00</debit>
+    <description>Baby 2000: steunbanden</description>
+    <id>3533</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>7</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>29/3/2014</date>
+    <debit>74.00</debit>
+    <description>babykleertjes, plaid en schoenen voor papa</description>
+    <id>4123</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>258</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>2/4/2014</date>
+    <debit>102.17</debit>
+    <description>afrekening DKV</description>
+    <id>4182</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>284</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Lening Pong</name>
+  <type>Credit</type>
+  <Movement>
+    <date>17/9/2013</date>
+    <debit>250.00</debit>
+    <id>2899</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>408</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>250.00</credit>
+    <date>31/12/2013</date>
+    <description>terugbetaald</description>
+    <id>3492</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>86</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+</Account>

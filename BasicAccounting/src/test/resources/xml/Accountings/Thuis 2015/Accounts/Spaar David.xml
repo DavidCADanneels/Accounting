@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Spaar David</name>
+  <type>Asset</type>
+  <Movement>
+    <date>1/1/2015</date>
+    <debit>0.07</debit>
+    <description>Beginbalans</description>
+    <id>5812</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>4</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>28/5/2015</date>
+    <debit>500.00</debit>
+    <id>6729</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>404</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <credit>200.00</credit>
+    <date>8/6/2015</date>
+    <id>6808</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>441</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <credit>300.00</credit>
+    <date>11/6/2015</date>
+    <id>6839</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>456</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+</Account>

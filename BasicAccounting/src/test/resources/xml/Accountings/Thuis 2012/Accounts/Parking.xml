@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Parking</name>
+  <type>Cost</type>
+  <Movement>
+    <date>6/11/2012</date>
+    <debit>2.70</debit>
+    <id>1517</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>418</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>24/11/2012</date>
+    <debit>1.20</debit>
+    <id>1562</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>434</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

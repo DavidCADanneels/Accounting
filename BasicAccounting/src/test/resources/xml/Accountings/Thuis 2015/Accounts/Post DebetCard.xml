@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Post DebetCard</name>
+  <type>Asset</type>
+  <Movement>
+    <date>7/1/2015</date>
+    <debit>10.00</debit>
+    <id>5885</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>31</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>9/3/2015</date>
+    <debit>390.00</debit>
+    <id>6206</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>171</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>12/3/2015</date>
+    <debit>200.00</debit>
+    <id>6227</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>180</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>14/3/2015</date>
+    <debit>50.00</debit>
+    <id>6235</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>183</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <credit>10.00</credit>
+    <date>18/3/2015</date>
+    <id>6261</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>195</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>1/7/2015</date>
+    <debit>151.59</debit>
+    <id>6940</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>504</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <date>8/10/2015</date>
+    <debit>316.70</debit>
+    <id>7564</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>788</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+</Account>

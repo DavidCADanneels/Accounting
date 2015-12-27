@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Viswinkel Sluis</name>
+  <type>Cost</type>
+  <Movement>
+    <date>31/1/2014</date>
+    <debit>33.24</debit>
+    <id>3746</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>91</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>2/5/2014</date>
+    <debit>47.03</debit>
+    <id>4355</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>365</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>16/6/2014</date>
+    <debit>86.86</debit>
+    <id>4672</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>508</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>23/6/2014</date>
+    <debit>8.66</debit>
+    <id>4724</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>532</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>29/8/2014</date>
+    <debit>74.50</debit>
+    <id>5125</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>710</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>3/9/2014</date>
+    <debit>23.44</debit>
+    <id>5154</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>724</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>4/12/2014</date>
+    <debit>104.91</debit>
+    <id>5518</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>891</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

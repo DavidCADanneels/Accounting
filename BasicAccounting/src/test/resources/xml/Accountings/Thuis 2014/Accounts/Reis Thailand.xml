@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Reis Thailand</name>
+  <type>Cost</type>
+  <Movement>
+    <date>3/12/2014</date>
+    <debit>70.00</debit>
+    <description>Paspoorts kinderen</description>
+    <id>5502</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>885</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>4/12/2014</date>
+    <debit>923.55</debit>
+    <description>ticket Tay</description>
+    <id>5508</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>888</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>167.00</credit>
+    <date>13/12/2014</date>
+    <description>afrekening ma</description>
+    <id>5573</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>915</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>13/12/2014</date>
+    <debit>2500.00</debit>
+    <id>5574</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>916</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>23/12/2014</date>
+    <debit>92.70</debit>
+    <description>Paspoort en ID-Card David</description>
+    <id>5608</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>933</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

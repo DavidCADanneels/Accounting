@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../dtd/Account.dtd">
+<Account>
+  <name>Belastingen</name>
+  <action id="103">
+    <nr>DIV103</nr>
+    <journal>Diversen</journal>
+    <date>26/9/2012</date>
+    <credit>517.36</credit>
+    <description>KOHIERARTIKEL: 722752268 DIENST : 05.04/01  </description>
+  </action>
+</Account>

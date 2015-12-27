@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Telenet - Fout</name>
+  <type>Credit</type>
+  <Movement>
+    <date>20/1/2014</date>
+    <debit>161.65</debit>
+    <id>3661</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>58</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>161.65</credit>
+    <date>6/2/2014</date>
+    <id>3791</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>109</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

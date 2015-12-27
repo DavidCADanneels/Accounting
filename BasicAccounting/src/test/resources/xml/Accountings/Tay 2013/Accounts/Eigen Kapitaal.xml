@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../dtd/Account.dtd">
+<Account>
+  <name>Eigen Kapitaal</name>
+  <action id="1">
+    <nr>DIV1</nr>
+    <journal>Diversen</journal>
+    <date>17/10/2011</date>
+    <credit>539.55</credit>
+    <description>Beginbalans</description>
+  </action>
+</Account>

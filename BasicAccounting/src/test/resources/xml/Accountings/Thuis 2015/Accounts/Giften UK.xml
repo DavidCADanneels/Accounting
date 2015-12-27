@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Giften UK</name>
+  <type>Revenue</type>
+  <Movement>
+    <credit>200.22</credit>
+    <date>12/3/2015</date>
+    <id>6229</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>180</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <credit>155.09</credit>
+    <date>1/7/2015</date>
+    <id>6942</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>504</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <credit>197.71</credit>
+    <date>1/10/2015</date>
+    <id>7495</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>757</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <credit>191.42</credit>
+    <date>8/10/2015</date>
+    <id>7565</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>788</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <credit>195.02</credit>
+    <date>4/11/2015</date>
+    <id>7741</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>870</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+  <Movement>
+    <credit>107.55</credit>
+    <date>20/11/2015</date>
+    <id>7826</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>908</journalId>
+    <journalName>Family</journalName>
+  </Movement>
+</Account>

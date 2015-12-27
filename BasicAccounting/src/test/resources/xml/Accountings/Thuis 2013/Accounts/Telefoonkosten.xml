@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Telefoonkosten</name>
+  <type>Cost</type>
+  <Movement>
+    <date>29/12/2013</date>
+    <debit>116.61</debit>
+    <description>VoipBuster 100 euro belwaarde</description>
+    <id>3239</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>571</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

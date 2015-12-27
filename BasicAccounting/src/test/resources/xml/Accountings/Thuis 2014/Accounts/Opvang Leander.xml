@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Opvang Leander</name>
+  <type>Cost</type>
+  <Movement>
+    <date>16/12/2014</date>
+    <debit>29.60</debit>
+    <id>5586</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>922</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

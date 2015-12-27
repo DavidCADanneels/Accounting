@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Zara</name>
+  <type>Cost</type>
+  <Movement>
+    <date>10/1/2015</date>
+    <debit>32.98</debit>
+    <id>5891</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>36</journalId>
+    <journalName>Family</journalName>
+    <journalUrl>Family</journalUrl>
+  </Movement>
+  <Movement>
+    <date>10/1/2015</date>
+    <debit>9.99</debit>
+    <id>5895</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>36</journalId>
+    <journalName>Family</journalName>
+    <journalUrl>Family</journalUrl>
+  </Movement>
+  <Movement>
+    <credit>32.98</credit>
+    <date>10/1/2015</date>
+    <id>5901</id>
+    <journalAbbr>FAM</journalAbbr>
+    <journalId>38</journalId>
+    <journalName>Family</journalName>
+    <journalUrl>Family</journalUrl>
+  </Movement>
+</Account>

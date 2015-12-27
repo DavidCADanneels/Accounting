@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Bart Smit</name>
+  <type>Cost</type>
+  <Movement>
+    <date>19/6/2013</date>
+    <debit>34.98</debit>
+    <id>2588</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>264</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>5/12/2013</date>
+    <debit>49.99</debit>
+    <id>3136</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>517</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>10/12/2013</date>
+    <debit>6.99</debit>
+    <id>3160</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>528</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

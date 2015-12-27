@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Thailand</name>
+  <type>Cost</type>
+  <Movement>
+    <date>5/6/2012</date>
+    <debit>1261.85</debit>
+    <id>1003</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>209</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

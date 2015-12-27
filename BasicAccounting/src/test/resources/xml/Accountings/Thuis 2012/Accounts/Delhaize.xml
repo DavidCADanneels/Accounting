@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Delhaize</name>
+  <type>Cost</type>
+  <Movement>
+    <date>10/2/2012</date>
+    <debit>37.43</debit>
+    <id>620</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>44</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>10/6/2012</date>
+    <debit>7.27</debit>
+    <id>1031</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>219</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>22/9/2012</date>
+    <debit>73.64</debit>
+    <id>1395</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>369</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>23/10/2012</date>
+    <debit>24.25</debit>
+    <id>1475</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>402</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>30/11/2012</date>
+    <debit>59.34</debit>
+    <id>1587</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>444</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>11/12/2012</date>
+    <debit>18.16</debit>
+    <id>1637</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>462</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

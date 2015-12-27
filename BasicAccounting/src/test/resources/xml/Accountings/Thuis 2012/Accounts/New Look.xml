@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>New Look</name>
+  <type>Cost</type>
+  <Movement>
+    <date>1/9/2012</date>
+    <debit>52.96</debit>
+    <id>1904</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>64</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>1/9/2012</date>
+    <debit>4.99</debit>
+    <id>1905</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>64</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+</Account>

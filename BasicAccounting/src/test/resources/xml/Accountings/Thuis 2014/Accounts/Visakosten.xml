@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Visakosten</name>
+  <type>Cost</type>
+  <Movement>
+    <date>10/6/2014</date>
+    <debit>5.00</debit>
+    <id>4622</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>485</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>10/6/2014</date>
+    <debit>5.00</debit>
+    <id>4623</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>485</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>24/6/2014</date>
+    <debit>6.00</debit>
+    <id>4739</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>537</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>5/9/2014</date>
+    <debit>25.00</debit>
+    <id>5160</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>726</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>5/10/2014</date>
+    <debit>5.00</debit>
+    <id>5275</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>777</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

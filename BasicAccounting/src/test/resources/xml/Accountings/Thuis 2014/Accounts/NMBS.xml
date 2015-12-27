@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>NMBS</name>
+  <type>Cost</type>
+  <Movement>
+    <date>5/1/2013</date>
+    <debit>30.80</debit>
+    <id>5659</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>5</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>27/2/2014</date>
+    <debit>4.20</debit>
+    <description>Metro-Batibouw</description>
+    <id>3904</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>161</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>6/6/2014</date>
+    <debit>28.20</debit>
+    <description>Dara naar Brussel</description>
+    <id>4584</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>468</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>29/8/2014</date>
+    <debit>76.00</debit>
+    <id>5713</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>29</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+</Account>

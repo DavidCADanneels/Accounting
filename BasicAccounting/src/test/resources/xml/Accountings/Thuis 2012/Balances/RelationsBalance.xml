@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Balance SYSTEM "../../../../dtd/Balance.dtd">
+<Balance>
+  <LeftName>Funds from customers</LeftName>
+  <LeftResultName>REMAINING FUND</LeftResultName>
+  <LeftTotalName>TOTAL FUNDS</LeftTotalName>
+  <LeftTypes>Credit</LeftTypes>
+  <RightName>Debts to Suppliers</RightName>
+  <RightResultName>REMAINING DEBT</RightResultName>
+  <RightTotalName>TOTAL DEBTS</RightTotalName>
+  <RightTypes>Debit</RightTypes>
+  <name>RelationsBalance</name>
+  <BalanceLine>
+    <amount1>2200.00</amount1>
+    <amount2>10760.87</amount2>
+    <name1>Reis 2013</name1>
+    <name2>Autolening</name2>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>140699.17</amount2>
+    <name2>Hypotheek</name2>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>15400.00</amount2>
+    <name2>Schulden aan ma</name2>
+  </BalanceLine>
+</Balance>

@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>92.00</defaultAmount>
+  <name>Water</name>
+  <type>Cost</type>
+  <Movement>
+    <date>20/2/2014</date>
+    <debit>160.00</debit>
+    <id>3867</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>145</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <credit>220.27</credit>
+    <date>8/4/2014</date>
+    <description>teveel betaald</description>
+    <id>4225</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>303</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>17/8/2014</date>
+    <debit>92.00</debit>
+    <id>5075</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>690</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>3/11/2014</date>
+    <debit>92.00</debit>
+    <id>5373</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>822</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

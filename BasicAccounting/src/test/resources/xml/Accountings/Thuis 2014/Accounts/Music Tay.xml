@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Music Tay</name>
+  <type>Asset</type>
+  <Movement>
+    <date>1/1/2013</date>
+    <debit>2620.14</debit>
+    <description>Beginbalans</description>
+    <id>5649</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>1</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>7/1/2013</date>
+    <debit>1000.00</debit>
+    <description>Drums and co</description>
+    <id>5661</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>6</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>17/1/2013</date>
+    <debit>519.00</debit>
+    <description>Key Music</description>
+    <id>5671</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>10</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>17/1/2013</date>
+    <debit>27.95</debit>
+    <description>Key Music</description>
+    <id>5672</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>10</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>23/1/2013</date>
+    <debit>6.95</debit>
+    <description>Key Music</description>
+    <id>5677</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>12</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>31/1/2013</date>
+    <debit>324.10</debit>
+    <description>Key? Music</description>
+    <id>5681</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>14</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>31/1/2013</date>
+    <debit>224.10</debit>
+    <description>Key? Music</description>
+    <id>5682</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>14</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>1/2/2013</date>
+    <debit>74.98</debit>
+    <description>Media Markt</description>
+    <id>5685</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>15</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>4/2/2013</date>
+    <debit>109.00</debit>
+    <description>Media Markt</description>
+    <id>5689</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>17</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>15/2/2014</date>
+    <debit>497.00</debit>
+    <description>Key Music</description>
+    <id>3857</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>141</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>15/2/2014</date>
+    <debit>54.55</debit>
+    <description>Key Music</description>
+    <id>3858</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>141</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>4/3/2014</date>
+    <debit>226.66</debit>
+    <description>Key Music</description>
+    <id>3953</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>183</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>25/3/2014</date>
+    <debit>74.90</debit>
+    <description>Key Music</description>
+    <id>4097</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>246</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>6/5/2014</date>
+    <debit>685.99</debit>
+    <description>MediaMarkt</description>
+    <id>4405</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>384</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>9/5/2014</date>
+    <debit>9.99</debit>
+    <description>MediaMarkt</description>
+    <id>4421</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>392</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>2/6/2014</date>
+    <debit>634.25</debit>
+    <id>4561</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>458</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>7/6/2014</date>
+    <debit>64.99</debit>
+    <description>MediaMarkt</description>
+    <id>4604</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>478</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>17/6/2014</date>
+    <debit>246.10</debit>
+    <id>4686</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>515</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>20/6/2014</date>
+    <debit>310.21</debit>
+    <description>Key Music</description>
+    <id>4722</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>531</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>24/6/2014</date>
+    <debit>139.24</debit>
+    <description>Key Music</description>
+    <id>4730</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>534</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>27/6/2014</date>
+    <debit>23.20</debit>
+    <description>Key Music</description>
+    <id>4755</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>544</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>1/7/2014</date>
+    <debit>380.36</debit>
+    <description>Key Music</description>
+    <id>4795</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>563</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>2/7/2014</date>
+    <debit>525.10</debit>
+    <description>Key Music</description>
+    <id>4807</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>569</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>31/7/2014</date>
+    <debit>934.72</debit>
+    <description>Key Music</description>
+    <id>5695</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>20</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>14/8/2014</date>
+    <debit>299.23</debit>
+    <description>Key Music</description>
+    <id>5705</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>25</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>5/9/2014</date>
+    <debit>309.74</debit>
+    <id>5164</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>727</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>5/9/2014</date>
+    <debit>212.81</debit>
+    <id>5165</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>727</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>5/9/2014</date>
+    <debit>119.90</debit>
+    <id>5166</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>727</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>30/9/2014</date>
+    <debit>52.46</debit>
+    <description>Media Markt</description>
+    <id>5732</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>38</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>15/10/2014</date>
+    <debit>239.36</debit>
+    <description>Bekafun</description>
+    <id>5742</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>43</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>7/11/2014</date>
+    <debit>251.90</debit>
+    <description>Key Music</description>
+    <id>5752</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>48</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>21/11/2014</date>
+    <debit>72.90</debit>
+    <description>Key Music</description>
+    <id>5758</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>51</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>28/11/2014</date>
+    <debit>1154.98</debit>
+    <description>Media Markt</description>
+    <id>5768</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>56</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>30/11/2014</date>
+    <debit>22.99</debit>
+    <description>Media Markt</description>
+    <id>5770</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>57</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+  <Movement>
+    <date>16/12/2014</date>
+    <debit>149.95</debit>
+    <description>Mc Gregor Shop</description>
+    <id>5788</id>
+    <journalAbbr>TAY</journalAbbr>
+    <journalId>65</journalId>
+    <journalName>Tay</journalName>
+  </Movement>
+</Account>

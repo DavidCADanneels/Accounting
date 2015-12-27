@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Zwembad</name>
+  <type>Cost</type>
+  <Movement>
+    <date>31/1/2014</date>
+    <debit>15.00</debit>
+    <id>3745</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>91</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>2/11/2014</date>
+    <debit>27.50</debit>
+    <id>5364</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>818</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>
