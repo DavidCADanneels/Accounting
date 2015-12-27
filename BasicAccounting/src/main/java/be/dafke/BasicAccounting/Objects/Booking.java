@@ -39,12 +39,8 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
     }
 
     @Override
-    public boolean writeGrandChildren(){
-        return false;
-    }
-
-    @Override
     public Movement createNewChild(){
+        // TODO: refactor Movement -> default constructor (no params)
         return new Movement(BigDecimal.ZERO, true);
     }
 
@@ -76,14 +72,16 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
     public Set<String> getInitKeySet(){
         Set<String> keySet = new TreeSet<String>();
         keySet.add(ACCOUNT);
-        // TODO: wait to update read method
-//        keySet.add(DEBIT);
-//        keySet.add(CREDIT);
+        keySet.add(DEBIT);
+        keySet.add(CREDIT);
         return keySet;
     }
     // Set initial values for each key in InitKeySet, while reading xml
     public void setInitProperties(TreeMap<String, String> properties){
         account = businessCollection.getBusinessObject(properties.get(ACCOUNT));
+        Movement movement = createNewChild();
+        movement.setInitProperties(properties);
+        addBusinessObject(movement);
     }
 
     // Getters
@@ -92,6 +90,7 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
 		return transaction;
 	}
 
+    @Override
     public Movement addBusinessObject(Movement movement){
         movement.setBooking(this);
         //movements.clear(); // clear to ensure only Booking contains only 1 Movement
