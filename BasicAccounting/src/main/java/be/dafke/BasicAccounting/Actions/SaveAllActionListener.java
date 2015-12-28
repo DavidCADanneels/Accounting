@@ -7,7 +7,8 @@ import be.dafke.BasicAccounting.Objects.Mortgage;
 import be.dafke.BasicAccounting.Objects.Mortgages;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModel.BusinessObject;
-import be.dafke.ObjectModelDao.ObjectModelSAXParser;
+import be.dafke.ObjectModelDao.XMLtoHTMLWriter;
+import be.dafke.ObjectModelDao.XMLWriter;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -38,13 +39,13 @@ public class SaveAllActionListener extends WindowAdapter implements ActionListen
     private void saveData(){
         File xmlFolder = accountings.getXmlFolder();
         xmlFolder.mkdirs();
-        ObjectModelSAXParser.writeCollection(accountings, xmlFolder, 0);
+        XMLWriter.writeCollection(accountings, xmlFolder, 0);
 
         File xslFolder = accountings.getXslFolder();
         File htmlFolder = accountings.getHtmlFolder();
         htmlFolder.mkdirs();
 
-        ObjectModelSAXParser.toHtml(accountings, xmlFolder, xslFolder, htmlFolder);
+        XMLtoHTMLWriter.toHtml(accountings, xmlFolder, xslFolder, htmlFolder);
 
         // TODO: remove this by refactoring Extension and write methods
         // only used for Mortgages, does not work well
@@ -55,7 +56,7 @@ public class SaveAllActionListener extends WindowAdapter implements ActionListen
             Mortgages mortgages = accounting.getMortgages();
             for(BusinessObject businessObject : mortgages.getBusinessObjects()){
                 Mortgage mortgage = (Mortgage) businessObject;
-                MortgagesSAXParser.writeMortgage(mortgage, mortgagesFolder, ObjectModelSAXParser.getXmlHeader(mortgage, 3));
+                MortgagesSAXParser.writeMortgage(mortgage, mortgagesFolder, XMLWriter.getXmlHeader(mortgage, 3));
             }
         }
     }

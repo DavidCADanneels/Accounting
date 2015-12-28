@@ -17,7 +17,7 @@ import be.dafke.BasicAccounting.Objects.Accountings;
 import be.dafke.BasicAccounting.Objects.Mortgage;
 import be.dafke.BasicAccounting.Objects.Mortgages;
 import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ObjectModelDao.ObjectModelSAXParser;
+import be.dafke.ObjectModelDao.XMLReader;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -74,11 +74,11 @@ public class BasicAccountingMain {
         }
         File file = new File(xmlFolder, "Accountings.xml");
         if(file.exists()){
-            ObjectModelSAXParser.readCollection(accountings, false, xmlFolder);
+            XMLReader.readCollection(accountings, false, xmlFolder);
         }
 
         for(Accounting accounting : accountings.getBusinessObjects()){
-            ObjectModelSAXParser.readCollection(accounting, true, subFolder);
+            XMLReader.readCollection(accounting, true, subFolder);
 
             Mortgages mortgages = accounting.getMortgages();
             File rootFolder = new File(subFolder, accounting.getName());
