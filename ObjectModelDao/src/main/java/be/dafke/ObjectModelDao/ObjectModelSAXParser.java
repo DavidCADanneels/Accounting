@@ -68,13 +68,13 @@ public class ObjectModelSAXParser {
 
             Utils.xmlToHtml(objectXmlFile, new File(xslFolder, businessObjectType+".xsl"), objectHtmlFile, null);
 
-            if(object instanceof BusinessCollection && !((BusinessCollection)object).writeGrandChildren()){
-                BusinessCollection subCollection = (BusinessCollection)object;
-                String subCollectionName = subCollection.getName();
-                if(subCollectionName!=null){
-                    toHtml(subCollection, xmlCollectionFolder, xslFolder, htmlCollectionFolder);
-                }
-            }
+//            if(object instanceof BusinessCollection && !(businessObject.writeChildren())){
+//                BusinessCollection subCollection = (BusinessCollection)object;
+//                String subCollectionName = subCollection.getName();
+//                if(subCollectionName!=null){
+//                    toHtml(subCollection, xmlCollectionFolder, xslFolder, htmlCollectionFolder);
+//                }
+//            }
         }
     }
 
@@ -170,7 +170,7 @@ public class ObjectModelSAXParser {
                     }
                 }
                 // The implementation used is more clear and similar to the read Method
-                if(object instanceof BusinessCollection && collection.writeGrandChildren()){
+                if(businessObject.writeChildren()){
                     BusinessCollection subCollection = (BusinessCollection) object;
                     writeChildren(writer, subCollection, depth+1);
                 }

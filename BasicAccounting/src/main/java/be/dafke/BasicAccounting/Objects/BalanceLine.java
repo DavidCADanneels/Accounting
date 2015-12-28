@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Objects;
 
-import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;

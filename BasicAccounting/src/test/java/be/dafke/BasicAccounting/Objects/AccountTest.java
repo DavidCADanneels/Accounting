@@ -32,7 +32,6 @@ public class AccountTest {
     @Test
     public void defaultValues(){
         Account account = new Account();
-        assertTrue(account.writeGrandChildren());
         assertNull(account.createNewChild());
         assertEquals(account.getName(), account.toString());
         assertEquals(Account.MOVEMENT, account.getChildType());

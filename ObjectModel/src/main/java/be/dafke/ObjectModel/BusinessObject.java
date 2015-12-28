@@ -16,6 +16,9 @@ public class BusinessObject {
 
 //    private boolean isSaved;
 
+    public boolean writeChildren(){
+        return false;
+    }
     public BusinessObject(){
         businessObjectType = this.getClass().getSimpleName();
     }

@@ -27,10 +27,6 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         addSearchKey(NAME);
     }
 
-    public boolean writeGrandChildren(){
-        return false;
-    }
-
     public abstract V createNewChild();
 
     protected void addSearchKey(String key){

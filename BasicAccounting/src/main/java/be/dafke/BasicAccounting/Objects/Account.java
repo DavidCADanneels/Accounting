@@ -36,11 +36,6 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
     }
 
     @Override
-    public boolean writeGrandChildren(){
-        return true;
-    }
-
-    @Override
     public Movement createNewChild(){
         return null;
     }

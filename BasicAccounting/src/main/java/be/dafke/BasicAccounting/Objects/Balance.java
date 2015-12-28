@@ -49,11 +49,6 @@ public class Balance extends BusinessCollection<BalanceLine> implements Business
     }
 
     @Override
-    public boolean writeGrandChildren(){
-        return true;
-    }
-
-    @Override
     public boolean isDeletable(){
         return !(getName().equals(Balances.YEAR_BALANCE) || getName().equals(Balances.RESULT_BALANCE) || getName().equals(Balances.RELATIONS_BALANCE));
     }
