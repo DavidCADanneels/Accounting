@@ -8,6 +8,7 @@ import be.dafke.Utils.Utils;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -72,11 +73,11 @@ public class Transaction extends BusinessCollection<Booking> implements Business
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
-        TreeMap<String,String> properties = new TreeMap<String, String>();
+    public Properties getInitProperties() {
+        Properties properties = new Properties();
         properties.put(ID, new Integer(journal.getId(this)).toString());
         properties.put(DATE, Utils.toString(date));
-        properties.put(DESCRIPTION, description);
+        properties.put(DESCRIPTION, getDescription());
 
         return properties;
     }
@@ -116,7 +117,7 @@ public class Transaction extends BusinessCollection<Booking> implements Business
     }
 
     public String getDescription(){
-        return description;
+        return (description==null)?"":description;
     }
 
     public Calendar getDate() {

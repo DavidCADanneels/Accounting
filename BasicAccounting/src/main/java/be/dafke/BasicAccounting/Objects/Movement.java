@@ -5,6 +5,7 @@ import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -50,8 +51,8 @@ public class Movement extends BusinessObject{
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
-        TreeMap<String,String> properties = super.getInitProperties();
+    public Properties getInitProperties() {
+        Properties properties = new Properties();
         Transaction transaction = booking.getTransaction();
         properties.put(ID,id.toString());
         if(debit){

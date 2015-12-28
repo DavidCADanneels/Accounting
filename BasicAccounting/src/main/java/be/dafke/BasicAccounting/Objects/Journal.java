@@ -11,6 +11,7 @@ import be.dafke.Utils.MultiValueMap;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -155,8 +156,8 @@ public class Journal extends BusinessCollection<Transaction> implements Business
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
-        TreeMap<String,String> outputMap = super.getInitProperties();
+    public Properties getInitProperties() {
+        Properties outputMap = super.getInitProperties();
         outputMap.put(TYPE, getType().getName());
         outputMap.put(ABBREVIATION, getAbbreviation());
         return outputMap;

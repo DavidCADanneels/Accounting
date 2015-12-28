@@ -8,6 +8,7 @@ import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -190,8 +191,8 @@ public class Balance extends BusinessCollection<BalanceLine> implements Business
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
-        TreeMap<String,String> properties = super.getInitProperties();
+    public Properties getInitProperties() {
+        Properties properties = super.getInitProperties();
         properties.put(NAME, getName());
         properties.put(LEFTNAME, leftName);
         properties.put(RIGHTNAME, rightName);

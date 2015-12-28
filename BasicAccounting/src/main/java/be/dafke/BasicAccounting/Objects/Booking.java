@@ -5,6 +5,7 @@ import be.dafke.ObjectModel.BusinessCollectionDependent;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -55,8 +56,8 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
-        TreeMap<String,String> properties = new TreeMap<String, String>();
+    public Properties getInitProperties() {
+        Properties properties = new Properties();
         properties.put(ACCOUNT, account.getName());
         properties.put(ID, movements.get(0).getId().toString());
         if(movements.get(0).isDebit()){

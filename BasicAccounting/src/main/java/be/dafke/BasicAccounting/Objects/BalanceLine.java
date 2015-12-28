@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Objects;
 import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -40,8 +41,8 @@ public class BalanceLine extends BusinessObject {
     }
 
     @Override
-    public TreeMap<String, String> getInitProperties(){
-        TreeMap<String,String> properties = new TreeMap<String, String>();
+    public Properties getInitProperties(){
+        Properties properties = new Properties();
         if(leftAccount!=null){
             properties.put(NAME1,leftAccount.getName());
             properties.put(AMOUNT1,leftAccount.getSaldo().toString());

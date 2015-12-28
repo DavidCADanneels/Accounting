@@ -9,6 +9,7 @@ import be.dafke.Utils.MultiValueMap;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -139,8 +140,8 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
 
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
-        TreeMap<String,String> outputMap = super.getInitProperties();
+    public Properties getInitProperties() {
+        Properties outputMap = super.getInitProperties();
         // FIXME NullPointerException if type==null / Type must be defined
         outputMap.put(TYPE, getType().getName());
         if(defaultAmount!=null){

@@ -8,6 +8,7 @@ import be.dafke.Utils.MultiValueMap;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
@@ -139,8 +140,8 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
-        TreeMap<String,String> properties = new TreeMap<String, String>();
+    public Properties getInitProperties() {
+        Properties properties = new Properties();
         properties.put(NAME,getName());
         if(startCapital!=null){
             properties.put(TOTAL, startCapital.toString());

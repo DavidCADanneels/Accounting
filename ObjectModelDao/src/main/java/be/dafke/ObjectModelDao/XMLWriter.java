@@ -9,7 +9,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.Map;
-import java.util.TreeMap;
+import java.util.Properties;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,14 +49,14 @@ public class XMLWriter {
             writer.write("<" + businessObjectType + ">\r\n");
 
             // get the object's properties
-            TreeMap<String,String> collectionProperties = businessObject.getInitProperties();
+            Properties collectionProperties = businessObject.getInitProperties();
 
 //                iterate the properties and write them out (if not null)
-            for(Map.Entry<String, String> entry : collectionProperties.entrySet()){
-                String key = entry.getKey();
-                String objectProperty = entry.getValue();
-                if(objectProperty!=null && !objectProperty.equals("")){
-                    writer.write("  <" + key + ">" + objectProperty + "</"+ key + ">\r\n");
+            for(Map.Entry<Object, Object> entry : collectionProperties.entrySet()){
+                Object key = entry.getKey();
+                Object value = entry.getValue();
+                if(value!=null && !"".equals(value.toString())){
+                    writer.write("  <" + key + ">" + value + "</"+ key + ">\r\n");
                 }
             }
 
@@ -108,15 +108,15 @@ public class XMLWriter {
                 writer.write("  <"+objectType+">\r\n");
 
                 // get the object's properties
-                TreeMap<String,String> objectProperties = businessObject.getInitProperties();
+                Properties objectProperties = businessObject.getInitProperties();
 
                 // iterate the properties and write them out (if not null)
-                for(Map.Entry<String, String> entry : objectProperties.entrySet()){
-                    String key = entry.getKey();
-                    String objectProperty = entry.getValue();
-                    if(objectProperty!=null && !objectProperty.equals("")){
+                for(Map.Entry<Object, Object> entry : objectProperties.entrySet()){
+                    Object key = entry.getKey();
+                    Object value = entry.getValue();
+                    if(value!=null && !"".equals(value)){
                         for(int i=0;i<depth;i++) writer.write("  ");
-                        writer.write("    <" + key + ">" + objectProperty + "</"+ key + ">\r\n");
+                        writer.write("    <" + key + ">" + value + "</"+ key + ">\r\n");
                     }
                 }
                 // The implementation used is more clear and similar to the read Method

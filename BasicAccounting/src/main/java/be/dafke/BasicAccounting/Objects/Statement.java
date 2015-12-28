@@ -7,6 +7,7 @@ import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -131,8 +132,8 @@ public class Statement extends BusinessObject implements BusinessCollectionDepen
     }
     //
     @Override
-    public TreeMap<String, String> getInitProperties(){
-        TreeMap<String,String> properties = new TreeMap<String, String>();
+    public Properties getInitProperties(){
+        Properties properties = new Properties();
         properties.put(NAME,getName());
         properties.put(DATE,Utils.toString(date));
         properties.put(AMOUNT, amount.toString());

@@ -1,12 +1,12 @@
 package be.dafke.BasicAccounting.Objects;
 
-import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -156,8 +156,8 @@ public class CounterParty extends BusinessObject {
     }
 
     @Override
-    public TreeMap<String,String> getInitProperties() {
-        TreeMap<String, String> properties = super.getUniqueProperties();
+    public Properties getInitProperties() {
+        Properties properties = super.getInitProperties();
         properties.put(ACCOUNTNUMBER, getBankAccountsString());
         properties.put(ALIAS, Utils.toString(aliases));
         properties.put(BIC,getBICString());
