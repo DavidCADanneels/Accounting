@@ -33,11 +33,6 @@ public class Journal extends BusinessCollection<Transaction> implements Business
 		transactions = new MultiValueMap<Calendar,Transaction>();
 	}
 
-    @Override
-    public boolean writeGrandChildren(){
-        return true;
-    }
-
     public void setBusinessCollection(BusinessCollection<Account> businessCollection){
         this.businessCollection = businessCollection;
     }
