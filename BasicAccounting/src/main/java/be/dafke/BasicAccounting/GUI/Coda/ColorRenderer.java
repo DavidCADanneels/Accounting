@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.GUI.Coda;
 
-import be.dafke.BasicAccounting.Objects.CounterParty;
-import be.dafke.BasicAccounting.Objects.TmpCounterParty;
+import be.dafke.BusinessModel.CounterParty;
+import be.dafke.BusinessModel.TmpCounterParty;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

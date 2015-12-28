@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.GUI.Mortgages;
 
 import be.dafke.ComponentModel.RefreshableTableModel;
-import be.dafke.BasicAccounting.Objects.Mortgage;
+import be.dafke.BusinessModel.Mortgage;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;

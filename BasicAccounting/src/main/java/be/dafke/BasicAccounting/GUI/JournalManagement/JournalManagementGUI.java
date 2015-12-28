@@ -1,11 +1,11 @@
 package be.dafke.BasicAccounting.GUI.JournalManagement;
 
 import be.dafke.BasicAccounting.Actions.JournalActions;
-import be.dafke.BasicAccounting.Objects.AccountTypes;
-import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.BasicAccounting.Objects.JournalType;
-import be.dafke.BasicAccounting.Objects.JournalTypes;
-import be.dafke.BasicAccounting.Objects.Journals;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.JournalType;
+import be.dafke.BusinessModel.JournalTypes;
+import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;

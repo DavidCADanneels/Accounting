@@ -2,11 +2,11 @@ package be.dafke.BasicAccounting.GUI.MainWindow;
 
 import be.dafke.BasicAccounting.Actions.JournalActions;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
-import be.dafke.BasicAccounting.Objects.AccountTypes;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.BasicAccounting.Objects.JournalTypes;
-import be.dafke.BasicAccounting.Objects.Journals;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.JournalTypes;
+import be.dafke.BusinessModel.Journals;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;

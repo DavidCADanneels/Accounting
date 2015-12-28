@@ -2,9 +2,9 @@ package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.GUI.Mortgages.MortgageGUI;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
-import be.dafke.BasicAccounting.Objects.Mortgages;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accountings;
+import be.dafke.BusinessModel.Mortgages;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
 

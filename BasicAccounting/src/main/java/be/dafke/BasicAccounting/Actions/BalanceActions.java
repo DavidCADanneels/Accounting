@@ -2,10 +2,10 @@ package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.GUI.Balances.BalanceGUI;
 import be.dafke.BasicAccounting.GUI.Balances.TestBalance;
-import be.dafke.BasicAccounting.Objects.AccountTypes;
-import be.dafke.BasicAccounting.Objects.Accounts;
-import be.dafke.BasicAccounting.Objects.Balance;
-import be.dafke.BasicAccounting.Objects.Journals;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.Balance;
+import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
 

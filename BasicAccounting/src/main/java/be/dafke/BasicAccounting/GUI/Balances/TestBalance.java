@@ -2,10 +2,10 @@ package be.dafke.BasicAccounting.GUI.Balances;
 
 import be.dafke.BasicAccounting.Actions.BalancePopupMenu;
 import be.dafke.BasicAccounting.Actions.PopupForTableActivator;
-import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.AccountTypes;
-import be.dafke.BasicAccounting.Objects.Accounts;
-import be.dafke.BasicAccounting.Objects.Journals;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.JPopupMenu;

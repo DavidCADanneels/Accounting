@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Actions;
 
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accountings;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;

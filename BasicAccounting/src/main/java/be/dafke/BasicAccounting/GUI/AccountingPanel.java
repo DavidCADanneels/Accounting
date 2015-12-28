@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI;
 
-import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BusinessModel.Accounting;
 
 import javax.swing.*;
 

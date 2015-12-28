@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Actions;
 
-import be.dafke.BasicAccounting.Objects.AccountTypes;
-import be.dafke.BasicAccounting.Objects.Accounts;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounts;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;

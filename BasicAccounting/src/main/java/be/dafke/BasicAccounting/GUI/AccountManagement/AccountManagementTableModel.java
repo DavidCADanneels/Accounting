@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.GUI.AccountManagement;
 
-import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.AccountType;
-import be.dafke.BasicAccounting.Objects.AccountTypes;
-import be.dafke.BasicAccounting.Objects.Accounts;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.AccountType;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.RefreshableTableModel;
 
 import java.math.BigDecimal;

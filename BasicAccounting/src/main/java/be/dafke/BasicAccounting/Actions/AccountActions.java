@@ -2,12 +2,12 @@ package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.GUI.AccountManagement.AccountManagementGUI;
 import be.dafke.BasicAccounting.GUI.Details.AccountDetails;
-import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.AccountType;
-import be.dafke.BasicAccounting.Objects.AccountTypes;
-import be.dafke.BasicAccounting.Objects.Accounts;
-import be.dafke.BasicAccounting.Objects.Booking;
-import be.dafke.BasicAccounting.Objects.Journals;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.AccountType;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.Booking;
+import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
 import be.dafke.ComponentModel.RefreshableTableFrame;

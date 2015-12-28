@@ -2,10 +2,10 @@ package be.dafke.BasicAccounting.GUI.Mortgages;
 
 import be.dafke.BasicAccounting.Actions.TransactionActions;
 import be.dafke.BasicAccounting.GUI.AccountingPanel;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.BasicAccounting.Objects.Mortgage;
-import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.Mortgage;
+import be.dafke.BusinessModel.Transaction;
 import be.dafke.ObjectModel.BusinessCollection;
 
 import javax.swing.DefaultListModel;

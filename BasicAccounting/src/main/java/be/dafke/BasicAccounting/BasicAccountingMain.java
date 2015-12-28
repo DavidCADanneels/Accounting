@@ -12,10 +12,10 @@ import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountsGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
-import be.dafke.BasicAccounting.Objects.Mortgage;
-import be.dafke.BasicAccounting.Objects.Mortgages;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accountings;
+import be.dafke.BusinessModel.Mortgage;
+import be.dafke.BusinessModel.Mortgages;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModelDao.XMLReader;
 

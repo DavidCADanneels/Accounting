@@ -7,7 +7,7 @@ import be.dafke.BasicAccounting.GUI.MainWindow.AccountsGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalGUI;
 import be.dafke.BasicAccounting.GUI.MainWindow.JournalsGUI;
 import be.dafke.BasicAccounting.GUI.Mortgages.MortgagesGUI;
-import be.dafke.BasicAccounting.Objects.Accounting;
+import be.dafke.BusinessModel.Accounting;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;

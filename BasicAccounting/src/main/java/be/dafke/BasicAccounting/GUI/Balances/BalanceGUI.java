@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.GUI.Balances;
 
-import be.dafke.BasicAccounting.Objects.Balance;
+import be.dafke.BusinessModel.Balance;
 import be.dafke.BasicAccounting.Actions.BalancePopupMenu;
 import be.dafke.BasicAccounting.Actions.PopupForTableActivator;
-import be.dafke.BasicAccounting.Objects.Journals;
+import be.dafke.BusinessModel.Journals;
 
 import javax.swing.JPopupMenu;
 

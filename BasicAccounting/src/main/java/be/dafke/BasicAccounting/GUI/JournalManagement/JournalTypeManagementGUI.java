@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.GUI.JournalManagement;
 
-import be.dafke.BasicAccounting.Objects.AccountType;
-import be.dafke.BasicAccounting.Objects.AccountTypes;
+import be.dafke.BusinessModel.AccountType;
+import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableFrame;
 

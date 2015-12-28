@@ -1,10 +1,10 @@
 package be.dafke.BasicAccounting.Dao;
 
-import be.dafke.BasicAccounting.Objects.BankAccount;
-import be.dafke.BasicAccounting.Objects.CounterParties;
-import be.dafke.BasicAccounting.Objects.CounterParty;
-import be.dafke.BasicAccounting.Objects.Statement;
-import be.dafke.BasicAccounting.Objects.Statements;
+import be.dafke.BusinessModel.BankAccount;
+import be.dafke.BusinessModel.CounterParties;
+import be.dafke.BusinessModel.CounterParty;
+import be.dafke.BusinessModel.Statement;
+import be.dafke.BusinessModel.Statements;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;

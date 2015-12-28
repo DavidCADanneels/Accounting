@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.GUI.Balances;
 
-import be.dafke.BasicAccounting.Objects.Account;
+import be.dafke.BusinessModel.Account;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 import be.dafke.ComponentModel.RefreshableTableModel;
 

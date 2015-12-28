@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.GUI.Coda;
 
-import be.dafke.BasicAccounting.Objects.CounterParty;
-import be.dafke.BasicAccounting.Objects.Statement;
-import be.dafke.BasicAccounting.Objects.Statements;
+import be.dafke.BusinessModel.CounterParty;
+import be.dafke.BusinessModel.Statement;
+import be.dafke.BusinessModel.Statements;
 import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.Utils.Utils;
 

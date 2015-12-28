@@ -1,7 +1,8 @@
 package be.dafke.BasicAccounting.GUI.Coda;
 
-import be.dafke.BasicAccounting.Objects.Statement;
-import be.dafke.BasicAccounting.Objects.Statements;
+import be.dafke.BusinessModel.SearchOptions;
+import be.dafke.BusinessModel.Statement;
+import be.dafke.BusinessModel.Statements;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
 public class GenericStatementTableFrame extends RefreshableTableFrame<Statement> {

@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
 import be.dafke.BasicAccounting.Actions.AccountingActions;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accountings;
 import be.dafke.ComponentModel.RefreshableComponent;
 
 import javax.swing.JMenu;

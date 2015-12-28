@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Dao;
 
-import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Mortgage;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.Mortgage;
 import org.xml.sax.XMLReader;
 
 import javax.xml.parsers.SAXParser;

@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.GUI.MainWindow;
 
-import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Booking;
-import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.Booking;
+import be.dafke.BusinessModel.Transaction;
 import be.dafke.ComponentModel.RefreshableTableModel;
 
 import java.math.BigDecimal;

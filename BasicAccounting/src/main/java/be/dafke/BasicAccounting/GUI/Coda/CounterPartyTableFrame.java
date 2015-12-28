@@ -1,18 +1,19 @@
 package be.dafke.BasicAccounting.GUI.Coda;
 
 import be.dafke.BasicAccounting.GUI.InputWindows.AccountSelector;
-import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.BankAccount;
-import be.dafke.BasicAccounting.Objects.CounterParties;
-import be.dafke.BasicAccounting.Objects.CounterParty;
-import be.dafke.BasicAccounting.Objects.Statements;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.BankAccount;
+import be.dafke.BusinessModel.CounterParties;
+import be.dafke.BusinessModel.CounterParty;
+import be.dafke.BusinessModel.SearchOptions;
+import be.dafke.BusinessModel.Statements;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.ObjectModel.BusinessObject;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JOptionPane;
+import java.awt.Point;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.regex.Pattern;

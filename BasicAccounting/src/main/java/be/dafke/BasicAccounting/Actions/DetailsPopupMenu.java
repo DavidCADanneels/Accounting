@@ -1,11 +1,11 @@
 package be.dafke.BasicAccounting.Actions;
 
-import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Booking;
-import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.BasicAccounting.Objects.Journals;
-import be.dafke.BasicAccounting.Objects.Transaction;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Booking;
+import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.Journals;
+import be.dafke.BusinessModel.Transaction;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 

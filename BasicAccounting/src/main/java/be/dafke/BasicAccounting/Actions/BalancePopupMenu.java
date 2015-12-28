@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Actions;
 
-import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Journals;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.JMenuItem;

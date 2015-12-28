@@ -1,10 +1,10 @@
 package be.dafke.BasicAccounting.GUI.Mortgages;
 
-import be.dafke.BasicAccounting.Objects.Account;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accounts;
-import be.dafke.BasicAccounting.Objects.Mortgage;
-import be.dafke.BasicAccounting.Objects.Mortgages;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.Mortgage;
+import be.dafke.BusinessModel.Mortgages;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
 import be.dafke.ComponentModel.RefreshableFrame;

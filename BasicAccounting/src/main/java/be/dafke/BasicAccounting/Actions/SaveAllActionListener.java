@@ -1,10 +1,10 @@
 package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.Dao.MortgagesSAXParser;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
-import be.dafke.BasicAccounting.Objects.Mortgage;
-import be.dafke.BasicAccounting.Objects.Mortgages;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accountings;
+import be.dafke.BusinessModel.Mortgage;
+import be.dafke.BusinessModel.Mortgages;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModelDao.XMLtoHTMLWriter;

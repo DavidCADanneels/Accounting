@@ -1,20 +1,31 @@
 package be.dafke.BasicAccounting.GUI.Coda;
 
-import be.dafke.BasicAccounting.Objects.CounterParties;
-import be.dafke.BasicAccounting.Objects.CounterParty;
-import be.dafke.BasicAccounting.Objects.Statement;
-import be.dafke.BasicAccounting.Objects.Statements;
-import be.dafke.BasicAccounting.Objects.TmpCounterParty;
+import be.dafke.BusinessModel.CounterParties;
+import be.dafke.BusinessModel.CounterParty;
+import be.dafke.BusinessModel.SearchOptions;
+import be.dafke.BusinessModel.Statement;
+import be.dafke.BusinessModel.Statements;
+import be.dafke.BusinessModel.TmpCounterParty;
 import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import javax.swing.*;
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 

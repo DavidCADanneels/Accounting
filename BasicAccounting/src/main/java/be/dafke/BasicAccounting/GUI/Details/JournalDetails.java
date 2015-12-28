@@ -2,9 +2,9 @@ package be.dafke.BasicAccounting.GUI.Details;
 
 import be.dafke.BasicAccounting.Actions.DetailsPopupMenu;
 import be.dafke.BasicAccounting.Actions.PopupForTableActivator;
-import be.dafke.BasicAccounting.Objects.Booking;
-import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.BasicAccounting.Objects.Journals;
+import be.dafke.BusinessModel.Booking;
+import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.JPopupMenu;

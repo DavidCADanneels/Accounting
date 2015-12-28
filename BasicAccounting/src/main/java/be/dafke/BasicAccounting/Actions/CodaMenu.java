@@ -2,10 +2,10 @@ package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.GUI.Coda.StatementTableFrame;
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
-import be.dafke.BasicAccounting.Objects.CounterParties;
-import be.dafke.BasicAccounting.Objects.Statements;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accountings;
+import be.dafke.BusinessModel.CounterParties;
+import be.dafke.BusinessModel.Statements;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
 import be.dafke.ObjectModel.BusinessCollection;

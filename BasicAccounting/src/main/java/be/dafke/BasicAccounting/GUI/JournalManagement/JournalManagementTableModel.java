@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.GUI.JournalManagement;
 
-import be.dafke.BasicAccounting.Objects.Journal;
-import be.dafke.BasicAccounting.Objects.Journals;
+import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.RefreshableTableModel;
 
 import static java.util.ResourceBundle.getBundle;

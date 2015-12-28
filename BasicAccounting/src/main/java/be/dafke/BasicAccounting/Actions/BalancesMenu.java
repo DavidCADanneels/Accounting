@@ -1,10 +1,10 @@
 package be.dafke.BasicAccounting.Actions;
 
 import be.dafke.BasicAccounting.GUI.MainWindow.AccountingMenuBar;
-import be.dafke.BasicAccounting.Objects.Accounting;
-import be.dafke.BasicAccounting.Objects.Accountings;
-import be.dafke.BasicAccounting.Objects.Balance;
-import be.dafke.BasicAccounting.Objects.Balances;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accountings;
+import be.dafke.BusinessModel.Balance;
+import be.dafke.BusinessModel.Balances;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
