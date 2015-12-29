@@ -12,6 +12,8 @@
         <module>ObjectModelDao</module>
         <module>BasicAccounting</module>
 		<module>BusinessModel</module>
+		<module>BusinessModelDao</module>
+		<module>BusinessActions</module>
 	</modules>
 
     <dependencies>

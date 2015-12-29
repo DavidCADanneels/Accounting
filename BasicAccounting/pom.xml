@@ -27,9 +27,19 @@
         </dependency>
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
-            <artifactId>ObjectModelDao</artifactId>
+            <artifactId>BusinessModelDao</artifactId>
             <version>2.3</version>
         </dependency>
+        <dependency>
+            <groupId>be.dafke.Accounting</groupId>
+            <artifactId>BusinessActions</artifactId>
+            <version>2.3</version>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>be.dafke.Accounting</groupId>-->
+            <!--<artifactId>ObjectModelDao</artifactId>-->
+            <!--<version>2.3</version>-->
+        <!--</dependency>-->
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>Utils</artifactId>
@@ -83,7 +93,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>be.dafke.BasicAccounting.Main</mainClass>
+                            <mainClass>be.dafke.BasicAccounting.MainApplication.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
