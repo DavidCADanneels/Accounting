@@ -11,7 +11,10 @@
         <module>ComponentModel</module>
         <module>ObjectModelDao</module>
         <module>BasicAccounting</module>
-    </modules>
+		<module>BusinessModel</module>
+		<module>BusinessModelDao</module>
+		<module>BusinessActions</module>
+	</modules>
 
     <dependencies>
   	<dependency>

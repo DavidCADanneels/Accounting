@@ -2,6 +2,7 @@ package be.dafke.ObjectModel;
 
 import org.junit.Test;
 
+import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
@@ -13,6 +14,7 @@ import static org.junit.Assert.assertNull;
  * Created by David Danneels on 16/08/2014.
  */
 public class BusinessObjectTest {
+    public static final String NAME = "name";
     protected BusinessObject businessObject = new BusinessObject();
     protected String businessObjectType = businessObject.getClass().getSimpleName();
 
@@ -40,22 +42,23 @@ public class BusinessObjectTest {
 
     @Test
     public void defaultKeysAndProperties(){
-        final String NAME="name";
         final int NR_OF_KEYS = 1;
 
         final Set<String> initKeySet = businessObject.getInitKeySet();
         assertEquals(NR_OF_KEYS,initKeySet.size());
         assertEquals(NAME,initKeySet.iterator().next());
 
-        final TreeMap<String, String> initProperties = businessObject.getInitProperties();
+        businessObject.setName(NAME);
+
+        final Properties initProperties = businessObject.getInitProperties();
         assertEquals(NR_OF_KEYS,initProperties.size());
-        assertEquals(NAME,initProperties.firstKey());
-        assertNull(initProperties.get(NAME));
+//        assertEquals(NAME,initProperties.firstKey());
+        assertEquals(NAME, initProperties.get(NAME));
 
         final TreeMap<String, String> uniqueProperties = businessObject.getUniqueProperties();
         assertEquals(NR_OF_KEYS,uniqueProperties.size());
         assertEquals(NAME,uniqueProperties.firstKey());
-        assertNull(uniqueProperties.get(NAME));
+        assertEquals(NAME,uniqueProperties.get(NAME));
     }
 
     @Test
