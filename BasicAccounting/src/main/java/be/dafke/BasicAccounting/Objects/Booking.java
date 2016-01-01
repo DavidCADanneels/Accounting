@@ -25,7 +25,7 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
     private BusinessCollection<Account> businessCollection;
 
     public Booking(Account account) {
-        super();
+        this();
 		this.account = account;
     }
 
