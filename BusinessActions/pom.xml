@@ -7,7 +7,7 @@
     <parent>
         <artifactId>Accounting</artifactId>
         <groupId>be.dafke</groupId>
-        <version>2.3</version>
+        <version>3.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -15,12 +15,12 @@
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>ComponentModel</artifactId>
-            <version>2.3</version>
+            <version>3.0</version>
         </dependency>
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>BusinessModel</artifactId>
-            <version>2.3</version>
+            <version>3.0</version>
         </dependency>
     </dependencies>
 
