@@ -135,7 +135,7 @@ public class BasicAccountingMain {
             htmlFolder = new File("BasicAccounting/src/test/resources/html");
         } else {// if (mode == Mode.PROD) {
 //            File userHome = new File(System.getProperty("user.home"));
-            File parentFolder = new File("data");
+            File parentFolder = new File("data/Accounting");
             xmlFolder = new File(parentFolder, "xml");
             xslFolder = new File(parentFolder, "xsl");
             htmlFolder = new File(parentFolder, "html");
