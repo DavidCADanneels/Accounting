@@ -3,13 +3,7 @@ mavenJob("01_UnitTests"){
         scm 'H/15 * * * *'
     }
     scm{
-        git{
-            remote {
-                url "https://github.com/DavidCADanneels/Accounting.git"
-            }
-            branch "feature/saveLocal"
-            createTag false
-        }
+        github("https://github.com/DavidCADanneels/Accounting.git","master")
     }
 //    rootPOM("pom.xml")
     goals "clean package"
