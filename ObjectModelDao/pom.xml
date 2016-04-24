@@ -20,12 +20,5 @@
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>FOP</artifactId>
         </dependency>
-        <dependency>
-            <groupId>org.owasp.encoder</groupId>
-            <artifactId>encoder</artifactId>
-            <version>1.1.1</version>
-        </dependency>
     </dependencies>
-
-
 </project>

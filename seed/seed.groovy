@@ -1,4 +1,4 @@
-mavenJob("01_UnitTests"){
+mavenJob("Build_and_package"){
     triggers {
         scm 'H/15 * * * *'
     }
