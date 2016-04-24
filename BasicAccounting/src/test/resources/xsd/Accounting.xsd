@@ -9,7 +9,7 @@
                 <xs:element ref="Journals"/>
                 <xs:element ref="Balances"/>
                 <xs:element ref="Mortgages" minOccurs="0"/>
-                <xs:element name="CurrentObject" type="xs:string" minOccurs="0" maxOccurs="1"/>
+                <xs:element name="CurrentObject" type="xs:string" minOccurs="0"/>
             </xs:sequence>
         </xs:complexType>
     </xs:element>
