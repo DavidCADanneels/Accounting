@@ -28,23 +28,23 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     public Accounting() {
         accountTypes = new AccountTypes();
 
-        accounts = new Accounts();
-        accounts.setBusinessTypeCollection(accountTypes);
+        accounts = new Accounts(accountTypes);
+//        accounts.setAccountTypes(accountTypes);
 
         journalTypes = new JournalTypes();
         journalTypes.addDefaultType(accountTypes);
 
-        journals = new Journals();
-        journals.setBusinessTypeCollection(journalTypes);
+        journals = new Journals(journalTypes);
+//        journals.setJournalTypes(journalTypes);
         journals.setBusinessCollection(accounts);
 
         balances = new Balances();
         balances.setBusinessCollection(accounts);
-        balances.setBusinessTypeCollection(accountTypes);
+        balances.setAccountTypes(accountTypes);
         balances.addDefaultBalances(accountTypes);
 
         mortgages = new Mortgages();
-        mortgages.setBusinessTypeCollection(accountTypes);
+        mortgages.setAccountTypes(accountTypes);
         mortgages.setBusinessCollection(accounts);
 
         accounts.setName(accounts.getBusinessObjectType());

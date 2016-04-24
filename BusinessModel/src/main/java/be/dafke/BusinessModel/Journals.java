@@ -16,7 +16,7 @@ import java.util.Map;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journals extends BusinessCollection<Journal> implements BusinessTypeProvider<JournalType>, BusinessCollectionProvider<Account> {
+public class Journals extends BusinessCollection<Journal> implements BusinessCollectionProvider<Account> {
 
     private BusinessCollection<Account> businessCollection;
 
@@ -33,8 +33,12 @@ public class Journals extends BusinessCollection<Journal> implements BusinessTyp
         return businessCollection;
     }
 
-    private BusinessTypeCollection<JournalType> businessTypeCollection;
+    private JournalTypes journalTypes;
 
+    public Journals(JournalTypes journalTypes) {
+        this();
+        this.journalTypes = journalTypes;
+    }
     public Journals() {
         addSearchKey(Journal.ABBREVIATION);
         setName("Journals");
@@ -42,7 +46,7 @@ public class Journals extends BusinessCollection<Journal> implements BusinessTyp
 
     @Override
     public Journal createNewChild() {
-        return new Journal();
+        return new Journal(this);
     }
 
    /* @Override
@@ -77,11 +81,11 @@ public class Journals extends BusinessCollection<Journal> implements BusinessTyp
         return journal;
     }
 
-    public void setBusinessTypeCollection(BusinessTypeCollection<JournalType> businessTypeCollection) {
-        this.businessTypeCollection = businessTypeCollection;
-    }
+//    public void setJournalTypes(JournalTypes journalTypes) {
+//        this.journalTypes = journalTypes;
+//    }
 
-    public BusinessTypeCollection<JournalType> getBusinessTypeCollection() {
-        return businessTypeCollection;
+    public JournalTypes getJournalTypes() {
+        return journalTypes;
     }
 }

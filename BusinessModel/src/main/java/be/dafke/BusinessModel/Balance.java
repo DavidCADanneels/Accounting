@@ -18,7 +18,7 @@ import java.util.TreeSet;
  * Date: 28/02/13
  * Time: 0:54
  */
-public class Balance extends BusinessCollection<BalanceLine> implements BusinessCollectionDependent<Account>, BusinessTypeCollectionDependent<AccountType>{
+public class Balance extends BusinessCollection<BalanceLine> implements BusinessCollectionDependent<Account>{
 
     private final static String LEFTNAME = "LeftName";
     private final static String RIGHTNAME = "RightName";
@@ -37,7 +37,14 @@ public class Balance extends BusinessCollection<BalanceLine> implements Business
     private ArrayList<AccountType> leftTypes;
     private ArrayList<AccountType> rightTypes;
     private BusinessCollection<Account> businessCollection;
-    private BusinessTypeCollection<AccountType> businessTypeCollection;
+    private Balances balances;
+
+    public Balance() {
+    }
+
+    public Balance(Balances balances) {
+        this.balances = balances;
+    }
 
     @Override
     public String getChildType(){
@@ -225,20 +232,16 @@ public class Balance extends BusinessCollection<BalanceLine> implements Business
         leftTypes = new ArrayList<AccountType>();
         ArrayList<String> leftTypesString = Utils.parseStringList(properties.get(LEFTTYPES));
         for(String s: leftTypesString){
-            leftTypes.add(businessTypeCollection.getBusinessObject(s));
+            leftTypes.add(balances.getAccountTypes().getBusinessObject(s));
         }
         rightTypes = new ArrayList<AccountType>();
         ArrayList<String> rightTypesString = Utils.parseStringList(properties.get(RIGHTTYPES));
         for(String s: rightTypesString){
-            rightTypes.add(businessTypeCollection.getBusinessObject(s));
+            rightTypes.add(balances.getAccountTypes().getBusinessObject(s));
         }
     }
 
     public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
         this.businessCollection = businessCollection;
-    }
-
-    public void setBusinessTypeCollection(BusinessTypeCollection<AccountType> businessTypeCollection) {
-        this.businessTypeCollection = businessTypeCollection;
     }
 }

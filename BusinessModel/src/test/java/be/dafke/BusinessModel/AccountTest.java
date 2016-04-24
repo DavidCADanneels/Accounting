@@ -30,11 +30,11 @@ public class AccountTest {
     private final BigDecimal TWENTY = new BigDecimal(20);
     private final BigDecimal TEN = BigDecimal.TEN;
     private final BigDecimal ZERO = BigDecimal.ZERO;
-
+    private Accounts accounts = new Accounts();
 
     @Test
     public void defaultValues(){
-        Account account = new Account();
+        Account account = new Account(accounts);
         assertNull(account.createNewChild());
         assertEquals(account.getName(), account.toString());
         assertEquals(Account.MOVEMENT, account.getChildType());
@@ -48,7 +48,7 @@ public class AccountTest {
         BigDecimal scaledZero = new BigDecimal(0);
         scaledZero = scaledZero.setScale(2);
 
-        Account account = new Account();
+        Account account = new Account(accounts);
         BigDecimal debetTotal = account.getDebetTotal();
         BigDecimal creditTotal = account.getCreditTotal();
         BigDecimal saldo = account.getSaldo();
@@ -63,7 +63,7 @@ public class AccountTest {
 
     @Test
     public void deletable(){
-        Account account = new Account();
+        Account account = new Account(accounts);
         assertTrue(account.isDeletable());
         // add movements
 //        assertFalse(account.isDeletable());
@@ -71,7 +71,7 @@ public class AccountTest {
 
     @Test
       public void currentObject() throws EmptyNameException, DuplicateNameException {
-        Account account = new Account();
+        Account account = new Account(accounts);
         assertNull(account.getCurrentObject());
         Movement movement = new Movement(BigDecimal.ONE, true);
         account.setCurrentObject(movement);
@@ -80,7 +80,7 @@ public class AccountTest {
 
     @Test
     public void defaultAmount() throws EmptyNameException, DuplicateNameException {
-        Account account = new Account();
+        Account account = new Account(accounts);
         assertNull(account.getDefaultAmount());
         BigDecimal amount = BigDecimal.TEN;
         account.setDefaultAmount(amount);
@@ -89,7 +89,7 @@ public class AccountTest {
 
     @Test
      public void type() {
-        Account account = new Account();
+        Account account = new Account(accounts);
         assertNull(account.getType());
 
         AccountType type = new AccountType();
@@ -99,14 +99,14 @@ public class AccountTest {
 
     @Test (expected = NullPointerException.class)
     public void initPropertiesNameOnly() {
-        Account account = new Account();
+        Account account = new Account(accounts);
         // TODO: Account must be typed
         account.getInitProperties();
     }
 
     @Test
     public void initPropertiesNameAndType() {
-        Account account = new Account();
+        Account account = new Account(accounts);
         account.setName(NAME);
         AccountType accountType = new AccountType();
         accountType.setName(ACCOUNT_TYPE_NAME);
@@ -121,7 +121,7 @@ public class AccountTest {
 
     @Test
     public void initPropertiesNameTypeAndDefaultAmount() {
-        Account account = new Account();
+        Account account = new Account(accounts);
         account.setName(NAME);
         AccountType accountType = new AccountType();
         accountType.setName(ACCOUNT_TYPE_NAME);
@@ -139,10 +139,9 @@ public class AccountTest {
     @Test
     public void setInitProperties(){
         // TODO: check dependencies
-        Account account = new Account();
+        Account account = new Account(accounts);
         account.setName(NAME);
         AccountTypes accountTypes = new AccountTypes();
-        account.setBusinessTypeCollection(accountTypes);
         AccountType active = accountTypes.createNewChild();
         active.setName(AccountTypes.ASSET);
         account.setType(active);
@@ -167,7 +166,7 @@ public class AccountTest {
 
     @Test
     public void initValues() {
-        Account account = new Account();
+        Account account = new Account(accounts);
         assertEquals(ZERO.setScale(2), account.getSaldo());
         assertEquals(ZERO.setScale(2), account.getDebetTotal());
         assertEquals(ZERO.setScale(2), account.getCreditTotal());
@@ -192,7 +191,7 @@ public class AccountTest {
 
     @Test
     public void debit() {
-        Account account = new Account();
+        Account account = new Account(accounts);
         Movement debit = debit(account, TWENTY);
         assertEquals(TWENTY.setScale(2), account.getSaldo());  // 0 + 20 = 20
         assertEquals(TWENTY.setScale(2), account.getDebetTotal());  // 20
@@ -205,7 +204,7 @@ public class AccountTest {
 
     @Test
     public void credit() {
-        Account account = new Account();
+        Account account = new Account(accounts);
         Movement credit = credit(account, TEN);
         assertEquals(TEN.negate().setScale(2), account.getSaldo());  // 0 - 10 = -10
         assertEquals(ZERO.setScale(2), account.getDebetTotal());  // 0
@@ -218,7 +217,7 @@ public class AccountTest {
 
     @Test
     public void debitAndCredit(){
-        Account account = new Account();
+        Account account = new Account(accounts);
         Movement debit = debit(account, TWENTY);
         Movement credit = credit(account, TEN);
 
@@ -234,7 +233,7 @@ public class AccountTest {
 
     @Test
     public void unbook() {
-        Account account = new Account();
+        Account account = new Account(accounts);
         Movement debit = debit(account, TWENTY);
         Movement credit = credit(account, TEN);
 

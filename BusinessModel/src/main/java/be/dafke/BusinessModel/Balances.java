@@ -2,7 +2,6 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionProvider;
-import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
@@ -16,7 +15,7 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 27/02/13
  * Time: 12:07
  */
-public class Balances extends BusinessCollection<Balance> implements BusinessCollectionProvider<Account>, BusinessTypeProvider<AccountType>{
+public class Balances extends BusinessCollection<Balance> implements BusinessCollectionProvider<Account> {
 
     public static final String BALANCES = "Balances";
     public static final String BALANCE = "Balance";
@@ -26,7 +25,7 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
     public static String YEAR_BALANCE = "YearBalance";
 
     private BusinessCollection<Account> businessCollection;
-    private BusinessTypeCollection<AccountType> businessTypeCollection;
+    private AccountTypes accountTypes;
 
     public Balances(){
         setName(BALANCES);
@@ -103,7 +102,6 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
     public Balance createNewChild() {
         Balance balance = new Balance();
         balance.setBusinessCollection(businessCollection);
-        balance.setBusinessTypeCollection(businessTypeCollection);
         return balance;
     }
 
@@ -134,11 +132,11 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         this.businessCollection = businessCollection;
     }
 
-    public BusinessTypeCollection<AccountType> getBusinessTypeCollection() {
-        return businessTypeCollection;
+    public AccountTypes getAccountTypes() {
+        return accountTypes;
     }
 
-    public void setBusinessTypeCollection(BusinessTypeCollection<AccountType> businessTypeCollection) {
-        this.businessTypeCollection = businessTypeCollection;
+    public void setAccountTypes(AccountTypes accountTypes) {
+        this.accountTypes = accountTypes;
     }
 }

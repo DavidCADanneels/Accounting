@@ -18,17 +18,18 @@ import java.util.TreeMap;
   * @author David Danneels
   * @since 01/10/2010
  */
-public class Account extends BusinessCollection<Movement> implements BusinessTypeCollectionDependent<AccountType>, BusinessTyped<AccountType> {
+public class Account extends BusinessCollection<Movement> implements BusinessTyped<AccountType> {
     public static final String TYPE = "type";
     public static final String DEFAULTAMOUNT = "defaultAmount";
     public static final String MOVEMENT = "Movement";
     private AccountType type;
+    private Accounts accounts;
     private BigDecimal debitTotal, creditTotal;
     private final MultiValueMap<Calendar,Movement> movements;
-    private BusinessTypeCollection businessTypeCollection;
     private BigDecimal defaultAmount = null;
 
-    public Account() {
+    public Account(Accounts accounts) {
+        this.accounts = accounts;
         movements = new MultiValueMap<Calendar,Movement>();
         debitTotal = BigDecimal.ZERO;
         debitTotal = debitTotal.setScale(2);
@@ -49,10 +50,6 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
     @Override
     public String getChildType(){
         return MOVEMENT;
-    }
-
-    public void setBusinessTypeCollection(BusinessTypeCollection businessTypeCollection) {
-        this.businessTypeCollection = businessTypeCollection;
     }
 
     public void setType(AccountType type) {
@@ -155,7 +152,7 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
         super.setInitProperties(properties);
         String typeName = properties.get(TYPE);
         if(typeName!=null){
-            type = (AccountType) businessTypeCollection.getBusinessObject(typeName);
+            type = accounts.getAccountTypes().getBusinessObject(typeName);
         }
         String defaultAmountString = properties.get(DEFAULTAMOUNT);
         if(defaultAmountString!=null){

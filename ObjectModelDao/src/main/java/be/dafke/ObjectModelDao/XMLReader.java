@@ -72,12 +72,6 @@ public class XMLReader {
                 // create new instance of object
                 BusinessObject object = businessCollection.createNewChild();
 
-                // if object is Typed, fetch its TypeCollection from the collection
-                if (businessCollection instanceof BusinessTypeProvider && object instanceof BusinessTypeCollectionDependent) {
-                    BusinessTypeCollection btc = ((BusinessTypeProvider) businessCollection).getBusinessTypeCollection();
-                    ((BusinessTypeCollectionDependent) object).setBusinessTypeCollection(btc);
-                }
-
                 // if object is dependant on another collection, fetch this Collection from the collection
                 if (businessCollection instanceof BusinessCollectionProvider && object instanceof BusinessCollectionDependent) {
                     BusinessCollection bc = ((BusinessCollectionProvider) businessCollection).getBusinessCollection();

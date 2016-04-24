@@ -16,12 +16,16 @@ import java.util.Map;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Accounts extends BusinessCollection<Account> implements BusinessTypeProvider<AccountType> {
+public class Accounts extends BusinessCollection<Account> {
 
-    private BusinessTypeCollection<AccountType> businessTypeCollection;
+    private AccountTypes accountTypes;
 
     public Accounts(){
         setName("Accounts");
+    }
+    public Accounts(AccountTypes accountTypes){
+        this();
+        this.accountTypes = accountTypes;
     }
 
     @Override
@@ -54,16 +58,16 @@ public class Accounts extends BusinessCollection<Account> implements BusinessTyp
         return modify(oldEntry, newEntry);
 	}
 
-    public void setBusinessTypeCollection(BusinessTypeCollection<AccountType> businessTypeCollection) {
-        this.businessTypeCollection = businessTypeCollection;
+    public void setAccountTypes(AccountTypes accountTypes) {
+        this.accountTypes = accountTypes;
     }
 
-    public BusinessTypeCollection<AccountType> getBusinessTypeCollection() {
-        return businessTypeCollection;
+    public BusinessTypeCollection<AccountType> getAccountTypes() {
+        return accountTypes;
     }
 
     @Override
     public Account createNewChild() {
-        return new Account();
+        return new Account(this);
     }
 }

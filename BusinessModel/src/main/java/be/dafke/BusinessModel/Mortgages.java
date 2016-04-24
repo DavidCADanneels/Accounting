@@ -10,8 +10,8 @@ import be.dafke.ObjectModel.BusinessTypeProvider;
  * Date: 27/02/13
  * Time: 11:06
  */
-public class Mortgages extends BusinessCollection<Mortgage> implements BusinessTypeProvider<AccountType>, BusinessCollectionProvider<Account> {
-    private BusinessTypeCollection<AccountType> businessTypeCollection;
+public class Mortgages extends BusinessCollection<Mortgage> implements BusinessCollectionProvider<Account> {
+    private AccountTypes accountTypes;
     private BusinessCollection<Account> businessCollection;
 
     public static final String MORTGAGES = "Mortgages";
@@ -36,12 +36,12 @@ public class Mortgages extends BusinessCollection<Mortgage> implements BusinessT
 //        readCollection("Mortgage",true);
 //    }
 
-    public void setBusinessTypeCollection(BusinessTypeCollection<AccountType> businessTypeCollection) {
-        this.businessTypeCollection = businessTypeCollection;
+    public void setAccountTypes(AccountTypes accountTypes) {
+        this.accountTypes = accountTypes;
     }
 
-    public BusinessTypeCollection<AccountType> getBusinessTypeCollection() {
-        return businessTypeCollection;
+    public AccountTypes getAccountTypes() {
+        return accountTypes;
     }
 
     public BusinessCollection<Account> getBusinessCollection() {

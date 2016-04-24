@@ -20,17 +20,18 @@ import java.util.TreeMap;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journal extends BusinessCollection<Transaction> implements BusinessCollectionDependent<Account>,BusinessTypeCollectionDependent<JournalType>, BusinessTyped<JournalType>, BusinessCollectionProvider<Account>, MustBeRead {
+public class Journal extends BusinessCollection<Transaction> implements BusinessCollectionDependent<Account>, BusinessTyped<JournalType>, BusinessCollectionProvider<Account>, MustBeRead {
     private static final String TYPE = "type";
     protected static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
     private String abbreviation;
     private final MultiValueMap<Calendar,Transaction > transactions;
     private JournalType type;
+    private Journals journals;
     private Transaction currentTransaction = new Transaction();
-    private BusinessTypeCollection businessTypeCollection;
     private BusinessCollection<Account> businessCollection;
 
-    public Journal() {
+    public Journal(Journals journals) {
+        this.journals = journals;
 		transactions = new MultiValueMap<Calendar,Transaction>();
 	}
 
@@ -67,10 +68,6 @@ public class Journal extends BusinessCollection<Transaction> implements Business
 
     public JournalType getType() {
         return type;
-    }
-
-    public void setBusinessTypeCollection(BusinessTypeCollection businessTypeCollection) {
-        this.businessTypeCollection = businessTypeCollection;
     }
 
     public void setType(JournalType type) {
@@ -151,7 +148,7 @@ public class Journal extends BusinessCollection<Transaction> implements Business
         abbreviation = properties.get(ABBREVIATION);
         String typeName = properties.get(TYPE);
         if(typeName!=null){
-            type = (JournalType) businessTypeCollection.getBusinessObject(typeName);
+            type = journals.getJournalTypes().getBusinessObject(typeName);
         }
     }
 
