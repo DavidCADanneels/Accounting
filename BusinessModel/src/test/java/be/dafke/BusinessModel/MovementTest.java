@@ -3,7 +3,6 @@ package be.dafke.BusinessModel;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.TreeMap;
 
 import static org.junit.Assert.*;
 
@@ -60,17 +59,17 @@ public class MovementTest {
 //        assertEquals(booking,movement.getBooking());
 //    }
 
-    @Test
-    public void getUniqueProperties(){
-        Movement movement = new Movement(AMOUNT,true);
-        TreeMap<String, String> uniqueProperties = movement.getUniqueProperties();
-        assertTrue(uniqueProperties.isEmpty());
-    }
-
-    @Test
-    public void getInitProperties(){
-        Movement movement = new Movement(AMOUNT,true);
-        TreeMap<String, String> uniqueProperties = movement.getUniqueProperties();
-        assertTrue(uniqueProperties.isEmpty());
-    }
+//    @Test
+//    public void getUniqueProperties(){
+//        Movement movement = new Movement(AMOUNT,true);
+//        TreeMap<String, String> uniqueProperties = movement.getUniqueProperties();
+//        assertTrue(uniqueProperties.isEmpty());
+//    }
+//
+//    @Test
+//    public void getInitProperties(){
+//        Movement movement = new Movement(AMOUNT,true);
+//        TreeMap<String, String> uniqueProperties = movement.getUniqueProperties();
+//        assertTrue(uniqueProperties.isEmpty());
+//    }
 }

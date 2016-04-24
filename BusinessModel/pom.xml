@@ -6,21 +6,19 @@
     <groupId>be.dafke.Accounting</groupId>
     <artifactId>BusinessModel</artifactId>
     <parent>
-        <artifactId>Accounting</artifactId>
-        <groupId>be.dafke</groupId>
-        <version>3.0</version>
+        <groupId>be.dafke.Accounting</groupId>
+        <artifactId>Parent</artifactId>
+        <relativePath>../Parent</relativePath>
+        <version>3.1-SNAPSHOT</version>
     </parent>
-
     <dependencies>
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>Utils</artifactId>
-            <version>3.0</version>
         </dependency>
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>ObjectModel</artifactId>
-            <version>3.0</version>
         </dependency>
 
         <dependency>

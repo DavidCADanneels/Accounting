@@ -3,7 +3,7 @@ mavenJob("01_UnitTests"){
         scm 'H/15 * * * *'
     }
     scm{
-        github("https://github.com/DavidCADanneels/Accounting.git","master")
+        github("DavidCADanneels/Accounting.git","master")
     }
 //    rootPOM("pom.xml")
     goals "clean package"
