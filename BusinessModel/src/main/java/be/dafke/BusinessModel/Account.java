@@ -134,8 +134,9 @@ public class Account extends BusinessCollection<Movement> {
     }
 
     @Override
-    public Properties getInitProperties() {
-        Properties outputMap = super.getInitProperties();
+    public Properties getOutputProperties() {
+        Properties outputMap = new Properties();
+        outputMap.put(NAME,getName());
         // FIXME NullPointerException if type==null / Type must be defined
         outputMap.put(TYPE, getType().getName());
         if(defaultAmount!=null){

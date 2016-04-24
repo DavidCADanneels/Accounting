@@ -121,8 +121,9 @@ public class CounterParty extends BusinessObject {
     // KeySets and Properties
 
     @Override
-    public Properties getInitProperties() {
-        Properties properties = super.getInitProperties();
+    public Properties getOutputProperties() {
+        Properties properties = new Properties();
+        properties.put(NAME,getName());
         properties.put(CounterParties.ACCOUNTNUMBER, getBankAccountsString());
         properties.put(CounterParties.ALIAS, Utils.toString(aliases));
         properties.put(CounterParties.BIC,getBICString());

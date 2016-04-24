@@ -53,7 +53,7 @@ public class Booking extends BusinessObject {
     }
 
     @Override
-    public Properties getInitProperties() {
+    public Properties getOutputProperties() {
         Properties properties = new Properties();
         properties.put(ACCOUNT, account.getName());
         properties.put(ID, movement.getId().toString());

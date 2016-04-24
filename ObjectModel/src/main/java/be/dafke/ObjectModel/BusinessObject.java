@@ -51,7 +51,7 @@ public class BusinessObject {
     }
 
     //
-    public Properties getInitProperties(){
+    public Properties getOutputProperties(){
         Properties properties = new Properties();
         properties.put(NAME,name);
         return properties;

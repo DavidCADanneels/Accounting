@@ -179,8 +179,8 @@ public class Balance extends BusinessCollection<BalanceLine> {
     }
 
     @Override
-    public Properties getInitProperties() {
-        Properties properties = super.getInitProperties();
+    public Properties getOutputProperties() {
+        Properties properties = new Properties();
         properties.put(NAME, getName());
         properties.put(Balances.LEFTNAME, leftName);
         properties.put(Balances.RIGHTNAME, rightName);

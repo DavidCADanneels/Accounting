@@ -122,7 +122,7 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
     }
 
     @Override
-    public Properties getInitProperties() {
+    public Properties getOutputProperties() {
         Properties properties = new Properties();
         properties.put(NAME,getName());
         if(startCapital!=null){

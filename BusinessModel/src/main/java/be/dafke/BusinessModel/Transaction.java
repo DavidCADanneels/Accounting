@@ -78,7 +78,7 @@ public class Transaction extends BusinessCollection<Booking> {
     }
 
     @Override
-    public Properties getInitProperties() {
+    public Properties getOutputProperties() {
         Properties properties = new Properties();
         properties.put(ID, new Integer(journal.getId(this)).toString());
         properties.put(DATE, Utils.toString(date));

@@ -44,7 +44,7 @@ public class BusinessObjectTest {
 //
 //        businessObject.setName(NAME);
 //
-//        final Properties initProperties = businessObject.getInitProperties();
+//        final Properties initProperties = businessObject.getOutputProperties();
 //        assertEquals(NR_OF_KEYS,initProperties.size());
 ////        assertEquals(NAME,initProperties.firstKey());
 //        assertEquals(NAME, initProperties.get(NAME));

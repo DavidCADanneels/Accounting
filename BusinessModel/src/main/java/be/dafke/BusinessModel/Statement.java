@@ -97,7 +97,7 @@ public class Statement extends BusinessObject {
 
     //
     @Override
-    public Properties getInitProperties(){
+    public Properties getOutputProperties(){
         Properties properties = new Properties();
         properties.put(NAME,getName());
         properties.put(DATE,Utils.toString(date));

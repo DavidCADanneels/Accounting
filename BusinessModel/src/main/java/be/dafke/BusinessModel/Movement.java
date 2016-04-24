@@ -41,7 +41,7 @@ public class Movement extends BusinessObject{
     }
 
     @Override
-    public Properties getInitProperties() {
+    public Properties getOutputProperties() {
         Properties properties = new Properties();
         Transaction transaction = booking.getTransaction();
         properties.put(Account.ID,id.toString());

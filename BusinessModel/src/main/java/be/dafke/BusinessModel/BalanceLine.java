@@ -25,7 +25,7 @@ public class BalanceLine extends BusinessObject {
     }
 
     @Override
-    public Properties getInitProperties(){
+    public Properties getOutputProperties(){
         Properties properties = new Properties();
         if(leftAccount!=null){
             properties.put(Balance.NAME1,leftAccount.getName());

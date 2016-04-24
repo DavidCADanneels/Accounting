@@ -28,8 +28,9 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
 	}
 
     @Override
-    public Properties getInitProperties() {
-        Properties outputMap = super.getInitProperties();
+    public Properties getOutputProperties() {
+        Properties outputMap = new Properties();
+        outputMap.put(NAME,getName());
         outputMap.put(Journals.TYPE, getType().getName());
         outputMap.put(Journals.ABBREVIATION, getAbbreviation());
         return outputMap;
