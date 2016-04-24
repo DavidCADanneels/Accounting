@@ -73,24 +73,6 @@ public class Movement extends BusinessObject{
         return properties;
     }
 
-    public void setInitProperties(TreeMap<String, String> properties){
-//        id = Integer.parseInt(properties.get(ID));
-        String debitString = properties.get(DEBIT);
-        String creditString = properties.get(CREDIT);
-        if(debitString!=null){
-            debit = true;
-            amount = new BigDecimal(debitString);
-            if(creditString!=null){
-                System.err.println("Movement cannot contain both 'debit' and 'credit' !!!");
-            }
-        } else if(creditString!=null){
-            debit = false;
-            amount = new BigDecimal(creditString);
-        } else {
-            System.err.println("No 'debit' or 'credit' tag found in Movement !!!");
-        }
-    }
-
     public Booking getBooking() {
         return booking;
     }

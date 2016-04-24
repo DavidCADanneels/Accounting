@@ -84,9 +84,28 @@ public class Booking extends BusinessObject {
     // Set initial values for each key in InitKeySet, while reading xml
     public void setInitProperties(TreeMap<String, String> properties){
         account = accounts.getBusinessObject(properties.get(ACCOUNT));
-        movement = new Movement();
+        movement = createMovement(properties);
         movement.setBooking(this);
-        movement.setInitProperties(properties);
+    }
+
+    private Movement createMovement(TreeMap<String, String> properties){
+        String debitString = properties.get(DEBIT);
+        String creditString = properties.get(CREDIT);
+        boolean debit= true;
+        BigDecimal amount = null;
+        if(debitString!=null){
+            debit = true;
+            amount = new BigDecimal(debitString);
+            if(creditString!=null){
+                System.err.println("Movement cannot contain both 'debit' and 'credit' !!!");
+            }
+        } else if(creditString!=null){
+            debit = false;
+            amount = new BigDecimal(creditString);
+        } else {
+            System.err.println("No 'debit' or 'credit' tag found in Movement !!!");
+        }
+        return new Movement(amount,debit);
     }
 
     // Getters
