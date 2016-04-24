@@ -7,16 +7,11 @@ import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BasicAccounting.SaveAllActionListener;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
-import be.dafke.BusinessModel.Mortgage;
-import be.dafke.BusinessModel.Mortgages;
-import be.dafke.BusinessModelDao.MortgagesSAXParser;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModelDao.XMLReader;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import java.awt.BorderLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.io.File;
 
 public class BasicAccountingMain {
@@ -107,7 +102,7 @@ public class BasicAccountingMain {
     }
 
     private static void setXmlFolder(){
-        Mode mode = Mode.PROD;
+        Mode mode = Mode.TEST;
 
         if(mode == Mode.TEST){
             int nr = JOptionPane.showOptionDialog(null,"TEST or PROD", "Which environment?",JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,null, Mode.values(),Mode.TEST);

@@ -76,7 +76,7 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	public void refresh() {
         combo.removeActionListener(this);
         combo.removeAllItems();
-		if (accounting.getJournals()!=null) {
+		if (accounting!=null && accounting.getJournals()!=null) {
             for(Journal journal: accounting.getJournals().getBusinessObjects()){
                 combo.addItem(journal);
             }

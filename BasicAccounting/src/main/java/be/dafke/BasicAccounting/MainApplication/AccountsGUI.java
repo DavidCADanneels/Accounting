@@ -112,16 +112,6 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 
         setAccounting(accounting);
 
-        for(AccountType type : accounting.getAccountTypes().getBusinessObjects()) {
-            JCheckBox checkBox = new JCheckBox(getBundle("Accounting").getString(type.getName().toUpperCase()));
-            checkBox.setSelected(true);
-            checkBox.setEnabled(false);
-            checkBox.setActionCommand(type.getName());
-            checkBox.addActionListener(this);
-            boxes.add(checkBox);
-            filter.add(checkBox);
-        }
-
         add(filter, BorderLayout.NORTH);
 	}
 
@@ -131,22 +121,23 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
             selectedAccount = lijst.getSelectedValue();
         }
         accountDetails.setEnabled(selectedAccount !=null);
-        boolean active = (selectedAccount !=null && accounting.getJournals().getCurrentObject()!=null);
+        boolean active = (selectedAccount !=null && accounting!=null && accounting.getJournals()!=null && accounting.getJournals().getCurrentObject()!=null);
         debet.setEnabled(active);
         credit.setEnabled(active);
 	}
 
     public void buttonClicked(String actionCommand){
-        Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
-
-        if(DEBIT.equals(actionCommand)){
-            TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, true);
-        } else if (CREDIT.equals(actionCommand)){
-            TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, false);
-        } else if (MANAGE.equals(actionCommand)){
+        if (MANAGE.equals(actionCommand)){
             GUIActions.showAccountManager(accounting);
         } else if (DETAILS.equals(actionCommand)){
             GUIActions.showDetails(lijst.getSelectedValue(),accounting.getJournals());
+        } else {
+            Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
+            if(DEBIT.equals(actionCommand)){
+                TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, true);
+            } else if (CREDIT.equals(actionCommand)){
+                TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, false);
+            }
         }
     }
 
@@ -171,10 +162,25 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 
     public void setAccounting(Accounting accounting) {
         this.accounting = accounting;
+
+        if(accounting!=null) {
+            boxes.clear();
+            filter.removeAll();
+
+            for (AccountType type : accounting.getAccountTypes().getBusinessObjects()) {
+                JCheckBox checkBox = new JCheckBox(getBundle("Accounting").getString(type.getName().toUpperCase()));
+                checkBox.setSelected(true);
+                checkBox.setEnabled(false);
+                checkBox.setActionCommand(type.getName());
+                checkBox.addActionListener(this);
+                boxes.add(checkBox);
+                filter.add(checkBox);
+            }
+        }
     }
 
 	public void refresh() {
-        boolean active = accounting.getAccounts()!=null;
+        boolean active = accounting!=null && accounting.getAccounts()!=null;
         for(JCheckBox checkBox: boxes) {
 			checkBox.setEnabled(active);
 		}

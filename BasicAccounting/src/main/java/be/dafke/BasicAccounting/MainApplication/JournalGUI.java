@@ -4,10 +4,7 @@ import be.dafke.BasicAccounting.DetailsPopupMenu;
 import be.dafke.BasicAccounting.JournalGUIPopupMenu;
 import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
 import be.dafke.BusinessActions.PopupForTableActivator;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.Transaction;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Utils.Utils;
@@ -37,7 +34,9 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     private Accounting accounting;
 
     public JournalGUI(Accounting accounting) {
-        journal = accounting.getJournals().getCurrentObject();
+        if(accounting!=null) {
+            journal = accounting.getJournals().getCurrentObject();
+        }
         debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
 		setLayout(new BorderLayout());
@@ -45,7 +44,13 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         journalDetailsDataModel = new JournalDetailsDataModel(journal);
         viewTable = new RefreshableTable<Booking>(journalDetailsDataModel);
 		viewTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
-        viewPopup = new DetailsPopupMenu(accounting.getJournals(), viewTable, DetailsPopupMenu.Mode.JOURNAL);
+        Journals journals;
+        if(accounting!=null) {
+            journals = accounting.getJournals();
+        } else {
+            journals = null;
+        }
+        viewPopup = new DetailsPopupMenu(null, viewTable, DetailsPopupMenu.Mode.JOURNAL);
         viewTable.addMouseListener(new PopupForTableActivator(viewPopup, viewTable, 0,2,3,4));
 
         inputTable = new RefreshableTable<Booking>(journalDataModel);
@@ -124,7 +129,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
 		onder.add(paneel3);
 
 		add(onder, BorderLayout.SOUTH);
-
+//        setAccounting(accounting);
         refresh();
 	}
 

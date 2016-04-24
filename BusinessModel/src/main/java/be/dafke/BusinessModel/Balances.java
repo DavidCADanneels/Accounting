@@ -40,6 +40,7 @@ public class Balances extends BusinessCollection<Balance> {
     public Balances(Accounting accounting) {
         this.accounting = accounting;
         setName(BALANCES);
+        addDefaultBalances(accounting.getAccountTypes());
     }
 
     @Override

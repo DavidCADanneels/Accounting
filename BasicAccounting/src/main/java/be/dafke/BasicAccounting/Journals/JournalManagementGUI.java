@@ -127,7 +127,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == add || e.getSource() == name || e.getSource() == abbr) {
 			addJournal();
-		} if (e.getSource() == newType) {
+		}else if (e.getSource() == newType) {
             GUIActions.showJournalTypeManager(accounting.getAccountTypes());
         } else {
             ArrayList<Journal> journalList = getSelectedJournals();
