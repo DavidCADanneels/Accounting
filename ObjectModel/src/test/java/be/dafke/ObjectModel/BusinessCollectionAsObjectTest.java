@@ -3,6 +3,8 @@ package be.dafke.ObjectModel;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.TreeMap;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
@@ -18,10 +20,10 @@ public class BusinessCollectionAsObjectTest extends BusinessObjectTest{
                 return null;
             }
 
-            @Override
-            public BusinessCollection createNewChild() {
+            public BusinessObject createNewChild(TreeMap<String, String> properties) {
                 return null;
             }
+
         };
         businessObjectType = businessObject.getClass().getSimpleName();
     }

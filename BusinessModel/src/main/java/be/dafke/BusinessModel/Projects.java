@@ -10,6 +10,8 @@ import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
+import java.util.TreeMap;
+
 /**
  * @author David Danneels
  */
@@ -31,7 +33,7 @@ public class Projects extends BusinessCollection<BusinessObject> {
 	}
 
 	@Override
-	public BusinessObject createNewChild() {
+	public BusinessObject createNewChild(TreeMap<String, String> properties) {
 		return null;
 	}
 }

@@ -13,6 +13,7 @@ import be.dafke.ComponentModel.DisposableComponent;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.JOptionPane;
+import java.util.Calendar;
 
 /**
  * Created by ddanneel on 14/02/2015.
@@ -112,7 +113,7 @@ public class GUIActions {
             int answer = JOptionPane.showConfirmDialog(null, builder.toString());
             if(answer == JOptionPane.YES_OPTION){
                 newJournal.setCurrentObject(oldTransaction);
-                oldJournal.setCurrentObject(new Transaction(accounts));
+                oldJournal.setCurrentObject(new Transaction(accounts, Calendar.getInstance(), ""));
                 journals.setCurrentObject(newJournal);
             } else if(answer == JOptionPane.NO_OPTION){
                 journals.setCurrentObject(newJournal);

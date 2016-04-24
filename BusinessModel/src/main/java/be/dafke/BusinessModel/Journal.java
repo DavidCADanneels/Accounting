@@ -3,12 +3,9 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.MultiValueMap;
+import be.dafke.Utils.Utils;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Boekhoudkundig dagboek
@@ -16,27 +13,46 @@ import java.util.TreeMap;
  * @since 01/10/2010
  */
 public class Journal extends BusinessCollection<Transaction> implements MustBeRead {
-    private static final String TYPE = "type";
-    protected static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
     private String abbreviation;
     private final MultiValueMap<Calendar,Transaction > transactions;
     private JournalType type;
     private Accounting accounting;
     private Transaction currentTransaction;
 
-    public Journal(Accounting accounting) {
+    public Journal(Accounting accounting, String name, String abbreviation) {
         this.accounting = accounting;
-        currentTransaction = new Transaction(accounting.getAccounts());
+        setName(name);
+        setAbbreviation(abbreviation);
+        currentTransaction = new Transaction(accounting.getAccounts(),Calendar.getInstance(),"open transaction");
         transactions = new MultiValueMap<Calendar,Transaction>();
 	}
+
+    @Override
+    public Properties getInitProperties() {
+        Properties outputMap = super.getInitProperties();
+        outputMap.put(Journals.TYPE, getType().getName());
+        outputMap.put(Journals.ABBREVIATION, getAbbreviation());
+        return outputMap;
+    }
 
     public Journals getJournals() {
         return accounting.getJournals();
     }
 
     @Override
-    public Transaction createNewChild(){
-        return new Transaction(accounting.getAccounts());
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        keySet.add(Transaction.DATE);
+        keySet.add(Transaction.DESCRIPTION);
+        return keySet;
+    }
+
+    @Override
+    public Transaction createNewChild(TreeMap<String, String> properties){
+        Calendar date = Utils.toCalendar(properties.get(Transaction.DATE));
+        String description = properties.get(Transaction.DESCRIPTION);
+        return new Transaction(accounting.getAccounts(), date, description);
     }
 
     @Override
@@ -126,35 +142,9 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
 	}
 
     @Override
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = super.getInitKeySet();
-        keySet.add(ABBREVIATION);
-        keySet.add(TYPE);
-        return keySet;
-    }
-
-    @Override
-    public void setInitProperties(TreeMap<String, String> properties) {
-        super.setInitProperties(properties);
-        abbreviation = properties.get(ABBREVIATION);
-        String typeName = properties.get(TYPE);
-        if(typeName!=null){
-            type = accounting.getJournalTypes().getBusinessObject(typeName);
-        }
-    }
-
-    @Override
-    public Properties getInitProperties() {
-        Properties outputMap = super.getInitProperties();
-        outputMap.put(TYPE, getType().getName());
-        outputMap.put(ABBREVIATION, getAbbreviation());
-        return outputMap;
-    }
-
-    @Override
     public TreeMap<String,String> getUniqueProperties(){
         TreeMap<String,String> keyMap = super.getUniqueProperties();
-        keyMap.put(ABBREVIATION, abbreviation);
+        keyMap.put(Journals.ABBREVIATION, abbreviation);
         return keyMap;
     }
 }

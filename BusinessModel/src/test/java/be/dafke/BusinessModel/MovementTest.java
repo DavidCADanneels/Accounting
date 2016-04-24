@@ -3,13 +3,9 @@ package be.dafke.BusinessModel;
 import org.junit.Test;
 
 import java.math.BigDecimal;
-import java.util.Set;
 import java.util.TreeMap;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.*;
 
 /**
  * Created by ddanneels on 7/12/2015.
@@ -54,29 +50,21 @@ public class MovementTest {
         assertTrue(movement.isDebit());
     }
 
-    @Test
-    public void getBooking(){
-        Movement movement = new Movement(AMOUNT, true);
-        assertNull(movement.getBooking());
-        Accounts accounts = new Accounts(new Accounting());
-        Booking booking = new Booking(accounts);
-        movement.setBooking(booking);
-        assertEquals(booking,movement.getBooking());
-    }
+//    @Test
+//    public void getBooking(){
+//        Movement movement = new Movement(AMOUNT, true);
+//        assertNull(movement.getBooking());
+//        Accounts accounts = new Accounts(new Accounting());
+//        Booking booking = new Booking();
+//        movement.setBooking(booking);
+//        assertEquals(booking,movement.getBooking());
+//    }
 
     @Test
     public void getUniqueProperties(){
         Movement movement = new Movement(AMOUNT,true);
         TreeMap<String, String> uniqueProperties = movement.getUniqueProperties();
         assertTrue(uniqueProperties.isEmpty());
-    }
-
-    @Test
-    public void getInitKeySet(){
-        Movement movement = new Movement(AMOUNT,true);
-        Set<String> initKeySet = movement.getInitKeySet();
-        assertTrue(initKeySet.contains(Movement.DEBIT));
-        assertTrue(initKeySet.contains(Movement.CREDIT));
     }
 
     @Test

@@ -1,14 +1,11 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Serialiseerbare map die alle rekeningen bevat
@@ -44,6 +41,15 @@ public class Accounts extends BusinessCollection<Account> {
 		return list;
 	}
 
+    @Override
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        keySet.add(Account.TYPE);
+        keySet.add(Account.DEFAULTAMOUNT);
+        return keySet;
+    }
+
 	public Account modifyAccountName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
         Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(NAME, oldName);
         Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(NAME, newName);
@@ -53,7 +59,21 @@ public class Accounts extends BusinessCollection<Account> {
 	}
 
     @Override
-    public Account createNewChild() {
-        return new Account(accounting);
+    public Account createNewChild(TreeMap<String, String> properties) {
+        String name = properties.get(NAME);
+        Account account = new Account(name);
+        String typeName = properties.get(Account.TYPE);
+        if(typeName!=null){
+            account.setType(accounting.getAccountTypes().getBusinessObject(typeName));
+        }
+        String defaultAmountString = properties.get(Account.DEFAULTAMOUNT);
+        if(defaultAmountString!=null){
+            try{
+                account.setDefaultAmount(new BigDecimal(defaultAmountString));
+            } catch (NumberFormatException nfe){
+                account.setDefaultAmount(null);
+            }
+        }
+        return account;
     }
 }

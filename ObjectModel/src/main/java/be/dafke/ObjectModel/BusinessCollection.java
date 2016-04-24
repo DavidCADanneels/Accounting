@@ -4,11 +4,7 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * User: Dafke
@@ -27,7 +23,16 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         addSearchKey(NAME);
     }
 
-    public abstract V createNewChild();
+    public abstract V createNewChild(TreeMap<String, String> properties);
+
+    // KeySet and Properties
+    //
+    // Keys found in the CollectionFile e.g. Account.NAME in Accounts.xml file
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        return keySet;
+    }
 
     protected void addSearchKey(String key){
         if(dataTables.containsKey(key)){

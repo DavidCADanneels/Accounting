@@ -25,14 +25,15 @@ public class TransactionActions {
         if(capitalAccount==null || intrestAccount==null){
             return;
         }
-        Booking capitalBooking = new Booking(accounts, capitalAccount, mortgage.getNextCapitalAmount(),true);
-        Booking intrestBooking = new Booking(accounts, intrestAccount, mortgage.getNextIntrestAmount(),true);
+        Booking capitalBooking = new Booking(capitalAccount, mortgage.getNextCapitalAmount(),true);
+        Booking intrestBooking = new Booking(intrestAccount, mortgage.getNextIntrestAmount(),true);
 
 
         transaction.addBusinessObject(capitalBooking);
         transaction.addBusinessObject(intrestBooking);
 
-        MortgageTransaction mortgageTransaction = mortgage.createNewChild();
+        MortgageTransaction mortgageTransaction = new MortgageTransaction(accounts);
+        mortgageTransaction.setMortgage(mortgage);
         mortgageTransaction.addBusinessObject(capitalBooking);
         mortgageTransaction.addBusinessObject(intrestBooking);
         mortgage.addBusinessObject(mortgageTransaction);
@@ -43,7 +44,7 @@ public class TransactionActions {
     public static void addBookingToTransaction(Accounts accounts, Account account, Transaction transaction, boolean debit) {
         BigDecimal amount = askAmount(transaction, account, debit);
         if (amount != null) {
-            Booking booking = new Booking(accounts, account, amount, debit);
+            Booking booking = new Booking(account, amount, debit);
             transaction.addBusinessObject(booking);
             ComponentMap.refreshAllFrames();
         }

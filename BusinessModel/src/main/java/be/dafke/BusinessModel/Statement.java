@@ -6,24 +6,20 @@ import be.dafke.Utils.Utils;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 public class Statement extends BusinessObject {
-    private static final String DATE = "Date";
-    private static final String SIGN = "Sign";
-    private static final String AMOUNT = "Amount";
-    private static final String COUNTERPARTY = "CounterParty";
-    private static final String TRANSACTIONCODE = "TransactionCode";
-    private static final String COMMUNICATION = "Communication";
+    public static final String DATE = "Date";
+    public static final String SIGN = "Sign";
+    public static final String AMOUNT = "Amount";
+    public static final String COUNTERPARTY = "CounterParty";
+    public static final String TRANSACTIONCODE = "TransactionCode";
+    public static final String COMMUNICATION = "Communication";
     private String transactionCode;
     private String communication;
 	private boolean debit;
     private boolean structured;
 	private BigDecimal amount;
 	private Calendar date;
-    private Statements statements;
 
 	private CounterParty counterParty;
 	private TmpCounterParty tmpCounterParty;
@@ -99,34 +95,6 @@ public class Statement extends BusinessObject {
         return structured;
     }
 
-    // KeySet and Properties
-    //
-    // Keys found in the CollectionFile e.g. Account.NAME in Accounts.xml file
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
-        keySet.add(NAME);
-        keySet.add(DATE);
-        keySet.add(SIGN);
-        keySet.add(AMOUNT);
-        keySet.add(COUNTERPARTY);
-        keySet.add(TRANSACTIONCODE);
-        keySet.add(COMMUNICATION);
-        return keySet;
-    }
-    //
-    public void setInitProperties(TreeMap<String, String> properties){
-        setName(properties.get(NAME));
-        setDate(Utils.toCalendar(properties.get(DATE)));
-        setAmount(Utils.parseBigDecimal(properties.get(AMOUNT)));
-        setCommunication(properties.get(COMMUNICATION));
-        setTransactionCode(properties.get(TRANSACTIONCODE));
-        String sign = properties.get(SIGN);
-        setDebit("D".equals(sign));
-        String counterPartyString = properties.get(COUNTERPARTY);
-        if(counterPartyString!=null && !counterPartyString.equals("")){
-            setCounterParty((CounterParty)statements.getCounterParties().getBusinessObject(counterPartyString));
-        }
-    }
     //
     @Override
     public Properties getInitProperties(){

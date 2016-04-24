@@ -4,9 +4,7 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Serialiseerbare map die alle dagboeken bevat
@@ -14,6 +12,8 @@ import java.util.Map;
  * @since 01/10/2010
  */
 public class Journals extends BusinessCollection<Journal> {
+    public static final String TYPE = "type";
+    public static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
 
     private final Accounting accounting;
 
@@ -24,13 +24,29 @@ public class Journals extends BusinessCollection<Journal> {
 
     public Journals(Accounting accounting) {
         this.accounting = accounting;
-        addSearchKey(Journal.ABBREVIATION);
+        addSearchKey(ABBREVIATION);
         setName("Journals");
 	}
 
     @Override
-    public Journal createNewChild() {
-        return new Journal(accounting);
+    public Journal createNewChild(TreeMap<String, String> properties) {
+        String name = properties.get(NAME);
+        String abbreviation = properties.get(Journals.ABBREVIATION);
+        String typeName = properties.get(Journals.TYPE);
+        Journal journal = new Journal(accounting, name, abbreviation);
+        if(typeName!=null){
+            journal.setType(accounting.getJournalTypes().getBusinessObject(typeName));
+        }
+        return journal;
+    }
+
+    @Override
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        keySet.add(ABBREVIATION);
+        keySet.add(TYPE);
+        return keySet;
     }
 
    /* @Override
@@ -58,8 +74,8 @@ public class Journals extends BusinessCollection<Journal> {
     }
 
     public Journal modifyJournalAbbreviation(String oldAbbreviation, String newAbbreviation) throws EmptyNameException, DuplicateNameException {
-        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(Journal.ABBREVIATION, oldAbbreviation);
-        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(Journal.ABBREVIATION, newAbbreviation);
+        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(ABBREVIATION, oldAbbreviation);
+        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(ABBREVIATION, newAbbreviation);
         Journal journal = modify(oldEntry, newEntry);
         journal.setAbbreviation(newAbbreviation.trim());
         return journal;

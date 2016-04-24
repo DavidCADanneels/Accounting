@@ -7,7 +7,7 @@ public class MortgageTransaction extends Transaction{
     Mortgage mortgage;
 
     public MortgageTransaction(Accounts accounts) {
-        super(accounts);
+        super(accounts, null, "");
     }
 
     public Mortgage getMortgage() {

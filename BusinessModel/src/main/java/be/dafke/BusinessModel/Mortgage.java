@@ -5,18 +5,9 @@ import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.MultiValueMap;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.Vector;
+import java.util.*;
 
 public class Mortgage extends BusinessCollection<MortgageTransaction> implements MustBeRead {
-    private final static String TOTAL = "total";
-    private final static String NRPAYED = "nrPayed";
-    private final static String CAPITAL_ACCOUNT = "CapitalAccount";
-    private final static String INTREST_ACCOUNT = "IntrestAccount";
     public static final String MORTGAGE_TRANSACTION = "MortgageTransaction";
     private ArrayList<Vector<BigDecimal>> table;
 	private int alreadyPayed = 0;
@@ -38,7 +29,7 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
     }
 
     @Override
-    public MortgageTransaction createNewChild() {
+    public MortgageTransaction createNewChild(TreeMap<String, String> properties) {
         MortgageTransaction mortgageTransaction = new MortgageTransaction(accounts);
         mortgageTransaction.setMortgage(this);
         return mortgageTransaction;
@@ -130,52 +121,24 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
         alreadyPayed--;
     }
 
-
-    @Override
-    public Set<String> getInitKeySet() {
-        Set<String> keySet = super.getInitKeySet();
-        keySet.add(TOTAL);
-        keySet.add(NRPAYED);
-        keySet.add(CAPITAL_ACCOUNT);
-        keySet.add(INTREST_ACCOUNT);
-        return keySet;
-    }
-
     @Override
     public Properties getInitProperties() {
         Properties properties = new Properties();
         properties.put(NAME,getName());
         if(startCapital!=null){
-            properties.put(TOTAL, startCapital.toString());
+            properties.put(Mortgages.TOTAL, startCapital.toString());
         }
-        properties.put(NRPAYED, Integer.toString(alreadyPayed));
+        properties.put(Mortgages.NRPAYED, Integer.toString(alreadyPayed));
         if(capital!=null){
-            properties.put(CAPITAL_ACCOUNT,capital.getName());
+            properties.put(Mortgages.CAPITAL_ACCOUNT,capital.getName());
         }
         if(intrest!=null){
-            properties.put(INTREST_ACCOUNT,intrest.getName());
+            properties.put(Mortgages.INTREST_ACCOUNT,intrest.getName());
         }
         return properties;
     }
 
-    @Override
-    public void setInitProperties(TreeMap<String, String> properties) {
-        super.setInitProperties(properties);
-        String startCapitalString = properties.get(TOTAL);
-        String nrPayedString = properties.get(NRPAYED);
-        if(startCapitalString!=null){
-            startCapital = new BigDecimal(startCapitalString);
-        }
-        if(nrPayedString!=null){
-            alreadyPayed = Integer.parseInt(nrPayedString);
-        }
-        String capitalAccount = properties.get(CAPITAL_ACCOUNT);
-        if(capitalAccount!=null){
-            capital = mortgages.getAccounts().getBusinessObject(capitalAccount);
-        }
-        String intrestAccount = properties.get(INTREST_ACCOUNT);
-        if(intrestAccount!=null){
-            intrest = mortgages.getAccounts().getBusinessObject(intrestAccount);
-        }
+    public void setAlreadyPayed(int alreadyPayed) {
+        this.alreadyPayed = alreadyPayed;
     }
 }

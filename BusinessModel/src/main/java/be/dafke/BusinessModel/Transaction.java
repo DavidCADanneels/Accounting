@@ -4,12 +4,7 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * Boekhoudkundige transactie Bevat minstens 2 boekingen
@@ -19,12 +14,12 @@ import java.util.TreeSet;
  */
 public class Transaction extends BusinessCollection<Booking> {
     private static final String ID = "id";
-    private static final String DATE = "date";
-    private static final String DESCRIPTION = "description";
 	private BigDecimal debitTotal;
     private BigDecimal creditTotal;
     private Journal journal;
 
+    public static final String DATE = "date";
+    public static final String DESCRIPTION = "description";
     private int nrOfDebits = 0;
 
     private String description = "";
@@ -33,14 +28,15 @@ public class Transaction extends BusinessCollection<Booking> {
     private final ArrayList<Booking> bookings;
     private Accounts accounts;
 
-    public Transaction(Accounts accounts) {
+    public Transaction(Accounts accounts, Calendar date, String description) {
         this.accounts = accounts;
+        this.date = date==null?Calendar.getInstance():date;
+        this.description = description;
 		debitTotal = new BigDecimal(0);
 		debitTotal = debitTotal.setScale(2);
 		creditTotal = new BigDecimal(0);
 		creditTotal = creditTotal.setScale(2);
         bookings = new ArrayList<Booking>();
-        date = Calendar.getInstance();
 	}
 
     @Override
@@ -54,8 +50,26 @@ public class Transaction extends BusinessCollection<Booking> {
     }
 
     @Override
-    public Booking createNewChild(){
-        return new Booking(accounts);
+    public Booking createNewChild(TreeMap<String, String> properties){
+        Account account = accounts.getBusinessObject(properties.get(Booking.ACCOUNT));
+        String debitString = properties.get(Booking.DEBIT);
+        String creditString = properties.get(Booking.CREDIT);
+        boolean debit= true;
+        BigDecimal amount = BigDecimal.ZERO;
+        if(debitString!=null){
+            debit = true;
+            amount = new BigDecimal(debitString);
+            if(creditString!=null){
+                System.err.println("Movement cannot contain both 'debit' and 'credit' !!!");
+            }
+        } else if(creditString!=null){
+            debit = false;
+            amount = new BigDecimal(creditString);
+        } else {
+            System.err.println("No 'debit' or 'credit' tag found in Movement !!!");
+        }
+        return new Booking(account, amount, debit);
+//        return new Booking(accounts, properties);
     }
 
     @Override
@@ -72,17 +86,14 @@ public class Transaction extends BusinessCollection<Booking> {
 
         return properties;
     }
-
+    // FOR READING
+    // Define keys to read from xml, required to initialize Object attributes
     public Set<String> getInitKeySet(){
         Set<String> keySet = new TreeSet<String>();
-        keySet.add(DATE);
-        keySet.add(DESCRIPTION);
+        keySet.add(Booking.ACCOUNT);
+        keySet.add(Booking.DEBIT);
+        keySet.add(Booking.CREDIT);
         return keySet;
-    }
-    //
-    public void setInitProperties(TreeMap<String, String> properties){
-        date = Utils.toCalendar(properties.get(DATE));
-        description = properties.get(DESCRIPTION);
     }
 
 	public BigDecimal getDebetTotaal() {

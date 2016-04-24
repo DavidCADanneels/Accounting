@@ -7,6 +7,7 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 /**
  * @author David Danneels
@@ -71,7 +72,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     }
 
     @Override
-    public BusinessCollection createNewChild() {
+    public BusinessCollection createNewChild(TreeMap<String, String> properties) {
        System.err.println("Never called ??");
         return null;
     }

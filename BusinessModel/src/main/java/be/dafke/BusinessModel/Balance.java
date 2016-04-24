@@ -4,11 +4,7 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 
 /**
  * User: Dafke
@@ -16,15 +12,6 @@ import java.util.TreeSet;
  * Time: 0:54
  */
 public class Balance extends BusinessCollection<BalanceLine> {
-
-    private final static String LEFTNAME = "LeftName";
-    private final static String RIGHTNAME = "RightName";
-    private final static String LEFTTOTALNAME = "LeftTotalName";
-    private final static String RIGHTTOTALNAME = "RightTotalName";
-    private final static String LEFTRESULTNAME = "LeftResultName";
-    private final static String RIGHTRESULTNAME = "RightResultName";
-    private final static String LEFTTYPES = "LeftTypes";
-    private final static String RIGHTTYPES = "RightTypes";
     private String leftName;
     private String rightName;
     private String leftTotalName;
@@ -34,6 +21,11 @@ public class Balance extends BusinessCollection<BalanceLine> {
     private ArrayList<AccountType> leftTypes;
     private ArrayList<AccountType> rightTypes;
     private Accounting accounting;
+
+    public final static String NAME1 = "name1";
+    public final static String NAME2 = "name2";
+    public final static String AMOUNT1 = "amount1";
+    public final static String AMOUNT2 = "amount2";
 
     public Balance(Accounting accounting) {
         this.accounting = accounting;
@@ -45,7 +37,18 @@ public class Balance extends BusinessCollection<BalanceLine> {
     }
 
     @Override
-    public BalanceLine createNewChild(){
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(NAME1);
+        keySet.add(NAME2);
+        keySet.add(AMOUNT1);
+        keySet.add(AMOUNT2);
+        return keySet;
+    }
+
+
+    @Override
+    public BalanceLine createNewChild(TreeMap<String, String> properties){
         return null;
     }
 
@@ -176,61 +179,25 @@ public class Balance extends BusinessCollection<BalanceLine> {
     }
 
     @Override
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
-        keySet.add(NAME);
-        keySet.add(LEFTNAME);
-        keySet.add(RIGHTNAME);
-        keySet.add(LEFTTOTALNAME);
-        keySet.add(RIGHTTOTALNAME);
-        keySet.add(LEFTRESULTNAME);
-        keySet.add(RIGHTRESULTNAME);
-        keySet.add(LEFTTYPES);
-        keySet.add(RIGHTTYPES);
-        return keySet;
-    }
-
-    @Override
     public Properties getInitProperties() {
         Properties properties = super.getInitProperties();
         properties.put(NAME, getName());
-        properties.put(LEFTNAME, leftName);
-        properties.put(RIGHTNAME, rightName);
-        properties.put(LEFTTOTALNAME, leftTotalName);
-        properties.put(RIGHTTOTALNAME, rightTotalName);
-        properties.put(LEFTRESULTNAME, leftResultName);
-        properties.put(RIGHTRESULTNAME, rightResultName);
+        properties.put(Balances.LEFTNAME, leftName);
+        properties.put(Balances.RIGHTNAME, rightName);
+        properties.put(Balances.LEFTTOTALNAME, leftTotalName);
+        properties.put(Balances.RIGHTTOTALNAME, rightTotalName);
+        properties.put(Balances.LEFTRESULTNAME, leftResultName);
+        properties.put(Balances.RIGHTRESULTNAME, rightResultName);
         ArrayList<String> leftTypesString = new ArrayList<String>();
         for(AccountType type:leftTypes){
             leftTypesString.add(type.getName());
         }
-        properties.put(LEFTTYPES, Utils.toString(leftTypesString));
+        properties.put(Balances.LEFTTYPES, Utils.toString(leftTypesString));
         ArrayList<String> righttTypesString = new ArrayList<String>();
         for(AccountType type:rightTypes){
             righttTypesString.add(type.getName());
         }
-        properties.put(RIGHTTYPES, Utils.toString(righttTypesString));
+        properties.put(Balances.RIGHTTYPES, Utils.toString(righttTypesString));
         return properties;
-    }
-
-    @Override
-    public void setInitProperties(TreeMap<String, String> properties) {
-        setName(properties.get(NAME));
-        leftName = properties.get(LEFTNAME);
-        rightName = properties.get(RIGHTNAME);
-        leftTotalName = properties.get(LEFTTOTALNAME);
-        rightTotalName = properties.get(RIGHTTOTALNAME);
-        leftResultName = properties.get(LEFTRESULTNAME);
-        rightResultName = properties.get(RIGHTRESULTNAME);
-        leftTypes = new ArrayList<AccountType>();
-        ArrayList<String> leftTypesString = Utils.parseStringList(properties.get(LEFTTYPES));
-        for(String s: leftTypesString){
-            leftTypes.add(accounting.getAccountTypes().getBusinessObject(s));
-        }
-        rightTypes = new ArrayList<AccountType>();
-        ArrayList<String> rightTypesString = Utils.parseStringList(properties.get(RIGHTTYPES));
-        for(String s: rightTypesString){
-            rightTypes.add(accounting.getAccountTypes().getBusinessObject(s));
-        }
     }
 }

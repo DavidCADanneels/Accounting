@@ -4,15 +4,20 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Utils.Utils;
 
-import java.util.AbstractMap;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 public class CounterParties extends BusinessCollection<BusinessObject> {
 
     public static final String COUNTERPARTIES = "CounterParties";
     public static final String COUNTERPARTY = "CounterParty";
+    public static final String ACCOUNTNUMBER = "AccountNumber";
+    public static final String BIC = "Bic";
+    public static final String CURRENCY = "Currency";
+    public static final String ALIAS = "Alias";
+    public static final String ADDRESS = "Address";
+
 
     @Override
     public String getChildType(){
@@ -20,7 +25,7 @@ public class CounterParties extends BusinessCollection<BusinessObject> {
     }
 
     public CounterParties(Accounting accounting){
-        addSearchKey(CounterParty.ACCOUNTNUMBER);
+        addSearchKey(ACCOUNTNUMBER);
         setName(COUNTERPARTIES);
         try {
             accounting.addBusinessObject(this);
@@ -33,8 +38,63 @@ public class CounterParties extends BusinessCollection<BusinessObject> {
     }
 
     @Override
-    public CounterParty createNewChild() {
-        return new CounterParty();
+    public Set<String> getInitKeySet() {
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        keySet.add(ACCOUNTNUMBER);
+        keySet.add(ADDRESS);
+        keySet.add(ALIAS);
+        keySet.add(BIC);
+        keySet.add(CURRENCY);
+        return keySet;
+    }
+
+    @Override
+    public CounterParty createNewChild(TreeMap<String, String> properties) {
+        CounterParty counterParty = new CounterParty();
+        counterParty.setName(properties.get(NAME));
+        String aliasesString = properties.get(CounterParties.ALIAS);
+        if(aliasesString!=null){
+            counterParty.setAliases(Utils.parseStringList(aliasesString));
+        }
+        String accountNumberString = properties.get(CounterParties.ACCOUNTNUMBER);
+        if(accountNumberString!=null){
+            ArrayList<String> numberList = Utils.parseStringList(accountNumberString);
+            for(String s: numberList){
+                counterParty.addAccount(new BankAccount(s));
+            }
+        }
+        String addressLinesString = properties.get(CounterParties.ADDRESS);
+        if(addressLinesString!=null){
+            counterParty.setAddressLines(Utils.parseStringList(addressLinesString));
+        }
+        String bicString = properties.get(CounterParties.BIC);
+        if(bicString!=null){
+            parseBicsString(counterParty, bicString);
+        }
+        String currenciesString = properties.get(CounterParties.CURRENCY);
+        if(currenciesString!=null){
+            parseCurrenciesString(counterParty, currenciesString);
+        }
+        return counterParty;
+    }
+
+    private void parseBicsString(CounterParty counterParty, String bicsString){
+        if(bicsString!=null){
+            String[] bicsStrings = bicsString.split("\\Q | \\E");
+            for(int i=0;i<bicsStrings.length;i++){
+                counterParty.getAccountsList().get(i).setBic(bicsStrings[i]);
+            }
+        }
+    }
+
+    private void parseCurrenciesString(CounterParty counterParty, String currenciesString){
+        if(currenciesString!=null){
+            String[] currenciesStrings = currenciesString.split("\\Q | \\E");
+            for(int i=0;i<currenciesStrings.length;i++){
+                counterParty.getAccountsList().get(i).setCurrency(currenciesStrings[i]);
+            }
+        }
     }
 
     @Override

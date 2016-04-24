@@ -2,35 +2,19 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.DetailsPopupMenu;
 import be.dafke.BasicAccounting.JournalGUIPopupMenu;
-import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
-import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.Journals;
 import be.dafke.BusinessModel.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Utils.Utils;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
@@ -281,8 +265,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     }
 
 	public void clear() {
-        Transaction transaction = new Transaction(accounting.getAccounts());
-        transaction.setDate(getDate());
+        Transaction transaction = new Transaction(accounting.getAccounts(), getDate(), "");
         journal.setCurrentObject(transaction);
         refresh();
 	}

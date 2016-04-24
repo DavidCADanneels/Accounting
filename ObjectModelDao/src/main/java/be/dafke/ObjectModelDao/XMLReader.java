@@ -64,14 +64,11 @@ public class XMLReader {
         // iterate children and create objects for them
         for (int i = 0; i < childrenNodeList.getLength(); i++) {
             try {
-                // create new instance of object
-                BusinessObject object = businessCollection.createNewChild();
-
                 // create empty properties TreeMap
                 TreeMap<String, String> properties = new TreeMap<String, String>();
 
                 // get the Object's keySet
-                Set<String> keySet = object.getInitKeySet();
+                Set<String> keySet = businessCollection.getInitKeySet();
 
                 // read all the tags which names are in the keySet
                 // and add their value to the properties
@@ -81,8 +78,11 @@ public class XMLReader {
                     properties.put(key, value);
                 }
 
+                // create new instance of object
+                BusinessObject object = businessCollection.createNewChild(properties);
+
                 // provide the properties to the object
-                object.setInitProperties(properties);
+//                object.setInitProperties(properties);
 
                 if(object instanceof BusinessCollection){
                     readChildren((Element)childrenNodeList.item(i),(BusinessCollection)object);
