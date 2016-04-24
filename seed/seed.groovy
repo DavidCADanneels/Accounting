@@ -5,7 +5,7 @@ mavenJob("01_UnitTests"){
     scm{
         git {
             remote {
-                github 'DavidCADanneels/Accounting', 'ssh'
+                github 'DavidCADanneels/Accounting', 'https'
                 credentials 'GitHub'
             }
             branch "master"
