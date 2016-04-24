@@ -22,24 +22,22 @@ public class Journal extends BusinessCollection<Transaction> implements Business
     private String abbreviation;
     private final MultiValueMap<Calendar,Transaction > transactions;
     private JournalType type;
-    private Journals journals;
-    private Accounts accounts;
+    private Accounting accounting;
     private Transaction currentTransaction;
 
-    public Journal(Journals journals, Accounts accounts) {
-        this.journals = journals;
-        this.accounts = accounts;
-        currentTransaction = new Transaction(accounts);
+    public Journal(Accounting accounting) {
+        this.accounting = accounting;
+        currentTransaction = new Transaction(accounting.getAccounts());
         transactions = new MultiValueMap<Calendar,Transaction>();
 	}
 
     public Journals getJournals() {
-        return journals;
+        return accounting.getJournals();
     }
 
     @Override
     public Transaction createNewChild(){
-        return new Transaction(accounts);
+        return new Transaction(accounting.getAccounts());
     }
 
     @Override
@@ -142,7 +140,7 @@ public class Journal extends BusinessCollection<Transaction> implements Business
         abbreviation = properties.get(ABBREVIATION);
         String typeName = properties.get(TYPE);
         if(typeName!=null){
-            type = journals.getJournalTypes().getBusinessObject(typeName);
+            type = accounting.getJournalTypes().getBusinessObject(typeName);
         }
     }
 

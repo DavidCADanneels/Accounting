@@ -15,35 +15,22 @@ import java.util.Map;
  */
 public class Journals extends BusinessCollection<Journal> {
 
-    private Accounts accounts;
-
-    public void setAccounts(Accounts accounts){
-        this.accounts = accounts;
-    }
-
-    public Accounts getAccounts() {
-        return accounts;
-    }
+    private final Accounting accounting;
 
     @Override
     public String getChildType(){
         return "Journal";
     }
 
-   private JournalTypes journalTypes;
-
-    public Journals(JournalTypes journalTypes) {
-        this();
-        this.journalTypes = journalTypes;
-    }
-    public Journals() {
+    public Journals(Accounting accounting) {
+        this.accounting = accounting;
         addSearchKey(Journal.ABBREVIATION);
         setName("Journals");
 	}
 
     @Override
     public Journal createNewChild() {
-        return new Journal(this, accounts);
+        return new Journal(accounting);
     }
 
    /* @Override
@@ -76,13 +63,5 @@ public class Journals extends BusinessCollection<Journal> {
         Journal journal = modify(oldEntry, newEntry);
         journal.setAbbreviation(newAbbreviation.trim());
         return journal;
-    }
-
-//    public void setJournalTypes(JournalTypes journalTypes) {
-//        this.journalTypes = journalTypes;
-//    }
-
-    public JournalTypes getJournalTypes() {
-        return journalTypes;
     }
 }

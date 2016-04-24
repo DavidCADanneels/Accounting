@@ -241,7 +241,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
         try {
-            Journal journal = new Journal(accounting.getJournals(), accounting.getAccounts());
+            Journal journal = new Journal(accounting);
             journal.setName(newName);
             journal.setAbbreviation(abbreviation);
             journal.setType(journalType);

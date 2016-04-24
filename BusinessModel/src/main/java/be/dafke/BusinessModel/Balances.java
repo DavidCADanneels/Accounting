@@ -22,19 +22,19 @@ public class Balances extends BusinessCollection<Balance> {
     public static String RELATIONS_BALANCE = "RelationsBalance";
     public static String YEAR_BALANCE = "YearBalance";
 
-    private Accounts accounts;
-    private AccountTypes accountTypes;
+    private Accounting accounting;
 
-    public Balances(){
+    public Balances(Accounting accounting) {
+        this.accounting = accounting;
         setName(BALANCES);
     }
 
     @Override
-    public String getChildType(){
+    public String getChildType() {
         return BALANCE;
     }
 
-    public void addDefaultBalances(AccountTypes accountTypes){
+    public void addDefaultBalances(AccountTypes accountTypes) {
         ArrayList<AccountType> costs = new ArrayList<AccountType>();
         ArrayList<AccountType> revenues = new ArrayList<AccountType>();
         ArrayList<AccountType> credit = new ArrayList<AccountType>();
@@ -98,7 +98,7 @@ public class Balances extends BusinessCollection<Balance> {
 
     @Override
     public Balance createNewChild() {
-        Balance balance = new Balance(this);
+        Balance balance = new Balance(accounting);
         return balance;
     }
 
@@ -108,8 +108,8 @@ public class Balances extends BusinessCollection<Balance> {
             return addBusinessObject(value, value.getUniqueProperties());
         } catch (DuplicateNameException ex) {
             String name = value.getName();
-            if(YEAR_BALANCE.equals(name) || RESULT_BALANCE.equals(name) || RELATIONS_BALANCE.equals(name)){
-                System.err.println("Default Balance ("+name+") already exists!");
+            if (YEAR_BALANCE.equals(name) || RESULT_BALANCE.equals(name) || RELATIONS_BALANCE.equals(name)) {
+                System.err.println("Default Balance (" + name + ") already exists!");
                 return getBusinessObject(name);
             } else {
                 throw ex;
@@ -120,20 +120,4 @@ public class Balances extends BusinessCollection<Balance> {
     public void readCollection() {
         readCollection("Balance", false);
     }*/
-
-    public Accounts getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(Accounts accounts) {
-        this.accounts = accounts;
-    }
-
-    public AccountTypes getAccountTypes() {
-        return accountTypes;
-    }
-
-    public void setAccountTypes(AccountTypes accountTypes) {
-        this.accountTypes = accountTypes;
-    }
 }
