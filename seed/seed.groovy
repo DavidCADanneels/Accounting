@@ -5,7 +5,6 @@ mavenJob("01_UnitTests"){
     scm{
         github("DavidCADanneels/Accounting.git","master")
     }
-//    rootPOM("pom.xml")
     goals "clean package"
 
     publishers {
