@@ -25,7 +25,7 @@ import java.util.TreeMap;
  * Created by ddanneels on 28/12/2015.
  */
 public class XMLReader {
-    public static void readCollection(BusinessCollection businessCollection, boolean recursive, File parentFolder){
+    public static void readCollection(BusinessCollection businessCollection, File parentFolder){
         String businessCollectionName = businessCollection.getName();
         File childFolder = new File(parentFolder, businessCollectionName);
         File xmlFile = new File(parentFolder, businessCollectionName+".xml");
@@ -48,15 +48,13 @@ public class XMLReader {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(recursive){
-            for(Object businessObject : businessCollection.getBusinessObjects()) {
-                if(businessObject instanceof BusinessCollection){
-                    BusinessCollection<BusinessObject> subCollection = ((BusinessCollection<BusinessObject>)businessObject);
-                    String type = subCollection.getBusinessObjectType();
-                    String name = subCollection.getName();
-                    if(type.equals(name) || (subCollection instanceof MustBeRead)){
-                        readCollection(subCollection, true, childFolder);
-                    }
+        for(Object businessObject : businessCollection.getBusinessObjects()) {
+            if(businessObject instanceof BusinessCollection){
+                BusinessCollection<BusinessObject> subCollection = ((BusinessCollection<BusinessObject>)businessObject);
+                String type = subCollection.getBusinessObjectType();
+                String name = subCollection.getName();
+                if(type.equals(name) || (subCollection instanceof MustBeRead)){
+                    readCollection(subCollection, childFolder);
                 }
             }
         }

@@ -4,13 +4,14 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.ObjectModel.MustBeRead;
 
 import java.util.ArrayList;
 
 /**
  * @author David Danneels
  */
-public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> {
+public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> implements MustBeRead{
     private final AccountTypes accountTypes;
     private final Accounts accounts;
 	private final Journals journals;
