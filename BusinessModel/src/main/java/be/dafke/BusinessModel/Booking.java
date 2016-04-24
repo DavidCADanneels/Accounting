@@ -27,13 +27,9 @@ public class Booking extends BusinessObject implements BusinessCollectionDepende
     private BusinessCollection<Account> businessCollection;
 
     public Booking(Account account, BigDecimal amount, boolean debit) {
-        this(account);
+        this.account = account;
         movement = new Movement(amount, debit);
         movement.setBooking(this);
-    }
-    public Booking(Account account) {
-        this();
-		this.account = account;
     }
 
     public Booking(){
