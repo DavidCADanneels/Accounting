@@ -7,7 +7,6 @@ import org.junit.Test;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Set;
 
 import static org.junit.Assert.*;
 
@@ -33,9 +32,9 @@ public class AccountTest {
 //        assertNull(account.createNewChild());
         assertEquals(account.getName(), account.toString());
         assertEquals(Account.MOVEMENT, account.getChildType());
-        Set<String> initKeySet = account.getInitKeySet();
-        assertTrue(initKeySet.contains(Account.TYPE));
-        assertTrue(initKeySet.contains(Account.DEFAULTAMOUNT));
+//        Set<String> initKeySet = account.getInitKeySet();
+//        assertTrue(initKeySet.contains(Account.TYPE));
+//        assertTrue(initKeySet.contains(Account.DEFAULTAMOUNT));
     }
 
     @Test

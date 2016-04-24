@@ -1,17 +1,17 @@
-mavenJob("01_UnitTests"){
+mavenJob("Build_and_package"){
     triggers {
         scm 'H/15 * * * *'
     }
     scm{
-        git{
+        git {
             remote {
-                url "https://github.com/DavidCADanneels/Accounting.git"
+                github 'DavidCADanneels/Accounting', 'https'
+                credentials 'GitHub'
             }
-            branch "feature/saveLocal"
+            branch "master"
             createTag false
         }
     }
-//    rootPOM("pom.xml")
     goals "clean package"
 
     publishers {

@@ -1,10 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>be.dafke</groupId>
+    <groupId>be.dafke.Accounting</groupId>
     <artifactId>Accounting</artifactId>
     <packaging>pom</packaging>
-    <version>2.3</version>
+    <version>3.1-SNAPSHOT</version>
     <modules>
+		<module>Parent</module>
         <module>FOP</module>
         <module>Utils</module>
         <module>ObjectModel</module>
@@ -15,47 +16,4 @@
 		<module>BusinessModelDao</module>
 		<module>BusinessActions</module>
 	</modules>
-
-    <dependencies>
-  	<dependency>
-  		<groupId>org.springframework</groupId>
-  		<artifactId>spring-context</artifactId>
-  		<version>3.2.0.RELEASE</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.springframework</groupId>
-  		<artifactId>spring-jdbc</artifactId>
-  		<version>3.2.0.RELEASE</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.apache.xmlgraphics</groupId>
-  		<artifactId>xmlgraphics-commons</artifactId>
-  		<version>1.5</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.apache.avalon.framework</groupId>
-  		<artifactId>avalon-framework-impl</artifactId>
-  		<version>4.3.1</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.apache.xmlgraphics</groupId>
-  		<artifactId>batik-bridge</artifactId>
-  		<version>1.7</version>
-  	</dependency>
-  	<dependency>
-  		<groupId>org.apache.xmlgraphics</groupId>
-  		<artifactId>batik-svggen</artifactId>
-  		<version>1.7</version>
-  	</dependency>
-      <dependency>
-          <groupId>junit</groupId>
-          <artifactId>junit</artifactId>
-          <version>3.8.1</version>
-      </dependency>
-      <dependency>
-          <groupId>org.apache.maven.surefire</groupId>
-          <artifactId>surefire-junit47</artifactId>
-          <version>2.16</version>
-      </dependency>
-  </dependencies>
 </project>
