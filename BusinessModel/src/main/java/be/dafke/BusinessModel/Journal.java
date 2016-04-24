@@ -109,7 +109,7 @@ public class Journal extends BusinessCollection<Transaction> implements Business
 		ArrayList<Booking> bookings = transaction.getBusinessObjects();
 		for(Booking booking : bookings) {
 			Account account = booking.getAccount();
-			account.removeBusinessObject(booking.getBusinessObjects().get(0));
+			account.removeBusinessObject(booking.getMovement());
 		}
         if (transaction instanceof MortgageTransaction){
             MortgageTransaction mortgageTransaction = (MortgageTransaction) transaction;
@@ -124,7 +124,7 @@ public class Journal extends BusinessCollection<Transaction> implements Business
 
         for(Booking booking : transaction.getBusinessObjects()) {
             Account account = booking.getAccount();
-            account.addBusinessObject(booking.getBusinessObjects().get(0));
+            account.addBusinessObject(booking.getMovement());
         }
         transactions.addValue(date, transaction);
 

@@ -2,6 +2,7 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessCollectionDependent;
+import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -15,39 +16,47 @@ import java.util.TreeSet;
  * @since 01/10/2010
  * @see Transaction
  */
-public class Booking extends BusinessCollection<Movement> implements BusinessCollectionDependent<Account>{
+public class Booking extends BusinessObject implements BusinessCollectionDependent<Account>{
     private static final String ACCOUNT = "Account";
     public static final String ID = "id";
     public static final String DEBIT = "debit";
     public static final String CREDIT = "credit";
     private Account account;
-    private ArrayList<Movement> movements;
+    private Movement movement;
 	private Transaction transaction;
     private BusinessCollection<Account> businessCollection;
 
+    public Booking(Account account, BigDecimal amount, boolean debit) {
+        this(account);
+        movement = new Movement(amount, debit);
+        movement.setBooking(this);
+    }
     public Booking(Account account) {
         this();
 		this.account = account;
     }
 
     public Booking(){
-        movements = new ArrayList<Movement>();
 	}
 
-    @Override
-    public ArrayList<Movement> getBusinessObjects(){
-        return movements;
+    public boolean isDebit(){
+        return movement.isDebit();
     }
 
-    @Override
-    public Movement createNewChild(){
-        // TODO: refactor Movement -> default constructor (no params)
-        return new Movement(BigDecimal.ZERO, true);
+    public void setDebit(boolean debit){
+        movement.setDebit(debit);
     }
 
-    @Override
-    public String getChildType(){
-        return "Movement";
+    public BigDecimal getAmount(){
+        return movement.getAmount();
+    }
+
+    public void setAmount(BigDecimal amount){
+        movement.setAmount(amount);
+    }
+
+    public Movement getMovement(){
+        return movement;
     }
 
     @Override
@@ -59,11 +68,11 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
     public Properties getInitProperties() {
         Properties properties = new Properties();
         properties.put(ACCOUNT, account.getName());
-        properties.put(ID, movements.get(0).getId().toString());
-        if(movements.get(0).isDebit()){
-            properties.put(DEBIT, movements.get(0).getAmount().toString());
+        properties.put(ID, movement.getId().toString());
+        if(movement.isDebit()){
+            properties.put(DEBIT, movement.getAmount().toString());
         } else {
-            properties.put(CREDIT, movements.get(0).getAmount().toString());
+            properties.put(CREDIT, movement.getAmount().toString());
         }
         return properties;
     }
@@ -80,9 +89,9 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
     // Set initial values for each key in InitKeySet, while reading xml
     public void setInitProperties(TreeMap<String, String> properties){
         account = businessCollection.getBusinessObject(properties.get(ACCOUNT));
-        Movement movement = createNewChild();
+        movement = new Movement();
+        movement.setBooking(this);
         movement.setInitProperties(properties);
-        addBusinessObject(movement);
     }
 
     // Getters
@@ -90,14 +99,6 @@ public class Booking extends BusinessCollection<Movement> implements BusinessCol
 	public Transaction getTransaction() {
 		return transaction;
 	}
-
-    @Override
-    public Movement addBusinessObject(Movement movement){
-        movement.setBooking(this);
-        //movements.clear(); // clear to ensure only Booking contains only 1 Movement
-        movements.add(movement);
-        return movement;
-    }
 
     public void setAccount(Account account) {
         this.account = account;

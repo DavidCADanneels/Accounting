@@ -30,12 +30,12 @@ public class JournalDataModel extends RefreshableTableModel<Booking> {
 // ===============
 	public Object getValueAt(int row, int col) {
 		Booking booking = transaction.getBusinessObjects().get(row);
-		if (booking.getBusinessObjects().get(0).isDebit()) {
+		if (booking.isDebit()) {
 			if (col == 0) {
 				return booking.getAccount();
 			}
 			if (col == 2) {
-				return booking.getBusinessObjects().get(0).getAmount();
+				return booking.getAmount();
 			}
 			return null;
 		}// else credit
@@ -43,7 +43,7 @@ public class JournalDataModel extends RefreshableTableModel<Booking> {
 			return booking.getAccount();
 		}
 		if (col == 3) {
-			return booking.getBusinessObjects().get(0).getAmount();
+			return booking.getAmount();
 		}
 		return null;
 	}

@@ -147,10 +147,9 @@ public class Transaction extends BusinessCollection<Booking> implements Business
     @Override
     public Booking addBusinessObject(Booking booking){
         booking.setTransaction(this);
-        boolean debit = booking.getBusinessObjects().get(0).isDebit();
-        BigDecimal amount = booking.getBusinessObjects().get(0).getAmount();
+        BigDecimal amount = booking.getAmount();
 
-        if(debit){
+        if(booking.isDebit()){
             bookings.add(nrOfDebits, booking);
             nrOfDebits++;
             debitTotal = debitTotal.add(amount);
@@ -166,11 +165,10 @@ public class Transaction extends BusinessCollection<Booking> implements Business
     @Override
     public void removeBusinessObject(Booking booking){
         booking.setTransaction(null);
-        boolean debit = booking.getBusinessObjects().get(0).isDebit();
-        BigDecimal amount = booking.getBusinessObjects().get(0).getAmount();
+        BigDecimal amount = booking.getAmount();
 
         bookings.remove(booking);
-        if(debit){
+        if(booking.isDebit()){
             nrOfDebits--;
             debitTotal = debitTotal.subtract(amount);
             debitTotal = debitTotal.setScale(2);

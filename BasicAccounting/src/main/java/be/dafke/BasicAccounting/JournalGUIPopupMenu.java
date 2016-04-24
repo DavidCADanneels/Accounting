@@ -73,22 +73,18 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
             transaction.removeBusinessObject(booking);
         } else if (source == edit) {
             Account account = booking.getAccount();
-            //TODO: booking contains list of Movement (should be 1 movement?)
             //TODO: or JournalGUI.table should contain Movements iso Bookings
-            Movement movement = booking.getBusinessObjects().get(0);
-            boolean debit = movement.isDebit();
-            BigDecimal amount = TransactionActions.askAmount(transaction, account, debit);
+            BigDecimal amount = TransactionActions.askAmount(transaction, account, booking.isDebit());
             if(amount != null){
                 // booking must be removed and re-added to Transaction to re-calculate the totals
                 transaction.removeBusinessObject(booking);
-                movement.setAmount(amount);
+                booking.setAmount(amount);
                 transaction.addBusinessObject(booking);
             }
         } else if (source == debitCredit){
             // booking must be removed and re-added to Transaction to re-calculate the totals
             transaction.removeBusinessObject(booking);
-            Movement movement = booking.getBusinessObjects().get(0);
-            movement.setDebit(!movement.isDebit());
+            booking.setDebit(!booking.isDebit());
             transaction.addBusinessObject(booking);
         } else if (source == change) {
             AccountSelector sel = new AccountSelector(accounts, accountTypes);

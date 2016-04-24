@@ -29,6 +29,10 @@ public class Movement extends BusinessObject{
     private Booking booking;
     private Integer id;
 
+    public Movement(){
+        id = ++count;
+    }
+
     public Movement(BigDecimal amount, boolean debit){
         this.amount = amount;
         this.debit = debit;
@@ -38,13 +42,14 @@ public class Movement extends BusinessObject{
     @Override
     public TreeMap<String, String> getUniqueProperties(){
         TreeMap<String,String> properties = new TreeMap<String, String>();
-//        properties.put(ID,id.toString());
+        properties.put(ID,id.toString());
         return properties;
     }
 
     @Override
     public Set<String> getInitKeySet(){
         Set<String> keySet = super.getInitKeySet();
+        keySet.add(ID);
         keySet.add(DEBIT);
         keySet.add(CREDIT);
         return keySet;
@@ -90,6 +95,10 @@ public class Movement extends BusinessObject{
         return booking;
     }
 
+    public String getTransactionString(){
+        return booking.getTransaction().getAbbreviation() + booking.getTransaction().getId();
+    }
+
     public void setBooking(Booking booking) {
         this.booking = booking;
     }
@@ -116,5 +125,17 @@ public class Movement extends BusinessObject{
 
     public Calendar getDate() {
         return booking.getTransaction().getDate();
+    }
+
+    public void setDate(Calendar date){
+        booking.getTransaction().setDate(date);
+    }
+
+    public String getDescription(){
+        return booking.getTransaction().getDescription();
+    }
+
+    public void setDescription(String description){
+        booking.getTransaction().setDescription(description);
     }
 }
