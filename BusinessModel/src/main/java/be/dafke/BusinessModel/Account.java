@@ -24,10 +24,10 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
     private BigDecimal debitTotal, creditTotal;
     private final MultiValueMap<Calendar,Movement> movements;
     private BigDecimal defaultAmount = null;
-    private Accounts accounts;
+    private Accounting accounting;
 
-    public Account(Accounts accounts) {
-        this.accounts = accounts;
+    public Account(Accounting accounting) {
+        this.accounting = accounting;
         movements = new MultiValueMap<Calendar,Movement>();
         debitTotal = BigDecimal.ZERO;
         debitTotal = debitTotal.setScale(2);
@@ -150,7 +150,7 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
         super.setInitProperties(properties);
         String typeName = properties.get(TYPE);
         if(typeName!=null){
-            type = accounts.getAccountTypes().getBusinessObject(typeName);
+            type = accounting.getAccountTypes().getBusinessObject(typeName);
         }
         String defaultAmountString = properties.get(DEFAULTAMOUNT);
         if(defaultAmountString!=null){

@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting;
 
 import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
 
 import javax.swing.JMenuItem;
@@ -16,12 +17,10 @@ import static java.util.ResourceBundle.getBundle;
 public class AccountsPopupMenu extends JPopupMenu implements ActionListener{
     private final JMenuItem manage;
     public final String MANAGE = "manage";
-    private Accounts accounts;
-    private AccountTypes accountTypes;
+    private Accounting accounting;
 
-    public AccountsPopupMenu(Accounts accounts, AccountTypes accountTypes) {
-        this.accounts = accounts;
-        this.accountTypes = accountTypes;
+    public AccountsPopupMenu(Accounting accounting) {
+        this.accounting = accounting;
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_ACCOUNT"));
         manage.setActionCommand(MANAGE);
         add(manage);
@@ -29,7 +28,7 @@ public class AccountsPopupMenu extends JPopupMenu implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent ae) {
-        GUIActions.showAccountManager(accounts, accountTypes);
+        GUIActions.showAccountManager(accounting);
         setVisible(false);
     }
 }

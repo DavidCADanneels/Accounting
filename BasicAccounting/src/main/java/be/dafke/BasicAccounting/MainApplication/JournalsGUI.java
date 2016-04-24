@@ -28,13 +28,10 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	public static final String DETAILS = "details";
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
-    private Journals journals;
-	private Accounts accounts;
-    private JournalTypes journalTypes;
-    private AccountTypes accountTypes;
+	private Accounting accounting;
 
-	public JournalsGUI(final Accounts accounts, final Journals journals, final JournalTypes journalTypes, final AccountTypes accountTypes) {
-		setAccounting(accounts, journals,journalTypes, accountTypes);
+	public JournalsGUI(final Accounting accounting) {
+		setAccounting(accounting);
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -63,40 +60,30 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	public void actionPerformed(ActionEvent ae) {
 		String actionCommand = ae.getActionCommand();
 		if(MANAGE.equals(actionCommand)){
-			GUIActions.showJournalManager(journals,journalTypes, accounts,accountTypes);
+			GUIActions.showJournalManager(accounting);
 		} else if (DETAILS.equals(actionCommand)){
-			GUIActions.showDetails(journals.getCurrentObject(), journals);
+			GUIActions.showDetails(accounting.getJournals().getCurrentObject(), accounting.getJournals());
 		} else if (SWITCH.equals(actionCommand)){
 			Journal newJournal = (Journal)combo.getSelectedItem();
-			GUIActions.switchJournal(accounts, journals, newJournal);
+			GUIActions.switchJournal(accounting.getAccounts(), accounting.getJournals(), newJournal);
 		}
 	}
 
     public void setAccounting(Accounting accounting){
-		if(accounting==null){
-			setAccounting(null, null,null,null);
-		} else {
-			setAccounting(accounting.getAccounts(), accounting.getJournals(),accounting.getJournalTypes(), accounting.getAccountTypes());
-		}
-	}
-    public void setAccounting(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes){
-        this.accounts = accounts;
-		this.journals = journals;
-		this.journalTypes = journalTypes;
-		this.accountTypes = accountTypes;
+		this.accounting = accounting;
     }
 
 	public void refresh() {
         combo.removeActionListener(this);
         combo.removeAllItems();
-		if (journals!=null) {
-            for(Journal journal: journals.getBusinessObjects()){
+		if (accounting.getJournals()!=null) {
+            for(Journal journal: accounting.getJournals().getBusinessObjects()){
                 combo.addItem(journal);
             }
-			combo.setSelectedItem(journals.getCurrentObject());
-            details.setEnabled(journals!=null && journals.getCurrentObject()!=null);
-            combo.setEnabled(journals!=null);
-            journalManagement.setEnabled(journals != null);
+			combo.setSelectedItem(accounting.getJournals().getCurrentObject());
+            details.setEnabled(accounting.getJournals()!=null && accounting.getJournals().getCurrentObject()!=null);
+            combo.setEnabled(accounting.getJournals()!=null);
+            journalManagement.setEnabled(accounting.getJournals() != null);
 		} else {
 			combo.setSelectedItem(null);
             details.setEnabled(false);

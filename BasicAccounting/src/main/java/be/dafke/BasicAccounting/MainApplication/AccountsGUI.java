@@ -48,10 +48,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 	private final JButton debet, credit, accountManagement, accountDetails;
 	private final List<JCheckBox> boxes;
 
-    private Journal journal;
-    private Journals journals;
-    private Accounts accounts;
-    private AccountTypes accountTypes;
+    private Accounting accounting;
     private final JPanel filter;
     private AccountsPopupMenu popup;
 
@@ -61,7 +58,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     public final String DETAILS = "details";
     private Account selectedAccount = null;
 
-    public AccountsGUI(Accounts accounts, AccountTypes accountTypes, Journals journals) {
+    public AccountsGUI(Accounting accounting) {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("ACCOUNTS")));
@@ -101,7 +98,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 		lijst = new JList<Account>(model);
 		lijst.addListSelectionListener(this);
 
-        popup = new AccountsPopupMenu(accounts, accountTypes);
+        popup = new AccountsPopupMenu(accounting);
 
         lijst.addMouseListener(this);//new PopupForListActivator(popup, lijst));//, new AccountDetailsLauncher(accountings)));
 		lijst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
@@ -113,9 +110,9 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 		filter.setLayout(new GridLayout(0, 2));
         boxes = new ArrayList<JCheckBox>();
 
-        setAccounting(accounts, accountTypes, journals);
+        setAccounting(accounting);
 
-        for(AccountType type : accountTypes.getBusinessObjects()) {
+        for(AccountType type : accounting.getAccountTypes().getBusinessObjects()) {
             JCheckBox checkBox = new JCheckBox(getBundle("Accounting").getString(type.getName().toUpperCase()));
             checkBox.setSelected(true);
             checkBox.setEnabled(false);
@@ -134,22 +131,22 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
             selectedAccount = lijst.getSelectedValue();
         }
         accountDetails.setEnabled(selectedAccount !=null);
-        boolean active = (selectedAccount !=null && journal!=null);
+        boolean active = (selectedAccount !=null && accounting.getJournals().getCurrentObject()!=null);
         debet.setEnabled(active);
         credit.setEnabled(active);
 	}
 
     public void buttonClicked(String actionCommand){
-        Transaction transaction = journals.getCurrentObject().getCurrentObject();
+        Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
 
         if(DEBIT.equals(actionCommand)){
-            TransactionActions.addBookingToTransaction(accounts, selectedAccount, transaction, true);
+            TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, true);
         } else if (CREDIT.equals(actionCommand)){
-            TransactionActions.addBookingToTransaction(accounts, selectedAccount, transaction, false);
+            TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, false);
         } else if (MANAGE.equals(actionCommand)){
-            GUIActions.showAccountManager(accounts, accountTypes);
+            GUIActions.showAccountManager(accounting);
         } else if (DETAILS.equals(actionCommand)){
-            GUIActions.showDetails(lijst.getSelectedValue(),journals);
+            GUIActions.showDetails(lijst.getSelectedValue(),accounting.getJournals());
         }
     }
 
@@ -165,33 +162,19 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         ArrayList<AccountType> types = new ArrayList<AccountType>();
 		for(JCheckBox box : boxes) {
 			if (box.isSelected()) {
-				types.add(accountTypes.getBusinessObject(box.getActionCommand()));
+				types.add(accounting.getAccountTypes().getBusinessObject(box.getActionCommand()));
 			}
 		}
-		ArrayList<Account> map = accounts.getAccounts(types);
+		ArrayList<Account> map = accounting.getAccounts().getAccounts(types);
 		zoeker.resetMap(map);
 	}
 
     public void setAccounting(Accounting accounting) {
-        if(accounting==null){
-            setAccounting(null, null, null);
-        } else {
-            setAccounting(accounting.getAccounts(), accounting.getAccountTypes(), accounting.getJournals());
-        }
-    }
-    public void setAccounting(Accounts accounts, AccountTypes accountTypes, Journals journals){
-        this.accounts = accounts;
-        this.accountTypes = accountTypes;
-        this.journals = journals;
-        if(journals==null){
-            journal = null;
-        } else {
-            journal = journals.getCurrentObject();
-        }
+        this.accounting = accounting;
     }
 
 	public void refresh() {
-        boolean active = accounts!=null;
+        boolean active = accounting.getAccounts()!=null;
         for(JCheckBox checkBox: boxes) {
 			checkBox.setEnabled(active);
 		}
@@ -206,7 +189,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         int button = me.getButton();
         popup.setVisible(false);
         if(clickCount==2){
-            GUIActions.showDetails(selectedAccount, journals);
+            GUIActions.showDetails(selectedAccount, accounting.getJournals());
         } else if (button == 3){
             Point location = me.getLocationOnScreen();
             popup.show(null, location.x, location.y);

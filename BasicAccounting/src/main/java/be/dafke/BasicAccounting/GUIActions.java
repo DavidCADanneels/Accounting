@@ -7,15 +7,7 @@ import be.dafke.BasicAccounting.Balances.TestBalance;
 import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.Journals.JournalManagementGUI;
 import be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.Balance;
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.JournalTypes;
-import be.dafke.BusinessModel.Journals;
-import be.dafke.BusinessModel.Transaction;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
 import be.dafke.ComponentModel.RefreshableTableFrame;
@@ -26,11 +18,11 @@ import javax.swing.JOptionPane;
  * Created by ddanneel on 14/02/2015.
  */
 public class GUIActions {
-    public static void showAccountManager(Accounts accounts, AccountTypes accountTypes) {
-        String key = ""+accounts.hashCode();
+    public static void showAccountManager(Accounting accounting) {
+        String key = ""+accounting.getAccounts().hashCode();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new AccountManagementGUI(accounts, accountTypes);
+            gui = new AccountManagementGUI(accounting);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
@@ -67,11 +59,11 @@ public class GUIActions {
         gui.setVisible(true);
     }
 
-    public static void showJournalManager(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes) {
-        String key = "" + journals.hashCode();
+    public static void showJournalManager(Accounting accounting) {
+        String key = "" + accounting.getJournals().hashCode();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new JournalManagementGUI(journals, journalTypes, accounts, accountTypes);
+            gui = new JournalManagementGUI(accounting);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);

@@ -50,11 +50,10 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     private final DetailsPopupMenu viewPopup;
     private BigDecimal debettotaal, credittotaal;
     private Journal journal;
-    private Accounts accounts;
+    private Accounting accounting;
 
-    public JournalGUI(Journals journals, Accounts accounts, AccountTypes accountTypes) {
-        this.accounts = accounts;
-        journal = journals.getCurrentObject();
+    public JournalGUI(Accounting accounting) {
+        journal = accounting.getJournals().getCurrentObject();
         debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
 		setLayout(new BorderLayout());
@@ -62,7 +61,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         journalDetailsDataModel = new JournalDetailsDataModel(journal);
         viewTable = new RefreshableTable<Booking>(journalDetailsDataModel);
 		viewTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
-        viewPopup = new DetailsPopupMenu(journals, viewTable, DetailsPopupMenu.Mode.JOURNAL);
+        viewPopup = new DetailsPopupMenu(accounting.getJournals(), viewTable, DetailsPopupMenu.Mode.JOURNAL);
         viewTable.addMouseListener(new PopupForTableActivator(viewPopup, viewTable, 0,2,3,4));
 
         inputTable = new RefreshableTable<Booking>(journalDataModel);
@@ -75,7 +74,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         center.add(scrollPane2);
 		add(center, BorderLayout.CENTER);
 
-        inputPopup = new JournalGUIPopupMenu(inputTable, journals, accounts, accountTypes);
+        inputPopup = new JournalGUIPopupMenu(inputTable, accounting);
         inputTable.addMouseListener(new PopupForTableActivator(inputPopup, inputTable));
 
         scrollPane2.addMouseListener(new MouseAdapter() {
@@ -190,6 +189,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     }
 
     public void setAccounting(Accounting accounting){
+        this.accounting = accounting;
         inputPopup.setAccounting(accounting);
         viewPopup.setAccounting(accounting);
         if(accounting==null || accounting.getJournals()==null){
@@ -281,7 +281,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     }
 
 	public void clear() {
-        Transaction transaction = new Transaction(accounts);
+        Transaction transaction = new Transaction(accounting.getAccounts());
         transaction.setDate(getDate());
         journal.setCurrentObject(transaction);
         refresh();

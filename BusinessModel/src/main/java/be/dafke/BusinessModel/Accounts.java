@@ -16,15 +16,11 @@ import java.util.Map;
  * @since 01/10/2010
  */
 public class Accounts extends BusinessCollection<Account> {
+    private Accounting accounting;
 
-    private AccountTypes accountTypes;
-
-    public Accounts(){
+    public Accounts(Accounting accounting) {
+        this.accounting = accounting;
         setName("Accounts");
-    }
-    public Accounts(AccountTypes accountTypes){
-        this();
-        this.accountTypes = accountTypes;
     }
 
     @Override
@@ -48,7 +44,6 @@ public class Accounts extends BusinessCollection<Account> {
 		return list;
 	}
 
-
 	public Account modifyAccountName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
         Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(NAME, oldName);
         Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(NAME, newName);
@@ -57,16 +52,8 @@ public class Accounts extends BusinessCollection<Account> {
         return modify(oldEntry, newEntry);
 	}
 
-    public void setAccountTypes(AccountTypes accountTypes) {
-        this.accountTypes = accountTypes;
-    }
-
-    public BusinessTypeCollection<AccountType> getAccountTypes() {
-        return accountTypes;
-    }
-
     @Override
     public Account createNewChild() {
-        return new Account(this);
+        return new Account(accounting);
     }
 }
