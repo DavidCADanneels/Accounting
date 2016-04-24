@@ -241,8 +241,8 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
                         }
                         BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 3);
                         Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
-                        Booking booking1 = new Booking(account, amount, debet);
-                        Booking booking2 = new Booking(bankAccount, amount, !debet);
+                        Booking booking1 = new Booking(accounting.getAccounts(), account, amount, debet);
+                        Booking booking2 = new Booking(accounting.getAccounts(), bankAccount, amount, !debet);
                         transaction.addBusinessObject(booking1);
                         transaction.addBusinessObject(booking2);
                         String cal = (String) tabel.getValueAt(i, 1);
@@ -252,7 +252,7 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
                         transaction.setDescription(description);
                         journal.addBusinessObject(transaction);
 
-                        transaction = new Transaction();
+                        transaction = new Transaction(accounting.getAccounts());
                         transaction.setDate(date); // take the same date as previous transaction
                         // leave the description empty
 

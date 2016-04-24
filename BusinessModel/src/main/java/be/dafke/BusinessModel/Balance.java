@@ -1,9 +1,6 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionDependent;
-import be.dafke.ObjectModel.BusinessTypeCollection;
-import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
@@ -18,7 +15,7 @@ import java.util.TreeSet;
  * Date: 28/02/13
  * Time: 0:54
  */
-public class Balance extends BusinessCollection<BalanceLine> implements BusinessCollectionDependent<Account>{
+public class Balance extends BusinessCollection<BalanceLine> {
 
     private final static String LEFTNAME = "LeftName";
     private final static String RIGHTNAME = "RightName";
@@ -36,11 +33,7 @@ public class Balance extends BusinessCollection<BalanceLine> implements Business
     private String rightResultName;
     private ArrayList<AccountType> leftTypes;
     private ArrayList<AccountType> rightTypes;
-    private BusinessCollection<Account> businessCollection;
     private Balances balances;
-
-    public Balance() {
-    }
 
     public Balance(Balances balances) {
         this.balances = balances;
@@ -95,7 +88,7 @@ public class Balance extends BusinessCollection<BalanceLine> implements Business
 
     private ArrayList<Account> getAccountsNotEmpty(AccountType type) {
         ArrayList<Account> col = new ArrayList<Account>();
-        for(Account account : businessCollection.getBusinessObjects()) {
+        for(Account account : balances.getAccounts().getBusinessObjects()) {
             if (account.getType() == type && account.getSaldo().compareTo(BigDecimal.ZERO) != 0) col.add(account);
         }
         return col;
@@ -239,9 +232,5 @@ public class Balance extends BusinessCollection<BalanceLine> implements Business
         for(String s: rightTypesString){
             rightTypes.add(balances.getAccountTypes().getBusinessObject(s));
         }
-    }
-
-    public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
-        this.businessCollection = businessCollection;
     }
 }

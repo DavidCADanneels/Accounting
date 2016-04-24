@@ -143,9 +143,9 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         Transaction transaction = journals.getCurrentObject().getCurrentObject();
 
         if(DEBIT.equals(actionCommand)){
-            TransactionActions.addBookingToTransaction(selectedAccount, transaction, true);
+            TransactionActions.addBookingToTransaction(accounts, selectedAccount, transaction, true);
         } else if (CREDIT.equals(actionCommand)){
-            TransactionActions.addBookingToTransaction(selectedAccount, transaction, false);
+            TransactionActions.addBookingToTransaction(accounts, selectedAccount, transaction, false);
         } else if (MANAGE.equals(actionCommand)){
             GUIActions.showAccountManager(accounts, accountTypes);
         } else if (DETAILS.equals(actionCommand)){

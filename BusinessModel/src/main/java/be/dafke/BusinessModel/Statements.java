@@ -1,21 +1,26 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionProvider;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.util.ArrayList;
 
-public class Statements extends BusinessCollection<BusinessObject> implements BusinessCollectionProvider<BusinessObject>{
+public class Statements extends BusinessCollection<BusinessObject> {
 
     public static final String STATEMENTS = "Statements";
     public static final String STATEMENT = "Statement";
 
+    public BusinessCollection<BusinessObject> getCounterParties() {
+        return counterParties;
+    }
+
+    private BusinessCollection<BusinessObject> counterParties;
+
     public Statements(Accounting accounting){
         setName(STATEMENTS);
-        setBusinessCollection(accounting.getBusinessObject(CounterParties.COUNTERPARTIES));
+        counterParties = accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
         try {
             accounting.addBusinessObject(this);
         } catch (EmptyNameException e) {
@@ -62,12 +67,4 @@ public class Statements extends BusinessCollection<BusinessObject> implements Bu
 //    public void readCollection() {
 //        readCollection("Statement", false);
 //    }
-
-    public BusinessCollection<BusinessObject> getBusinessCollection() {
-        return businessCollection;
-    }
-
-    public void setBusinessCollection(BusinessCollection<BusinessObject> businessCollection) {
-        this.businessCollection = businessCollection;
-    }
 }

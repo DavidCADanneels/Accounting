@@ -1,8 +1,6 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionDependent;
-import be.dafke.ObjectModel.BusinessCollectionProvider;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
@@ -19,7 +17,7 @@ import java.util.TreeSet;
  * @since 01/10/2010
  * @see Booking
  */
-public class Transaction extends BusinessCollection<Booking> implements BusinessCollectionProvider<Account>, BusinessCollectionDependent<Account> {
+public class Transaction extends BusinessCollection<Booking> {
     private static final String ID = "id";
     private static final String DATE = "date";
     private static final String DESCRIPTION = "description";
@@ -33,9 +31,10 @@ public class Transaction extends BusinessCollection<Booking> implements Business
     private Calendar date = null;
 
     private final ArrayList<Booking> bookings;
-    private BusinessCollection<Account> businessCollection;
+    private Accounts accounts;
 
-    public Transaction() {
+    public Transaction(Accounts accounts) {
+        this.accounts = accounts;
 		debitTotal = new BigDecimal(0);
 		debitTotal = debitTotal.setScale(2);
 		creditTotal = new BigDecimal(0);
@@ -54,17 +53,9 @@ public class Transaction extends BusinessCollection<Booking> implements Business
         return new TreeMap<String, String>();
     }
 
-    public void setBusinessCollection(BusinessCollection<Account> businessCollection){
-        this.businessCollection = businessCollection;
-    }
-
-    public BusinessCollection<Account> getBusinessCollection() {
-        return businessCollection;
-    }
-
     @Override
     public Booking createNewChild(){
-        return new Booking();
+        return new Booking(accounts);
     }
 
     @Override

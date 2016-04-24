@@ -36,16 +36,16 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
         journals = new Journals(journalTypes);
 //        journals.setJournalTypes(journalTypes);
-        journals.setBusinessCollection(accounts);
+        journals.setAccounts(accounts);
 
         balances = new Balances();
-        balances.setBusinessCollection(accounts);
+        balances.setAccounts(accounts);
         balances.setAccountTypes(accountTypes);
         balances.addDefaultBalances(accountTypes);
 
         mortgages = new Mortgages();
         mortgages.setAccountTypes(accountTypes);
-        mortgages.setBusinessCollection(accounts);
+        mortgages.setAccounts(accounts);
 
         accounts.setName(accounts.getBusinessObjectType());
         journals.setName(journals.getBusinessObjectType());

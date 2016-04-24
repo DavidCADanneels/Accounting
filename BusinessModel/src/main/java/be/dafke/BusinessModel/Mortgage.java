@@ -1,7 +1,6 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionDependent;
 import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.MultiValueMap;
 
@@ -13,7 +12,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.Vector;
 
-public class Mortgage extends BusinessCollection<MortgageTransaction> implements MustBeRead, BusinessCollectionDependent<Account> {
+public class Mortgage extends BusinessCollection<MortgageTransaction> implements MustBeRead {
     private final static String TOTAL = "total";
     private final static String NRPAYED = "nrPayed";
     private final static String CAPITAL_ACCOUNT = "CapitalAccount";
@@ -23,7 +22,8 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
 	private int alreadyPayed = 0;
 	private Account capital, intrest;
 	private BigDecimal startCapital;
-    private BusinessCollection<Account> accounts;
+    private Mortgages mortgages;
+    private Accounts accounts;
     private final MultiValueMap<Calendar,MortgageTransaction> bookedtransactions;
 
     @Override
@@ -31,13 +31,15 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
         return MORTGAGE_TRANSACTION;
     }
 
-    public Mortgage(){
+    public Mortgage(Mortgages mortgages, Accounts accounts){
+        this.mortgages = mortgages;
+        this.accounts = accounts;
         bookedtransactions = new MultiValueMap<Calendar,MortgageTransaction>();
     }
 
     @Override
     public MortgageTransaction createNewChild() {
-        MortgageTransaction mortgageTransaction = new MortgageTransaction();
+        MortgageTransaction mortgageTransaction = new MortgageTransaction(accounts);
         mortgageTransaction.setMortgage(this);
         return mortgageTransaction;
     }
@@ -169,15 +171,11 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
         }
         String capitalAccount = properties.get(CAPITAL_ACCOUNT);
         if(capitalAccount!=null){
-            capital = accounts.getBusinessObject(capitalAccount);
+            capital = mortgages.getAccounts().getBusinessObject(capitalAccount);
         }
         String intrestAccount = properties.get(INTREST_ACCOUNT);
         if(intrestAccount!=null){
-            intrest = accounts.getBusinessObject(intrestAccount);
+            intrest = mortgages.getAccounts().getBusinessObject(intrestAccount);
         }
-    }
-
-    public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
-        accounts = businessCollection;
     }
 }

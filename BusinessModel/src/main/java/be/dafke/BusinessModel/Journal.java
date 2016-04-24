@@ -1,10 +1,6 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionDependent;
-import be.dafke.ObjectModel.BusinessCollectionProvider;
-import be.dafke.ObjectModel.BusinessTypeCollection;
-import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
 import be.dafke.ObjectModel.BusinessTyped;
 import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.MultiValueMap;
@@ -20,32 +16,30 @@ import java.util.TreeMap;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journal extends BusinessCollection<Transaction> implements BusinessCollectionDependent<Account>, BusinessTyped<JournalType>, BusinessCollectionProvider<Account>, MustBeRead {
+public class Journal extends BusinessCollection<Transaction> implements BusinessTyped<JournalType>, MustBeRead {
     private static final String TYPE = "type";
     protected static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
     private String abbreviation;
     private final MultiValueMap<Calendar,Transaction > transactions;
     private JournalType type;
     private Journals journals;
-    private Transaction currentTransaction = new Transaction();
-    private BusinessCollection<Account> businessCollection;
+    private Accounts accounts;
+    private Transaction currentTransaction;
 
-    public Journal(Journals journals) {
+    public Journal(Journals journals, Accounts accounts) {
         this.journals = journals;
-		transactions = new MultiValueMap<Calendar,Transaction>();
+        this.accounts = accounts;
+        currentTransaction = new Transaction(accounts);
+        transactions = new MultiValueMap<Calendar,Transaction>();
 	}
 
-    public void setBusinessCollection(BusinessCollection<Account> businessCollection){
-        this.businessCollection = businessCollection;
-    }
-
-    public BusinessCollection<Account> getBusinessCollection() {
-        return businessCollection;
+    public Journals getJournals() {
+        return journals;
     }
 
     @Override
     public Transaction createNewChild(){
-        return new Transaction();
+        return new Transaction(accounts);
     }
 
     @Override

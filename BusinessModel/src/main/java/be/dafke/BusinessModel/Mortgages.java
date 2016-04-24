@@ -1,18 +1,15 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionProvider;
-import be.dafke.ObjectModel.BusinessTypeCollection;
-import be.dafke.ObjectModel.BusinessTypeProvider;
 
 /**
  * User: Dafke
  * Date: 27/02/13
  * Time: 11:06
  */
-public class Mortgages extends BusinessCollection<Mortgage> implements BusinessCollectionProvider<Account> {
+public class Mortgages extends BusinessCollection<Mortgage> {
     private AccountTypes accountTypes;
-    private BusinessCollection<Account> businessCollection;
+    private Accounts accounts;
 
     public static final String MORTGAGES = "Mortgages";
     public static final String MORTGAGE = "Mortgage";
@@ -28,7 +25,7 @@ public class Mortgages extends BusinessCollection<Mortgage> implements BusinessC
 
     @Override
     public Mortgage createNewChild() {
-        return new Mortgage();
+        return new Mortgage(this, accounts);
     }
 
 //    @Override
@@ -44,11 +41,11 @@ public class Mortgages extends BusinessCollection<Mortgage> implements BusinessC
         return accountTypes;
     }
 
-    public BusinessCollection<Account> getBusinessCollection() {
-        return businessCollection;
+    public Accounts getAccounts() {
+        return accounts;
     }
 
-    public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
-        this.businessCollection = businessCollection;
+    public void setAccounts(Accounts accounts) {
+        this.accounts = accounts;
     }
 }

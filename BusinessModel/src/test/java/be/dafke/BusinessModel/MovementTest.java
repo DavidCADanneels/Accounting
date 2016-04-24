@@ -58,7 +58,8 @@ public class MovementTest {
     public void getBooking(){
         Movement movement = new Movement(AMOUNT, true);
         assertNull(movement.getBooking());
-        Booking booking = new Booking();
+        Accounts accounts = new Accounts();
+        Booking booking = new Booking(accounts);
         movement.setBooking(booking);
         assertEquals(booking,movement.getBooking());
     }

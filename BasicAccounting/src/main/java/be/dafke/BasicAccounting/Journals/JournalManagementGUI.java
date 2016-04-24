@@ -1,11 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.GUIActions;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.JournalType;
-import be.dafke.BusinessModel.JournalTypes;
-import be.dafke.BusinessModel.Journals;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -42,12 +38,14 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
 	private final DefaultListSelectionModel selection;
     private Journals journals;
     private JournalTypes journalTypes;
+    private Accounts accounts;
     private AccountTypes accountTypes;
 
-    public JournalManagementGUI(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
+    public JournalManagementGUI(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE"), new JournalManagementTableModel(journals));
         this.journals = journals;
         this.journalTypes = journalTypes;
+        this.accounts = accounts;
         this.accountTypes = accountTypes;
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
@@ -249,7 +247,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
         try {
-            Journal journal = new Journal(journals);
+            Journal journal = new Journal(journals, accounts);
             journal.setName(newName);
             journal.setAbbreviation(abbreviation);
             journal.setType(journalType);

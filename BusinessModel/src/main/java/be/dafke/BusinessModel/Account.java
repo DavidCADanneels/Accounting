@@ -1,8 +1,6 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessTypeCollection;
-import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
 import be.dafke.ObjectModel.BusinessTyped;
 import be.dafke.Utils.MultiValueMap;
 
@@ -23,10 +21,10 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
     public static final String DEFAULTAMOUNT = "defaultAmount";
     public static final String MOVEMENT = "Movement";
     private AccountType type;
-    private Accounts accounts;
     private BigDecimal debitTotal, creditTotal;
     private final MultiValueMap<Calendar,Movement> movements;
     private BigDecimal defaultAmount = null;
+    private Accounts accounts;
 
     public Account(Accounts accounts) {
         this.accounts = accounts;

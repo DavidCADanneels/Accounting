@@ -1,12 +1,7 @@
 package be.dafke.ObjectModelDao;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionDependent;
-import be.dafke.ObjectModel.BusinessCollectionProvider;
 import be.dafke.ObjectModel.BusinessObject;
-import be.dafke.ObjectModel.BusinessTypeCollection;
-import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
-import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
@@ -71,12 +66,6 @@ public class XMLReader {
             try {
                 // create new instance of object
                 BusinessObject object = businessCollection.createNewChild();
-
-                // if object is dependant on another collection, fetch this Collection from the collection
-                if (businessCollection instanceof BusinessCollectionProvider && object instanceof BusinessCollectionDependent) {
-                    BusinessCollection bc = ((BusinessCollectionProvider) businessCollection).getBusinessCollection();
-                    ((BusinessCollectionDependent) object).setBusinessCollection(bc);
-                }
 
                 // create empty properties TreeMap
                 TreeMap<String, String> properties = new TreeMap<String, String>();

@@ -1,11 +1,8 @@
 package be.dafke.BusinessModel;
 
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionDependent;
 import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
@@ -16,7 +13,7 @@ import java.util.TreeSet;
  * @since 01/10/2010
  * @see Transaction
  */
-public class Booking extends BusinessObject implements BusinessCollectionDependent<Account>{
+public class Booking extends BusinessObject {
     private static final String ACCOUNT = "Account";
     public static final String ID = "id";
     public static final String DEBIT = "debit";
@@ -24,15 +21,17 @@ public class Booking extends BusinessObject implements BusinessCollectionDepende
     private Account account;
     private Movement movement;
 	private Transaction transaction;
-    private BusinessCollection<Account> businessCollection;
+    private Accounts accounts;
 
-    public Booking(Account account, BigDecimal amount, boolean debit) {
+    public Booking(Accounts accounts, Account account, BigDecimal amount, boolean debit) {
+        this.accounts = accounts;
         this.account = account;
         movement = new Movement(amount, debit);
         movement.setBooking(this);
     }
 
-    public Booking(){
+    public Booking(Accounts accounts){
+        this.accounts = accounts;
 	}
 
     public boolean isDebit(){
@@ -84,7 +83,7 @@ public class Booking extends BusinessObject implements BusinessCollectionDepende
     }
     // Set initial values for each key in InitKeySet, while reading xml
     public void setInitProperties(TreeMap<String, String> properties){
-        account = businessCollection.getBusinessObject(properties.get(ACCOUNT));
+        account = accounts.getBusinessObject(properties.get(ACCOUNT));
         movement = new Movement();
         movement.setBooking(this);
         movement.setInitProperties(properties);
@@ -110,7 +109,4 @@ public class Booking extends BusinessObject implements BusinessCollectionDepende
         this.transaction = transaction;
     }
 
-    public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
-        this.businessCollection = businessCollection;
-    }
 }

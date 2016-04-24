@@ -67,11 +67,11 @@ public class GUIActions {
         gui.setVisible(true);
     }
 
-    public static void showJournalManager(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
+    public static void showJournalManager(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes) {
         String key = "" + journals.hashCode();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new JournalManagementGUI(journals, journalTypes, accountTypes);
+            gui = new JournalManagementGUI(journals, journalTypes, accounts, accountTypes);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
@@ -98,17 +98,17 @@ public class GUIActions {
         return (RefreshableTableFrame<Booking>)gui;
     }
 
-    public static void switchJournal(Journals journals, Journal newJournal) {
+    public static void switchJournal(Accounts accounts, Journals journals, Journal newJournal) {
         Journal oldJournal = journals.getCurrentObject();
         if(newJournal!=null && oldJournal!=null){
-            checkTransfer(journals, oldJournal, newJournal);
+            checkTransfer(accounts, journals, oldJournal, newJournal);
         } else {
             journals.setCurrentObject(newJournal);
         }
         ComponentMap.refreshAllFrames();
     }
 
-    private static void checkTransfer(Journals journals, Journal oldJournal, Journal newJournal){
+    private static void checkTransfer(Accounts accounts, Journals journals, Journal oldJournal, Journal newJournal){
         Transaction oldTransaction = oldJournal.getCurrentObject();
         Transaction newTransaction = newJournal.getCurrentObject();
         if(oldTransaction!=null && !oldTransaction.getBusinessObjects().isEmpty()){
@@ -120,7 +120,7 @@ public class GUIActions {
             int answer = JOptionPane.showConfirmDialog(null, builder.toString());
             if(answer == JOptionPane.YES_OPTION){
                 newJournal.setCurrentObject(oldTransaction);
-                oldJournal.setCurrentObject(new Transaction());
+                oldJournal.setCurrentObject(new Transaction(accounts));
                 journals.setCurrentObject(newJournal);
             } else if(answer == JOptionPane.NO_OPTION){
                 journals.setCurrentObject(newJournal);

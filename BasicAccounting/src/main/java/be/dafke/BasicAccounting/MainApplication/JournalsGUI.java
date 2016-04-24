@@ -1,11 +1,7 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.GUIActions;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.JournalTypes;
-import be.dafke.BusinessModel.Journals;
+import be.dafke.BusinessModel.*;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -33,11 +29,12 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
     private Journals journals;
+	private Accounts accounts;
     private JournalTypes journalTypes;
     private AccountTypes accountTypes;
 
-	public JournalsGUI(final Journals journals, final JournalTypes journalTypes, final AccountTypes accountTypes) {
-		setAccounting(journals,journalTypes, accountTypes);
+	public JournalsGUI(final Accounts accounts, final Journals journals, final JournalTypes journalTypes, final AccountTypes accountTypes) {
+		setAccounting(accounts, journals,journalTypes, accountTypes);
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -66,24 +63,25 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	public void actionPerformed(ActionEvent ae) {
 		String actionCommand = ae.getActionCommand();
 		if(MANAGE.equals(actionCommand)){
-			GUIActions.showJournalManager(journals,journalTypes,accountTypes);
+			GUIActions.showJournalManager(journals,journalTypes, accounts,accountTypes);
 		} else if (DETAILS.equals(actionCommand)){
 			GUIActions.showDetails(journals.getCurrentObject(), journals);
 		} else if (SWITCH.equals(actionCommand)){
 			Journal newJournal = (Journal)combo.getSelectedItem();
-			GUIActions.switchJournal(journals, newJournal);
+			GUIActions.switchJournal(accounts, journals, newJournal);
 		}
 	}
 
     public void setAccounting(Accounting accounting){
 		if(accounting==null){
-			setAccounting(null,null,null);
+			setAccounting(null, null,null,null);
 		} else {
-			setAccounting(accounting.getJournals(),accounting.getJournalTypes(), accounting.getAccountTypes());
+			setAccounting(accounting.getAccounts(), accounting.getJournals(),accounting.getJournalTypes(), accounting.getAccountTypes());
 		}
 	}
-    public void setAccounting(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes){
-        this.journals = journals;
+    public void setAccounting(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes){
+        this.accounts = accounts;
+		this.journals = journals;
 		this.journalTypes = journalTypes;
 		this.accountTypes = accountTypes;
     }

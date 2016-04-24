@@ -1,8 +1,6 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionProvider;
-import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -15,7 +13,7 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 27/02/13
  * Time: 12:07
  */
-public class Balances extends BusinessCollection<Balance> implements BusinessCollectionProvider<Account> {
+public class Balances extends BusinessCollection<Balance> {
 
     public static final String BALANCES = "Balances";
     public static final String BALANCE = "Balance";
@@ -24,7 +22,7 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
     public static String RELATIONS_BALANCE = "RelationsBalance";
     public static String YEAR_BALANCE = "YearBalance";
 
-    private BusinessCollection<Account> businessCollection;
+    private Accounts accounts;
     private AccountTypes accountTypes;
 
     public Balances(){
@@ -100,8 +98,7 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
 
     @Override
     public Balance createNewChild() {
-        Balance balance = new Balance();
-        balance.setBusinessCollection(businessCollection);
+        Balance balance = new Balance(this);
         return balance;
     }
 
@@ -124,12 +121,12 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         readCollection("Balance", false);
     }*/
 
-    public BusinessCollection<Account> getBusinessCollection() {
-        return businessCollection;
+    public Accounts getAccounts() {
+        return accounts;
     }
 
-    public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
-        this.businessCollection = businessCollection;
+    public void setAccounts(Accounts accounts) {
+        this.accounts = accounts;
     }
 
     public AccountTypes getAccountTypes() {

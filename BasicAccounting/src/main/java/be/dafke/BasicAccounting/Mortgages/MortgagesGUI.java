@@ -2,10 +2,7 @@ package be.dafke.BasicAccounting.Mortgages;
 
 import be.dafke.BusinessActions.TransactionActions;
 import be.dafke.BasicAccounting.MainApplication.AccountingPanel;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.Mortgage;
-import be.dafke.BusinessModel.Transaction;
+import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.BusinessCollection;
 
 import javax.swing.DefaultListModel;
@@ -31,8 +28,9 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
 
     private BusinessCollection<Mortgage> mortgages;
     private Journal journal;
+	private Accounts accounts;
 
-    public MortgagesGUI() {
+	public MortgagesGUI() {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Mortgages"));
 		list = new JList<Mortgage>();
@@ -50,8 +48,10 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
         if (accounting == null) {
             setMortgages(null);
             setJournal(null);
+			setAccounts(null);
         } else {
             setMortgages(accounting.getMortgages());
+			setAccounts(accounting.getAccounts());
             if(accounting.getJournals()!=null){
                 setJournal(accounting.getJournals().getCurrentObject());
             }
@@ -61,6 +61,10 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
     public void setMortgages(BusinessCollection<Mortgage> mortgages) {
         this.mortgages = mortgages;
     }
+
+	public void setAccounts(Accounts accounts){
+		this.accounts = accounts;
+	}
 
     public void setJournal(Journal journal) {
         this.journal = journal;
@@ -82,7 +86,7 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
 		Mortgage mortgage = (Mortgage)list.getSelectedValue();
 		Transaction transaction = journal.getCurrentObject();
 		if (mortgage != null) {
-			TransactionActions.createMortgageTransaction(mortgage, transaction);
+			TransactionActions.createMortgageTransaction(accounts, mortgage, transaction);
 		}
 	}
 

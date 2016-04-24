@@ -1,7 +1,5 @@
 package be.dafke.BusinessModel;
 
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionDependent;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
@@ -12,7 +10,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-public class Statement extends BusinessObject implements BusinessCollectionDependent<CounterParty>{
+public class Statement extends BusinessObject {
     private static final String DATE = "Date";
     private static final String SIGN = "Sign";
     private static final String AMOUNT = "Amount";
@@ -25,11 +23,10 @@ public class Statement extends BusinessObject implements BusinessCollectionDepen
     private boolean structured;
 	private BigDecimal amount;
 	private Calendar date;
-
+    private Statements statements;
 
 	private CounterParty counterParty;
 	private TmpCounterParty tmpCounterParty;
-    private BusinessCollection<CounterParty> businessCollection;
 
     @Override
 	public String toString() {
@@ -127,7 +124,7 @@ public class Statement extends BusinessObject implements BusinessCollectionDepen
         setDebit("D".equals(sign));
         String counterPartyString = properties.get(COUNTERPARTY);
         if(counterPartyString!=null && !counterPartyString.equals("")){
-            setCounterParty(businessCollection.getBusinessObject(counterPartyString));
+            setCounterParty((CounterParty)statements.getCounterParties().getBusinessObject(counterPartyString));
         }
     }
     //
@@ -146,7 +143,4 @@ public class Statement extends BusinessObject implements BusinessCollectionDepen
         return properties;
     }
 
-    public void setBusinessCollection(BusinessCollection<CounterParty> businessCollection) {
-        this.businessCollection = businessCollection;
-    }
 }

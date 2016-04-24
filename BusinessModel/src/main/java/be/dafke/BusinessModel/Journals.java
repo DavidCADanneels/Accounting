@@ -1,9 +1,6 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionProvider;
-import be.dafke.ObjectModel.BusinessTypeCollection;
-import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -16,24 +13,24 @@ import java.util.Map;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journals extends BusinessCollection<Journal> implements BusinessCollectionProvider<Account> {
+public class Journals extends BusinessCollection<Journal> {
 
-    private BusinessCollection<Account> businessCollection;
+    private Accounts accounts;
+
+    public void setAccounts(Accounts accounts){
+        this.accounts = accounts;
+    }
+
+    public Accounts getAccounts() {
+        return accounts;
+    }
 
     @Override
     public String getChildType(){
         return "Journal";
     }
 
-    public void setBusinessCollection(BusinessCollection<Account> businessCollection){
-        this.businessCollection = businessCollection;
-    }
-
-    public BusinessCollection<Account> getBusinessCollection() {
-        return businessCollection;
-    }
-
-    private JournalTypes journalTypes;
+   private JournalTypes journalTypes;
 
     public Journals(JournalTypes journalTypes) {
         this();
@@ -46,7 +43,7 @@ public class Journals extends BusinessCollection<Journal> implements BusinessCol
 
     @Override
     public Journal createNewChild() {
-        return new Journal(this);
+        return new Journal(this, accounts);
     }
 
    /* @Override

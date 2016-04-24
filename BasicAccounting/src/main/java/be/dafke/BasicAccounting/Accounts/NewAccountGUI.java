@@ -1,9 +1,6 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -51,7 +48,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
 		line2.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
 		type = new JComboBox<AccountType>();
         DefaultComboBoxModel<AccountType> model = new DefaultComboBoxModel<AccountType>();
-        for(AccountType accountType : accountTypes.getBusinessObjects()){
+        for(AccountType accountType : accounts.getAccountTypes().getBusinessObjects()){
             model.addElement(accountType);
         }
         type.setModel(model);

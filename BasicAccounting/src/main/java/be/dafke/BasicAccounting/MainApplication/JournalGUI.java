@@ -50,8 +50,10 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     private final DetailsPopupMenu viewPopup;
     private BigDecimal debettotaal, credittotaal;
     private Journal journal;
+    private Accounts accounts;
 
     public JournalGUI(Journals journals, Accounts accounts, AccountTypes accountTypes) {
+        this.accounts = accounts;
         journal = journals.getCurrentObject();
         debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
@@ -279,7 +281,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     }
 
 	public void clear() {
-        Transaction transaction = new Transaction();
+        Transaction transaction = new Transaction(accounts);
         transaction.setDate(getDate());
         journal.setCurrentObject(transaction);
         refresh();

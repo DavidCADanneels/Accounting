@@ -1,13 +1,6 @@
 package be.dafke.BusinessActions;
 
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.Journals;
-import be.dafke.BusinessModel.Mortgage;
-import be.dafke.BusinessModel.MortgageTransaction;
-import be.dafke.BusinessModel.Movement;
-import be.dafke.BusinessModel.Transaction;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 
 import javax.swing.JOptionPane;
@@ -22,7 +15,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class TransactionActions {
 
-    public static void createMortgageTransaction(Mortgage mortgage, Transaction transaction){
+    public static void createMortgageTransaction(Accounts accounts, Mortgage mortgage, Transaction transaction){
         if (mortgage.isPayedOff()) {
             System.out.println("Payed Off already");
             return;
@@ -32,8 +25,8 @@ public class TransactionActions {
         if(capitalAccount==null || intrestAccount==null){
             return;
         }
-        Booking capitalBooking = new Booking(capitalAccount, mortgage.getNextCapitalAmount(),true);
-        Booking intrestBooking = new Booking(intrestAccount, mortgage.getNextIntrestAmount(),true);
+        Booking capitalBooking = new Booking(accounts, capitalAccount, mortgage.getNextCapitalAmount(),true);
+        Booking intrestBooking = new Booking(accounts, intrestAccount, mortgage.getNextIntrestAmount(),true);
 
 
         transaction.addBusinessObject(capitalBooking);
@@ -47,10 +40,10 @@ public class TransactionActions {
         ComponentMap.refreshAllFrames();
     }
 
-    public static void addBookingToTransaction(Account account, Transaction transaction, boolean debit) {
+    public static void addBookingToTransaction(Accounts accounts, Account account, Transaction transaction, boolean debit) {
         BigDecimal amount = askAmount(transaction, account, debit);
         if (amount != null) {
-            Booking booking = new Booking(account, amount, debit);
+            Booking booking = new Booking(accounts, account, amount, debit);
             transaction.addBusinessObject(booking);
             ComponentMap.refreshAllFrames();
         }
