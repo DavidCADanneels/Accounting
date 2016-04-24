@@ -1,12 +1,7 @@
 package be.dafke.ObjectModelDao;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionDependent;
-import be.dafke.ObjectModel.BusinessCollectionProvider;
 import be.dafke.ObjectModel.BusinessObject;
-import be.dafke.ObjectModel.BusinessTypeCollection;
-import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
-import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
@@ -25,7 +20,7 @@ import java.util.TreeMap;
  * Created by ddanneels on 28/12/2015.
  */
 public class XMLReader {
-    public static void readCollection(BusinessCollection businessCollection, boolean recursive, File parentFolder){
+    public static void readCollection(BusinessCollection businessCollection, File parentFolder){
         String businessCollectionName = businessCollection.getName();
         File childFolder = new File(parentFolder, businessCollectionName);
         File xmlFile = new File(parentFolder, businessCollectionName+".xml");
@@ -48,15 +43,13 @@ public class XMLReader {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        if(recursive){
-            for(Object businessObject : businessCollection.getBusinessObjects()) {
-                if(businessObject instanceof BusinessCollection){
-                    BusinessCollection<BusinessObject> subCollection = ((BusinessCollection<BusinessObject>)businessObject);
-                    String type = subCollection.getBusinessObjectType();
-                    String name = subCollection.getName();
-                    if(type.equals(name) || (subCollection instanceof MustBeRead)){
-                        readCollection(subCollection, true, childFolder);
-                    }
+        for(Object businessObject : businessCollection.getBusinessObjects()) {
+            if(businessObject instanceof BusinessCollection){
+                BusinessCollection<BusinessObject> subCollection = ((BusinessCollection<BusinessObject>)businessObject);
+                String type = subCollection.getBusinessObjectType();
+                String name = subCollection.getName();
+                if(type.equals(name) || (subCollection instanceof MustBeRead)){
+                    readCollection(subCollection, childFolder);
                 }
             }
         }
@@ -71,26 +64,11 @@ public class XMLReader {
         // iterate children and create objects for them
         for (int i = 0; i < childrenNodeList.getLength(); i++) {
             try {
-                // create new instance of object
-                BusinessObject object = businessCollection.createNewChild();
-
-                // if object is Typed, fetch its TypeCollection from the collection
-                if (businessCollection instanceof BusinessTypeProvider && object instanceof BusinessTypeCollectionDependent) {
-                    BusinessTypeCollection btc = ((BusinessTypeProvider) businessCollection).getBusinessTypeCollection();
-                    ((BusinessTypeCollectionDependent) object).setBusinessTypeCollection(btc);
-                }
-
-                // if object is dependant on another collection, fetch this Collection from the collection
-                if (businessCollection instanceof BusinessCollectionProvider && object instanceof BusinessCollectionDependent) {
-                    BusinessCollection bc = ((BusinessCollectionProvider) businessCollection).getBusinessCollection();
-                    ((BusinessCollectionDependent) object).setBusinessCollection(bc);
-                }
-
                 // create empty properties TreeMap
                 TreeMap<String, String> properties = new TreeMap<String, String>();
 
                 // get the Object's keySet
-                Set<String> keySet = object.getInitKeySet();
+                Set<String> keySet = businessCollection.getInitKeySet();
 
                 // read all the tags which names are in the keySet
                 // and add their value to the properties
@@ -100,8 +78,11 @@ public class XMLReader {
                     properties.put(key, value);
                 }
 
+                // create new instance of object
+                BusinessObject object = businessCollection.createNewChild(properties);
+
                 // provide the properties to the object
-                object.setInitProperties(properties);
+//                object.setInitProperties(properties);
 
                 if(object instanceof BusinessCollection){
                     readChildren((Element)childrenNodeList.item(i),(BusinessCollection)object);

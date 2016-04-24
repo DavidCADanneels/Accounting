@@ -9,6 +9,7 @@ import org.junit.Test;
 import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static org.junit.Assert.*;
 
@@ -30,8 +31,7 @@ public class BusinessCollectionAsCollectionTest{
                 return null;
             }
 
-            @Override
-            public BusinessCollection createNewChild() {
+            public BusinessObject createNewChild(TreeMap<String, String> properties) {
                 return null;
             }
         };

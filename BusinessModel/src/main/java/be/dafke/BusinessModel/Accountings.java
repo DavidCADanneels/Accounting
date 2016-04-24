@@ -40,8 +40,10 @@ public class Accountings extends BusinessCollection<Accounting> {
     }
 
     @Override
-    public Accounting createNewChild() {
-        return new Accounting();
+    public Accounting createNewChild(TreeMap<String, String> properties) {
+        Accounting accounting = new Accounting();
+        accounting.setName(properties.get(NAME));
+        return accounting;
     }
 
 	public void setCurrentObject(String name) {

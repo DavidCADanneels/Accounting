@@ -8,7 +8,6 @@ import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.CounterParties;
 import be.dafke.BusinessModel.CounterParty;
 import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.Movement;
 import be.dafke.BusinessModel.SearchOptions;
 import be.dafke.BusinessModel.Statement;
 import be.dafke.BusinessModel.Statements;
@@ -241,10 +240,8 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
                         }
                         BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 3);
                         Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
-                        Booking booking1 = new Booking(account);
-                        booking1.addBusinessObject(new Movement(amount, debet));
-                        Booking booking2 = new Booking(bankAccount);
-                        booking2.addBusinessObject(new Movement(amount, !debet));
+                        Booking booking1 = new Booking(account, amount, debet);
+                        Booking booking2 = new Booking(bankAccount, amount, !debet);
                         transaction.addBusinessObject(booking1);
                         transaction.addBusinessObject(booking2);
                         String cal = (String) tabel.getValueAt(i, 1);
@@ -254,8 +251,8 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
                         transaction.setDescription(description);
                         journal.addBusinessObject(transaction);
 
-                        transaction = new Transaction();
-                        transaction.setDate(date); // take the same date as previous transaction
+                        transaction = new Transaction(accounting.getAccounts(), date, "");
+                        // take the same date as previous transaction
                         // leave the description empty
 
                         accounting.getJournals().getCurrentObject().setCurrentObject(transaction);

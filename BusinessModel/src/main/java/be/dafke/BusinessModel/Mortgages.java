@@ -1,21 +1,28 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionProvider;
-import be.dafke.ObjectModel.BusinessTypeCollection;
-import be.dafke.ObjectModel.BusinessTypeProvider;
+
+import java.math.BigDecimal;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 /**
  * User: Dafke
  * Date: 27/02/13
  * Time: 11:06
  */
-public class Mortgages extends BusinessCollection<Mortgage> implements BusinessTypeProvider<AccountType>, BusinessCollectionProvider<Account> {
-    private BusinessTypeCollection<AccountType> businessTypeCollection;
-    private BusinessCollection<Account> businessCollection;
+public class Mortgages extends BusinessCollection<Mortgage> {
+    private AccountTypes accountTypes;
+    private Accounts accounts;
 
     public static final String MORTGAGES = "Mortgages";
     public static final String MORTGAGE = "Mortgage";
+
+    public final static String TOTAL = "total";
+    public final static String NRPAYED = "nrPayed";
+    public final static String CAPITAL_ACCOUNT = "CapitalAccount";
+    public final static String INTREST_ACCOUNT = "IntrestAccount";
 
     public Mortgages(){
         setName(MORTGAGES);
@@ -27,8 +34,36 @@ public class Mortgages extends BusinessCollection<Mortgage> implements BusinessT
     }
 
     @Override
-    public Mortgage createNewChild() {
-        return new Mortgage();
+    public Set<String> getInitKeySet() {
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        keySet.add(TOTAL);
+        keySet.add(NRPAYED);
+        keySet.add(CAPITAL_ACCOUNT);
+        keySet.add(INTREST_ACCOUNT);
+        return keySet;
+    }
+    @Override
+    public Mortgage createNewChild(TreeMap<String, String> properties) {
+        Mortgage mortgage = new Mortgage(this, accounts);
+        mortgage.setName(properties.get(NAME));
+        String startCapitalString = properties.get(Mortgages.TOTAL);
+        String nrPayedString = properties.get(Mortgages.NRPAYED);
+        if(startCapitalString!=null){
+            mortgage.setStartCapital(new BigDecimal(startCapitalString));
+        }
+        if(nrPayedString!=null){
+            mortgage.setAlreadyPayed(Integer.parseInt(nrPayedString));
+        }
+        String capitalAccount = properties.get(Mortgages.CAPITAL_ACCOUNT);
+        if(capitalAccount!=null){
+            mortgage.setCapitalAccount(accounts.getBusinessObject(capitalAccount));
+        }
+        String intrestAccount = properties.get(Mortgages.INTREST_ACCOUNT);
+        if(intrestAccount!=null){
+            mortgage.setIntrestAccount(accounts.getBusinessObject(intrestAccount));
+        }
+        return mortgage;
     }
 
 //    @Override
@@ -36,19 +71,19 @@ public class Mortgages extends BusinessCollection<Mortgage> implements BusinessT
 //        readCollection("Mortgage",true);
 //    }
 
-    public void setBusinessTypeCollection(BusinessTypeCollection<AccountType> businessTypeCollection) {
-        this.businessTypeCollection = businessTypeCollection;
+    public void setAccountTypes(AccountTypes accountTypes) {
+        this.accountTypes = accountTypes;
     }
 
-    public BusinessTypeCollection<AccountType> getBusinessTypeCollection() {
-        return businessTypeCollection;
+    public AccountTypes getAccountTypes() {
+        return accountTypes;
     }
 
-    public BusinessCollection<Account> getBusinessCollection() {
-        return businessCollection;
+    public Accounts getAccounts() {
+        return accounts;
     }
 
-    public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
-        this.businessCollection = businessCollection;
+    public void setAccounts(Accounts accounts) {
+        this.accounts = accounts;
     }
 }

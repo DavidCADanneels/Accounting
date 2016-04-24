@@ -1,24 +1,19 @@
 package be.dafke.BusinessModel;
 
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionDependent;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
-public class Statement extends BusinessObject implements BusinessCollectionDependent<CounterParty>{
-    private static final String DATE = "Date";
-    private static final String SIGN = "Sign";
-    private static final String AMOUNT = "Amount";
-    private static final String COUNTERPARTY = "CounterParty";
-    private static final String TRANSACTIONCODE = "TransactionCode";
-    private static final String COMMUNICATION = "Communication";
+public class Statement extends BusinessObject {
+    public static final String DATE = "Date";
+    public static final String SIGN = "Sign";
+    public static final String AMOUNT = "Amount";
+    public static final String COUNTERPARTY = "CounterParty";
+    public static final String TRANSACTIONCODE = "TransactionCode";
+    public static final String COMMUNICATION = "Communication";
     private String transactionCode;
     private String communication;
 	private boolean debit;
@@ -26,10 +21,8 @@ public class Statement extends BusinessObject implements BusinessCollectionDepen
 	private BigDecimal amount;
 	private Calendar date;
 
-
 	private CounterParty counterParty;
 	private TmpCounterParty tmpCounterParty;
-    private BusinessCollection<CounterParty> businessCollection;
 
     @Override
 	public String toString() {
@@ -102,37 +95,9 @@ public class Statement extends BusinessObject implements BusinessCollectionDepen
         return structured;
     }
 
-    // KeySet and Properties
-    //
-    // Keys found in the CollectionFile e.g. Account.NAME in Accounts.xml file
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
-        keySet.add(NAME);
-        keySet.add(DATE);
-        keySet.add(SIGN);
-        keySet.add(AMOUNT);
-        keySet.add(COUNTERPARTY);
-        keySet.add(TRANSACTIONCODE);
-        keySet.add(COMMUNICATION);
-        return keySet;
-    }
-    //
-    public void setInitProperties(TreeMap<String, String> properties){
-        setName(properties.get(NAME));
-        setDate(Utils.toCalendar(properties.get(DATE)));
-        setAmount(Utils.parseBigDecimal(properties.get(AMOUNT)));
-        setCommunication(properties.get(COMMUNICATION));
-        setTransactionCode(properties.get(TRANSACTIONCODE));
-        String sign = properties.get(SIGN);
-        setDebit("D".equals(sign));
-        String counterPartyString = properties.get(COUNTERPARTY);
-        if(counterPartyString!=null && !counterPartyString.equals("")){
-            setCounterParty(businessCollection.getBusinessObject(counterPartyString));
-        }
-    }
     //
     @Override
-    public Properties getInitProperties(){
+    public Properties getOutputProperties(){
         Properties properties = new Properties();
         properties.put(NAME,getName());
         properties.put(DATE,Utils.toString(date));
@@ -146,7 +111,4 @@ public class Statement extends BusinessObject implements BusinessCollectionDepen
         return properties;
     }
 
-    public void setBusinessCollection(BusinessCollection<CounterParty> businessCollection) {
-        this.businessCollection = businessCollection;
-    }
 }

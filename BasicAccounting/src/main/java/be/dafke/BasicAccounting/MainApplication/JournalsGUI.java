@@ -1,11 +1,7 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.GUIActions;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.JournalTypes;
-import be.dafke.BusinessModel.Journals;
+import be.dafke.BusinessModel.*;
 
 import javax.swing.BoxLayout;
 import javax.swing.JButton;
@@ -32,12 +28,10 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	public static final String DETAILS = "details";
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
-    private Journals journals;
-    private JournalTypes journalTypes;
-    private AccountTypes accountTypes;
+	private Accounting accounting;
 
-	public JournalsGUI(final Journals journals, final JournalTypes journalTypes, final AccountTypes accountTypes) {
-		setAccounting(journals,journalTypes, accountTypes);
+	public JournalsGUI(final Accounting accounting) {
+		setAccounting(accounting);
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -66,39 +60,30 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	public void actionPerformed(ActionEvent ae) {
 		String actionCommand = ae.getActionCommand();
 		if(MANAGE.equals(actionCommand)){
-			GUIActions.showJournalManager(journals,journalTypes,accountTypes);
+			GUIActions.showJournalManager(accounting);
 		} else if (DETAILS.equals(actionCommand)){
-			GUIActions.showDetails(journals.getCurrentObject(), journals);
+			GUIActions.showDetails(accounting.getJournals().getCurrentObject(), accounting.getJournals());
 		} else if (SWITCH.equals(actionCommand)){
 			Journal newJournal = (Journal)combo.getSelectedItem();
-			GUIActions.switchJournal(journals, newJournal);
+			GUIActions.switchJournal(accounting.getAccounts(), accounting.getJournals(), newJournal);
 		}
 	}
 
     public void setAccounting(Accounting accounting){
-		if(accounting==null){
-			setAccounting(null,null,null);
-		} else {
-			setAccounting(accounting.getJournals(),accounting.getJournalTypes(), accounting.getAccountTypes());
-		}
-	}
-    public void setAccounting(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes){
-        this.journals = journals;
-		this.journalTypes = journalTypes;
-		this.accountTypes = accountTypes;
+		this.accounting = accounting;
     }
 
 	public void refresh() {
         combo.removeActionListener(this);
         combo.removeAllItems();
-		if (journals!=null) {
-            for(Journal journal: journals.getBusinessObjects()){
+		if (accounting.getJournals()!=null) {
+            for(Journal journal: accounting.getJournals().getBusinessObjects()){
                 combo.addItem(journal);
             }
-			combo.setSelectedItem(journals.getCurrentObject());
-            details.setEnabled(journals!=null && journals.getCurrentObject()!=null);
-            combo.setEnabled(journals!=null);
-            journalManagement.setEnabled(journals != null);
+			combo.setSelectedItem(accounting.getJournals().getCurrentObject());
+            details.setEnabled(accounting.getJournals()!=null && accounting.getJournals().getCurrentObject()!=null);
+            combo.setEnabled(accounting.getJournals()!=null);
+            journalManagement.setEnabled(accounting.getJournals() != null);
 		} else {
 			combo.setSelectedItem(null);
             details.setEnabled(false);

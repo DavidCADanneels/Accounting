@@ -84,10 +84,10 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
         } else if (col == 2) {
             return boeking.getAccount();
         } else if (col == 3) {
-            if (boeking.getBusinessObjects().get(0).isDebit()) return boeking.getBusinessObjects().get(0).getAmount();
+            if (boeking.isDebit()) return boeking.getAmount();
             return "";
         } else if (col == 4) {
-            if (!boeking.getBusinessObjects().get(0).isDebit()) return boeking.getBusinessObjects().get(0).getAmount();
+            if (!boeking.isDebit()) return boeking.getAmount();
             return "";
         } else{
             if(first){

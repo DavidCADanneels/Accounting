@@ -1,34 +1,31 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessTypeCollection;
-import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
-import be.dafke.ObjectModel.BusinessTyped;
 import be.dafke.Utils.MultiValueMap;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
   * Boekhoudkundige rekening
   * @author David Danneels
   * @since 01/10/2010
  */
-public class Account extends BusinessCollection<Movement> implements BusinessTypeCollectionDependent<AccountType>, BusinessTyped<AccountType> {
+public class Account extends BusinessCollection<Movement> {
+    public static final String ID = "id";
+    public static final String DEBIT = "debit";
+    public static final String CREDIT = "credit";
+
     public static final String TYPE = "type";
     public static final String DEFAULTAMOUNT = "defaultAmount";
     public static final String MOVEMENT = "Movement";
     private AccountType type;
     private BigDecimal debitTotal, creditTotal;
     private final MultiValueMap<Calendar,Movement> movements;
-    private BusinessTypeCollection businessTypeCollection;
     private BigDecimal defaultAmount = null;
 
-    public Account() {
+    public Account(String name) {
+        setName(name);
         movements = new MultiValueMap<Calendar,Movement>();
         debitTotal = BigDecimal.ZERO;
         debitTotal = debitTotal.setScale(2);
@@ -37,7 +34,17 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
     }
 
     @Override
-    public Movement createNewChild(){
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        keySet.add(ID);
+        keySet.add(DEBIT);
+        keySet.add(CREDIT);
+        return keySet;
+    }
+
+    @Override
+    public Movement createNewChild(TreeMap<String, String> properties){
         return null;
     }
 
@@ -49,10 +56,6 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
     @Override
     public String getChildType(){
         return MOVEMENT;
-    }
-
-    public void setBusinessTypeCollection(BusinessTypeCollection businessTypeCollection) {
-        this.businessTypeCollection = businessTypeCollection;
     }
 
     public void setType(AccountType type) {
@@ -131,39 +134,14 @@ public class Account extends BusinessCollection<Movement> implements BusinessTyp
     }
 
     @Override
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = super.getInitKeySet();
-        keySet.add(TYPE);
-        keySet.add(DEFAULTAMOUNT);
-        return keySet;
-    }
-
-
-    @Override
-    public Properties getInitProperties() {
-        Properties outputMap = super.getInitProperties();
+    public Properties getOutputProperties() {
+        Properties outputMap = new Properties();
+        outputMap.put(NAME,getName());
         // FIXME NullPointerException if type==null / Type must be defined
         outputMap.put(TYPE, getType().getName());
         if(defaultAmount!=null){
             outputMap.put(DEFAULTAMOUNT, defaultAmount.toString());
         }
         return outputMap;
-    }
-
-    @Override
-    public void setInitProperties(TreeMap<String, String> properties) {
-        super.setInitProperties(properties);
-        String typeName = properties.get(TYPE);
-        if(typeName!=null){
-            type = (AccountType) businessTypeCollection.getBusinessObject(typeName);
-        }
-        String defaultAmountString = properties.get(DEFAULTAMOUNT);
-        if(defaultAmountString!=null){
-            try{
-                defaultAmount = new BigDecimal(defaultAmountString);
-            } catch (NumberFormatException nfe){
-                defaultAmount = null;
-            }
-        }
     }
 }

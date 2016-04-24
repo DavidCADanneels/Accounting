@@ -8,6 +8,7 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.Map;
 import java.util.Properties;
 import java.util.logging.Level;
@@ -49,16 +50,9 @@ public class XMLWriter {
             writer.write("<" + businessObjectType + ">\r\n");
 
             // get the object's properties
-            Properties collectionProperties = businessObject.getInitProperties();
+            Properties collectionProperties = businessObject.getOutputProperties();
 
-//                iterate the properties and write them out (if not null)
-            for(Map.Entry<Object, Object> entry : collectionProperties.entrySet()){
-                Object key = entry.getKey();
-                Object value = entry.getValue();
-                if(value!=null && !"".equals(value.toString())){
-                    writer.write("  <" + key + ">" + value + "</"+ key + ">\r\n");
-                }
-            }
+            writer.write(writeNode(collectionProperties, 0));
 
             if(businessObject instanceof BusinessCollection){
                 BusinessCollection businessCollection = (BusinessCollection)businessObject;
@@ -94,6 +88,28 @@ public class XMLWriter {
         }
     }
 
+    private static String writeNode(Properties objectProperties, int depth){
+        StringBuilder builder = new StringBuilder();
+        for(Map.Entry<Object, Object> entry : objectProperties.entrySet()){
+            Object key = entry.getKey();
+            Object value = entry.getValue();
+            if(value instanceof ArrayList){
+//                System.err.println(value);
+                ArrayList list = (ArrayList)value;
+                for (Object object: list){
+                    BusinessObject businessObject = (BusinessObject)object;
+                    builder.append(writeNode(businessObject.getOutputProperties(), depth+1));
+                }
+            } else{
+                if(value!=null && !"".equals(value)){
+                    for(int i=0;i<depth;i++) builder.append("  ");
+                    builder.append("  <" + key + ">" + value + "</"+ key + ">\r\n");
+                }
+            }
+        }
+        return builder.toString();
+    }
+
     private static void writeChildren(Writer writer, BusinessCollection collection, int depth) {
         try{
             // Iterate children and write their data
@@ -108,22 +124,10 @@ public class XMLWriter {
                 writer.write("  <"+objectType+">\r\n");
 
                 // get the object's properties
-                Properties objectProperties = businessObject.getInitProperties();
+                Properties objectProperties = businessObject.getOutputProperties();
 
-                // iterate the properties and write them out (if not null)
-                for(Map.Entry<Object, Object> entry : objectProperties.entrySet()){
-                    Object key = entry.getKey();
-                    Object value = entry.getValue();
-                    if(value!=null && !"".equals(value)){
-                        for(int i=0;i<depth;i++) writer.write("  ");
-                        writer.write("    <" + key + ">" + value + "</"+ key + ">\r\n");
-                    }
-                }
-                // The implementation used is more clear and similar to the read Method
-                if(businessObject.writeChildren()){
-                    BusinessCollection subCollection = (BusinessCollection) object;
-                    writeChildren(writer, subCollection, depth+1);
-                }
+                writer.write(writeNode(objectProperties, depth+1));
+
                 // write the closing tag e.g. </Accounting>
                 for(int i=0;i<depth;i++) writer.write("  ");
                 writer.write("  </" + objectType + ">\r\n");

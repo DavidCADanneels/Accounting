@@ -4,6 +4,8 @@ import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
+import java.util.TreeMap;
+
 /**
  * User: Dafke
  * Date: 9/03/13
@@ -25,7 +27,7 @@ public class AccountTypes extends BusinessTypeCollection<AccountType> {
     }
 
     @Override
-    public AccountType createNewChild() {
+    public AccountType createNewChild(TreeMap<String, String> properties) {
         return new AccountType();
     }
 

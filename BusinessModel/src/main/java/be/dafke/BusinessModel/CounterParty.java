@@ -3,26 +3,16 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 public class CounterParty extends BusinessObject {
 	/**
-	 * 
+	 *
 	 */
-    private final ArrayList<String> aliases;
 	private final HashMap<String, BankAccount> accounts;
     private final ArrayList<BankAccount> accountsList;
 	private ArrayList<String> addressLines;
-    protected static final String ACCOUNTNUMBER = "AccountNumber";
-    protected static final String BIC = "Bic";
-    protected static final String CURRENCY = "Currency";
-    protected static final String ALIAS = "Alias";
-    protected static final String ADDRESS = "Address";
+    private ArrayList<String> aliases;
 
     private Account account;
     private boolean mergeable = true;
@@ -52,6 +42,10 @@ public class CounterParty extends BusinessObject {
         accountsList.add(newAccount);
 	}
 
+    public ArrayList<BankAccount> getAccountsList() {
+        return accountsList;
+    }
+
     public ArrayList<String> getAliases(){
         return aliases;
     }
@@ -73,24 +67,6 @@ public class CounterParty extends BusinessObject {
 	public Account getAccount() {
 		return account;
 	}
-
-    private void parseBicsString(String bicsString){
-        if(bicsString!=null){
-            String[] bicsStrings = bicsString.split("\\Q | \\E");
-            for(int i=0;i<bicsStrings.length;i++){
-                accountsList.get(i).setBic(bicsStrings[i]);
-            }
-        }
-    }
-
-    private void parseCurrenciesString(String currenciesString){
-        if(currenciesString!=null){
-            String[] currenciesStrings = currenciesString.split("\\Q | \\E");
-            for(int i=0;i<currenciesStrings.length;i++){
-                accountsList.get(i).setCurrency(currenciesStrings[i]);
-            }
-        }
-    }
 
     public String getBankAccountsString() {
         Iterator<BankAccount> it = accountsList.iterator();
@@ -145,61 +121,27 @@ public class CounterParty extends BusinessObject {
     // KeySets and Properties
 
     @Override
-    public Set<String> getInitKeySet() {
-        Set<String> keySet = super.getInitKeySet();
-        keySet.add(ACCOUNTNUMBER);
-        keySet.add(ADDRESS);
-        keySet.add(ALIAS);
-        keySet.add(BIC);
-        keySet.add(CURRENCY);
-        return keySet;
-    }
-
-    @Override
-    public Properties getInitProperties() {
-        Properties properties = super.getInitProperties();
-        properties.put(ACCOUNTNUMBER, getBankAccountsString());
-        properties.put(ALIAS, Utils.toString(aliases));
-        properties.put(BIC,getBICString());
-        properties.put(CURRENCY,getCurrencyString());
-        properties.put(ADDRESS, Utils.toString(addressLines));
+    public Properties getOutputProperties() {
+        Properties properties = new Properties();
+        properties.put(NAME,getName());
+        properties.put(CounterParties.ACCOUNTNUMBER, getBankAccountsString());
+        properties.put(CounterParties.ALIAS, Utils.toString(aliases));
+        properties.put(CounterParties.BIC,getBICString());
+        properties.put(CounterParties.CURRENCY,getCurrencyString());
+        properties.put(CounterParties.ADDRESS, Utils.toString(addressLines));
         return properties;
-    }
-
-    @Override
-    public void setInitProperties(TreeMap<String, String> properties) {
-        super.setInitProperties(properties);
-        String aliasesString = properties.get(ALIAS);
-        if(aliasesString!=null){
-            aliases.addAll(Utils.parseStringList(aliasesString));
-        }
-        String accountNumberString = properties.get(ACCOUNTNUMBER);
-        if(accountNumberString!=null){
-            ArrayList<String> numberList = Utils.parseStringList(accountNumberString);
-            for(String s: numberList){
-                addAccount(new BankAccount(s));
-            }
-        }
-        String addressLinesString = properties.get(ADDRESS);
-        if(addressLinesString!=null){
-            addressLines = (Utils.parseStringList(addressLinesString));
-        }
-        String bicString = properties.get(BIC);
-        if(bicString!=null){
-            parseBicsString(bicString);
-        }
-        String currenciesString = properties.get(CURRENCY);
-        if(currenciesString!=null){
-            parseCurrenciesString(currenciesString);
-        }
     }
 
     @Override
     public TreeMap<String,String> getUniqueProperties(){
         TreeMap<String,String> keyMap = super.getUniqueProperties();
         for(BankAccount bankAccount:accountsList){
-            keyMap.put(ACCOUNTNUMBER, bankAccount.getAccountNumber());
+            keyMap.put(CounterParties.ACCOUNTNUMBER, bankAccount.getAccountNumber());
         }
         return keyMap;
+    }
+
+    public void setAliases(ArrayList<String> aliases) {
+        this.aliases = aliases;
     }
 }

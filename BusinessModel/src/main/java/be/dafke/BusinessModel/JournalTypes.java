@@ -4,6 +4,8 @@ import be.dafke.ObjectModel.BusinessTypeCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
+import java.util.TreeMap;
+
 public class JournalTypes extends BusinessTypeCollection<JournalType> {
 
     @Override
@@ -12,7 +14,7 @@ public class JournalTypes extends BusinessTypeCollection<JournalType> {
     }
 
     @Override
-    public JournalType createNewChild() {
+    public JournalType createNewChild(TreeMap<String, String> properties) {
         return new JournalType();
     }
 

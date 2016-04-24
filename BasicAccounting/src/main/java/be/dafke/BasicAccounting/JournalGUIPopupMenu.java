@@ -27,12 +27,10 @@ import static java.util.ResourceBundle.getBundle;
 public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
     private final JMenuItem delete, edit, change, debitCredit, details;
     private final RefreshableTable<Booking> table;
-    private Journals journals;
-    private Accounts accounts;
-    private AccountTypes accountTypes;
+    private Accounting accounting;
 
-    public JournalGUIPopupMenu(RefreshableTable<Booking> table, Journals journals, Accounts accounts, AccountTypes accountTypes) {
-        setAccounting(journals, accounts, accountTypes);
+    public JournalGUIPopupMenu(RefreshableTable<Booking> table, Accounting accounting) {
+        setAccounting(accounting);
         this.table = table;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_AMOUNT"));
@@ -52,13 +50,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
     }
 
     public void setAccounting(Accounting accounting){
-        setAccounting(accounting.getJournals(),accounting.getAccounts(),accounting.getAccountTypes());
-    }
-
-    public void setAccounting(Journals journals, Accounts accounts, AccountTypes accountTypes){
-        this.journals = journals;
-        this.accounts = accounts;
-        this.accountTypes = accountTypes;
+        this.accounting = accounting;
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -73,25 +65,21 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
             transaction.removeBusinessObject(booking);
         } else if (source == edit) {
             Account account = booking.getAccount();
-            //TODO: booking contains list of Movement (should be 1 movement?)
             //TODO: or JournalGUI.table should contain Movements iso Bookings
-            Movement movement = booking.getBusinessObjects().get(0);
-            boolean debit = movement.isDebit();
-            BigDecimal amount = TransactionActions.askAmount(transaction, account, debit);
+            BigDecimal amount = TransactionActions.askAmount(transaction, account, booking.isDebit());
             if(amount != null){
                 // booking must be removed and re-added to Transaction to re-calculate the totals
                 transaction.removeBusinessObject(booking);
-                movement.setAmount(amount);
+                booking.setAmount(amount);
                 transaction.addBusinessObject(booking);
             }
         } else if (source == debitCredit){
             // booking must be removed and re-added to Transaction to re-calculate the totals
             transaction.removeBusinessObject(booking);
-            Movement movement = booking.getBusinessObjects().get(0);
-            movement.setDebit(!movement.isDebit());
+            booking.setDebit(!booking.isDebit());
             transaction.addBusinessObject(booking);
         } else if (source == change) {
-            AccountSelector sel = new AccountSelector(accounts, accountTypes);
+            AccountSelector sel = new AccountSelector(accounting);
             ComponentMap.addRefreshableComponent(sel);
             sel.setVisible(true);
             Account account = sel.getSelection();
@@ -100,7 +88,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
             }
         } else if (source == details){
             Account account = booking.getAccount();
-            GUIActions.showDetails(account, journals);
+            GUIActions.showDetails(account, accounting.getJournals());
         }
         ComponentMap.refreshAllFrames();
     }

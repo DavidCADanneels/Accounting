@@ -1,9 +1,6 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -32,11 +29,11 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     private final JTextField nameField, defaultAmountField;
     private final JComboBox<AccountType> type;
     private final JButton add;
-    private Accounts accounts;
+    private Accounting accounting;
 
-    public NewAccountGUI(Accounts accounts, AccountTypes accountTypes) {
+    public NewAccountGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("NEW_ACCOUNT_GUI_TITLE"));
-        this.accounts = accounts;
+        this.accounting = accounting;
         JPanel north = new JPanel();
 		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
 		JPanel line1 = new JPanel();
@@ -51,7 +48,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
 		line2.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
 		type = new JComboBox<AccountType>();
         DefaultComboBoxModel<AccountType> model = new DefaultComboBoxModel<AccountType>();
-        for(AccountType accountType : accountTypes.getBusinessObjects()){
+        for(AccountType accountType : accounting.getAccountTypes().getBusinessObjects()){
             model.addElement(accountType);
         }
         type.setModel(model);
@@ -75,8 +72,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     private void addAccount() {
         String name = nameField.getText().trim();
         try {
-            Account account = new Account();
-            account.setName(name.trim());
+            Account account = new Account(name.trim());
             account.setType((AccountType) type.getSelectedItem());
             String text = defaultAmountField.getText();
             if(text!=null && !text.trim().equals("")){
@@ -88,7 +84,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
                     account.setDefaultAmount(null);
                 }
             }
-            accounts.addBusinessObject(account);
+            accounting.getAccounts().addBusinessObject(account);
             ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
             JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("ACCOUNT_DUPLICATE_NAME")

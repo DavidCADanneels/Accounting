@@ -1,50 +1,59 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionDependent;
-import be.dafke.ObjectModel.BusinessCollectionProvider;
-import be.dafke.ObjectModel.BusinessTypeCollection;
-import be.dafke.ObjectModel.BusinessTypeCollectionDependent;
-import be.dafke.ObjectModel.BusinessTyped;
 import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.MultiValueMap;
+import be.dafke.Utils.Utils;
 
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * Boekhoudkundig dagboek
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journal extends BusinessCollection<Transaction> implements BusinessCollectionDependent<Account>,BusinessTypeCollectionDependent<JournalType>, BusinessTyped<JournalType>, BusinessCollectionProvider<Account>, MustBeRead {
-    private static final String TYPE = "type";
-    protected static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
+public class Journal extends BusinessCollection<Transaction> implements MustBeRead {
     private String abbreviation;
     private final MultiValueMap<Calendar,Transaction > transactions;
     private JournalType type;
-    private Transaction currentTransaction = new Transaction();
-    private BusinessTypeCollection businessTypeCollection;
-    private BusinessCollection<Account> businessCollection;
+    private Accounting accounting;
+    private Transaction currentTransaction;
 
-    public Journal() {
-		transactions = new MultiValueMap<Calendar,Transaction>();
+    public Journal(Accounting accounting, String name, String abbreviation) {
+        this.accounting = accounting;
+        setName(name);
+        setAbbreviation(abbreviation);
+        currentTransaction = new Transaction(accounting.getAccounts(),Calendar.getInstance(),"open transaction");
+        transactions = new MultiValueMap<Calendar,Transaction>();
 	}
 
-    public void setBusinessCollection(BusinessCollection<Account> businessCollection){
-        this.businessCollection = businessCollection;
+    @Override
+    public Properties getOutputProperties() {
+        Properties outputMap = new Properties();
+        outputMap.put(NAME,getName());
+        outputMap.put(Journals.TYPE, getType().getName());
+        outputMap.put(Journals.ABBREVIATION, getAbbreviation());
+        return outputMap;
     }
 
-    public BusinessCollection<Account> getBusinessCollection() {
-        return businessCollection;
+    public Journals getJournals() {
+        return accounting.getJournals();
     }
 
     @Override
-    public Transaction createNewChild(){
-        return new Transaction();
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        keySet.add(Transaction.DATE);
+        keySet.add(Transaction.DESCRIPTION);
+        return keySet;
+    }
+
+    @Override
+    public Transaction createNewChild(TreeMap<String, String> properties){
+        Calendar date = Utils.toCalendar(properties.get(Transaction.DATE));
+        String description = properties.get(Transaction.DESCRIPTION);
+        return new Transaction(accounting.getAccounts(), date, description);
     }
 
     @Override
@@ -67,10 +76,6 @@ public class Journal extends BusinessCollection<Transaction> implements Business
 
     public JournalType getType() {
         return type;
-    }
-
-    public void setBusinessTypeCollection(BusinessTypeCollection businessTypeCollection) {
-        this.businessTypeCollection = businessTypeCollection;
     }
 
     public void setType(JournalType type) {
@@ -109,7 +114,7 @@ public class Journal extends BusinessCollection<Transaction> implements Business
 		ArrayList<Booking> bookings = transaction.getBusinessObjects();
 		for(Booking booking : bookings) {
 			Account account = booking.getAccount();
-			account.removeBusinessObject(booking.getBusinessObjects().get(0));
+			account.removeBusinessObject(booking.getMovement());
 		}
         if (transaction instanceof MortgageTransaction){
             MortgageTransaction mortgageTransaction = (MortgageTransaction) transaction;
@@ -124,7 +129,7 @@ public class Journal extends BusinessCollection<Transaction> implements Business
 
         for(Booking booking : transaction.getBusinessObjects()) {
             Account account = booking.getAccount();
-            account.addBusinessObject(booking.getBusinessObjects().get(0));
+            account.addBusinessObject(booking.getMovement());
         }
         transactions.addValue(date, transaction);
 
@@ -138,35 +143,9 @@ public class Journal extends BusinessCollection<Transaction> implements Business
 	}
 
     @Override
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = super.getInitKeySet();
-        keySet.add(ABBREVIATION);
-        keySet.add(TYPE);
-        return keySet;
-    }
-
-    @Override
-    public void setInitProperties(TreeMap<String, String> properties) {
-        super.setInitProperties(properties);
-        abbreviation = properties.get(ABBREVIATION);
-        String typeName = properties.get(TYPE);
-        if(typeName!=null){
-            type = (JournalType) businessTypeCollection.getBusinessObject(typeName);
-        }
-    }
-
-    @Override
-    public Properties getInitProperties() {
-        Properties outputMap = super.getInitProperties();
-        outputMap.put(TYPE, getType().getName());
-        outputMap.put(ABBREVIATION, getAbbreviation());
-        return outputMap;
-    }
-
-    @Override
     public TreeMap<String,String> getUniqueProperties(){
         TreeMap<String,String> keyMap = super.getUniqueProperties();
-        keyMap.put(ABBREVIATION, abbreviation);
+        keyMap.put(Journals.ABBREVIATION, abbreviation);
         return keyMap;
     }
 }

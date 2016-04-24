@@ -4,10 +4,7 @@ import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
-import java.util.Calendar;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 /**
  * User: Dafke
@@ -18,16 +15,17 @@ public class Movement extends BusinessObject{
     private static int count = 0;
     public static final String JOURNAL_NAME = "journalName";
     public static final String DATE = "date";
-    public static final String DEBIT = "debit";
-    public static final String CREDIT = "credit";
     public static final String DESCRIPTION = "description";
     public static final String JOURNAL_ID = "journalId";
     public static final String JOURNAL_ABBR = "journalAbbr";
-    public static final String ID = "id";
     private BigDecimal amount;
     private boolean debit;
     private Booking booking;
     private Integer id;
+
+    public Movement(){
+        id = ++count;
+    }
 
     public Movement(BigDecimal amount, boolean debit){
         this.amount = amount;
@@ -38,27 +36,19 @@ public class Movement extends BusinessObject{
     @Override
     public TreeMap<String, String> getUniqueProperties(){
         TreeMap<String,String> properties = new TreeMap<String, String>();
-//        properties.put(ID,id.toString());
+        properties.put(Account.ID,id.toString());
         return properties;
     }
 
     @Override
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = super.getInitKeySet();
-        keySet.add(DEBIT);
-        keySet.add(CREDIT);
-        return keySet;
-    }
-
-    @Override
-    public Properties getInitProperties() {
+    public Properties getOutputProperties() {
         Properties properties = new Properties();
         Transaction transaction = booking.getTransaction();
-        properties.put(ID,id.toString());
+        properties.put(Account.ID,id.toString());
         if(debit){
-            properties.put(DEBIT, amount.toString());
+            properties.put(Account.DEBIT, amount.toString());
         } else {
-            properties.put(CREDIT, amount.toString());
+            properties.put(Account.CREDIT, amount.toString());
         }
         properties.put(JOURNAL_NAME,transaction.getJournal().getName());
         properties.put(JOURNAL_ID,transaction.getId().toString());
@@ -68,26 +58,12 @@ public class Movement extends BusinessObject{
         return properties;
     }
 
-    public void setInitProperties(TreeMap<String, String> properties){
-//        id = Integer.parseInt(properties.get(ID));
-        String debitString = properties.get(DEBIT);
-        String creditString = properties.get(CREDIT);
-        if(debitString!=null){
-            debit = true;
-            amount = new BigDecimal(debitString);
-            if(creditString!=null){
-                System.err.println("Movement cannot contain both 'debit' and 'credit' !!!");
-            }
-        } else if(creditString!=null){
-            debit = false;
-            amount = new BigDecimal(creditString);
-        } else {
-            System.err.println("No 'debit' or 'credit' tag found in Movement !!!");
-        }
-    }
-
     public Booking getBooking() {
         return booking;
+    }
+
+    public String getTransactionString(){
+        return booking.getTransaction().getAbbreviation() + booking.getTransaction().getId();
     }
 
     public void setBooking(Booking booking) {
@@ -116,5 +92,17 @@ public class Movement extends BusinessObject{
 
     public Calendar getDate() {
         return booking.getTransaction().getDate();
+    }
+
+    public void setDate(Calendar date){
+        booking.getTransaction().setDate(date);
+    }
+
+    public String getDescription(){
+        return booking.getTransaction().getDescription();
+    }
+
+    public void setDescription(String description){
+        booking.getTransaction().setDescription(description);
     }
 }

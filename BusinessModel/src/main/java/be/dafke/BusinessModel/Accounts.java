@@ -1,26 +1,22 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessTypeCollection;
-import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import java.util.AbstractMap;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * Serialiseerbare map die alle rekeningen bevat
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Accounts extends BusinessCollection<Account> implements BusinessTypeProvider<AccountType> {
+public class Accounts extends BusinessCollection<Account> {
+    private Accounting accounting;
 
-    private BusinessTypeCollection<AccountType> businessTypeCollection;
-
-    public Accounts(){
+    public Accounts(Accounting accounting) {
+        this.accounting = accounting;
         setName("Accounts");
     }
 
@@ -45,6 +41,14 @@ public class Accounts extends BusinessCollection<Account> implements BusinessTyp
 		return list;
 	}
 
+    @Override
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        keySet.add(Account.TYPE);
+        keySet.add(Account.DEFAULTAMOUNT);
+        return keySet;
+    }
 
 	public Account modifyAccountName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
         Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(NAME, oldName);
@@ -54,16 +58,22 @@ public class Accounts extends BusinessCollection<Account> implements BusinessTyp
         return modify(oldEntry, newEntry);
 	}
 
-    public void setBusinessTypeCollection(BusinessTypeCollection<AccountType> businessTypeCollection) {
-        this.businessTypeCollection = businessTypeCollection;
-    }
-
-    public BusinessTypeCollection<AccountType> getBusinessTypeCollection() {
-        return businessTypeCollection;
-    }
-
     @Override
-    public Account createNewChild() {
-        return new Account();
+    public Account createNewChild(TreeMap<String, String> properties) {
+        String name = properties.get(NAME);
+        Account account = new Account(name);
+        String typeName = properties.get(Account.TYPE);
+        if(typeName!=null){
+            account.setType(accounting.getAccountTypes().getBusinessObject(typeName));
+        }
+        String defaultAmountString = properties.get(Account.DEFAULTAMOUNT);
+        if(defaultAmountString!=null){
+            try{
+                account.setDefaultAmount(new BigDecimal(defaultAmountString));
+            } catch (NumberFormatException nfe){
+                account.setDefaultAmount(null);
+            }
+        }
+        return account;
     }
 }

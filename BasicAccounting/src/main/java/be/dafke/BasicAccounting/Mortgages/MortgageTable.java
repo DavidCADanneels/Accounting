@@ -61,7 +61,7 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		String name = JOptionPane.showInputDialog(this, "Enter a name for the table.");
-        Mortgage mortgage = new Mortgage();
+        Mortgage mortgage = new Mortgage(mortgages, accounting.getAccounts());
         mortgage.setName(name);
         mortgage.setStartCapital(startCapital);
         mortgage.setTable(model.getData());

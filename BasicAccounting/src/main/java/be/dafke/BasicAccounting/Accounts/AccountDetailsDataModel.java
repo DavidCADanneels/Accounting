@@ -68,9 +68,9 @@ public class AccountDetailsDataModel extends RefreshableTableModel<Booking> {
 	public Object getValueAt(int row, int col) {
         Movement movement = rekening.getBusinessObjects().get(row);
         if (col == 0) {
-            return movement.getBooking().getTransaction().getAbbreviation() + movement.getBooking().getTransaction().getId();
+            return movement.getTransactionString();
         } else if (col == 1) {
-            return Utils.toString(movement.getBooking().getTransaction().getDate());
+            return Utils.toString(movement.getDate());
         } else if (col == 2) {
             if (movement.isDebit()) return movement.getAmount();
             return "";
@@ -78,7 +78,7 @@ public class AccountDetailsDataModel extends RefreshableTableModel<Booking> {
             if (!movement.isDebit()) return movement.getAmount();
             return "";
         } else {
-            return movement.getBooking().getTransaction().getDescription();
+            return movement.getDescription();
         }
     }
 
@@ -99,12 +99,12 @@ public class AccountDetailsDataModel extends RefreshableTableModel<Booking> {
 	public void setValueAt(Object value, int row, int col) {
 		Movement movement = rekening.getBusinessObjects().get(row);
 		if (col == 1) {
-			Calendar oudeDatum = movement.getBooking().getTransaction().getDate();
+			Calendar oudeDatum = movement.getDate();
 			Calendar nieuweDatum = Utils.toCalendar((String) value);
-			if (nieuweDatum != null) movement.getBooking().getTransaction().setDate(nieuweDatum);
+			if (nieuweDatum != null) movement.setDate(nieuweDatum);
 			else setValueAt(Utils.toString(oudeDatum), row, col);
 		} else if (col == 4) {
-			movement.getBooking().getTransaction().setDescription((String) value);
+			movement.setDescription((String) value);
 		}
 //		parent.repaintAllFrames();
 //		super.refresh();

@@ -68,26 +68,15 @@ public class BasicAccountingMain {
         }
         File file = new File(xmlFolder, "Accountings.xml");
         if(file.exists()){
-            XMLReader.readCollection(accountings, false, xmlFolder);
-        }
-
-        for(Accounting accounting : accountings.getBusinessObjects()){
-            XMLReader.readCollection(accounting, true, subFolder);
-
-            Mortgages mortgages = accounting.getMortgages();
-            File rootFolder = new File(subFolder, accounting.getName());
-            File mortgagesFolder = new File(rootFolder, MORTGAGES);
-            for(Mortgage mortgage : mortgages.getBusinessObjects()){
-                MortgagesSAXParser.readCollection(mortgage, new File(mortgagesFolder, mortgage.getName() + ".xml"));
-            }
+            XMLReader.readCollection(accountings, xmlFolder);
         }
     }
 
     protected static void createBasicComponents(){
         Accounting accounting = accountings.getCurrentObject();
-        journalGUI = new JournalGUI(accounting.getJournals(), accounting.getAccounts(), accounting.getAccountTypes());
-        accountsGUI = new AccountsGUI(accounting.getAccounts(), accounting.getAccountTypes(),accounting.getJournals());
-        journalsGUI = new JournalsGUI(accounting.getJournals(), accounting.getJournalTypes(), accounting.getAccountTypes());
+        journalGUI = new JournalGUI(accounting);
+        accountsGUI = new AccountsGUI(accounting);
+        journalsGUI = new JournalsGUI(accounting);
         saveButton = new JButton("Save all");
         saveButton.addActionListener(new SaveAllActionListener(accountings));
     }

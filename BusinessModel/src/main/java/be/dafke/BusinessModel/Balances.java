@@ -1,13 +1,14 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessCollectionProvider;
-import be.dafke.ObjectModel.BusinessTypeCollection;
-import be.dafke.ObjectModel.BusinessTypeProvider;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Utils.Utils;
 
 import java.util.ArrayList;
+import java.util.Set;
+import java.util.TreeMap;
+import java.util.TreeSet;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -16,28 +17,52 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 27/02/13
  * Time: 12:07
  */
-public class Balances extends BusinessCollection<Balance> implements BusinessCollectionProvider<Account>, BusinessTypeProvider<AccountType>{
+public class Balances extends BusinessCollection<Balance> {
 
     public static final String BALANCES = "Balances";
     public static final String BALANCE = "Balance";
+
+    public final static String LEFTNAME = "LeftName";
+    public final static String RIGHTNAME = "RightName";
+    public final static String LEFTTOTALNAME = "LeftTotalName";
+    public final static String RIGHTTOTALNAME = "RightTotalName";
+    public final static String LEFTRESULTNAME = "LeftResultName";
+    public final static String RIGHTRESULTNAME = "RightResultName";
+    public final static String LEFTTYPES = "LeftTypes";
+    public final static String RIGHTTYPES = "RightTypes";
 
     public static String RESULT_BALANCE = "ResultBalance";
     public static String RELATIONS_BALANCE = "RelationsBalance";
     public static String YEAR_BALANCE = "YearBalance";
 
-    private BusinessCollection<Account> businessCollection;
-    private BusinessTypeCollection<AccountType> businessTypeCollection;
+    private Accounting accounting;
 
-    public Balances(){
+    public Balances(Accounting accounting) {
+        this.accounting = accounting;
         setName(BALANCES);
     }
 
     @Override
-    public String getChildType(){
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = new TreeSet<String>();
+        keySet.add(NAME);
+        keySet.add(LEFTNAME);
+        keySet.add(RIGHTNAME);
+        keySet.add(LEFTTOTALNAME);
+        keySet.add(RIGHTTOTALNAME);
+        keySet.add(LEFTRESULTNAME);
+        keySet.add(RIGHTRESULTNAME);
+        keySet.add(LEFTTYPES);
+        keySet.add(RIGHTTYPES);
+        return keySet;
+    }
+
+    @Override
+    public String getChildType() {
         return BALANCE;
     }
 
-    public void addDefaultBalances(AccountTypes accountTypes){
+    public void addDefaultBalances(AccountTypes accountTypes) {
         ArrayList<AccountType> costs = new ArrayList<AccountType>();
         ArrayList<AccountType> revenues = new ArrayList<AccountType>();
         ArrayList<AccountType> credit = new ArrayList<AccountType>();
@@ -55,7 +80,7 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         passive.add(accountTypes.getBusinessObject(AccountTypes.LIABILITY));
         passive.add(accountTypes.getBusinessObject(AccountTypes.DEBIT));
 
-        Balance resultBalance = createNewChild();
+        Balance resultBalance = new Balance(accounting);
         resultBalance.setName(RESULT_BALANCE);
         resultBalance.setLeftName(getBundle("Accounting").getString("COSTS"));
         resultBalance.setRightName(getBundle("Accounting").getString("REVENUES"));
@@ -66,7 +91,7 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         resultBalance.setLeftTypes(costs);
         resultBalance.setRightTypes(revenues);
 
-        Balance relationsBalance = createNewChild();
+        Balance relationsBalance = new Balance(accounting);
         relationsBalance.setName(RELATIONS_BALANCE);
         relationsBalance.setLeftName(getBundle("Accounting").getString("FUNDS_FROM_CUSTOMERS"));
         relationsBalance.setRightName(getBundle("Accounting").getString("DEBTS_TO_SUPPLIERS"));
@@ -77,7 +102,7 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
         relationsBalance.setLeftTypes(credit);
         relationsBalance.setRightTypes(debit);
 
-        Balance yearBalance = createNewChild();
+        Balance yearBalance = new Balance(accounting);
         yearBalance.setName(YEAR_BALANCE);
         yearBalance.setLeftName(getBundle("Accounting").getString("ASSETS"));
         yearBalance.setRightName(getBundle("Accounting").getString("LIABILITIES"));
@@ -100,10 +125,30 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
     }
 
     @Override
-    public Balance createNewChild() {
-        Balance balance = new Balance();
-        balance.setBusinessCollection(businessCollection);
-        balance.setBusinessTypeCollection(businessTypeCollection);
+    public Balance createNewChild(TreeMap<String, String> properties) {
+        Balance balance = new Balance(accounting);
+        balance.setName(properties.get(NAME));
+        balance.setLeftName(properties.get(Balances.LEFTNAME));
+        balance.setRightName(properties.get(Balances.RIGHTNAME));
+        balance.setLeftTotalName(properties.get(Balances.LEFTTOTALNAME));
+        balance.setRightTotalName(properties.get(Balances.RIGHTTOTALNAME));
+        balance.setLeftResultName(properties.get(Balances.LEFTRESULTNAME));
+        balance.setRightResultName(properties.get(Balances.RIGHTRESULTNAME));
+
+        ArrayList<String> leftTypesString = Utils.parseStringList(properties.get(Balances.LEFTTYPES));
+        ArrayList<AccountType> leftTypes = new ArrayList<AccountType>();
+        for(String s: leftTypesString){
+            leftTypes.add(accounting.getAccountTypes().getBusinessObject(s));
+        }
+        balance.setLeftTypes(leftTypes);
+
+        ArrayList<String> rightTypesString = Utils.parseStringList(properties.get(Balances.RIGHTTYPES));
+        ArrayList<AccountType> rightTypes = new ArrayList<AccountType>();
+        for(String s: rightTypesString){
+            rightTypes.add(accounting.getAccountTypes().getBusinessObject(s));
+        }
+        balance.setRightTypes(rightTypes);
+
         return balance;
     }
 
@@ -113,8 +158,8 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
             return addBusinessObject(value, value.getUniqueProperties());
         } catch (DuplicateNameException ex) {
             String name = value.getName();
-            if(YEAR_BALANCE.equals(name) || RESULT_BALANCE.equals(name) || RELATIONS_BALANCE.equals(name)){
-                System.err.println("Default Balance ("+name+") already exists!");
+            if (YEAR_BALANCE.equals(name) || RESULT_BALANCE.equals(name) || RELATIONS_BALANCE.equals(name)) {
+                System.err.println("Default Balance (" + name + ") already exists!");
                 return getBusinessObject(name);
             } else {
                 throw ex;
@@ -125,20 +170,4 @@ public class Balances extends BusinessCollection<Balance> implements BusinessCol
     public void readCollection() {
         readCollection("Balance", false);
     }*/
-
-    public BusinessCollection<Account> getBusinessCollection() {
-        return businessCollection;
-    }
-
-    public void setBusinessCollection(BusinessCollection<Account> businessCollection) {
-        this.businessCollection = businessCollection;
-    }
-
-    public BusinessTypeCollection<AccountType> getBusinessTypeCollection() {
-        return businessTypeCollection;
-    }
-
-    public void setBusinessTypeCollection(BusinessTypeCollection<AccountType> businessTypeCollection) {
-        this.businessTypeCollection = businessTypeCollection;
-    }
 }

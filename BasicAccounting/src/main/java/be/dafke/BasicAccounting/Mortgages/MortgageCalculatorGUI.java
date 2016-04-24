@@ -172,7 +172,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 				data = Calculate.createDegressiveAmountTable(startKapitaal, aantalMaanden,
 						maandPercentage);
 			}
-			Mortgage newMortgage = new Mortgage();
+			Mortgage newMortgage = new Mortgage(mortgages, accounting.getAccounts());
             newMortgage.setName("new Mortgage Table");
             newMortgage.setStartCapital(startKapitaal);
 			newMortgage.setTable(data);

@@ -4,13 +4,15 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.ObjectModel.MustBeRead;
 
 import java.util.ArrayList;
+import java.util.TreeMap;
 
 /**
  * @author David Danneels
  */
-public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> {
+public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> implements MustBeRead{
     private final AccountTypes accountTypes;
     private final Accounts accounts;
 	private final Journals journals;
@@ -26,25 +28,19 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     public Accounting() {
         accountTypes = new AccountTypes();
-
-        accounts = new Accounts();
-        accounts.setBusinessTypeCollection(accountTypes);
+        accounts = new Accounts(this);
 
         journalTypes = new JournalTypes();
         journalTypes.addDefaultType(accountTypes);
 
-        journals = new Journals();
-        journals.setBusinessTypeCollection(journalTypes);
-        journals.setBusinessCollection(accounts);
+        journals = new Journals(this);
 
-        balances = new Balances();
-        balances.setBusinessCollection(accounts);
-        balances.setBusinessTypeCollection(accountTypes);
-        balances.addDefaultBalances(accountTypes);
+        balances = new Balances(this);
+//        balances.addDefaultBalances(accountTypes);
 
         mortgages = new Mortgages();
-        mortgages.setBusinessTypeCollection(accountTypes);
-        mortgages.setBusinessCollection(accounts);
+        mortgages.setAccountTypes(accountTypes);
+        mortgages.setAccounts(accounts);
 
         accounts.setName(accounts.getBusinessObjectType());
         journals.setName(journals.getBusinessObjectType());
@@ -76,7 +72,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     }
 
     @Override
-    public BusinessCollection createNewChild() {
+    public BusinessCollection createNewChild(TreeMap<String, String> properties) {
        System.err.println("Never called ??");
         return null;
     }

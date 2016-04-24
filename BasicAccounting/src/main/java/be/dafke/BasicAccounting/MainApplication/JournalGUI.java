@@ -2,35 +2,19 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.DetailsPopupMenu;
 import be.dafke.BasicAccounting.JournalGUIPopupMenu;
-import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
-import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.Journals;
 import be.dafke.BusinessModel.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Utils.Utils;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.FocusEvent;
-import java.awt.event.FocusListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
@@ -50,9 +34,10 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     private final DetailsPopupMenu viewPopup;
     private BigDecimal debettotaal, credittotaal;
     private Journal journal;
+    private Accounting accounting;
 
-    public JournalGUI(Journals journals, Accounts accounts, AccountTypes accountTypes) {
-        journal = journals.getCurrentObject();
+    public JournalGUI(Accounting accounting) {
+        journal = accounting.getJournals().getCurrentObject();
         debettotaal = new BigDecimal(0);
 		credittotaal = new BigDecimal(0);
 		setLayout(new BorderLayout());
@@ -60,7 +45,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         journalDetailsDataModel = new JournalDetailsDataModel(journal);
         viewTable = new RefreshableTable<Booking>(journalDetailsDataModel);
 		viewTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
-        viewPopup = new DetailsPopupMenu(journals, viewTable, DetailsPopupMenu.Mode.JOURNAL);
+        viewPopup = new DetailsPopupMenu(accounting.getJournals(), viewTable, DetailsPopupMenu.Mode.JOURNAL);
         viewTable.addMouseListener(new PopupForTableActivator(viewPopup, viewTable, 0,2,3,4));
 
         inputTable = new RefreshableTable<Booking>(journalDataModel);
@@ -73,7 +58,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
         center.add(scrollPane2);
 		add(center, BorderLayout.CENTER);
 
-        inputPopup = new JournalGUIPopupMenu(inputTable, journals, accounts, accountTypes);
+        inputPopup = new JournalGUIPopupMenu(inputTable, accounting);
         inputTable.addMouseListener(new PopupForTableActivator(inputPopup, inputTable));
 
         scrollPane2.addMouseListener(new MouseAdapter() {
@@ -188,6 +173,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     }
 
     public void setAccounting(Accounting accounting){
+        this.accounting = accounting;
         inputPopup.setAccounting(accounting);
         viewPopup.setAccounting(accounting);
         if(accounting==null || accounting.getJournals()==null){
@@ -279,8 +265,7 @@ public class JournalGUI extends AccountingPanel implements ActionListener, Focus
     }
 
 	public void clear() {
-        Transaction transaction = new Transaction();
-        transaction.setDate(getDate());
+        Transaction transaction = new Transaction(accounting.getAccounts(), getDate(), "");
         journal.setCurrentObject(transaction);
         refresh();
 	}

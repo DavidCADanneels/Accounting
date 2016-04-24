@@ -1,11 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.GUIActions;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.JournalType;
-import be.dafke.BusinessModel.JournalTypes;
-import be.dafke.BusinessModel.Journals;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -40,15 +36,11 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
 	private JComboBox<JournalType> type;
 	private final JButton add, delete, modifyName, modifyType, newType, modifyAbbr;
 	private final DefaultListSelectionModel selection;
-    private Journals journals;
-    private JournalTypes journalTypes;
-    private AccountTypes accountTypes;
+    private Accounting accounting;
 
-    public JournalManagementGUI(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
-		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE"), new JournalManagementTableModel(journals));
-        this.journals = journals;
-        this.journalTypes = journalTypes;
-        this.accountTypes = accountTypes;
+    public JournalManagementGUI(Accounting accounting) {
+		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE"), new JournalManagementTableModel(accounting.getJournals()));
+        this.accounting = accounting;
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
 		tabel.setSelectionModel(selection);
@@ -126,7 +118,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
     @Override
     public void refresh(){
         type.removeAllItems();
-        for(JournalType journalType : journalTypes.getBusinessObjects()){
+        for(JournalType journalType : accounting.getJournalTypes().getBusinessObjects()){
             type.addItem(journalType);
         }
         super.refresh();
@@ -136,7 +128,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
 		if (e.getSource() == add || e.getSource() == name || e.getSource() == abbr) {
 			addJournal();
 		} if (e.getSource() == newType) {
-            GUIActions.showJournalTypeManager(accountTypes);
+            GUIActions.showJournalTypeManager(accounting.getAccountTypes());
         } else {
             ArrayList<Journal> journalList = getSelectedJournals();
             if(!journalList.isEmpty()){
@@ -176,7 +168,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
         ArrayList<String> failed = new ArrayList<String>();
         for(Journal journal : journalList) {
             try{
-                journals.removeBusinessObject(journal);
+                accounting.getJournals().removeBusinessObject(journal);
             }catch (NotEmptyException e){
                 failed.add(journal.getName());
             }
@@ -202,7 +194,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
                 String newName = JOptionPane.showInputDialog(getBundle("Accounting").getString("NEW_NAME"), oldName.trim());
                 try {
                     if(newName!=null && !oldName.trim().equals(newName.trim())){
-                        journals.modifyJournalName(oldName, newName);
+                        accounting.getJournals().modifyJournalName(oldName, newName);
                         ComponentMap.refreshAllFrames();
                     }
                     retry = false;
@@ -225,7 +217,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
                 String newAbbreviation = JOptionPane.showInputDialog(getBundle("Accounting").getString("NEW_ABBR"), oldAbbreviation.trim());
                 try {
                     if(newAbbreviation!=null && !oldAbbreviation.trim().equals(newAbbreviation.trim())){
-                        journals.modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
+                        accounting.getJournals().modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
                         ComponentMap.refreshAllFrames();
                     }
                     retry = false;
@@ -249,12 +241,10 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
         try {
-            Journal journal = new Journal();
-            journal.setName(newName);
-            journal.setAbbreviation(abbreviation);
+            Journal journal = new Journal(accounting, newName, abbreviation);
             journal.setType(journalType);
-            journals.addBusinessObject(journal);
-            journals.setCurrentObject(journal);
+            accounting.getJournals().addBusinessObject(journal);
+            accounting.getJournals().setCurrentObject(journal);
             ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
             JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("JOURNAL_DUPLICATE_NAME")
@@ -281,7 +271,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
             singleMove = (option == JOptionPane.YES_OPTION);
         }
         if (singleMove) {
-            Object[] types = journalTypes.getBusinessObjects().toArray();
+            Object[] types = accounting.getJournalTypes().getBusinessObjects().toArray();
             int nr = JOptionPane.showOptionDialog(this, getBundle("Accounting").getString("CHOOSE_NEW_TYPE"),
                     getBundle("Accounting").getString("CHANGE_TYPE"),
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
@@ -292,7 +282,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
             }
         } else {
             for(Journal journal : journalList) {
-                Object[] types = journalTypes.getBusinessObjects().toArray();
+                Object[] types = accounting.getJournalTypes().getBusinessObjects().toArray();
                 int nr = JOptionPane.showOptionDialog(this, getBundle("Accounting").getString("CHOOSE_NEW_TYPE_FOR")+" " + journal.getName(),
                         getBundle("Accounting").getString("CHANGE_TYPE"), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
                         journal.getType());
