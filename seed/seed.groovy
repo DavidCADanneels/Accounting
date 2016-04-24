@@ -3,7 +3,9 @@ mavenJob("01_UnitTests"){
         scm 'H/15 * * * *'
     }
     scm{
-        github("DavidCADanneels/Accounting.git","master")
+        github("DavidCADanneels/Accounting","master") {node ->
+            node / 'locations' / 'hudson.scm.SubversionSCM_-ModuleLocation' / 'credentialsId' << 'GitHub'
+        }
     }
     goals "clean package"
 
