@@ -21,11 +21,19 @@ public class XMLWriter {
     public static String getXmlHeader(BusinessObject object, int depth) {
         String className = object.getBusinessObjectType();
         StringBuilder builder = new StringBuilder("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
-        builder.append("<!DOCTYPE ").append(className).append(" SYSTEM \"");
+
+//        builder.append("<!DOCTYPE ").append(className).append(" SYSTEM \"");
+//        for(int i=0 ; i<depth; i++){
+//            builder.append("../");
+//        }
+//        builder.append("../xsd/").append(className).append(".xsd\">\r\n");
+
+        builder.append("<"+className+" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n" +
+                "xsi:noNamespaceSchemaLocation=\"");
         for(int i=0 ; i<depth; i++){
             builder.append("../");
         }
-        builder.append("../dtd/").append(className).append(".dtd\">\r\n");
+        builder.append("../xsd/").append(className).append(".xsd\">\r\n");
         return builder.toString();
     }
 
@@ -46,9 +54,6 @@ public class XMLWriter {
             // Write the header with correct XSL-File, DTD-File and DTD-Root-Element
             writer.write(getXmlHeader(businessObject, depth));
 
-            // Write the root element e.g. <Accountings>
-            writer.write("<" + businessObjectType + ">\r\n");
-
             // get the object's properties
             Properties collectionProperties = businessObject.getOutputProperties();
 
@@ -59,7 +64,7 @@ public class XMLWriter {
                 writeChildren(writer, businessCollection, 0);
 
                 if(businessCollection.getCurrentObject()!=null){
-                    writer.write("    <CurrentObject>" + businessCollection.getCurrentObject().getName() + "</CurrentObject>\r\n");
+                    writer.write("  <CurrentObject>" + businessCollection.getCurrentObject().getName() + "</CurrentObject>\r\n");
                 }
             }
 

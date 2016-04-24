@@ -1,13 +1,12 @@
 package be.dafke.BasicAccounting;
 
-import be.dafke.BusinessModelDao.MortgagesSAXParser;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
+import be.dafke.BusinessModelDao.MortgagesSAXParser;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModel.BusinessObject;
-import be.dafke.ObjectModelDao.XMLtoHTMLWriter;
 import be.dafke.ObjectModelDao.XMLWriter;
 
 import java.awt.event.ActionEvent;
@@ -45,7 +44,7 @@ public class SaveAllActionListener extends WindowAdapter implements ActionListen
         File htmlFolder = accountings.getHtmlFolder();
         htmlFolder.mkdirs();
 
-        XMLtoHTMLWriter.toHtml(accountings, xmlFolder, xslFolder, htmlFolder);
+//        XMLtoHTMLWriter.toHtml(accountings, xmlFolder, xslFolder, htmlFolder);
 
         // TODO: remove this by refactoring Extension and write methods
         // only used for Mortgages, does not work well

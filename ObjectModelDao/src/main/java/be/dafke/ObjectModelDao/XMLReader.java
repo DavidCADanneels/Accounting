@@ -27,7 +27,7 @@ public class XMLReader {
 
         try {
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-            documentBuilderFactory.setValidating(true);
+//            documentBuilderFactory.setValidating(true);
             DocumentBuilder dBuilder = documentBuilderFactory.newDocumentBuilder();
             Document doc = dBuilder.parse(xmlFile.getAbsolutePath());
             doc.getDocumentElement().normalize();
