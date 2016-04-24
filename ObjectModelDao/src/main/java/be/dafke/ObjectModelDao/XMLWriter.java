@@ -52,7 +52,7 @@ public class XMLWriter {
             // get the object's properties
             Properties collectionProperties = businessObject.getOutputProperties();
 
-            writer.write(writeNode(collectionProperties, depth));
+            writer.write(writeNode(collectionProperties, 0));
 
             if(businessObject instanceof BusinessCollection){
                 BusinessCollection businessCollection = (BusinessCollection)businessObject;
