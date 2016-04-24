@@ -1,7 +1,6 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessTyped;
 import be.dafke.Utils.MultiValueMap;
 
 import java.math.BigDecimal;
@@ -16,7 +15,7 @@ import java.util.TreeMap;
   * @author David Danneels
   * @since 01/10/2010
  */
-public class Account extends BusinessCollection<Movement> implements BusinessTyped<AccountType> {
+public class Account extends BusinessCollection<Movement> {
     public static final String TYPE = "type";
     public static final String DEFAULTAMOUNT = "defaultAmount";
     public static final String MOVEMENT = "Movement";

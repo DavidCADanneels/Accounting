@@ -1,7 +1,6 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessTyped;
 import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.MultiValueMap;
 
@@ -16,7 +15,7 @@ import java.util.TreeMap;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journal extends BusinessCollection<Transaction> implements BusinessTyped<JournalType>, MustBeRead {
+public class Journal extends BusinessCollection<Transaction> implements MustBeRead {
     private static final String TYPE = "type";
     protected static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
     private String abbreviation;
