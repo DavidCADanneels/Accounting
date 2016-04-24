@@ -14,12 +14,12 @@ import java.util.*;
  */
 public class Transaction extends BusinessCollection<Booking> {
     private static final String ID = "id";
-	private BigDecimal debitTotal;
+    private BigDecimal debitTotal;
     private BigDecimal creditTotal;
     private Journal journal;
-
     public static final String DATE = "date";
     public static final String DESCRIPTION = "description";
+    public static final String BOOKINGS = "Bookings";
     private int nrOfDebits = 0;
 
     private String description = "";
@@ -38,11 +38,6 @@ public class Transaction extends BusinessCollection<Booking> {
 		creditTotal = creditTotal.setScale(2);
         bookings = new ArrayList<Booking>();
 	}
-
-    @Override
-    public boolean writeChildren(){
-        return true;
-    }
 
     @Override
     public TreeMap<String, String> getUniqueProperties(){
@@ -83,6 +78,7 @@ public class Transaction extends BusinessCollection<Booking> {
         properties.put(ID, new Integer(journal.getId(this)).toString());
         properties.put(DATE, Utils.toString(date));
         properties.put(DESCRIPTION, getDescription());
+        properties.put(BOOKINGS, bookings);
 
         return properties;
     }
