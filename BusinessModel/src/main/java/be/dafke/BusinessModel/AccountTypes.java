@@ -18,7 +18,6 @@ public class AccountTypes extends BusinessTypeCollection<AccountType> {
     public static final String REVENUE = "Revenue";
     public static final String DEBIT = "Debit";
     public static final String CREDIT = "Credit";
-    public static final String MORTGAGE = "Mortgage";
     public static final String ACCOUNT_TYPE = "AccountType";
 
     @Override
@@ -34,34 +33,30 @@ public class AccountTypes extends BusinessTypeCollection<AccountType> {
     public AccountTypes() {
         AccountType active = new AccountType();
         active.setName(ASSET);
-//        active.setName(getBundle("Accounting").getString("ASSET"));
+//        active.setName(getBundle("Balances").getString("ASSET"));
 
         AccountType passive = new AccountType();
         passive.setName(LIABILITY);
-//        passive.setName(getBundle("Accounting").getString("LIABILITY"));
+//        passive.setName(getBundle("Balances").getString("LIABILITY"));
         passive.setInverted(true);
 
         AccountType cost = new AccountType();
         cost.setName(COST);
-//        cost.setName(getBundle("Accounting").getString("COST"));
+//        cost.setName(getBundle("Balances").getString("COST"));
 
         AccountType revenue = new AccountType();
         revenue.setName(REVENUE);
-//        revenue.setName(getBundle("Accounting").getString("REVENUE"));
+//        revenue.setName(getBundle("Balances").getString("REVENUE"));
         revenue.setInverted(true);
 
         AccountType credit = new AccountType();
         credit.setName(CREDIT);
-//        credit.setName(getBundle("Accounting").getString("FUND_FROM_CUSTOMER"));
+//        credit.setName(getBundle("Balances").getString("FUND_FROM_CUSTOMER"));
 
         AccountType debit = new AccountType();
         debit.setName(DEBIT);
-//        debit.setName(getBundle("Accounting").getString("DEBT_TO_SUPPLIER"));
+//        debit.setName(getBundle("Balances").getString("DEBT_TO_SUPPLIER"));
         debit.setInverted(true);
-
-//        AccountType mortgage = new AccountType();
-//        mortgage.setName(MORTGAGE);
-//        mortgage.setName(getBundle("Accounting").getString("MORTGAGE"));
 
         try{
             addBusinessObject(active);
@@ -70,7 +65,6 @@ public class AccountTypes extends BusinessTypeCollection<AccountType> {
             addBusinessObject(revenue);
             addBusinessObject(credit);
             addBusinessObject(debit);
-//            addBusinessObject(mortgage);
         } catch (EmptyNameException e) {
             System.err.println("The Name of an AccountType can not be empty.");
         } catch (DuplicateNameException e) {

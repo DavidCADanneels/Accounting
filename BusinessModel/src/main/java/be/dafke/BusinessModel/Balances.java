@@ -83,8 +83,8 @@ public class Balances extends BusinessCollection<Balance> {
 
         Balance resultBalance = new Balance(accounting);
         resultBalance.setName(RESULT_BALANCE);
-        resultBalance.setLeftName(getBundle("Accounting").getString("COSTS"));
-        resultBalance.setRightName(getBundle("Accounting").getString("REVENUES"));
+        resultBalance.setLeftName(getBundle("Balances").getString("COSTS"));
+        resultBalance.setRightName(getBundle("Balances").getString("REVENUES"));
         resultBalance.setLeftTotalName(getBundle("Balances").getString("COSTS_TOTAL"));
         resultBalance.setRightTotalName(getBundle("Balances").getString("REVENUE_TOTAL"));
         resultBalance.setLeftResultName(getBundle("Balances").getString("LOSS"));
@@ -94,8 +94,8 @@ public class Balances extends BusinessCollection<Balance> {
 
         Balance relationsBalance = new Balance(accounting);
         relationsBalance.setName(RELATIONS_BALANCE);
-        relationsBalance.setLeftName(getBundle("Accounting").getString("FUNDS_FROM_CUSTOMERS"));
-        relationsBalance.setRightName(getBundle("Accounting").getString("DEBTS_TO_SUPPLIERS"));
+        relationsBalance.setLeftName(getBundle("Balances").getString("FUNDS_FROM_CUSTOMERS"));
+        relationsBalance.setRightName(getBundle("Balances").getString("DEBTS_TO_SUPPLIERS"));
         relationsBalance.setLeftTotalName(getBundle("Balances").getString("FUNDS_TOTAL"));
         relationsBalance.setRightTotalName(getBundle("Balances").getString("DEBTS_TOTAL"));
         relationsBalance.setLeftResultName(getBundle("Balances").getString("FUND_REMAINING"));
@@ -105,8 +105,8 @@ public class Balances extends BusinessCollection<Balance> {
 
         Balance yearBalance = new Balance(accounting);
         yearBalance.setName(YEAR_BALANCE);
-        yearBalance.setLeftName(getBundle("Accounting").getString("ASSETS"));
-        yearBalance.setRightName(getBundle("Accounting").getString("LIABILITIES"));
+        yearBalance.setLeftName(getBundle("Balances").getString("ASSETS"));
+        yearBalance.setRightName(getBundle("Balances").getString("LIABILITIES"));
         yearBalance.setLeftTotalName(getBundle("Balances").getString("ASSETS_FUNDS_TOTAL"));
         yearBalance.setRightTotalName(getBundle("Balances").getString("LIABILITIES_DEBTS_TOTAL"));
         yearBalance.setLeftResultName(getBundle("Balances").getString("GAIN"));
