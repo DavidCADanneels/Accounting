@@ -12,10 +12,10 @@ import java.util.List;
  * Time: 12:05
  */
 public class AccountingMultiPanel extends AccountingPanel {
-    private List<AccountingPanel> components;
+    private List<AccountingPanelInterface> components;
 
     public AccountingMultiPanel(){
-        components = new ArrayList<AccountingPanel>();
+        components = new ArrayList<AccountingPanelInterface>();
     }
 
     public Component add(AccountingPanel accountingPanel){
@@ -24,20 +24,20 @@ public class AccountingMultiPanel extends AccountingPanel {
         return accountingPanel;
     }
 
-    public void add(AccountingPanel accountingPanel, Object constraints){
+    public void add(Component accountingPanel, Object constraints){
         super.add(accountingPanel, constraints);
-        components.add(accountingPanel);
+        components.add((AccountingPanelInterface)accountingPanel);
     }
 
 
     public void refresh(){
-        for(AccountingPanel component: components){
+        for(AccountingPanelInterface component: components){
             component.refresh();
         }
     }
 
     public void setAccounting(Accounting accounting){
-        for(AccountingPanel component: components){
+        for(AccountingPanelInterface component: components){
             component.setAccounting(accounting);
         }
         refresh();

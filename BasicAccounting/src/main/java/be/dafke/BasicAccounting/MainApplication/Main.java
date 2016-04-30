@@ -4,8 +4,7 @@ import be.dafke.BasicAccounting.SaveAllActionListener;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BusinessModel.Accounting;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
+import javax.swing.*;
 import java.awt.BorderLayout;
 
 /**
@@ -17,6 +16,8 @@ public class Main extends BasicAccountingMain{
 
     protected static AccountsGUI accountsGUILeft;
     protected static AccountsGUI accountsGUIRight;
+    private static JournalGUI journalGUI;
+    private static JournalInputGUI journalInputGUI;
 
     public static void main(String[] args) {
         readXmlData();
@@ -30,6 +31,7 @@ public class Main extends BasicAccountingMain{
     protected static void createBasicComponents(){
         Accounting accounting = accountings.getCurrentObject();
         journalGUI = new JournalGUI(accounting);
+        journalInputGUI = new JournalInputGUI(accounting);
         accountsGUILeft = new AccountsGUI(accounting);
         accountsGUIRight = new AccountsGUI(accounting);
         journalsGUI = new JournalsGUI(accounting);
@@ -48,7 +50,10 @@ public class Main extends BasicAccountingMain{
         links.add(saveButton);
         contentPanel = new AccountingMultiPanel();
         contentPanel.setLayout(new BorderLayout());
-        contentPanel.add(journalGUI, BorderLayout.CENTER);
+        JSplitPane splitPane = new AccountingSplitPanel(journalGUI, journalInputGUI, JSplitPane.VERTICAL_SPLIT);
+        splitPane.add(journalGUI, JSplitPane.TOP);
+        splitPane.add(journalInputGUI, JSplitPane.BOTTOM);
+        contentPanel.add(splitPane, BorderLayout.CENTER);
         contentPanel.add(links, BorderLayout.WEST);
     }
 }

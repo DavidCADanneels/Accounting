@@ -29,7 +29,7 @@ public class BasicAccountingMain {
     protected enum Mode{ PROD, TEST}
 
     protected static JButton saveButton;
-    protected static JournalGUI journalGUI;
+    private static JournalInputGUI journalGUI;
     protected static AccountsGUI accountsGUI;
     protected static JournalsGUI journalsGUI;
 
@@ -69,7 +69,7 @@ public class BasicAccountingMain {
 
     protected static void createBasicComponents(){
         Accounting accounting = accountings.getCurrentObject();
-        journalGUI = new JournalGUI(accounting);
+        journalGUI = new JournalInputGUI(accounting);
         accountsGUI = new AccountsGUI(accounting);
         journalsGUI = new JournalsGUI(accounting);
         saveButton = new JButton("Save all");

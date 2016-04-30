@@ -9,7 +9,7 @@ import javax.swing.*;
  * Date: 28-12-13
  * Time: 12:02
  */
-public abstract class AccountingPanel extends JPanel {
+public abstract class AccountingPanel extends JPanel implements AccountingPanelInterface{
     public abstract void setAccounting(Accounting accounting);
     public abstract void refresh();
 }
