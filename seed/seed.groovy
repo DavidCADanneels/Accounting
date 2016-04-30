@@ -24,6 +24,8 @@ mavenJob("Build_and_package"){
             execPattern '**/***.exec'
             classPattern '**/classes'
             sourcePattern '**/src/main/java'
+            inclusionPattern '**/*.class'
+            exclusionPattern '**/*Test*'
         }
     }
 }
