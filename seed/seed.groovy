@@ -19,5 +19,11 @@ mavenJob("Build_and_package"){
             pattern('**/*.jar')
             onlyIfSuccessful()
         }
+        archiveJunit 'build/test-results/**/*.xml'
+        jacocoCodeCoverage {
+            execPattern '**/***.exec'
+            classPattern '**/classes'
+            sourcePattern '**/src/main/java'
+        }
     }
 }
