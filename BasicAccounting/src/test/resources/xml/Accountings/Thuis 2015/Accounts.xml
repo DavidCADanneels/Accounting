@@ -1,0 +1,580 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Accounts SYSTEM "../../../dtd/Accounts.dtd">
+<Accounts>
+  <name>Accounts</name>
+  <Account>
+    <defaultAmount>153.25</defaultAmount>
+    <name>AXA Dara</name>
+    <type>Debit</type>
+  </Account>
+  <Account>
+    <defaultAmount>28.12</defaultAmount>
+    <name>AXA-Bijstandsverzekering</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <defaultAmount>36.44</defaultAmount>
+    <name>AXA-Brandverzekering</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>AXA-BrommerVerzekering</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <defaultAmount>57.12</defaultAmount>
+    <name>AXA-Levensverzekering</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <defaultAmount>50.57</defaultAmount>
+    <name>AXA-MotoVerzekering</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Action</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Afdak</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Afscheidsfeestje</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Aldi</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Allerlei</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Apotheek</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Auto</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>BBQ reunie KA</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Bank Dara</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Bank David</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Bank Tay</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Bankkosten</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Bart Smit</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Belastingen</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <defaultAmount>797.69</defaultAmount>
+    <name>Belastingen Tay</name>
+    <type>Debit</type>
+  </Account>
+  <Account>
+    <name>Benzine</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Biberium</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Bibliotheek</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Blokker</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Boetes</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Brantano</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Brico</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Bureau Tay</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Buurtslagers</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>C en A</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <defaultAmount>18.57</defaultAmount>
+    <name>CM</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>CTO</name>
+    <type>Debit</type>
+  </Account>
+  <Account>
+    <name>Carrefour</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Cash</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Cash-gab</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Colruyt</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <defaultAmount>32.67</defaultAmount>
+    <name>DAS-Autoverzekering</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>DAS-Bijstandsverzekering</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Damien</name>
+    <type>Debit</type>
+  </Account>
+  <Account>
+    <name>Delhaize</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Diepvries</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Eco-cheques</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <defaultAmount>73.77</defaultAmount>
+    <name>Essent</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Feestje</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Film</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Frietkot</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Giften UK</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Hema</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Horeca Totaal</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Huis</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Hypotheek</name>
+    <type>Liability</type>
+  </Account>
+  <Account>
+    <name>IPhone</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Ijssculptuur</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Intrest Huis</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Intrest Lening Tay</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Intrest Verbouwing</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>JBC</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Jean-Paul Lowyck</name>
+    <type>Debit</type>
+  </Account>
+  <Account>
+    <defaultAmount>100.00</defaultAmount>
+    <name>Kado ma</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Kapitaal</name>
+    <type>Liability</type>
+  </Account>
+  <Account>
+    <name>Kapitaal Tay</name>
+    <type>Liability</type>
+  </Account>
+  <Account>
+    <name>KinderOpvang</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <defaultAmount>273.06</defaultAmount>
+    <name>Kindergeld</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Kip (markt)</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Kledij</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Kleerkast Sophia</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Kosten Werk</name>
+    <type>Credit</type>
+  </Account>
+  <Account>
+    <name>Kruidvat</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>L en L</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Lening Tay</name>
+    <type>Liability</type>
+  </Account>
+  <Account>
+    <name>Lening Verbouwing</name>
+    <type>Liability</type>
+  </Account>
+  <Account>
+    <defaultAmount>19.35</defaultAmount>
+    <name>Lenzen</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Lidl</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Lunch Italian</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <defaultAmount>8.45</defaultAmount>
+    <name>Lunch Johnsons Control</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Maaltijdcheques Dara</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Maaltijdcheques David - C2P</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Maaltijdcheques David - Isabel</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Maaltijdcheques Tay</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Manifiesta</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Markt</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Media markt</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Medische kosten</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Meubilair</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Music Tay</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Netto Dara</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Netto David</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Netto Tay</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Nightshop Biekorf</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Nightshop FEFA</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Ontbijt</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Oudejaarsavond</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Oven</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Parking</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <defaultAmount>400.00</defaultAmount>
+    <name>Pi Maew</name>
+    <type>Liability</type>
+  </Account>
+  <Account>
+    <name>Pitta Diegem</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Pizzahut</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Post Dara</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Post DebetCard</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Primo</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Pro-duo</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Quick</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Reis Thailand</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Renmans</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Renovatie Nieuwe Ketel</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Restaurant</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>School</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>School Tay</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Schuld Opvang</name>
+    <type>Debit</type>
+  </Account>
+  <Account>
+    <defaultAmount>55.03</defaultAmount>
+    <name>Schuld Telenet</name>
+    <type>Debit</type>
+  </Account>
+  <Account>
+    <defaultAmount>200.00</defaultAmount>
+    <name>Schulden aan ma</name>
+    <type>Liability</type>
+  </Account>
+  <Account>
+    <name>Six Nations</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Sluis</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Spaar David</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Spaar Sophia</name>
+    <type>Asset</type>
+  </Account>
+  <Account>
+    <name>Tandarts</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Telenet</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Thai Shop</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Thailand</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Ticket Tay</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Transactiekosten</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Trein</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Trouwfeest Noy</name>
+    <type>Revenue</type>
+  </Account>
+  <Account>
+    <name>Uitgaan</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Uitgaven Tay</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>VISA</name>
+    <type>Debit</type>
+  </Account>
+  <Account>
+    <name>Vakbond</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Verjaardagsfeestje</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Vis</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Visakosten</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Wasmachine</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <defaultAmount>92.00</defaultAmount>
+    <name>Water</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Weekend Luxemburg</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Western Union</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Zeeman</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <name>Ziekenhuis</name>
+    <type>Cost</type>
+  </Account>
+  <Account>
+    <defaultAmount>130.31</defaultAmount>
+    <name>Ziekenhuis Dara</name>
+    <type>Debit</type>
+  </Account>
+  <Account>
+    <name>Zwemmen</name>
+    <type>Cost</type>
+  </Account>
+    <CurrentObject>Cash</CurrentObject>
+</Accounts>

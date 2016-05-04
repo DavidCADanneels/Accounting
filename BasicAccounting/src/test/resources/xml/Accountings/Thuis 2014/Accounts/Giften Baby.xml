@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Giften Baby</name>
+  <type>Revenue</type>
+  <Movement>
+    <date>28/4/2014</date>
+    <description>Isabel personeel</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>354</journalId>
+    <credit>75.00</credit>
+    <id>4334</id>
+  </Movement>
+</Account>

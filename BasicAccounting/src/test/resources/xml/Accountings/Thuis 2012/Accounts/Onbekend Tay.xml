@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Onbekend Tay</name>
+  <type>Cost</type>
+  <Movement>
+    <date>18/6/2012</date>
+    <description>Meyns Gilbert</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>35</journalId>
+    <debit>27.00</debit>
+    <id>1842</id>
+  </Movement>
+  <Movement>
+    <date>16/7/2012</date>
+    <description>A093</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>44</journalId>
+    <debit>114.00</debit>
+    <id>1862</id>
+  </Movement>
+  <Movement>
+    <date>30/9/2012</date>
+    <description>63827-0415107</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>77</journalId>
+    <debit>16.79</debit>
+    <id>1932</id>
+  </Movement>
+</Account>

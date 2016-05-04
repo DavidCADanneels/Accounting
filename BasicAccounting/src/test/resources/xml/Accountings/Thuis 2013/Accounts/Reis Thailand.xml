@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Reis Thailand</name>
+  <type>Cost</type>
+  <Movement>
+    <date>1/1/2013</date>
+    <description>Beginbalans</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>2</journalId>
+    <debit>2200.00</debit>
+    <id>1998</id>
+  </Movement>
+  <Movement>
+    <date>20/2/2013</date>
+    <description>ATM Thailand: 10.000 THB</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>86</journalId>
+    <debit>267.21</debit>
+    <id>2186</id>
+  </Movement>
+  <Movement>
+    <date>21/2/2013</date>
+    <description>ATM Bangkok</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>88</journalId>
+    <debit>138.38</debit>
+    <id>2190</id>
+  </Movement>
+  <Movement>
+    <date>21/2/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>89</journalId>
+    <debit>141.76</debit>
+    <id>2192</id>
+  </Movement>
+  <Movement>
+    <date>27/2/2013</date>
+    <description>vluchten + ATM</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>91</journalId>
+    <debit>388.79</debit>
+    <id>2196</id>
+  </Movement>
+  <Movement>
+    <date>5/3/2013</date>
+    <description>ATM Udon Thani</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>99</journalId>
+    <debit>140.56</debit>
+    <id>2214</id>
+  </Movement>
+  <Movement>
+    <date>15/3/2013</date>
+    <description>ATM Nongkhai</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>109</journalId>
+    <debit>170.98</debit>
+    <id>2247</id>
+  </Movement>
+  <Movement>
+    <date>16/3/2013</date>
+    <description>ATM Nongkhai</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>110</journalId>
+    <debit>276.79</debit>
+    <id>2249</id>
+  </Movement>
+  <Movement>
+    <date>18/3/2013</date>
+    <description>ATM Nongkhai</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>115</journalId>
+    <debit>416.51</debit>
+    <id>2259</id>
+  </Movement>
+  <Movement>
+    <date>21/3/2013</date>
+    <description>ATM Nongkhai</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>124</journalId>
+    <debit>283.81</debit>
+    <id>2279</id>
+  </Movement>
+  <Movement>
+    <date>24/3/2013</date>
+    <description>ATM Nongkhai</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>127</journalId>
+    <debit>283.06</debit>
+    <id>2285</id>
+  </Movement>
+  <Movement>
+    <date>2/4/2013</date>
+    <description>ATM Nongkhai</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>138</journalId>
+    <debit>172.50</debit>
+    <id>2308</id>
+  </Movement>
+  <Movement>
+    <date>7/4/2013</date>
+    <description>ATM Nongkhai</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>146</journalId>
+    <debit>143.89</debit>
+    <id>2326</id>
+  </Movement>
+  <Movement>
+    <date>15/4/2013</date>
+    <description>ATM Udon</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>157</journalId>
+    <debit>142.89</debit>
+    <id>2348</id>
+  </Movement>
+  <Movement>
+    <date>16/4/2013</date>
+    <description>ATM Udon</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>159</journalId>
+    <debit>170.87</debit>
+    <id>2352</id>
+  </Movement>
+  <Movement>
+    <date>17/4/2013</date>
+    <description>ATM Udon</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>161</journalId>
+    <debit>170.84</debit>
+    <id>2356</id>
+  </Movement>
+  <Movement>
+    <date>26/4/2013</date>
+    <description>ATM</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>167</journalId>
+    <debit>282.19</debit>
+    <id>2368</id>
+  </Movement>
+  <Movement>
+    <date>26/4/2013</date>
+    <description>ATM Nongkhai</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>168</journalId>
+    <debit>143.35</debit>
+    <id>2370</id>
+  </Movement>
+  <Movement>
+    <date>27/4/2013</date>
+    <description>ATM Bangkok</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>173</journalId>
+    <debit>195.69</debit>
+    <id>2380</id>
+  </Movement>
+  <Movement>
+    <date>29/4/2013</date>
+    <description>ATM Bangkok</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>175</journalId>
+    <debit>168.67</debit>
+    <id>2384</id>
+  </Movement>
+  <Movement>
+    <date>30/4/2013</date>
+    <description>ATM Bangkok</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>177</journalId>
+    <debit>60.57</debit>
+    <id>2395</id>
+  </Movement>
+  <Movement>
+    <date>13/5/2013</date>
+    <description>Visa: aankoop TV, friteuse (TH) en vluchten naar Udon</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>210</journalId>
+    <debit>45.00</debit>
+    <id>2476</id>
+  </Movement>
+</Account>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>AS Adventure</name>
+  <type>Cost</type>
+  <Movement>
+    <date>24/12/2013</date>
+    <description>wereldbol</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>561</journalId>
+    <debit>49.95</debit>
+    <id>3230</id>
+  </Movement>
+</Account>

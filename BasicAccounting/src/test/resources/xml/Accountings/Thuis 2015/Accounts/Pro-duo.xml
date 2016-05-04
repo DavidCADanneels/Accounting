@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Pro-duo</name>
+  <type>Cost</type>
+  <Movement>
+    <date>26/5/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>397</journalId>
+    <debit>62.00</debit>
+    <id>6715</id>
+  </Movement>
+  <Movement>
+    <date>20/7/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>560</journalId>
+    <debit>54.50</debit>
+    <id>7073</id>
+  </Movement>
+</Account>

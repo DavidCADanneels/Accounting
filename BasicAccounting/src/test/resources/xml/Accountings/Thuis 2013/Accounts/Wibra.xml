@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Wibra</name>
+  <type>Cost</type>
+  <Movement>
+    <date>19/1/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>41</journalId>
+    <debit>18.40</debit>
+    <id>2088</id>
+  </Movement>
+</Account>

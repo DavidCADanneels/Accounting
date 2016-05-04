@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Anna Durga</name>
+  <type>Cost</type>
+  <Movement>
+    <date>24/7/2012</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>48</journalId>
+    <debit>10.20</debit>
+    <id>1870</id>
+  </Movement>
+  <Movement>
+    <date>28/7/2012</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>52</journalId>
+    <debit>5.20</debit>
+    <id>1880</id>
+  </Movement>
+  <Movement>
+    <date>29/7/2012</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>53</journalId>
+    <debit>10.20</debit>
+    <id>1882</id>
+  </Movement>
+  <Movement>
+    <date>31/7/2012</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>55</journalId>
+    <debit>20.20</debit>
+    <id>1886</id>
+  </Movement>
+  <Movement>
+    <date>4/8/2012</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>58</journalId>
+    <debit>75.00</debit>
+    <id>1892</id>
+  </Movement>
+</Account>

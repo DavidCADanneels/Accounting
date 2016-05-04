@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Media markt</name>
+  <type>Cost</type>
+  <Movement>
+    <date>8/1/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>36</journalId>
+    <debit>71.68</debit>
+    <id>5896</id>
+  </Movement>
+  <Movement>
+    <date>24/12/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>1005</journalId>
+    <debit>124.90</debit>
+    <id>8028</id>
+  </Movement>
+</Account>

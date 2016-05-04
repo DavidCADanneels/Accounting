@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Auto</name>
+  <type>Asset</type>
+  <Movement>
+    <date>1/1/2014</date>
+    <description>Beginbalans</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>3</journalId>
+    <debit>10815.00</debit>
+    <id>3522</id>
+  </Movement>
+  <Movement>
+    <date>31/12/2014</date>
+    <description>afschrijving</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>951</journalId>
+    <credit>3090.00</credit>
+    <id>5647</id>
+  </Movement>
+</Account>

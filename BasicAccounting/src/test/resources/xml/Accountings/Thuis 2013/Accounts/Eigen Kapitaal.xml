@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Eigen Kapitaal</name>
+  <type>Liability</type>
+  <Movement>
+    <date>1/1/2013</date>
+    <description>Beginbalans</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>2</journalId>
+    <credit>13287.14</credit>
+    <id>2004</id>
+  </Movement>
+  <Movement>
+    <date>31/12/2013</date>
+    <description>afschrijving auto</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>580</journalId>
+    <debit>3090.00</debit>
+    <id>3270</id>
+  </Movement>
+  <Movement>
+    <date>31/12/2013</date>
+    <description>volledige afschrijving moto en brommer</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>87</journalId>
+    <debit>1499.00</debit>
+    <id>3493</id>
+  </Movement>
+</Account>

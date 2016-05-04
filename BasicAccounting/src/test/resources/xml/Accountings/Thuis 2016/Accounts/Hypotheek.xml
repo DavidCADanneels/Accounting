@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Hypotheek</name>
+  <type>Debit</type>
+  <Movement>
+    <date>1/1/2016</date>
+    <description>Beginbalans</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>1</journalId>
+    <credit>245700.87</credit>
+    <id>8315</id>
+  </Movement>
+  <Movement>
+    <date>3/1/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>5</journalId>
+    <debit>449.06</debit>
+    <id>8330</id>
+  </Movement>
+  <Movement>
+    <date>3/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>106</journalId>
+    <debit>450.35</debit>
+    <id>8547</id>
+  </Movement>
+  <Movement>
+    <date>3/3/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>211</journalId>
+    <debit>451.64</debit>
+    <id>8784</id>
+  </Movement>
+  <Movement>
+    <date>4/4/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>318</journalId>
+    <debit>452.95</debit>
+    <id>9015</id>
+  </Movement>
+</Account>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Leenbakker</name>
+  <type>Cost</type>
+  <Movement>
+    <date>6/1/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>16</journalId>
+    <debit>43.96</debit>
+    <id>8357</id>
+  </Movement>
+  <Movement>
+    <date>16/1/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>54</journalId>
+    <debit>11.50</debit>
+    <id>8439</id>
+  </Movement>
+  <Movement>
+    <date>19/1/2016</date>
+    <description>keukentafel en linnenkoffer</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>59</journalId>
+    <debit>129.99</debit>
+    <id>8449</id>
+  </Movement>
+</Account>

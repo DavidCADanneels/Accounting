@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>120.00</defaultAmount>
+  <name>Feestje Roubaix</name>
+  <type>Cost</type>
+  <Movement>
+    <date>19/1/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>55</journalId>
+    <debit>120.00</debit>
+    <id>3652</id>
+  </Movement>
+</Account>

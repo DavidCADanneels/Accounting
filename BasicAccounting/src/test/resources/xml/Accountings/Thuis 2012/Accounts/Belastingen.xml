@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Belastingen</name>
+  <type>Revenue</type>
+  <Movement>
+    <date>26/4/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>148</journalId>
+    <credit>2413.56</credit>
+    <id>863</id>
+  </Movement>
+  <Movement>
+    <date>29/8/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>339</journalId>
+    <debit>319.73</debit>
+    <id>1325</id>
+  </Movement>
+  <Movement>
+    <date>29/8/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>339</journalId>
+    <debit>249.68</debit>
+    <id>1326</id>
+  </Movement>
+  <Movement>
+    <date>28/11/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>438</journalId>
+    <credit>4128.29</credit>
+    <id>1573</id>
+  </Movement>
+</Account>

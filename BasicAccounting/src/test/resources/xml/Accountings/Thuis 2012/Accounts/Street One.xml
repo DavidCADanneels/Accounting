@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Street One</name>
+  <type>Cost</type>
+  <Movement>
+    <date>30/4/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>152</journalId>
+    <debit>19.95</debit>
+    <id>870</id>
+  </Movement>
+</Account>

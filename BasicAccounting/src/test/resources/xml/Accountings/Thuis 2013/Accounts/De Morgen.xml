@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>De Morgen</name>
+  <type>Cost</type>
+  <Movement>
+    <date>18/3/2013</date>
+    <description>Abonnement 15 maanden</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>113</journalId>
+    <debit>285.00</debit>
+    <id>2255</id>
+  </Movement>
+</Account>

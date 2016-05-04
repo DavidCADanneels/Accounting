@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>AXA-Brommerverzekering</name>
+  <type>Cost</type>
+  <Movement>
+    <date>31/12/2013</date>
+    <description>CHECK: correct?</description>
+    <journalAbbr>TRF</journalAbbr>
+    <journalName>Transfer</journalName>
+    <journalId>5</journalId>
+    <debit>160.95</debit>
+    <id>3504</id>
+  </Movement>
+</Account>

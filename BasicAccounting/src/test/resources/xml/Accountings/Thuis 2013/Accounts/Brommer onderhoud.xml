@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Brommer onderhoud</name>
+  <type>Cost</type>
+  <Movement>
+    <date>11/9/2013</date>
+    <description>Vansassenbroek</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>403</journalId>
+    <debit>57.41</debit>
+    <id>2889</id>
+  </Movement>
+</Account>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Aankoop - dossierkosten AXA</name>
+  <type>Cost</type>
+  <Movement>
+    <date>29/4/2013</date>
+    <description>Vereffening notaris - aankoop Invalidenstraat</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>176</journalId>
+    <debit>330.00</debit>
+    <id>2389</id>
+  </Movement>
+  <Movement>
+    <date>13/5/2013</date>
+    <description>Afronden aankoop-verkoop</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>206</journalId>
+    <credit>330.00</credit>
+    <id>2461</id>
+  </Movement>
+</Account>

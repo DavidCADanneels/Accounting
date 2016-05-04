@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Voeding</name>
+  <type>Cost</type>
+  <Movement>
+    <date>2/1/2014</date>
+    <description>Baby 2000: snoep Sophia</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>9</journalId>
+    <debit>1.95</debit>
+    <id>3537</id>
+  </Movement>
+  <Movement>
+    <date>20/1/2014</date>
+    <description>Maaltijd ziekenhuis</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>59</journalId>
+    <debit>14.20</debit>
+    <id>3663</id>
+  </Movement>
+  <Movement>
+    <date>1/4/2014</date>
+    <description>ijskar</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>274</journalId>
+    <debit>4.50</debit>
+    <id>4160</id>
+  </Movement>
+</Account>

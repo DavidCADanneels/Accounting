@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>19.99</defaultAmount>
+  <name>Fitness</name>
+  <type>Cost</type>
+  <Movement>
+    <date>11/4/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>351</journalId>
+    <debit>19.99</debit>
+    <id>9093</id>
+  </Movement>
+</Account>

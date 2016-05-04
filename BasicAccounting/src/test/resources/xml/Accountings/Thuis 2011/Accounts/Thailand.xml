@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Thailand</name>
+  <type>Cost</type>
+  <Movement>
+    <date>11/9/2011</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>109</journalId>
+    <debit>1011.85</debit>
+    <id>243</id>
+  </Movement>
+  <Movement>
+    <date>11/10/2011</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>139</journalId>
+    <debit>1161.85</debit>
+    <id>308</id>
+  </Movement>
+  <Movement>
+    <date>7/11/2011</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>157</journalId>
+    <debit>1161.85</debit>
+    <id>351</id>
+  </Movement>
+  <Movement>
+    <date>21/12/2011</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>195</journalId>
+    <debit>1511.85</debit>
+    <id>438</id>
+  </Movement>
+</Account>

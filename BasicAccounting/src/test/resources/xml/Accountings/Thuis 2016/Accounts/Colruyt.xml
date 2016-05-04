@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Colruyt</name>
+  <type>Cost</type>
+  <Movement>
+    <date>9/1/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>35</journalId>
+    <debit>33.94</debit>
+    <id>8398</id>
+  </Movement>
+  <Movement>
+    <date>26/1/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>77</journalId>
+    <debit>3.28</debit>
+    <id>8488</id>
+  </Movement>
+  <Movement>
+    <date>19/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>161</journalId>
+    <debit>178.53</debit>
+    <id>8678</id>
+  </Movement>
+  <Movement>
+    <date>29/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>201</journalId>
+    <debit>13.49</debit>
+    <id>8762</id>
+  </Movement>
+</Account>

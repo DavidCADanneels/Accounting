@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Journal SYSTEM "../../../../dtd/Journal.dtd">
+<Journal>
+  <abbr>TRF</abbr>
+  <name>Transfer</name>
+  <type>default</type>
+  <Transaction>
+    <date>27/9/2012</date>
+    <id>1</id>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <debit>101.00</debit>
+      <id>1978</id>
+    </Booking>
+    <Booking>
+      <Account>Bank David</Account>
+      <credit>101.00</credit>
+      <id>1979</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>2/10/2012</date>
+    <id>2</id>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <debit>170.00</debit>
+      <id>1980</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Dara</Account>
+      <credit>170.00</credit>
+      <id>1981</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>19/10/2012</date>
+    <id>3</id>
+    <Booking>
+      <Account>Bank Dara</Account>
+      <debit>300.00</debit>
+      <id>1982</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>300.00</credit>
+      <id>1983</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>5/11/2012</date>
+    <id>4</id>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <debit>100.00</debit>
+      <id>1984</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Dara</Account>
+      <credit>100.00</credit>
+      <id>1985</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>30/11/2012</date>
+    <id>5</id>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <debit>1200.00</debit>
+      <id>1986</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Dara</Account>
+      <credit>1200.00</credit>
+      <id>1987</id>
+    </Booking>
+  </Transaction>
+    <CurrentObject>null</CurrentObject>
+</Journal>

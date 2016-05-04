@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Bloemen</name>
+  <type>Cost</type>
+  <Movement>
+    <date>5/6/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>207</journalId>
+    <debit>25.20</debit>
+    <id>997</id>
+  </Movement>
+  <Movement>
+    <date>5/6/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>207</journalId>
+    <debit>10.20</debit>
+    <id>998</id>
+  </Movement>
+</Account>

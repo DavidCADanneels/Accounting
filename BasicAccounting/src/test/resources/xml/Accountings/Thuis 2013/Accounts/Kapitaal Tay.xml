@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Kapitaal Tay</name>
+  <type>Liability</type>
+  <Movement>
+    <date>1/1/2013</date>
+    <description>Beginbalans</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>2</journalId>
+    <credit>0.88</credit>
+    <id>2003</id>
+  </Movement>
+</Account>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Brommeraccessoires</name>
+  <type>Cost</type>
+  <Movement>
+    <date>23/3/2012</date>
+    <description>Stoeltje Sophia</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>103</journalId>
+    <debit>263.95</debit>
+    <id>761</id>
+  </Movement>
+  <Movement>
+    <date>12/4/2012</date>
+    <description>onderhoud (of helm Sophia)</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>128</journalId>
+    <debit>29.00</debit>
+    <id>822</id>
+  </Movement>
+  <Movement>
+    <date>10/10/2012</date>
+    <description>onderhoud ??? / Herstel ???</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>389</journalId>
+    <debit>106.50</debit>
+    <id>1441</id>
+  </Movement>
+</Account>

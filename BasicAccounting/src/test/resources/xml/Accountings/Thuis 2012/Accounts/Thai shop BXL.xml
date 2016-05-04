@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Thai shop BXL</name>
+  <type>Cost</type>
+  <Movement>
+    <date>13/2/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>49</journalId>
+    <debit>28.50</debit>
+    <id>630</id>
+  </Movement>
+  <Movement>
+    <date>19/4/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>139</journalId>
+    <debit>50.28</debit>
+    <id>844</id>
+  </Movement>
+  <Movement>
+    <date>15/5/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>175</journalId>
+    <debit>35.00</debit>
+    <id>921</id>
+  </Movement>
+  <Movement>
+    <date>25/5/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>185</journalId>
+    <debit>18.10</debit>
+    <id>947</id>
+  </Movement>
+</Account>

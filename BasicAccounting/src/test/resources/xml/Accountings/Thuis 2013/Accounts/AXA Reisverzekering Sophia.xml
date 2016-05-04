@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>AXA Reisverzekering Sophia</name>
+  <type>Cost</type>
+  <Movement>
+    <date>22/7/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>328</journalId>
+    <debit>37.00</debit>
+    <id>2725</id>
+  </Movement>
+</Account>

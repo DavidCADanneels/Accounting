@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Delagrange Tandarts</name>
+  <type>Cost</type>
+  <Movement>
+    <date>18/4/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>331</journalId>
+    <debit>24.00</debit>
+    <id>4282</id>
+  </Movement>
+  <Movement>
+    <date>25/4/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>346</journalId>
+    <debit>56.50</debit>
+    <id>4317</id>
+  </Movement>
+  <Movement>
+    <date>25/9/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>754</journalId>
+    <debit>129.00</debit>
+    <id>5223</id>
+  </Movement>
+  <Movement>
+    <date>30/9/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>763</journalId>
+    <debit>71.50</debit>
+    <id>5243</id>
+  </Movement>
+  <Movement>
+    <date>15/10/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>793</journalId>
+    <debit>105.05</debit>
+    <id>5311</id>
+  </Movement>
+</Account>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Bart Smit</name>
+  <type>Cost</type>
+  <Movement>
+    <date>10/6/2015</date>
+    <description>Nanou</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>451</journalId>
+    <debit>44.96</debit>
+    <id>6828</id>
+  </Movement>
+  <Movement>
+    <date>29/6/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>499</journalId>
+    <debit>14.99</debit>
+    <id>6930</id>
+  </Movement>
+  <Movement>
+    <date>1/7/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>513</journalId>
+    <debit>14.98</debit>
+    <id>6961</id>
+  </Movement>
+</Account>

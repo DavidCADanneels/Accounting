@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Balance SYSTEM "../../../../dtd/Balance.dtd">
+<Balance>
+  <RightTypes>Debit</RightTypes>
+  <name>RelationsBalance</name>
+  <LeftTotalName>TOTAL FUNDS</LeftTotalName>
+  <LeftResultName>REMAINING FUND</LeftResultName>
+  <RightTotalName>TOTAL DEBTS</RightTotalName>
+  <LeftName>Funds from customers</LeftName>
+  <RightName>Debts to Suppliers</RightName>
+  <LeftTypes>Credit</LeftTypes>
+  <RightResultName>REMAINING DEBT</RightResultName>
+  <BalanceLine>
+    <amount2>671.41</amount2>
+    <name2>VISA</name2>
+  </BalanceLine>
+</Balance>

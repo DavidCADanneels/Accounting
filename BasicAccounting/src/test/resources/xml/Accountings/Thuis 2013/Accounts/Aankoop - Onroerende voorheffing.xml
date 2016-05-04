@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Aankoop - Onroerende voorheffing</name>
+  <type>Cost</type>
+  <Movement>
+    <date>29/4/2013</date>
+    <description>Vereffening notaris - aankoop Invalidenstraat</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>176</journalId>
+    <debit>598.21</debit>
+    <id>2390</id>
+  </Movement>
+  <Movement>
+    <date>13/5/2013</date>
+    <description>Onroerende voorheffing op oud en nieuw huis</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>205</journalId>
+    <credit>598.21</credit>
+    <id>2458</id>
+  </Movement>
+</Account>

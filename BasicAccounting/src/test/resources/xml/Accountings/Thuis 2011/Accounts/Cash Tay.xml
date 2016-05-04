@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Cash Tay</name>
+  <type>Asset</type>
+  <Movement>
+    <date>17/6/2011</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>1</journalId>
+    <credit>316.00</credit>
+    <id>451</id>
+  </Movement>
+  <Movement>
+    <date>28/6/2011</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>2</journalId>
+    <credit>1035.00</credit>
+    <id>453</id>
+  </Movement>
+  <Movement>
+    <date>20/9/2011</date>
+    <description>Beginbalans Tay</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>3</journalId>
+    <debit>1800.98</debit>
+    <id>455</id>
+  </Movement>
+  <Movement>
+    <date>21/9/2011</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>4</journalId>
+    <credit>399.99</credit>
+    <id>460</id>
+  </Movement>
+  <Movement>
+    <date>3/11/2011</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>11</journalId>
+    <credit>49.99</credit>
+    <id>474</id>
+  </Movement>
+</Account>

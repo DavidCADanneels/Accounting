@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Buurtslagers</name>
+  <type>Cost</type>
+  <Movement>
+    <date>25/1/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>46</journalId>
+    <debit>10.83</debit>
+    <id>2098</id>
+  </Movement>
+  <Movement>
+    <date>6/5/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>184</journalId>
+    <debit>6.87</debit>
+    <id>2409</id>
+  </Movement>
+  <Movement>
+    <date>17/7/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>322</journalId>
+    <debit>26.62</debit>
+    <id>2713</id>
+  </Movement>
+  <Movement>
+    <date>3/9/2013</date>
+    <description>of vice versa</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>386</journalId>
+    <debit>27.51</debit>
+    <id>2848</id>
+  </Movement>
+  <Movement>
+    <date>23/10/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>450</journalId>
+    <debit>27.44</debit>
+    <id>2986</id>
+  </Movement>
+  <Movement>
+    <date>15/11/2013</date>
+    <description>of vice versa</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>482</journalId>
+    <debit>19.66</debit>
+    <id>3056</id>
+  </Movement>
+  <Movement>
+    <date>3/12/2013</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>71</journalId>
+    <debit>17.78</debit>
+    <id>3457</id>
+  </Movement>
+</Account>

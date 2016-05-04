@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Weekend Luxemburg</name>
+  <type>Cost</type>
+  <Movement>
+    <date>28/3/2015</date>
+    <description>Kasteel Vianden</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>214</journalId>
+    <debit>12.00</debit>
+    <id>6307</id>
+  </Movement>
+  <Movement>
+    <date>29/3/2015</date>
+    <description>Afrekening hotel</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>215</journalId>
+    <debit>27.90</debit>
+    <id>6309</id>
+  </Movement>
+  <Movement>
+    <date>30/3/2015</date>
+    <description>ATM, apotheek, etc</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>217</journalId>
+    <debit>112.85</debit>
+    <id>6313</id>
+  </Movement>
+</Account>

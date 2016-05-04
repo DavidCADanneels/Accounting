@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Delhaize</name>
+  <type>Cost</type>
+  <Movement>
+    <date>10/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>133</journalId>
+    <debit>33.39</debit>
+    <id>8613</id>
+  </Movement>
+  <Movement>
+    <date>22/3/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>275</journalId>
+    <debit>21.77</debit>
+    <id>8923</id>
+  </Movement>
+  <Movement>
+    <date>8/4/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>346</journalId>
+    <debit>42.34</debit>
+    <id>9081</id>
+  </Movement>
+</Account>

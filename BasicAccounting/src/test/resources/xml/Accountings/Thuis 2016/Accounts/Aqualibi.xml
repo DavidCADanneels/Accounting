@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Aqualibi</name>
+  <type>Cost</type>
+  <Movement>
+    <date>28/2/2016</date>
+    <description>Lunch + ijsjes</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>194</journalId>
+    <debit>23.20</debit>
+    <id>8747</id>
+  </Movement>
+  <Movement>
+    <date>28/2/2016</date>
+    <description>Lunch + ijsjes</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>194</journalId>
+    <debit>6.20</debit>
+    <id>8748</id>
+  </Movement>
+  <Movement>
+    <date>29/2/2016</date>
+    <description>ingang</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>197</journalId>
+    <debit>48.00</debit>
+    <id>8754</id>
+  </Movement>
+</Account>

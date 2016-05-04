@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Verkoop - Wederbeleggingsvergoeding</name>
+  <type>Cost</type>
+  <Movement>
+    <date>12/3/2013</date>
+    <description>Verkoop huis</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>105</journalId>
+    <debit>1620.24</debit>
+    <id>2237</id>
+  </Movement>
+  <Movement>
+    <date>19/3/2013</date>
+    <description>Correctie: kapitaal 3 dagen vroeger terugbetaald dan voorzien</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>118</journalId>
+    <credit>52.29</credit>
+    <id>2268</id>
+  </Movement>
+  <Movement>
+    <date>13/5/2013</date>
+    <description>Afronden aankoop-verkoop</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>206</journalId>
+    <credit>1567.95</credit>
+    <id>2466</id>
+  </Movement>
+</Account>

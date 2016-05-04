@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Proximus</name>
+  <type>Cost</type>
+  <Movement>
+    <date>1/9/2011</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>91</journalId>
+    <debit>48.10</debit>
+    <id>203</id>
+  </Movement>
+  <Movement>
+    <date>1/10/2011</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>129</journalId>
+    <debit>38.89</debit>
+    <id>285</id>
+  </Movement>
+  <Movement>
+    <date>4/11/2011</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>155</journalId>
+    <debit>73.71</debit>
+    <id>347</id>
+  </Movement>
+  <Movement>
+    <date>23/11/2011</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>166</journalId>
+    <debit>165.24</debit>
+    <id>371</id>
+  </Movement>
+</Account>

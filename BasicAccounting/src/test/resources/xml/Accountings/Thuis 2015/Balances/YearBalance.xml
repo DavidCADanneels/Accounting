@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Balance SYSTEM "../../../../dtd/Balance.dtd">
+<Balance>
+  <RightTypes>Liability | Debit</RightTypes>
+  <name>YearBalance</name>
+  <LeftTotalName>TOTAL ASSETS/FUNDS</LeftTotalName>
+  <LeftResultName>GAIN</LeftResultName>
+  <RightTotalName>TOTAL LIABILITIES/DEBTS</RightTotalName>
+  <LeftName>Assets</LeftName>
+  <RightName>Liabilities</RightName>
+  <LeftTypes>Asset | Credit</LeftTypes>
+  <RightResultName>LOSS</RightResultName>
+  <BalanceLine>
+    <amount2>245700.87</amount2>
+    <amount1>7725.00</amount1>
+    <name2>Hypotheek</name2>
+    <name1>Auto</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>749.84</amount2>
+    <amount1>34.97</amount1>
+    <name2>Kapitaal</name2>
+    <name1>Bank Dara</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>15012.94</amount2>
+    <amount1>2312.74</amount1>
+    <name2>Kapitaal Tay</name2>
+    <name1>Bank David</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>5188.32</amount2>
+    <amount1>1.85</amount1>
+    <name2>Lening Tay</name2>
+    <name1>Bank Tay</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>3585.01</amount2>
+    <amount1>198.24</amount1>
+    <name2>Lening Verbouwing</name2>
+    <name1>Cash</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>400.00</amount2>
+    <amount1>255000.00</amount1>
+    <name2>Pi Maew</name2>
+    <name1>Huis</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>11000.00</amount2>
+    <amount1>17.22</amount1>
+    <name2>Schulden aan ma</name2>
+    <name1>Maaltijdcheques Dara</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>671.41</amount2>
+    <amount1>105.54</amount1>
+    <name2>VISA</name2>
+    <name1>Maaltijdcheques David - C2P</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>4.05</amount1>
+    <name1>Maaltijdcheques David - Isabel</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>2000.00</amount1>
+    <name1>Meubilair</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>15920.79</amount1>
+    <name1>Music Tay</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>11.69</amount1>
+    <name1>Post Dara</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>1108.29</amount1>
+    <name1>Post DebetCard</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>0.07</amount1>
+    <name1>Spaar David</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>2600.00</amount1>
+    <name1>Spaar Sophia</name1>
+  </BalanceLine>
+</Balance>

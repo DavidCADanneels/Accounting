@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Onbekend Tay</name>
+  <type>Cost</type>
+  <Movement>
+    <date>15/8/2013</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>33</journalId>
+    <debit>15.90</debit>
+    <id>3377</id>
+  </Movement>
+  <Movement>
+    <date>8/11/2013</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>65</journalId>
+    <debit>68.20</debit>
+    <id>3445</id>
+  </Movement>
+  <Movement>
+    <date>6/12/2013</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>73</journalId>
+    <debit>55.00</debit>
+    <id>3461</id>
+  </Movement>
+</Account>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Nokia 2220 Tay</name>
+  <type>Cost</type>
+  <Movement>
+    <date>3/11/2011</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>11</journalId>
+    <debit>49.99</debit>
+    <id>473</id>
+  </Movement>
+</Account>

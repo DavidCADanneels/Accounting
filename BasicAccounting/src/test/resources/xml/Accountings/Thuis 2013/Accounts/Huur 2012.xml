@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<?xml-stylesheet type="text/xsl" href="../../../xsl/Account2xml.xsl"?>
+<!DOCTYPE Account SYSTEM "../../../dtd/Account.dtd">
+<Account>
+  <name>Huur 2012</name>
+  <action id="31">
+    <nr>DIV31</nr>
+    <journal_xml>/home/david/Accounting/Thuis 2013/Journals/Diversen.xml</journal_xml>
+    <journal_html>null</journal_html>
+    <date>16/1/2013</date>
+    <credit>600.00</credit>
+    <description>huur</description>
+  </action>
+  <closed type = "credit">
+    <debitTotal>0.00</debitTotal>
+    <creditTotal>600.00</creditTotal>
+    <saldo>600.00</saldo>
+  </closed>
+</Account>

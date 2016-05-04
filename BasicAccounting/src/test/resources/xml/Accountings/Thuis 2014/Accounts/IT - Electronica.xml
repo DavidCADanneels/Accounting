@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>IT - Electronica</name>
+  <type>Cost</type>
+  <Movement>
+    <date>4/1/2014</date>
+    <description>IT = CD-doosjes</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>21</journalId>
+    <debit>27.50</debit>
+    <id>3567</id>
+  </Movement>
+  <Movement>
+    <date>11/1/2014</date>
+    <description>iPad Mini - 70 euro korting</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>37</journalId>
+    <debit>219.00</debit>
+    <id>3607</id>
+  </Movement>
+  <Movement>
+    <date>20/3/2014</date>
+    <description>WD My Cloud</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>235</journalId>
+    <debit>159.00</debit>
+    <id>4062</id>
+  </Movement>
+  <Movement>
+    <date>2/7/2014</date>
+    <description>Raspberry Pi</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>567</journalId>
+    <debit>60.00</debit>
+    <id>4803</id>
+  </Movement>
+  <Movement>
+    <date>18/7/2014</date>
+    <description>wireless keyboard/mouse + mini-SD 16GB</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>619</journalId>
+    <debit>59.98</debit>
+    <id>4916</id>
+  </Movement>
+</Account>

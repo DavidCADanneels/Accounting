@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Meubilair</name>
+  <type>Asset</type>
+  <Movement>
+    <date>1/1/2015</date>
+    <description>Beginbalans</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>4</journalId>
+    <debit>2000.00</debit>
+    <id>5814</id>
+  </Movement>
+</Account>

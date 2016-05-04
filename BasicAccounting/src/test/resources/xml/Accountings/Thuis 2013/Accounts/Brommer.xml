@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Brommer</name>
+  <type>Asset</type>
+  <Movement>
+    <date>1/1/2013</date>
+    <description>Beginbalans</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>2</journalId>
+    <debit>999.00</debit>
+    <id>1996</id>
+  </Movement>
+  <Movement>
+    <date>31/12/2013</date>
+    <description>volledige afschrijving moto en brommer</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>87</journalId>
+    <credit>999.00</credit>
+    <id>3494</id>
+  </Movement>
+</Account>

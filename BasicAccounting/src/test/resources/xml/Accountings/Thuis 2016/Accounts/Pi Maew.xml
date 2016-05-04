@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>400.00</defaultAmount>
+  <name>Pi Maew</name>
+  <type>Debit</type>
+  <Movement>
+    <date>1/1/2016</date>
+    <description>Beginbalans</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>1</journalId>
+    <credit>1000.00</credit>
+    <id>8320</id>
+  </Movement>
+  <Movement>
+    <date>26/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>186</journalId>
+    <debit>1000.00</debit>
+    <id>8728</id>
+  </Movement>
+</Account>

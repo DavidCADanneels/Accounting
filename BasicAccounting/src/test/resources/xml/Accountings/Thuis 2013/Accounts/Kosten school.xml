@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Kosten school</name>
+  <type>Cost</type>
+  <Movement>
+    <date>17/1/2013</date>
+    <debit>23.40</debit>
+    <id>2059</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>34</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>12/2/2013</date>
+    <debit>39.00</debit>
+    <id>2153</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>76</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>6/5/2013</date>
+    <debit>7.80</debit>
+    <id>2392</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>182</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>15/6/2013</date>
+    <debit>36.40</debit>
+    <description>afrekening eindejaar</description>
+    <id>2559</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>257</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>1/7/2013</date>
+    <debit>15.40</debit>
+    <id>2613</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>282</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>17/10/2013</date>
+    <debit>46.40</debit>
+    <id>2967</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>447</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>28/11/2013</date>
+    <debit>40.60</debit>
+    <id>3084</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>499</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+  <Movement>
+    <date>17/12/2013</date>
+    <debit>37.70</debit>
+    <id>3183</id>
+    <journalAbbr>DIV</journalAbbr>
+    <journalId>546</journalId>
+    <journalName>Diversen</journalName>
+  </Movement>
+</Account>

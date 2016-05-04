@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>School</name>
+  <type>Cost</type>
+  <Movement>
+    <date>12/1/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>44</journalId>
+    <debit>43.70</debit>
+    <id>8417</id>
+  </Movement>
+  <Movement>
+    <date>22/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>168</journalId>
+    <debit>62.40</debit>
+    <id>8692</id>
+  </Movement>
+  <Movement>
+    <date>18/3/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>260</journalId>
+    <debit>50.70</debit>
+    <id>8889</id>
+  </Movement>
+</Account>

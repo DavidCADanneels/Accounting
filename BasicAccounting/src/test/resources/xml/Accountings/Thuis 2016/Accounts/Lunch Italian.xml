@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Lunch Italian</name>
+  <type>Cost</type>
+  <Movement>
+    <date>12/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>140</journalId>
+    <debit>5.00</debit>
+    <id>8627</id>
+  </Movement>
+  <Movement>
+    <date>17/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>153</journalId>
+    <debit>13.00</debit>
+    <id>8655</id>
+  </Movement>
+  <Movement>
+    <date>31/3/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>302</journalId>
+    <debit>12.50</debit>
+    <id>8978</id>
+  </Movement>
+  <Movement>
+    <date>8/4/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>345</journalId>
+    <debit>13.00</debit>
+    <id>9079</id>
+  </Movement>
+  <Movement>
+    <date>11/4/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>350</journalId>
+    <debit>5.00</debit>
+    <id>9091</id>
+  </Movement>
+  <Movement>
+    <date>12/4/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>353</journalId>
+    <debit>15.00</debit>
+    <id>9099</id>
+  </Movement>
+</Account>

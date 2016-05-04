@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Media markt</name>
+  <type>Cost</type>
+  <Movement>
+    <date>24/2/2016</date>
+    <description>ketel voor Thailand</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>175</journalId>
+    <debit>22.90</debit>
+    <id>8706</id>
+  </Movement>
+  <Movement>
+    <date>27/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>192</journalId>
+    <debit>129.00</debit>
+    <id>8743</id>
+  </Movement>
+</Account>

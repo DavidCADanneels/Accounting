@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Uitgaan</name>
+  <type>Cost</type>
+  <Movement>
+    <date>9/2/2016</date>
+    <description>BOWL INN</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>12</journalId>
+    <debit>20.00</debit>
+    <id>9142</id>
+  </Movement>
+  <Movement>
+    <date>10/2/2016</date>
+    <description>BOWL INN</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>13</journalId>
+    <debit>20.00</debit>
+    <id>9144</id>
+  </Movement>
+  <Movement>
+    <date>4/3/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>221</journalId>
+    <debit>6.00</debit>
+    <id>8809</id>
+  </Movement>
+  <Movement>
+    <date>9/3/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>240</journalId>
+    <debit>12.00</debit>
+    <id>8848</id>
+  </Movement>
+</Account>

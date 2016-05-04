@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Asian Shop Oostende</name>
+  <type>Cost</type>
+  <Movement>
+    <date>9/8/2011</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>71</journalId>
+    <debit>25.69</debit>
+    <id>160</id>
+  </Movement>
+  <Movement>
+    <date>18/9/2011</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>119</journalId>
+    <debit>84.30</debit>
+    <id>265</id>
+  </Movement>
+  <Movement>
+    <date>30/10/2011</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>151</journalId>
+    <debit>45.61</debit>
+    <id>336</id>
+  </Movement>
+  <Movement>
+    <date>4/12/2011</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>176</journalId>
+    <debit>55.88</debit>
+    <id>392</id>
+  </Movement>
+</Account>

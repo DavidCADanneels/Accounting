@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Lola and Lisa</name>
+  <type>Cost</type>
+  <Movement>
+    <date>14/2/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>135</journalId>
+    <debit>74.98</debit>
+    <id>3844</id>
+  </Movement>
+  <Movement>
+    <date>25/10/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>805</journalId>
+    <debit>15.00</debit>
+    <id>5335</id>
+  </Movement>
+  <Movement>
+    <date>13/11/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>844</journalId>
+    <debit>29.99</debit>
+    <id>5419</id>
+  </Movement>
+</Account>

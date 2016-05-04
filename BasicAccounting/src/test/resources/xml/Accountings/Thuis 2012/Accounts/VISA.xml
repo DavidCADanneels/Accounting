@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>VISA</name>
+  <type>Debit</type>
+  <Movement>
+    <date>25/7/2012</date>
+    <description>Hotel Berlijn</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>290</journalId>
+    <credit>104.08</credit>
+    <id>1210</id>
+  </Movement>
+  <Movement>
+    <date>30/8/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>341</journalId>
+    <debit>104.08</debit>
+    <id>1331</id>
+  </Movement>
+  <Movement>
+    <date>7/11/2012</date>
+    <description>vluchten Airstop</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>420</journalId>
+    <credit>1071.00</credit>
+    <id>1522</id>
+  </Movement>
+  <Movement>
+    <date>30/11/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>443</journalId>
+    <debit>1071.00</debit>
+    <id>1585</id>
+  </Movement>
+  <Movement>
+    <date>9/12/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>460</journalId>
+    <credit>506.74</credit>
+    <id>1634</id>
+  </Movement>
+  <Movement>
+    <date>31/12/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>494</journalId>
+    <debit>506.74</debit>
+    <id>1728</id>
+  </Movement>
+</Account>

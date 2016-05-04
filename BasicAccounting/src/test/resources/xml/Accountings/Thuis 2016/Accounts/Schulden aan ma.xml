@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>200.00</defaultAmount>
+  <name>Schulden aan ma</name>
+  <type>Debit</type>
+  <Movement>
+    <date>1/1/2016</date>
+    <description>Beginbalans</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>1</journalId>
+    <credit>11000.00</credit>
+    <id>8316</id>
+  </Movement>
+  <Movement>
+    <date>8/1/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>29</journalId>
+    <debit>200.00</debit>
+    <id>8386</id>
+  </Movement>
+  <Movement>
+    <date>8/3/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>233</journalId>
+    <debit>200.00</debit>
+    <id>8834</id>
+  </Movement>
+  <Movement>
+    <date>8/4/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>342</journalId>
+    <debit>200.00</debit>
+    <id>9073</id>
+  </Movement>
+</Account>

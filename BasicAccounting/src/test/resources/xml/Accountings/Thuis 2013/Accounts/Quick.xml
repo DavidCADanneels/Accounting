@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Quick</name>
+  <type>Cost</type>
+  <Movement>
+    <date>15/1/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>28</journalId>
+    <debit>6.90</debit>
+    <id>2060</id>
+  </Movement>
+  <Movement>
+    <date>15/11/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>483</journalId>
+    <debit>13.10</debit>
+    <id>3059</id>
+  </Movement>
+  <Movement>
+    <date>15/11/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>483</journalId>
+    <debit>7.50</debit>
+    <id>3060</id>
+  </Movement>
+  <Movement>
+    <date>31/12/2013</date>
+    <description>McDonalds Gent</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>579</journalId>
+    <debit>18.70</debit>
+    <id>3268</id>
+  </Movement>
+</Account>

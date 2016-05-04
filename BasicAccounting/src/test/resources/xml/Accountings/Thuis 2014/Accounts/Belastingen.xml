@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Belastingen</name>
+  <type>Revenue</type>
+  <Movement>
+    <date>2/4/2014</date>
+    <description>Stad Brugge</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>281</journalId>
+    <debit>55.00</debit>
+    <id>4174</id>
+  </Movement>
+  <Movement>
+    <date>5/7/2014</date>
+    <description>Verkeersbelasting</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>583</journalId>
+    <debit>224.14</debit>
+    <id>4840</id>
+  </Movement>
+  <Movement>
+    <date>4/8/2014</date>
+    <description>Provincie</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>666</journalId>
+    <debit>38.00</debit>
+    <id>5022</id>
+  </Movement>
+  <Movement>
+    <date>9/10/2014</date>
+    <description>Belasting huis</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>784</journalId>
+    <debit>934.61</debit>
+    <id>5293</id>
+  </Movement>
+  <Movement>
+    <date>27/11/2014</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>53</journalId>
+    <credit>1171.06</credit>
+    <id>5763</id>
+  </Movement>
+</Account>

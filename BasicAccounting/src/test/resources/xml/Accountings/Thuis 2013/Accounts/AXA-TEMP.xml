@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>AXA-TEMP</name>
+  <type>Cost</type>
+  <Movement>
+    <date>21/5/2013</date>
+    <description>afrekening verzekering oud huis</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>220</journalId>
+    <credit>89.16</credit>
+    <id>2497</id>
+  </Movement>
+  <Movement>
+    <date>27/5/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>226</journalId>
+    <debit>46.43</debit>
+    <id>2508</id>
+  </Movement>
+  <Movement>
+    <date>26/6/2013</date>
+    <description>terugstorting Notaris</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>274</journalId>
+    <credit>54.77</credit>
+    <id>2609</id>
+  </Movement>
+  <Movement>
+    <date>16/7/2013</date>
+    <description>622340217025</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>318</journalId>
+    <debit>46.43</debit>
+    <id>2705</id>
+  </Movement>
+  <Movement>
+    <date>5/11/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>468</journalId>
+    <debit>165.59</debit>
+    <id>3023</id>
+  </Movement>
+  <Movement>
+    <date>5/11/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>468</journalId>
+    <debit>46.43</debit>
+    <id>3024</id>
+  </Movement>
+  <Movement>
+    <date>31/12/2013</date>
+    <description>CHECK: correct?</description>
+    <journalAbbr>TRF</journalAbbr>
+    <journalName>Transfer</journalName>
+    <journalId>5</journalId>
+    <credit>160.95</credit>
+    <id>3505</id>
+  </Movement>
+</Account>

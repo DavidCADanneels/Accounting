@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Gekregen van ma</name>
+  <type>Revenue</type>
+  <Movement>
+    <date>10/2/2014</date>
+    <description>500 moet niet worden terugbetaald</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>118</journalId>
+    <credit>500.00</credit>
+    <id>3811</id>
+  </Movement>
+</Account>

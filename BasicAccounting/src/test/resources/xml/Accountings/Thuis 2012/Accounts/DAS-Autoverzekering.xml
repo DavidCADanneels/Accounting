@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>29.25</defaultAmount>
+  <name>DAS-Autoverzekering</name>
+  <type>Cost</type>
+  <Movement>
+    <date>11/6/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>220</journalId>
+    <debit>26.61</debit>
+    <id>1035</id>
+  </Movement>
+  <Movement>
+    <date>19/9/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>363</journalId>
+    <debit>29.25</debit>
+    <id>1381</id>
+  </Movement>
+  <Movement>
+    <date>11/12/2012</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>463</journalId>
+    <debit>29.25</debit>
+    <id>1639</id>
+  </Movement>
+</Account>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Zara</name>
+  <type>Cost</type>
+  <Movement>
+    <date>28/3/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>257</journalId>
+    <debit>21.95</debit>
+    <id>4121</id>
+  </Movement>
+  <Movement>
+    <date>1/8/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>658</journalId>
+    <debit>93.75</debit>
+    <id>5002</id>
+  </Movement>
+</Account>

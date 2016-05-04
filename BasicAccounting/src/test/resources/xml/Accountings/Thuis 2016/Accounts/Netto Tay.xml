@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Netto Tay</name>
+  <type>Revenue</type>
+  <Movement>
+    <date>11/1/2016</date>
+    <description>Hvw</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>5</journalId>
+    <credit>938.57</credit>
+    <id>9127</id>
+  </Movement>
+  <Movement>
+    <date>2/2/2016</date>
+    <description>HVW</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>7</journalId>
+    <credit>1038.40</credit>
+    <id>9132</id>
+  </Movement>
+  <Movement>
+    <date>2/3/2016</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>18</journalId>
+    <credit>998.46</credit>
+    <id>9155</id>
+  </Movement>
+  <Movement>
+    <date>1/4/2016</date>
+    <description>Hvw</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>21</journalId>
+    <credit>1078.34</credit>
+    <id>9164</id>
+  </Movement>
+</Account>

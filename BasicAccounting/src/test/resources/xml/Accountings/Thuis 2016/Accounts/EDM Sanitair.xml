@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>487.60</defaultAmount>
+  <name>EDM Sanitair</name>
+  <type>Cost</type>
+  <Movement>
+    <date>30/3/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>293</journalId>
+    <debit>487.60</debit>
+    <id>8959</id>
+  </Movement>
+</Account>

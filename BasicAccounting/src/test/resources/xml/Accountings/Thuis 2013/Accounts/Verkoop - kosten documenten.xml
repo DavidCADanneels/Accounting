@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Verkoop - kosten documenten</name>
+  <type>Cost</type>
+  <Movement>
+    <date>12/3/2013</date>
+    <description>Verkoop huis</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>105</journalId>
+    <debit>209.67</debit>
+    <id>2232</id>
+  </Movement>
+  <Movement>
+    <date>13/5/2013</date>
+    <description>Afronden aankoop-verkoop</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>206</journalId>
+    <credit>209.67</credit>
+    <id>2468</id>
+  </Movement>
+</Account>

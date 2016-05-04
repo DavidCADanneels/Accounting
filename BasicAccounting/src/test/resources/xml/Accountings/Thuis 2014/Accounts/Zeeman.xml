@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Zeeman</name>
+  <type>Cost</type>
+  <Movement>
+    <date>4/1/2014</date>
+    <description>kleertjes Sophia: hoeslaken</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>20</journalId>
+    <debit>17.97</debit>
+    <id>3561</id>
+  </Movement>
+  <Movement>
+    <date>12/3/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>214</journalId>
+    <debit>40.01</debit>
+    <id>4018</id>
+  </Movement>
+  <Movement>
+    <date>2/5/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>365</journalId>
+    <debit>25.72</debit>
+    <id>4356</id>
+  </Movement>
+  <Movement>
+    <date>2/5/2014</date>
+    <description>Sluis</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>367</journalId>
+    <debit>1.79</debit>
+    <id>4361</id>
+  </Movement>
+  <Movement>
+    <date>11/6/2014</date>
+    <description>Oostende</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>496</journalId>
+    <debit>7.89</debit>
+    <id>4646</id>
+  </Movement>
+</Account>

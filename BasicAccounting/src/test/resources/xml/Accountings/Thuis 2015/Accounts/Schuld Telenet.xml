@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>55.03</defaultAmount>
+  <name>Schuld Telenet</name>
+  <type>Debit</type>
+  <Movement>
+    <date>1/10/2015</date>
+    <description>te betalen voor 30-10-15</description>
+    <journalAbbr>SCH</journalAbbr>
+    <journalName>Schulden</journalName>
+    <journalId>4</journalId>
+    <credit>55.03</credit>
+    <id>8074</id>
+  </Movement>
+  <Movement>
+    <date>14/10/2015</date>
+    <journalAbbr>SCH</journalAbbr>
+    <journalName>Schulden</journalName>
+    <journalId>6</journalId>
+    <debit>55.03</debit>
+    <id>8077</id>
+  </Movement>
+</Account>

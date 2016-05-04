@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Belgacom Store</name>
+  <type>Cost</type>
+  <Movement>
+    <date>5/5/2012</date>
+    <description>nieuwe GSM?</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>161</journalId>
+    <debit>139.99</debit>
+    <id>891</id>
+  </Movement>
+</Account>

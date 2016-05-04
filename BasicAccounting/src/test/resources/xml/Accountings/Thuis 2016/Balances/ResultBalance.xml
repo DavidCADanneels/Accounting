@@ -1,0 +1,327 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Balance SYSTEM "../../../../dtd/Balance.dtd">
+<Balance>
+  <RightTypes>Revenue</RightTypes>
+  <name>ResultBalance</name>
+  <LeftTotalName>TOTAL COSTS</LeftTotalName>
+  <LeftResultName>LOSS</LeftResultName>
+  <RightTotalName>TOTAL INCOME</RightTotalName>
+  <LeftName>Costs</LeftName>
+  <RightName>Revenue</RightName>
+  <LeftTypes>Cost</LeftTypes>
+  <RightResultName>GAIN</RightResultName>
+  <BalanceLine>
+    <amount2>3953.62</amount2>
+    <amount1>112.48</amount1>
+    <name2>Belastingen</name2>
+    <name1>AXA-Bijstandsverzekering</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>300.00</amount2>
+    <amount1>145.76</amount1>
+    <name2>Giften UK</name2>
+    <name1>AXA-Brandverzekering</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>1092.24</amount2>
+    <amount1>228.48</amount1>
+    <name2>Kindergeld</name2>
+    <name1>AXA-Levensverzekering</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>3368.50</amount2>
+    <amount1>50.57</amount1>
+    <name2>Netto Dara</name2>
+    <name1>AXA-MotoVerzekering</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>7793.34</amount2>
+    <amount1>41.06</amount1>
+    <name2>Netto David</name2>
+    <name1>Action</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>4053.77</amount2>
+    <amount1>79.87</amount1>
+    <name2>Netto Tay</name2>
+    <name1>Aldi</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount2>500.00</amount2>
+    <amount1>210.35</amount1>
+    <name2>Verkoop goud</name2>
+    <name1>Allerlei</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>72.15</amount1>
+    <name1>Apotheek</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>77.40</amount1>
+    <name1>Aqualibi</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>28.64</amount1>
+    <name1>Bankkosten</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>39.98</amount1>
+    <name1>Bart Smit</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>84.98</amount1>
+    <name1>Benzine</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>5.00</amount1>
+    <name1>Bibliotheek</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>28.73</amount1>
+    <name1>Blokker</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>80.00</amount1>
+    <name1>Boetes</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>1042.33</amount1>
+    <name1>Brico</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>307.89</amount1>
+    <name1>Brico Plan-IT</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>212.23</amount1>
+    <name1>Buurtslagers</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>30.00</amount1>
+    <name1>C en A</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>126.38</amount1>
+    <name1>CM</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>808.58</amount1>
+    <name1>Carrefour</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>229.24</amount1>
+    <name1>Colruyt</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>174.31</amount1>
+    <name1>Corona Electro</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>97.50</amount1>
+    <name1>Delhaize</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>54.00</amount1>
+    <name1>Dokter</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>36.00</amount1>
+    <name1>Domino Pizza</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>487.60</amount1>
+    <name1>EDM Sanitair</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>75.20</amount1>
+    <name1>Eandis</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>661.63</amount1>
+    <name1>Essent</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>19.99</amount1>
+    <name1>Fitness</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>22.20</amount1>
+    <name1>Frietkot</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>23.00</amount1>
+    <name1>Glamodiosa</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>29.98</amount1>
+    <name1>H en M</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>67.90</amount1>
+    <name1>ICI Paris XL</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>42.35</amount1>
+    <name1>INNO</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>2822.68</amount1>
+    <name1>Intrest Huis</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>141.48</amount1>
+    <name1>Intrest Lening Tay</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>39.21</amount1>
+    <name1>Intrest Verbouwing</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>150.00</amount1>
+    <name1>Kamp Kazou</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>479.30</amount1>
+    <name1>KinderOpvang</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>8.22</amount1>
+    <name1>Kringwinkel</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>27.65</amount1>
+    <name1>Kruidvat</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>23.99</amount1>
+    <name1>L en L</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>185.45</amount1>
+    <name1>Leenbakker</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>77.40</amount1>
+    <name1>Lenzen</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>171.30</amount1>
+    <name1>Libertys</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>972.78</amount1>
+    <name1>Lidl</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>63.50</amount1>
+    <name1>Lunch Italian</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>267.45</amount1>
+    <name1>Lunch Johnsons Control</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>151.90</amount1>
+    <name1>Media markt</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>156.70</amount1>
+    <name1>Nightshop Biekorf</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>58.20</amount1>
+    <name1>Onbekend</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>32.35</amount1>
+    <name1>Ontbijt</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>43.84</amount1>
+    <name1>Parking</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>36.00</amount1>
+    <name1>Pitta Diegem</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>78.72</amount1>
+    <name1>Premaman</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>37.30</amount1>
+    <name1>Quick</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>174.20</amount1>
+    <name1>Restaurant</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>156.80</amount1>
+    <name1>School</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>25.90</amount1>
+    <name1>Six Nations</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>31.87</amount1>
+    <name1>Smatch</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>19.98</amount1>
+    <name1>Spotify</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>516.15</amount1>
+    <name1>Telenet</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>555.38</amount1>
+    <name1>Thai Shop Brugge</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>50.29</amount1>
+    <name1>Thai Shop Lichtervelde</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>5087.00</amount1>
+    <name1>Thailand</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>105.95</amount1>
+    <name1>Torfs</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>10.40</amount1>
+    <name1>Trein</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>58.00</amount1>
+    <name1>Uitgaan</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>6.00</amount1>
+    <name1>Visakosten</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>665.00</amount1>
+    <name1>Vliegticket</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>231.24</amount1>
+    <name1>Water</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>345.40</amount1>
+    <name1>Zaal</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>53.75</amount1>
+    <name1>Zara</name1>
+  </BalanceLine>
+  <BalanceLine>
+    <amount1>94.69</amount1>
+    <name1>Ziekenhuis</name1>
+  </BalanceLine>
+</Balance>

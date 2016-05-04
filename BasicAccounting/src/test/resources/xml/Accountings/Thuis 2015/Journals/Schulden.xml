@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Journal SYSTEM "../../../../dtd/Journal.dtd">
+<Journal>
+  <abbr>SCH</abbr>
+  <name>Schulden</name>
+  <type>default</type>
+  <Transaction>
+    <date>1/10/2015</date>
+    <description>te betalen voor 23-11-15</description>
+    <id>1</id>
+    <Booking>
+      <Account>Belastingen</Account>
+      <debit>797.69</debit>
+      <id>8067</id>
+    </Booking>
+    <Booking>
+      <Account>Belastingen Tay</Account>
+      <credit>797.69</credit>
+      <id>8068</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>1/10/2015</date>
+    <description>te betalen voor 24-11-15</description>
+    <id>2</id>
+    <Booking>
+      <Account>AXA-BrommerVerzekering</Account>
+      <debit>153.25</debit>
+      <id>8069</id>
+    </Booking>
+    <Booking>
+      <Account>AXA Dara</Account>
+      <credit>153.25</credit>
+      <id>8070</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>1/10/2015</date>
+    <description>te betalen voor 22-10-15</description>
+    <id>3</id>
+    <Booking>
+      <Account>Ziekenhuis</Account>
+      <debit>130.31</debit>
+      <id>8071</id>
+    </Booking>
+    <Booking>
+      <Account>Ziekenhuis Dara</Account>
+      <credit>130.31</credit>
+      <id>8072</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>1/10/2015</date>
+    <description>te betalen voor 30-10-15</description>
+    <id>4</id>
+    <Booking>
+      <Account>Telenet</Account>
+      <debit>55.03</debit>
+      <id>8073</id>
+    </Booking>
+    <Booking>
+      <Account>Schuld Telenet</Account>
+      <credit>55.03</credit>
+      <id>8074</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>1/10/2015</date>
+    <id>5</id>
+    <Booking>
+      <Account>KinderOpvang</Account>
+      <debit>145.35</debit>
+      <id>8075</id>
+    </Booking>
+    <Booking>
+      <Account>Schuld Opvang</Account>
+      <credit>145.35</credit>
+      <id>8076</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>14/10/2015</date>
+    <id>6</id>
+    <Booking>
+      <Account>Schuld Telenet</Account>
+      <debit>55.03</debit>
+      <id>8077</id>
+    </Booking>
+    <Booking>
+      <Account>Bank David</Account>
+      <credit>55.03</credit>
+      <id>8078</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>24/10/2015</date>
+    <id>7</id>
+    <Booking>
+      <Account>Ziekenhuis Dara</Account>
+      <debit>130.31</debit>
+      <id>8079</id>
+    </Booking>
+    <Booking>
+      <Account>Bank David</Account>
+      <credit>130.31</credit>
+      <id>8080</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>24/10/2015</date>
+    <description>september</description>
+    <id>8</id>
+    <Booking>
+      <Account>Schuld Opvang</Account>
+      <debit>145.35</debit>
+      <id>8081</id>
+    </Booking>
+    <Booking>
+      <Account>Bank David</Account>
+      <credit>145.35</credit>
+      <id>8082</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>3/11/2015</date>
+    <id>9</id>
+    <Booking>
+      <Account>AXA Dara</Account>
+      <debit>153.25</debit>
+      <id>8083</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Dara</Account>
+      <credit>153.25</credit>
+      <id>8084</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>5/11/2015</date>
+    <id>10</id>
+    <Booking>
+      <Account>Belastingen Tay</Account>
+      <debit>797.69</debit>
+      <id>8085</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>797.69</credit>
+      <id>8086</id>
+    </Booking>
+  </Transaction>
+    <CurrentObject>null</CurrentObject>
+</Journal>

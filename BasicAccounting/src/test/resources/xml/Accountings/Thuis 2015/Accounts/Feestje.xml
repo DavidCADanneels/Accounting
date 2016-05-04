@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Feestje</name>
+  <type>Revenue</type>
+  <Movement>
+    <date>6/1/2015</date>
+    <description>Chang Beer Thai Shop</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>26</journalId>
+    <debit>205.00</debit>
+    <id>5870</id>
+  </Movement>
+  <Movement>
+    <date>15/1/2015</date>
+    <description>Brugse Vleescentrale</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>60</journalId>
+    <debit>139.84</debit>
+    <id>5946</id>
+  </Movement>
+  <Movement>
+    <date>16/1/2015</date>
+    <description>Tom Leen en Mieke</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>63</journalId>
+    <credit>45.00</credit>
+    <id>5956</id>
+  </Movement>
+  <Movement>
+    <date>16/1/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>68</journalId>
+    <credit>1000.00</credit>
+    <id>5967</id>
+  </Movement>
+  <Movement>
+    <date>18/1/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>74</journalId>
+    <debit>413.80</debit>
+    <id>5979</id>
+  </Movement>
+</Account>

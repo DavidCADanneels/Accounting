@@ -1,0 +1,372 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Journal SYSTEM "../../../../dtd/Journal.dtd">
+<Journal>
+  <abbr>TAY</abbr>
+  <name>Tay</name>
+  <type>default</type>
+  <Transaction>
+    <date>4/1/2016</date>
+    <id>1</id>
+    <Booking>
+      <Account>Bankkosten</Account>
+      <debit>0.26</debit>
+      <id>9117</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>0.26</credit>
+      <id>9118</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>6/1/2016</date>
+    <id>2</id>
+    <Booking>
+      <Account>Lening Tay</Account>
+      <debit>1.59</debit>
+      <id>9119</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>1.59</credit>
+      <id>9120</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>7/1/2016</date>
+    <id>3</id>
+    <Booking>
+      <Account>CM</Account>
+      <debit>18.57</debit>
+      <id>9121</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>18.57</credit>
+      <id>9122</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>11/1/2016</date>
+    <id>4</id>
+    <Booking>
+      <Account>Intrest Lening Tay</Account>
+      <debit>36.98</debit>
+      <id>9123</id>
+    </Booking>
+    <Booking>
+      <Account>Lening Tay</Account>
+      <debit>148.56</debit>
+      <id>9124</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>185.54</credit>
+      <id>9125</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>11/1/2016</date>
+    <description>Hvw</description>
+    <id>5</id>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <debit>938.57</debit>
+      <id>9126</id>
+    </Booking>
+    <Booking>
+      <Account>Netto Tay</Account>
+      <credit>938.57</credit>
+      <id>9127</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>14/1/2016</date>
+    <id>6</id>
+    <Booking>
+      <Account>Thailand</Account>
+      <debit>960.00</debit>
+      <id>9128</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>500.00</credit>
+      <id>9129</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>460.00</credit>
+      <id>9130</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>2/2/2016</date>
+    <description>HVW</description>
+    <id>7</id>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <debit>1038.40</debit>
+      <id>9131</id>
+    </Booking>
+    <Booking>
+      <Account>Netto Tay</Account>
+      <credit>1038.40</credit>
+      <id>9132</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>4/2/2016</date>
+    <id>8</id>
+    <Booking>
+      <Account>Thailand</Account>
+      <debit>530.00</debit>
+      <id>9133</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>530.00</credit>
+      <id>9134</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>8/2/2016</date>
+    <id>9</id>
+    <Booking>
+      <Account>Lening Tay</Account>
+      <debit>151.22</debit>
+      <id>9135</id>
+    </Booking>
+    <Booking>
+      <Account>Intrest Lening Tay</Account>
+      <debit>35.91</debit>
+      <id>9136</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>187.13</credit>
+      <id>9137</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>8/2/2016</date>
+    <id>10</id>
+    <Booking>
+      <Account>Brico</Account>
+      <debit>69.57</debit>
+      <id>9138</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>69.57</credit>
+      <id>9139</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>9/2/2016</date>
+    <description>tSchaak</description>
+    <id>11</id>
+    <Booking>
+      <Account>Allerlei</Account>
+      <debit>12.25</debit>
+      <id>9140</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>12.25</credit>
+      <id>9141</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>9/2/2016</date>
+    <description>BOWL INN</description>
+    <id>12</id>
+    <Booking>
+      <Account>Uitgaan</Account>
+      <debit>20.00</debit>
+      <id>9142</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>20.00</credit>
+      <id>9143</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>10/2/2016</date>
+    <description>BOWL INN</description>
+    <id>13</id>
+    <Booking>
+      <Account>Uitgaan</Account>
+      <debit>20.00</debit>
+      <id>9144</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>20.00</credit>
+      <id>9145</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>10/2/2016</date>
+    <description>Pandora Jewelry</description>
+    <id>14</id>
+    <Booking>
+      <Account>Allerlei</Account>
+      <debit>129.00</debit>
+      <id>9146</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>129.00</credit>
+      <id>9147</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>11/2/2016</date>
+    <id>15</id>
+    <Booking>
+      <Account>Onbekend</Account>
+      <debit>10.20</debit>
+      <id>9148</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>10.20</credit>
+      <id>9149</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>15/2/2016</date>
+    <id>16</id>
+    <Booking>
+      <Account>Benzine</Account>
+      <debit>2.00</debit>
+      <id>9150</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>2.00</credit>
+      <id>9151</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>15/2/2016</date>
+    <id>17</id>
+    <Booking>
+      <Account>Cash</Account>
+      <debit>60.00</debit>
+      <id>9152</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>60.00</credit>
+      <id>9153</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>2/3/2016</date>
+    <id>18</id>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <debit>998.46</debit>
+      <id>9154</id>
+    </Booking>
+    <Booking>
+      <Account>Netto Tay</Account>
+      <credit>998.46</credit>
+      <id>9155</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>7/3/2016</date>
+    <id>19</id>
+    <Booking>
+      <Account>Lening Tay</Account>
+      <debit>152.29</debit>
+      <id>9156</id>
+    </Booking>
+    <Booking>
+      <Account>Intrest Lening Tay</Account>
+      <debit>34.84</debit>
+      <id>9157</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>187.13</credit>
+      <id>9158</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>7/3/2016</date>
+    <id>20</id>
+    <Booking>
+      <Account>Cash</Account>
+      <debit>200.00</debit>
+      <id>9159</id>
+    </Booking>
+    <Booking>
+      <Account>Cash</Account>
+      <debit>100.00</debit>
+      <id>9160</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>200.00</credit>
+      <id>9161</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>100.00</credit>
+      <id>9162</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>1/4/2016</date>
+    <description>Hvw</description>
+    <id>21</id>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <debit>1078.34</debit>
+      <id>9163</id>
+    </Booking>
+    <Booking>
+      <Account>Netto Tay</Account>
+      <credit>1078.34</credit>
+      <id>9164</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>6/4/2016</date>
+    <id>22</id>
+    <Booking>
+      <Account>Lening Tay</Account>
+      <debit>153.38</debit>
+      <id>9165</id>
+    </Booking>
+    <Booking>
+      <Account>Intrest Lening Tay</Account>
+      <debit>33.75</debit>
+      <id>9166</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>187.13</credit>
+      <id>9167</id>
+    </Booking>
+  </Transaction>
+  <Transaction>
+    <date>8/4/2016</date>
+    <id>23</id>
+    <Booking>
+      <Account>CM</Account>
+      <debit>18.57</debit>
+      <id>9168</id>
+    </Booking>
+    <Booking>
+      <Account>Bank Tay</Account>
+      <credit>18.57</credit>
+      <id>9169</id>
+    </Booking>
+  </Transaction>
+    <CurrentObject>null</CurrentObject>
+</Journal>

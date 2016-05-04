@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Music Tay</name>
+  <type>Asset</type>
+  <Movement>
+    <date>17/9/2013</date>
+    <description>Key Music</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>47</journalId>
+    <debit>250.00</debit>
+    <id>3409</id>
+  </Movement>
+  <Movement>
+    <date>30/9/2013</date>
+    <description>Key Music</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>51</journalId>
+    <debit>595.36</debit>
+    <id>3417</id>
+  </Movement>
+  <Movement>
+    <date>4/11/2013</date>
+    <description>Saturn</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>62</journalId>
+    <debit>868.99</debit>
+    <id>3439</id>
+  </Movement>
+  <Movement>
+    <date>6/11/2013</date>
+    <description>Saturn</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>63</journalId>
+    <debit>128.00</debit>
+    <id>3441</id>
+  </Movement>
+  <Movement>
+    <date>8/11/2013</date>
+    <description>Saturn</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>64</journalId>
+    <debit>72.98</debit>
+    <id>3443</id>
+  </Movement>
+  <Movement>
+    <date>2/12/2013</date>
+    <description>Saturn</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>69</journalId>
+    <debit>275.99</debit>
+    <id>3453</id>
+  </Movement>
+  <Movement>
+    <date>16/12/2013</date>
+    <description>Key Music</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>80</journalId>
+    <debit>150.86</debit>
+    <id>3477</id>
+  </Movement>
+  <Movement>
+    <date>16/12/2013</date>
+    <description>Key Music</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>80</journalId>
+    <debit>150.85</debit>
+    <id>3478</id>
+  </Movement>
+  <Movement>
+    <date>17/12/2013</date>
+    <description>Saturn</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>81</journalId>
+    <debit>34.98</debit>
+    <id>3481</id>
+  </Movement>
+  <Movement>
+    <date>18/12/2013</date>
+    <description>Key Music</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>82</journalId>
+    <debit>92.13</debit>
+    <id>3483</id>
+  </Movement>
+</Account>

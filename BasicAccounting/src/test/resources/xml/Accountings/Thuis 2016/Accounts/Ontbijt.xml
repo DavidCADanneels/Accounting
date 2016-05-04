@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>4.75</defaultAmount>
+  <name>Ontbijt</name>
+  <type>Cost</type>
+  <Movement>
+    <date>8/1/2016</date>
+    <description>Vier seizoenen</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>31</journalId>
+    <debit>2.55</debit>
+    <id>8390</id>
+  </Movement>
+  <Movement>
+    <date>28/1/2016</date>
+    <description>Martino en koffie</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>84</journalId>
+    <debit>4.75</debit>
+    <id>8502</id>
+  </Movement>
+  <Movement>
+    <date>28/1/2016</date>
+    <description>Martino en koffie</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>84</journalId>
+    <debit>1.80</debit>
+    <id>8503</id>
+  </Movement>
+  <Movement>
+    <date>17/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>154</journalId>
+    <debit>4.75</debit>
+    <id>8657</id>
+  </Movement>
+  <Movement>
+    <date>3/3/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>212</journalId>
+    <debit>4.75</debit>
+    <id>8787</id>
+  </Movement>
+  <Movement>
+    <date>7/3/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>229</journalId>
+    <debit>4.75</debit>
+    <id>8826</id>
+  </Movement>
+  <Movement>
+    <date>14/3/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>247</journalId>
+    <debit>4.75</debit>
+    <id>8862</id>
+  </Movement>
+  <Movement>
+    <date>12/4/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>354</journalId>
+    <debit>4.25</debit>
+    <id>9101</id>
+  </Movement>
+</Account>

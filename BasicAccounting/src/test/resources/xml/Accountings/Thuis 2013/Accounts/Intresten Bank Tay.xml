@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Intresten Bank Tay</name>
+  <type>Cost</type>
+  <Movement>
+    <date>1/1/2013</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>1</journalId>
+    <credit>0.96</credit>
+    <id>3313</id>
+  </Movement>
+</Account>

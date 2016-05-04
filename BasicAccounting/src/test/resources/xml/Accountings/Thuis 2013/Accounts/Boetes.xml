@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Boetes</name>
+  <type>Cost</type>
+  <Movement>
+    <date>17/1/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>35</journalId>
+    <debit>50.00</debit>
+    <id>2074</id>
+  </Movement>
+  <Movement>
+    <date>3/9/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>384</journalId>
+    <debit>55.00</debit>
+    <id>2843</id>
+  </Movement>
+  <Movement>
+    <date>9/9/2013</date>
+    <description>Gentbrugge Viaduct</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>399</journalId>
+    <debit>50.00</debit>
+    <id>2879</id>
+  </Movement>
+  <Movement>
+    <date>9/9/2013</date>
+    <description>Gentbrugge Viaduct</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>399</journalId>
+    <debit>50.00</debit>
+    <id>2880</id>
+  </Movement>
+  <Movement>
+    <date>29/9/2013</date>
+    <description>Leidschendam (NL)</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>422</journalId>
+    <debit>87.00</debit>
+    <id>2927</id>
+  </Movement>
+</Account>

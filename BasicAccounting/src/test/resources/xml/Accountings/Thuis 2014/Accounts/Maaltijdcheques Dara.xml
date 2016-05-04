@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Maaltijdcheques Dara</name>
+  <type>Asset</type>
+  <Movement>
+    <date>1/12/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>879</journalId>
+    <debit>24.00</debit>
+    <id>5489</id>
+  </Movement>
+  <Movement>
+    <date>26/12/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>945</journalId>
+    <credit>14.95</credit>
+    <id>5634</id>
+  </Movement>
+</Account>

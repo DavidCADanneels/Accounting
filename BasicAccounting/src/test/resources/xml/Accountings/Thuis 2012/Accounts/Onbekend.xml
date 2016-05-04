@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Onbekend</name>
+  <type>Cost</type>
+  <Movement>
+    <date>18/2/2012</date>
+    <description>Gebox Mouscron</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>57</journalId>
+    <debit>89.95</debit>
+    <id>646</id>
+  </Movement>
+  <Movement>
+    <date>6/9/2012</date>
+    <description>Nebaco</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>350</journalId>
+    <debit>39.95</debit>
+    <id>1351</id>
+  </Movement>
+  <Movement>
+    <date>29/10/2012</date>
+    <description>Brussel</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>408</journalId>
+    <debit>16.40</debit>
+    <id>1487</id>
+  </Movement>
+</Account>

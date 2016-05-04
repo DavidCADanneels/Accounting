@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Pitta Diegem</name>
+  <type>Cost</type>
+  <Movement>
+    <date>16/10/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>807</journalId>
+    <debit>6.00</debit>
+    <id>7607</id>
+  </Movement>
+  <Movement>
+    <date>22/10/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>819</journalId>
+    <debit>6.00</debit>
+    <id>7632</id>
+  </Movement>
+  <Movement>
+    <date>13/11/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>893</journalId>
+    <debit>6.00</debit>
+    <id>7791</id>
+  </Movement>
+</Account>

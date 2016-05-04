@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Beltegoed internet</name>
+  <type>Cost</type>
+  <Movement>
+    <date>30/3/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>132</journalId>
+    <debit>75.00</debit>
+    <id>2296</id>
+  </Movement>
+</Account>

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>150.00</defaultAmount>
+  <name>Kamp Kazou</name>
+  <type>Cost</type>
+  <Movement>
+    <date>22/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>167</journalId>
+    <debit>150.00</debit>
+    <id>8690</id>
+  </Movement>
+</Account>

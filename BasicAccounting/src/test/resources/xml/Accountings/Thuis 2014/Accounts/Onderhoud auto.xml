@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>212.89</defaultAmount>
+  <name>Onderhoud auto</name>
+  <type>Cost</type>
+  <Movement>
+    <date>19/12/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>927</journalId>
+    <debit>212.89</debit>
+    <id>5596</id>
+  </Movement>
+</Account>

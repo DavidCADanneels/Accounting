@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Eco-cheques</name>
+  <type>Asset</type>
+  <Movement>
+    <date>1/7/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>512</journalId>
+    <debit>209.25</debit>
+    <id>6959</id>
+  </Movement>
+  <Movement>
+    <date>11/7/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>544</journalId>
+    <credit>209.25</credit>
+    <id>7040</id>
+  </Movement>
+</Account>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Meubilair</name>
+  <type>Asset</type>
+  <Movement>
+    <date>29/4/2013</date>
+    <description>Vereffening notaris - aankoop Invalidenstraat</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>176</journalId>
+    <debit>4000.00</debit>
+    <id>2391</id>
+  </Movement>
+  <Movement>
+    <date>13/5/2013</date>
+    <description>Visa: aankoop TV, friteuse (TH) en vluchten naar Udon</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>210</journalId>
+    <debit>399.00</debit>
+    <id>2475</id>
+  </Movement>
+  <Movement>
+    <date>3/7/2013</date>
+    <description>Saturn: frigo</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>296</journalId>
+    <debit>138.98</debit>
+    <id>2654</id>
+  </Movement>
+  <Movement>
+    <date>19/12/2013</date>
+    <description>Bed grote kamer</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>549</journalId>
+    <debit>175.00</debit>
+    <id>3202</id>
+  </Movement>
+  <Movement>
+    <date>19/12/2013</date>
+    <description>ATM: Bed Sophia</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>551</journalId>
+    <debit>269.00</debit>
+    <id>3207</id>
+  </Movement>
+</Account>

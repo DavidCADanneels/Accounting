@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Boetes</name>
+  <type>Cost</type>
+  <Movement>
+    <date>29/2/2016</date>
+    <description>snelheidsovertreding E40</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>198</journalId>
+    <debit>80.00</debit>
+    <id>8756</id>
+  </Movement>
+</Account>

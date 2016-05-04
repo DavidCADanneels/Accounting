@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>AXA-Autoverzekering</name>
+  <type>Cost</type>
+  <Movement>
+    <date>4/1/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>15</journalId>
+    <debit>25.93</debit>
+    <id>2030</id>
+  </Movement>
+  <Movement>
+    <date>6/2/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>68</journalId>
+    <debit>25.93</debit>
+    <id>2144</id>
+  </Movement>
+  <Movement>
+    <date>7/3/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>101</journalId>
+    <debit>25.93</debit>
+    <id>2218</id>
+  </Movement>
+  <Movement>
+    <date>5/4/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>142</journalId>
+    <debit>25.93</debit>
+    <id>2316</id>
+  </Movement>
+  <Movement>
+    <date>7/5/2013</date>
+    <description>Verzekeringen mei</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>190</journalId>
+    <debit>25.93</debit>
+    <id>2421</id>
+  </Movement>
+</Account>

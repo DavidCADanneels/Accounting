@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Spaar Sophia</name>
+  <type>Asset</type>
+  <Movement>
+    <date>1/1/2013</date>
+    <description>Beginbalans</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>2</journalId>
+    <debit>2200.00</debit>
+    <id>1992</id>
+  </Movement>
+  <Movement>
+    <date>6/2/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>68</journalId>
+    <debit>200.00</debit>
+    <id>2145</id>
+  </Movement>
+</Account>

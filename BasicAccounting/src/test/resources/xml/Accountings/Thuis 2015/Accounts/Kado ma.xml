@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>100.00</defaultAmount>
+  <name>Kado ma</name>
+  <type>Revenue</type>
+  <Movement>
+    <date>21/11/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>911</journalId>
+    <credit>100.00</credit>
+    <id>7832</id>
+  </Movement>
+</Account>

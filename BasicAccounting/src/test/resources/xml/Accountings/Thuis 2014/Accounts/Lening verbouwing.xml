@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Lening verbouwing</name>
+  <type>Debit</type>
+  <Movement>
+    <date>6/12/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>894</journalId>
+    <credit>4878.44</credit>
+    <id>5527</id>
+  </Movement>
+</Account>

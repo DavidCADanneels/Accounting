@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Bibliotheek</name>
+  <type>Cost</type>
+  <Movement>
+    <date>8/2/2016</date>
+    <description>boete: dvds te laat</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>121</journalId>
+    <debit>5.00</debit>
+    <id>8589</id>
+  </Movement>
+</Account>

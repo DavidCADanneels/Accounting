@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Netto David</name>
+  <type>Revenue</type>
+  <Movement>
+    <date>28/1/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>80</journalId>
+    <credit>2435.48</credit>
+    <id>8495</id>
+  </Movement>
+  <Movement>
+    <date>30/1/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>91</journalId>
+    <credit>160.00</credit>
+    <id>8518</id>
+  </Movement>
+  <Movement>
+    <date>25/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>179</journalId>
+    <credit>168.00</credit>
+    <id>8715</id>
+  </Movement>
+  <Movement>
+    <date>26/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>183</journalId>
+    <credit>2434.38</credit>
+    <id>8723</id>
+  </Movement>
+  <Movement>
+    <date>30/3/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>291</journalId>
+    <credit>2435.48</credit>
+    <id>8956</id>
+  </Movement>
+  <Movement>
+    <date>4/4/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>325</journalId>
+    <credit>160.00</credit>
+    <id>9034</id>
+  </Movement>
+</Account>

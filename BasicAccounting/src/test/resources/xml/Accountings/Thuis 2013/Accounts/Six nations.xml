@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Six nations</name>
+  <type>Cost</type>
+  <Movement>
+    <date>1/8/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>345</journalId>
+    <debit>17.00</debit>
+    <id>2761</id>
+  </Movement>
+  <Movement>
+    <date>22/8/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>369</journalId>
+    <debit>22.00</debit>
+    <id>2812</id>
+  </Movement>
+  <Movement>
+    <date>29/8/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>376</journalId>
+    <debit>17.00</debit>
+    <id>2826</id>
+  </Movement>
+  <Movement>
+    <date>5/9/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>392</journalId>
+    <debit>15.00</debit>
+    <id>2863</id>
+  </Movement>
+  <Movement>
+    <date>19/9/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>411</journalId>
+    <debit>17.00</debit>
+    <id>2905</id>
+  </Movement>
+  <Movement>
+    <date>30/10/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>457</journalId>
+    <debit>16.00</debit>
+    <id>3000</id>
+  </Movement>
+</Account>

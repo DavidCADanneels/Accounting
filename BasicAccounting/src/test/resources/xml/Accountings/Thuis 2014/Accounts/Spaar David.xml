@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Spaar David</name>
+  <type>Asset</type>
+  <Movement>
+    <date>1/1/2014</date>
+    <description>Beginbalans</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>3</journalId>
+    <debit>10.07</debit>
+    <id>3516</id>
+  </Movement>
+  <Movement>
+    <date>14/1/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>41</journalId>
+    <credit>10.00</credit>
+    <id>3617</id>
+  </Movement>
+  <Movement>
+    <date>2/3/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>174</journalId>
+    <debit>1000.00</debit>
+    <id>3932</id>
+  </Movement>
+  <Movement>
+    <date>17/3/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>229</journalId>
+    <credit>300.00</credit>
+    <id>4051</id>
+  </Movement>
+  <Movement>
+    <date>31/3/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>266</journalId>
+    <credit>700.00</credit>
+    <id>4142</id>
+  </Movement>
+</Account>

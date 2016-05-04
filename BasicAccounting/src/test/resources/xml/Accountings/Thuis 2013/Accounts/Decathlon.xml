@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Decathlon</name>
+  <type>Cost</type>
+  <Movement>
+    <date>28/6/2013</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>19</journalId>
+    <debit>39.85</debit>
+    <id>3348</id>
+  </Movement>
+</Account>

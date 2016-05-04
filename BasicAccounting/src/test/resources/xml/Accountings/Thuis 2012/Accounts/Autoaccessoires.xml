@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Autoaccessoires</name>
+  <type>Cost</type>
+  <Movement>
+    <date>2/6/2012</date>
+    <description>of onderhoud?</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>204</journalId>
+    <debit>99.00</debit>
+    <id>989</id>
+  </Movement>
+  <Movement>
+    <date>2/6/2012</date>
+    <description>of onderhoud?</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>204</journalId>
+    <debit>30.00</debit>
+    <id>990</id>
+  </Movement>
+</Account>

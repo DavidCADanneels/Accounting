@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>McDonalds</name>
+  <type>Cost</type>
+  <Movement>
+    <date>5/1/2013</date>
+    <description>Antwerpen</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>4</journalId>
+    <debit>9.40</debit>
+    <id>5655</id>
+  </Movement>
+  <Movement>
+    <date>5/1/2013</date>
+    <description>Antwerpen</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>4</journalId>
+    <debit>4.00</debit>
+    <id>5656</id>
+  </Movement>
+</Account>

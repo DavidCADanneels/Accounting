@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Ziekenhuis</name>
+  <type>Cost</type>
+  <Movement>
+    <date>11/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>137</journalId>
+    <debit>64.49</debit>
+    <id>8621</id>
+  </Movement>
+  <Movement>
+    <date>31/3/2016</date>
+    <description>Bancontact</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>300</journalId>
+    <debit>30.20</debit>
+    <id>8973</id>
+  </Movement>
+</Account>

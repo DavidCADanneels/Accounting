@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Kassa feestje</name>
+  <type>Asset</type>
+  <Movement>
+    <date>13/5/2013</date>
+    <description>inkomsten feestje</description>
+    <journalAbbr>POS</journalAbbr>
+    <journalName>Post</journalName>
+    <journalId>9</journalId>
+    <debit>2136.90</debit>
+    <id>3288</id>
+  </Movement>
+  <Movement>
+    <date>13/5/2013</date>
+    <description>afrekening Thai shop: Chang en Singha</description>
+    <journalAbbr>POS</journalAbbr>
+    <journalName>Post</journalName>
+    <journalId>10</journalId>
+    <credit>544.00</credit>
+    <id>3291</id>
+  </Movement>
+  <Movement>
+    <date>13/5/2013</date>
+    <description>Info-Occases: HTPC box</description>
+    <journalAbbr>POS</journalAbbr>
+    <journalName>Post</journalName>
+    <journalId>11</journalId>
+    <credit>79.99</credit>
+    <id>3293</id>
+  </Movement>
+  <Movement>
+    <date>20/5/2013</date>
+    <journalAbbr>POS</journalAbbr>
+    <journalName>Post</journalName>
+    <journalId>13</journalId>
+    <credit>1000.00</credit>
+    <id>3297</id>
+  </Movement>
+  <Movement>
+    <date>20/5/2013</date>
+    <journalAbbr>POS</journalAbbr>
+    <journalName>Post</journalName>
+    <journalId>14</journalId>
+    <debit>600.00</debit>
+    <id>3298</id>
+  </Movement>
+  <Movement>
+    <date>20/5/2013</date>
+    <description>Tempel Roubaix</description>
+    <journalAbbr>POS</journalAbbr>
+    <journalName>Post</journalName>
+    <journalId>15</journalId>
+    <credit>600.00</credit>
+    <id>3301</id>
+  </Movement>
+  <Movement>
+    <date>31/12/2013</date>
+    <journalAbbr>POS</journalAbbr>
+    <journalName>Post</journalName>
+    <journalId>19</journalId>
+    <credit>512.91</credit>
+    <id>3309</id>
+  </Movement>
+</Account>

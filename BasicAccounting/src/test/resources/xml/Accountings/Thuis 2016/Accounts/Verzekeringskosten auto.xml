@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Verzekeringskosten auto</name>
+  <type>Liability</type>
+  <Movement>
+    <date>10/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>132</journalId>
+    <credit>1521.14</credit>
+    <id>8612</id>
+  </Movement>
+</Account>

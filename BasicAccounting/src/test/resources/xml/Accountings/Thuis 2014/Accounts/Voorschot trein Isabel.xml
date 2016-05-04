@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Voorschot trein Isabel</name>
+  <type>Credit</type>
+  <Movement>
+    <date>10/2/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>122</journalId>
+    <debit>10.60</debit>
+    <id>3818</id>
+  </Movement>
+  <Movement>
+    <date>11/2/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>125</journalId>
+    <debit>10.60</debit>
+    <id>3824</id>
+  </Movement>
+  <Movement>
+    <date>12/2/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>127</journalId>
+    <debit>10.60</debit>
+    <id>3828</id>
+  </Movement>
+  <Movement>
+    <date>13/2/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>130</journalId>
+    <debit>10.60</debit>
+    <id>3834</id>
+  </Movement>
+  <Movement>
+    <date>14/2/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>132</journalId>
+    <debit>10.60</debit>
+    <id>3838</id>
+  </Movement>
+  <Movement>
+    <date>28/2/2014</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>165</journalId>
+    <credit>53.00</credit>
+    <id>3915</id>
+  </Movement>
+</Account>

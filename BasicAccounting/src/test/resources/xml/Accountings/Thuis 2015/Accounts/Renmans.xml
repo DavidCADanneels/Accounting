@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Renmans</name>
+  <type>Cost</type>
+  <Movement>
+    <date>6/1/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>27</journalId>
+    <debit>10.64</debit>
+    <id>5872</id>
+  </Movement>
+  <Movement>
+    <date>11/3/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>178</journalId>
+    <debit>12.93</debit>
+    <id>6223</id>
+  </Movement>
+  <Movement>
+    <date>30/4/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>304</journalId>
+    <debit>21.97</debit>
+    <id>6509</id>
+  </Movement>
+  <Movement>
+    <date>5/6/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>431</journalId>
+    <debit>43.46</debit>
+    <id>6784</id>
+  </Movement>
+  <Movement>
+    <date>1/10/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>756</journalId>
+    <debit>19.66</debit>
+    <id>7492</id>
+  </Movement>
+</Account>

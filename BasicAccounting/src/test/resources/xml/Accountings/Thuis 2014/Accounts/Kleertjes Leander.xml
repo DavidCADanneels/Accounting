@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Kleertjes Leander</name>
+  <type>Cost</type>
+  <Movement>
+    <date>6/6/2014</date>
+    <description>Dara in Brussel</description>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>467</journalId>
+    <debit>37.96</debit>
+    <id>4582</id>
+  </Movement>
+</Account>

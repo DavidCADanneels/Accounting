@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Airstop</name>
+  <type>Cost</type>
+  <Movement>
+    <date>6/2/2012</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>6</journalId>
+    <debit>625.00</debit>
+    <id>1782</id>
+  </Movement>
+  <Movement>
+    <date>3/10/2012</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>79</journalId>
+    <debit>527.00</debit>
+    <id>1936</id>
+  </Movement>
+</Account>

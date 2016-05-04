@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>28.12</defaultAmount>
+  <name>AXA-Bijstandsverzekering</name>
+  <type>Cost</type>
+  <Movement>
+    <date>6/1/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>17</journalId>
+    <debit>28.12</debit>
+    <id>8359</id>
+  </Movement>
+  <Movement>
+    <date>5/2/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>114</journalId>
+    <debit>28.12</debit>
+    <id>8571</id>
+  </Movement>
+  <Movement>
+    <date>4/3/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>218</journalId>
+    <debit>28.12</debit>
+    <id>8802</id>
+  </Movement>
+  <Movement>
+    <date>6/4/2016</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>331</journalId>
+    <debit>28.12</debit>
+    <id>9047</id>
+  </Movement>
+</Account>

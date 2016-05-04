@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Huur 2013</name>
+  <type>Revenue</type>
+  <Movement>
+    <date>16/1/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>31</journalId>
+    <credit>600.00</credit>
+    <id>2067</id>
+  </Movement>
+  <Movement>
+    <date>27/4/2013</date>
+    <journalAbbr>DIV</journalAbbr>
+    <journalName>Diversen</journalName>
+    <journalId>169</journalId>
+    <credit>400.00</credit>
+    <id>2373</id>
+  </Movement>
+</Account>

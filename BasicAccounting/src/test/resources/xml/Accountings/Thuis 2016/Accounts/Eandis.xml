@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Eandis</name>
+  <type>Cost</type>
+  <Movement>
+    <date>9/4/2016</date>
+    <description>Installatie nieuwe meter</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>347</journalId>
+    <debit>75.20</debit>
+    <id>9083</id>
+  </Movement>
+</Account>

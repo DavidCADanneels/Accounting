@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <defaultAmount>32.67</defaultAmount>
+  <name>DAS-Autoverzekering</name>
+  <type>Cost</type>
+</Account>

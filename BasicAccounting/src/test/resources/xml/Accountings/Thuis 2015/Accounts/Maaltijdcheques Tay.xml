@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Maaltijdcheques Tay</name>
+  <type>Asset</type>
+  <Movement>
+    <date>1/4/2015</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>39</journalId>
+    <debit>126.00</debit>
+    <id>8174</id>
+  </Movement>
+  <Movement>
+    <date>8/4/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>254</journalId>
+    <credit>106.10</credit>
+    <id>6404</id>
+  </Movement>
+  <Movement>
+    <date>4/5/2015</date>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>49</journalId>
+    <debit>90.00</debit>
+    <id>8195</id>
+  </Movement>
+  <Movement>
+    <date>23/5/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>387</journalId>
+    <credit>45.08</credit>
+    <id>6696</id>
+  </Movement>
+  <Movement>
+    <date>5/6/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>434</journalId>
+    <credit>4.87</credit>
+    <id>6793</id>
+  </Movement>
+  <Movement>
+    <date>11/7/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>543</journalId>
+    <credit>2.70</credit>
+    <id>7038</id>
+  </Movement>
+  <Movement>
+    <date>17/8/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>637</journalId>
+    <credit>57.25</credit>
+    <id>7242</id>
+  </Movement>
+</Account>

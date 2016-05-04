@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Diepvries</name>
+  <type>Cost</type>
+  <Movement>
+    <date>7/4/2015</date>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>244</journalId>
+    <debit>629.00</debit>
+    <id>6375</id>
+  </Movement>
+</Account>

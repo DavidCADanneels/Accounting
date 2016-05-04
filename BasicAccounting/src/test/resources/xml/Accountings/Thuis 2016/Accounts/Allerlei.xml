@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<!DOCTYPE Account SYSTEM "../../../../dtd/Account.dtd">
+<Account>
+  <name>Allerlei</name>
+  <type>Cost</type>
+  <Movement>
+    <date>9/2/2016</date>
+    <description>tSchaak</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>11</journalId>
+    <debit>12.25</debit>
+    <id>9140</id>
+  </Movement>
+  <Movement>
+    <date>10/2/2016</date>
+    <description>Pandora Jewelry</description>
+    <journalAbbr>TAY</journalAbbr>
+    <journalName>Tay</journalName>
+    <journalId>14</journalId>
+    <debit>129.00</debit>
+    <id>9146</id>
+  </Movement>
+  <Movement>
+    <date>21/3/2016</date>
+    <description>tabak tSchaak</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>266</journalId>
+    <debit>19.50</debit>
+    <id>8903</id>
+  </Movement>
+  <Movement>
+    <date>1/4/2016</date>
+    <description>Peage + Parking CdG</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>308</journalId>
+    <debit>17.00</debit>
+    <id>8990</id>
+  </Movement>
+  <Movement>
+    <date>1/4/2016</date>
+    <description>Peage + Parking CdG</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>308</journalId>
+    <debit>16.30</debit>
+    <id>8991</id>
+  </Movement>
+  <Movement>
+    <date>1/4/2016</date>
+    <description>Peage + Parking CdG</description>
+    <journalAbbr>FAM</journalAbbr>
+    <journalName>Family</journalName>
+    <journalId>308</journalId>
+    <debit>16.30</debit>
+    <id>8992</id>
+  </Movement>
+</Account>
