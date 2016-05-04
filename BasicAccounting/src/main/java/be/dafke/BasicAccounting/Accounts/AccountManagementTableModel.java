@@ -17,7 +17,7 @@ public class AccountManagementTableModel extends RefreshableTableModel<Account> 
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = { getBundle("Accounting").getString("ACCOUNT_NAME"),
             getBundle("Accounting").getString("TYPE"), getBundle("Accounting").getString("SALDO"),
-            getBundle("Accounting").getString("DEFAULT_AMOUNT")};
+            getBundle("BusinessActions").getString("DEFAULT_AMOUNT")};
 	private final Class[] columnClasses = { Account.class, String.class, BigDecimal.class,  BigDecimal.class };
 	private final Accounts accounts;
 	private final AccountTypes accountTypes;

@@ -168,7 +168,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
             filter.removeAll();
 
             for (AccountType type : accounting.getAccountTypes().getBusinessObjects()) {
-                JCheckBox checkBox = new JCheckBox(getBundle("Accounting").getString(type.getName().toUpperCase()));
+                JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(type.getName().toUpperCase()));
                 checkBox.setSelected(true);
                 checkBox.setEnabled(false);
                 checkBox.setActionCommand(type.getName());

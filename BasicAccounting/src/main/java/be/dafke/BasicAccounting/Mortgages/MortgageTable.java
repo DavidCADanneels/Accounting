@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Mortgages;
 
+import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
@@ -71,10 +72,9 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
             ComponentMap.refreshAllFrames();
             dispose();
         } catch (DuplicateNameException e) {
-            JOptionPane.showMessageDialog(this, "There is already a mortgage table with the name \""+name.trim()+"\".\r\n"+
-                    "Please provide a new name.");
+			ActionUtils.showErrorMessage(ActionUtils.MORTGAGE_DUPLICATE_NAME);
         } catch (EmptyNameException e) {
-            JOptionPane.showMessageDialog(this, "Mortgage name cannot be empty.\r\nPlease provide a new name and/or abbreviation.");
+			ActionUtils.showErrorMessage(ActionUtils.MORTGAGE_NAME_EMPTY);
         }
 	}
 }

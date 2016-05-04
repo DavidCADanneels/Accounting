@@ -52,7 +52,7 @@ public class PrefixFilterPanel<K> extends JPanel {
 		});
 
 		JPanel zoekpaneel = new JPanel();
-		zoekpaneel.add(new JLabel(getBundle("Dafke").getString("SEARCH")));
+		zoekpaneel.add(new JLabel(getBundle("Utils").getString("SEARCH")));
 		zoekpaneel.add(zoekveld);
 		setLayout(new BorderLayout());
 		add(scrol, BorderLayout.CENTER);

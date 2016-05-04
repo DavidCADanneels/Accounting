@@ -83,34 +83,34 @@ public class Balances extends BusinessCollection<Balance> {
 
         Balance resultBalance = new Balance(accounting);
         resultBalance.setName(RESULT_BALANCE);
-        resultBalance.setLeftName(getBundle("Balances").getString("COSTS"));
-        resultBalance.setRightName(getBundle("Balances").getString("REVENUES"));
-        resultBalance.setLeftTotalName(getBundle("Balances").getString("COSTS_TOTAL"));
-        resultBalance.setRightTotalName(getBundle("Balances").getString("REVENUE_TOTAL"));
-        resultBalance.setLeftResultName(getBundle("Balances").getString("LOSS"));
-        resultBalance.setRightResultName(getBundle("Balances").getString("GAIN"));
+        resultBalance.setLeftName(getBundle("BusinessModel").getString("COSTS"));
+        resultBalance.setRightName(getBundle("BusinessModel").getString("REVENUES"));
+        resultBalance.setLeftTotalName(getBundle("BusinessModel").getString("COSTS_TOTAL"));
+        resultBalance.setRightTotalName(getBundle("BusinessModel").getString("REVENUE_TOTAL"));
+        resultBalance.setLeftResultName(getBundle("BusinessModel").getString("LOSS"));
+        resultBalance.setRightResultName(getBundle("BusinessModel").getString("GAIN"));
         resultBalance.setLeftTypes(costs);
         resultBalance.setRightTypes(revenues);
 
         Balance relationsBalance = new Balance(accounting);
         relationsBalance.setName(RELATIONS_BALANCE);
-        relationsBalance.setLeftName(getBundle("Balances").getString("FUNDS_FROM_CUSTOMERS"));
-        relationsBalance.setRightName(getBundle("Balances").getString("DEBTS_TO_SUPPLIERS"));
-        relationsBalance.setLeftTotalName(getBundle("Balances").getString("FUNDS_TOTAL"));
-        relationsBalance.setRightTotalName(getBundle("Balances").getString("DEBTS_TOTAL"));
-        relationsBalance.setLeftResultName(getBundle("Balances").getString("FUND_REMAINING"));
-        relationsBalance.setRightResultName(getBundle("Balances").getString("DEBT_REMAINING"));
+        relationsBalance.setLeftName(getBundle("BusinessModel").getString("FUNDS_FROM_CUSTOMERS"));
+        relationsBalance.setRightName(getBundle("BusinessModel").getString("DEBTS_TO_SUPPLIERS"));
+        relationsBalance.setLeftTotalName(getBundle("BusinessModel").getString("FUNDS_TOTAL"));
+        relationsBalance.setRightTotalName(getBundle("BusinessModel").getString("DEBTS_TOTAL"));
+        relationsBalance.setLeftResultName(getBundle("BusinessModel").getString("FUND_REMAINING"));
+        relationsBalance.setRightResultName(getBundle("BusinessModel").getString("DEBT_REMAINING"));
         relationsBalance.setLeftTypes(credit);
         relationsBalance.setRightTypes(debit);
 
         Balance yearBalance = new Balance(accounting);
         yearBalance.setName(YEAR_BALANCE);
-        yearBalance.setLeftName(getBundle("Balances").getString("ASSETS"));
-        yearBalance.setRightName(getBundle("Balances").getString("LIABILITIES"));
-        yearBalance.setLeftTotalName(getBundle("Balances").getString("ASSETS_FUNDS_TOTAL"));
-        yearBalance.setRightTotalName(getBundle("Balances").getString("LIABILITIES_DEBTS_TOTAL"));
-        yearBalance.setLeftResultName(getBundle("Balances").getString("GAIN"));
-        yearBalance.setRightResultName(getBundle("Balances").getString("LOSS"));
+        yearBalance.setLeftName(getBundle("BusinessModel").getString("ASSETS"));
+        yearBalance.setRightName(getBundle("BusinessModel").getString("LIABILITIES"));
+        yearBalance.setLeftTotalName(getBundle("BusinessModel").getString("ASSETS_FUNDS_TOTAL"));
+        yearBalance.setRightTotalName(getBundle("BusinessModel").getString("LIABILITIES_DEBTS_TOTAL"));
+        yearBalance.setLeftResultName(getBundle("BusinessModel").getString("GAIN"));
+        yearBalance.setRightResultName(getBundle("BusinessModel").getString("LOSS"));
         yearBalance.setLeftTypes(active);
         yearBalance.setRightTypes(passive);
 

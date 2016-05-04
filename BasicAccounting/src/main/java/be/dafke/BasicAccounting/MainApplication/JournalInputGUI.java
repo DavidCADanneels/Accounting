@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.JournalGUIPopupMenu;
+import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
@@ -247,7 +248,7 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         if(transaction!=null){
             Calendar date = getDate();
             if(date == null){
-                JOptionPane.showMessageDialog(null, "Fill in date");
+                ActionUtils.showErrorMessage(ActionUtils.FILL_IN_DATE);
                 return null;
             } else {
                 // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)

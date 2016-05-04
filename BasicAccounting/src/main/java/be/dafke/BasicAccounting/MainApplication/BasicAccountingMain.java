@@ -102,7 +102,7 @@ public class BasicAccountingMain {
     }
 
     private static void setXmlFolder(){
-        Mode mode = Mode.TEST;
+        Mode mode = Mode.PROD;
 
         if(mode == Mode.TEST){
             int nr = JOptionPane.showOptionDialog(null,"TEST or PROD", "Which environment?",JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,null, Mode.values(),Mode.TEST);

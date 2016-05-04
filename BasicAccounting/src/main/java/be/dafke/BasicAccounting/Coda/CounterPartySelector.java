@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Coda;
 
+import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessModel.CounterParties;
 import be.dafke.BusinessModel.CounterParty;
 import be.dafke.BusinessModel.SearchOptions;
@@ -190,9 +191,9 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
                     newCounterPartyCombo.addItem(newCounterParty);
                     newCounterPartyCombo.setSelectedItem(newCounterParty);
                 } catch (EmptyNameException e1) {
-                    JOptionPane.showMessageDialog(this, "The Name of the CounterParty cannot be empty.");
+                    ActionUtils.showErrorMessage(ActionUtils.COUNTERPARTY_NAME_EMPTY);
                 } catch (DuplicateNameException e1) {
-                    JOptionPane.showMessageDialog(this, "The Name of the CounterParty already exists.");
+                    ActionUtils.showErrorMessage(ActionUtils.COUNTERPARTY_DUPLICATE_NAME);
                 }
 			}
 		} else if (e.getSource() == oldCounterPartyCombo) {

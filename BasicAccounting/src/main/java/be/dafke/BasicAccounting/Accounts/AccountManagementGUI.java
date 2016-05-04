@@ -1,22 +1,16 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessActions.AccountActions;
+import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 
-import javax.swing.DefaultListSelectionModel;
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -118,7 +112,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
     public ArrayList<Account> getSelectedAccounts() {
         int[] rows = tabel.getSelectedRows();
         if (rows.length == 0) {
-            JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("SELECT_ACCOUNT_FIRST"));
+            ActionUtils.showErrorMessage(ActionUtils.SELECT_ACCOUNT_FIRST);
         }
         ArrayList<Account> accountList = new ArrayList<Account>();
         for(int row : rows) {

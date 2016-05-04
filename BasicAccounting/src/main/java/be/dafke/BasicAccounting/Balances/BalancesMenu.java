@@ -25,13 +25,13 @@ public class BalancesMenu extends JMenu implements ActionListener {
     private final Accountings accountings;
 
     public BalancesMenu(Accountings accountings, AccountingMenuBar menuBar){
-        super(getBundle("Balances").getString("BALANSES"));
+        super(getBundle("BusinessModel").getString("BALANSES"));
         this.accountings = accountings;
         setMnemonic(KeyEvent.VK_B);
-        testBalance = new JMenuItem(getBundle("Balances").getString("TESTBALANCE"));
-        yearBalance = new JMenuItem(getBundle("Balances").getString("YEARBALANCE"));
-        resultBalance = new JMenuItem(getBundle("Balances").getString("RESULTBALANCE"));
-        relationsBalance = new JMenuItem(getBundle("Balances").getString("RELATIONSBALANCE"));
+        testBalance = new JMenuItem(getBundle("BusinessModel").getString("TESTBALANCE"));
+        yearBalance = new JMenuItem(getBundle("BusinessModel").getString("YEARBALANCE"));
+        resultBalance = new JMenuItem(getBundle("BusinessModel").getString("RESULTBALANCE"));
+        relationsBalance = new JMenuItem(getBundle("BusinessModel").getString("RELATIONSBALANCE"));
 
         testBalance.addActionListener(this);
         yearBalance.addActionListener(this);

@@ -3,11 +3,11 @@ package be.dafke.BusinessActions;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.math.BigDecimal;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 
+import static be.dafke.BusinessActions.ActionUtils.TRANSACTION_REMOVED;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -73,10 +73,10 @@ public class TransactionActions {
         while (!ok) {
             String s;
             if(suggestion){
-                s = JOptionPane.showInputDialog(getBundle("Accounting").getString(
+                s = JOptionPane.showInputDialog(getBundle("BusinessActions").getString(
                         "ENTER_AMOUNT"), suggestedAmount.toString());
             } else {
-                s = JOptionPane.showInputDialog(getBundle("Accounting").getString(
+                s = JOptionPane.showInputDialog(getBundle("BusinessActions").getString(
                         "ENTER_AMOUNT"));
             }
             if (s == null || s.equals("")) {
@@ -88,8 +88,7 @@ public class TransactionActions {
                     amount = amount.setScale(2);
                     ok = true;
                 } catch (NumberFormatException nfe) {
-                    JOptionPane.showMessageDialog(null,
-                            getBundle("Accounting").getString("INVALID_INPUT"));
+                    ActionUtils.showErrorMessage(ActionUtils.INVALID_INPUT);
                 }
             }
         }
@@ -99,11 +98,7 @@ public class TransactionActions {
     public static void deleteTransaction(Transaction transaction) {
         Journal journal = transaction.getJournal();
         journal.removeBusinessObject(transaction);
-        String text = getBundle("Accounting").getString("TRANSACTION_REMOVED");
-        Object[] messageArguments = {journal.getName()};
-        MessageFormat formatter = new MessageFormat(text);
-        String output = formatter.format(messageArguments);
-        JOptionPane.showMessageDialog(null, output);
+        ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_REMOVED, journal.getName());
         ComponentMap.refreshAllFrames();
     }
 
@@ -112,11 +107,7 @@ public class TransactionActions {
         journal.removeBusinessObject(transaction);
         journal.setCurrentObject(transaction);
         journals.setCurrentObject(journal);
-        String text = getBundle("Accounting").getString("TRANSACTION_REMOVED");
-        Object[] messageArguments = {journal.getName()};
-        MessageFormat formatter = new MessageFormat(text);
-        String output = formatter.format(messageArguments);
-        JOptionPane.showMessageDialog(null, output);
+        ActionUtils.showErrorMessage(TRANSACTION_REMOVED,journal.getName());
         ComponentMap.refreshAllFrames();
     }
 
@@ -125,18 +116,14 @@ public class TransactionActions {
         ArrayList<Journal> dagboeken = journals.getAllJournalsExcept(journal);
         Object[] lijst = dagboeken.toArray();
         int keuze = JOptionPane.showOptionDialog(null,
-                getBundle("Accounting").getString("CHOOSE_JOURNAL"),
-                getBundle("Accounting").getString("JOURNAL_CHOICE"),
+                getBundle("BusinessActions").getString("CHOOSE_JOURNAL"),
+                getBundle("BusinessActions").getString("JOURNAL_CHOICE"),
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, lijst, lijst[0]);
         if(keuze!=JOptionPane.CANCEL_OPTION && keuze!=JOptionPane.CLOSED_OPTION){
             Journal newJournal = (Journal) lijst[keuze];
             journal.removeBusinessObject(transaction);
             newJournal.addBusinessObject(transaction);
-            String text = getBundle("Accounting").getString("TRANSACTION_MOVED");
-            Object[] messageArguments = {journal.getName(), newJournal.getName()};
-            MessageFormat formatter = new MessageFormat(text);
-            String output = formatter.format(messageArguments);
-            JOptionPane.showMessageDialog(null,output);
+            ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, journal.getName(), newJournal.getName());
         }
         ComponentMap.refreshAllFrames();
     }

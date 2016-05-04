@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Accounts;
 
+import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableDialog;
@@ -17,7 +18,10 @@ import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.text.MessageFormat;
 
+import static be.dafke.BusinessActions.ActionUtils.ACCOUNT_DUPLICATE_NAME;
+import static be.dafke.BusinessActions.ActionUtils.ACCOUNT_NAME_EMPTY;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -53,7 +57,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
         }
         type.setModel(model);
 		line2.add(type);
-		add = new JButton(getBundle("Accounting").getString("CREATE_NEW_ACCOUNT"));
+		add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNT"));
 		add.addActionListener(this);
 		line2.add(add);
 		north.add(line1);
@@ -87,13 +91,9 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
             accounting.getAccounts().addBusinessObject(account);
             ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
-            JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("ACCOUNT_DUPLICATE_NAME")
-                    +" \""+name+"\".\r\n"+
-                    getBundle("Accounting").getString("PROVIDE_NEW_NAME"));
+            ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, name);
         } catch (EmptyNameException e) {
-            JOptionPane.showMessageDialog(this, getBundle("Accounting").getString("ACCOUNT_NAME_EMPTY")
-                    +"\r\n"+
-                    getBundle("Accounting").getString("PROVIDE_NEW_NAME"));
+            ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NAME_EMPTY);
         }
         nameField.setText("");
         defaultAmountField.setText("");

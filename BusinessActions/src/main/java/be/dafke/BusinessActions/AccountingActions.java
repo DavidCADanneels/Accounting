@@ -21,10 +21,9 @@ public class AccountingActions {
             accountings.addBusinessObject(accounting);
             accountings.setCurrentObject(name);
         } catch (DuplicateNameException e) {
-            JOptionPane.showMessageDialog(null, "There is already an accounting with the name \""+name+"\".\r\n"+
-                    "Please provide a new name.");
+            ActionUtils.showErrorMessage(ActionUtils.ACCOUNTING_DUPLICATE_NAME);
         } catch (EmptyNameException e) {
-            JOptionPane.showMessageDialog(null, "The name cannot be empty.\r\nPlease provide a new name.");
+            ActionUtils.showErrorMessage(ActionUtils.ACCOUNTING_NAME_EMPTY);
         }
         ComponentMap.refreshAllFrames();
     }
