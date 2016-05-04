@@ -1,8 +1,0 @@
-<!ELEMENT Mortgage (name, line*)>
-<!ELEMENT line (nr,mensuality,intrest,capital,restCapital)>
-<!ELEMENT name (#PCDATA)>
-<!ELEMENT nr (#PCDATA)>
-<!ELEMENT mensuality (#PCDATA)>
-<!ELEMENT intrest (#PCDATA)>
-<!ELEMENT capital (#PCDATA)>
-<!ELEMENT restCapital (#PCDATA)>

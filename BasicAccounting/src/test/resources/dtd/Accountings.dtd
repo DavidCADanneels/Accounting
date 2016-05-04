@@ -1,4 +1,0 @@
-<!ELEMENT Accountings (name, Accounting*,CurrentObject?)>
-<!ELEMENT Accounting (name)>
-<!ELEMENT name (#PCDATA)>
-<!ELEMENT CurrentObject (#PCDATA)>

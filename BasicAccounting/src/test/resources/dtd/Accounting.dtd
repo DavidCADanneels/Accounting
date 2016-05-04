@@ -1,8 +1,0 @@
-<!ELEMENT Accounting (name, Accounts,Journals,Balances?,CounterParties?,Statements?,Mortgages?)>
-<!ELEMENT Accounts (name)>
-<!ELEMENT Journals (name)>
-<!ELEMENT Balances (name)>
-<!ELEMENT Mortgages (name)>
-<!ELEMENT CounterParties (name)>
-<!ELEMENT Statements (name)>
-<!ELEMENT name (#PCDATA)>

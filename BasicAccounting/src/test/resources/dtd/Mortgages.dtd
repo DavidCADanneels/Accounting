@@ -1,9 +1,0 @@
-<!ELEMENT Mortgages (name, Mortgage*,CurrentObject?)>
-<!ELEMENT Mortgage (CapitalAccount?,IntrestAccount?,name,nrPayed,total)>
-<!ELEMENT name (#PCDATA)>
-<!ELEMENT type (#PCDATA)>
-<!ELEMENT total (#PCDATA)>
-<!ELEMENT nrPayed (#PCDATA)>
-<!ELEMENT CapitalAccount (#PCDATA)>
-<!ELEMENT IntrestAccount (#PCDATA)>
-<!ELEMENT CurrentObject (#PCDATA)>

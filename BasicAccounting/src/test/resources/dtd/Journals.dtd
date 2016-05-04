@@ -1,6 +1,0 @@
-<!ELEMENT Journals (name, Journal*,CurrentObject?)>
-<!ELEMENT Journal (abbr,name,type)>
-<!ELEMENT name (#PCDATA)>
-<!ELEMENT abbr (#PCDATA)>
-<!ELEMENT type (#PCDATA)>
-<!ELEMENT CurrentObject (#PCDATA)>
