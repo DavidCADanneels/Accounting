@@ -101,9 +101,13 @@ public class XMLWriter {
             if(value instanceof ArrayList){
 //                System.err.println(value);
                 ArrayList list = (ArrayList)value;
-                for (Object object: list){
-                    BusinessObject businessObject = (BusinessObject)object;
-                    builder.append(writeNode(businessObject.getOutputProperties(), depth+1));
+                for (Object object : list) {
+                    for(int i=0;i<depth;i++) builder.append("  ");
+                    builder.append("  <" + list.get(0).getClass().getSimpleName() + ">\r\n");
+                    BusinessObject businessObject = (BusinessObject) object;
+                    builder.append(writeNode(businessObject.getOutputProperties(), depth + 1));
+                    for(int i=0;i<depth;i++) builder.append("  ");
+                    builder.append("  </" + list.get(0).getClass().getSimpleName() + ">\r\n");
                 }
             } else{
                 if(value!=null && !"".equals(value)){
