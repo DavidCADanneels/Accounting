@@ -1,4 +1,4 @@
-job("\${SEED_PROJECT}-\${SEED_BRANCH}-build"){
+job("${SEED_PROJECT}-${SEED_BRANCH}-build"){
     triggers {
         scm 'H/15 * * * *'
     }
@@ -17,7 +17,7 @@ job("\${SEED_PROJECT}-\${SEED_BRANCH}-build"){
             goals """\
 org.codehaus.mojo:versions-maven-plugin:2.2:set
 -DgenerateBackupPoms=false
--DnewVersion=\${SEED_BRANCH}-\${BUILD_NUMBER}
+-DnewVersion=${SEED_BRANCH}-\${BUILD_NUMBER}
 -DartifactId=*
 -DgroupId=*
 -DoldVersion=*
