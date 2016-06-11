@@ -1,4 +1,4 @@
-job("Build_and_package"){
+job("\${SEED_PROJECT}-\${SEED_BRANCH}-build"){
     triggers {
         scm 'H/15 * * * *'
     }
