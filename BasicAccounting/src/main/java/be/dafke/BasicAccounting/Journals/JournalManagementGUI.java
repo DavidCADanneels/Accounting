@@ -16,10 +16,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-import static com.sun.java.accessibility.util.AWTEventMonitor.addActionListener;
 import static java.util.ResourceBundle.getBundle;
 
-public class JournalManagementGUI extends RefreshableTableFrame<Journal> implements ActionListener, ListSelectionListener{//}, FocusListener {
+public class JournalManagementGUI extends RefreshableTableFrame<Journal> implements ActionListener, ListSelectionListener{
 	/**
 	 * 
 	 */
