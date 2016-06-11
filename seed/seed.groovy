@@ -33,7 +33,7 @@ org.codehaus.mojo:versions-maven-plugin:2.2:set
             pattern('**/*.jar')
             onlyIfSuccessful()
         }
-        archiveJunit 'build/test-results/**/*.xml'
+//        archiveJunit 'build/test-results/**/*.xml'
         jacocoCodeCoverage {
             execPattern '**/***.exec'
             classPattern '**/classes'
