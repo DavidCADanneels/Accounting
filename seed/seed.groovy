@@ -14,6 +14,16 @@ job("Build_and_package"){
     }
     steps{
         maven{
+            goals """\
+org.codehaus.mojo:versions-maven-plugin:2.2:set
+-DgenerateBackupPoms=false
+-DnewVersion=\${BRANCH}-\${BUILD_NUMBER}
+-DartifactId=*
+-DgroupId=*
+-DoldVersion=*
+"""
+        }
+        maven{
             goals "clean package"
         }
     }
