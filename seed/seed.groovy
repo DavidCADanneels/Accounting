@@ -1,4 +1,4 @@
-mavenJob("Build_and_package"){
+job("Build_and_package"){
     triggers {
         scm 'H/15 * * * *'
     }
@@ -12,7 +12,11 @@ mavenJob("Build_and_package"){
             createTag false
         }
     }
-    goals "clean package"
+    steps{
+        maven{
+            goals "clean package"
+        }
+    }
 
     publishers {
         archiveArtifacts {
