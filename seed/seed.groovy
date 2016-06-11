@@ -17,7 +17,7 @@ job("Build_and_package"){
             goals """\
 org.codehaus.mojo:versions-maven-plugin:2.2:set
 -DgenerateBackupPoms=false
--DnewVersion=\${BRANCH}-\${BUILD_NUMBER}
+-DnewVersion=\${SEED_BRANCH}-\${BUILD_NUMBER}
 -DartifactId=*
 -DgroupId=*
 -DoldVersion=*
