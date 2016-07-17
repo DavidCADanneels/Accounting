@@ -85,6 +85,10 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 		hoofdPaneel.add(midden, BorderLayout.CENTER);
 
         selectedAccountTypes = new HashMap<AccountType, Boolean>();
+        AccountTypes accountTypes = accounting.getAccountTypes();
+        for(AccountType type : accountTypes.getBusinessObjects()){
+            selectedAccountTypes.put(type, Boolean.TRUE);
+        }
 
         // CENTER
         //
@@ -168,11 +172,6 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         this.accounting = accounting;
 
         if(accounting!=null) {
-            selectedAccountTypes.clear();
-            AccountTypes accountTypes = accounting.getAccountTypes();
-            for(AccountType type : accountTypes.getBusinessObjects()){
-                selectedAccountTypes.put(type, Boolean.TRUE);
-            }
             boxes.clear();
             filter.removeAll();
 
