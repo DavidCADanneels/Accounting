@@ -44,7 +44,8 @@ public class BasicAccountingMain {
     }
 
     protected static void createMenu() {
-        menuBar = new AccountingMenuBar(accountings);
+        frame = new AccountingGUIFrame(accountings);
+        menuBar = new AccountingMenuBar(accountings,frame);
         menuBar.add(new BalancesMenu(accountings, menuBar));
         menuBar.add(new MorgagesMenu(accountings, menuBar));
         menuBar.add(new ProjectsMenu(accountings, menuBar));
@@ -89,7 +90,6 @@ public class BasicAccountingMain {
     }
 
     protected static void composeFrames() {
-        frame = new AccountingGUIFrame(accountings);
         frame.setMenuBar(menuBar);
         frame.setContentPanel(contentPanel);
         frame.addWindowListener(new SaveAllActionListener(accountings));
@@ -98,7 +98,8 @@ public class BasicAccountingMain {
     }
     protected static void launch() {
         frame.setVisible(true);
-        frame.refresh();
+        frame.setAccounting(accountings.getCurrentObject());
+        frame.pack();
     }
 
     private static void setXmlFolder(){

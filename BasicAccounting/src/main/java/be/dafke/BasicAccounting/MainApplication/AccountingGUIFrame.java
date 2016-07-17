@@ -12,7 +12,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountingGUIFrame extends RefreshableFrame {
+public class AccountingGUIFrame extends RefreshableFrame implements AccountingPanelInterface{
 	/**
 	 * 
 	 */
@@ -37,8 +37,7 @@ public class AccountingGUIFrame extends RefreshableFrame {
         setJMenuBar(menuBar);
     }
 
-    public void refresh() {
-        Accounting accounting = accountings.getCurrentObject();
+    public void setAccounting(Accounting accounting){
         if(accounting!=null){
             setTitle(getBundle("Accounting").getString("ACCOUNTING") + ": " + accounting.toString());
         } else {
@@ -46,6 +45,16 @@ public class AccountingGUIFrame extends RefreshableFrame {
         }
         menuBar.setAccounting(accounting);
         contentPanel.setAccounting(accounting);
-        pack();
+    }
+
+    public void refresh() {
+        Accounting accounting = accountings.getCurrentObject();
+        if(accounting!=null){
+            setTitle(getBundle("Accounting").getString("ACCOUNTING") + ": " + accounting.toString());
+        } else {
+            setTitle(getBundle("Accounting").getString("ACCOUNTING"));
+        }
+        menuBar.refresh();
+        contentPanel.refresh();
     }
 }

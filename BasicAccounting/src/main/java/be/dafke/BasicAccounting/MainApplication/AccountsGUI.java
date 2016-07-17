@@ -137,7 +137,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() instanceof JCheckBox) {
-            checkBoxes();
+            updateListOfShownAccounts();
             updateListOfCheckedBoxes();
         } else{
             buttonClicked(ae.getActionCommand());
@@ -152,8 +152,8 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         }
     }
 
-    private void checkBoxes() {
-        ArrayList<AccountType> types = new ArrayList<AccountType>();
+    private void updateListOfShownAccounts() {
+        ArrayList<AccountType> types = new ArrayList<>();
         for(AccountType type : selectedAccountTypes.keySet()){
             JCheckBox checkBox = boxes.get(type);
             if(checkBox.isSelected()){
@@ -197,7 +197,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         }
 		accountManagement.setEnabled(active);
 		if (active) {
-			checkBoxes();
+			updateListOfShownAccounts();
 		}
 	}
 
