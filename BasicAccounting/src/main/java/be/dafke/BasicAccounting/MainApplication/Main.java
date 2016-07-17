@@ -35,7 +35,6 @@ public class Main extends BasicAccountingMain{
         accountsGUILeft = new AccountsGUI(accounting);
         accountsGUIRight = new AccountsGUI(accounting);
         journalsGUI = new JournalsGUI(accounting);
-        menuBar = new AccountingMenuBar(accountings);
         saveButton = new JButton("Save all");
         saveButton.addActionListener(new SaveAllActionListener(accountings));
     }

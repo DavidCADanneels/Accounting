@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.MainApplication;
 import be.dafke.BusinessActions.AccountingActions;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
+import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableComponent;
 
 import javax.swing.JMenu;
@@ -28,9 +29,11 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
     private List<JMenuItem> itemsToRefresh;
     private boolean active = false;
     private Accountings accountings;
+    private AccountingPanelInterface parent;
 
-    public AccountingMenuBar(final Accountings accountings) {
+    public AccountingMenuBar(final Accountings accountings, final AccountingPanelInterface parent) {
         this.accountings = accountings;
+        this.parent = parent;
 
         file = new JMenu(getBundle("Accounting").getString("ACCOUNTING"));
         startNew = new JMenuItem(getBundle("Accounting").getString("NEW_ACCOUNTING"));
@@ -61,10 +64,9 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         for(final Accounting acc : accountings.getBusinessObjects()) {
             if(acc!=accounting){
                 JMenuItem item = new JMenuItem(acc.toString());
-                item.addActionListener(new ActionListener() {
-                    public void actionPerformed(ActionEvent e) {
-                        AccountingActions.openAccounting(accountings, acc);
-                    }
+                item.addActionListener(e -> {
+                    parent.setAccounting(acc);
+                    ComponentMap.refreshAllFrames();
                 });
                 file.add(item);
             }

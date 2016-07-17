@@ -27,9 +27,4 @@ public class AccountingActions {
         }
         ComponentMap.refreshAllFrames();
     }
-
-    public static void openAccounting(Accountings accountings, Accounting accounting) {
-        accountings.setCurrentObject(accounting.getName());
-        ComponentMap.refreshAllFrames();
-    }
 }
