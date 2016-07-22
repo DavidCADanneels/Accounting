@@ -15,7 +15,7 @@ public class AccountingMultiPanel extends AccountingPanel {
     private List<AccountingPanelInterface> components;
 
     public AccountingMultiPanel(){
-        components = new ArrayList<AccountingPanelInterface>();
+        components = new ArrayList<>();
     }
 
     public Component add(AccountingPanel accountingPanel){
@@ -40,6 +40,5 @@ public class AccountingMultiPanel extends AccountingPanel {
         for(AccountingPanelInterface component: components){
             component.setAccounting(accounting);
         }
-        refresh();
     }
 }

@@ -1,17 +1,11 @@
 package be.dafke.BasicAccounting;
 
 import be.dafke.BusinessActions.TransactionActions;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.Journals;
-import be.dafke.BusinessModel.Transaction;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -51,12 +45,8 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
         add(details);
     }
 
-    public void setAccounting(Accounting accounting){
-        if (accounting==null){
-            journals = null;
-        } else {
-            journals = accounting.getJournals();
-        }
+    public void setJournals(Journals journals){
+        this.journals=journals;
     }
 
     public void actionPerformed(ActionEvent e) {

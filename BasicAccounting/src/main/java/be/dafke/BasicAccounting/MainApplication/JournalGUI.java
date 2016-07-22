@@ -20,18 +20,18 @@ public class JournalGUI extends AccountingPanel {
     private final RefreshableTable<Booking> viewTable;
     private final DetailsPopupMenu viewPopup;
 
-    private Journal journal;
-
     private final JournalDetailsDataModel journalDetailsDataModel;
+    private Accounting accounting;
 
     public JournalGUI(Accounting accounting) {
-        if(accounting!=null) {
+        Journal journal=null;
+        if(accounting!=null && accounting.getJournals()!=null) {
             journal = accounting.getJournals().getCurrentObject();
         }
 		setLayout(new BorderLayout());
         journalDetailsDataModel = new JournalDetailsDataModel(journal);
 
-        viewTable = new RefreshableTable<Booking>(journalDetailsDataModel);
+        viewTable = new RefreshableTable<>(journalDetailsDataModel);
 		viewTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
         Journals journals;
         if(accounting!=null) {
@@ -54,22 +54,19 @@ public class JournalGUI extends AccountingPanel {
 	}
 
     public void setAccounting(Accounting accounting){
-        viewPopup.setAccounting(accounting);
+        this.accounting = accounting;
+        viewPopup.setJournals(accounting.getJournals());
+
+    }
+
+	public void refresh() {
+        Journal journal;
         if(accounting==null || accounting.getJournals()==null){
             journal = null;
         } else {
             journal = accounting.getJournals().getCurrentObject();
         }
         journalDetailsDataModel.setJournal(journal);
+        journalDetailsDataModel.fireTableDataChanged();
     }
-
-	public void refresh() {
-        if(journal!=null){
-            journalDetailsDataModel.setJournal(journal);
-            journalDetailsDataModel.fireTableDataChanged();
-        }
-    }
-
-
-
 }

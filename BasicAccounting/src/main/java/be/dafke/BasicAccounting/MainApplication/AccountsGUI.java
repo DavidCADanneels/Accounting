@@ -102,11 +102,12 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 
 		filter = new JPanel();
 		filter.setLayout(new GridLayout(0, 2));
-        boxes = new HashMap<AccountType,JCheckBox>();
+        boxes = new HashMap<>();
 
         setAccounting(accounting);
 
         add(filter, BorderLayout.NORTH);
+        refresh();
 	}
 
 	public void valueChanged(ListSelectionEvent lse) {
@@ -178,8 +179,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 
             for (AccountType type : accounting.getAccountTypes().getBusinessObjects()) {
                 JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(type.getName().toUpperCase()));
-                checkBox.setSelected(selectedAccountTypes.get(type));
-                checkBox.setEnabled(false);
+                checkBox.setSelected(true);
                 checkBox.setActionCommand(type.getName());
                 checkBox.addActionListener(this);
                 boxes.put(type,checkBox);

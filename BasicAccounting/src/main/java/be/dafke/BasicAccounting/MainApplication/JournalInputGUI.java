@@ -28,22 +28,21 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
     private final RefreshableTable<Booking> inputTable;
     private final JournalGUIPopupMenu inputPopup;
     private final JournalDataModel journalDataModel;
+    private Accounting accounting;
     private BigDecimal debettotaal, credittotaal;
 
     private Journal journal;
-    private Accounts accounts;
 
     public JournalInputGUI(Accounting accounting) {
-        if(accounting!=null) {
-            journal = accounting.getJournals().getCurrentObject();
-        }
+        this.accounting=accounting;
         setLayout(new BorderLayout());
         debettotaal = new BigDecimal(0);
         credittotaal = new BigDecimal(0);
 
         journalDataModel = new JournalDataModel();
+        setJournal();
 
-        inputTable = new RefreshableTable<Booking>(journalDataModel);
+        inputTable = new RefreshableTable<>(journalDataModel);
         inputTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
         inputPopup = new JournalGUIPopupMenu(inputTable, accounting);
@@ -122,25 +121,13 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
     }
 
     public void setAccounting(Accounting accounting){
+        this.accounting=accounting;
         inputPopup.setAccounting(accounting);
-        if (accounting!=null) {
-            accounts = accounting.getAccounts();
-            if (accounting.getJournals() != null) {
-                journal = accounting.getJournals().getCurrentObject();
-            } else {
-                journal = null;
-            }
-        }else {
-            accounts = null;
-        }
-
-        if(journal==null){
-            journalDataModel.setTransaction(null);
+        if (accounting!=null && accounting.getJournals() != null) {
+            setJournal(accounting.getJournals().getCurrentObject());
         } else {
-            Transaction transaction = journal.getCurrentObject();
-            journalDataModel.setTransaction(transaction);
+            setJournal(null);
         }
-        journalDataModel.fireTableDataChanged();
     }
 
     private void setDate(Calendar date){
@@ -195,6 +182,7 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
     }
 
     public void refresh() {
+        setJournal();
         debettotaal = BigDecimal.ZERO;
         credittotaal = BigDecimal.ZERO;
         boolean okEnabled = false;
@@ -234,6 +222,25 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         credit.setText(credittotaal.toString());
     }
 
+    private void setJournal(){
+        if (accounting!=null && accounting.getJournals() != null) {
+            setJournal(accounting.getJournals().getCurrentObject());
+        } else {
+            setJournal(null);
+        }
+    }
+
+    private void setJournal(Journal journal) {
+        this.journal=journal;
+        if(journal==null){
+            journalDataModel.setTransaction(null);
+        } else {
+            Transaction transaction = journal.getCurrentObject();
+            journalDataModel.setTransaction(transaction);
+        }
+        journalDataModel.fireTableDataChanged();
+    }
+
 
     private Calendar getDate(){
         return Utils.toCalendar(dag.getText(),maand.getText(),jaar.getText());
@@ -260,7 +267,7 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
     }
 
     public void clear() {
-        Transaction transaction = new Transaction(accounts, getDate(), "");
+        Transaction transaction = new Transaction(accounting==null?null:accounting.getAccounts(), getDate(), "");
         journal.setCurrentObject(transaction);
         refresh();
     }
