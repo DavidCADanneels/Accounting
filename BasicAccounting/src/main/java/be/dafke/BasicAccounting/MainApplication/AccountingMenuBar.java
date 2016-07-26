@@ -6,11 +6,7 @@ import be.dafke.BusinessModel.Accountings;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableComponent;
 
-import javax.swing.JMenu;
-import javax.swing.JMenuBar;
-import javax.swing.JMenuItem;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import javax.swing.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -37,14 +33,10 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
 
         file = new JMenu(getBundle("Accounting").getString("ACCOUNTING"));
         startNew = new JMenuItem(getBundle("Accounting").getString("NEW_ACCOUNTING"));
-        startNew.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                AccountingActions.newAccounting(accountings);
-            }
-        });
+        startNew.addActionListener(e -> AccountingActions.newAccounting(accountings));
         add(file);
 
-        itemsToRefresh = new ArrayList<JMenuItem>();
+        itemsToRefresh = new ArrayList<>();
     }
 
     public void addRefreshableMenuItem(JMenuItem item){
@@ -65,6 +57,7 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
             if(acc!=accounting){
                 JMenuItem item = new JMenuItem(acc.toString());
                 item.addActionListener(e -> {
+                    accountings.setCurrentObject(accounting);
                     parent.setAccounting(acc);
                     ComponentMap.refreshAllFrames();
                 });
