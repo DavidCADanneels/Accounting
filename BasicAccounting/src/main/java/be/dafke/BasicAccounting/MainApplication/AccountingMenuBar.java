@@ -57,7 +57,7 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
             if(acc!=accounting){
                 JMenuItem item = new JMenuItem(acc.toString());
                 item.addActionListener(e -> {
-                    accountings.setCurrentObject(accounting);
+                    accountings.setCurrentObject(acc);
                     parent.setAccounting(acc);
                     ComponentMap.refreshAllFrames();
                 });
