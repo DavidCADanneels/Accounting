@@ -1,0 +1,11 @@
+<!ELEMENT Statements (name,Statement*)>
+<!ELEMENT xml (#PCDATA)>
+<!ELEMENT html (#PCDATA)>
+<!ELEMENT Statement (Amount,Communication?,CounterParty?,Date,Sign,TransactionCode?,name)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT Date (#PCDATA)>
+<!ELEMENT Sign (#PCDATA)>
+<!ELEMENT Amount (#PCDATA)>
+<!ELEMENT CounterParty (#PCDATA)>
+<!ELEMENT TransactionCode (#PCDATA)>
+<!ELEMENT Communication (#PCDATA)>

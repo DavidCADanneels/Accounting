@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="ISO-8859-1"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+    <xs:element name="Account">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="name" type="xs:string"/>
+                <xs:element name="type" type="xs:string"/>
+                <xs:element name="defaultAmount" type="xs:string" minOccurs="0"/>
+                <xs:element ref="Movement" minOccurs="0" maxOccurs="unbounded"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="Movement">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="date" type="xs:string"/>
+                <xs:element name="description" type="xs:string"/>
+                <xs:element name="journalAbbr" type="xs:string"/>
+                <xs:element name="journalName" type="xs:string"/>
+                <xs:element name="journalId" type="xs:string"/>
+                <xs:choice>
+                    <xs:element name="debit" type="xs:string"/>
+                    <xs:element name="credit" type="xs:string"/>
+                </xs:choice>
+                <xs:element name="id" type="xs:string"/>
+            </xs:sequence>
+        </xs:complexType>
+    </xs:element>
+
+</xs:schema>

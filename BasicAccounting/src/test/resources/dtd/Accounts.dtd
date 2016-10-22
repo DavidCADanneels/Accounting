@@ -1,0 +1,12 @@
+<!ELEMENT Accounts (name, (Account*,Mortgage*)*,CurrentObject?)>
+<!ELEMENT Account (defaultAmount?,name,type)>
+<!ELEMENT Mortgage (CapitalAccount,IntrestAccount,name,nrPayed,total,type)>
+<!ELEMENT defaultAmount (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT type (#PCDATA)>
+<!ELEMENT project (#PCDATA)>
+<!ELEMENT total (#PCDATA)>
+<!ELEMENT nrPayed (#PCDATA)>
+<!ELEMENT CapitalAccount (#PCDATA)>
+<!ELEMENT IntrestAccount (#PCDATA)>
+<!ELEMENT CurrentObject (#PCDATA)>
