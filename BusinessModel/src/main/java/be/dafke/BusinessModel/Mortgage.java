@@ -29,6 +29,11 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
     }
 
     @Override
+    public String toString(){
+        return getName();
+    }
+
+    @Override
     public MortgageTransaction createNewChild(TreeMap<String, String> properties) {
         MortgageTransaction mortgageTransaction = new MortgageTransaction(accounts);
         mortgageTransaction.setMortgage(this);
