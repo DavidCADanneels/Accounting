@@ -41,15 +41,14 @@ public class MortgagesSAXParser {
     // WRITE
     //
     public static void writeMortgage(Mortgage mortgage, File mortgagesFolder, String header) {
-        System.out.println("Mortgages.TOXML(" + mortgage.toString() + ")");
+        System.out.println("Mortgages.TOXML(" + mortgage.getName() + ")");
         try {
             File xmlFile = new File(mortgagesFolder, mortgage.getName()+".xml");
             Writer writer = new FileWriter(xmlFile);
 
             writer.write(header);
 
-            writer.write("<Mortgage>\r\n");
-            writer.write("  <name>" + mortgage.toString() + "</name>\r\n");
+            writer.write("  <name>" + mortgage.getName() + "</name>\r\n");
             int teller = 1;
             ArrayList<Vector<BigDecimal>> table = mortgage.getTable();
             if(table!=null){
