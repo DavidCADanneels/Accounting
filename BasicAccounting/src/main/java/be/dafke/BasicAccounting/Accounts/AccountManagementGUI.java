@@ -43,7 +43,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
         // COMPONENTS
         //
         // Table
-		tabel = new RefreshableTable<Account>(model);
+		tabel = new RefreshableTable<>(model);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
@@ -114,7 +114,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
         if (rows.length == 0) {
             ActionUtils.showErrorMessage(ActionUtils.SELECT_ACCOUNT_FIRST);
         }
-        ArrayList<Account> accountList = new ArrayList<Account>();
+        ArrayList<Account> accountList = new ArrayList<>();
         for(int row : rows) {
             Account account = (Account) model.getValueAt(row, 0);
             accountList.add(account);

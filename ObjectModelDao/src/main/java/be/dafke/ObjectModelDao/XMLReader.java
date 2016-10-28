@@ -65,7 +65,7 @@ public class XMLReader {
         for (int i = 0; i < childrenNodeList.getLength(); i++) {
             try {
                 // create empty properties TreeMap
-                TreeMap<String, String> properties = new TreeMap<String, String>();
+                TreeMap<String, String> properties = new TreeMap<>();
 
                 // get the Object's keySet
                 Set<String> keySet = businessCollection.getInitKeySet();

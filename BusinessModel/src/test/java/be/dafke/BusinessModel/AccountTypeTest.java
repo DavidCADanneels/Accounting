@@ -42,7 +42,7 @@ public class AccountTypeTest {
         accountTypes.getBusinessObjects();
         ArrayList<AccountType> businessObjects = accountTypes.getBusinessObjects();
         // make more performant
-        List<String> names = new ArrayList<String>();
+        List<String> names = new ArrayList<>();
         for(AccountType type : businessObjects){
             names.add(type.toString());
         }

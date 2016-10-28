@@ -42,7 +42,7 @@ public class Statements extends BusinessCollection<BusinessObject> {
     }
 
     public ArrayList<Statement> getStatements(SearchOptions searchOptions) {
-		ArrayList<Statement> result = new ArrayList<Statement>();
+		ArrayList<Statement> result = new ArrayList<>();
         CounterParty counterParty = searchOptions.getCounterParty();
         String transactionCode = searchOptions.getTransactionCode();
         String communication = searchOptions.getCommunication();
@@ -82,7 +82,7 @@ public class Statements extends BusinessCollection<BusinessObject> {
     //
     // Keys found in the CollectionFile e.g. Account.NAME in Accounts.xml file
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
+        Set<String> keySet = new TreeSet<>();
         keySet.add(NAME);
         keySet.add(Statement.DATE);
         keySet.add(Statement.SIGN);

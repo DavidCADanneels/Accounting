@@ -10,8 +10,8 @@ import java.util.HashMap;
  * Time: 0:01
  */
 public class ComponentMap {
-    private static final ArrayList<RefreshableComponent> refreshableComponents = new ArrayList<RefreshableComponent>();
-    private static final HashMap<String, DisposableComponent> disposableComponents = new HashMap<String, DisposableComponent>();
+    private static final ArrayList<RefreshableComponent> refreshableComponents = new ArrayList<>();
+    private static final HashMap<String, DisposableComponent> disposableComponents = new HashMap<>();
 
     public static void closeAllFrames(){
         Collection<DisposableComponent> collection = disposableComponents.values();

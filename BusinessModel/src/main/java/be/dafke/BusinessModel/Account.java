@@ -26,7 +26,7 @@ public class Account extends BusinessCollection<Movement> {
 
     public Account(String name) {
         setName(name);
-        movements = new MultiValueMap<Calendar,Movement>();
+        movements = new MultiValueMap<>();
         debitTotal = BigDecimal.ZERO;
         debitTotal = debitTotal.setScale(2);
         creditTotal = BigDecimal.ZERO;
@@ -35,7 +35,7 @@ public class Account extends BusinessCollection<Movement> {
 
     @Override
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
+        Set<String> keySet = new TreeSet<>();
         keySet.add(NAME);
         keySet.add(ID);
         keySet.add(DEBIT);

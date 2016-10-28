@@ -17,7 +17,7 @@ public class Project extends BusinessObject{
 
 	public Project(String name) {
 		naam = name;
-		rekeningen = new HashMap<String, Account>();
+		rekeningen = new HashMap<>();
 	}
 
 	public void addAccount(Account account) {

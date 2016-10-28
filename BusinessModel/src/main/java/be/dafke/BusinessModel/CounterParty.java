@@ -20,10 +20,10 @@ public class CounterParty extends BusinessObject {
     // private final ArrayList<Account> debetAccounts, creditAccounts;
 
 	public CounterParty() {
-		accounts = new HashMap<String, BankAccount>();
-        accountsList = new ArrayList<BankAccount>();
-		addressLines = new ArrayList<String>();
-		aliases = new ArrayList<String>();
+		accounts = new HashMap<>();
+        accountsList = new ArrayList<>();
+		addressLines = new ArrayList<>();
+		aliases = new ArrayList<>();
 		// debetAccounts = new ArrayList<Account>();
 		// creditAccounts = new ArrayList<Account>();
 	}

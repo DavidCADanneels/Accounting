@@ -63,7 +63,7 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 	}
 
 	public Booking getValueAt(int row) {
-		ArrayList<Booking> boekingen = new ArrayList<Booking>();
+		ArrayList<Booking> boekingen = new ArrayList<>();
 		for(Transaction transaction : journal.getBusinessObjects()){
 			boekingen.addAll(transaction.getBusinessObjects());
 		}
@@ -132,7 +132,7 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 
 	@Override
 	public Booking getObject(int row, int col) {
-		ArrayList<Booking> boekingen = new ArrayList<Booking>();
+		ArrayList<Booking> boekingen = new ArrayList<>();
 		for(Transaction transaction : journal.getBusinessObjects()){
 			boekingen.addAll(transaction.getBusinessObjects());
 		}
@@ -142,7 +142,7 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 	@Override
 	public int getRow(Booking booking) {
 		int row = 0;
-		ArrayList<Booking> boekingen = new ArrayList<Booking>();
+		ArrayList<Booking> boekingen = new ArrayList<>();
 		for(Transaction transaction : journal.getBusinessObjects()){
 			boekingen.addAll(transaction.getBusinessObjects());
 		}

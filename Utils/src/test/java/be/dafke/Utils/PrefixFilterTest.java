@@ -16,16 +16,16 @@ import static org.junit.Assert.assertEquals;
 public class PrefixFilterTest {
 
     public PrefixFilter<String> setUp(DefaultListModel<String> model){
-        ArrayList<String> map = new ArrayList<String>();
+        ArrayList<String> map = new ArrayList<>();
         map.add("APPEL");
         map.add("BEER");
         map.add("AAP");
-        return new PrefixFilter<String>(model, map);
+        return new PrefixFilter<>(model, map);
     }
 
     @Test
     public void testDefaultModel(){
-        DefaultListModel<String> model = new DefaultListModel<String>();
+        DefaultListModel<String> model = new DefaultListModel<>();
         PrefixFilter<String> filter = setUp(model);
         filter.filter("A");
         assertEquals(2, model.getSize());

@@ -84,7 +84,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 		hoofdPaneel.add(noord, BorderLayout.NORTH);
 		hoofdPaneel.add(midden, BorderLayout.CENTER);
 
-        selectedAccountTypes = new HashMap<AccountType, Boolean>();
+        selectedAccountTypes = new HashMap<>();
 
         // CENTER
         //
@@ -96,7 +96,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 
         lijst.addMouseListener(this);//new PopupForListActivator(popup, lijst));//, new AccountDetailsLauncher(accountings)));
 		lijst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		zoeker = new PrefixFilterPanel<>(model, lijst, new ArrayList<Account>());
+		zoeker = new PrefixFilterPanel<>(model, lijst, new ArrayList<>());
         zoeker.add(hoofdPaneel, BorderLayout.SOUTH);
 		add(zoeker, BorderLayout.CENTER);
 

@@ -26,7 +26,7 @@ public abstract class RefreshableTableFrame<BusinessObject> extends RefreshableF
 	 */
 	public RefreshableTableFrame(String title, RefreshableTableModel<BusinessObject> model) {
 		super(title);
-		tabel = new RefreshableTable<BusinessObject>(model);
+		tabel = new RefreshableTable<>(model);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);

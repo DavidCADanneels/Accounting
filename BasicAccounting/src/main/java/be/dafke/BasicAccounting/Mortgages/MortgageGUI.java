@@ -57,8 +57,8 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		super("Mortgages");
 		this.accounts = accounting.getAccounts();
         this.mortgages = mortgages;
-		mortgagesList = new JList<BusinessObject>();
-		mortgagesList.setModel(new DefaultListModel<BusinessObject>());
+		mortgagesList = new JList<>();
+		mortgagesList.setModel(new DefaultListModel<>());
 		mortgagesList.addListSelectionListener(this);
 		create = new JButton("Create new Mortgage table");
 		create.addActionListener(new ActionListener() {
@@ -82,13 +82,13 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		panel.add(left, BorderLayout.WEST);
 
 		model = new MortgageDataModel(selectedMortgage);
-		table = new RefreshableTable<Mortgage>(model);
+		table = new RefreshableTable<>(model);
 		table.setPreferredScrollableViewportSize(new Dimension(600, 200));
 		JScrollPane scroll = new JScrollPane(table);
 
-		comboIntrest = new JComboBox<Account>();// comboModel);
+		comboIntrest = new JComboBox<>();// comboModel);
 		comboIntrest.addActionListener(this);
-		comboCapital = new JComboBox<Account>();// comboModel);
+		comboCapital = new JComboBox<>();// comboModel);
 		comboCapital.addActionListener(this);
 		nrPayed = new JTextField(4);
 		nrPayed.addActionListener(this);
@@ -209,7 +209,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
     }
 
 	public void refresh() {
-        listModel = new DefaultListModel<BusinessObject>();
+        listModel = new DefaultListModel<>();
         for(BusinessObject mortgage :mortgages.getBusinessObjects()) {
             if (!listModel.contains(mortgage)) {
                 listModel.addElement(mortgage);
@@ -222,8 +222,8 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
         for(int i = 0; i < accounts.getBusinessObjects().size(); i++) {
             allAccounts[i] = accounts.getBusinessObjects().get(i);
         }
-        intrestModel = new DefaultComboBoxModel<Account>(allAccounts);
-        capitalModel = new DefaultComboBoxModel<Account>(allAccounts);
+        intrestModel = new DefaultComboBoxModel<>(allAccounts);
+        capitalModel = new DefaultComboBoxModel<>(allAccounts);
         comboCapital.setModel(capitalModel);
         comboIntrest.setModel(intrestModel);
         comboCapital.revalidate();

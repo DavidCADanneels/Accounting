@@ -35,7 +35,7 @@ public class Mortgages extends BusinessCollection<Mortgage> {
 
     @Override
     public Set<String> getInitKeySet() {
-        Set<String> keySet = new TreeSet<String>();
+        Set<String> keySet = new TreeSet<>();
         keySet.add(NAME);
         keySet.add(TOTAL);
         keySet.add(NRPAYED);

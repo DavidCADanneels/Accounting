@@ -45,7 +45,7 @@ public class Balances extends BusinessCollection<Balance> {
 
     @Override
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
+        Set<String> keySet = new TreeSet<>();
         keySet.add(NAME);
         keySet.add(LEFTNAME);
         keySet.add(RIGHTNAME);
@@ -64,12 +64,12 @@ public class Balances extends BusinessCollection<Balance> {
     }
 
     public void addDefaultBalances(AccountTypes accountTypes) {
-        ArrayList<AccountType> costs = new ArrayList<AccountType>();
-        ArrayList<AccountType> revenues = new ArrayList<AccountType>();
-        ArrayList<AccountType> credit = new ArrayList<AccountType>();
-        ArrayList<AccountType> debit = new ArrayList<AccountType>();
-        ArrayList<AccountType> active = new ArrayList<AccountType>();
-        ArrayList<AccountType> passive = new ArrayList<AccountType>();
+        ArrayList<AccountType> costs = new ArrayList<>();
+        ArrayList<AccountType> revenues = new ArrayList<>();
+        ArrayList<AccountType> credit = new ArrayList<>();
+        ArrayList<AccountType> debit = new ArrayList<>();
+        ArrayList<AccountType> active = new ArrayList<>();
+        ArrayList<AccountType> passive = new ArrayList<>();
 
         // TODO: define AccountType.Cost etc (the default types)
         costs.add(accountTypes.getBusinessObject(AccountTypes.COST));
@@ -137,14 +137,14 @@ public class Balances extends BusinessCollection<Balance> {
         balance.setRightResultName(properties.get(Balances.RIGHTRESULTNAME));
 
         ArrayList<String> leftTypesString = Utils.parseStringList(properties.get(Balances.LEFTTYPES));
-        ArrayList<AccountType> leftTypes = new ArrayList<AccountType>();
+        ArrayList<AccountType> leftTypes = new ArrayList<>();
         for(String s: leftTypesString){
             leftTypes.add(accounting.getAccountTypes().getBusinessObject(s));
         }
         balance.setLeftTypes(leftTypes);
 
         ArrayList<String> rightTypesString = Utils.parseStringList(properties.get(Balances.RIGHTTYPES));
-        ArrayList<AccountType> rightTypes = new ArrayList<AccountType>();
+        ArrayList<AccountType> rightTypes = new ArrayList<>();
         for(String s: rightTypesString){
             rightTypes.add(accounting.getAccountTypes().getBusinessObject(s));
         }

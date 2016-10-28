@@ -25,7 +25,7 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
     public Mortgage(Mortgages mortgages, Accounts accounts){
         this.mortgages = mortgages;
         this.accounts = accounts;
-        bookedtransactions = new MultiValueMap<Calendar,MortgageTransaction>();
+        bookedtransactions = new MultiValueMap<>();
     }
 
     @Override
@@ -43,7 +43,7 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
 
     @Override
     public TreeMap<String, String> getUniqueProperties(){
-        TreeMap<String,String> properties = new TreeMap<String, String>();
+        TreeMap<String,String> properties = new TreeMap<>();
         properties.put(NAME,getName());
         return properties;
     }

@@ -21,7 +21,7 @@ public class MortgageContentHandler extends DefaultHandler {
 
 	public MortgageContentHandler(Mortgage mortgage) {
 		this.mortgage = mortgage;
-		this.mortgageTable = new ArrayList<Vector<BigDecimal>>();
+		this.mortgageTable = new ArrayList<>();
 	}
 
 	@Override
@@ -42,7 +42,7 @@ public class MortgageContentHandler extends DefaultHandler {
 	@Override
 	public void characters(char[] text, int start, int length) throws SAXException {
 		if (b_nr) {
-			vector = new Vector<BigDecimal>();
+			vector = new Vector<>();
 			b_nr = false;
 		} else if (b_mensuality) {
 			String amountString = new String(text, start, length);

@@ -42,7 +42,7 @@ public class Journals extends BusinessCollection<Journal> {
 
     @Override
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
+        Set<String> keySet = new TreeSet<>();
         keySet.add(NAME);
         keySet.add(ABBREVIATION);
         keySet.add(TYPE);
@@ -60,22 +60,22 @@ public class Journals extends BusinessCollection<Journal> {
 	 * @return alle dagboeken behalve het gegeven dagboek
 	 */
 	public ArrayList<Journal> getAllJournalsExcept(Journal j) {
-		ArrayList<Journal> result = new ArrayList<Journal>(getBusinessObjects());
+		ArrayList<Journal> result = new ArrayList<>(getBusinessObjects());
 		result.remove(j);
 		return result;
 	}
 
     public Journal modifyJournalName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
-        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(NAME, oldName);
-        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(NAME, newName);
+        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, oldName);
+        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, newName);
 //        Name is modified in modify Function
 //        journal.setName(newName.trim());
         return modify(oldEntry, newEntry);
     }
 
     public Journal modifyJournalAbbreviation(String oldAbbreviation, String newAbbreviation) throws EmptyNameException, DuplicateNameException {
-        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(ABBREVIATION, oldAbbreviation);
-        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(ABBREVIATION, newAbbreviation);
+        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<>(ABBREVIATION, oldAbbreviation);
+        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<>(ABBREVIATION, newAbbreviation);
         Journal journal = modify(oldEntry, newEntry);
         journal.setAbbreviation(newAbbreviation.trim());
         return journal;

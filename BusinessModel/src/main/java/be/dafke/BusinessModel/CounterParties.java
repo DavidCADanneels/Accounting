@@ -39,7 +39,7 @@ public class CounterParties extends BusinessCollection<BusinessObject> {
 
     @Override
     public Set<String> getInitKeySet() {
-        Set<String> keySet = new TreeSet<String>();
+        Set<String> keySet = new TreeSet<>();
         keySet.add(NAME);
         keySet.add(ACCOUNTNUMBER);
         keySet.add(ADDRESS);
@@ -148,7 +148,7 @@ public class CounterParties extends BusinessCollection<BusinessObject> {
             System.out.println("Alias (" + toRemove.getName() + ") added for " + toKeep.getName());
             toKeep.getAliases().addAll(toRemove.getAliases());
         }
-        Map.Entry<String,String> entry = new AbstractMap.SimpleImmutableEntry<String, String>(NAME,toRemove.getName());
+        Map.Entry<String,String> entry = new AbstractMap.SimpleImmutableEntry<>(NAME, toRemove.getName());
         removeBusinessObject(entry);
         for(BankAccount bankAccountToRemove : toRemove.getBankAccounts().values()){
             BankAccount bankAccountToKeep = toKeep.getBankAccounts().get(bankAccountToRemove.getAccountNumber());

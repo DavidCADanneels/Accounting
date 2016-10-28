@@ -30,7 +30,7 @@ public class MultiValueMapTest {
 
     @Before
     public void init(){
-        map = new MultiValueMap<String, String>();
+        map = new MultiValueMap<>();
     }
 
     private void createDefaultMap(){

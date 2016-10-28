@@ -55,7 +55,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         } catch (DuplicateNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        keys = new ArrayList<String>();
+        keys = new ArrayList<>();
 //        keys.add(accountTypes.getBusinessObjectType());
         keys.add(accounts.getBusinessObjectType());
         keys.add(journals.getBusinessObjectType());
@@ -79,7 +79,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     @Override
     public ArrayList<BusinessCollection<BusinessObject>> getBusinessObjects(){
-        ArrayList<BusinessCollection<BusinessObject>> objects = new ArrayList<BusinessCollection<BusinessObject>>();
+        ArrayList<BusinessCollection<BusinessObject>> objects = new ArrayList<>();
         for(String key:keys){
             objects.add(getBusinessObject(key));
         }

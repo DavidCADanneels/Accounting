@@ -26,7 +26,7 @@ public class CsvParser {
     private HashMap<String,String> transactionCodes;
 
     public CsvParser(){
-        transactionCodes = new HashMap<String, String>();
+        transactionCodes = new HashMap<>();
         transactionCodes.put("Europese overschrijving","101");
         transactionCodes.put("Storting vanwege","150");
         transactionCodes.put("Aankoop met AXA bankkaart","402");
@@ -94,7 +94,7 @@ public class CsvParser {
                         counterParty.setName(parts[9].replaceAll("\"","").trim());
                         String line1 = parts[10].replaceAll("\"","").trim()+" "+parts[11].replaceAll("\"","").trim();
                         String line2 = parts[12].replaceAll("\"","").trim()+" "+parts[13].replaceAll("\"","").trim();
-                        ArrayList<String> addressLines = new ArrayList<String>();
+                        ArrayList<String> addressLines = new ArrayList<>();
                         addressLines.add(line1.trim());
                         addressLines.add(line2.trim());
                         counterParty.setAddressLines(addressLines);

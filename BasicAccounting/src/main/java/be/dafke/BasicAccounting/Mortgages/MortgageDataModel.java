@@ -23,7 +23,7 @@ public class MortgageDataModel extends RefreshableTableModel<Mortgage> {
 		if (mortgage != null) {
 			data = mortgage.getTable();
 		} else {
-			data = new ArrayList<Vector<BigDecimal>>();
+			data = new ArrayList<>();
 		}
 	}
 
@@ -31,7 +31,7 @@ public class MortgageDataModel extends RefreshableTableModel<Mortgage> {
 		if (newMortgage != null) {
 			data = newMortgage.getTable();
 		} else {
-			data = new ArrayList<Vector<BigDecimal>>();
+			data = new ArrayList<>();
 		}
 	}
 

@@ -35,7 +35,7 @@ public class Movement extends BusinessObject{
 
     @Override
     public TreeMap<String, String> getUniqueProperties(){
-        TreeMap<String,String> properties = new TreeMap<String, String>();
+        TreeMap<String,String> properties = new TreeMap<>();
         properties.put(Account.ID,id.toString());
         return properties;
     }

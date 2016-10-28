@@ -56,7 +56,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         newCounterParty = null;
 
         // COMPONENTS
-		oldCounterPartyCombo = new JComboBox<BusinessObject>();
+		oldCounterPartyCombo = new JComboBox<>();
 		oldCounterPartyCombo.addItem(null);
         for(BusinessObject counterParty : counterParties.getBusinessObjects()){
             oldCounterPartyCombo.addItem(counterParty);
@@ -64,7 +64,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         oldCounterPartyCombo.setSelectedItem(null);
 		oldCounterPartyCombo.addActionListener(this);
         oldCounterPartyCombo.setEnabled(false);
-        newCounterPartyCombo = new JComboBox<BusinessObject>();
+        newCounterPartyCombo = new JComboBox<>();
         newCounterPartyCombo.addItem(null);
         for(BusinessObject counterParty : counterParties.getBusinessObjects()){
             newCounterPartyCombo.addItem(counterParty);
@@ -83,7 +83,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         movementDataModel = new GenericStatementDataModel(searchOptions,
                 statements);
         movementDataModel.setSingleStatement(statement);
-        movementTable = new RefreshableTable<Statement>(movementDataModel);
+        movementTable = new RefreshableTable<>(movementDataModel);
         movementTable.setDefaultRenderer(CounterParty.class, new ColorRenderer());
         movementTable.setDefaultRenderer(TmpCounterParty.class, new ColorRenderer());
         JScrollPane scrollPane = new JScrollPane(movementTable);

@@ -14,7 +14,7 @@ public class Calculate {
 	public static ArrayList<Vector<BigDecimal>> createFixedAmountTable(BigDecimal startKapitaal, int aantalMaanden,
 			BigDecimal mensualiteit, BigDecimal maandPercentage) {
 		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100));
-		ArrayList<Vector<BigDecimal>> aflossingsTabel = new ArrayList<Vector<BigDecimal>>();
+		ArrayList<Vector<BigDecimal>> aflossingsTabel = new ArrayList<>();
 		BigDecimal roundedMensualiteit = mensualiteit.setScale(2, RoundingMode.HALF_UP);
 		BigDecimal totaleSom = roundedMensualiteit.multiply(new BigDecimal(aantalMaanden));
 		BigDecimal totaalIntrest = totaleSom.subtract(startKapitaal);
@@ -29,7 +29,7 @@ public class Calculate {
 			kapitaal = roundedMensualiteit.subtract(intrest);
 			restKapitaal = restKapitaal.subtract(kapitaal);
 
-			Vector<BigDecimal> vector = new Vector<BigDecimal>();
+			Vector<BigDecimal> vector = new Vector<>();
 			vector.add(roundedMensualiteit);
 			vector.add(intrest);
 			vector.add(kapitaal);
@@ -41,7 +41,7 @@ public class Calculate {
 		kapitaal = restKapitaal;
 		intrest = roundedMensualiteit.subtract(kapitaal);
 		restKapitaal = restKapitaal.subtract(kapitaal);
-		Vector<BigDecimal> vector = new Vector<BigDecimal>();
+		Vector<BigDecimal> vector = new Vector<>();
 		vector.add(roundedMensualiteit);
 		vector.add(intrest);
 		vector.add(kapitaal);
@@ -104,7 +104,7 @@ public class Calculate {
 	public static ArrayList<Vector<BigDecimal>> createDegressiveAmountTable(BigDecimal startKapitaal,
 			int aantalMaanden, BigDecimal maandPercentage) {
 		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100));
-		ArrayList<Vector<BigDecimal>> aflossingsTabel = new ArrayList<Vector<BigDecimal>>();
+		ArrayList<Vector<BigDecimal>> aflossingsTabel = new ArrayList<>();
 
 		BigDecimal monthlyCapital = startKapitaal.divide(BigDecimal.valueOf(aantalMaanden), 2, RoundingMode.HALF_UP);
 //		BigDecimal roundedMonthlyCapital = monthlyCapital.setScale(2, RoundingMode.HALF_UP);
@@ -128,7 +128,7 @@ public class Calculate {
 			totaleIntrest = totaleIntrest.add(intrest);
 			totaleSom = totaleSom.add(totaal);
 
-			Vector<BigDecimal> vector = new Vector<BigDecimal>();
+			Vector<BigDecimal> vector = new Vector<>();
 //			vector.add(roundedMensualiteit);
 			vector.add(totaal);
 			vector.add(intrest);
@@ -149,7 +149,7 @@ public class Calculate {
 		totaleIntrest = totaleIntrest.add(intrest);
 		totaleSom = totaleSom.add(totaal);
 
-		Vector<BigDecimal> vector = new Vector<BigDecimal>();
+		Vector<BigDecimal> vector = new Vector<>();
 //		vector.add(roundedMensualiteit);
 		vector.add(totaal);
 		vector.add(intrest);

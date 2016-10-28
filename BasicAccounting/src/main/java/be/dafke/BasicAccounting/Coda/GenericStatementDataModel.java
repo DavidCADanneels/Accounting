@@ -89,7 +89,7 @@ public class GenericStatementDataModel extends RefreshableTableModel<Statement> 
 
 	public ArrayList<Statement> getAllStatements() {
         if (singleStatement != null) {
-			ArrayList<Statement> result = new ArrayList<Statement>();
+			ArrayList<Statement> result = new ArrayList<>();
 			result.add(singleStatement);
 			return result;
 		}

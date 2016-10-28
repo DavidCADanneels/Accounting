@@ -164,8 +164,8 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
 		// TODO: not use transactioncodes as counterparty,
 		// but as the user for input.
 		JOptionPane.showMessageDialog(this, "TODO: link transactioncode + extra data to counterparties");
-		Set<CounterParty> set = new HashSet<CounterParty>();
-		List<BusinessObject> list = new ArrayList<BusinessObject>();
+		Set<CounterParty> set = new HashSet<>();
+		List<BusinessObject> list = new ArrayList<>();
 		for(int i : rows) {
 			CounterParty counterParty = (CounterParty) tabel.getValueAt(i, 4);
 			if (counterParty == null) {

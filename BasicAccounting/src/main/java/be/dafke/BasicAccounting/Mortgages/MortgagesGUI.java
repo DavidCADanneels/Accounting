@@ -33,8 +33,8 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
 	public MortgagesGUI() {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Mortgages"));
-		list = new JList<Mortgage>();
-		listModel = new DefaultListModel<Mortgage>();
+		list = new JList<>();
+		listModel = new DefaultListModel<>();
 		list.setModel(listModel);
 		list.addListSelectionListener(this);
 		pay = new JButton("Pay");

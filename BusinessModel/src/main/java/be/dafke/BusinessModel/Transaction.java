@@ -36,12 +36,12 @@ public class Transaction extends BusinessCollection<Booking> {
 		debitTotal = debitTotal.setScale(2);
 		creditTotal = new BigDecimal(0);
 		creditTotal = creditTotal.setScale(2);
-        bookings = new ArrayList<Booking>();
+        bookings = new ArrayList<>();
 	}
 
     @Override
     public TreeMap<String, String> getUniqueProperties(){
-        return new TreeMap<String, String>();
+        return new TreeMap<>();
     }
 
     @Override
@@ -85,7 +85,7 @@ public class Transaction extends BusinessCollection<Booking> {
     // FOR READING
     // Define keys to read from xml, required to initialize Object attributes
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
+        Set<String> keySet = new TreeSet<>();
         keySet.add(Booking.ACCOUNT);
         keySet.add(Booking.DEBIT);
         keySet.add(Booking.CREDIT);

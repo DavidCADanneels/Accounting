@@ -43,7 +43,7 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 		this.accounting = accounting;
 		this.startCapital = startCapital;
 		model = new MortgageDataModel(mortgage);
-		tabel = new RefreshableTable<Mortgage>(model);
+		tabel = new RefreshableTable<>(model);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		JScrollPane scrollPane = new JScrollPane(tabel);
 		JPanel panel = new JPanel(new BorderLayout());

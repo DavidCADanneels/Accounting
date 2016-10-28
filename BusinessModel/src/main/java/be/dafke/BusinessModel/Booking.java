@@ -49,7 +49,7 @@ public class Booking extends BusinessObject {
 
     @Override
     public TreeMap<String, String> getUniqueProperties(){
-        return new TreeMap<String, String>();
+        return new TreeMap<>();
     }
 
     @Override

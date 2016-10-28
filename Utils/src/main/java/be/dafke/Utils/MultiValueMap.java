@@ -14,12 +14,12 @@ public class MultiValueMap<K,V> {
     private TreeMap<K,List<V>> data;
 
     public MultiValueMap (){
-        data = new TreeMap<K, List<V>>();
+        data = new TreeMap<>();
     }
 
     public V addValue(K key, V value){
         if(!data.containsKey(key)){
-            data.put(key, new ArrayList<V>());
+            data.put(key, new ArrayList<>());
         }
         List<V> list = data.get(key);
         list.add(value);
@@ -36,7 +36,7 @@ public class MultiValueMap<K,V> {
     }
 
     public ArrayList<V> values(){
-        ArrayList<V> result = new ArrayList<V>();
+        ArrayList<V> result = new ArrayList<>();
         for (List<V> list:data.values()){
             result.addAll(list);
         }
@@ -44,7 +44,7 @@ public class MultiValueMap<K,V> {
     }
 
     public ArrayList<V> tailList(K key, boolean inclusive){
-        ArrayList<V> result = new ArrayList<V>();
+        ArrayList<V> result = new ArrayList<>();
         SortedMap<K,List<V>> tailMap = data.tailMap(key, inclusive);
         for (List<V> list:tailMap.values()){
             result.addAll(list);
@@ -57,6 +57,6 @@ public class MultiValueMap<K,V> {
     }
 
     public ArrayList<V> get(K key){
-        return new ArrayList<V>(data.get(key));
+        return new ArrayList<>(data.get(key));
     }
 }

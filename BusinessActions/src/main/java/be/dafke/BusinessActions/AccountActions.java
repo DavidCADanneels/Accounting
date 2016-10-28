@@ -23,7 +23,7 @@ import static java.util.ResourceBundle.getBundle;
 public class AccountActions {
     public static void deleteAccounts(List<Account> accountList, Accounts accounts){
         if(!accountList.isEmpty()) {
-            ArrayList<String> failed = new ArrayList<String>();
+            ArrayList<String> failed = new ArrayList<>();
             for(Account account : accountList) {
                 try{
                     accounts.removeBusinessObject(account);
