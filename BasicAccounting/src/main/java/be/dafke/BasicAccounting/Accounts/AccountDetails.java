@@ -1,10 +1,5 @@
 package be.dafke.BasicAccounting.Accounts;
 
-/**
- *
- * @author David Danneels
- */
-
 import be.dafke.BasicAccounting.DetailsPopupMenu;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;

@@ -79,9 +79,7 @@ public class CsvParser {
                     statement.setCommunication(parts[14].replaceAll("\"","").trim()+parts[15].replaceAll("\"","").trim());
                     try {
                         statements.addBusinessObject(statement);
-                    } catch (EmptyNameException e) {
-                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                    } catch (DuplicateNameException e) {
+                    } catch (EmptyNameException | DuplicateNameException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
 
@@ -101,9 +99,7 @@ public class CsvParser {
                         statement.setCounterParty(counterParty);
                         try {
                             counterParties.addBusinessObject(counterParty);
-                        } catch (EmptyNameException e) {
-                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-                        } catch (DuplicateNameException e) {
+                        } catch (EmptyNameException | DuplicateNameException e) {
                             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                         }
                     }

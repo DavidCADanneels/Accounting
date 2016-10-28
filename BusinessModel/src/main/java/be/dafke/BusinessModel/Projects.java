@@ -19,9 +19,7 @@ public class Projects extends BusinessCollection<BusinessObject> {
     public Projects(Accounting accounting) {
         try {
             accounting.addBusinessObject(this);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (DuplicateNameException e) {
+        } catch (EmptyNameException | DuplicateNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         accounting.addKey(getBusinessObjectType());

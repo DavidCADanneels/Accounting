@@ -38,8 +38,6 @@ public class XMLReader {
             Element rootElement = (Element) doc.getElementsByTagName(collectionName).item(0);
 
             readChildren(rootElement, businessCollection);
-        } catch (IOException io) {
-            io.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -91,9 +89,7 @@ public class XMLReader {
                 // add the object to the collection
                 businessCollection.addBusinessObject(object);
 
-            } catch (EmptyNameException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-            } catch (DuplicateNameException e) {
+            } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
         }// for each ChildNode

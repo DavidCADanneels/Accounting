@@ -25,9 +25,7 @@ public class JournalTypes extends BusinessTypeCollection<JournalType> {
         defaultType.setCreditTypes(accountTypes.getBusinessObjects());
         try {
             addBusinessObject(defaultType);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (DuplicateNameException e) {
+        } catch (EmptyNameException | DuplicateNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
     }

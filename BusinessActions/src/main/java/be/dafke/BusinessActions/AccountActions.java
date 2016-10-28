@@ -46,7 +46,7 @@ public class AccountActions {
         ComponentMap.refreshAllFrames();
     }
 
-    public static void modifyDefaultAmounts(List<Account> accountList, Accounts accounts){
+    public static void modifyDefaultAmounts(List<Account> accountList){
         if(!accountList.isEmpty()) {
             for(Account account : accountList){
                 BigDecimal defaultAmount = account.getDefaultAmount();

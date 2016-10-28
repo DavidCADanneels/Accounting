@@ -129,7 +129,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 		} else if(MODIFY_TYPE.equals(actionCommand)){
 			AccountActions.modifyAccountTypes(getSelectedAccounts(), accounting.getAccountTypes());
 		} else if(MODIFY_DEFAULT_AMOUNT.equals(actionCommand)){
-			AccountActions.modifyDefaultAmounts(getSelectedAccounts(), accounting.getAccounts());
+			AccountActions.modifyDefaultAmounts(getSelectedAccounts());
 		} else if(DELETE.equals(actionCommand)){
 			AccountActions.deleteAccounts(getSelectedAccounts(), accounting.getAccounts());
 		} else if(NEW_ACCOUNT.equals(actionCommand)){

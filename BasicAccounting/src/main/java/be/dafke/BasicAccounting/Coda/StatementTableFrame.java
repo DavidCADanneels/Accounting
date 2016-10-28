@@ -1,17 +1,6 @@
 package be.dafke.BasicAccounting.Coda;
 
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accountings;
-import be.dafke.BusinessModel.BankAccount;
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.CounterParties;
-import be.dafke.BusinessModel.CounterParty;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.SearchOptions;
-import be.dafke.BusinessModel.Statement;
-import be.dafke.BusinessModel.Statements;
-import be.dafke.BusinessModel.Transaction;
+import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.CodaParser;
 import be.dafke.BusinessModelDao.CsvParser;
 import be.dafke.ComponentModel.ComponentMap;
@@ -21,23 +10,16 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
-import java.awt.Point;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashSet;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
 
 public class StatementTableFrame extends RefreshableTableFrame<Statement> implements ActionListener, MouseListener {
 	/**
@@ -48,11 +30,9 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
     private final Statements statements;
     private final CounterParties counterParties;
     private final Accounting accounting;
-//    private final Accountings accountings;
 
-    public StatementTableFrame(Accountings accountings, Accounting accounting, Statements statements, CounterParties counterParties) {
+    public StatementTableFrame(Accounting accounting, Statements statements, CounterParties counterParties) {
 		super("Statements", new StatementDataModel(statements));
-//		this.accountings = accountings;
 		this.statements = statements;
         this.counterParties = counterParties;
         this.accounting = accounting;

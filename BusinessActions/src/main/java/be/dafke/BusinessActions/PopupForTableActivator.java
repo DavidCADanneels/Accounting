@@ -22,7 +22,7 @@ public class PopupForTableActivator extends MouseAdapter {
         this.tabel = tabel;
         this.activeColumns = new ArrayList<>();
         for(int i : activeColumns){
-            this.activeColumns.add(Integer.valueOf(i));
+            this.activeColumns.add(i);
         }
     }
 

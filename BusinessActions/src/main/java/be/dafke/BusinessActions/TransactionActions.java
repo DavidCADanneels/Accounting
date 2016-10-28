@@ -41,7 +41,7 @@ public class TransactionActions {
         ComponentMap.refreshAllFrames();
     }
 
-    public static void addBookingToTransaction(Accounts accounts, Account account, Transaction transaction, boolean debit) {
+    public static void addBookingToTransaction(Account account, Transaction transaction, boolean debit) {
         BigDecimal amount = askAmount(transaction, account, debit);
         if (amount != null) {
             Booking booking = new Booking(account, amount, debit);

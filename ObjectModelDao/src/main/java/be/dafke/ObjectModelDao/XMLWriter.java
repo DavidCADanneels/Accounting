@@ -73,8 +73,6 @@ public class XMLWriter {
             writer.flush();
             writer.close();
 //			setSaved(true);
-        } catch (FileNotFoundException ex) {
-            Logger.getLogger(BusinessCollection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
             Logger.getLogger(BusinessCollection.class.getName()).log(Level.SEVERE, null, ex);
         }

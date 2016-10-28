@@ -50,9 +50,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
             addBusinessObject((BusinessCollection)journals);
             addBusinessObject((BusinessCollection)balances);
             addBusinessObject((BusinessCollection)mortgages);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (DuplicateNameException e) {
+        } catch (EmptyNameException | DuplicateNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         keys = new ArrayList<>();

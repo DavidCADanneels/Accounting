@@ -167,9 +167,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 				project = new Project(naam);
 				try {
 					projects.addBusinessObject(project);
-				} catch (EmptyNameException e) {
-					e.printStackTrace();
-				} catch (DuplicateNameException e) {
+				} catch (EmptyNameException | DuplicateNameException e) {
 					e.printStackTrace();
 				}
 				((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
