@@ -1,11 +1,10 @@
 package be.dafke.BasicAccounting.Mortgages;
 
-import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.BusinessModel.Mortgage;
+import be.dafke.BusinessModel.MortgageTransaction;
+import be.dafke.ComponentModel.RefreshableTableModel;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Vector;
 
 public class MortgageDataModel extends RefreshableTableModel<Mortgage> {
 	/**
@@ -15,24 +14,14 @@ public class MortgageDataModel extends RefreshableTableModel<Mortgage> {
 	private final String[] columnNames = { "Nr", "Mensualiteit", "Intrest", "Kapitaal", "RestKapitaal" };
 	private final Class[] columnClasses = { Integer.class, BigDecimal.class, BigDecimal.class, BigDecimal.class,
 			BigDecimal.class };
-	private ArrayList<Vector<BigDecimal>> data;
-	private final Mortgage mortgage;
+	private Mortgage data;
 
-	public MortgageDataModel(Mortgage mortgage) {
-		this.mortgage = mortgage;
-		if (mortgage != null) {
-			data = mortgage.getTable();
-		} else {
-			data = new ArrayList<Vector<BigDecimal>>();
-		}
+	public MortgageDataModel(Mortgage data) {
+		this.data = data;
 	}
 
-	public void revalidate(Mortgage newMortgage) {
-		if (newMortgage != null) {
-			data = newMortgage.getTable();
-		} else {
-			data = new ArrayList<Vector<BigDecimal>>();
-		}
+	public void revalidate(Mortgage data) {
+		this.data = data;
 	}
 
 	public int getColumnCount() {
@@ -40,14 +29,27 @@ public class MortgageDataModel extends RefreshableTableModel<Mortgage> {
 	}
 
 	public int getRowCount() {
-		return data.size();
+		return data==null?0:data.getBusinessObjects().size();
 	}
 
+	/**
+	 * Is called to refresh the displayed data from the Mortgages table --> only read data !!!
+	 * @param row
+	 * @param col
+	 * @return
+	 */
 	public Object getValueAt(int row, int col) {
 		if (col == 0) {
-			return row + 1;
-		}
-		return data.get(row).get(col - 1);
+			return data.getBusinessObjects().get(row).getNr();
+		} else if (col == 1) {
+			return data.getBusinessObjects().get(row).getMensuality();
+		} else if (col == 2) {
+			return data.getBusinessObjects().get(row).getIntrest();
+		} else if (col == 3) {
+			return data.getBusinessObjects().get(row).getCapital();
+		} else if (col == 4) {
+			return data.getBusinessObjects().get(row).getRestCapital();
+		} else return null;
 	}
 
 	@Override
@@ -68,34 +70,24 @@ public class MortgageDataModel extends RefreshableTableModel<Mortgage> {
 	// DE SET METHODEN
 	// ===============
 	@Override
+	/**
+	 * Is called when user updates the value in the table -> update Mortgages table
+	 */
 	public void setValueAt(Object value, int row, int col) {
-		if (value instanceof BigDecimal) {
-			BigDecimal vorigRestCapital;
-			if (row == 0) {
-				vorigRestCapital = mortgage.getStartCapital();
-			} else {
-				vorigRestCapital = (BigDecimal) getValueAt(row - 1, 4);
-			}
-			BigDecimal amount = (BigDecimal) value;
-			Vector<BigDecimal> line = data.get(row);
-			BigDecimal mens = line.get(0);
-//			BigDecimal total = line.getBusinessObject(3);
-			BigDecimal amount2 = mens.subtract(amount);
-			if (col == 2) {
-				line.set(1, amount); // intrest
-				line.set(2, amount2);// capital
-				line.set(3, vorigRestCapital.subtract(amount2));
-			} else if (col == 3) {
-				line.set(2, amount); // capital
-				line.set(1, amount2);// intrest
-				line.set(3, vorigRestCapital.subtract(amount));
-			}
-			data.set(row, line);
-			fireTableDataChanged();
+		BigDecimal amount = (BigDecimal)value;
+		MortgageTransaction mortgageTransaction = data.getBusinessObjects().get(row);
+		if (col == 2) {
+			mortgageTransaction.setIntrest(amount, true);
+		} else if (col == 3) {
+			mortgageTransaction.setCapital(amount, true);
 		}
+//		if(...){ // TODO add option to disable auto update of below rows.
+			data.recalculateTable(row);
+//		}
+		fireTableDataChanged();
 	}
 
-	public ArrayList<Vector<BigDecimal>> getData() {
+	public Mortgage getData() {
 		return data;
 	}
 

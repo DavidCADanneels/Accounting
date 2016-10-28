@@ -27,6 +27,7 @@ public class Transaction extends BusinessCollection<Booking> {
 
     private final ArrayList<Booking> bookings;
     private Accounts accounts;
+    private Mortgage mortgage = null;
 
     public Transaction(Accounts accounts, Calendar date, String description) {
         this.accounts = accounts;
@@ -36,12 +37,16 @@ public class Transaction extends BusinessCollection<Booking> {
 		debitTotal = debitTotal.setScale(2);
 		creditTotal = new BigDecimal(0);
 		creditTotal = creditTotal.setScale(2);
-        bookings = new ArrayList<Booking>();
+        bookings = new ArrayList<>();
 	}
+
+    public Mortgage getMortgage() {
+        return mortgage;
+    }
 
     @Override
     public TreeMap<String, String> getUniqueProperties(){
-        return new TreeMap<String, String>();
+        return new TreeMap<>();
     }
 
     @Override

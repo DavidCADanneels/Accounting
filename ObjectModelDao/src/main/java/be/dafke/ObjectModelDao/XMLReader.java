@@ -22,7 +22,6 @@ import java.util.TreeMap;
 public class XMLReader {
     public static void readCollection(BusinessCollection businessCollection, File parentFolder){
         String businessCollectionName = businessCollection.getName();
-        File childFolder = new File(parentFolder, businessCollectionName);
         File xmlFile = new File(parentFolder, businessCollectionName+".xml");
 
         try {
@@ -49,6 +48,7 @@ public class XMLReader {
                 String type = subCollection.getBusinessObjectType();
                 String name = subCollection.getName();
                 if(type.equals(name) || (subCollection instanceof MustBeRead)){
+                    File childFolder = new File(parentFolder, businessCollectionName);
                     readCollection(subCollection, childFolder);
                 }
             }

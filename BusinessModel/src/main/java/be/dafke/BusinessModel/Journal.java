@@ -116,10 +116,9 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
 			Account account = booking.getAccount();
 			account.removeBusinessObject(booking.getMovement());
 		}
-        if (transaction instanceof MortgageTransaction){
-            MortgageTransaction mortgageTransaction = (MortgageTransaction) transaction;
-            Mortgage mortgage = mortgageTransaction.getMortgage();
-            mortgage.removeBusinessObject(mortgageTransaction);
+        Mortgage mortgage = transaction.getMortgage();
+        if (mortgage!=null){
+            mortgage.decreaseNrPayed();
         }
 	}
 
@@ -133,12 +132,10 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
         }
         transactions.addValue(date, transaction);
 
-        if (transaction instanceof MortgageTransaction){
-            MortgageTransaction mortgageTransaction = (MortgageTransaction) transaction;
-            Mortgage mortgage = mortgageTransaction.getMortgage();
-            mortgage.addBusinessObject(mortgageTransaction);
+        Mortgage mortgage = transaction.getMortgage();
+        if (mortgage!=null){
+            mortgage.raiseNrPayed();
         }
-
         return transaction;
 	}
 

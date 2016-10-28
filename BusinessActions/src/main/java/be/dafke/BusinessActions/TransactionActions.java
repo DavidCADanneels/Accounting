@@ -20,6 +20,10 @@ public class TransactionActions {
             System.out.println("Payed Off already");
             return;
         }
+        if (transaction.getMortgage()!=null){
+            System.out.println("Transaction already contains a mortgages");
+            return;
+        }
         Account capitalAccount = mortgage.getCapitalAccount();
         Account intrestAccount = mortgage.getIntrestAccount();
         if(capitalAccount==null || intrestAccount==null){
@@ -28,15 +32,8 @@ public class TransactionActions {
         Booking capitalBooking = new Booking(capitalAccount, mortgage.getNextCapitalAmount(),true);
         Booking intrestBooking = new Booking(intrestAccount, mortgage.getNextIntrestAmount(),true);
 
-
         transaction.addBusinessObject(capitalBooking);
         transaction.addBusinessObject(intrestBooking);
-
-        MortgageTransaction mortgageTransaction = new MortgageTransaction(accounts);
-        mortgageTransaction.setMortgage(mortgage);
-        mortgageTransaction.addBusinessObject(capitalBooking);
-        mortgageTransaction.addBusinessObject(intrestBooking);
-        mortgage.addBusinessObject(mortgageTransaction);
 
         ComponentMap.refreshAllFrames();
     }

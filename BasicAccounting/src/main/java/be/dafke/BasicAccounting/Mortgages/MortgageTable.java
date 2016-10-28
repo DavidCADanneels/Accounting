@@ -33,6 +33,7 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 
     private static int counter = 1;
     protected final int nr;
+    private Mortgage mortgage;
     private Mortgages mortgages;
 
 
@@ -49,6 +50,7 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(scrollPane, BorderLayout.CENTER);
 		save = new JButton("Save table");
+		save.setEnabled(false);
 		save.addActionListener(this);
 		panel.add(save, BorderLayout.SOUTH);
 		setContentPane(panel);
@@ -62,10 +64,8 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent arg0) {
 		String name = JOptionPane.showInputDialog(this, "Enter a name for the table.");
-        Mortgage mortgage = new Mortgage(mortgages, accounting.getAccounts());
         mortgage.setName(name);
         mortgage.setStartCapital(startCapital);
-        mortgage.setTable(model.getData());
         try {
 //            accounting.getAccounts().addBusinessObject(mortgage);    // this is implicitely done in the next step
             mortgages.addBusinessObject(mortgage);

@@ -6,16 +6,16 @@ import be.dafke.Utils.MultiValueMap;
 import java.math.BigDecimal;
 import java.util.*;
 
+import static be.dafke.BusinessModel.Movement.CREDIT;
+import static be.dafke.BusinessModel.Movement.DEBIT;
+import static be.dafke.BusinessModel.Movement.ID;
+
 /**
   * Boekhoudkundige rekening
   * @author David Danneels
   * @since 01/10/2010
  */
 public class Account extends BusinessCollection<Movement> {
-    public static final String ID = "id";
-    public static final String DEBIT = "debit";
-    public static final String CREDIT = "credit";
-
     public static final String TYPE = "type";
     public static final String DEFAULTAMOUNT = "defaultAmount";
     public static final String MOVEMENT = "Movement";
@@ -26,7 +26,7 @@ public class Account extends BusinessCollection<Movement> {
 
     public Account(String name) {
         setName(name);
-        movements = new MultiValueMap<Calendar,Movement>();
+        movements = new MultiValueMap<>();
         debitTotal = BigDecimal.ZERO;
         debitTotal = debitTotal.setScale(2);
         creditTotal = BigDecimal.ZERO;
@@ -35,7 +35,7 @@ public class Account extends BusinessCollection<Movement> {
 
     @Override
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
+        Set<String> keySet = new TreeSet<>();
         keySet.add(NAME);
         keySet.add(ID);
         keySet.add(DEBIT);

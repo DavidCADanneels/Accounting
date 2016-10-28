@@ -95,6 +95,7 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         for(Map.Entry<String,String> entry:keyMap.entrySet()){
             String key = entry.getValue();
             if(key==null || "".equals(key.trim())){
+                System.err.println(value);
                 throw new EmptyNameException();
             }
             V found = getBusinessObject(entry);

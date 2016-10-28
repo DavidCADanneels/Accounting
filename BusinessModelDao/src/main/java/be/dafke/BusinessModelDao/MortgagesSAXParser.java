@@ -2,6 +2,7 @@ package be.dafke.BusinessModelDao;
 
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Mortgage;
+import be.dafke.BusinessModel.MortgageTransaction;
 import org.xml.sax.XMLReader;
 
 import javax.xml.parsers.SAXParser;
@@ -10,9 +11,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -50,13 +49,16 @@ public class MortgagesSAXParser {
 
             writer.write("  <name>" + mortgage.getName() + "</name>\r\n");
             int teller = 1;
-            ArrayList<Vector<BigDecimal>> table = mortgage.getTable();
-            if(table!=null){
-                for(Vector<BigDecimal> vector : table) {
-                    writer.write("  <line>\r\n" + "    <nr>" + teller + "</nr>\r\n" + "    <mensuality>"
-                            + vector.get(0) + "</mensuality>\r\n" + "    <intrest>" + vector.get(1) + "</intrest>\r\n"
-                            + "    <capital>" + vector.get(2) + "</capital>\r\n" + "    <restCapital>" + vector.get(3)
-                            + "</restCapital>\r\n  </line>\r\n");
+            ArrayList<MortgageTransaction> mortgageTransactions = mortgage.getBusinessObjects();
+            if(mortgageTransactions!=null){
+                for(MortgageTransaction vector : mortgageTransactions) {
+                    writer.write("  <MortgageTransaction>\r\n"
+                            + "    <nr>" + teller + "</nr>\r\n"
+                            + "    <mensuality>" + vector.getMensuality() + "</mensuality>\r\n"
+                            + "    <intrest>" + vector.getIntrest() + "</intrest>\r\n"
+                            + "    <capital>" + vector.getCapital() + "</capital>\r\n"
+                            + "    <restCapital>" + vector.getRestCapital() + "</restCapital>\r\n"
+                            + "  </MortgageTransaction>\r\n");
                     teller++;
                 }
             }

@@ -69,7 +69,7 @@ public class MortgageContentHandler extends DefaultHandler {
 
 	@Override
 	public void endDocument() throws SAXException {
-		mortgage.setTable(mortgageTable);
+//		mortgage.setTable(mortgageTable);
 	}
 
 	@Override
