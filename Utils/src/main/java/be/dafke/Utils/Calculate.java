@@ -13,7 +13,7 @@ public class Calculate {
 
 	public static ArrayList<Vector<BigDecimal>> createFixedAmountTable(BigDecimal startKapitaal, int aantalMaanden,
 			BigDecimal mensualiteit, BigDecimal maandPercentage) {
-		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100));
+		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP);
 		ArrayList<Vector<BigDecimal>> aflossingsTabel = new ArrayList<>();
 		BigDecimal roundedMensualiteit = mensualiteit.setScale(2, RoundingMode.HALF_UP);
 		BigDecimal totaleSom = roundedMensualiteit.multiply(new BigDecimal(aantalMaanden));
@@ -54,7 +54,7 @@ public class Calculate {
 	}
 
 	public static BigDecimal berekenMaandPercentage(BigDecimal jaarPercentage, int aantalPerJaar) {
-		BigDecimal part1 = BigDecimal.ONE.add(jaarPercentage.divide(BigDecimal.valueOf(100)));
+		BigDecimal part1 = BigDecimal.ONE.add(jaarPercentage.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP));
 		BigDecimal part2 = BigDecimal.ONE.divide(new BigDecimal(aantalPerJaar), 10, RoundingMode.HALF_UP);
 		BigDecimal percentage = new BigDecimal(Math.pow(part1.doubleValue(), part2.doubleValue()) - 1);
 		// percentage = percentage.setScale(10, RoundingMode.HALF_UP); // needed for car
@@ -65,7 +65,7 @@ public class Calculate {
 	}
 
 	public static BigDecimal berekenJaarPercentage(BigDecimal maandPercentage, int aantalPerJaar) {
-		BigDecimal part1 = BigDecimal.ONE.add(maandPercentage.divide(new BigDecimal(100)));
+		BigDecimal part1 = BigDecimal.ONE.add(maandPercentage.divide(new BigDecimal(100), RoundingMode.HALF_UP));
 		BigDecimal part2 = new BigDecimal(aantalPerJaar);
 		BigDecimal percentage = new BigDecimal(Math.pow(part1.doubleValue(), part2.doubleValue()) - 1);
 		// percentage = percentage.setScale(10, RoundingMode.HALF_UP); // needed for car
@@ -76,7 +76,7 @@ public class Calculate {
 	}
 
 	public static BigDecimal berekenMensualiteit(BigDecimal startKapitaal, BigDecimal maandPercentage, int aantalMaanden) {
-		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100));
+		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP);
 		BigDecimal noemer = new BigDecimal(1 - Math.pow(1 + maandPercentage.doubleValue(), -aantalMaanden));
 		BigDecimal factor = maandPercentage.divide(noemer, 10, RoundingMode.HALF_UP);
 		BigDecimal mens = startKapitaal.multiply(factor);
@@ -103,7 +103,7 @@ public class Calculate {
 
 	public static ArrayList<Vector<BigDecimal>> createDegressiveAmountTable(BigDecimal startKapitaal,
 			int aantalMaanden, BigDecimal maandPercentage) {
-		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100));
+		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP);
 		ArrayList<Vector<BigDecimal>> aflossingsTabel = new ArrayList<>();
 
 		BigDecimal monthlyCapital = startKapitaal.divide(BigDecimal.valueOf(aantalMaanden), 2, RoundingMode.HALF_UP);

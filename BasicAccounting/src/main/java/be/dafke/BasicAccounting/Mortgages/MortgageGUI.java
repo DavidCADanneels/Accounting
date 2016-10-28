@@ -61,18 +61,16 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		mortgagesList.setModel(new DefaultListModel<>());
 		mortgagesList.addListSelectionListener(this);
 		create = new JButton("Create new Mortgage table");
-		create.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Mortgages mortgages = accounting.getMortgages();
-				String key = accounting.toString() + MORTGAGE_CALCULATOR;
-				DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
-				if(gui == null){
-					gui = new MortgageCalculatorGUI(accounting, mortgages);
-					ComponentMap.addDisposableComponent(key, gui); // DETAILS
-				}
-				gui.setVisible(true);
-			}
-		});
+		create.addActionListener(e -> {
+            Mortgages mortgages1 = accounting.getMortgages();
+            String key = accounting.toString() + MORTGAGE_CALCULATOR;
+            DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+            if(gui == null){
+                gui = new MortgageCalculatorGUI(accounting, mortgages1);
+                ComponentMap.addDisposableComponent(key, gui); // DETAILS
+            }
+            gui.setVisible(true);
+        });
 
 		JPanel left = new JPanel(new BorderLayout());
 		left.add(mortgagesList, BorderLayout.CENTER);

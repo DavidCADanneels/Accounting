@@ -25,7 +25,8 @@
                                         </xsl:element>
                                     </td>
                                 </xsl:when>
-                                <xsl:otherwise><td></td></xsl:otherwise>
+                                <xsl:otherwise>
+                                    <td/></xsl:otherwise>
                             </xsl:choose>
                             <td><xsl:value-of select="amount1"/></td>
                             <td><xsl:value-of select="amount2"/></td>
@@ -38,7 +39,8 @@
                                         </xsl:element>
                                     </td>
                                 </xsl:when>
-                                <xsl:otherwise><td></td></xsl:otherwise>
+                                <xsl:otherwise>
+                                    <td/></xsl:otherwise>
                             </xsl:choose>
                         </tr>
                     </xsl:for-each>

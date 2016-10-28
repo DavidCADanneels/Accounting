@@ -83,7 +83,7 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		Mortgage mortgage = (Mortgage)list.getSelectedValue();
+		Mortgage mortgage = list.getSelectedValue();
 		Transaction transaction = journal.getCurrentObject();
 		if (mortgage != null) {
 			TransactionActions.createMortgageTransaction(accounts, mortgage, transaction);

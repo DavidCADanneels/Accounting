@@ -35,7 +35,8 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
                     <td><xsl:value-of select="../date"/></td>
                 </xsl:when>
                 <xsl:otherwise>
-                    <td></td><td></td>
+                    <td/>
+                    <td/>
                 </xsl:otherwise>
             </xsl:choose>
 
@@ -50,7 +51,7 @@ xmlns:xsl="http://www.w3.org/1999/XSL/Transform">
 
             <xsl:choose>
                 <xsl:when test="position()!=1">
-                    <td></td>
+                    <td/>
                 </xsl:when>
                 <xsl:otherwise>
                     <td><xsl:value-of select="../description"/></td>
