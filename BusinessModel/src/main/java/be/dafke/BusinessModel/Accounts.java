@@ -6,6 +6,7 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.math.BigDecimal;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Serialiseerbare map die alle rekeningen bevat
@@ -26,11 +27,10 @@ public class Accounts extends BusinessCollection<Account> {
     }
 
     public ArrayList<Account> getAccounts(AccountType type) {
-		ArrayList<Account> col = new ArrayList<>();
-		for(Account account : getBusinessObjects()) {
-			if (account.getType() == type) col.add(account);
-		}
-		return col;
+		ArrayList<Account> col = getBusinessObjects().stream()
+                .filter(account -> account.getType() == type)
+                .collect(Collectors.toCollection(ArrayList::new));
+        return col;
 	}
 
 	public ArrayList<Account> getAccounts(List<AccountType> types) {

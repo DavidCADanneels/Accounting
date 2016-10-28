@@ -55,9 +55,7 @@ public class AccountSelector extends RefreshableDialog implements ActionListener
 
     public void refresh() {
         model.removeAllElements();
-        for(Account account : accounting.getAccounts().getBusinessObjects()) {
-            model.addElement(account);
-        }
+		accounting.getAccounts().getBusinessObjects().forEach(model::addElement);
         invalidate();
         combo.invalidate();
     }

@@ -31,14 +31,10 @@ public class AccountingMultiPanel extends AccountingPanel {
 
 
     public void refresh(){
-        for(AccountingPanelInterface component: components){
-            component.refresh();
-        }
+        components.forEach(AccountingPanelInterface::refresh);
     }
 
     public void setAccounting(Accounting accounting){
-        for(AccountingPanelInterface component: components){
-            component.setAccounting(accounting);
-        }
+        components.forEach(component -> component.setAccounting(accounting));
     }
 }

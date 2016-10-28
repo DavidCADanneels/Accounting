@@ -1,9 +1,11 @@
 package be.dafke.BusinessModel;
 
+import be.dafke.ObjectModel.BusinessObject;
 import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -42,10 +44,7 @@ public class AccountTypeTest {
         accountTypes.getBusinessObjects();
         ArrayList<AccountType> businessObjects = accountTypes.getBusinessObjects();
         // make more performant
-        List<String> names = new ArrayList<>();
-        for(AccountType type : businessObjects){
-            names.add(type.toString());
-        }
+        List<String> names = businessObjects.stream().map(BusinessObject::toString).collect(Collectors.toList());
         assertTrue(names.contains(AccountTypes.ASSET));
         assertTrue(names.contains(AccountTypes.COST));
         assertTrue(names.contains(AccountTypes.CREDIT));
