@@ -33,9 +33,9 @@ public class Transaction extends BusinessCollection<Booking> {
         this.date = date==null?Calendar.getInstance():date;
         this.description = description;
 		debitTotal = new BigDecimal(0);
-		debitTotal = debitTotal.setScale(2);
+		debitTotal = debitTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
 		creditTotal = new BigDecimal(0);
-		creditTotal = creditTotal.setScale(2);
+		creditTotal = creditTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
         bookings = new ArrayList<>();
 	}
 
@@ -151,11 +151,11 @@ public class Transaction extends BusinessCollection<Booking> {
             bookings.add(nrOfDebits, booking);
             nrOfDebits++;
             debitTotal = debitTotal.add(amount);
-            debitTotal = debitTotal.setScale(2);
+            debitTotal = debitTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
         } else {
             bookings.add(booking);
             creditTotal = creditTotal.add(amount);
-            creditTotal = creditTotal.setScale(2);
+            creditTotal = creditTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
         }
         return booking;
     }
@@ -169,10 +169,10 @@ public class Transaction extends BusinessCollection<Booking> {
         if(booking.isDebit()){
             nrOfDebits--;
             debitTotal = debitTotal.subtract(amount);
-            debitTotal = debitTotal.setScale(2);
+            debitTotal = debitTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
         } else {
             creditTotal = creditTotal.subtract(amount);
-            creditTotal = creditTotal.setScale(2);
+            creditTotal = creditTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
         }
 
     }

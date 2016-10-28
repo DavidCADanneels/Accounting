@@ -74,7 +74,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
             if(text!=null && !text.trim().equals("")){
                 try{
                     BigDecimal defaultAmount = new BigDecimal(text);
-                    defaultAmount = defaultAmount.setScale(2);
+                    defaultAmount = defaultAmount.setScale(2,BigDecimal.ROUND_HALF_UP);
                     account.setDefaultAmount(defaultAmount);
                 } catch (NumberFormatException nfe){
                     account.setDefaultAmount(null);

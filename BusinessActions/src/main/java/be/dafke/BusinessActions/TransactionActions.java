@@ -85,7 +85,7 @@ public class TransactionActions {
             } else {
                 try {
                     amount = new BigDecimal(s);
-                    amount = amount.setScale(2);
+                    amount = amount.setScale(2,BigDecimal.ROUND_HALF_UP);
                     ok = true;
                 } catch (NumberFormatException nfe) {
                     ActionUtils.showErrorMessage(ActionUtils.INVALID_INPUT);

@@ -57,12 +57,12 @@ public class Project extends BusinessObject{
 //        // TODO ask user to provide a Name instead of autocreating --> catch Exception from creation
 ////		if (totaalOpbrengst.compareTo(totaalKost) > 0) {
 ////			BigDecimal winst = totaalOpbrengst.subtract(totaalKost);
-////			winst = winst.setScale(2);
+////			winst = winst.setScale(2,BigDecimal.ROUND_HALF_UP);
 ////			result = accounting.getBusinessObjects().add(getBundle("Projects").getString("GAIN_PROJECT") + naam, AccountType.Revenue);
 ////			transaction.crediteer(result, winst);
 ////		} else {
 ////			BigDecimal verlies = totaalKost.subtract(totaalOpbrengst);
-////			verlies = verlies.setScale(2);
+////			verlies = verlies.setScale(2,BigDecimal.ROUND_HALF_UP);
 ////			result = accounting.getBusinessObjects().add(getBundle("Projects").getString("LOSS_PROJECT") + naam, AccountType.Cost);
 ////			transaction.debiteer(result, verlies);
 ////		}

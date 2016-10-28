@@ -28,9 +28,9 @@ public class Account extends BusinessCollection<Movement> {
         setName(name);
         movements = new MultiValueMap<>();
         debitTotal = BigDecimal.ZERO;
-        debitTotal = debitTotal.setScale(2);
+        debitTotal = debitTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
         creditTotal = BigDecimal.ZERO;
-        creditTotal = creditTotal.setScale(2);
+        creditTotal = creditTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class Account extends BusinessCollection<Movement> {
 
     public BigDecimal getSaldo() {
         BigDecimal result = debitTotal.subtract(creditTotal);
-        result = result.setScale(2);
+        result = result.setScale(2,BigDecimal.ROUND_HALF_UP);
         return result;
     }
 
@@ -102,20 +102,20 @@ public class Account extends BusinessCollection<Movement> {
         movements.addValue(date, movement);
 		if (movement.isDebit()) {
             debitTotal = debitTotal.add(movement.getAmount());
-            debitTotal = debitTotal.setScale(2);
+            debitTotal = debitTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
 		} else {
             creditTotal = creditTotal.add(movement.getAmount());
-            creditTotal = creditTotal.setScale(2);
+            creditTotal = creditTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
 		}
 	}
 
     protected void unbook(Calendar date, Movement movement) {
 		if (movement.isDebit()) {
 			debitTotal = debitTotal.subtract(movement.getAmount());
-			debitTotal = debitTotal.setScale(2);
+			debitTotal = debitTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
 		} else {
 			creditTotal = creditTotal.subtract(movement.getAmount());
-			creditTotal = creditTotal.setScale(2);
+			creditTotal = creditTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
 		}
         movements.removeValue(date, movement);
     }

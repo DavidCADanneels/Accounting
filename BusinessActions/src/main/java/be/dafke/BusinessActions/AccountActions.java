@@ -56,7 +56,7 @@ public class AccountActions {
                     try{
                         if (amount!=null) {
                             defaultAmount = new BigDecimal(amount);
-                            defaultAmount = defaultAmount.setScale(2);
+                            defaultAmount = defaultAmount.setScale(2,BigDecimal.ROUND_HALF_UP);
                             account.setDefaultAmount(defaultAmount);
                         }
                         retry = false;
