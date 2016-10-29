@@ -26,8 +26,6 @@ public class BasicAccountingMain {
     protected static AccountingMultiPanel contentPanel;
     protected static AccountingGUIFrame frame;
 
-    protected enum Mode{ PROD, TEST}
-
     protected static JButton saveButton;
     private static JournalInputGUI journalGUI;
     protected static AccountsGUI accountsGUI;
@@ -104,30 +102,10 @@ public class BasicAccountingMain {
     }
 
     private static void setXmlFolder(){
-        Mode mode = Mode.PROD;
-
-        if(mode == Mode.TEST){
-            int nr = JOptionPane.showOptionDialog(null,"TEST or PROD", "Which environment?",JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE,null, Mode.values(),Mode.TEST);
-            if(nr == 0){
-                mode = Mode.PROD;
-            } else {
-                mode = Mode.TEST;
-            }
-        }
-
-        if(mode == Mode.TEST) {
-            xmlFolder = new File("BasicAccounting/src/test/resources/xml");
-            xslFolder = new File("BasicAccounting/src/test/resources/xsl");
-            htmlFolder = new File("BasicAccounting/src/test/resources/html");
-        } else {// if (mode == Mode.PROD) {
 //            File userHome = new File(System.getProperty("user.home"));
-            File parentFolder = new File("data/Accounting");
-            xmlFolder = new File(parentFolder, "xml");
-            xslFolder = new File(parentFolder, "xsl");
-            htmlFolder = new File(parentFolder, "html");
-        }
-        System.out.println(mode.toString());
-        System.out.println(xmlFolder);
-        System.out.println(htmlFolder);
+        File parentFolder = new File("data/Accounting");
+        xmlFolder = new File(parentFolder, "xml");
+        xslFolder = new File(parentFolder, "xsl");
+        htmlFolder = new File(parentFolder, "html");
     }
 }
