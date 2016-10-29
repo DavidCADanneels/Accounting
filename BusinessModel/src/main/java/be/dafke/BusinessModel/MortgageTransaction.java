@@ -80,7 +80,7 @@ public class MortgageTransaction extends BusinessObject{
     public void setIntrest(BigDecimal intrest, boolean update) {
         this.intrest = intrest;
         if (update){
-            capital = mensuality.subtract(capital);
+            capital = mensuality.subtract(intrest);
         }
     }
 
