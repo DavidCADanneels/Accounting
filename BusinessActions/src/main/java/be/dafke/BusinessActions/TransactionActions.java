@@ -24,6 +24,7 @@ public class TransactionActions {
             System.out.println("Transaction already contains a mortgages");
             return;
         }
+        transaction.setMortgage(mortgage);
         Account capitalAccount = mortgage.getCapitalAccount();
         Account intrestAccount = mortgage.getIntrestAccount();
         if(capitalAccount==null || intrestAccount==null){

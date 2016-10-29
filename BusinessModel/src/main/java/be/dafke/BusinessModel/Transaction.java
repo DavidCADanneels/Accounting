@@ -44,6 +44,10 @@ public class Transaction extends BusinessCollection<Booking> {
         return mortgage;
     }
 
+    public void setMortgage(Mortgage mortgage) {
+        this.mortgage = mortgage;
+    }
+
     @Override
     public TreeMap<String, String> getUniqueProperties(){
         return new TreeMap<>();
