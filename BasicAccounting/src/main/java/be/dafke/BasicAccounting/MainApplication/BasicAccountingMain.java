@@ -100,6 +100,7 @@ public class BasicAccountingMain {
         frame.setVisible(true);
         frame.setAccounting(accountings.getCurrentObject());
         frame.pack();
+        frame.refresh();
     }
 
     private static void setXmlFolder(){
