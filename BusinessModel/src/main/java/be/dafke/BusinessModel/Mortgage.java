@@ -95,7 +95,10 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
         }
         for(int i=row; i<getBusinessObjects().size();i++) {
             MortgageTransaction line = getBusinessObjects().get(i);
-            line.setRestCapital(vorigRestCapital.subtract(line.getMensuality()));
+            BigDecimal capital = line.getCapital();
+            BigDecimal restCapital = vorigRestCapital.subtract(capital);
+            line.setRestCapital(restCapital);
+            vorigRestCapital = restCapital;
         }
     }
 
