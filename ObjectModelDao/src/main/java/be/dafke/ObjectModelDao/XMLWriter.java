@@ -85,6 +85,7 @@ public class XMLWriter {
                 if(object instanceof BusinessObject){
                     BusinessObject childObject = (BusinessObject) object;
 //                    String type = childObject.getBusinessObjectType();
+                    // TODO: use another filter than: "if the object has a name, write a separate file"
                     if(childObject.getName()!=null){
                         writeCollection(childObject, childFolder, depth + 1);
                     }
