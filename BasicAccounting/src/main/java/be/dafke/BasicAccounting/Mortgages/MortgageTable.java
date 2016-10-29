@@ -40,6 +40,7 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
     public MortgageTable(Mortgage mortgage, BigDecimal startCapital, Accounting accounting, Mortgages mortgages) {
 		super("Aflossingstabel");
         nr = counter++;
+        this.mortgage = mortgage;
         this.mortgages = mortgages;
 		this.accounting = accounting;
 		this.startCapital = startCapital;
