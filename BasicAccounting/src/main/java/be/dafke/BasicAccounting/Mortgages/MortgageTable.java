@@ -50,7 +50,6 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(scrollPane, BorderLayout.CENTER);
 		save = new JButton("Save table");
-		save.setEnabled(false);
 		save.addActionListener(this);
 		panel.add(save, BorderLayout.SOUTH);
 		setContentPane(panel);
