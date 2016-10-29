@@ -5,7 +5,6 @@ import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BasicAccounting.SaveAllActionListener;
-import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModelDao.XMLReader;
@@ -17,7 +16,6 @@ import java.io.File;
 public class BasicAccountingMain {
 
     private static final String MAIN = "MainPanel";
-    public static final String MORTGAGES = "Mortgages";
     protected static Accountings accountings;
     protected static File xmlFolder;
     protected static File xslFolder;
@@ -67,7 +65,6 @@ public class BasicAccountingMain {
     }
 
     protected static void createBasicComponents(){
-        Accounting accounting = accountings.getCurrentObject();
         journalGUI = new JournalInputGUI();
         accountsGUI = new AccountsGUI();
         journalsGUI = new JournalsGUI();
