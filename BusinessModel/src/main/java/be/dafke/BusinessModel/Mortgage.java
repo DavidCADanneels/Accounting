@@ -29,7 +29,7 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
     @Override
     public Set<String> getInitKeySet(){
         Set<String> keySet = super.getInitKeySet();
-        keySet.add("name");
+        keySet.add("nr");
         keySet.add("mensuality");
         keySet.add("intrest");
         keySet.add("capital");

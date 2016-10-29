@@ -12,7 +12,7 @@ import java.util.TreeSet;
  * Created by ddanneels on 26/12/2015.
  */
 public class MortgageTransaction extends BusinessObject{
-    public static final String NR = "name";
+    public static final String NR = "nr";
     public static final String MENSUALITY = "mensuality";
     public static final String CAPITAL = "capital";
     public static final String INTREST = "intrest";
