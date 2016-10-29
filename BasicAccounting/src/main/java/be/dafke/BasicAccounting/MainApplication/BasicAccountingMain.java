@@ -15,38 +15,60 @@ import java.io.File;
 
 public class BasicAccountingMain {
 
-    private static final String MAIN = "MainPanel";
+    protected static final String MAIN = "MainPanel";
     protected static Accountings accountings;
-    protected static File xmlFolder;
-    protected static File xslFolder;
-    protected static File htmlFolder;
-    protected static AccountingMenuBar menuBar;
-    protected static AccountingMultiPanel contentPanel;
-    protected static AccountingGUIFrame frame;
-
-    protected static JButton saveButton;
-    private static JournalInputGUI journalGUI;
-    protected static AccountsGUI accountsGUI;
-    protected static JournalsGUI journalsGUI;
-
+    private static File xmlFolder;
+    private static File xslFolder;
+    private static File htmlFolder;
+    static AccountingMenuBar menuBar;
+    static AccountingMultiPanel contentPanel;
+    static AccountingGUIFrame frame;
 
 	public static void main(String[] args) {
         readXmlData();
-        createBasicComponents();
-        createMenu();
-        composeContentPanel();
-        composeFrames();
-        launch();
+
+
+        frame = new AccountingGUIFrame("Accounting-all");
+        createMenu(frame);
+
+        createContentPanel();
+
+        frame.setMenuBar(menuBar);
+        frame.setContentPanel(contentPanel);
+        frame.addWindowListener(new SaveAllActionListener(accountings));
+        ComponentMap.addDisposableComponent(MAIN, frame); // MAIN
+        ComponentMap.addRefreshableComponent(menuBar);
+
+        frame.setVisible(true);
+        frame.setAccounting(accountings.getCurrentObject());
+        frame.pack();
+        frame.refresh();
     }
 
-    protected static void createMenu() {
-        frame = new AccountingGUIFrame(accountings);
-        menuBar = new AccountingMenuBar(accountings,frame);
+    protected static void createMenu(AccountingPanelInterface panelInterface) {
+        menuBar = new AccountingMenuBar(accountings,panelInterface);
         menuBar.add(new BalancesMenu(accountings, menuBar));
         menuBar.add(new MorgagesMenu(accountings, menuBar));
         menuBar.add(new ProjectsMenu(accountings, menuBar));
         menuBar.add(new CodaMenu(accountings, menuBar));
     }
+
+    protected static AccountingMultiPanel createContentPanel(){
+        AccountingMultiPanel links = new AccountingMultiPanel();
+        links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
+        links.add(new AccountsGUI());
+        links.add(new JournalsGUI());
+        JButton saveButton = new JButton("Save all");
+        saveButton.addActionListener(new SaveAllActionListener(accountings));
+        links.add(saveButton);
+
+        AccountingMultiPanel accountingMultiPanel = new AccountingMultiPanel();
+        accountingMultiPanel.setLayout(new BorderLayout());
+        accountingMultiPanel.add(new JournalInputGUI(), BorderLayout.CENTER);
+        accountingMultiPanel.add(links, BorderLayout.WEST);
+        return accountingMultiPanel;
+    }
+
 
     protected static void readXmlData() {
         setXmlFolder();
@@ -62,40 +84,6 @@ public class BasicAccountingMain {
         if(file.exists()){
             XMLReader.readCollection(accountings, xmlFolder);
         }
-    }
-
-    protected static void createBasicComponents(){
-        journalGUI = new JournalInputGUI();
-        accountsGUI = new AccountsGUI();
-        journalsGUI = new JournalsGUI();
-        saveButton = new JButton("Save all");
-        saveButton.addActionListener(new SaveAllActionListener(accountings));
-    }
-
-    protected static void composeContentPanel(){
-        AccountingMultiPanel links = new AccountingMultiPanel();
-        links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
-        links.add(accountsGUI);
-        links.add(journalsGUI);
-        links.add(saveButton);
-        contentPanel = new AccountingMultiPanel();
-        contentPanel.setLayout(new BorderLayout());
-        contentPanel.add(journalGUI, BorderLayout.CENTER);
-        contentPanel.add(links, BorderLayout.WEST);
-    }
-
-    protected static void composeFrames() {
-        frame.setMenuBar(menuBar);
-        frame.setContentPanel(contentPanel);
-        frame.addWindowListener(new SaveAllActionListener(accountings));
-        ComponentMap.addDisposableComponent(MAIN, frame); // MAIN
-        ComponentMap.addRefreshableComponent(menuBar);
-    }
-    protected static void launch() {
-        frame.setVisible(true);
-        frame.setAccounting(accountings.getCurrentObject());
-        frame.pack();
-        frame.refresh();
     }
 
     private static void setXmlFolder(){
