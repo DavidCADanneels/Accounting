@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.MainApplication;
 
+import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
 import be.dafke.BasicAccounting.AccountsPopupMenu;
 import be.dafke.BasicAccounting.GUIActions;
 import be.dafke.BusinessActions.TransactionActions;
@@ -25,10 +26,10 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class AccountsGUI extends AccountingPanel implements ListSelectionListener, MouseListener, ActionListener {
-	private final PrefixFilterPanel<Account> zoeker;
+    private final PrefixFilterPanel<Account> zoeker;
 	private final AlphabeticListModel<Account> model;
 	private final JList<Account> lijst;
-	private final JButton debet, credit, accountManagement, accountDetails;
+	private final JButton debet, credit, accountManagement, accountDetails, addAccount;
 	private final Map<AccountType, JCheckBox> boxes;
     private final Map<AccountType,Boolean> selectedAccountTypes;
 
@@ -37,6 +38,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 
     public final String DEBIT = "debit";
     public final String CREDIT = "credit";
+    public final String ADD = "add";
     public final String MANAGE = "manage";
     public final String DETAILS = "details";
     private Account selectedAccount = null;
@@ -50,25 +52,33 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         //
 		debet = new JButton(getBundle("Accounting").getString("DEBIT_ACTION"));
         credit = new JButton(getBundle("Accounting").getString("CREDIT_ACTION"));
+        addAccount = new JButton("AddAccount");
         accountManagement = new JButton(getBundle("Accounting").getString("MANAGE_ACCOUNT"));
         accountDetails = new JButton(getBundle("Accounting").getString("VIEW_ACCOUNT"));
+
         debet.setMnemonic(KeyEvent.VK_D);
         credit.setMnemonic(KeyEvent.VK_C);
+        addAccount.setMnemonic(KeyEvent.VK_A);
         accountManagement.setMnemonic(KeyEvent.VK_M);
         accountDetails.setMnemonic(KeyEvent.VK_T);
         //
         debet.setActionCommand(DEBIT);
         credit.setActionCommand(CREDIT);
+        addAccount.setActionCommand(ADD);
         accountManagement.setActionCommand(MANAGE);
         accountDetails.setActionCommand(DETAILS);
-        accountManagement.setEnabled(false);
+
         debet.addActionListener(this);
         credit.addActionListener(this);
+        addAccount.addActionListener(this);
         accountManagement.addActionListener(this);
         accountDetails.addActionListener(this);
+
 		debet.setEnabled(false);
 		credit.setEnabled(false);
+        addAccount.setEnabled(false);
 		accountDetails.setEnabled(false);
+        accountManagement.setEnabled(false);
 
         // PANEL
         //
@@ -76,6 +86,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 		JPanel noord = new JPanel();
 		noord.add(debet);
 		noord.add(credit);
+        noord.add(addAccount);
 		JPanel midden = new JPanel();
 		// midden.setLayout(new BoxLayout(midden,BoxLayout.Y_AXIS));
 		midden.add(accountManagement);
@@ -121,6 +132,8 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
                 GUIActions.showAccountManager(accounting);
             } else if (DETAILS.equals(actionCommand)) {
                 GUIActions.showDetails(lijst.getSelectedValue(), accounting.getJournals());
+            } else if (ADD.equals(actionCommand)) {
+                new NewAccountGUI(accounting).setVisible(true);
             } else {
                 Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
                 if (DEBIT.equals(actionCommand)) {
@@ -199,6 +212,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
             }
         }
 		accountManagement.setEnabled(active);
+        addAccount.setEnabled(active);
 		if (active) {
 			updateListOfShownAccounts();
 		}
