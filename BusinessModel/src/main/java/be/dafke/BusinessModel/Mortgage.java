@@ -11,6 +11,8 @@ import java.util.Properties;
 import java.util.Set;
 import java.util.TreeMap;
 
+import static be.dafke.BusinessModel.MortgageTransaction.NR;
+
 public class Mortgage extends BusinessCollection<MortgageTransaction> implements MustBeRead {
     public static final String MORTGAGE_TRANSACTION = "MortgageTransaction";
 	private int alreadyPayed = 0;
@@ -18,20 +20,22 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
 	private BigDecimal startCapital;
 
     public Mortgage() {
-        this.alreadyPayed = 0;
-        this.capital = null;
-        this.intrest = null;
-        this.startCapital = null;
+//        super(NR);
+        alreadyPayed = 0;
+        capital = null;
+        intrest = null;
+        startCapital = null;
 //        addSearchKey(NR);
     }
 
     @Override
     public Set<String> getInitKeySet(){
         Set<String> keySet = super.getInitKeySet();
-        keySet.add("capitalaccount");
-        keySet.add("intrestaccount");
-        keySet.add("startCapital");
-        keySet.add("alreadyPayed");
+        keySet.add("name");
+        keySet.add("mensuality");
+        keySet.add("intrest");
+        keySet.add("capital");
+        keySet.add("restCapital");
         return keySet;
     }
 
@@ -49,7 +53,7 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
     public MortgageTransaction createNewChild(TreeMap<String, String> properties) {
         MortgageTransaction mortgageTransaction = new MortgageTransaction();
         mortgageTransaction.setMortgage(this);
-        mortgageTransaction.setNr(Integer.parseInt(properties.get(MortgageTransaction.NR)));
+        mortgageTransaction.setNr(Integer.parseInt(properties.get(NR)));
         mortgageTransaction.setMensuality(Utils.parseBigDecimal(properties.get(MortgageTransaction.MENSUALITY)));
         mortgageTransaction.setCapital(Utils.parseBigDecimal(properties.get(MortgageTransaction.CAPITAL)));
         mortgageTransaction.setIntrest(Utils.parseBigDecimal(properties.get(MortgageTransaction.INTREST)));

@@ -31,8 +31,8 @@ public class Journals extends BusinessCollection<Journal> {
     @Override
     public Journal createNewChild(TreeMap<String, String> properties) {
         String name = properties.get(NAME);
-        String abbreviation = properties.get(Journals.ABBREVIATION);
-        String typeName = properties.get(Journals.TYPE);
+        String abbreviation = properties.get(ABBREVIATION);
+        String typeName = properties.get(TYPE);
         Journal journal = new Journal(accounting, name, abbreviation);
         if(typeName!=null){
             journal.setType(accounting.getJournalTypes().getBusinessObject(typeName));

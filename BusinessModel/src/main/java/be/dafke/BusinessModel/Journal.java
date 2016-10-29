@@ -24,7 +24,7 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
         setName(name);
         setAbbreviation(abbreviation);
         currentTransaction = new Transaction(accounting.getAccounts(),Calendar.getInstance(),"open transaction");
-        transactions = new MultiValueMap<Calendar,Transaction>();
+        transactions = new MultiValueMap<>();
 	}
 
     @Override
@@ -42,8 +42,8 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
 
     @Override
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
-        keySet.add(NAME);
+        Set<String> keySet = new TreeSet<>();
+//        keySet.add(NAME);
         keySet.add(Transaction.DATE);
         keySet.add(Transaction.DESCRIPTION);
         return keySet;
