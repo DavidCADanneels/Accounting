@@ -23,7 +23,7 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
         this.accounting = accounting;
         setName(name);
         setAbbreviation(abbreviation);
-        currentTransaction = new Transaction(accounting.getAccounts(),Calendar.getInstance(),"open transaction");
+        currentTransaction = new Transaction(accounting.getAccounts(),Calendar.getInstance(),"");
         transactions = new MultiValueMap<>();
 	}
 
