@@ -1,15 +1,11 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 
 import static be.dafke.BusinessModel.MortgageTransaction.NR;
 
@@ -18,6 +14,7 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
 	private int alreadyPayed = 0;
 	private Account capital, intrest;
 	private BigDecimal startCapital;
+    private ArrayList<MortgageTransaction> mortgageTransactions;
 
     public Mortgage() {
 //        super(NR);
@@ -25,6 +22,7 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
         capital = null;
         intrest = null;
         startCapital = null;
+        mortgageTransactions = new ArrayList<>();
 //        addSearchKey(NR);
     }
 
@@ -79,18 +77,14 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
 
     @Override
     public MortgageTransaction addBusinessObject(MortgageTransaction value) {
-        // TODO: deal with Exceptions
-        try {
-            return super.addBusinessObject(value);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();
-            return null;
-        } catch (DuplicateNameException e) {
-            e.printStackTrace();
-            return null;
-        }
+        mortgageTransactions.add(value);
+        return value;
     }
 
+    @Override
+    public ArrayList<MortgageTransaction> getBusinessObjects(){
+        return mortgageTransactions;
+    }
 
     public void recalculateTable(int row){
         BigDecimal vorigRestCapital;
