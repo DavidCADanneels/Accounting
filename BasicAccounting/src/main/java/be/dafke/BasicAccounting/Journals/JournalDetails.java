@@ -7,7 +7,6 @@ import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
-import javax.swing.JPopupMenu;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -22,7 +21,7 @@ public class JournalDetails extends RefreshableTableFrame<Booking> implements Wi
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JPopupMenu popup;
+	private final DetailsPopupMenu popup;
 
 
 	public JournalDetails(Journal journal, Journals journals) {
