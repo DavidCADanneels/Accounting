@@ -1,6 +1,7 @@
 package be.dafke.ComponentModel;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.awt.*;
 
 /**
@@ -25,11 +26,18 @@ public abstract class RefreshableTableFrame<BusinessObject> extends RefreshableF
 	 * @see javax.swing.table.AbstractTableModel
 	 */
 	public RefreshableTableFrame(String title, RefreshableTableModel<BusinessObject> model) {
+	    this(title,model,new Dimension(500, 200));
+    }
+	public RefreshableTableFrame(String title, RefreshableTableModel<BusinessObject> model, Dimension dimension) {
+	    this(title, model, dimension, null);
+    }
+	public RefreshableTableFrame(String title, RefreshableTableModel<BusinessObject> model, Dimension dimension, RowSorter<TableModel> rowSorter) {
 		super(title);
-		tabel = new RefreshableTable<BusinessObject>(model);
-		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
+		tabel = new RefreshableTable<>(model);
+		tabel.setPreferredScrollableViewportSize(dimension);
 		//tabel.setAutoCreateRowSorter(true);
-		tabel.setRowSorter(null);
+		tabel.setRowSorter(rowSorter);
+
 		JScrollPane scrollPane = new JScrollPane(tabel);
 		contentPanel = new JPanel(new BorderLayout());
 		contentPanel.add(scrollPane, BorderLayout.CENTER);

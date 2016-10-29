@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accountings;
 import be.dafke.ComponentModel.RefreshableFrame;
 
 import javax.swing.*;
@@ -17,19 +16,17 @@ public class AccountingGUIFrame extends RefreshableFrame implements AccountingPa
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final Accountings accountings;
     private AccountingMenuBar menuBar;
-    private AccountingMultiPanel contentPanel;
+    private AccountingPanel contentPanel;
 
-	public AccountingGUIFrame(Accountings accountings) {
-		super(getBundle("Accounting").getString("ACCOUNTING"));
-		this.accountings = accountings;
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-    }
-
-    public void setContentPanel(AccountingMultiPanel contentPanel){
-        this.contentPanel = contentPanel;
+	public AccountingGUIFrame(String title, AccountingPanel contentPanel) {
+	    this(title);
+        this.contentPanel=contentPanel;
         setContentPane(contentPanel);
+    }
+	public AccountingGUIFrame(String title) {
+		super(title);
+        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
     }
 
     public void setMenuBar(AccountingMenuBar menuBar){
@@ -43,18 +40,12 @@ public class AccountingGUIFrame extends RefreshableFrame implements AccountingPa
         } else {
             setTitle(getBundle("Accounting").getString("ACCOUNTING"));
         }
-        menuBar.setAccounting(accounting);
-        contentPanel.setAccounting(accounting);
+        if(menuBar!=null) menuBar.setAccounting(accounting);
+        if(contentPanel!=null) contentPanel.setAccounting(accounting);
     }
 
     public void refresh() {
-        Accounting accounting = accountings.getCurrentObject();
-        if(accounting!=null){
-            setTitle(getBundle("Accounting").getString("ACCOUNTING") + ": " + accounting.toString());
-        } else {
-            setTitle(getBundle("Accounting").getString("ACCOUNTING"));
-        }
-        menuBar.refresh();
-        contentPanel.refresh();
+        if(menuBar!=null) menuBar.refresh();
+        if(contentPanel!=null) contentPanel.refresh();
     }
 }

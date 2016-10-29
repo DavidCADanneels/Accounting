@@ -7,27 +7,23 @@ import be.dafke.ComponentModel.ComponentMap;
 import javax.swing.*;
 import java.awt.*;
 
-import static java.util.ResourceBundle.getBundle;
-
 /**
  * User: david
  * Date: 29-12-13
  * Time: 22:07
  */
-public class Main extends BasicAccountingMain{
+public class Main extends BasicAccountingMain {
 
     public static void main(String[] args) {
         readXmlData();
-        frame = new AccountingGUIFrame(getBundle("Accounting").getString("ACCOUNTING"));
-        createMenu(frame);
-        
-        createContentPanel();
+        launchMainFrame("Accounting-all", createContentPanel());
 
-        frame.setMenuBar(menuBar);
-        frame.setContentPanel(contentPanel);
-        frame.addWindowListener(new SaveAllActionListener(accountings));
-        ComponentMap.addDisposableComponent(MAIN, frame); // MAIN
-        ComponentMap.addRefreshableComponent(menuBar);
+//        launchInputFrame();
+    }
+
+    public static void launchInputFrame(){
+        AccountingGUIFrame frame = new AccountingGUIFrame("input", new JournalInputGUI());
+        ComponentMap.addDisposableComponent("Input-Only",frame); // INPUT
 
         frame.setVisible(true);
         frame.setAccounting(accountings.getCurrentObject());
@@ -35,7 +31,7 @@ public class Main extends BasicAccountingMain{
         frame.refresh();
     }
 
-    protected static AccountingMultiPanel createContentPanel(){
+    public static AccountingMultiPanel createContentPanel(){
         AccountingMultiPanel links = new AccountingMultiPanel();
         links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
         links.add(new AccountsGUI());

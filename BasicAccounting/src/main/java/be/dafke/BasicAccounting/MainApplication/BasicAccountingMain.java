@@ -20,40 +20,38 @@ public class BasicAccountingMain {
     private static File xmlFolder;
     private static File xslFolder;
     private static File htmlFolder;
-    static AccountingMenuBar menuBar;
-    static AccountingMultiPanel contentPanel;
-    static AccountingGUIFrame frame;
 
 	public static void main(String[] args) {
         readXmlData();
+        launchMainFrame("Accounting-all", createContentPanel());
+    }
 
+    protected static void launchMainFrame(String title, AccountingMultiPanel contentPanel){
+        AccountingGUIFrame frame = new AccountingGUIFrame(title,contentPanel);
 
-        frame = new AccountingGUIFrame("Accounting-all");
-        createMenu(frame);
-
-        createContentPanel();
-
-        frame.setMenuBar(menuBar);
-        frame.setContentPanel(contentPanel);
         frame.addWindowListener(new SaveAllActionListener(accountings));
         ComponentMap.addDisposableComponent(MAIN, frame); // MAIN
-        ComponentMap.addRefreshableComponent(menuBar);
+
+        AccountingMenuBar menuBar = createMenu(frame);
+        frame.setMenuBar(menuBar);
 
         frame.setVisible(true);
-        frame.setAccounting(accountings.getCurrentObject());
         frame.pack();
+        frame.setAccounting(accountings.getCurrentObject());
         frame.refresh();
     }
 
-    protected static void createMenu(AccountingPanelInterface panelInterface) {
-        menuBar = new AccountingMenuBar(accountings,panelInterface);
+    protected static AccountingMenuBar createMenu(AccountingPanelInterface panelInterface) {
+        AccountingMenuBar menuBar = new AccountingMenuBar(accountings,panelInterface);
         menuBar.add(new BalancesMenu(accountings, menuBar));
         menuBar.add(new MorgagesMenu(accountings, menuBar));
         menuBar.add(new ProjectsMenu(accountings, menuBar));
         menuBar.add(new CodaMenu(accountings, menuBar));
+        ComponentMap.addRefreshableComponent(menuBar);
+        return menuBar;
     }
 
-    protected static AccountingMultiPanel createContentPanel(){
+    public static AccountingMultiPanel createContentPanel(){
         AccountingMultiPanel links = new AccountingMultiPanel();
         links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
         links.add(new AccountsGUI());
