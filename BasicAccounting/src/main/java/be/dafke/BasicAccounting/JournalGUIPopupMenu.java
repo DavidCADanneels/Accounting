@@ -3,12 +3,8 @@ package be.dafke.BasicAccounting;
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
 import be.dafke.BusinessActions.TransactionActions;
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Journals;
-import be.dafke.BusinessModel.Movement;
 import be.dafke.BusinessModel.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
@@ -29,8 +25,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
     private final RefreshableTable<Booking> table;
     private Accounting accounting;
 
-    public JournalGUIPopupMenu(RefreshableTable<Booking> table, Accounting accounting) {
-        setAccounting(accounting);
+    public JournalGUIPopupMenu(RefreshableTable<Booking> table) {
         this.table = table;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_AMOUNT"));

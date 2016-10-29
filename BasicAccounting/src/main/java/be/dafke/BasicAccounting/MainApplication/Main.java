@@ -32,10 +32,10 @@ public class Main extends BasicAccountingMain{
     protected static void createBasicComponents(){
         Accounting accounting = accountings.getCurrentObject();
         journalGUI = new JournalGUI(accounting);
-        journalInputGUI = new JournalInputGUI(accounting);
-        accountsGUILeft = new AccountsGUI(accounting);
-        accountsGUIRight = new AccountsGUI(accounting);
-        journalsGUI = new JournalsGUI(accounting);
+        journalInputGUI = new JournalInputGUI();
+        accountsGUILeft = new AccountsGUI();
+        accountsGUIRight = new AccountsGUI();
+        journalsGUI = new JournalsGUI();
         mortgagesGUI = new MortgagesGUI();
         saveButton = new JButton("Save all");
         saveButton.addActionListener(new SaveAllActionListener(accountings));

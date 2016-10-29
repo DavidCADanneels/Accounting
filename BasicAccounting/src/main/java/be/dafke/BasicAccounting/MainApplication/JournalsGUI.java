@@ -28,10 +28,8 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	public static final String DETAILS = "details";
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
-	private Accounting accounting;
 
-	public JournalsGUI(final Accounting accounting) {
-		setAccounting(accounting);
+	public JournalsGUI() {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -55,24 +53,21 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 		paneel.add(journalManagement);
 		paneel.add(details);
 		add(paneel);
-		refresh();
 	}
 
 	public void actionPerformed(ActionEvent ae) {
 		String actionCommand = ae.getActionCommand();
-		if(MANAGE.equals(actionCommand)){
-			GUIActions.showJournalManager(accounting);
-		} else if (DETAILS.equals(actionCommand)){
-			GUIActions.showDetails(accounting.getJournals().getCurrentObject(), accounting.getJournals());
-		} else if (SWITCH.equals(actionCommand)){
-			Journal newJournal = (Journal)combo.getSelectedItem();
-			GUIActions.switchJournal(accounting.getAccounts(), accounting.getJournals(), newJournal);
+		if(accounting!=null) {
+			if (MANAGE.equals(actionCommand)) {
+				GUIActions.showJournalManager(accounting);
+			} else if (DETAILS.equals(actionCommand)) {
+				GUIActions.showDetails(accounting.getJournals().getCurrentObject(), accounting.getJournals());
+			} else if (SWITCH.equals(actionCommand)) {
+				Journal newJournal = (Journal) combo.getSelectedItem();
+				GUIActions.switchJournal(accounting.getAccounts(), accounting.getJournals(), newJournal);
+			}
 		}
 	}
-
-    public void setAccounting(Accounting accounting){
-		this.accounting = accounting;
-    }
 
 	public void refresh() {
         combo.removeActionListener(this);

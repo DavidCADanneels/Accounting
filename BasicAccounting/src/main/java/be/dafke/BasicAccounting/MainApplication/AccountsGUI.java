@@ -32,7 +32,6 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 	private final Map<AccountType, JCheckBox> boxes;
     private final Map<AccountType,Boolean> selectedAccountTypes;
 
-    private Accounting accounting;
     private final JPanel filter;
     private AccountsPopupMenu popup;
 
@@ -42,7 +41,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     public final String DETAILS = "details";
     private Account selectedAccount = null;
 
-    public AccountsGUI(Accounting accounting) {
+    public AccountsGUI() {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("ACCOUNTS")));
@@ -92,8 +91,6 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 		lijst = new JList<>(model);
 		lijst.addListSelectionListener(this);
 
-        popup = new AccountsPopupMenu(accounting);
-
         lijst.addMouseListener(this);//new PopupForListActivator(popup, lijst));//, new AccountDetailsLauncher(accountings)));
 		lijst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		zoeker = new PrefixFilterPanel<>(model, lijst, new ArrayList<Account>());
@@ -104,10 +101,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 		filter.setLayout(new GridLayout(0, 2));
         boxes = new HashMap<>();
 
-        setAccounting(accounting);
-
         add(filter, BorderLayout.NORTH);
-        refresh();
 	}
 
 	public void valueChanged(ListSelectionEvent lse) {
@@ -122,16 +116,18 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 	}
 
     public void buttonClicked(String actionCommand){
-        if (MANAGE.equals(actionCommand)){
-            GUIActions.showAccountManager(accounting);
-        } else if (DETAILS.equals(actionCommand)){
-            GUIActions.showDetails(lijst.getSelectedValue(),accounting.getJournals());
-        } else {
-            Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
-            if(DEBIT.equals(actionCommand)){
-                TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, true);
-            } else if (CREDIT.equals(actionCommand)){
-                TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, false);
+        if(accounting!=null) {
+            if (MANAGE.equals(actionCommand)) {
+                GUIActions.showAccountManager(accounting);
+            } else if (DETAILS.equals(actionCommand)) {
+                GUIActions.showDetails(lijst.getSelectedValue(), accounting.getJournals());
+            } else {
+                Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
+                if (DEBIT.equals(actionCommand)) {
+                    TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, true);
+                } else if (CREDIT.equals(actionCommand)) {
+                    TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, false);
+                }
             }
         }
     }
@@ -161,12 +157,17 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 				types.add(type);
 			}
 		}
-		ArrayList<Account> map = accounting.getAccounts().getAccounts(types);
-		zoeker.resetMap(map);
+		if(accounting!=null) {
+            ArrayList<Account> map = accounting.getAccounts().getAccounts(types);
+            zoeker.resetMap(map);
+        }
 	}
 
     public void setAccounting(Accounting accounting) {
-        this.accounting = accounting;
+        super.setAccounting(accounting);
+
+        // could be popup.setAccounting() with constructor call in this.constructor
+        popup = new AccountsPopupMenu(accounting);
 
         if(accounting!=null) {
             selectedAccountTypes.clear();
@@ -189,11 +190,13 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     }
 
 	public void refresh() {
-        boolean active = accounting!=null && accounting.getAccounts()!=null;
-        for (AccountType type : accounting.getAccountTypes().getBusinessObjects()) {
-            JCheckBox checkBox = boxes.get(type);
-            checkBox.setSelected(selectedAccountTypes.get(type));
-            checkBox.setEnabled(active);
+        boolean active = accounting != null && accounting.getAccounts() != null;
+        if(accounting!=null && accounting.getAccountTypes()!=null) {
+            for (AccountType type : accounting.getAccountTypes().getBusinessObjects()) {
+                JCheckBox checkBox = boxes.get(type);
+                checkBox.setSelected(selectedAccountTypes.get(type));
+                checkBox.setEnabled(active);
+            }
         }
 		accountManagement.setEnabled(active);
 		if (active) {
@@ -204,12 +207,14 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     public void mouseClicked(MouseEvent me) {
         int clickCount = me.getClickCount();
         int button = me.getButton();
-        popup.setVisible(false);
-        if(clickCount==2){
-            GUIActions.showDetails(selectedAccount, accounting.getJournals());
-        } else if (button == 3){
-            Point location = me.getLocationOnScreen();
-            popup.show(null, location.x, location.y);
+        if(popup!=null) {
+            popup.setVisible(false);
+            if (clickCount == 2) {
+                if(accounting!=null) GUIActions.showDetails(selectedAccount, accounting.getJournals());
+            } else if (button == 3) {
+                Point location = me.getLocationOnScreen();
+                popup.show(null, location.x, location.y);
+            }
         }
     }
 
