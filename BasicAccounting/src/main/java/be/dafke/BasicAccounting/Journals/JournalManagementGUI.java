@@ -116,7 +116,7 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
         if (rows.length == 0) {
             ActionUtils.showErrorMessage(ActionUtils.SELECT_JOURNAL_FIRST);
         }
-        ArrayList<Journal> journalList = new ArrayList<>();
+        ArrayList<Journal> journalList = new ArrayList<Journal>();
         for(int row : rows) {
             Journal journal = (Journal) tabel.getModel().getValueAt(row, 0);
             journalList.add(journal);

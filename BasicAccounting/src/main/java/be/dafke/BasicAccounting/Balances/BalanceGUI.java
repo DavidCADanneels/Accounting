@@ -1,13 +1,14 @@
 package be.dafke.BasicAccounting.Balances;
 
-import be.dafke.BusinessModel.Balance;
 import be.dafke.BasicAccounting.BalancePopupMenu;
 import be.dafke.BusinessActions.PopupForTableActivator;
+import be.dafke.BusinessModel.Balance;
 import be.dafke.BusinessModel.Journals;
+import be.dafke.ComponentModel.RefreshableTableFrame;
 
-import javax.swing.JPopupMenu;
+import javax.swing.*;
 
-public class BalanceGUI extends RefreshableBalanceFrame {
+public class BalanceGUI extends RefreshableTableFrame {
 	/**
 	 * 
 	 */

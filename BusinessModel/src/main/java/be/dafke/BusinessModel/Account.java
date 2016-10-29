@@ -6,16 +6,16 @@ import be.dafke.Utils.MultiValueMap;
 import java.math.BigDecimal;
 import java.util.*;
 
+import static be.dafke.BusinessModel.Movement.CREDIT;
+import static be.dafke.BusinessModel.Movement.DEBIT;
+import static be.dafke.BusinessModel.Movement.ID;
+
 /**
   * Boekhoudkundige rekening
   * @author David Danneels
   * @since 01/10/2010
  */
 public class Account extends BusinessCollection<Movement> {
-    public static final String ID = "id";
-    public static final String DEBIT = "debit";
-    public static final String CREDIT = "credit";
-
     public static final String TYPE = "type";
     public static final String DEFAULTAMOUNT = "defaultAmount";
     public static final String MOVEMENT = "Movement";
@@ -28,9 +28,9 @@ public class Account extends BusinessCollection<Movement> {
         setName(name);
         movements = new MultiValueMap<>();
         debitTotal = BigDecimal.ZERO;
-        debitTotal = debitTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
+        debitTotal = debitTotal.setScale(2);
         creditTotal = BigDecimal.ZERO;
-        creditTotal = creditTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
+        creditTotal = creditTotal.setScale(2);
     }
 
     @Override
@@ -76,7 +76,7 @@ public class Account extends BusinessCollection<Movement> {
 
     public BigDecimal getSaldo() {
         BigDecimal result = debitTotal.subtract(creditTotal);
-        result = result.setScale(2,BigDecimal.ROUND_HALF_UP);
+        result = result.setScale(2);
         return result;
     }
 
@@ -102,20 +102,20 @@ public class Account extends BusinessCollection<Movement> {
         movements.addValue(date, movement);
 		if (movement.isDebit()) {
             debitTotal = debitTotal.add(movement.getAmount());
-            debitTotal = debitTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
+            debitTotal = debitTotal.setScale(2);
 		} else {
             creditTotal = creditTotal.add(movement.getAmount());
-            creditTotal = creditTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
+            creditTotal = creditTotal.setScale(2);
 		}
 	}
 
     protected void unbook(Calendar date, Movement movement) {
 		if (movement.isDebit()) {
 			debitTotal = debitTotal.subtract(movement.getAmount());
-			debitTotal = debitTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
+			debitTotal = debitTotal.setScale(2);
 		} else {
 			creditTotal = creditTotal.subtract(movement.getAmount());
-			creditTotal = creditTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
+			creditTotal = creditTotal.setScale(2);
 		}
         movements.removeValue(date, movement);
     }

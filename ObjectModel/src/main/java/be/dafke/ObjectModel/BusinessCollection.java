@@ -19,7 +19,7 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
     public abstract String getChildType();
 
     public BusinessCollection(){
-        dataTables = new HashMap<>();
+        dataTables = new HashMap<String, TreeMap<String, V>>();
         addSearchKey(NAME);
     }
 
@@ -29,7 +29,7 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
     //
     // Keys found in the CollectionFile e.g. Account.NAME in Accounts.xml file
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<>();
+        Set<String> keySet = new TreeSet<String>();
         keySet.add(NAME);
         return keySet;
     }
@@ -38,7 +38,7 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         if(dataTables.containsKey(key)){
             System.err.println("This collection already contains this key");
         }
-        TreeMap<String, V> newMap = new TreeMap<>();
+        TreeMap<String, V> newMap = new TreeMap<String, V>();
         dataTables.put(key, newMap);
     }
 
@@ -68,11 +68,11 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
 
     public ArrayList<V> getBusinessObjects(){
         TreeMap<String,V> map = dataTables.get(NAME);
-        return new ArrayList<>(map.values());
+        return new ArrayList<V>(map.values());
     }
 
     public V getBusinessObject(String name){
-        Map.Entry<String, String> entry = new AbstractMap.SimpleEntry<>(NAME, name);
+        Map.Entry<String, String> entry = new AbstractMap.SimpleEntry<String, String>(NAME, name);
         return getBusinessObject(entry);
     }
 
@@ -95,6 +95,7 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         for(Map.Entry<String,String> entry:keyMap.entrySet()){
             String key = entry.getValue();
             if(key==null || "".equals(key.trim())){
+                System.err.println(value);
                 throw new EmptyNameException();
             }
             V found = getBusinessObject(entry);

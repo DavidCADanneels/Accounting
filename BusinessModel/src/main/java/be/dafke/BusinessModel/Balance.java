@@ -38,7 +38,7 @@ public class Balance extends BusinessCollection<BalanceLine> {
 
     @Override
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<>();
+        Set<String> keySet = new TreeSet<String>();
         keySet.add(NAME1);
         keySet.add(NAME2);
         keySet.add(AMOUNT1);
@@ -82,7 +82,7 @@ public class Balance extends BusinessCollection<BalanceLine> {
     }
 
     public ArrayList<Account> getAccountsNotEmpty(ArrayList<AccountType> types) {
-        ArrayList<Account> col = new ArrayList<>();
+        ArrayList<Account> col = new ArrayList<Account>();
         for(AccountType type : types) {
             col.addAll(getAccountsNotEmpty(type));
         }
@@ -90,7 +90,7 @@ public class Balance extends BusinessCollection<BalanceLine> {
     }
 
     private ArrayList<Account> getAccountsNotEmpty(AccountType type) {
-        ArrayList<Account> col = new ArrayList<>();
+        ArrayList<Account> col = new ArrayList<Account>();
         for(Account account : accounting.getAccounts().getBusinessObjects()) {
             if (account.getType() == type && account.getSaldo().compareTo(BigDecimal.ZERO) != 0) col.add(account);
         }
@@ -112,7 +112,7 @@ public class Balance extends BusinessCollection<BalanceLine> {
             max = nrRight;
             min = nrLeft;
         }
-        ArrayList<BalanceLine> balanceLines = new ArrayList<>();
+        ArrayList<BalanceLine> balanceLines = new ArrayList<BalanceLine>();
         for(int i = 0; i < min; i++) {
             Account leftAccount = leftAccounts.get(i);
             Account rightAccount = rightAccounts.get(i);
@@ -188,12 +188,12 @@ public class Balance extends BusinessCollection<BalanceLine> {
         properties.put(Balances.RIGHTTOTALNAME, rightTotalName);
         properties.put(Balances.LEFTRESULTNAME, leftResultName);
         properties.put(Balances.RIGHTRESULTNAME, rightResultName);
-        ArrayList<String> leftTypesString = new ArrayList<>();
+        ArrayList<String> leftTypesString = new ArrayList<String>();
         for(AccountType type:leftTypes){
             leftTypesString.add(type.getName());
         }
         properties.put(Balances.LEFTTYPES, Utils.toString(leftTypesString));
-        ArrayList<String> righttTypesString = new ArrayList<>();
+        ArrayList<String> righttTypesString = new ArrayList<String>();
         for(AccountType type:rightTypes){
             righttTypesString.add(type.getName());
         }

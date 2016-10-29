@@ -27,7 +27,9 @@ public class Statements extends BusinessCollection<BusinessObject> {
         counterParties = accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
         try {
             accounting.addBusinessObject(this);
-        } catch (EmptyNameException | DuplicateNameException e) {
+        } catch (EmptyNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (DuplicateNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         accounting.addKey(STATEMENTS);
@@ -40,7 +42,7 @@ public class Statements extends BusinessCollection<BusinessObject> {
     }
 
     public ArrayList<Statement> getStatements(SearchOptions searchOptions) {
-		ArrayList<Statement> result = new ArrayList<>();
+		ArrayList<Statement> result = new ArrayList<Statement>();
         CounterParty counterParty = searchOptions.getCounterParty();
         String transactionCode = searchOptions.getTransactionCode();
         String communication = searchOptions.getCommunication();
@@ -80,7 +82,7 @@ public class Statements extends BusinessCollection<BusinessObject> {
     //
     // Keys found in the CollectionFile e.g. Account.NAME in Accounts.xml file
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<>();
+        Set<String> keySet = new TreeSet<String>();
         keySet.add(NAME);
         keySet.add(Statement.DATE);
         keySet.add(Statement.SIGN);

@@ -62,13 +62,13 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		//
 		// links
 		JPanel paneelLinks = new JPanel();
-		allAccountsModel = new AlphabeticListModel<>();
-		allAccounts = new JList<>(allAccountsModel);
+		allAccountsModel = new AlphabeticListModel<Account>();
+		allAccounts = new JList<Account>(allAccountsModel);
 		allAccounts.addListSelectionListener(this);
 		allAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 //		Accounting accounting = accountings.getCurrentObject();
 //		Accounts accounts = accounting.getBusinessObjects();
-		zoeker = new PrefixFilterPanel<>(allAccountsModel, allAccounts, new ArrayList<>());
+		zoeker = new PrefixFilterPanel<Account>(allAccountsModel, allAccounts, new ArrayList<Account>());
         zoeker.add(onder, BorderLayout.SOUTH);
 		paneelLinks.add(zoeker);
 		paneelLinks.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
@@ -78,8 +78,8 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		// rechts
 		JPanel paneelRechts = new JPanel(new BorderLayout());
 		// paneelRechts.setLayout(new BoxLayout(paneelRechts,BoxLayout.Y_AXIS));
-		projectAccountsModel = new AlphabeticListModel<>();
-		projectAccounts = new JList<>(projectAccountsModel);
+		projectAccountsModel = new AlphabeticListModel<Account>();
+		projectAccounts = new JList<Account>(projectAccountsModel);
 		projectAccounts.addListSelectionListener(this);
 		projectAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 //		Projects projects = accounting.getProjects();
@@ -107,7 +107,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 				"NEW_PROJECT"));
 		newProject.addActionListener(this);
 		JPanel noord = new JPanel();
-		combo = new JComboBox<>();
+		combo = new JComboBox<Project>();
 		combo.addActionListener(this);
 		noord.add(combo);
 		noord.add(newProject);
@@ -167,7 +167,9 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 				project = new Project(naam);
 				try {
 					projects.addBusinessObject(project);
-				} catch (EmptyNameException | DuplicateNameException e) {
+				} catch (EmptyNameException e) {
+					e.printStackTrace();
+				} catch (DuplicateNameException e) {
 					e.printStackTrace();
 				}
 				((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
@@ -187,7 +189,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 	}
 
     public ArrayList<Account> getAccountNoMatchProject(Project project) {
-		ArrayList<Account> result = new ArrayList<>();
+		ArrayList<Account> result = new ArrayList<Account>();
 		for(Account account : accounting.getAccounts().getBusinessObjects()) {
             if (!project.getAccounts().contains(account)){
                 result.add(account);

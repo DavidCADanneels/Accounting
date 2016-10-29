@@ -32,6 +32,8 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 	private final Class[] columnClasses = { String.class, String.class, Account.class, BigDecimal.class,
 			BigDecimal.class, String.class };
 
+
+			//TODO get rid of parameter in constructor???
 	public JournalDetailsDataModel(Journal journal) {
 		this.journal = journal;
 	}
@@ -63,7 +65,8 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 	}
 
 	public Booking getValueAt(int row) {
-		ArrayList<Booking> boekingen = new ArrayList<>();
+		ArrayList<Booking> boekingen = new ArrayList<Booking>();
+		if(journal==null) return null;
 		for(Transaction transaction : journal.getBusinessObjects()){
 			boekingen.addAll(transaction.getBusinessObjects());
 		}
@@ -116,7 +119,7 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 		if (col == 1) {
 			Calendar oudeDatum = transaction.getDate();
 			Calendar nieuweDatum = Utils.toCalendar((String) value);
-			if (nieuweDatum != null){
+			if (journal != null && nieuweDatum != null){
                 journal.removeBusinessObject(transaction);
                 transaction.setDate(nieuweDatum);
                 journal.addBusinessObject(transaction);
@@ -132,7 +135,8 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 
 	@Override
 	public Booking getObject(int row, int col) {
-		ArrayList<Booking> boekingen = new ArrayList<>();
+		if(journal==null) return null;
+		ArrayList<Booking> boekingen = new ArrayList<Booking>();
 		for(Transaction transaction : journal.getBusinessObjects()){
 			boekingen.addAll(transaction.getBusinessObjects());
 		}
@@ -141,8 +145,9 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 
 	@Override
 	public int getRow(Booking booking) {
+		if(journal==null) return -1;
 		int row = 0;
-		ArrayList<Booking> boekingen = new ArrayList<>();
+		ArrayList<Booking> boekingen = new ArrayList<Booking>();
 		for(Transaction transaction : journal.getBusinessObjects()){
 			boekingen.addAll(transaction.getBusinessObjects());
 		}

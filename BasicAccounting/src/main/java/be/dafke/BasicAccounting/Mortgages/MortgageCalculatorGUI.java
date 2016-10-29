@@ -1,11 +1,11 @@
 package be.dafke.BasicAccounting.Mortgages;
 
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.RefreshableFrame;
-import be.dafke.Utils.Calculate;
+import be.dafke.BusinessModel.Calculate;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
+import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
@@ -15,9 +15,6 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 
 public class MortgageCalculatorGUI extends RefreshableFrame implements ActionListener, FocusListener {
 	/**
@@ -37,7 +34,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 	BigDecimal mensualiteit = null;
 	int aantalMaanden = 0;
 
-	List<Vector<BigDecimal>> fixedTable, degressiveTable;
+	Mortgage fixedTable, degressiveTable;
 
 	private final Accounting accounting;
 
@@ -165,17 +162,15 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 
 	private void createTable() {
 		if (maandPercentage != null && mensualiteit != null && startKapitaal != null && aantalMaanden != 0) {
-			ArrayList<Vector<BigDecimal>> data;
+			Mortgage newMortgage;
 			if (fix.isSelected()) {
-				data = Calculate.createFixedAmountTable(startKapitaal, aantalMaanden, mensualiteit, maandPercentage);
+				newMortgage = Calculate.createFixedAmountTable(startKapitaal, aantalMaanden, mensualiteit, maandPercentage);
 			} else {
-				data = Calculate.createDegressiveAmountTable(startKapitaal, aantalMaanden,
+				newMortgage = Calculate.createDegressiveAmountTable(startKapitaal, aantalMaanden,
 						maandPercentage);
 			}
-			Mortgage newMortgage = new Mortgage(mortgages, accounting.getAccounts());
             newMortgage.setName("new Mortgage Table");
             newMortgage.setStartCapital(startKapitaal);
-			newMortgage.setTable(data);
 			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, accounting, mortgages);
             ComponentMap.addDisposableComponent(MORTGAGE_TABLE + gui.nr, gui);
 			gui.setVisible(true);
@@ -186,10 +181,10 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 		fixedTable = Calculate.createFixedAmountTable(startKapitaal, aantalMaanden, mensualiteit, maandPercentage);
 		degressiveTable = Calculate.createDegressiveAmountTable(startKapitaal, aantalMaanden,
 				maandPercentage);
-		BigDecimal totalIntrestFixedNr = Calculate.getTotalIntrest(fixedTable);
-		BigDecimal totalIntrestDegresNr = Calculate.getTotalIntrest(degressiveTable);
-		BigDecimal totalToPayFixedNr = Calculate.getTotalToPay(fixedTable);
-		BigDecimal totalToPayDegresNr = Calculate.getTotalToPay(degressiveTable);
+		BigDecimal totalIntrestFixedNr = fixedTable.getTotalIntrest();
+		BigDecimal totalIntrestDegresNr = degressiveTable.getTotalIntrest();
+		BigDecimal totalToPayFixedNr = fixedTable.getTotalToPay();
+		BigDecimal totalToPayDegresNr = degressiveTable.getTotalToPay();
 		totalIntrestFixed.setText(totalIntrestFixedNr.toString());
 		totalIntrestDegres.setText(totalIntrestDegresNr.toString());
 		totalToPayFixed.setText(totalToPayFixedNr.toString());

@@ -43,7 +43,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
         // COMPONENTS
         //
         // Table
-		tabel = new RefreshableTable<>(model);
+		tabel = new RefreshableTable<Account>(model);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
@@ -114,7 +114,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
         if (rows.length == 0) {
             ActionUtils.showErrorMessage(ActionUtils.SELECT_ACCOUNT_FIRST);
         }
-        ArrayList<Account> accountList = new ArrayList<>();
+        ArrayList<Account> accountList = new ArrayList<Account>();
         for(int row : rows) {
             Account account = (Account) model.getValueAt(row, 0);
             accountList.add(account);
@@ -129,7 +129,7 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 		} else if(MODIFY_TYPE.equals(actionCommand)){
 			AccountActions.modifyAccountTypes(getSelectedAccounts(), accounting.getAccountTypes());
 		} else if(MODIFY_DEFAULT_AMOUNT.equals(actionCommand)){
-			AccountActions.modifyDefaultAmounts(getSelectedAccounts());
+			AccountActions.modifyDefaultAmounts(getSelectedAccounts(), accounting.getAccounts());
 		} else if(DELETE.equals(actionCommand)){
 			AccountActions.deleteAccounts(getSelectedAccounts(), accounting.getAccounts());
 		} else if(NEW_ACCOUNT.equals(actionCommand)){

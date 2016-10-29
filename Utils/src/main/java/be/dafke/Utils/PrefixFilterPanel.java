@@ -36,7 +36,7 @@ public class PrefixFilterPanel<K> extends JPanel {
 	 */
 	public PrefixFilterPanel(DefaultListModel<K> model, JList<K> list, List<K> map) {
         this.model = model;
-        filter = new PrefixFilter<>(model, map);
+        filter = new PrefixFilter<K>(model, map);
         scrol = new JScrollPane(list);
 		zoekveld = new JTextField(20);
 		zoekveld.getDocument().addDocumentListener(new DocumentListener() {
@@ -65,7 +65,7 @@ public class PrefixFilterPanel<K> extends JPanel {
 	 * @since 01/10/2010
 	 */
 	public void resetMap(List<K> newMap) {
-		filter = new PrefixFilter<>(model, newMap);
+		filter = new PrefixFilter<K>(model,newMap);
 		repaint();
 	}
 

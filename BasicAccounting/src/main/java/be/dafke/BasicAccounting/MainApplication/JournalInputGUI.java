@@ -28,13 +28,11 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
     private final RefreshableTable<Booking> inputTable;
     private final JournalGUIPopupMenu inputPopup;
     private final JournalDataModel journalDataModel;
-    private Accounting accounting;
     private BigDecimal debettotaal, credittotaal;
 
     private Journal journal;
 
-    public JournalInputGUI(Accounting accounting) {
-        this.accounting=accounting;
+    public JournalInputGUI() {
         setLayout(new BorderLayout());
         debettotaal = new BigDecimal(0);
         credittotaal = new BigDecimal(0);
@@ -45,7 +43,7 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         inputTable = new RefreshableTable<>(journalDataModel);
         inputTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
-        inputPopup = new JournalGUIPopupMenu(inputTable, accounting);
+        inputPopup = new JournalGUIPopupMenu(inputTable);
         inputTable.addMouseListener(new PopupForTableActivator(inputPopup, inputTable));
 
         JPanel center = new JPanel();
@@ -115,13 +113,10 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         onder.add(paneel2);
         onder.add(paneel3);
         add(onder, BorderLayout.SOUTH);
-        setAccounting(accounting);
-        refresh();
-
     }
 
     public void setAccounting(Accounting accounting){
-        this.accounting=accounting;
+        super.setAccounting(accounting);
         inputPopup.setAccounting(accounting);
         if (accounting!=null && accounting.getJournals() != null) {
             setJournal(accounting.getJournals().getCurrentObject());

@@ -6,7 +6,7 @@ import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.AbstractMap.SimpleImmutableEntry;
+import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.TreeMap;
@@ -111,8 +111,8 @@ public class BusinessCollectionAsCollectionTest{
         BusinessObject businessObject2 = createBusinessObject(NAME2);
         businessCollection.addBusinessObject(businessObject1);
         businessCollection.addBusinessObject(businessObject2);
-        Map.Entry<String,String> oldEntry = new SimpleImmutableEntry<>(businessCollection.NAME, NAME1);
-        Map.Entry<String,String> newEntry = new SimpleImmutableEntry<>(businessCollection.NAME, NAME2);
+        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(businessCollection.NAME, NAME1);
+        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(businessCollection.NAME, NAME2);
         businessCollection.modify(oldEntry, newEntry);
     }
 
@@ -120,8 +120,8 @@ public class BusinessCollectionAsCollectionTest{
      public void modifyEmptyNameException() throws EmptyNameException, DuplicateNameException {
         BusinessObject businessObject1 = createBusinessObject(NAME1);
         businessCollection.addBusinessObject(businessObject1);
-        Map.Entry<String,String> oldEntry = new SimpleImmutableEntry<>(businessCollection.NAME, NAME1);
-        Map.Entry<String,String> newEntry = new SimpleImmutableEntry<>(businessCollection.NAME, EMPTY_STRING);
+        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(businessCollection.NAME, NAME1);
+        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(businessCollection.NAME, EMPTY_STRING);
         businessCollection.modify(oldEntry, newEntry);
     }
 
@@ -129,8 +129,8 @@ public class BusinessCollectionAsCollectionTest{
     public void modifyNull() throws EmptyNameException, DuplicateNameException {
         BusinessObject businessObject1 = createBusinessObject(NAME1);
         businessCollection.addBusinessObject(businessObject1);
-        Map.Entry<String,String> oldEntry = new SimpleImmutableEntry<>(businessCollection.NAME, NAME1);
-        Map.Entry<String,String> newEntry = new SimpleImmutableEntry<>(businessCollection.NAME, null);
+        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(businessCollection.NAME, NAME1);
+        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(businessCollection.NAME, null);
         businessCollection.modify(oldEntry, newEntry);
     }
 
@@ -138,8 +138,8 @@ public class BusinessCollectionAsCollectionTest{
     public void modifySameValue() throws EmptyNameException, DuplicateNameException {
         BusinessObject businessObject1 = createBusinessObject(NAME1);
         businessCollection.addBusinessObject(businessObject1);
-        Map.Entry<String,String> oldEntry = new SimpleImmutableEntry<>(businessCollection.NAME, NAME1);
-        Map.Entry<String,String> newEntry = new SimpleImmutableEntry<>(businessCollection.NAME, NAME1);
+        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(businessCollection.NAME, NAME1);
+        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(businessCollection.NAME, NAME1);
         businessCollection.modify(oldEntry, newEntry);
     }
 
@@ -147,8 +147,8 @@ public class BusinessCollectionAsCollectionTest{
     public void modifyDifferentKey() throws EmptyNameException, DuplicateNameException {
         BusinessObject businessObject1 = createBusinessObject(NAME1);
         businessCollection.addBusinessObject(businessObject1);
-        Map.Entry<String,String> oldEntry = new SimpleImmutableEntry<>(businessCollection.NAME, NAME1);
-        Map.Entry<String,String> newEntry = new SimpleImmutableEntry<>("other key", NAME1);
+        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(businessCollection.NAME, NAME1);
+        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>("other key", NAME1);
         businessCollection.modify(oldEntry, newEntry);
     }
 

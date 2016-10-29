@@ -2,30 +2,44 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.MustBeRead;
-import be.dafke.Utils.MultiValueMap;
+import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.*;
 
+import static be.dafke.BusinessModel.MortgageTransaction.NR;
+
 public class Mortgage extends BusinessCollection<MortgageTransaction> implements MustBeRead {
     public static final String MORTGAGE_TRANSACTION = "MortgageTransaction";
-    private ArrayList<Vector<BigDecimal>> table;
 	private int alreadyPayed = 0;
 	private Account capital, intrest;
 	private BigDecimal startCapital;
-    private Mortgages mortgages;
-    private Accounts accounts;
-    private final MultiValueMap<Calendar,MortgageTransaction> bookedtransactions;
+    private ArrayList<MortgageTransaction> mortgageTransactions;
+
+    public Mortgage() {
+//        super(NR);
+        alreadyPayed = 0;
+        capital = null;
+        intrest = null;
+        startCapital = null;
+        mortgageTransactions = new ArrayList<>();
+//        addSearchKey(NR);
+    }
+
+    @Override
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = super.getInitKeySet();
+        keySet.add("nr");
+        keySet.add("mensuality");
+        keySet.add("intrest");
+        keySet.add("capital");
+        keySet.add("restCapital");
+        return keySet;
+    }
 
     @Override
     public String getChildType() {
         return MORTGAGE_TRANSACTION;
-    }
-
-    public Mortgage(Mortgages mortgages, Accounts accounts){
-        this.mortgages = mortgages;
-        this.accounts = accounts;
-        bookedtransactions = new MultiValueMap<>();
     }
 
     @Override
@@ -35,17 +49,54 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
 
     @Override
     public MortgageTransaction createNewChild(TreeMap<String, String> properties) {
-        MortgageTransaction mortgageTransaction = new MortgageTransaction(accounts);
+        MortgageTransaction mortgageTransaction = new MortgageTransaction();
         mortgageTransaction.setMortgage(this);
+        mortgageTransaction.setNr(Integer.parseInt(properties.get(NR)));
+        mortgageTransaction.setMensuality(Utils.parseBigDecimal(properties.get(MortgageTransaction.MENSUALITY)));
+        mortgageTransaction.setCapital(Utils.parseBigDecimal(properties.get(MortgageTransaction.CAPITAL)));
+        mortgageTransaction.setIntrest(Utils.parseBigDecimal(properties.get(MortgageTransaction.INTREST)));
+        mortgageTransaction.setRestCapital(Utils.parseBigDecimal(properties.get(MortgageTransaction.RESTCAPITAL)));
         return mortgageTransaction;
     }
 
+    public BigDecimal getTotalIntrest() {
+        BigDecimal result = BigDecimal.ZERO;
+        for(MortgageTransaction vector : getBusinessObjects()) {
+            result = result.add(vector.getIntrest());
+        }
+        return result;
+    }
+
+    public BigDecimal getTotalToPay() {
+        BigDecimal result = BigDecimal.ZERO;
+        for(MortgageTransaction vector : getBusinessObjects()) {
+            result = result.add(vector.getMensuality());
+        }
+        return result;
+    }
 
     @Override
-    public TreeMap<String, String> getUniqueProperties(){
-        TreeMap<String,String> properties = new TreeMap<>();
-        properties.put(NAME,getName());
-        return properties;
+    public MortgageTransaction addBusinessObject(MortgageTransaction value) {
+        mortgageTransactions.add(value);
+        return value;
+    }
+
+    @Override
+    public ArrayList<MortgageTransaction> getBusinessObjects(){
+        return mortgageTransactions;
+    }
+
+    public void recalculateTable(int row){
+        BigDecimal vorigRestCapital;
+        if (row == 0) {
+            vorigRestCapital = getStartCapital();
+        } else {
+            vorigRestCapital = getBusinessObjects().get(row - 1).getRestCapital();
+        }
+        for(int i=row; i<getBusinessObjects().size();i++) {
+            MortgageTransaction line = getBusinessObjects().get(i);
+            line.setRestCapital(vorigRestCapital.subtract(line.getMensuality()));
+        }
     }
 
     public boolean isBookable(){
@@ -53,7 +104,7 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
     }
     @Override
     public boolean isDeletable(){
-        return alreadyPayed > 0 && alreadyPayed < table.size();
+        return alreadyPayed > 0 && alreadyPayed < getBusinessObjects().size();
     }
 
 	public BigDecimal getStartCapital() {
@@ -80,14 +131,6 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
 		return intrest;
 	}
 
-	public ArrayList<Vector<BigDecimal>> getTable() {
-		return table;
-	}
-
-	public void setTable(ArrayList<Vector<BigDecimal>> table) {
-		this.table = table;
-	}
-
 	public void setPayed(int nr) {
 		alreadyPayed = nr;
 	}
@@ -96,33 +139,23 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
 		return alreadyPayed;
 	}
 
-    public BigDecimal getMensuality(){
-        return table.get(alreadyPayed).get(0);
-    }
-
 	public boolean isPayedOff() {
-		return alreadyPayed == table.size();
+		return alreadyPayed == getBusinessObjects().size();
 	}
 
     public BigDecimal getNextIntrestAmount(){
-        return table.get(alreadyPayed).get(1);
+        return getBusinessObjects().get(alreadyPayed).getIntrest();
     }
 
     public BigDecimal getNextCapitalAmount(){
-        return table.get(alreadyPayed).get(2);
+        return getBusinessObjects().get(alreadyPayed).getCapital();
     }
 
-    @Override
-    public MortgageTransaction addBusinessObject(MortgageTransaction mortgageTransaction) {
-        Calendar date = mortgageTransaction.getDate();
+    public void raiseNrPayed() {
         alreadyPayed++;
-        return bookedtransactions.addValue(date, mortgageTransaction);
     }
 
-    @Override
-    public void removeBusinessObject(MortgageTransaction mortgageTransaction){
-        Calendar date = mortgageTransaction.getDate();
-        bookedtransactions.removeValue(date, mortgageTransaction);
+    public void decreaseNrPayed(){
         alreadyPayed--;
     }
 

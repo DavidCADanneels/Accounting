@@ -29,7 +29,9 @@ public class CounterParties extends BusinessCollection<BusinessObject> {
         setName(COUNTERPARTIES);
         try {
             accounting.addBusinessObject(this);
-        } catch (EmptyNameException | DuplicateNameException e) {
+        } catch (EmptyNameException e) {
+            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+        } catch (DuplicateNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
         accounting.addKey(COUNTERPARTIES);
@@ -37,7 +39,7 @@ public class CounterParties extends BusinessCollection<BusinessObject> {
 
     @Override
     public Set<String> getInitKeySet() {
-        Set<String> keySet = new TreeSet<>();
+        Set<String> keySet = new TreeSet<String>();
         keySet.add(NAME);
         keySet.add(ACCOUNTNUMBER);
         keySet.add(ADDRESS);
@@ -146,7 +148,7 @@ public class CounterParties extends BusinessCollection<BusinessObject> {
             System.out.println("Alias (" + toRemove.getName() + ") added for " + toKeep.getName());
             toKeep.getAliases().addAll(toRemove.getAliases());
         }
-        Map.Entry<String,String> entry = new AbstractMap.SimpleImmutableEntry<>(NAME, toRemove.getName());
+        Map.Entry<String,String> entry = new AbstractMap.SimpleImmutableEntry<String, String>(NAME,toRemove.getName());
         removeBusinessObject(entry);
         for(BankAccount bankAccountToRemove : toRemove.getBankAccounts().values()){
             BankAccount bankAccountToKeep = toKeep.getBankAccounts().get(bankAccountToRemove.getAccountNumber());

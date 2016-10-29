@@ -22,7 +22,6 @@ import java.util.TreeMap;
 public class XMLReader {
     public static void readCollection(BusinessCollection businessCollection, File parentFolder){
         String businessCollectionName = businessCollection.getName();
-        File childFolder = new File(parentFolder, businessCollectionName);
         File xmlFile = new File(parentFolder, businessCollectionName+".xml");
 
         try {
@@ -38,6 +37,8 @@ public class XMLReader {
             Element rootElement = (Element) doc.getElementsByTagName(collectionName).item(0);
 
             readChildren(rootElement, businessCollection);
+        } catch (IOException io) {
+            io.printStackTrace();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -47,6 +48,7 @@ public class XMLReader {
                 String type = subCollection.getBusinessObjectType();
                 String name = subCollection.getName();
                 if(type.equals(name) || (subCollection instanceof MustBeRead)){
+                    File childFolder = new File(parentFolder, businessCollectionName);
                     readCollection(subCollection, childFolder);
                 }
             }
@@ -63,7 +65,7 @@ public class XMLReader {
         for (int i = 0; i < childrenNodeList.getLength(); i++) {
             try {
                 // create empty properties TreeMap
-                TreeMap<String, String> properties = new TreeMap<>();
+                TreeMap<String, String> properties = new TreeMap<String, String>();
 
                 // get the Object's keySet
                 Set<String> keySet = businessCollection.getInitKeySet();
@@ -89,7 +91,9 @@ public class XMLReader {
                 // add the object to the collection
                 businessCollection.addBusinessObject(object);
 
-            } catch (EmptyNameException | DuplicateNameException e) {
+            } catch (EmptyNameException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            } catch (DuplicateNameException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
         }// for each ChildNode

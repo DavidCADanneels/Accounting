@@ -40,7 +40,7 @@ public class AccountTest {
     @Test
     public void initialAmounts(){
         BigDecimal scaledZero = new BigDecimal(0);
-        scaledZero = scaledZero.setScale(2,BigDecimal.ROUND_HALF_UP);
+        scaledZero = scaledZero.setScale(2);
 
         Account account = new Account("");
         BigDecimal debetTotal = account.getDebetTotal();
@@ -161,9 +161,9 @@ public class AccountTest {
     @Test
     public void initValues() {
         Account account = new Account("");
-        assertEquals(ZERO.setScale(2,BigDecimal.ROUND_HALF_UP), account.getSaldo());
-        assertEquals(ZERO.setScale(2,BigDecimal.ROUND_HALF_UP), account.getDebetTotal());
-        assertEquals(ZERO.setScale(2,BigDecimal.ROUND_HALF_UP), account.getCreditTotal());
+        assertEquals(ZERO.setScale(2), account.getSaldo());
+        assertEquals(ZERO.setScale(2), account.getDebetTotal());
+        assertEquals(ZERO.setScale(2), account.getCreditTotal());
 
     }
 
@@ -187,9 +187,9 @@ public class AccountTest {
     public void debit() {
         Account account = new Account("");
         Movement debit = debit(account, TWENTY);
-        assertEquals(TWENTY.setScale(2,BigDecimal.ROUND_HALF_UP), account.getSaldo());  // 0 + 20 = 20
-        assertEquals(TWENTY.setScale(2,BigDecimal.ROUND_HALF_UP), account.getDebetTotal());  // 20
-        assertEquals(ZERO.setScale(2,BigDecimal.ROUND_HALF_UP), account.getCreditTotal());  // 0
+        assertEquals(TWENTY.setScale(2), account.getSaldo());  // 0 + 20 = 20
+        assertEquals(TWENTY.setScale(2), account.getDebetTotal());  // 20
+        assertEquals(ZERO.setScale(2), account.getCreditTotal());  // 0
 
         ArrayList<Movement> movements = account.getBusinessObjects();
         assertEquals(1, movements.size());
@@ -200,9 +200,9 @@ public class AccountTest {
     public void credit() {
         Account account = new Account("");
         Movement credit = credit(account, TEN);
-        assertEquals(TEN.negate().setScale(2,BigDecimal.ROUND_HALF_UP), account.getSaldo());  // 0 - 10 = -10
-        assertEquals(ZERO.setScale(2,BigDecimal.ROUND_HALF_UP), account.getDebetTotal());  // 0
-        assertEquals(TEN.setScale(2,BigDecimal.ROUND_HALF_UP), account.getCreditTotal());  // 10
+        assertEquals(TEN.negate().setScale(2), account.getSaldo());  // 0 - 10 = -10
+        assertEquals(ZERO.setScale(2), account.getDebetTotal());  // 0
+        assertEquals(TEN.setScale(2), account.getCreditTotal());  // 10
 
         ArrayList<Movement> movements = account.getBusinessObjects();
         assertEquals(1, movements.size());
@@ -215,9 +215,9 @@ public class AccountTest {
         Movement debit = debit(account, TWENTY);
         Movement credit = credit(account, TEN);
 
-        assertEquals(TEN.setScale(2,BigDecimal.ROUND_HALF_UP), account.getSaldo()); // 20 - 10 = 10
-        assertEquals(TWENTY.setScale(2,BigDecimal.ROUND_HALF_UP), account.getDebetTotal()); // 20
-        assertEquals(TEN.setScale(2,BigDecimal.ROUND_HALF_UP), account.getCreditTotal()); // 10
+        assertEquals(TEN.setScale(2), account.getSaldo()); // 20 - 10 = 10
+        assertEquals(TWENTY.setScale(2), account.getDebetTotal()); // 20
+        assertEquals(TEN.setScale(2), account.getCreditTotal()); // 10
 
         ArrayList<Movement> movements = account.getBusinessObjects();
         assertEquals(2, movements.size());
@@ -238,16 +238,16 @@ public class AccountTest {
         assertFalse(movements.contains(debit));
         assertTrue(movements.contains(credit));
 
-        assertEquals(TEN.negate().setScale(2,BigDecimal.ROUND_HALF_UP), account.getSaldo()); // 10 - 20 = -10
-        assertEquals(ZERO.setScale(2,BigDecimal.ROUND_HALF_UP), account.getDebetTotal()); // 20 - 20 = 0
-        assertEquals(TEN.setScale(2,BigDecimal.ROUND_HALF_UP), account.getCreditTotal()); // stays 10
+        assertEquals(TEN.negate().setScale(2), account.getSaldo()); // 10 - 20 = -10
+        assertEquals(ZERO.setScale(2), account.getDebetTotal()); // 20 - 20 = 0
+        assertEquals(TEN.setScale(2), account.getCreditTotal()); // stays 10
 
         account.unbook(TIME,credit);
         movements = account.getBusinessObjects();
         assertTrue(movements.isEmpty());
 
-        assertEquals(ZERO.negate().setScale(2,BigDecimal.ROUND_HALF_UP), account.getSaldo());
-        assertEquals(ZERO.setScale(2,BigDecimal.ROUND_HALF_UP), account.getDebetTotal());
-        assertEquals(ZERO.setScale(2,BigDecimal.ROUND_HALF_UP), account.getCreditTotal());
+        assertEquals(ZERO.negate().setScale(2), account.getSaldo());
+        assertEquals(ZERO.setScale(2), account.getDebetTotal());
+        assertEquals(ZERO.setScale(2), account.getCreditTotal());
     }
 }

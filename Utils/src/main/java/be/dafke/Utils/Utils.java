@@ -84,7 +84,7 @@ public class Utils {
     }
 
     public static ArrayList<String> parseStringList(String string){
-        ArrayList<String> result = new ArrayList<>();
+        ArrayList<String> result = new ArrayList<String>();
         if(string!=null){
             String[] aliasesStrings = string.split("\\Q | \\E");
             for(String s : aliasesStrings){

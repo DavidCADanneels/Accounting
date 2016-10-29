@@ -18,6 +18,7 @@ public class Main extends BasicAccountingMain{
     protected static AccountsGUI accountsGUIRight;
     private static JournalGUI journalGUI;
     private static JournalInputGUI journalInputGUI;
+    private static MortgagesGUI mortgagesGUI;
 
     public static void main(String[] args) {
         readXmlData();
@@ -31,10 +32,11 @@ public class Main extends BasicAccountingMain{
     protected static void createBasicComponents(){
         Accounting accounting = accountings.getCurrentObject();
         journalGUI = new JournalGUI(accounting);
-        journalInputGUI = new JournalInputGUI(accounting);
-        accountsGUILeft = new AccountsGUI(accounting);
-        accountsGUIRight = new AccountsGUI(accounting);
-        journalsGUI = new JournalsGUI(accounting);
+        journalInputGUI = new JournalInputGUI();
+        accountsGUILeft = new AccountsGUI();
+        accountsGUIRight = new AccountsGUI();
+        journalsGUI = new JournalsGUI();
+        mortgagesGUI = new MortgagesGUI();
         saveButton = new JButton("Save all");
         saveButton.addActionListener(new SaveAllActionListener(accountings));
     }
@@ -44,7 +46,7 @@ public class Main extends BasicAccountingMain{
         links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
         links.add(accountsGUILeft);
         links.add(accountsGUIRight);
-        links.add(new MortgagesGUI());
+        links.add(mortgagesGUI);
         links.add(journalsGUI);
         links.add(saveButton);
         contentPanel = new AccountingMultiPanel();

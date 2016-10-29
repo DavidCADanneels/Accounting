@@ -93,7 +93,7 @@ public class UtilsTest {
 
     @Test
     public void ArrayListToString(){
-        ArrayList<String> list = new ArrayList<>();
+        ArrayList<String> list = new ArrayList<String>();
         assertEquals("", Utils.toString(list));
         list.add("A");
         list.add("B");

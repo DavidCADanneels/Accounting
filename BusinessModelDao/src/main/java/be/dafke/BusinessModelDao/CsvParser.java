@@ -26,7 +26,7 @@ public class CsvParser {
     private HashMap<String,String> transactionCodes;
 
     public CsvParser(){
-        transactionCodes = new HashMap<>();
+        transactionCodes = new HashMap<String, String>();
         transactionCodes.put("Europese overschrijving","101");
         transactionCodes.put("Storting vanwege","150");
         transactionCodes.put("Aankoop met AXA bankkaart","402");
@@ -79,7 +79,9 @@ public class CsvParser {
                     statement.setCommunication(parts[14].replaceAll("\"","").trim()+parts[15].replaceAll("\"","").trim());
                     try {
                         statements.addBusinessObject(statement);
-                    } catch (EmptyNameException | DuplicateNameException e) {
+                    } catch (EmptyNameException e) {
+                        e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                    } catch (DuplicateNameException e) {
                         e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                     }
 
@@ -92,14 +94,16 @@ public class CsvParser {
                         counterParty.setName(parts[9].replaceAll("\"","").trim());
                         String line1 = parts[10].replaceAll("\"","").trim()+" "+parts[11].replaceAll("\"","").trim();
                         String line2 = parts[12].replaceAll("\"","").trim()+" "+parts[13].replaceAll("\"","").trim();
-                        ArrayList<String> addressLines = new ArrayList<>();
+                        ArrayList<String> addressLines = new ArrayList<String>();
                         addressLines.add(line1.trim());
                         addressLines.add(line2.trim());
                         counterParty.setAddressLines(addressLines);
                         statement.setCounterParty(counterParty);
                         try {
                             counterParties.addBusinessObject(counterParty);
-                        } catch (EmptyNameException | DuplicateNameException e) {
+                        } catch (EmptyNameException e) {
+                            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                        } catch (DuplicateNameException e) {
                             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
                         }
                     }

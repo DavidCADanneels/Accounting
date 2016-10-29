@@ -49,8 +49,8 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
                 for(Account right : rightAccounts){
                     totalRight = totalRight.add(right.getSaldo());
                 }
-                totalLeft = totalLeft.setScale(2,BigDecimal.ROUND_HALF_UP);
-                totalRight = totalRight.setScale(2,BigDecimal.ROUND_HALF_UP);
+                totalLeft = totalLeft.setScale(2);
+                totalRight = totalRight.setScale(2);
 				if (size != 0) {
 					if (row == size - 2 && col == 1) return totalLeft;
 					else if (row == size - 2 && col == 2) return BigDecimal.ZERO.subtract(totalRight);

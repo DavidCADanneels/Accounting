@@ -34,7 +34,7 @@ public class Accounts extends BusinessCollection<Account> {
 	}
 
 	public ArrayList<Account> getAccounts(List<AccountType> types) {
-		ArrayList<Account> list = new ArrayList<>();
+		ArrayList<Account> list = new ArrayList<Account>();
 		for(AccountType type : types) {
 			list.addAll(getAccounts(type));
 		}
@@ -43,7 +43,7 @@ public class Accounts extends BusinessCollection<Account> {
 
     @Override
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<>();
+        Set<String> keySet = new TreeSet<String>();
         keySet.add(NAME);
         keySet.add(Account.TYPE);
         keySet.add(Account.DEFAULTAMOUNT);
@@ -51,8 +51,8 @@ public class Accounts extends BusinessCollection<Account> {
     }
 
 	public Account modifyAccountName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
-        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, oldName);
-        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, newName);
+        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(NAME, oldName);
+        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(NAME, newName);
 //        Name is modified in modify Function
 //        account.setName(newName.trim());
         return modify(oldEntry, newEntry);

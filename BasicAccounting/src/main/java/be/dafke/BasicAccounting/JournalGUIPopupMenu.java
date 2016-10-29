@@ -25,8 +25,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
     private final RefreshableTable<Booking> table;
     private Accounting accounting;
 
-    public JournalGUIPopupMenu(RefreshableTable<Booking> table, Accounting accounting) {
-        setAccounting(accounting);
+    public JournalGUIPopupMenu(RefreshableTable<Booking> table) {
         this.table = table;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_AMOUNT"));

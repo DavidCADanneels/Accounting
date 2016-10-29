@@ -20,6 +20,10 @@ public class TransactionActions {
             System.out.println("Payed Off already");
             return;
         }
+        if (transaction.getMortgage()!=null){
+            System.out.println("Transaction already contains a mortgages");
+            return;
+        }
         Account capitalAccount = mortgage.getCapitalAccount();
         Account intrestAccount = mortgage.getIntrestAccount();
         if(capitalAccount==null || intrestAccount==null){
@@ -28,20 +32,13 @@ public class TransactionActions {
         Booking capitalBooking = new Booking(capitalAccount, mortgage.getNextCapitalAmount(),true);
         Booking intrestBooking = new Booking(intrestAccount, mortgage.getNextIntrestAmount(),true);
 
-
         transaction.addBusinessObject(capitalBooking);
         transaction.addBusinessObject(intrestBooking);
-
-        MortgageTransaction mortgageTransaction = new MortgageTransaction(accounts);
-        mortgageTransaction.setMortgage(mortgage);
-        mortgageTransaction.addBusinessObject(capitalBooking);
-        mortgageTransaction.addBusinessObject(intrestBooking);
-        mortgage.addBusinessObject(mortgageTransaction);
 
         ComponentMap.refreshAllFrames();
     }
 
-    public static void addBookingToTransaction(Account account, Transaction transaction, boolean debit) {
+    public static void addBookingToTransaction(Accounts accounts, Account account, Transaction transaction, boolean debit) {
         BigDecimal amount = askAmount(transaction, account, debit);
         if (amount != null) {
             Booking booking = new Booking(account, amount, debit);
@@ -85,7 +82,7 @@ public class TransactionActions {
             } else {
                 try {
                     amount = new BigDecimal(s);
-                    amount = amount.setScale(2,BigDecimal.ROUND_HALF_UP);
+                    amount = amount.setScale(2);
                     ok = true;
                 } catch (NumberFormatException nfe) {
                     ActionUtils.showErrorMessage(ActionUtils.INVALID_INPUT);

@@ -1,19 +1,27 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessActions.ActionUtils;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.text.MessageFormat;
 
+import static be.dafke.BusinessActions.ActionUtils.ACCOUNT_DUPLICATE_NAME;
+import static be.dafke.BusinessActions.ActionUtils.ACCOUNT_NAME_EMPTY;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -42,8 +50,8 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
         line1.add(defaultAmountField);
 		JPanel line2 = new JPanel();
 		line2.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
-		type = new JComboBox<>();
-        DefaultComboBoxModel<AccountType> model = new DefaultComboBoxModel<>();
+		type = new JComboBox<AccountType>();
+        DefaultComboBoxModel<AccountType> model = new DefaultComboBoxModel<AccountType>();
         for(AccountType accountType : accounting.getAccountTypes().getBusinessObjects()){
             model.addElement(accountType);
         }
@@ -74,7 +82,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
             if(text!=null && !text.trim().equals("")){
                 try{
                     BigDecimal defaultAmount = new BigDecimal(text);
-                    defaultAmount = defaultAmount.setScale(2,BigDecimal.ROUND_HALF_UP);
+                    defaultAmount = defaultAmount.setScale(2);
                     account.setDefaultAmount(defaultAmount);
                 } catch (NumberFormatException nfe){
                     account.setDefaultAmount(null);

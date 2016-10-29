@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class Journal extends BusinessCollection<Transaction> implements MustBeRead {
     private String abbreviation;
-    private final MultiValueMap<Calendar,Transaction > transactions;
+    private final MultiValueMap<Calendar,Transaction> transactions;
     private JournalType type;
     private Accounting accounting;
     private Transaction currentTransaction;
@@ -23,7 +23,7 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
         this.accounting = accounting;
         setName(name);
         setAbbreviation(abbreviation);
-        currentTransaction = new Transaction(accounting.getAccounts(),Calendar.getInstance(),"open transaction");
+        currentTransaction = new Transaction(accounting.getAccounts(),Calendar.getInstance(),"");
         transactions = new MultiValueMap<>();
 	}
 
@@ -43,7 +43,7 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
     @Override
     public Set<String> getInitKeySet(){
         Set<String> keySet = new TreeSet<>();
-        keySet.add(NAME);
+//        keySet.add(NAME);
         keySet.add(Transaction.DATE);
         keySet.add(Transaction.DESCRIPTION);
         return keySet;
@@ -116,10 +116,9 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
 			Account account = booking.getAccount();
 			account.removeBusinessObject(booking.getMovement());
 		}
-        if (transaction instanceof MortgageTransaction){
-            MortgageTransaction mortgageTransaction = (MortgageTransaction) transaction;
-            Mortgage mortgage = mortgageTransaction.getMortgage();
-            mortgage.removeBusinessObject(mortgageTransaction);
+        Mortgage mortgage = transaction.getMortgage();
+        if (mortgage!=null){
+            mortgage.decreaseNrPayed();
         }
 	}
 
@@ -133,12 +132,10 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
         }
         transactions.addValue(date, transaction);
 
-        if (transaction instanceof MortgageTransaction){
-            MortgageTransaction mortgageTransaction = (MortgageTransaction) transaction;
-            Mortgage mortgage = mortgageTransaction.getMortgage();
-            mortgage.addBusinessObject(mortgageTransaction);
+        Mortgage mortgage = transaction.getMortgage();
+        if (mortgage!=null){
+            mortgage.raiseNrPayed();
         }
-
         return transaction;
 	}
 

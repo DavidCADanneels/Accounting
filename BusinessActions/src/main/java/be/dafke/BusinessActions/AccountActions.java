@@ -23,7 +23,7 @@ import static java.util.ResourceBundle.getBundle;
 public class AccountActions {
     public static void deleteAccounts(List<Account> accountList, Accounts accounts){
         if(!accountList.isEmpty()) {
-            ArrayList<String> failed = new ArrayList<>();
+            ArrayList<String> failed = new ArrayList<String>();
             for(Account account : accountList) {
                 try{
                     accounts.removeBusinessObject(account);
@@ -46,7 +46,7 @@ public class AccountActions {
         ComponentMap.refreshAllFrames();
     }
 
-    public static void modifyDefaultAmounts(List<Account> accountList){
+    public static void modifyDefaultAmounts(List<Account> accountList, Accounts accounts){
         if(!accountList.isEmpty()) {
             for(Account account : accountList){
                 BigDecimal defaultAmount = account.getDefaultAmount();
@@ -56,7 +56,7 @@ public class AccountActions {
                     try{
                         if (amount!=null) {
                             defaultAmount = new BigDecimal(amount);
-                            defaultAmount = defaultAmount.setScale(2,BigDecimal.ROUND_HALF_UP);
+                            defaultAmount = defaultAmount.setScale(2);
                             account.setDefaultAmount(defaultAmount);
                         }
                         retry = false;

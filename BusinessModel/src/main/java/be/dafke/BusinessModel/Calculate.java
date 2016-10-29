@@ -1,20 +1,16 @@
-package be.dafke.Utils;
+package be.dafke.BusinessModel;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Vector;
 
 /**
  * @author David C.A. Danneels
  */
 public class Calculate {
 
-	public static ArrayList<Vector<BigDecimal>> createFixedAmountTable(BigDecimal startKapitaal, int aantalMaanden,
-			BigDecimal mensualiteit, BigDecimal maandPercentage) {
-		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP);
-		ArrayList<Vector<BigDecimal>> aflossingsTabel = new ArrayList<>();
+	public static Mortgage createFixedAmountTable(BigDecimal startKapitaal, int aantalMaanden, BigDecimal mensualiteit, BigDecimal maandPercentage) {
+		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100));
+		Mortgage aflossingsTabel = new Mortgage();
 		BigDecimal roundedMensualiteit = mensualiteit.setScale(2, RoundingMode.HALF_UP);
 		BigDecimal totaleSom = roundedMensualiteit.multiply(new BigDecimal(aantalMaanden));
 		BigDecimal totaalIntrest = totaleSom.subtract(startKapitaal);
@@ -29,32 +25,29 @@ public class Calculate {
 			kapitaal = roundedMensualiteit.subtract(intrest);
 			restKapitaal = restKapitaal.subtract(kapitaal);
 
-			Vector<BigDecimal> vector = new Vector<>();
-			vector.add(roundedMensualiteit);
-			vector.add(intrest);
-			vector.add(kapitaal);
-			vector.add(restKapitaal);
-			aflossingsTabel.add(vector);
-//			System.out.println(i + "  " + roundedMensualiteit + " = " + intrest + " + " + kapitaal + " ==> "
-//					+ restKapitaal);
+			MortgageTransaction vector = new MortgageTransaction();
+			vector.setNr(i);
+			vector.setMensuality(roundedMensualiteit);
+			vector.setIntrest(intrest);
+			vector.setCapital(kapitaal);
+			vector.setRestCapital(restKapitaal);
+			aflossingsTabel.addBusinessObject(vector);
 		}
 		kapitaal = restKapitaal;
 		intrest = roundedMensualiteit.subtract(kapitaal);
 		restKapitaal = restKapitaal.subtract(kapitaal);
-		Vector<BigDecimal> vector = new Vector<>();
-		vector.add(roundedMensualiteit);
-		vector.add(intrest);
-		vector.add(kapitaal);
-		vector.add(restKapitaal);
-		aflossingsTabel.add(vector);
-//		System.out.println(aantalMaanden + "  " + roundedMensualiteit + " = " + intrest + " + " + kapitaal + " ==> "
-//				+ restKapitaal);
-//		System.out.println(restKapitaal);
+		MortgageTransaction vector = new MortgageTransaction();
+		vector.setNr(aantalMaanden);
+		vector.setMensuality(roundedMensualiteit);
+		vector.setIntrest(intrest);
+		vector.setCapital(kapitaal);
+		vector.setRestCapital(restKapitaal);
+		aflossingsTabel.addBusinessObject(vector);
 		return aflossingsTabel;
 	}
 
 	public static BigDecimal berekenMaandPercentage(BigDecimal jaarPercentage, int aantalPerJaar) {
-		BigDecimal part1 = BigDecimal.ONE.add(jaarPercentage.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP));
+		BigDecimal part1 = BigDecimal.ONE.add(jaarPercentage.divide(BigDecimal.valueOf(100)));
 		BigDecimal part2 = BigDecimal.ONE.divide(new BigDecimal(aantalPerJaar), 10, RoundingMode.HALF_UP);
 		BigDecimal percentage = new BigDecimal(Math.pow(part1.doubleValue(), part2.doubleValue()) - 1);
 		// percentage = percentage.setScale(10, RoundingMode.HALF_UP); // needed for car
@@ -65,7 +58,7 @@ public class Calculate {
 	}
 
 	public static BigDecimal berekenJaarPercentage(BigDecimal maandPercentage, int aantalPerJaar) {
-		BigDecimal part1 = BigDecimal.ONE.add(maandPercentage.divide(new BigDecimal(100), RoundingMode.HALF_UP));
+		BigDecimal part1 = BigDecimal.ONE.add(maandPercentage.divide(new BigDecimal(100)));
 		BigDecimal part2 = new BigDecimal(aantalPerJaar);
 		BigDecimal percentage = new BigDecimal(Math.pow(part1.doubleValue(), part2.doubleValue()) - 1);
 		// percentage = percentage.setScale(10, RoundingMode.HALF_UP); // needed for car
@@ -76,7 +69,7 @@ public class Calculate {
 	}
 
 	public static BigDecimal berekenMensualiteit(BigDecimal startKapitaal, BigDecimal maandPercentage, int aantalMaanden) {
-		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP);
+		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100));
 		BigDecimal noemer = new BigDecimal(1 - Math.pow(1 + maandPercentage.doubleValue(), -aantalMaanden));
 		BigDecimal factor = maandPercentage.divide(noemer, 10, RoundingMode.HALF_UP);
 		BigDecimal mens = startKapitaal.multiply(factor);
@@ -85,26 +78,10 @@ public class Calculate {
 		return mens;
 	}
 
-	public static BigDecimal getTotalIntrest(List<Vector<BigDecimal>> table) {
-		BigDecimal result = BigDecimal.ZERO;
-		for(Vector<BigDecimal> vector : table) {
-			result = result.add(vector.get(1));
-		}
-		return result;
-	}
-
-	public static BigDecimal getTotalToPay(List<Vector<BigDecimal>> table) {
-		BigDecimal result = BigDecimal.ZERO;
-		for(Vector<BigDecimal> vector : table) {
-			result = result.add(vector.get(0));
-		}
-		return result;
-	}
-
-	public static ArrayList<Vector<BigDecimal>> createDegressiveAmountTable(BigDecimal startKapitaal,
+	public static Mortgage createDegressiveAmountTable(BigDecimal startKapitaal,
 			int aantalMaanden, BigDecimal maandPercentage) {
-		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100), RoundingMode.HALF_UP);
-		ArrayList<Vector<BigDecimal>> aflossingsTabel = new ArrayList<>();
+		maandPercentage = maandPercentage.divide(BigDecimal.valueOf(100));
+		Mortgage aflossingsTabel = new Mortgage();
 
 		BigDecimal monthlyCapital = startKapitaal.divide(BigDecimal.valueOf(aantalMaanden), 2, RoundingMode.HALF_UP);
 //		BigDecimal roundedMonthlyCapital = monthlyCapital.setScale(2, RoundingMode.HALF_UP);
@@ -128,14 +105,15 @@ public class Calculate {
 			totaleIntrest = totaleIntrest.add(intrest);
 			totaleSom = totaleSom.add(totaal);
 
-			Vector<BigDecimal> vector = new Vector<>();
-//			vector.add(roundedMensualiteit);
-			vector.add(totaal);
-			vector.add(intrest);
-//			vector.add(kapitaal);
-			vector.add(monthlyCapital);
-			vector.add(restKapitaal);
-			aflossingsTabel.add(vector);
+			MortgageTransaction vector = new MortgageTransaction();
+			vector.setNr(i);
+//			vector.setMensuality((roundedMensualiteit);
+			vector.setMensuality(totaal);
+			vector.setIntrest(intrest);
+//			vector.setCapital(kapitaal);
+			vector.setCapital(monthlyCapital);
+			vector.setRestCapital(restKapitaal);
+			aflossingsTabel.addBusinessObject(vector);
 //			System.out.println(i + "  " + totaal/*roundedMensualiteit*/+ " = " + intrest + " + " + monthlyCapital/*kapitaal*/
 //					+ " ==> " + restKapitaal);
 		}
@@ -149,14 +127,15 @@ public class Calculate {
 		totaleIntrest = totaleIntrest.add(intrest);
 		totaleSom = totaleSom.add(totaal);
 
-		Vector<BigDecimal> vector = new Vector<>();
-//		vector.add(roundedMensualiteit);
-		vector.add(totaal);
-		vector.add(intrest);
-//		vector.add(kapitaal);
-		vector.add(restKapitaal);
-		vector.add(BigDecimal.ZERO);
-		aflossingsTabel.add(vector);
+		MortgageTransaction vector = new MortgageTransaction();
+		vector.setNr(aantalMaanden);
+//		vector.setMensuality(roundedMensualiteit);
+		vector.setMensuality(totaal);
+		vector.setIntrest(intrest);
+//		vector.setCapital(kapitaal);
+		vector.setCapital(restKapitaal);
+		vector.setRestCapital(BigDecimal.ZERO);
+		aflossingsTabel.addBusinessObject(vector);
 		System.out.println("totaalIntrest: " + totaleIntrest);
 		System.out.println("totaleSom: " + totaleSom);
 //		System.out.println(aantalMaanden + "  " + roundedMensualiteit + " = " + intrest + " + " + kapitaal + " ==> "

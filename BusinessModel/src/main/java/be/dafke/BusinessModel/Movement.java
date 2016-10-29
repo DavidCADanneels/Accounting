@@ -18,6 +18,9 @@ public class Movement extends BusinessObject{
     public static final String DESCRIPTION = "description";
     public static final String JOURNAL_ID = "journalId";
     public static final String JOURNAL_ABBR = "journalAbbr";
+    public static final String ID = "id";
+    public static final String DEBIT = "debit";
+    public static final String CREDIT = "credit";
     private BigDecimal amount;
     private boolean debit;
     private Booking booking;
@@ -35,8 +38,8 @@ public class Movement extends BusinessObject{
 
     @Override
     public TreeMap<String, String> getUniqueProperties(){
-        TreeMap<String,String> properties = new TreeMap<>();
-        properties.put(Account.ID,id.toString());
+        TreeMap<String,String> properties = new TreeMap<String, String>();
+        properties.put(ID,id.toString());
         return properties;
     }
 
@@ -44,11 +47,11 @@ public class Movement extends BusinessObject{
     public Properties getOutputProperties() {
         Properties properties = new Properties();
         Transaction transaction = booking.getTransaction();
-        properties.put(Account.ID,id.toString());
+        properties.put(ID,id.toString());
         if(debit){
-            properties.put(Account.DEBIT, amount.toString());
+            properties.put(DEBIT, amount.toString());
         } else {
-            properties.put(Account.CREDIT, amount.toString());
+            properties.put(CREDIT, amount.toString());
         }
         properties.put(JOURNAL_NAME,transaction.getJournal().getName());
         properties.put(JOURNAL_ID,transaction.getId().toString());

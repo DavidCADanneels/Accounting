@@ -124,7 +124,7 @@ public class CodaParser {
 	public static BigDecimal convertBigDecimal(String amountString) {
 		BigInteger amountNoDec = new BigInteger(amountString);
 		BigDecimal amount = new BigDecimal(amountNoDec, 3);
-		amount = amount.setScale(2,BigDecimal.ROUND_HALF_UP);
+		amount = amount.setScale(2);
 		return amount;
 	}
 

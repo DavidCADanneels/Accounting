@@ -34,15 +34,15 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 	public JournalTypeManagementGUI(AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
 		this.accountTypes = accountTypes;
-		debitTypes = new ArrayList<>();
-		creditTypes = new ArrayList<>();
-		allTypes = new ArrayList<>();
-		debitModel = new DefaultListModel<>();
-		debit = new JList<>(debitModel);
-		creditModel = new DefaultListModel<>();
-		credit = new JList<>(creditModel);
-        typesModel = new DefaultListModel<>();
-		types = new JList<>(typesModel);
+		debitTypes = new ArrayList<AccountType>();
+		creditTypes = new ArrayList<AccountType>();
+		allTypes = new ArrayList<AccountType>();
+		debitModel = new DefaultListModel<AccountType>();
+		debit = new JList<AccountType>(debitModel);
+		creditModel = new DefaultListModel<AccountType>();
+		credit = new JList<AccountType>(creditModel);
+        typesModel = new DefaultListModel<AccountType>();
+		types = new JList<AccountType>(typesModel);
 		addLeft = new JButton(getBundle("Accounting").getString("ADD_TYPE_TO_DEBITS"));
 		addRight = new JButton(getBundle("Accounting").getString("ADD_TYPE_TO_CREDITS"));
 		removeLeft = new JButton(getBundle("Accounting").getString("REMOVE_TYPE_FROM_DEBITS"));

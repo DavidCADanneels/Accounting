@@ -10,6 +10,9 @@ import javax.swing.*;
  * Time: 12:02
  */
 public abstract class AccountingPanel extends JPanel implements AccountingPanelInterface{
-    public abstract void setAccounting(Accounting accounting);
+    protected Accounting accounting;
+    public void setAccounting(Accounting accounting){
+        this.accounting=accounting;
+    }
     public abstract void refresh();
 }

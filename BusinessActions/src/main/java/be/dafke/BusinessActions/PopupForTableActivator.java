@@ -20,9 +20,9 @@ public class PopupForTableActivator extends MouseAdapter {
     public PopupForTableActivator(JPopupMenu popup, RefreshableTable tabel, int ... activeColumns) {
         this.popup = popup;
         this.tabel = tabel;
-        this.activeColumns = new ArrayList<>();
+        this.activeColumns = new ArrayList<Integer>();
         for(int i : activeColumns){
-            this.activeColumns.add(i);
+            this.activeColumns.add(Integer.valueOf(i));
         }
     }
 

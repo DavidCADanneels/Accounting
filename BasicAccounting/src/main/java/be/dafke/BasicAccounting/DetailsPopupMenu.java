@@ -22,9 +22,13 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
     private Journals journals;
 
     public DetailsPopupMenu(Journals journals, RefreshableTable<Booking> gui, Mode mode) {
+        this(gui, mode);
+        this.journals=journals;
+    }
+
+    public DetailsPopupMenu(RefreshableTable<Booking> gui, Mode mode) {
         this.mode = mode;
         this.gui = gui;
-        this.journals = journals;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         move = new JMenuItem(getBundle("Accounting").getString("MOVE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_TRANSACTION"));

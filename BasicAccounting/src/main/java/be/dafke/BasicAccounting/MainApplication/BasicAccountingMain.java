@@ -70,9 +70,9 @@ public class BasicAccountingMain {
 
     protected static void createBasicComponents(){
         Accounting accounting = accountings.getCurrentObject();
-        journalGUI = new JournalInputGUI(accounting);
-        accountsGUI = new AccountsGUI(accounting);
-        journalsGUI = new JournalsGUI(accounting);
+        journalGUI = new JournalInputGUI();
+        accountsGUI = new AccountsGUI();
+        journalsGUI = new JournalsGUI();
         saveButton = new JButton("Save all");
         saveButton.addActionListener(new SaveAllActionListener(accountings));
     }
@@ -100,6 +100,7 @@ public class BasicAccountingMain {
         frame.setVisible(true);
         frame.setAccounting(accountings.getCurrentObject());
         frame.pack();
+        frame.refresh();
     }
 
     private static void setXmlFolder(){

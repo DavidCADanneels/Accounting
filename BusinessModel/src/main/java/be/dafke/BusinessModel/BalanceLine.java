@@ -21,7 +21,7 @@ public class BalanceLine extends BusinessObject {
 
     @Override
     public TreeMap<String, String> getUniqueProperties(){
-        return new TreeMap<>();
+        return new TreeMap<String, String>();
     }
 
     @Override

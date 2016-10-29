@@ -33,8 +33,8 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
 	public MortgagesGUI() {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Mortgages"));
-		list = new JList<>();
-		listModel = new DefaultListModel<>();
+		list = new JList<Mortgage>();
+		listModel = new DefaultListModel<Mortgage>();
 		list.setModel(listModel);
 		list.addListSelectionListener(this);
 		pay = new JButton("Pay");
@@ -83,7 +83,7 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		Mortgage mortgage = list.getSelectedValue();
+		Mortgage mortgage = (Mortgage)list.getSelectedValue();
 		Transaction transaction = journal.getCurrentObject();
 		if (mortgage != null) {
 			TransactionActions.createMortgageTransaction(accounts, mortgage, transaction);

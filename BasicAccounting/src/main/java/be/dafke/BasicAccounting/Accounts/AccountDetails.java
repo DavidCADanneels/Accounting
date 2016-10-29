@@ -1,5 +1,10 @@
 package be.dafke.BasicAccounting.Accounts;
 
+/**
+ *
+ * @author David Danneels
+ */
+
 import be.dafke.BasicAccounting.DetailsPopupMenu;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
@@ -7,7 +12,6 @@ import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
-import javax.swing.JPopupMenu;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -18,7 +22,7 @@ public class AccountDetails extends RefreshableTableFrame<Booking> implements Wi
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JPopupMenu popup;
+	private final DetailsPopupMenu popup;
 
 	public AccountDetails(Account account, Journals journals) {
 		super(getBundle("Accounting").getString("ACCOUNT_DETAILS")+ " "

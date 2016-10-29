@@ -95,7 +95,7 @@ public class JournalActions {
     }
 
     public static void deleteJournal(ArrayList<Journal> journalList, Journals journals) {
-        ArrayList<String> failed = new ArrayList<>();
+        ArrayList<String> failed = new ArrayList<String>();
         for(Journal journal : journalList) {
             try{
                 journals.removeBusinessObject(journal);

@@ -39,8 +39,8 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
         line1.add(abbr);
 		JPanel line2 = new JPanel();
 		line2.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
-		type = new JComboBox<>();
-        DefaultComboBoxModel<JournalType> model = new DefaultComboBoxModel<>();
+		type = new JComboBox<JournalType>();
+        DefaultComboBoxModel<JournalType> model = new DefaultComboBoxModel<JournalType>();
         for(JournalType accountType : accounting.getJournalTypes().getBusinessObjects()){
             model.addElement(accountType);
         }

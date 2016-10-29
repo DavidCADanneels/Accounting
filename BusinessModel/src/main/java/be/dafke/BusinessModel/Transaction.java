@@ -27,17 +27,22 @@ public class Transaction extends BusinessCollection<Booking> {
 
     private final ArrayList<Booking> bookings;
     private Accounts accounts;
+    private Mortgage mortgage = null;
 
     public Transaction(Accounts accounts, Calendar date, String description) {
         this.accounts = accounts;
         this.date = date==null?Calendar.getInstance():date;
         this.description = description;
 		debitTotal = new BigDecimal(0);
-		debitTotal = debitTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
+		debitTotal = debitTotal.setScale(2);
 		creditTotal = new BigDecimal(0);
-		creditTotal = creditTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
+		creditTotal = creditTotal.setScale(2);
         bookings = new ArrayList<>();
 	}
+
+    public Mortgage getMortgage() {
+        return mortgage;
+    }
 
     @Override
     public TreeMap<String, String> getUniqueProperties(){
@@ -85,7 +90,7 @@ public class Transaction extends BusinessCollection<Booking> {
     // FOR READING
     // Define keys to read from xml, required to initialize Object attributes
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<>();
+        Set<String> keySet = new TreeSet<String>();
         keySet.add(Booking.ACCOUNT);
         keySet.add(Booking.DEBIT);
         keySet.add(Booking.CREDIT);
@@ -151,11 +156,11 @@ public class Transaction extends BusinessCollection<Booking> {
             bookings.add(nrOfDebits, booking);
             nrOfDebits++;
             debitTotal = debitTotal.add(amount);
-            debitTotal = debitTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
+            debitTotal = debitTotal.setScale(2);
         } else {
             bookings.add(booking);
             creditTotal = creditTotal.add(amount);
-            creditTotal = creditTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
+            creditTotal = creditTotal.setScale(2);
         }
         return booking;
     }
@@ -169,10 +174,10 @@ public class Transaction extends BusinessCollection<Booking> {
         if(booking.isDebit()){
             nrOfDebits--;
             debitTotal = debitTotal.subtract(amount);
-            debitTotal = debitTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
+            debitTotal = debitTotal.setScale(2);
         } else {
             creditTotal = creditTotal.subtract(amount);
-            creditTotal = creditTotal.setScale(2,BigDecimal.ROUND_HALF_UP);
+            creditTotal = creditTotal.setScale(2);
         }
 
     }

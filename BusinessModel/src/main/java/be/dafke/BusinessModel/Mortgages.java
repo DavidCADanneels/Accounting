@@ -35,7 +35,7 @@ public class Mortgages extends BusinessCollection<Mortgage> {
 
     @Override
     public Set<String> getInitKeySet() {
-        Set<String> keySet = new TreeSet<>();
+        Set<String> keySet = new TreeSet<String>();
         keySet.add(NAME);
         keySet.add(TOTAL);
         keySet.add(NRPAYED);
@@ -45,7 +45,7 @@ public class Mortgages extends BusinessCollection<Mortgage> {
     }
     @Override
     public Mortgage createNewChild(TreeMap<String, String> properties) {
-        Mortgage mortgage = new Mortgage(this, accounts);
+        Mortgage mortgage = new Mortgage();
         mortgage.setName(properties.get(NAME));
         String startCapitalString = properties.get(Mortgages.TOTAL);
         String nrPayedString = properties.get(Mortgages.NRPAYED);
