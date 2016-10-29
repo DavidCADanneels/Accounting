@@ -2,7 +2,6 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.SaveAllActionListener;
-import be.dafke.ComponentModel.ComponentMap;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,19 +15,16 @@ public class Main extends BasicAccountingMain {
 
     public static void main(String[] args) {
         readXmlData();
-        launchMainFrame("Accounting-all", createContentPanel());
+        AccountingGUIFrame mainFrame = launchFrame("Accounting-all", createContentPanel(), createMenu());
+        mainFrame.addWindowListener(new SaveAllActionListener(accountings));
 
-//        launchInputFrame();
-    }
-
-    public static void launchInputFrame(){
-        AccountingGUIFrame frame = new AccountingGUIFrame("input", new JournalInputGUI());
-        ComponentMap.addDisposableComponent("Input-Only",frame); // INPUT
-
-        frame.setVisible(true);
-        frame.setAccounting(accountings.getCurrentObject());
-        frame.pack();
-        frame.refresh();
+        /*
+        launchFrame("input",new JournalInputGUI(),null);
+        launchFrame("input",new JournalGUI(accountings.getCurrentObject()),null);
+        launchFrame("journals",new JournalsGUI(),null);
+        launchFrame("acc1",new AccountsGUI(),null);
+        launchFrame("acc2",new AccountsGUI(),null);
+        */
     }
 
     public static AccountingMultiPanel createContentPanel(){

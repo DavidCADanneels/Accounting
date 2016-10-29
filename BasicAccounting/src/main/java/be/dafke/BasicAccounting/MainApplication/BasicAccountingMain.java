@@ -15,7 +15,6 @@ import java.io.File;
 
 public class BasicAccountingMain {
 
-    protected static final String MAIN = "MainPanel";
     protected static Accountings accountings;
     private static File xmlFolder;
     private static File xslFolder;
@@ -23,26 +22,29 @@ public class BasicAccountingMain {
 
 	public static void main(String[] args) {
         readXmlData();
-        launchMainFrame("Accounting-all", createContentPanel());
+        AccountingGUIFrame mainFrame = launchFrame("Accounting-all", createContentPanel(), createMenu());
+        mainFrame.addWindowListener(new SaveAllActionListener(accountings));
     }
 
-    protected static void launchMainFrame(String title, AccountingMultiPanel contentPanel){
+    protected static AccountingGUIFrame launchFrame(String title, AccountingPanel contentPanel, AccountingMenuBar menuBar){
         AccountingGUIFrame frame = new AccountingGUIFrame(title,contentPanel);
 
-        frame.addWindowListener(new SaveAllActionListener(accountings));
-        ComponentMap.addDisposableComponent(MAIN, frame); // MAIN
+        ComponentMap.addDisposableComponent(title, frame); // MAIN
 
-        AccountingMenuBar menuBar = createMenu(frame);
-        frame.setMenuBar(menuBar);
+        if(menuBar!=null) {
+            menuBar.setParent(frame);
+            frame.setMenuBar(menuBar);
+        }
 
         frame.setVisible(true);
         frame.pack();
         frame.setAccounting(accountings.getCurrentObject());
         frame.refresh();
+        return frame;
     }
 
-    protected static AccountingMenuBar createMenu(AccountingPanelInterface panelInterface) {
-        AccountingMenuBar menuBar = new AccountingMenuBar(accountings,panelInterface);
+    protected static AccountingMenuBar createMenu() {
+        AccountingMenuBar menuBar = new AccountingMenuBar(accountings);
         menuBar.add(new BalancesMenu(accountings, menuBar));
         menuBar.add(new MorgagesMenu(accountings, menuBar));
         menuBar.add(new ProjectsMenu(accountings, menuBar));
