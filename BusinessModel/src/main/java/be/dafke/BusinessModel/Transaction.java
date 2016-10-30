@@ -72,7 +72,8 @@ public class Transaction extends BusinessCollection<Booking> {
         } else {
             System.err.println("No 'debit' or 'credit' tag found in Movement !!!");
         }
-        return new Booking(account, amount, debit);
+        int id = Integer.parseInt(properties.get(Booking.ID));
+        return new Booking(account, amount, debit, id);
 //        return new Booking(accounts, properties);
     }
 
@@ -95,6 +96,7 @@ public class Transaction extends BusinessCollection<Booking> {
     // Define keys to read from xml, required to initialize Object attributes
     public Set<String> getInitKeySet(){
         Set<String> keySet = new TreeSet<String>();
+        keySet.add(Booking.ID);
         keySet.add(Booking.ACCOUNT);
         keySet.add(Booking.DEBIT);
         keySet.add(Booking.CREDIT);

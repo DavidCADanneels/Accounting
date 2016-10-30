@@ -26,14 +26,17 @@ public class Movement extends BusinessObject{
     private Booking booking;
     private Integer id;
 
-    public Movement(){
-        id = ++count;
-    }
-
     public Movement(BigDecimal amount, boolean debit){
         this.amount = amount;
         this.debit = debit;
-        id = ++count;
+        this.id = ++count;
+    }
+
+    public Movement(BigDecimal amount, boolean debit, int id) {
+        this.amount = amount;
+        this.debit = debit;
+        this.id = id;
+        count++;
     }
 
     @Override
