@@ -21,6 +21,11 @@ public class Booking extends BusinessObject {
     public static final String CREDIT = "credit";
     public static final String ACCOUNT = "Account";
 
+    public Booking(Account account, BigDecimal amount, boolean debit, int id) {
+        this.account = account;
+        movement = new Movement(amount, debit, id);
+        movement.setBooking(this);
+    }
     public Booking(Account account, BigDecimal amount, boolean debit) {
         this.account = account;
         movement = new Movement(amount, debit);
