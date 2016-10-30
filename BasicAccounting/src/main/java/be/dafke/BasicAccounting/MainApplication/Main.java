@@ -34,13 +34,11 @@ public class Main extends BasicAccountingMain {
         links.add(new AccountsGUI());
         links.add(new MortgagesGUI());
         links.add(new JournalsGUI());
-        JButton saveButton = new JButton("Save all");
-        saveButton.addActionListener(new SaveAllActionListener(accountings));
-        links.add(saveButton);
+        links.add(createSaveButton());
 
         AccountingMultiPanel accountingMultiPanel = new AccountingMultiPanel();
         accountingMultiPanel.setLayout(new BorderLayout());
-        JSplitPane splitPane = new AccountingSplitPanel(new JournalGUI(accountings.getCurrentObject()), new JournalInputGUI(), JSplitPane.VERTICAL_SPLIT);
+        JSplitPane splitPane = new AccountingSplitPanel(new JournalGUI(), new JournalInputGUI(), JSplitPane.VERTICAL_SPLIT);
 //        splitPane.add(new JournalGUI(accounting), JSplitPane.TOP);
 //        splitPane.add(new JournalInputGUI(), JSplitPane.BOTTOM);
         accountingMultiPanel.add(splitPane, BorderLayout.CENTER);

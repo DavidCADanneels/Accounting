@@ -58,9 +58,7 @@ public class BasicAccountingMain {
         links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
         links.add(new AccountsGUI());
         links.add(new JournalsGUI());
-        JButton saveButton = new JButton("Save all");
-        saveButton.addActionListener(new SaveAllActionListener(accountings));
-        links.add(saveButton);
+        links.add(createSaveButton());
 
         AccountingMultiPanel accountingMultiPanel = new AccountingMultiPanel();
         accountingMultiPanel.setLayout(new BorderLayout());
@@ -69,6 +67,11 @@ public class BasicAccountingMain {
         return accountingMultiPanel;
     }
 
+    protected static JButton createSaveButton(){
+        JButton saveButton = new JButton("Save all");
+        saveButton.addActionListener(new SaveAllActionListener(accountings));
+        return saveButton;
+    }
 
     protected static void readXmlData() {
         setXmlFolder();
