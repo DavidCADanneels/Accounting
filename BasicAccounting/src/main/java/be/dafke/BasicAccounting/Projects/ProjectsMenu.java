@@ -39,11 +39,10 @@ public class ProjectsMenu extends JMenu implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         Accounting accounting = accountings.getCurrentObject();
-        BusinessCollection<BusinessObject> projects = accounting.getBusinessObject(PROJECTS);
         String key = accounting.toString() + PROJECTS;
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new ProjectManagementGUI(accounting, (Projects)projects);
+            gui = new ProjectManagementGUI(accounting);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);

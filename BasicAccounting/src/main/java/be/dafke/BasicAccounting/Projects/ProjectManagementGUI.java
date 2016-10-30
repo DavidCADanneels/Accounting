@@ -40,12 +40,10 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 	private final JComboBox<Project> combo;
 	private Project project;
 	private final Accounting accounting;
-    private final Projects projects;
 
-    public ProjectManagementGUI(Accounting accounting, Projects projects) {
+    public ProjectManagementGUI(Accounting accounting) {
 		super(getBundle("Projects").getString("PROJECTMANAGER"));
 		this.accounting = accounting;
-        this.projects = projects;
 		JPanel hoofdPaneel = new JPanel();
 		hoofdPaneel.setLayout(new BoxLayout(hoofdPaneel, BoxLayout.X_AXIS));
 		//
@@ -164,8 +162,10 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 				naam = JOptionPane.showInputDialog(getBundle("Projects").getString(
 						"ENTER_NAME_FOR_PROJECT"));
 			if (naam != null) {
-				project = new Project(naam);
+				Project project = new Project();
+				project.setName(naam);
 				try {
+					Projects projects = accounting.getProjects();
 					projects.addBusinessObject(project);
 				} catch (EmptyNameException e) {
 					e.printStackTrace();
@@ -201,6 +201,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
     public void refresh() {
         Accounts accounts = accounting.getAccounts();
         zoeker.resetMap(accounts.getBusinessObjects());
+		Projects projects = accounting.getProjects();
         for(BusinessObject project : projects.getBusinessObjects()) {
             combo.addItem((Project)project);
         }

@@ -20,6 +20,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     private final Balances balances;
     private final Mortgages mortgages;
     private ArrayList<String> keys;
+    private Projects projects;
 
     @Override
     public String getChildType(){
@@ -42,6 +43,8 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         mortgages.setAccountTypes(accountTypes);
         mortgages.setAccounts(accounts);
 
+        projects = new Projects();
+
         accounts.setName(accounts.getBusinessObjectType());
         journals.setName(journals.getBusinessObjectType());
 
@@ -50,17 +53,19 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
             addBusinessObject((BusinessCollection)journals);
             addBusinessObject((BusinessCollection)balances);
             addBusinessObject((BusinessCollection)mortgages);
+            addBusinessObject((BusinessCollection)projects);
         } catch (EmptyNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (DuplicateNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        keys = new ArrayList<String>();
+        keys = new ArrayList<>();
 //        keys.add(accountTypes.getBusinessObjectType());
         keys.add(accounts.getBusinessObjectType());
         keys.add(journals.getBusinessObjectType());
         keys.add(balances.getBusinessObjectType());
         keys.add(mortgages.getBusinessObjectType());
+        keys.add(projects.getBusinessObjectType());
 	}
 
     public void addKey(String key){
@@ -110,5 +115,9 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     public Mortgages getMortgages() {
         return mortgages;
+    }
+
+    public Projects getProjects() {
+        return projects;
     }
 }
