@@ -107,9 +107,9 @@ public class JournalActions {
             if (failed.size() == 1) {
                 JOptionPane.showMessageDialog(null, failed.get(0) + " "+ getBundle("BusinessActions").getString("JOURNAL_NOT_EMPTY"));
             } else {
-                StringBuilder builder = new StringBuilder(getBundle("BusinessActions").getString("MULTIPLE_JOURNALS_NOT_EMPTY")+"\r\n");
+                StringBuilder builder = new StringBuilder(getBundle("BusinessActions").getString("MULTIPLE_JOURNALS_NOT_EMPTY")+"\n");
                 for(String s : failed){
-                    builder.append("- ").append(s).append("\r\n");
+                    builder.append("- ").append(s).append("\n");
                 }
                 JOptionPane.showMessageDialog(null, builder.toString());
             }

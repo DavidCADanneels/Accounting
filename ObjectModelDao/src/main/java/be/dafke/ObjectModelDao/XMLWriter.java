@@ -20,20 +20,20 @@ import java.util.logging.Logger;
 public class XMLWriter {
     public static String getXmlHeader(BusinessObject object, int depth) {
         String className = object.getBusinessObjectType();
-        StringBuilder builder = new StringBuilder("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\r\n");
+        StringBuilder builder = new StringBuilder("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n");
 
 //        builder.append("<!DOCTYPE ").append(className).append(" SYSTEM \"");
 //        for(int i=0 ; i<depth; i++){
 //            builder.append("../");
 //        }
-//        builder.append("../xsd/").append(className).append(".xsd\">\r\n");
+//        builder.append("../xsd/").append(className).append(".xsd\">\n");
 
-        builder.append("<"+className+" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\r\n" +
+        builder.append("<"+className+" xmlns:xsi=\"http://www.w3.org/2001/XMLSchema-instance\"\n" +
                 "xsi:noNamespaceSchemaLocation=\"");
         for(int i=0 ; i<depth; i++){
             builder.append("../");
         }
-        builder.append("../xsd/").append(className).append(".xsd\">\r\n");
+        builder.append("../xsd/").append(className).append(".xsd\">\n");
         return builder.toString();
     }
 
@@ -64,11 +64,11 @@ public class XMLWriter {
                 writeChildren(writer, businessCollection, 0);
 
                 if(businessCollection.getCurrentObject()!=null){
-                    writer.write("  <CurrentObject>" + businessCollection.getCurrentObject().getName() + "</CurrentObject>\r\n");
+                    writer.write("  <CurrentObject>" + businessCollection.getCurrentObject().getName() + "</CurrentObject>\n");
                 }
             }
 
-            writer.write("</"+businessObjectType+">\r\n");
+            writer.write("</"+businessObjectType+">\n");
 
             writer.flush();
             writer.close();
@@ -104,16 +104,16 @@ public class XMLWriter {
                 ArrayList list = (ArrayList)value;
                 for (Object object : list) {
                     for(int i=0;i<depth;i++) builder.append("  ");
-                    builder.append("  <" + list.get(0).getClass().getSimpleName() + ">\r\n");
+                    builder.append("  <" + list.get(0).getClass().getSimpleName() + ">\n");
                     BusinessObject businessObject = (BusinessObject) object;
                     builder.append(writeNode(businessObject.getOutputProperties(), depth + 1));
                     for(int i=0;i<depth;i++) builder.append("  ");
-                    builder.append("  </" + list.get(0).getClass().getSimpleName() + ">\r\n");
+                    builder.append("  </" + list.get(0).getClass().getSimpleName() + ">\n");
                 }
             } else{
                 if(value!=null && !"".equals(value)){
                     for(int i=0;i<depth;i++) builder.append("  ");
-                    builder.append("  <" + key + ">" + value + "</"+ key + ">\r\n");
+                    builder.append("  <" + key + ">" + value + "</"+ key + ">\n");
                 }
             }
         }
@@ -131,7 +131,7 @@ public class XMLWriter {
 
                 // Write the tag for the child e.g. <Accounting>
                 for(int i=0;i<depth;i++) writer.write("  ");
-                writer.write("  <"+objectType+">\r\n");
+                writer.write("  <"+objectType+">\n");
 
                 // get the object's properties
                 Properties objectProperties = businessObject.getOutputProperties();
@@ -140,7 +140,7 @@ public class XMLWriter {
 
                 // write the closing tag e.g. </Accounting>
                 for(int i=0;i<depth;i++) writer.write("  ");
-                writer.write("  </" + objectType + ">\r\n");
+                writer.write("  </" + objectType + ">\n");
             }
         }catch (IOException io){
             io.printStackTrace();
