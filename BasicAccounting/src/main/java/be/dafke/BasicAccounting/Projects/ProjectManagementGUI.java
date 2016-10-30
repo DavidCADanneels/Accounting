@@ -1,14 +1,9 @@
 package be.dafke.BasicAccounting.Projects;
 
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableFrame;
-import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.BusinessModel.Project;
-import be.dafke.BusinessModel.Projects;
 import be.dafke.Utils.AlphabeticListModel;
 import be.dafke.Utils.PrefixFilterPanel;
 
@@ -105,7 +100,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 				"NEW_PROJECT"));
 		newProject.addActionListener(this);
 		JPanel noord = new JPanel();
-		combo = new JComboBox<Project>();
+		combo = new JComboBox<>();
 		combo.addActionListener(this);
 		noord.add(combo);
 		noord.add(newProject);
@@ -121,6 +116,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(hoofdPaneel);
 		pack();
+		refresh();
 		// setVisible(true);
 	}
 
@@ -202,8 +198,8 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
         Accounts accounts = accounting.getAccounts();
         zoeker.resetMap(accounts.getBusinessObjects());
 		Projects projects = accounting.getProjects();
-        for(BusinessObject project : projects.getBusinessObjects()) {
-            combo.addItem((Project)project);
+        for(Project project : projects.getBusinessObjects()) {
+			((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
         }
         Project[] result = new Project[projects.getBusinessObjects().size()];
         projects.getBusinessObjects().toArray(result);

@@ -13,6 +13,7 @@ import java.util.*;
  * @since 01/10/2010
  */
 public class Accounts extends BusinessCollection<Account> {
+    public static final String ACCOUNT = "Account";
     private Accounting accounting;
 
     public Accounts(Accounting accounting) {
@@ -22,7 +23,7 @@ public class Accounts extends BusinessCollection<Account> {
 
     @Override
     public String getChildType(){
-        return "Account";
+        return ACCOUNT;
     }
 
     public ArrayList<Account> getAccounts(AccountType type) {
