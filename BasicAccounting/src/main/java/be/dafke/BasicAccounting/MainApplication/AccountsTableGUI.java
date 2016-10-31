@@ -47,7 +47,7 @@ public class AccountsTableGUI extends AccountingPanel implements ListSelectionLi
         //
         accountDataModel = new AccountDataModel();
         table = new RefreshableTable<>(accountDataModel);
-        table.setPreferredScrollableViewportSize(new Dimension(800, 200));
+        table.setPreferredScrollableViewportSize(new Dimension(100, 600));
 
         popup = new AccountsTablePopupMenu(accounting, table);
         table.addMouseListener(new PopupForTableActivator(popup, table));
@@ -116,6 +116,7 @@ public class AccountsTableGUI extends AccountingPanel implements ListSelectionLi
 
 	public void actionPerformed(ActionEvent ae) {
         String actionCommand = ae.getActionCommand();
+        popup.setVisible(false);
         if(accounting!=null) {
             if (MANAGE.equals(actionCommand)) {
                 GUIActions.showAccountManager(accounting);

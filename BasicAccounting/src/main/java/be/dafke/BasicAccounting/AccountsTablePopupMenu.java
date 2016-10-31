@@ -17,7 +17,7 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneels on 10/12/2015.
  */
 public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener{
-    private final JMenuItem manage;
+    private final JMenuItem manage, add, debit, credit,details;
     public final String DEBIT = "debit";
     public final String CREDIT = "credit";
     public final String ADD = "add";
@@ -30,14 +30,35 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
     public AccountsTablePopupMenu(Accounting accounting, RefreshableTable<Account> table) {
         this.table = table;
         this.accounting = accounting;
+
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_ACCOUNT"));
+        add = new JMenuItem(getBundle("Accounting").getString("ADD_ACCOUNT"));
+        debit = new JMenuItem(getBundle("Accounting").getString("DEBIT"));
+        credit = new JMenuItem(getBundle("Accounting").getString("CREDIT"));
+        details = new JMenuItem(getBundle("Accounting").getString("VIEW_ACCOUNT"));
+
         manage.setActionCommand(MANAGE);
+        add.setActionCommand(ADD);
+        debit.setActionCommand(DEBIT);
+        credit.setActionCommand(CREDIT);
+        details.setActionCommand(DETAILS);
+
+        add(debit);
+        add(credit);
+        add(details);
+        add(add);
         add(manage);
+
         manage.addActionListener(this);
+        add.addActionListener(this);
+        debit.addActionListener(this);
+        credit.addActionListener(this);
+        details.addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent ae) {
         String actionCommand = ae.getActionCommand();
+        setVisible(false);
         if(accounting!=null) {
             Account selectedAccount = table.getSelectedObject();
             if (MANAGE.equals(actionCommand)) {
@@ -55,6 +76,5 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
                 }
             }
         }
-        setVisible(false);
     }
 }
