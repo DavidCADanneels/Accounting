@@ -25,14 +25,14 @@ public class JournalGUI extends AccountingPanel {
 
         table = new RefreshableTable<>(journalDetailsDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
+
         popup = new DetailsPopupMenu(table, DetailsPopupMenu.Mode.JOURNAL);
         table.addMouseListener(new PopupForTableActivator(popup, table, 0,2,3,4));
 
-		JScrollPane scrollPane1 = new JScrollPane(table);
         JPanel center = new JPanel();
-
+        JScrollPane scrollPane = new JScrollPane(table);
         center.setLayout(new BoxLayout(center,BoxLayout.Y_AXIS));
-        center.add(scrollPane1);
+        center.add(scrollPane);
 		add(center, BorderLayout.CENTER);
 	}
 
