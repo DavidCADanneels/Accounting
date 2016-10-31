@@ -4,6 +4,7 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 import be.dafke.Utils.AlphabeticListModel;
 import be.dafke.Utils.PrefixFilterPanel;
 
@@ -142,13 +143,21 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 			for(Account account : allAccounts.getSelectedValuesList()) {
 				projectAccountsModel.addElement(account);
                 // TODO check if account belongs to another project (and remove it there ?)
-				project.addAccount(account);
+				try {
+					project.addBusinessObject(account);
+				} catch (EmptyNameException | DuplicateNameException e) {
+					e.printStackTrace();
+				}
 				allAccountsModel.removeElement(account);
 			}
 		} else if (ae.getSource() == moveBack) {
 			for(Account account : projectAccounts.getSelectedValuesList()) {
 				allAccountsModel.addElement(account);
-				project.removeAccount(account);
+				try {
+					project.removeBusinessObject(account);
+				} catch (NotEmptyException e) {
+					e.printStackTrace();
+				}
 				projectAccountsModel.removeElement(account);
 			}
 		} else if (ae.getSource() == newProject) {
@@ -158,7 +167,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 				naam = JOptionPane.showInputDialog(getBundle("Projects").getString(
 						"ENTER_NAME_FOR_PROJECT"));
 			if (naam != null) {
-				Project project = new Project();
+				Project project = new Project(accounting.getAccounts());
 				project.setName(naam);
 				try {
 					Projects projects = accounting.getProjects();
@@ -175,7 +184,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 			System.out.println("action");
 			project = (Project) combo.getSelectedItem();
 			projectAccountsModel.removeAllElements();
-			for(Account account : project.getAccounts()) {
+			for(Account account : project.getBusinessObjects()) {
 				// System.out.println("Project: " + project + " | account" + account);
 				projectAccountsModel.addElement(account);
 			}
@@ -187,7 +196,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
     public ArrayList<Account> getAccountNoMatchProject(Project project) {
 		ArrayList<Account> result = new ArrayList<Account>();
 		for(Account account : accounting.getAccounts().getBusinessObjects()) {
-            if (!project.getAccounts().contains(account)){
+            if (!project.getBusinessObjects().contains(account)){
                 result.add(account);
             }
 		}

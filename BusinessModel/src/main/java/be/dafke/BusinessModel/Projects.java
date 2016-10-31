@@ -16,9 +16,10 @@ public class Projects extends BusinessCollection<Project> {
 
     public static final String PROJECTS = "Projects";
     public static final String PROJECT = "Project";
+    private final Accounts accounts;
 
-    public Projects(/*Accounting accounting*/) {
-//        this.accounting = accounting;
+    public Projects(Accounts accounts) {
+        this.accounts = accounts;
         setName(PROJECTS);
     }
 
@@ -29,7 +30,7 @@ public class Projects extends BusinessCollection<Project> {
 
 	@Override
 	public Project createNewChild(TreeMap<String, String> properties) {
-        Project project = new Project();
+        Project project = new Project(accounts);
         project.setName(properties.get(NAME));
         return project;
 	}
