@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
-import be.dafke.BasicAccounting.AccountsPopupMenu;
+import be.dafke.BasicAccounting.AccountsTablePopupMenu;
 import be.dafke.BasicAccounting.GUIActions;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessActions.TransactionActions;
@@ -29,7 +29,7 @@ public class AccountsTableGUI extends AccountingPanel implements ListSelectionLi
 	private final JButton debet, credit, accountManagement, accountDetails, addAccount;
     private final AccountDataModel accountDataModel;
 
-    private AccountsPopupMenu popup;
+    private AccountsTablePopupMenu popup;
 
     public final String DEBIT = "debit";
     public final String CREDIT = "credit";
@@ -49,7 +49,7 @@ public class AccountsTableGUI extends AccountingPanel implements ListSelectionLi
         table = new RefreshableTable<>(accountDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
-        popup = new AccountsPopupMenu(accounting);
+        popup = new AccountsTablePopupMenu(accounting, table);
         table.addMouseListener(new PopupForTableActivator(popup, table));
 
         JScrollPane scrollPane1 = new JScrollPane(table);
@@ -139,7 +139,7 @@ public class AccountsTableGUI extends AccountingPanel implements ListSelectionLi
         accountDataModel.setAccounts(accounting.getAccounts());
 
         // could be popup.setAccounting() with constructor call in this.constructor
-        popup = new AccountsPopupMenu(accounting);
+        popup = new AccountsTablePopupMenu(accounting, table);
         table.addMouseListener(new PopupForTableActivator(popup, table, 0,2,3,4));
     }
 
