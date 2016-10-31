@@ -14,8 +14,8 @@ public class JournalGUI extends AccountingPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-    private final RefreshableTable<Booking> viewTable;
-    private final DetailsPopupMenu viewPopup;
+    private final RefreshableTable<Booking> table;
+    private final DetailsPopupMenu popup;
 
     private final JournalDetailsDataModel journalDetailsDataModel;
 
@@ -23,22 +23,22 @@ public class JournalGUI extends AccountingPanel {
 		setLayout(new BorderLayout());
         journalDetailsDataModel = new JournalDetailsDataModel(null);
 
-        viewTable = new RefreshableTable<>(journalDetailsDataModel);
-        viewTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
-        viewPopup = new DetailsPopupMenu(viewTable, DetailsPopupMenu.Mode.JOURNAL);
-        viewTable.addMouseListener(new PopupForTableActivator(viewPopup, viewTable, 0,2,3,4));
+        table = new RefreshableTable<>(journalDetailsDataModel);
+        table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
-		JScrollPane scrollPane1 = new JScrollPane(viewTable);
+        popup = new DetailsPopupMenu(table, DetailsPopupMenu.Mode.JOURNAL);
+        table.addMouseListener(new PopupForTableActivator(popup, table, 0,2,3,4));
+
         JPanel center = new JPanel();
-
+        JScrollPane scrollPane = new JScrollPane(table);
         center.setLayout(new BoxLayout(center,BoxLayout.Y_AXIS));
-        center.add(scrollPane1);
+        center.add(scrollPane);
 		add(center, BorderLayout.CENTER);
 	}
 
     public void refresh() {
         if(accounting!=null){
-            viewPopup.setJournals(accounting.getJournals());
+            popup.setJournals(accounting.getJournals());
             if(accounting.getJournals()!=null) {
                 journalDetailsDataModel.setJournal(accounting.getJournals().getCurrentObject());
 //            } else {
@@ -46,7 +46,7 @@ public class JournalGUI extends AccountingPanel {
             }
 //        } else{
 //            journalDetailsDataModel.setJournal(null);
-//            viewPopup.setJournals(null);
+//            popup.setJournals(null);
         }        journalDetailsDataModel.fireTableDataChanged();
     }
 }

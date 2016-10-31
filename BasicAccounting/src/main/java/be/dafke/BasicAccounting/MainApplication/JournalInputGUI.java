@@ -23,10 +23,12 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class JournalInputGUI extends AccountingPanel implements FocusListener, ActionListener{
     private static final long serialVersionUID = 1L;
-    private final JTextField debet, credit, dag, maand, jaar, bewijs, ident;
-    private final JButton singleBook, save, clear;
-    private final RefreshableTable<Booking> inputTable;
-    private final JournalGUIPopupMenu inputPopup;
+
+    private JTextField debet, credit, dag, maand, jaar, bewijs, ident;
+    private JButton singleBook, save, clear;
+
+    private final RefreshableTable<Booking> table;
+    private final JournalGUIPopupMenu popup;
     private final JournalDataModel journalDataModel;
     private BigDecimal debettotaal, credittotaal;
 
@@ -40,24 +42,28 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         journalDataModel = new JournalDataModel();
         setJournal();
 
-        inputTable = new RefreshableTable<>(journalDataModel);
-        inputTable.setPreferredScrollableViewportSize(new Dimension(800, 200));
+        table = new RefreshableTable<>(journalDataModel);
+        table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
-        inputPopup = new JournalGUIPopupMenu(inputTable);
-        inputTable.addMouseListener(new PopupForTableActivator(inputPopup, inputTable));
+        popup = new JournalGUIPopupMenu(table);
+        table.addMouseListener(new PopupForTableActivator(popup, table));
 
         JPanel center = new JPanel();
-        JScrollPane scrollPane2 = new JScrollPane(inputTable);
-        center.add(scrollPane2);
+        JScrollPane scrollPane = new JScrollPane(table);
+        center.add(scrollPane);
         add(center, BorderLayout.CENTER);
 
-        scrollPane2.addMouseListener(new MouseAdapter() {
+        scrollPane.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent me) {
-                inputPopup.setVisible(false);
+                popup.setVisible(false);
             }
         });
+        JPanel onder = createInputPanel();
+        add(onder, BorderLayout.SOUTH);
+    }
 
+    public JPanel createInputPanel(){
         ident = new JTextField(4);
         ident.setEditable(false);
         dag = new JTextField(2);
@@ -108,16 +114,16 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
                 "TOTAL_CREDIT")));
         paneel3.add(credit);
 
-        JPanel onder = new JPanel(new GridLayout(0, 1));
-        onder.add(paneel1);
-        onder.add(paneel2);
-        onder.add(paneel3);
-        add(onder, BorderLayout.SOUTH);
+        JPanel mainPanel = new JPanel(new GridLayout(0, 1));
+        mainPanel.add(paneel1);
+        mainPanel.add(paneel2);
+        mainPanel.add(paneel3);
+        return mainPanel;
     }
 
     public void setAccounting(Accounting accounting){
         super.setAccounting(accounting);
-        inputPopup.setAccounting(accounting);
+        popup.setAccounting(accounting);
         if (accounting!=null && accounting.getJournals() != null) {
             setJournal(accounting.getJournals().getCurrentObject());
         } else {
