@@ -3,6 +3,7 @@ package be.dafke.ComponentModel;
 import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Uitbreiding op RefreshableFrame, refresh() herlaad de gegevens van de tabel
@@ -53,6 +54,10 @@ public abstract class RefreshableTableFrame<BusinessObject> extends RefreshableF
 
 	public BusinessObject getSelectedObject(){
 		return tabel.getSelectedObject();
+	}
+
+	public ArrayList<BusinessObject> getSelectedObjects(){
+		return tabel.getSelectedObjects();
 	}
 
 	/**

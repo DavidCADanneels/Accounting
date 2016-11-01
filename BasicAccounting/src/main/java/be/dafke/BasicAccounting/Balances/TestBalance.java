@@ -8,7 +8,7 @@ import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
-import javax.swing.JPopupMenu;
+import javax.swing.*;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -20,7 +20,7 @@ public class TestBalance extends RefreshableTableFrame<Account> {
 	private final JPopupMenu popup;
 
 	public TestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes) {
-		super(getBundle("Balances").getString("TESTBALANCE"),
+		super(getBundle("BusinessModel").getString("TESTBALANCE"),
 				new TestBalanceDataModel(accounts, accountTypes));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);

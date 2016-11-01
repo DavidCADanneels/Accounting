@@ -27,9 +27,8 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
 
     private Accounting accounting;
 
-    public AccountsTablePopupMenu(Accounting accounting, RefreshableTable<Account> table) {
+    public AccountsTablePopupMenu(RefreshableTable<Account> table) {
         this.table = table;
-        this.accounting = accounting;
 
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_ACCOUNT"));
         add = new JMenuItem(getBundle("Accounting").getString("ADD_ACCOUNT"));
@@ -46,6 +45,7 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
         add(debit);
         add(credit);
         add(details);
+        addSeparator();
         add(add);
         add(manage);
 
@@ -56,9 +56,12 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
         details.addActionListener(this);
     }
 
+    public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
+    }
+
     public void actionPerformed(ActionEvent ae) {
         String actionCommand = ae.getActionCommand();
-        setVisible(false);
         if(accounting!=null) {
             Account selectedAccount = table.getSelectedObject();
             if (MANAGE.equals(actionCommand)) {
@@ -76,5 +79,6 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
                 }
             }
         }
+        setVisible(false);
     }
 }

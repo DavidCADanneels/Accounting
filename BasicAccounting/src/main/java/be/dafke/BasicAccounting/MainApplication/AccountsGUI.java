@@ -86,11 +86,11 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 		JPanel noord = new JPanel();
 		noord.add(debet);
 		noord.add(credit);
-        noord.add(addAccount);
+        noord.add(accountDetails);
 		JPanel midden = new JPanel();
 		// midden.setLayout(new BoxLayout(midden,BoxLayout.Y_AXIS));
 		midden.add(accountManagement);
-		midden.add(accountDetails);
+		midden.add(addAccount);
 		hoofdPaneel.add(noord, BorderLayout.NORTH);
 		hoofdPaneel.add(midden, BorderLayout.CENTER);
 
