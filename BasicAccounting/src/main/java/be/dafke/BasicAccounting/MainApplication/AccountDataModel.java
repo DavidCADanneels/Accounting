@@ -25,7 +25,7 @@ public class AccountDataModel extends RefreshableTableModel<Account> {
 	public Object getValueAt(int row, int col) {
 		Account account = accounts.getBusinessObjects().get(row);
 		if (col == 0) {
-			return account.getName();
+			return account;
 		}
 		if (col == 1) {
 			return account.getSaldo();
