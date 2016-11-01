@@ -18,6 +18,7 @@ public class BalanceGUI extends RefreshableTableFrame {
 	public BalanceGUI(Journals journals, Balance balance) {
 		super(balance.getName(),
 				new BalanceDataModel(balance));
+		//TODO: avoid creating datamodel in constructor via super()
 		// tabel.setAutoCreateRowSorter(true);
 		popup = new BalancePopupMenu(journals, tabel);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
