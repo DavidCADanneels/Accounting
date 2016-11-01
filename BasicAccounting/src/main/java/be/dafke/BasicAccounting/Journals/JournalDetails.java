@@ -26,7 +26,7 @@ public class JournalDetails extends RefreshableTableFrame<Booking> implements Wi
 
 	public JournalDetails(Journal journal, Journals journals) {
 		super(getBundle("Accounting").getString("JOURNAL_DETAILS") + " "
-                + journal.toString(), new JournalDetailsDataModel(journal));
+                + journal.toString(), new JournalDetailsDataModel());
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
 		popup = new DetailsPopupMenu(journals, tabel, DetailsPopupMenu.Mode.JOURNAL);
