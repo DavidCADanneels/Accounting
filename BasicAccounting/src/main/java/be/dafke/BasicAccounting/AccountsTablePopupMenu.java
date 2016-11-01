@@ -27,9 +27,8 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
 
     private Accounting accounting;
 
-    public AccountsTablePopupMenu(Accounting accounting, RefreshableTable<Account> table) {
+    public AccountsTablePopupMenu(RefreshableTable<Account> table) {
         this.table = table;
-        this.accounting = accounting;
 
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_ACCOUNT"));
         add = new JMenuItem(getBundle("Accounting").getString("ADD_ACCOUNT"));
