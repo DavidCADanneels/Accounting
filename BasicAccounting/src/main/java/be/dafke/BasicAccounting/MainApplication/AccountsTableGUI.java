@@ -78,16 +78,11 @@ public class AccountsTableGUI extends AccountingPanel implements MouseListener {
     }
 
     public ArrayList<Account> getSelectedAccounts() {
-        int[] rows = table.getSelectedRows();
-        if (rows.length == 0) {
+        ArrayList<Account> selectedObjects = table.getSelectedObjects();
+        if (selectedObjects.isEmpty()) {
             ActionUtils.showErrorMessage(ActionUtils.SELECT_ACCOUNT_FIRST);
         }
-        ArrayList<Account> accountList = new ArrayList<Account>();
-        for(int row : rows) {
-            Account account = (Account) accountDataModel.getValueAt(row, 0);
-            accountList.add(account);
-        }
-        return accountList;
+        return selectedObjects;
     }
 
 
