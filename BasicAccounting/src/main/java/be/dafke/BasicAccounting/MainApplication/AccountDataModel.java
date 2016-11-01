@@ -28,7 +28,12 @@ public class AccountDataModel extends RefreshableTableModel<Account> {
 			return account;
 		}
 		if (col == 1) {
-			return account.getSaldo();
+			if(account==null) return null;
+			if(account.getType().isInverted())
+				return account.getSaldo().negate();
+			else return account.getSaldo();
+			// TODO: use this isInverted() switch to call negate() in other places
+			// TODO: do not use BigDecimal.ZERO.subtract(...) to negate()
 		}
 		return null;
 	}
