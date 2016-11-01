@@ -3,18 +3,17 @@ package be.dafke.BasicAccounting.Coda;
 import be.dafke.BusinessModel.SearchOptions;
 import be.dafke.BusinessModel.Statement;
 import be.dafke.BusinessModel.Statements;
+import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
-import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class GenericStatementTableFrame extends RefreshableTableFrame<Statement> {
+public class GenericStatementTableFrame extends RefreshableFrame {
 
-	/**
-	 * 
-	 */
 	private static final long serialVersionUID = 1L;
+    private RefreshableTable<Statement> tabel;
+    private GenericStatementDataModel dataModel;
 
 	public GenericStatementTableFrame(SearchOptions searchOptions,
                                       Statements statements) {
@@ -22,7 +21,7 @@ public class GenericStatementTableFrame extends RefreshableTableFrame<Statement>
                 (searchOptions.isSearchOnCounterParty()?" [counterParty = "+searchOptions.getCounterParty()+"]":"")+
                 (searchOptions.isSearchOnTransactionCode()? " [transactioncode = "+searchOptions.getTransactionCode()+"]":"")+
                 (searchOptions.isSearchOnCommunication()? " [communication = "+searchOptions.getCommunication()+"]":""));
-        GenericStatementDataModel dataModel = new GenericStatementDataModel(searchOptions,statements);
+        dataModel = new GenericStatementDataModel(searchOptions,statements);
 
         tabel = new RefreshableTable<>(dataModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -37,13 +36,8 @@ public class GenericStatementTableFrame extends RefreshableTableFrame<Statement>
         pack();
 	}
 
-    @Override
-    public void selectObject(Statement statement) {
-
-    }
-
-    @Override
-    public Statement getSelectedObject() {
-        return null;
+    public void refresh() {
+//		tabel.refresh();
+        dataModel.fireTableDataChanged();
     }
 }

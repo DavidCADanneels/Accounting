@@ -2,8 +2,8 @@ package be.dafke.BasicAccounting.Coda;
 
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
 import be.dafke.BusinessModel.*;
+import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
-import be.dafke.ComponentModel.RefreshableTableFrame;
 import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.ObjectModel.BusinessObject;
 
@@ -13,20 +13,22 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.regex.Pattern;
 
-public class CounterPartyTableFrame extends RefreshableTableFrame<CounterParty> implements MouseListener {
+public class CounterPartyTableFrame extends RefreshableFrame implements MouseListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final Accounting accounting;
     private final Statements statements;
+    private RefreshableTable<CounterParty> tabel;
+    private CounterPartyDataModel dataModel;
 
     public CounterPartyTableFrame(Accounting accounting, CounterParties counterParties, Statements statements) {
 		super("Counterparties");
         this.accounting = accounting;
         this.statements = statements;
 
-        CounterPartyDataModel dataModel = new CounterPartyDataModel(counterParties);
+        dataModel = new CounterPartyDataModel(counterParties);
 
         tabel = new RefreshableTable<>(dataModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -43,6 +45,11 @@ public class CounterPartyTableFrame extends RefreshableTableFrame<CounterParty> 
 		// tabel.setAutoCreateRowSorter(true);
 		tabel.addMouseListener(this);
 	}
+
+    public void refresh() {
+//		tabel.refresh();
+        dataModel.fireTableDataChanged();
+    }
 
 	public void mouseClicked(MouseEvent me) {
 		Point cell = me.getPoint();
@@ -61,7 +68,7 @@ public class CounterPartyTableFrame extends RefreshableTableFrame<CounterParty> 
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.setCounterParty(counterParty);
                 searchOptions.setSearchOnCounterParty(true);
-				RefreshableTableFrame refreshTable = new GenericStatementTableFrame(searchOptions, statements);
+				RefreshableFrame refreshTable = new GenericStatementTableFrame(searchOptions, statements);
                 refreshTable.setVisible(true);
 				// parent.addChildFrame(refreshTable);
             } else if (col == 1){
@@ -88,7 +95,7 @@ public class CounterPartyTableFrame extends RefreshableTableFrame<CounterParty> 
                 if (account != null) {
                     CounterParty counterParty = (CounterParty) tabel.getValueAt(row, 0);
                     counterParty.setAccount(account);
-                    super.refresh();
+                    refresh();
                 }
 			}
 
@@ -107,13 +114,13 @@ public class CounterPartyTableFrame extends RefreshableTableFrame<CounterParty> 
 	public void mouseReleased(MouseEvent e) {
 	}
 
-    @Override
-    public void selectObject(CounterParty counterParty) {
-
-    }
-
-    @Override
-    public CounterParty getSelectedObject() {
-        return null;
-    }
+//    @Override
+//    public void selectObject(CounterParty counterParty) {
+//
+//    }
+//
+//    @Override
+//    public CounterParty getSelectedObject() {
+//        return null;
+//    }
 }

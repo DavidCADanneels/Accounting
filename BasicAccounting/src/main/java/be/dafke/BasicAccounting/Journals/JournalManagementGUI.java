@@ -5,8 +5,8 @@ import be.dafke.BusinessActions.JournalActions;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
-import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -18,7 +18,7 @@ import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class JournalManagementGUI extends RefreshableTableFrame<Journal> implements ActionListener, ListSelectionListener{
+public class JournalManagementGUI extends RefreshableFrame implements ActionListener, ListSelectionListener{
 	/**
 	 * 
 	 */
@@ -27,11 +27,13 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
 	private JButton add, delete, modifyName, modifyType, modifyAbbr;
 	private final DefaultListSelectionModel selection;
     private Accounting accounting;
+    private RefreshableTable<Journal> tabel;
+    private JournalManagementTableModel dataModel;
 
     public JournalManagementGUI(Accounting accounting) {
 		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE"));
         this.accounting = accounting;
-        JournalManagementTableModel dataModel = new JournalManagementTableModel(accounting.getJournals());
+        dataModel = new JournalManagementTableModel(accounting.getJournals());
 
         tabel = new RefreshableTable<>(dataModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -54,6 +56,11 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
 		pack();
         refresh();
 	}
+
+    public void refresh() {
+//		tabel.refresh();
+        dataModel.fireTableDataChanged();
+    }
 
 	private JPanel createContentPanel(){
         JPanel south = new JPanel();
@@ -91,15 +98,15 @@ public class JournalManagementGUI extends RefreshableTableFrame<Journal> impleme
 		}
 	}
 
-    @Override
-    public void selectObject(Journal account) {
-
-    }
-
-    @Override
-    public Journal getSelectedObject() {
-        return null;
-    }
+//    @Override
+//    public void selectObject(Journal account) {
+//
+//    }
+//
+//    @Override
+//    public Journal getSelectedObject() {
+//        return null;
+//    }
 
 
 

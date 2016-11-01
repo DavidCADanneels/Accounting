@@ -3,8 +3,8 @@ package be.dafke.BasicAccounting.Accounts;
 import be.dafke.BusinessActions.AccountActions;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounting;
+import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
-import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -15,7 +15,7 @@ import java.awt.event.ActionListener;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class AccountManagementGUI extends RefreshableTableFrame implements ListSelectionListener, ActionListener {
+public class AccountManagementGUI extends RefreshableFrame implements ListSelectionListener, ActionListener {
 	/**
 	 * 
 	 */
@@ -117,13 +117,13 @@ public class AccountManagementGUI extends RefreshableTableFrame implements ListS
 	public void actionPerformed(ActionEvent ae) {
 		String actionCommand = ae.getActionCommand();
 		if(MODIFY_NAME.equals(actionCommand)) {
-			AccountActions.modifyAccountNames(getSelectedObjects(), accounting.getAccounts());
+			AccountActions.modifyAccountNames(tabel.getSelectedObjects(), accounting.getAccounts());
 		} else if(MODIFY_TYPE.equals(actionCommand)){
-			AccountActions.modifyAccountTypes(getSelectedObjects(), accounting.getAccountTypes());
+			AccountActions.modifyAccountTypes(tabel.getSelectedObjects(), accounting.getAccountTypes());
 		} else if(MODIFY_DEFAULT_AMOUNT.equals(actionCommand)){
-			AccountActions.modifyDefaultAmounts(getSelectedObjects(), accounting.getAccounts());
+			AccountActions.modifyDefaultAmounts(tabel.getSelectedObjects(), accounting.getAccounts());
 		} else if(DELETE.equals(actionCommand)){
-			AccountActions.deleteAccounts(getSelectedObjects(), accounting.getAccounts());
+			AccountActions.deleteAccounts(tabel.getSelectedObjects(), accounting.getAccounts());
 		} else if(NEW_ACCOUNT.equals(actionCommand)){
 			new NewAccountGUI(accounting).setVisible(true);
 		}

@@ -1,7 +1,5 @@
 package be.dafke.ComponentModel;
 
-import java.util.ArrayList;
-
 /**
  * Uitbreiding op RefreshableFrame, refresh() herlaad de gegevens van de tabel
  * @author David Danneels
@@ -21,14 +19,6 @@ public abstract class RefreshableTableFrame<BusinessObject> extends RefreshableF
 
 	public void selectObject(BusinessObject object){
 		if(tabel!=null) tabel.selectObject(object);
-	}
-
-	public BusinessObject getSelectedObject(){
-		return tabel==null?null:tabel.getSelectedObject();
-	}
-
-	public ArrayList<BusinessObject> getSelectedObjects(){
-		return tabel==null?new ArrayList<>():tabel.getSelectedObjects();
 	}
 
 	/**

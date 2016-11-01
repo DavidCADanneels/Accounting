@@ -2,24 +2,24 @@ package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.BalancePopupMenu;
 import be.dafke.BusinessActions.PopupForTableActivator;
+import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Balance;
 import be.dafke.BusinessModel.Journals;
+import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
-import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class BalanceGUI extends RefreshableTableFrame {
-	/**
-	 * 
-	 */
+public class BalanceGUI extends RefreshableFrame {
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
+	private RefreshableTable<Account> tabel;
+	private BalanceDataModel dataModel;
 
 	public BalanceGUI(Journals journals, Balance balance) {
 		super(balance.getName());
-		BalanceDataModel dataModel = new BalanceDataModel(balance);
+		dataModel = new BalanceDataModel(balance);
 
 		tabel = new RefreshableTable<>(dataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -35,5 +35,10 @@ public class BalanceGUI extends RefreshableTableFrame {
 
 		popup = new BalancePopupMenu(journals, tabel);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
+	}
+
+	public void refresh() {
+//		tabel.refresh();
+		dataModel.fireTableDataChanged();
 	}
 }

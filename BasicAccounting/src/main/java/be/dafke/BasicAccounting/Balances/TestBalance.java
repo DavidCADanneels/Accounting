@@ -6,24 +6,26 @@ import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Journals;
+import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
-import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.*;
 import java.awt.*;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class TestBalance extends RefreshableTableFrame<Account> {
+public class TestBalance extends RefreshableFrame {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
+	private RefreshableTable<Account> tabel;
+	private TestBalanceDataModel dataModel;
 
 	public TestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes) {
 		super(getBundle("BusinessModel").getString("TESTBALANCE"));
-		TestBalanceDataModel dataModel = new TestBalanceDataModel(accounts, accountTypes);
+		 dataModel = new TestBalanceDataModel(accounts, accountTypes);
 
 		tabel = new RefreshableTable<>(dataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -40,14 +42,9 @@ public class TestBalance extends RefreshableTableFrame<Account> {
 		popup = new BalancePopupMenu(journals, tabel);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
 	}
-
-	@Override
-	public void selectObject(Account account) {
-
+	public void refresh() {
+//		tabel.refresh();
+		dataModel.fireTableDataChanged();
 	}
 
-	@Override
-	public Account getSelectedObject() {
-		return null;
-	}
 }

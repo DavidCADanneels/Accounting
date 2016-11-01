@@ -5,8 +5,8 @@ import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Journals;
+import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
-import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,17 +19,18 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class JournalDetails extends RefreshableTableFrame<Booking> implements WindowListener {
+public class JournalDetails extends RefreshableFrame implements WindowListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final DetailsPopupMenu popup;
-
+	private RefreshableTable<Booking> tabel;
+	private JournalDetailsDataModel dataModel;
 
 	public JournalDetails(Journal journal, Journals journals) {
 		super(getBundle("Accounting").getString("JOURNAL_DETAILS") + " " + journal.toString());
-		JournalDetailsDataModel dataModel = new JournalDetailsDataModel();
+		dataModel = new JournalDetailsDataModel();
 
 		tabel = new RefreshableTable<>(dataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -45,6 +46,11 @@ public class JournalDetails extends RefreshableTableFrame<Booking> implements Wi
 
 		popup = new DetailsPopupMenu(journals, tabel, DetailsPopupMenu.Mode.JOURNAL);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel, 0,2,3,4));
+	}
+
+	public void refresh() {
+//		tabel.refresh();
+		dataModel.fireTableDataChanged();
 	}
 
     public void windowClosing(WindowEvent we) {

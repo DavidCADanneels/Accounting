@@ -3,10 +3,7 @@ package be.dafke.BasicAccounting.Coda;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.CodaParser;
 import be.dafke.BusinessModelDao.CsvParser;
-import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.DisposableComponent;
-import be.dafke.ComponentModel.RefreshableTable;
-import be.dafke.ComponentModel.RefreshableTableFrame;
+import be.dafke.ComponentModel.*;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
@@ -22,7 +19,7 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.List;
 
-public class StatementTableFrame extends RefreshableTableFrame<Statement> implements ActionListener, MouseListener {
+public class StatementTableFrame extends RefreshableFrame implements ActionListener, MouseListener {
 	/**
 	 * 
 	 */
@@ -32,6 +29,8 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
     private final CounterParties counterParties;
     private final Accounting accounting;
 //    private final Accountings accountings;
+    private RefreshableTable<Statement> tabel;
+	private StatementDataModel dataModel;
 
     public StatementTableFrame(Accountings accountings, Accounting accounting, Statements statements, CounterParties counterParties) {
 		super("Statements");
@@ -40,7 +39,7 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
         this.counterParties = counterParties;
         this.accounting = accounting;
 
-		StatementDataModel dataModel = new StatementDataModel(statements);
+		dataModel = new StatementDataModel(statements);
 		tabel = new RefreshableTable<>(dataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		// tabel.setAutoCreateRowSorter(true);
@@ -102,25 +101,9 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
 
 	}
 
-	@Override
-	public void selectObject(Statement statement) {
-
-	}
-
-	@Override
-	public Statement getSelectedObject() {
-		return null;
-	}
-
-	@Override
 	public void refresh() {
-		super.refresh();
-//		if (checkCounterParties(null)) {
-//
-//		}
-//		if (checkAccountAndSelection(null)) {
-//
-//		}
+//		tabel.refresh();
+		dataModel.fireTableDataChanged();
 	}
 
     private void readCsvFiles(){
@@ -255,7 +238,7 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
                 }
 			}
 		}
-		super.refresh();
+		refresh();
 	}
 
 	public void mouseClicked(MouseEvent me) {
@@ -273,7 +256,7 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
 				if (counterParty != null) {
 					Statement statement = (Statement)statements.getBusinessObjects().get(row);
                     statement.setCounterParty(counterParty);
-					super.refresh();
+					refresh();
 					System.out.println(counterParty.getName());
 					for(BankAccount account : counterParty.getBankAccounts().values()) {
 						System.out.println(account.getAccountNumber());
@@ -282,7 +265,7 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
 					}
                     SearchOptions searchOptions = new SearchOptions();
                     searchOptions.searchForCounterParty(counterParty);
-					RefreshableTableFrame refreshableTableFrame = new GenericStatementTableFrame(searchOptions, statements);
+					RefreshableFrame refreshableTableFrame = new GenericStatementTableFrame(searchOptions, statements);
                     refreshableTableFrame.setVisible(true);
 					// parent.addChildFrame(refreshableTable);
 				}
@@ -290,14 +273,14 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
 				String transactionCode = (String) tabel.getValueAt(row, 6);
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.searchForTransactionCode(transactionCode);
-				RefreshableTableFrame refreshableTableFrame = new GenericStatementTableFrame(searchOptions, statements);
+				RefreshableFrame refreshableTableFrame = new GenericStatementTableFrame(searchOptions, statements);
                 refreshableTableFrame.setVisible(true);
 				// parent.addChildFrame(refreshableTable);
             } else if (col == 6){
                 String communication = (String) tabel.getValueAt(row, 7);
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.searchForCommunication(communication);
-                RefreshableTableFrame refreshableTableFrame = new GenericStatementTableFrame(searchOptions, statements);
+				RefreshableFrame refreshableTableFrame = new GenericStatementTableFrame(searchOptions, statements);
                 refreshableTableFrame.setVisible(true);
                 // parent.addChildFrame(refreshableTable);
             }
