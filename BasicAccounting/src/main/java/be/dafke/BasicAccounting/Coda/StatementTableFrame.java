@@ -179,7 +179,7 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
 			StringBuilder builder = new StringBuilder(list.size() + " movements have no counterparty:");
 			for(BusinessObject statement : list) {
 				System.err.println(statement);
-				builder.append("\r\n").append(statement);
+				builder.append("\n").append(statement);
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
             SearchOptions searchOptions = new SearchOptions();
@@ -193,7 +193,7 @@ public class StatementTableFrame extends RefreshableTableFrame<Statement> implem
 			StringBuilder builder = new StringBuilder(set.size() + " counterparties have no account:");
 			for(CounterParty counterParty : set) {
 				System.err.println(counterParty);
-				builder.append("\r\n").append(counterParty);
+				builder.append("\n").append(counterParty);
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
             // TODO: this is an existing Action in CodaActionListener

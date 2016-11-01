@@ -8,6 +8,7 @@
                 <xs:element ref="Accounts"/>
                 <xs:element ref="Journals"/>
                 <xs:element ref="Balances"/>
+                <xs:element ref="Projects" minOccurs="0"/>
                 <xs:element ref="Mortgages" minOccurs="0"/>
                 <xs:element name="CurrentObject" type="xs:string" minOccurs="0"/>
             </xs:sequence>
@@ -24,5 +25,6 @@
     <xs:element name="Journals" type="Collection"/>
     <xs:element name="Balances" type="Collection"/>
     <xs:element name="Mortgages" type="Collection"/>
+    <xs:element name="Projects" type="Collection"/>
 
 </xs:schema>

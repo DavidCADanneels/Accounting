@@ -5,7 +5,6 @@ import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BasicAccounting.SaveAllActionListener;
-import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModelDao.XMLReader;
@@ -16,38 +15,62 @@ import java.io.File;
 
 public class BasicAccountingMain {
 
-    private static final String MAIN = "MainPanel";
-    public static final String MORTGAGES = "Mortgages";
     protected static Accountings accountings;
-    protected static File xmlFolder;
-    protected static File xslFolder;
-    protected static File htmlFolder;
-    protected static AccountingMenuBar menuBar;
-    protected static AccountingMultiPanel contentPanel;
-    protected static AccountingGUIFrame frame;
-
-    protected static JButton saveButton;
-    private static JournalInputGUI journalGUI;
-    protected static AccountsGUI accountsGUI;
-    protected static JournalsGUI journalsGUI;
-
+    private static File xmlFolder;
+    private static File xslFolder;
+    private static File htmlFolder;
 
 	public static void main(String[] args) {
         readXmlData();
-        createBasicComponents();
-        createMenu();
-        composeContentPanel();
-        composeFrames();
-        launch();
+        AccountingGUIFrame mainFrame = launchFrame("Accounting-all", createContentPanel(), createMenu());
+        mainFrame.addWindowListener(new SaveAllActionListener(accountings));
     }
 
-    protected static void createMenu() {
-        frame = new AccountingGUIFrame(accountings);
-        menuBar = new AccountingMenuBar(accountings,frame);
+    protected static AccountingGUIFrame launchFrame(String title, AccountingPanel contentPanel, AccountingMenuBar menuBar){
+        AccountingGUIFrame frame = new AccountingGUIFrame(title,contentPanel);
+
+        ComponentMap.addDisposableComponent(title, frame); // MAIN
+
+        if(menuBar!=null) {
+            menuBar.setParent(frame);
+            frame.setMenuBar(menuBar);
+        }
+
+        frame.setVisible(true);
+        frame.pack();
+        frame.setAccounting(accountings.getCurrentObject());
+        frame.refresh();
+        return frame;
+    }
+
+    protected static AccountingMenuBar createMenu() {
+        AccountingMenuBar menuBar = new AccountingMenuBar(accountings);
         menuBar.add(new BalancesMenu(accountings, menuBar));
         menuBar.add(new MorgagesMenu(accountings, menuBar));
         menuBar.add(new ProjectsMenu(accountings, menuBar));
         menuBar.add(new CodaMenu(accountings, menuBar));
+        ComponentMap.addRefreshableComponent(menuBar);
+        return menuBar;
+    }
+
+    public static AccountingMultiPanel createContentPanel(){
+        AccountingMultiPanel links = new AccountingMultiPanel();
+        links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
+        links.add(new AccountsGUI());
+        links.add(new JournalsGUI());
+        links.add(createSaveButton());
+
+        AccountingMultiPanel accountingMultiPanel = new AccountingMultiPanel();
+        accountingMultiPanel.setLayout(new BorderLayout());
+        accountingMultiPanel.add(new JournalInputGUI(), BorderLayout.CENTER);
+        accountingMultiPanel.add(links, BorderLayout.WEST);
+        return accountingMultiPanel;
+    }
+
+    protected static JButton createSaveButton(){
+        JButton saveButton = new JButton("Save all");
+        saveButton.addActionListener(new SaveAllActionListener(accountings));
+        return saveButton;
     }
 
     protected static void readXmlData() {
@@ -64,41 +87,6 @@ public class BasicAccountingMain {
         if(file.exists()){
             XMLReader.readCollection(accountings, xmlFolder);
         }
-    }
-
-    protected static void createBasicComponents(){
-        Accounting accounting = accountings.getCurrentObject();
-        journalGUI = new JournalInputGUI();
-        accountsGUI = new AccountsGUI();
-        journalsGUI = new JournalsGUI();
-        saveButton = new JButton("Save all");
-        saveButton.addActionListener(new SaveAllActionListener(accountings));
-    }
-
-    protected static void composeContentPanel(){
-        AccountingMultiPanel links = new AccountingMultiPanel();
-        links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
-        links.add(accountsGUI);
-        links.add(journalsGUI);
-        links.add(saveButton);
-        contentPanel = new AccountingMultiPanel();
-        contentPanel.setLayout(new BorderLayout());
-        contentPanel.add(journalGUI, BorderLayout.CENTER);
-        contentPanel.add(links, BorderLayout.WEST);
-    }
-
-    protected static void composeFrames() {
-        frame.setMenuBar(menuBar);
-        frame.setContentPanel(contentPanel);
-        frame.addWindowListener(new SaveAllActionListener(accountings));
-        ComponentMap.addDisposableComponent(MAIN, frame); // MAIN
-        ComponentMap.addRefreshableComponent(menuBar);
-    }
-    protected static void launch() {
-        frame.setVisible(true);
-        frame.setAccounting(accountings.getCurrentObject());
-        frame.pack();
-        frame.refresh();
     }
 
     private static void setXmlFolder(){

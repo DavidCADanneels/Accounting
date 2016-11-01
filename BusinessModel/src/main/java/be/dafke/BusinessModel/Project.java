@@ -12,12 +12,10 @@ public class Project extends BusinessObject{
 	/**
 	 * 
 	 */
-	private final String naam;
 	private final HashMap<String, Account> rekeningen;
 
-	public Project(String name) {
-		naam = name;
-		rekeningen = new HashMap<String, Account>();
+	public Project() {
+		rekeningen = new HashMap<>();
 	}
 
 	public void addAccount(Account account) {
@@ -72,9 +70,4 @@ public class Project extends BusinessObject{
 //		}
 //		return result;
 //	}
-
-	@Override
-	public String toString() {
-		return naam;
-	}
 }

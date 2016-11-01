@@ -35,9 +35,9 @@ public class AccountActions {
                 if (failed.size() == 1) {
                     ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NOT_EMPTY, failed.get(0));
                 } else {
-                    StringBuilder builder = new StringBuilder(getBundle("BusinessActions").getString("MULTIPLE_ACCOUNTS_NOT_EMPTY")+"\r\n");
+                    StringBuilder builder = new StringBuilder(getBundle("BusinessActions").getString("MULTIPLE_ACCOUNTS_NOT_EMPTY")+"\n");
                     for(String s : failed){
-                        builder.append("- ").append(s).append("\r\n");
+                        builder.append("- ").append(s).append("\n");
                     }
                     JOptionPane.showMessageDialog(null, builder.toString());
                 }

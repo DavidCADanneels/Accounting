@@ -30,9 +30,9 @@ public class BankAccount implements Serializable {
 
 	@Override
 	public String toString() {
-		StringBuilder builder = new StringBuilder(accountNumber + "\r\n");
-		builder.append(bic + "\r\n");
-		builder.append(currency + "\r\n");
+		StringBuilder builder = new StringBuilder(accountNumber + "\n");
+		builder.append(bic + "\n");
+		builder.append(currency + "\n");
 		return builder.toString();
 	}
 

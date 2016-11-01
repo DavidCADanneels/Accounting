@@ -16,11 +16,11 @@ public class TestBalanceDataModel extends RefreshableTableModel<Account> {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = {
-			getBundle("Balances").getString("ACCOUNT"),
-			getBundle("Balances").getString("TEST_DEBIT"),
-			getBundle("Balances").getString("TEST_CREDIT"),
-			getBundle("Balances").getString("SALDO_DEBIT"),
-			getBundle("Balances").getString("SALDO_CREDIT") };
+			getBundle("BusinessModel").getString("ACCOUNT"),
+			getBundle("BusinessModel").getString("TEST_DEBIT"),
+			getBundle("BusinessModel").getString("TEST_CREDIT"),
+			getBundle("BusinessModel").getString("SALDO_DEBIT"),
+			getBundle("BusinessModel").getString("SALDO_CREDIT") };
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, BigDecimal.class,
 			BigDecimal.class };
 	private final Accounts accounts;

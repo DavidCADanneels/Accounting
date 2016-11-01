@@ -1,60 +1,49 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.BasicAccounting.SaveAllActionListener;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
-import be.dafke.BusinessModel.Accounting;
+import be.dafke.BasicAccounting.SaveAllActionListener;
 
 import javax.swing.*;
-import java.awt.BorderLayout;
+import java.awt.*;
 
 /**
  * User: david
  * Date: 29-12-13
  * Time: 22:07
  */
-public class Main extends BasicAccountingMain{
-
-    protected static AccountsGUI accountsGUILeft;
-    protected static AccountsGUI accountsGUIRight;
-    private static JournalGUI journalGUI;
-    private static JournalInputGUI journalInputGUI;
-    private static MortgagesGUI mortgagesGUI;
+public class Main extends BasicAccountingMain {
 
     public static void main(String[] args) {
         readXmlData();
-        createBasicComponents();
-        createMenu();
-        composeContentPanel();
-        composeFrames();
-        launch();
+        AccountingGUIFrame mainFrame = launchFrame("Accounting-all", createContentPanel(), createMenu());
+        mainFrame.addWindowListener(new SaveAllActionListener(accountings));
+
+        /*
+        launchFrame("input",new JournalInputGUI(),null);
+        launchFrame("input",new JournalGUI(accountings.getCurrentObject()),null);
+        launchFrame("journals",new JournalsGUI(),null);
+        launchFrame("acc1",new AccountsGUI(),null);
+        launchFrame("acc2",new AccountsGUI(),null);
+        */
     }
 
-    protected static void createBasicComponents(){
-        Accounting accounting = accountings.getCurrentObject();
-        journalGUI = new JournalGUI(accounting);
-        journalInputGUI = new JournalInputGUI();
-        accountsGUILeft = new AccountsGUI();
-        accountsGUIRight = new AccountsGUI();
-        journalsGUI = new JournalsGUI();
-        mortgagesGUI = new MortgagesGUI();
-        saveButton = new JButton("Save all");
-        saveButton.addActionListener(new SaveAllActionListener(accountings));
-    }
-
-    protected static void composeContentPanel(){
+    public static AccountingMultiPanel createContentPanel(){
         AccountingMultiPanel links = new AccountingMultiPanel();
         links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
-        links.add(accountsGUILeft);
-        links.add(accountsGUIRight);
-        links.add(mortgagesGUI);
-        links.add(journalsGUI);
-        links.add(saveButton);
-        contentPanel = new AccountingMultiPanel();
-        contentPanel.setLayout(new BorderLayout());
-        JSplitPane splitPane = new AccountingSplitPanel(journalGUI, journalInputGUI, JSplitPane.VERTICAL_SPLIT);
-        splitPane.add(journalGUI, JSplitPane.TOP);
-        splitPane.add(journalInputGUI, JSplitPane.BOTTOM);
-        contentPanel.add(splitPane, BorderLayout.CENTER);
-        contentPanel.add(links, BorderLayout.WEST);
+//        links.add(new AccountsGUI());
+        links.add(new AccountsGUI());
+        links.add(new AccountsTableGUI());
+        links.add(new MortgagesGUI());
+        links.add(new JournalsGUI());
+        links.add(createSaveButton());
+
+        AccountingMultiPanel accountingMultiPanel = new AccountingMultiPanel();
+        accountingMultiPanel.setLayout(new BorderLayout());
+        JSplitPane splitPane = new AccountingSplitPanel(new JournalGUI(), new JournalInputGUI(), JSplitPane.VERTICAL_SPLIT);
+//        splitPane.add(new JournalGUI(accounting), JSplitPane.TOP);
+//        splitPane.add(new JournalInputGUI(), JSplitPane.BOTTOM);
+        accountingMultiPanel.add(splitPane, BorderLayout.CENTER);
+        accountingMultiPanel.add(links, BorderLayout.WEST);
+        return accountingMultiPanel;
     }
 }

@@ -27,9 +27,8 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
     private Accountings accountings;
     private AccountingPanelInterface parent;
 
-    public AccountingMenuBar(final Accountings accountings, final AccountingPanelInterface parent) {
+    public AccountingMenuBar(final Accountings accountings) {
         this.accountings = accountings;
-        this.parent = parent;
 
         file = new JMenu(getBundle("Accounting").getString("ACCOUNTING"));
         startNew = new JMenuItem(getBundle("Accounting").getString("NEW_ACCOUNTING"));
@@ -47,6 +46,10 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent 
         for(JMenuItem item:itemsToRefresh){
             item.setEnabled(active);
         }
+    }
+
+    public void setParent(AccountingPanelInterface parent) {
+        this.parent = parent;
     }
 
     public void setAccounting(final Accounting accounting) {

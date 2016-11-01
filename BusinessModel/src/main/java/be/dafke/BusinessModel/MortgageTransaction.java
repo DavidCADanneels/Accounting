@@ -71,16 +71,22 @@ public class MortgageTransaction extends BusinessObject{
     }
 
     public void setCapital(BigDecimal capital, boolean update) {
+        BigDecimal diff = capital.subtract(this.capital);
+        // if the new capital is higher than before, the diff must be subtracted from restCapital
         this.capital = capital;
         if (update){
             intrest = mensuality.subtract(capital);
+            restCapital = restCapital.subtract(diff);
         }
     }
 
     public void setIntrest(BigDecimal intrest, boolean update) {
+        BigDecimal diff = intrest.subtract(this.intrest);
+        // if the new intrest is higher than before, the capital will be lower, hence the diff must be added from restCapital
         this.intrest = intrest;
         if (update){
-            capital = mensuality.subtract(capital);
+            capital = mensuality.subtract(intrest);
+            restCapital = restCapital.add(diff);
         }
     }
 
