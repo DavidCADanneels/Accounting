@@ -53,7 +53,7 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
                 totalRight = totalRight.setScale(2);
 				if (size != 0) {
 					if (row == size - 2 && col == 1) return totalLeft;
-					else if (row == size - 2 && col == 2) return BigDecimal.ZERO.subtract(totalRight);
+					else if (row == size - 2 && col == 2) return totalRight.negate();
 					else {
 						String tekst;
 						BigDecimal resultaat = totalRight.add(totalLeft);
@@ -61,7 +61,7 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
 							tekst = balance.getLeftResultName();
 						} else {
 							tekst = balance.getRightResultName();
-							resultaat = BigDecimal.ZERO.subtract(resultaat);
+							resultaat = resultaat.negate();
 						}
 						if (row == size - 1 && col == 0) return tekst;
 						else if (row == size - 1 && col == 1) {
@@ -85,7 +85,7 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
 		if (row < balance.getRightAccounts().size()) {
 			Account account = balance.getRightAccounts().get(row);
 			if (col == 3) return account;
-			return BigDecimal.ZERO.subtract(account.getSaldo());
+			return account.getSaldo().negate();
 		}
 		return "";
 	}
