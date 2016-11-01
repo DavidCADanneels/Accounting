@@ -1,19 +1,14 @@
 package be.dafke.BasicAccounting.Coda;
 
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.BankAccount;
-import be.dafke.BusinessModel.CounterParties;
-import be.dafke.BusinessModel.CounterParty;
-import be.dafke.BusinessModel.SearchOptions;
-import be.dafke.BusinessModel.Statements;
+import be.dafke.BusinessModel.*;
+import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.ObjectModel.BusinessObject;
 
-import javax.swing.JOptionPane;
-import java.awt.Point;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.regex.Pattern;
@@ -27,12 +22,26 @@ public class CounterPartyTableFrame extends RefreshableTableFrame<CounterParty> 
     private final Statements statements;
 
     public CounterPartyTableFrame(Accounting accounting, CounterParties counterParties, Statements statements) {
-		super("Counterparties", new CounterPartyDataModel(counterParties));
-		this.accounting = accounting;
+		super("Counterparties");
+        this.accounting = accounting;
         this.statements = statements;
+
+        CounterPartyDataModel dataModel = new CounterPartyDataModel(counterParties);
+
+        tabel = new RefreshableTable<>(dataModel);
+        tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
+        //tabel.setAutoCreateRowSorter(true);
+        tabel.setRowSorter(null);
+        JScrollPane scrollPane = new JScrollPane(tabel);
+        JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel.add(scrollPane, BorderLayout.CENTER);
+//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+        setContentPane(contentPanel);
+        pack();
+
 		// tabel.setAutoCreateRowSorter(true);
 		tabel.addMouseListener(this);
-        tabel.setRowSorter(null);
 	}
 
 	public void mouseClicked(MouseEvent me) {

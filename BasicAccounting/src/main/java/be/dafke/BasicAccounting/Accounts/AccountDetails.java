@@ -10,8 +10,11 @@ import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journals;
+import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ComponentModel.RefreshableTableFrame;
 
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 
@@ -25,10 +28,22 @@ public class AccountDetails extends RefreshableTableFrame<Booking> implements Wi
 	private final DetailsPopupMenu popup;
 
 	public AccountDetails(Account account, Journals journals) {
-		super(getBundle("Accounting").getString("ACCOUNT_DETAILS")+ " "
-                + account.getName(), new AccountDetailsDataModel(account));
+		super(getBundle("Accounting").getString("ACCOUNT_DETAILS")+ " " + account.getName());
+		AccountDetailsDataModel dataModel = new AccountDetailsDataModel(account);
+
+		tabel = new RefreshableTable<>(dataModel);
+		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
+
+		JScrollPane scrollPane = new JScrollPane(tabel);
+		JPanel contentPanel = new JPanel(new BorderLayout());
+		contentPanel.add(scrollPane, BorderLayout.CENTER);
+//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+
+		setContentPane(contentPanel);
+		pack();
+
 		popup = new DetailsPopupMenu(journals, tabel, DetailsPopupMenu.Mode.ACCOUNT);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel, 0,2,3));
 	}
