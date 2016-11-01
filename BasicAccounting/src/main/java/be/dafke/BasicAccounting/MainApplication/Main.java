@@ -31,7 +31,7 @@ public class Main extends BasicAccountingMain {
         AccountingMultiPanel links = new AccountingMultiPanel();
         links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
 //        links.add(new AccountsGUI());
-//        links.add(new AccountsGUI());
+        links.add(new AccountsGUI());
         links.add(new AccountsTableGUI());
         links.add(new MortgagesGUI());
         links.add(new JournalsGUI());
