@@ -1,6 +1,7 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.MustBeRead;
 
 import java.util.Properties;
 import java.util.TreeMap;
@@ -8,7 +9,7 @@ import java.util.TreeMap;
 /**
  * @author David Danneels
  */
-public class Project extends BusinessCollection<Account>{
+public class Project extends BusinessCollection<Account> implements MustBeRead {
 	/**
 	 * 
 	 */
@@ -25,7 +26,7 @@ public class Project extends BusinessCollection<Account>{
 
 	@Override
 	public Account createNewChild(TreeMap<String, String> properties) {
-		return accounts.getBusinessObject(properties.get(Booking.ACCOUNT));
+		return accounts.getBusinessObject(properties.get(NAME));
 	}
 
 	@Override
