@@ -45,6 +45,7 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
 	}
 
     public void setAccounting(Accounting accounting) {
+		this.accounting = accounting;
         if (accounting == null) {
             setMortgages(null);
             setJournal(null);
@@ -54,7 +55,9 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
 			setAccounts(accounting.getAccounts());
             if(accounting.getJournals()!=null){
                 setJournal(accounting.getJournals().getCurrentObject());
-            }
+            } else {
+				setJournal(null);
+			}
         }
     }
 
@@ -71,7 +74,8 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
     }
 
 	public void refresh() {
-        listModel.clear();
+		setAccounting(accounting); // only needed to setJournal !?
+		listModel.clear();
         if (mortgages != null) {
             for(Mortgage mortgage : mortgages.getBusinessObjects()) {
                 if (!listModel.contains(mortgage)) {
