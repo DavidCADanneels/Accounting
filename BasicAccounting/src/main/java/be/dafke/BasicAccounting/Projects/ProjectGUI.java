@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Projects;
 
+import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Project;
@@ -25,7 +26,7 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
     private final JComboBox<Project> combo;
     private Project project;
     private final Accounting accounting;
-    private TransactionsDataModel transactionsDataModel;
+    private JournalDetailsDataModel dataModel;
 
     public ProjectGUI(Accounting accounting) {
         super(getBundle("Projects").getString("PROJECTS"));
@@ -48,9 +49,10 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
     }
 
     private JScrollPane createTransactionsPanel() {
-        transactionsDataModel = new TransactionsDataModel();
+        dataModel = new JournalDetailsDataModel();
+//        dataModel.setJournal(project.getJournal());
 
-        RefreshableTable<Booking> table = new RefreshableTable<>(transactionsDataModel);
+        RefreshableTable<Booking> table = new RefreshableTable<>(dataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
         return new JScrollPane(table);
@@ -67,8 +69,8 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
             if(project==null) project = projects.getBusinessObjects().get(0);
             combo.setSelectedItem(project);
         }
-        transactionsDataModel.setTransactions(project.getTransactions());
-        transactionsDataModel.fireTableDataChanged();
+        dataModel.setJournal(project.getJournal());
+        dataModel.fireTableDataChanged();
     }
 
     @Override

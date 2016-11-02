@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class Journal extends BusinessCollection<Transaction> implements MustBeRead {
     private String abbreviation;
-    private final MultiValueMap<Calendar,Transaction> transactions;
+    protected final MultiValueMap<Calendar,Transaction> transactions;
     private JournalType type;
     private Accounting accounting;
     private Transaction currentTransaction;

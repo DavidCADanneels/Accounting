@@ -1,11 +1,8 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
 
-import java.util.ArrayList;
 import java.util.Properties;
 import java.util.TreeMap;
 
@@ -17,19 +14,17 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 	 * 
 	 */
 	private final Accounts allAccounts;
-	private final ArrayList<Account> projectAccounts;
-	private final ArrayList<Transaction> transactions;
+	private final Accounting accounting;
 
 	@Override
 	public String getChildType() {
 		return "Account";
 	}
 
-	public Project(String name, Accounts accounts) {
+	public Project(String name, Accounting accounting) {
 		setName(name);
-		this.allAccounts = accounts;
-		projectAccounts = new ArrayList<>();
-		transactions = new ArrayList<>();
+		this.accounting = accounting;
+		allAccounts = accounting.getAccounts();
 	}
 
 	@Override
@@ -45,20 +40,32 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 	}
 
 	@Override
-	public Account addBusinessObject(Account account) throws EmptyNameException, DuplicateNameException {
-		super.addBusinessObject(account);
-		for(Movement movement :account.getBusinessObjects()){
-			Transaction transaction = movement.getBooking().getTransaction();
-			if(!transactions.contains(transaction)){
-				transactions.add(transaction);
-			}
-		}
-		return account;
+	public void removeBusinessObject(Account account){
+		removeBusinessObject(account.getUniqueProperties());
 	}
 
-	public ArrayList<Transaction> getTransactions() {
-		return transactions;
+	public ProjectJournal getJournal() {
+		ProjectJournal journal = new ProjectJournal(accounting, getName(), "TMP");
+		for(Account account:getBusinessObjects()){
+			for(Movement movement :account.getBusinessObjects()){
+				Transaction transaction = movement.getBooking().getTransaction();
+				journal.addBusinessObject(transaction);
+			}
+		}
+		return journal;
 	}
+
+//	public ArrayList<Transaction> getTransactions() {
+//		ArrayList<Transaction>  transactions = new ArrayList<> ();
+//		for(Account account:getBusinessObjects()){
+//			for(Movement movement :account.getBusinessObjects()){
+//				Transaction transaction = movement.getBooking().getTransaction();
+//				transactions.add(transaction);
+//			}
+//		}
+//		return transactions;
+//	}
+
 
 //	public Account close() {
 //		Transaction transaction = new Transaction();

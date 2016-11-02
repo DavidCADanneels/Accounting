@@ -156,7 +156,7 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         }
     }
 
-    private void removeBusinessObject(Map<String,String> entryMap){
+    protected void removeBusinessObject(Map<String,String> entryMap){
         for(Map.Entry<String,String> entry : entryMap.entrySet()){
             removeBusinessObject(entry);
         }

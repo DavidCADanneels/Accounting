@@ -17,10 +17,10 @@ public class Projects extends BusinessCollection<Project> implements ChildrenNee
 
     public static final String PROJECTS = "Projects";
     public static final String PROJECT = "Project";
-    private final Accounts accounts;
+    private final Accounting accounting;
 
-    public Projects(Accounts accounts) {
-        this.accounts = accounts;
+    public Projects(Accounting accounting) {
+        this.accounting = accounting;
         setName(PROJECTS);
     }
 
@@ -32,6 +32,6 @@ public class Projects extends BusinessCollection<Project> implements ChildrenNee
 	@Override
 	public Project createNewChild(TreeMap<String, String> properties) {
         String name = properties.get(NAME);
-        return new Project(name, accounts);
+        return new Project(name, accounting);
 	}
 }

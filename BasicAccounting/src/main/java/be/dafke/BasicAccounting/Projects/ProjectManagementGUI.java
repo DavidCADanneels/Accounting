@@ -5,7 +5,6 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 import be.dafke.Utils.AlphabeticListModel;
 import be.dafke.Utils.PrefixFilterPanel;
 
@@ -136,11 +135,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		} else if (ae.getSource() == moveBack) {
 			for(Account account : projectAccounts.getSelectedValuesList()) {
 				allAccountsModel.addElement(account);
-				try {
-					project.removeBusinessObject(account);
-				} catch (NotEmptyException e) {
-					e.printStackTrace();
-				}
+				project.removeBusinessObject(account);
 				projectAccountsModel.removeElement(account);
 			}
 		} else if (ae.getSource() == newProject) {
@@ -150,7 +145,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 				name = JOptionPane.showInputDialog(getBundle("Projects").getString(
 						"ENTER_NAME_FOR_PROJECT"));
 			if (name != null) {
-				Project project = new Project(name, accounting.getAccounts());
+				Project project = new Project(name, accounting);
 				try {
 					Projects projects = accounting.getProjects();
 					projects.addBusinessObject(project);
