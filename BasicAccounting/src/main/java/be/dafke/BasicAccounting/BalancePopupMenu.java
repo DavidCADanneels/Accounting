@@ -8,6 +8,7 @@ import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -28,8 +29,10 @@ public class BalancePopupMenu extends JPopupMenu implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent e) {
-        Account account = gui.getSelectedObject();
-        GUIActions.showDetails(account, journals);
+        ArrayList<Account> accounts = gui.getSelectedObjects();
+        for(Account account: accounts) {
+            GUIActions.showDetails(account, journals);
+        }
         setVisible(false);
     }
 }

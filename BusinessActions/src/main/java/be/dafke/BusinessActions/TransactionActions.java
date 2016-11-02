@@ -71,11 +71,12 @@ public class TransactionActions {
         while (!ok) {
             String s;
             if(suggestion){
+                // TODO: add title ...
                 s = JOptionPane.showInputDialog(getBundle("BusinessActions").getString(
-                        "ENTER_AMOUNT"), suggestedAmount.toString());
+                        "ENTER_AMOUNT")+ account.getName(), suggestedAmount.toString());
             } else {
                 s = JOptionPane.showInputDialog(getBundle("BusinessActions").getString(
-                        "ENTER_AMOUNT"));
+                        "ENTER_AMOUNT")+ account.getName());
             }
             if (s == null || s.equals("")) {
                 ok = true;

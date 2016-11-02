@@ -2,6 +2,8 @@ package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BasicAccounting.Journals.JournalDetails;
+import be.dafke.BasicAccounting.Accounts.AccountDetails;
+import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BusinessActions.TransactionActions;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
@@ -9,6 +11,7 @@ import be.dafke.ComponentModel.RefreshableTable;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -56,24 +59,26 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         setVisible(false);
-        Booking booking = gui.getSelectedObject();
-        Transaction transaction = booking.getTransaction();
-        if(e.getSource() == details){
-            if(mode == Mode.JOURNAL) {
-                Account account = booking.getAccount();
-                AccountDetails newGui = GUIActions.showDetails(account, journals);
-                newGui.selectObject(booking);
-            } else {
-                Journal journal = transaction.getJournal();
-                JournalDetails newGui = GUIActions.showDetails(journal, journals);
-                newGui.selectObject(booking);
+        ArrayList<Booking> bookings = gui.getSelectedObjects();
+        for (Booking booking : bookings) {
+            Transaction transaction = booking.getTransaction();
+            if (e.getSource() == details) {
+                if (mode == Mode.JOURNAL) {
+                    Account account = booking.getAccount();
+                    AccountDetails newGui = GUIActions.showDetails(account, journals);
+                    newGui.selectObject(booking);
+                } else {
+                    Journal journal = transaction.getJournal();
+                    JournalDetails newGui = GUIActions.showDetails(journal, journals);
+                    newGui.selectObject(booking);
+                }
+            } else if (e.getSource() == move) {
+                TransactionActions.moveTransaction(transaction, journals);
+            } else if (e.getSource() == edit) {
+                TransactionActions.editTransaction(transaction, journals);
+            } else if (e.getSource() == delete) {
+                TransactionActions.deleteTransaction(transaction);
             }
-        } else if (e.getSource() == move){
-            TransactionActions.moveTransaction(transaction, journals);
-        } else if (e.getSource() == edit){
-            TransactionActions.editTransaction(transaction, journals);
-        } else if (e.getSource() == delete){
-            TransactionActions.deleteTransaction(transaction);
         }
     }
 }
