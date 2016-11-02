@@ -1,33 +1,38 @@
 package be.dafke.BusinessModel;
 
-import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.ObjectModel.BusinessCollection;
 
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.Properties;
+import java.util.TreeMap;
 
 /**
  * @author David Danneels
  */
-public class Project extends BusinessObject{
+public class Project extends BusinessCollection<Account>{
 	/**
 	 * 
 	 */
-	private final HashMap<String, Account> rekeningen;
+	private final Accounts accounts;
 
-	public Project() {
-		rekeningen = new HashMap<>();
+	@Override
+	public String getChildType() {
+		return "Account";
 	}
 
-	public void addAccount(Account account) {
-		rekeningen.put(account.toString(),account);
+	public Project(Accounts accounts) {
+		this.accounts = accounts;
 	}
 
-	public void removeAccount(Account account) {
-		rekeningen.remove(account.toString());
+	@Override
+	public Account createNewChild(TreeMap<String, String> properties) {
+		return accounts.getBusinessObject(properties.get(Booking.ACCOUNT));
 	}
 
-	public Collection<Account> getAccounts() {
-		return rekeningen.values();
+	@Override
+	public Properties getOutputProperties() {
+		Properties outputMap = new Properties();
+		outputMap.put(NAME,getName());
+		return outputMap;
 	}
 
 //	public Account close() {

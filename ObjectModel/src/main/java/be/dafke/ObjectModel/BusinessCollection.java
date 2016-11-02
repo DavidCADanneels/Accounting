@@ -53,17 +53,6 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
 
     // -------------------------------------------------------------------------------------
 
-    @Override
-    public String toString() {
-        StringBuilder builder = new StringBuilder(getBusinessObjectType()).append(":\n");
-        for(BusinessObject businessObject : getBusinessObjects()){
-            builder.append(businessObject.toString());
-        }
-        return builder.toString();
-    }
-
-    // -------------------------------------------------------------------------------------
-
     // Get
 
     public ArrayList<V> getBusinessObjects(){
