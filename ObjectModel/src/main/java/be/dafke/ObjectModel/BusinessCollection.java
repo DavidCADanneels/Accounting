@@ -50,7 +50,6 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         this.currentObject = currentObject;
     }
 
-
     // -------------------------------------------------------------------------------------
 
     // Get
