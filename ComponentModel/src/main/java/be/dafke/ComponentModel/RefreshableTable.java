@@ -47,6 +47,17 @@ public class RefreshableTable<BusinessObject> extends JTable{
             BusinessObject account = (BusinessObject) model.getValueAt(row, 0);
             accountList.add(account);
         }
-        return accountList;
+        // check on which element is clicked
+        BusinessObject selectedObject = getSelectedObject();
+        if(accountList.contains(selectedObject))
+            // return all selected elements if mouse was clicked on one of them
+            return accountList;
+        else {
+            // otherwise return only the clicked element
+            ArrayList<BusinessObject> list = new ArrayList<>();
+            list.add(selectedObject);
+            return list;
+        }
+
     }
 }
