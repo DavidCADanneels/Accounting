@@ -33,8 +33,6 @@ public class GUIActions {
         AccountDetails gui = (AccountDetails)ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             AccountDetails accountDetails = new AccountDetails(account, journals);
-            if(selection!=null)
-                accountDetails.selectObject(selection);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
             gui = accountDetails;
         }
@@ -87,8 +85,6 @@ public class GUIActions {
         JournalDetails gui = (JournalDetails)ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             JournalDetails journalDetails = new JournalDetails(journal, journals);
-            if(selection!=null)
-                journalDetails.selectObject(selection);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
             gui = journalDetails;
         }

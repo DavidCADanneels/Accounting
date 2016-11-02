@@ -49,10 +49,6 @@ public class JournalDetails extends RefreshableFrame implements WindowListener {
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel, 0,2,3,4));
 	}
 
-	public void selectObject(Booking object){
-		if(tabel!=null) tabel.selectObject(object);
-	}
-
 	public void refresh() {
 //		tabel.refresh();
 		dataModel.fireTableDataChanged();
