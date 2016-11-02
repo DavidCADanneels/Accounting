@@ -190,6 +190,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
         Accounts accounts = accounting.getAccounts();
         zoeker.resetMap(accounts.getBusinessObjects());
 		Projects projects = accounting.getProjects();
+        combo.removeAllItems();
         for(Project project : projects.getBusinessObjects()) {
 			((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
         }

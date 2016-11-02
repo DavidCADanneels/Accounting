@@ -59,6 +59,7 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
     @Override
     public void refresh() {
         Projects projects = accounting.getProjects();
+        combo.removeAllItems();
         for(Project project : projects.getBusinessObjects()) {
             ((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
         }
