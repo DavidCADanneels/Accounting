@@ -55,7 +55,7 @@ public class BusinessObject {
     }
     //
     public TreeMap<String, String> getUniqueProperties(){
-        TreeMap<String,String> properties = new TreeMap<String, String>();
+        TreeMap<String,String> properties = new TreeMap<>();
         properties.put(NAME,name);
         return properties;
     }

@@ -19,7 +19,7 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
     public abstract String getChildType();
 
     public BusinessCollection(){
-        dataTables = new HashMap<String, TreeMap<String, V>>();
+        dataTables = new HashMap<>();
         addSearchKey(NAME);
     }
 
@@ -29,7 +29,7 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
     //
     // Keys found in the CollectionFile e.g. Account.NAME in Accounts.xml file
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
+        Set<String> keySet = new TreeSet<>();
         keySet.add(NAME);
         return keySet;
     }
@@ -38,7 +38,7 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         if(dataTables.containsKey(key)){
             System.err.println("This collection already contains this key");
         }
-        TreeMap<String, V> newMap = new TreeMap<String, V>();
+        TreeMap<String, V> newMap = new TreeMap<>();
         dataTables.put(key, newMap);
     }
 
@@ -56,11 +56,11 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
 
     public ArrayList<V> getBusinessObjects(){
         TreeMap<String,V> map = dataTables.get(NAME);
-        return new ArrayList<V>(map.values());
+        return new ArrayList<>(map.values());
     }
 
     public V getBusinessObject(String name){
-        Map.Entry<String, String> entry = new AbstractMap.SimpleEntry<String, String>(NAME, name);
+        Map.Entry<String, String> entry = new AbstractMap.SimpleEntry<>(NAME, name);
         return getBusinessObject(entry);
     }
 
