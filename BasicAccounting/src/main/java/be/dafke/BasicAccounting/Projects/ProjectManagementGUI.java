@@ -140,11 +140,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 			for(Account account : allAccounts.getSelectedValuesList()) {
 				projectAccountsModel.addElement(account);
                 // TODO check if account belongs to another project (and remove it there ?)
-				try {
-					project.addBusinessObject(account);
-				} catch (EmptyNameException | DuplicateNameException e) {
-					e.printStackTrace();
-				}
+				project.addBusinessObject(account);
 				allAccountsModel.removeElement(account);
 			}
 		} else if (ae.getSource() == moveBack) {
@@ -158,14 +154,13 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 				projectAccountsModel.removeElement(account);
 			}
 		} else if (ae.getSource() == newProject) {
-			String naam = JOptionPane.showInputDialog(getBundle("Projects").getString(
+			String name = JOptionPane.showInputDialog(getBundle("Projects").getString(
 					"ENTER_NAME_FOR_PROJECT"));
-			while (naam != null && naam.equals(""))
-				naam = JOptionPane.showInputDialog(getBundle("Projects").getString(
+			while (name != null && name.equals(""))
+				name = JOptionPane.showInputDialog(getBundle("Projects").getString(
 						"ENTER_NAME_FOR_PROJECT"));
-			if (naam != null) {
-				Project project = new Project(accounting.getAccounts());
-				project.setName(naam);
+			if (name != null) {
+				Project project = new Project(name, accounting.getAccounts());
 				try {
 					Projects projects = accounting.getProjects();
 					projects.addBusinessObject(project);

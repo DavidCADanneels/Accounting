@@ -3,6 +3,7 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.MustBeRead;
 
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.TreeMap;
 
@@ -13,20 +14,25 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 	/**
 	 * 
 	 */
-	private final Accounts accounts;
+	private final Accounts allAccounts;
+	private final ArrayList<Account> projectAccounts;
+	private final ArrayList<Transaction> transactions;
 
 	@Override
 	public String getChildType() {
 		return "Account";
 	}
 
-	public Project(Accounts accounts) {
-		this.accounts = accounts;
+	public Project(String name, Accounts accounts) {
+		setName(name);
+		this.allAccounts = accounts;
+		projectAccounts = new ArrayList<>();
+		transactions = new ArrayList<>();
 	}
 
 	@Override
 	public Account createNewChild(TreeMap<String, String> properties) {
-		return accounts.getBusinessObject(properties.get(NAME));
+		return allAccounts.getBusinessObject(properties.get(NAME));
 	}
 
 	@Override
@@ -34,6 +40,20 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 		Properties outputMap = new Properties();
 		outputMap.put(NAME,getName());
 		return outputMap;
+	}
+
+	@Override
+	public Account addBusinessObject(Account account){
+		if(!projectAccounts.contains(account)) {
+			projectAccounts.add(account);
+		}
+		for(Movement movement :account.getBusinessObjects()){
+			Transaction transaction = movement.getBooking().getTransaction();
+			if(!transactions.contains(transaction)){
+				transactions.add(transaction);
+			}
+		}
+		return account;
 	}
 
 //	public Account close() {

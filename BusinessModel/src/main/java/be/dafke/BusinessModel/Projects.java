@@ -31,8 +31,7 @@ public class Projects extends BusinessCollection<Project> implements ChildrenNee
 
 	@Override
 	public Project createNewChild(TreeMap<String, String> properties) {
-        Project project = new Project(accounts);
-        project.setName(properties.get(NAME));
-        return project;
+        String name = properties.get(NAME);
+        return new Project(name, accounts);
 	}
 }
