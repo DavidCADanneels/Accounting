@@ -114,12 +114,12 @@ public class XMLReader {
         } else {
             nodeList = nodeList.item(0).getChildNodes();
             if(nodeList.getLength()==0){
-                System.err.println("The tag " + tagName + " is empty.");
+//                System.err.println("The tag " + tagName + " is empty.");
                 return null;
                 // the tag is empty
             } else {
                 if(nodeList.item(0).getNodeValue().equals("null")){
-                    System.err.println("The tag " + tagName + " equals \"null\"");
+//                    System.err.println("The tag " + tagName + " equals \"null\"");
                     return null;
                 }
                 return nodeList.item(0).getNodeValue();
