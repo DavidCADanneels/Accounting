@@ -58,7 +58,11 @@ public class JournalDetails extends RefreshableFrame implements WindowListener {
 		dataModel.fireTableDataChanged();
 	}
 
-    public void windowClosing(WindowEvent we) {
+	public void selectObject(Booking object){
+		if(tabel!=null) tabel.selectObject(object);
+	}
+
+	public void windowClosing(WindowEvent we) {
         popup.setVisible(false);
     }
 

@@ -32,8 +32,11 @@ public class GUIActions {
         String key = "Details" + account.hashCode();
         AccountDetails gui = (AccountDetails)ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new AccountDetails(account, journals);
+            AccountDetails accountDetails = new AccountDetails(account, journals);
+            if(selection!=null)
+                accountDetails.selectObject(selection);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
+            gui = accountDetails;
         }
         gui.setVisible(true);
         return gui;
@@ -83,8 +86,11 @@ public class GUIActions {
         String key = "Details" + journal.hashCode();
         JournalDetails gui = (JournalDetails)ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new JournalDetails(journal, journals);
+            JournalDetails journalDetails = new JournalDetails(journal, journals);
+            if(selection!=null)
+                journalDetails.selectObject(selection);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
+            gui = journalDetails;
         }
         gui.setVisible(true);
         return gui;
