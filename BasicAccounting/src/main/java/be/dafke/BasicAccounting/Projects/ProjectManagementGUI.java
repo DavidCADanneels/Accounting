@@ -191,13 +191,12 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
         }
         Project[] result = new Project[projects.getBusinessObjects().size()];
         projects.getBusinessObjects().toArray(result);
-        if (result.length != 0) {
-            combo.setSelectedItem(result[0]);
+        if (projects.getBusinessObjects().size() != 0) {
+            combo.setSelectedItem(project);
         } else {
             project = null;
-            ArrayList<Account> noProjectlijst = accounts.getAccounts(accounting.getAccountTypes().getBusinessObjects());
             allAccountsModel.removeAllElements();
-			for(Account account : noProjectlijst){
+			for(Account account : accounts.getBusinessObjects()){
                 allAccountsModel.addElement(account);
             }
         }
