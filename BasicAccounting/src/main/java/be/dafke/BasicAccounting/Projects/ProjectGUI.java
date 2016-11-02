@@ -51,7 +51,8 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
             ((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
         }
         if (!projects.getBusinessObjects().isEmpty()) {
-            combo.setSelectedItem(projects.getBusinessObjects().get(0));
+            if(project==null) project = projects.getBusinessObjects().get(0);
+            combo.setSelectedItem(project);
 //        } else {
 //            project = null;
         }
@@ -61,7 +62,6 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == combo) {
             project = (Project) combo.getSelectedItem();
-
         } else if(ae.getSource()==manage) {
             String key = accounting.toString() + MANAGE;
             DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
