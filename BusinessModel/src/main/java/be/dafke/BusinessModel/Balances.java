@@ -41,7 +41,7 @@ public class Balances extends BusinessCollection<Balance> implements ChildrenNee
     public Balances(Accounting accounting) {
         this.accounting = accounting;
         setName(BALANCES);
-        addDefaultBalances(accounting.getAccountTypes());
+//        addDefaultBalances(accounting.getAccountTypes());
     }
 
     @Override
