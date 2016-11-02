@@ -1,6 +1,8 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
 
 import java.util.ArrayList;
@@ -43,10 +45,8 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 	}
 
 	@Override
-	public Account addBusinessObject(Account account){
-		if(!projectAccounts.contains(account)) {
-			projectAccounts.add(account);
-		}
+	public Account addBusinessObject(Account account) throws EmptyNameException, DuplicateNameException {
+		super.addBusinessObject(account);
 		for(Movement movement :account.getBusinessObjects()){
 			Transaction transaction = movement.getBooking().getTransaction();
 			if(!transactions.contains(transaction)){
@@ -54,6 +54,10 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 			}
 		}
 		return account;
+	}
+
+	public ArrayList<Transaction> getTransactions() {
+		return transactions;
 	}
 
 //	public Account close() {

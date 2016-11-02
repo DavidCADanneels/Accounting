@@ -140,7 +140,12 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 			for(Account account : allAccounts.getSelectedValuesList()) {
 				projectAccountsModel.addElement(account);
                 // TODO check if account belongs to another project (and remove it there ?)
-				project.addBusinessObject(account);
+				try {
+					project.addBusinessObject(account);
+				} catch (EmptyNameException | DuplicateNameException e) {
+					// should not occur since projectAccounts are already filtered out from allAccounts
+					e.printStackTrace();
+				}
 				allAccountsModel.removeElement(account);
 			}
 		} else if (ae.getSource() == moveBack) {
