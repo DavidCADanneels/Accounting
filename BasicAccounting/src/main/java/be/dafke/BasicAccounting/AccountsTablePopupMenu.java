@@ -10,6 +10,7 @@ import be.dafke.ComponentModel.RefreshableTable;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -63,19 +64,25 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
     public void actionPerformed(ActionEvent ae) {
         String actionCommand = ae.getActionCommand();
         if(accounting!=null) {
-            Account selectedAccount = table.getSelectedObject();
+            ArrayList<Account> selectedAccounts = table.getSelectedObjects();
             if (MANAGE.equals(actionCommand)) {
                 GUIActions.showAccountManager(accounting);
             } else if (DETAILS.equals(actionCommand)) {
-                GUIActions.showDetails(selectedAccount, accounting.getJournals());
+                for(Account selectedAccount:selectedAccounts) {
+                    GUIActions.showDetails(selectedAccount, accounting.getJournals());
+                }
             } else if (ADD.equals(actionCommand)) {
                 new NewAccountGUI(accounting).setVisible(true);
             } else {
                 Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
                 if (DEBIT.equals(actionCommand)) {
-                    TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, true);
+                    for(Account selectedAccount:selectedAccounts) {
+                        TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, true);
+                    }
                 } else if (CREDIT.equals(actionCommand)) {
-                    TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, false);
+                    for(Account selectedAccount:selectedAccounts) {
+                        TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, false);
+                    }
                 }
             }
         }

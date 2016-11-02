@@ -24,6 +24,7 @@ public class ComponentMap {
         return disposableComponents.get(name);
     }
 
+    // TODO: refactor this refresh strategy
     public static void refreshAllFrames(){
         for(RefreshableComponent frame: refreshableComponents){
             frame.refresh();

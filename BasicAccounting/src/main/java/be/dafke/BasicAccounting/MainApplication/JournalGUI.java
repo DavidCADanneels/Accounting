@@ -21,7 +21,7 @@ public class JournalGUI extends AccountingPanel {
 
     public JournalGUI() {
 		setLayout(new BorderLayout());
-        journalDetailsDataModel = new JournalDetailsDataModel(null);
+        journalDetailsDataModel = new JournalDetailsDataModel();
 
         table = new RefreshableTable<>(journalDetailsDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));

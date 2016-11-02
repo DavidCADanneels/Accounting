@@ -2,7 +2,6 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessObject;
 
-import java.math.BigDecimal;
 import java.util.Properties;
 import java.util.TreeMap;
 
@@ -33,7 +32,7 @@ public class BalanceLine extends BusinessObject {
         }
         if(rightAccount!=null){
             properties.put(Balance.NAME2,rightAccount.getName());
-            properties.put(Balance.AMOUNT2, BigDecimal.ZERO.subtract(rightAccount.getSaldo()).toString());
+            properties.put(Balance.AMOUNT2, rightAccount.getSaldo().negate().toString());
         }
         return properties;
     }
