@@ -17,7 +17,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -56,13 +55,13 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		//
 		// links
 		JPanel paneelLinks = new JPanel();
-		allAccountsModel = new AlphabeticListModel<Account>();
-		allAccounts = new JList<Account>(allAccountsModel);
+		allAccountsModel = new AlphabeticListModel<>();
+		allAccounts = new JList<>(allAccountsModel);
 		allAccounts.addListSelectionListener(this);
 		allAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 //		Accounting accounting = accountings.getCurrentObject();
 //		Accounts accounts = accounting.getBusinessObjects();
-		zoeker = new PrefixFilterPanel<Account>(allAccountsModel, allAccounts, new ArrayList<Account>());
+		zoeker = new PrefixFilterPanel<>(allAccountsModel, allAccounts, new ArrayList<>());
         zoeker.add(onder, BorderLayout.SOUTH);
 		paneelLinks.add(zoeker);
 		paneelLinks.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
@@ -72,8 +71,8 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		// rechts
 		JPanel paneelRechts = new JPanel(new BorderLayout());
 		// paneelRechts.setLayout(new BoxLayout(paneelRechts,BoxLayout.Y_AXIS));
-		projectAccountsModel = new AlphabeticListModel<Account>();
-		projectAccounts = new JList<Account>(projectAccountsModel);
+		projectAccountsModel = new AlphabeticListModel<>();
+		projectAccounts = new JList<>(projectAccountsModel);
 		projectAccounts.addListSelectionListener(this);
 		projectAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 //		Projects projects = accounting.getProjects();
@@ -114,11 +113,9 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
                 "Projects").getString("PROJECTS")));
 		hoofdPaneel.add(paneelRechts);
 		//
-//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(hoofdPaneel);
 		pack();
 		refresh();
-		// setVisible(true);
 	}
 
 	public void valueChanged(ListSelectionEvent lse) {
@@ -181,7 +178,6 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 				(combo.getModel()).setSelectedItem(project);
 			}
 		} else if (ae.getSource() == combo) {
-			System.out.println("action");
 			project = (Project) combo.getSelectedItem();
 			projectAccountsModel.removeAllElements();
 			for(Account account : project.getBusinessObjects()) {
@@ -194,7 +190,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 	}
 
     public ArrayList<Account> getAccountNoMatchProject(Project project) {
-		ArrayList<Account> result = new ArrayList<Account>();
+		ArrayList<Account> result = new ArrayList<>();
 		for(Account account : accounting.getAccounts().getBusinessObjects()) {
             if (!project.getBusinessObjects().contains(account)){
                 result.add(account);
@@ -213,17 +209,12 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
         Project[] result = new Project[projects.getBusinessObjects().size()];
         projects.getBusinessObjects().toArray(result);
         if (result.length != 0) {
-            System.out.println("voor init");
             combo.setSelectedItem(result[0]);
-            System.out.println("na init");
         } else {
             project = null;
             ArrayList<Account> noProjectlijst = accounts.getAccounts(accounting.getAccountTypes().getBusinessObjects());
-            Iterator<Account> it2 = noProjectlijst.iterator();
             allAccountsModel.removeAllElements();
-            while (it2.hasNext()) {
-                Account account = it2.next();
-//				System.out.println("No Project: " + project + " | account" + account);
+			for(Account account : noProjectlijst){
                 allAccountsModel.addElement(account);
             }
         }
