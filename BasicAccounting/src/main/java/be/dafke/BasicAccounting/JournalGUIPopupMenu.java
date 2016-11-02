@@ -14,6 +14,7 @@ import javax.swing.JPopupMenu;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -54,37 +55,39 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
 
     private void menuAction(JMenuItem source) {
         setVisible(false);
-        Booking booking = table.getSelectedObject();
-        Transaction transaction = booking.getTransaction();
-        if (source == delete) {
-            transaction.removeBusinessObject(booking);
-        } else if (source == edit) {
-            Account account = booking.getAccount();
-            //TODO: or JournalGUI.table should contain Movements iso Bookings
-            BigDecimal amount = TransactionActions.askAmount(transaction, account, booking.isDebit());
-            if(amount != null){
+        ArrayList<Booking> bookings = table.getSelectedObjects();
+        for (Booking booking : bookings) {
+            Transaction transaction = booking.getTransaction();
+            if (source == delete) {
+                transaction.removeBusinessObject(booking);
+            } else if (source == edit) {
+                Account account = booking.getAccount();
+                //TODO: or JournalGUI.table should contain Movements iso Bookings
+                BigDecimal amount = TransactionActions.askAmount(transaction, account, booking.isDebit());
+                if (amount != null) {
+                    // booking must be removed and re-added to Transaction to re-calculate the totals
+                    transaction.removeBusinessObject(booking);
+                    booking.setAmount(amount);
+                    transaction.addBusinessObject(booking);
+                }
+            } else if (source == debitCredit) {
                 // booking must be removed and re-added to Transaction to re-calculate the totals
                 transaction.removeBusinessObject(booking);
-                booking.setAmount(amount);
+                booking.setDebit(!booking.isDebit());
                 transaction.addBusinessObject(booking);
+            } else if (source == change) {
+                AccountSelector sel = new AccountSelector(accounting);
+                ComponentMap.addRefreshableComponent(sel);
+                sel.setVisible(true);
+                Account account = sel.getSelection();
+                if (account != null) {
+                    booking.setAccount(account);
+                }
+            } else if (source == details) {
+                Account account = booking.getAccount();
+                GUIActions.showDetails(account, accounting.getJournals());
             }
-        } else if (source == debitCredit){
-            // booking must be removed and re-added to Transaction to re-calculate the totals
-            transaction.removeBusinessObject(booking);
-            booking.setDebit(!booking.isDebit());
-            transaction.addBusinessObject(booking);
-        } else if (source == change) {
-            AccountSelector sel = new AccountSelector(accounting);
-            ComponentMap.addRefreshableComponent(sel);
-            sel.setVisible(true);
-            Account account = sel.getSelection();
-            if(account!=null){
-                booking.setAccount(account);
-            }
-        } else if (source == details){
-            Account account = booking.getAccount();
-            GUIActions.showDetails(account, accounting.getJournals());
+            ComponentMap.refreshAllFrames();
         }
-        ComponentMap.refreshAllFrames();
     }
 }

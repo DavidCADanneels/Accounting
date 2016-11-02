@@ -7,6 +7,7 @@ import be.dafke.ComponentModel.RefreshableTable;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -54,22 +55,24 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         setVisible(false);
-        Booking booking = gui.getSelectedObject();
-        Transaction transaction = booking.getTransaction();
-        if(e.getSource() == details){
-            if(mode == Mode.JOURNAL) {
-                Account account = booking.getAccount();
-                GUIActions.showDetails(account, journals, booking);
-            } else {
-                Journal journal = transaction.getJournal();
-                GUIActions.showDetails(journal, journals, booking);
+        ArrayList<Booking> bookings = gui.getSelectedObjects();
+        for (Booking booking : bookings) {
+            Transaction transaction = booking.getTransaction();
+            if (e.getSource() == details) {
+                if (mode == Mode.JOURNAL) {
+                    Account account = booking.getAccount();
+                    GUIActions.showDetails(account, journals, booking);
+                } else {
+                    Journal journal = transaction.getJournal();
+                    GUIActions.showDetails(journal, journals, booking);
+                }
+            } else if (e.getSource() == move) {
+                TransactionActions.moveTransaction(transaction, journals);
+            } else if (e.getSource() == edit) {
+                TransactionActions.editTransaction(transaction, journals);
+            } else if (e.getSource() == delete) {
+                TransactionActions.deleteTransaction(transaction);
             }
-        } else if (e.getSource() == move){
-            TransactionActions.moveTransaction(transaction, journals);
-        } else if (e.getSource() == edit){
-            TransactionActions.editTransaction(transaction, journals);
-        } else if (e.getSource() == delete){
-            TransactionActions.deleteTransaction(transaction);
         }
     }
 }

@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.AccountsTablePopupMenu;
-import be.dafke.BasicAccounting.GUIActions;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
@@ -67,9 +66,12 @@ public class AccountsTableGUI extends AccountingPanel implements MouseListener {
         int clickCount = me.getClickCount();
         int button = me.getButton();
         Point location = me.getLocationOnScreen();
-        Account selectedAccount = table.getSelectedObject();
         if (clickCount == 2) {
-            if (accounting != null) GUIActions.showDetails(selectedAccount, accounting.getJournals());
+            // TODO pick selected Object or take Object under Pointer?
+            // Doubleclick should already select an Object
+            // Doubleclick does not trigger anything right now
+//            Account selectedAccount = table.getSelectedObject();
+//            if (accounting != null) GUIActions.showDetails(selectedAccount, accounting.getJournals());
         } else if (button == 3) {
             popup.show(null, location.x, location.y);
         } else{
