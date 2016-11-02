@@ -1,6 +1,7 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -11,7 +12,7 @@ import java.util.*;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journals extends BusinessCollection<Journal> {
+public class Journals extends BusinessCollection<Journal> implements ChildrenNeedSeparateFile {
     public static final String TYPE = "type";
     public static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
 

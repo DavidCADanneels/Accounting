@@ -2,6 +2,7 @@ package be.dafke.ObjectModelDao;
 
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -81,12 +82,10 @@ public class XMLWriter {
 
         if(businessObject instanceof BusinessCollection){
             BusinessCollection businessCollection = (BusinessCollection)businessObject;
-            for(Object object : businessCollection.getBusinessObjects()) {
-                if(object instanceof BusinessObject){
-                    BusinessObject childObject = (BusinessObject) object;
-//                    String type = childObject.getBusinessObjectType();
-                    // TODO: use another filter than: "if the object has a name, write a separate file"
-                    if(childObject.getName()!=null){
+            if (businessCollection instanceof ChildrenNeedSeparateFile) {
+                for(Object object : businessCollection.getBusinessObjects()) {
+                    if(object instanceof BusinessObject) {
+                        BusinessObject childObject = (BusinessObject) object;
                         writeCollection(childObject, childFolder, depth + 1);
                     }
                 }

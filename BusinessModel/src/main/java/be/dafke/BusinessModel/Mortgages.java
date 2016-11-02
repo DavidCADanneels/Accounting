@@ -1,6 +1,7 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -12,7 +13,7 @@ import java.util.TreeSet;
  * Date: 27/02/13
  * Time: 11:06
  */
-public class Mortgages extends BusinessCollection<Mortgage> {
+public class Mortgages extends BusinessCollection<Mortgage> implements ChildrenNeedSeparateFile {
     private AccountTypes accountTypes;
     private Accounts accounts;
 

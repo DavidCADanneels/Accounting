@@ -2,6 +2,7 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
 /**
  * @author David Danneels
  */
-public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> implements MustBeRead{
+public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> implements MustBeRead, ChildrenNeedSeparateFile {
     private final AccountTypes accountTypes;
     private final Accounts accounts;
 	private final Journals journals;

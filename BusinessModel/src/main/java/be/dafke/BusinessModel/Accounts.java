@@ -1,6 +1,7 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -13,7 +14,7 @@ import java.util.stream.Collectors;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Accounts extends BusinessCollection<Account> {
+public class Accounts extends BusinessCollection<Account> implements ChildrenNeedSeparateFile {
     public static final String ACCOUNT = "Account";
     private Accounting accounting;
 
