@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Projects;
 
+import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -31,7 +32,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 	private final PrefixFilterPanel<Account> zoeker;
 	private final AlphabeticListModel<Account> allAccountsModel, projectAccountsModel;
 	private final JList<Account> allAccounts, projectAccounts;
-	private final JButton moveTo, moveBack, newProject;
+	private final JButton moveTo, moveBack, newProject, addAccount;
 	private final JComboBox<Project> combo;
 	private Project project;
 	private final Accounting accounting;
@@ -42,16 +43,21 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		JPanel hoofdPaneel = new JPanel();
 		hoofdPaneel.setLayout(new BoxLayout(hoofdPaneel, BoxLayout.X_AXIS));
 		//
-		// midden
+		// onder
 		JPanel onder = new JPanel();
 		moveTo = new JButton(getBundle("Projects").getString("ADD"));
 		moveTo.addActionListener(this);
 		moveTo.setEnabled(false);
 		onder.add(moveTo);
+		//
 		moveBack = new JButton(getBundle("Projects").getString("DELETE"));
 		moveBack.addActionListener(this);
 		moveBack.setEnabled(false);
 		onder.add(moveBack);
+		//
+		addAccount = new JButton("Add Account");
+		addAccount.addActionListener(this);
+		onder.add(addAccount);
 		//
 		// links
 		JPanel paneelLinks = new JPanel();
@@ -59,6 +65,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		allAccounts = new JList<>(allAccountsModel);
 		allAccounts.addListSelectionListener(this);
 		allAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
 //		Accounting accounting = accountings.getCurrentObject();
 //		Accounts accounts = accounting.getBusinessObjects();
 		zoeker = new PrefixFilterPanel<>(allAccountsModel, allAccounts, new ArrayList<>());
@@ -70,32 +77,11 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		//
 		// rechts
 		JPanel paneelRechts = new JPanel(new BorderLayout());
-		// paneelRechts.setLayout(new BoxLayout(paneelRechts,BoxLayout.Y_AXIS));
 		projectAccountsModel = new AlphabeticListModel<>();
 		projectAccounts = new JList<>(projectAccountsModel);
 		projectAccounts.addListSelectionListener(this);
 		projectAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-//		Projects projects = accounting.getProjects();
-//		JScrollPane scrol = new JScrollPane(projectAccounts);
-//		Project[] result = new Project[projects.size()];
-//		projects.values().toArray(result);
-//		combo = new JComboBox(result);
-//		combo.addActionListener(this);
-//		if (result.length != 0) {
-//			System.out.println("voor init");
-//			combo.setSelectedItem(result[0]);
-//			System.out.println("na init");
-//		} else {
-//			project = null;
-//			ArrayList<Account> noProjectlijst = accounts.getBusinessObjects(AccountType.getList());
-//			Iterator<Account> it2 = noProjectlijst.iterator();
-//			allAccountsModel.removeAllElements();
-//			while (it2.hasNext()) {
-//				Account account = it2.next();
-//				System.out.println("No Project: " + project + " | account" + account);
-//				allAccountsModel.addElement(account);
-//			}
-//		}
+		//
 		newProject = new JButton(getBundle("Projects").getString(
 				"NEW_PROJECT"));
 		newProject.addActionListener(this);
@@ -106,7 +92,6 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		noord.add(newProject);
 		paneelRechts.add(noord, BorderLayout.NORTH);
 		JScrollPane scrol = new JScrollPane(projectAccounts);
-
 		paneelRechts.add(scrol);
 
 		paneelRechts.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
@@ -186,6 +171,8 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 			}
 			ArrayList<Account> noProjectlijst = getAccountNoMatchProject(project);
 			zoeker.resetMap(noProjectlijst);
+		} else if (ae.getSource()==addAccount) {
+			new NewAccountGUI(accounting).setVisible(true);
 		}
 	}
 
