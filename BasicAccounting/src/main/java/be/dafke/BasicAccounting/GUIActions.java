@@ -10,9 +10,8 @@ import be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
-import be.dafke.ComponentModel.RefreshableTableFrame;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 import java.util.Calendar;
 
 /**
@@ -29,15 +28,20 @@ public class GUIActions {
         gui.setVisible(true);
     }
 
-    public static RefreshableTableFrame<Booking> showDetails(Account account, Journals journals){
+    public static void showDetails(Account account, Journals journals){
+        showDetails(account, journals, null);
+    }
+    public static void showDetails(Account account, Journals journals, Booking selection){
         String key = "Details" + account.hashCode();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new AccountDetails(account, journals);
+            AccountDetails accountDetails = new AccountDetails(account, journals);
+            if(selection!=null)
+                accountDetails.selectObject(selection);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
+            gui = accountDetails;
         }
         gui.setVisible(true);
-        return (RefreshableTableFrame<Booking>)gui;
     }
 
     public static void showBalance(Journals journals, Balance balance) {
@@ -80,15 +84,20 @@ public class GUIActions {
         gui.setVisible(true);
     }
 
-    public static RefreshableTableFrame<Booking> showDetails(Journal journal, Journals journals){
+    public static void showDetails(Journal journal, Journals journals){
+        showDetails(journal, journals, null);
+    }
+    public static void showDetails(Journal journal, Journals journals, Booking selection){
         String key = "Details" + journal.hashCode();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new JournalDetails(journal, journals);
+            JournalDetails journalDetails = new JournalDetails(journal, journals);
+            if(selection!=null)
+                journalDetails.selectObject(selection);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
+            gui = journalDetails;
         }
         gui.setVisible(true);
-        return (RefreshableTableFrame<Booking>)gui;
     }
 
     public static void switchJournal(Accounts accounts, Journals journals, Journal newJournal) {

@@ -49,9 +49,4 @@ public class RefreshableTable<BusinessObject> extends JTable{
         }
         return accountList;
     }
-
-
-    public void refresh() {
-        model.fireTableDataChanged();
-    }
 }

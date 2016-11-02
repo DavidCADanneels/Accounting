@@ -55,6 +55,10 @@ public class AccountDetails extends RefreshableFrame implements WindowListener {
 		dataModel.fireTableDataChanged();
 	}
 
+	public void selectObject(Booking object){
+		if(tabel!=null) tabel.selectObject(object);
+	}
+
 	public void windowClosing(WindowEvent we) {
 		popup.setVisible(false);
 	}

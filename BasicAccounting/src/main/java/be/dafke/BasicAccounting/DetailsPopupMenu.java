@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting;
 import be.dafke.BusinessActions.TransactionActions;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
-import be.dafke.ComponentModel.RefreshableTableFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -55,18 +54,16 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         setVisible(false);
-        RefreshableTableFrame<Booking> newGui;
         Booking booking = gui.getSelectedObject();
         Transaction transaction = booking.getTransaction();
         if(e.getSource() == details){
             if(mode == Mode.JOURNAL) {
                 Account account = booking.getAccount();
-                newGui = GUIActions.showDetails(account, journals);
+                GUIActions.showDetails(account, journals, booking);
             } else {
                 Journal journal = transaction.getJournal();
-                newGui = GUIActions.showDetails(journal, journals);
+                GUIActions.showDetails(journal, journals, booking);
             }
-            newGui.selectObject(booking);
         } else if (e.getSource() == move){
             TransactionActions.moveTransaction(transaction, journals);
         } else if (e.getSource() == edit){
