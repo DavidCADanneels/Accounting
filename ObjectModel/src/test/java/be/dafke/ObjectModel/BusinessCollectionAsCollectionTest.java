@@ -41,10 +41,10 @@ public class BusinessCollectionAsCollectionTest{
     @Test
     public void defaultToString(){
         assertNull(businessCollection.getName());
-        assertEquals(businessCollectionType + ":\n", businessCollection.toString());
+        assertEquals(businessCollection.getName(),businessCollection.toString());
         businessCollection.setName(NAME1);
         assertEquals(NAME1, businessCollection.getName());
-        assertEquals(businessCollectionType + ":\n", businessCollection.toString());
+        assertEquals(businessCollection.getName(), businessCollection.toString());
     }
 
     @Test (expected = EmptyNameException.class)
@@ -75,9 +75,7 @@ public class BusinessCollectionAsCollectionTest{
     public void addOneBusinessObjectToString() throws EmptyNameException, DuplicateNameException {
         BusinessObject businessObject = createBusinessObject(NAME1);
         businessCollection.addBusinessObject(businessObject);
-        assertEquals(businessCollectionType + ":\n"
-                        + businessObject.toString(),
-                businessCollection.toString());
+        assertEquals(businessCollection.getName(),businessCollection.toString());
     }
 
     @Test
@@ -86,10 +84,7 @@ public class BusinessCollectionAsCollectionTest{
         BusinessObject businessObject2 = createBusinessObject(NAME2);
         businessCollection.addBusinessObject(businessObject1);
         businessCollection.addBusinessObject(businessObject2);
-        assertEquals(businessCollectionType + ":\n"
-                        + businessObject1.toString()
-                        + businessObject2.toString(),
-                businessCollection.toString());
+        assertEquals(businessCollection.getName(),businessCollection.toString());
     }
 
     @Test

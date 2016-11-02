@@ -31,10 +31,10 @@ public class BusinessCollectionAsObjectTest extends BusinessObjectTest{
     @Test
     public void defaultToString(){
         assertNull(businessObject.getName());
-        assertEquals(businessObjectType +":\n" ,businessObject.toString());
+        assertEquals(businessObject.getName() ,businessObject.toString());
         final String NAME = "Just a name";
         businessObject.setName(NAME);
         assertEquals(NAME,businessObject.getName());
-        assertEquals(businessObjectType +":\n" ,businessObject.toString());
+        assertEquals(businessObject.getName(),businessObject.toString());
     }
 }
