@@ -31,6 +31,7 @@ public class JournalDetails extends RefreshableFrame implements WindowListener {
 	public JournalDetails(Journal journal, Journals journals) {
 		super(getBundle("Accounting").getString("JOURNAL_DETAILS") + " " + journal.toString());
 		dataModel = new JournalDetailsDataModel();
+		dataModel.setJournal(journal);
 
 		tabel = new RefreshableTable<>(dataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
