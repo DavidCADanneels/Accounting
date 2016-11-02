@@ -44,7 +44,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		JPanel hoofdPaneel = new JPanel();
 		hoofdPaneel.setLayout(new BoxLayout(hoofdPaneel, BoxLayout.X_AXIS));
 		//
-		// midden
+		// onder
 		JPanel onder = new JPanel();
 		moveTo = new JButton(getBundle("Projects").getString("ADD"));
 		moveTo.addActionListener(this);
@@ -78,32 +78,11 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		//
 		// rechts
 		JPanel paneelRechts = new JPanel(new BorderLayout());
-		// paneelRechts.setLayout(new BoxLayout(paneelRechts,BoxLayout.Y_AXIS));
 		projectAccountsModel = new AlphabeticListModel<>();
 		projectAccounts = new JList<>(projectAccountsModel);
 		projectAccounts.addListSelectionListener(this);
 		projectAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
-//		Projects projects = accounting.getProjects();
-//		JScrollPane scrol = new JScrollPane(projectAccounts);
-//		Project[] result = new Project[projects.size()];
-//		projects.values().toArray(result);
-//		combo = new JComboBox(result);
-//		combo.addActionListener(this);
-//		if (result.length != 0) {
-//			System.out.println("voor init");
-//			combo.setSelectedItem(result[0]);
-//			System.out.println("na init");
-//		} else {
-//			project = null;
-//			ArrayList<Account> noProjectlijst = accounts.getBusinessObjects(AccountType.getList());
-//			Iterator<Account> it2 = noProjectlijst.iterator();
-//			allAccountsModel.removeAllElements();
-//			while (it2.hasNext()) {
-//				Account account = it2.next();
-//				System.out.println("No Project: " + project + " | account" + account);
-//				allAccountsModel.addElement(account);
-//			}
-//		}
+		//
 		newProject = new JButton(getBundle("Projects").getString(
 				"NEW_PROJECT"));
 		newProject.addActionListener(this);
@@ -114,7 +93,6 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		noord.add(newProject);
 		paneelRechts.add(noord, BorderLayout.NORTH);
 		JScrollPane scrol = new JScrollPane(projectAccounts);
-
 		paneelRechts.add(scrol);
 
 		paneelRechts.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
