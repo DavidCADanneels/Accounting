@@ -1,6 +1,9 @@
 package be.dafke.BasicAccounting.Projects;
 
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Project;
+import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.ComponentModel.DisposableComponent;
 import be.dafke.ComponentModel.RefreshableFrame;
 
 import javax.swing.*;
@@ -8,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static be.dafke.BasicAccounting.Projects.ProjectsMenu.MANAGE;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -17,9 +21,11 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
     private final JButton manage;
     private final JComboBox<Project> combo;
     private Project project;
+    private final Accounting accounting;
 
-    public ProjectGUI() {
+    public ProjectGUI(Accounting accounting) {
         super(getBundle("Projects").getString("PROJECTMANAGER"));
+        this.accounting = accounting;
         setLayout(new BorderLayout());
 
         JPanel noord = new JPanel();
@@ -47,6 +53,14 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
         if (ae.getSource() == combo) {
             project = (Project) combo.getSelectedItem();
 
+        } else if(ae.getSource()==manage) {
+            String key = accounting.toString() + MANAGE;
+            DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+            if (gui == null) {
+                gui = new ProjectManagementGUI(accounting);
+                ComponentMap.addDisposableComponent(key, gui); // DETAILS
+            }
+            gui.setVisible(true);
         }
     }
 }

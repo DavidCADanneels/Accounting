@@ -58,7 +58,7 @@ public class ProjectsMenu extends JMenu implements ActionListener {
             String key = accounting.toString() + PROJECTS;
             DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
             if (gui == null) {
-                gui = new ProjectGUI();
+                gui = new ProjectGUI(accounting);
                 ComponentMap.addDisposableComponent(key, gui); // DETAILS
             }
             gui.setVisible(true);
