@@ -40,10 +40,6 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 
     public ProjectManagementGUI(Accounting accounting) {
 		super(getBundle("Projects").getString("PROJECTMANAGER"));
-
-		addAccount = new JButton("Add Account");
-		addAccount.addActionListener(this);
-
 		this.accounting = accounting;
 		JPanel hoofdPaneel = new JPanel();
 		hoofdPaneel.setLayout(new BoxLayout(hoofdPaneel, BoxLayout.X_AXIS));
@@ -54,22 +50,27 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		moveTo.addActionListener(this);
 		moveTo.setEnabled(false);
 		onder.add(moveTo);
+		//
 		moveBack = new JButton(getBundle("Projects").getString("DELETE"));
 		moveBack.addActionListener(this);
 		moveBack.setEnabled(false);
 		onder.add(moveBack);
 		//
+		addAccount = new JButton("Add Account");
+		addAccount.addActionListener(this);
+		onder.add(addAccount);
+		//
 		// links
 		JPanel paneelLinks = new JPanel();
-		allAccountsModel = new AlphabeticListModel<Account>();
-		allAccounts = new JList<Account>(allAccountsModel);
+		allAccountsModel = new AlphabeticListModel<>();
+		allAccounts = new JList<>(allAccountsModel);
 		allAccounts.addListSelectionListener(this);
 		allAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+
 //		Accounting accounting = accountings.getCurrentObject();
 //		Accounts accounts = accounting.getBusinessObjects();
-		zoeker = new PrefixFilterPanel<Account>(allAccountsModel, allAccounts, new ArrayList<Account>());
+		zoeker = new PrefixFilterPanel<>(allAccountsModel, allAccounts, new ArrayList<>());
         zoeker.add(onder, BorderLayout.SOUTH);
-		paneelLinks.add(addAccount);
 		paneelLinks.add(zoeker);
 		paneelLinks.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Projects").getString("ACCOUNTS")));
@@ -78,8 +79,8 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		// rechts
 		JPanel paneelRechts = new JPanel(new BorderLayout());
 		// paneelRechts.setLayout(new BoxLayout(paneelRechts,BoxLayout.Y_AXIS));
-		projectAccountsModel = new AlphabeticListModel<Account>();
-		projectAccounts = new JList<Account>(projectAccountsModel);
+		projectAccountsModel = new AlphabeticListModel<>();
+		projectAccounts = new JList<>(projectAccountsModel);
 		projectAccounts.addListSelectionListener(this);
 		projectAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 //		Projects projects = accounting.getProjects();
@@ -202,7 +203,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 	}
 
     public ArrayList<Account> getAccountNoMatchProject(Project project) {
-		ArrayList<Account> result = new ArrayList<Account>();
+		ArrayList<Account> result = new ArrayList<>();
 		for(Account account : accounting.getAccounts().getBusinessObjects()) {
             if (!project.getBusinessObjects().contains(account)){
                 result.add(account);
