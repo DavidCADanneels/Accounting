@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Projects;
 
+import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -32,13 +33,17 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 	private final PrefixFilterPanel<Account> zoeker;
 	private final AlphabeticListModel<Account> allAccountsModel, projectAccountsModel;
 	private final JList<Account> allAccounts, projectAccounts;
-	private final JButton moveTo, moveBack, newProject;
+	private final JButton moveTo, moveBack, newProject, addAccount;
 	private final JComboBox<Project> combo;
 	private Project project;
 	private final Accounting accounting;
 
     public ProjectManagementGUI(Accounting accounting) {
 		super(getBundle("Projects").getString("PROJECTMANAGER"));
+
+		addAccount = new JButton("Add Account");
+		addAccount.addActionListener(this);
+
 		this.accounting = accounting;
 		JPanel hoofdPaneel = new JPanel();
 		hoofdPaneel.setLayout(new BoxLayout(hoofdPaneel, BoxLayout.X_AXIS));
@@ -64,6 +69,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 //		Accounts accounts = accounting.getBusinessObjects();
 		zoeker = new PrefixFilterPanel<Account>(allAccountsModel, allAccounts, new ArrayList<Account>());
         zoeker.add(onder, BorderLayout.SOUTH);
+		paneelLinks.add(addAccount);
 		paneelLinks.add(zoeker);
 		paneelLinks.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Projects").getString("ACCOUNTS")));
@@ -190,6 +196,8 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 			}
 			ArrayList<Account> noProjectlijst = getAccountNoMatchProject(project);
 			zoeker.resetMap(noProjectlijst);
+		} else if (ae.getSource()==addAccount) {
+			new NewAccountGUI(accounting).setVisible(true);
 		}
 	}
 
