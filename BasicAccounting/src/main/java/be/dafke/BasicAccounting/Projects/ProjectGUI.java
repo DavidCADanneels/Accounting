@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Projects;
 
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Project;
+import be.dafke.BusinessModel.Projects;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
 import be.dafke.ComponentModel.RefreshableFrame;
@@ -45,7 +46,15 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
 
     @Override
     public void refresh() {
-
+        Projects projects = accounting.getProjects();
+        for(Project project : projects.getBusinessObjects()) {
+            ((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
+        }
+        if (!projects.getBusinessObjects().isEmpty()) {
+            combo.setSelectedItem(projects.getBusinessObjects().get(0));
+//        } else {
+//            project = null;
+        }
     }
 
     @Override
