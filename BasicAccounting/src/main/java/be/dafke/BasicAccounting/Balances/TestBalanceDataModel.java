@@ -42,7 +42,7 @@ public class TestBalanceDataModel extends RefreshableTableModel<Account> {
 			if (account.getSaldo().compareTo(BigDecimal.ZERO) > 0) return account.getSaldo();
 			return "";
 		} else {// col==4)
-			if (account.getSaldo().compareTo(BigDecimal.ZERO) < 0) return BigDecimal.ZERO.subtract(account.getSaldo());
+			if (account.getSaldo().compareTo(BigDecimal.ZERO) < 0) return account.getSaldo().negate();
 			return "";
 		}
 	}

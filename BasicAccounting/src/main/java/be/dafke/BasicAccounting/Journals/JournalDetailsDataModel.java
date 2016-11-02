@@ -32,13 +32,6 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 	private final Class[] columnClasses = { String.class, String.class, Account.class, BigDecimal.class,
 			BigDecimal.class, String.class };
 
-
-			//TODO get rid of parameter in constructor???
-	public JournalDetailsDataModel(Journal journal) {
-		this.journal = journal;
-	}
-
-
 	public void setJournal(Journal journal) {
 		this.journal = journal;
 	}
