@@ -2,7 +2,8 @@ package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessActions.AccountActions;
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 
@@ -29,14 +30,14 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 	private final AccountManagementTableModel model;
 	private final RefreshableTable<Account> tabel;
 	private final DefaultListSelectionModel selection;
-//	private Accounts accounts;
-//	private AccountTypes accountTypes;
-	private Accounting accounting;
+	private Accounts accounts;
+	private AccountTypes accountTypes;
 
-	public AccountManagementGUI(final Accounting accounting) {
+	public AccountManagementGUI(final Accounts accounts, final AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE"));
-		this.accounting = accounting;
-		this.model = new AccountManagementTableModel(accounting.getAccounts(), accounting.getAccountTypes());
+		this.accounts = accounts;
+		this.accountTypes = accountTypes;
+		this.model = new AccountManagementTableModel(accounts, accountTypes);
 
 		// COMPONENTS
 		//
@@ -117,15 +118,15 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 	public void actionPerformed(ActionEvent ae) {
 		String actionCommand = ae.getActionCommand();
 		if(MODIFY_NAME.equals(actionCommand)) {
-			AccountActions.modifyAccountNames(tabel.getSelectedObjects(), accounting.getAccounts());
+			AccountActions.modifyAccountNames(tabel.getSelectedObjects(), accounts);
 		} else if(MODIFY_TYPE.equals(actionCommand)){
-			AccountActions.modifyAccountTypes(tabel.getSelectedObjects(), accounting.getAccountTypes());
+			AccountActions.modifyAccountTypes(tabel.getSelectedObjects(), accountTypes);
 		} else if(MODIFY_DEFAULT_AMOUNT.equals(actionCommand)){
-			AccountActions.modifyDefaultAmounts(tabel.getSelectedObjects(), accounting.getAccounts());
+			AccountActions.modifyDefaultAmounts(tabel.getSelectedObjects(), accounts);
 		} else if(DELETE.equals(actionCommand)){
-			AccountActions.deleteAccounts(tabel.getSelectedObjects(), accounting.getAccounts());
+			AccountActions.deleteAccounts(tabel.getSelectedObjects(), accounts);
 		} else if(NEW_ACCOUNT.equals(actionCommand)){
-			new NewAccountGUI(accounting).setVisible(true);
+			new NewAccountGUI(accounts, accountTypes).setVisible(true);
 		}
 	}
 }

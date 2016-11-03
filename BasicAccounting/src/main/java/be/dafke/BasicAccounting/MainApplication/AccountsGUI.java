@@ -129,11 +129,11 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     public void buttonClicked(String actionCommand){
         if(accounting!=null) {
             if (MANAGE.equals(actionCommand)) {
-                GUIActions.showAccountManager(accounting);
+                GUIActions.showAccountManager(accounting.getAccounts(), accounting.getAccountTypes());
             } else if (DETAILS.equals(actionCommand)) {
                 GUIActions.showDetails(lijst.getSelectedValue(), accounting.getJournals());
             } else if (ADD.equals(actionCommand)) {
-                new NewAccountGUI(accounting).setVisible(true);
+                new NewAccountGUI(accounting.getAccounts(), accounting.getAccountTypes()).setVisible(true);
             } else {
                 Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
                 if (DEBIT.equals(actionCommand)) {
@@ -180,7 +180,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         super.setAccounting(accounting);
 
         // could be popup.setAccounting() with constructor call in this.constructor
-        popup = new AccountsPopupMenu(accounting);
+        popup = new AccountsPopupMenu(accounting.getAccounts(), accounting.getAccountTypes());
 
         if(accounting!=null) {
             selectedAccountTypes.clear();

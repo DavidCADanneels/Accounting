@@ -18,11 +18,11 @@ import java.util.Calendar;
  * Created by ddanneel on 14/02/2015.
  */
 public class GUIActions {
-    public static void showAccountManager(Accounting accounting) {
-        String key = ""+accounting.getAccounts().hashCode();
+    public static void showAccountManager(Accounts accounts, AccountTypes accountTypes) {
+        String key = ""+accounts.hashCode();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new AccountManagementGUI(accounting);
+            gui = new AccountManagementGUI(accounts, accountTypes);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);

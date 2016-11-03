@@ -1,16 +1,11 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.RefreshableDialog;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
-import java.awt.BorderLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -34,7 +29,7 @@ public class AccountSelector extends RefreshableDialog implements ActionListener
 		create = new JButton("Add account(s) ...");
 		create.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new NewAccountGUI(accounting).setVisible(true);
+				new NewAccountGUI(accounting.getAccounts(), accounting.getAccountTypes()).setVisible(true);
 			}
 		});
 		ok = new JButton("Ok (Close popup)");

@@ -167,7 +167,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 			ArrayList<Account> noProjectlijst = getAccountNoMatchProject(project);
 			zoeker.resetMap(noProjectlijst);
 		} else if (ae.getSource()==addAccount) {
-			new NewAccountGUI(accounting).setVisible(true);
+			new NewAccountGUI(accounting.getAccounts(), accounting.getAccountTypes()).setVisible(true);
 		}
 	}
 
