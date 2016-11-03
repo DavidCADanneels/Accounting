@@ -5,6 +5,7 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 import be.dafke.Utils.AlphabeticListModel;
 import be.dafke.Utils.PrefixFilterPanel;
 
@@ -135,7 +136,11 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		} else if (ae.getSource() == moveBack) {
 			for(Account account : projectAccounts.getSelectedValuesList()) {
 				allAccountsModel.addElement(account);
-				project.removeBusinessObject(account);
+				try {
+					project.removeBusinessObject(account);
+				} catch (NotEmptyException e) {
+					e.printStackTrace();
+				}
 				projectAccountsModel.removeElement(account);
 			}
 		} else if (ae.getSource() == newProject) {

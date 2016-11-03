@@ -1,6 +1,9 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 import be.dafke.ObjectModel.MustBeRead;
 
 import java.util.Properties;
@@ -14,7 +17,9 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 	 * 
 	 */
 	private final Accounts allAccounts;  // needed to lookup existing accounts when adding them to the project
+	private final Accounts projectAccounts;
 	private final Accounting accounting;
+	private final Balance resultBalance, relationsBalance;
 
 	@Override
 	public String getChildType() {
@@ -25,6 +30,9 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 		setName(name);
 		this.accounting = accounting;
 		allAccounts = accounting.getAccounts();
+		projectAccounts = new Accounts(accounting.getAccountTypes());
+		resultBalance = accounting.getBalances().createResultBalance(projectAccounts);
+		relationsBalance = accounting.getBalances().createRelationsBalance(projectAccounts);
 	}
 
 	@Override
@@ -40,19 +48,35 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 	}
 
 	@Override
-	public void removeBusinessObject(Account account){
-		removeBusinessObject(account.getUniqueProperties());
+	public Account addBusinessObject(Account account) throws EmptyNameException, DuplicateNameException {
+		projectAccounts.addBusinessObject(account);
+		return account;
+	}
+
+	@Override
+	public void removeBusinessObject(Account account) throws NotEmptyException {
+		projectAccounts.removeBusinessObject(account);
 	}
 
 	public ProjectJournal getJournal() {
 		ProjectJournal journal = new ProjectJournal(accounting, getName(), "TMP");
-		for(Account account:getBusinessObjects()){
+		for(Account account:projectAccounts.getBusinessObjects()){
 			for(Movement movement :account.getBusinessObjects()){
 				Transaction transaction = movement.getBooking().getTransaction();
 				journal.addBusinessObject(transaction);
 			}
 		}
 		return journal;
+	}
+
+	public Balance getResultBalance() {
+		return resultBalance;
+//		return accounting.getBalances().createResultBalance(projectAccounts);
+	}
+
+	public Balance getRelationsBalance() {
+		return relationsBalance;
+//		return accounting.getBalances().createRelationsBalance(projectAccounts);
 	}
 
 //	public ArrayList<Transaction> getTransactions() {

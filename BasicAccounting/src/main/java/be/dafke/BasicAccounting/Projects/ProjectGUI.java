@@ -101,9 +101,9 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
         }
         journalDetailsDataModel.setJournal(project.getJournal());
         journalDetailsDataModel.fireTableDataChanged();
-//        resultBalanceDataModel.setBalance(project.getResultBalance());
+        resultBalanceDataModel.setBalance(project.getResultBalance());
         resultBalanceDataModel.fireTableDataChanged();
-//        relationsBalanceDataModel.setBalance(project.getRelationsBalance());
+        relationsBalanceDataModel.setBalance(project.getRelationsBalance());
         relationsBalanceDataModel.fireTableDataChanged();
     }
 
