@@ -39,9 +39,9 @@ public class Balances extends BusinessCollection<Balance> implements ChildrenNee
     private final Accounts accounts;
     private final AccountTypes accountTypes;
 
-    public Balances(Accounting accounting) {
-        accounts = accounting.getAccounts();
-        accountTypes = accounting.getAccountTypes();
+    public Balances(Accounts accounts, AccountTypes accountTypes) {
+        this.accounts = accounts;
+        this.accountTypes = accountTypes;
         setName(BALANCES);
 //        addDefaultBalances(accounting.getAccountTypes());
     }

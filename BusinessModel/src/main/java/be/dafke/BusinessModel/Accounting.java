@@ -38,7 +38,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
         journals = new Journals(this);
 
-        balances = new Balances(this);
+        balances = new Balances(accounts, accountTypes);
 
         mortgages = new Mortgages();
         mortgages.setAccountTypes(accountTypes);
