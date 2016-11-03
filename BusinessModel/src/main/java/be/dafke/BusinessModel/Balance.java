@@ -73,10 +73,18 @@ public class Balance extends BusinessCollection<BalanceLine> {
         return rightTypes;
     }
 
+    public ArrayList<Account> getLeftAccounts(boolean includeEmpty) {
+        if(includeEmpty) return getAccounts(leftTypes);
+        else return getAccountsNotEmpty(leftTypes);
+    }
     public ArrayList<Account> getLeftAccounts() {
         return getAccountsNotEmpty(leftTypes);
     }
 
+    public ArrayList<Account> getRightAccounts(boolean includeEmpty) {
+        if(includeEmpty) return getAccounts(rightTypes);
+        else return getAccountsNotEmpty(rightTypes);
+    }
     public ArrayList<Account> getRightAccounts() {
         return getAccountsNotEmpty(rightTypes);
     }

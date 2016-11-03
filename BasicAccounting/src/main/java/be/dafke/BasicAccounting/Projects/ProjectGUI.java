@@ -49,14 +49,14 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
 //------------------------------------------------------------------------------------------
         resultBalanceDataModel = new BalanceDataModel(
                 getBundle("BusinessModel").getString("COSTS"),
-                getBundle("BusinessModel").getString("REVENUES"));
+                getBundle("BusinessModel").getString("REVENUES"), true);
         JScrollPane resultBalance = createBalancePanel(resultBalanceDataModel);
         resultBalance.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "BusinessModel").getString("RESULTBALANCE")));
 //------------------------------------------------------------------------------------------
         relationsBalanceDataModel = new BalanceDataModel(
                 getBundle("BusinessModel").getString("FUNDS_FROM_CUSTOMERS"),
-                getBundle("BusinessModel").getString("DEBTS_TO_SUPPLIERS"));
+                getBundle("BusinessModel").getString("DEBTS_TO_SUPPLIERS"), true);
         JScrollPane partnerBalance = createBalancePanel(relationsBalanceDataModel);
         partnerBalance.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "BusinessModel").getString("RELATIONSBALANCE")));

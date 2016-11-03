@@ -17,8 +17,10 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
 	private String[] columnNames;// = {
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, Account.class };
 	private Balance balance;
+	private boolean includeEmpty;
 
-	public BalanceDataModel(String leftName, String rightName) {
+	public BalanceDataModel(String leftName, String rightName, boolean includeEmpty) {
+		this.includeEmpty = includeEmpty;
 		columnNames = new String[]{
 				leftName,
 				getBundle("Accounting").getString("AMOUNT"),
@@ -27,6 +29,10 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
 	}
 
 	public BalanceDataModel(Balance balance){
+		this(balance, false);
+	}
+	public BalanceDataModel(Balance balance, boolean includeEmpty){
+		this.includeEmpty = includeEmpty;
 		setBalance(balance);
 	}
 
@@ -52,8 +58,8 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
 				return "";
 			} else {
 				// Berekening totalen en resultaat
-				ArrayList<Account> leftAccounts = balance.getLeftAccounts();
-                ArrayList<Account> rightAccounts = balance.getRightAccounts();
+				ArrayList<Account> leftAccounts = balance.getLeftAccounts(includeEmpty);
+                ArrayList<Account> rightAccounts = balance.getRightAccounts(includeEmpty);
 				BigDecimal totalLeft = new BigDecimal(0);
 				BigDecimal totalRight = new BigDecimal(0);
                 for(Account left : leftAccounts){
@@ -87,16 +93,16 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
 		}// einde onderste 2 rijen
 		if (col == 0 || col == 1) {
 			// Left
-			if (row < balance.getLeftAccounts().size()) {
-				Account account = balance.getLeftAccounts().get(row);
+			if (row < balance.getLeftAccounts(includeEmpty).size()) {
+				Account account = balance.getLeftAccounts(includeEmpty).get(row);
 				if (col == 0) return account;
 				return account.getSaldo();
 			}
 			return "";
 		}
 		// Right
-		if (row < balance.getRightAccounts().size()) {
-			Account account = balance.getRightAccounts().get(row);
+		if (row < balance.getRightAccounts(includeEmpty).size()) {
+			Account account = balance.getRightAccounts(includeEmpty).get(row);
 			if (col == 3) return account;
 			return account.getSaldo().negate();
 		}
@@ -109,8 +115,8 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
 
 	public int getRowCount() {
 		if(balance==null) return 0;
-		int size1 = balance.getLeftAccounts().size();
-		int size2 = balance.getRightAccounts().size();
+		int size1 = balance.getLeftAccounts(includeEmpty).size();
+		int size2 = balance.getRightAccounts(includeEmpty).size();
 		int size = size1 > size2 ? size1 : size2;
 		if (size != 0) size += 2;
 		return size;
