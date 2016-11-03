@@ -23,11 +23,15 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
     private final JTextField name, abbr;
     private final JComboBox<JournalType> type;
     private final JButton add, newType;
-    private Accounting accounting;
+    private Accounts accounts;
+    private AccountTypes accountTypes;
+    private Journals journals;
 
     public NewJournalGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"));
-        this.accounting = accounting;
+        this.accounts = accounts;
+        this.accountTypes = accountTypes;
+        this.journals = journals;
         JPanel north = new JPanel();
 		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
 		JPanel line1 = new JPanel();
@@ -63,7 +67,7 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
             addJournal();
             ComponentMap.refreshAllFrames();
         }else if (e.getSource() == newType) {
-            GUIActions.showJournalTypeManager(accounting.getAccountTypes());
+            GUIActions.showJournalTypeManager(accountTypes);
         }
     }
 
@@ -85,10 +89,10 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
         try {
-            Journal journal = new Journal(accounting, newName, abbreviation);
+            Journal journal = new Journal(accounts, /*journals,*/ newName, abbreviation);
             journal.setType(journalType);
-            accounting.getJournals().addBusinessObject(journal);
-            accounting.getJournals().setCurrentObject(journal);
+            journals.addBusinessObject(journal);
+            journals.setCurrentObject(journal);
             ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR,newName.trim(), abbreviation.trim());
