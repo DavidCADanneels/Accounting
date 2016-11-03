@@ -18,6 +18,14 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, Account.class };
 	private Balance balance;
 
+	public BalanceDataModel(String leftName, String rightName) {
+		columnNames = new String[]{
+				leftName,
+				getBundle("Accounting").getString("AMOUNT"),
+				getBundle("Accounting").getString("AMOUNT"),
+				rightName};
+	}
+
 	public BalanceDataModel(Balance balance){
 		setBalance(balance);
 	}
