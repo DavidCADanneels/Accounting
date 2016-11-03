@@ -1,27 +1,20 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessActions.ActionUtils;
-import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.AccountType;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import javax.swing.BoxLayout;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
-import java.text.MessageFormat;
 
-import static be.dafke.BusinessActions.ActionUtils.ACCOUNT_DUPLICATE_NAME;
-import static be.dafke.BusinessActions.ActionUtils.ACCOUNT_NAME_EMPTY;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -33,11 +26,11 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     private final JTextField nameField, defaultAmountField;
     private final JComboBox<AccountType> type;
     private final JButton add;
-    private Accounting accounting;
+    private Accounts accounts;
 
-    public NewAccountGUI(Accounting accounting) {
+    public NewAccountGUI(Accounts accounts, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_ACCOUNT_GUI_TITLE"));
-        this.accounting = accounting;
+        this.accounts = accounts;
         JPanel north = new JPanel();
 		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
 		JPanel line1 = new JPanel();
@@ -50,9 +43,9 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
         line1.add(defaultAmountField);
 		JPanel line2 = new JPanel();
 		line2.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
-		type = new JComboBox<AccountType>();
-        DefaultComboBoxModel<AccountType> model = new DefaultComboBoxModel<AccountType>();
-        for(AccountType accountType : accounting.getAccountTypes().getBusinessObjects()){
+		type = new JComboBox<>();
+        DefaultComboBoxModel<AccountType> model = new DefaultComboBoxModel<>();
+        for(AccountType accountType : accountTypes.getBusinessObjects()){
             model.addElement(accountType);
         }
         type.setModel(model);
@@ -88,7 +81,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
                     account.setDefaultAmount(null);
                 }
             }
-            accounting.getAccounts().addBusinessObject(account);
+            accounts.addBusinessObject(account);
             ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, name);
