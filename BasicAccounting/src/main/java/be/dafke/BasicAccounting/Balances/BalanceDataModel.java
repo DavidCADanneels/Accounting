@@ -14,22 +14,27 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String[] columnNames;// = {
+	private String[] columnNames;// = {
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, Account.class };
-	private final Balance balance;
+	private Balance balance;
 
-	public BalanceDataModel(Balance balance) {
-		this.balance = balance;
-        columnNames = new String[]{
-                balance.getLeftName(),
-                getBundle("Accounting").getString("AMOUNT"),
-                getBundle("Accounting").getString("AMOUNT"),
-                balance.getRightName()};
+	public BalanceDataModel(Balance balance){
+		setBalance(balance);
 	}
 
-// DE GET METHODEN
+	public void setBalance(Balance balance) {
+		this.balance = balance;
+		columnNames = new String[]{
+				balance.getLeftName(),
+				getBundle("Accounting").getString("AMOUNT"),
+				getBundle("Accounting").getString("AMOUNT"),
+				balance.getRightName()};
+	}
+
+	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
+		if(balance==null) return null;
 		int size = getRowCount();
 		if (row == size - 2 || row == size - 1) {
 			// in de onderste 2 rijen komen totalen
@@ -95,6 +100,7 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
 	}
 
 	public int getRowCount() {
+		if(balance==null) return 0;
 		int size1 = balance.getLeftAccounts().size();
 		int size2 = balance.getRightAccounts().size();
 		int size = size1 > size2 ? size1 : size2;
