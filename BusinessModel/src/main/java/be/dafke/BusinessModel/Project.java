@@ -6,6 +6,7 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 import be.dafke.ObjectModel.MustBeRead;
 
+import java.util.ArrayList;
 import java.util.Properties;
 import java.util.TreeMap;
 
@@ -51,6 +52,10 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 	public Account addBusinessObject(Account account) throws EmptyNameException, DuplicateNameException {
 		projectAccounts.addBusinessObject(account);
 		return account;
+	}
+
+	public ArrayList<Account> getBusinessObjects(){
+		return projectAccounts.getBusinessObjects();
 	}
 
 	@Override
