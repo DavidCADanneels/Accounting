@@ -16,15 +16,17 @@ public class Journals extends BusinessCollection<Journal> implements ChildrenNee
     public static final String TYPE = "type";
     public static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
 
-    private final Accounting accounting;
+    private final Accounts accounts;
+    private final JournalTypes journalTypes;
 
     @Override
     public String getChildType(){
         return "Journal";
     }
 
-    public Journals(Accounting accounting) {
-        this.accounting = accounting;
+    public Journals(Accounts accounts, JournalTypes journalTypes) {
+        this.accounts = accounts;
+        this.journalTypes = journalTypes;
         addSearchKey(ABBREVIATION);
         setName("Journals");
 	}
@@ -34,9 +36,9 @@ public class Journals extends BusinessCollection<Journal> implements ChildrenNee
         String name = properties.get(NAME);
         String abbreviation = properties.get(ABBREVIATION);
         String typeName = properties.get(TYPE);
-        Journal journal = new Journal(accounting.getAccounts(), /*accounting.getJournals(),*/ name, abbreviation);
+        Journal journal = new Journal(accounts, /*accounting.getJournals(),*/ name, abbreviation);
         if(typeName!=null){
-            journal.setType(accounting.getJournalTypes().getBusinessObject(typeName));
+            journal.setType(journalTypes.getBusinessObject(typeName));
         }
         return journal;
     }
