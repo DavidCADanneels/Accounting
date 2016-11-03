@@ -43,7 +43,7 @@ public class Balances extends BusinessCollection<Balance> implements ChildrenNee
         this.accounts = accounts;
         this.accountTypes = accountTypes;
         setName(BALANCES);
-//        addDefaultBalances(accounting.getAccountTypes());
+//        addDefaultBalances();
     }
 
     @Override
@@ -67,28 +67,9 @@ public class Balances extends BusinessCollection<Balance> implements ChildrenNee
     }
 
     public void addDefaultBalances(AccountTypes accountTypes) {
-        ArrayList<AccountType> costs = new ArrayList<>();
-        ArrayList<AccountType> revenues = new ArrayList<>();
-        ArrayList<AccountType> credit = new ArrayList<>();
-        ArrayList<AccountType> debit = new ArrayList<>();
-        ArrayList<AccountType> active = new ArrayList<>();
-        ArrayList<AccountType> passive = new ArrayList<>();
-
-        // TODO: define AccountType.Cost etc (the default types)
-        costs.add(accountTypes.getBusinessObject(AccountTypes.COST));
-        revenues.add(accountTypes.getBusinessObject(AccountTypes.REVENUE));
-        credit.add(accountTypes.getBusinessObject(AccountTypes.CREDIT));
-        debit.add(accountTypes.getBusinessObject(AccountTypes.DEBIT));
-        active.add(accountTypes.getBusinessObject(AccountTypes.ASSET));
-        active.add(accountTypes.getBusinessObject(AccountTypes.CREDIT));
-        passive.add(accountTypes.getBusinessObject(AccountTypes.LIABILITY));
-        passive.add(accountTypes.getBusinessObject(AccountTypes.DEBIT));
-
-        Balance resultBalance = createResultBalance(accounts,costs, revenues);
-
-        Balance relationsBalance = createRelationsBalance(accounts, credit, debit);
-
-        Balance yearBalance = createClosingBalance(accounts, active, passive);
+        Balance resultBalance = createResultBalance(accounts);
+        Balance relationsBalance = createRelationsBalance(accounts);
+        Balance yearBalance = createClosingBalance(accounts);
 
         try {
             addBusinessObject(resultBalance);
@@ -99,6 +80,31 @@ public class Balances extends BusinessCollection<Balance> implements ChildrenNee
         } catch (DuplicateNameException e) {
             System.err.println("The Name of a Balance already exists. ");
         }
+    }
+
+    public Balance createResultBalance(Accounts accounts){
+        ArrayList<AccountType> costs = new ArrayList<>();
+        ArrayList<AccountType> revenues = new ArrayList<>();
+        costs.add(accountTypes.getBusinessObject(AccountTypes.COST));
+        revenues.add(accountTypes.getBusinessObject(AccountTypes.REVENUE));
+        return createResultBalance(accounts, costs, revenues);
+
+    }
+    public Balance createClosingBalance(Accounts accounts){
+        ArrayList<AccountType> active = new ArrayList<>();
+        ArrayList<AccountType> passive = new ArrayList<>();
+        active.add(accountTypes.getBusinessObject(AccountTypes.ASSET));
+        active.add(accountTypes.getBusinessObject(AccountTypes.CREDIT));
+        passive.add(accountTypes.getBusinessObject(AccountTypes.LIABILITY));
+        passive.add(accountTypes.getBusinessObject(AccountTypes.DEBIT));
+        return createClosingBalance(accounts, active, passive);
+    }
+    public Balance createRelationsBalance(Accounts accounts){
+        ArrayList<AccountType> credit = new ArrayList<>();
+        ArrayList<AccountType> debit = new ArrayList<>();
+        credit.add(accountTypes.getBusinessObject(AccountTypes.CREDIT));
+        debit.add(accountTypes.getBusinessObject(AccountTypes.DEBIT));
+        return createRelationsBalance(accounts, credit, debit);
     }
 
     public Balance createRelationsBalance(Accounts accounts, ArrayList<AccountType> credit, ArrayList<AccountType> debit){
