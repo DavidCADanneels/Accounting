@@ -16,10 +16,10 @@ import java.util.stream.Collectors;
  */
 public class Accounts extends BusinessCollection<Account> implements ChildrenNeedSeparateFile {
     public static final String ACCOUNT = "Account";
-    private Accounting accounting;
+    private AccountTypes accountTypes;
 
-    public Accounts(Accounting accounting) {
-        this.accounting = accounting;
+    public Accounts(AccountTypes accountTypes) {
+        this.accountTypes = accountTypes;
         setName("Accounts");
     }
 
@@ -36,7 +36,7 @@ public class Accounts extends BusinessCollection<Account> implements ChildrenNee
 	}
 
 	public ArrayList<Account> getAccounts(List<AccountType> types) {
-		ArrayList<Account> list = new ArrayList<Account>();
+		ArrayList<Account> list = new ArrayList<>();
 		for(AccountType type : types) {
 			list.addAll(getAccounts(type));
 		}
@@ -45,7 +45,7 @@ public class Accounts extends BusinessCollection<Account> implements ChildrenNee
 
     @Override
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
+        Set<String> keySet = new TreeSet<>();
         keySet.add(NAME);
         keySet.add(Account.TYPE);
         keySet.add(Account.DEFAULTAMOUNT);
@@ -53,8 +53,8 @@ public class Accounts extends BusinessCollection<Account> implements ChildrenNee
     }
 
 	public Account modifyAccountName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
-        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<String,String>(NAME, oldName);
-        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<String,String>(NAME, newName);
+        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, oldName);
+        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, newName);
 //        Name is modified in modify Function
 //        account.setName(newName.trim());
         return modify(oldEntry, newEntry);
@@ -66,7 +66,7 @@ public class Accounts extends BusinessCollection<Account> implements ChildrenNee
         Account account = new Account(name);
         String typeName = properties.get(Account.TYPE);
         if(typeName!=null){
-            account.setType(accounting.getAccountTypes().getBusinessObject(typeName));
+            account.setType(accountTypes.getBusinessObject(typeName));
         }
         String defaultAmountString = properties.get(Account.DEFAULTAMOUNT);
         if(defaultAmountString!=null){

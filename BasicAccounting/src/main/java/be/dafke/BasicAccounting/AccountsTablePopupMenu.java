@@ -66,13 +66,13 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
         if(accounting!=null) {
             ArrayList<Account> selectedAccounts = table.getSelectedObjects();
             if (MANAGE.equals(actionCommand)) {
-                GUIActions.showAccountManager(accounting);
+                GUIActions.showAccountManager(accounting.getAccounts(), accounting.getAccountTypes());
             } else if (DETAILS.equals(actionCommand)) {
                 for(Account selectedAccount:selectedAccounts) {
                     GUIActions.showDetails(selectedAccount, accounting.getJournals());
                 }
             } else if (ADD.equals(actionCommand)) {
-                new NewAccountGUI(accounting).setVisible(true);
+                new NewAccountGUI(accounting.getAccounts(), accounting.getAccountTypes()).setVisible(true);
             } else {
                 Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
                 if (DEBIT.equals(actionCommand)) {

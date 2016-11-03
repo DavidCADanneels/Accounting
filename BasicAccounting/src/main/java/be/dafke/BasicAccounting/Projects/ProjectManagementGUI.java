@@ -71,7 +71,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
         zoeker.add(onder, BorderLayout.SOUTH);
 		paneelLinks.add(zoeker);
 		paneelLinks.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
-                "Projects").getString("ACCOUNTS")));
+                "Accounting").getString("ACCOUNTS")));
 		hoofdPaneel.add(paneelLinks);
 		//
 		// rechts
@@ -167,7 +167,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 			ArrayList<Account> noProjectlijst = getAccountNoMatchProject(project);
 			zoeker.resetMap(noProjectlijst);
 		} else if (ae.getSource()==addAccount) {
-			new NewAccountGUI(accounting).setVisible(true);
+			new NewAccountGUI(accounting.getAccounts(), accounting.getAccountTypes()).setVisible(true);
 		}
 	}
 
