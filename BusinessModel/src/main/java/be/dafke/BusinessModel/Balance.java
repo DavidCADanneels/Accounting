@@ -20,15 +20,15 @@ public class Balance extends BusinessCollection<BalanceLine> {
     private String rightResultName;
     private ArrayList<AccountType> leftTypes;
     private ArrayList<AccountType> rightTypes;
-    private Accounting accounting;
+    private Accounts accounts;
 
     public final static String NAME1 = "name1";
     public final static String NAME2 = "name2";
     public final static String AMOUNT1 = "amount1";
     public final static String AMOUNT2 = "amount2";
 
-    public Balance(Accounting accounting) {
-        this.accounting = accounting;
+    public Balance(Accounts accounts) {
+        this.accounts = accounts;
     }
 
     @Override
@@ -38,7 +38,7 @@ public class Balance extends BusinessCollection<BalanceLine> {
 
     @Override
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
+        Set<String> keySet = new TreeSet<>();
         keySet.add(NAME1);
         keySet.add(NAME2);
         keySet.add(AMOUNT1);
@@ -82,16 +82,29 @@ public class Balance extends BusinessCollection<BalanceLine> {
     }
 
     public ArrayList<Account> getAccountsNotEmpty(ArrayList<AccountType> types) {
-        ArrayList<Account> col = new ArrayList<Account>();
+        ArrayList<Account> col = new ArrayList<>();
         for(AccountType type : types) {
             col.addAll(getAccountsNotEmpty(type));
         }
         return col;
     }
 
+
+    public ArrayList<Account> getAccounts(ArrayList<AccountType> types) {
+        ArrayList<Account> col = new ArrayList<>();
+        for(AccountType type : types) {
+            col.addAll(getAccounts(type));
+        }
+        return col;
+    }
+
+    private ArrayList<Account> getAccounts(AccountType type) {
+        return accounts.getAccounts(type);
+    }
+
     private ArrayList<Account> getAccountsNotEmpty(AccountType type) {
-        ArrayList<Account> col = new ArrayList<Account>();
-        for(Account account : accounting.getAccounts().getBusinessObjects()) {
+        ArrayList<Account> col = new ArrayList<>();
+        for(Account account : accounts.getBusinessObjects()) {
             if (account.getType() == type && account.getSaldo().compareTo(BigDecimal.ZERO) != 0) col.add(account);
         }
         return col;
@@ -112,7 +125,7 @@ public class Balance extends BusinessCollection<BalanceLine> {
             max = nrRight;
             min = nrLeft;
         }
-        ArrayList<BalanceLine> balanceLines = new ArrayList<BalanceLine>();
+        ArrayList<BalanceLine> balanceLines = new ArrayList<>();
         for(int i = 0; i < min; i++) {
             Account leftAccount = leftAccounts.get(i);
             Account rightAccount = rightAccounts.get(i);
@@ -188,12 +201,12 @@ public class Balance extends BusinessCollection<BalanceLine> {
         properties.put(Balances.RIGHTTOTALNAME, rightTotalName);
         properties.put(Balances.LEFTRESULTNAME, leftResultName);
         properties.put(Balances.RIGHTRESULTNAME, rightResultName);
-        ArrayList<String> leftTypesString = new ArrayList<String>();
+        ArrayList<String> leftTypesString = new ArrayList<>();
         for(AccountType type:leftTypes){
             leftTypesString.add(type.getName());
         }
         properties.put(Balances.LEFTTYPES, Utils.toString(leftTypesString));
-        ArrayList<String> righttTypesString = new ArrayList<String>();
+        ArrayList<String> righttTypesString = new ArrayList<>();
         for(AccountType type:rightTypes){
             righttTypesString.add(type.getName());
         }

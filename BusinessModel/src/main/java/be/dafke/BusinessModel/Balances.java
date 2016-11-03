@@ -36,17 +36,19 @@ public class Balances extends BusinessCollection<Balance> implements ChildrenNee
     public static String RELATIONS_BALANCE = "RelationsBalance";
     public static String YEAR_BALANCE = "YearBalance";
 
-    private Accounting accounting;
+    private final Accounts accounts;
+    private final AccountTypes accountTypes;
 
     public Balances(Accounting accounting) {
-        this.accounting = accounting;
+        accounts = accounting.getAccounts();
+        accountTypes = accounting.getAccountTypes();
         setName(BALANCES);
 //        addDefaultBalances(accounting.getAccountTypes());
     }
 
     @Override
     public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
+        Set<String> keySet = new TreeSet<>();
         keySet.add(NAME);
         keySet.add(LEFTNAME);
         keySet.add(RIGHTNAME);
@@ -65,12 +67,12 @@ public class Balances extends BusinessCollection<Balance> implements ChildrenNee
     }
 
     public void addDefaultBalances(AccountTypes accountTypes) {
-        ArrayList<AccountType> costs = new ArrayList<AccountType>();
-        ArrayList<AccountType> revenues = new ArrayList<AccountType>();
-        ArrayList<AccountType> credit = new ArrayList<AccountType>();
-        ArrayList<AccountType> debit = new ArrayList<AccountType>();
-        ArrayList<AccountType> active = new ArrayList<AccountType>();
-        ArrayList<AccountType> passive = new ArrayList<AccountType>();
+        ArrayList<AccountType> costs = new ArrayList<>();
+        ArrayList<AccountType> revenues = new ArrayList<>();
+        ArrayList<AccountType> credit = new ArrayList<>();
+        ArrayList<AccountType> debit = new ArrayList<>();
+        ArrayList<AccountType> active = new ArrayList<>();
+        ArrayList<AccountType> passive = new ArrayList<>();
 
         // TODO: define AccountType.Cost etc (the default types)
         costs.add(accountTypes.getBusinessObject(AccountTypes.COST));
@@ -82,38 +84,11 @@ public class Balances extends BusinessCollection<Balance> implements ChildrenNee
         passive.add(accountTypes.getBusinessObject(AccountTypes.LIABILITY));
         passive.add(accountTypes.getBusinessObject(AccountTypes.DEBIT));
 
-        Balance resultBalance = new Balance(accounting);
-        resultBalance.setName(RESULT_BALANCE);
-        resultBalance.setLeftName(getBundle("BusinessModel").getString("COSTS"));
-        resultBalance.setRightName(getBundle("BusinessModel").getString("REVENUES"));
-        resultBalance.setLeftTotalName(getBundle("BusinessModel").getString("COSTS_TOTAL"));
-        resultBalance.setRightTotalName(getBundle("BusinessModel").getString("REVENUE_TOTAL"));
-        resultBalance.setLeftResultName(getBundle("BusinessModel").getString("LOSS"));
-        resultBalance.setRightResultName(getBundle("BusinessModel").getString("GAIN"));
-        resultBalance.setLeftTypes(costs);
-        resultBalance.setRightTypes(revenues);
+        Balance resultBalance = createResultBalance(accounts,costs, revenues);
 
-        Balance relationsBalance = new Balance(accounting);
-        relationsBalance.setName(RELATIONS_BALANCE);
-        relationsBalance.setLeftName(getBundle("BusinessModel").getString("FUNDS_FROM_CUSTOMERS"));
-        relationsBalance.setRightName(getBundle("BusinessModel").getString("DEBTS_TO_SUPPLIERS"));
-        relationsBalance.setLeftTotalName(getBundle("BusinessModel").getString("FUNDS_TOTAL"));
-        relationsBalance.setRightTotalName(getBundle("BusinessModel").getString("DEBTS_TOTAL"));
-        relationsBalance.setLeftResultName(getBundle("BusinessModel").getString("FUND_REMAINING"));
-        relationsBalance.setRightResultName(getBundle("BusinessModel").getString("DEBT_REMAINING"));
-        relationsBalance.setLeftTypes(credit);
-        relationsBalance.setRightTypes(debit);
+        Balance relationsBalance = createRelationsBalance(accounts, credit, debit);
 
-        Balance yearBalance = new Balance(accounting);
-        yearBalance.setName(YEAR_BALANCE);
-        yearBalance.setLeftName(getBundle("BusinessModel").getString("ASSETS"));
-        yearBalance.setRightName(getBundle("BusinessModel").getString("LIABILITIES"));
-        yearBalance.setLeftTotalName(getBundle("BusinessModel").getString("ASSETS_FUNDS_TOTAL"));
-        yearBalance.setRightTotalName(getBundle("BusinessModel").getString("LIABILITIES_DEBTS_TOTAL"));
-        yearBalance.setLeftResultName(getBundle("BusinessModel").getString("GAIN"));
-        yearBalance.setRightResultName(getBundle("BusinessModel").getString("LOSS"));
-        yearBalance.setLeftTypes(active);
-        yearBalance.setRightTypes(passive);
+        Balance yearBalance = createClosingBalance(accounts, active, passive);
 
         try {
             addBusinessObject(resultBalance);
@@ -126,9 +101,53 @@ public class Balances extends BusinessCollection<Balance> implements ChildrenNee
         }
     }
 
+    public Balance createRelationsBalance(Accounts accounts, ArrayList<AccountType> credit, ArrayList<AccountType> debit){
+        Balance relationsBalance = new Balance(accounts);
+        relationsBalance.setName(RELATIONS_BALANCE);
+        relationsBalance.setLeftName(getBundle("BusinessModel").getString("FUNDS_FROM_CUSTOMERS"));
+        relationsBalance.setRightName(getBundle("BusinessModel").getString("DEBTS_TO_SUPPLIERS"));
+        relationsBalance.setLeftTotalName(getBundle("BusinessModel").getString("FUNDS_TOTAL"));
+        relationsBalance.setRightTotalName(getBundle("BusinessModel").getString("DEBTS_TOTAL"));
+        relationsBalance.setLeftResultName(getBundle("BusinessModel").getString("FUND_REMAINING"));
+        relationsBalance.setRightResultName(getBundle("BusinessModel").getString("DEBT_REMAINING"));
+        relationsBalance.setLeftTypes(credit);
+        relationsBalance.setRightTypes(debit);
+        return relationsBalance;
+    }
+
+
+    public Balance createClosingBalance(Accounts accounts, ArrayList<AccountType> active, ArrayList<AccountType> passive){
+        Balance yearBalance = new Balance(accounts);
+        yearBalance.setName(YEAR_BALANCE);
+        yearBalance.setLeftName(getBundle("BusinessModel").getString("ASSETS"));
+        yearBalance.setRightName(getBundle("BusinessModel").getString("LIABILITIES"));
+        yearBalance.setLeftTotalName(getBundle("BusinessModel").getString("ASSETS_FUNDS_TOTAL"));
+        yearBalance.setRightTotalName(getBundle("BusinessModel").getString("LIABILITIES_DEBTS_TOTAL"));
+        yearBalance.setLeftResultName(getBundle("BusinessModel").getString("GAIN"));
+        yearBalance.setRightResultName(getBundle("BusinessModel").getString("LOSS"));
+        yearBalance.setLeftTypes(active);
+        yearBalance.setRightTypes(passive);
+        return yearBalance;
+    }
+
+    public Balance createResultBalance(Accounts accounts, ArrayList<AccountType> costs, ArrayList<AccountType> revenues){
+
+        Balance resultBalance = new Balance(accounts);
+        resultBalance.setName(RESULT_BALANCE);
+        resultBalance.setLeftName(getBundle("BusinessModel").getString("COSTS"));
+        resultBalance.setRightName(getBundle("BusinessModel").getString("REVENUES"));
+        resultBalance.setLeftTotalName(getBundle("BusinessModel").getString("COSTS_TOTAL"));
+        resultBalance.setRightTotalName(getBundle("BusinessModel").getString("REVENUE_TOTAL"));
+        resultBalance.setLeftResultName(getBundle("BusinessModel").getString("LOSS"));
+        resultBalance.setRightResultName(getBundle("BusinessModel").getString("GAIN"));
+        resultBalance.setLeftTypes(costs);
+        resultBalance.setRightTypes(revenues);
+        return resultBalance;
+    }
+
     @Override
     public Balance createNewChild(TreeMap<String, String> properties) {
-        Balance balance = new Balance(accounting);
+        Balance balance = new Balance(accounts);
         balance.setName(properties.get(NAME));
         balance.setLeftName(properties.get(Balances.LEFTNAME));
         balance.setRightName(properties.get(Balances.RIGHTNAME));
@@ -138,16 +157,16 @@ public class Balances extends BusinessCollection<Balance> implements ChildrenNee
         balance.setRightResultName(properties.get(Balances.RIGHTRESULTNAME));
 
         ArrayList<String> leftTypesString = Utils.parseStringList(properties.get(Balances.LEFTTYPES));
-        ArrayList<AccountType> leftTypes = new ArrayList<AccountType>();
+        ArrayList<AccountType> leftTypes = new ArrayList<>();
         for(String s: leftTypesString){
-            leftTypes.add(accounting.getAccountTypes().getBusinessObject(s));
+            leftTypes.add(accountTypes.getBusinessObject(s));
         }
         balance.setLeftTypes(leftTypes);
 
         ArrayList<String> rightTypesString = Utils.parseStringList(properties.get(Balances.RIGHTTYPES));
-        ArrayList<AccountType> rightTypes = new ArrayList<AccountType>();
+        ArrayList<AccountType> rightTypes = new ArrayList<>();
         for(String s: rightTypesString){
-            rightTypes.add(accounting.getAccountTypes().getBusinessObject(s));
+            rightTypes.add(accountTypes.getBusinessObject(s));
         }
         balance.setRightTypes(rightTypes);
 
