@@ -71,7 +71,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
         zoeker.add(onder, BorderLayout.SOUTH);
 		paneelLinks.add(zoeker);
 		paneelLinks.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
-                "Projects").getString("ACCOUNTS")));
+                "Accounting").getString("ACCOUNTS")));
 		hoofdPaneel.add(paneelLinks);
 		//
 		// rechts
