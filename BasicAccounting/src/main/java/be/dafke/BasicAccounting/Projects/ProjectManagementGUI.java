@@ -165,12 +165,14 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		} else if (ae.getSource() == combo) {
 			project = (Project) combo.getSelectedItem();
 			projectAccountsModel.removeAllElements();
-			for(Account account : project.getBusinessObjects()) {
-				// System.out.println("Project: " + project + " | account" + account);
-				projectAccountsModel.addElement(account);
+			if(project!=null) {
+				for (Account account : project.getBusinessObjects()) {
+					// System.out.println("Project: " + project + " | account" + account);
+					projectAccountsModel.addElement(account);
+				}
+				ArrayList<Account> noProjectlijst = getAccountNoMatchProject(project);
+				zoeker.resetMap(noProjectlijst);
 			}
-			ArrayList<Account> noProjectlijst = getAccountNoMatchProject(project);
-			zoeker.resetMap(noProjectlijst);
 		} else if (ae.getSource()==addAccount) {
 			new NewAccountGUI(accounting.getAccounts(), accounting.getAccountTypes()).setVisible(true);
 		}
