@@ -14,7 +14,6 @@ import java.util.TreeSet;
  * Time: 11:06
  */
 public class Mortgages extends BusinessCollection<Mortgage> implements ChildrenNeedSeparateFile {
-    private AccountTypes accountTypes;
     private Accounts accounts;
 
     public static final String MORTGAGES = "Mortgages";
@@ -25,8 +24,9 @@ public class Mortgages extends BusinessCollection<Mortgage> implements ChildrenN
     public final static String CAPITAL_ACCOUNT = "CapitalAccount";
     public final static String INTREST_ACCOUNT = "IntrestAccount";
 
-    public Mortgages(){
+    public Mortgages(Accounts accounts){
         setName(MORTGAGES);
+        this.accounts = accounts;
     }
 
     @Override
@@ -36,7 +36,7 @@ public class Mortgages extends BusinessCollection<Mortgage> implements ChildrenN
 
     @Override
     public Set<String> getInitKeySet() {
-        Set<String> keySet = new TreeSet<String>();
+        Set<String> keySet = new TreeSet<>();
         keySet.add(NAME);
         keySet.add(TOTAL);
         keySet.add(NRPAYED);
@@ -65,26 +65,5 @@ public class Mortgages extends BusinessCollection<Mortgage> implements ChildrenN
             mortgage.setIntrestAccount(accounts.getBusinessObject(intrestAccount));
         }
         return mortgage;
-    }
-
-//    @Override
-//    public void readCollection() {
-//        readCollection("Mortgage",true);
-//    }
-
-    public void setAccountTypes(AccountTypes accountTypes) {
-        this.accountTypes = accountTypes;
-    }
-
-    public AccountTypes getAccountTypes() {
-        return accountTypes;
-    }
-
-    public Accounts getAccounts() {
-        return accounts;
-    }
-
-    public void setAccounts(Accounts accounts) {
-        this.accounts = accounts;
     }
 }

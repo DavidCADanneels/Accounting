@@ -31,7 +31,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     public Accounting() {
         accountTypes = new AccountTypes();
-        accounts = new Accounts(this);
+        accounts = new Accounts(accountTypes);
 
         journalTypes = new JournalTypes();
         journalTypes.addDefaultType(accountTypes);
@@ -40,9 +40,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
         balances = new Balances(accounts, accountTypes);
 
-        mortgages = new Mortgages();
-        mortgages.setAccountTypes(accountTypes);
-        mortgages.setAccounts(accounts);
+        mortgages = new Mortgages(accounts);
 
         projects = new Projects(this);
 
