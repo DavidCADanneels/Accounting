@@ -17,7 +17,7 @@ public class AccountingActions {
         String name = JOptionPane.showInputDialog(null, "Enter a name");
         try {
             Accounting accounting = new Accounting();
-            accounting.getBalances().addDefaultBalances(accounting.getAccountTypes());
+            accounting.getBalances().addDefaultBalances();
             accounting.setName(name);
             accountings.addBusinessObject(accounting);
             accountings.setCurrentObject(name);

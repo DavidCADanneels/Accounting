@@ -66,7 +66,7 @@ public class Balances extends BusinessCollection<Balance> implements ChildrenNee
         return BALANCE;
     }
 
-    public void addDefaultBalances(AccountTypes accountTypes) {
+    public void addDefaultBalances() {
         Balance resultBalance = createResultBalance(accounts);
         Balance relationsBalance = createRelationsBalance(accounts);
         Balance yearBalance = createClosingBalance(accounts);
