@@ -13,7 +13,7 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 	/**
 	 * 
 	 */
-	private final Accounts allAccounts;
+	private final Accounts allAccounts;  // needed to lookup existing accounts when adding them to the project
 	private final Accounting accounting;
 
 	@Override
