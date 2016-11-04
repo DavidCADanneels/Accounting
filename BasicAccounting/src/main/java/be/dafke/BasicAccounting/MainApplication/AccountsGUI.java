@@ -69,14 +69,14 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         debet.addActionListener(e -> {
             for(AddBookingListener addBookingListener : addBookingListeners){
                 Transaction transaction = addBookingListener.getCurrentTransaction();
-                Booking booking = TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, true);
+                Booking booking = TransactionActions.addBookingToTransaction(selectedAccount, transaction, true);
                 addBookingListener.addBookingToTransaction(booking, transaction);
             }
         });
         credit.addActionListener(e -> {
             for(AddBookingListener addBookingListener : addBookingListeners){
                 Transaction transaction = addBookingListener.getCurrentTransaction();
-                Booking booking = TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, false);
+                Booking booking = TransactionActions.addBookingToTransaction(selectedAccount, transaction, false);
                 addBookingListener.addBookingToTransaction(booking, transaction);
             }
         });
@@ -134,8 +134,14 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 		if (!lse.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
             selectedAccount = lijst.getSelectedValue();
         }
-        accountDetails.setEnabled(selectedAccount !=null);
-        boolean active = (selectedAccount !=null && accounting!=null && accounting.getJournals()!=null && accounting.getJournals().getCurrentObject()!=null);
+        boolean accountSelected = (selectedAccount != null);
+        accountDetails.setEnabled(accountSelected);
+        boolean active = false;
+        if(accountSelected) {
+            for (AddBookingListener addBookingListener : addBookingListeners) {
+                active = active || addBookingListener.getCurrentTransaction() != null;
+            }
+        }
         debet.setEnabled(active);
         credit.setEnabled(active);
 	}
