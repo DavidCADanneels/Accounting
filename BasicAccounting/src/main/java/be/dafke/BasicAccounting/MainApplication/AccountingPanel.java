@@ -14,5 +14,5 @@ public abstract class AccountingPanel extends JPanel implements AccountingPanelI
     public void setAccounting(Accounting accounting){
         this.accounting=accounting;
     }
-    public abstract void refresh();
+    public void refresh(){};
 }

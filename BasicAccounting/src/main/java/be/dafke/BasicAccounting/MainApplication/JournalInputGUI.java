@@ -44,7 +44,6 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         credittotaal = new BigDecimal(0);
 
         journalDataModel = new JournalDataModel();
-//        setJournal();
 
         table = new RefreshableTable<>(journalDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
@@ -65,6 +64,7 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         });
         JPanel onder = createInputPanel();
         add(onder, BorderLayout.SOUTH);
+        refreshData();
     }
 
     public JPanel createInputPanel(){
@@ -186,7 +186,13 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         }
     }
 
-    public void refresh() {
+//    @Override
+//    public void refresh() {
+//        // should be removed later
+//        refreshData();
+//    }
+
+    public void refreshData() {
 //        setJournal();
         debettotaal = BigDecimal.ZERO;
         credittotaal = BigDecimal.ZERO;
@@ -227,14 +233,6 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         credit.setText(credittotaal.toString());
     }
 
-//    private void setJournal(){
-//        if (accounting!=null && accounting.getJournals() != null) {
-//            setJournal(accounting.getJournals().getCurrentObject());
-//        } else {
-//            setJournal(null);
-//        }
-//    }
-
     @Override
     public void setJournal(Journal journal) {
         this.journal=journal;
@@ -245,6 +243,7 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
             journalDataModel.setTransaction(transaction);
         }
         journalDataModel.fireTableDataChanged();
+        refreshData();
     }
 
 
@@ -275,6 +274,6 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
     public void clear() {
         Transaction transaction = new Transaction(accounting==null?null:accounting.getAccounts(), getDate(), "");
         journal.setCurrentObject(transaction);
-        refresh();
+        refreshData();
     }
 }
