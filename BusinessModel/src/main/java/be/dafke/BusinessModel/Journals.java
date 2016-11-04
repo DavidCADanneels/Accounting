@@ -36,7 +36,7 @@ public class Journals extends BusinessCollection<Journal> implements ChildrenNee
         String name = properties.get(NAME);
         String abbreviation = properties.get(ABBREVIATION);
         String typeName = properties.get(TYPE);
-        Journal journal = new Journal(accounts, /*accounting.getJournals(),*/ name, abbreviation);
+        Journal journal = new Journal(accounts, name, abbreviation);
         if(typeName!=null){
             journal.setType(journalTypes.getBusinessObject(typeName));
         }

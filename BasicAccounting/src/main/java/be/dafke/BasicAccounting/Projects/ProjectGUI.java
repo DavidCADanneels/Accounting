@@ -99,11 +99,13 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
             if(project==null) project = projects.getBusinessObjects().get(0);
             combo.setSelectedItem(project);
         }
-        journalDetailsDataModel.setJournal(project.getJournal());
+        if(project!=null) {
+            journalDetailsDataModel.setJournal(project.getJournal());
+            resultBalanceDataModel.setBalance(project.getResultBalance());
+            relationsBalanceDataModel.setBalance(project.getRelationsBalance());
+        }
         journalDetailsDataModel.fireTableDataChanged();
-        resultBalanceDataModel.setBalance(project.getResultBalance());
         resultBalanceDataModel.fireTableDataChanged();
-        relationsBalanceDataModel.setBalance(project.getRelationsBalance());
         relationsBalanceDataModel.fireTableDataChanged();
     }
 

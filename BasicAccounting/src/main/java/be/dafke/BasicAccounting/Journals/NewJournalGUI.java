@@ -26,12 +26,14 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
     private Accounts accounts;
     private AccountTypes accountTypes;
     private Journals journals;
+    private JournalTypes journalTypes;
 
-    public NewJournalGUI(Accounting accounting) {
+    public NewJournalGUI(Accounts accounts, AccountTypes accountTypes, Journals journals, JournalTypes journalTypes) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"));
         this.accounts = accounts;
         this.accountTypes = accountTypes;
         this.journals = journals;
+        this.journalTypes = journalTypes;
         JPanel north = new JPanel();
 		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
 		JPanel line1 = new JPanel();
@@ -43,9 +45,9 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
         line1.add(abbr);
 		JPanel line2 = new JPanel();
 		line2.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
-		type = new JComboBox<JournalType>();
-        DefaultComboBoxModel<JournalType> model = new DefaultComboBoxModel<JournalType>();
-        for(JournalType accountType : accounting.getJournalTypes().getBusinessObjects()){
+		type = new JComboBox<>();
+        DefaultComboBoxModel<JournalType> model = new DefaultComboBoxModel<>();
+        for(JournalType accountType : journalTypes.getBusinessObjects()){
             model.addElement(accountType);
         }
         type.setModel(model);
@@ -74,7 +76,7 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
 //    @Override
 //    public void refresh(){
 //        type.removeAllItems();
-//        for(JournalType journalType : accounting.getJournalTypes().getBusinessObjects()){
+//        for(JournalType journalType : journalTypes.getBusinessObjects()){
 //            type.addItem(journalType);
 //        }
 //        super.refresh();
@@ -89,7 +91,7 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
         try {
-            Journal journal = new Journal(accounts, /*journals,*/ newName, abbreviation);
+            Journal journal = new Journal(accounts, newName, abbreviation);
             journal.setType(journalType);
             journals.addBusinessObject(journal);
             journals.setCurrentObject(journal);

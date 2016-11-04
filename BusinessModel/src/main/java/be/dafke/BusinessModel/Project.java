@@ -64,7 +64,7 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 	}
 
 	public ProjectJournal getJournal() {
-		ProjectJournal journal = new ProjectJournal(accounting, getName(), "TMP");
+		ProjectJournal journal = new ProjectJournal(accounting.getAccounts(), getName(), "TMP");
 		for(Account account:projectAccounts.getBusinessObjects()){
 			for(Movement movement :account.getBusinessObjects()){
 				Transaction transaction = movement.getBooking().getTransaction();

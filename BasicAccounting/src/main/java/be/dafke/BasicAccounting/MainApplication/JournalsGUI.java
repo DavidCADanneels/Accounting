@@ -59,7 +59,7 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 		String actionCommand = ae.getActionCommand();
 		if(accounting!=null) {
 			if (MANAGE.equals(actionCommand)) {
-				GUIActions.showJournalManager(accounting);
+				GUIActions.showJournalManager(accounting.getAccounts(),accounting.getAccountTypes(),accounting.getJournals(),accounting.getJournalTypes());
 			} else if (DETAILS.equals(actionCommand)) {
 				GUIActions.showDetails(accounting.getJournals().getCurrentObject(), accounting.getJournals());
 			} else if (SWITCH.equals(actionCommand)) {

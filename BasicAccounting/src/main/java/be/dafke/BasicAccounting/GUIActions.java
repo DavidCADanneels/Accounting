@@ -60,11 +60,11 @@ public class GUIActions {
         gui.setVisible(true);
     }
 
-    public static void showJournalManager(Accounting accounting) {
-        String key = "" + accounting.getJournals().hashCode();
+    public static void showJournalManager(Accounts accounts, AccountTypes accountTypes, Journals journals, JournalTypes journalTypes) {
+        String key = "" + journals.hashCode();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new JournalManagementGUI(accounting);
+            gui = new JournalManagementGUI(accounts, accountTypes, journals, journalTypes);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);

@@ -17,13 +17,11 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
     protected final MultiValueMap<Calendar,Transaction> transactions;
     private JournalType type;
     private Accounts accounts;
-//    private Journals journals;
     private Transaction currentTransaction;
 
-    public Journal(Accounts accounts, /*Journals journals,*/ String name, String abbreviation) {
+    public Journal(Accounts accounts, String name, String abbreviation) {
         setName(name);
         this.accounts = accounts;
-//        this.journals = journals;
         setAbbreviation(abbreviation);
         currentTransaction = new Transaction(accounts,Calendar.getInstance(),"");
         transactions = new MultiValueMap<>();
@@ -38,15 +36,9 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
         return outputMap;
     }
 
-    // not used ?
-//    public Journals getJournals() {
-//        return journals;
-//    }
-
     @Override
     public Set<String> getInitKeySet(){
         Set<String> keySet = new TreeSet<>();
-//        keySet.add(NAME);
         keySet.add(Transaction.DATE);
         keySet.add(Transaction.DESCRIPTION);
         return keySet;

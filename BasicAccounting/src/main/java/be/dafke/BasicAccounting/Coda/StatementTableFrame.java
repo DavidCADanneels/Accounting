@@ -89,7 +89,7 @@ public class StatementTableFrame extends RefreshableFrame implements ActionListe
 			String key = accounting.toString() + CounterParties.COUNTERPARTIES;
 			DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
 			if (gui == null) {
-				gui = new CounterPartyTableFrame(accounting, (CounterParties) counterParties, (Statements) statements);
+				gui = new CounterPartyTableFrame(accounting.getAccounts(), accounting.getAccountTypes(), (CounterParties) counterParties, (Statements) statements);
 				ComponentMap.addDisposableComponent(key, gui); // DETAILS
 			}
 			gui.setVisible(true);
