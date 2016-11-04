@@ -51,7 +51,6 @@ public class AccountDetails extends RefreshableFrame implements WindowListener {
 	}
 
 	public void refresh() {
-//		tabel.refresh();
 		dataModel.fireTableDataChanged();
 	}
 

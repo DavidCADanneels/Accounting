@@ -10,12 +10,8 @@ import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -69,12 +65,13 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
         try {
 //            accounting.getAccounts().addBusinessObject(mortgage);    // this is implicitely done in the next step
             mortgages.addBusinessObject(mortgage);
-            ComponentMap.refreshAllFrames();
+//            ComponentMap.refreshAllFrames();
             dispose();
         } catch (DuplicateNameException e) {
 			ActionUtils.showErrorMessage(ActionUtils.MORTGAGE_DUPLICATE_NAME);
         } catch (EmptyNameException e) {
 			ActionUtils.showErrorMessage(ActionUtils.MORTGAGE_NAME_EMPTY);
         }
+		ComponentMap.refreshAllFrames();
 	}
 }

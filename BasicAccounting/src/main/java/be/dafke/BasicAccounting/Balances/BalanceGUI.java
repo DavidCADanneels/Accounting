@@ -38,7 +38,6 @@ public class BalanceGUI extends RefreshableFrame {
 	}
 
 	public void refresh() {
-//		tabel.refresh();
 		dataModel.fireTableDataChanged();
 	}
 }
