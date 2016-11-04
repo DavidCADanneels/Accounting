@@ -150,14 +150,12 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 	}
 
     public void buttonClicked(String actionCommand){
-        if(accounting!=null) {
-            if (MANAGE.equals(actionCommand)) {
-                GUIActions.showAccountManager(accounts, accountTypes);
-            } else if (DETAILS.equals(actionCommand)) {
-                GUIActions.showDetails(lijst.getSelectedValue(), accounting.getJournals());
-            } else if (ADD.equals(actionCommand)) {
-                new NewAccountGUI(accounts, accountTypes).setVisible(true);
-            }
+        if (MANAGE.equals(actionCommand)) {
+            GUIActions.showAccountManager(accounts, accountTypes);
+        } else if (DETAILS.equals(actionCommand)) {
+            GUIActions.showDetails(lijst.getSelectedValue(), journals);
+        } else if (ADD.equals(actionCommand)) {
+            new NewAccountGUI(accounts, accountTypes).setVisible(true);
         }
     }
 
