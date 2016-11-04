@@ -11,8 +11,5 @@ import javax.swing.*;
  */
 public abstract class AccountingPanel extends JPanel implements AccountingPanelInterface{
     protected Accounting accounting;
-    public void setAccounting(Accounting accounting){
-        this.accounting=accounting;
-    }
     public void refresh(){};
 }

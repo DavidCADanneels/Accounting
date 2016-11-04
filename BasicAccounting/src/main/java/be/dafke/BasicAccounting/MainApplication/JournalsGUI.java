@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.GUIActions;
 import be.dafke.BusinessActions.SetJournalListener;
-import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -28,6 +28,9 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	private final JButton journalManagement, details;
 	private Journal selectedJournal = null;
 	private ArrayList<SetJournalListener> setJournalListeners = new ArrayList<>();
+	private Journals journals;
+	private JournalTypes journalTypes;
+	private Accounts accounts;
 
 	public JournalsGUI() {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
@@ -36,7 +39,7 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 		combo = new JComboBox<>();
         combo.addActionListener(e -> {
             Journal newJournal = (Journal) combo.getSelectedItem();
-            Journal journal = GUIActions.switchJournal(accounting.getAccounts(), selectedJournal, newJournal);
+            Journal journal = GUIActions.switchJournal(accounts, selectedJournal, newJournal);
             for (SetJournalListener setJournalListener : setJournalListeners){
 				setJournalListener.setJournal(journal);
             }
@@ -67,26 +70,33 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent ae) {
 		String actionCommand = ae.getActionCommand();
-		if(accounting!=null) {
+		if(journals!=null) {
 			if (MANAGE.equals(actionCommand)) {
-				GUIActions.showJournalManager(accounting);
+				GUIActions.showJournalManager(journals, journalTypes);
 			} else if (DETAILS.equals(actionCommand)) {
-				GUIActions.showDetails(accounting.getJournals().getCurrentObject(), accounting.getJournals());
+				GUIActions.showDetails(journals.getCurrentObject(), journals);
 			}
 		}
+	}
+
+	@Override
+	public void setAccounting(Accounting accounting) {
+		journals = accounting.getJournals();
+		journalTypes = accounting.getJournalTypes();
+		accounts = accounting.getAccounts();
 	}
 
 	public void refresh() {
         combo.removeActionListener(this);
         combo.removeAllItems();
-		if (accounting!=null && accounting.getJournals()!=null) {
-            for(Journal journal: accounting.getJournals().getBusinessObjects()){
+		if (journals!=null) {
+            for(Journal journal: journals.getBusinessObjects()){
                 combo.addItem(journal);
             }
-			combo.setSelectedItem(accounting.getJournals().getCurrentObject());
-            details.setEnabled(accounting.getJournals()!=null && accounting.getJournals().getCurrentObject()!=null);
-            combo.setEnabled(accounting.getJournals()!=null);
-            journalManagement.setEnabled(accounting.getJournals() != null);
+			combo.setSelectedItem(journals.getCurrentObject());
+            details.setEnabled(journals!=null && journals.getCurrentObject()!=null);
+            combo.setEnabled(journals!=null);
+            journalManagement.setEnabled(journals != null);
 		} else {
 			combo.setSelectedItem(null);
             details.setEnabled(false);

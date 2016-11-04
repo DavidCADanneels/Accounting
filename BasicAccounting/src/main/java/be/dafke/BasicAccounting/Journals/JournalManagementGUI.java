@@ -2,8 +2,9 @@ package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.JournalActions;
-import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.JournalTypes;
+import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
@@ -26,14 +27,16 @@ public class JournalManagementGUI extends RefreshableFrame implements ActionList
 //
 	private JButton add, delete, modifyName, modifyType, modifyAbbr;
 	private final DefaultListSelectionModel selection;
-    private Accounting accounting;
     private RefreshableTable<Journal> tabel;
     private JournalManagementTableModel dataModel;
+    private Journals journals;
+    private JournalTypes journalTypes;
 
-    public JournalManagementGUI(Accounting accounting) {
+    public JournalManagementGUI(Journals journals, JournalTypes journalTypes) {
 		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE"));
-        this.accounting = accounting;
-        dataModel = new JournalManagementTableModel(accounting.getJournals());
+        this.journals = journals;
+        this.journalTypes = journalTypes;
+        dataModel = new JournalManagementTableModel(journals);
 
         tabel = new RefreshableTable<>(dataModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -112,20 +115,20 @@ public class JournalManagementGUI extends RefreshableFrame implements ActionList
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == add) {
-            new NewJournalGUI(accounting).setVisible(true);
+            new NewJournalGUI(journalTypes).setVisible(true);
 //		}else if (e.getSource() == newType) {
 //            GUIActions.showJournalTypeManager(accounting.getAccountTypes());
         } else {
             ArrayList<Journal> journalList = getSelectedJournals();
             if(!journalList.isEmpty()){
                 if (e.getSource() == modifyName) {
-                    JournalActions.modifyNames(journalList, accounting.getJournals());
+                    JournalActions.modifyNames(journalList, journals);
                 } else if (e.getSource() == modifyAbbr) {
-                    JournalActions.modifyAbbr(journalList, accounting.getJournals());
+                    JournalActions.modifyAbbr(journalList, journals);
                 } else if (e.getSource() == modifyType) {
-                    JournalActions.modifyType(journalList, accounting.getJournalTypes());
+                    JournalActions.modifyType(journalList, journalTypes);
                 } else if (e.getSource() == delete) {
-                    JournalActions.deleteJournal(journalList, accounting.getJournals());
+                    JournalActions.deleteJournal(journalList, journals);
                 }
             }
             delete.setEnabled(false);

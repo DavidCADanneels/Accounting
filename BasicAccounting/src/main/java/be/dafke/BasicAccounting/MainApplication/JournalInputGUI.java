@@ -4,10 +4,7 @@ import be.dafke.BasicAccounting.JournalGUIPopupMenu;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessActions.SetJournalListener;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.Transaction;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Utils.Utils;
@@ -37,6 +34,7 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
     private BigDecimal debettotaal, credittotaal;
 
     private Journal journal;
+    private Accounts accounts;
 
     public JournalInputGUI() {
         setLayout(new BorderLayout());
@@ -126,8 +124,12 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
     }
 
     public void setAccounting(Accounting accounting){
-        super.setAccounting(accounting);
         popup.setAccounting(accounting);
+        if(accounting!=null){
+            accounts = accounting.getAccounts();
+        } else {
+            accounts = null;
+        }
         if (accounting!=null && accounting.getJournals() != null) {
             setJournal(accounting.getJournals().getCurrentObject());
         } else {
@@ -272,7 +274,7 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
     }
 
     public void clear() {
-        Transaction transaction = new Transaction(accounting==null?null:accounting.getAccounts(), getDate(), "");
+        Transaction transaction = new Transaction(accounts, getDate(), "");
         journal.setCurrentObject(transaction);
         refreshData();
     }

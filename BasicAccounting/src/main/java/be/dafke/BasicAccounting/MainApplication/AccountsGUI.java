@@ -41,6 +41,9 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     public final String DETAILS = "details";
     private Account selectedAccount = null;
     private ArrayList<AddBookingListener> addBookingListeners = new ArrayList<>();
+    private Accounts accounts;
+    private AccountTypes accountTypes;
+    private Journals journals;
 
 
     public AccountsGUI() {
@@ -149,11 +152,11 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     public void buttonClicked(String actionCommand){
         if(accounting!=null) {
             if (MANAGE.equals(actionCommand)) {
-                GUIActions.showAccountManager(accounting.getAccounts(), accounting.getAccountTypes());
+                GUIActions.showAccountManager(accounts, accountTypes);
             } else if (DETAILS.equals(actionCommand)) {
                 GUIActions.showDetails(lijst.getSelectedValue(), accounting.getJournals());
             } else if (ADD.equals(actionCommand)) {
-                new NewAccountGUI(accounting.getAccounts(), accounting.getAccountTypes()).setVisible(true);
+                new NewAccountGUI(accounts, accountTypes).setVisible(true);
             }
         }
     }
@@ -183,28 +186,29 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 				types.add(type);
 			}
 		}
-		if(accounting!=null) {
-            ArrayList<Account> map = accounting.getAccounts().getAccounts(types);
+		if(accounts!=null) {
+            ArrayList<Account> map = accounts.getAccounts(types);
             zoeker.resetMap(map);
         }
 	}
 
     public void setAccounting(Accounting accounting) {
-        super.setAccounting(accounting);
+        accounts = accounting.getAccounts();
+        accountTypes = accounting.getAccountTypes();
+        journals = accounting.getJournals();
 
         // could be popup.setAccounting() with constructor call in this.constructor
-        popup = new AccountsPopupMenu(accounting.getAccounts(), accounting.getAccountTypes());
+        popup = new AccountsPopupMenu(accounts, accountTypes);
 
         if(accounting!=null) {
             selectedAccountTypes.clear();
-            AccountTypes accountTypes = accounting.getAccountTypes();
             for(AccountType type : accountTypes.getBusinessObjects()){
                 selectedAccountTypes.put(type, Boolean.TRUE);
             }
             boxes.clear();
             filter.removeAll();
 
-            for (AccountType type : accounting.getAccountTypes().getBusinessObjects()) {
+            for (AccountType type : accountTypes.getBusinessObjects()) {
                 JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(type.getName().toUpperCase()));
                 checkBox.setSelected(true);
                 checkBox.setActionCommand(type.getName());
@@ -216,9 +220,9 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     }
 
 	public void refresh() {
-        boolean active = accounting != null && accounting.getAccounts() != null;
-        if(accounting!=null && accounting.getAccountTypes()!=null) {
-            for (AccountType type : accounting.getAccountTypes().getBusinessObjects()) {
+        boolean active = accounts != null;
+        if(accountTypes!=null) {
+            for (AccountType type : accountTypes.getBusinessObjects()) {
                 JCheckBox checkBox = boxes.get(type);
                 checkBox.setSelected(selectedAccountTypes.get(type));
                 checkBox.setEnabled(active);
@@ -237,7 +241,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         if(popup!=null) {
             popup.setVisible(false);
             if (clickCount == 2) {
-                if(accounting!=null) GUIActions.showDetails(selectedAccount, accounting.getJournals());
+                if(journals!=null) GUIActions.showDetails(selectedAccount, journals);
             } else if (button == 3) {
                 Point location = me.getLocationOnScreen();
                 popup.show(null, location.x, location.y);

@@ -27,7 +27,7 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
     private AccountTypes accountTypes;
     private Journals journals;
 
-    public NewJournalGUI(Accounting accounting) {
+    public NewJournalGUI(JournalTypes journalTypes) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"));
         this.accounts = accounts;
         this.accountTypes = accountTypes;
@@ -43,9 +43,9 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
         line1.add(abbr);
 		JPanel line2 = new JPanel();
 		line2.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
-		type = new JComboBox<JournalType>();
-        DefaultComboBoxModel<JournalType> model = new DefaultComboBoxModel<JournalType>();
-        for(JournalType accountType : accounting.getJournalTypes().getBusinessObjects()){
+		type = new JComboBox<>();
+        DefaultComboBoxModel<JournalType> model = new DefaultComboBoxModel<>();
+        for(JournalType accountType : journalTypes.getBusinessObjects()){
             model.addElement(accountType);
         }
         type.setModel(model);

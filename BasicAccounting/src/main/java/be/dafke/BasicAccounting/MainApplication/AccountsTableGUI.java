@@ -3,8 +3,7 @@ package be.dafke.BasicAccounting.MainApplication;
 import be.dafke.BasicAccounting.AccountsTablePopupMenu;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.PopupForTableActivator;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
@@ -26,6 +25,8 @@ public class AccountsTableGUI extends AccountingPanel implements MouseListener {
     private final AccountDataModel accountDataModel;
 
     private AccountsTablePopupMenu popup;
+    private Accounts accounts;
+//    private Journals journals;
 
     public AccountsTableGUI() {
 		setLayout(new BorderLayout());
@@ -50,8 +51,10 @@ public class AccountsTableGUI extends AccountingPanel implements MouseListener {
 	}
 
     public void setAccounting(Accounting accounting) {
-        super.setAccounting(accounting);
-        accountDataModel.setAccounts(accounting.getAccounts());
+        accounts = accounting.getAccounts();
+//        journals = accounting.getJournals();
+
+        accountDataModel.setAccounts(accounts);
 
         // could be popup.setAccounting() with constructor call in this.constructor
         popup.setAccounting(accounting);
@@ -59,8 +62,8 @@ public class AccountsTableGUI extends AccountingPanel implements MouseListener {
     }
 
 	public void refresh() {
-        boolean active = accounting != null && accounting.getAccounts() != null;
-}
+        accountDataModel.fireTableDataChanged();
+    }
 
     public void mouseClicked(MouseEvent me) {
         int clickCount = me.getClickCount();
@@ -71,7 +74,7 @@ public class AccountsTableGUI extends AccountingPanel implements MouseListener {
             // Doubleclick should already select an Object
             // Doubleclick does not trigger anything right now
 //            Account selectedAccount = table.getSelectedObject();
-//            if (accounting != null) GUIActions.showDetails(selectedAccount, accounting.getJournals());
+//            if (journals != null) GUIActions.showDetails(selectedAccount, journals);
         } else if (button == 3) {
             popup.show(null, location.x, location.y);
         } else{
