@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
-import be.dafke.BasicAccounting.MainApplication.AddBookingListener;
+import be.dafke.BusinessActions.AddBookingListener;
 import be.dafke.BusinessActions.TransactionActions;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;

@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.JournalGUIPopupMenu;
 import be.dafke.BusinessActions.ActionUtils;
+import be.dafke.BusinessActions.AddBookingListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessActions.SetJournalListener;
 import be.dafke.BusinessModel.*;
@@ -22,7 +23,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 29/04/2016.
  */
-public class JournalInputGUI extends AccountingPanel implements FocusListener, ActionListener, SetJournalListener, AddBookingListener{
+public class JournalInputGUI extends AccountingPanel implements FocusListener, ActionListener, SetJournalListener, AddBookingListener {
     private static final long serialVersionUID = 1L;
 
     private JTextField debet, credit, dag, maand, jaar, bewijs, ident;

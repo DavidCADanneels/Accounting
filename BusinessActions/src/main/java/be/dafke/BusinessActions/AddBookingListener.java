@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting.MainApplication;
+package be.dafke.BusinessActions;
 
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Transaction;
