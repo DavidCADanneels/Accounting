@@ -36,12 +36,12 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     private final JPanel filter;
     private AccountsPopupMenu popup;
 
-    public final String DEBIT = "debit";
-    public final String CREDIT = "credit";
     public final String ADD = "add";
     public final String MANAGE = "manage";
     public final String DETAILS = "details";
     private Account selectedAccount = null;
+    private ArrayList<AddBookingListener> addBookingListeners = new ArrayList<>();
+
 
     public AccountsGUI() {
 		setLayout(new BorderLayout());
@@ -62,14 +62,24 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         accountManagement.setMnemonic(KeyEvent.VK_M);
         accountDetails.setMnemonic(KeyEvent.VK_T);
         //
-        debet.setActionCommand(DEBIT);
-        credit.setActionCommand(CREDIT);
         addAccount.setActionCommand(ADD);
         accountManagement.setActionCommand(MANAGE);
         accountDetails.setActionCommand(DETAILS);
 
-        debet.addActionListener(this);
-        credit.addActionListener(this);
+        debet.addActionListener(e -> {
+            for(AddBookingListener addBookingListener : addBookingListeners){
+                Transaction transaction = addBookingListener.getCurrentTransaction();
+                Booking booking = TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, true);
+                addBookingListener.addBookingToTransaction(booking, transaction);
+            }
+        });
+        credit.addActionListener(e -> {
+            for(AddBookingListener addBookingListener : addBookingListeners){
+                Transaction transaction = addBookingListener.getCurrentTransaction();
+                Booking booking = TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, false);
+                addBookingListener.addBookingToTransaction(booking, transaction);
+            }
+        });
         addAccount.addActionListener(this);
         accountManagement.addActionListener(this);
         accountDetails.addActionListener(this);
@@ -115,6 +125,10 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         add(filter, BorderLayout.NORTH);
 	}
 
+	public void addAddBookingLister(AddBookingListener addBookingListener){
+        addBookingListeners.add(addBookingListener);
+    }
+
 	public void valueChanged(ListSelectionEvent lse) {
         selectedAccount = null;
 		if (!lse.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
@@ -134,13 +148,6 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
                 GUIActions.showDetails(lijst.getSelectedValue(), accounting.getJournals());
             } else if (ADD.equals(actionCommand)) {
                 new NewAccountGUI(accounting.getAccounts(), accounting.getAccountTypes()).setVisible(true);
-            } else {
-                Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
-                if (DEBIT.equals(actionCommand)) {
-                    TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, true);
-                } else if (CREDIT.equals(actionCommand)) {
-                    TransactionActions.addBookingToTransaction(accounting.getAccounts(), selectedAccount, transaction, false);
-                }
             }
         }
     }

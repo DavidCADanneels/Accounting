@@ -25,7 +25,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 29/04/2016.
  */
-public class JournalInputGUI extends AccountingPanel implements FocusListener, ActionListener, SetJournalListener {
+public class JournalInputGUI extends AccountingPanel implements FocusListener, ActionListener, SetJournalListener, AddBookingListener{
     private static final long serialVersionUID = 1L;
 
     private JTextField debet, credit, dag, maand, jaar, bewijs, ident;
@@ -275,5 +275,15 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         Transaction transaction = new Transaction(accounting==null?null:accounting.getAccounts(), getDate(), "");
         journal.setCurrentObject(transaction);
         refreshData();
+    }
+
+    @Override
+    public void addBookingToTransaction(Booking booking, Transaction transaction) {
+        journalDataModel.fireTableDataChanged();
+    }
+
+    @Override
+    public Transaction getCurrentTransaction() {
+        return journal.getCurrentObject();
     }
 }

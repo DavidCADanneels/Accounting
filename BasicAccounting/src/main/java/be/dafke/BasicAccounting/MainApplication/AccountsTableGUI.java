@@ -103,4 +103,8 @@ public class AccountsTableGUI extends AccountingPanel implements MouseListener {
     public void mouseExited(MouseEvent e) {
 
     }
+
+    public void addAddBookingLister(AddBookingListener addBookingListener) {
+        popup.addAddBookingListener(addBookingListener);
+    }
 }

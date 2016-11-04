@@ -26,6 +26,7 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	public static final String DETAILS = "details";
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
+	private Journal selectedJournal = null;
 	private ArrayList<SetJournalListener> setJournalListeners = new ArrayList<>();
 
 	public JournalsGUI() {
@@ -35,10 +36,11 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 		combo = new JComboBox<>();
         combo.addActionListener(e -> {
             Journal newJournal = (Journal) combo.getSelectedItem();
-            Journal journal = GUIActions.switchJournal(accounting.getAccounts(), accounting.getJournals(), newJournal);
+            Journal journal = GUIActions.switchJournal(accounting.getAccounts(), selectedJournal, newJournal);
             for (SetJournalListener setJournalListener : setJournalListeners){
 				setJournalListener.setJournal(journal);
             }
+            setJournal(newJournal);
         });
 		combo.setEnabled(false);
 		add(combo);
@@ -92,5 +94,9 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
             journalManagement.setEnabled(false);
 		}
         combo.addActionListener(this);
+	}
+
+	public void setJournal(Journal journal) {
+		selectedJournal = journal;
 	}
 }

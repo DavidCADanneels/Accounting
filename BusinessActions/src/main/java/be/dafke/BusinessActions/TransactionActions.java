@@ -39,13 +39,14 @@ public class TransactionActions {
         ComponentMap.refreshAllFrames();
     }
 
-    public static void addBookingToTransaction(Accounts accounts, Account account, Transaction transaction, boolean debit) {
+    public static Booking addBookingToTransaction(Account account, Transaction transaction, boolean debit) {
         BigDecimal amount = askAmount(transaction, account, debit);
         if (amount != null) {
             Booking booking = new Booking(account, amount, debit);
             transaction.addBusinessObject(booking);
-            ComponentMap.refreshAllFrames();
+            return booking;
         }
+        return null;
     }
 
     public static BigDecimal askAmount(Transaction transaction, Account account, boolean debit){

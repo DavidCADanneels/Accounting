@@ -36,12 +36,17 @@ public class Main extends BasicAccountingMain {
         journalsGUI.addSetJournalListener(journalReadGUI);
         journalsGUI.addSetJournalListener(journalInputGUI);
 
+        AccountsGUI accountsPanel = new AccountsGUI();
+        accountsPanel.addAddBookingLister(journalInputGUI);
+
+        AccountsTableGUI accountsGUIPanel = new AccountsTableGUI();
+        accountsGUIPanel.addAddBookingLister(journalInputGUI);
 
         AccountingMultiPanel links = new AccountingMultiPanel();
         links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
 //        links.add(new AccountsGUI());
-        links.add(new AccountsGUI());
-        links.add(new AccountsTableGUI());
+        links.add(accountsPanel);
+        links.add(accountsGUIPanel);
         links.add(new MortgagesGUI());
         links.add(journalsGUI);
         links.add(createSaveButton());

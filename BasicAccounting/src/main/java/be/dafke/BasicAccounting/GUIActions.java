@@ -90,11 +90,10 @@ public class GUIActions {
         return gui;
     }
 
-    public static Journal switchJournal(Accounts accounts, Journals journals, Journal newJournal) {
-        Journal oldJournal = journals.getCurrentObject();
+    public static Journal switchJournal(Accounts accounts, Journal oldJournal, Journal newJournal) {
         Journal journal;
         if(newJournal!=null && oldJournal!=null){
-            journal = checkTransfer(accounts, journals, oldJournal, newJournal);
+            journal = checkTransfer(accounts, oldJournal, newJournal);
         } else {
             journal = newJournal;
         }
@@ -103,7 +102,7 @@ public class GUIActions {
 //        ComponentMap.refreshAllFrames();
     }
 
-    private static Journal checkTransfer(Accounts accounts, Journals journals, Journal oldJournal, Journal newJournal){
+    private static Journal checkTransfer(Accounts accounts, Journal oldJournal, Journal newJournal){
         Transaction oldTransaction = oldJournal.getCurrentObject();
         Transaction newTransaction = newJournal.getCurrentObject();
         if(oldTransaction!=null && !oldTransaction.getBusinessObjects().isEmpty()){
