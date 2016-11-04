@@ -28,18 +28,27 @@ public class Main extends BasicAccountingMain {
     }
 
     public static AccountingMultiPanel createContentPanel(){
+
+        JournalGUI journalReadGUI = new JournalGUI();
+        JournalInputGUI journalInputGUI = new JournalInputGUI();
+
+        JournalsGUI journalsGUI = new JournalsGUI();
+        journalsGUI.addSetJournalListener(journalReadGUI);
+        journalsGUI.addSetJournalListener(journalInputGUI);
+
+
         AccountingMultiPanel links = new AccountingMultiPanel();
         links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
 //        links.add(new AccountsGUI());
         links.add(new AccountsGUI());
         links.add(new AccountsTableGUI());
         links.add(new MortgagesGUI());
-        links.add(new JournalsGUI());
+        links.add(journalsGUI);
         links.add(createSaveButton());
 
         AccountingMultiPanel accountingMultiPanel = new AccountingMultiPanel();
         accountingMultiPanel.setLayout(new BorderLayout());
-        JSplitPane splitPane = new AccountingSplitPanel(new JournalGUI(), new JournalInputGUI(), JSplitPane.VERTICAL_SPLIT);
+        JSplitPane splitPane = new AccountingSplitPanel(journalReadGUI, journalInputGUI, JSplitPane.VERTICAL_SPLIT);
 //        splitPane.add(new JournalGUI(accounting), JSplitPane.TOP);
 //        splitPane.add(new JournalInputGUI(), JSplitPane.BOTTOM);
         accountingMultiPanel.add(splitPane, BorderLayout.CENTER);

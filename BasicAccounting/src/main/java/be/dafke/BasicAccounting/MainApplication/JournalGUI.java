@@ -3,13 +3,17 @@ package be.dafke.BasicAccounting.MainApplication;
 import be.dafke.BasicAccounting.DetailsPopupMenu;
 import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
 import be.dafke.BusinessActions.PopupForTableActivator;
+import be.dafke.BusinessActions.SetJournalListener;
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Booking;
+import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class JournalGUI extends AccountingPanel {
+public class JournalGUI extends AccountingPanel implements SetJournalListener {
     /**
 	 * 
 	 */
@@ -37,16 +41,25 @@ public class JournalGUI extends AccountingPanel {
 	}
 
     public void refresh() {
+        setAccounting(accounting);
+    }
+
+    @Override
+    public void setAccounting(Accounting accounting){
         if(accounting!=null){
             popup.setJournals(accounting.getJournals());
-            if(accounting.getJournals()!=null) {
-                journalDetailsDataModel.setJournal(accounting.getJournals().getCurrentObject());
-//            } else {
-//                journalDetailsDataModel.setJournal(null);
+            Journals journals = accounting.getJournals();
+            if(journals !=null) {
+                setJournal(journals.getCurrentObject());
+            } else {
+                setJournal(null);
             }
-//        } else{
-//            journalDetailsDataModel.setJournal(null);
-//            popup.setJournals(null);
-        }        journalDetailsDataModel.fireTableDataChanged();
+        }
+    }
+
+    @Override
+    public void setJournal(Journal journal) {
+        journalDetailsDataModel.setJournal(journal);
+        journalDetailsDataModel.fireTableDataChanged();
     }
 }

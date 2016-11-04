@@ -3,7 +3,11 @@ package be.dafke.BasicAccounting.MainApplication;
 import be.dafke.BasicAccounting.JournalGUIPopupMenu;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.PopupForTableActivator;
-import be.dafke.BusinessModel.*;
+import be.dafke.BusinessActions.SetJournalListener;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Booking;
+import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.Transaction;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Utils.Utils;
@@ -21,7 +25,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 29/04/2016.
  */
-public class JournalInputGUI extends AccountingPanel implements FocusListener, ActionListener{
+public class JournalInputGUI extends AccountingPanel implements FocusListener, ActionListener, SetJournalListener {
     private static final long serialVersionUID = 1L;
 
     private JTextField debet, credit, dag, maand, jaar, bewijs, ident;
@@ -40,7 +44,7 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         credittotaal = new BigDecimal(0);
 
         journalDataModel = new JournalDataModel();
-        setJournal();
+//        setJournal();
 
         table = new RefreshableTable<>(journalDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
@@ -183,7 +187,7 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
     }
 
     public void refresh() {
-        setJournal();
+//        setJournal();
         debettotaal = BigDecimal.ZERO;
         credittotaal = BigDecimal.ZERO;
         boolean okEnabled = false;
@@ -223,15 +227,16 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         credit.setText(credittotaal.toString());
     }
 
-    private void setJournal(){
-        if (accounting!=null && accounting.getJournals() != null) {
-            setJournal(accounting.getJournals().getCurrentObject());
-        } else {
-            setJournal(null);
-        }
-    }
+//    private void setJournal(){
+//        if (accounting!=null && accounting.getJournals() != null) {
+//            setJournal(accounting.getJournals().getCurrentObject());
+//        } else {
+//            setJournal(null);
+//        }
+//    }
 
-    private void setJournal(Journal journal) {
+    @Override
+    public void setJournal(Journal journal) {
         this.journal=journal;
         if(journal==null){
             journalDataModel.setTransaction(null);

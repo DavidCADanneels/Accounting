@@ -90,17 +90,20 @@ public class GUIActions {
         return gui;
     }
 
-    public static void switchJournal(Accounts accounts, Journals journals, Journal newJournal) {
+    public static Journal switchJournal(Accounts accounts, Journals journals, Journal newJournal) {
         Journal oldJournal = journals.getCurrentObject();
+        Journal journal;
         if(newJournal!=null && oldJournal!=null){
-            checkTransfer(accounts, journals, oldJournal, newJournal);
+            journal = checkTransfer(accounts, journals, oldJournal, newJournal);
         } else {
-            journals.setCurrentObject(newJournal);
+            journal = newJournal;
         }
-        ComponentMap.refreshAllFrames();
+        return journal;
+//        journals.setCurrentObject(journal);
+//        ComponentMap.refreshAllFrames();
     }
 
-    private static void checkTransfer(Accounts accounts, Journals journals, Journal oldJournal, Journal newJournal){
+    private static Journal checkTransfer(Accounts accounts, Journals journals, Journal oldJournal, Journal newJournal){
         Transaction oldTransaction = oldJournal.getCurrentObject();
         Transaction newTransaction = newJournal.getCurrentObject();
         if(oldTransaction!=null && !oldTransaction.getBusinessObjects().isEmpty()){
@@ -113,14 +116,14 @@ public class GUIActions {
             if(answer == JOptionPane.YES_OPTION){
                 newJournal.setCurrentObject(oldTransaction);
                 oldJournal.setCurrentObject(new Transaction(accounts, Calendar.getInstance(), ""));
-                journals.setCurrentObject(newJournal);
+                return newJournal;
             } else if(answer == JOptionPane.NO_OPTION){
-                journals.setCurrentObject(newJournal);
+                return newJournal;
             } else {
-                journals.setCurrentObject(oldJournal);
+                return oldJournal;
             }
         } else {
-            journals.setCurrentObject(newJournal);
+            return newJournal;
         }
     }
 }

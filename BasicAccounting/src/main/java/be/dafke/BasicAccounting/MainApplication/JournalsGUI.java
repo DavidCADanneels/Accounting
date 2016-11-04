@@ -1,17 +1,16 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.GUIActions;
-import be.dafke.BusinessModel.*;
+import be.dafke.BusinessActions.SetJournalListener;
+import be.dafke.BusinessModel.Journal;
 
-import javax.swing.BoxLayout;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -23,19 +22,24 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final String SWITCH = "SWITCH";
 	public static final String MANAGE = "manage";
 	public static final String DETAILS = "details";
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
+	private ArrayList<SetJournalListener> setJournalListeners = new ArrayList<>();
 
 	public JournalsGUI() {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		combo = new JComboBox<>();
-        combo.setActionCommand(SWITCH);
-        combo.addActionListener(this);
+        combo.addActionListener(e -> {
+            Journal newJournal = (Journal) combo.getSelectedItem();
+            Journal journal = GUIActions.switchJournal(accounting.getAccounts(), accounting.getJournals(), newJournal);
+            for (SetJournalListener setJournalListener : setJournalListeners){
+				setJournalListener.setJournal(journal);
+            }
+        });
 		combo.setEnabled(false);
 		add(combo);
 
@@ -55,6 +59,10 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 		add(paneel);
 	}
 
+	public void addSetJournalListener(SetJournalListener dataChangeListener){
+		setJournalListeners.add(dataChangeListener);
+	}
+
 	public void actionPerformed(ActionEvent ae) {
 		String actionCommand = ae.getActionCommand();
 		if(accounting!=null) {
@@ -62,9 +70,6 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 				GUIActions.showJournalManager(accounting);
 			} else if (DETAILS.equals(actionCommand)) {
 				GUIActions.showDetails(accounting.getJournals().getCurrentObject(), accounting.getJournals());
-			} else if (SWITCH.equals(actionCommand)) {
-				Journal newJournal = (Journal) combo.getSelectedItem();
-				GUIActions.switchJournal(accounting.getAccounts(), accounting.getJournals(), newJournal);
 			}
 		}
 	}
