@@ -40,21 +40,14 @@ public class JournalGUI extends AccountingPanel implements SetJournalListener {
 		add(center, BorderLayout.CENTER);
 	}
 
-//    public void refresh() {
-//        setAccounting(accounting);
-//    }
-
     @Override
     public void setAccounting(Accounting accounting){
-        if(accounting!=null){
-            popup.setJournals(accounting.getJournals());
-            Journals journals = accounting.getJournals();
-            if(journals !=null) {
-                setJournal(journals.getCurrentObject());
-            } else {
-                setJournal(null);
-            }
-        }
+        setJournals(accounting==null?null:accounting.getJournals());
+    }
+
+    public void setJournals(Journals journals){
+        popup.setJournals(journals);
+        setJournal(journals==null?null:journals.getCurrentObject());
     }
 
     @Override
