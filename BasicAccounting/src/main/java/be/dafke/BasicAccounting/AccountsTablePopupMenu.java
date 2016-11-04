@@ -3,10 +3,7 @@ package be.dafke.BasicAccounting;
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
 import be.dafke.BasicAccounting.MainApplication.AddBookingListener;
 import be.dafke.BusinessActions.TransactionActions;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Transaction;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
@@ -27,7 +24,9 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
     private final RefreshableTable<Account> table;
     private ArrayList<AddBookingListener> addBookingListeners = new ArrayList<>();
 
-    private Accounting accounting;
+    private Accounts accounts;
+    private AccountTypes accountTypes;
+    private Journals journals;
 
     public AccountsTablePopupMenu(RefreshableTable<Account> table) {
         this.table = table;
@@ -80,22 +79,22 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
     }
 
     public void setAccounting(Accounting accounting) {
-        this.accounting = accounting;
+        accounts = accounting.getAccounts();
+        accountTypes = accounting.getAccountTypes();
+        journals = accounting.getJournals();
     }
 
     public void actionPerformed(ActionEvent ae) {
         String actionCommand = ae.getActionCommand();
-        if(accounting!=null) {
-            ArrayList<Account> selectedAccounts = table.getSelectedObjects();
-            if (MANAGE.equals(actionCommand)) {
-                GUIActions.showAccountManager(accounting.getAccounts(), accounting.getAccountTypes());
-            } else if (DETAILS.equals(actionCommand)) {
-                for(Account selectedAccount:selectedAccounts) {
-                    GUIActions.showDetails(selectedAccount, accounting.getJournals());
-                }
-            } else if (ADD.equals(actionCommand)) {
-                new NewAccountGUI(accounting.getAccounts(), accounting.getAccountTypes()).setVisible(true);
+        ArrayList<Account> selectedAccounts = table.getSelectedObjects();
+        if (MANAGE.equals(actionCommand)) {
+            GUIActions.showAccountManager(accounts, accountTypes);
+        } else if (DETAILS.equals(actionCommand)) {
+            for(Account selectedAccount:selectedAccounts) {
+                GUIActions.showDetails(selectedAccount, journals);
             }
+        } else if (ADD.equals(actionCommand)) {
+            new NewAccountGUI(accounts, accountTypes).setVisible(true);
         }
         setVisible(false);
     }
