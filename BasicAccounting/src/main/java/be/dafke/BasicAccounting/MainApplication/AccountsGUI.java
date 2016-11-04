@@ -3,7 +3,7 @@ package be.dafke.BasicAccounting.MainApplication;
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
 import be.dafke.BasicAccounting.AccountsPopupMenu;
 import be.dafke.BasicAccounting.GUIActions;
-import be.dafke.BusinessActions.AddBookingListener;
+import be.dafke.BusinessActions.JournalDataChangedListener;
 import be.dafke.BusinessActions.TransactionActions;
 import be.dafke.BusinessModel.*;
 import be.dafke.Utils.AlphabeticListModel;
@@ -41,7 +41,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
     public final String MANAGE = "manage";
     public final String DETAILS = "details";
     private Account selectedAccount = null;
-    private ArrayList<AddBookingListener> addBookingListeners = new ArrayList<>();
+    private JournalDataChangedListener journalDataChangedListener;
     private Accounts accounts;
     private AccountTypes accountTypes;
     private Journals journals;
@@ -71,18 +71,14 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         accountDetails.setActionCommand(DETAILS);
 
         debet.addActionListener(e -> {
-            for(AddBookingListener addBookingListener : addBookingListeners){
-                Transaction transaction = addBookingListener.getCurrentTransaction();
-                Booking booking = TransactionActions.addBookingToTransaction(selectedAccount, transaction, true);
-                addBookingListener.addBookingToTransaction(booking, transaction);
-            }
+            Transaction transaction = journalDataChangedListener.getTransaction();
+            TransactionActions.addBookingToTransaction(selectedAccount, transaction, true);
+            journalDataChangedListener.fireJournalDataChanged();
         });
         credit.addActionListener(e -> {
-            for(AddBookingListener addBookingListener : addBookingListeners){
-                Transaction transaction = addBookingListener.getCurrentTransaction();
-                Booking booking = TransactionActions.addBookingToTransaction(selectedAccount, transaction, false);
-                addBookingListener.addBookingToTransaction(booking, transaction);
-            }
+            Transaction transaction = journalDataChangedListener.getTransaction();
+            TransactionActions.addBookingToTransaction(selectedAccount, transaction, false);
+            journalDataChangedListener.fireJournalDataChanged();
         });
         addAccount.addActionListener(this);
         accountManagement.addActionListener(this);
@@ -129,8 +125,8 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         add(filter, BorderLayout.NORTH);
 	}
 
-	public void addAddBookingLister(AddBookingListener addBookingListener){
-        addBookingListeners.add(addBookingListener);
+	public void setJournalDataChangedListener(JournalDataChangedListener journalDataChangedListener){
+        this.journalDataChangedListener = journalDataChangedListener;
     }
 
 	public void valueChanged(ListSelectionEvent lse) {
@@ -140,12 +136,7 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         }
         boolean accountSelected = (selectedAccount != null);
         accountDetails.setEnabled(accountSelected);
-        boolean active = false;
-        if(accountSelected) {
-            for (AddBookingListener addBookingListener : addBookingListeners) {
-                active = active || addBookingListener.getCurrentTransaction() != null;
-            }
-        }
+        boolean active = accountSelected && (journalDataChangedListener.getTransaction() != null);
         debet.setEnabled(active);
         credit.setEnabled(active);
 	}

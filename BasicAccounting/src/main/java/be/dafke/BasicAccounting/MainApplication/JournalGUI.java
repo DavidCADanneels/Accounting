@@ -40,9 +40,9 @@ public class JournalGUI extends AccountingPanel implements SetJournalListener {
 		add(center, BorderLayout.CENTER);
 	}
 
-    public void refresh() {
-        setAccounting(accounting);
-    }
+//    public void refresh() {
+//        setAccounting(accounting);
+//    }
 
     @Override
     public void setAccounting(Accounting accounting){

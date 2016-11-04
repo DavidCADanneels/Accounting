@@ -25,14 +25,11 @@ public class AccountingSplitPanel extends JSplitPane implements AccountingPanelI
         }
     }
 
-    public void refresh(){
-        panel1.refresh();
-        panel2.refresh();
-    }
-
     public void setAccounting(Accounting accounting){
         panel1.setAccounting(accounting);
         panel2.setAccounting(accounting);
-        refresh();
     }
+
+    @Override
+    public void refresh() {}
 }

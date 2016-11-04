@@ -18,14 +18,16 @@ public class CounterPartyTableFrame extends RefreshableFrame implements MouseLis
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final Accounting accounting;
     private final Statements statements;
+    private final Accounts accounts;
+    private final AccountTypes accountTypes;
     private RefreshableTable<CounterParty> tabel;
     private CounterPartyDataModel dataModel;
 
     public CounterPartyTableFrame(Accounting accounting, CounterParties counterParties, Statements statements) {
 		super("Counterparties");
-        this.accounting = accounting;
+        accounts = accounting.getAccounts();
+        accountTypes = accounting.getAccountTypes();
         this.statements = statements;
 
         dataModel = new CounterPartyDataModel(counterParties);
@@ -88,7 +90,7 @@ public class CounterPartyTableFrame extends RefreshableFrame implements MouseLis
                     }
                 }
 			} else if (col == 5) {
-                AccountSelector sel = new AccountSelector(accounting);
+                AccountSelector sel = new AccountSelector(accounts, accountTypes);
                 sel.setVisible(true);
                 Account account = sel.getSelection();
 

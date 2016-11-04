@@ -2,15 +2,11 @@ package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
 import be.dafke.BusinessActions.TransactionActions;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Transaction;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
 
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -24,7 +20,9 @@ import static java.util.ResourceBundle.getBundle;
 public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
     private final JMenuItem delete, edit, change, debitCredit, details;
     private final RefreshableTable<Booking> table;
-    private Accounting accounting;
+    private Accounts accounts;
+    private Journals journals;
+    private AccountTypes accountTypes;
 
     public JournalGUIPopupMenu(RefreshableTable<Booking> table) {
         this.table = table;
@@ -46,7 +44,9 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
     }
 
     public void setAccounting(Accounting accounting){
-        this.accounting = accounting;
+        accounts = accounting.getAccounts();
+        journals = accounting.getJournals();
+        accountTypes = accounting.getAccountTypes();
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -76,7 +76,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
                 booking.setDebit(!booking.isDebit());
                 transaction.addBusinessObject(booking);
             } else if (source == change) {
-                AccountSelector sel = new AccountSelector(accounting);
+                AccountSelector sel = new AccountSelector(accounts, accountTypes);
                 ComponentMap.addRefreshableComponent(sel);
                 sel.setVisible(true);
                 Account account = sel.getSelection();
@@ -85,7 +85,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
                 }
             } else if (source == details) {
                 Account account = booking.getAccount();
-                GUIActions.showDetails(account, accounting.getJournals());
+                GUIActions.showDetails(account, journals);
             }
             ComponentMap.refreshAllFrames();
         }

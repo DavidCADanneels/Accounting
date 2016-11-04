@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
-import be.dafke.BusinessActions.AddBookingListener;
+import be.dafke.BusinessActions.JournalDataChangedListener;
 import be.dafke.BusinessActions.TransactionActions;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
@@ -22,7 +22,7 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
     public final String MANAGE = "manage";
     public final String DETAILS = "details";
     private final RefreshableTable<Account> table;
-    private ArrayList<AddBookingListener> addBookingListeners = new ArrayList<>();
+    private ArrayList<JournalDataChangedListener> journalDataChangedListeners = new ArrayList<>();
 
     private Accounts accounts;
     private AccountTypes accountTypes;
@@ -42,21 +42,21 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
         details.setActionCommand(DETAILS);
 
         debit.addActionListener(e -> {
-            for(AddBookingListener addBookingListener : addBookingListeners){
+            for(JournalDataChangedListener journalDataChangedListener : journalDataChangedListeners){
+                Transaction transaction = journalDataChangedListener.getTransaction();
                 for (Account selectedAccount : table.getSelectedObjects()) {
-                    Transaction transaction = addBookingListener.getCurrentTransaction();
-                    Booking booking = TransactionActions.addBookingToTransaction(selectedAccount, transaction, true);
-                    addBookingListener.addBookingToTransaction(booking, transaction);
+                    TransactionActions.addBookingToTransaction(selectedAccount, transaction, true);
                 }
+                journalDataChangedListener.fireJournalDataChanged();
             }
         });
         credit.addActionListener(e -> {
-            for(AddBookingListener addBookingListener : addBookingListeners){
+            for(JournalDataChangedListener journalDataChangedListener : journalDataChangedListeners){
                 for (Account selectedAccount : table.getSelectedObjects()) {
-                    Transaction transaction = addBookingListener.getCurrentTransaction();
-                    Booking booking = TransactionActions.addBookingToTransaction(selectedAccount, transaction, false);
-                    addBookingListener.addBookingToTransaction(booking, transaction);
+                    Transaction transaction = journalDataChangedListener.getTransaction();
+                    TransactionActions.addBookingToTransaction(selectedAccount, transaction, false);
                 }
+                journalDataChangedListener.fireJournalDataChanged();
             }
         });
 
@@ -74,8 +74,8 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
         details.addActionListener(this);
     }
 
-    public void addAddBookingListener(AddBookingListener addBookingListener){
-        addBookingListeners.add(addBookingListener);
+    public void addAddBookingListener(JournalDataChangedListener journalDataChangedListener){
+        journalDataChangedListeners.add(journalDataChangedListener);
     }
 
     public void setAccounting(Accounting accounting) {

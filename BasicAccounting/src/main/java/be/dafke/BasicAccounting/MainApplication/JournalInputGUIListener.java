@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.JournalGUIPopupMenu;
 import be.dafke.BusinessActions.ActionUtils;
-import be.dafke.BusinessActions.AddBookingListener;
+import be.dafke.BusinessActions.JournalDataChangedListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessActions.SetJournalListener;
 import be.dafke.BusinessModel.*;
@@ -23,7 +23,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 29/04/2016.
  */
-public class JournalInputGUI extends AccountingPanel implements FocusListener, ActionListener, SetJournalListener, AddBookingListener {
+public class JournalInputGUIListener extends AccountingPanel implements FocusListener, ActionListener, SetJournalListener, JournalDataChangedListener {
     private static final long serialVersionUID = 1L;
 
     private JTextField debet, credit, dag, maand, jaar, bewijs, ident;
@@ -37,7 +37,7 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
     private Journal journal;
     private Accounts accounts;
 
-    public JournalInputGUI() {
+    public JournalInputGUIListener() {
         setLayout(new BorderLayout());
         debettotaal = new BigDecimal(0);
         credittotaal = new BigDecimal(0);
@@ -124,20 +124,6 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         return mainPanel;
     }
 
-    public void setAccounting(Accounting accounting){
-        popup.setAccounting(accounting);
-        if(accounting!=null){
-            accounts = accounting.getAccounts();
-        } else {
-            accounts = null;
-        }
-        if (accounting!=null && accounting.getJournals() != null) {
-            setJournal(accounting.getJournals().getCurrentObject());
-        } else {
-            setJournal(null);
-        }
-    }
-
     private void setDate(Calendar date){
         if (date == null){
             dag.setText("");
@@ -189,14 +175,7 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         }
     }
 
-//    @Override
-//    public void refresh() {
-//        // should be removed later
-//        refreshData();
-//    }
-
     public void refreshData() {
-//        setJournal();
         debettotaal = BigDecimal.ZERO;
         credittotaal = BigDecimal.ZERO;
         boolean okEnabled = false;
@@ -236,19 +215,30 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
         credit.setText(credittotaal.toString());
     }
 
+    public void setAccounting(Accounting accounting){
+        popup.setAccounting(accounting);
+        accounts = (accounting==null)?null:accounting.getAccounts();
+        setJournals(accounting==null?null:accounting.getJournals());
+    }
+
+    public void setJournals(Journals journals){
+        setJournal(journals==null?null:journals.getCurrentObject());
+    }
+
     @Override
     public void setJournal(Journal journal) {
         this.journal=journal;
-        if(journal==null){
-            journalDataModel.setTransaction(null);
-        } else {
-            Transaction transaction = journal.getCurrentObject();
-            journalDataModel.setTransaction(transaction);
-        }
-        journalDataModel.fireTableDataChanged();
+        setTransaction(journal==null?null:journal.getCurrentObject());
         refreshData();
     }
 
+    public void setTransaction(Transaction transaction){
+        journalDataModel.setTransaction(transaction);
+        journalDataModel.fireTableDataChanged();
+
+        debettotaal = (transaction==null)?BigDecimal.ZERO:transaction.getDebetTotaal();//.setScale(2);
+        credittotaal = (transaction==null)?BigDecimal.ZERO:transaction.getCreditTotaal();//.setScale(2);
+    }
 
     private Calendar getDate(){
         return Utils.toCalendar(dag.getText(),maand.getText(),jaar.getText());
@@ -281,12 +271,12 @@ public class JournalInputGUI extends AccountingPanel implements FocusListener, A
     }
 
     @Override
-    public void addBookingToTransaction(Booking booking, Transaction transaction) {
+    public void fireJournalDataChanged() {
         journalDataModel.fireTableDataChanged();
     }
 
     @Override
-    public Transaction getCurrentTransaction() {
+    public Transaction getTransaction() {
         return journal.getCurrentObject();
     }
 }

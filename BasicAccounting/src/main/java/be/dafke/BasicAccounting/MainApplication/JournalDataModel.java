@@ -94,4 +94,9 @@ public class JournalDataModel extends RefreshableTableModel<Booking> {
 	public int getRow(Booking booking) {
 		return 0;
 	}
+
+//	@Override
+//	public Transaction getTransaction() {
+//		return transaction;
+//	}
 }

@@ -62,7 +62,7 @@ public class BasicAccountingMain {
 
         AccountingMultiPanel accountingMultiPanel = new AccountingMultiPanel();
         accountingMultiPanel.setLayout(new BorderLayout());
-        accountingMultiPanel.add(new JournalInputGUI(), BorderLayout.CENTER);
+        accountingMultiPanel.add(new JournalInputGUIListener(), BorderLayout.CENTER);
         accountingMultiPanel.add(links, BorderLayout.WEST);
         return accountingMultiPanel;
     }

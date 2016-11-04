@@ -1,7 +1,8 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.RefreshableDialog;
 
 import javax.swing.*;
@@ -18,18 +19,18 @@ public class AccountSelector extends RefreshableDialog implements ActionListener
 	private Account account;
 	private final JComboBox<Account> combo;
     private final DefaultComboBoxModel<Account> model;
-	private final Accounting accounting;
+	private final Accounts accounts;
 
-	public AccountSelector(final Accounting accounting) {
+	public AccountSelector(final Accounts accounts, AccountTypes accountTypes) {
         super("Select Account");
-		this.accounting = accounting;
-        model = new DefaultComboBoxModel<Account>();
-		combo = new JComboBox<Account>(model);
+		this.accounts = accounts;
+        model = new DefaultComboBoxModel<>();
+		combo = new JComboBox<>(model);
 		combo.addActionListener(this);
 		create = new JButton("Add account(s) ...");
 		create.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				new NewAccountGUI(accounting.getAccounts(), accounting.getAccountTypes()).setVisible(true);
+				new NewAccountGUI(accounts, accountTypes).setVisible(true);
 			}
 		});
 		ok = new JButton("Ok (Close popup)");
@@ -59,7 +60,7 @@ public class AccountSelector extends RefreshableDialog implements ActionListener
 
     public void refresh() {
         model.removeAllElements();
-		accounting.getAccounts().getBusinessObjects().forEach(model::addElement);
+		accounts.getBusinessObjects().forEach(model::addElement);
         invalidate();
         combo.invalidate();
     }

@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.AccountsTablePopupMenu;
 import be.dafke.BusinessActions.ActionUtils;
-import be.dafke.BusinessActions.AddBookingListener;
+import be.dafke.BusinessActions.JournalDataChangedListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
@@ -108,7 +108,7 @@ public class AccountsTableGUI extends AccountingPanel implements MouseListener {
 
     }
 
-    public void addAddBookingLister(AddBookingListener addBookingListener) {
-        popup.addAddBookingListener(addBookingListener);
+    public void addAddBookingLister(JournalDataChangedListener journalDataChangedListener) {
+        popup.addAddBookingListener(journalDataChangedListener);
     }
 }

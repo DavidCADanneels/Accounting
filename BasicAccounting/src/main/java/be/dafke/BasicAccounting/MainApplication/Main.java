@@ -19,7 +19,7 @@ public class Main extends BasicAccountingMain {
         mainFrame.addWindowListener(new SaveAllActionListener(accountings));
 
         /*
-        launchFrame("input",new JournalInputGUI(),null);
+        launchFrame("input",new JournalInputGUIListener(),null);
         launchFrame("input",new JournalGUI(accountings.getCurrentObject()),null);
         launchFrame("journals",new JournalsGUI(),null);
         launchFrame("acc1",new AccountsGUI(),null);
@@ -30,14 +30,14 @@ public class Main extends BasicAccountingMain {
     public static AccountingMultiPanel createContentPanel(){
 
         JournalGUI journalReadGUI = new JournalGUI();
-        JournalInputGUI journalInputGUI = new JournalInputGUI();
+        JournalInputGUIListener journalInputGUI = new JournalInputGUIListener();
 
         JournalsGUI journalsGUI = new JournalsGUI();
         journalsGUI.addSetJournalListener(journalReadGUI);
         journalsGUI.addSetJournalListener(journalInputGUI);
 
         AccountsGUI accountsPanel = new AccountsGUI();
-        accountsPanel.addAddBookingLister(journalInputGUI);
+        accountsPanel.setJournalDataChangedListener(journalInputGUI);
 
         AccountsTableGUI accountsGUIPanel = new AccountsTableGUI();
         accountsGUIPanel.addAddBookingLister(journalInputGUI);
@@ -55,7 +55,7 @@ public class Main extends BasicAccountingMain {
         accountingMultiPanel.setLayout(new BorderLayout());
         JSplitPane splitPane = new AccountingSplitPanel(journalReadGUI, journalInputGUI, JSplitPane.VERTICAL_SPLIT);
 //        splitPane.add(new JournalGUI(accounting), JSplitPane.TOP);
-//        splitPane.add(new JournalInputGUI(), JSplitPane.BOTTOM);
+//        splitPane.add(new JournalInputGUIListener(), JSplitPane.BOTTOM);
         accountingMultiPanel.add(splitPane, BorderLayout.CENTER);
         accountingMultiPanel.add(links, BorderLayout.WEST);
         return accountingMultiPanel;
