@@ -1,13 +1,10 @@
 package be.dafke.BasicAccounting;
 
-import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BasicAccounting.Accounts.AccountManagementGUI;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
 import be.dafke.BasicAccounting.Balances.TestBalance;
-import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.Journals.JournalManagementGUI;
 import be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI;
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
@@ -27,10 +24,6 @@ public class GUIActions {
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
-    }
-
-    public static AccountDetails showDetails(Account account, Journals journals) {
-        return Main.getAccountDetails(account, journals);
     }
 
     public static void showBalance(Journals journals, Balance balance) {
@@ -71,10 +64,6 @@ public class GUIActions {
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
-    }
-
-    public static JournalDetails showDetails(Journal journal, Journals journals){
-        return Main.getJournalDetails(journal, journals);
     }
 
     public static Journal switchJournal(Accounts accounts, Journal oldJournal, Journal newJournal) {

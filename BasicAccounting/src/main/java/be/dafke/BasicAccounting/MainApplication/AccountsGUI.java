@@ -147,7 +147,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
         if (MANAGE.equals(actionCommand)) {
             GUIActions.showAccountManager(accounts, accountTypes);
         } else if (DETAILS.equals(actionCommand)) {
-            GUIActions.showDetails(lijst.getSelectedValue(), journals);
+            Main.getAccountDetails(lijst.getSelectedValue(), journals);
         } else if (ADD.equals(actionCommand)) {
             new NewAccountGUI(accounts, accountTypes).setVisible(true);
         }
@@ -206,7 +206,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
         if(popup!=null) {
             popup.setVisible(false);
             if (clickCount == 2) {
-                if(journals!=null) GUIActions.showDetails(selectedAccount, journals);
+                if(journals!=null) Main.getAccountDetails(selectedAccount, journals);;
             } else if (button == 3) {
                 Point location = me.getLocationOnScreen();
                 popup.show(null, location.x, location.y);

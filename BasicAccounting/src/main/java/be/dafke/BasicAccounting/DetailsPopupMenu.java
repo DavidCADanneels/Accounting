@@ -64,12 +64,12 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
             if (e.getSource() == details) {
                 if (mode == Mode.JOURNAL) {
                     Account account = booking.getAccount();
-                    AccountDetails newGui = GUIActions.showDetails(account, journals);
+                    AccountDetails newGui = Main.getAccountDetails(account, journals);
                     // add this new Frame as Listener in Main
                     newGui.selectObject(booking);
                 } else {
                     Journal journal = transaction.getJournal();
-                    JournalDetails newGui = GUIActions.showDetails(journal, journals);
+                    JournalDetails newGui = Main.getJournalDetails(journal, journals);;
                     // add this new Frame as Listener in Main
                     newGui.selectObject(booking);
                 }

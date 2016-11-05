@@ -1,11 +1,11 @@
 package be.dafke.BasicAccounting;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.RefreshableTable;
 
-import javax.swing.JMenuItem;
-import javax.swing.JPopupMenu;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
@@ -31,7 +31,7 @@ public class BalancePopupMenu extends JPopupMenu implements ActionListener {
     public void actionPerformed(ActionEvent e) {
         ArrayList<Account> accounts = gui.getSelectedObjects();
         for(Account account: accounts) {
-            GUIActions.showDetails(account, journals);
+            Main.getAccountDetails(account, journals);
         }
         setVisible(false);
     }

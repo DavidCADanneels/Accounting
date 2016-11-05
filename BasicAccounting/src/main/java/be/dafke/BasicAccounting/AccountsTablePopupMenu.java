@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.JournalDataChangedListener;
 import be.dafke.BusinessActions.TransactionActions;
 import be.dafke.BusinessModel.*;
@@ -91,7 +92,7 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
             GUIActions.showAccountManager(accounts, accountTypes);
         } else if (DETAILS.equals(actionCommand)) {
             for(Account selectedAccount:selectedAccounts) {
-                GUIActions.showDetails(selectedAccount, journals);
+                Main.getAccountDetails(selectedAccount, journals);
             }
         } else if (ADD.equals(actionCommand)) {
             new NewAccountGUI(accounts, accountTypes).setVisible(true);

@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.TransactionActions;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
@@ -84,7 +85,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
                 }
             } else if (source == details) {
                 Account account = booking.getAccount();
-                GUIActions.showDetails(account, journals);
+                Main.getAccountDetails(account, journals);
             }
             //ComponentMap.refreshAllFrames();
         }
