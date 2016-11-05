@@ -201,6 +201,7 @@ public class Main {
     }
 
     public static void setAccounting(Accounting accounting) {
+        accountings.setCurrentObject(accounting); // only need to write to XML, call this only when writing XML files?
         for(AccountingListener accountingListener:accountingListeners){
             accountingListener.setAccounting(accounting);
         }
