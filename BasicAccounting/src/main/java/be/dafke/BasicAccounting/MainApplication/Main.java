@@ -10,7 +10,9 @@ import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessActions.JournalsListener;
 import be.dafke.BusinessActions.MortgagesListener;
 import be.dafke.BusinessActions.AccountsListener;
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
+import be.dafke.BusinessModel.Journal;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModelDao.XMLReader;
 
@@ -54,13 +56,12 @@ public class Main {
         frame = new AccountingGUIFrame("Accounting-all");
         frame.setContentPane(createContentPanel());
         createMenu();
-        frame.setMenuBar(menuBar);
+        frame.setJMenuBar(menuBar);
 
         createListeners();
         linkListeners();
 
-        frame.setAccountingListeners(accountingListeners);
-        frame.setAccounting(accountings.getCurrentObject());
+        setAccounting(accountings.getCurrentObject());
 
 
         launchFrame();
@@ -90,16 +91,16 @@ public class Main {
         journalsListeners.add(accountsGUI);
         journalsListeners.add(accountsTableGUI);
         journalsListeners.add(mortgagesGUI);
-        mortgagesListeners.add(mortgagesGUI);
-
         journalsListeners.add(journalReadGUI);
         journalsListeners.add(journalInputGUI);
-        journalsListeners.add(accountsGUI);
-        journalsListeners.add(accountsTableGUI);
-        journalsListeners.add(journalsGUI);
+        journalsListeners.add(journalsGUI);  // will call setJournal() in JournalsGUI
+
+        mortgagesListeners.add(mortgagesGUI);
+
 
         accountingListeners.add(accountsGUI);
         accountingListeners.add(accountsTableGUI);
+        accountingListeners.add(mortgagesGUI);
         accountingListeners.add(journalsGUI);
         accountingListeners.add(journalInputGUI);
         accountingListeners.add(journalReadGUI);
@@ -107,11 +108,10 @@ public class Main {
         accountingListeners.add(morgagesMenu);
         accountingListeners.add(projectsMenu);
         accountingListeners.add(codaMenu);
-
+        accountingListeners.add(menuBar);
+        accountingListeners.add(frame);
     }
     private static void linkListeners(){
-        menuBar.setAccountingListeners(accountingListeners);
-        journalsGUI.setJournalListeners(journalsListeners);
         accountsGUI.setJournalDataChangedListener(journalInputGUI);
         accountsTableGUI.addAddBookingLister(journalInputGUI);
         mortgagesGUI.setJournalDataChangedListener(journalInputGUI);
@@ -200,4 +200,15 @@ public class Main {
         return saveButton;
     }
 
+    public static void setAccounting(Accounting accounting) {
+        for(AccountingListener accountingListener:accountingListeners){
+            accountingListener.setAccounting(accounting);
+        }
+    }
+
+    public static void setJournal(Journal journal) {
+        for(JournalsListener journalsListener :journalsListeners){
+            journalsListener.setJournal(journal);
+        }
+    }
 }

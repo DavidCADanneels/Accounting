@@ -4,8 +4,6 @@ import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.ComponentModel.RefreshableFrame;
 
-import java.util.ArrayList;
-
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -17,14 +15,9 @@ public class AccountingGUIFrame extends RefreshableFrame implements AccountingLi
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-    private ArrayList<AccountingListener> accountingListeners;
 
     public AccountingGUIFrame(String title) {
         super(title);
-    }
-
-    public void setMenuBar(AccountingMenuBar menuBar){
-        setJMenuBar(menuBar);
     }
 
     @Override
@@ -34,12 +27,5 @@ public class AccountingGUIFrame extends RefreshableFrame implements AccountingLi
         } else {
             setTitle(getBundle("Accounting").getString("ACCOUNTING"));
         }
-        for(AccountingListener accountingListener:accountingListeners){
-            accountingListener.setAccounting(accounting);
-        }
-    }
-
-    public void setAccountingListeners(ArrayList<AccountingListener> accountingListeners) {
-        this.accountingListeners = accountingListeners;
     }
 }

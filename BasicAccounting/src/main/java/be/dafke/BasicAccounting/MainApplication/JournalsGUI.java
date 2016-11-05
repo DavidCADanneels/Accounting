@@ -41,10 +41,9 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalsListe
         combo.addActionListener(e -> {
             Journal newJournal = (Journal) combo.getSelectedItem();
             Journal journal = GUIActions.switchJournal(accounts, selectedJournal, newJournal);
-            for (JournalsListener journalsListener : journalsListeners){
-				journalsListener.setJournal(journal);
-            }
-            setJournal(newJournal);
+			Main.setJournal(journal);
+			// setJournal will be called automatically if JournalsGUI is registered as journalListener
+//            setJournal(newJournal);
         });
 		combo.setEnabled(false);
 		add(combo);
@@ -65,14 +64,6 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalsListe
 		add(paneel);
 	}
 
-	public void setJournalListeners(ArrayList<JournalsListener> dataChangeListeners){
-		journalsListeners = dataChangeListeners;
-	}
-
-	public ArrayList<JournalsListener> getJournalListeners() {
-		return journalsListeners;
-	}
-
 	public void actionPerformed(ActionEvent ae) {
 		String actionCommand = ae.getActionCommand();
 		if(journals!=null) {
@@ -84,6 +75,7 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalsListe
 		}
 	}
 
+	@Override
 	public void setAccounting(Accounting accounting) {
 		journalTypes=accounting==null?null:accounting.getJournalTypes();
 		accounts=accounting==null?null:accounting.getAccounts();
