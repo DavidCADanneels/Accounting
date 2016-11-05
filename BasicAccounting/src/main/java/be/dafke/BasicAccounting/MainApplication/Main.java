@@ -1,16 +1,15 @@
 package be.dafke.BasicAccounting.MainApplication;
 
+import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BasicAccounting.Balances.BalancesMenu;
 import be.dafke.BasicAccounting.Coda.CodaMenu;
+import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BasicAccounting.SaveAllActionListener;
 import be.dafke.BusinessActions.*;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accountings;
-import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModelDao.XMLReader;
 import be.dafke.Utils.MultiValueMap;
@@ -19,6 +18,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static javax.swing.JSplitPane.*;
 
@@ -45,8 +45,11 @@ public class Main {
     private static ArrayList<AccountsListener> accountsListeners = new ArrayList<>();
     private static ArrayList<MortgagesListener> mortgagesListeners = new ArrayList<>();
 
-    private static MultiValueMap<Journal, JournalDataChangeListener> journalDataChangeListeners = new MultiValueMap<>();
-    private static MultiValueMap<Account, AccountDataChangeListener> accountDataChangeListeners = new MultiValueMap<>();
+    private static MultiValueMap<Integer, JournalDataChangeListener> journalDataChangeListeners = new MultiValueMap<>();
+    private static MultiValueMap<Integer, AccountDataChangeListener> accountDataChangeListeners = new MultiValueMap<>();
+
+    private static HashMap<Account,AccountDetails> accountDetailsMap = new HashMap<>();
+    private static HashMap<Journal,JournalDetails> journalDetailsMap = new HashMap<>();
 
     private static BalancesMenu balancesMenu;
     private static MorgagesMenu morgagesMenu;
@@ -218,23 +221,47 @@ public class Main {
     }
 
     public static void addJournalDataListener(Journal journal, JournalDataChangeListener gui) {
-        journalDataChangeListeners.addValue(journal, gui);
+        journalDataChangeListeners.addValue(journal.hashCode(), gui);
     }
 
     public static void addAccountDataListener(Account account, AccountDataChangeListener gui) {
-        accountDataChangeListeners.addValue(account, gui);
+        accountDataChangeListeners.addValue(account.hashCode(), gui);
     }
 
     public static void fireJournalDataChanged(Journal journal){
-        for(JournalDataChangeListener journalDataChangeListener: journalDataChangeListeners.get(journal)){
+        for(JournalDataChangeListener journalDataChangeListener: journalDataChangeListeners.get(journal.hashCode())){
             journalDataChangeListener.fireJournalDataChanged();
         }
     }
 
     public static void fireAccountDataChanged(Account account){
-        for(AccountDataChangeListener accountDataChangeListener: accountDataChangeListeners.get(account)){
+        for(AccountDataChangeListener accountDataChangeListener: accountDataChangeListeners.get(account.hashCode())){
             accountDataChangeListener.fireAccountDataChanged();
         }
+    }
+
+    public static AccountDetails getAccountDetails(Account account, Journals journals){
+        AccountDetails accountDetails = accountDetailsMap.get(account);
+        if(accountDetails==null){
+            accountDetails = new AccountDetails(account, journals);
+            addAccountDataListener(account,accountDetails);
+            accountDetailsMap.put(account, accountDetails);
+            ComponentMap.addDisposableComponent("Details"+account.hashCode(),accountDetails);
+        }
+        accountDetails.setVisible(true);
+        return accountDetails;
+    }
+
+    public static JournalDetails getJournalDetails(Journal journal, Journals journals){
+        JournalDetails journalDetails = journalDetailsMap.get(journal);
+        if(journalDetails==null){
+            journalDetails = new JournalDetails(journal, journals);
+            addJournalDataListener(journal,journalDetails);
+            journalDetailsMap.put(journal, journalDetails);
+            ComponentMap.addDisposableComponent("Details"+journal.hashCode(),journalDetails);
+        }
+        journalDetails.setVisible(true);
+        return journalDetails;
     }
 
 }

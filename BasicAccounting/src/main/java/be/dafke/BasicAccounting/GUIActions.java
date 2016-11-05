@@ -29,16 +29,8 @@ public class GUIActions {
         gui.setVisible(true);
     }
 
-    public static AccountDetails showDetails(Account account, Journals journals){
-        String key = "Details" + account.hashCode();
-        AccountDetails gui = (AccountDetails)ComponentMap.getDisposableComponent(key); // DETAILS
-        if(gui == null){
-            gui = new AccountDetails(account, journals);
-            Main.addAccountDataListener(account,gui);
-            ComponentMap.addDisposableComponent(key, gui); // DETAILS
-        }
-        gui.setVisible(true);
-        return gui;
+    public static AccountDetails showDetails(Account account, Journals journals) {
+        return Main.getAccountDetails(account, journals);
     }
 
     public static void showBalance(Journals journals, Balance balance) {
@@ -82,15 +74,7 @@ public class GUIActions {
     }
 
     public static JournalDetails showDetails(Journal journal, Journals journals){
-        String key = "Details" + journal.hashCode();
-        JournalDetails gui = (JournalDetails)ComponentMap.getDisposableComponent(key); // DETAILS
-        if(gui == null){
-            gui = new JournalDetails(journal, journals);
-            Main.addJournalDataListener(journal,gui);
-            ComponentMap.addDisposableComponent(key, gui); // DETAILS
-        }
-        gui.setVisible(true);
-        return gui;
+        return Main.getJournalDetails(journal, journals);
     }
 
     public static Journal switchJournal(Accounts accounts, Journal oldJournal, Journal newJournal) {
