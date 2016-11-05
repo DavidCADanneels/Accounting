@@ -1,0 +1,45 @@
+@startuml
+participant Main
+participant XMLReader
+participant Accountings
+participant BusinessCollection
+participant BusinessObject
+
+Main->Main:define\nxmlFolder TEST/PROD
+note left:xml\nxsl\nhtml
+
+group constructor: Accountings
+    Main-->>Accountings:constructor(xml,xsl,html)
+    note right:xml\nxsl\nhtml
+    Accountings-->>BusinessCollection
+    'note right:dataTables
+    BusinessCollection<<->>BusinessCollection:addSearchKey(NAME)
+    note left:dataTables:\n- name { }
+    BusinessCollection-->>BusinessObject
+    note right:name
+    Accountings->BusinessObject:setName()
+end
+
+Main<-Accountings:accountings
+note left:accountings
+
+Main->XMLReader:readCollections\n(accountings,xml)
+
+    group readCollections
+    XMLReader<<->BusinessObject:getName()
+'    note left:businessCollectionName
+
+    XMLReader<<->BusinessCollection:getBusinessObjectType
+'    note left:collectionName
+
+
+
+    group readChilderen
+
+    XMLReader\\->>BusinessCollection:getBusinessObjects
+    XMLReader<<->BusinessCollection:getBusinessObjectType
+    XMLReader\\->>XMLReader:recursion
+    end
+
+    end
+@enduml
