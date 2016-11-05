@@ -234,7 +234,7 @@ public class Main {
 
     public static void fireJournalDataChanged(Journal journal){
         ArrayList<JournalDataChangeListener> journalDataChangeListenerList = journalDataChangeListeners.get(journal.hashCode());
-        if(journalDataChangeListeners!=null) {
+        if(journalDataChangeListenerList!=null) {
             for (JournalDataChangeListener journalDataChangeListener : journalDataChangeListenerList) {
                 journalDataChangeListener.fireJournalDataChanged();
             }
@@ -245,7 +245,7 @@ public class Main {
 
     public static void fireAccountDataChanged(Account account){
         ArrayList<AccountDataChangeListener> accountDataChangeListenerList = accountDataChangeListeners.get(account.hashCode());
-        if(accountDataChangeListeners!=null){
+        if(accountDataChangeListenerList!=null){
             for(AccountDataChangeListener accountDataChangeListener: accountDataChangeListenerList) {
                 accountDataChangeListener.fireAccountDataChanged();
             }
