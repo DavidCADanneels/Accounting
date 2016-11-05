@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.GUIActions;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.*;
 
@@ -47,7 +48,7 @@ public class BalancesMenu extends JMenu implements ActionListener, AccountingLis
 
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == testBalance) {
-            GUIActions.showTestBalance(journals, accounts, accountTypes);
+            Main.getTestBalance(journals, accounts, accountTypes);
         } else{
             Balance balance = null;
             if (e.getSource() == yearBalance) {

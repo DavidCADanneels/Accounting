@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BasicAccounting.Balances.BalancesMenu;
+import be.dafke.BasicAccounting.Balances.TestBalance;
 import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
@@ -50,6 +51,7 @@ public class Main {
 
     private static HashMap<Account,AccountDetails> accountDetailsMap = new HashMap<>();
     private static HashMap<Journal,JournalDetails> journalDetailsMap = new HashMap<>();
+    private static HashMap<Accounts,TestBalance> testBalanceMap = new HashMap<>();
 
     private static BalancesMenu balancesMenu;
     private static MorgagesMenu morgagesMenu;
@@ -262,6 +264,21 @@ public class Main {
         }
         journalDetails.setVisible(true);
         return journalDetails;
+    }
+
+    public static TestBalance getTestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes) {
+        TestBalance testBalance = testBalanceMap.get(accounts);
+        if(testBalance==null){
+            testBalance = new TestBalance(journals, accounts, accountTypes);
+            // could be account : accounts.getAccounts(types) --> check for Result- and other Balances
+            for(Account account : accounts.getBusinessObjects()){
+                addAccountDataListener(account,testBalance);
+            }
+            testBalanceMap.put(accounts,testBalance);
+            ComponentMap.addDisposableComponent(journals.hashCode()+""+accounts.hashCode(),testBalance);
+        }
+        testBalance.setVisible(true);
+        return testBalance;
     }
 
 }

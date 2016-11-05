@@ -2,7 +2,6 @@ package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Accounts.AccountManagementGUI;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
-import be.dafke.BasicAccounting.Balances.TestBalance;
 import be.dafke.BasicAccounting.Journals.JournalManagementGUI;
 import be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI;
 import be.dafke.BusinessModel.*;
@@ -31,16 +30,6 @@ public class GUIActions {
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             gui = new BalanceGUI(journals, balance);
-            ComponentMap.addDisposableComponent(key, gui); // DETAILS
-        }
-        gui.setVisible(true);
-    }
-
-    public static void showTestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes) {
-        String key = journals.hashCode()+""+accounts.hashCode();
-        DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
-        if(gui == null){
-            gui = new TestBalance(journals, accounts, accountTypes);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);

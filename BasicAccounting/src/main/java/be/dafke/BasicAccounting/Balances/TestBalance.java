@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.BalancePopupMenu;
+import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
@@ -14,7 +15,7 @@ import java.awt.*;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class TestBalance extends RefreshableFrame {
+public class TestBalance extends RefreshableFrame implements AccountDataChangeListener {
 	/**
 	 * 
 	 */
@@ -42,9 +43,9 @@ public class TestBalance extends RefreshableFrame {
 		popup = new BalancePopupMenu(journals, tabel);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
 	}
-	public void refresh() {
-//		tabel.refresh();
+
+	@Override
+	public void fireAccountDataChanged() {
 		dataModel.fireTableDataChanged();
 	}
-
 }
