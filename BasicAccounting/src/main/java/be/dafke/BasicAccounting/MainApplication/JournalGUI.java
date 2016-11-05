@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.MainApplication;
 import be.dafke.BasicAccounting.DetailsPopupMenu;
 import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
 import be.dafke.BusinessActions.AccountingListener;
+import be.dafke.BusinessActions.JournalDataChangeListener;
 import be.dafke.BusinessActions.JournalsListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Accounting;
@@ -14,7 +15,7 @@ import be.dafke.ComponentModel.RefreshableTable;
 import javax.swing.*;
 import java.awt.*;
 
-public class JournalGUI extends JPanel implements JournalsListener, AccountingListener {
+public class JournalGUI extends JPanel implements JournalsListener, AccountingListener, JournalDataChangeListener {
     /**
 	 * 
 	 */
@@ -54,6 +55,11 @@ public class JournalGUI extends JPanel implements JournalsListener, AccountingLi
     @Override
     public void setJournal(Journal journal) {
         journalDetailsDataModel.setJournal(journal);
+        journalDetailsDataModel.fireTableDataChanged();
+    }
+
+    @Override
+    public void fireJournalDataChanged() {
         journalDetailsDataModel.fireTableDataChanged();
     }
 }

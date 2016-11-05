@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting;
 import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.TransactionActions;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
@@ -12,6 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import static be.dafke.BusinessActions.ActionUtils.TRANSACTION_REMOVED;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -72,15 +74,56 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
                     newGui.selectObject(booking);
                 }
             } else if (e.getSource() == move) {
-                TransactionActions.moveTransaction(transaction, journals);
-                // refresh needed: with other listeners
+                Journal oldJournal = transaction.getJournal();
+
+                Journal newJournal = getNewJournal(transaction, journals);
+                if(newJournal!=null) { // e.g. when Cancel has been clicked
+                    TransactionActions.moveTransaction(transaction, oldJournal, newJournal);
+                    Main.fireJournalDataChanged(oldJournal);
+                    Main.fireJournalDataChanged(newJournal);
+                    for (Account account : transaction.getAccounts()) {
+                        Main.fireAccountDataChanged(account);
+                    }
+
+                    ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, oldJournal.getName(), newJournal.getName());
+                }
             } else if (e.getSource() == edit) {
-                TransactionActions.editTransaction(transaction, journals);
-                Main.setJournal(transaction.getJournal());
-            } else if (e.getSource() == delete) {
+                Journal journal = transaction.getJournal();
+
                 TransactionActions.deleteTransaction(transaction);
-                // refresh needed: with other listeners
+                Main.fireJournalDataChanged(journal);
+                for (Account account : transaction.getAccounts()) {
+                    Main.fireAccountDataChanged(account);
+                }
+
+                journal.setCurrentObject(transaction);
+                Main.setJournal(journal);
+
+                ActionUtils.showErrorMessage(TRANSACTION_REMOVED,journal.getName());
+            } else if (e.getSource() == delete) {
+                Journal journal = transaction.getJournal();
+
+                TransactionActions.deleteTransaction(transaction);
+                Main.fireJournalDataChanged(journal);
+                for (Account account : transaction.getAccounts()) {
+                    Main.fireAccountDataChanged(account);
+                }
+
+                ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.getName());
             }
         }
+    }
+
+    private Journal getNewJournal(Transaction transaction, Journals journals){
+        Journal journal = transaction.getJournal();
+        ArrayList<Journal> dagboeken = journals.getAllJournalsExcept(journal);
+        Object[] lijst = dagboeken.toArray();
+        int keuze = JOptionPane.showOptionDialog(null,
+                getBundle("BusinessActions").getString("CHOOSE_JOURNAL"),
+                getBundle("BusinessActions").getString("JOURNAL_CHOICE"),
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, lijst, lijst[0]);
+        if(keuze!=JOptionPane.CANCEL_OPTION && keuze!=JOptionPane.CLOSED_OPTION){
+            return (Journal) lijst[keuze];
+        }else return null;
     }
 }

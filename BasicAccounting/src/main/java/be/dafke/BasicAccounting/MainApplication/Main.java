@@ -231,14 +231,22 @@ public class Main {
     }
 
     public static void fireJournalDataChanged(Journal journal){
-        for(JournalDataChangeListener journalDataChangeListener: journalDataChangeListeners.get(journal.hashCode())){
-            journalDataChangeListener.fireJournalDataChanged();
+        ArrayList<JournalDataChangeListener> journalDataChangeListenerList = journalDataChangeListeners.get(journal.hashCode());
+        if(journalDataChangeListeners!=null) {
+            for (JournalDataChangeListener journalDataChangeListener : journalDataChangeListenerList) {
+                journalDataChangeListener.fireJournalDataChanged();
+            }
         }
+        // always refresh. We could add a filter here for the active Journal
+        journalReadGUI.fireJournalDataChanged();
     }
 
     public static void fireAccountDataChanged(Account account){
-        for(AccountDataChangeListener accountDataChangeListener: accountDataChangeListeners.get(account.hashCode())){
-            accountDataChangeListener.fireAccountDataChanged();
+        ArrayList<AccountDataChangeListener> accountDataChangeListenerList = accountDataChangeListeners.get(account.hashCode());
+        if(accountDataChangeListeners!=null){
+            for(AccountDataChangeListener accountDataChangeListener: accountDataChangeListenerList) {
+                accountDataChangeListener.fireAccountDataChanged();
+            }
         }
     }
 

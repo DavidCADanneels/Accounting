@@ -191,4 +191,15 @@ public class Transaction extends BusinessCollection<Booking> {
     public boolean isBookable() {
         return !getBusinessObjects().isEmpty() && debitTotal.compareTo(creditTotal) == 0 && debitTotal.compareTo(BigDecimal.ZERO) != 0;
     }
+
+    public ArrayList<Account> getAccounts() {
+        ArrayList<Account> accountsList=new ArrayList<>();
+        for(Booking booking : getBusinessObjects()){
+            accountsList.add(booking.getAccount());
+        }
+        return accountsList;
+// Can be very brief but unreadable with collect construction
+//        return getBusinessObjects().stream().map(Booking::getAccount).collect(Collectors.toCollection(ArrayList::new));
+
+    }
 }

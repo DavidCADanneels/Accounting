@@ -4,9 +4,7 @@ import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
-import static be.dafke.BusinessActions.ActionUtils.TRANSACTION_REMOVED;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -97,31 +95,10 @@ public class TransactionActions {
     public static void deleteTransaction(Transaction transaction) {
         Journal journal = transaction.getJournal();
         journal.removeBusinessObject(transaction);
-        ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_REMOVED, journal.getName());
-//        //ComponentMap.refreshAllFrames();
     }
 
-    public static void editTransaction(Transaction transaction, Journals journals) {
-        Journal journal = transaction.getJournal();
-        journal.removeBusinessObject(transaction);
-        journal.setCurrentObject(transaction);
-        ActionUtils.showErrorMessage(TRANSACTION_REMOVED,journal.getName());
-    }
-
-    public static void moveTransaction(Transaction transaction, Journals journals) {
-        Journal journal = transaction.getJournal();
-        ArrayList<Journal> dagboeken = journals.getAllJournalsExcept(journal);
-        Object[] lijst = dagboeken.toArray();
-        int keuze = JOptionPane.showOptionDialog(null,
-                getBundle("BusinessActions").getString("CHOOSE_JOURNAL"),
-                getBundle("BusinessActions").getString("JOURNAL_CHOICE"),
-                JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, lijst, lijst[0]);
-        if(keuze!=JOptionPane.CANCEL_OPTION && keuze!=JOptionPane.CLOSED_OPTION){
-            Journal newJournal = (Journal) lijst[keuze];
-            journal.removeBusinessObject(transaction);
-            newJournal.addBusinessObject(transaction);
-            ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, journal.getName(), newJournal.getName());
-        }
-//        //ComponentMap.refreshAllFrames();
+    public static void moveTransaction(Transaction transaction, Journal oldjournal, Journal newJournal) {
+        oldjournal.removeBusinessObject(transaction);
+        newJournal.addBusinessObject(transaction);
     }
 }
