@@ -53,7 +53,7 @@ public class Main {
     private static HashMap<Account,AccountDetails> accountDetailsMap = new HashMap<>();
     private static HashMap<Journal,JournalDetails> journalDetailsMap = new HashMap<>();
     private static HashMap<Accounts,TestBalance> testBalanceMap = new HashMap<>();
-    private static HashMap<Accounts,BalanceGUI> otherBalanceMap = new HashMap<>();
+    private static HashMap<Balance,BalanceGUI> otherBalanceMap = new HashMap<>();
 
     private static BalancesMenu balancesMenu;
     private static MorgagesMenu morgagesMenu;
@@ -265,7 +265,7 @@ public class Main {
             accountDetails = new AccountDetails(account, journals);
             addAccountDataListener(account,accountDetails);
             accountDetailsMap.put(account, accountDetails);
-            ComponentMap.addDisposableComponent("Details"+account.hashCode(),accountDetails);
+            ComponentMap.addDisposableComponent("Details:"+account.hashCode(),accountDetails);
         }
         accountDetails.setVisible(true);
         return accountDetails;
@@ -277,7 +277,7 @@ public class Main {
             journalDetails = new JournalDetails(journal, journals);
             addJournalDataListener(journal,journalDetails);
             journalDetailsMap.put(journal, journalDetails);
-            ComponentMap.addDisposableComponent("Details"+journal.hashCode(),journalDetails);
+            ComponentMap.addDisposableComponent("Details:"+journal.hashCode(),journalDetails);
         }
         journalDetails.setVisible(true);
         return journalDetails;
@@ -288,10 +288,21 @@ public class Main {
         if(testBalance==null){
             testBalance = new TestBalance(journals, accounts, accountTypes);
             testBalanceMap.put(accounts,testBalance);
-            ComponentMap.addDisposableComponent(journals.hashCode()+""+accounts.hashCode(),testBalance);
+            ComponentMap.addDisposableComponent("TestBalance:"+accounts.hashCode(),testBalance);
         }
         testBalance.setVisible(true);
         return testBalance;
+    }
+
+    public static BalanceGUI getBalance(Journals journals, Balance balance) {
+        BalanceGUI balanceGUI = otherBalanceMap.get(balance);
+        if(balanceGUI==null){
+            balanceGUI = new BalanceGUI(journals, balance);
+            otherBalanceMap.put(balance,balanceGUI);
+            ComponentMap.addDisposableComponent("Balance:"+balance.hashCode(),balanceGUI);
+        }
+        balanceGUI.setVisible(true);
+        return balanceGUI;
     }
 
 }

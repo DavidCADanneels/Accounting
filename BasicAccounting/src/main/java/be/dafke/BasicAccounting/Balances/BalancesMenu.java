@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Balances;
 
-import be.dafke.BasicAccounting.GUIActions;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.*;
@@ -58,7 +57,7 @@ public class BalancesMenu extends JMenu implements ActionListener, AccountingLis
             } else if (e.getSource() == relationsBalance) {
                 balance = balances.getBusinessObject(Balances.RELATIONS_BALANCE);
             }
-            GUIActions.showBalance(journals, balance);
+            Main.getBalance(journals, balance);
         }
     }
 

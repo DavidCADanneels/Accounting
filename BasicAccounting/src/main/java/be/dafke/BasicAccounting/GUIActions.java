@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Accounts.AccountManagementGUI;
-import be.dafke.BasicAccounting.Balances.BalanceGUI;
 import be.dafke.BasicAccounting.Journals.JournalManagementGUI;
 import be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI;
 import be.dafke.BusinessModel.*;
@@ -20,16 +19,6 @@ public class GUIActions {
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             gui = new AccountManagementGUI(accounts, accountTypes);
-            ComponentMap.addDisposableComponent(key, gui); // DETAILS
-        }
-        gui.setVisible(true);
-    }
-
-    public static void showBalance(Journals journals, Balance balance) {
-        String key = ""+balance.hashCode();
-        DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
-        if(gui == null){
-            gui = new BalanceGUI(journals, balance);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
