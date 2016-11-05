@@ -57,6 +57,6 @@ public class MultiValueMap<K,V> {
     }
 
     public ArrayList<V> get(K key){
-        return new ArrayList<V>(data.get(key));
+        return data.get(key)==null?null:new ArrayList<V>(data.get(key));
     }
 }
