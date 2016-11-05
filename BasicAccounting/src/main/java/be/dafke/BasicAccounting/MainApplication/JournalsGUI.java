@@ -84,27 +84,28 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalsListe
 
 	public void setJournals(Journals journals){
 		this.journals = journals;
+
 		combo.removeActionListener(this);
 		combo.removeAllItems();
 		if (journals!=null) {
-			for(Journal journal: journals.getBusinessObjects()){
+			for (Journal journal : journals.getBusinessObjects()) {
 				combo.addItem(journal);
 			}
-			combo.setSelectedItem(journals.getCurrentObject());
-			details.setEnabled(journals!=null && journals.getCurrentObject()!=null);
-			combo.setEnabled(journals!=null);
-			journalManagement.setEnabled(journals != null);
-		} else {
-			combo.setSelectedItem(null);
-			details.setEnabled(false);
-			combo.setEnabled(false);
-			journalManagement.setEnabled(false);
 		}
 		combo.addActionListener(this);
+		combo.setEnabled(journals!=null);
+		journalManagement.setEnabled(journals != null);
+		setJournal(journals==null?null:journals.getCurrentObject());
 	}
 
 	@Override
 	public void setJournal(Journal journal) {
 		selectedJournal = journal;
+
+		combo.removeActionListener(this);
+		combo.setSelectedItem(journal);
+		combo.addActionListener(this);
+
+		details.setEnabled(journal!=null);
 	}
 }
