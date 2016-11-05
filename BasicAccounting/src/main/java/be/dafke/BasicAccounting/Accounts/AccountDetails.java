@@ -6,6 +6,7 @@ package be.dafke.BasicAccounting.Accounts;
  */
 
 import be.dafke.BasicAccounting.DetailsPopupMenu;
+import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Booking;
@@ -20,7 +21,7 @@ import java.awt.event.WindowListener;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class AccountDetails extends RefreshableFrame implements WindowListener {
+public class AccountDetails extends RefreshableFrame implements WindowListener, AccountDataChangeListener {
 	/**
 	 *
 	 */
@@ -50,11 +51,6 @@ public class AccountDetails extends RefreshableFrame implements WindowListener {
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel, 0,2,3));
 	}
 
-	public void refresh() {
-//		tabel.refresh();
-		dataModel.fireTableDataChanged();
-	}
-
 	public void selectObject(Booking object){
 		if(tabel!=null) tabel.selectObject(object);
 	}
@@ -62,11 +58,15 @@ public class AccountDetails extends RefreshableFrame implements WindowListener {
 	public void windowClosing(WindowEvent we) {
 		popup.setVisible(false);
 	}
-
 	public void windowOpened(WindowEvent e) {}
 	public void windowClosed(WindowEvent e) {}
 	public void windowIconified(WindowEvent e) {}
 	public void windowDeiconified(WindowEvent e) {}
 	public void windowActivated(WindowEvent e) {}
 	public void windowDeactivated(WindowEvent e) {}
+
+	@Override
+	public void fireAccountDataChanged() {
+		dataModel.fireTableDataChanged();
+	}
 }

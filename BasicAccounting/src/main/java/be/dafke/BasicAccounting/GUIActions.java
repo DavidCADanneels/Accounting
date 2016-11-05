@@ -7,6 +7,7 @@ import be.dafke.BasicAccounting.Balances.TestBalance;
 import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.Journals.JournalManagementGUI;
 import be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
@@ -33,6 +34,7 @@ public class GUIActions {
         AccountDetails gui = (AccountDetails)ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             gui = new AccountDetails(account, journals);
+            Main.addAccountDataListener(account,gui);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
@@ -84,6 +86,7 @@ public class GUIActions {
         JournalDetails gui = (JournalDetails)ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
             gui = new JournalDetails(journal, journals);
+            Main.addJournalDataListener(journal,gui);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
@@ -98,8 +101,6 @@ public class GUIActions {
             journal = newJournal;
         }
         return journal;
-//        journals.setCurrentObject(journal);
-//        //ComponentMap.refreshAllFrames();
     }
 
     private static Journal checkTransfer(Accounts accounts, Journal oldJournal, Journal newJournal){

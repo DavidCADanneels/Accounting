@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.DetailsPopupMenu;
+import be.dafke.BusinessActions.JournalDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
@@ -19,7 +20,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class JournalDetails extends RefreshableFrame implements WindowListener {
+public class JournalDetails extends RefreshableFrame implements WindowListener, JournalDataChangeListener {
 	/**
 	 * 
 	 */
@@ -49,11 +50,6 @@ public class JournalDetails extends RefreshableFrame implements WindowListener {
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel, 0,2,3,4));
 	}
 
-	public void refresh() {
-//		tabel.refresh();
-		dataModel.fireTableDataChanged();
-	}
-
 	public void selectObject(Booking object){
 		if(tabel!=null) tabel.selectObject(object);
 	}
@@ -61,11 +57,15 @@ public class JournalDetails extends RefreshableFrame implements WindowListener {
 	public void windowClosing(WindowEvent we) {
         popup.setVisible(false);
     }
-
     public void windowOpened(WindowEvent e) {}
     public void windowClosed(WindowEvent e) {}
     public void windowIconified(WindowEvent e) {}
     public void windowDeiconified(WindowEvent e) {}
     public void windowActivated(WindowEvent e) {}
     public void windowDeactivated(WindowEvent e) {}
+
+	@Override
+	public void fireJournalDataChanged() {
+		dataModel.fireTableDataChanged();
+	}
 }

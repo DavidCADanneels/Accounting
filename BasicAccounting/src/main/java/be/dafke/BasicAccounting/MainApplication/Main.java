@@ -6,15 +6,14 @@ import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BasicAccounting.SaveAllActionListener;
-import be.dafke.BusinessActions.AccountingListener;
-import be.dafke.BusinessActions.JournalsListener;
-import be.dafke.BusinessActions.MortgagesListener;
-import be.dafke.BusinessActions.AccountsListener;
+import be.dafke.BusinessActions.*;
+import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModelDao.XMLReader;
+import be.dafke.Utils.MultiValueMap;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,6 +44,10 @@ public class Main {
     private static ArrayList<AccountingListener> accountingListeners = new ArrayList<>();
     private static ArrayList<AccountsListener> accountsListeners = new ArrayList<>();
     private static ArrayList<MortgagesListener> mortgagesListeners = new ArrayList<>();
+
+    private static MultiValueMap<Journal, JournalDataChangeListener> journalDataChangeListeners = new MultiValueMap<>();
+    private static MultiValueMap<Account, AccountDataChangeListener> accountDataChangeListeners = new MultiValueMap<>();
+
     private static BalancesMenu balancesMenu;
     private static MorgagesMenu morgagesMenu;
     private static ProjectsMenu projectsMenu;
@@ -213,4 +216,25 @@ public class Main {
             journalsListener.setJournal(journal);
         }
     }
+
+    public static void addJournalDataListener(Journal journal, JournalDataChangeListener gui) {
+        journalDataChangeListeners.addValue(journal, gui);
+    }
+
+    public static void addAccountDataListener(Account account, AccountDataChangeListener gui) {
+        accountDataChangeListeners.addValue(account, gui);
+    }
+
+    public static void fireJournalDataChanged(Journal journal){
+        for(JournalDataChangeListener journalDataChangeListener: journalDataChangeListeners.get(journal)){
+            journalDataChangeListener.fireJournalDataChanged();
+        }
+    }
+
+    public static void fireAccountDataChanged(Account account){
+        for(AccountDataChangeListener accountDataChangeListener: accountDataChangeListeners.get(account)){
+            accountDataChangeListener.fireAccountDataChanged();
+        }
+    }
+
 }
