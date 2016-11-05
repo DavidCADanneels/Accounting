@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.BalancePopupMenu;
+import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Balance;
@@ -11,7 +12,7 @@ import be.dafke.ComponentModel.RefreshableTable;
 import javax.swing.*;
 import java.awt.*;
 
-public class BalanceGUI extends RefreshableFrame {
+public class BalanceGUI extends RefreshableFrame implements AccountDataChangeListener {
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
 	private RefreshableTable<Account> tabel;
@@ -37,8 +38,8 @@ public class BalanceGUI extends RefreshableFrame {
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
 	}
 
-	public void refresh() {
-//		tabel.refresh();
+	@Override
+	public void fireAccountDataChanged() {
 		dataModel.fireTableDataChanged();
 	}
 }

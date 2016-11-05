@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.Accounts.AccountDetails;
+import be.dafke.BasicAccounting.Balances.BalanceGUI;
 import be.dafke.BasicAccounting.Balances.BalancesMenu;
 import be.dafke.BasicAccounting.Balances.TestBalance;
 import be.dafke.BasicAccounting.Coda.CodaMenu;
@@ -52,6 +53,7 @@ public class Main {
     private static HashMap<Account,AccountDetails> accountDetailsMap = new HashMap<>();
     private static HashMap<Journal,JournalDetails> journalDetailsMap = new HashMap<>();
     private static HashMap<Accounts,TestBalance> testBalanceMap = new HashMap<>();
+    private static HashMap<Accounts,BalanceGUI> otherBalanceMap = new HashMap<>();
 
     private static BalancesMenu balancesMenu;
     private static MorgagesMenu morgagesMenu;
@@ -248,6 +250,13 @@ public class Main {
                 accountDataChangeListener.fireAccountDataChanged();
             }
         }
+        // refresh all balances if an account is update, filtering on accounting/accounts/accountType could be applied
+        for(TestBalance testBalance:testBalanceMap.values()){
+            testBalance.fireAccountDataChanged();
+        }
+        for(BalanceGUI balanceGUI:otherBalanceMap.values()){
+            balanceGUI.fireAccountDataChanged();
+        }
     }
 
     public static AccountDetails getAccountDetails(Account account, Journals journals){
@@ -278,10 +287,6 @@ public class Main {
         TestBalance testBalance = testBalanceMap.get(accounts);
         if(testBalance==null){
             testBalance = new TestBalance(journals, accounts, accountTypes);
-            // could be account : accounts.getAccounts(types) --> check for Result- and other Balances
-            for(Account account : accounts.getBusinessObjects()){
-                addAccountDataListener(account,testBalance);
-            }
             testBalanceMap.put(accounts,testBalance);
             ComponentMap.addDisposableComponent(journals.hashCode()+""+accounts.hashCode(),testBalance);
         }
