@@ -19,7 +19,6 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 	 */
 	private final Accounts allAccounts;  // needed to lookup existing accounts when adding them to the project
 	private final Accounts projectAccounts;
-	private final Accounting accounting;
 	private final Balance resultBalance, relationsBalance;
 
 	@Override
@@ -27,13 +26,13 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 		return "Account";
 	}
 
-	public Project(String name, Accounting accounting) {
+	public Project(String name, Accounts accounts, AccountTypes accountTypes) {
 		setName(name);
-		this.accounting = accounting;
-		allAccounts = accounting.getAccounts();
-		projectAccounts = new Accounts(accounting.getAccountTypes());
-		resultBalance = accounting.getBalances().createResultBalance(projectAccounts);
-		relationsBalance = accounting.getBalances().createRelationsBalance(projectAccounts);
+		allAccounts = accounts;
+		projectAccounts = new Accounts(accountTypes);
+		Balances balances = new Balances(accounts, accountTypes);
+		resultBalance = balances.createResultBalance(projectAccounts);
+		relationsBalance = balances.createRelationsBalance(projectAccounts);
 	}
 
 	@Override
@@ -64,7 +63,7 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 	}
 
 	public ProjectJournal getJournal() {
-		ProjectJournal journal = new ProjectJournal(accounting, getName(), "TMP");
+		ProjectJournal journal = new ProjectJournal(allAccounts, getName(), "TMP");
 		for(Account account:projectAccounts.getBusinessObjects()){
 			for(Movement movement :account.getBusinessObjects()){
 				Transaction transaction = movement.getBooking().getTransaction();

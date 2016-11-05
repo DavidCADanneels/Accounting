@@ -1,15 +1,13 @@
 package be.dafke.BasicAccounting.Mortgages;
 
-import be.dafke.BasicAccounting.MainApplication.AccountingMenuBar;
-import be.dafke.BasicAccounting.Mortgages.MortgageGUI;
+import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accountings;
+import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Mortgages;
 import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
 
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -19,30 +17,34 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 26/12/2015.
  */
-public class MorgagesMenu extends JMenu implements ActionListener {
+public class MorgagesMenu extends JMenu implements ActionListener, AccountingListener {
     private JMenuItem mortgage;
-    private Accountings accountings;
+    private Mortgages mortgages;
+    private Accounts accounts;
 
-    public MorgagesMenu(Accountings accountings, AccountingMenuBar menuBar) {
+    public MorgagesMenu() {
         super(getBundle("Mortgage").getString("MORTGAGES"));
-        this.accountings = accountings;
         setMnemonic(KeyEvent.VK_M);
         mortgage = new JMenuItem("Mortgages");
         mortgage.addActionListener(this);
         mortgage.setEnabled(false);
         add(mortgage);
-        menuBar.addRefreshableMenuItem(mortgage);
     }
 
     public void actionPerformed(ActionEvent e) {
-        Accounting accounting = accountings.getCurrentObject();
-        Mortgages mortgages = accounting.getMortgages();
-        String key = accounting.toString() + Mortgages.MORTGAGES;
+        String key = Mortgages.MORTGAGES + mortgages.hashCode();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new MortgageGUI(accounting, mortgages);
+            gui = new MortgageGUI(mortgages, accounts);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
+    }
+
+    @Override
+    public void setAccounting(Accounting accounting) {
+        mortgages=accounting==null?null:accounting.getMortgages();
+        mortgage.setEnabled(mortgages!=null);
+        accounts=accounting==null?null:accounting.getAccounts();
     }
 }

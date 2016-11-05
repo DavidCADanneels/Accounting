@@ -1,9 +1,7 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.AccountsTablePopupMenu;
-import be.dafke.BusinessActions.ActionUtils;
-import be.dafke.BusinessActions.JournalDataChangedListener;
-import be.dafke.BusinessActions.PopupForTableActivator;
+import be.dafke.BusinessActions.*;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 
@@ -21,12 +19,13 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountsTableGUI extends AccountingPanel implements MouseListener {
+public class AccountsTableGUI extends JPanel implements MouseListener, JournalsListener, AccountsListener, AccountingListener {
     private final RefreshableTable<Account> table;
     private final AccountDataModel accountDataModel;
 
     private AccountsTablePopupMenu popup;
     private Accounts accounts;
+    private Journal journal;
 //    private Journals journals;
 
     public AccountsTableGUI() {
@@ -51,16 +50,7 @@ public class AccountsTableGUI extends AccountingPanel implements MouseListener {
         add(center, BorderLayout.CENTER);
 	}
 
-    public void setAccounting(Accounting accounting) {
-        accounts = accounting.getAccounts();
-//        journals = accounting.getJournals();
 
-        accountDataModel.setAccounts(accounts);
-
-        // could be popup.setAccounting() with constructor call in this.constructor
-        popup.setAccounting(accounting);
-        table.addMouseListener(new PopupForTableActivator(popup, table));
-    }
 
 	public void refresh() {
         accountDataModel.fireTableDataChanged();
@@ -110,5 +100,31 @@ public class AccountsTableGUI extends AccountingPanel implements MouseListener {
 
     public void addAddBookingLister(JournalDataChangedListener journalDataChangedListener) {
         popup.addAddBookingListener(journalDataChangedListener);
+    }
+
+    @Override
+    public void setAccounting(Accounting accounting) {
+        setAccounts(accounting==null?null:accounting.getAccounts());
+        setJournals(accounting==null?null:accounting.getJournals());
+
+        // could be popup.setAccounting() with constructor call in this.constructor
+        popup.setAccounting(accounting);
+        table.addMouseListener(new PopupForTableActivator(popup, table));
+    }
+
+    public void setJournals(Journals journals){
+//        this.journals = journals;
+        setJournal(journals==null?null:journals.getCurrentObject());
+    }
+
+    @Override
+    public void setJournal(Journal journal) {
+        this.journal = journal;
+    }
+
+    @Override
+    public void setAccounts(Accounts accounts) {
+        this.accounts = accounts;
+        accountDataModel.setAccounts(accounts);
     }
 }

@@ -43,7 +43,7 @@ public class AccountActions {
                 }
             }
         }
-        ComponentMap.refreshAllFrames();
+        ////ComponentMap.refreshAllFrames();
     }
 
     public static void modifyDefaultAmounts(List<Account> accountList, Accounts accounts){
@@ -65,7 +65,7 @@ public class AccountActions {
                 }
             }
         }
-        ComponentMap.refreshAllFrames();
+        //ComponentMap.refreshAllFrames();
     }
 
     public static void modifyAccountNames(List<Account> accountList, Accounts accounts) {
@@ -78,7 +78,7 @@ public class AccountActions {
                     try {
                         if (newName != null && !oldName.trim().equals(newName.trim())) {
                             accounts.modifyAccountName(oldName, newName);
-                            ComponentMap.refreshAllFrames();
+                            //ComponentMap.refreshAllFrames();
                         }
                         retry = false;
                     } catch (DuplicateNameException e) {
@@ -89,7 +89,7 @@ public class AccountActions {
                 }
             }
         }
-        ComponentMap.refreshAllFrames();
+        //ComponentMap.refreshAllFrames();
     }
 
     public static void modifyAccountTypes(List<Account> accountList, AccountTypes accountTypes){
@@ -125,7 +125,7 @@ public class AccountActions {
                 }
             }
         }
-        ComponentMap.refreshAllFrames();
+        //ComponentMap.refreshAllFrames();
     }
 
 }

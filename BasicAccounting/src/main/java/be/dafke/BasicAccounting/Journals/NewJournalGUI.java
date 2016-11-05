@@ -65,7 +65,7 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == add || e.getSource() == name || e.getSource() == abbr) {
             addJournal();
-            ComponentMap.refreshAllFrames();
+            //ComponentMap.refreshAllFrames();
         }else if (e.getSource() == newType) {
             GUIActions.showJournalTypeManager(accountTypes);
         }
@@ -93,7 +93,7 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
             journal.setType(journalType);
             journals.addBusinessObject(journal);
             journals.setCurrentObject(journal);
-            ComponentMap.refreshAllFrames();
+            //ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR,newName.trim(), abbreviation.trim());
         } catch (EmptyNameException e) {

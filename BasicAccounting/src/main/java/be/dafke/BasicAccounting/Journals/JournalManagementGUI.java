@@ -136,7 +136,7 @@ public class JournalManagementGUI extends RefreshableFrame implements ActionList
             modifyAbbr.setEnabled(false);
             modifyType.setEnabled(false);
         }
-        ComponentMap.refreshAllFrames();
+        //ComponentMap.refreshAllFrames();
     }
 
     private ArrayList<Journal> getSelectedJournals(){

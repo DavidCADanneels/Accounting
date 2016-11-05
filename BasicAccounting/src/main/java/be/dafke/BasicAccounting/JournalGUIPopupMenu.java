@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting;
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
 import be.dafke.BusinessActions.TransactionActions;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
@@ -77,7 +76,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
                 transaction.addBusinessObject(booking);
             } else if (source == change) {
                 AccountSelector sel = new AccountSelector(accounts, accountTypes);
-                ComponentMap.addRefreshableComponent(sel);
+//                ComponentMap.addRefreshableComponent(sel);
                 sel.setVisible(true);
                 Account account = sel.getSelection();
                 if (account != null) {
@@ -87,7 +86,7 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
                 Account account = booking.getAccount();
                 GUIActions.showDetails(account, journals);
             }
-            ComponentMap.refreshAllFrames();
+            //ComponentMap.refreshAllFrames();
         }
     }
 }

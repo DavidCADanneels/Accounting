@@ -2,11 +2,10 @@ package be.dafke.BusinessActions;
 
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
-import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 /**
  * Created by ddanneel on 14/02/2015.
@@ -26,6 +25,6 @@ public class AccountingActions {
         } catch (EmptyNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNTING_NAME_EMPTY);
         }
-        ComponentMap.refreshAllFrames();
+//        //ComponentMap.refreshAllFrames();
     }
 }

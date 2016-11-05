@@ -42,7 +42,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
         mortgages = new Mortgages(accounts);
 
-        projects = new Projects(this);
+        projects = new Projects(accounts, accountTypes);
 
         accounts.setName(accounts.getBusinessObjectType());
         journals.setName(journals.getBusinessObjectType());

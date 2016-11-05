@@ -1,7 +1,6 @@
 package be.dafke.BusinessActions;
 
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.ComponentMap;
 
 import javax.swing.*;
 import java.math.BigDecimal;
@@ -15,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class TransactionActions {
 
-    public static void createMortgageTransaction(Accounts accounts, Mortgage mortgage, Transaction transaction){
+    public static void createMortgageTransaction(Mortgage mortgage, Transaction transaction){
         if (mortgage.isPayedOff()) {
             System.out.println("Payed Off already");
             return;
@@ -36,7 +35,7 @@ public class TransactionActions {
         transaction.addBusinessObject(capitalBooking);
         transaction.addBusinessObject(intrestBooking);
 
-        ComponentMap.refreshAllFrames();
+//        //ComponentMap.refreshAllFrames();
     }
 
     public static Booking addBookingToTransaction(Account account, Transaction transaction, boolean debit) {
@@ -99,7 +98,7 @@ public class TransactionActions {
         Journal journal = transaction.getJournal();
         journal.removeBusinessObject(transaction);
         ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_REMOVED, journal.getName());
-        ComponentMap.refreshAllFrames();
+//        //ComponentMap.refreshAllFrames();
     }
 
     public static void editTransaction(Transaction transaction, Journals journals) {
@@ -108,7 +107,7 @@ public class TransactionActions {
         journal.setCurrentObject(transaction);
         journals.setCurrentObject(journal);
         ActionUtils.showErrorMessage(TRANSACTION_REMOVED,journal.getName());
-        ComponentMap.refreshAllFrames();
+//        //ComponentMap.refreshAllFrames();
     }
 
     public static void moveTransaction(Transaction transaction, Journals journals) {
@@ -125,6 +124,6 @@ public class TransactionActions {
             newJournal.addBusinessObject(transaction);
             ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, journal.getName(), newJournal.getName());
         }
-        ComponentMap.refreshAllFrames();
+//        //ComponentMap.refreshAllFrames();
     }
 }

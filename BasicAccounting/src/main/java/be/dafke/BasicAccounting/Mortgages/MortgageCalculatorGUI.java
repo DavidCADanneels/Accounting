@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Mortgages;
 
-import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Calculate;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
@@ -36,15 +35,12 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 
 	Mortgage fixedTable, degressiveTable;
 
-	private final Accounting accounting;
-
     private static int counter = 1;
     private final int nr;
 
-	public MortgageCalculatorGUI(Accounting accounting, Mortgages mortgages) {
+	public MortgageCalculatorGUI(Mortgages mortgages) {
 		super("Mortgage Calculator");
         nr = counter++;
-		this.accounting = accounting;
         this.mortgages = mortgages;
 
 		amountField = new JTextField(10);
@@ -171,7 +167,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 			}
             newMortgage.setName("new Mortgage Table");
             newMortgage.setStartCapital(startKapitaal);
-			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, accounting, mortgages);
+			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, mortgages);
             ComponentMap.addDisposableComponent(MORTGAGE_TABLE + gui.nr, gui);
 			gui.setVisible(true);
 		}

@@ -1,10 +1,13 @@
 package be.dafke.BasicAccounting.Coda;
 
+import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.CodaParser;
 import be.dafke.BusinessModelDao.CsvParser;
-import be.dafke.ComponentModel.*;
-import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.ComponentModel.DisposableComponent;
+import be.dafke.ComponentModel.RefreshableFrame;
+import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
@@ -19,25 +22,24 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.List;
 
-public class StatementTableFrame extends RefreshableFrame implements ActionListener, MouseListener {
+public class StatementTableFrame extends RefreshableFrame implements ActionListener, MouseListener, AccountingListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JButton viewCounterParties, exportToJournal, readCoda, readCsv, saveToAccounting;
-    private final Statements statements;
-    private final CounterParties counterParties;
-    private final Accounting accounting;
-//    private final Accountings accountings;
+    private Statements statements;
+    private CounterParties counterParties;
     private RefreshableTable<Statement> tabel;
 	private StatementDataModel dataModel;
+	private Accounts accounts;
+	private Journals journals;
 
-    public StatementTableFrame(Accountings accountings, Accounting accounting, Statements statements, CounterParties counterParties) {
+
+	public StatementTableFrame(Statements statements, CounterParties counterParties) {
 		super("Statements");
-//		this.accountings = accountings;
 		this.statements = statements;
         this.counterParties = counterParties;
-        this.accounting = accounting;
 
 		dataModel = new StatementDataModel(statements);
 		tabel = new RefreshableTable<>(dataModel);
@@ -84,12 +86,10 @@ public class StatementTableFrame extends RefreshableFrame implements ActionListe
 			saveToAccounting();
 		} else if (e.getSource() == viewCounterParties) {
 //			Accounting accounting = accountings.getCurrentObject();
-			BusinessCollection<BusinessObject> counterParties = accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
-			BusinessCollection<BusinessObject> statements = accounting.getBusinessObject(Statements.STATEMENTS);
-			String key = accounting.toString() + CounterParties.COUNTERPARTIES;
+			String key = CounterParties.COUNTERPARTIES + counterParties.hashCode();
 			DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
 			if (gui == null) {
-				gui = new CounterPartyTableFrame(accounting, (CounterParties) counterParties, (Statements) statements);
+				gui = new CounterPartyTableFrame((CounterParties) counterParties, (Statements) statements);
 				ComponentMap.addDisposableComponent(key, gui); // DETAILS
 			}
 			gui.setVisible(true);
@@ -175,7 +175,7 @@ public class StatementTableFrame extends RefreshableFrame implements ActionListe
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
             // TODO: this is an existing Action in CodaActionListener
-            String key = accounting.toString()+ CounterParties.COUNTERPARTIES;
+            String key = CounterParties.COUNTERPARTIES + counterParties.hashCode();
             ComponentMap.getDisposableComponent(key).setVisible(true);
             // until here
 			return false;
@@ -188,16 +188,16 @@ public class StatementTableFrame extends RefreshableFrame implements ActionListe
 		int[] rows = tabel.getSelectedRows();
 		if (checkAccountAndSelection(rows)) {
 			if (checkCounterParties(rows)) {
-				Object[] accounts = accounting.getAccounts().getBusinessObjects().toArray();
+				Object[] accountList = accounts.getBusinessObjects().toArray();
 				Account bankAccount = (Account) JOptionPane.showInputDialog(this, "Select Bank account",
-						"Select account", JOptionPane.INFORMATION_MESSAGE, null, accounts, null);
+						"Select account", JOptionPane.INFORMATION_MESSAGE, null, accountList, null);
 				Journal journal;
-				Object[] journals = accounting.getJournals().getBusinessObjects().toArray();
-				if (accounting.getJournals().getBusinessObjects().size() == 1) {
-					journal = (Journal) journals[0];
+				Object[] journalsList = journals.getBusinessObjects().toArray();
+				if (journals.getBusinessObjects().size() == 1) {
+					journal = (Journal) journalsList[0];
 				} else {
 					journal = (Journal) JOptionPane.showInputDialog(this, "Select Journal", "Select journal",
-							JOptionPane.INFORMATION_MESSAGE, null, journals, null);
+							JOptionPane.INFORMATION_MESSAGE, null, journalsList, null);
 				}
 				if (bankAccount != null && journal != null) {
                     for(int i : rows) {
@@ -213,11 +213,11 @@ public class StatementTableFrame extends RefreshableFrame implements ActionListe
                         }
                         while (account == null) {
                             account = (Account) JOptionPane.showInputDialog(this, "Select account", "Select account",
-                                    JOptionPane.INFORMATION_MESSAGE, null, accounts, null);
+                                    JOptionPane.INFORMATION_MESSAGE, null, accountList, null);
                             ((CounterParty)counterParty).setAccount(account);
                         }
                         BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 3);
-                        Transaction transaction = accounting.getJournals().getCurrentObject().getCurrentObject();
+                        Transaction transaction = journals.getCurrentObject().getCurrentObject();
                         Booking booking1 = new Booking(account, amount, debet);
                         Booking booking2 = new Booking(bankAccount, amount, !debet);
                         transaction.addBusinessObject(booking1);
@@ -229,11 +229,11 @@ public class StatementTableFrame extends RefreshableFrame implements ActionListe
                         transaction.setDescription(description);
                         journal.addBusinessObject(transaction);
 
-                        transaction = new Transaction(accounting.getAccounts(), date, "");
+                        transaction = new Transaction(accounts, date, "");
                         // take the same date as previous transaction
                         // leave the description empty
 
-                        accounting.getJournals().getCurrentObject().setCurrentObject(transaction);
+                        journals.getCurrentObject().setCurrentObject(transaction);
                     }
                 }
 			}
@@ -297,5 +297,13 @@ public class StatementTableFrame extends RefreshableFrame implements ActionListe
 	}
 
 	public void mouseReleased(MouseEvent e) {
+	}
+
+	@Override
+	public void setAccounting(Accounting accounting) {
+		counterParties = (CounterParties)accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
+		statements = (Statements)accounting.getBusinessObject(Statements.STATEMENTS);
+		accounts=accounting==null?null:accounting.getAccounts();
+		journals=accounting==null?null:accounting.getJournals();
 	}
 }

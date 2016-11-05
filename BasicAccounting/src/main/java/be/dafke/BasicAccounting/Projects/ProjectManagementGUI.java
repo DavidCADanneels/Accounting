@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Projects;
 
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
+import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -24,7 +25,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class ProjectManagementGUI extends RefreshableFrame implements ListSelectionListener, ActionListener {
+public class ProjectManagementGUI extends RefreshableFrame implements ListSelectionListener, ActionListener, AccountingListener {
 	/**
 	 * 
 	 */
@@ -35,11 +36,15 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 	private final JButton moveTo, moveBack, newProject, addAccount;
 	private final JComboBox<Project> combo;
 	private Project project;
-	private final Accounting accounting;
+	private Accounts accounts;
+	private AccountTypes accountTypes;
+	private Projects projects;
 
-    public ProjectManagementGUI(Accounting accounting) {
+	public ProjectManagementGUI(Accounts accounts, AccountTypes accountTypes, Projects projects) {
 		super(getBundle("Projects").getString("PROJECTMANAGER"));
-		this.accounting = accounting;
+		this.accounts = accounts;
+		this.accountTypes = accountTypes;
+		this.projects = projects;
 		JPanel hoofdPaneel = new JPanel();
 		hoofdPaneel.setLayout(new BoxLayout(hoofdPaneel, BoxLayout.X_AXIS));
 		//
@@ -150,9 +155,8 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 				name = JOptionPane.showInputDialog(getBundle("Projects").getString(
 						"ENTER_NAME_FOR_PROJECT"));
 			if (name != null) {
-				Project project = new Project(name, accounting);
+				Project project = new Project(name, accounts, accountTypes);
 				try {
-					Projects projects = accounting.getProjects();
 					projects.addBusinessObject(project);
 				} catch (EmptyNameException e) {
 					e.printStackTrace();
@@ -174,13 +178,13 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 				zoeker.resetMap(noProjectlijst);
 			}
 		} else if (ae.getSource()==addAccount) {
-			new NewAccountGUI(accounting.getAccounts(), accounting.getAccountTypes()).setVisible(true);
+			new NewAccountGUI(accounts, accountTypes).setVisible(true);
 		}
 	}
 
     public ArrayList<Account> getAccountNoMatchProject(Project project) {
 		ArrayList<Account> result = new ArrayList<>();
-		for(Account account : accounting.getAccounts().getBusinessObjects()) {
+		for(Account account : accounts.getBusinessObjects()) {
             if (!project.getBusinessObjects().contains(account)){
                 result.add(account);
             }
@@ -189,9 +193,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 	}
 
     public void refresh() {
-        Accounts accounts = accounting.getAccounts();
         zoeker.resetMap(accounts.getBusinessObjects());
-		Projects projects = accounting.getProjects();
         combo.removeAllItems();
         for(Project project : projects.getBusinessObjects()) {
 			((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
@@ -207,5 +209,12 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
                 allAccountsModel.addElement(account);
             }
         }
+	}
+
+	@Override
+	public void setAccounting(Accounting accounting) {
+		accounts=accounting==null?null:accounting.getAccounts();
+		accountTypes=accounting==null?null:accounting.getAccountTypes();
+		projects=accounting==null?null:accounting.getProjects();
 	}
 }

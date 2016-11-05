@@ -3,8 +3,7 @@ package be.dafke.BasicAccounting.MainApplication;
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
 import be.dafke.BasicAccounting.AccountsPopupMenu;
 import be.dafke.BasicAccounting.GUIActions;
-import be.dafke.BusinessActions.JournalDataChangedListener;
-import be.dafke.BusinessActions.TransactionActions;
+import be.dafke.BusinessActions.*;
 import be.dafke.BusinessModel.*;
 import be.dafke.Utils.AlphabeticListModel;
 import be.dafke.Utils.PrefixFilterPanel;
@@ -26,7 +25,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountsGUI extends AccountingPanel implements ListSelectionListener, MouseListener, ActionListener {
+public class AccountsGUI extends JPanel implements ListSelectionListener, MouseListener, ActionListener, JournalsListener, AccountsListener, AccountingListener {
     private final PrefixFilterPanel<Account> zoeker;
 	private final AlphabeticListModel<Account> model;
 	private final JList<Account> lijst;
@@ -36,12 +35,13 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 
     private final JPanel filter;
     private AccountsPopupMenu popup;
-
     public final String ADD = "add";
+
     public final String MANAGE = "manage";
     public final String DETAILS = "details";
     private Account selectedAccount = null;
     private JournalDataChangedListener journalDataChangedListener;
+    private Journal journal;
     private Accounts accounts;
     private AccountTypes accountTypes;
     private Journals journals;
@@ -71,12 +71,14 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         accountDetails.setActionCommand(DETAILS);
 
         debet.addActionListener(e -> {
-            Transaction transaction = journalDataChangedListener.getTransaction();
+//            Transaction transaction = journalDataChangedListener.getTransaction();
+            Transaction transaction = journal.getCurrentObject();
             TransactionActions.addBookingToTransaction(selectedAccount, transaction, true);
             journalDataChangedListener.fireJournalDataChanged();
         });
         credit.addActionListener(e -> {
-            Transaction transaction = journalDataChangedListener.getTransaction();
+//            Transaction transaction = journalDataChangedListener.getTransaction();
+            Transaction transaction = journal.getCurrentObject();
             TransactionActions.addBookingToTransaction(selectedAccount, transaction, false);
             journalDataChangedListener.fireJournalDataChanged();
         });
@@ -182,33 +184,6 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
         }
 	}
 
-    public void setAccounting(Accounting accounting) {
-        accounts = accounting.getAccounts();
-        accountTypes = accounting.getAccountTypes();
-        journals = accounting.getJournals();
-
-        // could be popup.setAccounting() with constructor call in this.constructor
-        popup = new AccountsPopupMenu(accounts, accountTypes);
-
-        if(accounting!=null) {
-            selectedAccountTypes.clear();
-            for(AccountType type : accountTypes.getBusinessObjects()){
-                selectedAccountTypes.put(type, Boolean.TRUE);
-            }
-            boxes.clear();
-            filter.removeAll();
-
-            for (AccountType type : accountTypes.getBusinessObjects()) {
-                JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(type.getName().toUpperCase()));
-                checkBox.setSelected(true);
-                checkBox.setActionCommand(type.getName());
-                checkBox.addActionListener(this);
-                boxes.put(type,checkBox);
-                filter.add(checkBox);
-            }
-        }
-    }
-
 	public void refresh() {
         boolean active = accounts != null;
         if(accountTypes!=null) {
@@ -253,5 +228,45 @@ public class AccountsGUI extends AccountingPanel implements ListSelectionListene
 
     public void mouseExited(MouseEvent e) {
 
+    }
+
+    @Override
+    public void setAccounting(Accounting accounting) {
+        accounts = accounting == null ? null : accounting.getAccounts();
+        accountTypes = accounting == null ? null : accounting.getAccountTypes();
+        journals = accounting == null ? null : accounting.getJournals();
+
+        // could be popup.setAccounting() with constructor call in this.constructor
+        popup = new AccountsPopupMenu(accounts, accountTypes);
+
+        setJournal(journals==null?null:journals.getCurrentObject());
+        if(accountTypes!=null) {
+            selectedAccountTypes.clear();
+            for(AccountType type : accountTypes.getBusinessObjects()){
+                selectedAccountTypes.put(type, Boolean.TRUE);
+            }
+            boxes.clear();
+            filter.removeAll();
+
+            for (AccountType type : accountTypes.getBusinessObjects()) {
+                JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(type.getName().toUpperCase()));
+                checkBox.setSelected(true);
+                checkBox.setActionCommand(type.getName());
+                checkBox.addActionListener(this);
+                boxes.put(type,checkBox);
+                filter.add(checkBox);
+            }
+        }
+    }
+
+
+    @Override
+    public void setJournal(Journal journal) {
+        this.journal = journal;
+    }
+
+    @Override
+    public void setAccounts(Accounts accounts) {
+        this.accounts = accounts;
     }
 }

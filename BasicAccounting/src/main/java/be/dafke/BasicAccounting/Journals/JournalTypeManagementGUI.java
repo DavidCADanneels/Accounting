@@ -132,7 +132,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
                 model.removeElement(type);
             }
 		}
-        ComponentMap.refreshAllFrames();
+        //ComponentMap.refreshAllFrames();
     }
 
 	public void refresh() {

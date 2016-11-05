@@ -1,9 +1,7 @@
 package be.dafke.BasicAccounting.Coda;
 
-import be.dafke.BasicAccounting.Coda.StatementTableFrame;
-import be.dafke.BasicAccounting.MainApplication.AccountingMenuBar;
+import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accountings;
 import be.dafke.BusinessModel.CounterParties;
 import be.dafke.BusinessModel.Statements;
 import be.dafke.ComponentModel.ComponentMap;
@@ -19,35 +17,37 @@ import java.awt.event.ActionListener;
 /**
  * Created by ddanneels on 27/12/2015.
  */
-public class CodaMenu extends JMenu implements ActionListener {
-    private final Accountings accountings;
-    private JMenuItem movements, counterParties;
+public class CodaMenu extends JMenu implements ActionListener, AccountingListener {
+    private JMenuItem movementsItem, counterPartiesItem;
+    private BusinessCollection<BusinessObject> counterParties, statements;
 
-    public CodaMenu(Accountings accountings, AccountingMenuBar menuBar){
-        this.accountings=accountings;
-        movements = new JMenuItem("Show movements");
-        movements.addActionListener(this);
-        movements.setEnabled(false);
-        counterParties = new JMenuItem("Show Counterparties");
-        counterParties.addActionListener(this);
-        counterParties.setEnabled(false);
+    public CodaMenu(){
+        movementsItem = new JMenuItem("Show movements");
+        movementsItem.addActionListener(this);
+        movementsItem.setEnabled(false);
+        counterPartiesItem = new JMenuItem("Show Counterparties");
+        counterPartiesItem.addActionListener(this);
+        counterPartiesItem.setEnabled(false);
 
-        add(movements);
-        add(counterParties);
-        menuBar.addRefreshableMenuItem(movements);
-        menuBar.addRefreshableMenuItem(counterParties);
+        add(movementsItem);
+        add(counterPartiesItem);
     }
 
     public void actionPerformed(ActionEvent e) {
-        Accounting accounting = accountings.getCurrentObject();
-        BusinessCollection<BusinessObject> counterParties = accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
-        BusinessCollection<BusinessObject> statements = accounting.getBusinessObject(Statements.STATEMENTS);
-        String key = accounting.toString() + Statements.STATEMENTS;
+        String key = Statements.STATEMENTS + statements.hashCode();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new StatementTableFrame(accountings, accounting, (Statements)statements, (CounterParties)counterParties);
+            gui = new StatementTableFrame((Statements)statements, (CounterParties)counterParties);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
+    }
+
+    @Override
+    public void setAccounting(Accounting accounting) {
+        counterParties = accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
+        statements = accounting.getBusinessObject(Statements.STATEMENTS);
+        counterPartiesItem.setEnabled(counterParties!=null);
+        movementsItem.setEnabled(statements!=null);
     }
 }

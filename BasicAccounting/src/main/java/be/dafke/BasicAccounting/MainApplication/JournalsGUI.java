@@ -1,7 +1,8 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.GUIActions;
-import be.dafke.BusinessActions.SetJournalListener;
+import be.dafke.BusinessActions.AccountingListener;
+import be.dafke.BusinessActions.JournalsListener;
 import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class JournalsGUI extends AccountingPanel implements ActionListener{
+public class JournalsGUI extends JPanel implements ActionListener, JournalsListener, AccountingListener {
 	/**
 	 * 
 	 */
@@ -27,7 +28,7 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
 	private Journal selectedJournal = null;
-	private ArrayList<SetJournalListener> setJournalListeners = new ArrayList<>();
+	private ArrayList<JournalsListener> journalsListeners;
 	private Journals journals;
 	private JournalTypes journalTypes;
 	private Accounts accounts;
@@ -40,8 +41,8 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
         combo.addActionListener(e -> {
             Journal newJournal = (Journal) combo.getSelectedItem();
             Journal journal = GUIActions.switchJournal(accounts, selectedJournal, newJournal);
-            for (SetJournalListener setJournalListener : setJournalListeners){
-				setJournalListener.setJournal(journal);
+            for (JournalsListener journalsListener : journalsListeners){
+				journalsListener.setJournal(journal);
             }
             setJournal(newJournal);
         });
@@ -64,8 +65,12 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 		add(paneel);
 	}
 
-	public void addSetJournalListener(SetJournalListener dataChangeListener){
-		setJournalListeners.add(dataChangeListener);
+	public void setJournalListeners(ArrayList<JournalsListener> dataChangeListeners){
+		journalsListeners = dataChangeListeners;
+	}
+
+	public ArrayList<JournalsListener> getJournalListeners() {
+		return journalsListeners;
 	}
 
 	public void actionPerformed(ActionEvent ae) {
@@ -79,33 +84,34 @@ public class JournalsGUI extends AccountingPanel implements ActionListener{
 		}
 	}
 
-	@Override
 	public void setAccounting(Accounting accounting) {
-		journals = accounting.getJournals();
-		journalTypes = accounting.getJournalTypes();
-		accounts = accounting.getAccounts();
+		journalTypes=accounting==null?null:accounting.getJournalTypes();
+		accounts=accounting==null?null:accounting.getAccounts();
+		setJournals(accounting==null?null:accounting.getJournals());
 	}
 
-	public void refresh() {
-        combo.removeActionListener(this);
-        combo.removeAllItems();
+	public void setJournals(Journals journals){
+		this.journals = journals;
+		combo.removeActionListener(this);
+		combo.removeAllItems();
 		if (journals!=null) {
-            for(Journal journal: journals.getBusinessObjects()){
-                combo.addItem(journal);
-            }
+			for(Journal journal: journals.getBusinessObjects()){
+				combo.addItem(journal);
+			}
 			combo.setSelectedItem(journals.getCurrentObject());
-            details.setEnabled(journals!=null && journals.getCurrentObject()!=null);
-            combo.setEnabled(journals!=null);
-            journalManagement.setEnabled(journals != null);
+			details.setEnabled(journals!=null && journals.getCurrentObject()!=null);
+			combo.setEnabled(journals!=null);
+			journalManagement.setEnabled(journals != null);
 		} else {
 			combo.setSelectedItem(null);
-            details.setEnabled(false);
-            combo.setEnabled(false);
-            journalManagement.setEnabled(false);
+			details.setEnabled(false);
+			combo.setEnabled(false);
+			journalManagement.setEnabled(false);
 		}
-        combo.addActionListener(this);
+		combo.addActionListener(this);
 	}
 
+	@Override
 	public void setJournal(Journal journal) {
 		selectedJournal = journal;
 	}

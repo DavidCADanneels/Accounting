@@ -24,14 +24,18 @@ import static java.util.ResourceBundle.getBundle;
 public class ProjectGUI extends RefreshableFrame implements ActionListener {
     private final JButton manage;
     private final JComboBox<Project> combo;
+    private final Accounts accounts;
+    private final AccountTypes accountTypes;
     private Project project;
-    private final Accounting accounting;
     private JournalDetailsDataModel journalDetailsDataModel;
     private BalanceDataModel resultBalanceDataModel, relationsBalanceDataModel;
+    private Projects projects;
 
-    public ProjectGUI(Accounting accounting) {
+    public ProjectGUI(Accounts accounts, AccountTypes accountTypes, Projects projects) {
         super(getBundle("Projects").getString("PROJECTS"));
-        this.accounting = accounting;
+        this.accounts = accounts;
+        this.accountTypes = accountTypes;
+        this.projects = projects;
         setLayout(new BorderLayout());
 
         JPanel noord = new JPanel();
@@ -88,9 +92,8 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
         return new JScrollPane(table);
     }
 
-    @Override
+//    @Override
     public void refresh() {
-        Projects projects = accounting.getProjects();
         combo.removeAllItems();
         for(Project project : projects.getBusinessObjects()) {
             ((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
@@ -107,16 +110,20 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
         relationsBalanceDataModel.fireTableDataChanged();
     }
 
+    public void setAccounting(Projects projects){
+        this.projects = projects;
+    }
+
     @Override
     public void actionPerformed(ActionEvent ae) {
         if (ae.getSource() == combo) {
             project = (Project) combo.getSelectedItem();
             refresh();
         } else if(ae.getSource()==manage) {
-            String key = accounting.toString() + MANAGE;
+            String key = MANAGE + projects.hashCode();
             DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
             if (gui == null) {
-                gui = new ProjectManagementGUI(accounting);
+                gui = new ProjectManagementGUI(accounts, accountTypes, projects);
                 ComponentMap.addDisposableComponent(key, gui); // DETAILS
             }
             gui.setVisible(true);

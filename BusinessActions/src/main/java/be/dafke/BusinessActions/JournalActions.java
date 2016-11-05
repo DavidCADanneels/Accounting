@@ -4,7 +4,6 @@ import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.JournalType;
 import be.dafke.BusinessModel.JournalTypes;
 import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
@@ -27,7 +26,7 @@ public class JournalActions {
                 try {
                     if(newName!=null && !oldName.trim().equals(newName.trim())){
                         journals.modifyJournalName(oldName, newName);
-                        ComponentMap.refreshAllFrames();
+//                        //ComponentMap.refreshAllFrames();
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {
@@ -48,7 +47,7 @@ public class JournalActions {
                 try {
                     if(newAbbreviation!=null && !oldAbbreviation.trim().equals(newAbbreviation.trim())){
                         journals.modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
-                        ComponentMap.refreshAllFrames();
+//                        //ComponentMap.refreshAllFrames();
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {

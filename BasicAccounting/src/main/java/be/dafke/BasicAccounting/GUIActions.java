@@ -99,7 +99,7 @@ public class GUIActions {
         }
         return journal;
 //        journals.setCurrentObject(journal);
-//        ComponentMap.refreshAllFrames();
+//        //ComponentMap.refreshAllFrames();
     }
 
     private static Journal checkTransfer(Accounts accounts, Journal oldJournal, Journal newJournal){

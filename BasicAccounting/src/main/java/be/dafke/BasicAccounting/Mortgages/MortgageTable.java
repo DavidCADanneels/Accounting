@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Mortgages;
 
 import be.dafke.BusinessActions.ActionUtils;
-import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
 import be.dafke.ComponentModel.ComponentMap;
@@ -10,12 +9,8 @@ import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import javax.swing.JButton;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
@@ -29,7 +24,6 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
 	private final MortgageDataModel model;
 	private final RefreshableTable<Mortgage> tabel;
 	private final BigDecimal startCapital;
-	private final Accounting accounting;
 
     private static int counter = 1;
     protected final int nr;
@@ -37,12 +31,11 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
     private Mortgages mortgages;
 
 
-    public MortgageTable(Mortgage mortgage, BigDecimal startCapital, Accounting accounting, Mortgages mortgages) {
+    public MortgageTable(Mortgage mortgage, BigDecimal startCapital, Mortgages mortgages) {
 		super("Aflossingstabel");
         nr = counter++;
         this.mortgage = mortgage;
         this.mortgages = mortgages;
-		this.accounting = accounting;
 		this.startCapital = startCapital;
 		model = new MortgageDataModel(mortgage);
 		tabel = new RefreshableTable<Mortgage>(model);
@@ -69,7 +62,7 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
         try {
 //            accounting.getAccounts().addBusinessObject(mortgage);    // this is implicitely done in the next step
             mortgages.addBusinessObject(mortgage);
-            ComponentMap.refreshAllFrames();
+            //ComponentMap.refreshAllFrames();
             dispose();
         } catch (DuplicateNameException e) {
 			ActionUtils.showErrorMessage(ActionUtils.MORTGAGE_DUPLICATE_NAME);

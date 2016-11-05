@@ -1,12 +1,8 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.JournalGUIPopupMenu;
-import be.dafke.BusinessActions.ActionUtils;
-import be.dafke.BusinessActions.JournalDataChangedListener;
-import be.dafke.BusinessActions.PopupForTableActivator;
-import be.dafke.BusinessActions.SetJournalListener;
+import be.dafke.BusinessActions.*;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Utils.Utils;
 
@@ -23,7 +19,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 29/04/2016.
  */
-public class JournalInputGUIListener extends AccountingPanel implements FocusListener, ActionListener, SetJournalListener, JournalDataChangedListener {
+public class JournalInputGUI extends JPanel implements FocusListener, ActionListener, JournalsListener, AccountingListener, JournalDataChangedListener {
     private static final long serialVersionUID = 1L;
 
     private JTextField debet, credit, dag, maand, jaar, bewijs, ident;
@@ -37,7 +33,7 @@ public class JournalInputGUIListener extends AccountingPanel implements FocusLis
     private Journal journal;
     private Accounts accounts;
 
-    public JournalInputGUIListener() {
+    public JournalInputGUI() {
         setLayout(new BorderLayout());
         debettotaal = new BigDecimal(0);
         credittotaal = new BigDecimal(0);
@@ -170,7 +166,7 @@ public class JournalInputGUIListener extends AccountingPanel implements FocusLis
             if(journal!=null && transaction!=null && transaction.isBookable()){
                 journal.addBusinessObject(transaction);
                 clear();
-                ComponentMap.refreshAllFrames();
+                //ComponentMap.refreshAllFrames();
             }
         }
     }
@@ -215,6 +211,7 @@ public class JournalInputGUIListener extends AccountingPanel implements FocusLis
         credit.setText(credittotaal.toString());
     }
 
+    @Override
     public void setAccounting(Accounting accounting){
         popup.setAccounting(accounting);
         accounts = (accounting==null)?null:accounting.getAccounts();

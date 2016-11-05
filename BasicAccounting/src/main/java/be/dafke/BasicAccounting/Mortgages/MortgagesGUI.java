@@ -1,23 +1,18 @@
 package be.dafke.BasicAccounting.Mortgages;
 
-import be.dafke.BusinessActions.TransactionActions;
-import be.dafke.BasicAccounting.MainApplication.AccountingPanel;
+import be.dafke.BusinessActions.*;
 import be.dafke.BusinessModel.*;
-import be.dafke.ObjectModel.BusinessCollection;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JList;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.BorderLayout;
-import java.awt.Color;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class MortgagesGUI extends AccountingPanel implements ListSelectionListener, ActionListener {
+public class MortgagesGUI extends JPanel implements ListSelectionListener, ActionListener, AccountingListener, JournalsListener, MortgagesListener {
 	/**
 	 *
 	 */
@@ -25,80 +20,70 @@ public class MortgagesGUI extends AccountingPanel implements ListSelectionListen
 	private final JList<Mortgage> list;
 	private final JButton pay;// , newMortgage, details;
 	private final DefaultListModel<Mortgage> listModel;
-
-    private BusinessCollection<Mortgage> mortgages;
-    private Journal journal;
-	private Accounts accounts;
+	private JournalDataChangedListener journalDataChangedListener;
+	private Journal journal;
 
 	public MortgagesGUI() {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Mortgages"));
-		list = new JList<Mortgage>();
-		listModel = new DefaultListModel<Mortgage>();
+		list = new JList<>();
+		listModel = new DefaultListModel<>();
 		list.setModel(listModel);
 		list.addListSelectionListener(this);
 		pay = new JButton("Pay");
 		pay.addActionListener(this);
-        pay.setEnabled(false);
+		pay.setEnabled(false);
 		add(list, BorderLayout.CENTER);
 		add(pay, BorderLayout.SOUTH);
 	}
 
-    public void setAccounting(Accounting accounting) {
-		this.accounting = accounting;
-        if (accounting == null) {
-            setMortgages(null);
-            setJournal(null);
-			setAccounts(null);
-        } else {
-            setMortgages(accounting.getMortgages());
-			setAccounts(accounting.getAccounts());
-            if(accounting.getJournals()!=null){
-                setJournal(accounting.getJournals().getCurrentObject());
-            } else {
-				setJournal(null);
-			}
-        }
-    }
-
-    public void setMortgages(BusinessCollection<Mortgage> mortgages) {
-        this.mortgages = mortgages;
-    }
-
-	public void setAccounts(Accounts accounts){
-		this.accounts = accounts;
-	}
-
-    public void setJournal(Journal journal) {
-        this.journal = journal;
-    }
-
-	public void refresh() {
-		setAccounting(accounting); // only needed to setJournal !?
-		listModel.clear();
-        if (mortgages != null) {
-            for(Mortgage mortgage : mortgages.getBusinessObjects()) {
-                if (!listModel.contains(mortgage)) {
-                    listModel.addElement(mortgage);
-                }
-            }
-        }
-		list.revalidate();
+	public void setJournalDataChangedListener(JournalDataChangedListener journalDataChangedListener) {
+		this.journalDataChangedListener = journalDataChangedListener;
 	}
 
 	public void actionPerformed(ActionEvent arg0) {
-		Mortgage mortgage = (Mortgage)list.getSelectedValue();
+		Mortgage mortgage = list.getSelectedValue();
+//		Transaction transaction = journalDataChangedListener.getTransaction();
 		Transaction transaction = journal.getCurrentObject();
 		if (mortgage != null) {
-			TransactionActions.createMortgageTransaction(accounts, mortgage, transaction);
+			TransactionActions.createMortgageTransaction(mortgage, transaction);
+			journalDataChangedListener.fireJournalDataChanged();
 		}
 	}
 
 	public void valueChanged(ListSelectionEvent e) {
-		if (journal!=null && !e.getValueIsAdjusting() && list.getSelectedIndex() != -1) {
+		if (journal.getCurrentObject() != null && !e.getValueIsAdjusting() && list.getSelectedIndex() != -1) {
 			pay.setEnabled(list.getSelectedValue().isBookable());
 		} else {
 			pay.setEnabled(false);
 		}
+	}
+
+	@Override
+	public void setAccounting(Accounting accounting) {
+		setMortgages(accounting == null ? null : accounting.getMortgages());
+		setJournals(accounting == null ? null : accounting.getJournals());
+	}
+
+	@Override
+	public void setMortgages(Mortgages mortgages) {
+		listModel.clear();
+		if (mortgages != null) {
+			for (Mortgage mortgage : mortgages.getBusinessObjects()) {
+				if (!listModel.contains(mortgage)) {
+					listModel.addElement(mortgage);
+				}
+			}
+		}
+		list.revalidate();
+	}
+
+	public void setJournals(Journals journals) {
+		setJournal(journals == null ? null : journals.getCurrentObject());
+	}
+
+	@Override
+	public void setJournal(Journal journal) {
+		this.journal = journal;
 	}
 }

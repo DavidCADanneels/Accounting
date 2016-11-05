@@ -9,8 +9,8 @@ import java.util.Calendar;
  */
 public class ProjectJournal extends Journal {
 
-    public ProjectJournal(Accounting accounting, String name, String abbreviation) {
-        super(accounting.getAccounts(), name, abbreviation);
+    public ProjectJournal(Accounts accounts, String name, String abbreviation) {
+        super(accounts, name, abbreviation);
 	}
 
 	public void removeBusinessObject(Transaction transaction) {

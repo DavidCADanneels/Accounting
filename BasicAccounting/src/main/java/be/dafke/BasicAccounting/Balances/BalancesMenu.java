@@ -1,14 +1,10 @@
 package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.GUIActions;
-import be.dafke.BasicAccounting.MainApplication.AccountingMenuBar;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accountings;
-import be.dafke.BusinessModel.Balance;
-import be.dafke.BusinessModel.Balances;
+import be.dafke.BusinessActions.AccountingListener;
+import be.dafke.BusinessModel.*;
 
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
@@ -20,13 +16,15 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 30-12-13
  * Time: 11:03
  */
-public class BalancesMenu extends JMenu implements ActionListener {
+public class BalancesMenu extends JMenu implements ActionListener, AccountingListener {
     private JMenuItem testBalance, yearBalance, resultBalance, relationsBalance;
-    private final Accountings accountings;
+    private Journals journals;
+    private Accounts accounts;
+    private AccountTypes accountTypes;
+    private Balances balances;
 
-    public BalancesMenu(Accountings accountings, AccountingMenuBar menuBar){
+    public BalancesMenu(){
         super(getBundle("BusinessModel").getString("BALANSES"));
-        this.accountings = accountings;
         setMnemonic(KeyEvent.VK_B);
         testBalance = new JMenuItem(getBundle("BusinessModel").getString("TESTBALANCE"));
         yearBalance = new JMenuItem(getBundle("BusinessModel").getString("YEARBALANCE"));
@@ -45,18 +43,12 @@ public class BalancesMenu extends JMenu implements ActionListener {
         add(resultBalance);
         add(yearBalance);
         add(relationsBalance);
-        menuBar.addRefreshableMenuItem(testBalance);
-        menuBar.addRefreshableMenuItem(resultBalance);
-        menuBar.addRefreshableMenuItem(yearBalance);
-        menuBar.addRefreshableMenuItem(relationsBalance);
     }
 
     public void actionPerformed(ActionEvent e) {
-        Accounting accounting = accountings.getCurrentObject();
         if (e.getSource() == testBalance) {
-            GUIActions.showTestBalance(accounting.getJournals(), accounting.getAccounts(), accounting.getAccountTypes());
+            GUIActions.showTestBalance(journals, accounts, accountTypes);
         } else{
-            Balances balances = accounting.getBalances();
             Balance balance = null;
             if (e.getSource() == yearBalance) {
                 balance = balances.getBusinessObject(Balances.YEAR_BALANCE);
@@ -65,7 +57,19 @@ public class BalancesMenu extends JMenu implements ActionListener {
             } else if (e.getSource() == relationsBalance) {
                 balance = balances.getBusinessObject(Balances.RELATIONS_BALANCE);
             }
-            GUIActions.showBalance(accounting.getJournals(), balance);
+            GUIActions.showBalance(journals, balance);
         }
+    }
+
+    @Override
+    public void setAccounting(Accounting accounting) {
+        journals = accounting==null?null:accounting.getJournals();
+        accounts = accounting==null?null:accounting.getAccounts();
+        accountTypes = accounting==null?null:accounting.getAccountTypes();
+        balances = accounting==null?null:accounting.getBalances();
+        relationsBalance.setEnabled(balances!=null);
+        resultBalance.setEnabled(balances!=null);
+        testBalance.setEnabled(balances!=null);
+        yearBalance.setEnabled(balances!=null);
     }
 }

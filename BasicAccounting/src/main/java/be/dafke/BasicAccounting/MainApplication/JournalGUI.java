@@ -2,8 +2,9 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.DetailsPopupMenu;
 import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
+import be.dafke.BusinessActions.AccountingListener;
+import be.dafke.BusinessActions.JournalsListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
-import be.dafke.BusinessActions.SetJournalListener;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
@@ -13,7 +14,7 @@ import be.dafke.ComponentModel.RefreshableTable;
 import javax.swing.*;
 import java.awt.*;
 
-public class JournalGUI extends AccountingPanel implements SetJournalListener {
+public class JournalGUI extends JPanel implements JournalsListener, AccountingListener {
     /**
 	 * 
 	 */

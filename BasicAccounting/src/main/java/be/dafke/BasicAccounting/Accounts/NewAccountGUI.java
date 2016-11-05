@@ -5,7 +5,6 @@ import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
-import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
@@ -62,7 +61,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == add || event.getSource() == nameField) {
             addAccount();
-            ComponentMap.refreshAllFrames();
+            //ComponentMap.refreshAllFrames();
         }
     }
 
@@ -82,7 +81,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
                 }
             }
             accounts.addBusinessObject(account);
-            ComponentMap.refreshAllFrames();
+            //ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, name);
         } catch (EmptyNameException e) {
