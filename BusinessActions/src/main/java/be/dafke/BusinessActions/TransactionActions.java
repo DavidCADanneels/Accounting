@@ -105,9 +105,7 @@ public class TransactionActions {
         Journal journal = transaction.getJournal();
         journal.removeBusinessObject(transaction);
         journal.setCurrentObject(transaction);
-        journals.setCurrentObject(journal);
         ActionUtils.showErrorMessage(TRANSACTION_REMOVED,journal.getName());
-//        //ComponentMap.refreshAllFrames();
     }
 
     public static void moveTransaction(Transaction transaction, Journals journals) {

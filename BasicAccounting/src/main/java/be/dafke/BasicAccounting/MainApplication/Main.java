@@ -208,6 +208,7 @@ public class Main {
     }
 
     public static void setJournal(Journal journal) {
+        accountings.getCurrentObject().getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter
         for(JournalsListener journalsListener :journalsListeners){
             journalsListener.setJournal(journal);
         }
