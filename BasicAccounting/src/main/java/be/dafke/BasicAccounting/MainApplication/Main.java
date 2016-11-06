@@ -43,10 +43,12 @@ public class Main {
     private static AccountingMenuBar menuBar;
     private static AccountingGUIFrame frame;
     private static ArrayList<JournalsListener> journalsListeners = new ArrayList<>();
+    private static ArrayList<TransactionListener> transactionListeners = new ArrayList<>();
     private static ArrayList<AccountingListener> accountingListeners = new ArrayList<>();
     private static ArrayList<AccountsListener> accountsListeners = new ArrayList<>();
     private static ArrayList<MortgagesListener> mortgagesListeners = new ArrayList<>();
 
+    private static ArrayList<TransactionDataChangedListener> transactionDataChangeListeners = new ArrayList<>();
     private static MultiValueMap<Integer, JournalDataChangeListener> journalDataChangeListeners = new MultiValueMap<>();
     private static MultiValueMap<Integer, AccountDataChangeListener> accountDataChangeListeners = new MultiValueMap<>();
 
@@ -97,16 +99,22 @@ public class Main {
     private static void createListeners() {
         accountsListeners.add(accountsGUI);
         accountsListeners.add(accountsTableGUI);
+        // accountTypeListeners, etc.
 
-        journalsListeners.add(accountsGUI);
-        journalsListeners.add(accountsTableGUI);
-        journalsListeners.add(mortgagesGUI);
         journalsListeners.add(journalReadGUI);
-        journalsListeners.add(journalInputGUI);
         journalsListeners.add(journalsGUI);  // will call setJournal() in JournalsGUI
 
         mortgagesListeners.add(mortgagesGUI);
 
+        transactionListeners.add(mortgagesGUI);
+        transactionListeners.add(accountsGUI);
+        transactionListeners.add(accountsTableGUI);
+        transactionListeners.add(journalInputGUI);
+        transactionDataChangeListeners.add(journalInputGUI);
+
+        // TODO: Can we use HashMap everywhere iso MultiValueMap? Then we can not filter on Account/Journal, but need to refresh all !?
+        // FIXME: refresh saldi in accountsTableGUI after AccountData has Changed
+        //        accountDataChangeListeners.addValue(accountsTableGUI);
 
         accountingListeners.add(accountsGUI);
         accountingListeners.add(accountsTableGUI);
@@ -122,10 +130,6 @@ public class Main {
         accountingListeners.add(frame);
     }
     private static void linkListeners(){
-        accountsGUI.setJournalDataChangedListener(journalInputGUI);
-        accountsTableGUI.addAddBookingLister(journalInputGUI);
-        mortgagesGUI.setJournalDataChangedListener(journalInputGUI);
-
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.addWindowListener(new SaveAllActionListener(accountings));
     }
@@ -217,11 +221,22 @@ public class Main {
         }
     }
 
+    public static void setTransaction(Transaction transaction) {
+        Journal journal = transaction.getJournal();
+        journal.setCurrentObject(transaction);  // should only be needed for XML
+
+        for(TransactionListener transactionListener:transactionListeners){
+            transactionListener.setTransaction(transaction);
+        }
+    }
+
     public static void setJournal(Journal journal) {
         accountings.getCurrentObject().getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter
         for(JournalsListener journalsListener :journalsListeners){
             journalsListener.setJournal(journal);
         }
+        // just to be sure
+        setTransaction(journal.getCurrentObject());
     }
 
     public static void addJournalDataListener(Journal journal, JournalDataChangeListener gui) {
@@ -230,6 +245,13 @@ public class Main {
 
     public static void addAccountDataListener(Account account, AccountDataChangeListener gui) {
         accountDataChangeListeners.addValue(account.hashCode(), gui);
+    }
+
+    // Does the same as setTransaction
+    public static void fireTransactionDataChanged(){
+        for(TransactionDataChangedListener transactionDataChangedListener : transactionDataChangeListeners) {
+            transactionDataChangedListener.fireTransactionDataChanged();
+        }
     }
 
     public static void fireJournalDataChanged(Journal journal){
@@ -304,5 +326,4 @@ public class Main {
         balanceGUI.setVisible(true);
         return balanceGUI;
     }
-
 }

@@ -96,6 +96,7 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
                     Main.fireAccountDataChanged(account);
                 }
 
+                Main.setTransaction(transaction);
                 journal.setCurrentObject(transaction);
                 Main.setJournal(journal);
 

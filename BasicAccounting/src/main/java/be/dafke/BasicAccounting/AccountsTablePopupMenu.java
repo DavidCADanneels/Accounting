@@ -2,8 +2,8 @@ package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessActions.JournalDataChangedListener;
 import be.dafke.BusinessActions.TransactionActions;
+import be.dafke.BusinessActions.TransactionListener;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 
@@ -17,17 +17,17 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 10/12/2015.
  */
-public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener{
+public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener, TransactionListener{
     private final JMenuItem manage, add, debit, credit,details;
     public final String ADD = "add";
     public final String MANAGE = "manage";
     public final String DETAILS = "details";
     private final RefreshableTable<Account> table;
-    private ArrayList<JournalDataChangedListener> journalDataChangedListeners = new ArrayList<>();
 
     private Accounts accounts;
     private AccountTypes accountTypes;
     private Journals journals;
+    private Transaction transaction;
 
     public AccountsTablePopupMenu(RefreshableTable<Account> table) {
         this.table = table;
@@ -42,24 +42,8 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
         add.setActionCommand(ADD);
         details.setActionCommand(DETAILS);
 
-        debit.addActionListener(e -> {
-            for(JournalDataChangedListener journalDataChangedListener : journalDataChangedListeners){
-                Transaction transaction = journalDataChangedListener.getTransaction();
-                for (Account selectedAccount : table.getSelectedObjects()) {
-                    TransactionActions.addBookingToTransaction(selectedAccount, transaction, true);
-                }
-                journalDataChangedListener.fireJournalDataChanged();
-            }
-        });
-        credit.addActionListener(e -> {
-            for(JournalDataChangedListener journalDataChangedListener : journalDataChangedListeners){
-                for (Account selectedAccount : table.getSelectedObjects()) {
-                    Transaction transaction = journalDataChangedListener.getTransaction();
-                    TransactionActions.addBookingToTransaction(selectedAccount, transaction, false);
-                }
-                journalDataChangedListener.fireJournalDataChanged();
-            }
-        });
+        debit.addActionListener(e -> {book(true);});
+        credit.addActionListener(e -> {book(false);});
 
         add(debit);
         add(credit);
@@ -75,14 +59,39 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
         details.addActionListener(this);
     }
 
-    public void addAddBookingListener(JournalDataChangedListener journalDataChangedListener){
-        journalDataChangedListeners.add(journalDataChangedListener);
+    public void book(boolean debit){
+        for (Account selectedAccount : table.getSelectedObjects()) {
+            TransactionActions.addBookingToTransaction(selectedAccount, transaction, debit);
+        }
+        Main.fireTransactionDataChanged();
     }
 
     public void setAccounting(Accounting accounting) {
-        accounts = accounting.getAccounts();
-        accountTypes = accounting.getAccountTypes();
-        journals = accounting.getJournals();
+        setAccounts(accounting==null?null:accounting.getAccounts());
+        setAccountTypes(accounting==null?null:accounting.getAccountTypes());
+        setJournals(accounting==null?null:accounting.getJournals());
+    }
+
+    public void setAccountTypes(AccountTypes accountTypes){
+        this.accountTypes = accountTypes;
+    }
+
+    public void setAccounts(Accounts accounts) {
+        this.accounts = accounts;
+    }
+
+    public void setJournals(Journals journals){
+        this.journals = journals;
+        setJournal(journals==null?null:journals.getCurrentObject());
+    }
+
+    public void setJournal(Journal journal){
+        setTransaction(journal==null?null:journal.getCurrentObject());
+    }
+
+    @Override
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
     }
 
     public void actionPerformed(ActionEvent ae) {

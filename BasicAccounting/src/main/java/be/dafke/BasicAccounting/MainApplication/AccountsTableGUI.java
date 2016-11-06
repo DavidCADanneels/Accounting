@@ -19,14 +19,11 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountsTableGUI extends JPanel implements MouseListener, JournalsListener, AccountsListener, AccountingListener {
+public class AccountsTableGUI extends JPanel implements MouseListener, AccountsListener, AccountingListener, TransactionListener, AccountDataChangeListener {
     private final RefreshableTable<Account> table;
     private final AccountDataModel accountDataModel;
 
     private AccountsTablePopupMenu popup;
-    private Accounts accounts;
-    private Journal journal;
-//    private Journals journals;
 
     public AccountsTableGUI() {
 		setLayout(new BorderLayout());
@@ -40,6 +37,7 @@ public class AccountsTableGUI extends JPanel implements MouseListener, JournalsL
         table.setPreferredScrollableViewportSize(new Dimension(100, 600));
 
         popup = new AccountsTablePopupMenu(table);
+        // TODO: register popup menu as TransactionListener and remove TransactionListener from 'this'.
         table.addMouseListener(new PopupForTableActivator(popup, table));
 
         JScrollPane scrollPane1 = new JScrollPane(table);
@@ -98,33 +96,27 @@ public class AccountsTableGUI extends JPanel implements MouseListener, JournalsL
 
     }
 
-    public void addAddBookingLister(JournalDataChangedListener journalDataChangedListener) {
-        popup.addAddBookingListener(journalDataChangedListener);
-    }
-
     @Override
     public void setAccounting(Accounting accounting) {
-        setAccounts(accounting==null?null:accounting.getAccounts());
-        setJournals(accounting==null?null:accounting.getJournals());
-
-        // could be popup.setAccounting() with constructor call in this.constructor
+        accountDataModel.setAccounts(accounting==null?null:accounting.getAccounts());
+        // if setAccounts() is used here, popup.setAccounts() will be called twice
         popup.setAccounting(accounting);
-        table.addMouseListener(new PopupForTableActivator(popup, table));
-    }
-
-    public void setJournals(Journals journals){
-//        this.journals = journals;
-        setJournal(journals==null?null:journals.getCurrentObject());
-    }
-
-    @Override
-    public void setJournal(Journal journal) {
-        this.journal = journal;
+        table.addMouseListener(new PopupForTableActivator(popup, table));  // Needed?
     }
 
     @Override
     public void setAccounts(Accounts accounts) {
-        this.accounts = accounts;
         accountDataModel.setAccounts(accounts);
+        popup.setAccounts(accounts);
+    }
+
+    @Override
+    public void setTransaction(Transaction transaction) {
+        popup.setTransaction(transaction);
+    }
+
+    @Override
+    public void fireAccountDataChanged() {
+        accountDataModel.fireTableDataChanged();
     }
 }

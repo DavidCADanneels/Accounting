@@ -19,7 +19,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 29/04/2016.
  */
-public class JournalInputGUI extends JPanel implements FocusListener, ActionListener, JournalsListener, AccountingListener, JournalDataChangedListener {
+public class JournalInputGUI extends JPanel implements FocusListener, ActionListener, JournalsListener, AccountingListener, TransactionListener, TransactionDataChangedListener {
     private static final long serialVersionUID = 1L;
 
     private JTextField debet, credit, dag, maand, jaar, bewijs, ident;
@@ -32,6 +32,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
     private Journal journal;
     private Accounts accounts;
+    private Transaction transaction;
 
     public JournalInputGUI() {
         setLayout(new BorderLayout());
@@ -59,7 +60,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         });
         JPanel onder = createInputPanel();
         add(onder, BorderLayout.SOUTH);
-        refreshData();
     }
 
     public JPanel createInputPanel(){
@@ -138,7 +138,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     }
 
     public void focusLost(FocusEvent fe) {
-        Transaction transaction = journal.getCurrentObject();
         if(transaction!=null){
             Object source = fe.getSource();
             if(source == dag || source == maand || source == jaar){
@@ -165,50 +164,10 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
             Transaction transaction = saveTransaction();
             if(journal!=null && transaction!=null && transaction.isBookable()){
                 journal.addBusinessObject(transaction);
+                Main.fireJournalDataChanged(journal);
                 clear();
-                //ComponentMap.refreshAllFrames();
             }
         }
-    }
-
-    public void refreshData() {
-        debettotaal = BigDecimal.ZERO;
-        credittotaal = BigDecimal.ZERO;
-        boolean okEnabled = false;
-        boolean clearEnabled = false;
-        String identification = "";
-        String description = "";
-        Calendar date = Calendar.getInstance();
-        bewijs.setEnabled(false);
-        dag.setEnabled(false);
-        maand.setEnabled(false);
-        jaar.setEnabled(false);
-        if(journal!=null){
-            Transaction transaction = journal.getCurrentObject();
-            journalDataModel.setTransaction(transaction);
-            journalDataModel.fireTableDataChanged();
-            if(transaction!=null){
-                debettotaal = transaction.getDebetTotaal();
-                credittotaal = transaction.getCreditTotaal();
-                date = transaction.getDate();
-                description = transaction.getDescription();
-                bewijs.setEnabled(true);
-                dag.setEnabled(true);
-                maand.setEnabled(true);
-                jaar.setEnabled(true);
-            }
-            identification = journal.getAbbreviation() + " " + journal.getId();
-            okEnabled = transaction!=null && transaction.isBookable();
-            clearEnabled = transaction!=null && !transaction.getBusinessObjects().isEmpty();
-        }
-        ident.setText(identification);
-        clear.setEnabled(clearEnabled);
-        singleBook.setEnabled(okEnabled);
-        save.setEnabled(clearEnabled);
-        setDate(date);
-        bewijs.setText(description);
-        debet.setText(debettotaal.toString());
-        credit.setText(credittotaal.toString());
     }
 
     @Override
@@ -225,16 +184,15 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     @Override
     public void setJournal(Journal journal) {
         this.journal=journal;
+        ident.setText(journal==null?"":journal.getAbbreviation() + " " + journal.getId());
         setTransaction(journal==null?null:journal.getCurrentObject());
-        refreshData();
     }
 
+    @Override
     public void setTransaction(Transaction transaction){
+        this.transaction = transaction;
         journalDataModel.setTransaction(transaction);
-        journalDataModel.fireTableDataChanged();
-
-        debettotaal = (transaction==null)?BigDecimal.ZERO:transaction.getDebetTotaal();//.setScale(2);
-        credittotaal = (transaction==null)?BigDecimal.ZERO:transaction.getCreditTotaal();//.setScale(2);
+        fireTransactionDataChanged();
     }
 
     private Calendar getDate(){
@@ -246,7 +204,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     }
 
     public Transaction saveTransaction(){
-        Transaction transaction = journal.getCurrentObject();
         if(transaction!=null){
             Calendar date = getDate();
             if(date == null){
@@ -262,18 +219,29 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     }
 
     public void clear() {
-        Transaction transaction = new Transaction(accounts, getDate(), "");
-        journal.setCurrentObject(transaction);
-        refreshData();
+        transaction = new Transaction(accounts, getDate(), "");
+        fireTransactionDataChanged();
     }
 
     @Override
-    public void fireJournalDataChanged() {
+    public void fireTransactionDataChanged() {
         journalDataModel.fireTableDataChanged();
-    }
 
-    @Override
-    public Transaction getTransaction() {
-        return journal.getCurrentObject();
+        debettotaal = (transaction==null)?BigDecimal.ZERO:transaction.getDebetTotaal();//.setScale(2);
+        credittotaal = (transaction==null)?BigDecimal.ZERO:transaction.getCreditTotaal();//.setScale(2);
+        debet.setText(debettotaal.toString());
+        credit.setText(credittotaal.toString());
+        setDate(transaction==null?Calendar.getInstance():transaction.getDate());
+        bewijs.setEnabled((transaction!=null));
+        dag.setEnabled((transaction!=null));
+        maand.setEnabled((transaction!=null));
+        jaar.setEnabled((transaction!=null));
+        bewijs.setText(transaction==null?"":transaction.getDescription());
+
+        boolean okEnabled = journal!=null && transaction!=null && transaction.isBookable();
+        boolean clearEnabled = journal!=null && transaction!=null && !transaction.getBusinessObjects().isEmpty();
+        clear.setEnabled(clearEnabled);
+        save.setEnabled(clearEnabled);
+        singleBook.setEnabled(okEnabled);
     }
 }

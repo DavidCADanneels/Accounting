@@ -1,18 +1,19 @@
 package be.dafke.BasicAccounting.Mortgages;
 
-import be.dafke.BusinessActions.*;
+import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BusinessActions.AccountingListener;
+import be.dafke.BusinessActions.MortgagesListener;
+import be.dafke.BusinessActions.TransactionActions;
+import be.dafke.BusinessActions.TransactionListener;
 import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class MortgagesGUI extends JPanel implements ListSelectionListener, ActionListener, AccountingListener, JournalsListener, MortgagesListener {
+public class MortgagesGUI extends JPanel implements AccountingListener, MortgagesListener, TransactionListener {
 	/**
 	 *
 	 */
@@ -20,8 +21,7 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 	private final JList<Mortgage> list;
 	private final JButton pay;// , newMortgage, details;
 	private final DefaultListModel<Mortgage> listModel;
-	private JournalDataChangedListener journalDataChangedListener;
-	private Journal journal;
+	private Transaction transaction;
 
 	public MortgagesGUI() {
 		setLayout(new BorderLayout());
@@ -29,30 +29,24 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 		list = new JList<>();
 		listModel = new DefaultListModel<>();
 		list.setModel(listModel);
-		list.addListSelectionListener(this);
+		list.addListSelectionListener(e -> enablePayButton(e));
 		pay = new JButton("Pay");
-		pay.addActionListener(this);
+		pay.addActionListener(e -> book());
 		pay.setEnabled(false);
 		add(list, BorderLayout.CENTER);
 		add(pay, BorderLayout.SOUTH);
 	}
 
-	public void setJournalDataChangedListener(JournalDataChangedListener journalDataChangedListener) {
-		this.journalDataChangedListener = journalDataChangedListener;
-	}
-
-	public void actionPerformed(ActionEvent arg0) {
+	public void book() {
 		Mortgage mortgage = list.getSelectedValue();
-//		Transaction transaction = journalDataChangedListener.getTransaction();
-		Transaction transaction = journal.getCurrentObject();
 		if (mortgage != null) {
-			TransactionActions.createMortgageTransaction(mortgage, transaction);
-			journalDataChangedListener.fireJournalDataChanged();
+			TransactionActions.addMortgageTransaction(mortgage, transaction);
+			Main.fireTransactionDataChanged();
 		}
 	}
 
-	public void valueChanged(ListSelectionEvent e) {
-		if (journal.getCurrentObject() != null && !e.getValueIsAdjusting() && list.getSelectedIndex() != -1) {
+	public void enablePayButton(ListSelectionEvent e) {
+		if (transaction != null && !e.getValueIsAdjusting() && list.getSelectedIndex() != -1) {
 			pay.setEnabled(list.getSelectedValue().isBookable());
 		} else {
 			pay.setEnabled(false);
@@ -61,8 +55,21 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 
 	@Override
 	public void setAccounting(Accounting accounting) {
-		setMortgages(accounting == null ? null : accounting.getMortgages());
-		setJournals(accounting == null ? null : accounting.getJournals());
+		setMortgages(accounting==null?null:accounting.getMortgages());
+		setJournals(accounting==null?null:accounting.getJournals());
+	}
+
+	public void setJournals(Journals journals){
+		setJournal(journals==null?null:journals.getCurrentObject());
+	}
+
+	public void setJournal(Journal journal){
+		setTransaction(journal==null?null:journal.getCurrentObject());
+	}
+
+	@Override
+	public void setTransaction(Transaction transaction) {
+		this.transaction=transaction;
 	}
 
 	@Override
@@ -76,14 +83,5 @@ public class MortgagesGUI extends JPanel implements ListSelectionListener, Actio
 			}
 		}
 		list.revalidate();
-	}
-
-	public void setJournals(Journals journals) {
-		setJournal(journals == null ? null : journals.getCurrentObject());
-	}
-
-	@Override
-	public void setJournal(Journal journal) {
-		this.journal = journal;
 	}
 }

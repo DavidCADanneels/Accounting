@@ -12,7 +12,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class TransactionActions {
 
-    public static void createMortgageTransaction(Mortgage mortgage, Transaction transaction){
+    public static void addMortgageTransaction(Mortgage mortgage, Transaction transaction){
         if (mortgage.isPayedOff()) {
             System.out.println("Payed Off already");
             return;
@@ -64,6 +64,9 @@ public class TransactionActions {
                 suggestedAmount = defaultAmount;
             }
         }
+
+        // TODO: fix suggested amount, especially when editing amounts
+
         boolean ok = false;
         BigDecimal amount = null;
         while (!ok) {
