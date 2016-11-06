@@ -97,7 +97,8 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
                 }
 
                 Main.setTransaction(transaction);
-                journal.setCurrentObject(transaction);
+                // should not be needed here
+//                journal.setCurrentObject(transaction);
                 Main.setJournal(journal);
 
                 ActionUtils.showErrorMessage(TRANSACTION_REMOVED,journal.getName());
