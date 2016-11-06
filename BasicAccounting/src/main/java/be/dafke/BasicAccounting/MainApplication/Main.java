@@ -103,6 +103,7 @@ public class Main {
 
         journalsListeners.add(journalReadGUI);
         journalsListeners.add(journalsGUI);  // will call setJournal() in JournalsGUI
+        journalsListeners.add(journalInputGUI);
 
         mortgagesListeners.add(mortgagesGUI);
 
