@@ -220,7 +220,8 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
     public void clear() {
         transaction = new Transaction(accounts, getDate(), "");
-        fireTransactionDataChanged();
+        transaction.setJournal(journal);
+        Main.setTransaction(transaction);
     }
 
     @Override
