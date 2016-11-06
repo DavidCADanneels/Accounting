@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Mortgages;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
-import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -67,6 +66,5 @@ public class MortgageTable extends RefreshableFrame implements ActionListener {
         } catch (EmptyNameException e) {
 			ActionUtils.showErrorMessage(ActionUtils.MORTGAGE_NAME_EMPTY);
         }
-		ComponentMap.refreshAllFrames();
 	}
 }
