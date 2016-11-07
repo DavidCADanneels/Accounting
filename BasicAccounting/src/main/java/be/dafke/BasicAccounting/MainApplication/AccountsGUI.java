@@ -84,19 +84,18 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
 
         // PANEL
         //
-		JPanel hoofdPaneel = new JPanel(new BorderLayout());
+//		JPanel hoofdPaneel = new JPanel(new BorderLayout());
 		JPanel noord = new JPanel();
 		noord.add(debet);
 		noord.add(credit);
         noord.add(accountDetails);
-		JPanel midden = new JPanel();
-		// midden.setLayout(new BoxLayout(midden,BoxLayout.Y_AXIS));
-		midden.add(accountManagement);
-		midden.add(addAccount);
-		hoofdPaneel.add(noord, BorderLayout.NORTH);
-		hoofdPaneel.add(midden, BorderLayout.CENTER);
+//		JPanel midden = new JPanel();
+//		midden.add(accountManagement);
+//		midden.add(addAccount);
+//		hoofdPaneel.add(noord, BorderLayout.NORTH);
+//		hoofdPaneel.add(midden, BorderLayout.CENTER);
 
-        selectedAccountTypes = new HashMap<AccountType, Boolean>();
+        selectedAccountTypes = new HashMap<>();
 
         // CENTER
         //
@@ -106,8 +105,8 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
 
         lijst.addMouseListener(this);//new PopupForListActivator(popup, lijst));//, new AccountDetailsLauncher(accountings)));
 		lijst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-		zoeker = new PrefixFilterPanel<>(model, lijst, new ArrayList<Account>());
-        zoeker.add(hoofdPaneel, BorderLayout.SOUTH);
+		zoeker = new PrefixFilterPanel<>(model, lijst, new ArrayList<>());
+        zoeker.add(noord, BorderLayout.SOUTH);
 		add(zoeker, BorderLayout.CENTER);
 
 		filter = new JPanel();
