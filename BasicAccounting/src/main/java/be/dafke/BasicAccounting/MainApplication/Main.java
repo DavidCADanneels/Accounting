@@ -37,7 +37,8 @@ public class Main {
     private static JournalGUI journalReadGUI;
     private static JournalInputGUI journalInputGUI;
     private static JournalsGUI journalsGUI;
-    private static AccountsGUI accountsGUI;
+    private static AccountsGUI accountsGUI1;
+    private static AccountsGUI accountsGUI2;
     private static AccountsTableGUI accountsTableGUI;
     private static MortgagesGUI mortgagesGUI;
     private static AccountingMenuBar menuBar;
@@ -91,13 +92,15 @@ public class Main {
         journalReadGUI = new JournalGUI();
         journalInputGUI = new JournalInputGUI();
         journalsGUI = new JournalsGUI();
-        accountsGUI = new AccountsGUI();
+        accountsGUI1 = new AccountsGUI();
+        accountsGUI2 = new AccountsGUI();
         accountsTableGUI = new AccountsTableGUI();
         mortgagesGUI = new MortgagesGUI();
     }
 
     private static void createListeners() {
-        accountsListeners.add(accountsGUI);
+        accountsListeners.add(accountsGUI1);
+        accountsListeners.add(accountsGUI2);
         accountsListeners.add(accountsTableGUI);
         // accountTypeListeners, etc.
 
@@ -108,7 +111,8 @@ public class Main {
         mortgagesListeners.add(mortgagesGUI);
 
         transactionListeners.add(mortgagesGUI);
-        transactionListeners.add(accountsGUI);
+        transactionListeners.add(accountsGUI1);
+        transactionListeners.add(accountsGUI2);
         transactionListeners.add(accountsTableGUI);
         transactionListeners.add(journalInputGUI);
         transactionDataChangeListeners.add(journalInputGUI);
@@ -117,7 +121,8 @@ public class Main {
         // FIXME: refresh saldi in accountsTableGUI after AccountData has Changed
         //        accountDataChangeListeners.addValue(accountsTableGUI);
 
-        accountingListeners.add(accountsGUI);
+        accountingListeners.add(accountsGUI1);
+        accountingListeners.add(accountsGUI2);
         accountingListeners.add(accountsTableGUI);
         accountingListeners.add(mortgagesGUI);
         accountingListeners.add(journalsGUI);
@@ -137,25 +142,30 @@ public class Main {
 
     public static JPanel createContentPanel(){
         JPanel links = new JPanel();
-        links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
-//        links.add(new AccountsGUI());
-        links.add(accountsGUI);
-        links.add(accountsTableGUI);
-        links.add(mortgagesGUI);
-        links.add(journalsGUI);
-        links.add(createSaveButton());
+        links.setLayout(new BorderLayout());
+//        links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
+        JSplitPane accountsPanel = createSplitPane(accountsGUI1, accountsGUI2, VERTICAL_SPLIT);
+        links.add(accountsPanel, BorderLayout.CENTER);
+//        links.add(accountsGUI1);
+//        links.add(accountsGUI2);
+        links.add(mortgagesGUI, BorderLayout.SOUTH);
+        links.add(journalsGUI, BorderLayout.NORTH);
+//        links.add(createSaveButton());
 
         JPanel accountingMultiPanel = new JPanel();
         accountingMultiPanel.setLayout(new BorderLayout());
-        JSplitPane splitPane = createSplitPane(journalReadGUI, journalInputGUI, JSplitPane.VERTICAL_SPLIT);
+        JSplitPane splitPane = createSplitPane(journalReadGUI, journalInputGUI, VERTICAL_SPLIT);
 //        splitPane.add(new JournalGUI(accounting), JSplitPane.TOP);
 //        splitPane.add(new JournalInputGUI(), JSplitPane.BOTTOM);
-        accountingMultiPanel.add(splitPane, BorderLayout.CENTER);
+
+        JSplitPane mainSplitPane = createSplitPane(splitPane, accountsTableGUI, HORIZONTAL_SPLIT);
+//
+        accountingMultiPanel.add(mainSplitPane, BorderLayout.CENTER);
         accountingMultiPanel.add(links, BorderLayout.WEST);
         return accountingMultiPanel;
     }
 
-    private static JSplitPane createSplitPane(JPanel panel1, JPanel panel2, int orientation) {
+    private static JSplitPane createSplitPane(JComponent panel1, JComponent panel2, int orientation) {
         JSplitPane splitPane = new JSplitPane(orientation);
         if(orientation == JSplitPane.VERTICAL_SPLIT){
             splitPane.add(panel1,TOP);
