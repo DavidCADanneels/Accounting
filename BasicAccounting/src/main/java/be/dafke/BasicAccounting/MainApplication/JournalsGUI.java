@@ -11,7 +11,6 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -28,10 +27,10 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalsListe
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
 	private Journal selectedJournal = null;
-	private ArrayList<JournalsListener> journalsListeners;
 	private Journals journals;
 	private JournalTypes journalTypes;
 	private Accounts accounts;
+	private AccountTypes accountTypes;
 
 	public JournalsGUI() {
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
@@ -62,7 +61,7 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalsListe
 		String actionCommand = ae.getActionCommand();
 		if(journals!=null) {
 			if (MANAGE.equals(actionCommand)) {
-				GUIActions.showJournalManager(journals, journalTypes);
+				GUIActions.showJournalManager(journals, journalTypes, accounts, accountTypes);
 			} else if (DETAILS.equals(actionCommand)) {
 				Main.getJournalDetails(journals.getCurrentObject(), journals);
 			}
@@ -79,6 +78,7 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalsListe
 	@Override
 	public void setAccounting(Accounting accounting) {
 		journalTypes=accounting==null?null:accounting.getJournalTypes();
+		accountTypes=accounting==null?null:accounting.getAccountTypes();
 		accounts=accounting==null?null:accounting.getAccounts();
 		setJournals(accounting==null?null:accounting.getJournals());
 	}

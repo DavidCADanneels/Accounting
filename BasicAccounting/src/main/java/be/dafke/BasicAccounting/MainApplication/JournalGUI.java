@@ -24,15 +24,17 @@ public class JournalGUI extends JPanel implements JournalsListener, AccountingLi
     private final DetailsPopupMenu popup;
 
     private final JournalDetailsDataModel journalDetailsDataModel;
+    private JournalInputGUI journalInputGUI;
 
-    public JournalGUI() {
+    public JournalGUI(JournalInputGUI journalInputGUI) {
+        this.journalInputGUI=journalInputGUI;
 		setLayout(new BorderLayout());
         journalDetailsDataModel = new JournalDetailsDataModel();
 
         table = new RefreshableTable<>(journalDetailsDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
-        popup = new DetailsPopupMenu(table, DetailsPopupMenu.Mode.JOURNAL);
+        popup = new DetailsPopupMenu(table, DetailsPopupMenu.Mode.JOURNAL, journalInputGUI);
         table.addMouseListener(new PopupForTableActivator(popup, table, 0,2,3,4));
 
         JPanel center = new JPanel();
