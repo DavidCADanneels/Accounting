@@ -19,13 +19,13 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountsTableGUI extends JPanel implements MouseListener, AccountsListener, AccountingListener, TransactionListener, AccountDataChangeListener {
+public class AccountsTableGUI extends JPanel implements MouseListener, AccountsListener, AccountingListener, AccountDataChangeListener {
     private final RefreshableTable<Account> table;
     private final AccountDataModel accountDataModel;
 
     private AccountsTablePopupMenu popup;
 
-    public AccountsTableGUI() {
+    public AccountsTableGUI(JournalInputGUI journalInputGUI) {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("ACCOUNTS")));
@@ -36,7 +36,7 @@ public class AccountsTableGUI extends JPanel implements MouseListener, AccountsL
         table = new RefreshableTable<>(accountDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(100, 600));
 
-        popup = new AccountsTablePopupMenu(table);
+        popup = new AccountsTablePopupMenu(table,journalInputGUI);
         // TODO: register popup menu as TransactionListener and remove TransactionListener from 'this'.
         table.addMouseListener(new PopupForTableActivator(popup, table));
 
@@ -102,17 +102,14 @@ public class AccountsTableGUI extends JPanel implements MouseListener, AccountsL
         // if setAccounts() is used here, popup.setAccounts() will be called twice
         popup.setAccounting(accounting);
         table.addMouseListener(new PopupForTableActivator(popup, table));  // Needed?
+        fireAccountDataChanged();
     }
 
     @Override
     public void setAccounts(Accounts accounts) {
         accountDataModel.setAccounts(accounts);
         popup.setAccounts(accounts);
-    }
-
-    @Override
-    public void setTransaction(Transaction transaction) {
-        popup.setTransaction(transaction);
+        fireAccountDataChanged();
     }
 
     @Override
