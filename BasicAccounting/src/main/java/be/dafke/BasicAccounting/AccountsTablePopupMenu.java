@@ -69,6 +69,7 @@ public class AccountsTablePopupMenu extends JPopupMenu {
                 }
             }
         }
+        setVisible(false);
     }
 
     public void setAccounting(Accounting accounting) {
