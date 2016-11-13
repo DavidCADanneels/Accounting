@@ -7,8 +7,6 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -17,7 +15,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneel on 15/02/2015.
  */
-public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
+public class JournalGUIPopupMenu extends JPopupMenu{
     private final JMenuItem delete, edit, change, debitCredit, details;
     private final RefreshableTable<Booking> table;
     private Accounts accounts;
@@ -34,11 +32,11 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
         debitCredit = new JMenuItem(getBundle("Accounting").getString("D_C"));
         details = new JMenuItem(getBundle("Accounting").getString("GO_TO_ACCOUNT_DETAILS"));
         add(details);
-        delete.addActionListener(this);
-        edit.addActionListener(this);
-        change.addActionListener(this);
-        debitCredit.addActionListener(this);
-        details.addActionListener(this);
+        delete.addActionListener(e -> deleteBooking());
+        edit.addActionListener(e -> editAmount());
+        change.addActionListener(e -> changeAccount());
+        debitCredit.addActionListener(e -> switchDebitCredit());
+        details.addActionListener(e -> showDetails());
         add(delete);
         add(edit);
         add(change);
@@ -51,47 +49,68 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
         accountTypes = accounting.getAccountTypes();
     }
 
-    public void actionPerformed(ActionEvent e) {
-        menuAction((JMenuItem) e.getSource());
-    }
 
-    private void menuAction(JMenuItem source) {
+    private void deleteBooking() {
         setVisible(false);
         ArrayList<Booking> bookings = table.getSelectedObjects();
         for (Booking booking : bookings) {
             Transaction transaction = booking.getTransaction();
-            if (source == delete) {
-                transaction.removeBusinessObject(booking);
-                journalInputGUI.fireTransactionDataChanged();
-            } else if (source == edit) {
-                Account account = booking.getAccount();
-                //TODO: or JournalGUI.table should contain Movements iso Bookings
-                // booking must be removed and re-added to Transaction to re-calculate the totals
-                transaction.removeBusinessObject(booking);
-                BigDecimal amount = journalInputGUI.askAmount(account, booking.isDebit());
-                if (amount != null) {
-                    booking.setAmount(amount);
-                }
-                transaction.addBusinessObject(booking);
-                journalInputGUI.fireTransactionDataChanged();
-            } else if (source == debitCredit) {
-                // booking must be removed and re-added to Transaction to re-calculate the totals
-                transaction.removeBusinessObject(booking);
-                booking.setDebit(!booking.isDebit());
-                transaction.addBusinessObject(booking);
-                journalInputGUI.fireTransactionDataChanged();
-            } else if (source == change) {
-                AccountSelector sel = new AccountSelector(accounts, accountTypes);
-                sel.setVisible(true);
-                Account account = sel.getSelection();
-                if (account != null) {
-                    booking.setAccount(account);
-                }
-                journalInputGUI.fireTransactionDataChanged();
-            } else if (source == details) {
-                Account account = booking.getAccount();
-                Main.getAccountDetails(account, journals);
+            transaction.removeBusinessObject(booking);
+            journalInputGUI.fireTransactionDataChanged();
+        }
+    }
+
+    private void editAmount() {
+        setVisible(false);
+        ArrayList<Booking> bookings = table.getSelectedObjects();
+        for (Booking booking : bookings) {
+            Transaction transaction = booking.getTransaction();
+            Account account = booking.getAccount();
+            //TODO: or JournalGUI.table should contain Movements iso Bookings
+            // booking must be removed and re-added to Transaction to re-calculate the totals
+            transaction.removeBusinessObject(booking);
+            BigDecimal amount = journalInputGUI.askAmount(account, booking.isDebit());
+            if (amount != null) {
+                booking.setAmount(amount);
             }
+            transaction.addBusinessObject(booking);
+            journalInputGUI.fireTransactionDataChanged();
+        }
+    }
+
+    private void switchDebitCredit() {
+        setVisible(false);
+        ArrayList<Booking> bookings = table.getSelectedObjects();
+        for (Booking booking : bookings) {
+            Transaction transaction = booking.getTransaction();
+            // booking must be removed and re-added to Transaction to re-calculate the totals
+            transaction.removeBusinessObject(booking);
+            booking.setDebit(!booking.isDebit());
+            transaction.addBusinessObject(booking);
+            journalInputGUI.fireTransactionDataChanged();
+        }
+    }
+
+    private void changeAccount() {
+        setVisible(false);
+        ArrayList<Booking> bookings = table.getSelectedObjects();
+        for (Booking booking : bookings) {
+            AccountSelector sel = new AccountSelector(accounts, accountTypes);
+            sel.setVisible(true);
+            Account account = sel.getSelection();
+            if (account != null) {
+                booking.setAccount(account);
+            }
+            journalInputGUI.fireTransactionDataChanged();
+        }
+    }
+
+    private void showDetails() {
+        setVisible(false);
+        ArrayList<Booking> bookings = table.getSelectedObjects();
+        for (Booking booking : bookings) {
+            Account account = booking.getAccount();
+            Main.getAccountDetails(account, journals);
         }
     }
 }
