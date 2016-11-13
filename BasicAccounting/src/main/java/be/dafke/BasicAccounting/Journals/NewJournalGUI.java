@@ -3,7 +3,7 @@ package be.dafke.BasicAccounting.Journals;
 import be.dafke.BasicAccounting.GUIActions;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessModel.*;
-²import be.dafke.ComponentModel.RefreshableDialog;
+import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
