@@ -24,10 +24,8 @@ public class JournalGUI extends JPanel implements JournalsListener, AccountingLi
     private final DetailsPopupMenu popup;
 
     private final JournalDetailsDataModel journalDetailsDataModel;
-    private JournalInputGUI journalInputGUI;
 
     public JournalGUI(JournalInputGUI journalInputGUI) {
-        this.journalInputGUI=journalInputGUI;
 		setLayout(new BorderLayout());
         journalDetailsDataModel = new JournalDetailsDataModel();
 
