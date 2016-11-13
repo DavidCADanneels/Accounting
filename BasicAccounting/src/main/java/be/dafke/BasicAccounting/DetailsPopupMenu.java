@@ -10,8 +10,6 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static be.dafke.BusinessActions.ActionUtils.TRANSACTION_REMOVED;
@@ -20,7 +18,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneel on 15/02/2015.
  */
-public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
+public class DetailsPopupMenu extends JPopupMenu {
     private final JMenuItem move, delete, edit, details;
     private JournalInputGUI journalInputGUI;
 
@@ -47,10 +45,10 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
         else{
             details = new JMenuItem(getBundle("Accounting").getString("GO_TO_JOURNAL_DETAILS"));
         }
-        delete.addActionListener(this);
-        move.addActionListener(this);
-        edit.addActionListener(this);
-        details.addActionListener(this);
+        delete.addActionListener(e -> deleteTransaction());
+        move.addActionListener(e -> moveTransaction());
+        edit.addActionListener(e -> editTransaction());
+        details.addActionListener(e -> showDetails());
 
         add(delete);
         add(move);
@@ -62,60 +60,79 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
         this.journals=journals;
     }
 
-    public void actionPerformed(ActionEvent e) {
+    private void moveTransaction() {
         setVisible(false);
         ArrayList<Booking> bookings = gui.getSelectedObjects();
         for (Booking booking : bookings) {
             Transaction transaction = booking.getTransaction();
-            if (e.getSource() == details) {
-                if (mode == Mode.JOURNAL) {
-                    Account account = booking.getAccount();
-                    AccountDetails newGui = Main.getAccountDetails(account, journals);
-                    newGui.selectObject(booking);
-                } else {
-                    Journal journal = transaction.getJournal();
-                    JournalDetails newGui = Main.getJournalDetails(journal, journals);;
-                    newGui.selectObject(booking);
-                }
-            } else if (e.getSource() == move) {
-                Journal oldJournal = transaction.getJournal();
+            Journal oldJournal = transaction.getJournal();
 
-                Journal newJournal = getNewJournal(transaction, journals);
-                if(newJournal!=null) { // e.g. when Cancel has been clicked
-                    TransactionActions.moveTransaction(transaction, oldJournal, newJournal);
-                    Main.fireJournalDataChanged(oldJournal);
-                    Main.fireJournalDataChanged(newJournal);
-                    for (Account account : transaction.getAccounts()) {
-                        Main.fireAccountDataChanged(account);
-                    }
-
-                    ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, oldJournal.getName(), newJournal.getName());
-                }
-            } else if (e.getSource() == edit) {
-                Journal journal = transaction.getJournal();
-
-                TransactionActions.deleteTransaction(transaction);
-                Main.fireJournalDataChanged(journal);
-                for (Account account : transaction.getAccounts()) {
-                    Main.fireAccountDataChanged(account);
-                }
-                //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
-                // set Journal before Transaction: setJournal sets transaction to currentObject !!!
-                Main.setJournal(journal);
-                // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
-                journalInputGUI.setTransaction(transaction);
-
-                ActionUtils.showErrorMessage(TRANSACTION_REMOVED,journal.getName());
-            } else if (e.getSource() == delete) {
-                Journal journal = transaction.getJournal();
-
-                TransactionActions.deleteTransaction(transaction);
-                Main.fireJournalDataChanged(journal);
+            Journal newJournal = getNewJournal(transaction, journals);
+            if(newJournal!=null) { // e.g. when Cancel has been clicked
+                TransactionActions.moveTransaction(transaction, oldJournal, newJournal);
+                Main.fireJournalDataChanged(oldJournal);
+                Main.fireJournalDataChanged(newJournal);
                 for (Account account : transaction.getAccounts()) {
                     Main.fireAccountDataChanged(account);
                 }
 
-                ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.getName());
+                ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, oldJournal.getName(), newJournal.getName());
+            }
+        }
+    }
+
+    private void deleteTransaction() {
+        setVisible(false);
+        ArrayList<Booking> bookings = gui.getSelectedObjects();
+        for (Booking booking : bookings) {
+            Transaction transaction = booking.getTransaction();
+            Journal journal = transaction.getJournal();
+
+            TransactionActions.deleteTransaction(transaction);
+            Main.fireJournalDataChanged(journal);
+            for (Account account : transaction.getAccounts()) {
+                Main.fireAccountDataChanged(account);
+            }
+
+            ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.getName());
+        }
+    }
+
+    private void editTransaction() {
+        setVisible(false);
+        ArrayList<Booking> bookings = gui.getSelectedObjects();
+        for (Booking booking : bookings) {
+            Transaction transaction = booking.getTransaction();
+            Journal journal = transaction.getJournal();
+
+            TransactionActions.deleteTransaction(transaction);
+            Main.fireJournalDataChanged(journal);
+            for (Account account : transaction.getAccounts()) {
+                Main.fireAccountDataChanged(account);
+            }
+            //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
+            // set Journal before Transaction: setJournal sets transaction to currentObject !!!
+            Main.setJournal(journal);
+            // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
+            journalInputGUI.setTransaction(transaction);
+
+            ActionUtils.showErrorMessage(TRANSACTION_REMOVED,journal.getName());
+        }
+    }
+
+    private void showDetails() {
+        setVisible(false);
+        ArrayList<Booking> bookings = gui.getSelectedObjects();
+        for (Booking booking : bookings) {
+            Transaction transaction = booking.getTransaction();
+            if (mode == Mode.JOURNAL) {
+                Account account = booking.getAccount();
+                AccountDetails newGui = Main.getAccountDetails(account, journals);
+                newGui.selectObject(booking);
+            } else {
+                Journal journal = transaction.getJournal();
+                JournalDetails newGui = Main.getJournalDetails(journal, journals);;
+                newGui.selectObject(booking);
             }
         }
     }
