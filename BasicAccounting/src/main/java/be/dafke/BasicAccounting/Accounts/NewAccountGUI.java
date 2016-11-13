@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Accounts;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
@@ -61,7 +62,6 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
     public void actionPerformed(ActionEvent event) {
         if (event.getSource() == add || event.getSource() == nameField) {
             addAccount();
-            //ComponentMap.refreshAllFrames();
         }
     }
 
@@ -81,7 +81,7 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
                 }
             }
             accounts.addBusinessObject(account);
-            //ComponentMap.refreshAllFrames();
+            Main.fireAccountDataChanged(account);
         } catch (DuplicateNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, name);
         } catch (EmptyNameException e) {

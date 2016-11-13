@@ -25,7 +25,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountsGUI extends JPanel implements ListSelectionListener, MouseListener, ActionListener, AccountsListener, AccountingListener, TransactionListener {
+public class AccountsGUI extends JPanel implements ListSelectionListener, MouseListener, ActionListener, AccountsListener, AccountDataChangeListener, AccountingListener, TransactionListener {
     private final PrefixFilterPanel<Account> zoeker;
 	private final AlphabeticListModel<Account> model;
 	private final JList<Account> lijst;
@@ -144,7 +144,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
 
 	public void actionPerformed(ActionEvent ae) {
 		if (ae.getSource() instanceof JCheckBox) {
-            updateListOfShownAccounts();
+            fireAccountDataChanged();
             updateListOfCheckedBoxes();
         } else{
             buttonClicked(ae.getActionCommand());
@@ -159,7 +159,8 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
         }
     }
 
-    private void updateListOfShownAccounts() {
+    @Override
+    public void fireAccountDataChanged() {
         ArrayList<AccountType> types = new ArrayList<>();
         for(AccountType type : selectedAccountTypes.keySet()){
             JCheckBox checkBox = boxes.get(type);
@@ -258,7 +259,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
         accountManagement.setEnabled(active);
         addAccount.setEnabled(active);
         if (active) {
-            updateListOfShownAccounts();
+            fireAccountDataChanged();
         }
     }
 

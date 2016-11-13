@@ -161,13 +161,38 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         } else if (e.getSource() == save) {
             saveTransaction();
         } else if (e.getSource() == singleBook){
-            Transaction transaction = saveTransaction();
+            saveTransaction();
             if(journal!=null && transaction!=null && transaction.isBookable()){
                 journal.addBusinessObject(transaction);
                 Main.fireJournalDataChanged(journal);
+                for (Account account : transaction.getAccounts()) {
+                    Main.fireAccountDataChanged(account);
+                }
                 clear();
             }
         }
+    }
+
+    public void clear() {
+        transaction = new Transaction(accounts, getDate(), "");
+        transaction.setJournal(journal);
+        Main.setTransaction(transaction);
+//        fireTransactionDataChanged();
+    }
+
+    public Transaction saveTransaction(){
+        if(transaction!=null){
+            Calendar date = getDate();
+            if(date == null){
+                ActionUtils.showErrorMessage(ActionUtils.FILL_IN_DATE);
+                return null;
+            } else {
+                // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
+                transaction.setDescription(getDescription());
+                transaction.setDate(getDate());
+            }
+        }
+        return transaction;
     }
 
     @Override
@@ -201,27 +226,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
     private String getDescription(){
         return bewijs.getText().trim();
-    }
-
-    public Transaction saveTransaction(){
-        if(transaction!=null){
-            Calendar date = getDate();
-            if(date == null){
-                ActionUtils.showErrorMessage(ActionUtils.FILL_IN_DATE);
-                return null;
-            } else {
-                // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
-                transaction.setDescription(getDescription());
-                transaction.setDate(getDate());
-            }
-        }
-        return transaction;
-    }
-
-    public void clear() {
-        transaction = new Transaction(accounts, getDate(), "");
-        transaction.setJournal(journal);
-        Main.setTransaction(transaction);
     }
 
     @Override

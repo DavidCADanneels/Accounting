@@ -283,6 +283,11 @@ public class Main {
                 accountDataChangeListener.fireAccountDataChanged();
             }
         }
+        // fireAccountDataChanged in AccountsGUI is only needed if accounts have been added
+        // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
+        accountsGUI1.fireAccountDataChanged();
+        accountsGUI2.fireAccountDataChanged();
+        accountsTableGUI.fireAccountDataChanged();
         // refresh all balances if an account is update, filtering on accounting/accounts/accountType could be applied
         for(TestBalance testBalance:testBalanceMap.values()){
             testBalance.fireAccountDataChanged();
