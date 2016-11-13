@@ -113,6 +113,7 @@ public class DetailsPopupMenu extends JPopupMenu {
             //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
             // set Journal before Transaction: setJournal sets transaction to currentObject !!!
             Main.setJournal(journal);
+            journal.setCurrentObject(transaction);
             // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
             journalInputGUI.setTransaction(transaction);
 
