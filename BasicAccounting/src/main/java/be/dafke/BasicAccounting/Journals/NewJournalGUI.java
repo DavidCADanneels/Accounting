@@ -3,8 +3,7 @@ package be.dafke.BasicAccounting.Journals;
 import be.dafke.BasicAccounting.GUIActions;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.RefreshableDialog;
+²import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -27,7 +26,7 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
     private AccountTypes accountTypes;
     private Journals journals;
 
-    public NewJournalGUI(JournalTypes journalTypes) {
+    public NewJournalGUI(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"));
         this.accounts = accounts;
         this.accountTypes = accountTypes;
@@ -101,9 +100,5 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
         }
         name.setText("");
         abbr.setText("");
-    }
-
-    public void refresh() {
-        // nothing to do here
     }
 }

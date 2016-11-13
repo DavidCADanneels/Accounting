@@ -2,10 +2,7 @@ package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.JournalActions;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.JournalTypes;
-import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 
@@ -31,11 +28,15 @@ public class JournalManagementGUI extends RefreshableFrame implements ActionList
     private JournalManagementTableModel dataModel;
     private Journals journals;
     private JournalTypes journalTypes;
+    private Accounts accounts;
+    private AccountTypes accountTypes;
 
-    public JournalManagementGUI(Journals journals, JournalTypes journalTypes) {
+    public JournalManagementGUI(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE"));
         this.journals = journals;
         this.journalTypes = journalTypes;
+        this.accounts = accounts;
+        this.accountTypes = accountTypes;
         dataModel = new JournalManagementTableModel(journals);
 
         tabel = new RefreshableTable<>(dataModel);
@@ -115,7 +116,7 @@ public class JournalManagementGUI extends RefreshableFrame implements ActionList
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == add) {
-            new NewJournalGUI(journalTypes).setVisible(true);
+            new NewJournalGUI(journals, journalTypes, accounts, accountTypes).setVisible(true);
 //		}else if (e.getSource() == newType) {
 //            GUIActions.showJournalTypeManager(accounting.getAccountTypes());
         } else {

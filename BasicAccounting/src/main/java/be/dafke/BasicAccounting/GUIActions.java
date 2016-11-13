@@ -24,11 +24,11 @@ public class GUIActions {
         gui.setVisible(true);
     }
 
-    public static void showJournalManager(Journals journals, JournalTypes journalTypes) {
+    public static void showJournalManager(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes) {
         String key = "" + journals.hashCode();
         DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
         if(gui == null){
-            gui = new JournalManagementGUI(journals, journalTypes);
+            gui = new JournalManagementGUI(journals, journalTypes, accounts, accountTypes);
             ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
         gui.setVisible(true);
