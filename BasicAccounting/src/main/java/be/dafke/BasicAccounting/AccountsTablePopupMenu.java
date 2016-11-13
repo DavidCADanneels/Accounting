@@ -7,8 +7,6 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -17,11 +15,8 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 10/12/2015.
  */
-public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener {
-    private final JMenuItem manage, add, debit, credit,details;
-    public final String ADD = "add";
-    public final String MANAGE = "manage";
-    public final String DETAILS = "details";
+public class AccountsTablePopupMenu extends JPopupMenu {
+    private final JMenuItem manage, add, debit, credit, details;
     private final RefreshableTable<Account> table;
 
     private Accounts accounts;
@@ -39,13 +34,6 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
         credit = new JMenuItem(getBundle("Accounting").getString("CREDIT"));
         details = new JMenuItem(getBundle("Accounting").getString("VIEW_ACCOUNT"));
 
-        manage.setActionCommand(MANAGE);
-        add.setActionCommand(ADD);
-        details.setActionCommand(DETAILS);
-
-        debit.addActionListener(e -> {book(true);});
-        credit.addActionListener(e -> {book(false);});
-
         add(debit);
         add(credit);
         add(details);
@@ -53,18 +41,30 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
         add(add);
         add(manage);
 
-        manage.addActionListener(this);
-        add.addActionListener(this);
-        debit.addActionListener(this);
-        credit.addActionListener(this);
-        details.addActionListener(this);
+        debit.addActionListener(e -> book(true));
+        credit.addActionListener(e -> book(false));
+        manage.addActionListener(e -> {
+            GUIActions.showAccountManager(accounts, accountTypes);
+            setVisible(false);
+        });
+        add.addActionListener(e -> {
+            new NewAccountGUI(accounts, accountTypes).setVisible(true);
+            setVisible(false);
+        });
+        details.addActionListener(e -> {
+            ArrayList<Account> selectedAccounts = table.getSelectedObjects();
+            for(Account selectedAccount:selectedAccounts) {
+                Main.getAccountDetails(selectedAccount, journals);
+            }
+            setVisible(false);
+        });
     }
 
-    public void book(boolean debit){
+    public void book(boolean debit) {
         for (Account selectedAccount : table.getSelectedObjects()) {
-            if(selectedAccount!=null){
-                BigDecimal amount = journalInputGUI.askAmount(selectedAccount,debit);
-                if(amount!=null) {
+            if (selectedAccount != null) {
+                BigDecimal amount = journalInputGUI.askAmount(selectedAccount, debit);
+                if (amount != null) {
                     journalInputGUI.addBooking(new Booking(selectedAccount, amount, debit));
                 }
             }
@@ -72,12 +72,12 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
     }
 
     public void setAccounting(Accounting accounting) {
-        setAccounts(accounting==null?null:accounting.getAccounts());
-        setAccountTypes(accounting==null?null:accounting.getAccountTypes());
-        setJournals(accounting==null?null:accounting.getJournals());
+        setAccounts(accounting == null ? null : accounting.getAccounts());
+        setAccountTypes(accounting == null ? null : accounting.getAccountTypes());
+        setJournals(accounting == null ? null : accounting.getJournals());
     }
 
-    public void setAccountTypes(AccountTypes accountTypes){
+    public void setAccountTypes(AccountTypes accountTypes) {
         this.accountTypes = accountTypes;
     }
 
@@ -85,22 +85,7 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
         this.accounts = accounts;
     }
 
-    public void setJournals(Journals journals){
+    public void setJournals(Journals journals) {
         this.journals = journals;
-    }
-
-    public void actionPerformed(ActionEvent ae) {
-        String actionCommand = ae.getActionCommand();
-        ArrayList<Account> selectedAccounts = table.getSelectedObjects();
-        if (MANAGE.equals(actionCommand)) {
-            GUIActions.showAccountManager(accounts, accountTypes);
-        } else if (DETAILS.equals(actionCommand)) {
-            for(Account selectedAccount:selectedAccounts) {
-                Main.getAccountDetails(selectedAccount, journals);
-            }
-        } else if (ADD.equals(actionCommand)) {
-            new NewAccountGUI(accounts, accountTypes).setVisible(true);
-        }
-        setVisible(false);
     }
 }
