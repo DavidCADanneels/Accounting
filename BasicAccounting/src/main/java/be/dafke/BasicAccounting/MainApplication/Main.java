@@ -45,7 +45,7 @@ public class Main {
     private static MortgagesGUI mortgagesGUI;
     private static AccountingMenuBar menuBar;
     private static AccountingGUIFrame frame;
-    private static ArrayList<JournalsListener> journalsListeners = new ArrayList<>();
+    private static ArrayList<JournalListener> journalListeners = new ArrayList<>();
     private static ArrayList<AccountingListener> accountingListeners = new ArrayList<>();
     private static ArrayList<AccountsListener> accountsListeners = new ArrayList<>();
     private static ArrayList<MortgagesListener> mortgagesListeners = new ArrayList<>();
@@ -104,9 +104,9 @@ public class Main {
         accountsListeners.add(accountsTableGUI);
         // accountTypeListeners, etc.
 
-        journalsListeners.add(journalReadGUI);
-        journalsListeners.add(journalsGUI);  // will call setJournal() in JournalsGUI
-        journalsListeners.add(journalInputGUI);
+        journalListeners.add(journalReadGUI);
+        journalListeners.add(journalsGUI);  // will call setJournal() in JournalsGUI
+        journalListeners.add(journalInputGUI);
 
         mortgagesListeners.add(mortgagesGUI);
 
@@ -227,8 +227,8 @@ public class Main {
 
     public static void setJournal(Journal journal) {
         accountings.getCurrentObject().getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter
-        for(JournalsListener journalsListener :journalsListeners){
-            journalsListener.setJournal(journal);
+        for(JournalListener journalListener : journalListeners){
+            journalListener.setJournal(journal);
         }
         // just to be sure ???
         journalInputGUI.setTransaction(journal.getCurrentObject());
@@ -334,6 +334,5 @@ public class Main {
         } catch (EmptyNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNTING_NAME_EMPTY);
         }
-//        //ComponentMap.refreshAllFrames();
     }
 }

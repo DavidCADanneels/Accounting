@@ -4,7 +4,7 @@ import be.dafke.BasicAccounting.DetailsPopupMenu;
 import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessActions.JournalDataChangeListener;
-import be.dafke.BusinessActions.JournalsListener;
+import be.dafke.BusinessActions.JournalListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Booking;
@@ -15,7 +15,7 @@ import be.dafke.ComponentModel.RefreshableTable;
 import javax.swing.*;
 import java.awt.*;
 
-public class JournalGUI extends JPanel implements JournalsListener, AccountingListener, JournalDataChangeListener {
+public class JournalGUI extends JPanel implements JournalListener, AccountingListener, JournalDataChangeListener {
     /**
 	 * 
 	 */

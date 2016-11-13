@@ -19,7 +19,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 29/04/2016.
  */
-public class JournalInputGUI extends JPanel implements FocusListener, ActionListener, JournalsListener, AccountingListener, TransactionListener, TransactionDataChangedListener {
+public class JournalInputGUI extends JPanel implements FocusListener, ActionListener, JournalListener, AccountingListener, TransactionListener, TransactionDataChangedListener {
     private static final long serialVersionUID = 1L;
 
     private JTextField debet, credit, dag, maand, jaar, bewijs, ident;

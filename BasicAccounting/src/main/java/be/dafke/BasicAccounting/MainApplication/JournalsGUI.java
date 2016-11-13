@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.GUIActions;
 import be.dafke.BusinessActions.AccountingListener;
-import be.dafke.BusinessActions.JournalsListener;
+import be.dafke.BusinessActions.JournalListener;
 import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
@@ -17,7 +17,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class JournalsGUI extends JPanel implements ActionListener, JournalsListener, AccountingListener {
+public class JournalsGUI extends JPanel implements ActionListener, JournalListener, AccountingListener {
 	/**
 	 * 
 	 */
