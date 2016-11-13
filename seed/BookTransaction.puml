@@ -1,0 +1,28 @@
+@startuml
+actor user
+participant AccountsGUI
+'participant TransactionActions
+participant JournalDataModel
+participant JournalInputGUI
+participant Main
+
+user-->>JournalInputGUI:book
+JournalInputGUI->>JournalInputGUI:transaction=saveTransaction()
+JournalInputGUI->>JournalInputGUI:journal.addTransaction(transaction)
+JournalInputGUI->>Main:journal.fireJournalDataChanged
+JournalInputGUI->>JournalInputGUI:clear:\ntransaction = new Transaction()\ntransaction.setJournal(journal)
+JournalInputGUI->>Main:setTransaction
+group Main.setTransaction()
+Main-->>JournalInputGUI
+group JournalInputGUI.setTransaction()
+JournalInputGUI-->>JournalDataModel
+group JournalInputGUI.fireTransactionDataChanged()
+JournalInputGUI->>JournalDataModel:fireTableDataChanged
+JournalInputGUI->>JournalInputGUI:activate buttons\n and fields
+end
+end
+Main-->>AccountsGUI
+group AccountsGUI.setTransaction
+AccountsGUI-->>AccountsGUI:setTransaction\n(transaction)
+end
+@enduml

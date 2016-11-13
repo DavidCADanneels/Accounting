@@ -1,0 +1,26 @@
+@startuml
+actor user
+participant AccountsGUI
+participant TransactionActions
+participant JournalDataModel
+participant JournalInputGUI
+participant Main
+
+user-->>AccountsGUI:debet/credit
+AccountsGUI->>AccountsGUI:book(boolean debit)
+AccountsGUI->>TransactionActions:addBookingToTransaction
+TransactionActions-->>user:askAmount
+user-->>TransactionActions
+note right:booking =\nnew Booking()
+TransactionActions->>AccountsGUI:booking
+note left:transaction.\naddBooking\n(booking)
+AccountsGUI->>Main:fireTransactionDataChanged
+group Main.fireTransactionDataChanged()
+Main-->>JournalInputGUI
+group JournalInputGUI.fireTransactionDataChanged()
+JournalInputGUI->>JournalDataModel:fireTableDataChanged
+JournalInputGUI->>JournalInputGUI:activate buttons\n and fields
+end
+end
+JournalInputGUI-->>user:the new booking is now visible for the user
+@enduml
