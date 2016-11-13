@@ -13,6 +13,8 @@ import be.dafke.BasicAccounting.SaveAllActionListener;
 import be.dafke.BusinessActions.*;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModelDao.XMLReader;
 import be.dafke.Utils.MultiValueMap;
 
@@ -44,12 +46,10 @@ public class Main {
     private static AccountingMenuBar menuBar;
     private static AccountingGUIFrame frame;
     private static ArrayList<JournalsListener> journalsListeners = new ArrayList<>();
-    private static ArrayList<TransactionListener> transactionListeners = new ArrayList<>();
     private static ArrayList<AccountingListener> accountingListeners = new ArrayList<>();
     private static ArrayList<AccountsListener> accountsListeners = new ArrayList<>();
     private static ArrayList<MortgagesListener> mortgagesListeners = new ArrayList<>();
 
-    private static ArrayList<TransactionDataChangedListener> transactionDataChangeListeners = new ArrayList<>();
     private static MultiValueMap<Integer, JournalDataChangeListener> journalDataChangeListeners = new MultiValueMap<>();
     private static MultiValueMap<Integer, AccountDataChangeListener> accountDataChangeListeners = new MultiValueMap<>();
 
@@ -89,13 +89,13 @@ public class Main {
     }
 
     private static void createComponents() {
-        journalReadGUI = new JournalGUI();
-        journalInputGUI = new JournalInputGUI();
         journalsGUI = new JournalsGUI();
-        accountsGUI1 = new AccountsGUI();
-        accountsGUI2 = new AccountsGUI();
-        accountsTableGUI = new AccountsTableGUI();
-        mortgagesGUI = new MortgagesGUI();
+        journalInputGUI = new JournalInputGUI();
+        journalReadGUI = new JournalGUI(journalInputGUI);
+        accountsGUI1 = new AccountsGUI(journalInputGUI);
+        accountsGUI2 = new AccountsGUI(journalInputGUI);
+        accountsTableGUI = new AccountsTableGUI(journalInputGUI);
+        mortgagesGUI = new MortgagesGUI(journalInputGUI);
     }
 
     private static void createListeners() {
@@ -109,13 +109,6 @@ public class Main {
         journalsListeners.add(journalInputGUI);
 
         mortgagesListeners.add(mortgagesGUI);
-
-        transactionListeners.add(mortgagesGUI);
-        transactionListeners.add(accountsGUI1);
-        transactionListeners.add(accountsGUI2);
-        transactionListeners.add(accountsTableGUI);
-        transactionListeners.add(journalInputGUI);
-        transactionDataChangeListeners.add(journalInputGUI);
 
         // TODO: Can we use HashMap everywhere iso MultiValueMap? Then we can not filter on Account/Journal, but need to refresh all !?
         // FIXME: refresh saldi in accountsTableGUI after AccountData has Changed
@@ -232,22 +225,13 @@ public class Main {
         }
     }
 
-    public static void setTransaction(Transaction transaction) {
-        Journal journal = transaction.getJournal();
-        journal.setCurrentObject(transaction);  // should only be needed for XML
-
-        for(TransactionListener transactionListener:transactionListeners){
-            transactionListener.setTransaction(transaction);
-        }
-    }
-
     public static void setJournal(Journal journal) {
         accountings.getCurrentObject().getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter
         for(JournalsListener journalsListener :journalsListeners){
             journalsListener.setJournal(journal);
         }
-        // just to be sure
-        setTransaction(journal.getCurrentObject());
+        // just to be sure ???
+        journalInputGUI.setTransaction(journal.getCurrentObject());
     }
 
     public static void addJournalDataListener(Journal journal, JournalDataChangeListener gui) {
@@ -256,13 +240,6 @@ public class Main {
 
     public static void addAccountDataListener(Account account, AccountDataChangeListener gui) {
         accountDataChangeListeners.addValue(account.hashCode(), gui);
-    }
-
-    // Does the same as setTransaction
-    public static void fireTransactionDataChanged(){
-        for(TransactionDataChangedListener transactionDataChangedListener : transactionDataChangeListeners) {
-            transactionDataChangedListener.fireTransactionDataChanged();
-        }
     }
 
     public static void fireJournalDataChanged(Journal journal){
@@ -300,7 +277,7 @@ public class Main {
     public static AccountDetails getAccountDetails(Account account, Journals journals){
         AccountDetails accountDetails = accountDetailsMap.get(account);
         if(accountDetails==null){
-            accountDetails = new AccountDetails(account, journals);
+            accountDetails = new AccountDetails(account, journals, journalInputGUI);
             addAccountDataListener(account,accountDetails);
             accountDetailsMap.put(account, accountDetails);
             ComponentMap.addDisposableComponent("Details:"+account.hashCode(),accountDetails);
@@ -312,7 +289,7 @@ public class Main {
     public static JournalDetails getJournalDetails(Journal journal, Journals journals){
         JournalDetails journalDetails = journalDetailsMap.get(journal);
         if(journalDetails==null){
-            journalDetails = new JournalDetails(journal, journals);
+            journalDetails = new JournalDetails(journal, journals, journalInputGUI);
             addJournalDataListener(journal,journalDetails);
             journalDetailsMap.put(journal, journalDetails);
             ComponentMap.addDisposableComponent("Details:"+journal.hashCode(),journalDetails);
@@ -341,5 +318,22 @@ public class Main {
         }
         balanceGUI.setVisible(true);
         return balanceGUI;
+    }
+
+    public static void newAccounting(Accountings accountings) {
+        String name = JOptionPane.showInputDialog(null, "Enter a name");
+        try {
+            Accounting accounting = new Accounting();
+            accounting.getBalances().addDefaultBalances();
+            accounting.setName(name);
+            accountings.addBusinessObject(accounting);
+            accountings.setCurrentObject(accounting);
+            setAccounting(accounting);
+        } catch (DuplicateNameException e) {
+            ActionUtils.showErrorMessage(ActionUtils.ACCOUNTING_DUPLICATE_NAME);
+        } catch (EmptyNameException e) {
+            ActionUtils.showErrorMessage(ActionUtils.ACCOUNTING_NAME_EMPTY);
+        }
+//        //ComponentMap.refreshAllFrames();
     }
 }

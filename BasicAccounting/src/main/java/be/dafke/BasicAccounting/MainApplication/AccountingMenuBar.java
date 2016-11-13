@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.BusinessActions.AccountingActions;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
@@ -26,7 +25,7 @@ public class AccountingMenuBar extends JMenuBar implements RefreshableComponent,
         this.accountings = accountings;
         file = new JMenu(getBundle("Accounting").getString("ACCOUNTING"));
         startNew = new JMenuItem(getBundle("Accounting").getString("NEW_ACCOUNTING"));
-        startNew.addActionListener(e -> AccountingActions.newAccounting(accountings));
+        startNew.addActionListener(e -> Main.newAccounting(accountings));
         add(file);
     }
 
