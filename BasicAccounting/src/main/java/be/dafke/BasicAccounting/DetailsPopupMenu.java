@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BasicAccounting.Journals.JournalDetails;
+import be.dafke.BasicAccounting.MainApplication.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.TransactionActions;
@@ -21,19 +22,22 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
     private final JMenuItem move, delete, edit, details;
+    private JournalInputGUI journalInputGUI;
+
     public enum Mode{ JOURNAL, ACCOUNT}
     private Mode mode;
     private RefreshableTable<Booking> gui;
     private Journals journals;
 
-    public DetailsPopupMenu(Journals journals, RefreshableTable<Booking> gui, Mode mode) {
-        this(gui, mode);
+    public DetailsPopupMenu(Journals journals, RefreshableTable<Booking> gui, JournalInputGUI journalInputGUI, Mode mode) {
+        this(gui, mode, journalInputGUI);
         this.journals=journals;
     }
 
-    public DetailsPopupMenu(RefreshableTable<Booking> gui, Mode mode) {
+    public DetailsPopupMenu(RefreshableTable<Booking> gui, Mode mode, JournalInputGUI journalInputGUI) {
         this.mode = mode;
         this.gui = gui;
+        this.journalInputGUI=journalInputGUI;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         move = new JMenuItem(getBundle("Accounting").getString("MOVE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_TRANSACTION"));
@@ -95,11 +99,11 @@ public class DetailsPopupMenu extends JPopupMenu implements ActionListener {
                 for (Account account : transaction.getAccounts()) {
                     Main.fireAccountDataChanged(account);
                 }
-
-                Main.setTransaction(transaction);
-                // should not be needed here
-//                journal.setCurrentObject(transaction);
+                //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
+                // set Journal before Transaction: setJournal sets transaction to currentObject !!!
                 Main.setJournal(journal);
+                // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
+                journalInputGUI.setTransaction(transaction);
 
                 ActionUtils.showErrorMessage(TRANSACTION_REMOVED,journal.getName());
             } else if (e.getSource() == delete) {

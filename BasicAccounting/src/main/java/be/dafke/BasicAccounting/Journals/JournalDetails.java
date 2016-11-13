@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.DetailsPopupMenu;
+import be.dafke.BasicAccounting.MainApplication.JournalInputGUI;
 import be.dafke.BusinessActions.JournalDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Booking;
@@ -29,7 +30,7 @@ public class JournalDetails extends RefreshableFrame implements WindowListener, 
 	private RefreshableTable<Booking> tabel;
 	private JournalDetailsDataModel dataModel;
 
-	public JournalDetails(Journal journal, Journals journals) {
+	public JournalDetails(Journal journal, Journals journals, JournalInputGUI journalInputGUI) {
 		super(getBundle("Accounting").getString("JOURNAL_DETAILS") + " " + journal.toString());
 		dataModel = new JournalDetailsDataModel();
 		dataModel.setJournal(journal);
@@ -46,7 +47,7 @@ public class JournalDetails extends RefreshableFrame implements WindowListener, 
 		setContentPane(contentPanel);
 		pack();
 
-		popup = new DetailsPopupMenu(journals, tabel, DetailsPopupMenu.Mode.JOURNAL);
+		popup = new DetailsPopupMenu(journals, tabel, journalInputGUI, DetailsPopupMenu.Mode.JOURNAL);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel, 0,2,3,4));
 	}
 
