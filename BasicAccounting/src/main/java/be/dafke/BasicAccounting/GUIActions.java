@@ -69,6 +69,7 @@ public class GUIActions {
                 oldJournal.setCurrentObject(new Transaction(accounts, Calendar.getInstance(), ""));
                 return newJournal;
             } else if(answer == JOptionPane.NO_OPTION){
+                oldJournal.setCurrentObject(oldTransaction);
                 return newJournal;
             } else {
                 return oldJournal;
