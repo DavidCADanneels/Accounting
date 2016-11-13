@@ -89,8 +89,8 @@ public class Main {
     }
 
     private static void createComponents() {
-        journalsGUI = new JournalsGUI();
         journalInputGUI = new JournalInputGUI();
+        journalsGUI = new JournalsGUI(journalInputGUI);
         journalReadGUI = new JournalGUI(journalInputGUI);
         accountsGUI1 = new AccountsGUI(journalInputGUI);
         accountsGUI2 = new AccountsGUI(journalInputGUI);

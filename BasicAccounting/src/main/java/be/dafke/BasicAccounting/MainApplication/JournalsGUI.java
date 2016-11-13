@@ -26,13 +26,14 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalsListe
 	public static final String DETAILS = "details";
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
-	private Journal selectedJournal = null;
 	private Journals journals;
 	private JournalTypes journalTypes;
 	private Accounts accounts;
 	private AccountTypes accountTypes;
+	private JournalInputGUI journalInputGUI;
 
-	public JournalsGUI() {
+	public JournalsGUI(JournalInputGUI journalInputGUI) {
+		this.journalInputGUI=journalInputGUI;
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -67,7 +68,7 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalsListe
 			}
 			if(ae.getSource()==combo){
 				Journal newJournal = (Journal) combo.getSelectedItem();
-				Journal journal = GUIActions.switchJournal(accounts, selectedJournal, newJournal);
+				Journal journal = journalInputGUI.switchJournal(accounts, newJournal);
 				Main.setJournal(journal);
 				// setJournal will be called automatically if JournalsGUI is registered as journalListener
 //            setJournal(newJournal);
@@ -101,8 +102,6 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalsListe
 
 	@Override
 	public void setJournal(Journal journal) {
-		selectedJournal = journal;
-
 		combo.removeActionListener(this);
 		combo.setSelectedItem(journal);
 		combo.addActionListener(this);

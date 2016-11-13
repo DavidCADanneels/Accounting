@@ -306,6 +306,39 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         fireTransactionDataChanged();
     }
 
+    public Journal switchJournal(Accounts accounts, Journal newJournal) {
+        if(newJournal!=null){
+            journal = checkTransfer(accounts, journal, newJournal);
+        } else {
+            journal = newJournal;
+        }
+        return journal;
+    }
+
+    private Journal checkTransfer(Accounts accounts, Journal oldJournal, Journal newJournal){
+        Transaction newTransaction = newJournal.getCurrentObject();
+        if(transaction!=null && !transaction.getBusinessObjects().isEmpty()){
+            StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
+                    .append(oldJournal).append(" to ").append(newJournal);
+            if(newTransaction!=null && !newTransaction.getBusinessObjects().isEmpty()){
+                builder.append("\nWARNING: ").append(newJournal).append(" also has an open transactions, which will be lost if you select transfer");
+            }
+            int answer = JOptionPane.showConfirmDialog(null, builder.toString());
+            if(answer == JOptionPane.YES_OPTION){
+                newJournal.setCurrentObject(transaction);
+                oldJournal.setCurrentObject(new Transaction(accounts, Calendar.getInstance(), ""));
+                return newJournal;
+            } else if(answer == JOptionPane.NO_OPTION){
+                oldJournal.setCurrentObject(transaction);
+                return newJournal;
+            } else {
+                return oldJournal;
+            }
+        } else {
+            return newJournal;
+        }
+    }
+
     @Override
     public void fireTransactionDataChanged() {
         journalDataModel.fireTableDataChanged();
