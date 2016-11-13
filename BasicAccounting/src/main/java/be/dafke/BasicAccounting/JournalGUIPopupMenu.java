@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
+import be.dafke.BasicAccounting.MainApplication.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessActions.TransactionActions;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 
@@ -23,8 +23,10 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
     private Accounts accounts;
     private Journals journals;
     private AccountTypes accountTypes;
+    private JournalInputGUI journalInputGUI;
 
-    public JournalGUIPopupMenu(RefreshableTable<Booking> table) {
+    public JournalGUIPopupMenu(RefreshableTable<Booking> table, JournalInputGUI journalInputGUI) {
+        this.journalInputGUI = journalInputGUI;
         this.table = table;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_AMOUNT"));
@@ -60,34 +62,36 @@ public class JournalGUIPopupMenu extends JPopupMenu implements ActionListener{
             Transaction transaction = booking.getTransaction();
             if (source == delete) {
                 transaction.removeBusinessObject(booking);
+                journalInputGUI.fireTransactionDataChanged();
             } else if (source == edit) {
                 Account account = booking.getAccount();
                 //TODO: or JournalGUI.table should contain Movements iso Bookings
-                BigDecimal amount = TransactionActions.askAmount(transaction, account, booking.isDebit());
+                // booking must be removed and re-added to Transaction to re-calculate the totals
+                transaction.removeBusinessObject(booking);
+                BigDecimal amount = journalInputGUI.askAmount(account, booking.isDebit());
                 if (amount != null) {
-                    // booking must be removed and re-added to Transaction to re-calculate the totals
-                    transaction.removeBusinessObject(booking);
                     booking.setAmount(amount);
-                    transaction.addBusinessObject(booking);
                 }
+                transaction.addBusinessObject(booking);
+                journalInputGUI.fireTransactionDataChanged();
             } else if (source == debitCredit) {
                 // booking must be removed and re-added to Transaction to re-calculate the totals
                 transaction.removeBusinessObject(booking);
                 booking.setDebit(!booking.isDebit());
                 transaction.addBusinessObject(booking);
+                journalInputGUI.fireTransactionDataChanged();
             } else if (source == change) {
                 AccountSelector sel = new AccountSelector(accounts, accountTypes);
-//                ComponentMap.addRefreshableComponent(sel);
                 sel.setVisible(true);
                 Account account = sel.getSelection();
                 if (account != null) {
                     booking.setAccount(account);
                 }
+                journalInputGUI.fireTransactionDataChanged();
             } else if (source == details) {
                 Account account = booking.getAccount();
                 Main.getAccountDetails(account, journals);
             }
-            //ComponentMap.refreshAllFrames();
         }
     }
 }

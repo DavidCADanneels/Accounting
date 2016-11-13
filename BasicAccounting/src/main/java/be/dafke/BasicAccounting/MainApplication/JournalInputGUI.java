@@ -44,7 +44,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         table = new RefreshableTable<>(journalDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
-        popup = new JournalGUIPopupMenu(table);
+        popup = new JournalGUIPopupMenu(table, this);
         table.addMouseListener(new PopupForTableActivator(popup, table));
 
         JPanel center = new JPanel();
@@ -176,8 +176,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     public void clear() {
         transaction = new Transaction(accounts, getDate(), "");
         transaction.setJournal(journal);
-        Main.setTransaction(transaction);
-//        fireTransactionDataChanged();
+        setTransaction(transaction);
     }
 
     public Transaction saveTransaction(){
@@ -226,6 +225,85 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
     private String getDescription(){
         return bewijs.getText().trim();
+    }
+
+    public void addBooking(Booking booking){
+        transaction.addBusinessObject(booking);
+        fireTransactionDataChanged();
+    }
+
+    public BigDecimal askAmount(Account account, boolean debit){
+        if(transaction==null)return null;
+        BigDecimal creditTotal = transaction.getCreditTotaal();
+        BigDecimal debitTotal = transaction.getDebetTotaal();
+        boolean suggestion = false;
+        BigDecimal suggestedAmount = null;
+        if(creditTotal.compareTo(debitTotal)>0 && debit){
+            suggestion = true;
+            suggestedAmount = creditTotal.subtract(debitTotal);
+        } else if(debitTotal.compareTo(creditTotal)>0 && !debit){
+            suggestion = true;
+            suggestedAmount = debitTotal.subtract(creditTotal);
+        } else {
+            BigDecimal defaultAmount = account.getDefaultAmount();
+            if(defaultAmount!=null){
+                suggestion = true;
+                suggestedAmount = defaultAmount;
+            }
+        }
+
+        // TODO: fix suggested amount, especially when editing amounts
+
+        boolean ok = false;
+        BigDecimal amount = null;
+        while (!ok) {
+            String s;
+            if(suggestion){
+                // TODO: add title ...
+                s = JOptionPane.showInputDialog(getBundle("BusinessActions").getString(
+                        "ENTER_AMOUNT")+ account.getName(), suggestedAmount.toString());
+            } else {
+                s = JOptionPane.showInputDialog(getBundle("BusinessActions").getString(
+                        "ENTER_AMOUNT")+ account.getName());
+            }
+            if (s == null || s.equals("")) {
+                ok = true;
+                amount = null;
+            } else {
+                try {
+                    amount = new BigDecimal(s);
+                    amount = amount.setScale(2);
+                    ok = true;
+                } catch (NumberFormatException nfe) {
+                    ActionUtils.showErrorMessage(ActionUtils.INVALID_INPUT);
+                }
+            }
+        }
+        return amount;
+    }
+
+    public void addMortgageTransaction(Mortgage mortgage){
+        if (mortgage.isPayedOff()) {
+            System.out.println("Payed Off already");
+            return;
+        }
+        if (transaction.getMortgage()!=null){
+            System.out.println("Transaction already contains a mortgages");
+            return;
+        }
+        transaction.setMortgage(mortgage);
+        Account capitalAccount = mortgage.getCapitalAccount();
+        Account intrestAccount = mortgage.getIntrestAccount();
+        if(capitalAccount==null || intrestAccount==null){
+            return;
+        }
+        Booking capitalBooking = new Booking(capitalAccount, mortgage.getNextCapitalAmount(),true);
+        Booking intrestBooking = new Booking(intrestAccount, mortgage.getNextIntrestAmount(),true);
+
+        transaction.addBusinessObject(capitalBooking);
+        transaction.addBusinessObject(intrestBooking);
+
+        fireTransactionDataChanged();
     }
 
     @Override

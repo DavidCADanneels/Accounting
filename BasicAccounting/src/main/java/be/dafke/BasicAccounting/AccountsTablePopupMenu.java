@@ -1,15 +1,15 @@
 package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
+import be.dafke.BasicAccounting.MainApplication.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessActions.TransactionActions;
-import be.dafke.BusinessActions.TransactionListener;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
@@ -17,7 +17,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 10/12/2015.
  */
-public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener, TransactionListener{
+public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener {
     private final JMenuItem manage, add, debit, credit,details;
     public final String ADD = "add";
     public final String MANAGE = "manage";
@@ -27,10 +27,11 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
     private Accounts accounts;
     private AccountTypes accountTypes;
     private Journals journals;
-    private Transaction transaction;
+    private JournalInputGUI journalInputGUI;
 
-    public AccountsTablePopupMenu(RefreshableTable<Account> table) {
+    public AccountsTablePopupMenu(RefreshableTable<Account> table, JournalInputGUI journalInputGUI) {
         this.table = table;
+        this.journalInputGUI = journalInputGUI;
 
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_ACCOUNT"));
         add = new JMenuItem(getBundle("Accounting").getString("ADD_ACCOUNT"));
@@ -61,9 +62,13 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
 
     public void book(boolean debit){
         for (Account selectedAccount : table.getSelectedObjects()) {
-            TransactionActions.addBookingToTransaction(selectedAccount, transaction, debit);
+            if(selectedAccount!=null){
+                BigDecimal amount = journalInputGUI.askAmount(selectedAccount,debit);
+                if(amount!=null) {
+                    journalInputGUI.addBooking(new Booking(selectedAccount, amount, debit));
+                }
+            }
         }
-        Main.fireTransactionDataChanged();
     }
 
     public void setAccounting(Accounting accounting) {
@@ -82,16 +87,6 @@ public class AccountsTablePopupMenu extends JPopupMenu implements ActionListener
 
     public void setJournals(Journals journals){
         this.journals = journals;
-        setJournal(journals==null?null:journals.getCurrentObject());
-    }
-
-    public void setJournal(Journal journal){
-        setTransaction(journal==null?null:journal.getCurrentObject());
-    }
-
-    @Override
-    public void setTransaction(Transaction transaction) {
-        this.transaction = transaction;
     }
 
     public void actionPerformed(ActionEvent ae) {
