@@ -47,10 +47,8 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         popup = new JournalGUIPopupMenu(table, this);
         table.addMouseListener(new PopupForTableActivator(popup, table));
 
-        JPanel center = new JPanel();
         JScrollPane scrollPane = new JScrollPane(table);
-        center.add(scrollPane);
-        add(center, BorderLayout.CENTER);
+        add(scrollPane, BorderLayout.CENTER);
 
         scrollPane.addMouseListener(new MouseAdapter() {
             @Override
