@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.MainApplication;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
-import be.dafke.ComponentModel.RefreshableComponent;
 
 import javax.swing.*;
 
@@ -12,7 +11,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class AccountingMenuBar extends JMenuBar implements RefreshableComponent, AccountingListener {
+public class AccountingMenuBar extends JMenuBar implements AccountingListener {
     /**
      *
      */

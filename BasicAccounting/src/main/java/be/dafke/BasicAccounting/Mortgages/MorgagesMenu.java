@@ -5,7 +5,7 @@ import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Mortgages;
 import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.DisposableComponent;
+import be.dafke.ComponentModel.JFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -33,10 +33,10 @@ public class MorgagesMenu extends JMenu implements ActionListener, AccountingLis
 
     public void actionPerformed(ActionEvent e) {
         String key = Mortgages.MORTGAGES + mortgages.hashCode();
-        DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+        JFrame gui = Main.getJFrame(key); // DETAILS
         if(gui == null){
             gui = new MortgageGUI(mortgages, accounts);
-            ComponentMap.addDisposableComponent(key, gui); // DETAILS
+            Main.addJFrame(key, gui); // DETAILS
         }
         gui.setVisible(true);
     }

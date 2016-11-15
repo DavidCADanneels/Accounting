@@ -12,7 +12,6 @@ import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BasicAccounting.SaveAllActionListener;
 import be.dafke.BusinessActions.*;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModelDao.XMLReader;
@@ -22,6 +21,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 
 import static javax.swing.JSplitPane.*;
@@ -49,6 +49,8 @@ public class Main {
     private static ArrayList<AccountingListener> accountingListeners = new ArrayList<>();
     private static ArrayList<AccountsListener> accountsListeners = new ArrayList<>();
     private static ArrayList<MortgagesListener> mortgagesListeners = new ArrayList<>();
+
+    private static final HashMap<String, JFrame> disposableComponents = new HashMap<>();
 
     private static MultiValueMap<Integer, JournalDataChangeListener> journalDataChangeListeners = new MultiValueMap<>();
     private static MultiValueMap<Integer, AccountDataChangeListener> accountDataChangeListeners = new MultiValueMap<>();
@@ -183,7 +185,7 @@ public class Main {
     }
 
     private static void launchFrame(){
-        ComponentMap.addDisposableComponent(frame.hashCode()+"", frame); // MAIN
+        Main.addJFrame(frame.hashCode()+"", frame); // MAIN
         frame.pack();
         frame.setVisible(true);
     }
@@ -280,7 +282,7 @@ public class Main {
             accountDetails = new AccountDetails(account, journals, journalInputGUI);
             addAccountDataListener(account,accountDetails);
             accountDetailsMap.put(account, accountDetails);
-            ComponentMap.addDisposableComponent("Details:"+account.hashCode(),accountDetails);
+            Main.addJFrame("Details:"+account.hashCode(),accountDetails);
         }
         accountDetails.setVisible(true);
         return accountDetails;
@@ -292,7 +294,7 @@ public class Main {
             journalDetails = new JournalDetails(journal, journals, journalInputGUI);
             addJournalDataListener(journal,journalDetails);
             journalDetailsMap.put(journal, journalDetails);
-            ComponentMap.addDisposableComponent("Details:"+journal.hashCode(),journalDetails);
+            Main.addJFrame("Details:"+journal.hashCode(),journalDetails);
         }
         journalDetails.setVisible(true);
         return journalDetails;
@@ -303,7 +305,7 @@ public class Main {
         if(testBalance==null){
             testBalance = new TestBalance(journals, accounts, accountTypes);
             testBalanceMap.put(accounts,testBalance);
-            ComponentMap.addDisposableComponent("TestBalance:"+accounts.hashCode(),testBalance);
+            Main.addJFrame("TestBalance:"+accounts.hashCode(),testBalance);
         }
         testBalance.setVisible(true);
         return testBalance;
@@ -314,7 +316,7 @@ public class Main {
         if(balanceGUI==null){
             balanceGUI = new BalanceGUI(journals, balance);
             otherBalanceMap.put(balance,balanceGUI);
-            ComponentMap.addDisposableComponent("Balance:"+balance.hashCode(),balanceGUI);
+            Main.addJFrame("Balance:"+balance.hashCode(),balanceGUI);
         }
         balanceGUI.setVisible(true);
         return balanceGUI;
@@ -334,5 +336,20 @@ public class Main {
         } catch (EmptyNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNTING_NAME_EMPTY);
         }
+    }
+
+    public static void closeAllFrames(){
+        Collection<JFrame> collection = disposableComponents.values();
+        for(JFrame frame: collection){
+            frame.dispose();
+        }
+    }
+
+    public static JFrame getJFrame(String name){
+        return disposableComponents.get(name);
+    }
+
+    public static void addJFrame(String key, JFrame frame) {
+        disposableComponents.put(key, frame);
     }
 }

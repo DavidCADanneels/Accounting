@@ -6,7 +6,7 @@ import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Projects;
 import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.DisposableComponent;
+import be.dafke.ComponentModel.JFrame;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -43,20 +43,20 @@ public class ProjectsMenu extends JMenu implements AccountingListener {
 
     private void showProjects() {
         String key = PROJECTS + projects.hashCode();
-        DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+        JFrame gui = Main.getJFrame(key); // DETAILS
         if (gui == null) {
             gui = new ProjectGUI(accounts, accountTypes, projects);
-            ComponentMap.addDisposableComponent(key, gui); // DETAILS
+            Main.addJFrame(key, gui); // DETAILS
         }
         gui.setVisible(true);
     }
 
     private void showManager() {
         String key = MANAGE + projects.hashCode();
-        DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+        JFrame gui = Main.getJFrame(key); // DETAILS
         if (gui == null) {
             gui = new ProjectManagementGUI(accounts, accountTypes, projects);
-            ComponentMap.addDisposableComponent(key, gui); // DETAILS
+            Main.addJFrame(key, gui); // DETAILS
         }
         gui.setVisible(true);
     }

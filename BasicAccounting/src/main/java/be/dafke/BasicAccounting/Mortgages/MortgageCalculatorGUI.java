@@ -168,7 +168,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
             newMortgage.setName("new Mortgage Table");
             newMortgage.setStartCapital(startKapitaal);
 			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, mortgages);
-            ComponentMap.addDisposableComponent(MORTGAGE_TABLE + gui.nr, gui);
+            Main.addJFrame(MORTGAGE_TABLE + gui.nr, gui);
 			gui.setVisible(true);
 		}
 	}

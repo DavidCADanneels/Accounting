@@ -4,7 +4,7 @@ import be.dafke.BasicAccounting.Balances.BalanceDataModel;
 import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.DisposableComponent;
+import be.dafke.ComponentModel.JFrame;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 
@@ -123,10 +123,10 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
             refresh();
         } else if(ae.getSource()==manage) {
             String key = MANAGE + projects.hashCode();
-            DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+            JFrame gui = Main.getJFrame(key); // DETAILS
             if (gui == null) {
                 gui = new ProjectManagementGUI(accounts, accountTypes, projects);
-                ComponentMap.addDisposableComponent(key, gui); // DETAILS
+                Main.addJFrame(key, gui); // DETAILS
             }
             gui.setVisible(true);
         }

@@ -5,7 +5,7 @@ import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
 import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.DisposableComponent;
+import be.dafke.ComponentModel.JFrame;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.BusinessObject;
@@ -50,10 +50,10 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		create = new JButton("Create new Mortgage table");
 		create.addActionListener(e -> {
             String key = MORTGAGE_CALCULATOR + mortgages.hashCode();
-            DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+            JFrame gui = Main.getJFrame(key); // DETAILS
             if(gui == null){
                 gui = new MortgageCalculatorGUI(mortgages);
-                ComponentMap.addDisposableComponent(key, gui); // DETAILS
+                Main.addJFrame(key, gui); // DETAILS
             }
             gui.setVisible(true);
         });

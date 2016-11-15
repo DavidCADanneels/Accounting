@@ -1,16 +1,14 @@
 package be.dafke.BasicAccounting.Coda;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.CounterParties;
 import be.dafke.BusinessModel.Statements;
-import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.DisposableComponent;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 
-import javax.swing.JMenu;
-import javax.swing.JMenuItem;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -35,10 +33,10 @@ public class CodaMenu extends JMenu implements ActionListener, AccountingListene
 
     public void actionPerformed(ActionEvent e) {
         String key = Statements.STATEMENTS + statements.hashCode();
-        DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+        JFrame gui = Main.getJFrame(key); // DETAILS
         if(gui == null){
             gui = new StatementTableFrame((Statements)statements, (CounterParties)counterParties);
-            ComponentMap.addDisposableComponent(key, gui); // DETAILS
+            Main.addJFrame(key, gui); // DETAILS
         }
         gui.setVisible(true);
     }

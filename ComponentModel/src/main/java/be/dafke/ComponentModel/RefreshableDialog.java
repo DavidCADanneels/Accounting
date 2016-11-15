@@ -7,7 +7,7 @@ import javax.swing.*;
  * Date: 24/02/13
  * Time: 13:18
  */
-public abstract class RefreshableDialog extends JDialog implements RefreshableComponent{
+public abstract class RefreshableDialog extends JDialog {
     public RefreshableDialog(String title){
         setTitle(title);
         setModal(true);
