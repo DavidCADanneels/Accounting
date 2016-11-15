@@ -1,10 +1,11 @@
 package be.dafke.BasicAccounting.Contacts;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contacts;
-import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.DisposableComponent;
+
+
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -39,20 +40,20 @@ public class ContactsMenu extends JMenu implements AccountingListener {
 
     private void showSuppliers() {
         String key = SUPPLIERS + contacts.hashCode();
-        DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+        JFrame gui = Main.getJFrame(key); // DETAILS
         if (gui == null) {
             gui = new ContactsGUI();
-            ComponentMap.addDisposableComponent(key, gui); // DETAILS
+            Main.addJFrame(key, gui); // DETAILS
         }
         gui.setVisible(true);
     }
 
     private void showCustomers() {
         String key = CUSTOMERS + contacts.hashCode();
-        DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+        JFrame gui = Main.getJFrame(key); // DETAILS
         if (gui == null) {
             gui = new ContactsGUI();
-            ComponentMap.addDisposableComponent(key, gui); // DETAILS
+            Main.addJFrame(key, gui); // DETAILS
         }
         gui.setVisible(true);
     }

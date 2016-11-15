@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.Mortgages;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Calculate;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
-import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.Utils.Utils;
 

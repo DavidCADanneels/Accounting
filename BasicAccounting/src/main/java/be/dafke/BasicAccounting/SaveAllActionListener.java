@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accountings;
-import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ObjectModelDao.XMLWriter;
 
 import java.awt.event.ActionEvent;
@@ -22,7 +22,7 @@ public class SaveAllActionListener extends WindowAdapter implements ActionListen
 
     @Override
     public void windowClosing(WindowEvent we) {
-        ComponentMap.closeAllFrames();
+        Main.closeAllFrames();
         saveData();
     }
 

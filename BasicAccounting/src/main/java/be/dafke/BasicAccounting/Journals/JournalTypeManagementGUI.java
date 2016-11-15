@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.ComponentModel.ComponentMap;
+
 import be.dafke.ComponentModel.RefreshableFrame;
 
 import javax.swing.*;

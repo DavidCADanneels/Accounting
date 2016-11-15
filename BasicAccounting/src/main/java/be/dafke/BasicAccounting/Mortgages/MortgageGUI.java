@@ -1,11 +1,10 @@
 package be.dafke.BasicAccounting.Mortgages;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
-import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.JFrame;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.BusinessObject;

@@ -1,11 +1,10 @@
 package be.dafke.BasicAccounting.Mortgages;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Mortgages;
-import be.dafke.ComponentModel.ComponentMap;
-import be.dafke.ComponentModel.JFrame;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
