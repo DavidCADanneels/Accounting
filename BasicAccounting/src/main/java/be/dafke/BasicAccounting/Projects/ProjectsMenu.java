@@ -53,7 +53,7 @@ public class ProjectsMenu extends JMenu implements ActionListener, AccountingLis
             }
             gui.setVisible(true);
         } else if(ae.getSource()==project){
-            String key = MANAGE + projects.hashCode();
+            String key = PROJECTS + projects.hashCode();
             DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
             if (gui == null) {
                 gui = new ProjectGUI(accounts, accountTypes, projects);
