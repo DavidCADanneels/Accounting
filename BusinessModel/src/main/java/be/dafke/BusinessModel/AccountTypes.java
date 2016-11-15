@@ -1,6 +1,6 @@
 package be.dafke.BusinessModel;
 
-import be.dafke.ObjectModel.BusinessTypeCollection;
+import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -11,7 +11,7 @@ import java.util.TreeMap;
  * Date: 9/03/13
  * Time: 6:25
  */
-public class AccountTypes extends BusinessTypeCollection<AccountType> {
+public class AccountTypes extends BusinessCollection<AccountType>{
     public static final String ASSET = "Asset";
     public static final String LIABILITY = "Liability";
     public static final String COST = "Cost";

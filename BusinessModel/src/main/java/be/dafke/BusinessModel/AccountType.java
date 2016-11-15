@@ -1,13 +1,13 @@
 package be.dafke.BusinessModel;
 
-import be.dafke.ObjectModel.BusinessType;
+import be.dafke.ObjectModel.BusinessObject;
 
 /**
  * User: Dafke
  * Date: 9/03/13
  * Time: 6:25
  */
-public class AccountType extends BusinessType {
+public class AccountType extends BusinessObject {
 
     public boolean isInverted() {
         return inverted;

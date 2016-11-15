@@ -1,10 +1,10 @@
 package be.dafke.BusinessModel;
 
-import be.dafke.ObjectModel.BusinessType;
+import be.dafke.ObjectModel.BusinessObject;
 
 import java.util.ArrayList;
 
-public class JournalType extends BusinessType {
+public class JournalType extends BusinessObject {
 	/**
 	 *
 	 */

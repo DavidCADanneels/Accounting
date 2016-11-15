@@ -1,12 +1,12 @@
 package be.dafke.BusinessModel;
 
-import be.dafke.ObjectModel.BusinessTypeCollection;
+import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.util.TreeMap;
 
-public class JournalTypes extends BusinessTypeCollection<JournalType> {
+public class JournalTypes extends BusinessCollection<JournalType> {
 
     @Override
     public String getChildType(){
