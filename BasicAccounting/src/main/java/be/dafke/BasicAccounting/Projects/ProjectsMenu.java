@@ -9,8 +9,6 @@ import be.dafke.ComponentModel.ComponentMap;
 import be.dafke.ComponentModel.DisposableComponent;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import static java.util.ResourceBundle.getBundle;
@@ -18,7 +16,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 27/12/2015.
  */
-public class ProjectsMenu extends JMenu implements ActionListener, AccountingListener {
+public class ProjectsMenu extends JMenu implements AccountingListener {
     private JMenuItem manage, project;
     public static final String MANAGE = "ManageProjects";
     public static final String PROJECTS = "Projects";
@@ -31,36 +29,36 @@ public class ProjectsMenu extends JMenu implements ActionListener, AccountingLis
         setMnemonic(KeyEvent.VK_P);
         manage = new JMenuItem(getBundle("Projects").getString(
                 "PROJECTMANAGER"));
-        manage.addActionListener(this);
+        manage.addActionListener(e -> showManager());
         manage.setEnabled(false);
 
         project = new JMenuItem(getBundle("Projects").getString(
                 "PROJECTS"));
-        project.addActionListener(this);
+        project.addActionListener(e -> showProjects());
         project.setEnabled(false);
 
         add(project);
         add(manage);
     }
 
-    public void actionPerformed(ActionEvent ae) {
-        if(ae.getSource()==manage) {
-            String key = MANAGE + projects.hashCode();
-            DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
-            if (gui == null) {
-                gui = new ProjectManagementGUI(accounts, accountTypes, projects);
-                ComponentMap.addDisposableComponent(key, gui); // DETAILS
-            }
-            gui.setVisible(true);
-        } else if(ae.getSource()==project){
-            String key = PROJECTS + projects.hashCode();
-            DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
-            if (gui == null) {
-                gui = new ProjectGUI(accounts, accountTypes, projects);
-                ComponentMap.addDisposableComponent(key, gui); // DETAILS
-            }
-            gui.setVisible(true);
+    private void showProjects() {
+        String key = PROJECTS + projects.hashCode();
+        DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+        if (gui == null) {
+            gui = new ProjectGUI(accounts, accountTypes, projects);
+            ComponentMap.addDisposableComponent(key, gui); // DETAILS
         }
+        gui.setVisible(true);
+    }
+
+    private void showManager() {
+        String key = MANAGE + projects.hashCode();
+        DisposableComponent gui = ComponentMap.getDisposableComponent(key); // DETAILS
+        if (gui == null) {
+            gui = new ProjectManagementGUI(accounts, accountTypes, projects);
+            ComponentMap.addDisposableComponent(key, gui); // DETAILS
+        }
+        gui.setVisible(true);
     }
 
     @Override
