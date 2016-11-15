@@ -23,6 +23,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     private final Mortgages mortgages;
     private ArrayList<String> keys;
     private Projects projects;
+    private Contacts contacts;
 
     @Override
     public String getChildType(){
@@ -39,6 +40,8 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         journals = new Journals(accounts, journalTypes);
 
         balances = new Balances(accounts, accountTypes);
+
+        contacts = new Contacts();
 
         mortgages = new Mortgages(accounts);
 
@@ -114,5 +117,9 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     public Projects getProjects() {
         return projects;
+    }
+
+    public Contacts getContacts() {
+        return contacts;
     }
 }
