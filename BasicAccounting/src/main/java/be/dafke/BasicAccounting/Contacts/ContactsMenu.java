@@ -42,7 +42,7 @@ public class ContactsMenu extends JMenu implements AccountingListener {
         String key = SUPPLIERS + contacts.hashCode();
         JFrame gui = Main.getJFrame(key); // DETAILS
         if (gui == null) {
-            gui = new ContactsGUI();
+            gui = new ContactsGUI(contacts);
             Main.addJFrame(key, gui); // DETAILS
         }
         gui.setVisible(true);
@@ -52,7 +52,7 @@ public class ContactsMenu extends JMenu implements AccountingListener {
         String key = CUSTOMERS + contacts.hashCode();
         JFrame gui = Main.getJFrame(key); // DETAILS
         if (gui == null) {
-            gui = new ContactsGUI();
+            gui = new ContactsGUI(contacts);
             Main.addJFrame(key, gui); // DETAILS
         }
         gui.setVisible(true);

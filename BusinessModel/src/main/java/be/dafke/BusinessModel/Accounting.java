@@ -54,6 +54,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
             addBusinessObject((BusinessCollection)accounts);
             addBusinessObject((BusinessCollection)journals);
             addBusinessObject((BusinessCollection)balances);
+            addBusinessObject((BusinessCollection)contacts);
             addBusinessObject((BusinessCollection)mortgages);
             addBusinessObject((BusinessCollection)projects);
         } catch (EmptyNameException e) {
@@ -66,6 +67,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         keys.add(accounts.getBusinessObjectType());
         keys.add(journals.getBusinessObjectType());
         keys.add(balances.getBusinessObjectType());
+        keys.add(contacts.getBusinessObjectType());
         keys.add(mortgages.getBusinessObjectType());
         keys.add(projects.getBusinessObjectType());
 	}

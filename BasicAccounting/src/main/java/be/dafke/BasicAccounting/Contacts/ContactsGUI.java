@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Contacts;
 
+import be.dafke.BusinessModel.Contacts;
 import be.dafke.ComponentModel.RefreshableFrame;
 
 import javax.swing.*;
@@ -9,15 +10,20 @@ import javax.swing.*;
  */
 public class ContactsGUI extends RefreshableFrame{
 
-    public ContactsGUI() {
+    private final Contacts contacts;
+
+    public ContactsGUI(Contacts contacts) {
         super("Contacts");
+        this.contacts = contacts;
         setContentPane(createContentPanel());
         pack();
     }
 
     public JPanel createContentPanel(){
         JPanel contentPanel = new JPanel();
-
+        JButton create = new JButton("new Contact");
+        create.addActionListener(e -> new NewContactGUI(contacts).setVisible(true));
+        contentPanel.add(create);
         return contentPanel;
     }
 }

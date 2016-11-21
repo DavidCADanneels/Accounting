@@ -2,6 +2,7 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
 
+import java.util.Set;
 import java.util.TreeMap;
 
 /**
@@ -12,6 +13,12 @@ public class Contacts extends BusinessCollection<Contact> {
     public static final String NAME = "name";
     public static final String ADDRESS_LINE_1 = "addressLine1";
     public static final String ADDRESS_LINE_2 = "addressLine2";
+    public static final String TVA_NUMBER = "TVANumber";
+    public static final String CONTACTS = "Contacts";
+
+    public Contacts() {
+        setName(CONTACTS);
+    }
 
     @Override
     public String getChildType() {
@@ -22,8 +29,17 @@ public class Contacts extends BusinessCollection<Contact> {
     public Contact createNewChild(TreeMap<String, String> properties) {
         Contact contact = new Contact();
         contact.setName(properties.get(NAME));
-        contact.setName(properties.get(ADDRESS_LINE_1));
-        contact.setName(properties.get(ADDRESS_LINE_2));
+        contact.setAddressLine1(properties.get(ADDRESS_LINE_1));
+        contact.setAddressLine2(properties.get(ADDRESS_LINE_2));
+        contact.setTvaNumber(properties.get(TVA_NUMBER));
         return contact;
+    }
+
+    public Set<String> getInitKeySet(){
+        Set<String> initKeySet = super.getInitKeySet();
+        initKeySet.add(ADDRESS_LINE_1);
+        initKeySet.add(ADDRESS_LINE_2);
+        initKeySet.add(TVA_NUMBER);
+        return initKeySet;
     }
 }
