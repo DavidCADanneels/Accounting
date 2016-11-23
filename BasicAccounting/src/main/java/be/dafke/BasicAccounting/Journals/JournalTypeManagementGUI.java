@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Journals;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.ComponentModel.RefreshableFrame;
+import be.dafke.Utils.AlphabeticListModel;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,7 +20,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 	private final JList<AccountType> debit, credit, types;
 	private final JButton addLeft, addRight, removeLeft, removeRight;
 	private final ArrayList<AccountType> debitTypes, creditTypes, allTypes;
-	private final DefaultListModel<AccountType> debitModel, creditModel, typesModel;
+	private final AlphabeticListModel<AccountType> debitModel, creditModel, typesModel;
 	private final AccountTypes accountTypes;
 
 	public JournalTypeManagementGUI(AccountTypes accountTypes) {
@@ -28,11 +29,12 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 		debitTypes = new ArrayList<>();
 		creditTypes = new ArrayList<>();
 		allTypes = new ArrayList<>();
-		debitModel = new DefaultListModel<>();
+		allTypes.addAll(accountTypes.getBusinessObjects());
+		debitModel = new AlphabeticListModel<>();
 		debit = new JList<>(debitModel);
-		creditModel = new DefaultListModel<>();
+		creditModel = new AlphabeticListModel<>();
 		credit = new JList<>(creditModel);
-        typesModel = new DefaultListModel<>();
+        typesModel = new AlphabeticListModel<>();
 		types = new JList<>(typesModel);
 		addLeft = new JButton(getBundle("Accounting").getString("ADD_TYPE_TO_DEBITS"));
 		addRight = new JButton(getBundle("Accounting").getString("ADD_TYPE_TO_CREDITS"));
@@ -86,68 +88,61 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(panel);
+		refresh();
 		pack();
 	}
 
 	public void addLeft() {
-		DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) debit.getModel();
 		int rows[] = types.getSelectedIndices();
 		if (rows.length != 0) {
 			for(int i : rows) {
 				AccountType type = accountTypes.getBusinessObjects().get(i);
 				if (!debitTypes.contains(type)) {
 					debitTypes.add(type);
-					model.addElement(type);
+					debitModel.addElement(type);
 				}
 			}
 		}
 	}
 	public void addRight() {
-		DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) credit.getModel();
 		int rows[] = types.getSelectedIndices();
 		if (rows.length != 0) {
 			for (int i : rows) {
 				AccountType type = accountTypes.getBusinessObjects().get(i);
 				if (!creditTypes.contains(type)) {
 					creditTypes.add(type);
-					model.addElement(type);
+					creditModel.addElement(type);
 				}
 			}
 		}
 	}
 	public void removeLeft() {
-		DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) debit.getModel();
 		List<AccountType> accountTypeList = debit.getSelectedValuesList();
 		for(AccountType type : accountTypeList) {
 			debitTypes.remove(type);
-			model.removeElement(type);
+			debitModel.removeElement(type);
 		}
 	}
 	public void removeRight() {
-		DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) credit.getModel();
 		List<AccountType> accountTypeList = credit.getSelectedValuesList();
 		for(AccountType type : accountTypeList) {
 			creditTypes.remove(type);
-			model.removeElement(type);
+			creditModel.removeElement(type);
 		}
 	}
 
 	public void refresh() {
-		repaint();
-		DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) credit.getModel();
-		model.removeAllElements();
+		creditModel.removeAllElements();
 		for(AccountType type : creditTypes) {
-			model.addElement(type);
+			creditModel.addElement(type);
 		}
-		model = (DefaultListModel<AccountType>) debit.getModel();
-		model.removeAllElements();
+		debitModel.removeAllElements();
 		for(AccountType type : debitTypes) {
-			model.addElement(type);
+			debitModel.addElement(type);
 		}
-		model = (DefaultListModel<AccountType>) types.getModel();
-		model.removeAllElements();
+		typesModel.removeAllElements();
 		for(AccountType type : allTypes) {
-			model.addElement(type);
+			typesModel.addElement(type);
 		}
 	}
 }
