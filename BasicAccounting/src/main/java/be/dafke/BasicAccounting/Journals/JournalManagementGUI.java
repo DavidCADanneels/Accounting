@@ -95,12 +95,11 @@ public class JournalManagementGUI extends RefreshableFrame implements ListSelect
 	public void valueChanged(ListSelectionEvent e) {
 		if (!e.getValueIsAdjusting()) {
 			int[] rows = tabel.getSelectedRows();
-			if (rows.length != 0) {
-				delete.setEnabled(true);
-				modifyName.setEnabled(true);
-				modifyAbbr.setEnabled(true);
-				modifyType.setEnabled(true);
-			}
+			boolean enabled = rows.length != 0;
+            delete.setEnabled(enabled);
+            modifyName.setEnabled(enabled);
+            modifyAbbr.setEnabled(enabled);
+            modifyType.setEnabled(enabled);
 		}
 	}
 
@@ -109,7 +108,6 @@ public class JournalManagementGUI extends RefreshableFrame implements ListSelect
         if (!journalList.isEmpty()) {
             JournalActions.modifyNames(journalList, journals);
         }
-        disableButtons();
     }
 
     public void modifyAbbr() {
@@ -117,7 +115,6 @@ public class JournalManagementGUI extends RefreshableFrame implements ListSelect
         if (!journalList.isEmpty()) {
             JournalActions.modifyAbbr(journalList, journals);
         }
-        disableButtons();
     }
 
     public void modifyType() {
@@ -125,7 +122,6 @@ public class JournalManagementGUI extends RefreshableFrame implements ListSelect
         if (!journalList.isEmpty()) {
             JournalActions.modifyType(journalList, journalTypes);
         }
-        disableButtons();
     }
 
     public void deleteJournal() {
@@ -133,14 +129,6 @@ public class JournalManagementGUI extends RefreshableFrame implements ListSelect
         if (!journalList.isEmpty()) {
             JournalActions.deleteJournal(journalList, journals);
         }
-        disableButtons();
-    }
-
-    public void disableButtons(){
-        delete.setEnabled(false);
-        modifyName.setEnabled(false);
-        modifyAbbr.setEnabled(false);
-        modifyType.setEnabled(false);
     }
 
     private ArrayList<Journal> getSelectedJournals(){
