@@ -2,19 +2,16 @@ package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
-
 import be.dafke.ComponentModel.RefreshableFrame;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class JournalTypeManagementGUI extends RefreshableFrame implements ActionListener {
+public class JournalTypeManagementGUI extends RefreshableFrame {
 	/**
 	 * 
 	 */
@@ -41,10 +38,10 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 		addRight = new JButton(getBundle("Accounting").getString("ADD_TYPE_TO_CREDITS"));
 		removeLeft = new JButton(getBundle("Accounting").getString("REMOVE_TYPE_FROM_DEBITS"));
 		removeRight = new JButton(getBundle("Accounting").getString("REMOVE_TYPE_FROM_CREDITS"));
-		addLeft.addActionListener(this);
-		addRight.addActionListener(this);
-		removeLeft.addActionListener(this);
-		removeRight.addActionListener(this);
+		addLeft.addActionListener(e -> addLeft());
+		addRight.addActionListener(e -> addRight());
+		removeLeft.addActionListener(e -> removeLeft());
+		removeRight.addActionListener(e -> removeRight());
 //		addLeft.setEnabled(false);
 //		addRight.setEnabled(false);
 //		removeLeft.setEnabled(false);
@@ -92,48 +89,48 @@ public class JournalTypeManagementGUI extends RefreshableFrame implements Action
 		pack();
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == addLeft) {
-			DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) debit.getModel();
-			int rows[] = types.getSelectedIndices();
-			if (rows.length != 0) {
-				for(int i : rows) {
-					AccountType type = accountTypes.getBusinessObjects().get(i);
-					if (!debitTypes.contains(type)) {
-						debitTypes.add(type);
-						model.addElement(type);
-					}
+	public void addLeft() {
+		DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) debit.getModel();
+		int rows[] = types.getSelectedIndices();
+		if (rows.length != 0) {
+			for(int i : rows) {
+				AccountType type = accountTypes.getBusinessObjects().get(i);
+				if (!debitTypes.contains(type)) {
+					debitTypes.add(type);
+					model.addElement(type);
 				}
 			}
-		} else if (e.getSource() == addRight) {
-			DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) credit.getModel();
-			int rows[] = types.getSelectedIndices();
-			if (rows.length != 0) {
-				for(int i : rows) {
-                    AccountType type = accountTypes.getBusinessObjects().get(i);
-                    if (!creditTypes.contains(type)) {
-						creditTypes.add(type);
-						model.addElement(type);
-					}
-				}
-			}
-		} else if (e.getSource() == removeLeft) {
-			DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) debit.getModel();
-			List<AccountType> accountTypeList = debit.getSelectedValuesList();
-            for(AccountType type : accountTypeList) {
-                debitTypes.remove(type);
-                model.removeElement(type);
-            }
-		} else if (e.getSource() == removeRight) {
-			DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) credit.getModel();
-            List<AccountType> accountTypeList = credit.getSelectedValuesList();
-            for(AccountType type : accountTypeList) {
-                creditTypes.remove(type);
-                model.removeElement(type);
-            }
 		}
-        //ComponentMap.refreshAllFrames();
-    }
+	}
+	public void addRight() {
+		DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) credit.getModel();
+		int rows[] = types.getSelectedIndices();
+		if (rows.length != 0) {
+			for (int i : rows) {
+				AccountType type = accountTypes.getBusinessObjects().get(i);
+				if (!creditTypes.contains(type)) {
+					creditTypes.add(type);
+					model.addElement(type);
+				}
+			}
+		}
+	}
+	public void removeLeft() {
+		DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) debit.getModel();
+		List<AccountType> accountTypeList = debit.getSelectedValuesList();
+		for(AccountType type : accountTypeList) {
+			debitTypes.remove(type);
+			model.removeElement(type);
+		}
+	}
+	public void removeRight() {
+		DefaultListModel<AccountType> model = (DefaultListModel<AccountType>) credit.getModel();
+		List<AccountType> accountTypeList = credit.getSelectedValuesList();
+		for(AccountType type : accountTypeList) {
+			creditTypes.remove(type);
+			model.removeElement(type);
+		}
+	}
 
 	public void refresh() {
 		repaint();
