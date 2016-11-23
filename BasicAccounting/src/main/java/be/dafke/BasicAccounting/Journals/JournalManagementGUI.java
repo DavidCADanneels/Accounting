@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
+import be.dafke.BasicAccounting.GUIActions;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.JournalActions;
 import be.dafke.BusinessModel.*;
@@ -22,7 +23,7 @@ public class JournalManagementGUI extends RefreshableFrame implements ActionList
 	 */
 	private static final long serialVersionUID = 1L;
 //
-	private JButton add, delete, modifyName, modifyType, modifyAbbr;
+	private JButton add, delete, modifyName, modifyType, modifyAbbr, newType;
 	private final DefaultListSelectionModel selection;
     private RefreshableTable<Journal> tabel;
     private JournalManagementTableModel dataModel;
@@ -72,11 +73,13 @@ public class JournalManagementGUI extends RefreshableFrame implements ActionList
         modifyAbbr = new JButton(getBundle("Accounting").getString("MODIFY_ABBR"));
         modifyType = new JButton(getBundle("Accounting").getString("MODIFY_TYPE"));
         delete = new JButton(getBundle("Accounting").getString("DELETE_JOURNAL"));
+        newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
         add = new JButton(getBundle("Accounting").getString("NEW_JOURNAL"));
         modifyName.addActionListener(this);
         modifyType.addActionListener(this);
         modifyAbbr.addActionListener(this);
         delete.addActionListener(this);
+        newType.addActionListener(this);
         add.addActionListener(this);
         modifyName.setEnabled(false);
         modifyType.setEnabled(false);
@@ -86,6 +89,7 @@ public class JournalManagementGUI extends RefreshableFrame implements ActionList
         south.add(modifyType);
         south.add(modifyAbbr);
         south.add(delete);
+        south.add(newType);
         south.add(add);
         return south;
     }
@@ -117,8 +121,8 @@ public class JournalManagementGUI extends RefreshableFrame implements ActionList
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == add) {
             new NewJournalGUI(journals, journalTypes, accounts, accountTypes).setVisible(true);
-//		}else if (e.getSource() == newType) {
-//            GUIActions.showJournalTypeManager(accounting.getAccountTypes());
+		}else if (e.getSource() == newType) {
+            GUIActions.showJournalTypeManager(accountTypes);
         } else {
             ArrayList<Journal> journalList = getSelectedJournals();
             if(!journalList.isEmpty()){
