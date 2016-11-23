@@ -11,13 +11,11 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class JournalManagementGUI extends RefreshableFrame implements ActionListener, ListSelectionListener{
+public class JournalManagementGUI extends RefreshableFrame implements ListSelectionListener{
 	/**
 	 * 
 	 */
@@ -75,12 +73,12 @@ public class JournalManagementGUI extends RefreshableFrame implements ActionList
         delete = new JButton(getBundle("Accounting").getString("DELETE_JOURNAL"));
         newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
         add = new JButton(getBundle("Accounting").getString("NEW_JOURNAL"));
-        modifyName.addActionListener(this);
-        modifyType.addActionListener(this);
-        modifyAbbr.addActionListener(this);
-        delete.addActionListener(this);
-        newType.addActionListener(this);
-        add.addActionListener(this);
+        modifyName.addActionListener(e -> modifyName());
+        modifyType.addActionListener(e -> modifyType());
+        modifyAbbr.addActionListener(e -> modifyAbbr());
+        delete.addActionListener(e -> deleteJournal());
+        newType.addActionListener(e -> GUIActions.showJournalTypeManager(accountTypes));
+        add.addActionListener(e -> new NewJournalGUI(journals, journalTypes, accounts, accountTypes).setVisible(true));
         modifyName.setEnabled(false);
         modifyType.setEnabled(false);
         modifyAbbr.setEnabled(false);
@@ -106,42 +104,43 @@ public class JournalManagementGUI extends RefreshableFrame implements ActionList
 		}
 	}
 
-//    @Override
-//    public void selectObject(Journal account) {
-//
-//    }
-//
-//    @Override
-//    public Journal getSelectedObject() {
-//        return null;
-//    }
-
-
-
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == add) {
-            new NewJournalGUI(journals, journalTypes, accounts, accountTypes).setVisible(true);
-		}else if (e.getSource() == newType) {
-            GUIActions.showJournalTypeManager(accountTypes);
-        } else {
-            ArrayList<Journal> journalList = getSelectedJournals();
-            if(!journalList.isEmpty()){
-                if (e.getSource() == modifyName) {
-                    JournalActions.modifyNames(journalList, journals);
-                } else if (e.getSource() == modifyAbbr) {
-                    JournalActions.modifyAbbr(journalList, journals);
-                } else if (e.getSource() == modifyType) {
-                    JournalActions.modifyType(journalList, journalTypes);
-                } else if (e.getSource() == delete) {
-                    JournalActions.deleteJournal(journalList, journals);
-                }
-            }
-            delete.setEnabled(false);
-            modifyName.setEnabled(false);
-            modifyAbbr.setEnabled(false);
-            modifyType.setEnabled(false);
+    public void modifyName() {
+        ArrayList<Journal> journalList = getSelectedJournals();
+        if (!journalList.isEmpty()) {
+            JournalActions.modifyNames(journalList, journals);
         }
-        //ComponentMap.refreshAllFrames();
+        disableButtons();
+    }
+
+    public void modifyAbbr() {
+        ArrayList<Journal> journalList = getSelectedJournals();
+        if (!journalList.isEmpty()) {
+            JournalActions.modifyAbbr(journalList, journals);
+        }
+        disableButtons();
+    }
+
+    public void modifyType() {
+        ArrayList<Journal> journalList = getSelectedJournals();
+        if (!journalList.isEmpty()) {
+            JournalActions.modifyType(journalList, journalTypes);
+        }
+        disableButtons();
+    }
+
+    public void deleteJournal() {
+        ArrayList<Journal> journalList = getSelectedJournals();
+        if (!journalList.isEmpty()) {
+            JournalActions.deleteJournal(journalList, journals);
+        }
+        disableButtons();
+    }
+
+    public void disableButtons(){
+        delete.setEnabled(false);
+        modifyName.setEnabled(false);
+        modifyAbbr.setEnabled(false);
+        modifyType.setEnabled(false);
     }
 
     private ArrayList<Journal> getSelectedJournals(){
