@@ -8,8 +8,6 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -18,18 +16,16 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 24/02/13
  * Time: 11:34
  */
-public class NewJournalGUI extends RefreshableDialog implements ActionListener{
+public class NewJournalGUI extends RefreshableDialog {
     private final JTextField name, abbr;
     private final JComboBox<JournalType> type;
     private final JButton add, newType;
     private Accounts accounts;
-    private AccountTypes accountTypes;
     private Journals journals;
 
     public NewJournalGUI(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"));
         this.accounts = accounts;
-        this.accountTypes = accountTypes;
         this.journals = journals;
         JPanel north = new JPanel();
 		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
@@ -50,34 +46,16 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
         type.setModel(model);
 		line2.add(type);
 		add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_JOURNAL"));
-		add.addActionListener(this);
+		add.addActionListener(e -> addJournal());
 		line2.add(add);
-        newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
-        newType.addActionListener(this);
+        newType = new JButton(getBundle("Accounting").getString("ADD_JOURNAL_TYPE"));
+        newType.addActionListener(e -> GUIActions.showJournalTypeManager(accountTypes));
         line2.add(newType);
         north.add(line1);
 		north.add(line2);
         setContentPane(north);
         pack();
     }
-
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == add || e.getSource() == name || e.getSource() == abbr) {
-            addJournal();
-            //ComponentMap.refreshAllFrames();
-        }else if (e.getSource() == newType) {
-            GUIActions.showJournalTypeManager(accountTypes);
-        }
-    }
-
-//    @Override
-//    public void refresh(){
-//        type.removeAllItems();
-//        for(JournalType journalType : accounting.getJournalTypes().getBusinessObjects()){
-//            type.addItem(journalType);
-//        }
-//        super.refresh();
-//    }
 
     private void addJournal() {
         String newName = name.getText().trim();
@@ -88,11 +66,10 @@ public class NewJournalGUI extends RefreshableDialog implements ActionListener{
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
         try {
-            Journal journal = new Journal(accounts, /*journals,*/ newName, abbreviation);
+            Journal journal = new Journal(accounts, newName, abbreviation);
             journal.setType(journalType);
             journals.addBusinessObject(journal);
             journals.setCurrentObject(journal);
-            //ComponentMap.refreshAllFrames();
         } catch (DuplicateNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR,newName.trim(), abbreviation.trim());
         } catch (EmptyNameException e) {
