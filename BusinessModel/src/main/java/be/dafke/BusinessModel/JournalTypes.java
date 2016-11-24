@@ -15,12 +15,12 @@ public class JournalTypes extends BusinessCollection<JournalType> {
 
     @Override
     public JournalType createNewChild(TreeMap<String, String> properties) {
-        return new JournalType();
+        String name = properties.get(NAME)==null?"":properties.get(NAME);
+        return new JournalType(name);
     }
 
     public void addDefaultType(AccountTypes accountTypes) {
-        JournalType defaultType = new JournalType();
-        defaultType.setName("default");
+        JournalType defaultType = new JournalType("default");
         defaultType.setDebetTypes(accountTypes.getBusinessObjects());
         defaultType.setCreditTypes(accountTypes.getBusinessObjects());
         try {

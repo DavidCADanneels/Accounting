@@ -8,7 +8,8 @@ public class JournalType extends BusinessObject {
 	/**
 	 *
 	 */
-    public JournalType(){
+    public JournalType(String name){
+        setName(name);
     }
 
 	private ArrayList<AccountType> debetTypes, creditTypes;
