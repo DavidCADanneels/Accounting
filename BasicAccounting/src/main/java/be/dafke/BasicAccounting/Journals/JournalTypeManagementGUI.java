@@ -52,6 +52,16 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 	public JPanel createContentPanel(){
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(createCenterPanel(), CENTER);
+		panel.add(createSavePanel(), NORTH);
+		return panel;
+	}
+
+	private JPanel createSavePanel() {
+		JPanel panel = new JPanel();
+		JTextField name = new JTextField(20);
+		JButton save = new JButton(getBundle("Accounting").getString("SAVE"));
+		panel.add(name);
+		panel.add(save);
 		return panel;
 	}
 
