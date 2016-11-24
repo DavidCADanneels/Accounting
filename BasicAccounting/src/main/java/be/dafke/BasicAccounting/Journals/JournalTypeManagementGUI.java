@@ -31,9 +31,11 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 	private JournalTypes journalTypes;
 	private JTextField nameField;
 
-	public JournalTypeManagementGUI() {
+	public JournalTypeManagementGUI(JournalTypes journalTypes, AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
 		setContentPane(createContentPanel());
+		setAccountTypes(accountTypes);
+		setJournalTypes(journalTypes);
 		pack();
 	}
 

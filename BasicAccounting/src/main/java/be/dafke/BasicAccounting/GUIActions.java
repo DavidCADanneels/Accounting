@@ -40,10 +40,8 @@ public class GUIActions {
         String key = "" + accountTypes.hashCode();
         JFrame gui = Main.getJFrame(key); // DETAILS
         if(gui == null){
-            JournalTypeManagementGUI journalTypeManagementGUI = new JournalTypeManagementGUI();
-            journalTypeManagementGUI.setAccountTypes(accountTypes);
-            journalTypeManagementGUI.setJournalTypes(journalTypes);
-            Main.addJFrame(key, journalTypeManagementGUI); // DETAILS
+            gui = new JournalTypeManagementGUI(journalTypes, accountTypes);
+            Main.addJFrame(key, gui); // DETAILS
         }
         gui.setVisible(true);
     }
