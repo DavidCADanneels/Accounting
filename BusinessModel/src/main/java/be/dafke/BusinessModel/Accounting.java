@@ -51,7 +51,9 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         journals.setName(journals.getBusinessObjectType());
 
         try {
+//            addBusinessObject((BusinessCollection)accountTypes);
             addBusinessObject((BusinessCollection)accounts);
+//            addBusinessObject((BusinessCollection)journalTypes);
             addBusinessObject((BusinessCollection)journals);
             addBusinessObject((BusinessCollection)balances);
             addBusinessObject((BusinessCollection)contacts);
@@ -65,6 +67,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         keys = new ArrayList<>();
 //        keys.add(accountTypes.getBusinessObjectType());
         keys.add(accounts.getBusinessObjectType());
+//        keys.add(journalTypes.getBusinessObjectType());
         keys.add(journals.getBusinessObjectType());
         keys.add(balances.getBusinessObjectType());
         keys.add(contacts.getBusinessObjectType());
