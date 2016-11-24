@@ -17,25 +17,34 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JList<AccountType> debit, credit, types;
-	private final JButton addLeft, addRight, removeLeft, removeRight;
-	private final ArrayList<AccountType> debitTypes, creditTypes, allTypes;
-	private final AlphabeticListModel<AccountType> debitModel, creditModel, typesModel;
-	private final AccountTypes accountTypes;
+	private JList<AccountType> debit, credit, types;
+	private JButton addLeft, addRight, removeLeft, removeRight;
+	private ArrayList<AccountType> debitTypes, creditTypes, allTypes;
+	private AlphabeticListModel<AccountType> debitModel, creditModel, typesModel;
 
 	public JournalTypeManagementGUI(AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
-		this.accountTypes = accountTypes;
+		setContentPane(createContentPanel());
+		setAccountTypes(accountTypes);
+		pack();
+	}
+
+	public void setAccountTypes(AccountTypes accountTypes) {
 		debitTypes = new ArrayList<>();
 		creditTypes = new ArrayList<>();
 		allTypes = new ArrayList<>();
+
+		allTypes.clear();
 		allTypes.addAll(accountTypes.getBusinessObjects());
-		debitModel = new AlphabeticListModel<>();
-		debit = new JList<>(debitModel);
-		creditModel = new AlphabeticListModel<>();
-		credit = new JList<>(creditModel);
-        typesModel = new AlphabeticListModel<>();
-		types = new JList<>(typesModel);
+		creditModel.removeAllElements();
+		debitModel.removeAllElements();
+		typesModel.removeAllElements();
+		for(AccountType type : allTypes) {
+			typesModel.addElement(type);
+		}
+	}
+
+	public JPanel createSouthPanel(){
 		addLeft = new JButton(getBundle("Accounting").getString("ADD_TYPE_TO_DEBITS"));
 		addRight = new JButton(getBundle("Accounting").getString("ADD_TYPE_TO_CREDITS"));
 		removeLeft = new JButton(getBundle("Accounting").getString("REMOVE_TYPE_FROM_DEBITS"));
@@ -44,12 +53,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 		addRight.addActionListener(e -> addRight());
 		removeLeft.addActionListener(e -> removeLeft());
 		removeRight.addActionListener(e -> removeRight());
-		setContentPane(createContentPanel());
-		refresh();
-		pack();
-	}
 
-	public JPanel createSouthPanel(){
 		JPanel south = new JPanel(new GridLayout(0, 2));
 
 		south.add(addLeft);
@@ -73,6 +77,13 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 	}
 
 	public JPanel createCenterPanel(){
+		debitModel = new AlphabeticListModel<>();
+		debit = new JList<>(debitModel);
+		creditModel = new AlphabeticListModel<>();
+		credit = new JList<>(creditModel);
+		typesModel = new AlphabeticListModel<>();
+		types = new JList<>(typesModel);
+
 		JPanel east = new JPanel();
 		east.setLayout(new BorderLayout());
 		east.add(new JLabel(getBundle("Accounting").getString("CREDIT_TYPES")), BorderLayout.NORTH);
@@ -101,7 +112,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 		int rows[] = types.getSelectedIndices();
 		if (rows.length != 0) {
 			for(int i : rows) {
-				AccountType type = accountTypes.getBusinessObjects().get(i);
+				AccountType type = allTypes.get(i);
 				if (!debitTypes.contains(type)) {
 					debitTypes.add(type);
 					debitModel.addElement(type);
@@ -113,7 +124,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 		int rows[] = types.getSelectedIndices();
 		if (rows.length != 0) {
 			for (int i : rows) {
-				AccountType type = accountTypes.getBusinessObjects().get(i);
+				AccountType type = allTypes.get(i);
 				if (!creditTypes.contains(type)) {
 					creditTypes.add(type);
 					creditModel.addElement(type);
@@ -136,18 +147,4 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 		}
 	}
 
-	public void refresh() {
-		creditModel.removeAllElements();
-		for(AccountType type : creditTypes) {
-			creditModel.addElement(type);
-		}
-		debitModel.removeAllElements();
-		for(AccountType type : debitTypes) {
-			debitModel.addElement(type);
-		}
-		typesModel.removeAllElements();
-		for(AccountType type : allTypes) {
-			typesModel.addElement(type);
-		}
-	}
 }
