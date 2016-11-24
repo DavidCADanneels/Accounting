@@ -124,7 +124,7 @@ public class XMLWriter {
             // Iterate children and write their data
             for(Object object : collection.getBusinessObjects()) {
                 BusinessObject businessObject = (BusinessObject) object;
-                String objectName = businessObject.getName();
+//                String objectName = businessObject.getName();
                 // TODO: remove this to get more details in the parent file
                 String objectType = businessObject.getBusinessObjectType();
 
