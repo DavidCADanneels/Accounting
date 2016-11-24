@@ -44,52 +44,57 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 		addRight.addActionListener(e -> addRight());
 		removeLeft.addActionListener(e -> removeLeft());
 		removeRight.addActionListener(e -> removeRight());
-//		addLeft.setEnabled(false);
-//		addRight.setEnabled(false);
-//		removeLeft.setEnabled(false);
-//		removeRight.setEnabled(false);
-		JPanel east = new JPanel();
-		JPanel west = new JPanel();
-		JPanel center = new JPanel();
+		setContentPane(createContentPanel());
+		refresh();
+		pack();
+	}
+
+	public JPanel createSouthPanel(){
 		JPanel south = new JPanel(new GridLayout(0, 2));
-		east.setLayout(new BorderLayout());
-		west.setLayout(new BorderLayout());
-		center.setLayout(new BorderLayout());
-		west.add(new JLabel(getBundle("Accounting").getString("DEBIT_TYPES")), BorderLayout.NORTH);
-		JScrollPane debitScroll = new JScrollPane(debit);
-		west.add(debitScroll, BorderLayout.CENTER);
-		east.add(new JLabel(getBundle("Accounting").getString("CREDIT_TYPES")), BorderLayout.NORTH);
-		JScrollPane creditScroll = new JScrollPane(credit);
-		east.add(creditScroll, BorderLayout.CENTER);
-		center.add(new JLabel(getBundle("Accounting").getString("ALL_TYPES")), BorderLayout.NORTH);
-		JScrollPane typesScroll = new JScrollPane(types);
-		center.add(typesScroll, BorderLayout.CENTER);
+
 		south.add(addLeft);
 		south.add(addRight);
 		south.add(removeLeft);
 		south.add(removeRight);
-		JPanel middle = new JPanel();
-		middle.setLayout(new GridLayout(1, 0));
-//		west.setSize(200, 400);
-//		center.setSize(200, 400);
-//		east.setSize(200, 400);
-		middle.add(west);
-		middle.add(center);
-		middle.add(east);
-		JPanel panel = new JPanel(new BorderLayout());
-		// panel.add(west, BorderLayout.WEST);
-		// panel.add(east, BorderLayout.EAST);
-		panel.add(middle, BorderLayout.CENTER);
-		panel.add(south, BorderLayout.SOUTH);
 
-		JPanel north = new JPanel();
+		return south;
+	}
+
+	public JPanel createContentPanel(){
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(createCenterPanel(), BorderLayout.CENTER);
+		panel.add(createSouthPanel(), BorderLayout.SOUTH);
+
+//		JPanel north = new JPanel();
 		// TODO: add components to enter the name and save
 		// + show existing types and check for doubles
 
-//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setContentPane(panel);
-		refresh();
-		pack();
+		return panel;
+	}
+
+	public JPanel createCenterPanel(){
+		JPanel east = new JPanel();
+		east.setLayout(new BorderLayout());
+		east.add(new JLabel(getBundle("Accounting").getString("CREDIT_TYPES")), BorderLayout.NORTH);
+		east.add(new JScrollPane(credit), BorderLayout.CENTER);
+
+		JPanel west = new JPanel();
+		west.setLayout(new BorderLayout());
+		west.add(new JLabel(getBundle("Accounting").getString("DEBIT_TYPES")), BorderLayout.NORTH);
+		west.add(new JScrollPane(debit), BorderLayout.CENTER);
+
+		JPanel center = new JPanel();
+		center.setLayout(new BorderLayout());
+		center.add(new JLabel(getBundle("Accounting").getString("ALL_TYPES")), BorderLayout.NORTH);
+		center.add(new JScrollPane(types), BorderLayout.CENTER);
+
+		JPanel middle = new JPanel();
+		middle.setLayout(new GridLayout(1, 0));
+		middle.add(west);
+		middle.add(center);
+		middle.add(east);
+
+		return middle;
 	}
 
 	public void addLeft() {
