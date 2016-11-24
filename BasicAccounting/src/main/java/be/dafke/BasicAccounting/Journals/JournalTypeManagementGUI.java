@@ -29,7 +29,7 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 
 	public JournalTypeManagementGUI(AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
-		setContentPane(createCenterPanel());
+		setContentPane(createContentPanel());
 		setAccountTypes(accountTypes);
 		pack();
 	}
@@ -47,6 +47,12 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 		for(AccountType type : allTypes) {
 			typesModel.addElement(type);
 		}
+	}
+
+	public JPanel createContentPanel(){
+		JPanel panel = new JPanel(new BorderLayout());
+		panel.add(createCenterPanel(), CENTER);
+		return panel;
 	}
 
 	public JSplitPane createCenterPanel(){
