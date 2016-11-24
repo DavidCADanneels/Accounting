@@ -77,7 +77,7 @@ public class JournalManagementGUI extends RefreshableFrame implements ListSelect
         modifyType.addActionListener(e -> modifyType());
         modifyAbbr.addActionListener(e -> modifyAbbr());
         delete.addActionListener(e -> deleteJournal());
-        newType.addActionListener(e -> GUIActions.showJournalTypeManager(accountTypes));
+        newType.addActionListener(e -> GUIActions.showJournalTypeManager(journalTypes,accountTypes));
         add.addActionListener(e -> new NewJournalGUI(journals, journalTypes, accounts, accountTypes).setVisible(true));
         modifyName.setEnabled(false);
         modifyType.setEnabled(false);

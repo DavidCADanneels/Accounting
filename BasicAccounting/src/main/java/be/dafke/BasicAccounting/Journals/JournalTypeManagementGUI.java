@@ -2,7 +2,11 @@ package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.JournalType;
+import be.dafke.BusinessModel.JournalTypes;
 import be.dafke.ComponentModel.RefreshableFrame;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.AlphabeticListModel;
 
 import javax.swing.*;
@@ -10,9 +14,7 @@ import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import static java.awt.BorderLayout.CENTER;
-import static java.awt.BorderLayout.NORTH;
-import static java.awt.BorderLayout.WEST;
+import static java.awt.BorderLayout.*;
 import static java.util.ResourceBundle.getBundle;
 import static javax.swing.BoxLayout.Y_AXIS;
 import static javax.swing.JSplitPane.*;
@@ -26,11 +28,12 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 	private JButton addDebitType, addCreditType, removeDebitType, removeCreditType;
 	private ArrayList<AccountType> debitTypes, creditTypes, allTypes;
 	private AlphabeticListModel<AccountType> debitModel, creditModel, typesModel;
+	private JournalTypes journalTypes;
+	private JTextField nameField;
 
-	public JournalTypeManagementGUI(AccountTypes accountTypes) {
+	public JournalTypeManagementGUI() {
 		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
 		setContentPane(createContentPanel());
-		setAccountTypes(accountTypes);
 		pack();
 	}
 
@@ -49,6 +52,10 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 		}
 	}
 
+	public void setJournalTypes(JournalTypes journalTypes){
+		this.journalTypes = journalTypes;
+	}
+
 	public JPanel createContentPanel(){
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(createCenterPanel(), CENTER);
@@ -58,11 +65,25 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 
 	private JPanel createSavePanel() {
 		JPanel panel = new JPanel();
-		JTextField name = new JTextField(20);
-		JButton save = new JButton(getBundle("Accounting").getString("SAVE"));
-		panel.add(name);
+		nameField = new JTextField(20);
+		JButton save = new JButton(getBundle("Accounting").getString("SAVE_TYPE"));
+		save.addActionListener(e -> saveType());
+		panel.add(new JLabel("Name:"));
+		panel.add(nameField);
 		panel.add(save);
 		return panel;
+	}
+
+	private void saveType() {
+		String name = nameField.getText();
+		JournalType journalType = new JournalType(name);
+		try {
+			journalTypes.addBusinessObject(journalType);
+		} catch (EmptyNameException e) {
+			e.printStackTrace();
+		} catch (DuplicateNameException e) {
+			e.printStackTrace();
+		}
 	}
 
 	public JSplitPane createCenterPanel(){
