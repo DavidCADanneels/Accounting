@@ -46,7 +46,7 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalListen
 		journalManagement = new JButton(getBundle("Accounting").getString("MANAGE_JOURNALS"));
 		journalManagement.addActionListener(e -> {
 			if(journals!=null) {
-				showJournalManager(journals, journalTypes, accounts, accountTypes);
+				showJournalManager(journals, journalTypes, accounts, accountTypes).setVisible(true);
 			}
 		});
 		journalManagement.setEnabled(false);
