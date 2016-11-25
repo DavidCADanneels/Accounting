@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
@@ -16,12 +15,12 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 30-12-13
  * Time: 11:03
  */
-public class BalancesMenu extends JMenu implements ActionListener, AccountingListener {
-    private JMenuItem testBalance, yearBalance, resultBalance, relationsBalance;
-    private Journals journals;
-    private Accounts accounts;
-    private AccountTypes accountTypes;
-    private Balances balances;
+public class BalancesMenu extends JMenu implements ActionListener {
+    private static JMenuItem testBalance, yearBalance, resultBalance, relationsBalance;
+    private static Journals journals;
+    private static Accounts accounts;
+    private static AccountTypes accountTypes;
+    private static Balances balances;
 
     public BalancesMenu(){
         super(getBundle("BusinessModel").getString("BALANSES"));
@@ -61,8 +60,7 @@ public class BalancesMenu extends JMenu implements ActionListener, AccountingLis
         }
     }
 
-    @Override
-    public void setAccounting(Accounting accounting) {
+    public static void setAccounting(Accounting accounting) {
         journals = accounting==null?null:accounting.getJournals();
         accounts = accounting==null?null:accounting.getAccounts();
         accountTypes = accounting==null?null:accounting.getAccountTypes();

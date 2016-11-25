@@ -1,11 +1,8 @@
 package be.dafke.BasicAccounting.Contacts;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contacts;
-
-
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -15,11 +12,11 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 27/12/2015.
  */
-public class ContactsMenu extends JMenu implements AccountingListener {
-    private JMenuItem suppliers, customers;
+public class ContactsMenu extends JMenu {
+    private static JMenuItem suppliers, customers;
     public static final String SUPPLIERS = "Suppliers";
     public static final String CUSTOMERS = "Customers";
-    private Contacts contacts;
+    private static Contacts contacts;
 
     public ContactsMenu() {
         super(getBundle("Contacts").getString("CONTACTS"));
@@ -58,8 +55,7 @@ public class ContactsMenu extends JMenu implements AccountingListener {
         gui.setVisible(true);
     }
 
-    @Override
-    public void setAccounting(Accounting accounting) {
+    public static void setAccounting(Accounting accounting) {
         contacts=accounting==null?null:accounting.getContacts();
         suppliers.setEnabled(contacts!=null);
         customers.setEnabled(contacts!=null);

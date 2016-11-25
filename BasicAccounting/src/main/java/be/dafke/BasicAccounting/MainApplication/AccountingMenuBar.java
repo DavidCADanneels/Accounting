@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
 
@@ -11,14 +10,14 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class AccountingMenuBar extends JMenuBar implements AccountingListener {
+public class AccountingMenuBar extends JMenuBar {
     /**
      *
      */
     private static final long serialVersionUID = 1L;
-    private final JMenu file;
-    private final JMenuItem startNew;
-    private final Accountings accountings;
+    private static JMenu file;
+    private static JMenuItem startNew;
+    private static Accountings accountings;
 
     public AccountingMenuBar(final Accountings accountings) {
         this.accountings = accountings;
@@ -28,8 +27,7 @@ public class AccountingMenuBar extends JMenuBar implements AccountingListener {
         add(file);
     }
 
-    @Override
-    public void setAccounting(final Accounting accounting) {
+    public static void setAccounting(final Accounting accounting) {
         file.removeAll();
         file.add(startNew);
         accountings.getBusinessObjects().stream()

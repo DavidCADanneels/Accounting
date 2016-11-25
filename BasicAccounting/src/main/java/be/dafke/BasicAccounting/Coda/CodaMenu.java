@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Coda;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.CounterParties;
 import be.dafke.BusinessModel.Statements;
@@ -15,9 +14,9 @@ import java.awt.event.ActionListener;
 /**
  * Created by ddanneels on 27/12/2015.
  */
-public class CodaMenu extends JMenu implements ActionListener, AccountingListener {
-    private JMenuItem movementsItem, counterPartiesItem;
-    private BusinessCollection<BusinessObject> counterParties, statements;
+public class CodaMenu extends JMenu implements ActionListener {
+    private static JMenuItem movementsItem, counterPartiesItem;
+    private static BusinessCollection<BusinessObject> counterParties, statements;
 
     public CodaMenu(){
         movementsItem = new JMenuItem("Show movements");
@@ -41,8 +40,7 @@ public class CodaMenu extends JMenu implements ActionListener, AccountingListene
         gui.setVisible(true);
     }
 
-    @Override
-    public void setAccounting(Accounting accounting) {
+    public static void setAccounting(Accounting accounting) {
         counterParties = accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
         statements = accounting.getBusinessObject(Statements.STATEMENTS);
         counterPartiesItem.setEnabled(counterParties!=null);

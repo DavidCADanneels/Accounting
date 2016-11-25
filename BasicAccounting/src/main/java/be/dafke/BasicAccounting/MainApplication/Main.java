@@ -125,10 +125,6 @@ public class Main {
         accountingListeners.add(journalsGUI);
         accountingListeners.add(journalInputGUI);
         accountingListeners.add(journalReadGUI);
-        accountingListeners.add(balancesMenu);
-        accountingListeners.add(contactsMenu);
-        accountingListeners.add(codaMenu);
-        accountingListeners.add(menuBar);
         accountingListeners.add(frame);
     }
     private static void linkListeners(){
@@ -231,6 +227,10 @@ public class Main {
         }
         ProjectsMenu.setAccounting(accounting);
         MorgagesMenu.setAccounting(accounting);
+        CodaMenu.setAccounting(accounting);
+        ContactsMenu.setAccounting(accounting);
+        BalancesMenu.setAccounting(accounting);
+        AccountingMenuBar.setAccounting(accounting);
     }
 
     public static void setJournal(Journal journal) {
