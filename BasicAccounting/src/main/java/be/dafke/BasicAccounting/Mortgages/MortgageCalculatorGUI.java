@@ -21,7 +21,6 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final String MORTGAGE_TABLE = "MortgageTable";
 	private final JTextField amountField, months, yearPercent, monthPercent, mensField, totalIntrestFixed,
 			totalToPayFixed, totalIntrestDegres, totalToPayDegres, totalIntrestDifference, totalToPayDifference;
 	private final JButton converter, create;
@@ -38,7 +37,6 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 
     private static int counter = 1;
     private final int nr;
-	private static final String MORTGAGE_CALCULATOR = "MortgageCalculator";
 	private static final HashMap<Mortgages, MortgageCalculatorGUI> mortgageCalculatorGuis = new HashMap<>();
 
 	private MortgageCalculatorGUI(Mortgages mortgages) {
@@ -130,12 +128,11 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 	}
 
 	public static MortgageCalculatorGUI showCalculator(Mortgages mortgages) {
-		String key = MORTGAGE_CALCULATOR + mortgages.hashCode();
-		MortgageCalculatorGUI gui = mortgageCalculatorGuis.get(key);
+		MortgageCalculatorGUI gui = mortgageCalculatorGuis.get(mortgages);
 		if (gui == null) {
 			gui = new MortgageCalculatorGUI(mortgages);
 			mortgageCalculatorGuis.put(mortgages, gui);
-			Main.addJFrame(key, gui);
+			Main.addJFrame(gui);
 		}
 		return gui;
 	}
@@ -178,7 +175,7 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
             newMortgage.setName("new Mortgage Table");
             newMortgage.setStartCapital(startKapitaal);
 			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, mortgages);
-            Main.addJFrame(MORTGAGE_TABLE + gui.nr, gui);
+            Main.addJFrame(gui);
 			gui.setVisible(true);
 		}
 	}

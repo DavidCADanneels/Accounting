@@ -13,29 +13,25 @@ import java.util.HashMap;
 public class ContactsGUI extends RefreshableFrame{
 
     private final Contacts contacts;
-    public static final String SUPPLIERS = "Suppliers";
-    public static final String CUSTOMERS = "Customers";
 
     private static final HashMap<Contacts, ContactsGUI> contactGuis = new HashMap<>();
 
     public static ContactsGUI showSuppliers(Contacts contacts) {
-        String key = SUPPLIERS + contacts.hashCode();
         ContactsGUI gui = contactGuis.get(contacts);
         if (gui == null) {
             gui = new ContactsGUI(contacts);
             contactGuis.put(contacts,gui);
-            Main.addJFrame(key, gui);
+            Main.addJFrame(gui);
         }
         return gui;
     }
 
     public static ContactsGUI showCustomers(Contacts contacts) {
-        String key = CUSTOMERS + contacts.hashCode();
-        ContactsGUI gui = contactGuis.get(key);
+        ContactsGUI gui = contactGuis.get(contacts);
         if (gui == null) {
             gui = new ContactsGUI(contacts);
             contactGuis.put(contacts,gui);
-            Main.addJFrame(key, gui);
+            Main.addJFrame(gui);
         }
         return gui;
     }

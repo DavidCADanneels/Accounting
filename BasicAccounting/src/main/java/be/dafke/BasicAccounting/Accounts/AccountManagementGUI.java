@@ -63,12 +63,11 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 	}
 
 	public static AccountManagementGUI showAccountManager(Accounts accounts, AccountTypes accountTypes) {
-		String key = ""+accounts.hashCode();
-		AccountManagementGUI gui = accountManagementGuis.get(key); // DETAILS
+		AccountManagementGUI gui = accountManagementGuis.get(accounts);
 		if(gui == null){
 			gui = new AccountManagementGUI(accounts, accountTypes);
 			accountManagementGuis.put(accounts, gui);
-			Main.addJFrame(key, gui); // DETAILS
+			Main.addJFrame(gui);
 		}
 		return gui;
 	}

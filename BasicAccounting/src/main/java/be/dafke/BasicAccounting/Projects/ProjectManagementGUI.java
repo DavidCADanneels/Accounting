@@ -118,7 +118,7 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		if (gui == null) {
 			gui = new ProjectManagementGUI(accounts, accountTypes, projects);
 			projectManagementGuis.put(projects, gui);
-			Main.addJFrame(MANAGE + projects.hashCode(), gui);
+			Main.addJFrame(gui);
 		}
 		return gui;
 	}

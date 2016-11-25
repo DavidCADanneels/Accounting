@@ -73,12 +73,11 @@ public class StatementTableFrame extends RefreshableFrame implements MouseListen
 	}
 
 	public static StatementTableFrame showStatements(Statements statements, CounterParties counterParties) {
-		String key = Statements.STATEMENTS + statements.hashCode();
 		StatementTableFrame gui = statementsGuis.get(statements);
 		if(gui == null){
 			gui = new StatementTableFrame(statements, counterParties);
 			statementsGuis.put(statements,gui);
-			Main.addJFrame(key, gui);
+			Main.addJFrame(gui);
 		}
 		return gui;
 	}

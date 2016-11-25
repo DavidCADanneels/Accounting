@@ -112,12 +112,11 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	}
 
 	public static MortgageGUI showMortgages(Mortgages mortgages, Accounts accounts) {
-		String key = Mortgages.MORTGAGES + mortgages.hashCode();
 		MortgageGUI gui = mortgageGuis.get(mortgages);
 		if(gui == null){
 			gui = new MortgageGUI(mortgages, accounts);
 			mortgageGuis.put(mortgages,gui);
-			Main.addJFrame(key, gui);
+			Main.addJFrame(gui);
 		}
 		return gui;
 	}

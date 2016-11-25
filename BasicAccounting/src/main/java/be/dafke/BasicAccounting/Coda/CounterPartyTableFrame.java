@@ -50,12 +50,11 @@ public class CounterPartyTableFrame extends RefreshableFrame implements MouseLis
 	}
 
     public static CounterPartyTableFrame showStatements(Statements statements, CounterParties counterParties) {
-        String key = CounterParties.COUNTERPARTIES + counterParties.hashCode();
         CounterPartyTableFrame gui = counterpartiesGuis.get(counterParties);
         if(gui == null){
             gui = new CounterPartyTableFrame(counterParties, statements);
             counterpartiesGuis.put(counterParties,gui);
-            Main.addJFrame(key, gui);
+            Main.addJFrame(gui);
         }
         return gui;
     }

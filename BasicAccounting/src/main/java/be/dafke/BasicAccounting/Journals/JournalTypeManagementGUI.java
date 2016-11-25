@@ -40,12 +40,11 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 	}
 
 	public static void showJournalTypeManager(JournalTypes journalTypes, AccountTypes accountTypes) {
-		String key = "" + accountTypes.hashCode();
-		JournalTypeManagementGUI gui = journalTypeManagementGuis.get(key);
+		JournalTypeManagementGUI gui = journalTypeManagementGuis.get(journalTypes);
 		if(gui == null){
 			gui = new JournalTypeManagementGUI(journalTypes, accountTypes);
 			journalTypeManagementGuis.put(journalTypes,gui);
-			Main.addJFrame(key, gui); // DETAILS
+			Main.addJFrame(gui);
 		}
 		gui.setVisible(true);
 	}

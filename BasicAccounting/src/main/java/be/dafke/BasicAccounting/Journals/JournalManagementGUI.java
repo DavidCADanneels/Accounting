@@ -64,12 +64,11 @@ public class JournalManagementGUI extends RefreshableFrame implements ListSelect
 	}
 
     public static JournalManagementGUI showJournalManager(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes) {
-        String key = "" + journals.hashCode();
-        JournalManagementGUI gui = journalManagementGuis.get(key); // DETAILS
+        JournalManagementGUI gui = journalManagementGuis.get(journals);
         if(gui == null){
             gui = new JournalManagementGUI(journals, journalTypes, accounts, accountTypes);
             journalManagementGuis.put(journals, gui);
-            Main.addJFrame(key, gui); // DETAILS
+            Main.addJFrame(gui);
         }
         return gui;
     }

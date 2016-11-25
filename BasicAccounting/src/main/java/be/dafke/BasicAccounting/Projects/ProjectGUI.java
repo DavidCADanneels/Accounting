@@ -96,11 +96,11 @@ public class ProjectGUI extends RefreshableFrame {
     }
 
     public static ProjectGUI showProjects(Accounts accounts, AccountTypes accountTypes, Projects projects) {
-        ProjectGUI gui = projectGuis.get(projects); // DETAILS
+        ProjectGUI gui = projectGuis.get(projects);
         if (gui == null) {
             gui = new ProjectGUI(accounts, accountTypes, projects);
-            projectGuis.put(projects, gui); // DETAILS
-            Main.addJFrame(PROJECTS + projects.hashCode(), gui); // DETAILS
+            projectGuis.put(projects, gui);
+            Main.addJFrame(gui);
         }
         return gui;
     }

@@ -22,7 +22,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 
 import static javax.swing.JSplitPane.*;
@@ -51,7 +50,7 @@ public class Main {
     private static ArrayList<AccountsListener> accountsListeners = new ArrayList<>();
     private static ArrayList<MortgagesListener> mortgagesListeners = new ArrayList<>();
 
-    private static final HashMap<String, JFrame> disposableComponents = new HashMap<>();
+    private static final ArrayList<JFrame> disposableComponents = new ArrayList<>();
 
     private static MultiValueMap<Integer, JournalDataChangeListener> journalDataChangeListeners = new MultiValueMap<>();
     private static MultiValueMap<Integer, AccountDataChangeListener> accountDataChangeListeners = new MultiValueMap<>();
@@ -185,7 +184,7 @@ public class Main {
     }
 
     private static void launchFrame(){
-        Main.addJFrame(frame.hashCode()+"", frame); // MAIN
+        Main.addJFrame(frame); // MAIN
         frame.pack();
         frame.setVisible(true);
     }
@@ -288,7 +287,7 @@ public class Main {
             accountDetails = new AccountDetails(account, journals, journalInputGUI);
             addAccountDataListener(account,accountDetails);
             accountDetailsMap.put(account, accountDetails);
-            Main.addJFrame("Details:"+account.hashCode(),accountDetails);
+            Main.addJFrame(accountDetails);
         }
         accountDetails.setVisible(true);
         return accountDetails;
@@ -300,7 +299,7 @@ public class Main {
             journalDetails = new JournalDetails(journal, journals, journalInputGUI);
             addJournalDataListener(journal,journalDetails);
             journalDetailsMap.put(journal, journalDetails);
-            Main.addJFrame("Details:"+journal.hashCode(),journalDetails);
+            Main.addJFrame(journalDetails);
         }
         journalDetails.setVisible(true);
         return journalDetails;
@@ -311,7 +310,7 @@ public class Main {
         if(testBalance==null){
             testBalance = new TestBalance(journals, accounts, accountTypes);
             testBalanceMap.put(accounts,testBalance);
-            Main.addJFrame("TestBalance:"+accounts.hashCode(),testBalance);
+            Main.addJFrame(testBalance);
         }
         testBalance.setVisible(true);
         return testBalance;
@@ -322,7 +321,7 @@ public class Main {
         if(balanceGUI==null){
             balanceGUI = new BalanceGUI(journals, balance);
             otherBalanceMap.put(balance,balanceGUI);
-            Main.addJFrame("Balance:"+balance.hashCode(),balanceGUI);
+            Main.addJFrame(balanceGUI);
         }
         balanceGUI.setVisible(true);
         return balanceGUI;
@@ -345,13 +344,12 @@ public class Main {
     }
 
     public static void closeAllFrames(){
-        Collection<JFrame> collection = disposableComponents.values();
-        for(JFrame frame: collection){
+        for(JFrame frame: disposableComponents){
             frame.dispose();
         }
     }
 
-    public static void addJFrame(String key, JFrame frame) {
-        disposableComponents.put(key, frame);
+    public static void addJFrame(JFrame frame) {
+        disposableComponents.add(frame);
     }
 }
