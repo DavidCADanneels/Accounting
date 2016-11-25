@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Projects;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
@@ -9,19 +8,20 @@ import be.dafke.BusinessModel.Projects;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
+import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
 /**
  * Created by ddanneels on 27/12/2015.
  */
-public class ProjectsMenu extends JMenu implements AccountingListener {
-    private JMenuItem manage, project;
+public class ProjectsMenu extends JMenu {
+    private static JMenuItem manage, project;
     public static final String MANAGE = "ManageProjects";
     public static final String PROJECTS = "Projects";
-    private Projects projects;
-    private Accounts accounts;
-    private AccountTypes accountTypes;
+    private static Projects projects;
+    private static Accounts accounts;
+    private static AccountTypes accountTypes;
 
     public ProjectsMenu() {
         super(getBundle("Projects").getString("PROJECTS"));
@@ -60,8 +60,7 @@ public class ProjectsMenu extends JMenu implements AccountingListener {
         gui.setVisible(true);
     }
 
-    @Override
-    public void setAccounting(Accounting accounting) {
+    public static void setAccounting(Accounting accounting) {
         accounts=accounting==null?null:accounting.getAccounts();
         accountTypes=accounting==null?null:accounting.getAccountTypes();
         projects=accounting==null?null:accounting.getProjects();
