@@ -56,7 +56,6 @@ public class JournalDetails extends JFrame implements WindowListener, JournalDat
 		JournalDetails journalDetails = journalDetailsMap.get(journal);
 		if(journalDetails==null){
 			journalDetails = new JournalDetails(journal, journals, journalInputGUI);
-			addJournalDataListener(journal,journalDetails);
 			journalDetailsMap.put(journal, journalDetails);
 			SaveAllActionListener.addFrame(journalDetails);
 		}
@@ -77,6 +76,13 @@ public class JournalDetails extends JFrame implements WindowListener, JournalDat
     public void windowDeiconified(WindowEvent e) {}
     public void windowActivated(WindowEvent e) {}
     public void windowDeactivated(WindowEvent e) {}
+
+	public static void fireJournalDataChangedForAll(Journal journal) {
+		JournalDetails journalDetails = journalDetailsMap.get(journal);
+		if(journalDetails!=null) {
+			journalDetails.fireJournalDataChanged();
+		}
+	}
 
 	@Override
 	public void fireJournalDataChanged() {

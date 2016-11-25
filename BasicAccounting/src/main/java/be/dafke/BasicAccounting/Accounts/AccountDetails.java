@@ -84,6 +84,8 @@ public class AccountDetails extends JFrame implements WindowListener, AccountDat
 			accountDetails.fireAccountDataChanged();
 		}
 	}
+
+	@Override
 	public void fireAccountDataChanged() {
 		accountDetailsDataModel.fireTableDataChanged();
 	}

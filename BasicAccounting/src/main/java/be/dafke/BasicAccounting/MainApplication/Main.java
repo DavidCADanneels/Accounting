@@ -8,6 +8,7 @@ import be.dafke.BasicAccounting.Balances.BalancesMenu;
 import be.dafke.BasicAccounting.Balances.TestBalance;
 import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
+import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.Journals.JournalGUI;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.Journals.JournalsGUI;
@@ -22,7 +23,6 @@ import be.dafke.BusinessModel.Journal;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModelDao.XMLReader;
-import be.dafke.Utils.MultiValueMap;
 
 import javax.swing.*;
 import java.awt.*;
@@ -55,7 +55,6 @@ public class Main {
     private static ArrayList<AccountsListener> accountsListeners = new ArrayList<>();
     private static ArrayList<MortgagesListener> mortgagesListeners = new ArrayList<>();
 
-    private static MultiValueMap<Integer, JournalDataChangeListener> journalDataChangeListeners = new MultiValueMap<>();
     private static ArrayList<JournalDataChangeListener> allJournalDataChangeListeners = new ArrayList<>();
     private static ArrayList<AccountDataChangeListener> allAccountDataChangeListeners = new ArrayList<>();
 
@@ -120,8 +119,6 @@ public class Main {
         accountingListeners.add(journalInputGUI);
         accountingListeners.add(journalReadGUI);
         accountingListeners.add(frame);
-
-        allJournalDataChangeListeners.add(journalReadGUI);
     }
     private static void linkListeners(){
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -238,10 +235,6 @@ public class Main {
         journalInputGUI.setTransaction(journal.getCurrentObject());
     }
 
-    public static void addJournalDataListener(Journal journal, JournalDataChangeListener gui) {
-        journalDataChangeListeners.addValue(journal.hashCode(), gui);
-    }
-
     public static void addJournalDataListener(JournalDataChangeListener gui) {
         allJournalDataChangeListeners.add(gui);
     }
@@ -251,15 +244,11 @@ public class Main {
     }
 
     public static void fireJournalDataChanged(Journal journal){
-        ArrayList<JournalDataChangeListener> journalDataChangeListenerList = journalDataChangeListeners.get(journal.hashCode());
-        if(journalDataChangeListenerList!=null) {
-            for (JournalDataChangeListener journalDataChangeListener : journalDataChangeListenerList) {
-                journalDataChangeListener.fireJournalDataChanged();
-            }
-        }
+        JournalDetails.fireJournalDataChangedForAll(journal);
         for (JournalDataChangeListener journalDataChangeListener : allJournalDataChangeListeners){
             journalDataChangeListener.fireJournalDataChanged();
         }
+        journalReadGUI.fireJournalDataChanged();
     }
 
     public static void fireAccountDataChanged(Account account){
