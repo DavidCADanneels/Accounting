@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Balances;
 
-import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
@@ -20,7 +20,7 @@ public class BalancesMenu extends JMenu {
     private static AccountTypes accountTypes;
     private static Balances balances;
 
-    public BalancesMenu(){
+    public BalancesMenu(JournalInputGUI journalInputGUI){
         super(getBundle("BusinessModel").getString("BALANSES"));
         setMnemonic(KeyEvent.VK_B);
         testBalance = new JMenuItem(getBundle("BusinessModel").getString("TESTBALANCE"));
@@ -28,10 +28,10 @@ public class BalancesMenu extends JMenu {
         resultBalance = new JMenuItem(getBundle("BusinessModel").getString("RESULTBALANCE"));
         relationsBalance = new JMenuItem(getBundle("BusinessModel").getString("RELATIONSBALANCE"));
 
-        testBalance.addActionListener(e -> Main.getTestBalance(journals, accounts, accountTypes));
-        yearBalance.addActionListener(e -> Main.getBalance(journals, balances.getBusinessObject(Balances.YEAR_BALANCE)));
-        resultBalance.addActionListener(e -> Main.getBalance(journals, balances.getBusinessObject(Balances.RESULT_BALANCE)));
-        relationsBalance.addActionListener(e -> Main.getBalance(journals, balances.getBusinessObject(Balances.RELATIONS_BALANCE)));
+        testBalance.addActionListener(e -> TestBalance.getTestBalance(journals, accounts, accountTypes,journalInputGUI));
+        yearBalance.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(Balances.YEAR_BALANCE),journalInputGUI));
+        resultBalance.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(Balances.RESULT_BALANCE),journalInputGUI));
+        relationsBalance.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(Balances.RELATIONS_BALANCE),journalInputGUI));
         relationsBalance.setEnabled(false);
         resultBalance.setEnabled(false);
         testBalance.setEnabled(false);

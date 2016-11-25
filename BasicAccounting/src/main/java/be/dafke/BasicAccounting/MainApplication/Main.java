@@ -14,7 +14,10 @@ import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BusinessActions.*;
-import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accountings;
+import be.dafke.BusinessModel.Journal;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModelDao.XMLReader;
@@ -24,7 +27,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import static javax.swing.JSplitPane.*;
 
@@ -56,9 +58,6 @@ public class Main {
     private static MultiValueMap<Integer, AccountDataChangeListener> accountDataChangeListeners = new MultiValueMap<>();
     private static ArrayList<JournalDataChangeListener> allJournalDataChangeListeners = new ArrayList<>();
     private static ArrayList<AccountDataChangeListener> allAccountDataChangeListeners = new ArrayList<>();
-
-    private static HashMap<Accounts,TestBalance> testBalanceMap = new HashMap<>();
-    private static HashMap<Balance,BalanceGUI> otherBalanceMap = new HashMap<>();
 
     private static BalancesMenu balancesMenu;
     private static MorgagesMenu morgagesMenu;
@@ -172,7 +171,7 @@ public class Main {
 
     private static void createMenu() {
         menuBar = new AccountingMenuBar(accountings);
-        balancesMenu = new BalancesMenu();
+        balancesMenu = new BalancesMenu(journalInputGUI);
         contactsMenu = new ContactsMenu();
         morgagesMenu = new MorgagesMenu();
 
@@ -284,34 +283,8 @@ public class Main {
             accountDataChangeListener.fireAccountDataChanged();
         }
         // refresh all balances if an account is update, filtering on accounting/accounts/accountType could be applied
-        for(TestBalance testBalance:testBalanceMap.values()){
-            testBalance.fireAccountDataChanged();
-        }
-        for(BalanceGUI balanceGUI:otherBalanceMap.values()){
-            balanceGUI.fireAccountDataChanged();
-        }
-    }
-
-    public static TestBalance getTestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes) {
-        TestBalance testBalance = testBalanceMap.get(accounts);
-        if(testBalance==null){
-            testBalance = new TestBalance(journals, accounts, accountTypes, journalInputGUI);
-            testBalanceMap.put(accounts,testBalance);
-            SaveAllActionListener.addFrame(testBalance);
-        }
-        testBalance.setVisible(true);
-        return testBalance;
-    }
-
-    public static BalanceGUI getBalance(Journals journals, Balance balance) {
-        BalanceGUI balanceGUI = otherBalanceMap.get(balance);
-        if(balanceGUI==null){
-            balanceGUI = new BalanceGUI(journals, balance, journalInputGUI);
-            otherBalanceMap.put(balance,balanceGUI);
-            SaveAllActionListener.addFrame(balanceGUI);
-        }
-        balanceGUI.setVisible(true);
-        return balanceGUI;
+        TestBalance.fireAccountDataChangedForAll();
+        BalanceGUI.fireAccountDataChangedForAll();
     }
 
     public static void newAccounting(Accountings accountings) {

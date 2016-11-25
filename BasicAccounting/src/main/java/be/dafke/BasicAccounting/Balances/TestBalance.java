@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
+import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
@@ -11,6 +12,7 @@ import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -22,8 +24,9 @@ public class TestBalance extends JFrame implements AccountDataChangeListener {
 	private final JPopupMenu popup;
 	private RefreshableTable<Account> tabel;
 	private TestBalanceDataModel testBalanceDataModel;
+	private static HashMap<Accounts,TestBalance> testBalanceMap = new HashMap<>();
 
-	public TestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes, JournalInputGUI journalInputGUI) {
+	private TestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes, JournalInputGUI journalInputGUI) {
 		super(getBundle("BusinessModel").getString("TESTBALANCE"));
 		testBalanceDataModel = new TestBalanceDataModel(accounts, accountTypes);
 
@@ -41,6 +44,23 @@ public class TestBalance extends JFrame implements AccountDataChangeListener {
 
 		popup = new BalancePopupMenu(journals, tabel, journalInputGUI);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
+	}
+
+	public static TestBalance getTestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes, JournalInputGUI journalInputGUI) {
+		TestBalance testBalance = testBalanceMap.get(accounts);
+		if(testBalance==null){
+			testBalance = new TestBalance(journals, accounts, accountTypes, journalInputGUI);
+			testBalanceMap.put(accounts,testBalance);
+			SaveAllActionListener.addFrame(testBalance);
+		}
+		testBalance.setVisible(true);
+		return testBalance;
+	}
+
+	public static void fireAccountDataChangedForAll(){
+		for (TestBalance testBalance:testBalanceMap.values()) {
+			testBalance.fireAccountDataChanged();
+		}
 	}
 
 	@Override
