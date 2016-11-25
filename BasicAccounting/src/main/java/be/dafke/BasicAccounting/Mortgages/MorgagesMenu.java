@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Mortgages;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Mortgages;
@@ -16,10 +15,10 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 26/12/2015.
  */
-public class MorgagesMenu extends JMenu implements ActionListener, AccountingListener {
-    private JMenuItem mortgage;
-    private Mortgages mortgages;
-    private Accounts accounts;
+public class MorgagesMenu extends JMenu implements ActionListener {
+    private static JMenuItem mortgage;
+    private static Mortgages mortgages;
+    private static Accounts accounts;
 
     public MorgagesMenu() {
         super(getBundle("Mortgage").getString("MORTGAGES"));
@@ -40,8 +39,7 @@ public class MorgagesMenu extends JMenu implements ActionListener, AccountingLis
         gui.setVisible(true);
     }
 
-    @Override
-    public void setAccounting(Accounting accounting) {
+    public static void setAccounting(Accounting accounting) {
         mortgages=accounting==null?null:accounting.getMortgages();
         mortgage.setEnabled(mortgages!=null);
         accounts=accounting==null?null:accounting.getAccounts();
