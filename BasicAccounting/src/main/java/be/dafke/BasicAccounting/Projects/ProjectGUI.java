@@ -11,8 +11,6 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
@@ -20,7 +18,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 2/11/2016.
  */
-public class ProjectGUI extends RefreshableFrame implements ActionListener {
+public class ProjectGUI extends RefreshableFrame {
     private final JButton manage;
     private final JComboBox<Project> combo;
     private final Accounts accounts;
@@ -29,7 +27,6 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
     private JournalDetailsDataModel journalDetailsDataModel;
     private BalanceDataModel resultBalanceDataModel, relationsBalanceDataModel;
     private Projects projects;
-    public static final String MANAGE = "ManageProjects";
     public static final String PROJECTS = "Projects";
     private static final HashMap<Projects, ProjectGUI> projectGuis = new HashMap<>();
     private static final HashMap<Projects, ProjectManagementGUI> projectManagentGuis = new HashMap<>();
@@ -44,10 +41,13 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
         JPanel noord = new JPanel();
         //
         combo = new JComboBox<>();
-        combo.addActionListener(this);
+        combo.addActionListener(e -> {
+            project = (Project) combo.getSelectedItem();
+            refresh();
+        });
         //
         manage = new JButton(getBundle("Projects").getString("PROJECTMANAGER"));
-        manage.addActionListener(this);
+        manage.addActionListener(e -> ProjectManagementGUI.showManager(accounts, accountTypes, projects).setVisible(true));
         //
         noord.add(combo);
         noord.add(manage);
@@ -105,15 +105,6 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
         return gui;
     }
 
-    public static ProjectManagementGUI showManager(Accounts accounts, AccountTypes accountTypes, Projects projects) {
-        ProjectManagementGUI gui = projectManagentGuis.get(projects); // DETAILS
-        if (gui == null) {
-            gui = new ProjectManagementGUI(accounts, accountTypes, projects);
-            projectManagentGuis.put(projects, gui); // DETAILS
-            Main.addJFrame(MANAGE + projects.hashCode(), gui); // DETAILS
-        }
-        return gui;
-    }
 
 //    @Override
     public void refresh() {
@@ -137,21 +128,5 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
 
     public void setAccounting(Projects projects){
         this.projects = projects;
-    }
-
-    @Override
-    public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() == combo) {
-            project = (Project) combo.getSelectedItem();
-            refresh();
-        } else if(ae.getSource()==manage) {
-            String key = MANAGE + projects.hashCode();
-            JFrame gui = Main.getJFrame(key); // DETAILS
-            if (gui == null) {
-                gui = new ProjectManagementGUI(accounts, accountTypes, projects);
-                Main.addJFrame(key, gui); // DETAILS
-            }
-            gui.setVisible(true);
-        }
     }
 }

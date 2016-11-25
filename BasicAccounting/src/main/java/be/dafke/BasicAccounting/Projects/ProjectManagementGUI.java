@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Projects;
 
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableFrame;
@@ -19,6 +20,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -39,8 +41,11 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 	private Accounts accounts;
 	private AccountTypes accountTypes;
 	private Projects projects;
+	private static final HashMap<Projects, ProjectManagementGUI> projectManagementGuis = new HashMap<>();
+	public static final String MANAGE = "ManageProjects";
 
-	public ProjectManagementGUI(Accounts accounts, AccountTypes accountTypes, Projects projects) {
+
+	private ProjectManagementGUI(Accounts accounts, AccountTypes accountTypes, Projects projects) {
 		super(getBundle("Projects").getString("PROJECTMANAGER"));
 		this.accounts = accounts;
 		this.accountTypes = accountTypes;
@@ -106,6 +111,16 @@ public class ProjectManagementGUI extends RefreshableFrame implements ListSelect
 		setContentPane(hoofdPaneel);
 		pack();
 		refresh();
+	}
+
+	public static ProjectManagementGUI showManager(Accounts accounts, AccountTypes accountTypes, Projects projects) {
+		ProjectManagementGUI gui = projectManagementGuis.get(projects);
+		if (gui == null) {
+			gui = new ProjectManagementGUI(accounts, accountTypes, projects);
+			projectManagementGuis.put(projects, gui);
+			Main.addJFrame(MANAGE + projects.hashCode(), gui);
+		}
+		return gui;
 	}
 
 	public void valueChanged(ListSelectionEvent lse) {

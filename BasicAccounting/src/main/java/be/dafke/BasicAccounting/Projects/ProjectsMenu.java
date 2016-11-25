@@ -18,13 +18,15 @@ public class ProjectsMenu extends JMenu {
     private static Projects projects;
     private static Accounts accounts;
     private static AccountTypes accountTypes;
+    public static final String MANAGE = "ManageProjects";
+    public static final String PROJECTS = "Projects";
 
     public ProjectsMenu() {
         super(getBundle("Projects").getString("PROJECTS"));
         setMnemonic(KeyEvent.VK_P);
         manage = new JMenuItem(getBundle("Projects").getString(
                 "PROJECTMANAGER"));
-        manage.addActionListener(e -> ProjectGUI.showManager(accounts, accountTypes, projects).setVisible(true));
+        manage.addActionListener(e -> ProjectManagementGUI.showManager(accounts, accountTypes, projects).setVisible(true));
         manage.setEnabled(false);
 
         project = new JMenuItem(getBundle("Projects").getString(
