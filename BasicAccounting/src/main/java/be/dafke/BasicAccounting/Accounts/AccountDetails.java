@@ -20,7 +20,6 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.HashMap;
 
-import static be.dafke.BasicAccounting.MainApplication.Main.addAccountDataListener;
 import static java.util.ResourceBundle.getBundle;
 
 public class AccountDetails extends JFrame implements WindowListener, AccountDataChangeListener {
@@ -58,7 +57,6 @@ public class AccountDetails extends JFrame implements WindowListener, AccountDat
 		AccountDetails accountDetails = accountDetailsMap.get(account);
 		if(accountDetails==null){
 			accountDetails = new AccountDetails(account, journals, journalInputGUI);
-			addAccountDataListener(account,accountDetails);
 			accountDetailsMap.put(account, accountDetails);
 			SaveAllActionListener.addFrame(accountDetails);
 		}
@@ -80,7 +78,12 @@ public class AccountDetails extends JFrame implements WindowListener, AccountDat
 	public void windowActivated(WindowEvent e) {}
 	public void windowDeactivated(WindowEvent e) {}
 
-	@Override
+	public static void fireAccountDataChangedForAll(Account account) {
+		AccountDetails accountDetails = accountDetailsMap.get(account);
+		if(accountDetails!=null) {
+			accountDetails.fireAccountDataChanged();
+		}
+	}
 	public void fireAccountDataChanged() {
 		accountDetailsDataModel.fireTableDataChanged();
 	}

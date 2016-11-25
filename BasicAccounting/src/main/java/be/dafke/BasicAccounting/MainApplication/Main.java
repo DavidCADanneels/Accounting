@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.MainApplication;
 
+import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BasicAccounting.Accounts.AccountsGUI;
 import be.dafke.BasicAccounting.Accounts.AccountsTableGUI;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
@@ -55,7 +56,6 @@ public class Main {
     private static ArrayList<MortgagesListener> mortgagesListeners = new ArrayList<>();
 
     private static MultiValueMap<Integer, JournalDataChangeListener> journalDataChangeListeners = new MultiValueMap<>();
-    private static MultiValueMap<Integer, AccountDataChangeListener> accountDataChangeListeners = new MultiValueMap<>();
     private static ArrayList<JournalDataChangeListener> allJournalDataChangeListeners = new ArrayList<>();
     private static ArrayList<AccountDataChangeListener> allAccountDataChangeListeners = new ArrayList<>();
 
@@ -246,10 +246,6 @@ public class Main {
         allJournalDataChangeListeners.add(gui);
     }
 
-    public static void addAccountDataListener(Account account, AccountDataChangeListener gui) {
-        accountDataChangeListeners.addValue(account.hashCode(), gui);
-    }
-
     public static void addAccountDataListener(AccountDataChangeListener gui) {
         allAccountDataChangeListeners.add(gui);
     }
@@ -267,12 +263,7 @@ public class Main {
     }
 
     public static void fireAccountDataChanged(Account account){
-        ArrayList<AccountDataChangeListener> accountDataChangeListenerList = accountDataChangeListeners.get(account.hashCode());
-        if(accountDataChangeListenerList!=null){
-            for(AccountDataChangeListener accountDataChangeListener: accountDataChangeListenerList) {
-                accountDataChangeListener.fireAccountDataChanged();
-            }
-        }
+        AccountDetails.fireAccountDataChangedForAll(account);
         // fireAccountDataChanged in AccountsGUI is only needed if accounts have been added
         // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
         for(AccountDataChangeListener accountDataChangeListener: allAccountDataChangeListeners){
