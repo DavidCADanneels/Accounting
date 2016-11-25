@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Coda;
 
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.ObjectModel.BusinessObject;
@@ -52,7 +53,7 @@ public class CounterPartyTableFrame extends JFrame implements MouseListener {
         if(gui == null){
             gui = new CounterPartyTableFrame(counterParties, statements);
             counterpartiesGuis.put(counterParties,gui);
-            Main.addJFrame(gui);
+            SaveAllActionListener.addFrame(gui);
         }
         return gui;
     }

@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.JournalType;
@@ -46,7 +46,7 @@ public class JournalTypeManagementGUI extends JFrame {
 		if(gui == null){
 			gui = new JournalTypeManagementGUI(journalTypes, accountTypes);
 			journalTypeManagementGuis.put(journalTypes,gui);
-			Main.addJFrame(gui);
+			SaveAllActionListener.addFrame(gui);
 		}
 		gui.setVisible(true);
 	}

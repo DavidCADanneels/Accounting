@@ -99,7 +99,7 @@ public class ProjectGUI extends JFrame {
         if (gui == null) {
             gui = new ProjectGUI(accounts, accountTypes, projects);
             projectGuis.put(projects, gui);
-            Main.addJFrame(gui);
+            SaveAllActionListener.addFrame(gui);
         }
         return gui;
     }

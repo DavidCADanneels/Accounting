@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.JournalActions;
 import be.dafke.BusinessActions.JournalDataChangeListener;
@@ -68,7 +69,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
             gui = new JournalManagementGUI(journals, journalTypes, accounts, accountTypes);
             Main.addJournalDataListener(gui);
             journalManagementGuis.put(journals, gui);
-            Main.addJFrame(gui);
+            SaveAllActionListener.addFrame(gui);
         }
         return gui;
     }

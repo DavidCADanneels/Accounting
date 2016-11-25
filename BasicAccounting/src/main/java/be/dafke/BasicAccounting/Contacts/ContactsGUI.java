@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Contacts;
 
-import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessModel.Contacts;
 
 import javax.swing.*;
@@ -20,7 +20,7 @@ public class ContactsGUI extends JFrame{
         if (gui == null) {
             gui = new ContactsGUI(contacts);
             contactGuis.put(contacts,gui);
-            Main.addJFrame(gui);
+            SaveAllActionListener.addFrame(gui);
         }
         return gui;
     }
@@ -30,7 +30,7 @@ public class ContactsGUI extends JFrame{
         if (gui == null) {
             gui = new ContactsGUI(contacts);
             contactGuis.put(contacts,gui);
-            Main.addJFrame(gui);
+            SaveAllActionListener.addFrame(gui);
         }
         return gui;
     }

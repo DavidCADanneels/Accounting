@@ -15,7 +15,6 @@ import be.dafke.BasicAccounting.Journals.JournalsGUI;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
-import be.dafke.BasicAccounting.SaveAllActionListener;
 import be.dafke.BusinessActions.*;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -54,8 +53,6 @@ public class Main {
     private static ArrayList<AccountingListener> accountingListeners = new ArrayList<>();
     private static ArrayList<AccountsListener> accountsListeners = new ArrayList<>();
     private static ArrayList<MortgagesListener> mortgagesListeners = new ArrayList<>();
-
-    private static final ArrayList<JFrame> disposableComponents = new ArrayList<>();
 
     private static MultiValueMap<Integer, JournalDataChangeListener> journalDataChangeListeners = new MultiValueMap<>();
     private static MultiValueMap<Integer, AccountDataChangeListener> accountDataChangeListeners = new MultiValueMap<>();
@@ -193,7 +190,7 @@ public class Main {
     }
 
     private static void launchFrame(){
-        Main.addJFrame(frame); // MAIN
+        SaveAllActionListener.addFrame(frame); // MAIN
         frame.pack();
         frame.setVisible(true);
     }
@@ -305,7 +302,7 @@ public class Main {
             accountDetails = new AccountDetails(account, journals, journalInputGUI);
             addAccountDataListener(account,accountDetails);
             accountDetailsMap.put(account, accountDetails);
-            Main.addJFrame(accountDetails);
+            SaveAllActionListener.addFrame(accountDetails);
         }
         accountDetails.setVisible(true);
         return accountDetails;
@@ -317,7 +314,7 @@ public class Main {
             journalDetails = new JournalDetails(journal, journals, journalInputGUI);
             addJournalDataListener(journal,journalDetails);
             journalDetailsMap.put(journal, journalDetails);
-            Main.addJFrame(journalDetails);
+            SaveAllActionListener.addFrame(journalDetails);
         }
         journalDetails.setVisible(true);
         return journalDetails;
@@ -328,7 +325,7 @@ public class Main {
         if(testBalance==null){
             testBalance = new TestBalance(journals, accounts, accountTypes);
             testBalanceMap.put(accounts,testBalance);
-            Main.addJFrame(testBalance);
+            SaveAllActionListener.addFrame(testBalance);
         }
         testBalance.setVisible(true);
         return testBalance;
@@ -339,7 +336,7 @@ public class Main {
         if(balanceGUI==null){
             balanceGUI = new BalanceGUI(journals, balance);
             otherBalanceMap.put(balance,balanceGUI);
-            Main.addJFrame(balanceGUI);
+            SaveAllActionListener.addFrame(balanceGUI);
         }
         balanceGUI.setVisible(true);
         return balanceGUI;
@@ -359,15 +356,5 @@ public class Main {
         } catch (EmptyNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNTING_NAME_EMPTY);
         }
-    }
-
-    public static void closeAllFrames(){
-        for(JFrame frame: disposableComponents){
-            frame.dispose();
-        }
-    }
-
-    public static void addJFrame(JFrame frame) {
-        disposableComponents.add(frame);
     }
 }

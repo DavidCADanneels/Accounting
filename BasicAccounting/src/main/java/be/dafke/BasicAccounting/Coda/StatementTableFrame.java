@@ -75,7 +75,7 @@ public class StatementTableFrame extends JFrame implements MouseListener, Accoun
 		if(gui == null){
 			gui = new StatementTableFrame(statements, counterParties);
 			statementsGuis.put(statements,gui);
-			Main.addJFrame(gui);
+			SaveAllActionListener.addFrame(gui);
 		}
 		return gui;
 	}

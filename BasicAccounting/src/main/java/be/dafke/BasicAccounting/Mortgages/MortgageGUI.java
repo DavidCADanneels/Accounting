@@ -114,7 +114,7 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
 		if(gui == null){
 			gui = new MortgageGUI(mortgages, accounts);
 			mortgageGuis.put(mortgages,gui);
-			Main.addJFrame(gui);
+			SaveAllActionListener.addFrame(gui);
 		}
 		return gui;
 	}
