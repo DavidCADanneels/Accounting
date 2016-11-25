@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 
@@ -54,7 +53,7 @@ public class AccountsTablePopupMenu extends JPopupMenu {
         details.addActionListener(e -> {
             ArrayList<Account> selectedAccounts = table.getSelectedObjects();
             for(Account selectedAccount:selectedAccounts) {
-                Main.getAccountDetails(selectedAccount, journals);
+                AccountDetails.getAccountDetails(selectedAccount, journals, journalInputGUI);
             }
             setVisible(false);
         });

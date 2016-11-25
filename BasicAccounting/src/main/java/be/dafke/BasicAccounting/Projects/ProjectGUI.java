@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.Projects;
 
 import be.dafke.BasicAccounting.Balances.BalanceDataModel;
 import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
-import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 

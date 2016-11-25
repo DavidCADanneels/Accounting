@@ -6,6 +6,7 @@ package be.dafke.BasicAccounting.Accounts;
  */
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
+import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
@@ -17,7 +18,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.HashMap;
 
+import static be.dafke.BasicAccounting.MainApplication.Main.addAccountDataListener;
 import static java.util.ResourceBundle.getBundle;
 
 public class AccountDetails extends JFrame implements WindowListener, AccountDataChangeListener {
@@ -28,6 +31,7 @@ public class AccountDetails extends JFrame implements WindowListener, AccountDat
 	private final AccountDetailsPopupMenu popup;
 	private RefreshableTable<Booking> tabel;
 	private AccountDetailsDataModel accountDetailsDataModel;
+	private static HashMap<Account,AccountDetails> accountDetailsMap = new HashMap<>();
 
 	public AccountDetails(Account account, Journals journals, JournalInputGUI journalInputGUI) {
 		super(getBundle("Accounting").getString("ACCOUNT_DETAILS")+ " " + account.getName());
@@ -48,6 +52,18 @@ public class AccountDetails extends JFrame implements WindowListener, AccountDat
 
 		popup = new AccountDetailsPopupMenu(journals, tabel, journalInputGUI);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel, 0,2,3));
+	}
+
+	public static AccountDetails getAccountDetails(Account account, Journals journals, JournalInputGUI journalInputGUI){
+		AccountDetails accountDetails = accountDetailsMap.get(account);
+		if(accountDetails==null){
+			accountDetails = new AccountDetails(account, journals, journalInputGUI);
+			addAccountDataListener(account,accountDetails);
+			accountDetailsMap.put(account, accountDetails);
+			SaveAllActionListener.addFrame(accountDetails);
+		}
+		accountDetails.setVisible(true);
+		return accountDetails;
 	}
 
 	public void selectObject(Booking object){

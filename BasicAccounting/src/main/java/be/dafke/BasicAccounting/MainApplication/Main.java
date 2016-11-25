@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BasicAccounting.Accounts.AccountsGUI;
 import be.dafke.BasicAccounting.Accounts.AccountsTableGUI;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
@@ -59,7 +58,6 @@ public class Main {
     private static ArrayList<JournalDataChangeListener> allJournalDataChangeListeners = new ArrayList<>();
     private static ArrayList<AccountDataChangeListener> allAccountDataChangeListeners = new ArrayList<>();
 
-    private static HashMap<Account,AccountDetails> accountDetailsMap = new HashMap<>();
     private static HashMap<Journal,JournalDetails> journalDetailsMap = new HashMap<>();
     private static HashMap<Accounts,TestBalance> testBalanceMap = new HashMap<>();
     private static HashMap<Balance,BalanceGUI> otherBalanceMap = new HashMap<>();
@@ -296,18 +294,6 @@ public class Main {
         }
     }
 
-    public static AccountDetails getAccountDetails(Account account, Journals journals){
-        AccountDetails accountDetails = accountDetailsMap.get(account);
-        if(accountDetails==null){
-            accountDetails = new AccountDetails(account, journals, journalInputGUI);
-            addAccountDataListener(account,accountDetails);
-            accountDetailsMap.put(account, accountDetails);
-            SaveAllActionListener.addFrame(accountDetails);
-        }
-        accountDetails.setVisible(true);
-        return accountDetails;
-    }
-
     public static JournalDetails getJournalDetails(Journal journal, Journals journals){
         JournalDetails journalDetails = journalDetailsMap.get(journal);
         if(journalDetails==null){
@@ -323,7 +309,7 @@ public class Main {
     public static TestBalance getTestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes) {
         TestBalance testBalance = testBalanceMap.get(accounts);
         if(testBalance==null){
-            testBalance = new TestBalance(journals, accounts, accountTypes);
+            testBalance = new TestBalance(journals, accounts, accountTypes, journalInputGUI);
             testBalanceMap.put(accounts,testBalance);
             SaveAllActionListener.addFrame(testBalance);
         }
@@ -334,7 +320,7 @@ public class Main {
     public static BalanceGUI getBalance(Journals journals, Balance balance) {
         BalanceGUI balanceGUI = otherBalanceMap.get(balance);
         if(balanceGUI==null){
-            balanceGUI = new BalanceGUI(journals, balance);
+            balanceGUI = new BalanceGUI(journals, balance, journalInputGUI);
             otherBalanceMap.put(balance,balanceGUI);
             SaveAllActionListener.addFrame(balanceGUI);
         }

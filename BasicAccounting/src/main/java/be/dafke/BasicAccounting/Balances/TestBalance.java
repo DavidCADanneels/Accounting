@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Balances;
 
+import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
@@ -22,9 +23,9 @@ public class TestBalance extends JFrame implements AccountDataChangeListener {
 	private RefreshableTable<Account> tabel;
 	private TestBalanceDataModel testBalanceDataModel;
 
-	public TestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes) {
+	public TestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes, JournalInputGUI journalInputGUI) {
 		super(getBundle("BusinessModel").getString("TESTBALANCE"));
-		 testBalanceDataModel = new TestBalanceDataModel(accounts, accountTypes);
+		testBalanceDataModel = new TestBalanceDataModel(accounts, accountTypes);
 
 		tabel = new RefreshableTable<>(testBalanceDataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -38,7 +39,7 @@ public class TestBalance extends JFrame implements AccountDataChangeListener {
 		setContentPane(contentPanel);
 		pack();
 
-		popup = new BalancePopupMenu(journals, tabel);
+		popup = new BalancePopupMenu(journals, tabel, journalInputGUI);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
 	}
 

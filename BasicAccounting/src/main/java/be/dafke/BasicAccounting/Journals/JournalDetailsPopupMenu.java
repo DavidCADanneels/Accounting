@@ -1,8 +1,9 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.Accounts.AccountDetails;
-import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.Booking;
+import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
@@ -70,7 +71,7 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
         ArrayList<Booking> bookings = gui.getSelectedObjects();
         for (Booking booking : bookings) {
             Account account = booking.getAccount();
-            AccountDetails newGui = Main.getAccountDetails(account, journals);
+            AccountDetails newGui = AccountDetails.getAccountDetails(account, journals, journalInputGUI);
             newGui.selectObject(booking);
         }
     }

@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
+import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
@@ -110,7 +111,7 @@ public class JournalGUIPopupMenu extends JPopupMenu{
         ArrayList<Booking> bookings = table.getSelectedObjects();
         for (Booking booking : bookings) {
             Account account = booking.getAccount();
-            Main.getAccountDetails(account, journals);
+            AccountDetails.getAccountDetails(account, journals,journalInputGUI);
         }
     }
 }
