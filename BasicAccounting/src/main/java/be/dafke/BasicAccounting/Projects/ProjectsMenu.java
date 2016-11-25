@@ -8,7 +8,6 @@ import be.dafke.BusinessModel.Projects;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
-import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
