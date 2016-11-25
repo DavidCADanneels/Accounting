@@ -4,8 +4,6 @@ import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import static java.util.ResourceBundle.getBundle;
@@ -15,7 +13,7 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 30-12-13
  * Time: 11:03
  */
-public class BalancesMenu extends JMenu implements ActionListener {
+public class BalancesMenu extends JMenu {
     private static JMenuItem testBalance, yearBalance, resultBalance, relationsBalance;
     private static Journals journals;
     private static Accounts accounts;
@@ -30,10 +28,10 @@ public class BalancesMenu extends JMenu implements ActionListener {
         resultBalance = new JMenuItem(getBundle("BusinessModel").getString("RESULTBALANCE"));
         relationsBalance = new JMenuItem(getBundle("BusinessModel").getString("RELATIONSBALANCE"));
 
-        testBalance.addActionListener(this);
-        yearBalance.addActionListener(this);
-        resultBalance.addActionListener(this);
-        relationsBalance.addActionListener(this);
+        testBalance.addActionListener(e -> Main.getTestBalance(journals, accounts, accountTypes));
+        yearBalance.addActionListener(e -> Main.getBalance(journals, balances.getBusinessObject(Balances.YEAR_BALANCE)));
+        resultBalance.addActionListener(e -> Main.getBalance(journals, balances.getBusinessObject(Balances.RESULT_BALANCE)));
+        relationsBalance.addActionListener(e -> Main.getBalance(journals, balances.getBusinessObject(Balances.RELATIONS_BALANCE)));
         relationsBalance.setEnabled(false);
         resultBalance.setEnabled(false);
         testBalance.setEnabled(false);
@@ -42,22 +40,6 @@ public class BalancesMenu extends JMenu implements ActionListener {
         add(resultBalance);
         add(yearBalance);
         add(relationsBalance);
-    }
-
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == testBalance) {
-            Main.getTestBalance(journals, accounts, accountTypes);
-        } else{
-            Balance balance = null;
-            if (e.getSource() == yearBalance) {
-                balance = balances.getBusinessObject(Balances.YEAR_BALANCE);
-            } else if (e.getSource() == resultBalance) {
-                balance = balances.getBusinessObject(Balances.RESULT_BALANCE);
-            } else if (e.getSource() == relationsBalance) {
-                balance = balances.getBusinessObject(Balances.RELATIONS_BALANCE);
-            }
-            Main.getBalance(journals, balance);
-        }
     }
 
     public static void setAccounting(Accounting accounting) {
