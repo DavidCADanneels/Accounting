@@ -1,9 +1,6 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.BasicAccounting.Accounts.AccountDetails;
-import be.dafke.BasicAccounting.Accounts.AccountManagementGUI;
-import be.dafke.BasicAccounting.Accounts.AccountsGUI;
-import be.dafke.BasicAccounting.Accounts.AccountsTableGUI;
+import be.dafke.BasicAccounting.Accounts.*;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
 import be.dafke.BasicAccounting.Balances.BalancesMenu;
 import be.dafke.BasicAccounting.Balances.TestBalance;
@@ -52,8 +49,6 @@ public class Main {
     private static ArrayList<AccountingListener> accountingListeners = new ArrayList<>();
     private static ArrayList<AccountsListener> accountsListeners = new ArrayList<>();
     private static ArrayList<MortgagesListener> mortgagesListeners = new ArrayList<>();
-
-    private static ArrayList<AccountDataChangeListener> allAccountDataChangeListeners = new ArrayList<>();
 
     private static BalancesMenu balancesMenu;
     private static MorgagesMenu morgagesMenu;
@@ -232,10 +227,6 @@ public class Main {
         journalInputGUI.setTransaction(journal.getCurrentObject());
     }
 
-    public static void addAccountDataListener(AccountDataChangeListener gui) {
-        allAccountDataChangeListeners.add(gui);
-    }
-
     public static void fireJournalDataChanged(Journal journal){
         JournalDetails.fireJournalDataChangedForAll(journal);
         JournalManagementGUI.fireJournalDataChangedForAll();
@@ -244,12 +235,9 @@ public class Main {
 
     public static void fireAccountDataChanged(Account account){
         AccountDetails.fireAccountDataChangedForAll(account);
+        AccountSelector.fireAccountDataChangedForAll();
         // fireAccountDataChanged in AccountsGUI is only needed if accounts have been added
         // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
-        for(AccountDataChangeListener accountDataChangeListener: allAccountDataChangeListeners){
-            accountDataChangeListener.fireAccountDataChanged();
-        }
-
         accountsGUI1.fireAccountDataChanged();
         accountsGUI2.fireAccountDataChanged();
         accountsTableGUI.fireAccountDataChanged();

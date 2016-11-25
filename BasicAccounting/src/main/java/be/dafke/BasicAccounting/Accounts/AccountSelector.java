@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.AccountsListener;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
@@ -10,7 +9,7 @@ import be.dafke.ComponentModel.RefreshableDialog;
 import javax.swing.*;
 import java.awt.*;
 
-public class AccountSelector extends RefreshableDialog implements AccountsListener, AccountDataChangeListener {
+public class AccountSelector extends RefreshableDialog implements AccountsListener {
 	/**
 	 * 
 	 */
@@ -21,8 +20,9 @@ public class AccountSelector extends RefreshableDialog implements AccountsListen
     private final DefaultComboBoxModel<Account> model;
 	private Accounts accounts;
 	private AccountTypes accountTypes;
+	private static AccountSelector accountSelector = null;
 
-	public AccountSelector(final Accounts accounts, AccountTypes accountTypes) {
+	private AccountSelector(Accounts accounts, AccountTypes accountTypes) {
 		super("Select Account");
 		model = new DefaultComboBoxModel<>();
 		combo = new JComboBox<>(model);
@@ -43,6 +43,13 @@ public class AccountSelector extends RefreshableDialog implements AccountsListen
 		pack();
 	}
 
+	public static AccountSelector getAccountSelector(Accounts accounts, AccountTypes accountTypes){
+		if(accountSelector==null){
+			accountSelector = new AccountSelector(accounts, accountTypes);
+		}
+		return accountSelector;
+	}
+
 	public Account getSelection() {
 		return account;
 	}
@@ -57,7 +64,12 @@ public class AccountSelector extends RefreshableDialog implements AccountsListen
 		this.accountTypes = accountTypes;
 	}
 
-	@Override
+	public static void fireAccountDataChangedForAll() {
+		if(accountSelector!=null){
+			accountSelector.fireAccountDataChanged();
+		}
+	}
+
 	public void fireAccountDataChanged() {
 		model.removeAllElements();
 		for (Account account:accounts.getBusinessObjects()) {
