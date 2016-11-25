@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.DetailsPopupMenu;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessActions.JournalDataChangeListener;
 import be.dafke.BusinessActions.JournalListener;
@@ -20,7 +19,7 @@ public class JournalGUI extends JPanel implements JournalListener, AccountingLis
 	 */
 	private static final long serialVersionUID = 1L;
     private final RefreshableTable<Booking> table;
-    private final DetailsPopupMenu popup;
+    private final JournalDetailsPopupMenu popup;
 
     private final JournalDetailsDataModel journalDetailsDataModel;
 
@@ -31,7 +30,7 @@ public class JournalGUI extends JPanel implements JournalListener, AccountingLis
         table = new RefreshableTable<>(journalDetailsDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
-        popup = new DetailsPopupMenu(table, DetailsPopupMenu.Mode.JOURNAL, journalInputGUI);
+        popup = new JournalDetailsPopupMenu(table, journalInputGUI);
         table.addMouseListener(new PopupForTableActivator(popup, table, 0,2,3,4));
 
         JPanel center = new JPanel();

@@ -5,7 +5,6 @@ package be.dafke.BasicAccounting.Accounts;
  * @author David Danneels
  */
 
-import be.dafke.BasicAccounting.DetailsPopupMenu;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
@@ -26,7 +25,7 @@ public class AccountDetails extends JFrame implements WindowListener, AccountDat
 	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private final DetailsPopupMenu popup;
+	private final AccountDetailsPopupMenu popup;
 	private RefreshableTable<Booking> tabel;
 	private AccountDetailsDataModel accountDetailsDataModel;
 
@@ -47,7 +46,7 @@ public class AccountDetails extends JFrame implements WindowListener, AccountDat
 		setContentPane(contentPanel);
 		pack();
 
-		popup = new DetailsPopupMenu(journals, tabel, journalInputGUI, DetailsPopupMenu.Mode.ACCOUNT);
+		popup = new AccountDetailsPopupMenu(journals, tabel, journalInputGUI);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel, 0,2,3));
 	}
 

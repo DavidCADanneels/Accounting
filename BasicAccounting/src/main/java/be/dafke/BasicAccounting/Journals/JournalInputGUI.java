@@ -10,8 +10,10 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import static be.dafke.BusinessActions.ActionUtils.TRANSACTION_REMOVED;
 import static java.util.ResourceBundle.getBundle;
 
 
@@ -116,6 +118,74 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         mainPanel.add(paneel2);
         mainPanel.add(paneel3);
         return mainPanel;
+    }
+
+    public void moveTransaction(ArrayList<Booking> bookings, Journals journals) {
+        for (Booking booking : bookings) {
+            Transaction transaction = booking.getTransaction();
+            Journal oldJournal = transaction.getJournal();
+
+            Journal newJournal = getNewJournal(transaction, journals);
+            if(newJournal!=null) { // e.g. when Cancel has been clicked
+                TransactionActions.moveTransaction(transaction, oldJournal, newJournal);
+                Main.fireJournalDataChanged(oldJournal);
+                Main.fireJournalDataChanged(newJournal);
+                for (Account account : transaction.getAccounts()) {
+                    Main.fireAccountDataChanged(account);
+                }
+
+                ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, oldJournal.getName(), newJournal.getName());
+            }
+        }
+    }
+
+    private Journal getNewJournal(Transaction transaction, Journals journals){
+        Journal journal = transaction.getJournal();
+        ArrayList<Journal> dagboeken = journals.getAllJournalsExcept(journal);
+        Object[] lijst = dagboeken.toArray();
+        int keuze = JOptionPane.showOptionDialog(null,
+                getBundle("BusinessActions").getString("CHOOSE_JOURNAL"),
+                getBundle("BusinessActions").getString("JOURNAL_CHOICE"),
+                JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, lijst, lijst[0]);
+        if(keuze!=JOptionPane.CANCEL_OPTION && keuze!=JOptionPane.CLOSED_OPTION){
+            return (Journal) lijst[keuze];
+        }else return null;
+    }
+
+    public void deleteTransaction(ArrayList<Booking> bookings) {
+        for (Booking booking : bookings) {
+            Transaction transaction = booking.getTransaction();
+            Journal journal = transaction.getJournal();
+
+            TransactionActions.deleteTransaction(transaction);
+            Main.fireJournalDataChanged(journal);
+            for (Account account : transaction.getAccounts()) {
+                Main.fireAccountDataChanged(account);
+            }
+
+            ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.getName());
+        }
+    }
+
+    public void editTransaction(ArrayList<Booking> bookings) {
+        for (Booking booking : bookings) {
+            Transaction transaction = booking.getTransaction();
+            Journal journal = transaction.getJournal();
+
+            TransactionActions.deleteTransaction(transaction);
+            Main.fireJournalDataChanged(journal);
+            for (Account account : transaction.getAccounts()) {
+                Main.fireAccountDataChanged(account);
+            }
+            //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
+            // set Journal before Transaction: setJournal sets transaction to currentObject !!!
+            Main.setJournal(journal);
+            journal.setCurrentObject(transaction);
+            // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
+            setTransaction(transaction);
+
+            ActionUtils.showErrorMessage(TRANSACTION_REMOVED,journal.getName());
+        }
     }
 
     private void setDate(Calendar date){
