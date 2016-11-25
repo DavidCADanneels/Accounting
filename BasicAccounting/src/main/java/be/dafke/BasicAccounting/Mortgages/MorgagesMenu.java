@@ -6,8 +6,6 @@ import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Mortgages;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 import static java.util.ResourceBundle.getBundle;
@@ -15,7 +13,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 26/12/2015.
  */
-public class MorgagesMenu extends JMenu implements ActionListener {
+public class MorgagesMenu extends JMenu {
     private static JMenuItem mortgage;
     private static Mortgages mortgages;
     private static Accounts accounts;
@@ -24,12 +22,12 @@ public class MorgagesMenu extends JMenu implements ActionListener {
         super(getBundle("Mortgage").getString("MORTGAGES"));
         setMnemonic(KeyEvent.VK_M);
         mortgage = new JMenuItem("Mortgages");
-        mortgage.addActionListener(this);
+        mortgage.addActionListener(e -> showMortgages());
         mortgage.setEnabled(false);
         add(mortgage);
     }
 
-    public void actionPerformed(ActionEvent e) {
+    public void showMortgages() {
         String key = Mortgages.MORTGAGES + mortgages.hashCode();
         JFrame gui = Main.getJFrame(key); // DETAILS
         if(gui == null){
