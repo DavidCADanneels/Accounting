@@ -81,8 +81,8 @@ public class ProjectGUI extends JFrame {
         pack();
         refresh();
     }
-    private JScrollPane createBalancePanel(BalanceDataModel dataModel){
-        RefreshableTable<Account> table = new RefreshableTable<>(dataModel);
+    private JScrollPane createBalancePanel(BalanceDataModel balanceDataModel){
+        RefreshableTable<Account> table = new RefreshableTable<>(balanceDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         return new JScrollPane(table);
     }

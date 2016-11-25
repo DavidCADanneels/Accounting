@@ -1,7 +1,6 @@
-package be.dafke.BasicAccounting.MainApplication;
+package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.DetailsPopupMenu;
-import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessActions.JournalDataChangeListener;
 import be.dafke.BusinessActions.JournalListener;

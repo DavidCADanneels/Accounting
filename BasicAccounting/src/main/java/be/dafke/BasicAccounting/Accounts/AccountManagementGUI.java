@@ -29,7 +29,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 	public static final String DELETE = "DELETE";
 	public static final String MODIFY_DEFAULT_AMOUNT = "MODIFY_DEFAULT_AMOUNT";
 	private JButton newAccount, delete, modifyName, modifyType, modifyDefaultAmount;
-	private final AccountManagementTableModel model;
+	private final AccountManagementTableModel accountManagementTableModel;
 	private final RefreshableTable<Account> tabel;
 	private final DefaultListSelectionModel selection;
 	private Accounts accounts;
@@ -40,12 +40,12 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		super(getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE"));
 		this.accounts = accounts;
 		this.accountTypes = accountTypes;
-		this.model = new AccountManagementTableModel(accounts, accountTypes);
+		this.accountManagementTableModel = new AccountManagementTableModel(accounts, accountTypes);
 
 		// COMPONENTS
 		//
 		// Table
-		tabel = new RefreshableTable<>(model);
+		tabel = new RefreshableTable<>(accountManagementTableModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
@@ -109,7 +109,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 
  	@Override
 	public void fireAccountDataChanged() {
-		model.fireTableDataChanged();
+		accountManagementTableModel.fireTableDataChanged();
 	}
 
 	public void valueChanged(ListSelectionEvent e) {

@@ -1,7 +1,7 @@
-package be.dafke.BasicAccounting.MainApplication;
+package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
-import be.dafke.BasicAccounting.AccountsPopupMenu;
+import be.dafke.BasicAccounting.Journals.JournalInputGUI;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessActions.AccountsListener;

@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Balances;
 
-import be.dafke.BasicAccounting.BalancePopupMenu;
 import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
@@ -21,13 +20,13 @@ public class TestBalance extends JFrame implements AccountDataChangeListener {
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
 	private RefreshableTable<Account> tabel;
-	private TestBalanceDataModel dataModel;
+	private TestBalanceDataModel testBalanceDataModel;
 
 	public TestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes) {
 		super(getBundle("BusinessModel").getString("TESTBALANCE"));
-		 dataModel = new TestBalanceDataModel(accounts, accountTypes);
+		 testBalanceDataModel = new TestBalanceDataModel(accounts, accountTypes);
 
-		tabel = new RefreshableTable<>(dataModel);
+		tabel = new RefreshableTable<>(testBalanceDataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
@@ -45,6 +44,6 @@ public class TestBalance extends JFrame implements AccountDataChangeListener {
 
 	@Override
 	public void fireAccountDataChanged() {
-		dataModel.fireTableDataChanged();
+		testBalanceDataModel.fireTableDataChanged();
 	}
 }

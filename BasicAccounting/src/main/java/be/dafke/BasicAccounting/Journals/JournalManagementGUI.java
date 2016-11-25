@@ -26,7 +26,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 	private JButton add, delete, modifyName, modifyType, modifyAbbr, newType;
 	private final DefaultListSelectionModel selection;
     private RefreshableTable<Journal> tabel;
-    private JournalManagementTableModel dataModel;
+    private JournalManagementTableModel journalManagementTableModel;
     private Journals journals;
     private JournalTypes journalTypes;
     private Accounts accounts;
@@ -39,9 +39,9 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         this.journalTypes = journalTypes;
         this.accounts = accounts;
         this.accountTypes = accountTypes;
-        dataModel = new JournalManagementTableModel(journals);
+        journalManagementTableModel = new JournalManagementTableModel(journals);
 
-        tabel = new RefreshableTable<>(dataModel);
+        tabel = new RefreshableTable<>(journalManagementTableModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
         //tabel.setAutoCreateRowSorter(true);
         tabel.setRowSorter(null);
@@ -75,7 +75,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 
     @Override
     public void fireJournalDataChanged() {
-        dataModel.fireTableDataChanged();
+        journalManagementTableModel.fireTableDataChanged();
     }
 
 	private JPanel createContentPanel(){

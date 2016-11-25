@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Mortgages;
 
-import be.dafke.BasicAccounting.MainApplication.JournalInputGUI;
+import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessActions.MortgagesListener;
 import be.dafke.BusinessModel.Accounting;

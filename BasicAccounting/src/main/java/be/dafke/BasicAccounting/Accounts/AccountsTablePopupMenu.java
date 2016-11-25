@@ -1,7 +1,6 @@
-package be.dafke.BasicAccounting;
+package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
-import be.dafke.BasicAccounting.MainApplication.JournalInputGUI;
+import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;

@@ -6,7 +6,7 @@ package be.dafke.BasicAccounting.Accounts;
  */
 
 import be.dafke.BasicAccounting.DetailsPopupMenu;
-import be.dafke.BasicAccounting.MainApplication.JournalInputGUI;
+import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
@@ -28,13 +28,13 @@ public class AccountDetails extends JFrame implements WindowListener, AccountDat
 	private static final long serialVersionUID = 1L;
 	private final DetailsPopupMenu popup;
 	private RefreshableTable<Booking> tabel;
-	private AccountDetailsDataModel dataModel;
+	private AccountDetailsDataModel accountDetailsDataModel;
 
 	public AccountDetails(Account account, Journals journals, JournalInputGUI journalInputGUI) {
 		super(getBundle("Accounting").getString("ACCOUNT_DETAILS")+ " " + account.getName());
-		dataModel = new AccountDetailsDataModel(account);
+		accountDetailsDataModel = new AccountDetailsDataModel(account);
 
-		tabel = new RefreshableTable<>(dataModel);
+		tabel = new RefreshableTable<>(accountDetailsDataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
@@ -67,6 +67,6 @@ public class AccountDetails extends JFrame implements WindowListener, AccountDat
 
 	@Override
 	public void fireAccountDataChanged() {
-		dataModel.fireTableDataChanged();
+		accountDetailsDataModel.fireTableDataChanged();
 	}
 }

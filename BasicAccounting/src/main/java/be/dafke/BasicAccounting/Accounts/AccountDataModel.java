@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting.MainApplication;
+package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounts;

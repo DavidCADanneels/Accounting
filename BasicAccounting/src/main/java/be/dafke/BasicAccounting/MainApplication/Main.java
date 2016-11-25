@@ -1,12 +1,17 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.Accounts.AccountDetails;
+import be.dafke.BasicAccounting.Accounts.AccountsGUI;
+import be.dafke.BasicAccounting.Accounts.AccountsTableGUI;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
 import be.dafke.BasicAccounting.Balances.BalancesMenu;
 import be.dafke.BasicAccounting.Balances.TestBalance;
 import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
 import be.dafke.BasicAccounting.Journals.JournalDetails;
+import be.dafke.BasicAccounting.Journals.JournalGUI;
+import be.dafke.BasicAccounting.Journals.JournalInputGUI;
+import be.dafke.BasicAccounting.Journals.JournalsGUI;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;

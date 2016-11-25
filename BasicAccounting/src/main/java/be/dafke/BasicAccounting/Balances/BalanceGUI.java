@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Balances;
 
-import be.dafke.BasicAccounting.BalancePopupMenu;
 import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
@@ -15,13 +14,13 @@ public class BalanceGUI extends JFrame implements AccountDataChangeListener {
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
 	private RefreshableTable<Account> tabel;
-	private BalanceDataModel dataModel;
+	private BalanceDataModel balanceDataModel;
 
 	public BalanceGUI(Journals journals, Balance balance) {
 		super(balance.getName());
-		dataModel = new BalanceDataModel(balance);
+		balanceDataModel = new BalanceDataModel(balance);
 
-		tabel = new RefreshableTable<>(dataModel);
+		tabel = new RefreshableTable<>(balanceDataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
@@ -39,6 +38,6 @@ public class BalanceGUI extends JFrame implements AccountDataChangeListener {
 
 	@Override
 	public void fireAccountDataChanged() {
-		dataModel.fireTableDataChanged();
+		balanceDataModel.fireTableDataChanged();
 	}
 }

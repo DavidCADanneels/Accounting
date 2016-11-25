@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting;
+package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
 import be.dafke.BusinessModel.AccountTypes;

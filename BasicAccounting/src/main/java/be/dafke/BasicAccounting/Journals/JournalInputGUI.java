@@ -1,6 +1,6 @@
-package be.dafke.BasicAccounting.MainApplication;
+package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.JournalGUIPopupMenu;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.*;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;

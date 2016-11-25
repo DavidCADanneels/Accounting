@@ -1,5 +1,6 @@
-package be.dafke.BasicAccounting.MainApplication;
+package be.dafke.BasicAccounting.Journals;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessActions.JournalListener;
 import be.dafke.BusinessModel.*;

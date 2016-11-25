@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting;
 
 import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BasicAccounting.Journals.JournalDetails;
-import be.dafke.BasicAccounting.MainApplication.JournalInputGUI;
+import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.TransactionActions;

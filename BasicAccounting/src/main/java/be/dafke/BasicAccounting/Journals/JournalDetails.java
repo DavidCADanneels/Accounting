@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.DetailsPopupMenu;
-import be.dafke.BasicAccounting.MainApplication.JournalInputGUI;
 import be.dafke.BusinessActions.JournalDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Booking;
@@ -27,14 +26,14 @@ public class JournalDetails extends JFrame implements WindowListener, JournalDat
 	private static final long serialVersionUID = 1L;
 	private final DetailsPopupMenu popup;
 	private RefreshableTable<Booking> tabel;
-	private JournalDetailsDataModel dataModel;
+	private JournalDetailsDataModel journalDetailsDataModel;
 
 	public JournalDetails(Journal journal, Journals journals, JournalInputGUI journalInputGUI) {
 		super(getBundle("Accounting").getString("JOURNAL_DETAILS") + " " + journal.toString());
-		dataModel = new JournalDetailsDataModel();
-		dataModel.setJournal(journal);
+		journalDetailsDataModel = new JournalDetailsDataModel();
+		journalDetailsDataModel.setJournal(journal);
 
-		tabel = new RefreshableTable<>(dataModel);
+		tabel = new RefreshableTable<>(journalDetailsDataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
@@ -66,6 +65,6 @@ public class JournalDetails extends JFrame implements WindowListener, JournalDat
 
 	@Override
 	public void fireJournalDataChanged() {
-		dataModel.fireTableDataChanged();
+		journalDetailsDataModel.fireTableDataChanged();
 	}
 }
