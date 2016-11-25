@@ -127,7 +127,7 @@ public class Main {
         accountingListeners.add(journalReadGUI);
         accountingListeners.add(balancesMenu);
         accountingListeners.add(morgagesMenu);
-        accountingListeners.add(projectsMenu);
+//        accountingListeners.add(projectsMenu);
         accountingListeners.add(contactsMenu);
         accountingListeners.add(codaMenu);
         accountingListeners.add(menuBar);
@@ -231,6 +231,7 @@ public class Main {
         for(AccountingListener accountingListener:accountingListeners){
             accountingListener.setAccounting(accounting);
         }
+        ProjectsMenu.setAccounting(accounting);
     }
 
     public static void setJournal(Journal journal) {
