@@ -351,10 +351,6 @@ public class Main {
         }
     }
 
-    public static JFrame getJFrame(String name){
-        return disposableComponents.get(name);
-    }
-
     public static void addJFrame(String key, JFrame frame) {
         disposableComponents.put(key, frame);
     }

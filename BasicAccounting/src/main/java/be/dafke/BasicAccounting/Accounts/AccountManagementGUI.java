@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Accounts;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.AccountActions;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
@@ -13,6 +14,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -32,8 +34,9 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 	private final DefaultListSelectionModel selection;
 	private Accounts accounts;
 	private AccountTypes accountTypes;
+	private static final HashMap<Accounts, AccountManagementGUI> accountManagementGuis = new HashMap<>();
 
-	public AccountManagementGUI(final Accounts accounts, final AccountTypes accountTypes) {
+	private AccountManagementGUI(final Accounts accounts, final AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE"));
 		this.accounts = accounts;
 		this.accountTypes = accountTypes;
@@ -57,6 +60,17 @@ public class AccountManagementGUI extends RefreshableFrame implements ListSelect
 		panel.add(south, BorderLayout.SOUTH);
 		setContentPane(panel);
 		pack();
+	}
+
+	public static AccountManagementGUI showAccountManager(Accounts accounts, AccountTypes accountTypes) {
+		String key = ""+accounts.hashCode();
+		AccountManagementGUI gui = accountManagementGuis.get(key); // DETAILS
+		if(gui == null){
+			gui = new AccountManagementGUI(accounts, accountTypes);
+			accountManagementGuis.put(accounts, gui);
+			Main.addJFrame(key, gui); // DETAILS
+		}
+		return gui;
 	}
 
 	private JPanel createContentPanel(){

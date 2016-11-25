@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Coda;
 
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
@@ -11,6 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public class CounterPartyTableFrame extends RefreshableFrame implements MouseListener {
@@ -23,8 +25,9 @@ public class CounterPartyTableFrame extends RefreshableFrame implements MouseLis
     private AccountTypes accountTypes;
     private RefreshableTable<CounterParty> tabel;
     private CounterPartyDataModel dataModel;
+    private static final HashMap<CounterParties, CounterPartyTableFrame> counterpartiesGuis = new HashMap<>();
 
-    public CounterPartyTableFrame(CounterParties counterParties, Statements statements) {
+    private CounterPartyTableFrame(CounterParties counterParties, Statements statements) {
 		super("Counterparties");
         this.statements = statements;
 
@@ -45,6 +48,17 @@ public class CounterPartyTableFrame extends RefreshableFrame implements MouseLis
 		// tabel.setAutoCreateRowSorter(true);
 		tabel.addMouseListener(this);
 	}
+
+    public static CounterPartyTableFrame showStatements(Statements statements, CounterParties counterParties) {
+        String key = CounterParties.COUNTERPARTIES + counterParties.hashCode();
+        CounterPartyTableFrame gui = counterpartiesGuis.get(counterParties);
+        if(gui == null){
+            gui = new CounterPartyTableFrame(counterParties, statements);
+            counterpartiesGuis.put(counterParties,gui);
+            Main.addJFrame(key, gui);
+        }
+        return gui;
+    }
 
 	public void setAccounting(Accounting accounting){
         accounts = accounting.getAccounts();

@@ -2,7 +2,6 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
 import be.dafke.BasicAccounting.AccountsPopupMenu;
-import be.dafke.BasicAccounting.GUIActions;
 import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessActions.AccountsListener;
@@ -22,6 +21,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static be.dafke.BasicAccounting.Accounts.AccountManagementGUI.showAccountManager;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -143,7 +143,7 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
 
     public void buttonClicked(String actionCommand) {
         if (MANAGE.equals(actionCommand)) {
-            GUIActions.showAccountManager(accounts, accountTypes);
+            showAccountManager(accounts, accountTypes);
         } else if (DETAILS.equals(actionCommand)) {
             Main.getAccountDetails(lijst.getSelectedValue(), journals);
         } else if (ADD.equals(actionCommand)) {

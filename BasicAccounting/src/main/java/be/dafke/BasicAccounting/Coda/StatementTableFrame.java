@@ -12,8 +12,6 @@ import be.dafke.Utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
@@ -21,7 +19,7 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.List;
 
-public class StatementTableFrame extends RefreshableFrame implements ActionListener, MouseListener, AccountingListener {
+public class StatementTableFrame extends RefreshableFrame implements MouseListener, AccountingListener {
 	/**
 	 * 
 	 */
@@ -33,9 +31,9 @@ public class StatementTableFrame extends RefreshableFrame implements ActionListe
 	private StatementDataModel dataModel;
 	private Accounts accounts;
 	private Journals journals;
+	private static final HashMap<Statements, StatementTableFrame> statementsGuis = new HashMap<>();
 
-
-	public StatementTableFrame(Statements statements, CounterParties counterParties) {
+	private StatementTableFrame(Statements statements, CounterParties counterParties) {
 		super("Statements");
 		this.statements = statements;
         this.counterParties = counterParties;
@@ -52,13 +50,13 @@ public class StatementTableFrame extends RefreshableFrame implements ActionListe
 
 		tabel.addMouseListener(this);
 		viewCounterParties = new JButton("View Counterparties");
-		viewCounterParties.addActionListener(this);
+		viewCounterParties.addActionListener(e -> CounterPartyTableFrame.showStatements(statements,counterParties).setVisible(true));
 		readCoda = new JButton("Read Coda file(s)");
-		readCoda.addActionListener(this);
+		readCoda.addActionListener(e -> readCodaFiles());
         readCsv = new JButton("Read CSV file(s)");
-        readCsv.addActionListener(this);
+        readCsv.addActionListener(e -> readCsvFiles());
 		saveToAccounting = new JButton("Save movements (all/selection)");
-		saveToAccounting.addActionListener(this);
+		saveToAccounting.addActionListener(e -> saveToAccounting());
 		JPanel north = new JPanel();
 		north.add(readCoda);
         north.add(readCsv);
@@ -66,7 +64,7 @@ public class StatementTableFrame extends RefreshableFrame implements ActionListe
 		getContentPane().add(north, BorderLayout.NORTH);
 		exportToJournal = new JButton("Export selected movements to a Journal");
 		// exportToJournal.setEnabled(false);
-		exportToJournal.addActionListener(this);
+		exportToJournal.addActionListener(e -> exportToJournal());
 //		JPanel south = new JPanel();
 		contentPanel.add(exportToJournal, BorderLayout.SOUTH);
 
@@ -74,25 +72,15 @@ public class StatementTableFrame extends RefreshableFrame implements ActionListe
 		pack();
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == readCoda) {
-			readCodaFiles();
-		} else if (e.getSource() == readCsv) {
-			readCsvFiles();
-		} else if (e.getSource() == exportToJournal) {
-			exportToJournal();
-		} else if (e.getSource() == saveToAccounting) {
-			saveToAccounting();
-		} else if (e.getSource() == viewCounterParties) {
-//			Accounting accounting = accountings.getCurrentObject();
-			String key = CounterParties.COUNTERPARTIES + counterParties.hashCode();
-			JFrame gui = Main.getJFrame(key); // DETAILS
-			if (gui == null) {
-				gui = new CounterPartyTableFrame((CounterParties) counterParties, (Statements) statements);
-				Main.addJFrame(key, gui); // DETAILS
-			}
-			gui.setVisible(true);
+	public static StatementTableFrame showStatements(Statements statements, CounterParties counterParties) {
+		String key = Statements.STATEMENTS + statements.hashCode();
+		StatementTableFrame gui = statementsGuis.get(statements);
+		if(gui == null){
+			gui = new StatementTableFrame(statements, counterParties);
+			statementsGuis.put(statements,gui);
+			Main.addJFrame(key, gui);
 		}
+		return gui;
 	}
 
 	private void saveToAccounting() {
@@ -173,10 +161,7 @@ public class StatementTableFrame extends RefreshableFrame implements ActionListe
 				builder.append("\n").append(counterParty);
 			}
 			JOptionPane.showMessageDialog(this, builder.toString());
-            // TODO: this is an existing Action in CodaActionListener
-            String key = CounterParties.COUNTERPARTIES + counterParties.hashCode();
-            Main.getJFrame(key).setVisible(true);
-            // until here
+			CounterPartyTableFrame.showStatements(statements,counterParties).setVisible(true);
 			return false;
 		}
 		return true;

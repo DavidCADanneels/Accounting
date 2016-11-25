@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.GUIActions;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.JournalActions;
 import be.dafke.BusinessModel.*;
@@ -12,7 +12,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import static be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI.showJournalTypeManager;
 import static java.util.ResourceBundle.getBundle;
 
 public class JournalManagementGUI extends RefreshableFrame implements ListSelectionListener{
@@ -29,8 +31,9 @@ public class JournalManagementGUI extends RefreshableFrame implements ListSelect
     private JournalTypes journalTypes;
     private Accounts accounts;
     private AccountTypes accountTypes;
+    private static final HashMap<Journals, JournalManagementGUI> journalManagementGuis = new HashMap<>();
 
-    public JournalManagementGUI(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes) {
+    private JournalManagementGUI(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE"));
         this.journals = journals;
         this.journalTypes = journalTypes;
@@ -60,6 +63,17 @@ public class JournalManagementGUI extends RefreshableFrame implements ListSelect
         refresh();
 	}
 
+    public static JournalManagementGUI showJournalManager(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes) {
+        String key = "" + journals.hashCode();
+        JournalManagementGUI gui = journalManagementGuis.get(key); // DETAILS
+        if(gui == null){
+            gui = new JournalManagementGUI(journals, journalTypes, accounts, accountTypes);
+            journalManagementGuis.put(journals, gui);
+            Main.addJFrame(key, gui); // DETAILS
+        }
+        return gui;
+    }
+
     public void refresh() {
 //		tabel.refresh();
         dataModel.fireTableDataChanged();
@@ -77,7 +91,7 @@ public class JournalManagementGUI extends RefreshableFrame implements ListSelect
         modifyType.addActionListener(e -> modifyType());
         modifyAbbr.addActionListener(e -> modifyAbbr());
         delete.addActionListener(e -> deleteJournal());
-        newType.addActionListener(e -> GUIActions.showJournalTypeManager(journalTypes,accountTypes));
+        newType.addActionListener(e -> showJournalTypeManager(journalTypes,accountTypes));
         add.addActionListener(e -> new NewJournalGUI(journals, journalTypes, accounts, accountTypes).setVisible(true));
         modifyName.setEnabled(false);
         modifyType.setEnabled(false);

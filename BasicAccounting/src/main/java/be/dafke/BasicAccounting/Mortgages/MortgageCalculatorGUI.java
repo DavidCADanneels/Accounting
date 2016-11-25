@@ -14,6 +14,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.math.BigDecimal;
+import java.util.HashMap;
 
 public class MortgageCalculatorGUI extends RefreshableFrame implements ActionListener, FocusListener {
 	/**
@@ -37,8 +38,10 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 
     private static int counter = 1;
     private final int nr;
+	private static final String MORTGAGE_CALCULATOR = "MortgageCalculator";
+	private static final HashMap<Mortgages, MortgageCalculatorGUI> mortgageCalculatorGuis = new HashMap<>();
 
-	public MortgageCalculatorGUI(Mortgages mortgages) {
+	private MortgageCalculatorGUI(Mortgages mortgages) {
 		super("Mortgage Calculator");
         nr = counter++;
         this.mortgages = mortgages;
@@ -126,8 +129,15 @@ public class MortgageCalculatorGUI extends RefreshableFrame implements ActionLis
 		pack();
 	}
 
-	public void refresh() {
-        // nothing to do
+	public static MortgageCalculatorGUI showCalculator(Mortgages mortgages) {
+		String key = MORTGAGE_CALCULATOR + mortgages.hashCode();
+		MortgageCalculatorGUI gui = mortgageCalculatorGuis.get(key);
+		if (gui == null) {
+			gui = new MortgageCalculatorGUI(mortgages);
+			mortgageCalculatorGuis.put(mortgages, gui);
+			Main.addJFrame(key, gui);
+		}
+		return gui;
 	}
 
 	public void actionPerformed(ActionEvent e) {

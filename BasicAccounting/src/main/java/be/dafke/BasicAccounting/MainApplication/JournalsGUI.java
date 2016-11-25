@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.BasicAccounting.GUIActions;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessActions.JournalListener;
 import be.dafke.BusinessModel.*;
@@ -12,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import static be.dafke.BasicAccounting.Journals.JournalManagementGUI.showJournalManager;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -62,7 +62,7 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalListen
 		String actionCommand = ae.getActionCommand();
 		if(journals!=null) {
 			if (MANAGE.equals(actionCommand)) {
-				GUIActions.showJournalManager(journals, journalTypes, accounts, accountTypes);
+				showJournalManager(journals, journalTypes, accounts, accountTypes);
 			} else if (DETAILS.equals(actionCommand)) {
 				Main.getJournalDetails(journals.getCurrentObject(), journals);
 			}

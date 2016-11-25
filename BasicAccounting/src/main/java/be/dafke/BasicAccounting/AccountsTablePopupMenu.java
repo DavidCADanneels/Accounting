@@ -10,6 +10,7 @@ import javax.swing.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
+import static be.dafke.BasicAccounting.Accounts.AccountManagementGUI.showAccountManager;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -44,7 +45,7 @@ public class AccountsTablePopupMenu extends JPopupMenu {
         debit.addActionListener(e -> book(true));
         credit.addActionListener(e -> book(false));
         manage.addActionListener(e -> {
-            GUIActions.showAccountManager(accounts, accountTypes);
+            showAccountManager(accounts, accountTypes);
             setVisible(false);
         });
         add.addActionListener(e -> {

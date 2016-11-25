@@ -38,7 +38,6 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 
 	private final RefreshableTable<Mortgage> table;
 	private final JButton save, delete;
-	private static final String MORTGAGE_CALCULATOR = "MortgageCalculator";
 	private static final HashMap<Mortgages, MortgageGUI> mortgageGuis = new HashMap<>();
 
 	private MortgageGUI(Mortgages mortgages, Accounts accounts) {
@@ -49,15 +48,7 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		mortgagesList.setModel(new DefaultListModel<>());
 		mortgagesList.addListSelectionListener(this);
 		create = new JButton("Create new Mortgage table");
-		create.addActionListener(e -> {
-            String key = MORTGAGE_CALCULATOR + mortgages.hashCode();
-            JFrame gui = Main.getJFrame(key); // DETAILS
-            if(gui == null){
-                gui = new MortgageCalculatorGUI(mortgages);
-                Main.addJFrame(key, gui); // DETAILS
-            }
-            gui.setVisible(true);
-        });
+		create.addActionListener(e -> MortgageCalculatorGUI.showCalculator(mortgages).setVisible(true));
 
 		JPanel left = new JPanel(new BorderLayout());
 		left.add(mortgagesList, BorderLayout.CENTER);

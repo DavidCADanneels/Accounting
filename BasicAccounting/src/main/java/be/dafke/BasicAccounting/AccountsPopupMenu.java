@@ -6,6 +6,7 @@ import be.dafke.BusinessModel.Accounts;
 
 import javax.swing.*;
 
+import static be.dafke.BasicAccounting.Accounts.AccountManagementGUI.showAccountManager;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -24,7 +25,7 @@ public class AccountsPopupMenu extends JPopupMenu {
         add(manage);
         add(add);
         manage.addActionListener(e -> {
-            GUIActions.showAccountManager(accounts, accountTypes);
+            showAccountManager(accounts, accountTypes).setVisible(true);
             setVisible(false);
         });
         add.addActionListener(e -> {

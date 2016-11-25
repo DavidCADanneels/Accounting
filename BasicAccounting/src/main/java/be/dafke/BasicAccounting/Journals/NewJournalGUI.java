@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.GUIActions;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableDialog;
@@ -9,6 +8,7 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 
+import static be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI.showJournalTypeManager;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -49,7 +49,7 @@ public class NewJournalGUI extends RefreshableDialog {
 		add.addActionListener(e -> addJournal());
 		line2.add(add);
         newType = new JButton(getBundle("Accounting").getString("ADD_JOURNAL_TYPE"));
-        newType.addActionListener(e -> GUIActions.showJournalTypeManager(journalTypes,accountTypes));
+        newType.addActionListener(e -> showJournalTypeManager(journalTypes,accountTypes));
         line2.add(newType);
         north.add(line1);
 		north.add(line2);

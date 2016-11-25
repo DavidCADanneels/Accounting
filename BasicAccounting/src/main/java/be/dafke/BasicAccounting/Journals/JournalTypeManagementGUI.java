@@ -1,9 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.JournalType;
-import be.dafke.BusinessModel.JournalTypes;
+import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
@@ -12,6 +10,7 @@ import be.dafke.Utils.AlphabeticListModel;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import static java.awt.BorderLayout.*;
@@ -30,13 +29,25 @@ public class JournalTypeManagementGUI extends RefreshableFrame {
 	private AlphabeticListModel<AccountType> debitModel, creditModel, typesModel;
 	private JournalTypes journalTypes;
 	private JTextField nameField;
+	private static final HashMap<JournalTypes, JournalTypeManagementGUI> journalTypeManagementGuis = new HashMap<>();
 
-	public JournalTypeManagementGUI(JournalTypes journalTypes, AccountTypes accountTypes) {
+	private JournalTypeManagementGUI(JournalTypes journalTypes, AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
 		setContentPane(createContentPanel());
 		setAccountTypes(accountTypes);
 		setJournalTypes(journalTypes);
 		pack();
+	}
+
+	public static void showJournalTypeManager(JournalTypes journalTypes, AccountTypes accountTypes) {
+		String key = "" + accountTypes.hashCode();
+		JournalTypeManagementGUI gui = journalTypeManagementGuis.get(key);
+		if(gui == null){
+			gui = new JournalTypeManagementGUI(journalTypes, accountTypes);
+			journalTypeManagementGuis.put(journalTypes,gui);
+			Main.addJFrame(key, gui); // DETAILS
+		}
+		gui.setVisible(true);
 	}
 
 	public void setAccountTypes(AccountTypes accountTypes) {
