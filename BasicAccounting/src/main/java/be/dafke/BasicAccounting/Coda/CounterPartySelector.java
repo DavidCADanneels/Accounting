@@ -1,32 +1,16 @@
 package be.dafke.BasicAccounting.Coda;
 
 import be.dafke.BusinessActions.ActionUtils;
-import be.dafke.BusinessModel.CounterParties;
-import be.dafke.BusinessModel.CounterParty;
-import be.dafke.BusinessModel.SearchOptions;
-import be.dafke.BusinessModel.Statement;
-import be.dafke.BusinessModel.Statements;
-import be.dafke.BusinessModel.TmpCounterParty;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableDialog;
-import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JScrollPane;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.BorderLayout;
-import java.awt.GridLayout;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -39,7 +23,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
 	private final JComboBox<BusinessObject> oldCounterPartyCombo, newCounterPartyCombo;
     private final CounterParties counterParties;
     private CounterParty oldCounterParty, newCounterParty;
-    private final RefreshableTable<Statement> movementTable;
+    private final JTable movementTable;
 	private final GenericStatementDataModel movementDataModel;
 	private final Statement statement;
 	private final JRadioButton single, multiple;
@@ -83,7 +67,7 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
         movementDataModel = new GenericStatementDataModel(searchOptions,
                 statements);
         movementDataModel.setSingleStatement(statement);
-        movementTable = new RefreshableTable<Statement>(movementDataModel);
+        movementTable = new JTable(movementDataModel);
         movementTable.setDefaultRenderer(CounterParty.class, new ColorRenderer());
         movementTable.setDefaultRenderer(TmpCounterParty.class, new ColorRenderer());
         JScrollPane scrollPane = new JScrollPane(movementTable);

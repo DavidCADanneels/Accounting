@@ -3,10 +3,11 @@ package be.dafke.BasicAccounting.Coda;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.CounterParties;
 import be.dafke.BusinessModel.CounterParty;
-import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.Utils.Utils;
 
-public class CounterPartyDataModel extends RefreshableTableModel<CounterParty> {
+import javax.swing.table.AbstractTableModel;
+
+public class CounterPartyDataModel extends AbstractTableModel {
 	/**
 	 * 
 	 */
@@ -67,14 +68,4 @@ public class CounterPartyDataModel extends RefreshableTableModel<CounterParty> {
 	@Override
 	public void setValueAt(Object value, int row, int col) {
     }
-
-	@Override
-	public CounterParty getObject(int row, int col) {
-		return null;
-	}
-
-	@Override
-	public int getRow(CounterParty counterParty) {
-		return 0;
-	}
 }

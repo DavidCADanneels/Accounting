@@ -2,18 +2,18 @@ package be.dafke.BasicAccounting.Mortgages;
 
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.MortgageTransaction;
-import be.dafke.ComponentModel.RefreshableTableModel;
 
+import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 
-public class MortgageDataModel extends RefreshableTableModel<Mortgage> {
+public class MortgageDataModel extends AbstractTableModel {
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String[] columnNames = { "Nr", "Mensualiteit", "Intrest", "Kapitaal", "RestKapitaal" };
-	private final Class[] columnClasses = { Integer.class, BigDecimal.class, BigDecimal.class, BigDecimal.class,
-			BigDecimal.class };
+	private final String[] columnNames = {"Nr", "Mensualiteit", "Intrest", "Kapitaal", "RestKapitaal"};
+	private final Class[] columnClasses = {Integer.class, BigDecimal.class, BigDecimal.class, BigDecimal.class,
+			BigDecimal.class};
 	private Mortgage data;
 
 	public MortgageDataModel(Mortgage data) {
@@ -29,11 +29,12 @@ public class MortgageDataModel extends RefreshableTableModel<Mortgage> {
 	}
 
 	public int getRowCount() {
-		return data==null?0:data.getBusinessObjects().size();
+		return data == null ? 0 : data.getBusinessObjects().size();
 	}
 
 	/**
 	 * Is called to refresh the displayed data from the Mortgages table --> only read data !!!
+	 *
 	 * @param row
 	 * @param col
 	 * @return
@@ -74,7 +75,7 @@ public class MortgageDataModel extends RefreshableTableModel<Mortgage> {
 	 * Is called when user updates the value in the table -> update Mortgages table
 	 */
 	public void setValueAt(Object value, int row, int col) {
-		BigDecimal amount = (BigDecimal)value;
+		BigDecimal amount = (BigDecimal) value;
 		MortgageTransaction mortgageTransaction = data.getBusinessObjects().get(row);
 		if (col == 2) {
 			mortgageTransaction.setIntrest(amount, true);
@@ -82,22 +83,8 @@ public class MortgageDataModel extends RefreshableTableModel<Mortgage> {
 			mortgageTransaction.setCapital(amount, true);
 		}
 //		if(...){ // TODO add option to disable auto update of below rows.
-			data.recalculateTable(row);
+		data.recalculateTable(row);
 //		}
 		fireTableDataChanged();
-	}
-
-	public Mortgage getData() {
-		return data;
-	}
-
-	@Override
-	public Mortgage getObject(int row, int col) {
-		return null;
-	}
-
-	@Override
-	public int getRow(Mortgage mortgage) {
-		return 0;
 	}
 }

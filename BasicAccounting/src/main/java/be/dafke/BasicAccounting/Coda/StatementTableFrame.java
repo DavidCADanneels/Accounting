@@ -5,7 +5,6 @@ import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.CodaParser;
 import be.dafke.BusinessModelDao.CsvParser;
-import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
@@ -26,7 +25,7 @@ public class StatementTableFrame extends JFrame implements MouseListener, Accoun
 	private final JButton viewCounterParties, exportToJournal, readCoda, readCsv, saveToAccounting;
     private Statements statements;
     private CounterParties counterParties;
-    private RefreshableTable<Statement> tabel;
+    private JTable tabel;
 	private StatementDataModel dataModel;
 	private Accounts accounts;
 	private Journals journals;
@@ -38,7 +37,7 @@ public class StatementTableFrame extends JFrame implements MouseListener, Accoun
         this.counterParties = counterParties;
 
 		dataModel = new StatementDataModel(statements);
-		tabel = new RefreshableTable<>(dataModel);
+		tabel = new JTable(dataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		// tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);

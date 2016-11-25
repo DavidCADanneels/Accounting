@@ -1,9 +1,7 @@
 package be.dafke.BasicAccounting.Coda;
 
 import be.dafke.BusinessModel.SearchOptions;
-import be.dafke.BusinessModel.Statement;
 import be.dafke.BusinessModel.Statements;
-import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,7 +9,7 @@ import java.awt.*;
 public class GenericStatementTableFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
-    private RefreshableTable<Statement> tabel;
+    private JTable tabel;
     private GenericStatementDataModel dataModel;
 
 	public GenericStatementTableFrame(SearchOptions searchOptions,
@@ -22,7 +20,7 @@ public class GenericStatementTableFrame extends JFrame {
                 (searchOptions.isSearchOnCommunication()? " [communication = "+searchOptions.getCommunication()+"]":""));
         dataModel = new GenericStatementDataModel(searchOptions,statements);
 
-        tabel = new RefreshableTable<>(dataModel);
+        tabel = new JTable(dataModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
         //tabel.setAutoCreateRowSorter(true);
         tabel.setRowSorter(null);

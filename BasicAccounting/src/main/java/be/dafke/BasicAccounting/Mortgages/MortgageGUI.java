@@ -5,7 +5,6 @@ import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
-import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 import be.dafke.Utils.Utils;
@@ -35,7 +34,7 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
 	private DefaultListModel<BusinessObject> listModel;
 	private DefaultComboBoxModel<Account> intrestModel, capitalModel;
 
-	private final RefreshableTable<Mortgage> table;
+	private final JTable table;
 	private final JButton save, delete;
 	private static final HashMap<Mortgages, MortgageGUI> mortgageGuis = new HashMap<>();
 
@@ -57,7 +56,7 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
 		panel.add(left, BorderLayout.WEST);
 
 		model = new MortgageDataModel(selectedMortgage);
-		table = new RefreshableTable<>(model);
+		table = new JTable(model);
 		table.setPreferredScrollableViewportSize(new Dimension(600, 200));
 		JScrollPane scroll = new JScrollPane(table);
 

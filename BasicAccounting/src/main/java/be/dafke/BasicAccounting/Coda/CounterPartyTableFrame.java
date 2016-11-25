@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Coda;
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.ObjectModel.BusinessObject;
 
@@ -22,7 +21,7 @@ public class CounterPartyTableFrame extends JFrame implements MouseListener {
     private final Statements statements;
     private Accounts accounts;
     private AccountTypes accountTypes;
-    private RefreshableTable<CounterParty> tabel;
+    private JTable tabel;
     private CounterPartyDataModel dataModel;
     private static final HashMap<CounterParties, CounterPartyTableFrame> counterpartiesGuis = new HashMap<>();
 
@@ -32,7 +31,7 @@ public class CounterPartyTableFrame extends JFrame implements MouseListener {
 
         dataModel = new CounterPartyDataModel(counterParties);
 
-        tabel = new RefreshableTable<>(dataModel);
+        tabel = new JTable(dataModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
         //tabel.setAutoCreateRowSorter(true);
         tabel.setRowSorter(null);

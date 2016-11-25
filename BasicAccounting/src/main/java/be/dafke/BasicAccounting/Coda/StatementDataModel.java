@@ -3,12 +3,12 @@ package be.dafke.BasicAccounting.Coda;
 import be.dafke.BusinessModel.CounterParty;
 import be.dafke.BusinessModel.Statement;
 import be.dafke.BusinessModel.Statements;
-import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.Utils.Utils;
 
+import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 
-public class StatementDataModel extends RefreshableTableModel<Statement> {
+public class StatementDataModel extends AbstractTableModel {
 	/**
 	 * 
 	 */
@@ -71,15 +71,5 @@ public class StatementDataModel extends RefreshableTableModel<Statement> {
 	// ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-	}
-
-	@Override
-	public Statement getObject(int row, int col) {
-		return null;
-	}
-
-	@Override
-	public int getRow(Statement statement) {
-		return 0;
 	}
 }

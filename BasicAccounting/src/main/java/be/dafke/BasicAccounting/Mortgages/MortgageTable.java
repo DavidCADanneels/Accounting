@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Mortgages;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
-import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -18,7 +17,7 @@ public class MortgageTable extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private final JButton save;
 	private final MortgageDataModel model;
-	private final RefreshableTable<Mortgage> tabel;
+	private final JTable tabel;
 	private final BigDecimal startCapital;
 
     private static int counter = 1;
@@ -34,7 +33,7 @@ public class MortgageTable extends JFrame {
         this.mortgages = mortgages;
 		this.startCapital = startCapital;
 		model = new MortgageDataModel(mortgage);
-		tabel = new RefreshableTable<>(model);
+		tabel = new JTable(model);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		JScrollPane scrollPane = new JScrollPane(tabel);
 		JPanel panel = new JPanel(new BorderLayout());
