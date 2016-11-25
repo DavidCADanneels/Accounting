@@ -13,6 +13,23 @@ import static be.dafke.BusinessModel.Contacts.TVA_NUMBER;
  */
 public class Contact extends BusinessObject{
     private String addressLine1, addressLine2, tvaNumber;
+    private boolean supplier, customer;
+
+    public boolean isSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(boolean supplier) {
+        this.supplier = supplier;
+    }
+
+    public boolean isCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(boolean customer) {
+        this.customer = customer;
+    }
 
     public String getAddressLine1() {
         return addressLine1;
