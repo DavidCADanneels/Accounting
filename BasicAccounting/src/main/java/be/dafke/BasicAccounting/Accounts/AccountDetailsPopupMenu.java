@@ -2,7 +2,6 @@ package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Journals;
@@ -75,7 +74,7 @@ public class AccountDetailsPopupMenu extends JPopupMenu {
         for (Booking booking : bookings) {
             Transaction transaction = booking.getTransaction();
             Journal journal = transaction.getJournal();
-            JournalDetails newGui = Main.getJournalDetails(journal, journals);;
+            JournalDetails newGui = JournalDetails.getJournalDetails(journal, journals, journalInputGUI);
             newGui.selectObject(booking);
         }
     }

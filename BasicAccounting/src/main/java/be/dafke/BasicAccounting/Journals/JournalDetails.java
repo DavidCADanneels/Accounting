@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
+import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessActions.JournalDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Booking;
@@ -11,7 +12,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.util.HashMap;
 
+import static be.dafke.BasicAccounting.MainApplication.Main.addJournalDataListener;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -26,8 +29,9 @@ public class JournalDetails extends JFrame implements WindowListener, JournalDat
 	private final JournalDetailsPopupMenu popup;
 	private RefreshableTable<Booking> tabel;
 	private JournalDetailsDataModel journalDetailsDataModel;
+	private static HashMap<Journal,JournalDetails> journalDetailsMap = new HashMap<>();
 
-	public JournalDetails(Journal journal, Journals journals, JournalInputGUI journalInputGUI) {
+	private JournalDetails(Journal journal, Journals journals, JournalInputGUI journalInputGUI) {
 		super(getBundle("Accounting").getString("JOURNAL_DETAILS") + " " + journal.toString());
 		journalDetailsDataModel = new JournalDetailsDataModel();
 		journalDetailsDataModel.setJournal(journal);
@@ -46,6 +50,18 @@ public class JournalDetails extends JFrame implements WindowListener, JournalDat
 
 		popup = new JournalDetailsPopupMenu(journals, tabel, journalInputGUI);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel, 0,2,3,4));
+	}
+
+	public static JournalDetails getJournalDetails(Journal journal, Journals journals, JournalInputGUI journalInputGUI){
+		JournalDetails journalDetails = journalDetailsMap.get(journal);
+		if(journalDetails==null){
+			journalDetails = new JournalDetails(journal, journals, journalInputGUI);
+			addJournalDataListener(journal,journalDetails);
+			journalDetailsMap.put(journal, journalDetails);
+			SaveAllActionListener.addFrame(journalDetails);
+		}
+		journalDetails.setVisible(true);
+		return journalDetails;
 	}
 
 	public void selectObject(Booking object){

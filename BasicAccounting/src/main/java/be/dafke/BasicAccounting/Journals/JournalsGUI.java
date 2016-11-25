@@ -65,7 +65,7 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalListen
 			if (MANAGE.equals(actionCommand)) {
 				showJournalManager(journals, journalTypes, accounts, accountTypes);
 			} else if (DETAILS.equals(actionCommand)) {
-				Main.getJournalDetails(journals.getCurrentObject(), journals);
+				JournalDetails.getJournalDetails(journals.getCurrentObject(), journals, journalInputGUI);
 			}
 			if(ae.getSource()==combo){
 				Journal newJournal = (Journal) combo.getSelectedItem();

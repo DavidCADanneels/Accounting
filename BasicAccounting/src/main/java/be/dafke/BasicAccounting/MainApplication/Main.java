@@ -7,7 +7,6 @@ import be.dafke.BasicAccounting.Balances.BalancesMenu;
 import be.dafke.BasicAccounting.Balances.TestBalance;
 import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
-import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.Journals.JournalGUI;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.Journals.JournalsGUI;
@@ -58,7 +57,6 @@ public class Main {
     private static ArrayList<JournalDataChangeListener> allJournalDataChangeListeners = new ArrayList<>();
     private static ArrayList<AccountDataChangeListener> allAccountDataChangeListeners = new ArrayList<>();
 
-    private static HashMap<Journal,JournalDetails> journalDetailsMap = new HashMap<>();
     private static HashMap<Accounts,TestBalance> testBalanceMap = new HashMap<>();
     private static HashMap<Balance,BalanceGUI> otherBalanceMap = new HashMap<>();
 
@@ -292,18 +290,6 @@ public class Main {
         for(BalanceGUI balanceGUI:otherBalanceMap.values()){
             balanceGUI.fireAccountDataChanged();
         }
-    }
-
-    public static JournalDetails getJournalDetails(Journal journal, Journals journals){
-        JournalDetails journalDetails = journalDetailsMap.get(journal);
-        if(journalDetails==null){
-            journalDetails = new JournalDetails(journal, journals, journalInputGUI);
-            addJournalDataListener(journal,journalDetails);
-            journalDetailsMap.put(journal, journalDetails);
-            SaveAllActionListener.addFrame(journalDetails);
-        }
-        journalDetails.setVisible(true);
-        return journalDetails;
     }
 
     public static TestBalance getTestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes) {
