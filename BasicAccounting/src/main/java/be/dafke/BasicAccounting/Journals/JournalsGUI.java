@@ -23,8 +23,6 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalListen
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final String MANAGE = "manage";
-	public static final String DETAILS = "details";
 	private JComboBox<Journal> combo;
 	private final JButton journalManagement, details;
 	private Journals journals;
@@ -46,13 +44,20 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalListen
 		JPanel paneel = new JPanel();
 
 		journalManagement = new JButton(getBundle("Accounting").getString("MANAGE_JOURNALS"));
-		journalManagement.addActionListener(this);
+		journalManagement.addActionListener(e -> {
+			if(journals!=null) {
+				showJournalManager(journals, journalTypes, accounts, accountTypes);
+			}
+		});
 		journalManagement.setEnabled(false);
-		journalManagement.setActionCommand(MANAGE);
 		details = new JButton(getBundle("Accounting").getString("VIEW_JOURNAL_DETAILS"));
-		details.addActionListener(this);
+		details.addActionListener(e -> {
+			if(journals!=null) {
+				JournalDetails.getJournalDetails(journals.getCurrentObject(), journals, journalInputGUI);
+			}
+		});
+
 		details.setEnabled(false);
-		details.setActionCommand(DETAILS);
 
 		paneel.add(journalManagement);
 		paneel.add(details);
@@ -60,21 +65,9 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalListen
 	}
 
 	public void actionPerformed(ActionEvent ae) {
-		String actionCommand = ae.getActionCommand();
-		if(journals!=null) {
-			if (MANAGE.equals(actionCommand)) {
-				showJournalManager(journals, journalTypes, accounts, accountTypes);
-			} else if (DETAILS.equals(actionCommand)) {
-				JournalDetails.getJournalDetails(journals.getCurrentObject(), journals, journalInputGUI);
-			}
-			if(ae.getSource()==combo){
-				Journal newJournal = (Journal) combo.getSelectedItem();
-				Journal journal = journalInputGUI.switchJournal(accounts, newJournal);
-				Main.setJournal(journal);
-				// setJournal will be called automatically if JournalsGUI is registered as journalListener
-//            setJournal(newJournal);
-			}
-		}
+		Journal newJournal = (Journal) combo.getSelectedItem();
+		Journal journal = journalInputGUI.switchJournal(accounts, newJournal);
+		Main.setJournal(journal);
 	}
 
 	@Override
