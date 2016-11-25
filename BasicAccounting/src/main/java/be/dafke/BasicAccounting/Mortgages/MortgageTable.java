@@ -9,11 +9,9 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 
-public class MortgageTable extends JFrame implements ActionListener {
+public class MortgageTable extends JFrame {
 	/**
 	 *
 	 */
@@ -36,24 +34,20 @@ public class MortgageTable extends JFrame implements ActionListener {
         this.mortgages = mortgages;
 		this.startCapital = startCapital;
 		model = new MortgageDataModel(mortgage);
-		tabel = new RefreshableTable<Mortgage>(model);
+		tabel = new RefreshableTable<>(model);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		JScrollPane scrollPane = new JScrollPane(tabel);
 		JPanel panel = new JPanel(new BorderLayout());
 		panel.add(scrollPane, BorderLayout.CENTER);
 		save = new JButton("Save table");
-		save.addActionListener(this);
+		save.addActionListener(e -> save());
 		panel.add(save, BorderLayout.SOUTH);
 		setContentPane(panel);
 		pack();
 		setVisible(true);
 	}
 
-	public void refresh() {
-		model.fireTableDataChanged();
-	}
-
-	public void actionPerformed(ActionEvent arg0) {
+	public void save() {
 		String name = JOptionPane.showInputDialog(this, "Enter a name for the table.");
         mortgage.setName(name);
         mortgage.setStartCapital(startCapital);

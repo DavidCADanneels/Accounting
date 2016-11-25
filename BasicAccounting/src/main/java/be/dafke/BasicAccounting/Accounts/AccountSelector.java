@@ -1,5 +1,7 @@
 package be.dafke.BasicAccounting.Accounts;
 
+import be.dafke.BusinessActions.AccountDataChangeListener;
+import be.dafke.BusinessActions.AccountsListener;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
@@ -7,10 +9,8 @@ import be.dafke.ComponentModel.RefreshableDialog;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class AccountSelector extends RefreshableDialog implements ActionListener {
+public class AccountSelector extends RefreshableDialog implements AccountsListener, AccountDataChangeListener {
 	/**
 	 * 
 	 */
@@ -19,22 +19,18 @@ public class AccountSelector extends RefreshableDialog implements ActionListener
 	private Account account;
 	private final JComboBox<Account> combo;
     private final DefaultComboBoxModel<Account> model;
-	private final Accounts accounts;
+	private Accounts accounts;
+	private AccountTypes accountTypes;
 
 	public AccountSelector(final Accounts accounts, AccountTypes accountTypes) {
-        super("Select Account");
-		this.accounts = accounts;
-        model = new DefaultComboBoxModel<>();
+		super("Select Account");
+		model = new DefaultComboBoxModel<>();
 		combo = new JComboBox<>(model);
-		combo.addActionListener(this);
+		combo.addActionListener(e -> account = (Account) combo.getSelectedItem());
 		create = new JButton("Add account(s) ...");
-		create.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				new NewAccountGUI(accounts, accountTypes).setVisible(true);
-			}
-		});
+		create.addActionListener(e -> new NewAccountGUI(accounts, accountTypes).setVisible(true));
 		ok = new JButton("Ok (Close popup)");
-		ok.addActionListener(this);
+		ok.addActionListener(e -> dispose());
 		JPanel innerPanel = new JPanel(new BorderLayout());
 		JPanel panel = new JPanel();
 		panel.add(combo);
@@ -42,26 +38,32 @@ public class AccountSelector extends RefreshableDialog implements ActionListener
 		innerPanel.add(panel, BorderLayout.CENTER);
 		innerPanel.add(ok, BorderLayout.SOUTH);
 		setContentPane(innerPanel);
-        refresh();
-        pack();
-	}
-
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == combo) {
-			account = (Account) combo.getSelectedItem();
-		} else if (e.getSource() == ok) {
-			dispose();
-		}
+		setAccounts(accounts);
+		setAccountTypes(accountTypes);
+		pack();
 	}
 
 	public Account getSelection() {
 		return account;
 	}
 
-    public void refresh() {
-        model.removeAllElements();
-		accounts.getBusinessObjects().forEach(model::addElement);
-        invalidate();
-        combo.invalidate();
+	@Override
+    public void setAccounts(Accounts accounts) {
+		this.accounts = accounts;
+		fireAccountDataChanged();
     }
+
+	public void setAccountTypes(AccountTypes accountTypes) {
+		this.accountTypes = accountTypes;
+	}
+
+	@Override
+	public void fireAccountDataChanged() {
+		model.removeAllElements();
+		for (Account account:accounts.getBusinessObjects()) {
+			model.addElement(account);
+		}
+		invalidate();
+		combo.invalidate();
+	}
 }

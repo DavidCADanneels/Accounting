@@ -11,8 +11,6 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 
 import static java.util.ResourceBundle.getBundle;
@@ -22,7 +20,7 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 24/02/13
  * Time: 11:34
  */
-public class NewAccountGUI extends RefreshableDialog implements ActionListener{
+public class NewAccountGUI extends RefreshableDialog {
     private final JTextField nameField, defaultAmountField;
     private final JComboBox<AccountType> type;
     private final JButton add;
@@ -32,37 +30,31 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
         super(getBundle("Accounting").getString("NEW_ACCOUNT_GUI_TITLE"));
         this.accounts = accounts;
         JPanel north = new JPanel();
-		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
-		JPanel line1 = new JPanel();
-		line1.add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")));
-		nameField = new JTextField(20);
-		nameField.addActionListener(this);
+        north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
+        JPanel line1 = new JPanel();
+        line1.add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")));
+        nameField = new JTextField(20);
+        nameField.addActionListener(e -> addAccount());
         defaultAmountField = new JTextField(10);
-		line1.add(nameField);
+        line1.add(nameField);
         line1.add(new JLabel(getBundle("Accounting").getString("DEFAULT_AMOUNT_LABEL")));
         line1.add(defaultAmountField);
-		JPanel line2 = new JPanel();
-		line2.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
-		type = new JComboBox<>();
+        JPanel line2 = new JPanel();
+        line2.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
+        type = new JComboBox<>();
         DefaultComboBoxModel<AccountType> model = new DefaultComboBoxModel<>();
-        for(AccountType accountType : accountTypes.getBusinessObjects()){
+        for (AccountType accountType : accountTypes.getBusinessObjects()) {
             model.addElement(accountType);
         }
         type.setModel(model);
-		line2.add(type);
-		add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNT"));
-		add.addActionListener(this);
-		line2.add(add);
-		north.add(line1);
-		north.add(line2);
+        line2.add(type);
+        add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNT"));
+        add.addActionListener(e -> addAccount());
+        line2.add(add);
+        north.add(line1);
+        north.add(line2);
         setContentPane(north);
         pack();
-    }
-
-    public void actionPerformed(ActionEvent event) {
-        if (event.getSource() == add || event.getSource() == nameField) {
-            addAccount();
-        }
     }
 
     private void addAccount() {
@@ -71,12 +63,12 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
             Account account = new Account(name.trim());
             account.setType((AccountType) type.getSelectedItem());
             String text = defaultAmountField.getText();
-            if(text!=null && !text.trim().equals("")){
-                try{
+            if (text != null && !text.trim().equals("")) {
+                try {
                     BigDecimal defaultAmount = new BigDecimal(text);
                     defaultAmount = defaultAmount.setScale(2);
                     account.setDefaultAmount(defaultAmount);
-                } catch (NumberFormatException nfe){
+                } catch (NumberFormatException nfe) {
                     account.setDefaultAmount(null);
                 }
             }
@@ -89,9 +81,5 @@ public class NewAccountGUI extends RefreshableDialog implements ActionListener{
         }
         nameField.setText("");
         defaultAmountField.setText("");
-    }
-
-    public void refresh() {
-        // nothing to do here
     }
 }

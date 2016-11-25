@@ -96,6 +96,7 @@ public class JournalGUIPopupMenu extends JPopupMenu{
         ArrayList<Booking> bookings = table.getSelectedObjects();
         for (Booking booking : bookings) {
             AccountSelector sel = new AccountSelector(accounts, accountTypes);
+            Main.addAccountDataListener(sel);
             sel.setVisible(true);
             Account account = sel.getSelection();
             if (account != null) {

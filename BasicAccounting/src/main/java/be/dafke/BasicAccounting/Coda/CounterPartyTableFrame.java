@@ -105,6 +105,7 @@ public class CounterPartyTableFrame extends JFrame implements MouseListener {
                 }
 			} else if (col == 5) {
                 AccountSelector sel = new AccountSelector(accounts, accountTypes);
+                Main.addAccountDataListener(sel);
                 sel.setVisible(true);
                 Account account = sel.getSelection();
 

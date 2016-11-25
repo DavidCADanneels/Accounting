@@ -54,6 +54,8 @@ public class Main {
 
     private static MultiValueMap<Integer, JournalDataChangeListener> journalDataChangeListeners = new MultiValueMap<>();
     private static MultiValueMap<Integer, AccountDataChangeListener> accountDataChangeListeners = new MultiValueMap<>();
+    private static ArrayList<JournalDataChangeListener> allJournalDataChangeListeners = new ArrayList<>();
+    private static ArrayList<AccountDataChangeListener> allAccountDataChangeListeners = new ArrayList<>();
 
     private static HashMap<Account,AccountDetails> accountDetailsMap = new HashMap<>();
     private static HashMap<Journal,JournalDetails> journalDetailsMap = new HashMap<>();
@@ -113,10 +115,6 @@ public class Main {
 
         mortgagesListeners.add(mortgagesGUI);
 
-        // TODO: Can we use HashMap everywhere iso MultiValueMap? Then we can not filter on Account/Journal, but need to refresh all !?
-        // FIXME: refresh saldi in accountsTableGUI after AccountData has Changed
-        //        accountDataChangeListeners.addValue(accountsTableGUI);
-
         accountingListeners.add(accountsGUI1);
         accountingListeners.add(accountsGUI2);
         accountingListeners.add(accountsTableGUI);
@@ -125,6 +123,12 @@ public class Main {
         accountingListeners.add(journalInputGUI);
         accountingListeners.add(journalReadGUI);
         accountingListeners.add(frame);
+
+        allAccountDataChangeListeners.add(accountsGUI1);
+        allAccountDataChangeListeners.add(accountsGUI2);
+        allAccountDataChangeListeners.add(accountsTableGUI);
+
+        allJournalDataChangeListeners.add(journalReadGUI);
     }
     private static void linkListeners(){
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -245,8 +249,16 @@ public class Main {
         journalDataChangeListeners.addValue(journal.hashCode(), gui);
     }
 
+    public static void addJournalDataListener(JournalDataChangeListener gui) {
+        allJournalDataChangeListeners.add(gui);
+    }
+
     public static void addAccountDataListener(Account account, AccountDataChangeListener gui) {
         accountDataChangeListeners.addValue(account.hashCode(), gui);
+    }
+
+    public static void addAccountDataListener(AccountDataChangeListener gui) {
+        allAccountDataChangeListeners.add(gui);
     }
 
     public static void fireJournalDataChanged(Journal journal){
@@ -256,8 +268,9 @@ public class Main {
                 journalDataChangeListener.fireJournalDataChanged();
             }
         }
-        // always refresh. We could add a filter here for the active Journal
-        journalReadGUI.fireJournalDataChanged();
+        for (JournalDataChangeListener journalDataChangeListener : allJournalDataChangeListeners){
+            journalDataChangeListener.fireJournalDataChanged();
+        }
     }
 
     public static void fireAccountDataChanged(Account account){
@@ -269,9 +282,9 @@ public class Main {
         }
         // fireAccountDataChanged in AccountsGUI is only needed if accounts have been added
         // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
-        accountsGUI1.fireAccountDataChanged();
-        accountsGUI2.fireAccountDataChanged();
-        accountsTableGUI.fireAccountDataChanged();
+        for(AccountDataChangeListener accountDataChangeListener: allAccountDataChangeListeners){
+            accountDataChangeListener.fireAccountDataChanged();
+        }
         // refresh all balances if an account is update, filtering on accounting/accounts/accountType could be applied
         for(TestBalance testBalance:testBalanceMap.values()){
             testBalance.fireAccountDataChanged();

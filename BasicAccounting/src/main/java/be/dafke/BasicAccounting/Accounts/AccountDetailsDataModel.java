@@ -106,7 +106,5 @@ public class AccountDetailsDataModel extends RefreshableTableModel<Booking> {
 		} else if (col == 4) {
 			movement.setDescription((String) value);
 		}
-//		parent.repaintAllFrames();
-//		super.refresh();
 	}
 }

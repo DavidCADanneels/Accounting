@@ -80,8 +80,4 @@ public class NewContactGUI extends RefreshableDialog {
         address1.setText("");
         address2.setText("");
     }
-
-    public void refresh() {
-        // nothing to do here
-    }
 }

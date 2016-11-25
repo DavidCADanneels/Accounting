@@ -48,12 +48,6 @@ public class AccountsTableGUI extends JPanel implements MouseListener, AccountsL
         add(center, BorderLayout.CENTER);
 	}
 
-
-
-	public void refresh() {
-        accountDataModel.fireTableDataChanged();
-    }
-
     public void mouseClicked(MouseEvent me) {
         int clickCount = me.getClickCount();
         int button = me.getButton();

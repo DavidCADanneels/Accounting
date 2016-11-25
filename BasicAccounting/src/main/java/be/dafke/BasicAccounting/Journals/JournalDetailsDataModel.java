@@ -121,15 +121,12 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 		} else if (col == 5) {
 			transaction.setDescription((String) value);
 		}
-		// ouder.repaint();
-		// parent.repaintAllFrames();
-//		super.refresh();
 	}
 
 	@Override
 	public Booking getObject(int row, int col) {
 		if(journal==null) return null;
-		ArrayList<Booking> boekingen = new ArrayList<Booking>();
+		ArrayList<Booking> boekingen = new ArrayList<>();
 		for(Transaction transaction : journal.getBusinessObjects()){
 			boekingen.addAll(transaction.getBusinessObjects());
 		}
@@ -140,7 +137,7 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 	public int getRow(Booking booking) {
 		if(journal==null) return -1;
 		int row = 0;
-		ArrayList<Booking> boekingen = new ArrayList<Booking>();
+		ArrayList<Booking> boekingen = new ArrayList<>();
 		for(Transaction transaction : journal.getBusinessObjects()){
 			boekingen.addAll(transaction.getBusinessObjects());
 		}
