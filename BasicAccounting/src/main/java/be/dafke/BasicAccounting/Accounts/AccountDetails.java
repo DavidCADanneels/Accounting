@@ -33,7 +33,7 @@ public class AccountDetails extends JFrame implements WindowListener, AccountDat
 	private AccountDetailsDataModel accountDetailsDataModel;
 	private static HashMap<Account,AccountDetails> accountDetailsMap = new HashMap<>();
 
-	public AccountDetails(Account account, Journals journals, JournalInputGUI journalInputGUI) {
+	private AccountDetails(Account account, Journals journals, JournalInputGUI journalInputGUI) {
 		super(getBundle("Accounting").getString("ACCOUNT_DETAILS")+ " " + account.getName());
 		accountDetailsDataModel = new AccountDetailsDataModel(account);
 
