@@ -1,9 +1,7 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessActions.AccountActions;
-import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
@@ -19,7 +17,7 @@ import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class AccountManagementGUI extends JFrame implements ListSelectionListener, AccountDataChangeListener, ActionListener {
+public class AccountManagementGUI extends JFrame implements ListSelectionListener, ActionListener {
 	/**
 	 * 
 	 */
@@ -67,7 +65,6 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		AccountManagementGUI gui = accountManagementGuis.get(accounts);
 		if(gui == null){
 			gui = new AccountManagementGUI(accounts, accountTypes);
-			Main.addAccountDataListener(gui);
 			accountManagementGuis.put(accounts, gui);
 			SaveAllActionListener.addFrame(gui);
 		}
@@ -108,7 +105,12 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 	 * @see javax.swing.table.AbstractTableModel#fireTableDataChanged()
 	 */
 
- 	@Override
+	public static void fireAccountDataChangedForAll() {
+		for(AccountManagementGUI accountManagementGUI:accountManagementGuis.values()){
+			accountManagementGUI.fireAccountDataChanged();
+		}
+	}
+
 	public void fireAccountDataChanged() {
 		accountManagementTableModel.fireTableDataChanged();
 	}

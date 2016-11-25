@@ -19,7 +19,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountsTableGUI extends JPanel implements MouseListener, AccountsListener, AccountingListener, AccountDataChangeListener {
+public class AccountsTableGUI extends JPanel implements MouseListener, AccountsListener, AccountingListener {
     private final RefreshableTable<Account> table;
     private final AccountDataModel accountDataModel;
 
@@ -106,7 +106,6 @@ public class AccountsTableGUI extends JPanel implements MouseListener, AccountsL
         fireAccountDataChanged();
     }
 
-    @Override
     public void fireAccountDataChanged() {
         accountDataModel.fireTableDataChanged();
     }

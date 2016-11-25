@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessActions.AccountsListener;
 import be.dafke.BusinessModel.*;
@@ -27,7 +26,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountsGUI extends JPanel implements ListSelectionListener, MouseListener, ActionListener, AccountsListener, AccountDataChangeListener, AccountingListener {
+public class AccountsGUI extends JPanel implements ListSelectionListener, MouseListener, ActionListener, AccountsListener, AccountingListener {
     private final PrefixFilterPanel<Account> zoeker;
     private final AlphabeticListModel<Account> model;
     private final JList<Account> lijst;
@@ -167,7 +166,6 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
         }
     }
 
-    @Override
     public void fireAccountDataChanged() {
         ArrayList<AccountType> types = new ArrayList<>();
         for (AccountType type : selectedAccountTypes.keySet()) {

@@ -2,7 +2,6 @@ package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
-import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
@@ -16,7 +15,7 @@ import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class TestBalance extends JFrame implements AccountDataChangeListener {
+public class TestBalance extends JFrame {
 	/**
 	 * 
 	 */
@@ -63,7 +62,6 @@ public class TestBalance extends JFrame implements AccountDataChangeListener {
 		}
 	}
 
-	@Override
 	public void fireAccountDataChanged() {
 		testBalanceDataModel.fireTableDataChanged();
 	}

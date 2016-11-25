@@ -2,7 +2,6 @@ package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
-import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Balance;
@@ -13,7 +12,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
-public class BalanceGUI extends JFrame implements AccountDataChangeListener {
+public class BalanceGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
 	private RefreshableTable<Account> tabel;
@@ -57,7 +56,6 @@ public class BalanceGUI extends JFrame implements AccountDataChangeListener {
 		}
 	}
 
-	@Override
 	public void fireAccountDataChanged() {
 		balanceDataModel.fireTableDataChanged();
 	}

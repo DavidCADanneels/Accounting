@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
-import be.dafke.BusinessActions.JournalDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
@@ -14,14 +13,13 @@ import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
 import java.util.HashMap;
 
-import static be.dafke.BasicAccounting.MainApplication.Main.addJournalDataListener;
 import static java.util.ResourceBundle.getBundle;
 
 /**
  * @author David Danneels
  */
 
-public class JournalDetails extends JFrame implements WindowListener, JournalDataChangeListener {
+public class JournalDetails extends JFrame implements WindowListener {
 	/**
 	 * 
 	 */
@@ -84,7 +82,6 @@ public class JournalDetails extends JFrame implements WindowListener, JournalDat
 		}
 	}
 
-	@Override
 	public void fireJournalDataChanged() {
 		journalDetailsDataModel.fireTableDataChanged();
 	}

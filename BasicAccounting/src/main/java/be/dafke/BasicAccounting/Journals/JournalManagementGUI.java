@@ -1,10 +1,8 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.JournalActions;
-import be.dafke.BusinessActions.JournalDataChangeListener;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 
@@ -18,7 +16,7 @@ import java.util.HashMap;
 import static be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI.showJournalTypeManager;
 import static java.util.ResourceBundle.getBundle;
 
-public class JournalManagementGUI extends JFrame implements ListSelectionListener, JournalDataChangeListener{
+public class JournalManagementGUI extends JFrame implements ListSelectionListener {
 	/**
 	 * 
 	 */
@@ -67,14 +65,18 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         JournalManagementGUI gui = journalManagementGuis.get(journals);
         if(gui == null){
             gui = new JournalManagementGUI(journals, journalTypes, accounts, accountTypes);
-            Main.addJournalDataListener(gui);
             journalManagementGuis.put(journals, gui);
             SaveAllActionListener.addFrame(gui);
         }
         return gui;
     }
 
-    @Override
+    public static void fireJournalDataChangedForAll() {
+        for(JournalManagementGUI journalManagementGUI:journalManagementGuis.values()){
+            journalManagementGUI.fireJournalDataChanged();
+        }
+    }
+
     public void fireJournalDataChanged() {
         journalManagementTableModel.fireTableDataChanged();
     }

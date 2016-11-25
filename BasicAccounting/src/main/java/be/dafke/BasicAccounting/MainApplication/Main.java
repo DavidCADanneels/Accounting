@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.Accounts.AccountDetails;
+import be.dafke.BasicAccounting.Accounts.AccountManagementGUI;
 import be.dafke.BasicAccounting.Accounts.AccountsGUI;
 import be.dafke.BasicAccounting.Accounts.AccountsTableGUI;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
@@ -8,10 +9,7 @@ import be.dafke.BasicAccounting.Balances.BalancesMenu;
 import be.dafke.BasicAccounting.Balances.TestBalance;
 import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
-import be.dafke.BasicAccounting.Journals.JournalDetails;
-import be.dafke.BasicAccounting.Journals.JournalGUI;
-import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BasicAccounting.Journals.JournalsGUI;
+import be.dafke.BasicAccounting.Journals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
@@ -55,7 +53,6 @@ public class Main {
     private static ArrayList<AccountsListener> accountsListeners = new ArrayList<>();
     private static ArrayList<MortgagesListener> mortgagesListeners = new ArrayList<>();
 
-    private static ArrayList<JournalDataChangeListener> allJournalDataChangeListeners = new ArrayList<>();
     private static ArrayList<AccountDataChangeListener> allAccountDataChangeListeners = new ArrayList<>();
 
     private static BalancesMenu balancesMenu;
@@ -235,19 +232,13 @@ public class Main {
         journalInputGUI.setTransaction(journal.getCurrentObject());
     }
 
-    public static void addJournalDataListener(JournalDataChangeListener gui) {
-        allJournalDataChangeListeners.add(gui);
-    }
-
     public static void addAccountDataListener(AccountDataChangeListener gui) {
         allAccountDataChangeListeners.add(gui);
     }
 
     public static void fireJournalDataChanged(Journal journal){
         JournalDetails.fireJournalDataChangedForAll(journal);
-        for (JournalDataChangeListener journalDataChangeListener : allJournalDataChangeListeners){
-            journalDataChangeListener.fireJournalDataChanged();
-        }
+        JournalManagementGUI.fireJournalDataChangedForAll();
         journalReadGUI.fireJournalDataChanged();
     }
 
@@ -263,6 +254,7 @@ public class Main {
         accountsGUI2.fireAccountDataChanged();
         accountsTableGUI.fireAccountDataChanged();
 
+        AccountManagementGUI.fireAccountDataChangedForAll();
         // refresh all balances if an account is update, filtering on accounting/accounts/accountType could be applied
         TestBalance.fireAccountDataChangedForAll();
         BalanceGUI.fireAccountDataChangedForAll();

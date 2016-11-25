@@ -7,7 +7,6 @@ package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
-import be.dafke.BusinessActions.AccountDataChangeListener;
 import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Booking;
@@ -22,7 +21,7 @@ import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class AccountDetails extends JFrame implements WindowListener, AccountDataChangeListener {
+public class AccountDetails extends JFrame implements WindowListener {
 	/**
 	 *
 	 */
@@ -85,7 +84,6 @@ public class AccountDetails extends JFrame implements WindowListener, AccountDat
 		}
 	}
 
-	@Override
 	public void fireAccountDataChanged() {
 		accountDetailsDataModel.fireTableDataChanged();
 	}
