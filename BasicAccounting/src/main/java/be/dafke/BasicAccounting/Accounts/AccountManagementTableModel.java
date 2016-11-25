@@ -4,13 +4,13 @@ import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
+import be.dafke.ComponentModel.RefreshableTableModel;
 
-import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class AccountManagementTableModel extends AbstractTableModel {
+public class AccountManagementTableModel extends RefreshableTableModel<Account> {
 	/**
 	 * 
 	 */
@@ -75,5 +75,15 @@ public class AccountManagementTableModel extends AbstractTableModel {
 	// ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
+	}
+
+	@Override
+	public Account getObject(int row, int col) {
+		return null;
+	}
+
+	@Override
+	public int getRow(Account account) {
+		return 0;
 	}
 }
