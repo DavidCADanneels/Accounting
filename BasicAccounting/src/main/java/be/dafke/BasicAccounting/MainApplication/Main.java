@@ -121,10 +121,6 @@ public class Main {
         accountingListeners.add(journalReadGUI);
         accountingListeners.add(frame);
 
-        allAccountDataChangeListeners.add(accountsGUI1);
-        allAccountDataChangeListeners.add(accountsGUI2);
-        allAccountDataChangeListeners.add(accountsTableGUI);
-
         allJournalDataChangeListeners.add(journalReadGUI);
     }
     private static void linkListeners(){
@@ -282,6 +278,11 @@ public class Main {
         for(AccountDataChangeListener accountDataChangeListener: allAccountDataChangeListeners){
             accountDataChangeListener.fireAccountDataChanged();
         }
+
+        accountsGUI1.fireAccountDataChanged();
+        accountsGUI2.fireAccountDataChanged();
+        accountsTableGUI.fireAccountDataChanged();
+
         // refresh all balances if an account is update, filtering on accounting/accounts/accountType could be applied
         TestBalance.fireAccountDataChangedForAll();
         BalanceGUI.fireAccountDataChangedForAll();
