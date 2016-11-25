@@ -18,8 +18,6 @@ public class ProjectsMenu extends JMenu {
     private static Projects projects;
     private static Accounts accounts;
     private static AccountTypes accountTypes;
-    public static final String MANAGE = "ManageProjects";
-    public static final String PROJECTS = "Projects";
 
     public ProjectsMenu() {
         super(getBundle("Projects").getString("PROJECTS"));
