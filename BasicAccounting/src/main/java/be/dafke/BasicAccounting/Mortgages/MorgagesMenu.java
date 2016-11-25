@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Mortgages;
 
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Mortgages;
@@ -22,24 +21,20 @@ public class MorgagesMenu extends JMenu {
         super(getBundle("Mortgage").getString("MORTGAGES"));
         setMnemonic(KeyEvent.VK_M);
         mortgage = new JMenuItem("Mortgages");
-        mortgage.addActionListener(e -> showMortgages());
+        mortgage.addActionListener(e -> MortgageGUI.showMortgages(mortgages, accounts).setVisible(true));
         mortgage.setEnabled(false);
         add(mortgage);
     }
 
-    public void showMortgages() {
-        String key = Mortgages.MORTGAGES + mortgages.hashCode();
-        JFrame gui = Main.getJFrame(key); // DETAILS
-        if(gui == null){
-            gui = new MortgageGUI(mortgages, accounts);
-            Main.addJFrame(key, gui); // DETAILS
-        }
-        gui.setVisible(true);
-    }
-
     public static void setAccounting(Accounting accounting) {
-        mortgages=accounting==null?null:accounting.getMortgages();
+        setMortgages(accounting==null?null:accounting.getMortgages());
+        setAccounts(accounting==null?null:accounting.getAccounts());
+    }
+    public static void setAccounts(Accounts accounts) {
+        MorgagesMenu.accounts = accounts;
+    }
+    public static void setMortgages(Mortgages mortgages) {
+        MorgagesMenu.mortgages=mortgages;
         mortgage.setEnabled(mortgages!=null);
-        accounts=accounting==null?null:accounting.getAccounts();
     }
 }

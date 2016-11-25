@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Projects;
 
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
@@ -16,8 +15,6 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class ProjectsMenu extends JMenu {
     private static JMenuItem manage, project;
-    public static final String MANAGE = "ManageProjects";
-    public static final String PROJECTS = "Projects";
     private static Projects projects;
     private static Accounts accounts;
     private static AccountTypes accountTypes;
@@ -27,36 +24,16 @@ public class ProjectsMenu extends JMenu {
         setMnemonic(KeyEvent.VK_P);
         manage = new JMenuItem(getBundle("Projects").getString(
                 "PROJECTMANAGER"));
-        manage.addActionListener(e -> showManager());
+        manage.addActionListener(e -> ProjectGUI.showManager(accounts, accountTypes, projects).setVisible(true));
         manage.setEnabled(false);
 
         project = new JMenuItem(getBundle("Projects").getString(
                 "PROJECTS"));
-        project.addActionListener(e -> showProjects());
+        project.addActionListener(e -> ProjectGUI.showProjects(accounts, accountTypes, projects).setVisible(true));
         project.setEnabled(false);
 
         add(project);
         add(manage);
-    }
-
-    private void showProjects() {
-        String key = PROJECTS + projects.hashCode();
-        JFrame gui = Main.getJFrame(key); // DETAILS
-        if (gui == null) {
-            gui = new ProjectGUI(accounts, accountTypes, projects);
-            Main.addJFrame(key, gui); // DETAILS
-        }
-        gui.setVisible(true);
-    }
-
-    private void showManager() {
-        String key = MANAGE + projects.hashCode();
-        JFrame gui = Main.getJFrame(key); // DETAILS
-        if (gui == null) {
-            gui = new ProjectManagementGUI(accounts, accountTypes, projects);
-            Main.addJFrame(key, gui); // DETAILS
-        }
-        gui.setVisible(true);
     }
 
     public static void setAccounting(Accounting accounting) {

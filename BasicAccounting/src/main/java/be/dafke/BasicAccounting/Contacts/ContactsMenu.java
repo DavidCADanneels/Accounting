@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Contacts;
 
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contacts;
 
@@ -14,8 +13,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class ContactsMenu extends JMenu {
     private static JMenuItem suppliers, customers;
-    public static final String SUPPLIERS = "Suppliers";
-    public static final String CUSTOMERS = "Customers";
+
     private static Contacts contacts;
 
     public ContactsMenu() {
@@ -23,40 +21,24 @@ public class ContactsMenu extends JMenu {
         setMnemonic(KeyEvent.VK_P);
         suppliers = new JMenuItem(getBundle("Contacts").getString(
                 "SUPPLIERS"));
-        suppliers.addActionListener(e -> showSuppliers());
+        suppliers.addActionListener(e -> ContactsGUI.showSuppliers(contacts).setVisible(true));
         suppliers.setEnabled(false);
 
         customers = new JMenuItem(getBundle("Contacts").getString(
                 "CUSTOMERS"));
-        customers.addActionListener(e -> showCustomers());
+        customers.addActionListener(e -> ContactsGUI.showCustomers(contacts).setVisible(true));
         customers.setEnabled(false);
 
         add(customers);
         add(suppliers);
     }
 
-    private void showSuppliers() {
-        String key = SUPPLIERS + contacts.hashCode();
-        JFrame gui = Main.getJFrame(key); // DETAILS
-        if (gui == null) {
-            gui = new ContactsGUI(contacts);
-            Main.addJFrame(key, gui); // DETAILS
-        }
-        gui.setVisible(true);
-    }
-
-    private void showCustomers() {
-        String key = CUSTOMERS + contacts.hashCode();
-        JFrame gui = Main.getJFrame(key); // DETAILS
-        if (gui == null) {
-            gui = new ContactsGUI(contacts);
-            Main.addJFrame(key, gui); // DETAILS
-        }
-        gui.setVisible(true);
-    }
-
     public static void setAccounting(Accounting accounting) {
-        contacts=accounting==null?null:accounting.getContacts();
+        setContacts(accounting==null?null:accounting.getContacts());
+    }
+
+    public static void setContacts(Contacts contacts){
+        ContactsMenu.contacts = contacts;
         suppliers.setEnabled(contacts!=null);
         customers.setEnabled(contacts!=null);
     }

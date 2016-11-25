@@ -17,6 +17,7 @@ import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
 public class MortgageGUI extends RefreshableFrame implements ActionListener, ListSelectionListener{//, AccountingListener {
 	/**
@@ -38,8 +39,9 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 	private final RefreshableTable<Mortgage> table;
 	private final JButton save, delete;
 	private static final String MORTGAGE_CALCULATOR = "MortgageCalculator";
+	private static final HashMap<Mortgages, MortgageGUI> mortgageGuis = new HashMap<>();
 
-	public MortgageGUI(Mortgages mortgages, Accounts accounts) {
+	private MortgageGUI(Mortgages mortgages, Accounts accounts) {
 		super("Mortgages");
         this.mortgages = mortgages;
 		this.accounts = accounts;
@@ -116,6 +118,17 @@ public class MortgageGUI extends RefreshableFrame implements ActionListener, Lis
 		pack();
 
         refresh();
+	}
+
+	public static MortgageGUI showMortgages(Mortgages mortgages, Accounts accounts) {
+		String key = Mortgages.MORTGAGES + mortgages.hashCode();
+		MortgageGUI gui = mortgageGuis.get(mortgages);
+		if(gui == null){
+			gui = new MortgageGUI(mortgages, accounts);
+			mortgageGuis.put(mortgages,gui);
+			Main.addJFrame(key, gui);
+		}
+		return gui;
 	}
 
 	private void activateButtons(boolean active) {

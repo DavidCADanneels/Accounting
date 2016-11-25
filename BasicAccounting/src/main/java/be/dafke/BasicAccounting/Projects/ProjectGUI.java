@@ -13,8 +13,8 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.HashMap;
 
-import static be.dafke.BasicAccounting.Projects.ProjectsMenu.MANAGE;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -29,8 +29,12 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
     private JournalDetailsDataModel journalDetailsDataModel;
     private BalanceDataModel resultBalanceDataModel, relationsBalanceDataModel;
     private Projects projects;
+    public static final String MANAGE = "ManageProjects";
+    public static final String PROJECTS = "Projects";
+    private static final HashMap<Projects, ProjectGUI> projectGuis = new HashMap<>();
+    private static final HashMap<Projects, ProjectManagementGUI> projectManagentGuis = new HashMap<>();
 
-    public ProjectGUI(Accounts accounts, AccountTypes accountTypes, Projects projects) {
+    private ProjectGUI(Accounts accounts, AccountTypes accountTypes, Projects projects) {
         super(getBundle("Projects").getString("PROJECTS"));
         this.accounts = accounts;
         this.accountTypes = accountTypes;
@@ -89,6 +93,26 @@ public class ProjectGUI extends RefreshableFrame implements ActionListener {
         RefreshableTable<Booking> table = new RefreshableTable<>(journalDetailsDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
         return new JScrollPane(table);
+    }
+
+    public static ProjectGUI showProjects(Accounts accounts, AccountTypes accountTypes, Projects projects) {
+        ProjectGUI gui = projectGuis.get(projects); // DETAILS
+        if (gui == null) {
+            gui = new ProjectGUI(accounts, accountTypes, projects);
+            projectGuis.put(projects, gui); // DETAILS
+            Main.addJFrame(PROJECTS + projects.hashCode(), gui); // DETAILS
+        }
+        return gui;
+    }
+
+    public static ProjectManagementGUI showManager(Accounts accounts, AccountTypes accountTypes, Projects projects) {
+        ProjectManagementGUI gui = projectManagentGuis.get(projects); // DETAILS
+        if (gui == null) {
+            gui = new ProjectManagementGUI(accounts, accountTypes, projects);
+            projectManagentGuis.put(projects, gui); // DETAILS
+            Main.addJFrame(MANAGE + projects.hashCode(), gui); // DETAILS
+        }
+        return gui;
     }
 
 //    @Override
