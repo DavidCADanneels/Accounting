@@ -3,13 +3,12 @@ package be.dafke.BasicAccounting.Coda;
 import be.dafke.BusinessModel.SearchOptions;
 import be.dafke.BusinessModel.Statement;
 import be.dafke.BusinessModel.Statements;
-import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class GenericStatementTableFrame extends RefreshableFrame {
+public class GenericStatementTableFrame extends JFrame {
 
 	private static final long serialVersionUID = 1L;
     private RefreshableTable<Statement> tabel;

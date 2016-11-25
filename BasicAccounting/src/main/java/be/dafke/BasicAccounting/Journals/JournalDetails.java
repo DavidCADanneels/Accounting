@@ -7,7 +7,6 @@ import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
@@ -21,7 +20,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class JournalDetails extends RefreshableFrame implements WindowListener, JournalDataChangeListener {
+public class JournalDetails extends JFrame implements WindowListener, JournalDataChangeListener {
 	/**
 	 * 
 	 */

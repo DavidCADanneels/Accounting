@@ -1,8 +1,10 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableFrame;
+import be.dafke.BusinessModel.AccountType;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.JournalType;
+import be.dafke.BusinessModel.JournalTypes;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.AlphabeticListModel;
@@ -18,7 +20,7 @@ import static java.util.ResourceBundle.getBundle;
 import static javax.swing.BoxLayout.Y_AXIS;
 import static javax.swing.JSplitPane.*;
 
-public class JournalTypeManagementGUI extends RefreshableFrame {
+public class JournalTypeManagementGUI extends JFrame {
 	/**
 	 * 
 	 */

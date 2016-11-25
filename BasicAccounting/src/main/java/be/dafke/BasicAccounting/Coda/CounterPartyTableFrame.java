@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Coda;
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.ObjectModel.BusinessObject;
@@ -15,7 +14,7 @@ import java.awt.event.MouseListener;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
-public class CounterPartyTableFrame extends RefreshableFrame implements MouseListener {
+public class CounterPartyTableFrame extends JFrame implements MouseListener {
 	/**
 	 * 
 	 */
@@ -86,8 +85,7 @@ public class CounterPartyTableFrame extends RefreshableFrame implements MouseLis
                 SearchOptions searchOptions = new SearchOptions();
                 searchOptions.setCounterParty(counterParty);
                 searchOptions.setSearchOnCounterParty(true);
-				RefreshableFrame refreshTable = new GenericStatementTableFrame(searchOptions, statements);
-                refreshTable.setVisible(true);
+				new GenericStatementTableFrame(searchOptions, statements).setVisible(true);
 				// parent.addChildFrame(refreshTable);
             } else if (col == 1){
                 String alias = (String) tabel.getValueAt(row, col);

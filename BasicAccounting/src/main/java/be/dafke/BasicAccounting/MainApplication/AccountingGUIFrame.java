@@ -2,7 +2,8 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.ComponentModel.RefreshableFrame;
+
+import javax.swing.*;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -10,7 +11,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountingGUIFrame extends RefreshableFrame implements AccountingListener {
+public class AccountingGUIFrame extends JFrame implements AccountingListener {
 	/**
 	 * 
 	 */

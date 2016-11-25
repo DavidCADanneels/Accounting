@@ -4,7 +4,6 @@ import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Calculate;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
-import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
@@ -16,7 +15,7 @@ import java.awt.event.FocusListener;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
-public class MortgageCalculatorGUI extends RefreshableFrame implements ActionListener, FocusListener {
+public class MortgageCalculatorGUI extends JFrame implements ActionListener, FocusListener {
 	/**
 	 * 
 	 */

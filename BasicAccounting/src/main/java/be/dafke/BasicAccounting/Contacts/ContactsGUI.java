@@ -2,7 +2,6 @@ package be.dafke.BasicAccounting.Contacts;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Contacts;
-import be.dafke.ComponentModel.RefreshableFrame;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -10,7 +9,7 @@ import java.util.HashMap;
 /**
  * Created by ddanneels on 15/11/2016.
  */
-public class ContactsGUI extends RefreshableFrame{
+public class ContactsGUI extends JFrame{
 
     private final Contacts contacts;
 

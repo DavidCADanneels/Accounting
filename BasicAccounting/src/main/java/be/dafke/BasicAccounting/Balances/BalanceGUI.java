@@ -6,13 +6,12 @@ import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Balance;
 import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class BalanceGUI extends RefreshableFrame implements AccountDataChangeListener {
+public class BalanceGUI extends JFrame implements AccountDataChangeListener {
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
 	private RefreshableTable<Account> tabel;

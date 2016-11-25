@@ -4,7 +4,6 @@ import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessActions.JournalActions;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
@@ -17,7 +16,7 @@ import java.util.HashMap;
 import static be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI.showJournalTypeManager;
 import static java.util.ResourceBundle.getBundle;
 
-public class JournalManagementGUI extends RefreshableFrame implements ListSelectionListener{
+public class JournalManagementGUI extends JFrame implements ListSelectionListener{
 	/**
 	 * 
 	 */

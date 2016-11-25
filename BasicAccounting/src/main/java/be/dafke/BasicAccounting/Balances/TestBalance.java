@@ -7,7 +7,6 @@ import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
@@ -15,7 +14,7 @@ import java.awt.*;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class TestBalance extends RefreshableFrame implements AccountDataChangeListener {
+public class TestBalance extends JFrame implements AccountDataChangeListener {
 	/**
 	 * 
 	 */

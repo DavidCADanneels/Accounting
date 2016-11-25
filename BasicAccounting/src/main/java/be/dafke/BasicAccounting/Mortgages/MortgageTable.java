@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Mortgages;
 import be.dafke.BusinessActions.ActionUtils;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
-import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
@@ -14,7 +13,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 
-public class MortgageTable extends RefreshableFrame implements ActionListener {
+public class MortgageTable extends JFrame implements ActionListener {
 	/**
 	 *
 	 */

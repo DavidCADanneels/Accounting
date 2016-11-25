@@ -5,7 +5,6 @@ import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
-import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
@@ -19,7 +18,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
-public class MortgageGUI extends RefreshableFrame implements ActionListener, ListSelectionListener{//, AccountingListener {
+public class MortgageGUI extends JFrame implements ActionListener, ListSelectionListener{//, AccountingListener {
 	/**
 	 * 
 	 */

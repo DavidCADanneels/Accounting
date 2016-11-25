@@ -4,7 +4,6 @@ import be.dafke.BasicAccounting.Balances.BalanceDataModel;
 import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
@@ -18,7 +17,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 2/11/2016.
  */
-public class ProjectGUI extends RefreshableFrame {
+public class ProjectGUI extends JFrame {
     private final JButton manage;
     private final JComboBox<Project> combo;
     private final Accounts accounts;

@@ -5,7 +5,6 @@ import be.dafke.BusinessActions.AccountActions;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
-import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
@@ -18,7 +17,7 @@ import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class AccountManagementGUI extends RefreshableFrame implements ListSelectionListener, ActionListener {
+public class AccountManagementGUI extends JFrame implements ListSelectionListener, ActionListener {
 	/**
 	 * 
 	 */

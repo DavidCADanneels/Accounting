@@ -12,7 +12,6 @@ import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.RefreshableFrame;
 import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
@@ -22,7 +21,7 @@ import java.awt.event.WindowListener;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class AccountDetails extends RefreshableFrame implements WindowListener, AccountDataChangeListener {
+public class AccountDetails extends JFrame implements WindowListener, AccountDataChangeListener {
 	/**
 	 *
 	 */
