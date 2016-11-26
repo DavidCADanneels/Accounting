@@ -1,8 +1,6 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BusinessActions.AccountingListener;
-import be.dafke.BusinessActions.AccountsListener;
 import be.dafke.BusinessModel.*;
 import be.dafke.Utils.AlphabeticListModel;
 import be.dafke.Utils.PrefixFilterPanel;
@@ -13,7 +11,9 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.*;
+import java.awt.event.KeyEvent;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,7 +25,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountsGUI extends JPanel implements ListSelectionListener, MouseListener, AccountsListener, AccountingListener {
+public class AccountsGUI extends JPanel implements ListSelectionListener, MouseListener {
     private final PrefixFilterPanel<Account> zoeker;
     private final AlphabeticListModel<Account> model;
     private final JList<Account> lijst;
@@ -169,7 +169,6 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
 
     }
 
-    @Override
     public void setAccounting(Accounting accounting) {
         setAccountTypes(accounting == null ? null : accounting.getAccountTypes());
         setAccounts(accounting == null ? null : accounting.getAccounts());
@@ -208,7 +207,6 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
         this.journals = journals;
     }
 
-    @Override
     public void setAccounts(Accounts accounts) {
         this.accounts = accounts;
         boolean active = accounts != null;

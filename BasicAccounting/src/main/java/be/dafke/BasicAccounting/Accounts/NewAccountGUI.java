@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessActions.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;

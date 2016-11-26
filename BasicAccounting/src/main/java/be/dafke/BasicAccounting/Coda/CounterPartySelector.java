@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Coda;
 
-import be.dafke.BusinessActions.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ObjectModel.BusinessObject;

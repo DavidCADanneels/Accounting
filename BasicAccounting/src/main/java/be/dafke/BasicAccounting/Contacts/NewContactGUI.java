@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Contacts;
 
-import be.dafke.BusinessActions.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.Contacts;
 import be.dafke.ComponentModel.RefreshableDialog;

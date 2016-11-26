@@ -1,7 +1,8 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BusinessActions.*;
+import be.dafke.BasicAccounting.MainApplication.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 
@@ -19,7 +20,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountsTableGUI extends JPanel implements MouseListener, AccountsListener, AccountingListener {
+public class AccountsTableGUI extends JPanel implements MouseListener {
     private final RefreshableTable<Account> table;
     private final AccountDataModel accountDataModel;
 
@@ -90,7 +91,6 @@ public class AccountsTableGUI extends JPanel implements MouseListener, AccountsL
 
     }
 
-    @Override
     public void setAccounting(Accounting accounting) {
         accountDataModel.setAccounts(accounting==null?null:accounting.getAccounts());
         // if setAccounts() is used here, popup.setAccounts() will be called twice
@@ -99,7 +99,6 @@ public class AccountsTableGUI extends JPanel implements MouseListener, AccountsL
         fireAccountDataChanged();
     }
 
-    @Override
     public void setAccounts(Accounts accounts) {
         accountDataModel.setAccounts(accounts);
         popup.setAccounts(accounts);

@@ -1,9 +1,6 @@
 package be.dafke.BasicAccounting.Mortgages;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BusinessActions.AccountingListener;
-import be.dafke.BusinessActions.MortgagesListener;
-import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
 
@@ -13,7 +10,7 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
 
-public class MortgagesGUI extends JPanel implements AccountingListener, MortgagesListener {
+public class MortgagesGUI extends JPanel {
 	/**
 	 *
 	 */
@@ -53,12 +50,6 @@ public class MortgagesGUI extends JPanel implements AccountingListener, Mortgage
 		}
 	}
 
-	@Override
-	public void setAccounting(Accounting accounting) {
-		setMortgages(accounting==null?null:accounting.getMortgages());
-	}
-
-	@Override
 	public void setMortgages(Mortgages mortgages) {
 		listModel.clear();
 		if (mortgages != null) {

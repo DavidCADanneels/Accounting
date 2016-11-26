@@ -7,7 +7,7 @@ package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
-import be.dafke.BusinessActions.PopupForTableActivator;
+import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journals;
