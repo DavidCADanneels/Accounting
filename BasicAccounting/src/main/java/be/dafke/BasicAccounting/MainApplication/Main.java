@@ -10,7 +10,6 @@ import be.dafke.BasicAccounting.Journals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
-import be.dafke.BusinessActions.*;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
@@ -22,7 +21,6 @@ import be.dafke.ObjectModelDao.XMLReader;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
-import java.util.ArrayList;
 
 import static javax.swing.JSplitPane.*;
 
@@ -45,10 +43,6 @@ public class Main {
     private static MortgagesGUI mortgagesGUI;
     private static AccountingMenuBar menuBar;
     private static AccountingGUIFrame frame;
-    private static ArrayList<JournalListener> journalListeners = new ArrayList<>();
-    private static ArrayList<AccountingListener> accountingListeners = new ArrayList<>();
-    private static ArrayList<AccountsListener> accountsListeners = new ArrayList<>();
-    private static ArrayList<MortgagesListener> mortgagesListeners = new ArrayList<>();
 
     private static BalancesMenu balancesMenu;
     private static MorgagesMenu morgagesMenu;
@@ -64,55 +58,24 @@ public class Main {
         createMenu();
         frame.setJMenuBar(menuBar);
 
-        createListeners();
-        linkListeners();
+        setCloseOperation();
 
         setAccounting(accountings.getCurrentObject());
 
-
         launchFrame();
-
-        /*
-        launchFrame("input",new JournalInputGUI(),null);
-        launchFrame("input",new JournalGUI(accountings.getCurrentObject()),null);
-        launchFrame("journals",new JournalGUI(),null);
-        launchFrame("acc1",new AccountsGUI(),null);
-        launchFrame("acc2",new AccountsGUI(),null);
-        */
     }
 
     private static void createComponents() {
         journalInputGUI = new JournalInputGUI();
-        journalsGUI = new JournalsGUI(journalInputGUI);
         journalReadGUI = new JournalGUI(journalInputGUI);
+        journalsGUI = new JournalsGUI(journalReadGUI,journalInputGUI);
         accountsGUI1 = new AccountsGUI(journalInputGUI);
         accountsGUI2 = new AccountsGUI(journalInputGUI);
         accountsTableGUI = new AccountsTableGUI(journalInputGUI);
         mortgagesGUI = new MortgagesGUI(journalInputGUI);
     }
 
-    private static void createListeners() {
-        accountsListeners.add(accountsGUI1);
-        accountsListeners.add(accountsGUI2);
-        accountsListeners.add(accountsTableGUI);
-        // accountTypeListeners, etc.
-
-        journalListeners.add(journalReadGUI);
-        journalListeners.add(journalsGUI);  // will call setJournal() in JournalsGUI
-        journalListeners.add(journalInputGUI);
-
-        mortgagesListeners.add(mortgagesGUI);
-
-        accountingListeners.add(accountsGUI1);
-        accountingListeners.add(accountsGUI2);
-        accountingListeners.add(accountsTableGUI);
-        accountingListeners.add(mortgagesGUI);
-        accountingListeners.add(journalsGUI);
-        accountingListeners.add(journalInputGUI);
-        accountingListeners.add(journalReadGUI);
-        accountingListeners.add(frame);
-    }
-    private static void linkListeners(){
+    private static void setCloseOperation(){
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.addWindowListener(new SaveAllActionListener(accountings));
     }
@@ -120,23 +83,16 @@ public class Main {
     public static JPanel createContentPanel(){
         JPanel links = new JPanel();
         links.setLayout(new BorderLayout());
-//        links.setLayout(new BoxLayout(links,BoxLayout.Y_AXIS));
         JSplitPane accountsPanel = createSplitPane(accountsGUI1, accountsGUI2, VERTICAL_SPLIT);
         links.add(accountsPanel, BorderLayout.CENTER);
-//        links.add(accountsGUI1);
-//        links.add(accountsGUI2);
         links.add(mortgagesGUI, BorderLayout.SOUTH);
         links.add(journalsGUI, BorderLayout.NORTH);
-//        links.add(createSaveButton());
 
         JPanel accountingMultiPanel = new JPanel();
         accountingMultiPanel.setLayout(new BorderLayout());
         JSplitPane splitPane = createSplitPane(journalReadGUI, journalInputGUI, VERTICAL_SPLIT);
-//        splitPane.add(new JournalGUI(accounting), JSplitPane.TOP);
-//        splitPane.add(new JournalInputGUI(), JSplitPane.BOTTOM);
-
         JSplitPane mainSplitPane = createSplitPane(splitPane, accountsTableGUI, HORIZONTAL_SPLIT);
-//
+
         accountingMultiPanel.add(mainSplitPane, BorderLayout.CENTER);
         accountingMultiPanel.add(links, BorderLayout.WEST);
         return accountingMultiPanel;
@@ -207,9 +163,17 @@ public class Main {
 
     public static void setAccounting(Accounting accounting) {
         accountings.setCurrentObject(accounting); // only need to write to XML, call this only when writing XML files?
-        for(AccountingListener accountingListener:accountingListeners){
-            accountingListener.setAccounting(accounting);
-        }
+
+        frame.setAccounting(accounting);
+
+        accountsGUI1.setAccounting(accounting);
+        accountsGUI2.setAccounting(accounting);
+        accountsTableGUI.setAccounting(accounting);
+        journalsGUI.setAccounting(accounting);
+        journalInputGUI.setAccounting(accounting);
+        journalReadGUI.setJournals(accounting==null?null:accounting.getJournals());
+        mortgagesGUI.setMortgages(accounting==null?null:accounting.getMortgages());
+
         ProjectsMenu.setAccounting(accounting);
         MorgagesMenu.setAccounting(accounting);
         CodaMenu.setAccounting(accounting);
@@ -220,11 +184,7 @@ public class Main {
 
     public static void setJournal(Journal journal) {
         accountings.getCurrentObject().getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter
-        for(JournalListener journalListener : journalListeners){
-            journalListener.setJournal(journal);
-        }
-        // just to be sure ???
-        journalInputGUI.setTransaction(journal.getCurrentObject());
+        journalsGUI.setJournal(journal);
     }
 
     public static void fireJournalDataChanged(Journal journal){

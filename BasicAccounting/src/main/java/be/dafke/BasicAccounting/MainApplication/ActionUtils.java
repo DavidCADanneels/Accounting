@@ -1,4 +1,4 @@
-package be.dafke.BusinessActions;
+package be.dafke.BasicAccounting.MainApplication;
 
 import javax.swing.*;
 

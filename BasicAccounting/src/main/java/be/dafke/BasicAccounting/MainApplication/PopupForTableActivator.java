@@ -1,4 +1,4 @@
-package be.dafke.BusinessActions;
+package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.BusinessObject;

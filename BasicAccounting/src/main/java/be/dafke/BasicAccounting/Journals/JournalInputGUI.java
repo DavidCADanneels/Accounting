@@ -1,7 +1,8 @@
 package be.dafke.BasicAccounting.Journals;
 
+import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessActions.*;
+import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.Utils.Utils;
@@ -13,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static be.dafke.BusinessActions.ActionUtils.TRANSACTION_REMOVED;
+import static be.dafke.BasicAccounting.MainApplication.ActionUtils.TRANSACTION_REMOVED;
 import static java.util.ResourceBundle.getBundle;
 
 
@@ -21,7 +22,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 29/04/2016.
  */
-public class JournalInputGUI extends JPanel implements FocusListener, ActionListener, JournalListener, AccountingListener, TransactionListener, TransactionDataChangedListener {
+public class JournalInputGUI extends JPanel implements FocusListener, ActionListener {
     private static final long serialVersionUID = 1L;
 
     private JTextField debet, credit, dag, maand, jaar, bewijs, ident;
@@ -127,7 +128,8 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
             Journal newJournal = getNewJournal(transaction, journals);
             if(newJournal!=null) { // e.g. when Cancel has been clicked
-                TransactionActions.moveTransaction(transaction, oldJournal, newJournal);
+                oldJournal.removeBusinessObject(transaction);
+                newJournal.addBusinessObject(transaction);
                 Main.fireJournalDataChanged(oldJournal);
                 Main.fireJournalDataChanged(newJournal);
                 for (Account account : transaction.getAccounts()) {
@@ -156,8 +158,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         for (Booking booking : bookings) {
             Transaction transaction = booking.getTransaction();
             Journal journal = transaction.getJournal();
-
-            TransactionActions.deleteTransaction(transaction);
+            journal.removeBusinessObject(transaction);
             Main.fireJournalDataChanged(journal);
             for (Account account : transaction.getAccounts()) {
                 Main.fireAccountDataChanged(account);
@@ -171,8 +172,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         for (Booking booking : bookings) {
             Transaction transaction = booking.getTransaction();
             Journal journal = transaction.getJournal();
-
-            TransactionActions.deleteTransaction(transaction);
+            journal.removeBusinessObject(transaction);
             Main.fireJournalDataChanged(journal);
             for (Account account : transaction.getAccounts()) {
                 Main.fireAccountDataChanged(account);
@@ -262,7 +262,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         return transaction;
     }
 
-    @Override
     public void setAccounting(Accounting accounting){
         popup.setAccounting(accounting);
         accounts = (accounting==null)?null:accounting.getAccounts();
@@ -273,14 +272,12 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         setJournal(journals==null?null:journals.getCurrentObject());
     }
 
-    @Override
     public void setJournal(Journal journal) {
         this.journal=journal;
         ident.setText(journal==null?"":journal.getAbbreviation() + " " + journal.getId());
         setTransaction(journal==null?null:journal.getCurrentObject());
     }
 
-    @Override
     public void setTransaction(Transaction transaction){
         this.transaction = transaction;
         journalDataModel.setTransaction(transaction);
@@ -407,7 +404,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         }
     }
 
-    @Override
     public void fireTransactionDataChanged() {
         journalDataModel.fireTableDataChanged();
 
