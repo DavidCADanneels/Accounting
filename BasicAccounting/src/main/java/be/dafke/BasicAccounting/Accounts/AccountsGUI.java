@@ -25,7 +25,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountsGUI extends JPanel implements ListSelectionListener, MouseListener, ActionListener, AccountsListener, AccountingListener {
+public class AccountsGUI extends JPanel implements ListSelectionListener, MouseListener, AccountsListener, AccountingListener {
     private final PrefixFilterPanel<Account> zoeker;
     private final AlphabeticListModel<Account> model;
     private final JList<Account> lijst;
@@ -117,13 +117,6 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
         credit.setEnabled(accountSelected);
     }
 
-    public void actionPerformed(ActionEvent ae) {
-        if (ae.getSource() instanceof JCheckBox) {
-            fireAccountDataChanged();
-            updateListOfCheckedBoxes();
-        }
-    }
-
     private void updateListOfCheckedBoxes() {
         for (AccountType type : boxes.keySet()) {
             JCheckBox checkBox = boxes.get(type);
@@ -202,7 +195,10 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
             JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(type.getName().toUpperCase()));
             checkBox.setSelected(true);
             checkBox.setActionCommand(type.getName());
-            checkBox.addActionListener(this);
+            checkBox.addActionListener(e -> {
+                fireAccountDataChanged();
+                updateListOfCheckedBoxes();
+            });
             boxes.put(type, checkBox);
             filter.add(checkBox);
         }
