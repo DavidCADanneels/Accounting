@@ -45,8 +45,6 @@ public class XMLReader {
         for(Object businessObject : businessCollection.getBusinessObjects()) {
             if(businessObject instanceof BusinessCollection){
                 BusinessCollection<BusinessObject> subCollection = ((BusinessCollection<BusinessObject>)businessObject);
-                String type = subCollection.getBusinessObjectType();
-                String name = subCollection.getName();
                 if((subCollection instanceof MustBeRead)){
                     File childFolder = new File(parentFolder, businessCollectionName);
                     readCollection(subCollection, childFolder);
