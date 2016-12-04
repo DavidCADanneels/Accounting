@@ -2,7 +2,6 @@ package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.RefreshableTableModel;
 
@@ -20,11 +19,9 @@ public class AccountManagementTableModel extends RefreshableTableModel<Account> 
             getBundle("BusinessActions").getString("DEFAULT_AMOUNT")};
 	private final Class[] columnClasses = { Account.class, String.class, BigDecimal.class,  BigDecimal.class };
 	private final Accounts accounts;
-	private final AccountTypes accountTypes;
 
-	public AccountManagementTableModel(Accounts accounts, AccountTypes accountTypes) {
+	public AccountManagementTableModel(Accounts accounts) {
 		this.accounts = accounts;
-		this.accountTypes = accountTypes;
 	}
 
 	public int getColumnCount() {
@@ -36,7 +33,7 @@ public class AccountManagementTableModel extends RefreshableTableModel<Account> 
 	}
 
 	public Object getValueAt(int row, int col) {
-		Account account = accounts.getAccounts(accountTypes.getBusinessObjects()).get(row);
+		Account account = accounts.getBusinessObjects().get(row);
 		if (col == 1) {
 			return account.getType();
 		} else if (col == 2) {
