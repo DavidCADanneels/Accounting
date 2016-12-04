@@ -8,6 +8,10 @@ import java.util.TreeMap;
 
 public class JournalTypes extends BusinessCollection<JournalType> {
 
+    public JournalTypes() {
+        setName("JournalTypes");
+    }
+
     @Override
     public String getChildType(){
         return "JournalType";
