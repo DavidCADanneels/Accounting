@@ -212,6 +212,7 @@ public class Main {
         String name = JOptionPane.showInputDialog(null, "Enter a name");
         try {
             Accounting accounting = new Accounting();
+            accounting.getJournalTypes().addDefaultType(accounting.getAccountTypes());
             accounting.getBalances().addDefaultBalances();
             accounting.setName(name);
             accountings.addBusinessObject(accounting);
