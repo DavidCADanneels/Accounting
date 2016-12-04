@@ -47,7 +47,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         try {
 //            addBusinessObject((BusinessCollection)accountTypes);
             addBusinessObject((BusinessCollection)accounts);
-//            addBusinessObject((BusinessCollection)journalTypes);
+            addBusinessObject((BusinessCollection)journalTypes);
             addBusinessObject((BusinessCollection)journals);
             addBusinessObject((BusinessCollection)balances);
             addBusinessObject((BusinessCollection)contacts);
