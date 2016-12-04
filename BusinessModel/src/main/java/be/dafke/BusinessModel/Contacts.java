@@ -1,6 +1,7 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.MustBeRead;
 
 import java.util.Set;
 import java.util.TreeMap;
@@ -8,7 +9,7 @@ import java.util.TreeMap;
 /**
  * Created by ddanneels on 15/11/2016.
  */
-public class Contacts extends BusinessCollection<Contact> {
+public class Contacts extends BusinessCollection<Contact> implements MustBeRead {
 
     public static final String NAME = "name";
     public static final String ADDRESS_LINE_1 = "addressLine1";

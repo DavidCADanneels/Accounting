@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
 
 import javax.swing.*;
@@ -15,8 +16,10 @@ public class AccountsPopupMenu extends JPopupMenu {
     private final JMenuItem manage,add;
     public final String MANAGE = "manage";
     public final String ADD = "add";
+    private AccountTypes accountTypes;
+    private Accounts accounts;
 
-    public AccountsPopupMenu(Accounts accounts, AccountTypes accountTypes) {
+    public AccountsPopupMenu() {
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_ACCOUNT"));
         add = new JMenuItem(getBundle("Accounting").getString("ADD_ACCOUNT"));
         manage.setActionCommand(MANAGE);
@@ -24,7 +27,7 @@ public class AccountsPopupMenu extends JPopupMenu {
         add(manage);
         add(add);
         manage.addActionListener(e -> {
-            showAccountManager(accounts).setVisible(true);
+            showAccountManager(accounts, accountTypes).setVisible(true);
             setVisible(false);
         });
         add.addActionListener(e -> {
@@ -32,4 +35,18 @@ public class AccountsPopupMenu extends JPopupMenu {
             setVisible(false);
         });
     }
+
+    public void setAccounting(Accounting accounting) {
+        setAccounts(accounting == null ? null : accounting.getAccounts());
+        setAccountTypes(accounting == null ? null : accounting.getAccountTypes());
+    }
+
+    public void setAccountTypes(AccountTypes accountTypes) {
+        this.accountTypes = accountTypes;
+    }
+
+    public void setAccounts(Accounts accounts) {
+        this.accounts = accounts;
+    }
+
 }

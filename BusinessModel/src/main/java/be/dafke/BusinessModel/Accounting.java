@@ -7,9 +7,7 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
 
-import java.util.ArrayList;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 /**
  * @author David Danneels
@@ -21,7 +19,6 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     private final JournalTypes journalTypes;
     private final Balances balances;
     private final Mortgages mortgages;
-    private ArrayList<String> keys;
     private Projects projects;
     private Contacts contacts;
 
@@ -35,7 +32,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         accounts = new Accounts(accountTypes);
 
         journalTypes = new JournalTypes();
-        journalTypes.addDefaultType(accountTypes);
+//        journalTypes.addDefaultType(accountTypes);
 
         journals = new Journals(accounts, journalTypes);
 
@@ -47,13 +44,10 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
         projects = new Projects(accounts, accountTypes);
 
-        accounts.setName(accounts.getBusinessObjectType());
-        journals.setName(journals.getBusinessObjectType());
-
         try {
 //            addBusinessObject((BusinessCollection)accountTypes);
             addBusinessObject((BusinessCollection)accounts);
-//            addBusinessObject((BusinessCollection)journalTypes);
+            addBusinessObject((BusinessCollection)journalTypes);
             addBusinessObject((BusinessCollection)journals);
             addBusinessObject((BusinessCollection)balances);
             addBusinessObject((BusinessCollection)contacts);
@@ -64,20 +58,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         } catch (DuplicateNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        keys = new ArrayList<>();
-//        keys.add(accountTypes.getBusinessObjectType());
-        keys.add(accounts.getBusinessObjectType());
-//        keys.add(journalTypes.getBusinessObjectType());
-        keys.add(journals.getBusinessObjectType());
-        keys.add(balances.getBusinessObjectType());
-        keys.add(contacts.getBusinessObjectType());
-        keys.add(mortgages.getBusinessObjectType());
-        keys.add(projects.getBusinessObjectType());
 	}
-
-    public void addKey(String key){
-        keys.add(key);
-    }
 
     public String toString(){
         return getName();
@@ -87,11 +68,6 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     public BusinessCollection createNewChild(TreeMap<String, String> properties) {
        System.err.println("Never called ??");
         return null;
-    }
-
-    @Override
-    public ArrayList<BusinessCollection<BusinessObject>> getBusinessObjects(){
-        return keys.stream().map(this::getBusinessObject).collect(Collectors.toCollection(ArrayList::new));
     }
 
     // Collections

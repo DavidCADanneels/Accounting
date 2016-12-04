@@ -32,7 +32,6 @@ public class Statements extends BusinessCollection<BusinessObject> {
         } catch (DuplicateNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
-        accounting.addKey(STATEMENTS);
 
     }
 

@@ -23,6 +23,8 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         addSearchKey(NAME);
     }
 
+    // -------------------------------------------------------------------------------
+
     public abstract V createNewChild(TreeMap<String, String> properties);
 
     // KeySet and Properties
@@ -41,6 +43,8 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         TreeMap<String, V> newMap = new TreeMap<>();
         dataTables.put(key, newMap);
     }
+
+    // ----------- CurrentObject --------------
 
     public V getCurrentObject() {
         return currentObject;
