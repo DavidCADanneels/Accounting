@@ -52,19 +52,6 @@ public class SaveAllActionListener extends WindowAdapter implements ActionListen
         htmlFolder.mkdirs();
 
 //        XMLtoHTMLWriter.toHtml(accountings, xmlFolder, xslFolder, htmlFolder);
-/*
-        // TODO: remove this by refactoring Extension and write methods
-        // only used for Mortgages, does not work well
-        for(Accounting accounting : accountings.getBusinessObjects()){
-            File rootFolder = new File(accountings.getXmlFolder(), "Accountings");
-            File subFolder = new File(rootFolder, accounting.getName());
-            File mortgagesFolder = new File(subFolder, "Mortgages");
-            Mortgages mortgages = accounting.getMortgages();
-            for(BusinessObject businessObject : mortgages.getBusinessObjects()){
-                Mortgage mortgage = (Mortgage) businessObject;
-                MortgagesSAXParser.writeMortgage(mortgage, mortgagesFolder, XMLWriter.getXmlHeader(mortgage, 3));
-            }
-        }
-    */
+
     }
 }
