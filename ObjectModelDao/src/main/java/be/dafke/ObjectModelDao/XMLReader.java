@@ -47,7 +47,7 @@ public class XMLReader {
                 BusinessCollection<BusinessObject> subCollection = ((BusinessCollection<BusinessObject>)businessObject);
                 String type = subCollection.getBusinessObjectType();
                 String name = subCollection.getName();
-                if(type.equals(name) || (subCollection instanceof MustBeRead)){
+                if((subCollection instanceof MustBeRead)){
                     File childFolder = new File(parentFolder, businessCollectionName);
                     readCollection(subCollection, childFolder);
                 }
