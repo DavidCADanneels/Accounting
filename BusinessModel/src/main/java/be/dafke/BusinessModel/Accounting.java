@@ -32,7 +32,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         accounts = new Accounts(accountTypes);
 
         journalTypes = new JournalTypes();
-        journalTypes.addDefaultType(accountTypes);
+//        journalTypes.addDefaultType(accountTypes);
 
         journals = new Journals(accounts, journalTypes);
 
