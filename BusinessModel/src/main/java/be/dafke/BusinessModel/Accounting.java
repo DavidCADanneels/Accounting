@@ -9,7 +9,6 @@ import be.dafke.ObjectModel.MustBeRead;
 
 import java.util.ArrayList;
 import java.util.TreeMap;
-import java.util.stream.Collectors;
 
 /**
  * @author David Danneels
@@ -46,9 +45,6 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         mortgages = new Mortgages(accounts);
 
         projects = new Projects(accounts, accountTypes);
-
-//        accounts.setName(accounts.getBusinessObjectType());
-//        journals.setName(journals.getBusinessObjectType());
 
         try {
 //            addBusinessObject((BusinessCollection)accountTypes);
@@ -91,7 +87,11 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     @Override
     public ArrayList<BusinessCollection<BusinessObject>> getBusinessObjects(){
-        return keys.stream().map(this::getBusinessObject).collect(Collectors.toCollection(ArrayList::new));
+        ArrayList<BusinessCollection<BusinessObject>> objects = new ArrayList<>();
+        for(String key:keys){
+            objects.add(getBusinessObject(key));
+        }
+        return objects;
     }
 
     // Collections
