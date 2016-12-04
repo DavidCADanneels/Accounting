@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.RefreshableTableModel;
 
@@ -24,11 +23,9 @@ public class TestBalanceDataModel extends RefreshableTableModel<Account> {
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, BigDecimal.class,
 			BigDecimal.class };
 	private final Accounts accounts;
-	private final AccountTypes accountTypes;
 
-	public TestBalanceDataModel(final Accounts accounts, final AccountTypes accountTypes) {
+	public TestBalanceDataModel(final Accounts accounts) {
 		this.accounts = accounts;
-		this.accountTypes = accountTypes;
 	}
 
 	// DE GET METHODEN
@@ -78,13 +75,13 @@ public class TestBalanceDataModel extends RefreshableTableModel<Account> {
 
 	@Override
 	public Account getObject(int row, int col) {
-		return accounts.getAccounts(accountTypes.getBusinessObjects()).get(row);
+		return accounts.getBusinessObjects().get(row);
 	}
 
 	@Override
 	public int getRow(Account o) {
 		int row = 0;
-		ArrayList<Account> accountList = accounts.getAccounts(accountTypes.getBusinessObjects());
+		ArrayList<Account> accountList = accounts.getBusinessObjects();
 		for(Account account : accountList){
 			if(account != o){
 				row++;
