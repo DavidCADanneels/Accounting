@@ -19,11 +19,9 @@ import static be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI.showJou
 import static java.util.ResourceBundle.getBundle;
 
 public class JournalManagementGUI extends JFrame implements ListSelectionListener {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-//
+
 	private JButton add, delete, modifyName, modifyType, modifyAbbr, newType;
 	private final DefaultListSelectionModel selection;
     private RefreshableTable<Journal> tabel;
@@ -44,13 +42,12 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 
         tabel = new RefreshableTable<>(journalManagementTableModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
-        //tabel.setAutoCreateRowSorter(true);
+
         tabel.setRowSorter(null);
         JScrollPane scrollPane = new JScrollPane(tabel);
 
         JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.add(scrollPane, BorderLayout.CENTER);
-//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
@@ -125,6 +122,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         ArrayList<Journal> journalList = getSelectedJournals();
         if (!journalList.isEmpty()) {
             modifyNames(journalList, journals);
+            fireJournalDataChanged();
         }
     }
 
@@ -132,6 +130,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         ArrayList<Journal> journalList = getSelectedJournals();
         if (!journalList.isEmpty()) {
             modifyAbbr(journalList, journals);
+            fireJournalDataChanged();
         }
     }
 
@@ -139,6 +138,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         ArrayList<Journal> journalList = getSelectedJournals();
         if (!journalList.isEmpty()) {
             modifyType(journalList, journalTypes);
+            fireJournalDataChanged();
         }
     }
 
@@ -146,6 +146,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         ArrayList<Journal> journalList = getSelectedJournals();
         if (!journalList.isEmpty()) {
             deleteJournal(journalList, journals);
+            fireJournalDataChanged();
         }
     }
 
@@ -154,7 +155,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         if (rows.length == 0) {
             ActionUtils.showErrorMessage(ActionUtils.SELECT_JOURNAL_FIRST);
         }
-        ArrayList<Journal> journalList = new ArrayList<Journal>();
+        ArrayList<Journal> journalList = new ArrayList<>();
         for(int row : rows) {
             Journal journal = (Journal) tabel.getModel().getValueAt(row, 0);
             journalList.add(journal);
@@ -172,7 +173,6 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
                 try {
                     if(newName!=null && !oldName.trim().equals(newName.trim())){
                         journals.modifyJournalName(oldName, newName);
-//                        //ComponentMap.refreshAllFrames();
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {
@@ -193,7 +193,6 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
                 try {
                     if(newAbbreviation!=null && !oldAbbreviation.trim().equals(newAbbreviation.trim())){
                         journals.modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
-//                        //ComponentMap.refreshAllFrames();
                     }
                     retry = false;
                 } catch (DuplicateNameException e) {
@@ -240,7 +239,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
     }
 
     private void deleteJournal(ArrayList<Journal> journalList, Journals journals) {
-        ArrayList<String> failed = new ArrayList<String>();
+        ArrayList<String> failed = new ArrayList<>();
         for(Journal journal : journalList) {
             try{
                 journals.removeBusinessObject(journal);
