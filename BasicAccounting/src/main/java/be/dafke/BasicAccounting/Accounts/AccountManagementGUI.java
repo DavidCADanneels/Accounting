@@ -42,9 +42,10 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 	private AccountTypes accountTypes;
 	private static final HashMap<Accounts, AccountManagementGUI> accountManagementGuis = new HashMap<>();
 
-	private AccountManagementGUI(final Accounts accounts) {
+	private AccountManagementGUI(final Accounts accounts, final AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE"));
 		this.accounts = accounts;
+		this.accountTypes = accountTypes;
 		this.accountManagementTableModel = new AccountManagementTableModel(accounts);
 
 		// COMPONENTS
@@ -67,10 +68,10 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		pack();
 	}
 
-	public static AccountManagementGUI showAccountManager(Accounts accounts) {
+	public static AccountManagementGUI showAccountManager(Accounts accounts, AccountTypes accountTypes) {
 		AccountManagementGUI gui = accountManagementGuis.get(accounts);
 		if(gui == null){
-			gui = new AccountManagementGUI(accounts);
+			gui = new AccountManagementGUI(accounts, accountTypes);
 			accountManagementGuis.put(accounts, gui);
 			SaveAllActionListener.addFrame(gui);
 		}

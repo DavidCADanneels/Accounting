@@ -8,12 +8,10 @@ import be.dafke.Utils.PrefixFilterPanel;
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -25,11 +23,11 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountsGUI extends JPanel implements ListSelectionListener, MouseListener {
+public class AccountsGUI extends JPanel {
     private final PrefixFilterPanel<Account> zoeker;
     private final AlphabeticListModel<Account> model;
     private final JList<Account> lijst;
-    private final JButton debet, credit, accountDetails;
+    private JButton debet, credit, accountDetails;
     private final Map<AccountType, JCheckBox> boxes;
     private final Map<AccountType, Boolean> selectedAccountTypes;
 
@@ -56,11 +54,37 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
         //
         model = new AlphabeticListModel<>();
         lijst = new JList<>(model);
-        lijst.addListSelectionListener(this);
+        lijst.addListSelectionListener(e ->  {
+                selectedAccount = null;
+                if (!e.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
+                    selectedAccount = lijst.getSelectedValue();
+                }
+                boolean accountSelected = (selectedAccount != null);
+                accountDetails.setEnabled(accountSelected);
+                debet.setEnabled(accountSelected);
+                credit.setEnabled(accountSelected);
+            });
 
-        lijst.addMouseListener(this);//new PopupForListActivator(popup, lijst));//, new AccountDetailsLauncher(accountings)));
+        lijst.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent me) {
+                int clickCount = me.getClickCount();
+                int button = me.getButton();
+                if (popup != null) {
+                    popup.setVisible(false);
+                    if (clickCount == 2) {
+                        if (journals != null) AccountDetails.getAccountDetails(selectedAccount, journals, journalInputGUI);
+                    } else if (button == 3) {
+                        Point location = me.getLocationOnScreen();
+                        popup.show(null, location.x, location.y);
+                    }
+                }
+            }
+        });//new PopupForListActivator(popup, lijst));//, new AccountDetailsLauncher(accountings)));
         lijst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         zoeker = new PrefixFilterPanel<>(model, lijst, new ArrayList<>());
+
+        popup = new AccountsPopupMenu();
 
         // BUTTONS
         //
@@ -106,17 +130,6 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
         }
     }
 
-    public void valueChanged(ListSelectionEvent lse) {
-        selectedAccount = null;
-        if (!lse.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
-            selectedAccount = lijst.getSelectedValue();
-        }
-        boolean accountSelected = (selectedAccount != null);
-        accountDetails.setEnabled(accountSelected);
-        debet.setEnabled(accountSelected);
-        credit.setEnabled(accountSelected);
-    }
-
     private void updateListOfCheckedBoxes() {
         for (AccountType type : boxes.keySet()) {
             JCheckBox checkBox = boxes.get(type);
@@ -139,44 +152,11 @@ public class AccountsGUI extends JPanel implements ListSelectionListener, MouseL
         }
     }
 
-    public void mouseClicked(MouseEvent me) {
-        int clickCount = me.getClickCount();
-        int button = me.getButton();
-        if (popup != null) {
-            popup.setVisible(false);
-            if (clickCount == 2) {
-                if (journals != null) AccountDetails.getAccountDetails(selectedAccount, journals, journalInputGUI);
-            } else if (button == 3) {
-                Point location = me.getLocationOnScreen();
-                popup.show(null, location.x, location.y);
-            }
-        }
-    }
-
-    public void mousePressed(MouseEvent e) {
-
-    }
-
-    public void mouseReleased(MouseEvent e) {
-
-    }
-
-    public void mouseEntered(MouseEvent e) {
-
-    }
-
-    public void mouseExited(MouseEvent e) {
-
-    }
-
     public void setAccounting(Accounting accounting) {
         setAccountTypes(accounting == null ? null : accounting.getAccountTypes());
         setAccounts(accounting == null ? null : accounting.getAccounts());
-
-        // could be popup.setAccounting() with constructor call in this.constructor
-        popup = new AccountsPopupMenu(accounts, accountTypes);
-
         setJournals(accounting == null ? null : accounting.getJournals());
+        popup.setAccounting(accounting);
     }
 
     public void setAccountTypes(AccountTypes accountTypes) {
