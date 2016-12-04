@@ -1,10 +1,12 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
-import be.dafke.BusinessActions.ActionUtils;
-import be.dafke.BusinessActions.JournalActions;
+import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
@@ -17,11 +19,9 @@ import static be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI.showJou
 import static java.util.ResourceBundle.getBundle;
 
 public class JournalManagementGUI extends JFrame implements ListSelectionListener {
-	/**
-	 * 
-	 */
+
 	private static final long serialVersionUID = 1L;
-//
+
 	private JButton add, delete, modifyName, modifyType, modifyAbbr, newType;
 	private final DefaultListSelectionModel selection;
     private RefreshableTable<Journal> tabel;
@@ -42,13 +42,12 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 
         tabel = new RefreshableTable<>(journalManagementTableModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
-        //tabel.setAutoCreateRowSorter(true);
+
         tabel.setRowSorter(null);
         JScrollPane scrollPane = new JScrollPane(tabel);
 
         JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.add(scrollPane, BorderLayout.CENTER);
-//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
@@ -122,28 +121,32 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
     public void modifyName() {
         ArrayList<Journal> journalList = getSelectedJournals();
         if (!journalList.isEmpty()) {
-            JournalActions.modifyNames(journalList, journals);
+            modifyNames(journalList, journals);
+            fireJournalDataChanged();
         }
     }
 
     public void modifyAbbr() {
         ArrayList<Journal> journalList = getSelectedJournals();
         if (!journalList.isEmpty()) {
-            JournalActions.modifyAbbr(journalList, journals);
+            modifyAbbr(journalList, journals);
+            fireJournalDataChanged();
         }
     }
 
     public void modifyType() {
         ArrayList<Journal> journalList = getSelectedJournals();
         if (!journalList.isEmpty()) {
-            JournalActions.modifyType(journalList, journalTypes);
+            modifyType(journalList, journalTypes);
+            fireJournalDataChanged();
         }
     }
 
     public void deleteJournal() {
         ArrayList<Journal> journalList = getSelectedJournals();
         if (!journalList.isEmpty()) {
-            JournalActions.deleteJournal(journalList, journals);
+            deleteJournal(journalList, journals);
+            fireJournalDataChanged();
         }
     }
 
@@ -152,12 +155,108 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         if (rows.length == 0) {
             ActionUtils.showErrorMessage(ActionUtils.SELECT_JOURNAL_FIRST);
         }
-        ArrayList<Journal> journalList = new ArrayList<Journal>();
+        ArrayList<Journal> journalList = new ArrayList<>();
         for(int row : rows) {
             Journal journal = (Journal) tabel.getModel().getValueAt(row, 0);
             journalList.add(journal);
         }
         return journalList;
 
+    }
+
+    private void modifyNames(ArrayList<Journal> journalList, Journals journals) {
+        for(Journal journal : journalList){
+            String oldName = journal.getName();
+            boolean retry = true;
+            while(retry){
+                String newName = JOptionPane.showInputDialog(getBundle("BusinessActions").getString("NEW_NAME"), oldName.trim());
+                try {
+                    if(newName!=null && !oldName.trim().equals(newName.trim())){
+                        journals.modifyJournalName(oldName, newName);
+                    }
+                    retry = false;
+                } catch (DuplicateNameException e) {
+                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME, newName.trim());
+                } catch (EmptyNameException e) {
+                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_EMPTY);
+                }
+            }
+        }
+    }
+
+    private void modifyAbbr(ArrayList<Journal> journalList, Journals journals) {
+        for(Journal journal : journalList){
+            String oldAbbreviation = journal.getAbbreviation();
+            boolean retry = true;
+            while(retry){
+                String newAbbreviation = JOptionPane.showInputDialog(getBundle("BusinessActions").getString("NEW_ABBR"), oldAbbreviation.trim());
+                try {
+                    if(newAbbreviation!=null && !oldAbbreviation.trim().equals(newAbbreviation.trim())){
+                        journals.modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
+                    }
+                    retry = false;
+                } catch (DuplicateNameException e) {
+                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_ABBR,newAbbreviation.trim());
+                } catch (EmptyNameException e) {
+                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_ABBR_EMPTY);
+                }
+            }
+        }
+    }
+
+    private void modifyType(ArrayList<Journal> journalList, JournalTypes journalTypes) {
+
+        boolean singleMove;
+        if (journalList.size() == 1) {
+            singleMove = true;
+        } else {
+            int option = JOptionPane.showConfirmDialog(null, getBundle("BusinessActions").getString("APPLY_SAME_TYPE_FOR_ALL_JOURNALS"),
+                    getBundle("BusinessActions").getString("ALL"),
+                    JOptionPane.YES_NO_OPTION);
+            singleMove = (option == JOptionPane.YES_OPTION);
+        }
+        if (singleMove) {
+            Object[] types = journalTypes.getBusinessObjects().toArray();
+            int nr = JOptionPane.showOptionDialog(null, getBundle("BusinessActions").getString("CHOOSE_NEW_TYPE"),
+                    getBundle("BusinessActions").getString("CHANGE_TYPE"),
+                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
+            if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
+                for(Journal journal : journalList) {
+                    journal.setType((JournalType) types[nr]);
+                }
+            }
+        } else {
+            for(Journal journal : journalList) {
+                Object[] types = journalTypes.getBusinessObjects().toArray();
+                int nr = JOptionPane.showOptionDialog(null, getBundle("BusinessActions").getString("CHOOSE_NEW_TYPE_FOR")+" " + journal.getName(),
+                        getBundle("BusinessActions").getString("CHANGE_TYPE"), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
+                        journal.getType());
+                if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
+                    journal.setType((JournalType) types[nr]);
+                }
+            }
+        }
+    }
+
+    private void deleteJournal(ArrayList<Journal> journalList, Journals journals) {
+        ArrayList<String> failed = new ArrayList<>();
+        for(Journal journal : journalList) {
+            try{
+                journals.removeBusinessObject(journal);
+            }catch (NotEmptyException e){
+                failed.add(journal.getName());
+            }
+        }
+        if (failed.size() > 0) {
+            if (failed.size() == 1) {
+                JOptionPane.showMessageDialog(null, failed.get(0) + " "+ getBundle("BusinessActions").getString("JOURNAL_NOT_EMPTY"));
+            } else {
+                StringBuilder builder = new StringBuilder(getBundle("BusinessActions").getString("MULTIPLE_JOURNALS_NOT_EMPTY")+"\n");
+                for(String s : failed){
+                    builder.append("- ").append(s).append("\n");
+                }
+                JOptionPane.showMessageDialog(null, builder.toString());
+            }
+        }
     }
 }

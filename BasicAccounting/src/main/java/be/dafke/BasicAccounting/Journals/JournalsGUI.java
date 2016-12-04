@@ -1,8 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessActions.AccountingListener;
-import be.dafke.BusinessActions.JournalListener;
 import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
@@ -18,7 +16,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class JournalsGUI extends JPanel implements ActionListener, JournalListener, AccountingListener {
+public class JournalsGUI extends JPanel implements ActionListener {
 	/**
 	 * 
 	 */
@@ -30,9 +28,11 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalListen
 	private Accounts accounts;
 	private AccountTypes accountTypes;
 	private JournalInputGUI journalInputGUI;
+	private JournalGUI journalGUI;
 
-	public JournalsGUI(JournalInputGUI journalInputGUI) {
+	public JournalsGUI(JournalGUI journalGUI, JournalInputGUI journalInputGUI) {
 		this.journalInputGUI=journalInputGUI;
+		this.journalGUI = journalGUI;
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -70,7 +70,6 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalListen
 		Main.setJournal(journal);
 	}
 
-	@Override
 	public void setAccounting(Accounting accounting) {
 		journalTypes=accounting==null?null:accounting.getJournalTypes();
 		accountTypes=accounting==null?null:accounting.getAccountTypes();
@@ -94,11 +93,13 @@ public class JournalsGUI extends JPanel implements ActionListener, JournalListen
 		setJournal(journals==null?null:journals.getCurrentObject());
 	}
 
-	@Override
 	public void setJournal(Journal journal) {
 		combo.removeActionListener(this);
 		combo.setSelectedItem(journal);
 		combo.addActionListener(this);
+
+		journalGUI.setJournal(journal);
+		journalInputGUI.setJournal(journal);
 
 		details.setEnabled(journal!=null);
 	}

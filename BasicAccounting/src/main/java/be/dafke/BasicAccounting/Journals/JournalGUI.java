@@ -1,10 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BusinessActions.AccountingListener;
-import be.dafke.BusinessActions.JournalDataChangeListener;
-import be.dafke.BusinessActions.JournalListener;
-import be.dafke.BusinessActions.PopupForTableActivator;
-import be.dafke.BusinessModel.Accounting;
+import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Journals;
@@ -13,7 +9,7 @@ import be.dafke.ComponentModel.RefreshableTable;
 import javax.swing.*;
 import java.awt.*;
 
-public class JournalGUI extends JPanel implements JournalListener, AccountingListener, JournalDataChangeListener {
+public class JournalGUI extends JPanel {
     /**
 	 * 
 	 */
@@ -40,23 +36,16 @@ public class JournalGUI extends JPanel implements JournalListener, AccountingLis
 		add(center, BorderLayout.CENTER);
 	}
 
-    @Override
-    public void setAccounting(Accounting accounting){
-        setJournals(accounting==null?null:accounting.getJournals());
-    }
-
     public void setJournals(Journals journals){
         popup.setJournals(journals);
         setJournal(journals==null?null:journals.getCurrentObject());
     }
 
-    @Override
     public void setJournal(Journal journal) {
         journalDetailsDataModel.setJournal(journal);
         journalDetailsDataModel.fireTableDataChanged();
     }
 
-    @Override
     public void fireJournalDataChanged() {
         journalDetailsDataModel.fireTableDataChanged();
     }

@@ -2,7 +2,6 @@ package be.dafke.BasicAccounting.Projects;
 
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
-import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
@@ -26,7 +25,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class ProjectManagementGUI extends JFrame implements ListSelectionListener, ActionListener, AccountingListener {
+public class ProjectManagementGUI extends JFrame implements ListSelectionListener, ActionListener {
 	/**
 	 * 
 	 */
@@ -225,7 +224,6 @@ public class ProjectManagementGUI extends JFrame implements ListSelectionListene
         }
 	}
 
-	@Override
 	public void setAccounting(Accounting accounting) {
 		accounts=accounting==null?null:accounting.getAccounts();
 		accountTypes=accounting==null?null:accounting.getAccountTypes();

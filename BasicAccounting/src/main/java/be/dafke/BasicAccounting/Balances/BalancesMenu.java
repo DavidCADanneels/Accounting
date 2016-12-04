@@ -17,7 +17,6 @@ public class BalancesMenu extends JMenu {
     private static JMenuItem testBalance, yearBalance, resultBalance, relationsBalance;
     private static Journals journals;
     private static Accounts accounts;
-    private static AccountTypes accountTypes;
     private static Balances balances;
 
     public BalancesMenu(JournalInputGUI journalInputGUI){
@@ -28,7 +27,7 @@ public class BalancesMenu extends JMenu {
         resultBalance = new JMenuItem(getBundle("BusinessModel").getString("RESULTBALANCE"));
         relationsBalance = new JMenuItem(getBundle("BusinessModel").getString("RELATIONSBALANCE"));
 
-        testBalance.addActionListener(e -> TestBalance.getTestBalance(journals, accounts, accountTypes,journalInputGUI));
+        testBalance.addActionListener(e -> TestBalance.getTestBalance(journals, accounts, journalInputGUI));
         yearBalance.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(Balances.YEAR_BALANCE),journalInputGUI));
         resultBalance.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(Balances.RESULT_BALANCE),journalInputGUI));
         relationsBalance.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(Balances.RELATIONS_BALANCE),journalInputGUI));
@@ -45,7 +44,6 @@ public class BalancesMenu extends JMenu {
     public static void setAccounting(Accounting accounting) {
         journals = accounting==null?null:accounting.getJournals();
         accounts = accounting==null?null:accounting.getAccounts();
-        accountTypes = accounting==null?null:accounting.getAccountTypes();
         balances = accounting==null?null:accounting.getBalances();
         relationsBalance.setEnabled(balances!=null);
         resultBalance.setEnabled(balances!=null);

@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BusinessActions.AccountsListener;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
@@ -9,7 +8,7 @@ import be.dafke.ComponentModel.RefreshableDialog;
 import javax.swing.*;
 import java.awt.*;
 
-public class AccountSelector extends RefreshableDialog implements AccountsListener {
+public class AccountSelector extends RefreshableDialog {
 	/**
 	 * 
 	 */
@@ -54,7 +53,6 @@ public class AccountSelector extends RefreshableDialog implements AccountsListen
 		return account;
 	}
 
-	@Override
     public void setAccounts(Accounts accounts) {
 		this.accounts = accounts;
 		fireAccountDataChanged();

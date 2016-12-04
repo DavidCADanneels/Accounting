@@ -1,10 +1,9 @@
 package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
+import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
-import be.dafke.BusinessActions.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.RefreshableTable;
@@ -25,9 +24,9 @@ public class TestBalance extends JFrame {
 	private TestBalanceDataModel testBalanceDataModel;
 	private static HashMap<Accounts,TestBalance> testBalanceMap = new HashMap<>();
 
-	private TestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes, JournalInputGUI journalInputGUI) {
+	private TestBalance(Journals journals, Accounts accounts, JournalInputGUI journalInputGUI) {
 		super(getBundle("BusinessModel").getString("TESTBALANCE"));
-		testBalanceDataModel = new TestBalanceDataModel(accounts, accountTypes);
+		testBalanceDataModel = new TestBalanceDataModel(accounts);
 
 		tabel = new RefreshableTable<>(testBalanceDataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -45,10 +44,10 @@ public class TestBalance extends JFrame {
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
 	}
 
-	public static TestBalance getTestBalance(Journals journals, Accounts accounts, AccountTypes accountTypes, JournalInputGUI journalInputGUI) {
+	public static TestBalance getTestBalance(Journals journals, Accounts accounts, JournalInputGUI journalInputGUI) {
 		TestBalance testBalance = testBalanceMap.get(accounts);
 		if(testBalance==null){
-			testBalance = new TestBalance(journals, accounts, accountTypes, journalInputGUI);
+			testBalance = new TestBalance(journals, accounts, journalInputGUI);
 			testBalanceMap.put(accounts,testBalance);
 			SaveAllActionListener.addFrame(testBalance);
 		}

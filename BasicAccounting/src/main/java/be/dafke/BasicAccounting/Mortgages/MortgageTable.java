@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Mortgages;
 
-import be.dafke.BusinessActions.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;

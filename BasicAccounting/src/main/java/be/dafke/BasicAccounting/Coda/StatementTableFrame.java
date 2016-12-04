@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Coda;
 
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
-import be.dafke.BusinessActions.AccountingListener;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.CodaParser;
 import be.dafke.BusinessModelDao.CsvParser;
@@ -17,7 +16,7 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.List;
 
-public class StatementTableFrame extends JFrame implements MouseListener, AccountingListener {
+public class StatementTableFrame extends JFrame implements MouseListener {
 	/**
 	 * 
 	 */
@@ -277,7 +276,6 @@ public class StatementTableFrame extends JFrame implements MouseListener, Accoun
 	public void mouseReleased(MouseEvent e) {
 	}
 
-	@Override
 	public void setAccounting(Accounting accounting) {
 		counterParties = (CounterParties)accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
 		statements = (Statements)accounting.getBusinessObject(Statements.STATEMENTS);

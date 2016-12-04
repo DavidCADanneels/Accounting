@@ -43,7 +43,7 @@ public class AccountsTablePopupMenu extends JPopupMenu {
         debit.addActionListener(e -> book(true));
         credit.addActionListener(e -> book(false));
         manage.addActionListener(e -> {
-            showAccountManager(accounts, accountTypes);
+            showAccountManager(accounts);
             setVisible(false);
         });
         add.addActionListener(e -> {
