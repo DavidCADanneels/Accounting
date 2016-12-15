@@ -40,8 +40,6 @@ public class ProjectManagementGUI extends JFrame implements ListSelectionListene
 	private AccountTypes accountTypes;
 	private Projects projects;
 	private static final HashMap<Projects, ProjectManagementGUI> projectManagementGuis = new HashMap<>();
-	public static final String MANAGE = "ManageProjects";
-
 
 	private ProjectManagementGUI(Accounts accounts, AccountTypes accountTypes, Projects projects) {
 		super(getBundle("Projects").getString("PROJECTMANAGER"));
@@ -74,8 +72,6 @@ public class ProjectManagementGUI extends JFrame implements ListSelectionListene
 		allAccounts.addListSelectionListener(this);
 		allAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 
-//		Accounting accounting = accountings.getCurrentObject();
-//		Accounts accounts = accounting.getBusinessObjects();
 		zoeker = new PrefixFilterPanel<>(allAccountsModel, allAccounts, new ArrayList<>());
         zoeker.add(onder, BorderLayout.SOUTH);
 		paneelLinks.add(zoeker);
@@ -178,6 +174,7 @@ public class ProjectManagementGUI extends JFrame implements ListSelectionListene
 				}
 				((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
 				(combo.getModel()).setSelectedItem(project);
+				ProjectGUI.refreshAll();
 			}
 		} else if (ae.getSource() == combo) {
 			project = (Project) combo.getSelectedItem();

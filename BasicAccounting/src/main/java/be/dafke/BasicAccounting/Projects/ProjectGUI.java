@@ -20,20 +20,14 @@ import static java.util.ResourceBundle.getBundle;
 public class ProjectGUI extends JFrame {
     private final JButton manage;
     private final JComboBox<Project> combo;
-    private final Accounts accounts;
-    private final AccountTypes accountTypes;
     private Project project;
     private JournalDetailsDataModel journalDetailsDataModel;
     private BalanceDataModel resultBalanceDataModel, relationsBalanceDataModel;
     private Projects projects;
-    public static final String PROJECTS = "Projects";
     private static final HashMap<Projects, ProjectGUI> projectGuis = new HashMap<>();
-    private static final HashMap<Projects, ProjectManagementGUI> projectManagentGuis = new HashMap<>();
 
     private ProjectGUI(Accounts accounts, AccountTypes accountTypes, Projects projects) {
         super(getBundle("Projects").getString("PROJECTS"));
-        this.accounts = accounts;
-        this.accountTypes = accountTypes;
         this.projects = projects;
         setLayout(new BorderLayout());
 
@@ -104,8 +98,12 @@ public class ProjectGUI extends JFrame {
         return gui;
     }
 
+    public static void refreshAll(){
+        for (ProjectGUI gui : projectGuis.values()){
+            gui.refresh();
+        }
+    }
 
-//    @Override
     public void refresh() {
         combo.removeAllItems();
         for(Project project : projects.getBusinessObjects()) {
