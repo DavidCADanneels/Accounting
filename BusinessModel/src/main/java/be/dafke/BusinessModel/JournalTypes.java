@@ -1,14 +1,13 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
 
 import java.util.TreeMap;
 
-public class JournalTypes extends BusinessCollection<JournalType> implements MustBeRead, ChildrenNeedSeparateFile {
+public class JournalTypes extends BusinessCollection<JournalType> implements MustBeRead {
 
     public JournalTypes() {
         setName("JournalTypes");
