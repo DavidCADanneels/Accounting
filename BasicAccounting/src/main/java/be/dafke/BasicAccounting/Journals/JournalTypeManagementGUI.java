@@ -26,7 +26,6 @@ public class JournalTypeManagementGUI extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JList<AccountType> debit, credit, types;
-	private JButton addDebitType, addCreditType, removeDebitType, removeCreditType;
 	private ArrayList<AccountType> debitTypes, creditTypes, allTypes;
 	private AlphabeticListModel<AccountType> debitModel, creditModel, typesModel;
 	private JournalTypes journalTypes;
@@ -101,14 +100,6 @@ public class JournalTypeManagementGUI extends JFrame {
 	}
 
 	public JSplitPane createCenterPanel(){
-		addDebitType = new JButton(getBundle("Accounting").getString("ADD"));
-		addCreditType = new JButton(getBundle("Accounting").getString("ADD"));
-		removeDebitType = new JButton(getBundle("Accounting").getString("DELETE"));
-		removeCreditType = new JButton(getBundle("Accounting").getString("DELETE"));
-		addDebitType.addActionListener(e -> addLeft());
-		addCreditType.addActionListener(e -> addRight());
-		removeDebitType.addActionListener(e -> removeLeft());
-		removeCreditType.addActionListener(e -> removeRight());
 
 		JPanel allTypesPanel = createAccountTypesPanel();
 		JPanel debetTypesPanel = createDebitTypesPanel();
@@ -126,43 +117,59 @@ public class JournalTypeManagementGUI extends JFrame {
 	}
 
 	private JPanel createCreditTypesPanel() {
+		JButton removeCreditType = new JButton(getBundle("Accounting").getString("DELETE"));
+		removeCreditType.addActionListener(e -> removeRight());
+
 		creditModel = new AlphabeticListModel<>();
 		credit = new JList<>(creditModel);
-		JPanel creditTypesPanel = new JPanel();
-		creditTypesPanel.setLayout(new BorderLayout());
-		creditTypesPanel.add(new JLabel(getBundle("Accounting").getString("CREDIT_TYPES")), NORTH);
-		creditTypesPanel.add(new JScrollPane(credit), CENTER);
-		JPanel creditButtonPanel = new JPanel();
-		creditButtonPanel.setLayout(new BoxLayout(creditButtonPanel,Y_AXIS));
-		creditButtonPanel.add(addCreditType);
-		creditButtonPanel.add(removeCreditType);
-		creditTypesPanel.add(creditButtonPanel, WEST);
-		return creditTypesPanel;
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		panel.add(new JLabel(getBundle("Accounting").getString("CREDIT_TYPES")), NORTH);
+		panel.add(new JScrollPane(credit), CENTER);
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel,Y_AXIS));
+		buttonPanel.add(removeCreditType);
+		panel.add(buttonPanel, SOUTH);
+		return panel;
 	}
 
 	private JPanel createDebitTypesPanel() {
+		JButton removeDebitType = new JButton(getBundle("Accounting").getString("DELETE"));
+		removeDebitType.addActionListener(e -> removeLeft());
+
 		debitModel = new AlphabeticListModel<>();
 		debit = new JList<>(debitModel);
-		JPanel debetTypesPanel = new JPanel();
-		debetTypesPanel.setLayout(new BorderLayout());
-		debetTypesPanel.add(new JLabel(getBundle("Accounting").getString("DEBIT_TYPES")), NORTH);
-		debetTypesPanel.add(new JScrollPane(debit), CENTER);
-		JPanel debetButtonPanel = new JPanel();
-		debetButtonPanel.setLayout(new BoxLayout(debetButtonPanel,Y_AXIS));
-		debetButtonPanel.add(addDebitType);
-		debetButtonPanel.add(removeDebitType);
-		debetTypesPanel.add(debetButtonPanel, WEST);
-		return debetTypesPanel;
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		panel.add(new JLabel(getBundle("Accounting").getString("DEBIT_TYPES")), NORTH);
+		panel.add(new JScrollPane(debit), CENTER);
+
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel,Y_AXIS));
+		buttonPanel.add(removeDebitType);
+		panel.add(buttonPanel, SOUTH);
+		return panel;
 	}
 
 	private JPanel createAccountTypesPanel() {
+		JButton addDebitType = new JButton(getBundle("Accounting").getString("ADD_TO_DEBIT_TYPES"));
+		JButton addCreditType = new JButton(getBundle("Accounting").getString("ADD_TO_CREDIT_TYPES"));
+		addDebitType.addActionListener(e -> addLeft());
+		addCreditType.addActionListener(e -> addRight());
+
+		JPanel buttonPanel = new JPanel();
+		buttonPanel.setLayout(new BoxLayout(buttonPanel,Y_AXIS));
+		buttonPanel.add(addDebitType);
+		buttonPanel.add(addCreditType);
+
 		typesModel = new AlphabeticListModel<>();
 		types = new JList<>(typesModel);
-		JPanel allTypesPanel = new JPanel();
-		allTypesPanel.setLayout(new BorderLayout());
-		allTypesPanel.add(new JLabel(getBundle("Accounting").getString("ALL_TYPES")), NORTH);
-		allTypesPanel.add(new JScrollPane(types), CENTER);
-		return allTypesPanel;
+		JPanel panel = new JPanel();
+		panel.setLayout(new BorderLayout());
+		panel.add(new JLabel(getBundle("Accounting").getString("ACCOUNT_TYPES")), NORTH);
+		panel.add(new JScrollPane(types), CENTER);
+		panel.add(buttonPanel, SOUTH);
+		return panel;
 	}
 
 	public void addLeft() {
