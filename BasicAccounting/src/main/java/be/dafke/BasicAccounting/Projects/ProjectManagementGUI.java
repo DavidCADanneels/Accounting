@@ -15,8 +15,6 @@ import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -25,7 +23,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class ProjectManagementGUI extends JFrame implements ListSelectionListener, ActionListener {
+public class ProjectManagementGUI extends JFrame implements ListSelectionListener {
 	/**
 	 * 
 	 */
@@ -52,17 +50,17 @@ public class ProjectManagementGUI extends JFrame implements ListSelectionListene
 		// onder
 		JPanel onder = new JPanel();
 		moveTo = new JButton(getBundle("Projects").getString("ADD"));
-		moveTo.addActionListener(this);
+		moveTo.addActionListener(e -> moveToProject());
 		moveTo.setEnabled(false);
 		onder.add(moveTo);
 		//
 		moveBack = new JButton(getBundle("Projects").getString("DELETE"));
-		moveBack.addActionListener(this);
+		moveBack.addActionListener(e -> removeFromProject());
 		moveBack.setEnabled(false);
 		onder.add(moveBack);
 		//
 		addAccount = new JButton("Add Account");
-		addAccount.addActionListener(this);
+		addAccount.addActionListener(e -> new NewAccountGUI(accounts, accountTypes).setVisible(true));
 		onder.add(addAccount);
 		//
 		// links
@@ -86,12 +84,11 @@ public class ProjectManagementGUI extends JFrame implements ListSelectionListene
 		projectAccounts.addListSelectionListener(this);
 		projectAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 		//
-		newProject = new JButton(getBundle("Projects").getString(
-				"NEW_PROJECT"));
-		newProject.addActionListener(this);
+		newProject = new JButton(getBundle("Projects").getString("NEW_PROJECT"));
+		newProject.addActionListener(e -> createNewProject());
 		JPanel noord = new JPanel();
 		combo = new JComboBox<>();
-		combo.addActionListener(this);
+		combo.addActionListener(e -> comboAction());
 		noord.add(combo);
 		noord.add(newProject);
 		paneelRechts.add(noord, BorderLayout.NORTH);
@@ -134,61 +131,61 @@ public class ProjectManagementGUI extends JFrame implements ListSelectionListene
 		}
 	}
 
-	public void actionPerformed(ActionEvent ae) {
-		if (ae.getSource() == moveTo) {
-			for(Account account : allAccounts.getSelectedValuesList()) {
+	public void moveToProject(){
+		for(Account account : allAccounts.getSelectedValuesList()) {
+			projectAccountsModel.addElement(account);
+			// TODO check if account belongs to another project (and remove it there ?)
+			try {
+				project.addBusinessObject(account);
+			} catch (EmptyNameException | DuplicateNameException e) {
+				// should not occur since projectAccounts are already filtered out from allAccounts
+				e.printStackTrace();
+			}
+			allAccountsModel.removeElement(account);
+		}
+	}
+
+	public void removeFromProject(){
+		for(Account account : projectAccounts.getSelectedValuesList()) {
+			allAccountsModel.addElement(account);
+			try {
+				project.removeBusinessObject(account);
+			} catch (NotEmptyException e) {
+				e.printStackTrace();
+			}
+			projectAccountsModel.removeElement(account);
+		}
+	}
+
+	public void createNewProject(){
+		String name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
+		while (name != null && name.equals(""))
+			name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
+		if (name != null) {
+			Project project = new Project(name, accounts, accountTypes);
+			try {
+				projects.addBusinessObject(project);
+			} catch (EmptyNameException e) {
+				e.printStackTrace();
+			} catch (DuplicateNameException e) {
+				e.printStackTrace();
+			}
+			((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
+			(combo.getModel()).setSelectedItem(project);
+			ProjectGUI.refreshAll();
+		}
+	}
+
+	public void comboAction() {
+		project = (Project) combo.getSelectedItem();
+		projectAccountsModel.removeAllElements();
+		if(project!=null) {
+			for (Account account : project.getBusinessObjects()) {
+				// System.out.println("Project: " + project + " | account" + account);
 				projectAccountsModel.addElement(account);
-                // TODO check if account belongs to another project (and remove it there ?)
-				try {
-					project.addBusinessObject(account);
-				} catch (EmptyNameException | DuplicateNameException e) {
-					// should not occur since projectAccounts are already filtered out from allAccounts
-					e.printStackTrace();
-				}
-				allAccountsModel.removeElement(account);
 			}
-		} else if (ae.getSource() == moveBack) {
-			for(Account account : projectAccounts.getSelectedValuesList()) {
-				allAccountsModel.addElement(account);
-				try {
-					project.removeBusinessObject(account);
-				} catch (NotEmptyException e) {
-					e.printStackTrace();
-				}
-				projectAccountsModel.removeElement(account);
-			}
-		} else if (ae.getSource() == newProject) {
-			String name = JOptionPane.showInputDialog(getBundle("Projects").getString(
-					"ENTER_NAME_FOR_PROJECT"));
-			while (name != null && name.equals(""))
-				name = JOptionPane.showInputDialog(getBundle("Projects").getString(
-						"ENTER_NAME_FOR_PROJECT"));
-			if (name != null) {
-				Project project = new Project(name, accounts, accountTypes);
-				try {
-					projects.addBusinessObject(project);
-				} catch (EmptyNameException e) {
-					e.printStackTrace();
-				} catch (DuplicateNameException e) {
-					e.printStackTrace();
-				}
-				((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
-				(combo.getModel()).setSelectedItem(project);
-				ProjectGUI.refreshAll();
-			}
-		} else if (ae.getSource() == combo) {
-			project = (Project) combo.getSelectedItem();
-			projectAccountsModel.removeAllElements();
-			if(project!=null) {
-				for (Account account : project.getBusinessObjects()) {
-					// System.out.println("Project: " + project + " | account" + account);
-					projectAccountsModel.addElement(account);
-				}
-				ArrayList<Account> noProjectlijst = getAccountNoMatchProject(project);
-				zoeker.resetMap(noProjectlijst);
-			}
-		} else if (ae.getSource()==addAccount) {
-			new NewAccountGUI(accounts, accountTypes).setVisible(true);
+			ArrayList<Account> noProjectlijst = getAccountNoMatchProject(project);
+			zoeker.resetMap(noProjectlijst);
 		}
 	}
 
