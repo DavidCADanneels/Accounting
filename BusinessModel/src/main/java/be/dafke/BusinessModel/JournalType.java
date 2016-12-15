@@ -10,6 +10,8 @@ public class JournalType extends BusinessObject {
 	 */
     public JournalType(String name){
         setName(name);
+        debetTypes = new ArrayList<>();
+        creditTypes = new ArrayList<>();
     }
 
 	private ArrayList<AccountType> debetTypes, creditTypes;

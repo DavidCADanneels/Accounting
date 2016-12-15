@@ -1,10 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
-import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.JournalType;
-import be.dafke.BusinessModel.JournalTypes;
+import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.AlphabeticListModel;
@@ -26,11 +23,12 @@ public class JournalTypeManagementGUI extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JList<AccountType> debit, credit, types;
-	private ArrayList<AccountType> debitTypes, creditTypes, allTypes;
+	private ArrayList<AccountType> allTypes;
 	private AlphabeticListModel<AccountType> debitModel, creditModel, typesModel;
 	private JComboBox<JournalType> combo;
 	private JournalTypes journalTypes;
 	private static final HashMap<JournalTypes, JournalTypeManagementGUI> journalTypeManagementGuis = new HashMap<>();
+	private JournalType journalType;
 
 	private JournalTypeManagementGUI(JournalTypes journalTypes, AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
@@ -51,8 +49,8 @@ public class JournalTypeManagementGUI extends JFrame {
 	}
 
 	public void setAccountTypes(AccountTypes accountTypes) {
-		debitTypes = new ArrayList<>();
-		creditTypes = new ArrayList<>();
+//		debitTypes = new ArrayList<>();
+//		creditTypes = new ArrayList<>();
 		allTypes = new ArrayList<>();
 
 		allTypes.clear();
@@ -67,6 +65,10 @@ public class JournalTypeManagementGUI extends JFrame {
 
 	public void setJournalTypes(JournalTypes journalTypes){
 		this.journalTypes = journalTypes;
+		combo.removeAllItems();
+		for(JournalType type : journalTypes.getBusinessObjects()){
+			((DefaultComboBoxModel<JournalType>) combo.getModel()).addElement(type);
+		}
 	}
 
 	public JPanel createContentPanel(){
@@ -88,7 +90,23 @@ public class JournalTypeManagementGUI extends JFrame {
 	}
 
 	private void comboAction() {
-
+		journalType = (JournalType) combo.getSelectedItem();
+		debitModel.removeAllElements();
+		creditModel.removeAllElements();
+		if(journalType!=null){
+			ArrayList<AccountType> debetTypes = journalType.getDebetTypes();
+//			if(debetTypes!=null) {
+				for (AccountType type : debetTypes) {
+					debitModel.addElement(type);
+				}
+//			}
+			ArrayList<AccountType> creditTypes = journalType.getCreditTypes();
+//			if(creditTypes!=null) {
+				for (AccountType type : creditTypes) {
+					creditModel.addElement(type);
+				}
+//			}
+		}
 	}
 
 	public void createNewJournalType(){
@@ -187,6 +205,7 @@ public class JournalTypeManagementGUI extends JFrame {
 		if (rows.length != 0) {
 			for(int i : rows) {
 				AccountType type = allTypes.get(i);
+				ArrayList<AccountType> debitTypes = journalType.getDebetTypes();
 				if (!debitTypes.contains(type)) {
 					debitTypes.add(type);
 					debitModel.addElement(type);
@@ -199,6 +218,7 @@ public class JournalTypeManagementGUI extends JFrame {
 		if (rows.length != 0) {
 			for (int i : rows) {
 				AccountType type = allTypes.get(i);
+				ArrayList<AccountType> creditTypes = journalType.getCreditTypes();
 				if (!creditTypes.contains(type)) {
 					creditTypes.add(type);
 					creditModel.addElement(type);
@@ -208,6 +228,7 @@ public class JournalTypeManagementGUI extends JFrame {
 	}
 	public void removeLeft() {
 		List<AccountType> accountTypeList = debit.getSelectedValuesList();
+		ArrayList<AccountType> debitTypes = journalType.getDebetTypes();
 		for(AccountType type : accountTypeList) {
 			debitTypes.remove(type);
 			debitModel.removeElement(type);
@@ -215,6 +236,7 @@ public class JournalTypeManagementGUI extends JFrame {
 	}
 	public void removeRight() {
 		List<AccountType> accountTypeList = credit.getSelectedValuesList();
+		ArrayList<AccountType> creditTypes = journalType.getCreditTypes();
 		for(AccountType type : accountTypeList) {
 			creditTypes.remove(type);
 			creditModel.removeElement(type);
