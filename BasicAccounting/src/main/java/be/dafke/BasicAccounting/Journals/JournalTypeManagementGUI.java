@@ -28,8 +28,8 @@ public class JournalTypeManagementGUI extends JFrame {
 	private JList<AccountType> debit, credit, types;
 	private ArrayList<AccountType> debitTypes, creditTypes, allTypes;
 	private AlphabeticListModel<AccountType> debitModel, creditModel, typesModel;
+	private JComboBox<JournalType> combo;
 	private JournalTypes journalTypes;
-	private JTextField nameField;
 	private static final HashMap<JournalTypes, JournalTypeManagementGUI> journalTypeManagementGuis = new HashMap<>();
 
 	private JournalTypeManagementGUI(JournalTypes journalTypes, AccountTypes accountTypes) {
@@ -78,24 +78,34 @@ public class JournalTypeManagementGUI extends JFrame {
 
 	private JPanel createSavePanel() {
 		JPanel panel = new JPanel();
-		nameField = new JTextField(20);
-		JButton save = new JButton(getBundle("Accounting").getString("SAVE_TYPE"));
-		save.addActionListener(e -> saveType());
-		panel.add(new JLabel("Name:"));
-		panel.add(nameField);
-		panel.add(save);
+		JButton newType = new JButton(getBundle("Accounting").getString("NEW_JOURNAL_TYPE"));
+		newType.addActionListener(e -> createNewJournalType());
+		combo = new JComboBox<>();
+		combo.addActionListener(e -> comboAction());
+		panel.add(combo);
+		panel.add(newType);
 		return panel;
 	}
 
-	private void saveType() {
-		String name = nameField.getText();
-		JournalType journalType = new JournalType(name);
-		try {
-			journalTypes.addBusinessObject(journalType);
-		} catch (EmptyNameException e) {
-			e.printStackTrace();
-		} catch (DuplicateNameException e) {
-			e.printStackTrace();
+	private void comboAction() {
+
+	}
+
+	public void createNewJournalType(){
+		String name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
+		while (name != null && name.equals(""))
+			name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
+		if (name != null) {
+			JournalType journalType = new JournalType(name);
+			try {
+				journalTypes.addBusinessObject(journalType);
+			} catch (EmptyNameException e) {
+				e.printStackTrace();
+			} catch (DuplicateNameException e) {
+				e.printStackTrace();
+			}
+			((DefaultComboBoxModel<JournalType>) combo.getModel()).addElement(journalType);
+			(combo.getModel()).setSelectedItem(journalType);
 		}
 	}
 
