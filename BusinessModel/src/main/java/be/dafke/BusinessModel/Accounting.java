@@ -31,7 +31,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         accountTypes = new AccountTypes();
         accounts = new Accounts(accountTypes);
 
-        journalTypes = new JournalTypes();
+        journalTypes = new JournalTypes(accountTypes);
 //        journalTypes.addDefaultType(accountTypes);
 
         journals = new Journals(accounts, journalTypes);
