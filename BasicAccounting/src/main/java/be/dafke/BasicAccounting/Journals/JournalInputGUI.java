@@ -149,7 +149,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
                 getBundle("BusinessActions").getString("CHOOSE_JOURNAL"),
                 getBundle("BusinessActions").getString("JOURNAL_CHOICE"),
                 JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, lijst, lijst[0]);
-        if(keuze!=JOptionPane.CANCEL_OPTION && keuze!=JOptionPane.CLOSED_OPTION){
+        if(keuze!=JOptionPane.CLOSED_OPTION){
             return (Journal) lijst[keuze];
         }else return null;
     }
