@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
@@ -15,8 +15,6 @@ import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -24,16 +22,11 @@ import java.util.HashMap;
 import static be.dafke.BasicAccounting.MainApplication.ActionUtils.CHOOSE_NEW_TYPE_FOR;
 import static java.util.ResourceBundle.getBundle;
 
-public class AccountManagementGUI extends JFrame implements ListSelectionListener, ActionListener {
+public class AccountManagementGUI extends JFrame implements ListSelectionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final String MODIFY_NAME = "MODIFY_NAME";
-	public static final String MODIFY_TYPE = "MODIFY_TYPE";
-	public static final String NEW_ACCOUNT = "NEW_ACCOUNT";
-	public static final String DELETE = "DELETE";
-	public static final String MODIFY_DEFAULT_AMOUNT = "MODIFY_DEFAULT_AMOUNT";
 	private JButton newAccount, delete, modifyName, modifyType, modifyDefaultAmount;
 	private final AccountManagementTableModel accountManagementTableModel;
 	private final RefreshableTable<Account> tabel;
@@ -85,16 +78,11 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		delete = new JButton(getBundle("Accounting").getString("DELETE_ACCOUNT"));
         newAccount = new JButton(getBundle("Accounting").getString("ADD_ACCOUNT"));
 		modifyDefaultAmount = new JButton(getBundle("Accounting").getString("MODIFY_DEFAULT_AMOUNT"));
-		modifyName.setActionCommand(MODIFY_NAME);
-		modifyType.setActionCommand(MODIFY_TYPE);
-		modifyDefaultAmount.setActionCommand(MODIFY_DEFAULT_AMOUNT);
-		delete.setActionCommand(DELETE);
-		newAccount.setActionCommand(NEW_ACCOUNT);
-		modifyName.addActionListener(this);
-		modifyType.addActionListener(this);
-		delete.addActionListener(this);
-        modifyDefaultAmount.addActionListener(this);
-		newAccount.addActionListener(this);
+		modifyName.addActionListener(e -> modifyAccountNames(tabel.getSelectedObjects(), accounts));
+		modifyType.addActionListener(e -> modifyAccountTypes(tabel.getSelectedObjects(), accountTypes));
+		delete.addActionListener(e -> deleteAccounts(tabel.getSelectedObjects(), accounts));
+        modifyDefaultAmount.addActionListener(e -> modifyDefaultAmounts(tabel.getSelectedObjects(), accounts));
+		newAccount.addActionListener(e -> new NewAccountGUI(accounts, accountTypes).setVisible(true));
 		modifyName.setEnabled(false);
 		modifyType.setEnabled(false);
 		delete.setEnabled(false);
@@ -136,22 +124,6 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
                 modifyType.setEnabled(false);
                 modifyDefaultAmount.setEnabled(false);
             }
-		}
-	}
-
-	// TODO: check if we can add Actions to Buttons iso calling static actionMethods: --> How to pass selected Objects to the Action?
-	public void actionPerformed(ActionEvent ae) {
-		String actionCommand = ae.getActionCommand();
-		if(MODIFY_NAME.equals(actionCommand)) {
-			modifyAccountNames(tabel.getSelectedObjects(), accounts);
-		} else if(MODIFY_TYPE.equals(actionCommand)){
-			modifyAccountTypes(tabel.getSelectedObjects(), accountTypes);
-		} else if(MODIFY_DEFAULT_AMOUNT.equals(actionCommand)){
-			modifyDefaultAmounts(tabel.getSelectedObjects(), accounts);
-		} else if(DELETE.equals(actionCommand)){
-			deleteAccounts(tabel.getSelectedObjects(), accounts);
-		} else if(NEW_ACCOUNT.equals(actionCommand)){
-			new NewAccountGUI(accounts, accountTypes).setVisible(true);
 		}
 	}
 
@@ -239,7 +211,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 				int nr = JOptionPane.showOptionDialog(null, ActionUtils.getFormattedString(ActionUtils.CHOOSE_NEW_TYPE),
 						ActionUtils.getFormattedString(ActionUtils.CHANGE_TYPE),
 						JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
-				if (nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION) {
+				if (nr != JOptionPane.CLOSED_OPTION) {
 					for (Account account : accountList) {
 						account.setType((AccountType) types[nr]);
 					}
@@ -250,7 +222,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 					int nr = JOptionPane.showOptionDialog(null, ActionUtils.getFormattedString(CHOOSE_NEW_TYPE_FOR,account.getName()),
 							ActionUtils.getFormattedString(ActionUtils.CHANGE_TYPE), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
 							account.getType());
-					if (nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION) {
+					if (nr != JOptionPane.CLOSED_OPTION) {
 						account.setType((AccountType) types[nr]);
 					}
 				}
