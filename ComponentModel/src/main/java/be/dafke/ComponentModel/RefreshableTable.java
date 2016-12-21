@@ -49,14 +49,14 @@ public class RefreshableTable<BusinessObject> extends JTable{
         }
         // check on which element is clicked
         BusinessObject selectedObject = getSelectedObject();
-        if(businessObjectArrayList.contains(selectedObject))
-            // return all selected elements if mouse was clicked on one of them
-            return businessObjectArrayList;
-        else {
+        if(selectedObject!=null && !businessObjectArrayList.contains(selectedObject)){
             // otherwise return only the clicked element
             ArrayList<BusinessObject> list = new ArrayList<>();
             list.add(selectedObject);
             return list;
+        } else {
+            // return all selected elements if mouse was clicked on one of them
+            return businessObjectArrayList;
         }
 
     }
