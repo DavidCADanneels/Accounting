@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Coda;
 
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTableModel;
@@ -93,7 +92,7 @@ public class CounterPartyTableFrame extends JFrame implements MouseListener {
                     String aliases[] = alias.split(Pattern.quote(" | "));
                     int result = JOptionPane.showOptionDialog(this,"Select new name", "Select new name",
                             JOptionPane.OK_CANCEL_OPTION,JOptionPane.INFORMATION_MESSAGE, null,aliases,aliases[0]);
-                    if(result != JOptionPane.CLOSED_OPTION && result != JOptionPane.CANCEL_OPTION){
+                    if(result != JOptionPane.CLOSED_OPTION){
                         CounterParty counterParty = (CounterParty) tabel.getValueAt(row, 0);
                         String name = counterParty.getName();
                         counterParty.setName(aliases[result]);

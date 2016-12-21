@@ -220,7 +220,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
             int nr = JOptionPane.showOptionDialog(null, getBundle("BusinessActions").getString("CHOOSE_NEW_TYPE"),
                     getBundle("BusinessActions").getString("CHANGE_TYPE"),
                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
-            if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
+            if(nr != JOptionPane.CLOSED_OPTION){
                 for(Journal journal : journalList) {
                     journal.setType((JournalType) types[nr]);
                 }
@@ -231,7 +231,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
                 int nr = JOptionPane.showOptionDialog(null, getBundle("BusinessActions").getString("CHOOSE_NEW_TYPE_FOR")+" " + journal.getName(),
                         getBundle("BusinessActions").getString("CHANGE_TYPE"), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
                         journal.getType());
-                if(nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION){
+                if(nr != JOptionPane.CLOSED_OPTION){
                     journal.setType((JournalType) types[nr]);
                 }
             }

@@ -239,7 +239,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 				int nr = JOptionPane.showOptionDialog(null, ActionUtils.getFormattedString(ActionUtils.CHOOSE_NEW_TYPE),
 						ActionUtils.getFormattedString(ActionUtils.CHANGE_TYPE),
 						JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
-				if (nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION) {
+				if (nr != JOptionPane.CLOSED_OPTION) {
 					for (Account account : accountList) {
 						account.setType((AccountType) types[nr]);
 					}
@@ -250,7 +250,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 					int nr = JOptionPane.showOptionDialog(null, ActionUtils.getFormattedString(CHOOSE_NEW_TYPE_FOR,account.getName()),
 							ActionUtils.getFormattedString(ActionUtils.CHANGE_TYPE), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
 							account.getType());
-					if (nr != JOptionPane.CANCEL_OPTION && nr != JOptionPane.CLOSED_OPTION) {
+					if (nr != JOptionPane.CLOSED_OPTION) {
 						account.setType((AccountType) types[nr]);
 					}
 				}
