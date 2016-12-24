@@ -86,7 +86,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         modifyAbbr = new JButton(getBundle("Accounting").getString("MODIFY_ABBR"));
         modifyType = new JButton(getBundle("Accounting").getString("MODIFY_TYPE"));
         delete = new JButton(getBundle("Accounting").getString("DELETE_JOURNAL"));
-        newType = new JButton(getBundle("Accounting").getString("ADD_JOURNAL_TYPE"));
+        newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
         add = new JButton(getBundle("Accounting").getString("NEW_JOURNAL"));
         modifyName.addActionListener(e -> modifyName());
         modifyType.addActionListener(e -> modifyType());
