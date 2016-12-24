@@ -135,14 +135,12 @@ public class AccountsGUI extends JPanel {
             if(amount!=null) {
                 journalInputGUI.addBooking(new Booking(selectedAccount, amount, debit));
                 if(tax){
-                    Integer[] percentages = new Integer[]{0, 6, 21};
+                    Integer[] percentages = accounts.getVatPercentages();
                     int nr = JOptionPane.showOptionDialog(null, "BTW %", "BTW %",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, percentages, null);
                     Account btwAccount = null;
-                    if (nr == 1) {
-                        btwAccount = accounts.getBusinessObject("BTW - te betalen - 6pct");
-                    } else if(nr == 2){
-                        btwAccount = accounts.getBusinessObject("BTW - te betalen - 21pct");
+                    if (nr != -1) {
+                        btwAccount = accounts.getVatAccount(!debit,percentages[nr]);
                     }
                     if(btwAccount!=null){
                         BigDecimal percentage = new BigDecimal(percentages[nr]).divide(new BigDecimal(100));
