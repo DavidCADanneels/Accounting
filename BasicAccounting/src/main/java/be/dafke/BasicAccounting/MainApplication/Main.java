@@ -189,6 +189,8 @@ public class Main {
         JournalType journalType = journal.getType();
         accountsGUI1.setAccountTypes(journalType.getDebetTypes());
         accountsGUI2.setAccountTypes(journalType.getCreditTypes());
+        accountsGUI1.setTax(journalType.isTax());
+        accountsGUI2.setTax(journalType.isTax());
     }
 
     public static void fireJournalDataChanged(Journal journal){
