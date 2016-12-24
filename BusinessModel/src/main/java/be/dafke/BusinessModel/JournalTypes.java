@@ -5,7 +5,6 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
 
-import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -32,16 +31,24 @@ public class JournalTypes extends BusinessCollection<JournalType> implements Mus
         JournalType journalType = new JournalType(name);
         String debitTypes = properties.get(DEBIT_TYPES)==null?"":properties.get(DEBIT_TYPES);
         String creditTypes = properties.get(CREDIT_TYPES)==null?"":properties.get(CREDIT_TYPES);
-        ArrayList<AccountType> debitAccountTypes = new ArrayList<>();
-        ArrayList<AccountType> creditAccountTypes = new ArrayList<>();
-        for(String s:debitTypes.split(",")) {
-            debitAccountTypes.add(accountTypes.getBusinessObject(s));
+        String[] debits = debitTypes.split(",");
+        String[] credits = creditTypes.split(",");
+        for(String s:debits) {
+            if(!"".equals(s)) {
+                AccountType accountType = accountTypes.getBusinessObject(s);
+                if (accountType != null) {
+                    journalType.addDebetType(accountType);
+                }
+            }
         }
-        for(String s:creditTypes.split(",")) {
-            creditAccountTypes.add(accountTypes.getBusinessObject(s));
+        for(String s:credits) {
+            if(!"".equals(s)) {
+                AccountType accountType = accountTypes.getBusinessObject(s);
+                if(accountType!=null) {
+                    journalType.addCreditType(accountType);
+                }
+            }
         }
-        journalType.setDebetTypes(debitAccountTypes);
-        journalType.setCreditTypes(creditAccountTypes);
         return journalType;
     }
 
