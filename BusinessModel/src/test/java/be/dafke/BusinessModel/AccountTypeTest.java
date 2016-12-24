@@ -34,7 +34,10 @@ public class AccountTypeTest {
         AccountTypes accountTypes = new AccountTypes();
         accountTypes.getBusinessObjects();
         ArrayList<AccountType> businessObjects = accountTypes.getBusinessObjects();
-        assertEquals(6, businessObjects.size());
+        assertEquals(0, businessObjects.size());
+        accountTypes.addDefaultTypes();
+        businessObjects = accountTypes.getBusinessObjects();
+        assertEquals(8, businessObjects.size());
     }
 
 
@@ -43,6 +46,9 @@ public class AccountTypeTest {
         AccountTypes accountTypes = new AccountTypes();
         accountTypes.getBusinessObjects();
         ArrayList<AccountType> businessObjects = accountTypes.getBusinessObjects();
+        assertTrue(businessObjects.isEmpty());
+        accountTypes.addDefaultTypes();
+        businessObjects = accountTypes.getBusinessObjects();
         // make more performant
         List<String> names = businessObjects.stream().map(BusinessObject::toString).collect(Collectors.toList());
         assertTrue(names.contains(AccountTypes.ASSET));
