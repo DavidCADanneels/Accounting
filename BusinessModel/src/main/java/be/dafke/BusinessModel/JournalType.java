@@ -26,8 +26,6 @@ public class JournalType extends BusinessObject implements MustBeRead {
         Properties properties = super.getOutputProperties();
         String debitStream = debetTypes.getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
         String creditStream = creditTypes.getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
-        System.out.println(debitStream);
-        System.out.println(debetTypes.toString());
         properties.put(DEBIT_TYPES,debitStream);
         properties.put(CREDIT_TYPES,creditStream);
         return properties;
