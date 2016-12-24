@@ -31,6 +31,7 @@ public class JournalTypeManagementGUI extends JFrame {
 	private JournalTypes journalTypes;
 	private static final HashMap<JournalTypes, JournalTypeManagementGUI> journalTypeManagementGuis = new HashMap<>();
 	private JournalType journalType;
+	private JCheckBox tax;
 
 	private JournalTypeManagementGUI(JournalTypes journalTypes, AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
@@ -86,6 +87,9 @@ public class JournalTypeManagementGUI extends JFrame {
 		newType.addActionListener(e -> createNewJournalType());
 		combo = new JComboBox<>();
 		combo.addActionListener(e -> comboAction());
+		tax = new JCheckBox("tax?");
+		tax.addChangeListener(e -> journalType.setTax(tax.isSelected()));
+		panel.add(tax);
 		panel.add(combo);
 		panel.add(newType);
 		return panel;
@@ -109,6 +113,7 @@ public class JournalTypeManagementGUI extends JFrame {
 				}
 			}
 		}
+		tax.setSelected(journalType.isTax());
 	}
 
 	public void createNewJournalType(){
