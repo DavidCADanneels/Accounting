@@ -10,10 +10,7 @@ import be.dafke.BasicAccounting.Journals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accountings;
-import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModelDao.XMLReader;
@@ -185,6 +182,9 @@ public class Main {
     public static void setJournal(Journal journal) {
         accountings.getCurrentObject().getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter
         journalsGUI.setJournal(journal);
+        JournalType journalType = journal.getType();
+        accountsGUI1.setAccountTypes(journalType.getDebetTypes());
+        accountsGUI2.setAccountTypes(journalType.getCreditTypes());
     }
 
     public static void fireJournalDataChanged(Journal journal){
