@@ -96,15 +96,19 @@ public class Balances extends BusinessCollection<Balance> implements MustBeRead,
         ArrayList<AccountType> passive = new ArrayList<>();
         active.add(accountTypes.getBusinessObject(AccountTypes.ASSET));
         active.add(accountTypes.getBusinessObject(AccountTypes.CREDIT));
+        active.add(accountTypes.getBusinessObject(AccountTypes.TAXCREDIT));
         passive.add(accountTypes.getBusinessObject(AccountTypes.LIABILITY));
         passive.add(accountTypes.getBusinessObject(AccountTypes.DEBIT));
+        passive.add(accountTypes.getBusinessObject(AccountTypes.TAXDEBIT));
         return createClosingBalance(accounts, active, passive);
     }
     public Balance createRelationsBalance(Accounts accounts){
         ArrayList<AccountType> credit = new ArrayList<>();
         ArrayList<AccountType> debit = new ArrayList<>();
         credit.add(accountTypes.getBusinessObject(AccountTypes.CREDIT));
+        credit.add(accountTypes.getBusinessObject(AccountTypes.TAXCREDIT));
         debit.add(accountTypes.getBusinessObject(AccountTypes.DEBIT));
+        debit.add(accountTypes.getBusinessObject(AccountTypes.TAXDEBIT));
         return createRelationsBalance(accounts, credit, debit);
     }
 

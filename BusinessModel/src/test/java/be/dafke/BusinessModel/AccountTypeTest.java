@@ -49,6 +49,8 @@ public class AccountTypeTest {
         assertTrue(names.contains(AccountTypes.COST));
         assertTrue(names.contains(AccountTypes.CREDIT));
         assertTrue(names.contains(AccountTypes.DEBIT));
+        assertTrue(names.contains(AccountTypes.TAXCREDIT));
+        assertTrue(names.contains(AccountTypes.TAXDEBIT));
         assertTrue(names.contains(AccountTypes.LIABILITY));
         assertTrue(names.contains(AccountTypes.REVENUE));
         // FIXME: temp. removed Mortgages from AccountTypes
