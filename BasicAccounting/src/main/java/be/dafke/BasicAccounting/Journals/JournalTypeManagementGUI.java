@@ -201,28 +201,22 @@ public class JournalTypeManagementGUI extends JFrame {
 	}
 
 	public void addLeft() {
-		int rows[] = types.getSelectedIndices();
-		if (rows.length != 0) {
-			for(int i : rows) {
-				AccountType type = allTypes.get(i);
-				ArrayList<AccountType> debitTypes = journalType.getDebetTypes();
-				if (!debitTypes.contains(type)) {
-					debitTypes.add(type);
-					debitModel.addElement(type);
-				}
+		List<AccountType> list = types.getSelectedValuesList();
+		ArrayList<AccountType> debitTypes = journalType.getDebetTypes();
+		for (AccountType type:list) {
+			if (!debitTypes.contains(type)) {
+				debitTypes.add(type);
+				debitModel.addElement(type);
 			}
 		}
 	}
 	public void addRight() {
-		int rows[] = types.getSelectedIndices();
-		if (rows.length != 0) {
-			for (int i : rows) {
-				AccountType type = allTypes.get(i);
-				ArrayList<AccountType> creditTypes = journalType.getCreditTypes();
-				if (!creditTypes.contains(type)) {
-					creditTypes.add(type);
-					creditModel.addElement(type);
-				}
+		List<AccountType> list = types.getSelectedValuesList();
+		ArrayList<AccountType> creditTypes = journalType.getCreditTypes();
+		for (AccountType type:list) {
+			if (!creditTypes.contains(type)) {
+				creditTypes.add(type);
+				creditModel.addElement(type);
 			}
 		}
 	}
