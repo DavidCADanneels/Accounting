@@ -37,7 +37,13 @@ public class JournalTypes extends BusinessCollection<JournalType> implements Mus
             if(!"".equals(s)) {
                 AccountType accountType = accountTypes.getBusinessObject(s);
                 if (accountType != null) {
-                    journalType.addDebetType(accountType);
+                    try {
+                        journalType.addDebetType(accountType);
+                    } catch (EmptyNameException e) {
+                        e.printStackTrace();
+                    } catch (DuplicateNameException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -45,7 +51,13 @@ public class JournalTypes extends BusinessCollection<JournalType> implements Mus
             if(!"".equals(s)) {
                 AccountType accountType = accountTypes.getBusinessObject(s);
                 if(accountType!=null) {
-                    journalType.addCreditType(accountType);
+                    try {
+                        journalType.addCreditType(accountType);
+                    } catch (EmptyNameException e) {
+                        e.printStackTrace();
+                    } catch (DuplicateNameException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         }
@@ -63,8 +75,8 @@ public class JournalTypes extends BusinessCollection<JournalType> implements Mus
 
     public void addDefaultType(AccountTypes accountTypes) {
         JournalType defaultType = new JournalType("default");
-        defaultType.setDebetTypes(accountTypes.getBusinessObjects());
-        defaultType.setCreditTypes(accountTypes.getBusinessObjects());
+        defaultType.setDebetTypes(accountTypes);
+        defaultType.setCreditTypes(accountTypes);
         try {
             addBusinessObject(defaultType);
         } catch (EmptyNameException e) {
