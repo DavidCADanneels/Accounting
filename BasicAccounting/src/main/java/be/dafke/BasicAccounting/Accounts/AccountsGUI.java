@@ -39,7 +39,7 @@ public class AccountsGUI extends JPanel {
     private AccountTypes accountTypes;
     private Journals journals;
     private JournalInputGUI journalInputGUI;
-
+    private boolean tax = true;
 
     public AccountsGUI(JournalInputGUI journalInputGUI) {
         this.journalInputGUI = journalInputGUI;
@@ -121,11 +121,39 @@ public class AccountsGUI extends JPanel {
         add(filter, BorderLayout.NORTH);
     }
 
+    public boolean isTax() {
+        return tax;
+    }
+
+    public void setTax(boolean tax) {
+        this.tax = tax;
+    }
+
     public void book(boolean debit) {
         if(selectedAccount!=null){
             BigDecimal amount = journalInputGUI.askAmount(selectedAccount,debit);
             if(amount!=null) {
                 journalInputGUI.addBooking(new Booking(selectedAccount, amount, debit));
+                if(tax){
+                    Integer[] percentages = new Integer[]{0, 6, 21};
+                    int nr = JOptionPane.showOptionDialog(null, "BTW %", "BTW %",
+                            JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, percentages, null);
+                    Account btwAccount = null;
+                    if (nr == 1) {
+                        btwAccount = accounts.getBusinessObject("BTW - te betalen - 6pct");
+                    } else if(nr == 2){
+                        btwAccount = accounts.getBusinessObject("BTW - te betalen - 21pct");
+                    }
+                    if(btwAccount!=null){
+                        BigDecimal percentage = new BigDecimal(percentages[nr]).divide(new BigDecimal(100));
+                        BigDecimal suggestedAmount = amount.multiply(percentage);
+                        BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
+                        btwAmount.setScale(2);
+                        if(btwAmount!=null) {
+                            journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
+                        }
+                    }
+                }
             }
         }
     }
