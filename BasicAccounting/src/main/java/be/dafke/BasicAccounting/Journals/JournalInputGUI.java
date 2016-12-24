@@ -298,33 +298,30 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         fireTransactionDataChanged();
     }
 
-    public BigDecimal askAmount(Account account, boolean debit){
-        if(transaction==null)return null;
+    public BigDecimal askAmount(Account account, boolean debit) {
+        if (transaction == null) return null;
         BigDecimal creditTotal = transaction.getCreditTotaal();
         BigDecimal debitTotal = transaction.getDebetTotaal();
-        boolean suggestion = false;
         BigDecimal suggestedAmount = null;
-        if(creditTotal.compareTo(debitTotal)>0 && debit){
-            suggestion = true;
+        if (creditTotal.compareTo(debitTotal) > 0 && debit) {
             suggestedAmount = creditTotal.subtract(debitTotal);
-        } else if(debitTotal.compareTo(creditTotal)>0 && !debit){
-            suggestion = true;
+        } else if (debitTotal.compareTo(creditTotal) > 0 && !debit) {
             suggestedAmount = debitTotal.subtract(creditTotal);
         } else {
             BigDecimal defaultAmount = account.getDefaultAmount();
-            if(defaultAmount!=null){
-                suggestion = true;
+            if (defaultAmount != null) {
                 suggestedAmount = defaultAmount;
             }
         }
+        return askAmount(account, suggestedAmount);
+    }
 
-        // TODO: fix suggested amount, especially when editing amounts
-
+    public BigDecimal askAmount(Account account, BigDecimal suggestedAmount){
         boolean ok = false;
         BigDecimal amount = null;
         while (!ok) {
             String s;
-            if(suggestion){
+            if(suggestedAmount!=null){
                 // TODO: add title ...
                 s = JOptionPane.showInputDialog(getBundle("BusinessActions").getString(
                         "ENTER_AMOUNT")+ account.getName(), suggestedAmount.toString());
