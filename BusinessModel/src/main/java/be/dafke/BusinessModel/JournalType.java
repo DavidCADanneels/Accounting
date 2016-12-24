@@ -1,44 +1,73 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 import be.dafke.ObjectModel.MustBeRead;
 
-import java.util.ArrayList;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
 public class JournalType extends BusinessObject implements MustBeRead {
-	/**
-	 *
-	 */
+
+    public static final String DEBIT_TYPES = "debitTypes";
+    public static final String CREDIT_TYPES = "creditTypes";
+
+    private AccountTypes debetTypes, creditTypes;
+
     public JournalType(String name){
         setName(name);
-        debetTypes = new ArrayList<>();
-        creditTypes = new ArrayList<>();
+        debetTypes = new AccountTypes();
+        creditTypes = new AccountTypes();
     }
 
     public Properties getOutputProperties(){
         Properties properties = super.getOutputProperties();
-        properties.put("debitTypes",debetTypes.stream().map(AccountType::getName).collect(Collectors.joining("|")));
-        properties.put("creditTypes",creditTypes.stream().map(AccountType::getName).collect(Collectors.joining("|")));
+        String debitStream = debetTypes.getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
+        String creditStream = creditTypes.getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
+        properties.put(DEBIT_TYPES,debitStream);
+        properties.put(CREDIT_TYPES,creditStream);
         return properties;
     }
 
-	private ArrayList<AccountType> debetTypes, creditTypes;
+    public void addDebetType(AccountType accountType) throws EmptyNameException, DuplicateNameException {
+        debetTypes.addBusinessObject(accountType);
+    }
 
-    public ArrayList<AccountType> getDebetTypes() {
+    public void addCreditType(AccountType accountType) throws EmptyNameException, DuplicateNameException {
+        creditTypes.addBusinessObject(accountType);
+    }
+
+    public AccountTypes getDebetTypes() {
         return debetTypes;
     }
 
-    public void setDebetTypes(ArrayList<AccountType> debetTypes) {
+    public void setDebetTypes(AccountTypes debetTypes) {
         this.debetTypes = debetTypes;
     }
 
-    public ArrayList<AccountType> getCreditTypes() {
+    public AccountTypes getCreditTypes() {
         return creditTypes;
     }
 
-    public void setCreditTypes(ArrayList<AccountType> creditTypes) {
+    public void setCreditTypes(AccountTypes creditTypes) {
         this.creditTypes = creditTypes;
+    }
+
+    public void removeCreditType(AccountType type) {
+        try {
+            creditTypes.removeBusinessObject(type);
+        } catch (NotEmptyException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeDebitType(AccountType type){
+        try {
+            debetTypes.removeBusinessObject(type);
+        } catch (NotEmptyException e) {
+            e.printStackTrace();
+        }
     }
 }

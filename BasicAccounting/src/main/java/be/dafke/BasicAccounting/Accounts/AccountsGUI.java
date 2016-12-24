@@ -181,6 +181,8 @@ public class AccountsGUI extends JPanel {
             boxes.put(type, checkBox);
             filter.add(checkBox);
         }
+        revalidate();
+        fireAccountDataChanged();
     }
 
     public void setJournals(Journals journals) {

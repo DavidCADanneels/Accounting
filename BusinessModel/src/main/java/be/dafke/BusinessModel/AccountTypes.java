@@ -30,7 +30,7 @@ public class AccountTypes extends BusinessCollection<AccountType>{
         return new AccountType();
     }
 
-    public AccountTypes() {
+    public void addDefaultTypes() {
         AccountType active = new AccountType();
         active.setName(ASSET);
 //        active.setName(getBundle("Balances").getString("ASSET"));

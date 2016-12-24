@@ -1,7 +1,10 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
-import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModel.AccountType;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.JournalType;
+import be.dafke.BusinessModel.JournalTypes;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.AlphabeticListModel;
@@ -10,7 +13,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 import static java.awt.BorderLayout.*;
 import static java.util.ResourceBundle.getBundle;
@@ -94,18 +96,18 @@ public class JournalTypeManagementGUI extends JFrame {
 		debitModel.removeAllElements();
 		creditModel.removeAllElements();
 		if(journalType!=null){
-			ArrayList<AccountType> debetTypes = journalType.getDebetTypes();
-//			if(debetTypes!=null) {
-				for (AccountType type : debetTypes) {
+			AccountTypes debetTypes = journalType.getDebetTypes();
+			if(debetTypes!=null) {
+				for (AccountType type : debetTypes.getBusinessObjects()) {
 					debitModel.addElement(type);
 				}
-//			}
-			ArrayList<AccountType> creditTypes = journalType.getCreditTypes();
-//			if(creditTypes!=null) {
-				for (AccountType type : creditTypes) {
+			}
+			AccountTypes creditTypes = journalType.getCreditTypes();
+			if(creditTypes!=null) {
+				for (AccountType type : creditTypes.getBusinessObjects()) {
 					creditModel.addElement(type);
 				}
-//			}
+			}
 		}
 	}
 
@@ -146,7 +148,7 @@ public class JournalTypeManagementGUI extends JFrame {
 
 	private JPanel createCreditTypesPanel() {
 		JButton removeCreditType = new JButton(getBundle("Accounting").getString("DELETE"));
-		removeCreditType.addActionListener(e -> removeRight());
+		removeCreditType.addActionListener(e -> removeCredit());
 
 		creditModel = new AlphabeticListModel<>();
 		credit = new JList<>(creditModel);
@@ -163,7 +165,7 @@ public class JournalTypeManagementGUI extends JFrame {
 
 	private JPanel createDebitTypesPanel() {
 		JButton removeDebitType = new JButton(getBundle("Accounting").getString("DELETE"));
-		removeDebitType.addActionListener(e -> removeLeft());
+		removeDebitType.addActionListener(e -> removeDebit());
 
 		debitModel = new AlphabeticListModel<>();
 		debit = new JList<>(debitModel);
@@ -182,8 +184,8 @@ public class JournalTypeManagementGUI extends JFrame {
 	private JPanel createAccountTypesPanel() {
 		JButton addDebitType = new JButton(getBundle("Accounting").getString("ADD_TO_DEBIT_TYPES"));
 		JButton addCreditType = new JButton(getBundle("Accounting").getString("ADD_TO_CREDIT_TYPES"));
-		addDebitType.addActionListener(e -> addLeft());
-		addCreditType.addActionListener(e -> addRight());
+		addDebitType.addActionListener(e -> addDebit());
+		addCreditType.addActionListener(e -> addCredit());
 
 		JPanel buttonPanel = new JPanel();
 		buttonPanel.setLayout(new BoxLayout(buttonPanel,Y_AXIS));
@@ -200,47 +202,41 @@ public class JournalTypeManagementGUI extends JFrame {
 		return panel;
 	}
 
-	public void addLeft() {
-		int rows[] = types.getSelectedIndices();
-		if (rows.length != 0) {
-			for(int i : rows) {
-				AccountType type = allTypes.get(i);
-				ArrayList<AccountType> debitTypes = journalType.getDebetTypes();
-				if (!debitTypes.contains(type)) {
-					debitTypes.add(type);
-					debitModel.addElement(type);
-				}
+	public void addDebit() {
+		for (AccountType type:types.getSelectedValuesList()) {
+			try {
+				journalType.addDebetType(type);
+				debitModel.addElement(type);
+			} catch (EmptyNameException e) {
+				e.printStackTrace();
+			} catch (DuplicateNameException e) {
+				e.printStackTrace();
 			}
 		}
 	}
-	public void addRight() {
-		int rows[] = types.getSelectedIndices();
-		if (rows.length != 0) {
-			for (int i : rows) {
-				AccountType type = allTypes.get(i);
-				ArrayList<AccountType> creditTypes = journalType.getCreditTypes();
-				if (!creditTypes.contains(type)) {
-					creditTypes.add(type);
-					creditModel.addElement(type);
-				}
+	public void addCredit() {
+		for (AccountType type:types.getSelectedValuesList()) {
+			try {
+				journalType.addCreditType(type);
+				creditModel.addElement(type);
+			} catch (EmptyNameException e) {
+				e.printStackTrace();
+			} catch (DuplicateNameException e) {
+				e.printStackTrace();
 			}
 		}
 	}
-	public void removeLeft() {
-		List<AccountType> accountTypeList = debit.getSelectedValuesList();
-		ArrayList<AccountType> debitTypes = journalType.getDebetTypes();
-		for(AccountType type : accountTypeList) {
-			debitTypes.remove(type);
+	public void removeDebit() {
+		for(AccountType type : debit.getSelectedValuesList()) {
+			journalType.removeDebitType(type);
 			debitModel.removeElement(type);
 		}
 	}
-	public void removeRight() {
-		List<AccountType> accountTypeList = credit.getSelectedValuesList();
-		ArrayList<AccountType> creditTypes = journalType.getCreditTypes();
-		for(AccountType type : accountTypeList) {
-			creditTypes.remove(type);
+
+	public void removeCredit() {
+		for(AccountType type : credit.getSelectedValuesList()) {
+			journalType.removeCreditType(type);
 			creditModel.removeElement(type);
 		}
 	}
-
 }

@@ -48,7 +48,7 @@ public class NewJournalGUI extends RefreshableDialog {
 		add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_JOURNAL"));
 		add.addActionListener(e -> addJournal());
 		line2.add(add);
-        newType = new JButton(getBundle("Accounting").getString("ADD_JOURNAL_TYPE"));
+        newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
         newType.addActionListener(e -> showJournalTypeManager(journalTypes,accountTypes));
         line2.add(newType);
         north.add(line1);
