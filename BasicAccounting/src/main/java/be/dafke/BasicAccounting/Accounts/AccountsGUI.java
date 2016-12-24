@@ -39,7 +39,7 @@ public class AccountsGUI extends JPanel {
     private AccountTypes accountTypes;
     private Journals journals;
     private JournalInputGUI journalInputGUI;
-    private boolean tax = true;
+    private boolean tax = false;
 
     public AccountsGUI(JournalInputGUI journalInputGUI) {
         this.journalInputGUI = journalInputGUI;
@@ -146,9 +146,8 @@ public class AccountsGUI extends JPanel {
                     }
                     if(btwAccount!=null){
                         BigDecimal percentage = new BigDecimal(percentages[nr]).divide(new BigDecimal(100));
-                        BigDecimal suggestedAmount = amount.multiply(percentage);
+                        BigDecimal suggestedAmount = amount.multiply(percentage).setScale(2);
                         BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
-                        btwAmount.setScale(2);
                         if(btwAmount!=null) {
                             journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
                         }
