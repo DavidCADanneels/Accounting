@@ -15,11 +15,20 @@ public class JournalType extends BusinessObject implements MustBeRead {
     public static final String CREDIT_TYPES = "creditTypes";
 
     private AccountTypes debetTypes, creditTypes;
+    private boolean tax = false;
 
     public JournalType(String name){
         setName(name);
         debetTypes = new AccountTypes();
         creditTypes = new AccountTypes();
+    }
+
+    public void setTax(boolean tax) {
+        this.tax = tax;
+    }
+
+    public boolean isTax() {
+        return tax;
     }
 
     public Properties getOutputProperties(){
