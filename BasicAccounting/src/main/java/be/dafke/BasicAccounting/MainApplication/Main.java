@@ -177,6 +177,10 @@ public class Main {
         ContactsMenu.setAccounting(accounting);
         BalancesMenu.setAccounting(accounting);
         AccountingMenuBar.setAccounting(accounting);
+
+        if(accounting!=null && accounting.getJournals()!=null){
+            setJournal(accounting.getJournals().getCurrentObject());
+        }
     }
 
     public static void setJournal(Journal journal) {
