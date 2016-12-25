@@ -18,7 +18,7 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 	 * 
 	 */
 	private final Accounts allAccounts;  // needed to lookup existing accounts when adding them to the project
-	private final Accounts projectAccounts;
+	private final ProjectAccounts projectAccounts;
 	private final Balance resultBalance, relationsBalance;
 
 	@Override
@@ -29,7 +29,7 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 	public Project(String name, Accounts accounts, AccountTypes accountTypes) {
 		setName(name);
 		allAccounts = accounts;
-		projectAccounts = new Accounts(accountTypes);
+		projectAccounts = new ProjectAccounts(accountTypes);
 		Balances balances = new Balances(accounts, accountTypes);
 		resultBalance = balances.createResultBalance(projectAccounts);
 		relationsBalance = balances.createRelationsBalance(projectAccounts);
