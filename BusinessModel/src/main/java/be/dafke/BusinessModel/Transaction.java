@@ -39,7 +39,7 @@ public class Transaction extends BusinessCollection<Booking> {
 		creditTotal = new BigDecimal(0);
 		creditTotal = creditTotal.setScale(2);
         bookings = new ArrayList<>();
-        vatTransactions = new VATTransactions();
+        vatTransactions = new VATTransactions(accounts);
 	}
 
     public Mortgage getMortgage() {

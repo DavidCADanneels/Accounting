@@ -7,15 +7,12 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
 
-import java.math.BigDecimal;
-import java.util.*;
+import java.util.TreeMap;
 
 /**
  * @author David Danneels
  */
 public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> implements MustBeRead, ChildrenNeedSeparateFile {
-    public static final String DEBIT_ACCOUNT = "DebitAccount";
-    public static final String CREDIT_ACCOUNT = "CreditAccount";
     private final AccountTypes accountTypes;
     private final Accounts accounts;
 	private final Journals journals;
@@ -40,7 +37,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         journalTypes = new JournalTypes(accountTypes);
 //        journalTypes.addDefaultType(accountTypes);
 
-        vatTransactions = new VATTransactions();
+        vatTransactions = new VATTransactions(accounts);
 
         journals = new Journals(accounts, journalTypes, vatTransactions);
 
@@ -61,28 +58,13 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
             addBusinessObject((BusinessCollection)contacts);
             addBusinessObject((BusinessCollection)mortgages);
             addBusinessObject((BusinessCollection)projects);
+            addBusinessObject((BusinessCollection)vatTransactions);
         } catch (EmptyNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         } catch (DuplicateNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
         }
 	}
-
-    public Properties getOutputProperties(){
-        Properties outputProperties = super.getOutputProperties();
-        for(Map.Entry<Integer, BigDecimal> entry : vatTransactions.getVatAccounts().entrySet()){
-            outputProperties.put("VAT"+entry.getKey(),entry.getValue());
-        }
-        Account vatDebitAccount = vatTransactions.getDebitAccount();
-        if(vatDebitAccount!=null) {
-            outputProperties.put(DEBIT_ACCOUNT, vatDebitAccount);
-        }
-        Account vatCreditAccount = vatTransactions.getCreditAccount();
-        if(vatCreditAccount!=null) {
-            outputProperties.put(CREDIT_ACCOUNT, vatCreditAccount);
-        }
-        return outputProperties;
-    }
 
     public String toString(){
         return getName();

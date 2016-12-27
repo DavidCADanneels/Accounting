@@ -13,8 +13,8 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import static be.dafke.BusinessModel.Accounting.CREDIT_ACCOUNT;
-import static be.dafke.BusinessModel.Accounting.DEBIT_ACCOUNT;
+import static be.dafke.BusinessModel.VATTransactions.CREDIT_ACCOUNT;
+import static be.dafke.BusinessModel.VATTransactions.DEBIT_ACCOUNT;
 
 public class Accountings extends BusinessCollection<Accounting> implements ChildrenNeedSeparateFile {
 
