@@ -150,7 +150,6 @@ public class AccountsGUI extends JPanel {
                     Integer[] percentages = vatTransactions.getVatPercentages();
                     int nr = JOptionPane.showOptionDialog(null, "BTW %", "BTW %",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, percentages, null);
-                    Account btwAccount = null;
                     if (nr != -1) {
                         BigDecimal percentage = new BigDecimal(percentages[nr]).divide(new BigDecimal(100));
                         BigDecimal suggestedAmount = amount.multiply(percentage).setScale(2,BigDecimal.ROUND_HALF_UP);
@@ -160,7 +159,7 @@ public class AccountsGUI extends JPanel {
                             int nr2 = JOptionPane.showOptionDialog(null, "BTW %", "BTW %",
                                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, purchaseTypes, null);
                             VATTransactions.PurchaseType purchaseType = purchaseTypes[nr2];
-                            btwAccount = vatTransactions.getCreditAccount();
+                            Account btwAccount = vatTransactions.getCreditAccount();
                             if(btwAccount==null){
                                 AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
                                 accountSelector.setVisible(true);
@@ -176,7 +175,7 @@ public class AccountsGUI extends JPanel {
                                 }
                             }
                         } else if (vatType == VATTransactions.VATType.SALE) {
-                            btwAccount = vatTransactions.getDebitAccount();
+                            Account btwAccount = vatTransactions.getDebitAccount();
                             if(btwAccount==null){
                                 AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
                                 accountSelector.setVisible(true);

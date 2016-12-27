@@ -28,7 +28,7 @@ public class Transaction extends BusinessCollection<Booking> {
     private final ArrayList<Booking> bookings;
     private Accounts accounts;
     private Mortgage mortgage = null;
-    private HashMap<Integer, BigDecimal> vatTransaction;
+    private VATTransactions vatTransactions;
 
     public Transaction(Accounts accounts, Calendar date, String description) {
         this.accounts = accounts;
@@ -39,6 +39,7 @@ public class Transaction extends BusinessCollection<Booking> {
 		creditTotal = new BigDecimal(0);
 		creditTotal = creditTotal.setScale(2);
         bookings = new ArrayList<>();
+        vatTransactions = new VATTransactions();
 	}
 
     public Mortgage getMortgage() {
@@ -204,11 +205,11 @@ public class Transaction extends BusinessCollection<Booking> {
 
     }
 
-    public HashMap<Integer, BigDecimal> getVATTransaction() {
-        return vatTransaction;
+    public void addVATTransaction(HashMap<Integer, BigDecimal> vatTransaction) {
+        vatTransactions.book(vatTransaction);
     }
 
-    public void setVATTransaction(HashMap<Integer, BigDecimal> vatTransaction) {
-        this.vatTransaction = vatTransaction;
+    public VATTransactions getVatTransactions() {
+        return vatTransactions;
     }
 }

@@ -425,6 +425,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     }
 
     public void addVATTransaction(HashMap<Integer, BigDecimal> vatTransaction) {
-        transaction.setVATTransaction(vatTransaction);
+        transaction.addVATTransaction(vatTransaction);
     }
 }

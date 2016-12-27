@@ -132,16 +132,4 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         return vatTransactions;
     }
 
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = super.getInitKeySet();
-        keySet.add("VAT1");
-        keySet.add("VAT2");
-        keySet.add("VAT3");
-        keySet.add("VAT81");
-        keySet.add("VAT82");
-        keySet.add("VAT83");
-        keySet.add("VAT54");
-        keySet.add("VAT59");
-        return keySet;
-    }
 }

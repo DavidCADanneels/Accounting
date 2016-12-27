@@ -10,6 +10,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import static be.dafke.BusinessModel.Accounting.CREDIT_ACCOUNT;
@@ -47,6 +48,21 @@ public class Accountings extends BusinessCollection<Accounting> implements Child
         return xslFolder;
     }
 
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = super.getInitKeySet();
+        keySet.add(DEBIT_ACCOUNT);
+        keySet.add(CREDIT_ACCOUNT);
+        keySet.add("VAT1");
+        keySet.add("VAT2");
+        keySet.add("VAT3");
+        keySet.add("VAT81");
+        keySet.add("VAT82");
+        keySet.add("VAT83");
+        keySet.add("VAT54");
+        keySet.add("VAT59");
+        return keySet;
+    }
+
     @Override
     public Accounting createNewChild(TreeMap<String, String> properties) {
         Accounting accounting = new Accounting();
@@ -57,8 +73,11 @@ public class Accountings extends BusinessCollection<Accounting> implements Child
             String key = entry.getKey();
             if(key.startsWith("VAT")){
                 int nr = Integer.parseInt(key.replace("VAT", ""));
-                BigDecimal amount = Utils.parseBigDecimal(entry.getValue());
-                vatTransaction.put(nr,amount);
+                String value = entry.getValue();
+                if(value!=null) {
+                    BigDecimal amount = Utils.parseBigDecimal(value);
+                    vatTransaction.put(nr, amount);
+                }
             }
         }
         vatTransactions.book(vatTransaction);
