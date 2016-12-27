@@ -3,6 +3,7 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
 import be.dafke.ObjectModel.MustBeRead;
+import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.Set;
@@ -55,7 +56,7 @@ public class Mortgages extends BusinessCollection<Mortgage> implements ChildrenN
             mortgage.setStartCapital(new BigDecimal(startCapitalString));
         }
         if(nrPayedString!=null){
-            mortgage.setAlreadyPayed(Integer.parseInt(nrPayedString));
+            mortgage.setAlreadyPayed(Utils.parseInt(nrPayedString));
         }
         String capitalAccount = properties.get(Mortgages.CAPITAL_ACCOUNT);
         if(capitalAccount!=null){

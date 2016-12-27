@@ -74,7 +74,7 @@ public class Transaction extends BusinessCollection<Booking> {
         } else {
             System.err.println("No 'debit' or 'credit' tag found in Movement !!!");
         }
-        int id = Integer.parseInt(properties.get(Booking.ID));
+        int id = Utils.parseInt(properties.get(Booking.ID));
         return new Booking(account, amount, debit, id);
 //        return new Booking(accounts, properties);
     }

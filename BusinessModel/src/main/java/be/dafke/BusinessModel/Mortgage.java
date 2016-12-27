@@ -51,7 +51,7 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
     public MortgageTransaction createNewChild(TreeMap<String, String> properties) {
         MortgageTransaction mortgageTransaction = new MortgageTransaction();
         mortgageTransaction.setMortgage(this);
-        mortgageTransaction.setNr(Integer.parseInt(properties.get(NR)));
+        mortgageTransaction.setNr(Utils.parseInt(properties.get(NR)));
         mortgageTransaction.setMensuality(Utils.parseBigDecimal(properties.get(MortgageTransaction.MENSUALITY)));
         mortgageTransaction.setCapital(Utils.parseBigDecimal(properties.get(MortgageTransaction.CAPITAL)));
         mortgageTransaction.setIntrest(Utils.parseBigDecimal(properties.get(MortgageTransaction.INTREST)));
