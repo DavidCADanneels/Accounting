@@ -169,9 +169,11 @@ public class AccountsGUI extends JPanel {
                             }
                             if(btwAccount!=null) {
                                 BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
-                                journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                                HashMap<Integer, BigDecimal> vatTransaction = VATTransactions.purchase(amount,btwAmount, purchaseType);
-                                journalInputGUI.addVATTransaction(vatTransaction);
+                                if(btwAmount!=null) {
+                                    journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
+                                    HashMap<Integer, BigDecimal> vatTransaction = VATTransactions.purchase(amount, btwAmount, purchaseType);
+                                    journalInputGUI.addVATTransaction(vatTransaction);
+                                }
                             }
                         } else if (vatType == VATTransactions.VATType.SALE) {
                             btwAccount = vatTransactions.getVatCreditAccount();
@@ -183,9 +185,11 @@ public class AccountsGUI extends JPanel {
                             }
                             if(btwAccount!=null) {
                                 BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
-                                journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                                HashMap<Integer, BigDecimal> vatTransaction = VATTransactions.sale(amount,btwAmount,percentages[nr]);
-                                journalInputGUI.addVATTransaction(vatTransaction);
+                                if(btwAmount!=null) {
+                                    journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
+                                    HashMap<Integer, BigDecimal> vatTransaction = VATTransactions.sale(amount, btwAmount, percentages[nr]);
+                                    journalInputGUI.addVATTransaction(vatTransaction);
+                                }
                             }
                         }
                     }
