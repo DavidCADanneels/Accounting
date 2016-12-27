@@ -189,8 +189,6 @@ public class Main {
         JournalType journalType = journal.getType();
         accountsGUI1.setAccountTypes(journalType.getDebetTypes());
         accountsGUI2.setAccountTypes(journalType.getCreditTypes());
-//        accountsGUI1.setVat(journalType.getVatTransactions());
-//        accountsGUI2.setVat(journalType.getVatTransactions());
         VATTransactions.VATType vatType = journalType.getVatType();
         if(vatType == VATTransactions.VATType.SALE){
             accountsGUI1.setVatType(VATTransactions.VATType.NONE);

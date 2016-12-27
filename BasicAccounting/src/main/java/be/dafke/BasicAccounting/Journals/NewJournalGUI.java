@@ -22,11 +22,13 @@ public class NewJournalGUI extends RefreshableDialog {
     private final JButton add, newType;
     private Accounts accounts;
     private Journals journals;
+    private VATTransactions vatTransactions;
 
-    public NewJournalGUI(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes) {
+    public NewJournalGUI(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes, VATTransactions vatTransactions) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"));
         this.accounts = accounts;
         this.journals = journals;
+        this.vatTransactions = vatTransactions;
         JPanel north = new JPanel();
 		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
 		JPanel line1 = new JPanel();
@@ -66,7 +68,7 @@ public class NewJournalGUI extends RefreshableDialog {
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
         try {
-            Journal journal = new Journal(accounts, newName, abbreviation);
+            Journal journal = new Journal(accounts, newName, abbreviation, vatTransactions);
             journal.setType(journalType);
             journals.addBusinessObject(journal);
             journals.setCurrentObject(journal);

@@ -28,6 +28,7 @@ public class Transaction extends BusinessCollection<Booking> {
     private final ArrayList<Booking> bookings;
     private Accounts accounts;
     private Mortgage mortgage = null;
+    private HashMap<Integer, BigDecimal> vatTransaction;
 
     public Transaction(Accounts accounts, Calendar date, String description) {
         this.accounts = accounts;
@@ -201,5 +202,9 @@ public class Transaction extends BusinessCollection<Booking> {
 // Can be very brief but unreadable with collect construction
 //        return getBusinessObjects().stream().map(Booking::getAccount).collect(Collectors.toCollection(ArrayList::new));
 
+    }
+
+    public HashMap<Integer, BigDecimal> getVATTransaction() {
+        return vatTransaction;
     }
 }

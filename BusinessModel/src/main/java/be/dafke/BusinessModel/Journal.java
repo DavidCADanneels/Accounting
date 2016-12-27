@@ -5,6 +5,7 @@ import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.MultiValueMap;
 import be.dafke.Utils.Utils;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -18,9 +19,11 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
     private JournalType type;
     private Accounts accounts;
     private Transaction currentTransaction;
+    private VATTransactions vatTransactions;
 
-    public Journal(Accounts accounts, String name, String abbreviation) {
+    public Journal(Accounts accounts, String name, String abbreviation, VATTransactions vatTransactions) {
         setName(name);
+        this.vatTransactions = vatTransactions;
         this.accounts = accounts;
         setAbbreviation(abbreviation);
         currentTransaction = new Transaction(accounts,Calendar.getInstance(),"");
@@ -131,6 +134,11 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
         if (mortgage!=null){
             mortgage.raiseNrPayed();
         }
+        HashMap<Integer,BigDecimal> vatTransaction = transaction.getVATTransaction();
+        if(vatTransaction!=null) {
+            vatTransactions.book(vatTransaction);
+        }
+
         return transaction;
 	}
 

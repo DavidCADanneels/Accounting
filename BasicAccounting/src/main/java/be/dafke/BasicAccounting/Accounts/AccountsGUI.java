@@ -39,7 +39,7 @@ public class AccountsGUI extends JPanel {
     private AccountTypes accountTypes;
     private Journals journals;
     private JournalInputGUI journalInputGUI;
-//    private VATTransactions vat = null;
+    private VATTransactions vatTransactions = null;
     private VATTransactions.VATType vatType = null;
 
     public AccountsGUI(JournalInputGUI journalInputGUI) {
@@ -122,13 +122,13 @@ public class AccountsGUI extends JPanel {
         add(filter, BorderLayout.NORTH);
     }
 
-//    public VATTransactions getVa() {
-//        return vat;
+//    public VATTransactions getVatTransactions() {
+//        return vatTransactions;
 //    }
-//
-//    public void setVat(VATTransactions vat) {
-//        this.vat = vat;
-//    }
+
+    public void setVatTransactions(VATTransactions vatTransactions) {
+        this.vatTransactions = vatTransactions;
+    }
 
     public VATTransactions.VATType getVatType() {
         return vatType;
@@ -143,11 +143,11 @@ public class AccountsGUI extends JPanel {
             BigDecimal amount = journalInputGUI.askAmount(selectedAccount, debit);
             if (amount != null) {
                 journalInputGUI.addBooking(new Booking(selectedAccount, amount, debit));
-//                if (vat != null && vat.getType() != null) {
+//                if (vatTransactions != null && vatTransactions.getType() != null) {
                 if (vatType != VATTransactions.VATType.NONE) {
-//                    VATTransactions.VATType vatType = vat.getType();
+//                    VATTransactions.VATType vatType = vatTransactions.getType();
                     // Read percentage
-                    Integer[] percentages = VATTransactions.getVatPercentages();
+                    Integer[] percentages = vatTransactions.getVatPercentages();
                     int nr = JOptionPane.showOptionDialog(null, "BTW %", "BTW %",
                             JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, percentages, null);
                     Account btwAccount = null;
@@ -160,9 +160,9 @@ public class AccountsGUI extends JPanel {
                             int nr2 = JOptionPane.showOptionDialog(null, "BTW %", "BTW %",
                                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, purchaseTypes, null);
                             VATTransactions.PurchaseType purchaseType = purchaseTypes[nr2];
-                            btwAccount = VATTransactions.getVatDebitAccount(purchaseType);
+                            btwAccount = vatTransactions.getVatDebitAccount(purchaseType);
                         } else if (vatType == VATTransactions.VATType.SALE) {
-                            btwAccount = VATTransactions.getVatCreditAccount(percentages[nr]);
+                            btwAccount = vatTransactions.getVatCreditAccount(percentages[nr]);
                         }
 
                         if(btwAccount!=null) {
@@ -202,6 +202,7 @@ public class AccountsGUI extends JPanel {
         setAccounts(accounting == null ? null : accounting.getAccounts());
         setJournals(accounting == null ? null : accounting.getJournals());
         popup.setAccounting(accounting);
+        setVatTransactions(accounting.getVatTransactions());
     }
 
     public void setAccountTypes(AccountTypes accountTypes) {

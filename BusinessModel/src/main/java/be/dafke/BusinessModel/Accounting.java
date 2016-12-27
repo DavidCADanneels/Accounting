@@ -21,6 +21,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     private final Mortgages mortgages;
     private Projects projects;
     private Contacts contacts;
+    private VATTransactions vatTransactions;
 
     @Override
     public String getChildType(){
@@ -36,7 +37,9 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         journalTypes = new JournalTypes(accountTypes);
 //        journalTypes.addDefaultType(accountTypes);
 
-        journals = new Journals(accounts, journalTypes);
+        vatTransactions = new VATTransactions();
+
+        journals = new Journals(accounts, journalTypes, vatTransactions);
 
         balances = new Balances(accounts, accountTypes);
 
@@ -104,5 +107,9 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     public Contacts getContacts() {
         return contacts;
+    }
+
+    public VATTransactions getVatTransactions() {
+        return vatTransactions;
     }
 }

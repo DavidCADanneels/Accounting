@@ -8,9 +8,9 @@ import java.util.Map;
  * Created by ddanneels on 25/12/2016.
  */
 public class VATTransactions {
-    private static Account creditAccount, debitAccount;
+    private Account creditAccount, debitAccount;
 
-    public static void book(HashMap<Integer, BigDecimal> vatTransaction) {
+    public void book(HashMap<Integer, BigDecimal> vatTransaction) {
         for(Map.Entry<Integer, BigDecimal> entry:vatTransaction.entrySet()){
             Integer key = entry.getKey();
             BigDecimal addedValue = entry.getValue();
@@ -37,18 +37,18 @@ public class VATTransactions {
 
 //    private VATType type;
 
-    private static Integer[] vatPercentages = new Integer[]{0, 6, 12, 21};
-    private static HashMap<Integer, BigDecimal> vatAccounts = new HashMap<>();
+    private Integer[] vatPercentages = new Integer[]{0, 6, 12, 21};
+    private HashMap<Integer, BigDecimal> vatAccounts = new HashMap<>();
 
     public VATTransactions() {
     }
 
-    public static void setCreditAccount(Account creditAccount) {
-        VATTransactions.creditAccount = creditAccount;
+    public void setCreditAccount(Account creditAccount) {
+        this.creditAccount = creditAccount;
     }
 
-    public static void setDebitAccount(Account debitAccount) {
-        VATTransactions.debitAccount = debitAccount;
+    public void setDebitAccount(Account debitAccount) {
+        this.debitAccount = debitAccount;
     }
 
     //    public void setVATAccount(int nr, Account account){
@@ -67,7 +67,7 @@ public class VATTransactions {
 //        this.type = type;
 //    }
 
-    public static Integer[] getVatPercentages() {
+    public Integer[] getVatPercentages() {
         return vatPercentages;
     }
 
@@ -75,7 +75,7 @@ public class VATTransactions {
 //        return debt?getVatDebtAccount(pct):getVatCreditAccount(pct);
 //    }
 
-    public static Account getVatCreditAccount(int pct) {
+    public Account getVatCreditAccount(int pct) {
         return creditAccount;
 //        if(pct==6){
 //            return vatAccounts.get(1);
@@ -86,7 +86,7 @@ public class VATTransactions {
 //        } else return null;
     }
 
-    public static Account getVatDebitAccount(PurchaseType purchaseType) {
+    public Account getVatDebitAccount(PurchaseType purchaseType) {
         return debitAccount;
 //        if(purchaseType==PurchaseType.GOODS){
 //            return vatAccounts.get(81);
