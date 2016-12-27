@@ -1,10 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
-import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.JournalType;
-import be.dafke.BusinessModel.JournalTypes;
+import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.AlphabeticListModel;
@@ -31,7 +28,7 @@ public class JournalTypeManagementGUI extends JFrame {
 	private JournalTypes journalTypes;
 	private static final HashMap<JournalTypes, JournalTypeManagementGUI> journalTypeManagementGuis = new HashMap<>();
 	private JournalType journalType;
-	private JCheckBox tax;
+	private JComboBox<VAT.VATType> taxType;
 
 	private JournalTypeManagementGUI(JournalTypes journalTypes, AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
@@ -87,9 +84,14 @@ public class JournalTypeManagementGUI extends JFrame {
 		newType.addActionListener(e -> createNewJournalType());
 		combo = new JComboBox<>();
 		combo.addActionListener(e -> comboAction());
-		tax = new JCheckBox("tax?");
-		tax.addChangeListener(e -> journalType.setTax(tax.isSelected()));
-		panel.add(tax);
+		taxType = new JComboBox<>();
+		taxType.addItem(VAT.VATType.PURCHASE);
+		taxType.addItem(VAT.VATType.SALE);
+		taxType.addItem(null);
+		taxType.addActionListener(e -> {
+			journalType.setVatType((VAT.VATType) taxType.getSelectedItem());
+		});
+		panel.add(taxType);
 		panel.add(combo);
 		panel.add(newType);
 		return panel;
@@ -113,7 +115,7 @@ public class JournalTypeManagementGUI extends JFrame {
 				}
 			}
 		}
-		tax.setSelected(journalType.isTax());
+		taxType.setSelectedItem(journalType.getVatType());
 	}
 
 	public void createNewJournalType(){

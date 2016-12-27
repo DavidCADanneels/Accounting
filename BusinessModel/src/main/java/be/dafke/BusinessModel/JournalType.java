@@ -16,7 +16,7 @@ public class JournalType extends BusinessObject implements MustBeRead {
     public static final String TAX = "tax";
 
     private AccountTypes debetTypes, creditTypes;
-    private boolean tax = false;
+    private VAT.VATType vatType = null;
 
     public JournalType(String name){
         setName(name);
@@ -24,12 +24,21 @@ public class JournalType extends BusinessObject implements MustBeRead {
         creditTypes = new AccountTypes();
     }
 
-    public void setTax(boolean tax) {
-        this.tax = tax;
+//    public VAT getVat() {
+//        return vat;
+//    }
+//
+//    public void setVat(VAT vat) {
+//        this.vat = vat;
+//    }
+
+
+    public VAT.VATType getVatType() {
+        return vatType;
     }
 
-    public boolean isTax() {
-        return tax;
+    public void setVatType(VAT.VATType vatType) {
+        this.vatType = vatType;
     }
 
     public Properties getOutputProperties(){
@@ -38,7 +47,7 @@ public class JournalType extends BusinessObject implements MustBeRead {
         String creditStream = creditTypes.getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
         properties.put(DEBIT_TYPES,debitStream);
         properties.put(CREDIT_TYPES,creditStream);
-        properties.put(TAX,tax);
+//        properties.put(TAX,tax);
         return properties;
     }
 

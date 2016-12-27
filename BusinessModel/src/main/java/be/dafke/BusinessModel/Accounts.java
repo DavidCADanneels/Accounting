@@ -17,30 +17,11 @@ import java.util.stream.Collectors;
  */
 public class Accounts extends BusinessCollection<Account> implements ChildrenNeedSeparateFile, MustBeRead {
     public static final String ACCOUNT = "Account";
-    private static Integer[] vatPercentages = new Integer[]{0, 6, 21};
-    HashMap<Integer,Account> vatDebtAccounts = new HashMap<>();
-    HashMap<Integer,Account> vatCreditAccounts = new HashMap<>();
     private AccountTypes accountTypes;
 
     public Accounts(AccountTypes accountTypes) {
         this.accountTypes = accountTypes;
         setName("Accounts");
-    }
-
-    public static Integer[] getVatPercentages() {
-        return vatPercentages;
-    }
-
-    public Account getVatAccount(boolean debt, int pct) {
-        return debt?getVatDebtAccount(pct):getVatCreditAccount(pct);
-    }
-
-    public Account getVatDebtAccount(int pct) {
-        return vatDebtAccounts.get(pct);
-    }
-
-    public Account getVatCreditAccount(int pct) {
-        return vatCreditAccounts.get(pct);
     }
 
     @Override
