@@ -207,4 +207,8 @@ public class Transaction extends BusinessCollection<Booking> {
     public HashMap<Integer, BigDecimal> getVATTransaction() {
         return vatTransaction;
     }
+
+    public void setVATTransaction(HashMap<Integer, BigDecimal> vatTransaction) {
+        this.vatTransaction = vatTransaction;
+    }
 }

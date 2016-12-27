@@ -160,14 +160,33 @@ public class AccountsGUI extends JPanel {
                             int nr2 = JOptionPane.showOptionDialog(null, "BTW %", "BTW %",
                                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, purchaseTypes, null);
                             VATTransactions.PurchaseType purchaseType = purchaseTypes[nr2];
-                            btwAccount = vatTransactions.getVatDebitAccount(purchaseType);
+                            btwAccount = vatTransactions.getVatDebitAccount();
+                            if(btwAccount==null){
+                                AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
+                                accountSelector.setVisible(true);
+                                btwAccount = accountSelector.getSelection();
+                                vatTransactions.setDebitAccount(btwAccount);
+                            }
+                            if(btwAccount!=null) {
+                                BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
+                                journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
+                                HashMap<Integer, BigDecimal> vatTransaction = VATTransactions.purchase(amount,btwAmount, purchaseType);
+                                journalInputGUI.addVATTransaction(vatTransaction);
+                            }
                         } else if (vatType == VATTransactions.VATType.SALE) {
-                            btwAccount = vatTransactions.getVatCreditAccount(percentages[nr]);
-                        }
-
-                        if(btwAccount!=null) {
-                            BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
-                            journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
+                            btwAccount = vatTransactions.getVatCreditAccount();
+                            if(btwAccount==null){
+                                AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
+                                accountSelector.setVisible(true);
+                                btwAccount = accountSelector.getSelection();
+                                vatTransactions.setCreditAccount(btwAccount);
+                            }
+                            if(btwAccount!=null) {
+                                BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
+                                journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
+                                HashMap<Integer, BigDecimal> vatTransaction = VATTransactions.sale(amount,btwAmount,percentages[nr]);
+                                journalInputGUI.addVATTransaction(vatTransaction);
+                            }
                         }
                     }
                 }
