@@ -16,7 +16,7 @@ public class JournalType extends BusinessObject implements MustBeRead {
     public static final String VATTYPE = "vatType";
 
     private AccountTypes debetTypes, creditTypes;
-    private VAT.VATType vatType = VAT.VATType.NONE;
+    private VATTransactions.VATType vatType = VATTransactions.VATType.NONE;
 
     public JournalType(String name){
         setName(name);
@@ -24,20 +24,20 @@ public class JournalType extends BusinessObject implements MustBeRead {
         creditTypes = new AccountTypes();
     }
 
-//    public VAT getVat() {
+//    public VATTransactions getVatTransactions() {
 //        return vat;
 //    }
 //
-//    public void setVat(VAT vat) {
+//    public void setVat(VATTransactions vat) {
 //        this.vat = vat;
 //    }
 
 
-    public VAT.VATType getVatType() {
+    public VATTransactions.VATType getVatType() {
         return vatType;
     }
 
-    public void setVatType(VAT.VATType vatType) {
+    public void setVatType(VATTransactions.VATType vatType) {
         this.vatType = vatType;
     }
 

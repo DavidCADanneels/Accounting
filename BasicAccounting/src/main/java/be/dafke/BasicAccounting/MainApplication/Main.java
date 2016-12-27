@@ -189,10 +189,19 @@ public class Main {
         JournalType journalType = journal.getType();
         accountsGUI1.setAccountTypes(journalType.getDebetTypes());
         accountsGUI2.setAccountTypes(journalType.getCreditTypes());
-//        accountsGUI1.setVat(journalType.getVat());
-//        accountsGUI2.setVat(journalType.getVat());
-        accountsGUI1.setVatType(journalType.getVatType());
-        accountsGUI2.setVatType(journalType.getVatType());
+//        accountsGUI1.setVat(journalType.getVatTransactions());
+//        accountsGUI2.setVat(journalType.getVatTransactions());
+        VATTransactions.VATType vatType = journalType.getVatType();
+        if(vatType == VATTransactions.VATType.SALE){
+            accountsGUI1.setVatType(VATTransactions.VATType.NONE);
+            accountsGUI2.setVatType(VATTransactions.VATType.SALE);
+        } if(vatType == VATTransactions.VATType.PURCHASE){
+            accountsGUI1.setVatType(VATTransactions.VATType.PURCHASE);
+            accountsGUI2.setVatType(VATTransactions.VATType.NONE);
+        } else {
+            accountsGUI1.setVatType(VATTransactions.VATType.NONE);
+            accountsGUI2.setVatType(VATTransactions.VATType.NONE);
+        }
     }
 
     public static void fireJournalDataChanged(Journal journal){
