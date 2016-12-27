@@ -10,6 +10,8 @@ public class ProjectAccounts extends Accounts {
         super(accountTypes);
     }
 
+    // Need to override remove function
+    // In Accounts we check if Account.isRemovable(), not needed here.
     public void removeBusinessObject(Account account) throws NotEmptyException {
         removeBusinessObject(account.getUniqueProperties());
     }
