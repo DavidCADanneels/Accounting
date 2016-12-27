@@ -153,19 +153,19 @@ public class AccountsGUI extends JPanel {
                     Account btwAccount = null;
                     if (nr != -1) {
                         BigDecimal percentage = new BigDecimal(percentages[nr]).divide(new BigDecimal(100));
-                        BigDecimal suggestedAmount = amount.multiply(percentage).setScale(2);
+                        BigDecimal suggestedAmount = amount.multiply(percentage).setScale(2,BigDecimal.ROUND_HALF_UP);
 
                         if (vatType == VATTransactions.VATType.PURCHASE) {
                             VATTransactions.PurchaseType[] purchaseTypes = VATTransactions.PurchaseType.values();
                             int nr2 = JOptionPane.showOptionDialog(null, "BTW %", "BTW %",
                                     JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, purchaseTypes, null);
                             VATTransactions.PurchaseType purchaseType = purchaseTypes[nr2];
-                            btwAccount = vatTransactions.getVatDebitAccount();
+                            btwAccount = vatTransactions.getCreditAccount();
                             if(btwAccount==null){
                                 AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
                                 accountSelector.setVisible(true);
                                 btwAccount = accountSelector.getSelection();
-                                vatTransactions.setDebitAccount(btwAccount);
+                                vatTransactions.setCreditAccount(btwAccount);
                             }
                             if(btwAccount!=null) {
                                 BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
@@ -176,12 +176,12 @@ public class AccountsGUI extends JPanel {
                                 }
                             }
                         } else if (vatType == VATTransactions.VATType.SALE) {
-                            btwAccount = vatTransactions.getVatCreditAccount();
+                            btwAccount = vatTransactions.getDebitAccount();
                             if(btwAccount==null){
                                 AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
                                 accountSelector.setVisible(true);
                                 btwAccount = accountSelector.getSelection();
-                                vatTransactions.setCreditAccount(btwAccount);
+                                vatTransactions.setDebitAccount(btwAccount);
                             }
                             if(btwAccount!=null) {
                                 BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);

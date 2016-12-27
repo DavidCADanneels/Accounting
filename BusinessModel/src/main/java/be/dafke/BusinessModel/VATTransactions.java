@@ -24,12 +24,20 @@ public class VATTransactions {
         this.debitAccount = debitAccount;
     }
 
-    public Account getVatCreditAccount() {
+    public Account getCreditAccount() {
         return creditAccount;
     }
 
-    public Account getVatDebitAccount() {
+    public Account getDebitAccount() {
         return debitAccount;
+    }
+
+    public HashMap<Integer, BigDecimal> getVatAccounts() {
+        return vatAccounts;
+    }
+
+    public void setVatAccounts(HashMap<Integer, BigDecimal> vatAccounts) {
+        this.vatAccounts = vatAccounts;
     }
 
     public enum VATType{

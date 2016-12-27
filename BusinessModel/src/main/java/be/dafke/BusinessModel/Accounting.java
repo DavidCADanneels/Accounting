@@ -7,12 +7,15 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
 
-import java.util.TreeMap;
+import java.math.BigDecimal;
+import java.util.*;
 
 /**
  * @author David Danneels
  */
 public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> implements MustBeRead, ChildrenNeedSeparateFile {
+    public static final String DEBIT_ACCOUNT = "DebitAccount";
+    public static final String CREDIT_ACCOUNT = "CreditAccount";
     private final AccountTypes accountTypes;
     private final Accounts accounts;
 	private final Journals journals;
@@ -65,6 +68,22 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         }
 	}
 
+    public Properties getOutputProperties(){
+        Properties outputProperties = super.getOutputProperties();
+        for(Map.Entry<Integer, BigDecimal> entry : vatTransactions.getVatAccounts().entrySet()){
+            outputProperties.put("VAT"+entry.getKey(),entry.getValue());
+        }
+        Account vatDebitAccount = vatTransactions.getDebitAccount();
+        if(vatDebitAccount!=null) {
+            outputProperties.put(DEBIT_ACCOUNT, vatDebitAccount);
+        }
+        Account vatCreditAccount = vatTransactions.getCreditAccount();
+        if(vatCreditAccount!=null) {
+            outputProperties.put(CREDIT_ACCOUNT, vatCreditAccount);
+        }
+        return outputProperties;
+    }
+
     public String toString(){
         return getName();
     }
@@ -111,5 +130,18 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     public VATTransactions getVatTransactions() {
         return vatTransactions;
+    }
+
+    public Set<String> getInitKeySet(){
+        Set<String> keySet = super.getInitKeySet();
+        keySet.add("VAT1");
+        keySet.add("VAT2");
+        keySet.add("VAT3");
+        keySet.add("VAT81");
+        keySet.add("VAT82");
+        keySet.add("VAT83");
+        keySet.add("VAT54");
+        keySet.add("VAT59");
+        return keySet;
     }
 }
