@@ -193,7 +193,7 @@ public class Main {
         if(vatType == VATTransactions.VATType.SALE){
             accountsGUI1.setVatType(VATTransactions.VATType.NONE);
             accountsGUI2.setVatType(VATTransactions.VATType.SALE);
-        } if(vatType == VATTransactions.VATType.PURCHASE){
+        } else if(vatType == VATTransactions.VATType.PURCHASE){
             accountsGUI1.setVatType(VATTransactions.VATType.PURCHASE);
             accountsGUI2.setVatType(VATTransactions.VATType.NONE);
         } else {
