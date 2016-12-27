@@ -7,7 +7,7 @@ import java.util.HashMap;
  */
 public class VAT {
     public enum VATType{
-        SALE, PURCHASE;
+        SALE, PURCHASE, NONE;
     }
 
 //    public String toString(){

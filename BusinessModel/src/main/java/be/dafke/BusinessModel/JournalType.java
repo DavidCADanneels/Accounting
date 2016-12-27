@@ -13,10 +13,10 @@ public class JournalType extends BusinessObject implements MustBeRead {
 
     public static final String DEBIT_TYPES = "debitTypes";
     public static final String CREDIT_TYPES = "creditTypes";
-    public static final String TAX = "tax";
+    public static final String VATTYPE = "vatType";
 
     private AccountTypes debetTypes, creditTypes;
-    private VAT.VATType vatType = null;
+    private VAT.VATType vatType = VAT.VATType.NONE;
 
     public JournalType(String name){
         setName(name);
@@ -47,7 +47,7 @@ public class JournalType extends BusinessObject implements MustBeRead {
         String creditStream = creditTypes.getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
         properties.put(DEBIT_TYPES,debitStream);
         properties.put(CREDIT_TYPES,creditStream);
-//        properties.put(TAX,tax);
+        properties.put(VATTYPE,vatType.toString());
         return properties;
     }
 

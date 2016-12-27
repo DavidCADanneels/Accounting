@@ -9,9 +9,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 
-import static be.dafke.BusinessModel.JournalType.CREDIT_TYPES;
-import static be.dafke.BusinessModel.JournalType.DEBIT_TYPES;
-import static be.dafke.BusinessModel.JournalType.TAX;
+import static be.dafke.BusinessModel.JournalType.*;
 
 public class JournalTypes extends BusinessCollection<JournalType> implements MustBeRead {
     private AccountTypes accountTypes;
@@ -62,8 +60,8 @@ public class JournalTypes extends BusinessCollection<JournalType> implements Mus
                 }
             }
         }
-//        String taxString = properties.get(TAX);
-//        journalType.setTax(Boolean.valueOf(taxString));
+        String taxString = properties.get(VATTYPE);
+        journalType.setVatType(VAT.VATType.valueOf(taxString));
         return journalType;
     }
 
@@ -73,7 +71,7 @@ public class JournalTypes extends BusinessCollection<JournalType> implements Mus
         keySet.add(NAME);
         keySet.add(CREDIT_TYPES);
         keySet.add(DEBIT_TYPES);
-        keySet.add(TAX);
+        keySet.add(VATTYPE);
         return keySet;
     }
 
