@@ -96,6 +96,17 @@ public class XMLReader {
             }
         }// for each ChildNode
 //            }// for each name in ArrayList
+
+        Set<String> extraFields = businessCollection.getExtraFields();
+        if(extraFields!=null){
+            TreeMap<String, String> properties = new TreeMap<>();
+            for (String key : extraFields) {
+                String value = getValue(rootElement, key);
+                properties.put(key, value);
+            }
+            businessCollection.setExtraProperties(properties);
+        }
+
         String value = getValue(rootElement, BusinessCollection.CURRENT);
         if(value!=null){
             businessCollection.setCurrentObject(businessCollection.getBusinessObject(value));

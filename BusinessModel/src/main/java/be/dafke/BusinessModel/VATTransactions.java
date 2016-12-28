@@ -73,16 +73,6 @@ public class VATTransactions extends BusinessCollection<VATField> implements Chi
 
     @Override
     public VATField createNewChild(TreeMap<String, String> properties) {
-        String debitAccountString = properties.get(DEBIT_ACCOUNT);
-        if(debitAccountString!=null) {
-            Account debitAccount = accounts.getBusinessObject(debitAccountString);
-            setDebitAccount(debitAccount);
-        }
-        String creditAccountString = properties.get(CREDIT_ACCOUNT);
-        if(creditAccountString!=null) {
-            Account creditAccount = accounts.getBusinessObject(creditAccountString);
-            setCreditAccount(creditAccount);
-        }
         String nrString = properties.get(NR);
         String amountString = properties.get(AMOUNT);
         if(nrString!=null && amountString!=null) {
@@ -91,6 +81,42 @@ public class VATTransactions extends BusinessCollection<VATField> implements Chi
             return new VATField(nr,amount, this);
         }
         return null;
+    }
+
+    @Override
+    public Set<String> getExtraFields() {
+        Set<String> set = new TreeSet<>();
+        set.add(DEBIT_ACCOUNT);
+        set.add(CREDIT_ACCOUNT);
+        return set;
+    }
+
+    @Override
+    public void setExtraProperties(TreeMap<String,String> extraProperties) {
+        String debitAccountString = extraProperties.get(DEBIT_ACCOUNT);
+        if(debitAccountString!=null) {
+            debitAccount = accounts.getBusinessObject(debitAccountString);
+        }
+        String creditAccountString = extraProperties.get(CREDIT_ACCOUNT);
+        if(creditAccountString!=null) {
+            creditAccount = accounts.getBusinessObject(creditAccountString);
+        }
+    }
+
+    public Properties getOutputProperties(){
+        Properties outputProperties = super.getOutputProperties();
+//        for(Map.Entry<Integer, BigDecimal> entry : vatAccounts.entrySet()){
+//            outputProperties.put("VAT"+entry.getKey(),entry.getValue());
+//        }
+        Account vatDebitAccount = debitAccount;
+        if(vatDebitAccount!=null) {
+            outputProperties.put(DEBIT_ACCOUNT, vatDebitAccount);
+        }
+        Account vatCreditAccount = creditAccount;
+        if(vatCreditAccount!=null) {
+            outputProperties.put(CREDIT_ACCOUNT, vatCreditAccount);
+        }
+        return outputProperties;
     }
 
     @Override

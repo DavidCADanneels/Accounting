@@ -4,17 +4,9 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.Utils.Utils;
 
 import java.io.File;
-import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
-
-import static be.dafke.BusinessModel.VATTransactions.CREDIT_ACCOUNT;
-import static be.dafke.BusinessModel.VATTransactions.DEBIT_ACCOUNT;
 
 public class Accountings extends BusinessCollection<Accounting> implements ChildrenNeedSeparateFile {
 
@@ -48,49 +40,10 @@ public class Accountings extends BusinessCollection<Accounting> implements Child
         return xslFolder;
     }
 
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = super.getInitKeySet();
-        keySet.add(DEBIT_ACCOUNT);
-        keySet.add(CREDIT_ACCOUNT);
-        keySet.add("VAT1");
-        keySet.add("VAT2");
-        keySet.add("VAT3");
-        keySet.add("VAT81");
-        keySet.add("VAT82");
-        keySet.add("VAT83");
-        keySet.add("VAT54");
-        keySet.add("VAT59");
-        return keySet;
-    }
-
     @Override
     public Accounting createNewChild(TreeMap<String, String> properties) {
         Accounting accounting = new Accounting();
         accounting.setName(properties.get(NAME));
-        VATTransactions vatTransactions = accounting.getVatTransactions();
-        HashMap<Integer,BigDecimal> vatTransaction = new HashMap<>();
-        for(Map.Entry<String,String> entry: properties.entrySet()){
-            String key = entry.getKey();
-            if(key.startsWith("VAT")){
-                int nr = Integer.parseInt(key.replace("VAT", ""));
-                String value = entry.getValue();
-                if(value!=null) {
-                    BigDecimal amount = Utils.parseBigDecimal(value);
-                    vatTransaction.put(nr, amount);
-                }
-            }
-        }
-        vatTransactions.book(vatTransaction);
-        String debitAccountString = properties.get(DEBIT_ACCOUNT);
-        if(debitAccountString!=null) {
-            Account debitAccount = accounting.getAccounts().getBusinessObject(debitAccountString);
-            vatTransactions.setDebitAccount(debitAccount);
-        }
-        String creditAccountString = properties.get(CREDIT_ACCOUNT);
-        if(creditAccountString!=null) {
-            Account creditAccount = accounting.getAccounts().getBusinessObject(creditAccountString);
-            vatTransactions.setCreditAccount(creditAccount);
-        }
         return accounting;
     }
 

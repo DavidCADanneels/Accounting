@@ -13,8 +13,6 @@ import static be.dafke.BusinessModel.VATTransactions.DEBIT_ACCOUNT;
  * Created by ddanneels on 27/12/2016.
  */
 public class VATField extends BusinessObject {
-
-
     public static final String NR = "nr";
     public static final String AMOUNT = "amount";
     private int nr;

@@ -174,4 +174,11 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         String key = entry.getValue();
         dataTables.get(type).remove(key);
     }
+
+    public Set<String> getExtraFields() {
+        return null;
+    }
+
+    public void setExtraProperties(TreeMap<String,String> extraProperties) {
+    }
 }
