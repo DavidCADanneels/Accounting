@@ -1,6 +1,10 @@
 package be.dafke.BasicAccounting.VAT;
 
+import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
+import be.dafke.BusinessModel.VATTransactions;
+
 import javax.swing.*;
+import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 import static javax.swing.BoxLayout.Y_AXIS;
@@ -9,18 +13,21 @@ import static javax.swing.BoxLayout.Y_AXIS;
  * Created by ddanneels on 28/12/2016.
  */
 public class VATGUI extends JFrame {
-    private static VATGUI instance = null;
+    private static final HashMap<VATTransactions, VATGUI> vatGuis = new HashMap<>();
 
-    public static VATGUI getInstance() {
-        if(instance==null){
-            instance = new VATGUI();
+    public static VATGUI getInstance(VATTransactions vatTransactions) {
+        VATGUI gui = vatGuis.get(vatTransactions);
+        if(gui==null){
+            gui = new VATGUI(vatTransactions);
+            vatGuis.put(vatTransactions,gui);
+            SaveAllActionListener.addFrame(gui);
         }
-        return instance;
+        return gui;
     }
     
     private JTextField vat1, vat2, vat3, vat81, vat82, vat83, vat54, vat59, vat49, vat64, vat85, vat63, vatXX, vatYY, vat71, vat72;
 
-    public VATGUI() {
+    public VATGUI(VATTransactions vatTransactions) {
         super(getBundle("VAT").getString("VAT_OVERVIEW"));
 
         vat1 = new JTextField(10);
