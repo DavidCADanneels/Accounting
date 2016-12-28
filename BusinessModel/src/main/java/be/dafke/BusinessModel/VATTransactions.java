@@ -88,6 +88,14 @@ public class VATTransactions extends BusinessCollection<VATField> implements Chi
         Set<String> set = new TreeSet<>();
         set.add(DEBIT_ACCOUNT);
         set.add(CREDIT_ACCOUNT);
+        set.add("VAT1");
+        set.add("VAT2");
+        set.add("VAT3");
+        set.add("VAT81");
+        set.add("VAT82");
+        set.add("VAT83");
+        set.add("VAT54");
+        set.add("VAT59");
         return set;
     }
 
@@ -101,13 +109,24 @@ public class VATTransactions extends BusinessCollection<VATField> implements Chi
         if(creditAccountString!=null) {
             creditAccount = accounts.getBusinessObject(creditAccountString);
         }
+        for(Map.Entry<String,String> entry: extraProperties.entrySet()){
+            String key = entry.getKey();
+            if(key.startsWith("VAT")){
+                int nr = Utils.parseInt(key.replace("VAT",""));
+                String amountString = entry.getValue();
+                if(amountString!=null) {
+                    BigDecimal amount = Utils.parseBigDecimal(amountString);
+                    vatAccounts.put(nr, amount);
+                }
+            }
+        }
     }
 
     public Properties getOutputProperties(){
         Properties outputProperties = super.getOutputProperties();
-//        for(Map.Entry<Integer, BigDecimal> entry : vatAccounts.entrySet()){
-//            outputProperties.put("VAT"+entry.getKey(),entry.getValue());
-//        }
+        for(Map.Entry<Integer, BigDecimal> entry : vatAccounts.entrySet()){
+            outputProperties.put("VAT"+entry.getKey(),entry.getValue());
+        }
         Account vatDebitAccount = debitAccount;
         if(vatDebitAccount!=null) {
             outputProperties.put(DEBIT_ACCOUNT, vatDebitAccount);
