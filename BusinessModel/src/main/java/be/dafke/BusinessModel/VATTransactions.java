@@ -143,7 +143,6 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
         return vatField;
     }
 
-
     public enum VATType{
         SALE, PURCHASE, NONE;
     }
@@ -176,6 +175,29 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
         }
         currentValue = currentValue.subtract(amount).setScale(2);
         vatAccounts.put(nr,currentValue);
+    }
+
+    public static HashMap<Integer, BigDecimal> purchaseCN(BigDecimal amount, BigDecimal btwAmount, PurchaseType purchaseType) {
+        // We assume amount is negative !!!
+        HashMap<Integer, BigDecimal> purchaseCN = new HashMap<>();
+        purchaseCN.put(85,amount.negate());
+        purchaseCN.put(63,btwAmount.negate());
+        if(purchaseType==PurchaseType.GOODS){
+            purchaseCN.put(81,amount);
+        } else if(purchaseType==PurchaseType.SERVICES){
+            purchaseCN.put(82,amount);
+        } else if(purchaseType==PurchaseType.INVESTMENTS){
+            purchaseCN.put(83,amount);
+        }
+        return purchaseCN;
+    }
+
+    public static HashMap<Integer, BigDecimal> saleCN(BigDecimal amount, BigDecimal btwAmount) {
+        // We assume amount is negative !!!
+        HashMap<Integer, BigDecimal> saleCN = new HashMap<>();
+        saleCN.put(49,amount.negate());
+        saleCN.put(64,btwAmount.negate());
+        return saleCN;
     }
 
     public static HashMap<Integer, BigDecimal> purchase(BigDecimal amount, BigDecimal btwAmount, PurchaseType purchaseType) {
