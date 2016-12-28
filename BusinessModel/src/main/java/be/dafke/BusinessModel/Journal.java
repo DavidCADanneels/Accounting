@@ -5,7 +5,6 @@ import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.MultiValueMap;
 import be.dafke.Utils.Utils;
 
-import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -135,7 +134,7 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
             mortgage.raiseNrPayed();
         }
         VATTransactions vatTransactions = transaction.getVatTransactions();
-        HashMap<Integer,BigDecimal> vatTransaction = vatTransactions.getVatAccounts();
+        VATTransaction vatTransaction = vatTransactions.getVatTransaction();
         if(vatTransaction!=null) {
             this.vatTransactions.book(vatTransaction);
         }

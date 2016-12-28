@@ -23,7 +23,7 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
     private Account creditAccount, debitAccount, creditCNAccount, debitCNAccount;
     private Accounts accounts;
     private Integer[] vatPercentages = new Integer[]{0, 6, 12, 21};
-    private HashMap<Integer, BigDecimal> vatAccounts = new HashMap<>();
+    private VATTransaction vatTransaction = new VATTransaction();
 
     public Integer[] getVatPercentages() {
         return vatPercentages;
@@ -85,13 +85,13 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
             } else return BigDecimal.ZERO;
         } else{
             int integer = Integer.parseInt(nr);
-            BigDecimal bigDecimal = vatAccounts.get(integer);
+            BigDecimal bigDecimal = vatTransaction.get(integer);
             return bigDecimal==null?BigDecimal.ZERO:bigDecimal;
         }
     }
 
-    public HashMap<Integer, BigDecimal> getVatAccounts() {
-        return vatAccounts;
+    public VATTransaction getVatTransaction() {
+        return vatTransaction;
     }
 
     public Set<String> getInitKeySet(){
@@ -103,8 +103,8 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
         return keySet;
     }
 
-    public void setVatAccounts(HashMap<Integer, BigDecimal> vatAccounts) {
-        this.vatAccounts = vatAccounts;
+    public void setVatTransaction(VATTransaction vatTransaction) {
+        this.vatTransaction = vatTransaction;
     }
 
     @Override
@@ -171,7 +171,7 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
                 String amountString = entry.getValue();
                 if(amountString!=null) {
                     BigDecimal amount = Utils.parseBigDecimal(amountString);
-                    vatAccounts.put(nr, amount);
+                    vatTransaction.put(nr, amount);
                 }
             }
         }
@@ -179,7 +179,7 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
 
     public Properties getOutputProperties(){
         Properties outputProperties = super.getOutputProperties();
-        for(Map.Entry<Integer, BigDecimal> entry : vatAccounts.entrySet()){
+        for(Map.Entry<Integer, BigDecimal> entry : vatTransaction.entrySet()){
             outputProperties.put("VAT"+entry.getKey(),entry.getValue());
         }
         if(debitAccount!=null) {
@@ -219,7 +219,7 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
         GOODS, SERVICES, INVESTMENTS;
     }
 
-    public void book(HashMap<Integer, BigDecimal> vatTransaction) {
+    public void book(VATTransaction vatTransaction) {
         for (Map.Entry<Integer, BigDecimal> entry : vatTransaction.entrySet()) {
             Integer key = entry.getKey();
             BigDecimal addedValue = entry.getValue();
@@ -228,26 +228,26 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
     }
 
     public void increase(int nr, BigDecimal amount){
-        BigDecimal currentValue = vatAccounts.get(nr);
+        BigDecimal currentValue = vatTransaction.get(nr);
         if(currentValue==null){
             currentValue = BigDecimal.ZERO;
         }
         currentValue = currentValue.add(amount).setScale(2);
-        vatAccounts.put(nr,currentValue);
+        vatTransaction.put(nr,currentValue);
     }
 
     public void decrease(int nr, BigDecimal amount){
-        BigDecimal currentValue = vatAccounts.get(nr);
+        BigDecimal currentValue = vatTransaction.get(nr);
         if(currentValue==null){
             currentValue = BigDecimal.ZERO;
         }
         currentValue = currentValue.subtract(amount).setScale(2);
-        vatAccounts.put(nr,currentValue);
+        vatTransaction.put(nr,currentValue);
     }
 
-    public static HashMap<Integer, BigDecimal> purchaseCN(BigDecimal amount, BigDecimal btwAmount, PurchaseType purchaseType) {
+    public static VATTransaction purchaseCN(BigDecimal amount, BigDecimal btwAmount, PurchaseType purchaseType) {
         // We assume amount is negative !!!
-        HashMap<Integer, BigDecimal> purchaseCN = new HashMap<>();
+        VATTransaction purchaseCN = new VATTransaction();
         purchaseCN.put(85,amount.negate());
         purchaseCN.put(63,btwAmount.negate());
         if(purchaseType==PurchaseType.GOODS){
@@ -260,16 +260,16 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
         return purchaseCN;
     }
 
-    public static HashMap<Integer, BigDecimal> saleCN(BigDecimal amount, BigDecimal btwAmount) {
+    public static VATTransaction saleCN(BigDecimal amount, BigDecimal btwAmount) {
         // We assume amount is negative !!!
-        HashMap<Integer, BigDecimal> saleCN = new HashMap<>();
+        VATTransaction saleCN = new VATTransaction();
         saleCN.put(49,amount.negate());
         saleCN.put(64,btwAmount.negate());
         return saleCN;
     }
 
-    public static HashMap<Integer, BigDecimal> purchase(BigDecimal amount, BigDecimal btwAmount, PurchaseType purchaseType) {
-        HashMap<Integer, BigDecimal> purchase = new HashMap<>();
+    public static VATTransaction purchase(BigDecimal amount, BigDecimal btwAmount, PurchaseType purchaseType) {
+        VATTransaction purchase = new VATTransaction();
         if(purchaseType==PurchaseType.GOODS){
             purchase.put(81,amount);
         } else if(purchaseType==PurchaseType.SERVICES){
@@ -281,8 +281,8 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
         return purchase;
     }
 
-    public static HashMap<Integer, BigDecimal> sale(BigDecimal amount, BigDecimal btwAmount, Integer pct) {
-        HashMap<Integer, BigDecimal> sale = new HashMap<>();
+    public static VATTransaction sale(BigDecimal amount, BigDecimal btwAmount, Integer pct) {
+        VATTransaction sale = new VATTransaction();
         if(pct==6){
             sale.put(1,amount);
         } else if(pct==12){

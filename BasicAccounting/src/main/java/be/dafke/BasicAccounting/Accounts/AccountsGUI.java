@@ -168,7 +168,7 @@ public class AccountsGUI extends JPanel {
                                     BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
                                     if(btwAmount!=null) {
                                         journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                                        HashMap<Integer, BigDecimal> vatTransaction = VATTransactions.purchaseCN(amount, btwAmount, purchaseType);
+                                        VATTransaction vatTransaction = VATTransactions.purchaseCN(amount, btwAmount, purchaseType);
                                         journalInputGUI.addVATTransaction(vatTransaction);
                                     }
                                 }
@@ -178,7 +178,7 @@ public class AccountsGUI extends JPanel {
                                     BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
                                     if(btwAmount!=null) {
                                         journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                                        HashMap<Integer, BigDecimal> vatTransaction = VATTransactions.saleCN(amount, btwAmount);
+                                        VATTransaction vatTransaction = VATTransactions.saleCN(amount, btwAmount);
                                         journalInputGUI.addVATTransaction(vatTransaction);
                                     }
                                 }sell(amount, suggestedAmount, debit, percentages[nr]);
@@ -248,7 +248,7 @@ public class AccountsGUI extends JPanel {
             BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
             if(btwAmount!=null) {
                 journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                HashMap<Integer, BigDecimal> vatTransaction = VATTransactions.sale(amount, btwAmount, pct);
+                VATTransaction vatTransaction = VATTransactions.sale(amount, btwAmount, pct);
                 journalInputGUI.addVATTransaction(vatTransaction);
             }
         }
@@ -261,7 +261,7 @@ public class AccountsGUI extends JPanel {
             BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
             if(btwAmount!=null) {
                 journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                HashMap<Integer, BigDecimal> vatTransaction = VATTransactions.purchase(amount, btwAmount, purchaseType);
+                VATTransaction vatTransaction = VATTransactions.purchase(amount, btwAmount, purchaseType);
                 journalInputGUI.addVATTransaction(vatTransaction);
             }
         }

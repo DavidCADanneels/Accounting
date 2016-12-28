@@ -205,7 +205,7 @@ public class Transaction extends BusinessCollection<Booking> {
 
     }
 
-    public void addVATTransaction(HashMap<Integer, BigDecimal> vatTransaction) {
+    public void addVATTransaction(VATTransaction vatTransaction) {
         vatTransactions.book(vatTransaction);
     }
 
