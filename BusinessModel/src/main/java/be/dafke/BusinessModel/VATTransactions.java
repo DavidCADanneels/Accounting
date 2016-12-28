@@ -110,11 +110,15 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
         set.add("VAT1");
         set.add("VAT2");
         set.add("VAT3");
+        set.add("VAT49");
+        set.add("VAT54");
+        set.add("VAT59");
+        set.add("VAT63");
+        set.add("VAT64");
         set.add("VAT81");
         set.add("VAT82");
         set.add("VAT83");
-        set.add("VAT54");
-        set.add("VAT59");
+        set.add("VAT85");
         return set;
     }
 
