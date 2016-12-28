@@ -13,7 +13,6 @@ import java.awt.event.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 
 import static be.dafke.BasicAccounting.MainApplication.ActionUtils.TRANSACTION_REMOVED;
 import static java.util.ResourceBundle.getBundle;

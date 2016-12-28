@@ -133,10 +133,9 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
         if (mortgage!=null){
             mortgage.raiseNrPayed();
         }
-        VATTransactions vatTransactions = transaction.getVatTransactions();
-        VATTransaction vatTransaction = vatTransactions.getVatTransaction();
-        if(vatTransaction!=null) {
-            this.vatTransactions.book(vatTransaction);
+        ArrayList<VATTransaction> newVATTransactions = transaction.getVatTransactions();
+        for(VATTransaction vatTransaction : newVATTransactions){
+            vatTransactions.book(vatTransaction);
         }
 
         return transaction;
