@@ -1,7 +1,6 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
 import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.Utils;
 
@@ -14,7 +13,7 @@ import static be.dafke.BusinessModel.VATField.NR;
 /**
  * Created by ddanneels on 25/12/2016.
  */
-public class VATTransactions extends BusinessCollection<VATField> implements ChildrenNeedSeparateFile, MustBeRead{
+public class VATTransactions extends BusinessCollection<VATField> implements MustBeRead{
     public static final String VATFIELD = "VATField";
     public static final String VAT_FIELDS = "VATFields";
     public static final String DEBIT_ACCOUNT = "DebitAccount";
