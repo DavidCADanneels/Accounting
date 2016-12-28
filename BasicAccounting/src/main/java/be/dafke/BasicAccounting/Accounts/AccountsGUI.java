@@ -163,7 +163,7 @@ public class AccountsGUI extends JPanel {
                             // CN
                             if (vatType == VATTransactions.VATType.PURCHASE) {
                                 VATTransactions.PurchaseType purchaseType = getPurchaseType();
-                                Account btwAccount = getCreditAccount();
+                                Account btwAccount = getCreditCNAccount();
                                 if(btwAccount!=null) {
                                     BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
                                     if(btwAmount!=null) {
@@ -173,7 +173,7 @@ public class AccountsGUI extends JPanel {
                                     }
                                 }
                             } else if (vatType == VATTransactions.VATType.SALE) {
-                                Account btwAccount = getDebitAccount();
+                                Account btwAccount = getDebitCNAccount();
                                 if(btwAccount!=null) {
                                     BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
                                     if(btwAmount!=null) {
@@ -189,6 +189,29 @@ public class AccountsGUI extends JPanel {
             }
         }
     }
+
+    private Account getCreditCNAccount(){
+        Account btwAccount = vatTransactions.getCreditCNAccount();
+        if(btwAccount==null){
+            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
+            accountSelector.setVisible(true);
+            btwAccount = accountSelector.getSelection();
+            vatTransactions.setCreditCNAccount(btwAccount);
+        }
+        return btwAccount;
+    }
+
+    private Account getDebitCNAccount(){
+        Account btwAccount = vatTransactions.getDebitCNAccount();
+        if(btwAccount==null){
+            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
+            accountSelector.setVisible(true);
+            btwAccount = accountSelector.getSelection();
+            vatTransactions.setDebitCNAccount(btwAccount);
+        }
+        return btwAccount;
+    }
+
 
     private Account getCreditAccount(){
         Account btwAccount = vatTransactions.getCreditAccount();

@@ -18,7 +18,9 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
     public static final String VAT_FIELDS = "VATFields";
     public static final String DEBIT_ACCOUNT = "DebitAccount";
     public static final String CREDIT_ACCOUNT = "CreditAccount";
-    private Account creditAccount, debitAccount;
+    public static final String DEBIT_CN_ACCOUNT = "DebitCNAccount";
+    public static final String CREDIT_CN_ACCOUNT = "CreditCNAccount";
+    private Account creditAccount, debitAccount, creditCNAccount, debitCNAccount;
     private Accounts accounts;
     private Integer[] vatPercentages = new Integer[]{0, 6, 12, 21};
     private HashMap<Integer, BigDecimal> vatAccounts = new HashMap<>();
@@ -43,6 +45,22 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
         return debitAccount;
     }
 
+    public Account getCreditCNAccount() {
+        return creditCNAccount;
+    }
+
+    public void setCreditCNAccount(Account creditCNAccount) {
+        this.creditCNAccount = creditCNAccount;
+    }
+
+    public Account getDebitCNAccount() {
+        return debitCNAccount;
+    }
+
+    public void setDebitCNAccount(Account debitCNAccount) {
+        this.debitCNAccount = debitCNAccount;
+    }
+
     public VATTransactions(Accounts accounts) {
         setName(VAT_FIELDS);
         this.accounts = accounts;
@@ -56,8 +74,8 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
         Set<String> keySet = new TreeSet<>();
         keySet.add(NR);
         keySet.add(AMOUNT);
-        keySet.add(DEBIT_ACCOUNT);
-        keySet.add(CREDIT_ACCOUNT);
+//        keySet.add(DEBIT_ACCOUNT);
+//        keySet.add(CREDIT_ACCOUNT);
         return keySet;
     }
 
@@ -87,6 +105,8 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
         Set<String> set = new TreeSet<>();
         set.add(DEBIT_ACCOUNT);
         set.add(CREDIT_ACCOUNT);
+        set.add(DEBIT_CN_ACCOUNT);
+        set.add(CREDIT_CN_ACCOUNT);
         set.add("VAT1");
         set.add("VAT2");
         set.add("VAT3");
@@ -108,6 +128,14 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
         if(creditAccountString!=null) {
             creditAccount = accounts.getBusinessObject(creditAccountString);
         }
+        String debitCNAccountString = extraProperties.get(DEBIT_CN_ACCOUNT);
+        if(debitCNAccountString!=null) {
+            debitCNAccount = accounts.getBusinessObject(debitCNAccountString);
+        }
+        String creditCNAccountString = extraProperties.get(CREDIT_CN_ACCOUNT);
+        if(creditCNAccountString!=null) {
+            creditCNAccount = accounts.getBusinessObject(creditCNAccountString);
+        }
         for(Map.Entry<String,String> entry: extraProperties.entrySet()){
             String key = entry.getKey();
             if(key.startsWith("VAT")){
@@ -126,13 +154,17 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
         for(Map.Entry<Integer, BigDecimal> entry : vatAccounts.entrySet()){
             outputProperties.put("VAT"+entry.getKey(),entry.getValue());
         }
-        Account vatDebitAccount = debitAccount;
-        if(vatDebitAccount!=null) {
-            outputProperties.put(DEBIT_ACCOUNT, vatDebitAccount);
+        if(debitAccount!=null) {
+            outputProperties.put(DEBIT_ACCOUNT, debitAccount);
         }
-        Account vatCreditAccount = creditAccount;
-        if(vatCreditAccount!=null) {
-            outputProperties.put(CREDIT_ACCOUNT, vatCreditAccount);
+        if(creditAccount!=null) {
+            outputProperties.put(CREDIT_ACCOUNT, creditAccount);
+        }
+        if(debitCNAccount!=null) {
+            outputProperties.put(DEBIT_CN_ACCOUNT, debitCNAccount);
+        }
+        if(creditCNAccount!=null) {
+            outputProperties.put(CREDIT_CN_ACCOUNT, creditCNAccount);
         }
         return outputProperties;
     }

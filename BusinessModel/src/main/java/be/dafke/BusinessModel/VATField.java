@@ -6,8 +6,7 @@ import java.math.BigDecimal;
 import java.util.Properties;
 import java.util.TreeMap;
 
-import static be.dafke.BusinessModel.VATTransactions.CREDIT_ACCOUNT;
-import static be.dafke.BusinessModel.VATTransactions.DEBIT_ACCOUNT;
+import static be.dafke.BusinessModel.VATTransactions.*;
 
 /**
  * Created by ddanneels on 27/12/2016.
@@ -39,6 +38,8 @@ public class VATField extends BusinessObject {
         properties.put(AMOUNT, amount);
         properties.put(DEBIT_ACCOUNT,parent.getDebitAccount());
         properties.put(CREDIT_ACCOUNT,parent.getCreditAccount());
+        properties.put(DEBIT_CN_ACCOUNT,parent.getDebitCNAccount());
+        properties.put(CREDIT_CN_ACCOUNT,parent.getCreditCNAccount());
         return properties;
     }
 
