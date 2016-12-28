@@ -4,6 +4,7 @@ import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessModel.VATTransactions;
 
 import javax.swing.*;
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
@@ -25,28 +26,11 @@ public class VATGUI extends JFrame {
         return gui;
     }
     
-    private JTextField vat1, vat2, vat3, vat81, vat82, vat83, vat54, vat59, vat49, vat64, vat85, vat63, vatXX, vatYY, vat71, vat72;
+    private VATTransactions vatTransactions;
 
     public VATGUI(VATTransactions vatTransactions) {
         super(getBundle("VAT").getString("VAT_OVERVIEW"));
-
-        vat1 = new JTextField(10);
-        vat2 = new JTextField(10);
-        vat3 = new JTextField(10);
-        vat81 = new JTextField(10);
-        vat82 = new JTextField(10);
-        vat83 = new JTextField(10);
-        vat54 = new JTextField(10);
-        vat59 = new JTextField(10);
-        vat49 = new JTextField(10);
-        vat64 = new JTextField(10);
-        vat85 = new JTextField(10);
-        vat63 = new JTextField(10);
-        vatXX = new JTextField(10);
-        vatYY = new JTextField(10);
-        vat71 = new JTextField(10);
-        vat72 = new JTextField(10);
-        
+        this.vatTransactions = vatTransactions;
         JPanel left = createSalesPanel();
         JPanel right = createPurchasePanel();
         JPanel totals = createTotalsPanel();
@@ -55,10 +39,15 @@ public class VATGUI extends JFrame {
         pack();
     }
 
-    private JPanel createFieldPanel(String title, JTextField jTextField){
+    private JPanel createFieldPanel(String nr){
         JPanel panel = new JPanel();
-        panel.add(new JLabel(title));
-        panel.add(jTextField);
+        panel.add(new JLabel(nr));
+        JTextField textField = new JTextField(10);
+        BigDecimal amount = vatTransactions.getField(nr);
+        if(amount!=null) {
+            textField.setText(amount.toString());
+        }
+        panel.add(textField);
         return panel;
     }
 
@@ -79,12 +68,12 @@ public class VATGUI extends JFrame {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
         panel.add(new JLabel("Sales"));
-        panel.add(createFieldPanel("1", vat1));
-        panel.add(createFieldPanel("2", vat2));
-        panel.add(createFieldPanel("3", vat3));
-        panel.add(createFieldPanel("54", vat54));
-        panel.add(createFieldPanel("49", vat49));
-        panel.add(createFieldPanel("64", vat64));
+        panel.add(createFieldPanel("1"));
+        panel.add(createFieldPanel("2"));
+        panel.add(createFieldPanel("3"));
+        panel.add(createFieldPanel("54"));
+        panel.add(createFieldPanel("49"));
+        panel.add(createFieldPanel("64"));
         return panel;
     }
 
@@ -92,12 +81,12 @@ public class VATGUI extends JFrame {
         JPanel panel = new JPanel();
         panel.add(new JLabel("Purchases"));
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-        panel.add(createFieldPanel("81", vat81));
-        panel.add(createFieldPanel("82", vat82));
-        panel.add(createFieldPanel("83", vat83));
-        panel.add(createFieldPanel("59", vat59));
-        panel.add(createFieldPanel("85", vat85));
-        panel.add(createFieldPanel("63", vat63));
+        panel.add(createFieldPanel("81"));
+        panel.add(createFieldPanel("82"));
+        panel.add(createFieldPanel("83"));
+        panel.add(createFieldPanel("59"));
+        panel.add(createFieldPanel("85"));
+        panel.add(createFieldPanel("63"));
         return panel;
     }
 
@@ -105,10 +94,10 @@ public class VATGUI extends JFrame {
         JPanel panel = new JPanel();
         panel.add(new JLabel("Totals"));
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-        panel.add(createFieldPanel("XX", vatXX));
-        panel.add(createFieldPanel("YY", vatYY));
-        panel.add(createFieldPanel("71", vat71));
-        panel.add(createFieldPanel("72", vat72));
+        panel.add(createFieldPanel("XX"));
+        panel.add(createFieldPanel("YY"));
+        panel.add(createFieldPanel("71"));
+        panel.add(createFieldPanel("72"));
         return panel;
     }
 }

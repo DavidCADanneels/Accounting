@@ -66,6 +66,30 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
         this.accounts = accounts;
     }
 
+    public BigDecimal getField(String nr){
+        if("XX".equals(nr)){
+            return getXX();
+        } else if("YY".equals(nr)){
+            return getYY();
+        } else if("71".equals(nr)){
+            BigDecimal XX = getXX();
+            BigDecimal YY = getYY();
+            if(XX.compareTo(YY)>0){
+                return XX.subtract(YY);
+            } else return BigDecimal.ZERO;
+        } else if("72".equals(nr)){
+            BigDecimal YY = getYY();
+            BigDecimal XX = getXX();
+            if(YY.compareTo(XX)>0){
+                return YY.subtract(XX);
+            } else return BigDecimal.ZERO;
+        } else{
+            int integer = Integer.parseInt(nr);
+            BigDecimal bigDecimal = vatAccounts.get(integer);
+            return bigDecimal==null?BigDecimal.ZERO:bigDecimal;
+        }
+    }
+
     public HashMap<Integer, BigDecimal> getVatAccounts() {
         return vatAccounts;
     }
@@ -177,6 +201,14 @@ public class VATTransactions extends BusinessCollection<VATField> implements Mus
     public VATField addBusinessObject(VATField vatField){
         increase(vatField.getNr(),vatField.getAmount());
         return vatField;
+    }
+
+    public BigDecimal getXX() {
+        return getField("54").add(getField("63"));
+    }
+
+    public BigDecimal getYY() {
+        return getField("59").add(getField("64"));
     }
 
     public enum VATType{
