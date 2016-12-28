@@ -10,6 +10,7 @@ import be.dafke.BasicAccounting.Journals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
+import be.dafke.BasicAccounting.VAT.VATMenu;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
@@ -46,6 +47,7 @@ public class Main {
     private static ContactsMenu contactsMenu;
     private static ProjectsMenu projectsMenu;
     private static CodaMenu codaMenu;
+    private static VATMenu vatMenu;
 
     public static void main(String[] args) {
         readXmlData();
@@ -109,17 +111,20 @@ public class Main {
 
     private static void createMenu() {
         menuBar = new AccountingMenuBar(accountings);
+
         balancesMenu = new BalancesMenu(journalInputGUI);
         contactsMenu = new ContactsMenu();
         morgagesMenu = new MorgagesMenu();
-
         projectsMenu = new ProjectsMenu();
         codaMenu = new CodaMenu();
+        vatMenu = new VATMenu();
+
         menuBar.add(balancesMenu);
         menuBar.add(contactsMenu);
         menuBar.add(morgagesMenu);
         menuBar.add(projectsMenu);
         menuBar.add(codaMenu);
+        menuBar.add(vatMenu);
     }
 
     private static void launchFrame(){
@@ -177,6 +182,7 @@ public class Main {
         ContactsMenu.setAccounting(accounting);
         BalancesMenu.setAccounting(accounting);
         AccountingMenuBar.setAccounting(accounting);
+        VATMenu.setAccounting(accounting);
 
         if(accounting!=null && accounting.getJournals()!=null){
             setJournal(accounting.getJournals().getCurrentObject());
