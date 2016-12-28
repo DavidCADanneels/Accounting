@@ -195,16 +195,16 @@ public class Main {
         JournalType journalType = journal.getType();
         accountsGUI1.setAccountTypes(journalType.getDebetTypes());
         accountsGUI2.setAccountTypes(journalType.getCreditTypes());
-        VATTransactions.VATType vatType = journalType.getVatType();
-        if(vatType == VATTransactions.VATType.SALE){
-            accountsGUI1.setVatType(VATTransactions.VATType.NONE);
-            accountsGUI2.setVatType(VATTransactions.VATType.SALE);
-        } else if(vatType == VATTransactions.VATType.PURCHASE){
-            accountsGUI1.setVatType(VATTransactions.VATType.PURCHASE);
-            accountsGUI2.setVatType(VATTransactions.VATType.NONE);
+        VATTransaction.VATType vatType = journalType.getVatType();
+        if(vatType == VATTransaction.VATType.SALE){
+            accountsGUI1.setVatType(VATTransaction.VATType.NONE);
+            accountsGUI2.setVatType(VATTransaction.VATType.SALE);
+        } else if(vatType == VATTransaction.VATType.PURCHASE){
+            accountsGUI1.setVatType(VATTransaction.VATType.PURCHASE);
+            accountsGUI2.setVatType(VATTransaction.VATType.NONE);
         } else {
-            accountsGUI1.setVatType(VATTransactions.VATType.NONE);
-            accountsGUI2.setVatType(VATTransactions.VATType.NONE);
+            accountsGUI1.setVatType(VATTransaction.VATType.NONE);
+            accountsGUI2.setVatType(VATTransaction.VATType.NONE);
         }
     }
 

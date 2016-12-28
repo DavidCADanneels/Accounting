@@ -61,7 +61,7 @@ public class JournalTypes extends BusinessCollection<JournalType> implements Mus
             }
         }
         String taxString = properties.get(VATTYPE);
-        journalType.setVatType(VATTransactions.VATType.valueOf(taxString));
+        journalType.setVatType(VATTransaction.VATType.valueOf(taxString));
         return journalType;
     }
 

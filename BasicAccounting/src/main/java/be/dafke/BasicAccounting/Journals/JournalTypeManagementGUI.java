@@ -28,7 +28,7 @@ public class JournalTypeManagementGUI extends JFrame {
 	private JournalTypes journalTypes;
 	private static final HashMap<JournalTypes, JournalTypeManagementGUI> journalTypeManagementGuis = new HashMap<>();
 	private JournalType journalType;
-	private JComboBox<VATTransactions.VATType> taxType;
+	private JComboBox<VATTransaction.VATType> taxType;
 
 	private JournalTypeManagementGUI(JournalTypes journalTypes, AccountTypes accountTypes) {
 		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
@@ -85,12 +85,12 @@ public class JournalTypeManagementGUI extends JFrame {
 		combo = new JComboBox<>();
 		combo.addActionListener(e -> comboAction());
 		taxType = new JComboBox<>();
-		taxType.addItem(VATTransactions.VATType.NONE);
-		taxType.addItem(VATTransactions.VATType.PURCHASE);
-		taxType.addItem(VATTransactions.VATType.SALE);
-		taxType.setSelectedItem(VATTransactions.VATType.NONE);
+		taxType.addItem(VATTransaction.VATType.NONE);
+		taxType.addItem(VATTransaction.VATType.PURCHASE);
+		taxType.addItem(VATTransaction.VATType.SALE);
+		taxType.setSelectedItem(VATTransaction.VATType.NONE);
 		taxType.addActionListener(e -> {
-			journalType.setVatType((VATTransactions.VATType) taxType.getSelectedItem());
+			journalType.setVatType((VATTransaction.VATType) taxType.getSelectedItem());
 		});
 		panel.add(taxType);
 		panel.add(combo);

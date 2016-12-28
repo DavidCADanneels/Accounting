@@ -40,7 +40,7 @@ public class AccountsGUI extends JPanel {
     private Journals journals;
     private JournalInputGUI journalInputGUI;
     private VATTransactions vatTransactions = null;
-    private VATTransactions.VATType vatType = null;
+    private VATTransaction.VATType vatType = null;
 
     public AccountsGUI(JournalInputGUI journalInputGUI) {
         this.journalInputGUI = journalInputGUI;
@@ -130,11 +130,11 @@ public class AccountsGUI extends JPanel {
         this.vatTransactions = vatTransactions;
     }
 
-    public VATTransactions.VATType getVatType() {
+    public VATTransaction.VATType getVatType() {
         return vatType;
     }
 
-    public void setVatType(VATTransactions.VATType vatType) {
+    public void setVatType(VATTransaction.VATType vatType) {
         this.vatType = vatType;
     }
 
@@ -143,7 +143,7 @@ public class AccountsGUI extends JPanel {
             BigDecimal amount = journalInputGUI.askAmount(selectedAccount, debit);
             if (amount != null) {
                 journalInputGUI.addBooking(new Booking(selectedAccount, amount, debit));
-                if (vatType != VATTransactions.VATType.NONE) {
+                if (vatType != VATTransaction.VATType.NONE) {
                     // Read percentage
                     Integer[] percentages = vatTransactions.getVatPercentages();
                     int nr = JOptionPane.showOptionDialog(null, "BTW %", "BTW %",
@@ -153,32 +153,32 @@ public class AccountsGUI extends JPanel {
                         BigDecimal suggestedAmount = amount.multiply(percentage).setScale(2,BigDecimal.ROUND_HALF_UP);
 
                         if(amount.compareTo(BigDecimal.ZERO)>=0) {
-                            if (vatType == VATTransactions.VATType.PURCHASE) {
+                            if (vatType == VATTransaction.VATType.PURCHASE) {
                                 purchase(amount, suggestedAmount, debit);
 
-                            } else if (vatType == VATTransactions.VATType.SALE) {
+                            } else if (vatType == VATTransaction.VATType.SALE) {
                                 sell(amount, suggestedAmount, debit, percentages[nr]);
                             }
                         } else{
                             // CN
-                            if (vatType == VATTransactions.VATType.PURCHASE) {
-                                VATTransactions.PurchaseType purchaseType = getPurchaseType();
+                            if (vatType == VATTransaction.VATType.PURCHASE) {
+                                VATTransaction.PurchaseType purchaseType = getPurchaseType();
                                 Account btwAccount = getCreditCNAccount();
                                 if(btwAccount!=null) {
                                     BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
                                     if(btwAmount!=null) {
                                         journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                                        VATTransaction vatTransaction = VATTransactions.purchaseCN(amount, btwAmount, purchaseType);
+                                        VATTransaction vatTransaction = VATTransaction.purchaseCN(amount, btwAmount, purchaseType);
                                         journalInputGUI.addVATTransaction(vatTransaction);
                                     }
                                 }
-                            } else if (vatType == VATTransactions.VATType.SALE) {
+                            } else if (vatType == VATTransaction.VATType.SALE) {
                                 Account btwAccount = getDebitCNAccount();
                                 if(btwAccount!=null) {
                                     BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
                                     if(btwAmount!=null) {
                                         journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                                        VATTransaction vatTransaction = VATTransactions.saleCN(amount, btwAmount);
+                                        VATTransaction vatTransaction = VATTransaction.saleCN(amount, btwAmount);
                                         journalInputGUI.addVATTransaction(vatTransaction);
                                     }
                                 }sell(amount, suggestedAmount, debit, percentages[nr]);
@@ -235,8 +235,8 @@ public class AccountsGUI extends JPanel {
         return btwAccount;
     }
 
-    private VATTransactions.PurchaseType getPurchaseType(){
-        VATTransactions.PurchaseType[] purchaseTypes = VATTransactions.PurchaseType.values();
+    private VATTransaction.PurchaseType getPurchaseType(){
+        VATTransaction.PurchaseType[] purchaseTypes = VATTransaction.PurchaseType.values();
         int nr2 = JOptionPane.showOptionDialog(null, "Purchase Type", "Purchase Type",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, purchaseTypes, null);
         return purchaseTypes[nr2];
@@ -248,20 +248,20 @@ public class AccountsGUI extends JPanel {
             BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
             if(btwAmount!=null) {
                 journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                VATTransaction vatTransaction = VATTransactions.sale(amount, btwAmount, pct);
+                VATTransaction vatTransaction = VATTransaction.sale(amount, btwAmount, pct);
                 journalInputGUI.addVATTransaction(vatTransaction);
             }
         }
     }
 
     private void purchase(BigDecimal amount, BigDecimal suggestedAmount, boolean debit) {
-        VATTransactions.PurchaseType purchaseType = getPurchaseType();
+        VATTransaction.PurchaseType purchaseType = getPurchaseType();
         Account btwAccount = getCreditAccount();
         if(btwAccount!=null) {
             BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
             if(btwAmount!=null) {
                 journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                VATTransaction vatTransaction = VATTransactions.purchase(amount, btwAmount, purchaseType);
+                VATTransaction vatTransaction = VATTransaction.purchase(amount, btwAmount, purchaseType);
                 journalInputGUI.addVATTransaction(vatTransaction);
             }
         }
