@@ -7,6 +7,7 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -50,6 +51,7 @@ public class Accounts extends BusinessCollection<Account> implements ChildrenNee
         keySet.add(NAME);
         keySet.add(Account.TYPE);
         keySet.add(Account.DEFAULTAMOUNT);
+        keySet.add(Account.NUMBER);
         return keySet;
     }
 
@@ -75,6 +77,14 @@ public class Accounts extends BusinessCollection<Account> implements ChildrenNee
                 account.setDefaultAmount(new BigDecimal(defaultAmountString));
             } catch (NumberFormatException nfe){
                 account.setDefaultAmount(null);
+            }
+        }
+        String numberString = properties.get(Account.NUMBER);
+        if(numberString!=null){
+            try{
+                account.setNumber(new BigInteger(numberString));
+            } catch (NumberFormatException nfe){
+                account.setNumber(null);
             }
         }
         return account;
