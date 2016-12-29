@@ -4,6 +4,7 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.Utils.MultiValueMap;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.*;
 
 import static be.dafke.BusinessModel.Movement.CREDIT;
@@ -18,11 +19,13 @@ import static be.dafke.BusinessModel.Movement.ID;
 public class Account extends BusinessCollection<Movement> {
     public static final String TYPE = "type";
     public static final String DEFAULTAMOUNT = "defaultAmount";
+    public static final String NUMBER = "number";
     public static final String MOVEMENT = "Movement";
     private AccountType type;
     private BigDecimal debitTotal, creditTotal;
     private final MultiValueMap<Calendar,Movement> movements;
     private BigDecimal defaultAmount = null;
+    private BigInteger number = null;
 
     public Account(String name) {
         setName(name);
@@ -78,6 +81,14 @@ public class Account extends BusinessCollection<Movement> {
         BigDecimal result = debitTotal.subtract(creditTotal);
         result = result.setScale(2);
         return result;
+    }
+
+    public BigInteger getNumber() {
+        return number;
+    }
+
+    public void setNumber(BigInteger number) {
+        this.number = number;
     }
 
     public BigDecimal getDebetTotal() {
@@ -141,6 +152,9 @@ public class Account extends BusinessCollection<Movement> {
         outputMap.put(TYPE, getType().getName());
         if(defaultAmount!=null){
             outputMap.put(DEFAULTAMOUNT, defaultAmount.toString());
+        }
+        if(number!=null){
+            outputMap.put(NUMBER, number.toString());
         }
         return outputMap;
     }
