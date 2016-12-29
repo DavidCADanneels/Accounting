@@ -6,6 +6,7 @@ import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.RefreshableTableModel;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -20,7 +21,7 @@ public class AccountManagementTableModel extends RefreshableTableModel<Account> 
             getBundle("Accounting").getString("TYPE"),
 			getBundle("Accounting").getString("SALDO"),
             getBundle("BusinessActions").getString("DEFAULT_AMOUNT")};
-	private final Class[] columnClasses = { Account.class, Integer.class, String.class, BigDecimal.class,  BigDecimal.class };
+	private final Class[] columnClasses = { Account.class, BigInteger.class, String.class, BigDecimal.class,  BigDecimal.class };
 	private final Accounts accounts;
 
 	public AccountManagementTableModel(Accounts accounts) {
@@ -70,18 +71,21 @@ public class AccountManagementTableModel extends RefreshableTableModel<Account> 
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return false;
+		return col==1;
 	}
 
 	// DE SET METHODEN
 	// ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
+		if(col==1){
+			getObject(row,col).setNumber((BigInteger)value);
+		}
 	}
 
 	@Override
 	public Account getObject(int row, int col) {
-		return null;
+		return accounts.getBusinessObjects().get(row);
 	}
 
 	@Override
