@@ -24,7 +24,6 @@ public class AccountTest {
     private final BigDecimal TWENTY = new BigDecimal(20);
     private final BigDecimal TEN = BigDecimal.TEN;
     private final BigDecimal ZERO = BigDecimal.ZERO;
-    private Accounting accounting = new Accounting();
 
     @Test
     public void defaultValues(){
