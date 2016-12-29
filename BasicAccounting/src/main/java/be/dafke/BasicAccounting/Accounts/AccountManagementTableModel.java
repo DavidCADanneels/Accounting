@@ -14,10 +14,13 @@ public class AccountManagementTableModel extends RefreshableTableModel<Account> 
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final String[] columnNames = { getBundle("Accounting").getString("ACCOUNT_NAME"),
-            getBundle("Accounting").getString("TYPE"), getBundle("Accounting").getString("SALDO"),
+	private final String[] columnNames = {
+			getBundle("Accounting").getString("ACCOUNT_NAME"),
+			getBundle("Accounting").getString("ACCOUNT_NUMBER"),
+            getBundle("Accounting").getString("TYPE"),
+			getBundle("Accounting").getString("SALDO"),
             getBundle("BusinessActions").getString("DEFAULT_AMOUNT")};
-	private final Class[] columnClasses = { Account.class, String.class, BigDecimal.class,  BigDecimal.class };
+	private final Class[] columnClasses = { Account.class, Integer.class, String.class, BigDecimal.class,  BigDecimal.class };
 	private final Accounts accounts;
 
 	public AccountManagementTableModel(Accounts accounts) {
@@ -35,15 +38,17 @@ public class AccountManagementTableModel extends RefreshableTableModel<Account> 
 	public Object getValueAt(int row, int col) {
 		Account account = accounts.getBusinessObjects().get(row);
 		if (col == 1) {
-			return account.getType();
+			return account.getNumber();
 		} else if (col == 2) {
+			return account.getType();
+		} else if (col == 3) {
 			AccountType type = account.getType();
             BigDecimal saldo = account.getSaldo();
             if(type.isInverted()){
                 saldo = saldo.negate();
             }
             return saldo;
-        } else if (col == 3) {
+        } else if (col == 4) {
             BigDecimal defaultAmount = account.getDefaultAmount();
             if(defaultAmount!=null){
                 return defaultAmount;
