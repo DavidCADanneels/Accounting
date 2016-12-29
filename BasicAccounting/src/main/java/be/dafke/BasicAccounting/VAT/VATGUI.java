@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.VAT;
 
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
-import be.dafke.BusinessModel.VATTransactions;
+import be.dafke.BusinessModel.VATFields;
 
 import javax.swing.*;
 import java.math.BigDecimal;
@@ -14,23 +14,23 @@ import static javax.swing.BoxLayout.Y_AXIS;
  * Created by ddanneels on 28/12/2016.
  */
 public class VATGUI extends JFrame {
-    private static final HashMap<VATTransactions, VATGUI> vatGuis = new HashMap<>();
+    private static final HashMap<VATFields, VATGUI> vatGuis = new HashMap<>();
 
-    public static VATGUI getInstance(VATTransactions vatTransactions) {
-        VATGUI gui = vatGuis.get(vatTransactions);
+    public static VATGUI getInstance(VATFields vatFields) {
+        VATGUI gui = vatGuis.get(vatFields);
         if(gui==null){
-            gui = new VATGUI(vatTransactions);
-            vatGuis.put(vatTransactions,gui);
+            gui = new VATGUI(vatFields);
+            vatGuis.put(vatFields,gui);
             SaveAllActionListener.addFrame(gui);
         }
         return gui;
     }
     
-    private VATTransactions vatTransactions;
+    private VATFields vatFields;
 
-    public VATGUI(VATTransactions vatTransactions) {
+    public VATGUI(VATFields vatFields) {
         super(getBundle("VAT").getString("VAT_OVERVIEW"));
-        this.vatTransactions = vatTransactions;
+        this.vatFields = vatFields;
         JPanel left = createSalesPanel();
         JPanel right = createPurchasePanel();
         JPanel totals = createTotalsPanel();
@@ -43,7 +43,7 @@ public class VATGUI extends JFrame {
         JPanel panel = new JPanel();
         panel.add(new JLabel(nr));
         JTextField textField = new JTextField(10);
-        BigDecimal amount = vatTransactions.getField(nr);
+        BigDecimal amount = vatFields.getField(nr);
         if(amount!=null) {
             textField.setText(amount.toString());
         }

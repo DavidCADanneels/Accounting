@@ -135,7 +135,7 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
         }
         ArrayList<VATTransaction> newVATTransactions = transaction.getVatTransactions();
         for(VATTransaction vatTransaction : newVATTransactions){
-            vatTransactions.book(vatTransaction);
+            vatTransactions.addBusinessObject(vatTransaction);
         }
 
         return transaction;

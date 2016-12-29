@@ -168,7 +168,7 @@ public class AccountsGUI extends JPanel {
                                     BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
                                     if(btwAmount!=null) {
                                         journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                                        VATTransaction vatTransaction = VATTransaction.purchaseCN(amount, btwAmount, purchaseType);
+                                        VATTransaction vatTransaction = vatTransactions.purchaseCN(amount, btwAmount, purchaseType);
                                         journalInputGUI.addVATTransaction(vatTransaction);
                                     }
                                 }
@@ -178,7 +178,7 @@ public class AccountsGUI extends JPanel {
                                     BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
                                     if(btwAmount!=null) {
                                         journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                                        VATTransaction vatTransaction = VATTransaction.saleCN(amount, btwAmount);
+                                        VATTransaction vatTransaction = vatTransactions.saleCN(amount, btwAmount);
                                         journalInputGUI.addVATTransaction(vatTransaction);
                                     }
                                 }sell(amount, suggestedAmount, debit, percentages[nr]);
@@ -248,7 +248,7 @@ public class AccountsGUI extends JPanel {
             BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
             if(btwAmount!=null) {
                 journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                VATTransaction vatTransaction = VATTransaction.sale(amount, btwAmount, pct);
+                VATTransaction vatTransaction = vatTransactions.sale(amount, btwAmount, pct);
                 journalInputGUI.addVATTransaction(vatTransaction);
             }
         }
@@ -261,7 +261,7 @@ public class AccountsGUI extends JPanel {
             BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
             if(btwAmount!=null) {
                 journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                VATTransaction vatTransaction = VATTransaction.purchase(amount, btwAmount, purchaseType);
+                VATTransaction vatTransaction = vatTransactions.purchase(amount, btwAmount, purchaseType);
                 journalInputGUI.addVATTransaction(vatTransaction);
             }
         }
@@ -304,23 +304,24 @@ public class AccountsGUI extends JPanel {
             for (AccountType type : accountTypes.getBusinessObjects()) {
                 selectedAccountTypes.put(type, Boolean.TRUE);
             }
-        }
-        boxes.clear();
-        filter.removeAll();
+//        }
+            boxes.clear();
+            filter.removeAll();
 
-        for (AccountType type : accountTypes.getBusinessObjects()) {
-            JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(type.getName().toUpperCase()));
-            checkBox.setSelected(true);
-            checkBox.setActionCommand(type.getName());
-            checkBox.addActionListener(e -> {
-                fireAccountDataChanged();
-                updateListOfCheckedBoxes();
-            });
-            boxes.put(type, checkBox);
-            filter.add(checkBox);
+            for (AccountType type : accountTypes.getBusinessObjects()) {
+                JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(type.getName().toUpperCase()));
+                checkBox.setSelected(true);
+                checkBox.setActionCommand(type.getName());
+                checkBox.addActionListener(e -> {
+                    fireAccountDataChanged();
+                    updateListOfCheckedBoxes();
+                });
+                boxes.put(type, checkBox);
+                filter.add(checkBox);
+            }
+            revalidate();
+            fireAccountDataChanged();
         }
-        revalidate();
-        fireAccountDataChanged();
     }
 
     public void setJournals(Journals journals) {

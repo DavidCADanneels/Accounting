@@ -22,6 +22,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     private Projects projects;
     private Contacts contacts;
     private VATTransactions vatTransactions;
+    private VATFields vatFields;
 
     @Override
     public String getChildType(){
@@ -37,7 +38,8 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         journalTypes = new JournalTypes(accountTypes);
 //        journalTypes.addDefaultType(accountTypes);
 
-        vatTransactions = new VATTransactions(accounts);
+        vatFields = new VATFields();
+        vatTransactions = new VATTransactions(accounts, vatFields);
 
         journals = new Journals(accounts, journalTypes, vatTransactions);
 
@@ -58,6 +60,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
             addBusinessObject((BusinessCollection)contacts);
             addBusinessObject((BusinessCollection)mortgages);
             addBusinessObject((BusinessCollection)projects);
+            addBusinessObject((BusinessCollection)vatFields);
             addBusinessObject((BusinessCollection)vatTransactions);
         } catch (EmptyNameException e) {
             e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
@@ -114,4 +117,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         return vatTransactions;
     }
 
+    public VATFields getVatFields() {
+        return vatFields;
+    }
 }
