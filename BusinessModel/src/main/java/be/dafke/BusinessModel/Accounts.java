@@ -30,11 +30,30 @@ public class Accounts extends BusinessCollection<Account> implements ChildrenNee
         return ACCOUNT;
     }
 
+    public BigDecimal getSumOfAccountsByNumber(String prefix){
+        BigDecimal result = BigDecimal.ZERO;
+        for (Account account : getAccountsByNumber(prefix)){
+            BigDecimal saldo = account.getSaldo();
+            if(account.getType().isInverted()){
+                result = result.subtract(saldo);
+            } else {
+                result = result.add(saldo);
+            }
+        }
+        result.setScale(2);
+        return result;
+    }
+
+    public ArrayList<Account> getAccountsByNumber(String prefix){
+        return getBusinessObjects().stream()
+                .filter(account -> account.getNumber()!=null && account.getNumber().toString().startsWith(prefix))
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
     public ArrayList<Account> getAccounts(AccountType type) {
-		ArrayList<Account> col = getBusinessObjects().stream()
+		return getBusinessObjects().stream()
                 .filter(account -> account.getType() == type)
                 .collect(Collectors.toCollection(ArrayList::new));
-        return col;
 	}
 
 	public ArrayList<Account> getAccounts(List<AccountType> types) {
