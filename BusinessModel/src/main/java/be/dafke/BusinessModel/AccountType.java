@@ -9,6 +9,8 @@ import be.dafke.ObjectModel.BusinessObject;
  */
 public class AccountType extends BusinessObject {
 
+    private boolean inverted = false;
+
     public boolean isInverted() {
         return inverted;
     }
@@ -16,7 +18,4 @@ public class AccountType extends BusinessObject {
     public void setInverted(boolean inverted) {
         this.inverted = inverted;
     }
-
-    boolean inverted = false;
-
 }
