@@ -4,6 +4,9 @@ import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessModel.VATFields;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
+import java.awt.*;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
@@ -39,7 +42,7 @@ public class VATGUI extends JFrame {
         pack();
     }
 
-    private JPanel createFieldPanel(String nr){
+    private JPanel createFieldPanel(String nr, String description){
         JPanel panel = new JPanel();
         panel.add(new JLabel(nr));
         JTextField textField = new JTextField(10);
@@ -48,6 +51,7 @@ public class VATGUI extends JFrame {
             textField.setText(amount.toString());
         }
         panel.add(textField);
+        textField.setToolTipText(description);
         return panel;
     }
 
@@ -66,27 +70,31 @@ public class VATGUI extends JFrame {
 
     private JPanel createSalesPanel() {
         JPanel panel = new JPanel();
+        panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Sales"));
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
         panel.add(new JLabel("Sales"));
-        panel.add(createFieldPanel("1"));
-        panel.add(createFieldPanel("2"));
-        panel.add(createFieldPanel("3"));
-        panel.add(createFieldPanel("54"));
-        panel.add(createFieldPanel("49"));
-        panel.add(createFieldPanel("64"));
+        panel.add(createFieldPanel("1", "6%"));
+        panel.add(createFieldPanel("2", "12%"));
+        panel.add(createFieldPanel("3", "21%"));
+        panel.add(createFieldPanel("54", "tax"));
+        panel.add(new JLabel("Sale-CNs"));
+        panel.add(createFieldPanel("49", "net"));
+        panel.add(createFieldPanel("64", "tax"));
         return panel;
     }
 
     private JPanel createPurchasePanel() {
         JPanel panel = new JPanel();
+        panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Purchases"));
         panel.add(new JLabel("Purchases"));
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-        panel.add(createFieldPanel("81"));
-        panel.add(createFieldPanel("82"));
-        panel.add(createFieldPanel("83"));
-        panel.add(createFieldPanel("59"));
-        panel.add(createFieldPanel("85"));
-        panel.add(createFieldPanel("63"));
+        panel.add(createFieldPanel("81", "supplies"));
+        panel.add(createFieldPanel("82", "services"));
+        panel.add(createFieldPanel("83", "investments"));
+        panel.add(createFieldPanel("59", "tax on 81,82,83"));
+        panel.add(new JLabel("Purchase-CNs"));
+        panel.add(createFieldPanel("85", "net"));
+        panel.add(createFieldPanel("63", "tax"));
         return panel;
     }
 
@@ -94,10 +102,10 @@ public class VATGUI extends JFrame {
         JPanel panel = new JPanel();
         panel.add(new JLabel("Totals"));
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-        panel.add(createFieldPanel("XX"));
-        panel.add(createFieldPanel("YY"));
-        panel.add(createFieldPanel("71"));
-        panel.add(createFieldPanel("72"));
+        panel.add(createFieldPanel("XX", "54+63"));
+        panel.add(createFieldPanel("YY", "59+64"));
+        panel.add(createFieldPanel("71", "XX-YY"));
+        panel.add(createFieldPanel("72", "YY-XX"));
         return panel;
     }
 }
