@@ -1,8 +1,6 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Movement;
-import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.Utils.Utils;
 
@@ -98,13 +96,23 @@ public class AccountDetailsDataModel extends RefreshableTableModel<Booking> {
 	@Override
 	public void setValueAt(Object value, int row, int col) {
 		Movement movement = rekening.getBusinessObjects().get(row);
-		if (col == 1) {
-			Calendar oudeDatum = movement.getDate();
-			Calendar nieuweDatum = Utils.toCalendar((String) value);
-			if (nieuweDatum != null) movement.setDate(nieuweDatum);
-			else setValueAt(Utils.toString(oudeDatum), row, col);
-		} else if (col == 4) {
-			movement.setDescription((String) value);
+		if(movement!=null){
+			if (col == 1) {
+				Calendar newDate = Utils.toCalendar((String) value);
+				Calendar date = movement.getDate();
+				if(newDate==null){
+					setValueAt(Utils.toString(date), row, col);
+				} else{
+					Transaction transaction = movement.getBooking()==null?null:movement.getBooking().getTransaction();
+					if (transaction != null && transaction.getJournal() != null) {
+						Journal journal = transaction.getJournal();
+						journal.changeDate(transaction, newDate);
+					}
+				}
+			} else if (col == 4) {
+				movement.setDescription((String) value);
+			}
+			fireTableDataChanged();
 		}
 	}
 }
