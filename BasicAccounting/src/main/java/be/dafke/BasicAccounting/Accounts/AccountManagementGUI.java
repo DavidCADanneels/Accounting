@@ -156,18 +156,17 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		if(!accountList.isEmpty()) {
 			for(Account account : accountList){
 				BigDecimal defaultAmount = account.getDefaultAmount();
-				boolean retry = true;
-				while(retry){
-					String amount = JOptionPane.showInputDialog(account.getName() + ": " + getBundle("BusinessActions").getString("DEFAULT_AMOUNT"), defaultAmount);
-					try{
-						if (amount!=null) {
-							defaultAmount = new BigDecimal(amount);
-							defaultAmount = defaultAmount.setScale(2);
-							account.setDefaultAmount(defaultAmount);
-						}
-						retry = false;
-					} catch (NumberFormatException nfe) {
+				String amount = JOptionPane.showInputDialog(account.getName() + ": " + getBundle("BusinessActions").getString("DEFAULT_AMOUNT"), defaultAmount);
+				try{
+					if (amount==null){
+						account.setDefaultAmount(null);
+					} else {
+						defaultAmount = new BigDecimal(amount);
+						defaultAmount = defaultAmount.setScale(2);
+						account.setDefaultAmount(defaultAmount);
 					}
+				} catch (NumberFormatException nfe) {
+					account.setDefaultAmount(null);
 				}
 			}
 		}
