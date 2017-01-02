@@ -150,6 +150,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 				}
 			}
 		}
+		fireAccountDataChanged();
 	}
 
 	public void modifyDefaultAmounts(ArrayList<Account> accountList, Accounts accounts){
@@ -170,6 +171,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 				}
 			}
 		}
+		fireAccountDataChanged();
 	}
 
 	public void modifyAccountNames(ArrayList<Account> accountList, Accounts accounts) {
@@ -193,6 +195,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 				}
 			}
 		}
+		fireAccountDataChanged();
 	}
 
 	public void modifyAccountTypes(ArrayList<Account> accountList, AccountTypes accountTypes){
@@ -228,5 +231,6 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 				}
 			}
 		}
+		fireAccountDataChanged();
 	}
 }
