@@ -27,7 +27,7 @@ public class JournalGUI extends JPanel {
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
         popup = new JournalDetailsPopupMenu(table, journalInputGUI);
-        table.addMouseListener(new PopupForTableActivator(popup, table, 0,2,3,4));
+        table.addMouseListener(new PopupForTableActivator(popup, table));
 
         JPanel center = new JPanel();
         JScrollPane scrollPane = new JScrollPane(table);

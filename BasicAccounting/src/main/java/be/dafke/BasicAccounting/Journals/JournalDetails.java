@@ -47,7 +47,7 @@ public class JournalDetails extends JFrame implements WindowListener {
 		pack();
 
 		popup = new JournalDetailsPopupMenu(journals, tabel, journalInputGUI);
-		tabel.addMouseListener(new PopupForTableActivator(popup,tabel, 0,2,3,4));
+		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
 	}
 
 	public static JournalDetails getJournalDetails(Journal journal, Journals journals, JournalInputGUI journalInputGUI){

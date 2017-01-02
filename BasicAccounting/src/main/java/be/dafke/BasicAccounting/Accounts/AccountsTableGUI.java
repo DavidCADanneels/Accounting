@@ -95,7 +95,7 @@ public class AccountsTableGUI extends JPanel implements MouseListener {
         accountDataModel.setAccounts(accounting==null?null:accounting.getAccounts());
         // if setAccounts() is used here, popup.setAccounts() will be called twice
         popup.setAccounting(accounting);
-        table.addMouseListener(new PopupForTableActivator(popup, table));  // Needed?
+        table.addMouseListener(new PopupForTableActivator(popup, table));  // TODO: Needed?
         fireAccountDataChanged();
     }
 
