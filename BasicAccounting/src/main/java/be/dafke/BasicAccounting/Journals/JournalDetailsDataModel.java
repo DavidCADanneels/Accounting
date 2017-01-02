@@ -110,14 +110,12 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
         Booking booking = getObject(row,col);
         Transaction transaction = booking.getTransaction();
 		if (col == 1) {
-			Calendar oudeDatum = transaction.getDate();
-			Calendar nieuweDatum = Utils.toCalendar((String) value);
-			if (journal != null && nieuweDatum != null){
-                journal.removeBusinessObject(transaction);
-                transaction.setDate(nieuweDatum);
-                journal.addBusinessObject(transaction);
+			Calendar date = transaction.getDate();
+			Calendar newDate = Utils.toCalendar((String) value);
+			if (journal != null && newDate != null){
+				journal.changeDate(transaction,newDate);
             }
-			else setValueAt(Utils.toString(oudeDatum), row, col);
+			else setValueAt(Utils.toString(date), row, col);
 		} else if (col == 5) {
 			transaction.setDescription((String) value);
 		}

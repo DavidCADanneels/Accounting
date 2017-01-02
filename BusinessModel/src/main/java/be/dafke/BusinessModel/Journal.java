@@ -105,6 +105,12 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
         return transactions.values().indexOf(transaction)+1;
     }
 
+    public void changeDate(Transaction transaction, Calendar newDate){
+        removeBusinessObject(transaction);
+        transaction.setDate(newDate);
+        addBusinessObject(transaction);
+    }
+
 	public void removeBusinessObject(Transaction transaction) {
         Calendar date = transaction.getDate();
         transactions.removeValue(date, transaction);
