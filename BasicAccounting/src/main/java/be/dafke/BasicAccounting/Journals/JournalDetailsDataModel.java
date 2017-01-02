@@ -121,6 +121,7 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 		} else if (col == 5) {
 			transaction.setDescription((String) value);
 		}
+		fireTableDataChanged();
 	}
 
 	@Override
