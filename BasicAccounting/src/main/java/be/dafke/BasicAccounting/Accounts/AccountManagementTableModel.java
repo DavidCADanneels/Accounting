@@ -71,15 +71,22 @@ public class AccountManagementTableModel extends RefreshableTableModel<Account> 
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return col==1;
+		return col==1 || col==4;
 	}
 
 	// DE SET METHODEN
 	// ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
+		Account account = getObject(row, col);
 		if(col==1){
 			getObject(row,col).setNumber((BigInteger)value);
+		} else if(col==4){
+			if(value==null || BigDecimal.ZERO.compareTo((BigDecimal)value)==0){
+				account.setDefaultAmount(null);
+			} else {
+				account.setDefaultAmount(((BigDecimal) value).setScale(2));
+			}
 		}
 	}
 
