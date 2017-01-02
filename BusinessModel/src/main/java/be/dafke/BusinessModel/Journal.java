@@ -113,10 +113,12 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
 			Account account = booking.getAccount();
 			account.removeBusinessObject(booking.getMovement());
 		}
+		// FIXME: link between transaction and mortgage is gone after restart (not saved in XML) ???
         Mortgage mortgage = transaction.getMortgage();
         if (mortgage!=null){
             mortgage.decreaseNrPayed();
         }
+        // TODO remove VATTransaction
 	}
 
 	public Transaction addBusinessObject(Transaction transaction) {
