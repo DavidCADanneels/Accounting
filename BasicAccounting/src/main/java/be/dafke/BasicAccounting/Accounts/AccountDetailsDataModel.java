@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Accounts;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableTableModel;
 import be.dafke.Utils.Utils;
@@ -96,23 +97,27 @@ public class AccountDetailsDataModel extends RefreshableTableModel<Booking> {
 	@Override
 	public void setValueAt(Object value, int row, int col) {
 		Movement movement = rekening.getBusinessObjects().get(row);
-		if(movement!=null){
-			if (col == 1) {
-				Calendar newDate = Utils.toCalendar((String) value);
-				Calendar date = movement.getDate();
-				if(newDate==null){
-					setValueAt(Utils.toString(date), row, col);
-				} else{
-					Transaction transaction = movement.getBooking()==null?null:movement.getBooking().getTransaction();
-					if (transaction != null && transaction.getJournal() != null) {
-						Journal journal = transaction.getJournal();
-						journal.changeDate(transaction, newDate);
-					}
-				}
-			} else if (col == 4) {
+		if (col == 1) {
+			Calendar newDate = Utils.toCalendar((String) value);
+			Transaction transaction = getTransaction(movement);
+			Journal journal = getJournal(movement);
+			if(newDate!=null && transaction != null && journal != null) {
+				journal.changeDate(transaction, newDate);
+				Main.fireJournalDataChanged(journal);
+			}
+		} else if (col == 4) {
+			if(movement!=null) {
 				movement.setDescription((String) value);
 			}
-			fireTableDataChanged();
 		}
+		fireTableDataChanged();
+	}
+
+	private Journal getJournal(Movement movement){
+		return getTransaction(movement)==null?null:getTransaction(movement).getJournal();
+	}
+
+	private Transaction getTransaction(Movement movement){
+		return movement==null?null:movement.getBooking()==null?null:movement.getBooking().getTransaction();
 	}
 }
