@@ -29,11 +29,6 @@
             </dependency>
             <dependency>
                 <groupId>be.dafke.Accounting</groupId>
-                <artifactId>FOP</artifactId>
-                <version>3.1-SNAPSHOT</version>
-            </dependency>
-            <dependency>
-                <groupId>be.dafke.Accounting</groupId>
                 <artifactId>ObjectModel</artifactId>
                 <version>3.1-SNAPSHOT</version>
             </dependency>

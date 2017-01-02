@@ -6,7 +6,6 @@
     <version>3.1-SNAPSHOT</version>
     <modules>
 		<module>Parent</module>
-        <module>FOP</module>
         <module>Utils</module>
         <module>ObjectModel</module>
         <module>ComponentModel</module>

@@ -17,8 +17,8 @@
             <artifactId>ObjectModel</artifactId>
         </dependency>
         <dependency>
-            <groupId>be.dafke.Accounting</groupId>
-            <artifactId>FOP</artifactId>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>fop</artifactId>
         </dependency>
     </dependencies>
 </project>

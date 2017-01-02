@@ -1,10 +1,14 @@
 package be.dafke.ObjectModelDao;
 
-import be.dafke.FOP.Utils;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
+import org.apache.fop.cli.InputHandler;
 
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.OutputStream;
+import java.util.Vector;
 
 /**
  * User: david
@@ -19,7 +23,7 @@ public class XMLtoHTMLWriter {
         File xmlFile = new File(xmlFolder, businessCollectionName + ".xml");
         File htmlFile = new File(htmlFolder, businessCollectionName + ".html");
 
-        Utils.xmlToHtml(xmlFile, new File(xslFolder, businessCollectionType + ".xsl"), htmlFile, null);
+        xmlToHtml(xmlFile, new File(xslFolder, businessCollectionType + ".xsl"), htmlFile, null);
 
         File xmlCollectionFolder = new File(xmlFolder, businessCollectionName);
         File htmlCollectionFolder = new File(htmlFolder, businessCollectionName);
@@ -34,7 +38,7 @@ public class XMLtoHTMLWriter {
             File objectXmlFile = new File(xmlCollectionFolder, businessObjectName+".xml");
             File objectHtmlFile = new File(htmlCollectionFolder, businessObjectName+".html");
 
-            Utils.xmlToHtml(objectXmlFile, new File(xslFolder, businessObjectType+".xsl"), objectHtmlFile, null);
+            xmlToHtml(objectXmlFile, new File(xslFolder, businessObjectType+".xsl"), objectHtmlFile, null);
 
 //            if(object instanceof BusinessCollection && !(businessObject.writeChildren())){
 //                BusinessCollection subCollection = (BusinessCollection)object;
@@ -43,6 +47,22 @@ public class XMLtoHTMLWriter {
 //                    toHtml(subCollection, xmlCollectionFolder, xslFolder, htmlCollectionFolder);
 //                }
 //            }
+        }
+    }
+
+    public static void xmlToHtml(File xmlFile, File xslFile, File htmlFile, Vector params) {
+        InputHandler inputHandler = new InputHandler(xmlFile, xslFile, params);
+        try {
+            if (!htmlFile.exists()) {
+//                htmlFile.getParentFile().mkdirs();
+                if(htmlFile.createNewFile()){
+                    System.out.println(htmlFile + " has been created");
+                }
+            }
+            OutputStream out = new BufferedOutputStream(new FileOutputStream(htmlFile));
+            inputHandler.transformTo(out);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 
