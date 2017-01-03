@@ -6,8 +6,8 @@ package be.dafke.BasicAccounting.Accounts;
  */
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
+import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journals;
@@ -64,7 +64,12 @@ public class AccountDetails extends JFrame implements WindowListener {
 	}
 
 	public void selectObject(Booking object){
-		if(tabel!=null) tabel.selectObject(object);
+		int row = accountDetailsDataModel.getRow(object);
+		if(tabel!=null){
+			tabel.setRowSelectionInterval(row, row);
+			Rectangle cellRect = tabel.getCellRect(row, 0, false);
+			tabel.scrollRectToVisible(cellRect);
+		}
 	}
 
 	public void windowClosing(WindowEvent we) {

@@ -38,11 +38,7 @@ public class RefreshableTable<BusinessObject> extends JTable{
         return (this.selectedRow !=-1 && selectedColumn!=-1)?model.getObject(this.selectedRow, selectedColumn):null;
     }
 
-    public void selectObject(BusinessObject object){
-        int row = model.getRow(object);
-        setRowSelectionInterval(row, row);
-        scrollRectToVisible(getCellRect(row, 0, false));
-    }
+
 
     public ArrayList<BusinessObject> getSelectedObjects() {
         int[] rows = getSelectedRows();

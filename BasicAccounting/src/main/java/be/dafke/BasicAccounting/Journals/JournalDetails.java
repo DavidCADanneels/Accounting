@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
+import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Journals;
@@ -62,7 +62,12 @@ public class JournalDetails extends JFrame implements WindowListener {
 	}
 
 	public void selectObject(Booking object){
-		if(tabel!=null) tabel.selectObject(object);
+		int row = journalDetailsDataModel.getRow(object);
+		if(tabel!=null){
+			tabel.setRowSelectionInterval(row, row);
+			Rectangle cellRect = tabel.getCellRect(row, 0, false);
+			tabel.scrollRectToVisible(cellRect);
+		}
 	}
 
 	public void windowClosing(WindowEvent we) {
