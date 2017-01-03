@@ -1,0 +1,37 @@
+@startuml
+'actor user
+participant AccountManagementGUI
+participant PopupForTableActivator
+participant GUI
+participant RefreshableTable
+participant JTable
+participant SelectionModel
+participant RefreshableTableModel
+participant BusinessObject
+Group init
+AccountManagementGUI --> RefreshableTable:setSelectedRow(-1)
+end
+Group right-click on cell
+PopupForTableActivator --> RefreshableTable:setSelectedRow(x)
+note right: set selectedRow
+PopupForTableActivator --> RefreshableTable:setSelectedColumn(y)
+note right: set selectedColumn
+PopupForTableActivator --> SelectionModel:setSelectionInterval(row,row)\
+\n(only if clicked outside the current selection
+note right: interval is set
+end
+
+GUI --> RefreshableTable:getSelectedObjects
+Group getSelection
+RefreshableTable --> JTable:getSelectedRows()
+JTable --> SelectionModel:getSelection()
+SelectionModel --> RefreshableTable: selected rows
+ RefreshableTable --> RefreshableTableModel:getValueAt(row,0)
+note left: ArrayList<BusinessObject> list
+RefreshableTable --> RefreshableTableModel:getSelectedObject() --> getObject(row,col)  / getObject(row)
+note left: define object located at\n(selectedRow, selectedColumn)
+RefreshableTable --> GUI: return list or object
+note right: return list if object==null\nor if object is part of list\
+\nreturn object otherwise
+end
+@enduml
