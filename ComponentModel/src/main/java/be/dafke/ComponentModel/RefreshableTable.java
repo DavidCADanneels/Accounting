@@ -31,8 +31,11 @@ public class RefreshableTable<BusinessObject> extends JTable{
 //    }
 
     public BusinessObject getSelectedObject(){
-        model.get
-        return (selectedRow!=-1 && selectedColumn!=-1)?model.getObject(selectedRow, selectedColumn):null;
+        ListSelectionModel selectionModel = getSelectionModel();
+        int selectedRow = getSelectedRow();
+        int minSelectionIndex = selectionModel.getMinSelectionIndex();
+        int maxSelectionIndex = selectionModel.getMaxSelectionIndex();
+        return (this.selectedRow !=-1 && selectedColumn!=-1)?model.getObject(this.selectedRow, selectedColumn):null;
     }
 
     public void selectObject(BusinessObject object){

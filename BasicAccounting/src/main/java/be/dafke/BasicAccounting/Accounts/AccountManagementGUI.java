@@ -6,6 +6,7 @@ import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
+import be.dafke.ComponentModel.RefreshableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
@@ -28,7 +29,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 	private static final long serialVersionUID = 1L;
 	private JButton newAccount, delete, modifyName, modifyType, modifyDefaultAmount;
 	private final AccountManagementTableModel accountManagementTableModel;
-	private final JTable tabel;
+	private final RefreshableTable<Account> tabel;
 	private final DefaultListSelectionModel selection;
 	private Accounts accounts;
 	private AccountTypes accountTypes;
@@ -43,12 +44,12 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		// COMPONENTS
 		//
 		// Table
-		tabel = new JTable(accountManagementTableModel);
+		tabel = new RefreshableTable<>(accountManagementTableModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
 		tabel.setSelectionModel(selection);
-//		tabel.setSelectedRow(-1);
+		tabel.setSelectedRow(-1);
 		JScrollPane scrollPane = new JScrollPane(tabel);
 		//
 		JPanel panel = new JPanel(new BorderLayout());
@@ -71,27 +72,27 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		return gui;
 	}
 
-	private JPanel createContentPanel() {
+	private JPanel createContentPanel(){
 		JPanel south = new JPanel();
 		modifyName = new JButton(getBundle("Accounting").getString("MODIFY_NAME"));
 		modifyType = new JButton(getBundle("Accounting").getString("MODIFY_TYPE"));
 		delete = new JButton(getBundle("Accounting").getString("DELETE_ACCOUNT"));
-		newAccount = new JButton(getBundle("Accounting").getString("ADD_ACCOUNT"));
+        newAccount = new JButton(getBundle("Accounting").getString("ADD_ACCOUNT"));
 		modifyDefaultAmount = new JButton(getBundle("Accounting").getString("MODIFY_DEFAULT_AMOUNT"));
-		modifyName.addActionListener(e -> modifyAccountNames(getSelectedObjects(), accounts));
-		modifyType.addActionListener(e -> modifyAccountTypes(getSelectedObjects(), accountTypes));
-		delete.addActionListener(e -> deleteAccounts(getSelectedObjects(), accounts));
-		modifyDefaultAmount.addActionListener(e -> modifyDefaultAmounts(getSelectedObjects(), accounts));
+		modifyName.addActionListener(e -> modifyAccountNames(tabel.getSelectedObjects(), accounts));
+		modifyType.addActionListener(e -> modifyAccountTypes(tabel.getSelectedObjects(), accountTypes));
+		delete.addActionListener(e -> deleteAccounts(tabel.getSelectedObjects(), accounts));
+        modifyDefaultAmount.addActionListener(e -> modifyDefaultAmounts(tabel.getSelectedObjects(), accounts));
 		newAccount.addActionListener(e -> new NewAccountGUI(accounts, accountTypes).setVisible(true));
 		modifyName.setEnabled(false);
 		modifyType.setEnabled(false);
 		delete.setEnabled(false);
-		modifyDefaultAmount.setEnabled(false);
+        modifyDefaultAmount.setEnabled(false);
 		south.add(modifyName);
 		south.add(modifyType);
-		south.add(modifyDefaultAmount);
-		south.add(delete);
-		south.add(newAccount);
+        south.add(modifyDefaultAmount);
+        south.add(delete);
+        south.add(newAccount);
 		return south;
 	}
 
@@ -231,13 +232,5 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 			}
 		}
 		fireAccountDataChanged();
-	}
-
-	public ArrayList<Account> getSelectedObjects() {
-		ArrayList<Account> list = new ArrayList<>();
-		for(int i: tabel.getSelectedRows()){
-			list.add(accounts.getBusinessObjects().get(i));
-		}
-		return list;
 	}
 }

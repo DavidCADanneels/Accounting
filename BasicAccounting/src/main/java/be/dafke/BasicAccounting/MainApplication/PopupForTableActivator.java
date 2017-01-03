@@ -1,5 +1,8 @@
 package be.dafke.BasicAccounting.MainApplication;
 
+import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ObjectModel.BusinessObject;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -9,14 +12,12 @@ import java.awt.event.MouseEvent;
  * Created by ddanneel on 18/02/2015.
  */
 public class PopupForTableActivator extends MouseAdapter {
-    private final JTable tabel;
+    private final RefreshableTable<BusinessObject> tabel;
     private final JPopupMenu popup;
-//    private final ListSelectionModel selectionModel;
 
-    public PopupForTableActivator(JPopupMenu popup, JTable tabel){//}, ListSelectionModel selectionModel) {
+    public PopupForTableActivator(JPopupMenu popup, RefreshableTable tabel){
         this.popup = popup;
         this.tabel = tabel;
-//        this.selectionModel = selectionModel;
     }
 
     public void mouseClicked(MouseEvent me) {
@@ -24,13 +25,22 @@ public class PopupForTableActivator extends MouseAdapter {
             Point cell = me.getPoint();
             int col = tabel.columnAtPoint(cell);
             int row = tabel.rowAtPoint(cell);
-            tabel.getSelectionModel().setSelectionInterval(row,row);
-//            selectionModel.setSelectionInterval(row,row);
-//            tabel.setSelectedRow(row);
-//            tabel.setSelectedColumn(col);
+
+            ListSelectionModel selectionModel = tabel.getSelectionModel();
+            int minSelectionIndex = selectionModel.getMinSelectionIndex();
+            int maxSelectionIndex = selectionModel.getMaxSelectionIndex();
+            if(minSelectionIndex<=row && row <=maxSelectionIndex){
+                // keep selection
+            } else {
+                selectionModel.setSelectionInterval(row, row);
+            }
+            tabel.setSelectedRow(row);
+            tabel.setSelectedColumn(col);
             //
-            Point location = me.getLocationOnScreen();
-            popup.show(null, location.x, location.y);
+            // TODO: close all other popups first (popups of any component)
+            popup.setLocation(me.getLocationOnScreen());
+            popup.setVisible(true);
+
         } else popup.setVisible(false);
     }
 }
