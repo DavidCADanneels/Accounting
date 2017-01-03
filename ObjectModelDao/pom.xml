@@ -9,7 +9,7 @@
         <groupId>be.dafke.Accounting</groupId>
         <artifactId>Parent</artifactId>
         <relativePath>../Parent</relativePath>
-        <version>3.1-SNAPSHOT</version>
+        <version>DEV-SNAPSHOT</version>
     </parent>
     <dependencies>
         <dependency>
