@@ -3,44 +3,44 @@
     <groupId>be.dafke.Accounting</groupId>
     <artifactId>Parent</artifactId>
     <packaging>pom</packaging>
-    <version>3.1-SNAPSHOT</version>
+    <version>DEV-SNAPSHOT</version>
 
     <dependencyManagement>
         <dependencies>
             <dependency>
                 <groupId>be.dafke.Accounting</groupId>
                 <artifactId>BasicAccounting</artifactId>
-                <version>3.1-SNAPSHOT</version>
+                <version>DEV-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>be.dafke.Accounting</groupId>
                 <artifactId>BusinessModel</artifactId>
-                <version>3.1-SNAPSHOT</version>
+                <version>DEV-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>be.dafke.Accounting</groupId>
                 <artifactId>BusinessModelDao</artifactId>
-                <version>3.1-SNAPSHOT</version>
+                <version>DEV-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>be.dafke.Accounting</groupId>
                 <artifactId>ComponentModel</artifactId>
-                <version>3.1-SNAPSHOT</version>
+                <version>DEV-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>be.dafke.Accounting</groupId>
                 <artifactId>ObjectModel</artifactId>
-                <version>3.1-SNAPSHOT</version>
+                <version>DEV-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>be.dafke.Accounting</groupId>
                 <artifactId>ObjectModelDao</artifactId>
-                <version>3.1-SNAPSHOT</version>
+                <version>DEV-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>be.dafke.Accounting</groupId>
                 <artifactId>Utils</artifactId>
-                <version>3.1-SNAPSHOT</version>
+                <version>DEV-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <groupId>junit</groupId>
