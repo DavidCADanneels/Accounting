@@ -3,14 +3,14 @@ package be.dafke.BasicAccounting.Accounts;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.Accounts;
-import be.dafke.ComponentModel.RefreshableTableModel;
 
+import javax.swing.table.DefaultTableModel;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class AccountManagementTableModel extends RefreshableTableModel<Account> {
+public class AccountManagementTableModel extends DefaultTableModel {
 	/**
 	 * 
 	 */
@@ -78,9 +78,9 @@ public class AccountManagementTableModel extends RefreshableTableModel<Account> 
 	// ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		Account account = getObject(row, col);
+		Account account = accounts.getBusinessObjects().get(row);
 		if(col==1){
-			getObject(row,col).setNumber((BigInteger)value);
+			account.setNumber((BigInteger)value);
 		} else if(col==4){
 			if(value==null || BigDecimal.ZERO.compareTo((BigDecimal)value)==0){
 				account.setDefaultAmount(null);
@@ -88,15 +88,5 @@ public class AccountManagementTableModel extends RefreshableTableModel<Account> 
 				account.setDefaultAmount(((BigDecimal) value).setScale(2));
 			}
 		}
-	}
-
-	@Override
-	public Account getObject(int row, int col) {
-		return accounts.getBusinessObjects().get(row);
-	}
-
-	@Override
-	public int getRow(Account account) {
-		return 0;
 	}
 }

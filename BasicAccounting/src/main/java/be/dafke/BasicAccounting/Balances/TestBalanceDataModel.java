@@ -2,14 +2,13 @@ package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounts;
-import be.dafke.ComponentModel.RefreshableTableModel;
 
+import javax.swing.table.DefaultTableModel;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class TestBalanceDataModel extends RefreshableTableModel<Account> {
+public class TestBalanceDataModel extends DefaultTableModel {
 	/**
 	 * 
 	 */
@@ -31,7 +30,7 @@ public class TestBalanceDataModel extends RefreshableTableModel<Account> {
 	// DE GET METHODEN
 	// ===============
 	public Object getValueAt(int row, int col) {
-		Account account = getObject(row, col);
+		Account account = accounts.getBusinessObjects().get(row);
 		if (col == 0) return account;
 		else if (col == 1) return account.getDebetTotal();
 		else if (col == 2) return account.getCreditTotal();
@@ -71,23 +70,5 @@ public class TestBalanceDataModel extends RefreshableTableModel<Account> {
 	// ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-	}
-
-	@Override
-	public Account getObject(int row, int col) {
-		return accounts.getBusinessObjects().get(row);
-	}
-
-	@Override
-	public int getRow(Account o) {
-		int row = 0;
-		ArrayList<Account> accountList = accounts.getBusinessObjects();
-		for(Account account : accountList){
-			if(account != o){
-				row++;
-			}
-			else return row;
-		}
-		return 0;
 	}
 }

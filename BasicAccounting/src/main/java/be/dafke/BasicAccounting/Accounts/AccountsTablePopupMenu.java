@@ -2,11 +2,9 @@ package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import static be.dafke.BasicAccounting.Accounts.AccountManagementGUI.showAccountManager;
 import static java.util.ResourceBundle.getBundle;
@@ -16,14 +14,14 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class AccountsTablePopupMenu extends JPopupMenu {
     private final JMenuItem manage, add, debit, credit, details;
-    private final RefreshableTable<Account> table;
+    private final JTable table;
 
     private Accounts accounts;
     private AccountTypes accountTypes;
     private Journals journals;
     private JournalInputGUI journalInputGUI;
 
-    public AccountsTablePopupMenu(RefreshableTable<Account> table, JournalInputGUI journalInputGUI) {
+    public AccountsTablePopupMenu(JTable table, JournalInputGUI journalInputGUI) {
         this.table = table;
         this.journalInputGUI = journalInputGUI;
 
@@ -51,20 +49,21 @@ public class AccountsTablePopupMenu extends JPopupMenu {
             setVisible(false);
         });
         details.addActionListener(e -> {
-            ArrayList<Account> selectedAccounts = table.getSelectedObjects();
-            for(Account selectedAccount:selectedAccounts) {
-                AccountDetails.getAccountDetails(selectedAccount, journals, journalInputGUI);
+            for(int i: table.getSelectedRows()){
+                Account account = accounts.getBusinessObjects().get(i);
+                AccountDetails.getAccountDetails(account, journals, journalInputGUI);
             }
             setVisible(false);
         });
     }
 
     public void book(boolean debit) {
-        for (Account selectedAccount : table.getSelectedObjects()) {
-            if (selectedAccount != null) {
-                BigDecimal amount = journalInputGUI.askAmount(selectedAccount, debit);
+        for(int i: table.getSelectedRows()){
+            Account account = accounts.getBusinessObjects().get(i);
+            if (account != null) {
+                BigDecimal amount = journalInputGUI.askAmount(account, debit);
                 if (amount != null) {
-                    journalInputGUI.addBooking(new Booking(selectedAccount, amount, debit));
+                    journalInputGUI.addBooking(new Booking(account, amount, debit));
                 }
             }
         }

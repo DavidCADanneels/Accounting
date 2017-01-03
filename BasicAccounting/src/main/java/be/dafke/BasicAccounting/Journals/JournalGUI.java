@@ -23,7 +23,7 @@ public class JournalGUI extends JPanel {
 		setLayout(new BorderLayout());
         journalDetailsDataModel = new JournalDetailsDataModel();
 
-        table = new RefreshableTable<>(journalDetailsDataModel);
+        table = new JournalTable(journalDetailsDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
         popup = new JournalDetailsPopupMenu(table, journalInputGUI);

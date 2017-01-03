@@ -1,8 +1,5 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.ComponentModel.RefreshableTable;
-import be.dafke.ObjectModel.BusinessObject;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
@@ -12,12 +9,14 @@ import java.awt.event.MouseEvent;
  * Created by ddanneel on 18/02/2015.
  */
 public class PopupForTableActivator extends MouseAdapter {
-    private final RefreshableTable<BusinessObject> tabel;
+    private final JTable tabel;
     private final JPopupMenu popup;
+//    private final ListSelectionModel selectionModel;
 
-    public PopupForTableActivator(JPopupMenu popup, RefreshableTable tabel) {
+    public PopupForTableActivator(JPopupMenu popup, JTable tabel){//}, ListSelectionModel selectionModel) {
         this.popup = popup;
         this.tabel = tabel;
+//        this.selectionModel = selectionModel;
     }
 
     public void mouseClicked(MouseEvent me) {
@@ -25,8 +24,10 @@ public class PopupForTableActivator extends MouseAdapter {
             Point cell = me.getPoint();
             int col = tabel.columnAtPoint(cell);
             int row = tabel.rowAtPoint(cell);
-            tabel.setSelectedRow(row);
-            tabel.setSelectedColumn(col);
+            tabel.getSelectionModel().setSelectionInterval(row,row);
+//            selectionModel.setSelectionInterval(row,row);
+//            tabel.setSelectedRow(row);
+//            tabel.setSelectedColumn(col);
             //
             Point location = me.getLocationOnScreen();
             popup.show(null, location.x, location.y);

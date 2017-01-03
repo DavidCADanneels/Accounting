@@ -1,10 +1,9 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
-import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accounts;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -12,7 +11,6 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -21,7 +19,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class AccountsTableGUI extends JPanel implements MouseListener {
-    private final RefreshableTable<Account> table;
+    private final JTable table;
     private final AccountDataModel accountDataModel;
 
     private AccountsTablePopupMenu popup;
@@ -34,7 +32,7 @@ public class AccountsTableGUI extends JPanel implements MouseListener {
         // CENTER
         //
         accountDataModel = new AccountDataModel();
-        table = new RefreshableTable<>(accountDataModel);
+        table = new JTable(accountDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(100, 600));
 
         popup = new AccountsTablePopupMenu(table,journalInputGUI);
@@ -65,15 +63,6 @@ public class AccountsTableGUI extends JPanel implements MouseListener {
             popup.setVisible(false);
         }
     }
-
-    public ArrayList<Account> getSelectedAccounts() {
-        ArrayList<Account> selectedObjects = table.getSelectedObjects();
-        if (selectedObjects.isEmpty()) {
-            ActionUtils.showErrorMessage(ActionUtils.SELECT_ACCOUNT_FIRST);
-        }
-        return selectedObjects;
-    }
-
 
     public void mousePressed(MouseEvent e) {
 

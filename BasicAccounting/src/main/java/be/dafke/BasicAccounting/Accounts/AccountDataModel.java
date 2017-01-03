@@ -2,15 +2,15 @@ package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounts;
-import be.dafke.ComponentModel.RefreshableTableModel;
 
+import javax.swing.table.DefaultTableModel;
 import java.math.BigDecimal;
 
 /**
  * @author David Danneels
  */
 
-public class AccountDataModel extends RefreshableTableModel<Account> {
+public class AccountDataModel extends DefaultTableModel {
 	/**
 	 * 
 	 */
@@ -72,14 +72,4 @@ public class AccountDataModel extends RefreshableTableModel<Account> {
     public void setAccounts(Accounts accounts) {
         this.accounts = accounts;
     }
-
-	@Override
-	public Account getObject(int row, int col) {
-		return accounts.getBusinessObjects().get(row);
-	}
-
-	@Override
-	public int getRow(Account account) {
-		return 0;
-	}
 }

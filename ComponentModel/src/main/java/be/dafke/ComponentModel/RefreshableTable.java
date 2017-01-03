@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Created by ddanneel on 17/02/2015.
  */
 public class RefreshableTable<BusinessObject> extends JTable{
-    RefreshableTableModel<BusinessObject> model;
+    protected RefreshableTableModel<BusinessObject> model;
     protected int selectedRow;
     protected int selectedColumn;
 
@@ -31,6 +31,7 @@ public class RefreshableTable<BusinessObject> extends JTable{
 //    }
 
     public BusinessObject getSelectedObject(){
+        model.get
         return (selectedRow!=-1 && selectedColumn!=-1)?model.getObject(selectedRow, selectedColumn):null;
     }
 
