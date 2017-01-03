@@ -78,16 +78,16 @@ public class TestBalanceDataModel extends RefreshableTableModel<Account> {
 		return accounts.getBusinessObjects().get(row);
 	}
 
-	@Override
-	public int getRow(Account o) {
-		int row = 0;
-		ArrayList<Account> accountList = accounts.getBusinessObjects();
-		for(Account account : accountList){
-			if(account != o){
-				row++;
-			}
-			else return row;
-		}
-		return 0;
-	}
+//	@Override
+//	public int getRow(Account o) {
+//		int row = 0;
+//		ArrayList<Account> accountList = accounts.getBusinessObjects();
+//		for(Account account : accountList){
+//			if(account != o){
+//				row++;
+//			}
+//			else return row;
+//		}
+//		return 0;
+//	}
 }

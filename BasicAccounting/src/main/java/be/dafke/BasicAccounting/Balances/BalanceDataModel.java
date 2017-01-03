@@ -151,9 +151,4 @@ public class BalanceDataModel extends RefreshableTableModel<Account> {
 			return (Account)getValueAt(row, 3);
 		}
 	}
-
-	@Override
-	public int getRow(Account account) {
-		return 0;
-	}
 }

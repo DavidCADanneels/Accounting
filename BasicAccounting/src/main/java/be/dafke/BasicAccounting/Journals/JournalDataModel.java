@@ -90,8 +90,4 @@ public class JournalDataModel extends RefreshableTableModel<Booking> {
 		return transaction.getBusinessObjects().get(row);
 	}
 
-	@Override
-	public int getRow(Booking booking) {
-		return 0;
-	}
 }

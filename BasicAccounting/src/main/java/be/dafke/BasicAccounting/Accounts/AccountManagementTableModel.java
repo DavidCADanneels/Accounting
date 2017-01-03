@@ -95,8 +95,4 @@ public class AccountManagementTableModel extends RefreshableTableModel<Account> 
 		return accounts.getBusinessObjects().get(row);
 	}
 
-	@Override
-	public int getRow(Account account) {
-		return 0;
-	}
 }

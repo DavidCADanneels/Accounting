@@ -7,6 +7,4 @@ import javax.swing.table.AbstractTableModel;
  */
 public abstract class RefreshableTableModel<BusinessObject> extends AbstractTableModel {
     public abstract BusinessObject getObject(int row, int col);
-
-    public abstract int getRow(BusinessObject object);
 }

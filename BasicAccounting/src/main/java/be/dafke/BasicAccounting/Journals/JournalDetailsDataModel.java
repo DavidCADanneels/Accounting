@@ -132,7 +132,6 @@ public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
 		return boekingen.get(row);
 	}
 
-	@Override
 	public int getRow(Booking booking) {
 		if(journal==null) return -1;
 		int row = 0;

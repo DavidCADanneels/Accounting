@@ -69,9 +69,4 @@ public class JournalManagementTableModel extends RefreshableTableModel<Journal> 
     public Journal getObject(int row, int col) {
         return null;
     }
-
-    @Override
-    public int getRow(Journal o) {
-        return 0;
-    }
 }
