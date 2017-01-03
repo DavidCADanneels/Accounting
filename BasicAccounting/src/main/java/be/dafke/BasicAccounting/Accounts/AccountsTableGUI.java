@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounting;
@@ -12,7 +11,6 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -48,14 +46,6 @@ public class AccountsTableGUI extends JPanel {//implements MouseListener {
         center.add(scrollPane1);
         add(center, BorderLayout.CENTER);
 	}
-
-    public ArrayList<Account> getSelectedAccounts() {
-        ArrayList<Account> selectedObjects = table.getSelectedObjects();
-        if (selectedObjects.isEmpty()) {
-            ActionUtils.showErrorMessage(ActionUtils.SELECT_ACCOUNT_FIRST);
-        }
-        return selectedObjects;
-    }
 
     public void setAccounting(Accounting accounting) {
         accountDataModel.setAccounts(accounting==null?null:accounting.getAccounts());
