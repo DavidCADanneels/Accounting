@@ -3,10 +3,8 @@ package be.dafke.BasicAccounting.Balances;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
-import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.RefreshableTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,15 +18,16 @@ public class TestBalance extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
-	private RefreshableTable<Account> tabel;
+	private JTable tabel;
 	private TestBalanceDataModel testBalanceDataModel;
+	private JournalInputGUI journalInputGUI;
 	private static HashMap<Accounts,TestBalance> testBalanceMap = new HashMap<>();
 
 	private TestBalance(Journals journals, Accounts accounts, JournalInputGUI journalInputGUI) {
 		super(getBundle("BusinessModel").getString("TESTBALANCE"));
 		testBalanceDataModel = new TestBalanceDataModel(accounts);
 
-		tabel = new RefreshableTable<>(testBalanceDataModel);
+		tabel = new JTable(testBalanceDataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
@@ -40,7 +39,7 @@ public class TestBalance extends JFrame {
 		setContentPane(contentPanel);
 		pack();
 
-		popup = new BalancePopupMenu(journals, tabel, journalInputGUI);
+		popup = new TestBalancePopupMenu(accounts, journals, tabel, journalInputGUI);
 		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
 	}
 
