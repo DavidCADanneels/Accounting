@@ -108,6 +108,7 @@ public class BalancesManagementGUI extends JFrame {
 			name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
 		if (name != null) {
 			Balance balance = new Balance(accounts);
+			balance.setName(name);
 			try {
 				balances.addBusinessObject(balance);
 			} catch (EmptyNameException e) {
