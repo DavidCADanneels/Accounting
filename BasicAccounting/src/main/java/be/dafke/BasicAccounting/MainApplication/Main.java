@@ -190,19 +190,27 @@ public class Main {
     }
 
     public static void setJournal(Journal journal) {
-        accountings.getCurrentObject().getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter
+        Accounting accounting = accountings.getCurrentObject();
+        accounting.getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter
         journalsGUI.setJournal(journal);
-        JournalType journalType = journal.getType();
-        accountsGUI1.setAccountTypes(journalType.getDebetTypes());
-        accountsGUI2.setAccountTypes(journalType.getCreditTypes());
-        VATTransaction.VATType vatType = journalType.getVatType();
-        if(vatType == VATTransaction.VATType.SALE){
-            accountsGUI1.setVatType(VATTransaction.VATType.NONE);
-            accountsGUI2.setVatType(VATTransaction.VATType.SALE);
-        } else if(vatType == VATTransaction.VATType.PURCHASE){
-            accountsGUI1.setVatType(VATTransaction.VATType.PURCHASE);
-            accountsGUI2.setVatType(VATTransaction.VATType.NONE);
+        if(journal!=null && journal.getType()!=null) {
+            JournalType journalType = journal.getType();
+            accountsGUI1.setAccountTypes(journalType.getDebetTypes());
+            accountsGUI2.setAccountTypes(journalType.getCreditTypes());
+            VATTransaction.VATType vatType = journalType.getVatType();
+            if (vatType == VATTransaction.VATType.SALE) {
+                accountsGUI1.setVatType(VATTransaction.VATType.NONE);
+                accountsGUI2.setVatType(VATTransaction.VATType.SALE);
+            } else if (vatType == VATTransaction.VATType.PURCHASE) {
+                accountsGUI1.setVatType(VATTransaction.VATType.PURCHASE);
+                accountsGUI2.setVatType(VATTransaction.VATType.NONE);
+            } else {
+                accountsGUI1.setVatType(VATTransaction.VATType.NONE);
+                accountsGUI2.setVatType(VATTransaction.VATType.NONE);
+            }
         } else {
+            accountsGUI1.setAccountTypes(accounting.getAccountTypes());
+            accountsGUI2.setAccountTypes(accounting.getAccountTypes());
             accountsGUI1.setVatType(VATTransaction.VATType.NONE);
             accountsGUI2.setVatType(VATTransaction.VATType.NONE);
         }
