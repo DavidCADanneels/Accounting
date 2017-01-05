@@ -12,14 +12,14 @@ import java.util.*;
  * Time: 0:54
  */
 public class Balance extends BusinessCollection<BalanceLine> {
-    private String leftName;
-    private String rightName;
-    private String leftTotalName;
-    private String rightTotalName;
-    private String leftResultName;
-    private String rightResultName;
-    private ArrayList<AccountType> leftTypes;
-    private ArrayList<AccountType> rightTypes;
+    private String leftName="";
+    private String rightName="";
+    private String leftTotalName="";
+    private String rightTotalName="";
+    private String leftResultName="";
+    private String rightResultName="";
+    private ArrayList<AccountType> leftTypes = new ArrayList<>();
+    private ArrayList<AccountType> rightTypes = new ArrayList<>();
     private Accounts accounts;
 
     public final static String NAME1 = "name1";
@@ -29,8 +29,6 @@ public class Balance extends BusinessCollection<BalanceLine> {
 
     public Balance(Accounts accounts) {
         this.accounts = accounts;
-        leftTypes = new ArrayList<>();
-        rightTypes = new ArrayList<>();
     }
 
     @Override
