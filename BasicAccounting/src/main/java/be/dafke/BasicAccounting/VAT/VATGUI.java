@@ -19,6 +19,18 @@ import static javax.swing.BoxLayout.Y_AXIS;
 public class VATGUI extends JFrame {
     private static final HashMap<VATFields, VATGUI> vatGuis = new HashMap<>();
     public static final String CREATE_FILE = "Create file";
+    public static final String SALES_AT_0 = "Sales at 0%";
+    public static final String SALES_AT_6 = "Sales at 6%";
+//    public static final String SALES_AT_12 = "Sales at 12%";
+    public static final String SALES_AT_21 = "Sales at 21%";
+    public static final String TAX_ON_SALES_0_3 = "Tax on Sales (0-3)";
+    public static final String CN_ON_SALES = "CN on Sales";
+    public static final String TAX_ON_CN = "Tax on CN";
+    public static final String PURCHASE_OF_SUPPLIES = "Purchase of supplies";
+    public static final String PURCHASE_OF_SERVICES = "Purchase of services";
+    public static final String PURCHASE_OF_INVESTMENTS = "Purchase of investments";
+    public static final String TAX_ON_PURCHASES_81_83 = "Tax on Purchases (81-83)";
+    public static final String CN_ON_PURCHASES = "CN on Purchases";
 
     public static VATGUI getInstance(VATFields vatFields) {
         VATGUI gui = vatGuis.get(vatFields);
@@ -93,20 +105,19 @@ public class VATGUI extends JFrame {
     private JPanel createSalesMainPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-//        panel.add(createFieldPanel("0", "0%"));
-        panel.add(createFieldPanel("1", "6%"));
-        panel.add(createFieldPanel("2", "12%"));
-        panel.add(createFieldPanel("3", "21%"));
+        panel.add(createFieldPanel("0", SALES_AT_0));
+        panel.add(createFieldPanel("1", SALES_AT_6));
+//        panel.add(createFieldPanel("2", SALES_AT_12));
+        panel.add(createFieldPanel("3", SALES_AT_21));
         return panel;
     }
 
     private JPanel createSalesTaxAndCNPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(createFieldPanel("54", "tax"));
-        panel.add(new JLabel("Credit notes"));
-        panel.add(createFieldPanel("49", "net"));
-        panel.add(createFieldPanel("64", "tax"));
+        panel.add(createFieldPanel("54", TAX_ON_SALES_0_3));
+        panel.add(createFieldPanel("49", CN_ON_SALES));
+        panel.add(createFieldPanel("64", TAX_ON_CN));
         return panel;
     }
 
@@ -127,19 +138,18 @@ public class VATGUI extends JFrame {
     private JPanel createPurchaseMainPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-        panel.add(createFieldPanel("81", "supplies"));
-        panel.add(createFieldPanel("82", "services"));
-        panel.add(createFieldPanel("83", "investments"));
+        panel.add(createFieldPanel("81", PURCHASE_OF_SUPPLIES));
+        panel.add(createFieldPanel("82", PURCHASE_OF_SERVICES));
+        panel.add(createFieldPanel("83", PURCHASE_OF_INVESTMENTS));
         return panel;
     }
 
     private JPanel createPurchaseTaxAndCNPanel() {
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-        panel.add(createFieldPanel("59", "tax on 81,82,83"));
-        panel.add(new JLabel("Credit notes"));
-        panel.add(createFieldPanel("85", "net"));
-        panel.add(createFieldPanel("63", "tax"));
+        panel.add(createFieldPanel("59", TAX_ON_PURCHASES_81_83));
+        panel.add(createFieldPanel("85", CN_ON_PURCHASES));
+        panel.add(createFieldPanel("63", TAX_ON_CN));
         return panel;
     }
 
