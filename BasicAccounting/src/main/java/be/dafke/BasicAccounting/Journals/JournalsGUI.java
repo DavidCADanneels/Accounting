@@ -94,6 +94,14 @@ public class JournalsGUI extends JPanel implements ActionListener {
 		setJournal(journals==null?null:journals.getCurrentObject());
 	}
 
+	public void addJournal(Journal journal){
+		int itemCount = combo.getItemCount();
+		combo.addItem(journal);
+		if(itemCount==0){
+			setJournal(journal);
+		}
+	}
+
 	public void setJournal(Journal journal) {
 		combo.removeActionListener(this);
 		combo.setSelectedItem(journal);

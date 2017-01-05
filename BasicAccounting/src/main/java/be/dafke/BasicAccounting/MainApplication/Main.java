@@ -189,6 +189,11 @@ public class Main {
         }
     }
 
+    public static void addJournal(Journal journal){
+        journalsGUI.addJournal(journal);
+        JournalManagementGUI.fireJournalDataChangedForAll();
+    }
+
     public static void setJournal(Journal journal) {
         Accounting accounting = accountings.getCurrentObject();
         accounting.getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter

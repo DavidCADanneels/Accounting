@@ -72,9 +72,7 @@ public class NewJournalGUI extends RefreshableDialog {
             Journal journal = new Journal(accounts, newName, abbreviation, vatTransactions);
             journal.setType(journalType);
             journals.addBusinessObject(journal);
-//            journals.setCurrentObject(journal);
-            JournalManagementGUI.fireJournalDataChangedForAll();
-            Main.setJournal(journal);
+            Main.addJournal(journal);
         } catch (DuplicateNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR,newName.trim(), abbreviation.trim());
         } catch (EmptyNameException e) {
