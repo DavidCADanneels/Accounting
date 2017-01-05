@@ -221,4 +221,20 @@ public class Balance extends BusinessCollection<BalanceLine> {
         properties.put(Balances.RIGHTTYPES, Utils.toString(righttTypesString));
         return properties;
     }
+
+    public void addLeftType(AccountType type) {
+        leftTypes.add(type);
+    }
+
+    public void addRightType(AccountType type) {
+        rightTypes.add(type);
+    }
+
+    public void removeLeftType(AccountType type) {
+        leftTypes.remove(type);
+    }
+
+    public void removeRightType(AccountType type) {
+        rightTypes.remove(type);
+    }
 }
