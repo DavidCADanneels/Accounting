@@ -316,6 +316,10 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         return askAmount(account, suggestedAmount);
     }
 
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
     public BigDecimal askAmount(Account account, BigDecimal suggestedAmount){
         boolean ok = false;
         BigDecimal amount = null;

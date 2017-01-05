@@ -56,15 +56,17 @@ public class AccountsGUI extends JPanel {
         model = new AlphabeticListModel<>();
         lijst = new JList<>(model);
         lijst.addListSelectionListener(e ->  {
-                selectedAccount = null;
-                if (!e.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
-                    selectedAccount = lijst.getSelectedValue();
-                }
-                boolean accountSelected = (selectedAccount != null);
-                accountDetails.setEnabled(accountSelected);
-                debet.setEnabled(accountSelected);
-                credit.setEnabled(accountSelected);
-            });
+            selectedAccount = null;
+            if (!e.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
+                selectedAccount = lijst.getSelectedValue();
+            }
+            boolean accountSelected = (selectedAccount != null);
+            boolean transaction = (journalInputGUI.getTransaction()!=null);
+            boolean active = accountSelected && transaction;
+            accountDetails.setEnabled(active);
+            debet.setEnabled(active);
+            credit.setEnabled(active);
+        });
 
         lijst.addMouseListener(new MouseAdapter() {
             @Override
