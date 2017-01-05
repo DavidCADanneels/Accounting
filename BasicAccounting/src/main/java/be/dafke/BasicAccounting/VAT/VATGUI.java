@@ -18,6 +18,7 @@ import static javax.swing.BoxLayout.Y_AXIS;
  */
 public class VATGUI extends JFrame {
     private static final HashMap<VATFields, VATGUI> vatGuis = new HashMap<>();
+    public static final String CREATE_FILE = "Create file";
 
     public static VATGUI getInstance(VATFields vatFields) {
         VATGUI gui = vatGuis.get(vatFields);
@@ -106,6 +107,13 @@ public class VATGUI extends JFrame {
         panel.add(createFieldPanel("YY", "59+64"));
         panel.add(createFieldPanel("71", "XX-YY"));
         panel.add(createFieldPanel("72", "YY-XX"));
+        JButton button = new JButton(CREATE_FILE);
+        button.addActionListener(e -> createFile());
+        panel.add(button);
         return panel;
+    }
+
+    private void createFile() {
+
     }
 }
