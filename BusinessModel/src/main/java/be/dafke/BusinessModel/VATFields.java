@@ -27,6 +27,7 @@ public class VATFields extends BusinessCollection<VATField> implements MustBeRea
 
     public void addDefaultFields(){
         try {
+            addBusinessObject(new VATField("0"));
             addBusinessObject(new VATField("1"));
             addBusinessObject(new VATField("2"));
             addBusinessObject(new VATField("3"));
@@ -89,6 +90,7 @@ public class VATFields extends BusinessCollection<VATField> implements MustBeRea
             } else return BigDecimal.ZERO;
         } else{
             VATField vatField = getBusinessObject(nr);
+            if(vatField==null) return BigDecimal.ZERO;
             BigDecimal bigDecimal = vatField.getAmount();
             return bigDecimal==null?BigDecimal.ZERO:bigDecimal;
         }
