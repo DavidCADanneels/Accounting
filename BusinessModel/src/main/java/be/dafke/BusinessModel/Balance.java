@@ -29,6 +29,8 @@ public class Balance extends BusinessCollection<BalanceLine> {
 
     public Balance(Accounts accounts) {
         this.accounts = accounts;
+        leftTypes = new ArrayList<>();
+        rightTypes = new ArrayList<>();
     }
 
     @Override
