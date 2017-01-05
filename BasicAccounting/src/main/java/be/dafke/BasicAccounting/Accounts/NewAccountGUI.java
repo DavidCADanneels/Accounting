@@ -11,7 +11,9 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
+import java.awt.*;
 import java.math.BigDecimal;
+import java.math.BigInteger;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -21,40 +23,42 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 11:34
  */
 public class NewAccountGUI extends RefreshableDialog {
-    private final JTextField nameField, defaultAmountField;
-    private final JComboBox<AccountType> type;
-    private final JButton add;
+    private JTextField nameField, numberField, defaultAmountField;
+    private JComboBox<AccountType> type;
+    private JButton add;
     private Accounts accounts;
 
     public NewAccountGUI(Accounts accounts, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_ACCOUNT_GUI_TITLE"));
         this.accounts = accounts;
-        JPanel north = new JPanel();
-        north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
-        JPanel line1 = new JPanel();
-        line1.add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")));
+        setContentPane(createContentPanel(accountTypes));
+        pack();
+    }
+
+    private JPanel createContentPanel(AccountTypes accountTypes){
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(0,2));
+        panel.add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")));
         nameField = new JTextField(20);
-        nameField.addActionListener(e -> addAccount());
+        panel.add(nameField);
+        panel.add(new JLabel(getBundle("Accounting").getString("ACCOUNT_NUMBER")));
+        numberField = new JTextField(10);
+        panel.add(numberField);
+        panel.add(new JLabel(getBundle("Accounting").getString("DEFAULT_AMOUNT_LABEL")));
         defaultAmountField = new JTextField(10);
-        line1.add(nameField);
-        line1.add(new JLabel(getBundle("Accounting").getString("DEFAULT_AMOUNT_LABEL")));
-        line1.add(defaultAmountField);
-        JPanel line2 = new JPanel();
-        line2.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
+        panel.add(defaultAmountField);
+        panel.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
         type = new JComboBox<>();
         DefaultComboBoxModel<AccountType> model = new DefaultComboBoxModel<>();
         for (AccountType accountType : accountTypes.getBusinessObjects()) {
             model.addElement(accountType);
         }
         type.setModel(model);
-        line2.add(type);
+        panel.add(type);
         add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNT"));
         add.addActionListener(e -> addAccount());
-        line2.add(add);
-        north.add(line1);
-        north.add(line2);
-        setContentPane(north);
-        pack();
+        panel.add(add);
+        return panel;
     }
 
     private void addAccount() {
@@ -62,14 +66,23 @@ public class NewAccountGUI extends RefreshableDialog {
         try {
             Account account = new Account(name.trim());
             account.setType((AccountType) type.getSelectedItem());
-            String text = defaultAmountField.getText();
-            if (text != null && !text.trim().equals("")) {
+            String defaultAmountFieldText = defaultAmountField.getText();
+            if (defaultAmountFieldText != null && !defaultAmountFieldText.trim().equals("")) {
                 try {
-                    BigDecimal defaultAmount = new BigDecimal(text);
+                    BigDecimal defaultAmount = new BigDecimal(defaultAmountFieldText);
                     defaultAmount = defaultAmount.setScale(2);
                     account.setDefaultAmount(defaultAmount);
                 } catch (NumberFormatException nfe) {
                     account.setDefaultAmount(null);
+                }
+            }
+            String numberText = numberField.getText();
+            if(numberText != null && !numberText.trim().equals("")){
+                try {
+                    BigInteger number = new BigInteger(numberText);
+                    account.setNumber(number);
+                } catch (NumberFormatException nfe) {
+                    account.setNumber(null);
                 }
             }
             accounts.addBusinessObject(account);
@@ -80,6 +93,7 @@ public class NewAccountGUI extends RefreshableDialog {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NAME_EMPTY);
         }
         nameField.setText("");
+        numberField.setText("");
         defaultAmountField.setText("");
     }
 }
