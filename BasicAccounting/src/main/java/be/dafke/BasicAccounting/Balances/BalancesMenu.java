@@ -5,6 +5,7 @@ import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
+import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -14,48 +15,48 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 11:03
  */
 public class BalancesMenu extends JMenu {
-    private static JMenuItem testBalance, yearBalance, resultBalance, relationsBalance, manage;
+//    private static JMenuItem testBalance;
+    private ArrayList<JMenuItem> items = new ArrayList<>();
+    private static JMenuItem manage;
     private static Journals journals;
     private static Accounts accounts;
     private static Balances balances;
     private static AccountTypes accountTypes;
+    private JournalInputGUI journalInputGUI;
 
     public BalancesMenu(JournalInputGUI journalInputGUI){
         super(getBundle("BusinessModel").getString("BALANSES"));
+        this.journalInputGUI = journalInputGUI;
         setMnemonic(KeyEvent.VK_B);
-        testBalance = new JMenuItem(getBundle("BusinessModel").getString("TESTBALANCE"));
-        yearBalance = new JMenuItem(getBundle("BusinessModel").getString("YEARBALANCE"));
-        resultBalance = new JMenuItem(getBundle("BusinessModel").getString("RESULTBALANCE"));
-        relationsBalance = new JMenuItem(getBundle("BusinessModel").getString("RELATIONSBALANCE"));
+//        testBalance = new JMenuItem(getBundle("BusinessModel").getString("TESTBALANCE"));
         manage = new JMenuItem(getBundle("BusinessModel").getString("MANAGE_BALANCES"));
 
-        testBalance.addActionListener(e -> TestBalance.getTestBalance(journals, accounts, journalInputGUI));
-        yearBalance.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(Balances.YEAR_BALANCE),journalInputGUI));
-        resultBalance.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(Balances.RESULT_BALANCE),journalInputGUI));
-        relationsBalance.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(Balances.RELATIONS_BALANCE),journalInputGUI));
+//        testBalance.addActionListener(e -> TestBalance.getTestBalance(journals, accounts, journalInputGUI));
         manage.addActionListener(e -> BalancesManagementGUI.showBalancesManager(balances, accounts, accountTypes));
-        relationsBalance.setEnabled(false);
-        resultBalance.setEnabled(false);
-        testBalance.setEnabled(false);
-        yearBalance.setEnabled(false);
         manage.setEnabled(false);
-        add(testBalance);
-        add(resultBalance);
-        add(yearBalance);
-        add(relationsBalance);
+//        add(testBalance);
         add(manage);
     }
 
-    public static void setAccounting(Accounting accounting) {
+    public void setAccounting(Accounting accounting) {
         journals = accounting==null?null:accounting.getJournals();
         accounts = accounting==null?null:accounting.getAccounts();
         balances = accounting==null?null:accounting.getBalances();
         accountTypes = accounting==null?null:accounting.getAccountTypes();
 
-        relationsBalance.setEnabled(balances!=null);
-        resultBalance.setEnabled(balances!=null);
-        testBalance.setEnabled(balances!=null);
-        yearBalance.setEnabled(balances!=null);
-        manage.setEnabled(balances!=null);
+        setItems(balances!=null);
+    }
+
+    private void setItems(boolean enabled){
+        removeAll();
+        balances.getBusinessObjects().stream().forEach(balance -> {
+            String name = balance.getName();
+            JMenuItem item = new JMenuItem(name);
+            item.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(name),journalInputGUI));
+            item.setEnabled(enabled);
+            add(item);
+        });
+        add(manage);
+        manage.setEnabled(enabled);
     }
 }

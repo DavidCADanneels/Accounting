@@ -176,13 +176,13 @@ public class Main {
         journalReadGUI.setJournals(accounting==null?null:accounting.getJournals());
         mortgagesGUI.setMortgages(accounting==null?null:accounting.getMortgages());
 
-        ProjectsMenu.setAccounting(accounting);
-        MorgagesMenu.setAccounting(accounting);
-        CodaMenu.setAccounting(accounting);
-        ContactsMenu.setAccounting(accounting);
-        BalancesMenu.setAccounting(accounting);
-        AccountingMenuBar.setAccounting(accounting);
-        VATMenu.setAccounting(accounting);
+        projectsMenu.setAccounting(accounting);
+        morgagesMenu.setAccounting(accounting);
+        codaMenu.setAccounting(accounting);
+        contactsMenu.setAccounting(accounting);
+        balancesMenu.setAccounting(accounting);
+        menuBar.setAccounting(accounting);
+        vatMenu.setAccounting(accounting);
 
         if(accounting!=null && accounting.getJournals()!=null){
             setJournal(accounting.getJournals().getCurrentObject());
