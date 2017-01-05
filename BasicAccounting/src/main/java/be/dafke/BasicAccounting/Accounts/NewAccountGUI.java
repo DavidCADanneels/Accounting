@@ -36,8 +36,7 @@ public class NewAccountGUI extends RefreshableDialog {
     }
 
     private JPanel createContentPanel(AccountTypes accountTypes){
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(0,2));
+        JPanel panel = new JPanel(new GridLayout(0,2));
         panel.add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")));
         nameField = new JTextField(20);
         panel.add(nameField);

@@ -8,6 +8,7 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
+import java.awt.*;
 
 import static be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI.showJournalTypeManager;
 import static java.util.ResourceBundle.getBundle;
@@ -18,9 +19,9 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 11:34
  */
 public class NewJournalGUI extends RefreshableDialog {
-    private final JTextField name, abbr;
-    private final JComboBox<JournalType> type;
-    private final JButton add, newType;
+    private JTextField name, abbr;
+    private JComboBox<JournalType> type;
+    private JButton add, newType;
     private Accounts accounts;
     private Journals journals;
     private VATTransactions vatTransactions;
@@ -30,34 +31,33 @@ public class NewJournalGUI extends RefreshableDialog {
         this.accounts = accounts;
         this.journals = journals;
         this.vatTransactions = vatTransactions;
-        JPanel north = new JPanel();
-		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
-		JPanel line1 = new JPanel();
+        setContentPane(createContentPanel(journalTypes, accountTypes));
+        pack();
+    }
+
+    private JPanel createContentPanel(JournalTypes journalTypes, AccountTypes accountTypes){
+        JPanel panel = new JPanel(new GridLayout(0,2));
+        panel.add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")));
         name = new JTextField(20);
+        panel.add(name);
+        panel.add(new JLabel(getBundle("Accounting").getString("ABBR_LABEL")));
         abbr = new JTextField(6);
-        line1.add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")));
-		line1.add(name);
-        line1.add(new JLabel(getBundle("Accounting").getString("ABBR_LABEL")));
-        line1.add(abbr);
-		JPanel line2 = new JPanel();
-		line2.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
-		type = new JComboBox<>();
+        panel.add(abbr);
+        panel.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
+        type = new JComboBox<>();
         DefaultComboBoxModel<JournalType> model = new DefaultComboBoxModel<>();
         for(JournalType accountType : journalTypes.getBusinessObjects()){
             model.addElement(accountType);
         }
         type.setModel(model);
-		line2.add(type);
-		add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_JOURNAL"));
-		add.addActionListener(e -> addJournal());
-		line2.add(add);
+        panel.add(type);
+        add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_JOURNAL"));
+        add.addActionListener(e -> addJournal());
+        panel.add(add);
         newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
         newType.addActionListener(e -> showJournalTypeManager(journalTypes,accountTypes));
-        line2.add(newType);
-        north.add(line1);
-		north.add(line2);
-        setContentPane(north);
-        pack();
+        panel.add(newType);
+        return panel;
     }
 
     private void addJournal() {
