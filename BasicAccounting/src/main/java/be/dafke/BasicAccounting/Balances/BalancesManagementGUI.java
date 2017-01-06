@@ -11,6 +11,8 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -18,7 +20,7 @@ import static java.awt.BorderLayout.*;
 import static java.util.ResourceBundle.getBundle;
 import static javax.swing.BoxLayout.Y_AXIS;
 
-public class BalancesManagementGUI extends JFrame {
+public class BalancesManagementGUI extends JFrame implements FocusListener {
 	/**
 	 *
 	 */
@@ -90,12 +92,12 @@ public class BalancesManagementGUI extends JFrame {
 		leftResultName = new JTextField(20);
 		rightResultName = new JTextField(20);
 
-		leftName.addActionListener(e -> balance.setLeftName(leftName.getText().trim()));
-		rightName.addActionListener(e -> balance.setRightName(rightName.getText().trim()));
-		leftTotalName.addActionListener(e -> balance.setLeftTotalName(leftTotalName.getText().trim()));
-		rightTotalName.addActionListener(e -> balance.setRightTotalName(rightTotalName.getText().trim()));
-		leftResultName.addActionListener(e -> balance.setLeftResultName(leftResultName.getText().trim()));
-		rightResultName.addActionListener(e -> balance.setRightResultName(rightResultName.getText().trim()));
+		leftName.addFocusListener(this);
+		rightName.addFocusListener(this);
+		leftTotalName.addFocusListener(this);
+		rightTotalName.addFocusListener(this);
+		leftResultName.addFocusListener(this);
+		rightResultName.addFocusListener(this);
 
 		JPanel panel = new JPanel(new GridLayout(0,2));
 		panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Names"));
@@ -255,6 +257,33 @@ public class BalancesManagementGUI extends JFrame {
 		for(AccountType type : credit.getSelectedValuesList()) {
 			balance.removeRightType(type);
 			creditModel.removeElement(type);
+		}
+	}
+
+	@Override
+	public void focusGained(FocusEvent e) {
+		JTextField textField = (JTextField)e.getSource();
+		textField.selectAll();
+	}
+
+	@Override
+	public void focusLost(FocusEvent e) {
+		JTextField textField = (JTextField)e.getSource();
+		String text = textField.getText().trim();
+		if(textField == leftName){
+			balance.setLeftName(text);
+		} else if(textField == rightName){
+			balance.setRightName(text);
+		} else if(textField == leftTotalName){
+			balance.setLeftTotalName(text);
+		} else if(textField == rightTotalName){
+			balance.setRightTotalName(text);
+		} else if(textField == leftResultName){
+			balance.setLeftResultName(text);
+		} else if(textField == rightResultName){
+			balance.setRightResultName(text);
+		} else if(textField == leftName){
+			balance.setLeftName(text);
 		}
 	}
 }
