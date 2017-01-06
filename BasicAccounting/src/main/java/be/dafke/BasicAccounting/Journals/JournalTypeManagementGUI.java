@@ -7,14 +7,14 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.AlphabeticListModel;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 import static java.awt.BorderLayout.*;
 import static java.util.ResourceBundle.getBundle;
 import static javax.swing.BoxLayout.Y_AXIS;
-import static javax.swing.JSplitPane.*;
 
 public class JournalTypeManagementGUI extends JFrame {
 	/**
@@ -22,7 +22,7 @@ public class JournalTypeManagementGUI extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JList<AccountType> debit, credit, types;
-	private ArrayList<AccountType> allTypes;
+//	private ArrayList<AccountType> allTypes;
 	private AlphabeticListModel<AccountType> debitModel, creditModel, typesModel;
 	private JComboBox<JournalType> combo;
 	private JournalTypes journalTypes;
@@ -49,17 +49,13 @@ public class JournalTypeManagementGUI extends JFrame {
 	}
 
 	public void setAccountTypes(AccountTypes accountTypes) {
-//		debitTypes = new ArrayList<>();
-//		creditTypes = new ArrayList<>();
-		allTypes = new ArrayList<>();
-
-		allTypes.clear();
-		allTypes.addAll(accountTypes.getBusinessObjects());
 		creditModel.removeAllElements();
 		debitModel.removeAllElements();
 		typesModel.removeAllElements();
-		for(AccountType type : allTypes) {
-			typesModel.addElement(type);
+		if(accountTypes!=null) {
+			for (AccountType type : accountTypes.getBusinessObjects()) {
+				typesModel.addElement(type);
+			}
 		}
 	}
 
@@ -137,21 +133,32 @@ public class JournalTypeManagementGUI extends JFrame {
 		}
 	}
 
-	public JSplitPane createCenterPanel(){
+	public JPanel createCenterPanel(){
 
-		JPanel allTypesPanel = createAccountTypesPanel();
-		JPanel debetTypesPanel = createDebitTypesPanel();
-		JPanel creditTypesPanel = createCreditTypesPanel();
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(1,0));
 
-		JSplitPane selectedTypesPanel = new JSplitPane(VERTICAL_SPLIT);
-		selectedTypesPanel.add(debetTypesPanel, TOP);
-		selectedTypesPanel.add(creditTypesPanel, BOTTOM);
+		panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("ACCOUNTTYPES")));;
+		JPanel center = new JPanel(new BorderLayout());
+		center.add(createButtonPanel(), SOUTH);
+		center.add(createAccountTypesPanel(),CENTER);
 
-		JSplitPane middle = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		middle.add(allTypesPanel, LEFT);
-		middle.add(selectedTypesPanel, RIGHT);
+		panel.add(center);
+		panel.add(createDebitTypesPanel());
+		panel.add(createCreditTypesPanel());
 
-		return middle;
+		return panel;
+	}
+
+	private JPanel createButtonPanel() {
+		JPanel panel = new JPanel();
+		JButton addDebitType = new JButton(getBundle("Accounting").getString("ADD_TO_DEBIT_TYPES"));
+		JButton addCreditType = new JButton(getBundle("Accounting").getString("ADD_TO_CREDIT_TYPES"));
+		addDebitType.addActionListener(e -> addDebit());
+		addCreditType.addActionListener(e -> addCredit());
+		panel.add(addDebitType);
+		panel.add(addCreditType);
+		return panel;
 	}
 
 	private JPanel createCreditTypesPanel() {
@@ -190,23 +197,12 @@ public class JournalTypeManagementGUI extends JFrame {
 	}
 
 	private JPanel createAccountTypesPanel() {
-		JButton addDebitType = new JButton(getBundle("Accounting").getString("ADD_TO_DEBIT_TYPES"));
-		JButton addCreditType = new JButton(getBundle("Accounting").getString("ADD_TO_CREDIT_TYPES"));
-		addDebitType.addActionListener(e -> addDebit());
-		addCreditType.addActionListener(e -> addCredit());
-
-		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BoxLayout(buttonPanel,Y_AXIS));
-		buttonPanel.add(addDebitType);
-		buttonPanel.add(addCreditType);
-
 		typesModel = new AlphabeticListModel<>();
 		types = new JList<>(typesModel);
 		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		panel.add(new JLabel(getBundle("Accounting").getString("ACCOUNT_TYPES")), NORTH);
-		panel.add(new JScrollPane(types), CENTER);
-		panel.add(buttonPanel, SOUTH);
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(new JLabel(getBundle("Accounting").getString("ACCOUNT_TYPES")));
+		panel.add(new JScrollPane(types));
 		return panel;
 	}
 

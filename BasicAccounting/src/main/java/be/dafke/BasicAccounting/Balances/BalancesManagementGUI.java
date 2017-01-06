@@ -223,7 +223,6 @@ public class BalancesManagementGUI extends JFrame implements FocusListener {
 		addCreditType.addActionListener(e -> addCredit());
 
 		JPanel buttonPanel = new JPanel();
-//		buttonPanel.setLayout(new BoxLayout(buttonPanel,Y_AXIS));
 		buttonPanel.add(addDebitType);
 		buttonPanel.add(addCreditType);
 		return buttonPanel;
