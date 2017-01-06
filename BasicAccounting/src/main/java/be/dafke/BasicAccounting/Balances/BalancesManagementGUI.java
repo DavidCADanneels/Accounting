@@ -17,7 +17,6 @@ import java.util.HashMap;
 import static java.awt.BorderLayout.*;
 import static java.util.ResourceBundle.getBundle;
 import static javax.swing.BoxLayout.Y_AXIS;
-import static javax.swing.JSplitPane.*;
 
 public class BalancesManagementGUI extends JFrame {
 	/**
@@ -166,22 +165,13 @@ public class BalancesManagementGUI extends JFrame {
 		}
 	}
 
-	public JSplitPane createCenterPanel(){
-		JPanel allTypesPanel = createAccountTypesPanel();
-		JPanel debetTypesPanel = createDebitTypesPanel();
-		JPanel creditTypesPanel = createCreditTypesPanel();
-
-		JSplitPane selectedTypesPanel = new JSplitPane(VERTICAL_SPLIT);
-		selectedTypesPanel.add(debetTypesPanel, TOP);
-		selectedTypesPanel.add(creditTypesPanel, BOTTOM);
-
-		JSplitPane middle = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
-		middle.add(allTypesPanel, LEFT);
-		middle.add(selectedTypesPanel, RIGHT);
-
-		middle.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("ACCOUNTTYPES")));;
-
-		return middle;
+	public JPanel createCenterPanel(){
+		JPanel panel = new JPanel();
+		panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("ACCOUNTTYPES")));;
+		panel.add(createAccountTypesPanel());
+		panel.add(createDebitTypesPanel());
+		panel.add(createCreditTypesPanel());
+		return panel;
 	}
 
 	private JPanel createCreditTypesPanel() {
@@ -226,17 +216,19 @@ public class BalancesManagementGUI extends JFrame {
 		addCreditType.addActionListener(e -> addCredit());
 
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BoxLayout(buttonPanel,Y_AXIS));
+//		buttonPanel.setLayout(new BoxLayout(buttonPanel,Y_AXIS));
 		buttonPanel.add(addDebitType);
 		buttonPanel.add(addCreditType);
 
 		typesModel = new AlphabeticListModel<>();
 		types = new JList<>(typesModel);
 		JPanel panel = new JPanel();
-		panel.setLayout(new BorderLayout());
-		panel.add(new JLabel(getBundle("Accounting").getString("ACCOUNT_TYPES")), NORTH);
-		panel.add(new JScrollPane(types), CENTER);
-		panel.add(buttonPanel, SOUTH);
+//		panel.setLayout(new BorderLayout());
+		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+//		panel.add(new JLabel(getBundle("Accounting").getString("ACCOUNT_TYPES")), NORTH);
+		panel.add(new JLabel("All types"));
+		panel.add(new JScrollPane(types));
+		panel.add(buttonPanel);
 		return panel;
 	}
 
