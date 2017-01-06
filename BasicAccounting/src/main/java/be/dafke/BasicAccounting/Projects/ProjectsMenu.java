@@ -14,10 +14,10 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneels on 27/12/2015.
  */
 public class ProjectsMenu extends JMenu {
-    private static JMenuItem manage, project;
-    private static Projects projects;
-    private static Accounts accounts;
-    private static AccountTypes accountTypes;
+    private JMenuItem manage, project;
+    private Projects projects;
+    private Accounts accounts;
+    private AccountTypes accountTypes;
 
     public ProjectsMenu() {
         super(getBundle("Projects").getString("PROJECTS"));
@@ -36,7 +36,7 @@ public class ProjectsMenu extends JMenu {
         add(manage);
     }
 
-    public static void setAccounting(Accounting accounting) {
+    public void setAccounting(Accounting accounting) {
         accounts=accounting==null?null:accounting.getAccounts();
         accountTypes=accounting==null?null:accounting.getAccountTypes();
         projects=accounting==null?null:accounting.getProjects();

@@ -13,9 +13,9 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneels on 26/12/2015.
  */
 public class MorgagesMenu extends JMenu {
-    private static JMenuItem mortgage;
-    private static Mortgages mortgages;
-    private static Accounts accounts;
+    private JMenuItem mortgage;
+    private Mortgages mortgages;
+    private Accounts accounts;
 
     public MorgagesMenu() {
         super(getBundle("Mortgage").getString("MORTGAGES"));
@@ -26,15 +26,15 @@ public class MorgagesMenu extends JMenu {
         add(mortgage);
     }
 
-    public static void setAccounting(Accounting accounting) {
+    public void setAccounting(Accounting accounting) {
         setMortgages(accounting==null?null:accounting.getMortgages());
         setAccounts(accounting==null?null:accounting.getAccounts());
     }
-    public static void setAccounts(Accounts accounts) {
-        MorgagesMenu.accounts = accounts;
+    public void setAccounts(Accounts accounts) {
+        this.accounts = accounts;
     }
-    public static void setMortgages(Mortgages mortgages) {
-        MorgagesMenu.mortgages=mortgages;
+    public void setMortgages(Mortgages mortgages) {
+        this.mortgages=mortgages;
         mortgage.setEnabled(mortgages!=null);
     }
 }

@@ -15,9 +15,9 @@ public class AccountingMenuBar extends JMenuBar {
      *
      */
     private static final long serialVersionUID = 1L;
-    private static JMenu file;
-    private static JMenuItem startNew;
-    private static Accountings accountings;
+    private JMenu file;
+    private JMenuItem startNew;
+    private Accountings accountings;
 
     public AccountingMenuBar(final Accountings accountings) {
         this.accountings = accountings;
@@ -27,7 +27,7 @@ public class AccountingMenuBar extends JMenuBar {
         add(file);
     }
 
-    public static void setAccounting(final Accounting accounting) {
+    public void setAccounting(final Accounting accounting) {
         file.removeAll();
         file.add(startNew);
         accountings.getBusinessObjects().stream()

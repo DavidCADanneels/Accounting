@@ -12,9 +12,9 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneels on 27/12/2015.
  */
 public class ContactsMenu extends JMenu {
-    private static JMenuItem suppliers, customers;
+    private JMenuItem suppliers, customers;
 
-    private static Contacts contacts;
+    private Contacts contacts;
 
     public ContactsMenu() {
         super(getBundle("Contacts").getString("CONTACTS"));
@@ -33,12 +33,12 @@ public class ContactsMenu extends JMenu {
         add(suppliers);
     }
 
-    public static void setAccounting(Accounting accounting) {
+    public void setAccounting(Accounting accounting) {
         setContacts(accounting==null?null:accounting.getContacts());
     }
 
-    public static void setContacts(Contacts contacts){
-        ContactsMenu.contacts = contacts;
+    public void setContacts(Contacts contacts){
+        this.contacts = contacts;
         suppliers.setEnabled(contacts!=null);
         customers.setEnabled(contacts!=null);
     }

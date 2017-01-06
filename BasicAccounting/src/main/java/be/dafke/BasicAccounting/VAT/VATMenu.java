@@ -12,8 +12,8 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneels on 27/12/2015.
  */
 public class VATMenu extends JMenu {
-    private static JMenuItem taxOverview;
-    private static VATFields vatFields;
+    private JMenuItem taxOverview;
+    private VATFields vatFields;
 
     public VATMenu() {
         super(getBundle("VAT").getString("VAT"));
@@ -24,7 +24,7 @@ public class VATMenu extends JMenu {
         add(taxOverview);
     }
 
-    public static void setAccounting(Accounting accounting) {
+    public void setAccounting(Accounting accounting) {
         taxOverview.setEnabled(accounting!=null);
         if(accounting!=null){
             vatFields = accounting.getVatFields();

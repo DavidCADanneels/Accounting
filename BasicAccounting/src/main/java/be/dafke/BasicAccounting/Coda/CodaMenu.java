@@ -10,9 +10,9 @@ import javax.swing.*;
  * Created by ddanneels on 27/12/2015.
  */
 public class CodaMenu extends JMenu {
-    private static JMenuItem movementsItem, counterPartiesItem;
-    private static CounterParties counterParties;
-    private static Statements statements;
+    private JMenuItem movementsItem, counterPartiesItem;
+    private CounterParties counterParties;
+    private Statements statements;
 
     public CodaMenu(){
         movementsItem = new JMenuItem("Show movements");
@@ -26,7 +26,7 @@ public class CodaMenu extends JMenu {
         add(counterPartiesItem);
     }
 
-    public static void setAccounting(Accounting accounting) {
+    public void setAccounting(Accounting accounting) {
         // TODO: integrate Counterparties and Statements (with getters and setters, etc.)
         counterParties = (CounterParties)accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
         statements = (Statements)accounting.getBusinessObject(Statements.STATEMENTS);
