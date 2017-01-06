@@ -8,6 +8,8 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.AlphabeticListModel;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,13 +28,14 @@ public class BalancesManagementGUI extends JFrame {
 	private JList<AccountType> debit, credit, types;
 	private ArrayList<AccountType> allTypes;
 	private AlphabeticListModel<AccountType> debitModel, creditModel, typesModel;
+	private JTextField leftName, rightName, leftTotalName, rightTotalName, leftResultName, rightResultName;
 	private JComboBox<Balance> combo;
 	private static final HashMap<Balances, BalancesManagementGUI> balancesManagementGuis = new HashMap<>();
 	private Balance balance;
 	private Balances balances;
 
 	private BalancesManagementGUI(Balances balances, Accounts accounts, AccountTypes accountTypes) {
-		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
+		super(getBundle("Accounting").getString("BALANCE_MANAGEMENT_TITLE"));
 		setContentPane(createContentPanel());
 		this.accounts = accounts;
 		setAccountTypes(accountTypes);
@@ -72,16 +75,50 @@ public class BalancesManagementGUI extends JFrame {
 	}
 
 	public JPanel createContentPanel(){
-		JPanel panel = new JPanel(new BorderLayout());
-		panel.add(createCenterPanel(), CENTER);
-		panel.add(createSavePanel(), NORTH);
+		JPanel panel = new JPanel();
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(createSavePanel());
+		panel.add(createNameFieldPanel());
+		panel.add(createCenterPanel());
+		return panel;
+	}
+
+	public JPanel createNameFieldPanel(){
+		leftName = new JTextField(20);
+		rightName = new JTextField(20);
+		leftTotalName = new JTextField(20);
+		rightTotalName = new JTextField(20);
+		leftResultName = new JTextField(20);
+		rightResultName = new JTextField(20);
+
+		leftName.addActionListener(e -> balance.setLeftName(leftName.getText().trim()));
+		rightName.addActionListener(e -> balance.setRightName(rightName.getText().trim()));
+		leftTotalName.addActionListener(e -> balance.setLeftTotalName(leftTotalName.getText().trim()));
+		rightTotalName.addActionListener(e -> balance.setRightTotalName(rightTotalName.getText().trim()));
+		leftResultName.addActionListener(e -> balance.setLeftResultName(leftResultName.getText().trim()));
+		rightResultName.addActionListener(e -> balance.setRightResultName(rightResultName.getText().trim()));
+
+		JPanel panel = new JPanel(new GridLayout(0,2));
+		panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Names"));
+		panel.add(new JLabel("LeftName:"));
+		panel.add(leftName);
+		panel.add(new JLabel("RightName:"));
+		panel.add(rightName);
+		panel.add(new JLabel("LeftTotalName:"));
+		panel.add(leftTotalName);
+		panel.add(new JLabel("RightTotalName:"));
+		panel.add(rightTotalName);
+		panel.add(new JLabel("LeftResultName:"));
+		panel.add(leftResultName);
+		panel.add(new JLabel("RightResultName:"));
+		panel.add(rightResultName);
 		return panel;
 	}
 
 	private JPanel createSavePanel() {
 		JPanel panel = new JPanel();
 		JButton newType = new JButton(getBundle("Accounting").getString("NEW_BALANCE"));
-		newType.addActionListener(e -> createNewJournalType());
+		newType.addActionListener(e -> createNewBalance());
 		combo = new JComboBox<>();
 		combo.addActionListener(e -> comboAction());
 		panel.add(combo);
@@ -101,9 +138,15 @@ public class BalancesManagementGUI extends JFrame {
 				creditModel.addElement(type);
 			}
 		}
+		leftName.setText(balance==null?"":balance.getLeftName());
+		rightName.setText(balance==null?"":balance.getRightName());
+		leftTotalName.setText(balance==null?"":balance.getLeftTotalName());
+		rightTotalName.setText(balance==null?"":balance.getRightTotalName());
+		leftResultName.setText(balance==null?"":balance.getLeftResultName());
+		rightResultName.setText(balance==null?"":balance.getRightResultName());
 	}
 
-	public void createNewJournalType(){
+	public void createNewBalance(){
 		String name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
 		while (name != null && name.equals(""))
 			name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
@@ -124,7 +167,6 @@ public class BalancesManagementGUI extends JFrame {
 	}
 
 	public JSplitPane createCenterPanel(){
-
 		JPanel allTypesPanel = createAccountTypesPanel();
 		JPanel debetTypesPanel = createDebitTypesPanel();
 		JPanel creditTypesPanel = createCreditTypesPanel();
@@ -136,6 +178,8 @@ public class BalancesManagementGUI extends JFrame {
 		JSplitPane middle = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT);
 		middle.add(allTypesPanel, LEFT);
 		middle.add(selectedTypesPanel, RIGHT);
+
+		middle.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("ACCOUNTTYPES")));;
 
 		return middle;
 	}
