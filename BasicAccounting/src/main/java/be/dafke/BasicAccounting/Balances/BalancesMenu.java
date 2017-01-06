@@ -25,15 +25,11 @@ public class BalancesMenu extends JMenu {
     private JournalInputGUI journalInputGUI;
 
     public BalancesMenu(JournalInputGUI journalInputGUI){
-        super(getBundle("BusinessModel").getString("BALANSES"));
+        super(getBundle("BusinessModel").getString("BALANCES"));
         this.journalInputGUI = journalInputGUI;
         setMnemonic(KeyEvent.VK_B);
-//        testBalance = new JMenuItem(getBundle("BusinessModel").getString("TESTBALANCE"));
         manage = new JMenuItem(getBundle("BusinessModel").getString("MANAGE_BALANCES"));
-
-//        testBalance.addActionListener(e -> TestBalance.getTestBalance(journals, accounts, journalInputGUI));
         manage.addActionListener(e -> BalancesManagementGUI.showBalancesManager(balances, accounts, accountTypes));
-//        add(testBalance);
         add(manage);
     }
 
