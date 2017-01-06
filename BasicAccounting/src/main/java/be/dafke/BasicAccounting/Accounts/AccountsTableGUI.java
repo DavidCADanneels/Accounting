@@ -26,8 +26,7 @@ public class AccountsTableGUI extends JPanel {//implements MouseListener {
 
     public AccountsTableGUI(JournalInputGUI journalInputGUI) {
 		setLayout(new BorderLayout());
-		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
-                "Accounting").getString("ACCOUNTS")));
+		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("Accounting").getString("ACCOUNTS")));
 
         // CENTER
         //

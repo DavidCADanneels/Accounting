@@ -46,8 +46,7 @@ public class AccountsGUI extends JPanel {
         this.journalInputGUI = journalInputGUI;
 
         setLayout(new BorderLayout());
-        setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
-                "Accounting").getString("ACCOUNTS")));
+        setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("Accounting").getString("ACCOUNTS")));
 
         selectedAccountTypes = new HashMap<>();
 
