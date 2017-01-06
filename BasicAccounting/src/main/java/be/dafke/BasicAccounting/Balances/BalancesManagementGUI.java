@@ -18,7 +18,6 @@ import java.util.HashMap;
 
 import static java.awt.BorderLayout.*;
 import static java.util.ResourceBundle.getBundle;
-import static javax.swing.BoxLayout.Y_AXIS;
 
 public class BalancesManagementGUI extends JFrame implements FocusListener {
 	/**
@@ -169,10 +168,17 @@ public class BalancesManagementGUI extends JFrame implements FocusListener {
 
 	public JPanel createCenterPanel(){
 		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(1,0));
+
 		panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("ACCOUNTTYPES")));;
-		panel.add(createAccountTypesPanel());
+		JPanel center = new JPanel(new BorderLayout());
+		center.add(createButtonPanel(), SOUTH);
+		center.add(createAccountTypesPanel(),CENTER);
+
+		panel.add(center);
 		panel.add(createDebitTypesPanel());
 		panel.add(createCreditTypesPanel());
+
 		return panel;
 	}
 
@@ -187,7 +193,6 @@ public class BalancesManagementGUI extends JFrame implements FocusListener {
 		panel.add(new JLabel(getBundle("Accounting").getString("CREDIT_TYPES")), NORTH);
 		panel.add(new JScrollPane(credit), CENTER);
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BoxLayout(buttonPanel,Y_AXIS));
 		buttonPanel.add(removeCreditType);
 		panel.add(buttonPanel, SOUTH);
 		return panel;
@@ -205,13 +210,13 @@ public class BalancesManagementGUI extends JFrame implements FocusListener {
 		panel.add(new JScrollPane(debit), CENTER);
 
 		JPanel buttonPanel = new JPanel();
-		buttonPanel.setLayout(new BoxLayout(buttonPanel,Y_AXIS));
 		buttonPanel.add(removeDebitType);
 		panel.add(buttonPanel, SOUTH);
 		return panel;
 	}
 
-	private JPanel createAccountTypesPanel() {
+
+	private JPanel createButtonPanel(){
 		JButton addDebitType = new JButton(getBundle("Accounting").getString("ADD_TO_DEBIT_TYPES"));
 		JButton addCreditType = new JButton(getBundle("Accounting").getString("ADD_TO_CREDIT_TYPES"));
 		addDebitType.addActionListener(e -> addDebit());
@@ -221,16 +226,16 @@ public class BalancesManagementGUI extends JFrame implements FocusListener {
 //		buttonPanel.setLayout(new BoxLayout(buttonPanel,Y_AXIS));
 		buttonPanel.add(addDebitType);
 		buttonPanel.add(addCreditType);
+		return buttonPanel;
+	}
 
+	private JPanel createAccountTypesPanel() {
 		typesModel = new AlphabeticListModel<>();
 		types = new JList<>(typesModel);
 		JPanel panel = new JPanel();
-//		panel.setLayout(new BorderLayout());
-		panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-//		panel.add(new JLabel(getBundle("Accounting").getString("ACCOUNT_TYPES")), NORTH);
-		panel.add(new JLabel("All types"));
+		panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+		panel.add(new JLabel(getBundle("Accounting").getString("ACCOUNT_TYPES")));
 		panel.add(new JScrollPane(types));
-		panel.add(buttonPanel);
 		return panel;
 	}
 
