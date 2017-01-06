@@ -20,6 +20,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 
+import static be.dafke.BasicAccounting.Journals.JournalManagementGUI.fireJournalDataChangedForAll;
 import static javax.swing.JSplitPane.*;
 
 /**
@@ -189,9 +190,13 @@ public class Main {
         }
     }
 
+    public static void fireBalancesChanged(){
+        balancesMenu.fireBalancesChanged();
+    }
+
     public static void addJournal(Journal journal){
         journalsGUI.addJournal(journal);
-        JournalManagementGUI.fireJournalDataChangedForAll();
+        fireJournalDataChangedForAll();
     }
 
     public static void setJournal(Journal journal) {
@@ -223,7 +228,7 @@ public class Main {
 
     public static void fireJournalDataChanged(Journal journal){
         JournalDetails.fireJournalDataChangedForAll(journal);
-        JournalManagementGUI.fireJournalDataChangedForAll();
+        fireJournalDataChangedForAll();
         journalReadGUI.fireJournalDataChanged();
     }
 

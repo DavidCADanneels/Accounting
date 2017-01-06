@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Balances;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -111,6 +112,7 @@ public class BalancesManagementGUI extends JFrame {
 			balance.setName(name);
 			try {
 				balances.addBusinessObject(balance);
+				Main.fireBalancesChanged();
 			} catch (EmptyNameException e) {
 				e.printStackTrace();
 			} catch (DuplicateNameException e) {

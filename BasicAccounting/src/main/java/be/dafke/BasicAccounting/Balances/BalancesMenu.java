@@ -33,7 +33,6 @@ public class BalancesMenu extends JMenu {
 
 //        testBalance.addActionListener(e -> TestBalance.getTestBalance(journals, accounts, journalInputGUI));
         manage.addActionListener(e -> BalancesManagementGUI.showBalancesManager(balances, accounts, accountTypes));
-        manage.setEnabled(false);
 //        add(testBalance);
         add(manage);
     }
@@ -44,19 +43,19 @@ public class BalancesMenu extends JMenu {
         balances = accounting==null?null:accounting.getBalances();
         accountTypes = accounting==null?null:accounting.getAccountTypes();
 
-        setItems(balances!=null);
+        fireBalancesChanged();
     }
 
-    private void setItems(boolean enabled){
+    public void fireBalancesChanged(){
         removeAll();
-        balances.getBusinessObjects().stream().forEach(balance -> {
-            String name = balance.getName();
-            JMenuItem item = new JMenuItem(name);
-            item.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(name),journalInputGUI));
-            item.setEnabled(enabled);
-            add(item);
-        });
-        add(manage);
-        manage.setEnabled(enabled);
+        if(balances!=null) {
+            balances.getBusinessObjects().stream().forEach(balance -> {
+                String name = balance.getName();
+                JMenuItem item = new JMenuItem(name);
+                item.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(name), journalInputGUI));
+                add(item);
+            });
+            add(manage);
+        }
     }
 }
