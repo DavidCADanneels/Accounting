@@ -46,6 +46,17 @@ public class VATField extends BusinessCollection<VATMovement> {
         return vatMovement;
     }
 
+    public void removeBusinessObject(VATMovement vatMovement){
+        BigDecimal vatAmount = vatMovement.getAmount();
+        if(vatAmount!=null) {
+            if (vatMovement.isIncrease()) {
+                amount = amount.subtract(vatAmount);
+            } else {
+                amount = amount.add(vatAmount);
+            }
+        }
+    }
+
     @Override
     public String getChildType() {
         return VATMOVEMENT;

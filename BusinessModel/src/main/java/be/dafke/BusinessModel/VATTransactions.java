@@ -147,6 +147,16 @@ public class VATTransactions extends BusinessCollection<VATTransaction> implemen
         return vatTransaction;
     }
 
+    @Override
+    public void removeBusinessObject(VATTransaction vatTransaction){
+        for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){
+            VATField vatField = vatBooking.getVatField();
+            if(vatField!=null) {
+                vatField.removeBusinessObject(vatBooking.getVatMovement());
+            }
+        }
+    }
+
     public VATTransaction purchaseCN(BigDecimal amount, BigDecimal btwAmount, VATTransaction.PurchaseType purchaseType) {
         // We assume amount is negative !!!
         VATTransaction vatTransaction = new VATTransaction();

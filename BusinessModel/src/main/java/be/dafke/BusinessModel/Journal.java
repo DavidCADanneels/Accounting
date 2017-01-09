@@ -125,7 +125,10 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
             mortgage.decreaseNrPayed();
         }
         // TODO remove VATTransaction
-	}
+        for (VATTransaction vatTransaction : transaction.getVatTransactions()){
+            vatTransactions.removeBusinessObject(vatTransaction);
+        }
+    }
 
 	public Transaction addBusinessObject(Transaction transaction) {
         Calendar date = transaction.getDate();
