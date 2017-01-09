@@ -2,8 +2,7 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 /**
@@ -12,7 +11,7 @@ import java.util.TreeMap;
 public class VATTransaction extends BusinessCollection<VATBooking>{
 
     public static final String VATBOOKING = "VATBooking";
-    private VATFields vatFields;
+    private ArrayList<VATBooking> vatBookings = new ArrayList<>();
 
     @Override
     public String getChildType() {
@@ -26,14 +25,21 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
         return null;
     }
 
-
-    private HashMap<Integer,BigDecimal> data;
-
     public enum PurchaseType{
         GOODS, SERVICES, INVESTMENTS;
     }
 
     public enum VATType{
         SALE, PURCHASE, NONE;
+    }
+
+    public ArrayList<VATBooking> getBusinessObjects(){
+        return vatBookings;
+    }
+
+    @Override
+    public VATBooking addBusinessObject(VATBooking value) {
+        vatBookings.add(value);
+        return value;
     }
 }

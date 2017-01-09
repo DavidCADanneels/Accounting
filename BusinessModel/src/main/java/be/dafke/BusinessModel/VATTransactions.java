@@ -1,8 +1,6 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.MustBeRead;
 
 import java.math.BigDecimal;
@@ -142,7 +140,9 @@ public class VATTransactions extends BusinessCollection<VATTransaction> implemen
     public VATTransaction addBusinessObject(VATTransaction vatTransaction) {
         for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){
             VATField vatField = vatBooking.getVatField();
-            vatField.addBusinessObject(vatBooking.getVatMovement());
+            if(vatField!=null) {
+                vatField.addBusinessObject(vatBooking.getVatMovement());
+            }
         }
         return vatTransaction;
     }
@@ -162,18 +162,9 @@ public class VATTransactions extends BusinessCollection<VATTransaction> implemen
         } else if(purchaseType==VATTransaction.PurchaseType.INVESTMENTS){
             vatBooking3 = new VATBooking(vatFields.getBusinessObject("83"), new VATMovement(amount, false));
         }
-        try {
-            vatTransaction.addBusinessObject(vatBooking1);
-            vatTransaction.addBusinessObject(vatBooking2);
-            if(vatBooking3!=null) {
-                vatTransaction.addBusinessObject(vatBooking3);
-            }
-        } catch (EmptyNameException e) {
-            e.printStackTrace();
-        } catch (DuplicateNameException e) {
-            e.printStackTrace();
-        }
-
+        vatTransaction.addBusinessObject(vatBooking1);
+        vatTransaction.addBusinessObject(vatBooking2);
+        vatTransaction.addBusinessObject(vatBooking3);
         return vatTransaction;
     }
 
@@ -182,14 +173,8 @@ public class VATTransactions extends BusinessCollection<VATTransaction> implemen
         VATTransaction vatTransaction = new VATTransaction();
         VATBooking vatBooking1 = new VATBooking(vatFields.getBusinessObject("49"), new VATMovement(amount, false));
         VATBooking vatBooking2 = new VATBooking(vatFields.getBusinessObject("64"), new VATMovement(btwAmount, false));
-        try {
-            vatTransaction.addBusinessObject(vatBooking1);
-            vatTransaction.addBusinessObject(vatBooking2);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();
-        } catch (DuplicateNameException e) {
-            e.printStackTrace();
-        }
+        vatTransaction.addBusinessObject(vatBooking1);
+        vatTransaction.addBusinessObject(vatBooking2);
         return vatTransaction;
     }
 
@@ -205,42 +190,26 @@ public class VATTransactions extends BusinessCollection<VATTransaction> implemen
             vatBooking1 = new VATBooking(vatFields.getBusinessObject("83"), new VATMovement(amount, true));
         }
         VATBooking vatBooking2 = new VATBooking(vatFields.getBusinessObject("59"), new VATMovement(btwAmount, true));
-
-        try {
-            if(vatBooking1!=null) {
-                vatTransaction.addBusinessObject(vatBooking1);
-            }
-            vatTransaction.addBusinessObject(vatBooking2);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();
-        } catch (DuplicateNameException e) {
-            e.printStackTrace();
-        }
+        vatTransaction.addBusinessObject(vatBooking1);
+        vatTransaction.addBusinessObject(vatBooking2);
         return vatTransaction;
     }
 
     public VATTransaction sale(BigDecimal amount, BigDecimal btwAmount, Integer pct) {
         VATTransaction vatTransaction = new VATTransaction();
         VATBooking vatBooking1 = null;
-        if(pct==6){
+        if(pct==0){
+            vatBooking1 = new VATBooking(vatFields.getBusinessObject("0"), new VATMovement(amount, true));
+        } else if(pct==6){
             vatBooking1 = new VATBooking(vatFields.getBusinessObject("1"), new VATMovement(amount, true));
         } else if(pct==12){
             vatBooking1 = new VATBooking(vatFields.getBusinessObject("2"), new VATMovement(amount, true));
         } else if(pct==21){
-            vatBooking1 = new VATBooking(vatFields.getBusinessObject("83"), new VATMovement(amount, true));
+            vatBooking1 = new VATBooking(vatFields.getBusinessObject("3"), new VATMovement(amount, true));
         }
         VATBooking vatBooking2 = new VATBooking(vatFields.getBusinessObject("54"), new VATMovement(btwAmount, true));
-        try {
-            if(vatBooking1!=null) {
-                vatTransaction.addBusinessObject(vatBooking1);
-            }
-            vatTransaction.addBusinessObject(vatBooking2);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();
-        } catch (DuplicateNameException e) {
-            e.printStackTrace();
-        }
+        vatTransaction.addBusinessObject(vatBooking1);
+        vatTransaction.addBusinessObject(vatBooking2);
         return vatTransaction;
     }
-
 }
