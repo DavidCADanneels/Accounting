@@ -6,10 +6,14 @@ import be.dafke.BasicAccounting.Balances.BalancesMenu;
 import be.dafke.BasicAccounting.Balances.TestBalance;
 import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
-import be.dafke.BasicAccounting.Journals.*;
+import be.dafke.BasicAccounting.Journals.JournalDetails;
+import be.dafke.BasicAccounting.Journals.JournalGUI;
+import be.dafke.BasicAccounting.Journals.JournalInputGUI;
+import be.dafke.BasicAccounting.Journals.JournalsGUI;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
+import be.dafke.BasicAccounting.VAT.VATGUI;
 import be.dafke.BasicAccounting.VAT.VATMenu;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -196,6 +200,10 @@ public class Main {
 
     public static void fireBalancesChanged(){
         balancesMenu.fireBalancesChanged();
+    }
+
+    public static void fireVATFieldsUpdated(/*VATFields vatFields*/){
+        VATGUI.fireVATFieldsUpdated(/*vatFields*/);
     }
 
     public static void addJournal(Journal journal){

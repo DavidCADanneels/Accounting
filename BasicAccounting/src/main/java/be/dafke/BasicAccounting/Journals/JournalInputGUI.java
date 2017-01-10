@@ -236,6 +236,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
                 for (Account account : transaction.getAccounts()) {
                     Main.fireAccountDataChanged(account);
                 }
+                Main.fireVATFieldsUpdated(/*vatFields*/);
                 clear();
             }
         }

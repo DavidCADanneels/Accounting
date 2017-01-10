@@ -56,7 +56,7 @@ public class VATGUI extends JFrame {
 
         setContentPane(createContentPanel(left,right,totals, buttonPanel));
 
-        fireVATFieldsUpdated();
+        updateVATFields();
         pack();
     }
 
@@ -79,7 +79,7 @@ public class VATGUI extends JFrame {
         return panel;
     }
 
-    public void fireVATFieldsUpdated(){
+    public void updateVATFields(){
         for (String nr: textFields.keySet()){
             JTextField textField = textFields.get(nr);
             VATField vatField = vatFields.getBusinessObject(nr);
@@ -90,6 +90,15 @@ public class VATGUI extends JFrame {
                 } else {
                     textField.setText("");
                 }
+            }
+        }
+    }
+
+    public static void fireVATFieldsUpdated(/*VATFields vatFields*/){
+        for(VATGUI vatgui : vatGuis.values()) {
+//            VATGUI vatgui = vatGuis.get(vatFields);
+            if (vatgui != null) {
+                vatgui.updateVATFields();
             }
         }
     }
