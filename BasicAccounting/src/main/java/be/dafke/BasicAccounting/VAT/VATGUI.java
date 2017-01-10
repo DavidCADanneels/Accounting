@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.VAT;
 
 import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
+import be.dafke.BusinessModel.VATField;
 import be.dafke.BusinessModel.VATFields;
 
 import javax.swing.*;
@@ -31,6 +32,7 @@ public class VATGUI extends JFrame {
     public static final String PURCHASE_OF_INVESTMENTS = "Purchase of investments";
     public static final String TAX_ON_PURCHASES_81_83 = "Tax on Purchases (81-83)";
     public static final String CN_ON_PURCHASES = "CN on Purchases";
+    private HashMap<String,JTextField> textFields = new HashMap<>();
 
     public static VATGUI getInstance(VATFields vatFields) {
         VATGUI gui = vatGuis.get(vatFields);
@@ -44,7 +46,7 @@ public class VATGUI extends JFrame {
     
     private VATFields vatFields;
 
-    public VATGUI(VATFields vatFields) {
+    private VATGUI(VATFields vatFields) {
         super(getBundle("VAT").getString("VAT_OVERVIEW"));
         this.vatFields = vatFields;
         JPanel left = createSalesPanel();
@@ -53,6 +55,8 @@ public class VATGUI extends JFrame {
         JPanel buttonPanel = createButtonPanel();
 
         setContentPane(createContentPanel(left,right,totals, buttonPanel));
+
+        fireVATFieldsUpdated();
         pack();
     }
 
@@ -63,10 +67,7 @@ public class VATGUI extends JFrame {
 
         line1.add(new JLabel(nr));
         JTextField textField = new JTextField(10);
-        BigDecimal amount = vatFields.getField(nr);
-        if(amount!=null) {
-            textField.setText(amount.toString());
-        }
+        textFields.put(nr,textField);
         line1.add(textField);
         textField.setToolTipText(description);
 
@@ -76,6 +77,21 @@ public class VATGUI extends JFrame {
         panel.add(line2);
         panel.add(line1);
         return panel;
+    }
+
+    public void fireVATFieldsUpdated(){
+        for (String nr: textFields.keySet()){
+            JTextField textField = textFields.get(nr);
+            VATField vatField = vatFields.getBusinessObject(nr);
+            BigDecimal amount = vatField.getAmount();
+            if (textField != null){
+                if(amount != null) {
+                    textField.setText(amount.toString());
+                } else {
+                    textField.setText("");
+                }
+            }
+        }
     }
 
     private JPanel createContentPanel(JPanel left, JPanel right, JPanel totals, JPanel buttonsPanel){
