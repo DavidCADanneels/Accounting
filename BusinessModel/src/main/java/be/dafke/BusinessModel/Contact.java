@@ -67,8 +67,8 @@ public class Contact extends BusinessObject{
 
     public Properties getOutputProperties(){
         Properties properties = super.getOutputProperties();
-        if(addressLine1!=null) properties.put(ADDRESS_LINE_2,addressLine2);
-        if(addressLine2!=null) properties.put(ADDRESS_LINE_1,addressLine1);
+        if(addressLine1!=null) properties.put(ADDRESS_LINE_1,addressLine1);
+        if(addressLine2!=null) properties.put(ADDRESS_LINE_2,addressLine2);
         if(vatNumber !=null) properties.put(TVA_NUMBER, vatNumber);
         return properties;
     }
