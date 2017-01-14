@@ -7,6 +7,7 @@ import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -21,6 +22,18 @@ public class VATFields extends BusinessCollection<VATField> implements MustBeRea
 
     public static final String VATFIELD = "VATField";
 
+    public VATFields(VATFields vatFields) {
+        setName(VATFIELD);
+        try {
+            for(VATField vatField : vatFields.getBusinessObjects()) {
+                addBusinessObject(vatField);
+            }
+        } catch (EmptyNameException e) {
+            e.printStackTrace();
+        } catch (DuplicateNameException e) {
+            e.printStackTrace();
+        }
+    }
     public VATFields() {
         setName(VAT_FIELDS);
     }
@@ -74,6 +87,22 @@ public class VATFields extends BusinessCollection<VATField> implements MustBeRea
         // TODO: remove this setAmount when we can read old transactions from XML
         vatField.setAmount(amount);
         return vatField;
+    }
+
+    public ArrayList<VATField> getAllFields(){
+        ArrayList<VATField> vatFields = super.getBusinessObjects();
+        vatFields.add(getXX());
+        vatFields.add(getYY());
+        VATField field71 = get71();
+        VATField field72 = get72();
+        if(field71.getAmount().compareTo(BigDecimal.ZERO) > 0){
+            vatFields.add(field71);
+        }
+        // normally only one if will be used as 71 = -72
+        if(field72.getAmount().compareTo(BigDecimal.ZERO) > 0){
+            vatFields.add(field72);
+        }
+        return vatFields;
     }
 
     @Override
