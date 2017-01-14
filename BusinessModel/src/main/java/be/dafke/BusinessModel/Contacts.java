@@ -32,7 +32,7 @@ public class Contacts extends BusinessCollection<Contact> implements MustBeRead 
         contact.setName(properties.get(NAME));
         contact.setAddressLine1(properties.get(ADDRESS_LINE_1));
         contact.setAddressLine2(properties.get(ADDRESS_LINE_2));
-        contact.setTvaNumber(properties.get(TVA_NUMBER));
+        contact.setVatNumber(properties.get(TVA_NUMBER));
         return contact;
     }
 
