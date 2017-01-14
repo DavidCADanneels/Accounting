@@ -19,6 +19,7 @@ import static javax.swing.BoxLayout.Y_AXIS;
  */
 public class VATGUI extends JFrame {
     private static final HashMap<VATFields, VATGUI> vatGuis = new HashMap<>();
+    private static final HashMap<VATFields, VATGUI> editableVatGuis = new HashMap<>();
     public static final String CREATE_FILE = "Create file";
     public static final String SALES_AT_0 = "Sales at 0%";
     public static final String SALES_AT_6 = "Sales at 6%";
@@ -35,11 +36,21 @@ public class VATGUI extends JFrame {
     private HashMap<String,JTextField> textFields = new HashMap<>();
 
     public static VATGUI getInstance(VATFields vatFields, boolean editable) {
-        VATGUI gui = vatGuis.get(vatFields);
-        if(gui==null){
-            gui = new VATGUI(vatFields, editable);
-            vatGuis.put(vatFields,gui);
-            SaveAllActionListener.addFrame(gui);
+        VATGUI gui;
+        if(editable){
+            gui = editableVatGuis.get(vatFields);
+            if(gui==null){
+                gui = new VATGUI(vatFields, editable);
+                editableVatGuis.put(vatFields,gui);
+                SaveAllActionListener.addFrame(gui);
+            }
+        } else {
+            gui = vatGuis.get(vatFields);
+            if(gui==null){
+                gui = new VATGUI(vatFields, editable);
+                vatGuis.put(vatFields,gui);
+                SaveAllActionListener.addFrame(gui);
+            }
         }
         return gui;
     }
@@ -98,9 +109,13 @@ public class VATGUI extends JFrame {
         }
     }
 
-    public static void fireVATFieldsUpdated(/*VATFields vatFields*/){
+    public static void fireVATFieldsUpdated(){
         for(VATGUI vatgui : vatGuis.values()) {
-//            VATGUI vatgui = vatGuis.get(vatFields);
+            if (vatgui != null) {
+                vatgui.updateVATFields();
+            }
+        }
+        for(VATGUI vatgui : editableVatGuis.values()) {
             if (vatgui != null) {
                 vatgui.updateVATFields();
             }
@@ -215,9 +230,17 @@ public class VATGUI extends JFrame {
     private JPanel createButtonPanel(){
         JPanel panel = new JPanel();
         JButton button = new JButton(CREATE_FILE);
-        button.addActionListener(e -> createFile());
+        if(editable) {
+            button.addActionListener(e -> createFile());
+        } else {
+            button.addActionListener(e -> openEditableGui());
+        }
         panel.add(button);
         return panel;
+    }
+
+    private void openEditableGui() {
+        getInstance(vatFields, true).setVisible(true);
     }
 
     private void createFile() {
