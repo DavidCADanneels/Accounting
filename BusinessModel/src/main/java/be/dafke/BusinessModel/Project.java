@@ -53,8 +53,14 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 		return account;
 	}
 
+	@Override
 	public ArrayList<Account> getBusinessObjects(){
 		return projectAccounts.getBusinessObjects();
+	}
+
+	@Override
+	public Account getBusinessObject(String name){
+		return projectAccounts.getBusinessObject(name);
 	}
 
 	@Override
