@@ -12,8 +12,15 @@ import static be.dafke.BusinessModel.Contacts.TVA_NUMBER;
  * Created by ddanneels on 15/11/2016.
  */
 public class Contact extends BusinessObject{
-    private String addressLine1, addressLine2, tvaNumber;
     private boolean supplier, customer;
+    private String addressLine1 = "";
+    private String addressLine2 = "";
+    private String vatNumber = "";
+    private String postalCode = "";
+    private String city = "";
+    private String countryCode = "";
+    private String email = "";
+    private String phone = "";
 
     public boolean isSupplier() {
         return supplier;
@@ -47,19 +54,39 @@ public class Contact extends BusinessObject{
         this.addressLine2 = addressLine2;
     }
 
-    public String getTvaNumber() {
-        return tvaNumber;
+    public String getVatNumber() {
+        return vatNumber;
     }
 
-    public void setTvaNumber(String tvaNumber) {
-        this.tvaNumber = tvaNumber;
+    public void setVatNumber(String vatNumber) {
+        this.vatNumber = vatNumber;
     }
 
     public Properties getOutputProperties(){
         Properties properties = super.getOutputProperties();
         if(addressLine1!=null) properties.put(ADDRESS_LINE_2,addressLine2);
         if(addressLine2!=null) properties.put(ADDRESS_LINE_1,addressLine1);
-        if(tvaNumber!=null) properties.put(TVA_NUMBER, tvaNumber);
+        if(vatNumber !=null) properties.put(TVA_NUMBER, vatNumber);
         return properties;
+    }
+
+    public String getPostalCode() {
+        return postalCode;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public String getCountryCode() {
+        return countryCode;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getPhone() {
+        return phone;
     }
 }
