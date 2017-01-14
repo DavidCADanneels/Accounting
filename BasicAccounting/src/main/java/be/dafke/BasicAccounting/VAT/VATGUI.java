@@ -34,7 +34,7 @@ public class VATGUI extends JFrame {
     public static final String CN_ON_PURCHASES = "CN on Purchases";
     private HashMap<String,JTextField> textFields = new HashMap<>();
 
-    public static VATGUI getInstance(VATFields vatFields, boolean editable) {
+    public static VATGUI getInstance(VATFields vatFields) {
         VATGUI gui;
         gui = vatGuis.get(vatFields);
         if(gui==null){

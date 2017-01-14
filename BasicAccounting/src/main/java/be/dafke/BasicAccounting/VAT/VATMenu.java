@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.VAT;
 
 import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.VATFields;
 
 import javax.swing.*;
@@ -14,12 +15,13 @@ import static java.util.ResourceBundle.getBundle;
 public class VATMenu extends JMenu {
     private JMenuItem taxOverview;
     private VATFields vatFields;
+    private Contact declarant;
 
     public VATMenu() {
         super(getBundle("VAT").getString("VAT"));
         setMnemonic(KeyEvent.VK_P);
         taxOverview = new JMenuItem(getBundle("VAT").getString("VAT_OVERVIEW"));
-        taxOverview.addActionListener(e -> VATGUI.getInstance(vatFields, false).setVisible(true));
+        taxOverview.addActionListener(e -> VATGUI.getInstance(vatFields).setVisible(true));
         taxOverview.setEnabled(false);
         add(taxOverview);
     }
@@ -28,6 +30,7 @@ public class VATMenu extends JMenu {
         taxOverview.setEnabled(accounting!=null);
         if(accounting!=null){
             vatFields = accounting.getVatFields();
+            declarant = accounting.getCompanyContact();
         }
     }
 }

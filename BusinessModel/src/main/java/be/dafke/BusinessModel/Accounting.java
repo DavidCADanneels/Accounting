@@ -23,6 +23,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     private Contacts contacts;
     private VATTransactions vatTransactions;
     private VATFields vatFields;
+    private Contact companyContact;
 
     @Override
     public String getChildType(){
@@ -34,6 +35,8 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 //        TODO: remove this line once we safe AccountTypes in a separate file
         accountTypes.addDefaultTypes();
         accounts = new Accounts(accountTypes);
+
+        companyContact = new Contact();
 
         journalTypes = new JournalTypes(accountTypes);
 //        journalTypes.addDefaultType(accountTypes);
@@ -119,5 +122,9 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     public VATFields getVatFields() {
         return vatFields;
+    }
+
+    public Contact getCompanyContact() {
+        return companyContact;
     }
 }
