@@ -28,8 +28,7 @@ public class VATWriter {
                     "            <CountryCode>"+contact.getCountryCode()+"</CountryCode>\n" +
                     "            <EmailAddress>"+contact.getEmail()+"</EmailAddress>\n" +
                     "            <Phone>"+contact.getPhone()+"</Phone>\n" +
-                    "        </ns2:Declarant>\n" +
-                    "        <ns2:Period>\n"
+                    "        </ns2:Declarant>\n"
             );
         } catch (IOException e) {
             e.printStackTrace();
