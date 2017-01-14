@@ -34,10 +34,10 @@ public class VATGUI extends JFrame {
     public static final String CN_ON_PURCHASES = "CN on Purchases";
     private HashMap<String,JTextField> textFields = new HashMap<>();
 
-    public static VATGUI getInstance(VATFields vatFields) {
+    public static VATGUI getInstance(VATFields vatFields, boolean editable) {
         VATGUI gui = vatGuis.get(vatFields);
         if(gui==null){
-            gui = new VATGUI(vatFields);
+            gui = new VATGUI(vatFields, editable);
             vatGuis.put(vatFields,gui);
             SaveAllActionListener.addFrame(gui);
         }
@@ -45,10 +45,12 @@ public class VATGUI extends JFrame {
     }
     
     private VATFields vatFields;
+    private boolean editable;
 
-    private VATGUI(VATFields vatFields) {
+    private VATGUI(VATFields vatFields, boolean editable) {
         super(getBundle("VAT").getString("VAT_OVERVIEW"));
         this.vatFields = vatFields;
+        this.editable = editable;
         JPanel left = createSalesPanel();
         JPanel right = createPurchasePanel();
         JPanel totals = createTotalsPanel();
@@ -67,6 +69,8 @@ public class VATGUI extends JFrame {
 
         line1.add(new JLabel(nr));
         JTextField textField = new JTextField(10);
+        textField.setEditable(editable);
+        textField.setHorizontalAlignment(JTextField.RIGHT);
         textFields.put(nr,textField);
         line1.add(textField);
         textField.setToolTipText(description);
