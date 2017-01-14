@@ -2,6 +2,7 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessObject;
 
+import java.math.BigDecimal;
 import java.util.Properties;
 
 import static be.dafke.BusinessModel.Contacts.ADDRESS_LINE_1;
@@ -21,6 +22,8 @@ public class Contact extends BusinessObject{
     private String countryCode = "";
     private String email = "";
     private String phone = "";
+    private BigDecimal turnOver;
+    private BigDecimal VATTotal;
 
     public boolean isSupplier() {
         return supplier;
@@ -88,5 +91,13 @@ public class Contact extends BusinessObject{
 
     public String getPhone() {
         return phone;
+    }
+
+    public BigDecimal getTurnOver() {
+        return turnOver;
+    }
+
+    public BigDecimal getVATTotal() {
+        return VATTotal;
     }
 }
