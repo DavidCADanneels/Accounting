@@ -5,6 +5,7 @@ import be.dafke.BasicAccounting.Balances.BalanceGUI;
 import be.dafke.BasicAccounting.Balances.BalancesMenu;
 import be.dafke.BasicAccounting.Balances.TestBalance;
 import be.dafke.BasicAccounting.Coda.CodaMenu;
+import be.dafke.BasicAccounting.Contacts.ContactSelector;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
 import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.Journals.JournalGUI;
@@ -276,5 +277,9 @@ public class Main {
         } catch (EmptyNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNTING_NAME_EMPTY);
         }
+    }
+
+    public static void fireContactDataChanged(Contact contact) {
+        ContactSelector.fireContactDataChangedForAll();
     }
 }

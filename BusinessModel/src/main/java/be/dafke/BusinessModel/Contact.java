@@ -22,8 +22,8 @@ public class Contact extends BusinessObject{
     private String countryCode = "";
     private String email = "";
     private String phone = "";
-    private BigDecimal turnOver;
-    private BigDecimal VATTotal;
+    private BigDecimal turnOver = BigDecimal.ZERO;
+    private BigDecimal VATTotal = BigDecimal.ZERO;
 
     public boolean isSupplier() {
         return supplier;
@@ -99,5 +99,25 @@ public class Contact extends BusinessObject{
 
     public BigDecimal getVATTotal() {
         return VATTotal;
+    }
+
+    public void increaseTurnOver(BigDecimal amount){
+        turnOver = turnOver.add(amount);
+        turnOver.setScale(2);
+    }
+
+    public void increaseVATTotal(BigDecimal amount){
+        VATTotal = VATTotal.add(amount);
+        VATTotal.setScale(2);
+    }
+
+    public void decreaseTurnOver(BigDecimal amount){
+        turnOver = turnOver.subtract(amount);
+        turnOver.setScale(2);
+    }
+
+    public void decreaseVATTotal(BigDecimal amount){
+        VATTotal = VATTotal.subtract(amount);
+        VATTotal.setScale(2);
     }
 }

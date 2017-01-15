@@ -431,4 +431,16 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     public void addVATTransaction(VATTransaction vatTransaction) {
         transaction.addVATTransaction(vatTransaction);
     }
+
+    public void setContact(Contact contact) {
+        transaction.setContact(contact);
+    }
+
+    public void setVATAmount(BigDecimal amount) {
+        transaction.setVATAmount(amount);
+    }
+
+    public void setTurnOverAmount(BigDecimal amount) {
+        transaction.setTurnOverAmount(amount);
+    }
 }

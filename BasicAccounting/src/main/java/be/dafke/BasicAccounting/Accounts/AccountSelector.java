@@ -18,7 +18,6 @@ public class AccountSelector extends RefreshableDialog {
 	private final JComboBox<Account> combo;
     private final DefaultComboBoxModel<Account> model;
 	private Accounts accounts;
-	private AccountTypes accountTypes;
 	private static AccountSelector accountSelector = null;
 
 	private AccountSelector(Accounts accounts, AccountTypes accountTypes) {
@@ -38,7 +37,6 @@ public class AccountSelector extends RefreshableDialog {
 		innerPanel.add(ok, BorderLayout.SOUTH);
 		setContentPane(innerPanel);
 		setAccounts(accounts);
-		setAccountTypes(accountTypes);
 		pack();
 	}
 
@@ -57,10 +55,6 @@ public class AccountSelector extends RefreshableDialog {
 		this.accounts = accounts;
 		fireAccountDataChanged();
     }
-
-	public void setAccountTypes(AccountTypes accountTypes) {
-		this.accountTypes = accountTypes;
-	}
 
 	public static void fireAccountDataChangedForAll() {
 		if(accountSelector!=null){

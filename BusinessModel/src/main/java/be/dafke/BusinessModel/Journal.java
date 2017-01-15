@@ -5,6 +5,7 @@ import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.MultiValueMap;
 import be.dafke.Utils.Utils;
 
+import java.math.BigDecimal;
 import java.util.*;
 
 /**
@@ -128,6 +129,14 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
         for (VATTransaction vatTransaction : transaction.getVatTransactions()){
             vatTransactions.removeBusinessObject(vatTransaction);
         }
+
+        Contact contact = transaction.getContact();
+        BigDecimal turnOverAmount = transaction.getTurnOverAmount();
+        BigDecimal vatAmount = transaction.getVATAmount();
+        if(contact!=null && turnOverAmount!=null && vatAmount!=null){
+            contact.decreaseTurnOver(turnOverAmount);
+            contact.decreaseVATTotal(vatAmount);
+        }
     }
 
 	public Transaction addBusinessObject(Transaction transaction) {
@@ -147,6 +156,14 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
         ArrayList<VATTransaction> newVATTransactions = transaction.getVatTransactions();
         for(VATTransaction vatTransaction : newVATTransactions){
             vatTransactions.addBusinessObject(vatTransaction);
+        }
+
+        Contact contact = transaction.getContact();
+        BigDecimal turnOverAmount = transaction.getTurnOverAmount();
+        BigDecimal vatAmount = transaction.getVATAmount();
+        if(contact!=null && turnOverAmount!=null && vatAmount!=null){
+            contact.increaseTurnOver(turnOverAmount);
+            contact.increaseVATTotal(vatAmount);
         }
 
         return transaction;

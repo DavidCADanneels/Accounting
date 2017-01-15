@@ -26,6 +26,7 @@ public class Account extends BusinessCollection<Movement> {
     private final MultiValueMap<Calendar,Movement> movements;
     private BigDecimal defaultAmount = null;
     private BigInteger number = null;
+    private Contact contact = null;
 
     public Account(String name) {
         setName(name);
@@ -157,5 +158,13 @@ public class Account extends BusinessCollection<Movement> {
             outputMap.put(NUMBER, number.toString());
         }
         return outputMap;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
     }
 }

@@ -29,6 +29,9 @@ public class Transaction extends BusinessCollection<Booking> {
     private Accounts accounts;
     private Mortgage mortgage = null;
     private ArrayList<VATTransaction> vatTransactions;
+    private BigDecimal VATAmount;
+    private BigDecimal turnOverAmount;
+    private Contact contact;
 
     public Transaction(Accounts accounts, Calendar date, String description) {
         this.accounts = accounts;
@@ -211,5 +214,29 @@ public class Transaction extends BusinessCollection<Booking> {
 
     public ArrayList<VATTransaction> getVatTransactions() {
         return vatTransactions;
+    }
+
+    public void setVATAmount(BigDecimal VATAmount) {
+        this.VATAmount = VATAmount;
+    }
+
+    public void setTurnOverAmount(BigDecimal turnOverAmount) {
+        this.turnOverAmount = turnOverAmount;
+    }
+
+    public BigDecimal getVATAmount() {
+        return VATAmount;
+    }
+
+    public BigDecimal getTurnOverAmount() {
+        return turnOverAmount;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+    public Contact getContact() {
+        return contact;
     }
 }

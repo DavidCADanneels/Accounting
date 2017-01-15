@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Accounts;
 
+import be.dafke.BasicAccounting.Contacts.ContactSelector;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessModel.*;
 import be.dafke.Utils.AlphabeticListModel;
@@ -41,6 +42,7 @@ public class AccountsGUI extends JPanel {
     private JournalInputGUI journalInputGUI;
     private VATTransactions vatTransactions = null;
     private VATTransaction.VATType vatType = null;
+    private Contacts contacts;
 
     public AccountsGUI(JournalInputGUI journalInputGUI) {
         this.journalInputGUI = journalInputGUI;
@@ -145,6 +147,7 @@ public class AccountsGUI extends JPanel {
             if (amount != null) {
                 journalInputGUI.addBooking(new Booking(selectedAccount, amount, debit));
                 if (vatType != VATTransaction.VATType.NONE) {
+                    Contact contact = getContact(selectedAccount);
                     // Read percentage
                     Integer[] percentages = vatTransactions.getVatPercentages();
                     int nr = JOptionPane.showOptionDialog(null, "BTW %", "BTW %",
@@ -158,7 +161,7 @@ public class AccountsGUI extends JPanel {
                                 purchase(amount, suggestedAmount, debit);
 
                             } else if (vatType == VATTransaction.VATType.SALE) {
-                                sell(amount, suggestedAmount, debit, percentages[nr]);
+                                sell(contact, amount, suggestedAmount, debit, percentages[nr]);
                             }
                         } else{
                             // CN
@@ -182,12 +185,27 @@ public class AccountsGUI extends JPanel {
                                         VATTransaction vatTransaction = vatTransactions.saleCN(amount, btwAmount);
                                         journalInputGUI.addVATTransaction(vatTransaction);
                                     }
-                                }sell(amount, suggestedAmount, debit, percentages[nr]);
+                                }
+                                sell(contact, amount, suggestedAmount, debit, percentages[nr]);
                             }
                         }
                     }
                 }
             }
+        }
+    }
+
+    private Contact getContact(Account account){
+        Contact contact = account.getContact();
+        if(contact!=null){
+            return contact;
+        } else {
+            ContactSelector contactSelector = ContactSelector.getContactSelector(contacts);
+            contactSelector.setVisible(true);
+            contact =  contactSelector.getSelection();
+            // TODO: null check needed here?
+            account.setContact(contact);
+            return contact;
         }
     }
 
@@ -243,14 +261,17 @@ public class AccountsGUI extends JPanel {
         return purchaseTypes[nr2];
     }
 
-    private void sell(BigDecimal amount, BigDecimal suggestedAmount, boolean debit, int pct) {
-        Account btwAccount = getDebitAccount();
-        if(btwAccount!=null) {
-            BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
-            if(btwAmount!=null) {
-                journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                VATTransaction vatTransaction = vatTransactions.sale(amount, btwAmount, pct);
+    private void sell(Contact contact, BigDecimal amount, BigDecimal suggestedAmount, boolean debit, int pct) {
+        Account vatAccount = getDebitAccount();
+        if(vatAccount!=null) {
+            BigDecimal vatAmount = journalInputGUI.askAmount(vatAccount, suggestedAmount);
+            if(vatAmount!=null) {
+                journalInputGUI.addBooking(new Booking(vatAccount, vatAmount, debit));
+                VATTransaction vatTransaction = vatTransactions.sale(amount, vatAmount, pct);
                 journalInputGUI.addVATTransaction(vatTransaction);
+                journalInputGUI.setTurnOverAmount(amount);
+                journalInputGUI.setVATAmount(vatAmount);
+                journalInputGUI.setContact(contact);
             }
         }
     }
@@ -294,8 +315,13 @@ public class AccountsGUI extends JPanel {
         setAccountTypes(accounting == null ? null : accounting.getAccountTypes());
         setAccounts(accounting == null ? null : accounting.getAccounts());
         setJournals(accounting == null ? null : accounting.getJournals());
+        setContacts(accounting == null ? null : accounting.getContacts());
         popup.setAccounting(accounting);
         setVatTransactions(accounting.getVatTransactions());
+    }
+
+    public void setContacts(Contacts contacts){
+        this.contacts = contacts;
     }
 
     public void setAccountTypes(AccountTypes accountTypes) {

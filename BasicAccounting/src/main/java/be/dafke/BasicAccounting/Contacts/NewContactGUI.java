@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Contacts;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.Contacts;
 import be.dafke.ComponentModel.RefreshableDialog;
@@ -70,7 +71,7 @@ public class NewContactGUI extends RefreshableDialog {
         contact.setAddressLine2(addr2);
         try {
             contacts.addBusinessObject(contact);
-//            Main.fireAccountDataChanged(account);
+            Main.fireContactDataChanged(contact);
         } catch (DuplicateNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, name);
         } catch (EmptyNameException e) {
