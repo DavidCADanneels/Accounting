@@ -49,7 +49,7 @@ public class TestBalance extends JFrame {
 		if(testBalance==null){
 			testBalance = new TestBalance(journals, accounts, journalInputGUI);
 			testBalanceMap.put(accounts,testBalance);
-			SaveAllActionListener.addFrame(testBalance);
+			Main.addFrame(testBalance);
 		}
 		testBalance.setVisible(true);
 		return testBalance;

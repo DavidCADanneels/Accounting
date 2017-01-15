@@ -6,8 +6,8 @@ package be.dafke.BasicAccounting.Accounts;
  */
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
-import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journals;
@@ -57,7 +57,7 @@ public class AccountDetails extends JFrame implements WindowListener {
 		if(accountDetails==null){
 			accountDetails = new AccountDetails(account, journals, journalInputGUI);
 			accountDetailsMap.put(account, accountDetails);
-			SaveAllActionListener.addFrame(accountDetails);
+			Main.addFrame(accountDetails);
 		}
 		accountDetails.setVisible(true);
 		return accountDetails;

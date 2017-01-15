@@ -3,10 +3,7 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;
-import java.util.Properties;
-import java.util.Set;
 import java.util.TreeMap;
-import java.util.TreeSet;
 
 /**
  * Created by ddanneels on 26/12/2015.
@@ -97,27 +94,6 @@ public class MortgageTransaction extends BusinessObject{
     public TreeMap<String, String> getUniqueProperties(){
         TreeMap<String,String> properties = new TreeMap<>();
         properties.put(NR,Integer.toString(nr));
-        return properties;
-    }
-
-    public static Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
-        keySet.add(NR);
-        keySet.add(MENSUALITY);
-        keySet.add(CAPITAL);
-        keySet.add(INTREST);
-        keySet.add(RESTCAPITAL);
-        return keySet;
-    }
-
-    @Override
-    public Properties getOutputProperties() {
-        Properties properties = new Properties();
-        properties.put(NR, nr);
-        properties.put(MENSUALITY, mensuality);
-        properties.put(CAPITAL, capital);
-        properties.put(INTREST, intrest);
-        properties.put(RESTCAPITAL, restCapital);
         return properties;
     }
 }

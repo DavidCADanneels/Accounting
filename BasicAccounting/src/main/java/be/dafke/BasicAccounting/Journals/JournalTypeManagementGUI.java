@@ -43,7 +43,7 @@ public class JournalTypeManagementGUI extends JFrame {
 		if(gui == null){
 			gui = new JournalTypeManagementGUI(journalTypes, accountTypes);
 			journalTypeManagementGuis.put(journalTypes,gui);
-			SaveAllActionListener.addFrame(gui);
+			Main.addFrame(gui);
 		}
 		gui.setVisible(true);
 	}

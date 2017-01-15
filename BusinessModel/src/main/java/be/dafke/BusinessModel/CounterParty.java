@@ -120,7 +120,6 @@ public class CounterParty extends BusinessObject {
 
     // KeySets and Properties
 
-    @Override
     public Properties getOutputProperties() {
         Properties properties = new Properties();
         properties.put(NAME,getName());

@@ -52,7 +52,7 @@ public class CounterPartyTableFrame extends JFrame implements MouseListener {
         if(gui == null){
             gui = new CounterPartyTableFrame(counterParties, statements);
             counterpartiesGuis.put(counterParties,gui);
-            SaveAllActionListener.addFrame(gui);
+            Main.addFrame(gui);
         }
         return gui;
     }

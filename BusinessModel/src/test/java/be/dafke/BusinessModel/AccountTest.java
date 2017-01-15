@@ -30,7 +30,6 @@ public class AccountTest {
         Account account = new Account("");
 //        assertNull(account.createNewChild());
         assertEquals(account.getName(), account.toString());
-        assertEquals(Account.MOVEMENT, account.getChildType());
 //        Set<String> initKeySet = account.getInitKeySet();
 //        assertTrue(initKeySet.contains(Account.TYPE));
 //        assertTrue(initKeySet.contains(Account.DEFAULTAMOUNT));

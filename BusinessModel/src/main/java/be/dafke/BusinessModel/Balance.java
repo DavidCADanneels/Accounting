@@ -1,10 +1,9 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
 
 /**
  * User: Dafke
@@ -22,36 +21,11 @@ public class Balance extends BusinessCollection<BalanceLine> {
     private ArrayList<AccountType> rightTypes = new ArrayList<>();
     private Accounts accounts;
 
-    public final static String NAME1 = "name1";
-    public final static String NAME2 = "name2";
-    public final static String AMOUNT1 = "amount1";
-    public final static String AMOUNT2 = "amount2";
 
-    public Balance(Accounts accounts) {
+    public Balance(String name, Accounts accounts) {
+        setName(name);
         this.accounts = accounts;
     }
-
-    @Override
-    public String getChildType(){
-        return "BalanceLine";
-    }
-
-    @Override
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<>();
-        keySet.add(NAME1);
-        keySet.add(NAME2);
-        keySet.add(AMOUNT1);
-        keySet.add(AMOUNT2);
-        return keySet;
-    }
-
-
-    @Override
-    public BalanceLine createNewChild(TreeMap<String, String> properties){
-        return null;
-    }
-
     @Override
     public boolean isDeletable(){
         return !(getName().equals(Balances.YEAR_BALANCE) || getName().equals(Balances.RESULT_BALANCE) || getName().equals(Balances.RELATIONS_BALANCE));
@@ -197,29 +171,6 @@ public class Balance extends BusinessCollection<BalanceLine> {
 
     public void setRightTypes(ArrayList<AccountType> rightTypes) {
         this.rightTypes = rightTypes;
-    }
-
-    @Override
-    public Properties getOutputProperties() {
-        Properties properties = new Properties();
-        properties.put(NAME, getName());
-        properties.put(Balances.LEFTNAME, leftName);
-        properties.put(Balances.RIGHTNAME, rightName);
-        properties.put(Balances.LEFTTOTALNAME, leftTotalName);
-        properties.put(Balances.RIGHTTOTALNAME, rightTotalName);
-        properties.put(Balances.LEFTRESULTNAME, leftResultName);
-        properties.put(Balances.RIGHTRESULTNAME, rightResultName);
-        ArrayList<String> leftTypesString = new ArrayList<>();
-        for(AccountType type:leftTypes){
-            leftTypesString.add(type.getName());
-        }
-        properties.put(Balances.LEFTTYPES, Utils.toString(leftTypesString));
-        ArrayList<String> righttTypesString = new ArrayList<>();
-        for(AccountType type:rightTypes){
-            righttTypesString.add(type.getName());
-        }
-        properties.put(Balances.RIGHTTYPES, Utils.toString(righttTypesString));
-        return properties;
     }
 
     public void addLeftType(AccountType type) {

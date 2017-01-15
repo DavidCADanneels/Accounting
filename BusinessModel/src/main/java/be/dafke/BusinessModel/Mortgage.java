@@ -1,16 +1,11 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.MustBeRead;
-import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.*;
 
-import static be.dafke.BusinessModel.MortgageTransaction.NR;
-
-public class Mortgage extends BusinessCollection<MortgageTransaction> implements MustBeRead {
-    public static final String MORTGAGE_TRANSACTION = "MortgageTransaction";
+public class Mortgage extends BusinessCollection<MortgageTransaction> {
 	private int alreadyPayed = 0;
 	private Account capital, intrest;
 	private BigDecimal startCapital;
@@ -24,39 +19,6 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
         startCapital = null;
         mortgageTransactions = new ArrayList<>();
 //        addSearchKey(NR);
-    }
-
-    @Override
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = super.getInitKeySet();
-        keySet.add("nr");
-        keySet.add("mensuality");
-        keySet.add("intrest");
-        keySet.add("capital");
-        keySet.add("restCapital");
-        return keySet;
-    }
-
-    @Override
-    public String getChildType() {
-        return MORTGAGE_TRANSACTION;
-    }
-
-    @Override
-    public String toString(){
-        return getName();
-    }
-
-    @Override
-    public MortgageTransaction createNewChild(TreeMap<String, String> properties) {
-        MortgageTransaction mortgageTransaction = new MortgageTransaction();
-        mortgageTransaction.setMortgage(this);
-        mortgageTransaction.setNr(Utils.parseInt(properties.get(NR)));
-        mortgageTransaction.setMensuality(Utils.parseBigDecimal(properties.get(MortgageTransaction.MENSUALITY)));
-        mortgageTransaction.setCapital(Utils.parseBigDecimal(properties.get(MortgageTransaction.CAPITAL)));
-        mortgageTransaction.setIntrest(Utils.parseBigDecimal(properties.get(MortgageTransaction.INTREST)));
-        mortgageTransaction.setRestCapital(Utils.parseBigDecimal(properties.get(MortgageTransaction.RESTCAPITAL)));
-        return mortgageTransaction;
     }
 
     public BigDecimal getTotalIntrest() {
@@ -160,23 +122,6 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> implements
 
     public void decreaseNrPayed(){
         alreadyPayed--;
-    }
-
-    @Override
-    public Properties getOutputProperties() {
-        Properties properties = new Properties();
-        properties.put(NAME,getName());
-        if(startCapital!=null){
-            properties.put(Mortgages.TOTAL, startCapital.toString());
-        }
-        properties.put(Mortgages.NRPAYED, Integer.toString(alreadyPayed));
-        if(capital!=null){
-            properties.put(Mortgages.CAPITAL_ACCOUNT,capital.getName());
-        }
-        if(intrest!=null){
-            properties.put(Mortgages.INTREST_ACCOUNT,intrest.getName());
-        }
-        return properties;
     }
 
     public void setAlreadyPayed(int alreadyPayed) {

@@ -74,7 +74,7 @@ public class StatementTableFrame extends JFrame implements MouseListener {
 		if(gui == null){
 			gui = new StatementTableFrame(statements, counterParties);
 			statementsGuis.put(statements,gui);
-			SaveAllActionListener.addFrame(gui);
+			Main.addFrame(gui);
 		}
 		return gui;
 	}
@@ -209,7 +209,7 @@ public class StatementTableFrame extends JFrame implements MouseListener {
                         transaction.setDescription(description);
                         journal.addBusinessObject(transaction);
 
-                        transaction = new Transaction(accounts, date, "");
+                        transaction = new Transaction(date, "");
                         // take the same date as previous transaction
                         // leave the description empty
 

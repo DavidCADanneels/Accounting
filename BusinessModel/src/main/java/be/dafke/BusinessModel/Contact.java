@@ -3,11 +3,6 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;
-import java.util.Properties;
-
-import static be.dafke.BusinessModel.Contacts.ADDRESS_LINE_1;
-import static be.dafke.BusinessModel.Contacts.ADDRESS_LINE_2;
-import static be.dafke.BusinessModel.Contacts.TVA_NUMBER;
 
 /**
  * Created by ddanneels on 15/11/2016.
@@ -63,14 +58,6 @@ public class Contact extends BusinessObject{
 
     public void setVatNumber(String vatNumber) {
         this.vatNumber = vatNumber;
-    }
-
-    public Properties getOutputProperties(){
-        Properties properties = super.getOutputProperties();
-        if(addressLine1!=null) properties.put(ADDRESS_LINE_1,addressLine1);
-        if(addressLine2!=null) properties.put(ADDRESS_LINE_2,addressLine2);
-        if(vatNumber !=null) properties.put(TVA_NUMBER, vatNumber);
-        return properties;
     }
 
     public String getPostalCode() {

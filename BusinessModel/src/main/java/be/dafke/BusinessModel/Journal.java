@@ -1,32 +1,31 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.MustBeRead;
 import be.dafke.Utils.MultiValueMap;
-import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Properties;
+import java.util.TreeMap;
 
 /**
  * Boekhoudkundig dagboek
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journal extends BusinessCollection<Transaction> implements MustBeRead {
+public class Journal extends BusinessCollection<Transaction> {
     private String abbreviation;
     protected final MultiValueMap<Calendar,Transaction> transactions;
     private JournalType type;
-    private Accounts accounts;
     private Transaction currentTransaction;
     private VATTransactions vatTransactions;
 
-    public Journal(Accounts accounts, String name, String abbreviation, VATTransactions vatTransactions) {
+    public Journal(String name, String abbreviation, VATTransactions vatTransactions) {
         setName(name);
         this.vatTransactions = vatTransactions;
-        this.accounts = accounts;
         setAbbreviation(abbreviation);
-        currentTransaction = new Transaction(accounts,Calendar.getInstance(),"");
+        currentTransaction = new Transaction(Calendar.getInstance(),"");
         transactions = new MultiValueMap<>();
 	}
 
@@ -37,26 +36,6 @@ public class Journal extends BusinessCollection<Transaction> implements MustBeRe
         outputMap.put(Journals.TYPE, getType().getName());
         outputMap.put(Journals.ABBREVIATION, getAbbreviation());
         return outputMap;
-    }
-
-    @Override
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<>();
-        keySet.add(Transaction.DATE);
-        keySet.add(Transaction.DESCRIPTION);
-        return keySet;
-    }
-
-    @Override
-    public Transaction createNewChild(TreeMap<String, String> properties){
-        Calendar date = Utils.toCalendar(properties.get(Transaction.DATE));
-        String description = properties.get(Transaction.DESCRIPTION);
-        return new Transaction(accounts, date, description);
-    }
-
-    @Override
-    public String getChildType(){
-        return "Transaction";
     }
 
     @Override

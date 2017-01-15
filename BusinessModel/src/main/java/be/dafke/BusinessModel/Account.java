@@ -5,11 +5,8 @@ import be.dafke.Utils.MultiValueMap;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
-import java.util.*;
-
-import static be.dafke.BusinessModel.Movement.CREDIT;
-import static be.dafke.BusinessModel.Movement.DEBIT;
-import static be.dafke.BusinessModel.Movement.ID;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
   * Boekhoudkundige rekening
@@ -17,10 +14,6 @@ import static be.dafke.BusinessModel.Movement.ID;
   * @since 01/10/2010
  */
 public class Account extends BusinessCollection<Movement> {
-    public static final String TYPE = "type";
-    public static final String DEFAULTAMOUNT = "defaultAmount";
-    public static final String NUMBER = "number";
-    public static final String MOVEMENT = "Movement";
     private AccountType type;
     private BigDecimal debitTotal, creditTotal;
     private final MultiValueMap<Calendar,Movement> movements;
@@ -38,28 +31,8 @@ public class Account extends BusinessCollection<Movement> {
     }
 
     @Override
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<>();
-        keySet.add(NAME);
-        keySet.add(ID);
-        keySet.add(DEBIT);
-        keySet.add(CREDIT);
-        return keySet;
-    }
-
-    @Override
-    public Movement createNewChild(TreeMap<String, String> properties){
-        return null;
-    }
-
-    @Override
     public String toString(){
         return getName();
-    }
-
-    @Override
-    public String getChildType(){
-        return MOVEMENT;
     }
 
     public void setType(AccountType type) {
@@ -143,21 +116,6 @@ public class Account extends BusinessCollection<Movement> {
     public void removeBusinessObject(Movement movement){
         Calendar date = movement.getDate();
         unbook(date,movement);
-    }
-
-    @Override
-    public Properties getOutputProperties() {
-        Properties outputMap = new Properties();
-        outputMap.put(NAME,getName());
-        // FIXME NullPointerException if type==null / Type must be defined
-        outputMap.put(TYPE, getType().getName());
-        if(defaultAmount!=null){
-            outputMap.put(DEFAULTAMOUNT, defaultAmount.toString());
-        }
-        if(number!=null){
-            outputMap.put(NUMBER, number.toString());
-        }
-        return outputMap;
     }
 
     public Contact getContact() {

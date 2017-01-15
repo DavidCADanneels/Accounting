@@ -4,8 +4,6 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import java.util.TreeMap;
-
 /**
  * User: Dafke
  * Date: 9/03/13
@@ -21,16 +19,6 @@ public class AccountTypes extends BusinessCollection<AccountType>{
     public static final String TAXDEBIT = "TaxDebit";
     public static final String TAXCREDIT = "TaxCredit";
     public static final String ACCOUNT_TYPE = "AccountType";
-
-    @Override
-    public String getChildType(){
-        return ACCOUNT_TYPE;
-    }
-
-    @Override
-    public AccountType createNewChild(TreeMap<String, String> properties) {
-        return new AccountType();
-    }
 
     public void addDefaultTypes() {
         AccountType active = new AccountType();

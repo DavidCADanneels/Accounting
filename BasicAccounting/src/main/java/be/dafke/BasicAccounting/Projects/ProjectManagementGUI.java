@@ -109,7 +109,7 @@ public class ProjectManagementGUI extends JFrame implements ListSelectionListene
 		if (gui == null) {
 			gui = new ProjectManagementGUI(accounts, accountTypes, projects);
 			projectManagementGuis.put(projects, gui);
-			SaveAllActionListener.addFrame(gui);
+			Main.addFrame(gui);
 		}
 		return gui;
 	}

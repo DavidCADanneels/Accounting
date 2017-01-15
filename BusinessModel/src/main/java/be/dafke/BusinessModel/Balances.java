@@ -4,13 +4,8 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.ObjectModel.MustBeRead;
-import be.dafke.Utils.Utils;
 
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -19,19 +14,7 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 27/02/13
  * Time: 12:07
  */
-public class Balances extends BusinessCollection<Balance> implements MustBeRead, ChildrenNeedSeparateFile {
-
-    public static final String BALANCES = "Balances";
-    public static final String BALANCE = "Balance";
-
-    public final static String LEFTNAME = "LeftName";
-    public final static String RIGHTNAME = "RightName";
-    public final static String LEFTTOTALNAME = "LeftTotalName";
-    public final static String RIGHTTOTALNAME = "RightTotalName";
-    public final static String LEFTRESULTNAME = "LeftResultName";
-    public final static String RIGHTRESULTNAME = "RightResultName";
-    public final static String LEFTTYPES = "LeftTypes";
-    public final static String RIGHTTYPES = "RightTypes";
+public class Balances extends BusinessCollection<Balance> implements ChildrenNeedSeparateFile {
 
     public static String RESULT_BALANCE = "ResultBalance";
     public static String RELATIONS_BALANCE = "RelationsBalance";
@@ -43,28 +26,7 @@ public class Balances extends BusinessCollection<Balance> implements MustBeRead,
     public Balances(Accounts accounts, AccountTypes accountTypes) {
         this.accounts = accounts;
         this.accountTypes = accountTypes;
-        setName(BALANCES);
 //        addDefaultBalances();
-    }
-
-    @Override
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<>();
-        keySet.add(NAME);
-        keySet.add(LEFTNAME);
-        keySet.add(RIGHTNAME);
-        keySet.add(LEFTTOTALNAME);
-        keySet.add(RIGHTTOTALNAME);
-        keySet.add(LEFTRESULTNAME);
-        keySet.add(RIGHTRESULTNAME);
-        keySet.add(LEFTTYPES);
-        keySet.add(RIGHTTYPES);
-        return keySet;
-    }
-
-    @Override
-    public String getChildType() {
-        return BALANCE;
     }
 
     public void addDefaultBalances() {
@@ -113,8 +75,7 @@ public class Balances extends BusinessCollection<Balance> implements MustBeRead,
     }
 
     public Balance createRelationsBalance(Accounts accounts, ArrayList<AccountType> credit, ArrayList<AccountType> debit){
-        Balance relationsBalance = new Balance(accounts);
-        relationsBalance.setName(RELATIONS_BALANCE);
+        Balance relationsBalance = new Balance(RELATIONS_BALANCE, accounts);
         relationsBalance.setLeftName(getBundle("BusinessModel").getString("FUNDS_FROM_CUSTOMERS"));
         relationsBalance.setRightName(getBundle("BusinessModel").getString("DEBTS_TO_SUPPLIERS"));
         relationsBalance.setLeftTotalName(getBundle("BusinessModel").getString("FUNDS_TOTAL"));
@@ -128,8 +89,7 @@ public class Balances extends BusinessCollection<Balance> implements MustBeRead,
 
 
     public Balance createClosingBalance(Accounts accounts, ArrayList<AccountType> active, ArrayList<AccountType> passive){
-        Balance yearBalance = new Balance(accounts);
-        yearBalance.setName(YEAR_BALANCE);
+        Balance yearBalance = new Balance(YEAR_BALANCE,accounts);
         yearBalance.setLeftName(getBundle("BusinessModel").getString("ASSETS"));
         yearBalance.setRightName(getBundle("BusinessModel").getString("LIABILITIES"));
         yearBalance.setLeftTotalName(getBundle("BusinessModel").getString("ASSETS_FUNDS_TOTAL"));
@@ -143,8 +103,7 @@ public class Balances extends BusinessCollection<Balance> implements MustBeRead,
 
     public Balance createResultBalance(Accounts accounts, ArrayList<AccountType> costs, ArrayList<AccountType> revenues){
 
-        Balance resultBalance = new Balance(accounts);
-        resultBalance.setName(RESULT_BALANCE);
+        Balance resultBalance = new Balance(RESULT_BALANCE,accounts);
         resultBalance.setLeftName(getBundle("BusinessModel").getString("COSTS"));
         resultBalance.setRightName(getBundle("BusinessModel").getString("REVENUES"));
         resultBalance.setLeftTotalName(getBundle("BusinessModel").getString("COSTS_TOTAL"));
@@ -154,34 +113,6 @@ public class Balances extends BusinessCollection<Balance> implements MustBeRead,
         resultBalance.setLeftTypes(costs);
         resultBalance.setRightTypes(revenues);
         return resultBalance;
-    }
-
-    @Override
-    public Balance createNewChild(TreeMap<String, String> properties) {
-        Balance balance = new Balance(accounts);
-        balance.setName(properties.get(NAME));
-        balance.setLeftName(properties.get(Balances.LEFTNAME));
-        balance.setRightName(properties.get(Balances.RIGHTNAME));
-        balance.setLeftTotalName(properties.get(Balances.LEFTTOTALNAME));
-        balance.setRightTotalName(properties.get(Balances.RIGHTTOTALNAME));
-        balance.setLeftResultName(properties.get(Balances.LEFTRESULTNAME));
-        balance.setRightResultName(properties.get(Balances.RIGHTRESULTNAME));
-
-        ArrayList<String> leftTypesString = Utils.parseStringList(properties.get(Balances.LEFTTYPES));
-        ArrayList<AccountType> leftTypes = new ArrayList<>();
-        for(String s: leftTypesString){
-            leftTypes.add(accountTypes.getBusinessObject(s));
-        }
-        balance.setLeftTypes(leftTypes);
-
-        ArrayList<String> rightTypesString = Utils.parseStringList(properties.get(Balances.RIGHTTYPES));
-        ArrayList<AccountType> rightTypes = new ArrayList<>();
-        for(String s: rightTypesString){
-            rightTypes.add(accountTypes.getBusinessObject(s));
-        }
-        balance.setRightTypes(rightTypes);
-
-        return balance;
     }
 
     @Override

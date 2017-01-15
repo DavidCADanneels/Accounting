@@ -26,15 +26,13 @@ public class Transaction extends BusinessCollection<Booking> {
     private Calendar date = null;
 
     private final ArrayList<Booking> bookings;
-    private Accounts accounts;
     private Mortgage mortgage = null;
     private ArrayList<VATTransaction> vatTransactions;
     private BigDecimal VATAmount;
     private BigDecimal turnOverAmount;
     private Contact contact;
 
-    public Transaction(Accounts accounts, Calendar date, String description) {
-        this.accounts = accounts;
+    public Transaction(Calendar date, String description) {
         this.date = date==null?Calendar.getInstance():date;
         this.description = description;
 		debitTotal = new BigDecimal(0);
@@ -58,36 +56,6 @@ public class Transaction extends BusinessCollection<Booking> {
         return new TreeMap<>();
     }
 
-    @Override
-    public Booking createNewChild(TreeMap<String, String> properties){
-        Account account = accounts.getBusinessObject(properties.get(Booking.ACCOUNT));
-        String debitString = properties.get(Booking.DEBIT);
-        String creditString = properties.get(Booking.CREDIT);
-        boolean debit= true;
-        BigDecimal amount = BigDecimal.ZERO;
-        if(debitString!=null){
-            debit = true;
-            amount = new BigDecimal(debitString);
-            if(creditString!=null){
-                System.err.println("Movement cannot contain both 'debit' and 'credit' !!!");
-            }
-        } else if(creditString!=null){
-            debit = false;
-            amount = new BigDecimal(creditString);
-        } else {
-            System.err.println("No 'debit' or 'credit' tag found in Movement !!!");
-        }
-        int id = Utils.parseInt(properties.get(Booking.ID));
-        return new Booking(account, amount, debit, id);
-//        return new Booking(accounts, properties);
-    }
-
-    @Override
-    public String getChildType(){
-        return "Booking";
-    }
-
-    @Override
     public Properties getOutputProperties() {
         Properties properties = new Properties();
         properties.put(ID, new Integer(journal.getId(this)).toString());
@@ -96,16 +64,6 @@ public class Transaction extends BusinessCollection<Booking> {
         properties.put(BOOKINGS, bookings);
 
         return properties;
-    }
-    // FOR READING
-    // Define keys to read from xml, required to initialize Object attributes
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
-        keySet.add(Booking.ID);
-        keySet.add(Booking.ACCOUNT);
-        keySet.add(Booking.DEBIT);
-        keySet.add(Booking.CREDIT);
-        return keySet;
     }
 
 	public BigDecimal getDebetTotaal() {

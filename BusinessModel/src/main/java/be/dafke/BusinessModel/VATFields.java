@@ -3,29 +3,21 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.ObjectModel.MustBeRead;
-import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
-import static be.dafke.BusinessModel.VATField.AMOUNT;
-import static be.dafke.BusinessModel.VATTransactions.VAT_FIELDS;
 
 /**
  * Created by ddanneels on 28/12/2016.
  */
-public class VATFields extends BusinessCollection<VATField> implements MustBeRead {
+public class VATFields extends BusinessCollection<VATField> {
 
     public static final String VATFIELD = "VATField";
 
     public VATFields(VATFields vatFields) {
         setName(VATFIELD);
         try {
-            for(VATField vatField : vatFields.getBusinessObjects()) {
+            for (VATField vatField : vatFields.getBusinessObjects()) {
                 addBusinessObject(vatField);
             }
         } catch (EmptyNameException e) {
@@ -33,9 +25,6 @@ public class VATFields extends BusinessCollection<VATField> implements MustBeRea
         } catch (DuplicateNameException e) {
             e.printStackTrace();
         }
-    }
-    public VATFields() {
-        setName(VAT_FIELDS);
     }
 
     public void addDefaultFields(){
@@ -63,30 +52,6 @@ public class VATFields extends BusinessCollection<VATField> implements MustBeRea
         } catch (DuplicateNameException e) {
             e.printStackTrace();
         }
-    }
-
-    @Override
-    public String getChildType() {
-        return VATFIELD;
-    }
-
-    @Override
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<>();
-        keySet.add(NAME);
-        keySet.add(AMOUNT);
-        return keySet;
-    }
-
-    @Override
-    public VATField createNewChild(TreeMap<String, String> properties) {
-        String name = properties.get(NAME);
-        String amountString = properties.get(AMOUNT);
-        VATField vatField = new VATField(name);
-        BigDecimal amount = amountString==null?BigDecimal.ZERO:Utils.parseBigDecimal(amountString);
-        // TODO: remove this setAmount when we can read old transactions from XML
-        vatField.setAmount(amount);
-        return vatField;
     }
 
     public ArrayList<VATField> getAllFields(){

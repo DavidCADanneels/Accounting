@@ -4,11 +4,12 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.ObjectModel.MustBeRead;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 /**
@@ -16,18 +17,13 @@ import java.util.stream.Collectors;
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Accounts extends BusinessCollection<Account> implements ChildrenNeedSeparateFile, MustBeRead {
+public class Accounts extends BusinessCollection<Account> implements ChildrenNeedSeparateFile {
     public static final String ACCOUNT = "Account";
     private AccountTypes accountTypes;
 
     public Accounts(AccountTypes accountTypes) {
         this.accountTypes = accountTypes;
         setName("Accounts");
-    }
-
-    @Override
-    public String getChildType(){
-        return ACCOUNT;
     }
 
     public BigDecimal getSumOfAccountsByNumber(String prefix){
@@ -64,16 +60,6 @@ public class Accounts extends BusinessCollection<Account> implements ChildrenNee
 		return list;
 	}
 
-    @Override
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<>();
-        keySet.add(NAME);
-        keySet.add(Account.TYPE);
-        keySet.add(Account.DEFAULTAMOUNT);
-        keySet.add(Account.NUMBER);
-        return keySet;
-    }
-
 	public Account modifyAccountName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
         Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, oldName);
         Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, newName);
@@ -81,31 +67,4 @@ public class Accounts extends BusinessCollection<Account> implements ChildrenNee
 //        account.setName(newName.trim());
         return modify(oldEntry, newEntry);
 	}
-
-    @Override
-    public Account createNewChild(TreeMap<String, String> properties) {
-        String name = properties.get(NAME);
-        Account account = new Account(name);
-        String typeName = properties.get(Account.TYPE);
-        if(typeName!=null){
-            account.setType(accountTypes.getBusinessObject(typeName));
-        }
-        String defaultAmountString = properties.get(Account.DEFAULTAMOUNT);
-        if(defaultAmountString!=null){
-            try{
-                account.setDefaultAmount(new BigDecimal(defaultAmountString));
-            } catch (NumberFormatException nfe){
-                account.setDefaultAmount(null);
-            }
-        }
-        String numberString = properties.get(Account.NUMBER);
-        if(numberString!=null){
-            try{
-                account.setNumber(new BigInteger(numberString));
-            } catch (NumberFormatException nfe){
-                account.setNumber(null);
-            }
-        }
-        return account;
-    }
 }

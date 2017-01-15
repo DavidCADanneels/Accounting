@@ -9,7 +9,6 @@
         <module>Utils</module>
         <module>ObjectModel</module>
         <module>ComponentModel</module>
-        <module>ObjectModelDao</module>
         <module>BasicAccounting</module>
 		<module>BusinessModel</module>
 		<module>BusinessModelDao</module>

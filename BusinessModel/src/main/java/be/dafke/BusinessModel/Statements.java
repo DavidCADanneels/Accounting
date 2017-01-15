@@ -35,11 +35,6 @@ public class Statements extends BusinessCollection<BusinessObject> {
 
     }
 
-    @Override
-    public String getChildType(){
-        return STATEMENT;
-    }
-
     public ArrayList<Statement> getStatements(SearchOptions searchOptions) {
 		ArrayList<Statement> result = new ArrayList<Statement>();
         CounterParty counterParty = searchOptions.getCounterParty();
@@ -59,7 +54,6 @@ public class Statements extends BusinessCollection<BusinessObject> {
 		return result;
 	}
 
-    @Override
     public Statement createNewChild(TreeMap<String, String> properties) {
         Statement statement = new Statement();
         statement.setName(properties.get(NAME));

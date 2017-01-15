@@ -93,7 +93,7 @@ public class ProjectGUI extends JFrame {
         if (gui == null) {
             gui = new ProjectGUI(accounts, accountTypes, projects);
             projectGuis.put(projects, gui);
-            SaveAllActionListener.addFrame(gui);
+            Main.addFrame(gui);
         }
         return gui;
     }

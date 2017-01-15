@@ -10,18 +10,9 @@ import java.util.TreeMap;
  */
 public class BusinessObject {
     private String name;
-    protected String businessObjectType;
     public final static String NAME = "name";
 
 //    private boolean isSaved;
-
-    public BusinessObject(){
-        businessObjectType = this.getClass().getSimpleName();
-    }
-
-    public String getBusinessObjectType() {
-        return businessObjectType;
-    }
 
     @Override
     public String toString() {

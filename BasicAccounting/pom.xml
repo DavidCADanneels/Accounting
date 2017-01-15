@@ -26,10 +26,6 @@
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>BusinessModelDao</artifactId>
         </dependency>
-        <!--<dependency>-->
-            <!--<groupId>be.dafke.Accounting</groupId>-->
-            <!--<artifactId>ObjectModelDao</artifactId>-->
-        <!--</dependency>-->
         <dependency>
             <groupId>be.dafke.Accounting</groupId>
             <artifactId>Utils</artifactId>

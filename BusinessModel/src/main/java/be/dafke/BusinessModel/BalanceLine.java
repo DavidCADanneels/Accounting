@@ -2,7 +2,6 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessObject;
 
-import java.util.Properties;
 import java.util.TreeMap;
 
 /**
@@ -20,21 +19,14 @@ public class BalanceLine extends BusinessObject {
 
     @Override
     public TreeMap<String, String> getUniqueProperties(){
-        return new TreeMap<String, String>();
+        return new TreeMap<>();
     }
 
-    @Override
-    public Properties getOutputProperties(){
-        Properties properties = new Properties();
-        if(leftAccount!=null){
-            properties.put(Balance.NAME1,leftAccount.getName());
-            properties.put(Balance.AMOUNT1,leftAccount.getSaldo().toString());
-        }
-        if(rightAccount!=null){
-            properties.put(Balance.NAME2,rightAccount.getName());
-            properties.put(Balance.AMOUNT2, rightAccount.getSaldo().negate().toString());
-        }
-        return properties;
+    public Account getLeftAccount() {
+        return leftAccount;
     }
 
+    public Account getRightAccount() {
+        return rightAccount;
+    }
 }

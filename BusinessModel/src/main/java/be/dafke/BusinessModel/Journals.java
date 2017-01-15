@@ -4,56 +4,23 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.ObjectModel.MustBeRead;
 
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.Map;
 
 /**
  * Serialiseerbare map die alle dagboeken bevat
  * @author David Danneels
  * @since 01/10/2010
  */
-public class Journals extends BusinessCollection<Journal> implements ChildrenNeedSeparateFile, MustBeRead {
+public class Journals extends BusinessCollection<Journal> implements ChildrenNeedSeparateFile {
     public static final String TYPE = "type";
     public static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
 
-    private final Accounts accounts;
-    private final JournalTypes journalTypes;
-    private final VATTransactions vatTransactions;
-
-    @Override
-    public String getChildType(){
-        return "Journal";
-    }
-
-    public Journals(Accounts accounts, JournalTypes journalTypes, VATTransactions vatTransactions) {
-        this.accounts = accounts;
-        this.journalTypes = journalTypes;
-        this.vatTransactions = vatTransactions;
+    public Journals() {
         addSearchKey(ABBREVIATION);
-        setName("Journals");
 	}
-
-    @Override
-    public Journal createNewChild(TreeMap<String, String> properties) {
-        String name = properties.get(NAME);
-        String abbreviation = properties.get(ABBREVIATION);
-        String typeName = properties.get(TYPE);
-        Journal journal = new Journal(accounts, name, abbreviation, vatTransactions);
-        if(typeName!=null){
-            journal.setType(journalTypes.getBusinessObject(typeName));
-        }
-        return journal;
-    }
-
-    @Override
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<String>();
-        keySet.add(NAME);
-        keySet.add(ABBREVIATION);
-        keySet.add(TYPE);
-        return keySet;
-    }
 
    /* @Override
     public void readCollection() {

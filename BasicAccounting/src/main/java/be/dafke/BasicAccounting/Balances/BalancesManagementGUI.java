@@ -48,7 +48,7 @@ public class BalancesManagementGUI extends JFrame implements FocusListener {
 		if(gui == null){
 			gui = new BalancesManagementGUI(balances, accounts, accountTypes);
 			balancesManagementGuis.put(balances,gui);
-			SaveAllActionListener.addFrame(gui);
+			Main.addFrame(gui);
 		}
 		gui.setVisible(true);
 	}
@@ -151,8 +151,7 @@ public class BalancesManagementGUI extends JFrame implements FocusListener {
 		while (name != null && name.equals(""))
 			name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
 		if (name != null) {
-			Balance balance = new Balance(accounts);
-			balance.setName(name);
+			Balance balance = new Balance(name,accounts);
 			try {
 				balances.addBusinessObject(balance);
 				Main.fireBalancesChanged();

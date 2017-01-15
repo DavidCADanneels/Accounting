@@ -4,12 +4,11 @@ import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
-import be.dafke.ObjectModel.MustBeRead;
 
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-public class JournalType extends BusinessObject implements MustBeRead {
+public class JournalType extends BusinessObject {
 
     public static final String DEBIT_TYPES = "debitTypes";
     public static final String CREDIT_TYPES = "creditTypes";
@@ -42,7 +41,8 @@ public class JournalType extends BusinessObject implements MustBeRead {
     }
 
     public Properties getOutputProperties(){
-        Properties properties = super.getOutputProperties();
+        Properties properties = new Properties();
+        properties.put(NAME,getName());
         String debitStream = debetTypes.getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
         String creditStream = creditTypes.getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
         properties.put(DEBIT_TYPES,debitStream);

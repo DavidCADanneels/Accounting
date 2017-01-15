@@ -34,7 +34,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     private BigDecimal debettotaal, credittotaal;
 
     private Journal journal;
-    private Accounts accounts;
     private Transaction transaction;
 
     public JournalInputGUI() {
@@ -243,7 +242,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     }
 
     public void clear() {
-        transaction = new Transaction(accounts, getDate(), "");
+        transaction = new Transaction(getDate(), "");
         transaction.setJournal(journal);
         journal.setCurrentObject(transaction);
         setTransaction(transaction);
@@ -266,7 +265,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
     public void setAccounting(Accounting accounting){
         popup.setAccounting(accounting);
-        accounts = (accounting==null)?null:accounting.getAccounts();
         setJournals(accounting==null?null:accounting.getJournals());
     }
 
@@ -394,7 +392,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
             int answer = JOptionPane.showConfirmDialog(null, builder.toString());
             if(answer == JOptionPane.YES_OPTION){
                 newJournal.setCurrentObject(transaction);
-                oldJournal.setCurrentObject(new Transaction(accounts, Calendar.getInstance(), ""));
+                oldJournal.setCurrentObject(new Transaction(Calendar.getInstance(), ""));
                 return newJournal;
             } else if(answer == JOptionPane.NO_OPTION){
                 oldJournal.setCurrentObject(transaction);

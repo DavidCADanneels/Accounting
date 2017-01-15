@@ -3,16 +3,11 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.ObjectModel.MustBeRead;
-
-import java.util.TreeMap;
 
 /**
  * @author David Danneels
  */
-public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> implements MustBeRead, ChildrenNeedSeparateFile {
+public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> implements ChildrenNeedSeparateFile {
     private final AccountTypes accountTypes;
     private final Accounts accounts;
 	private final Journals journals;
@@ -24,13 +19,10 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     private VATTransactions vatTransactions;
     private VATFields vatFields;
     private Contact companyContact;
+    private boolean read = false;
 
-    @Override
-    public String getChildType(){
-        return Accountings.ACCOUNTING;
-    }
-
-    public Accounting() {
+    public Accounting(String name) {
+        setName(name);
         accountTypes = new AccountTypes();
 //        TODO: remove this line once we safe AccountTypes in a separate file
         accountTypes.addDefaultTypes();
@@ -38,49 +30,22 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
         companyContact = new Contact();
 
-        journalTypes = new JournalTypes(accountTypes);
+        journalTypes = new JournalTypes();
 //        journalTypes.addDefaultType(accountTypes);
 
         vatFields = new VATFields();
-        vatTransactions = new VATTransactions(accounts, vatFields);
+        vatTransactions = new VATTransactions(vatFields);
 
-        journals = new Journals(accounts, journalTypes, vatTransactions);
+        journals = new Journals();
 
         balances = new Balances(accounts, accountTypes);
 
         contacts = new Contacts();
 
-        mortgages = new Mortgages(accounts);
+        mortgages = new Mortgages();
 
-        projects = new Projects(accounts, accountTypes);
-
-        try {
-//            addBusinessObject((BusinessCollection)accountTypes);
-            addBusinessObject((BusinessCollection)accounts);
-            addBusinessObject((BusinessCollection)journalTypes);
-            addBusinessObject((BusinessCollection)journals);
-            addBusinessObject((BusinessCollection)balances);
-            addBusinessObject((BusinessCollection)contacts);
-            addBusinessObject((BusinessCollection)mortgages);
-            addBusinessObject((BusinessCollection)projects);
-            addBusinessObject((BusinessCollection)vatFields);
-            addBusinessObject((BusinessCollection)vatTransactions);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (DuplicateNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+        projects = new Projects();
 	}
-
-    public String toString(){
-        return getName();
-    }
-
-    @Override
-    public BusinessCollection createNewChild(TreeMap<String, String> properties) {
-       System.err.println("Never called ??");
-        return null;
-    }
 
     // Collections
     //
@@ -126,5 +91,13 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     public Contact getCompanyContact() {
         return companyContact;
+    }
+
+    public boolean isRead() {
+        return read;
+    }
+
+    public void setRead(boolean read) {
+        this.read = read;
     }
 }

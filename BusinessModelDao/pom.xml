@@ -18,8 +18,8 @@
             <artifactId>BusinessModel</artifactId>
         </dependency>
         <dependency>
-            <groupId>be.dafke.Accounting</groupId>
-            <artifactId>ObjectModelDao</artifactId>
+            <groupId>org.apache.xmlgraphics</groupId>
+            <artifactId>fop</artifactId>
         </dependency>
     </dependencies>
 

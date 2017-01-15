@@ -40,7 +40,7 @@ public class VATGUI extends JFrame {
         if(gui==null){
             gui = new VATGUI(vatFields);
             vatGuis.put(vatFields,gui);
-            SaveAllActionListener.addFrame(gui);
+            Main.addFrame(gui);
         }
         return gui;
     }

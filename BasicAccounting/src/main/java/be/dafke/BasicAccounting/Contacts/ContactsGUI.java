@@ -20,7 +20,7 @@ public class ContactsGUI extends JFrame{
         if (gui == null) {
             gui = new ContactsGUI(contacts);
             contactGuis.put(contacts,gui);
-            SaveAllActionListener.addFrame(gui);
+            Main.addFrame(gui);
         }
         return gui;
     }
@@ -30,7 +30,7 @@ public class ContactsGUI extends JFrame{
         if (gui == null) {
             gui = new ContactsGUI(contacts);
             contactGuis.put(contacts,gui);
-            SaveAllActionListener.addFrame(gui);
+            Main.addFrame(gui);
         }
         return gui;
     }

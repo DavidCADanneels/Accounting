@@ -1,31 +1,15 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.MustBeRead;
 
 import java.math.BigDecimal;
-import java.util.Properties;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
-
-import static be.dafke.BusinessModel.MortgageTransaction.NR;
-import static be.dafke.BusinessModel.VATField.AMOUNT;
 
 /**
  * Created by ddanneels on 25/12/2016.
  */
-public class VATTransactions extends BusinessCollection<VATTransaction> implements MustBeRead {
-    public static final String VATFIELD = "VATField";
-    public static final String VAT_FIELDS = "VATFields";
-    public static final String VAT_TRANSACTIONS = "VATTransactions";
-    public static final String DEBIT_ACCOUNT = "DebitAccount";
-    public static final String CREDIT_ACCOUNT = "CreditAccount";
-    public static final String DEBIT_CN_ACCOUNT = "DebitCNAccount";
-    public static final String CREDIT_CN_ACCOUNT = "CreditCNAccount";
+public class VATTransactions extends BusinessCollection<VATTransaction> {
     private final VATFields vatFields;
     private Account creditAccount, debitAccount, creditCNAccount, debitCNAccount;
-    private Accounts accounts;
     private Integer[] vatPercentages = new Integer[]{0, 6, 12, 21};
 //    private VATTransaction vatTransaction = new VATTransaction();
 
@@ -65,75 +49,8 @@ public class VATTransactions extends BusinessCollection<VATTransaction> implemen
         this.debitCNAccount = debitCNAccount;
     }
 
-    public VATTransactions(Accounts accounts, VATFields vatFields) {
-        setName(VAT_TRANSACTIONS);
-        this.accounts = accounts;
+    public VATTransactions(VATFields vatFields) {
         this.vatFields = vatFields;
-    }
-
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<>();
-        keySet.add(NR);
-        keySet.add(AMOUNT);
-        return keySet;
-    }
-
-    @Override
-    public String getChildType() {
-        return VATFIELD;
-    }
-
-    @Override
-    public VATTransaction createNewChild(TreeMap<String, String> properties) {
-
-        return null;
-    }
-
-    @Override
-    public Set<String> getExtraFields() {
-        Set<String> set = new TreeSet<>();
-        set.add(DEBIT_ACCOUNT);
-        set.add(CREDIT_ACCOUNT);
-        set.add(DEBIT_CN_ACCOUNT);
-        set.add(CREDIT_CN_ACCOUNT);
-        return set;
-    }
-
-    @Override
-    public void setExtraProperties(TreeMap<String,String> extraProperties) {
-        String debitAccountString = extraProperties.get(DEBIT_ACCOUNT);
-        if(debitAccountString!=null) {
-            debitAccount = accounts.getBusinessObject(debitAccountString);
-        }
-        String creditAccountString = extraProperties.get(CREDIT_ACCOUNT);
-        if(creditAccountString!=null) {
-            creditAccount = accounts.getBusinessObject(creditAccountString);
-        }
-        String debitCNAccountString = extraProperties.get(DEBIT_CN_ACCOUNT);
-        if(debitCNAccountString!=null) {
-            debitCNAccount = accounts.getBusinessObject(debitCNAccountString);
-        }
-        String creditCNAccountString = extraProperties.get(CREDIT_CN_ACCOUNT);
-        if(creditCNAccountString!=null) {
-            creditCNAccount = accounts.getBusinessObject(creditCNAccountString);
-        }
-    }
-
-    public Properties getOutputProperties(){
-        Properties outputProperties = super.getOutputProperties();
-        if(debitAccount!=null) {
-            outputProperties.put(DEBIT_ACCOUNT, debitAccount);
-        }
-        if(creditAccount!=null) {
-            outputProperties.put(CREDIT_ACCOUNT, creditAccount);
-        }
-        if(debitCNAccount!=null) {
-            outputProperties.put(DEBIT_CN_ACCOUNT, debitCNAccount);
-        }
-        if(creditCNAccount!=null) {
-            outputProperties.put(CREDIT_CN_ACCOUNT, creditCNAccount);
-        }
-        return outputProperties;
     }
 
     @Override

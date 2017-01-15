@@ -18,12 +18,6 @@ public class CounterParties extends BusinessCollection<BusinessObject> {
     public static final String ALIAS = "Alias";
     public static final String ADDRESS = "Address";
 
-
-    @Override
-    public String getChildType(){
-        return COUNTERPARTY;
-    }
-
     public CounterParties(Accounting accounting){
         addSearchKey(ACCOUNTNUMBER);
         setName(COUNTERPARTIES);
@@ -36,7 +30,6 @@ public class CounterParties extends BusinessCollection<BusinessObject> {
         }
     }
 
-    @Override
     public Set<String> getInitKeySet() {
         Set<String> keySet = new TreeSet<String>();
         keySet.add(NAME);
@@ -48,7 +41,6 @@ public class CounterParties extends BusinessCollection<BusinessObject> {
         return keySet;
     }
 
-    @Override
     public CounterParty createNewChild(TreeMap<String, String> properties) {
         CounterParty counterParty = new CounterParty();
         counterParty.setName(properties.get(NAME));

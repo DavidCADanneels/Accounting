@@ -17,13 +17,17 @@ import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BasicAccounting.VAT.VATGUI;
 import be.dafke.BasicAccounting.VAT.VATMenu;
 import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModelDao.XMLReader;
+import be.dafke.BusinessModelDao.XMLWriter;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.ObjectModelDao.XMLReader;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.io.File;
+import java.util.ArrayList;
 
 import static be.dafke.BasicAccounting.Journals.JournalManagementGUI.fireJournalDataChangedForAll;
 import static javax.swing.JSplitPane.*;
@@ -34,6 +38,8 @@ import static javax.swing.JSplitPane.*;
  * Time: 22:07
  */
 public class Main {
+    private static final ArrayList<JFrame> disposableComponents = new ArrayList<>();
+
     protected static Accountings accountings;
     private static File xmlFolder;
     private static File xslFolder;
@@ -83,7 +89,13 @@ public class Main {
 
     private static void setCloseOperation(){
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        frame.addWindowListener(new SaveAllActionListener(accountings));
+        frame.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                Main.closeAllFrames();
+                Main.saveData();
+            }
+        });
     }
 
     public static JPanel createContentPanel(){
@@ -137,38 +149,31 @@ public class Main {
     }
 
     private static void launchFrame(){
-        SaveAllActionListener.addFrame(frame); // MAIN
+        Main.addFrame(frame); // MAIN
         frame.pack();
         frame.setVisible(true);
     }
 
     private static void readXmlData() {
-        setXmlFolder();
-        accountings = new Accountings(xmlFolder, xslFolder, htmlFolder);
-        if(!xmlFolder.exists()){
-            xmlFolder.mkdirs();
-        }
-        File subFolder = new File(xmlFolder, Accountings.ACCOUNTINGS);
-        if(!subFolder.exists()){
-            subFolder.mkdir();
-        }
-        File file = new File(xmlFolder, "Accountings.xml");
-        if(file.exists()){
-            XMLReader.readCollection(accountings, xmlFolder);
-        }
-    }
-
-    private static void setXmlFolder(){
-//            File userHome = new File(System.getProperty("user.home"));
+//        File userHome = new File(System.getProperty("user.home"));
         File parentFolder = new File("data/Accounting");
         xmlFolder = new File(parentFolder, "xml");
         xslFolder = new File(parentFolder, "xsl");
         htmlFolder = new File(parentFolder, "html");
+
+        accountings = new Accountings();
+
+        XMLReader.readAccountings(accountings, xmlFolder);
+        Accounting accounting = accountings.getCurrentObject();
+        XMLReader.readAccounting(accounting,xmlFolder);
+    }
+
+    private static void setXmlFolder(){
     }
 
     private static JButton createSaveButton(){
         JButton saveButton = new JButton("Save all");
-        saveButton.addActionListener(new SaveAllActionListener(accountings));
+        saveButton.addActionListener(e -> Main.saveData());
         return saveButton;
     }
 
@@ -263,12 +268,11 @@ public class Main {
     public static void newAccounting(Accountings accountings) {
         String name = JOptionPane.showInputDialog(null, "Enter a name");
         try {
-            Accounting accounting = new Accounting();
+            Accounting accounting = new Accounting(name);
 //            TODO: add this line once we safe AccountTypes in separate file
 //            accounting.getAccountTypes().addDefaultTypes();
             accounting.getJournalTypes().addDefaultType(accounting.getAccountTypes());
             accounting.getBalances().addDefaultBalances();
-            accounting.setName(name);
             accountings.addBusinessObject(accounting);
             accountings.setCurrentObject(accounting);
             setAccounting(accounting);
@@ -281,5 +285,29 @@ public class Main {
 
     public static void fireContactDataChanged(Contact contact) {
         ContactSelector.fireContactDataChangedForAll();
+    }
+
+    public static void saveData() {
+        xmlFolder.mkdirs();
+        XMLWriter.writeAccountings(accountings, xmlFolder);
+
+//        File xslFolder = accountings.getXslFolder();
+//        File htmlFolder = accountings.getHtmlFolder();
+//        htmlFolder.mkdirs();
+
+//        XMLtoHTMLWriter.toHtml(accountings, xmlFolder, xslFolder, htmlFolder);
+
+
+    }
+
+
+    public static void closeAllFrames(){
+        for(JFrame frame: disposableComponents){
+            frame.dispose();
+        }
+    }
+
+    public static void addFrame(JFrame frame) {
+        disposableComponents.add(frame);
     }
 }

@@ -4,40 +4,26 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
-import be.dafke.ObjectModel.MustBeRead;
 
 import java.util.ArrayList;
 import java.util.Properties;
-import java.util.TreeMap;
 
 /**
  * @author David Danneels
  */
-public class Project extends BusinessCollection<Account> implements MustBeRead {
+public class Project extends BusinessCollection<Account> {
 	/**
 	 * 
 	 */
-	private final Accounts allAccounts;  // needed to lookup existing accounts when adding them to the project
 	private final ProjectAccounts projectAccounts;
 	private final Balance resultBalance, relationsBalance;
 
-	@Override
-	public String getChildType() {
-		return "Account";
-	}
-
 	public Project(String name, Accounts accounts, AccountTypes accountTypes) {
 		setName(name);
-		allAccounts = accounts;
 		projectAccounts = new ProjectAccounts(accountTypes);
 		Balances balances = new Balances(accounts, accountTypes);
 		resultBalance = balances.createResultBalance(projectAccounts);
 		relationsBalance = balances.createRelationsBalance(projectAccounts);
-	}
-
-	@Override
-	public Account createNewChild(TreeMap<String, String> properties) {
-		return allAccounts.getBusinessObject(properties.get(NAME));
 	}
 
 	@Override
@@ -69,7 +55,7 @@ public class Project extends BusinessCollection<Account> implements MustBeRead {
 	}
 
 	public ProjectJournal getJournal() {
-		ProjectJournal journal = new ProjectJournal(allAccounts, getName(), "TMP");
+		ProjectJournal journal = new ProjectJournal(getName(), "TMP");
 		for(Account account:projectAccounts.getBusinessObjects()){
 			for(Movement movement :account.getBusinessObjects()){
 				Transaction transaction = movement.getBooking().getTransaction();

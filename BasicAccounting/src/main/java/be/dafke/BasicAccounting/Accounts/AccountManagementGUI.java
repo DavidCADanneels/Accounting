@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
-import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
@@ -67,7 +67,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		if(gui == null){
 			gui = new AccountManagementGUI(accounts, accountTypes);
 			accountManagementGuis.put(accounts, gui);
-			SaveAllActionListener.addFrame(gui);
+			Main.addFrame(gui);
 		}
 		return gui;
 	}

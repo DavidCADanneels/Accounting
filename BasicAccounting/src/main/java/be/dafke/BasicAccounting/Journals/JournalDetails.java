@@ -55,7 +55,7 @@ public class JournalDetails extends JFrame implements WindowListener {
 		if(journalDetails==null){
 			journalDetails = new JournalDetails(journal, journals, journalInputGUI);
 			journalDetailsMap.put(journal, journalDetails);
-			SaveAllActionListener.addFrame(journalDetails);
+			Main.addFrame(journalDetails);
 		}
 		journalDetails.setVisible(true);
 		return journalDetails;

@@ -48,7 +48,7 @@ public class VATFileGUI extends JFrame {
         if(gui==null){
             gui = new VATFileGUI(vatFields);
             editableVatGuis.put(vatFields,gui);
-            SaveAllActionListener.addFrame(gui);
+            Main.addFrame(gui);
         }
         return gui;
     }

@@ -1,6 +1,7 @@
 package be.dafke.Utils;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
@@ -70,6 +71,14 @@ public class Utils {
     public static BigDecimal parseBigDecimal(String s) {
         try {
             return new BigDecimal(s);
+        } catch (NumberFormatException nfe) {
+            return null;
+        }
+    }
+
+    public static BigInteger parseBigInteger(String s) {
+        try {
+            return new BigInteger(s);
         } catch (NumberFormatException nfe) {
             return null;
         }

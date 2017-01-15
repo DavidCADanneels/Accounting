@@ -11,12 +11,9 @@ import java.util.*;
  * Date: 9/03/13
  * Time: 3:48
  */
-public abstract class BusinessCollection <V extends BusinessObject> extends BusinessObject {
+public class BusinessCollection <V extends BusinessObject> extends BusinessObject {
     protected HashMap<String, TreeMap<String,V>> dataTables;
-    public static final String CURRENT = "CurrentObject";
     protected V currentObject;
-
-    public abstract String getChildType();
 
     public BusinessCollection(){
         dataTables = new HashMap<>();
@@ -24,18 +21,6 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
     }
 
     // -------------------------------------------------------------------------------
-
-    public abstract V createNewChild(TreeMap<String, String> properties);
-
-    // KeySet and Properties
-    //
-    // Keys found in the CollectionFile e.g. Account.NAME in Accounts.xml file
-    public Set<String> getInitKeySet(){
-        Set<String> keySet = new TreeSet<>();
-        keySet.add(NAME);
-        return keySet;
-    }
-
     protected void addSearchKey(String key){
         if(dataTables.containsKey(key)){
             System.err.println("This collection already contains this key");
@@ -173,12 +158,5 @@ public abstract class BusinessCollection <V extends BusinessObject> extends Busi
         String type = entry.getKey();
         String key = entry.getValue();
         dataTables.get(type).remove(key);
-    }
-
-    public Set<String> getExtraFields() {
-        return null;
-    }
-
-    public void setExtraProperties(TreeMap<String,String> extraProperties) {
     }
 }

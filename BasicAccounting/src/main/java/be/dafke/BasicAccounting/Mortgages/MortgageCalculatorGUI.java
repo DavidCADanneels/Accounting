@@ -131,7 +131,7 @@ public class MortgageCalculatorGUI extends JFrame implements ActionListener, Foc
 		if (gui == null) {
 			gui = new MortgageCalculatorGUI(mortgages);
 			mortgageCalculatorGuis.put(mortgages, gui);
-			SaveAllActionListener.addFrame(gui);
+			Main.addFrame(gui);
 		}
 		return gui;
 	}
@@ -174,7 +174,7 @@ public class MortgageCalculatorGUI extends JFrame implements ActionListener, Foc
             newMortgage.setName("new Mortgage Table");
             newMortgage.setStartCapital(startKapitaal);
 			MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, mortgages);
-            SaveAllActionListener.addFrame(gui);
+            Main.addFrame(gui);
 			gui.setVisible(true);
 		}
 	}

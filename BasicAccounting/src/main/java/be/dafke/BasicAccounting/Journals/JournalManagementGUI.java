@@ -67,7 +67,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         if(gui == null){
             gui = new JournalManagementGUI(journals, journalTypes, accounts, accountTypes, vatTransactions);
             journalManagementGuis.put(journals, gui);
-            SaveAllActionListener.addFrame(gui);
+            Main.addFrame(gui);
         }
         return gui;
     }
@@ -95,7 +95,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         modifyAbbr.addActionListener(e -> modifyAbbr());
         delete.addActionListener(e -> deleteJournal());
         newType.addActionListener(e -> showJournalTypeManager(journalTypes,accountTypes));
-        add.addActionListener(e -> new NewJournalGUI(journals, journalTypes, accounts, accountTypes, vatTransactions).setVisible(true));
+        add.addActionListener(e -> new NewJournalGUI(journals, journalTypes, accountTypes, vatTransactions).setVisible(true));
         modifyName.setEnabled(false);
         modifyType.setEnabled(false);
         modifyAbbr.setEnabled(false);

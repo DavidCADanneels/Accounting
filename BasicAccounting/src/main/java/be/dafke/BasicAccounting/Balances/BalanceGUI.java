@@ -44,7 +44,7 @@ public class BalanceGUI extends JFrame {
 		if(balanceGUI==null){
 			balanceGUI = new BalanceGUI(journals, balance, journalInputGUI);
 			otherBalanceMap.put(balance,balanceGUI);
-			SaveAllActionListener.addFrame(balanceGUI);
+			Main.addFrame(balanceGUI);
 		}
 		balanceGUI.setVisible(true);
 		return balanceGUI;
