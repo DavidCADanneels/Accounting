@@ -32,19 +32,19 @@ public class ContactsIO {
     public static void readContacts(Contacts contacts, File accountingFolder){
         File xmlFile = new File(accountingFolder, "Contacts.xml");
         Element rootElement = getRootElement(xmlFile, CONTACTS);
-        Contact contact = new Contact();
         for (Element element : getChildren(rootElement, CONTACT)) {
+            Contact contact = new Contact();
             contact.setName(getValue(element, NAME));
             contact.setAddressLine1(getValue(element, ADDRESS_LINE_1));
             contact.setAddressLine2(getValue(element, ADDRESS_LINE_2));
             contact.setVatNumber(getValue(element, VAT_NUMBER));
+            try {
+                contacts.addBusinessObject(contact);
+            } catch (EmptyNameException | DuplicateNameException e) {
+                e.printStackTrace();
+            }
         }
 
-        try {
-            contacts.addBusinessObject(contact);
-        } catch (EmptyNameException | DuplicateNameException e) {
-            e.printStackTrace();
-        }
     }
 
     public static void writeContacts(Contacts contacts, File accountingFolder){
@@ -54,7 +54,7 @@ public class ContactsIO {
             writer.write(getXmlHeader(CONTACTS, 2));
             for(Contact contact: contacts.getBusinessObjects()) {
                 writer.write(
-                        "  <"+CONTACT+">" +
+                        "  <"+CONTACT+">\n" +
                         "    <"+NAME+">" + contact.getName() + "</"+NAME+">\n" +
                         "    <"+ADDRESS_LINE_1+">" + contact.getAddressLine1() + "</"+ADDRESS_LINE_1+">\n" +
                         "    <"+ADDRESS_LINE_2+">" + contact.getAddressLine2() + "</"+ADDRESS_LINE_2+">\n" +

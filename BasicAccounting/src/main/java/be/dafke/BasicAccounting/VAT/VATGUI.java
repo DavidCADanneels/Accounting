@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.VAT;
 
-import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.VATField;
 import be.dafke.BusinessModel.VATFields;
 

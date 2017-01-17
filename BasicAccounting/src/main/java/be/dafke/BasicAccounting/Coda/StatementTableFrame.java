@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Coda;
 
-import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.CodaParser;
 import be.dafke.BusinessModelDao.CsvParser;

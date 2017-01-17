@@ -24,12 +24,6 @@ public class AccountTypeTest {
     }
 
     @Test
-    public void childType() {
-        AccountTypes accountTypes = new AccountTypes();
-        assertEquals(AccountTypes.ACCOUNT_TYPE, accountTypes.getChildType());
-    }
-
-    @Test
     public void numberOfAccountTypes() {
         AccountTypes accountTypes = new AccountTypes();
         accountTypes.getBusinessObjects();

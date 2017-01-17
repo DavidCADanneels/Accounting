@@ -103,9 +103,9 @@ public class MortgageIO {
                     // TODO: decide whether to store it here or in Mortgage.xml
                         "  <"+NAME+">" + mortgage.getName() + "</"+NAME+">\n" +
                         "  <"+CAPITAL_ACCOUNT+">" + mortgage.getCapitalAccount() + "</"+CAPITAL_ACCOUNT+">\n" +
-                        "  <"+INTREST_ACCOUNT+">" + mortgage.getName() + "</"+INTREST_ACCOUNT+">\n" +
-                        "  <"+NRPAYED+">" + mortgage.getName() + "</"+NRPAYED+">\n" +
-                        "  <"+TOTAL+">" + mortgage.getName() + "</"+TOTAL+">\n" +
+                        "  <"+INTREST_ACCOUNT+">" + mortgage.getIntrestAccount() + "</"+INTREST_ACCOUNT+">\n" +
+                        "  <"+NRPAYED+">" + mortgage.getNrPayed() + "</"+NRPAYED+">\n" +
+                        "  <"+TOTAL+">" + mortgage.getStartCapital() + "</"+TOTAL+">\n" +
                     // TODO: until here
                         "</"+MORTGAGE+">\n"
                 );
@@ -130,9 +130,9 @@ public class MortgageIO {
             writer.write(
                     "  <"+NAME+">" + mortgage.getName() + "</"+NAME+">\n" +
                     "  <"+CAPITAL_ACCOUNT+">" + mortgage.getCapitalAccount() + "</"+CAPITAL_ACCOUNT+">\n" +
-                    "  <"+INTREST_ACCOUNT+">" + mortgage.getName() + "</"+INTREST_ACCOUNT+">\n" +
-                    "  <"+NRPAYED+">" + mortgage.getName() + "</"+NRPAYED+">\n" +
-                    "  <"+TOTAL+">" + mortgage.getName() + "</"+TOTAL+">\n"
+                    "  <"+INTREST_ACCOUNT+">" + mortgage.getIntrestAccount() + "</"+INTREST_ACCOUNT+">\n" +
+                    "  <"+NRPAYED+">" + mortgage.getNrPayed() + "</"+NRPAYED+">\n" +
+                    "  <"+TOTAL+">" + mortgage.getStartCapital() + "</"+TOTAL+">\n"
             );
             // TODO: until here
             for(MortgageTransaction mortgageTransaction:mortgage.getBusinessObjects()){

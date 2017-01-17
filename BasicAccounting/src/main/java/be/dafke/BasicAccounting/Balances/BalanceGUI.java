@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Balance;

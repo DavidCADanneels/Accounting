@@ -47,7 +47,8 @@ public class XMLWriter {
                         "  </Accounting>\n"
                 );
             }
-            writer.write("  <CurrentObject>"+accountings.getCurrentObject()+"</CurrentObject>");
+            writer.write("  <CurrentObject>"+accountings.getCurrentObject()+"</CurrentObject>\n");
+            writer.write("</Accountings>");
             writer.flush();
             writer.close();
         } catch (IOException ex) {
@@ -60,8 +61,11 @@ public class XMLWriter {
     }
 
     private static void writeAccounting(Accounting accounting, File xmlFolder) {
-        File accountingFolder = new File(xmlFolder, accounting.getName());
+        File accountingsFolder = new File(xmlFolder, "Accountings");
+        File accountingFolder = new File(accountingsFolder, accounting.getName());
         writeAccounts(accounting.getAccounts(), accountingFolder);
+//        writeJournals()
+//                writeMortgages
         writeBalances(accounting.getBalances(), accountingFolder);
         writeVATFields(accounting.getVatFields(), accountingFolder);
         writeVATTransactions(accounting.getVatTransactions(), accountingFolder);

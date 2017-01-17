@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import static be.dafke.BusinessModelDao.AccountsIO.readAccounts;
 import static be.dafke.BusinessModelDao.BalancesIO.readBalances;
+import static be.dafke.BusinessModelDao.ContactsIO.readContacts;
 import static be.dafke.BusinessModelDao.JournalsIO.readJournalTypes;
 import static be.dafke.BusinessModelDao.JournalsIO.readJournals;
 import static be.dafke.BusinessModelDao.MortgageIO.readMortgages;
@@ -83,7 +84,8 @@ public class XMLReader {
     }
 
     public static void readAccounting(Accounting accounting, File xmlFolder) {
-        File accountingFolder = new File(xmlFolder, accounting.getName());
+        File accountingsFolder = new File(xmlFolder, "Accountings");
+        File accountingFolder = new File(accountingsFolder, accounting.getName());
         readAccounts(accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
         readMortgages(accounting.getMortgages(), accounting.getAccounts(),accountingFolder);
         readJournalTypes(accounting.getJournalTypes(), accounting.getAccountTypes(), accountingFolder);
@@ -92,6 +94,7 @@ public class XMLReader {
         readProjects(accounting.getProjects(), accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
         readJournals(accounting.getJournals(), accounting.getAccounts(), accounting.getJournalTypes(), accounting.getVatTransactions(), accountingFolder);
         readBalances(accounting.getBalances(),accounting.getAccounts(),accounting.getAccountTypes(),accountingFolder);
+        readContacts(accounting.getContacts(),accountingFolder);
     }
 
     public static String getValue(Element element, String tagName){

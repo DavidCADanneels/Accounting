@@ -9,6 +9,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.util.Calendar;
 
+import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.Utils.Utils.parseInt;
 import static be.dafke.Utils.Utils.toCalendar;
@@ -130,6 +131,16 @@ public class JournalsIO {
 
             journal.addBusinessObject(transaction);
         }
+    }
+
+    public void writeJournalTypes(){
+
+    }
+    public void writeJournals(){
+
+    }
+    public void writeJournal(){
+
     }
 
 }

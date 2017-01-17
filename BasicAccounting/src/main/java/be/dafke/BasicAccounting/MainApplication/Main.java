@@ -164,8 +164,10 @@ public class Main {
         accountings = new Accountings();
 
         XMLReader.readAccountings(accountings, xmlFolder);
-        Accounting accounting = accountings.getCurrentObject();
-        XMLReader.readAccounting(accounting,xmlFolder);
+//        Accounting accounting = accountings.getCurrentObject();
+        for(Accounting accounting:accountings.getBusinessObjects()) {
+            XMLReader.readAccounting(accounting, xmlFolder);
+        }
     }
 
     private static void setXmlFolder(){

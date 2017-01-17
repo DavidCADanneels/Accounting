@@ -96,7 +96,7 @@ public class BalancesIO {
                     righttTypesString.add(type.getName());
                 }
                 writer.write(
-                        "  <"+BALANCE+">" +
+                        "  <"+BALANCE+">\n" +
                         "    <"+NAME+">" + balance.getName() + "</"+NAME+">\n" +
                         "    <"+LEFTNAME+">" + balance.getLeftName() + "</"+LEFTNAME+">\n" +
                         "    <"+RIGHTNAME+">" + balance.getRightName() + "</"+RIGHTNAME+">\n" +
@@ -122,7 +122,7 @@ public class BalancesIO {
     }
 
     public static void writeBalance(Balance balance, File balancesFolder) {
-        File file = new File(balancesFolder, balance.getName());
+        File file = new File(balancesFolder, balance.getName()+".xml");
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(BALANCE, 3));

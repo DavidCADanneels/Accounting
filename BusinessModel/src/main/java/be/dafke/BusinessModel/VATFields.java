@@ -12,10 +12,10 @@ import java.util.ArrayList;
  */
 public class VATFields extends BusinessCollection<VATField> {
 
-    public static final String VATFIELD = "VATField";
-
+    public VATFields() {
+        super();
+    }
     public VATFields(VATFields vatFields) {
-        setName(VATFIELD);
         try {
             for (VATField vatField : vatFields.getBusinessObjects()) {
                 addBusinessObject(vatField);

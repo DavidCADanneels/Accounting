@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Contacts;
 
-import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Contacts;
 
 import javax.swing.*;

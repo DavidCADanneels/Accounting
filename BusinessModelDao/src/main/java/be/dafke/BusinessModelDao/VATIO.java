@@ -84,7 +84,7 @@ public class VATIO {
             writer.write(getXmlHeader(VATFIELDS, 2));
             for(VATField vatField: vatFields.getBusinessObjects()) {
                 writer.write(
-                            "  <"+VATFIELD+">" +
+                            "  <"+VATFIELD+">\n" +
                             "    <"+NAME+">" + vatField.getName() + "</"+NAME+">\n" +
                             "    <"+AMOUNT+">" + vatField.getAmount() + "</"+AMOUNT+">\n" +
                             "  </"+VATFIELD+">\n"
@@ -105,9 +105,9 @@ public class VATIO {
             writer.write(getXmlHeader(VATTRANSACTIONS, 2));
             writer.write(
                     "  <"+DEBIT_ACCOUNT+">"+vatTransactions.getDebitAccount()+"</"+DEBIT_ACCOUNT+">\n" +
-                    "  <"+CREDIT_ACCOUNT+">"+vatTransactions.getDebitAccount()+"</"+CREDIT_ACCOUNT+">\n" +
-                    "  <"+DEBIT_CN_ACCOUNT+">"+vatTransactions.getDebitAccount()+"</"+DEBIT_CN_ACCOUNT+">\n" +
-                    "  <"+CREDIT_CN_ACCOUNT+">"+vatTransactions.getDebitAccount()+"</"+CREDIT_CN_ACCOUNT+">\n"
+                    "  <"+CREDIT_ACCOUNT+">"+vatTransactions.getCreditAccount()+"</"+CREDIT_ACCOUNT+">\n" +
+                    "  <"+DEBIT_CN_ACCOUNT+">"+vatTransactions.getDebitCNAccount()+"</"+DEBIT_CN_ACCOUNT+">\n" +
+                    "  <"+CREDIT_CN_ACCOUNT+">"+vatTransactions.getCreditCNAccount()+"</"+CREDIT_CN_ACCOUNT+">\n"
             );
 //            for(VATTransaction vatTransaction: vatTransactions.getBusinessObjects()) {
 //                writer.write(

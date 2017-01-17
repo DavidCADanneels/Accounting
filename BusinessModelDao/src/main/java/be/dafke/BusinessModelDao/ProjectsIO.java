@@ -7,6 +7,7 @@ import org.w3c.dom.Element;
 
 import java.io.File;
 
+import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 
 /**

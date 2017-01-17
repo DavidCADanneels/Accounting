@@ -37,10 +37,12 @@ public class AccountsIO {
             account.setType(accountType);
 
             String number = getValue(element, NUMBER);
-            account.setNumber(parseBigInteger(number));
+            if(number!=null)
+                account.setNumber(parseBigInteger(number));
 
             String defaultAmount = getValue(element, DEFAULT_AMOUNT);
-            account.setDefaultAmount(parseBigDecimal(defaultAmount));
+            if(defaultAmount!=null)
+                account.setDefaultAmount(parseBigDecimal(defaultAmount));
 
             try {
                 accounts.addBusinessObject(account);
@@ -57,7 +59,7 @@ public class AccountsIO {
             writer.write(getXmlHeader(ACCOUNTS, 2));
             for(Account account: accounts.getBusinessObjects()) {
                 writer.write(
-                        "  <"+ACCOUNT+">" +
+                        "  <"+ACCOUNT+">\n" +
                         "    <"+NAME+">" + account.getName() + "</"+NAME+">\n" +
                         "    <"+TYPE+">" + account.getType() + "</"+TYPE+">\n"
                 );

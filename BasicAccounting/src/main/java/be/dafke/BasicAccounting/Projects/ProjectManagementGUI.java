@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Projects;
 
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
-import be.dafke.BasicAccounting.MainApplication.SaveAllActionListener;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
