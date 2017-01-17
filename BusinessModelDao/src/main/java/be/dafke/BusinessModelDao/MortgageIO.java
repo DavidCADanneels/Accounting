@@ -87,6 +87,8 @@ public class MortgageIO {
             mortgageTransaction.setCapital(parseBigDecimal(getValue(element, CAPITAL)));
             mortgageTransaction.setIntrest(parseBigDecimal(getValue(element, INTREST)));
             mortgageTransaction.setRestCapital(parseBigDecimal(getValue(element, RESTCAPITAL)));
+
+            mortgage.addBusinessObject(mortgageTransaction);
         }
     }
 
