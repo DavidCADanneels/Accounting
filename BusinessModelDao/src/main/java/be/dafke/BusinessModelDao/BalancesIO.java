@@ -140,6 +140,9 @@ public class BalancesIO {
                 }
                 writer.write("  </"+BALANCE_LINE+">\n");
             }
+            writer.write("  </"+BALANCE+">\n");
+            writer.flush();
+            writer.close();
         } catch (IOException ex) {
             Logger.getLogger(Balance.class.getName()).log(Level.SEVERE, null, ex);
         }
