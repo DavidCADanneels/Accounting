@@ -31,9 +31,9 @@ public class VATIO {
             String name = getValue(element, NAME);
             VATField vatField = new VATField(name);
 
-            String amountString = getValue(element, AMOUNT);
-            BigDecimal amount = parseBigDecimal(amountString);
-            vatField.setAmount(amount);
+//            String amountString = getValue(element, AMOUNT);
+//            BigDecimal amount = parseBigDecimal(amountString);
+//            vatField.setAmount(amount);
 
             try {
                 vatFields.addBusinessObject(vatField);
