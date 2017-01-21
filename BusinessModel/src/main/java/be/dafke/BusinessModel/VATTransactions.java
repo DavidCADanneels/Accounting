@@ -71,6 +71,10 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         return vatTransactions;
     }
 
+    public VATTransaction getBusinessObject(int id){
+        return vatTransactions.get(id-1);
+    }
+
     @Override
     public void removeBusinessObject(VATTransaction vatTransaction){
         for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){

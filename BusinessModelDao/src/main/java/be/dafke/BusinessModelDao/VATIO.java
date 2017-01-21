@@ -69,13 +69,11 @@ public class VATIO {
             for (Element vatBookingsElement : getChildren(element, VATBOOKING)) {
                 String vatFieldString = getValue(vatBookingsElement, VATFIELD);
                 String amountString = getValue(vatBookingsElement, AMOUNT);
-                String increaseString = getValue(vatBookingsElement, INCREASE);
 
                 BigDecimal amount = parseBigDecimal(amountString);
-                boolean increase = Boolean.parseBoolean(increaseString);
                 VATField vatField = vatFields.getBusinessObject(vatFieldString);
-                
-                VATMovement vatMovement = new VATMovement(amount, increase);
+                if(vatField==null)System.err.println("Field["+vatFieldString+"] not found");
+                VATMovement vatMovement = new VATMovement(amount, true);
                 VATBooking vatBooking = new VATBooking(vatField, vatMovement);
                 
                 vatTransaction.addBusinessObject(vatBooking);
@@ -119,7 +117,7 @@ public class VATIO {
             for(VATTransaction vatTransaction: vatTransactions.getBusinessObjects()) {
                 writer.write(
                     "  <"+VATTRANSACTION+">\n" +
-                    "    <"+ID+">"+vatTransaction.getID()+"</"+ID+">\n"
+                    "    <"+ID+">"+vatTransaction.getId()+"</"+ID+">\n"
                 );
                 for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){
                     VATMovement vatMovement = vatBooking.getVatMovement();
@@ -128,7 +126,7 @@ public class VATIO {
                     "    <"+VATBOOKING+">\n" +
                     "      <"+VATFIELD+">"+vatField.getName()+"</"+VATFIELD+">\n" +
                     "      <"+AMOUNT+">"+vatMovement.getAmount()+"</"+AMOUNT+">\n" +
-                    "      <"+INCREASE+">"+vatMovement.isIncrease()+"</"+INCREASE+">\n" +
+//                    "      <"+INCREASE+">"+vatMovement.isIncrease()+"</"+INCREASE+">\n" +
                     "    </"+VATBOOKING+">\n"
                     );
                 }

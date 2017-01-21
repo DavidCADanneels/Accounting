@@ -99,11 +99,11 @@ public class JournalsIO {
         }
 
         for(Journal journal:journals.getBusinessObjects()){
-            readJournal(journal, accounts, journalsFolder);
+            readJournal(journal, accounts, vatTransactions, journalsFolder);
         }
     }
 
-    public static void readJournal(Journal journal, Accounts accounts, File journalsFolder) {
+    public static void readJournal(Journal journal, Accounts accounts, VATTransactions vatTransactions, File journalsFolder) {
         String name = journal.getName();
         File xmlFile = new File(journalsFolder, name+XML);
         Element rootElement = getRootElement(xmlFile, JOURNAL);
@@ -114,6 +114,12 @@ public class JournalsIO {
             String description = getValue(element, DESCRIPTION);
 
             Transaction transaction = new Transaction(date,description);
+
+            String vatIdString = getValue(element, VAT_ID);
+            if(vatIdString!=null){
+                VATTransaction vatTransaction = vatTransactions.getBusinessObject(Utils.parseInt(vatIdString));
+                transaction.setVatTransaction(vatTransaction);
+            }
 
             for(Element bookingsElement:getChildren(element, BOOKING)){
                 String idString = getValue(bookingsElement, ID);
@@ -214,6 +220,12 @@ public class JournalsIO {
                         "    <"+DESCRIPTION+">"+transaction.getDescription()+"</"+DESCRIPTION+">\n" +
                         "    <"+ID+">"+transaction.getId()+"</"+ID+">\n"
                 );
+                VATTransaction vatTransaction = transaction.getVatTransaction();
+                if(vatTransaction!=null){
+                    writer.write(
+                        "    <"+VAT_ID+">"+vatTransaction.getId()+"</"+VAT_ID+">\n"
+                    );
+                }
                 for(Booking booking:transaction.getBusinessObjects()){
                     writer.write(
                         "    <"+BOOKING+">\n" +

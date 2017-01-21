@@ -166,6 +166,10 @@ public class Transaction extends BusinessCollection<Booking> {
         return vatTransaction;
     }
 
+    public void setVatTransaction(VATTransaction vatTransaction) {
+        this.vatTransaction = vatTransaction;
+    }
+
     public void setVATAmount(BigDecimal VATAmount) {
         this.VATAmount = VATAmount;
     }

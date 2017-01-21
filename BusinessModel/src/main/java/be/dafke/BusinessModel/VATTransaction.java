@@ -13,7 +13,7 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
     private ArrayList<VATBooking> vatBookings = new ArrayList<>();
     private Integer id;
 
-    public Integer getID() {
+    public Integer getId() {
         return id;
     }
 
