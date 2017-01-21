@@ -89,8 +89,8 @@ public class XMLReader {
         readAccounts(accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
         readMortgages(accounting.getMortgages(), accounting.getAccounts(),accountingFolder);
         readJournalTypes(accounting.getJournalTypes(), accounting.getAccountTypes(), accountingFolder);
-        readVATTransactions(accounting.getVatTransactions(), accounting.getVatFields(), accounting.getAccounts(), accountingFolder);
         readVATFields(accounting.getVatFields(),accountingFolder);
+        readVATTransactions(accounting.getVatTransactions(), accounting.getVatFields(), accounting.getAccounts(), accountingFolder);
         readProjects(accounting.getProjects(), accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
         readJournals(accounting.getJournals(), accounting.getAccounts(), accounting.getJournalTypes(), accounting.getVatTransactions(), accountingFolder);
         readBalances(accounting.getBalances(),accounting.getAccounts(),accounting.getAccountTypes(),accountingFolder);

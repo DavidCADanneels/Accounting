@@ -118,18 +118,18 @@ public class VATIO {
             );
             for(VATTransaction vatTransaction: vatTransactions.getBusinessObjects()) {
                 writer.write(
-                        "  <"+VATTRANSACTION+">\n"
-//                     + "    <"+NAME+">"+vatTransaction.getName()+"</"+NAME+">\n"
+                    "  <"+VATTRANSACTION+">\n" +
+                    "    <"+ID+">"+vatTransaction.getID()+"</"+ID+">\n"
                 );
                 for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){
                     VATMovement vatMovement = vatBooking.getVatMovement();
                     VATField vatField = vatBooking.getVatField();
                     writer.write(
-                        "    <"+VATBOOKING+">\n" +
-                        "      <"+VATFIELD+">"+vatField.getName()+"</"+VATFIELD+">\n" +
-                        "      <"+AMOUNT+">"+vatMovement.getAmount()+"</"+AMOUNT+">\n" +
-                        "      <"+INCREASE+">"+vatMovement.isIncrease()+"</"+INCREASE+">\n" +
-                        "    </"+VATBOOKING+">\n"
+                    "    <"+VATBOOKING+">\n" +
+                    "      <"+VATFIELD+">"+vatField.getName()+"</"+VATFIELD+">\n" +
+                    "      <"+AMOUNT+">"+vatMovement.getAmount()+"</"+AMOUNT+">\n" +
+                    "      <"+INCREASE+">"+vatMovement.isIncrease()+"</"+INCREASE+">\n" +
+                    "    </"+VATBOOKING+">\n"
                     );
                 }
                 writer.write(

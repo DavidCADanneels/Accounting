@@ -9,8 +9,17 @@ import java.util.ArrayList;
  * Created by ddanneels on 28/12/2016.
  */
 public class VATTransaction extends BusinessCollection<VATBooking>{
-
+    private static int count = 0;
     private ArrayList<VATBooking> vatBookings = new ArrayList<>();
+    private Integer id;
+
+    public Integer getID() {
+        return id;
+    }
+
+    public VATTransaction() {
+        id = ++count;
+    }
 
     public enum PurchaseType{
         GOODS, SERVICES, INVESTMENTS;

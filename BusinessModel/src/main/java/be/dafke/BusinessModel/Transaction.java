@@ -25,7 +25,7 @@ public class Transaction extends BusinessCollection<Booking> {
 
     private final ArrayList<Booking> bookings;
     private Mortgage mortgage = null;
-    private VATTransaction vatTransaction = new VATTransaction();
+    private VATTransaction vatTransaction;
     private BigDecimal VATAmount;
     private BigDecimal turnOverAmount;
     private Contact contact;
@@ -154,6 +154,9 @@ public class Transaction extends BusinessCollection<Booking> {
     }
 
     public void addVATBookings(ArrayList<VATBooking> vatBookings) {
+        if(vatTransaction==null){
+            vatTransaction = new VATTransaction();
+        }
         for(VATBooking vatBooking:vatBookings) {
             vatTransaction.addBusinessObject(vatBooking);
         }
