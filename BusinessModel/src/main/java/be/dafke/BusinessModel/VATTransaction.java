@@ -10,7 +10,6 @@ import java.util.ArrayList;
  */
 public class VATTransaction extends BusinessCollection<VATBooking>{
 
-    public static final String VATBOOKING = "VATBooking";
     private ArrayList<VATBooking> vatBookings = new ArrayList<>();
 
     public enum PurchaseType{

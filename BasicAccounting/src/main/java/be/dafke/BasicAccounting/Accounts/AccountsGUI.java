@@ -147,6 +147,8 @@ public class AccountsGUI extends JPanel {
             if (amount != null) {
                 journalInputGUI.addBooking(new Booking(selectedAccount, amount, debit));
                 if (vatType != VATTransaction.VATType.NONE) {
+                    // FIXME: contact should be linked to Revenue/Cost (==selectedAccount) but to Debit(Supplier) / Credit(Customer)
+                    // but amount to add to TurnOver is the Revenue/Cost amount (VAT excl.)
                     Contact contact = getContact(selectedAccount);
                     // Read percentage
                     Integer[] percentages = vatTransactions.getVatPercentages();
@@ -172,8 +174,8 @@ public class AccountsGUI extends JPanel {
                                     BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
                                     if(btwAmount!=null) {
                                         journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                                        VATTransaction vatTransaction = vatTransactions.purchaseCN(amount, btwAmount, purchaseType);
-                                        journalInputGUI.addVATTransaction(vatTransaction);
+                                        ArrayList<VATBooking> vatBookings = vatTransactions.purchaseCN(amount, btwAmount, purchaseType);
+                                        journalInputGUI.addVATBookings(vatBookings);
                                     }
                                 }
                             } else if (vatType == VATTransaction.VATType.SALE) {
@@ -182,8 +184,8 @@ public class AccountsGUI extends JPanel {
                                     BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
                                     if(btwAmount!=null) {
                                         journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                                        VATTransaction vatTransaction = vatTransactions.saleCN(amount, btwAmount);
-                                        journalInputGUI.addVATTransaction(vatTransaction);
+                                        ArrayList<VATBooking> vatBookings = vatTransactions.saleCN(amount, btwAmount);
+                                        journalInputGUI.addVATBookings(vatBookings);
                                     }
                                 }
                                 sell(contact, amount, suggestedAmount, debit, percentages[nr]);
@@ -267,8 +269,8 @@ public class AccountsGUI extends JPanel {
             BigDecimal vatAmount = journalInputGUI.askAmount(vatAccount, suggestedAmount);
             if(vatAmount!=null) {
                 journalInputGUI.addBooking(new Booking(vatAccount, vatAmount, debit));
-                VATTransaction vatTransaction = vatTransactions.sale(amount, vatAmount, pct);
-                journalInputGUI.addVATTransaction(vatTransaction);
+                ArrayList<VATBooking> vatBookings = vatTransactions.sale(amount, vatAmount, pct);
+                journalInputGUI.addVATBookings(vatBookings);
                 journalInputGUI.setTurnOverAmount(amount);
                 journalInputGUI.setVATAmount(vatAmount);
                 journalInputGUI.setContact(contact);
@@ -283,8 +285,8 @@ public class AccountsGUI extends JPanel {
             BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
             if(btwAmount!=null) {
                 journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                VATTransaction vatTransaction = vatTransactions.purchase(amount, btwAmount, purchaseType);
-                journalInputGUI.addVATTransaction(vatTransaction);
+                ArrayList<VATBooking> vatBookings = vatTransactions.purchase(amount, btwAmount, purchaseType);
+                journalInputGUI.addVATBookings(vatBookings);
             }
         }
     }

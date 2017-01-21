@@ -1,9 +1,6 @@
 package be.dafke.BusinessModelDao;
 
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.VATField;
-import be.dafke.BusinessModel.VATFields;
-import be.dafke.BusinessModel.VATTransactions;
+import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import org.w3c.dom.Element;
@@ -46,7 +43,7 @@ public class VATIO {
         }
     }
 
-    public static void readVATTransaction(VATTransactions vatTransactions, Accounts accounts, File accountingFolder){
+    public static void readVATTransactions(VATTransactions vatTransactions, VATFields vatFields, Accounts accounts, File accountingFolder){
         File xmlFile = new File(accountingFolder, "VATTransactions.xml");
         Element rootElement = getRootElement(xmlFile, VATTRANSACTIONS);
         String debitAccountString = getValue(rootElement, DEBIT_ACCOUNT);
@@ -66,6 +63,25 @@ public class VATIO {
         if(creditCNAccountString!=null) {
             vatTransactions.setCreditCNAccount(accounts.getBusinessObject(creditCNAccountString));
         }
+
+        for (Element element: getChildren(rootElement, VATTRANSACTION)) {
+            VATTransaction vatTransaction = new VATTransaction();
+            for (Element vatBookingsElement : getChildren(element, VATBOOKING)) {
+                String vatFieldString = getValue(vatBookingsElement, VATFIELD);
+                String amountString = getValue(vatBookingsElement, AMOUNT);
+                String increaseString = getValue(vatBookingsElement, INCREASE);
+
+                BigDecimal amount = parseBigDecimal(amountString);
+                boolean increase = Boolean.parseBoolean(increaseString);
+                VATField vatField = vatFields.getBusinessObject(vatFieldString);
+                
+                VATMovement vatMovement = new VATMovement(amount, increase);
+                VATBooking vatBooking = new VATBooking(vatField, vatMovement);
+                
+                vatTransaction.addBusinessObject(vatBooking);
+            }
+            vatTransactions.addBusinessObject(vatTransaction);
+        }
     }
 
     public static void writeVATFields(VATFields vatFields, File accountingFolder){
@@ -76,8 +92,8 @@ public class VATIO {
             for(VATField vatField: vatFields.getBusinessObjects()) {
                 writer.write(
                             "  <"+VATFIELD+">\n" +
-                            "    <"+NAME+">" + vatField.getName() + "</"+NAME+">\n" +
-                            "    <"+AMOUNT+">" + vatField.getAmount() + "</"+AMOUNT+">\n" +
+                            "    <"+NAME+">"+vatField.getName()+"</"+NAME+">\n" +
+                            "    <"+AMOUNT+">"+vatField.getSaldo()+"</"+AMOUNT+">\n" +
                             "  </"+VATFIELD+">\n"
                 );
             }
@@ -100,13 +116,26 @@ public class VATIO {
                     "  <"+DEBIT_CN_ACCOUNT+">"+vatTransactions.getDebitCNAccount()+"</"+DEBIT_CN_ACCOUNT+">\n" +
                     "  <"+CREDIT_CN_ACCOUNT+">"+vatTransactions.getCreditCNAccount()+"</"+CREDIT_CN_ACCOUNT+">\n"
             );
-//            for(VATTransaction vatTransaction: vatTransactions.getBusinessObjects()) {
-//                writer.write(
-//                        "  <"+VATTRANSACTION+">" +
-//                        "    <"+NAME+">" + vatTransaction.getName() + "</"+NAME+">\n"
-//                        "  </"+VATTRANSACTION+">\n"
-//                );
-//            }
+            for(VATTransaction vatTransaction: vatTransactions.getBusinessObjects()) {
+                writer.write(
+                        "  <"+VATTRANSACTION+">\n"
+//                     + "    <"+NAME+">"+vatTransaction.getName()+"</"+NAME+">\n"
+                );
+                for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){
+                    VATMovement vatMovement = vatBooking.getVatMovement();
+                    VATField vatField = vatBooking.getVatField();
+                    writer.write(
+                        "    <"+VATBOOKING+">\n" +
+                        "      <"+VATFIELD+">"+vatField.getName()+"</"+VATFIELD+">\n" +
+                        "      <"+AMOUNT+">"+vatMovement.getAmount()+"</"+AMOUNT+">\n" +
+                        "      <"+INCREASE+">"+vatMovement.isIncrease()+"</"+INCREASE+">\n" +
+                        "    </"+VATBOOKING+">\n"
+                    );
+                }
+                writer.write(
+                        "  </"+VATTRANSACTION+">\n"
+                );
+            }
             writer.write("</"+VATTRANSACTIONS+">");
             writer.flush();
             writer.close();

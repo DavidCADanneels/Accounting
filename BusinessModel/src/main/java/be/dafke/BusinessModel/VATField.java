@@ -8,14 +8,13 @@ import java.math.BigDecimal;
  * Created by ddanneels on 27/12/2016.
  */
 public class VATField extends BusinessCollection<VATMovement> {
-    public static final String AMOUNT = "amount";
     private BigDecimal amount = BigDecimal.ZERO;
 
     public VATField(String name) {
         setName(name);
     }
 
-    public BigDecimal getAmount() {
+    public BigDecimal getSaldo() {
         return amount;
     }
 

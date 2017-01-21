@@ -21,7 +21,7 @@ import static be.dafke.BusinessModelDao.JournalsIO.readJournals;
 import static be.dafke.BusinessModelDao.MortgageIO.readMortgages;
 import static be.dafke.BusinessModelDao.ProjectsIO.readProjects;
 import static be.dafke.BusinessModelDao.VATIO.readVATFields;
-import static be.dafke.BusinessModelDao.VATIO.readVATTransaction;
+import static be.dafke.BusinessModelDao.VATIO.readVATTransactions;
 import static be.dafke.BusinessModelDao.XMLConstants.*;
 
 /**
@@ -89,7 +89,7 @@ public class XMLReader {
         readAccounts(accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
         readMortgages(accounting.getMortgages(), accounting.getAccounts(),accountingFolder);
         readJournalTypes(accounting.getJournalTypes(), accounting.getAccountTypes(), accountingFolder);
-        readVATTransaction(accounting.getVatTransactions(), accounting.getAccounts(), accountingFolder);
+        readVATTransactions(accounting.getVatTransactions(), accounting.getVatFields(), accounting.getAccounts(), accountingFolder);
         readVATFields(accounting.getVatFields(),accountingFolder);
         readProjects(accounting.getProjects(), accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
         readJournals(accounting.getJournals(), accounting.getAccounts(), accounting.getJournalTypes(), accounting.getVatTransactions(), accountingFolder);

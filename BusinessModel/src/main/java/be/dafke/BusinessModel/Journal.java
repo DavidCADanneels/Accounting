@@ -84,20 +84,21 @@ public class Journal extends BusinessCollection<Transaction> {
 	public void removeBusinessObject(Transaction transaction) {
         Calendar date = transaction.getDate();
         transactions.removeValue(date, transaction);
-		ArrayList<Booking> bookings = transaction.getBusinessObjects();
-		for(Booking booking : bookings) {
-			Account account = booking.getAccount();
-			account.removeBusinessObject(booking.getMovement());
-		}
-		// FIXME: link between transaction and mortgage is gone after restart (not saved in XML) ???
+        ArrayList<Booking> bookings = transaction.getBusinessObjects();
+        for (Booking booking : bookings) {
+            Account account = booking.getAccount();
+            account.removeBusinessObject(booking.getMovement());
+        }
+        // FIXME: link between transaction and mortgage is gone after restart (not saved in XML) ???
         Mortgage mortgage = transaction.getMortgage();
-        if (mortgage!=null){
+        if (mortgage != null) {
             mortgage.decreaseNrPayed();
         }
-        // TODO remove VATTransaction
-        for (VATTransaction vatTransaction : transaction.getVatTransactions()){
+        // FIXME: same as above, need link in XML
+        VATTransaction vatTransaction = transaction.getVatTransaction();
+//      if(vatTransaction!=null && !vatTransaction.getBusinessObjects().isEmpty()) {
             vatTransactions.removeBusinessObject(vatTransaction);
-        }
+//      }
 
         Contact contact = transaction.getContact();
         BigDecimal turnOverAmount = transaction.getTurnOverAmount();
@@ -122,8 +123,8 @@ public class Journal extends BusinessCollection<Transaction> {
         if (mortgage!=null){
             mortgage.raiseNrPayed();
         }
-        ArrayList<VATTransaction> newVATTransactions = transaction.getVatTransactions();
-        for(VATTransaction vatTransaction : newVATTransactions){
+        VATTransaction vatTransaction = transaction.getVatTransaction();
+        if(vatTransaction!=null && !vatTransaction.getBusinessObjects().isEmpty()) {
             vatTransactions.addBusinessObject(vatTransaction);
         }
 

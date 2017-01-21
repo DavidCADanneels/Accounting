@@ -142,7 +142,5 @@ public class MortgageIO {
         } catch (IOException ex) {
             Logger.getLogger(Mortgage.class.getName()).log(Level.SEVERE, null, ex);
         }
-
     }
-
 }

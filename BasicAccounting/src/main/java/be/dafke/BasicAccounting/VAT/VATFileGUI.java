@@ -97,7 +97,7 @@ public class VATFileGUI extends JFrame {
         for (String nr: textFields.keySet()){
             JTextField textField = textFields.get(nr);
             VATField vatField = editedFields.getBusinessObject(nr);
-            BigDecimal amount = vatField.getAmount();
+            BigDecimal amount = vatField.getSaldo();
             if (textField != null){
                 if(amount != null) {
                     textField.setText(amount.toString());

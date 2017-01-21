@@ -18,9 +18,6 @@ public class Transaction extends BusinessCollection<Booking> {
     private BigDecimal debitTotal;
     private BigDecimal creditTotal;
     private Journal journal;
-    public static final String DATE = "date";
-    public static final String DESCRIPTION = "description";
-    public static final String BOOKINGS = "Bookings";
     private int nrOfDebits = 0;
 
     private String description = "";
@@ -28,7 +25,7 @@ public class Transaction extends BusinessCollection<Booking> {
 
     private final ArrayList<Booking> bookings;
     private Mortgage mortgage = null;
-    private ArrayList<VATTransaction> vatTransactions;
+    private VATTransaction vatTransaction = new VATTransaction();
     private BigDecimal VATAmount;
     private BigDecimal turnOverAmount;
     private Contact contact;
@@ -41,7 +38,6 @@ public class Transaction extends BusinessCollection<Booking> {
 		creditTotal = new BigDecimal(0);
 		creditTotal = creditTotal.setScale(2);
         bookings = new ArrayList<>();
-        vatTransactions = new ArrayList<>();
 	}
 
     public Mortgage getMortgage() {
@@ -157,12 +153,14 @@ public class Transaction extends BusinessCollection<Booking> {
 
     }
 
-    public void addVATTransaction(VATTransaction vatTransaction) {
-        vatTransactions.add(vatTransaction);
+    public void addVATBookings(ArrayList<VATBooking> vatBookings) {
+        for(VATBooking vatBooking:vatBookings) {
+            vatTransaction.addBusinessObject(vatBooking);
+        }
     }
 
-    public ArrayList<VATTransaction> getVatTransactions() {
-        return vatTransactions;
+    public VATTransaction getVatTransaction() {
+        return vatTransaction;
     }
 
     public void setVATAmount(BigDecimal VATAmount) {

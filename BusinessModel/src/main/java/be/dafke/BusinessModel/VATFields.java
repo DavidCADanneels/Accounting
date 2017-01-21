@@ -60,11 +60,11 @@ public class VATFields extends BusinessCollection<VATField> {
         vatFields.add(getYY());
         VATField field71 = get71();
         VATField field72 = get72();
-        if(field71.getAmount().compareTo(BigDecimal.ZERO) > 0){
+        if(field71.getSaldo().compareTo(BigDecimal.ZERO) > 0){
             vatFields.add(field71);
         }
         // normally only one if will be used as 71 = -72
-        if(field72.getAmount().compareTo(BigDecimal.ZERO) > 0){
+        if(field72.getSaldo().compareTo(BigDecimal.ZERO) > 0){
             vatFields.add(field72);
         }
         return vatFields;
@@ -83,15 +83,15 @@ public class VATFields extends BusinessCollection<VATField> {
         } else{
             return super.getBusinessObject(nr);
 //            if(vatField==null) return BigDecimal.ZERO;
-//            BigDecimal bigDecimal = vatField.getAmount();
+//            BigDecimal bigDecimal = vatField.getSaldo();
 //            return bigDecimal==null?BigDecimal.ZERO:bigDecimal;
         }
     }
 
     public VATField get71() {
         VATField vatField = new VATField("71");
-        BigDecimal XX = getXX().getAmount();
-        BigDecimal YY = getYY().getAmount();
+        BigDecimal XX = getXX().getSaldo();
+        BigDecimal YY = getYY().getSaldo();
         if(XX.compareTo(YY)>0){
             vatField.setAmount(XX.subtract(YY));
         } else{
@@ -101,8 +101,8 @@ public class VATFields extends BusinessCollection<VATField> {
     }
     public VATField get72() {
         VATField vatField = new VATField("72");
-        BigDecimal YY = getYY().getAmount();
-        BigDecimal XX = getXX().getAmount();
+        BigDecimal YY = getYY().getSaldo();
+        BigDecimal XX = getXX().getSaldo();
         if(YY.compareTo(XX)>0){
             vatField.setAmount(YY.subtract(XX));
         } else {
@@ -112,13 +112,13 @@ public class VATFields extends BusinessCollection<VATField> {
     }
     public VATField getXX() {
         VATField vatField = new VATField("XX");
-        vatField.setAmount(getBusinessObject("54").getAmount().add(getBusinessObject("63").getAmount()));
+        vatField.setAmount(getBusinessObject("54").getSaldo().add(getBusinessObject("63").getSaldo()));
         return vatField;
     }
 
     public VATField getYY() {
         VATField vatField = new VATField("XX");
-        vatField.setAmount(getBusinessObject("59").getAmount().add(getBusinessObject("64").getAmount()));
+        vatField.setAmount(getBusinessObject("59").getSaldo().add(getBusinessObject("64").getSaldo()));
         return vatField;
     }
 

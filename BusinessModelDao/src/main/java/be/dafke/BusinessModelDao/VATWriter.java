@@ -64,7 +64,7 @@ public class VATWriter {
                     "        </ns2:Period>\n" +
                     "        <ns2:Data>\n");
             for(VATField vatField:vatFields.getAllFields()){
-                BigDecimal amount = vatField.getAmount();
+                BigDecimal amount = vatField.getSaldo();
                 if(amount!=null && amount.compareTo(BigDecimal.ZERO)!=0){
                     String name = vatField.getName();
                     writer.write(

@@ -78,10 +78,12 @@ public class XMLConstants {
     public static final String VATFIELDS = "VATFields";
     public static final String VATTRANSACTIONS = "VATTransactions";
     public static final String VATTRANSACTION = "VATTransaction";
+    public static final String VATBOOKING = "VATBooking";
     public static final String DEBIT_ACCOUNT = "DebitAccount";
     public static final String CREDIT_ACCOUNT = "CreditAccount";
     public static final String DEBIT_CN_ACCOUNT = "DebitCNAccount";
     public static final String CREDIT_CN_ACCOUNT = "CreditCNAccount";
+    public static final String INCREASE = "increase";
 
     public static final String XML = ".xml";
 }

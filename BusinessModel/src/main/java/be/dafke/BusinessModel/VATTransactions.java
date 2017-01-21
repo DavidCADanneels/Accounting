@@ -3,6 +3,7 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessCollection;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 /**
  * Created by ddanneels on 25/12/2016.
@@ -11,7 +12,7 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
     private final VATFields vatFields;
     private Account creditAccount, debitAccount, creditCNAccount, debitCNAccount;
     private Integer[] vatPercentages = new Integer[]{0, 6, 12, 21};
-//    private VATTransaction vatTransaction = new VATTransaction();
+    private ArrayList<VATTransaction> vatTransactions = new ArrayList<>();
 
     public Integer[] getVatPercentages() {
         return vatPercentages;
@@ -55,6 +56,7 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
 
     @Override
     public VATTransaction addBusinessObject(VATTransaction vatTransaction) {
+        vatTransactions.add(vatTransaction);
         for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){
             VATField vatField = vatBooking.getVatField();
             if(vatField!=null) {
@@ -62,6 +64,11 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
             }
         }
         return vatTransaction;
+    }
+
+    @Override
+    public ArrayList<VATTransaction> getBusinessObjects(){
+        return vatTransactions;
     }
 
     @Override
@@ -74,9 +81,9 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         }
     }
 
-    public VATTransaction purchaseCN(BigDecimal amount, BigDecimal btwAmount, VATTransaction.PurchaseType purchaseType) {
+    public ArrayList<VATBooking> purchaseCN(BigDecimal amount, BigDecimal btwAmount, VATTransaction.PurchaseType purchaseType) {
         // We assume amount is negative !!!
-        VATTransaction vatTransaction = new VATTransaction();
+        ArrayList<VATBooking> vatTransaction = new ArrayList<>();
 
         VATBooking vatBooking1 = new VATBooking(vatFields.getBusinessObject("85"), new VATMovement(amount, false));
         VATBooking vatBooking2 = new VATBooking(vatFields.getBusinessObject("63"), new VATMovement(btwAmount, false));
@@ -89,24 +96,24 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         } else if(purchaseType==VATTransaction.PurchaseType.INVESTMENTS){
             vatBooking3 = new VATBooking(vatFields.getBusinessObject("83"), new VATMovement(amount, false));
         }
-        vatTransaction.addBusinessObject(vatBooking1);
-        vatTransaction.addBusinessObject(vatBooking2);
-        vatTransaction.addBusinessObject(vatBooking3);
+        vatTransaction.add(vatBooking1);
+        vatTransaction.add(vatBooking2);
+        vatTransaction.add(vatBooking3);
         return vatTransaction;
     }
 
-    public VATTransaction saleCN(BigDecimal amount, BigDecimal btwAmount) {
+    public ArrayList<VATBooking> saleCN(BigDecimal amount, BigDecimal btwAmount) {
         // We assume amount is negative !!!
-        VATTransaction vatTransaction = new VATTransaction();
+        ArrayList<VATBooking> vatTransaction = new ArrayList<>();
         VATBooking vatBooking1 = new VATBooking(vatFields.getBusinessObject("49"), new VATMovement(amount, false));
         VATBooking vatBooking2 = new VATBooking(vatFields.getBusinessObject("64"), new VATMovement(btwAmount, false));
-        vatTransaction.addBusinessObject(vatBooking1);
-        vatTransaction.addBusinessObject(vatBooking2);
+        vatTransaction.add(vatBooking1);
+        vatTransaction.add(vatBooking2);
         return vatTransaction;
     }
 
-    public VATTransaction purchase(BigDecimal amount, BigDecimal btwAmount, VATTransaction.PurchaseType purchaseType) {
-        VATTransaction vatTransaction = new VATTransaction();
+    public ArrayList<VATBooking> purchase(BigDecimal amount, BigDecimal btwAmount, VATTransaction.PurchaseType purchaseType) {
+        ArrayList<VATBooking> vatTransaction = new ArrayList<>();
 
         VATBooking vatBooking1 = null;
         if(purchaseType== VATTransaction.PurchaseType.GOODS){
@@ -117,13 +124,13 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
             vatBooking1 = new VATBooking(vatFields.getBusinessObject("83"), new VATMovement(amount, true));
         }
         VATBooking vatBooking2 = new VATBooking(vatFields.getBusinessObject("59"), new VATMovement(btwAmount, true));
-        vatTransaction.addBusinessObject(vatBooking1);
-        vatTransaction.addBusinessObject(vatBooking2);
+        vatTransaction.add(vatBooking1);
+        vatTransaction.add(vatBooking2);
         return vatTransaction;
     }
 
-    public VATTransaction sale(BigDecimal amount, BigDecimal btwAmount, Integer pct) {
-        VATTransaction vatTransaction = new VATTransaction();
+    public ArrayList<VATBooking> sale(BigDecimal amount, BigDecimal btwAmount, Integer pct) {
+        ArrayList<VATBooking> vatTransaction = new ArrayList<>();
         VATBooking vatBooking1 = null;
         if(pct==0){
             vatBooking1 = new VATBooking(vatFields.getBusinessObject("0"), new VATMovement(amount, true));
@@ -135,8 +142,8 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
             vatBooking1 = new VATBooking(vatFields.getBusinessObject("3"), new VATMovement(amount, true));
         }
         VATBooking vatBooking2 = new VATBooking(vatFields.getBusinessObject("54"), new VATMovement(btwAmount, true));
-        vatTransaction.addBusinessObject(vatBooking1);
-        vatTransaction.addBusinessObject(vatBooking2);
+        vatTransaction.add(vatBooking1);
+        vatTransaction.add(vatBooking2);
         return vatTransaction;
     }
 }
