@@ -10,6 +10,8 @@ import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static be.dafke.BusinessModelDao.XMLConstants.XML;
+
 /**
  * Created by ddanneels on 14/01/2017.
  */
@@ -36,7 +38,7 @@ public class VATWriter {
     }
 
     public static void writeVATFields(VATFields vatFields, File xmlFolder, String year, String nr, Contact contact, Period period){
-        File xmlFile = new File(xmlFolder, "VAT-"+year+"-"+nr+".xml");
+        File xmlFile = new File(xmlFolder, "VAT-"+year+"-"+nr+XML);
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write(
@@ -86,7 +88,7 @@ public class VATWriter {
     }
 
     public static void writeCustomerListing(File xmlFolder, String year, Contact declarant, Contacts contacts){
-        File xmlFile = new File(xmlFolder, "Customers-"+year+".xml");
+        File xmlFile = new File(xmlFolder, "Customers-"+year+XML);
         try {
             Writer writer = new FileWriter(xmlFile);
             BigDecimal totalTurnover = BigDecimal.ZERO;

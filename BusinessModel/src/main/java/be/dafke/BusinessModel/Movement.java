@@ -1,10 +1,10 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessObject;
-import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.Calendar;
+import java.util.TreeMap;
 
 /**
  * User: Dafke
@@ -46,26 +46,16 @@ public class Movement extends BusinessObject{
         return properties;
     }
 
-    @Override
-    public Properties getOutputProperties() {
-        Properties properties = new Properties();
-        Transaction transaction = booking.getTransaction();
-        properties.put(ID,id.toString());
-        if(debit){
-            properties.put(DEBIT, amount.toString());
-        } else {
-            properties.put(CREDIT, amount.toString());
-        }
-        properties.put(JOURNAL_NAME,transaction.getJournal().getName());
-        properties.put(JOURNAL_ID,transaction.getId().toString());
-        properties.put(JOURNAL_ABBR,transaction.getJournal().getAbbreviation());
-        properties.put(DATE, Utils.toString(transaction.getDate()));
-        properties.put(DESCRIPTION, transaction.getDescription());
-        return properties;
-    }
-
     public Booking getBooking() {
         return booking;
+    }
+
+    public Transaction getTransaction(){
+        return booking.getTransaction();
+    }
+
+    public Journal getJournal(){
+        return getTransaction().getJournal();
     }
 
     public String getTransactionString(){

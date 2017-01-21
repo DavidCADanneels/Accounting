@@ -16,6 +16,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static be.dafke.BusinessModelDao.XMLConstants.NAME;
+import static be.dafke.BusinessModelDao.XMLConstants.XML;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 import static be.dafke.Utils.Utils.parseBigDecimal;
@@ -39,7 +40,7 @@ public class MortgageIO {
     public static final String MORTGAGE_TRANSACTION = "MortgageTransaction";
 
     public static void readMortgages(Mortgages mortgages, Accounts accounts, File accountingFolder) {
-        File xmlFile = new File(accountingFolder, MORTGAGES+".xml");
+        File xmlFile = new File(accountingFolder, MORTGAGES+XML);
         File mortgagesFolder = new File(accountingFolder, MORTGAGES);
         Element rootElement = getRootElement(xmlFile, MORTGAGES);
         for (Element element : getChildren(rootElement, MORTGAGE)) {
@@ -77,7 +78,7 @@ public class MortgageIO {
 
     public static void readMortgage(Mortgage mortgage, File mortgagesFolder) {
         String name = mortgage.getName();
-        File xmlFile = new File(mortgagesFolder, name+".xml");
+        File xmlFile = new File(mortgagesFolder, name+XML);
         Element rootElement = getRootElement(xmlFile, MORTGAGE);
         for (Element element : getChildren(rootElement, MORTGAGE_TRANSACTION)) {
             MortgageTransaction mortgageTransaction = new MortgageTransaction();
@@ -94,7 +95,7 @@ public class MortgageIO {
 
 
     public static void writeMortgages(Mortgages mortgages, File accountingFolder){
-        File mortgagesFile = new File(accountingFolder, MORTGAGES+".xml");
+        File mortgagesFile = new File(accountingFolder, MORTGAGES+XML);
         File mortgagesFolder = new File(accountingFolder, MORTGAGES);
         try{
             Writer writer = new FileWriter(mortgagesFile);
@@ -124,7 +125,7 @@ public class MortgageIO {
     }
 
     public static void writeMortgage(Mortgage mortgage, File mortgagesFolder){
-        File mortgagesFile = new File(mortgagesFolder, mortgage.getName()+".xml");
+        File mortgagesFile = new File(mortgagesFolder, mortgage.getName()+XML);
         try{
             Writer writer = new FileWriter(mortgagesFile);
             writer.write(getXmlHeader(MORTGAGE, 3));

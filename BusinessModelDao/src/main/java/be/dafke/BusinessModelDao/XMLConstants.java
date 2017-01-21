@@ -35,4 +35,5 @@ public class XMLConstants {
     public static final String AMOUNT = "amount";
 
 
+    public static final String XML = ".xml";
 }

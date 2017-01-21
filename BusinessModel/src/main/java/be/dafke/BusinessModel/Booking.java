@@ -3,7 +3,6 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;
-import java.util.Properties;
 import java.util.TreeMap;
 
 /**
@@ -52,22 +51,13 @@ public class Booking extends BusinessObject {
         return movement;
     }
 
-    @Override
-    public TreeMap<String, String> getUniqueProperties(){
-        return new TreeMap<String, String>();
+    public Integer getId(){
+        return movement.getId();
     }
 
     @Override
-    public Properties getOutputProperties() {
-        Properties properties = new Properties();
-        properties.put(ACCOUNT, account.getName());
-        properties.put(ID, movement.getId().toString());
-        if(movement.isDebit()){
-            properties.put(DEBIT, movement.getAmount().toString());
-        } else {
-            properties.put(CREDIT, movement.getAmount().toString());
-        }
-        return properties;
+    public TreeMap<String, String> getUniqueProperties(){
+        return new TreeMap<>();
     }
 
     // Getters

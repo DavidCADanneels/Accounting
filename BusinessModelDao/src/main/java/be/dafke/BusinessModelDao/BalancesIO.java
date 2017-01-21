@@ -15,6 +15,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static be.dafke.BusinessModelDao.XMLConstants.NAME;
+import static be.dafke.BusinessModelDao.XMLConstants.XML;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 import static be.dafke.Utils.Utils.parseStringList;
@@ -81,7 +82,7 @@ public class BalancesIO {
     }
 
     public static void writeBalances(Balances balances, File accountingFolder){
-        File balancesFile = new File(accountingFolder, BALANCES+".xml");
+        File balancesFile = new File(accountingFolder, BALANCES+XML);
         File balancesFolder = new File(accountingFolder, BALANCES);
         try{
             Writer writer = new FileWriter(balancesFile);
@@ -122,7 +123,7 @@ public class BalancesIO {
     }
 
     public static void writeBalance(Balance balance, File balancesFolder) {
-        File file = new File(balancesFolder, balance.getName()+".xml");
+        File file = new File(balancesFolder, balance.getName()+XML);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(BALANCE, 3));

@@ -17,6 +17,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static be.dafke.BusinessModelDao.XMLConstants.NAME;
+import static be.dafke.BusinessModelDao.XMLConstants.XML;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 import static be.dafke.Utils.Utils.parseBigDecimal;
@@ -78,7 +79,7 @@ public class VATIO {
     }
 
     public static void writeVATFields(VATFields vatFields, File accountingFolder){
-        File file = new File(accountingFolder, VATFIELDS+".xml");
+        File file = new File(accountingFolder, VATFIELDS+XML);
         try{
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(VATFIELDS, 2));
@@ -99,7 +100,7 @@ public class VATIO {
     }
 
     public static void writeVATTransactions(VATTransactions vatTransactions, File accountingFolder){
-        File file = new File(accountingFolder, VATTRANSACTIONS+".xml");
+        File file = new File(accountingFolder, VATTRANSACTIONS+XML);
         try{
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(VATTRANSACTIONS, 2));

@@ -3,14 +3,22 @@ package be.dafke.BusinessModelDao;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Utils.Utils;
 import org.w3c.dom.Element;
 
 import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
+import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 import static be.dafke.Utils.Utils.parseInt;
 import static be.dafke.Utils.Utils.toCalendar;
 
@@ -18,6 +26,7 @@ import static be.dafke.Utils.Utils.toCalendar;
  * Created by ddanneels on 15/01/2017.
  */
 public class JournalsIO {
+
     public static void readJournalTypes(JournalTypes journalTypes, AccountTypes accountTypes, File accountingFolder){
         File xmlFile = new File(accountingFolder, "JournalTypes.xml");
         Element rootElement = getRootElement(xmlFile, JOURNAL_TYPES);
@@ -84,6 +93,10 @@ public class JournalsIO {
                 e.printStackTrace();
             }
         }
+        String value = getValue(rootElement, CURRENT);
+        if (value != null) {
+            journals.setCurrentObject(journals.getBusinessObject(value));
+        }
 
         for(Journal journal:journals.getBusinessObjects()){
             readJournal(journal, accounts, journalsFolder);
@@ -92,7 +105,7 @@ public class JournalsIO {
 
     public static void readJournal(Journal journal, Accounts accounts, File journalsFolder) {
         String name = journal.getName();
-        File xmlFile = new File(journalsFolder, name+".xml");
+        File xmlFile = new File(journalsFolder, name+XML);
         Element rootElement = getRootElement(xmlFile, JOURNAL);
         for (Element element: getChildren(rootElement, TRANSACTION)){
 
@@ -133,14 +146,102 @@ public class JournalsIO {
         }
     }
 
-    public void writeJournalTypes(){
+    public static void writeJournalTypes(JournalTypes journalTypes, File accountingFolder){
+        File journalTypesFile = new File(accountingFolder, JOURNAL_TYPES +XML);
+        try {
+            Writer writer = new FileWriter(journalTypesFile);
+            writer.write(getXmlHeader(JOURNAL_TYPES, 2));
+            for (JournalType journalType : journalTypes.getBusinessObjects()) {
+                String debitStream = journalType.getDebetTypes().getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
+                String creditStream = journalType.getCreditTypes().getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
+                writer.write(
+                        "  <"+JOURNAL_TYPE+">\n" +
+                        "    <"+NAME+">"+journalType.getName()+"</"+NAME+">\n" +
+                        "    <"+VATTYPE+">"+journalType.getVatType().toString()+"</"+VATTYPE+">\n" +
+                        "    <"+DEBIT_TYPES+">"+debitStream+"</"+DEBIT_TYPES+">\n" +
+                        "    <"+CREDIT_TYPES+">"+creditStream+"</"+CREDIT_TYPES+">\n" +
+                        "  </"+JOURNAL_TYPE+">\n"
+                );
+            }
+            writer.write("</"+JOURNAL_TYPES+">\n");
+            writer.flush();
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(JournalTypes.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    public static void writeJournals(Journals journals, File accountingFolder){
+        File journalsFile = new File(accountingFolder, JOURNALS +XML);
+        File journalsFolder = new File(accountingFolder, JOURNALS);
+        try {
+            Writer writer = new FileWriter(journalsFile);
+            writer.write(getXmlHeader(JOURNALS, 2));
+            for (Journal journal : journals.getBusinessObjects()) {
+                writer.write(
+                        "  <"+JOURNAL+">\n" +
+                        "    <"+NAME+">"+journal.getName()+"</"+NAME+">\n" +
+                        "    <"+ABBREVIATION+">"+journal.getAbbreviation()+"</"+ABBREVIATION+">\n" +
+                        "    <"+TYPE+">"+journal.getType()+"</"+TYPE+">\n" +
+                        "  </"+JOURNAL+">\n"
+                );
+            }
+            writer.write("  <"+CURRENT+">"+journals.getCurrentObject().getName()+"</"+CURRENT+">\n");
+            writer.write("</"+JOURNALS+">\n");
+            writer.flush();
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Journals.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        for (Journal journal:journals.getBusinessObjects()) {
+            writeJournal(journal, journalsFolder);
+        }
 
     }
-    public void writeJournals(){
-
-    }
-    public void writeJournal(){
-
+    public static void writeJournal(Journal journal, File journalsFolder){
+        File journalFile = new File(journalsFolder, journal.getName() +XML);
+        try {
+            Writer writer = new FileWriter(journalFile);
+            writer.write(getXmlHeader(JOURNAL, 3));
+            writer.write(
+                        "  <"+NAME+">"+journal.getName()+"</"+NAME+">\n" +
+                        "  <"+ABBREVIATION+">"+journal.getAbbreviation()+"</"+ABBREVIATION+">\n" +
+                        "  <"+TYPE+">"+journal.getType()+"</"+TYPE+">\n"
+            );
+            for (Transaction transaction : journal.getBusinessObjects()) {
+                writer.write(
+                        "  <"+TRANSACTION+">\n" +
+                        "    <"+DATE+">"+ Utils.toString(transaction.getDate())+"</"+DATE+">\n" +
+                        "    <"+DESCRIPTION+">"+transaction.getDescription()+"</"+DESCRIPTION+">\n" +
+                        "    <"+ID+">"+transaction.getId()+"</"+ID+">\n"
+                );
+                for(Booking booking:transaction.getBusinessObjects()){
+                    writer.write(
+                        "    <"+BOOKING+">\n" +
+                        "      <"+ID+">"+booking.getId()+"</"+ID+">\n" +
+                        "      <"+ACCOUNT+">"+booking.getAccount()+"</"+ACCOUNT+">\n"
+                    );
+                    Movement movement = booking.getMovement();
+                    if(movement.isDebit()){
+                        writer.write(
+                        "      <"+DEBIT+">"+movement.getAmount()+"</"+DEBIT+">\n"
+                        );
+                    } else {
+                        writer.write(
+                        "      <"+CREDIT+">"+movement.getAmount()+"</"+CREDIT+">\n"
+                        );
+                    }
+                    writer.write(
+                        "    </"+BOOKING+">\n"
+                    );
+                }
+                writer.write("  </"+TRANSACTION+">\n");
+            }
+            writer.write("</"+JOURNAL+">\n");
+            writer.flush();
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Journal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
 }

@@ -6,7 +6,6 @@ import be.dafke.Utils.MultiValueMap;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Properties;
 import java.util.TreeMap;
 
 /**
@@ -28,15 +27,6 @@ public class Journal extends BusinessCollection<Transaction> {
         currentTransaction = new Transaction(Calendar.getInstance(),"");
         transactions = new MultiValueMap<>();
 	}
-
-    @Override
-    public Properties getOutputProperties() {
-        Properties outputMap = new Properties();
-        outputMap.put(NAME,getName());
-        outputMap.put(Journals.TYPE, getType().getName());
-        outputMap.put(Journals.ABBREVIATION, getAbbreviation());
-        return outputMap;
-    }
 
     @Override
     public boolean isDeletable(){

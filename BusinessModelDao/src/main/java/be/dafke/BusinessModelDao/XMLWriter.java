@@ -13,7 +13,10 @@ import java.util.logging.Logger;
 import static be.dafke.BusinessModelDao.AccountsIO.writeAccounts;
 import static be.dafke.BusinessModelDao.BalancesIO.writeBalances;
 import static be.dafke.BusinessModelDao.ContactsIO.writeContacts;
+import static be.dafke.BusinessModelDao.JournalsIO.writeJournalTypes;
+import static be.dafke.BusinessModelDao.JournalsIO.writeJournals;
 import static be.dafke.BusinessModelDao.MortgageIO.writeMortgages;
+import static be.dafke.BusinessModelDao.ProjectsIO.writeProjects;
 import static be.dafke.BusinessModelDao.VATIO.writeVATFields;
 import static be.dafke.BusinessModelDao.VATIO.writeVATTransactions;
 import static be.dafke.BusinessModelDao.XMLConstants.ACCOUNTINGS;
@@ -64,8 +67,9 @@ public class XMLWriter {
         File accountingsFolder = new File(xmlFolder, "Accountings");
         File accountingFolder = new File(accountingsFolder, accounting.getName());
         writeAccounts(accounting.getAccounts(), accountingFolder);
-//        writeJournals()
-//                writeMortgages
+        writeJournals(accounting.getJournals(), accountingFolder);
+        writeJournalTypes(accounting.getJournalTypes(), accountingFolder);
+        writeProjects(accounting.getProjects(), accountingFolder);
         writeBalances(accounting.getBalances(), accountingFolder);
         writeVATFields(accounting.getVatFields(), accountingFolder);
         writeVATTransactions(accounting.getVatTransactions(), accountingFolder);

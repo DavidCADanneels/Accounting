@@ -5,15 +5,7 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
-import java.util.Properties;
-import java.util.stream.Collectors;
-
 public class JournalType extends BusinessObject {
-
-    public static final String DEBIT_TYPES = "debitTypes";
-    public static final String CREDIT_TYPES = "creditTypes";
-    public static final String VATTYPE = "vatType";
-
     private AccountTypes debetTypes, creditTypes;
     private VATTransaction.VATType vatType = VATTransaction.VATType.NONE;
 
@@ -38,17 +30,6 @@ public class JournalType extends BusinessObject {
 
     public void setVatType(VATTransaction.VATType vatType) {
         this.vatType = vatType;
-    }
-
-    public Properties getOutputProperties(){
-        Properties properties = new Properties();
-        properties.put(NAME,getName());
-        String debitStream = debetTypes.getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
-        String creditStream = creditTypes.getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
-        properties.put(DEBIT_TYPES,debitStream);
-        properties.put(CREDIT_TYPES,creditStream);
-        properties.put(VATTYPE,vatType.toString());
-        return properties;
     }
 
     public void addDebetType(AccountType accountType) throws EmptyNameException, DuplicateNameException {

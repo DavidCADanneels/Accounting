@@ -1,10 +1,11 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.TreeMap;
 
 /**
  * Boekhoudkundige transactie Bevat minstens 2 boekingen
@@ -54,16 +55,6 @@ public class Transaction extends BusinessCollection<Booking> {
     @Override
     public TreeMap<String, String> getUniqueProperties(){
         return new TreeMap<>();
-    }
-
-    public Properties getOutputProperties() {
-        Properties properties = new Properties();
-        properties.put(ID, new Integer(journal.getId(this)).toString());
-        properties.put(DATE, Utils.toString(date));
-        properties.put(DESCRIPTION, getDescription());
-        properties.put(BOOKINGS, bookings);
-
-        return properties;
     }
 
 	public BigDecimal getDebetTotaal() {

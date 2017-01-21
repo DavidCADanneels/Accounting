@@ -15,7 +15,6 @@ import java.util.Map;
  * @since 01/10/2010
  */
 public class Journals extends BusinessCollection<Journal> implements ChildrenNeedSeparateFile {
-    public static final String TYPE = "type";
     public static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
 
     public Journals() {

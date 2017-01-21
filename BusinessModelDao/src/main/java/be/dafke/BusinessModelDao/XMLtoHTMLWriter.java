@@ -18,7 +18,7 @@ public class XMLtoHTMLWriter {
 //    public static void toHtml(BusinessCollection businessCollection, File xmlFolder, File xslFolder, File htmlFolder){
 //        String businessCollectionName = businessCollection.getName();
 //        String businessCollectionType = businessCollection.getBusinessObjectType();
-//        File xmlFile = new File(xmlFolder, businessCollectionName + ".xml");
+//        File xmlFile = new File(xmlFolder, businessCollectionName + XML);
 //        File htmlFile = new File(htmlFolder, businessCollectionName + ".html");
 //
 //        xmlToHtml(xmlFile, new File(xslFolder, businessCollectionType + ".xsl"), htmlFile, null);
@@ -33,7 +33,7 @@ public class XMLtoHTMLWriter {
 //
 //            String businessObjectType = businessObject.getBusinessObjectType();
 //
-//            File objectXmlFile = new File(xmlCollectionFolder, businessObjectName+".xml");
+//            File objectXmlFile = new File(xmlCollectionFolder, businessObjectName+XML);
 //            File objectHtmlFile = new File(htmlCollectionFolder, businessObjectName+".html");
 //
 //            xmlToHtml(objectXmlFile, new File(xslFolder, businessObjectType+".xsl"), objectHtmlFile, null);
