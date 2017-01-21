@@ -45,7 +45,8 @@ public class XMLWriter {
             Writer writer = new FileWriter(xmlFile);
             writer.write(getXmlHeader(ACCOUNTINGS, 0));
             for(Accounting accounting:accountings.getBusinessObjects()){
-                writer.write(   "  <Accounting>\n" +
+                writer.write(
+                        "  <Accounting>\n" +
                         "    <name>"+accounting.getName()+"</name>\n" +
                         "  </Accounting>\n"
                 );

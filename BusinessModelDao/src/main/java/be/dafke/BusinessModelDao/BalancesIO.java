@@ -14,8 +14,7 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static be.dafke.BusinessModelDao.XMLConstants.NAME;
-import static be.dafke.BusinessModelDao.XMLConstants.XML;
+import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 import static be.dafke.Utils.Utils.parseStringList;
@@ -24,22 +23,7 @@ import static be.dafke.Utils.Utils.parseStringList;
  * Created by ddanneels on 15/01/2017.
  */
 public class BalancesIO {
-    public static final String BALANCES = "Balances";
-    public static final String BALANCE = "Balance";
-    public final static String LEFTNAME = "LeftName";
-    public final static String RIGHTNAME = "RightName";
-    public final static String LEFTTOTALNAME = "LeftTotalName";
-    public final static String RIGHTTOTALNAME = "RightTotalName";
-    public final static String LEFTRESULTNAME = "LeftResultName";
-    public final static String RIGHTRESULTNAME = "RightResultName";
-    public final static String LEFTTYPES = "LeftTypes";
-    public final static String RIGHTTYPES = "RightTypes";
 
-    public static final String BALANCE_LINE = "BalanceLine";
-    public final static String NAME1 = "name1";
-    public final static String NAME2 = "name2";
-    public final static String AMOUNT1 = "amount1";
-    public final static String AMOUNT2 = "amount2";
 
 
     public static void readBalances(Balances balances, Accounts accounts, AccountTypes accountTypes, File accountingFolder){

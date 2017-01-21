@@ -22,12 +22,6 @@ import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
  * Created by ddanneels on 15/01/2017.
  */
 public class ContactsIO {
-    public static final String CONTACTS = "Contacts";
-    public static final String CONTACT = "Contact";
-
-    public static final String ADDRESS_LINE_1 = "addressLine1";
-    public static final String ADDRESS_LINE_2 = "addressLine2";
-    public static final String VAT_NUMBER = "TVANumber";
 
     public static void readContacts(Contacts contacts, File accountingFolder){
         File xmlFile = new File(accountingFolder, "Contacts.xml");

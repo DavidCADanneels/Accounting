@@ -25,17 +25,6 @@ import static be.dafke.Utils.Utils.parseBigInteger;
  * Created by ddanneels on 15/01/2017.
  */
 public class AccountsIO {
-
-    public static final String MOVEMENT = "Movement";
-    public static final String DESCRIPTION = "description";
-    public static final String ID = "id";
-    public static final String DATE = "date";
-    public static final String DEBIT = "debit";
-    public static final String CREDIT = "credit";
-    public static final String JOURNAL_ABBR = "journalAbbr";
-    public static final String JOURNAL_NAME = "journalName";
-    public static final String JOURNAL_ID = "journalId";
-
     public static void readAccounts(Accounts accounts, AccountTypes accountTypes, File accountingFolder){
         File xmlFile = new File(accountingFolder, "Accounts.xml");
         Element rootElement = getRootElement(xmlFile, ACCOUNTS);

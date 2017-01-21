@@ -16,8 +16,7 @@ import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static be.dafke.BusinessModelDao.XMLConstants.NAME;
-import static be.dafke.BusinessModelDao.XMLConstants.XML;
+import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 import static be.dafke.Utils.Utils.parseBigDecimal;
@@ -26,15 +25,6 @@ import static be.dafke.Utils.Utils.parseBigDecimal;
  * Created by ddanneels on 15/01/2017.
  */
 public class VATIO {
-    public static final String VATFIELD = "VATField";
-    public static final String VATFIELDS = "VATFields";
-    public static final String VATTRANSACTIONS = "VATTransactions";
-    public static final String VATTRANSACTION = "VATTransaction";
-    public static final String DEBIT_ACCOUNT = "DebitAccount";
-    public static final String CREDIT_ACCOUNT = "CreditAccount";
-    public static final String DEBIT_CN_ACCOUNT = "DebitCNAccount";
-    public static final String CREDIT_CN_ACCOUNT = "CreditCNAccount";
-    public static final String AMOUNT = "amount";
 
     public static void readVATFields(VATFields vatFields, File accountingFolder) {
         File xmlFile = new File(accountingFolder, "VATFields.xml");

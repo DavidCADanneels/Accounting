@@ -15,8 +15,7 @@ import java.io.Writer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-import static be.dafke.BusinessModelDao.XMLConstants.NAME;
-import static be.dafke.BusinessModelDao.XMLConstants.XML;
+import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 import static be.dafke.Utils.Utils.parseBigDecimal;
@@ -26,18 +25,6 @@ import static be.dafke.Utils.Utils.parseInt;
  * Created by ddanneels on 15/01/2017.
  */
 public class MortgageIO {
-    public static final String MORTGAGES = "Mortgages";
-    public static final String MORTGAGE = "Mortgage";
-    public final static String TOTAL = "total";
-    public final static String NRPAYED = "nrPayed";
-    public final static String CAPITAL_ACCOUNT = "CapitalAccount";
-    public final static String INTREST_ACCOUNT = "IntrestAccount";
-    public static final String NR = "nr";
-    public static final String MENSUALITY = "mensuality";
-    public static final String INTREST = "intrest";
-    public static final String CAPITAL = "capital";
-    public static final String RESTCAPITAL = "restCapital";
-    public static final String MORTGAGE_TRANSACTION = "MortgageTransaction";
 
     public static void readMortgages(Mortgages mortgages, Accounts accounts, File accountingFolder) {
         File xmlFile = new File(accountingFolder, MORTGAGES+XML);
