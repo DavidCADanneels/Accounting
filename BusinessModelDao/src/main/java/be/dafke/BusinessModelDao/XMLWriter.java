@@ -52,7 +52,10 @@ public class XMLWriter {
                         "  </Accounting>\n"
                 );
             }
-            writer.write("  <CurrentObject>"+accountings.getCurrentObject()+"</CurrentObject>\n");
+            Accounting currentObject = accountings.getCurrentObject();
+            if(currentObject!=null) {
+                writer.write("  <CurrentObject>" + currentObject.getName() + "</CurrentObject>\n");
+            }
             writer.write("</Accountings>");
             writer.flush();
             writer.close();
