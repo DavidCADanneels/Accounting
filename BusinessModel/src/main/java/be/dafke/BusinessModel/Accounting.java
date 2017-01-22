@@ -24,14 +24,12 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     public Accounting(String name) {
         setName(name);
         accountTypes = new AccountTypes();
-//        TODO: remove this line once we safe AccountTypes in a separate file
-        accountTypes.addDefaultTypes();
+
         accounts = new Accounts(accountTypes);
 
         companyContact = new Contact();
 
         journalTypes = new JournalTypes();
-//        journalTypes.addDefaultType(accountTypes);
 
         vatFields = new VATFields();
         vatTransactions = new VATTransactions(vatFields);

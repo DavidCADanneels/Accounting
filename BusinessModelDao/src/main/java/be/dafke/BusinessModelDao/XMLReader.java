@@ -70,6 +70,7 @@ public class XMLReader {
 
             String name = getValue(element, NAME);
             Accounting accounting = new Accounting(name);
+            accounting.getAccountTypes().addDefaultTypes();
 
             try {
                 accountings.addBusinessObject(accounting);
