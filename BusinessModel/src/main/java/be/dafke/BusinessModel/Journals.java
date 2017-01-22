@@ -25,6 +25,7 @@ public class Journals extends BusinessCollection<Journal> {
                 e.printStackTrace();
             }
         }
+        currentObject = journals.getBusinessObject(journals.currentObject.getName());
     }
 
     public Journals() {

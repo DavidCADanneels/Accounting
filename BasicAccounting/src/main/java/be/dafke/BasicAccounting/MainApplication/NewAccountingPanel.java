@@ -8,7 +8,6 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 
-import static be.dafke.BasicAccounting.MainApplication.Main.accountings;
 import static be.dafke.BasicAccounting.MainApplication.Main.setAccounting;
 import static java.util.ResourceBundle.getBundle;
 
@@ -19,9 +18,13 @@ public class NewAccountingPanel extends RefreshableDialog {
 
     private JButton add;
     private JTextField nameField;
+    private JCheckBox copyAccounts, copyJournals;
+    private JComboBox<Accounting> accountingToCopyFrom;
+    private Accountings accountings;
 
     public NewAccountingPanel(Accountings accountings) {
         super(getBundle("Accounting").getString("NEW_ACCOUNTING_GUI_TITLE"));
+        this.accountings = accountings;
         setContentPane(createContentPanel());
         pack();
     }
@@ -36,10 +39,28 @@ public class NewAccountingPanel extends RefreshableDialog {
         namePanel.add(nameField);
         panel.add(namePanel);
 
+        panel.add(createOptionsPanel());
+
         add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNT"));
         add.addActionListener(e -> addAccounting());
         panel.add(add);
 
+        return panel;
+    }
+
+    private JPanel createOptionsPanel() {
+        JPanel panel = new JPanel();
+        copyAccounts = new JCheckBox("copy Accounts");
+        copyJournals = new JCheckBox("copy Journals");
+        JLabel from = new JLabel("from:");
+        accountingToCopyFrom = new JComboBox<>();
+        for(Accounting accounting:accountings.getBusinessObjects()) {
+            accountingToCopyFrom.addItem(accounting);
+        }
+        panel.add(copyAccounts);
+        panel.add(copyJournals);
+        panel.add(from);
+        panel.add(accountingToCopyFrom);
         return panel;
     }
 
@@ -51,6 +72,13 @@ public class NewAccountingPanel extends RefreshableDialog {
                 accounting.getAccountTypes().addDefaultTypes();
                 accounting.getJournalTypes().addDefaultType(accounting.getAccountTypes());
                 accounting.getBalances().addDefaultBalances();
+                Accounting source = (Accounting)accountingToCopyFrom.getSelectedItem();
+                if(copyAccounts.isSelected()){
+                    accounting.copyAccounts(source.getAccounts());
+                }
+                if(copyJournals.isSelected()){
+                    accounting.copyJournals(source.getJournals());
+                }
                 accountings.addBusinessObject(accounting);
                 accountings.setCurrentObject(accounting);
                 setAccounting(accounting);

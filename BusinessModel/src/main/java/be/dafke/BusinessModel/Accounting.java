@@ -8,8 +8,8 @@ import be.dafke.ObjectModel.BusinessObject;
  */
 public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> {
     private final AccountTypes accountTypes;
-    private final Accounts accounts;
-	private final Journals journals;
+    private Accounts accounts;
+	private Journals journals;
     private final JournalTypes journalTypes;
     private final Balances balances;
     private final Mortgages mortgages;
@@ -53,7 +53,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     public Accounts getAccounts() {
         return accounts;
     }
-    //
+
     public Journals getJournals() {
         return journals;
     }
@@ -96,5 +96,13 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     public void setRead(boolean read) {
         this.read = read;
+    }
+
+    public void copyAccounts(Accounts accounts) {
+        this.accounts = new Accounts(accounts);
+    }
+
+    public void copyJournals(Journals journals) {
+        this.journals = new Journals(journals);
     }
 }
