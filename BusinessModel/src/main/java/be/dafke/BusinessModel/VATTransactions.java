@@ -77,6 +77,7 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
 
     @Override
     public void removeBusinessObject(VATTransaction vatTransaction){
+        vatTransactions.remove(vatTransaction);
         for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){
             VATField vatField = vatBooking.getVatField();
             if(vatField!=null) {
