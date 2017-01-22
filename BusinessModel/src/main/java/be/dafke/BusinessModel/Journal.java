@@ -96,9 +96,9 @@ public class Journal extends BusinessCollection<Transaction> {
         }
         // FIXME: same as above, need link in XML
         VATTransaction vatTransaction = transaction.getVatTransaction();
-//      if(vatTransaction!=null && !vatTransaction.getBusinessObjects().isEmpty()) {
+        if(vatTransaction!=null && !vatTransaction.getBusinessObjects().isEmpty()) {
             vatTransactions.removeBusinessObject(vatTransaction);
-//      }
+        }
 
         Contact contact = transaction.getContact();
         BigDecimal turnOverAmount = transaction.getTurnOverAmount();
