@@ -230,7 +230,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         } else if (e.getSource() == singleBook){
             saveTransaction();
             if(journal!=null && transaction!=null && transaction.isBookable()){
-                journal.addBusinessObject(transaction);
+                journal.addBusinessObject(transaction, true);
                 Main.fireJournalDataChanged(journal);
                 for (Account account : transaction.getAccounts()) {
                     Main.fireAccountDataChanged(account);

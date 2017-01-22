@@ -110,6 +110,9 @@ public class Journal extends BusinessCollection<Transaction> {
     }
 
 	public Transaction addBusinessObject(Transaction transaction) {
+        return addBusinessObject(transaction,false);
+    }
+	public Transaction addBusinessObject(Transaction transaction, boolean all) {
         Calendar date = transaction.getDate();
         transaction.setJournal(this);
 
@@ -119,21 +122,23 @@ public class Journal extends BusinessCollection<Transaction> {
         }
         transactions.addValue(date, transaction);
 
-        Mortgage mortgage = transaction.getMortgage();
-        if (mortgage!=null){
-            mortgage.raiseNrPayed();
-        }
-        VATTransaction vatTransaction = transaction.getVatTransaction();
-        if(vatTransaction!=null && !vatTransaction.getBusinessObjects().isEmpty()) {
-            vatTransactions.addBusinessObject(vatTransaction);
-        }
+        if(all) {
+            Mortgage mortgage = transaction.getMortgage();
+            if (mortgage != null) {
+                mortgage.raiseNrPayed();
+            }
+            VATTransaction vatTransaction = transaction.getVatTransaction();
+            if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
+                vatTransactions.addBusinessObject(vatTransaction);
+            }
 
-        Contact contact = transaction.getContact();
-        BigDecimal turnOverAmount = transaction.getTurnOverAmount();
-        BigDecimal vatAmount = transaction.getVATAmount();
-        if(contact!=null && turnOverAmount!=null && vatAmount!=null){
-            contact.increaseTurnOver(turnOverAmount);
-            contact.increaseVATTotal(vatAmount);
+            Contact contact = transaction.getContact();
+            BigDecimal turnOverAmount = transaction.getTurnOverAmount();
+            BigDecimal vatAmount = transaction.getVATAmount();
+            if (contact != null && turnOverAmount != null && vatAmount != null) {
+                contact.increaseTurnOver(turnOverAmount);
+                contact.increaseVATTotal(vatAmount);
+            }
         }
 
         return transaction;
