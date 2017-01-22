@@ -54,6 +54,19 @@ public class AccountTest {
     }
 
     @Test
+    public void copyConstructor(){
+        Account account = new Account("a");
+        Account copy = new Account(account);
+
+        account.setName("b");
+        assertEquals("a",copy.getName());
+
+        AccountType type = new AccountType();
+        account.setType(type);
+        assertNull(copy.getType());
+    }
+
+    @Test
     public void deletable(){
         Account account = new Account("");
         assertTrue(account.isDeletable());

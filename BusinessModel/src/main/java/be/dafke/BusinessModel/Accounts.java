@@ -19,11 +19,20 @@ import java.util.stream.Collectors;
  */
 public class Accounts extends BusinessCollection<Account> implements ChildrenNeedSeparateFile {
     public static final String ACCOUNT = "Account";
-    private AccountTypes accountTypes;
 
-    public Accounts(AccountTypes accountTypes) {
-        this.accountTypes = accountTypes;
-        setName("Accounts");
+    public Accounts() {
+        super();
+    }
+
+    public Accounts(Accounts accounts) {
+        super();
+        for(Account account:accounts.getBusinessObjects()){
+            try {
+                addBusinessObject(new Account(account));
+            } catch (EmptyNameException | DuplicateNameException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     public BigDecimal getSumOfAccountsByNumber(String prefix){

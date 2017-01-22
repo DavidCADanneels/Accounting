@@ -21,8 +21,7 @@ class ProjectTest extends GroovyTestCase {
     }
 
     void testBusinessObjects() {
-        def accountTypes = new AccountTypes();
-        def project = new Project(PROJECT_NAME, new Accounts(accountTypes), accountTypes);
+        def project = new Project(PROJECT_NAME, new Accounts(), accountTypes);
         def account = new Account(ACCOUNT_NAME);
         project.addBusinessObject(account);
         assert account == project.getBusinessObject(ACCOUNT_NAME);

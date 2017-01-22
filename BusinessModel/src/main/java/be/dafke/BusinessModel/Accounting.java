@@ -25,7 +25,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         setName(name);
         accountTypes = new AccountTypes();
 
-        accounts = new Accounts(accountTypes);
+        accounts = new Accounts();
 
         companyContact = new Contact();
 

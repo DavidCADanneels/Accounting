@@ -30,6 +30,14 @@ public class Account extends BusinessCollection<Movement> {
         creditTotal = creditTotal.setScale(2);
     }
 
+    public Account(Account account){
+        this(account.getName());
+        setNumber(account.number);
+        setDefaultAmount(account.defaultAmount);
+        setType(account.type);
+        setContact(account.contact);
+    }
+
     @Override
     public String toString(){
         return getName();
