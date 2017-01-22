@@ -16,6 +16,17 @@ import java.util.Map;
 public class Journals extends BusinessCollection<Journal> {
     public static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
 
+    public Journals(Journals journals){
+        this();
+        for(Journal journal:journals.getBusinessObjects()) {
+            try {
+                addBusinessObject(new Journal(journal));
+            } catch (EmptyNameException | DuplicateNameException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public Journals() {
         addSearchKey(ABBREVIATION);
 	}

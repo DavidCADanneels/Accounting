@@ -20,6 +20,11 @@ public class Journal extends BusinessCollection<Transaction> {
     private Transaction currentTransaction;
     private VATTransactions vatTransactions;
 
+    public Journal(Journal journal) {
+        this(journal.getName(), journal.abbreviation, journal.vatTransactions);
+        setType(journal.type);
+    }
+
     public Journal(String name, String abbreviation, VATTransactions vatTransactions) {
         setName(name);
         this.vatTransactions = vatTransactions;
