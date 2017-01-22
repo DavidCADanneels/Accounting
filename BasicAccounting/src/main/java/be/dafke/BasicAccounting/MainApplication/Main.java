@@ -19,8 +19,6 @@ import be.dafke.BasicAccounting.VAT.VATMenu;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.XMLReader;
 import be.dafke.BusinessModelDao.XMLWriter;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import java.awt.*;
@@ -265,23 +263,6 @@ public class Main {
         // refresh all balances if an account is update, filtering on accounting/accounts/accountType could be applied
         TestBalance.fireAccountDataChangedForAll();
         BalanceGUI.fireAccountDataChangedForAll();
-    }
-
-    public static void newAccounting(Accountings accountings) {
-        String name = JOptionPane.showInputDialog(null, "Enter a name");
-        try {
-            Accounting accounting = new Accounting(name);
-            accounting.getAccountTypes().addDefaultTypes();
-            accounting.getJournalTypes().addDefaultType(accounting.getAccountTypes());
-            accounting.getBalances().addDefaultBalances();
-            accountings.addBusinessObject(accounting);
-            accountings.setCurrentObject(accounting);
-            setAccounting(accounting);
-        } catch (DuplicateNameException e) {
-            ActionUtils.showErrorMessage(ActionUtils.ACCOUNTING_DUPLICATE_NAME);
-        } catch (EmptyNameException e) {
-            ActionUtils.showErrorMessage(ActionUtils.ACCOUNTING_NAME_EMPTY);
-        }
     }
 
     public static void fireContactDataChanged(Contact contact) {

@@ -101,6 +101,7 @@ public class BalancesIO {
             Logger.getLogger(Balances.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        balancesFolder.mkdirs();
         for(Balance balance:balances.getBusinessObjects()){
             writeBalance(balance, balancesFolder);
         }

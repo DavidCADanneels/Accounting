@@ -40,6 +40,7 @@ public class XMLWriter {
     }
 
     public static void writeAccountings(Accountings accountings, File xmlFolder){
+        xmlFolder.mkdirs();
         File xmlFile = new File(xmlFolder, "Accountings.xml");
         try {
             Writer writer = new FileWriter(xmlFile);
@@ -67,6 +68,7 @@ public class XMLWriter {
     private static void writeAccounting(Accounting accounting, File xmlFolder) {
         File accountingsFolder = new File(xmlFolder, "Accountings");
         File accountingFolder = new File(accountingsFolder, accounting.getName());
+        accountingFolder.mkdirs();
         writeAccounts(accounting.getAccounts(), accountingFolder);
         writeJournals(accounting.getJournals(), accountingFolder);
         writeJournalTypes(accounting.getJournalTypes(), accountingFolder);

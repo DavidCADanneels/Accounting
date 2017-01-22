@@ -87,6 +87,7 @@ public class AccountsIO {
         } catch (IOException ex) {
             Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex);
         }
+        accountsFolder.mkdirs();
         for (Account account:accounts.getBusinessObjects()) {
             writeAccount(account, accountsFolder);
         }

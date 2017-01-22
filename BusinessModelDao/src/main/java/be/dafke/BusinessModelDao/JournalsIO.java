@@ -191,13 +191,17 @@ public class JournalsIO {
                         "  </"+JOURNAL+">\n"
                 );
             }
-            writer.write("  <"+CURRENT+">"+journals.getCurrentObject().getName()+"</"+CURRENT+">\n");
+            Journal currentObject = journals.getCurrentObject();
+            if(currentObject!=null) {
+                writer.write("  <" + CURRENT + ">" + currentObject.getName() + "</" + CURRENT + ">\n");
+            }
             writer.write("</"+JOURNALS+">\n");
             writer.flush();
             writer.close();
         } catch (IOException ex) {
             Logger.getLogger(Journals.class.getName()).log(Level.SEVERE, null, ex);
         }
+        journalsFolder.mkdirs();
         for (Journal journal:journals.getBusinessObjects()) {
             writeJournal(journal, journalsFolder);
         }

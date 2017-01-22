@@ -23,7 +23,7 @@ public class AccountingMenuBar extends JMenuBar {
         this.accountings = accountings;
         file = new JMenu(getBundle("Accounting").getString("ACCOUNTING"));
         startNew = new JMenuItem(getBundle("Accounting").getString("NEW_ACCOUNTING"));
-        startNew.addActionListener(e -> Main.newAccounting(accountings));
+        startNew.addActionListener(e -> new NewAccountingPanel(accountings).setVisible(true));
         add(file);
     }
 
