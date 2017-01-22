@@ -94,7 +94,6 @@ public class Journal extends BusinessCollection<Transaction> {
         if (mortgage != null) {
             mortgage.decreaseNrPayed();
         }
-        // FIXME: same as above, need link in XML
         VATTransaction vatTransaction = transaction.getVatTransaction();
         if(vatTransaction!=null && !vatTransaction.getBusinessObjects().isEmpty()) {
             vatTransactions.removeBusinessObject(vatTransaction);
