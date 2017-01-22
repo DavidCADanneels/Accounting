@@ -2,12 +2,11 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
-import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
 
 /**
  * @author David Danneels
  */
-public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> implements ChildrenNeedSeparateFile {
+public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> {
     private final AccountTypes accountTypes;
     private final Accounts accounts;
 	private final Journals journals;

@@ -1,12 +1,11 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.ChildrenNeedSeparateFile;
 
 /**
  * User: Dafke
  * Date: 27/02/13
  * Time: 11:06
  */
-public class Mortgages extends BusinessCollection<Mortgage> implements ChildrenNeedSeparateFile {
+public class Mortgages extends BusinessCollection<Mortgage> {
 }
