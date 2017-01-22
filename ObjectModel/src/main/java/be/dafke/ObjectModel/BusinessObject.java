@@ -1,6 +1,5 @@
 package be.dafke.ObjectModel;
 
-import java.util.Properties;
 import java.util.TreeMap;
 
 /**
@@ -38,13 +37,6 @@ public class BusinessObject {
         return false;
     }
 
-    //
-    public Properties getOutputProperties(){
-        Properties properties = new Properties();
-        properties.put(NAME,name);
-        return properties;
-    }
-    //
     public TreeMap<String, String> getUniqueProperties(){
         TreeMap<String,String> properties = new TreeMap<>();
         properties.put(NAME,name);

@@ -6,7 +6,6 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
 import java.util.ArrayList;
-import java.util.Properties;
 
 /**
  * @author David Danneels
@@ -24,13 +23,6 @@ public class Project extends BusinessCollection<Account> {
 		Balances balances = new Balances(accounts, accountTypes);
 		resultBalance = balances.createResultBalance(projectAccounts);
 		relationsBalance = balances.createRelationsBalance(projectAccounts);
-	}
-
-	@Override
-	public Properties getOutputProperties() {
-		Properties outputMap = new Properties();
-		outputMap.put(NAME,getName());
-		return outputMap;
 	}
 
 	@Override

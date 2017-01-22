@@ -96,7 +96,6 @@ public class Statement extends BusinessObject {
     }
 
     //
-    @Override
     public Properties getOutputProperties(){
         Properties properties = new Properties();
         properties.put(NAME,getName());
