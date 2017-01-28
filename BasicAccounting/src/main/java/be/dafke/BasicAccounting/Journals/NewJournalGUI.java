@@ -23,12 +23,10 @@ public class NewJournalGUI extends RefreshableDialog {
     private JComboBox<JournalType> type;
     private JButton add, newType;
     private Journals journals;
-    private VATTransactions vatTransactions;
 
-    public NewJournalGUI(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes, VATTransactions vatTransactions) {
+    public NewJournalGUI(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"));
         this.journals = journals;
-        this.vatTransactions = vatTransactions;
         setContentPane(createContentPanel(journalTypes, accountTypes));
         pack();
     }
@@ -67,7 +65,7 @@ public class NewJournalGUI extends RefreshableDialog {
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
         try {
-            Journal journal = new Journal(newName, abbreviation, vatTransactions);
+            Journal journal = new Journal(newName, abbreviation);
             journal.setType(journalType);
             journals.addBusinessObject(journal);
             Main.addJournal(journal);
