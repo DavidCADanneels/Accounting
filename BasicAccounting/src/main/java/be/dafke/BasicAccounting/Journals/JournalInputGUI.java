@@ -35,6 +35,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
     private Journal journal;
     private Transaction transaction;
+    private VATTransactions vatTransactions;
 
     public JournalInputGUI() {
         setLayout(new BorderLayout());
@@ -158,9 +159,29 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
             Transaction transaction = booking.getTransaction();
             Journal journal = transaction.getJournal();
             journal.removeBusinessObject(transaction);
+
             Main.fireJournalDataChanged(journal);
             for (Account account : transaction.getAccounts()) {
                 Main.fireAccountDataChanged(account);
+            }
+
+            // FIXME: link between transaction and mortgage is gone after restart (not saved in XML) ???
+            Mortgage mortgage = transaction.getMortgage();
+            if (mortgage != null) {
+                mortgage.decreaseNrPayed();
+            }
+
+            VATTransaction vatTransaction = transaction.getVatTransaction();
+            if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
+                vatTransactions.removeBusinessObject(vatTransaction);
+            }
+
+            Contact contact = transaction.getContact();
+            BigDecimal turnOverAmount = transaction.getTurnOverAmount();
+            BigDecimal vatAmount = transaction.getVATAmount();
+            if (contact != null && turnOverAmount != null && vatAmount != null) {
+                contact.decreaseTurnOver(turnOverAmount);
+                contact.decreaseVATTotal(vatAmount);
             }
 
             ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.getName());
@@ -168,22 +189,18 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     }
 
     public void editTransaction(ArrayList<Booking> bookings) {
+        deleteTransaction(bookings);
         for (Booking booking : bookings) {
             Transaction transaction = booking.getTransaction();
             Journal journal = transaction.getJournal();
-            journal.removeBusinessObject(transaction);
-            Main.fireJournalDataChanged(journal);
-            for (Account account : transaction.getAccounts()) {
-                Main.fireAccountDataChanged(account);
-            }
             //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
             // set Journal before Transaction: setJournal sets transaction to currentObject !!!
+
+            // TODO: setAccounting if different
             Main.setJournal(journal);
             journal.setCurrentObject(transaction);
             // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
             setTransaction(transaction);
-
-            ActionUtils.showErrorMessage(TRANSACTION_REMOVED,journal.getName());
         }
     }
 
@@ -230,7 +247,26 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         } else if (e.getSource() == singleBook){
             saveTransaction();
             if(journal!=null && transaction!=null && transaction.isBookable()){
-                journal.addBusinessObject(transaction, true);
+                journal.addBusinessObject(transaction);
+
+                Mortgage mortgage = transaction.getMortgage();
+                if (mortgage != null) {
+                    mortgage.raiseNrPayed();
+                }
+
+                VATTransaction vatTransaction = transaction.getVatTransaction();
+                if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
+                    vatTransactions.addBusinessObject(vatTransaction);
+                }
+
+                Contact contact = transaction.getContact();
+                BigDecimal turnOverAmount = transaction.getTurnOverAmount();
+                BigDecimal vatAmount = transaction.getVATAmount();
+                if (contact != null && turnOverAmount != null && vatAmount != null) {
+                    contact.increaseTurnOver(turnOverAmount);
+                    contact.increaseVATTotal(vatAmount);
+                }
+
                 Main.fireJournalDataChanged(journal);
                 for (Account account : transaction.getAccounts()) {
                     Main.fireAccountDataChanged(account);
@@ -266,6 +302,11 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     public void setAccounting(Accounting accounting){
         popup.setAccounting(accounting);
         setJournals(accounting==null?null:accounting.getJournals());
+        setVATTransactions(accounting==null?null:accounting.getVatTransactions());
+    }
+
+    public void setVATTransactions(VATTransactions vatTransactions){
+        this.vatTransactions = vatTransactions;
     }
 
     public void setJournals(Journals journals){

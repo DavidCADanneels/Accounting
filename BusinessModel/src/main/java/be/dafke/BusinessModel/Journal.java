@@ -3,7 +3,6 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.Utils.MultiValueMap;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TreeMap;
@@ -18,16 +17,14 @@ public class Journal extends BusinessCollection<Transaction> {
     protected final MultiValueMap<Calendar,Transaction> transactions;
     private JournalType type;
     private Transaction currentTransaction;
-    private VATTransactions vatTransactions;
 
     public Journal(Journal journal) {
-        this(journal.getName(), journal.abbreviation, journal.vatTransactions);
+        this(journal.getName(), journal.abbreviation);
         setType(journal.type);
     }
 
-    public Journal(String name, String abbreviation, VATTransactions vatTransactions) {
+    public Journal(String name, String abbreviation) {
         setName(name);
-        this.vatTransactions = vatTransactions;
         setAbbreviation(abbreviation);
         currentTransaction = new Transaction(Calendar.getInstance(),"");
         transactions = new MultiValueMap<>();
@@ -94,29 +91,10 @@ public class Journal extends BusinessCollection<Transaction> {
             Account account = booking.getAccount();
             account.removeBusinessObject(booking.getMovement());
         }
-        // FIXME: link between transaction and mortgage is gone after restart (not saved in XML) ???
-        Mortgage mortgage = transaction.getMortgage();
-        if (mortgage != null) {
-            mortgage.decreaseNrPayed();
-        }
-        VATTransaction vatTransaction = transaction.getVatTransaction();
-        if(vatTransaction!=null && !vatTransaction.getBusinessObjects().isEmpty()) {
-            vatTransactions.removeBusinessObject(vatTransaction);
-        }
 
-        Contact contact = transaction.getContact();
-        BigDecimal turnOverAmount = transaction.getTurnOverAmount();
-        BigDecimal vatAmount = transaction.getVATAmount();
-        if(contact!=null && turnOverAmount!=null && vatAmount!=null){
-            contact.decreaseTurnOver(turnOverAmount);
-            contact.decreaseVATTotal(vatAmount);
-        }
     }
 
 	public Transaction addBusinessObject(Transaction transaction) {
-        return addBusinessObject(transaction,false);
-    }
-	public Transaction addBusinessObject(Transaction transaction, boolean all) {
         Calendar date = transaction.getDate();
         transaction.setJournal(this);
 
@@ -125,26 +103,6 @@ public class Journal extends BusinessCollection<Transaction> {
             account.addBusinessObject(booking.getMovement());
         }
         transactions.addValue(date, transaction);
-
-        if(all) {
-            Mortgage mortgage = transaction.getMortgage();
-            if (mortgage != null) {
-                mortgage.raiseNrPayed();
-            }
-            VATTransaction vatTransaction = transaction.getVatTransaction();
-            if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
-                vatTransactions.addBusinessObject(vatTransaction);
-            }
-
-            Contact contact = transaction.getContact();
-            BigDecimal turnOverAmount = transaction.getTurnOverAmount();
-            BigDecimal vatAmount = transaction.getVATAmount();
-            if (contact != null && turnOverAmount != null && vatAmount != null) {
-                contact.increaseTurnOver(turnOverAmount);
-                contact.increaseVATTotal(vatAmount);
-            }
-        }
-
         return transaction;
 	}
 
