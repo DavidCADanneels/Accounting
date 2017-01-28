@@ -10,9 +10,9 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     private final AccountTypes accountTypes;
     private Accounts accounts;
 	private Journals journals;
-    private final JournalTypes journalTypes;
-    private final Balances balances;
-    private final Mortgages mortgages;
+    private JournalTypes journalTypes;
+    private Balances balances;
+    private Mortgages mortgages;
     private Projects projects;
     private Contacts contacts;
     private VATTransactions vatTransactions;
@@ -104,5 +104,9 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
     public void copyJournals(Journals journals) {
         this.journals = new Journals(journals);
+    }
+
+    public void copyJournalTypes(JournalTypes journalTypes) {
+        this.journalTypes = new JournalTypes(journalTypes);
     }
 }

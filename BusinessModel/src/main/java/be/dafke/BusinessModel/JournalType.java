@@ -9,6 +9,25 @@ public class JournalType extends BusinessObject {
     private AccountTypes debetTypes, creditTypes;
     private VATTransaction.VATType vatType = VATTransaction.VATType.NONE;
 
+    public JournalType(JournalType journalType){
+        this(journalType.getName());
+        vatType = journalType.getVatType();
+        for(AccountType accountType:journalType.debetTypes.getBusinessObjects()){
+            try {
+                debetTypes.addBusinessObject(accountType);
+            } catch (EmptyNameException | DuplicateNameException e) {
+                e.printStackTrace();
+            }
+        }
+        for(AccountType accountType:journalType.creditTypes.getBusinessObjects()){
+            try {
+                creditTypes.addBusinessObject(accountType);
+            } catch (EmptyNameException | DuplicateNameException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     public JournalType(String name){
         setName(name);
         debetTypes = new AccountTypes();

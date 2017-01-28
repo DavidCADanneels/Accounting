@@ -72,12 +72,14 @@ public class NewAccountingPanel extends RefreshableDialog {
                 accounting.getAccountTypes().addDefaultTypes();
                 accounting.getJournalTypes().addDefaultType(accounting.getAccountTypes());
                 accounting.getBalances().addDefaultBalances();
+                accounting.getVatFields().addDefaultFields();
                 Accounting source = (Accounting)accountingToCopyFrom.getSelectedItem();
                 if(copyAccounts.isSelected()){
                     accounting.copyAccounts(source.getAccounts());
                 }
                 if(copyJournals.isSelected()){
                     accounting.copyJournals(source.getJournals());
+                    accounting.copyJournalTypes(source.getJournalTypes());
                 }
                 accountings.addBusinessObject(accounting);
                 accountings.setCurrentObject(accounting);
