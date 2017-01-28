@@ -132,9 +132,6 @@ public class AccountInputPanel extends JPanel{
         if (amount != null) {
             journalInputGUI.addBooking(new Booking(account, amount, debit));
             if (vatType != VATTransaction.VATType.NONE) {
-                // FIXME: contact should be linked to Revenue/Cost (==account) but to Debit(Supplier) / Credit(Customer)
-                // but amount to add to TurnOver is the Revenue/Cost amount (VAT excl.)
-                Contact contact = getContact(account);
                 // Read percentage
                 Integer[] percentages = vatTransactions.getVatPercentages();
                 int nr = JOptionPane.showOptionDialog(null, "BTW %", "BTW %",
@@ -159,6 +156,9 @@ public class AccountInputPanel extends JPanel{
                             }
                         }
                     } else if (vatType == VATTransaction.VATType.SALE && source == accountsGUI2) {
+                        // FIXME: contact should be linked to Revenue/Cost (==account) but to Debit(Supplier) / Credit(Customer)
+                        // but amount to add to TurnOver is the Revenue/Cost amount (VAT excl.)
+                        Contact contact = getContact(account);
                         if(amount.compareTo(BigDecimal.ZERO)>=0) {
                             sell(contact, amount, suggestedAmount, debit, percentages[nr]);
                         } else {
