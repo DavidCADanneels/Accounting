@@ -143,27 +143,25 @@ public class AccountInputPanel extends JPanel{
                     BigDecimal percentage = new BigDecimal(percentages[nr]).divide(new BigDecimal(100));
                     BigDecimal suggestedAmount = amount.multiply(percentage).setScale(2,BigDecimal.ROUND_HALF_UP);
 
-                    if(amount.compareTo(BigDecimal.ZERO)>=0) {
-                        if (vatType == VATTransaction.VATType.PURCHASE && source == accountsGUI1) {
+                    if (vatType == VATTransaction.VATType.PURCHASE && source == accountsGUI1) {
+                        if (amount.compareTo(BigDecimal.ZERO) >= 0) {
                             purchase(amount, suggestedAmount, debit);
-
-                        } else if (vatType == VATTransaction.VATType.SALE && source == accountsGUI2) {
-                            sell(contact, amount, suggestedAmount, debit, percentages[nr]);
-                        }
-                    } else{
-                        // CN
-                        if (vatType == VATTransaction.VATType.PURCHASE && source == accountsGUI1) {
+                        } else {
                             VATTransaction.PurchaseType purchaseType = getPurchaseType();
                             Account btwAccount = getCreditCNAccount();
-                            if(btwAccount!=null) {
+                            if (btwAccount != null) {
                                 BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
-                                if(btwAmount!=null) {
+                                if (btwAmount != null) {
                                     journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
                                     ArrayList<VATBooking> vatBookings = vatTransactions.purchaseCN(amount, btwAmount, purchaseType);
                                     journalInputGUI.addVATBookings(vatBookings);
                                 }
                             }
-                        } else if (vatType == VATTransaction.VATType.SALE && source == accountsGUI2) {
+                        }
+                    } else if (vatType == VATTransaction.VATType.SALE && source == accountsGUI2) {
+                        if(amount.compareTo(BigDecimal.ZERO)>=0) {
+                            sell(contact, amount, suggestedAmount, debit, percentages[nr]);
+                        } else {
                             Account btwAccount = getDebitCNAccount();
                             if(btwAccount!=null) {
                                 BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
