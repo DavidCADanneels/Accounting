@@ -29,15 +29,13 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
     private VATTransactions vatTransactions;
     private Journals journals;
     private JournalTypes journalTypes;
-    private Accounts accounts;
     private AccountTypes accountTypes;
     private static final HashMap<Journals, JournalManagementGUI> journalManagementGuis = new HashMap<>();
 
-    private JournalManagementGUI(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes, VATTransactions vatTransactions) {
+    private JournalManagementGUI(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes, VATTransactions vatTransactions) {
 		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE"));
         this.journals = journals;
         this.journalTypes = journalTypes;
-        this.accounts = accounts;
         this.accountTypes = accountTypes;
         this.vatTransactions = vatTransactions;
         journalManagementTableModel = new JournalManagementTableModel(journals);
@@ -62,10 +60,10 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 		pack();
 	}
 
-    public static JournalManagementGUI showJournalManager(Journals journals, JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes, VATTransactions vatTransactions) {
+    public static JournalManagementGUI showJournalManager(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes, VATTransactions vatTransactions) {
         JournalManagementGUI gui = journalManagementGuis.get(journals);
         if(gui == null){
-            gui = new JournalManagementGUI(journals, journalTypes, accounts, accountTypes, vatTransactions);
+            gui = new JournalManagementGUI(journals, journalTypes, accountTypes, vatTransactions);
             journalManagementGuis.put(journals, gui);
             Main.addFrame(gui);
         }

@@ -372,16 +372,16 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         fireTransactionDataChanged();
     }
 
-    public Journal switchJournal(Accounts accounts, Journal newJournal) {
+    public Journal switchJournal(Journal newJournal) {
         if(newJournal!=null){
-            journal = checkTransfer(accounts, journal, newJournal);
+            journal = checkTransfer(journal, newJournal);
         } else {
             journal = newJournal;
         }
         return journal;
     }
 
-    private Journal checkTransfer(Accounts accounts, Journal oldJournal, Journal newJournal){
+    private Journal checkTransfer(Journal oldJournal, Journal newJournal){
         Transaction newTransaction = newJournal.getCurrentObject();
         if(transaction!=null && !transaction.getBusinessObjects().isEmpty()){
             StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
@@ -424,21 +424,5 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         clear.setEnabled(clearEnabled);
         save.setEnabled(clearEnabled);
         singleBook.setEnabled(okEnabled);
-    }
-
-    public void addVATBookings(ArrayList<VATBooking> vatBookings) {
-        transaction.addVATBookings(vatBookings);
-    }
-
-    public void setContact(Contact contact) {
-        transaction.setContact(contact);
-    }
-
-    public void setVATAmount(BigDecimal amount) {
-        transaction.setVATAmount(amount);
-    }
-
-    public void setTurnOverAmount(BigDecimal amount) {
-        transaction.setTurnOverAmount(amount);
     }
 }

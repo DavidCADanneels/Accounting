@@ -149,9 +149,10 @@ public class AccountInputPanel extends JPanel{
                             if (btwAccount != null) {
                                 BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
                                 if (btwAmount != null) {
-                                    journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
+                                    transaction.addBusinessObject(new Booking(btwAccount, btwAmount, debit));
                                     ArrayList<VATBooking> vatBookings = vatTransactions.purchaseCN(amount, btwAmount, purchaseType);
-                                    journalInputGUI.addVATBookings(vatBookings);
+                                    transaction.addVATBookings(vatBookings);
+                                    journalInputGUI.fireTransactionDataChanged();
                                 }
                             }
                         }
@@ -166,9 +167,10 @@ public class AccountInputPanel extends JPanel{
                             if(btwAccount!=null) {
                                 BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
                                 if(btwAmount!=null) {
-                                    journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
+                                    transaction.addBusinessObject(new Booking(btwAccount, btwAmount, debit));
                                     ArrayList<VATBooking> vatBookings = vatTransactions.saleCN(amount, btwAmount);
-                                    journalInputGUI.addVATBookings(vatBookings);
+                                    transaction.addVATBookings(vatBookings);
+                                    journalInputGUI.fireTransactionDataChanged();
                                 }
                             }
                             sell(contact, amount, suggestedAmount, debit, percentages[nr]);
@@ -184,12 +186,14 @@ public class AccountInputPanel extends JPanel{
         if(vatAccount!=null) {
             BigDecimal vatAmount = journalInputGUI.askAmount(vatAccount, suggestedAmount);
             if(vatAmount!=null) {
-                journalInputGUI.addBooking(new Booking(vatAccount, vatAmount, debit));
+                Transaction transaction = journalInputGUI.getTransaction();
+                transaction.addBusinessObject(new Booking(vatAccount, vatAmount, debit));
                 ArrayList<VATBooking> vatBookings = vatTransactions.sale(amount, vatAmount, pct);
-                journalInputGUI.addVATBookings(vatBookings);
-                journalInputGUI.setTurnOverAmount(amount);
-                journalInputGUI.setVATAmount(vatAmount);
-                journalInputGUI.setContact(contact);
+                transaction.addVATBookings(vatBookings);
+                transaction.setTurnOverAmount(amount);
+                transaction.setVATAmount(vatAmount);
+                transaction.setContact(contact);
+                journalInputGUI.fireTransactionDataChanged();
             }
         }
     }
@@ -200,9 +204,10 @@ public class AccountInputPanel extends JPanel{
         if(btwAccount!=null) {
             BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
             if(btwAmount!=null) {
-                journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
+                Transaction transaction = journalInputGUI.getTransaction();
+                transaction.addBusinessObject(new Booking(btwAccount, btwAmount, debit));
                 ArrayList<VATBooking> vatBookings = vatTransactions.purchase(amount, btwAmount, purchaseType);
-                journalInputGUI.addVATBookings(vatBookings);
+                transaction.addVATBookings(vatBookings);
             }
         }
     }

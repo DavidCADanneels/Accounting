@@ -25,7 +25,6 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	private final JButton journalManagement, details;
 	private Journals journals;
 	private JournalTypes journalTypes;
-	private Accounts accounts;
 	private AccountTypes accountTypes;
 	private VATTransactions vatTransactions;
 	private JournalInputGUI journalInputGUI;
@@ -47,7 +46,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
 		journalManagement = new JButton(getBundle("Accounting").getString("MANAGE_JOURNALS"));
 		journalManagement.addActionListener(e -> {
 			if(journals!=null) {
-				showJournalManager(journals, journalTypes, accounts, accountTypes, vatTransactions).setVisible(true);
+				showJournalManager(journals, journalTypes, accountTypes, vatTransactions).setVisible(true);
 			}
 		});
 		journalManagement.setEnabled(false);
@@ -67,14 +66,13 @@ public class JournalsGUI extends JPanel implements ActionListener {
 
 	public void actionPerformed(ActionEvent ae) {
 		Journal newJournal = (Journal) combo.getSelectedItem();
-		Journal journal = journalInputGUI.switchJournal(accounts, newJournal);
+		Journal journal = journalInputGUI.switchJournal(newJournal);
 		Main.setJournal(journal);
 	}
 
 	public void setAccounting(Accounting accounting) {
 		journalTypes=accounting==null?null:accounting.getJournalTypes();
 		accountTypes=accounting==null?null:accounting.getAccountTypes();
-		accounts=accounting==null?null:accounting.getAccounts();
 		setJournals(accounting==null?null:accounting.getJournals());
 	}
 
