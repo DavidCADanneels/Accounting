@@ -1,7 +1,5 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BasicAccounting.Contacts.ContactSelector;
-import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessModel.*;
 import be.dafke.Utils.AlphabeticListModel;
 import be.dafke.Utils.PrefixFilterPanel;
@@ -13,7 +11,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -28,6 +25,7 @@ public class AccountsGUI extends JPanel {
     private final PrefixFilterPanel<Account> zoeker;
     private final AlphabeticListModel<Account> model;
     private final JList<Account> lijst;
+    private final AccountInputPanel accountInputPanel;
     private JButton debet, credit, accountDetails;
     private final Map<AccountType, JCheckBox> boxes;
     private final Map<AccountType, Boolean> selectedAccountTypes;
@@ -39,13 +37,9 @@ public class AccountsGUI extends JPanel {
     private Accounts accounts;
     private AccountTypes accountTypes;
     private Journals journals;
-    private JournalInputGUI journalInputGUI;
-    private VATTransactions vatTransactions = null;
-    private VATTransaction.VATType vatType = null;
-    private Contacts contacts;
 
-    public AccountsGUI(JournalInputGUI journalInputGUI) {
-        this.journalInputGUI = journalInputGUI;
+    public AccountsGUI(AccountInputPanel accountInputPanel) {
+        this.accountInputPanel = accountInputPanel;
 
         setLayout(new BorderLayout());
         setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("Accounting").getString("ACCOUNTS")));
@@ -62,7 +56,7 @@ public class AccountsGUI extends JPanel {
                 selectedAccount = lijst.getSelectedValue();
             }
             boolean accountSelected = (selectedAccount != null);
-            boolean transaction = (journalInputGUI.getTransaction()!=null);
+            boolean transaction = (accountInputPanel.getTransaction()!=null);
             boolean active = accountSelected && transaction;
             accountDetails.setEnabled(active);
             debet.setEnabled(active);
@@ -77,7 +71,7 @@ public class AccountsGUI extends JPanel {
                 if (popup != null) {
                     popup.setVisible(false);
                     if (clickCount == 2) {
-                        if (journals != null) AccountDetails.getAccountDetails(selectedAccount, journals, journalInputGUI);
+                        if (journals != null) accountInputPanel.getAccountDetails(selectedAccount, journals);
                     } else if (button == 3) {
                         Point location = me.getLocationOnScreen();
                         popup.show(null, location.x, location.y);
@@ -102,7 +96,7 @@ public class AccountsGUI extends JPanel {
 
         debet.addActionListener(e -> {book(true);});
         credit.addActionListener(e -> {book(false);});
-        accountDetails.addActionListener(e -> AccountDetails.getAccountDetails(lijst.getSelectedValue(), journals, journalInputGUI));
+        accountDetails.addActionListener(e -> accountInputPanel.getAccountDetails(lijst.getSelectedValue(), journals));
 
         debet.setEnabled(false);
         credit.setEnabled(false);
@@ -125,169 +119,9 @@ public class AccountsGUI extends JPanel {
         add(filter, BorderLayout.NORTH);
     }
 
-//    public VATTransactions getVatTransactions() {
-//        return vatTransactions;
-//    }
-
-    public void setVatTransactions(VATTransactions vatTransactions) {
-        this.vatTransactions = vatTransactions;
-    }
-
-    public VATTransaction.VATType getVatType() {
-        return vatType;
-    }
-
-    public void setVatType(VATTransaction.VATType vatType) {
-        this.vatType = vatType;
-    }
-
     public void book(boolean debit) {
         if (selectedAccount != null) {
-            BigDecimal amount = journalInputGUI.askAmount(selectedAccount, debit);
-            if (amount != null) {
-                journalInputGUI.addBooking(new Booking(selectedAccount, amount, debit));
-                if (vatType != VATTransaction.VATType.NONE) {
-                    // FIXME: contact should be linked to Revenue/Cost (==selectedAccount) but to Debit(Supplier) / Credit(Customer)
-                    // but amount to add to TurnOver is the Revenue/Cost amount (VAT excl.)
-                    Contact contact = getContact(selectedAccount);
-                    // Read percentage
-                    Integer[] percentages = vatTransactions.getVatPercentages();
-                    int nr = JOptionPane.showOptionDialog(null, "BTW %", "BTW %",
-                            JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, percentages, null);
-                    if (nr != -1) {
-                        BigDecimal percentage = new BigDecimal(percentages[nr]).divide(new BigDecimal(100));
-                        BigDecimal suggestedAmount = amount.multiply(percentage).setScale(2,BigDecimal.ROUND_HALF_UP);
-
-                        if(amount.compareTo(BigDecimal.ZERO)>=0) {
-                            if (vatType == VATTransaction.VATType.PURCHASE) {
-                                purchase(amount, suggestedAmount, debit);
-
-                            } else if (vatType == VATTransaction.VATType.SALE) {
-                                sell(contact, amount, suggestedAmount, debit, percentages[nr]);
-                            }
-                        } else{
-                            // CN
-                            if (vatType == VATTransaction.VATType.PURCHASE) {
-                                VATTransaction.PurchaseType purchaseType = getPurchaseType();
-                                Account btwAccount = getCreditCNAccount();
-                                if(btwAccount!=null) {
-                                    BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
-                                    if(btwAmount!=null) {
-                                        journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                                        ArrayList<VATBooking> vatBookings = vatTransactions.purchaseCN(amount, btwAmount, purchaseType);
-                                        journalInputGUI.addVATBookings(vatBookings);
-                                    }
-                                }
-                            } else if (vatType == VATTransaction.VATType.SALE) {
-                                Account btwAccount = getDebitCNAccount();
-                                if(btwAccount!=null) {
-                                    BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
-                                    if(btwAmount!=null) {
-                                        journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                                        ArrayList<VATBooking> vatBookings = vatTransactions.saleCN(amount, btwAmount);
-                                        journalInputGUI.addVATBookings(vatBookings);
-                                    }
-                                }
-                                sell(contact, amount, suggestedAmount, debit, percentages[nr]);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private Contact getContact(Account account){
-        Contact contact = account.getContact();
-        if(contact!=null){
-            return contact;
-        } else {
-            ContactSelector contactSelector = ContactSelector.getContactSelector(contacts);
-            contactSelector.setVisible(true);
-            contact =  contactSelector.getSelection();
-            // TODO: null check needed here?
-            account.setContact(contact);
-            return contact;
-        }
-    }
-
-    private Account getCreditCNAccount(){
-        Account btwAccount = vatTransactions.getCreditCNAccount();
-        if(btwAccount==null){
-            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
-            accountSelector.setVisible(true);
-            btwAccount = accountSelector.getSelection();
-            vatTransactions.setCreditCNAccount(btwAccount);
-        }
-        return btwAccount;
-    }
-
-    private Account getDebitCNAccount(){
-        Account btwAccount = vatTransactions.getDebitCNAccount();
-        if(btwAccount==null){
-            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
-            accountSelector.setVisible(true);
-            btwAccount = accountSelector.getSelection();
-            vatTransactions.setDebitCNAccount(btwAccount);
-        }
-        return btwAccount;
-    }
-
-
-    private Account getCreditAccount(){
-        Account btwAccount = vatTransactions.getCreditAccount();
-        if(btwAccount==null){
-            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
-            accountSelector.setVisible(true);
-            btwAccount = accountSelector.getSelection();
-            vatTransactions.setCreditAccount(btwAccount);
-        }
-        return btwAccount;
-    }
-
-    private Account getDebitAccount(){
-        Account btwAccount = vatTransactions.getDebitAccount();
-        if(btwAccount==null){
-            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
-            accountSelector.setVisible(true);
-            btwAccount = accountSelector.getSelection();
-            vatTransactions.setDebitAccount(btwAccount);
-        }
-        return btwAccount;
-    }
-
-    private VATTransaction.PurchaseType getPurchaseType(){
-        VATTransaction.PurchaseType[] purchaseTypes = VATTransaction.PurchaseType.values();
-        int nr2 = JOptionPane.showOptionDialog(null, "Purchase Type", "Purchase Type",
-                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, purchaseTypes, null);
-        return purchaseTypes[nr2];
-    }
-
-    private void sell(Contact contact, BigDecimal amount, BigDecimal suggestedAmount, boolean debit, int pct) {
-        Account vatAccount = getDebitAccount();
-        if(vatAccount!=null) {
-            BigDecimal vatAmount = journalInputGUI.askAmount(vatAccount, suggestedAmount);
-            if(vatAmount!=null) {
-                journalInputGUI.addBooking(new Booking(vatAccount, vatAmount, debit));
-                ArrayList<VATBooking> vatBookings = vatTransactions.sale(amount, vatAmount, pct);
-                journalInputGUI.addVATBookings(vatBookings);
-                journalInputGUI.setTurnOverAmount(amount);
-                journalInputGUI.setVATAmount(vatAmount);
-                journalInputGUI.setContact(contact);
-            }
-        }
-    }
-
-    private void purchase(BigDecimal amount, BigDecimal suggestedAmount, boolean debit) {
-        VATTransaction.PurchaseType purchaseType = getPurchaseType();
-        Account btwAccount = getCreditAccount();
-        if(btwAccount!=null) {
-            BigDecimal btwAmount = journalInputGUI.askAmount(btwAccount, suggestedAmount);
-            if(btwAmount!=null) {
-                journalInputGUI.addBooking(new Booking(btwAccount, btwAmount, debit));
-                ArrayList<VATBooking> vatBookings = vatTransactions.purchase(amount, btwAmount, purchaseType);
-                journalInputGUI.addVATBookings(vatBookings);
-            }
+            accountInputPanel.book(selectedAccount, debit, this);
         }
     }
 
@@ -317,13 +151,7 @@ public class AccountsGUI extends JPanel {
         setAccountTypes(accounting == null ? null : accounting.getAccountTypes());
         setAccounts(accounting == null ? null : accounting.getAccounts());
         setJournals(accounting == null ? null : accounting.getJournals());
-        setContacts(accounting == null ? null : accounting.getContacts());
         popup.setAccounting(accounting);
-        setVatTransactions(accounting.getVatTransactions());
-    }
-
-    public void setContacts(Contacts contacts){
-        this.contacts = contacts;
     }
 
     public void setAccountTypes(AccountTypes accountTypes) {

@@ -45,8 +45,9 @@ public class Main {
     private static JournalGUI journalReadGUI;
     private static JournalInputGUI journalInputGUI;
     private static JournalsGUI journalsGUI;
-    private static AccountsGUI accountsGUI1;
-    private static AccountsGUI accountsGUI2;
+    private static AccountInputPanel accountInputPanel;
+//    private static AccountsGUI accountsGUI1;
+//    private static AccountsGUI accountsGUI2;
     private static AccountsTableGUI accountsTableGUI;
     private static MortgagesGUI mortgagesGUI;
     private static AccountingMenuBar menuBar;
@@ -79,8 +80,7 @@ public class Main {
         journalInputGUI = new JournalInputGUI();
         journalReadGUI = new JournalGUI(journalInputGUI);
         journalsGUI = new JournalsGUI(journalReadGUI,journalInputGUI);
-        accountsGUI1 = new AccountsGUI(journalInputGUI);
-        accountsGUI2 = new AccountsGUI(journalInputGUI);
+        accountInputPanel = new AccountInputPanel(journalInputGUI);
         accountsTableGUI = new AccountsTableGUI(journalInputGUI);
         mortgagesGUI = new MortgagesGUI(journalInputGUI);
     }
@@ -99,8 +99,7 @@ public class Main {
     public static JPanel createContentPanel(){
         JPanel links = new JPanel();
         links.setLayout(new BorderLayout());
-        JSplitPane accountsPanel = createSplitPane(accountsGUI1, accountsGUI2, VERTICAL_SPLIT);
-        links.add(accountsPanel, BorderLayout.CENTER);
+        links.add(accountInputPanel, BorderLayout.CENTER);
         links.add(mortgagesGUI, BorderLayout.SOUTH);
         links.add(journalsGUI, BorderLayout.NORTH);
 
@@ -182,8 +181,7 @@ public class Main {
 
         frame.setAccounting(accounting);
 
-        accountsGUI1.setAccounting(accounting);
-        accountsGUI2.setAccounting(accounting);
+        accountInputPanel.setAccounting(accounting);
         accountsTableGUI.setAccounting(accounting);
         journalsGUI.setAccounting(accounting);
         journalInputGUI.setAccounting(accounting);
@@ -223,24 +221,8 @@ public class Main {
         journalsGUI.setJournal(journal);
         if(journal!=null && journal.getType()!=null) {
             JournalType journalType = journal.getType();
-            accountsGUI1.setAccountTypes(journalType.getDebetTypes());
-            accountsGUI2.setAccountTypes(journalType.getCreditTypes());
-            VATTransaction.VATType vatType = journalType.getVatType();
-            if (vatType == VATTransaction.VATType.SALE) {
-                accountsGUI1.setVatType(VATTransaction.VATType.NONE);
-                accountsGUI2.setVatType(VATTransaction.VATType.SALE);
-            } else if (vatType == VATTransaction.VATType.PURCHASE) {
-                accountsGUI1.setVatType(VATTransaction.VATType.PURCHASE);
-                accountsGUI2.setVatType(VATTransaction.VATType.NONE);
-            } else {
-                accountsGUI1.setVatType(VATTransaction.VATType.NONE);
-                accountsGUI2.setVatType(VATTransaction.VATType.NONE);
-            }
+            accountInputPanel.setJournalType(journalType);
         } else {
-            accountsGUI1.setAccountTypes(accounting.getAccountTypes());
-            accountsGUI2.setAccountTypes(accounting.getAccountTypes());
-            accountsGUI1.setVatType(VATTransaction.VATType.NONE);
-            accountsGUI2.setVatType(VATTransaction.VATType.NONE);
         }
     }
 
@@ -255,8 +237,7 @@ public class Main {
         AccountSelector.fireAccountDataChangedForAll();
         // fireAccountDataChanged in AccountsGUI is only needed if accounts have been added
         // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
-        accountsGUI1.fireAccountDataChanged();
-        accountsGUI2.fireAccountDataChanged();
+        accountInputPanel.fireAccountDataChanged();
         accountsTableGUI.fireAccountDataChanged();
 
         AccountManagementGUI.fireAccountDataChangedForAll();
