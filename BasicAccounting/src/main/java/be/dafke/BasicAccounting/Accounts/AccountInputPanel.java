@@ -150,16 +150,13 @@ public class AccountInputPanel extends JPanel{
         }
     }
 
-    public void saleAny(Account account, BigDecimal amount, boolean debit){
+    public void saleAny(BigDecimal amount, boolean debit){
         Transaction transaction = journalInputGUI.getTransaction();
         Integer pct = getPercentage();
         if (pct != null) {
             BigDecimal suggestedAmount = getTaxOnNet(amount, pct);
-            // FIXME: contact should be linked to Revenue/Cost (==account) but to Debit(Supplier) / Credit(Customer)
-            // but amount to add to TurnOver is the Revenue/Cost amount (VAT excl.)
-            Contact contact = getContact(account);
             if (amount.compareTo(BigDecimal.ZERO) >= 0) {
-                sell(contact, amount, suggestedAmount, debit, pct);
+                sell(amount, suggestedAmount, debit, pct);
             } else {
                 Account btwAccount = getDebitCNAccount();
                 if (btwAccount != null) {
@@ -171,7 +168,7 @@ public class AccountInputPanel extends JPanel{
                         journalInputGUI.fireTransactionDataChanged();
                     }
                 }
-                sell(contact, amount, suggestedAmount, debit, pct);
+                sell(amount, suggestedAmount, debit, pct);
             }
         }
     }
@@ -197,14 +194,19 @@ public class AccountInputPanel extends JPanel{
             journalInputGUI.addBooking(new Booking(account, amount, debit));
             if (vatType == VATTransaction.VATType.PURCHASE && source == accountsGUI1) {
                 purchaseAny(amount, debit);
-            } else if (vatType == VATTransaction.VATType.SALE && source == accountsGUI2) {
-                saleAny(account, amount, debit);
+            } else if (vatType == VATTransaction.VATType.SALE){
+                if(source == accountsGUI2) {
+                    saleAny(amount, debit);
+                } else {
+                    Contact contact = getContact(account);
+                    transaction.setContact(contact);
+                }
             }
 
         }
     }
 
-    private void sell(Contact contact, BigDecimal amount, BigDecimal suggestedAmount, boolean debit, int pct) {
+    private void sell(BigDecimal amount, BigDecimal suggestedAmount, boolean debit, int pct) {
         Account vatAccount = getDebitAccount();
         if(vatAccount!=null) {
             BigDecimal vatAmount = askAmount(vatAccount, suggestedAmount);
@@ -215,7 +217,6 @@ public class AccountInputPanel extends JPanel{
                 transaction.addVATBookings(vatBookings);
                 transaction.setTurnOverAmount(amount);
                 transaction.setVATAmount(vatAmount);
-                transaction.setContact(contact);
                 journalInputGUI.fireTransactionDataChanged();
             }
         }
