@@ -11,6 +11,10 @@ public class AccountType extends BusinessObject {
 
     private boolean inverted = false;
 
+    public boolean isDeletable(){
+        return true;
+    }
+
     public boolean isInverted() {
         return inverted;
     }

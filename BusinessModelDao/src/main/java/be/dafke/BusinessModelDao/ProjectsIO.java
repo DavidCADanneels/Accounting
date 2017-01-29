@@ -79,6 +79,7 @@ public class ProjectsIO {
             Logger.getLogger(Projects.class.getName()).log(Level.SEVERE, null, ex);
         }
 
+        projectsFolder.mkdirs();
         for(Project project: projects.getBusinessObjects()) {
             writeProject(project, projectsFolder);
         }

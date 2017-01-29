@@ -18,7 +18,6 @@ public class AccountTypes extends BusinessCollection<AccountType>{
     public static final String CREDIT = "Credit";
     public static final String TAXDEBIT = "TaxDebit";
     public static final String TAXCREDIT = "TaxCredit";
-    public static final String ACCOUNT_TYPE = "AccountType";
 
     public void addDefaultTypes() {
         AccountType active = new AccountType();
