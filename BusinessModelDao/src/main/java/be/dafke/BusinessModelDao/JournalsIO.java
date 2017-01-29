@@ -82,7 +82,7 @@ public class JournalsIO {
 
             String name = getValue(element, NAME);
             String abbr = getValue(element, ABBREVIATION);
-            Journal journal = new Journal(name, abbr, vatTransactions);
+            Journal journal = new Journal(name, abbr);
 
             String type = getValue(element, TYPE);
             journal.setType(journalTypes.getBusinessObject(type));

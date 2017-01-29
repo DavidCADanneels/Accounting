@@ -10,7 +10,7 @@ import java.util.Calendar;
 public class ProjectJournal extends Journal {
 
     public ProjectJournal(String name, String abbreviation) {
-        super(name, abbreviation, null);
+        super(name, abbreviation);
 	}
 
 	public void removeBusinessObject(Transaction transaction) {
