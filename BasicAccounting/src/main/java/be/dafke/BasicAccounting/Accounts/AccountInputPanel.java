@@ -19,6 +19,10 @@ import static javax.swing.JSplitPane.*;
  * Created by ddanneels on 28/01/2017.
  */
 public class AccountInputPanel extends JPanel{
+    public static final String SELECT_TAX_CREDIT_ACCOUNT = "select Tax Credit Account";
+    public static final String SELECT_TAX_DEBIT_ACCOUNT = "select Tax Debit Account";
+    public static final String SELECT_TAX_CREDIT_CN_ACCOUNT = "select Tax Credit CN Account";
+    public static final String SELECT_TAX_DEBIT_CN_ACCOUNT = "select Tax Debit CN Account";
     private final JournalInputGUI journalInputGUI;
     private AccountTypes accountTypes;
     private JournalType journalType;
@@ -239,7 +243,7 @@ public class AccountInputPanel extends JPanel{
     private Account getCreditAccount(){
         Account btwAccount = vatTransactions.getCreditAccount();
         if(btwAccount==null){
-            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
+            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes, SELECT_TAX_CREDIT_ACCOUNT);
             accountSelector.setVisible(true);
             btwAccount = accountSelector.getSelection();
             vatTransactions.setCreditAccount(btwAccount);
@@ -250,7 +254,7 @@ public class AccountInputPanel extends JPanel{
     private Account getDebitAccount(){
         Account btwAccount = vatTransactions.getDebitAccount();
         if(btwAccount==null){
-            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
+            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes, SELECT_TAX_DEBIT_ACCOUNT);
             accountSelector.setVisible(true);
             btwAccount = accountSelector.getSelection();
             vatTransactions.setDebitAccount(btwAccount);
@@ -286,7 +290,7 @@ public class AccountInputPanel extends JPanel{
     private Account getCreditCNAccount(){
         Account btwAccount = vatTransactions.getCreditCNAccount();
         if(btwAccount==null){
-            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
+            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes, SELECT_TAX_CREDIT_CN_ACCOUNT);
             accountSelector.setVisible(true);
             btwAccount = accountSelector.getSelection();
             vatTransactions.setCreditCNAccount(btwAccount);
@@ -297,7 +301,7 @@ public class AccountInputPanel extends JPanel{
     private Account getDebitCNAccount(){
         Account btwAccount = vatTransactions.getDebitCNAccount();
         if(btwAccount==null){
-            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes);
+            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes, SELECT_TAX_DEBIT_CN_ACCOUNT);
             accountSelector.setVisible(true);
             btwAccount = accountSelector.getSelection();
             vatTransactions.setDebitCNAccount(btwAccount);

@@ -21,7 +21,10 @@ public class AccountSelector extends RefreshableDialog {
 	private static AccountSelector accountSelector = null;
 
 	private AccountSelector(Accounts accounts, AccountTypes accountTypes) {
-		super("Select Account");
+		this(accounts, accountTypes, "Select Account");
+	}
+	private AccountSelector(Accounts accounts, AccountTypes accountTypes, String title) {
+		super(title);
 		model = new DefaultComboBoxModel<>();
 		combo = new JComboBox<>(model);
 		combo.addActionListener(e -> account = (Account) combo.getSelectedItem());
@@ -38,6 +41,13 @@ public class AccountSelector extends RefreshableDialog {
 		setContentPane(innerPanel);
 		setAccounts(accounts);
 		pack();
+	}
+
+	public static AccountSelector getAccountSelector(Accounts accounts, AccountTypes accountTypes, String title){
+		if(accountSelector==null){
+			accountSelector = new AccountSelector(accounts, accountTypes, title);
+		}
+		return accountSelector;
 	}
 
 	public static AccountSelector getAccountSelector(Accounts accounts, AccountTypes accountTypes){
