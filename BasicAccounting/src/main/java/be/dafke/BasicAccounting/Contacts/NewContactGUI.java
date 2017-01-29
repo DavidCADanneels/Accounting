@@ -53,7 +53,7 @@ public class NewContactGUI extends RefreshableDialog {
 //        JPanel line4 = new JPanel();
 //		north.add(line4);
 
-		add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNT"));
+		add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_CONTACT"));
 		add.addActionListener(e -> createContact());
 
 		north.add(add);
