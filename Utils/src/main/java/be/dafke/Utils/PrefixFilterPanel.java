@@ -4,6 +4,8 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.List;
 
 import static java.util.ResourceBundle.getBundle;
@@ -48,6 +50,13 @@ public class PrefixFilterPanel<K> extends JPanel {
 			}
 			public void removeUpdate(DocumentEvent e) {
 				repaint();
+			}
+		});
+
+		zoekveld.addFocusListener(new FocusAdapter() {
+			@Override
+			public void focusGained(FocusEvent e) {
+				zoekveld.selectAll();
 			}
 		});
 
