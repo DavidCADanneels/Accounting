@@ -20,7 +20,7 @@ public class PrefixFilter<K> {
     public void filter(String searchString){
         model.removeAllElements();
         for(K o : map) {
-            if (o.toString().startsWith(searchString)) model.addElement(o);
+            if (o.toString().toLowerCase().startsWith(searchString.toLowerCase())) model.addElement(o);
         }
     }
 }
