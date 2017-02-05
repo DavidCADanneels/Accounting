@@ -257,6 +257,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
                 VATTransaction vatTransaction = transaction.getVatTransaction();
                 if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
                     vatTransactions.addBusinessObject(vatTransaction);
+                    Main.fireVATFieldsUpdated(/*vatFields*/);
                 }
 
                 Contact contact = transaction.getContact();
@@ -271,7 +272,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
                 for (Account account : transaction.getAccounts()) {
                     Main.fireAccountDataChanged(account);
                 }
-                Main.fireVATFieldsUpdated(/*vatFields*/);
                 clear();
             }
         }
