@@ -11,11 +11,14 @@ import java.util.ArrayList;
  * Created by ddanneels on 28/12/2016.
  */
 public class VATFields extends BusinessCollection<VATField> {
+    private Accounting accounting;
 
-    public VATFields() {
+    public VATFields(Accounting accounting) {
         super();
+        this.accounting = accounting;
     }
     public VATFields(VATFields vatFields) {
+        this(vatFields.accounting);
         try {
             for (VATField vatField : vatFields.getBusinessObjects()) {
                 addBusinessObject(vatField);
@@ -25,6 +28,14 @@ public class VATFields extends BusinessCollection<VATField> {
         } catch (DuplicateNameException e) {
             e.printStackTrace();
         }
+    }
+
+    public Accounting getAccounting() {
+        return accounting;
+    }
+
+    public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
     }
 
     public void addDefaultFields(){

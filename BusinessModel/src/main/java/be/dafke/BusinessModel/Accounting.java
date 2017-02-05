@@ -31,14 +31,14 @@ public class Accounting extends BusinessObject{
 
         journalTypes = new JournalTypes();
 
-        vatFields = new VATFields();
+        vatFields = new VATFields(this);
         vatTransactions = new VATTransactions(vatFields);
 
         journals = new Journals(this);
 
         balances = new Balances(accounts, accountTypes);
 
-        contacts = new Contacts();
+        contacts = new Contacts(this);
 
         mortgages = new Mortgages(this);
 

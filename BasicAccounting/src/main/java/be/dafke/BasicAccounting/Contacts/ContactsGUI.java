@@ -36,7 +36,7 @@ public class ContactsGUI extends JFrame{
     }
 
     private ContactsGUI(Contacts contacts) {
-        super("Contacts");
+        super(contacts.getAccounting().getName() + " / " + "Contacts");
         this.contacts = contacts;
         setContentPane(createContentPanel());
         pack();
