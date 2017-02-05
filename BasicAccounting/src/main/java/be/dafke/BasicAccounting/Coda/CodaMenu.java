@@ -27,9 +27,8 @@ public class CodaMenu extends JMenu {
     }
 
     public void setAccounting(Accounting accounting) {
-        // TODO: integrate Counterparties and Statements (with getters and setters, etc.)
-        counterParties = (CounterParties)accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
-        statements = (Statements)accounting.getBusinessObject(Statements.STATEMENTS);
+        counterParties = accounting.getCounterParties();
+        statements = accounting.getStatements();
         counterPartiesItem.setEnabled(counterParties!=null);
         movementsItem.setEnabled(statements!=null);
     }

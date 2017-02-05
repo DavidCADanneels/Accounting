@@ -2,8 +2,6 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;
 
 import java.util.ArrayList;
@@ -24,19 +22,11 @@ public class Statements extends BusinessCollection<BusinessObject> {
 
     public Statements(Accounting accounting){
         setName(STATEMENTS);
-        counterParties = accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
-        try {
-            accounting.addBusinessObject(this);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (DuplicateNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
-
+        counterParties = accounting.getCounterParties();
     }
 
     public ArrayList<Statement> getStatements(SearchOptions searchOptions) {
-		ArrayList<Statement> result = new ArrayList<Statement>();
+		ArrayList<Statement> result = new ArrayList<>();
         CounterParty counterParty = searchOptions.getCounterParty();
         String transactionCode = searchOptions.getTransactionCode();
         String communication = searchOptions.getCommunication();

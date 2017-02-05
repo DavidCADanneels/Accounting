@@ -277,8 +277,8 @@ public class StatementTableFrame extends JFrame implements MouseListener {
 	}
 
 	public void setAccounting(Accounting accounting) {
-		counterParties = (CounterParties)accounting.getBusinessObject(CounterParties.COUNTERPARTIES);
-		statements = (Statements)accounting.getBusinessObject(Statements.STATEMENTS);
+		counterParties = accounting.getCounterParties();
+		statements = accounting.getStatements();
 		accounts=accounting==null?null:accounting.getAccounts();
 		journals=accounting==null?null:accounting.getJournals();
 	}

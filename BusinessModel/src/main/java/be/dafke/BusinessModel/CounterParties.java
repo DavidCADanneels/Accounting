@@ -18,16 +18,9 @@ public class CounterParties extends BusinessCollection<BusinessObject> {
     public static final String ALIAS = "Alias";
     public static final String ADDRESS = "Address";
 
-    public CounterParties(Accounting accounting){
+    public CounterParties(){
         addSearchKey(ACCOUNTNUMBER);
         setName(COUNTERPARTIES);
-        try {
-            accounting.addBusinessObject(this);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        } catch (DuplicateNameException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
     }
 
     public Set<String> getInitKeySet() {
