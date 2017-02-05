@@ -91,7 +91,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         modifyAbbr.addActionListener(e -> modifyAbbr());
         delete.addActionListener(e -> deleteJournal());
         newType.addActionListener(e -> showJournalTypeManager(journalTypes,accountTypes));
-        add.addActionListener(e -> new NewJournalGUI(journals, journalTypes, accountTypes).setVisible(true));
+        add.addActionListener(e -> NewJournalGUI.getInstance(journals, journalTypes, accountTypes).setVisible(true));
         modifyName.setEnabled(false);
         modifyType.setEnabled(false);
         modifyAbbr.setEnabled(false);

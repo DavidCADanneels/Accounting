@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Journals;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -18,17 +17,26 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 24/02/13
  * Time: 11:34
  */
-public class NewJournalGUI extends RefreshableDialog {
+public class NewJournalGUI extends JFrame {
+    private static NewJournalGUI newJournalGUI = null;
     private JTextField name, abbr;
     private JComboBox<JournalType> type;
     private JButton add, newType;
     private Journals journals;
 
-    public NewJournalGUI(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
+    private NewJournalGUI(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"));
         this.journals = journals;
         setContentPane(createContentPanel(journalTypes, accountTypes));
         pack();
+    }
+
+    public static NewJournalGUI getInstance(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
+        if(newJournalGUI == null) {
+            newJournalGUI = new NewJournalGUI(journals, journalTypes, accountTypes);
+            Main.addFrame(newJournalGUI);
+        }
+        return newJournalGUI;
     }
 
     private JPanel createContentPanel(JournalTypes journalTypes, AccountTypes accountTypes){
