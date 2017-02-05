@@ -27,7 +27,7 @@ public class ProjectGUI extends JFrame {
     private static final HashMap<Projects, ProjectGUI> projectGuis = new HashMap<>();
 
     private ProjectGUI(Accounts accounts, AccountTypes accountTypes, Projects projects) {
-        super(getBundle("Projects").getString("PROJECTS"));
+        super(accounts.getAccounting().getName() + " / " + getBundle("Projects").getString("PROJECTS"));
         this.projects = projects;
         setLayout(new BorderLayout());
 

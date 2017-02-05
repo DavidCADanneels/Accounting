@@ -39,7 +39,7 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
 	private static final HashMap<Mortgages, MortgageGUI> mortgageGuis = new HashMap<>();
 
 	private MortgageGUI(Mortgages mortgages, Accounts accounts) {
-		super("Mortgages");
+		super(accounts.getAccounting().getName() + " / " + "Mortgages");
         this.mortgages = mortgages;
 		this.accounts = accounts;
 		mortgagesList = new JList<>();
@@ -60,9 +60,9 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
 		table.setPreferredScrollableViewportSize(new Dimension(600, 200));
 		JScrollPane scroll = new JScrollPane(table);
 
-		comboIntrest = new JComboBox<>();// comboModel);
+		comboIntrest = new JComboBox<>();
 		comboIntrest.addActionListener(this);
-		comboCapital = new JComboBox<>();// comboModel);
+		comboCapital = new JComboBox<>();
 		comboCapital.addActionListener(this);
 		nrPayed = new JTextField(4);
 		nrPayed.addActionListener(this);
@@ -202,22 +202,15 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
         mortgagesList.setModel(listModel);
         mortgagesList.revalidate();
 
-        Account[] allAccounts = new Account[accounts.getBusinessObjects().size()];
-        for(int i = 0; i < accounts.getBusinessObjects().size(); i++) {
-            allAccounts[i] = accounts.getBusinessObjects().get(i);
-        }
-        intrestModel = new DefaultComboBoxModel<>(allAccounts);
-        capitalModel = new DefaultComboBoxModel<>(allAccounts);
+        intrestModel = new DefaultComboBoxModel<>();
+        capitalModel = new DefaultComboBoxModel<>();
+        for(Account account : accounts.getBusinessObjects()){
+        	intrestModel.addElement(account);
+			capitalModel.addElement(account);
+		}
         comboCapital.setModel(capitalModel);
         comboIntrest.setModel(intrestModel);
         comboCapital.revalidate();
         comboIntrest.revalidate();
 	}
-
-//	@Override
-//	public void setAccounting(Accounting accounting) {
-//		accounts = accounting==null?null:accounting.getAccounts();
-//		mortgages = accounting==null?null:accounting.getMortgages();
-//		delete.setEnabled(mortgages!=null);
-//	}
 }
