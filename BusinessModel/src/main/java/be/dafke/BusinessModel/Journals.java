@@ -15,9 +15,10 @@ import java.util.Map;
  */
 public class Journals extends BusinessCollection<Journal> {
     public static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
+    private Accounting accounting;
 
     public Journals(Journals journals){
-        this();
+        this(journals.accounting);
         for(Journal journal:journals.getBusinessObjects()) {
             try {
                 addBusinessObject(new Journal(journal));
@@ -28,7 +29,15 @@ public class Journals extends BusinessCollection<Journal> {
         currentObject = journals.getBusinessObject(journals.currentObject.getName());
     }
 
-    public Journals() {
+    @Override
+    public Journal addBusinessObject(Journal journal) throws EmptyNameException, DuplicateNameException {
+        super.addBusinessObject(journal);
+        journal.setAccounting(accounting);
+        return journal;
+    }
+
+    public Journals(Accounting accounting) {
+        this.accounting = accounting;
         addSearchKey(ABBREVIATION);
 	}
 

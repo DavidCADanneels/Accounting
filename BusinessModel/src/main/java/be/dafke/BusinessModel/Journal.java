@@ -17,6 +17,7 @@ public class Journal extends BusinessCollection<Transaction> {
     protected final MultiValueMap<Calendar,Transaction> transactions;
     private JournalType type;
     private Transaction currentTransaction;
+    private Accounting accounting;
 
     public Journal(Journal journal) {
         this(journal.getName(), journal.abbreviation);
@@ -29,6 +30,14 @@ public class Journal extends BusinessCollection<Transaction> {
         currentTransaction = new Transaction(Calendar.getInstance(),"");
         transactions = new MultiValueMap<>();
 	}
+
+    public Accounting getAccounting() {
+        return accounting;
+    }
+
+    public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
+    }
 
     @Override
     public boolean isDeletable(){

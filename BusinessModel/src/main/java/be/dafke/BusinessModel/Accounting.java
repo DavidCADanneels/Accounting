@@ -33,7 +33,7 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
         vatFields = new VATFields();
         vatTransactions = new VATTransactions(vatFields);
 
-        journals = new Journals();
+        journals = new Journals(this);
 
         balances = new Balances(accounts, accountTypes);
 
