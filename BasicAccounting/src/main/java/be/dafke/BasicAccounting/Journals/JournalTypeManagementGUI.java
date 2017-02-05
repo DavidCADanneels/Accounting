@@ -22,7 +22,6 @@ public class JournalTypeManagementGUI extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private JList<AccountType> debit, credit, types;
-//	private ArrayList<AccountType> allTypes;
 	private AlphabeticListModel<AccountType> debitModel, creditModel, typesModel;
 	private JComboBox<JournalType> combo;
 	private JournalTypes journalTypes;
