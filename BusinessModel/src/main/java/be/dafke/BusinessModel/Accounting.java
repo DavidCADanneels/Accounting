@@ -17,11 +17,12 @@ public class Accounting extends BusinessObject{
     private VATTransactions vatTransactions;
     private VATFields vatFields;
     private Contact companyContact;
+    private CounterParties counterParties;
+    private Statements statements;
     private boolean read = false;
-    private String name;
 
     public Accounting(String name) {
-        this.name = name;
+        setName(name);
         accountTypes = new AccountTypes();
 
         accounts = new Accounts(this);
@@ -43,10 +44,6 @@ public class Accounting extends BusinessObject{
 
         projects = new Projects();
 	}
-
-    public String getName() {
-        return name;
-    }
 
     // Collections
     //
@@ -92,6 +89,14 @@ public class Accounting extends BusinessObject{
 
     public Contact getCompanyContact() {
         return companyContact;
+    }
+
+    public CounterParties getCounterParties() {
+        return counterParties;
+    }
+
+    public Statements getStatements() {
+        return statements;
     }
 
     public boolean isRead() {
