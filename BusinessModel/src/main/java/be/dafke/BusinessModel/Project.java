@@ -19,7 +19,7 @@ public class Project extends BusinessCollection<Account> {
 
 	public Project(String name, Accounts accounts, AccountTypes accountTypes) {
 		setName(name);
-		projectAccounts = new ProjectAccounts();
+		projectAccounts = new ProjectAccounts(accounts.getAccounting());
 		Balances balances = new Balances(accounts, accountTypes);
 		resultBalance = balances.createResultBalance(projectAccounts);
 		relationsBalance = balances.createRelationsBalance(projectAccounts);

@@ -1,12 +1,11 @@
 package be.dafke.BusinessModel;
 
-import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.BusinessObject;
 
 /**
  * @author David Danneels
  */
-public class Accounting extends BusinessCollection<BusinessCollection<BusinessObject>> {
+public class Accounting extends BusinessObject{
     private final AccountTypes accountTypes;
     private Accounts accounts;
 	private Journals journals;
@@ -19,12 +18,13 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
     private VATFields vatFields;
     private Contact companyContact;
     private boolean read = false;
+    private String name;
 
     public Accounting(String name) {
-        setName(name);
+        this.name = name;
         accountTypes = new AccountTypes();
 
-        accounts = new Accounts();
+        accounts = new Accounts(this);
 
         companyContact = new Contact();
 
@@ -43,6 +43,10 @@ public class Accounting extends BusinessCollection<BusinessCollection<BusinessOb
 
         projects = new Projects();
 	}
+
+    public String getName() {
+        return name;
+    }
 
     // Collections
     //

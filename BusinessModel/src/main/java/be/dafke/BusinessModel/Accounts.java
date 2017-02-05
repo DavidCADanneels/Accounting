@@ -18,13 +18,15 @@ import java.util.stream.Collectors;
  */
 public class Accounts extends BusinessCollection<Account> {
     public static final String ACCOUNT = "Account";
+    private Accounting accounting;
 
-    public Accounts() {
+    public Accounts(Accounting accounting) {
         super();
+        this.accounting = accounting;
     }
 
     public Accounts(Accounts accounts) {
-        super();
+        this(accounts.getAccounting());
         for(Account account:accounts.getBusinessObjects()){
             try {
                 addBusinessObject(new Account(account));
@@ -75,4 +77,12 @@ public class Accounts extends BusinessCollection<Account> {
 //        account.setName(newName.trim());
         return modify(oldEntry, newEntry);
 	}
+
+    public Accounting getAccounting() {
+        return accounting;
+    }
+
+    public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
+    }
 }

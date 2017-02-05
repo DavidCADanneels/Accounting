@@ -36,7 +36,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 	private static final HashMap<Accounts, AccountManagementGUI> accountManagementGuis = new HashMap<>();
 
 	private AccountManagementGUI(final Accounts accounts, final AccountTypes accountTypes) {
-		super(getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE"));
+		super(accounts.getAccounting().getName() + " / " + getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE"));
 		this.accounts = accounts;
 		this.accountTypes = accountTypes;
 		this.accountManagementTableModel = new AccountManagementTableModel(accounts);
