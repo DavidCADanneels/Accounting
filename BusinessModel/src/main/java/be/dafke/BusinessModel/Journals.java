@@ -41,7 +41,15 @@ public class Journals extends BusinessCollection<Journal> {
         addSearchKey(ABBREVIATION);
 	}
 
-   /* @Override
+    public Accounting getAccounting() {
+        return accounting;
+    }
+
+    public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
+    }
+
+	/* @Override
     public void readCollection() {
         readCollection("Journal", true);
     }*/
