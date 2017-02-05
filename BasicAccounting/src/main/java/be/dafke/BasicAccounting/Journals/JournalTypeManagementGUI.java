@@ -31,7 +31,7 @@ public class JournalTypeManagementGUI extends JFrame {
 	private JComboBox<VATTransaction.VATType> taxType;
 
 	private JournalTypeManagementGUI(JournalTypes journalTypes, AccountTypes accountTypes) {
-		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
+		super(journalTypes.getAccounting().getName() + " / " + getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
 		setContentPane(createContentPanel());
 		setAccountTypes(accountTypes);
 		setJournalTypes(journalTypes);
