@@ -25,7 +25,7 @@ public class TestBalance extends JFrame {
 	private static HashMap<Accounts,TestBalance> testBalanceMap = new HashMap<>();
 
 	private TestBalance(Journals journals, Accounts accounts, JournalInputGUI journalInputGUI) {
-		super(getBundle("BusinessModel").getString("TESTBALANCE"));
+		super(journals.getAccounting().getName() + " / " + getBundle("BusinessModel").getString("TESTBALANCE"));
 		testBalanceDataModel = new TestBalanceDataModel(accounts);
 
 		tabel = new RefreshableTable<>(testBalanceDataModel);
