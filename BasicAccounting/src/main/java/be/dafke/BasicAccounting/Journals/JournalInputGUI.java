@@ -196,7 +196,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
             //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
             // set Journal before Transaction: setJournal sets transaction to currentObject !!!
 
-            // TODO: setAccounting if different
+            Main.setAccounting(journal.getAccounting());
             Main.setJournal(journal);
             journal.setCurrentObject(transaction);
             // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
