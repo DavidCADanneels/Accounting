@@ -1,10 +1,14 @@
 package be.dafke.BasicAccounting.Contacts;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.Contacts;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.HashMap;
+
+import static java.awt.BorderLayout.SOUTH;
 
 /**
  * Created by ddanneels on 15/11/2016.
@@ -43,10 +47,19 @@ public class ContactsGUI extends JFrame{
     }
 
     public JPanel createContentPanel(){
-        JPanel contentPanel = new JPanel();
         JButton create = new JButton("new Contact");
         create.addActionListener(e -> new NewContactGUI(contacts).setVisible(true));
-        contentPanel.add(create);
+
+        JPanel center = new JPanel();
+//        JTable
+        for(Contact contact:contacts.getBusinessObjects()){
+
+        }
+
+        JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel.add(create, SOUTH);
+        JScrollPane scroll = new JScrollPane(center);
+        contentPanel.add(scroll);
         return contentPanel;
     }
 }
