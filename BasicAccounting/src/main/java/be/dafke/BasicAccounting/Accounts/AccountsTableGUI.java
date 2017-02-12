@@ -5,7 +5,7 @@ import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -19,7 +19,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class AccountsTableGUI extends JPanel {//implements MouseListener {
-    private final RefreshableTable<Account> table;
+    private final SelectableTable<Account> table;
     private final AccountDataModel accountDataModel;
 
     private AccountsTablePopupMenu popup;
@@ -31,7 +31,7 @@ public class AccountsTableGUI extends JPanel {//implements MouseListener {
         // CENTER
         //
         accountDataModel = new AccountDataModel();
-        table = new RefreshableTable<>(accountDataModel);
+        table = new SelectableTable<>(accountDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(100, 600));
 
         popup = new AccountsTablePopupMenu(table,journalInputGUI);

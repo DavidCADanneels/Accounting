@@ -4,7 +4,7 @@ import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
@@ -28,7 +28,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     private JTextField debet, credit, dag, maand, jaar, bewijs, ident;
     private JButton singleBook, save, clear;
 
-    private final RefreshableTable<Booking> table;
+    private final SelectableTable<Booking> table;
     private final JournalGUIPopupMenu popup;
     private final JournalDataModel journalDataModel;
     private BigDecimal debettotaal, credittotaal;
@@ -44,7 +44,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
         journalDataModel = new JournalDataModel();
 
-        table = new RefreshableTable<>(journalDataModel);
+        table = new SelectableTable<>(journalDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
         popup = new JournalGUIPopupMenu(table, this);

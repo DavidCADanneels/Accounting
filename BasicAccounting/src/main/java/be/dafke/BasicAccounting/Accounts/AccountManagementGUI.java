@@ -6,7 +6,7 @@ import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
@@ -29,7 +29,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 	private static final long serialVersionUID = 1L;
 	private JButton newAccount, delete, modifyName, modifyType, modifyDefaultAmount;
 	private final AccountManagementTableModel accountManagementTableModel;
-	private final RefreshableTable<Account> tabel;
+	private final SelectableTable<Account> tabel;
 	private final DefaultListSelectionModel selection;
 	private Accounts accounts;
 	private AccountTypes accountTypes;
@@ -44,7 +44,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		// COMPONENTS
 		//
 		// Table
-		tabel = new RefreshableTable<>(accountManagementTableModel);
+		tabel = new SelectableTable<>(accountManagementTableModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);

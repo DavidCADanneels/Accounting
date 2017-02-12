@@ -3,7 +3,7 @@ package be.dafke.BasicAccounting.Coda;
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableTableModel;
+import be.dafke.ComponentModel.SelectableTableModel;
 import be.dafke.ObjectModel.BusinessObject;
 
 import javax.swing.*;
@@ -99,7 +99,7 @@ public class CounterPartyTableFrame extends JFrame implements MouseListener {
                         counterParty.removeAlias(aliases[result]);
                         // TODO: ask user if old name should be saved as alias
                         counterParty.addAlias(name);
-                        ((RefreshableTableModel<BusinessObject>)tabel.getModel()).fireTableDataChanged();
+                        ((SelectableTableModel<BusinessObject>)tabel.getModel()).fireTableDataChanged();
                     }
                 }
 			} else if (col == 5) {

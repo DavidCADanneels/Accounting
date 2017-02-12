@@ -3,14 +3,14 @@ package be.dafke.BasicAccounting.Accounts;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.Accounts;
-import be.dafke.ComponentModel.RefreshableTableModel;
+import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class AccountManagementTableModel extends RefreshableTableModel<Account> {
+public class AccountManagementTableModel extends SelectableTableModel<Account> {
 	/**
 	 * 
 	 */

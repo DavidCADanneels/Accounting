@@ -6,7 +6,7 @@ import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Balance;
 import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -15,7 +15,7 @@ import java.util.HashMap;
 public class BalanceGUI extends JFrame {
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
-	private RefreshableTable<Account> tabel;
+	private SelectableTable<Account> tabel;
 	private BalanceDataModel balanceDataModel;
 	private static HashMap<Balance,BalanceGUI> otherBalanceMap = new HashMap<>();
 
@@ -23,7 +23,7 @@ public class BalanceGUI extends JFrame {
 		super(journals.getAccounting().getName() + " / " + balance.getName());
 		balanceDataModel = new BalanceDataModel(balance);
 
-		tabel = new RefreshableTable<>(balanceDataModel);
+		tabel = new SelectableTable<>(balanceDataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);

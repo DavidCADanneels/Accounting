@@ -2,14 +2,13 @@ package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounts;
-import be.dafke.ComponentModel.RefreshableTableModel;
+import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class TestBalanceDataModel extends RefreshableTableModel<Account> {
+public class TestBalanceDataModel extends SelectableTableModel<Account> {
 	/**
 	 * 
 	 */

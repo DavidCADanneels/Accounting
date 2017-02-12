@@ -4,7 +4,7 @@ import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -17,10 +17,10 @@ import static java.util.ResourceBundle.getBundle;
 public class BalancePopupMenu extends JPopupMenu {
     private final JMenuItem details;
     private Journals journals;
-    private RefreshableTable<Account> gui;
+    private SelectableTable<Account> gui;
     private JournalInputGUI journalInputGUI;
 
-    public BalancePopupMenu(Journals journals, RefreshableTable<Account> gui, JournalInputGUI journalInputGUI) {
+    public BalancePopupMenu(Journals journals, SelectableTable<Account> gui, JournalInputGUI journalInputGUI) {
         this.journals = journals;
         this.gui = gui;
         this.journalInputGUI = journalInputGUI;

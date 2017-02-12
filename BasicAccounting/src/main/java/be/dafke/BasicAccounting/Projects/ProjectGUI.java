@@ -4,7 +4,7 @@ import be.dafke.BasicAccounting.Balances.BalanceDataModel;
 import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -76,14 +76,14 @@ public class ProjectGUI extends JFrame {
         refresh();
     }
     private JScrollPane createBalancePanel(BalanceDataModel balanceDataModel){
-        RefreshableTable<Account> table = new RefreshableTable<>(balanceDataModel);
+        SelectableTable<Account> table = new SelectableTable<>(balanceDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         return new JScrollPane(table);
     }
 
     private JScrollPane createTransactionsPanel() {
         journalDetailsDataModel = new JournalDetailsDataModel();
-        RefreshableTable<Booking> table = new RefreshableTable<>(journalDetailsDataModel);
+        SelectableTable<Booking> table = new SelectableTable<>(journalDetailsDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
         return new JScrollPane(table);
     }

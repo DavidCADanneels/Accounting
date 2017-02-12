@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.ObjectModel.BusinessObject;
 
 import javax.swing.*;
@@ -13,10 +13,10 @@ import java.util.ArrayList;
  * Created by ddanneel on 18/02/2015.
  */
 public class PopupForTableActivator extends MouseAdapter {
-    private final RefreshableTable<BusinessObject> tabel;
+    private final SelectableTable<BusinessObject> tabel;
     private final JPopupMenu popup;
 
-    public PopupForTableActivator(JPopupMenu popup, RefreshableTable tabel){
+    public PopupForTableActivator(JPopupMenu popup, SelectableTable tabel){
         this.popup = popup;
         this.tabel = tabel;
     }

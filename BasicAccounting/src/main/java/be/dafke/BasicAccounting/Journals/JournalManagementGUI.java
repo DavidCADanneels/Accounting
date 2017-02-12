@@ -3,7 +3,7 @@ package be.dafke.BasicAccounting.Journals;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
@@ -24,7 +24,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 
 	private JButton add, delete, modifyName, modifyType, modifyAbbr, newType;
 	private final DefaultListSelectionModel selection;
-    private RefreshableTable<Journal> tabel;
+    private SelectableTable<Journal> tabel;
     private JournalManagementTableModel journalManagementTableModel;
     private Journals journals;
     private JournalTypes journalTypes;
@@ -38,7 +38,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         this.accountTypes = accountTypes;
         journalManagementTableModel = new JournalManagementTableModel(journals);
 
-        tabel = new RefreshableTable<>(journalManagementTableModel);
+        tabel = new SelectableTable<>(journalManagementTableModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
         tabel.setRowSorter(null);
