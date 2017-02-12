@@ -16,9 +16,10 @@ public class RefreshableTable<BusinessObject> extends JTable{
 
     public ArrayList<BusinessObject> getSelectedObjects() {
         int[] rows = getSelectedRows();
+        int col = getSelectedColumn();
         ArrayList<BusinessObject> businessObjectArrayList = new ArrayList<>();
         for(int row : rows) {
-            BusinessObject businessObject = (BusinessObject) model.getValueAt(row, 0);
+            BusinessObject businessObject = model.getObject(row, col);
             businessObjectArrayList.add(businessObject);
         }
         return businessObjectArrayList;
