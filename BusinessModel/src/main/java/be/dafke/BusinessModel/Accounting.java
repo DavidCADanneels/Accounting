@@ -16,7 +16,7 @@ public class Accounting extends BusinessObject{
     private Contacts contacts;
     private VATTransactions vatTransactions;
     private VATFields vatFields;
-    private Contact companyContact;
+    private Contact companyContact=null;
     private CounterParties counterParties;
     private Statements statements;
     private boolean read = false;
@@ -27,7 +27,7 @@ public class Accounting extends BusinessObject{
 
         accounts = new Accounts(this);
 
-        companyContact = new Contact();
+//        companyContact = new Contact();
 
         journalTypes = new JournalTypes(this);
 

@@ -1,6 +1,8 @@
 package be.dafke.BasicAccounting.VAT;
 
+import be.dafke.BasicAccounting.Contacts.ContactSelector;
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.VATField;
 import be.dafke.BusinessModel.VATFields;
@@ -223,12 +225,18 @@ public class VATFileGUI extends JFrame {
         panel.add(nr);
         JButton button = new JButton(CREATE_FILE);
         button.addActionListener(e -> {
-            Contact contact = new Contact();
+            Accounting accounting = editedFields.getAccounting();
+            Contact companyContact = accounting.getCompanyContact();
+            if(companyContact==null){
+                ContactSelector contactSelector = ContactSelector.getContactSelector(accounting.getContacts());
+                contactSelector.setVisible(true);
+                companyContact = contactSelector.getSelection();
+            }
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileFilter(new FileNameExtensionFilter("XML files", "xml"));
             if(fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
-                VATWriter.writeVATFields(editedFields, selectedFile.getParentFile(),year.getText(), nr.getText(), contact, QUARTER);
+                VATWriter.writeVATFields(editedFields, selectedFile.getParentFile(),year.getText(), nr.getText(), companyContact, QUARTER);
             }
         });
         panel.add(button);

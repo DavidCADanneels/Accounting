@@ -276,7 +276,7 @@ public class AccountInputPanel extends JPanel{
         } else {
             ContactSelector contactSelector = ContactSelector.getContactSelector(contacts);
             contactSelector.setVisible(true);
-            contact =  contactSelector.getSelection();
+            contact = contactSelector.getSelection();
             // TODO: null check needed here?
             account.setContact(contact);
             return contact;
