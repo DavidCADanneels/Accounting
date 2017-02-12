@@ -57,8 +57,12 @@ public class XMLConstants {
     public static final String CONTACTS = "Contacts";
     public static final String CONTACT = "Contact";
 
-    public static final String ADDRESS_LINE_1 = "addressLine1";
-    public static final String ADDRESS_LINE_2 = "addressLine2";
+    public static final String STREET_AND_NUMBER = "streetAndNumber";
+    public static final String POSTAL_CODE = "postalCode";
+    public static final String CITY = "city";
+    public static final String COUNTRY_CODE = "countryCode";
+    public static final String EMAIL_ADDRESS = "emailAddress";
+    public static final String PHONE_NUMBER = "phoneNumber";
     public static final String VAT_NUMBER = "TVANumber";
 
     public static final String MORTGAGES = "Mortgages";

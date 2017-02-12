@@ -29,8 +29,12 @@ public class ContactsIO {
         for (Element element : getChildren(rootElement, CONTACT)) {
             Contact contact = new Contact();
             contact.setName(getValue(element, NAME));
-            contact.setAddressLine1(getValue(element, ADDRESS_LINE_1));
-            contact.setAddressLine2(getValue(element, ADDRESS_LINE_2));
+            contact.setStreetAndNumber(getValue(element, STREET_AND_NUMBER));
+            contact.setPostalCode(getValue(element, POSTAL_CODE));
+            contact.setCity(getValue(element, CITY));
+            contact.setCountryCode(getValue(element, COUNTRY_CODE));
+            contact.setEmail(getValue(element, EMAIL_ADDRESS));
+            contact.setPhone(getValue(element, PHONE_NUMBER));
             contact.setVatNumber(getValue(element, VAT_NUMBER));
             try {
                 contacts.addBusinessObject(contact);
@@ -50,9 +54,13 @@ public class ContactsIO {
                 writer.write(
                         "  <"+CONTACT+">\n" +
                         "    <"+NAME+">" + contact.getName() + "</"+NAME+">\n" +
-                        "    <"+ADDRESS_LINE_1+">" + contact.getAddressLine1() + "</"+ADDRESS_LINE_1+">\n" +
-                        "    <"+ADDRESS_LINE_2+">" + contact.getAddressLine2() + "</"+ADDRESS_LINE_2+">\n" +
-                        "    <"+ VAT_NUMBER +">" + contact.getVatNumber() + "</"+ VAT_NUMBER +">\n" +
+                        "    <"+STREET_AND_NUMBER+">" + contact.getStreetAndNumber() + "</"+STREET_AND_NUMBER+">\n" +
+                        "    <"+POSTAL_CODE+">" + contact.getPostalCode() + "</"+POSTAL_CODE+">\n" +
+                        "    <"+CITY+">" + contact.getCity() + "</"+CITY+">\n" +
+                        "    <"+COUNTRY_CODE+">" + contact.getCountryCode() + "</"+COUNTRY_CODE+">\n" +
+                        "    <"+EMAIL_ADDRESS+">" + contact.getEmail() + "</"+EMAIL_ADDRESS+">\n" +
+                        "    <"+PHONE_NUMBER+">" + contact.getPhone() + "</"+PHONE_NUMBER+">\n" +
+                        "    <"+VAT_NUMBER+">" + contact.getVatNumber() + "</"+VAT_NUMBER+">\n" +
                         "  </"+CONTACT+">\n"
                 );
             }

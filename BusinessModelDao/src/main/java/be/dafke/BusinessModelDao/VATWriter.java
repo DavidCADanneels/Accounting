@@ -24,7 +24,7 @@ public class VATWriter {
                     "        <ns2:Declarant>\n" +
                     "            <VATNumber>"+contact.getVatNumber()+"</VATNumber>\n" +
                     "            <Name>"+contact.getName()+"</Name>\n" +
-                    "            <Street>"+contact.getAddressLine1()+"</Street>\n" +
+                    "            <Street>"+contact.getStreetAndNumber()+"</Street>\n" +
                     "            <PostCode>"+contact.getPostalCode()+"</PostCode>\n" +
                     "            <City>"+contact.getCity()+"</City>\n" +
                     "            <CountryCode>"+contact.getCountryCode()+"</CountryCode>\n" +

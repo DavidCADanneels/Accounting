@@ -9,8 +9,7 @@ import java.math.BigDecimal;
  */
 public class Contact extends BusinessObject{
     private boolean supplier, customer;
-    private String addressLine1 = "";
-    private String addressLine2 = "";
+    private String streetAndNumber = "";
     private String vatNumber = "";
     private String postalCode = "";
     private String city = "";
@@ -36,20 +35,32 @@ public class Contact extends BusinessObject{
         this.customer = customer;
     }
 
-    public String getAddressLine1() {
-        return addressLine1;
+    public String getStreetAndNumber() {
+        return streetAndNumber;
     }
 
-    public void setAddressLine1(String addressLine1) {
-        this.addressLine1 = addressLine1;
+    public void setStreetAndNumber(String streetAndNumber) {
+        this.streetAndNumber = streetAndNumber;
     }
 
-    public String getAddressLine2() {
-        return addressLine2;
+    public void setPostalCode(String postalCode) {
+        this.postalCode = postalCode;
     }
 
-    public void setAddressLine2(String addressLine2) {
-        this.addressLine2 = addressLine2;
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public void setCountryCode(String countryCode) {
+        this.countryCode = countryCode;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 
     public String getVatNumber() {
