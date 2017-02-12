@@ -34,8 +34,6 @@ public class PopupForTableActivator extends MouseAdapter {
             } else {
                 selectionModel.setSelectionInterval(row, row);
             }
-            tabel.setSelectedRow(row);
-            tabel.setSelectedColumn(col);
             //
             // TODO: close all other popups first (popups of any component)
             popup.setLocation(me.getLocationOnScreen());

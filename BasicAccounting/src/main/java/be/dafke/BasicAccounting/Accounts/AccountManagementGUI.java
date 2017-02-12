@@ -49,7 +49,6 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
 		tabel.setSelectionModel(selection);
-		tabel.setSelectedRow(-1);
 		JScrollPane scrollPane = new JScrollPane(tabel);
 		//
 		JPanel panel = new JPanel(new BorderLayout());
