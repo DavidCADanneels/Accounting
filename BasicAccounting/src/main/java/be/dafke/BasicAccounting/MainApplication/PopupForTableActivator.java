@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  * Created by ddanneel on 18/02/2015.
@@ -26,13 +27,14 @@ public class PopupForTableActivator extends MouseAdapter {
             int col = tabel.columnAtPoint(cell);
             int row = tabel.rowAtPoint(cell);
 
-            ListSelectionModel selectionModel = tabel.getSelectionModel();
-            int minSelectionIndex = selectionModel.getMinSelectionIndex();
-            int maxSelectionIndex = selectionModel.getMaxSelectionIndex();
-            if(minSelectionIndex<=row && row <=maxSelectionIndex){
+            ArrayList<Integer> selectedRows = new ArrayList<>();
+            for(int i:tabel.getSelectedRows()){
+                selectedRows.add(i);
+            }
+            if(selectedRows.contains(row)){
                 // keep selection
             } else {
-                selectionModel.setSelectionInterval(row, row);
+                tabel.setRowSelectionInterval(row,row);
             }
             //
             // TODO: close all other popups first (popups of any component)
