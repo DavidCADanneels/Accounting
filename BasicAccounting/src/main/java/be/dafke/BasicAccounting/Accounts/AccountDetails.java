@@ -49,7 +49,7 @@ public class AccountDetails extends JFrame implements WindowListener {
 		pack();
 
 		popup = new AccountDetailsPopupMenu(journals, tabel, journalInputGUI);
-		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
+		tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));
 	}
 
 	public static AccountDetails getAccountDetails(Account account, Journals journals, JournalInputGUI journalInputGUI){

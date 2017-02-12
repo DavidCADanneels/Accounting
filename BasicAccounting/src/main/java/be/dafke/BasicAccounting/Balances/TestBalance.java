@@ -41,7 +41,7 @@ public class TestBalance extends JFrame {
 		pack();
 
 		popup = new BalancePopupMenu(journals, tabel, journalInputGUI);
-		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
+		tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));
 	}
 
 	public static TestBalance getTestBalance(Journals journals, Accounts accounts, JournalInputGUI journalInputGUI) {

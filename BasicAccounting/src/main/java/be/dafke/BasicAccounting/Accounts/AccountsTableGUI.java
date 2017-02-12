@@ -36,7 +36,7 @@ public class AccountsTableGUI extends JPanel {//implements MouseListener {
 
         popup = new AccountsTablePopupMenu(table,journalInputGUI);
         // TODO: register popup menu as TransactionListener and remove TransactionListener from 'this'.
-        table.addMouseListener(new PopupForTableActivator(popup, table));
+        table.addMouseListener(PopupForTableActivator.getInstance(popup, table));
 
         JScrollPane scrollPane1 = new JScrollPane(table);
         JPanel center = new JPanel();
@@ -50,7 +50,7 @@ public class AccountsTableGUI extends JPanel {//implements MouseListener {
         accountDataModel.setAccounts(accounting==null?null:accounting.getAccounts());
         // if setAccounts() is used here, popup.setAccounts() will be called twice
         popup.setAccounting(accounting);
-        table.addMouseListener(new PopupForTableActivator(popup, table));  // TODO: Needed?
+        table.addMouseListener(PopupForTableActivator.getInstance(popup, table));  // TODO: Needed?
         fireAccountDataChanged();
     }
 
