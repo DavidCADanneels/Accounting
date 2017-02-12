@@ -40,16 +40,11 @@ public class PopupForTableActivator extends MouseAdapter {
             for(int i:tabel.getSelectedRows()){
                 selectedRows.add(i);
             }
-            if(selectedRows.contains(row)){
-                // keep selection
-            } else {
+            if(!selectedRows.contains(row)){
                 tabel.setRowSelectionInterval(row,row);
             }
-            //
-            // TODO: close all other popups first (popups of any component)
             popup.setLocation(me.getLocationOnScreen());
             popup.setVisible(true);
-
-        } else popup.setVisible(false);
+        }
     }
 }
