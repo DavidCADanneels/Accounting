@@ -13,11 +13,7 @@ import java.util.TreeMap;
  */
 public class Movement extends BusinessObject{
     private static int count = 0;
-    public static final String JOURNAL_NAME = "journalName";
     public static final String DATE = "date";
-    public static final String DESCRIPTION = "description";
-    public static final String JOURNAL_ID = "journalId";
-    public static final String JOURNAL_ABBR = "journalAbbr";
     public static final String ID = "id";
     public static final String DEBIT = "debit";
     public static final String CREDIT = "credit";
