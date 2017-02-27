@@ -23,6 +23,7 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
 
     public VATTransaction(int id) {
         this.id = id;
+        count++;
     }
 
     public enum PurchaseType{
