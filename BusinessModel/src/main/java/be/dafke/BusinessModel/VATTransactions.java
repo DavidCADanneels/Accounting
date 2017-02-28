@@ -14,6 +14,7 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
     private Account creditAccount, debitAccount, creditCNAccount, debitCNAccount;
     private Integer[] vatPercentages = new Integer[]{0, 6, 12, 21};
     private HashMap<Integer,VATTransaction> vatTransactions = new HashMap<>();
+    private Accounting accounting;
 
     public Integer[] getVatPercentages() {
         return vatPercentages;
@@ -51,8 +52,9 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         this.debitCNAccount = debitCNAccount;
     }
 
-    public VATTransactions(VATFields vatFields) {
-        this.vatFields = vatFields;
+    public VATTransactions(Accounting accounting) {
+        this.accounting = accounting;
+        this.vatFields = accounting.getVatFields();
     }
 
     @Override
@@ -152,5 +154,9 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         vatTransaction.add(vatBooking1);
         vatTransaction.add(vatBooking2);
         return vatTransaction;
+    }
+
+    public Accounting getAccounting() {
+        return accounting;
     }
 }

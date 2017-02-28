@@ -1,33 +1,24 @@
 package be.dafke.BasicAccounting.VAT;
 
-import be.dafke.BasicAccounting.Contacts.ContactSelector;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.VATField;
 import be.dafke.BusinessModel.VATFields;
-import be.dafke.BusinessModelDao.VATWriter;
-import be.dafke.Utils.Utils;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.io.File;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
-import static be.dafke.BusinessModelDao.VATWriter.Period.QUARTER;
 import static java.util.ResourceBundle.getBundle;
 import static javax.swing.BoxLayout.Y_AXIS;
 
 /**
  * Created by ddanneels on 28/12/2016.
  */
-public class VATFileGUI extends JFrame {
-    private static final HashMap<VATFields, VATFileGUI> vatGuis = new HashMap<>();
-    private static final HashMap<VATFields, VATFileGUI> editableVatGuis = new HashMap<>();
+public class VATFieldsGUI extends JFrame {
+    private static final HashMap<VATFields, VATFieldsGUI> vatGuis = new HashMap<>();
     public static final String CREATE_FILE = "Create file";
     public static final String SALES_AT_0 = "Sales at 0%";
     public static final String SALES_AT_6 = "Sales at 6%";
@@ -42,22 +33,23 @@ public class VATFileGUI extends JFrame {
     public static final String TAX_ON_PURCHASES_81_83 = "Tax on Purchases (81-83)";
     public static final String CN_ON_PURCHASES = "CN on Purchases";
     private HashMap<String,JTextField> textFields = new HashMap<>();
-    private VATFields editedFields = null;
 
-    public static VATFileGUI getInstance(VATFields vatFields) {
-        VATFileGUI gui;
-        gui = editableVatGuis.get(vatFields);
+    public static VATFieldsGUI getInstance(VATFields vatFields) {
+        VATFieldsGUI gui;
+        gui = vatGuis.get(vatFields);
         if(gui==null){
-            gui = new VATFileGUI(vatFields);
-            editableVatGuis.put(vatFields,gui);
+            gui = new VATFieldsGUI(vatFields);
+            vatGuis.put(vatFields,gui);
             Main.addFrame(gui);
         }
         return gui;
     }
+    
+    private VATFields vatFields;
 
-    private VATFileGUI(VATFields vatFields) {
-        super(getBundle("VAT").getString("VAT_OVERVIEW"));
-        this.editedFields = new VATFields(vatFields);
+    private VATFieldsGUI(VATFields vatFields) {
+        super(vatFields.getAccounting().getName() + " / " + getBundle("VAT").getString("VAT_FIELDS"));
+        this.vatFields = vatFields;
         JPanel left = createSalesPanel();
         JPanel right = createPurchasePanel();
         JPanel totals = createTotalsPanel();
@@ -76,12 +68,7 @@ public class VATFileGUI extends JFrame {
 
         line1.add(new JLabel(nr));
         JTextField textField = new JTextField(10);
-        textField.addActionListener(e -> {
-            String text = textField.getText();
-            BigDecimal amount = Utils.parseBigDecimal(text);
-            VATField vatField = editedFields.getBusinessObject(nr);
-            vatField.setAmount(amount);
-        });
+        textField.setEditable(false);
         textField.setHorizontalAlignment(JTextField.RIGHT);
         textFields.put(nr,textField);
         line1.add(textField);
@@ -98,7 +85,7 @@ public class VATFileGUI extends JFrame {
     public void updateVATFields(){
         for (String nr: textFields.keySet()){
             JTextField textField = textFields.get(nr);
-            VATField vatField = editedFields.getBusinessObject(nr);
+            VATField vatField = vatFields.getBusinessObject(nr);
             BigDecimal amount = vatField.getSaldo();
             if (textField != null){
                 if(amount != null) {
@@ -106,6 +93,14 @@ public class VATFileGUI extends JFrame {
                 } else {
                     textField.setText("");
                 }
+            }
+        }
+    }
+
+    public static void fireVATFieldsUpdated(){
+        for(VATFieldsGUI vatFieldsGUI : vatGuis.values()) {
+            if (vatFieldsGUI != null) {
+                vatFieldsGUI.updateVATFields();
             }
         }
     }
@@ -217,28 +212,8 @@ public class VATFileGUI extends JFrame {
 
     private JPanel createButtonPanel(){
         JPanel panel = new JPanel();
-        JTextField year = new JTextField(6);
-        JTextField nr = new JTextField(4);
-        panel.add(new JLabel("Year:"));
-        panel.add(year);
-        panel.add(new JLabel("Month/Quarter:"));
-        panel.add(nr);
         JButton button = new JButton(CREATE_FILE);
-        button.addActionListener(e -> {
-            Accounting accounting = editedFields.getAccounting();
-            Contact companyContact = accounting.getCompanyContact();
-            if(companyContact==null){
-                ContactSelector contactSelector = ContactSelector.getContactSelector(accounting.getContacts());
-                contactSelector.setVisible(true);
-                companyContact = contactSelector.getSelection();
-            }
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setFileFilter(new FileNameExtensionFilter("XML files", "xml"));
-            if(fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-                File selectedFile = fileChooser.getSelectedFile();
-                VATWriter.writeVATFields(editedFields, selectedFile.getParentFile(),year.getText(), nr.getText(), companyContact, QUARTER);
-            }
-        });
+        button.addActionListener(e -> VATFieldsFileGUI.getInstance(vatFields).setVisible(true));
         panel.add(button);
         return panel;
     }

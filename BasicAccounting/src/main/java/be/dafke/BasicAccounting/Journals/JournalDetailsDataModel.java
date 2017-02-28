@@ -58,7 +58,7 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 	}
 
 	public Booking getValueAt(int row) {
-		ArrayList<Booking> boekingen = new ArrayList<Booking>();
+		ArrayList<Booking> boekingen = new ArrayList<>();
 		if(journal==null) return null;
 		for(Transaction transaction : journal.getBusinessObjects()){
 			boekingen.addAll(transaction.getBusinessObjects());

@@ -32,7 +32,7 @@ public class Accounting extends BusinessObject{
         journalTypes = new JournalTypes(this);
 
         vatFields = new VATFields(this);
-        vatTransactions = new VATTransactions(vatFields);
+        vatTransactions = new VATTransactions(this);
 
         journals = new Journals(this);
 
