@@ -236,6 +236,7 @@ public class AccountInputPanel extends JPanel{
                 transaction.addBusinessObject(new Booking(btwAccount, btwAmount, debit));
                 ArrayList<VATBooking> vatBookings = vatTransactions.purchase(amount, btwAmount, purchaseType);
                 transaction.addVATBookings(vatBookings);
+                journalInputGUI.fireTransactionDataChanged();
             }
         }
     }
