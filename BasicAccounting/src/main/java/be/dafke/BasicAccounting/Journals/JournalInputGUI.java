@@ -424,7 +424,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
     private Journal checkTransfer(Journal oldJournal, Journal newJournal){
         Transaction newTransaction = newJournal.getCurrentObject();
-        if(transaction!=null && !transaction.getBusinessObjects().isEmpty()){
+        if(transaction!=null && !transaction.getBusinessObjects().isEmpty() && oldJournal!=newJournal){
             StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
                     .append(oldJournal).append(" to ").append(newJournal);
             if(newTransaction!=null && !newTransaction.getBusinessObjects().isEmpty()){
