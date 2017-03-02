@@ -4,6 +4,8 @@ import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.Contacts;
 import be.dafke.ComponentModel.SelectableTableModel;
 
+import java.math.BigDecimal;
+
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -23,7 +25,9 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 			getBundle("Contacts").getString("CITY"),
 			getBundle("Contacts").getString("COUNTRY"),
 			getBundle("Contacts").getString("PHONE"),
-			getBundle("Contacts").getString("EMAIL") };
+			getBundle("Contacts").getString("EMAIL"),
+			getBundle("Contacts").getString("TURNOVER"),
+			getBundle("Contacts").getString("VAT_TOTAL") };
 	Class[] columnClasses = {
 			String.class,
 			String.class,
@@ -32,7 +36,9 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 			String.class,
 			String.class,
 			String.class,
-			String.class };
+			String.class,
+			BigDecimal.class,
+			BigDecimal.class };
 
     private Contacts contacts;
 
@@ -60,6 +66,10 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 			return contact.getPhone();
 		} else if (col == 7) {
 			return contact.getEmail();
+		} else if (col == 8) {
+			return contact.getTurnOver();
+		} else if (col == 9) {
+			return contact.getVATTotal();
 		} else return null;
 	}
 
