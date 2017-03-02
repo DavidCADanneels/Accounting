@@ -28,6 +28,9 @@ import static be.dafke.BusinessModelDao.XMLConstants.*;
  * Created by ddanneels on 28/12/2015.
  */
 public class XMLReader {
+
+    public static final String VAT_ACCOUNTING = "VatAccounting";
+
     private static Document getDocument(File xmlFile){
         try{
             DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
@@ -69,7 +72,10 @@ public class XMLReader {
         for (Element element : getChildren(rootElement, ACCOUNTING)) {
 
             String name = getValue(element, NAME);
+            String vatAccountingString = getValue(element, VAT_ACCOUNTING);
+            boolean vatAccounting = Boolean.valueOf(vatAccountingString);
             Accounting accounting = new Accounting(name);
+            accounting.setVatAccounting(vatAccounting);
             accounting.getAccountTypes().addDefaultTypes();
 
             try {

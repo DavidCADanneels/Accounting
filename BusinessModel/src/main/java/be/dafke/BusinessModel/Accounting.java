@@ -20,6 +20,7 @@ public class Accounting extends BusinessObject{
     private CounterParties counterParties;
     private Statements statements;
     private boolean read = false;
+    private boolean vatAccounting = false;
 
     public Accounting(String name) {
         setName(name);
@@ -117,5 +118,13 @@ public class Accounting extends BusinessObject{
 
     public void copyJournalTypes(JournalTypes journalTypes) {
         this.journalTypes = new JournalTypes(journalTypes);
+    }
+
+    public boolean isVatAccounting() {
+        return vatAccounting;
+    }
+
+    public void setVatAccounting(boolean vatAccounting) {
+        this.vatAccounting = vatAccounting;
     }
 }

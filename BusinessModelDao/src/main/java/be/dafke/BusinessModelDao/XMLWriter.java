@@ -49,6 +49,7 @@ public class XMLWriter {
                 writer.write(
                         "  <Accounting>\n" +
                         "    <name>"+accounting.getName()+"</name>\n" +
+                        "    <VatAccounting>"+accounting.isVatAccounting()+"</VatAccounting>\n" +
                         "  </Accounting>\n"
                 );
             }
@@ -77,8 +78,10 @@ public class XMLWriter {
         writeJournalTypes(accounting.getJournalTypes(), accountingFolder);
         writeProjects(accounting.getProjects(), accountingFolder);
         writeBalances(accounting.getBalances(), accountingFolder);
-        writeVATFields(accounting.getVatFields(), accountingFolder);
-        writeVATTransactions(accounting.getVatTransactions(), accountingFolder);
+        if(accounting.isVatAccounting()) {
+            writeVATFields(accounting.getVatFields(), accountingFolder);
+            writeVATTransactions(accounting.getVatTransactions(), accountingFolder);
+        }
         writeContacts(accounting.getContacts(), accountingFolder);
         writeMortgages(accounting.getMortgages(), accountingFolder);
     }
