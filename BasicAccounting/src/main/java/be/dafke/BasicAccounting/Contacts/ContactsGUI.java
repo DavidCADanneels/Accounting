@@ -1,13 +1,13 @@
 package be.dafke.BasicAccounting.Contacts;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.Contacts;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+import static java.awt.BorderLayout.CENTER;
 import static java.awt.BorderLayout.SOUTH;
 
 /**
@@ -50,16 +50,13 @@ public class ContactsGUI extends JFrame{
         JButton create = new JButton("new Contact");
         create.addActionListener(e -> new NewContactGUI(contacts).setVisible(true));
 
-        JPanel center = new JPanel();
-//        JTable
-        for(Contact contact:contacts.getBusinessObjects()){
-
-        }
+        ContactsDataModel contactsDataModel = new ContactsDataModel(contacts);
+        JTable center = new JTable(contactsDataModel);
+        JScrollPane scroll = new JScrollPane(center);
 
         JPanel contentPanel = new JPanel(new BorderLayout());
+        contentPanel.add(scroll, CENTER);
         contentPanel.add(create, SOUTH);
-        JScrollPane scroll = new JScrollPane(center);
-        contentPanel.add(scroll);
         return contentPanel;
     }
 }

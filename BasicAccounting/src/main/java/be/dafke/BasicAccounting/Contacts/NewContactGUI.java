@@ -18,14 +18,14 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 11:34
  */
 public class NewContactGUI extends RefreshableDialog {
-    public static final String NAME = "NAME";
-    public static final String STREET_AND_NUMBER = "STREET_AND_NUMBER";
-    public static final String POSTAL_CODE = "POSTAL_CODE";
-    public static final String VAT_NR = "VAT_NR";
-    public static final String CITY = "CITY";
-    public static final String COUNTRY = "COUNTRY";
-    public static final String PHONE = "PHONE";
-    public static final String EMAIL = "EMAIL";
+    public static final String NAME = "NAME_LABEL";
+    public static final String STREET_AND_NUMBER = "STREET_AND_NUMBER_LABEL";
+    public static final String POSTAL_CODE = "POSTAL_CODE_LABEL";
+    public static final String VAT_NR = "VAT_NR_LABEL";
+    public static final String CITY = "CITY_LABEL";
+    public static final String COUNTRY = "COUNTRY_LABEL";
+    public static final String PHONE = "PHONE_LABEL";
+    public static final String EMAIL = "EMAIL_LABEL";
     private final JTextField contactName, contactVAT, contactStreet, contactPostalCode, contactCity, contactCountry, contactPhone, contactEmail;
     private final JButton add;
     private final Contacts contacts;
