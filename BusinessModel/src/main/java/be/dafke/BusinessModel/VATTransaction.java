@@ -11,6 +11,7 @@ import java.util.ArrayList;
 public class VATTransaction extends BusinessCollection<VATBooking>{
     private static int count = 0;
     private ArrayList<VATBooking> vatBookings = new ArrayList<>();
+    private Transaction transaction;
     private Integer id;
 
     public Integer getId() {
@@ -46,6 +47,15 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
         @Override
     public VATBooking addBusinessObject(VATBooking value) {
         vatBookings.add(value);
+        value.setVatTransaction(this);
         return value;
+    }
+
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
     }
 }

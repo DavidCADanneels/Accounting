@@ -156,6 +156,7 @@ public class Transaction extends BusinessCollection<Booking> {
     public void addVATBookings(ArrayList<VATBooking> vatBookings) {
         if(vatTransaction==null){
             vatTransaction = new VATTransaction();
+            vatTransaction.setTransaction(this);
         }
         for(VATBooking vatBooking:vatBookings) {
             vatTransaction.addBusinessObject(vatBooking);

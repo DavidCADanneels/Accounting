@@ -8,6 +8,7 @@ import be.dafke.ObjectModel.BusinessObject;
 public class VATBooking extends BusinessObject {
     private VATField vatField;
     private VATMovement vatMovement;
+    private VATTransaction vatTransaction;
 
     public VATBooking(VATField vatField, VATMovement vatMovement) {
         this.vatField = vatField;
@@ -20,5 +21,13 @@ public class VATBooking extends BusinessObject {
 
     public VATMovement getVatMovement() {
         return vatMovement;
+    }
+
+    public VATTransaction getVatTransaction() {
+        return vatTransaction;
+    }
+
+    public void setVatTransaction(VATTransaction vatTransaction) {
+        this.vatTransaction = vatTransaction;
     }
 }

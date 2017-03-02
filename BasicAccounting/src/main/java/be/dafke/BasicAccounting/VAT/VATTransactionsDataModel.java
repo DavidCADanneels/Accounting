@@ -1,7 +1,11 @@
 package be.dafke.BasicAccounting.VAT;
 
-import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModel.VATBooking;
+import be.dafke.BusinessModel.VATField;
+import be.dafke.BusinessModel.VATTransaction;
+import be.dafke.BusinessModel.VATTransactions;
 import be.dafke.ComponentModel.SelectableTableModel;
+import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -14,9 +18,17 @@ public class VATTransactionsDataModel extends SelectableTableModel<VATBooking> {
 	 */
 	private static final long serialVersionUID = 1L;
 	String[] columnNames = {
+			getBundle("Accounting").getString("NR"),
+			getBundle("Accounting").getString("DATE"),
 			getBundle("VAT").getString("VAT_FIELD"),
-			getBundle("VAT").getString("VAT_AMOUNT")};
-	Class[] columnClasses = { VATField.class, BigDecimal.class };
+			getBundle("VAT").getString("VAT_AMOUNT")
+	};
+	Class[] columnClasses = {
+			String.class,
+			String.class,
+			VATField.class,
+			BigDecimal.class
+	};
 
 	private VATTransactions vatTransactions;
 
@@ -37,11 +49,19 @@ public class VATTransactionsDataModel extends SelectableTableModel<VATBooking> {
 // ===============
 	public Object getValueAt(int row, int col) {
 		VATBooking vatBooking = getValueAt(row);
+		boolean first = (vatBooking == vatBooking.getVatTransaction().getBusinessObjects().get(0));
 		if (col == 0) {
-			return vatBooking.getVatField();
+			if(first)
+				return vatBooking.getVatTransaction().getTransaction().getAbbreviation() + vatBooking.getVatTransaction().getTransaction().getId();
 		} else if (col == 1) {
+			if(first)
+				return Utils.toString(vatBooking.getVatTransaction().getTransaction().getDate());
+		} else if (col == 2) {
+			return vatBooking.getVatField();
+		} else if (col == 3) {
 			return vatBooking.getVatMovement().getAmount();
-		} else return null;
+		}
+		return null;
 	}
 
 	public int getColumnCount() {

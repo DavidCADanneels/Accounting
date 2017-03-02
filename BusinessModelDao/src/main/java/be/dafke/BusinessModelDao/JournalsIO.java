@@ -119,6 +119,7 @@ public class JournalsIO {
             if(vatIdString!=null){
                 VATTransaction vatTransaction = vatTransactions.getBusinessObject(Utils.parseInt(vatIdString));
                 transaction.setVatTransaction(vatTransaction);
+                vatTransaction.setTransaction(transaction);
             }
 
             for(Element bookingsElement:getChildren(element, BOOKING)){
