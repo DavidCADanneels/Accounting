@@ -10,6 +10,8 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 
+import java.awt.*;
+
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -34,8 +36,7 @@ public class NewContactGUI extends RefreshableDialog {
         super(getBundle("Contacts").getString("NEW_CONTACT_GUI_TITLE"));
         this.contacts = contacts;
 
-        JPanel north = new JPanel();
-		north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
+        JPanel north = new JPanel(new GridLayout(0,2));
 
         contactName = new JTextField(20);
         contactVAT = new JTextField(20);
@@ -46,17 +47,22 @@ public class NewContactGUI extends RefreshableDialog {
         contactEmail = new JTextField(20);
         contactPhone = new JTextField(20);
 
-        north.add(createPanel(contactName, NAME));
-        north.add(createPanel(contactVAT, VAT_NR));
-        north.add(createPanel(contactStreet, STREET_AND_NUMBER));
-        north.add(createPanel(contactPostalCode, POSTAL_CODE));
-        north.add(createPanel(contactCity, CITY));
-        north.add(createPanel(contactCountry, COUNTRY));
-        north.add(createPanel(contactPhone, PHONE));
-        north.add(createPanel(contactEmail, EMAIL));
-
-//        JPanel line4 = new JPanel();
-//		north.add(line4);
+        north.add(new JLabel(getBundle("Contacts").getString(NAME)));
+        north.add(contactName);
+        north.add(new JLabel(getBundle("Contacts").getString(VAT_NR)));
+        north.add(contactVAT);
+        north.add(new JLabel(getBundle("Contacts").getString(STREET_AND_NUMBER)));
+        north.add(contactStreet);
+        north.add(new JLabel(getBundle("Contacts").getString(POSTAL_CODE)));
+        north.add(contactPostalCode);
+        north.add(new JLabel(getBundle("Contacts").getString(CITY)));
+        north.add(contactCity);
+        north.add(new JLabel(getBundle("Contacts").getString(COUNTRY)));
+        north.add(contactCountry);
+        north.add(new JLabel(getBundle("Contacts").getString(PHONE)));
+        north.add(contactEmail);
+        north.add(new JLabel(getBundle("Contacts").getString(EMAIL)));
+        north.add(contactPhone);
 
 		add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_CONTACT"));
 		add.addActionListener(e -> createContact());
@@ -64,13 +70,6 @@ public class NewContactGUI extends RefreshableDialog {
 		north.add(add);
         setContentPane(north);
         pack();
-    }
-
-    private JPanel createPanel(JComponent component, String label){
-        JPanel panel = new JPanel();
-        panel.add(new JLabel(getBundle("Contacts").getString(label)));
-        panel.add(component);
-        return panel;
     }
 
     private void createContact() {
