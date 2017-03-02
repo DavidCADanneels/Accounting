@@ -3,6 +3,7 @@ package be.dafke.BusinessModelDao;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Utils.Utils;
 import org.w3c.dom.Element;
 
 import java.io.File;
@@ -10,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,62 +28,64 @@ public class VATIO {
 
     public static void readVATFields(VATFields vatFields, File accountingFolder) {
         File xmlFile = new File(accountingFolder, "VATFields.xml");
-        Element rootElement = getRootElement(xmlFile, VATFIELDS);
-        for (Element element : getChildren(rootElement, VATFIELD)) {
+        if(xmlFile.exists()) {
+            Element rootElement = getRootElement(xmlFile, VATFIELDS);
+            for (Element element : getChildren(rootElement, VATFIELD)) {
 
-            String name = getValue(element, NAME);
-            VATField vatField = new VATField(name);
+                String name = getValue(element, NAME);
+                VATField vatField = new VATField(name);
 
-//            String amountString = getValue(element, AMOUNT);
-//            BigDecimal amount = parseBigDecimal(amountString);
-//            vatField.setAmount(amount);
-
-            try {
-                vatFields.addBusinessObject(vatField);
-            } catch (EmptyNameException | DuplicateNameException e) {
-                e.printStackTrace();
+                try {
+                    vatFields.addBusinessObject(vatField);
+                } catch (EmptyNameException | DuplicateNameException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
     public static void readVATTransactions(VATTransactions vatTransactions, VATFields vatFields, Accounts accounts, File accountingFolder){
         File xmlFile = new File(accountingFolder, "VATTransactions.xml");
-        Element rootElement = getRootElement(xmlFile, VATTRANSACTIONS);
-        String debitAccountString = getValue(rootElement, DEBIT_ACCOUNT);
-        String creditAccountString = getValue(rootElement, CREDIT_ACCOUNT);
-        String debitCNAccountString = getValue(rootElement, DEBIT_CN_ACCOUNT);
-        String creditCNAccountString = getValue(rootElement, CREDIT_CN_ACCOUNT);
+        if(xmlFile.exists()) {
+            Element rootElement = getRootElement(xmlFile, VATTRANSACTIONS);
+            String debitAccountString = getValue(rootElement, DEBIT_ACCOUNT);
+            String creditAccountString = getValue(rootElement, CREDIT_ACCOUNT);
+            String debitCNAccountString = getValue(rootElement, DEBIT_CN_ACCOUNT);
+            String creditCNAccountString = getValue(rootElement, CREDIT_CN_ACCOUNT);
 
-        if(debitAccountString!=null) {
-            vatTransactions.setDebitAccount(accounts.getBusinessObject(debitAccountString));
-        }
-        if(creditAccountString!=null) {
-            vatTransactions.setCreditAccount(accounts.getBusinessObject(creditAccountString));
-        }
-        if(debitCNAccountString!=null) {
-            vatTransactions.setDebitCNAccount(accounts.getBusinessObject(debitCNAccountString));
-        }
-        if(creditCNAccountString!=null) {
-            vatTransactions.setCreditCNAccount(accounts.getBusinessObject(creditCNAccountString));
-        }
-
-        for (Element element: getChildren(rootElement, VATTRANSACTION)) {
-            String idString = getValue(element, ID);
-            int id = parseInt(idString);
-            VATTransaction vatTransaction = new VATTransaction(id);
-            for (Element vatBookingsElement : getChildren(element, VATBOOKING)) {
-                String vatFieldString = getValue(vatBookingsElement, VATFIELD);
-                String amountString = getValue(vatBookingsElement, AMOUNT);
-
-                BigDecimal amount = parseBigDecimal(amountString);
-                VATField vatField = vatFields.getBusinessObject(vatFieldString);
-                if(vatField==null)System.err.println("Field["+vatFieldString+"] not found");
-                VATMovement vatMovement = new VATMovement(amount, true);
-                VATBooking vatBooking = new VATBooking(vatField, vatMovement);
-                
-                vatTransaction.addBusinessObject(vatBooking);
+            if (debitAccountString != null) {
+                vatTransactions.setDebitAccount(accounts.getBusinessObject(debitAccountString));
             }
-            vatTransactions.addBusinessObject(vatTransaction);
+            if (creditAccountString != null) {
+                vatTransactions.setCreditAccount(accounts.getBusinessObject(creditAccountString));
+            }
+            if (debitCNAccountString != null) {
+                vatTransactions.setDebitCNAccount(accounts.getBusinessObject(debitCNAccountString));
+            }
+            if (creditCNAccountString != null) {
+                vatTransactions.setCreditCNAccount(accounts.getBusinessObject(creditCNAccountString));
+            }
+
+            for (Element element : getChildren(rootElement, VATTRANSACTION)) {
+                String idString = getValue(element, ID);
+                int id = parseInt(idString);
+                String dateString = getValue(element, DATE);
+                Calendar date = Utils.toCalendar(dateString);
+                VATTransaction vatTransaction = new VATTransaction(id, date);
+                for (Element vatBookingsElement : getChildren(element, VATBOOKING)) {
+                    String vatFieldString = getValue(vatBookingsElement, VATFIELD);
+                    String amountString = getValue(vatBookingsElement, AMOUNT);
+
+                    BigDecimal amount = parseBigDecimal(amountString);
+                    VATField vatField = vatFields.getBusinessObject(vatFieldString);
+                    if (vatField == null) System.err.println("Field[" + vatFieldString + "] not found");
+                    VATMovement vatMovement = new VATMovement(amount, true);
+                    VATBooking vatBooking = new VATBooking(vatField, vatMovement);
+
+                    vatTransaction.addBusinessObject(vatBooking);
+                }
+                vatTransactions.addBusinessObject(vatTransaction);
+            }
         }
     }
 
@@ -120,7 +124,8 @@ public class VATIO {
             for(VATTransaction vatTransaction: vatTransactions.getBusinessObjects()) {
                 writer.write(
                     "  <"+VATTRANSACTION+">\n" +
-                    "    <"+ID+">"+vatTransaction.getId()+"</"+ID+">\n"
+                    "    <"+ID+">"+vatTransaction.getId()+"</"+ID+">\n" +
+                    "    <"+DATE+">"+Utils.toString(vatTransaction.getDate())+"</"+DATE+">\n"
                 );
                 for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){
                     VATMovement vatMovement = vatBooking.getVatMovement();

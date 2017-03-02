@@ -4,12 +4,14 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * Created by ddanneels on 28/12/2016.
  */
 public class VATTransaction extends BusinessCollection<VATBooking>{
     private static int count = 0;
+    private final Calendar date;
     private ArrayList<VATBooking> vatBookings = new ArrayList<>();
     private Transaction transaction;
     private Integer id;
@@ -18,12 +20,13 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
         return id;
     }
 
-    public VATTransaction() {
-        this(++count);
+    public VATTransaction(Calendar date) {
+        this(++count, date);
     }
 
-    public VATTransaction(int id) {
+    public VATTransaction(int id, Calendar date) {
         this.id = id;
+        this.date = date;
         count++;
     }
 
@@ -57,5 +60,9 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
 
     public void setTransaction(Transaction transaction) {
         this.transaction = transaction;
+    }
+
+    public Calendar getDate() {
+        return date;
     }
 }

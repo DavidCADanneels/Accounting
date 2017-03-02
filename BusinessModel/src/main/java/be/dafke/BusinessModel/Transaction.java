@@ -155,7 +155,7 @@ public class Transaction extends BusinessCollection<Booking> {
 
     public void addVATBookings(ArrayList<VATBooking> vatBookings) {
         if(vatTransaction==null){
-            vatTransaction = new VATTransaction();
+            vatTransaction = new VATTransaction(date);
             vatTransaction.setTransaction(this);
         }
         for(VATBooking vatBooking:vatBookings) {

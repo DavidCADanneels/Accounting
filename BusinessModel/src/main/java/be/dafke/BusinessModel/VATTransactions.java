@@ -1,10 +1,11 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.Utils.MultiValueMap;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Calendar;
 
 /**
  * Created by ddanneels on 25/12/2016.
@@ -13,7 +14,7 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
     private final VATFields vatFields;
     private Account creditAccount, debitAccount, creditCNAccount, debitCNAccount;
     private Integer[] vatPercentages = new Integer[]{0, 6, 12, 21};
-    private HashMap<Integer,VATTransaction> vatTransactions = new HashMap<>();
+    private final MultiValueMap<Calendar,VATTransaction> vatTransactions = new MultiValueMap<>();
     private Accounting accounting;
 
     public Integer[] getVatPercentages() {
@@ -58,11 +59,12 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
     }
 
     @Override
-    public VATTransaction addBusinessObject(VATTransaction vatTransaction) {
-        vatTransactions.put(vatTransaction.getId(), vatTransaction);
-        for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){
+    public VATTransaction addBusinessObject(VATTransaction vatTransaction){
+        Calendar date = vatTransaction.getDate();
+        vatTransactions.addValue(date, vatTransaction);
+        for (VATBooking vatBooking : vatTransaction.getBusinessObjects()) {
             VATField vatField = vatBooking.getVatField();
-            if(vatField!=null) {
+            if (vatField != null) {
                 vatField.addBusinessObject(vatBooking.getVatMovement());
             }
         }
@@ -75,13 +77,13 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
     }
 
     public VATTransaction getBusinessObject(Integer id){
-        return vatTransactions.get(id);
+        return vatTransactions.values().stream().filter(vatTransaction -> vatTransaction.getId() == id).findFirst().orElse(null);
     }
 
     @Override
     public void removeBusinessObject(VATTransaction vatTransaction){
-        Integer id = vatTransaction.getId();
-        vatTransactions.remove(id);
+        Calendar date = vatTransaction.getTransaction().getDate();
+        vatTransactions.removeValue(date,vatTransaction);
         for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){
             VATField vatField = vatBooking.getVatField();
             if(vatField!=null) {
