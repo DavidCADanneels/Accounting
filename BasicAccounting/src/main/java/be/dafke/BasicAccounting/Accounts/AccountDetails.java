@@ -11,7 +11,7 @@ import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -27,7 +27,7 @@ public class AccountDetails extends JFrame implements WindowListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final AccountDetailsPopupMenu popup;
-	private RefreshableTable<Booking> tabel;
+	private SelectableTable<Booking> tabel;
 	private AccountDetailsDataModel accountDetailsDataModel;
 	private static HashMap<Account,AccountDetails> accountDetailsMap = new HashMap<>();
 
@@ -35,7 +35,7 @@ public class AccountDetails extends JFrame implements WindowListener {
 		super(getBundle("Accounting").getString("ACCOUNT_DETAILS")+ " " + journals.getAccounting().getName() + " / " + account.getName());
 		accountDetailsDataModel = new AccountDetailsDataModel(account);
 
-		tabel = new RefreshableTable<>(accountDetailsDataModel);
+		tabel = new SelectableTable<>(accountDetailsDataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
@@ -49,7 +49,7 @@ public class AccountDetails extends JFrame implements WindowListener {
 		pack();
 
 		popup = new AccountDetailsPopupMenu(journals, tabel, journalInputGUI);
-		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
+		tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));
 	}
 
 	public static AccountDetails getAccountDetails(Account account, Journals journals, JournalInputGUI journalInputGUI){

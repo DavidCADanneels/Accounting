@@ -4,7 +4,7 @@ import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -14,7 +14,7 @@ public class JournalGUI extends JPanel {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-    private final RefreshableTable<Booking> table;
+    private final SelectableTable<Booking> table;
     private final JournalDetailsPopupMenu popup;
 
     private final JournalDetailsDataModel journalDetailsDataModel;
@@ -23,11 +23,11 @@ public class JournalGUI extends JPanel {
 		setLayout(new BorderLayout());
         journalDetailsDataModel = new JournalDetailsDataModel();
 
-        table = new RefreshableTable<>(journalDetailsDataModel);
+        table = new SelectableTable<>(journalDetailsDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
         popup = new JournalDetailsPopupMenu(table, journalInputGUI);
-        table.addMouseListener(new PopupForTableActivator(popup, table));
+        table.addMouseListener(PopupForTableActivator.getInstance(popup, table));
 
         JPanel center = new JPanel();
         JScrollPane scrollPane = new JScrollPane(table);

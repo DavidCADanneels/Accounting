@@ -1,46 +1,50 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.ObjectModel.BusinessObject;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 /**
  * Created by ddanneel on 18/02/2015.
  */
 public class PopupForTableActivator extends MouseAdapter {
-    private final RefreshableTable<BusinessObject> tabel;
+    private static ArrayList<JPopupMenu> popupForTableActivators = new ArrayList<>();
+
+    private final SelectableTable<BusinessObject> tabel;
     private final JPopupMenu popup;
 
-    public PopupForTableActivator(JPopupMenu popup, RefreshableTable tabel){
+    private PopupForTableActivator(JPopupMenu popup, SelectableTable tabel){
         this.popup = popup;
         this.tabel = tabel;
     }
 
+    public static PopupForTableActivator getInstance(JPopupMenu popup, SelectableTable tabel){
+        popupForTableActivators.add(popup);
+        return new PopupForTableActivator(popup, tabel);
+    }
+
     public void mouseClicked(MouseEvent me) {
+        for(JPopupMenu activator:popupForTableActivators){
+            activator.setVisible(false);
+        }
         if (me.getButton() == 3) {
             Point cell = me.getPoint();
-            int col = tabel.columnAtPoint(cell);
             int row = tabel.rowAtPoint(cell);
 
-            ListSelectionModel selectionModel = tabel.getSelectionModel();
-            int minSelectionIndex = selectionModel.getMinSelectionIndex();
-            int maxSelectionIndex = selectionModel.getMaxSelectionIndex();
-            if(minSelectionIndex<=row && row <=maxSelectionIndex){
-                // keep selection
-            } else {
-                selectionModel.setSelectionInterval(row, row);
+            ArrayList<Integer> selectedRows = new ArrayList<>();
+            for(int i:tabel.getSelectedRows()){
+                selectedRows.add(i);
             }
-            tabel.setSelectedRow(row);
-            tabel.setSelectedColumn(col);
-            //
-            // TODO: close all other popups first (popups of any component)
+            if(!selectedRows.contains(row)){
+                tabel.setRowSelectionInterval(row,row);
+            }
             popup.setLocation(me.getLocationOnScreen());
             popup.setVisible(true);
-
-        } else popup.setVisible(false);
+        }
     }
 }

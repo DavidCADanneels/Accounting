@@ -4,7 +4,7 @@ import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Transaction;
-import be.dafke.ComponentModel.RefreshableTableModel;
+import be.dafke.ComponentModel.SelectableTableModel;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
@@ -16,7 +16,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class JournalDetailsDataModel extends RefreshableTableModel<Booking> {
+public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 	/**
 	 * 
 	 */

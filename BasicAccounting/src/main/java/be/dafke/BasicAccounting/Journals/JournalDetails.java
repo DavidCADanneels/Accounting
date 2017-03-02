@@ -5,7 +5,7 @@ import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -25,7 +25,7 @@ public class JournalDetails extends JFrame implements WindowListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JournalDetailsPopupMenu popup;
-	private RefreshableTable<Booking> tabel;
+	private SelectableTable<Booking> tabel;
 	private JournalDetailsDataModel journalDetailsDataModel;
 	private static HashMap<Journal,JournalDetails> journalDetailsMap = new HashMap<>();
 
@@ -34,7 +34,7 @@ public class JournalDetails extends JFrame implements WindowListener {
 		journalDetailsDataModel = new JournalDetailsDataModel();
 		journalDetailsDataModel.setJournal(journal);
 
-		tabel = new RefreshableTable<>(journalDetailsDataModel);
+		tabel = new SelectableTable<>(journalDetailsDataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
@@ -47,7 +47,7 @@ public class JournalDetails extends JFrame implements WindowListener {
 		pack();
 
 		popup = new JournalDetailsPopupMenu(journals, tabel, journalInputGUI);
-		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
+		tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));
 	}
 
 	public static JournalDetails getJournalDetails(Journal journal, Journals journals, JournalInputGUI journalInputGUI){

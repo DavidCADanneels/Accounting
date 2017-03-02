@@ -4,6 +4,7 @@ import be.dafke.ObjectModel.BusinessCollection;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by ddanneels on 25/12/2016.
@@ -12,7 +13,7 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
     private final VATFields vatFields;
     private Account creditAccount, debitAccount, creditCNAccount, debitCNAccount;
     private Integer[] vatPercentages = new Integer[]{0, 6, 12, 21};
-    private ArrayList<VATTransaction> vatTransactions = new ArrayList<>();
+    private HashMap<Integer,VATTransaction> vatTransactions = new HashMap<>();
 
     public Integer[] getVatPercentages() {
         return vatPercentages;
@@ -56,7 +57,7 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
 
     @Override
     public VATTransaction addBusinessObject(VATTransaction vatTransaction) {
-        vatTransactions.add(vatTransaction);
+        vatTransactions.put(vatTransaction.getId(), vatTransaction);
         for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){
             VATField vatField = vatBooking.getVatField();
             if(vatField!=null) {
@@ -68,16 +69,17 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
 
     @Override
     public ArrayList<VATTransaction> getBusinessObjects(){
-        return vatTransactions;
+        return new ArrayList<>(vatTransactions.values());
     }
 
-    public VATTransaction getBusinessObject(int id){
-        return vatTransactions.get(id-1);
+    public VATTransaction getBusinessObject(Integer id){
+        return vatTransactions.get(id);
     }
 
     @Override
     public void removeBusinessObject(VATTransaction vatTransaction){
-        vatTransactions.remove(vatTransaction);
+        Integer id = vatTransaction.getId();
+        vatTransactions.remove(id);
         for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){
             VATField vatField = vatBooking.getVatField();
             if(vatField!=null) {

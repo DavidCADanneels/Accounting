@@ -2,9 +2,8 @@ package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.math.BigDecimal;
@@ -17,13 +16,13 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class JournalGUIPopupMenu extends JPopupMenu{
     private final JMenuItem delete, edit, change, debitCredit, details;
-    private final RefreshableTable<Booking> table;
+    private final SelectableTable<Booking> table;
     private Accounts accounts;
     private Journals journals;
     private AccountTypes accountTypes;
     private JournalInputGUI journalInputGUI;
 
-    public JournalGUIPopupMenu(RefreshableTable<Booking> table, JournalInputGUI journalInputGUI) {
+    public JournalGUIPopupMenu(SelectableTable<Booking> table, JournalInputGUI journalInputGUI) {
         this.journalInputGUI = journalInputGUI;
         this.table = table;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));

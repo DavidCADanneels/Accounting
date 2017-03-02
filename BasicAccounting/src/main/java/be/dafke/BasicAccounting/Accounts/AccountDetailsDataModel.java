@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableTableModel;
+import be.dafke.ComponentModel.SelectableTableModel;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
@@ -13,7 +13,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class AccountDetailsDataModel extends RefreshableTableModel<Booking> {
+public class AccountDetailsDataModel extends SelectableTableModel<Booking> {
 	/**
 	 * 
 	 */

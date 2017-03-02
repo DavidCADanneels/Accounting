@@ -17,6 +17,7 @@ import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 import static be.dafke.Utils.Utils.parseBigDecimal;
+import static be.dafke.Utils.Utils.parseInt;
 
 /**
  * Created by ddanneels on 15/01/2017.
@@ -65,7 +66,9 @@ public class VATIO {
         }
 
         for (Element element: getChildren(rootElement, VATTRANSACTION)) {
-            VATTransaction vatTransaction = new VATTransaction();
+            String idString = getValue(element, ID);
+            int id = parseInt(idString);
+            VATTransaction vatTransaction = new VATTransaction(id);
             for (Element vatBookingsElement : getChildren(element, VATBOOKING)) {
                 String vatFieldString = getValue(vatBookingsElement, VATFIELD);
                 String amountString = getValue(vatBookingsElement, AMOUNT);

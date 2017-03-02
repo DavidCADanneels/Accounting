@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.RefreshableTableModel;
+import be.dafke.ComponentModel.SelectableTableModel;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -11,7 +11,7 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 5-1-14
  * Time: 16:22
  */
-public class JournalManagementTableModel extends RefreshableTableModel<Journal> {
+public class JournalManagementTableModel extends SelectableTableModel<Journal> {
     /**
      *
      */

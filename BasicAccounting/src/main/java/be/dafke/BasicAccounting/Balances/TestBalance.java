@@ -6,7 +6,7 @@ import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +20,7 @@ public class TestBalance extends JFrame {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final JPopupMenu popup;
-	private RefreshableTable<Account> tabel;
+	private SelectableTable<Account> tabel;
 	private TestBalanceDataModel testBalanceDataModel;
 	private static HashMap<Accounts,TestBalance> testBalanceMap = new HashMap<>();
 
@@ -28,7 +28,7 @@ public class TestBalance extends JFrame {
 		super(journals.getAccounting().getName() + " / " + getBundle("BusinessModel").getString("TESTBALANCE"));
 		testBalanceDataModel = new TestBalanceDataModel(accounts);
 
-		tabel = new RefreshableTable<>(testBalanceDataModel);
+		tabel = new SelectableTable<>(testBalanceDataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
 		//tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
@@ -41,7 +41,7 @@ public class TestBalance extends JFrame {
 		pack();
 
 		popup = new BalancePopupMenu(journals, tabel, journalInputGUI);
-		tabel.addMouseListener(new PopupForTableActivator(popup,tabel));
+		tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));
 	}
 
 	public static TestBalance getTestBalance(Journals journals, Accounts accounts, JournalInputGUI journalInputGUI) {

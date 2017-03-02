@@ -6,7 +6,7 @@ import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.BusinessModel.Transaction;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -20,15 +20,15 @@ public class AccountDetailsPopupMenu extends JPopupMenu {
     private final JMenuItem move, delete, edit, details;
     private JournalInputGUI journalInputGUI;
 
-    private RefreshableTable<Booking> gui;
+    private SelectableTable<Booking> gui;
     private Journals journals;
 
-    public AccountDetailsPopupMenu(Journals journals, RefreshableTable<Booking> gui, JournalInputGUI journalInputGUI) {
+    public AccountDetailsPopupMenu(Journals journals, SelectableTable<Booking> gui, JournalInputGUI journalInputGUI) {
         this(gui, journalInputGUI);
         this.journals=journals;
     }
 
-    public AccountDetailsPopupMenu(RefreshableTable<Booking> gui, JournalInputGUI journalInputGUI) {
+    public AccountDetailsPopupMenu(SelectableTable<Booking> gui, JournalInputGUI journalInputGUI) {
         this.gui = gui;
         this.journalInputGUI=journalInputGUI;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));

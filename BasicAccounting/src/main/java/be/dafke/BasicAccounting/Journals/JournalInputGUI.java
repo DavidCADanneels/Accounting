@@ -4,7 +4,7 @@ import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.RefreshableTable;
+import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
@@ -28,7 +28,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     private JTextField debet, credit, dag, maand, jaar, bewijs, ident;
     private JButton singleBook, save, clear;
 
-    private final RefreshableTable<Booking> table;
+    private final SelectableTable<Booking> table;
     private final JournalGUIPopupMenu popup;
     private final JournalDataModel journalDataModel;
     private BigDecimal debettotaal, credittotaal;
@@ -44,11 +44,11 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
         journalDataModel = new JournalDataModel();
 
-        table = new RefreshableTable<>(journalDataModel);
+        table = new SelectableTable<>(journalDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
         popup = new JournalGUIPopupMenu(table, this);
-        table.addMouseListener(new PopupForTableActivator(popup, table));
+        table.addMouseListener(PopupForTableActivator.getInstance(popup, table));
 
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane, BorderLayout.CENTER);
@@ -424,7 +424,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
     private Journal checkTransfer(Journal oldJournal, Journal newJournal){
         Transaction newTransaction = newJournal.getCurrentObject();
-        if(transaction!=null && !transaction.getBusinessObjects().isEmpty()){
+        if(transaction!=null && !transaction.getBusinessObjects().isEmpty() && oldJournal!=newJournal){
             StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
                     .append(oldJournal).append(" to ").append(newJournal);
             if(newTransaction!=null && !newTransaction.getBusinessObjects().isEmpty()){
