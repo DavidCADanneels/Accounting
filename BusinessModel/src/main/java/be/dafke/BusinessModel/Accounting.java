@@ -21,6 +21,9 @@ public class Accounting extends BusinessObject{
     private Statements statements;
     private boolean read = false;
     private boolean vatAccounting = false;
+    private boolean mortgagesAccounting = true;
+    private boolean projectsAccounting = true;
+    private boolean contactsAccounting = true;
 
     public Accounting(String name) {
         setName(name);
@@ -126,5 +129,29 @@ public class Accounting extends BusinessObject{
 
     public void setVatAccounting(boolean vatAccounting) {
         this.vatAccounting = vatAccounting;
+    }
+
+    public boolean isMortgagesAccounting() {
+        return mortgagesAccounting;
+    }
+
+    public void setMortgagesAccounting(boolean mortgagesAccounting) {
+        this.mortgagesAccounting = mortgagesAccounting;
+    }
+
+    public boolean isProjectsAccounting() {
+        return projectsAccounting;
+    }
+
+    public void setProjectsAccounting(boolean projectsAccounting) {
+        this.projectsAccounting = projectsAccounting;
+    }
+
+    public boolean isContactsAccounting() {
+        return contactsAccounting;
+    }
+
+    public void setContactsAccounting(boolean contactsAccounting) {
+        this.contactsAccounting = contactsAccounting;
     }
 }

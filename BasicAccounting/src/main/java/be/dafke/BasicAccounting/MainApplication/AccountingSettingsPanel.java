@@ -31,7 +31,15 @@ public class AccountingSettingsPanel extends JFrame {
         contentPanel.add(scrollPane, BorderLayout.CENTER);
 
         setContentPane(contentPanel);
+        setAccounting(accounting);
         pack();
+    }
+
+    private void setAccounting(Accounting accounting) {
+        vatAccounting.setSelected(accounting.isVatAccounting());
+        contacts.setSelected(accounting.isContactsAccounting());
+        projects.setSelected(accounting.isProjectsAccounting());
+        mortgages.setSelected(accounting.isMortgagesAccounting());
     }
 
     private JPanel createContentPanel() {
