@@ -203,6 +203,8 @@ public class Main {
             contactsMenu.setVisible(accounting.isContactsAccounting());
             projectsMenu.setVisible(accounting.isProjectsAccounting());
 
+            mortgagesGUI.setVisible(accounting.isMortgagesAccounting());
+
             if (accounting.getJournals() != null) {
                 setJournal(accounting.getJournals().getCurrentObject());
             }
@@ -227,6 +229,9 @@ public class Main {
         accounting.getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter
         journalsGUI.setJournal(journal);
         if(journal!=null && journal.getType()!=null) {
+
+//            mortgagesGUI.setVisible(journal.isMortgagesJournal());
+
             JournalType journalType = journal.getType();
             accountInputPanel.setJournalType(journalType);
         } else {
