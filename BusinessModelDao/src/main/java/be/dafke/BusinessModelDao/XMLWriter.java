@@ -20,6 +20,7 @@ import static be.dafke.BusinessModelDao.ProjectsIO.writeProjects;
 import static be.dafke.BusinessModelDao.VATIO.writeVATFields;
 import static be.dafke.BusinessModelDao.VATIO.writeVATTransactions;
 import static be.dafke.BusinessModelDao.XMLConstants.ACCOUNTINGS;
+import static be.dafke.BusinessModelDao.XMLReader.*;
 
 /**
  * Created by ddanneels on 15/01/2017.
@@ -49,7 +50,10 @@ public class XMLWriter {
                 writer.write(
                         "  <Accounting>\n" +
                         "    <name>"+accounting.getName()+"</name>\n" +
-                        "    <VatAccounting>"+accounting.isVatAccounting()+"</VatAccounting>\n" +
+                        "    <"+VAT_ACCOUNTING+">"+accounting.isVatAccounting()+"</"+VAT_ACCOUNTING+">\n" +
+                        "    <"+CONTACTS_ACCOUNTING+">"+accounting.isContactsAccounting()+"</"+CONTACTS_ACCOUNTING+">\n" +
+                        "    <"+PROJECTS_ACCOUNTING+">"+accounting.isProjectsAccounting()+"</"+PROJECTS_ACCOUNTING+">\n" +
+                        "    <"+MORTGAGES_ACCOUNTING+">"+accounting.isMortgagesAccounting()+"</"+MORTGAGES_ACCOUNTING+">\n" +
                         "  </Accounting>\n"
                 );
             }

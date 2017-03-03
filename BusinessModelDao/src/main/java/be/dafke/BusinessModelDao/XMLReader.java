@@ -30,6 +30,9 @@ import static be.dafke.BusinessModelDao.XMLConstants.*;
 public class XMLReader {
 
     public static final String VAT_ACCOUNTING = "VatAccounting";
+    public static final String CONTACTS_ACCOUNTING = "ContactsAccounting";
+    public static final String PROJECTS_ACCOUNTING = "ProjectsAccounting";
+    public static final String MORTGAGES_ACCOUNTING = "MortgagesAccounting";
 
     private static Document getDocument(File xmlFile){
         try{
