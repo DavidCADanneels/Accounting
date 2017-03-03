@@ -39,6 +39,7 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
         file.removeAll();
         file.add(startNew);
         file.add(settings);
+        file.addSeparator();
         this.accounting=accounting;
 
         accountings.getBusinessObjects().stream()
