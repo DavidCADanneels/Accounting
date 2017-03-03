@@ -55,6 +55,6 @@ public class AccountingMenuBar extends JMenuBar implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent e) {
-        new AccountingSettingsPanel(accounting).setVisible(true);
+        AccountingSettingsPanel.showPanel(accounting);
     }
 }

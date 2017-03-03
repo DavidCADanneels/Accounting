@@ -4,6 +4,7 @@ import be.dafke.BusinessModel.Accounting;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -16,14 +17,16 @@ public class AccountingSettingsPanel extends JFrame {
     public static final String CONTACTS = getBundle("Contacts").getString("CONTACTS");
     public static final String PROJECTS = getBundle("Projects").getString("PROJECTS");
     public static final String MORTGAGES = getBundle("Mortgage").getString("MORTGAGES");
-    JCheckBox vatAccounting;
-    JCheckBox contacts;
-    JCheckBox projects;
-    JCheckBox mortgages;
+    private JCheckBox vatAccounting;
+    private JCheckBox contacts;
+    private JCheckBox projects;
+    private JCheckBox mortgages;
+    private Accounting accounting;
+    private static HashMap<Accounting,AccountingSettingsPanel> accountingSettingsMap = new HashMap<>();
 
-    public AccountingSettingsPanel(Accounting accounting) {
+    private AccountingSettingsPanel(Accounting accounting) {
         super(accounting.getName() + " / " + title);
-
+        this.accounting = accounting;
         JPanel center = createContentPanel();
         JScrollPane scrollPane = new JScrollPane(center);
 
@@ -32,7 +35,32 @@ public class AccountingSettingsPanel extends JFrame {
 
         setContentPane(contentPanel);
         setAccounting(accounting);
+        setActions();
         pack();
+    }
+
+    public static void showPanel(Accounting accounting){
+        AccountingSettingsPanel accountingSettingsPanel = accountingSettingsMap.get(accounting);
+        if(accountingSettingsPanel == null){
+            accountingSettingsPanel = new AccountingSettingsPanel(accounting);
+            accountingSettingsMap.put(accounting,accountingSettingsPanel);
+        }
+        accountingSettingsPanel.setVisible(true);
+    }
+
+    private void setActions() {
+        vatAccounting.addActionListener(e -> {
+            accounting.setVatAccounting(vatAccounting.isSelected());
+        });
+        contacts.addActionListener(e -> {
+            accounting.setContactsAccounting(contacts.isSelected());
+        });
+        projects.addActionListener(e -> {
+            accounting.setProjectsAccounting(projects.isSelected());
+        });
+        mortgages.addActionListener(e -> {
+            accounting.setMortgagesAccounting(mortgages.isSelected());
+        });
     }
 
     private void setAccounting(Accounting accounting) {
