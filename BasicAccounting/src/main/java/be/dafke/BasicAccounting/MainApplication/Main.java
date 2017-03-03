@@ -195,13 +195,17 @@ public class Main {
         accountsMenu.setAccounting(accounting);
         balancesMenu.setAccounting(accounting);
         menuBar.setAccounting(accounting);
-        if(accounting.isVatAccounting()) {
-            vatMenu.setAccounting(accounting);
-            vatMenu.setVisible(true);
-        } else vatMenu.setVisible(false);
+        vatMenu.setAccounting(accounting);
 
-        if(accounting!=null && accounting.getJournals()!=null){
-            setJournal(accounting.getJournals().getCurrentObject());
+        if(accounting!=null) {
+            vatMenu.setVisible(accounting.isVatAccounting());
+            morgagesMenu.setVisible(accounting.isMortgagesAccounting());
+            contactsMenu.setVisible(accounting.isContactsAccounting());
+            projectsMenu.setVisible(accounting.isProjectsAccounting());
+
+            if (accounting.getJournals() != null) {
+                setJournal(accounting.getJournals().getCurrentObject());
+            }
         }
     }
 
