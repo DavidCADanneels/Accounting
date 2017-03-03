@@ -75,11 +75,25 @@ public class XMLReader {
         for (Element element : getChildren(rootElement, ACCOUNTING)) {
 
             String name = getValue(element, NAME);
+            Accounting accounting = new Accounting(name);
+
+            accounting.getAccountTypes().addDefaultTypes();
+
             String vatAccountingString = getValue(element, VAT_ACCOUNTING);
             boolean vatAccounting = Boolean.valueOf(vatAccountingString);
-            Accounting accounting = new Accounting(name);
             accounting.setVatAccounting(vatAccounting);
-            accounting.getAccountTypes().addDefaultTypes();
+
+            String projectsAccountingString = getValue(element, PROJECTS_ACCOUNTING);
+            boolean projectsAccounting = Boolean.valueOf(projectsAccountingString);
+            accounting.setProjectsAccounting(projectsAccounting);
+
+            String contactsAccountingString = getValue(element, CONTACTS_ACCOUNTING);
+            boolean contactsAccounting = Boolean.valueOf(contactsAccountingString);
+            accounting.setContactsAccounting(contactsAccounting);
+
+            String mortgagesAccountingString = getValue(element, MORTGAGES_ACCOUNTING);
+            boolean mortgagesAccounting = Boolean.valueOf(mortgagesAccountingString);
+            accounting.setMortgagesAccounting(mortgagesAccounting);
 
             try {
                 accountings.addBusinessObject(accounting);
