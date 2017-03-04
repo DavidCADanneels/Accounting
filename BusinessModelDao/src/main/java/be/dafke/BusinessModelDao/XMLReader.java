@@ -33,7 +33,6 @@ public class XMLReader {
     public static final String CONTACTS_ACCOUNTING = "ContactsAccounting";
     public static final String PROJECTS_ACCOUNTING = "ProjectsAccounting";
     public static final String MORTGAGES_ACCOUNTING = "MortgagesAccounting";
-    public static final String COMPANY_CONTACT = "companyContact";
 
     private static Document getDocument(File xmlFile){
         try{
@@ -119,7 +118,7 @@ public class XMLReader {
         readProjects(accounting.getProjects(), accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
         readJournals(accounting.getJournals(), accounting.getAccounts(), accounting.getJournalTypes(), accounting.getVatTransactions(), accountingFolder);
         readBalances(accounting.getBalances(),accounting.getAccounts(),accounting.getAccountTypes(),accountingFolder);
-        readContacts(accounting.getContacts(),accountingFolder);
+        readContacts(accounting,accountingFolder);
     }
 
     public static String getValue(Element element, String tagName){

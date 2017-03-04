@@ -23,7 +23,8 @@ import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
  */
 public class ContactsIO {
 
-    public static void readContacts(Contacts contacts, File accountingFolder){
+    public static void readContacts(Accounting accounting, File accountingFolder){
+        Contacts contacts = accounting.getContacts();
         File xmlFile = new File(accountingFolder, "Contacts.xml");
         Element rootElement = getRootElement(xmlFile, CONTACTS);
         for (Element element : getChildren(rootElement, CONTACT)) {
@@ -42,10 +43,14 @@ public class ContactsIO {
                 e.printStackTrace();
             }
         }
-
+        String companyContactName = getValue(rootElement, COMPANY_CONTACT);
+        if(companyContactName!=null) {
+            Contact companyContact = contacts.getBusinessObject(companyContactName);
+            accounting.setCompanyContact(companyContact);
+        }
     }
 
-    public static void writeContacts(Contacts contacts, File accountingFolder){
+    public static void writeContacts(Contacts contacts, Contact companyContact, File accountingFolder){
         File accountsFile = new File(accountingFolder, "Contacts.xml");
         try{
             Writer writer = new FileWriter(accountsFile);
@@ -64,6 +69,7 @@ public class ContactsIO {
                         "  </"+CONTACT+">\n"
                 );
             }
+            writer.write("  <"+COMPANY_CONTACT+">"+(companyContact==null?"null":companyContact.getName())+"</"+COMPANY_CONTACT+">\n");
             writer.write("</Contacts>");
             writer.flush();
             writer.close();

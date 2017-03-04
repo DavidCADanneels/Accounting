@@ -64,6 +64,7 @@ public class XMLConstants {
     public static final String EMAIL_ADDRESS = "emailAddress";
     public static final String PHONE_NUMBER = "phoneNumber";
     public static final String VAT_NUMBER = "TVANumber";
+    public static final String COMPANY_CONTACT = "companyContact";
 
     public static final String MORTGAGES = "Mortgages";
     public static final String MORTGAGE = "Mortgage";
