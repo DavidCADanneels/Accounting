@@ -5,6 +5,8 @@ import be.dafke.BusinessModel.Contact;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 import static java.awt.BorderLayout.*;
@@ -13,7 +15,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 3/03/2017.
  */
-public class AccountingSettingsPanel extends JFrame {
+public class AccountingSettingsPanel extends JFrame implements ActionListener{
     public static final String title = getBundle("Accounting").getString("SETTINGS");
     public static final String VAT = getBundle("VAT").getString("VAT");
     public static final String CONTACTS = getBundle("Contacts").getString("CONTACTS");
@@ -73,10 +75,12 @@ public class AccountingSettingsPanel extends JFrame {
         contacts.setSelected(accounting.isContactsAccounting());
         projects.setSelected(accounting.isProjectsAccounting());
         mortgages.setSelected(accounting.isMortgagesAccounting());
+        allContacts.removeActionListener(this);
         allContacts.removeAllItems();
         accounting.getContacts().getBusinessObjects().stream().forEach(contact -> model.addElement(contact));
         Contact companyContact = accounting.getCompanyContact();
         allContacts.setSelectedItem(companyContact);
+        allContacts.addActionListener(this);
     }
 
     private JPanel createContentPanel() {
@@ -94,8 +98,8 @@ public class AccountingSettingsPanel extends JFrame {
         JPanel panel = new JPanel();
         model = new DefaultComboBoxModel<>();
         allContacts = new JComboBox<>(model);
-        Contact contact = (Contact)allContacts.getSelectedItem();
-        allContacts.addActionListener(e -> accounting.setCompanyContact(contact));
+        allContacts.setSelectedItem(null);
+        allContacts.addActionListener(this);
         panel.add(new JLabel("Company Contact"));
         panel.add(allContacts);
         return panel;
@@ -116,5 +120,11 @@ public class AccountingSettingsPanel extends JFrame {
         panel.add(mortgages);
 
         return panel;
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        Contact contact = (Contact)allContacts.getSelectedItem();
+        accounting.setCompanyContact(contact);
     }
 }

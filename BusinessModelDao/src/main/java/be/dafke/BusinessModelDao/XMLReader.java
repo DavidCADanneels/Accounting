@@ -111,14 +111,22 @@ public class XMLReader {
         File accountingsFolder = new File(xmlFolder, "Accountings");
         File accountingFolder = new File(accountingsFolder, accounting.getName());
         readAccounts(accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
-        readMortgages(accounting.getMortgages(), accounting.getAccounts(),accountingFolder);
         readJournalTypes(accounting.getJournalTypes(), accounting.getAccountTypes(), accountingFolder);
-        readVATFields(accounting.getVatFields(),accountingFolder);
-        readVATTransactions(accounting.getVatTransactions(), accounting.getVatFields(), accounting.getAccounts(), accountingFolder);
-        readProjects(accounting.getProjects(), accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
         readJournals(accounting.getJournals(), accounting.getAccounts(), accounting.getJournalTypes(), accounting.getVatTransactions(), accountingFolder);
         readBalances(accounting.getBalances(),accounting.getAccounts(),accounting.getAccountTypes(),accountingFolder);
-        readContacts(accounting,accountingFolder);
+        if(accounting.isMortgagesAccounting()) {
+            readMortgages(accounting.getMortgages(), accounting.getAccounts(), accountingFolder);
+        }
+        if(accounting.isProjectsAccounting()) {
+            readProjects(accounting.getProjects(), accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
+        }
+        if(accounting.isContactsAccounting()) {
+            readContacts(accounting, accountingFolder);
+        }
+        if(accounting.isVatAccounting()) {
+            readVATFields(accounting.getVatFields(), accountingFolder);
+            readVATTransactions(accounting.getVatTransactions(), accounting.getVatFields(), accounting.getAccounts(), accountingFolder);
+        }
     }
 
     public static String getValue(Element element, String tagName){
