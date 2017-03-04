@@ -80,14 +80,20 @@ public class XMLWriter {
         writeAccounts(accounting.getAccounts(), accountingFolder);
         writeJournals(accounting.getJournals(), accountingFolder);
         writeJournalTypes(accounting.getJournalTypes(), accountingFolder);
-        writeProjects(accounting.getProjects(), accountingFolder);
         writeBalances(accounting.getBalances(), accountingFolder);
+        if(accounting.isProjectsAccounting()) {
+            writeProjects(accounting.getProjects(), accountingFolder);
+        }
         if(accounting.isVatAccounting()) {
             writeVATFields(accounting.getVatFields(), accountingFolder);
             writeVATTransactions(accounting.getVatTransactions(), accountingFolder);
         }
-        writeContacts(accounting.getContacts(), accounting.getCompanyContact(), accountingFolder);
-        writeMortgages(accounting.getMortgages(), accountingFolder);
+        if(accounting.isContactsAccounting()) {
+            writeContacts(accounting.getContacts(), accounting.getCompanyContact(), accountingFolder);
+        }
+        if(accounting.isMortgagesAccounting()) {
+            writeMortgages(accounting.getMortgages(), accountingFolder);
+        }
     }
 
 }
