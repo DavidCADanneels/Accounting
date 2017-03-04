@@ -48,6 +48,7 @@ public class AccountingSettingsPanel extends JFrame {
         if(accountingSettingsPanel == null){
             accountingSettingsPanel = new AccountingSettingsPanel(accounting);
             accountingSettingsMap.put(accounting,accountingSettingsPanel);
+            Main.addFrame(accountingSettingsPanel);
         }
         accountingSettingsPanel.setVisible(true);
     }
@@ -74,6 +75,8 @@ public class AccountingSettingsPanel extends JFrame {
         mortgages.setSelected(accounting.isMortgagesAccounting());
         allContacts.removeAllItems();
         accounting.getContacts().getBusinessObjects().stream().forEach(contact -> model.addElement(contact));
+        Contact companyContact = accounting.getCompanyContact();
+        allContacts.setSelectedItem(companyContact);
     }
 
     private JPanel createContentPanel() {
@@ -91,6 +94,8 @@ public class AccountingSettingsPanel extends JFrame {
         JPanel panel = new JPanel();
         model = new DefaultComboBoxModel<>();
         allContacts = new JComboBox<>(model);
+        Contact contact = (Contact)allContacts.getSelectedItem();
+        allContacts.addActionListener(e -> accounting.setCompanyContact(contact));
         panel.add(new JLabel("Company Contact"));
         panel.add(allContacts);
         return panel;

@@ -154,4 +154,8 @@ public class Accounting extends BusinessObject{
     public void setContactsAccounting(boolean contactsAccounting) {
         this.contactsAccounting = contactsAccounting;
     }
+
+    public void setCompanyContact(Contact companyContact) {
+        this.companyContact = companyContact;
+    }
 }
