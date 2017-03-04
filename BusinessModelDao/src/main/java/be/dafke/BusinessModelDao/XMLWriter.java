@@ -54,6 +54,7 @@ public class XMLWriter {
                         "    <"+CONTACTS_ACCOUNTING+">"+accounting.isContactsAccounting()+"</"+CONTACTS_ACCOUNTING+">\n" +
                         "    <"+PROJECTS_ACCOUNTING+">"+accounting.isProjectsAccounting()+"</"+PROJECTS_ACCOUNTING+">\n" +
                         "    <"+MORTGAGES_ACCOUNTING+">"+accounting.isMortgagesAccounting()+"</"+MORTGAGES_ACCOUNTING+">\n" +
+                        "    <"+COMPANY_CONTACT+">"+(accounting.getCompanyContact()==null?"null":accounting.getCompanyContact().getName())+"</"+COMPANY_CONTACT+">\n" +
                         "  </Accounting>\n"
                 );
             }

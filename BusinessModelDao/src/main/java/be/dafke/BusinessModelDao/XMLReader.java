@@ -33,6 +33,7 @@ public class XMLReader {
     public static final String CONTACTS_ACCOUNTING = "ContactsAccounting";
     public static final String PROJECTS_ACCOUNTING = "ProjectsAccounting";
     public static final String MORTGAGES_ACCOUNTING = "MortgagesAccounting";
+    public static final String COMPANY_CONTACT = "companyContact";
 
     private static Document getDocument(File xmlFile){
         try{
