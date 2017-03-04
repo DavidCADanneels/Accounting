@@ -66,6 +66,8 @@ public class ContactsIO {
                         "    <"+EMAIL_ADDRESS+">" + contact.getEmail() + "</"+EMAIL_ADDRESS+">\n" +
                         "    <"+PHONE_NUMBER+">" + contact.getPhone() + "</"+PHONE_NUMBER+">\n" +
                         "    <"+VAT_NUMBER+">" + contact.getVatNumber() + "</"+VAT_NUMBER+">\n" +
+                        "    <"+VAT_TOTAL+">" + contact.getVATTotal() + "</"+VAT_TOTAL+">\n" +
+                        "    <"+TURNOVER+">" + contact.getTurnOver() + "</"+TURNOVER+">\n" +
                         "  </"+CONTACT+">\n"
                 );
             }
