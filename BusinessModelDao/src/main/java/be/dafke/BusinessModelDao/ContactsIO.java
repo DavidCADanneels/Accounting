@@ -5,6 +5,7 @@ import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.Contacts;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Utils.Utils;
 import org.w3c.dom.Element;
 
 import java.io.File;
@@ -37,6 +38,8 @@ public class ContactsIO {
             contact.setEmail(getValue(element, EMAIL_ADDRESS));
             contact.setPhone(getValue(element, PHONE_NUMBER));
             contact.setVatNumber(getValue(element, VAT_NUMBER));
+            contact.setVATTotal(Utils.parseBigDecimal(getValue(element, VAT_TOTAL)));
+            contact.setTurnOver(Utils.parseBigDecimal(getValue(element, TURNOVER)));
             try {
                 contacts.addBusinessObject(contact);
             } catch (EmptyNameException | DuplicateNameException e) {

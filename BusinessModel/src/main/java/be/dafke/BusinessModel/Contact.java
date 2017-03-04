@@ -118,4 +118,12 @@ public class Contact extends BusinessObject{
         VATTotal = VATTotal.subtract(amount);
         VATTotal.setScale(2);
     }
+
+    public void setTurnOver(BigDecimal turnOver) {
+        this.turnOver = turnOver;
+    }
+
+    public void setVATTotal(BigDecimal VATTotal) {
+        this.VATTotal = VATTotal;
+    }
 }
