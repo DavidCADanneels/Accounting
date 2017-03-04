@@ -112,6 +112,11 @@ public class XMLReader {
         File accountingFolder = new File(accountingsFolder, accounting.getName());
         readAccounts(accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
         readJournalTypes(accounting.getJournalTypes(), accounting.getAccountTypes(), accountingFolder);
+        if(accounting.isVatAccounting()) {
+            readVATFields(accounting.getVatFields(), accountingFolder);
+            readVATTransactions(accounting.getVatTransactions(), accounting.getVatFields(), accounting.getAccounts(), accountingFolder);
+        }
+
         readJournals(accounting.getJournals(), accounting.getAccounts(), accounting.getJournalTypes(), accounting.getVatTransactions(), accountingFolder);
         readBalances(accounting.getBalances(),accounting.getAccounts(),accounting.getAccountTypes(),accountingFolder);
         if(accounting.isMortgagesAccounting()) {
@@ -122,10 +127,6 @@ public class XMLReader {
         }
         if(accounting.isContactsAccounting()) {
             readContacts(accounting, accountingFolder);
-        }
-        if(accounting.isVatAccounting()) {
-            readVATFields(accounting.getVatFields(), accountingFolder);
-            readVATTransactions(accounting.getVatTransactions(), accounting.getVatFields(), accounting.getAccounts(), accountingFolder);
         }
     }
 
