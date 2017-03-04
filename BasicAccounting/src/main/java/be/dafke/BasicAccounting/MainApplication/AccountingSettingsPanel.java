@@ -1,11 +1,13 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Contact;
 
 import javax.swing.*;
 import java.awt.*;
 import java.util.HashMap;
 
+import static java.awt.BorderLayout.*;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -23,6 +25,8 @@ public class AccountingSettingsPanel extends JFrame {
     private JCheckBox mortgages;
     private Accounting accounting;
     private static HashMap<Accounting,AccountingSettingsPanel> accountingSettingsMap = new HashMap<>();
+    private JComboBox<Contact> allContacts;
+    private DefaultComboBoxModel<Contact> model;
 
     private AccountingSettingsPanel(Accounting accounting) {
         super(accounting.getName() + " / " + title);
@@ -68,11 +72,34 @@ public class AccountingSettingsPanel extends JFrame {
         contacts.setSelected(accounting.isContactsAccounting());
         projects.setSelected(accounting.isProjectsAccounting());
         mortgages.setSelected(accounting.isMortgagesAccounting());
+        allContacts.removeAllItems();
+        accounting.getContacts().getBusinessObjects().stream().forEach(contact -> model.addElement(contact));
     }
 
     private JPanel createContentPanel() {
+        JPanel mainPanel = new JPanel(new BorderLayout());
+
+        JPanel checkBoxes = createCenterPanel();
+        JPanel comboBox = createNorthPanel();
+
+        mainPanel.add(checkBoxes,CENTER);
+        mainPanel.add(comboBox,NORTH);
+        return mainPanel;
+    }
+
+    private JPanel createNorthPanel(){
+        JPanel panel = new JPanel();
+        model = new DefaultComboBoxModel<>();
+        allContacts = new JComboBox<>(model);
+        panel.add(new JLabel("Company Contact"));
+        panel.add(allContacts);
+        return panel;
+    }
+
+    private JPanel createCenterPanel(){
         JPanel panel = new JPanel();
 
+        panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
         vatAccounting = new JCheckBox(VAT);
         contacts = new JCheckBox(CONTACTS);
         projects = new JCheckBox(PROJECTS);

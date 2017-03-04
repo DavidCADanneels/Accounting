@@ -74,9 +74,7 @@ public class AccountSelector extends RefreshableDialog {
 
 	public void fireAccountDataChanged() {
 		model.removeAllElements();
-		for (Account account:accounts.getBusinessObjects()) {
-			model.addElement(account);
-		}
+		accounts.getBusinessObjects().stream().forEach(account -> model.addElement(account));
 		invalidate();
 		combo.invalidate();
 	}
