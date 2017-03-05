@@ -115,13 +115,6 @@ public class JournalsIO {
 
             Transaction transaction = new Transaction(date,description);
 
-            String vatIdString = getValue(element, VAT_ID);
-            if(vatIdString!=null){
-                VATTransaction vatTransaction = vatTransactions.getBusinessObject(Utils.parseInt(vatIdString));
-                transaction.setVatTransaction(vatTransaction);
-                vatTransaction.setTransaction(transaction);
-            }
-
             for(Element bookingsElement:getChildren(element, BOOKING)){
                 String idString = getValue(bookingsElement, ID);
                 String debitString = getValue(bookingsElement, DEBIT);
@@ -150,6 +143,13 @@ public class JournalsIO {
             }
 
             journal.addBusinessObject(transaction);
+
+            String vatIdString = getValue(element, VAT_ID);
+            if(vatIdString!=null){
+                VATTransaction vatTransaction = vatTransactions.getBusinessObject(Utils.parseInt(vatIdString));
+                transaction.setVatTransaction(vatTransaction);
+                vatTransaction.setTransaction(transaction);
+            }
         }
     }
 

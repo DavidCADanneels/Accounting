@@ -3,6 +3,7 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.Utils.MultiValueMap;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TreeMap;
@@ -101,6 +102,18 @@ public class Journal extends BusinessCollection<Transaction> {
             account.removeBusinessObject(booking.getMovement());
         }
 
+
+        if(accounting.isVatAccounting() && accounting.getVatTransactions()!=null) {
+            VATTransactions vatTransactions = accounting.getVatTransactions();
+            vatTransactions.removeBusinessObject(transaction.getVatTransaction());
+            Contact contact = transaction.getContact();
+            BigDecimal turnOverAmount = transaction.getTurnOverAmount();
+            BigDecimal vatAmount = transaction.getVATAmount();
+            if (contact != null && turnOverAmount != null && vatAmount != null) {
+                contact.decreaseTurnOver(turnOverAmount);
+                contact.decreaseVATTotal(vatAmount);
+            }
+        }
     }
 
 	public Transaction addBusinessObject(Transaction transaction) {
@@ -110,8 +123,24 @@ public class Journal extends BusinessCollection<Transaction> {
         for(Booking booking : transaction.getBusinessObjects()) {
             Account account = booking.getAccount();
             account.addBusinessObject(booking.getMovement());
+//  TODO link movement and VATMovement? (iso Bookings)
+//            VATBooking vatBooking = booking.getVatBooking();
+//            vatBooking.getId();
         }
         transactions.addValue(date, transaction);
+
+        if(accounting.isVatAccounting() && accounting.getVatTransactions()!=null){
+            VATTransactions vatTransactions = accounting.getVatTransactions();
+            vatTransactions.addBusinessObject(transaction.getVatTransaction());
+            Contact contact = transaction.getContact();
+            BigDecimal turnOverAmount = transaction.getTurnOverAmount();
+            BigDecimal vatAmount = transaction.getVATAmount();
+            if (contact != null && turnOverAmount != null && vatAmount != null) {
+                contact.increaseTurnOver(turnOverAmount);
+                contact.increaseVATTotal(vatAmount);
+            }
+        }
+
         return transaction;
 	}
 
