@@ -60,13 +60,23 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
 
     @Override
     public VATTransaction addBusinessObject(VATTransaction vatTransaction){
-        Calendar date = vatTransaction.getDate();
-        vatTransactions.addValue(date, vatTransaction);
-        for (VATBooking vatBooking : vatTransaction.getBusinessObjects()) {
-            VATField vatField = vatBooking.getVatField();
-            if (vatField != null) {
-                vatField.addBusinessObject(vatBooking.getVatMovement());
+        if(vatTransaction!=null) {
+            Calendar date = vatTransaction.getDate();
+            vatTransactions.addValue(date, vatTransaction);
+            for (VATBooking vatBooking : vatTransaction.getBusinessObjects()) {
+                VATField vatField = vatBooking.getVatField();
+                if (vatField != null) {
+                    vatField.addBusinessObject(vatBooking.getVatMovement());
+                }
             }
+//            Contact contact = vatTransaction.getContact();
+//            BigDecimal turnOverAmount = vatTransaction.getTurnOverAmount();
+//            BigDecimal vatAmount = vatTransaction.getVATAmount();
+//            if (contact != null && turnOverAmount != null && vatAmount != null) {
+//                contact.increaseTurnOver(turnOverAmount);
+//                contact.increaseVATTotal(vatAmount);
+//            }
+
         }
         return vatTransaction;
     }
@@ -113,48 +123,78 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         return vatTransaction;
     }
 
-    public ArrayList<VATBooking> saleCN(BigDecimal amount, BigDecimal btwAmount) {
-        // We assume amount is negative !!!
-        ArrayList<VATBooking> vatTransaction = new ArrayList<>();
-        VATBooking vatBooking1 = new VATBooking(vatFields.getBusinessObject("49"), new VATMovement(amount, false));
-        VATBooking vatBooking2 = new VATBooking(vatFields.getBusinessObject("64"), new VATMovement(btwAmount, false));
-        vatTransaction.add(vatBooking1);
-        vatTransaction.add(vatBooking2);
+    public VATTransaction saleCN(Booking booking, Booking bookingVat, int pct) {
+        BigDecimal btwAmount = bookingVat.getAmount();
+
+        BigDecimal revenueAmount = booking.getAmount();
+        Transaction transaction = booking.getTransaction();
+        Calendar date = transaction.getDate();
+        VATTransaction vatTransaction = new VATTransaction(date);
+        VATBooking revenueBooking = new VATBooking(vatFields.getBusinessObject("49"), new VATMovement(revenueAmount, false));
+        VATBooking vatBooking = new VATBooking(vatFields.getBusinessObject("64"), new VATMovement(btwAmount, false));
+        vatTransaction.addBusinessObject(revenueBooking);
+        vatTransaction.addBusinessObject(vatBooking);
+
+        booking.setVatBooking(revenueBooking);
+        bookingVat.setVatBooking(vatBooking);
+
+        sale(booking, bookingVat, pct, false).getBusinessObjects().stream().forEach(salesBooking -> vatTransaction.addBusinessObject(salesBooking));
+
         return vatTransaction;
     }
 
-    public ArrayList<VATBooking> purchase(BigDecimal amount, BigDecimal btwAmount, VATTransaction.PurchaseType purchaseType) {
-        ArrayList<VATBooking> vatTransaction = new ArrayList<>();
+    public VATTransaction purchase(Booking booking, Booking bookingVat, VATTransaction.PurchaseType purchaseType) {
+        BigDecimal btwAmount = bookingVat.getAmount();
 
-        VATBooking vatBooking1 = null;
+        BigDecimal costAmount = booking.getAmount();
+        Transaction transaction = booking.getTransaction();
+        Calendar date = transaction.getDate();
+        // TODO: check if date is changed if date is changed afterwards + remove date parameter from constructor)
+        VATTransaction vatTransaction = new VATTransaction(date);
+
+        VATBooking costBooking = null;
         if(purchaseType== VATTransaction.PurchaseType.GOODS){
-            vatBooking1 = new VATBooking(vatFields.getBusinessObject("81"), new VATMovement(amount, true));
+            costBooking = new VATBooking(vatFields.getBusinessObject("81"), new VATMovement(costAmount, true));
         } else if(purchaseType==VATTransaction.PurchaseType.SERVICES){
-            vatBooking1 = new VATBooking(vatFields.getBusinessObject("82"), new VATMovement(amount, true));
+            costBooking = new VATBooking(vatFields.getBusinessObject("82"), new VATMovement(costAmount, true));
         } else if(purchaseType==VATTransaction.PurchaseType.INVESTMENTS){
-            vatBooking1 = new VATBooking(vatFields.getBusinessObject("83"), new VATMovement(amount, true));
+            costBooking = new VATBooking(vatFields.getBusinessObject("83"), new VATMovement(costAmount, true));
         }
-        VATBooking vatBooking2 = new VATBooking(vatFields.getBusinessObject("59"), new VATMovement(btwAmount, true));
-        vatTransaction.add(vatBooking1);
-        vatTransaction.add(vatBooking2);
+        booking.setVatBooking(costBooking);
+
+        VATBooking vatBooking = new VATBooking(vatFields.getBusinessObject("59"), new VATMovement(btwAmount, true));
+        bookingVat.setVatBooking(vatBooking);
+
+        vatTransaction.addBusinessObject(costBooking);
+        vatTransaction.addBusinessObject(vatBooking);
         return vatTransaction;
     }
 
-    public ArrayList<VATBooking> sale(BigDecimal amount, BigDecimal btwAmount, Integer pct) {
-        ArrayList<VATBooking> vatTransaction = new ArrayList<>();
-        VATBooking vatBooking1 = null;
+    public VATTransaction sale(Booking booking, Booking bookingVat, Integer pct, boolean increase) {
+        BigDecimal btwAmount = bookingVat.getAmount();
+
+        BigDecimal revenueAmount = booking.getAmount();
+        Transaction transaction = booking.getTransaction();
+        Calendar date = transaction.getDate();
+        VATTransaction vatTransaction = new VATTransaction(date);
+
+        VATBooking revenueBooking = null;
         if(pct==0){
-            vatBooking1 = new VATBooking(vatFields.getBusinessObject("0"), new VATMovement(amount, true));
+            revenueBooking = new VATBooking(vatFields.getBusinessObject("0"), new VATMovement(revenueAmount, increase));
         } else if(pct==6){
-            vatBooking1 = new VATBooking(vatFields.getBusinessObject("1"), new VATMovement(amount, true));
+            revenueBooking = new VATBooking(vatFields.getBusinessObject("1"), new VATMovement(revenueAmount, increase));
         } else if(pct==12){
-            vatBooking1 = new VATBooking(vatFields.getBusinessObject("2"), new VATMovement(amount, true));
+            revenueBooking = new VATBooking(vatFields.getBusinessObject("2"), new VATMovement(revenueAmount, increase));
         } else if(pct==21){
-            vatBooking1 = new VATBooking(vatFields.getBusinessObject("3"), new VATMovement(amount, true));
+            revenueBooking = new VATBooking(vatFields.getBusinessObject("3"), new VATMovement(revenueAmount, increase));
         }
-        VATBooking vatBooking2 = new VATBooking(vatFields.getBusinessObject("54"), new VATMovement(btwAmount, true));
-        vatTransaction.add(vatBooking1);
-        vatTransaction.add(vatBooking2);
+        booking.setVatBooking(revenueBooking);
+
+        VATBooking vatBooking = new VATBooking(vatFields.getBusinessObject("54"), new VATMovement(btwAmount, increase));
+        bookingVat.setVatBooking(vatBooking);
+
+        vatTransaction.addBusinessObject(revenueBooking);
+        vatTransaction.addBusinessObject(vatBooking);
         return vatTransaction;
     }
 
