@@ -173,7 +173,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
             VATTransaction vatTransaction = transaction.getVatTransaction();
             if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
-                vatTransactions.removeBusinessObject(vatTransaction);
+                Main.fireVATFieldsUpdated();
             }
 
             Contact contact = transaction.getContact();

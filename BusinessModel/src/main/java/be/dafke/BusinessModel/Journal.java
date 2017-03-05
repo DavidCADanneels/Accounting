@@ -102,7 +102,6 @@ public class Journal extends BusinessCollection<Transaction> {
             account.removeBusinessObject(booking.getMovement());
         }
 
-
         if(accounting.isVatAccounting() && accounting.getVatTransactions()!=null) {
             VATTransactions vatTransactions = accounting.getVatTransactions();
             vatTransactions.removeBusinessObject(transaction.getVatTransaction());
