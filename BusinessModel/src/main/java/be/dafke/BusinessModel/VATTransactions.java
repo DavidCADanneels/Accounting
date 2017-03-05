@@ -135,8 +135,8 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         vatTransaction.addBusinessObject(revenueBooking);
         vatTransaction.addBusinessObject(vatBooking);
 
-        booking.setVatBooking(revenueBooking);
-        bookingVat.setVatBooking(vatBooking);
+        booking.addVatBooking(revenueBooking);
+        bookingVat.addVatBooking(vatBooking);
 
         sale(booking, bookingVat, pct, false).getBusinessObjects().stream().forEach(salesBooking -> vatTransaction.addBusinessObject(salesBooking));
 
@@ -160,10 +160,10 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         } else if(purchaseType==VATTransaction.PurchaseType.INVESTMENTS){
             costBooking = new VATBooking(vatFields.getBusinessObject("83"), new VATMovement(costAmount, true));
         }
-        booking.setVatBooking(costBooking);
+        booking.addVatBooking(costBooking);
 
         VATBooking vatBooking = new VATBooking(vatFields.getBusinessObject("59"), new VATMovement(btwAmount, true));
-        bookingVat.setVatBooking(vatBooking);
+        bookingVat.addVatBooking(vatBooking);
 
         vatTransaction.addBusinessObject(costBooking);
         vatTransaction.addBusinessObject(vatBooking);
@@ -188,10 +188,10 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         } else if(pct==21){
             revenueBooking = new VATBooking(vatFields.getBusinessObject("3"), new VATMovement(revenueAmount, increase));
         }
-        booking.setVatBooking(revenueBooking);
+        booking.addVatBooking(revenueBooking);
 
         VATBooking vatBooking = new VATBooking(vatFields.getBusinessObject("54"), new VATMovement(btwAmount, increase));
-        bookingVat.setVatBooking(vatBooking);
+        bookingVat.addVatBooking(vatBooking);
 
         vatTransaction.addBusinessObject(revenueBooking);
         vatTransaction.addBusinessObject(vatBooking);

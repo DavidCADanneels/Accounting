@@ -123,7 +123,7 @@ public class Journal extends BusinessCollection<Transaction> {
             Account account = booking.getAccount();
             account.addBusinessObject(booking.getMovement());
 //  TODO link movement and VATMovement? (iso Bookings)
-//            VATBooking vatBooking = booking.getVatBooking();
+//            VATBooking vatBooking = booking.getVatBookings();
 //            vatBooking.getId();
         }
         transactions.addValue(date, transaction);

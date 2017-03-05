@@ -3,6 +3,7 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.TreeMap;
 
 /**
@@ -19,7 +20,7 @@ public class Booking extends BusinessObject {
     public static final String DEBIT = "debit";
     public static final String CREDIT = "credit";
     public static final String ACCOUNT = "Account";
-    private VATBooking vatBooking = null;
+    private ArrayList<VATBooking> vatBookings = new ArrayList<>();
 
     public Booking(Account account, BigDecimal amount, boolean debit, int id) {
         this.account = account;
@@ -81,11 +82,11 @@ public class Booking extends BusinessObject {
         this.transaction = transaction;
     }
 
-    public void setVatBooking(VATBooking vatBooking) {
-        this.vatBooking = vatBooking;
+    public void addVatBooking(VATBooking vatBooking) {
+        vatBookings.add(vatBooking);
     }
 
-    public VATBooking getVatBooking() {
-        return vatBooking;
+    public ArrayList<VATBooking> getVatBookings() {
+        return vatBookings;
     }
 }
