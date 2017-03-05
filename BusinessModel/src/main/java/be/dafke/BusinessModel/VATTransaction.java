@@ -35,7 +35,7 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
     }
 
     public enum VATType{
-        SALE, PURCHASE, NONE;
+        SALE, PURCHASE, CUSTOMER, NONE;
     }
 
     public ArrayList<VATBooking> getBusinessObjects(){
