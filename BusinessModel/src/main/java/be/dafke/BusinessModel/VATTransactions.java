@@ -107,19 +107,13 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         }
     }
 
-
-
-
-    private VATBooking getCostBooking(BigDecimal costAmount, VATTransaction.PurchaseType purchaseType, boolean increase){
-        if(!increase){
-            costAmount = costAmount.negate();
-        }
+    private VATField getCostField(VATTransaction.PurchaseType purchaseType){
         if(purchaseType== VATTransaction.PurchaseType.GOODS){
-            return new VATBooking(vatFields.getBusinessObject("81"), new VATMovement(costAmount));
+            return vatFields.getBusinessObject("81");
         } else if(purchaseType==VATTransaction.PurchaseType.SERVICES){
-            return  new VATBooking(vatFields.getBusinessObject("82"), new VATMovement(costAmount));
+            return vatFields.getBusinessObject("82");
         } else if(purchaseType==VATTransaction.PurchaseType.INVESTMENTS){
-            return  new VATBooking(vatFields.getBusinessObject("83"), new VATMovement(costAmount));
+            return vatFields.getBusinessObject("83");
         }
         return null;
     }
@@ -133,8 +127,9 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         // TODO: check if date is changed if date is changed afterwards + remove date parameter from constructor)
         VATTransaction vatTransaction = new VATTransaction(date);
 
-        VATBooking costBooking = getCostBooking(costAmount, purchaseType, true);
-        // TODO add null check on costBooking?
+        VATField vatField = getCostField(purchaseType);
+        VATMovement vatMovement = new VATMovement(costAmount);
+        VATBooking costBooking = new VATBooking(vatField, vatMovement);
         booking.addVatBooking(costBooking);
 
         VATBooking vatBooking = new VATBooking(vatFields.getBusinessObject("59"), new VATMovement(vatAmount));
@@ -155,8 +150,10 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
 
         VATBooking CNCostBooking = new VATBooking(vatFields.getBusinessObject("85"), new VATMovement(costAmount));
         VATBooking CNVATBooking = new VATBooking(vatFields.getBusinessObject("63"), new VATMovement(vatAmount));
-        VATBooking costBooking = getCostBooking(costAmount, purchaseType, false);
 
+        VATField vatField = getCostField(purchaseType);
+        VATMovement vatMovement = new VATMovement(costAmount.negate());
+        VATBooking costBooking = new VATBooking(vatField, vatMovement);
         booking.addVatBooking(costBooking);
         booking.addVatBooking(CNCostBooking);
         bookingVat.addVatBooking(CNVATBooking);
