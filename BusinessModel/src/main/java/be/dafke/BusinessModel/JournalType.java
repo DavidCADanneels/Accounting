@@ -8,7 +8,7 @@ import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 public class JournalType extends BusinessObject {
     private AccountTypes debetTypes, creditTypes;
     private Account singleAccount = null;
-    private VATTransaction.VATType vatType = VATTransaction.VATType.NONE;
+    private VATTransaction.VATType vatType = null;
 
     public JournalType(JournalType journalType){
         this(journalType.getName());

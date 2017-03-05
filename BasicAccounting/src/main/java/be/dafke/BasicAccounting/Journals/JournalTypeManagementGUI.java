@@ -80,10 +80,10 @@ public class JournalTypeManagementGUI extends JFrame {
 		combo = new JComboBox<>();
 		combo.addActionListener(e -> comboAction());
 		taxType = new JComboBox<>();
-		taxType.addItem(VATTransaction.VATType.NONE);
+		taxType.addItem(null);
 		taxType.addItem(VATTransaction.VATType.PURCHASE);
 		taxType.addItem(VATTransaction.VATType.SALE);
-		taxType.setSelectedItem(VATTransaction.VATType.NONE);
+		taxType.setSelectedItem(null);
 		taxType.addActionListener(e -> {
 			journalType.setVatType((VATTransaction.VATType) taxType.getSelectedItem());
 		});
