@@ -64,7 +64,7 @@ public class JournalsIO {
                 }
             }
             String taxString = getValue(element, VATTYPE);
-            journalType.setVatType(VATTransaction.VATType.valueOf(taxString));
+            if(taxString!=null) journalType.setVatType(VATTransaction.VATType.valueOf(taxString));
 
             try {
                 journalTypes.addBusinessObject(journalType);
@@ -164,7 +164,7 @@ public class JournalsIO {
                 writer.write(
                         "  <"+JOURNAL_TYPE+">\n" +
                         "    <"+NAME+">"+journalType.getName()+"</"+NAME+">\n" +
-                        "    <"+VATTYPE+">"+journalType.getVatType().toString()+"</"+VATTYPE+">\n" +
+                        "    <"+VATTYPE+">"+(journalType.getVatType()==null?"null":journalType.getVatType().toString())+"</"+VATTYPE+">\n" +
                         "    <"+DEBIT_TYPES+">"+debitStream+"</"+DEBIT_TYPES+">\n" +
                         "    <"+CREDIT_TYPES+">"+creditStream+"</"+CREDIT_TYPES+">\n" +
                         "  </"+JOURNAL_TYPE+">\n"
