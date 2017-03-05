@@ -11,7 +11,7 @@ import java.util.Calendar;
  */
 public class VATTransaction extends BusinessCollection<VATBooking>{
     private static int count = 0;
-    private final Calendar date;
+    private Calendar date;
     private ArrayList<VATBooking> vatBookings = new ArrayList<>();
     private Transaction transaction;
     private Integer id;
@@ -64,5 +64,9 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
 
     public Calendar getDate() {
         return date;
+    }
+
+    public void setDate(Calendar date) {
+        this.date = date;
     }
 }

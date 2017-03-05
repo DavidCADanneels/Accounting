@@ -95,6 +95,9 @@ public class Transaction extends BusinessCollection<Booking> {
 
 	public void setDate(Calendar date) {
 		this.date = date;
+		if(vatTransaction!=null){
+		    vatTransaction.setDate(date);
+        }
 	}
 
     @Override
