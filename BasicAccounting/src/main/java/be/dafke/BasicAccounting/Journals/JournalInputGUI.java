@@ -188,6 +188,35 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         }
     }
 
+    public void addTransaction(Transaction transaction){
+        journal.addBusinessObject(transaction);
+
+        Mortgage mortgage = transaction.getMortgage();
+        if (mortgage != null) {
+            mortgage.raiseNrPayed();
+        }
+
+        VATTransaction vatTransaction = transaction.getVatTransaction();
+        if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
+            Main.fireVATFieldsUpdated(/*vatFields*/);
+        }
+
+        //TODO: move to VATTransactions or else where
+        Contact contact = transaction.getContact();
+        BigDecimal turnOverAmount = transaction.getTurnOverAmount();
+        BigDecimal vatAmount = transaction.getVATAmount();
+        if (contact != null && turnOverAmount != null && vatAmount != null) {
+            contact.increaseTurnOver(turnOverAmount);
+            contact.increaseVATTotal(vatAmount);
+        }
+        // Up 'till here
+
+        Main.fireJournalDataChanged(journal);
+        for (Account account : transaction.getAccounts()) {
+            Main.fireAccountDataChanged(account);
+        }
+    }
+
     public void editTransaction(ArrayList<Booking> bookings) {
         deleteTransaction(bookings);
         for (Booking booking : bookings) {
@@ -247,31 +276,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         } else if (e.getSource() == singleBook){
             saveTransaction();
             if(journal!=null && transaction!=null && transaction.isBookable()){
-                journal.addBusinessObject(transaction);
-
-                Mortgage mortgage = transaction.getMortgage();
-                if (mortgage != null) {
-                    mortgage.raiseNrPayed();
-                }
-
-                VATTransaction vatTransaction = transaction.getVatTransaction();
-                if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
-                    vatTransactions.addBusinessObject(vatTransaction);
-                    Main.fireVATFieldsUpdated(/*vatFields*/);
-                }
-
-                Contact contact = transaction.getContact();
-                BigDecimal turnOverAmount = transaction.getTurnOverAmount();
-                BigDecimal vatAmount = transaction.getVATAmount();
-                if (contact != null && turnOverAmount != null && vatAmount != null) {
-                    contact.increaseTurnOver(turnOverAmount);
-                    contact.increaseVATTotal(vatAmount);
-                }
-
-                Main.fireJournalDataChanged(journal);
-                for (Account account : transaction.getAccounts()) {
-                    Main.fireAccountDataChanged(account);
-                }
+                addTransaction(transaction);
                 clear();
             }
         }
@@ -395,10 +400,9 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
             return;
         }
         if (transaction.getMortgage()!=null){
-            System.out.println("Transaction already contains a mortgages");
+            System.out.println("Transaction already contains a mortgage");
             return;
         }
-        transaction.setMortgage(mortgage);
         Account capitalAccount = mortgage.getCapitalAccount();
         Account intrestAccount = mortgage.getIntrestAccount();
         if(capitalAccount==null || intrestAccount==null){
@@ -409,6 +413,9 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
         transaction.addBusinessObject(capitalBooking);
         transaction.addBusinessObject(intrestBooking);
+
+        transaction.setMortgage(mortgage);
+        // TODO: pass function "increaseNrPayed/decreaseNrPayed" to call after journal.addBusinessObject(transaction)
 
         fireTransactionDataChanged();
     }
