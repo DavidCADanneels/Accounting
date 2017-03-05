@@ -19,6 +19,7 @@ public class Booking extends BusinessObject {
     public static final String DEBIT = "debit";
     public static final String CREDIT = "credit";
     public static final String ACCOUNT = "Account";
+    private VATBooking vatBooking = null;
 
     public Booking(Account account, BigDecimal amount, boolean debit, int id) {
         this.account = account;
@@ -80,4 +81,11 @@ public class Booking extends BusinessObject {
         this.transaction = transaction;
     }
 
+    public void setVatBooking(VATBooking vatBooking) {
+        this.vatBooking = vatBooking;
+    }
+
+    public VATBooking getVatBooking() {
+        return vatBooking;
+    }
 }
