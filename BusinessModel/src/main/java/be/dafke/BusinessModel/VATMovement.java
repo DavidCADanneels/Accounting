@@ -9,18 +9,12 @@ import java.math.BigDecimal;
  */
 public class VATMovement extends BusinessObject {
     private BigDecimal amount;
-    private boolean increase;
 
-    public VATMovement(BigDecimal amount, boolean increase) {
+    public VATMovement(BigDecimal amount) {
         this.amount = amount;
-        this.increase = increase;
     }
 
     public BigDecimal getAmount() {
         return amount;
-    }
-
-    public boolean isIncrease() {
-        return increase;
     }
 }

@@ -8,7 +8,6 @@ import be.dafke.BusinessModel.*;
 import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 import static java.awt.BorderLayout.CENTER;
 import static java.util.ResourceBundle.getBundle;
@@ -87,7 +86,7 @@ public class AccountInputPanel extends JPanel{
                 try {
                     amount = new BigDecimal(s);
                     amount = amount.setScale(2);
-                    ok = true;
+                    ok = amount.compareTo(BigDecimal.ZERO)>=0;
                 } catch (NumberFormatException nfe) {
                     ActionUtils.showErrorMessage(ActionUtils.INVALID_INPUT);
                 }
@@ -240,7 +239,7 @@ public class AccountInputPanel extends JPanel{
             if(debit){
                 purchase(suggestedAmount, transaction, booking);
             } else {
-                purchaseCN(suggestedAmount, booking);
+                purchaseCN(suggestedAmount, transaction, booking);
             }
         }
     }
@@ -257,12 +256,12 @@ public class AccountInputPanel extends JPanel{
 
                 VATTransaction vatTransaction = vatTransactions.purchase(booking, vatBooking, purchaseType);
                 transaction.setVatTransaction(vatTransaction);
+                vatTransaction.setTransaction(transaction);
             }
         }
     }
 
-    public void purchaseCN(BigDecimal suggestedVatAmount, Booking booking){
-        BigDecimal amount = booking.getAmount();
+    public void purchaseCN(BigDecimal suggestedVatAmount, Transaction transaction, Booking booking){
         boolean debit = booking.isDebit();
         VATTransaction.PurchaseType purchaseType = getPurchaseType();
 
@@ -270,17 +269,12 @@ public class AccountInputPanel extends JPanel{
         if (btwAccount != null) {
             BigDecimal btwAmount = askAmount(btwAccount, suggestedVatAmount);
             if (btwAmount != null) {
-                Transaction transaction = journalInputGUI.getTransaction();
+                Booking bookingVat = new Booking(btwAccount, btwAmount, debit);
+                transaction.addBusinessObject(bookingVat);
 
-                transaction.addBusinessObject(new Booking(btwAccount, btwAmount, debit));
-
-                ArrayList<VATBooking> vatBookings = vatTransactions.purchaseCN(amount, btwAmount, purchaseType);
-// TODO: add vatBooking1 & 2 to Bookings (iso transaction)
-//                        transaction.addVATBookings(vatBookings);
-
-                VATTransaction vatTransaction = new VATTransaction(transaction.getDate());
-                vatBookings.stream().forEach( vatBooking -> vatTransaction.addBusinessObject(vatBooking));
+                VATTransaction vatTransaction = vatTransactions.purchaseCN(booking, bookingVat, purchaseType);
                 transaction.setVatTransaction(vatTransaction);
+                vatTransaction.setTransaction(transaction);
             }
         }
     }
@@ -289,10 +283,11 @@ public class AccountInputPanel extends JPanel{
 
     public void saleAny(Transaction transaction, Booking booking) {
         BigDecimal amount = booking.getAmount();
+        boolean debit = booking.isDebit();
         Integer pct = getPercentage();
         if (pct != null) {
             BigDecimal suggestedAmount = getTaxOnNet(amount, pct);
-            if (amount.compareTo(BigDecimal.ZERO) >= 0) {
+            if (!debit) {
                 sell(transaction, booking, suggestedAmount, pct);
             } else {
                 sellCN(transaction, booking, suggestedAmount, pct);
@@ -311,8 +306,9 @@ public class AccountInputPanel extends JPanel{
                 Booking vatBooking = new Booking(vatAccount, vatAmount, debit);
                 transaction.addBusinessObject(vatBooking);
 
-                VATTransaction vatTransaction = vatTransactions.sale(booking, vatBooking, pct, true);
+                VATTransaction vatTransaction = vatTransactions.sale(booking, vatBooking, pct);
                 transaction.setVatTransaction(vatTransaction);
+                vatTransaction.setTransaction(transaction);
 
                 transaction.setTurnOverAmount(amount);
                 transaction.setVATAmount(vatAmount);
@@ -332,6 +328,7 @@ public class AccountInputPanel extends JPanel{
 
                 VATTransaction vatTransaction = vatTransactions.saleCN(booking, vatBooking, pct);
                 transaction.setVatTransaction(vatTransaction);
+                vatTransaction.setTransaction(transaction);
 
                 transaction.setTurnOverAmount(amount.negate());
                 transaction.setVATAmount(vatAmount.negate());

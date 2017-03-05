@@ -79,7 +79,7 @@ public class VATIO {
                     BigDecimal amount = parseBigDecimal(amountString);
                     VATField vatField = vatFields.getBusinessObject(vatFieldString);
                     if (vatField == null) System.err.println("Field[" + vatFieldString + "] not found");
-                    VATMovement vatMovement = new VATMovement(amount, true);
+                    VATMovement vatMovement = new VATMovement(amount);
                     VATBooking vatBooking = new VATBooking(vatField, vatMovement);
 
                     vatTransaction.addBusinessObject(vatBooking);

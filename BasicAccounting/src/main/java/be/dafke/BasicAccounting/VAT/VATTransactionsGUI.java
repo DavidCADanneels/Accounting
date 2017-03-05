@@ -16,6 +16,7 @@ import static java.util.ResourceBundle.getBundle;
 public class VATTransactionsGUI extends JFrame {
     private static final HashMap<VATTransactions, VATTransactionsGUI> vatGuis = new HashMap<>();
     private final SelectableTable tabel;
+    private final VATTransactionsDataModel vatTransactionsDataModel;
 
     public static VATTransactionsGUI getInstance(VATTransactions vatTransactions) {
         VATTransactionsGUI gui;
@@ -28,12 +29,12 @@ public class VATTransactionsGUI extends JFrame {
         return gui;
     }
 
-    private VATTransactions vatTransactions;
+//    private VATTransactions vatTransactions;
 
     private VATTransactionsGUI(VATTransactions vatTransactions) {
         super(vatTransactions.getAccounting().getName() + " / " + getBundle("VAT").getString("VAT_TRANSACTIONS"));
-        this.vatTransactions = vatTransactions;
-        VATTransactionsDataModel vatTransactionsDataModel = new VATTransactionsDataModel(vatTransactions);
+//        this.vatTransactions = vatTransactions;
+        vatTransactionsDataModel = new VATTransactionsDataModel(vatTransactions);
 
         tabel = new SelectableTable<>(vatTransactionsDataModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -52,7 +53,7 @@ public class VATTransactionsGUI extends JFrame {
 
 
     public void updateVATTransactions(){
-
+        vatTransactionsDataModel.fireTableDataChanged();
     }
 
     public static void fireVATTransactionsUpdated(){

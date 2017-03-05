@@ -26,11 +26,7 @@ public class VATField extends BusinessCollection<VATMovement> {
     public VATMovement addBusinessObject(VATMovement vatMovement) {
         BigDecimal vatAmount = vatMovement.getAmount();
         if (vatAmount != null) {
-            if (vatMovement.isIncrease()) {
-                amount = amount.add(vatAmount);
-            } else {
-                amount = amount.subtract(vatAmount);
-            }
+            amount = amount.add(vatAmount);
         }
         return vatMovement;
     }
@@ -38,11 +34,7 @@ public class VATField extends BusinessCollection<VATMovement> {
     public void removeBusinessObject(VATMovement vatMovement) {
         BigDecimal vatAmount = vatMovement.getAmount();
         if (vatAmount != null) {
-            if (vatMovement.isIncrease()) {
-                amount = amount.subtract(vatAmount);
-            } else {
-                amount = amount.add(vatAmount);
-            }
+            amount = amount.subtract(vatAmount);
         }
     }
 }

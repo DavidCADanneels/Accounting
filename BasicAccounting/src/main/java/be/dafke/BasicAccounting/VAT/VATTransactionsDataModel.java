@@ -1,9 +1,6 @@
 package be.dafke.BasicAccounting.VAT;
 
-import be.dafke.BusinessModel.VATBooking;
-import be.dafke.BusinessModel.VATField;
-import be.dafke.BusinessModel.VATTransaction;
-import be.dafke.BusinessModel.VATTransactions;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
 import be.dafke.Utils.Utils;
 
@@ -49,13 +46,18 @@ public class VATTransactionsDataModel extends SelectableTableModel<VATBooking> {
 // ===============
 	public Object getValueAt(int row, int col) {
 		VATBooking vatBooking = getValueAt(row);
-		boolean first = (vatBooking == vatBooking.getVatTransaction().getBusinessObjects().get(0));
+		VATTransaction vatTransaction = vatBooking.getVatTransaction();
+		boolean first = (vatBooking == vatTransaction.getBusinessObjects().get(0));
+		if(vatBooking == null){
+			vatBooking = null;
+		}
+		Transaction transaction = vatTransaction.getTransaction();
 		if (col == 0) {
 			if(first)
-				return vatBooking.getVatTransaction().getTransaction().getAbbreviation() + vatBooking.getVatTransaction().getTransaction().getId();
+				return transaction.getAbbreviation() + transaction.getId();
 		} else if (col == 1) {
 			if(first)
-				return Utils.toString(vatBooking.getVatTransaction().getTransaction().getDate());
+				return Utils.toString(transaction.getDate());
 		} else if (col == 2) {
 			return vatBooking.getVatField();
 		} else if (col == 3) {

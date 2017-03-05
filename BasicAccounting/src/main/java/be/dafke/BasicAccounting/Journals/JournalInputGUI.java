@@ -201,15 +201,10 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
             Main.fireVATFieldsUpdated(/*vatFields*/);
         }
 
-        //TODO: move to VATTransactions or else where
         Contact contact = transaction.getContact();
-        BigDecimal turnOverAmount = transaction.getTurnOverAmount();
-        BigDecimal vatAmount = transaction.getVATAmount();
-        if (contact != null && turnOverAmount != null && vatAmount != null) {
-            contact.increaseTurnOver(turnOverAmount);
-            contact.increaseVATTotal(vatAmount);
+        if(contact!=null){
+            Main.fireContactDataChanged(contact);
         }
-        // Up 'till here
 
         Main.fireJournalDataChanged(journal);
         for (Account account : transaction.getAccounts()) {
@@ -385,7 +380,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
                 try {
                     amount = new BigDecimal(s);
                     amount = amount.setScale(2);
-                    ok = true;
+                    ok = amount.compareTo(BigDecimal.ZERO)>=0;
                 } catch (NumberFormatException nfe) {
                     ActionUtils.showErrorMessage(ActionUtils.INVALID_INPUT);
                 }
