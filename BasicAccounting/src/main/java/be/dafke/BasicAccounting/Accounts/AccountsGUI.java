@@ -119,9 +119,24 @@ public class AccountsGUI extends JPanel {
         add(filter, BorderLayout.NORTH);
     }
 
+//    public void setFirstButton(String text,ActionListener actionListener){
+//        debet.removeActionListener();
+//        debet.addActionListener(actionListener);
+//        debet.setText(text);
+//    }
+    private VATTransaction.VATType vatType = null;
+
+//    public VATTransaction.VATType getVatType() {
+//        return vatType;
+//    }
+
+    public void setVatType(VATTransaction.VATType vatType) {
+        this.vatType = vatType;
+    }
+
     public void book(boolean debit) {
         if (selectedAccount != null) {
-            accountInputPanel.book(selectedAccount, debit, this);
+            accountInputPanel.book(selectedAccount, debit, vatType);
         }
     }
 
