@@ -24,19 +24,19 @@ public class Transaction extends BusinessCollection<Booking> {
     private Calendar date = null;
 
     private final ArrayList<Booking> bookings;
-    private Mortgage mortgage = null;
-    private VATTransaction vatTransaction;
     private BigDecimal VATAmount;
     private BigDecimal turnOverAmount;
-    private Contact contact;
+    private VATTransaction vatTransaction = null;
+    private Contact contact = null;
+    private Mortgage mortgage = null;
 
     public Transaction(Calendar date, String description) {
         this.date = date==null?Calendar.getInstance():date;
         this.description = description;
-		debitTotal = new BigDecimal(0);
-		debitTotal = debitTotal.setScale(2);
-		creditTotal = new BigDecimal(0);
-		creditTotal = creditTotal.setScale(2);
+		debitTotal = new BigDecimal(0).setScale(2);
+		creditTotal = new BigDecimal(0).setScale(2);
+		VATAmount = BigDecimal.ZERO.setScale(2);
+		turnOverAmount = BigDecimal.ZERO.setScale(2);
         bookings = new ArrayList<>();
 	}
 
@@ -143,24 +143,13 @@ public class Transaction extends BusinessCollection<Booking> {
     }
 
     public ArrayList<Account> getAccounts() {
-        ArrayList<Account> accountsList=new ArrayList<>();
-        for(Booking booking : getBusinessObjects()){
+        ArrayList<Account> accountsList = new ArrayList<>();
+        for (Booking booking : getBusinessObjects()) {
             accountsList.add(booking.getAccount());
         }
         return accountsList;
 // Can be very brief but unreadable with collect construction
 //        return getBusinessObjects().stream().map(Booking::getAccount).collect(Collectors.toCollection(ArrayList::new));
-
-    }
-
-    public void addVATBookings(ArrayList<VATBooking> vatBookings) {
-        if(vatTransaction==null){
-            vatTransaction = new VATTransaction(date);
-            vatTransaction.setTransaction(this);
-        }
-        for(VATBooking vatBooking:vatBookings) {
-            vatTransaction.addBusinessObject(vatBooking);
-        }
     }
 
     public VATTransaction getVatTransaction() {
