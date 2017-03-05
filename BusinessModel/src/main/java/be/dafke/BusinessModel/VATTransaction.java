@@ -21,7 +21,7 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
     }
 
     public VATTransaction(Calendar date) {
-        this(++count, date);
+        this(count+1, date);
     }
 
     public VATTransaction(int id, Calendar date) {
