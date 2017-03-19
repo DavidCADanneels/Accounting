@@ -198,8 +198,10 @@ public class AccountInputPanel extends JPanel{
                 accountsGUI1.setVatType(VATTransaction.VATType.PURCHASE);
                 accountsGUI2.setVatType(null);
 //                setVatType(VATTransaction.VATType.PURCHASE); // 1 -> BTW
-//            } else {
+            } else {
 //                setVatType(VATTransaction.VATType.NONE);
+                accountsGUI1.setVatType(null);
+                accountsGUI2.setVatType(null);
             }
         }
     }
