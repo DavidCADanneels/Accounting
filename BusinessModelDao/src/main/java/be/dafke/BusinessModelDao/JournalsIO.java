@@ -147,7 +147,7 @@ public class JournalsIO {
             String vatIdString = getValue(element, VAT_ID);
             if(vatIdString!=null){
                 VATTransaction vatTransaction = vatTransactions.getBusinessObject(Utils.parseInt(vatIdString));
-                transaction.setVatTransaction(vatTransaction);
+                transaction.addVatTransaction(vatTransaction);
                 vatTransaction.setTransaction(transaction);
             }
         }

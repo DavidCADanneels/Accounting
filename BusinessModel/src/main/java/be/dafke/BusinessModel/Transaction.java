@@ -159,8 +159,16 @@ public class Transaction extends BusinessCollection<Booking> {
         return vatTransaction;
     }
 
-    public void setVatTransaction(VATTransaction vatTransaction) {
-        this.vatTransaction = vatTransaction;
+    public void addVatTransaction(VATTransaction vatTransaction) {
+        if(this.vatTransaction==null){
+            this.vatTransaction = vatTransaction;
+            vatTransaction.setTransaction(this);
+            vatTransaction.setDate(date);
+        } else {
+            for (VATBooking vatBooking : vatTransaction.getBusinessObjects()) {
+                this.vatTransaction.addBusinessObject(vatBooking);
+            }
+        }
     }
 
     public void setVATAmount(BigDecimal VATAmount) {

@@ -52,6 +52,7 @@ public class VATTransactionsDataModel extends SelectableTableModel<VATBooking> {
 			vatBooking = null;
 		}
 		Transaction transaction = vatTransaction.getTransaction();
+		if(transaction==null) return null;
 		if (col == 0) {
 			if(first)
 				return transaction.getAbbreviation() + transaction.getId();

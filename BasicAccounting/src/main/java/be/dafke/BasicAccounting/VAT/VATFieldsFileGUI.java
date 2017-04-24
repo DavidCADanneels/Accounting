@@ -55,7 +55,7 @@ public class VATFieldsFileGUI extends JFrame {
     }
 
     private VATFieldsFileGUI(VATFields vatFields) {
-        super(getBundle("VAT").getString("VAT_OVERVIEW"));
+        super(getBundle("VAT").getString("VAT_TRANSACTIONS"));
         this.editedFields = new VATFields(vatFields);
         JPanel left = createSalesPanel();
         JPanel right = createPurchasePanel();

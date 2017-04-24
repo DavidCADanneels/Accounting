@@ -103,8 +103,11 @@ public class Journal extends BusinessCollection<Transaction> {
         }
 
         if(accounting.isVatAccounting() && accounting.getVatTransactions()!=null) {
-            VATTransactions vatTransactions = accounting.getVatTransactions();
-            vatTransactions.removeBusinessObject(transaction.getVatTransaction());
+            VATTransaction vatTransaction = transaction.getVatTransaction();
+            if(vatTransaction!=null) {
+                VATTransactions vatTransactions = accounting.getVatTransactions();
+                vatTransactions.removeBusinessObject(vatTransaction);
+            }
             Contact contact = transaction.getContact();
             BigDecimal turnOverAmount = transaction.getTurnOverAmount();
             BigDecimal vatAmount = transaction.getVATAmount();
@@ -126,8 +129,11 @@ public class Journal extends BusinessCollection<Transaction> {
         transactions.addValue(date, transaction);
 
         if(accounting.isVatAccounting() && accounting.getVatTransactions()!=null){
-            VATTransactions vatTransactions = accounting.getVatTransactions();
-            vatTransactions.addBusinessObject(transaction.getVatTransaction());
+            VATTransaction vatTransaction = transaction.getVatTransaction();
+            if(vatTransaction!=null) {
+                VATTransactions vatTransactions = accounting.getVatTransactions();
+                vatTransactions.addBusinessObject(vatTransaction);
+            }
             Contact contact = transaction.getContact();
             BigDecimal turnOverAmount = transaction.getTurnOverAmount();
             BigDecimal vatAmount = transaction.getVATAmount();

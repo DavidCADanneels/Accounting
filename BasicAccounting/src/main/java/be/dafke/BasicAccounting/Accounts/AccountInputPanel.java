@@ -257,7 +257,7 @@ public class AccountInputPanel extends JPanel{
                 transaction.addBusinessObject(vatBooking);
 
                 VATTransaction vatTransaction = vatTransactions.purchase(booking, vatBooking, purchaseType);
-                transaction.setVatTransaction(vatTransaction);
+                transaction.addVatTransaction(vatTransaction);
                 vatTransaction.setTransaction(transaction);
             }
         }
@@ -275,7 +275,7 @@ public class AccountInputPanel extends JPanel{
                 transaction.addBusinessObject(bookingVat);
 
                 VATTransaction vatTransaction = vatTransactions.purchaseCN(booking, bookingVat, purchaseType);
-                transaction.setVatTransaction(vatTransaction);
+                transaction.addVatTransaction(vatTransaction);
                 vatTransaction.setTransaction(transaction);
             }
         }
@@ -309,7 +309,7 @@ public class AccountInputPanel extends JPanel{
                 transaction.addBusinessObject(vatBooking);
 
                 VATTransaction vatTransaction = vatTransactions.sale(booking, vatBooking, pct);
-                transaction.setVatTransaction(vatTransaction);
+                transaction.addVatTransaction(vatTransaction);
                 vatTransaction.setTransaction(transaction);
 
                 transaction.setTurnOverAmount(amount);
@@ -329,7 +329,7 @@ public class AccountInputPanel extends JPanel{
                 transaction.addBusinessObject(vatBooking);
 
                 VATTransaction vatTransaction = vatTransactions.saleCN(booking, vatBooking, pct);
-                transaction.setVatTransaction(vatTransaction);
+                transaction.addVatTransaction(vatTransaction);
                 vatTransaction.setTransaction(transaction);
 
                 transaction.setTurnOverAmount(amount.negate());
