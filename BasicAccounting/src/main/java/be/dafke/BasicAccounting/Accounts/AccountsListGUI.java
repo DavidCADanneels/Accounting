@@ -27,7 +27,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountsGUI extends JPanel {
+public class AccountsListGUI extends JPanel {
     private final PrefixFilterPanel<Account> zoeker;
     private final AlphabeticListModel<Account> model;
     private final JList<Account> lijst;
@@ -44,7 +44,7 @@ public class AccountsGUI extends JPanel {
     private AccountTypes accountTypes;
     private Journals journals;
 
-    public AccountsGUI(AccountInputPanel accountInputPanel) {
+    public AccountsListGUI(AccountInputPanel accountInputPanel) {
         this.accountInputPanel = accountInputPanel;
 
         setLayout(new BorderLayout());

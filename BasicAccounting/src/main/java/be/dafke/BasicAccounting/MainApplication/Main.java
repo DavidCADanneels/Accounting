@@ -47,8 +47,6 @@ public class Main {
     private static JournalInputGUI journalInputGUI;
     private static JournalsGUI journalsGUI;
     private static AccountInputPanel accountInputPanel;
-//    private static AccountsGUI accountsGUI1;
-//    private static AccountsGUI accountsGUI2;
     private static AccountsTableGUI accountsTableGUI;
     private static MortgagesGUI mortgagesGUI;
     private static AccountingMenuBar menuBar;
@@ -249,7 +247,7 @@ public class Main {
     public static void fireAccountDataChanged(Account account){
         AccountDetails.fireAccountDataChangedForAll(account);
         AccountSelector.fireAccountDataChangedForAll();
-        // fireAccountDataChanged in AccountsGUI is only needed if accounts have been added
+        // fireAccountDataChanged in AccountsListGUI is only needed if accounts have been added
         // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
         accountInputPanel.fireAccountDataChanged();
         accountsTableGUI.fireAccountDataChanged();
