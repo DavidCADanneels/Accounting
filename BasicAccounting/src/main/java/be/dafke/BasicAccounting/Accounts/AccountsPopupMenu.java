@@ -12,7 +12,7 @@ public class AccountsPopupMenu extends JPopupMenu {
     public final String MANAGE = "manage";
     public final String ADD = "add";
 
-    public AccountsPopupMenu(AccountsGUI accountsGUI) {
+    public AccountsPopupMenu(AccountsListGUI accountsListGUI) {
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_ACCOUNT"));
         add = new JMenuItem(getBundle("Accounting").getString("ADD_ACCOUNT"));
 
@@ -22,7 +22,7 @@ public class AccountsPopupMenu extends JPopupMenu {
         add(manage);
         add(add);
 
-        manage.addActionListener(e -> accountsGUI.manageAccount());
-        add.addActionListener(e -> accountsGUI.addAccount());
+        manage.addActionListener(e -> accountsListGUI.manageAccount());
+        add.addActionListener(e -> accountsListGUI.addAccount());
     }
 }

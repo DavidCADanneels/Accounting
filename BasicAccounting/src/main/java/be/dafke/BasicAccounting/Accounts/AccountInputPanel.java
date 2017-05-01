@@ -23,8 +23,8 @@ public class AccountInputPanel extends JPanel{
     public static final String SELECT_TAX_DEBIT_CN_ACCOUNT = "select Tax Debit CN Account";
     private final JournalInputGUI journalInputGUI;
     private AccountTypes accountTypes;
-//    private AccountsTableGUI accountsGUI1, accountsGUI2;
-    private AccountsGUI accountsGUI1, accountsGUI2;
+//    private AccountsTableGUI accountsListGUI1, accountsListGUI2;
+    private AccountsListGUI accountsListGUI1, accountsListGUI2;
     private VATTransactions vatTransactions = null;
 
     private Contacts contacts;
@@ -38,13 +38,13 @@ public class AccountInputPanel extends JPanel{
     }
 
     private JSplitPane createSplitPane() {
-//        accountsGUI1 = new AccountsTableGUI(journalInputGUI);
-//        accountsGUI2 = new AccountsTableGUI(journalInputGUI);
-        accountsGUI1 = new AccountsGUI( this);
-        accountsGUI2 = new AccountsGUI(this);
+//        accountsListGUI1 = new AccountsTableGUI(journalInputGUI);
+//        accountsListGUI2 = new AccountsTableGUI(journalInputGUI);
+        accountsListGUI1 = new AccountsListGUI( this);
+        accountsListGUI2 = new AccountsListGUI(this);
         JSplitPane splitPane = new JSplitPane(VERTICAL_SPLIT);
-        splitPane.add(accountsGUI1,TOP);
-        splitPane.add(accountsGUI2,BOTTOM);
+        splitPane.add(accountsListGUI1,TOP);
+        splitPane.add(accountsListGUI2,BOTTOM);
         return splitPane;
     }
 
@@ -139,8 +139,8 @@ public class AccountInputPanel extends JPanel{
     }
 
     public void fireAccountDataChanged() {
-        accountsGUI1.fireAccountDataChanged();
-        accountsGUI2.fireAccountDataChanged();
+        accountsListGUI1.fireAccountDataChanged();
+        accountsListGUI2.fireAccountDataChanged();
     }
 
     // Setters
@@ -152,8 +152,8 @@ public class AccountInputPanel extends JPanel{
         setAccounts(accounting == null ? null : accounting.getAccounts());
 //        setContacts(accounting == null ? null : accounting.getContacts());
         setJournals(accounting == null ? null : accounting.getJournals());
-        accountsGUI1.setAccounting(accounting);
-        accountsGUI2.setAccounting(accounting);
+        accountsListGUI1.setAccounting(accounting);
+        accountsListGUI2.setAccounting(accounting);
     }
 
     public void setContacts(Contacts contacts){
@@ -181,27 +181,27 @@ public class AccountInputPanel extends JPanel{
 
     public void setJournalType(JournalType journalType) {
         if(journalType==null) {
-            accountsGUI1.setAccountTypes(accountTypes);
-            accountsGUI1.setVatType(null);
-            accountsGUI2.setAccountTypes(accountTypes);
-            accountsGUI2.setVatType(null);
+            accountsListGUI1.setAccountTypes(accountTypes);
+            accountsListGUI1.setVatType(null);
+            accountsListGUI2.setAccountTypes(accountTypes);
+            accountsListGUI2.setVatType(null);
 //            setVatType(VATTransaction.VATType.NONE);
         } else {
-            accountsGUI1.setAccountTypes(journalType.getDebetTypes());
-            accountsGUI2.setAccountTypes(journalType.getCreditTypes());
+            accountsListGUI1.setAccountTypes(journalType.getDebetTypes());
+            accountsListGUI2.setAccountTypes(journalType.getCreditTypes());
             VATTransaction.VATType vatType = journalType.getVatType();
             if (vatType == VATTransaction.VATType.SALE) {
-                accountsGUI1.setVatType(VATTransaction.VATType.CUSTOMER);
-                accountsGUI2.setVatType(VATTransaction.VATType.SALE);
+                accountsListGUI1.setVatType(VATTransaction.VATType.CUSTOMER);
+                accountsListGUI2.setVatType(VATTransaction.VATType.SALE);
 //                setVatType(VATTransaction.VATType.SALE); // 2 -> BTW
             } else if (vatType == VATTransaction.VATType.PURCHASE) {
-                accountsGUI1.setVatType(VATTransaction.VATType.PURCHASE);
-                accountsGUI2.setVatType(null);
+                accountsListGUI1.setVatType(VATTransaction.VATType.PURCHASE);
+                accountsListGUI2.setVatType(null);
 //                setVatType(VATTransaction.VATType.PURCHASE); // 1 -> BTW
             } else {
 //                setVatType(VATTransaction.VATType.NONE);
-                accountsGUI1.setVatType(null);
-                accountsGUI2.setVatType(null);
+                accountsListGUI1.setVatType(null);
+                accountsListGUI2.setVatType(null);
             }
         }
     }
