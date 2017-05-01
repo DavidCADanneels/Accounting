@@ -1,6 +1,12 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.AccountType;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.Journals;
+import be.dafke.BusinessModel.VATTransaction;
 import be.dafke.Utils.AlphabeticListModel;
 import be.dafke.Utils.PrefixFilterPanel;
 
@@ -8,7 +14,6 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -26,12 +31,12 @@ public class AccountsGUI extends JPanel {
     private final AlphabeticListModel<Account> model;
     private final JList<Account> lijst;
     private final AccountInputPanel accountInputPanel;
-    private JButton debet, credit, accountDetails;
     private final Map<AccountType, JCheckBox> boxes;
     private final Map<AccountType, Boolean> selectedAccountTypes;
 
     private final JPanel filter;
     private AccountsPopupMenu popup;
+    private AccountsTableButtons accountsTableButtons;
 
     private Account selectedAccount = null;
     private Accounts accounts;
@@ -46,6 +51,7 @@ public class AccountsGUI extends JPanel {
 
         selectedAccountTypes = new HashMap<>();
 
+        accountsTableButtons = new AccountsTableButtons(this);
         // CENTER
         //
         model = new AlphabeticListModel<>();
@@ -58,9 +64,7 @@ public class AccountsGUI extends JPanel {
             boolean accountSelected = (selectedAccount != null);
             boolean transaction = (accountInputPanel.getTransaction()!=null);
             boolean active = accountSelected && transaction;
-            accountDetails.setEnabled(active);
-            debet.setEnabled(active);
-            credit.setEnabled(active);
+            accountsTableButtons.setActive(active);
         });
 
         lijst.addMouseListener(new MouseAdapter() {
@@ -84,32 +88,9 @@ public class AccountsGUI extends JPanel {
 
         popup = new AccountsPopupMenu();
 
-        // BUTTONS
-        //
-        debet = new JButton(getBundle("Accounting").getString("DEBIT_ACTION"));
-        credit = new JButton(getBundle("Accounting").getString("CREDIT_ACTION"));
-        accountDetails = new JButton(getBundle("Accounting").getString("VIEW_ACCOUNT"));
-
-        debet.setMnemonic(KeyEvent.VK_D);
-        credit.setMnemonic(KeyEvent.VK_C);
-        accountDetails.setMnemonic(KeyEvent.VK_T);
-
-        debet.addActionListener(e -> {book(true);});
-        credit.addActionListener(e -> {book(false);});
-        accountDetails.addActionListener(e -> accountInputPanel.getAccountDetails(lijst.getSelectedValue(), journals));
-
-        debet.setEnabled(false);
-        credit.setEnabled(false);
-        accountDetails.setEnabled(false);
-
         // PANEL
         //
-        JPanel noord = new JPanel();
-        noord.add(debet);
-        noord.add(credit);
-        noord.add(accountDetails);
-
-        zoeker.add(noord, BorderLayout.SOUTH);
+        zoeker.add(accountsTableButtons, BorderLayout.SOUTH);
         add(zoeker, BorderLayout.CENTER);
 
         filter = new JPanel();
@@ -117,6 +98,10 @@ public class AccountsGUI extends JPanel {
         boxes = new HashMap<>();
 
         add(filter, BorderLayout.NORTH);
+    }
+
+    public void showDetails(){
+        accountInputPanel.getAccountDetails(lijst.getSelectedValue(), journals);
     }
 
 //    public void setFirstButton(String text,ActionListener actionListener){
