@@ -11,7 +11,7 @@ import static java.util.ResourceBundle.getBundle;
 public class AccountsTableButtons extends JPanel {
     private JButton debet, credit, accountDetails;
 
-    public AccountsTableButtons(AccountsListGUI accountsListGUI) {
+    public AccountsTableButtons(AccountsGUI accountsGUI) {
         debet = new JButton(getBundle("Accounting").getString("DEBIT_ACTION"));
         credit = new JButton(getBundle("Accounting").getString("CREDIT_ACTION"));
         accountDetails = new JButton(getBundle("Accounting").getString("VIEW_ACCOUNT"));
@@ -20,11 +20,9 @@ public class AccountsTableButtons extends JPanel {
         credit.setMnemonic(KeyEvent.VK_C);
         accountDetails.setMnemonic(KeyEvent.VK_T);
 
-        debet.addActionListener(e -> {
-            accountsListGUI.book(true);});
-        credit.addActionListener(e -> {
-            accountsListGUI.book(false);});
-        accountDetails.addActionListener(e -> accountsListGUI.showDetails());
+        debet.addActionListener(e -> accountsGUI.book(true));
+        credit.addActionListener(e -> accountsGUI.book(false));
+        accountDetails.addActionListener(e -> accountsGUI.showDetails());
 
         debet.setEnabled(false);
         credit.setEnabled(false);

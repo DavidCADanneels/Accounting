@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Accounts;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Booking;
@@ -16,21 +15,18 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.math.BigDecimal;
 
-import static be.dafke.BasicAccounting.Accounts.AccountManagementGUI.showAccountManager;
 import static java.util.ResourceBundle.getBundle;
 
 /**
  * @author David Danneels
  */
 
-public class AccountsTableGUI extends JPanel {//implements MouseListener {
+public class AccountsTableGUI extends AccountsGUI {//implements MouseListener {
     private final SelectableTable<Account> table;
     private final AccountDataModel accountDataModel;
 
     private AccountsTablePopupMenu popup;
     private JournalInputGUI journalInputGUI;
-    private Accounts accounts;
-    private AccountTypes accountTypes;
     private Journals journals;
 
     public AccountsTableGUI(JournalInputGUI journalInputGUI) {
@@ -45,6 +41,7 @@ public class AccountsTableGUI extends JPanel {//implements MouseListener {
 
         this.journalInputGUI=journalInputGUI;
         popup = new AccountsTablePopupMenu(this);
+        setPopup(popup);
         // TODO: register popup menu as TransactionListener and remove TransactionListener from 'this'.
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table));
 
@@ -61,16 +58,6 @@ public class AccountsTableGUI extends JPanel {//implements MouseListener {
             Account account = accounts.getBusinessObjects().get(i);
             AccountDetails.getAccountDetails(account, journals, journalInputGUI);
         }
-        popup.setVisible(false);
-    }
-
-    public void manageAccounts(){
-        showAccountManager(accounts, accountTypes).setVisible(true);
-        popup.setVisible(false);
-    }
-
-    public void addAccount(){
-        new NewAccountGUI(accounts, accountTypes).setVisible(true);
         popup.setVisible(false);
     }
 
@@ -101,13 +88,10 @@ public class AccountsTableGUI extends JPanel {//implements MouseListener {
         this.journals = journals;
     }
 
-    public void setAccountTypes(AccountTypes accountTypes) {
-        this.accountTypes = accountTypes;
-    }
 
     public void setAccounts(Accounts accounts) {
+        super.setAccounts(accounts);
         accountDataModel.setAccounts(accounts);
-        this.accounts=accounts;
         fireAccountDataChanged();
     }
 
