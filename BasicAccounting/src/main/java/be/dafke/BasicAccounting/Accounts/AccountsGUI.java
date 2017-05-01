@@ -20,6 +20,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import static be.dafke.BasicAccounting.Accounts.AccountManagementGUI.showAccountManager;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -86,7 +87,7 @@ public class AccountsGUI extends JPanel {
         lijst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         zoeker = new PrefixFilterPanel<>(model, lijst, new ArrayList<>());
 
-        popup = new AccountsPopupMenu();
+        popup = new AccountsPopupMenu(this);
 
         // PANEL
         //
@@ -102,6 +103,16 @@ public class AccountsGUI extends JPanel {
 
     public void showDetails(){
         accountInputPanel.getAccountDetails(lijst.getSelectedValue(), journals);
+    }
+
+    public void manageAccount(){
+        showAccountManager(accounts, accountTypes).setVisible(true);
+        popup.setVisible(false);
+    }
+
+    public void addAccount(){
+        new NewAccountGUI(accounts, accountTypes).setVisible(true);
+        popup.setVisible(false);
     }
 
 //    public void setFirstButton(String text,ActionListener actionListener){
@@ -151,7 +162,6 @@ public class AccountsGUI extends JPanel {
         setAccountTypes(accounting == null ? null : accounting.getAccountTypes());
         setAccounts(accounting == null ? null : accounting.getAccounts());
         setJournals(accounting == null ? null : accounting.getJournals());
-        popup.setAccounting(accounting);
     }
 
     public void setAccountTypes(AccountTypes accountTypes) {
