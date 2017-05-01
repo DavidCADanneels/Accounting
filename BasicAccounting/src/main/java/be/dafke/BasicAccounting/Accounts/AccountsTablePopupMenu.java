@@ -10,7 +10,7 @@ import static java.util.ResourceBundle.getBundle;
 public class AccountsTablePopupMenu extends JPopupMenu {
     private final JMenuItem manage, add, debit, credit, details;
 
-    public AccountsTablePopupMenu(AccountsTableGUI table) {
+    public AccountsTablePopupMenu(AccountsGUI accountsGUI) {
 
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_ACCOUNT"));
         add = new JMenuItem(getBundle("Accounting").getString("ADD_ACCOUNT"));
@@ -25,10 +25,10 @@ public class AccountsTablePopupMenu extends JPopupMenu {
         add(add);
         add(manage);
 
-        debit.addActionListener(e -> table.book(true));
-        credit.addActionListener(e -> table.book(false));
-        manage.addActionListener(e -> table.manageAccounts());
-        add.addActionListener(e -> table.addAccount());
-        details.addActionListener(e -> table.showDetails());
+        debit.addActionListener(e -> accountsGUI.book(true));
+        credit.addActionListener(e -> accountsGUI.book(false));
+        manage.addActionListener(e -> accountsGUI.manageAccounts());
+        add.addActionListener(e -> accountsGUI.addAccount());
+        details.addActionListener(e -> accountsGUI.showDetails());
     }
 }

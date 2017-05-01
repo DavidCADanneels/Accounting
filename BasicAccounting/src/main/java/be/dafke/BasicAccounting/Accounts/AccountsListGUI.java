@@ -20,14 +20,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-import static be.dafke.BasicAccounting.Accounts.AccountManagementGUI.showAccountManager;
 import static java.util.ResourceBundle.getBundle;
 
 /**
  * @author David Danneels
  */
 
-public class AccountsListGUI extends JPanel {
+public class AccountsListGUI extends AccountsGUI {
     private final PrefixFilterPanel<Account> zoeker;
     private final AlphabeticListModel<Account> model;
     private final JList<Account> lijst;
@@ -40,8 +39,6 @@ public class AccountsListGUI extends JPanel {
     private AccountsTableButtons accountsTableButtons;
 
     private Account selectedAccount = null;
-    private Accounts accounts;
-    private AccountTypes accountTypes;
     private Journals journals;
 
     public AccountsListGUI(AccountInputPanel accountInputPanel) {
@@ -103,16 +100,6 @@ public class AccountsListGUI extends JPanel {
 
     public void showDetails(){
         accountInputPanel.getAccountDetails(lijst.getSelectedValue(), journals);
-    }
-
-    public void manageAccount(){
-        showAccountManager(accounts, accountTypes).setVisible(true);
-        popup.setVisible(false);
-    }
-
-    public void addAccount(){
-        new NewAccountGUI(accounts, accountTypes).setVisible(true);
-        popup.setVisible(false);
     }
 
 //    public void setFirstButton(String text,ActionListener actionListener){
@@ -196,7 +183,7 @@ public class AccountsListGUI extends JPanel {
     }
 
     public void setAccounts(Accounts accounts) {
-        this.accounts = accounts;
+        super.setAccounts(accounts);
         boolean active = accounts != null;
         if (accountTypes != null) {
             for (AccountType type : accountTypes.getBusinessObjects()) {
