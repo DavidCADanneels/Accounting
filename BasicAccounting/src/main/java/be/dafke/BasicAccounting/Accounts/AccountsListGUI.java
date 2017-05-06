@@ -43,6 +43,10 @@ public class AccountsListGUI extends AccountsGUI {
 
     private Journals journals;
 
+    private VATTransaction.VATType vatType = null;
+    private VATTransactions vatTransactions = null;
+    private Contacts contacts = null;
+
     public AccountsListGUI(JournalInputGUI journalInputGUI) {
         this.journalInputGUI = journalInputGUI;
 
@@ -112,13 +116,27 @@ public class AccountsListGUI extends AccountsGUI {
 //        debet.addActionListener(actionListener);
 //        debet.setText(text);
 //    }
-    private VATTransaction.VATType vatType = null;
-    private VATTransactions vatTransactions = null;
-    private Contacts contacts = null;
+
 
 //    public VATTransaction.VATType getVatType() {
 //        return vatType;
 //    }
+
+    public void setAccounting(Accounting accounting) {
+        setAccountTypes(accounting == null ? null : accounting.getAccountTypes());
+        setAccounts(accounting == null ? null : accounting.getAccounts());
+        setJournals(accounting == null ? null : accounting.getJournals());
+        setVatTransactions(accounting == null ? null : accounting.getVatTransactions());
+        setContacts(accounting == null ? null : accounting.getContacts());
+    }
+
+    public void setVatTransactions(VATTransactions vatTransactions) {
+        this.vatTransactions = vatTransactions;
+    }
+
+    public void setContacts(Contacts contacts) {
+        this.contacts = contacts;
+    }
 
     public void setVatType(VATTransaction.VATType vatType) {
         this.vatType = vatType;
@@ -150,22 +168,6 @@ public class AccountsListGUI extends AccountsGUI {
             ArrayList<Account> map = accounts.getAccounts(types);
             zoeker.resetMap(map);
         }
-    }
-
-    public void setAccounting(Accounting accounting) {
-        setAccountTypes(accounting == null ? null : accounting.getAccountTypes());
-        setAccounts(accounting == null ? null : accounting.getAccounts());
-        setJournals(accounting == null ? null : accounting.getJournals());
-        setVatTransactions(accounting == null ? null : accounting.getVatTransactions());
-        setContacts(accounting == null ? null : accounting.getContacts());
-    }
-
-    public void setVatTransactions(VATTransactions vatTransactions) {
-        this.vatTransactions = vatTransactions;
-    }
-
-    public void setContacts(Contacts contacts) {
-        this.contacts = contacts;
     }
 
     public void setAccountTypes(AccountTypes accountTypes) {
