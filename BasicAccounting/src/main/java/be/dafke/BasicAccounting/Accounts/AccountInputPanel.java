@@ -23,7 +23,6 @@ public class AccountInputPanel extends JPanel{
 
     private final JournalInputGUI journalInputGUI;
     private AccountTypes accountTypes;
-//    private AccountsTableGUI accountsListGUI1, accountsListGUI2;
     private AccountsGUI accountsListGUI1, accountsListGUI2;
 
     public AccountInputPanel(JournalInputGUI journalInputGUI) {
@@ -34,8 +33,6 @@ public class AccountInputPanel extends JPanel{
     }
 
     private JSplitPane createSplitPane() {
-//        accountsListGUI1 = new AccountsTableGUI(journalInputGUI);
-//        accountsListGUI2 = new AccountsTableGUI(journalInputGUI);
         accountsListGUI1 = new AccountsListGUI(journalInputGUI);
         accountsListGUI2 = new AccountsListGUI(journalInputGUI);
         JSplitPane splitPane = new JSplitPane(VERTICAL_SPLIT);

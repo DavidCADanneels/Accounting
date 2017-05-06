@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Accounts;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.VATTransaction;
 
 import javax.swing.*;
 
@@ -46,4 +47,5 @@ public abstract class AccountsGUI extends JPanel {
     public abstract void showDetails();
     public abstract void book(boolean debit);
     public abstract void fireAccountDataChanged();
+    public abstract void setVatType(VATTransaction.VATType vatType);
 }

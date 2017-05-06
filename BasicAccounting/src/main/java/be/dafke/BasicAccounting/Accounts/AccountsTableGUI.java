@@ -6,6 +6,7 @@ import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Journals;
+import be.dafke.BusinessModel.VATTransaction;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
@@ -94,5 +95,9 @@ public class AccountsTableGUI extends AccountsGUI {
 
     public void fireAccountDataChanged() {
         accountDataModel.fireTableDataChanged();
+    }
+
+    public void setVatType(VATTransaction.VATType vatType) {
+	    // TODO: add VAT functionity or move to a central place
     }
 }
