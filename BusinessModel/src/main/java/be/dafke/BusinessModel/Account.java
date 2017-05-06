@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.function.Predicate;
 
 /**
   * Boekhoudkundige rekening
@@ -36,6 +37,22 @@ public class Account extends BusinessCollection<Movement> {
         setDefaultAmount(account.defaultAmount);
         setType(account.type);
         setContact(account.contact);
+    }
+
+    public static Predicate<Account> namePrefix(String prefix) {
+        return account -> account.getName()!=null && account.getName().toLowerCase().startsWith(prefix.toLowerCase());
+    }
+
+    public static Predicate<Account> namePrefixCaseSensitive(String prefix) {
+        return account -> account.getName()!=null && account.getName().startsWith(prefix);
+    }
+
+    public static Predicate<Account> numberPrefix(String prefix){
+        return account -> account.getNumber()!=null&&account.getNumber().toString().startsWith(prefix);
+    }
+
+    public static Predicate<Account> ofType(AccountType accountType){
+        return account -> account.getType()==accountType;
     }
 
     @Override

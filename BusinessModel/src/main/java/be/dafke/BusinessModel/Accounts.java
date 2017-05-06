@@ -9,6 +9,7 @@ import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -50,22 +51,28 @@ public class Accounts extends BusinessCollection<Account> {
         return result;
     }
 
+    public ArrayList<Account> getAccountsByName(String prefix){
+        return getAccounts(Account.namePrefix(prefix));
+    }
+
     public ArrayList<Account> getAccountsByNumber(String prefix){
+        return getAccounts(Account.numberPrefix(prefix));
+    }
+
+    public ArrayList<Account> getAccountsByType(AccountType type) {
+        return getAccounts(Account.ofType(type));
+	}
+
+	public ArrayList<Account> getAccounts(Predicate<Account> filter){
         return getBusinessObjects().stream()
-                .filter(account -> account.getNumber()!=null && account.getNumber().toString().startsWith(prefix))
+                .filter(filter)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-    public ArrayList<Account> getAccounts(AccountType type) {
-		return getBusinessObjects().stream()
-                .filter(account -> account.getType() == type)
-                .collect(Collectors.toCollection(ArrayList::new));
-	}
-
-	public ArrayList<Account> getAccounts(List<AccountType> types) {
+	public ArrayList<Account> getAccountsByType(List<AccountType> types) {
 		ArrayList<Account> list = new ArrayList<>();
 		for(AccountType type : types) {
-			list.addAll(getAccounts(type));
+			list.addAll(getAccountsByType(type));
 		}
 		return list;
 	}
