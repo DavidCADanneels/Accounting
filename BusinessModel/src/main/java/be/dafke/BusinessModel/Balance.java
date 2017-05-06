@@ -48,7 +48,7 @@ public class Balance extends BusinessCollection<BalanceLine> {
     }
 
     public ArrayList<Account> getLeftAccounts(boolean includeEmpty) {
-        if(includeEmpty) return getAccounts(leftTypes);
+        if(includeEmpty) return getAccountsByType(leftTypes);
         else return getAccountsNotEmpty(leftTypes);
     }
     public ArrayList<Account> getLeftAccounts() {
@@ -56,7 +56,7 @@ public class Balance extends BusinessCollection<BalanceLine> {
     }
 
     public ArrayList<Account> getRightAccounts(boolean includeEmpty) {
-        if(includeEmpty) return getAccounts(rightTypes);
+        if(includeEmpty) return getAccountsByType(rightTypes);
         else return getAccountsNotEmpty(rightTypes);
     }
     public ArrayList<Account> getRightAccounts() {
@@ -72,16 +72,16 @@ public class Balance extends BusinessCollection<BalanceLine> {
     }
 
 
-    public ArrayList<Account> getAccounts(ArrayList<AccountType> types) {
+    public ArrayList<Account> getAccountsByType(ArrayList<AccountType> types) {
         ArrayList<Account> col = new ArrayList<>();
         for(AccountType type : types) {
-            col.addAll(getAccounts(type));
+            col.addAll(getAccountsByType(type));
         }
         return col;
     }
 
-    private ArrayList<Account> getAccounts(AccountType type) {
-        return accounts.getAccounts(type);
+    private ArrayList<Account> getAccountsByType(AccountType type) {
+        return accounts.getAccountsByType(type);
     }
 
     private ArrayList<Account> getAccountsNotEmpty(AccountType type) {
