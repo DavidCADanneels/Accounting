@@ -5,7 +5,6 @@ import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.SelectableTable;
 
@@ -13,7 +12,6 @@ import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
-import java.math.BigDecimal;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -74,12 +72,7 @@ public class AccountsTableGUI extends AccountsGUI {//implements MouseListener {
     public void book(boolean debit) {
         for(int i: table.getSelectedRows()){
             Account account = accounts.getBusinessObjects().get(i);
-            if (account != null) {
-                BigDecimal amount = journalInputGUI.askAmount(account, debit);
-                if (amount != null) {
-                    journalInputGUI.addBooking(new Booking(account, amount, debit));
-                }
-            }
+            AccountActions.book(journalInputGUI,account,debit);
         }
         popup.setVisible(false);
     }

@@ -1,12 +1,15 @@
 package be.dafke.BasicAccounting.Accounts;
 
+import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.Contacts;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.BusinessModel.VATTransaction;
+import be.dafke.BusinessModel.VATTransactions;
 import be.dafke.Utils.AlphabeticListModel;
 import be.dafke.Utils.PrefixFilterPanel;
 
@@ -30,7 +33,7 @@ public class AccountsListGUI extends AccountsGUI {
     private final PrefixFilterPanel<Account> zoeker;
     private final AlphabeticListModel<Account> model;
     private final JList<Account> lijst;
-    private final AccountInputPanel accountInputPanel;
+    private final JournalInputGUI journalInputGUI;
     private final Map<AccountType, JCheckBox> boxes;
     private final Map<AccountType, Boolean> selectedAccountTypes;
 
@@ -41,8 +44,8 @@ public class AccountsListGUI extends AccountsGUI {
     private Account selectedAccount = null;
     private Journals journals;
 
-    public AccountsListGUI(AccountInputPanel accountInputPanel) {
-        this.accountInputPanel = accountInputPanel;
+    public AccountsListGUI(JournalInputGUI journalInputGUI) {
+        this.journalInputGUI = journalInputGUI;
 
         setLayout(new BorderLayout());
         setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("Accounting").getString("ACCOUNTS")));
@@ -60,7 +63,7 @@ public class AccountsListGUI extends AccountsGUI {
                 selectedAccount = lijst.getSelectedValue();
             }
             boolean accountSelected = (selectedAccount != null);
-            boolean transaction = (accountInputPanel.getTransaction()!=null);
+            boolean transaction = (journalInputGUI.getTransaction()!=null);
             boolean active = accountSelected && transaction;
             accountsTableButtons.setActive(active);
         });
@@ -73,7 +76,7 @@ public class AccountsListGUI extends AccountsGUI {
                 if (popup != null) {
                     popup.setVisible(false);
                     if (clickCount == 2) {
-                        if (journals != null) accountInputPanel.getAccountDetails(selectedAccount, journals);
+                        if (journals != null) AccountDetails.getAccountDetails(selectedAccount, journals, journalInputGUI);
                     } else if (button == 3) {
                         Point location = me.getLocationOnScreen();
                         popup.show(null, location.x, location.y);
@@ -85,6 +88,7 @@ public class AccountsListGUI extends AccountsGUI {
         zoeker = new PrefixFilterPanel<>(model, lijst, new ArrayList<>());
 
         popup = new AccountsPopupMenu(this);
+        setPopup(popup);
 
         // PANEL
         //
@@ -99,7 +103,7 @@ public class AccountsListGUI extends AccountsGUI {
     }
 
     public void showDetails(){
-        accountInputPanel.getAccountDetails(lijst.getSelectedValue(), journals);
+        AccountDetails.getAccountDetails(lijst.getSelectedValue(), journals, journalInputGUI);
     }
 
 //    public void setFirstButton(String text,ActionListener actionListener){
@@ -108,6 +112,8 @@ public class AccountsListGUI extends AccountsGUI {
 //        debet.setText(text);
 //    }
     private VATTransaction.VATType vatType = null;
+    private VATTransactions vatTransactions = null;
+    private Contacts contacts = null;
 
 //    public VATTransaction.VATType getVatType() {
 //        return vatType;
@@ -119,7 +125,7 @@ public class AccountsListGUI extends AccountsGUI {
 
     public void book(boolean debit) {
         if (selectedAccount != null) {
-            accountInputPanel.book(selectedAccount, debit, vatType);
+            AccountActions.book(journalInputGUI, selectedAccount, debit, vatType, vatTransactions, accounts, accountTypes, contacts);
         }
     }
 
@@ -149,6 +155,16 @@ public class AccountsListGUI extends AccountsGUI {
         setAccountTypes(accounting == null ? null : accounting.getAccountTypes());
         setAccounts(accounting == null ? null : accounting.getAccounts());
         setJournals(accounting == null ? null : accounting.getJournals());
+        setVatTransactions(accounting == null ? null : accounting.getVatTransactions());
+        setContacts(accounting == null ? null : accounting.getContacts());
+    }
+
+    public void setVatTransactions(VATTransactions vatTransactions) {
+        this.vatTransactions = vatTransactions;
+    }
+
+    public void setContacts(Contacts contacts) {
+        this.contacts = contacts;
     }
 
     public void setAccountTypes(AccountTypes accountTypes) {

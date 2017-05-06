@@ -35,7 +35,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
     private Journal journal;
     private Transaction transaction;
-    private VATTransactions vatTransactions;
 
     public JournalInputGUI() {
         setLayout(new BorderLayout());
@@ -302,11 +301,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     public void setAccounting(Accounting accounting){
         popup.setAccounting(accounting);
         setJournals(accounting==null?null:accounting.getJournals());
-        setVATTransactions(accounting==null?null:accounting.getVatTransactions());
-    }
-
-    public void setVATTransactions(VATTransactions vatTransactions){
-        this.vatTransactions = vatTransactions;
     }
 
     public void setJournals(Journals journals){
@@ -338,55 +332,8 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         fireTransactionDataChanged();
     }
 
-    public BigDecimal askAmount(Account account, boolean debit) {
-        if (transaction == null) return null;
-        BigDecimal creditTotal = transaction.getCreditTotaal();
-        BigDecimal debitTotal = transaction.getDebetTotaal();
-        BigDecimal suggestedAmount = null;
-        if (creditTotal.compareTo(debitTotal) > 0 && debit) {
-            suggestedAmount = creditTotal.subtract(debitTotal);
-        } else if (debitTotal.compareTo(creditTotal) > 0 && !debit) {
-            suggestedAmount = debitTotal.subtract(creditTotal);
-        } else {
-            BigDecimal defaultAmount = account.getDefaultAmount();
-            if (defaultAmount != null) {
-                suggestedAmount = defaultAmount;
-            }
-        }
-        return askAmount(account, suggestedAmount);
-    }
-
     public Transaction getTransaction() {
         return transaction;
-    }
-
-    private BigDecimal askAmount(Account account, BigDecimal suggestedAmount){
-        boolean ok = false;
-        BigDecimal amount = null;
-        while (!ok) {
-            String s;
-            if(suggestedAmount!=null){
-                // TODO: add title ...
-                s = JOptionPane.showInputDialog(getBundle("BusinessActions").getString(
-                        "ENTER_AMOUNT")+ account.getName(), suggestedAmount.toString());
-            } else {
-                s = JOptionPane.showInputDialog(getBundle("BusinessActions").getString(
-                        "ENTER_AMOUNT")+ account.getName());
-            }
-            if (s == null || s.equals("")) {
-                ok = true;
-                amount = null;
-            } else {
-                try {
-                    amount = new BigDecimal(s);
-                    amount = amount.setScale(2);
-                    ok = amount.compareTo(BigDecimal.ZERO)>=0;
-                } catch (NumberFormatException nfe) {
-                    ActionUtils.showErrorMessage(ActionUtils.INVALID_INPUT);
-                }
-            }
-        }
-        return amount;
     }
 
     public void addMortgageTransaction(Mortgage mortgage){

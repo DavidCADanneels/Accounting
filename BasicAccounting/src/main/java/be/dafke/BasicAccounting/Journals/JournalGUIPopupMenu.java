@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
+import be.dafke.BasicAccounting.Accounts.AccountActions;
 import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
 import be.dafke.BusinessModel.*;
@@ -68,7 +69,7 @@ public class JournalGUIPopupMenu extends JPopupMenu{
             //TODO: or JournalGUI.table should contain Movements iso Bookings
             // booking must be removed and re-added to Transaction to re-calculate the totals
             transaction.removeBusinessObject(booking);
-            BigDecimal amount = journalInputGUI.askAmount(account, booking.isDebit());
+            BigDecimal amount = AccountActions.askAmount(account, booking.isDebit(),transaction);
             if (amount != null) {
                 booking.setAmount(amount);
             }
