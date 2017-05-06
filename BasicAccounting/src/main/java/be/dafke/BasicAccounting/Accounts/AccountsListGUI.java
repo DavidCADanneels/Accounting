@@ -169,7 +169,7 @@ public class AccountsListGUI extends AccountsGUI {
     }
 
     public void setAccountTypes(AccountTypes accountTypes) {
-        this.accountTypes = accountTypes;
+        super.setAccountTypes(accountTypes);
         if (accountTypes != null) {
             selectedAccountTypes.clear();
             for (AccountType type : accountTypes.getBusinessObjects()) {

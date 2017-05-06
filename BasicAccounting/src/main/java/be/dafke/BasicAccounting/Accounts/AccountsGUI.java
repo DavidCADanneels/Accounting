@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
 
 import javax.swing.*;
@@ -17,6 +18,11 @@ public abstract class AccountsGUI extends JPanel {
 
     public void setPopup(JPopupMenu popup) {
         this.popup = popup;
+    }
+
+    public void setAccounting(Accounting accounting){
+        setAccounts(accounting==null?null:accounting.getAccounts());
+        setAccountTypes(accounting==null?null:accounting.getAccountTypes());
     }
 
     public void setAccounts(Accounts accounts) {
@@ -39,4 +45,5 @@ public abstract class AccountsGUI extends JPanel {
 
     public abstract void showDetails();
     public abstract void book(boolean debit);
+    public abstract void fireAccountDataChanged();
 }

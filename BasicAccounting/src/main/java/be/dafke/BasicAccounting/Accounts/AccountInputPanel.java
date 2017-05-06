@@ -24,7 +24,7 @@ public class AccountInputPanel extends JPanel{
     private final JournalInputGUI journalInputGUI;
     private AccountTypes accountTypes;
 //    private AccountsTableGUI accountsListGUI1, accountsListGUI2;
-    private AccountsListGUI accountsListGUI1, accountsListGUI2;
+    private AccountsGUI accountsListGUI1, accountsListGUI2;
 
     public AccountInputPanel(JournalInputGUI journalInputGUI) {
         this.journalInputGUI = journalInputGUI;
