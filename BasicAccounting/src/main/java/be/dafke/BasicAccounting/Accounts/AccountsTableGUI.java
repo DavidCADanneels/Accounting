@@ -5,8 +5,10 @@ import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.Contacts;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.BusinessModel.VATTransaction;
+import be.dafke.BusinessModel.VATTransactions;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
@@ -28,6 +30,11 @@ public class AccountsTableGUI extends AccountsGUI {
     private JournalInputGUI journalInputGUI;
     private Journals journals;
     private AccountsTableButtons accountsTableButtons;
+
+    private VATTransaction.VATType vatType = null;
+    private VATTransactions vatTransactions = null;
+    private Contacts contacts = null;
+
 
     public AccountsTableGUI(JournalInputGUI journalInputGUI) {
 		setLayout(new BorderLayout());
@@ -69,15 +76,29 @@ public class AccountsTableGUI extends AccountsGUI {
         setJournals(accounting==null?null:accounting.getJournals());
         setAccounts(accounting==null?null:accounting.getAccounts());
         setAccountTypes(accounting==null?null:accounting.getAccountTypes());
+        setVatTransactions(accounting == null ? null : accounting.getVatTransactions());
+        setContacts(accounting == null ? null : accounting.getContacts());
         // if setAccounts() is used here, popup.setAccounts() will be called twice
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table));  // TODO: Needed?
         fireAccountDataChanged();
     }
 
+    public void setVatTransactions(VATTransactions vatTransactions) {
+        this.vatTransactions = vatTransactions;
+    }
+
+    public void setContacts(Contacts contacts) {
+        this.contacts = contacts;
+    }
+
+    public void setVatType(VATTransaction.VATType vatType) {
+        this.vatType = vatType;
+    }
+
     public void book(boolean debit) {
         for(int i: table.getSelectedRows()){
             Account account = accounts.getBusinessObjects().get(i);
-            AccountActions.book(journalInputGUI,account,debit);
+            AccountActions.book(journalInputGUI, account, debit, vatType, vatTransactions, accounts, accountTypes, contacts);
         }
         popup.setVisible(false);
     }
@@ -95,9 +116,5 @@ public class AccountsTableGUI extends AccountsGUI {
 
     public void fireAccountDataChanged() {
         accountDataModel.fireTableDataChanged();
-    }
-
-    public void setVatType(VATTransaction.VATType vatType) {
-	    // TODO: add VAT functionity or move to a central place
     }
 }

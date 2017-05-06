@@ -1,18 +1,18 @@
 @startuml
 actor user
 participant AccountsGUI
-participant TransactionActions
+participant AccountActions
 participant JournalDataModel
 participant JournalInputGUI
 participant Main
 
 user-->>AccountsGUI:debet/credit
 AccountsGUI->>AccountsGUI:book(boolean debit)
-AccountsGUI->>TransactionActions:addBookingToTransaction
-TransactionActions-->>user:askAmount
-user-->>TransactionActions
+AccountsGUI->>AccountActions:addBookingToTransaction
+AccountActions-->>user:askAmount
+user-->>AccountActions
 note right:booking =\nnew Booking()
-TransactionActions->>AccountsGUI:booking
+AccountActions->>AccountsGUI:booking
 note left:transaction.\naddBooking\n(booking)
 AccountsGUI->>Main:fireTransactionDataChanged
 group Main.fireTransactionDataChanged()
