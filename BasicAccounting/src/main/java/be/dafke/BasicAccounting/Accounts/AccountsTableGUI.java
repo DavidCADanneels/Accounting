@@ -19,13 +19,14 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountsTableGUI extends AccountsGUI {//implements MouseListener {
+public class AccountsTableGUI extends AccountsGUI {
     private final SelectableTable<Account> table;
     private final AccountDataModel accountDataModel;
 
     private AccountsTablePopupMenu popup;
     private JournalInputGUI journalInputGUI;
     private Journals journals;
+    private AccountsTableButtons accountsTableButtons;
 
     public AccountsTableGUI(JournalInputGUI journalInputGUI) {
 		setLayout(new BorderLayout());
@@ -43,12 +44,15 @@ public class AccountsTableGUI extends AccountsGUI {//implements MouseListener {
         // TODO: register popup menu as TransactionListener and remove TransactionListener from 'this'.
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table));
 
+        accountsTableButtons = new AccountsTableButtons(this);
+
         JScrollPane scrollPane1 = new JScrollPane(table);
         JPanel center = new JPanel();
 
         center.setLayout(new BoxLayout(center,BoxLayout.Y_AXIS));
         center.add(scrollPane1);
         add(center, BorderLayout.CENTER);
+        add(accountsTableButtons,BorderLayout.SOUTH);
 	}
 
 	public void showDetails(){
