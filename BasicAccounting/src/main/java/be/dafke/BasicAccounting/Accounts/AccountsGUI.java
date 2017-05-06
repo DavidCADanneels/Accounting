@@ -28,13 +28,13 @@ public abstract class AccountsGUI extends JPanel {
     }
 
     public void manageAccounts(){
-        showAccountManager(accounts, accountTypes).setVisible(true);
         popup.setVisible(false);
+        showAccountManager(accounts, accountTypes).setVisible(true);
     }
 
     public void addAccount(){
-        new NewAccountGUI(accounts, accountTypes).setVisible(true);
         popup.setVisible(false);
+        new NewAccountGUI(accounts, accountTypes).setVisible(true);
     }
 
     public abstract void showDetails();
