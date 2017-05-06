@@ -1,10 +1,10 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @author David Danneels
@@ -18,12 +18,12 @@ public class AccountDataModel extends SelectableTableModel<Account> {
 	String[] columnNames = {"Name","Saldo" };
 	Class[] columnClasses = { Account.class, BigDecimal.class };
 
-    private Accounts accounts;
+    private List<Account> accounts;
 
 // DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
-		Account account = accounts.getBusinessObjects().get(row);
+		Account account = accounts.get(row);
 		if (col == 0) {
 			return account;
 		}
@@ -45,7 +45,7 @@ public class AccountDataModel extends SelectableTableModel<Account> {
         if(accounts == null){
             return 0;
         }
-		return accounts.getBusinessObjects().size();
+		return accounts.size();
 	}
 
 	@Override
@@ -69,13 +69,13 @@ public class AccountDataModel extends SelectableTableModel<Account> {
 	public void setValueAt(Object value, int row, int col) {
 	}
 
-    public void setAccounts(Accounts accounts) {
+    public void setAccounts(List<Account> accounts) {
         this.accounts = accounts;
     }
 
 	@Override
 	public Account getObject(int row, int col) {
-		return accounts.getBusinessObjects().get(row);
+		return accounts.get(row);
 	}
 
 }

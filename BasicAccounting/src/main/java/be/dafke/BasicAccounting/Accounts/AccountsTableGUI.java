@@ -72,7 +72,7 @@ public class AccountsTableGUI extends AccountsGUI {
     }
 
     public void setAccounting(Accounting accounting) {
-        accountDataModel.setAccounts(accounting==null?null:accounting.getAccounts());
+        accountDataModel.setAccounts(accounting==null?null:accounting.getAccounts().getBusinessObjects());
         setJournals(accounting==null?null:accounting.getJournals());
         setAccounts(accounting==null?null:accounting.getAccounts());
         setAccountTypes(accounting==null?null:accounting.getAccountTypes());
@@ -110,7 +110,7 @@ public class AccountsTableGUI extends AccountsGUI {
 
     public void setAccounts(Accounts accounts) {
         super.setAccounts(accounts);
-        accountDataModel.setAccounts(accounts);
+        accountDataModel.setAccounts(accounts.getBusinessObjects());
         fireAccountDataChanged();
     }
 
