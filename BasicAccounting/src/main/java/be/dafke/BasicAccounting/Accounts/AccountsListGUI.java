@@ -41,7 +41,6 @@ public class AccountsListGUI extends AccountsGUI {
     private AccountsPopupMenu popup;
     private AccountsTableButtons accountsTableButtons;
 
-    private Account selectedAccount = null;
     private Journals journals;
 
     public AccountsListGUI(JournalInputGUI journalInputGUI) {
@@ -58,7 +57,7 @@ public class AccountsListGUI extends AccountsGUI {
         model = new AlphabeticListModel<>();
         lijst = new JList<>(model);
         lijst.addListSelectionListener(e ->  {
-            selectedAccount = null;
+            Account selectedAccount = null;
             if (!e.getValueIsAdjusting() && lijst.getSelectedIndex() != -1) {
                 selectedAccount = lijst.getSelectedValue();
             }
@@ -76,7 +75,7 @@ public class AccountsListGUI extends AccountsGUI {
                 if (popup != null) {
                     popup.setVisible(false);
                     if (clickCount == 2) {
-                        if (journals != null) AccountDetails.getAccountDetails(selectedAccount, journals, journalInputGUI);
+                        if (journals != null) showDetails();;
                     } else if (button == 3) {
                         Point location = me.getLocationOnScreen();
                         popup.show(null, location.x, location.y);
@@ -103,7 +102,9 @@ public class AccountsListGUI extends AccountsGUI {
     }
 
     public void showDetails(){
-        AccountDetails.getAccountDetails(lijst.getSelectedValue(), journals, journalInputGUI);
+        if(lijst.getSelectedValue()!=null) {
+            AccountDetails.getAccountDetails(lijst.getSelectedValue(), journals, journalInputGUI);
+        }
     }
 
 //    public void setFirstButton(String text,ActionListener actionListener){
@@ -124,8 +125,8 @@ public class AccountsListGUI extends AccountsGUI {
     }
 
     public void book(boolean debit) {
-        if (selectedAccount != null) {
-            AccountActions.book(journalInputGUI, selectedAccount, debit, vatType, vatTransactions, accounts, accountTypes, contacts);
+        if (lijst.getSelectedValue() != null) {
+            AccountActions.book(journalInputGUI, lijst.getSelectedValue(), debit, vatType, vatTransactions, accounts, accountTypes, contacts);
         }
     }
 
