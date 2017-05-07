@@ -69,8 +69,7 @@ public class AccountsTableGUI extends AccountsGUI {
 	}
 
 	public void showDetails(){
-        for(int i: table.getSelectedRows()){
-            Account account = accounts.getBusinessObjects().get(i);
+        for(Account account : table.getSelectedObjects()){
             AccountDetails.getAccountDetails(account, journals, journalInputGUI);
         }
         popup.setVisible(false);
@@ -101,8 +100,7 @@ public class AccountsTableGUI extends AccountsGUI {
     }
 
     public void book(boolean debit) {
-        for(int i: table.getSelectedRows()){
-            Account account = accounts.getBusinessObjects().get(i);
+        for(Account account : table.getSelectedObjects()){
             AccountActions.book(journalInputGUI, account, debit, vatType, vatTransactions, accounts, accountTypes, contacts);
         }
         popup.setVisible(false);
