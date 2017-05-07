@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessModel.Account;
+import be.dafke.ComponentModel.FilterableModel;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
@@ -10,7 +11,7 @@ import java.util.List;
  * @author David Danneels
  */
 
-public class AccountDataModel extends SelectableTableModel<Account> {
+public class AccountDataModel extends SelectableTableModel<Account> implements FilterableModel<Account> {
 	/**
 	 * 
 	 */
@@ -69,7 +70,7 @@ public class AccountDataModel extends SelectableTableModel<Account> {
 	public void setValueAt(Object value, int row, int col) {
 	}
 
-    public void setAccounts(List<Account> accounts) {
+    public void setCollection(List<Account> accounts) {
         this.accounts = accounts;
     }
 
