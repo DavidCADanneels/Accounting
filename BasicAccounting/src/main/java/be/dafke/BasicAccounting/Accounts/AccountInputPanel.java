@@ -49,10 +49,10 @@ public class AccountInputPanel extends JPanel{
     // Setters
 
     public void setAccounting(Accounting accounting) {
-        setAccountTypes(accounting == null ? null : accounting.getAccountTypes());
-        setJournals(accounting == null ? null : accounting.getJournals());
         accountsListGUI1.setAccounting(accounting);
         accountsListGUI2.setAccounting(accounting);
+        setAccountTypes(accounting == null ? null : accounting.getAccountTypes());
+        setJournals(accounting == null ? null : accounting.getJournals());
     }
 
     public void setAccountTypes(AccountTypes accountTypes) {

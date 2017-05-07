@@ -58,6 +58,20 @@ public class AccountTypesFilterPanel extends JPanel {
         }
     }
 
+//    public void setAccounts(Accounts accounts) {
+//        boolean active = accounts != null;
+//        if (accountTypes != null) {
+//            for (AccountType type : accountTypes.getBusinessObjects()) {
+//                JCheckBox checkBox = boxes.get(type);
+//                checkBox.setSelected(selectedAccountTypes.get(type));
+//                checkBox.setEnabled(active);
+//            }
+//        }
+//        if (active) {
+//            fireAccountDataChanged();
+//        }
+//    }
+
     public List<AccountType> getSelectedAccountTypes() {
         ArrayList<AccountType> types = new ArrayList<>();
         for (AccountType type : selectedAccountTypes.keySet()) {

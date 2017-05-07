@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Accounts;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Contacts;
@@ -24,7 +25,7 @@ import static java.util.ResourceBundle.getBundle;
 
 public class AccountsTableGUI extends AccountsGUI {
     private final SelectableTable<Account> table;
-    private final AccountDataModel accountDataModel;
+    private final AccountDataTableModel accountDataTableModel;
     private final AccountFilterPanel filterPanel;
 
     private AccountsTablePopupMenu popup;
@@ -43,8 +44,8 @@ public class AccountsTableGUI extends AccountsGUI {
 
         // CENTER
         //
-        accountDataModel = new AccountDataModel();
-        table = new SelectableTable<>(accountDataModel);
+        accountDataTableModel = new AccountDataTableModel();
+        table = new SelectableTable<>(accountDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(100, 600));
 
         this.journalInputGUI=journalInputGUI;
@@ -55,7 +56,7 @@ public class AccountsTableGUI extends AccountsGUI {
 
         accountsTableButtons = new AccountsTableButtons(this);
 
-        filterPanel = new AccountFilterPanel(accountDataModel);
+        filterPanel = new AccountFilterPanel(accountDataTableModel);
 
         JScrollPane scrollPane1 = new JScrollPane(table);
         JPanel center = new JPanel();
@@ -76,12 +77,9 @@ public class AccountsTableGUI extends AccountsGUI {
     }
 
     public void setAccounting(Accounting accounting) {
-        accountDataModel.setAccounts(accounting==null?null:accounting.getAccounts());
-        filterPanel.setAccountTypes(accounting==null?null:accounting.getAccountTypes());
-
-        setJournals(accounting==null?null:accounting.getJournals());
         setAccounts(accounting==null?null:accounting.getAccounts());
         setAccountTypes(accounting==null?null:accounting.getAccountTypes());
+        setJournals(accounting==null?null:accounting.getJournals());
         setVatTransactions(accounting == null ? null : accounting.getVatTransactions());
         setContacts(accounting == null ? null : accounting.getContacts());
         // if setAccounts() is used here, popup.setAccounts() will be called twice
@@ -116,11 +114,18 @@ public class AccountsTableGUI extends AccountsGUI {
 
     public void setAccounts(Accounts accounts) {
         super.setAccounts(accounts);
-        accountDataModel.setAccounts(accounts);
+        accountDataTableModel.setAccounts(accounts);
+        fireAccountDataChanged();
+    }
+
+    public void setAccountTypes(AccountTypes accountTypes){
+	    super.setAccountTypes(accountTypes);
+        accountDataTableModel.setAccountTypes(accountTypes.getBusinessObjects());
+        filterPanel.setAccountTypes(accountTypes);
         fireAccountDataChanged();
     }
 
     public void fireAccountDataChanged() {
-        accountDataModel.fireTableDataChanged();
+        accountDataTableModel.fireTableDataChanged();
     }
 }

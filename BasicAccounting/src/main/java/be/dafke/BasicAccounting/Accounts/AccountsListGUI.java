@@ -2,16 +2,12 @@ package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Contacts;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.BusinessModel.VATTransaction;
 import be.dafke.BusinessModel.VATTransactions;
-import be.dafke.Utils.AlphabeticListModel;
-import be.dafke.Utils.PrefixFilterPanel;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
@@ -19,9 +15,6 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -30,14 +23,11 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class AccountsListGUI extends AccountsGUI {
-    private final PrefixFilterPanel<Account> zoeker;
-    private final AlphabeticListModel<Account> model;
+    private final AccountDataListModel model;
     private final JList<Account> lijst;
     private final JournalInputGUI journalInputGUI;
-    private final Map<AccountType, JCheckBox> boxes;
-    private final Map<AccountType, Boolean> selectedAccountTypes;
 
-    private final JPanel filter;
+    private final AccountFilterPanel filterPanel;
     private AccountsPopupMenu popup;
     private AccountsTableButtons accountsTableButtons;
 
@@ -53,12 +43,10 @@ public class AccountsListGUI extends AccountsGUI {
         setLayout(new BorderLayout());
         setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("Accounting").getString("ACCOUNTS")));
 
-        selectedAccountTypes = new HashMap<>();
-
         accountsTableButtons = new AccountsTableButtons(this);
         // CENTER
         //
-        model = new AlphabeticListModel<>();
+        model = new AccountDataListModel();
         lijst = new JList<>(model);
         lijst.addListSelectionListener(e ->  {
             Account selectedAccount = null;
@@ -88,21 +76,24 @@ public class AccountsListGUI extends AccountsGUI {
             }
         });//new PopupForListActivator(popup, lijst));//, new AccountDetailsLauncher(accountings)));
         lijst.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-        zoeker = new PrefixFilterPanel<>(model, lijst, new ArrayList<>());
 
         popup = new AccountsPopupMenu(this);
         setPopup(popup);
 
         // PANEL
         //
-        zoeker.add(accountsTableButtons, BorderLayout.SOUTH);
-        add(zoeker, BorderLayout.CENTER);
 
-        filter = new JPanel();
-        filter.setLayout(new GridLayout(0, 3));
-        boxes = new HashMap<>();
+        JScrollPane scrollPane1 = new JScrollPane(lijst);
+        JPanel center = new JPanel();
 
-        add(filter, BorderLayout.NORTH);
+        center.setLayout(new BoxLayout(center,BoxLayout.Y_AXIS));
+        center.add(scrollPane1);
+
+        filterPanel = new AccountFilterPanel(model);
+
+        add(filterPanel, BorderLayout.NORTH);
+        add(center, BorderLayout.CENTER);
+        add(accountsTableButtons, BorderLayout.SOUTH);
     }
 
     public void showDetails(){
@@ -123,6 +114,9 @@ public class AccountsListGUI extends AccountsGUI {
 //    }
 
     public void setAccounting(Accounting accounting) {
+        model.setAccounts(accounting == null ? null : accounting.getAccounts());
+        model.setAccountTypes(accounting == null ? null : accounting.getAccountTypes().getBusinessObjects());
+        model.setFilter(null);
         setAccountTypes(accounting == null ? null : accounting.getAccountTypes());
         setAccounts(accounting == null ? null : accounting.getAccounts());
         setJournals(accounting == null ? null : accounting.getJournals());
@@ -148,71 +142,18 @@ public class AccountsListGUI extends AccountsGUI {
         }
     }
 
-    private void updateListOfCheckedBoxes() {
-        for (AccountType type : boxes.keySet()) {
-            JCheckBox checkBox = boxes.get(type);
-            selectedAccountTypes.remove(type);
-            selectedAccountTypes.put(type, checkBox.isSelected());
-        }
-    }
-
+    @Override
     public void fireAccountDataChanged() {
-        ArrayList<AccountType> types = new ArrayList<>();
-        for (AccountType type : selectedAccountTypes.keySet()) {
-            JCheckBox checkBox = boxes.get(type);
-            if (checkBox.isSelected()) {
-                types.add(type);
-            }
-        }
-        if (accounts != null) {
-            ArrayList<Account> map = accounts.getAccountsByType(types);
-            zoeker.resetMap(map);
-        }
+        model.filter();
     }
 
     public void setAccountTypes(AccountTypes accountTypes) {
         super.setAccountTypes(accountTypes);
-        if (accountTypes != null) {
-            selectedAccountTypes.clear();
-            for (AccountType type : accountTypes.getBusinessObjects()) {
-                selectedAccountTypes.put(type, Boolean.TRUE);
-            }
-//        }
-            boxes.clear();
-            filter.removeAll();
-
-            for (AccountType type : accountTypes.getBusinessObjects()) {
-                JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(type.getName().toUpperCase()));
-                checkBox.setSelected(true);
-                checkBox.setActionCommand(type.getName());
-                checkBox.addActionListener(e -> {
-                    fireAccountDataChanged();
-                    updateListOfCheckedBoxes();
-                });
-                boxes.put(type, checkBox);
-                filter.add(checkBox);
-            }
-            revalidate();
-            fireAccountDataChanged();
-        }
+        model.setAccountTypes(accountTypes.getBusinessObjects());
+        filterPanel.setAccountTypes(accountTypes);
     }
 
     public void setJournals(Journals journals) {
         this.journals = journals;
-    }
-
-    public void setAccounts(Accounts accounts) {
-        super.setAccounts(accounts);
-        boolean active = accounts != null;
-        if (accountTypes != null) {
-            for (AccountType type : accountTypes.getBusinessObjects()) {
-                JCheckBox checkBox = boxes.get(type);
-                checkBox.setSelected(selectedAccountTypes.get(type));
-                checkBox.setEnabled(active);
-            }
-        }
-        if (active) {
-            fireAccountDataChanged();
-        }
     }
 }
