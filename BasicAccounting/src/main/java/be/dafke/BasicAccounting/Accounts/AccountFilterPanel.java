@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 import java.util.function.Predicate;
 
 import static java.util.ResourceBundle.getBundle;
@@ -49,6 +51,12 @@ public class AccountFilterPanel extends JPanel {
                 filter();
             }
         });
+        nameField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                nameField.selectAll();
+            }
+        });
         panel.add(new JLabel((getBundle("Utils").getString("SEARCH"))));
         panel.add(nameField);
         return panel;
@@ -66,6 +74,12 @@ public class AccountFilterPanel extends JPanel {
             }
             public void removeUpdate(DocumentEvent e) {
                 filter();
+            }
+        });
+        numberField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                numberField.selectAll();
             }
         });
         panel.add(new JLabel((getBundle("Utils").getString("SEARCH"))));
