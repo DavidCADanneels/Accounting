@@ -46,7 +46,7 @@ public class AccountsTableGUI extends AccountsGUI {
         //
         accountDataTableModel = new AccountDataTableModel();
         table = new SelectableTable<>(accountDataTableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(100, 600));
+        table.setPreferredScrollableViewportSize(new Dimension(100, 100));
 
         this.journalInputGUI=journalInputGUI;
         popup = new AccountsTablePopupMenu(this);
