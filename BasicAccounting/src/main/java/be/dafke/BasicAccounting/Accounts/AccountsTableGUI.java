@@ -77,6 +77,7 @@ public class AccountsTableGUI extends AccountsGUI {
     }
 
     public void setAccounting(Accounting accounting) {
+	    accountDataTableModel.setFilter(null);
         setAccounts(accounting==null?null:accounting.getAccounts());
         setAccountTypes(accounting==null?null:accounting.getAccountTypes());
         setJournals(accounting==null?null:accounting.getJournals());

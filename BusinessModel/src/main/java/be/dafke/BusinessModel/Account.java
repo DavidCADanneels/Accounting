@@ -14,7 +14,7 @@ import java.util.function.Predicate;
   * @author David Danneels
   * @since 01/10/2010
  */
-public class Account extends BusinessCollection<Movement> {
+public class Account extends BusinessCollection<Movement> implements Comparable<Account>{
     private AccountType type;
     private BigDecimal debitTotal, creditTotal;
     private final MultiValueMap<Calendar,Movement> movements;
@@ -149,5 +149,10 @@ public class Account extends BusinessCollection<Movement> {
 
     public void setContact(Contact contact) {
         this.contact = contact;
+    }
+
+    @Override
+    public int compareTo(Account o) {
+        return getName().compareTo(o.getName());
     }
 }
