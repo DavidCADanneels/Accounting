@@ -15,6 +15,7 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
     private ArrayList<VATBooking> vatBookings = new ArrayList<>();
     private Transaction transaction;
     private Integer id;
+    private boolean registered = false;
 
     public Integer getId() {
         return id;
@@ -28,6 +29,14 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
         this.id = id;
         this.date = date;
         count++;
+    }
+
+    public void markAsRegistered() {
+        registered = true;
+    }
+
+    public boolean isRegistered() {
+        return registered;
     }
 
     public enum PurchaseType{

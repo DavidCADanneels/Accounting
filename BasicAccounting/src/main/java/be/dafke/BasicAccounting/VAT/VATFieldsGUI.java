@@ -27,6 +27,7 @@ import java.io.File;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static be.dafke.BusinessModelDao.VATWriter.Period.QUARTER;
 import static java.util.ResourceBundle.getBundle;
@@ -52,19 +53,20 @@ public class VATFieldsGUI extends JFrame {
     public static final String CN_ON_PURCHASES = "CN on Purchases";
     private Accounting accounting;
     private HashMap<String,JTextField> textFields = new HashMap<>();
+    List<VATTransaction> selectedVatTransactions;
 
     public static VATFieldsGUI getInstance(VATFields vatFields, Accounting accounting) {
         VATFieldsGUI gui;
         gui = vatGuis.get(vatFields);
         if(gui==null){
-            gui = new VATFieldsGUI(vatFields, accounting);
+            gui = new VATFieldsGUI(vatFields, accounting, null);
             vatGuis.put(vatFields,gui);
             Main.addFrame(gui);
         }
         return gui;
     }
 
-    public static VATFieldsGUI getInstance(java.util.List<VATTransaction> selectedVatTransactions, Accounting accounting) {
+    public static VATFieldsGUI getInstance(List<VATTransaction> selectedVatTransactions, Accounting accounting) {
         VATFieldsGUI gui;
         VATFields vatFields = new VATFields();
         vatFields.addDefaultFields();
@@ -87,7 +89,7 @@ public class VATFieldsGUI extends JFrame {
 //        );
         gui = vatGuis.get(vatFields);
         if(gui==null){
-            gui = new VATFieldsGUI(vatFields, accounting);
+            gui = new VATFieldsGUI(vatFields, accounting, selectedVatTransactions);
             vatGuis.put(vatFields,gui);
             Main.addFrame(gui);
         }
@@ -96,8 +98,9 @@ public class VATFieldsGUI extends JFrame {
 
     private VATFields vatFields;
 
-    private VATFieldsGUI(VATFields vatFields, Accounting accounting) {
+    private VATFieldsGUI(VATFields vatFields, Accounting accounting, List<VATTransaction> selectedVatTransactions) {
         super(accounting + " / " + getBundle("VAT").getString("VAT_FIELDS"));
+        this.selectedVatTransactions = selectedVatTransactions;
         this.accounting = accounting;
         this.vatFields = vatFields;
         JPanel left = createSalesPanel();
@@ -281,6 +284,9 @@ public class VATFieldsGUI extends JFrame {
             if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
                 VATWriter.writeVATFields(vatFields, selectedFile.getParentFile(), year.getText(), nr.getText(), companyContact, QUARTER);
+                VATTransactions vatTransactions = accounting.getVatTransactions();
+                vatTransactions.registerVATTransactions(selectedVatTransactions);
+                Main.fireVATFieldsUpdated();
             }
         });
         panel.add(button);

@@ -33,6 +33,7 @@ public class XMLConstants {
     public static final String PROJECTS = "Projects";
     public static final String PROJECT = "Project";
     public static final String AMOUNT = "amount";
+    public static final String REGISTERED = "registered";
     public static final String MOVEMENT = "Movement";
     public static final String JOURNAL_ABBR = "journalAbbr";
     public static final String JOURNAL_NAME = "journalName";

@@ -6,6 +6,7 @@ import be.dafke.Utils.MultiValueMap;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * Created by ddanneels on 25/12/2016.
@@ -68,10 +69,12 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         if(vatTransaction!=null) {
             Calendar date = vatTransaction.getDate();
             vatTransactions.addValue(date, vatTransaction);
-            for (VATBooking vatBooking : vatTransaction.getBusinessObjects()) {
-                VATField vatField = vatBooking.getVatField();
-                if (vatField != null) {
-                    vatField.addBusinessObject(vatBooking.getVatMovement());
+            if(!vatTransaction.isRegistered()) {
+                for (VATBooking vatBooking : vatTransaction.getBusinessObjects()) {
+                    VATField vatField = vatBooking.getVatField();
+                    if (vatField != null) {
+                        vatField.addBusinessObject(vatBooking.getVatMovement());
+                    }
                 }
             }
 //            Contact contact = vatTransaction.getContact();
@@ -84,6 +87,21 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
 
         }
         return vatTransaction;
+    }
+
+    public void registerVATTransactions(List<VATTransaction> vatTransactions){
+        if(vatTransactions!=null) {
+            vatTransactions.forEach(vatTransaction -> {
+                vatTransaction.markAsRegistered();
+                ArrayList<VATBooking> businessObjects = vatTransaction.getBusinessObjects();
+                for (VATBooking vatBooking : businessObjects){
+                    VATField vatField = vatBooking.getVatField();
+                    if (vatField != null) {
+                        vatField.markAsRegistered(vatBooking.getVatMovement());
+                    }
+                }
+            });
+        }
     }
 
     public Accounting getAccounting() {
