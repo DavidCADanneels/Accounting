@@ -13,6 +13,9 @@ import java.util.ArrayList;
 public class VATFields extends BusinessCollection<VATField> {
     private Accounting accounting;
 
+    public VATFields() {
+        super();
+    }
     public VATFields(Accounting accounting) {
         super();
         this.accounting = accounting;

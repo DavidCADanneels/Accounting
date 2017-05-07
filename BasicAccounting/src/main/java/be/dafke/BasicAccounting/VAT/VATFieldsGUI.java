@@ -4,8 +4,12 @@ import be.dafke.BasicAccounting.Contacts.ContactSelector;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contact;
+import be.dafke.BusinessModel.VATBooking;
 import be.dafke.BusinessModel.VATField;
 import be.dafke.BusinessModel.VATFields;
+import be.dafke.BusinessModel.VATMovement;
+import be.dafke.BusinessModel.VATTransaction;
+import be.dafke.BusinessModel.VATTransactions;
 import be.dafke.BusinessModelDao.VATWriter;
 
 import javax.swing.BoxLayout;
@@ -21,6 +25,7 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.Color;
 import java.io.File;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import static be.dafke.BusinessModelDao.VATWriter.Period.QUARTER;
@@ -57,11 +62,41 @@ public class VATFieldsGUI extends JFrame {
         }
         return gui;
     }
-    
+
+    public static VATFieldsGUI getInstance(java.util.List<VATTransaction> selectedVatTransactions) {
+        VATFieldsGUI gui;
+        VATFields vatFields = new VATFields();
+        vatFields.addDefaultFields();
+        VATTransactions vatTransactions = new VATTransactions(vatFields);
+        for(VATTransaction vatTransaction : selectedVatTransactions){
+//        selectedVatTransactions.forEach(vatTransaction -> {
+            VATTransaction newVatTransaction = new VATTransaction(vatTransaction.getDate());
+            ArrayList<VATBooking> vatBookings = vatTransaction.getBusinessObjects();
+            vatBookings.forEach(vatBooking -> {
+                VATField originalVatField = vatBooking.getVatField();
+                String name = originalVatField.getName();
+                VATField newVatField = vatFields.getBusinessObject(name);
+                VATMovement originalVatMovement = vatBooking.getVatMovement();
+                VATMovement newVatMovement = new VATMovement(originalVatMovement.getAmount());
+                VATBooking newBooking = new VATBooking(newVatField, newVatMovement);
+                newVatTransaction.addBusinessObject(newBooking);
+            });
+            vatTransactions.addBusinessObject(newVatTransaction);
+        }
+//        );
+        gui = vatGuis.get(vatFields);
+        if(gui==null){
+            gui = new VATFieldsGUI(vatFields);
+            vatGuis.put(vatFields,gui);
+            Main.addFrame(gui);
+        }
+        return gui;
+    }
+
     private VATFields vatFields;
 
     private VATFieldsGUI(VATFields vatFields) {
-        super(vatFields.getAccounting().getName() + " / " + getBundle("VAT").getString("VAT_FIELDS"));
+        super(getBundle("VAT").getString("VAT_FIELDS"));
         this.vatFields = vatFields;
         JPanel left = createSalesPanel();
         JPanel right = createPurchasePanel();

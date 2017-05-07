@@ -2,11 +2,15 @@ package be.dafke.BasicAccounting.VAT;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
+import be.dafke.BusinessModel.VATBooking;
 import be.dafke.BusinessModel.VATTransactions;
 import be.dafke.ComponentModel.SelectableTable;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
@@ -16,7 +20,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class VATTransactionsGUI extends JFrame {
     private static final HashMap<VATTransactions, VATTransactionsGUI> vatGuis = new HashMap<>();
-    private final SelectableTable tabel;
+    private final SelectableTable<VATBooking> tabel;
     private final VATTransactionsDataModel vatTransactionsDataModel;
     private final VATTransactionsPopupMenu popup;
 
@@ -42,7 +46,7 @@ public class VATTransactionsGUI extends JFrame {
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
         //tabel.setAutoCreateRowSorter(true);
         tabel.setRowSorter(null);
-        popup = new VATTransactionsPopupMenu();
+        popup = new VATTransactionsPopupMenu(tabel);
         tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));
         JScrollPane scrollPane = new JScrollPane(tabel);
         JPanel contentPanel = new JPanel(new BorderLayout());

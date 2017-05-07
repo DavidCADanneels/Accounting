@@ -58,6 +58,11 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         this.vatFields = accounting.getVatFields();
     }
 
+    public VATTransactions(VATFields vatFields) {
+        this.accounting = null;
+        this.vatFields = vatFields;
+    }
+
     @Override
     public VATTransaction addBusinessObject(VATTransaction vatTransaction){
         if(vatTransaction!=null) {
