@@ -52,24 +52,24 @@ public class Accounts extends BusinessCollection<Account> {
     }
 
     public ArrayList<Account> getAccountsByName(String prefix){
-        return getAccounts(Account.namePrefix(prefix));
+        return getBusinessObjects(Account.namePrefix(prefix));
     }
 
     public ArrayList<Account> getAccountsByNumber(String prefix){
-        return getAccounts(Account.numberPrefix(prefix));
+        return getBusinessObjects(Account.numberPrefix(prefix));
     }
 
     public ArrayList<Account> getAccountsByType(AccountType type) {
-        return getAccounts(Account.ofType(type));
+        return getBusinessObjects(Account.ofType(type));
 	}
 
-	public ArrayList<Account> getAccounts(Predicate<Account> filter){
+    public ArrayList<Account> getBusinessObjects(Predicate<Account> filter){
         return getBusinessObjects().stream()
                 .filter(filter)
                 .collect(Collectors.toCollection(ArrayList::new));
     }
 
-	public ArrayList<Account> getAccountsByType(List<AccountType> types) {
+    public ArrayList<Account> getAccountsByType(List<AccountType> types) {
 		ArrayList<Account> list = new ArrayList<>();
 		for(AccountType type : types) {
 			list.addAll(getAccountsByType(type));
