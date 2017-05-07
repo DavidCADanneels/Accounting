@@ -48,7 +48,7 @@ public class Account extends BusinessCollection<Movement> {
     }
 
     public static Predicate<Account> numberPrefix(String prefix){
-        return account -> account.getNumber()!=null&&account.getNumber().toString().startsWith(prefix);
+        return account -> account.getNumber()==null||account.getNumber().toString().startsWith(prefix);
     }
 
     public static Predicate<Account> ofType(AccountType accountType){
