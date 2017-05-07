@@ -1,16 +1,29 @@
 package be.dafke.BasicAccounting.VAT;
 
+import be.dafke.BasicAccounting.Contacts.ContactSelector;
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.VATField;
 import be.dafke.BusinessModel.VATFields;
+import be.dafke.BusinessModelDao.VATWriter;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import java.awt.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+import java.awt.Color;
+import java.io.File;
 import java.math.BigDecimal;
 import java.util.HashMap;
 
+import static be.dafke.BusinessModelDao.VATWriter.Period.QUARTER;
 import static java.util.ResourceBundle.getBundle;
 import static javax.swing.BoxLayout.Y_AXIS;
 
@@ -210,10 +223,30 @@ public class VATFieldsGUI extends JFrame {
         return panel;
     }
 
-    private JPanel createButtonPanel(){
+    private JPanel createButtonPanel() {
         JPanel panel = new JPanel();
+        JTextField year = new JTextField(6);
+        JTextField nr = new JTextField(4);
+        panel.add(new JLabel("Year:"));
+        panel.add(year);
+        panel.add(new JLabel("Month/Quarter:"));
+        panel.add(nr);
         JButton button = new JButton(CREATE_FILE);
-        button.addActionListener(e -> VATFieldsFileGUI.getInstance(vatFields).setVisible(true));
+        button.addActionListener(e -> {
+            Accounting accounting = vatFields.getAccounting();
+            Contact companyContact = accounting.getCompanyContact();
+            if (companyContact == null) {
+                ContactSelector contactSelector = ContactSelector.getContactSelector(accounting.getContacts());
+                contactSelector.setVisible(true);
+                companyContact = contactSelector.getSelection();
+            }
+            JFileChooser fileChooser = new JFileChooser();
+            fileChooser.setFileFilter(new FileNameExtensionFilter("XML files", "xml"));
+            if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
+                File selectedFile = fileChooser.getSelectedFile();
+                VATWriter.writeVATFields(vatFields, selectedFile.getParentFile(), year.getText(), nr.getText(), companyContact, QUARTER);
+            }
+        });
         panel.add(button);
         return panel;
     }
