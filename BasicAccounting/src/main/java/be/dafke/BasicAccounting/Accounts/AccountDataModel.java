@@ -1,17 +1,21 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessModel.Account;
-import be.dafke.ComponentModel.FilterableModel;
+import be.dafke.BusinessModel.AccountType;
+import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * @author David Danneels
  */
 
-public class AccountDataModel extends SelectableTableModel<Account> implements FilterableModel<Account> {
+public class AccountDataModel extends SelectableTableModel<Account> {
 	/**
 	 * 
 	 */
@@ -19,12 +23,14 @@ public class AccountDataModel extends SelectableTableModel<Account> implements F
 	String[] columnNames = {"Name","Saldo" };
 	Class[] columnClasses = { Account.class, BigDecimal.class };
 
-    private List<Account> accounts;
+    private Accounts accounts;
+    private List<AccountType> accountTypes;
+    private Predicate<Account> filter;
 
 // DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
-		Account account = accounts.get(row);
+		Account account = getFilteredAccounts().get(row);
 		if (col == 0) {
 			return account;
 		}
@@ -46,7 +52,7 @@ public class AccountDataModel extends SelectableTableModel<Account> implements F
         if(accounts == null){
             return 0;
         }
-		return accounts.size();
+		return getFilteredAccounts().size();
 	}
 
 	@Override
@@ -70,13 +76,30 @@ public class AccountDataModel extends SelectableTableModel<Account> implements F
 	public void setValueAt(Object value, int row, int col) {
 	}
 
-    public void setCollection(List<Account> accounts) {
-        this.accounts = accounts;
-    }
+	public void setAccounts(Accounts accounts) {
+		this.accounts = accounts;
+	}
+
+	private List<Account> getFilteredAccounts(){
+		if(filter==null){
+			return accounts.getAccountsByType(accountTypes).stream().collect(Collectors.toCollection(ArrayList::new));
+		}
+		return accounts.getAccountsByType(accountTypes).stream().filter(filter).collect(Collectors.toCollection(ArrayList::new));
+	}
+
+	public void setFilter(Predicate<Account> filter) {
+		this.filter = filter;
+		fireTableDataChanged();
+	}
+
+	public void setAccountTypes(List<AccountType> accountTypes) {
+		this.accountTypes = accountTypes;
+		fireTableDataChanged();
+	}
 
 	@Override
 	public Account getObject(int row, int col) {
-		return accounts.get(row);
+		return getFilteredAccounts().get(row);
 	}
 
 }
