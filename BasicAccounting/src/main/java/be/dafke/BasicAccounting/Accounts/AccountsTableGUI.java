@@ -76,6 +76,9 @@ public class AccountsTableGUI extends AccountsGUI {
     }
 
     public void setAccounting(Accounting accounting) {
+	    // FIXME: enable buttons if something is selected (Listener) or make sure always something is selected
+        // for info: the buttons can be used if nothing is selected, their listeners can deal with non-selections
+        accountsTableButtons.setActive(accounting!=null);
 	    accountDataTableModel.setFilter(null);
         setAccounts(accounting==null?null:accounting.getAccounts());
         setAccountTypes(accounting==null?null:accounting.getAccountTypes());
