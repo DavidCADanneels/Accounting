@@ -97,4 +97,9 @@ public class AccountFilterPanel extends JPanel {
     public void setAccountTypes(AccountTypes accountTypes) {
         types.setAccountTypes(accountTypes);
     }
+
+    public void clearSearchFields(){
+        nameField.setText("");
+        numberField.setText("");
+    }
 }

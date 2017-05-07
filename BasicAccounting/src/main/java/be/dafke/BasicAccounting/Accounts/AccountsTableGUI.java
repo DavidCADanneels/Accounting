@@ -117,6 +117,7 @@ public class AccountsTableGUI extends AccountsGUI {
     public void setAccounts(Accounts accounts) {
         super.setAccounts(accounts);
         accountDataTableModel.setAccounts(accounts);
+        filterPanel.clearSearchFields();
         fireAccountDataChanged();
     }
 

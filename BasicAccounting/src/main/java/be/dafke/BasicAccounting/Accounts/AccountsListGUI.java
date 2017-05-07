@@ -4,6 +4,7 @@ import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Contacts;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.BusinessModel.VATTransaction;
@@ -146,6 +147,12 @@ public class AccountsListGUI extends AccountsGUI {
     public void fireAccountDataChanged() {
         model.filter();
     }
+
+    public void setAccounts(Accounts accounts) {
+        super.setAccounts(accounts);
+        filterPanel.clearSearchFields();
+    }
+
 
     public void setAccountTypes(AccountTypes accountTypes) {
         super.setAccountTypes(accountTypes);
