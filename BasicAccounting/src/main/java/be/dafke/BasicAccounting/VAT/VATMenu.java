@@ -14,6 +14,7 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneels on 27/12/2015.
  */
 public class VATMenu extends JMenu {
+    private Accounting accounting;
     private JMenuItem vatFieldsMenuItem;
     private JMenuItem vatTransactionsMenuItem;
     private VATFields vatFields;
@@ -25,7 +26,7 @@ public class VATMenu extends JMenu {
         setMnemonic(KeyEvent.VK_P);
 
         vatFieldsMenuItem = new JMenuItem(getBundle("VAT").getString("VAT_FIELDS"));
-        vatFieldsMenuItem.addActionListener(e -> VATFieldsGUI.getInstance(vatFields).setVisible(true));
+        vatFieldsMenuItem.addActionListener(e -> VATFieldsGUI.getInstance(vatFields, accounting).setVisible(true));
         vatFieldsMenuItem.setEnabled(false);
 
         vatTransactionsMenuItem = new JMenuItem(getBundle("VAT").getString("VAT_TRANSACTIONS"));
@@ -37,6 +38,7 @@ public class VATMenu extends JMenu {
     }
 
     public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
         vatFieldsMenuItem.setEnabled(accounting!=null);
         vatTransactionsMenuItem.setEnabled(accounting!=null);
         if(accounting!=null){

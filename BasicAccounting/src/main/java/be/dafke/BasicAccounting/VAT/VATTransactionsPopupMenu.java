@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.VAT;
 
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.VATBooking;
 import be.dafke.BusinessModel.VATTransaction;
 import be.dafke.ComponentModel.SelectableTable;
@@ -14,8 +15,10 @@ import java.util.ArrayList;
 public class VATTransactionsPopupMenu extends JPopupMenu {
     private final JMenuItem book;
     private final SelectableTable<VATBooking> table;
+    private final Accounting accounting;
 
-    public VATTransactionsPopupMenu(SelectableTable<VATBooking> table) {
+    public VATTransactionsPopupMenu(SelectableTable<VATBooking> table, Accounting accounting) {
+        this.accounting = accounting;
         this.table = table;
         book = new JMenuItem("book");
 //        book = new JMenuItem(getBundle("Accounting").getString("DELETE"));
@@ -35,6 +38,6 @@ public class VATTransactionsPopupMenu extends JPopupMenu {
                 transactions.add(vatTransaction);
             }
         });
-        VATFieldsGUI.getInstance(transactions).setVisible(true);
+        VATFieldsGUI.getInstance(transactions, accounting).setVisible(true);
     }
 }

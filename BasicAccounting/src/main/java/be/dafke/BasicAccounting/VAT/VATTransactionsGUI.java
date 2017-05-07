@@ -46,7 +46,7 @@ public class VATTransactionsGUI extends JFrame {
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
         //tabel.setAutoCreateRowSorter(true);
         tabel.setRowSorter(null);
-        popup = new VATTransactionsPopupMenu(tabel);
+        popup = new VATTransactionsPopupMenu(tabel, vatTransactions.getAccounting());
         tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));
         JScrollPane scrollPane = new JScrollPane(tabel);
         JPanel contentPanel = new JPanel(new BorderLayout());

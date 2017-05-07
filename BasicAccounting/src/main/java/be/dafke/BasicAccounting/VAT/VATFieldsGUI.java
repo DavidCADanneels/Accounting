@@ -50,20 +50,21 @@ public class VATFieldsGUI extends JFrame {
     public static final String PURCHASE_OF_INVESTMENTS = "Purchase of investments";
     public static final String TAX_ON_PURCHASES_81_83 = "Tax on Purchases (81-83)";
     public static final String CN_ON_PURCHASES = "CN on Purchases";
+    private Accounting accounting;
     private HashMap<String,JTextField> textFields = new HashMap<>();
 
-    public static VATFieldsGUI getInstance(VATFields vatFields) {
+    public static VATFieldsGUI getInstance(VATFields vatFields, Accounting accounting) {
         VATFieldsGUI gui;
         gui = vatGuis.get(vatFields);
         if(gui==null){
-            gui = new VATFieldsGUI(vatFields);
+            gui = new VATFieldsGUI(vatFields, accounting);
             vatGuis.put(vatFields,gui);
             Main.addFrame(gui);
         }
         return gui;
     }
 
-    public static VATFieldsGUI getInstance(java.util.List<VATTransaction> selectedVatTransactions) {
+    public static VATFieldsGUI getInstance(java.util.List<VATTransaction> selectedVatTransactions, Accounting accounting) {
         VATFieldsGUI gui;
         VATFields vatFields = new VATFields();
         vatFields.addDefaultFields();
@@ -77,8 +78,8 @@ public class VATFieldsGUI extends JFrame {
                 String name = originalVatField.getName();
                 VATField newVatField = vatFields.getBusinessObject(name);
                 VATMovement originalVatMovement = vatBooking.getVatMovement();
-                VATMovement newVatMovement = new VATMovement(originalVatMovement.getAmount());
-                VATBooking newBooking = new VATBooking(newVatField, newVatMovement);
+//                VATMovement newVatMovement = new VATMovement(originalVatMovement.getAmount());
+                VATBooking newBooking = new VATBooking(newVatField, originalVatMovement);
                 newVatTransaction.addBusinessObject(newBooking);
             });
             vatTransactions.addBusinessObject(newVatTransaction);
@@ -86,7 +87,7 @@ public class VATFieldsGUI extends JFrame {
 //        );
         gui = vatGuis.get(vatFields);
         if(gui==null){
-            gui = new VATFieldsGUI(vatFields);
+            gui = new VATFieldsGUI(vatFields, accounting);
             vatGuis.put(vatFields,gui);
             Main.addFrame(gui);
         }
@@ -95,8 +96,9 @@ public class VATFieldsGUI extends JFrame {
 
     private VATFields vatFields;
 
-    private VATFieldsGUI(VATFields vatFields) {
-        super(getBundle("VAT").getString("VAT_FIELDS"));
+    private VATFieldsGUI(VATFields vatFields, Accounting accounting) {
+        super(accounting + " / " + getBundle("VAT").getString("VAT_FIELDS"));
+        this.accounting = accounting;
         this.vatFields = vatFields;
         JPanel left = createSalesPanel();
         JPanel right = createPurchasePanel();
@@ -268,7 +270,6 @@ public class VATFieldsGUI extends JFrame {
         panel.add(nr);
         JButton button = new JButton(CREATE_FILE);
         button.addActionListener(e -> {
-            Accounting accounting = vatFields.getAccounting();
             Contact companyContact = accounting.getCompanyContact();
             if (companyContact == null) {
                 ContactSelector contactSelector = ContactSelector.getContactSelector(accounting.getContacts());
