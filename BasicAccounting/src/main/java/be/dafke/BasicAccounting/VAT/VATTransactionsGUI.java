@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.VAT;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.VATTransactions;
 import be.dafke.ComponentModel.SelectableTable;
 
@@ -17,6 +18,7 @@ public class VATTransactionsGUI extends JFrame {
     private static final HashMap<VATTransactions, VATTransactionsGUI> vatGuis = new HashMap<>();
     private final SelectableTable tabel;
     private final VATTransactionsDataModel vatTransactionsDataModel;
+    private final VATTransactionsPopupMenu popup;
 
     public static VATTransactionsGUI getInstance(VATTransactions vatTransactions) {
         VATTransactionsGUI gui;
@@ -40,6 +42,8 @@ public class VATTransactionsGUI extends JFrame {
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
         //tabel.setAutoCreateRowSorter(true);
         tabel.setRowSorter(null);
+        popup = new VATTransactionsPopupMenu();
+        tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));
         JScrollPane scrollPane = new JScrollPane(tabel);
         JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.add(scrollPane, BorderLayout.CENTER);
