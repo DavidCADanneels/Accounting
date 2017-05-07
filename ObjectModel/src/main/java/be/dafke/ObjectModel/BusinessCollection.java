@@ -4,7 +4,14 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
-import java.util.*;
+import java.util.AbstractMap;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.TreeMap;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * User: Dafke
@@ -158,5 +165,9 @@ public class BusinessCollection <V extends BusinessObject> extends BusinessObjec
         String type = entry.getKey();
         String key = entry.getValue();
         dataTables.get(type).remove(key);
+    }
+
+    public List<V> getBusinessObjects(Predicate<V> predicate) {
+        return getBusinessObjects().stream().filter(predicate).collect(Collectors.toCollection(ArrayList::new));
     }
 }
