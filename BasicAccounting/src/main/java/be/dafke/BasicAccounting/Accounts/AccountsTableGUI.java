@@ -25,6 +25,7 @@ import static java.util.ResourceBundle.getBundle;
 public class AccountsTableGUI extends AccountsGUI {
     private final SelectableTable<Account> table;
     private final AccountDataModel accountDataModel;
+    private final AccountFilterPanel filterPanel;
 
     private AccountsTablePopupMenu popup;
     private JournalInputGUI journalInputGUI;
@@ -54,11 +55,14 @@ public class AccountsTableGUI extends AccountsGUI {
 
         accountsTableButtons = new AccountsTableButtons(this);
 
+        filterPanel = new AccountFilterPanel(accountDataModel);
+
         JScrollPane scrollPane1 = new JScrollPane(table);
         JPanel center = new JPanel();
 
         center.setLayout(new BoxLayout(center,BoxLayout.Y_AXIS));
         center.add(scrollPane1);
+        add(filterPanel, BorderLayout.NORTH);
         add(center, BorderLayout.CENTER);
         add(accountsTableButtons,BorderLayout.SOUTH);
 	}
@@ -72,7 +76,9 @@ public class AccountsTableGUI extends AccountsGUI {
     }
 
     public void setAccounting(Accounting accounting) {
-        accountDataModel.setCollection(accounting==null?null:accounting.getAccounts().getBusinessObjects());
+        accountDataModel.setAccounts(accounting==null?null:accounting.getAccounts());
+        filterPanel.setAccountTypes(accounting==null?null:accounting.getAccountTypes());
+
         setJournals(accounting==null?null:accounting.getJournals());
         setAccounts(accounting==null?null:accounting.getAccounts());
         setAccountTypes(accounting==null?null:accounting.getAccountTypes());
@@ -110,7 +116,7 @@ public class AccountsTableGUI extends AccountsGUI {
 
     public void setAccounts(Accounts accounts) {
         super.setAccounts(accounts);
-        accountDataModel.setCollection(accounts.getBusinessObjects());
+        accountDataModel.setAccounts(accounts);
         fireAccountDataChanged();
     }
 

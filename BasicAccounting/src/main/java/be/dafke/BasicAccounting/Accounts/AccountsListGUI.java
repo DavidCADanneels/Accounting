@@ -99,7 +99,7 @@ public class AccountsListGUI extends AccountsGUI {
         add(zoeker, BorderLayout.CENTER);
 
         filter = new JPanel();
-        filter.setLayout(new GridLayout(0, 2));
+        filter.setLayout(new GridLayout(0, 3));
         boxes = new HashMap<>();
 
         add(filter, BorderLayout.NORTH);
@@ -165,7 +165,7 @@ public class AccountsListGUI extends AccountsGUI {
             }
         }
         if (accounts != null) {
-            ArrayList<Account> map = accounts.getAccounts(types);
+            ArrayList<Account> map = accounts.getAccountsByType(types);
             zoeker.resetMap(map);
         }
     }
