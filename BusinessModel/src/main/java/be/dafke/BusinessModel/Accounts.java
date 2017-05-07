@@ -70,6 +70,7 @@ public class Accounts extends BusinessCollection<Account> {
     }
 
     public ArrayList<Account> getAccountsByType(List<AccountType> types) {
+        if(types==null) return getBusinessObjects();
 		ArrayList<Account> list = new ArrayList<>();
 		for(AccountType type : types) {
 			list.addAll(getAccountsByType(type));
