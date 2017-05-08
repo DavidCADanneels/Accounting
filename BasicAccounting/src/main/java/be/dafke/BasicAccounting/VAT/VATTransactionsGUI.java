@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.VAT;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.VATBooking;
+import be.dafke.BusinessModel.VATField;
 import be.dafke.BusinessModel.VATTransactions;
 import be.dafke.ComponentModel.SelectableTable;
 
@@ -11,6 +12,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
@@ -44,6 +46,10 @@ public class VATTransactionsGUI extends JFrame {
 
         tabel = new SelectableTable<>(vatTransactionsDataModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
+        VATColorRenderer renderer = new VATColorRenderer();
+        tabel.setDefaultRenderer(VATField.class, renderer);
+        tabel.setDefaultRenderer(BigDecimal.class, renderer);
+        tabel.setDefaultRenderer(String.class, renderer);
         //tabel.setAutoCreateRowSorter(true);
         tabel.setRowSorter(null);
         popup = new VATTransactionsPopupMenu(tabel, vatTransactions.getAccounting());
