@@ -11,6 +11,7 @@ import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.Journals.JournalGUI;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.Journals.JournalsGUI;
+import be.dafke.BasicAccounting.Journals.JournalsMenu;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
@@ -54,6 +55,7 @@ public class Main {
     private static AccountingGUIFrame frame;
 
     private static AccountsMenu accountsMenu;
+    private static JournalsMenu journalsMenu;
     private static BalancesMenu balancesMenu;
     private static MorgagesMenu morgagesMenu;
     private static ContactsMenu contactsMenu;
@@ -130,6 +132,7 @@ public class Main {
 
         accountingMenu = new AccountingMenu(accountings);
         accountsMenu = new AccountsMenu(journalInputGUI);
+        journalsMenu = new JournalsMenu(journalInputGUI);
         balancesMenu = new BalancesMenu(journalInputGUI);
         contactsMenu = new ContactsMenu();
         morgagesMenu = new MorgagesMenu();
@@ -139,6 +142,7 @@ public class Main {
 
         menuBar.add(accountingMenu);
         menuBar.add(accountsMenu);
+        menuBar.add(journalsMenu);
         menuBar.add(balancesMenu);
         menuBar.add(contactsMenu);
         menuBar.add(morgagesMenu);
@@ -194,6 +198,7 @@ public class Main {
         codaMenu.setAccounting(accounting);
         contactsMenu.setAccounting(accounting);
         accountsMenu.setAccounting(accounting);
+        journalsMenu.setAccounting(accounting);
         balancesMenu.setAccounting(accounting);
         accountingMenu.setAccounting(accounting);
         vatMenu.setAccounting(accounting);
