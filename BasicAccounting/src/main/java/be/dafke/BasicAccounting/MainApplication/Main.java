@@ -46,8 +46,8 @@ public class Main {
     private static JournalGUI journalReadGUI;
     private static JournalInputGUI journalInputGUI;
     private static JournalsGUI journalsGUI;
-    private static AccountInputPanel accountInputPanel;
-    private static AccountsTableGUI accountsTableGUI;
+    private static AccountsGUI accountGuiLeft;
+    private static AccountsGUI accountGuiRight;
     private static MortgagesGUI mortgagesGUI;
     private static AccountingMenuBar menuBar;
     private static AccountingGUIFrame frame;
@@ -79,8 +79,8 @@ public class Main {
         journalInputGUI = new JournalInputGUI();
         journalReadGUI = new JournalGUI(journalInputGUI);
         journalsGUI = new JournalsGUI(journalReadGUI,journalInputGUI);
-        accountInputPanel = new AccountInputPanel(journalInputGUI);
-        accountsTableGUI = new AccountsTableGUI(journalInputGUI);
+        accountGuiLeft = new AccountsTableGUI(journalInputGUI);
+        accountGuiRight = new AccountsTableGUI(journalInputGUI);
         mortgagesGUI = new MortgagesGUI(journalInputGUI);
     }
 
@@ -98,14 +98,14 @@ public class Main {
     public static JPanel createContentPanel(){
         JPanel links = new JPanel();
         links.setLayout(new BorderLayout());
-        links.add(accountInputPanel, BorderLayout.CENTER);
+        links.add(accountGuiLeft, BorderLayout.CENTER);
         links.add(mortgagesGUI, BorderLayout.SOUTH);
         links.add(journalsGUI, BorderLayout.NORTH);
 
         JPanel accountingMultiPanel = new JPanel();
         accountingMultiPanel.setLayout(new BorderLayout());
         JSplitPane splitPane = createSplitPane(journalReadGUI, journalInputGUI, VERTICAL_SPLIT);
-        JSplitPane mainSplitPane = createSplitPane(splitPane, accountsTableGUI, HORIZONTAL_SPLIT);
+        JSplitPane mainSplitPane = createSplitPane(splitPane, accountGuiRight, HORIZONTAL_SPLIT);
 
         accountingMultiPanel.add(mainSplitPane, BorderLayout.CENTER);
         accountingMultiPanel.add(links, BorderLayout.WEST);
@@ -180,8 +180,8 @@ public class Main {
 
         frame.setAccounting(accounting);
 
-        accountInputPanel.setAccounting(accounting);
-        accountsTableGUI.setAccounting(accounting);
+        accountGuiLeft.setAccounting(accounting);
+        accountGuiRight.setAccounting(accounting);
         journalsGUI.setAccounting(accounting);
         journalInputGUI.setAccounting(accounting);
         journalReadGUI.setJournals(accounting==null?null:accounting.getJournals());
@@ -233,7 +233,7 @@ public class Main {
 //            mortgagesGUI.setVisible(journal.isMortgagesJournal());
 
             JournalType journalType = journal.getType();
-            accountInputPanel.setJournalType(journalType);
+            setTypes(journalType, accounting.getAccountTypes());
         } else {
         }
     }
@@ -249,8 +249,8 @@ public class Main {
         AccountSelector.fireAccountDataChangedForAll();
         // fireAccountDataChanged in AccountsListGUI is only needed if accounts have been added
         // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
-        accountInputPanel.fireAccountDataChanged();
-        accountsTableGUI.fireAccountDataChanged();
+        accountGuiLeft.fireAccountDataChanged();
+        accountGuiRight.fireAccountDataChanged();
 
         AccountManagementGUI.fireAccountDataChangedForAll();
         // refresh all balances if an account is update, filtering on accounting/accounts/accountType could be applied
@@ -284,5 +284,32 @@ public class Main {
 
     public static void addFrame(JFrame frame) {
         disposableComponents.add(frame);
+    }
+
+    public static void setTypes(JournalType journalType, AccountTypes accountTypes) {
+        if(journalType==null) {
+            accountGuiLeft.setAccountTypes(accountTypes);
+            accountGuiRight.setAccountTypes(accountTypes);
+            accountGuiLeft.setVatType(null);
+            accountGuiRight.setVatType(null);
+//            setVatType(VATTransaction.VATType.NONE);
+        } else {
+            accountGuiLeft.setAccountTypes(journalType.getDebetTypes());
+            accountGuiRight.setAccountTypes(journalType.getCreditTypes());
+            VATTransaction.VATType vatType = journalType.getVatType();
+            if (vatType == VATTransaction.VATType.SALE) {
+                accountGuiLeft.setVatType(VATTransaction.VATType.CUSTOMER);
+                accountGuiRight.setVatType(VATTransaction.VATType.SALE);
+//                setVatType(VATTransaction.VATType.SALE); // 2 -> BTW
+            } else if (vatType == VATTransaction.VATType.PURCHASE) {
+                accountGuiLeft.setVatType(VATTransaction.VATType.PURCHASE);
+                accountGuiRight.setVatType(null);
+//                setVatType(VATTransaction.VATType.PURCHASE); // 1 -> BTW
+            } else {
+//                setVatType(VATTransaction.VATType.NONE);
+                accountGuiLeft.setVatType(null);
+                accountGuiRight.setVatType(null);
+            }
+        }
     }
 }
