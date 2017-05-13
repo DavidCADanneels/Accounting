@@ -24,9 +24,9 @@ public class VATColorRenderer extends DefaultTableCellRenderer {
         VATBooking vatBooking = ((VATTransactionsDataModel) table.getModel()).getObject(row, column);
         VATTransaction vatTransaction = vatBooking.getVatTransaction();
         if(vatTransaction.isRegistered()){
-            cell.setBackground(Color.GREEN);
+            cell.setForeground(Color.BLACK);
         } else {
-            cell.setBackground(Color.RED);
+            cell.setForeground(Color.RED);
         }
         return cell;
     }
