@@ -69,10 +69,10 @@ public class AccountsTableGUI extends AccountsGUI {
 	}
 
 	public void showDetails(){
+        popup.setVisible(false);
         for(Account account : table.getSelectedObjects()){
             AccountDetails.getAccountDetails(account, journals, journalInputGUI);
         }
-        popup.setVisible(false);
     }
 
     public void setAccounting(Accounting accounting) {
@@ -103,10 +103,10 @@ public class AccountsTableGUI extends AccountsGUI {
     }
 
     public void book(boolean debit) {
+        popup.setVisible(false);
         for(Account account : table.getSelectedObjects()){
             AccountActions.book(journalInputGUI, account, debit, vatType, vatTransactions, accounts, accountTypes, contacts);
         }
-        popup.setVisible(false);
     }
 
     public void setJournals(Journals journals) {
