@@ -49,7 +49,8 @@ public class Main {
     private static AccountsGUI accountGuiLeft;
     private static AccountsGUI accountGuiRight;
     private static MortgagesGUI mortgagesGUI;
-    private static AccountingMenuBar menuBar;
+    private static JMenuBar menuBar;
+    private static AccountingMenu accountingMenu;
     private static AccountingGUIFrame frame;
 
     private static AccountsMenu accountsMenu;
@@ -125,8 +126,9 @@ public class Main {
     }
 
     private static void createMenu() {
-        menuBar = new AccountingMenuBar(accountings);
+        menuBar = new JMenuBar();
 
+        accountingMenu = new AccountingMenu(accountings);
         accountsMenu = new AccountsMenu(journalInputGUI);
         balancesMenu = new BalancesMenu(journalInputGUI);
         contactsMenu = new ContactsMenu();
@@ -135,6 +137,7 @@ public class Main {
         codaMenu = new CodaMenu();
         vatMenu = new VATMenu();
 
+        menuBar.add(accountingMenu);
         menuBar.add(accountsMenu);
         menuBar.add(balancesMenu);
         menuBar.add(contactsMenu);
@@ -192,7 +195,7 @@ public class Main {
         contactsMenu.setAccounting(accounting);
         accountsMenu.setAccounting(accounting);
         balancesMenu.setAccounting(accounting);
-        menuBar.setAccounting(accounting);
+        accountingMenu.setAccounting(accounting);
         vatMenu.setAccounting(accounting);
 
         if(accounting!=null) {
