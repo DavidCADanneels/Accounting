@@ -160,7 +160,6 @@ public class Main {
         accountings = new Accountings();
 
         XMLReader.readAccountings(accountings, xmlFolder);
-//        Accounting accounting = accountings.getCurrentObject();
         for(Accounting accounting:accountings.getBusinessObjects()) {
             XMLReader.readAccounting(accounting, xmlFolder);
         }
@@ -225,7 +224,7 @@ public class Main {
     }
 
     public static void setJournal(Journal journal) {
-        Accounting accounting = accountings.getCurrentObject();
+        Accounting accounting = journal.getAccounting();
         accounting.getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter
         journalsGUI.setJournal(journal);
         if(journal!=null && journal.getType()!=null) {
