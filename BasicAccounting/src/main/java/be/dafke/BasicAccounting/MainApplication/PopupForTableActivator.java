@@ -43,6 +43,8 @@ public class PopupForTableActivator extends MouseAdapter {
             if(!selectedRows.contains(row)){
                 tabel.setRowSelectionInterval(row,row);
             }
+            int col = tabel.columnAtPoint(cell);
+            tabel.setColumnSelectionInterval(col,col);
             popup.setLocation(me.getLocationOnScreen());
             popup.setVisible(true);
         }
