@@ -235,6 +235,7 @@ public class Main {
         Accounting accounting = journal.getAccounting();
         accounting.getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter
         journalsGUI.setJournal(journal);
+        frame.setJournal(journal);
         if(journal!=null && journal.getType()!=null) {
 
 //            mortgagesGUI.setVisible(journal.isMortgagesJournal());

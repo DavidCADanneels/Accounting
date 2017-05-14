@@ -11,13 +11,14 @@ import javax.swing.JMenuItem;
 import java.awt.event.KeyEvent;
 
 import static be.dafke.BasicAccounting.Journals.JournalManagementGUI.showJournalManager;
+import static be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI.showJournalTypeManager;
 import static java.util.ResourceBundle.getBundle;
 
 /**
  * Created by ddanneels on 27/12/2015.
  */
 public class JournalsMenu extends JMenu {
-    private static JMenuItem add, manage;
+    private static JMenuItem add, manage, types;
 
     private Journals journals;
     private JournalTypes journalTypes;
@@ -26,6 +27,7 @@ public class JournalsMenu extends JMenu {
 
     public JournalsMenu(JournalInputGUI journalInputGUI) {
         super(getBundle("Accounting").getString("JOURNALS"));
+        this.journalInputGUI = journalInputGUI;
         setMnemonic(KeyEvent.VK_P);
         add = new JMenuItem(getBundle("Accounting").getString("ADD_JOURNAL"));
         add.addActionListener(e -> NewJournalGUI.getInstance(journals, journalTypes, accountTypes).setVisible(true));
@@ -35,8 +37,13 @@ public class JournalsMenu extends JMenu {
         manage.addActionListener(e -> showJournalManager(journals, journalTypes, accountTypes).setVisible(true));
         manage.setEnabled(false);
 
+        types = new JMenuItem(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
+        types.addActionListener(e -> showJournalTypeManager(journalTypes,accountTypes));
+        types.setEnabled(false);
+
         add(add);
         add(manage);
+        add(types);
     }
 
     public void setAccounting(Accounting accounting) {
@@ -45,10 +52,20 @@ public class JournalsMenu extends JMenu {
         accountTypes = accounting==null?null:accounting.getAccountTypes();
         add.setEnabled(journals!=null);
         manage.setEnabled(journals!=null);
+        types.setEnabled(journals!=null);
+        reload();
     }
 
-    public void setJournals(Journals journals){
+    public void setJournals(Journals journals) {
         this.journals = journals;
+        reload();
+    }
+
+    private void reload(){
+        removeAll();
+        add(add);
+        add(manage);
+        add(types);
         if(journals!=null){
             addSeparator();
             journals.getBusinessObjects().stream()
