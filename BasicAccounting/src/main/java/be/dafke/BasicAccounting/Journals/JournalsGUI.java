@@ -25,13 +25,15 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	private final JButton journalManagement, details;
 	private Journals journals;
 	private JournalTypes journalTypes;
+	private Accounts accounts;
 	private AccountTypes accountTypes;
 	private JournalInputGUI journalInputGUI;
 	private JournalGUI journalGUI;
 
-	public JournalsGUI(JournalGUI journalGUI, JournalInputGUI journalInputGUI) {
+	public JournalsGUI(Accounts accounts, JournalGUI journalGUI, JournalInputGUI journalInputGUI) {
 		this.journalInputGUI=journalInputGUI;
 		this.journalGUI = journalGUI;
+		this.accounts = accounts;
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -45,7 +47,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
 		journalManagement = new JButton(getBundle("Accounting").getString("MANAGE_JOURNALS"));
 		journalManagement.addActionListener(e -> {
 			if(journals!=null) {
-				showJournalManager(journals, journalTypes, accountTypes).setVisible(true);
+				showJournalManager(accounts, journals, journalTypes, accountTypes).setVisible(true);
 			}
 		});
 		journalManagement.setEnabled(false);

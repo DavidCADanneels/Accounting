@@ -21,7 +21,6 @@ public class AccountSelectorPanel extends JPanel {
 
 
     public AccountSelectorPanel(Accounts accounts, AccountTypes accountTypes) {
-        this.accounts = accounts;
         model = new DefaultComboBoxModel<>();
         combo = new JComboBox<>(model);
         combo.addActionListener(e -> account = (Account) combo.getSelectedItem());
@@ -29,6 +28,7 @@ public class AccountSelectorPanel extends JPanel {
         create.addActionListener(e -> new NewAccountGUI(accounts, accountTypes).setVisible(true));
         add(combo);
         add(create);
+        setAccounts(accounts);
     }
 
     public Account getSelection() {

@@ -24,22 +24,22 @@ public class NewJournalGUI extends JFrame {
     private JButton add, newType;
     private Journals journals;
 
-    private NewJournalGUI(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
+    private NewJournalGUI(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"));
         this.journals = journals;
-        setContentPane(createContentPanel(journalTypes, accountTypes));
+        setContentPane(createContentPanel(accounts, journalTypes, accountTypes));
         pack();
     }
 
-    public static NewJournalGUI getInstance(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
+    public static NewJournalGUI getInstance(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         if(newJournalGUI == null) {
-            newJournalGUI = new NewJournalGUI(journals, journalTypes, accountTypes);
+            newJournalGUI = new NewJournalGUI(accounts, journals, journalTypes, accountTypes);
             Main.addFrame(newJournalGUI);
         }
         return newJournalGUI;
     }
 
-    private JPanel createContentPanel(JournalTypes journalTypes, AccountTypes accountTypes){
+    private JPanel createContentPanel(Accounts accounts, JournalTypes journalTypes, AccountTypes accountTypes){
         JPanel panel = new JPanel(new GridLayout(0,2));
         panel.add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")));
         name = new JTextField(20);
@@ -59,7 +59,7 @@ public class NewJournalGUI extends JFrame {
         add.addActionListener(e -> addJournal());
         panel.add(add);
         newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
-        newType.addActionListener(e -> showJournalTypeManager(journalTypes,accountTypes));
+        newType.addActionListener(e -> showJournalTypeManager(accounts, journalTypes,accountTypes));
         panel.add(newType);
         return panel;
     }
