@@ -37,6 +37,7 @@ public class BalanceGUI extends JFrame {
 
 		popup = new BalancePopupMenu(journals, tabel, journalInputGUI);
 		tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));
+		tabel.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 	}
 
 	public static BalanceGUI getBalance(Journals journals, Balance balance, JournalInputGUI journalInputGUI) {
