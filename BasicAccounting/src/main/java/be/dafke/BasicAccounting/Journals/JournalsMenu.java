@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.JournalTypes;
@@ -21,6 +22,7 @@ public class JournalsMenu extends JMenu {
     private Journals journals;
     private JournalTypes journalTypes;
     private AccountTypes accountTypes;
+    private JournalInputGUI journalInputGUI;
 
     public JournalsMenu(JournalInputGUI journalInputGUI) {
         super(getBundle("Accounting").getString("JOURNALS"));
@@ -38,10 +40,30 @@ public class JournalsMenu extends JMenu {
     }
 
     public void setAccounting(Accounting accounting) {
-        journals = accounting==null?null:accounting.getJournals();
+        setJournals(accounting==null?null:accounting.getJournals());
         journalTypes = accounting==null?null:accounting.getJournalTypes();
         accountTypes = accounting==null?null:accounting.getAccountTypes();
         add.setEnabled(journals!=null);
         manage.setEnabled(journals!=null);
+    }
+
+    public void setJournals(Journals journals){
+        this.journals = journals;
+        if(journals!=null){
+            addSeparator();
+            journals.getBusinessObjects().stream()
+                    .forEach(journal -> {
+                        JMenuItem details = new JMenuItem(journal.getName()+ " (details)");
+                        details.addActionListener(e -> JournalDetails.getJournalDetails(journal,journals,journalInputGUI));
+                        add(details);
+                    });
+            addSeparator();
+            journals.getBusinessObjects().stream()
+                    .forEach(journal -> {
+                        JMenuItem input = new JMenuItem(journal.getName()+ " (input)");
+                        input.addActionListener(e -> Main.setJournal(journal));
+                        add(input);
+                    });
+        }
     }
 }
