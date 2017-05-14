@@ -79,13 +79,15 @@ public class AccountManagementTableModel extends SelectableTableModel<Account> {
 	@Override
 	public void setValueAt(Object value, int row, int col) {
 		Account account = getObject(row, col);
-		if(col==1){
-			account.setNumber((BigInteger)value);
-		} else if(col==4){
-			if(value==null || BigDecimal.ZERO.compareTo((BigDecimal)value)==0){
-				account.setDefaultAmount(null);
-			} else {
-				account.setDefaultAmount(((BigDecimal) value).setScale(2));
+		if(account!=null){
+			if(col==1){
+				account.setNumber((BigInteger)value);
+			} else if(col==4) {
+				if (value == null || BigDecimal.ZERO.compareTo((BigDecimal) value) == 0) {
+					account.setDefaultAmount(null);
+				} else {
+					account.setDefaultAmount(((BigDecimal) value).setScale(2));
+				}
 			}
 		}
 	}

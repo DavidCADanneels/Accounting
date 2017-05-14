@@ -31,6 +31,7 @@ public class TestBalanceDataModel extends SelectableTableModel<Account> {
 	// ===============
 	public Object getValueAt(int row, int col) {
 		Account account = getObject(row, col);
+		if(account==null) return null;
 		if (col == 0) return account;
 		else if (col == 1) return account.getDebetTotal();
 		else if (col == 2) return account.getCreditTotal();

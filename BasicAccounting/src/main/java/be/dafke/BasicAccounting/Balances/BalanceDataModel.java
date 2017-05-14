@@ -145,10 +145,16 @@ public class BalanceDataModel extends SelectableTableModel<Account> {
 
 	@Override
 	public Account getObject(int row, int col) {
+		int size = getRowCount();
+		if (row == size - 2 || row == size - 1) return null;
+		Object valueAt;
 		if(col == 0 || col == 1) {
-			return (Account)getValueAt(row, 0);
+			valueAt = getValueAt(row, 0);
 		}else {
-			return (Account)getValueAt(row, 3);
+			valueAt = getValueAt(row, 3);
 		}
+		if(valueAt!=null && !"".equals(valueAt))
+			return (Account) valueAt;
+		else return null;
 	}
 }

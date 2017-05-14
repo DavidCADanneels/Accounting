@@ -20,7 +20,8 @@ public class SelectableTable<BusinessObject> extends JTable{
         ArrayList<BusinessObject> businessObjectArrayList = new ArrayList<>();
         for(int row : rows) {
             BusinessObject businessObject = model.getObject(row, col);
-            businessObjectArrayList.add(businessObject);
+            if(businessObject!=null)
+                businessObjectArrayList.add(businessObject);
         }
         return businessObjectArrayList;
     }

@@ -108,18 +108,19 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 	@Override
 	public void setValueAt(Object value, int row, int col) {
         Booking booking = getObject(row,col);
-        Transaction transaction = booking.getTransaction();
-		if (col == 1) {
-			Calendar date = transaction.getDate();
-			Calendar newDate = Utils.toCalendar((String) value);
-			if (journal != null && newDate != null){
-				journal.changeDate(transaction,newDate);
-            }
-			else setValueAt(Utils.toString(date), row, col);
-		} else if (col == 5) {
-			transaction.setDescription((String) value);
+		if(booking!=null) {
+			Transaction transaction = booking.getTransaction();
+			if (col == 1) {
+				Calendar date = transaction.getDate();
+				Calendar newDate = Utils.toCalendar((String) value);
+				if (journal != null && newDate != null) {
+					journal.changeDate(transaction, newDate);
+				} else setValueAt(Utils.toString(date), row, col);
+			} else if (col == 5) {
+				transaction.setDescription((String) value);
+			}
+			fireTableDataChanged();
 		}
-		fireTableDataChanged();
 	}
 
 	@Override

@@ -22,11 +22,13 @@ public class VATColorRenderer extends DefaultTableCellRenderer {
                                                    int row, int column) {
         Component cell = super.getTableCellRendererComponent(table, value, isSelected, hasFocus, row, column);
         VATBooking vatBooking = ((VATTransactionsDataModel) table.getModel()).getObject(row, column);
-        VATTransaction vatTransaction = vatBooking.getVatTransaction();
-        if(vatTransaction.isRegistered()){
-            cell.setForeground(Color.BLACK);
-        } else {
-            cell.setForeground(Color.RED);
+        if(vatBooking!=null) {
+            VATTransaction vatTransaction = vatBooking.getVatTransaction();
+            if (vatTransaction.isRegistered()) {
+                cell.setForeground(Color.BLACK);
+            } else {
+                cell.setForeground(Color.RED);
+            }
         }
         return cell;
     }
