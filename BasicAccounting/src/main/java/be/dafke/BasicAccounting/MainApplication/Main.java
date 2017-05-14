@@ -1,6 +1,11 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.BasicAccounting.Accounts.*;
+import be.dafke.BasicAccounting.Accounts.AccountDetails;
+import be.dafke.BasicAccounting.Accounts.AccountManagementGUI;
+import be.dafke.BasicAccounting.Accounts.AccountSelector;
+import be.dafke.BasicAccounting.Accounts.AccountsGUI;
+import be.dafke.BasicAccounting.Accounts.AccountsMenu;
+import be.dafke.BasicAccounting.Accounts.AccountsTableGUI;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
 import be.dafke.BasicAccounting.Balances.BalancesMenu;
 import be.dafke.BasicAccounting.Balances.TestBalance;
@@ -10,7 +15,6 @@ import be.dafke.BasicAccounting.Contacts.ContactsMenu;
 import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.Journals.JournalGUI;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BasicAccounting.Journals.JournalsGUI;
 import be.dafke.BasicAccounting.Journals.JournalsMenu;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
@@ -18,19 +22,37 @@ import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BasicAccounting.VAT.VATFieldsGUI;
 import be.dafke.BasicAccounting.VAT.VATMenu;
 import be.dafke.BasicAccounting.VAT.VATTransactionsGUI;
-import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accountings;
+import be.dafke.BusinessModel.Contact;
+import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.JournalType;
+import be.dafke.BusinessModel.VATTransaction;
 import be.dafke.BusinessModelDao.XMLReader;
 import be.dafke.BusinessModelDao.XMLWriter;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JComponent;
+import javax.swing.JFrame;
+import javax.swing.JMenuBar;
+import javax.swing.JPanel;
+import javax.swing.JSplitPane;
+import javax.swing.WindowConstants;
+import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 
 import static be.dafke.BasicAccounting.Journals.JournalManagementGUI.fireJournalDataChangedForAll;
-import static javax.swing.JSplitPane.*;
+import static javax.swing.JSplitPane.BOTTOM;
+import static javax.swing.JSplitPane.HORIZONTAL_SPLIT;
+import static javax.swing.JSplitPane.LEFT;
+import static javax.swing.JSplitPane.RIGHT;
+import static javax.swing.JSplitPane.TOP;
+import static javax.swing.JSplitPane.VERTICAL_SPLIT;
 
 /**
  * User: david
@@ -46,7 +68,6 @@ public class Main {
     private static File htmlFolder;
     private static JournalGUI journalReadGUI;
     private static JournalInputGUI journalInputGUI;
-    private static JournalsGUI journalsGUI;
     private static AccountsGUI accountGuiLeft;
     private static AccountsGUI accountGuiRight;
     private static MortgagesGUI mortgagesGUI;
@@ -81,7 +102,6 @@ public class Main {
     private static void createComponents() {
         journalInputGUI = new JournalInputGUI();
         journalReadGUI = new JournalGUI(journalInputGUI);
-        journalsGUI = new JournalsGUI(journalReadGUI,journalInputGUI);
         accountGuiLeft = new AccountsTableGUI(journalInputGUI);
         accountGuiRight = new AccountsTableGUI(journalInputGUI);
         mortgagesGUI = new MortgagesGUI(journalInputGUI);
@@ -103,7 +123,6 @@ public class Main {
         links.setLayout(new BorderLayout());
         links.add(accountGuiLeft, BorderLayout.CENTER);
         links.add(mortgagesGUI, BorderLayout.SOUTH);
-        links.add(journalsGUI, BorderLayout.NORTH);
 
         JPanel accountingMultiPanel = new JPanel();
         accountingMultiPanel.setLayout(new BorderLayout());
@@ -188,7 +207,6 @@ public class Main {
 
         accountGuiLeft.setAccounting(accounting);
         accountGuiRight.setAccounting(accounting);
-        journalsGUI.setAccounting(accounting);
         journalInputGUI.setAccounting(accounting);
         journalReadGUI.setJournals(accounting==null?null:accounting.getJournals());
         mortgagesGUI.setMortgages(accounting==null?null:accounting.getMortgages());
@@ -227,14 +245,14 @@ public class Main {
     }
 
     public static void addJournal(Journal journal){
-        journalsGUI.addJournal(journal);
         fireJournalDataChangedForAll();
     }
 
     public static void setJournal(Journal journal) {
         Accounting accounting = journal.getAccounting();
         accounting.getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter
-        journalsGUI.setJournal(journal);
+        journalReadGUI.setJournal(journal);
+        journalInputGUI.setJournal(journal);
         frame.setJournal(journal);
         if(journal!=null && journal.getType()!=null) {
 
