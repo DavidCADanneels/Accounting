@@ -48,7 +48,6 @@ import java.util.ArrayList;
 
 import static be.dafke.BasicAccounting.Journals.JournalManagementGUI.fireJournalDataChangedForAll;
 import static javax.swing.JSplitPane.BOTTOM;
-import static javax.swing.JSplitPane.HORIZONTAL_SPLIT;
 import static javax.swing.JSplitPane.LEFT;
 import static javax.swing.JSplitPane.RIGHT;
 import static javax.swing.JSplitPane.TOP;
@@ -127,9 +126,9 @@ public class Main {
         JPanel accountingMultiPanel = new JPanel();
         accountingMultiPanel.setLayout(new BorderLayout());
         JSplitPane splitPane = createSplitPane(journalReadGUI, journalInputGUI, VERTICAL_SPLIT);
-        JSplitPane mainSplitPane = createSplitPane(splitPane, accountGuiRight, HORIZONTAL_SPLIT);
 
-        accountingMultiPanel.add(mainSplitPane, BorderLayout.CENTER);
+        accountingMultiPanel.add(accountGuiRight, BorderLayout.EAST);
+        accountingMultiPanel.add(splitPane, BorderLayout.CENTER);
         accountingMultiPanel.add(links, BorderLayout.WEST);
         return accountingMultiPanel;
     }
@@ -160,8 +159,8 @@ public class Main {
         vatMenu = new VATMenu();
 
         menuBar.add(accountingMenu);
-        menuBar.add(accountsMenu);
         menuBar.add(journalsMenu);
+        menuBar.add(accountsMenu);
         menuBar.add(balancesMenu);
         menuBar.add(contactsMenu);
         menuBar.add(morgagesMenu);
