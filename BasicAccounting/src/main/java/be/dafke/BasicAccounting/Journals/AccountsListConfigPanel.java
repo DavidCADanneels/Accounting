@@ -29,11 +29,20 @@ public class AccountsListConfigPanel extends JPanel {
         ButtonGroup group = new ButtonGroup();
         byType = new JRadioButton("select by type:", false);
         singleAccount = new JRadioButton("single account:", true);
+        byType.addActionListener(e -> refresh());
+        singleAccount.addActionListener(e -> refresh());
         group.add(byType);
         group.add(singleAccount);
         accountSelectorPanel = new AccountSelectorPanel(accounts,accountTypes);
-        add(getByTypePanel(false));
-        add(getSingleAccountPanel(true));
+        refresh();
+    }
+
+    public void refresh(){
+        removeAll();
+        add(getByTypePanel(byType.isSelected()));
+        add(getSingleAccountPanel(singleAccount.isSelected()));
+//        revalidate();
+        invalidate();
     }
 
     private JPanel getByTypePanel(boolean selected){
