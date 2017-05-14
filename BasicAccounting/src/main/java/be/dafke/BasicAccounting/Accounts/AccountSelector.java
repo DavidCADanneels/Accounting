@@ -13,11 +13,8 @@ public class AccountSelector extends RefreshableDialog {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JButton create, ok;
-	private Account account;
-	private final JComboBox<Account> combo;
-    private final DefaultComboBoxModel<Account> model;
-	private Accounts accounts;
+	private JButton ok;
+	private AccountSelectorPanel accountSelectorPanel;
 	private static AccountSelector accountSelector = null;
 
 	private AccountSelector(Accounts accounts, AccountTypes accountTypes) {
@@ -25,19 +22,14 @@ public class AccountSelector extends RefreshableDialog {
 	}
 	private AccountSelector(Accounts accounts, AccountTypes accountTypes, String title) {
 		super(title);
-		model = new DefaultComboBoxModel<>();
-		combo = new JComboBox<>(model);
-		combo.addActionListener(e -> account = (Account) combo.getSelectedItem());
-		create = new JButton("Add account(s) ...");
-		create.addActionListener(e -> new NewAccountGUI(accounts, accountTypes).setVisible(true));
+		accountSelectorPanel = new AccountSelectorPanel(accounts, accountTypes);
+		JPanel innerPanel = new JPanel(new BorderLayout());
+		innerPanel.add(accountSelectorPanel, BorderLayout.CENTER);
+
 		ok = new JButton("Ok (Close popup)");
 		ok.addActionListener(e -> dispose());
-		JPanel innerPanel = new JPanel(new BorderLayout());
-		JPanel panel = new JPanel();
-		panel.add(combo);
-		panel.add(create);
-		innerPanel.add(panel, BorderLayout.CENTER);
 		innerPanel.add(ok, BorderLayout.SOUTH);
+
 		setContentPane(innerPanel);
 		setAccounts(accounts);
 		pack();
@@ -58,12 +50,11 @@ public class AccountSelector extends RefreshableDialog {
 	}
 
 	public Account getSelection() {
-		return account;
+		return accountSelectorPanel.getSelection();
 	}
 
     public void setAccounts(Accounts accounts) {
-		this.accounts = accounts;
-		fireAccountDataChanged();
+		accountSelectorPanel.setAccounts(accounts);
     }
 
 	public static void fireAccountDataChangedForAll() {
@@ -73,9 +64,6 @@ public class AccountSelector extends RefreshableDialog {
 	}
 
 	public void fireAccountDataChanged() {
-		model.removeAllElements();
-		accounts.getBusinessObjects().stream().forEach(account -> model.addElement(account));
-		invalidate();
-		combo.invalidate();
+		accountSelectorPanel.fireAccountDataChanged();
 	}
 }
