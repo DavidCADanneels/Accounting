@@ -4,12 +4,12 @@ import be.dafke.BasicAccounting.Accounts.AccountSelectorPanel;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
 
-import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
+import java.awt.BorderLayout;
 import java.awt.Color;
 
 /**
@@ -17,14 +17,11 @@ import java.awt.Color;
  */
 public class AccountsListConfigPanel extends JPanel {
     private JRadioButton byType, singleAccount;
-    private Accounts accounts;
-    private AccountTypes accountTypes;
     private AccountSelectorPanel accountSelectorPanel;
+    private JPanel north;
 
     public AccountsListConfigPanel(Accounts accounts, AccountTypes accountTypes, String title) {
-        this.accounts=accounts;
-        this.accountTypes=accountTypes;
-        setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
         setBorder(new TitledBorder(new LineBorder(Color.BLACK), title));
         ButtonGroup group = new ButtonGroup();
         byType = new JRadioButton("select by type:", false);
@@ -33,34 +30,22 @@ public class AccountsListConfigPanel extends JPanel {
         singleAccount.addActionListener(e -> refresh());
         group.add(byType);
         group.add(singleAccount);
+        north = new JPanel();
+        north.add(byType);
+        north.add(singleAccount);
         accountSelectorPanel = new AccountSelectorPanel(accounts,accountTypes);
         refresh();
     }
 
     public void refresh(){
         removeAll();
-        add(getByTypePanel(byType.isSelected()));
-        add(getSingleAccountPanel(singleAccount.isSelected()));
-//        revalidate();
-        invalidate();
-    }
-
-    private JPanel getByTypePanel(boolean selected){
-        JPanel panel = new JPanel();
-        panel.add(byType);
-        if(selected){
-            // add more
+        add(north,BorderLayout.NORTH);
+        if(singleAccount.isSelected()){
+            add(accountSelectorPanel, BorderLayout.CENTER);
+        } else if(byType.isSelected()){
+            add(new JPanel(), BorderLayout.CENTER);
         }
-
-        return panel;
+        repaint();
     }
 
-    private JPanel getSingleAccountPanel(boolean selected){
-        JPanel panel = new JPanel();
-        panel.add(singleAccount);
-        if(selected){
-            panel.add(accountSelectorPanel);
-        }
-        return panel;
-    }
 }
