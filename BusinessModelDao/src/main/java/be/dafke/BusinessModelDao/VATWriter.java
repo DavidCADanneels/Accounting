@@ -94,13 +94,23 @@ public class VATWriter {
             BigDecimal totalTurnover = BigDecimal.ZERO;
             BigDecimal totalVatTotal = BigDecimal.ZERO;
             int nrOfCustomers=0;
+            StringBuffer buffer=new StringBuffer();
             for(Contact contact:contacts.getBusinessObjects()){
                 BigDecimal turnOver = contact.getTurnOver();
                 String vatNumber = contact.getVatNumber();
+                BigDecimal vatTotal = contact.getVATTotal();
+                String countryCode = contact.getCountryCode();
                 if(/*contact.isCustomer() &&*/ vatNumber!=null && turnOver.compareTo(BigDecimal.ZERO)>0) {
                     totalTurnover = totalTurnover.add(contact.getTurnOver());
                     totalVatTotal = totalVatTotal.add(contact.getVATTotal());
                     nrOfCustomers++;
+                    buffer.append(
+                            "        <ns2:Client SequenceNumber=\"1\">\n" +
+                                    "            <ns2:CompanyVATNumber issuedBy=\"" + countryCode + "\">" + vatNumber + "</ns2:CompanyVATNumber>\n" +
+                                    "            <ns2:TurnOver>" + turnOver + "</ns2:TurnOver>\n" +
+                                    "            <ns2:VATAmount>" + vatTotal + "</ns2:VATAmount>\n" +
+                                    "        </ns2:Client>\n"
+                    );
                 }
             }
             totalTurnover.setScale(2);
@@ -115,21 +125,7 @@ public class VATWriter {
             writer.write(
                     "        <ns2:Period>"+year+"</ns2:Period>\n"
             );
-            for(Contact contact:contacts.getBusinessObjects()){
-                BigDecimal turnOver = contact.getTurnOver();
-                BigDecimal vatTotal = contact.getVATTotal();
-                String countryCode = contact.getCountryCode();
-                String vatNumber = contact.getVatNumber();
-                if(/*contact.isCustomer() &&*/ vatNumber!=null && turnOver.compareTo(BigDecimal.ZERO)>0) {
-                    writer.write(
-                            "        <ns2:Client SequenceNumber=\"1\">\n" +
-                                "            <ns2:CompanyVATNumber issuedBy=\"" + countryCode + "\">" + vatNumber + "</ns2:CompanyVATNumber>\n" +
-                                "            <ns2:TurnOver>" + turnOver + "</ns2:TurnOver>\n" +
-                                "            <ns2:VATAmount>" + vatTotal + "</ns2:VATAmount>\n" +
-                                "        </ns2:Client>\n"
-                    );
-                }
-            }
+            writer.write(buffer.toString());
             writer.write(
                     "    </ns2:ClientListing>\n" +
                     "</ns2:ClientListingConsignment>\n"
