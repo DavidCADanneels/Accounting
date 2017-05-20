@@ -26,6 +26,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 			getBundle("Contacts").getString("COUNTRY"),
 			getBundle("Contacts").getString("PHONE"),
 			getBundle("Contacts").getString("EMAIL"),
+			getBundle("Contacts").getString("CUSTOMER"),
 			getBundle("Contacts").getString("TURNOVER"),
 			getBundle("Contacts").getString("VAT_TOTAL") };
 	Class[] columnClasses = {
@@ -37,6 +38,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 			String.class,
 			String.class,
 			String.class,
+			Boolean.class,
 			BigDecimal.class,
 			BigDecimal.class };
 
@@ -67,8 +69,10 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 		} else if (col == 7) {
 			return contact.getEmail();
 		} else if (col == 8) {
-			return contact.getTurnOver();
+			return contact.isCustomer();
 		} else if (col == 9) {
+			return contact.getTurnOver();
+		} else if (col == 10) {
 			return contact.getVATTotal();
 		} else return null;
 	}
@@ -96,7 +100,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return col<8;
+		return col<9;
 	}
 
 // DE SET METHODEN
@@ -104,23 +108,28 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	@Override
 	public void setValueAt(Object value, int row, int col) {
 		Contact contact = contacts.getBusinessObjects().get(row);
-		String stringValue = (String) value;
-		if (col == 0) {
-			contact.setName(stringValue);
-		} else if (col == 1) {
-			contact.setVatNumber(stringValue);
-		} else if (col == 2) {
-			contact.setStreetAndNumber(stringValue);
-		} else if (col == 3) {
-			contact.setPostalCode(stringValue);
-		} else if (col == 4) {
-			contact.setCity(stringValue);
-		} else if (col == 5) {
-			contact.setCountryCode(stringValue);
-		} else if (col == 6) {
-			contact.setPhone(stringValue);
-		} else if (col == 7) {
-			contact.setEmail(stringValue);
+		if(col<8) {
+			String stringValue = (String) value;
+			if (col == 0) {
+				contact.setName(stringValue);
+			} else if (col == 1) {
+				contact.setVatNumber(stringValue);
+			} else if (col == 2) {
+				contact.setStreetAndNumber(stringValue);
+			} else if (col == 3) {
+				contact.setPostalCode(stringValue);
+			} else if (col == 4) {
+				contact.setCity(stringValue);
+			} else if (col == 5) {
+				contact.setCountryCode(stringValue);
+			} else if (col == 6) {
+				contact.setPhone(stringValue);
+			} else if (col == 7) {
+				contact.setEmail(stringValue);
+			}
+		} else if (col == 8) {
+			Boolean customer = (Boolean) value;
+			contact.setCustomer(customer);
 		}
 	}
 
