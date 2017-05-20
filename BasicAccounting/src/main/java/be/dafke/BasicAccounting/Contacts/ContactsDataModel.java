@@ -20,6 +20,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	private static final long serialVersionUID = 1L;
 	String[] columnNames = {
 			getBundle("Contacts").getString("NAME"),
+			getBundle("Contacts").getString("CUSTOMER"),
 			getBundle("Contacts").getString("VAT_NR"),
 			getBundle("Contacts").getString("STREET_AND_NUMBER"),
 			getBundle("Contacts").getString("POSTAL_CODE"),
@@ -27,19 +28,18 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 			getBundle("Contacts").getString("COUNTRY"),
 			getBundle("Contacts").getString("PHONE"),
 			getBundle("Contacts").getString("EMAIL"),
-			getBundle("Contacts").getString("CUSTOMER"),
 			getBundle("Contacts").getString("TURNOVER"),
 			getBundle("Contacts").getString("VAT_TOTAL") };
 	Class[] columnClasses = {
 			String.class,
-			String.class,
-			String.class,
-			String.class,
-			String.class,
-			String.class,
-			String.class,
-			String.class,
 			Boolean.class,
+			String.class,
+			String.class,
+			String.class,
+			String.class,
+			String.class,
+			String.class,
+			String.class,
 			BigDecimal.class,
 			BigDecimal.class };
 
@@ -58,21 +58,21 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 		Contact contact = contacts.getBusinessObjects().get(row);
 		if (col == 0) {
 			return contact.getName();
-		} else if (col == 1) {
-			return contact.getVatNumber();
 		} else if (col == 2) {
-			return contact.getStreetAndNumber();
+			return contact.getVatNumber();
 		} else if (col == 3) {
-			return contact.getPostalCode();
+			return contact.getStreetAndNumber();
 		} else if (col == 4) {
-			return contact.getCity();
+			return contact.getPostalCode();
 		} else if (col == 5) {
-			return contact.getCountryCode();
+			return contact.getCity();
 		} else if (col == 6) {
-			return contact.getPhone();
+			return contact.getCountryCode();
 		} else if (col == 7) {
-			return contact.getEmail();
+			return contact.getPhone();
 		} else if (col == 8) {
+			return contact.getEmail();
+		} else if (col == 1) {
 			return contact.isCustomer();
 		} else if (col == 9) {
 			return contact.getTurnOver();
@@ -114,26 +114,26 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 		Contact contact = contacts.getBusinessObjects().get(row);
 		if(nonEditableColumns.contains(col)){
 			// do nothing, not editable
-		} else if(col==8) {
+		} else if(col==1) {
 			Boolean customer = (Boolean) value;
 			contact.setCustomer(customer);
 		} else{
 			String stringValue = (String) value;
 			if (col == 0) {
 				contact.setName(stringValue);
-			} else if (col == 1) {
-				contact.setVatNumber(stringValue);
 			} else if (col == 2) {
-				contact.setStreetAndNumber(stringValue);
+				contact.setVatNumber(stringValue);
 			} else if (col == 3) {
-				contact.setPostalCode(stringValue);
+				contact.setStreetAndNumber(stringValue);
 			} else if (col == 4) {
-				contact.setCity(stringValue);
+				contact.setPostalCode(stringValue);
 			} else if (col == 5) {
-				contact.setCountryCode(stringValue);
+				contact.setCity(stringValue);
 			} else if (col == 6) {
-				contact.setPhone(stringValue);
+				contact.setCountryCode(stringValue);
 			} else if (col == 7) {
+				contact.setPhone(stringValue);
+			} else if (col == 8) {
 				contact.setEmail(stringValue);
 			}
 		}
