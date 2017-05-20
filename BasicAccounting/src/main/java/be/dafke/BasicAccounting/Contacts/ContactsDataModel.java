@@ -18,6 +18,17 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final int NAME_COL = 0;
+	public static final int VAT_NUMBER_COL = 2;
+	public static final int STREET_COL = 3;
+	public static final int POSTAL_COL = 4;
+	public static final int CITY_COL = 5;
+	public static final int COUNTRY_COL = 6;
+	public static final int PHONE_COL = 7;
+	public static final int EMAIL_COL = 8;
+	public static final int CUSTOMER_COL = 1;
+	public static final int TURNOVER_COL = 9;
+	public static final int VAT_TOTAL_COL = 10;
 	String[] columnNames = {
 			getBundle("Contacts").getString("NAME"),
 			getBundle("Contacts").getString("CUSTOMER"),
@@ -48,35 +59,35 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 
 	public ContactsDataModel(Contacts contacts) {
 		this.contacts = contacts;
-		nonEditableColumns.add(9);
-		nonEditableColumns.add(10);
+		nonEditableColumns.add(TURNOVER_COL);
+		nonEditableColumns.add(VAT_TOTAL_COL);
 	}
 
 	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
 		Contact contact = contacts.getBusinessObjects().get(row);
-		if (col == 0) {
+		if (col == NAME_COL) {
 			return contact.getName();
-		} else if (col == 2) {
+		} else if (col == VAT_NUMBER_COL) {
 			return contact.getVatNumber();
-		} else if (col == 3) {
+		} else if (col == STREET_COL) {
 			return contact.getStreetAndNumber();
-		} else if (col == 4) {
+		} else if (col == POSTAL_COL) {
 			return contact.getPostalCode();
-		} else if (col == 5) {
+		} else if (col == CITY_COL) {
 			return contact.getCity();
-		} else if (col == 6) {
+		} else if (col == COUNTRY_COL) {
 			return contact.getCountryCode();
-		} else if (col == 7) {
+		} else if (col == PHONE_COL) {
 			return contact.getPhone();
-		} else if (col == 8) {
+		} else if (col == EMAIL_COL) {
 			return contact.getEmail();
-		} else if (col == 1) {
+		} else if (col == CUSTOMER_COL) {
 			return contact.isCustomer();
-		} else if (col == 9) {
+		} else if (col == TURNOVER_COL) {
 			return contact.getTurnOver();
-		} else if (col == 10) {
+		} else if (col == VAT_TOTAL_COL) {
 			return contact.getVATTotal();
 		} else return null;
 	}
@@ -104,7 +115,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return col<9;
+		return !nonEditableColumns.contains(col);
 	}
 
 // DE SET METHODEN
@@ -112,29 +123,29 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	@Override
 	public void setValueAt(Object value, int row, int col) {
 		Contact contact = contacts.getBusinessObjects().get(row);
-		if(nonEditableColumns.contains(col)){
-			// do nothing, not editable
-		} else if(col==1) {
-			Boolean customer = (Boolean) value;
-			contact.setCustomer(customer);
-		} else{
-			String stringValue = (String) value;
-			if (col == 0) {
-				contact.setName(stringValue);
-			} else if (col == 2) {
-				contact.setVatNumber(stringValue);
-			} else if (col == 3) {
-				contact.setStreetAndNumber(stringValue);
-			} else if (col == 4) {
-				contact.setPostalCode(stringValue);
-			} else if (col == 5) {
-				contact.setCity(stringValue);
-			} else if (col == 6) {
-				contact.setCountryCode(stringValue);
-			} else if (col == 7) {
-				contact.setPhone(stringValue);
-			} else if (col == 8) {
-				contact.setEmail(stringValue);
+		if(isCellEditable(row, col)){
+			if(col== CUSTOMER_COL) {
+				Boolean customer = (Boolean) value;
+				contact.setCustomer(customer);
+			} else {
+				String stringValue = (String) value;
+				if (col == NAME_COL) {
+					contact.setName(stringValue);
+				} else if (col == VAT_NUMBER_COL) {
+					contact.setVatNumber(stringValue);
+				} else if (col == STREET_COL) {
+					contact.setStreetAndNumber(stringValue);
+				} else if (col == POSTAL_COL) {
+					contact.setPostalCode(stringValue);
+				} else if (col == CITY_COL) {
+					contact.setCity(stringValue);
+				} else if (col == COUNTRY_COL) {
+					contact.setCountryCode(stringValue);
+				} else if (col == PHONE_COL) {
+					contact.setPhone(stringValue);
+				} else if (col == EMAIL_COL) {
+					contact.setEmail(stringValue);
+				}
 			}
 		}
 	}
