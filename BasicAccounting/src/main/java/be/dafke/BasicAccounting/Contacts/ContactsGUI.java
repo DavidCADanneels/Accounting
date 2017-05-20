@@ -24,6 +24,7 @@ import java.util.HashMap;
 
 import static java.awt.BorderLayout.CENTER;
 import static java.awt.BorderLayout.SOUTH;
+import static java.util.ResourceBundle.getBundle;
 
 /**
  * Created by ddanneels on 15/11/2016.
@@ -66,13 +67,13 @@ public class ContactsGUI extends JFrame implements ListSelectionListener {
     }
 
     public JPanel createContentPanel(){
-        JButton create = new JButton("new Contact");
+        JButton create = new JButton(getBundle("Contacts").getString("NEW_CONTACT"));
         create.addActionListener(e -> new NewContactGUI(contacts).setVisible(true));
 
-        JButton createList = new JButton("create CustomerListing");
+        JButton createList = new JButton(getBundle("Contacts").getString("CUSTUMER_LISTING"));
         createList.addActionListener(e -> createCustomerListing());
 
-        details = new JButton("edit Contact");
+        details = new JButton(getBundle("Contacts").getString("EDIT_CONTACT"));
         details.addActionListener(e -> {
             int selectedRow = table.getSelectedRow();
             if(selectedRow!=-1) {
