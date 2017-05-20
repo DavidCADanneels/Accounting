@@ -96,14 +96,32 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return false;
+		return col<8;
 	}
 
 // DE SET METHODEN
 // ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-//        data[row][col] = value;
+		Contact contact = contacts.getBusinessObjects().get(row);
+		String stringValue = (String) value;
+		if (col == 0) {
+			contact.setName(stringValue);
+		} else if (col == 1) {
+			contact.setVatNumber(stringValue);
+		} else if (col == 2) {
+			contact.setStreetAndNumber(stringValue);
+		} else if (col == 3) {
+			contact.setPostalCode(stringValue);
+		} else if (col == 4) {
+			contact.setCity(stringValue);
+		} else if (col == 5) {
+			contact.setCountryCode(stringValue);
+		} else if (col == 6) {
+			contact.setPhone(stringValue);
+		} else if (col == 7) {
+			contact.setEmail(stringValue);
+		}
 	}
 
     public void setContacts(Contacts contacts) {
