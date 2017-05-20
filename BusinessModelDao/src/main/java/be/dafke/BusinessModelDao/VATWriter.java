@@ -5,12 +5,14 @@ import be.dafke.BusinessModel.Contacts;
 import be.dafke.BusinessModel.VATField;
 import be.dafke.BusinessModel.VATFields;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import static be.dafke.BusinessModelDao.XMLConstants.XML;
 
 /**
  * Created by ddanneels on 14/01/2017.
@@ -37,8 +39,7 @@ public class VATWriter {
         }
     }
 
-    public static void writeVATFields(VATFields vatFields, File xmlFolder, String year, String nr, Contact contact, Period period){
-        File xmlFile = new File(xmlFolder, "VAT-"+year+"-"+nr+XML);
+    public static void writeVATFields(VATFields vatFields, File xmlFile, String year, String nr, Contact contact, Period period){
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write(
@@ -87,15 +88,16 @@ public class VATWriter {
         }
     }
 
-    public static void writeCustomerListing(File xmlFolder, String year, Contact declarant, Contacts contacts){
-        File xmlFile = new File(xmlFolder, "Customers-"+year+XML);
+    public static void writeCustomerListing(File xmlFile, String year, Contact declarant, Contacts contacts){
         try {
             Writer writer = new FileWriter(xmlFile);
             BigDecimal totalTurnover = BigDecimal.ZERO;
             BigDecimal totalVatTotal = BigDecimal.ZERO;
             int nrOfCustomers=0;
             for(Contact contact:contacts.getBusinessObjects()){
-                if(contact.isCustomer()){
+                BigDecimal turnOver = contact.getTurnOver();
+                String vatNumber = contact.getVatNumber();
+                if(/*contact.isCustomer() &&*/ vatNumber!=null && turnOver.compareTo(BigDecimal.ZERO)>0) {
                     totalTurnover = totalTurnover.add(contact.getTurnOver());
                     totalVatTotal = totalVatTotal.add(contact.getVATTotal());
                     nrOfCustomers++;
@@ -114,18 +116,17 @@ public class VATWriter {
                     "        <ns2:Period>"+year+"</ns2:Period>\n"
             );
             for(Contact contact:contacts.getBusinessObjects()){
-                if(contact.isCustomer()){
-                    BigDecimal turnOver = contact.getTurnOver();
-                    BigDecimal vatTotal = contact.getVATTotal();
-                    String vatNumber = contact.getVatNumber();
-                    String countryCode = vatNumber.substring(0,2);
-                    vatNumber = vatNumber.substring(2);
+                BigDecimal turnOver = contact.getTurnOver();
+                BigDecimal vatTotal = contact.getVATTotal();
+                String countryCode = contact.getCountryCode();
+                String vatNumber = contact.getVatNumber();
+                if(/*contact.isCustomer() &&*/ vatNumber!=null && turnOver.compareTo(BigDecimal.ZERO)>0) {
                     writer.write(
-                    "        <ns2:Client SequenceNumber=\"1\">\n" +
-                    "            <ns2:CompanyVATNumber issuedBy=\""+countryCode+"\">"+vatNumber+"</ns2:CompanyVATNumber>\n" +
-                    "            <ns2:TurnOver>"+turnOver+"</ns2:TurnOver>\n" +
-                    "            <ns2:VATAmount>"+vatTotal+"</ns2:VATAmount>\n" +
-                    "        </ns2:Client>\n"
+                            "        <ns2:Client SequenceNumber=\"1\">\n" +
+                                "            <ns2:CompanyVATNumber issuedBy=\"" + countryCode + "\">" + vatNumber + "</ns2:CompanyVATNumber>\n" +
+                                "            <ns2:TurnOver>" + turnOver + "</ns2:TurnOver>\n" +
+                                "            <ns2:VATAmount>" + vatTotal + "</ns2:VATAmount>\n" +
+                                "        </ns2:Client>\n"
                     );
                 }
             }
