@@ -31,6 +31,8 @@ public class NewContactGUI extends RefreshableDialog {
     private final JTextField contactName, contactVAT, contactStreet, contactPostalCode, contactCity, contactCountry, contactPhone, contactEmail;
     private final JButton add;
     private final Contacts contacts;
+    private Contact contact;
+    private boolean newAccount;
 
     public NewContactGUI(Contacts contacts) {
         super(getBundle("Contacts").getString("NEW_CONTACT_GUI_TITLE"));
@@ -65,15 +67,30 @@ public class NewContactGUI extends RefreshableDialog {
         north.add(contactPhone);
 
 		add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_CONTACT"));
-		add.addActionListener(e -> createContact());
+		add.addActionListener(e -> saveAccount());
 
 		north.add(add);
         setContentPane(north);
         pack();
     }
 
-    private void createContact() {
-        Contact contact = new Contact();
+    public void setContact(Contact contact){
+        this.contact = contact;
+        contactName.setText(contact.getName());
+        contactVAT.setText(contact.getVatNumber());
+        contactStreet.setText(contact.getStreetAndNumber());
+        contactPostalCode.setText(contact.getPostalCode());
+        contactCity.setText(contact.getCity());
+        contactCountry.setText(contact.getCountryCode());
+        contactEmail.setText(contact.getEmail());
+        contactPhone.setText(contact.getPhone());
+    }
+
+    private void saveAccount() {
+        if(contact==null) {
+            contact = new Contact();
+            newAccount = true;
+        }
         String name = contactName.getText().trim();
         contact.setName(name);
         String vat = contactVAT.getText().trim();
@@ -90,16 +107,27 @@ public class NewContactGUI extends RefreshableDialog {
         contact.setEmail(email);
         String phone = contactPhone.getText().trim();
         contact.setPhone(phone);
-        try {
-            contacts.addBusinessObject(contact);
-            Main.fireContactDataChanged(contact);
-        } catch (DuplicateNameException e) {
-            ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, name);
-        } catch (EmptyNameException e) {
-            ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NAME_EMPTY);
+        if(newAccount) {
+            try {
+                contacts.addBusinessObject(contact);
+                Main.fireContactDataChanged(contact);
+            } catch (DuplicateNameException e) {
+                ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, name);
+            } catch (EmptyNameException e) {
+                ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NAME_EMPTY);
+            }
+            clearFields();
         }
+    }
+
+    private void clearFields() {
         contactName.setText("");
         contactStreet.setText("");
         contactPostalCode.setText("");
+        contactVAT.setText("");
+        contactCity.setText("");
+        contactCountry.setText("");
+        contactEmail.setText("");
+        contactPhone.setText("");
     }
 }

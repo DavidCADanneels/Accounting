@@ -29,6 +29,8 @@ public class ContactsGUI extends JFrame{
     private final Contacts contacts;
 
     private static final HashMap<Contacts, ContactsGUI> contactGuis = new HashMap<>();
+    private JTable table;
+    private ContactsDataModel contactsDataModel;
 
     public static ContactsGUI showSuppliers(Contacts contacts) {
         ContactsGUI gui = contactGuis.get(contacts);
@@ -64,13 +66,25 @@ public class ContactsGUI extends JFrame{
         JButton createList = new JButton("create CustomerListing");
         createList.addActionListener(e -> createCustomerListing());
 
+        JButton details = new JButton("edit Contact");
+        details.addActionListener(e -> {
+            int selectedRow = table.getSelectedRow();
+            if(selectedRow!=-1) {
+                Contact contact = contactsDataModel.getObject(selectedRow, 0);
+                NewContactGUI newContactGUI = new NewContactGUI(contacts);
+                newContactGUI.setContact(contact);
+                newContactGUI.setVisible(true);
+            }
+        });
+
         JPanel south = new JPanel();
         south.add(create);
         south.add(createList);
+        south.add(details);
 
-        ContactsDataModel contactsDataModel = new ContactsDataModel(contacts);
-        JTable center = new JTable(contactsDataModel);
-        JScrollPane scroll = new JScrollPane(center);
+        contactsDataModel = new ContactsDataModel(contacts);
+        table = new JTable(contactsDataModel);
+        JScrollPane scroll = new JScrollPane(table);
 
         JPanel contentPanel = new JPanel(new BorderLayout());
         contentPanel.add(scroll, CENTER);
