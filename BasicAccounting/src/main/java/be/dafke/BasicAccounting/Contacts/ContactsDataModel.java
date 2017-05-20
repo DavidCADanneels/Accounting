@@ -6,6 +6,7 @@ import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -29,31 +30,8 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	public static final int CUSTOMER_COL = 1;
 	public static final int TURNOVER_COL = 9;
 	public static final int VAT_TOTAL_COL = 10;
-	String[] columnNames = {
-			getBundle("Contacts").getString("NAME"),
-			getBundle("Contacts").getString("CUSTOMER"),
-			getBundle("Contacts").getString("VAT_NR"),
-			getBundle("Contacts").getString("STREET_AND_NUMBER"),
-			getBundle("Contacts").getString("POSTAL_CODE"),
-			getBundle("Contacts").getString("CITY"),
-			getBundle("Contacts").getString("COUNTRY"),
-			getBundle("Contacts").getString("PHONE"),
-			getBundle("Contacts").getString("EMAIL"),
-			getBundle("Contacts").getString("TURNOVER"),
-			getBundle("Contacts").getString("VAT_TOTAL") };
-	Class[] columnClasses = {
-			String.class,
-			Boolean.class,
-			String.class,
-			String.class,
-			String.class,
-			String.class,
-			String.class,
-			String.class,
-			String.class,
-			BigDecimal.class,
-			BigDecimal.class };
-
+	private HashMap<Integer,String> columnNames = new HashMap<>();
+	private HashMap<Integer,Class> columnClasses = new HashMap<>();
     private Contacts contacts;
     private ArrayList<Integer> nonEditableColumns = new ArrayList<>();
 
@@ -61,7 +39,38 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 		this.contacts = contacts;
 		nonEditableColumns.add(TURNOVER_COL);
 		nonEditableColumns.add(VAT_TOTAL_COL);
+		setColumnNames();
+		setColumnClasses();
 	}
+
+	private void setColumnClasses() {
+		columnClasses.put(NAME_COL, String.class);
+		columnClasses.put(CUSTOMER_COL, Boolean.class);
+		columnClasses.put(VAT_NUMBER_COL, String.class);
+		columnClasses.put(STREET_COL, String.class);
+		columnClasses.put(POSTAL_COL, String.class);
+		columnClasses.put(CITY_COL, String.class);
+		columnClasses.put(COUNTRY_COL, String.class);
+		columnClasses.put(PHONE_COL, String.class);
+		columnClasses.put(EMAIL_COL, String.class);
+		columnClasses.put(TURNOVER_COL, BigDecimal.class);
+		columnClasses.put(VAT_TOTAL_COL, BigDecimal.class);
+	}
+
+	private void setColumnNames() {
+		columnNames.put(NAME_COL, getBundle("Contacts").getString("NAME"));
+		columnNames.put(CUSTOMER_COL, getBundle("Contacts").getString("CUSTOMER"));
+		columnNames.put(VAT_NUMBER_COL, getBundle("Contacts").getString("VAT_NR"));
+		columnNames.put(STREET_COL,getBundle("Contacts").getString("STREET_AND_NUMBER"));
+		columnNames.put(POSTAL_COL, getBundle("Contacts").getString("POSTAL_CODE"));
+		columnNames.put(CITY_COL, getBundle("Contacts").getString("CITY"));
+		columnNames.put(COUNTRY_COL, getBundle("Contacts").getString("COUNTRY"));
+		columnNames.put(PHONE_COL, getBundle("Contacts").getString("PHONE"));
+		columnNames.put(EMAIL_COL, getBundle("Contacts").getString("EMAIL"));
+		columnNames.put(TURNOVER_COL, getBundle("Contacts").getString("TURNOVER"));
+		columnNames.put(VAT_TOTAL_COL, getBundle("Contacts").getString("VAT_TOTAL"));
+	}
+
 
 	// DE GET METHODEN
 // ===============
@@ -93,7 +102,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	}
 
 	public int getColumnCount() {
-		return columnNames.length;
+		return columnNames.size();
 	}
 
 	public int getRowCount() {
@@ -105,12 +114,12 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 
 	@Override
 	public String getColumnName(int col) {
-		return columnNames[col];
+		return columnNames.get(col);
 	}
 
 	@Override
 	public Class getColumnClass(int col) {
-		return columnClasses[col];
+		return columnClasses.get(col);
 	}
 
 	@Override
