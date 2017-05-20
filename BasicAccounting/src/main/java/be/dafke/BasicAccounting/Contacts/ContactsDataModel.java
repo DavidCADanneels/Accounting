@@ -5,6 +5,7 @@ import be.dafke.BusinessModel.Contacts;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -43,9 +44,12 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 			BigDecimal.class };
 
     private Contacts contacts;
+    private ArrayList<Integer> nonEditableColumns = new ArrayList<>();
 
 	public ContactsDataModel(Contacts contacts) {
 		this.contacts = contacts;
+		nonEditableColumns.add(9);
+		nonEditableColumns.add(10);
 	}
 
 	// DE GET METHODEN
@@ -108,7 +112,12 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	@Override
 	public void setValueAt(Object value, int row, int col) {
 		Contact contact = contacts.getBusinessObjects().get(row);
-		if(col<8) {
+		if(nonEditableColumns.contains(col)){
+			// do nothing, not editable
+		} else if(col==8) {
+			Boolean customer = (Boolean) value;
+			contact.setCustomer(customer);
+		} else{
 			String stringValue = (String) value;
 			if (col == 0) {
 				contact.setName(stringValue);
@@ -127,9 +136,6 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 			} else if (col == 7) {
 				contact.setEmail(stringValue);
 			}
-		} else if (col == 8) {
-			Boolean customer = (Boolean) value;
-			contact.setCustomer(customer);
 		}
 	}
 
