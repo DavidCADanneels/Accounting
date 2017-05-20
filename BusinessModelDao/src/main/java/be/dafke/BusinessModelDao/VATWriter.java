@@ -100,7 +100,7 @@ public class VATWriter {
                 String vatNumber = contact.getVatNumber();
                 BigDecimal vatTotal = contact.getVATTotal();
                 String countryCode = contact.getCountryCode();
-                if(/*contact.isCustomer() &&*/ vatNumber!=null && turnOver.compareTo(BigDecimal.ZERO)>0) {
+                if(contact.isCustomer() && vatNumber!=null && turnOver.compareTo(BigDecimal.ZERO)>0) {
                     totalTurnover = totalTurnover.add(contact.getTurnOver());
                     totalVatTotal = totalVatTotal.add(contact.getVATTotal());
                     nrOfCustomers++;
