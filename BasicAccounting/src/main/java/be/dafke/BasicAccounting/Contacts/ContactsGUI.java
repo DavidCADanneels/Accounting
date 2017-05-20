@@ -15,6 +15,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.io.File;
 import java.util.HashMap;
 
@@ -56,6 +57,7 @@ public class ContactsGUI extends JFrame{
         super(contacts.getAccounting().getName() + " / " + "Contacts");
         this.contacts = contacts;
         setContentPane(createContentPanel());
+        setPreferredSize(new Dimension(1000,400));
         pack();
     }
 
