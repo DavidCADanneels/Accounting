@@ -30,7 +30,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 	private JButton newAccount, delete, modifyName, modifyType, modifyDefaultAmount;
 	private final AccountManagementTableModel accountManagementTableModel;
 	private final SelectableTable<Account> tabel;
-	private final DefaultListSelectionModel selection;
+//	private final DefaultListSelectionModel selection;
 	private Accounts accounts;
 	private AccountTypes accountTypes;
 	private static final HashMap<Accounts, AccountManagementGUI> accountManagementGuis = new HashMap<>();
@@ -46,7 +46,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		// Table
 		tabel = new SelectableTable<>(accountManagementTableModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
-		selection = new DefaultListSelectionModel();
+		DefaultListSelectionModel selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
 		tabel.setSelectionModel(selection);
 		JScrollPane scrollPane = new JScrollPane(tabel);
