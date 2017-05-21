@@ -272,6 +272,7 @@ public class Main {
         AccountSelector.fireAccountDataChangedForAll();
         // fireAccountDataChanged in AccountsListGUI is only needed if accounts have been added
         // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
+        journalReadGUI.fireJournalDataChanged();
         accountGuiLeft.fireAccountDataChanged();
         accountGuiRight.fireAccountDataChanged();
 

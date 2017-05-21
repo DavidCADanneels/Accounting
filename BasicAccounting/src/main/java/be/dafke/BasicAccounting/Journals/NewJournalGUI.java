@@ -80,32 +80,25 @@ public class NewJournalGUI extends JFrame {
             abbr.setText(newAbbreviation);
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
-        if(journal==null) {
-            journal = new Journal(newName, newAbbreviation);
-            try {
+        try{
+            if(journal==null) {
+                journal = new Journal(newName, newAbbreviation);
                 journals.addBusinessObject(journal);
-                Main.fireJournalDataChanged(journal);
-            } catch (DuplicateNameException e) {
-                ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR, newName.trim(), newAbbreviation.trim());
-            } catch (EmptyNameException e) {
-                ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_ABBR_EMPTY);
-            }
-            clearFields();
-            journal=null;
-        } else {
-            String oldName = journal.getName();
-            String oldAbbreviation = journal.getAbbreviation();
-            try {
+                clearFields();
+                journal=null;
+            } else {
+                String oldName = journal.getName();
+                String oldAbbreviation = journal.getAbbreviation();
                 journals.modifyName(oldName, newName);
                 journals.modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
-                Main.fireJournalDataChanged(journal);
-            } catch (DuplicateNameException e) {
-                ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR, newName.trim(), newAbbreviation.trim());
-            } catch (EmptyNameException e) {
-                ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_ABBR_EMPTY);
             }
+        } catch (DuplicateNameException e) {
+            ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR, newName.trim(), newAbbreviation.trim());
+        } catch (EmptyNameException e) {
+            ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_ABBR_EMPTY);
         }
         journal.setType(journalType);
+        Main.fireJournalDataChanged(journal);
     }
 
     private void clearFields() {
