@@ -21,7 +21,7 @@ public class AccountManagementTableModel extends SelectableTableModel<Account> {
             getBundle("Accounting").getString("TYPE"),
 			getBundle("Accounting").getString("SALDO"),
             getBundle("BusinessActions").getString("DEFAULT_AMOUNT")};
-	private final Class[] columnClasses = { Account.class, BigInteger.class, String.class, BigDecimal.class,  BigDecimal.class };
+	private final Class[] columnClasses = { String.class, BigInteger.class, String.class, BigDecimal.class,  BigDecimal.class };
 	private final Accounts accounts;
 
 	public AccountManagementTableModel(Accounts accounts) {
@@ -38,7 +38,9 @@ public class AccountManagementTableModel extends SelectableTableModel<Account> {
 
 	public Object getValueAt(int row, int col) {
 		Account account = accounts.getBusinessObjects().get(row);
-		if (col == 1) {
+		if (col == 0) {
+			return account.getName();
+		} else if (col == 1) {
 			return account.getNumber();
 		} else if (col == 2) {
 			return account.getType();
@@ -71,7 +73,7 @@ public class AccountManagementTableModel extends SelectableTableModel<Account> {
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return col==1 || col==4;
+		return col==0 || col==1 || col==4;
 	}
 
 	// DE SET METHODEN
@@ -80,7 +82,11 @@ public class AccountManagementTableModel extends SelectableTableModel<Account> {
 	public void setValueAt(Object value, int row, int col) {
 		Account account = getObject(row, col);
 		if(account!=null){
-			if(col==1){
+			if(col==0){
+				String oldName = account.getName();
+				String newName = (String)value;
+				accounts.modifyAccountName(oldName, newName);
+			}else if(col==1){
 				account.setNumber((BigInteger)value);
 			} else if(col==4) {
 				if (value == null || BigDecimal.ZERO.compareTo((BigDecimal) value) == 0) {

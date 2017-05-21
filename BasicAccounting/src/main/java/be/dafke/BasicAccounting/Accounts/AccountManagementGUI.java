@@ -7,14 +7,18 @@ import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.SelectableTable;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
-import javax.swing.*;
+import javax.swing.DefaultListSelectionModel;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,10 +31,9 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JButton newAccount, delete, modifyName, modifyType, modifyDefaultAmount;
+	private JButton newAccount, delete, modifyType, modifyDefaultAmount;
 	private final AccountManagementTableModel accountManagementTableModel;
 	private final SelectableTable<Account> tabel;
-//	private final DefaultListSelectionModel selection;
 	private Accounts accounts;
 	private AccountTypes accountTypes;
 	private static final HashMap<Accounts, AccountManagementGUI> accountManagementGuis = new HashMap<>();
@@ -73,21 +76,17 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 
 	private JPanel createContentPanel(){
 		JPanel south = new JPanel();
-		modifyName = new JButton(getBundle("Accounting").getString("MODIFY_NAME"));
 		modifyType = new JButton(getBundle("Accounting").getString("MODIFY_TYPE"));
 		delete = new JButton(getBundle("Accounting").getString("DELETE_ACCOUNT"));
         newAccount = new JButton(getBundle("Accounting").getString("ADD_ACCOUNT"));
 		modifyDefaultAmount = new JButton(getBundle("Accounting").getString("MODIFY_DEFAULT_AMOUNT"));
-		modifyName.addActionListener(e -> modifyAccountNames(tabel.getSelectedObjects(), accounts));
 		modifyType.addActionListener(e -> modifyAccountTypes(tabel.getSelectedObjects(), accountTypes));
 		delete.addActionListener(e -> deleteAccounts(tabel.getSelectedObjects(), accounts));
-        modifyDefaultAmount.addActionListener(e -> modifyDefaultAmounts(tabel.getSelectedObjects(), accounts));
+        modifyDefaultAmount.addActionListener(e -> modifyDefaultAmounts(tabel.getSelectedObjects()));
 		newAccount.addActionListener(e -> new NewAccountGUI(accounts, accountTypes).setVisible(true));
-		modifyName.setEnabled(false);
 		modifyType.setEnabled(false);
 		delete.setEnabled(false);
         modifyDefaultAmount.setEnabled(false);
-		south.add(modifyName);
 		south.add(modifyType);
         south.add(modifyDefaultAmount);
         south.add(delete);
@@ -115,12 +114,10 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 			int[] rows = tabel.getSelectedRows();
 			if (rows.length != 0) {
 				delete.setEnabled(true);
-				modifyName.setEnabled(true);
 				modifyType.setEnabled(true);
                 modifyDefaultAmount.setEnabled(true);
 			} else {
                 delete.setEnabled(false);
-                modifyName.setEnabled(false);
                 modifyType.setEnabled(false);
                 modifyDefaultAmount.setEnabled(false);
             }
@@ -152,7 +149,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		fireAccountDataChanged();
 	}
 
-	public void modifyDefaultAmounts(ArrayList<Account> accountList, Accounts accounts){
+	public void modifyDefaultAmounts(ArrayList<Account> accountList){
 		if(!accountList.isEmpty()) {
 			for(Account account : accountList){
 				BigDecimal defaultAmount = account.getDefaultAmount();
@@ -167,30 +164,6 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 					}
 				} catch (NumberFormatException nfe) {
 					account.setDefaultAmount(null);
-				}
-			}
-		}
-		fireAccountDataChanged();
-	}
-
-	public void modifyAccountNames(ArrayList<Account> accountList, Accounts accounts) {
-		if (!accountList.isEmpty()) {
-			for (Account account : accountList) {
-				String oldName = account.getName();
-				boolean retry = true;
-				while (retry) {
-					String newName = JOptionPane.showInputDialog(getBundle("BusinessActions").getString("NEW_NAME"), oldName.trim());
-					try {
-						if (newName != null && !oldName.trim().equals(newName.trim())) {
-							accounts.modifyAccountName(oldName, newName);
-							//ComponentMap.refreshAllFrames();
-						}
-						retry = false;
-					} catch (DuplicateNameException e) {
-						ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME,newName.trim());
-					} catch (EmptyNameException e) {
-						ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NAME_EMPTY);
-					}
 				}
 			}
 		}
