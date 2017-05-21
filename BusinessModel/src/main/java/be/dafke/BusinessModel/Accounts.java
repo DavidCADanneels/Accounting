@@ -82,19 +82,12 @@ public class Accounts extends BusinessCollection<Account> {
 		return list;
 	}
 
-	public Account modifyAccountName(String oldName, String newName){
-        if (newName != null && !oldName.trim().equals(newName.trim())) {
-            Map.Entry<String, String> oldEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, oldName);
-            Map.Entry<String, String> newEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, newName);
+	public Account modifyAccountName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
+        Map.Entry<String, String> oldEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, oldName);
+        Map.Entry<String, String> newEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, newName);
 //          Name is modified in modify Function
 //          account.setName(newName.trim());
-            try {
-                return modify(oldEntry, newEntry);
-            } catch (EmptyNameException | DuplicateNameException e) {
-                return getBusinessObject(oldName);
-            }
-        }
-        else return getBusinessObject(oldName);
+        return modify(oldEntry, newEntry);
 	}
 
     public Accounting getAccounting() {

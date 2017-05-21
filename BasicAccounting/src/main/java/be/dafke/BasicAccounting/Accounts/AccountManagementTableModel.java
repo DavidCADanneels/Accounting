@@ -1,9 +1,12 @@
 package be.dafke.BasicAccounting.Accounts;
 
+import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.SelectableTableModel;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -109,7 +112,15 @@ public class AccountManagementTableModel extends SelectableTableModel<Account> {
 			if(col== NAME_COL){
 				String oldName = account.getName();
 				String newName = (String)value;
-				accounts.modifyAccountName(oldName, newName);
+				if (newName != null && !oldName.trim().equals(newName.trim())) {
+					try {
+						accounts.modifyAccountName(oldName, newName);
+					} catch (DuplicateNameException e) {
+						ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME,newName.trim());
+					} catch (EmptyNameException e) {
+						ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NAME_EMPTY);
+					}
+				}
 			}else if(col== TYPE_COL){
 				AccountType accountType = (AccountType)value;
 				account.setType(accountType);
