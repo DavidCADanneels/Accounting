@@ -1,8 +1,12 @@
 package be.dafke.BasicAccounting.Journals;
 
+import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.JournalType;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.SelectableTableModel;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.util.HashMap;
 
@@ -79,17 +83,46 @@ public class JournalManagementTableModel extends SelectableTableModel<Journal> {
 
     @Override
     public boolean isCellEditable(int row, int col) {
-        return false;
+        return col!=NEXT_ID_COL;
     }
 
     // DE SET METHODEN
     // ===============
     @Override
     public void setValueAt(Object value, int row, int col) {
+        Journal journal = journals.getBusinessObjects().get(row);
+        if (col == NAME_COL) {
+            String oldName = journal.getName();
+            String newName = (String)value;
+            if(newName!=null && !oldName.trim().equals(newName.trim())) {
+                try {
+                    journals.modifyJournalName(oldName, newName);
+                } catch (EmptyNameException e) {
+                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_EMPTY);
+                } catch (DuplicateNameException e) {
+                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME, newName.trim());
+                }
+            }
+        } else if (col == ABBR_COL) {
+            String oldAbbreviation = journal.getAbbreviation();
+            String newAbbreviation = (String)value;
+            if(newAbbreviation!=null && !oldAbbreviation.trim().equals(newAbbreviation.trim())){
+                try {
+                    journals.modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
+                } catch (DuplicateNameException e) {
+                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_ABBR,newAbbreviation.trim());
+                } catch (EmptyNameException e) {
+                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_ABBR_EMPTY);
+                }
+            }
+        } else if (col == TYPE_COL) {
+            JournalType journalType = (JournalType)value;
+            journal.setType(journalType);
+        }
     }
 
     @Override
     public Journal getObject(int row, int col) {
-        return null;
+        return journals.getBusinessObjects().get(row);
     }
 }
