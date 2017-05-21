@@ -4,6 +4,8 @@ import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.SelectableTableModel;
 
+import java.util.HashMap;
+
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -16,17 +18,33 @@ public class JournalManagementTableModel extends SelectableTableModel<Journal> {
      *
      */
     private static final long serialVersionUID = 1L;
-    private final String[] columnNames = { getBundle("Accounting").getString("JOURNAL_NAME"),
-            getBundle("Accounting").getString("TYPE"), getBundle("Accounting").getString("NEXT_INDEX") };
-    private final Class[] columnClasses = { Journal.class, String.class, Integer.class };
+    public static final int NAME_COL = 0;
+    public static final int TYPE_COL = 1;
+    public static final int NEXT_ID_COL = 2;
+    private HashMap<Integer, String> columnNames = new HashMap<>();
+    private HashMap<Integer, Class> columnClasses = new HashMap<>();
     private final Journals journals;
 
     public JournalManagementTableModel(Journals journals) {
         this.journals = journals;
+        createColumnNames();
+        createColumnClasses();
+    }
+
+    private void createColumnClasses() {
+        columnClasses.put(NAME_COL, Journal.class);
+        columnClasses.put(TYPE_COL, String.class);
+        columnClasses.put(NEXT_ID_COL, Integer.class);
+    }
+
+    private void createColumnNames() {
+        columnNames.put(NAME_COL, getBundle("Accounting").getString("JOURNAL_NAME"));
+        columnNames.put(TYPE_COL, getBundle("Accounting").getString("TYPE"));
+        columnNames.put(NEXT_ID_COL, getBundle("Accounting").getString("NEXT_INDEX"));
     }
 
     public int getColumnCount() {
-        return columnClasses.length;
+        return columnNames.size();
     }
 
     public int getRowCount() {
@@ -35,23 +53,23 @@ public class JournalManagementTableModel extends SelectableTableModel<Journal> {
 
     public Object getValueAt(int row, int col) {
         Journal journal = journals.getBusinessObjects().get(row);
-        if (col == 0) {
+        if (col == NAME_COL) {
             return journal;
-        } else if (col == 1) {
+        } else if (col == TYPE_COL) {
             return journal.getType();
-        } else if (col == 2) {
+        } else if (col == NEXT_ID_COL) {
             return journal.getId();
         } else return null;
     }
 
     @Override
     public String getColumnName(int col) {
-        return columnNames[col];
+        return columnNames.get(col);
     }
 
     @Override
     public Class getColumnClass(int col) {
-        return columnClasses[col];
+        return columnClasses.get(col);
     }
 
     @Override
