@@ -53,15 +53,15 @@ public class JournalsMenu extends JMenu {
         add.setEnabled(journals!=null);
         manage.setEnabled(journals!=null);
         types.setEnabled(journals!=null);
-        reload();
+        fireJournalDataChanged();
     }
 
     public void setJournals(Journals journals) {
         this.journals = journals;
-        reload();
+        fireJournalDataChanged();
     }
 
-    private void reload(){
+    public void fireJournalDataChanged(){
         removeAll();
         add(add);
         add(manage);

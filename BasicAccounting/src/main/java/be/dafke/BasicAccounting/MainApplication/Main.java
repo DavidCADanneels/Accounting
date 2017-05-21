@@ -16,6 +16,7 @@ import be.dafke.BasicAccounting.Contacts.ContactsMenu;
 import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.Journals.JournalGUI;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
+import be.dafke.BasicAccounting.Journals.JournalManagementGUI;
 import be.dafke.BasicAccounting.Journals.JournalsMenu;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
@@ -46,7 +47,6 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 
-import static be.dafke.BasicAccounting.Journals.JournalManagementGUI.fireJournalDataChangedForAll;
 import static javax.swing.JSplitPane.BOTTOM;
 import static javax.swing.JSplitPane.LEFT;
 import static javax.swing.JSplitPane.RIGHT;
@@ -244,7 +244,7 @@ public class Main {
     }
 
     public static void addJournal(Journal journal){
-        fireJournalDataChangedForAll();
+        JournalManagementGUI.fireJournalDataChangedForAll();
     }
 
     public static void setJournal(Journal journal) {
@@ -265,8 +265,10 @@ public class Main {
 
     public static void fireJournalDataChanged(Journal journal){
         JournalDetails.fireJournalDataChangedForAll(journal);
-        fireJournalDataChangedForAll();
+        JournalManagementGUI.fireJournalDataChangedForAll();
         journalReadGUI.fireJournalDataChanged();
+        journalsMenu.fireJournalDataChanged();
+        frame.fireDataChanged();
     }
 
     public static void fireAccountDataChanged(Account account){

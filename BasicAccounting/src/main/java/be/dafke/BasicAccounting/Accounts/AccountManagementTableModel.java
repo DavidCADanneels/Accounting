@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.Accounts;
@@ -114,7 +115,8 @@ public class AccountManagementTableModel extends SelectableTableModel<Account> {
 				String newName = (String)value;
 				if (newName != null && !oldName.trim().equals(newName.trim())) {
 					try {
-						accounts.modifyAccountName(oldName, newName);
+						accounts.modifyName(oldName, newName);
+						Main.fireAccountDataChanged(account);
 					} catch (DuplicateNameException e) {
 						ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME,newName.trim());
 					} catch (EmptyNameException e) {

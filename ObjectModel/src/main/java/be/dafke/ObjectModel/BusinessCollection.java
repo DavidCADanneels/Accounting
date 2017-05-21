@@ -135,6 +135,14 @@ public class BusinessCollection <V extends BusinessObject> extends BusinessObjec
         return value;
     }
 
+    public V modifyName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
+        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, oldName);
+        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, newName);
+//        Name is modified in modify Function
+//        journal.setName(newName.trim());
+        return modify(oldEntry, newEntry);
+    }
+
     // -------------------------------------------------------------------------------------
 
     // Remove

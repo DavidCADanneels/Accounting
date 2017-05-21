@@ -6,11 +6,9 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.math.BigDecimal;
-import java.util.AbstractMap;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import java.util.Map;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -80,14 +78,6 @@ public class Accounts extends BusinessCollection<Account> {
 		}
 		list = list.stream().sorted(Comparator.comparing(BusinessObject::getName)).collect(Collectors.toCollection(ArrayList::new));
 		return list;
-	}
-
-	public Account modifyAccountName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
-        Map.Entry<String, String> oldEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, oldName);
-        Map.Entry<String, String> newEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, newName);
-//          Name is modified in modify Function
-//          account.setName(newName.trim());
-        return modify(oldEntry, newEntry);
 	}
 
     public Accounting getAccounting() {

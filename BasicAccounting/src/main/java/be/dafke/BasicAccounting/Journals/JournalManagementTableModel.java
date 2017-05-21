@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.JournalType;
 import be.dafke.BusinessModel.Journals;
@@ -96,7 +97,8 @@ public class JournalManagementTableModel extends SelectableTableModel<Journal> {
             String newName = (String)value;
             if(newName!=null && !oldName.trim().equals(newName.trim())) {
                 try {
-                    journals.modifyJournalName(oldName, newName);
+                    journals.modifyName(oldName, newName);
+                    Main.fireJournalDataChanged(journal);
                 } catch (EmptyNameException e) {
                     ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_EMPTY);
                 } catch (DuplicateNameException e) {

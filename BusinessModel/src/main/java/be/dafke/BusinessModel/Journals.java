@@ -65,14 +65,6 @@ public class Journals extends BusinessCollection<Journal> {
 		return result;
 	}
 
-    public Journal modifyJournalName(String oldName, String newName) throws EmptyNameException, DuplicateNameException {
-        Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, oldName);
-        Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<>(NAME, newName);
-//        Name is modified in modify Function
-//        journal.setName(newName.trim());
-        return modify(oldEntry, newEntry);
-    }
-
     public Journal modifyJournalAbbreviation(String oldAbbreviation, String newAbbreviation) throws EmptyNameException, DuplicateNameException {
         Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<>(ABBREVIATION, oldAbbreviation);
         Map.Entry<String,String> newEntry = new AbstractMap.SimpleImmutableEntry<>(ABBREVIATION, newAbbreviation);
