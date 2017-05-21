@@ -243,10 +243,6 @@ public class Main {
         VATTransactionsGUI.fireVATTransactionsUpdated();
     }
 
-    public static void addJournal(Journal journal){
-        JournalManagementGUI.fireJournalDataChangedForAll();
-    }
-
     public static void setJournal(Journal journal) {
         Accounting accounting = journal.getAccounting();
         accounting.getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter

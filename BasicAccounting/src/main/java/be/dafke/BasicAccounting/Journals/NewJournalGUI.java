@@ -24,7 +24,6 @@ public class NewJournalGUI extends JFrame {
     private JButton add, newType;
     private Journals journals;
     private Journal journal;
-    private boolean newJournal;
 
     private NewJournalGUI(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"));
@@ -75,29 +74,38 @@ public class NewJournalGUI extends JFrame {
 
     private void saveJournal() {
         String newName = name.getText().trim();
-        String abbreviation = abbr.getText().trim();
-        if(!newName.isEmpty() && abbreviation.isEmpty() && newName.length() > 2) {
-            abbreviation = newName.substring(0, 3).toUpperCase();
-            abbr.setText(abbreviation);
+        String newAbbreviation = abbr.getText().trim();
+        if(!newName.isEmpty() && newAbbreviation.isEmpty() && newName.length() > 2) {
+            newAbbreviation = newName.substring(0, 3).toUpperCase();
+            abbr.setText(newAbbreviation);
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
         if(journal==null) {
-            journal = new Journal(newName, abbreviation);
-            newJournal=true;
-        }
-        journal.setType(journalType);
-        if(newJournal) {
+            journal = new Journal(newName, newAbbreviation);
             try {
                 journals.addBusinessObject(journal);
-                Main.addJournal(journal);
+                Main.fireJournalDataChanged(journal);
             } catch (DuplicateNameException e) {
-                ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR, newName.trim(), abbreviation.trim());
+                ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR, newName.trim(), newAbbreviation.trim());
             } catch (EmptyNameException e) {
                 ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_ABBR_EMPTY);
             }
-            newJournal = false;
             clearFields();
+            journal=null;
+        } else {
+            String oldName = journal.getName();
+            String oldAbbreviation = journal.getAbbreviation();
+            try {
+                journals.modifyName(oldName, newName);
+                journals.modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
+                Main.fireJournalDataChanged(journal);
+            } catch (DuplicateNameException e) {
+                ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR, newName.trim(), newAbbreviation.trim());
+            } catch (EmptyNameException e) {
+                ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_ABBR_EMPTY);
+            }
         }
+        journal.setType(journalType);
     }
 
     private void clearFields() {
