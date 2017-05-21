@@ -122,6 +122,14 @@ public class ContactsGUI extends JFrame implements ListSelectionListener {
         }
     }
 
+    public static void fireContactDataChangedForAll(Contact contact){
+        contactGuis.values().forEach(contactsGUI -> contactsGUI.fireContactDataChanged(contact));
+    }
+
+    public void fireContactDataChanged(Contact contact){
+        contactsDataModel.fireTableDataChanged();
+    }
+
     @Override
     public void valueChanged(ListSelectionEvent e) {
         if (!e.getValueIsAdjusting()) {

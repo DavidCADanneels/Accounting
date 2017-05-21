@@ -27,6 +27,8 @@ public class NewAccountGUI extends RefreshableDialog {
     private JComboBox<AccountType> type;
     private JButton add;
     private Accounts accounts;
+    private Account account;
+    private boolean newAccount;
 
     public NewAccountGUI(Accounts accounts, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_ACCOUNT_GUI_TITLE"));
@@ -55,15 +57,18 @@ public class NewAccountGUI extends RefreshableDialog {
         type.setModel(model);
         panel.add(type);
         add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNT"));
-        add.addActionListener(e -> addAccount());
+        add.addActionListener(e -> saveAccount());
         panel.add(add);
         return panel;
     }
 
-    private void addAccount() {
+    private void saveAccount() {
         String name = nameField.getText().trim();
         try {
-            Account account = new Account(name.trim());
+            if(account==null){
+                account = new Account(name.trim());
+                newAccount = true;
+            }
             account.setType((AccountType) type.getSelectedItem());
             String defaultAmountFieldText = defaultAmountField.getText();
             if (defaultAmountFieldText != null && !defaultAmountFieldText.trim().equals("")) {
@@ -84,15 +89,32 @@ public class NewAccountGUI extends RefreshableDialog {
                     account.setNumber(null);
                 }
             }
-            accounts.addBusinessObject(account);
+            if(newAccount) {
+                accounts.addBusinessObject(account);
+                Main.fireAccountDataChanged(account);
+                account = null;
+                clearFields();
+            }
             Main.fireAccountDataChanged(account);
         } catch (DuplicateNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, name);
         } catch (EmptyNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NAME_EMPTY);
         }
+    }
+
+    private void clearFields() {
         nameField.setText("");
         numberField.setText("");
         defaultAmountField.setText("");
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+        nameField.setText(account.getName());
+        BigInteger number = account.getNumber();
+        numberField.setText(number==null?"":number.toString());
+        BigDecimal defaultAmount = account.getDefaultAmount();
+        defaultAmountField.setText(defaultAmount==null?"":defaultAmount.toString());
     }
 }

@@ -32,7 +32,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private JButton newAccount, delete;
+	private JButton newAccount, delete, edit;
 	private final AccountManagementTableModel accountManagementTableModel;
 	private final SelectableTable<Account> tabel;
 	private Accounts accounts;
@@ -90,11 +90,23 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 	private JPanel createContentPanel(){
 		JPanel south = new JPanel();
 		delete = new JButton(getBundle("Accounting").getString("DELETE_ACCOUNT"));
+		edit = new JButton(getBundle("Accounting").getString("EDIT_ACCOUNT"));
         newAccount = new JButton(getBundle("Accounting").getString("ADD_ACCOUNT"));
 		delete.addActionListener(e -> deleteAccounts(tabel.getSelectedObjects(), accounts));
+		edit.addActionListener(e -> {
+			int selectedRow = tabel.getSelectedRow();
+			if(selectedRow!=-1) {
+				Account account = accountManagementTableModel.getObject(selectedRow, 0);
+				NewAccountGUI newAccountGUI = new NewAccountGUI(accounts, accountTypes);
+				newAccountGUI.setAccount(account);
+				newAccountGUI.setVisible(true);
+			}
+		});
 		newAccount.addActionListener(e -> new NewAccountGUI(accounts, accountTypes).setVisible(true));
 		delete.setEnabled(false);
+		edit.setEnabled(false);
         south.add(delete);
+        south.add(edit);
         south.add(newAccount);
 		return south;
 	}
@@ -119,8 +131,10 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 			int[] rows = tabel.getSelectedRows();
 			if (rows.length != 0) {
 				delete.setEnabled(true);
+				edit.setEnabled(true);
 			} else {
                 delete.setEnabled(false);
+                edit.setEnabled(false);
             }
 		}
 	}
