@@ -23,6 +23,8 @@ public class NewJournalGUI extends JFrame {
     private JComboBox<JournalType> type;
     private JButton add, newType;
     private Journals journals;
+    private Journal journal;
+    private boolean newJournal;
 
     private NewJournalGUI(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"));
@@ -56,7 +58,7 @@ public class NewJournalGUI extends JFrame {
         type.setModel(model);
         panel.add(type);
         add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_JOURNAL"));
-        add.addActionListener(e -> addJournal());
+        add.addActionListener(e -> saveJournal());
         panel.add(add);
         newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
         newType.addActionListener(e -> showJournalTypeManager(journalTypes,accountTypes));
@@ -64,7 +66,14 @@ public class NewJournalGUI extends JFrame {
         return panel;
     }
 
-    private void addJournal() {
+    public void setJournal(Journal journal){
+        this.journal = journal;
+        name.setText(journal.getName());
+        abbr.setText(journal.getAbbreviation());
+        type.setSelectedItem(journal.getType());
+    }
+
+    private void saveJournal() {
         String newName = name.getText().trim();
         String abbreviation = abbr.getText().trim();
         if(!newName.isEmpty() && abbreviation.isEmpty() && newName.length() > 2) {
@@ -72,16 +81,26 @@ public class NewJournalGUI extends JFrame {
             abbr.setText(abbreviation);
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
-        try {
-            Journal journal = new Journal(newName, abbreviation);
-            journal.setType(journalType);
-            journals.addBusinessObject(journal);
-            Main.addJournal(journal);
-        } catch (DuplicateNameException e) {
-            ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR,newName.trim(), abbreviation.trim());
-        } catch (EmptyNameException e) {
-            ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_ABBR_EMPTY);
+        if(journal==null) {
+            journal = new Journal(newName, abbreviation);
+            newJournal=true;
         }
+        journal.setType(journalType);
+        if(newJournal) {
+            try {
+                journals.addBusinessObject(journal);
+                Main.addJournal(journal);
+            } catch (DuplicateNameException e) {
+                ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR, newName.trim(), abbreviation.trim());
+            } catch (EmptyNameException e) {
+                ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_ABBR_EMPTY);
+            }
+            newJournal = false;
+            clearFields();
+        }
+    }
+
+    private void clearFields() {
         name.setText("");
         abbr.setText("");
     }

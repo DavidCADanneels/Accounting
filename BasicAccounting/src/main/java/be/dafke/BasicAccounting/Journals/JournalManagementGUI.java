@@ -33,7 +33,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 
 	private static final long serialVersionUID = 1L;
 
-	private JButton add, delete, newType;
+	private JButton add, delete, newType, edit;
 	private final DefaultListSelectionModel selection;
     private SelectableTable<Journal> tabel;
     private JournalManagementTableModel journalManagementTableModel;
@@ -103,13 +103,23 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 	private JPanel createContentPanel(){
         JPanel south = new JPanel();
         delete = new JButton(getBundle("Accounting").getString("DELETE_JOURNAL"));
+        edit = new JButton(getBundle("Accounting").getString("EDIT_JOURNAL"));
         newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
         add = new JButton(getBundle("Accounting").getString("NEW_JOURNAL"));
         delete.addActionListener(e -> deleteJournal());
+        edit.addActionListener(e -> {
+            int selectedRow = tabel.getSelectedRow();
+            Journal journal = journalManagementTableModel.getObject(selectedRow, 0);
+            NewJournalGUI newJournalGUI = NewJournalGUI.getInstance(journals, journalTypes, accountTypes);
+            newJournalGUI.setJournal(journal);
+            newJournalGUI.setVisible(true);
+        });
         newType.addActionListener(e -> showJournalTypeManager(journalTypes,accountTypes));
         add.addActionListener(e -> NewJournalGUI.getInstance(journals, journalTypes, accountTypes).setVisible(true));
         delete.setEnabled(false);
+        edit.setEnabled(false);
         south.add(delete);
+        south.add(edit);
         south.add(newType);
         south.add(add);
         return south;
@@ -120,6 +130,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 			int[] rows = tabel.getSelectedRows();
 			boolean enabled = rows.length != 0;
             delete.setEnabled(enabled);
+            edit.setEnabled(enabled);
 		}
 	}
 
