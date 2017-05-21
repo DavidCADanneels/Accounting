@@ -27,7 +27,6 @@ import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
-import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.JournalType;
 import be.dafke.BusinessModel.VATTransaction;
@@ -284,9 +283,9 @@ public class Main {
         BalanceGUI.fireAccountDataChangedForAll();
     }
 
-    public static void fireContactDataChanged(Contact contact) {
+    public static void fireContactDataChanged() {
         ContactSelector.fireContactDataChangedForAll();
-        ContactsGUI.fireContactDataChangedForAll(contact);
+        ContactsGUI.fireContactDataChangedForAll();
     }
 
     public static void saveData() {

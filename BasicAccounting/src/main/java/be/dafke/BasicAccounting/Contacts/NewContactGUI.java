@@ -107,7 +107,7 @@ public class NewContactGUI extends RefreshableDialog {
         contact.setEmail(email);
         String phone = contactPhone.getText().trim();
         contact.setPhone(phone);
-        Main.fireContactDataChanged(contact);
+        Main.fireContactDataChanged();
         if(newContact) {
             try {
                 contacts.addBusinessObject(contact);
