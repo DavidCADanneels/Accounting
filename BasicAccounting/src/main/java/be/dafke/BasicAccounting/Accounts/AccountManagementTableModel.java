@@ -31,7 +31,7 @@ public class AccountManagementTableModel extends SelectableTableModel<Account> {
 	public AccountManagementTableModel(Accounts accounts) {
 		this.accounts = accounts;
 		nonEditableColumns.add(SALDO_COL);
-		nonEditableColumns.add(TYPE_COL);
+//		nonEditableColumns.add(TYPE_COL);
 		setColumnNames();
 		setColumnClasses();
 	}
@@ -39,7 +39,7 @@ public class AccountManagementTableModel extends SelectableTableModel<Account> {
 	private void setColumnClasses() {
 		columnClasses.put(NAME_COL, String.class);
 		columnClasses.put(NUMBER_COL, BigInteger.class);
-		columnClasses.put(TYPE_COL, String.class);
+		columnClasses.put(TYPE_COL, AccountType.class);
 		columnClasses.put(SALDO_COL, BigDecimal.class);
 		columnClasses.put(DEFAULT_AMOUNT_COL, BigDecimal.class);
 	}
@@ -110,6 +110,9 @@ public class AccountManagementTableModel extends SelectableTableModel<Account> {
 				String oldName = account.getName();
 				String newName = (String)value;
 				accounts.modifyAccountName(oldName, newName);
+			}else if(col== TYPE_COL){
+				AccountType accountType = (AccountType)value;
+				account.setType(accountType);
 			}else if(col== NUMBER_COL){
 				account.setNumber((BigInteger)value);
 			} else if(col== DEFAULT_AMOUNT_COL) {

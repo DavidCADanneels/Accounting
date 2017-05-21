@@ -9,14 +9,17 @@ import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
+import javax.swing.DefaultCellEditor;
 import javax.swing.DefaultListSelectionModel;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.table.TableColumn;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.math.BigDecimal;
@@ -52,6 +55,12 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		DefaultListSelectionModel selection = new DefaultListSelectionModel();
 		selection.addListSelectionListener(this);
 		tabel.setSelectionModel(selection);
+
+		JComboBox<AccountType> comboBox=createComboBox();
+
+		TableColumn column = tabel.getColumnModel().getColumn(AccountManagementTableModel.TYPE_COL);
+		column.setCellEditor(new DefaultCellEditor(comboBox));
+
 		JScrollPane scrollPane = new JScrollPane(tabel);
 		//
 		JPanel panel = new JPanel(new BorderLayout());
@@ -62,6 +71,12 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		panel.add(south, BorderLayout.SOUTH);
 		setContentPane(panel);
 		pack();
+	}
+
+	private JComboBox<AccountType> createComboBox() {
+		JComboBox<AccountType> comboBox = new JComboBox<>();
+		accountTypes.getBusinessObjects().forEach(accountType -> comboBox.addItem(accountType));
+		return comboBox;
 	}
 
 	public static AccountManagementGUI showAccountManager(Accounts accounts, AccountTypes accountTypes) {
