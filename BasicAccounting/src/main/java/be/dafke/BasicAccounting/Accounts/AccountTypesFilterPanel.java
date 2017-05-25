@@ -44,6 +44,7 @@ public class AccountTypesFilterPanel extends JPanel {
                 checkBox.setActionCommand(type.getName());
                 checkBox.addActionListener(e -> {
                     model.setAccountTypes(getSelectedAccountTypes());
+                    // TODO: can't we just remove and re-add only 'type' i.s.o. all types?
                     for (AccountType accountType : boxes.keySet()) {
                         JCheckBox checkBox2 = boxes.get(accountType);
                         selectedAccountTypes.remove(accountType);
