@@ -23,6 +23,7 @@ public class NewJournalGUI extends JFrame {
     private JComboBox<JournalType> type;
     private JButton add, newType;
     private Journals journals;
+    private Journal journal;
 
     private NewJournalGUI(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"));
@@ -56,7 +57,7 @@ public class NewJournalGUI extends JFrame {
         type.setModel(model);
         panel.add(type);
         add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_JOURNAL"));
-        add.addActionListener(e -> addJournal());
+        add.addActionListener(e -> saveJournal());
         panel.add(add);
         newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
         newType.addActionListener(e -> showJournalTypeManager(accounts, journalTypes,accountTypes));
@@ -64,24 +65,43 @@ public class NewJournalGUI extends JFrame {
         return panel;
     }
 
-    private void addJournal() {
+    public void setJournal(Journal journal){
+        this.journal = journal;
+        name.setText(journal.getName());
+        abbr.setText(journal.getAbbreviation());
+        type.setSelectedItem(journal.getType());
+    }
+
+    private void saveJournal() {
         String newName = name.getText().trim();
-        String abbreviation = abbr.getText().trim();
-        if(!newName.isEmpty() && abbreviation.isEmpty() && newName.length() > 2) {
-            abbreviation = newName.substring(0, 3).toUpperCase();
-            abbr.setText(abbreviation);
+        String newAbbreviation = abbr.getText().trim();
+        if(!newName.isEmpty() && newAbbreviation.isEmpty() && newName.length() > 2) {
+            newAbbreviation = newName.substring(0, 3).toUpperCase();
+            abbr.setText(newAbbreviation);
         }
         JournalType journalType = (JournalType)type.getSelectedItem();
-        try {
-            Journal journal = new Journal(newName, abbreviation);
-            journal.setType(journalType);
-            journals.addBusinessObject(journal);
-            Main.addJournal(journal);
+        try{
+            if(journal==null) {
+                journal = new Journal(newName, newAbbreviation);
+                journals.addBusinessObject(journal);
+                clearFields();
+                journal=null;
+            } else {
+                String oldName = journal.getName();
+                String oldAbbreviation = journal.getAbbreviation();
+                journals.modifyName(oldName, newName);
+                journals.modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
+            }
         } catch (DuplicateNameException e) {
-            ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR,newName.trim(), abbreviation.trim());
+            ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR, newName.trim(), newAbbreviation.trim());
         } catch (EmptyNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_ABBR_EMPTY);
         }
+        journal.setType(journalType);
+        Main.fireJournalDataChanged(journal);
+    }
+
+    private void clearFields() {
         name.setText("");
         abbr.setText("");
     }

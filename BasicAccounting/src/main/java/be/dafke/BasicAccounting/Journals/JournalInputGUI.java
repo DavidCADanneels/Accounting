@@ -202,7 +202,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
         Contact contact = transaction.getContact();
         if(contact!=null){
-            Main.fireContactDataChanged(contact);
+            Main.fireContactDataChanged();
         }
 
         Main.fireJournalDataChanged(journal);

@@ -38,6 +38,7 @@ public class ContactsIO {
             contact.setEmail(getValue(element, EMAIL_ADDRESS));
             contact.setPhone(getValue(element, PHONE_NUMBER));
             contact.setVatNumber(getValue(element, VAT_NUMBER));
+            contact.setCustomer(Boolean.valueOf(getValue(element, CUSTOMER)));
             contact.setVATTotal(Utils.parseBigDecimal(getValue(element, VAT_TOTAL)));
             contact.setTurnOver(Utils.parseBigDecimal(getValue(element, TURNOVER)));
             try {
@@ -71,6 +72,7 @@ public class ContactsIO {
                         "    <"+VAT_NUMBER+">" + contact.getVatNumber() + "</"+VAT_NUMBER+">\n" +
                         "    <"+VAT_TOTAL+">" + contact.getVATTotal() + "</"+VAT_TOTAL+">\n" +
                         "    <"+TURNOVER+">" + contact.getTurnOver() + "</"+TURNOVER+">\n" +
+                        "    <"+CUSTOMER+">" + contact.isCustomer() + "</"+CUSTOMER+">\n" +
                         "  </"+CONTACT+">\n"
                 );
             }

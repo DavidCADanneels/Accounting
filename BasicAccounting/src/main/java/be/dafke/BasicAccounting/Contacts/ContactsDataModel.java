@@ -5,6 +5,8 @@ import be.dafke.BusinessModel.Contacts;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -17,64 +19,90 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String[] columnNames = {
-			getBundle("Contacts").getString("NAME"),
-			getBundle("Contacts").getString("VAT_NR"),
-			getBundle("Contacts").getString("STREET_AND_NUMBER"),
-			getBundle("Contacts").getString("POSTAL_CODE"),
-			getBundle("Contacts").getString("CITY"),
-			getBundle("Contacts").getString("COUNTRY"),
-			getBundle("Contacts").getString("PHONE"),
-			getBundle("Contacts").getString("EMAIL"),
-			getBundle("Contacts").getString("TURNOVER"),
-			getBundle("Contacts").getString("VAT_TOTAL") };
-	Class[] columnClasses = {
-			String.class,
-			String.class,
-			String.class,
-			String.class,
-			String.class,
-			String.class,
-			String.class,
-			String.class,
-			BigDecimal.class,
-			BigDecimal.class };
-
+	public static final int NAME_COL = 0;
+	public static final int VAT_NUMBER_COL = 2;
+	public static final int STREET_COL = 3;
+	public static final int POSTAL_COL = 4;
+	public static final int CITY_COL = 5;
+	public static final int COUNTRY_COL = 6;
+	public static final int PHONE_COL = 7;
+	public static final int EMAIL_COL = 8;
+	public static final int CUSTOMER_COL = 1;
+	public static final int TURNOVER_COL = 9;
+	public static final int VAT_TOTAL_COL = 10;
+	private HashMap<Integer,String> columnNames = new HashMap<>();
+	private HashMap<Integer,Class> columnClasses = new HashMap<>();
     private Contacts contacts;
+    private ArrayList<Integer> nonEditableColumns = new ArrayList<>();
 
 	public ContactsDataModel(Contacts contacts) {
 		this.contacts = contacts;
+		nonEditableColumns.add(TURNOVER_COL);
+		nonEditableColumns.add(VAT_TOTAL_COL);
+		setColumnNames();
+		setColumnClasses();
 	}
+
+	private void setColumnClasses() {
+		columnClasses.put(NAME_COL, String.class);
+		columnClasses.put(CUSTOMER_COL, Boolean.class);
+		columnClasses.put(VAT_NUMBER_COL, String.class);
+		columnClasses.put(STREET_COL, String.class);
+		columnClasses.put(POSTAL_COL, String.class);
+		columnClasses.put(CITY_COL, String.class);
+		columnClasses.put(COUNTRY_COL, String.class);
+		columnClasses.put(PHONE_COL, String.class);
+		columnClasses.put(EMAIL_COL, String.class);
+		columnClasses.put(TURNOVER_COL, BigDecimal.class);
+		columnClasses.put(VAT_TOTAL_COL, BigDecimal.class);
+	}
+
+	private void setColumnNames() {
+		columnNames.put(NAME_COL, getBundle("Contacts").getString("NAME"));
+		columnNames.put(CUSTOMER_COL, getBundle("Contacts").getString("CUSTOMER"));
+		columnNames.put(VAT_NUMBER_COL, getBundle("Contacts").getString("VAT_NR"));
+		columnNames.put(STREET_COL,getBundle("Contacts").getString("STREET_AND_NUMBER"));
+		columnNames.put(POSTAL_COL, getBundle("Contacts").getString("POSTAL_CODE"));
+		columnNames.put(CITY_COL, getBundle("Contacts").getString("CITY"));
+		columnNames.put(COUNTRY_COL, getBundle("Contacts").getString("COUNTRY"));
+		columnNames.put(PHONE_COL, getBundle("Contacts").getString("PHONE"));
+		columnNames.put(EMAIL_COL, getBundle("Contacts").getString("EMAIL"));
+		columnNames.put(TURNOVER_COL, getBundle("Contacts").getString("TURNOVER"));
+		columnNames.put(VAT_TOTAL_COL, getBundle("Contacts").getString("VAT_TOTAL"));
+	}
+
 
 	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
 		Contact contact = contacts.getBusinessObjects().get(row);
-		if (col == 0) {
+		if (col == NAME_COL) {
 			return contact.getName();
-		} else if (col == 1) {
+		} else if (col == VAT_NUMBER_COL) {
 			return contact.getVatNumber();
-		} else if (col == 2) {
+		} else if (col == STREET_COL) {
 			return contact.getStreetAndNumber();
-		} else if (col == 3) {
+		} else if (col == POSTAL_COL) {
 			return contact.getPostalCode();
-		} else if (col == 4) {
+		} else if (col == CITY_COL) {
 			return contact.getCity();
-		} else if (col == 5) {
+		} else if (col == COUNTRY_COL) {
 			return contact.getCountryCode();
-		} else if (col == 6) {
+		} else if (col == PHONE_COL) {
 			return contact.getPhone();
-		} else if (col == 7) {
+		} else if (col == EMAIL_COL) {
 			return contact.getEmail();
-		} else if (col == 8) {
+		} else if (col == CUSTOMER_COL) {
+			return contact.isCustomer();
+		} else if (col == TURNOVER_COL) {
 			return contact.getTurnOver();
-		} else if (col == 9) {
+		} else if (col == VAT_TOTAL_COL) {
 			return contact.getVATTotal();
 		} else return null;
 	}
 
 	public int getColumnCount() {
-		return columnNames.length;
+		return columnNames.size();
 	}
 
 	public int getRowCount() {
@@ -86,17 +114,17 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 
 	@Override
 	public String getColumnName(int col) {
-		return columnNames[col];
+		return columnNames.get(col);
 	}
 
 	@Override
 	public Class getColumnClass(int col) {
-		return columnClasses[col];
+		return columnClasses.get(col);
 	}
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return col<8;
+		return !nonEditableColumns.contains(col);
 	}
 
 // DE SET METHODEN
@@ -104,23 +132,30 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	@Override
 	public void setValueAt(Object value, int row, int col) {
 		Contact contact = contacts.getBusinessObjects().get(row);
-		String stringValue = (String) value;
-		if (col == 0) {
-			contact.setName(stringValue);
-		} else if (col == 1) {
-			contact.setVatNumber(stringValue);
-		} else if (col == 2) {
-			contact.setStreetAndNumber(stringValue);
-		} else if (col == 3) {
-			contact.setPostalCode(stringValue);
-		} else if (col == 4) {
-			contact.setCity(stringValue);
-		} else if (col == 5) {
-			contact.setCountryCode(stringValue);
-		} else if (col == 6) {
-			contact.setPhone(stringValue);
-		} else if (col == 7) {
-			contact.setEmail(stringValue);
+		if(isCellEditable(row, col)){
+			if(col== CUSTOMER_COL) {
+				Boolean customer = (Boolean) value;
+				contact.setCustomer(customer);
+			} else {
+				String stringValue = (String) value;
+				if (col == NAME_COL) {
+					contact.setName(stringValue);
+				} else if (col == VAT_NUMBER_COL) {
+					contact.setVatNumber(stringValue);
+				} else if (col == STREET_COL) {
+					contact.setStreetAndNumber(stringValue);
+				} else if (col == POSTAL_COL) {
+					contact.setPostalCode(stringValue);
+				} else if (col == CITY_COL) {
+					contact.setCity(stringValue);
+				} else if (col == COUNTRY_COL) {
+					contact.setCountryCode(stringValue);
+				} else if (col == PHONE_COL) {
+					contact.setPhone(stringValue);
+				} else if (col == EMAIL_COL) {
+					contact.setEmail(stringValue);
+				}
+			}
 		}
 	}
 

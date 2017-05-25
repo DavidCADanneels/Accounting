@@ -27,6 +27,7 @@ public class NewAccountGUI extends RefreshableDialog {
     private JComboBox<AccountType> type;
     private JButton add;
     private Accounts accounts;
+    private Account account;
 
     public NewAccountGUI(Accounts accounts, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_ACCOUNT_GUI_TITLE"));
@@ -55,44 +56,64 @@ public class NewAccountGUI extends RefreshableDialog {
         type.setModel(model);
         panel.add(type);
         add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNT"));
-        add.addActionListener(e -> addAccount());
+        add.addActionListener(e -> saveAccount());
         panel.add(add);
         return panel;
     }
 
-    private void addAccount() {
-        String name = nameField.getText().trim();
+    private void saveAccount() {
+        String newName = nameField.getText().trim();
         try {
-            Account account = new Account(name.trim());
-            account.setType((AccountType) type.getSelectedItem());
-            String defaultAmountFieldText = defaultAmountField.getText();
-            if (defaultAmountFieldText != null && !defaultAmountFieldText.trim().equals("")) {
-                try {
-                    BigDecimal defaultAmount = new BigDecimal(defaultAmountFieldText);
-                    defaultAmount = defaultAmount.setScale(2);
-                    account.setDefaultAmount(defaultAmount);
-                } catch (NumberFormatException nfe) {
-                    account.setDefaultAmount(null);
-                }
+            if(account==null){
+                account = new Account(newName.trim());
+                accounts.addBusinessObject(account);
+                Main.fireAccountDataChanged(account);
+                account = null;
+                clearFields();
+            } else {
+                String oldName = account.getName();
+                accounts.modifyName(oldName, newName);
             }
-            String numberText = numberField.getText();
-            if(numberText != null && !numberText.trim().equals("")){
-                try {
-                    BigInteger number = new BigInteger(numberText);
-                    account.setNumber(number);
-                } catch (NumberFormatException nfe) {
-                    account.setNumber(null);
-                }
-            }
-            accounts.addBusinessObject(account);
-            Main.fireAccountDataChanged(account);
         } catch (DuplicateNameException e) {
-            ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, name);
+            ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, newName);
         } catch (EmptyNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NAME_EMPTY);
         }
+        account.setType((AccountType) type.getSelectedItem());
+        String defaultAmountFieldText = defaultAmountField.getText();
+        if (defaultAmountFieldText != null && !defaultAmountFieldText.trim().equals("")) {
+            try {
+                BigDecimal defaultAmount = new BigDecimal(defaultAmountFieldText);
+                defaultAmount = defaultAmount.setScale(2);
+                account.setDefaultAmount(defaultAmount);
+            } catch (NumberFormatException nfe) {
+                account.setDefaultAmount(null);
+            }
+        }
+        String numberText = numberField.getText();
+        if(numberText != null && !numberText.trim().equals("")){
+            try {
+                BigInteger number = new BigInteger(numberText);
+                account.setNumber(number);
+            } catch (NumberFormatException nfe) {
+                account.setNumber(null);
+            }
+        }
+        Main.fireAccountDataChanged(account);
+    }
+
+    private void clearFields() {
         nameField.setText("");
         numberField.setText("");
         defaultAmountField.setText("");
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
+        nameField.setText(account.getName());
+        BigInteger number = account.getNumber();
+        numberField.setText(number==null?"":number.toString());
+        BigDecimal defaultAmount = account.getDefaultAmount();
+        defaultAmountField.setText(defaultAmount==null?"":defaultAmount.toString());
     }
 }

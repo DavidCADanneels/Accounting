@@ -32,7 +32,7 @@ public class NewContactGUI extends RefreshableDialog {
     private final JButton add;
     private final Contacts contacts;
     private Contact contact;
-    private boolean newAccount;
+    private boolean newContact;
 
     public NewContactGUI(Contacts contacts) {
         super(getBundle("Contacts").getString("NEW_CONTACT_GUI_TITLE"));
@@ -89,7 +89,7 @@ public class NewContactGUI extends RefreshableDialog {
     private void saveAccount() {
         if(contact==null) {
             contact = new Contact();
-            newAccount = true;
+            newContact = true;
         }
         String name = contactName.getText().trim();
         contact.setName(name);
@@ -107,16 +107,17 @@ public class NewContactGUI extends RefreshableDialog {
         contact.setEmail(email);
         String phone = contactPhone.getText().trim();
         contact.setPhone(phone);
-        if(newAccount) {
+        Main.fireContactDataChanged();
+        if(newContact) {
             try {
                 contacts.addBusinessObject(contact);
-                Main.fireContactDataChanged(contact);
             } catch (DuplicateNameException e) {
                 ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, name);
             } catch (EmptyNameException e) {
                 ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NAME_EMPTY);
             }
             clearFields();
+            contact=null;
         }
     }
 

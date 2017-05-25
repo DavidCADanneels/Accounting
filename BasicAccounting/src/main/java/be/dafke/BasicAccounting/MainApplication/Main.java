@@ -11,10 +11,12 @@ import be.dafke.BasicAccounting.Balances.BalancesMenu;
 import be.dafke.BasicAccounting.Balances.TestBalance;
 import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Contacts.ContactSelector;
+import be.dafke.BasicAccounting.Contacts.ContactsGUI;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
 import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.Journals.JournalGUI;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
+import be.dafke.BasicAccounting.Journals.JournalManagementGUI;
 import be.dafke.BasicAccounting.Journals.JournalsMenu;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
@@ -26,7 +28,6 @@ import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
-import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.JournalType;
 import be.dafke.BusinessModel.VATTransaction;
@@ -46,7 +47,6 @@ import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
 
-import static be.dafke.BasicAccounting.Journals.JournalManagementGUI.fireJournalDataChangedForAll;
 import static javax.swing.JSplitPane.BOTTOM;
 import static javax.swing.JSplitPane.LEFT;
 import static javax.swing.JSplitPane.RIGHT;
@@ -243,10 +243,6 @@ public class Main {
         VATTransactionsGUI.fireVATTransactionsUpdated();
     }
 
-    public static void addJournal(Journal journal){
-        fireJournalDataChangedForAll();
-    }
-
     public static void setJournal(Journal journal) {
         Accounting accounting = journal.getAccounting();
         accounting.getJournals().setCurrentObject(journal);  // idem, only needed for XMLWriter
@@ -265,8 +261,10 @@ public class Main {
 
     public static void fireJournalDataChanged(Journal journal){
         JournalDetails.fireJournalDataChangedForAll(journal);
-        fireJournalDataChangedForAll();
+        JournalManagementGUI.fireJournalDataChangedForAll();
         journalReadGUI.fireJournalDataChanged();
+        journalsMenu.fireJournalDataChanged();
+        frame.fireDataChanged();
     }
 
     public static void fireAccountDataChanged(Account account){
@@ -274,6 +272,7 @@ public class Main {
         AccountSelector.fireAccountDataChangedForAll();
         // fireAccountDataChanged in AccountsListGUI is only needed if accounts have been added
         // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
+        journalReadGUI.fireJournalDataChanged();
         accountGuiLeft.fireAccountDataChanged();
         accountGuiRight.fireAccountDataChanged();
 
@@ -283,8 +282,9 @@ public class Main {
         BalanceGUI.fireAccountDataChangedForAll();
     }
 
-    public static void fireContactDataChanged(Contact contact) {
+    public static void fireContactDataChanged() {
         ContactSelector.fireContactDataChangedForAll();
+        ContactsGUI.fireContactDataChangedForAll();
     }
 
     public static void saveData() {

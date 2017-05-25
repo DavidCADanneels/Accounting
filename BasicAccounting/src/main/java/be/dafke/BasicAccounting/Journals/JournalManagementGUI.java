@@ -2,16 +2,27 @@ package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.JournalType;
+import be.dafke.BusinessModel.JournalTypes;
+import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.SelectableTable;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
-import javax.swing.*;
+import javax.swing.DefaultCellEditor;
+import javax.swing.DefaultListSelectionModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.awt.*;
+import javax.swing.table.TableColumn;
+import java.awt.BorderLayout;
+import java.awt.Dimension;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -22,7 +33,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 
 	private static final long serialVersionUID = 1L;
 
-	private JButton add, delete, modifyName, modifyType, modifyAbbr, newType;
+	private JButton add, delete, newType, edit;
 	private final DefaultListSelectionModel selection;
     private SelectableTable<Journal> tabel;
     private JournalManagementTableModel journalManagementTableModel;
@@ -42,8 +53,13 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 
         tabel = new SelectableTable<>(journalManagementTableModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
-
         tabel.setRowSorter(null);
+
+        JComboBox<JournalType> comboBox=createComboBox();
+
+        TableColumn column = tabel.getColumnModel().getColumn(JournalManagementTableModel.TYPE_COL);
+        column.setCellEditor(new DefaultCellEditor(comboBox));
+
         JScrollPane scrollPane = new JScrollPane(tabel);
 
         JPanel contentPanel = new JPanel(new BorderLayout());
@@ -60,7 +76,13 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 		pack();
 	}
 
-    public static JournalManagementGUI showJournalManager(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
+    private JComboBox<JournalType> createComboBox() {
+        JComboBox<JournalType> comboBox = new JComboBox<>();
+        journalTypes.getBusinessObjects().forEach(journalType -> comboBox.addItem(journalType));
+        return comboBox;
+    }
+
+    public static JournalManagementGUI showJournalManager(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         JournalManagementGUI gui = journalManagementGuis.get(journals);
         if(gui == null){
             gui = new JournalManagementGUI(accounts, journals, journalTypes, accountTypes);
@@ -82,26 +104,24 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 
 	private JPanel createContentPanel(){
         JPanel south = new JPanel();
-        modifyName = new JButton(getBundle("Accounting").getString("MODIFY_NAME"));
-        modifyAbbr = new JButton(getBundle("Accounting").getString("MODIFY_ABBR"));
-        modifyType = new JButton(getBundle("Accounting").getString("MODIFY_TYPE"));
         delete = new JButton(getBundle("Accounting").getString("DELETE_JOURNAL"));
+        edit = new JButton(getBundle("Accounting").getString("EDIT_JOURNAL"));
         newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
         add = new JButton(getBundle("Accounting").getString("NEW_JOURNAL"));
-        modifyName.addActionListener(e -> modifyName());
-        modifyType.addActionListener(e -> modifyType());
-        modifyAbbr.addActionListener(e -> modifyAbbr());
         delete.addActionListener(e -> deleteJournal());
+        edit.addActionListener(e -> {
+            int selectedRow = tabel.getSelectedRow();
+            Journal journal = journalManagementTableModel.getObject(selectedRow, 0);
+            NewJournalGUI newJournalGUI = NewJournalGUI.getInstance(journals, journalTypes, accountTypes);
+            newJournalGUI.setJournal(journal);
+            newJournalGUI.setVisible(true);
+        });
         newType.addActionListener(e -> showJournalTypeManager(accounts, journalTypes,accountTypes));
         add.addActionListener(e -> NewJournalGUI.getInstance(accounts, journals, journalTypes, accountTypes).setVisible(true));
-        modifyName.setEnabled(false);
-        modifyType.setEnabled(false);
-        modifyAbbr.setEnabled(false);
         delete.setEnabled(false);
-        south.add(modifyName);
-        south.add(modifyType);
-        south.add(modifyAbbr);
+        edit.setEnabled(false);
         south.add(delete);
+        south.add(edit);
         south.add(newType);
         south.add(add);
         return south;
@@ -112,35 +132,9 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 			int[] rows = tabel.getSelectedRows();
 			boolean enabled = rows.length != 0;
             delete.setEnabled(enabled);
-            modifyName.setEnabled(enabled);
-            modifyAbbr.setEnabled(enabled);
-            modifyType.setEnabled(enabled);
+            edit.setEnabled(enabled);
 		}
 	}
-
-    public void modifyName() {
-        ArrayList<Journal> journalList = getSelectedJournals();
-        if (!journalList.isEmpty()) {
-            modifyNames(journalList, journals);
-            fireJournalDataChanged();
-        }
-    }
-
-    public void modifyAbbr() {
-        ArrayList<Journal> journalList = getSelectedJournals();
-        if (!journalList.isEmpty()) {
-            modifyAbbr(journalList, journals);
-            fireJournalDataChanged();
-        }
-    }
-
-    public void modifyType() {
-        ArrayList<Journal> journalList = getSelectedJournals();
-        if (!journalList.isEmpty()) {
-            modifyType(journalList, journalTypes);
-            fireJournalDataChanged();
-        }
-    }
 
     public void deleteJournal() {
         ArrayList<Journal> journalList = getSelectedJournals();
@@ -162,80 +156,6 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         }
         return journalList;
 
-    }
-
-    private void modifyNames(ArrayList<Journal> journalList, Journals journals) {
-        for(Journal journal : journalList){
-            String oldName = journal.getName();
-            boolean retry = true;
-            while(retry){
-                String newName = JOptionPane.showInputDialog(getBundle("BusinessActions").getString("NEW_NAME"), oldName.trim());
-                try {
-                    if(newName!=null && !oldName.trim().equals(newName.trim())){
-                        journals.modifyJournalName(oldName, newName);
-                    }
-                    retry = false;
-                } catch (DuplicateNameException e) {
-                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME, newName.trim());
-                } catch (EmptyNameException e) {
-                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_EMPTY);
-                }
-            }
-        }
-    }
-
-    private void modifyAbbr(ArrayList<Journal> journalList, Journals journals) {
-        for(Journal journal : journalList){
-            String oldAbbreviation = journal.getAbbreviation();
-            boolean retry = true;
-            while(retry){
-                String newAbbreviation = JOptionPane.showInputDialog(getBundle("BusinessActions").getString("NEW_ABBR"), oldAbbreviation.trim());
-                try {
-                    if(newAbbreviation!=null && !oldAbbreviation.trim().equals(newAbbreviation.trim())){
-                        journals.modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
-                    }
-                    retry = false;
-                } catch (DuplicateNameException e) {
-                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_ABBR,newAbbreviation.trim());
-                } catch (EmptyNameException e) {
-                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_ABBR_EMPTY);
-                }
-            }
-        }
-    }
-
-    private void modifyType(ArrayList<Journal> journalList, JournalTypes journalTypes) {
-
-        boolean singleMove;
-        if (journalList.size() == 1) {
-            singleMove = true;
-        } else {
-            int option = JOptionPane.showConfirmDialog(null, getBundle("BusinessActions").getString("APPLY_SAME_TYPE_FOR_ALL_JOURNALS"),
-                    getBundle("BusinessActions").getString("ALL"),
-                    JOptionPane.YES_NO_OPTION);
-            singleMove = (option == JOptionPane.YES_OPTION);
-        }
-        if (singleMove) {
-            Object[] types = journalTypes.getBusinessObjects().toArray();
-            int nr = JOptionPane.showOptionDialog(null, getBundle("BusinessActions").getString("CHOOSE_NEW_TYPE"),
-                    getBundle("BusinessActions").getString("CHANGE_TYPE"),
-                    JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types, null);
-            if(nr != JOptionPane.CLOSED_OPTION){
-                for(Journal journal : journalList) {
-                    journal.setType((JournalType) types[nr]);
-                }
-            }
-        } else {
-            for(Journal journal : journalList) {
-                Object[] types = journalTypes.getBusinessObjects().toArray();
-                int nr = JOptionPane.showOptionDialog(null, getBundle("BusinessActions").getString("CHOOSE_NEW_TYPE_FOR")+" " + journal.getName(),
-                        getBundle("BusinessActions").getString("CHANGE_TYPE"), JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, types,
-                        journal.getType());
-                if(nr != JOptionPane.CLOSED_OPTION){
-                    journal.setType((JournalType) types[nr]);
-                }
-            }
-        }
     }
 
     private void deleteJournal(ArrayList<Journal> journalList, Journals journals) {
