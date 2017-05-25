@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Journals;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.JournalType;
 import be.dafke.BusinessModel.JournalTypes;
@@ -82,7 +83,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         return comboBox;
     }
 
-    public static JournalManagementGUI showJournalManager(Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
+    public static JournalManagementGUI showJournalManager(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         JournalManagementGUI gui = journalManagementGuis.get(journals);
         if(gui == null){
             gui = new JournalManagementGUI(accounts, journals, journalTypes, accountTypes);
@@ -112,7 +113,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         edit.addActionListener(e -> {
             int selectedRow = tabel.getSelectedRow();
             Journal journal = journalManagementTableModel.getObject(selectedRow, 0);
-            NewJournalGUI newJournalGUI = NewJournalGUI.getInstance(journals, journalTypes, accountTypes);
+            NewJournalGUI newJournalGUI = NewJournalGUI.getInstance(accounts, journals, journalTypes, accountTypes);
             newJournalGUI.setJournal(journal);
             newJournalGUI.setVisible(true);
         });
