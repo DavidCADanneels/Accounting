@@ -64,21 +64,26 @@ public class NewAccountGUI extends RefreshableDialog {
     private void saveAccount() {
         String newName = nameField.getText().trim();
         try {
-            if(account==null){
+            if (account == null) {
                 account = new Account(newName.trim());
                 accounts.addBusinessObject(account);
                 Main.fireAccountDataChanged(account);
+                saveOtherProperties();
                 account = null;
                 clearFields();
             } else {
                 String oldName = account.getName();
                 accounts.modifyName(oldName, newName);
+                saveOtherProperties();
             }
         } catch (DuplicateNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, newName);
         } catch (EmptyNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NAME_EMPTY);
         }
+    }
+
+    private void saveOtherProperties(){
         account.setType((AccountType) type.getSelectedItem());
         String defaultAmountFieldText = defaultAmountField.getText();
         if (defaultAmountFieldText != null && !defaultAmountFieldText.trim().equals("")) {
