@@ -111,6 +111,7 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 			accountTypes = accountList.getAccountTypes();
 			filter = null;
 		}
+		fireTableDataChanged();
 	}
 
 	@Deprecated

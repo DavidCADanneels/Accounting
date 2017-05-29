@@ -102,6 +102,7 @@ public class AccountFilterPanel extends JPanel {
     }
 
     public void setAccountList(AccountsList accountList) {
+        clearSearchFields();
         types.setAccountList(accountList);
     }
 }
