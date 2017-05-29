@@ -40,8 +40,8 @@ public class JournalsIO {
             String creditTypes = getValue(element, CREDIT_TYPES);
             String[] debits = debitTypes.split(",");
             String[] credits = creditTypes.split(",");
-            AccountsList left = new AccountsList(accountTypes, true);
-            AccountsList right = new AccountsList(accountTypes, true);
+            AccountsList left = new AccountsList(accountTypes, false);
+            AccountsList right = new AccountsList(accountTypes, false);
             for(String s:debits) {
                 if(!"".equals(s)) {
                     AccountType accountType = accountTypes.getBusinessObject(s);

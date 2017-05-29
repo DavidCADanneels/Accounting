@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Journals;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.AccountsList;
 import be.dafke.BusinessModel.JournalType;
 import be.dafke.BusinessModel.JournalTypes;
 import be.dafke.BusinessModel.VATTransaction;
@@ -35,6 +36,7 @@ public class JournalTypeManagementGUI extends JFrame {
 	private Accounts accounts;
 	private AccountTypes accountTypes;
 	private JComboBox<VATTransaction.VATType> taxType;
+	private AccountsListConfigPanel left, right;
 
 	private JournalTypeManagementGUI(Accounts accounts, JournalTypes journalTypes, AccountTypes accountTypes) {
 		super(journalTypes.getAccounting().getName() + " / " + getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
@@ -94,6 +96,10 @@ public class JournalTypeManagementGUI extends JFrame {
 	private void comboAction() {
 		journalType = (JournalType) combo.getSelectedItem();
 		taxType.setSelectedItem(journalType.getVatType());
+		AccountsList leftList = journalType.getLeft();
+		left.setAccountsList(leftList);
+		AccountsList rightList = journalType.getRight();
+		right.setAccountsList(rightList);
 	}
 
 	public void createNewJournalType(){
@@ -119,12 +125,12 @@ public class JournalTypeManagementGUI extends JFrame {
 		panel.setLayout(new GridLayout(0,2));
 
 //		panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("ACCOUNTTYPES")));;
-		panel.add(new AccountsListConfigPanel(accounts, accountTypes, getBundle("BusinessModel").getString("LEFT")));
-		panel.add(new AccountsListConfigPanel(accounts, accountTypes, getBundle("BusinessModel").getString("RIGHT")));
+		left = new AccountsListConfigPanel(accounts, accountTypes, getBundle("BusinessModel").getString("LEFT"));
+		panel.add(left);
+		right = new AccountsListConfigPanel(accounts, accountTypes, getBundle("BusinessModel").getString("RIGHT"));
+		panel.add(right);
 
 
 		return panel;
 	}
-
-
 }

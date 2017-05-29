@@ -20,7 +20,7 @@ public class AccountsListSingleAccountSelectorPanel extends JPanel {
     private DefaultComboBoxModel<Account> model;
     private AccountsList accountsList;
 
-    public AccountsListSingleAccountSelectorPanel(AccountsList accountsList, Accounts accounts, AccountTypes accountTypes) {
+    public AccountsListSingleAccountSelectorPanel(Accounts accounts, AccountTypes accountTypes) {
         model = new DefaultComboBoxModel<>();
         combo = new JComboBox<>(model);
         combo.addActionListener(e -> selectionChanged());
@@ -28,13 +28,15 @@ public class AccountsListSingleAccountSelectorPanel extends JPanel {
         create.addActionListener(e -> new NewAccountGUI(accounts, accountTypes.getBusinessObjects()).setVisible(true));
         add(combo);
         add(create);
-        this.accountsList = accountsList;
         accounts.getBusinessObjects().stream().forEach(account -> model.addElement(account));
-        refresh();
     }
     private void selectionChanged(){
         Account account = (Account) combo.getSelectedItem();
         if(accountsList!=null) accountsList.setAccount(account);
+    }
+
+    public void setAccountsList(AccountsList accountsList) {
+        this.accountsList = accountsList;
     }
 
     public void refresh() {

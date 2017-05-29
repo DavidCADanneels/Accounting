@@ -37,15 +37,20 @@ public class AccountsListConfigPanel extends JPanel {
         north.add(singleAccount);
 
         accountsList = new AccountsList(accountTypes);
-        accountTypesFilterPanel = new AccountsListAccountTypesFilterPanel(accountsList);
-        accountTypesFilterPanel.setAccountTypes(accountTypes);
-        accountSelectorPanel = new AccountsListSingleAccountSelectorPanel(accountsList, accounts,accountTypes);
+        accountTypesFilterPanel = new AccountsListAccountTypesFilterPanel(accountTypes);
+        accountSelectorPanel = new AccountsListSingleAccountSelectorPanel(accounts,accountTypes);
         add(north,BorderLayout.NORTH);
         JPanel center = new JPanel(new BorderLayout());
         center.add(accountSelectorPanel, BorderLayout.NORTH);
         center.add(accountTypesFilterPanel, BorderLayout.CENTER);
         add(center,BorderLayout.CENTER);
 //        refresh();
+    }
+
+    public void setAccountsList(AccountsList accountsList) {
+        this.accountsList = accountsList;
+        accountTypesFilterPanel.setAccountsList(accountsList);
+        accountSelectorPanel.setAccountsList(accountsList);
     }
 
     public void refresh(){

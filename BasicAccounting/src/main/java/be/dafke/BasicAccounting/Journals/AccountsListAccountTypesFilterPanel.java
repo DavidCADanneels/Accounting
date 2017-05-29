@@ -17,39 +17,33 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class AccountsListAccountTypesFilterPanel extends JPanel {
     private final Map<AccountType, JCheckBox> boxes;
-    private final Map<AccountType, Boolean> selectedAccountTypes;
     private AccountsList accountsList;
 
-    public AccountsListAccountTypesFilterPanel(AccountsList accountsList) {
-        this.accountsList = accountsList;
+    public AccountsListAccountTypesFilterPanel(AccountTypes accountTypes) {
         setLayout(new GridLayout(0, 3));
         boxes = new HashMap<>();
-        selectedAccountTypes = new HashMap<>();
-    }
-
-    public void setAccountTypes(AccountTypes accountTypes) {
         if (accountTypes != null) {
-            selectedAccountTypes.clear();
-            for (AccountType type : accountTypes.getBusinessObjects()) {
-                selectedAccountTypes.put(type, Boolean.TRUE);
-            }
-            boxes.clear();
-            removeAll();
+            accountTypes.getBusinessObjects().forEach(accountType -> {
 
-            accountTypes.getBusinessObjects().forEach(type -> {
-
-                JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(type.getName().toUpperCase()));
+                JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(accountType.getName().toUpperCase()));
                 // TODO: save selections per Journal in xml file
-                checkBox.setSelected(true);
-                checkBox.setActionCommand(type.getName());
+//                boolean enabled = accountsList.isTypeAvailable(accountType);
+                boolean enabled = false;
+                checkBox.setSelected(enabled);
+                checkBox.setActionCommand(accountType.getName());
                 checkBox.addActionListener(e -> {
-                    accountsList.setTypeAvailable(type, checkBox.isSelected());
+                    accountsList.setTypeAvailable(accountType, checkBox.isSelected());
                 });
-                boxes.put(type, checkBox);
+                boxes.put(accountType, checkBox);
                 add(checkBox);
             });
             revalidate();
         }
+    }
+
+    public void setAccountsList(AccountsList accountsList) {
+        this.accountsList = accountsList;
+        refresh();
     }
 
     public void refresh() {
