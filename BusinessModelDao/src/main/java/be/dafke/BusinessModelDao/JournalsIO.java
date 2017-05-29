@@ -58,16 +58,19 @@ public class JournalsIO {
 
     private static AccountsList readTypes(Element element, Accounts accounts, AccountTypes accountTypes) {
         String typesString = getValue(element, TYPES);
-        String[] typesList = typesString.split(",");
         AccountsList accountsList = new AccountsList(accountTypes, false);
-        for (String s : typesList) {
-            if (!"".equals(s)) {
-                AccountType accountType = accountTypes.getBusinessObject(s);
-                if (accountType != null) {
-                    accountsList.setTypeAvailable(accountType, Boolean.TRUE);
+        if(typesString!=null) {
+            String[] typesList = typesString.split(",");
+            for (String s : typesList) {
+                if (!"".equals(s)) {
+                    AccountType accountType = accountTypes.getBusinessObject(s);
+                    if (accountType != null) {
+                        accountsList.setTypeAvailable(accountType, Boolean.TRUE);
+                    }
                 }
             }
         }
+
         String singleString = getValue(element, SINGLE_ACCOUNT);
         boolean single = Boolean.valueOf(singleString);
         accountsList.setSingleAccount(single);
@@ -75,8 +78,9 @@ public class JournalsIO {
         String accountString = getValue(element, ACCOUNT);
         if (accountString != null){
             Account account = accounts.getBusinessObject(accountString);
-           accountsList.setAccount(account);
+            accountsList.setAccount(account);
         }
+
         return accountsList;
     }
 
