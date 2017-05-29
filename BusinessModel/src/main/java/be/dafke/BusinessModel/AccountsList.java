@@ -1,5 +1,6 @@
 package be.dafke.BusinessModel;
 
+import java.util.HashMap;
 import java.util.function.Predicate;
 
 /**
@@ -8,11 +9,21 @@ import java.util.function.Predicate;
 public class AccountsList {
     private boolean singleAccount = false;
     private Account account = null;
-    private Accounts accounts = null;
     private Predicate<Account> filter = null;
+    private HashMap<AccountType, Boolean> availableAccountTypes = new HashMap<>();
 
-    public AccountsList(Accounts accounts) {
-        this.accounts = accounts;
+    public AccountsList(AccountTypes accountTypes) {
+        accountTypes.getBusinessObjects().forEach(accountType -> {
+            availableAccountTypes.put(accountType,Boolean.TRUE);
+        });
+    }
+
+    public void setTypeAvailable(AccountType accountType, boolean available){
+        availableAccountTypes.put(accountType, available);
+    }
+
+    public boolean isTypeAvailable(AccountType accountType){
+        return availableAccountTypes.get(accountType);
     }
 
     public void setSingleAccount(boolean singleAccount) {
@@ -21,5 +32,13 @@ public class AccountsList {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public boolean isSingleAccount() {
+        return singleAccount;
+    }
+
+    public Account getAccount() {
+        return account;
     }
 }

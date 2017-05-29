@@ -33,36 +33,28 @@ public class AccountsListAccountTypesFilterPanel extends JPanel {
             for (AccountType type : accountTypes.getBusinessObjects()) {
                 selectedAccountTypes.put(type, Boolean.TRUE);
             }
-//        }
             boxes.clear();
             removeAll();
 
-            for (AccountType type : accountTypes.getBusinessObjects()) {
+            accountTypes.getBusinessObjects().forEach(type -> {
+
                 JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(type.getName().toUpperCase()));
                 // TODO: save selections per Journal in xml file
                 checkBox.setSelected(true);
                 checkBox.setActionCommand(type.getName());
                 checkBox.addActionListener(e -> {
-
+                    accountsList.setTypeAvailable(type, checkBox.isSelected());
                 });
                 boxes.put(type, checkBox);
                 add(checkBox);
-            }
+            });
             revalidate();
         }
     }
 
-//    public void setAccounts(Accounts accounts) {
-//        boolean active = accounts != null;
-//        if (accountTypes != null) {
-//            for (AccountType type : accountTypes.getBusinessObjects()) {
-//                JCheckBox checkBox = boxes.get(type);
-//                checkBox.setSelected(selectedAccountTypes.get(type));
-//                checkBox.setEnabled(active);
-//            }
-//        }
-//        if (active) {
-//            fireAccountDataChanged();
-//        }
-//    }
+    public void refresh() {
+        boxes.forEach((accountType, checkBox) -> {
+            checkBox.setSelected(accountsList.isTypeAvailable(accountType));
+        });
+    }
 }

@@ -36,7 +36,7 @@ public class AccountsListConfigPanel extends JPanel {
         north.add(byType);
         north.add(singleAccount);
 
-        accountsList = new AccountsList(accounts);
+        accountsList = new AccountsList(accountTypes);
         accountTypesFilterPanel = new AccountsListAccountTypesFilterPanel(accountsList);
         accountTypesFilterPanel.setAccountTypes(accountTypes);
         accountSelectorPanel = new AccountsListSingleAccountSelectorPanel(accountsList, accounts,accountTypes);
@@ -49,16 +49,14 @@ public class AccountsListConfigPanel extends JPanel {
     }
 
     public void refresh(){
-        if(singleAccount.isSelected()){
-            accountsList.setSingleAccount(true);
-            accountsList.setAccount(accountSelectorPanel.getSelection());
-            accountTypesFilterPanel.setVisible(false);
-            accountSelectorPanel.setVisible(true);
-        } else if(byType.isSelected()){
-            accountsList.setSingleAccount(false);
-            accountTypesFilterPanel.setVisible(true);
-            accountSelectorPanel.setVisible(false);
-        }
+        boolean singleAccountSelected = singleAccount.isSelected();
+        accountsList.setSingleAccount(singleAccountSelected);
+        accountSelectorPanel.setVisible(singleAccountSelected);
+        accountSelectorPanel.refresh();
+
+        boolean byTypeSelected = byType.isSelected();
+        accountTypesFilterPanel.setVisible(byTypeSelected);
+        accountTypesFilterPanel.refresh();
     }
 
 }

@@ -16,41 +16,30 @@ import javax.swing.JPanel;
  */
 public class AccountsListSingleAccountSelectorPanel extends JPanel {
     private JButton create;
-    private Account account;
     private JComboBox<Account> combo;
     private DefaultComboBoxModel<Account> model;
-    private Accounts accounts;
     private AccountsList accountsList;
 
     public AccountsListSingleAccountSelectorPanel(AccountsList accountsList, Accounts accounts, AccountTypes accountTypes) {
-        this.accountsList = accountsList;
         model = new DefaultComboBoxModel<>();
         combo = new JComboBox<>(model);
-        combo.addActionListener(e -> {
-            account = (Account) combo.getSelectedItem();
-            if(accountsList!=null) accountsList.setAccount(account);
-        });
+        combo.addActionListener(e -> selectionChanged());
         create = new JButton("Add account(s) ...");
-        create.addActionListener(e -> new NewAccountGUI(accounts, accountTypes).setVisible(true));
+        create.addActionListener(e -> new NewAccountGUI(accounts, accountTypes.getBusinessObjects()).setVisible(true));
         add(combo);
         add(create);
-        setAccounts(accounts);
-        combo.setSelectedItem(null);
-    }
-
-    public Account getSelection() {
-        return account;
-    }
-
-    public void fireAccountDataChanged() {
-        model.removeAllElements();
+        this.accountsList = accountsList;
         accounts.getBusinessObjects().stream().forEach(account -> model.addElement(account));
-        invalidate();
-        combo.invalidate();
+        refresh();
+    }
+    private void selectionChanged(){
+        Account account = (Account) combo.getSelectedItem();
+        if(accountsList!=null) accountsList.setAccount(account);
     }
 
-    public void setAccounts(Accounts accounts) {
-        this.accounts = accounts;
-        fireAccountDataChanged();
+    public void refresh() {
+        boolean singleAccount = accountsList.isSingleAccount();
+        Account account = singleAccount?accountsList.getAccount():null;
+        combo.setSelectedItem(account);
     }
 }
