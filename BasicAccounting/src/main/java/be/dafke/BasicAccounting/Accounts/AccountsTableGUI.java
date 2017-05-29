@@ -4,7 +4,6 @@ import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.AccountsList;
@@ -88,8 +87,6 @@ public class AccountsTableGUI extends AccountsGUI {
         accountsTableButtons.setActive(accounting!=null);
 	    accountDataTableModel.setFilter(null);
         setAccounts(accounting==null?null:accounting.getAccounts());
-        // TODO: remove this method
-        setAccountTypes(accounting==null?null:accounting.getAccountTypes());
         setJournals(accounting==null?null:accounting.getJournals());
         setVatTransactions(accounting == null ? null : accounting.getVatTransactions());
         setContacts(accounting == null ? null : accounting.getContacts());
@@ -114,6 +111,7 @@ public class AccountsTableGUI extends AccountsGUI {
     public void setAccountsList(AccountsList accountsList) {
 	    super.setAccountsList(accountsList);
         filterPanel.setAccountList(accountsList);
+        accountDataTableModel.setAccountTypes(accountsList.getAccountTypes());
     }
 
     public void book(boolean debit) {
@@ -133,11 +131,6 @@ public class AccountsTableGUI extends AccountsGUI {
         super.setAccounts(accounts);
         accountDataTableModel.setAccounts(accounts);
         filterPanel.clearSearchFields();
-        fireAccountDataChanged();
-    }
-
-    public void setAccountTypes(AccountTypes accountTypes){
-        accountDataTableModel.setAccountTypes(accountTypes.getBusinessObjects());
         fireAccountDataChanged();
     }
 

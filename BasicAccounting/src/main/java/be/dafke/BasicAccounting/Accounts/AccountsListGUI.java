@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Accounts;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.AccountsList;
@@ -12,10 +11,16 @@ import be.dafke.BusinessModel.Journals;
 import be.dafke.BusinessModel.VATTransaction;
 import be.dafke.BusinessModel.VATTransactions;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JList;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Point;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
@@ -121,8 +126,6 @@ public class AccountsListGUI extends AccountsGUI {
         model.setAccounts(accounting == null ? null : accounting.getAccounts());
         model.setAccountTypes(accounting == null ? null : accounting.getAccountTypes().getBusinessObjects());
         model.setFilter(null);
-        // TODO: remove this method
-        setAccountTypes(accounting == null ? null : accounting.getAccountTypes());
         setAccounts(accounting == null ? null : accounting.getAccounts());
         setJournals(accounting == null ? null : accounting.getJournals());
         setVatTransactions(accounting == null ? null : accounting.getVatTransactions());
@@ -145,6 +148,7 @@ public class AccountsListGUI extends AccountsGUI {
     public void setAccountsList(AccountsList accountsList) {
         this.accountsList = accountsList;
         filterPanel.setAccountList(accountsList);
+        model.setAccountTypes(accountsList.getAccountTypes());
     }
 
     public void book(boolean debit) {
@@ -162,11 +166,6 @@ public class AccountsListGUI extends AccountsGUI {
     public void setAccounts(Accounts accounts) {
         super.setAccounts(accounts);
         filterPanel.clearSearchFields();
-    }
-
-
-    public void setAccountTypes(AccountTypes accountTypes) {
-        model.setAccountTypes(accountTypes.getBusinessObjects());
     }
 
     public void setJournals(Journals journals) {
