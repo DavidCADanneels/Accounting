@@ -1,13 +1,14 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.Accounts;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
+import java.util.ArrayList;
 
 /**
  * Created by ddanneels on 14/05/2017.
@@ -20,12 +21,12 @@ public class AccountSelectorPanel extends JPanel {
     private Accounts accounts;
 
 
-    public AccountSelectorPanel(Accounts accounts, AccountTypes accountTypes) {
+    public AccountSelectorPanel(Accounts accounts, ArrayList<AccountType> accountTypes) {
         model = new DefaultComboBoxModel<>();
         combo = new JComboBox<>(model);
         combo.addActionListener(e -> account = (Account) combo.getSelectedItem());
         create = new JButton("Add account(s) ...");
-        create.addActionListener(e -> new NewAccountGUI(accounts, accountTypes.getBusinessObjects()).setVisible(true));
+        create.addActionListener(e -> new NewAccountGUI(accounts, accountTypes).setVisible(true));
         add(combo);
         add(create);
         setAccounts(accounts);

@@ -1,12 +1,14 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.RefreshableDialog;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JButton;
+import javax.swing.JPanel;
+import java.awt.BorderLayout;
+import java.util.ArrayList;
 
 public class AccountSelector extends RefreshableDialog {
 	/**
@@ -17,10 +19,10 @@ public class AccountSelector extends RefreshableDialog {
 	private AccountSelectorPanel accountSelectorPanel;
 	private static AccountSelector accountSelector = null;
 
-	private AccountSelector(Accounts accounts, AccountTypes accountTypes) {
+	private AccountSelector(Accounts accounts, ArrayList<AccountType> accountTypes) {
 		this(accounts, accountTypes, "Select Account");
 	}
-	private AccountSelector(Accounts accounts, AccountTypes accountTypes, String title) {
+	private AccountSelector(Accounts accounts, ArrayList<AccountType> accountTypes, String title) {
 		super(title);
 		accountSelectorPanel = new AccountSelectorPanel(accounts, accountTypes);
 		JPanel innerPanel = new JPanel(new BorderLayout());
@@ -35,14 +37,14 @@ public class AccountSelector extends RefreshableDialog {
 		pack();
 	}
 
-	public static AccountSelector getAccountSelector(Accounts accounts, AccountTypes accountTypes, String title){
+	public static AccountSelector getAccountSelector(Accounts accounts, ArrayList<AccountType> accountTypes, String title){
 		if(accountSelector==null){
 			accountSelector = new AccountSelector(accounts, accountTypes, title);
 		}
 		return accountSelector;
 	}
 
-	public static AccountSelector getAccountSelector(Accounts accounts, AccountTypes accountTypes){
+	public static AccountSelector getAccountSelector(Accounts accounts, ArrayList<AccountType> accountTypes){
 		if(accountSelector==null){
 			accountSelector = new AccountSelector(accounts, accountTypes);
 		}

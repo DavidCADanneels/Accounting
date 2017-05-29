@@ -105,7 +105,7 @@ public class AccountsTableGUI extends AccountsGUI {
     public void book(boolean debit) {
         popup.setVisible(false);
         for(Account account : table.getSelectedObjects()){
-            AccountActions.book(journalInputGUI, account, debit, vatType, vatTransactions, accounts, accountTypes, contacts);
+            AccountActions.book(journalInputGUI, account, debit, vatType, vatTransactions, accounts, accountTypes.getBusinessObjects(), contacts);
         }
     }
 

@@ -139,7 +139,7 @@ public class AccountsListGUI extends AccountsGUI {
 
     public void book(boolean debit) {
         if (lijst.getSelectedValue() != null) {
-            AccountActions.book(journalInputGUI, lijst.getSelectedValue(), debit, vatType, vatTransactions, accounts, accountTypes, contacts);
+            AccountActions.book(journalInputGUI, lijst.getSelectedValue(), debit, vatType, vatTransactions, accounts, accountTypes.getBusinessObjects(), contacts);
         }
     }
 
