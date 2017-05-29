@@ -3,19 +3,25 @@ package be.dafke.BasicAccounting.Accounts;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.AccountsList;
 import be.dafke.BusinessModel.Contacts;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.BusinessModel.VATTransaction;
 import be.dafke.BusinessModel.VATTransactions;
 import be.dafke.ComponentModel.SelectableTable;
 
-import javax.swing.*;
+import javax.swing.BoxLayout;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import java.awt.*;
+import java.awt.BorderLayout;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -81,7 +87,6 @@ public class AccountsTableGUI extends AccountsGUI {
         accountsTableButtons.setActive(accounting!=null);
 	    accountDataTableModel.setFilter(null);
         setAccounts(accounting==null?null:accounting.getAccounts());
-        setAccountTypes(accounting==null?null:accounting.getAccountTypes());
         setJournals(accounting==null?null:accounting.getJournals());
         setVatTransactions(accounting == null ? null : accounting.getVatTransactions());
         setContacts(accounting == null ? null : accounting.getContacts());
@@ -102,9 +107,17 @@ public class AccountsTableGUI extends AccountsGUI {
         this.vatType = vatType;
     }
 
+    @Override
+    public void setAccountsList(AccountsList accountsList) {
+	    super.setAccountsList(accountsList);
+        filterPanel.setAccountList(accountsList);
+        accountDataTableModel.setAccountList(accountsList);
+    }
+
     public void book(boolean debit) {
         popup.setVisible(false);
         for(Account account : table.getSelectedObjects()){
+            ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
             AccountActions.book(journalInputGUI, account, debit, vatType, vatTransactions, accounts, accountTypes, contacts);
         }
     }
@@ -118,13 +131,6 @@ public class AccountsTableGUI extends AccountsGUI {
         super.setAccounts(accounts);
         accountDataTableModel.setAccounts(accounts);
         filterPanel.clearSearchFields();
-        fireAccountDataChanged();
-    }
-
-    public void setAccountTypes(AccountTypes accountTypes){
-	    super.setAccountTypes(accountTypes);
-        accountDataTableModel.setAccountTypes(accountTypes.getBusinessObjects());
-        filterPanel.setAccountTypes(accountTypes);
         fireAccountDataChanged();
     }
 

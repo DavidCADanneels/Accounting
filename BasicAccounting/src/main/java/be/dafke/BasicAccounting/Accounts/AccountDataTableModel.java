@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Accounts;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.AccountsList;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
@@ -26,8 +27,9 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
     private Accounts accounts;
     private List<AccountType> accountTypes;
     private Predicate<Account> filter;
+	private boolean singleAccount = false;
 
-// DE GET METHODEN
+	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
 		Account account = getFilteredAccounts().get(row);
@@ -81,17 +83,38 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 	}
 
 	private List<Account> getFilteredAccounts(){
-		if(filter==null){
-			return accounts.getAccountsByType(accountTypes).stream().collect(Collectors.toCollection(ArrayList::new));
+		ArrayList<Account> accountsList;
+		if(accountTypes!=null) {
+			accountsList = this.accounts.getAccountsByType(accountTypes);
+		} else {
+			accountsList = this.accounts.getBusinessObjects();
 		}
-		return accounts.getAccountsByType(accountTypes).stream().filter(filter).collect(Collectors.toCollection(ArrayList::new));
+		if(filter==null){
+			return accountsList.stream().collect(Collectors.toCollection(ArrayList::new));
+		}
+		return accountsList.stream().filter(filter).collect(Collectors.toCollection(ArrayList::new));
 	}
 
 	public void setFilter(Predicate<Account> filter) {
-		this.filter = filter;
+		if(!singleAccount) {
+			this.filter = filter;
+			fireTableDataChanged();
+		}
+	}
+
+	public void setAccountList(AccountsList accountList) {
+		singleAccount = accountList.isSingleAccount();
+		if(singleAccount){
+			accountTypes = null;
+			filter = Account.name(accountList.getAccount().getName());
+		} else {
+			accountTypes = accountList.getAccountTypes();
+			filter = null;
+		}
 		fireTableDataChanged();
 	}
 
+	@Deprecated
 	public void setAccountTypes(List<AccountType> accountTypes) {
 		this.accountTypes = accountTypes;
 		fireTableDataChanged();

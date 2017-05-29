@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Journals;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.JournalTypes;
 import be.dafke.BusinessModel.Journals;
 
@@ -22,6 +23,7 @@ public class JournalsMenu extends JMenu {
 
     private Journals journals;
     private JournalTypes journalTypes;
+    private Accounts accounts;
     private AccountTypes accountTypes;
     private JournalInputGUI journalInputGUI;
 
@@ -30,15 +32,15 @@ public class JournalsMenu extends JMenu {
         this.journalInputGUI = journalInputGUI;
         setMnemonic(KeyEvent.VK_P);
         add = new JMenuItem(getBundle("Accounting").getString("ADD_JOURNAL"));
-        add.addActionListener(e -> NewJournalGUI.getInstance(journals, journalTypes, accountTypes).setVisible(true));
+        add.addActionListener(e -> NewJournalGUI.getInstance(accounts, journals, journalTypes, accountTypes).setVisible(true));
         add.setEnabled(false);
 
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_JOURNALS"));
-        manage.addActionListener(e -> showJournalManager(journals, journalTypes, accountTypes).setVisible(true));
+        manage.addActionListener(e -> showJournalManager(accounts, journals, journalTypes, accountTypes).setVisible(true));
         manage.setEnabled(false);
 
         types = new JMenuItem(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
-        types.addActionListener(e -> showJournalTypeManager(journalTypes,accountTypes));
+        types.addActionListener(e -> showJournalTypeManager(accounts, journalTypes,accountTypes));
         types.setEnabled(false);
 
         add(add);
@@ -50,6 +52,7 @@ public class JournalsMenu extends JMenu {
         setJournals(accounting==null?null:accounting.getJournals());
         journalTypes = accounting==null?null:accounting.getJournalTypes();
         accountTypes = accounting==null?null:accounting.getAccountTypes();
+        accounts = accounting==null?null:accounting.getAccounts();
         add.setEnabled(journals!=null);
         manage.setEnabled(journals!=null);
         types.setEnabled(journals!=null);

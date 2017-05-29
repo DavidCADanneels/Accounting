@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,42 +28,23 @@ import static be.dafke.Utils.Utils.toCalendar;
  */
 public class JournalsIO {
 
-    public static void readJournalTypes(JournalTypes journalTypes, AccountTypes accountTypes, File accountingFolder){
+    public static void readJournalTypes(JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes, File accountingFolder){
         File xmlFile = new File(accountingFolder, "JournalTypes.xml");
         Element rootElement = getRootElement(xmlFile, JOURNAL_TYPES);
         for (Element element : getChildren(rootElement, JOURNAL_TYPE)) {
 
             String name = getValue(element, NAME);
-            JournalType journalType = new JournalType(name);
+            JournalType journalType = new JournalType(name, accountTypes);
 
-            String debitTypes = getValue(element, DEBIT_TYPES);
-            String creditTypes = getValue(element, CREDIT_TYPES);
-            String[] debits = debitTypes.split(",");
-            String[] credits = creditTypes.split(",");
-            for(String s:debits) {
-                if(!"".equals(s)) {
-                    AccountType accountType = accountTypes.getBusinessObject(s);
-                    if (accountType != null) {
-                        try {
-                            journalType.addDebetType(accountType);
-                        } catch (EmptyNameException | DuplicateNameException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
-            for(String s:credits) {
-                if(!"".equals(s)) {
-                    AccountType accountType = accountTypes.getBusinessObject(s);
-                    if(accountType!=null) {
-                        try {
-                            journalType.addCreditType(accountType);
-                        } catch (EmptyNameException | DuplicateNameException e) {
-                            e.printStackTrace();
-                        }
-                    }
-                }
-            }
+            Element leftElement = getChildren(element, LEFT_LIST).get(0);
+            Element rightElement = getChildren(element, RIGHT_LIST).get(0);
+
+            AccountsList left = readTypes(leftElement, accounts, accountTypes);
+            AccountsList right = readTypes(rightElement, accounts, accountTypes);
+
+            journalType.setLeft(left);
+            journalType.setRight(right);
+
             String taxString = getValue(element, VATTYPE);
             if(taxString!=null) journalType.setVatType(VATTransaction.VATType.valueOf(taxString));
 
@@ -72,6 +54,34 @@ public class JournalsIO {
                 e.printStackTrace();
             }
         }
+    }
+
+    private static AccountsList readTypes(Element element, Accounts accounts, AccountTypes accountTypes) {
+        String typesString = getValue(element, TYPES);
+        AccountsList accountsList = new AccountsList(accountTypes, false);
+        if(typesString!=null) {
+            String[] typesList = typesString.split(",");
+            for (String s : typesList) {
+                if (!"".equals(s)) {
+                    AccountType accountType = accountTypes.getBusinessObject(s);
+                    if (accountType != null) {
+                        accountsList.setTypeAvailable(accountType, Boolean.TRUE);
+                    }
+                }
+            }
+        }
+
+        String singleString = getValue(element, SINGLE_ACCOUNT);
+        boolean single = Boolean.valueOf(singleString);
+        accountsList.setSingleAccount(single);
+
+        String accountString = getValue(element, ACCOUNT);
+        if (accountString != null){
+            Account account = accounts.getBusinessObject(accountString);
+            accountsList.setAccount(account);
+        }
+
+        return accountsList;
     }
 
     public static void readJournals(Journals journals, Accounts accounts, JournalTypes journalTypes, VATTransactions vatTransactions, File accountingFolder) {
@@ -159,14 +169,29 @@ public class JournalsIO {
             Writer writer = new FileWriter(journalTypesFile);
             writer.write(getXmlHeader(JOURNAL_TYPES, 2));
             for (JournalType journalType : journalTypes.getBusinessObjects()) {
-                String debitStream = journalType.getDebetTypes().getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
-                String creditStream = journalType.getCreditTypes().getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
+
+                AccountsList left = journalType.getLeft();
+                ArrayList<AccountType> leftAccountTypes = left.getAccountTypes();
+                String leftStream = leftAccountTypes.stream().sorted().map(AccountType::getName).collect(Collectors.joining(","));
+
+                AccountsList right = journalType.getRight();
+                ArrayList<AccountType> rightAccountTypes = right.getAccountTypes();
+                String rightStream = rightAccountTypes.stream().sorted().map(AccountType::getName).collect(Collectors.joining(","));
+
                 writer.write(
                         "  <"+JOURNAL_TYPE+">\n" +
                         "    <"+NAME+">"+journalType.getName()+"</"+NAME+">\n" +
                         "    <"+VATTYPE+">"+(journalType.getVatType()==null?"null":journalType.getVatType().toString())+"</"+VATTYPE+">\n" +
-                        "    <"+DEBIT_TYPES+">"+debitStream+"</"+DEBIT_TYPES+">\n" +
-                        "    <"+CREDIT_TYPES+">"+creditStream+"</"+CREDIT_TYPES+">\n" +
+                        "    <"+LEFT_LIST+">\n" +
+                        "      <"+SINGLE_ACCOUNT+">"+left.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
+                        "      <"+ACCOUNT+">"+left.getAccount()+"</"+ACCOUNT+">\n" +
+                        "      <"+TYPES+">"+leftStream+"</"+TYPES+">\n" +
+                        "    </"+LEFT_LIST+">\n" +
+                        "    <"+RIGHT_LIST+">\n" +
+                        "      <"+SINGLE_ACCOUNT+">"+right.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
+                        "      <"+ACCOUNT+">"+right.getAccount()+"</"+ACCOUNT+">\n" +
+                        "      <"+TYPES+">"+rightStream+"</"+TYPES+">\n" +
+                        "    </"+RIGHT_LIST+">\n" +
                         "  </"+JOURNAL_TYPE+">\n"
                 );
             }

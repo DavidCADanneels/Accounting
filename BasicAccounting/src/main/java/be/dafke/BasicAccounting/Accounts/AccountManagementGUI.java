@@ -4,7 +4,6 @@ import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
@@ -36,10 +35,10 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 	private final AccountManagementTableModel accountManagementTableModel;
 	private final SelectableTable<Account> tabel;
 	private Accounts accounts;
-	private AccountTypes accountTypes;
+	private ArrayList<AccountType> accountTypes;
 	private static final HashMap<Accounts, AccountManagementGUI> accountManagementGuis = new HashMap<>();
 
-	private AccountManagementGUI(final Accounts accounts, final AccountTypes accountTypes) {
+	private AccountManagementGUI(final Accounts accounts, ArrayList<AccountType> accountTypes) {
 		super(accounts.getAccounting().getName() + " / " + getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE"));
 		this.accounts = accounts;
 		this.accountTypes = accountTypes;
@@ -73,11 +72,11 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 
 	private JComboBox<AccountType> createComboBox() {
 		JComboBox<AccountType> comboBox = new JComboBox<>();
-		accountTypes.getBusinessObjects().forEach(accountType -> comboBox.addItem(accountType));
+		accountTypes.forEach(accountType -> comboBox.addItem(accountType));
 		return comboBox;
 	}
 
-	public static AccountManagementGUI showAccountManager(Accounts accounts, AccountTypes accountTypes) {
+	public static AccountManagementGUI showAccountManager(Accounts accounts, ArrayList<AccountType> accountTypes) {
 		AccountManagementGUI gui = accountManagementGuis.get(accounts);
 		if(gui == null){
 			gui = new AccountManagementGUI(accounts, accountTypes);
@@ -141,7 +140,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 
 	public void deleteAccounts(ArrayList<Account> accountList, Accounts accounts){
 		if(!accountList.isEmpty()) {
-			ArrayList<String> failed = new ArrayList<String>();
+			ArrayList<String> failed = new ArrayList<>();
 			for(Account account : accountList) {
 				try{
 					accounts.removeBusinessObject(account);

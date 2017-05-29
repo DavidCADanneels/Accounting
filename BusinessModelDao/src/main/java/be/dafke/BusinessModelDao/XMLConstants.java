@@ -15,8 +15,10 @@ public class XMLConstants {
     public static final String DEFAULT_AMOUNT = "defaultAmount";
     public static final String JOURNAL_TYPES = "JournalTypes";
     public static final String JOURNAL_TYPE = "JournalType";
-    public static final String DEBIT_TYPES = "debitTypes";
-    public static final String CREDIT_TYPES = "creditTypes";
+    public static final String LEFT_LIST = "leftList";
+    public static final String RIGHT_LIST = "rightList";
+    public static final String TYPES = "types";
+    public static final String SINGLE_ACCOUNT = "singleAccount";
     public static final String VATTYPE = "vatType";
     public static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
     public static final String JOURNALS = "Journals";

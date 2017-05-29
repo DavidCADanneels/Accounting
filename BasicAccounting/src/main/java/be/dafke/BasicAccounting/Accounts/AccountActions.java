@@ -4,7 +4,7 @@ import be.dafke.BasicAccounting.Contacts.ContactSelector;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Contact;
@@ -13,8 +13,9 @@ import be.dafke.BusinessModel.Transaction;
 import be.dafke.BusinessModel.VATTransaction;
 import be.dafke.BusinessModel.VATTransactions;
 
-import javax.swing.*;
+import javax.swing.JOptionPane;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -40,7 +41,7 @@ public class AccountActions {
         }
     }
 
-    public static void book(JournalInputGUI journalInputGUI, Account account, boolean debit, VATTransaction.VATType vatType, VATTransactions vatTransactions, Accounts accounts, AccountTypes accountTypes, Contacts contacts){
+    public static void book(JournalInputGUI journalInputGUI, Account account, boolean debit, VATTransaction.VATType vatType, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Contacts contacts){
         Transaction transaction = journalInputGUI.getTransaction();
         BigDecimal amount = askAmount(account, debit, transaction);
         if (amount != null) {
@@ -131,7 +132,7 @@ public class AccountActions {
 
     // PURCHASE
 
-    public static void purchaseAny(Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, AccountTypes accountTypes){
+    public static void purchaseAny(Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes){
         BigDecimal amount = booking.getAmount();
         boolean debit = booking.isDebit();
         // Read percentage
@@ -147,7 +148,7 @@ public class AccountActions {
         }
     }
 
-    public static void purchase(BigDecimal suggestedVatAmount, Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, AccountTypes accountTypes) {
+    public static void purchase(BigDecimal suggestedVatAmount, Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes) {
         boolean debit = booking.isDebit();
         VATTransaction.PurchaseType purchaseType = getPurchaseType();
         Account btwAccount = getCreditAccount(vatTransactions, accounts, accountTypes);
@@ -164,7 +165,7 @@ public class AccountActions {
         }
     }
 
-    public static void purchaseCN(BigDecimal suggestedVatAmount, Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, AccountTypes accountTypes){
+    public static void purchaseCN(BigDecimal suggestedVatAmount, Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes){
         boolean debit = booking.isDebit();
         VATTransaction.PurchaseType purchaseType = getPurchaseType();
 
@@ -184,7 +185,7 @@ public class AccountActions {
 
     // SALE
 
-    public static void saleAny(Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, AccountTypes accountTypes) {
+    public static void saleAny(Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes) {
         BigDecimal amount = booking.getAmount();
         boolean debit = booking.isDebit();
         Integer pct = getPercentage(vatTransactions);
@@ -198,7 +199,7 @@ public class AccountActions {
         }
     }
 
-    private static void sell(Transaction transaction, Booking booking, BigDecimal suggestedVATAmount, int pct, VATTransactions vatTransactions, Accounts accounts, AccountTypes accountTypes) {
+    private static void sell(Transaction transaction, Booking booking, BigDecimal suggestedVATAmount, int pct, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes) {
         BigDecimal amount = booking.getAmount();
         boolean debit = booking.isDebit();
 
@@ -219,7 +220,7 @@ public class AccountActions {
         }
     }
 
-    public static void sellCN(Transaction transaction, Booking booking, BigDecimal suggestedVATAmount, int pct, VATTransactions vatTransactions, Accounts accounts, AccountTypes accountTypes){
+    public static void sellCN(Transaction transaction, Booking booking, BigDecimal suggestedVATAmount, int pct, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes){
         BigDecimal amount = booking.getAmount();
         boolean debit = booking.isDebit();
         Account btwAccount = getDebitCNAccount(vatTransactions, accounts, accountTypes);
@@ -241,7 +242,7 @@ public class AccountActions {
 
     // Get Accounts
 
-    private static Account getCreditAccount(VATTransactions vatTransactions, Accounts accounts, AccountTypes accountTypes){
+    private static Account getCreditAccount(VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes){
         Account btwAccount = vatTransactions.getCreditAccount();
         if(btwAccount==null){
             AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes, SELECT_TAX_CREDIT_ACCOUNT);
@@ -252,7 +253,7 @@ public class AccountActions {
         return btwAccount;
     }
 
-    private static Account getDebitAccount(VATTransactions vatTransactions, Accounts accounts, AccountTypes accountTypes){
+    private static Account getDebitAccount(VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes){
         Account btwAccount = vatTransactions.getDebitAccount();
         if(btwAccount==null){
             AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes, SELECT_TAX_DEBIT_ACCOUNT);
@@ -263,7 +264,7 @@ public class AccountActions {
         return btwAccount;
     }
 
-    private static Account getCreditCNAccount(VATTransactions vatTransactions, Accounts accounts, AccountTypes accountTypes){
+    private static Account getCreditCNAccount(VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes){
         Account btwAccount = vatTransactions.getCreditCNAccount();
         if(btwAccount==null){
             AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes, SELECT_TAX_CREDIT_CN_ACCOUNT);
@@ -274,7 +275,7 @@ public class AccountActions {
         return btwAccount;
     }
 
-    private static Account getDebitCNAccount(VATTransactions vatTransactions, Accounts accounts, AccountTypes accountTypes){
+    private static Account getDebitCNAccount(VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes){
         Account btwAccount = vatTransactions.getDebitCNAccount();
         if(btwAccount==null){
             AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes, SELECT_TAX_DEBIT_CN_ACCOUNT);

@@ -1,19 +1,24 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
+import java.awt.GridLayout;
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -29,14 +34,14 @@ public class NewAccountGUI extends RefreshableDialog {
     private Accounts accounts;
     private Account account;
 
-    public NewAccountGUI(Accounts accounts, AccountTypes accountTypes) {
+    public NewAccountGUI(Accounts accounts, ArrayList<AccountType> accountTypes) {
         super(getBundle("Accounting").getString("NEW_ACCOUNT_GUI_TITLE"));
         this.accounts = accounts;
         setContentPane(createContentPanel(accountTypes));
         pack();
     }
 
-    private JPanel createContentPanel(AccountTypes accountTypes){
+    private JPanel createContentPanel(ArrayList<AccountType> accountTypes){
         JPanel panel = new JPanel(new GridLayout(0,2));
         panel.add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")));
         nameField = new JTextField(20);
@@ -50,7 +55,7 @@ public class NewAccountGUI extends RefreshableDialog {
         panel.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
         type = new JComboBox<>();
         DefaultComboBoxModel<AccountType> model = new DefaultComboBoxModel<>();
-        for (AccountType accountType : accountTypes.getBusinessObjects()) {
+        for (AccountType accountType : accountTypes) {
             model.addElement(accountType);
         }
         type.setModel(model);

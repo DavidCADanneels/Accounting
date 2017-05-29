@@ -60,7 +60,7 @@ public class ProjectManagementGUI extends JFrame implements ListSelectionListene
 		onder.add(moveBack);
 		//
 		addAccount = new JButton("Add Account");
-		addAccount.addActionListener(e -> new NewAccountGUI(accounts, accountTypes).setVisible(true));
+		addAccount.addActionListener(e -> new NewAccountGUI(accounts, accountTypes.getBusinessObjects()).setVisible(true));
 		onder.add(addAccount);
 		//
 		// links

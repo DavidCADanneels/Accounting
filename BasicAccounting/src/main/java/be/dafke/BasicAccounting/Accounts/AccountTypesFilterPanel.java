@@ -1,10 +1,11 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.AccountsList;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JCheckBox;
+import javax.swing.JPanel;
+import java.awt.GridLayout;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -27,23 +28,25 @@ public class AccountTypesFilterPanel extends JPanel {
         selectedAccountTypes = new HashMap<>();
     }
 
-    public void setAccountTypes(AccountTypes accountTypes) {
+    public void setAccountList(AccountsList accountList) {
+        ArrayList<AccountType> accountTypes = accountList.getAccountTypes();
         if (accountTypes != null) {
             selectedAccountTypes.clear();
-            for (AccountType type : accountTypes.getBusinessObjects()) {
+            for (AccountType type : accountTypes) {
                 selectedAccountTypes.put(type, Boolean.TRUE);
             }
 //        }
             boxes.clear();
             removeAll();
 
-            for (AccountType type : accountTypes.getBusinessObjects()) {
+            for (AccountType type : accountTypes) {
                 JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(type.getName().toUpperCase()));
                 // TODO: save selections per Journal in xml file
                 checkBox.setSelected(true);
                 checkBox.setActionCommand(type.getName());
                 checkBox.addActionListener(e -> {
                     model.setAccountTypes(getSelectedAccountTypes());
+                    // TODO: can't we just remove and re-add only 'type' i.s.o. all types?
                     for (AccountType accountType : boxes.keySet()) {
                         JCheckBox checkBox2 = boxes.get(accountType);
                         selectedAccountTypes.remove(accountType);
