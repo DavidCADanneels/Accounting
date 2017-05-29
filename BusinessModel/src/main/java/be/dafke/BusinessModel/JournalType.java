@@ -3,7 +3,6 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
 public class JournalType extends BusinessObject {
     private AccountTypes debetTypes, creditTypes;
@@ -65,31 +64,8 @@ public class JournalType extends BusinessObject {
         return debetTypes;
     }
 
-    public void setDebetTypes(AccountTypes debetTypes) {
-        this.debetTypes = debetTypes;
-    }
-
     public AccountTypes getCreditTypes() {
         return creditTypes;
     }
 
-    public void setCreditTypes(AccountTypes creditTypes) {
-        this.creditTypes = creditTypes;
-    }
-
-    public void removeCreditType(AccountType type) {
-        try {
-            creditTypes.removeBusinessObject(type);
-        } catch (NotEmptyException e) {
-            e.printStackTrace();
-        }
-    }
-
-    public void removeDebitType(AccountType type){
-        try {
-            debetTypes.removeBusinessObject(type);
-        } catch (NotEmptyException e) {
-            e.printStackTrace();
-        }
-    }
 }
