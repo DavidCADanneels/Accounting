@@ -49,6 +49,7 @@ public class AccountsListConfigPanel extends JPanel {
 
     public void setAccountsList(AccountsList accountsList) {
         this.accountsList = accountsList;
+        singleAccount.setSelected(accountsList.isSingleAccount());
         accountTypesFilterPanel.setAccountsList(accountsList);
         accountSelectorPanel.setAccountsList(accountsList);
     }
