@@ -39,6 +39,12 @@ public class AccountsListSingleAccountSelectorPanel extends JPanel {
         this.accountsList = accountsList;
     }
 
+    @Override
+    public void setEnabled(boolean enabled){
+        combo.setEnabled(enabled);
+        create.setEnabled(enabled);
+    }
+
     public void refresh() {
         boolean singleAccount = accountsList.isSingleAccount();
         Account account = singleAccount?accountsList.getAccount():null;

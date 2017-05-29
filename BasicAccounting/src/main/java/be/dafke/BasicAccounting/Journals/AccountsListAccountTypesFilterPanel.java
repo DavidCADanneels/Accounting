@@ -41,14 +41,17 @@ public class AccountsListAccountTypesFilterPanel extends JPanel {
         }
     }
 
+    @Override
+    public void setEnabled(boolean enabled){
+        boxes.forEach((accountType, checkBox) -> checkBox.setEnabled(enabled));
+    }
+
     public void setAccountsList(AccountsList accountsList) {
         this.accountsList = accountsList;
         refresh();
     }
 
     public void refresh() {
-        boxes.forEach((accountType, checkBox) -> {
-            checkBox.setSelected(accountsList.isTypeAvailable(accountType));
-        });
+        boxes.forEach((accountType, checkBox) -> checkBox.setSelected(accountsList.isTypeAvailable(accountType)));
     }
 }

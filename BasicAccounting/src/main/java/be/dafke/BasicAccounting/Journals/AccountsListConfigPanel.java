@@ -56,11 +56,11 @@ public class AccountsListConfigPanel extends JPanel {
     public void refresh(){
         boolean singleAccountSelected = singleAccount.isSelected();
         accountsList.setSingleAccount(singleAccountSelected);
-        accountSelectorPanel.setVisible(singleAccountSelected);
+        accountSelectorPanel.setEnabled(singleAccountSelected);
         accountSelectorPanel.refresh();
 
         boolean byTypeSelected = byType.isSelected();
-        accountTypesFilterPanel.setVisible(byTypeSelected);
+        accountTypesFilterPanel.setEnabled(byTypeSelected);
         accountTypesFilterPanel.refresh();
     }
 
