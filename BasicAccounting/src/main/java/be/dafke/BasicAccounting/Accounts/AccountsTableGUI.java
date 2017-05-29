@@ -111,7 +111,7 @@ public class AccountsTableGUI extends AccountsGUI {
     public void setAccountsList(AccountsList accountsList) {
 	    super.setAccountsList(accountsList);
         filterPanel.setAccountList(accountsList);
-        accountDataTableModel.setAccountTypes(accountsList.getAccountTypes());
+        accountDataTableModel.setAccountList(accountsList);
     }
 
     public void book(boolean debit) {
