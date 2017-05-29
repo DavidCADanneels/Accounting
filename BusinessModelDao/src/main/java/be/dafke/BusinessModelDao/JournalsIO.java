@@ -40,8 +40,8 @@ public class JournalsIO {
             String creditTypes = getValue(element, CREDIT_TYPES);
             String[] debits = debitTypes.split(",");
             String[] credits = creditTypes.split(",");
-            AccountsList left = journalType.getLeft();
-            AccountsList right = journalType.getRight();
+            AccountsList left = new AccountsList(accountTypes, true);
+            AccountsList right = new AccountsList(accountTypes, true);
             for(String s:debits) {
                 if(!"".equals(s)) {
                     AccountType accountType = accountTypes.getBusinessObject(s);
@@ -58,6 +58,8 @@ public class JournalsIO {
                     }
                 }
             }
+            journalType.setLeft(left);
+            journalType.setRight(right);
             String taxString = getValue(element, VATTYPE);
             if(taxString!=null) journalType.setVatType(VATTransaction.VATType.valueOf(taxString));
 

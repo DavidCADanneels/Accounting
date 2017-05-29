@@ -69,9 +69,9 @@ public class AccountInputPanel extends JPanel{
 
     private void setJournalType(JournalType journalType) {
         if(journalType==null) {
-            accountsListGUI1.setAccountsList(new AccountsList(accountTypes));
+            accountsListGUI1.setAccountsList(new AccountsList(accountTypes, true));
             accountsListGUI1.setVatType(null);
-            accountsListGUI2.setAccountsList(new AccountsList(accountTypes));
+            accountsListGUI2.setAccountsList(new AccountsList(accountTypes, true));
             accountsListGUI2.setVatType(null);
 //            setVatType(VATTransaction.VATType.NONE);
         } else {

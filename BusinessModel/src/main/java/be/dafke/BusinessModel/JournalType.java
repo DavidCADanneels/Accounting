@@ -10,17 +10,17 @@ public class JournalType extends BusinessObject {
         this(journalType.getName(), accountTypes);
         vatType = journalType.getVatType();
         for(AccountType accountType:journalType.left.getAccountTypes()){
-            addLeftType(accountType);
+            left.setTypeAvailable(accountType, Boolean.TRUE);
         }
         for(AccountType accountType:journalType.right.getAccountTypes()){
-            addRightType(accountType);
+            right.setTypeAvailable(accountType, Boolean.TRUE);
         }
     }
 
     public JournalType(String name, AccountTypes accountTypes){
         setName(name);
-        left = new AccountsList(accountTypes);
-        right = new AccountsList(accountTypes);
+        left = new AccountsList(accountTypes, false);
+        right = new AccountsList(accountTypes, false);
     }
 
     public AccountsList getLeft() {
@@ -31,6 +31,14 @@ public class JournalType extends BusinessObject {
         return right;
     }
 
+    public void setLeft(AccountsList left) {
+        this.left = left;
+    }
+
+    public void setRight(AccountsList right) {
+        this.right = right;
+    }
+
     public VATTransaction.VATType getVatType() {
         return vatType;
     }
@@ -39,15 +47,4 @@ public class JournalType extends BusinessObject {
         this.vatType = vatType;
     }
 
-    private void addLeftType(AccountType accountType) {
-        if (accountType != null) {
-            left.setTypeAvailable(accountType, Boolean.TRUE);
-        }
-    }
-
-    private void addRightType(AccountType accountType) {
-        if (accountType != null) {
-            right.setTypeAvailable(accountType, Boolean.TRUE);
-        }
-    }
 }

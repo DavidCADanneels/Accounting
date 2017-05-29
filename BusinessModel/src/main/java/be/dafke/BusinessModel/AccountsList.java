@@ -15,8 +15,12 @@ public class AccountsList {
     private HashMap<AccountType, Boolean> availableAccountTypes = new HashMap<>();
 
     public AccountsList(AccountTypes accountTypes) {
+        this(accountTypes, false);
+    }
+
+    public AccountsList(AccountTypes accountTypes, boolean enabled) {
         accountTypes.getBusinessObjects().forEach(accountType -> {
-            availableAccountTypes.put(accountType,Boolean.FALSE);
+            availableAccountTypes.put(accountType,enabled);
         });
     }
 

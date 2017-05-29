@@ -316,8 +316,8 @@ public class Main {
         if(journalType==null) {
             accountGuiLeft.setVatType(null);
             accountGuiRight.setVatType(null);
-            accountGuiLeft.setAccountsList(new AccountsList(accountTypes));
-            accountGuiRight.setAccountsList(new AccountsList(accountTypes));
+            accountGuiLeft.setAccountsList(new AccountsList(accountTypes, true));
+            accountGuiRight.setAccountsList(new AccountsList(accountTypes, true));
 //            setVatType(VATTransaction.VATType.NONE);
         } else {
             AccountsList left = journalType.getLeft();
