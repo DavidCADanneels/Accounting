@@ -159,11 +159,11 @@ public class JournalsIO {
 
                 AccountsList left = journalType.getLeft();
                 ArrayList<AccountType> leftAccountTypes = left.getAccountTypes();
-                String leftStream = leftAccountTypes.stream().map(AccountType::getName).collect(Collectors.joining(","));
+                String leftStream = leftAccountTypes.stream().sorted().map(AccountType::getName).collect(Collectors.joining(","));
 
                 AccountsList right = journalType.getRight();
                 ArrayList<AccountType> rightAccountTypes = right.getAccountTypes();
-                String rightStream = rightAccountTypes.stream().map(AccountType::getName).collect(Collectors.joining(","));
+                String rightStream = rightAccountTypes.stream().sorted().map(AccountType::getName).collect(Collectors.joining(","));
 
                 writer.write(
                         "  <"+JOURNAL_TYPE+">\n" +
