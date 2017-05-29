@@ -36,28 +36,9 @@ public class JournalsIO {
             String name = getValue(element, NAME);
             JournalType journalType = new JournalType(name, accountTypes);
 
-            String debitTypes = getValue(element, DEBIT_TYPES);
-            String creditTypes = getValue(element, CREDIT_TYPES);
-            String[] debits = debitTypes.split(",");
-            String[] credits = creditTypes.split(",");
-            AccountsList left = new AccountsList(accountTypes, false);
-            AccountsList right = new AccountsList(accountTypes, false);
-            for(String s:debits) {
-                if(!"".equals(s)) {
-                    AccountType accountType = accountTypes.getBusinessObject(s);
-                    if (accountType != null) {
-                        left.setTypeAvailable(accountType, Boolean.TRUE);
-                    }
-                }
-            }
-            for(String s:credits) {
-                if(!"".equals(s)) {
-                    AccountType accountType = accountTypes.getBusinessObject(s);
-                    if (accountType != null) {
-                        right.setTypeAvailable(accountType, Boolean.TRUE);
-                    }
-                }
-            }
+            AccountsList left = readTypes(element, DEBIT_TYPES, accountTypes);
+            AccountsList right = readTypes(element, CREDIT_TYPES, accountTypes);
+
             journalType.setLeft(left);
             journalType.setRight(right);
             String taxString = getValue(element, VATTYPE);
@@ -69,6 +50,21 @@ public class JournalsIO {
                 e.printStackTrace();
             }
         }
+    }
+
+    private static AccountsList readTypes(Element element, String name, AccountTypes accountTypes){
+        String typesString = getValue(element, name);
+        String[] typesList = typesString.split(",");
+        AccountsList accountsList = new AccountsList(accountTypes, false);
+        for(String s:typesList) {
+            if(!"".equals(s)) {
+                AccountType accountType = accountTypes.getBusinessObject(s);
+                if (accountType != null) {
+                    accountsList.setTypeAvailable(accountType, Boolean.TRUE);
+                }
+            }
+        }
+        return accountsList;
     }
 
     public static void readJournals(Journals journals, Accounts accounts, JournalTypes journalTypes, VATTransactions vatTransactions, File accountingFolder) {
