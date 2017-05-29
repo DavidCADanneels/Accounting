@@ -39,6 +39,10 @@ public class Account extends BusinessCollection<Movement> implements Comparable<
         setContact(account.contact);
     }
 
+    public static Predicate<Account> name(String name) {
+        return account -> account.getName()!=null && account.getName().toLowerCase().equals(name.toLowerCase());
+    }
+
     public static Predicate<Account> namePrefix(String prefix) {
         return account -> account.getName()!=null && account.getName().toLowerCase().startsWith(prefix.toLowerCase());
     }
