@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.Accounts.AccountDataListModel;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.AccountsList;
@@ -18,10 +17,10 @@ import java.awt.Color;
  */
 public class AccountsListConfigPanel extends JPanel {
     private JRadioButton byType, singleAccount;
-    private AccountSelectorPanel2 accountSelectorPanel;
+    private AccountsListSingleAccountSelectorPanel accountSelectorPanel;
     private JPanel north;
     private AccountsList accountsList;
-    private AccountTypesFilterPanel2 accountTypesFilterPanel;
+    private AccountsListAccountTypesFilterPanel accountTypesFilterPanel;
 
     public AccountsListConfigPanel(Accounts accounts, AccountTypes accountTypes, String title) {
         setLayout(new BorderLayout());
@@ -37,14 +36,10 @@ public class AccountsListConfigPanel extends JPanel {
         north.add(byType);
         north.add(singleAccount);
 
-        AccountDataListModel model = new AccountDataListModel();
-        model.setAccounts(accounts);
-        model.setAccountTypes(accountTypes.getBusinessObjects());
-
         accountsList = new AccountsList(accounts);
-        accountTypesFilterPanel = new AccountTypesFilterPanel2(accountsList);
+        accountTypesFilterPanel = new AccountsListAccountTypesFilterPanel(accountsList);
         accountTypesFilterPanel.setAccountTypes(accountTypes);
-        accountSelectorPanel = new AccountSelectorPanel2(accountsList, accounts,accountTypes);
+        accountSelectorPanel = new AccountsListSingleAccountSelectorPanel(accountsList, accounts,accountTypes);
         add(north,BorderLayout.NORTH);
         JPanel center = new JPanel(new BorderLayout());
         center.add(accountSelectorPanel, BorderLayout.NORTH);

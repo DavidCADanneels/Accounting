@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 /**
  * Created by ddanneels on 14/05/2017.
  */
-public class AccountSelectorPanel2 extends JPanel {
+public class AccountsListSingleAccountSelectorPanel extends JPanel {
     private JButton create;
     private Account account;
     private JComboBox<Account> combo;
@@ -22,7 +22,7 @@ public class AccountSelectorPanel2 extends JPanel {
     private Accounts accounts;
     private AccountsList accountsList;
 
-    public AccountSelectorPanel2(AccountsList accountsList, Accounts accounts, AccountTypes accountTypes) {
+    public AccountsListSingleAccountSelectorPanel(AccountsList accountsList, Accounts accounts, AccountTypes accountTypes) {
         this.accountsList = accountsList;
         model = new DefaultComboBoxModel<>();
         combo = new JComboBox<>(model);

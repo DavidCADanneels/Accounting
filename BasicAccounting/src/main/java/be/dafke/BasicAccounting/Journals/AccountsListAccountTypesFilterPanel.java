@@ -15,12 +15,12 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 7/05/2017.
  */
-public class AccountTypesFilterPanel2 extends JPanel {
+public class AccountsListAccountTypesFilterPanel extends JPanel {
     private final Map<AccountType, JCheckBox> boxes;
     private final Map<AccountType, Boolean> selectedAccountTypes;
     private AccountsList accountsList;
 
-    public AccountTypesFilterPanel2(AccountsList accountsList) {
+    public AccountsListAccountTypesFilterPanel(AccountsList accountsList) {
         this.accountsList = accountsList;
         setLayout(new GridLayout(0, 3));
         boxes = new HashMap<>();
