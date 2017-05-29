@@ -41,6 +41,7 @@ public class JournalsIO {
 
             journalType.setLeft(left);
             journalType.setRight(right);
+
             String taxString = getValue(element, VATTYPE);
             if(taxString!=null) journalType.setVatType(VATTransaction.VATType.valueOf(taxString));
 
@@ -64,6 +65,23 @@ public class JournalsIO {
                 }
             }
         }
+
+        ArrayList<Element> leftList = getChildren(element, LEFT_LIST);
+        ArrayList<Element> rightList = getChildren(element, RIGHT_LIST);
+
+        for (Element element1:leftList) {
+            String leftSingleString = getValue(element1, SINGLE_ACCOUNT);
+            boolean leftSingle = Boolean.valueOf(leftSingleString);
+            String leftAccountString = getValue(element1, ACCOUNT);
+//                accounts.g
+        }
+        for (Element element1:rightList) {
+            String rightSingleString = getValue(element1, SINGLE_ACCOUNT);
+            boolean rightSingle = Boolean.valueOf(rightSingleString);
+            String rightAccountString = getValue(element1, ACCOUNT);
+//                accounts.g
+        }
+
         return accountsList;
     }
 
@@ -168,12 +186,12 @@ public class JournalsIO {
                         "    <"+LEFT_LIST+">\n" +
                         "      <"+SINGLE_ACCOUNT+">"+left.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
                         "      <"+ACCOUNT+">"+left.getAccount()+"</"+ACCOUNT+">\n" +
-                        "      <"+DEBIT_TYPES+">"+leftStream+"</"+DEBIT_TYPES+">\n" +
+                        "      <"+TYPES+">"+leftStream+"</"+TYPES+">\n" +
                         "    </"+LEFT_LIST+">\n" +
                         "    <"+RIGHT_LIST+">\n" +
                         "      <"+SINGLE_ACCOUNT+">"+right.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
                         "      <"+ACCOUNT+">"+right.getAccount()+"</"+ACCOUNT+">\n" +
-                        "      <"+CREDIT_TYPES+">"+rightStream+"</"+CREDIT_TYPES+">\n" +
+                        "      <"+TYPES+">"+rightStream+"</"+TYPES+">\n" +
                         "    </"+RIGHT_LIST+">\n" +
                         "  </"+JOURNAL_TYPE+">\n"
                 );
