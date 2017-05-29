@@ -25,7 +25,7 @@ public class AccountSelectorPanel extends JPanel {
         combo = new JComboBox<>(model);
         combo.addActionListener(e -> account = (Account) combo.getSelectedItem());
         create = new JButton("Add account(s) ...");
-        create.addActionListener(e -> new NewAccountGUI(accounts, accountTypes).setVisible(true));
+        create.addActionListener(e -> new NewAccountGUI(accounts, accountTypes.getBusinessObjects()).setVisible(true));
         add(combo);
         add(create);
         setAccounts(accounts);

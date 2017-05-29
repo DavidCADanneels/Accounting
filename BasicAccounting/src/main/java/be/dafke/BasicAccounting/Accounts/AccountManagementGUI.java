@@ -97,12 +97,12 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 			int selectedRow = tabel.getSelectedRow();
 			if(selectedRow!=-1) {
 				Account account = accountManagementTableModel.getObject(selectedRow, 0);
-				NewAccountGUI newAccountGUI = new NewAccountGUI(accounts, accountTypes);
+				NewAccountGUI newAccountGUI = new NewAccountGUI(accounts, accountTypes.getBusinessObjects());
 				newAccountGUI.setAccount(account);
 				newAccountGUI.setVisible(true);
 			}
 		});
-		newAccount.addActionListener(e -> new NewAccountGUI(accounts, accountTypes).setVisible(true));
+		newAccount.addActionListener(e -> new NewAccountGUI(accounts, accountTypes.getBusinessObjects()).setVisible(true));
 		delete.setEnabled(false);
 		edit.setEnabled(false);
         south.add(delete);
@@ -141,7 +141,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 
 	public void deleteAccounts(ArrayList<Account> accountList, Accounts accounts){
 		if(!accountList.isEmpty()) {
-			ArrayList<String> failed = new ArrayList<String>();
+			ArrayList<String> failed = new ArrayList<>();
 			for(Account account : accountList) {
 				try{
 					accounts.removeBusinessObject(account);
