@@ -35,6 +35,7 @@ public class AccountsListSingleAccountSelectorPanel extends JPanel {
         add(combo);
         add(create);
         setAccounts(accounts);
+        combo.setSelectedItem(null);
     }
 
     public Account getSelection() {
