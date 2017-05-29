@@ -169,8 +169,16 @@ public class JournalsIO {
                         "  <"+JOURNAL_TYPE+">\n" +
                         "    <"+NAME+">"+journalType.getName()+"</"+NAME+">\n" +
                         "    <"+VATTYPE+">"+(journalType.getVatType()==null?"null":journalType.getVatType().toString())+"</"+VATTYPE+">\n" +
-                        "    <"+DEBIT_TYPES+">"+leftStream+"</"+DEBIT_TYPES+">\n" +
-                        "    <"+CREDIT_TYPES+">"+rightStream+"</"+CREDIT_TYPES+">\n" +
+                        "    <"+LEFT_LIST+">\n" +
+                        "      <"+SINGLE_ACCOUNT+">"+left.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
+                        "      <"+ACCOUNT+">"+left.getAccount()+"</"+ACCOUNT+">\n" +
+                        "      <"+DEBIT_TYPES+">"+leftStream+"</"+DEBIT_TYPES+">\n" +
+                        "    </"+LEFT_LIST+">\n" +
+                        "    <"+RIGHT_LIST+">\n" +
+                        "      <"+SINGLE_ACCOUNT+">"+right.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
+                        "      <"+ACCOUNT+">"+right.getAccount()+"</"+ACCOUNT+">\n" +
+                        "      <"+CREDIT_TYPES+">"+rightStream+"</"+CREDIT_TYPES+">\n" +
+                        "    </"+RIGHT_LIST+">\n" +
                         "  </"+JOURNAL_TYPE+">\n"
                 );
             }
