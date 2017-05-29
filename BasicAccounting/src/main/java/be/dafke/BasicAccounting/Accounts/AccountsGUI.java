@@ -36,7 +36,7 @@ public abstract class AccountsGUI extends JPanel {
 
     public void manageAccounts(){
         popup.setVisible(false);
-        showAccountManager(accounts, accountTypes).setVisible(true);
+        showAccountManager(accounts, accountTypes.getBusinessObjects()).setVisible(true);
     }
 
     public void addAccount(){

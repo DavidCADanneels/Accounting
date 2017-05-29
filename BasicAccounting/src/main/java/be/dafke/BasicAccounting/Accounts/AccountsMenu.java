@@ -31,7 +31,7 @@ public class AccountsMenu extends JMenu {
         add.setEnabled(false);
 
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_ACCOUNT"));
-        manage.addActionListener(e -> showAccountManager(accounts, accountTypes).setVisible(true));
+        manage.addActionListener(e -> showAccountManager(accounts, accountTypes.getBusinessObjects()).setVisible(true));
         manage.setEnabled(false);
 
         testBalance = new JMenuItem(getBundle("BusinessModel").getString("TESTBALANCE"));
