@@ -101,7 +101,7 @@ public class JournalTypeManagementGUI extends JFrame {
 		while (name != null && name.equals(""))
 			name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
 		if (name != null) {
-			JournalType journalType = new JournalType(name);
+			JournalType journalType = new JournalType(name, accountTypes);
 			try {
 				journalTypes.addBusinessObject(journalType);
 			} catch (EmptyNameException e) {

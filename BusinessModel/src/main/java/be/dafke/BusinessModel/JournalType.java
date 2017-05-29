@@ -7,11 +7,11 @@ import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
 public class JournalType extends BusinessObject {
     private AccountTypes debetTypes, creditTypes;
-    private Account singleAccount = null;
     private VATTransaction.VATType vatType = null;
+    private AccountsList left, right;
 
-    public JournalType(JournalType journalType){
-        this(journalType.getName());
+    public JournalType(JournalType journalType, AccountTypes accountTypes){
+        this(journalType.getName(), accountTypes);
         vatType = journalType.getVatType();
         for(AccountType accountType:journalType.debetTypes.getBusinessObjects()){
             try {
@@ -29,28 +29,21 @@ public class JournalType extends BusinessObject {
         }
     }
 
-    public JournalType(String name){
+    public JournalType(String name, AccountTypes accountTypes){
         setName(name);
         debetTypes = new AccountTypes();
         creditTypes = new AccountTypes();
+        left = new AccountsList(accountTypes);
+        right = new AccountsList(accountTypes);
     }
 
-    public Account getSingleAccount() {
-        return singleAccount;
+    public AccountsList getLeft() {
+        return left;
     }
 
-    public void setSingleAccount(Account singleAccount) {
-        this.singleAccount = singleAccount;
+    public AccountsList getRight() {
+        return right;
     }
-
-    //    public VATTransactions getVatTransactions() {
-//        return vat;
-//    }
-//
-//    public void setVat(VATTransactions vat) {
-//        this.vat = vat;
-//    }
-
 
     public VATTransaction.VATType getVatType() {
         return vatType;

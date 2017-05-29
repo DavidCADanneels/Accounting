@@ -33,7 +33,7 @@ public class JournalsIO {
         for (Element element : getChildren(rootElement, JOURNAL_TYPE)) {
 
             String name = getValue(element, NAME);
-            JournalType journalType = new JournalType(name);
+            JournalType journalType = new JournalType(name, accountTypes);
 
             String debitTypes = getValue(element, DEBIT_TYPES);
             String creditTypes = getValue(element, CREDIT_TYPES);
