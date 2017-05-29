@@ -20,16 +20,18 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class AccountFilterPanel extends JPanel {
     private final AccountTypesFilterPanel types;
+    private final JPanel name, number;
     private JTextField nameField, numberField;
 
     private AccountDataModel model;
+    private JLabel nameLabel, numberLabel;
 
     public AccountFilterPanel(AccountDataModel model) {
         this.model = model;
 
         types = new AccountTypesFilterPanel(model);
-        JPanel name = createNamePanel();
-        JPanel number = createNumberPanel();
+        name = createNamePanel();
+        number = createNumberPanel();
 
         setLayout(new BorderLayout());
         JPanel south = new JPanel();
@@ -59,7 +61,8 @@ public class AccountFilterPanel extends JPanel {
                 nameField.selectAll();
             }
         });
-        panel.add(new JLabel((getBundle("Utils").getString("SEARCH"))));
+        nameLabel = new JLabel((getBundle("Utils").getString("SEARCH")));
+        panel.add(nameLabel);
         panel.add(nameField);
         return panel;
     }
@@ -84,7 +87,8 @@ public class AccountFilterPanel extends JPanel {
                 numberField.selectAll();
             }
         });
-        panel.add(new JLabel((getBundle("Utils").getString("SEARCH"))));
+        numberLabel = new JLabel((getBundle("Utils").getString("SEARCH")));
+        panel.add(numberLabel);
         panel.add(numberField);
         return panel;
     }
@@ -101,8 +105,17 @@ public class AccountFilterPanel extends JPanel {
         numberField.setText("");
     }
 
+    @Override
+    public void setEnabled(boolean enabled){
+        nameLabel.setVisible(enabled);
+        nameField.setVisible(enabled);
+        numberLabel.setVisible(enabled);
+        numberField.setVisible(enabled);
+    }
+
     public void setAccountList(AccountsList accountList) {
         clearSearchFields();
         types.setAccountList(accountList);
+        setEnabled(!accountList.isSingleAccount());
     }
 }
