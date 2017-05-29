@@ -36,8 +36,11 @@ public class JournalsIO {
             String name = getValue(element, NAME);
             JournalType journalType = new JournalType(name, accountTypes);
 
-            AccountsList left = readTypes(element, DEBIT_TYPES, accountTypes);
-            AccountsList right = readTypes(element, CREDIT_TYPES, accountTypes);
+            Element leftElement = getChildren(element, LEFT_LIST).get(0);
+            Element rightElement = getChildren(element, RIGHT_LIST).get(0);
+
+            AccountsList left = readTypes(leftElement, accountTypes);
+            AccountsList right = readTypes(rightElement, accountTypes);
 
             journalType.setLeft(left);
             journalType.setRight(right);
@@ -53,8 +56,8 @@ public class JournalsIO {
         }
     }
 
-    private static AccountsList readTypes(Element element, String name, AccountTypes accountTypes){
-        String typesString = getValue(element, name);
+    private static AccountsList readTypes(Element element, AccountTypes accountTypes){
+        String typesString = getValue(element, TYPES);
         String[] typesList = typesString.split(",");
         AccountsList accountsList = new AccountsList(accountTypes, false);
         for(String s:typesList) {
@@ -65,23 +68,13 @@ public class JournalsIO {
                 }
             }
         }
+        String singleString = getValue(element, SINGLE_ACCOUNT);
+        boolean single = Boolean.valueOf(singleString);
+        accountsList.setSingleAccount(single);
 
-        ArrayList<Element> leftList = getChildren(element, LEFT_LIST);
-        ArrayList<Element> rightList = getChildren(element, RIGHT_LIST);
-
-        for (Element element1:leftList) {
-            String leftSingleString = getValue(element1, SINGLE_ACCOUNT);
-            boolean leftSingle = Boolean.valueOf(leftSingleString);
-            String leftAccountString = getValue(element1, ACCOUNT);
-//                accounts.g
-        }
-        for (Element element1:rightList) {
-            String rightSingleString = getValue(element1, SINGLE_ACCOUNT);
-            boolean rightSingle = Boolean.valueOf(rightSingleString);
-            String rightAccountString = getValue(element1, ACCOUNT);
-//                accounts.g
-        }
-
+        String accountString = getValue(element, ACCOUNT);
+//        Account account =  accounts.getBusinessObject(accountString);
+//        accountsList.setAccount(account);
         return accountsList;
     }
 
