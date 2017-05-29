@@ -28,7 +28,7 @@ import static be.dafke.Utils.Utils.toCalendar;
  */
 public class JournalsIO {
 
-    public static void readJournalTypes(JournalTypes journalTypes, AccountTypes accountTypes, File accountingFolder){
+    public static void readJournalTypes(JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes, File accountingFolder){
         File xmlFile = new File(accountingFolder, "JournalTypes.xml");
         Element rootElement = getRootElement(xmlFile, JOURNAL_TYPES);
         for (Element element : getChildren(rootElement, JOURNAL_TYPE)) {
@@ -39,8 +39,8 @@ public class JournalsIO {
             Element leftElement = getChildren(element, LEFT_LIST).get(0);
             Element rightElement = getChildren(element, RIGHT_LIST).get(0);
 
-            AccountsList left = readTypes(leftElement, accountTypes);
-            AccountsList right = readTypes(rightElement, accountTypes);
+            AccountsList left = readTypes(leftElement, accounts, accountTypes);
+            AccountsList right = readTypes(rightElement, accounts, accountTypes);
 
             journalType.setLeft(left);
             journalType.setRight(right);
@@ -56,12 +56,12 @@ public class JournalsIO {
         }
     }
 
-    private static AccountsList readTypes(Element element, AccountTypes accountTypes){
+    private static AccountsList readTypes(Element element, Accounts accounts, AccountTypes accountTypes) {
         String typesString = getValue(element, TYPES);
         String[] typesList = typesString.split(",");
         AccountsList accountsList = new AccountsList(accountTypes, false);
-        for(String s:typesList) {
-            if(!"".equals(s)) {
+        for (String s : typesList) {
+            if (!"".equals(s)) {
                 AccountType accountType = accountTypes.getBusinessObject(s);
                 if (accountType != null) {
                     accountsList.setTypeAvailable(accountType, Boolean.TRUE);
@@ -73,8 +73,10 @@ public class JournalsIO {
         accountsList.setSingleAccount(single);
 
         String accountString = getValue(element, ACCOUNT);
-//        Account account =  accounts.getBusinessObject(accountString);
-//        accountsList.setAccount(account);
+        if (accountString != null){
+            Account account = accounts.getBusinessObject(accountString);
+           accountsList.setAccount(account);
+        }
         return accountsList;
     }
 

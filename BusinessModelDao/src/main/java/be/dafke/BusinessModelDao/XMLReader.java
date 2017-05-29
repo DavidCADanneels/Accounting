@@ -111,7 +111,7 @@ public class XMLReader {
         File accountingsFolder = new File(xmlFolder, "Accountings");
         File accountingFolder = new File(accountingsFolder, accounting.getName());
         readAccounts(accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
-        readJournalTypes(accounting.getJournalTypes(), accounting.getAccountTypes(), accountingFolder);
+        readJournalTypes(accounting.getJournalTypes(), accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
         if(accounting.isVatAccounting()) {
             readVATFields(accounting.getVatFields(), accountingFolder);
             readVATTransactions(accounting.getVatTransactions(), accounting.getVatFields(), accounting.getAccounts(), accountingFolder);
