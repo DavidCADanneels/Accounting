@@ -42,25 +42,13 @@ public class JournalsIO {
             for(String s:debits) {
                 if(!"".equals(s)) {
                     AccountType accountType = accountTypes.getBusinessObject(s);
-                    if (accountType != null) {
-                        try {
-                            journalType.addDebetType(accountType);
-                        } catch (EmptyNameException | DuplicateNameException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    journalType.addLeftType(accountType);
                 }
             }
             for(String s:credits) {
                 if(!"".equals(s)) {
                     AccountType accountType = accountTypes.getBusinessObject(s);
-                    if(accountType!=null) {
-                        try {
-                            journalType.addCreditType(accountType);
-                        } catch (EmptyNameException | DuplicateNameException e) {
-                            e.printStackTrace();
-                        }
-                    }
+                    journalType.addRightType(accountType);
                 }
             }
             String taxString = getValue(element, VATTYPE);

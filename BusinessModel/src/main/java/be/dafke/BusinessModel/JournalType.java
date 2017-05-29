@@ -1,39 +1,26 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessObject;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.util.ArrayList;
 
 public class JournalType extends BusinessObject {
-    private AccountTypes debetTypes, creditTypes;
     private VATTransaction.VATType vatType = null;
     private AccountsList left, right;
 
     public JournalType(JournalType journalType, AccountTypes accountTypes){
         this(journalType.getName(), accountTypes);
         vatType = journalType.getVatType();
-        for(AccountType accountType:journalType.debetTypes.getBusinessObjects()){
-            try {
-                debetTypes.addBusinessObject(accountType);
-            } catch (EmptyNameException | DuplicateNameException e) {
-                e.printStackTrace();
-            }
+        for(AccountType accountType:journalType.left.getAccountTypes()){
+            addLeftType(accountType);
         }
-        for(AccountType accountType:journalType.creditTypes.getBusinessObjects()){
-            try {
-                creditTypes.addBusinessObject(accountType);
-            } catch (EmptyNameException | DuplicateNameException e) {
-                e.printStackTrace();
-            }
+        for(AccountType accountType:journalType.right.getAccountTypes()){
+            addRightType(accountType);
         }
     }
 
     public JournalType(String name, AccountTypes accountTypes){
         setName(name);
-        debetTypes = new AccountTypes();
-        creditTypes = new AccountTypes();
         left = new AccountsList(accountTypes);
         right = new AccountsList(accountTypes);
     }
@@ -54,12 +41,16 @@ public class JournalType extends BusinessObject {
         this.vatType = vatType;
     }
 
-    public void addDebetType(AccountType accountType) throws EmptyNameException, DuplicateNameException {
-        debetTypes.addBusinessObject(accountType);
+    public void addLeftType(AccountType accountType) {
+        if (accountType != null) {
+            left.setTypeAvailable(accountType, Boolean.TRUE);
+        }
     }
 
-    public void addCreditType(AccountType accountType) throws EmptyNameException, DuplicateNameException {
-        creditTypes.addBusinessObject(accountType);
+    public void addRightType(AccountType accountType) {
+        if (accountType != null) {
+            right.setTypeAvailable(accountType, Boolean.TRUE);
+        }
     }
 
     public ArrayList<AccountType> getLeftAccountTypes() {
