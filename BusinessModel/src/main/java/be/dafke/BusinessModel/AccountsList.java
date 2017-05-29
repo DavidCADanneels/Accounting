@@ -16,7 +16,7 @@ public class AccountsList {
 
     public AccountsList(AccountTypes accountTypes) {
         accountTypes.getBusinessObjects().forEach(accountType -> {
-            availableAccountTypes.put(accountType,Boolean.TRUE);
+            availableAccountTypes.put(accountType,Boolean.FALSE);
         });
     }
 
