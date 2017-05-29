@@ -2,8 +2,6 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessObject;
 
-import java.util.ArrayList;
-
 public class JournalType extends BusinessObject {
     private VATTransaction.VATType vatType = null;
     private AccountsList left, right;
@@ -52,13 +50,4 @@ public class JournalType extends BusinessObject {
             right.setTypeAvailable(accountType, Boolean.TRUE);
         }
     }
-
-    public ArrayList<AccountType> getLeftAccountTypes() {
-        return left.getAccountTypes();
-    }
-
-    public ArrayList<AccountType> getRightAccountTypes() {
-        return right.getAccountTypes();
-    }
-
 }

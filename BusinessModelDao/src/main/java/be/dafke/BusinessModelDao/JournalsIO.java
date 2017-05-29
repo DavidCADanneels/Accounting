@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -147,14 +148,21 @@ public class JournalsIO {
             Writer writer = new FileWriter(journalTypesFile);
             writer.write(getXmlHeader(JOURNAL_TYPES, 2));
             for (JournalType journalType : journalTypes.getBusinessObjects()) {
-                String debitStream = journalType.getLeftAccountTypes().stream().map(AccountType::getName).collect(Collectors.joining(","));
-                String creditStream = journalType.getRightAccountTypes().stream().map(AccountType::getName).collect(Collectors.joining(","));
+
+                AccountsList left = journalType.getLeft();
+                ArrayList<AccountType> leftAccountTypes = left.getAccountTypes();
+                String leftStream = leftAccountTypes.stream().map(AccountType::getName).collect(Collectors.joining(","));
+
+                AccountsList right = journalType.getRight();
+                ArrayList<AccountType> rightAccountTypes = right.getAccountTypes();
+                String rightStream = rightAccountTypes.stream().map(AccountType::getName).collect(Collectors.joining(","));
+
                 writer.write(
                         "  <"+JOURNAL_TYPE+">\n" +
                         "    <"+NAME+">"+journalType.getName()+"</"+NAME+">\n" +
                         "    <"+VATTYPE+">"+(journalType.getVatType()==null?"null":journalType.getVatType().toString())+"</"+VATTYPE+">\n" +
-                        "    <"+DEBIT_TYPES+">"+debitStream+"</"+DEBIT_TYPES+">\n" +
-                        "    <"+CREDIT_TYPES+">"+creditStream+"</"+CREDIT_TYPES+">\n" +
+                        "    <"+DEBIT_TYPES+">"+leftStream+"</"+DEBIT_TYPES+">\n" +
+                        "    <"+CREDIT_TYPES+">"+rightStream+"</"+CREDIT_TYPES+">\n" +
                         "  </"+JOURNAL_TYPE+">\n"
                 );
             }
