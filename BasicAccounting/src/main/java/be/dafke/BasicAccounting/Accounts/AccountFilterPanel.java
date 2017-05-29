@@ -1,12 +1,14 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
+import be.dafke.BusinessModel.AccountsList;
 
-import javax.swing.*;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 import java.util.function.Predicate;
@@ -94,12 +96,12 @@ public class AccountFilterPanel extends JPanel {
         model.setFilter(predicate);
     }
 
-    public void setAccountTypes(AccountTypes accountTypes) {
-        types.setAccountTypes(accountTypes);
-    }
-
     public void clearSearchFields(){
         nameField.setText("");
         numberField.setText("");
+    }
+
+    public void setAccountList(AccountsList accountList) {
+        types.setAccountList(accountList);
     }
 }

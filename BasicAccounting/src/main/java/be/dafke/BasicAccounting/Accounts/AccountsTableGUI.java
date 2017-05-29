@@ -7,6 +7,7 @@ import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.AccountsList;
 import be.dafke.BusinessModel.Contacts;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.BusinessModel.VATTransaction;
@@ -87,6 +88,7 @@ public class AccountsTableGUI extends AccountsGUI {
         accountsTableButtons.setActive(accounting!=null);
 	    accountDataTableModel.setFilter(null);
         setAccounts(accounting==null?null:accounting.getAccounts());
+        // TODO: remove this method
         setAccountTypes(accounting==null?null:accounting.getAccountTypes());
         setJournals(accounting==null?null:accounting.getJournals());
         setVatTransactions(accounting == null ? null : accounting.getVatTransactions());
@@ -106,6 +108,12 @@ public class AccountsTableGUI extends AccountsGUI {
 
     public void setVatType(VATTransaction.VATType vatType) {
         this.vatType = vatType;
+    }
+
+    @Override
+    public void setAccountsList(AccountsList accountsList) {
+	    super.setAccountsList(accountsList);
+        filterPanel.setAccountList(accountsList);
     }
 
     public void book(boolean debit) {
@@ -130,7 +138,6 @@ public class AccountsTableGUI extends AccountsGUI {
 
     public void setAccountTypes(AccountTypes accountTypes){
         accountDataTableModel.setAccountTypes(accountTypes.getBusinessObjects());
-        filterPanel.setAccountTypes(accountTypes);
         fireAccountDataChanged();
     }
 
