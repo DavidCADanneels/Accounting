@@ -46,6 +46,7 @@ public class JournalTypeManagementGUI extends JFrame {
 		setContentPane(createContentPanel());
 		setJournalTypes(journalTypes);
 		pack();
+//		comboAction();
 	}
 
 	public static void showJournalTypeManager(Accounts accounts, JournalTypes journalTypes, AccountTypes accountTypes) {
@@ -100,6 +101,8 @@ public class JournalTypeManagementGUI extends JFrame {
 		left.setAccountsList(leftList);
 		AccountsList rightList = journalType.getRight();
 		right.setAccountsList(rightList);
+		left.refresh();
+		right.refresh();
 	}
 
 	public void createNewJournalType(){
