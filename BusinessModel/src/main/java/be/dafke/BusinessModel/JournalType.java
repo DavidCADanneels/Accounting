@@ -39,13 +39,13 @@ public class JournalType extends BusinessObject {
         this.vatType = vatType;
     }
 
-    public void addLeftType(AccountType accountType) {
+    private void addLeftType(AccountType accountType) {
         if (accountType != null) {
             left.setTypeAvailable(accountType, Boolean.TRUE);
         }
     }
 
-    public void addRightType(AccountType accountType) {
+    private void addRightType(AccountType accountType) {
         if (accountType != null) {
             right.setTypeAvailable(accountType, Boolean.TRUE);
         }
