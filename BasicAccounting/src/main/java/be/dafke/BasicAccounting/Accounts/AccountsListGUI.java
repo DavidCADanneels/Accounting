@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
@@ -16,6 +17,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -139,7 +141,8 @@ public class AccountsListGUI extends AccountsGUI {
 
     public void book(boolean debit) {
         if (lijst.getSelectedValue() != null) {
-            AccountActions.book(journalInputGUI, lijst.getSelectedValue(), debit, vatType, vatTransactions, accounts, accountTypes.getBusinessObjects(), contacts);
+            ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
+            AccountActions.book(journalInputGUI, lijst.getSelectedValue(), debit, vatType, vatTransactions, accounts, accountTypes, contacts);
         }
     }
 
@@ -155,7 +158,6 @@ public class AccountsListGUI extends AccountsGUI {
 
 
     public void setAccountTypes(AccountTypes accountTypes) {
-        super.setAccountTypes(accountTypes);
         model.setAccountTypes(accountTypes.getBusinessObjects());
         filterPanel.setAccountTypes(accountTypes);
     }

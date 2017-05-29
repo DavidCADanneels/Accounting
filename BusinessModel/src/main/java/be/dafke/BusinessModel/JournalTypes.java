@@ -32,9 +32,7 @@ public class JournalTypes extends BusinessCollection<JournalType> {
     }
 
     public void addDefaultType(AccountTypes accountTypes) {
-        JournalType defaultType = new JournalType("default", accounting.getAccountTypes());
-        defaultType.setDebetTypes(accountTypes);
-        defaultType.setCreditTypes(accountTypes);
+        JournalType defaultType = new JournalType("default", accountTypes);
         try {
             addBusinessObject(defaultType);
         } catch (EmptyNameException | DuplicateNameException e) {

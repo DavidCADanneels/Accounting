@@ -1,6 +1,8 @@
 package be.dafke.BusinessModel;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 
 /**
@@ -40,5 +42,15 @@ public class AccountsList {
 
     public Account getAccount() {
         return account;
+    }
+
+    public ArrayList<AccountType> getAccountTypes() {
+        ArrayList<AccountType> accountTypes = new ArrayList<>();
+        for(Map.Entry<AccountType, Boolean> entry : availableAccountTypes.entrySet()){
+            if(entry.getValue()){
+                accountTypes.add(entry.getKey());
+            }
+        }
+        return accountTypes;
     }
 }

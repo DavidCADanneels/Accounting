@@ -28,6 +28,7 @@ import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
+import be.dafke.BusinessModel.AccountsList;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.JournalType;
 import be.dafke.BusinessModel.VATTransaction;
@@ -313,14 +314,16 @@ public class Main {
 
     public static void setTypes(JournalType journalType, AccountTypes accountTypes) {
         if(journalType==null) {
-            accountGuiLeft.setAccountTypes(accountTypes);
-            accountGuiRight.setAccountTypes(accountTypes);
             accountGuiLeft.setVatType(null);
             accountGuiRight.setVatType(null);
+            accountGuiLeft.setAccountsList(new AccountsList(accountTypes));
+            accountGuiRight.setAccountsList(new AccountsList(accountTypes));
 //            setVatType(VATTransaction.VATType.NONE);
         } else {
-            accountGuiLeft.setAccountTypes(journalType.getDebetTypes());
-            accountGuiRight.setAccountTypes(journalType.getCreditTypes());
+            AccountsList left = journalType.getLeft();
+            AccountsList right = journalType.getRight();
+            accountGuiLeft.setAccountsList(left);
+            accountGuiRight.setAccountsList(right);
             VATTransaction.VATType vatType = journalType.getVatType();
             if (vatType == VATTransaction.VATType.SALE) {
                 accountGuiLeft.setVatType(VATTransaction.VATType.CUSTOMER);

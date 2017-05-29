@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Accounts;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.AccountsList;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.JournalType;
 import be.dafke.BusinessModel.Journals;
@@ -55,26 +56,29 @@ public class AccountInputPanel extends JPanel{
         setJournals(accounting == null ? null : accounting.getJournals());
     }
 
-    public void setAccountTypes(AccountTypes accountTypes) {
+    private void setAccountTypes(AccountTypes accountTypes) {
         this.accountTypes = accountTypes;
     }
-    public void setJournals(Journals journals){
+    private void setJournals(Journals journals){
         setJournal(journals == null ? null : journals.getCurrentObject());
     }
-    public void setJournal(Journal journal){
+
+    private void setJournal(Journal journal){
         setJournalType(journal == null ? null : journal.getType());
     }
 
-    public void setJournalType(JournalType journalType) {
+    private void setJournalType(JournalType journalType) {
         if(journalType==null) {
-            accountsListGUI1.setAccountTypes(accountTypes);
+            accountsListGUI1.setAccountsList(new AccountsList(accountTypes));
             accountsListGUI1.setVatType(null);
-            accountsListGUI2.setAccountTypes(accountTypes);
+            accountsListGUI2.setAccountsList(new AccountsList(accountTypes));
             accountsListGUI2.setVatType(null);
 //            setVatType(VATTransaction.VATType.NONE);
         } else {
-            accountsListGUI1.setAccountTypes(journalType.getDebetTypes());
-            accountsListGUI2.setAccountTypes(journalType.getCreditTypes());
+            AccountsList left = journalType.getLeft();
+            AccountsList right = journalType.getRight();
+            accountsListGUI1.setAccountsList(left);
+            accountsListGUI2.setAccountsList(right);
             VATTransaction.VATType vatType = journalType.getVatType();
             if (vatType == VATTransaction.VATType.SALE) {
                 accountsListGUI1.setVatType(VATTransaction.VATType.CUSTOMER);
