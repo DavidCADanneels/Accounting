@@ -4,6 +4,8 @@ import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
+import java.util.ArrayList;
+
 public class JournalType extends BusinessObject {
     private AccountTypes debetTypes, creditTypes;
     private VATTransaction.VATType vatType = null;
@@ -60,12 +62,12 @@ public class JournalType extends BusinessObject {
         creditTypes.addBusinessObject(accountType);
     }
 
-    public AccountTypes getDebetTypes() {
-        return debetTypes;
+    public ArrayList<AccountType> getLeftAccountTypes() {
+        return left.getAccountTypes();
     }
 
-    public AccountTypes getCreditTypes() {
-        return creditTypes;
+    public ArrayList<AccountType> getRightAccountTypes() {
+        return right.getAccountTypes();
     }
 
 }

@@ -159,8 +159,8 @@ public class JournalsIO {
             Writer writer = new FileWriter(journalTypesFile);
             writer.write(getXmlHeader(JOURNAL_TYPES, 2));
             for (JournalType journalType : journalTypes.getBusinessObjects()) {
-                String debitStream = journalType.getDebetTypes().getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
-                String creditStream = journalType.getCreditTypes().getBusinessObjects().stream().map(AccountType::getName).collect(Collectors.joining(","));
+                String debitStream = journalType.getLeftAccountTypes().stream().map(AccountType::getName).collect(Collectors.joining(","));
+                String creditStream = journalType.getRightAccountTypes().stream().map(AccountType::getName).collect(Collectors.joining(","));
                 writer.write(
                         "  <"+JOURNAL_TYPE+">\n" +
                         "    <"+NAME+">"+journalType.getName()+"</"+NAME+">\n" +
