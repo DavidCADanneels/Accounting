@@ -35,6 +35,10 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
         return count;
     }
 
+    public static void setCount(int count) {
+        VATTransaction.count = count;
+    }
+
     public void markAsRegistered() {
         registered = true;
     }

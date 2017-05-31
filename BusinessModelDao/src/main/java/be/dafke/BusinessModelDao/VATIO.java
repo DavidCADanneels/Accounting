@@ -91,6 +91,10 @@ public class VATIO {
                 }
                 vatTransactions.addBusinessObject(vatTransaction);
             }
+
+            String countString = getValue(rootElement, COUNT);
+            int count = parseInt(countString);
+            VATTransaction.setCount(count);
         }
     }
 
