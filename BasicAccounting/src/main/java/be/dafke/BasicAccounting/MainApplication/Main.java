@@ -112,6 +112,7 @@ public class Main {
         frame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
+                PopupForTableActivator.closeAllPopups();
                 Main.closeAllFrames();
                 Main.saveData();
             }
