@@ -132,6 +132,9 @@ public class Journal extends BusinessCollection<Transaction> {
             VATTransaction vatTransaction = transaction.getVatTransaction();
             if(vatTransaction!=null) {
                 VATTransactions vatTransactions = accounting.getVatTransactions();
+                // TODO: raise count here, not when creating the VATTransaction (+ set ID)
+                int count = VATTransaction.raiseCount();
+                vatTransaction.setId(count);
                 vatTransactions.addBusinessObject(vatTransaction);
             }
             Contact contact = transaction.getContact();

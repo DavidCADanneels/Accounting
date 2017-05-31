@@ -159,6 +159,7 @@ public class JournalsIO {
                 VATTransaction vatTransaction = vatTransactions.getBusinessObject(Utils.parseInt(vatIdString));
                 transaction.addVatTransaction(vatTransaction);
                 vatTransaction.setTransaction(transaction);
+                VATTransaction.raiseCount();
             }
         }
     }

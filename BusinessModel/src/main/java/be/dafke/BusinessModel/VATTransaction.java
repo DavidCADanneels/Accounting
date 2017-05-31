@@ -21,14 +21,21 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
         return id;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
     public VATTransaction(Calendar date) {
-        this(count+1, date);
+        this.date = date;
     }
 
     public VATTransaction(int id, Calendar date) {
-        this.id = id;
-        this.date = date;
-        count++;
+        this(date);
+        setId(id);
+    }
+
+    public static int raiseCount(){
+        return ++count;
     }
 
     public static int getCount() {
