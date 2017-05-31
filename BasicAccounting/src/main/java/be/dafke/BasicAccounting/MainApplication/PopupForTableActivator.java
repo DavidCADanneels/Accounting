@@ -28,10 +28,14 @@ public class PopupForTableActivator extends MouseAdapter {
         return new PopupForTableActivator(popup, tabel);
     }
 
-    public void mouseClicked(MouseEvent me) {
+    public static void closeAllPopups(){
         for(JPopupMenu activator:popupForTableActivators){
             activator.setVisible(false);
         }
+    }
+
+    public void mouseClicked(MouseEvent me) {
+        closeAllPopups();
         if (me.getButton() == 3) {
             Point cell = me.getPoint();
             int row = tabel.rowAtPoint(cell);
