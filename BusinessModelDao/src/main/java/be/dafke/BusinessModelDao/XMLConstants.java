@@ -96,6 +96,7 @@ public class XMLConstants {
     public static final String CREDIT_CN_ACCOUNT = "CreditCNAccount";
     public static final String INCREASE = "increase";
     public static final String VAT_ID = "vatId";
+    public static final String COUNT = "count";
 
     public static final String XML = ".xml";
 }

@@ -148,6 +148,7 @@ public class VATIO {
                         "  </"+VATTRANSACTION+">\n"
                 );
             }
+            writer.write("  <"+COUNT+">"+VATTransaction.getCount()+"</"+ COUNT +">\n");
             writer.write("</"+VATTRANSACTIONS+">");
             writer.flush();
             writer.close();
