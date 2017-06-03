@@ -22,9 +22,9 @@ public class AccountsListConfigPanel extends JPanel {
     private AccountsList accountsList;
     private AccountsListAccountTypesFilterPanel accountTypesFilterPanel;
 
-    public AccountsListConfigPanel(Accounts accounts, AccountTypes accountTypes, String title) {
+    public AccountsListConfigPanel(Accounts accounts, AccountTypes accountTypes) {
         setLayout(new BorderLayout());
-        setBorder(new TitledBorder(new LineBorder(Color.BLACK), title));
+        setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Accounts"));
         ButtonGroup group = new ButtonGroup();
         byType = new JRadioButton("select by type:", true);
         singleAccount = new JRadioButton("single account:", false);
