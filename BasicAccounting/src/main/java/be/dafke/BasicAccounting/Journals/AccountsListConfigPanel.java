@@ -5,12 +5,17 @@ import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.AccountsList;
 
 import javax.swing.ButtonGroup;
+import javax.swing.JCheckBox;
+import javax.swing.JComboBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JRadioButton;
+import javax.swing.JTextField;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.GridLayout;
 
 /**
  * Created by ddanneels on 14/05/2017.
@@ -44,8 +49,72 @@ public class AccountsListConfigPanel extends JPanel {
         center.add(accountSelectorPanel, BorderLayout.NORTH);
         center.add(accountTypesFilterPanel, BorderLayout.CENTER);
         add(center,BorderLayout.CENTER);
+//
+        JPanel south = createButtonConfigPanel();
+        add(south, BorderLayout.SOUTH);
 //        refresh();
     }
+
+    private JPanel createButtonConfigPanel() {
+        JPanel panel = new JPanel();
+        String DEBIT = "debit";
+        String CREDIT = "credit";
+
+        JTextField leftButtonLabel = new JTextField("Debit");
+        JTextField rightButtonLabel = new JTextField("Credit");
+
+        JCheckBox leftButton, rightButton;
+        JComboBox<String> leftActions, rightActions;
+
+        leftButton = new JCheckBox("Left Button");
+        rightButton = new JCheckBox("Right Button");
+
+        leftButton.setSelected(true);
+        rightButton.setSelected(true);
+
+        leftActions = new JComboBox<>();
+        rightActions = new JComboBox<>();
+
+        leftActions.addItem(DEBIT);
+        leftActions.addItem(CREDIT);
+
+        rightActions.addItem(CREDIT);
+        rightActions.addItem(DEBIT);
+
+        leftActions.setSelectedItem(DEBIT);
+        rightActions.setSelectedItem(CREDIT);
+
+        JPanel leftPanel = new JPanel(new BorderLayout());
+        JPanel rightPanel = new JPanel(new BorderLayout());
+
+        JPanel leftCenter = new JPanel(new GridLayout(0,2));
+        JPanel rightCenter = new JPanel(new GridLayout(0,2));
+
+        leftCenter.add(new JLabel("Action:"));
+        leftCenter.add(leftActions);
+        leftCenter.add(new JLabel("Label:"));
+        leftCenter.add(leftButtonLabel);
+
+        rightCenter.add(new JLabel("Action:"));
+        rightCenter.add(rightActions);
+        rightCenter.add(new JLabel("Label:"));
+        rightCenter.add(rightButtonLabel);
+
+        leftPanel.add(leftButton, BorderLayout.NORTH);
+        leftPanel.add(leftCenter, BorderLayout.SOUTH);
+
+        rightPanel.add(rightButton, BorderLayout.NORTH);
+        rightPanel.add(rightCenter, BorderLayout.SOUTH);
+
+        leftPanel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Left Button"));
+        rightPanel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Right Button"));
+
+        panel.add(leftPanel);
+        panel.add(rightPanel);
+
+        return panel;
+    }
+
 
     public void setAccountsList(AccountsList accountsList) {
         this.accountsList = accountsList;
