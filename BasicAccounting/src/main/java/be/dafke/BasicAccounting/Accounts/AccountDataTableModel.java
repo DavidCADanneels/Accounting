@@ -24,6 +24,7 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 	String[] columnNames = {"Name","Saldo" };
 	Class[] columnClasses = { Account.class, BigDecimal.class };
 
+    private Account account = null;
     private Accounts accounts;
     private List<AccountType> accountTypes;
     private Predicate<Account> filter;
@@ -96,7 +97,7 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 	}
 
 	public void setFilter(Predicate<Account> filter) {
-		if(!singleAccount) {
+		if(!singleAccount || account == null) {
 			this.filter = filter;
 			fireTableDataChanged();
 		}
@@ -106,7 +107,7 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 		singleAccount = accountList.isSingleAccount();
 		if(singleAccount){
 			accountTypes = null;
-			Account account = accountList.getAccount();
+			account = accountList.getAccount();
 			filter = account==null?null:Account.name(accountList.getAccount().getName());
 		} else {
 			accountTypes = accountList.getAccountTypes();
