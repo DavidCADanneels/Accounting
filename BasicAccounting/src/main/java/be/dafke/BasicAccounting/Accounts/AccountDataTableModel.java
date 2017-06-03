@@ -106,7 +106,8 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 		singleAccount = accountList.isSingleAccount();
 		if(singleAccount){
 			accountTypes = null;
-			filter = Account.name(accountList.getAccount().getName());
+			Account account = accountList.getAccount();
+			filter = account==null?null:Account.name(accountList.getAccount().getName());
 		} else {
 			accountTypes = accountList.getAccountTypes();
 			filter = null;

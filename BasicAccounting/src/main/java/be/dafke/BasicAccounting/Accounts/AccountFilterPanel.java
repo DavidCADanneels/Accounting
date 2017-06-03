@@ -116,6 +116,6 @@ public class AccountFilterPanel extends JPanel {
     public void setAccountList(AccountsList accountList) {
         clearSearchFields();
         types.setAccountList(accountList);
-        setEnabled(!accountList.isSingleAccount());
+        setEnabled(accountList!=null && !accountList.isSingleAccount());
     }
 }
