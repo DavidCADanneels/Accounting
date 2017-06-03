@@ -56,7 +56,7 @@ public class AccountsListConfigPanel extends JPanel {
     }
 
     private JPanel createButtonConfigPanel() {
-        JPanel panel = new JPanel();
+        JPanel panel = new JPanel(new GridLayout(0,1));
         String DEBIT = "debit";
         String CREDIT = "credit";
 
