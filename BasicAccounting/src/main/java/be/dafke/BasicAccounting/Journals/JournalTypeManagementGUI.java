@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
+import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
@@ -112,19 +113,21 @@ public class JournalTypeManagementGUI extends JFrame {
 
 	public void createNewJournalType(){
 		String name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
-		while (name != null && name.equals(""))
-			name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
-		if (name != null) {
+		while (name != null) {
+			name = name.trim();
 			JournalType journalType = new JournalType(name, accountTypes);
 			try {
 				journalTypes.addBusinessObject(journalType);
-			} catch (EmptyNameException e) {
-				e.printStackTrace();
+				((DefaultComboBoxModel<JournalType>) combo.getModel()).addElement(journalType);
+				(combo.getModel()).setSelectedItem(journalType);
+				name = null;
 			} catch (DuplicateNameException e) {
-				e.printStackTrace();
+				ActionUtils.showErrorMessage(ActionUtils.JOURNAL_TYPE_DUPLICATE_NAME, name);
+				name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
+			} catch (EmptyNameException e) {
+				ActionUtils.showErrorMessage(ActionUtils.JOURNAL_TYPE_NAME_EMPTY);
+				name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
 			}
-			((DefaultComboBoxModel<JournalType>) combo.getModel()).addElement(journalType);
-			(combo.getModel()).setSelectedItem(journalType);
 		}
 	}
 

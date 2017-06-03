@@ -23,6 +23,9 @@ public class ActionUtils {
     public static final String JOURNAL_DUPLICATE_NAME_AND_OR_ABBR = "JOURNAL_DUPLICATE_NAME_AND_OR_ABBR";
     public static final String JOURNAL_NAME_ABBR_EMPTY = "JOURNAL_NAME_ABBR_EMPTY";
 
+    public static final String JOURNAL_TYPE_DUPLICATE_NAME = "JOURNAL_TYPE_DUPLICATE_NAME";
+    public static final String JOURNAL_TYPE_NAME_EMPTY = "JOURNAL_TYPE_NAME_EMPTY";
+
     public static final String COUNTERPARTY_DUPLICATE_NAME = "COUNTERPARTY_DUPLICATE_NAME";
     public static final String COUNTERPARTY_NAME_EMPTY = "COUNTERPARTY_NAME_EMPTY";
 
