@@ -62,9 +62,9 @@ public class NewContactGUI extends RefreshableDialog {
         north.add(new JLabel(getBundle("Contacts").getString(COUNTRY)));
         north.add(contactCountry);
         north.add(new JLabel(getBundle("Contacts").getString(PHONE)));
-        north.add(contactEmail);
-        north.add(new JLabel(getBundle("Contacts").getString(EMAIL)));
         north.add(contactPhone);
+        north.add(new JLabel(getBundle("Contacts").getString(EMAIL)));
+        north.add(contactEmail);
 
 		add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_CONTACT"));
 		add.addActionListener(e -> saveAccount());
