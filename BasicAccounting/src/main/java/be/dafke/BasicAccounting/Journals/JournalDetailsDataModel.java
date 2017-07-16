@@ -50,7 +50,7 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 	}
 
 	public int getColumnCount() {
-		return 6;
+		return 7;
 	}
 
 	@Override
