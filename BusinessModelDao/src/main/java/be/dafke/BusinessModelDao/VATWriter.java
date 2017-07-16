@@ -11,6 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -64,7 +65,7 @@ public class VATWriter {
                     "            <ns2:Year>"+year+"</ns2:Year>\n" +
                     "        </ns2:Period>\n" +
                     "        <ns2:Data>\n");
-            for(VATField vatField:vatFields.getAllFields()){
+            for(VATField vatField:getAllFields(vatFields)){
                 BigDecimal amount = vatField.getSaldo();
                 if(amount!=null && amount.compareTo(BigDecimal.ZERO)!=0){
                     String name = vatField.getName();
@@ -86,6 +87,20 @@ public class VATWriter {
         } catch (IOException ex) {
             Logger.getLogger(VATFields.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    private static ArrayList<VATField> getAllFields(VATFields fields){
+        ArrayList<VATField> vatFields = fields.getBusinessObjects();
+        VATField field71 = fields.get71();
+        VATField field72 = fields.get72();
+        if(field71.getSaldo().compareTo(BigDecimal.ZERO) > 0){
+            vatFields.add(field71);
+        }
+        // normally only one if will be used as 71 = -72
+        if(field72.getSaldo().compareTo(BigDecimal.ZERO) > 0){
+            vatFields.add(field72);
+        }
+        return vatFields;
     }
 
     public static void writeCustomerListing(File xmlFile, String year, Contact declarant, Contacts contacts){

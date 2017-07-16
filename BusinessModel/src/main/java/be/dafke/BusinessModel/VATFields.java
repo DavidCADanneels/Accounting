@@ -5,7 +5,6 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 
 /**
  * Created by ddanneels on 28/12/2016.
@@ -66,22 +65,6 @@ public class VATFields extends BusinessCollection<VATField> {
         } catch (DuplicateNameException e) {
             e.printStackTrace();
         }
-    }
-
-    public ArrayList<VATField> getAllFields(){
-        ArrayList<VATField> vatFields = super.getBusinessObjects();
-        vatFields.add(getXX());
-        vatFields.add(getYY());
-        VATField field71 = get71();
-        VATField field72 = get72();
-        if(field71.getSaldo().compareTo(BigDecimal.ZERO) > 0){
-            vatFields.add(field71);
-        }
-        // normally only one if will be used as 71 = -72
-        if(field72.getSaldo().compareTo(BigDecimal.ZERO) > 0){
-            vatFields.add(field72);
-        }
-        return vatFields;
     }
 
     @Override
