@@ -65,11 +65,12 @@ public class ProjectGUI extends JFrame {
         transactionsPanel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("TRANSACTIONS")));
 //------------------------------------------------------------------------------------------
-        JPanel center = new JPanel();
-        center.setLayout(new BoxLayout(center, BoxLayout.Y_AXIS));
-        center.add(resultBalance);
-        center.add(partnerBalance);
-        center.add(transactionsPanel);
+        JSplitPane center = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        JSplitPane balances = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
+        balances.add(resultBalance,JSplitPane.TOP);
+        balances.add(partnerBalance, JSplitPane.BOTTOM);
+        center.add(balances, JSplitPane.TOP);
+        center.add(transactionsPanel, JSplitPane.BOTTOM);
 //------------------------------------------------------------------------------------------
         add(center,BorderLayout.CENTER);
         pack();
