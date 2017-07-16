@@ -26,10 +26,11 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 			getBundle("Accounting").getString("NR"),
 			getBundle("Accounting").getString("DATE"),
 			getBundle("Accounting").getString("ACCOUNT"),
+			getBundle("Accounting").getString("ACCOUNT"),
 			getBundle("Accounting").getString("DEBIT"),
 			getBundle("Accounting").getString("CREDIT"),
 			getBundle("Accounting").getString("DESCRIPTION") };
-	private final Class[] columnClasses = { String.class, String.class, Account.class, BigDecimal.class,
+	private final Class[] columnClasses = { String.class, String.class, Account.class, Account.class, BigDecimal.class,
 			BigDecimal.class, String.class };
 
 	public void setJournal(Journal journal) {
@@ -78,11 +79,17 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
                 return Utils.toString(boeking.getTransaction().getDate());
             } else return "";
         } else if (col == 2) {
-            return boeking.getAccount();
-        } else if (col == 3) {
+			if (boeking.isDebit())
+				return boeking.getAccount();
+			else return null;
+		} else if (col == 3) {
+			if(!boeking.isDebit())
+				return boeking.getAccount();
+			else return null;
+        } else if (col == 4) {
             if (boeking.isDebit()) return boeking.getAmount();
             return "";
-        } else if (col == 4) {
+        } else if (col == 5) {
             if (!boeking.isDebit()) return boeking.getAmount();
             return "";
         } else{
