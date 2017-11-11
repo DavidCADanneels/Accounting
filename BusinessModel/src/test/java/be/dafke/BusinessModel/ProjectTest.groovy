@@ -3,7 +3,7 @@ package be.dafke.BusinessModel
 /**
  * Created by ddanneels on 10/01/2017.
  */
-class ProjectTest extends GroovyTestCase {
+class ProjectTest {
 
     public static final String ACCOUNT_NAME = "account_name"
     public static final String PROJECT_NAME = "project_name"
