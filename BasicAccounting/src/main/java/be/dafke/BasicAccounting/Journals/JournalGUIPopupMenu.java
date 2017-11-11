@@ -44,9 +44,9 @@ public class JournalGUIPopupMenu extends JPopupMenu{
     }
 
     public void setAccounting(Accounting accounting){
-        accounts = accounting.getAccounts();
-        journals = accounting.getJournals();
-        accountTypes = accounting.getAccountTypes();
+        accounts = accounting==null?null:accounting.getAccounts();
+        journals = accounting==null?null:accounting.getJournals();
+        accountTypes = accounting==null?null:accounting.getAccountTypes();
     }
 
 

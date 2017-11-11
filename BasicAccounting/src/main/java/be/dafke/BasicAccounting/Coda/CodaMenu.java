@@ -27,8 +27,8 @@ public class CodaMenu extends JMenu {
     }
 
     public void setAccounting(Accounting accounting) {
-        counterParties = accounting.getCounterParties();
-        statements = accounting.getStatements();
+        counterParties = accounting==null?null:accounting.getCounterParties();
+        statements = accounting==null?null:accounting.getStatements();
         counterPartiesItem.setEnabled(counterParties!=null);
         movementsItem.setEnabled(statements!=null);
     }
