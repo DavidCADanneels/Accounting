@@ -1,11 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.JournalTypes;
-import be.dafke.BusinessModel.Journals;
+import be.dafke.BusinessModel.*;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
@@ -26,6 +22,7 @@ public class JournalsMenu extends JMenu {
     private Accounts accounts;
     private AccountTypes accountTypes;
     private JournalInputGUI journalInputGUI;
+    private Journal transactions;
 
     public JournalsMenu(JournalInputGUI journalInputGUI) {
         super(getBundle("Accounting").getString("JOURNALS"));
@@ -50,6 +47,7 @@ public class JournalsMenu extends JMenu {
 
     public void setAccounting(Accounting accounting) {
         setJournals(accounting==null?null:accounting.getJournals());
+        transactions = accounting==null?null:accounting.getTransactions();
         journalTypes = accounting==null?null:accounting.getJournalTypes();
         accountTypes = accounting==null?null:accounting.getAccountTypes();
         accounts = accounting==null?null:accounting.getAccounts();
@@ -77,6 +75,10 @@ public class JournalsMenu extends JMenu {
                         details.addActionListener(e -> JournalDetails.getJournalDetails(journal,journals,journalInputGUI));
                         add(details);
                     });
+            addSeparator();
+            JMenuItem master = new JMenuItem("Master (view only)");
+            master.addActionListener(e -> JournalDetails.getJournalDetails(transactions,journals,journalInputGUI));
+            add(master);
             addSeparator();
             journals.getBusinessObjects().stream()
                     .forEach(journal -> {

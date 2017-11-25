@@ -166,4 +166,8 @@ public class Accounting extends BusinessObject{
     public void addTransaction(Transaction transaction) {
         transactions.addBusinessObject(transaction);
     }
+
+    public Journal getTransactions() {
+        return transactions;
+    }
 }
