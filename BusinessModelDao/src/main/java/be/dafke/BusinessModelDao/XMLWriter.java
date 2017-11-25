@@ -80,7 +80,7 @@ public class XMLWriter {
 //        writeAccounts(accounting.getAccounts(), accountingFolder);
         writeJournals(accounting.getJournals(), accountingFolder);
         writeJournalTypes(accounting.getJournalTypes(), accountingFolder);
-        writeBalances(accounting.getBalances(), accountingFolder);
+//        writeBalances(accounting.getBalances(), accountingFolder);
         if(accounting.isProjectsAccounting()) {
             writeProjects(accounting.getProjects(), accountingFolder);
         }
