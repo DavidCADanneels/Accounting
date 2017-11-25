@@ -14,6 +14,7 @@ public class Accounting extends BusinessObject{
     private Mortgages mortgages;
     private Projects projects;
     private Contacts contacts;
+    private Journal transactions;
     private VATTransactions vatTransactions;
     private VATFields vatFields;
     private Contact companyContact=null;
@@ -34,6 +35,9 @@ public class Accounting extends BusinessObject{
 //        companyContact = new Contact();
 
         journalTypes = new JournalTypes(this);
+
+        transactions = new Journal("master", "MA");
+        transactions.setAccounting(this);
 
         vatFields = new VATFields(this);
         vatTransactions = new VATTransactions(this);
@@ -157,5 +161,9 @@ public class Accounting extends BusinessObject{
 
     public void setCompanyContact(Contact companyContact) {
         this.companyContact = companyContact;
+    }
+
+    public void addTransaction(Transaction transaction) {
+        transactions.addBusinessObject(transaction);
     }
 }

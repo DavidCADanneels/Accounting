@@ -208,8 +208,10 @@ public class StatementTableFrame extends JFrame implements MouseListener {
                         String description = (String) tabel.getValueAt(i, 6);
                         transaction.setDescription(description);
                         journal.addBusinessObject(transaction);
+						Accounting accounting = journal.getAccounting();
+						accounting.addTransaction(transaction);
 
-                        transaction = new Transaction(date, "");
+						transaction = new Transaction(date, "");
                         // take the same date as previous transaction
                         // leave the description empty
 

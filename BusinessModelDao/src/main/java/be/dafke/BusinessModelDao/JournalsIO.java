@@ -84,7 +84,12 @@ public class JournalsIO {
         return accountsList;
     }
 
-    public static void readJournals(Journals journals, Accounts accounts, JournalTypes journalTypes, VATTransactions vatTransactions, File accountingFolder) {
+    public static void readJournals(Accounting accounting, File accountingFolder) {
+        JournalTypes journalTypes = accounting.getJournalTypes();
+        Journals journals = accounting.getJournals();
+        Accounts accounts = accounting.getAccounts();
+        VATTransactions vatTransactions = accounting.getVatTransactions();
+
         File journalsFolder = new File(accountingFolder, "Journals");
         File xmlFile = new File(accountingFolder, "Journals.xml");
         Element rootElement = getRootElement(xmlFile, JOURNALS);
@@ -93,6 +98,9 @@ public class JournalsIO {
             String name = getValue(element, NAME);
             String abbr = getValue(element, ABBREVIATION);
             Journal journal = new Journal(name, abbr);
+//            journal.setAccounting(accounting);
+//            setAccounting() is implicitely done in journals.addBusinessObjects
+//            this requires journals.setAccounting() is done already !
 
             String type = getValue(element, TYPE);
             journal.setType(journalTypes.getBusinessObject(type));
@@ -152,6 +160,8 @@ public class JournalsIO {
                 transaction.addBusinessObject(booking);
             }
 
+            Accounting accounting = journal.getAccounting();
+            accounting.addTransaction(transaction);
             journal.addBusinessObject(transaction);
 
             String vatIdString = getValue(element, VAT_ID);

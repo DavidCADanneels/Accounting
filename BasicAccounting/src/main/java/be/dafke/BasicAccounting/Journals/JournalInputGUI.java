@@ -188,6 +188,8 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     }
 
     public void addTransaction(Transaction transaction){
+        Accounting accounting = journal.getAccounting();
+        accounting.addTransaction(transaction);
         journal.addBusinessObject(transaction);
 
         Mortgage mortgage = transaction.getMortgage();
