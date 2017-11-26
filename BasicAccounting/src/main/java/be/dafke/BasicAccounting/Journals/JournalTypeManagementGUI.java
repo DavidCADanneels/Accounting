@@ -17,13 +17,15 @@ import javax.swing.border.TitledBorder;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 import static java.awt.BorderLayout.CENTER;
 import static java.awt.BorderLayout.NORTH;
 import static java.util.ResourceBundle.getBundle;
 
-public class JournalTypeManagementGUI extends JFrame {
+public class JournalTypeManagementGUI extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
@@ -87,16 +89,7 @@ public class JournalTypeManagementGUI extends JFrame {
 		taxType.addItem(VATTransaction.VATType.PURCHASE);
 		taxType.addItem(VATTransaction.VATType.SALE);
 		taxType.setSelectedItem(null);
-		taxType.addActionListener(e -> {
-			VATTransaction.VATType vatType = (VATTransaction.VATType) taxType.getSelectedItem();
-			journalType.setVatType(vatType);
-			VATTransaction.VATType vatTypeLeft = JournalType.calculateLeftVatType(vatType);
-			VATTransaction.VATType vatTypeRight = JournalType.calculateRightVatType(vatType);
-			journalType.getLeft().setVatType(vatTypeLeft);
-			journalType.getRight().setVatType(vatTypeRight);
-			accountsListConfigPanelLeft.setVatType(vatTypeLeft);
-			accountsListConfigPanelRight.setVatType(vatTypeRight);
-		});
+		taxType.addActionListener(this);
 		JButton switchButton = new JButton("Switch VAT Types");
 		switchButton.addActionListener(e -> {
 			journalType.switchVatTypes();
@@ -115,15 +108,30 @@ public class JournalTypeManagementGUI extends JFrame {
 		return panel;
 	}
 
+	private void switchVatType(){
+		VATTransaction.VATType vatType = (VATTransaction.VATType) taxType.getSelectedItem();
+		journalType.setVatType(vatType);
+		VATTransaction.VATType vatTypeLeft = JournalType.calculateLeftVatType(vatType);
+		VATTransaction.VATType vatTypeRight = JournalType.calculateRightVatType(vatType);
+		journalType.getLeft().setVatType(vatTypeLeft);
+		journalType.getRight().setVatType(vatTypeRight);
+		accountsListConfigPanelLeft.setVatType(vatTypeLeft);
+		accountsListConfigPanelRight.setVatType(vatTypeRight);
+	}
+
 	private void comboAction() {
 		journalType = (JournalType) combo.getSelectedItem();
+		taxType.removeActionListener(this);
 		taxType.setSelectedItem(journalType.getVatType());
+		taxType.addActionListener(this);
 		AccountsList leftList = journalType.getLeft();
 		accountsListConfigPanelLeft.setAccountsList(leftList);
 		accountsListConfigPanelLeft.setJournalType(journalType);
+		accountsListConfigPanelLeft.setVatType(leftList.getVatType());
 		AccountsList rightList = journalType.getRight();
 		accountsListConfigPanelRight.setAccountsList(rightList);
 		accountsListConfigPanelRight.setJournalType(journalType);
+		accountsListConfigPanelRight.setVatType(rightList.getVatType());
 		accountsListConfigPanelLeft.refresh();
 		accountsListConfigPanelRight.refresh();
 	}
@@ -168,5 +176,14 @@ public class JournalTypeManagementGUI extends JFrame {
 
 
 		return panel;
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		if(combo == e.getSource()){
+
+		} else if (taxType == e.getSource()){
+			switchVatType();
+		}
 	}
 }
