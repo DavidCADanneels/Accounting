@@ -36,6 +36,9 @@ public class JournalsIO {
             String name = getValue(element, NAME);
             JournalType journalType = new JournalType(name, accountTypes);
 
+            String taxString = getValue(element, VATTYPE);
+            if(taxString!=null) journalType.setVatType(VATTransaction.VATType.valueOf(taxString));
+
             Element leftElement = getChildren(element, LEFT_LIST).get(0);
             Element rightElement = getChildren(element, RIGHT_LIST).get(0);
 
@@ -44,9 +47,6 @@ public class JournalsIO {
 
             journalType.setLeft(left);
             journalType.setRight(right);
-
-            String taxString = getValue(element, VATTYPE);
-            if(taxString!=null) journalType.setVatType(VATTransaction.VATType.valueOf(taxString));
 
             try {
                 journalTypes.addBusinessObject(journalType);
