@@ -63,7 +63,7 @@ public class JournalType extends BusinessObject {
 
     public static VATTransaction.VATType calculateLeftVatType(VATTransaction.VATType journalVatType){
         if (journalVatType == VATTransaction.VATType.SALE) {
-            return VATTransaction.VATType.CUSTOMER;
+            return VATTransaction.VATType.SALE;
         } else if (journalVatType == VATTransaction.VATType.PURCHASE) {
             return VATTransaction.VATType.PURCHASE;
         } else {
@@ -73,7 +73,7 @@ public class JournalType extends BusinessObject {
 
     public static VATTransaction.VATType calculateRightVatType(VATTransaction.VATType journalVatType){
         if (journalVatType == VATTransaction.VATType.SALE) {
-            return VATTransaction.VATType.SALE;
+            return VATTransaction.VATType.CUSTOMER;
         } else {
             return null;
         }
