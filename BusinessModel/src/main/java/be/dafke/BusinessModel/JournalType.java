@@ -45,8 +45,6 @@ public class JournalType extends BusinessObject {
 
     public void setVatType(VATTransaction.VATType vatType) {
         this.vatType = vatType;
-        left.setVatType(calculateLeftVatType(vatType));
-        right.setVatType(calculateRightVatType(vatType));
     }
 
     public void switchVatTypes(){
