@@ -13,6 +13,7 @@ public class AccountsList {
     private Account account = null;
     private Predicate<Account> filter = null;
     private HashMap<AccountType, Boolean> availableAccountTypes = new HashMap<>();
+    private VATTransaction.VATType vatType;
 
     public AccountsList(AccountTypes accountTypes) {
         this(accountTypes, false);
@@ -38,6 +39,14 @@ public class AccountsList {
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public void setVatType(VATTransaction.VATType vatType) {
+        this.vatType = vatType;
+    }
+
+    public VATTransaction.VATType getVatType() {
+        return vatType;
     }
 
     public boolean isSingleAccount() {

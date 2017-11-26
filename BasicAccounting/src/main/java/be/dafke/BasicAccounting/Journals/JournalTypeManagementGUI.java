@@ -95,6 +95,12 @@ public class JournalTypeManagementGUI extends JFrame {
 			accountsListConfigPanelLeft.setVatType(vatTypeLeft);
 			accountsListConfigPanelRight.setVatType(vatTypeRight);
 		});
+		JButton switchButton = new JButton("Switch VAT Types");
+		switchButton.addActionListener(e -> {
+			journalType.switchVatTypes();
+			accountsListConfigPanelLeft.setVatType(journalType.getLeftVatType());
+			accountsListConfigPanelRight.setVatType(journalType.getRightVatType());
+		});
 
 		panel.add(new JLabel("Selected JournalType:"));
 		panel.add(combo);
@@ -102,6 +108,7 @@ public class JournalTypeManagementGUI extends JFrame {
 
 		panel.add(new JLabel("Journal VATType:"));
 		panel.add(taxType);
+		panel.add(switchButton);
 
 		return panel;
 	}

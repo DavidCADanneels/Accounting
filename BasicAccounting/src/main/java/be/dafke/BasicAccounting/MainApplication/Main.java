@@ -339,8 +339,8 @@ public class Main {
             accountGuiLeft.setAccountsList(left);
             accountGuiRight.setAccountsList(right);
 
-            accountGuiLeft.setVatType(journalType.getLeftVatType());
-            accountGuiRight.setVatType(journalType.getRightVatType());
+            accountGuiLeft.setVatType(left.getVatType());
+            accountGuiRight.setVatType(right.getVatType());
         }
     }
 }

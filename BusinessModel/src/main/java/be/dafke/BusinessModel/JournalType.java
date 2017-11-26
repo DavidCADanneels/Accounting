@@ -5,8 +5,6 @@ import be.dafke.ObjectModel.BusinessObject;
 public class JournalType extends BusinessObject {
     private VATTransaction.VATType vatType = null;
     private AccountsList left, right;
-    private VATTransaction.VATType leftVatType;
-    private VATTransaction.VATType rightVatType;
 
     public JournalType(JournalType journalType, AccountTypes accountTypes){
         this(journalType.getName(), accountTypes);
@@ -47,27 +45,22 @@ public class JournalType extends BusinessObject {
 
     public void setVatType(VATTransaction.VATType vatType) {
         this.vatType = vatType;
-        leftVatType = calculateLeftVatType(vatType);
-        rightVatType = calculateRightVatType(vatType);
     }
 
     public void switchVatTypes(){
-        VATTransaction.VATType tmp = leftVatType;
-        leftVatType = rightVatType;
-        rightVatType = tmp;
+        VATTransaction.VATType tmp = left.getVatType();
+        left.setVatType(right.getVatType());
+        right.setVatType(tmp);
     }
 
     public VATTransaction.VATType getLeftVatType() {
-        return leftVatType;
+        return left.getVatType();
     }
 
     public VATTransaction.VATType getRightVatType() {
-        return rightVatType;
+        return right.getVatType();
     }
 
-    public static VATTransaction.VATType calculateLeftVatType(JournalType journalType){
-        return calculateLeftVatType(journalType.getVatType());
-    }
     public static VATTransaction.VATType calculateLeftVatType(VATTransaction.VATType journalVatType){
         if (journalVatType == VATTransaction.VATType.SALE) {
             return VATTransaction.VATType.CUSTOMER;
@@ -76,9 +69,6 @@ public class JournalType extends BusinessObject {
         } else {
             return null;
         }
-    }
-    public static VATTransaction.VATType calculateRightVatType(JournalType journalType){
-        return calculateRightVatType(journalType.getVatType());
     }
 
     public static VATTransaction.VATType calculateRightVatType(VATTransaction.VATType journalVatType){

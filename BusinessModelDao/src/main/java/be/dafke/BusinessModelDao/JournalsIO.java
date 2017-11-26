@@ -71,6 +71,10 @@ public class JournalsIO {
             }
         }
 
+//        String vatString = getValue(element, VATTYPE);
+//        VATTransaction.VATType vatType = VATTransaction.VATType.valueOf(vatString);
+//        accountsList.setVatType(vatType);
+
         String singleString = getValue(element, SINGLE_ACCOUNT);
         boolean single = Boolean.valueOf(singleString);
         accountsList.setSingleAccount(single);
@@ -193,11 +197,13 @@ public class JournalsIO {
                         "    <"+NAME+">"+journalType.getName()+"</"+NAME+">\n" +
                         "    <"+VATTYPE+">"+(journalType.getVatType()==null?"null":journalType.getVatType().toString())+"</"+VATTYPE+">\n" +
                         "    <"+LEFT_LIST+">\n" +
+                        "      <"+VATTYPE+">"+journalType.getLeftVatType()+"</"+VATTYPE+">\n" +
                         "      <"+SINGLE_ACCOUNT+">"+left.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
                         "      <"+ACCOUNT+">"+left.getAccount()+"</"+ACCOUNT+">\n" +
                         "      <"+TYPES+">"+leftStream+"</"+TYPES+">\n" +
                         "    </"+LEFT_LIST+">\n" +
                         "    <"+RIGHT_LIST+">\n" +
+                        "      <"+VATTYPE+">"+journalType.getLeftVatType()+"</"+VATTYPE+">\n" +
                         "      <"+SINGLE_ACCOUNT+">"+right.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
                         "      <"+ACCOUNT+">"+right.getAccount()+"</"+ACCOUNT+">\n" +
                         "      <"+TYPES+">"+rightStream+"</"+TYPES+">\n" +
