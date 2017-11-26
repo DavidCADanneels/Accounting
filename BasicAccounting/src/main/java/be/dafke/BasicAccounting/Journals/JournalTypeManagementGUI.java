@@ -88,7 +88,12 @@ public class JournalTypeManagementGUI extends JFrame {
 		taxType.addItem(VATTransaction.VATType.SALE);
 		taxType.setSelectedItem(null);
 		taxType.addActionListener(e -> {
-			journalType.setVatType((VATTransaction.VATType) taxType.getSelectedItem());
+			VATTransaction.VATType vatType = (VATTransaction.VATType) taxType.getSelectedItem();
+			journalType.setVatType(vatType);
+			VATTransaction.VATType vatTypeLeft = JournalType.calculateLeftVatType(vatType);
+			VATTransaction.VATType vatTypeRight = JournalType.calculateRightVatType(vatType);
+			accountsListConfigPanelLeft.setVatType(vatTypeLeft);
+			accountsListConfigPanelRight.setVatType(vatTypeRight);
 		});
 
 		panel.add(new JLabel("Selected JournalType:"));

@@ -1,17 +1,8 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.AccountsList;
-import be.dafke.BusinessModel.JournalType;
+import be.dafke.BusinessModel.*;
 
-import javax.swing.ButtonGroup;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.BorderLayout;
@@ -26,11 +17,14 @@ public class AccountsListConfigPanel extends JPanel {
     private AccountsListSingleAccountSelectorPanel accountSelectorPanel;
     private JPanel north;
     private AccountsList accountsList;
+    private JTextField taxType;
     private AccountsListAccountTypesFilterPanel accountTypesFilterPanel;
 
     public AccountsListConfigPanel(Accounts accounts, AccountTypes accountTypes, boolean left) {
         setLayout(new BorderLayout());
         setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Accounts"));
+        taxType = new JTextField(20);
+        taxType.setEditable(false);
         ButtonGroup group = new ButtonGroup();
         byType = new JRadioButton("select by type:", true);
         singleAccount = new JRadioButton("single account:", false);
@@ -39,6 +33,9 @@ public class AccountsListConfigPanel extends JPanel {
         group.add(byType);
         group.add(singleAccount);
         north = new JPanel();
+        north.setLayout(new GridLayout(2,0));
+        north.add(new JLabel("VatType:"));
+        north.add(taxType);
         north.add(byType);
         north.add(singleAccount);
 
@@ -137,5 +134,9 @@ public class AccountsListConfigPanel extends JPanel {
 
     public void setJournalType(JournalType journalType) {
         accountTypesFilterPanel.setJournalType(journalType);
+    }
+
+    public void setVatType(VATTransaction.VATType vatType){
+        taxType.setText(vatType==null?"":vatType.toString());
     }
 }
