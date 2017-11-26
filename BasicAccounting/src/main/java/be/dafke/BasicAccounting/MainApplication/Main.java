@@ -251,12 +251,27 @@ public class Main {
         journalReadGUI.setJournal(journal);
         journalInputGUI.setJournal(journal);
         frame.setJournal(journal);
-        if(journal!=null && journal.getType()!=null) {
+        if(journal!=null){
 
 //            mortgagesGUI.setVisible(journal.isMortgagesJournal());
 
             JournalType journalType = journal.getType();
-            setTypes(journalType, accounting.getAccountTypes());
+            accountGuiLeft.setJournalType(journalType);
+            accountGuiRight.setJournalType(journalType);
+
+            if(journalType==null) {
+                AccountTypes accountTypes = accounting.getAccountTypes();
+                accountGuiLeft.setAccountsList(new AccountsList(accountTypes, true));
+                accountGuiRight.setAccountsList(new AccountsList(accountTypes, true));
+
+                accountGuiLeft.setVatType(null);
+                accountGuiRight.setVatType(null);
+//            setVatType(VATTransaction.VATType.NONE);
+
+            } else  {
+                setAccountTypes(journalType);
+                setVATTypes(journalType);
+            }
         } else {
         }
     }
@@ -323,24 +338,18 @@ public class Main {
             accountGuiRight.setAccountsList(accountsList);
     }
 
-    public static void setTypes(JournalType journalType, AccountTypes accountTypes) {
-        accountGuiLeft.setJournalType(journalType);
-        accountGuiRight.setJournalType(journalType);
-        if(journalType==null) {
-            accountGuiLeft.setAccountsList(new AccountsList(accountTypes, true));
-            accountGuiRight.setAccountsList(new AccountsList(accountTypes, true));
+    public static void setAccountTypes(JournalType journalType) {
+        AccountsList left = journalType.getLeft();
+        AccountsList right = journalType.getRight();
+        accountGuiLeft.setAccountsList(left);
+        accountGuiRight.setAccountsList(right);
+    }
 
-            accountGuiLeft.setVatType(null);
-            accountGuiRight.setVatType(null);
-//            setVatType(VATTransaction.VATType.NONE);
-        } else {
-            AccountsList left = journalType.getLeft();
-            AccountsList right = journalType.getRight();
-            accountGuiLeft.setAccountsList(left);
-            accountGuiRight.setAccountsList(right);
+    public static void setVATTypes(JournalType journalType) {
+        AccountsList left = journalType.getLeft();
+        AccountsList right = journalType.getRight();
 
-            accountGuiLeft.setVatType(left.getVatType());
-            accountGuiRight.setVatType(right.getVatType());
-        }
+        accountGuiLeft.setVatType(left.getVatType());
+        accountGuiRight.setVatType(right.getVatType());
     }
 }
