@@ -118,6 +118,7 @@ public class JournalTypeManagementGUI extends JFrame {
 			JournalType journalType = new JournalType(name, accountTypes);
 			try {
 				journalTypes.addBusinessObject(journalType);
+				JournalManagementGUI.fireJournalTypeDataChangedForAll(journalTypes);
 				((DefaultComboBoxModel<JournalType>) combo.getModel()).addElement(journalType);
 				(combo.getModel()).setSelectedItem(journalType);
 				name = null;

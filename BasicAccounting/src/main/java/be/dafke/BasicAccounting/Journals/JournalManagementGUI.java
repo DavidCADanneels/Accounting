@@ -11,14 +11,7 @@ import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
-import javax.swing.DefaultCellEditor;
-import javax.swing.DefaultListSelectionModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.TableColumn;
@@ -42,6 +35,8 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
     private JournalTypes journalTypes;
     private Accounts accounts;
     private AccountTypes accountTypes;
+    private JComboBox<JournalType> comboBox;
+    private TableColumn column;
     private static final HashMap<Journals, JournalManagementGUI> journalManagementGuis = new HashMap<>();
 
     private JournalManagementGUI(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
@@ -56,9 +51,9 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
         tabel.setRowSorter(null);
 
-        JComboBox<JournalType> comboBox=createComboBox();
+        comboBox=createComboBox();
 
-        TableColumn column = tabel.getColumnModel().getColumn(JournalManagementTableModel.TYPE_COL);
+        column = tabel.getColumnModel().getColumn(JournalManagementTableModel.TYPE_COL);
         column.setCellEditor(new DefaultCellEditor(comboBox));
 
         JScrollPane scrollPane = new JScrollPane(tabel);
@@ -79,6 +74,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 
     private JComboBox<JournalType> createComboBox() {
         JComboBox<JournalType> comboBox = new JComboBox<>();
+        comboBox.removeAllItems();
         journalTypes.getBusinessObjects().forEach(journalType -> comboBox.addItem(journalType));
         return comboBox;
     }
@@ -93,6 +89,12 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
         return gui;
     }
 
+    public static void fireJournalTypeDataChangedForAll(JournalTypes journalTypes){
+        for(JournalManagementGUI journalManagementGUI:journalManagementGuis.values()){
+            journalManagementGUI.fireJournalTypeDataChanged(journalTypes);
+        }
+    }
+
     public static void fireJournalDataChangedForAll() {
         for(JournalManagementGUI journalManagementGUI:journalManagementGuis.values()){
             journalManagementGUI.fireJournalDataChanged();
@@ -101,6 +103,14 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
 
     public void fireJournalDataChanged() {
         journalManagementTableModel.fireTableDataChanged();
+    }
+
+    public void fireJournalTypeDataChanged(JournalTypes journalTypes){
+        this.journalTypes = journalTypes;
+        comboBox = createComboBox();
+        column.setCellEditor(new DefaultCellEditor(comboBox));
+//        fireJournalDataChanged();
+        revalidate();
     }
 
 	private JPanel createContentPanel(){
