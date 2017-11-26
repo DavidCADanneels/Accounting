@@ -1,10 +1,6 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.AccountsList;
-import be.dafke.BusinessModel.VATTransaction;
+import be.dafke.BusinessModel.*;
 
 import javax.swing.JPanel;
 import javax.swing.JPopupMenu;
@@ -19,6 +15,7 @@ public abstract class AccountsGUI extends JPanel {
     private JPopupMenu popup;
     protected Accounts accounts;
     protected AccountsList accountsList;
+    private JournalType journalType;
 
     public void setPopup(JPopupMenu popup) {
         this.popup = popup;
@@ -30,6 +27,10 @@ public abstract class AccountsGUI extends JPanel {
 
     public void setAccounts(Accounts accounts) {
         this.accounts = accounts;
+    }
+
+    public void setJournalType(JournalType journalType) {
+        this.journalType = journalType;
     }
 
     public void setAccountsList(AccountsList accountsList) {
@@ -52,4 +53,8 @@ public abstract class AccountsGUI extends JPanel {
     public abstract void book(boolean debit);
     public abstract void fireAccountDataChanged();
     public abstract void setVatType(VATTransaction.VATType vatType);
+
+    public JournalType getJournalType() {
+        return journalType;
+    }
 }

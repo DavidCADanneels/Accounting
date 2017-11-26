@@ -1,8 +1,10 @@
 package be.dafke.BasicAccounting.Journals;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.AccountsList;
+import be.dafke.BusinessModel.JournalType;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -18,8 +20,9 @@ import static java.util.ResourceBundle.getBundle;
 public class AccountsListAccountTypesFilterPanel extends JPanel {
     private final Map<AccountType, JCheckBox> boxes;
     private AccountsList accountsList;
+    private JournalType journalType;
 
-    public AccountsListAccountTypesFilterPanel(AccountTypes accountTypes) {
+    public AccountsListAccountTypesFilterPanel(AccountTypes accountTypes, boolean left) {
         setLayout(new GridLayout(0, 3));
         boxes = new HashMap<>();
         if (accountTypes != null) {
@@ -33,6 +36,11 @@ public class AccountsListAccountTypesFilterPanel extends JPanel {
                 checkBox.setActionCommand(accountType.getName());
                 checkBox.addActionListener(e -> {
                     accountsList.setTypeAvailable(accountType, checkBox.isSelected());
+                    if(left) {
+                        Main.setAccountsListLeft(journalType, accountsList);
+                    } else {
+                        Main.setAccountsListRight(journalType, accountsList);
+                    }
                 });
                 boxes.put(accountType, checkBox);
                 add(checkBox);
@@ -49,6 +57,10 @@ public class AccountsListAccountTypesFilterPanel extends JPanel {
     public void setAccountsList(AccountsList accountsList) {
         this.accountsList = accountsList;
         refresh();
+    }
+
+    public void setJournalType(JournalType journalType) {
+        this.journalType = journalType;
     }
 
     public void refresh() {

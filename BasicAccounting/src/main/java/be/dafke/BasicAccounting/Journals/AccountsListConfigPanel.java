@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Journals;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.AccountsList;
+import be.dafke.BusinessModel.JournalType;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JCheckBox;
@@ -27,7 +28,7 @@ public class AccountsListConfigPanel extends JPanel {
     private AccountsList accountsList;
     private AccountsListAccountTypesFilterPanel accountTypesFilterPanel;
 
-    public AccountsListConfigPanel(Accounts accounts, AccountTypes accountTypes) {
+    public AccountsListConfigPanel(Accounts accounts, AccountTypes accountTypes, boolean left) {
         setLayout(new BorderLayout());
         setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Accounts"));
         ButtonGroup group = new ButtonGroup();
@@ -42,7 +43,7 @@ public class AccountsListConfigPanel extends JPanel {
         north.add(singleAccount);
 
         accountsList = new AccountsList(accountTypes);
-        accountTypesFilterPanel = new AccountsListAccountTypesFilterPanel(accountTypes);
+        accountTypesFilterPanel = new AccountsListAccountTypesFilterPanel(accountTypes, left);
         accountSelectorPanel = new AccountsListSingleAccountSelectorPanel(accounts,accountTypes);
         add(north,BorderLayout.NORTH);
         JPanel center = new JPanel(new BorderLayout());
@@ -134,4 +135,7 @@ public class AccountsListConfigPanel extends JPanel {
         accountTypesFilterPanel.refresh();
     }
 
+    public void setJournalType(JournalType journalType) {
+        accountTypesFilterPanel.setJournalType(journalType);
+    }
 }

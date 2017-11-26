@@ -11,12 +11,7 @@ import be.dafke.BusinessModel.VATTransaction;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.BorderLayout;
@@ -82,6 +77,7 @@ public class JournalTypeManagementGUI extends JFrame {
 
 	private JPanel createSavePanel() {
 		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(2,0));
 		JButton newType = new JButton(getBundle("Accounting").getString("NEW_JOURNAL_TYPE"));
 		newType.addActionListener(e -> createNewJournalType());
 		combo = new JComboBox<>();
@@ -94,9 +90,14 @@ public class JournalTypeManagementGUI extends JFrame {
 		taxType.addActionListener(e -> {
 			journalType.setVatType((VATTransaction.VATType) taxType.getSelectedItem());
 		});
-		panel.add(taxType);
+
+		panel.add(new JLabel("Selected JournalType:"));
 		panel.add(combo);
 		panel.add(newType);
+
+		panel.add(new JLabel("Journal VATType:"));
+		panel.add(taxType);
+
 		return panel;
 	}
 
@@ -105,8 +106,10 @@ public class JournalTypeManagementGUI extends JFrame {
 		taxType.setSelectedItem(journalType.getVatType());
 		AccountsList leftList = journalType.getLeft();
 		accountsListConfigPanelLeft.setAccountsList(leftList);
+		accountsListConfigPanelLeft.setJournalType(journalType);
 		AccountsList rightList = journalType.getRight();
 		accountsListConfigPanelRight.setAccountsList(rightList);
+		accountsListConfigPanelRight.setJournalType(journalType);
 		accountsListConfigPanelLeft.refresh();
 		accountsListConfigPanelRight.refresh();
 	}
@@ -137,12 +140,12 @@ public class JournalTypeManagementGUI extends JFrame {
 		panel.setLayout(new GridLayout(0,2));
 
 //		panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("ACCOUNTTYPES")));;
-		accountsListConfigPanelLeft = new AccountsListConfigPanel(accounts, accountTypes);
+		accountsListConfigPanelLeft = new AccountsListConfigPanel(accounts, accountTypes, true);
 		JPanel left = new JPanel();
 		left.add(accountsListConfigPanelLeft);
 		left.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("LEFT")));
 		panel.add(left);
-		accountsListConfigPanelRight = new AccountsListConfigPanel(accounts, accountTypes);
+		accountsListConfigPanelRight = new AccountsListConfigPanel(accounts, accountTypes, false);
 		JPanel right = new JPanel();
 		right.add(accountsListConfigPanelRight);
 		right.setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("BusinessModel").getString("RIGHT")));
