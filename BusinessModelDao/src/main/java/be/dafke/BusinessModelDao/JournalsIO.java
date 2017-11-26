@@ -71,9 +71,9 @@ public class JournalsIO {
             }
         }
 
-//        String vatString = getValue(element, VATTYPE);
-//        VATTransaction.VATType vatType = VATTransaction.VATType.valueOf(vatString);
-//        accountsList.setVatType(vatType);
+        String vatString = getValue(element, VATTYPE);
+        VATTransaction.VATType vatType = vatString==null?null:VATTransaction.VATType.valueOf(vatString);
+        accountsList.setVatType(vatType);
 
         String singleString = getValue(element, SINGLE_ACCOUNT);
         boolean single = Boolean.valueOf(singleString);
