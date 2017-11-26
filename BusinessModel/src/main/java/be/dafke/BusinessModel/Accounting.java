@@ -36,7 +36,7 @@ public class Accounting extends BusinessObject{
 
         journalTypes = new JournalTypes(this);
 
-        transactions = new Journal("master", "MA");
+        transactions = new Journal("master", "MA", true);
         transactions.setAccounting(this);
 
         vatFields = new VATFields(this);
