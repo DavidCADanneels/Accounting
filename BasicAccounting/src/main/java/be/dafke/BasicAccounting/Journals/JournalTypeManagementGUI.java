@@ -92,6 +92,8 @@ public class JournalTypeManagementGUI extends JFrame {
 			journalType.setVatType(vatType);
 			VATTransaction.VATType vatTypeLeft = JournalType.calculateLeftVatType(vatType);
 			VATTransaction.VATType vatTypeRight = JournalType.calculateRightVatType(vatType);
+			journalType.getLeft().setVatType(vatTypeLeft);
+			journalType.getRight().setVatType(vatTypeRight);
 			accountsListConfigPanelLeft.setVatType(vatTypeLeft);
 			accountsListConfigPanelRight.setVatType(vatTypeRight);
 		});
