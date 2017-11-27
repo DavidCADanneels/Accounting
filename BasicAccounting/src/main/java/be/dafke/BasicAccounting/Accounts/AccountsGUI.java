@@ -16,6 +16,7 @@ public abstract class AccountsGUI extends JPanel {
     protected Accounts accounts;
     protected AccountsList accountsList;
     private JournalType journalType;
+    private Journal journal;
 
     public void setPopup(JPopupMenu popup) {
         this.popup = popup;
@@ -56,5 +57,13 @@ public abstract class AccountsGUI extends JPanel {
 
     public JournalType getJournalType() {
         return journalType;
+    }
+
+    public Journal getJournal() {
+        return journal;
+    }
+
+    public void setJournal(Journal journal) {
+        this.journal = journal;
     }
 }

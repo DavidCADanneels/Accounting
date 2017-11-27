@@ -251,6 +251,8 @@ public class Main {
         journalReadGUI.setJournal(journal);
         journalInputGUI.setJournal(journal);
         frame.setJournal(journal);
+        accountGuiLeft.setJournal(journal);
+        accountGuiRight.setJournal(journal);
         if(journal!=null){
 
 //            mortgagesGUI.setVisible(journal.isMortgagesJournal());
@@ -351,5 +353,16 @@ public class Main {
 
         accountGuiLeft.setVatType(left.getVatType());
         accountGuiRight.setVatType(right.getVatType());
+    }
+
+    public static void fireJournalTypeChanges(Journal journal, JournalType journalType) {
+        if(journal==accountGuiLeft.getJournal()) {
+            accountGuiLeft.setJournalType(journalType);
+            accountGuiLeft.setAccountsList(journalType.getLeft());
+        }
+        if(journal==accountGuiRight.getJournal()) {
+            accountGuiRight.setJournalType(journalType);
+            accountGuiRight.setAccountsList(journalType.getRight());
+        }
     }
 }

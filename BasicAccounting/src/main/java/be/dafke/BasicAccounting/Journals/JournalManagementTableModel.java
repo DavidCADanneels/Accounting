@@ -120,6 +120,7 @@ public class JournalManagementTableModel extends SelectableTableModel<Journal> {
         } else if (col == TYPE_COL) {
             JournalType journalType = (JournalType)value;
             journal.setType(journalType);
+            Main.fireJournalTypeChanges(journal, journalType);
         }
     }
 
