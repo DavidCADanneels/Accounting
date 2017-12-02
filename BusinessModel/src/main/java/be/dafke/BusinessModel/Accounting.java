@@ -48,7 +48,7 @@ public class Accounting extends BusinessObject{
 
         contacts = new Contacts(this);
 
-        mortgages = new Mortgages(this);
+        mortgages = new Mortgages();
 
         projects = new Projects();
 	}
