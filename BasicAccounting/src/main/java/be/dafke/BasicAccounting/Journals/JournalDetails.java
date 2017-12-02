@@ -30,7 +30,7 @@ public class JournalDetails extends JFrame implements WindowListener {
 	private static HashMap<Journal,JournalDetails> journalDetailsMap = new HashMap<>();
 
 	private JournalDetails(Journal journal, Journals journals, JournalInputGUI journalInputGUI) {
-		super(getBundle("Accounting").getString("JOURNAL_DETAILS") + " / " + journal.toString());
+		super(getBundle("Accounting").getString("JOURNAL_DETAILS") + journal.toString());
 		journalDetailsDataModel = new JournalDetailsDataModel();
 		journalDetailsDataModel.setJournal(journal);
 

@@ -99,7 +99,7 @@ public class VATFieldsGUI extends JFrame {
     private VATFields vatFields;
 
     private VATFieldsGUI(VATFields vatFields, Accounting accounting, List<VATTransaction> selectedVatTransactions) {
-        super(accounting + " / " + getBundle("VAT").getString("VAT_FIELDS"));
+        super(getBundle("VAT").getString("VAT_FIELDS"));
         this.selectedVatTransactions = selectedVatTransactions;
         this.accounting = accounting;
         this.vatFields = vatFields;
