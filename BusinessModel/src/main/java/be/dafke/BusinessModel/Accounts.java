@@ -19,15 +19,12 @@ import java.util.stream.Collectors;
  */
 public class Accounts extends BusinessCollection<Account> {
     public static final String ACCOUNT = "Account";
-    private Accounting accounting;
 
-    public Accounts(Accounting accounting) {
+    public Accounts() {
         super();
-        this.accounting = accounting;
     }
 
     public Accounts(Accounts accounts) {
-        this(accounts.getAccounting());
         for(Account account:accounts.getBusinessObjects()){
             try {
                 addBusinessObject(new Account(account));
@@ -79,12 +76,4 @@ public class Accounts extends BusinessCollection<Account> {
 		list = list.stream().sorted(Comparator.comparing(BusinessObject::getName)).collect(Collectors.toCollection(ArrayList::new));
 		return list;
 	}
-
-    public Accounting getAccounting() {
-        return accounting;
-    }
-
-    public void setAccounting(Accounting accounting) {
-        this.accounting = accounting;
-    }
 }

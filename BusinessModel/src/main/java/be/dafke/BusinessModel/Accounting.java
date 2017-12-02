@@ -30,7 +30,7 @@ public class Accounting extends BusinessObject{
         setName(name);
         accountTypes = new AccountTypes();
 
-        accounts = new Accounts(this);
+        accounts = new Accounts();
 
 //        companyContact = new Contact();
 
