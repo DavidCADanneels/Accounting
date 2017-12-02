@@ -42,7 +42,7 @@ public class JournalTypeManagementGUI extends JFrame implements ActionListener {
 //	private AccountsListConfigPanel left, right;
 
 	private JournalTypeManagementGUI(Accounts accounts, JournalTypes journalTypes, AccountTypes accountTypes) {
-		super(journalTypes.getAccounting().getName() + " / " + getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
+		super(getBundle("Accounting").getString("JOURNAL_TYPE_MANAGEMENT_TITLE"));
 		this.accounts = accounts;
 		this.accountTypes = accountTypes;
 		this.journalTypes = journalTypes;

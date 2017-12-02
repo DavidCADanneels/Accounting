@@ -34,7 +34,7 @@ public class Accounting extends BusinessObject{
 
 //        companyContact = new Contact();
 
-        journalTypes = new JournalTypes(this);
+        journalTypes = new JournalTypes();
 
         transactions = new Journal("master", "MA", true);
         transactions.setAccounting(this);

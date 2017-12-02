@@ -39,7 +39,7 @@ public class AccountsListConfigPanel extends JPanel {
         north.add(byType);
         north.add(singleAccount);
 
-        accountsList = new AccountsList(accountTypes);
+        accountsList = new AccountsList();
         accountTypesFilterPanel = new AccountsListAccountTypesFilterPanel(accountTypes, left);
         accountSelectorPanel = new AccountsListSingleAccountSelectorPanel(accounts,accountTypes);
         add(north,BorderLayout.NORTH);
