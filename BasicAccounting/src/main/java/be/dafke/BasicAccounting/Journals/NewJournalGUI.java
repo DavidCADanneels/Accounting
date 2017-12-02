@@ -84,6 +84,7 @@ public class NewJournalGUI extends JFrame {
             if(journal==null) {
                 journal = new Journal(newName, newAbbreviation);
                 journals.addBusinessObject(journal);
+                journal.setType(journalType);
                 clearFields();
                 journal=null;
             } else {
@@ -91,13 +92,13 @@ public class NewJournalGUI extends JFrame {
                 String oldAbbreviation = journal.getAbbreviation();
                 journals.modifyName(oldName, newName);
                 journals.modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
+                journal.setType(journalType);
             }
         } catch (DuplicateNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR, newName.trim(), newAbbreviation.trim());
         } catch (EmptyNameException e) {
             ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_ABBR_EMPTY);
         }
-        journal.setType(journalType);
         Main.fireJournalDataChanged(journal);
     }
 
