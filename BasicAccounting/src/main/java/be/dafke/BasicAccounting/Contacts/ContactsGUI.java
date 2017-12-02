@@ -59,7 +59,7 @@ public class ContactsGUI extends JFrame implements ListSelectionListener {
     }
 
     private ContactsGUI(Contacts contacts) {
-        super(contacts.getAccounting().getName() + " / " + "Contacts");
+        super("Contacts");
         this.contacts = contacts;
         setContentPane(createContentPanel());
         setPreferredSize(new Dimension(1000,400));

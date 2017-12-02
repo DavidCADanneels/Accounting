@@ -20,7 +20,7 @@ public class BalanceGUI extends JFrame {
 	private static HashMap<Balance,BalanceGUI> otherBalanceMap = new HashMap<>();
 
 	private BalanceGUI(Journals journals, Balance balance, JournalInputGUI journalInputGUI) {
-		super(journals.getAccounting().getName() + " / " + balance.getName());
+		super(balance.getName());
 		balanceDataModel = new BalanceDataModel(balance);
 
 		tabel = new SelectableTable<>(balanceDataModel);

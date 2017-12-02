@@ -34,7 +34,7 @@ public class BalancesManagementGUI extends JFrame implements FocusListener {
 	private Balances balances;
 
 	private BalancesManagementGUI(Balances balances, Accounts accounts, AccountTypes accountTypes) {
-		super(accounts.getAccounting().getName() + " / " + getBundle("Accounting").getString("BALANCE_MANAGEMENT_TITLE"));
+		super(getBundle("Accounting").getString("BALANCE_MANAGEMENT_TITLE"));
 		setContentPane(createContentPanel());
 		this.accounts = accounts;
 		setAccountTypes(accountTypes);

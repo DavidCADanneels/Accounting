@@ -32,7 +32,7 @@ public class AccountDetails extends JFrame implements WindowListener {
 	private static HashMap<Account,AccountDetails> accountDetailsMap = new HashMap<>();
 
 	private AccountDetails(Account account, Journals journals, JournalInputGUI journalInputGUI) {
-		super(getBundle("Accounting").getString("ACCOUNT_DETAILS")+ " " + journals.getAccounting().getName() + " / " + account.getName());
+		super(getBundle("Accounting").getString("ACCOUNT_DETAILS") + " / " + account.getName());
 		accountDetailsDataModel = new AccountDetailsDataModel(account);
 
 		tabel = new SelectableTable<>(accountDetailsDataModel);

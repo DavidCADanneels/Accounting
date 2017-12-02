@@ -39,7 +39,7 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
 	private static final HashMap<Mortgages, MortgageGUI> mortgageGuis = new HashMap<>();
 
 	private MortgageGUI(Mortgages mortgages, Accounts accounts) {
-		super(mortgages.getAccounting().getName() + " / " + "Mortgages");
+		super("Mortgages");
         this.mortgages = mortgages;
 		this.accounts = accounts;
 		mortgagesList = new JList<>();

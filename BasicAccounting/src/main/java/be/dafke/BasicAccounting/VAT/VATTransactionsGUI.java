@@ -40,7 +40,7 @@ public class VATTransactionsGUI extends JFrame {
 //    private VATTransactions vatTransactions;
 
     private VATTransactionsGUI(VATTransactions vatTransactions) {
-        super(vatTransactions.getAccounting().getName() + " / " + getBundle("VAT").getString("VAT_TRANSACTIONS"));
+        super(getBundle("VAT").getString("VAT_TRANSACTIONS"));
 //        this.vatTransactions = vatTransactions;
         vatTransactionsDataModel = new VATTransactionsDataModel(vatTransactions);
 

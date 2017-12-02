@@ -40,7 +40,7 @@ public class ProjectManagementGUI extends JFrame implements ListSelectionListene
 	private static final HashMap<Projects, ProjectManagementGUI> projectManagementGuis = new HashMap<>();
 
 	private ProjectManagementGUI(Accounts accounts, AccountTypes accountTypes, Projects projects) {
-		super(accounts.getAccounting().getName() + " / " + getBundle("Projects").getString("PROJECTMANAGER"));
+		super(getBundle("Projects").getString("PROJECTMANAGER"));
 		this.accounts = accounts;
 		this.accountTypes = accountTypes;
 		this.projects = projects;

@@ -39,7 +39,7 @@ public class MortgageCalculatorGUI extends JFrame implements ActionListener, Foc
 	private static final HashMap<Mortgages, MortgageCalculatorGUI> mortgageCalculatorGuis = new HashMap<>();
 
 	private MortgageCalculatorGUI(Mortgages mortgages) {
-		super(mortgages.getAccounting().getName() + " / " + "Mortgage Calculator");
+		super("Mortgage Calculator");
         nr = counter++;
         this.mortgages = mortgages;
 

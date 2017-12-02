@@ -40,7 +40,7 @@ public class JournalManagementGUI extends JFrame implements ListSelectionListene
     private static final HashMap<Journals, JournalManagementGUI> journalManagementGuis = new HashMap<>();
 
     private JournalManagementGUI(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
-		super(journals.getAccounting().getName() + " / " + getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE"));
+		super(getBundle("Accounting").getString("JOURNAL_MANAGEMENT_TITLE"));
         this.journals = journals;
         this.journalTypes = journalTypes;
         this.accounts = accounts;
