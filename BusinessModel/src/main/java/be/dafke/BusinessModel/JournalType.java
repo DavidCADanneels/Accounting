@@ -6,8 +6,8 @@ public class JournalType extends BusinessObject {
     private VATTransaction.VATType vatType = null;
     private AccountsList left, right;
 
-    public JournalType(JournalType journalType, AccountTypes accountTypes){
-        this(journalType.getName(), accountTypes);
+    public JournalType(JournalType journalType){
+        this(journalType.getName());
         vatType = journalType.getVatType();
         for(AccountType accountType:journalType.left.getAccountTypes()){
             left.setTypeAvailable(accountType, Boolean.TRUE);
@@ -17,11 +17,10 @@ public class JournalType extends BusinessObject {
         }
     }
 
-    public JournalType(String name, AccountTypes accountTypes){
+    public JournalType(String name){
         setName(name);
         left = new AccountsList();
         right = new AccountsList();
-        addAllAccountTypes(accountTypes);
     }
 
     public void addAllAccountTypes(AccountTypes accountTypes){

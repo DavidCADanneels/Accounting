@@ -34,7 +34,7 @@ public class JournalsIO {
         for (Element element : getChildren(rootElement, JOURNAL_TYPE)) {
 
             String name = getValue(element, NAME);
-            JournalType journalType = new JournalType(name, accountTypes);
+            JournalType journalType = new JournalType(name);
             // Do not add default types here, they are read, right below
 
             String taxString = getValue(element, VATTYPE);
