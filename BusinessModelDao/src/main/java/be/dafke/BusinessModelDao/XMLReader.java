@@ -113,7 +113,8 @@ public class XMLReader {
         readAccounts(accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
         readJournalTypes(accounting.getJournalTypes(), accounting.getAccounts(), accounting.getAccountTypes(), accountingFolder);
         if(accounting.isVatAccounting()) {
-            readVATFields(accounting.getVatFields(), accountingFolder);
+            accounting.getVatFields().addDefaultFields();
+//            readVATFields(accounting.getVatFields(), accountingFolder);
             readVATTransactions(accounting.getVatTransactions(), accounting.getVatFields(), accounting.getAccounts(), accountingFolder);
         }
 
