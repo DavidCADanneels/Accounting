@@ -19,8 +19,14 @@ public class JournalType extends BusinessObject {
 
     public JournalType(String name, AccountTypes accountTypes){
         setName(name);
-        left = new AccountsList(accountTypes, false);
-        right = new AccountsList(accountTypes, false);
+        left = new AccountsList();
+        right = new AccountsList();
+        addAllAccountTypes(accountTypes);
+    }
+
+    public void addAllAccountTypes(AccountTypes accountTypes){
+        left.addAllTypes(accountTypes, false);
+        right.addAllTypes(accountTypes, false);
     }
 
     public AccountsList getLeft() {

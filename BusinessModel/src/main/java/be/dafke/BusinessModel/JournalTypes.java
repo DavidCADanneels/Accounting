@@ -17,6 +17,7 @@ public class JournalTypes extends BusinessCollection<JournalType> {
         for(JournalType journalType:journalTypes.getBusinessObjects()){
             try {
                 addBusinessObject(new JournalType(journalType, accounting.getAccountTypes()));
+//                addBusinessObject(new JournalType(journalType));
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();
             }
@@ -33,6 +34,7 @@ public class JournalTypes extends BusinessCollection<JournalType> {
 
     public void addDefaultType(AccountTypes accountTypes) {
         JournalType defaultType = new JournalType("default", accountTypes);
+//        JournalType defaultType = new JournalType("default");
         try {
             addBusinessObject(defaultType);
         } catch (EmptyNameException | DuplicateNameException e) {

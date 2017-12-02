@@ -24,14 +24,7 @@ import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BasicAccounting.VAT.VATFieldsGUI;
 import be.dafke.BasicAccounting.VAT.VATMenu;
 import be.dafke.BasicAccounting.VAT.VATTransactionsGUI;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accountings;
-import be.dafke.BusinessModel.AccountsList;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.JournalType;
-import be.dafke.BusinessModel.VATTransaction;
+import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.XMLReader;
 import be.dafke.BusinessModelDao.XMLWriter;
 
@@ -262,9 +255,18 @@ public class Main {
             accountGuiRight.setJournalType(journalType);
 
             if(journalType==null) {
+
+//                journalType = accounting.getJournalTypes().getBusinessObject("default");
+//                journal.setType(journalType);
                 AccountTypes accountTypes = accounting.getAccountTypes();
-                accountGuiLeft.setAccountsList(new AccountsList(accountTypes, true));
-                accountGuiRight.setAccountsList(new AccountsList(accountTypes, true));
+
+                AccountsList leftList = new AccountsList();
+                leftList.addAllTypes(accountTypes, true);
+                accountGuiLeft.setAccountsList(leftList);
+
+                AccountsList rightList = new AccountsList();
+                rightList.addAllTypes(accountTypes,true);
+                accountGuiRight.setAccountsList(rightList);
 
                 accountGuiLeft.setVatType(null);
                 accountGuiRight.setVatType(null);

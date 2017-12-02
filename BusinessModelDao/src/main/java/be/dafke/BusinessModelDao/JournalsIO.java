@@ -35,6 +35,7 @@ public class JournalsIO {
 
             String name = getValue(element, NAME);
             JournalType journalType = new JournalType(name, accountTypes);
+            // Do not add default types here, they are read, right below
 
             String taxString = getValue(element, VATTYPE);
             if(taxString!=null) journalType.setVatType(VATTransaction.VATType.valueOf(taxString));
@@ -58,7 +59,9 @@ public class JournalsIO {
 
     private static AccountsList readTypes(Element element, Accounts accounts, AccountTypes accountTypes) {
         String typesString = getValue(element, TYPES);
-        AccountsList accountsList = new AccountsList(accountTypes, false);
+        AccountsList accountsList = new AccountsList();
+        // TODO: save state ENABLED in xml and call setTypeAvailable(ENABLED)
+        accountsList.addAllTypes(accountTypes, false);
         if(typesString!=null) {
             String[] typesList = typesString.split(",");
             for (String s : typesList) {

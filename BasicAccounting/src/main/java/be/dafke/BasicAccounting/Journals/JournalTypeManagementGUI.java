@@ -141,6 +141,8 @@ public class JournalTypeManagementGUI extends JFrame implements ActionListener {
 		while (name != null) {
 			name = name.trim();
 			JournalType journalType = new JournalType(name, accountTypes);
+			// add default accountTypes
+//			journalType.addAllAccountTypes(accountTypes);
 			try {
 				journalTypes.addBusinessObject(journalType);
 				JournalManagementGUI.fireJournalTypeDataChangedForAll(journalTypes);
