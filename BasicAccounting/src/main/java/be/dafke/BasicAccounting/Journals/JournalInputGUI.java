@@ -14,6 +14,8 @@ import java.awt.event.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Set;
 
 import static be.dafke.BasicAccounting.MainApplication.ActionUtils.TRANSACTION_REMOVED;
 import static java.util.ResourceBundle.getBundle;
@@ -125,23 +127,39 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     }
 
     public void moveTransaction(ArrayList<Booking> bookings, Journals journals) {
-        for (Booking booking : bookings) {
-            Transaction transaction = booking.getTransaction();
-            Journal oldJournal = transaction.getJournal();
+        moveTransaction(getTransactions(bookings),journals);
+    }
 
-            Journal newJournal = getNewJournal(transaction, journals);
-            if(newJournal!=null) { // e.g. when Cancel has been clicked
-                oldJournal.removeBusinessObject(transaction);
-                newJournal.addBusinessObject(transaction);
-                Main.fireJournalDataChanged(oldJournal);
-                Main.fireJournalDataChanged(newJournal);
-                for (Account account : transaction.getAccounts()) {
-                    Main.fireAccountDataChanged(account);
-                }
+    public void moveTransaction(Set<Transaction> transactions, Journals journals) {
+        for (Transaction transaction : transactions) {
+            moveTransaction(transaction, journals);
+        }
+    }
+
+    public void moveTransaction(Transaction transaction, Journals journals) {
+        Journal oldJournal = transaction.getJournal();
+
+        Journal newJournal = getNewJournal(transaction, journals);
+        if(newJournal!=null) { // e.g. when Cancel has been clicked
+            oldJournal.removeBusinessObject(transaction);
+            newJournal.addBusinessObject(transaction);
+//            newJournal.addBusinessObject(transaction, true);
+            Main.fireJournalDataChanged(oldJournal);
+            Main.fireJournalDataChanged(newJournal);
+            for (Account account : transaction.getAccounts()) {
+                Main.fireAccountDataChanged(account);
+            }
 
 //                ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, oldJournal.getName(), newJournal.getName());
-            }
         }
+    }
+
+    public Set<Transaction> getTransactions(ArrayList<Booking> bookings){
+        Set<Transaction> transactions = new HashSet<>();
+        for (Booking booking:bookings) {
+            transactions.add(booking.getTransaction());
+        }
+        return transactions;
     }
 
     private Journal getNewJournal(Transaction transaction, Journals journals){
