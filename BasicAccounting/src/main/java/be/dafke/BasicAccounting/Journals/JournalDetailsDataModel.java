@@ -123,7 +123,7 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 				if (journal != null && newDate != null) {
 					journal.changeDate(transaction, newDate);
 				} else setValueAt(Utils.toString(date), row, col);
-			} else if (col == 5) {
+			} else if (col == 6) {
 				transaction.setDescription((String) value);
 			}
 			fireTableDataChanged();
