@@ -38,7 +38,7 @@ public class VATField extends BusinessCollection<VATMovement> {
         }
     }
 
-    public void markAsRegistered(VATMovement vatMovement) {
+    public void setRegistered(VATMovement vatMovement) {
         BigDecimal vatAmount = vatMovement.getAmount();
         if (vatAmount != null) {
             amount = amount.subtract(vatAmount);

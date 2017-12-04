@@ -74,7 +74,7 @@ public class VATIO {
                 VATTransaction vatTransaction = new VATTransaction(id, date);
                 String registeredString = getValue(element, REGISTERED);
                 if("true".equals(registeredString)){
-                    vatTransaction.markAsRegistered();
+                    vatTransaction.setRegistered();
                 }
 
                 for (Element vatBookingsElement : getChildren(element, VATBOOKING)) {

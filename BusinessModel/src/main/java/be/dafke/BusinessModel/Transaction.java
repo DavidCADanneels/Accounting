@@ -29,6 +29,7 @@ public class Transaction extends BusinessCollection<Booking> {
     private VATTransaction vatTransaction = null;
     private Contact contact = null;
     private Mortgage mortgage = null;
+    private boolean forced = false;
 
     public Transaction(Calendar date, String description) {
         this.date = date==null?Calendar.getInstance():date;
@@ -193,5 +194,13 @@ public class Transaction extends BusinessCollection<Booking> {
 
     public Contact getContact() {
         return contact;
+    }
+
+    public void setForced(boolean forced) {
+        this.forced = forced;
+    }
+
+    public boolean isForced() {
+        return forced;
     }
 }

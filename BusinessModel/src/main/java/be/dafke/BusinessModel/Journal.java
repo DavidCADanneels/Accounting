@@ -95,6 +95,7 @@ public class Journal extends BusinessCollection<Transaction> {
     public void changeDate(Transaction transaction, Calendar newDate){
         removeBusinessObject(transaction);
         transaction.setDate(newDate);
+        transaction.setForced(true);
         addBusinessObject(transaction);
     }
 
@@ -144,7 +145,7 @@ public class Journal extends BusinessCollection<Transaction> {
                     // TODO: raise count here, not when creating the VATTransaction (+ set ID)
                     int count = VATTransaction.raiseCount();
                     vatTransaction.setId(count);
-                    vatTransactions.addBusinessObject(vatTransaction);
+                    vatTransactions.addBusinessObject(vatTransaction, transaction.isForced());
                 }
                 Contact contact = transaction.getContact();
                 BigDecimal turnOverAmount = transaction.getTurnOverAmount();
@@ -155,6 +156,7 @@ public class Journal extends BusinessCollection<Transaction> {
                 }
             }
         }
+        transaction.setForced(false);
         return transaction;
 	}
 

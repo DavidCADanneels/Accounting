@@ -66,10 +66,14 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
 
     @Override
     public VATTransaction addBusinessObject(VATTransaction vatTransaction){
+        return addBusinessObject(vatTransaction, false);
+    }
+
+    public VATTransaction addBusinessObject(VATTransaction vatTransaction, boolean force){
         if(vatTransaction!=null) {
             Calendar date = vatTransaction.getDate();
             vatTransactions.addValue(date, vatTransaction);
-            if(!vatTransaction.isRegistered()) {
+            if(force || !vatTransaction.isRegistered()) {
                 for (VATBooking vatBooking : vatTransaction.getBusinessObjects()) {
                     VATField vatField = vatBooking.getVatField();
                     if (vatField != null) {
@@ -77,14 +81,6 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
                     }
                 }
             }
-//            Contact contact = vatTransaction.getContact();
-//            BigDecimal turnOverAmount = vatTransaction.getTurnOverAmount();
-//            BigDecimal vatAmount = vatTransaction.getVATAmount();
-//            if (contact != null && turnOverAmount != null && vatAmount != null) {
-//                contact.increaseTurnOver(turnOverAmount);
-//                contact.increaseVATTotal(vatAmount);
-//            }
-
         }
         return vatTransaction;
     }
@@ -92,12 +88,12 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
     public void registerVATTransactions(List<VATTransaction> vatTransactions){
         if(vatTransactions!=null) {
             vatTransactions.forEach(vatTransaction -> {
-                vatTransaction.markAsRegistered();
+                vatTransaction.setRegistered();
                 ArrayList<VATBooking> businessObjects = vatTransaction.getBusinessObjects();
                 for (VATBooking vatBooking : businessObjects){
                     VATField vatField = vatBooking.getVatField();
                     if (vatField != null) {
-                        vatField.markAsRegistered(vatBooking.getVatMovement());
+                        vatField.setRegistered(vatBooking.getVatMovement());
                     }
                 }
             });

@@ -126,10 +126,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         return mainPanel;
     }
 
-    public void moveTransaction(ArrayList<Booking> bookings, Journals journals) {
-        moveTransaction(getTransactions(bookings),journals);
-    }
-
     public void moveTransaction(Set<Transaction> transactions, Journals journals) {
         for (Transaction transaction : transactions) {
             moveTransaction(transaction, journals);
@@ -142,8 +138,8 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         Journal newJournal = getNewJournal(transaction, journals);
         if(newJournal!=null) { // e.g. when Cancel has been clicked
             oldJournal.removeBusinessObject(transaction);
+            transaction.setForced(true);
             newJournal.addBusinessObject(transaction);
-//            newJournal.addBusinessObject(transaction, true);
             Main.fireJournalDataChanged(oldJournal);
             Main.fireJournalDataChanged(newJournal);
             for (Account account : transaction.getAccounts()) {
@@ -240,7 +236,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
     public void editTransaction(Transaction transaction) {
         deleteTransaction(transaction);
-//        deleteTransaction(bookings);
+        transaction.setForced(true);
         Journal journal = transaction.getJournal();
         //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
         // set Journal before Transaction: setJournal sets transaction to currentObject !!!
