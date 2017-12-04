@@ -18,6 +18,10 @@ public class JournalDataModel extends SelectableTableModel<Booking> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final int DEBIT_ACCOUNT = 0;
+	public static final int DEBIT_AMOUNT = 2;
+	public static final int CREDIT_ACCOUNT = 1;
+	public static final int CREDIT_AMOUNT = 3;
 	String[] columnNames = { getBundle("Accounting").getString("DEBIT"),
 			getBundle("Accounting").getString("CREDIT"),
 			getBundle("Accounting").getString("D"),
@@ -29,23 +33,27 @@ public class JournalDataModel extends SelectableTableModel<Booking> {
 // DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
-		Booking booking = transaction.getBusinessObjects().get(row);
+		Booking booking = getBooking(row);
 		if (booking.isDebit()) {
-			if (col == 0) {
+			if (col == DEBIT_ACCOUNT) {
 				return booking.getAccount();
 			}
-			if (col == 2) {
+			if (col == DEBIT_AMOUNT) {
 				return booking.getAmount();
 			}
 			return null;
 		}// else credit
-		if (col == 1) {
+		if (col == CREDIT_ACCOUNT) {
 			return booking.getAccount();
 		}
-		if (col == 3) {
+		if (col == CREDIT_AMOUNT) {
 			return booking.getAmount();
 		}
 		return null;
+	}
+
+	public Booking getBooking(int row){
+		return transaction.getBusinessObjects().get(row);
 	}
 
 	public int getColumnCount() {
@@ -53,10 +61,7 @@ public class JournalDataModel extends SelectableTableModel<Booking> {
 	}
 
 	public int getRowCount() {
-        if(transaction == null){
-            return 0;
-        }
-		return transaction.getBusinessObjects().size();
+        return transaction == null?0:transaction.getBusinessObjects().size();
 	}
 
 	@Override
@@ -71,22 +76,47 @@ public class JournalDataModel extends SelectableTableModel<Booking> {
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return false;
+		boolean preCondition = (col==DEBIT_ACCOUNT || col ==CREDIT_ACCOUNT);
+		// FIXME: do not make amounts editable (yet) Book button status is not updated (yet)
+		return preCondition && getValueAt(row,col)!=null;
 	}
 
 // DE SET METHODEN
 // ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-//        data[row][col] = value;
+		Booking booking = getBooking(row);
+		if(col == DEBIT_ACCOUNT || col == CREDIT_ACCOUNT){
+			Account newAccount = (Account)value;
+			// FIXME: use only for unbooked Bookings
+			// if already booked, old account must be unbooked
+			// and newAccount booked
+			// What to do when editing (booked/unbooked) vatTransactions ???
+			if(newAccount!=null) {
+				booking.setAccount(newAccount);
+			}
+			fireTableDataChanged();
+		} else if(col == DEBIT_AMOUNT || col == CREDIT_AMOUNT){
+			// FIXME: update Book button status after editing amount
+			BigDecimal newAmount = (BigDecimal) value;
+			if(newAmount!=null){
+				booking.setAmount(newAmount);
+			}
+			fireTableDataChanged();
+		}
 	}
 
     public void setTransaction(Transaction transaction) {
         this.transaction = transaction;
     }
 
+	public Transaction getTransaction() {
+		return transaction;
+	}
+
 	@Override
 	public Booking getObject(int row, int col) {
+
 		return transaction.getBusinessObjects().get(row);
 	}
 

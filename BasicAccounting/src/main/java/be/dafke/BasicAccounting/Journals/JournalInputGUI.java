@@ -8,6 +8,7 @@ import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
+import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.awt.event.*;
 import java.math.BigDecimal;
@@ -29,12 +30,15 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     private JButton singleBook, save, clear;
 
     private final SelectableTable<Booking> table;
+    private TableColumn debitAccount, creditAccount;
+    private JComboBox<Account> comboBox;
     private final JournalGUIPopupMenu popup;
     private final JournalDataModel journalDataModel;
     private BigDecimal debettotaal, credittotaal;
 
     private Journal journal;
     private Transaction transaction;
+    private Accounts accounts;
 
     public JournalInputGUI() {
         setLayout(new BorderLayout());
@@ -300,9 +304,27 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         return transaction;
     }
 
+    private JComboBox<Account> createComboBox() {
+        JComboBox<Account> comboBox = new JComboBox<>();
+        comboBox.removeAllItems();
+        accounts.getBusinessObjects().forEach(account -> comboBox.addItem(account));
+        return comboBox;
+    }
+
     public void setAccounting(Accounting accounting){
         popup.setAccounting(accounting);
+        setAccounts(accounting==null?null:accounting.getAccounts());
         setJournals(accounting==null?null:accounting.getJournals());
+
+        comboBox=createComboBox();
+        debitAccount = table.getColumnModel().getColumn(JournalDataModel.DEBIT_ACCOUNT);
+        debitAccount.setCellEditor(new DefaultCellEditor(comboBox));
+        creditAccount = table.getColumnModel().getColumn(JournalDataModel.CREDIT_ACCOUNT);
+        creditAccount.setCellEditor(new DefaultCellEditor(comboBox));
+    }
+
+    public void setAccounts(Accounts accounts) {
+        this.accounts = accounts;
     }
 
     public void setJournals(Journals journals){
