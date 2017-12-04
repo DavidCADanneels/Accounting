@@ -25,4 +25,10 @@ public class SelectableTable<BusinessObject> extends JTable{
         }
         return businessObjectArrayList;
     }
+
+    public BusinessObject getSelectedObject() {
+        int row = getSelectedRow();
+        int col = getSelectedColumn();
+        return model.getObject(row, col);
+    }
 }

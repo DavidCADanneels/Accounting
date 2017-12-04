@@ -64,10 +64,9 @@ public class AccountDetailsPopupMenu extends JPopupMenu {
 
     private void editTransaction() {
         setVisible(false);
-        ArrayList<Booking> bookings = gui.getSelectedObjects();
-        Set<Transaction> transactions = journalInputGUI.getTransactions(bookings);
-        // TODO: allow only 1 transaction for editing
-        journalInputGUI.editTransaction(transactions);
+        Booking booking = gui.getSelectedObject();
+        Transaction transaction = booking.getTransaction();
+        journalInputGUI.editTransaction(transaction);
     }
 
     private void showDetails() {

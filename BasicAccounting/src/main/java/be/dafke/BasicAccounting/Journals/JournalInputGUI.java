@@ -238,13 +238,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         }
     }
 
-    // TODO: remove this method: edit only 1 transaction
-    public void editTransaction(Set<Transaction> transactions) {
-        for(Transaction transaction:transactions){
-            editTransaction(transaction);
-        }
-    }
-
     public void editTransaction(Transaction transaction) {
         deleteTransaction(transaction);
 //        deleteTransaction(bookings);
