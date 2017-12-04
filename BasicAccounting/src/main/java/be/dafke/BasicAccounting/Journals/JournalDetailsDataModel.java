@@ -106,7 +106,7 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return (col == 1 || col == 5);
+		return (col == 1 || col == 6);
 	}
 
 // DE SET METHODEN
