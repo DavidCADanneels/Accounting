@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Transaction;
@@ -76,9 +77,7 @@ public class JournalDataModel extends SelectableTableModel<Booking> {
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		boolean preCondition = (col==DEBIT_ACCOUNT || col ==CREDIT_ACCOUNT);
-		// FIXME: do not make amounts editable (yet) Book button status is not updated (yet)
-		return preCondition && getValueAt(row,col)!=null;
+		return getValueAt(row,col)!=null;
 	}
 
 // DE SET METHODEN
@@ -97,12 +96,14 @@ public class JournalDataModel extends SelectableTableModel<Booking> {
 			}
 			fireTableDataChanged();
 		} else if(col == DEBIT_AMOUNT || col == CREDIT_AMOUNT){
-			// FIXME: update Book button status after editing amount
 			BigDecimal newAmount = (BigDecimal) value;
 			if(newAmount!=null){
+				Transaction transaction = booking.getTransaction();
+				transaction.removeBusinessObject(booking);
 				booking.setAmount(newAmount);
+				transaction.addBusinessObject(booking);
 			}
-			fireTableDataChanged();
+			Main.fireTransactionInputDataChanged();
 		}
 	}
 

@@ -280,6 +280,10 @@ public class Main {
         }
     }
 
+    public static void fireTransactionInputDataChanged(){
+        journalInputGUI.fireTransactionDataChanged();
+    }
+
     public static void fireJournalDataChanged(Journal journal){
         JournalDetails.fireJournalDataChangedForAll(journal);
         JournalManagementGUI.fireJournalDataChangedForAll();
