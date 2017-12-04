@@ -176,37 +176,44 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     }
 
     public void deleteTransaction(ArrayList<Booking> bookings) {
-        for (Booking booking : bookings) {
-            Transaction transaction = booking.getTransaction();
-            Journal journal = transaction.getJournal();
-            journal.removeBusinessObject(transaction);
+        deleteTransaction(getTransactions(bookings));
+    }
 
-            Main.fireJournalDataChanged(journal);
-            for (Account account : transaction.getAccounts()) {
-                Main.fireAccountDataChanged(account);
-            }
-
-            // FIXME: link between transaction and mortgage is gone after restart (not saved in XML) ???
-            Mortgage mortgage = transaction.getMortgage();
-            if (mortgage != null) {
-                mortgage.decreaseNrPayed();
-            }
-
-            VATTransaction vatTransaction = transaction.getVatTransaction();
-            if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
-                Main.fireVATFieldsUpdated();
-            }
-
-            Contact contact = transaction.getContact();
-            BigDecimal turnOverAmount = transaction.getTurnOverAmount();
-            BigDecimal vatAmount = transaction.getVATAmount();
-            if (contact != null && turnOverAmount != null && vatAmount != null) {
-                contact.decreaseTurnOver(turnOverAmount);
-                contact.decreaseVATTotal(vatAmount);
-            }
-
-//            ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.getName());
+    public void deleteTransaction(Set<Transaction> transactions) {
+        for (Transaction transaction : transactions) {
+            deleteTransaction(transaction);
         }
+    }
+
+    public void deleteTransaction(Transaction transaction) {
+        Journal journal = transaction.getJournal();
+        journal.removeBusinessObject(transaction);
+
+        Main.fireJournalDataChanged(journal);
+        for (Account account : transaction.getAccounts()) {
+            Main.fireAccountDataChanged(account);
+        }
+
+        // FIXME: link between transaction and mortgage is gone after restart (not saved in XML) ???
+        Mortgage mortgage = transaction.getMortgage();
+        if (mortgage != null) {
+            mortgage.decreaseNrPayed();
+        }
+
+        VATTransaction vatTransaction = transaction.getVatTransaction();
+        if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
+            Main.fireVATFieldsUpdated();
+        }
+
+        Contact contact = transaction.getContact();
+        BigDecimal turnOverAmount = transaction.getTurnOverAmount();
+        BigDecimal vatAmount = transaction.getVATAmount();
+        if (contact != null && turnOverAmount != null && vatAmount != null) {
+            contact.decreaseTurnOver(turnOverAmount);
+            contact.decreaseVATTotal(vatAmount);
+        }
+
+//        ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.getName());
     }
 
     public void addTransaction(Transaction transaction){
@@ -235,20 +242,27 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         }
     }
 
-    public void editTransaction(ArrayList<Booking> bookings) {
-        deleteTransaction(bookings);
-        for (Booking booking : bookings) {
-            Transaction transaction = booking.getTransaction();
-            Journal journal = transaction.getJournal();
-            //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
-            // set Journal before Transaction: setJournal sets transaction to currentObject !!!
-
-            Main.setAccounting(journal.getAccounting());
-            Main.setJournal(journal);
-            journal.setCurrentObject(transaction);
-            // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
-            setTransaction(transaction);
+    public void editTransaction(Set<Transaction> transactions) {
+        for(Transaction transaction:transactions){
+            editTransaction(transaction);
         }
+    }
+    public void editTransaction(ArrayList<Booking> bookings) {
+        Set<Transaction> transactions = getTransactions(bookings);
+        editTransaction(transactions);
+    }
+    public void editTransaction(Transaction transaction) {
+        deleteTransaction(transaction);
+//        deleteTransaction(bookings);
+        Journal journal = transaction.getJournal();
+        //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
+        // set Journal before Transaction: setJournal sets transaction to currentObject !!!
+
+        Main.setAccounting(journal.getAccounting());
+        Main.setJournal(journal);
+        journal.setCurrentObject(transaction);
+        // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
+        setTransaction(transaction);
     }
 
     private void setDate(Calendar date){
