@@ -175,10 +175,6 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         }else return null;
     }
 
-    public void deleteTransaction(ArrayList<Booking> bookings) {
-        deleteTransaction(getTransactions(bookings));
-    }
-
     public void deleteTransaction(Set<Transaction> transactions) {
         for (Transaction transaction : transactions) {
             deleteTransaction(transaction);
@@ -242,15 +238,13 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         }
     }
 
+    // TODO: remove this method: edit only 1 transaction
     public void editTransaction(Set<Transaction> transactions) {
         for(Transaction transaction:transactions){
             editTransaction(transaction);
         }
     }
-    public void editTransaction(ArrayList<Booking> bookings) {
-        Set<Transaction> transactions = getTransactions(bookings);
-        editTransaction(transactions);
-    }
+
     public void editTransaction(Transaction transaction) {
         deleteTransaction(transaction);
 //        deleteTransaction(bookings);

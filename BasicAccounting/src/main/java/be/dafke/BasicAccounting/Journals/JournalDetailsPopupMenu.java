@@ -4,10 +4,12 @@ import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journals;
+import be.dafke.BusinessModel.Transaction;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Set;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -51,19 +53,23 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
     private void moveTransaction() {
         setVisible(false);
         ArrayList<Booking> bookings = gui.getSelectedObjects();
-        journalInputGUI.moveTransaction(bookings, journals);
+        Set<Transaction> transactions = journalInputGUI.getTransactions(bookings);
+        journalInputGUI.moveTransaction(transactions, journals);
     }
 
     private void deleteTransaction() {
         setVisible(false);
         ArrayList<Booking> bookings = gui.getSelectedObjects();
-        journalInputGUI.deleteTransaction(bookings);
+        Set<Transaction> transactions = journalInputGUI.getTransactions(bookings);
+        journalInputGUI.deleteTransaction(transactions);
     }
 
     private void editTransaction() {
         setVisible(false);
         ArrayList<Booking> bookings = gui.getSelectedObjects();
-        journalInputGUI.editTransaction(bookings);
+        Set<Transaction> transactions = journalInputGUI.getTransactions(bookings);
+        // TODO: allow only 1 transaction for editing
+        journalInputGUI.editTransaction(transactions);
     }
 
     private void showDetails() {
