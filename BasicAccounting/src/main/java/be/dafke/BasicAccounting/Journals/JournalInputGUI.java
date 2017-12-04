@@ -139,7 +139,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
                     Main.fireAccountDataChanged(account);
                 }
 
-                ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, oldJournal.getName(), newJournal.getName());
+//                ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, oldJournal.getName(), newJournal.getName());
             }
         }
     }
@@ -187,7 +187,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
                 contact.decreaseVATTotal(vatAmount);
             }
 
-            ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.getName());
+//            ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.getName());
         }
     }
 
