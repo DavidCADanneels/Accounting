@@ -100,11 +100,11 @@ public class BalancesIO {
         } catch (IOException ex) {
             Logger.getLogger(Balances.class.getName()).log(Level.SEVERE, null, ex);
         }
-
-        balancesFolder.mkdirs();
-        for(Balance balance:balances.getBusinessObjects()){
-            writeBalance(balance, balancesFolder);
-        }
+//
+//        balancesFolder.mkdirs();
+//        for(Balance balance:balances.getBusinessObjects()){
+//            writeBalance(balance, balancesFolder);
+//        }
     }
 
     public static void writeBalance(Balance balance, File balancesFolder) {
