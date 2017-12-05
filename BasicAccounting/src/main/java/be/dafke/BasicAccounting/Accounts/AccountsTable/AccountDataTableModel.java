@@ -99,13 +99,17 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return false;
+		return col==NUMBER_COL;
 	}
 
 // DE SET METHODEN
 // ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
+		if(col == NUMBER_COL){
+			Account account = getObject(row,col);
+            account.setNumber((BigInteger)value);
+		}
 	}
 
 	public void setAccounts(Accounts accounts) {
