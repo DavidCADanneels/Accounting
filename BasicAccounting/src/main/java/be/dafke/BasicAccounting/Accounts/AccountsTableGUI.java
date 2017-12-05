@@ -2,20 +2,10 @@ package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.AccountsList;
-import be.dafke.BusinessModel.Contacts;
-import be.dafke.BusinessModel.Journals;
-import be.dafke.BusinessModel.VATTransaction;
-import be.dafke.BusinessModel.VATTransactions;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
-import javax.swing.BoxLayout;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
+import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.BorderLayout;
@@ -23,26 +13,30 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
+import static be.dafke.BasicAccounting.Accounts.AccountManagementGUI.showAccountManager;
 import static java.util.ResourceBundle.getBundle;
 
 /**
  * @author David Danneels
  */
 
-public class AccountsTableGUI extends AccountsGUI {
+public class AccountsTableGUI extends JPanel {
     private final SelectableTable<Account> table;
     private final AccountDataTableModel accountDataTableModel;
     private final AccountFilterPanel filterPanel;
 
     private AccountsTablePopupMenu popup;
     private JournalInputGUI journalInputGUI;
+    private Accounts accounts;
     private Journals journals;
+    private Journal journal;
+    private JournalType journalType;
+    private AccountsList accountsList;
     private AccountsTableButtons accountsTableButtons;
 
     private VATTransaction.VATType vatType = null;
     private VATTransactions vatTransactions = null;
     private Contacts contacts = null;
-
 
     public AccountsTableGUI(JournalInputGUI journalInputGUI) {
 		setLayout(new BorderLayout());
@@ -81,6 +75,22 @@ public class AccountsTableGUI extends AccountsGUI {
         }
     }
 
+    public void manageAccounts(){
+        popup.setVisible(false);
+        ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
+        showAccountManager(accounts, accountTypes).setVisible(true);
+    }
+
+    public void addAccount(){
+        popup.setVisible(false);
+        ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
+        new NewAccountGUI(accounts, accountTypes).setVisible(true);
+    }
+
+    public void setPopup(AccountsTablePopupMenu popup) {
+        this.popup = popup;
+    }
+
     public void setAccounting(Accounting accounting) {
 	    // FIXME: enable buttons if something is selected (Listener) or make sure always something is selected
         // for info: the buttons can be used if nothing is selected, their listeners can deal with non-selections
@@ -94,6 +104,22 @@ public class AccountsTableGUI extends AccountsGUI {
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table));  // TODO: Needed?
         fireAccountDataChanged();
     }
+    public void setJournalType(JournalType journalType) {
+        this.journalType = journalType;
+    }
+
+    public JournalType getJournalType() {
+        return journalType;
+    }
+
+    public Journal getJournal() {
+        return journal;
+    }
+
+    public void setJournal(Journal journal) {
+        this.journal = journal;
+    }
+
 
     public void setVatTransactions(VATTransactions vatTransactions) {
         this.vatTransactions = vatTransactions;
@@ -107,9 +133,8 @@ public class AccountsTableGUI extends AccountsGUI {
         this.vatType = vatType;
     }
 
-    @Override
     public void setAccountsList(AccountsList accountsList) {
-	    super.setAccountsList(accountsList);
+        this.accountsList = accountsList;
         filterPanel.setAccountList(accountsList);
         accountDataTableModel.setAccountList(accountsList);
     }
@@ -128,7 +153,7 @@ public class AccountsTableGUI extends AccountsGUI {
 
 
     public void setAccounts(Accounts accounts) {
-        super.setAccounts(accounts);
+        this.accounts = accounts;
         accountDataTableModel.setAccounts(accounts);
         filterPanel.clearSearchFields();
         fireAccountDataChanged();

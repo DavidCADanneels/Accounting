@@ -11,7 +11,7 @@ import static java.util.ResourceBundle.getBundle;
 public class AccountsTableButtons extends JPanel {
     private JButton debet, credit, accountDetails;
 
-    public AccountsTableButtons(AccountsGUI accountsGUI) {
+    public AccountsTableButtons(AccountsTableGUI accountsGUI) {
         debet = new JButton(getBundle("Accounting").getString("DEBIT_ACTION"));
         credit = new JButton(getBundle("Accounting").getString("CREDIT_ACTION"));
         accountDetails = new JButton(getBundle("Accounting").getString("VIEW_ACCOUNT"));

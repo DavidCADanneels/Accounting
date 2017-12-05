@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.MainApplication;
 import be.dafke.BasicAccounting.Accounts.AccountDetails;
 import be.dafke.BasicAccounting.Accounts.AccountManagementGUI;
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
-import be.dafke.BasicAccounting.Accounts.AccountsGUI;
 import be.dafke.BasicAccounting.Accounts.AccountsMenu;
 import be.dafke.BasicAccounting.Accounts.AccountsTableGUI;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
@@ -61,8 +60,8 @@ public class Main {
     private static File htmlFolder;
     private static JournalGUI journalReadGUI;
     private static JournalInputGUI journalInputGUI;
-    private static AccountsGUI accountGuiLeft;
-    private static AccountsGUI accountGuiRight;
+    private static AccountsTableGUI accountGuiLeft;
+    private static AccountsTableGUI accountGuiRight;
     private static MortgagesGUI mortgagesGUI;
     private static JMenuBar menuBar;
     private static AccountingMenu accountingMenu;

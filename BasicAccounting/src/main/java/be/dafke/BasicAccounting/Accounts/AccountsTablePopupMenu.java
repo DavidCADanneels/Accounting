@@ -10,7 +10,7 @@ import static java.util.ResourceBundle.getBundle;
 public class AccountsTablePopupMenu extends JPopupMenu {
     private final JMenuItem manage, add, debit, credit, details;
 
-    public AccountsTablePopupMenu(AccountsGUI accountsGUI) {
+    public AccountsTablePopupMenu(AccountsTableGUI accountsGUI) {
 
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_ACCOUNT"));
         add = new JMenuItem(getBundle("Accounting").getString("ADD_ACCOUNT"));
