@@ -4,9 +4,7 @@ import be.dafke.BasicAccounting.Accounts.AccountDataModel;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountsList;
 
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.awt.BorderLayout;
@@ -36,8 +34,10 @@ public class AccountFilterPanel extends JPanel {
 
         setLayout(new BorderLayout());
         JPanel south = new JPanel();
+        south.setLayout(new BoxLayout(south, BoxLayout.Y_AXIS));
+        south.add(new JLabel("Search on ..."));
         south.add(name);
-//        south.add(number);
+        south.add(number);
         add(south, BorderLayout.SOUTH);
         add(types, BorderLayout.CENTER);
     }
@@ -62,7 +62,7 @@ public class AccountFilterPanel extends JPanel {
                 nameField.selectAll();
             }
         });
-        nameLabel = new JLabel((getBundle("Utils").getString("SEARCH")));
+        nameLabel = new JLabel((getBundle("Accounting").getString("NAME_LABEL")));
         panel.add(nameLabel);
         panel.add(nameField);
         return panel;
@@ -88,7 +88,7 @@ public class AccountFilterPanel extends JPanel {
                 numberField.selectAll();
             }
         });
-        numberLabel = new JLabel((getBundle("Utils").getString("SEARCH")));
+        numberLabel = new JLabel((getBundle("Accounting").getString("NUMBER_LABEL")));
         panel.add(numberLabel);
         panel.add(numberField);
         return panel;
