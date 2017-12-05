@@ -34,18 +34,20 @@ public class AccountsListAccountTypesFilterPanel extends JPanel {
                 boolean enabled = false;
                 checkBox.setSelected(enabled);
                 checkBox.setActionCommand(accountType.getName());
-                checkBox.addActionListener(e -> {
-                    accountsList.setTypeAvailable(accountType, checkBox.isSelected());
-                    if(left) {
-                        Main.setAccountsListLeft(journalType, accountsList);
-                    } else {
-                        Main.setAccountsListRight(journalType, accountsList);
-                    }
-                });
+                checkBox.addActionListener(e -> checkBoxAction(accountType, checkBox, left));
                 boxes.put(accountType, checkBox);
                 add(checkBox);
             });
             revalidate();
+        }
+    }
+
+    private void checkBoxAction(AccountType accountType, JCheckBox checkBox, boolean left){
+        accountsList.setTypeAvailable(accountType, checkBox.isSelected());
+        if(left) {
+            Main.setAccountsListLeft(journalType, accountsList);
+        } else {
+            Main.setAccountsListRight(journalType, accountsList);
         }
     }
 

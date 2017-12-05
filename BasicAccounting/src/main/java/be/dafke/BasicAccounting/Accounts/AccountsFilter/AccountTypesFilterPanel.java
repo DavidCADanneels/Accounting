@@ -36,7 +36,6 @@ public class AccountTypesFilterPanel extends JPanel {
             for (AccountType type : accountTypes) {
                 selectedAccountTypes.put(type, Boolean.TRUE);
             }
-//        }
             boxes.clear();
             removeAll();
 
@@ -45,20 +44,22 @@ public class AccountTypesFilterPanel extends JPanel {
                 // TODO: save selections per Journal in xml file
                 checkBox.setSelected(true);
                 checkBox.setActionCommand(type.getName());
-                checkBox.addActionListener(e -> {
-                    model.setAccountTypes(getSelectedAccountTypes());
-                    // TODO: can't we just remove and re-add only 'type' i.s.o. all types?
-                    for (AccountType accountType : boxes.keySet()) {
-                        JCheckBox checkBox2 = boxes.get(accountType);
-                        selectedAccountTypes.remove(accountType);
-                        selectedAccountTypes.put(accountType, checkBox2.isSelected());
-                    }
-                });
+                checkBox.addActionListener(e -> checkBoxAction());
                 boxes.put(type, checkBox);
                 add(checkBox);
             }
             revalidate();
             model.setAccountTypes(getSelectedAccountTypes());
+        }
+    }
+
+    private void checkBoxAction(){
+        model.setAccountTypes(getSelectedAccountTypes());
+        // TODO: can't we just remove and re-add only 'type' i.s.o. all types?
+        for (AccountType accountType : boxes.keySet()) {
+            JCheckBox checkBox2 = boxes.get(accountType);
+            selectedAccountTypes.remove(accountType);
+            selectedAccountTypes.put(accountType, checkBox2.isSelected());
         }
     }
 
