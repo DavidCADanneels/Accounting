@@ -1,10 +1,10 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.BasicAccounting.Accounts.AccountDetails;
-import be.dafke.BasicAccounting.Accounts.AccountManagementGUI;
+import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetails;
+import be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI;
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
 import be.dafke.BasicAccounting.Accounts.AccountsMenu;
-import be.dafke.BasicAccounting.Accounts.AccountsTableGUI;
+import be.dafke.BasicAccounting.Accounts.AccountsTable.AccountsTableGUI;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
 import be.dafke.BasicAccounting.Balances.BalancesMenu;
 import be.dafke.BasicAccounting.Balances.TestBalance;

@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Balances;
 
-import be.dafke.BasicAccounting.Accounts.AccountDetails;
+import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetails;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Journals;

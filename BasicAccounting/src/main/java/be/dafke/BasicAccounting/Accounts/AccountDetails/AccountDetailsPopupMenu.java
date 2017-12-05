@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting.Accounts;
+package be.dafke.BasicAccounting.Accounts.AccountDetails;
 
 import be.dafke.BasicAccounting.Journals.JournalDetails;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;

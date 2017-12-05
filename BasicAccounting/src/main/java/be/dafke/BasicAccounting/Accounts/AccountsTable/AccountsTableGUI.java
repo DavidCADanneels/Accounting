@@ -1,5 +1,8 @@
-package be.dafke.BasicAccounting.Accounts;
+package be.dafke.BasicAccounting.Accounts.AccountsTable;
 
+import be.dafke.BasicAccounting.Accounts.*;
+import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetails;
+import be.dafke.BasicAccounting.Accounts.AccountsFilter.AccountFilterPanel;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
@@ -13,7 +16,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.util.ArrayList;
 
-import static be.dafke.BasicAccounting.Accounts.AccountManagementGUI.showAccountManager;
+import static be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI.showAccountManager;
 import static java.util.ResourceBundle.getBundle;
 
 /**

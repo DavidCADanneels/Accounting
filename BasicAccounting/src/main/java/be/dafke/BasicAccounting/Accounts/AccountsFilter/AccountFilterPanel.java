@@ -1,5 +1,6 @@
-package be.dafke.BasicAccounting.Accounts;
+package be.dafke.BasicAccounting.Accounts.AccountsFilter;
 
+import be.dafke.BasicAccounting.Accounts.AccountDataModel;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountsList;
 

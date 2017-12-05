@@ -9,7 +9,7 @@ import be.dafke.BusinessModel.Journals;
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
-import static be.dafke.BasicAccounting.Accounts.AccountManagementGUI.showAccountManager;
+import static be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI.showAccountManager;
 import static be.dafke.BasicAccounting.Balances.TestBalance.getTestBalance;
 import static java.util.ResourceBundle.getBundle;
 

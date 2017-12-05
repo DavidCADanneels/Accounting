@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.Accounts.AccountActions;
-import be.dafke.BasicAccounting.Accounts.AccountDetails;
+import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetails;
 import be.dafke.BasicAccounting.Accounts.AccountSelector;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
