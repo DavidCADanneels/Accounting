@@ -8,10 +8,15 @@ import be.dafke.BusinessModel.AccountsList;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
+
+import static be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementTableModel.NUMBER_COL;
+import static java.util.ResourceBundle.getBundle;
 
 /**
  * @author David Danneels
@@ -22,8 +27,11 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	String[] columnNames = {"Name","Saldo" };
-	Class[] columnClasses = { Account.class, BigDecimal.class };
+	public static final int ACCOUNT_COL = 1;
+	public static final int SALDO_COL = 2;
+	public static final int NUMBER_COL = 0;
+	private HashMap<Integer,String> columnNames = new HashMap<>();
+	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 
     private Account account = null;
     private Accounts accounts;
@@ -31,14 +39,34 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
     private Predicate<Account> filter;
 	private boolean singleAccount = false;
 
+	public AccountDataTableModel() {
+		setColumnNames();
+		setColumnClasses();
+	}
+
+	private void setColumnClasses() {
+		columnClasses.put(ACCOUNT_COL, Account.class);
+		columnClasses.put(SALDO_COL, BigDecimal.class);
+		columnClasses.put(NUMBER_COL, BigInteger.class);
+	}
+
+	private void setColumnNames() {
+		columnNames.put(ACCOUNT_COL, getBundle("Accounting").getString("ACCOUNT_NAME"));
+		columnNames.put(SALDO_COL, getBundle("Accounting").getString("SALDO"));
+		columnNames.put(NUMBER_COL, getBundle("Accounting").getString("ACCOUNT_NUMBER"));
+	}
 	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
 		Account account = getFilteredAccounts().get(row);
-		if (col == 0) {
+		if (col == ACCOUNT_COL) {
 			return account;
 		}
-		if (col == 1) {
+		if (col == NUMBER_COL) {
+			if(account==null) return null;
+			return account.getNumber();
+		}
+		if (col == SALDO_COL) {
 			if(account==null) return null;
 			if(account.getType().isInverted())
 				return account.getSaldo().negate();
@@ -49,7 +77,7 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 	}
 
 	public int getColumnCount() {
-		return columnNames.length;
+		return columnNames.size();
 	}
 
 	public int getRowCount() {
@@ -61,12 +89,12 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 
 	@Override
 	public String getColumnName(int col) {
-		return columnNames[col];
+		return columnNames.get(col);
 	}
 
 	@Override
 	public Class getColumnClass(int col) {
-		return columnClasses[col];
+		return columnClasses.get(col);
 	}
 
 	@Override
