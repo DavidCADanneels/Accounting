@@ -2,6 +2,8 @@ package be.dafke.BusinessModelDao;
 
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
+import be.dafke.BusinessModel.Journal;
+import be.dafke.BusinessModel.Journals;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import org.w3c.dom.Document;
@@ -101,10 +103,27 @@ public class XMLReader {
                 e.printStackTrace();
             }
         }
-        String value = getValue(rootElement, CURRENT);
+    }
+
+    public static void readSession(Accountings accountings, File xmlFolder) {
+        File xmlFile = new File(xmlFolder, "Session.xml");
+        if (!xmlFile.exists()) {
+            return;
+        }
+        Element rootElement = getRootElement(xmlFile, SESSION);
+        String value = getValue(rootElement, ACTIVE_ACCOUNTING);
         if (value != null) {
             accountings.setCurrentObject(accountings.getBusinessObject(value));
         }
+
+//        for (Element element : getChildren(rootElement, ACCOUNTING)) {
+//            String accountingName = getValue(element, NAME);
+//            String journalName = getValue(element, ACTIVE_JOURNAL);
+//            Accounting accounting = accountings.getBusinessObject(accountingName);
+//            Journals journals = accounting.getJournals();
+//            Journal currentJournal = journals.getBusinessObject(journalName);
+//            journals.setCurrentObject(currentJournal);
+//        }
     }
 
     public static void readAccounting(Accounting accounting, File xmlFolder) {

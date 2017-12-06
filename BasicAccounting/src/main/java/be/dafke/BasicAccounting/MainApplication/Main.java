@@ -182,6 +182,7 @@ public class Main {
         for(Accounting accounting:accountings.getBusinessObjects()) {
             XMLReader.readAccounting(accounting, xmlFolder);
         }
+        XMLReader.readSession(accountings, xmlFolder);
     }
 
     private static void setXmlFolder(){
