@@ -91,10 +91,6 @@ public class VATIO {
                 }
                 vatTransactions.addBusinessObject(vatTransaction);
             }
-
-            String countString = getValue(rootElement, COUNT);
-            int count = parseInt(countString);
-            VATTransaction.setCount(count);
         }
     }
 
@@ -152,7 +148,6 @@ public class VATIO {
                         "  </"+VATTRANSACTION+">\n"
                 );
             }
-            writer.write("  <"+COUNT+">"+VATTransaction.getCount()+"</"+ COUNT +">\n");
             writer.write("</"+VATTRANSACTIONS+">");
             writer.flush();
             writer.close();

@@ -1,11 +1,9 @@
 package be.dafke.BusinessModelDao;
 
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accountings;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.Journals;
+import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Utils.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -124,6 +122,9 @@ public class XMLReader {
             Journal currentJournal = journals.getBusinessObject(journalName);
             journals.setCurrentObject(currentJournal);
         }
+
+        String nextIdString = getValue(rootElement, NEXT_VAT_ID);
+        VATTransaction.setCount(Utils.parseInt(nextIdString));
     }
 
     public static void readAccounting(Accounting accounting, File xmlFolder) {

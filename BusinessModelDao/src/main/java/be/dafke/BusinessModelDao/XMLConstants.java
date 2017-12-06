@@ -104,9 +104,8 @@ public class XMLConstants {
     public static final String XML = ".xml";
 
     public static final String SESSION = "Session";
-    public static final String CURRENT = "CurrentObject";
     public static final String ACTIVE_ACCOUNTING = "ActiveAccounting";
     public static final String ACTIVE_JOURNAL = "ActiveJournal";
 
-
+    public static final String NEXT_VAT_ID = "NextVatId";
 }

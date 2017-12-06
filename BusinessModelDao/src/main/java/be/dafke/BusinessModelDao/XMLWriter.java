@@ -2,6 +2,7 @@ package be.dafke.BusinessModelDao;
 
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
+import be.dafke.BusinessModel.VATTransaction;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -79,16 +80,17 @@ public class XMLWriter {
             writer.write(getXmlHeader(SESSION, 0));
             Accounting currentObject = accountings.getCurrentObject();
             if(currentObject!=null) {
-                writer.write("  <"+ACTIVE_ACCOUNTING+">" + currentObject.getName() + "</"+ACTIVE_ACCOUNTING+">\n");
-                for(Accounting accounting:accountings.getBusinessObjects()) {
-                    writer.write(
-                            "  <Accounting>\n" +
-                                "    <name>"+accounting.getName()+"</name>\n" +
-                                "    <"+ACTIVE_JOURNAL+">"+accounting.getJournals().getCurrentObject().getName()+"</"+ACTIVE_JOURNAL+">\n" +
-                                "  </Accounting>\n"
-                    );
-                }
+                writer.write("  <" + ACTIVE_ACCOUNTING + ">" + currentObject.getName() + "</" + ACTIVE_ACCOUNTING + ">\n");
             }
+            for(Accounting accounting:accountings.getBusinessObjects()) {
+                writer.write(
+                        "  <Accounting>\n" +
+                            "    <name>"+accounting.getName()+"</name>\n" +
+                            "    <"+ACTIVE_JOURNAL+">"+accounting.getJournals().getCurrentObject().getName()+"</"+ACTIVE_JOURNAL+">\n" +
+                            "  </Accounting>\n"
+                );
+            }
+            writer.write("  <" + NEXT_VAT_ID + ">" + VATTransaction.getCount() + "</" + NEXT_VAT_ID + ">\n");
 
             writer.write("</"+SESSION+">");
             writer.flush();
