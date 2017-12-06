@@ -25,14 +25,11 @@ public class ButtonConfigPanel extends JPanel{
     public ButtonConfigPanel() {
         setLayout(new GridLayout(0,1));
 
-        leftButtonLabel = new JTextField(DEBIT);
-        rightButtonLabel = new JTextField(CREDIT);
+        leftButtonLabel = new JTextField();
+        rightButtonLabel = new JTextField();
 
         leftButton = new JCheckBox("Left Button");
         rightButton = new JCheckBox("Right Button");
-
-        leftButton.setSelected(true);
-        rightButton.setSelected(true);
 
         leftActions = new JComboBox<>();
         rightActions = new JComboBox<>();
@@ -43,8 +40,7 @@ public class ButtonConfigPanel extends JPanel{
         rightActions.addItem(CREDIT);
         rightActions.addItem(DEBIT);
 
-        leftActions.setSelectedItem(DEBIT);
-        rightActions.setSelectedItem(CREDIT);
+        initialize();
 
         leftActions.addActionListener(e -> updateLeftAction());
         rightActions.addActionListener(e -> updateRightAction());
@@ -92,8 +88,26 @@ public class ButtonConfigPanel extends JPanel{
         add(rightPanel);
     }
 
+    private void initialize() {
+        leftButton.setSelected(true);
+        rightButton.setSelected(true);
+
+        if(accountsList==null){
+            leftActions.setSelectedItem(DEBIT);
+            rightActions.setSelectedItem(CREDIT);
+            leftButtonLabel.setText(DEBIT);
+            rightButtonLabel.setText(CREDIT);
+        } else {
+            leftActions.setSelectedItem(accountsList.isLeftAction() ? DEBIT : CREDIT);
+            rightActions.setSelectedItem(accountsList.isRightAction() ? DEBIT : CREDIT);
+            leftButtonLabel.setText(accountsList.getLeftButton());
+            rightButtonLabel.setText(accountsList.getRightButton());
+        }
+    }
+
     public void setAccountsList(AccountsList accountsList) {
         this.accountsList = accountsList;
+        initialize();
     }
 
     private void updateRightAction() {
