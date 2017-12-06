@@ -200,16 +200,16 @@ public class JournalsIO {
                         "    <"+NAME+">"+journalType.getName()+"</"+NAME+">\n" +
                         "    <"+VATTYPE+">"+(journalType.getVatType()==null?"null":journalType.getVatType().toString())+"</"+VATTYPE+">\n" +
                         "    <"+LEFT_LIST+">\n" +
-                        "      <"+LEFT_ACTION+">"+left.isLeftAction()+"</"+LEFT_ACTION+">\n" +
-                        "      <"+LEFT_BUTTON+">"+left.getLeftButton()+"</"+LEFT_BUTTON+">\n" +
+                        "      <"+ACTION+">"+left.isLeftAction()+"</"+ACTION+">\n" +
+                        "      <"+BUTTON+">"+left.getLeftButton()+"</"+BUTTON+">\n" +
                         "      <"+VATTYPE+">"+journalType.getLeftVatType()+"</"+VATTYPE+">\n" +
                         "      <"+SINGLE_ACCOUNT+">"+left.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
                         "      <"+ACCOUNT+">"+left.getAccount()+"</"+ACCOUNT+">\n" +
                         "      <"+TYPES+">"+leftStream+"</"+TYPES+">\n" +
                         "    </"+LEFT_LIST+">\n" +
                         "    <"+RIGHT_LIST+">\n" +
-                        "      <"+RIGHT_ACTION+">"+left.isRightAction()+"</"+RIGHT_ACTION+">\n" +
-                        "      <"+RIGHT_BUTTON+">"+left.getRightButton()+"</"+RIGHT_BUTTON+">\n" +
+                        "      <"+ACTION+">"+left.isRightAction()+"</"+ACTION+">\n" +
+                        "      <"+BUTTON+">"+left.getRightButton()+"</"+BUTTON+">\n" +
                         "      <"+VATTYPE+">"+journalType.getRightVatType()+"</"+VATTYPE+">\n" +
                         "      <"+SINGLE_ACCOUNT+">"+right.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
                         "      <"+ACCOUNT+">"+right.getAccount()+"</"+ACCOUNT+">\n" +
