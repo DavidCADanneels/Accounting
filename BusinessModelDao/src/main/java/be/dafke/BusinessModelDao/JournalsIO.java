@@ -127,10 +127,6 @@ public class JournalsIO {
                 e.printStackTrace();
             }
         }
-        String value = getValue(rootElement, CURRENT);
-        if (value != null) {
-            journals.setCurrentObject(journals.getBusinessObject(value));
-        }
 
         for(Journal journal:journals.getBusinessObjects()){
             readJournal(journal, accounts, vatTransactions, journalsFolder);
@@ -253,10 +249,6 @@ public class JournalsIO {
                         "    <"+TYPE+">"+journal.getType()+"</"+TYPE+">\n" +
                         "  </"+JOURNAL+">\n"
                 );
-            }
-            Journal currentObject = journals.getCurrentObject();
-            if(currentObject!=null) {
-                writer.write("  <" + CURRENT + ">" + currentObject.getName() + "</" + CURRENT + ">\n");
             }
             writer.write("</"+JOURNALS+">\n");
             writer.flush();

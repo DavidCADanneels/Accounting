@@ -116,14 +116,14 @@ public class XMLReader {
             accountings.setCurrentObject(accountings.getBusinessObject(value));
         }
 
-//        for (Element element : getChildren(rootElement, ACCOUNTING)) {
-//            String accountingName = getValue(element, NAME);
-//            String journalName = getValue(element, ACTIVE_JOURNAL);
-//            Accounting accounting = accountings.getBusinessObject(accountingName);
-//            Journals journals = accounting.getJournals();
-//            Journal currentJournal = journals.getBusinessObject(journalName);
-//            journals.setCurrentObject(currentJournal);
-//        }
+        for (Element element : getChildren(rootElement, ACCOUNTING)) {
+            String accountingName = getValue(element, NAME);
+            String journalName = getValue(element, ACTIVE_JOURNAL);
+            Accounting accounting = accountings.getBusinessObject(accountingName);
+            Journals journals = accounting.getJournals();
+            Journal currentJournal = journals.getBusinessObject(journalName);
+            journals.setCurrentObject(currentJournal);
+        }
     }
 
     public static void readAccounting(Accounting accounting, File xmlFolder) {

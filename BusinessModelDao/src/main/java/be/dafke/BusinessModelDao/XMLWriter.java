@@ -84,7 +84,7 @@ public class XMLWriter {
                     writer.write(
                             "  <Accounting>\n" +
                                 "    <name>"+accounting.getName()+"</name>\n" +
-                                "    <"+ACTIVE_JOURNAL+">"+accounting.getJournals().getCurrentObject()+"</"+ACTIVE_JOURNAL+">\n" +
+                                "    <"+ACTIVE_JOURNAL+">"+accounting.getJournals().getCurrentObject().getName()+"</"+ACTIVE_JOURNAL+">\n" +
                                 "  </Accounting>\n"
                     );
                 }
