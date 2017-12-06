@@ -1,8 +1,6 @@
 package be.dafke.BusinessModelDao;
 
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Accountings;
-import be.dafke.BusinessModel.VATTransaction;
+import be.dafke.BusinessModel.*;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -86,9 +84,21 @@ public class XMLWriter {
                 writer.write(
                         "  <Accounting>\n" +
                             "    <name>"+accounting.getName()+"</name>\n" +
-                            "    <"+ACTIVE_JOURNAL+">"+accounting.getActiveJournal().getName()+"</"+ACTIVE_JOURNAL+">\n" +
-                            "  </Accounting>\n"
-                );
+                            "    <"+ACTIVE_JOURNAL+">"+accounting.getActiveJournal().getName()+"</"+ACTIVE_JOURNAL+">\n");
+                Journals journals = accounting.getJournals();
+                if(journals !=null){
+                    writer.write("    <" + JOURNALS + ">\n");
+                    for(Journal journal:journals.getBusinessObjects()) {
+                        writer.write(
+                        "      <" + JOURNAL + ">\n" +
+                            "        <name>"+journal.getName()+"</name>\n" +
+                            "        <checkedTypesLeft>"+""+"</checkedTypesLeft>\n" +
+                            "        <checkedTypesRight>"+""+"</checkedTypesRight>\n" +
+                            "      </" + JOURNAL + ">\n");
+                    }
+                    writer.write("    </" + JOURNALS + ">\n");
+                }
+                writer.write("  </Accounting>\n");
             }
             writer.write("  <" + NEXT_VAT_ID + ">" + VATTransaction.getCount() + "</" + NEXT_VAT_ID + ">\n");
 
