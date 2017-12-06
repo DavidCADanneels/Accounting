@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Accounts.AccountsFilter;
 
 import be.dafke.BasicAccounting.Accounts.AccountDataModel;
 import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountsList;
 
 import javax.swing.*;
@@ -10,6 +11,7 @@ import javax.swing.event.DocumentListener;
 import java.awt.BorderLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 import static java.util.ResourceBundle.getBundle;
@@ -114,6 +116,11 @@ public class AccountFilterPanel extends JPanel {
         numberField.setVisible(enabled);
     }
 
+
+    public void setAccountTypesList(ArrayList<AccountType> accountTypes) {
+        types.setAvailableAccountTypes(accountTypes);
+
+    }
     public void setAccountList(AccountsList accountList) {
         clearSearchFields();
         types.setAccountList(accountList);

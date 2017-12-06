@@ -319,6 +319,14 @@ public class Main {
         disposableComponents.add(frame);
     }
 
+    public static void setAccountsTypesLeft(JournalType journalType, ArrayList<AccountType> accountTypes) {
+        if(journalType == accountGuiLeft.getJournalType())
+            accountGuiLeft.setAccountTypesList(accountTypes);
+    }
+    public static void setAccountsTypesRight(JournalType journalType, ArrayList<AccountType> accountTypes) {
+        if(journalType == accountGuiRight.getJournalType())
+            accountGuiRight.setAccountTypesList(accountTypes);
+    }
     public static void setAccountsListLeft(JournalType journalType, AccountsList accountsList) {
         if(journalType == accountGuiLeft.getJournalType())
             accountGuiLeft.setAccountsList(accountsList);

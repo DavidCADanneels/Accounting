@@ -136,6 +136,10 @@ public class AccountsTableGUI extends JPanel {
         this.vatType = vatType;
     }
 
+    public void setAccountTypesList(ArrayList<AccountType> accountTypes) {
+        filterPanel.setAccountTypesList(accountTypes);
+
+    }
     public void setAccountsList(AccountsList accountsList) {
         this.accountsList = accountsList;
         filterPanel.setAccountList(accountsList);

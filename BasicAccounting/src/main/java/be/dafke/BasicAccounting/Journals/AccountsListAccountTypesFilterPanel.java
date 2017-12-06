@@ -9,6 +9,7 @@ import be.dafke.BusinessModel.JournalType;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 import java.awt.GridLayout;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -45,10 +46,13 @@ public class AccountsListAccountTypesFilterPanel extends JPanel {
     private void checkBoxAction(AccountType accountType, JCheckBox checkBox, boolean left){
         accountsList.setTypeAvailable(accountType, checkBox.isSelected());
         accountsList.setTypeChecked(accountType, checkBox.isSelected());
+        ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
         if(left) {
-            Main.setAccountsListLeft(journalType, accountsList);
+//            Main.setAccountsListLeft(journalType, accountsList);
+            Main.setAccountsTypesLeft(journalType, accountTypes);
         } else {
-            Main.setAccountsListRight(journalType, accountsList);
+//            Main.setAccountsListRight(journalType, accountsList);
+            Main.setAccountsTypesRight(journalType, accountTypes);
         }
     }
 
