@@ -39,13 +39,14 @@ public class AccountTypesFilterPanel extends JPanel {
             boxes.clear();
             removeAll();
 
-            for (AccountType type : accountTypes) {
-                JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(type.getName().toUpperCase()));
+            for (AccountType accountType : accountTypes) {
+                JCheckBox checkBox = new JCheckBox(getBundle("BusinessModel").getString(accountType.getName().toUpperCase()));
                 // TODO: save selections per Journal in xml file
-                checkBox.setSelected(true);
-                checkBox.setActionCommand(type.getName());
+                boolean checked = accountList.isChecked(accountType);
+                checkBox.setSelected(checked);
+                checkBox.setActionCommand(accountType.getName());
                 checkBox.addActionListener(e -> checkBoxAction());
-                boxes.put(type, checkBox);
+                boxes.put(accountType, checkBox);
                 add(checkBox);
             }
             revalidate();

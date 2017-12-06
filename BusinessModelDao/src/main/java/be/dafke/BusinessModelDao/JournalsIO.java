@@ -12,6 +12,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -62,6 +63,13 @@ public class JournalsIO {
         AccountsList accountsList = new AccountsList();
         // TODO: save state ENABLED in xml and call setTypeAvailable(ENABLED)
         accountsList.addAllTypes(accountTypes, false);
+        ArrayList<String> checkedTypes = new ArrayList<>();
+        String checkedString = getValue(element, CHECKED);
+        if(checkedString!=null){
+            String[] checkedList = typesString.split(",");
+            checkedTypes.addAll(Arrays.asList(checkedList));
+        }
+
         if(typesString!=null) {
             String[] typesList = typesString.split(",");
             for (String s : typesList) {
@@ -69,6 +77,7 @@ public class JournalsIO {
                     AccountType accountType = accountTypes.getBusinessObject(s);
                     if (accountType != null) {
                         accountsList.setTypeAvailable(accountType, Boolean.TRUE);
+                        accountsList.setTypeChecked(accountType, checkedTypes.isEmpty()||checkedTypes.contains(s));
                     }
                 }
             }
@@ -193,12 +202,19 @@ public class JournalsIO {
             for (JournalType journalType : journalTypes.getBusinessObjects()) {
 
                 AccountsList left = journalType.getLeft();
-                ArrayList<AccountType> leftAccountTypes = left.getAccountTypes();
-                String leftStream = leftAccountTypes.stream().sorted().map(AccountType::getName).collect(Collectors.joining(","));
-
                 AccountsList right = journalType.getRight();
+
+                ArrayList<AccountType> leftAccountTypes = left.getAccountTypes();
                 ArrayList<AccountType> rightAccountTypes = right.getAccountTypes();
+
+                String leftStream = leftAccountTypes.stream().sorted().map(AccountType::getName).collect(Collectors.joining(","));
                 String rightStream = rightAccountTypes.stream().sorted().map(AccountType::getName).collect(Collectors.joining(","));
+
+                ArrayList<AccountType> leftCheckedTypes = left.getCheckedTypes();
+                ArrayList<AccountType> rightCheckedTypes = right.getCheckedTypes();
+
+                String leftCheckedStream = leftCheckedTypes.stream().sorted().map(AccountType::getName).collect(Collectors.joining(","));
+                String rightCheckedStream = rightCheckedTypes.stream().sorted().map(AccountType::getName).collect(Collectors.joining(","));
 
                 writer.write(
                         "  <"+JOURNAL_TYPE+">\n" +
@@ -213,6 +229,7 @@ public class JournalsIO {
                         "      <"+SINGLE_ACCOUNT+">"+left.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
                         "      <"+ACCOUNT+">"+left.getAccount()+"</"+ACCOUNT+">\n" +
                         "      <"+TYPES+">"+leftStream+"</"+TYPES+">\n" +
+                        "      <"+CHECKED+">"+leftCheckedStream+"</"+CHECKED+">\n" +
                         "    </"+LEFT_LIST+">\n" +
                         "    <"+RIGHT_LIST+">\n" +
                         "      <"+LEFT_ACTION+">"+right.isLeftAction()+"</"+LEFT_ACTION+">\n" +
@@ -223,6 +240,7 @@ public class JournalsIO {
                         "      <"+SINGLE_ACCOUNT+">"+right.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
                         "      <"+ACCOUNT+">"+right.getAccount()+"</"+ACCOUNT+">\n" +
                         "      <"+TYPES+">"+rightStream+"</"+TYPES+">\n" +
+                        "      <"+CHECKED+">"+rightCheckedStream+"</"+CHECKED+">\n" +
                         "    </"+RIGHT_LIST+">\n" +
                         "  </"+JOURNAL_TYPE+">\n"
                 );

@@ -44,6 +44,7 @@ public class AccountsListAccountTypesFilterPanel extends JPanel {
 
     private void checkBoxAction(AccountType accountType, JCheckBox checkBox, boolean left){
         accountsList.setTypeAvailable(accountType, checkBox.isSelected());
+        accountsList.setTypeChecked(accountType, checkBox.isSelected());
         if(left) {
             Main.setAccountsListLeft(journalType, accountsList);
         } else {

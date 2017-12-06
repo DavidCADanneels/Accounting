@@ -13,6 +13,7 @@ public class AccountsList {
     private Account account = null;
     private Predicate<Account> filter = null;
     private HashMap<AccountType, Boolean> availableAccountTypes = new HashMap<>();
+    private HashMap<AccountType, Boolean> checkedAccountTypes = new HashMap<>();
     private VATTransaction.VATType vatType;
     public static String DEBIT = "Debit";
     public static String CREDIT = "Credit";
@@ -33,6 +34,10 @@ public class AccountsList {
 
     public void setTypeAvailable(AccountType accountType, boolean available){
         availableAccountTypes.put(accountType, available);
+    }
+
+    public void setTypeChecked(AccountType accountType, boolean available){
+        checkedAccountTypes.put(accountType, available);
     }
 
     public boolean isTypeAvailable(AccountType accountType){
@@ -71,6 +76,20 @@ public class AccountsList {
             }
         }
         return accountTypes;
+    }
+
+    public ArrayList<AccountType> getCheckedTypes() {
+        ArrayList<AccountType> accountTypes = new ArrayList<>();
+        for(Map.Entry<AccountType, Boolean> entry : checkedAccountTypes.entrySet()){
+            if(entry.getValue()){
+                accountTypes.add(entry.getKey());
+            }
+        }
+        return accountTypes;
+    }
+
+    public boolean isChecked(AccountType accountType){
+        return checkedAccountTypes.get(accountType);
     }
 
     public boolean isLeftAction() {

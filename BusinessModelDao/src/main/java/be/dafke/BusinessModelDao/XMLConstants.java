@@ -21,6 +21,7 @@ public class XMLConstants {
     public static final String LEFT_BUTTON = "leftButton";
     public static final String RIGHT_BUTTON = "rightButton";
     public static final String TYPES = "types";
+    public static final String CHECKED = "checked";
     public static final String SINGLE_ACCOUNT = "singleAccount";
     public static final String VATTYPE = "vatType";
     public static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
