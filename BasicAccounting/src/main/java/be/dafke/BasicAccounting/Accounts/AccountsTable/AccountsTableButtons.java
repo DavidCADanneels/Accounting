@@ -1,5 +1,7 @@
 package be.dafke.BasicAccounting.Accounts.AccountsTable;
 
+import be.dafke.BusinessModel.AccountsList;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 
@@ -9,34 +11,45 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneels on 1/05/2017.
  */
 public class AccountsTableButtons extends JPanel {
-    private JButton debet, credit, accountDetails;
+    private JButton leftButton, rightButton, accountDetails;
+    private boolean leftAction = true;
+    private boolean rightAction = false;
 
     public AccountsTableButtons(AccountsTableGUI accountsGUI) {
-        debet = new JButton(getBundle("Accounting").getString("DEBIT_ACTION"));
-        credit = new JButton(getBundle("Accounting").getString("CREDIT_ACTION"));
+        leftButton = new JButton();
+        rightButton = new JButton();
         accountDetails = new JButton(getBundle("Accounting").getString("VIEW_ACCOUNT"));
 
-        debet.setMnemonic(KeyEvent.VK_D);
-        credit.setMnemonic(KeyEvent.VK_C);
+        leftButton.setMnemonic(KeyEvent.VK_D);
+        rightButton.setMnemonic(KeyEvent.VK_C);
         accountDetails.setMnemonic(KeyEvent.VK_T);
 
-        debet.addActionListener(e -> accountsGUI.book(true));
-        credit.addActionListener(e -> accountsGUI.book(false));
+        leftButton.addActionListener(e -> accountsGUI.book(leftAction));
+        rightButton.addActionListener(e -> accountsGUI.book(rightAction));
         accountDetails.addActionListener(e -> accountsGUI.showDetails());
 
-        debet.setEnabled(false);
-        credit.setEnabled(false);
+        leftButton.setText(getBundle("Accounting").getString("DEBIT_ACTION"));
+        rightButton.setText(getBundle("Accounting").getString("CREDIT_ACTION"));
+
+        leftButton.setEnabled(false);
+        rightButton.setEnabled(false);
         accountDetails.setEnabled(false);
 
-        add(debet);
-        add(credit);
+        add(leftButton);
+        add(rightButton);
         add(accountDetails);
     }
 
     public void setActive(boolean active){
         accountDetails.setEnabled(active);
-        debet.setEnabled(active);
-        credit.setEnabled(active);
+        leftButton.setEnabled(active);
+        rightButton.setEnabled(active);
     }
 
+    public void setAccountsList(AccountsList accountsList) {
+        leftButton.setText(accountsList.getLeftButton());
+        leftAction = accountsList.isLeftAction();
+        rightButton.setText(accountsList.getRightButton());
+        rightAction = accountsList.isRightAction();
+    }
 }

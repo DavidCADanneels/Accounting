@@ -140,6 +140,7 @@ public class AccountsTableGUI extends JPanel {
         this.accountsList = accountsList;
         filterPanel.setAccountList(accountsList);
         accountDataTableModel.setAccountList(accountsList);
+        accountsTableButtons.setAccountsList(accountsList);
     }
 
     public void book(boolean debit) {
