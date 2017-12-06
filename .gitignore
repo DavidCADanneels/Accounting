@@ -2,5 +2,6 @@
 *.iml
 target/
 data/
-Accounting.jar
+Accounting*.jar
 Accounting.zip
+*.bat
