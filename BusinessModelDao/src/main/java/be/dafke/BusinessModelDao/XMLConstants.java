@@ -7,7 +7,6 @@ public class XMLConstants {
     public static final String NAME = "name";
     public static final String ACCOUNTINGS = "Accountings";
     public static final String ACCOUNTING = "Accounting";
-    public static final String CURRENT = "CurrentObject";
     public static final String ACCOUNTS = "Accounts";
     public static final String ACCOUNT = "Account";
     public static final String TYPE = "type";
@@ -103,4 +102,11 @@ public class XMLConstants {
     public static final String COUNT = "count";
 
     public static final String XML = ".xml";
+
+    public static final String SESSION = "Session";
+    public static final String CURRENT = "CurrentObject";
+    public static final String ACTIVE_ACCOUNTING = "ActiveAccounting";
+    public static final String ACTIVE_JOURNAL = "ActiveJournal";
+
+
 }

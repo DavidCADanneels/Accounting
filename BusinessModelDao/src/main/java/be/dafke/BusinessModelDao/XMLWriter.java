@@ -19,7 +19,7 @@ import static be.dafke.BusinessModelDao.MortgageIO.writeMortgages;
 import static be.dafke.BusinessModelDao.ProjectsIO.writeProjects;
 import static be.dafke.BusinessModelDao.VATIO.writeVATFields;
 import static be.dafke.BusinessModelDao.VATIO.writeVATTransactions;
-import static be.dafke.BusinessModelDao.XMLConstants.ACCOUNTINGS;
+import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 
 /**
@@ -48,7 +48,7 @@ public class XMLWriter {
             writer.write(getXmlHeader(ACCOUNTINGS, 0));
             for(Accounting accounting:accountings.getBusinessObjects()){
                 writer.write(
-                        "  <Accounting>\n" +
+                    "  <Accounting>\n" +
                         "    <name>"+accounting.getName()+"</name>\n" +
                         "    <"+VAT_ACCOUNTING+">"+accounting.isVatAccounting()+"</"+VAT_ACCOUNTING+">\n" +
                         "    <"+CONTACTS_ACCOUNTING+">"+accounting.isContactsAccounting()+"</"+CONTACTS_ACCOUNTING+">\n" +
@@ -57,10 +57,7 @@ public class XMLWriter {
                         "  </Accounting>\n"
                 );
             }
-            Accounting currentObject = accountings.getCurrentObject();
-            if(currentObject!=null) {
-                writer.write("  <CurrentObject>" + currentObject.getName() + "</CurrentObject>\n");
-            }
+
             writer.write("</Accountings>");
             writer.flush();
             writer.close();
@@ -71,7 +68,36 @@ public class XMLWriter {
         for(Accounting accounting:accountings.getBusinessObjects()){
             writeAccounting(accounting, xmlFolder);
         }
+
+        writeSession(accountings, xmlFolder);
     }
+
+    private static void writeSession(Accountings accountings, File xmlFolder) {
+        File xmlFile = new File(xmlFolder, "Session.xml");
+        try {
+            Writer writer = new FileWriter(xmlFile);
+            writer.write(getXmlHeader(SESSION, 0));
+            Accounting currentObject = accountings.getCurrentObject();
+            if(currentObject!=null) {
+                writer.write("  <"+ACTIVE_ACCOUNTING+">" + currentObject.getName() + "</"+ACTIVE_ACCOUNTING+">\n");
+                for(Accounting accounting:accountings.getBusinessObjects()) {
+                    writer.write(
+                            "  <Accounting>\n" +
+                                "    <name>"+accounting.getName()+"</name>\n" +
+                                "    <"+ACTIVE_JOURNAL+">"+accounting.getJournals().getCurrentObject()+"</"+ACTIVE_JOURNAL+">\n" +
+                                "  </Accounting>\n"
+                    );
+                }
+            }
+
+            writer.write("</"+SESSION+">");
+            writer.flush();
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Accountings.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
     private static void writeAccounting(Accounting accounting, File xmlFolder) {
         File accountingsFolder = new File(xmlFolder, "Accountings");
