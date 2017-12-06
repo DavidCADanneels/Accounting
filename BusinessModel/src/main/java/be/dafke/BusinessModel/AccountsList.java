@@ -14,6 +14,13 @@ public class AccountsList {
     private Predicate<Account> filter = null;
     private HashMap<AccountType, Boolean> availableAccountTypes = new HashMap<>();
     private VATTransaction.VATType vatType;
+    public static String DEBIT = "Debit";
+    public static String CREDIT = "Credit";
+
+    private boolean leftAction = true;
+    private boolean rightAction = false;
+    private String leftButton = DEBIT;
+    private String rightButton = CREDIT;
 
 //    public void addAllTypes(AccountTypes accountTypes){
 //        addAllTypes(accountTypes, false);
@@ -64,5 +71,37 @@ public class AccountsList {
             }
         }
         return accountTypes;
+    }
+
+    public boolean isLeftAction() {
+        return leftAction;
+    }
+
+    public void setLeftAction(boolean leftAction) {
+        this.leftAction = leftAction;
+    }
+
+    public boolean isRightAction() {
+        return rightAction;
+    }
+
+    public void setRightAction(boolean rightAction) {
+        this.rightAction = rightAction;
+    }
+
+    public String getLeftButton() {
+        return leftButton;
+    }
+
+    public void setLeftButton(String leftButton) {
+        this.leftButton = leftButton;
+    }
+
+    public String getRightButton() {
+        return rightButton;
+    }
+
+    public void setRightButton(String rightButton) {
+        this.rightButton = rightButton;
     }
 }

@@ -8,6 +8,11 @@ import javax.swing.border.TitledBorder;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
+
+import static be.dafke.BusinessModel.AccountsList.DEBIT;
+import static be.dafke.BusinessModel.AccountsList.CREDIT;
 
 /**
  * Created by ddanneels on 14/05/2017.
@@ -18,6 +23,10 @@ public class AccountsListConfigPanel extends JPanel {
     private JPanel north;
     private AccountsList accountsList;
     private JTextField taxType;
+    private JCheckBox leftButton, rightButton;
+    private JComboBox<String> leftActions, rightActions;
+    private JTextField leftButtonLabel, rightButtonLabel;
+
     private AccountsListAccountTypesFilterPanel accountTypesFilterPanel;
 
     public AccountsListConfigPanel(Accounts accounts, AccountTypes accountTypes, boolean left) {
@@ -55,14 +64,9 @@ public class AccountsListConfigPanel extends JPanel {
 
     private JPanel createButtonConfigPanel() {
         JPanel panel = new JPanel(new GridLayout(0,1));
-        String DEBIT = "debit";
-        String CREDIT = "credit";
 
-        JTextField leftButtonLabel = new JTextField("Debit");
-        JTextField rightButtonLabel = new JTextField("Credit");
-
-        JCheckBox leftButton, rightButton;
-        JComboBox<String> leftActions, rightActions;
+        leftButtonLabel = new JTextField(DEBIT);
+        rightButtonLabel = new JTextField(CREDIT);
 
         leftButton = new JCheckBox("Left Button");
         rightButton = new JCheckBox("Right Button");
@@ -81,6 +85,23 @@ public class AccountsListConfigPanel extends JPanel {
 
         leftActions.setSelectedItem(DEBIT);
         rightActions.setSelectedItem(CREDIT);
+
+        leftActions.addActionListener(e -> updateLeftAction());
+        rightActions.addActionListener(e -> updateRightAction());
+        leftButtonLabel.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                String newName = leftButtonLabel.getText();
+                accountsList.setLeftButton(newName);
+            }
+        });
+        rightButtonLabel.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                String newName = rightButtonLabel.getText();
+                accountsList.setRightButton(newName);
+            }
+        });
 
         JPanel leftPanel = new JPanel(new BorderLayout());
         JPanel rightPanel = new JPanel(new BorderLayout());
@@ -111,6 +132,16 @@ public class AccountsListConfigPanel extends JPanel {
         panel.add(rightPanel);
 
         return panel;
+    }
+
+    private void updateRightAction() {
+        String selectedItem = (String)rightActions.getSelectedItem();
+        accountsList.setRightAction(DEBIT.equals(selectedItem));
+    }
+
+    private void updateLeftAction() {
+        String selectedItem = (String)leftActions.getSelectedItem();
+        accountsList.setLeftAction(DEBIT.equals(selectedItem));
     }
 
 
