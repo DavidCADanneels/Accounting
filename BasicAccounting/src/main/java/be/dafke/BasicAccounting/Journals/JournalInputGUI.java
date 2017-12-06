@@ -243,7 +243,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
         Main.setAccounting(journal.getAccounting());
         Main.setJournal(journal);
-        journal.setCurrentObject(transaction);
+        journal.setCurrentTransaction(transaction);
         // TODO: when calling setTransaction we need to check if the currentTransaction is empty (see switchJournal() -> checkTransfer)
         setTransaction(transaction);
     }
@@ -300,7 +300,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     public void clear() {
         transaction = new Transaction(getDate(), "");
         transaction.setJournal(journal);
-        journal.setCurrentObject(transaction);
+        journal.setCurrentTransaction(transaction);
         setTransaction(transaction);
     }
 
@@ -329,7 +329,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     public void setAccounting(Accounting accounting){
         popup.setAccounting(accounting);
         setAccounts(accounting==null?null:accounting.getAccounts());
-        setJournals(accounting==null?null:accounting.getJournals());
+        setJournal(accounting==null?null:accounting.getActiveJournal());
 
         comboBox=createComboBox();
         debitAccount = table.getColumnModel().getColumn(JournalDataModel.DEBIT_ACCOUNT);
@@ -342,14 +342,10 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         this.accounts = accounts;
     }
 
-    public void setJournals(Journals journals){
-        setJournal(journals==null?null:journals.getCurrentObject());
-    }
-
     public void setJournal(Journal journal) {
         this.journal=journal;
         ident.setText(journal==null?"":journal.getAbbreviation() + " " + journal.getId());
-        setTransaction(journal==null?null:journal.getCurrentObject());
+        setTransaction(journal==null?null:journal.getCurrentTransaction());
     }
 
     public void setTransaction(Transaction transaction){
@@ -411,7 +407,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     }
 
     private Journal checkTransfer(Journal oldJournal, Journal newJournal){
-        Transaction newTransaction = newJournal.getCurrentObject();
+        Transaction newTransaction = newJournal.getCurrentTransaction();
         if(transaction!=null && !transaction.getBusinessObjects().isEmpty() && oldJournal!=newJournal){
             StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
                     .append(oldJournal).append(" to ").append(newJournal);
@@ -420,11 +416,11 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
             }
             int answer = JOptionPane.showConfirmDialog(null, builder.toString());
             if(answer == JOptionPane.YES_OPTION){
-                newJournal.setCurrentObject(transaction);
-                oldJournal.setCurrentObject(new Transaction(Calendar.getInstance(), ""));
+                newJournal.setCurrentTransaction(transaction);
+                oldJournal.setCurrentTransaction(new Transaction(Calendar.getInstance(), ""));
                 return newJournal;
             } else if(answer == JOptionPane.NO_OPTION){
-                oldJournal.setCurrentObject(transaction);
+                oldJournal.setCurrentTransaction(transaction);
                 return newJournal;
             } else {
                 return oldJournal;

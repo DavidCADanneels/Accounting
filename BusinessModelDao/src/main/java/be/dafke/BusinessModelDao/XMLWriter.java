@@ -78,7 +78,7 @@ public class XMLWriter {
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write(getXmlHeader(SESSION, 0));
-            Accounting currentObject = accountings.getCurrentObject();
+            Accounting currentObject = Accountings.getActiveAccounting();
             if(currentObject!=null) {
                 writer.write("  <" + ACTIVE_ACCOUNTING + ">" + currentObject.getName() + "</" + ACTIVE_ACCOUNTING + ">\n");
             }
@@ -86,7 +86,7 @@ public class XMLWriter {
                 writer.write(
                         "  <Accounting>\n" +
                             "    <name>"+accounting.getName()+"</name>\n" +
-                            "    <"+ACTIVE_JOURNAL+">"+accounting.getJournals().getCurrentObject().getName()+"</"+ACTIVE_JOURNAL+">\n" +
+                            "    <"+ACTIVE_JOURNAL+">"+accounting.getActiveJournal().getName()+"</"+ACTIVE_JOURNAL+">\n" +
                             "  </Accounting>\n"
                 );
             }

@@ -75,15 +75,6 @@ public class AccountTest {
     }
 
     @Test
-      public void currentObject() throws EmptyNameException, DuplicateNameException {
-        Account account = new Account("");
-        assertNull(account.getCurrentObject());
-        Movement movement = new Movement(BigDecimal.ONE, true);
-        account.setCurrentObject(movement);
-        assertEquals(movement, account.getCurrentObject());
-    }
-
-    @Test
     public void defaultAmount() throws EmptyNameException, DuplicateNameException {
         Account account = new Account("");
         assertNull(account.getDefaultAmount());

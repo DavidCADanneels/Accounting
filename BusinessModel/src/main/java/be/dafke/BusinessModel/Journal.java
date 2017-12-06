@@ -50,11 +50,11 @@ public class Journal extends BusinessCollection<Transaction> {
         return transactions.isEmpty();
     }
 
-    public Transaction getCurrentObject() {
+    public Transaction getCurrentTransaction() {
         return currentTransaction;
     }
 
-    public void setCurrentObject(Transaction currentTransaction) {
+    public void setCurrentTransaction(Transaction currentTransaction) {
         this.currentTransaction = currentTransaction;
     }
 
@@ -143,6 +143,7 @@ public class Journal extends BusinessCollection<Transaction> {
                 if (vatTransaction != null) {
                     VATTransactions vatTransactions = accounting.getVatTransactions();
                     // TODO: raise count here, not when creating the VATTransaction (+ set ID)
+                    // TODO: remove below 2 lines
                     int count = VATTransaction.raiseCount();
                     vatTransaction.setId(count);
                     vatTransactions.addBusinessObject(vatTransaction, transaction.isForced());

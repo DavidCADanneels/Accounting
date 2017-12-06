@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Journals;
@@ -36,9 +37,13 @@ public class JournalGUI extends JPanel {
 		add(center, BorderLayout.CENTER);
 	}
 
+	public void setAccounting(Accounting accounting){
+        setJournals(accounting==null?null:accounting.getJournals());
+        setJournal(accounting.getActiveJournal());
+    }
+
     public void setJournals(Journals journals){
         popup.setJournals(journals);
-        setJournal(journals==null?null:journals.getCurrentObject());
     }
 
     public void setJournal(Journal journal) {

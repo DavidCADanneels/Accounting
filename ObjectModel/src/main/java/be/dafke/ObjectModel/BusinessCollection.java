@@ -36,16 +36,6 @@ public class BusinessCollection <V extends BusinessObject> extends BusinessObjec
         dataTables.put(key, newMap);
     }
 
-    // ----------- CurrentObject --------------
-
-    public V getCurrentObject() {
-        return currentObject;
-    }
-
-    public void setCurrentObject(V currentObject) {
-        this.currentObject = currentObject;
-    }
-
     // -------------------------------------------------------------------------------------
 
     // Get

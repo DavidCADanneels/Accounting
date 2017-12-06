@@ -26,6 +26,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	private Journals journals;
 	private JournalTypes journalTypes;
 	private Accounts accounts;
+	private Accounting accounting;
 	private AccountTypes accountTypes;
 	private JournalInputGUI journalInputGUI;
 	private JournalGUI journalGUI;
@@ -54,7 +55,7 @@ public class JournalsGUI extends JPanel implements ActionListener {
 		details = new JButton(getBundle("Accounting").getString("VIEW_JOURNAL_DETAILS"));
 		details.addActionListener(e -> {
 			if(journals!=null) {
-				JournalDetails.getJournalDetails(journals.getCurrentObject(), journals, journalInputGUI);
+				JournalDetails.getJournalDetails(accounting.getActiveJournal(), journals, journalInputGUI);
 			}
 		});
 
@@ -72,9 +73,11 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	}
 
 	public void setAccounting(Accounting accounting) {
+		this.accounting = accounting;
 		journalTypes=accounting==null?null:accounting.getJournalTypes();
 		accountTypes=accounting==null?null:accounting.getAccountTypes();
 		setJournals(accounting==null?null:accounting.getJournals());
+		setJournal(accounting==null?null:accounting.getActiveJournal());
 	}
 
 	public void setJournals(Journals journals){
@@ -90,7 +93,6 @@ public class JournalsGUI extends JPanel implements ActionListener {
 		combo.addActionListener(this);
 		combo.setEnabled(journals!=null);
 		journalManagement.setEnabled(journals != null);
-		setJournal(journals==null?null:journals.getCurrentObject());
 	}
 
 	public void addJournal(Journal journal){

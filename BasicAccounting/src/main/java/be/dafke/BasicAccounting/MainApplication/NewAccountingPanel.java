@@ -82,7 +82,7 @@ public class NewAccountingPanel extends RefreshableDialog {
                     accounting.copyJournalTypes(source.getJournalTypes());
                 }
                 accountings.addBusinessObject(accounting);
-                accountings.setCurrentObject(accounting);
+                Accountings.setActiveAccounting(accounting);
                 setAccounting(accounting);
             } catch (DuplicateNameException e) {
                 ActionUtils.showErrorMessage(ActionUtils.ACCOUNTING_DUPLICATE_NAME);

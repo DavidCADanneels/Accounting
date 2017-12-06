@@ -160,6 +160,7 @@ public class Transaction extends BusinessCollection<Booking> {
         return vatTransaction;
     }
 
+    // TODO: rename to setVatTransaction (or refactor)
     public void addVatTransaction(VATTransaction vatTransaction) {
         if(this.vatTransaction==null){
             this.vatTransaction = vatTransaction;

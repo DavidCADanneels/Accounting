@@ -111,7 +111,7 @@ public class XMLReader {
         Element rootElement = getRootElement(xmlFile, SESSION);
         String value = getValue(rootElement, ACTIVE_ACCOUNTING);
         if (value != null) {
-            accountings.setCurrentObject(accountings.getBusinessObject(value));
+            Accountings.setActiveAccounting(accountings.getBusinessObject(value));
         }
 
         for (Element element : getChildren(rootElement, ACCOUNTING)) {
@@ -120,7 +120,7 @@ public class XMLReader {
             Accounting accounting = accountings.getBusinessObject(accountingName);
             Journals journals = accounting.getJournals();
             Journal currentJournal = journals.getBusinessObject(journalName);
-            journals.setCurrentObject(currentJournal);
+            accounting.setActiveJournal(currentJournal);
         }
 
         String nextIdString = getValue(rootElement, NEXT_VAT_ID);

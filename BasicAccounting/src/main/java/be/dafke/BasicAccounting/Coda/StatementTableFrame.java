@@ -29,6 +29,7 @@ public class StatementTableFrame extends JFrame implements MouseListener {
 	private Accounts accounts;
 	private Journals journals;
 	private static final HashMap<Statements, StatementTableFrame> statementsGuis = new HashMap<>();
+	private Accounting accounting;
 
 	private StatementTableFrame(Statements statements, CounterParties counterParties) {
 		super("Statements");
@@ -197,7 +198,7 @@ public class StatementTableFrame extends JFrame implements MouseListener {
                             ((CounterParty)counterParty).setAccount(account);
                         }
                         BigDecimal amount = (BigDecimal) tabel.getValueAt(i, 3);
-                        Transaction transaction = journals.getCurrentObject().getCurrentObject();
+                        Transaction transaction = accounting.getActiveJournal().getCurrentTransaction();
                         Booking booking1 = new Booking(account, amount, debet);
                         Booking booking2 = new Booking(bankAccount, amount, !debet);
                         transaction.addBusinessObject(booking1);
@@ -208,14 +209,15 @@ public class StatementTableFrame extends JFrame implements MouseListener {
                         String description = (String) tabel.getValueAt(i, 6);
                         transaction.setDescription(description);
                         journal.addBusinessObject(transaction);
-						Accounting accounting = journal.getAccounting();
+                        // use current journal, correct ?
+//						Accounting accounting = journal.getAccounting();
 						accounting.addTransaction(transaction);
 
 						transaction = new Transaction(date, "");
                         // take the same date as previous transaction
                         // leave the description empty
 
-                        journals.getCurrentObject().setCurrentObject(transaction);
+						accounting.getActiveJournal().setCurrentTransaction(transaction);
                     }
                 }
 			}
@@ -279,6 +281,7 @@ public class StatementTableFrame extends JFrame implements MouseListener {
 	}
 
 	public void setAccounting(Accounting accounting) {
+    	this.accounting = accounting;
 		counterParties = accounting.getCounterParties();
 		statements = accounting.getStatements();
 		accounts=accounting==null?null:accounting.getAccounts();

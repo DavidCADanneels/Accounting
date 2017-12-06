@@ -25,6 +25,7 @@ public class Accounting extends BusinessObject{
     private boolean mortgagesAccounting = true;
     private boolean projectsAccounting = true;
     private boolean contactsAccounting = true;
+    private Journal activeJournal;
 
     public Accounting(String name) {
         setName(name);
@@ -169,5 +170,13 @@ public class Accounting extends BusinessObject{
 
     public Journal getTransactions() {
         return transactions;
+    }
+
+    public void setActiveJournal(Journal activeJournal) {
+        this.activeJournal = activeJournal;
+    }
+
+    public Journal getActiveJournal() {
+        return activeJournal;
     }
 }
