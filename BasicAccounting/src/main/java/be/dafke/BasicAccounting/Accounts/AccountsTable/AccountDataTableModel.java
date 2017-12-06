@@ -27,9 +27,11 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final int ACCOUNT_COL = 1;
-	public static final int SALDO_COL = 2;
-	public static final int NUMBER_COL = 0;
+	private int ACCOUNT_COL = 1;
+	private int SALDO_COL = 2;
+	private int NUMBER_COL = 0;
+	private int NR_OF_COL = 3;
+	private boolean showNumbers = true;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 
@@ -40,20 +42,61 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 	private boolean singleAccount = false;
 
 	public AccountDataTableModel() {
+		initialize();
+	}
+
+	private void initialize(){
+		setColumnNumbers();
 		setColumnNames();
 		setColumnClasses();
 	}
 
+	private void setColumnNumbers() {
+		if(showNumbers){
+			NUMBER_COL = 0;
+			ACCOUNT_COL = 1;
+			SALDO_COL = 2;
+			//
+			NR_OF_COL = 3;
+		} else {
+			ACCOUNT_COL = 0;
+			SALDO_COL = 1;
+			//
+			NR_OF_COL = 2;
+		}
+	}
+
+	public boolean isShowNumbers() {
+		return showNumbers;
+	}
+
+	public void setShowNumbers(boolean showNumbers) {
+		this.showNumbers = showNumbers;
+		initialize();
+	}
+
 	private void setColumnClasses() {
-		columnClasses.put(ACCOUNT_COL, Account.class);
-		columnClasses.put(SALDO_COL, BigDecimal.class);
-		columnClasses.put(NUMBER_COL, BigInteger.class);
+		columnClasses.clear();
+		if(showNumbers) {
+			columnClasses.put(ACCOUNT_COL, Account.class);
+			columnClasses.put(SALDO_COL, BigDecimal.class);
+			columnClasses.put(NUMBER_COL, BigInteger.class);
+		} else {
+			columnClasses.put(ACCOUNT_COL, Account.class);
+			columnClasses.put(SALDO_COL, BigDecimal.class);
+		}
 	}
 
 	private void setColumnNames() {
-		columnNames.put(ACCOUNT_COL, getBundle("Accounting").getString("ACCOUNT_NAME"));
-		columnNames.put(SALDO_COL, getBundle("Accounting").getString("SALDO"));
-		columnNames.put(NUMBER_COL, getBundle("Accounting").getString("ACCOUNT_NUMBER"));
+		columnNames.clear();
+		if(showNumbers) {
+			columnNames.put(ACCOUNT_COL, getBundle("Accounting").getString("ACCOUNT_NAME"));
+			columnNames.put(SALDO_COL, getBundle("Accounting").getString("SALDO"));
+			columnNames.put(NUMBER_COL, getBundle("Accounting").getString("ACCOUNT_NUMBER"));
+		} else {
+			columnNames.put(ACCOUNT_COL, getBundle("Accounting").getString("ACCOUNT_NAME"));
+			columnNames.put(SALDO_COL, getBundle("Accounting").getString("SALDO"));
+		}
 	}
 	// DE GET METHODEN
 // ===============
@@ -77,7 +120,7 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 	}
 
 	public int getColumnCount() {
-		return columnNames.size();
+		return NR_OF_COL;
 	}
 
 	public int getRowCount() {
