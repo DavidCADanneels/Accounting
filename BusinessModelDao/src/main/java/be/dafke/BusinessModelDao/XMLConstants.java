@@ -17,6 +17,10 @@ public class XMLConstants {
     public static final String JOURNAL_TYPE = "JournalType";
     public static final String LEFT_LIST = "leftList";
     public static final String RIGHT_LIST = "rightList";
+    public static final String LEFT_ACTION = "leftAction";
+    public static final String RIGHT_ACTION = "rightAction";
+    public static final String LEFT_BUTTON = "leftButton";
+    public static final String RIGHT_BUTTON = "rightButton";
     public static final String TYPES = "types";
     public static final String SINGLE_ACCOUNT = "singleAccount";
     public static final String VATTYPE = "vatType";
