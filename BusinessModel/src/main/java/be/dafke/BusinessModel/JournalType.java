@@ -15,6 +15,12 @@ public class JournalType extends BusinessObject {
         for(AccountType accountType:journalType.right.getAccountTypes()){
             right.setTypeAvailable(accountType, Boolean.TRUE);
         }
+        for(AccountType accountType:journalType.left.getCheckedTypes()){
+            left.setTypeChecked(accountType, Boolean.TRUE);
+        }
+        for(AccountType accountType:journalType.right.getCheckedTypes()){
+            right.setTypeChecked(accountType, Boolean.TRUE);
+        }
     }
 
     public JournalType(String name){
