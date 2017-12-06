@@ -74,6 +74,15 @@ public class JournalsIO {
             }
         }
 
+        String leftActionString = getValue(element, LEFT_ACTION);
+        String rightActionString = getValue(element, RIGHT_ACTION);
+        String leftButtonString = getValue(element, LEFT_BUTTON);
+        String rightButtonString = getValue(element, RIGHT_BUTTON);
+        accountsList.setLeftAction(Boolean.valueOf(leftActionString));
+        accountsList.setRightAction(Boolean.valueOf(rightActionString));
+        accountsList.setLeftButton(leftButtonString);
+        accountsList.setRightButton(rightButtonString);
+
         String vatString = getValue(element, VATTYPE);
         VATTransaction.VATType vatType = vatString==null?null:VATTransaction.VATType.valueOf(vatString);
         accountsList.setVatType(vatType);
@@ -200,16 +209,20 @@ public class JournalsIO {
                         "    <"+NAME+">"+journalType.getName()+"</"+NAME+">\n" +
                         "    <"+VATTYPE+">"+(journalType.getVatType()==null?"null":journalType.getVatType().toString())+"</"+VATTYPE+">\n" +
                         "    <"+LEFT_LIST+">\n" +
-                        "      <"+ACTION+">"+left.isLeftAction()+"</"+ACTION+">\n" +
-                        "      <"+BUTTON+">"+left.getLeftButton()+"</"+BUTTON+">\n" +
+                        "      <"+LEFT_ACTION+">"+left.isLeftAction()+"</"+LEFT_ACTION+">\n" +
+                        "      <"+LEFT_BUTTON+">"+left.getLeftButton()+"</"+LEFT_BUTTON+">\n" +
+                        "      <"+RIGHT_ACTION+">"+left.isRightAction()+"</"+RIGHT_ACTION+">\n" +
+                        "      <"+RIGHT_BUTTON+">"+left.getRightButton()+"</"+RIGHT_BUTTON+">\n" +
                         "      <"+VATTYPE+">"+journalType.getLeftVatType()+"</"+VATTYPE+">\n" +
                         "      <"+SINGLE_ACCOUNT+">"+left.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
                         "      <"+ACCOUNT+">"+left.getAccount()+"</"+ACCOUNT+">\n" +
                         "      <"+TYPES+">"+leftStream+"</"+TYPES+">\n" +
                         "    </"+LEFT_LIST+">\n" +
                         "    <"+RIGHT_LIST+">\n" +
-                        "      <"+ACTION+">"+left.isRightAction()+"</"+ACTION+">\n" +
-                        "      <"+BUTTON+">"+left.getRightButton()+"</"+BUTTON+">\n" +
+                        "      <"+LEFT_ACTION+">"+right.isLeftAction()+"</"+LEFT_ACTION+">\n" +
+                        "      <"+LEFT_BUTTON+">"+right.getLeftButton()+"</"+LEFT_BUTTON+">\n" +
+                        "      <"+RIGHT_ACTION+">"+right.isRightAction()+"</"+RIGHT_ACTION+">\n" +
+                        "      <"+RIGHT_BUTTON+">"+right.getRightButton()+"</"+RIGHT_BUTTON+">\n" +
                         "      <"+VATTYPE+">"+journalType.getRightVatType()+"</"+VATTYPE+">\n" +
                         "      <"+SINGLE_ACCOUNT+">"+right.isSingleAccount()+"</"+SINGLE_ACCOUNT+">\n" +
                         "      <"+ACCOUNT+">"+right.getAccount()+"</"+ACCOUNT+">\n" +
