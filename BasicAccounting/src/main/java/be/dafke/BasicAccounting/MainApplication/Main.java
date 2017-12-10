@@ -372,8 +372,8 @@ public class Main {
         }
     }
 
-    public static void selectBooking(Booking booking){
-        journalReadGUI.selectBooking(booking);
+    public static void selectTransaction(Transaction transaction){
+        journalReadGUI.selectTransaction(transaction);
     }
 
     public static void fireJournalTypeChanges(Journal journal, JournalType journalType) {

@@ -1,11 +1,13 @@
 package be.dafke.BasicAccounting.Journals;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 public class JournalGUI extends JPanel {
     /**
@@ -55,6 +57,22 @@ public class JournalGUI extends JPanel {
             table.setRowSelectionInterval(row, row);
             Rectangle cellRect = table.getCellRect(row, 0, false);
             table.scrollRectToVisible(cellRect);
+        }
+    }
+
+    public void selectTransaction(Transaction transaction){
+        ArrayList<Booking> bookings = transaction.getBusinessObjects();
+        if(bookings!=null && !bookings.isEmpty()){
+            Booking firstBooking = bookings.get(0);
+            Booking lastBooking = bookings.get(bookings.size()-1);
+            int firstRow = journalDetailsDataModel.getRow(firstBooking);
+            int lastRow = journalDetailsDataModel.getRow(lastBooking);
+
+            if(table!=null){
+                table.setRowSelectionInterval(firstRow, lastRow);
+                Rectangle cellRect = table.getCellRect(lastRow, 0, false);
+                table.scrollRectToVisible(cellRect);
+            }
         }
     }
 
