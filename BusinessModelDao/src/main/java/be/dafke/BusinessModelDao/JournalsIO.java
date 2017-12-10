@@ -66,7 +66,7 @@ public class JournalsIO {
         ArrayList<String> checkedTypes = new ArrayList<>();
         String checkedString = getValue(element, CHECKED);
         if(checkedString!=null){
-            String[] checkedList = typesString.split(",");
+            String[] checkedList = checkedString.split(",");
             checkedTypes.addAll(Arrays.asList(checkedList));
         }
 
