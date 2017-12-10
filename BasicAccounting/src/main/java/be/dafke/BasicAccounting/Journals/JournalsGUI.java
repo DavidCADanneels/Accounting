@@ -31,15 +31,19 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	private JournalInputGUI journalInputGUI;
 	private JournalGUI journalGUI;
 
-	public JournalsGUI(Accounts accounts, JournalGUI journalGUI, JournalInputGUI journalInputGUI) {
+	public JournalsGUI(JournalGUI journalGUI, JournalInputGUI journalInputGUI){//Accounts accounts,  ) {
 		this.journalInputGUI=journalInputGUI;
 		this.journalGUI = journalGUI;
-		this.accounts = accounts;
+//		this.accounts = accounts;
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		combo = new JComboBox<>();
-        combo.addActionListener(this);
+        combo.addActionListener(e -> {
+			Journal newJournal = (Journal) combo.getSelectedItem();
+			Journal journal = journalInputGUI.switchJournal(newJournal);
+			Main.setJournal(journal);
+		});
 		combo.setEnabled(false);
 		add(combo);
 
@@ -67,17 +71,28 @@ public class JournalsGUI extends JPanel implements ActionListener {
 	}
 
 	public void actionPerformed(ActionEvent ae) {
-		Journal newJournal = (Journal) combo.getSelectedItem();
-		Journal journal = journalInputGUI.switchJournal(newJournal);
-		Main.setJournal(journal);
+
 	}
 
 	public void setAccounting(Accounting accounting) {
 		this.accounting = accounting;
-		journalTypes=accounting==null?null:accounting.getJournalTypes();
-		accountTypes=accounting==null?null:accounting.getAccountTypes();
+		setAccounts(accounting==null?null:accounting.getAccounts());
+		setJournalTypes(accounting==null?null:accounting.getJournalTypes());
+		setAccountTypes(accounting==null?null:accounting.getAccountTypes());
 		setJournals(accounting==null?null:accounting.getJournals());
 		setJournal(accounting==null?null:accounting.getActiveJournal());
+	}
+
+	public void setAccounts(Accounts accounts) {
+		this.accounts = accounts;
+	}
+
+	public void setJournalTypes(JournalTypes journalTypes) {
+		this.journalTypes = journalTypes;
+	}
+
+	public void setAccountTypes(AccountTypes accountTypes) {
+		this.accountTypes = accountTypes;
 	}
 
 	public void setJournals(Journals journals){

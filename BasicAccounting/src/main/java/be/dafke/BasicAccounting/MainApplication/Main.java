@@ -12,11 +12,7 @@ import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Contacts.ContactSelector;
 import be.dafke.BasicAccounting.Contacts.ContactsGUI;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
-import be.dafke.BasicAccounting.Journals.JournalDetails;
-import be.dafke.BasicAccounting.Journals.JournalGUI;
-import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BasicAccounting.Journals.JournalManagementGUI;
-import be.dafke.BasicAccounting.Journals.JournalsMenu;
+import be.dafke.BasicAccounting.Journals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
@@ -59,6 +55,7 @@ public class Main {
     private static File xslFolder;
     private static File htmlFolder;
     private static JournalGUI journalReadGUI;
+    private static JournalsGUI journalsGUI;
     private static JournalInputGUI journalInputGUI;
     private static AccountsTableGUI accountGuiLeft;
     private static AccountsTableGUI accountGuiRight;
@@ -94,6 +91,7 @@ public class Main {
     private static void createComponents() {
         journalInputGUI = new JournalInputGUI();
         journalReadGUI = new JournalGUI(journalInputGUI);
+        journalsGUI = new JournalsGUI(journalReadGUI,journalInputGUI);
         accountGuiLeft = new AccountsTableGUI(journalInputGUI);
         accountGuiRight = new AccountsTableGUI(journalInputGUI);
         mortgagesGUI = new MortgagesGUI(journalInputGUI);
@@ -124,6 +122,7 @@ public class Main {
         accountingMultiPanel.add(accountGuiRight, BorderLayout.EAST);
         accountingMultiPanel.add(splitPane, BorderLayout.CENTER);
         accountingMultiPanel.add(links, BorderLayout.WEST);
+        accountingMultiPanel.add(journalsGUI, BorderLayout.NORTH);
         return accountingMultiPanel;
     }
 
@@ -203,6 +202,7 @@ public class Main {
         accountGuiRight.setAccounting(accounting);
         journalInputGUI.setAccounting(accounting);
         journalReadGUI.setAccounting(accounting);
+        journalsGUI.setAccounting(accounting);
         mortgagesGUI.setMortgages(accounting==null?null:accounting.getMortgages());
 
         projectsMenu.setAccounting(accounting);
