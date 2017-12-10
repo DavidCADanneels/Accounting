@@ -232,6 +232,12 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         for (Account account : transaction.getAccounts()) {
             Main.fireAccountDataChanged(account);
         }
+
+        ArrayList<Booking> bookings = transaction.getBusinessObjects();
+        if(bookings!=null && !bookings.isEmpty()){
+            Booking booking = bookings.get(bookings.size()-1);
+            Main.selectBooking(booking);
+        }
     }
 
     public void editTransaction(Transaction transaction) {

@@ -372,6 +372,10 @@ public class Main {
         }
     }
 
+    public static void selectBooking(Booking booking){
+        journalReadGUI.selectBooking(booking);
+    }
+
     public static void fireJournalTypeChanges(Journal journal, JournalType journalType) {
         if(journal==accountGuiLeft.getJournal()) {
             accountGuiLeft.setJournalType(journalType);
