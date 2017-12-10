@@ -302,6 +302,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         transaction.setJournal(journal);
         journal.setCurrentTransaction(transaction);
         setTransaction(transaction);
+        ident.setText(journal==null?"":journal.getAbbreviation() + " " + journal.getId());
     }
 
     public Transaction saveTransaction(){
