@@ -28,19 +28,6 @@ public class AccountActions {
     public static final String SELECT_TAX_CREDIT_CN_ACCOUNT = "select Tax Credit CN Account";
     public static final String SELECT_TAX_DEBIT_CN_ACCOUNT = "select Tax Debit CN Account";
 
-    public static void book(JournalInputGUI journalInputGUI, Account account, boolean debit){
-        if(account!=null){
-            Transaction transaction = journalInputGUI.getTransaction();
-            BigDecimal amount = askAmount(account, debit, transaction);
-            if (amount != null) {
-                Booking booking = new Booking(account, amount, debit);
-                journalInputGUI.addBooking(booking);
-
-                journalInputGUI.fireTransactionDataChanged();
-            }
-        }
-    }
-
     public static void book(JournalInputGUI journalInputGUI, Account account, boolean debit, VATTransaction.VATType vatType, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Contacts contacts){
         Transaction transaction = journalInputGUI.getTransaction();
         BigDecimal amount = askAmount(account, debit, transaction);
