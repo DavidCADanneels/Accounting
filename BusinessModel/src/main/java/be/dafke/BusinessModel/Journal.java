@@ -133,9 +133,12 @@ public class Journal extends BusinessCollection<Transaction> {
 
         if(!master){
             transaction.setJournal(this);
+
             for (Booking booking : transaction.getBusinessObjects()) {
                 Account account = booking.getAccount();
-                account.addBusinessObject(booking.getMovement());
+                Movement movement = booking.getMovement();
+                boolean book = !transaction.isBalanceTransaction();
+                account.addBusinessObject(movement, book);
             }
 
             if (accounting.isVatAccounting() && accounting.getVatTransactions() != null) {

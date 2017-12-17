@@ -152,9 +152,9 @@ public class JournalsIO {
             Calendar date = toCalendar(dateString);
             String description = getValue(element, DESCRIPTION);
 
-            Transaction transaction = new Transaction(date,description);
+            Transaction transaction = new Transaction(date, description);
 
-            for(Element bookingsElement:getChildren(element, BOOKING)){
+            for (Element bookingsElement : getChildren(element, BOOKING)) {
                 String idString = getValue(bookingsElement, ID);
                 String debitString = getValue(bookingsElement, DEBIT);
                 String creditString = getValue(bookingsElement, CREDIT);
@@ -162,15 +162,15 @@ public class JournalsIO {
 
                 Account account = accounts.getBusinessObject(accountString);
 
-                boolean debit= true;
+                boolean debit = true;
                 BigDecimal amount = BigDecimal.ZERO;
-                if(debitString!=null){
+                if (debitString != null) {
                     debit = true;
                     amount = new BigDecimal(debitString);
-                    if(creditString!=null){
+                    if (creditString != null) {
                         System.err.println("Movement cannot contain both 'debit' and 'credit' !!!");
                     }
-                } else if(creditString!=null){
+                } else if (creditString != null) {
                     debit = false;
                     amount = new BigDecimal(creditString);
                 } else {
@@ -181,12 +181,17 @@ public class JournalsIO {
                 transaction.addBusinessObject(booking);
             }
 
+            String balanceTransactionString = getValue(element, BALANCE_TRANSACTION);
+            if(Boolean.valueOf(balanceTransactionString)){
+                transaction.setBalanceTransaction(true);
+            }
+
             Accounting accounting = journal.getAccounting();
             accounting.addTransaction(transaction);
             journal.addBusinessObject(transaction);
 
             String vatIdString = getValue(element, VAT_ID);
-            if(vatIdString!=null){
+            if (vatIdString != null) {
                 VATTransaction vatTransaction = vatTransactions.getBusinessObject(Utils.parseInt(vatIdString));
                 transaction.addVatTransaction(vatTransaction);
                 vatTransaction.setTransaction(transaction);
@@ -298,6 +303,12 @@ public class JournalsIO {
                         "    <"+DESCRIPTION+">"+transaction.getDescription()+"</"+DESCRIPTION+">\n" +
                         "    <"+ID+">"+transaction.getId()+"</"+ID+">\n"
                 );
+                if(transaction.isBalanceTransaction()){
+                    writer.write(
+                    "    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n"
+                    );
+                }
+
                 VATTransaction vatTransaction = transaction.getVatTransaction();
                 if(vatTransaction!=null){
                     writer.write(

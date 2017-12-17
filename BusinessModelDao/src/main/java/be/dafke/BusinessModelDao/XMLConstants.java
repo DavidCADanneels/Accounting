@@ -28,6 +28,7 @@ public class XMLConstants {
     public static final String JOURNALS = "Journals";
     public static final String JOURNAL = "Journal";
     public static final String TRANSACTION = "Transaction";
+    public static final String BALANCE_TRANSACTION = "BalanceTransaction";
     public static final String DATE = "date";
     public static final String DESCRIPTION = "description";
     public static final String BOOKINGS = "Bookings";

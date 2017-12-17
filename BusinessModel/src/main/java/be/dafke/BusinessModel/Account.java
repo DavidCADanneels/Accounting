@@ -85,7 +85,7 @@ public class Account extends BusinessCollection<Movement> implements Comparable<
         List<Movement> movements1 = getBusinessObjects(predicate);
         Account subAccount = new Account(this);
         for(Movement movement : movements1){
-            subAccount.book(movement.getDate(), movement);
+            subAccount.book(movement.getDate(), movement, true);
         }
         return subAccount;
     }
@@ -127,38 +127,56 @@ public class Account extends BusinessCollection<Movement> implements Comparable<
     }
 
     protected void book(Calendar date, Movement movement) {
+        book(date,movement,true);
+    }
+    protected void book(Calendar date, Movement movement, boolean book) {
         movements.addValue(date, movement);
-		if (movement.isDebit()) {
-            debitTotal = debitTotal.add(movement.getAmount());
-            debitTotal = debitTotal.setScale(2);
-		} else {
-            creditTotal = creditTotal.add(movement.getAmount());
-            creditTotal = creditTotal.setScale(2);
-		}
+        if(book) {
+            if (movement.isDebit()) {
+                debitTotal = debitTotal.add(movement.getAmount());
+                debitTotal = debitTotal.setScale(2);
+            } else {
+                creditTotal = creditTotal.add(movement.getAmount());
+                creditTotal = creditTotal.setScale(2);
+            }
+        }
 	}
 
     protected void unbook(Calendar date, Movement movement) {
-		if (movement.isDebit()) {
-			debitTotal = debitTotal.subtract(movement.getAmount());
-			debitTotal = debitTotal.setScale(2);
-		} else {
-			creditTotal = creditTotal.subtract(movement.getAmount());
-			creditTotal = creditTotal.setScale(2);
-		}
+        unbook(date,movement,true);
+    }
+    protected void unbook(Calendar date, Movement movement, boolean book) {
+        if(book) {
+            if (movement.isDebit()) {
+                debitTotal = debitTotal.subtract(movement.getAmount());
+                debitTotal = debitTotal.setScale(2);
+            } else {
+                creditTotal = creditTotal.subtract(movement.getAmount());
+                creditTotal = creditTotal.setScale(2);
+            }
+        }
         movements.removeValue(date, movement);
     }
 
     @Override
-    public Movement addBusinessObject(Movement movement){
+    public Movement addBusinessObject(Movement movement) {
+        return addBusinessObject(movement, true);
+    }
+
+    public Movement addBusinessObject(Movement movement, boolean book) {
         Calendar date = movement.getDate();
-        book(date,movement);
+        book(date,movement, book);
         return movement;
     }
 
     @Override
     public void removeBusinessObject(Movement movement){
+        removeBusinessObject(movement, true);
+    }
+
+    public void removeBusinessObject(Movement movement, boolean book){
         Calendar date = movement.getDate();
-        unbook(date,movement);
+        unbook(date,movement, book);
     }
 
     public Contact getContact() {

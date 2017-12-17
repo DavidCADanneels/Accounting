@@ -30,6 +30,7 @@ public class Transaction extends BusinessCollection<Booking> {
     private Contact contact = null;
     private Mortgage mortgage = null;
     private boolean forced = false;
+    private boolean balanceTransaction = false;
 
     public Transaction(Calendar date, String description) {
         this.date = date==null?Calendar.getInstance():date;
@@ -203,5 +204,13 @@ public class Transaction extends BusinessCollection<Booking> {
 
     public boolean isForced() {
         return forced;
+    }
+
+    public void setBalanceTransaction(boolean balanceTransaction) {
+        this.balanceTransaction = balanceTransaction;
+    }
+
+    public boolean isBalanceTransaction() {
+        return balanceTransaction;
     }
 }
