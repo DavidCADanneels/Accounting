@@ -76,4 +76,23 @@ public class Accounts extends BusinessCollection<Account> {
 		list = list.stream().sorted(Comparator.comparing(BusinessObject::getName)).collect(Collectors.toCollection(ArrayList::new));
 		return list;
 	}
+
+    public ArrayList<Account> getBusinessObjects(MovementOfYear movementOfYear) {
+        return getSubAccounts(movementOfYear).getBusinessObjects();
+    }
+
+    public Accounts getSubAccounts(Predicate<Movement> predicate){
+        ArrayList<Account> accounts = getBusinessObjects();
+        Accounts newAccounts = new Accounts();
+        for(Account account: accounts){
+            Account newAccount = account.getSubAccount(predicate);
+            try {
+                newAccounts.addBusinessObject(newAccount);
+            } catch (EmptyNameException | DuplicateNameException e) {
+                e.printStackTrace();
+            }
+        }
+        return newAccounts;
+    }
+
 }

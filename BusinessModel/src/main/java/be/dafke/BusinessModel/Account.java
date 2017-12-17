@@ -7,6 +7,7 @@ import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.function.Predicate;
 
 /**
@@ -78,6 +79,19 @@ public class Account extends BusinessCollection<Movement> implements Comparable<
 
     public BigDecimal getDefaultAmount() {
         return defaultAmount;
+    }
+
+    public Account getSubAccount(Predicate<Movement> predicate) {
+        List<Movement> movements1 = getBusinessObjects(predicate);
+        Account subAccount = new Account(this);
+        for(Movement movement : movements1){
+            subAccount.book(movement.getDate(), movement);
+        }
+        return subAccount;
+    }
+
+    public BigDecimal getSaldoOfYear(int year) {
+        return getSubAccount(new MovementOfYear(year)).getSaldo();
     }
 
     public BigDecimal getSaldo() {
