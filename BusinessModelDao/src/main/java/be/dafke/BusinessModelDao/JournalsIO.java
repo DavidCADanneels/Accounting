@@ -114,6 +114,7 @@ public class JournalsIO {
         Journals journals = accounting.getJournals();
         Accounts accounts = accounting.getAccounts();
         VATTransactions vatTransactions = accounting.getVatTransactions();
+        VATFields vatFields = accounting.getVatFields();
 
         File journalsFolder = new File(accountingFolder, "Journals");
         File xmlFile = new File(accountingFolder, "Journals.xml");
@@ -138,11 +139,11 @@ public class JournalsIO {
         }
 
         for(Journal journal:journals.getBusinessObjects()){
-            readJournal(journal, accounts, vatTransactions, journalsFolder);
+            readJournal(journal, accounts, vatTransactions, vatFields, journalsFolder);
         }
     }
 
-    public static void readJournal(Journal journal, Accounts accounts, VATTransactions vatTransactions, File journalsFolder) {
+    public static void readJournal(Journal journal, Accounts accounts, VATTransactions vatTransactions, VATFields vatFields, File journalsFolder) {
         String name = journal.getName();
         File xmlFile = new File(journalsFolder, name+XML);
         Element rootElement = getRootElement(xmlFile, JOURNAL);
@@ -177,6 +178,16 @@ public class JournalsIO {
                     System.err.println("No 'debit' or 'credit' tag found in Movement !!!");
                 }
                 Booking booking = new Booking(account, amount, debit, parseInt(idString));
+
+                for (Element vatBookingsElement : getChildren(bookingsElement, VATBOOKING)){
+                    String amountString = getValue(vatBookingsElement, AMOUNT);
+                    String vatFieldString = getValue(vatBookingsElement, VATFIELD);
+                    VATField vatField = vatFields.getBusinessObject(vatFieldString);
+                    BigDecimal vatAmount = new BigDecimal(amountString);
+                    VATMovement vatMovement = new VATMovement(vatAmount);
+                    VATBooking vatBooking = new VATBooking(vatField,vatMovement);
+                    booking.addVatBooking(vatBooking);
+                }
 
                 transaction.addBusinessObject(booking);
             }
