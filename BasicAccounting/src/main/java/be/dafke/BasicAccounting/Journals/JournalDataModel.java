@@ -7,6 +7,7 @@ import be.dafke.BusinessModel.Transaction;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -20,37 +21,52 @@ public class JournalDataModel extends SelectableTableModel<Booking> {
 	 */
 	private static final long serialVersionUID = 1L;
 	public static final int DEBIT_ACCOUNT = 0;
-	public static final int DEBIT_AMOUNT = 2;
 	public static final int CREDIT_ACCOUNT = 1;
+	public static final int DEBIT_AMOUNT = 2;
 	public static final int CREDIT_AMOUNT = 3;
-	String[] columnNames = { getBundle("Accounting").getString("DEBIT"),
-			getBundle("Accounting").getString("CREDIT"),
-			getBundle("Accounting").getString("D"),
-			getBundle("Accounting").getString("C") };
-	Class[] columnClasses = { Account.class, Account.class, BigDecimal.class, BigDecimal.class };
+	public static final int VATINFO = 4;
+
+	private HashMap<Integer, String> columnNames = new HashMap<>();
+	private HashMap<Integer, Class> columnClasses = new HashMap<>();
 
     private Transaction transaction;
 
-// DE GET METHODEN
+	public JournalDataModel() {
+		createColumnNames();
+		createColumnClasses();
+	}
+
+	private void createColumnNames() {
+		columnNames.put(DEBIT_ACCOUNT, getBundle("Accounting").getString("DEBIT"));
+		columnNames.put(CREDIT_ACCOUNT, getBundle("Accounting").getString("CREDIT"));
+		columnNames.put(DEBIT_AMOUNT, getBundle("Accounting").getString("D"));
+		columnNames.put(CREDIT_AMOUNT, getBundle("Accounting").getString("C"));
+		columnNames.put(VATINFO, getBundle("Accounting").getString("VATINFO"));
+	}
+
+	private void createColumnClasses() {
+		columnClasses.put(DEBIT_ACCOUNT, Account.class);
+		columnClasses.put(CREDIT_ACCOUNT, Account.class);
+		columnClasses.put(DEBIT_AMOUNT, BigDecimal.class);
+		columnClasses.put(CREDIT_AMOUNT, BigDecimal.class);
+		columnClasses.put(VATINFO, BigDecimal.class);
+	}
+
+	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
 		Booking booking = getBooking(row);
-		if (booking.isDebit()) {
-			if (col == DEBIT_ACCOUNT) {
-				return booking.getAccount();
-			}
-			if (col == DEBIT_AMOUNT) {
-				return booking.getAmount();
-			}
-			return null;
-		}// else credit
-		if (col == CREDIT_ACCOUNT) {
-			return booking.getAccount();
-		}
-		if (col == CREDIT_AMOUNT) {
-			return booking.getAmount();
-		}
-		return null;
+		if (col == VATINFO){
+			return booking.getVATBookingsString();
+		} else if (col == DEBIT_ACCOUNT) {
+			return booking.isDebit()?booking.getAccount():null;
+		} else if (col == CREDIT_ACCOUNT) {
+			return booking.isDebit()?null:booking.getAccount();
+		} else if (col == DEBIT_AMOUNT) {
+			return booking.isDebit()?booking.getAmount():null;
+		} else if (col == CREDIT_AMOUNT) {
+			return booking.isDebit()?null:booking.getAmount();
+		} else return null;
 	}
 
 	public Booking getBooking(int row){
@@ -58,7 +74,7 @@ public class JournalDataModel extends SelectableTableModel<Booking> {
 	}
 
 	public int getColumnCount() {
-		return columnNames.length;
+		return columnNames.size();
 	}
 
 	public int getRowCount() {
@@ -67,17 +83,17 @@ public class JournalDataModel extends SelectableTableModel<Booking> {
 
 	@Override
 	public String getColumnName(int col) {
-		return columnNames[col];
+		return columnNames.get(col);
 	}
 
 	@Override
 	public Class getColumnClass(int col) {
-		return columnClasses[col];
+		return columnClasses.get(col);
 	}
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return getValueAt(row,col)!=null;
+		return row != VATINFO && getValueAt(row,col)!=null;
 	}
 
 // DE SET METHODEN

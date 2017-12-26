@@ -7,6 +7,7 @@ import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -19,17 +20,40 @@ public class AccountDetailsDataModel extends SelectableTableModel<Booking> {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final Account rekening;
-	private final String[] columnNames = {
-			getBundle("Accounting").getString("NR"),
-			getBundle("Accounting").getString("DATE"),
-			getBundle("Accounting").getString("DEBIT"),
-			getBundle("Accounting").getString("CREDIT"),
-			getBundle("Accounting").getString("DESCRIPTION") };
-	private final Class[] columnClasses = { String.class, String.class, BigDecimal.class, BigDecimal.class,
-			String.class };
+
+	public static final int NR = 0;
+	public static final int DATE = 1;
+	public static final int DEBIT = 2;
+	public static final int CREDIT = 3;
+	public static final int VATINFO = 4;
+	public static final int DESCRIPTION = 5;
+	private HashMap<Integer, String> columnNames = new HashMap<>();
+	private HashMap<Integer, Class> columnClasses = new HashMap<>();
+
+
 
 	public AccountDetailsDataModel(Account account) {
 		rekening = account;
+		createColumnNames();
+		createColumnClasses();
+	}
+
+	private void createColumnNames() {
+		columnNames.put(NR, getBundle("Accounting").getString("NR"));
+		columnNames.put(DATE, getBundle("Accounting").getString("DATE"));
+		columnNames.put(DEBIT, getBundle("Accounting").getString("DEBIT"));
+		columnNames.put(CREDIT, getBundle("Accounting").getString("CREDIT"));
+		columnNames.put(VATINFO, getBundle("Accounting").getString("VATINFO"));
+		columnNames.put(DESCRIPTION, getBundle("Accounting").getString("DESCRIPTION"));
+	}
+
+	private void createColumnClasses() {
+		columnClasses.put(NR, String.class);
+		columnClasses.put(DATE, String.class);
+		columnClasses.put(DEBIT, BigDecimal.class);
+		columnClasses.put(CREDIT, BigDecimal.class);
+		columnClasses.put(VATINFO, String.class);
+		columnClasses.put(DESCRIPTION, String.class);
 	}
 
 // DE GET METHODEN
@@ -40,12 +64,12 @@ public class AccountDetailsDataModel extends SelectableTableModel<Booking> {
 	}
 
 	public int getColumnCount() {
-		return 5;
+		return columnClasses.size();
 	}
 
 	@Override
 	public String getColumnName(int col) {
-		return columnNames[col];
+		return columnNames.get(col);
 	}
 
 	public Booking getObject(int row, int col) {
@@ -66,24 +90,26 @@ public class AccountDetailsDataModel extends SelectableTableModel<Booking> {
 
 	public Object getValueAt(int row, int col) {
         Movement movement = rekening.getBusinessObjects().get(row);
-        if (col == 0) {
+        if (col == NR) {
             return movement.getTransactionString();
-        } else if (col == 1) {
+        } else if (col == DATE) {
             return Utils.toString(movement.getDate());
-        } else if (col == 2) {
+        } else if (col == DEBIT) {
             if (movement.isDebit()) return movement.getAmount();
             return "";
-        } else if (col == 3) {
+        } else if (col == CREDIT) {
             if (!movement.isDebit()) return movement.getAmount();
             return "";
-        } else {
+        } else if (col == DESCRIPTION) {
             return movement.getDescription();
-        }
+        } else if (col == VATINFO) {
+			return movement.getBooking().getVATBookingsString();
+		} else return null;
     }
 
 	@Override
 	public Class getColumnClass(int col) {
-		return columnClasses[col];
+		return columnClasses.get(col);
 	}
 
 	@Override
