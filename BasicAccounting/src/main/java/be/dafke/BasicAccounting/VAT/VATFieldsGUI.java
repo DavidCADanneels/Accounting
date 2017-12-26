@@ -73,7 +73,7 @@ public class VATFieldsGUI extends JFrame {
         VATTransactions vatTransactions = new VATTransactions(vatFields);
         for(VATTransaction vatTransaction : selectedVatTransactions){
 //        selectedVatTransactions.forEach(vatTransaction -> {
-            VATTransaction newVatTransaction = new VATTransaction(vatTransaction.getDate());
+            VATTransaction newVatTransaction = new VATTransaction();
             ArrayList<VATBooking> vatBookings = vatTransaction.getBusinessObjects();
             vatBookings.forEach(vatBooking -> {
                 VATField originalVatField = vatBooking.getVatField();

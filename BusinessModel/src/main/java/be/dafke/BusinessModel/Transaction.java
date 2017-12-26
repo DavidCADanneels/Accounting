@@ -97,9 +97,6 @@ public class Transaction extends BusinessCollection<Booking> {
 
 	public void setDate(Calendar date) {
 		this.date = date;
-		if(vatTransaction!=null){
-		    vatTransaction.setDate(date);
-        }
 	}
 
     @Override
@@ -166,7 +163,6 @@ public class Transaction extends BusinessCollection<Booking> {
         if(this.vatTransaction==null){
             this.vatTransaction = vatTransaction;
             vatTransaction.setTransaction(this);
-            vatTransaction.setDate(date);
         } else {
             for (VATBooking vatBooking : vatTransaction.getBusinessObjects()) {
                 this.vatTransaction.addBusinessObject(vatBooking);

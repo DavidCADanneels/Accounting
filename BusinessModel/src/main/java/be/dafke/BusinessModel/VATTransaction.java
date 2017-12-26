@@ -11,7 +11,6 @@ import java.util.Calendar;
  */
 public class VATTransaction extends BusinessCollection<VATBooking>{
     private static int count = 0;
-    private Calendar date;
     private ArrayList<VATBooking> vatBookings = new ArrayList<>();
     private Transaction transaction;
     private Integer id;
@@ -23,10 +22,6 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public VATTransaction(Calendar date) {
-        this.date = date;
     }
 
     public static int raiseCount(){
@@ -62,11 +57,11 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
     }
 
     @Override
-    public void removeBusinessObject(VATBooking value) throws NotEmptyException {
+    public void removeBusinessObject(VATBooking value) {
         vatBookings.remove(value);
     }
 
-        @Override
+    @Override
     public VATBooking addBusinessObject(VATBooking value) {
         vatBookings.add(value);
         value.setVatTransaction(this);
@@ -81,11 +76,4 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
         this.transaction = transaction;
     }
 
-    public Calendar getDate() {
-        return date;
-    }
-
-    public void setDate(Calendar date) {
-        this.date = date;
-    }
 }

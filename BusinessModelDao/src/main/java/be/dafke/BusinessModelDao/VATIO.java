@@ -72,9 +72,7 @@ public class VATIO {
             for (Element element : getChildren(rootElement, VATTRANSACTION)) {
                 String idString = getValue(element, ID);
                 int originalId = parseInt(idString);
-                String dateString = getValue(element, DATE);
-                Calendar date = Utils.toCalendar(dateString);
-                VATTransaction vatTransaction = new VATTransaction(date);
+                VATTransaction vatTransaction = new VATTransaction();
                 vatTransaction.setId(originalId);
                 String registeredString = getValue(element, REGISTERED);
                 if("true".equals(registeredString)){
@@ -134,7 +132,6 @@ public class VATIO {
                 writer.write(
                     "  <"+VATTRANSACTION+">\n" +
                     "    <"+ID+">"+vatTransaction.getId()+"</"+ID+">\n" +
-                    "    <"+DATE+">"+Utils.toString(vatTransaction.getDate())+"</"+DATE+">\n" +
                     "    <"+REGISTERED+">"+vatTransaction.isRegistered()+"</"+REGISTERED+">\n"
                 );
                 for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){

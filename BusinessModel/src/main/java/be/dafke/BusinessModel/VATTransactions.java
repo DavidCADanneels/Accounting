@@ -1,11 +1,10 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.Utils.MultiValueMap;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -15,7 +14,7 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
     private final VATFields vatFields;
     private Account creditAccount, debitAccount, creditCNAccount, debitCNAccount;
     private Integer[] vatPercentages = new Integer[]{0, 6, 12, 21};
-    private final MultiValueMap<Calendar,VATTransaction> vatTransactions = new MultiValueMap<>();
+    private final HashMap<Integer,VATTransaction> vatTransactionsPerId = new HashMap<>();
     private Accounting accounting;
 
     public Integer[] getVatPercentages() {
@@ -71,8 +70,7 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
 
     public VATTransaction addBusinessObject(VATTransaction vatTransaction, boolean force){
         if(vatTransaction!=null) {
-            Calendar date = vatTransaction.getDate();
-            vatTransactions.addValue(date, vatTransaction);
+            vatTransactionsPerId.put(vatTransaction.getId(), vatTransaction);
             if(force || !vatTransaction.isRegistered()) {
                 for (VATBooking vatBooking : vatTransaction.getBusinessObjects()) {
                     VATField vatField = vatBooking.getVatField();
@@ -107,17 +105,16 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
 
     @Override
     public ArrayList<VATTransaction> getBusinessObjects(){
-        return new ArrayList<>(vatTransactions.values());
+        return new ArrayList<>(vatTransactionsPerId.values());
     }
 
     public VATTransaction getBusinessObject(Integer id){
-        return vatTransactions.values().stream().filter(vatTransaction -> vatTransaction.getId() == id).findFirst().orElse(null);
+        return vatTransactionsPerId.get(id);
     }
 
     @Override
     public void removeBusinessObject(VATTransaction vatTransaction){
-        Calendar date = vatTransaction.getTransaction().getDate();
-        vatTransactions.removeValue(date,vatTransaction);
+        vatTransactionsPerId.remove(vatTransaction);
         for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){
             VATField vatField = vatBooking.getVatField();
             if(vatField!=null) {
@@ -141,10 +138,7 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         BigDecimal vatAmount = bookingVat.getAmount();
 
         BigDecimal costAmount = booking.getAmount();
-        Transaction transaction = booking.getTransaction();
-        Calendar date = transaction.getDate();
-        // TODO: check if date is changed if date is changed afterwards + remove date parameter from constructor)
-        VATTransaction vatTransaction = new VATTransaction(date);
+        VATTransaction vatTransaction = new VATTransaction();
 
         VATField vatField = getCostField(purchaseType);
         VATMovement vatMovement = new VATMovement(costAmount);
@@ -163,9 +157,7 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         BigDecimal vatAmount = bookingVat.getAmount();
 
         BigDecimal costAmount = booking.getAmount();
-        Transaction transaction = booking.getTransaction();
-        Calendar date = transaction.getDate();
-        VATTransaction vatTransaction = new VATTransaction(date);
+        VATTransaction vatTransaction = new VATTransaction();
 
         VATBooking CNCostBooking = new VATBooking(vatFields.getBusinessObject("85"), new VATMovement(costAmount));
         VATBooking CNVATBooking = new VATBooking(vatFields.getBusinessObject("63"), new VATMovement(vatAmount));
@@ -187,9 +179,7 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         BigDecimal vatAmount = bookingVat.getAmount();
         VATBooking revenueBooking = null;
         BigDecimal revenueAmount = booking.getAmount();
-        Transaction transaction = booking.getTransaction();
-        Calendar date = transaction.getDate();
-        VATTransaction vatTransaction = new VATTransaction(date);
+        VATTransaction vatTransaction = new VATTransaction();
 
         if(pct==0){
             revenueBooking = new VATBooking(vatFields.getBusinessObject("0"), new VATMovement(revenueAmount));
@@ -214,9 +204,7 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         BigDecimal btwAmount = bookingVat.getAmount();
 
         BigDecimal revenueAmount = booking.getAmount();
-        Transaction transaction = booking.getTransaction();
-        Calendar date = transaction.getDate();
-        VATTransaction vatTransaction = new VATTransaction(date);
+        VATTransaction vatTransaction = new VATTransaction();
         VATBooking revenueBooking = new VATBooking(vatFields.getBusinessObject("49"), new VATMovement(revenueAmount));
         VATBooking vatBooking = new VATBooking(vatFields.getBusinessObject("64"), new VATMovement(btwAmount));
         vatTransaction.addBusinessObject(revenueBooking);
