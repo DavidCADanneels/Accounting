@@ -86,9 +86,9 @@ public class Booking extends BusinessObject {
         vatBookings.add(vatBooking);
     }
 
-//    public ArrayList<VATBooking> getVatBookings() {
-//        return vatBookings;
-//    }
+    public ArrayList<VATBooking> getVatBookings() {
+        return vatBookings;
+    }
 
     public String getVATBookingsString(){
         if(vatBookings == null || vatBookings.isEmpty()){

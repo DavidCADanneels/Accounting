@@ -331,6 +331,15 @@ public class JournalsIO {
                         "      <"+CREDIT+">"+movement.getAmount()+"</"+CREDIT+">\n"
                         );
                     }
+                    ArrayList<VATBooking> vatBookings = booking.getVatBookings();
+                    for (VATBooking vatBooking:vatBookings) {
+                        VATField vatField = vatBooking.getVatField();
+                        VATMovement vatMovement = vatBooking.getVatMovement();
+                        writer.write("      <"+VATBOOKING+">\n");
+                        writer.write("        <"+VATFIELD+">"+vatField.getName()+"</"+VATFIELD+">\n");
+                        writer.write("        <"+AMOUNT+">"+vatMovement.getAmount()+"</"+AMOUNT+">\n");
+                        writer.write("      </"+VATBOOKING+">\n");
+                    }
                     writer.write(
                         "    </"+BOOKING+">\n"
                     );
