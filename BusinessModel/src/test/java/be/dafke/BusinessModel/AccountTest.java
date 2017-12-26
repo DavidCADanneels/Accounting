@@ -169,26 +169,10 @@ public class AccountTest {
 
     }
 
-    private void book(Account account, Movement movement){
-        account.book(TIME, movement);
-    }
-
-    private Movement debit(Account account, BigDecimal amount){
-        Movement movement = new Movement(amount, true);
-        book(account, movement);
-        return movement;
-    }
-
-    private Movement credit(Account account, BigDecimal amount){
-        Movement movement = new Movement(amount, false);
-        book(account, movement);
-        return movement;
-    }
-
     @Test
     public void debit() {
         Account account = new Account("");
-        Movement debit = debit(account, TWENTY);
+        Movement debit = new Movement(TWENTY, true);
         assertEquals(TWENTY.setScale(2), account.getSaldo());  // 0 + 20 = 20
         assertEquals(TWENTY.setScale(2), account.getDebetTotal());  // 20
         assertEquals(ZERO.setScale(2), account.getCreditTotal());  // 0
@@ -201,7 +185,7 @@ public class AccountTest {
     @Test
     public void credit() {
         Account account = new Account("");
-        Movement credit = credit(account, TEN);
+        Movement credit = new Movement(TEN, false);
         assertEquals(TEN.negate().setScale(2), account.getSaldo());  // 0 - 10 = -10
         assertEquals(ZERO.setScale(2), account.getDebetTotal());  // 0
         assertEquals(TEN.setScale(2), account.getCreditTotal());  // 10
@@ -214,8 +198,8 @@ public class AccountTest {
     @Test
     public void debitAndCredit(){
         Account account = new Account("");
-        Movement debit = debit(account, TWENTY);
-        Movement credit = credit(account, TEN);
+        Movement debit = new Movement(TWENTY, true);
+        Movement credit = new Movement(TEN, false);
 
         assertEquals(TEN.setScale(2), account.getSaldo()); // 20 - 10 = 10
         assertEquals(TWENTY.setScale(2), account.getDebetTotal()); // 20
@@ -228,26 +212,49 @@ public class AccountTest {
     }
 
     @Test
-    public void unbook() {
+    public void bookAndUnbook() {
         Account account = new Account("");
-        Movement debit = debit(account, TWENTY);
-        Movement credit = credit(account, TEN);
+        Movement debit = new Movement(TWENTY, true);
+        Movement credit = new Movement(TEN, false);
 
-        account.unbook(TIME, debit);
+        account.book(TIME, debit, true);
 
         ArrayList<Movement> movements = account.getBusinessObjects();
         assertEquals(1, movements.size());
+        assertTrue(movements.contains(debit));
+        assertFalse(movements.contains(credit));
+        //
+        assertEquals(TWENTY.setScale(2), account.getSaldo()); // 0 + 20 = 20
+        assertEquals(TWENTY.setScale(2), account.getDebetTotal()); // 0 + 20 = 20
+        assertEquals(ZERO.setScale(2), account.getCreditTotal()); // 0 + 0 = 0
+
+        account.book(TIME, credit, true);
+
+        movements = account.getBusinessObjects();
+        assertEquals(2, movements.size());
+        assertTrue(movements.contains(debit));
+        assertTrue(movements.contains(credit));
+        //
+        assertEquals(TEN.setScale(2), account.getSaldo()); // 20 - 10 = 10
+        assertEquals(TWENTY.setScale(2), account.getDebetTotal()); // 20 + 0 = 20
+        assertEquals(TEN.setScale(2), account.getCreditTotal()); // 0 + 10 = 10
+
+        account.unbook(TIME,debit, true);
+
+        movements = account.getBusinessObjects();
+        assertEquals(1, movements.size());
         assertFalse(movements.contains(debit));
         assertTrue(movements.contains(credit));
-
-        assertEquals(TEN.negate().setScale(2), account.getSaldo()); // 10 - 20 = -10
+        //
+        assertEquals(TEN.negate().setScale(2), account.getSaldo()); // 20-20 - 10 = -10
         assertEquals(ZERO.setScale(2), account.getDebetTotal()); // 20 - 20 = 0
-        assertEquals(TEN.setScale(2), account.getCreditTotal()); // stays 10
+        assertEquals(TEN.setScale(2), account.getCreditTotal()); // 0 + 10 = 10
 
-        account.unbook(TIME,credit);
+        account.unbook(TIME,credit, true);
+
         movements = account.getBusinessObjects();
         assertTrue(movements.isEmpty());
-
+        //
         assertEquals(ZERO.negate().setScale(2), account.getSaldo());
         assertEquals(ZERO.setScale(2), account.getDebetTotal());
         assertEquals(ZERO.setScale(2), account.getCreditTotal());

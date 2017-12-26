@@ -126,9 +126,6 @@ public class Account extends BusinessCollection<Movement> implements Comparable<
         return movements.isEmpty();
     }
 
-    protected void book(Calendar date, Movement movement) {
-        book(date,movement,true);
-    }
     protected void book(Calendar date, Movement movement, boolean book) {
         movements.addValue(date, movement);
         if(book) {
@@ -142,9 +139,6 @@ public class Account extends BusinessCollection<Movement> implements Comparable<
         }
 	}
 
-    protected void unbook(Calendar date, Movement movement) {
-        unbook(date,movement,true);
-    }
     protected void unbook(Calendar date, Movement movement, boolean book) {
         if(book) {
             if (movement.isDebit()) {
