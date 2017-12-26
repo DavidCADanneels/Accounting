@@ -86,7 +86,25 @@ public class Booking extends BusinessObject {
         vatBookings.add(vatBooking);
     }
 
-    public ArrayList<VATBooking> getVatBookings() {
-        return vatBookings;
+//    public ArrayList<VATBooking> getVatBookings() {
+//        return vatBookings;
+//    }
+
+    public String getVATBookingsString(){
+        if(vatBookings == null || vatBookings.isEmpty()){
+            return "";
+        } else {
+            StringBuffer buffer = new StringBuffer("(");
+            for (VATBooking vatBooking:vatBookings) {
+                VATField vatField = vatBooking.getVatField();
+                BigDecimal amount = vatBooking.getVatMovement().getAmount();
+                boolean plus = amount.compareTo(BigDecimal.ZERO) > 0;
+                buffer.append(plus?"+":"-");
+                buffer.append(vatField.getName());
+            }
+            buffer.append(")");
+            return buffer.toString();
+        }
+
     }
 }
