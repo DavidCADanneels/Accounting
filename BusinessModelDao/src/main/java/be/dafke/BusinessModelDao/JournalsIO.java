@@ -29,7 +29,10 @@ import static be.dafke.Utils.Utils.toCalendar;
  */
 public class JournalsIO {
 
-    public static void readJournalTypes(JournalTypes journalTypes, Accounts accounts, AccountTypes accountTypes, File accountingFolder){
+    public static void readJournalTypes(Accounting accounting, File accountingFolder){
+        JournalTypes journalTypes = accounting.getJournalTypes();
+        Accounts accounts = accounting.getAccounts();
+        AccountTypes accountTypes = accounting.getAccountTypes();
         File xmlFile = new File(accountingFolder, "JournalTypes.xml");
         Element rootElement = getRootElement(xmlFile, JOURNAL_TYPES);
         for (Element element : getChildren(rootElement, JOURNAL_TYPE)) {
@@ -112,9 +115,6 @@ public class JournalsIO {
     public static void readJournals(Accounting accounting, File accountingFolder) {
         JournalTypes journalTypes = accounting.getJournalTypes();
         Journals journals = accounting.getJournals();
-        Accounts accounts = accounting.getAccounts();
-        VATTransactions vatTransactions = accounting.getVatTransactions();
-        VATFields vatFields = accounting.getVatFields();
 
         File journalsFolder = new File(accountingFolder, "Journals");
         File xmlFile = new File(accountingFolder, "Journals.xml");
@@ -139,11 +139,12 @@ public class JournalsIO {
         }
 
         for(Journal journal:journals.getBusinessObjects()){
-            readJournal(journal, accounts, vatTransactions, vatFields, journalsFolder);
+            readJournal(journal, accounting, journalsFolder);
         }
     }
 
-    public static void readJournal(Journal journal, Accounts accounts, VATTransactions vatTransactions, VATFields vatFields, File journalsFolder) {
+    public static void readJournal(Journal journal, Accounting accounting, File journalsFolder) {
+        Accounts accounts = accounting.getAccounts();
         String name = journal.getName();
         File xmlFile = new File(journalsFolder, name+XML);
         Element rootElement = getRootElement(xmlFile, JOURNAL);
@@ -179,6 +180,8 @@ public class JournalsIO {
                 }
                 Booking booking = new Booking(account, amount, debit, parseInt(idString));
 
+                VATFields vatFields = accounting.getVatFields();
+                // TODO: get vatMovement etc from existing objects-> vatTransactions
                 for (Element vatBookingsElement : getChildren(bookingsElement, VATBOOKING)){
                     String amountString = getValue(vatBookingsElement, AMOUNT);
                     String vatFieldString = getValue(vatBookingsElement, VATFIELD);
@@ -197,13 +200,17 @@ public class JournalsIO {
                 transaction.setBalanceTransaction(true);
             }
 
-            Accounting accounting = journal.getAccounting();
+            // FIXME: Journal.getAccounting() still needed ?
+//            Accounting accounting = journal.getAccounting();
             accounting.addTransaction(transaction);
             journal.addBusinessObject(transaction);
 
+            VATTransactions vatTransactions = accounting.getVatTransactions();
+
             String vatIdString = getValue(element, VAT_ID);
             if (vatIdString != null) {
-                VATTransaction vatTransaction = vatTransactions.getBusinessObject(Utils.parseInt(vatIdString));
+                int id = Utils.parseInt(vatIdString);
+                VATTransaction vatTransaction = vatTransactions.getBusinessObject(id);
                 transaction.addVatTransaction(vatTransaction);
                 vatTransaction.setTransaction(transaction);
             }

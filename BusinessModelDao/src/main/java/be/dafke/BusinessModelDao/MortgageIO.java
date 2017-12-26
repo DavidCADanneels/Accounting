@@ -1,9 +1,6 @@
 package be.dafke.BusinessModelDao;
 
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.Mortgage;
-import be.dafke.BusinessModel.MortgageTransaction;
-import be.dafke.BusinessModel.Mortgages;
+import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import org.w3c.dom.Element;
@@ -26,7 +23,9 @@ import static be.dafke.Utils.Utils.parseInt;
  */
 public class MortgageIO {
 
-    public static void readMortgages(Mortgages mortgages, Accounts accounts, File accountingFolder) {
+    public static void readMortgages(Accounting accounting, File accountingFolder) {
+        Mortgages mortgages = accounting.getMortgages();
+        Accounts accounts = accounting.getAccounts();
         File xmlFile = new File(accountingFolder, MORTGAGES+XML);
         File mortgagesFolder = new File(accountingFolder, MORTGAGES);
         Element rootElement = getRootElement(xmlFile, MORTGAGES);

@@ -21,7 +21,10 @@ import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
  */
 public class ProjectsIO {
 
-    public static void readProjects(Projects projects, Accounts accounts, AccountTypes accountTypes, File accountingFolder) {
+    public static void readProjects(Accounting accounting, File accountingFolder) {
+        Projects projects = accounting.getProjects();
+        Accounts accounts = accounting.getAccounts();
+        AccountTypes accountTypes = accounting.getAccountTypes();
         File projectsFolder = new File(accountingFolder, PROJECTS);
         File xmlFile = new File(accountingFolder, PROJECTS+XML);
         Element rootElement = getRootElement(xmlFile, PROJECTS);

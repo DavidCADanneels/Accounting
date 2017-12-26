@@ -25,7 +25,9 @@ import static be.dafke.Utils.Utils.parseBigInteger;
  * Created by ddanneels on 15/01/2017.
  */
 public class AccountsIO {
-    public static void readAccounts(Accounts accounts, AccountTypes accountTypes, File accountingFolder){
+    public static void readAccounts(Accounting accounting, File accountingFolder){
+        Accounts accounts = accounting.getAccounts();
+        AccountTypes accountTypes = accounting.getAccountTypes();
         File xmlFile = new File(accountingFolder, "Accounts.xml");
         Element rootElement = getRootElement(xmlFile, ACCOUNTS);
         for (Element element : getChildren(rootElement, ACCOUNT)) {

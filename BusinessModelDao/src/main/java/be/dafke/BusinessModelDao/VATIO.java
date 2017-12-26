@@ -44,7 +44,10 @@ public class VATIO {
         }
     }
 
-    public static void readVATTransactions(VATTransactions vatTransactions, VATFields vatFields, Accounts accounts, File accountingFolder){
+    public static void readVATTransactions(Accounting accounting, File accountingFolder){
+        VATTransactions vatTransactions = accounting.getVatTransactions();
+        VATFields vatFields = accounting.getVatFields();
+        Accounts accounts = accounting.getAccounts();
         File xmlFile = new File(accountingFolder, "VATTransactions.xml");
         if(xmlFile.exists()) {
             Element rootElement = getRootElement(xmlFile, VATTRANSACTIONS);
