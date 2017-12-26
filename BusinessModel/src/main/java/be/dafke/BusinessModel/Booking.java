@@ -98,7 +98,7 @@ public class Booking extends BusinessObject {
             for (VATBooking vatBooking:vatBookings) {
                 VATField vatField = vatBooking.getVatField();
                 BigDecimal amount = vatBooking.getVatMovement().getAmount();
-                boolean plus = amount.compareTo(BigDecimal.ZERO) > 0;
+                boolean plus = amount.compareTo(BigDecimal.ZERO) >= 0;
                 buffer.append(plus?"+":"-");
                 buffer.append(vatField.getName());
             }
