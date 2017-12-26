@@ -1,15 +1,13 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Journal;
-import be.dafke.BusinessModel.Transaction;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -21,17 +19,47 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	public static final int ID = 0;
+	public static final int DATE = 1;
+	public static final int DEBIT_ACCOUNT = 2;
+	public static final int CREDIT_ACCOUNT = 3;
+	public static final int DEBIT_AMOUNT = 4;
+	public static final int CREDIT_AMOUNT = 5;
+	public static final int VATINFO = 6;
+	public static final int DESCRIPTION = 7;
+
+	private HashMap<Integer, String> columnNames = new HashMap<>();
+	private HashMap<Integer, Class> columnClasses = new HashMap<>();
+
 	private Journal journal;
-	private final String[] columnNames = {
-			getBundle("Accounting").getString("NR"),
-			getBundle("Accounting").getString("DATE"),
-			getBundle("Accounting").getString("ACCOUNT"),
-			getBundle("Accounting").getString("ACCOUNT"),
-			getBundle("Accounting").getString("DEBIT"),
-			getBundle("Accounting").getString("CREDIT"),
-			getBundle("Accounting").getString("DESCRIPTION") };
-	private final Class[] columnClasses = { String.class, String.class, Account.class, Account.class, BigDecimal.class,
-			BigDecimal.class, String.class };
+
+	public JournalDetailsDataModel() {
+		createColumnNames();
+		createColumnClasses();
+	}
+
+	private void createColumnNames() {
+		columnNames.put(ID, getBundle("Accounting").getString("NR"));
+		columnNames.put(DATE, getBundle("Accounting").getString("DATE"));
+		columnNames.put(DEBIT_ACCOUNT, getBundle("Accounting").getString("ACCOUNT"));
+		columnNames.put(CREDIT_ACCOUNT, getBundle("Accounting").getString("ACCOUNT"));
+		columnNames.put(DEBIT_AMOUNT, getBundle("Accounting").getString("DEBIT"));
+		columnNames.put(CREDIT_AMOUNT, getBundle("Accounting").getString("CREDIT"));
+		columnNames.put(VATINFO, getBundle("Accounting").getString("VATINFO"));
+		columnNames.put(DESCRIPTION, getBundle("Accounting").getString("DESCRIPTION"));
+	}
+
+
+	private void createColumnClasses() {
+		columnClasses.put(ID, String.class);
+		columnClasses.put(DATE, String.class);
+		columnClasses.put(DEBIT_ACCOUNT, Account.class);
+		columnClasses.put(CREDIT_ACCOUNT, Account.class);
+		columnClasses.put(DEBIT_AMOUNT, BigDecimal.class);
+		columnClasses.put(CREDIT_AMOUNT, BigDecimal.class);
+		columnClasses.put(VATINFO, String.class);
+		columnClasses.put(DESCRIPTION, String.class);
+	}
 
 	public void setJournal(Journal journal) {
 		this.journal = journal;
@@ -50,12 +78,12 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 	}
 
 	public int getColumnCount() {
-		return 7;
+		return columnNames.size();
 	}
 
 	@Override
 	public String getColumnName(int col) {
-		return columnNames[col];
+		return columnNames.get(col);
 	}
 
 	public Booking getValueAt(int row) {
@@ -70,43 +98,59 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 	public Object getValueAt(int row, int col) {
 		Booking boeking = getValueAt(row);
         boolean first = (boeking == boeking.getTransaction().getBusinessObjects().get(0));
-        if (col == 0) {
+        if (col == ID) {
             if(first){
                 return boeking.getTransaction().getAbbreviation() + boeking.getTransaction().getId();
             } else return "";
-        } else if (col == 1) {
+        } else if (col == DATE) {
             if(first){
                 return Utils.toString(boeking.getTransaction().getDate());
             } else return "";
-        } else if (col == 2) {
+        } else if (col == DEBIT_ACCOUNT) {
 			if (boeking.isDebit())
 				return boeking.getAccount();
 			else return null;
-		} else if (col == 3) {
+		} else if (col == CREDIT_ACCOUNT) {
 			if(!boeking.isDebit())
 				return boeking.getAccount();
 			else return null;
-        } else if (col == 4) {
+        } else if (col == DEBIT_AMOUNT) {
             if (boeking.isDebit()) return boeking.getAmount();
             return "";
-        } else if (col == 5) {
+        } else if (col == CREDIT_AMOUNT) {
             if (!boeking.isDebit()) return boeking.getAmount();
             return "";
-        } else{
+        } else if (col == DESCRIPTION){
             if(first){
                 return boeking.getTransaction().getDescription();
             } else return "";
-        }
+        } else if (col == VATINFO){
+			ArrayList<VATBooking> vatBookings = boeking.getVatBookings();
+			if(vatBookings == null || vatBookings.isEmpty()){
+				return "";
+			} else {
+				StringBuffer buffer = new StringBuffer("(");
+				for (VATBooking vatBooking:vatBookings) {
+					VATField vatField = vatBooking.getVatField();
+					BigDecimal amount = vatBooking.getVatMovement().getAmount();
+					boolean plus = amount.compareTo(BigDecimal.ZERO) > 0;
+					buffer.append(plus?"+":"-");
+					buffer.append(vatField.getName());
+				}
+				buffer.append(")");
+				return buffer.toString();
+			}
+		} else return null;
     }
 
 	@Override
 	public Class getColumnClass(int col) {
-		return columnClasses[col];
+		return columnClasses.get(col);
 	}
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return (col == 1 || col == 6);
+		return (col == DATE || col == DESCRIPTION);
 	}
 
 // DE SET METHODEN
@@ -117,13 +161,13 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
         Booking booking = getObject(row,col);
 		if(booking!=null) {
 			Transaction transaction = booking.getTransaction();
-			if (col == 1) {
+			if (col == DATE) {
 				Calendar date = transaction.getDate();
 				Calendar newDate = Utils.toCalendar((String) value);
 				if (journal != null && newDate != null) {
 					journal.changeDate(transaction, newDate);
 				} else setValueAt(Utils.toString(date), row, col);
-			} else if (col == 6) {
+			} else if (col == DESCRIPTION) {
 				transaction.setDescription((String) value);
 			}
 			fireTableDataChanged();
