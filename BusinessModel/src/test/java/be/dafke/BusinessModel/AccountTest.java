@@ -173,6 +173,7 @@ public class AccountTest {
     public void debit() {
         Account account = new Account("");
         Movement debit = new Movement(TWENTY, true);
+        account.book(TIME, debit, true);
         assertEquals(TWENTY.setScale(2), account.getSaldo());  // 0 + 20 = 20
         assertEquals(TWENTY.setScale(2), account.getDebetTotal());  // 20
         assertEquals(ZERO.setScale(2), account.getCreditTotal());  // 0
@@ -186,6 +187,7 @@ public class AccountTest {
     public void credit() {
         Account account = new Account("");
         Movement credit = new Movement(TEN, false);
+        account.book(TIME, credit, true);
         assertEquals(TEN.negate().setScale(2), account.getSaldo());  // 0 - 10 = -10
         assertEquals(ZERO.setScale(2), account.getDebetTotal());  // 0
         assertEquals(TEN.setScale(2), account.getCreditTotal());  // 10
@@ -200,6 +202,8 @@ public class AccountTest {
         Account account = new Account("");
         Movement debit = new Movement(TWENTY, true);
         Movement credit = new Movement(TEN, false);
+        account.book(TIME, debit, true);
+        account.book(TIME, credit, true);
 
         assertEquals(TEN.setScale(2), account.getSaldo()); // 20 - 10 = 10
         assertEquals(TWENTY.setScale(2), account.getDebetTotal()); // 20
