@@ -41,6 +41,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     private Journal journal;
     private Transaction transaction;
     private Accounts accounts;
+    private VATTransactions vatTransactions;
 
     public JournalInputGUI() {
         setLayout(new BorderLayout());
@@ -194,6 +195,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
         VATTransaction vatTransaction = transaction.getVatTransaction();
         if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
+            vatTransactions.removeBusinessObject(vatTransaction);
             Main.fireVATFieldsUpdated();
         }
 
@@ -333,12 +335,17 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         popup.setAccounting(accounting);
         setAccounts(accounting==null?null:accounting.getAccounts());
         setJournal(accounting==null?null:accounting.getActiveJournal());
+        setVatTransactions(accounting==null?null:accounting.getVatTransactions());
 
         comboBox=createComboBox();
         debitAccount = table.getColumnModel().getColumn(JournalDataModel.DEBIT_ACCOUNT);
         debitAccount.setCellEditor(new DefaultCellEditor(comboBox));
         creditAccount = table.getColumnModel().getColumn(JournalDataModel.CREDIT_ACCOUNT);
         creditAccount.setCellEditor(new DefaultCellEditor(comboBox));
+    }
+
+    public void setVatTransactions(VATTransactions vatTransactions) {
+        this.vatTransactions = vatTransactions;
     }
 
     public void setAccounts(Accounts accounts) {
