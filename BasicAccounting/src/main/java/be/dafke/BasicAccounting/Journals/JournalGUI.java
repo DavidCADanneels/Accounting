@@ -7,6 +7,7 @@ import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class JournalGUI extends JPanel {
@@ -25,6 +26,11 @@ public class JournalGUI extends JPanel {
 
         table = new SelectableTable<>(journalDetailsDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
+
+        JournalColorRenderer renderer = new JournalColorRenderer();
+        table.setDefaultRenderer(String.class, renderer);
+        table.setDefaultRenderer(Account.class, renderer);
+        table.setDefaultRenderer(BigDecimal.class, renderer);
 
         popup = new JournalDetailsPopupMenu(table, journalInputGUI);
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table));
