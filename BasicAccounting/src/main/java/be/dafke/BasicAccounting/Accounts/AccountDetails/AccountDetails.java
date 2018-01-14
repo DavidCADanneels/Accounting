@@ -5,6 +5,7 @@ package be.dafke.BasicAccounting.Accounts.AccountDetails;
  * @author David Danneels
  */
 
+import be.dafke.BasicAccounting.Journals.JournalColorRenderer;
 import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
@@ -17,6 +18,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.math.BigDecimal;
 import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
@@ -27,7 +29,7 @@ public class AccountDetails extends JFrame implements WindowListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final AccountDetailsPopupMenu popup;
-	private SelectableTable<Booking> tabel;
+	private SelectableTable<Booking> table;
 	private AccountDetailsDataModel accountDetailsDataModel;
 	private static HashMap<Account,AccountDetails> accountDetailsMap = new HashMap<>();
 
@@ -35,12 +37,17 @@ public class AccountDetails extends JFrame implements WindowListener {
 		super(getBundle("Accounting").getString("ACCOUNT_DETAILS") + account.getName());
 		accountDetailsDataModel = new AccountDetailsDataModel(account);
 
-		tabel = new SelectableTable<>(accountDetailsDataModel);
-		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
-		//tabel.setAutoCreateRowSorter(true);
-		tabel.setRowSorter(null);
+		table = new SelectableTable<>(accountDetailsDataModel);
+		table.setPreferredScrollableViewportSize(new Dimension(500, 200));
+		AccountColorRenderer renderer = new AccountColorRenderer();
+		table.setDefaultRenderer(String.class, renderer);
+		table.setDefaultRenderer(Account.class, renderer);
+		table.setDefaultRenderer(BigDecimal.class, renderer);
 
-		JScrollPane scrollPane = new JScrollPane(tabel);
+		//table.setAutoCreateRowSorter(true);
+		table.setRowSorter(null);
+
+		JScrollPane scrollPane = new JScrollPane(table);
 		JPanel contentPanel = new JPanel(new BorderLayout());
 		contentPanel.add(scrollPane, BorderLayout.CENTER);
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -48,8 +55,8 @@ public class AccountDetails extends JFrame implements WindowListener {
 		setContentPane(contentPanel);
 		pack();
 
-		popup = new AccountDetailsPopupMenu(journals, tabel, journalInputGUI);
-		tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));
+		popup = new AccountDetailsPopupMenu(journals, table, journalInputGUI);
+		table.addMouseListener(PopupForTableActivator.getInstance(popup, table));
 	}
 
 	public static AccountDetails getAccountDetails(Account account, Journals journals, JournalInputGUI journalInputGUI){
@@ -65,10 +72,10 @@ public class AccountDetails extends JFrame implements WindowListener {
 
 	public void selectObject(Booking object){
 		int row = accountDetailsDataModel.getRow(object);
-		if(tabel!=null){
-			tabel.setRowSelectionInterval(row, row);
-			Rectangle cellRect = tabel.getCellRect(row, 0, false);
-			tabel.scrollRectToVisible(cellRect);
+		if(table !=null){
+			table.setRowSelectionInterval(row, row);
+			Rectangle cellRect = table.getCellRect(row, 0, false);
+			table.scrollRectToVisible(cellRect);
 		}
 	}
 
