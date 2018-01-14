@@ -71,21 +71,14 @@ public class JournalsMenu extends JMenu {
             addSeparator();
             journals.getBusinessObjects().stream()
                     .forEach(journal -> {
-                        JMenuItem details = new JMenuItem(journal.getName()+ " (details)");
+                        JMenuItem details = new JMenuItem(journal.getName());
                         details.addActionListener(e -> JournalDetails.getJournalDetails(journal,journals,journalInputGUI));
                         add(details);
                     });
             addSeparator();
-            JMenuItem master = new JMenuItem("Master (view only)");
+            JMenuItem master = new JMenuItem("Master");
             master.addActionListener(e -> JournalDetails.getJournalDetails(transactions,journals,journalInputGUI));
             add(master);
-            addSeparator();
-            journals.getBusinessObjects().stream()
-                    .forEach(journal -> {
-                        JMenuItem input = new JMenuItem(journal.getName()+ " (input)");
-                        input.addActionListener(e -> Main.setJournal(journal));
-                        add(input);
-                    });
         }
     }
 }
