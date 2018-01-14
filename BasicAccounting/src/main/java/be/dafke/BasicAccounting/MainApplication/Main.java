@@ -119,10 +119,13 @@ public class Main {
         accountingMultiPanel.setLayout(new BorderLayout());
         JSplitPane splitPane = createSplitPane(journalReadGUI, journalInputGUI, VERTICAL_SPLIT);
 
+        JPanel centerPanel = new JPanel(new BorderLayout());
+        centerPanel.add(splitPane, BorderLayout.CENTER);
+        centerPanel.add(journalsGUI, BorderLayout.NORTH);
+
         accountingMultiPanel.add(accountGuiRight, BorderLayout.EAST);
-        accountingMultiPanel.add(splitPane, BorderLayout.CENTER);
+        accountingMultiPanel.add(centerPanel, BorderLayout.CENTER);
         accountingMultiPanel.add(links, BorderLayout.WEST);
-        accountingMultiPanel.add(journalsGUI, BorderLayout.NORTH);
         return accountingMultiPanel;
     }
 
