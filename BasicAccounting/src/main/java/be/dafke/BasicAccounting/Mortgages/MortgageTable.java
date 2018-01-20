@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Mortgages;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -58,5 +59,6 @@ public class MortgageTable extends JFrame {
         } catch (EmptyNameException e) {
 			ActionUtils.showErrorMessage(ActionUtils.MORTGAGE_NAME_EMPTY);
         }
+        Main.fireMortgageAdded(mortgages);
 	}
 }

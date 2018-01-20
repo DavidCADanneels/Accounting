@@ -119,6 +119,12 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
 		return gui;
 	}
 
+	public static void refreshAllFrames(){
+		for (MortgageGUI mortgageGUI:mortgageGuis.values()) {
+			mortgageGUI.refresh();
+		}
+	}
+
 	private void activateButtons(boolean active) {
 		comboCapital.setEnabled(active);
 		comboIntrest.setEnabled(active);

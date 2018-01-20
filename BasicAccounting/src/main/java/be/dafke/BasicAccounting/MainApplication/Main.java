@@ -14,6 +14,7 @@ import be.dafke.BasicAccounting.Contacts.ContactsGUI;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
 import be.dafke.BasicAccounting.Journals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
+import be.dafke.BasicAccounting.Mortgages.MortgageGUI;
 import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BasicAccounting.VAT.VATFieldsGUI;
@@ -388,5 +389,10 @@ public class Main {
             accountGuiRight.setJournalType(journalType);
             accountGuiRight.setAccountsList(journalType.getRight());
         }
+    }
+
+    public static void fireMortgageAdded(Mortgages mortgages) {
+        MortgageGUI.refreshAllFrames();
+        mortgagesGUI.setMortgages(mortgages);
     }
 }
