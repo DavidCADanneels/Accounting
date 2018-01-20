@@ -166,6 +166,7 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
 				if (selectedMortgage != null) {
                     int nr = Utils.parseInt(nrPayed.getText());
                     selectedMortgage.setPayed(nr);
+                Main.fireMortgageEdited();
                 }
 				activateButtons(false);
 			}
@@ -173,6 +174,7 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
 			if (selectedMortgage != null) {
                 try {
                     mortgages.removeBusinessObject(selectedMortgage);
+                    Main.fireMortgageAddedOrRemoved(mortgages);
                 } catch (NotEmptyException e1) {
                     System.err.println("This mortgage is in use !");
                     e1.printStackTrace();
@@ -195,6 +197,7 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
                     selectedMortgage.setPayed(nr);
 				}
 			}
+			Main.fireMortgageEdited();
 		}
     }
 

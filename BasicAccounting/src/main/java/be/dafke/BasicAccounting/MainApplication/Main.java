@@ -391,8 +391,12 @@ public class Main {
         }
     }
 
-    public static void fireMortgageAdded(Mortgages mortgages) {
+    public static void fireMortgageAddedOrRemoved(Mortgages mortgages) {
         MortgageGUI.refreshAllFrames();
         mortgagesGUI.setMortgages(mortgages);
+    }
+
+    public static void fireMortgageEdited() {
+        mortgagesGUI.enablePayButton();
     }
 }

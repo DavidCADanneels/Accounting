@@ -27,7 +27,11 @@ public class MortgagesGUI extends JPanel {
 		list = new JList<>();
 		listModel = new DefaultListModel<>();
 		list.setModel(listModel);
-		list.addListSelectionListener(e -> enablePayButton(e));
+		list.addListSelectionListener(e -> {
+			if (!e.getValueIsAdjusting() && list.getSelectedIndex() != -1) {
+				enablePayButton();
+			}
+		});
 		pay = new JButton("Pay");
 		pay.addActionListener(e -> book());
 		pay.setEnabled(false);
@@ -42,12 +46,9 @@ public class MortgagesGUI extends JPanel {
 		}
 	}
 
-	public void enablePayButton(ListSelectionEvent e) {
-		if (!e.getValueIsAdjusting() && list.getSelectedIndex() != -1) {
-			pay.setEnabled(list.getSelectedValue().isBookable());
-		} else {
-			pay.setEnabled(false);
-		}
+	public void enablePayButton() {
+		Mortgage selectedValue = list.getSelectedValue();
+		pay.setEnabled(selectedValue!=null && selectedValue.isBookable());
 	}
 
 	public void setMortgages(Mortgages mortgages) {

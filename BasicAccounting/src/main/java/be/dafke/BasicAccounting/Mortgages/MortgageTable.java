@@ -59,6 +59,6 @@ public class MortgageTable extends JFrame {
         } catch (EmptyNameException e) {
 			ActionUtils.showErrorMessage(ActionUtils.MORTGAGE_NAME_EMPTY);
         }
-        Main.fireMortgageAdded(mortgages);
+        Main.fireMortgageAddedOrRemoved(mortgages);
 	}
 }
