@@ -69,7 +69,7 @@ public class Mortgage extends BusinessCollection<MortgageTransaction> {
     }
     @Override
     public boolean isDeletable(){
-        return alreadyPayed > 0 && alreadyPayed < getBusinessObjects().size();
+        return alreadyPayed == 0 || alreadyPayed == getBusinessObjects().size();
     }
 
 	public BigDecimal getStartCapital() {
