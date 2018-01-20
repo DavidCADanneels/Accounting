@@ -111,6 +111,7 @@ public class MortgageIO {
     }
 
     public static void writeMortgage(Mortgage mortgage, File mortgagesFolder){
+        mortgagesFolder.mkdirs();
         File mortgagesFile = new File(mortgagesFolder, mortgage.getName()+XML);
         try{
             Writer writer = new FileWriter(mortgagesFile);
