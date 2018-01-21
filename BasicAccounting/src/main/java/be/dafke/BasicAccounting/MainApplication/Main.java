@@ -396,7 +396,11 @@ public class Main {
         mortgagesGUI.setMortgages(mortgages);
     }
 
-    public static void fireMortgageEdited() {
-        mortgagesGUI.enablePayButton();
+    public static void fireMortgageEditedPayButton(Mortgage mortgage) {
+        mortgagesGUI.enablePayButton(mortgage);
+    }
+
+    public static void fireMortgageEdited(Mortgage mortgage) {
+        MortgageGUI.selectMortgage(mortgage);
     }
 }

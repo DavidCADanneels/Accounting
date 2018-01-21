@@ -296,8 +296,10 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
             saveTransaction();
             if(journal!=null && transaction!=null && transaction.isBookable()){
                 addTransaction(transaction);
-                if(transaction.getMortgage()!=null){
-                    Main.fireMortgageEdited();
+                Mortgage mortgage = transaction.getMortgage();
+                if(mortgage !=null){
+                    Main.fireMortgageEditedPayButton(mortgage);
+                    Main.fireMortgageEdited(mortgage);
                 }
                 clear();
             }

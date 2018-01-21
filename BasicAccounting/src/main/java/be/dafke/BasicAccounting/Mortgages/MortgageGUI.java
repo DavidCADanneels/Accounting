@@ -5,24 +5,21 @@ import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
-import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.HashMap;
 
-public class MortgageGUI extends JFrame implements ActionListener, ListSelectionListener{//, AccountingListener {
+public class MortgageGUI extends JFrame implements ActionListener {
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private final JList<BusinessObject> mortgagesList;
+	private final JList<Mortgage> mortgagesList;
 	private final JButton create;
 	private final JTextField nrPayed;
     private Mortgages mortgages;
@@ -31,7 +28,7 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
 	private final JComboBox<Account> comboIntrest, comboCapital;
 	private Mortgage selectedMortgage = null;
 	private final MortgageDataModel model;
-	private DefaultListModel<BusinessObject> listModel;
+	private DefaultListModel<Mortgage> listModel;
 	private DefaultComboBoxModel<Account> intrestModel, capitalModel;
 
 	private final JTable table;
@@ -44,7 +41,14 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
 		this.accounts = accounts;
 		mortgagesList = new JList<>();
 		mortgagesList.setModel(new DefaultListModel<>());
-		mortgagesList.addListSelectionListener(this);
+		mortgagesList.addListSelectionListener(e -> {
+			if (!e.getValueIsAdjusting() && mortgagesList.getSelectedIndex() != -1) {
+				selectedMortgage = mortgagesList.getSelectedValue();
+			} else {
+				selectedMortgage = null;
+			}
+			select();
+		});
 		create = new JButton("Create new Mortgage table");
 		create.addActionListener(e -> MortgageCalculatorGUI.showCalculator(mortgages).setVisible(true));
 
@@ -125,6 +129,12 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
 		}
 	}
 
+	public static void selectMortgage(Mortgage mortgage){
+		for (MortgageGUI mortgageGUI:mortgageGuis.values()) {
+			mortgageGUI.reselect(mortgage);
+		}
+	}
+
 	private void activateButtons(boolean active) {
 		comboCapital.setEnabled(active);
 		comboIntrest.setEnabled(active);
@@ -137,27 +147,6 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
 		}
 	}
 
-	public void valueChanged(ListSelectionEvent e) {
-		init = true;
-		if (!e.getValueIsAdjusting() && mortgagesList.getSelectedIndex() != -1) {
-			selectedMortgage = (Mortgage)mortgagesList.getSelectedValue();
-			comboIntrest.setSelectedItem(selectedMortgage.getIntrestAccount());
-			comboCapital.setSelectedItem(selectedMortgage.getCapitalAccount());
-			nrPayed.setText(selectedMortgage.getNrPayed() + "");
-			save.setEnabled(true);
-		} else {
-			selectedMortgage = null;
-			comboIntrest.setSelectedIndex(-1);
-			comboCapital.setSelectedIndex(-1);
-			nrPayed.setText("");
-			activateButtons(false);
-			save.setEnabled(false);
-		}
-		model.revalidate(selectedMortgage);
-		table.revalidate();
-		init = false;
-	}
-
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == save) {
 			if (save.getText().equals("Edit")) {
@@ -166,7 +155,7 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
 				if (selectedMortgage != null) {
                     int nr = Utils.parseInt(nrPayed.getText());
                     selectedMortgage.setPayed(nr);
-                Main.fireMortgageEdited();
+                	Main.fireMortgageEditedPayButton(selectedMortgage);
                 }
 				activateButtons(false);
 			}
@@ -197,13 +186,13 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
                     selectedMortgage.setPayed(nr);
 				}
 			}
-			Main.fireMortgageEdited();
+			Main.fireMortgageEditedPayButton(selectedMortgage);
 		}
     }
 
 	public void refresh() {
         listModel = new DefaultListModel<>();
-        for(BusinessObject mortgage :mortgages.getBusinessObjects()) {
+        for(Mortgage mortgage :mortgages.getBusinessObjects()) {
             if (!listModel.contains(mortgage)) {
                 listModel.addElement(mortgage);
             }
@@ -221,5 +210,27 @@ public class MortgageGUI extends JFrame implements ActionListener, ListSelection
         comboIntrest.setModel(intrestModel);
         comboCapital.revalidate();
         comboIntrest.revalidate();
+	}
+
+	private void reselect(Mortgage mortgage) {
+		if (mortgage == selectedMortgage) {
+			select();
+		}
+	}
+	private void select() {
+		init = true;
+		save.setEnabled(selectedMortgage != null);
+		nrPayed.setText(selectedMortgage==null?"":selectedMortgage.getNrPayed() + "");
+		if (selectedMortgage == null) {
+			activateButtons(false);
+			comboIntrest.setSelectedIndex(-1);
+			comboCapital.setSelectedIndex(-1);
+		} else {
+			comboIntrest.setSelectedItem(selectedMortgage.getIntrestAccount());
+			comboCapital.setSelectedItem(selectedMortgage.getCapitalAccount());
+		}
+		model.revalidate(selectedMortgage);
+		table.revalidate();
+		init = false;
 	}
 }
