@@ -168,6 +168,8 @@ public class AccountsTableGUI extends JPanel {
     }
 
     public void fireAccountDataChanged() {
+        int row = table.getSelectedRow();
         accountDataTableModel.fireTableDataChanged();
+        if (row != -1) table.setRowSelectionInterval(row, row);
     }
 }
