@@ -21,7 +21,7 @@ public class ProjectsMenu extends JMenu {
 
     public ProjectsMenu() {
         super(getBundle("Projects").getString("PROJECTS"));
-        setMnemonic(KeyEvent.VK_P);
+//        setMnemonic(KeyEvent.VK_P);
         manage = new JMenuItem(getBundle("Projects").getString(
                 "PROJECTMANAGER"));
         manage.addActionListener(e -> ProjectManagementGUI.showManager(accounts, accountTypes, projects).setVisible(true));

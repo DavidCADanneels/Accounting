@@ -93,8 +93,8 @@ public class Main {
         journalInputGUI = new JournalInputGUI();
         journalReadGUI = new JournalGUI(journalInputGUI);
         journalsGUI = new JournalsGUI(journalReadGUI,journalInputGUI);
-        accountGuiLeft = new AccountsTableGUI(journalInputGUI);
-        accountGuiRight = new AccountsTableGUI(journalInputGUI);
+        accountGuiLeft = new AccountsTableGUI(journalInputGUI, true);
+        accountGuiRight = new AccountsTableGUI(journalInputGUI, false);
         mortgagesGUI = new MortgagesGUI(journalInputGUI);
     }
 

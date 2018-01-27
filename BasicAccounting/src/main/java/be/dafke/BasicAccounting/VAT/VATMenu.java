@@ -23,7 +23,7 @@ public class VATMenu extends JMenu {
 
     public VATMenu() {
         super(getBundle("VAT").getString("VAT"));
-        setMnemonic(KeyEvent.VK_P);
+//        setMnemonic(KeyEvent.VK_P);
 
         vatFieldsMenuItem = new JMenuItem(getBundle("VAT").getString("VAT_FIELDS"));
         vatFieldsMenuItem.addActionListener(e -> VATFieldsGUI.getInstance(vatFields, accounting).setVisible(true));

@@ -83,6 +83,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
         singleBook = new JButton(getBundle("Accounting").getString("OK"));
         singleBook.addActionListener(this);
+        singleBook.setMnemonic(KeyEvent.VK_B);
         save = new JButton(getBundle("Accounting").getString("SAVE"));
         save.addActionListener(this);
         clear = new JButton(getBundle("Accounting").getString("CLEAR_PANEL"));

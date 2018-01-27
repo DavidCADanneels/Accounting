@@ -41,7 +41,7 @@ public class AccountsTableGUI extends JPanel {
     private VATTransactions vatTransactions = null;
     private Contacts contacts = null;
 
-    public AccountsTableGUI(JournalInputGUI journalInputGUI) {
+    public AccountsTableGUI(JournalInputGUI journalInputGUI, boolean left) {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("Accounting").getString("ACCOUNTS")));
 
@@ -57,7 +57,7 @@ public class AccountsTableGUI extends JPanel {
         // TODO: register popup menu as TransactionListener and remove TransactionListener from 'this'.
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table));
 
-        accountsTableButtons = new AccountsTableButtons(this);
+        accountsTableButtons = new AccountsTableButtons(this, left);
 
         filterPanel = new AccountFilterPanel(accountDataTableModel);
 

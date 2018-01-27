@@ -27,7 +27,7 @@ public class BalancesMenu extends JMenu {
     public BalancesMenu(JournalInputGUI journalInputGUI){
         super(getBundle("BusinessModel").getString("BALANCES"));
         this.journalInputGUI = journalInputGUI;
-        setMnemonic(KeyEvent.VK_B);
+//        setMnemonic(KeyEvent.VK_B);
         manage = new JMenuItem(getBundle("BusinessModel").getString("MANAGE_BALANCES"));
         manage.addActionListener(e -> BalancesManagementGUI.showBalancesManager(balances, accounts, accountTypes));
         add(manage);

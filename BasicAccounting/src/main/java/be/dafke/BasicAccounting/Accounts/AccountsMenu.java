@@ -25,7 +25,7 @@ public class AccountsMenu extends JMenu {
 
     public AccountsMenu(JournalInputGUI journalInputGUI) {
         super(getBundle("BusinessModel").getString("ACCOUNTS"));
-        setMnemonic(KeyEvent.VK_P);
+//        setMnemonic(KeyEvent.VK_P);
         add = new JMenuItem(getBundle("Accounting").getString("ADD_ACCOUNT"));
         add.addActionListener(e -> new NewAccountGUI(accounts,accountTypes.getBusinessObjects()).setVisible(true));
         add.setEnabled(false);
