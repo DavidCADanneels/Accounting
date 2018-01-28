@@ -120,7 +120,29 @@ public class AccountsTableGUI extends JPanel {
     }
 
     public void setJournal(Journal journal) {
+
+    }
+    public void setJournal(Journal journal, boolean left) {
         this.journal = journal;
+        if(journal!=null){
+            JournalType journalType = journal.getType();
+            setJournalType(journalType);
+
+            AccountsList list = left?journalType.getLeft():journalType.getRight();
+            setAccountsList(list);
+            setVatType(list.getVatType());
+        } else {
+            // TODO: set null or 'default' type?
+//            accountGuiLeft.setJournalType(null);
+//            accountGuiRight.setJournalType(null);
+            Accounting accounting = Accountings.getActiveAccounting();
+            AccountTypes accountTypes = accounting.getAccountTypes();
+
+            AccountsList list = new AccountsList();
+            list.addAllTypes(accountTypes, true);
+            setAccountsList(list);
+            setVatType(null);
+        }
     }
 
 
