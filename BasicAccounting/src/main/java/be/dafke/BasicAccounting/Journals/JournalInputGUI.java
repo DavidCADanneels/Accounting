@@ -314,6 +314,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     public void clear() {
         transaction = new Transaction(getDate(), "");
         transaction.setJournal(journal);
+        balanceTransaction.setSelected(false);
         journal.setCurrentTransaction(transaction);
         setTransaction(transaction);
         ident.setText(journal==null?"":journal.getAbbreviation() + " " + journal.getId());
