@@ -243,6 +243,7 @@ public class Main {
     public static void setJournal(Journal journal) {
 //        Accounting accounting = journal.getAccounting();
 //        accounting.setActiveJournal(journal);  // idem, only needed for XMLWriter
+        journalsGUI.setJournal(journal);
         journalReadGUI.setJournal(journal);
         journalInputGUI.setJournal(journal);
         frame.setJournal(journal);
