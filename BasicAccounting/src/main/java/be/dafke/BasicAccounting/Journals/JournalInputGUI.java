@@ -30,6 +30,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
     private JTextField debet, credit, dag, maand, jaar, bewijs, ident;
     private JButton singleBook, save, clear;
+    private JCheckBox balanceTransaction;
 
     private final SelectableTable<Booking> table;
     private TableColumn debitAccount, creditAccount;
@@ -80,7 +81,8 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         jaar.addFocusListener(this);
         bewijs = new JTextField(30);
         bewijs.addFocusListener(this);
-
+        balanceTransaction = new JCheckBox("balanceTransaction",false);
+        balanceTransaction.addActionListener(e -> transaction.setBalanceTransaction(balanceTransaction.isSelected()));
         singleBook = new JButton(getBundle("Accounting").getString("OK"));
         singleBook.addActionListener(this);
         singleBook.setMnemonic(KeyEvent.VK_B);
@@ -100,6 +102,8 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         paneel1.add(new JLabel("/"));
         paneel1.add(jaar);
         paneel1.add(new JLabel("(d/m/yyyy)"));
+        paneel1.add(balanceTransaction);
+
 
         JPanel paneel2 = new JPanel();
         paneel2.add(new JLabel(getBundle("Accounting").getString(
