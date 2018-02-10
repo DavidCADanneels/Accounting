@@ -464,6 +464,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         maand.setEnabled((transaction!=null));
         jaar.setEnabled((transaction!=null));
         bewijs.setText(transaction==null?"":transaction.getDescription());
+        balanceTransaction.setSelected(transaction!=null&&transaction.isBalanceTransaction());
 
         boolean okEnabled = journal!=null && transaction!=null && transaction.isBookable();
         boolean clearEnabled = journal!=null && transaction!=null && !transaction.getBusinessObjects().isEmpty();
