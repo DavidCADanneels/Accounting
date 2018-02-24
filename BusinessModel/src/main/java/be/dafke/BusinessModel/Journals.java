@@ -26,7 +26,7 @@ public class Journals extends BusinessCollection<Journal> {
                 e.printStackTrace();
             }
         }
-        currentObject = journals.getBusinessObject(journals.currentObject.getName());
+        currentObject = journals.currentObject==null?null:getBusinessObject(journals.currentObject.getName());
     }
 
     @Override
