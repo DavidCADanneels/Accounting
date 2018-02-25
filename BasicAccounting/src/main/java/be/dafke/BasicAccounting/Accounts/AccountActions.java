@@ -124,7 +124,7 @@ public class AccountActions {
         boolean debit = booking.isDebit();
         // Read percentage
         Integer pct = getPercentage(vatTransactions);
-        if (pct != null) {
+        if (pct != null && pct != 0) {
             BigDecimal suggestedAmount = getTaxOnNet(amount, pct);
 //            if (amount.compareTo(BigDecimal.ZERO) >= 0) {
             if(debit){

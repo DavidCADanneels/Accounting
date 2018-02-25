@@ -119,7 +119,7 @@ public class XMLReader {
             String journalName = getValue(element, ACTIVE_JOURNAL);
             Accounting accounting = accountings.getBusinessObject(accountingName);
             Journals journals = accounting.getJournals();
-            Journal currentJournal = journals.getBusinessObject(journalName);
+            Journal currentJournal = journalName==null?null:journals.getBusinessObject(journalName);
             accounting.setActiveJournal(currentJournal);
         }
 

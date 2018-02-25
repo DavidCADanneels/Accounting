@@ -30,6 +30,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
     private JTextField debet, credit, dag, maand, jaar, bewijs, ident;
     private JButton singleBook, save, clear;
+    private JCheckBox balanceTransaction;
 
     private final SelectableTable<Booking> table;
     private TableColumn debitAccount, creditAccount;
@@ -80,9 +81,11 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         jaar.addFocusListener(this);
         bewijs = new JTextField(30);
         bewijs.addFocusListener(this);
-
+        balanceTransaction = new JCheckBox("balanceTransaction",false);
+        balanceTransaction.addActionListener(e -> transaction.setBalanceTransaction(balanceTransaction.isSelected()));
         singleBook = new JButton(getBundle("Accounting").getString("OK"));
         singleBook.addActionListener(this);
+        singleBook.setMnemonic(KeyEvent.VK_B);
         save = new JButton(getBundle("Accounting").getString("SAVE"));
         save.addActionListener(this);
         clear = new JButton(getBundle("Accounting").getString("CLEAR_PANEL"));
@@ -99,6 +102,8 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         paneel1.add(new JLabel("/"));
         paneel1.add(jaar);
         paneel1.add(new JLabel("(d/m/yyyy)"));
+        paneel1.add(balanceTransaction);
+
 
         JPanel paneel2 = new JPanel();
         paneel2.add(new JLabel(getBundle("Accounting").getString(
@@ -309,6 +314,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     public void clear() {
         transaction = new Transaction(getDate(), "");
         transaction.setJournal(journal);
+        balanceTransaction.setSelected(false);
         journal.setCurrentTransaction(transaction);
         setTransaction(transaction);
         ident.setText(journal==null?"":journal.getAbbreviation() + " " + journal.getId());
@@ -458,6 +464,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
         maand.setEnabled((transaction!=null));
         jaar.setEnabled((transaction!=null));
         bewijs.setText(transaction==null?"":transaction.getDescription());
+        balanceTransaction.setSelected(transaction!=null&&transaction.isBalanceTransaction());
 
         boolean okEnabled = journal!=null && transaction!=null && transaction.isBookable();
         boolean clearEnabled = journal!=null && transaction!=null && !transaction.getBusinessObjects().isEmpty();

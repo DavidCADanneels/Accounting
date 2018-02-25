@@ -18,7 +18,7 @@ public class ContactsMenu extends JMenu {
 
     public ContactsMenu() {
         super(getBundle("Contacts").getString("CONTACTS"));
-        setMnemonic(KeyEvent.VK_P);
+//        setMnemonic(KeyEvent.VK_P);
         suppliers = new JMenuItem(getBundle("Contacts").getString(
                 "SUPPLIERS"));
         suppliers.addActionListener(e -> ContactsGUI.showSuppliers(contacts).setVisible(true));

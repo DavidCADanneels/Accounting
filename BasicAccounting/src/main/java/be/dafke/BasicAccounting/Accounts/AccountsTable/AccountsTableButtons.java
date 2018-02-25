@@ -15,14 +15,17 @@ public class AccountsTableButtons extends JPanel {
     private boolean leftAction = true;
     private boolean rightAction = false;
 
-    public AccountsTableButtons(AccountsTableGUI accountsGUI) {
+    public AccountsTableButtons(AccountsTableGUI accountsGUI, boolean left) {
         leftButton = new JButton();
         rightButton = new JButton();
         accountDetails = new JButton(getBundle("Accounting").getString("VIEW_ACCOUNT"));
 
-        leftButton.setMnemonic(KeyEvent.VK_D);
-        rightButton.setMnemonic(KeyEvent.VK_C);
-        accountDetails.setMnemonic(KeyEvent.VK_T);
+        if (left) {
+            leftButton.setMnemonic(KeyEvent.VK_D);
+        } else {
+            rightButton.setMnemonic(KeyEvent.VK_C);
+        }
+//        accountDetails.setMnemonic(KeyEvent.VK_T);
 
         leftButton.addActionListener(e -> accountsGUI.book(leftAction));
         rightButton.addActionListener(e -> accountsGUI.book(rightAction));

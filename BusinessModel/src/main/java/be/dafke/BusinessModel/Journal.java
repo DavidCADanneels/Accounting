@@ -107,7 +107,8 @@ public class Journal extends BusinessCollection<Transaction> {
             ArrayList<Booking> bookings = transaction.getBusinessObjects();
             for (Booking booking : bookings) {
                 Account account = booking.getAccount();
-                account.removeBusinessObject(booking.getMovement());
+                boolean book = !transaction.isBalanceTransaction();
+                account.removeBusinessObject(booking.getMovement(), book);
             }
 
             if (accounting.isVatAccounting() && accounting.getVatTransactions() != null) {

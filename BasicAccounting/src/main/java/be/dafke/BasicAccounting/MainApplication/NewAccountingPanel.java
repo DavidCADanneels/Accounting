@@ -41,7 +41,7 @@ public class NewAccountingPanel extends RefreshableDialog {
 
         panel.add(createOptionsPanel());
 
-        add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNT"));
+        add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNTING"));
         add.addActionListener(e -> addAccounting());
         panel.add(add);
 

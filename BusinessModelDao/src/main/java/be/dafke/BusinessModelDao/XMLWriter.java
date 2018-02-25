@@ -81,10 +81,11 @@ public class XMLWriter {
                 writer.write("  <" + ACTIVE_ACCOUNTING + ">" + currentObject.getName() + "</" + ACTIVE_ACCOUNTING + ">\n");
             }
             for(Accounting accounting:accountings.getBusinessObjects()) {
+                Journal activeJournal = accounting.getActiveJournal();
                 writer.write(
                         "  <Accounting>\n" +
                             "    <name>"+accounting.getName()+"</name>\n" +
-                            "    <"+ACTIVE_JOURNAL+">"+accounting.getActiveJournal().getName()+"</"+ACTIVE_JOURNAL+">\n");
+                            "    <"+ACTIVE_JOURNAL+">"+(activeJournal==null?"null":activeJournal.getName())+"</"+ACTIVE_JOURNAL+">\n");
                 Journals journals = accounting.getJournals();
                 if(journals !=null){
                     writer.write("    <" + JOURNALS + ">\n");

@@ -9,6 +9,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 
 public class MortgagesGUI extends JPanel {
 	/**
@@ -37,6 +38,7 @@ public class MortgagesGUI extends JPanel {
 			enablePayButton(selectedMortgage);
 		});
 		pay = new JButton("Pay");
+		pay.setMnemonic(KeyEvent.VK_P);
 		pay.addActionListener(e -> book());
 		pay.setEnabled(false);
 		add(list, BorderLayout.CENTER);

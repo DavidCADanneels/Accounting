@@ -93,8 +93,8 @@ public class Main {
         journalInputGUI = new JournalInputGUI();
         journalReadGUI = new JournalGUI(journalInputGUI);
         journalsGUI = new JournalsGUI(journalReadGUI,journalInputGUI);
-        accountGuiLeft = new AccountsTableGUI(journalInputGUI);
-        accountGuiRight = new AccountsTableGUI(journalInputGUI);
+        accountGuiLeft = new AccountsTableGUI(journalInputGUI, true);
+        accountGuiRight = new AccountsTableGUI(journalInputGUI, false);
         mortgagesGUI = new MortgagesGUI(journalInputGUI);
     }
 
@@ -241,30 +241,16 @@ public class Main {
     }
 
     public static void setJournal(Journal journal) {
-//        Accounting accounting = journal.getAccounting();
-//        accounting.setActiveJournal(journal);  // idem, only needed for XMLWriter
+        if(journal!=null) {
+            Accounting accounting = journal.getAccounting();
+            accounting.setActiveJournal(journal);  // idem, only needed for XMLWriter
+        }
+        journalsGUI.setJournal(journal);
         journalReadGUI.setJournal(journal);
         journalInputGUI.setJournal(journal);
         frame.setJournal(journal);
-        accountGuiLeft.setJournal(journal);
-        accountGuiRight.setJournal(journal);
-        if(journal!=null){
-
-//            mortgagesGUI.setVisible(journal.isMortgagesJournal());
-
-            JournalType journalType = journal.getType();
-            accountGuiLeft.setJournalType(journalType);
-            accountGuiRight.setJournalType(journalType);
-
-            setAccountTypes(journalType);
-            setVATTypes(journalType);
-        } else {
-            // TODO: set null or 'default' type?
-//            accountGuiLeft.setJournalType(null);
-//            accountGuiRight.setJournalType(null);
-            setAccountTypes(null);
-            setVATTypes(null);
-        }
+        accountGuiLeft.setJournal(journal, true);
+        accountGuiRight.setJournal(journal, false);
     }
 
     public static void fireTransactionInputDataChanged(){
@@ -339,41 +325,6 @@ public class Main {
     public static void setAccountsListRight(JournalType journalType, AccountsList accountsList) {
         if(journalType == accountGuiRight.getJournalType())
             accountGuiRight.setAccountsList(accountsList);
-    }
-
-    public static void setAccountTypes(JournalType journalType) {
-        if(journalType!=null) {
-            AccountsList left = journalType.getLeft();
-            AccountsList right = journalType.getRight();
-            accountGuiLeft.setAccountsList(left);
-            accountGuiRight.setAccountsList(right);
-        } else {
-//                journalType = accounting.getJournalTypes().getBusinessObject("default");
-//                journal.setType(journalType);
-            Accounting accounting = Accountings.getActiveAccounting();
-            AccountTypes accountTypes = accounting.getAccountTypes();
-
-            AccountsList leftList = new AccountsList();
-            leftList.addAllTypes(accountTypes, true);
-            accountGuiLeft.setAccountsList(leftList);
-
-            AccountsList rightList = new AccountsList();
-            rightList.addAllTypes(accountTypes,true);
-            accountGuiRight.setAccountsList(rightList);
-        }
-    }
-
-    public static void setVATTypes(JournalType journalType) {
-        if (journalType!=null) {
-            AccountsList left = journalType.getLeft();
-            AccountsList right = journalType.getRight();
-
-            accountGuiLeft.setVatType(left.getVatType());
-            accountGuiRight.setVatType(right.getVatType());
-        } else {
-            accountGuiLeft.setVatType(null);
-            accountGuiRight.setVatType(null);
-        }
     }
 
     public static void selectTransaction(Transaction transaction){

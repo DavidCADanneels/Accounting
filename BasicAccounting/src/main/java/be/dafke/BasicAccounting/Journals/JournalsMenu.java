@@ -27,7 +27,7 @@ public class JournalsMenu extends JMenu {
     public JournalsMenu(JournalInputGUI journalInputGUI) {
         super(getBundle("Accounting").getString("JOURNALS"));
         this.journalInputGUI = journalInputGUI;
-        setMnemonic(KeyEvent.VK_P);
+//        setMnemonic(KeyEvent.VK_P);
         add = new JMenuItem(getBundle("Accounting").getString("ADD_JOURNAL"));
         add.addActionListener(e -> NewJournalGUI.getInstance(accounts, journals, journalTypes, accountTypes).setVisible(true));
         add.setEnabled(false);

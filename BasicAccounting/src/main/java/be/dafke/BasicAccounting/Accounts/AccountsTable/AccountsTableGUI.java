@@ -41,7 +41,7 @@ public class AccountsTableGUI extends JPanel {
     private VATTransactions vatTransactions = null;
     private Contacts contacts = null;
 
-    public AccountsTableGUI(JournalInputGUI journalInputGUI) {
+    public AccountsTableGUI(JournalInputGUI journalInputGUI, boolean left) {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("Accounting").getString("ACCOUNTS")));
 
@@ -57,7 +57,7 @@ public class AccountsTableGUI extends JPanel {
         // TODO: register popup menu as TransactionListener and remove TransactionListener from 'this'.
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table));
 
-        accountsTableButtons = new AccountsTableButtons(this);
+        accountsTableButtons = new AccountsTableButtons(this, left);
 
         filterPanel = new AccountFilterPanel(accountDataTableModel);
 
@@ -120,7 +120,29 @@ public class AccountsTableGUI extends JPanel {
     }
 
     public void setJournal(Journal journal) {
+
+    }
+    public void setJournal(Journal journal, boolean left) {
         this.journal = journal;
+        if(journal!=null){
+            JournalType journalType = journal.getType();
+            setJournalType(journalType);
+
+            AccountsList list = left?journalType.getLeft():journalType.getRight();
+            setAccountsList(list);
+            setVatType(list.getVatType());
+        } else {
+            // TODO: set null or 'default' type?
+//            accountGuiLeft.setJournalType(null);
+//            accountGuiRight.setJournalType(null);
+            Accounting accounting = Accountings.getActiveAccounting();
+            AccountTypes accountTypes = accounting.getAccountTypes();
+
+            AccountsList list = new AccountsList();
+            list.addAllTypes(accountTypes, true);
+            setAccountsList(list);
+            setVatType(null);
+        }
     }
 
 
@@ -168,6 +190,8 @@ public class AccountsTableGUI extends JPanel {
     }
 
     public void fireAccountDataChanged() {
+        int row = table.getSelectedRow();
         accountDataTableModel.fireTableDataChanged();
+        if (row != -1) table.setRowSelectionInterval(row, row);
     }
 }

@@ -46,6 +46,7 @@ public class BusinessCollection <V extends BusinessObject> extends BusinessObjec
     }
 
     public V getBusinessObject(String name){
+        if(name==null) return null;
         Map.Entry<String, String> entry = new AbstractMap.SimpleEntry<>(NAME, name);
         return getBusinessObject(entry);
     }
@@ -54,7 +55,7 @@ public class BusinessCollection <V extends BusinessObject> extends BusinessObjec
         String type = entry.getKey();
         String key = entry.getValue();
         TreeMap<String, V> map = dataTables.get(type);
-        return map.get(key);
+        return map==null?null:map.get(key);
     }
 
     // -------------------------------------------------------------------------------------
