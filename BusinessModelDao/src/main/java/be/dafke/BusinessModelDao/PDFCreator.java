@@ -23,7 +23,7 @@ public class PDFCreator {
     public static void main(String[] args) {
         PDFCreator fOPPdfDemo = new PDFCreator();
         try {
-            fOPPdfDemo.convertToPDF();
+            fOPPdfDemo.convertToPDF("F:\\Temp\\Employees.xml","F:\\Temp\\template.xsl", "F:\\Temp\\employee.pdf");
         } catch (FOPException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
@@ -43,18 +43,18 @@ public class PDFCreator {
      * @throws FOPException
      * @throws TransformerException
      */
-    public void convertToPDF()  throws IOException, FOPException, TransformerException {
+    public void convertToPDF(String xmlPath, String xslPath, String pdfPath)  throws IOException, FOPException, TransformerException {
         // the XSL FO file
-        File xsltFile = new File("F:\\Temp\\template.xsl");
+        File xsltFile = new File(xslPath);
         // the XML file which provides the input
-        StreamSource xmlSource = new StreamSource(new File("F:\\Temp\\Employees.xml"));
+        StreamSource xmlSource = new StreamSource(new File(xmlPath));
         // create an instance of fop factory
         FopFactory fopFactory = FopFactory.newInstance(new File(".").toURI());
         // a user agent is needed for transformation
         FOUserAgent foUserAgent = fopFactory.newFOUserAgent();
         // Setup output
         OutputStream out;
-        out = new java.io.FileOutputStream("F:\\Temp\\employee.pdf");
+        out = new java.io.FileOutputStream(pdfPath);
 
         try {
             // Construct fop with desired output format
@@ -82,23 +82,23 @@ public class PDFCreator {
      * @throws FOPException
      * @throws TransformerException
      */
-    public void convertToFO()  throws IOException, FOPException, TransformerException {
+    public void convertToFO(String xmlPath, String xslPath, String xmlFoPath)  throws IOException, FOPException, TransformerException {
         // the XSL FO file
-        File xsltFile = new File("F:\\Temp\\template.xsl");
+        File xsltFile = new File(xslPath);
         
         
         /*TransformerFactory factory = TransformerFactory.newInstance();
         Transformer transformer = factory.newTransformer(new StreamSource("F:\\Temp\\template.xsl"));*/
 
         // the XML file which provides the input
-        StreamSource xmlSource = new StreamSource(new File("F:\\Temp\\Employees.xml"));
+        StreamSource xmlSource = new StreamSource(new File(xmlPath));
 
         // a user agent is needed for transformation
         /*FOUserAgent foUserAgent = fopFactory.newFOUserAgent();*/
         // Setup output
         OutputStream out;
 
-        out = new java.io.FileOutputStream("F:\\Temp\\temp.fo");
+        out = new java.io.FileOutputStream(xmlFoPath);
 
         try {
             // Setup XSLT
