@@ -174,7 +174,7 @@ public class Main {
 
     private static void readXmlData() {
 //        File userHome = new File(System.getProperty("user.home"));
-        File parentFolder = new File("data/Accounting");
+        File parentFolder = new File("data/accounting");
         xmlFolder = new File(parentFolder, "xml");
         xslFolder = new File(parentFolder, "xsl");
         htmlFolder = new File(parentFolder, "html");

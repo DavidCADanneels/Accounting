@@ -69,9 +69,9 @@ public class Invoice {
     private static VATMenu vatMenu;
 
     public static void main(String[] args) {
-        String xslFile = "data/Accounting/xsl/goods.xsl";
-        String xmlFile = "data/Accounting/xml/invoice.xml";
-        String pdfFile = "data/Accounting/xml/goods.pdf";
+        String xslFile = "data/accounting/Accounting/xsl/goods.xsl";
+        String xmlFile = "data/accounting/Accounting/xml/invoice.xml";
+        String pdfFile = "data/accounting/Accounting/xml/goods.pdf";
         createInvoice(xmlFile, xslFile, pdfFile);
     }
 
