@@ -103,6 +103,12 @@ public class XMLConstants {
     public static final String VAT_ID = "vatId";
     public static final String COUNT = "count";
 
+    public static final String ARTICLES = "Articles";
+    public static final String ARTICLE = "Article";
+    public static final String ARTICLE_PURCHASE_PRICE = "PurchasePrice";
+    public static final String ARTICLE_VAT_RATE = "VatRate";
+    public static final String ARTICLE_HS_CODE = "HsCode";
+
     public static final String XML = ".xml";
 
     public static final String SESSION = "Session";

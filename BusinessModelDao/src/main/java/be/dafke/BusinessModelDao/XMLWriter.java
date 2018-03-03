@@ -10,6 +10,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static be.dafke.BusinessModelDao.AccountsIO.writeAccounts;
+import static be.dafke.BusinessModelDao.ArticlesIO.writeArticles;
 import static be.dafke.BusinessModelDao.BalancesIO.writeBalances;
 import static be.dafke.BusinessModelDao.ContactsIO.writeContacts;
 import static be.dafke.BusinessModelDao.JournalsIO.writeJournalTypes;
@@ -116,6 +117,7 @@ public class XMLWriter {
         File accountingsFolder = new File(xmlFolder, "Accountings");
         File accountingFolder = new File(accountingsFolder, accounting.getName());
         accountingFolder.mkdirs();
+        writeArticles(accounting.getArticles(), accountingFolder);
         writeAccounts(accounting.getAccounts(), accountingFolder);
         writeJournals(accounting.getJournals(), accountingFolder);
         writeJournalTypes(accounting.getJournalTypes(), accountingFolder);

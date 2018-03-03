@@ -14,6 +14,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import static be.dafke.BusinessModelDao.AccountsIO.readAccounts;
+import static be.dafke.BusinessModelDao.ArticlesIO.readArticles;
 import static be.dafke.BusinessModelDao.BalancesIO.readBalances;
 import static be.dafke.BusinessModelDao.ContactsIO.readContacts;
 import static be.dafke.BusinessModelDao.JournalsIO.readJournalTypes;
@@ -131,6 +132,7 @@ public class XMLReader {
         File accountingsFolder = new File(xmlFolder, "Accountings");
         File accountingFolder = new File(accountingsFolder, accounting.getName());
         readAccounts(accounting, accountingFolder);
+        readArticles(accounting, accountingFolder);
         readJournalTypes(accounting, accountingFolder);
         if(accounting.isVatAccounting()) {
             accounting.getVatFields().addDefaultFields();
