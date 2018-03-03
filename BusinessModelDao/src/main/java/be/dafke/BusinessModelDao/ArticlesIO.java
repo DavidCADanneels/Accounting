@@ -41,7 +41,7 @@ public class ArticlesIO {
 
             String vatRate = getValue(element, ARTICLE_VAT_RATE);
             if(vatRate!=null)
-                article.setVatRate(parseInt(purchasePrice));
+                article.setVatRate(parseInt(vatRate));
 
             try {
                 articles.addBusinessObject(article);
