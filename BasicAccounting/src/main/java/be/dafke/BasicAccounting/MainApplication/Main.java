@@ -12,6 +12,7 @@ import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Contacts.ContactSelector;
 import be.dafke.BasicAccounting.Contacts.ContactsGUI;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
+import be.dafke.BasicAccounting.Goods.GoodsMenu;
 import be.dafke.BasicAccounting.Journals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgageGUI;
@@ -70,6 +71,7 @@ public class Main {
     private static BalancesMenu balancesMenu;
     private static MorgagesMenu morgagesMenu;
     private static ContactsMenu contactsMenu;
+    private static GoodsMenu goodsMenu;
     private static ProjectsMenu projectsMenu;
     private static CodaMenu codaMenu;
     private static VATMenu vatMenu;
@@ -150,6 +152,7 @@ public class Main {
         journalsMenu = new JournalsMenu(journalInputGUI);
         balancesMenu = new BalancesMenu(journalInputGUI);
         contactsMenu = new ContactsMenu();
+        goodsMenu = new GoodsMenu();
         morgagesMenu = new MorgagesMenu();
         projectsMenu = new ProjectsMenu();
         codaMenu = new CodaMenu();
@@ -160,6 +163,7 @@ public class Main {
         menuBar.add(accountsMenu);
         menuBar.add(balancesMenu);
         menuBar.add(contactsMenu);
+        menuBar.add(goodsMenu);
         menuBar.add(morgagesMenu);
         menuBar.add(projectsMenu);
         menuBar.add(codaMenu);
@@ -208,6 +212,7 @@ public class Main {
 
         projectsMenu.setAccounting(accounting);
         morgagesMenu.setAccounting(accounting);
+        goodsMenu.setAccounting(accounting);
         codaMenu.setAccounting(accounting);
         contactsMenu.setAccounting(accounting);
         accountsMenu.setAccounting(accounting);
@@ -219,6 +224,7 @@ public class Main {
         if(accounting!=null) {
             vatMenu.setVisible(accounting.isVatAccounting());
             morgagesMenu.setVisible(accounting.isMortgagesAccounting());
+            // TODO: add option isGoodsAccounting (setVisible(..) )
             contactsMenu.setVisible(accounting.isContactsAccounting());
             projectsMenu.setVisible(accounting.isProjectsAccounting());
 

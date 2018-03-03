@@ -8,6 +8,8 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 
+import static java.util.ResourceBundle.getBundle;
+
 /**
  * User: david
  * Date: 29-12-13
@@ -17,7 +19,7 @@ public class Goods extends JFrame {
     public static void main(String[] args) {
         Articles articles = new Articles();
 //        addDummyData(articles);
-        Goods goederen = new Goods("Goederen", articles);
+        Goods goederen = new Goods(articles);
         goederen.setVisible(true);
     }
 
@@ -39,8 +41,8 @@ public class Goods extends JFrame {
     }
 
 
-    public Goods(String title, Articles articles) {
-        super(title);
+    public Goods(Articles articles) {
+        super(getBundle("Accounting").getString("GOODS"));
         setContentPane(new GoodsPanel(articles));
         pack();
     }
