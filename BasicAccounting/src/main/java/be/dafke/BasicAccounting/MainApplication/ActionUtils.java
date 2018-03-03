@@ -16,6 +16,9 @@ public class ActionUtils {
     public static final String ACCOUNT_DUPLICATE_NAME = "ACCOUNT_DUPLICATE_NAME";
     public static final String ACCOUNT_NAME_EMPTY = "ACCOUNT_NAME_EMPTY";
 
+    public static final String ARTICLE_DUPLICATE_NAME = "ARTICLE_DUPLICATE_NAME";
+    public static final String ARTICLE_NAME_EMPTY = "ARTICLE_NAME_EMPTY";
+
     public static final String JOURNAL_DUPLICATE_NAME = "JOURNAL_DUPLICATE_NAME";
     public static final String JOURNAL_NAME_EMPTY = "JOURNAL_NAME_EMPTY";
     public static final String JOURNAL_DUPLICATE_ABBR = "JOURNAL_DUPLICATE_ABBR";

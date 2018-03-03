@@ -188,9 +188,6 @@ public class Main {
         XMLReader.readSession(accountings, xmlFolder);
     }
 
-    private static void setXmlFolder(){
-    }
-
     private static JButton createSaveButton(){
         JButton saveButton = new JButton("Save all");
         saveButton.addActionListener(e -> Main.saveData());

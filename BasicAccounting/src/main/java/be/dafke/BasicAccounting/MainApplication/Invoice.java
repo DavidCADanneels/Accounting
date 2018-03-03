@@ -43,31 +43,6 @@ import static javax.swing.JSplitPane.*;
  * Time: 22:07
  */
 public class Invoice {
-    private static final ArrayList<JFrame> disposableComponents = new ArrayList<>();
-
-    protected static Accountings accountings;
-    private static File xmlFolder;
-    private static File xslFolder;
-    private static File htmlFolder;
-    private static JournalGUI journalReadGUI;
-    private static JournalsGUI journalsGUI;
-    private static JournalInputGUI journalInputGUI;
-    private static AccountsTableGUI accountGuiLeft;
-    private static AccountsTableGUI accountGuiRight;
-    private static MortgagesGUI mortgagesGUI;
-    private static JMenuBar menuBar;
-    private static AccountingMenu accountingMenu;
-    private static AccountingGUIFrame frame;
-
-    private static AccountsMenu accountsMenu;
-    private static JournalsMenu journalsMenu;
-    private static BalancesMenu balancesMenu;
-    private static MorgagesMenu morgagesMenu;
-    private static ContactsMenu contactsMenu;
-    private static ProjectsMenu projectsMenu;
-    private static CodaMenu codaMenu;
-    private static VATMenu vatMenu;
-
     public static void main(String[] args) {
         String xslFile = "data/accounting/Accounting/xsl/goods.xsl";
         String xmlFile = "data/accounting/Accounting/xml/invoice.xml";
@@ -88,5 +63,4 @@ public class Invoice {
             e.printStackTrace();
         }
     }
-
 }
