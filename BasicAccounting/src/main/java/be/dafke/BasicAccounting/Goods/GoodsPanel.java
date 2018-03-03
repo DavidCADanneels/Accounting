@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Goods;
 
 
 import be.dafke.BasicAccounting.Accounts.AccountsTable.AccountDataTableModel;
+import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Article;
 import be.dafke.BusinessModel.Articles;
@@ -11,6 +12,8 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import java.awt.*;
+
+import static java.util.ResourceBundle.getBundle;
 
 /**
  * User: david
@@ -35,13 +38,18 @@ public class GoodsPanel extends JPanel {
         add = new JButton("Add Article");
         add(add, BorderLayout.NORTH);
         add.addActionListener( e -> {
-            try {
-                articles.addBusinessObject(new Article("New"));
-                goodsDataTableModel.fireTableDataChanged();
-            } catch (EmptyNameException e1) {
-                e1.printStackTrace();
-            } catch (DuplicateNameException e1) {
-                e1.printStackTrace();
+            String name = JOptionPane.showInputDialog(getBundle("Accounting").getString("NAME_LABEL"));
+            while (name != null && name.equals(""))
+                name = JOptionPane.showInputDialog(getBundle("Accounting").getString("NAME_LABEL"));
+            if (name != null) {
+                try {
+                    articles.addBusinessObject(new Article(name));
+                    goodsDataTableModel.fireTableDataChanged();
+                } catch (EmptyNameException ex) {
+                    ActionUtils.showErrorMessage(ActionUtils.ARTICLE_NAME_EMPTY);
+                } catch (DuplicateNameException ex) {
+                    ActionUtils.showErrorMessage(ActionUtils.ARTICLE_DUPLICATE_NAME, name.trim());
+                }
             }
         });
     }

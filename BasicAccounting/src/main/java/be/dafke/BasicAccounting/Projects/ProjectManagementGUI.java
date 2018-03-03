@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Projects;
 
 import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
+import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -166,9 +167,9 @@ public class ProjectManagementGUI extends JFrame implements ListSelectionListene
 			try {
 				projects.addBusinessObject(project);
 			} catch (EmptyNameException e) {
-				e.printStackTrace();
+				ActionUtils.showErrorMessage(ActionUtils.PROJECT_NAME_EMPTY);
 			} catch (DuplicateNameException e) {
-				e.printStackTrace();
+				ActionUtils.showErrorMessage(ActionUtils.PROJECT_DUPLICATE_NAME, name.trim());
 			}
 			((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
 			(combo.getModel()).setSelectedItem(project);

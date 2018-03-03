@@ -18,6 +18,8 @@ public class ActionUtils {
 
     public static final String ARTICLE_DUPLICATE_NAME = "ARTICLE_DUPLICATE_NAME";
     public static final String ARTICLE_NAME_EMPTY = "ARTICLE_NAME_EMPTY";
+    public static final String PROJECT_DUPLICATE_NAME = "PROJECT_DUPLICATE_NAME";
+    public static final String PROJECT_NAME_EMPTY = "PROJECT_NAME_EMPTY";
 
     public static final String JOURNAL_DUPLICATE_NAME = "JOURNAL_DUPLICATE_NAME";
     public static final String JOURNAL_NAME_EMPTY = "JOURNAL_NAME_EMPTY";
@@ -46,6 +48,7 @@ public class ActionUtils {
     public static final String CHOOSE_NEW_TYPE_FOR = "CHOOSE_NEW_TYPE_FOR";
     public static final String CHOOSE_NEW_TYPE = "CHOOSE_NEW_TYPE";
     public static final String CHANGE_TYPE = "CHANGE_TYPE";
+
 
     public static void showErrorMessage(String message, Object ... messageArguments){
         MessageFormat formatter = new MessageFormat(getBundle("BusinessActions").getString(message));
