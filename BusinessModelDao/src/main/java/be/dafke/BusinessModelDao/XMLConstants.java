@@ -74,6 +74,7 @@ public class XMLConstants {
     public static final String VAT_NUMBER = "VATNumber";
     public static final String VAT_TOTAL = "VATTotal";
     public static final String CUSTOMER = "Customer";
+    public static final String SUPPLIER = "Supplier";
     public static final String TURNOVER = "Turnover";
     public static final String COMPANY_CONTACT = "companyContact";
 
