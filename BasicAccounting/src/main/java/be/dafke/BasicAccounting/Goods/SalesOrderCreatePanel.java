@@ -15,7 +15,7 @@ import java.util.function.Predicate;
  * Date: 29-12-13
  * Time: 22:07
  */
-public class SalesOrderPanel extends JPanel {
+public class SalesOrderCreatePanel extends JPanel {
     private final JButton orderButton;
     private final SelectableTable<StockItem> table;
     private JComboBox<Contact> comboBox;
@@ -23,13 +23,13 @@ public class SalesOrderPanel extends JPanel {
     private Articles articles;
     private Contact contact;
     Predicate<Contact> filter;
-    private final SalesOrderDataTableModel salesOrderDataTableModel;
+    private final SalesOrderCreateDataTableModel salesOrderCreateDataTableModel;
 
-    public SalesOrderPanel(Accounting accounting) {
+    public SalesOrderCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
-        salesOrderDataTableModel = new SalesOrderDataTableModel(articles, null);
-        table = new SelectableTable<>(salesOrderDataTableModel);
+        salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, null);
+        table = new SelectableTable<>(salesOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
@@ -37,19 +37,19 @@ public class SalesOrderPanel extends JPanel {
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {
             contact = (Contact) comboBox.getSelectedItem();
-            salesOrderDataTableModel.setContact(contact);
+            salesOrderCreateDataTableModel.setContact(contact);
         });
         filter = Contact::isCustomer;
         fireCustomerAddedOrRemoved();
 
         orderButton = new JButton("Book Order");
         orderButton.addActionListener(e -> {
-            Order order = salesOrderDataTableModel.getOrder();
+            Order order = salesOrderCreateDataTableModel.getOrder();
             SalesOrders salesOrders = accounting.getSalesOrders();
             order.setCustomer(contact);
             try {
                 salesOrders.addBusinessObject(order);
-                salesOrderDataTableModel.newOrder();
+                salesOrderCreateDataTableModel.newOrder();
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {

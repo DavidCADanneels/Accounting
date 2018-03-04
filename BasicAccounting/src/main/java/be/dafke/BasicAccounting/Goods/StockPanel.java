@@ -37,7 +37,7 @@ public class StockPanel extends JPanel {
 
         createSalesOrder = new JButton("create Sales Order");
         createSalesOrder.addActionListener(e -> {
-            SalesOrderGUI.showSalesOrderGUI(accounting).setVisible(true);
+            SalesOrderCreateGUI.showSalesOrderGUI(accounting).setVisible(true);
         });
 
 

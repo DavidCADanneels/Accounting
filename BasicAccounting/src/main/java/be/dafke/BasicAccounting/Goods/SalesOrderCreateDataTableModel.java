@@ -14,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class SalesOrderDataTableModel extends SelectableTableModel<StockItem> {
+public class SalesOrderCreateDataTableModel extends SelectableTableModel<StockItem> {
 	/**
 	 *
 	 */
@@ -30,7 +30,7 @@ public class SalesOrderDataTableModel extends SelectableTableModel<StockItem> {
 	private Contact contact;
 	private Order order;
 
-	public SalesOrderDataTableModel(Articles articles, Contact contact) {
+	public SalesOrderCreateDataTableModel(Articles articles, Contact contact) {
 		this.articles = articles;
 		this.contact = contact;
 		setColumnNames();
