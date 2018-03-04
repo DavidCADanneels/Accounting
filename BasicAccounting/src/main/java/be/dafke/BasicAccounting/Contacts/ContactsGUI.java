@@ -29,16 +29,13 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 15/11/2016.
  */
-public class ContactsGUI extends JFrame implements ListSelectionListener {
+public class ContactsGUI extends JFrame {
 
-    private final Contacts contacts;
 
     private static final HashMap<Contacts, ContactsGUI> contactGuis = new HashMap<>();
     private static final HashMap<Contacts, ContactsGUI> suppliersGuis = new HashMap<>();
     private static final HashMap<Contacts, ContactsGUI> customersGuis = new HashMap<>();
-    private JTable table;
-    private ContactsDataModel contactsDataModel;
-    private JButton details;
+    private final ContactsPanel contactsPanel;
 
     public static ContactsGUI showSuppliers(Contacts contacts) {
         ContactsGUI gui = suppliersGuis.get(contacts);
@@ -72,70 +69,12 @@ public class ContactsGUI extends JFrame implements ListSelectionListener {
 
     private ContactsGUI(Contacts contacts, Contact.ContactType contactType) {
         super("Contacts");
-        this.contacts = contacts;
-        setContentPane(createContentPanel(contactType));
+        contactsPanel = new ContactsPanel(contactType, contacts);
+        setContentPane(contactsPanel);
         setPreferredSize(new Dimension(1000,400));
         pack();
     }
 
-    public JPanel createContentPanel(Contact.ContactType contactType){
-        JButton create = new JButton(getBundle("Contacts").getString("NEW_CONTACT"));
-        create.addActionListener(e -> new NewContactGUI(contacts).setVisible(true));
-
-        JButton createList = new JButton(getBundle("Contacts").getString("CUSTUMER_LISTING"));
-        createList.addActionListener(e -> createCustomerListing());
-
-        details = new JButton(getBundle("Contacts").getString("EDIT_CONTACT"));
-        details.addActionListener(e -> {
-            int selectedRow = table.getSelectedRow();
-            if(selectedRow!=-1) {
-                Contact contact = contactsDataModel.getObject(selectedRow, 0);
-                NewContactGUI newContactGUI = new NewContactGUI(contacts);
-                newContactGUI.setContact(contact);
-                newContactGUI.setVisible(true);
-            }
-        });
-        details.setEnabled(false);
-
-        JPanel south = new JPanel();
-        south.add(create);
-        south.add(details);
-        if(contactType == Contact.ContactType.CUSTOMERS) {
-            south.add(createList);
-        }
-
-        contactsDataModel = new ContactsDataModel(contacts, contactType);
-        table = new JTable(contactsDataModel);
-        DefaultListSelectionModel selection = new DefaultListSelectionModel();
-        selection.addListSelectionListener(this);
-        table.setSelectionModel(selection);
-        JScrollPane scroll = new JScrollPane(table);
-
-        JPanel contentPanel = new JPanel(new BorderLayout());
-        contentPanel.add(scroll, CENTER);
-        contentPanel.add(south, SOUTH);
-        return contentPanel;
-    }
-
-    private void createCustomerListing() {
-        Accounting accounting = contacts.getAccounting();
-        Contact companyContact = accounting.getCompanyContact();
-        if (companyContact == null) {
-            // TODO: replace companyContact by Contact of type 'OWN'
-            ContactSelector contactSelector = ContactSelector.getContactSelector(accounting.getContacts(), Contact.ContactType.ALL);
-            contactSelector.setVisible(true);
-            companyContact = contactSelector.getSelection();
-        }
-
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("XML files", "xml"));
-        String year = JOptionPane.showInputDialog(this, "Year:");
-        if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-
-            VATWriter.writeCustomerListing(selectedFile, year, companyContact, contacts);
-        }
-    }
 
     public static void fireContactAddedForAll(){
         contactGuis.values().forEach(contactsGUI -> {
@@ -156,9 +95,8 @@ public class ContactsGUI extends JFrame implements ListSelectionListener {
     }
 
     public void fireContactDataChanged(){
-        contactsDataModel.fireTableDataChanged();
+        contactsPanel.fireContactDataChanged();
     }
-
 
     public static void fireCustomersAddedOrRemovedForAll(){
         customersGuis.values().forEach(contactsGUI -> {
@@ -175,18 +113,6 @@ public class ContactsGUI extends JFrame implements ListSelectionListener {
     }
 
     public void setContacts(){
-        contactsDataModel.setContacts(contacts);
-    }
-
-    @Override
-    public void valueChanged(ListSelectionEvent e) {
-        if (!e.getValueIsAdjusting()) {
-            int[] rows = table.getSelectedRows();
-            if (rows.length != 0) {
-                details.setEnabled(true);
-            } else {
-                details.setEnabled(false);
-            }
-        }
+        contactsPanel.setContacts();
     }
 }
