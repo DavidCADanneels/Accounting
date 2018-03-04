@@ -19,7 +19,7 @@ public class PurchaseOrdersViewGUI extends JFrame {
     private static PurchaseOrdersViewGUI purchaseOrderGui = null;
 
     private PurchaseOrdersViewGUI(Accounting accounting) {
-        super(getBundle("Accounting").getString("VIEW_SO"));
+        super(getBundle("Accounting").getString("VIEW_PO"));
         orderPanel = new PurchaseOrdersViewPanel(accounting);
         setContentPane(orderPanel);
         pack();

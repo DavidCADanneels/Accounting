@@ -12,19 +12,19 @@ import java.awt.*;
  * Date: 29-12-13
  * Time: 22:07
  */
-public class PurchaseOrdersViewPanel extends JPanel {
+public class SalesOrdersViewPanel extends JPanel {
     private final JButton deliveredButton, payedButton;
     private final SelectableTable<StockItem> table;
-    private final PurchaseOrders purchaseOrders;
+    private final SalesOrders salesOrders;
     private JComboBox<Order> comboBox;
     private JCheckBox payed, delivered;
     private Order order;
-    private final PurchaseOrdersViewDataTableModel purchaseOrdersViewDataTableModel;
+    private final SalesOrdersViewDataTableModel salesOrdersViewDataTableModel;
 
-    public PurchaseOrdersViewPanel(Accounting accounting) {
-        this.purchaseOrders = accounting.getPurchaseOrders();
-        purchaseOrdersViewDataTableModel = new PurchaseOrdersViewDataTableModel();
-        table = new SelectableTable<>(purchaseOrdersViewDataTableModel);
+    public SalesOrdersViewPanel(Accounting accounting) {
+        this.salesOrders = accounting.getSalesOrders();
+        salesOrdersViewDataTableModel = new SalesOrdersViewDataTableModel();
+        table = new SelectableTable<>(salesOrdersViewDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
@@ -32,14 +32,14 @@ public class PurchaseOrdersViewPanel extends JPanel {
         deliveredButton = new JButton("Order Delivered");
         deliveredButton.addActionListener(e -> {
             Stock stock = accounting.getStock();
-            Order order = purchaseOrdersViewDataTableModel.getOrder();
-            stock.addLoad(order);
+            Order order = salesOrdersViewDataTableModel.getOrder();
+            stock.removeLoad(order);
             order.setDelivered(true);
         });
 
         payedButton = new JButton("Order Payed");
         payedButton.addActionListener(e -> {
-            Order order = purchaseOrdersViewDataTableModel.getOrder();
+            Order order = salesOrdersViewDataTableModel.getOrder();
             order.setPayed(true);
         });
 
@@ -55,9 +55,9 @@ public class PurchaseOrdersViewPanel extends JPanel {
             delivered.setSelected(order.isDelivered());
             deliveredButton.setEnabled(!order.isDelivered());
             payedButton.setEnabled(!order.isPayed());
-            purchaseOrdersViewDataTableModel.setOrder(order);
+            salesOrdersViewDataTableModel.setOrder(order);
         });
-        fireSupplierAddedOrRemoved();
+        fireCustomerAddedOrRemoved();
 
         JScrollPane scrollPane = new JScrollPane(table);
         setLayout(new BorderLayout());
@@ -74,9 +74,9 @@ public class PurchaseOrdersViewPanel extends JPanel {
         add(south, BorderLayout.SOUTH);
     }
 
-    public void fireSupplierAddedOrRemoved() {
+    public void fireCustomerAddedOrRemoved() {
         comboBox.removeAllItems();
-        purchaseOrders.getBusinessObjects().forEach(order -> comboBox.addItem(order));
-//        purchaseOrderDataTableModel.fireTableDataChanged();
+        salesOrders.getBusinessObjects().forEach(order -> comboBox.addItem(order));
+//        salesOrdersViewDataTableModel.fireTableDataChanged();
     }
 }
