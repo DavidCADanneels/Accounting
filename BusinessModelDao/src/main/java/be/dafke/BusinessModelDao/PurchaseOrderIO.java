@@ -27,12 +27,12 @@ public class PurchaseOrderIO {
         Articles articles = accounting.getArticles();
         File xmlFile = new File(accountingFolder, PURCHASE_ORDERS + XML);
         Element rootElement = getRootElement(xmlFile, PURCHASE_ORDERS);
+        int nr = 0;
         for (Element salesOrderElement : getChildren(rootElement, PURCHASE_ORDER)) {
-
             Order order = new Order(articles);
             String id = getValue(salesOrderElement, ID);
             order.setName(id);
-
+            nr++;
             String supplierString = getValue(salesOrderElement, SUPPLIER);
             Contact supplier = contacts.getBusinessObject(supplierString);
             order.setSupplier(supplier);
@@ -53,6 +53,7 @@ public class PurchaseOrderIO {
                 e.printStackTrace();
             }
         }
+        PurchaseOrders.setId(nr);
     }
 
     public static void writePurchasesOrders(PurchaseOrders purchaseOrders, File accountingFolder) {

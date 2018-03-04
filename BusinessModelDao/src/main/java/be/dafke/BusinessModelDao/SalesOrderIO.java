@@ -28,12 +28,12 @@ public class SalesOrderIO {
         Articles articles = accounting.getArticles();
         File xmlFile = new File(accountingFolder, SALES_ORDERS + XML);
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS);
+        int nr = 0;
         for (Element salesOrderElement : getChildren(rootElement, SALES_ORDER)) {
-
             Order order = new Order(articles);
             String id = getValue(salesOrderElement, ID);
             order.setName(id);
-
+            nr++;
             String customerString = getValue(salesOrderElement, CUSTOMER);
             Contact customer = contacts.getBusinessObject(customerString);
             order.setCustomer(customer);
@@ -54,6 +54,7 @@ public class SalesOrderIO {
                 e.printStackTrace();
             }
         }
+        SalesOrders.setId(nr);
     }
 
     public static void writeSalesOrders(SalesOrders salesOrders, File accountingFolder) {
