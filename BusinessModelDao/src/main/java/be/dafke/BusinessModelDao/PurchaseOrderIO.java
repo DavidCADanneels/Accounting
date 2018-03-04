@@ -22,22 +22,22 @@ import static be.dafke.Utils.Utils.parseInt;
  */
 public class PurchaseOrderIO {
     public static void readPurchaseOrders(Accounting accounting, File accountingFolder){
-        SalesOrders salesOrders = accounting.getSalesOrders();
+        PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
         Contacts contacts = accounting.getContacts();
         Articles articles = accounting.getArticles();
         File xmlFile = new File(accountingFolder, PURCHASE_ORDERS + XML);
         Element rootElement = getRootElement(xmlFile, PURCHASE_ORDERS);
         int nr = 0;
-        for (Element salesOrderElement : getChildren(rootElement, PURCHASE_ORDER)) {
+        for (Element purchaseOrderElement : getChildren(rootElement, PURCHASE_ORDER)) {
             Order order = new Order(articles);
-            String id = getValue(salesOrderElement, ID);
+            String id = getValue(purchaseOrderElement, ID);
             order.setName(id);
             nr++;
-            String supplierString = getValue(salesOrderElement, SUPPLIER);
+            String supplierString = getValue(purchaseOrderElement, SUPPLIER);
             Contact supplier = contacts.getBusinessObject(supplierString);
             order.setSupplier(supplier);
 
-            for (Element element : getChildren(salesOrderElement, ARTICLE)) {
+            for (Element element : getChildren(purchaseOrderElement, ARTICLE)) {
                 String name = getValue(element, NAME);
                 Article article = articles.getBusinessObject(name);
 
@@ -48,7 +48,7 @@ public class PurchaseOrderIO {
                 order.setItem(stockItem);
             }
             try {
-                salesOrders.addBusinessObject(order);
+                purchaseOrders.addBusinessObject(order);
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();
             }
