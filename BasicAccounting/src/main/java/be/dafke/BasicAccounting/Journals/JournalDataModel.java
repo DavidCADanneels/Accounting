@@ -133,7 +133,6 @@ public class JournalDataModel extends SelectableTableModel<Booking> {
 
 	@Override
 	public Booking getObject(int row, int col) {
-
 		return transaction.getBusinessObjects().get(row);
 	}
 

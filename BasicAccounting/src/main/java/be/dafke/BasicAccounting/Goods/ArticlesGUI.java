@@ -2,8 +2,10 @@ package be.dafke.BasicAccounting.Goods;
 
 
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Article;
 import be.dafke.BusinessModel.Articles;
+import be.dafke.BusinessModel.Contacts;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -22,7 +24,9 @@ public class ArticlesGUI extends JFrame {
     public static void main(String[] args) {
         Articles articles = new Articles();
 //        addDummyData(articles);
-        ArticlesGUI goederen = new ArticlesGUI(articles);
+        Accounting accounting = new Accounting("test");
+        Contacts contacts = new Contacts(accounting);
+        ArticlesGUI goederen = new ArticlesGUI(articles, contacts);
         goederen.setVisible(true);
     }
 
@@ -46,16 +50,16 @@ public class ArticlesGUI extends JFrame {
     }
 
 
-    private ArticlesGUI(Articles articles) {
+    private ArticlesGUI(Articles articles, Contacts contacts) {
         super(getBundle("Accounting").getString("GOODS"));
-        setContentPane(new ArticlesPanel(articles));
+        setContentPane(new ArticlesPanel(articles, contacts));
         pack();
     }
 
-    public static ArticlesGUI showArticles(Articles articles) {
+    public static ArticlesGUI showArticles(Articles articles, Contacts contacts) {
         ArticlesGUI gui = goodsGuis.get(articles);
         if (gui == null) {
-            gui = new ArticlesGUI(articles);
+            gui = new ArticlesGUI(articles, contacts);
             goodsGuis.put(articles, gui);
             Main.addFrame(gui);
         }

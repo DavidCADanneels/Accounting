@@ -8,6 +8,7 @@ public class Article extends BusinessObject{
     private String HSCode = "";
     private Integer vatRate = 6;
     private BigDecimal purchasePrice = null;
+    private Contact supplier;
 
     public Article(String name){
         setName(name);
@@ -23,6 +24,14 @@ public class Article extends BusinessObject{
 
     public void setPurchasePrice(BigDecimal purchasePrice) {
         this.purchasePrice = purchasePrice;
+    }
+
+    public void setSupplier(Contact supplier) {
+        this.supplier = supplier;
+    }
+
+    public Contact getSupplier() {
+        return supplier;
     }
 
     public BigDecimal getPurchasePrice(){

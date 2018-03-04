@@ -28,10 +28,11 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final Articles articles;
-	private int NAME_COL = 0;
-	private int HS_COL = 1;
-	private int PRICE_COL = 2;
-	private int VAT_COL = 3;
+	public static int NAME_COL = 0;
+	public static int HS_COL = 1;
+	public static int PRICE_COL = 2;
+	public static int VAT_COL = 3;
+	public static int SUPPLIER_COL = 4;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 
@@ -46,6 +47,7 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		columnClasses.put(HS_COL, String.class);
 		columnClasses.put(PRICE_COL, BigDecimal.class);
 		columnClasses.put(VAT_COL, Integer.class);
+		columnClasses.put(SUPPLIER_COL, Contact.class);
 	}
 
 	private void setColumnNames() {
@@ -53,6 +55,7 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		columnNames.put(HS_COL, getBundle("Accounting").getString("ARTICLE_HS"));
 		columnNames.put(PRICE_COL, getBundle("Accounting").getString("ARTICLE_PRICE"));
 		columnNames.put(VAT_COL, getBundle("Accounting").getString("ARTICLE_VAT"));
+		columnNames.put(SUPPLIER_COL, getBundle("Contacts").getString("SUPPLIER"));
 	}
 	// DE GET METHODEN
 // ===============
@@ -70,6 +73,9 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		}
 		if (col == PRICE_COL) {
 			return article.getPurchasePrice();
+		}
+		if (col == SUPPLIER_COL) {
+			return article.getSupplier();
 		}
 		return null;
 	}
@@ -113,6 +119,9 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		}
 		if(col == VAT_COL){
             article.setVatRate((Integer) value);
+		}
+		if(col == SUPPLIER_COL){
+            article.setSupplier((Contact) value);
 		}
 		if(col == NAME_COL) {
 //            article.setName((String) value);
