@@ -20,7 +20,6 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 22:07
  */
 public class ArticlesPanel extends JPanel {
-    private final Articles articles;
     private final JButton add;
     private final SelectableTable<Article> table;
     private TableColumn supplierColumn;
@@ -29,7 +28,6 @@ public class ArticlesPanel extends JPanel {
     private final ArticlesDataTableModel articlesDataTableModel;
 
     public ArticlesPanel(Articles articles, Contacts contacts) {
-        this.articles = articles;
         this.contacts = contacts;
         articlesDataTableModel = new ArticlesDataTableModel(articles);
         table = new SelectableTable<>(articlesDataTableModel);

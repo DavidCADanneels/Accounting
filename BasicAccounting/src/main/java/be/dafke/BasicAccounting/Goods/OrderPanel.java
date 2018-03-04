@@ -1,10 +1,7 @@
 package be.dafke.BasicAccounting.Goods;
 
 
-import be.dafke.BusinessModel.Article;
-import be.dafke.BusinessModel.Articles;
-import be.dafke.BusinessModel.Contact;
-import be.dafke.BusinessModel.Contacts;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
@@ -19,16 +16,14 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 22:07
  */
 public class OrderPanel extends JPanel {
-    private final Articles articles;
     private final JButton order;
-    private final SelectableTable<Article> table;
+    private final SelectableTable<StockItem> table;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
     private Contact supplier;
     private final OrderDataTableModel orderDataTableModel;
 
     public OrderPanel(Articles articles, Contacts contacts) {
-        this.articles = articles;
         this.contacts = contacts;
         orderDataTableModel = new OrderDataTableModel(articles, null);
         table = new SelectableTable<>(orderDataTableModel);

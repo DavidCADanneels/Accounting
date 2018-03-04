@@ -1,9 +1,6 @@
 package be.dafke.BasicAccounting.Goods;
 
-import be.dafke.BusinessModel.Article;
-import be.dafke.BusinessModel.Articles;
-import be.dafke.BusinessModel.Contact;
-import be.dafke.BusinessModel.Order;
+import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
@@ -16,7 +13,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class OrderDataTableModel extends SelectableTableModel<Article> {
+public class OrderDataTableModel extends SelectableTableModel<StockItem> {
 	/**
 	 *
 	 */
@@ -41,11 +38,11 @@ public class OrderDataTableModel extends SelectableTableModel<Article> {
 	}
 
 	private void setColumnClasses() {
+		columnClasses.put(NR_COL, Integer.class);
 		columnClasses.put(NAME_COL, String.class);
 		columnClasses.put(HS_COL, String.class);
 		columnClasses.put(PRICE_COL, BigDecimal.class);
 		columnClasses.put(VAT_COL, Integer.class);
-		columnClasses.put(NR_COL, Contact.class);
 	}
 
 	private void setColumnNames() {
@@ -58,7 +55,8 @@ public class OrderDataTableModel extends SelectableTableModel<Article> {
 	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
-		Article article = getObject(row, col);
+		StockItem stockItem = getObject(row, col);
+		Article article = stockItem.getArticle();
 		if (article == null) return null;
 
 		if (col == NAME_COL) {
@@ -75,7 +73,8 @@ public class OrderDataTableModel extends SelectableTableModel<Article> {
 		}
 		if (col == NR_COL) {
 			if (order==null) return null;
-			return order.getItem(article);
+			StockItem item = order.getBusinessObject(article);
+			return item==null?0:item.getNumber();
 		}
 		return null;
 	}
@@ -110,19 +109,21 @@ public class OrderDataTableModel extends SelectableTableModel<Article> {
 // ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		Article article = getObject(row,col);
+		StockItem stockItem = getObject(row,col);
 		if(col == NR_COL){
-			order.setItem(article, (Integer)value);
-            article.setSupplier((Contact) value);
+			int nr = (Integer) value;
+			stockItem.setNumber(nr);
+			order.setItem(stockItem);
 		}
 	}
 
 	@Override
-	public Article getObject(int row, int col) {
+	public StockItem getObject(int row, int col) {
 		if(supplier==null) return null;
-		List<Article> businessObjects = articles.getBusinessObjects(Article.ofSupplier(supplier));
-		if(businessObjects == null || businessObjects.size() == 0) return null;
-		return businessObjects.get(row);
+		List<Article> articleList = articles.getBusinessObjects(Article.ofSupplier(supplier));
+		if(articleList == null || articleList.size() == 0) return null;
+		Article article = articleList.get(row);
+		return order.getBusinessObject(article);
 	}
 
 	public void setSupplier(Contact supplier) {

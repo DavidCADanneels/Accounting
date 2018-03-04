@@ -8,13 +8,14 @@ public class Order extends StockItems{
         this.articles = articles;
     }
 
-    public void setItem(Article article, int totalNumber){
-        stock.put(article, totalNumber);
-    }
-
-    public int getItem(Article article){
-        Integer nr = stock.get(article);
-        return nr==null?0:nr;
+    public void setItem(StockItem stockItem){
+        Article article = stockItem.getArticle();
+        int totalNumber = stockItem.getNumber();
+        if(totalNumber<=0){
+            stock.remove(article);
+        } else {
+            stock.put(article, totalNumber);
+        }
     }
 
     public StockItem getBusinessObject(String name){

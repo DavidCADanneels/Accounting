@@ -48,7 +48,7 @@ public class StockItems extends BusinessCollection<StockItem>{
 
     public StockItem getBusinessObject(Article article){
         Integer numberInStock = stock.get(article);
-        return new StockItem(numberInStock, article);
+        return new StockItem(numberInStock==null?0:numberInStock, article);
     }
 
 }
