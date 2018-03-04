@@ -1,30 +1,28 @@
 package be.dafke.BusinessModel;
 
-import java.util.HashMap;
+public class Stock extends StockItems{
+    private Articles articles;
 
-public class Stock {
-    private HashMap<Article,Integer> stock;
-
-    public Stock() {
-        stock = new HashMap<>();
+    public Stock(Articles articles) {
+        super();
+        this.articles = articles;
     }
 
-    public void addItem(Article article, int numberToAdd){
-        int numberInStock = getNumberInStock(article);
-        stock.put(article, numberInStock+numberToAdd);
+    public void addLoad(StockItems load){
+        load.getBusinessObjects().forEach( stockItem -> {
+            addBusinessObject(stockItem);
+        });
     }
 
-    public void removeItem(Article article, int numberToRemove){
-        int numberInStock = getNumberInStock(article);
-        stock.put(article, numberInStock-numberToRemove);
+    public void removeLoad(StockItems load){
+        load.getBusinessObjects().forEach( stockItem -> {
+            removeBusinessObject(stockItem);
+        });
     }
 
-    public int getNumberInStock(Article article){
-        if(!stock.containsKey(article)) {
-            return 0;
-        } else {
-            return stock.get(article);
-        }
+    public StockItem getBusinessObject(String name){
+        Article article = articles.getBusinessObject(name);
+        return getBusinessObject(article);
     }
 
 }

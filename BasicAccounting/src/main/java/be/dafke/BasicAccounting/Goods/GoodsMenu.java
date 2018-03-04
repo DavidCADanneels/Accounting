@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Goods;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Articles;
 import be.dafke.BusinessModel.Contacts;
+import be.dafke.BusinessModel.Stock;
 
 import javax.swing.*;
 
@@ -18,6 +19,7 @@ public class GoodsMenu extends JMenu {
 
     private Articles articles;
     private Contacts contacts;
+    private Stock stock;
 
     public GoodsMenu() {
         super(getBundle("Accounting").getString("GOODS"));
@@ -32,7 +34,7 @@ public class GoodsMenu extends JMenu {
         stockTable = new JMenuItem(getBundle("Accounting").getString("STOCK"));
         stockTable.setMnemonic(KeyEvent.VK_S);
         stockTable.addActionListener(e -> {
-//            ArticlesGUI.showArticles(articles, contacts).setVisible(true);
+            StockGUI.showStock(stock).setVisible(true);
         });
         stockTable.setEnabled(false);
 
@@ -43,6 +45,12 @@ public class GoodsMenu extends JMenu {
     public void setAccounting(Accounting accounting) {
         setContacts(accounting==null?null:accounting.getContacts());
         setArticles(accounting==null?null:accounting.getArticles());
+        setStock(accounting==null?null:accounting.getStock());
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+        stockTable.setEnabled(stock!=null);
     }
 
     public void setContacts(Contacts contacts) {
