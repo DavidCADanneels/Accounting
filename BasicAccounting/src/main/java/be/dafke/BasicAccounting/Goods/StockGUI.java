@@ -19,17 +19,18 @@ public class StockGUI extends JFrame {
 
     private static final HashMap<Stock, StockGUI> stockGuis = new HashMap<>();
 
-    private StockGUI(Stock stock) {
+    private StockGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("STOCK"));
-        stockPanel = new StockPanel(stock);
+        stockPanel = new StockPanel(accounting);
         setContentPane(stockPanel);
         pack();
     }
 
-    public static StockGUI showStock(Stock stock) {
+    public static StockGUI showStock(Accounting accounting) {
+        Stock stock = accounting.getStock();
         StockGUI gui = stockGuis.get(stock);
         if (gui == null) {
-            gui = new StockGUI(stock);
+            gui = new StockGUI(accounting);
             stockGuis.put(stock, gui);
             Main.addFrame(gui);
         }

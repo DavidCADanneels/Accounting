@@ -20,6 +20,7 @@ public class GoodsMenu extends JMenu {
     private Articles articles;
     private Contacts contacts;
     private Stock stock;
+    private Accounting accounting;
 
     public GoodsMenu() {
         super(getBundle("Accounting").getString("GOODS"));
@@ -34,7 +35,7 @@ public class GoodsMenu extends JMenu {
         stockTable = new JMenuItem(getBundle("Accounting").getString("STOCK"));
         stockTable.setMnemonic(KeyEvent.VK_S);
         stockTable.addActionListener(e -> {
-            StockGUI.showStock(stock).setVisible(true);
+            StockGUI.showStock(accounting).setVisible(true);
         });
         stockTable.setEnabled(false);
 
@@ -43,6 +44,7 @@ public class GoodsMenu extends JMenu {
     }
 
     public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
         setContacts(accounting==null?null:accounting.getContacts());
         setArticles(accounting==null?null:accounting.getArticles());
         setStock(accounting==null?null:accounting.getStock());

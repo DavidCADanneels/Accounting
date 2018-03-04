@@ -18,11 +18,13 @@ import static java.util.ResourceBundle.getBundle;
 public class StockPanel extends JPanel {
     private final JButton createOrder, addOrder;
     private final SelectableTable<StockItem> table;
-    private Stock stock;
+    private Accounting accounting;
     private final StockDataTableModel stockDataTableModel;
 
-    public StockPanel(Stock stock) {
-        this.stock = stock;
+    public StockPanel(Accounting accounting) {
+        Stock stock = accounting.getStock();
+        Articles articles = accounting.getArticles();
+        Contacts contacts = accounting.getContacts();
         stockDataTableModel = new StockDataTableModel(stock);
         table = new SelectableTable<>(stockDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -34,12 +36,12 @@ public class StockPanel extends JPanel {
 
         createOrder = new JButton("create Order");
         createOrder.addActionListener(e -> {
-
+            OrderGUI.showOrderGUI(articles, contacts).setVisible(true);
         });
 
         addOrder = new JButton("add Order");
         addOrder.addActionListener(e -> {
-
+            // TODO: implement
         });
 
 

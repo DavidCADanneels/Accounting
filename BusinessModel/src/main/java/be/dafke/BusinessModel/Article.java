@@ -3,6 +3,7 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;
+import java.util.function.Predicate;
 
 public class Article extends BusinessObject{
     private String HSCode = "";
@@ -106,5 +107,9 @@ public class Article extends BusinessObject{
 
     public BigDecimal getSalesPriceWithoutVat(BigDecimal salesPriceWithVat, int number){
         return multiply(getSalesPriceWithoutVat(salesPriceWithVat), number);
+    }
+
+    public static Predicate<Article> ofSupplier(Contact supplier) {
+        return article -> article.getSupplier() == supplier;
     }
 }
