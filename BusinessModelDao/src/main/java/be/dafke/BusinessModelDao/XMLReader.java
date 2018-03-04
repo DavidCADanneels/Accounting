@@ -132,7 +132,6 @@ public class XMLReader {
         File accountingsFolder = new File(xmlFolder, "Accountings");
         File accountingFolder = new File(accountingsFolder, accounting.getName());
         readAccounts(accounting, accountingFolder);
-        readArticles(accounting, accountingFolder);
         readJournalTypes(accounting, accountingFolder);
         if(accounting.isVatAccounting()) {
             accounting.getVatFields().addDefaultFields();
@@ -150,6 +149,7 @@ public class XMLReader {
         }
         if(accounting.isContactsAccounting()) {
             readContacts(accounting, accountingFolder);
+            readArticles(accounting, accountingFolder);
         }
     }
 

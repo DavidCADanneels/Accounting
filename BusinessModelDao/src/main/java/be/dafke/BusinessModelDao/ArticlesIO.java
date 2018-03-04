@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,6 +25,7 @@ import static be.dafke.Utils.Utils.parseInt;
 public class ArticlesIO {
     public static void readArticles(Accounting accounting, File accountingFolder){
         Articles articles = accounting.getArticles();
+        Contacts contacts = accounting.getContacts();
         File xmlFile = new File(accountingFolder, ARTICLES + XML);
         Element rootElement = getRootElement(xmlFile, ARTICLES);
         for (Element element : getChildren(rootElement, ARTICLE)) {
@@ -43,6 +45,19 @@ public class ArticlesIO {
             if(vatRate!=null)
                 article.setVatRate(parseInt(vatRate));
 
+            String supplierName = getValue(element, SUPPLIER);
+            if(supplierName!=null) {
+                Contact supplier = contacts.getBusinessObject(supplierName);
+                List<Contact> suppliersList = contacts.getBusinessObjects(Contact::isSupplier);
+                if (supplier != null) {
+                    if (!suppliersList.contains(supplier)) {
+                        System.err.println("The contact " + supplierName + " is not marked as Supplier");
+                        // TODO: setSupplier ?
+//                        supplier.setSupplier(true);
+                    }
+                    article.setSupplier(supplier);
+                }
+            }
             try {
                 articles.addBusinessObject(article);
             } catch (EmptyNameException | DuplicateNameException e) {
@@ -64,6 +79,7 @@ public class ArticlesIO {
                                 "    <" + ARTICLE_HS_CODE + ">" + article.getHSCode() + "</" + ARTICLE_HS_CODE + ">\n" +
                                 "    <" + ARTICLE_VAT_RATE + ">" + article.getVatRate() + "</" + ARTICLE_VAT_RATE + ">\n" +
                                 "    <" + ARTICLE_PURCHASE_PRICE + ">" + article.getPurchasePrice() + "</" + ARTICLE_PURCHASE_PRICE + ">\n" +
+                                "    <" + SUPPLIER + ">" + article.getSupplier() + "</" + SUPPLIER + ">\n" +
                                 "  </" + ARTICLE + ">\n"
                 );
             }
