@@ -14,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class PurchaseOrderDataTableModel extends SelectableTableModel<StockItem> {
+public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<StockItem> {
 	/**
 	 *
 	 */
@@ -31,7 +31,7 @@ public class PurchaseOrderDataTableModel extends SelectableTableModel<StockItem>
 	private Order order;
 	private Predicate<Article> filter;
 
-	public PurchaseOrderDataTableModel(Articles articles, Contact contact) {
+	public PurchaseOrderCreateDataTableModel(Articles articles, Contact contact) {
 		this.articles = articles;
 		this.contact = contact;
 		setColumnNames();

@@ -3,10 +3,27 @@ package be.dafke.BusinessModel;
 public class Order extends StockItems{
     private Articles articles;
     private Contact customer, supplier;
+    private boolean delivered, payed;
 
     public Order(Articles articles) {
         super();
         this.articles = articles;
+    }
+
+    public void setDelivered(boolean delivered) {
+        this.delivered = delivered;
+    }
+
+    public boolean isDelivered() {
+        return delivered;
+    }
+
+    public boolean isPayed() {
+        return payed;
+    }
+
+    public void setPayed(boolean payed) {
+        this.payed = payed;
     }
 
     public enum OrderType{

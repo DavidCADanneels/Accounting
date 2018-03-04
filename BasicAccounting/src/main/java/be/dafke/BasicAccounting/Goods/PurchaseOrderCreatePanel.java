@@ -15,7 +15,7 @@ import java.util.function.Predicate;
  * Date: 29-12-13
  * Time: 22:07
  */
-public class PurchaseOrderPanel extends JPanel {
+public class PurchaseOrderCreatePanel extends JPanel {
     private final JButton orderButton;
     private final SelectableTable<StockItem> table;
     private JComboBox<Contact> comboBox;
@@ -23,13 +23,13 @@ public class PurchaseOrderPanel extends JPanel {
     private Articles articles;
     private Contact contact;
     Predicate<Contact> filter;
-    private final PurchaseOrderDataTableModel purchaseOrderDataTableModel;
+    private final PurchaseOrderCreateDataTableModel purchaseOrderCreateDataTableModel;
 
-    public PurchaseOrderPanel(Accounting accounting) {
+    public PurchaseOrderCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
-        purchaseOrderDataTableModel = new PurchaseOrderDataTableModel(articles, null);
-        table = new SelectableTable<>(purchaseOrderDataTableModel);
+        purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null);
+        table = new SelectableTable<>(purchaseOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
@@ -37,19 +37,19 @@ public class PurchaseOrderPanel extends JPanel {
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {
             contact = (Contact) comboBox.getSelectedItem();
-            purchaseOrderDataTableModel.setContact(contact);
+            purchaseOrderCreateDataTableModel.setContact(contact);
         });
         filter = Contact::isSupplier;
         fireSupplierAddedOrRemoved();
 
         orderButton = new JButton("Book Order");
         orderButton.addActionListener(e -> {
-            Order order = purchaseOrderDataTableModel.getOrder();
+            Order order = purchaseOrderCreateDataTableModel.getOrder();
             PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
             order.setSupplier(contact);
             try {
                 purchaseOrders.addBusinessObject(order);
-                purchaseOrderDataTableModel.newOrder();
+                purchaseOrderCreateDataTableModel.newOrder();
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {

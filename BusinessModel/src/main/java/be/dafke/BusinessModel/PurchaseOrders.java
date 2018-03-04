@@ -22,4 +22,8 @@ public class PurchaseOrders extends BusinessCollection<Order>{
         }
         return super.addBusinessObject(order);
     }
+
+    public void removeBusinessObject(Order order){
+        removeBusinessObject(order.getUniqueProperties());
+    }
 }
