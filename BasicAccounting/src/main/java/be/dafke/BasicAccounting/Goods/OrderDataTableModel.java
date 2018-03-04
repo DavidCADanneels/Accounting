@@ -138,8 +138,10 @@ public class OrderDataTableModel extends SelectableTableModel<StockItem> {
 		this.contact = contact;
 		if(orderType == Order.OrderType.PURCHASE){
 			filter = Article.ofSupplier(contact);
+			order.setSupplier(contact);
 		} else if (orderType == Order.OrderType.SALE){
 			filter = Article.forCustomer(contact);
+			order.setCustomer(contact);
 		} else {
 			filter = null;
 		}

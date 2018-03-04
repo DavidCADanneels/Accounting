@@ -2,6 +2,7 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class StockItems extends BusinessCollection<StockItem>{
@@ -40,6 +41,16 @@ public class StockItems extends BusinessCollection<StockItem>{
     public StockItem addBusinessObject(StockItem stockItem){
         addItem(stockItem.getArticle(),stockItem.getNumber());
         return stockItem;
+    }
+
+    public ArrayList<StockItem> getBusinessObjects() {
+        ArrayList<StockItem> result = new ArrayList<>();
+        for (Article article : stock.keySet()){
+            Integer number = stock.get(article);
+            StockItem stockItem = new StockItem(number, article);
+            result.add(stockItem);
+        }
+        return result;
     }
 
     public void removeBusinessObject(StockItem stockItem){

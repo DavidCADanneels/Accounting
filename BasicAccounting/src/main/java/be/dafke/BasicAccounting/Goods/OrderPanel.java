@@ -18,7 +18,7 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 22:07
  */
 public class OrderPanel extends JPanel {
-    private final JButton order;
+    private final JButton orderButton;
     private final SelectableTable<StockItem> table;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
@@ -44,12 +44,13 @@ public class OrderPanel extends JPanel {
         filter = orderType==Order.OrderType.PURCHASE?Contact::isSupplier:Contact::isCustomer;
         fireSupplierAddedOrRemoved();
 
-        order = new JButton("Book Order");
-        order.addActionListener(e -> {
+        orderButton = new JButton("Book Order");
+        orderButton.addActionListener(e -> {
             Order order = orderDataTableModel.getOrder();
             if(orderType==Order.OrderType.PURCHASE) {
                 PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
                 order.setName(purchaseOrders.getId());
+                order.setSupplier(contact);
                 try {
                     purchaseOrders.addBusinessObject(order);
                 } catch (EmptyNameException e1) {
@@ -74,7 +75,7 @@ public class OrderPanel extends JPanel {
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
         add(comboBox, BorderLayout.NORTH);
-        add(order, BorderLayout.SOUTH);
+        add(orderButton, BorderLayout.SOUTH);
     }
 
     public void fireSupplierAddedOrRemoved() {

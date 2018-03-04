@@ -71,7 +71,7 @@ public class PurchaseOrderIO {
                     writer.write(
                             "    <" + ARTICLE + ">\n" +
                                 "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                                "      <" + NUMBER + ">" + article.getHSCode() + "</" + NUMBER + ">\n" +
+                                "      <" + NUMBER + ">" + stockItem.getNumber() + "</" + NUMBER + ">\n" +
                                 "    </" + ARTICLE + ">\n"
                     );
                 }
