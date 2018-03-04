@@ -37,7 +37,8 @@ public class ArticlesPanel extends JPanel {
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
 
-        comboBox=createComboBox();
+        comboBox = new JComboBox<>();
+        fireSupplierAddedOrRemoved();
         supplierColumn = table.getColumnModel().getColumn(ArticlesDataTableModel.SUPPLIER_COL);
         supplierColumn.setCellEditor(new DefaultCellEditor(comboBox));
 
@@ -64,10 +65,9 @@ public class ArticlesPanel extends JPanel {
         });
     }
 
-    private JComboBox<Contact> createComboBox() {
-        JComboBox<Contact> comboBox = new JComboBox<>();
+    public void fireSupplierAddedOrRemoved() {
         comboBox.removeAllItems();
         contacts.getBusinessObjects().forEach(contact -> comboBox.addItem(contact));
-        return comboBox;
+        articlesDataTableModel.fireTableDataChanged();
     }
 }

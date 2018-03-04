@@ -12,6 +12,7 @@ import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Contacts.ContactSelector;
 import be.dafke.BasicAccounting.Contacts.ContactsGUI;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
+import be.dafke.BasicAccounting.Goods.ArticlesGUI;
 import be.dafke.BasicAccounting.Goods.GoodsMenu;
 import be.dafke.BasicAccounting.Journals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
@@ -305,6 +306,7 @@ public class Main {
 
     public static void fireSupplierAddedOrRemoved() {
         ContactsGUI.fireSupplierAddedOrRemovedForAll();
+        ArticlesGUI.fireSuppliersAddedOrRemovedForAll();
     }
 
     public static void saveData() {

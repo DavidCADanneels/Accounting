@@ -21,6 +21,8 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 22:07
  */
 public class ArticlesGUI extends JFrame {
+    private final ArticlesPanel articlesPanel;
+
     public static void main(String[] args) {
         Articles articles = new Articles();
 //        addDummyData(articles);
@@ -51,8 +53,9 @@ public class ArticlesGUI extends JFrame {
 
 
     private ArticlesGUI(Articles articles, Contacts contacts) {
-        super(getBundle("Accounting").getString("GOODS"));
-        setContentPane(new ArticlesPanel(articles, contacts));
+        super(getBundle("Accounting").getString("ARTICLES"));
+        articlesPanel = new ArticlesPanel(articles, contacts);
+        setContentPane(articlesPanel);
         pack();
     }
 
@@ -64,5 +67,15 @@ public class ArticlesGUI extends JFrame {
             Main.addFrame(gui);
         }
         return gui;
+    }
+
+    public static void fireSuppliersAddedOrRemovedForAll(){
+        goodsGuis.values().forEach(articlesGUI -> {
+            articlesGUI.fireSuppliersAddedOrRemoved();
+        });
+    }
+
+    public void fireSuppliersAddedOrRemoved(){
+        articlesPanel.fireSupplierAddedOrRemoved();
     }
 }
