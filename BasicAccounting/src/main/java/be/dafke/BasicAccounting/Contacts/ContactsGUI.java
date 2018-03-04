@@ -99,8 +99,10 @@ public class ContactsGUI extends JFrame implements ListSelectionListener {
 
         JPanel south = new JPanel();
         south.add(create);
-        south.add(createList);
         south.add(details);
+        if(contactType == Contact.ContactType.CUSTOMERS) {
+            south.add(createList);
+        }
 
         contactsDataModel = new ContactsDataModel(contacts, contactType);
         table = new JTable(contactsDataModel);
