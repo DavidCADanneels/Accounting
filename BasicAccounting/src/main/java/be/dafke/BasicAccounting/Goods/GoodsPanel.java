@@ -31,6 +31,8 @@ public class GoodsPanel extends JPanel {
         goodsDataTableModel = new GoodsDataTableModel(articles);
         table = new SelectableTable<>(goodsDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
+        table.setAutoCreateRowSorter(true);
+//        table.setRowSorter(null);
         JScrollPane scrollPane = new JScrollPane(table);
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
