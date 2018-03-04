@@ -32,7 +32,7 @@ public class ArticlesGUI extends JFrame {
         goederen.setVisible(true);
     }
 
-    private static final HashMap<Articles, ArticlesGUI> goodsGuis = new HashMap<>();
+    private static final HashMap<Articles, ArticlesGUI> articlesGuis = new HashMap<>();
 
     public static void addDummyData(Articles articles){
         Article article1 = new Article("article1");
@@ -60,17 +60,17 @@ public class ArticlesGUI extends JFrame {
     }
 
     public static ArticlesGUI showArticles(Articles articles, Contacts contacts) {
-        ArticlesGUI gui = goodsGuis.get(articles);
+        ArticlesGUI gui = articlesGuis.get(articles);
         if (gui == null) {
             gui = new ArticlesGUI(articles, contacts);
-            goodsGuis.put(articles, gui);
+            articlesGuis.put(articles, gui);
             Main.addFrame(gui);
         }
         return gui;
     }
 
     public static void fireSuppliersAddedOrRemovedForAll(){
-        goodsGuis.values().forEach(articlesGUI -> {
+        articlesGuis.values().forEach(articlesGUI -> {
             articlesGUI.fireSuppliersAddedOrRemoved();
         });
     }
