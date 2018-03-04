@@ -1,9 +1,7 @@
 package be.dafke.BasicAccounting.Goods;
 
 
-import be.dafke.BasicAccounting.Accounts.AccountsTable.AccountDataTableModel;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
-import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Article;
 import be.dafke.BusinessModel.Articles;
 import be.dafke.ComponentModel.SelectableTable;
@@ -20,16 +18,16 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 29-12-13
  * Time: 22:07
  */
-public class GoodsPanel extends JPanel {
+public class ArticlesPanel extends JPanel {
     private final Articles articles;
     private final JButton add;
     private final SelectableTable<Article> table;
-    private final GoodsDataTableModel goodsDataTableModel;
+    private final ArticlesDataTableModel articlesDataTableModel;
 
-    public GoodsPanel(Articles articles) {
+    public ArticlesPanel(Articles articles) {
         this.articles = articles;
-        goodsDataTableModel = new GoodsDataTableModel(articles);
-        table = new SelectableTable<>(goodsDataTableModel);
+        articlesDataTableModel = new ArticlesDataTableModel(articles);
+        table = new SelectableTable<>(articlesDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
@@ -46,7 +44,7 @@ public class GoodsPanel extends JPanel {
             if (name != null) {
                 try {
                     articles.addBusinessObject(new Article(name));
-                    goodsDataTableModel.fireTableDataChanged();
+                    articlesDataTableModel.fireTableDataChanged();
                 } catch (EmptyNameException ex) {
                     ActionUtils.showErrorMessage(ActionUtils.ARTICLE_NAME_EMPTY);
                 } catch (DuplicateNameException ex) {

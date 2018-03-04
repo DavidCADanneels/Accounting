@@ -18,15 +18,15 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 29-12-13
  * Time: 22:07
  */
-public class Goods extends JFrame {
+public class ArticlesGUI extends JFrame {
     public static void main(String[] args) {
         Articles articles = new Articles();
 //        addDummyData(articles);
-        Goods goederen = new Goods(articles);
+        ArticlesGUI goederen = new ArticlesGUI(articles);
         goederen.setVisible(true);
     }
 
-    private static final HashMap<Articles, Goods> goodsGuis = new HashMap<>();
+    private static final HashMap<Articles, ArticlesGUI> goodsGuis = new HashMap<>();
 
     public static void addDummyData(Articles articles){
         Article article1 = new Article("article1");
@@ -46,16 +46,16 @@ public class Goods extends JFrame {
     }
 
 
-    private Goods(Articles articles) {
+    private ArticlesGUI(Articles articles) {
         super(getBundle("Accounting").getString("GOODS"));
-        setContentPane(new GoodsPanel(articles));
+        setContentPane(new ArticlesPanel(articles));
         pack();
     }
 
-    public static Goods showArticles(Articles articles) {
-        Goods gui = goodsGuis.get(articles);
+    public static ArticlesGUI showArticles(Articles articles) {
+        ArticlesGUI gui = goodsGuis.get(articles);
         if (gui == null) {
-            gui = new Goods(articles);
+            gui = new ArticlesGUI(articles);
             goodsGuis.put(articles, gui);
             Main.addFrame(gui);
         }

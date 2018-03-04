@@ -1,9 +1,7 @@
 package be.dafke.BasicAccounting.Goods;
 
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Articles;
-import be.dafke.BusinessModel.Contacts;
 
 import javax.swing.*;
 
@@ -24,7 +22,7 @@ public class GoodsMenu extends JMenu {
         setMnemonic(KeyEvent.VK_G);
         articlesTable = new JMenuItem(getBundle("Accounting").getString("ARTICLES"));
         articlesTable.addActionListener(e -> {
-            Goods.showArticles(articles).setVisible(true);
+            ArticlesGUI.showArticles(articles).setVisible(true);
         });
         articlesTable.setEnabled(false);
         add(articlesTable);

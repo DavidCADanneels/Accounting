@@ -22,7 +22,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class GoodsDataTableModel extends SelectableTableModel<Article> {
+public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 	/**
 	 *
 	 */
@@ -35,7 +35,7 @@ public class GoodsDataTableModel extends SelectableTableModel<Article> {
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 
-	public GoodsDataTableModel(Articles articles) {
+	public ArticlesDataTableModel(Articles articles) {
 		this.articles = articles;
 		setColumnNames();
 		setColumnClasses();
