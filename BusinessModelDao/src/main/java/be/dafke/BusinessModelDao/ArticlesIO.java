@@ -68,7 +68,6 @@ public class ArticlesIO {
 
     public static void writeArticles(Articles articles, File accountingFolder) {
         File file = new File(accountingFolder, ARTICLES + XML);
-        File folder = new File(accountingFolder, ARTICLE);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(ARTICLES, 2));

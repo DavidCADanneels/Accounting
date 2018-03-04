@@ -2,6 +2,7 @@ package be.dafke.BusinessModel;
 
 public class Order extends StockItems{
     private Articles articles;
+    private Contact customer, supplier;
 
     public Order(Articles articles) {
         super();
@@ -27,4 +28,19 @@ public class Order extends StockItems{
         return getBusinessObject(article);
     }
 
+    public Contact getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Contact customer) {
+        this.customer = customer;
+    }
+
+    public Contact getSupplier() {
+        return supplier;
+    }
+
+    public void setSupplier(Contact supplier) {
+        this.supplier = supplier;
+    }
 }
