@@ -136,4 +136,8 @@ public class SalesOrderDataTableModel extends SelectableTableModel<StockItem> {
 		order.setCustomer(contact);
 		fireTableDataChanged();
 	}
+
+	public void newOrder() {
+		order = new Order(articles);
+	}
 }

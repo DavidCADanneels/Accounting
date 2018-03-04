@@ -46,9 +46,10 @@ public class SalesOrderPanel extends JPanel {
         orderButton.addActionListener(e -> {
             Order order = salesOrderDataTableModel.getOrder();
             SalesOrders salesOrders = accounting.getSalesOrders();
-            order.setName(salesOrders.getId());
+            order.setCustomer(contact);
             try {
                 salesOrders.addBusinessObject(order);
+                salesOrderDataTableModel.newOrder();
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {

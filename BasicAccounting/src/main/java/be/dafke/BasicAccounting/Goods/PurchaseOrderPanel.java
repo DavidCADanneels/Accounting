@@ -46,10 +46,10 @@ public class PurchaseOrderPanel extends JPanel {
         orderButton.addActionListener(e -> {
             Order order = purchaseOrderDataTableModel.getOrder();
             PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
-            order.setName(purchaseOrders.getId());
             order.setSupplier(contact);
             try {
                 purchaseOrders.addBusinessObject(order);
+                purchaseOrderDataTableModel.newOrder();
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {

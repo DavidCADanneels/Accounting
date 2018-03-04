@@ -138,4 +138,8 @@ public class PurchaseOrderDataTableModel extends SelectableTableModel<StockItem>
 		order.setSupplier(contact);
 		fireTableDataChanged();
 	}
+
+	public void newOrder() {
+		order = new Order(articles);
+	}
 }
