@@ -14,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class OrderDataTableModel extends SelectableTableModel<StockItem> {
+public class PurchaseOrderDataTableModel extends SelectableTableModel<StockItem> {
 	/**
 	 *
 	 */
@@ -29,11 +29,9 @@ public class OrderDataTableModel extends SelectableTableModel<StockItem> {
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private Contact contact;
 	private Order order;
-	Order.OrderType orderType;
-	Predicate<Article> filter;
+	private Predicate<Article> filter;
 
-	public OrderDataTableModel(Articles articles, Contact contact, Order.OrderType orderType) {
-		this.orderType = orderType;
+	public PurchaseOrderDataTableModel(Articles articles, Contact contact) {
 		this.articles = articles;
 		this.contact = contact;
 		setColumnNames();
@@ -106,7 +104,7 @@ public class OrderDataTableModel extends SelectableTableModel<StockItem> {
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return col == NR_COL;
+		return col==NR_COL;
 	}
 
 // DE SET METHODEN
@@ -136,15 +134,8 @@ public class OrderDataTableModel extends SelectableTableModel<StockItem> {
 
 	public void setContact(Contact contact) {
 		this.contact = contact;
-		if(orderType == Order.OrderType.PURCHASE){
-			filter = Article.ofSupplier(contact);
-			order.setSupplier(contact);
-		} else if (orderType == Order.OrderType.SALE){
-			filter = Article.forCustomer(contact);
-			order.setCustomer(contact);
-		} else {
-			filter = null;
-		}
+		filter = Article.ofSupplier(contact);
+		order.setSupplier(contact);
 		fireTableDataChanged();
 	}
 }

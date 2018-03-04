@@ -10,14 +10,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.function.Predicate;
 
-import static java.util.ResourceBundle.getBundle;
-
 /**
  * User: david
  * Date: 29-12-13
  * Time: 22:07
  */
-public class OrderPanel extends JPanel {
+public class PurchaseOrderPanel extends JPanel {
     private final JButton orderButton;
     private final SelectableTable<StockItem> table;
     private JComboBox<Contact> comboBox;
@@ -25,13 +23,13 @@ public class OrderPanel extends JPanel {
     private Articles articles;
     private Contact contact;
     Predicate<Contact> filter;
-    private final OrderDataTableModel orderDataTableModel;
+    private final PurchaseOrderDataTableModel purchaseOrderDataTableModel;
 
-    public OrderPanel(Accounting accounting, Order.OrderType orderType) {
+    public PurchaseOrderPanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
-        orderDataTableModel = new OrderDataTableModel(articles, null, orderType);
-        table = new SelectableTable<>(orderDataTableModel);
+        purchaseOrderDataTableModel = new PurchaseOrderDataTableModel(articles, null);
+        table = new SelectableTable<>(purchaseOrderDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
@@ -39,35 +37,23 @@ public class OrderPanel extends JPanel {
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {
             contact = (Contact) comboBox.getSelectedItem();
-            orderDataTableModel.setContact(contact);
+            purchaseOrderDataTableModel.setContact(contact);
         });
-        filter = orderType==Order.OrderType.PURCHASE?Contact::isSupplier:Contact::isCustomer;
+        filter = Contact::isSupplier;
         fireSupplierAddedOrRemoved();
 
         orderButton = new JButton("Book Order");
         orderButton.addActionListener(e -> {
-            Order order = orderDataTableModel.getOrder();
-            if(orderType==Order.OrderType.PURCHASE) {
-                PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
-                order.setName(purchaseOrders.getId());
-                order.setSupplier(contact);
-                try {
-                    purchaseOrders.addBusinessObject(order);
-                } catch (EmptyNameException e1) {
-                    e1.printStackTrace();
-                } catch (DuplicateNameException e1) {
-                    e1.printStackTrace();
-                }
-            } else if(orderType==Order.OrderType.SALE) {
-                SalesOrders salesOrders = accounting.getSalesOrders();
-                order.setName(salesOrders.getId());
-                try {
-                    salesOrders.addBusinessObject(order);
-                } catch (EmptyNameException e1) {
-                    e1.printStackTrace();
-                } catch (DuplicateNameException e1) {
-                    e1.printStackTrace();
-                }
+            Order order = purchaseOrderDataTableModel.getOrder();
+            PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
+            order.setName(purchaseOrders.getId());
+            order.setSupplier(contact);
+            try {
+                purchaseOrders.addBusinessObject(order);
+            } catch (EmptyNameException e1) {
+                e1.printStackTrace();
+            } catch (DuplicateNameException e1) {
+                e1.printStackTrace();
             }
         });
 
@@ -81,6 +67,6 @@ public class OrderPanel extends JPanel {
     public void fireSupplierAddedOrRemoved() {
         comboBox.removeAllItems();
         contacts.getBusinessObjects(filter).forEach(contact -> comboBox.addItem(contact));
-//        orderDataTableModel.fireTableDataChanged();
+//        purchaseOrderDataTableModel.fireTableDataChanged();
     }
 }

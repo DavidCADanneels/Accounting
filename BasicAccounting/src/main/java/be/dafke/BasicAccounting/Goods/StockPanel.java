@@ -15,7 +15,7 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 22:07
  */
 public class StockPanel extends JPanel {
-    private final JButton createPurchaseOrder, createSalesOrder;
+    private final JButton createPurchaseOrder, createSalesOrder;//, viewSalesOrder, viewPurchaseOrder;
     private final SelectableTable<StockItem> table;
     private final StockDataTableModel stockDataTableModel;
 
@@ -32,16 +32,27 @@ public class StockPanel extends JPanel {
 
         createPurchaseOrder = new JButton("create Purchase Order");
         createPurchaseOrder.addActionListener(e -> {
-            OrderGUI.showPurchaseOrderGUI(accounting).setVisible(true);
+            PurchaseOrderGUI.showPurchaseOrderGUI(accounting).setVisible(true);
         });
 
         createSalesOrder = new JButton("create Sales Order");
         createSalesOrder.addActionListener(e -> {
-            OrderGUI.showSalesOrderGUI(accounting).setVisible(true);
+            SalesOrderGUI.showSalesOrderGUI(accounting).setVisible(true);
         });
 
 
-        JPanel buttons = new JPanel();
+//        viewPurchaseOrder = new JButton("create Purchase Order");
+//        viewPurchaseOrder.addActionListener(e -> {
+//            PurchaseOrderGUI.showPurchaseOrdersGUI(accounting).setVisible(true);
+//        });
+//
+//        viewSalesOrder = new JButton("create Sales Order");
+//        viewSalesOrder.addActionListener(e -> {
+//            SalesOrderGUI.showSalesOrdersGUI(accounting).setVisible(true);
+//        });
+
+
+        JPanel buttons = new JPanel(new GridLayout(0,2));
         buttons.add(createPurchaseOrder);
         buttons.add(createSalesOrder);
 
