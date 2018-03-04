@@ -5,7 +5,7 @@ import be.dafke.ObjectModel.BusinessCollection;
 import java.util.HashMap;
 
 public class StockItems extends BusinessCollection<StockItem>{
-    private HashMap<Article,Integer> stock;
+    protected HashMap<Article,Integer> stock;
 
     public StockItems() {
         super();

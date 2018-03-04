@@ -1,15 +1,12 @@
 package be.dafke.BasicAccounting.Goods;
 
-import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.Article;
 import be.dafke.BusinessModel.Articles;
 import be.dafke.BusinessModel.Contact;
+import be.dafke.BusinessModel.Order;
 import be.dafke.ComponentModel.SelectableTableModel;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
@@ -25,20 +22,22 @@ public class OrderDataTableModel extends SelectableTableModel<Article> {
 	 */
 	private static final long serialVersionUID = 1L;
 	private final Articles articles;
-	public static int NAME_COL = 0;
-	public static int HS_COL = 1;
-	public static int PRICE_COL = 2;
-	public static int VAT_COL = 3;
-	public static int SUPPLIER_COL = 4;
+	public static int NR_COL = 0;
+	public static int NAME_COL = 1;
+	public static int HS_COL = 2;
+	public static int PRICE_COL = 3;
+	public static int VAT_COL = 4;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private Contact supplier;
+	private Order order;
 
 	public OrderDataTableModel(Articles articles, Contact supplier) {
 		this.articles = articles;
 		this.supplier = supplier;
 		setColumnNames();
 		setColumnClasses();
+		order = new Order(articles);
 	}
 
 	private void setColumnClasses() {
@@ -46,15 +45,15 @@ public class OrderDataTableModel extends SelectableTableModel<Article> {
 		columnClasses.put(HS_COL, String.class);
 		columnClasses.put(PRICE_COL, BigDecimal.class);
 		columnClasses.put(VAT_COL, Integer.class);
-		columnClasses.put(SUPPLIER_COL, Contact.class);
+		columnClasses.put(NR_COL, Contact.class);
 	}
 
 	private void setColumnNames() {
+		columnNames.put(NR_COL, getBundle("Accounting").getString("NR_TO_ORDER"));
 		columnNames.put(NAME_COL, getBundle("Accounting").getString("ARTICLE_NAME"));
 		columnNames.put(HS_COL, getBundle("Accounting").getString("ARTICLE_HS"));
 		columnNames.put(PRICE_COL, getBundle("Accounting").getString("ARTICLE_PRICE"));
 		columnNames.put(VAT_COL, getBundle("Accounting").getString("ARTICLE_VAT"));
-		columnNames.put(SUPPLIER_COL, getBundle("Contacts").getString("SUPPLIER"));
 	}
 	// DE GET METHODEN
 // ===============
@@ -74,8 +73,9 @@ public class OrderDataTableModel extends SelectableTableModel<Article> {
 		if (col == PRICE_COL) {
 			return article.getPurchasePrice();
 		}
-		if (col == SUPPLIER_COL) {
-			return article.getSupplier();
+		if (col == NR_COL) {
+			if (order==null) return null;
+			return order.getItem(article);
 		}
 		return null;
 	}
@@ -103,7 +103,7 @@ public class OrderDataTableModel extends SelectableTableModel<Article> {
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return true;
+		return col == NR_COL;
 	}
 
 // DE SET METHODEN
@@ -111,31 +111,9 @@ public class OrderDataTableModel extends SelectableTableModel<Article> {
 	@Override
 	public void setValueAt(Object value, int row, int col) {
 		Article article = getObject(row,col);
-		if(col == PRICE_COL){
-            article.setPurchasePrice((BigDecimal) value);
-		}
-		if(col == HS_COL){
-            article.setHSCode((String) value);
-		}
-		if(col == VAT_COL){
-            article.setVatRate((Integer) value);
-		}
-		if(col == SUPPLIER_COL){
+		if(col == NR_COL){
+			order.setItem(article, (Integer)value);
             article.setSupplier((Contact) value);
-		}
-		if(col == NAME_COL) {
-//            article.setName((String) value);
-			String oldName = article.getName();
-			String newName = (String) value;
-			if (newName != null && !oldName.trim().equals(newName.trim())) {
-				try {
-					articles.modifyName(oldName, newName);
-				} catch (DuplicateNameException e) {
-					ActionUtils.showErrorMessage(ActionUtils.ARTICLE_DUPLICATE_NAME, newName.trim());
-				} catch (EmptyNameException e) {
-					ActionUtils.showErrorMessage(ActionUtils.ARTICLE_NAME_EMPTY);
-				}
-			}
 		}
 	}
 
