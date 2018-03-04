@@ -15,6 +15,8 @@ public class Accounting extends BusinessObject{
     private Projects projects;
     private Contacts contacts;
     private Stock stock;
+    private PurchaseOrders purchaseOrders;
+    private SalesOrders salesOrders;
     private Journal transactions;
     private VATTransactions vatTransactions;
     private VATFields vatFields;
@@ -58,6 +60,10 @@ public class Accounting extends BusinessObject{
         articles = new Articles();
 
         stock = new Stock(articles);
+
+        purchaseOrders = new PurchaseOrders();
+
+        salesOrders = new SalesOrders();
 	}
 
     // Collections
@@ -120,6 +126,14 @@ public class Accounting extends BusinessObject{
 
     public Stock getStock() {
         return stock;
+    }
+
+    public PurchaseOrders getPurchaseOrders() {
+        return purchaseOrders;
+    }
+
+    public SalesOrders getSalesOrders() {
+        return salesOrders;
     }
 
     public boolean isRead() {

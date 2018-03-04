@@ -2,10 +2,7 @@ package be.dafke.BasicAccounting.Goods;
 
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Articles;
-import be.dafke.BusinessModel.Contacts;
-import be.dafke.BusinessModel.Stock;
-import be.dafke.BusinessModel.StockItems;
+import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
 import java.util.HashMap;
@@ -20,20 +17,29 @@ import static java.util.ResourceBundle.getBundle;
 public class OrderGUI extends JFrame {
     private final OrderPanel orderPanel;
 
-    private static OrderGUI orderGui = null;
+    private static OrderGUI purchaseOrderGui = null;
+    private static OrderGUI salesOrderGui = null;
 
-    private OrderGUI(Articles articles, Contacts contacts) {
+    private OrderGUI(Accounting accounting, Order.OrderType orderType) {
         super(getBundle("Accounting").getString("STOCK"));
-        orderPanel = new OrderPanel(articles, contacts);
+        orderPanel = new OrderPanel(accounting, orderType);
         setContentPane(orderPanel);
         pack();
     }
 
-    public static OrderGUI showOrderGUI(Articles articles, Contacts contacts) {
-        if (orderGui == null) {
-            orderGui = new OrderGUI(articles, contacts);
-            Main.addFrame(orderGui);
+    public static OrderGUI showPurchaseOrderGUI(Accounting accounting) {
+        if (purchaseOrderGui == null) {
+            purchaseOrderGui = new OrderGUI(accounting, Order.OrderType.PURCHASE);
+            Main.addFrame(purchaseOrderGui);
         }
-        return orderGui;
+        return purchaseOrderGui;
+    }
+
+    public static OrderGUI showSalesOrderGUI(Accounting accounting) {
+        if (salesOrderGui == null) {
+            salesOrderGui = new OrderGUI(accounting, Order.OrderType.SALE);
+            Main.addFrame(salesOrderGui);
+        }
+        return salesOrderGui;
     }
 }

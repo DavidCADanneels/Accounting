@@ -6,6 +6,7 @@ import be.dafke.ComponentModel.SelectableTableModel;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -26,12 +27,15 @@ public class OrderDataTableModel extends SelectableTableModel<StockItem> {
 	public static int VAT_COL = 4;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
-	private Contact supplier;
+	private Contact contact;
 	private Order order;
+	Order.OrderType orderType;
+	Predicate<Article> filter;
 
-	public OrderDataTableModel(Articles articles, Contact supplier) {
+	public OrderDataTableModel(Articles articles, Contact contact, Order.OrderType orderType) {
+		this.orderType = orderType;
 		this.articles = articles;
-		this.supplier = supplier;
+		this.contact = contact;
 		setColumnNames();
 		setColumnClasses();
 		order = new Order(articles);
@@ -84,8 +88,8 @@ public class OrderDataTableModel extends SelectableTableModel<StockItem> {
 	}
 
 	public int getRowCount() {
-		if(articles == null || supplier==null) return 0;
-		List<Article> businessObjects = articles.getBusinessObjects(Article.ofSupplier(supplier));
+		if(articles==null || contact==null || filter==null) return 0;
+		List<Article> businessObjects = articles.getBusinessObjects(filter);
 		if(businessObjects == null || businessObjects.size() == 0) return 0;
 		return businessObjects.size();
 	}
@@ -119,15 +123,26 @@ public class OrderDataTableModel extends SelectableTableModel<StockItem> {
 
 	@Override
 	public StockItem getObject(int row, int col) {
-		if(supplier==null) return null;
-		List<Article> articleList = articles.getBusinessObjects(Article.ofSupplier(supplier));
+		if(contact==null || filter==null) return null;
+		List<Article> articleList = articles.getBusinessObjects(filter);
 		if(articleList == null || articleList.size() == 0) return null;
 		Article article = articleList.get(row);
 		return order.getBusinessObject(article);
 	}
 
-	public void setSupplier(Contact supplier) {
-		this.supplier = supplier;
+	public Order getOrder() {
+		return order;
+	}
+
+	public void setContact(Contact contact) {
+		this.contact = contact;
+		if(orderType == Order.OrderType.PURCHASE){
+			filter = Article.ofSupplier(contact);
+		} else if (orderType == Order.OrderType.SALE){
+			filter = Article.forCustomer(contact);
+		} else {
+			filter = null;
+		}
 		fireTableDataChanged();
 	}
 }

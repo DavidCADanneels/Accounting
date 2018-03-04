@@ -8,6 +8,10 @@ public class Order extends StockItems{
         this.articles = articles;
     }
 
+    public enum OrderType{
+        PURCHASE, SALE;
+    }
+
     public void setItem(StockItem stockItem){
         Article article = stockItem.getArticle();
         int totalNumber = stockItem.getNumber();

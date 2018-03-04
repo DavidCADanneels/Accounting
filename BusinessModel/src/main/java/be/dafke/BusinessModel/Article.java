@@ -9,7 +9,7 @@ public class Article extends BusinessObject{
     private String HSCode = "";
     private Integer vatRate = 6;
     private BigDecimal purchasePrice = null;
-    private Contact supplier;
+    private Contact supplier, customer;
 
     public Article(String name){
         setName(name);
@@ -31,8 +31,16 @@ public class Article extends BusinessObject{
         this.supplier = supplier;
     }
 
+    public void setCustomer(Contact customer) {
+        this.customer = customer;
+    }
+
     public Contact getSupplier() {
         return supplier;
+    }
+
+    public Contact getCustomer() {
+        return customer;
     }
 
     public BigDecimal getPurchasePrice(){
@@ -111,5 +119,9 @@ public class Article extends BusinessObject{
 
     public static Predicate<Article> ofSupplier(Contact supplier) {
         return article -> article.getSupplier() == supplier;
+    }
+
+    public static Predicate<Article> forCustomer(Contact customer) {
+        return article -> article.getCustomer() == customer;
     }
 }
