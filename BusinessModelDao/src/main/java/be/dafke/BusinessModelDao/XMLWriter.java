@@ -17,6 +17,9 @@ import static be.dafke.BusinessModelDao.JournalsIO.writeJournalTypes;
 import static be.dafke.BusinessModelDao.JournalsIO.writeJournals;
 import static be.dafke.BusinessModelDao.MortgageIO.writeMortgages;
 import static be.dafke.BusinessModelDao.ProjectsIO.writeProjects;
+import static be.dafke.BusinessModelDao.PurchaseOrderIO.writePurchasesOrders;
+import static be.dafke.BusinessModelDao.SalesOrderIO.writeSalesOrders;
+import static be.dafke.BusinessModelDao.StockIO.writeStock;
 import static be.dafke.BusinessModelDao.VATIO.writeVATFields;
 import static be.dafke.BusinessModelDao.VATIO.writeVATTransactions;
 import static be.dafke.BusinessModelDao.XMLConstants.*;
@@ -117,7 +120,6 @@ public class XMLWriter {
         File accountingsFolder = new File(xmlFolder, "Accountings");
         File accountingFolder = new File(accountingsFolder, accounting.getName());
         accountingFolder.mkdirs();
-        writeArticles(accounting.getArticles(), accountingFolder);
         writeAccounts(accounting.getAccounts(), accountingFolder);
         writeJournals(accounting.getJournals(), accountingFolder);
         writeJournalTypes(accounting.getJournalTypes(), accountingFolder);
@@ -131,6 +133,10 @@ public class XMLWriter {
         }
         if(accounting.isContactsAccounting()) {
             writeContacts(accounting.getContacts(), accounting.getCompanyContact(), accountingFolder);
+            writeArticles(accounting.getArticles(), accountingFolder);
+            writeStock(accounting.getStock(), accountingFolder);
+            writePurchasesOrders(accounting.getPurchaseOrders(), accountingFolder);
+            writeSalesOrders(accounting.getSalesOrders(), accountingFolder);
         }
         if(accounting.isMortgagesAccounting()) {
             writeMortgages(accounting.getMortgages(), accountingFolder);
