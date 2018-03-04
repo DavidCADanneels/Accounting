@@ -67,7 +67,7 @@ public class ArticlesPanel extends JPanel {
 
     public void fireSupplierAddedOrRemoved() {
         comboBox.removeAllItems();
-        contacts.getBusinessObjects().forEach(contact -> comboBox.addItem(contact));
+        contacts.getBusinessObjects(Contact::isSupplier).forEach(contact -> comboBox.addItem(contact));
         articlesDataTableModel.fireTableDataChanged();
     }
 }
