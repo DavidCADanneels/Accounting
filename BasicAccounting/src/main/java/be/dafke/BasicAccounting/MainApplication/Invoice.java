@@ -44,9 +44,9 @@ import static javax.swing.JSplitPane.*;
  */
 public class Invoice {
     public static void main(String[] args) {
-        String xslFile = "data/accounting/Accounting/xsl/goods.xsl";
-        String xmlFile = "data/accounting/Accounting/xml/invoice.xml";
-        String pdfFile = "data/accounting/Accounting/xml/goods.pdf";
+        String xslFile = "data/accounting/xsl/goods.xsl";
+        String xmlFile = "data/accounting/xml/invoice.xml";
+        String pdfFile = "data/accounting/xml/goods.pdf";
         createInvoice(xmlFile, xslFile, pdfFile);
     }
 
