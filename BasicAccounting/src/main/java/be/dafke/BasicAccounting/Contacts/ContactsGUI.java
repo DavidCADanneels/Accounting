@@ -34,39 +34,51 @@ public class ContactsGUI extends JFrame implements ListSelectionListener {
     private final Contacts contacts;
 
     private static final HashMap<Contacts, ContactsGUI> contactGuis = new HashMap<>();
+    private static final HashMap<Contacts, ContactsGUI> suppliersGuis = new HashMap<>();
+    private static final HashMap<Contacts, ContactsGUI> customersGuis = new HashMap<>();
     private JTable table;
     private ContactsDataModel contactsDataModel;
     private JButton details;
 
     public static ContactsGUI showSuppliers(Contacts contacts) {
-        ContactsGUI gui = contactGuis.get(contacts);
+        ContactsGUI gui = suppliersGuis.get(contacts);
         if (gui == null) {
-            gui = new ContactsGUI(contacts);
-            contactGuis.put(contacts,gui);
+            gui = new ContactsGUI(contacts, Contact.ContactType.SUPPLIERS);
+            suppliersGuis.put(contacts,gui);
             Main.addFrame(gui);
         }
         return gui;
     }
 
     public static ContactsGUI showCustomers(Contacts contacts) {
+        ContactsGUI gui = customersGuis.get(contacts);
+        if (gui == null) {
+            gui = new ContactsGUI(contacts, Contact.ContactType.CUSTOMERS);
+            customersGuis.put(contacts,gui);
+            Main.addFrame(gui);
+        }
+        return gui;
+    }
+
+    public static ContactsGUI showContacts(Contacts contacts) {
         ContactsGUI gui = contactGuis.get(contacts);
         if (gui == null) {
-            gui = new ContactsGUI(contacts);
+            gui = new ContactsGUI(contacts, Contact.ContactType.ALL);
             contactGuis.put(contacts,gui);
             Main.addFrame(gui);
         }
         return gui;
     }
 
-    private ContactsGUI(Contacts contacts) {
+    private ContactsGUI(Contacts contacts, Contact.ContactType contactType) {
         super("Contacts");
         this.contacts = contacts;
-        setContentPane(createContentPanel());
+        setContentPane(createContentPanel(contactType));
         setPreferredSize(new Dimension(1000,400));
         pack();
     }
 
-    public JPanel createContentPanel(){
+    public JPanel createContentPanel(Contact.ContactType contactType){
         JButton create = new JButton(getBundle("Contacts").getString("NEW_CONTACT"));
         create.addActionListener(e -> new NewContactGUI(contacts).setVisible(true));
 
@@ -90,7 +102,7 @@ public class ContactsGUI extends JFrame implements ListSelectionListener {
         south.add(createList);
         south.add(details);
 
-        contactsDataModel = new ContactsDataModel(contacts);
+        contactsDataModel = new ContactsDataModel(contacts, contactType);
         table = new JTable(contactsDataModel);
         DefaultListSelectionModel selection = new DefaultListSelectionModel();
         selection.addListSelectionListener(this);

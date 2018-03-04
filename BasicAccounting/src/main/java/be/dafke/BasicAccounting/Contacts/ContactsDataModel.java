@@ -7,6 +7,7 @@ import be.dafke.ComponentModel.SelectableTableModel;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -19,33 +20,96 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	public static final int NAME_COL = 0;
-	public static final int VAT_NUMBER_COL = 2;
-	public static final int STREET_COL = 3;
-	public static final int POSTAL_COL = 4;
-	public static final int CITY_COL = 5;
-	public static final int COUNTRY_COL = 6;
-	public static final int PHONE_COL = 7;
-	public static final int EMAIL_COL = 8;
-	public static final int CUSTOMER_COL = 1;
-	public static final int TURNOVER_COL = 9;
-	public static final int VAT_TOTAL_COL = 10;
+	public int NAME_COL;
+	public int VAT_NUMBER_COL;
+	public int STREET_COL;
+	public int POSTAL_COL;
+	public int CITY_COL;
+	public int COUNTRY_COL;
+	public int PHONE_COL;
+	public int EMAIL_COL;
+	public int CUSTOMER_COL;
+	public int SUPPLIER_COL;
+	public int TURNOVER_COL;
+	public int VAT_TOTAL_COL;
+	public int NR_OF_COL;
+	private Contact.ContactType contactType;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
-    private Contacts contacts;
+    private List<Contact> contacts;
     private ArrayList<Integer> nonEditableColumns = new ArrayList<>();
 
-	public ContactsDataModel(Contacts contacts) {
-		this.contacts = contacts;
-		nonEditableColumns.add(TURNOVER_COL);
-		nonEditableColumns.add(VAT_TOTAL_COL);
+	public ContactsDataModel(Contacts contacts, Contact.ContactType contactType) {
+		this.contactType = contactType;
+		if(contactType == Contact.ContactType.ALL) {
+			this.contacts = contacts.getBusinessObjects();
+		} else if (contactType == Contact.ContactType.CUSTOMERS){
+			this.contacts = contacts.getBusinessObjects(Contact::isCustomer);
+		} else if (contactType == Contact.ContactType.SUPPLIERS) {
+			this.contacts = contacts.getBusinessObjects(Contact::isSupplier);
+		}
+		initialize();
+	}
+
+	private void initialize() {
+		setColumnNumbers();
 		setColumnNames();
 		setColumnClasses();
 	}
 
+	private void setColumnNumbers() {
+		if(contactType == Contact.ContactType.CUSTOMERS){
+			NAME_COL = 0;
+			VAT_NUMBER_COL = 1;
+			STREET_COL = 2;
+			POSTAL_COL = 3;
+			CITY_COL = 4;
+			COUNTRY_COL = 5;
+			PHONE_COL = 6;
+			EMAIL_COL = 7;
+			TURNOVER_COL = 8;
+			VAT_TOTAL_COL = 9;
+			NR_OF_COL = 10;
+			CUSTOMER_COL = 11;
+			SUPPLIER_COL = 12;
+		} else if(contactType == Contact.ContactType.SUPPLIERS){
+			NAME_COL = 0;
+			VAT_NUMBER_COL = 1;
+			STREET_COL = 2;
+			POSTAL_COL = 3;
+			CITY_COL = 4;
+			COUNTRY_COL = 5;
+			PHONE_COL = 6;
+			EMAIL_COL = 7;
+			TURNOVER_COL = 8;
+			VAT_TOTAL_COL = 9;
+			NR_OF_COL = 10;
+			CUSTOMER_COL = 11;
+			SUPPLIER_COL = 12;
+		} else if(contactType == Contact.ContactType.ALL){
+			NAME_COL = 0;
+			CUSTOMER_COL = 1;
+			SUPPLIER_COL = 2;
+			VAT_NUMBER_COL = 3;
+			STREET_COL = 4;
+			POSTAL_COL = 5;
+			CITY_COL = 6;
+			COUNTRY_COL = 7;
+			PHONE_COL = 8;
+			EMAIL_COL = 9;
+			TURNOVER_COL = 10;
+			VAT_TOTAL_COL = 11;
+			NR_OF_COL = 12;
+		}
+		nonEditableColumns.add(VAT_TOTAL_COL);
+		nonEditableColumns.add(TURNOVER_COL);
+	}
+
+
 	private void setColumnClasses() {
 		columnClasses.put(NAME_COL, String.class);
 		columnClasses.put(CUSTOMER_COL, Boolean.class);
+		columnClasses.put(SUPPLIER_COL, Boolean.class);
 		columnClasses.put(VAT_NUMBER_COL, String.class);
 		columnClasses.put(STREET_COL, String.class);
 		columnClasses.put(POSTAL_COL, String.class);
@@ -60,6 +124,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	private void setColumnNames() {
 		columnNames.put(NAME_COL, getBundle("Contacts").getString("NAME"));
 		columnNames.put(CUSTOMER_COL, getBundle("Contacts").getString("CUSTOMER"));
+		columnNames.put(SUPPLIER_COL, getBundle("Contacts").getString("SUPPLIER"));
 		columnNames.put(VAT_NUMBER_COL, getBundle("Contacts").getString("VAT_NR"));
 		columnNames.put(STREET_COL,getBundle("Contacts").getString("STREET_AND_NUMBER"));
 		columnNames.put(POSTAL_COL, getBundle("Contacts").getString("POSTAL_CODE"));
@@ -75,7 +140,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
-		Contact contact = contacts.getBusinessObjects().get(row);
+		Contact contact = contacts.get(row);
 		if (col == NAME_COL) {
 			return contact.getName();
 		} else if (col == VAT_NUMBER_COL) {
@@ -94,6 +159,8 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 			return contact.getEmail();
 		} else if (col == CUSTOMER_COL) {
 			return contact.isCustomer();
+		} else if (col == SUPPLIER_COL) {
+			return contact.isSupplier();
 		} else if (col == TURNOVER_COL) {
 			return contact.getTurnOver();
 		} else if (col == VAT_TOTAL_COL) {
@@ -102,14 +169,14 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	}
 
 	public int getColumnCount() {
-		return columnNames.size();
+		return NR_OF_COL;
 	}
 
 	public int getRowCount() {
         if(contacts == null){
             return 0;
         }
-		return contacts.getBusinessObjects().size();
+		return contacts.size();
 	}
 
 	@Override
@@ -131,11 +198,14 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 // ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		Contact contact = contacts.getBusinessObjects().get(row);
+		Contact contact = contacts.get(row);
 		if(isCellEditable(row, col)){
 			if(col== CUSTOMER_COL) {
 				Boolean customer = (Boolean) value;
 				contact.setCustomer(customer);
+			} else if(col== SUPPLIER_COL) {
+				Boolean supplier = (Boolean) value;
+				contact.setSupplier(supplier);
 			} else {
 				String stringValue = (String) value;
 				if (col == NAME_COL) {
@@ -160,12 +230,25 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	}
 
     public void setContacts(Contacts contacts) {
-        this.contacts = contacts;
+		if(contactType == Contact.ContactType.ALL) {
+			this.contacts = contacts.getBusinessObjects();
+		} else if (contactType == Contact.ContactType.CUSTOMERS){
+			setCustomers(contacts);
+		} else if (contactType == Contact.ContactType.SUPPLIERS){
+			setSuppliers(contacts);
+		}
+//		initialize();
+    }
+    public void setCustomers(Contacts contacts) {
+        this.contacts = contacts.getBusinessObjects(Contact::isCustomer);
+    }
+    public void setSuppliers(Contacts contacts) {
+        this.contacts = contacts.getBusinessObjects(Contact::isSupplier);
     }
 
 	@Override
 	public Contact getObject(int row, int col) {
-		return contacts.getBusinessObjects().get(row);
+		return contacts.get(row);
 	}
 
 }

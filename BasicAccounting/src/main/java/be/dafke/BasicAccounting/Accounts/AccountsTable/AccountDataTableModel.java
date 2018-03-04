@@ -27,10 +27,10 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private int ACCOUNT_COL = 1;
-	private int SALDO_COL = 2;
-	private int NUMBER_COL = 0;
-	private int NR_OF_COL = 3;
+	private int ACCOUNT_COL;
+	private int SALDO_COL;
+	private int NUMBER_COL;
+	private int NR_OF_COL;
 	private boolean showNumbers = true;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
@@ -61,6 +61,7 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 		} else {
 			ACCOUNT_COL = 0;
 			SALDO_COL = 1;
+			NUMBER_COL = 3;
 			//
 			NR_OF_COL = 2;
 		}

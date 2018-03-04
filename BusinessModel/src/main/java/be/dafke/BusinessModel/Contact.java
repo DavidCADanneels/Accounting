@@ -19,6 +19,10 @@ public class Contact extends BusinessObject{
     private BigDecimal turnOver = BigDecimal.ZERO;
     private BigDecimal VATTotal = BigDecimal.ZERO;
 
+    public enum ContactType{
+        ALL, CUSTOMERS, SUPPLIERS;
+    }
+
     public boolean isSupplier() {
         return supplier;
     }

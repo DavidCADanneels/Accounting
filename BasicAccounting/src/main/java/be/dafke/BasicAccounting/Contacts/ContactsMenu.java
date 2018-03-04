@@ -12,25 +12,28 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneels on 27/12/2015.
  */
 public class ContactsMenu extends JMenu {
-    private JMenuItem suppliers, customers;
+    private JMenuItem suppliers, customers, all;
 
     private Contacts contacts;
 
     public ContactsMenu() {
         super(getBundle("Contacts").getString("CONTACTS"));
 //        setMnemonic(KeyEvent.VK_P);
-        suppliers = new JMenuItem(getBundle("Contacts").getString(
-                "SUPPLIERS"));
+        suppliers = new JMenuItem(getBundle("Contacts").getString("SUPPLIERS"));
         suppliers.addActionListener(e -> ContactsGUI.showSuppliers(contacts).setVisible(true));
         suppliers.setEnabled(false);
 
-        customers = new JMenuItem(getBundle("Contacts").getString(
-                "CUSTOMERS"));
+        customers = new JMenuItem(getBundle("Contacts").getString("CUSTOMERS"));
         customers.addActionListener(e -> ContactsGUI.showCustomers(contacts).setVisible(true));
         customers.setEnabled(false);
 
+        all = new JMenuItem(getBundle("Contacts").getString("ALL"));
+        all.addActionListener(e -> ContactsGUI.showContacts(contacts).setVisible(true));
+        all.setEnabled(false);
+
         add(customers);
         add(suppliers);
+        add(all);
     }
 
     public void setAccounting(Accounting accounting) {
@@ -41,5 +44,6 @@ public class ContactsMenu extends JMenu {
         this.contacts = contacts;
         suppliers.setEnabled(contacts!=null);
         customers.setEnabled(contacts!=null);
+        all.setEnabled(contacts!=null);
     }
 }
