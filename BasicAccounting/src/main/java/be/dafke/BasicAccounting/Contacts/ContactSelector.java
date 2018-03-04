@@ -5,6 +5,7 @@ import be.dafke.ComponentModel.RefreshableDialog;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class ContactSelector extends RefreshableDialog {
 	/**
@@ -13,13 +14,15 @@ public class ContactSelector extends RefreshableDialog {
 	private static final long serialVersionUID = 1L;
 	private final JButton create, ok;
 	private Contact contact;
+	private Contact.ContactType contactType;
 	private final JComboBox<Contact> combo;
     private final DefaultComboBoxModel<Contact> model;
 	private Contacts contacts;
 	private static ContactSelector contactSelector = null;
 
-	private ContactSelector(Contacts contacts) {
+	private ContactSelector(Contacts contacts, Contact.ContactType contactType) {
 		super("Select Contact");
+		this.contactType = contactType;
 		model = new DefaultComboBoxModel<>();
 		combo = new JComboBox<>(model);
 		combo.addActionListener(e -> contact = (Contact) combo.getSelectedItem());
@@ -38,9 +41,9 @@ public class ContactSelector extends RefreshableDialog {
 		pack();
 	}
 
-	public static ContactSelector getContactSelector(Contacts contacts){
+	public static ContactSelector getContactSelector(Contacts contacts, Contact.ContactType contactType){
 		if(contactSelector ==null){
-			contactSelector = new ContactSelector(contacts);
+			contactSelector = new ContactSelector(contacts, contactType);
 		}
 		return contactSelector;
 	}
@@ -62,8 +65,18 @@ public class ContactSelector extends RefreshableDialog {
 
 	public void fireContactDataChanged() {
 		model.removeAllElements();
-		for (Contact contact:contacts.getBusinessObjects()) {
-			model.addElement(contact);
+		List<Contact> list = null;
+		if(contactType == Contact.ContactType.ALL){
+			list = contacts.getBusinessObjects();
+		} else if (contactType == Contact.ContactType.CUSTOMERS){
+			list = contacts.getBusinessObjects(Contact::isCustomer);
+		} else if (contactType == Contact.ContactType.SUPPLIERS){
+			list = contacts.getBusinessObjects(Contact::isSupplier);
+		}
+		if (list!=null) {
+			for (Contact contact : list) {
+				model.addElement(contact);
+			}
 		}
 		invalidate();
 		combo.invalidate();

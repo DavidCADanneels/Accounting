@@ -20,6 +20,7 @@ public class Contact extends BusinessObject{
     private BigDecimal VATTotal = BigDecimal.ZERO;
 
     public enum ContactType{
+        // TODO: add 'OWN' to store Own Company Details ? (or continue using ... )
         ALL, CUSTOMERS, SUPPLIERS;
     }
 

@@ -107,10 +107,10 @@ public class NewContactGUI extends RefreshableDialog {
         contact.setEmail(email);
         String phone = contactPhone.getText().trim();
         contact.setPhone(phone);
-        Main.fireContactDataChanged();
         if(newContact) {
             try {
                 contacts.addBusinessObject(contact);
+                Main.fireContactAdded();
             } catch (DuplicateNameException e) {
                 ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, name);
             } catch (EmptyNameException e) {

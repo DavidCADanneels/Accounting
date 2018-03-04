@@ -17,7 +17,6 @@ import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
 
-import static be.dafke.BasicAccounting.MainApplication.ActionUtils.TRANSACTION_REMOVED;
 import static java.util.ResourceBundle.getBundle;
 
 
@@ -232,7 +231,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
 
         Contact contact = transaction.getContact();
         if(contact!=null){
-            Main.fireContactDataChanged();
+            Main.fireCustomerDataChanged();
         }
 
         Main.fireJournalDataChanged(journal);

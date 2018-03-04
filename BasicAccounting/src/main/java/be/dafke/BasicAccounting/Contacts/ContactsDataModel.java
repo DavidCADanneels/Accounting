@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Contacts;
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.Contacts;
 import be.dafke.ComponentModel.SelectableTableModel;
@@ -203,9 +204,11 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 			if(col== CUSTOMER_COL) {
 				Boolean customer = (Boolean) value;
 				contact.setCustomer(customer);
+				Main.fireCustomersAddedOrRemoved();
 			} else if(col== SUPPLIER_COL) {
 				Boolean supplier = (Boolean) value;
 				contact.setSupplier(supplier);
+				Main.fireSupplierAddedOrRemoved();
 			} else {
 				String stringValue = (String) value;
 				if (col == NAME_COL) {
@@ -225,6 +228,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 				} else if (col == EMAIL_COL) {
 					contact.setEmail(stringValue);
 				}
+				Main.fireContactDataChanged();
 			}
 		}
 	}
@@ -237,7 +241,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 		} else if (contactType == Contact.ContactType.SUPPLIERS){
 			setSuppliers(contacts);
 		}
-//		initialize();
+		fireTableDataChanged();
     }
     public void setCustomers(Contacts contacts) {
         this.contacts = contacts.getBusinessObjects(Contact::isCustomer);

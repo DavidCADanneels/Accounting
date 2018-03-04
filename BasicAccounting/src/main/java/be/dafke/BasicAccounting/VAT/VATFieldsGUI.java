@@ -275,7 +275,8 @@ public class VATFieldsGUI extends JFrame {
         button.addActionListener(e -> {
             Contact companyContact = accounting.getCompanyContact();
             if (companyContact == null) {
-                ContactSelector contactSelector = ContactSelector.getContactSelector(accounting.getContacts());
+                // TODO: replace companyContact by Contact of type 'OWN'
+                ContactSelector contactSelector = ContactSelector.getContactSelector(accounting.getContacts(), Contact.ContactType.ALL);
                 contactSelector.setVisible(true);
                 companyContact = contactSelector.getSelection();
             }

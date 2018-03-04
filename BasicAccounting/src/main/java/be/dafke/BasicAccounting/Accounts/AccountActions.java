@@ -39,7 +39,7 @@ public class AccountActions {
             if (vatType == VATTransaction.VATType.PURCHASE) {
                 purchaseAny(transaction, booking, vatTransactions, accounts, accountTypes);
             } else if (vatType == VATTransaction.VATType.CUSTOMER){
-                Contact contact = getContact(account, contacts);
+                Contact contact = getContact(account, contacts, Contact.ContactType.CUSTOMERS);
                 transaction.setContact(contact);
             } else if (vatType == VATTransaction.VATType.SALE){
                 saleAny(transaction, booking, vatTransactions, accounts, accountTypes);
@@ -273,12 +273,12 @@ public class AccountActions {
         return btwAccount;
     }
 
-    public static Contact getContact(Account account, Contacts contacts){
+    public static Contact getContact(Account account, Contacts contacts, Contact.ContactType contactType){
         Contact contact = account.getContact();
         if(contact!=null){
             return contact;
         } else {
-            ContactSelector contactSelector = ContactSelector.getContactSelector(contacts);
+            ContactSelector contactSelector = ContactSelector.getContactSelector(contacts, contactType);
             contactSelector.setVisible(true);
             contact = contactSelector.getSelection();
             // TODO: null check needed here?

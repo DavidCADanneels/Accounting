@@ -121,7 +121,8 @@ public class ContactsGUI extends JFrame implements ListSelectionListener {
         Accounting accounting = contacts.getAccounting();
         Contact companyContact = accounting.getCompanyContact();
         if (companyContact == null) {
-            ContactSelector contactSelector = ContactSelector.getContactSelector(accounting.getContacts());
+            // TODO: replace companyContact by Contact of type 'OWN'
+            ContactSelector contactSelector = ContactSelector.getContactSelector(accounting.getContacts(), Contact.ContactType.ALL);
             contactSelector.setVisible(true);
             companyContact = contactSelector.getSelection();
         }
@@ -136,12 +137,45 @@ public class ContactsGUI extends JFrame implements ListSelectionListener {
         }
     }
 
+    public static void fireContactAddedForAll(){
+        contactGuis.values().forEach(contactsGUI -> {
+            contactsGUI.setContacts();
+            contactsGUI.fireContactDataChanged();
+        });
+        // 'customer' and 'supplier' are false at creation time, no need to refresh the other frames
+    }
+
     public static void fireContactDataChangedForAll(){
         contactGuis.values().forEach(contactsGUI -> contactsGUI.fireContactDataChanged());
+        suppliersGuis.values().forEach(contactsGUI -> contactsGUI.fireContactDataChanged());
+        customersGuis.values().forEach(contactsGUI -> contactsGUI.fireContactDataChanged());
+    }
+
+    public static void fireCustomerDataChanged(){
+        customersGuis.values().forEach(contactsGUI -> contactsGUI.fireContactDataChanged());
     }
 
     public void fireContactDataChanged(){
         contactsDataModel.fireTableDataChanged();
+    }
+
+
+    public static void fireCustomersAddedOrRemovedForAll(){
+        customersGuis.values().forEach(contactsGUI -> {
+            contactsGUI.setContacts();
+            contactsGUI.fireContactDataChanged();
+        });
+    }
+
+    public static void fireSupplierAddedOrRemovedForAll(){
+        suppliersGuis.values().forEach(contactsGUI -> {
+            contactsGUI.setContacts();
+            contactsGUI.fireContactDataChanged();
+        });
+    }
+
+    public void setContacts(){
+        contactsDataModel.setContacts(contacts);
     }
 
     @Override

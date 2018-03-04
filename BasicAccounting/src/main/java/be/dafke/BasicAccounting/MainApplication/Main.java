@@ -283,9 +283,28 @@ public class Main {
         BalanceGUI.fireAccountDataChangedForAll();
     }
 
+    public static void fireContactAdded() {
+        ContactSelector.fireContactDataChangedForAll();
+        ContactsGUI.fireContactAddedForAll();
+    }
+
+    public static void fireCustomerDataChanged() {
+        ContactsGUI.fireCustomerDataChanged();
+    }
+
     public static void fireContactDataChanged() {
+        // TODO: do we need to refresh the Contact Selector
+        // What are Contact Selectors used for. Only Customers? ...
         ContactSelector.fireContactDataChangedForAll();
         ContactsGUI.fireContactDataChangedForAll();
+    }
+
+    public static void fireCustomersAddedOrRemoved() {
+        ContactsGUI.fireCustomersAddedOrRemovedForAll();
+    }
+
+    public static void fireSupplierAddedOrRemoved() {
+        ContactsGUI.fireSupplierAddedOrRemovedForAll();
     }
 
     public static void saveData() {
