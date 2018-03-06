@@ -46,15 +46,13 @@ public class BalancesMenu extends JMenu {
                 String resultXmlPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/ResultBalance.xml";
                 String yearXmlPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/YearBalance.xml";
                 String relationsXmlPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/RelationsBalance.xml";
-                String resultXslPath = "data/accounting/xsl/resultBalancePdf.xsl";
-                String yearXslPath = "data/accounting/xsl/yearBalancePdf.xsl";
-                String relationsXslPath = "data/accounting/xsl/relationsBalancePdf.xsl";
+                String xslPath = "data/accounting/xsl/BalancePdf.xsl";
                 String resultPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/ResultBalance.pdf";
                 String yearPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/YearBalance.pdf";
                 String relationsPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/RelationsBalance.pdf";
-                PDFCreator.convertToPDF(resultXmlPath, resultXslPath, resultPdfPath);
-                PDFCreator.convertToPDF(yearXmlPath, yearXslPath, yearPdfPath);
-                PDFCreator.convertToPDF(relationsXmlPath, relationsXslPath, relationsPdfPath);
+                PDFCreator.convertToPDF(resultXmlPath, xslPath, resultPdfPath);
+                PDFCreator.convertToPDF(yearXmlPath, xslPath, yearPdfPath);
+                PDFCreator.convertToPDF(relationsXmlPath, xslPath, relationsPdfPath);
             } catch (IOException | FOPException | TransformerException ex) {
                 ex.printStackTrace();
             }

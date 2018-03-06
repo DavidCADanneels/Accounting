@@ -118,6 +118,15 @@ public class BalancesIO {
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(BALANCE, 3));
+            writer.write(
+                    "    <"+NAME+">" + balance.getName() + "</"+NAME+">\n" +
+                        "    <"+LEFTNAME+">" + balance.getLeftName() + "</"+LEFTNAME+">\n" +
+                        "    <"+RIGHTNAME+">" + balance.getRightName() + "</"+RIGHTNAME+">\n" +
+                        "    <"+LEFTTOTALNAME+">" + balance.getLeftTotalName() + "</"+LEFTTOTALNAME+">\n" +
+                        "    <"+RIGHTTOTALNAME+">" + balance.getRightTotalName() + "</"+RIGHTTOTALNAME+">\n" +
+                        "    <"+LEFTRESULTNAME+">" + balance.getLeftResultName() + "</"+LEFTRESULTNAME+">\n" +
+                        "    <"+RIGHTRESULTNAME+">" + balance.getRightResultName() + "</"+RIGHTRESULTNAME+">\n"
+            );
             for (BalanceLine balanceLine : balance.getBusinessObjects()) {
                 Account leftAccount = balanceLine.getLeftAccount();
                 Account rightAccount = balanceLine.getRightAccount();
