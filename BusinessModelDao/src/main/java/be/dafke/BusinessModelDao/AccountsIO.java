@@ -27,10 +27,10 @@ import static be.dafke.Utils.Utils.parseBigInteger;
  * Created by ddanneels on 15/01/2017.
  */
 public class AccountsIO {
-    public static void readAccounts(Accounting accounting, File accountingFolder){
+    public static void readAccounts(Accounting accounting, File xmlFolder){
         Accounts accounts = accounting.getAccounts();
         AccountTypes accountTypes = accounting.getAccountTypes();
-        File xmlFile = new File(accountingFolder, "Accounts.xml");
+        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/Accounts.xml");
         Element rootElement = getRootElement(xmlFile, ACCOUNTS);
         for (Element element : getChildren(rootElement, ACCOUNT)) {
 
