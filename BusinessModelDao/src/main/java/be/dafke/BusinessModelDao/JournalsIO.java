@@ -279,12 +279,12 @@ public class JournalsIO {
     }
 
     public static void writeJournalPdfFiles(Journals journals, File accountingFolder, String accountingName){
-        File subFolder = new File(accountingFolder, "PDF");
+        File subFolder = new File(accountingFolder, "PDF/Journals");
         subFolder.mkdirs();
 
         String journalsFolderPath = "data/accounting/xml/Accountings/" + accountingName + "/Journals/";
         String xslPath = "data/accounting/xsl/JournalPdf.xsl";
-        String resultPdfPolderPath = "data/accounting/xml/Accountings/" + accountingName + "/PDF/";
+        String resultPdfPolderPath = "data/accounting/xml/Accountings/" + accountingName + "/PDF/Journals/";
         journals.getBusinessObjects().forEach(journal -> {
             try {
                 PDFCreator.convertToPDF(journalsFolderPath + journal.getName() + ".xml", xslPath, resultPdfPolderPath + journal.getName() + ".pdf");

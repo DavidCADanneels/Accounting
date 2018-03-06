@@ -48,7 +48,6 @@ public class AccountsMenu extends JMenu {
             File xmlFolder = Main.getXmlFolder();
             File accountingsFolder = new File(xmlFolder, "Accountings");
             File accountingFolder = new File(accountingsFolder, accounting.getName());
-            AccountsIO.writeAllAccounts(accounts, accountingFolder);
             AccountsIO.writeAccountPdfFiles(accounts, accountingFolder, accounting.getName());
         });
         generatePdf.setEnabled(false);

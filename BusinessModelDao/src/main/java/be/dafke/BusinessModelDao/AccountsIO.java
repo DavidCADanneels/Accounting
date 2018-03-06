@@ -58,20 +58,31 @@ public class AccountsIO {
     }
 
     public static void writeAccountPdfFiles(Accounts accounts, File accountingFolder, String accountingName){
-        File subFolder = new File(accountingFolder, "PDF");
+        File tmpFolder = new File(accountingFolder, "tmp");
+        tmpFolder.mkdirs();
+        for (Account account:accounts.getBusinessObjects()) {
+            writeAccount(account, tmpFolder);
+        }
+
+        File subFolder = new File(accountingFolder, "PDF/Accounts");
         subFolder.mkdirs();
 
-        String accountsFolderPath = "data/accounting/xml/Accountings/" + accountingName + "/Accounts/";
+        String accountsFolderPath = "data/accounting/xml/Accountings/" + accountingName + "/tmp/";
         String xslPath = "data/accounting/xsl/AccountPdf.xsl";
-        String resultPdfPolderPath = "data/accounting/xml/Accountings/" + accountingName + "/PDF/";
+        String resultPdfPolderPath = "data/accounting/xml/Accountings/" + accountingName + "/PDF/Accounts/";
         accounts.getBusinessObjects().forEach(account -> {
             try {
-                PDFCreator.convertToPDF(accountsFolderPath + account.getName() + ".xml", xslPath, resultPdfPolderPath + account.getName() + ".pdf");
+                String fileName = account.getName() + ".xml";
+                String xmlPath = accountsFolderPath + fileName;
+                PDFCreator.convertToPDF(xmlPath, xslPath, resultPdfPolderPath + account.getName() + ".pdf");
+                File file = new File(tmpFolder, fileName);
+                file.delete();
+
             } catch (IOException | FOPException | TransformerException e1) {
                 e1.printStackTrace();
             }
         });
-
+        tmpFolder.delete();
     }
 
     public static void writeAccounts(Accounts accounts, File accountingFolder){

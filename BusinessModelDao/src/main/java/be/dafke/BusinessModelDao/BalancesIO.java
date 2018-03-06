@@ -71,16 +71,16 @@ public class BalancesIO {
     }
 
     public static void writeBalancePdfFiles(Balances balances, File accountingFolder, String accountingName){
-        File subFolder = new File(accountingFolder, "PDF");
+        File subFolder = new File(accountingFolder, "PDF/Balances");
         subFolder.mkdirs();
 
         String resultXmlPath = "data/accounting/xml/Accountings/"+accountingName+"/Balances/ResultBalance.xml";
         String yearXmlPath = "data/accounting/xml/Accountings/"+accountingName+"/Balances/YearBalance.xml";
         String relationsXmlPath = "data/accounting/xml/Accountings/"+accountingName+"/Balances/RelationsBalance.xml";
         String xslPath = "data/accounting/xsl/BalancePdf.xsl";
-        String resultPdfPath = "data/accounting/xml/Accountings/"+accountingName+"/PDF/ResultBalance.pdf";
-        String yearPdfPath = "data/accounting/xml/Accountings/"+accountingName+"/PDF/YearBalance.pdf";
-        String relationsPdfPath = "data/accounting/xml/Accountings/"+accountingName+"/PDF/RelationsBalance.pdf";
+        String resultPdfPath = "data/accounting/xml/Accountings/"+accountingName+"/PDF/Balances/ResultBalance.pdf";
+        String yearPdfPath = "data/accounting/xml/Accountings/"+accountingName+"/PDF/Balances/YearBalance.pdf";
+        String relationsPdfPath = "data/accounting/xml/Accountings/"+accountingName+"/PDF/Balances/RelationsBalance.pdf";
         try {
             PDFCreator.convertToPDF(resultXmlPath, xslPath, resultPdfPath);
             PDFCreator.convertToPDF(yearXmlPath, xslPath, yearPdfPath);
