@@ -43,16 +43,18 @@ public class BalancesMenu extends JMenu {
             File accountingFolder = new File(accountingsFolder, accounting.getName());
             BalancesIO.writeBalances(balances,accountingFolder);
             try {
-                String xmlPath1 = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/ResultBalance.xml";
-                String xmlPath2 = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/ResultBalance.xml";
-                String xmlPath3 = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/ResultBalance.xml";
-                String xslPath = "data/accounting/xsl/balancePdf.xsl";
-                String pdfPath1 = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/ResultBalance.pdf";
-                String pdfPath2 = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/ResultBalance.pdf";
-                String pdfPath3 = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/ResultBalance.pdf";
-                PDFCreator.convertToPDF(xmlPath1, xslPath, pdfPath1);
-//                PDFCreator.convertToPDF(xmlPath2, xslPath, pdfPath2);
-//                PDFCreator.convertToPDF(xmlPath3, xslPath, pdfPath3);
+                String resultXmlPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/ResultBalance.xml";
+                String yearXmlPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/YearBalance.xml";
+                String relationsXmlPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/RelationsBalance.xml";
+                String resultXslPath = "data/accounting/xsl/resultBalancePdf.xsl";
+                String yearXslPath = "data/accounting/xsl/yearBalancePdf.xsl";
+                String relationsXslPath = "data/accounting/xsl/relationsBalancePdf.xsl";
+                String resultPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/ResultBalance.pdf";
+                String yearPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/YearBalance.pdf";
+                String relationsPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/RelationsBalance.pdf";
+                PDFCreator.convertToPDF(resultXmlPath, resultXslPath, resultPdfPath);
+                PDFCreator.convertToPDF(yearXmlPath, yearXslPath, yearPdfPath);
+                PDFCreator.convertToPDF(relationsXmlPath, relationsXslPath, relationsPdfPath);
             } catch (IOException | FOPException | TransformerException ex) {
                 ex.printStackTrace();
             }
