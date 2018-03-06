@@ -47,9 +47,9 @@ public class BalancesMenu extends JMenu {
                 String yearXmlPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/YearBalance.xml";
                 String relationsXmlPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/RelationsBalance.xml";
                 String xslPath = "data/accounting/xsl/BalancePdf.xsl";
-                String resultPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/ResultBalance.pdf";
-                String yearPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/YearBalance.pdf";
-                String relationsPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/RelationsBalance.pdf";
+                String resultPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/PDF/ResultBalance.pdf";
+                String yearPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/PDF/YearBalance.pdf";
+                String relationsPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/PDF/RelationsBalance.pdf";
                 PDFCreator.convertToPDF(resultXmlPath, xslPath, resultPdfPath);
                 PDFCreator.convertToPDF(yearXmlPath, xslPath, yearPdfPath);
                 PDFCreator.convertToPDF(relationsXmlPath, xslPath, relationsPdfPath);

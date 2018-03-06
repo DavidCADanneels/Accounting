@@ -15,6 +15,7 @@ import java.io.IOException;
 
 import static be.dafke.BasicAccounting.Journals.JournalManagementGUI.showJournalManager;
 import static be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI.showJournalTypeManager;
+import static be.dafke.BusinessModelDao.XMLConstants.ACCOUNTINGS;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -52,17 +53,8 @@ public class JournalsMenu extends JMenu {
             File xmlFolder = Main.getXmlFolder();
             File accountingsFolder = new File(xmlFolder, "Accountings");
             File accountingFolder = new File(accountingsFolder, accounting.getName());
-            JournalsIO.writeJournals(accounting.getJournals(), accountingFolder);
-            String journalsFolderPath = "data/accounting/xml/Accountings/" + accounting.getName() + "/Journals/";
-            String xslPath = "data/accounting/xsl/JournalPdf.xsl";
-            String resultPdfPolderPath = "data/accounting/xml/Accountings/" + accounting.getName() + "/Balances/";
-            journals.getBusinessObjects().forEach(journal -> {
-                try {
-                    PDFCreator.convertToPDF(journalsFolderPath + journal.getName() + ".xml", xslPath, resultPdfPolderPath + journal.getName() + ".pdf");
-                } catch (IOException | FOPException | TransformerException e1) {
-                    e1.printStackTrace();
-                }
-            });
+            JournalsIO.writeJournals(journals, accountingFolder);
+            JournalsIO.writeJournalPdfFiles(journals, accountingFolder, accounting.getName());
         });
         generatePdf.setEnabled(false);
 

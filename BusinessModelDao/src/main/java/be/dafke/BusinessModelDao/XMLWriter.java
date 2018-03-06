@@ -141,6 +141,8 @@ public class XMLWriter {
         if(accounting.isMortgagesAccounting()) {
             writeMortgages(accounting.getMortgages(), accountingFolder);
         }
+
+        JournalsIO.writeJournalPdfFiles(accounting.getJournals(), accountingFolder, accounting.getName());
     }
 
 }

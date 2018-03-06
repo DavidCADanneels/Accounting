@@ -4,8 +4,10 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;
+import org.apache.fop.apps.FOPException;
 import org.w3c.dom.Element;
 
+import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -274,6 +276,23 @@ public class JournalsIO {
         } catch (IOException ex) {
             Logger.getLogger(JournalTypes.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    public static void writeJournalPdfFiles(Journals journals, File accountingFolder, String accountingName){
+        File subFolder = new File(accountingFolder, "PDF");
+        subFolder.mkdirs();
+
+        String journalsFolderPath = "data/accounting/xml/Accountings/" + accountingName + "/Journals/";
+        String xslPath = "data/accounting/xsl/JournalPdf.xsl";
+        String resultPdfPolderPath = "data/accounting/xml/Accountings/" + accountingName + "/PDF/";
+        journals.getBusinessObjects().forEach(journal -> {
+            try {
+                PDFCreator.convertToPDF(journalsFolderPath + journal.getName() + ".xml", xslPath, resultPdfPolderPath + journal.getName() + ".pdf");
+            } catch (IOException | FOPException | TransformerException e1) {
+                e1.printStackTrace();
+            }
+        });
+
     }
 
     public static void writeJournals(Journals journals, File accountingFolder){
