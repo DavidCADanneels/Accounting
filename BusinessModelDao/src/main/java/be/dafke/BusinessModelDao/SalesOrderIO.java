@@ -22,11 +22,11 @@ import static be.dafke.Utils.Utils.parseInt;
  * Created by ddanneels on 15/01/2017.
  */
 public class SalesOrderIO {
-    public static void readSalesOrders(Accounting accounting, File accountingFolder){
+    public static void readSalesOrders(Accounting accounting, File xmlFolder){
         SalesOrders salesOrders = accounting.getSalesOrders();
         Contacts contacts = accounting.getContacts();
         Articles articles = accounting.getArticles();
-        File xmlFile = new File(accountingFolder, SALES_ORDERS + XML);
+        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/"+SALES_ORDERS + XML);
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS);
         int nr = 0;
         for (Element salesOrderElement : getChildren(rootElement, SALES_ORDER)) {

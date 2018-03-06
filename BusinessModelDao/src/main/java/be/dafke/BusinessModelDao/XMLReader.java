@@ -145,17 +145,17 @@ public class XMLReader {
         readJournals(accounting, xmlFolder);
         readBalances(accounting, xmlFolder);
         if(accounting.isMortgagesAccounting()) {
-            readMortgages(accounting, accountingFolder);
+            readMortgages(accounting, xmlFolder);
         }
         if(accounting.isProjectsAccounting()) {
-            readProjects(accounting, accountingFolder);
+            readProjects(accounting, xmlFolder);
         }
         if(accounting.isContactsAccounting()) {
-            readContacts(accounting, accountingFolder);
-            readArticles(accounting, accountingFolder);
-            readStock(accounting, accountingFolder);
-            readPurchaseOrders(accounting, accountingFolder);
-            readSalesOrders(accounting, accountingFolder);
+            readContacts(accounting, xmlFolder);
+            readArticles(accounting, xmlFolder);
+            readStock(accounting, xmlFolder);
+            readPurchaseOrders(accounting, xmlFolder);
+            readSalesOrders(accounting, xmlFolder);
         }
     }
 

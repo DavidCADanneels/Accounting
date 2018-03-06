@@ -24,10 +24,10 @@ import static be.dafke.Utils.Utils.parseInt;
  * Created by ddanneels on 15/01/2017.
  */
 public class StockIO {
-    public static void readStock(Accounting accounting, File accountingFolder){
+    public static void readStock(Accounting accounting, File xmlFolder){
         Stock stock = accounting.getStock();
         Articles articles = accounting.getArticles();
-        File xmlFile = new File(accountingFolder, STOCK + XML);
+        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/"+STOCK + XML);
         Element rootElement = getRootElement(xmlFile, STOCK);
         for (Element element : getChildren(rootElement, ARTICLE)) {
 

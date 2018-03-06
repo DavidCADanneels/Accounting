@@ -21,12 +21,12 @@ import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
  */
 public class ProjectsIO {
 
-    public static void readProjects(Accounting accounting, File accountingFolder) {
+    public static void readProjects(Accounting accounting, File xmlFolder) {
         Projects projects = accounting.getProjects();
         Accounts accounts = accounting.getAccounts();
         AccountTypes accountTypes = accounting.getAccountTypes();
-        File projectsFolder = new File(accountingFolder, PROJECTS);
-        File xmlFile = new File(accountingFolder, PROJECTS+XML);
+        File projectsFolder = new File(xmlFolder, "Accountings/"+accounting.getName()+"/"+PROJECTS);
+        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/"+PROJECTS+XML);
         Element rootElement = getRootElement(xmlFile, PROJECTS);
         for (Element element : getChildren(rootElement, PROJECT)) {
 

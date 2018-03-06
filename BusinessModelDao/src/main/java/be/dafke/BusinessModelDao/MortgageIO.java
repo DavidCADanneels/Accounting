@@ -23,11 +23,11 @@ import static be.dafke.Utils.Utils.parseInt;
  */
 public class MortgageIO {
 
-    public static void readMortgages(Accounting accounting, File accountingFolder) {
+    public static void readMortgages(Accounting accounting, File xmlFolder) {
         Mortgages mortgages = accounting.getMortgages();
         Accounts accounts = accounting.getAccounts();
-        File xmlFile = new File(accountingFolder, MORTGAGES+XML);
-        File mortgagesFolder = new File(accountingFolder, MORTGAGES);
+        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/"+MORTGAGES+XML);
+        File mortgagesFolder = new File(xmlFolder, "Accountings/"+accounting.getName()+"/"+MORTGAGES);
         Element rootElement = getRootElement(xmlFile, MORTGAGES);
         for (Element element : getChildren(rootElement, MORTGAGE)) {
 
