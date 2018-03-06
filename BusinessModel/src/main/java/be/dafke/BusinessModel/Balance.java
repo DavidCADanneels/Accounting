@@ -71,6 +71,24 @@ public class Balance extends BusinessCollection<BalanceLine> {
         return col;
     }
 
+    public BigDecimal getTotalLeft(){
+        ArrayList<Account> accounts = getAccountsByType(leftTypes);
+        BigDecimal total = BigDecimal.ZERO;
+        for (Account account:accounts) {
+            total = total.add(account.getSaldo()).setScale(2);
+        }
+        return total;
+    }
+
+    public BigDecimal getTotalRight(){
+        ArrayList<Account> accounts = getAccountsByType(rightTypes);
+        BigDecimal total = BigDecimal.ZERO;
+        for (Account account:accounts) {
+            total = total.add(account.getSaldo()).setScale(2);
+        }
+        return total.negate();
+
+    }
 
     public ArrayList<Account> getAccountsByType(ArrayList<AccountType> types) {
         ArrayList<Account> col = new ArrayList<>();

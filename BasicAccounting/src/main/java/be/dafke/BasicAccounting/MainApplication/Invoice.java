@@ -44,22 +44,17 @@ import static javax.swing.JSplitPane.*;
  */
 public class Invoice {
     public static void main(String[] args) {
-        String xslFile = "data/accounting/xsl/goods.xsl";
-        String xmlFile = "data/accounting/xml/invoice.xml";
-        String pdfFile = "data/accounting/xml/goods.pdf";
-        createInvoice(xmlFile, xslFile, pdfFile);
+        String xmlPath = "data/accounting/xml/invoice.xml";
+        String xslPath = "data/accounting/xsl/goods.xsl";
+        String pdfPath = "data/accounting/xml/goods.pdf";
+        createInvoice(xmlPath, xslPath, pdfPath);
     }
 
 
-    public static void createInvoice(String xmlFile, String xslFile, String pdfFile){
-        PDFCreator creator = new PDFCreator();
+    public static void createInvoice(String xmlPath, String xslPath, String pdfPath){
         try {
-            creator.convertToPDF(xmlFile, xslFile, pdfFile);
-        } catch (IOException e) {
-            e.printStackTrace();
-        } catch (FOPException e) {
-            e.printStackTrace();
-        } catch (TransformerException e) {
+            PDFCreator.convertToPDF(xmlPath, xslPath, pdfPath);
+        } catch (IOException | FOPException | TransformerException e) {
             e.printStackTrace();
         }
     }

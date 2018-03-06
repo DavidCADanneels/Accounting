@@ -43,7 +43,7 @@ public class PDFCreator {
      * @throws FOPException
      * @throws TransformerException
      */
-    public void convertToPDF(String xmlPath, String xslPath, String pdfPath)  throws IOException, FOPException, TransformerException {
+    public static void convertToPDF(String xmlPath, String xslPath, String pdfPath)  throws IOException, FOPException, TransformerException {
         // the XSL FO file
         File xsltFile = new File(xslPath);
         // the XML file which provides the input

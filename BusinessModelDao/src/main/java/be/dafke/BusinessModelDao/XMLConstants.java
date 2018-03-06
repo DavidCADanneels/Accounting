@@ -49,6 +49,8 @@ public class XMLConstants {
     public static final String BALANCE = "Balance";
     public final static String LEFTNAME = "LeftName";
     public final static String RIGHTNAME = "RightName";
+    public final static String TOTALLEFT = "TotalLeft";
+    public final static String TOTALRIGHT = "TotalRight";
     public final static String LEFTTOTALNAME = "LeftTotalName";
     public final static String RIGHTTOTALNAME = "RightTotalName";
     public final static String LEFTRESULTNAME = "LeftResultName";

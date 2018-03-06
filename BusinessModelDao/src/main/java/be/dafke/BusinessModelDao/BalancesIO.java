@@ -103,7 +103,7 @@ public class BalancesIO {
         } catch (IOException ex) {
             Logger.getLogger(Balances.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        writeIndividualBalances(balances, balancesFolder);
+        writeIndividualBalances(balances, balancesFolder);
     }
 
     public static void writeIndividualBalances(Balances balances, File balancesFolder){
@@ -128,10 +128,12 @@ public class BalancesIO {
                 }
                 if(rightAccount!=null){
                     writer.write("    <"+NAME2+">"+rightAccount.getName()+"</"+NAME2+">\n");
-                    writer.write("    <"+AMOUNT2+">"+rightAccount.getSaldo()+"</"+AMOUNT2+">\n");
+                    writer.write("    <"+AMOUNT2+">"+rightAccount.getSaldo().negate()+"</"+AMOUNT2+">\n");
                 }
                 writer.write("  </"+BALANCE_LINE+">\n");
             }
+            writer.write("    <"+TOTALLEFT+">"+balance.getTotalLeft()+"</"+TOTALLEFT+">\n");
+            writer.write("    <"+TOTALRIGHT+">"+balance.getTotalRight()+"</"+TOTALRIGHT+">\n");
             writer.write("  </"+BALANCE+">\n");
             writer.flush();
             writer.close();

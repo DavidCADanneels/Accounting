@@ -92,6 +92,10 @@ public class Main {
         launchFrame();
     }
 
+    public static File getXmlFolder() {
+        return xmlFolder;
+    }
+
     private static void createComponents() {
         journalInputGUI = new JournalInputGUI();
         journalReadGUI = new JournalGUI(journalInputGUI);
