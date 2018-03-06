@@ -31,11 +31,11 @@ import static be.dafke.Utils.Utils.toCalendar;
  */
 public class JournalsIO {
 
-    public static void readJournalTypes(Accounting accounting, File accountingFolder){
+    public static void readJournalTypes(Accounting accounting, File xmlFolder){
         JournalTypes journalTypes = accounting.getJournalTypes();
         Accounts accounts = accounting.getAccounts();
         AccountTypes accountTypes = accounting.getAccountTypes();
-        File xmlFile = new File(accountingFolder, "JournalTypes.xml");
+        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/JournalTypes.xml");
         Element rootElement = getRootElement(xmlFile, JOURNAL_TYPES);
         for (Element element : getChildren(rootElement, JOURNAL_TYPE)) {
 
@@ -114,12 +114,11 @@ public class JournalsIO {
         return accountsList;
     }
 
-    public static void readJournals(Accounting accounting, File accountingFolder) {
+    public static void readJournals(Accounting accounting, File xmlFolder) {
         JournalTypes journalTypes = accounting.getJournalTypes();
         Journals journals = accounting.getJournals();
 
-        File journalsFolder = new File(accountingFolder, "Journals");
-        File xmlFile = new File(accountingFolder, "Journals.xml");
+        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/Journals.xml");
         Element rootElement = getRootElement(xmlFile, JOURNALS);
         for (Element element : getChildren(rootElement, JOURNAL)) {
 
@@ -141,14 +140,14 @@ public class JournalsIO {
         }
 
         for(Journal journal:journals.getBusinessObjects()){
-            readJournal(journal, accounting, journalsFolder);
+            readJournal(journal, accounting, xmlFolder);
         }
     }
 
-    public static void readJournal(Journal journal, Accounting accounting, File journalsFolder) {
+    public static void readJournal(Journal journal, Accounting accounting, File xmlFolder) {
         Accounts accounts = accounting.getAccounts();
         String name = journal.getName();
-        File xmlFile = new File(journalsFolder, name+XML);
+        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/Journals/"+name+XML);
         Element rootElement = getRootElement(xmlFile, JOURNAL);
         for (Element element: getChildren(rootElement, TRANSACTION)){
 
