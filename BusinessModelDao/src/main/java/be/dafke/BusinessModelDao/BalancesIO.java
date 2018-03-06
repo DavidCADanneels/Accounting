@@ -28,11 +28,11 @@ public class BalancesIO {
 
 
 
-    public static void readBalances(Accounting accounting, File accountingFolder){
+    public static void readBalances(Accounting accounting, File xmlFolder){
         Balances balances = accounting.getBalances();
         Accounts accounts = accounting.getAccounts();
         AccountTypes accountTypes = accounting.getAccountTypes();
-        File xmlFile = new File(accountingFolder, "Balances.xml");
+        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/Balances.xml");
         Element rootElement = getRootElement(xmlFile, BALANCES);
         for (Element element: getChildren(rootElement, BALANCE)){
 

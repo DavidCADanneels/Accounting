@@ -143,7 +143,7 @@ public class XMLReader {
         }
 
         readJournals(accounting, xmlFolder);
-        readBalances(accounting, accountingFolder);
+        readBalances(accounting, xmlFolder);
         if(accounting.isMortgagesAccounting()) {
             readMortgages(accounting, accountingFolder);
         }
