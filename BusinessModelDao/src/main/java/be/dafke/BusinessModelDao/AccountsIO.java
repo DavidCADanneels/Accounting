@@ -4,8 +4,10 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;
+import org.apache.fop.apps.FOPException;
 import org.w3c.dom.Element;
 
+import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -55,6 +57,23 @@ public class AccountsIO {
         }
     }
 
+    public static void writeAccountPdfFiles(Accounts accounts, File accountingFolder, String accountingName){
+        File subFolder = new File(accountingFolder, "PDF");
+        subFolder.mkdirs();
+
+        String accountsFolderPath = "data/accounting/xml/Accountings/" + accountingName + "/Accounts/";
+        String xslPath = "data/accounting/xsl/AccountPdf.xsl";
+        String resultPdfPolderPath = "data/accounting/xml/Accountings/" + accountingName + "/PDF/";
+        accounts.getBusinessObjects().forEach(account -> {
+            try {
+                PDFCreator.convertToPDF(accountsFolderPath + account.getName() + ".xml", xslPath, resultPdfPolderPath + account.getName() + ".pdf");
+            } catch (IOException | FOPException | TransformerException e1) {
+                e1.printStackTrace();
+            }
+        });
+
+    }
+
     public static void writeAccounts(Accounts accounts, File accountingFolder){
         File accountsFile = new File(accountingFolder, ACCOUNTS+XML);
         File accountsFolder = new File(accountingFolder, ACCOUNTS);
@@ -89,10 +108,14 @@ public class AccountsIO {
         } catch (IOException ex) {
             Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        accountsFolder.mkdirs();
-//        for (Account account:accounts.getBusinessObjects()) {
-//            writeAccount(account, accountsFolder);
-//        }
+    }
+
+    public static void writeAllAccounts(Accounts accounts, File accountingFolder){
+        File accountsFolder = new File(accountingFolder, ACCOUNTS);
+        accountsFolder.mkdirs();
+        for (Account account:accounts.getBusinessObjects()) {
+            writeAccount(account, accountsFolder);
+        }
     }
 
     private static void writeAccount(Account account, File accountsFolder) {

@@ -4,8 +4,10 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;
+import org.apache.fop.apps.FOPException;
 import org.w3c.dom.Element;
 
+import javax.xml.transform.TransformerException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
@@ -68,6 +70,26 @@ public class BalancesIO {
         }
     }
 
+    public static void writeBalancePdfFiles(Balances balances, File accountingFolder, String accountingName){
+        File subFolder = new File(accountingFolder, "PDF");
+        subFolder.mkdirs();
+
+        String resultXmlPath = "data/accounting/xml/Accountings/"+accountingName+"/Balances/ResultBalance.xml";
+        String yearXmlPath = "data/accounting/xml/Accountings/"+accountingName+"/Balances/YearBalance.xml";
+        String relationsXmlPath = "data/accounting/xml/Accountings/"+accountingName+"/Balances/RelationsBalance.xml";
+        String xslPath = "data/accounting/xsl/BalancePdf.xsl";
+        String resultPdfPath = "data/accounting/xml/Accountings/"+accountingName+"/PDF/ResultBalance.pdf";
+        String yearPdfPath = "data/accounting/xml/Accountings/"+accountingName+"/PDF/YearBalance.pdf";
+        String relationsPdfPath = "data/accounting/xml/Accountings/"+accountingName+"/PDF/RelationsBalance.pdf";
+        try {
+            PDFCreator.convertToPDF(resultXmlPath, xslPath, resultPdfPath);
+            PDFCreator.convertToPDF(yearXmlPath, xslPath, yearPdfPath);
+            PDFCreator.convertToPDF(relationsXmlPath, xslPath, relationsPdfPath);
+        } catch (IOException | FOPException | TransformerException ex) {
+            ex.printStackTrace();
+        }
+    }
+
     public static void writeBalances(Balances balances, File accountingFolder){
         File balancesFile = new File(accountingFolder, BALANCES+XML);
         File balancesFolder = new File(accountingFolder, BALANCES);
@@ -103,7 +125,7 @@ public class BalancesIO {
         } catch (IOException ex) {
             Logger.getLogger(Balances.class.getName()).log(Level.SEVERE, null, ex);
         }
-        writeIndividualBalances(balances, balancesFolder);
+//        writeIndividualBalances(balances, balancesFolder);
     }
 
     public static void writeIndividualBalances(Balances balances, File balancesFolder){

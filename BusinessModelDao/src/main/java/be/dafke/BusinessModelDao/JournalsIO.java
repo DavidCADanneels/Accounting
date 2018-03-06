@@ -292,7 +292,6 @@ public class JournalsIO {
                 e1.printStackTrace();
             }
         });
-
     }
 
     public static void writeJournals(Journals journals, File accountingFolder){

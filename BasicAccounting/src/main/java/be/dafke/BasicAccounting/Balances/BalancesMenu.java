@@ -41,21 +41,8 @@ public class BalancesMenu extends JMenu {
             File xmlFolder = Main.getXmlFolder();
             File accountingsFolder = new File(xmlFolder, "Accountings");
             File accountingFolder = new File(accountingsFolder, accounting.getName());
-            BalancesIO.writeBalances(balances,accountingFolder);
-            try {
-                String resultXmlPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/ResultBalance.xml";
-                String yearXmlPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/YearBalance.xml";
-                String relationsXmlPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/Balances/RelationsBalance.xml";
-                String xslPath = "data/accounting/xsl/BalancePdf.xsl";
-                String resultPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/PDF/ResultBalance.pdf";
-                String yearPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/PDF/YearBalance.pdf";
-                String relationsPdfPath = "data/accounting/xml/Accountings/"+accounting.getName()+"/PDF/RelationsBalance.pdf";
-                PDFCreator.convertToPDF(resultXmlPath, xslPath, resultPdfPath);
-                PDFCreator.convertToPDF(yearXmlPath, xslPath, yearPdfPath);
-                PDFCreator.convertToPDF(relationsXmlPath, xslPath, relationsPdfPath);
-            } catch (IOException | FOPException | TransformerException ex) {
-                ex.printStackTrace();
-            }
+            BalancesIO.writeIndividualBalances(balances,accountingFolder);
+            BalancesIO.writeBalancePdfFiles(balances, accountingFolder, accounting.getName());
         });
         add(manage);
         add(pdfGeneration);
