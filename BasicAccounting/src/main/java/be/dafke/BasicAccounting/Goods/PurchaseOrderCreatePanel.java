@@ -9,6 +9,7 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.function.Predicate;
 
 /**
@@ -99,9 +100,10 @@ public class PurchaseOrderCreatePanel extends JPanel {
         for (StockItem stockItem : order.getBusinessObjects()){
             Article article = stockItem.getArticle();
             int number = stockItem.getNumber();
-            totalPurchaseExcl = totalPurchaseExcl.add(article.getPurchasePrice(number)).setScale(2);
-//            totalVat = totalVat.add(article.getPurchaseVat(number)).setScale(2);
-            totalPurchaseIncl = totalPurchaseIncl.add(article.getPurchasePriceWithVat(number)).setScale(2);
+            // purchase prices (without VAT) should only have 2 digits, so rounding is not strictly needed (but it allows to use more digits)
+            totalPurchaseExcl = totalPurchaseExcl.add(article.getPurchasePrice(number)).setScale(2, RoundingMode.HALF_DOWN);
+            totalVat = totalVat.add(article.getPurchaseVat(number)).setScale(2, RoundingMode.HALF_DOWN);
+            totalPurchaseIncl = totalPurchaseIncl.add(article.getPurchasePriceWithVat(number)).setScale(2, RoundingMode.HALF_DOWN);
         }
         textField1.setText(totalPurchaseExcl.toString());
         textField2.setText(totalVat.toString());
