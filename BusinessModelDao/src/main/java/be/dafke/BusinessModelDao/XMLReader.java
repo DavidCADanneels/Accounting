@@ -67,10 +67,8 @@ public class XMLReader {
         return children;
     }
 
-    public static void readAccountings(Accountings accountings, File xmlFolder){
-        File subFolder = new File(xmlFolder, ACCOUNTINGS);
-        subFolder.mkdirs();
-        File xmlFile = new File(xmlFolder, "Accountings.xml");
+    public static void readAccountings(Accountings accountings){
+        File xmlFile = new File("data/accounting/xml/Accountings.xml");
         if(!xmlFile.exists()){
             return;
         }
@@ -107,8 +105,8 @@ public class XMLReader {
         }
     }
 
-    public static void readSession(Accountings accountings, File xmlFolder) {
-        File xmlFile = new File(xmlFolder, "Session.xml");
+    public static void readSession(Accountings accountings) {
+        File xmlFile = new File( "data/accounting/xml/Session.xml");
         if (!xmlFile.exists()) {
             return;
         }
@@ -131,29 +129,29 @@ public class XMLReader {
         VATTransaction.setCount(Utils.parseInt(nextIdString));
     }
 
-    public static void readAccounting(Accounting accounting, File xmlFolder) {
-        readAccounts(accounting, xmlFolder);
-        readJournalTypes(accounting, xmlFolder);
+    public static void readAccounting(Accounting accounting) {
+        readAccounts(accounting);
+        readJournalTypes(accounting);
         if(accounting.isVatAccounting()) {
             accounting.getVatFields().addDefaultFields();
-//            readVATFields(accounting, xmlFolder);
-            readVATTransactions(accounting, xmlFolder);
+//            readVATFields(accounting);
+            readVATTransactions(accounting);
         }
 
-        readJournals(accounting, xmlFolder);
-        readBalances(accounting, xmlFolder);
+        readJournals(accounting);
+        readBalances(accounting);
         if(accounting.isMortgagesAccounting()) {
-            readMortgages(accounting, xmlFolder);
+            readMortgages(accounting);
         }
         if(accounting.isProjectsAccounting()) {
-            readProjects(accounting, xmlFolder);
+            readProjects(accounting);
         }
         if(accounting.isContactsAccounting()) {
-            readContacts(accounting, xmlFolder);
-            readArticles(accounting, xmlFolder);
-            readStock(accounting, xmlFolder);
-            readPurchaseOrders(accounting, xmlFolder);
-            readSalesOrders(accounting, xmlFolder);
+            readContacts(accounting);
+            readArticles(accounting);
+            readStock(accounting);
+            readPurchaseOrders(accounting);
+            readSalesOrders(accounting);
         }
     }
 

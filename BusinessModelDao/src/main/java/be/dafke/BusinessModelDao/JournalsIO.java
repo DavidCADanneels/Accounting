@@ -31,11 +31,11 @@ import static be.dafke.Utils.Utils.toCalendar;
  */
 public class JournalsIO {
 
-    public static void readJournalTypes(Accounting accounting, File xmlFolder){
+    public static void readJournalTypes(Accounting accounting){
         JournalTypes journalTypes = accounting.getJournalTypes();
         Accounts accounts = accounting.getAccounts();
         AccountTypes accountTypes = accounting.getAccountTypes();
-        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/JournalTypes.xml");
+        File xmlFile = new File(XML_PATH+accounting.getName()+"/JournalTypes.xml");
         Element rootElement = getRootElement(xmlFile, JOURNAL_TYPES);
         for (Element element : getChildren(rootElement, JOURNAL_TYPE)) {
 
@@ -114,11 +114,11 @@ public class JournalsIO {
         return accountsList;
     }
 
-    public static void readJournals(Accounting accounting, File xmlFolder) {
+    public static void readJournals(Accounting accounting) {
         JournalTypes journalTypes = accounting.getJournalTypes();
         Journals journals = accounting.getJournals();
 
-        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/Journals.xml");
+        File xmlFile = new File(XML_PATH+accounting.getName()+"/Journals.xml");
         Element rootElement = getRootElement(xmlFile, JOURNALS);
         for (Element element : getChildren(rootElement, JOURNAL)) {
 
@@ -140,14 +140,14 @@ public class JournalsIO {
         }
 
         for(Journal journal:journals.getBusinessObjects()){
-            readJournal(journal, accounting, xmlFolder);
+            readJournal(journal, accounting);
         }
     }
 
-    public static void readJournal(Journal journal, Accounting accounting, File xmlFolder) {
+    public static void readJournal(Journal journal, Accounting accounting) {
         Accounts accounts = accounting.getAccounts();
         String name = journal.getName();
-        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/Journals/"+name+XML);
+        File xmlFile = new File(XML_PATH+accounting.getName()+"/Journals/"+name+ XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, JOURNAL);
         for (Element element: getChildren(rootElement, TRANSACTION)){
 
@@ -219,7 +219,7 @@ public class JournalsIO {
     }
 
     public static void writeJournalTypes(JournalTypes journalTypes, File accountingFolder){
-        File journalTypesFile = new File(accountingFolder, JOURNAL_TYPES +XML);
+        File journalTypesFile = new File(accountingFolder, JOURNAL_TYPES + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(journalTypesFile);
             writer.write(getXmlHeader(JOURNAL_TYPES, 2));
@@ -281,9 +281,9 @@ public class JournalsIO {
         File subFolder = new File(accountingFolder, "PDF/Journals");
         subFolder.mkdirs();
 
-        String journalsFolderPath = "data/accounting/xml/Accountings/" + accountingName + "/Journals/";
+        String journalsFolderPath = XML_PATH + accountingName + "/Journals/";
         String xslPath = "data/accounting/xsl/JournalPdf.xsl";
-        String resultPdfPolderPath = "data/accounting/xml/Accountings/" + accountingName + "/PDF/Journals/";
+        String resultPdfPolderPath = XML_PATH + accountingName + "/PDF/Journals/";
         journals.getBusinessObjects().forEach(journal -> {
             try {
                 PDFCreator.convertToPDF(journalsFolderPath + journal.getName() + ".xml", xslPath, resultPdfPolderPath + journal.getName() + ".pdf");
@@ -294,7 +294,7 @@ public class JournalsIO {
     }
 
     public static void writeJournals(Journals journals, File accountingFolder){
-        File journalsFile = new File(accountingFolder, JOURNALS +XML);
+        File journalsFile = new File(accountingFolder, JOURNALS + XML_EXTENSION);
         File journalsFolder = new File(accountingFolder, JOURNALS);
         try {
             Writer writer = new FileWriter(journalsFile);
@@ -322,7 +322,7 @@ public class JournalsIO {
     }
 
     public static void writeJournal(Journal journal, File journalsFolder){
-        File journalFile = new File(journalsFolder, journal.getName() +XML);
+        File journalFile = new File(journalsFolder, journal.getName() + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(journalFile);
             writer.write(getXmlHeader(JOURNAL, 3));

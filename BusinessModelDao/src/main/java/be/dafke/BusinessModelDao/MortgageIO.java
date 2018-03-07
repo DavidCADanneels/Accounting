@@ -23,11 +23,11 @@ import static be.dafke.Utils.Utils.parseInt;
  */
 public class MortgageIO {
 
-    public static void readMortgages(Accounting accounting, File xmlFolder) {
+    public static void readMortgages(Accounting accounting) {
         Mortgages mortgages = accounting.getMortgages();
         Accounts accounts = accounting.getAccounts();
-        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/"+MORTGAGES+XML);
-        File mortgagesFolder = new File(xmlFolder, "Accountings/"+accounting.getName()+"/"+MORTGAGES);
+        File xmlFile = new File(XML_PATH+accounting.getName()+"/"+MORTGAGES+ XML_EXTENSION);
+        File mortgagesFolder = new File(XML_PATH+accounting.getName()+"/"+MORTGAGES);
         Element rootElement = getRootElement(xmlFile, MORTGAGES);
         for (Element element : getChildren(rootElement, MORTGAGE)) {
 
@@ -64,7 +64,7 @@ public class MortgageIO {
 
     public static void readMortgage(Mortgage mortgage, File mortgagesFolder) {
         String name = mortgage.getName();
-        File xmlFile = new File(mortgagesFolder, name+XML);
+        File xmlFile = new File(mortgagesFolder, name+ XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, MORTGAGE);
         for (Element element : getChildren(rootElement, MORTGAGE_TRANSACTION)) {
             MortgageTransaction mortgageTransaction = new MortgageTransaction();
@@ -81,7 +81,7 @@ public class MortgageIO {
 
 
     public static void writeMortgages(Mortgages mortgages, File accountingFolder){
-        File mortgagesFile = new File(accountingFolder, MORTGAGES+XML);
+        File mortgagesFile = new File(accountingFolder, MORTGAGES+ XML_EXTENSION);
         File mortgagesFolder = new File(accountingFolder, MORTGAGES);
         try{
             Writer writer = new FileWriter(mortgagesFile);
@@ -112,7 +112,7 @@ public class MortgageIO {
 
     public static void writeMortgage(Mortgage mortgage, File mortgagesFolder){
         mortgagesFolder.mkdirs();
-        File mortgagesFile = new File(mortgagesFolder, mortgage.getName()+XML);
+        File mortgagesFile = new File(mortgagesFolder, mortgage.getName()+ XML_EXTENSION);
         try{
             Writer writer = new FileWriter(mortgagesFile);
             writer.write(getXmlHeader(MORTGAGE, 3));

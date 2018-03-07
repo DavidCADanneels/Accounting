@@ -118,7 +118,8 @@ public class XMLConstants {
     public static final String SALES_ORDERS = "SalesOrders";
     public static final String SALES_ORDER = "SalesOrder";
 
-    public static final String XML = ".xml";
+    public static final String XML_PATH = "data/accounting/xml/Accountings/";
+    public static final String XML_EXTENSION = ".xml";
 
     public static final String SESSION = "Session";
     public static final String ACTIVE_ACCOUNTING = "ActiveAccounting";

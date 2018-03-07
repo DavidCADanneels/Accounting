@@ -27,10 +27,10 @@ import static be.dafke.Utils.Utils.parseBigInteger;
  * Created by ddanneels on 15/01/2017.
  */
 public class AccountsIO {
-    public static void readAccounts(Accounting accounting, File xmlFolder){
+    public static void readAccounts(Accounting accounting){
         Accounts accounts = accounting.getAccounts();
         AccountTypes accountTypes = accounting.getAccountTypes();
-        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/Accounts.xml");
+        File xmlFile = new File(XML_PATH+accounting.getName()+"/Accounts.xml");
         Element rootElement = getRootElement(xmlFile, ACCOUNTS);
         for (Element element : getChildren(rootElement, ACCOUNT)) {
 
@@ -67,9 +67,9 @@ public class AccountsIO {
         File subFolder = new File(accountingFolder, "PDF/Accounts");
         subFolder.mkdirs();
 
-        String accountsFolderPath = "data/accounting/xml/Accountings/" + accountingName + "/tmp/";
+        String accountsFolderPath = XML_PATH + accountingName + "/tmp/";
         String xslPath = "data/accounting/xsl/AccountPdf.xsl";
-        String resultPdfPolderPath = "data/accounting/xml/Accountings/" + accountingName + "/PDF/Accounts/";
+        String resultPdfPolderPath = XML_PATH + accountingName + "/PDF/Accounts/";
         accounts.getBusinessObjects().forEach(account -> {
             try {
                 String fileName = account.getName() + ".xml";
@@ -86,7 +86,7 @@ public class AccountsIO {
     }
 
     public static void writeAccounts(Accounts accounts, File accountingFolder){
-        File accountsFile = new File(accountingFolder, ACCOUNTS+XML);
+        File accountsFile = new File(accountingFolder, ACCOUNTS+ XML_EXTENSION);
         File accountsFolder = new File(accountingFolder, ACCOUNTS);
         try{
             Writer writer = new FileWriter(accountsFile);
@@ -130,7 +130,7 @@ public class AccountsIO {
     }
 
     private static void writeAccount(Account account, File accountsFolder) {
-        File accountFile = new File(accountsFolder, account.getName()+XML);
+        File accountFile = new File(accountsFolder, account.getName()+ XML_EXTENSION);
         try {
             Writer writer = new FileWriter(accountFile);
             writer.write(getXmlHeader(ACCOUNT, 3));

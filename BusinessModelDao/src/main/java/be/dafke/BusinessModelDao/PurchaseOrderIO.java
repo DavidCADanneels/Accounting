@@ -21,11 +21,11 @@ import static be.dafke.Utils.Utils.parseInt;
  * Created by ddanneels on 15/01/2017.
  */
 public class PurchaseOrderIO {
-    public static void readPurchaseOrders(Accounting accounting, File xmlFolder){
+    public static void readPurchaseOrders(Accounting accounting){
         PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
         Contacts contacts = accounting.getContacts();
         Articles articles = accounting.getArticles();
-        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/"+PURCHASE_ORDERS + XML);
+        File xmlFile = new File(XML_PATH+accounting.getName()+"/"+PURCHASE_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, PURCHASE_ORDERS);
         int nr = 0;
         for (Element purchaseOrderElement : getChildren(rootElement, PURCHASE_ORDER)) {
@@ -57,7 +57,7 @@ public class PurchaseOrderIO {
     }
 
     public static void writePurchasesOrders(PurchaseOrders purchaseOrders, File accountingFolder) {
-        File file = new File(accountingFolder, PURCHASE_ORDERS + XML);
+        File file = new File(accountingFolder, PURCHASE_ORDERS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(PURCHASE_ORDERS, 2));

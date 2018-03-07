@@ -281,7 +281,7 @@ public class VATFieldsGUI extends JFrame {
                 companyContact = contactSelector.getSelection();
             }
             JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setFileFilter(new FileNameExtensionFilter("XML files", "xml"));
+            fileChooser.setFileFilter(new FileNameExtensionFilter("XML_EXTENSION files", "xml"));
             if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File selectedFile = fileChooser.getSelectedFile();
                 VATWriter.writeVATFields(vatFields, selectedFile, year.getText(), nr.getText(), companyContact, QUARTER);

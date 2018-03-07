@@ -23,10 +23,10 @@ import static be.dafke.Utils.Utils.parseInt;
  * Created by ddanneels on 15/01/2017.
  */
 public class ArticlesIO {
-    public static void readArticles(Accounting accounting, File xmlFolder){
+    public static void readArticles(Accounting accounting){
         Articles articles = accounting.getArticles();
         Contacts contacts = accounting.getContacts();
-        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/"+ARTICLES + XML);
+        File xmlFile = new File(XML_PATH+accounting.getName()+"/"+ARTICLES + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, ARTICLES);
         for (Element element : getChildren(rootElement, ARTICLE)) {
 
@@ -67,7 +67,7 @@ public class ArticlesIO {
     }
 
     public static void writeArticles(Articles articles, File accountingFolder) {
-        File file = new File(accountingFolder, ARTICLES + XML);
+        File file = new File(accountingFolder, ARTICLES + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(ARTICLES, 2));

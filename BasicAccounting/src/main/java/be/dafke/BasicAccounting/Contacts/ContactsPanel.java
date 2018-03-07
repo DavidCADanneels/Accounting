@@ -74,7 +74,7 @@ public class ContactsPanel extends JPanel implements ListSelectionListener {
         }
 
         JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setFileFilter(new FileNameExtensionFilter("XML files", "xml"));
+        fileChooser.setFileFilter(new FileNameExtensionFilter("XML_EXTENSION files", "xml"));
         String year = JOptionPane.showInputDialog(this, "Year:");
         if (fileChooser.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
             File selectedFile = fileChooser.getSelectedFile();

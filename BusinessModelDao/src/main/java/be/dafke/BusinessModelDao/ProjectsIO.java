@@ -21,12 +21,12 @@ import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
  */
 public class ProjectsIO {
 
-    public static void readProjects(Accounting accounting, File xmlFolder) {
+    public static void readProjects(Accounting accounting) {
         Projects projects = accounting.getProjects();
         Accounts accounts = accounting.getAccounts();
         AccountTypes accountTypes = accounting.getAccountTypes();
-        File projectsFolder = new File(xmlFolder, "Accountings/"+accounting.getName()+"/"+PROJECTS);
-        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/"+PROJECTS+XML);
+        File projectsFolder = new File(XML_PATH+accounting.getName()+"/"+PROJECTS);
+        File xmlFile = new File(XML_PATH+accounting.getName()+"/"+PROJECTS+ XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, PROJECTS);
         for (Element element : getChildren(rootElement, PROJECT)) {
 
@@ -47,7 +47,7 @@ public class ProjectsIO {
 
     public static void readProject(Project project, Accounts accounts, File projectsFolder) {
         String projectName = project.getName();
-        File xmlFile = new File(projectsFolder, projectName+XML);
+        File xmlFile = new File(projectsFolder, projectName+ XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, PROJECT);
         for (Element element : getChildren(rootElement, ACCOUNT)) {
 
@@ -63,7 +63,7 @@ public class ProjectsIO {
     }
 
     public static void writeProjects(Projects projects, File accountingFolder){
-        File projectsFile = new File(accountingFolder, PROJECTS+XML);
+        File projectsFile = new File(accountingFolder, PROJECTS+ XML_EXTENSION);
         File projectsFolder = new File(accountingFolder, PROJECTS);
         try{
             Writer writer = new FileWriter(projectsFile);
@@ -89,7 +89,7 @@ public class ProjectsIO {
     }
 
     private static void writeProject(Project project, File projectsFolder) {
-        File projectFile = new File(projectsFolder, project.getName()+XML);
+        File projectFile = new File(projectsFolder, project.getName()+ XML_EXTENSION);
         try {
             Writer writer = new FileWriter(projectFile);
             writer.write(getXmlHeader(PROJECT, 3));

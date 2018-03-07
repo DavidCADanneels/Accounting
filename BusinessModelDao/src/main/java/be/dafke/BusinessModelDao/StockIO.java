@@ -1,33 +1,28 @@
 package be.dafke.BusinessModelDao;
 
 import be.dafke.BusinessModel.*;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.Utils.Utils;
 import org.w3c.dom.Element;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
-import static be.dafke.Utils.Utils.parseBigDecimal;
 import static be.dafke.Utils.Utils.parseInt;
 
 /**
  * Created by ddanneels on 15/01/2017.
  */
 public class StockIO {
-    public static void readStock(Accounting accounting, File xmlFolder){
+    public static void readStock(Accounting accounting){
         Stock stock = accounting.getStock();
         Articles articles = accounting.getArticles();
-        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/"+STOCK + XML);
+        File xmlFile = new File(XML_PATH+accounting.getName()+"/"+STOCK + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, STOCK);
         for (Element element : getChildren(rootElement, ARTICLE)) {
 
@@ -43,7 +38,7 @@ public class StockIO {
     }
 
     public static void writeStock(Stock stock, File accountingFolder) {
-        File file = new File(accountingFolder, STOCK + XML);
+        File file = new File(accountingFolder, STOCK + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(STOCK, 2));

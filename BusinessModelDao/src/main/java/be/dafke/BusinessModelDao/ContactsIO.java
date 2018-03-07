@@ -24,9 +24,9 @@ import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
  */
 public class ContactsIO {
 
-    public static void readContacts(Accounting accounting, File xmlFolder){
+    public static void readContacts(Accounting accounting){
         Contacts contacts = accounting.getContacts();
-        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/Contacts.xml");
+        File xmlFile = new File(XML_PATH+accounting.getName()+"/Contacts.xml");
         Element rootElement = getRootElement(xmlFile, CONTACTS);
         for (Element element : getChildren(rootElement, CONTACT)) {
             Contact contact = new Contact();

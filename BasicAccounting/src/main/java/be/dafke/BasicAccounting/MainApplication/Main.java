@@ -190,11 +190,11 @@ public class Main {
 
         accountings = new Accountings();
 
-        XMLReader.readAccountings(accountings, xmlFolder);
+        XMLReader.readAccountings(accountings);
         for(Accounting accounting:accountings.getBusinessObjects()) {
-            XMLReader.readAccounting(accounting, xmlFolder);
+            XMLReader.readAccounting(accounting);
         }
-        XMLReader.readSession(accountings, xmlFolder);
+        XMLReader.readSession(accountings);
     }
 
     private static JButton createSaveButton(){

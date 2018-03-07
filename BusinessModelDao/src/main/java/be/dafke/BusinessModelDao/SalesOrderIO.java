@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -22,11 +21,11 @@ import static be.dafke.Utils.Utils.parseInt;
  * Created by ddanneels on 15/01/2017.
  */
 public class SalesOrderIO {
-    public static void readSalesOrders(Accounting accounting, File xmlFolder){
+    public static void readSalesOrders(Accounting accounting){
         SalesOrders salesOrders = accounting.getSalesOrders();
         Contacts contacts = accounting.getContacts();
         Articles articles = accounting.getArticles();
-        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/"+SALES_ORDERS + XML);
+        File xmlFile = new File(XML_PATH+accounting.getName()+"/"+SALES_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS);
         int nr = 0;
         for (Element salesOrderElement : getChildren(rootElement, SALES_ORDER)) {
@@ -58,7 +57,7 @@ public class SalesOrderIO {
     }
 
     public static void writeSalesOrders(SalesOrders salesOrders, File accountingFolder) {
-        File file = new File(accountingFolder, SALES_ORDERS + XML);
+        File file = new File(accountingFolder, SALES_ORDERS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(SALES_ORDERS, 2));
