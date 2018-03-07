@@ -132,14 +132,12 @@ public class XMLReader {
     }
 
     public static void readAccounting(Accounting accounting, File xmlFolder) {
-        File accountingsFolder = new File(xmlFolder, "Accountings");
-        File accountingFolder = new File(accountingsFolder, accounting.getName());
         readAccounts(accounting, xmlFolder);
         readJournalTypes(accounting, xmlFolder);
         if(accounting.isVatAccounting()) {
             accounting.getVatFields().addDefaultFields();
-//            readVATFields(accounting.getVatFields(), accountingFolder);
-            readVATTransactions(accounting, accountingFolder);
+//            readVATFields(accounting, xmlFolder);
+            readVATTransactions(accounting, xmlFolder);
         }
 
         readJournals(accounting, xmlFolder);

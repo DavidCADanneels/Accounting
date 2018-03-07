@@ -26,8 +26,9 @@ import static be.dafke.Utils.Utils.parseInt;
  */
 public class VATIO {
 
-    public static void readVATFields(VATFields vatFields, File accountingFolder) {
-        File xmlFile = new File(accountingFolder, "VATFields.xml");
+    public static void readVATFields(Accounting accounting, File accountingFolder) {
+        VATFields vatFields = accounting.getVatFields();
+        File xmlFile = new File(accountingFolder, "Accountings/"+accounting.getName()+"/VATFields.xml");
         if(xmlFile.exists()) {
             Element rootElement = getRootElement(xmlFile, VATFIELDS);
             for (Element element : getChildren(rootElement, VATFIELD)) {
@@ -44,11 +45,11 @@ public class VATIO {
         }
     }
 
-    public static void readVATTransactions(Accounting accounting, File accountingFolder){
+    public static void readVATTransactions(Accounting accounting, File xmlFolder){
         VATTransactions vatTransactions = accounting.getVatTransactions();
         VATFields vatFields = accounting.getVatFields();
         Accounts accounts = accounting.getAccounts();
-        File xmlFile = new File(accountingFolder, "VATTransactions.xml");
+        File xmlFile = new File(xmlFolder, "Accountings/"+accounting.getName()+"/VATTransactions.xml");
         if(xmlFile.exists()) {
             Element rootElement = getRootElement(xmlFile, VATTRANSACTIONS);
             String debitAccountString = getValue(rootElement, DEBIT_ACCOUNT);
