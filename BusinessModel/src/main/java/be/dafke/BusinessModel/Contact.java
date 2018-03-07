@@ -18,6 +18,7 @@ public class Contact extends BusinessObject{
     private String phone = "";
     private BigDecimal turnOver = BigDecimal.ZERO;
     private BigDecimal VATTotal = BigDecimal.ZERO;
+    private Account account;
 
     public enum ContactType{
         // TODO: add 'OWN' to store Own Company Details ? (or continue using ... )
@@ -104,6 +105,10 @@ public class Contact extends BusinessObject{
         return VATTotal;
     }
 
+    public Account getAccount() {
+        return account;
+    }
+
     public void increaseTurnOver(BigDecimal amount){
         turnOver = turnOver.add(amount);
         turnOver.setScale(2);
@@ -130,5 +135,9 @@ public class Contact extends BusinessObject{
 
     public void setVATTotal(BigDecimal VATTotal) {
         this.VATTotal = VATTotal;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }

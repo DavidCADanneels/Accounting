@@ -98,20 +98,9 @@ public class PurchaseOrderCreatePanel extends JPanel {
     }
 
     public void fireOrderContentChanged(){
-        BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
-        BigDecimal totalVat = BigDecimal.ZERO.setScale(2);
-        BigDecimal totalPurchaseIncl = BigDecimal.ZERO.setScale(2);
-        for (StockItem stockItem : order.getBusinessObjects()){
-            Article article = stockItem.getArticle();
-            int number = stockItem.getNumber();
-            // purchase prices (without VAT) should only have 2 digits, so rounding is not strictly needed (but it allows to use more digits)
-            totalPurchaseExcl = totalPurchaseExcl.add(article.getPurchasePrice(number)).setScale(2, RoundingMode.HALF_DOWN);
-            totalVat = totalVat.add(article.getPurchaseVat(number)).setScale(2, RoundingMode.HALF_DOWN);
-            totalPurchaseIncl = totalPurchaseIncl.add(article.getPurchasePriceWithVat(number)).setScale(2, RoundingMode.HALF_DOWN);
-        }
-        textField1.setText(totalPurchaseExcl.toString());
-        textField2.setText(totalVat.toString());
-        textField3.setText(totalPurchaseIncl.toString());
+        textField1.setText(order.getTotalPurchasePriceExclVat().toString());
+        textField2.setText(order.getTotalPurchaseVat().toString());
+        textField3.setText(order.getTotalPurchasePriceInclVat().toString());
     }
 
     public void fireSupplierAddedOrRemoved() {

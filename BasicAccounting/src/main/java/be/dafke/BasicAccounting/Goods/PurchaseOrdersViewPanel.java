@@ -1,11 +1,16 @@
 package be.dafke.BasicAccounting.Goods;
 
 
+import be.dafke.BasicAccounting.Accounts.AccountSelector;
+import be.dafke.BasicAccounting.Journals.JournalInputGUI;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Calendar;
 
 /**
  * User: david
@@ -13,21 +18,35 @@ import java.awt.*;
  * Time: 22:07
  */
 public class PurchaseOrdersViewPanel extends JPanel {
-    private final JButton deliveredButton, payedButton;
+    private final JButton placeOrderButton, deliveredButton, payedButton;
     private final SelectableTable<StockItem> table;
     private final PurchaseOrders purchaseOrders;
     private JComboBox<Order> comboBox;
-    private JCheckBox payed, delivered;
+    private JCheckBox payed, delivered, placed;
     private Order order;
+    private Accounting accounting;
     private final PurchaseOrdersViewDataTableModel purchaseOrdersViewDataTableModel;
 
     public PurchaseOrdersViewPanel(Accounting accounting) {
+        this.accounting = accounting;
         this.purchaseOrders = accounting.getPurchaseOrders();
         purchaseOrdersViewDataTableModel = new PurchaseOrdersViewDataTableModel();
         table = new SelectableTable<>(purchaseOrdersViewDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
+
+        placeOrderButton = new JButton("Place Order");
+        placeOrderButton.addActionListener(e -> {
+            Order order = purchaseOrdersViewDataTableModel.getOrder();
+            Transaction transaction = createPurchaseTransaction(order);
+            Journal journal = purchaseOrders.getJournal();
+            if (journal==null){
+//                TODO: implement
+            }
+            journal.addBusinessObject(transaction);
+            order.setPlaced(true);
+        });
 
         deliveredButton = new JButton("Order Delivered");
         deliveredButton.addActionListener(e -> {
@@ -43,8 +62,10 @@ public class PurchaseOrdersViewPanel extends JPanel {
             order.setPayed(true);
         });
 
+        placed = new JCheckBox("Delived");
         payed = new JCheckBox("Payed");
         delivered = new JCheckBox("Delived");
+        placed.setEnabled(false);
         payed.setEnabled(false);
         delivered.setEnabled(false);
 
@@ -52,8 +73,10 @@ public class PurchaseOrdersViewPanel extends JPanel {
         comboBox.addActionListener(e -> {
             order = (Order) comboBox.getSelectedItem();
             payed.setSelected(order!=null&&order.isPayed());
+            placed.setSelected(order!=null&&order.isPayed());
             delivered.setSelected(order!=null&&order.isDelivered());
             deliveredButton.setEnabled(order!=null&&!order.isDelivered());
+            placeOrderButton.setEnabled(order!=null&&!order.isPlaced());
             payedButton.setEnabled(order!=null&&!order.isPayed());
             purchaseOrdersViewDataTableModel.setOrder(order);
         });
@@ -65,13 +88,67 @@ public class PurchaseOrdersViewPanel extends JPanel {
         JPanel north = new JPanel();
         north.add(comboBox);
 
+        north.add(placed);
         north.add(payed);
         north.add(delivered);
         add(north, BorderLayout.NORTH);
         JPanel south = new JPanel();
+        south.add(placeOrderButton);
         south.add(deliveredButton);
         south.add(payedButton);
         add(south, BorderLayout.SOUTH);
+    }
+
+    private Transaction createPurchaseTransaction(Order order) {
+        Transaction transaction;
+        // TODO: create transaction
+        Calendar date = Calendar.getInstance();
+        String description = "";
+        transaction = new Transaction(date, description);
+
+        Account vatAccount = purchaseOrders.getVATAccount();
+        if (vatAccount == null){
+            AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.TAXCREDIT);
+            ArrayList<AccountType> list = new ArrayList<>();
+            list.add(accountType);
+            vatAccount = AccountSelector.getAccountSelector(accounting.getAccounts(), list, "Select VAT Account for Purchases").getSelection();
+            purchaseOrders.setVATAccount(vatAccount);
+        }
+        Account stockAccount = purchaseOrders.getStockAccount();
+        if (stockAccount == null){
+            AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.ASSET);
+            ArrayList<AccountType> list = new ArrayList<>();
+            list.add(accountType);
+            stockAccount = AccountSelector.getAccountSelector(accounting.getAccounts(), list, "Select Stock Account").getSelection();
+            purchaseOrders.setStockAccount(stockAccount);
+        }
+
+        Contact supplier = order.getSupplier();
+        if(supplier == null){
+            // TODO
+        }
+        Account supplierAccount = supplier.getAccount();
+        if (supplierAccount == null){
+            AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.DEBIT);
+            ArrayList<AccountType> list = new ArrayList<>();
+            list.add(accountType);
+            supplierAccount = AccountSelector.getAccountSelector(accounting.getAccounts(), list, "Select Supplier Account").getSelection();
+            supplier.setAccount(supplierAccount);
+        }
+
+        BigDecimal stockAmount = order.getTotalPurchasePriceExclVat();
+        BigDecimal vatAmount = order.getTotalPurchaseVat();
+        BigDecimal supplierAmount = order.getTotalPurchasePriceInclVat();
+
+        Booking stockBooking = new Booking(stockAccount, stockAmount, true);
+        Booking vatBooking = new Booking(vatAccount, vatAmount, true);
+        Booking supplierBooking = new Booking(supplierAccount, supplierAmount, false);
+
+        transaction.addBusinessObject(stockBooking);
+        transaction.addBusinessObject(vatBooking);
+        transaction.addBusinessObject(supplierBooking);
+
+        return transaction;
     }
 
     public void firePurchaseOrderAddedOrRemoved() {

@@ -7,6 +7,9 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 public class PurchaseOrders extends BusinessCollection<Order>{
 
     private static int id = 0;
+    private Account VATAccount;
+    private Account stockAccount;
+    private Journal journal;
 
     public PurchaseOrders() {
         super();
@@ -25,5 +28,29 @@ public class PurchaseOrders extends BusinessCollection<Order>{
 
     public void removeBusinessObject(Order order){
         removeBusinessObject(order.getUniqueProperties());
+    }
+
+    public Account getVATAccount() {
+        return VATAccount;
+    }
+
+    public Account getStockAccount() {
+        return stockAccount;
+    }
+
+    public void setVATAccount(Account VATAccount) {
+        this.VATAccount = VATAccount;
+    }
+
+    public void setStockAccount(Account stockAccount) {
+        this.stockAccount = stockAccount;
+    }
+
+    public Journal getJournal() {
+        return journal;
+    }
+
+    public void setJournal(Journal journal) {
+        this.journal = journal;
     }
 }
