@@ -8,6 +8,7 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
 import java.util.function.Predicate;
 
 /**
@@ -18,6 +19,7 @@ import java.util.function.Predicate;
 public class PurchaseOrderCreatePanel extends JPanel {
     private final JButton orderButton;
     private final SelectableTable<StockItem> table;
+    private Order order;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
     private Articles articles;
@@ -29,7 +31,8 @@ public class PurchaseOrderCreatePanel extends JPanel {
     public PurchaseOrderCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
-        purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null);
+        order = new Order(articles);
+        purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null, order, this);
         table = new SelectableTable<>(purchaseOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);
@@ -45,12 +48,11 @@ public class PurchaseOrderCreatePanel extends JPanel {
 
         orderButton = new JButton("Book Order");
         orderButton.addActionListener(e -> {
-            Order order = purchaseOrderCreateDataTableModel.getOrder();
             PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
             order.setSupplier(contact);
             try {
                 purchaseOrders.addBusinessObject(order);
-                purchaseOrderCreateDataTableModel.newOrder();
+                order = new Order(articles);
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {
@@ -73,9 +75,9 @@ public class PurchaseOrderCreatePanel extends JPanel {
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0,2));
 
-        textField1 = new JTextField(10);
-        textField2 = new JTextField(10);
-        textField3 = new JTextField(10);
+        textField1 = new JTextField("0.00",10);
+        textField2 = new JTextField("0.00",10);
+        textField3 = new JTextField("0.00",10);
         textField1.setEditable(false);
         textField2.setEditable(false);
         textField3.setEditable(false);
@@ -88,6 +90,22 @@ public class PurchaseOrderCreatePanel extends JPanel {
         panel.add(textField3);
 
         return panel;
+    }
+
+    public void fireOrderContentChanged(){
+        BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
+        BigDecimal totalVat = BigDecimal.ZERO.setScale(2);
+        BigDecimal totalPurchaseIncl = BigDecimal.ZERO.setScale(2);
+        for (StockItem stockItem : order.getBusinessObjects()){
+            Article article = stockItem.getArticle();
+            int number = stockItem.getNumber();
+            totalPurchaseExcl = totalPurchaseExcl.add(article.getPurchasePrice(number)).setScale(2);
+//            totalVat = totalVat.add(article.getPurchaseVat(number)).setScale(2);
+            totalPurchaseIncl = totalPurchaseIncl.add(article.getPurchasePriceWithVat(number)).setScale(2);
+        }
+        textField1.setText(totalPurchaseExcl.toString());
+        textField2.setText(totalVat.toString());
+        textField3.setText(totalPurchaseIncl.toString());
     }
 
     public void fireSupplierAddedOrRemoved() {

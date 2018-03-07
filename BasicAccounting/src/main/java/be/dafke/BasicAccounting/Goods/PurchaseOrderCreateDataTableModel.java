@@ -30,13 +30,15 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Stoc
 	private Contact contact;
 	private Order order;
 	private Predicate<Article> filter;
+	private PurchaseOrderCreatePanel parent;
 
-	public PurchaseOrderCreateDataTableModel(Articles articles, Contact contact) {
+	public PurchaseOrderCreateDataTableModel(Articles articles, Contact contact, Order order, PurchaseOrderCreatePanel parent) {
+		this.parent = parent;
+		this.order = order;
 		this.articles = articles;
 		this.contact = contact;
 		setColumnNames();
 		setColumnClasses();
-		order = new Order(articles);
 	}
 
 	private void setColumnClasses() {
@@ -116,6 +118,7 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Stoc
 			int nr = (Integer) value;
 			stockItem.setNumber(nr);
 			order.setItem(stockItem);
+			parent.fireOrderContentChanged();
 		}
 	}
 
@@ -128,18 +131,10 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Stoc
 		return order.getBusinessObject(article);
 	}
 
-	public Order getOrder() {
-		return order;
-	}
-
 	public void setContact(Contact contact) {
 		this.contact = contact;
 		filter = Article.ofSupplier(contact);
 		order.setSupplier(contact);
 		fireTableDataChanged();
-	}
-
-	public void newOrder() {
-		order = new Order(articles);
 	}
 }
