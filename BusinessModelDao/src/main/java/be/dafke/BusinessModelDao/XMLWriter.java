@@ -142,7 +142,7 @@ public class XMLWriter {
             writeMortgages(accounting.getMortgages(), accountingFolder);
         }
 
-        JournalsIO.writeJournalPdfFiles(accounting.getJournals(), accountingFolder, accounting.getName());
+//        JournalsIO.writeJournalPdfFiles(accounting.getJournals(), accountingFolder, accounting.getName());
     }
 
 }
