@@ -76,6 +76,9 @@ public class SalesOrderCreatePanel extends JPanel {
         textField1 = new JTextField(10);
         textField2 = new JTextField(10);
         textField3 = new JTextField(10);
+        textField1.setEditable(false);
+        textField2.setEditable(false);
+        textField3.setEditable(false);
 
         panel.add(new JLabel("Total (excl. VAT):"));
         panel.add(textField1);
