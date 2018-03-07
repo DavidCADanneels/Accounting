@@ -49,13 +49,7 @@ public class JournalsMenu extends JMenu {
         types.setEnabled(false);
 
         generatePdf = new JMenuItem(getBundle("BusinessModel").getString("GENERATE_PDF"));
-        generatePdf.addActionListener(e -> {
-            File xmlFolder = Main.getXmlFolder();
-            File accountingsFolder = new File(xmlFolder, "Accountings");
-            File accountingFolder = new File(accountingsFolder, accounting.getName());
-            JournalsIO.writeJournals(journals, accountingFolder);
-            JournalsIO.writeJournalPdfFiles(journals, accountingFolder, accounting.getName());
-        });
+        generatePdf.addActionListener(e -> JournalsIO.writeJournalPdfFiles(accounting));
         generatePdf.setEnabled(false);
 
         add(add);

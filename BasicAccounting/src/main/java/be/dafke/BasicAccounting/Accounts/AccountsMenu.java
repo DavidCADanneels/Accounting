@@ -44,12 +44,7 @@ public class AccountsMenu extends JMenu {
         testBalance.setEnabled(false);
 
         generatePdf = new JMenuItem(getBundle("BusinessModel").getString("GENERATE_PDF"));
-        generatePdf.addActionListener(e -> {
-            File xmlFolder = Main.getXmlFolder();
-            File accountingsFolder = new File(xmlFolder, "Accountings");
-            File accountingFolder = new File(accountingsFolder, accounting.getName());
-            AccountsIO.writeAccountPdfFiles(accounts, accountingFolder, accounting.getName());
-        });
+        generatePdf.addActionListener(e -> AccountsIO.writeAccountPdfFiles(accounting));
         generatePdf.setEnabled(false);
 
         add(add);

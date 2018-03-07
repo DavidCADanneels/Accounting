@@ -120,8 +120,8 @@ public class XMLWriter {
         File accountingsFolder = new File(xmlFolder, "Accountings");
         File accountingFolder = new File(accountingsFolder, accounting.getName());
         accountingFolder.mkdirs();
-        writeAccounts(accounting.getAccounts(), accountingFolder);
-        writeJournals(accounting.getJournals(), accountingFolder);
+        writeAccounts(accounting);
+        writeJournals(accounting);
         writeJournalTypes(accounting.getJournalTypes(), accountingFolder);
         writeBalances(accounting.getBalances(), accountingFolder);
         if(accounting.isProjectsAccounting()) {

@@ -57,14 +57,16 @@ public class AccountsIO {
         }
     }
 
-    public static void writeAccountPdfFiles(Accounts accounts, File accountingFolder, String accountingName){
-        File tmpFolder = new File(accountingFolder, "tmp");
+    public static void writeAccountPdfFiles(Accounting accounting){
+        String accountingName = accounting.getName();
+        Accounts accounts = accounting.getAccounts();
+        File tmpFolder = new File(XML_PATH + accountingName + "/tmp");
         tmpFolder.mkdirs();
         for (Account account:accounts.getBusinessObjects()) {
             writeAccount(account, tmpFolder);
         }
 
-        File subFolder = new File(accountingFolder, "PDF/Accounts");
+        File subFolder = new File(XML_PATH + accountingName + "/PDF/Accounts");
         subFolder.mkdirs();
 
         String accountsFolderPath = XML_PATH + accountingName + "/tmp/";
@@ -85,9 +87,9 @@ public class AccountsIO {
         tmpFolder.delete();
     }
 
-    public static void writeAccounts(Accounts accounts, File accountingFolder){
-        File accountsFile = new File(accountingFolder, ACCOUNTS+ XML_EXTENSION);
-        File accountsFolder = new File(accountingFolder, ACCOUNTS);
+    public static void writeAccounts(Accounting accounting){
+        Accounts accounts = accounting.getAccounts();
+        File accountsFile = new File(XML_PATH + accounting.getName() + "/" + ACCOUNTS+ XML_EXTENSION);
         try{
             Writer writer = new FileWriter(accountsFile);
             writer.write(getXmlHeader(ACCOUNTS, 2));
@@ -121,8 +123,8 @@ public class AccountsIO {
         }
     }
 
-    public static void writeAllAccounts(Accounts accounts, File accountingFolder){
-        File accountsFolder = new File(accountingFolder, ACCOUNTS);
+    public static void writeAllAccounts(Accounts accounts, Accounting accounting){
+        File accountsFolder = new File(XML_PATH + accounting.getName() + "/" + ACCOUNTS);
         accountsFolder.mkdirs();
         for (Account account:accounts.getBusinessObjects()) {
             writeAccount(account, accountsFolder);

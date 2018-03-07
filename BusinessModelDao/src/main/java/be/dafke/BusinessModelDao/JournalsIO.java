@@ -277,8 +277,11 @@ public class JournalsIO {
         }
     }
 
-    public static void writeJournalPdfFiles(Journals journals, File accountingFolder, String accountingName){
-        File subFolder = new File(accountingFolder, "PDF/Journals");
+    public static void writeJournalPdfFiles(Accounting accounting){
+        writeJournals(accounting);
+        Journals journals = accounting.getJournals();
+        String accountingName = accounting.getName();
+        File subFolder = new File(XML_PATH + accountingName + "/PDF/Journals");
         subFolder.mkdirs();
 
         String journalsFolderPath = XML_PATH + accountingName + "/Journals/";
@@ -293,9 +296,9 @@ public class JournalsIO {
         });
     }
 
-    public static void writeJournals(Journals journals, File accountingFolder){
-        File journalsFile = new File(accountingFolder, JOURNALS + XML_EXTENSION);
-        File journalsFolder = new File(accountingFolder, JOURNALS);
+    public static void writeJournals(Accounting accounting){
+        Journals journals = accounting.getJournals();
+        File journalsFile = new File(XML_PATH + accounting.getName() + "/" + JOURNALS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(journalsFile);
             writer.write(getXmlHeader(JOURNALS, 2));
@@ -314,15 +317,16 @@ public class JournalsIO {
         } catch (IOException ex) {
             Logger.getLogger(Journals.class.getName()).log(Level.SEVERE, null, ex);
         }
-        journalsFolder.mkdirs();
         for (Journal journal:journals.getBusinessObjects()) {
-            writeJournal(journal, journalsFolder);
+            writeJournal(journal, accounting);
         }
 
     }
 
-    public static void writeJournal(Journal journal, File journalsFolder){
-        File journalFile = new File(journalsFolder, journal.getName() + XML_EXTENSION);
+    public static void writeJournal(Journal journal, Accounting accounting){
+        File journalsFolder = new File(XML_PATH+ accounting.getName() + "/" +  JOURNALS);
+        journalsFolder.mkdirs();
+        File journalFile = new File(journalsFolder, "/" +  journal.getName() + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(journalFile);
             writer.write(getXmlHeader(JOURNAL, 3));
