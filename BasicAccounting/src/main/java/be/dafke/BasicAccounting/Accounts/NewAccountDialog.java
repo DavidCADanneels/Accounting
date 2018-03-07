@@ -27,14 +27,14 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 24/02/13
  * Time: 11:34
  */
-public class NewAccountGUI extends RefreshableDialog {
+public class NewAccountDialog extends RefreshableDialog {
     private JTextField nameField, numberField, defaultAmountField;
     private JComboBox<AccountType> type;
     private JButton add;
     private Accounts accounts;
     private Account account;
 
-    public NewAccountGUI(Accounts accounts, ArrayList<AccountType> accountTypes) {
+    public NewAccountDialog(Accounts accounts, ArrayList<AccountType> accountTypes) {
         super(getBundle("Accounting").getString("NEW_ACCOUNT_GUI_TITLE"));
         this.accounts = accounts;
         setContentPane(createContentPanel(accountTypes));

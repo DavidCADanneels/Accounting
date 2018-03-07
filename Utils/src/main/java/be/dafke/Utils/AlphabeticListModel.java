@@ -10,12 +10,6 @@ import javax.swing.*;
  * @see PrefixFilterPanel PrefixFilterPanel
  */
 public class AlphabeticListModel<K> extends DefaultListModel<K> {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Constructor
 	 */

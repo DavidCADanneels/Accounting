@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Accounts.AccountManagement;
 
-import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
+import be.dafke.BasicAccounting.Accounts.NewAccountDialog;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Account;
@@ -28,10 +28,6 @@ import java.util.HashMap;
 import static java.util.ResourceBundle.getBundle;
 
 public class AccountManagementGUI extends JFrame implements ListSelectionListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JButton newAccount, delete, edit;
 	private final AccountManagementTableModel accountManagementTableModel;
 	private final SelectableTable<Account> tabel;
@@ -97,12 +93,12 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 			int selectedRow = tabel.getSelectedRow();
 			if(selectedRow!=-1) {
 				Account account = accountManagementTableModel.getObject(selectedRow, 0);
-				NewAccountGUI newAccountGUI = new NewAccountGUI(accounts, accountTypes);
-				newAccountGUI.setAccount(account);
-				newAccountGUI.setVisible(true);
+				NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes);
+				newAccountDialog.setAccount(account);
+				newAccountDialog.setVisible(true);
 			}
 		});
-		newAccount.addActionListener(e -> new NewAccountGUI(accounts, accountTypes).setVisible(true));
+		newAccount.addActionListener(e -> new NewAccountDialog(accounts, accountTypes).setVisible(true));
 		delete.setEnabled(false);
 		edit.setEnabled(false);
         south.add(delete);

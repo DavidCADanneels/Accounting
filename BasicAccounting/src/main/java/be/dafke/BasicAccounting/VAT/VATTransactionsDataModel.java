@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import static java.util.ResourceBundle.getBundle;
 
 public class VATTransactionsDataModel extends SelectableTableModel<VATBooking> {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
 	String[] columnNames = {
 			getBundle("Accounting").getString("NR"),
 			getBundle("Accounting").getString("DATE"),

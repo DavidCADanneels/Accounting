@@ -7,10 +7,6 @@ import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 
 public class MortgageDataModel extends AbstractTableModel {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = {"Nr", "Mensualiteit", "Intrest", "Kapitaal", "RestKapitaal"};
 	private final Class[] columnClasses = {Integer.class, BigDecimal.class, BigDecimal.class, BigDecimal.class,
 			BigDecimal.class};

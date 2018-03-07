@@ -1,21 +1,13 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.JournalsIO;
-import be.dafke.BusinessModelDao.PDFCreator;
-import org.apache.fop.apps.FOPException;
 
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
-import javax.xml.transform.TransformerException;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
 
 import static be.dafke.BasicAccounting.Journals.JournalManagementGUI.showJournalManager;
 import static be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI.showJournalTypeManager;
-import static be.dafke.BusinessModelDao.XMLConstants.ACCOUNTINGS;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -29,12 +21,12 @@ public class JournalsMenu extends JMenu {
     private JournalTypes journalTypes;
     private Accounts accounts;
     private AccountTypes accountTypes;
-    private JournalInputGUI journalInputGUI;
+    private JournalEditPanel journalEditPanel;
     private Journal transactions;
 
-    public JournalsMenu(JournalInputGUI journalInputGUI) {
+    public JournalsMenu(JournalEditPanel journalEditPanel) {
         super(getBundle("Accounting").getString("JOURNALS"));
-        this.journalInputGUI = journalInputGUI;
+        this.journalEditPanel = journalEditPanel;
 //        setMnemonic(KeyEvent.VK_P);
         add = new JMenuItem(getBundle("Accounting").getString("ADD_JOURNAL"));
         add.addActionListener(e -> NewJournalGUI.getInstance(accounts, journals, journalTypes, accountTypes).setVisible(true));
@@ -88,12 +80,12 @@ public class JournalsMenu extends JMenu {
             journals.getBusinessObjects().stream()
                     .forEach(journal -> {
                         JMenuItem details = new JMenuItem(journal.getName());
-                        details.addActionListener(e -> JournalDetails.getJournalDetails(journal,journals,journalInputGUI));
+                        details.addActionListener(e -> JournalDetailsGUI.getJournalDetails(journal,journals, journalEditPanel));
                         add(details);
                     });
             addSeparator();
             JMenuItem master = new JMenuItem("Master");
-            master.addActionListener(e -> JournalDetails.getJournalDetails(transactions,journals,journalInputGUI));
+            master.addActionListener(e -> JournalDetailsGUI.getJournalDetails(transactions,journals, journalEditPanel));
             add(master);
         }
     }

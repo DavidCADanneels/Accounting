@@ -20,11 +20,6 @@ import static java.util.ResourceBundle.getBundle;
  * @see AlphabeticListModel AlphabeticListModel
  */
 public class PrefixFilterPanel<K> extends JPanel {
-
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private JScrollPane scrol;
 	protected JTextField zoekveld;
     private PrefixFilter<K> filter;

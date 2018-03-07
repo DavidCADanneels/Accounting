@@ -24,9 +24,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 29/04/2016.
  */
-public class JournalInputGUI extends JPanel implements FocusListener, ActionListener {
-    private static final long serialVersionUID = 1L;
-
+public class JournalEditPanel extends JPanel implements FocusListener, ActionListener {
     private JTextField debet, credit, dag, maand, jaar, bewijs, ident;
     private JButton singleBook, save, clear;
     private JCheckBox balanceTransaction;
@@ -43,7 +41,7 @@ public class JournalInputGUI extends JPanel implements FocusListener, ActionList
     private Accounts accounts;
     private VATTransactions vatTransactions;
 
-    public JournalInputGUI() {
+    public JournalEditPanel() {
         setLayout(new BorderLayout());
         debettotaal = new BigDecimal(0);
         credittotaal = new BigDecimal(0);

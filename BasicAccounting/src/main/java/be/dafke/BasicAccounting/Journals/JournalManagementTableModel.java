@@ -19,10 +19,6 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 16:22
  */
 public class JournalManagementTableModel extends SelectableTableModel<Journal> {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
     public static final int NAME_COL = 0;
     public static final int ABBR_COL = 1;
     public static final int TYPE_COL = 2;

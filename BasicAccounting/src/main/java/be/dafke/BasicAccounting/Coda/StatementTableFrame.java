@@ -17,10 +17,6 @@ import java.util.*;
 import java.util.List;
 
 public class StatementTableFrame extends JFrame implements MouseListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private final JButton viewCounterParties, exportToJournal, readCoda, readCsv, saveToAccounting;
     private Statements statements;
     private CounterParties counterParties;

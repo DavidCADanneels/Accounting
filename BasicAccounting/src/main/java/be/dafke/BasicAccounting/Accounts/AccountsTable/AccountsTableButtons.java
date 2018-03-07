@@ -15,7 +15,7 @@ public class AccountsTableButtons extends JPanel {
     private boolean leftAction = true;
     private boolean rightAction = false;
 
-    public AccountsTableButtons(AccountsTableGUI accountsGUI, boolean left) {
+    public AccountsTableButtons(AccountsTablePanel accountsGUI, boolean left) {
         leftButton = new JButton();
         rightButton = new JButton();
         accountDetails = new JButton(getBundle("Accounting").getString("VIEW_ACCOUNT"));

@@ -9,10 +9,6 @@ import javax.swing.table.AbstractTableModel;
 import java.math.BigDecimal;
 
 public class StatementDataModel extends AbstractTableModel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = { "Name", "Date", "D/C", "Amount", "CounterParty",
 			"TransactionCode", "Communication" };
 	private final Class[] columnClasses = { String.class, String.class, String.class, BigDecimal.class,

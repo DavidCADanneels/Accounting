@@ -12,8 +12,6 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class AccountingGUIFrame extends JFrame {
-	private static final long serialVersionUID = 1L;
-
 	private Accounting accounting;
     private Journal journal;
 

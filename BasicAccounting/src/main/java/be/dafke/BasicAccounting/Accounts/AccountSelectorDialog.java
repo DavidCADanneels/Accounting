@@ -10,19 +10,15 @@ import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 
-public class AccountSelector extends RefreshableDialog {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class AccountSelectorDialog extends RefreshableDialog {
 	private JButton ok;
 	private AccountSelectorPanel accountSelectorPanel;
-	private static AccountSelector accountSelector = null;
+	private static AccountSelectorDialog accountSelectorDialog = null;
 
-	private AccountSelector(Accounts accounts, ArrayList<AccountType> accountTypes) {
+	private AccountSelectorDialog(Accounts accounts, ArrayList<AccountType> accountTypes) {
 		this(accounts, accountTypes, "Select Account");
 	}
-	private AccountSelector(Accounts accounts, ArrayList<AccountType> accountTypes, String title) {
+	private AccountSelectorDialog(Accounts accounts, ArrayList<AccountType> accountTypes, String title) {
 		super(title);
 		accountSelectorPanel = new AccountSelectorPanel(accounts, accountTypes);
 		JPanel innerPanel = new JPanel(new BorderLayout());
@@ -37,18 +33,18 @@ public class AccountSelector extends RefreshableDialog {
 		pack();
 	}
 
-	public static AccountSelector getAccountSelector(Accounts accounts, ArrayList<AccountType> accountTypes, String title){
-		if(accountSelector==null){
-			accountSelector = new AccountSelector(accounts, accountTypes, title);
+	public static AccountSelectorDialog getAccountSelector(Accounts accounts, ArrayList<AccountType> accountTypes, String title){
+		if(accountSelectorDialog ==null){
+			accountSelectorDialog = new AccountSelectorDialog(accounts, accountTypes, title);
 		}
-		return accountSelector;
+		return accountSelectorDialog;
 	}
 
-	public static AccountSelector getAccountSelector(Accounts accounts, ArrayList<AccountType> accountTypes){
-		if(accountSelector==null){
-			accountSelector = new AccountSelector(accounts, accountTypes);
+	public static AccountSelectorDialog getAccountSelector(Accounts accounts, ArrayList<AccountType> accountTypes){
+		if(accountSelectorDialog ==null){
+			accountSelectorDialog = new AccountSelectorDialog(accounts, accountTypes);
 		}
-		return accountSelector;
+		return accountSelectorDialog;
 	}
 
 	public Account getSelection() {
@@ -60,8 +56,8 @@ public class AccountSelector extends RefreshableDialog {
     }
 
 	public static void fireAccountDataChangedForAll() {
-		if(accountSelector!=null){
-			accountSelector.fireAccountDataChanged();
+		if(accountSelectorDialog !=null){
+			accountSelectorDialog.fireAccountDataChanged();
 		}
 	}
 

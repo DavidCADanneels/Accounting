@@ -16,10 +16,6 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class StockDataTableModel extends SelectableTableModel<StockItem> {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
 	private final Stock stock;
 	public static int NR_IN_STOCK_COL = 0;
 	public static int ARTIKEL_COL = 1;

@@ -9,10 +9,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class GenericStatementDataModel extends AbstractTableModel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = { "Name", "Date", "D/C", "Amount", "Old CounterParty",
 			"New CounterParty", "TransactionCode", "Communication" };
 	private final Class[] columnClasses = { String.class, Calendar.class, String.class, BigDecimal.class,

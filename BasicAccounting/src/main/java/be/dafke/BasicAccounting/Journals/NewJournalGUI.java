@@ -19,16 +19,12 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class NewJournalGUI extends JFrame {
     private static NewJournalGUI newJournalGUI = null;
-    private JTextField name, abbr;
-    private JComboBox<JournalType> type;
-    private JButton add, newType;
-    private Journals journals;
-    private Journal journal;
+    private final NewJournalPanel newJournalPanel;
 
     private NewJournalGUI(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"));
-        this.journals = journals;
-        setContentPane(createContentPanel(accounts, journalTypes, accountTypes));
+        newJournalPanel =new NewJournalPanel(accounts, journals, journalTypes, accountTypes);
+        setContentPane(newJournalPanel);
         pack();
     }
 
@@ -40,70 +36,7 @@ public class NewJournalGUI extends JFrame {
         return newJournalGUI;
     }
 
-    private JPanel createContentPanel(Accounts accounts, JournalTypes journalTypes, AccountTypes accountTypes){
-        JPanel panel = new JPanel(new GridLayout(0,2));
-        panel.add(new JLabel(getBundle("Accounting").getString("NAME_LABEL")));
-        name = new JTextField(20);
-        panel.add(name);
-        panel.add(new JLabel(getBundle("Accounting").getString("ABBR_LABEL")));
-        abbr = new JTextField(6);
-        panel.add(abbr);
-        panel.add(new JLabel(getBundle("Accounting").getString("TYPE_LABEL")));
-        type = new JComboBox<>();
-        DefaultComboBoxModel<JournalType> model = new DefaultComboBoxModel<>();
-        for(JournalType accountType : journalTypes.getBusinessObjects()){
-            model.addElement(accountType);
-        }
-        type.setModel(model);
-        panel.add(type);
-        add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_JOURNAL"));
-        add.addActionListener(e -> saveJournal());
-        panel.add(add);
-        newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
-        newType.addActionListener(e -> showJournalTypeManager(accounts, journalTypes,accountTypes));
-        panel.add(newType);
-        return panel;
-    }
-
-    public void setJournal(Journal journal){
-        this.journal = journal;
-        name.setText(journal.getName());
-        abbr.setText(journal.getAbbreviation());
-        type.setSelectedItem(journal.getType());
-    }
-
-    private void saveJournal() {
-        String newName = name.getText().trim();
-        String newAbbreviation = abbr.getText().trim();
-        if(!newName.isEmpty() && newAbbreviation.isEmpty() && newName.length() > 2) {
-            newAbbreviation = newName.substring(0, 3).toUpperCase();
-            abbr.setText(newAbbreviation);
-        }
-        JournalType journalType = (JournalType)type.getSelectedItem();
-        try{
-            if(journal==null) {
-                journal = new Journal(newName, newAbbreviation);
-                journals.addBusinessObject(journal);
-                journal.setType(journalType);
-                clearFields();
-                journal=null;
-            } else {
-                String oldName = journal.getName();
-                String oldAbbreviation = journal.getAbbreviation();
-                journals.modifyName(oldName, newName);
-                journals.modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
-                journal.setType(journalType);
-            }
-        } catch (DuplicateNameException e) {
-            ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR, newName.trim(), newAbbreviation.trim());
-        } catch (EmptyNameException e) {
-            ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_ABBR_EMPTY);
-        }
-        Main.fireJournalDataChanged(journal);
-    }
-
-    private void clearFields() {
-        name.setText("");
-        abbr.setText("");
+    public void setJournal(Journal journal) {
+        newJournalPanel.setJournal(journal);
     }
 }

@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Coda;
 
-import be.dafke.BasicAccounting.Accounts.AccountSelector;
+import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
@@ -14,10 +14,6 @@ import java.util.HashMap;
 import java.util.regex.Pattern;
 
 public class CounterPartyTableFrame extends JFrame implements MouseListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
     private final Statements statements;
     private Accounts accounts;
     private AccountTypes accountTypes;
@@ -103,7 +99,7 @@ public class CounterPartyTableFrame extends JFrame implements MouseListener {
                     }
                 }
 			} else if (col == 5) {
-                AccountSelector sel = AccountSelector.getAccountSelector(accounts, accountTypes.getBusinessObjects());
+                AccountSelectorDialog sel = AccountSelectorDialog.getAccountSelector(accounts, accountTypes.getBusinessObjects());
                 sel.setVisible(true);
                 Account account = sel.getSelection();
 

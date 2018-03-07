@@ -9,10 +9,6 @@ import java.math.BigDecimal;
 import static java.util.ResourceBundle.getBundle;
 
 public class TestBalanceDataModel extends SelectableTableModel<Account> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = {
 			getBundle("BusinessModel").getString("ACCOUNT"),
 			getBundle("BusinessModel").getString("TEST_DEBIT"),

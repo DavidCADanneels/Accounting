@@ -8,10 +8,6 @@ import be.dafke.Utils.Utils;
 import javax.swing.table.AbstractTableModel;
 
 public class CounterPartyDataModel extends AbstractTableModel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private final String[] columnNames = { "Name", "Aliases", "BankAccounts", "BIC", "Currency", "Account (for Accounting)" };
 	private final Class[] columnClasses = { CounterParty.class, String.class, String.class, String.class, String.class, Account.class };
 

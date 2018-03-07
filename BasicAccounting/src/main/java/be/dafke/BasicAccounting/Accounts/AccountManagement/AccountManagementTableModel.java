@@ -17,10 +17,6 @@ import java.util.HashMap;
 import static java.util.ResourceBundle.getBundle;
 
 public class AccountManagementTableModel extends SelectableTableModel<Account> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	public static final int NAME_COL = 0;
 	public static final int NUMBER_COL = 1;
 	public static final int TYPE_COL = 2;

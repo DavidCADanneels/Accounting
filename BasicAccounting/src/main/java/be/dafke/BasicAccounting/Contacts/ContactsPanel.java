@@ -27,7 +27,7 @@ public class ContactsPanel extends JPanel implements ListSelectionListener {
         this.contacts = contacts;
 
         JButton create = new JButton(getBundle("Contacts").getString("NEW_CONTACT"));
-        create.addActionListener(e -> new NewContactGUI(contacts).setVisible(true));
+        create.addActionListener(e -> new NewContactDialog(contacts).setVisible(true));
 
         JButton createList = new JButton(getBundle("Contacts").getString("CUSTUMER_LISTING"));
         createList.addActionListener(e -> createCustomerListing());
@@ -37,9 +37,9 @@ public class ContactsPanel extends JPanel implements ListSelectionListener {
             int selectedRow = table.getSelectedRow();
             if(selectedRow!=-1) {
                 Contact contact = contactsDataModel.getObject(selectedRow, 0);
-                NewContactGUI newContactGUI = new NewContactGUI(contacts);
-                newContactGUI.setContact(contact);
-                newContactGUI.setVisible(true);
+                NewContactDialog newContactDialog = new NewContactDialog(contacts);
+                newContactDialog.setContact(contact);
+                newContactDialog.setVisible(true);
             }
         });
         details.setEnabled(false);
@@ -68,9 +68,9 @@ public class ContactsPanel extends JPanel implements ListSelectionListener {
         Contact companyContact = accounting.getCompanyContact();
         if (companyContact == null) {
             // TODO: replace companyContact by Contact of type 'OWN'
-            ContactSelector contactSelector = ContactSelector.getContactSelector(accounting.getContacts(), Contact.ContactType.ALL);
-            contactSelector.setVisible(true);
-            companyContact = contactSelector.getSelection();
+            ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting.getContacts(), Contact.ContactType.ALL);
+            contactSelectorDialog.setVisible(true);
+            companyContact = contactSelectorDialog.getSelection();
         }
 
         JFileChooser fileChooser = new JFileChooser();

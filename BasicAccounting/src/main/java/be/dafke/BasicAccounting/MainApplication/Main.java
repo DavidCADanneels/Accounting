@@ -1,15 +1,15 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetails;
+import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI;
 import be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI;
-import be.dafke.BasicAccounting.Accounts.AccountSelector;
+import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
 import be.dafke.BasicAccounting.Accounts.AccountsMenu;
-import be.dafke.BasicAccounting.Accounts.AccountsTable.AccountsTableGUI;
+import be.dafke.BasicAccounting.Accounts.AccountsTable.AccountsTablePanel;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
 import be.dafke.BasicAccounting.Balances.BalancesMenu;
-import be.dafke.BasicAccounting.Balances.TestBalance;
+import be.dafke.BasicAccounting.Balances.TestBalanceGUI;
 import be.dafke.BasicAccounting.Coda.CodaMenu;
-import be.dafke.BasicAccounting.Contacts.ContactSelector;
+import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
 import be.dafke.BasicAccounting.Contacts.ContactsGUI;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
 import be.dafke.BasicAccounting.Goods.ArticlesGUI;
@@ -17,7 +17,7 @@ import be.dafke.BasicAccounting.Goods.GoodsMenu;
 import be.dafke.BasicAccounting.Journals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgageGUI;
-import be.dafke.BasicAccounting.Mortgages.MortgagesGUI;
+import be.dafke.BasicAccounting.Mortgages.MortgagesPanel;
 import be.dafke.BasicAccounting.Projects.ProjectsMenu;
 import be.dafke.BasicAccounting.VAT.VATFieldsGUI;
 import be.dafke.BasicAccounting.VAT.VATMenu;
@@ -57,12 +57,12 @@ public class Main {
     private static File xmlFolder;
     private static File xslFolder;
     private static File htmlFolder;
-    private static JournalGUI journalReadGUI;
-    private static JournalsGUI journalsGUI;
-    private static JournalInputGUI journalInputGUI;
-    private static AccountsTableGUI accountGuiLeft;
-    private static AccountsTableGUI accountGuiRight;
-    private static MortgagesGUI mortgagesGUI;
+    private static JournalViewPanel journalReadGUI;
+    private static JournalSelectorPanel journalSelectorPanel;
+    private static JournalEditPanel journalEditPanel;
+    private static AccountsTablePanel accountGuiLeft;
+    private static AccountsTablePanel accountGuiRight;
+    private static MortgagesPanel mortgagesPanel;
     private static JMenuBar menuBar;
     private static AccountingMenu accountingMenu;
     private static AccountingGUIFrame frame;
@@ -97,12 +97,12 @@ public class Main {
     }
 
     private static void createComponents() {
-        journalInputGUI = new JournalInputGUI();
-        journalReadGUI = new JournalGUI(journalInputGUI);
-        journalsGUI = new JournalsGUI(journalReadGUI,journalInputGUI);
-        accountGuiLeft = new AccountsTableGUI(journalInputGUI, true);
-        accountGuiRight = new AccountsTableGUI(journalInputGUI, false);
-        mortgagesGUI = new MortgagesGUI(journalInputGUI);
+        journalEditPanel = new JournalEditPanel();
+        journalReadGUI = new JournalViewPanel(journalEditPanel);
+        journalSelectorPanel = new JournalSelectorPanel(journalReadGUI, journalEditPanel);
+        accountGuiLeft = new AccountsTablePanel(journalEditPanel, true);
+        accountGuiRight = new AccountsTablePanel(journalEditPanel, false);
+        mortgagesPanel = new MortgagesPanel(journalEditPanel);
     }
 
     private static void setCloseOperation(){
@@ -121,15 +121,15 @@ public class Main {
         JPanel links = new JPanel();
         links.setLayout(new BorderLayout());
         links.add(accountGuiLeft, BorderLayout.CENTER);
-        links.add(mortgagesGUI, BorderLayout.SOUTH);
+        links.add(mortgagesPanel, BorderLayout.SOUTH);
 
         JPanel accountingMultiPanel = new JPanel();
         accountingMultiPanel.setLayout(new BorderLayout());
-        JSplitPane splitPane = createSplitPane(journalReadGUI, journalInputGUI, VERTICAL_SPLIT);
+        JSplitPane splitPane = createSplitPane(journalReadGUI, journalEditPanel, VERTICAL_SPLIT);
 
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.add(splitPane, BorderLayout.CENTER);
-        centerPanel.add(journalsGUI, BorderLayout.NORTH);
+        centerPanel.add(journalSelectorPanel, BorderLayout.NORTH);
 
         accountingMultiPanel.add(accountGuiRight, BorderLayout.EAST);
         accountingMultiPanel.add(centerPanel, BorderLayout.CENTER);
@@ -153,9 +153,9 @@ public class Main {
         menuBar = new JMenuBar();
 
         accountingMenu = new AccountingMenu(accountings);
-        accountsMenu = new AccountsMenu(journalInputGUI);
-        journalsMenu = new JournalsMenu(journalInputGUI);
-        balancesMenu = new BalancesMenu(journalInputGUI);
+        accountsMenu = new AccountsMenu(journalEditPanel);
+        journalsMenu = new JournalsMenu(journalEditPanel);
+        balancesMenu = new BalancesMenu(journalEditPanel);
         contactsMenu = new ContactsMenu();
         goodsMenu = new GoodsMenu();
         morgagesMenu = new MorgagesMenu();
@@ -210,10 +210,10 @@ public class Main {
 
         accountGuiLeft.setAccounting(accounting);
         accountGuiRight.setAccounting(accounting);
-        journalInputGUI.setAccounting(accounting);
+        journalEditPanel.setAccounting(accounting);
         journalReadGUI.setAccounting(accounting);
-        journalsGUI.setAccounting(accounting);
-        mortgagesGUI.setMortgages(accounting==null?null:accounting.getMortgages());
+        journalSelectorPanel.setAccounting(accounting);
+        mortgagesPanel.setMortgages(accounting==null?null:accounting.getMortgages());
 
         projectsMenu.setAccounting(accounting);
         morgagesMenu.setAccounting(accounting);
@@ -233,7 +233,7 @@ public class Main {
             contactsMenu.setVisible(accounting.isContactsAccounting());
             projectsMenu.setVisible(accounting.isProjectsAccounting());
 
-            mortgagesGUI.setVisible(accounting.isMortgagesAccounting());
+            mortgagesPanel.setVisible(accounting.isMortgagesAccounting());
 
             setJournal(accounting.getActiveJournal());
         }
@@ -253,20 +253,20 @@ public class Main {
             Accounting accounting = journal.getAccounting();
             accounting.setActiveJournal(journal);  // idem, only needed for XMLWriter
         }
-        journalsGUI.setJournal(journal);
+        journalSelectorPanel.setJournal(journal);
         journalReadGUI.setJournal(journal);
-        journalInputGUI.setJournal(journal);
+        journalEditPanel.setJournal(journal);
         frame.setJournal(journal);
         accountGuiLeft.setJournal(journal, true);
         accountGuiRight.setJournal(journal, false);
     }
 
     public static void fireTransactionInputDataChanged(){
-        journalInputGUI.fireTransactionDataChanged();
+        journalEditPanel.fireTransactionDataChanged();
     }
 
     public static void fireJournalDataChanged(Journal journal){
-        JournalDetails.fireJournalDataChangedForAll(journal);
+        JournalDetailsGUI.fireJournalDataChangedForAll(journal);
         JournalManagementGUI.fireJournalDataChangedForAll();
         journalReadGUI.fireJournalDataChanged();
         journalsMenu.fireJournalDataChanged();
@@ -274,8 +274,8 @@ public class Main {
     }
 
     public static void fireAccountDataChanged(Account account){
-        AccountDetails.fireAccountDataChangedForAll(account);
-        AccountSelector.fireAccountDataChangedForAll();
+        AccountDetailsGUI.fireAccountDataChangedForAll(account);
+        AccountSelectorDialog.fireAccountDataChangedForAll();
         // fireAccountDataChanged in AccountsListGUI is only needed if accounts have been added
         // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
         journalReadGUI.fireJournalDataChanged();
@@ -284,12 +284,12 @@ public class Main {
 
         AccountManagementGUI.fireAccountDataChangedForAll();
         // refresh all balances if an account is update, filtering on accounting/accounts/accountType could be applied
-        TestBalance.fireAccountDataChangedForAll();
+        TestBalanceGUI.fireAccountDataChangedForAll();
         BalanceGUI.fireAccountDataChangedForAll();
     }
 
     public static void fireContactAdded() {
-        ContactSelector.fireContactDataChangedForAll();
+        ContactSelectorDialog.fireContactDataChangedForAll();
         ContactsGUI.fireContactAddedForAll();
     }
 
@@ -300,7 +300,7 @@ public class Main {
     public static void fireContactDataChanged() {
         // TODO: do we need to refresh the Contact Selector
         // What are Contact Selectors used for. Only Customers? ...
-        ContactSelector.fireContactDataChangedForAll();
+        ContactSelectorDialog.fireContactDataChangedForAll();
         ContactsGUI.fireContactDataChangedForAll();
     }
 
@@ -372,11 +372,11 @@ public class Main {
 
     public static void fireMortgageAddedOrRemoved(Mortgages mortgages) {
         MortgageGUI.refreshAllFrames();
-        mortgagesGUI.setMortgages(mortgages);
+        mortgagesPanel.setMortgages(mortgages);
     }
 
     public static void fireMortgageEditedPayButton(Mortgage mortgage) {
-        mortgagesGUI.enablePayButton(mortgage);
+        mortgagesPanel.enablePayButton(mortgage);
     }
 
     public static void fireMortgageEdited(Mortgage mortgage) {

@@ -14,10 +14,6 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 public class AccountingMenu extends JMenu implements ActionListener {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
     private JMenuItem startNew;
     private JMenuItem settings;
     private Accountings accountings;

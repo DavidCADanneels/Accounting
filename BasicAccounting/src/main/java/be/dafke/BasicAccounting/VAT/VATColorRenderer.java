@@ -12,11 +12,6 @@ import java.awt.Component;
  * Created by ddanneels on 7/05/2017.
  */
 public class VATColorRenderer extends DefaultTableCellRenderer {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
-
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
                                                    int row, int column) {

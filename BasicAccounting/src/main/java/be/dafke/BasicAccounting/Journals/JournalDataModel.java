@@ -16,10 +16,6 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class JournalDataModel extends SelectableTableModel<Booking> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	public static final int DEBIT_ACCOUNT = 0;
 	public static final int CREDIT_ACCOUNT = 1;
 	public static final int DEBIT_AMOUNT = 2;

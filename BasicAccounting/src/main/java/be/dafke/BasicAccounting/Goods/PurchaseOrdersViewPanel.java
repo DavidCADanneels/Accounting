@@ -1,8 +1,7 @@
 package be.dafke.BasicAccounting.Goods;
 
 
-import be.dafke.BasicAccounting.Accounts.AccountSelector;
-import be.dafke.BasicAccounting.Journals.JournalInputGUI;
+import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
@@ -111,7 +110,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
             AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.TAXCREDIT);
             ArrayList<AccountType> list = new ArrayList<>();
             list.add(accountType);
-            vatAccount = AccountSelector.getAccountSelector(accounting.getAccounts(), list, "Select VAT Account for Purchases").getSelection();
+            vatAccount = AccountSelectorDialog.getAccountSelector(accounting.getAccounts(), list, "Select VAT Account for Purchases").getSelection();
             purchaseOrders.setVATAccount(vatAccount);
         }
         Account stockAccount = purchaseOrders.getStockAccount();
@@ -119,7 +118,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
             AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.ASSET);
             ArrayList<AccountType> list = new ArrayList<>();
             list.add(accountType);
-            stockAccount = AccountSelector.getAccountSelector(accounting.getAccounts(), list, "Select Stock Account").getSelection();
+            stockAccount = AccountSelectorDialog.getAccountSelector(accounting.getAccounts(), list, "Select Stock Account").getSelection();
             purchaseOrders.setStockAccount(stockAccount);
         }
 
@@ -132,7 +131,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
             AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.DEBIT);
             ArrayList<AccountType> list = new ArrayList<>();
             list.add(accountType);
-            supplierAccount = AccountSelector.getAccountSelector(accounting.getAccounts(), list, "Select Supplier Account").getSelection();
+            supplierAccount = AccountSelectorDialog.getAccountSelector(accounting.getAccounts(), list, "Select Supplier Account").getSelection();
             supplier.setAccount(supplierAccount);
         }
 

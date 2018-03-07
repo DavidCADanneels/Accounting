@@ -1,8 +1,8 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.Accounts.AccountActions;
-import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetails;
-import be.dafke.BasicAccounting.Accounts.AccountSelector;
+import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI;
+import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
@@ -21,10 +21,10 @@ public class JournalGUIPopupMenu extends JPopupMenu{
     private Accounts accounts;
     private Journals journals;
     private AccountTypes accountTypes;
-    private JournalInputGUI journalInputGUI;
+    private JournalEditPanel journalEditPanel;
 
-    public JournalGUIPopupMenu(SelectableTable<Booking> table, JournalInputGUI journalInputGUI) {
-        this.journalInputGUI = journalInputGUI;
+    public JournalGUIPopupMenu(SelectableTable<Booking> table, JournalEditPanel journalEditPanel) {
+        this.journalEditPanel = journalEditPanel;
         this.table = table;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_AMOUNT"));
@@ -56,7 +56,7 @@ public class JournalGUIPopupMenu extends JPopupMenu{
         for (Booking booking : bookings) {
             Transaction transaction = booking.getTransaction();
             transaction.removeBusinessObject(booking);
-            journalInputGUI.fireTransactionDataChanged();
+            journalEditPanel.fireTransactionDataChanged();
         }
     }
 
@@ -74,7 +74,7 @@ public class JournalGUIPopupMenu extends JPopupMenu{
                 booking.setAmount(amount);
             }
             transaction.addBusinessObject(booking);
-            journalInputGUI.fireTransactionDataChanged();
+            journalEditPanel.fireTransactionDataChanged();
         }
     }
 
@@ -87,7 +87,7 @@ public class JournalGUIPopupMenu extends JPopupMenu{
             transaction.removeBusinessObject(booking);
             booking.setDebit(!booking.isDebit());
             transaction.addBusinessObject(booking);
-            journalInputGUI.fireTransactionDataChanged();
+            journalEditPanel.fireTransactionDataChanged();
         }
     }
 
@@ -95,13 +95,13 @@ public class JournalGUIPopupMenu extends JPopupMenu{
         setVisible(false);
         ArrayList<Booking> bookings = table.getSelectedObjects();
         for (Booking booking : bookings) {
-            AccountSelector sel = AccountSelector.getAccountSelector(accounts, accountTypes.getBusinessObjects());
+            AccountSelectorDialog sel = AccountSelectorDialog.getAccountSelector(accounts, accountTypes.getBusinessObjects());
             sel.setVisible(true);
             Account account = sel.getSelection();
             if (account != null) {
                 booking.setAccount(account);
             }
-            journalInputGUI.fireTransactionDataChanged();
+            journalEditPanel.fireTransactionDataChanged();
         }
     }
 
@@ -110,7 +110,7 @@ public class JournalGUIPopupMenu extends JPopupMenu{
         ArrayList<Booking> bookings = table.getSelectedObjects();
         for (Booking booking : bookings) {
             Account account = booking.getAccount();
-            AccountDetails.getAccountDetails(account, journals,journalInputGUI);
+            AccountDetailsGUI.getAccountDetails(account, journals, journalEditPanel);
         }
     }
 }

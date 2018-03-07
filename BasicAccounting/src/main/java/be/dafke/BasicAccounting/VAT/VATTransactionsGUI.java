@@ -22,9 +22,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class VATTransactionsGUI extends JFrame {
     private static final HashMap<VATTransactions, VATTransactionsGUI> vatGuis = new HashMap<>();
-    private final SelectableTable<VATBooking> tabel;
-    private final VATTransactionsDataModel vatTransactionsDataModel;
-    private final VATTransactionsPopupMenu popup;
+    private final VATTransactionsPanel vatTransactionsPanel;
 
     public static VATTransactionsGUI getInstance(VATTransactions vatTransactions) {
         VATTransactionsGUI gui;
@@ -37,29 +35,14 @@ public class VATTransactionsGUI extends JFrame {
         return gui;
     }
 
-//    private VATTransactions vatTransactions;
 
     private VATTransactionsGUI(VATTransactions vatTransactions) {
         super(getBundle("VAT").getString("VAT_TRANSACTIONS"));
-//        this.vatTransactions = vatTransactions;
-        vatTransactionsDataModel = new VATTransactionsDataModel(vatTransactions);
 
-        tabel = new SelectableTable<>(vatTransactionsDataModel);
-        tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
-        VATColorRenderer renderer = new VATColorRenderer();
-        tabel.setDefaultRenderer(VATField.class, renderer);
-        tabel.setDefaultRenderer(BigDecimal.class, renderer);
-        tabel.setDefaultRenderer(String.class, renderer);
-        //tabel.setAutoCreateRowSorter(true);
-        tabel.setRowSorter(null);
-        popup = new VATTransactionsPopupMenu(tabel, vatTransactions.getAccounting());
-        tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));
-        JScrollPane scrollPane = new JScrollPane(tabel);
-        JPanel contentPanel = new JPanel(new BorderLayout());
-        contentPanel.add(scrollPane, BorderLayout.CENTER);
+        vatTransactionsPanel = new VATTransactionsPanel(vatTransactions);
 
-        setContentPane(contentPanel);
 
+        setContentPane(vatTransactionsPanel);
         updateVATTransactions();
         pack();
     }
@@ -67,7 +50,7 @@ public class VATTransactionsGUI extends JFrame {
 
 
     public void updateVATTransactions(){
-        vatTransactionsDataModel.fireTableDataChanged();
+        vatTransactionsPanel.updateVATTransactions();
     }
 
     public static void fireVATTransactionsUpdated(){

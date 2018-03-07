@@ -15,10 +15,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class CounterPartySelector extends RefreshableDialog implements ActionListener {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private final JButton ok, create, apply;
 	private final JComboBox<BusinessObject> oldCounterPartyCombo, newCounterPartyCombo;
     private final CounterParties counterParties;

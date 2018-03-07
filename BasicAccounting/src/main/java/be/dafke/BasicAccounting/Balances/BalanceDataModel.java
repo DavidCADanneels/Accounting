@@ -10,10 +10,6 @@ import java.util.ArrayList;
 import static java.util.ResourceBundle.getBundle;
 
 public class BalanceDataModel extends SelectableTableModel<Account> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private String[] columnNames;// = {
 	private final Class[] columnClasses = { Account.class, BigDecimal.class, BigDecimal.class, Account.class };
 	private Balance balance;

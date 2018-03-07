@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
@@ -10,17 +9,13 @@ import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
-public class JournalGUI extends JPanel {
-    /**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class JournalViewPanel extends JPanel {
     private final SelectableTable<Booking> table;
     private final JournalDetailsPopupMenu popup;
 
     private final JournalDetailsDataModel journalDetailsDataModel;
 
-    public JournalGUI(JournalInputGUI journalInputGUI) {
+    public JournalViewPanel(JournalEditPanel journalEditPanel) {
 		setLayout(new BorderLayout());
         journalDetailsDataModel = new JournalDetailsDataModel();
 
@@ -32,7 +27,7 @@ public class JournalGUI extends JPanel {
         table.setDefaultRenderer(Account.class, renderer);
         table.setDefaultRenderer(BigDecimal.class, renderer);
 
-        popup = new JournalDetailsPopupMenu(table, journalInputGUI);
+        popup = new JournalDetailsPopupMenu(table, journalEditPanel);
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table));
 
         JPanel center = new JPanel();

@@ -23,10 +23,6 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class AccountDataTableModel extends SelectableTableModel<Account> implements AccountDataModel {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private int ACCOUNT_COL;
 	private int SALDO_COL;
 	private int NUMBER_COL;

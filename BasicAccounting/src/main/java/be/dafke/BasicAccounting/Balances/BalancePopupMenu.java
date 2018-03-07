@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Balances;
 
-import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetails;
-import be.dafke.BasicAccounting.Journals.JournalInputGUI;
+import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI;
+import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.SelectableTable;
@@ -18,12 +18,12 @@ public class BalancePopupMenu extends JPopupMenu {
     private final JMenuItem details;
     private Journals journals;
     private SelectableTable<Account> gui;
-    private JournalInputGUI journalInputGUI;
+    private JournalEditPanel journalEditPanel;
 
-    public BalancePopupMenu(Journals journals, SelectableTable<Account> gui, JournalInputGUI journalInputGUI) {
+    public BalancePopupMenu(Journals journals, SelectableTable<Account> gui, JournalEditPanel journalEditPanel) {
         this.journals = journals;
         this.gui = gui;
-        this.journalInputGUI = journalInputGUI;
+        this.journalEditPanel = journalEditPanel;
         details = new JMenuItem(getBundle("Accounting").getString("GO_TO_ACCOUNT_DETAILS"));
         details.addActionListener(e -> showDetails());
         add(details);
@@ -32,7 +32,7 @@ public class BalancePopupMenu extends JPopupMenu {
     public void showDetails() {
         ArrayList<Account> accounts = gui.getSelectedObjects();
         for(Account account: accounts) {
-            AccountDetails.getAccountDetails(account, journals, journalInputGUI);
+            AccountDetailsGUI.getAccountDetails(account, journals, journalEditPanel);
         }
         setVisible(false);
     }

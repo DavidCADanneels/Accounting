@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BasicAccounting.Contacts.ContactSelector;
-import be.dafke.BasicAccounting.Journals.JournalInputGUI;
+import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
+import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
@@ -28,12 +28,12 @@ public class AccountActions {
     public static final String SELECT_TAX_CREDIT_CN_ACCOUNT = "select Tax Credit CN Account";
     public static final String SELECT_TAX_DEBIT_CN_ACCOUNT = "select Tax Debit CN Account";
 
-    public static void book(JournalInputGUI journalInputGUI, Account account, boolean debit, VATTransaction.VATType vatType, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Contacts contacts){
-        Transaction transaction = journalInputGUI.getTransaction();
+    public static void book(JournalEditPanel journalEditPanel, Account account, boolean debit, VATTransaction.VATType vatType, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Contacts contacts){
+        Transaction transaction = journalEditPanel.getTransaction();
         BigDecimal amount = askAmount(account, debit, transaction);
         if (amount != null) {
             Booking booking = new Booking(account, amount, debit);
-            journalInputGUI.addBooking(booking);
+            journalEditPanel.addBooking(booking);
 
             //
             if (vatType == VATTransaction.VATType.PURCHASE) {
@@ -45,7 +45,7 @@ public class AccountActions {
                 saleAny(transaction, booking, vatTransactions, accounts, accountTypes);
             }
 
-            journalInputGUI.fireTransactionDataChanged();
+            journalEditPanel.fireTransactionDataChanged();
         }
     }
 
@@ -232,9 +232,9 @@ public class AccountActions {
     private static Account getCreditAccount(VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes){
         Account btwAccount = vatTransactions.getCreditAccount();
         if(btwAccount==null){
-            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes, SELECT_TAX_CREDIT_ACCOUNT);
-            accountSelector.setVisible(true);
-            btwAccount = accountSelector.getSelection();
+            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, SELECT_TAX_CREDIT_ACCOUNT);
+            accountSelectorDialog.setVisible(true);
+            btwAccount = accountSelectorDialog.getSelection();
             vatTransactions.setCreditAccount(btwAccount);
         }
         return btwAccount;
@@ -243,9 +243,9 @@ public class AccountActions {
     private static Account getDebitAccount(VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes){
         Account btwAccount = vatTransactions.getDebitAccount();
         if(btwAccount==null){
-            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes, SELECT_TAX_DEBIT_ACCOUNT);
-            accountSelector.setVisible(true);
-            btwAccount = accountSelector.getSelection();
+            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, SELECT_TAX_DEBIT_ACCOUNT);
+            accountSelectorDialog.setVisible(true);
+            btwAccount = accountSelectorDialog.getSelection();
             vatTransactions.setDebitAccount(btwAccount);
         }
         return btwAccount;
@@ -254,9 +254,9 @@ public class AccountActions {
     private static Account getCreditCNAccount(VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes){
         Account btwAccount = vatTransactions.getCreditCNAccount();
         if(btwAccount==null){
-            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes, SELECT_TAX_CREDIT_CN_ACCOUNT);
-            accountSelector.setVisible(true);
-            btwAccount = accountSelector.getSelection();
+            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, SELECT_TAX_CREDIT_CN_ACCOUNT);
+            accountSelectorDialog.setVisible(true);
+            btwAccount = accountSelectorDialog.getSelection();
             vatTransactions.setCreditCNAccount(btwAccount);
         }
         return btwAccount;
@@ -265,9 +265,9 @@ public class AccountActions {
     private static Account getDebitCNAccount(VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes){
         Account btwAccount = vatTransactions.getDebitCNAccount();
         if(btwAccount==null){
-            AccountSelector accountSelector = AccountSelector.getAccountSelector(accounts, accountTypes, SELECT_TAX_DEBIT_CN_ACCOUNT);
-            accountSelector.setVisible(true);
-            btwAccount = accountSelector.getSelection();
+            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, SELECT_TAX_DEBIT_CN_ACCOUNT);
+            accountSelectorDialog.setVisible(true);
+            btwAccount = accountSelectorDialog.getSelection();
             vatTransactions.setDebitCNAccount(btwAccount);
         }
         return btwAccount;
@@ -278,9 +278,9 @@ public class AccountActions {
         if(contact!=null){
             return contact;
         } else {
-            ContactSelector contactSelector = ContactSelector.getContactSelector(contacts, contactType);
-            contactSelector.setVisible(true);
-            contact = contactSelector.getSelection();
+            ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(contacts, contactType);
+            contactSelectorDialog.setVisible(true);
+            contact = contactSelectorDialog.getSelection();
             // TODO: null check needed here?
             account.setContact(contact);
             return contact;

@@ -7,27 +7,23 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-public class ContactSelector extends RefreshableDialog {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
+public class ContactSelectorDialog extends RefreshableDialog {
 	private final JButton create, ok;
 	private Contact contact;
 	private Contact.ContactType contactType;
 	private final JComboBox<Contact> combo;
     private final DefaultComboBoxModel<Contact> model;
 	private Contacts contacts;
-	private static ContactSelector contactSelector = null;
+	private static ContactSelectorDialog contactSelectorDialog = null;
 
-	private ContactSelector(Contacts contacts, Contact.ContactType contactType) {
+	private ContactSelectorDialog(Contacts contacts, Contact.ContactType contactType) {
 		super("Select Contact");
 		this.contactType = contactType;
 		model = new DefaultComboBoxModel<>();
 		combo = new JComboBox<>(model);
 		combo.addActionListener(e -> contact = (Contact) combo.getSelectedItem());
 		create = new JButton("Add contact(s) ...");
-		create.addActionListener(e -> new NewContactGUI(contacts).setVisible(true));
+		create.addActionListener(e -> new NewContactDialog(contacts).setVisible(true));
 		ok = new JButton("Ok (Close popup)");
 		ok.addActionListener(e -> dispose());
 		JPanel innerPanel = new JPanel(new BorderLayout());
@@ -41,11 +37,11 @@ public class ContactSelector extends RefreshableDialog {
 		pack();
 	}
 
-	public static ContactSelector getContactSelector(Contacts contacts, Contact.ContactType contactType){
-		if(contactSelector ==null){
-			contactSelector = new ContactSelector(contacts, contactType);
+	public static ContactSelectorDialog getContactSelector(Contacts contacts, Contact.ContactType contactType){
+		if(contactSelectorDialog ==null){
+			contactSelectorDialog = new ContactSelectorDialog(contacts, contactType);
 		}
-		return contactSelector;
+		return contactSelectorDialog;
 	}
 
 	public Contact getSelection() {
@@ -58,8 +54,8 @@ public class ContactSelector extends RefreshableDialog {
     }
 
 	public static void fireContactDataChangedForAll() {
-		if(contactSelector !=null){
-			contactSelector.fireContactDataChanged();
+		if(contactSelectorDialog !=null){
+			contactSelectorDialog.fireContactDataChanged();
 		}
 	}
 

@@ -17,10 +17,6 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class ContactsDataModel extends SelectableTableModel<Contact> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	public int NAME_COL;
 	public int VAT_NUMBER_COL;
 	public int STREET_COL;

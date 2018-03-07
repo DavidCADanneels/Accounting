@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.Accounts.NewAccountGUI;
+import be.dafke.BasicAccounting.Accounts.NewAccountDialog;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
@@ -25,7 +25,7 @@ public class AccountsListSingleAccountSelectorPanel extends JPanel {
         combo = new JComboBox<>(model);
         combo.addActionListener(e -> selectionChanged());
         create = new JButton("Add account(s) ...");
-        create.addActionListener(e -> new NewAccountGUI(accounts, accountTypes.getBusinessObjects()).setVisible(true));
+        create.addActionListener(e -> new NewAccountDialog(accounts, accountTypes.getBusinessObjects()).setVisible(true));
         add(combo);
         add(create);
         accounts.getBusinessObjects().stream().forEach(account -> model.addElement(account));

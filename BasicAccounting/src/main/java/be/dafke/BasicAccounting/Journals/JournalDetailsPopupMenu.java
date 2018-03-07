@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetails;
+import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
@@ -8,7 +8,6 @@ import be.dafke.ComponentModel.SelectableTable;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 import java.util.Set;
 
 import static java.util.ResourceBundle.getBundle;
@@ -18,19 +17,19 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class JournalDetailsPopupMenu extends JPopupMenu {
     private final JMenuItem move, delete, edit, details, balance;
-    private JournalInputGUI journalInputGUI;
+    private JournalEditPanel journalEditPanel;
 
     private SelectableTable<Booking> gui;
     private Journals journals;
 
-    public JournalDetailsPopupMenu(Journals journals, SelectableTable<Booking> gui, JournalInputGUI journalInputGUI) {
-        this(gui, journalInputGUI);
+    public JournalDetailsPopupMenu(Journals journals, SelectableTable<Booking> gui, JournalEditPanel journalEditPanel) {
+        this(gui, journalEditPanel);
         this.journals=journals;
     }
 
-    public JournalDetailsPopupMenu(SelectableTable<Booking> gui, JournalInputGUI journalInputGUI) {
+    public JournalDetailsPopupMenu(SelectableTable<Booking> gui, JournalEditPanel journalEditPanel) {
         this.gui = gui;
-        this.journalInputGUI=journalInputGUI;
+        this.journalEditPanel = journalEditPanel;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         move = new JMenuItem(getBundle("Accounting").getString("MOVE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_TRANSACTION"));
@@ -81,9 +80,9 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
         Balance relationsBalance = balances.createRelationsBalance(subAccounts);
         Balance resultBalance = balances.createResultBalance(subAccounts);
 
-        BalanceGUI.getBalance(journals, closingBalance, journalInputGUI);
-        BalanceGUI.getBalance(journals, resultBalance, journalInputGUI);
-        BalanceGUI.getBalance(journals, relationsBalance, journalInputGUI);
+        BalanceGUI.getBalance(journals, closingBalance, journalEditPanel);
+        BalanceGUI.getBalance(journals, resultBalance, journalEditPanel);
+        BalanceGUI.getBalance(journals, relationsBalance, journalEditPanel);
 
         // choice 2: year=year of selected transaction
 //        Accounting accounting = Accountings.getActiveAccounting();
@@ -99,22 +98,22 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
     private void moveTransaction() {
         setVisible(false);
         ArrayList<Booking> bookings = gui.getSelectedObjects();
-        Set<Transaction> transactions = journalInputGUI.getTransactions(bookings);
-        journalInputGUI.moveTransaction(transactions, journals);
+        Set<Transaction> transactions = journalEditPanel.getTransactions(bookings);
+        journalEditPanel.moveTransaction(transactions, journals);
     }
 
     private void deleteTransaction() {
         setVisible(false);
         ArrayList<Booking> bookings = gui.getSelectedObjects();
-        Set<Transaction> transactions = journalInputGUI.getTransactions(bookings);
-        journalInputGUI.deleteTransaction(transactions);
+        Set<Transaction> transactions = journalEditPanel.getTransactions(bookings);
+        journalEditPanel.deleteTransaction(transactions);
     }
 
     private void editTransaction() {
         setVisible(false);
         Booking booking = gui.getSelectedObject();
         Transaction transaction = booking.getTransaction();
-        journalInputGUI.editTransaction(transaction);
+        journalEditPanel.editTransaction(transaction);
     }
 
     private void showDetails() {
@@ -122,7 +121,7 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
         ArrayList<Booking> bookings = gui.getSelectedObjects();
         for (Booking booking : bookings) {
             Account account = booking.getAccount();
-            AccountDetails newGui = AccountDetails.getAccountDetails(account, journals, journalInputGUI);
+            AccountDetailsGUI newGui = AccountDetailsGUI.getAccountDetails(account, journals, journalEditPanel);
             newGui.selectObject(booking);
         }
     }

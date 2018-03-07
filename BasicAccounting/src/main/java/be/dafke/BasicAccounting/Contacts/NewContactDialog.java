@@ -19,7 +19,7 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 24/02/13
  * Time: 11:34
  */
-public class NewContactGUI extends RefreshableDialog {
+public class NewContactDialog extends RefreshableDialog {
     public static final String NAME = "NAME_LABEL";
     public static final String STREET_AND_NUMBER = "STREET_AND_NUMBER_LABEL";
     public static final String POSTAL_CODE = "POSTAL_CODE_LABEL";
@@ -34,7 +34,7 @@ public class NewContactGUI extends RefreshableDialog {
     private Contact contact;
     private boolean newContact;
 
-    public NewContactGUI(Contacts contacts) {
+    public NewContactDialog(Contacts contacts) {
         super(getBundle("Contacts").getString("NEW_CONTACT_GUI_TITLE"));
         this.contacts = contacts;
 

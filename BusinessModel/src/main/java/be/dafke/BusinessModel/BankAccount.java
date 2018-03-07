@@ -3,10 +3,6 @@ package be.dafke.BusinessModel;
 import java.io.Serializable;
 
 public class BankAccount implements Serializable {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	/*	public enum AccountType{
 			Belgian, Foreign, Belgian_IBAN, Foreign_IBAN;
 		}

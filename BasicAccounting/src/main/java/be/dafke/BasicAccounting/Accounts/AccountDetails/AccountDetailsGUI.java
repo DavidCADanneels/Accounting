@@ -1,0 +1,72 @@
+package be.dafke.BasicAccounting.Accounts.AccountDetails;
+
+/**
+ *
+ * @author David Danneels
+ */
+
+import be.dafke.BasicAccounting.Journals.JournalEditPanel;
+import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.Booking;
+import be.dafke.BusinessModel.Journals;
+import be.dafke.ComponentModel.SelectableTable;
+
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+import java.math.BigDecimal;
+import java.util.HashMap;
+
+import static java.util.ResourceBundle.getBundle;
+
+public class AccountDetailsGUI extends JFrame implements WindowListener {
+	private static HashMap<Account,AccountDetailsGUI> accountDetailsMap = new HashMap<>();
+	private final AccountDetailsPanel accountDetailsPanel;
+
+	private AccountDetailsGUI(Account account, Journals journals, JournalEditPanel journalEditPanel) {
+		super(getBundle("Accounting").getString("ACCOUNT_DETAILS") + account.getName());
+		accountDetailsPanel = new AccountDetailsPanel(account, journals, journalEditPanel);
+//		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+		setContentPane(accountDetailsPanel);
+		pack();
+	}
+
+	public static AccountDetailsGUI getAccountDetails(Account account, Journals journals, JournalEditPanel journalEditPanel){
+		AccountDetailsGUI accountDetailsGUI = accountDetailsMap.get(account);
+		if(accountDetailsGUI ==null){
+			accountDetailsGUI = new AccountDetailsGUI(account, journals, journalEditPanel);
+			accountDetailsMap.put(account, accountDetailsGUI);
+			Main.addFrame(accountDetailsGUI);
+		}
+		accountDetailsGUI.setVisible(true);
+		return accountDetailsGUI;
+	}
+
+	public void selectObject(Booking object){
+		accountDetailsPanel.selectObject(object);
+	}
+
+	public void windowClosing(WindowEvent we) {
+		accountDetailsPanel.closePopups();
+	}
+	public void windowOpened(WindowEvent e) {}
+	public void windowClosed(WindowEvent e) {}
+	public void windowIconified(WindowEvent e) {}
+	public void windowDeiconified(WindowEvent e) {}
+	public void windowActivated(WindowEvent e) {}
+	public void windowDeactivated(WindowEvent e) {}
+
+	public static void fireAccountDataChangedForAll(Account account) {
+		AccountDetailsGUI accountDetailsGUI = accountDetailsMap.get(account);
+		if(accountDetailsGUI !=null) {
+			accountDetailsGUI.fireAccountDataChanged();
+		}
+	}
+
+	public void fireAccountDataChanged() {
+		accountDetailsPanel.fireAccountDataChanged();
+	}
+}

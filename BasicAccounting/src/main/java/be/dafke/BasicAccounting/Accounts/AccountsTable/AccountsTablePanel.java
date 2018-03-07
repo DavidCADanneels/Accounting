@@ -1,9 +1,9 @@
 package be.dafke.BasicAccounting.Accounts.AccountsTable;
 
 import be.dafke.BasicAccounting.Accounts.*;
-import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetails;
+import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI;
 import be.dafke.BasicAccounting.Accounts.AccountsFilter.AccountFilterPanel;
-import be.dafke.BasicAccounting.Journals.JournalInputGUI;
+import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
@@ -23,13 +23,13 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class AccountsTableGUI extends JPanel {
+public class AccountsTablePanel extends JPanel {
     private final SelectableTable<Account> table;
     private final AccountDataTableModel accountDataTableModel;
     private final AccountFilterPanel filterPanel;
 
     private AccountsTablePopupMenu popup;
-    private JournalInputGUI journalInputGUI;
+    private JournalEditPanel journalEditPanel;
     private Accounts accounts;
     private Journals journals;
     private Journal journal;
@@ -41,7 +41,7 @@ public class AccountsTableGUI extends JPanel {
     private VATTransactions vatTransactions = null;
     private Contacts contacts = null;
 
-    public AccountsTableGUI(JournalInputGUI journalInputGUI, boolean left) {
+    public AccountsTablePanel(JournalEditPanel journalEditPanel, boolean left) {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("Accounting").getString("ACCOUNTS")));
 
@@ -51,7 +51,7 @@ public class AccountsTableGUI extends JPanel {
         table = new SelectableTable<>(accountDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(100, 100));
 
-        this.journalInputGUI=journalInputGUI;
+        this.journalEditPanel = journalEditPanel;
         popup = new AccountsTablePopupMenu(this);
         setPopup(popup);
         // TODO: register popup menu as TransactionListener and remove TransactionListener from 'this'.
@@ -74,7 +74,7 @@ public class AccountsTableGUI extends JPanel {
 	public void showDetails(){
         popup.setVisible(false);
         for(Account account : table.getSelectedObjects()){
-            AccountDetails.getAccountDetails(account, journals, journalInputGUI);
+            AccountDetailsGUI.getAccountDetails(account, journals, journalEditPanel);
         }
     }
 
@@ -87,7 +87,7 @@ public class AccountsTableGUI extends JPanel {
     public void addAccount(){
         popup.setVisible(false);
         ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
-        new NewAccountGUI(accounts, accountTypes).setVisible(true);
+        new NewAccountDialog(accounts, accountTypes).setVisible(true);
     }
 
     public void setPopup(AccountsTablePopupMenu popup) {
@@ -173,7 +173,7 @@ public class AccountsTableGUI extends JPanel {
         popup.setVisible(false);
         for(Account account : table.getSelectedObjects()){
             ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
-            AccountActions.book(journalInputGUI, account, debit, vatType, vatTransactions, accounts, accountTypes, contacts);
+            AccountActions.book(journalEditPanel, account, debit, vatType, vatTransactions, accounts, accountTypes, contacts);
         }
     }
 

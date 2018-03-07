@@ -1,18 +1,10 @@
 package be.dafke.BasicAccounting.Balances;
 
-import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.BalancesIO;
-import be.dafke.BusinessModelDao.PDFCreator;
-import org.apache.fop.apps.FOPException;
 
 import javax.swing.*;
-import javax.xml.transform.TransformerException;
-import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -29,11 +21,11 @@ public class BalancesMenu extends JMenu {
     private Balances balances;
     private Accounting accounting;
     private AccountTypes accountTypes;
-    private JournalInputGUI journalInputGUI;
+    private JournalEditPanel journalEditPanel;
 
-    public BalancesMenu(JournalInputGUI journalInputGUI){
+    public BalancesMenu(JournalEditPanel journalEditPanel){
         super(getBundle("BusinessModel").getString("BALANCES"));
-        this.journalInputGUI = journalInputGUI;
+        this.journalEditPanel = journalEditPanel;
         manage = new JMenuItem(getBundle("BusinessModel").getString("MANAGE_BALANCES"));
         manage.addActionListener(e -> BalancesManagementGUI.showBalancesManager(balances, accounts, accountTypes));
         pdfGeneration = new JMenuItem(getBundle("BusinessModel").getString("GENERATE_PDF"));
@@ -58,7 +50,7 @@ public class BalancesMenu extends JMenu {
             balances.getBusinessObjects().stream().forEach(balance -> {
                 String name = balance.getName();
                 JMenuItem item = new JMenuItem(name);
-                item.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(name), journalInputGUI));
+                item.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(name), journalEditPanel));
                 add(item);
             });
             add(manage);

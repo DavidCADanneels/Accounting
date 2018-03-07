@@ -15,18 +15,14 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class JournalsGUI extends JPanel implements ActionListener{
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
+public class JournalSelectorPanel extends JPanel implements ActionListener{
 	private JComboBox<Journal> combo;
-	private JournalInputGUI journalInputGUI;
-	private JournalGUI journalGUI;
+	private JournalEditPanel journalEditPanel;
+	private JournalViewPanel journalViewPanel;
 
-	public JournalsGUI(JournalGUI journalGUI, JournalInputGUI journalInputGUI){//Accounts accounts,  ) {
-		this.journalInputGUI=journalInputGUI;
-		this.journalGUI = journalGUI;
+	public JournalSelectorPanel(JournalViewPanel journalViewPanel, JournalEditPanel journalEditPanel){//Accounts accounts,  ) {
+		this.journalEditPanel = journalEditPanel;
+		this.journalViewPanel = journalViewPanel;
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
@@ -38,7 +34,7 @@ public class JournalsGUI extends JPanel implements ActionListener{
 
 	public void actionPerformed(ActionEvent ae) {
 		Journal newJournal = (Journal) combo.getSelectedItem();
-		Journal journal = journalInputGUI.switchJournal(newJournal);
+		Journal journal = journalEditPanel.switchJournal(newJournal);
 		Main.setJournal(journal);
 	}
 
@@ -72,7 +68,7 @@ public class JournalsGUI extends JPanel implements ActionListener{
 		combo.setSelectedItem(journal);
 		combo.addActionListener(this);
 
-		journalGUI.setJournal(journal);
-		journalInputGUI.setJournal(journal);
+		journalViewPanel.setJournal(journal);
+		journalEditPanel.setJournal(journal);
 	}
 }

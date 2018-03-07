@@ -1,20 +1,16 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BasicAccounting.Journals.JournalInputGUI;
-import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.BusinessModelDao.AccountsIO;
-import be.dafke.BusinessModelDao.JournalsIO;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
-import java.io.File;
 
 import static be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI.showAccountManager;
-import static be.dafke.BasicAccounting.Balances.TestBalance.getTestBalance;
+import static be.dafke.BasicAccounting.Balances.TestBalanceGUI.getTestBalance;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -28,11 +24,11 @@ public class AccountsMenu extends JMenu {
     private Accounts accounts;
     private AccountTypes accountTypes;
 
-    public AccountsMenu(JournalInputGUI journalInputGUI) {
+    public AccountsMenu(JournalEditPanel journalEditPanel) {
         super(getBundle("BusinessModel").getString("ACCOUNTS"));
 //        setMnemonic(KeyEvent.VK_P);
         add = new JMenuItem(getBundle("Accounting").getString("ADD_ACCOUNT"));
-        add.addActionListener(e -> new NewAccountGUI(accounts,accountTypes.getBusinessObjects()).setVisible(true));
+        add.addActionListener(e -> new NewAccountDialog(accounts,accountTypes.getBusinessObjects()).setVisible(true));
         add.setEnabled(false);
 
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_ACCOUNT"));
@@ -40,7 +36,7 @@ public class AccountsMenu extends JMenu {
         manage.setEnabled(false);
 
         testBalance = new JMenuItem(getBundle("BusinessModel").getString("TESTBALANCE"));
-        testBalance.addActionListener(e -> getTestBalance(journals, accounts, journalInputGUI));
+        testBalance.addActionListener(e -> getTestBalance(journals, accounts, journalEditPanel));
         testBalance.setEnabled(false);
 
         generatePdf = new JMenuItem(getBundle("BusinessModel").getString("GENERATE_PDF"));

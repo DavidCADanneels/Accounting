@@ -12,10 +12,6 @@ import java.awt.*;
 import java.math.BigDecimal;
 
 public class MortgageTable extends JFrame {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
 	private final JButton save;
 	private final MortgageDataModel model;
 	private final JTable tabel;

@@ -15,10 +15,6 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 public class AccountDetailsDataModel extends SelectableTableModel<Booking> {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 	private final Account rekening;
 
 	public static final int NR = 0;

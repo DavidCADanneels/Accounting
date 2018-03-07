@@ -1,29 +1,24 @@
 package be.dafke.BasicAccounting.Mortgages;
 
-import be.dafke.BasicAccounting.Journals.JournalInputGUI;
+import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BusinessModel.Mortgage;
 import be.dafke.BusinessModel.Mortgages;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
-import javax.swing.event.ListSelectionEvent;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-public class MortgagesGUI extends JPanel {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
+public class MortgagesPanel extends JPanel {
 	private final JList<Mortgage> list;
 	private final JButton pay;// , newMortgage, details;
 	private final DefaultListModel<Mortgage> listModel;
 	private Mortgage selectedMortgage;
-	private JournalInputGUI journalInputGUI;
+	private JournalEditPanel journalEditPanel;
 
-	public MortgagesGUI(JournalInputGUI journalInputGUI) {
-		this.journalInputGUI = journalInputGUI;
+	public MortgagesPanel(JournalEditPanel journalEditPanel) {
+		this.journalEditPanel = journalEditPanel;
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Mortgages"));
 		list = new JList<>();
@@ -48,7 +43,7 @@ public class MortgagesGUI extends JPanel {
 	public void book() {
 		Mortgage mortgage = list.getSelectedValue();
 		if (mortgage != null) {
-			journalInputGUI.addMortgageTransaction(mortgage);
+			journalEditPanel.addMortgageTransaction(mortgage);
 		}
 	}
 

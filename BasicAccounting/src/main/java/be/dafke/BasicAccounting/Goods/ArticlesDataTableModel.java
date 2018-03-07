@@ -23,10 +23,6 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class ArticlesDataTableModel extends SelectableTableModel<Article> {
-	/**
-	 *
-	 */
-	private static final long serialVersionUID = 1L;
 	private final Articles articles;
 	public static int NAME_COL = 0;
 	public static int HS_COL = 1;

@@ -12,10 +12,6 @@ import java.awt.*;
  * Created by ddanneels on 7/05/2017.
  */
 public class AccountColorRenderer extends DefaultTableCellRenderer {
-    /**
-     *
-     */
-    private static final long serialVersionUID = 1L;
 
     @Override
     public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus,
