@@ -37,8 +37,9 @@ public class StockIO {
         }
     }
 
-    public static void writeStock(Stock stock, File accountingFolder) {
-        File file = new File(accountingFolder, STOCK + XML_EXTENSION);
+    public static void writeStock(Accounting accounting) {
+        Stock stock = accounting.getStock();
+        File file = new File(XML_PATH + accounting.getName() + "/" + STOCK + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(STOCK, 2));

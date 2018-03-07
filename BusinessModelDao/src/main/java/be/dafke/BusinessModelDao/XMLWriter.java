@@ -122,27 +122,27 @@ public class XMLWriter {
         accountingFolder.mkdirs();
         writeAccounts(accounting);
         writeJournals(accounting);
-        writeJournalTypes(accounting.getJournalTypes(), accountingFolder);
-        writeBalances(accounting.getBalances(), accountingFolder);
+        writeJournalTypes(accounting);
+        writeBalances(accounting);
         if(accounting.isProjectsAccounting()) {
-            writeProjects(accounting.getProjects(), accountingFolder);
+            writeProjects(accounting);
         }
         if(accounting.isVatAccounting()) {
-            writeVATFields(accounting.getVatFields(), accountingFolder);
-            writeVATTransactions(accounting.getVatTransactions(), accountingFolder);
+            writeVATFields(accounting);
+            writeVATTransactions(accounting);
         }
         if(accounting.isContactsAccounting()) {
-            writeContacts(accounting.getContacts(), accounting.getCompanyContact(), accountingFolder);
-            writeArticles(accounting.getArticles(), accountingFolder);
-            writeStock(accounting.getStock(), accountingFolder);
-            writePurchasesOrders(accounting.getPurchaseOrders(), accountingFolder);
-            writeSalesOrders(accounting.getSalesOrders(), accountingFolder);
+            writeContacts(accounting);
+            writeArticles(accounting);
+            writeStock(accounting);
+            writePurchasesOrders(accounting);
+            writeSalesOrders(accounting);
         }
         if(accounting.isMortgagesAccounting()) {
-            writeMortgages(accounting.getMortgages(), accountingFolder);
+            writeMortgages(accounting);
         }
 
-//        JournalsIO.writeJournalPdfFiles(accounting.getJournals(), accountingFolder, accounting.getName());
+//        JournalsIO.writeJournalPdfFiles(accounting);
     }
 
 }

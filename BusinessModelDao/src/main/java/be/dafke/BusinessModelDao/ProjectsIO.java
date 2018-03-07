@@ -62,9 +62,10 @@ public class ProjectsIO {
         }
     }
 
-    public static void writeProjects(Projects projects, File accountingFolder){
-        File projectsFile = new File(accountingFolder, PROJECTS+ XML_EXTENSION);
-        File projectsFolder = new File(accountingFolder, PROJECTS);
+    public static void writeProjects(Accounting accounting){
+        Projects projects = accounting.getProjects();
+        File projectsFile = new File(XML_PATH + accounting.getName() + "/" + PROJECTS+ XML_EXTENSION);
+        File projectsFolder = new File(XML_PATH + accounting.getName() + "/" + PROJECTS);
         try{
             Writer writer = new FileWriter(projectsFile);
             writer.write(getXmlHeader(PROJECTS, 2));

@@ -80,9 +80,10 @@ public class MortgageIO {
     }
 
 
-    public static void writeMortgages(Mortgages mortgages, File accountingFolder){
-        File mortgagesFile = new File(accountingFolder, MORTGAGES+ XML_EXTENSION);
-        File mortgagesFolder = new File(accountingFolder, MORTGAGES);
+    public static void writeMortgages(Accounting accounting){
+        Mortgages mortgages = accounting.getMortgages();
+        File mortgagesFile = new File(XML_PATH + accounting.getName() + "/" + MORTGAGES+ XML_EXTENSION);
+        File mortgagesFolder = new File(XML_PATH + accounting.getName() + "/" + MORTGAGES);
         try{
             Writer writer = new FileWriter(mortgagesFile);
             writer.write(getXmlHeader(MORTGAGES, 2));

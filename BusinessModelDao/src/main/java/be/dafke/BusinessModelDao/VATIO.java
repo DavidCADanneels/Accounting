@@ -95,8 +95,9 @@ public class VATIO {
         }
     }
 
-    public static void writeVATFields(VATFields vatFields, File accountingFolder){
-        File file = new File(accountingFolder, VATFIELDS+ XML_EXTENSION);
+    public static void writeVATFields(Accounting accounting){
+        VATFields vatFields = accounting.getVatFields();
+        File file = new File(XML_PATH + accounting.getName() + "/" + VATFIELDS+ XML_EXTENSION);
         try{
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(VATFIELDS, 2));
@@ -116,8 +117,9 @@ public class VATIO {
         }
     }
 
-    public static void writeVATTransactions(VATTransactions vatTransactions, File accountingFolder){
-        File file = new File(accountingFolder, VATTRANSACTIONS+ XML_EXTENSION);
+    public static void writeVATTransactions(Accounting accounting){
+        VATTransactions vatTransactions = accounting.getVatTransactions();
+        File file = new File(XML_PATH + accounting.getName() + "/" + VATTRANSACTIONS+ XML_EXTENSION);
         try{
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(VATTRANSACTIONS, 2));

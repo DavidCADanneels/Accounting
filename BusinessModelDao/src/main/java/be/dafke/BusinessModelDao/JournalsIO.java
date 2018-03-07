@@ -218,8 +218,9 @@ public class JournalsIO {
         }
     }
 
-    public static void writeJournalTypes(JournalTypes journalTypes, File accountingFolder){
-        File journalTypesFile = new File(accountingFolder, JOURNAL_TYPES + XML_EXTENSION);
+    public static void writeJournalTypes(Accounting accounting){
+        JournalTypes journalTypes = accounting.getJournalTypes();
+        File journalTypesFile = new File(XML_PATH + accounting.getName() + "/" + JOURNAL_TYPES + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(journalTypesFile);
             writer.write(getXmlHeader(JOURNAL_TYPES, 2));

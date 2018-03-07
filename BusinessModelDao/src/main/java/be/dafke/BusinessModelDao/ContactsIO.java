@@ -55,8 +55,10 @@ public class ContactsIO {
         }
     }
 
-    public static void writeContacts(Contacts contacts, Contact companyContact, File accountingFolder){
-        File accountsFile = new File(accountingFolder, "Contacts.xml");
+    public static void writeContacts(Accounting accounting){
+        Contact companyContact = accounting.getCompanyContact();
+        Contacts contacts = accounting.getContacts();
+        File accountsFile = new File(XML_PATH + accounting.getName() + "/" + "Contacts.xml");
         try{
             Writer writer = new FileWriter(accountsFile);
             writer.write(getXmlHeader(CONTACTS, 2));

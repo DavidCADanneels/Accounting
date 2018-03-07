@@ -70,8 +70,11 @@ public class BalancesIO {
         }
     }
 
-    public static void writeBalancePdfFiles(Balances balances, File accountingFolder, String accountingName){
-        File subFolder = new File(accountingFolder, "PDF/Balances");
+    public static void writeBalancePdfFiles(Accounting accounting){
+        BalancesIO.writeIndividualBalances(accounting);
+
+        String accountingName = accounting.getName();
+        File subFolder = new File(XML_PATH + accounting.getName() + "/" + "PDF/Balances");
         subFolder.mkdirs();
 
         String resultXmlPath = XML_PATH+accountingName+"/Balances/ResultBalance.xml";
@@ -90,9 +93,9 @@ public class BalancesIO {
         }
     }
 
-    public static void writeBalances(Balances balances, File accountingFolder){
-        File balancesFile = new File(accountingFolder, BALANCES+ XML_EXTENSION);
-        File balancesFolder = new File(accountingFolder, BALANCES);
+    public static void writeBalances(Accounting accounting){
+        Balances balances = accounting.getBalances();
+        File balancesFile = new File(XML_PATH + accounting.getName() + "/" + BALANCES+ XML_EXTENSION);
         try{
             Writer writer = new FileWriter(balancesFile);
             writer.write(getXmlHeader(BALANCES, 2));
@@ -125,10 +128,12 @@ public class BalancesIO {
         } catch (IOException ex) {
             Logger.getLogger(Balances.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        writeIndividualBalances(balances, balancesFolder);
+//        writeIndividualBalances(accounting);
     }
 
-    public static void writeIndividualBalances(Balances balances, File balancesFolder){
+    public static void writeIndividualBalances(Accounting accounting){
+        Balances balances = accounting.getBalances();
+        File balancesFolder = new File(XML_PATH + accounting.getName() + "/" + BALANCES);
         balancesFolder.mkdirs();
         for(Balance balance:balances.getBusinessObjects()){
             writeBalance(balance, balancesFolder);

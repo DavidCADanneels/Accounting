@@ -56,8 +56,9 @@ public class SalesOrderIO {
         SalesOrders.setId(nr);
     }
 
-    public static void writeSalesOrders(SalesOrders salesOrders, File accountingFolder) {
-        File file = new File(accountingFolder, SALES_ORDERS + XML_EXTENSION);
+    public static void writeSalesOrders(Accounting accounting) {
+        SalesOrders salesOrders = accounting.getSalesOrders();
+        File file = new File(XML_PATH + accounting.getName() + "/" + SALES_ORDERS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(SALES_ORDERS, 2));

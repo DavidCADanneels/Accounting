@@ -56,8 +56,9 @@ public class PurchaseOrderIO {
         PurchaseOrders.setId(nr);
     }
 
-    public static void writePurchasesOrders(PurchaseOrders purchaseOrders, File accountingFolder) {
-        File file = new File(accountingFolder, PURCHASE_ORDERS + XML_EXTENSION);
+    public static void writePurchasesOrders(Accounting accounting) {
+        PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
+        File file = new File(XML_PATH + accounting.getName() + "/" + PURCHASE_ORDERS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(PURCHASE_ORDERS, 2));

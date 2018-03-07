@@ -37,13 +37,7 @@ public class BalancesMenu extends JMenu {
         manage = new JMenuItem(getBundle("BusinessModel").getString("MANAGE_BALANCES"));
         manage.addActionListener(e -> BalancesManagementGUI.showBalancesManager(balances, accounts, accountTypes));
         pdfGeneration = new JMenuItem(getBundle("BusinessModel").getString("GENERATE_PDF"));
-        pdfGeneration.addActionListener(e -> {
-            File xmlFolder = Main.getXmlFolder();
-            File accountingsFolder = new File(xmlFolder, "Accountings");
-            File accountingFolder = new File(accountingsFolder, accounting.getName());
-            BalancesIO.writeIndividualBalances(balances,accountingFolder);
-            BalancesIO.writeBalancePdfFiles(balances, accountingFolder, accounting.getName());
-        });
+        pdfGeneration.addActionListener(e -> BalancesIO.writeBalancePdfFiles(accounting));
         add(manage);
         add(pdfGeneration);
     }

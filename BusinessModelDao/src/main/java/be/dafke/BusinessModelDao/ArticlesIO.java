@@ -66,8 +66,9 @@ public class ArticlesIO {
         }
     }
 
-    public static void writeArticles(Articles articles, File accountingFolder) {
-        File file = new File(accountingFolder, ARTICLES + XML_EXTENSION);
+    public static void writeArticles(Accounting accounting) {
+        Articles articles = accounting.getArticles();
+        File file = new File(XML_PATH + accounting.getName() + "/" + ARTICLES + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(ARTICLES, 2));
