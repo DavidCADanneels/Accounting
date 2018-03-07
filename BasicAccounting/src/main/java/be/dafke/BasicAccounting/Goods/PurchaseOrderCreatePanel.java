@@ -12,6 +12,8 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.function.Predicate;
 
+import static be.dafke.BasicAccounting.Goods.PurchaseOrdersViewGUI.firePurchaseOrderAddedOrRemovedForAll;
+
 /**
  * User: david
  * Date: 29-12-13
@@ -54,6 +56,8 @@ public class PurchaseOrderCreatePanel extends JPanel {
             try {
                 purchaseOrders.addBusinessObject(order);
                 order = new Order(articles);
+                purchaseOrderCreateDataTableModel.setOrder(order);
+                firePurchaseOrderAddedOrRemovedForAll();
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {

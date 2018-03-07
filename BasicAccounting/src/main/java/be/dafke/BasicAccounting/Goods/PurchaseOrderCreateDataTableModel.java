@@ -137,4 +137,9 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Stoc
 		order.setSupplier(contact);
 		fireTableDataChanged();
 	}
+
+	public void setOrder(Order order) {
+		this.order = order;
+		fireTableDataChanged();
+	}
 }
