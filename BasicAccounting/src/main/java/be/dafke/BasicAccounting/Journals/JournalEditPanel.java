@@ -417,35 +417,43 @@ public class JournalEditPanel extends JPanel implements FocusListener, ActionLis
 
     public Journal switchJournal(Journal newJournal) {
         if(newJournal!=null){
-            journal = checkTransfer(journal, newJournal);
+            journal = checkTransfer(newJournal);
         } else {
             journal = newJournal;
         }
         return journal;
     }
 
-    private Journal checkTransfer(Journal oldJournal, Journal newJournal){
+    private Journal checkTransfer(Journal newJournal){
         Transaction newTransaction = newJournal.getCurrentTransaction();
-        if(transaction!=null && !transaction.getBusinessObjects().isEmpty() && oldJournal!=newJournal){
+        if(transaction!=null && !transaction.getBusinessObjects().isEmpty() && journal!=newJournal){
             StringBuilder builder = new StringBuilder("Do you want to transfer the current transaction from ")
-                    .append(oldJournal).append(" to ").append(newJournal);
+                    .append(journal).append(" to ").append(newJournal);
             if(newTransaction!=null && !newTransaction.getBusinessObjects().isEmpty()){
                 builder.append("\nWARNING: ").append(newJournal).append(" also has an open transactions, which will be lost if you select transfer");
             }
             int answer = JOptionPane.showConfirmDialog(null, builder.toString());
             if(answer == JOptionPane.YES_OPTION){
-                newJournal.setCurrentTransaction(transaction);
-                oldJournal.setCurrentTransaction(new Transaction(Calendar.getInstance(), ""));
+                moveTransactionToNewJournal(newJournal);
                 return newJournal;
             } else if(answer == JOptionPane.NO_OPTION){
-                oldJournal.setCurrentTransaction(transaction);
+                saveCurrentTransaction();
                 return newJournal;
             } else {
-                return oldJournal;
+                return journal;
             }
         } else {
             return newJournal;
         }
+    }
+
+    public void moveTransactionToNewJournal(Journal newJournal){
+        newJournal.setCurrentTransaction(transaction);
+        journal.setCurrentTransaction(new Transaction(Calendar.getInstance(), ""));
+    }
+
+    public void saveCurrentTransaction(){
+        journal.setCurrentTransaction(transaction);
     }
 
     public void fireTransactionDataChanged() {
