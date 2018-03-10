@@ -19,7 +19,7 @@ public class SalesOrderCreateGUI extends JFrame {
     private static SalesOrderCreateGUI salesOrderCreateGui = null;
 
     private SalesOrderCreateGUI(Accounting accounting) {
-        super(getBundle("Accounting").getString("CREATE_PO"));
+        super(getBundle("Accounting").getString("CREATE_SO"));
         orderPanel = new SalesOrderCreatePanel(accounting);
         setContentPane(orderPanel);
         pack();
