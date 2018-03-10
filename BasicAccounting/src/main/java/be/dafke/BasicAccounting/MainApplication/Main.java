@@ -57,7 +57,7 @@ public class Main {
     private static File xmlFolder;
     private static File xslFolder;
     private static File htmlFolder;
-    private static JournalViewPanel journalReadGUI;
+    private static JournalViewPanel journalViewPanel;
     private static JournalSelectorPanel journalSelectorPanel;
     private static JournalEditPanel journalEditPanel;
     private static AccountsTablePanel accountGuiLeft;
@@ -98,8 +98,8 @@ public class Main {
 
     private static void createComponents() {
         journalEditPanel = new JournalEditPanel();
-        journalReadGUI = new JournalViewPanel(journalEditPanel);
-        journalSelectorPanel = new JournalSelectorPanel(journalReadGUI, journalEditPanel);
+        journalViewPanel = new JournalViewPanel(journalEditPanel);
+        journalSelectorPanel = new JournalSelectorPanel(journalEditPanel);
         accountGuiLeft = new AccountsTablePanel(journalEditPanel, true);
         accountGuiRight = new AccountsTablePanel(journalEditPanel, false);
         mortgagesPanel = new MortgagesPanel(journalEditPanel);
@@ -125,7 +125,7 @@ public class Main {
 
         JPanel accountingMultiPanel = new JPanel();
         accountingMultiPanel.setLayout(new BorderLayout());
-        JSplitPane splitPane = createSplitPane(journalReadGUI, journalEditPanel, VERTICAL_SPLIT);
+        JSplitPane splitPane = createSplitPane(journalViewPanel, journalEditPanel, VERTICAL_SPLIT);
 
         JPanel centerPanel = new JPanel(new BorderLayout());
         centerPanel.add(splitPane, BorderLayout.CENTER);
@@ -211,7 +211,7 @@ public class Main {
         accountGuiLeft.setAccounting(accounting);
         accountGuiRight.setAccounting(accounting);
         journalEditPanel.setAccounting(accounting);
-        journalReadGUI.setAccounting(accounting);
+        journalViewPanel.setAccounting(accounting);
         journalSelectorPanel.setAccounting(accounting);
         mortgagesPanel.setMortgages(accounting==null?null:accounting.getMortgages());
 
@@ -254,7 +254,7 @@ public class Main {
             accounting.setActiveJournal(journal);  // idem, only needed for XMLWriter
         }
         journalSelectorPanel.setJournal(journal);
-        journalReadGUI.setJournal(journal);
+        journalViewPanel.setJournal(journal);
         journalEditPanel.setJournal(journal);
         frame.setJournal(journal);
         accountGuiLeft.setJournal(journal, true);
@@ -268,7 +268,7 @@ public class Main {
     public static void fireJournalDataChanged(Journal journal){
         JournalDetailsGUI.fireJournalDataChangedForAll(journal);
         JournalManagementGUI.fireJournalDataChangedForAll();
-        journalReadGUI.fireJournalDataChanged();
+        journalViewPanel.fireJournalDataChanged();
         journalsMenu.fireJournalDataChanged();
         frame.fireDataChanged();
     }
@@ -278,7 +278,7 @@ public class Main {
         AccountSelectorDialog.fireAccountDataChangedForAll();
         // fireAccountDataChanged in AccountsListGUI is only needed if accounts have been added
         // in AccountsTableGUI it is also needed if the saldo of 1 or more accounts has changed
-        journalReadGUI.fireJournalDataChanged();
+        journalViewPanel.fireJournalDataChanged();
         accountGuiLeft.fireAccountDataChanged();
         accountGuiRight.fireAccountDataChanged();
 
@@ -356,7 +356,7 @@ public class Main {
     }
 
     public static void selectTransaction(Transaction transaction){
-        journalReadGUI.selectTransaction(transaction);
+        journalViewPanel.selectTransaction(transaction);
     }
 
     public static void fireJournalTypeChanges(Journal journal, JournalType journalType) {

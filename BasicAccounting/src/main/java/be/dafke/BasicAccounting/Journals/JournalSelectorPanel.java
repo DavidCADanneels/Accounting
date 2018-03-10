@@ -18,14 +18,13 @@ import static java.util.ResourceBundle.getBundle;
 public class JournalSelectorPanel extends JPanel implements ActionListener{
 	private JComboBox<Journal> combo;
 	private JournalEditPanel journalEditPanel;
-	private JournalViewPanel journalViewPanel;
 
-	public JournalSelectorPanel(JournalViewPanel journalViewPanel, JournalEditPanel journalEditPanel){//Accounts accounts,  ) {
+	public JournalSelectorPanel(JournalEditPanel journalEditPanel){
 		this.journalEditPanel = journalEditPanel;
-		this.journalViewPanel = journalViewPanel;
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle(
                 "Accounting").getString("JOURNALS")));
-		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+		// this will strech the component
+//		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		combo = new JComboBox<>();
         combo.addActionListener(this);
 		combo.setEnabled(false);
@@ -55,20 +54,7 @@ public class JournalSelectorPanel extends JPanel implements ActionListener{
 		combo.setEnabled(journals!=null);
 	}
 
-	public void addJournal(Journal journal){
-		int itemCount = combo.getItemCount();
-		combo.addItem(journal);
-		if(itemCount==0){
-			setJournal(journal);
-		}
-	}
-
 	public void setJournal(Journal journal) {
-		combo.removeActionListener(this);
 		combo.setSelectedItem(journal);
-		combo.addActionListener(this);
-
-		journalViewPanel.setJournal(journal);
-		journalEditPanel.setJournal(journal);
 	}
 }
