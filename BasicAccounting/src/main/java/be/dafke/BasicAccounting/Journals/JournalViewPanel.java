@@ -39,7 +39,7 @@ public class JournalViewPanel extends JPanel {
 
 	public void setAccounting(Accounting accounting){
         setJournals(accounting==null?null:accounting.getJournals());
-        setJournal(accounting.getActiveJournal());
+        setJournal(accounting==null?null:accounting.getActiveJournal());
     }
 
     public void setJournals(Journals journals){
