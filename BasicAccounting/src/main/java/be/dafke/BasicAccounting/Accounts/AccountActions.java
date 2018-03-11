@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Accounts;
 import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
 import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.Accounts;
@@ -28,12 +29,12 @@ public class AccountActions {
     public static final String SELECT_TAX_CREDIT_CN_ACCOUNT = "select Tax Credit CN Account";
     public static final String SELECT_TAX_DEBIT_CN_ACCOUNT = "select Tax Debit CN Account";
 
-    public static void book(JournalEditPanel journalEditPanel, Account account, boolean debit, VATTransaction.VATType vatType, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Contacts contacts){
-        Transaction transaction = journalEditPanel.getTransaction();
+    public static void book(Account account, boolean debit, VATTransaction.VATType vatType, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Contacts contacts){
+        Transaction transaction = Main.getTransaction();
         BigDecimal amount = askAmount(account, debit, transaction);
         if (amount != null) {
             Booking booking = new Booking(account, amount, debit);
-            journalEditPanel.addBooking(booking);
+            Main.addBooking(booking);
 
             //
             if (vatType == VATTransaction.VATType.PURCHASE) {
@@ -44,8 +45,7 @@ public class AccountActions {
             } else if (vatType == VATTransaction.VATType.SALE){
                 saleAny(transaction, booking, vatTransactions, accounts, accountTypes);
             }
-
-            journalEditPanel.fireTransactionDataChanged();
+            Main.fireTransactionInputDataChanged();
         }
     }
 

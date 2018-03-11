@@ -14,18 +14,18 @@ public class TestBalanceGUI extends JFrame {
 	private static HashMap<Accounts,TestBalanceGUI> testBalanceMap = new HashMap<>();
 	private final TestBalancePanel testBalancePanel;
 
-	private TestBalanceGUI(Journals journals, Accounts accounts, JournalEditPanel journalEditPanel) {
+	private TestBalanceGUI(Journals journals, Accounts accounts) {
 		super(getBundle("BusinessModel").getString("TESTBALANCE"));
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		testBalancePanel = new TestBalancePanel(journals, accounts, journalEditPanel);
+		testBalancePanel = new TestBalancePanel(journals, accounts);
 		setContentPane(testBalancePanel);
 		pack();
 	}
 
-	public static TestBalanceGUI getTestBalance(Journals journals, Accounts accounts, JournalEditPanel journalEditPanel) {
+	public static TestBalanceGUI getTestBalance(Journals journals, Accounts accounts) {
 		TestBalanceGUI testBalanceGUI = testBalanceMap.get(accounts);
 		if(testBalanceGUI ==null){
-			testBalanceGUI = new TestBalanceGUI(journals, accounts, journalEditPanel);
+			testBalanceGUI = new TestBalanceGUI(journals, accounts);
 			testBalanceMap.put(accounts, testBalanceGUI);
 			Main.addFrame(testBalanceGUI);
 		}

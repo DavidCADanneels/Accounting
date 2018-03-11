@@ -18,12 +18,10 @@ public class BalancePopupMenu extends JPopupMenu {
     private final JMenuItem details;
     private Journals journals;
     private SelectableTable<Account> gui;
-    private JournalEditPanel journalEditPanel;
 
-    public BalancePopupMenu(Journals journals, SelectableTable<Account> gui, JournalEditPanel journalEditPanel) {
+    public BalancePopupMenu(Journals journals, SelectableTable<Account> gui) {
         this.journals = journals;
         this.gui = gui;
-        this.journalEditPanel = journalEditPanel;
         details = new JMenuItem(getBundle("Accounting").getString("GO_TO_ACCOUNT_DETAILS"));
         details.addActionListener(e -> showDetails());
         add(details);
@@ -32,7 +30,7 @@ public class BalancePopupMenu extends JPopupMenu {
     public void showDetails() {
         ArrayList<Account> accounts = gui.getSelectedObjects();
         for(Account account: accounts) {
-            AccountDetailsGUI.getAccountDetails(account, journals, journalEditPanel);
+            AccountDetailsGUI.getAccountDetails(account, journals);
         }
         setVisible(false);
     }

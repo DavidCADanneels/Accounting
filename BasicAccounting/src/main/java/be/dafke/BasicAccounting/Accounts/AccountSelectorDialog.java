@@ -18,7 +18,7 @@ public class AccountSelectorDialog extends RefreshableDialog {
 	private AccountSelectorDialog(Accounts accounts, ArrayList<AccountType> accountTypes) {
 		this(accounts, accountTypes, "Select Account");
 	}
-	private AccountSelectorDialog(Accounts accounts, ArrayList<AccountType> accountTypes, String title) {
+	public AccountSelectorDialog(Accounts accounts, ArrayList<AccountType> accountTypes, String title) {
 		super(title);
 		accountSelectorPanel = new AccountSelectorPanel(accounts, accountTypes);
 		JPanel innerPanel = new JPanel(new BorderLayout());

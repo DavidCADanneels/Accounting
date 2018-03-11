@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI;
 import be.dafke.BasicAccounting.Balances.BalanceGUI;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
@@ -17,19 +18,17 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class JournalDetailsPopupMenu extends JPopupMenu {
     private final JMenuItem move, delete, edit, details, balance;
-    private JournalEditPanel journalEditPanel;
 
     private SelectableTable<Booking> gui;
     private Journals journals;
 
-    public JournalDetailsPopupMenu(Journals journals, SelectableTable<Booking> gui, JournalEditPanel journalEditPanel) {
-        this(gui, journalEditPanel);
+    public JournalDetailsPopupMenu(Journals journals, SelectableTable<Booking> gui) {
+        this(gui);
         this.journals=journals;
     }
 
-    public JournalDetailsPopupMenu(SelectableTable<Booking> gui, JournalEditPanel journalEditPanel) {
+    public JournalDetailsPopupMenu(SelectableTable<Booking> gui) {
         this.gui = gui;
-        this.journalEditPanel = journalEditPanel;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         move = new JMenuItem(getBundle("Accounting").getString("MOVE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_TRANSACTION"));
@@ -80,9 +79,9 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
         Balance relationsBalance = balances.createRelationsBalance(subAccounts);
         Balance resultBalance = balances.createResultBalance(subAccounts);
 
-        BalanceGUI.getBalance(journals, closingBalance, journalEditPanel);
-        BalanceGUI.getBalance(journals, resultBalance, journalEditPanel);
-        BalanceGUI.getBalance(journals, relationsBalance, journalEditPanel);
+        BalanceGUI.getBalance(journals, closingBalance);
+        BalanceGUI.getBalance(journals, resultBalance);
+        BalanceGUI.getBalance(journals, relationsBalance);
 
         // choice 2: year=year of selected transaction
 //        Accounting accounting = Accountings.getActiveAccounting();
@@ -98,22 +97,20 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
     private void moveTransaction() {
         setVisible(false);
         ArrayList<Booking> bookings = gui.getSelectedObjects();
-        Set<Transaction> transactions = journalEditPanel.getTransactions(bookings);
-        journalEditPanel.moveTransaction(transactions, journals);
+        Main.moveBookings(bookings, journals);
     }
 
     private void deleteTransaction() {
         setVisible(false);
         ArrayList<Booking> bookings = gui.getSelectedObjects();
-        Set<Transaction> transactions = journalEditPanel.getTransactions(bookings);
-        journalEditPanel.deleteTransaction(transactions);
+        Main.deleteBookings(bookings);
     }
 
     private void editTransaction() {
         setVisible(false);
         Booking booking = gui.getSelectedObject();
         Transaction transaction = booking.getTransaction();
-        journalEditPanel.editTransaction(transaction);
+        Main.editTransaction(transaction);
     }
 
     private void showDetails() {
@@ -121,7 +118,7 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
         ArrayList<Booking> bookings = gui.getSelectedObjects();
         for (Booking booking : bookings) {
             Account account = booking.getAccount();
-            AccountDetailsGUI newGui = AccountDetailsGUI.getAccountDetails(account, journals, journalEditPanel);
+            AccountDetailsGUI newGui = AccountDetailsGUI.getAccountDetails(account, journals);
             newGui.selectObject(booking);
         }
     }

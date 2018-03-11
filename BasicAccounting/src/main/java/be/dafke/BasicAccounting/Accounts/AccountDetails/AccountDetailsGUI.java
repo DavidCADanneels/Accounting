@@ -26,18 +26,18 @@ public class AccountDetailsGUI extends JFrame implements WindowListener {
 	private static HashMap<Account,AccountDetailsGUI> accountDetailsMap = new HashMap<>();
 	private final AccountDetailsPanel accountDetailsPanel;
 
-	private AccountDetailsGUI(Account account, Journals journals, JournalEditPanel journalEditPanel) {
+	private AccountDetailsGUI(Account account, Journals journals) {
 		super(getBundle("Accounting").getString("ACCOUNT_DETAILS") + account.getName());
-		accountDetailsPanel = new AccountDetailsPanel(account, journals, journalEditPanel);
+		accountDetailsPanel = new AccountDetailsPanel(account, journals);
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(accountDetailsPanel);
 		pack();
 	}
 
-	public static AccountDetailsGUI getAccountDetails(Account account, Journals journals, JournalEditPanel journalEditPanel){
+	public static AccountDetailsGUI getAccountDetails(Account account, Journals journals){
 		AccountDetailsGUI accountDetailsGUI = accountDetailsMap.get(account);
 		if(accountDetailsGUI ==null){
-			accountDetailsGUI = new AccountDetailsGUI(account, journals, journalEditPanel);
+			accountDetailsGUI = new AccountDetailsGUI(account, journals);
 			accountDetailsMap.put(account, accountDetailsGUI);
 			Main.addFrame(accountDetailsGUI);
 		}

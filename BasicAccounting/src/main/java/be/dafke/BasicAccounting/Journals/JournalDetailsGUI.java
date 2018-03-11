@@ -25,9 +25,9 @@ public class JournalDetailsGUI extends JFrame implements WindowListener {
 	private static HashMap<Journal,JournalDetailsGUI> journalDetailsMap = new HashMap<>();
 	private final JournalDetailsPanel journalDetailsPanel;
 
-	private JournalDetailsGUI(Journal journal, Journals journals, JournalEditPanel journalEditPanel) {
+	private JournalDetailsGUI(Journal journal, Journals journals) {
 		super(getBundle("Accounting").getString("JOURNAL_DETAILS") + journal.toString());
-		journalDetailsPanel = new JournalDetailsPanel(journal, journals, journalEditPanel);
+		journalDetailsPanel = new JournalDetailsPanel(journal, journals);
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
 		setContentPane(journalDetailsPanel);
@@ -35,10 +35,10 @@ public class JournalDetailsGUI extends JFrame implements WindowListener {
 
 	}
 
-	public static JournalDetailsGUI getJournalDetails(Journal journal, Journals journals, JournalEditPanel journalEditPanel){
+	public static JournalDetailsGUI getJournalDetails(Journal journal, Journals journals){
 		JournalDetailsGUI journalDetailsGUI = journalDetailsMap.get(journal);
 		if(journalDetailsGUI ==null){
-			journalDetailsGUI = new JournalDetailsGUI(journal, journals, journalEditPanel);
+			journalDetailsGUI = new JournalDetailsGUI(journal, journals);
 			journalDetailsMap.put(journal, journalDetailsGUI);
 			Main.addFrame(journalDetailsGUI);
 		}

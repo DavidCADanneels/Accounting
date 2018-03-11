@@ -38,6 +38,8 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Set;
 
 import static javax.swing.JSplitPane.BOTTOM;
 import static javax.swing.JSplitPane.LEFT;
@@ -100,8 +102,8 @@ public class Main {
         journalEditPanel = new JournalEditPanel();
         journalViewPanel = new JournalViewPanel(journalEditPanel);
         journalSelectorPanel = new JournalSelectorPanel(journalEditPanel);
-        accountGuiLeft = new AccountsTablePanel(journalEditPanel, true);
-        accountGuiRight = new AccountsTablePanel(journalEditPanel, false);
+        accountGuiLeft = new AccountsTablePanel(true);
+        accountGuiRight = new AccountsTablePanel( false);
         mortgagesPanel = new MortgagesPanel(journalEditPanel);
     }
 
@@ -263,6 +265,26 @@ public class Main {
 
     public static void fireTransactionInputDataChanged(){
         journalEditPanel.fireTransactionDataChanged();
+    }
+
+    public static void editTransaction(Transaction transaction){
+        journalEditPanel.editTransaction(transaction);
+    }
+
+    public static void deleteBookings(ArrayList<Booking> bookings){
+        journalEditPanel.deleteBookings(bookings);
+    }
+
+    public static void moveBookings(ArrayList<Booking> bookings, Journals journals){
+        journalEditPanel.moveBookings(bookings, journals);
+    }
+
+    public static Transaction getTransaction(){
+        return journalEditPanel.getTransaction();
+    }
+
+    public static void addBooking(Booking booking){
+        journalEditPanel.addBooking(booking);
     }
 
     public static void fireJournalDataChanged(Journal journal){

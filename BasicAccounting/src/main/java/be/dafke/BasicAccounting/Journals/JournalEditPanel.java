@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.List;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -51,7 +52,7 @@ public class JournalEditPanel extends JPanel implements FocusListener, ActionLis
         table = new SelectableTable<>(journalDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
-        popup = new JournalGUIPopupMenu(table, this);
+        popup = new JournalGUIPopupMenu(table);
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table));
 
         JScrollPane scrollPane = new JScrollPane(table);
@@ -135,6 +136,11 @@ public class JournalEditPanel extends JPanel implements FocusListener, ActionLis
         }
     }
 
+    public void moveBookings(ArrayList<Booking> bookings, Journals journals) {
+        Set<Transaction> transactions = getTransactions(bookings);
+        moveTransaction(transactions, journals);
+    }
+
     public void moveTransaction(Transaction transaction, Journals journals) {
         Journal oldJournal = transaction.getJournal();
 
@@ -174,13 +180,18 @@ public class JournalEditPanel extends JPanel implements FocusListener, ActionLis
         }else return null;
     }
 
-    public void deleteTransaction(Set<Transaction> transactions) {
+    public void deleteBookings(ArrayList<Booking> bookings) {
+        Set<Transaction> transactions = getTransactions(bookings);
+        deleteTransaction(transactions);
+    }
+
+    private void deleteTransaction(Set<Transaction> transactions) {
         for (Transaction transaction : transactions) {
             deleteTransaction(transaction);
         }
     }
 
-    public void deleteTransaction(Transaction transaction) {
+    private void deleteTransaction(Transaction transaction) {
         Journal journal = transaction.getJournal();
         journal.removeBusinessObject(transaction);
 

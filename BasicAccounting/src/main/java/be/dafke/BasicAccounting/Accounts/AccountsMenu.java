@@ -36,7 +36,7 @@ public class AccountsMenu extends JMenu {
         manage.setEnabled(false);
 
         testBalance = new JMenuItem(getBundle("BusinessModel").getString("TESTBALANCE"));
-        testBalance.addActionListener(e -> getTestBalance(journals, accounts, journalEditPanel));
+        testBalance.addActionListener(e -> getTestBalance(journals, accounts));
         testBalance.setEnabled(false);
 
         generatePdf = new JMenuItem(getBundle("BusinessModel").getString("GENERATE_PDF"));

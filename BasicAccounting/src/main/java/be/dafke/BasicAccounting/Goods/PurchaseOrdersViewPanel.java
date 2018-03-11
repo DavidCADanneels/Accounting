@@ -2,6 +2,8 @@ package be.dafke.BasicAccounting.Goods;
 
 
 import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
+import be.dafke.BasicAccounting.Journals.JournalSelectorDialog;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
@@ -41,9 +43,16 @@ public class PurchaseOrdersViewPanel extends JPanel {
             Transaction transaction = createPurchaseTransaction(order);
             Journal journal = purchaseOrders.getJournal();
             if (journal==null){
-//                TODO: implement
+                journal = setPurchaseJournal();
             }
-            journal.addBusinessObject(transaction);
+            journal.setCurrentTransaction(transaction);
+            Main.setJournal(journal);
+//            Main.fireTransactionInputDataChanged();
+            Main.editTransaction(transaction);
+//            Main.selectTransaction(transaction);
+
+            // TODO: setPlaced when booked
+//            journal.addBusinessObject(transaction);
             order.setPlaced(true);
         });
 
@@ -98,6 +107,14 @@ public class PurchaseOrdersViewPanel extends JPanel {
         add(south, BorderLayout.SOUTH);
     }
 
+    public Journal setPurchaseJournal(){
+        JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals());
+        journalSelectorDialog.setVisible(true);
+        Journal journal = journalSelectorDialog.getSelection();
+        purchaseOrders.setJournal(journal);
+        return journal;
+    }
+
     private Transaction createPurchaseTransaction(Order order) {
         Transaction transaction;
         // TODO: create transaction
@@ -110,7 +127,9 @@ public class PurchaseOrdersViewPanel extends JPanel {
             AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.TAXCREDIT);
             ArrayList<AccountType> list = new ArrayList<>();
             list.add(accountType);
-            vatAccount = AccountSelectorDialog.getAccountSelector(accounting.getAccounts(), list, "Select VAT Account for Purchases").getSelection();
+            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select VAT Account for Purchases");
+            dialog.setVisible(true);
+            vatAccount = dialog.getSelection();
             purchaseOrders.setVATAccount(vatAccount);
         }
         Account stockAccount = purchaseOrders.getStockAccount();
@@ -118,7 +137,9 @@ public class PurchaseOrdersViewPanel extends JPanel {
             AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.ASSET);
             ArrayList<AccountType> list = new ArrayList<>();
             list.add(accountType);
-            stockAccount = AccountSelectorDialog.getAccountSelector(accounting.getAccounts(), list, "Select Stock Account").getSelection();
+            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select Stock Account");
+            dialog.setVisible(true);
+            stockAccount = dialog.getSelection();
             purchaseOrders.setStockAccount(stockAccount);
         }
 
@@ -131,7 +152,9 @@ public class PurchaseOrdersViewPanel extends JPanel {
             AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.DEBIT);
             ArrayList<AccountType> list = new ArrayList<>();
             list.add(accountType);
-            supplierAccount = AccountSelectorDialog.getAccountSelector(accounting.getAccounts(), list, "Select Supplier Account").getSelection();
+            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select Supplier Account");
+            dialog.setVisible(true);
+            supplierAccount = dialog.getSelection();
             supplier.setAccount(supplierAccount);
         }
 

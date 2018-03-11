@@ -29,7 +29,6 @@ public class AccountsTablePanel extends JPanel {
     private final AccountFilterPanel filterPanel;
 
     private AccountsTablePopupMenu popup;
-    private JournalEditPanel journalEditPanel;
     private Accounts accounts;
     private Journals journals;
     private Journal journal;
@@ -41,7 +40,7 @@ public class AccountsTablePanel extends JPanel {
     private VATTransactions vatTransactions = null;
     private Contacts contacts = null;
 
-    public AccountsTablePanel(JournalEditPanel journalEditPanel, boolean left) {
+    public AccountsTablePanel(boolean left) {
 		setLayout(new BorderLayout());
 		setBorder(new TitledBorder(new LineBorder(Color.BLACK), getBundle("Accounting").getString("ACCOUNTS")));
 
@@ -51,7 +50,6 @@ public class AccountsTablePanel extends JPanel {
         table = new SelectableTable<>(accountDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(100, 100));
 
-        this.journalEditPanel = journalEditPanel;
         popup = new AccountsTablePopupMenu(this);
         setPopup(popup);
         // TODO: register popup menu as TransactionListener and remove TransactionListener from 'this'.
@@ -74,7 +72,7 @@ public class AccountsTablePanel extends JPanel {
 	public void showDetails(){
         popup.setVisible(false);
         for(Account account : table.getSelectedObjects()){
-            AccountDetailsGUI.getAccountDetails(account, journals, journalEditPanel);
+            AccountDetailsGUI.getAccountDetails(account, journals);
         }
     }
 
@@ -173,7 +171,7 @@ public class AccountsTablePanel extends JPanel {
         popup.setVisible(false);
         for(Account account : table.getSelectedObjects()){
             ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
-            AccountActions.book(journalEditPanel, account, debit, vatType, vatTransactions, accounts, accountTypes, contacts);
+            AccountActions.book(account, debit, vatType, vatTransactions, accounts, accountTypes, contacts);
         }
     }
 

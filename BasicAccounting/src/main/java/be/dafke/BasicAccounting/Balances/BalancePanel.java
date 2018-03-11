@@ -16,7 +16,7 @@ public class BalancePanel extends JPanel {
     private SelectableTable<Account> tabel;
     private BalanceDataModel balanceDataModel;
 
-    public BalancePanel(Journals journals, Balance balance, JournalEditPanel journalEditPanel) {
+    public BalancePanel(Journals journals, Balance balance) {
         setLayout(new BorderLayout());
 
         balanceDataModel = new BalanceDataModel(balance);
@@ -27,7 +27,7 @@ public class BalancePanel extends JPanel {
         tabel.setRowSorter(null);
         JScrollPane scrollPane = new JScrollPane(tabel);
 
-        popup = new BalancePopupMenu(journals, tabel, journalEditPanel);
+        popup = new BalancePopupMenu(journals, tabel);
         tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));
         tabel.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
 

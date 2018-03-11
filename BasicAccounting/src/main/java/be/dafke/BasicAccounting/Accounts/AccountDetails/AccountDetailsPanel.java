@@ -16,7 +16,7 @@ public class AccountDetailsPanel extends JPanel {
     private SelectableTable<Booking> table;
     private AccountDetailsDataModel accountDetailsDataModel;
 
-    public AccountDetailsPanel(Account account, Journals journals, JournalEditPanel journalEditPanel) {
+    public AccountDetailsPanel(Account account, Journals journals) {
 
         setLayout(new BorderLayout());
         accountDetailsDataModel = new AccountDetailsDataModel(account);
@@ -31,7 +31,7 @@ public class AccountDetailsPanel extends JPanel {
         //table.setAutoCreateRowSorter(true);
         table.setRowSorter(null);
 
-        popup = new AccountDetailsPopupMenu(journals, table, journalEditPanel);
+        popup = new AccountDetailsPopupMenu(journals, table);
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table));
 
         JScrollPane scrollPane = new JScrollPane(table);

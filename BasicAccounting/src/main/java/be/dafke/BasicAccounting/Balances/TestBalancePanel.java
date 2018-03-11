@@ -16,7 +16,7 @@ public class TestBalancePanel extends JPanel{
     private SelectableTable<Account> tabel;
     private TestBalanceDataModel testBalanceDataModel;
 
-    public TestBalancePanel(Journals journals, Accounts accounts, JournalEditPanel journalEditPanel) {
+    public TestBalancePanel(Journals journals, Accounts accounts) {
         setLayout(new BorderLayout());
 
         testBalanceDataModel = new TestBalanceDataModel(accounts);
@@ -27,7 +27,7 @@ public class TestBalancePanel extends JPanel{
         tabel.setRowSorter(null);
         JScrollPane scrollPane = new JScrollPane(tabel);
 
-        popup = new BalancePopupMenu(journals, tabel, journalEditPanel);
+        popup = new BalancePopupMenu(journals, tabel);
         tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));
 
         add(scrollPane, BorderLayout.CENTER);

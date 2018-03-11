@@ -12,19 +12,19 @@ public class BalanceGUI extends JFrame {
 	private static HashMap<Balance,BalanceGUI> otherBalanceMap = new HashMap<>();
 	private final BalancePanel balancePanel;
 
-	private BalanceGUI(Journals journals, Balance balance, JournalEditPanel journalEditPanel) {
+	private BalanceGUI(Journals journals, Balance balance) {
 		super(balance.getName());
-		balancePanel = new BalancePanel(journals, balance, journalEditPanel);
+		balancePanel = new BalancePanel(journals, balance);
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(balancePanel);
 		pack();
 
 	}
 
-	public static BalanceGUI getBalance(Journals journals, Balance balance, JournalEditPanel journalEditPanel) {
+	public static BalanceGUI getBalance(Journals journals, Balance balance) {
 		BalanceGUI balanceGUI = otherBalanceMap.get(balance);
 		if(balanceGUI==null){
-			balanceGUI = new BalanceGUI(journals, balance, journalEditPanel);
+			balanceGUI = new BalanceGUI(journals, balance);
 			otherBalanceMap.put(balance,balanceGUI);
 			Main.addFrame(balanceGUI);
 		}

@@ -27,7 +27,7 @@ public class JournalViewPanel extends JPanel {
         table.setDefaultRenderer(Account.class, renderer);
         table.setDefaultRenderer(BigDecimal.class, renderer);
 
-        popup = new JournalDetailsPopupMenu(table, journalEditPanel);
+        popup = new JournalDetailsPopupMenu(table);
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table));
 
         JPanel center = new JPanel();

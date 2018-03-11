@@ -80,12 +80,12 @@ public class JournalsMenu extends JMenu {
             journals.getBusinessObjects().stream()
                     .forEach(journal -> {
                         JMenuItem details = new JMenuItem(journal.getName());
-                        details.addActionListener(e -> JournalDetailsGUI.getJournalDetails(journal,journals, journalEditPanel));
+                        details.addActionListener(e -> JournalDetailsGUI.getJournalDetails(journal,journals));
                         add(details);
                     });
             addSeparator();
             JMenuItem master = new JMenuItem("Master");
-            master.addActionListener(e -> JournalDetailsGUI.getJournalDetails(transactions,journals, journalEditPanel));
+            master.addActionListener(e -> JournalDetailsGUI.getJournalDetails(transactions,journals));
             add(master);
         }
     }

@@ -50,7 +50,7 @@ public class BalancesMenu extends JMenu {
             balances.getBusinessObjects().stream().forEach(balance -> {
                 String name = balance.getName();
                 JMenuItem item = new JMenuItem(name);
-                item.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(name), journalEditPanel));
+                item.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(name)));
                 add(item);
             });
             add(manage);

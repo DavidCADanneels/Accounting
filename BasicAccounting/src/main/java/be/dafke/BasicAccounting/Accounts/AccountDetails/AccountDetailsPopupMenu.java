@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Accounts.AccountDetails;
 
 import be.dafke.BasicAccounting.Journals.JournalDetailsGUI;
 import be.dafke.BasicAccounting.Journals.JournalEditPanel;
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
@@ -16,19 +17,17 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class AccountDetailsPopupMenu extends JPopupMenu {
     private final JMenuItem move, delete, edit, details;
-    private JournalEditPanel journalEditPanel;
 
     private SelectableTable<Booking> gui;
     private Journals journals;
 
-    public AccountDetailsPopupMenu(Journals journals, SelectableTable<Booking> gui, JournalEditPanel journalEditPanel) {
-        this(gui, journalEditPanel);
+    public AccountDetailsPopupMenu(Journals journals, SelectableTable<Booking> gui) {
+        this(gui);
         this.journals=journals;
     }
 
-    public AccountDetailsPopupMenu(SelectableTable<Booking> gui, JournalEditPanel journalEditPanel) {
+    public AccountDetailsPopupMenu(SelectableTable<Booking> gui) {
         this.gui = gui;
-        this.journalEditPanel = journalEditPanel;
         delete = new JMenuItem(getBundle("Accounting").getString("DELETE"));
         move = new JMenuItem(getBundle("Accounting").getString("MOVE"));
         edit = new JMenuItem(getBundle("Accounting").getString("EDIT_TRANSACTION"));
@@ -51,22 +50,20 @@ public class AccountDetailsPopupMenu extends JPopupMenu {
     private void moveTransaction() {
         setVisible(false);
         ArrayList<Booking> bookings = gui.getSelectedObjects();
-        Set<Transaction> transactions = journalEditPanel.getTransactions(bookings);
-        journalEditPanel.moveTransaction(transactions, journals);
+        Main.moveBookings(bookings, journals);
     }
 
     private void deleteTransaction() {
         setVisible(false);
         ArrayList<Booking> bookings = gui.getSelectedObjects();
-        Set<Transaction> transactions = journalEditPanel.getTransactions(bookings);
-        journalEditPanel.deleteTransaction(transactions);
+        Main.deleteBookings(bookings);
     }
 
     private void editTransaction() {
         setVisible(false);
         Booking booking = gui.getSelectedObject();
         Transaction transaction = booking.getTransaction();
-        journalEditPanel.editTransaction(transaction);
+        Main.editTransaction(transaction);
     }
 
     private void showDetails() {
@@ -75,7 +72,7 @@ public class AccountDetailsPopupMenu extends JPopupMenu {
         for (Booking booking : bookings) {
             Transaction transaction = booking.getTransaction();
             Journal journal = transaction.getJournal();
-            JournalDetailsGUI newGui = JournalDetailsGUI.getJournalDetails(journal, journals, journalEditPanel);
+            JournalDetailsGUI newGui = JournalDetailsGUI.getJournalDetails(journal, journals);
             newGui.selectObject(booking);
         }
     }
