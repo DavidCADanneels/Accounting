@@ -14,6 +14,8 @@ import be.dafke.BasicAccounting.Contacts.ContactsGUI;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
 import be.dafke.BasicAccounting.Goods.ArticlesGUI;
 import be.dafke.BasicAccounting.Goods.GoodsMenu;
+import be.dafke.BasicAccounting.Goods.PurchaseOrderCreateGUI;
+import be.dafke.BasicAccounting.Goods.SalesOrderCreateGUI;
 import be.dafke.BasicAccounting.Journals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgageGUI;
@@ -328,11 +330,13 @@ public class Main {
 
     public static void fireCustomersAddedOrRemoved() {
         ContactsGUI.fireCustomersAddedOrRemovedForAll();
+        SalesOrderCreateGUI.fireCustomersAddedOrRemovedForAll();
     }
 
     public static void fireSupplierAddedOrRemoved() {
         ContactsGUI.fireSupplierAddedOrRemovedForAll();
         ArticlesGUI.fireSuppliersAddedOrRemovedForAll();
+        PurchaseOrderCreateGUI.fireSupplierAddedOrRemovedForAll();
     }
 
     public static void saveData() {

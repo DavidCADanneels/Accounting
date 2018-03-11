@@ -32,4 +32,14 @@ public class PurchaseOrderCreateGUI extends JFrame {
         }
         return purchaseOrderCreateGui;
     }
+
+    public static void fireSupplierAddedOrRemovedForAll() {
+        if (purchaseOrderCreateGui != null) {
+            purchaseOrderCreateGui.fireCustomersAddedOrRemoved();
+        }
+    }
+
+    public void fireCustomersAddedOrRemoved() {
+        orderPanel.fireSupplierAddedOrRemoved();;
+    }
 }
