@@ -2,7 +2,6 @@ package be.dafke.BasicAccounting.Goods;
 
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
-import org.apache.xpath.operations.Or;
 
 import java.math.BigDecimal;
 import java.util.HashMap;
@@ -16,7 +15,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<OrderItem> {
-	private final OrderItems orderItems;
+	private final Articles articles;
 	public static int NR_COL = 0;
 	public static int NAME_COL = 1;
 	public static int HS_COL = 2;
@@ -26,13 +25,13 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private Contact contact;
 	private Order order;
-	private Predicate<OrderItem> filter;
+	private Predicate<Article> filter;
 	private PurchaseTotalsPanel purchaseTotalsPanel;
 
-	public PurchaseOrderCreateDataTableModel(Order orderItems, Contact contact, Order order, PurchaseTotalsPanel purchaseTotalsPanel) {
+	public PurchaseOrderCreateDataTableModel(Articles articles, Contact contact, Order order, PurchaseTotalsPanel purchaseTotalsPanel) {
 		this.purchaseTotalsPanel = purchaseTotalsPanel;
 		this.order = order;
-		this.orderItems = orderItems;
+		this.articles = articles;
 		this.contact = contact;
 		setColumnNames();
 		setColumnClasses();
@@ -74,7 +73,8 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 		}
 		if (col == NR_COL) {
 			if (order==null) return null;
-			return order.getUnitsInStock(article);
+			OrderItem item = order.getBusinessObject(article);
+			return item==null?0:item.getNumberOfItems();
 		}
 		return null;
 	}
@@ -84,8 +84,8 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 	}
 
 	public int getRowCount() {
-		if(orderItems==null || contact==null || filter==null) return 0;
-		List<OrderItem> businessObjects = orderItems.getBusinessObjects(filter);
+		if(articles==null || contact==null || filter==null) return 0;
+		List<Article> businessObjects = articles.getBusinessObjects(filter);
 		if(businessObjects == null || businessObjects.size() == 0) return 0;
 		return businessObjects.size();
 	}
@@ -113,7 +113,7 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 		if(col == NR_COL){
 			int nr = (Integer) value;
 			orderItem.setNumberOfUnits(nr);
-			orderItem.calculateNumberOfItems();
+			order.setItem(orderItem);
 			purchaseTotalsPanel.fireOrderContentChanged(order);
 		}
 	}
@@ -121,16 +121,15 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 	@Override
 	public OrderItem getObject(int row, int col) {
 		if(contact==null || filter==null) return null;
-		List<OrderItem> orderItemList = orderItems.getBusinessObjects(filter);
-		if(orderItemList == null || orderItemList.size() == 0) return null;
-		OrderItem orderItem = orderItemList.get(row);
-		Article article = orderItem.getArticle();
-		return order.getBusinessObject(article.getName());
+		List<Article> articleList = articles.getBusinessObjects(filter);
+		if(articleList == null || articleList.size() == 0) return null;
+		Article article = articleList.get(row);
+		return order.getBusinessObject(article);
 	}
 
 	public void setContact(Contact contact) {
 		this.contact = contact;
-		filter = OrderItem.ofSupplier(contact);
+		filter = Article.ofSupplier(contact);
 		order.setSupplier(contact);
 		fireTableDataChanged();
 	}

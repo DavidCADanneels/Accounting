@@ -1,80 +1,57 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class OrderItems extends BusinessCollection<OrderItem>{
+    protected HashMap<Article,Integer> stock;
 
-    public int getUnitsInStock(Article article){
-        OrderItem orderItem = getBusinessObject(article.getName());
-        return (orderItem == null) ? 0 : orderItem.getNumberOfUnits();
+    public OrderItems() {
+        super();
+        stock = new HashMap<>();
     }
 
-    public int getItemsInStock(Article article){
-        OrderItem orderItem = getBusinessObject(article.getName());
-        return (orderItem == null) ? 0 : orderItem.getNumberOfItems();
+    public int getNumberInStock(Article article){
+        return stock.getOrDefault(article, 0);
     }
 
-    public OrderItem addBusinessObject(OrderItem orderItem) {
+    public OrderItem addBusinessObject(OrderItem orderItem){
         Article article = orderItem.getArticle();
-        Integer itemsPerUnit = article.getItemsPerUnit();
-        int unitsToAdd = orderItem.getNumberOfUnits();
-        int itemsToAdd = unitsToAdd * itemsPerUnit;
-        return add(orderItem, unitsToAdd, itemsToAdd);
+        int numberToAdd = orderItem.getNumberOfUnits();
+        int numberInStock = getNumberInStock(article);
+        stock.put(article, numberInStock+numberToAdd);
+        return orderItem;
     }
 
-    protected OrderItem add(OrderItem orderItem, int unitsToAdd, int itemsToAdd){
-        Article article = orderItem.getArticle();
-        int unitsInStock = getUnitsInStock(article);
-        int itemsInStock = getItemsInStock(article);
-        OrderItem orderItemInStock = getBusinessObject(article.getName());
-        if(orderItemInStock==null){
-            orderItemInStock = orderItem;
-            try {
-                super.addBusinessObject(orderItemInStock);
-            } catch (EmptyNameException | DuplicateNameException e) {
-                e.printStackTrace();
-            }
+    public ArrayList<OrderItem> getBusinessObjects() {
+        ArrayList<OrderItem> result = new ArrayList<>();
+        for (Article article : stock.keySet()){
+            Integer number = stock.get(article);
+            OrderItem orderItem = new OrderItem(number, article);
+            result.add(orderItem);
         }
-        orderItemInStock.setNumberOfUnits(unitsInStock+unitsToAdd);
-        orderItemInStock.setNumberOfItems(itemsInStock+itemsToAdd);
-        return orderItemInStock;
+        return result;
     }
 
-    public void removeBusinessObject(OrderItem orderItem) {
+    public void removeBusinessObject(OrderItem orderItem){
         Article article = orderItem.getArticle();
-        int itemsPerUnit = article.getItemsPerUnit();
-
-        int itemsToRemove = orderItem.getNumberOfItems();
-        int unitsToRemove = itemsToRemove / itemsPerUnit;
-
-        remove(orderItem, unitsToRemove, itemsToRemove);
-
-    }
-
-    protected void remove(OrderItem orderItem, int unitsToRemove, int itemsToRemove){
-        Article article = orderItem.getArticle();
-
-        int itemsInStock = getItemsInStock(article);
-        int totalNumberOfItems = itemsInStock-itemsToRemove;
-
-        int unitsInStock = getUnitsInStock(article);
-        int totalNumberOfUnits = unitsInStock-unitsToRemove;
-
-        OrderItem orderItemInStock = getBusinessObject(article.getName());
-        if(orderItemInStock!=null) {
-            if (totalNumberOfItems < 0) {
-                // TODO: throw error
-            } else if (totalNumberOfItems == 0) {
-                removeBusinessObject(orderItem);
-            } else {
-                orderItemInStock.setNumberOfItems(totalNumberOfItems);
-                orderItemInStock.setNumberOfUnits(totalNumberOfUnits);
-            }
+        int numberToRemove = orderItem.getNumberOfUnits();
+        int numberInStock = getNumberInStock(article);
+        int result = numberInStock-numberToRemove;
+        if (result < 0){
+            // TODO: throw error
+        } else if (result == 0){
+            stock.remove(article);
+        } else {
+            stock.put(article, result);
         }
     }
+
+    public OrderItem getBusinessObject(Article article){
+        Integer numberInStock = stock.get(article);
+        return new OrderItem(numberInStock==null?0:numberInStock, article);
+    }
+
 }

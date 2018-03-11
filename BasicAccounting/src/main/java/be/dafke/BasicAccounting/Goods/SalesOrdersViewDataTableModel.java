@@ -69,7 +69,7 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<OrderIte
 			return article.getPurchasePrice();
 		}
 		if (col == NR_COL) {
-			return orderItem.getNumberOfUnits();
+			return orderItem.getNumberOfItems();
 		}
 		return null;
 	}
@@ -107,8 +107,9 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<OrderIte
 		OrderItem orderItem = getObject(row,col);
 		if(col == NR_COL){
 			int nr = (Integer) value;
-			orderItem.setNumberOfUnits(nr);
-//			order.setNumberOfUnits(orderItem);
+			orderItem.setNumberOfItems(nr);
+			orderItem.calculateNumberOfUnits();
+//			order.setItem(orderItem);
 		}
 	}
 

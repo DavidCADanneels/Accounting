@@ -2,7 +2,7 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessObject;
 
-import java.util.function.Predicate;
+//import java.util.function.Predicate;
 
 public class OrderItem extends BusinessObject{
     private int numberOfUnits, numberOfItems;
@@ -13,6 +13,7 @@ public class OrderItem extends BusinessObject{
         this.numberOfItems = numberOfItems;
         this.article = article;
     }
+
     public OrderItem(Integer number, Article article) {
         setName(article.getName());
         this.numberOfUnits = number==null?0:number;
@@ -54,13 +55,5 @@ public class OrderItem extends BusinessObject{
 
     public Article getArticle() {
         return article;
-    }
-
-    public static Predicate<OrderItem> ofSupplier(Contact supplier) {
-        return orderItem -> orderItem.article.getSupplier() == supplier;
-    }
-
-    public static Predicate<OrderItem> forCustomer(Contact customer) {
-        return orderItem -> orderItem.article.getCustomer() == customer;
     }
 }

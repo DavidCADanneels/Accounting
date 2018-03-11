@@ -31,9 +31,9 @@ public class PurchaseOrderCreatePanel extends JPanel {
     public PurchaseOrderCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
-        order = new Order();
+        order = new Order(articles);
         PurchaseTotalsPanel purchaseTotalsPanel = new PurchaseTotalsPanel();
-        purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(order, null, order, purchaseTotalsPanel);
+        purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null, order, purchaseTotalsPanel);
         table = new SelectableTable<>(purchaseOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);
@@ -53,7 +53,7 @@ public class PurchaseOrderCreatePanel extends JPanel {
             order.setSupplier(contact);
             try {
                 purchaseOrders.addBusinessObject(order);
-                order = new Order();
+                order = new Order(articles);
                 purchaseOrderCreateDataTableModel.setOrder(order);
                 firePurchaseOrderAddedOrRemovedForAll();
             } catch (EmptyNameException e1) {
