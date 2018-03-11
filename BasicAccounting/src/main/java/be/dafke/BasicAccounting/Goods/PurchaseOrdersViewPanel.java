@@ -161,12 +161,19 @@ public class PurchaseOrdersViewPanel extends JPanel {
         BigDecimal supplierAmount = order.getTotalPurchasePriceInclVat();
 
         Booking stockBooking = new Booking(stockAccount, stockAmount, true);
-        Booking vatBooking = new Booking(vatAccount, vatAmount, true);
         Booking supplierBooking = new Booking(supplierAccount, supplierAmount, false);
 
         transaction.addBusinessObject(stockBooking);
-        transaction.addBusinessObject(vatBooking);
         transaction.addBusinessObject(supplierBooking);
+
+        if(vatAmount.compareTo(BigDecimal.ZERO) != 0) {
+            Booking vatBooking = new Booking(vatAccount, vatAmount, true);
+            transaction.addBusinessObject(vatBooking);
+            VATTransactions vatTransactions = accounting.getVatTransactions();
+            VATTransaction vatTransaction = vatTransactions.purchase(stockBooking, vatBooking, VATTransaction.PurchaseType.GOODS);
+            transaction.addVatTransaction(vatTransaction);
+            vatTransaction.setTransaction(transaction);
+        }
 
         return transaction;
     }
