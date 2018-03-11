@@ -13,9 +13,11 @@ import static java.util.ResourceBundle.getBundle;
 
 public class StockDataTableModel extends SelectableTableModel<OrderItem> {
 	private final Stock stock;
-	public static int NR_IN_STOCK_COL = 0;
-	public static int ARTIKEL_COL = 1;
-	public static int SUPPLIER_COL = 2;
+	public static int UNITS_IN_STOCK_COL = 0;
+	public static int ITEMS_PER_UNIT_COL = 1;
+	public static int ITEMS_IN_STOCK_COL = 2;
+	public static int ARTIKEL_COL = 3;
+	public static int SUPPLIER_COL = 4;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 
@@ -26,13 +28,17 @@ public class StockDataTableModel extends SelectableTableModel<OrderItem> {
 	}
 
 	private void setColumnClasses() {
-		columnClasses.put(NR_IN_STOCK_COL, Integer.class);
+		columnClasses.put(UNITS_IN_STOCK_COL, Integer.class);
+		columnClasses.put(ITEMS_PER_UNIT_COL, Integer.class);
+		columnClasses.put(ITEMS_IN_STOCK_COL, Integer.class);
 		columnClasses.put(ARTIKEL_COL, Article.class);
 		columnClasses.put(SUPPLIER_COL, Contact.class);
 	}
 
 	private void setColumnNames() {
-		columnNames.put(NR_IN_STOCK_COL, getBundle("Accounting").getString("NR_IN_STOCK"));
+		columnNames.put(UNITS_IN_STOCK_COL, getBundle("Accounting").getString("UNITS_IN_STOCK"));
+		columnNames.put(ITEMS_IN_STOCK_COL, getBundle("Accounting").getString("ITEMS_IN_STOCK"));
+		columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ARTICLE_ITEMS_PER_UNIT"));
 		columnNames.put(ARTIKEL_COL, getBundle("Accounting").getString("ARTICLE_NAME"));
 		columnNames.put(SUPPLIER_COL, getBundle("Contacts").getString("SUPPLIER"));
 	}
@@ -40,8 +46,15 @@ public class StockDataTableModel extends SelectableTableModel<OrderItem> {
 // ===============
 	public Object getValueAt(int row, int col) {
 		OrderItem orderItem = getObject(row,col);
-		if (col == NR_IN_STOCK_COL) {
+		if (col == UNITS_IN_STOCK_COL) {
 			return orderItem.getNumberOfUnits();
+		}
+		if (col == ITEMS_IN_STOCK_COL) {
+			return orderItem.getNumberOfItems();
+		}
+		if (col == ITEMS_PER_UNIT_COL) {
+			Article article = orderItem.getArticle();
+			return article==null?0:article.getItemsPerUnit();
 		}
 		if (col == ARTIKEL_COL) {
 			return orderItem.getArticle();
@@ -83,16 +96,7 @@ public class StockDataTableModel extends SelectableTableModel<OrderItem> {
 // ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		OrderItem orderItem = getObject(row,col);
-		if(col == ARTIKEL_COL){
-			// non-editable
-		}
-		if(col == SUPPLIER_COL){
-            // non-editable
-		}
-		if(col == NR_IN_STOCK_COL) {
-			// non-editable
-		}
+		// no editable fields
 	}
 
 	@Override
