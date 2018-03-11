@@ -74,7 +74,7 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 		if (col == NR_COL) {
 			if (order==null) return null;
 			OrderItem item = order.getBusinessObject(article);
-			return item==null?0:item.getNumberOfItems();
+			return item==null?0:item.getNumberOfUnits();
 		}
 		return null;
 	}
