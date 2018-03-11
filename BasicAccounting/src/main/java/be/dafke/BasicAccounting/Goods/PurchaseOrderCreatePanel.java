@@ -8,8 +8,6 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.function.Predicate;
 
 import static be.dafke.BasicAccounting.Goods.PurchaseOrdersViewGUI.firePurchaseOrderAddedOrRemovedForAll;
@@ -29,13 +27,13 @@ public class PurchaseOrderCreatePanel extends JPanel {
     private Contact contact;
     Predicate<Contact> filter;
     private final PurchaseOrderCreateDataTableModel purchaseOrderCreateDataTableModel;
-    private JTextField textField1, textField2, textField3;
 
     public PurchaseOrderCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
         order = new Order(articles);
-        purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null, order, this);
+        PurchaseTotalsPanel purchaseTotalsPanel = new PurchaseTotalsPanel();
+        purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null, order, purchaseTotalsPanel);
         table = new SelectableTable<>(purchaseOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);
@@ -65,42 +63,14 @@ public class PurchaseOrderCreatePanel extends JPanel {
             }
         });
         JPanel south = new JPanel(new BorderLayout());
-        JPanel totals = createTotalPanel();
         south.add(orderButton, BorderLayout.SOUTH);
-        south.add(totals, BorderLayout.CENTER);
+        south.add(purchaseTotalsPanel, BorderLayout.CENTER);
 
         JScrollPane scrollPane = new JScrollPane(table);
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
         add(comboBox, BorderLayout.NORTH);
         add(south, BorderLayout.SOUTH);
-    }
-
-    private JPanel createTotalPanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(0,2));
-
-        textField1 = new JTextField("0.00",10);
-        textField2 = new JTextField("0.00",10);
-        textField3 = new JTextField("0.00",10);
-        textField1.setEditable(false);
-        textField2.setEditable(false);
-        textField3.setEditable(false);
-
-        panel.add(new JLabel("Total (excl. VAT):"));
-        panel.add(textField1);
-        panel.add(new JLabel("Total VAT:"));
-        panel.add(textField2);
-        panel.add(new JLabel("Total (incl. VAT):"));
-        panel.add(textField3);
-
-        return panel;
-    }
-
-    public void fireOrderContentChanged(){
-        textField1.setText(order.getTotalPurchasePriceExclVat().toString());
-        textField2.setText(order.getTotalPurchaseVat().toString());
-        textField3.setText(order.getTotalPurchasePriceInclVat().toString());
     }
 
     public void fireSupplierAddedOrRemoved() {

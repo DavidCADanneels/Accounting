@@ -22,6 +22,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
     private final JButton placeOrderButton, deliveredButton, payedButton;
     private final SelectableTable<StockItem> table;
     private final PurchaseOrders purchaseOrders;
+    private final PurchaseTotalsPanel purchaseTotalsPanel;
     private JComboBox<Order> comboBox;
     private JCheckBox payed, delivered, placed;
     private Order order;
@@ -68,12 +69,14 @@ public class PurchaseOrdersViewPanel extends JPanel {
             order.setPayed(true);
         });
 
-        placed = new JCheckBox("Delived");
+        placed = new JCheckBox("Ordered");
         payed = new JCheckBox("Payed");
         delivered = new JCheckBox("Delived");
         placed.setEnabled(false);
         payed.setEnabled(false);
         delivered.setEnabled(false);
+
+        purchaseTotalsPanel = new PurchaseTotalsPanel();
 
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {
@@ -85,6 +88,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
             placeOrderButton.setEnabled(order!=null&&!order.isPlaced());
             payedButton.setEnabled(order!=null&&!order.isPayed());
             purchaseOrdersViewDataTableModel.setOrder(order);
+            purchaseTotalsPanel.fireOrderContentChanged(order);
         });
         firePurchaseOrderAddedOrRemoved();
 
@@ -98,10 +102,15 @@ public class PurchaseOrdersViewPanel extends JPanel {
         north.add(payed);
         north.add(delivered);
         add(north, BorderLayout.NORTH);
-        JPanel south = new JPanel();
-        south.add(placeOrderButton);
-        south.add(deliveredButton);
-        south.add(payedButton);
+        JPanel south = new JPanel(new BorderLayout());
+        south.add(purchaseTotalsPanel);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(placeOrderButton);
+        buttonPanel.add(deliveredButton);
+        buttonPanel.add(payedButton);
+
+        south.add(buttonPanel, BorderLayout.SOUTH);
+
         add(south, BorderLayout.SOUTH);
     }
 

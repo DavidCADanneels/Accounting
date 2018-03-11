@@ -103,12 +103,7 @@ public class PurchaseOrdersViewDataTableModel extends SelectableTableModel<Stock
 // ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		StockItem stockItem = getObject(row,col);
-		if(col == NR_COL){
-			int nr = (Integer) value;
-			stockItem.setNumber(nr);
-			order.setItem(stockItem);
-		}
+		// No editable cells !
 	}
 
 	@Override
