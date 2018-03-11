@@ -45,6 +45,10 @@ public class ArticlesIO {
             if(vatRate!=null)
                 article.setVatRate(parseInt(vatRate));
 
+            String itemsPerUnit = getValue(element, ARTICLE_ITEMS_PER_UNIT);
+            if(itemsPerUnit!=null)
+                article.setItemsPerUnit(parseInt(itemsPerUnit));
+
             String supplierName = getValue(element, SUPPLIER);
             if(supplierName!=null) {
                 Contact supplier = contacts.getBusinessObject(supplierName);
@@ -79,6 +83,7 @@ public class ArticlesIO {
                                 "    <" + ARTICLE_HS_CODE + ">" + article.getHSCode() + "</" + ARTICLE_HS_CODE + ">\n" +
                                 "    <" + ARTICLE_VAT_RATE + ">" + article.getVatRate() + "</" + ARTICLE_VAT_RATE + ">\n" +
                                 "    <" + ARTICLE_PURCHASE_PRICE + ">" + article.getPurchasePrice() + "</" + ARTICLE_PURCHASE_PRICE + ">\n" +
+                                "    <" + ARTICLE_ITEMS_PER_UNIT + ">" + article.getItemsPerUnit() + "</" + ARTICLE_ITEMS_PER_UNIT + ">\n" +
                                 "    <" + SUPPLIER + ">" + article.getSupplier() + "</" + SUPPLIER + ">\n" +
                                 "  </" + ARTICLE + ">\n"
                 );
