@@ -40,8 +40,6 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
 
 import static javax.swing.JSplitPane.BOTTOM;
 import static javax.swing.JSplitPane.LEFT;
@@ -328,14 +326,14 @@ public class Main {
         ContactsGUI.fireContactDataChangedForAll();
     }
 
-    public static void fireCustomersAddedOrRemoved() {
-        ContactsGUI.fireCustomersAddedOrRemovedForAll();
-        SalesOrderCreateGUI.fireCustomersAddedOrRemovedForAll();
+    public static void fireCustomerAddedOrRemoved() {
+        ContactsGUI.fireCustomerAddedOrRemovedForAll();
+        SalesOrderCreateGUI.fireCustomerAddedOrRemovedForAll();
     }
 
     public static void fireSupplierAddedOrRemoved() {
         ContactsGUI.fireSupplierAddedOrRemovedForAll();
-        ArticlesGUI.fireSuppliersAddedOrRemovedForAll();
+        ArticlesGUI.fireSupplierAddedOrRemovedForAll();
         PurchaseOrderCreateGUI.fireSupplierAddedOrRemovedForAll();
     }
 

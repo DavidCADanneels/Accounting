@@ -33,7 +33,7 @@ public class SalesOrderCreateGUI extends JFrame {
         return salesOrderCreateGui;
     }
 
-    public static void fireCustomersAddedOrRemovedForAll() {
+    public static void fireCustomerAddedOrRemovedForAll() {
         if(salesOrderCreateGui!=null){
             salesOrderCreateGui.fireCustomerAddedOrRemoved();
         }

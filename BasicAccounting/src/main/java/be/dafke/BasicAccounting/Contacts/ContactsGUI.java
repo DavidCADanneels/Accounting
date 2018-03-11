@@ -85,20 +85,20 @@ public class ContactsGUI extends JFrame {
     }
 
     public static void fireContactDataChangedForAll(){
-        contactGuis.values().forEach(contactsGUI -> contactsGUI.fireContactDataChanged());
-        suppliersGuis.values().forEach(contactsGUI -> contactsGUI.fireContactDataChanged());
-        customersGuis.values().forEach(contactsGUI -> contactsGUI.fireContactDataChanged());
+        contactGuis.values().forEach(ContactsGUI::fireContactDataChanged);
+        suppliersGuis.values().forEach(ContactsGUI::fireContactDataChanged);
+        customersGuis.values().forEach(ContactsGUI::fireContactDataChanged);
     }
 
     public static void fireCustomerDataChanged(){
-        customersGuis.values().forEach(contactsGUI -> contactsGUI.fireContactDataChanged());
+        customersGuis.values().forEach(ContactsGUI::fireContactDataChanged);
     }
 
     public void fireContactDataChanged(){
         contactsPanel.fireContactDataChanged();
     }
 
-    public static void fireCustomersAddedOrRemovedForAll(){
+    public static void fireCustomerAddedOrRemovedForAll(){
         customersGuis.values().forEach(contactsGUI -> {
             contactsGUI.setContacts();
             contactsGUI.fireContactDataChanged();

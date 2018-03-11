@@ -200,7 +200,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 			if(col== CUSTOMER_COL) {
 				Boolean customer = (Boolean) value;
 				contact.setCustomer(customer);
-				Main.fireCustomersAddedOrRemoved();
+				Main.fireCustomerAddedOrRemoved();
 			} else if(col== SUPPLIER_COL) {
 				Boolean supplier = (Boolean) value;
 				contact.setSupplier(supplier);

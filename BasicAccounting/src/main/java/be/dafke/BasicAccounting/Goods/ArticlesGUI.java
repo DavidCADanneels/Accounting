@@ -69,13 +69,11 @@ public class ArticlesGUI extends JFrame {
         return gui;
     }
 
-    public static void fireSuppliersAddedOrRemovedForAll(){
-        articlesGuis.values().forEach(articlesGUI -> {
-            articlesGUI.fireSuppliersAddedOrRemoved();
-        });
+    public static void fireSupplierAddedOrRemovedForAll(){
+        articlesGuis.values().forEach(ArticlesGUI::fireSupplierAddedOrRemoved);
     }
 
-    public void fireSuppliersAddedOrRemoved(){
+    public void fireSupplierAddedOrRemoved(){
         articlesPanel.fireSupplierAddedOrRemoved();
     }
 }
