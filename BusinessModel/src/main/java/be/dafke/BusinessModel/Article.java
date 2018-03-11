@@ -129,44 +129,41 @@ public class Article extends BusinessObject{
         return multiply(getPurchaseVat(), number);
     }
 
-    public BigDecimal getSalesVat(BigDecimal price){
-        BigDecimal factor = getFactor();
-        BigDecimal withoutVat = price.divide(factor);
-        BigDecimal percentage = getPercentage();
-        BigDecimal vatAmount = withoutVat.multiply(percentage);
-        return vatAmount;
+    public BigDecimal getSalesVatAmount(int number){
+        BigDecimal salesPriceWithoutVat = getSalesPriceWithoutVat(number);
+        return salesPriceWithoutVat.multiply(getPercentage());
     }
 
-    public BigDecimal getSalesPriceSingleWithVat() {
+    public BigDecimal getSalesVatAmount(){
+        BigDecimal salesPriceWithoutVat = getSalesPriceWithoutVat();
+        return salesPriceWithoutVat.multiply(getPercentage());
+    }
+
+    public BigDecimal getSalesPriceWithoutVat() {
+        BigDecimal salesPriceWithVat = getSalesPriceWithVat();
+        return salesPriceWithVat.divide(getFactor());
+    }
+
+    public BigDecimal getSalesPriceWithoutVat(int number) {
+        BigDecimal salesPriceWithVat = getSalesPriceWithVat(number);
+        return salesPriceWithVat.divide(getFactor());
+    }
+
+    private BigDecimal getSalesPricePerUnitWithVat(int number){
+        if (number >= minimumNumberForReduction){
+            return salesPricePromoWithVat;
+        }else {
+            return salesPriceSingleWithVat;
+        }
+    }
+
+    public BigDecimal getSalesPriceWithVat() {
         return salesPriceSingleWithVat;
     }
 
-    public BigDecimal getSalesPricePromoWithVat() {
-        return salesPricePromoWithVat;
-    }
-
-    public BigDecimal getSalesPriceSingleWithVat(int number){
-        return multiply(salesPriceSingleWithVat, number);
-    }
-
-    public BigDecimal getSalesPricePromoWithVat(int number){
-        return multiply(salesPricePromoWithVat, number);
-    }
-
-    public BigDecimal getSalesPriceSingleWithoutVat(){
-        return salesPriceSingleWithVat.divide(getFactor());
-    }
-
-    public BigDecimal getSalesPricePromoWithoutVat(){
-        return salesPricePromoWithVat.divide(getFactor());
-    }
-
-    public BigDecimal getSalesPriceSingleWithoutVat(int number){
-        return multiply(getSalesPriceSingleWithoutVat(), number);
-    }
-
-    public BigDecimal getSalesPricePromoWithoutVat(int number){
-        return multiply(getSalesPricePromoWithoutVat(), number);
+    public BigDecimal getSalesPriceWithVat(int number) {
+        BigDecimal salesPricePerUnitWithVat = getSalesPricePerUnitWithVat(number);
+        return multiply(salesPricePerUnitWithVat, number);
     }
 
     public static Predicate<Article> ofSupplier(Contact supplier) {
