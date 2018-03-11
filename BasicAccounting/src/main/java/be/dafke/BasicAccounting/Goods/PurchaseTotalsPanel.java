@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Goods;
 
 import be.dafke.BusinessModel.Order;
+import be.dafke.BusinessModel.PurchaseOrder;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,9 +27,9 @@ public class PurchaseTotalsPanel extends JPanel{
         add(textField3);
     }
 
-    public void fireOrderContentChanged(Order order){
-        textField1.setText(order.getTotalPurchasePriceExclVat().toString());
-        textField2.setText(order.getTotalPurchaseVat().toString());
-        textField3.setText(order.getTotalPurchasePriceInclVat().toString());
+    public void fireOrderContentChanged(PurchaseOrder order){
+        textField1.setText(order==null?"":order.getTotalPurchasePriceExclVat().toString());
+        textField2.setText(order==null?"":order.getTotalPurchaseVat().toString());
+        textField3.setText(order==null?"":order.getTotalPurchasePriceInclVat().toString());
     }
 }

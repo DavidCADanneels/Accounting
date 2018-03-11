@@ -29,7 +29,7 @@ public class SalesOrderIO {
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS);
         int nr = 0;
         for (Element salesOrderElement : getChildren(rootElement, SALES_ORDER)) {
-            Order order = new Order(articles);
+            SalesOrder order = new SalesOrder(articles);
             String id = getValue(salesOrderElement, ID);
             order.setName(id);
             nr++;

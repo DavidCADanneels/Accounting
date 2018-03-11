@@ -45,7 +45,7 @@ public class SalesOrderCreatePanel extends JPanel {
 
         orderButton = new JButton("Book Order");
         orderButton.addActionListener(e -> {
-            Order order = salesOrderCreateDataTableModel.getOrder();
+            SalesOrder order = salesOrderCreateDataTableModel.getOrder();
             SalesOrders salesOrders = accounting.getSalesOrders();
             order.setCustomer(contact);
             try {

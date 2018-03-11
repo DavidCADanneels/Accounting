@@ -20,7 +20,7 @@ import static be.dafke.BasicAccounting.Goods.PurchaseOrdersViewGUI.firePurchaseO
 public class PurchaseOrderCreatePanel extends JPanel {
     private final JButton orderButton;
     private final SelectableTable<OrderItem> table;
-    private Order order;
+    private PurchaseOrder order;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
     private Articles articles;
@@ -31,7 +31,7 @@ public class PurchaseOrderCreatePanel extends JPanel {
     public PurchaseOrderCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
-        order = new Order(articles);
+        order = new PurchaseOrder(articles);
         PurchaseTotalsPanel purchaseTotalsPanel = new PurchaseTotalsPanel();
         purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null, order, purchaseTotalsPanel);
         table = new SelectableTable<>(purchaseOrderCreateDataTableModel);
@@ -53,9 +53,10 @@ public class PurchaseOrderCreatePanel extends JPanel {
             order.setSupplier(contact);
             try {
                 purchaseOrders.addBusinessObject(order);
-                order = new Order(articles);
                 purchaseOrderCreateDataTableModel.setOrder(order);
                 firePurchaseOrderAddedOrRemovedForAll();
+
+                order = new PurchaseOrder(articles);
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {

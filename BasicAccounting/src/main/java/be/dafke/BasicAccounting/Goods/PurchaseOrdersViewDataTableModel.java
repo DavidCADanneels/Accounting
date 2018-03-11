@@ -21,7 +21,7 @@ public class PurchaseOrdersViewDataTableModel extends SelectableTableModel<Order
 	public static int VAT_COL = 4;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
-	private Order order;
+	private PurchaseOrder order;
 
 	public PurchaseOrdersViewDataTableModel() {
 		setColumnNames();
@@ -112,11 +112,11 @@ public class PurchaseOrdersViewDataTableModel extends SelectableTableModel<Order
 		return orderItems.get(row);
 	}
 
-	public Order getOrder() {
+	public PurchaseOrder getOrder() {
 		return order;
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(PurchaseOrder order) {
 		this.order = order;
 		fireTableDataChanged();
 	}

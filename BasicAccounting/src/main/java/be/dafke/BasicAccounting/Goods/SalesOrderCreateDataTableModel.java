@@ -23,14 +23,14 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private Contact contact;
-	private Order order;
+	private SalesOrder order;
 
 	public SalesOrderCreateDataTableModel(Articles articles, Contact contact) {
 		this.articles = articles;
 		this.contact = contact;
 		setColumnNames();
 		setColumnClasses();
-		order = new Order(articles);
+		order = new SalesOrder(articles);
 	}
 
 	private void setColumnClasses() {
@@ -110,7 +110,6 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 			int nr = (Integer) value;
 			orderItem.setNumberOfItems(nr);
 			orderItem.calculateNumberOfUnits();
-			order.setItem(orderItem);
 		}
 	}
 
@@ -123,7 +122,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 		return order.getBusinessObject(article);
 	}
 
-	public Order getOrder() {
+	public SalesOrder getOrder() {
 		return order;
 	}
 
@@ -134,6 +133,6 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 	}
 
 	public void newOrder() {
-		order = new Order(articles);
+		order = new SalesOrder(articles);
 	}
 }

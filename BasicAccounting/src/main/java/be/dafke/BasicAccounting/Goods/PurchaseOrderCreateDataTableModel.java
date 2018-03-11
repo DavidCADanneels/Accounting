@@ -24,11 +24,11 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private Contact contact;
-	private Order order;
+	private PurchaseOrder order;
 	private Predicate<Article> filter;
 	private PurchaseTotalsPanel purchaseTotalsPanel;
 
-	public PurchaseOrderCreateDataTableModel(Articles articles, Contact contact, Order order, PurchaseTotalsPanel purchaseTotalsPanel) {
+	public PurchaseOrderCreateDataTableModel(Articles articles, Contact contact, PurchaseOrder order, PurchaseTotalsPanel purchaseTotalsPanel) {
 		this.purchaseTotalsPanel = purchaseTotalsPanel;
 		this.order = order;
 		this.articles = articles;
@@ -113,7 +113,8 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 		if(col == NR_COL){
 			int nr = (Integer) value;
 			orderItem.setNumberOfUnits(nr);
-			order.setItem(orderItem);
+			orderItem.calculateNumberOfItems();
+			order.setOrderItem(orderItem);
 			purchaseTotalsPanel.fireOrderContentChanged(order);
 		}
 	}
@@ -134,7 +135,7 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 		fireTableDataChanged();
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(PurchaseOrder order) {
 		this.order = order;
 		fireTableDataChanged();
 	}

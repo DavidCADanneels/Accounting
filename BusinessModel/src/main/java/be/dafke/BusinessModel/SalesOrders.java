@@ -4,7 +4,7 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-public class SalesOrders extends BusinessCollection<Order>{
+public class SalesOrders extends BusinessCollection<SalesOrder>{
 
     private static int id = 0;
 
@@ -16,7 +16,7 @@ public class SalesOrders extends BusinessCollection<Order>{
         SalesOrders.id = id;
     }
 
-    public Order addBusinessObject(Order order) throws EmptyNameException, DuplicateNameException {
+    public SalesOrder addBusinessObject(SalesOrder order) throws EmptyNameException, DuplicateNameException {
         if (order.getName()==null) {
             order.setName("SO" + ++id);
         }

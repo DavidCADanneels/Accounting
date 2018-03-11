@@ -23,9 +23,9 @@ public class PurchaseOrdersViewPanel extends JPanel {
     private final SelectableTable<OrderItem> table;
     private final PurchaseOrders purchaseOrders;
     private final PurchaseTotalsPanel purchaseTotalsPanel;
-    private JComboBox<Order> comboBox;
+    private JComboBox<PurchaseOrder> comboBox;
     private JCheckBox payed, delivered, placed;
-    private Order order;
+    private PurchaseOrder order;
     private Accounting accounting;
     private final PurchaseOrdersViewDataTableModel purchaseOrdersViewDataTableModel;
 
@@ -40,7 +40,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
 
         placeOrderButton = new JButton("Place Order");
         placeOrderButton.addActionListener(e -> {
-            Order order = purchaseOrdersViewDataTableModel.getOrder();
+            PurchaseOrder order = purchaseOrdersViewDataTableModel.getOrder();
             Transaction transaction = createPurchaseTransaction(order);
             Journal journal = purchaseOrders.getJournal();
             if (journal==null){
@@ -86,7 +86,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
 
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {
-            order = (Order) comboBox.getSelectedItem();
+            order = (PurchaseOrder) comboBox.getSelectedItem();
             updateButtonsAndCheckBoxes();
         });
         firePurchaseOrderAddedOrRemoved();
@@ -132,7 +132,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
         return journal;
     }
 
-    private Transaction createPurchaseTransaction(Order order) {
+    private Transaction createPurchaseTransaction(PurchaseOrder order) {
         Transaction transaction;
         // TODO: create transaction
         Calendar date = Calendar.getInstance();

@@ -53,7 +53,7 @@ public class PurchaseOrderIO {
             }
         }
         for (Element purchaseOrderElement : getChildren(rootElement, PURCHASE_ORDER)) {
-            Order order = new Order(articles);
+            PurchaseOrder order = new PurchaseOrder(articles);
             String id = getValue(purchaseOrderElement, ID);
             order.setName(id);
             nr++;
