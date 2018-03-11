@@ -123,6 +123,8 @@ public class XMLConstants {
     public static final String IS_PLACED = "IsPlaced";
     public static final String IS_DELIVERED = "IsDelivered";
     public static final String IS_PAYED = "IsPayed";
+    public static final String NR_OF_UNITS = "NrOfUnits";
+    public static final String NR_OF_ITEMS = "NrOfItems";
 
     public static final String XML_PATH = "data/accounting/xml/Accountings/";
     public static final String XML_EXTENSION = ".xml";

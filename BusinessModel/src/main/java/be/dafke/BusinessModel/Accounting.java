@@ -59,7 +59,7 @@ public class Accounting extends BusinessObject{
 
         articles = new Articles();
 
-        stock = new Stock(articles);
+        stock = new Stock();
 
         purchaseOrders = new PurchaseOrders();
 

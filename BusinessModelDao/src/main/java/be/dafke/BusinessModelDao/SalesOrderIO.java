@@ -29,7 +29,7 @@ public class SalesOrderIO {
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS);
         int nr = 0;
         for (Element salesOrderElement : getChildren(rootElement, SALES_ORDER)) {
-            Order order = new Order(articles);
+            Order order = new Order();
             String id = getValue(salesOrderElement, ID);
             order.setName(id);
             nr++;
@@ -41,11 +41,15 @@ public class SalesOrderIO {
                 String name = getValue(element, NAME);
                 Article article = articles.getBusinessObject(name);
 
-                String numberString = getValue(element, NUMBER);
-                int number = parseInt(numberString);
+                String numberOfUnitsString = getValue(element, NR_OF_UNITS);
+                int numberOfUnits = parseInt(numberOfUnitsString);
 
-                OrderItem orderItem = new OrderItem(number, article);
-                order.setItem(orderItem);
+                String numberOfItemsString = getValue(element, NR_OF_ITEMS);
+                int numberOfItems = parseInt(numberOfItemsString);
+
+                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article);
+                orderItem.setName(name);
+                order.addBusinessObject(orderItem);
             }
             try {
                 salesOrders.addBusinessObject(order);
@@ -73,7 +77,8 @@ public class SalesOrderIO {
                     writer.write(
                             "    <" + ARTICLE + ">\n" +
                                 "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                                "      <" + NUMBER + ">" + orderItem.getNumber() + "</" + NUMBER + ">\n" +
+                                "      <" + NR_OF_UNITS + ">" + orderItem.getNumberOfUnits() + "</" + NR_OF_UNITS + ">\n" +
+                                "      <" + NR_OF_ITEMS + ">" + orderItem.getNumberOfItems() + "</" + NR_OF_ITEMS + ">\n" +
                                 "    </" + ARTICLE + ">\n"
                     );
                 }

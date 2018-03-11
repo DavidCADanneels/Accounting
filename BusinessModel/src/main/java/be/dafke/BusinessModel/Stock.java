@@ -1,39 +1,19 @@
 package be.dafke.BusinessModel;
 
 public class Stock extends OrderItems {
-    private Articles articles;
-
-    public Stock(Articles articles) {
-        super();
-        this.articles = articles;
-    }
 
     // Add per Unit
     public OrderItem addBusinessObject(OrderItem orderItem){
-        Article article = orderItem.getArticle();
-        int numberToAdd = orderItem.getNumber();
-        Integer itemsPerUnit = article.getItemsPerUnit();
-        int numberOfItems = numberToAdd * itemsPerUnit;
-        orderItem.setNumber(numberOfItems);
-        int numberInStock = getNumberInStock(article);
-        stock.put(article, numberInStock+numberOfItems);
-        return orderItem;
+        int unitsToAdd = orderItem.getNumberOfUnits();
+        int itemsToAdd = orderItem.getNumberOfItems();
+        return add(orderItem, unitsToAdd, itemsToAdd);
     }
 
     // Remove per Item
     public void removeBusinessObject(OrderItem orderItem){
-        Article article = orderItem.getArticle();
-//        Integer itemsPerUnit = article.getItemsPerUnit();
-        int numberToRemove = orderItem.getNumber();
-        int numberInStock = getNumberInStock(article);
-        int result = numberInStock-numberToRemove;
-        if (result < 0){
-            // TODO: throw error
-        } else if (result == 0){
-            stock.remove(article);
-        } else {
-            stock.put(article, result);
-        }
+        int unitsToRemove = orderItem.getNumberOfUnits();
+        int itemsToRemove = orderItem.getNumberOfItems();
+        remove(orderItem, unitsToRemove, itemsToRemove);
     }
 
     public void addLoad(OrderItems load){
@@ -43,10 +23,4 @@ public class Stock extends OrderItems {
     public void removeLoad(OrderItems load){
         load.getBusinessObjects().forEach(this::removeBusinessObject);
     }
-
-    public OrderItem getBusinessObject(String name){
-        Article article = articles.getBusinessObject(name);
-        return getBusinessObject(article);
-    }
-
 }

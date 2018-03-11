@@ -29,7 +29,7 @@ public class SalesOrderCreatePanel extends JPanel {
     public SalesOrderCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
-        salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, null);
+        salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel( null,null);
         table = new SelectableTable<>(salesOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);

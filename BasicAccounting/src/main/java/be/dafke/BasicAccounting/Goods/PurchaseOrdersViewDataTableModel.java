@@ -67,7 +67,7 @@ public class PurchaseOrdersViewDataTableModel extends SelectableTableModel<Order
 			return article.getPurchasePrice();
 		}
 		if (col == NR_COL) {
-			return orderItem.getNumber();
+			return orderItem.getNumberOfUnits();
 		}
 		return null;
 	}

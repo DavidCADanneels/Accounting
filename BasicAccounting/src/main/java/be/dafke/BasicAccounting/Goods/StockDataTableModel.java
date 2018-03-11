@@ -41,7 +41,7 @@ public class StockDataTableModel extends SelectableTableModel<OrderItem> {
 	public Object getValueAt(int row, int col) {
 		OrderItem orderItem = getObject(row,col);
 		if (col == NR_IN_STOCK_COL) {
-			return orderItem.getNumber();
+			return orderItem.getNumberOfUnits();
 		}
 		if (col == ARTIKEL_COL) {
 			return orderItem.getArticle();

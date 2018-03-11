@@ -14,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderItem> {
-	private final Articles articles;
+	private final OrderItems orderItems;
 	public static int NR_COL = 0;
 	public static int NAME_COL = 1;
 	public static int HS_COL = 2;
@@ -25,12 +25,12 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 	private Contact contact;
 	private Order order;
 
-	public SalesOrderCreateDataTableModel(Articles articles, Contact contact) {
-		this.articles = articles;
+	public SalesOrderCreateDataTableModel(OrderItems orderItems, Contact contact) {
+		this.orderItems = orderItems;
 		this.contact = contact;
 		setColumnNames();
 		setColumnClasses();
-		order = new Order(articles);
+		order = new Order();
 	}
 
 	private void setColumnClasses() {
@@ -69,8 +69,8 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 		}
 		if (col == NR_COL) {
 			if (order==null) return null;
-			OrderItem item = order.getBusinessObject(article);
-			return item==null?0:item.getNumber();
+			OrderItem item = order.getBusinessObject(article.getName());
+			return item==null?0:item.getNumberOfUnits();
 		}
 		return null;
 	}
@@ -80,8 +80,8 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 	}
 
 	public int getRowCount() {
-		if(articles==null || contact==null) return 0;
-		List<Article> businessObjects = articles.getBusinessObjects();
+		if(orderItems==null || contact==null) return 0;
+		List<OrderItem> businessObjects = orderItems.getBusinessObjects();
 		if(businessObjects == null || businessObjects.size() == 0) return 0;
 		return businessObjects.size();
 	}
@@ -108,18 +108,18 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 		OrderItem orderItem = getObject(row,col);
 		if(col == NR_COL){
 			int nr = (Integer) value;
-			orderItem.setNumber(nr);
-			order.setItem(orderItem);
+			orderItem.setNumberOfItems(nr);
 		}
 	}
 
 	@Override
 	public OrderItem getObject(int row, int col) {
 		if(contact==null) return null;
-		List<Article> articleList = articles.getBusinessObjects();
-		if(articleList == null || articleList.size() == 0) return null;
-		Article article = articleList.get(row);
-		return order.getBusinessObject(article);
+		List<OrderItem> orderItemList = orderItems.getBusinessObjects();
+		if(orderItemList == null || orderItemList.size() == 0) return null;
+		OrderItem orderItem = orderItemList.get(row);
+		Article article = orderItem.getArticle();
+		return order.getBusinessObject(article.getName());
 	}
 
 	public Order getOrder() {
@@ -133,6 +133,6 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 	}
 
 	public void newOrder() {
-		order = new Order(articles);
+		order = new Order();
 	}
 }
