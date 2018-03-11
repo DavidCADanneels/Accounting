@@ -45,14 +45,12 @@ public class PurchaseOrdersViewPanel extends JPanel {
             if (journal==null){
                 journal = setPurchaseJournal();
             }
-            journal.setCurrentTransaction(transaction);
-            Main.setJournal(journal);
-//            Main.fireTransactionInputDataChanged();
-            Main.editTransaction(transaction);
-//            Main.selectTransaction(transaction);
+            transaction.setJournal(journal);
+            // TODO: ask for Date and Description
 
-            // TODO: setPlaced when booked
-//            journal.addBusinessObject(transaction);
+            journal.addBusinessObject(transaction);
+            Main.setJournal(journal);
+            Main.selectTransaction(transaction);
             order.setPlaced(true);
         });
 
