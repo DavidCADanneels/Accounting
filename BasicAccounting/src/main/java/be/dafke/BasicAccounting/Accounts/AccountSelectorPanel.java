@@ -19,9 +19,10 @@ public class AccountSelectorPanel extends JPanel {
     private JComboBox<Account> combo;
     private DefaultComboBoxModel<Account> model;
     private Accounts accounts;
-
+    private ArrayList<AccountType> accountTypes;
 
     public AccountSelectorPanel(Accounts accounts, ArrayList<AccountType> accountTypes) {
+        this.accountTypes = accountTypes;
         model = new DefaultComboBoxModel<>();
         combo = new JComboBox<>(model);
         combo.addActionListener(e -> account = (Account) combo.getSelectedItem());
@@ -38,7 +39,7 @@ public class AccountSelectorPanel extends JPanel {
 
     public void fireAccountDataChanged() {
         model.removeAllElements();
-        accounts.getBusinessObjects().stream().forEach(account -> model.addElement(account));
+        accounts.getAccountsByType(accountTypes).stream().forEach(account -> model.addElement(account));
         invalidate();
         combo.invalidate();
     }
