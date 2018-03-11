@@ -25,10 +25,11 @@ import static java.util.ResourceBundle.getBundle;
 public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 	private final Articles articles;
 	public static int NAME_COL = 0;
-	public static int HS_COL = 1;
-	public static int PRICE_COL = 2;
-	public static int VAT_COL = 3;
-	public static int SUPPLIER_COL = 4;
+	public static int ITEMS_PER_UNIT_COL = 1;
+	public static int HS_COL = 2;
+	public static int PRICE_COL = 3;
+	public static int VAT_COL = 4;
+	public static int SUPPLIER_COL = 5;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 
@@ -40,6 +41,7 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 
 	private void setColumnClasses() {
 		columnClasses.put(NAME_COL, String.class);
+		columnClasses.put(ITEMS_PER_UNIT_COL, Integer.class);
 		columnClasses.put(HS_COL, String.class);
 		columnClasses.put(PRICE_COL, BigDecimal.class);
 		columnClasses.put(VAT_COL, Integer.class);
@@ -48,6 +50,7 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 
 	private void setColumnNames() {
 		columnNames.put(NAME_COL, getBundle("Accounting").getString("ARTICLE_NAME"));
+		columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ARTICLE_ITEMS_PER_UNIT"));
 		columnNames.put(HS_COL, getBundle("Accounting").getString("ARTICLE_HS"));
 		columnNames.put(PRICE_COL, getBundle("Accounting").getString("ARTICLE_PRICE"));
 		columnNames.put(VAT_COL, getBundle("Accounting").getString("ARTICLE_VAT"));
@@ -72,6 +75,9 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		}
 		if (col == SUPPLIER_COL) {
 			return article.getSupplier();
+		}
+		if (col == ITEMS_PER_UNIT_COL) {
+			return article.getItemsPerUnit();
 		}
 		return null;
 	}
@@ -118,6 +124,9 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		}
 		if(col == SUPPLIER_COL){
             article.setSupplier((Contact) value);
+		}
+		if(col == ITEMS_PER_UNIT_COL){
+            article.setItemsPerUnit((Integer) value);
 		}
 		if(col == NAME_COL) {
 //            article.setName((String) value);
