@@ -8,35 +8,40 @@ public class Stock extends OrderItems {
         this.articles = articles;
     }
 
-//    public void addItem(Article article, int numberToAdd){
+    // Add per Unit
+    public OrderItem addBusinessObject(OrderItem orderItem){
+        Article article = orderItem.getArticle();
+        int numberToAdd = orderItem.getNumber();
+        Integer itemsPerUnit = article.getItemsPerUnit();
+        int numberOfItems = numberToAdd * itemsPerUnit;
+        orderItem.setNumber(numberOfItems);
+        int numberInStock = getNumberInStock(article);
+        stock.put(article, numberInStock+numberOfItems);
+        return orderItem;
+    }
+
+    // Remove per Item
+    public void removeBusinessObject(OrderItem orderItem){
+        Article article = orderItem.getArticle();
 //        Integer itemsPerUnit = article.getItemsPerUnit();
-//        int numberInStock = getNumberInStock(article);
-//        stock.put(article, numberInStock+numberToAdd*itemsPerUnit);
-//    }
-//
-//    public void removeItem(Article article, int numberToRemove){
-//        Integer itemsPerUnit = article.getItemsPerUnit();
-//        int numberInStock = getNumberInStock(article);
-//        int result = numberInStock-numberToRemove*itemsPerUnit;
-//        if (result < 0){
-//            // TODO: throw error
-//        } else if (result == 0){
-//            stock.remove(article);
-//        } else {
-//            stock.put(article, result);
-//        }
-//    }
+        int numberToRemove = orderItem.getNumber();
+        int numberInStock = getNumberInStock(article);
+        int result = numberInStock-numberToRemove;
+        if (result < 0){
+            // TODO: throw error
+        } else if (result == 0){
+            stock.remove(article);
+        } else {
+            stock.put(article, result);
+        }
+    }
 
     public void addLoad(OrderItems load){
-        load.getBusinessObjects().forEach( stockItem -> {
-            addBusinessObject(stockItem);
-        });
+        load.getBusinessObjects().forEach(this::addBusinessObject);
     }
 
     public void removeLoad(OrderItems load){
-        load.getBusinessObjects().forEach( stockItem -> {
-            removeBusinessObject(stockItem);
-        });
+        load.getBusinessObjects().forEach(this::removeBusinessObject);
     }
 
     public OrderItem getBusinessObject(String name){

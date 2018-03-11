@@ -13,33 +13,15 @@ public class OrderItems extends BusinessCollection<OrderItem>{
         stock = new HashMap<>();
     }
 
-    public void addItem(Article article, int numberToAdd){
-        int numberInStock = getNumberInStock(article);
-        stock.put(article, numberInStock+numberToAdd);
-    }
-
-    public void removeItem(Article article, int numberToRemove){
-        int numberInStock = getNumberInStock(article);
-        int result = numberInStock-numberToRemove;
-        if (result < 0){
-            // TODO: throw error
-        } else if (result == 0){
-            stock.remove(article);
-        } else {
-            stock.put(article, result);
-        }
-    }
-
     public int getNumberInStock(Article article){
-        if(!stock.containsKey(article)) {
-            return 0;
-        } else {
-            return stock.get(article);
-        }
+        return stock.getOrDefault(article, 0);
     }
 
     public OrderItem addBusinessObject(OrderItem orderItem){
-        addItem(orderItem.getArticle(), orderItem.getNumber());
+        Article article = orderItem.getArticle();
+        int numberToAdd = orderItem.getNumber();
+        int numberInStock = getNumberInStock(article);
+        stock.put(article, numberInStock+numberToAdd);
         return orderItem;
     }
 
@@ -54,7 +36,17 @@ public class OrderItems extends BusinessCollection<OrderItem>{
     }
 
     public void removeBusinessObject(OrderItem orderItem){
-        removeItem(orderItem.getArticle(), orderItem.getNumber());
+        Article article = orderItem.getArticle();
+        int numberToRemove = orderItem.getNumber();
+        int numberInStock = getNumberInStock(article);
+        int result = numberInStock-numberToRemove;
+        if (result < 0){
+            // TODO: throw error
+        } else if (result == 0){
+            stock.remove(article);
+        } else {
+            stock.put(article, result);
+        }
     }
 
     public OrderItem getBusinessObject(Article article){
