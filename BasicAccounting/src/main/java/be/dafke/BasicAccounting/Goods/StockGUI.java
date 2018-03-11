@@ -36,4 +36,16 @@ public class StockGUI extends JFrame {
         }
         return gui;
     }
+
+    public static void fireStockContentChanged(Accounting accounting){
+        Stock stock = accounting.getStock();
+        StockGUI gui = stockGuis.get(stock);
+        if(gui!=null){
+            gui.updateStockContent();
+        }
+    }
+
+    private void updateStockContent() {
+        stockPanel.fireStockContentChanged();
+    }
 }

@@ -52,7 +52,9 @@ public class PurchaseOrdersViewPanel extends JPanel {
             journal.addBusinessObject(transaction);
             Main.setJournal(journal);
             Main.selectTransaction(transaction);
+
             order.setPlaced(true);
+            updateButtonsAndCheckBoxes();
         });
 
         deliveredButton = new JButton("Order Delivered");
@@ -60,13 +62,17 @@ public class PurchaseOrdersViewPanel extends JPanel {
             Stock stock = accounting.getStock();
             Order order = purchaseOrdersViewDataTableModel.getOrder();
             stock.addLoad(order);
+            StockGUI.fireStockContentChanged(accounting);
             order.setDelivered(true);
+            updateButtonsAndCheckBoxes();
         });
 
-        payedButton = new JButton("Order Payed");
+        payedButton = new JButton("Pay Order");
         payedButton.addActionListener(e -> {
             Order order = purchaseOrdersViewDataTableModel.getOrder();
+
             order.setPayed(true);
+            updateButtonsAndCheckBoxes();
         });
 
         placed = new JCheckBox("Ordered");
@@ -81,14 +87,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {
             order = (Order) comboBox.getSelectedItem();
-            payed.setSelected(order!=null&&order.isPayed());
-            placed.setSelected(order!=null&&order.isPayed());
-            delivered.setSelected(order!=null&&order.isDelivered());
-            deliveredButton.setEnabled(order!=null&&!order.isDelivered());
-            placeOrderButton.setEnabled(order!=null&&!order.isPlaced());
-            payedButton.setEnabled(order!=null&&!order.isPayed());
-            purchaseOrdersViewDataTableModel.setOrder(order);
-            purchaseTotalsPanel.fireOrderContentChanged(order);
+            updateButtonsAndCheckBoxes();
         });
         firePurchaseOrderAddedOrRemoved();
 
@@ -99,8 +98,8 @@ public class PurchaseOrdersViewPanel extends JPanel {
         north.add(comboBox);
 
         north.add(placed);
-        north.add(payed);
         north.add(delivered);
+        north.add(payed);
         add(north, BorderLayout.NORTH);
         JPanel south = new JPanel(new BorderLayout());
         south.add(purchaseTotalsPanel);
@@ -112,6 +111,17 @@ public class PurchaseOrdersViewPanel extends JPanel {
         south.add(buttonPanel, BorderLayout.SOUTH);
 
         add(south, BorderLayout.SOUTH);
+    }
+
+    private void updateButtonsAndCheckBoxes() {
+        payed.setSelected(order!=null&&order.isPayed());
+        placed.setSelected(order!=null&&order.isPlaced());
+        delivered.setSelected(order!=null&&order.isDelivered());
+        deliveredButton.setEnabled(order!=null&&!order.isDelivered());
+        placeOrderButton.setEnabled(order!=null&&!order.isPlaced());
+        payedButton.setEnabled(order!=null&&!order.isPayed());
+        purchaseOrdersViewDataTableModel.setOrder(order);
+        purchaseTotalsPanel.fireOrderContentChanged(order);
     }
 
     public Journal setPurchaseJournal(){

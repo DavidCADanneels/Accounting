@@ -60,4 +60,8 @@ public class StockPanel extends JPanel {
 
         add(buttons, BorderLayout.NORTH);
     }
+
+    public void fireStockContentChanged(){
+        stockDataTableModel.fireTableDataChanged();
+    }
 }

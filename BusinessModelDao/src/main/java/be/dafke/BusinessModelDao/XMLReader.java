@@ -177,4 +177,27 @@ public class XMLReader {
         }
     }
 
+    public static boolean getBooleanValue(Element element, String tagName){
+        NodeList nodeList = element.getElementsByTagName(tagName);
+        if(nodeList.getLength()==0){
+//            System.err.println("The tag " + tagName + " is not present.");
+            return false;
+            // the tag is not present
+        } else {
+            nodeList = nodeList.item(0).getChildNodes();
+            if(nodeList.getLength()==0){
+//                System.err.println("The tag " + tagName + " is empty.");
+                return false;
+                // the tag is empty
+            } else {
+                if(nodeList.item(0).getNodeValue().equals("false")){
+//                    System.err.println("The tag " + tagName + " equals \"null\"");
+                    return false;
+                }
+                String nodeValue = nodeList.item(0).getNodeValue();
+                return nodeValue!=null && nodeValue.equals(("true"));
+            }
+        }
+    }
+
 }

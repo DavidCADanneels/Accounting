@@ -61,6 +61,10 @@ public class PurchaseOrderIO {
             Contact supplier = contacts.getBusinessObject(supplierString);
             order.setSupplier(supplier);
 
+            order.setPlaced(getBooleanValue(purchaseOrderElement, IS_PLACED));
+            order.setDelivered(getBooleanValue(purchaseOrderElement, IS_DELIVERED));
+            order.setPayed(getBooleanValue(purchaseOrderElement, IS_PAYED));
+
             for (Element element : getChildren(purchaseOrderElement, ARTICLE)) {
                 String name = getValue(element, NAME);
                 Article article = articles.getBusinessObject(name);
@@ -95,7 +99,10 @@ public class PurchaseOrderIO {
                 writer.write(
                              "  <" + PURCHASE_ORDER + ">\n" +
                                 "    <" + ID + ">" + order.getName() + "</" + ID + ">\n" +
-                                "    <" + SUPPLIER + ">" + order.getSupplier() + "</" + SUPPLIER + ">\n"
+                                "    <" + SUPPLIER + ">" + order.getSupplier() + "</" + SUPPLIER + ">\n" +
+                                "    <" + IS_PLACED + ">" + order.isPlaced() + "</" + IS_PLACED + ">\n" +
+                                "    <" + IS_DELIVERED + ">" + order.isDelivered() + "</" + IS_DELIVERED + ">\n" +
+                                "    <" + IS_PAYED + ">" + order.isPayed() + "</" + IS_PAYED + ">\n"
                 );
                 for (StockItem stockItem: order.getBusinessObjects()) {
                     Article article = stockItem.getArticle();
