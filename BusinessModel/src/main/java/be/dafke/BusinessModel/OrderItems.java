@@ -5,10 +5,10 @@ import be.dafke.ObjectModel.BusinessCollection;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class StockItems extends BusinessCollection<StockItem>{
+public class OrderItems extends BusinessCollection<OrderItem>{
     protected HashMap<Article,Integer> stock;
 
-    public StockItems() {
+    public OrderItems() {
         super();
         stock = new HashMap<>();
     }
@@ -38,28 +38,28 @@ public class StockItems extends BusinessCollection<StockItem>{
         }
     }
 
-    public StockItem addBusinessObject(StockItem stockItem){
-        addItem(stockItem.getArticle(),stockItem.getNumber());
-        return stockItem;
+    public OrderItem addBusinessObject(OrderItem orderItem){
+        addItem(orderItem.getArticle(), orderItem.getNumber());
+        return orderItem;
     }
 
-    public ArrayList<StockItem> getBusinessObjects() {
-        ArrayList<StockItem> result = new ArrayList<>();
+    public ArrayList<OrderItem> getBusinessObjects() {
+        ArrayList<OrderItem> result = new ArrayList<>();
         for (Article article : stock.keySet()){
             Integer number = stock.get(article);
-            StockItem stockItem = new StockItem(number, article);
-            result.add(stockItem);
+            OrderItem orderItem = new OrderItem(number, article);
+            result.add(orderItem);
         }
         return result;
     }
 
-    public void removeBusinessObject(StockItem stockItem){
-        removeItem(stockItem.getArticle(),stockItem.getNumber());
+    public void removeBusinessObject(OrderItem orderItem){
+        removeItem(orderItem.getArticle(), orderItem.getNumber());
     }
 
-    public StockItem getBusinessObject(Article article){
+    public OrderItem getBusinessObject(Article article){
         Integer numberInStock = stock.get(article);
-        return new StockItem(numberInStock==null?0:numberInStock, article);
+        return new OrderItem(numberInStock==null?0:numberInStock, article);
     }
 
 }

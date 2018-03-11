@@ -14,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<StockItem> {
+public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<OrderItem> {
 	private final Articles articles;
 	public static int NR_COL = 0;
 	public static int NAME_COL = 1;
@@ -55,8 +55,8 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Stoc
 	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
-		StockItem stockItem = getObject(row, col);
-		Article article = stockItem.getArticle();
+		OrderItem orderItem = getObject(row, col);
+		Article article = orderItem.getArticle();
 		if (article == null) return null;
 
 		if (col == NAME_COL) {
@@ -73,7 +73,7 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Stoc
 		}
 		if (col == NR_COL) {
 			if (order==null) return null;
-			StockItem item = order.getBusinessObject(article);
+			OrderItem item = order.getBusinessObject(article);
 			return item==null?0:item.getNumber();
 		}
 		return null;
@@ -109,17 +109,17 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Stoc
 // ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		StockItem stockItem = getObject(row,col);
+		OrderItem orderItem = getObject(row,col);
 		if(col == NR_COL){
 			int nr = (Integer) value;
-			stockItem.setNumber(nr);
-			order.setItem(stockItem);
+			orderItem.setNumber(nr);
+			order.setItem(orderItem);
 			purchaseTotalsPanel.fireOrderContentChanged(order);
 		}
 	}
 
 	@Override
-	public StockItem getObject(int row, int col) {
+	public OrderItem getObject(int row, int col) {
 		if(contact==null || filter==null) return null;
 		List<Article> articleList = articles.getBusinessObjects(filter);
 		if(articleList == null || articleList.size() == 0) return null;

@@ -16,7 +16,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class StockPanel extends JPanel {
     private final JButton createPurchaseOrder, createSalesOrder, viewPurchaseOrder ,viewSalesOrder;
-    private final SelectableTable<StockItem> table;
+    private final SelectableTable<OrderItem> table;
     private final StockDataTableModel stockDataTableModel;
 
     public StockPanel(Accounting accounting) {

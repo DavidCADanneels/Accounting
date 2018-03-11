@@ -2,7 +2,7 @@ package be.dafke.BasicAccounting.Goods;
 
 import be.dafke.BusinessModel.Article;
 import be.dafke.BusinessModel.Order;
-import be.dafke.BusinessModel.StockItem;
+import be.dafke.BusinessModel.OrderItem;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
@@ -15,7 +15,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class SalesOrdersViewDataTableModel extends SelectableTableModel<StockItem> {
+public class SalesOrdersViewDataTableModel extends SelectableTableModel<OrderItem> {
 	public static int NR_COL = 0;
 	public static int NAME_COL = 1;
 	public static int HS_COL = 2;
@@ -50,10 +50,10 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<StockIte
 	public Object getValueAt(int row, int col) {
 		if (order == null) return null;
 
-		StockItem stockItem = getObject(row, col);
-		if(stockItem==null) return null;
+		OrderItem orderItem = getObject(row, col);
+		if(orderItem ==null) return null;
 
-		Article article = stockItem.getArticle();
+		Article article = orderItem.getArticle();
 		if (article == null) return null;
 
 		if (col == NAME_COL) {
@@ -69,7 +69,7 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<StockIte
 			return article.getPurchasePrice();
 		}
 		if (col == NR_COL) {
-			return stockItem.getNumber();
+			return orderItem.getNumber();
 		}
 		return null;
 	}
@@ -80,7 +80,7 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<StockIte
 
 	public int getRowCount() {
 		if(order==null) return 0;
-		List<StockItem> businessObjects = order.getBusinessObjects();
+		List<OrderItem> businessObjects = order.getBusinessObjects();
 		if(businessObjects == null || businessObjects.size() == 0) return 0;
 		return businessObjects.size();
 	}
@@ -104,19 +104,19 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<StockIte
 // ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		StockItem stockItem = getObject(row,col);
+		OrderItem orderItem = getObject(row,col);
 		if(col == NR_COL){
 			int nr = (Integer) value;
-			stockItem.setNumber(nr);
-			order.setItem(stockItem);
+			orderItem.setNumber(nr);
+			order.setItem(orderItem);
 		}
 	}
 
 	@Override
-	public StockItem getObject(int row, int col) {
-		List<StockItem> stockItems = order.getBusinessObjects();
-		if(stockItems == null || stockItems.size() == 0) return null;
-		return stockItems.get(row);
+	public OrderItem getObject(int row, int col) {
+		List<OrderItem> orderItems = order.getBusinessObjects();
+		if(orderItems == null || orderItems.size() == 0) return null;
+		return orderItems.get(row);
 	}
 
 	public Order getOrder() {

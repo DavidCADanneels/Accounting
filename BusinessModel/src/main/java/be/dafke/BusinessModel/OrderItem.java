@@ -2,11 +2,11 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessObject;
 
-public class StockItem extends BusinessObject{
+public class OrderItem extends BusinessObject{
     private int number;
     private Article article;
 
-    public StockItem(Integer number, Article article) {
+    public OrderItem(Integer number, Article article) {
         this.number = number==null?0:number;
         this.article = article;
     }

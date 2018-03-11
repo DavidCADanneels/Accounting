@@ -20,7 +20,7 @@ import java.util.Calendar;
  */
 public class PurchaseOrdersViewPanel extends JPanel {
     private final JButton placeOrderButton, deliveredButton, payedButton;
-    private final SelectableTable<StockItem> table;
+    private final SelectableTable<OrderItem> table;
     private final PurchaseOrders purchaseOrders;
     private final PurchaseTotalsPanel purchaseTotalsPanel;
     private JComboBox<Order> comboBox;

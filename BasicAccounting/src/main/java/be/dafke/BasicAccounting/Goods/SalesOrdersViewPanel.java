@@ -14,7 +14,7 @@ import java.awt.*;
  */
 public class SalesOrdersViewPanel extends JPanel {
     private final JButton deliveredButton, payedButton;
-    private final SelectableTable<StockItem> table;
+    private final SelectableTable<OrderItem> table;
     private final SalesOrders salesOrders;
     private JComboBox<Order> comboBox;
     private JCheckBox payed, delivered;

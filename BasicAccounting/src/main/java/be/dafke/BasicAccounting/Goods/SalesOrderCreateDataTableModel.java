@@ -6,7 +6,6 @@ import be.dafke.ComponentModel.SelectableTableModel;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Predicate;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -14,7 +13,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class SalesOrderCreateDataTableModel extends SelectableTableModel<StockItem> {
+public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderItem> {
 	private final Articles articles;
 	public static int NR_COL = 0;
 	public static int NAME_COL = 1;
@@ -52,8 +51,8 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<StockIt
 	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
-		StockItem stockItem = getObject(row, col);
-		Article article = stockItem.getArticle();
+		OrderItem orderItem = getObject(row, col);
+		Article article = orderItem.getArticle();
 		if (article == null) return null;
 
 		if (col == NAME_COL) {
@@ -70,7 +69,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<StockIt
 		}
 		if (col == NR_COL) {
 			if (order==null) return null;
-			StockItem item = order.getBusinessObject(article);
+			OrderItem item = order.getBusinessObject(article);
 			return item==null?0:item.getNumber();
 		}
 		return null;
@@ -106,16 +105,16 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<StockIt
 // ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		StockItem stockItem = getObject(row,col);
+		OrderItem orderItem = getObject(row,col);
 		if(col == NR_COL){
 			int nr = (Integer) value;
-			stockItem.setNumber(nr);
-			order.setItem(stockItem);
+			orderItem.setNumber(nr);
+			order.setItem(orderItem);
 		}
 	}
 
 	@Override
-	public StockItem getObject(int row, int col) {
+	public OrderItem getObject(int row, int col) {
 		if(contact==null) return null;
 		List<Article> articleList = articles.getBusinessObjects();
 		if(articleList == null || articleList.size() == 0) return null;

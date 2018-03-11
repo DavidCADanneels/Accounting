@@ -19,7 +19,7 @@ import static be.dafke.BasicAccounting.Goods.PurchaseOrdersViewGUI.firePurchaseO
  */
 public class PurchaseOrderCreatePanel extends JPanel {
     private final JButton orderButton;
-    private final SelectableTable<StockItem> table;
+    private final SelectableTable<OrderItem> table;
     private Order order;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;

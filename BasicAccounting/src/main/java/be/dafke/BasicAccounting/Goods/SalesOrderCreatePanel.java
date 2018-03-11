@@ -17,7 +17,7 @@ import java.util.function.Predicate;
  */
 public class SalesOrderCreatePanel extends JPanel {
     private final JButton orderButton;
-    private final SelectableTable<StockItem> table;
+    private final SelectableTable<OrderItem> table;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
     private Articles articles;

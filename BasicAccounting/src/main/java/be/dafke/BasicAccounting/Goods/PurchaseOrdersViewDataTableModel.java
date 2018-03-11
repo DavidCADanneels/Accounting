@@ -6,7 +6,6 @@ import be.dafke.ComponentModel.SelectableTableModel;
 import java.math.BigDecimal;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Predicate;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -14,7 +13,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class PurchaseOrdersViewDataTableModel extends SelectableTableModel<StockItem> {
+public class PurchaseOrdersViewDataTableModel extends SelectableTableModel<OrderItem> {
 	public static int NR_COL = 0;
 	public static int NAME_COL = 1;
 	public static int HS_COL = 2;
@@ -49,10 +48,10 @@ public class PurchaseOrdersViewDataTableModel extends SelectableTableModel<Stock
 	public Object getValueAt(int row, int col) {
 		if (order == null) return null;
 
-		StockItem stockItem = getObject(row, col);
-		if(stockItem==null) return null;
+		OrderItem orderItem = getObject(row, col);
+		if(orderItem ==null) return null;
 
-		Article article = stockItem.getArticle();
+		Article article = orderItem.getArticle();
 		if (article == null) return null;
 
 		if (col == NAME_COL) {
@@ -68,7 +67,7 @@ public class PurchaseOrdersViewDataTableModel extends SelectableTableModel<Stock
 			return article.getPurchasePrice();
 		}
 		if (col == NR_COL) {
-			return stockItem.getNumber();
+			return orderItem.getNumber();
 		}
 		return null;
 	}
@@ -79,7 +78,7 @@ public class PurchaseOrdersViewDataTableModel extends SelectableTableModel<Stock
 
 	public int getRowCount() {
 		if(order==null) return 0;
-		List<StockItem> businessObjects = order.getBusinessObjects();
+		List<OrderItem> businessObjects = order.getBusinessObjects();
 		if(businessObjects == null || businessObjects.size() == 0) return 0;
 		return businessObjects.size();
 	}
@@ -107,10 +106,10 @@ public class PurchaseOrdersViewDataTableModel extends SelectableTableModel<Stock
 	}
 
 	@Override
-	public StockItem getObject(int row, int col) {
-		List<StockItem> stockItems = order.getBusinessObjects();
-		if(stockItems == null || stockItems.size() == 0) return null;
-		return stockItems.get(row);
+	public OrderItem getObject(int row, int col) {
+		List<OrderItem> orderItems = order.getBusinessObjects();
+		if(orderItems == null || orderItems.size() == 0) return null;
+		return orderItems.get(row);
 	}
 
 	public Order getOrder() {

@@ -72,8 +72,8 @@ public class PurchaseOrderIO {
                 String numberString = getValue(element, NUMBER);
                 int number = parseInt(numberString);
 
-                StockItem stockItem = new StockItem(number, article);
-                order.setItem(stockItem);
+                OrderItem orderItem = new OrderItem(number, article);
+                order.setItem(orderItem);
             }
             try {
                 purchaseOrders.addBusinessObject(order);
@@ -104,12 +104,12 @@ public class PurchaseOrderIO {
                                 "    <" + IS_DELIVERED + ">" + order.isDelivered() + "</" + IS_DELIVERED + ">\n" +
                                 "    <" + IS_PAYED + ">" + order.isPayed() + "</" + IS_PAYED + ">\n"
                 );
-                for (StockItem stockItem: order.getBusinessObjects()) {
-                    Article article = stockItem.getArticle();
+                for (OrderItem orderItem : order.getBusinessObjects()) {
+                    Article article = orderItem.getArticle();
                     writer.write(
                             "    <" + ARTICLE + ">\n" +
                                 "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                                "      <" + NUMBER + ">" + stockItem.getNumber() + "</" + NUMBER + ">\n" +
+                                "      <" + NUMBER + ">" + orderItem.getNumber() + "</" + NUMBER + ">\n" +
                                 "    </" + ARTICLE + ">\n"
                     );
                 }

@@ -3,7 +3,7 @@ package be.dafke.BusinessModel;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 
-public class Order extends StockItems{
+public class Order extends OrderItems {
     private Articles articles;
     private Contact customer, supplier;
     private boolean delivered, payed;
@@ -32,9 +32,9 @@ public class Order extends StockItems{
 
     public BigDecimal getTotalPurchasePriceExclVat() {
         BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
-        for (StockItem stockItem : getBusinessObjects()) {
-            Article article = stockItem.getArticle();
-            int number = stockItem.getNumber();
+        for (OrderItem orderItem : getBusinessObjects()) {
+            Article article = orderItem.getArticle();
+            int number = orderItem.getNumber();
             totalPurchaseExcl = totalPurchaseExcl.add(article.getPurchasePrice(number)).setScale(2, RoundingMode.HALF_DOWN);
         }
         return totalPurchaseExcl;
@@ -42,9 +42,9 @@ public class Order extends StockItems{
 
     public BigDecimal getTotalPurchaseVat() {
         BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
-        for (StockItem stockItem : getBusinessObjects()) {
-            Article article = stockItem.getArticle();
-            int number = stockItem.getNumber();
+        for (OrderItem orderItem : getBusinessObjects()) {
+            Article article = orderItem.getArticle();
+            int number = orderItem.getNumber();
             totalPurchaseExcl = totalPurchaseExcl.add(article.getPurchaseVat(number)).setScale(2, RoundingMode.HALF_DOWN);
         }
         return totalPurchaseExcl;
@@ -52,9 +52,9 @@ public class Order extends StockItems{
 
     public BigDecimal getTotalPurchasePriceInclVat() {
         BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
-        for (StockItem stockItem : getBusinessObjects()) {
-            Article article = stockItem.getArticle();
-            int number = stockItem.getNumber();
+        for (OrderItem orderItem : getBusinessObjects()) {
+            Article article = orderItem.getArticle();
+            int number = orderItem.getNumber();
             totalPurchaseExcl = totalPurchaseExcl.add(article.getPurchasePriceWithVat(number)).setScale(2, RoundingMode.HALF_DOWN);
         }
         return totalPurchaseExcl;
@@ -72,9 +72,9 @@ public class Order extends StockItems{
         PURCHASE, SALE;
     }
 
-    public void setItem(StockItem stockItem){
-        Article article = stockItem.getArticle();
-        int totalNumber = stockItem.getNumber();
+    public void setItem(OrderItem orderItem){
+        Article article = orderItem.getArticle();
+        int totalNumber = orderItem.getNumber();
         if(totalNumber<=0){
             stock.remove(article);
         } else {
@@ -82,7 +82,7 @@ public class Order extends StockItems{
         }
     }
 
-    public StockItem getBusinessObject(String name){
+    public OrderItem getBusinessObject(String name){
         Article article = articles.getBusinessObject(name);
         return getBusinessObject(article);
     }

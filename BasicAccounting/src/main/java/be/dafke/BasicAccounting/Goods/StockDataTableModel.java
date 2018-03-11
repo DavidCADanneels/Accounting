@@ -1,12 +1,8 @@
 package be.dafke.BasicAccounting.Goods;
 
-import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
@@ -15,7 +11,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class StockDataTableModel extends SelectableTableModel<StockItem> {
+public class StockDataTableModel extends SelectableTableModel<OrderItem> {
 	private final Stock stock;
 	public static int NR_IN_STOCK_COL = 0;
 	public static int ARTIKEL_COL = 1;
@@ -43,15 +39,15 @@ public class StockDataTableModel extends SelectableTableModel<StockItem> {
 	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
-		StockItem stockItem = getObject(row,col);
+		OrderItem orderItem = getObject(row,col);
 		if (col == NR_IN_STOCK_COL) {
-			return stockItem.getNumber();
+			return orderItem.getNumber();
 		}
 		if (col == ARTIKEL_COL) {
-			return stockItem.getArticle();
+			return orderItem.getArticle();
 		}
 		if (col == SUPPLIER_COL) {
-			Article article = stockItem.getArticle();
+			Article article = orderItem.getArticle();
 			return article==null?null:article.getSupplier();
 		}
 		return null;
@@ -87,7 +83,7 @@ public class StockDataTableModel extends SelectableTableModel<StockItem> {
 // ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		StockItem stockItem = getObject(row,col);
+		OrderItem orderItem = getObject(row,col);
 		if(col == ARTIKEL_COL){
 			// non-editable
 		}
@@ -100,7 +96,7 @@ public class StockDataTableModel extends SelectableTableModel<StockItem> {
 	}
 
 	@Override
-	public StockItem getObject(int row, int col) {
+	public OrderItem getObject(int row, int col) {
 		return stock.getBusinessObjects().get(row);
 	}
 }

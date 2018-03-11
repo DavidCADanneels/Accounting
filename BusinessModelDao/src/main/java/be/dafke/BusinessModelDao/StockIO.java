@@ -32,8 +32,8 @@ public class StockIO {
             String numberString = getValue(element, NUMBER);
             int number = parseInt(numberString);
 
-            StockItem stockItem = new StockItem(number, article);
-            stock.addBusinessObject(stockItem);
+            OrderItem orderItem = new OrderItem(number, article);
+            stock.addBusinessObject(orderItem);
         }
     }
 
@@ -43,12 +43,12 @@ public class StockIO {
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(STOCK, 2));
-            for (StockItem stockItem : stock.getBusinessObjects()) {
-                Article article = stockItem.getArticle();
+            for (OrderItem orderItem : stock.getBusinessObjects()) {
+                Article article = orderItem.getArticle();
                 writer.write(
                          "  <" + ARTICLE + ">\n" +
                              "    <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                             "    <" + NUMBER + ">" + stockItem.getNumber() + "</" + NUMBER + ">\n" +
+                             "    <" + NUMBER + ">" + orderItem.getNumber() + "</" + NUMBER + ">\n" +
                              "  </" + ARTICLE + ">\n"
                 );
             }
