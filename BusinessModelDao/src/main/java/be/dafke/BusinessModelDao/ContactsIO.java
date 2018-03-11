@@ -42,6 +42,8 @@ public class ContactsIO {
             contact.setSupplier(Boolean.valueOf(getValue(element, SUPPLIER)));
             contact.setVATTotal(Utils.parseBigDecimal(getValue(element, VAT_TOTAL)));
             contact.setTurnOver(Utils.parseBigDecimal(getValue(element, TURNOVER)));
+            String accountName = getValue(element, ACCOUNT);
+            contact.setAccount(accounting.getAccounts().getBusinessObject(accountName));
             try {
                 contacts.addBusinessObject(contact);
             } catch (EmptyNameException | DuplicateNameException e) {
@@ -77,6 +79,7 @@ public class ContactsIO {
                         "    <"+TURNOVER+">" + contact.getTurnOver() + "</"+TURNOVER+">\n" +
                         "    <"+CUSTOMER+">" + contact.isCustomer() + "</"+CUSTOMER+">\n" +
                         "    <"+SUPPLIER+">" + contact.isSupplier() + "</"+SUPPLIER+">\n" +
+                        "    <"+ACCOUNT+">" + contact.getAccount() + "</"+ACCOUNT+">\n" +
                         "  </"+CONTACT+">\n"
                 );
             }
