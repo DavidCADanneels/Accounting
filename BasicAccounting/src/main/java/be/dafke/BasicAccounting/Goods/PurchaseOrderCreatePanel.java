@@ -52,6 +52,7 @@ public class PurchaseOrderCreatePanel extends JPanel {
             PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
             order.setSupplier(contact);
             try {
+                // TODO: remove empty OrderItem's
                 purchaseOrders.addBusinessObject(order);
                 purchaseOrderCreateDataTableModel.setOrder(order);
                 firePurchaseOrderAddedOrRemovedForAll();

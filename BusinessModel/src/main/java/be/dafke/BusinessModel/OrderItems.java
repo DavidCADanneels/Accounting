@@ -1,57 +1,64 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class OrderItems extends BusinessCollection<OrderItem>{
-    protected HashMap<Article,Integer> stock;
-
-    public OrderItems() {
-        super();
-        stock = new HashMap<>();
-    }
-
-    public int getNumberInStock(Article article){
-        return stock.getOrDefault(article, 0);
-    }
-
-    public OrderItem addBusinessObject(OrderItem orderItem){
+    public OrderItem addBusinessObject(OrderItem orderItem) {
         Article article = orderItem.getArticle();
-        int numberToAdd = orderItem.getNumberOfUnits();
-        int numberInStock = getNumberInStock(article);
-        stock.put(article, numberInStock+numberToAdd);
-        return orderItem;
-    }
-
-    public ArrayList<OrderItem> getBusinessObjects() {
-        ArrayList<OrderItem> result = new ArrayList<>();
-        for (Article article : stock.keySet()){
-            Integer number = stock.get(article);
-            OrderItem orderItem = new OrderItem(number, article);
-            result.add(orderItem);
+        String articleName = article.getName();
+        orderItem.setName(articleName);
+        try {
+            return super.addBusinessObject(orderItem);
+        } catch (EmptyNameException e) {
+            // Cannot occur since we set the name above
+            e.printStackTrace();
+            return null;
+        } catch (DuplicateNameException e) {
+            int unitsToAdd = orderItem.getNumberOfUnits();
+            int itemsToAdd = orderItem.getNumberOfItems();
+            OrderItem itemInStock = getBusinessObject(articleName);
+            if(itemInStock==null){
+                // cannot be null since DuplicateNameException
+                return null;
+            }
+            itemInStock.addNumberOfItems(itemsToAdd);
+            itemInStock.addNumberOfUnits(unitsToAdd);
+            setOrderItem(itemInStock);
+            return itemInStock;
         }
-        return result;
     }
 
     public void removeBusinessObject(OrderItem orderItem){
         Article article = orderItem.getArticle();
-        int numberToRemove = orderItem.getNumberOfUnits();
-        int numberInStock = getNumberInStock(article);
-        int result = numberInStock-numberToRemove;
-        if (result < 0){
-            // TODO: throw error
-        } else if (result == 0){
-            stock.remove(article);
-        } else {
-            stock.put(article, result);
+        String articleName = article.getName();
+        orderItem.setName(articleName);
+        try {
+            super.removeBusinessObject(orderItem);
+        } catch (NotEmptyException e1) {
+            int unitsToRemove = orderItem.getNumberOfUnits();
+            int itemsToRemove = orderItem.getNumberOfItems();
+            OrderItem itemInStock = getBusinessObject(articleName);
+            if (itemInStock != null) {
+                itemInStock.removeNumberOfItems(itemsToRemove);
+                itemInStock.removeNumberOfUnits(unitsToRemove);
+                setOrderItem(itemInStock);
+            }
         }
     }
 
-    public OrderItem getBusinessObject(Article article){
-        Integer numberInStock = stock.get(article);
-        return new OrderItem(numberInStock==null?0:numberInStock, article);
+    public void setOrderItem(OrderItem orderItem){
+        TreeMap<String, String> keyMap = orderItem.getUniqueProperties();
+        for (Map.Entry<String, String> entry : keyMap.entrySet()) {
+            // This will not throw any exceptions: we already handled them above.
+            addBusinessObject(orderItem, entry);
+        }
     }
-
 }

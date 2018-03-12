@@ -38,14 +38,4 @@ public class PurchaseOrder extends Order {
         }
         return totalPurchaseExcl;
     }
-
-    public void setOrderItem(OrderItem orderItem){
-        Article article = orderItem.getArticle();
-        int totalNumber = orderItem.getNumberOfUnits();
-        if(totalNumber<=0){
-            stock.remove(article);
-        } else {
-            stock.put(article, totalNumber);
-        }
-    }
 }

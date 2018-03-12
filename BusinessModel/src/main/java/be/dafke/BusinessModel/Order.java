@@ -1,17 +1,21 @@
 package be.dafke.BusinessModel;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-public abstract class Order extends OrderItems {
-    private Articles articles;
+public class Order extends OrderItems {
+//    private Articles articles;
     private Contact customer, supplier;
     private boolean delivered, payed;
     private boolean placed;
 
     public Order(Articles articles) {
         super();
-        this.articles = articles;
+//        setArticles(articles);
+//    }
+//
+//    private void setArticles(Articles articles){
+//        this.articles = articles;
+        articles.getBusinessObjects().forEach( article -> {
+            addBusinessObject(new OrderItem(0,0,article));
+        });
     }
 
     public void setDelivered(boolean delivered) {
@@ -36,13 +40,6 @@ public abstract class Order extends OrderItems {
 
     public void setPlaced(boolean placed) {
         this.placed = placed;
-    }
-
-    public abstract void setOrderItem(OrderItem orderItem);
-
-    public OrderItem getBusinessObject(String name){
-        Article article = articles.getBusinessObject(name);
-        return getBusinessObject(article);
     }
 
     public Contact getCustomer() {

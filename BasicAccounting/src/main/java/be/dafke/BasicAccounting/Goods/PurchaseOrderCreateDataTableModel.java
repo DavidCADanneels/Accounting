@@ -56,6 +56,7 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 // ===============
 	public Object getValueAt(int row, int col) {
 		OrderItem orderItem = getObject(row, col);
+		if(orderItem==null) return null;
 		Article article = orderItem.getArticle();
 		if (article == null) return null;
 
@@ -73,7 +74,7 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 		}
 		if (col == NR_COL) {
 			if (order==null) return null;
-			OrderItem item = order.getBusinessObject(article);
+			OrderItem item = order.getBusinessObject(article.getName());
 			return item==null?0:item.getNumberOfUnits();
 		}
 		return null;
@@ -125,7 +126,7 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 		List<Article> articleList = articles.getBusinessObjects(filter);
 		if(articleList == null || articleList.size() == 0) return null;
 		Article article = articleList.get(row);
-		return order.getBusinessObject(article);
+		return order.getBusinessObject(article.getName());
 	}
 
 	public void setContact(Contact contact) {

@@ -52,6 +52,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 // ===============
 	public Object getValueAt(int row, int col) {
 		OrderItem orderItem = getObject(row, col);
+		if (orderItem==null) return null;
 		Article article = orderItem.getArticle();
 		if (article == null) return null;
 
@@ -69,7 +70,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 		}
 		if (col == NR_COL) {
 			if (order==null) return null;
-			OrderItem item = order.getBusinessObject(article);
+			OrderItem item = order.getBusinessObject(article.getName());
 			return item==null?0:item.getNumberOfItems();
 		}
 		return null;
@@ -110,6 +111,8 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 			int nr = (Integer) value;
 			orderItem.setNumberOfItems(nr);
 			orderItem.calculateNumberOfUnits();
+			order.setOrderItem(orderItem);
+			// totalsPanel.fireOrderContentChanged(order);
 		}
 	}
 
@@ -119,7 +122,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 		List<Article> articleList = articles.getBusinessObjects();
 		if(articleList == null || articleList.size() == 0) return null;
 		Article article = articleList.get(row);
-		return order.getBusinessObject(article);
+		return order.getBusinessObject(article.getName());
 	}
 
 	public SalesOrder getOrder() {
