@@ -21,6 +21,10 @@ public class OrderItem extends BusinessObject{
         this.article = article;
     }
 
+    public boolean isDeletable() {
+        return numberOfItems==0 && numberOfUnits==0;
+    }
+
     public int getNumberOfUnits() {
         return numberOfUnits;
     }
@@ -38,11 +42,19 @@ public class OrderItem extends BusinessObject{
     }
 
     public void addNumberOfItems(int numberOfItems) {
-        this.numberOfItems = numberOfItems;
+        this.numberOfItems += numberOfItems;
     }
 
     public void addNumberOfUnits(int numberOfUnits) {
         this.numberOfUnits += numberOfUnits;
+    }
+
+    public void removeNumberOfItems(int numberOfItems) {
+        this.numberOfItems -= numberOfItems;
+    }
+
+    public void removeNumberOfUnits(int numberOfUnits) {
+        this.numberOfUnits -= numberOfUnits;
     }
 
     public void calculateNumberOfItems(){
