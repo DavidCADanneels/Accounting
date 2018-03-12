@@ -8,6 +8,7 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.util.function.Predicate;
 
 import static be.dafke.BasicAccounting.Goods.PurchaseOrdersViewGUI.firePurchaseOrderAddedOrRemovedForAll;
@@ -52,7 +53,13 @@ public class PurchaseOrderCreatePanel extends JPanel {
             PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
             order.setSupplier(contact);
             try {
-                // TODO: remove empty OrderItem's
+                order.getBusinessObjects().forEach(orderItem -> {
+                    int numberOfUnits = orderItem.getNumberOfUnits();
+                    int numberOfItems = orderItem.getNumberOfItems();
+                    if (numberOfUnits==0 && numberOfItems==0) {
+                        order.removeBusinessObject(orderItem);
+                    }
+                });
                 purchaseOrders.addBusinessObject(order);
                 purchaseOrderCreateDataTableModel.setOrder(order);
                 firePurchaseOrderAddedOrRemovedForAll();
