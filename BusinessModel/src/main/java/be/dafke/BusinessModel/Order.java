@@ -6,12 +6,11 @@ public class Order extends OrderItems {
     private boolean delivered, payed;
     private boolean placed;
 
-    public Order(Articles articles) {
+    public Order() {
         super();
-//        setArticles(articles);
-//    }
-//
-//    private void setArticles(Articles articles){
+    }
+
+    public void setArticles(Articles articles){
 //        this.articles = articles;
         articles.getBusinessObjects().forEach( article -> {
             addBusinessObject(new OrderItem(0,0,article));
@@ -56,5 +55,15 @@ public class Order extends OrderItems {
 
     public void setSupplier(Contact supplier) {
         this.supplier = supplier;
+    }
+
+    public void removeEmptyOrderItems() {
+        getBusinessObjects().forEach(orderItem -> {
+            int numberOfUnits = orderItem.getNumberOfUnits();
+            int numberOfItems = orderItem.getNumberOfItems();
+            if (numberOfUnits==0 && numberOfItems==0) {
+                removeBusinessObject(orderItem);
+            }
+        });
     }
 }

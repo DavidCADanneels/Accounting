@@ -32,7 +32,9 @@ public class PurchaseOrderCreatePanel extends JPanel {
     public PurchaseOrderCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
-        order = new PurchaseOrder(articles);
+        order = new PurchaseOrder();
+        order.setArticles(articles);
+
         PurchaseTotalsPanel purchaseTotalsPanel = new PurchaseTotalsPanel();
         purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null, order, purchaseTotalsPanel);
         table = new SelectableTable<>(purchaseOrderCreateDataTableModel);
@@ -53,18 +55,12 @@ public class PurchaseOrderCreatePanel extends JPanel {
             PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
             order.setSupplier(contact);
             try {
-                order.getBusinessObjects().forEach(orderItem -> {
-                    int numberOfUnits = orderItem.getNumberOfUnits();
-                    int numberOfItems = orderItem.getNumberOfItems();
-                    if (numberOfUnits==0 && numberOfItems==0) {
-                        order.removeBusinessObject(orderItem);
-                    }
-                });
+                order.removeEmptyOrderItems();
                 purchaseOrders.addBusinessObject(order);
+                order = new PurchaseOrder();
+                order.setArticles(articles);
                 purchaseOrderCreateDataTableModel.setOrder(order);
                 firePurchaseOrderAddedOrRemovedForAll();
-
-                order = new PurchaseOrder(articles);
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {

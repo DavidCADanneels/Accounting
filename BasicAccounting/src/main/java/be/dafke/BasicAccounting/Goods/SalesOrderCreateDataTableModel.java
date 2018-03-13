@@ -24,13 +24,15 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private Contact contact;
 	private SalesOrder order;
+	private SaleTotalsPanel saleTotalsPanel;
 
-	public SalesOrderCreateDataTableModel(Articles articles, Contact contact) {
+	public SalesOrderCreateDataTableModel(Articles articles, Contact contact, SalesOrder order, SaleTotalsPanel saleTotalsPanel) {
+		this.saleTotalsPanel = saleTotalsPanel;
 		this.articles = articles;
 		this.contact = contact;
+		this.order = order;
 		setColumnNames();
 		setColumnClasses();
-		order = new SalesOrder(articles);
 	}
 
 	private void setColumnClasses() {
@@ -112,7 +114,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 			orderItem.setNumberOfItems(nr);
 			orderItem.calculateNumberOfUnits();
 			order.setOrderItem(orderItem);
-			// totalsPanel.fireOrderContentChanged(order);
+			saleTotalsPanel.fireOrderContentChanged(order);
 		}
 	}
 
@@ -125,17 +127,14 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 		return order.getBusinessObject(article.getName());
 	}
 
-	public SalesOrder getOrder() {
-		return order;
-	}
-
 	public void setContact(Contact contact) {
 		this.contact = contact;
 		order.setCustomer(contact);
 		fireTableDataChanged();
 	}
 
-	public void newOrder() {
-		order = new SalesOrder(articles);
+	public void setOrder(SalesOrder order) {
+		this.order = order;
+		fireTableDataChanged();
 	}
 }

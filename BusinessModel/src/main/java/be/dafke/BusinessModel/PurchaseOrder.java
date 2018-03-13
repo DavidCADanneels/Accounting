@@ -5,10 +5,6 @@ import java.math.RoundingMode;
 
 public class PurchaseOrder extends Order {
 
-    public PurchaseOrder(Articles articles) {
-        super(articles);
-    }
-
     public BigDecimal getTotalPurchasePriceExclVat() {
         BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {

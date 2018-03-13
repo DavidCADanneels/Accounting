@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Goods;
 
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -18,6 +19,7 @@ import java.util.function.Predicate;
 public class SalesOrderCreatePanel extends JPanel {
     private final JButton orderButton;
     private final SelectableTable<OrderItem> table;
+    private SalesOrder order;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
     private Articles articles;
@@ -29,7 +31,11 @@ public class SalesOrderCreatePanel extends JPanel {
     public SalesOrderCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
-        salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, null);
+        order = new SalesOrder();
+        order.setArticles(articles);
+
+        SaleTotalsPanel saleTotalsPanel = new SaleTotalsPanel();
+        salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, null, order, saleTotalsPanel);
         table = new SelectableTable<>(salesOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);
@@ -45,12 +51,15 @@ public class SalesOrderCreatePanel extends JPanel {
 
         orderButton = new JButton("Book Order");
         orderButton.addActionListener(e -> {
-            SalesOrder order = salesOrderCreateDataTableModel.getOrder();
             SalesOrders salesOrders = accounting.getSalesOrders();
             order.setCustomer(contact);
             try {
+                order.removeEmptyOrderItems();
                 salesOrders.addBusinessObject(order);
-                salesOrderCreateDataTableModel.newOrder();
+                order = new SalesOrder();
+                order.setArticles(articles);
+                salesOrderCreateDataTableModel.setOrder(order);
+//                fireSalesOrderAddedOrRemovedForAll();
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {
@@ -58,36 +67,14 @@ public class SalesOrderCreatePanel extends JPanel {
             }
         });
         JPanel south = new JPanel(new BorderLayout());
-        JPanel totals = createTotalPanel();
         south.add(orderButton, BorderLayout.SOUTH);
-        south.add(totals, BorderLayout.CENTER);
+        south.add(saleTotalsPanel, BorderLayout.CENTER);
 
         JScrollPane scrollPane = new JScrollPane(table);
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
         add(comboBox, BorderLayout.NORTH);
         add(south, BorderLayout.SOUTH);
-    }
-
-    private JPanel createTotalPanel() {
-        JPanel panel = new JPanel();
-        panel.setLayout(new GridLayout(0,2));
-
-        textField1 = new JTextField(10);
-        textField2 = new JTextField(10);
-        textField3 = new JTextField(10);
-        textField1.setEditable(false);
-        textField2.setEditable(false);
-        textField3.setEditable(false);
-
-        panel.add(new JLabel("Total (excl. VAT):"));
-        panel.add(textField1);
-        panel.add(new JLabel("Total VAT:"));
-        panel.add(textField2);
-        panel.add(new JLabel("Total (incl. VAT):"));
-        panel.add(textField3);
-
-        return panel;
     }
 
     public void fireCustomerAddedOrRemoved() {
