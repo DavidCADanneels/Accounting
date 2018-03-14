@@ -43,9 +43,9 @@ public class ArticleTest {
     public void settersAndGetters() {
         Article article = createArticle();
         article.setHSCode(hsCode);
-        article.setVatRate(vatRate);
+        article.setPurchaseVatRate(vatRate);
         assertEquals(hsCode, article.getHSCode());
-        assertEquals(vatRate, article.getVatRate());
+        assertEquals(vatRate, article.getPurchaseVatRate());
     }
 
     @Test

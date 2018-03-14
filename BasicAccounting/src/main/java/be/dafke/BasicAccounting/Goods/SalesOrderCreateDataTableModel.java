@@ -62,7 +62,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 			return article.getName();
 		}
 		if (col == VAT_COL) {
-			return article.getVatRate();
+			return article.getPurchaseVatRate();
 		}
 		if (col == HS_COL) {
 			return article.getHSCode();

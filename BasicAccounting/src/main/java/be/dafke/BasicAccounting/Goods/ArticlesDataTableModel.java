@@ -1,20 +1,15 @@
 package be.dafke.BasicAccounting.Goods;
 
-import be.dafke.BasicAccounting.Accounts.AccountDataModel;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -24,53 +19,96 @@ import static java.util.ResourceBundle.getBundle;
 
 public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 	private final Articles articles;
-	public static int NAME_COL = 0;
-	public static int ITEMS_PER_UNIT_COL = 1;
-	public static int HS_COL = 2;
-	public static int PRICE_COL = 3;
-	public static int VAT_COL = 4;
-	public static int SUPPLIER_COL = 5;
+	public static int UNIT_NAME_COL = 0;
+	public static int ITEM_NAME_COL = 1;
+	public static int ITEMS_PER_UNIT_COL = 2;
+	public static int HS_COL = 3;
+	public static int PURCHASE_PRICE_COL = 4;
+	public static int PURCHASE_VAT_COL = 5;
+	public static int SUPPLIER_COL = 6;
+	public static int SALE_SINGLE_COL = 7;
+	public static int SALE_PROMO_COL = 8;
+	public static int SALE_SINGLE_INCL_COL = 9;
+	public static int SALE_PROMO_INCL_COL = 10;
+	public static int MIN_NR_PROMO_COL = 11;
+	public static int GAIN_ON_SINGLE_COL = 12;
+	public static int GAIN_ON_PROMO_COL = 13;
+	public static int NR_OF_COL = 14;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
+	private List<Integer> editableColumns = new ArrayList<>();
 
 	public ArticlesDataTableModel(Articles articles) {
 		this.articles = articles;
 		setColumnNames();
 		setColumnClasses();
+		setEditableColumns();
+	}
+
+	private void setEditableColumns() {
+		editableColumns.add(UNIT_NAME_COL);
+		editableColumns.add(ITEM_NAME_COL);
+		editableColumns.add(ITEMS_PER_UNIT_COL);
+		editableColumns.add(HS_COL);
+		editableColumns.add(PURCHASE_PRICE_COL);
+		editableColumns.add(PURCHASE_VAT_COL);
+		editableColumns.add(SUPPLIER_COL);
+		editableColumns.add(SALE_SINGLE_INCL_COL);
+		editableColumns.add(SALE_PROMO_INCL_COL);
+		editableColumns.add(MIN_NR_PROMO_COL);
 	}
 
 	private void setColumnClasses() {
-		columnClasses.put(NAME_COL, String.class);
+		columnClasses.put(UNIT_NAME_COL, String.class);
+		columnClasses.put(ITEM_NAME_COL, String.class);
 		columnClasses.put(ITEMS_PER_UNIT_COL, Integer.class);
 		columnClasses.put(HS_COL, String.class);
-		columnClasses.put(PRICE_COL, BigDecimal.class);
-		columnClasses.put(VAT_COL, Integer.class);
+		columnClasses.put(PURCHASE_PRICE_COL, BigDecimal.class);
+		columnClasses.put(PURCHASE_VAT_COL, Integer.class);
 		columnClasses.put(SUPPLIER_COL, Contact.class);
+		columnClasses.put(SALE_SINGLE_COL, BigDecimal.class);
+		columnClasses.put(SALE_PROMO_COL, BigDecimal.class);
+		columnClasses.put(SALE_SINGLE_INCL_COL, BigDecimal.class);
+		columnClasses.put(SALE_PROMO_INCL_COL, BigDecimal.class);
+		columnClasses.put(MIN_NR_PROMO_COL, Integer.class);
+		columnClasses.put(GAIN_ON_SINGLE_COL, BigDecimal.class);
+		columnClasses.put(GAIN_ON_PROMO_COL, BigDecimal.class);
 	}
 
 	private void setColumnNames() {
-		columnNames.put(NAME_COL, getBundle("Accounting").getString("ARTICLE_NAME"));
+		columnNames.put(UNIT_NAME_COL, getBundle("Accounting").getString("ARTICLE_UNIT_NAME"));
+		columnNames.put(ITEM_NAME_COL, getBundle("Accounting").getString("ARTICLE_ITEM_NAME"));
 		columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ARTICLE_ITEMS_PER_UNIT"));
 		columnNames.put(HS_COL, getBundle("Accounting").getString("ARTICLE_HS"));
-		columnNames.put(PRICE_COL, getBundle("Accounting").getString("ARTICLE_PRICE"));
-		columnNames.put(VAT_COL, getBundle("Accounting").getString("ARTICLE_VAT"));
+		columnNames.put(PURCHASE_PRICE_COL, getBundle("Accounting").getString("ARTICLE_PRICE"));
+		columnNames.put(PURCHASE_VAT_COL, getBundle("Accounting").getString("ARTICLE_VAT"));
 		columnNames.put(SUPPLIER_COL, getBundle("Contacts").getString("SUPPLIER"));
+		columnNames.put(SALE_SINGLE_COL, getBundle("Accounting").getString("SALE_SINGLE_EXCL"));
+		columnNames.put(SALE_PROMO_COL, getBundle("Accounting").getString("SALE_PROMO_EXCL"));
+		columnNames.put(SALE_SINGLE_INCL_COL, getBundle("Accounting").getString("SALE_SINGLE_INCL"));
+		columnNames.put(SALE_PROMO_INCL_COL, getBundle("Accounting").getString("SALE_PROMO_INCL"));
+		columnNames.put(MIN_NR_PROMO_COL, getBundle("Accounting").getString("SALE_MIN_NR_PROMO"));
+		columnNames.put(GAIN_ON_SINGLE_COL, getBundle("Accounting").getString("GAIN_ON_SINGLE"));
+		columnNames.put(GAIN_ON_PROMO_COL, getBundle("Accounting").getString("GAIN_ON_PROMO"));
 	}
 	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
 		Article article = articles.getBusinessObjects().get(row);
 		if(article==null) return null;
-		if (col == NAME_COL) {
+		if (col == UNIT_NAME_COL) {
 			return article.getName();
 		}
-		if (col == VAT_COL) {
-			return article.getVatRate();
+		if (col == ITEM_NAME_COL) {
+			return article.getItemName();
+		}
+		if (col == PURCHASE_VAT_COL) {
+			return article.getPurchaseVatRate();
 		}
 		if (col == HS_COL) {
 			return article.getHSCode();
 		}
-		if (col == PRICE_COL) {
+		if (col == PURCHASE_PRICE_COL) {
 			return article.getPurchasePrice();
 		}
 		if (col == SUPPLIER_COL) {
@@ -79,11 +117,40 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		if (col == ITEMS_PER_UNIT_COL) {
 			return article.getItemsPerUnit();
 		}
+		if (col == SALE_SINGLE_COL) {
+			BigDecimal salesPriceSingleWithoutVat = article.getSalesPriceSingleWithoutVat();
+			return salesPriceSingleWithoutVat!=null?salesPriceSingleWithoutVat:BigDecimal.ZERO;
+		}
+		if (col == SALE_PROMO_COL) {
+			BigDecimal salesPricePromoWithoutVat = article.getSalesPricePromoWithoutVat();
+			return salesPricePromoWithoutVat!=null?salesPricePromoWithoutVat:BigDecimal.ZERO;
+		}
+		if (col == SALE_SINGLE_INCL_COL) {
+			BigDecimal salesPriceSingleWithVat = article.getSalesPriceSingleWithVat();
+			return salesPriceSingleWithVat!=null?salesPriceSingleWithVat:BigDecimal.ZERO;
+		}
+		if (col == SALE_PROMO_INCL_COL) {
+			BigDecimal salesPricePromoWithVat = article.getSalesPricePromoWithVat();
+			return salesPricePromoWithVat!=null?salesPricePromoWithVat:BigDecimal.ZERO;
+		}
+		if (col == MIN_NR_PROMO_COL) {
+			return article.getMinimumNumberForReduction();
+		}
+		if (col == GAIN_ON_SINGLE_COL) {
+			BigDecimal salesPriceSingleWithoutVat = article.getSalesPriceSingleWithoutVat();
+			if(salesPriceSingleWithoutVat==null) return BigDecimal.ZERO;
+			return article.getProfit(salesPriceSingleWithoutVat);
+		}
+		if (col == GAIN_ON_PROMO_COL) {
+			BigDecimal salesPricePromoWithoutVat = article.getSalesPricePromoWithoutVat();
+			if(salesPricePromoWithoutVat==null) return BigDecimal.ZERO;
+			return article.getProfit(salesPricePromoWithoutVat);
+		}
 		return null;
 	}
 
 	public int getColumnCount() {
-		return columnNames.size();
+		return NR_OF_COL;
 	}
 
 	public int getRowCount() {
@@ -105,7 +172,7 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return true;
+		return editableColumns.contains(col);
 	}
 
 // DE SET METHODEN
@@ -113,14 +180,14 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 	@Override
 	public void setValueAt(Object value, int row, int col) {
 		Article article = getObject(row,col);
-		if(col == PRICE_COL){
+		if(col == PURCHASE_PRICE_COL){
             article.setPurchasePrice((BigDecimal) value);
 		}
 		if(col == HS_COL){
             article.setHSCode((String) value);
 		}
-		if(col == VAT_COL){
-            article.setVatRate((Integer) value);
+		if(col == PURCHASE_VAT_COL){
+            article.setPurchaseVatRate((Integer) value);
 		}
 		if(col == SUPPLIER_COL){
             article.setSupplier((Contact) value);
@@ -128,7 +195,19 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		if(col == ITEMS_PER_UNIT_COL){
             article.setItemsPerUnit((Integer) value);
 		}
-		if(col == NAME_COL) {
+		if(col == MIN_NR_PROMO_COL){
+            article.setMinimumNumberForReduction((Integer) value);
+		}
+		if (col == SALE_SINGLE_INCL_COL) {
+			article.setSalesPriceSingleWithVat((BigDecimal) value);
+		}
+		if (col == SALE_PROMO_INCL_COL) {
+			article.setSalesPricePromoWithVat((BigDecimal) value);
+		}
+		if(col == ITEM_NAME_COL){
+            article.setItemName((String) value);
+		}
+		if(col == UNIT_NAME_COL) {
 //            article.setName((String) value);
 			String oldName = article.getName();
 			String newName = (String) value;
@@ -142,6 +221,7 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 				}
 			}
 		}
+		fireTableDataChanged();
 	}
 
 	@Override

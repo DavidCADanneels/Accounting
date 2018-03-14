@@ -7,7 +7,9 @@ import java.util.function.Predicate;
 
 public class Article extends BusinessObject{
     private String HSCode = "";
-    private Integer vatRate = 6;
+    private String itemName = "";
+    private Integer purchaseVatRate = 0;
+    private Integer salesVatRate = 6;
     private Integer itemsPerUnit = 1;
     private Integer minimumNumberForReduction = 10;
     private BigDecimal purchasePrice = null;
@@ -23,8 +25,16 @@ public class Article extends BusinessObject{
         this.HSCode = HSCode;
     }
 
-    public void setVatRate(Integer vatRate) {
-        this.vatRate = vatRate;
+    public void setItemName(String itemName) {
+        this.itemName = itemName;
+    }
+
+    public void setSalesVatRate(Integer salesVatRate) {
+        this.salesVatRate = salesVatRate;
+    }
+
+    public void setPurchaseVatRate(Integer purchaseVatRate) {
+        this.purchaseVatRate = purchaseVatRate;
     }
 
     public void setPurchasePrice(BigDecimal purchasePrice) {
@@ -79,8 +89,34 @@ public class Article extends BusinessObject{
         return HSCode;
     }
 
-    public Integer getVatRate() {
-        return vatRate;
+    public String getItemName() {
+        return itemName;
+    }
+
+    public Integer getSalesVatRate() {
+        return salesVatRate;
+    }
+
+    public BigDecimal getSalesPriceSingleWithVat() {
+        return salesPriceSingleWithVat;
+    }
+
+    public BigDecimal getSalesPricePromoWithVat() {
+        return salesPricePromoWithVat;
+    }
+
+    public BigDecimal getSalesPriceSingleWithoutVat() {
+        if(salesPriceSingleWithVat==null) return null;
+        return salesPriceSingleWithVat.divide(getFactor());
+    }
+
+    public BigDecimal getSalesPricePromoWithoutVat() {
+        if(salesPricePromoWithVat==null) return null;
+        return salesPricePromoWithVat.divide(getFactor());
+    }
+
+    public Integer getPurchaseVatRate() {
+        return purchaseVatRate;
     }
 
     public BigDecimal getPurchasePrice(int number){
@@ -97,7 +133,7 @@ public class Article extends BusinessObject{
 
     // return 0.06
     private BigDecimal getPercentage(){
-        return divide(new BigDecimal(vatRate),100);
+        return divide(new BigDecimal(purchaseVatRate),100);
     }
 
     // return 1.06
