@@ -28,12 +28,13 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 	public static int SUPPLIER_COL = 6;
 	public static int SALE_SINGLE_COL = 7;
 	public static int SALE_PROMO_COL = 8;
-	public static int SALE_SINGLE_INCL_COL = 9;
-	public static int SALE_PROMO_INCL_COL = 10;
-	public static int MIN_NR_PROMO_COL = 11;
-	public static int GAIN_ON_SINGLE_COL = 12;
-	public static int GAIN_ON_PROMO_COL = 13;
-	public static int NR_OF_COL = 14;
+	public static int SALES_VAT_COL = 9;
+	public static int SALE_SINGLE_INCL_COL = 10;
+	public static int SALE_PROMO_INCL_COL = 11;
+	public static int MIN_NR_PROMO_COL = 12;
+	public static int GAIN_ON_SINGLE_COL = 13;
+	public static int GAIN_ON_PROMO_COL = 14;
+	public static int NR_OF_COL = 15;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private List<Integer> editableColumns = new ArrayList<>();
@@ -52,6 +53,7 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		editableColumns.add(HS_COL);
 		editableColumns.add(PURCHASE_PRICE_COL);
 		editableColumns.add(PURCHASE_VAT_COL);
+		editableColumns.add(SALES_VAT_COL);
 		editableColumns.add(SUPPLIER_COL);
 		editableColumns.add(SALE_SINGLE_INCL_COL);
 		editableColumns.add(SALE_PROMO_INCL_COL);
@@ -65,6 +67,7 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		columnClasses.put(HS_COL, String.class);
 		columnClasses.put(PURCHASE_PRICE_COL, BigDecimal.class);
 		columnClasses.put(PURCHASE_VAT_COL, Integer.class);
+		columnClasses.put(SALES_VAT_COL, Integer.class);
 		columnClasses.put(SUPPLIER_COL, Contact.class);
 		columnClasses.put(SALE_SINGLE_COL, BigDecimal.class);
 		columnClasses.put(SALE_PROMO_COL, BigDecimal.class);
@@ -81,7 +84,8 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ARTICLE_ITEMS_PER_UNIT"));
 		columnNames.put(HS_COL, getBundle("Accounting").getString("ARTICLE_HS"));
 		columnNames.put(PURCHASE_PRICE_COL, getBundle("Accounting").getString("ARTICLE_PRICE"));
-		columnNames.put(PURCHASE_VAT_COL, getBundle("Accounting").getString("ARTICLE_VAT"));
+		columnNames.put(PURCHASE_VAT_COL, getBundle("Accounting").getString("ARTICLE_PURCHASE_VAT"));
+		columnNames.put(SALES_VAT_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT"));
 		columnNames.put(SUPPLIER_COL, getBundle("Contacts").getString("SUPPLIER"));
 		columnNames.put(SALE_SINGLE_COL, getBundle("Accounting").getString("SALE_SINGLE_EXCL"));
 		columnNames.put(SALE_PROMO_COL, getBundle("Accounting").getString("SALE_PROMO_EXCL"));
@@ -104,6 +108,9 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		}
 		if (col == PURCHASE_VAT_COL) {
 			return article.getPurchaseVatRate();
+		}
+		if (col == SALES_VAT_COL) {
+			return article.getSalesVatRate();
 		}
 		if (col == HS_COL) {
 			return article.getHSCode();
@@ -188,6 +195,9 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		}
 		if(col == PURCHASE_VAT_COL){
             article.setPurchaseVatRate((Integer) value);
+		}
+		if(col == SALES_VAT_COL){
+            article.setSalesVatRate((Integer) value);
 		}
 		if(col == SUPPLIER_COL){
             article.setSupplier((Contact) value);
