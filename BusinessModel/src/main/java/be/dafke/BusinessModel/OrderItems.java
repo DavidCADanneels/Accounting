@@ -36,19 +36,27 @@ public class OrderItems extends BusinessCollection<OrderItem>{
         }
     }
 
-    public void removeBusinessObject(OrderItem orderItem){
+    public void removeBusinessObject(OrderItem orderItem) {
+        remove(orderItem, false);
+    }
+
+    public void remove(OrderItem orderItem, boolean calculate){
         Article article = orderItem.getArticle();
         String articleName = article.getName();
         orderItem.setName(articleName);
         try {
             super.removeBusinessObject(orderItem);
         } catch (NotEmptyException e1) {
-            int unitsToRemove = orderItem.getNumberOfUnits();
             int itemsToRemove = orderItem.getNumberOfItems();
             OrderItem itemInStock = getBusinessObject(articleName);
             if (itemInStock != null) {
                 itemInStock.removeNumberOfItems(itemsToRemove);
-                itemInStock.removeNumberOfUnits(unitsToRemove);
+                if(calculate){
+                    itemInStock.calculateNumberOfUnits();
+                } else {
+                    int unitsToRemove = orderItem.getNumberOfUnits();
+                    itemInStock.removeNumberOfUnits(unitsToRemove);
+                }
                 setOrderItem(itemInStock);
             }
         }

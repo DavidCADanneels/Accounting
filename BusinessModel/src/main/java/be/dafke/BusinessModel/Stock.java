@@ -36,12 +36,14 @@ public class Stock extends OrderItems {
 //        }
 //    }
 
-    public void addLoad(OrderItems load){
+    public void purchaseUnits(OrderItems load){
         load.getBusinessObjects().forEach(this::addBusinessObject);
     }
 
-    public void removeLoad(OrderItems load){
-        load.getBusinessObjects().forEach(this::removeBusinessObject);
+    public void sellItems(OrderItems load){
+        for (OrderItem orderItem : load.getBusinessObjects()) {
+            remove(orderItem, true);
+        }
     }
 
 //    public OrderItem getBusinessObject(String name){

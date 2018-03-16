@@ -62,7 +62,7 @@ public class Order extends OrderItems {
             int numberOfUnits = orderItem.getNumberOfUnits();
             int numberOfItems = orderItem.getNumberOfItems();
             if (numberOfUnits==0 && numberOfItems==0) {
-                removeBusinessObject(orderItem);
+                remove(orderItem, false);
             }
         });
     }

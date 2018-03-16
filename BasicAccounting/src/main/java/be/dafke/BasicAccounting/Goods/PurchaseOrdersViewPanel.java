@@ -59,7 +59,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
         deliveredButton = new JButton("Order Delivered");
         deliveredButton.addActionListener(e -> {
             Stock stock = accounting.getStock();
-            stock.addLoad(purchaseOrder);
+            stock.purchaseUnits(purchaseOrder);
             StockGUI.fireStockContentChanged(accounting);
             purchaseOrder.setDelivered(true);
             updateButtonsAndCheckBoxes();
