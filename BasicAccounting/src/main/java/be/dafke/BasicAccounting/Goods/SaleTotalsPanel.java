@@ -28,8 +28,8 @@ public class SaleTotalsPanel extends JPanel{
     }
 
     public void fireOrderContentChanged(SalesOrder order){
-//        textField1.setText(order==null?"":order.getTotalPurchasePriceExclVat().toString());
-//        textField2.setText(order==null?"":order.getTotalPurchaseVat().toString());
-//        textField3.setText(order==null?"":order.getTotalPurchasePriceInclVat().toString());
+        textField1.setText(order==null?"":order.getTotalSalesPriceExclVat().toString());
+        textField2.setText(order==null?"":order.getTotalSalesVat().toString());
+        textField3.setText(order==null?"":order.getTotalSalesPriceInclVat().toString());
     }
 }
