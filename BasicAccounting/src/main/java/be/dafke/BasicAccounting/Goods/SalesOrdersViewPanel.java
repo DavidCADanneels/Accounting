@@ -24,7 +24,7 @@ public class SalesOrdersViewPanel extends JPanel {
     private final SalesOrders salesOrders;
     private JComboBox<Order> comboBox;
     private JCheckBox payed, delivered, placed;
-    private SalesOrder order;
+    private SalesOrder salesOrder;
     private Accounting accounting;
     private final SalesOrdersViewDataTableModel salesOrdersViewDataTableModel;
     private SaleTotalsPanel salesTotalsPanel;
@@ -53,22 +53,23 @@ public class SalesOrdersViewPanel extends JPanel {
             Main.setJournal(journal);
             Main.selectTransaction(transaction);
 
-            order.setPlaced(true);
+            this.salesOrder.setPlaced(true);
             updateButtonsAndCheckBoxes();
         });
 
         deliveredButton = new JButton("Order Delivered");
         deliveredButton.addActionListener(e -> {
             Stock stock = accounting.getStock();
-            Order order = salesOrdersViewDataTableModel.getOrder();
-            stock.removeLoad(order);
-            order.setDelivered(true);
+            stock.removeLoad(salesOrder);
+            StockGUI.fireStockContentChanged(accounting);
+            salesOrder.setDelivered(true);
+            updateButtonsAndCheckBoxes();
         });
 
         payedButton = new JButton("Order Payed");
         payedButton.addActionListener(e -> {
-            Order order = salesOrdersViewDataTableModel.getOrder();
-            order.setPayed(true);
+            salesOrder.setPayed(true);
+            updateButtonsAndCheckBoxes();
         });
 
         placed = new JCheckBox("Ordered");
@@ -82,12 +83,12 @@ public class SalesOrdersViewPanel extends JPanel {
 
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {
-            order = (SalesOrder) comboBox.getSelectedItem();
-            payed.setSelected(order.isPayed());
-            delivered.setSelected(order.isDelivered());
-            deliveredButton.setEnabled(!order.isDelivered());
-            payedButton.setEnabled(!order.isPayed());
-            salesOrdersViewDataTableModel.setOrder(order);
+            salesOrder = (SalesOrder) comboBox.getSelectedItem();
+            payed.setSelected(salesOrder.isPayed());
+            delivered.setSelected(salesOrder.isDelivered());
+            deliveredButton.setEnabled(!salesOrder.isDelivered());
+            payedButton.setEnabled(!salesOrder.isPayed());
+            salesOrdersViewDataTableModel.setOrder(salesOrder);
         });
         fireCustomerAddedOrRemoved();
 
@@ -114,14 +115,14 @@ public class SalesOrdersViewPanel extends JPanel {
     }
 
     private void updateButtonsAndCheckBoxes() {
-        payed.setSelected(order!=null&&order.isPayed());
-        placed.setSelected(order!=null&&order.isPlaced());
-        delivered.setSelected(order!=null&&order.isDelivered());
-        deliveredButton.setEnabled(order!=null&&!order.isDelivered());
-        placeOrderButton.setEnabled(order!=null&&!order.isPlaced());
-        payedButton.setEnabled(order!=null&&!order.isPayed());
-        salesOrdersViewDataTableModel.setOrder(order);
-        salesTotalsPanel.fireOrderContentChanged(order);
+        payed.setSelected(salesOrder !=null&& salesOrder.isPayed());
+        placed.setSelected(salesOrder !=null&& salesOrder.isPlaced());
+        delivered.setSelected(salesOrder !=null&& salesOrder.isDelivered());
+        deliveredButton.setEnabled(salesOrder !=null&&!salesOrder.isDelivered());
+        placeOrderButton.setEnabled(salesOrder !=null&&!salesOrder.isPlaced());
+        payedButton.setEnabled(salesOrder !=null&&!salesOrder.isPayed());
+        salesOrdersViewDataTableModel.setOrder(salesOrder);
+        salesTotalsPanel.fireOrderContentChanged(salesOrder);
     }
 
     public Journal setSalesJournal(){
@@ -171,7 +172,7 @@ public class SalesOrdersViewPanel extends JPanel {
             salesOrders.setGainAccount(gainAccount);
         }
 
-        Contact customer = order.getCustomer();
+        Contact customer = this.salesOrder.getCustomer();
         if(customer == null){
             // TODO
         }
@@ -186,11 +187,11 @@ public class SalesOrdersViewPanel extends JPanel {
             customer.setAccount(customerAccount);
         }
 
-        BigDecimal stockAmount = order.getTotalPurchasePriceExclVat();
-        BigDecimal totalSalesPriceExclVat = order.getTotalSalesPriceExclVat();
+        BigDecimal stockAmount = this.salesOrder.getTotalPurchasePriceExclVat();
+        BigDecimal totalSalesPriceExclVat = this.salesOrder.getTotalSalesPriceExclVat();
         BigDecimal gainAmount = totalSalesPriceExclVat.subtract(stockAmount);
-        BigDecimal customerAmount = order.getTotalSalesPriceInclVat();
-        BigDecimal vatAmount = order.getTotalSalesVat();
+        BigDecimal customerAmount = this.salesOrder.getTotalSalesPriceInclVat();
+        BigDecimal vatAmount = this.salesOrder.getTotalSalesVat();
 
         Booking stockBooking = new Booking(stockAccount, stockAmount, true);
         Booking gainBooking = new Booking(gainAccount, gainAmount, true);
