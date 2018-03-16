@@ -33,6 +33,9 @@ public class ArticlesIO {
             String name = getValue(element, NAME);
             Article article = new Article(name);
 
+            String itemName = getValue(element, ARTICLE_ITEM_NAME);
+            article.setItemName(itemName);
+
             String hsCode = getValue(element, ARTICLE_HS_CODE);
             if(hsCode!=null)
                 article.setHSCode(hsCode);
@@ -41,13 +44,25 @@ public class ArticlesIO {
             if(purchasePrice!=null)
                 article.setPurchasePrice(parseBigDecimal(purchasePrice));
 
-            String vatRate = getValue(element, ARTICLE_VAT_RATE);
+            String salesPriceSingle = getValue(element, ARTICLE_SALES_SINGLE_PRICE);
+            if(salesPriceSingle!=null)
+                article.setSalesPriceSingleWithVat(parseBigDecimal(salesPriceSingle));
+
+            String salesPricePromo = getValue(element, ARTICLE_SALES_PROMO_PRICE);
+            if(salesPricePromo!=null)
+                article.setSalesPricePromoWithVat(parseBigDecimal(salesPricePromo));
+
+            String vatRate = getValue(element, ARTICLE_PURCHASE_VAT_RATE);
             if(vatRate!=null)
                 article.setPurchaseVatRate(parseInt(vatRate));
 
             String itemsPerUnit = getValue(element, ARTICLE_ITEMS_PER_UNIT);
             if(itemsPerUnit!=null)
                 article.setItemsPerUnit(parseInt(itemsPerUnit));
+
+            String minForRed = getValue(element, ARTICLE_MIN_REDUCTION);
+            if(minForRed!=null)
+                article.setMinimumNumberForReduction(parseInt(minForRed));
 
             String supplierName = getValue(element, SUPPLIER);
             if(supplierName!=null) {
@@ -80,10 +95,15 @@ public class ArticlesIO {
                 writer.write(
                         "  <" + ARTICLE + ">\n" +
                                 "    <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                                "    <" + ARTICLE_HS_CODE + ">" + article.getHSCode() + "</" + ARTICLE_HS_CODE + ">\n" +
-                                "    <" + ARTICLE_VAT_RATE + ">" + article.getPurchaseVatRate() + "</" + ARTICLE_VAT_RATE + ">\n" +
-                                "    <" + ARTICLE_PURCHASE_PRICE + ">" + article.getPurchasePrice() + "</" + ARTICLE_PURCHASE_PRICE + ">\n" +
+                                "    <" + ARTICLE_ITEM_NAME + ">" + article.getItemName() + "</" + ARTICLE_ITEM_NAME + ">\n" +
                                 "    <" + ARTICLE_ITEMS_PER_UNIT + ">" + article.getItemsPerUnit() + "</" + ARTICLE_ITEMS_PER_UNIT + ">\n" +
+                                "    <" + ARTICLE_MIN_REDUCTION + ">" + article.getMinimumNumberForReduction() + "</" + ARTICLE_MIN_REDUCTION + ">\n" +
+                                "    <" + ARTICLE_HS_CODE + ">" + article.getHSCode() + "</" + ARTICLE_HS_CODE + ">\n" +
+                                "    <" + ARTICLE_PURCHASE_PRICE + ">" + article.getPurchasePrice() + "</" + ARTICLE_PURCHASE_PRICE + ">\n" +
+                                "    <" + ARTICLE_SALES_SINGLE_PRICE + ">" + article.getSalesPriceSingleWithVat() + "</" + ARTICLE_SALES_SINGLE_PRICE + ">\n" +
+                                "    <" + ARTICLE_SALES_PROMO_PRICE + ">" + article.getSalesPricePromoWithVat() + "</" + ARTICLE_SALES_PROMO_PRICE + ">\n" +
+                                "    <" + ARTICLE_PURCHASE_VAT_RATE + ">" + article.getPurchaseVatRate() + "</" + ARTICLE_PURCHASE_VAT_RATE + ">\n" +
+                                "    <" + ARTICLE_SALES_VAT_RATE + ">" + article.getSalesVatRate() + "</" + ARTICLE_SALES_VAT_RATE + ">\n" +
                                 "    <" + SUPPLIER + ">" + article.getSupplier() + "</" + SUPPLIER + ">\n" +
                                 "  </" + ARTICLE + ">\n"
                 );

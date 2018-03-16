@@ -108,10 +108,15 @@ public class XMLConstants {
 
     public static final String ARTICLES = "Articles";
     public static final String ARTICLE = "Article";
+    public static final String ARTICLE_ITEM_NAME = "ArticleItemsName";
+    public static final String ARTICLE_MIN_REDUCTION = "MinForReduction";
     public static final String ARTICLE_PURCHASE_PRICE = "PurchasePrice";
-    public static final String ARTICLE_VAT_RATE = "VatRate";
-    public static final String ARTICLE_HS_CODE = "HsCode";
+    public static final String ARTICLE_SALES_SINGLE_PRICE = "SalesSinglePrice";
+    public static final String ARTICLE_SALES_PROMO_PRICE = "SalesPromoPrice";
     public static final String ARTICLE_ITEMS_PER_UNIT = "ItemsPerUnit";
+    public static final String ARTICLE_PURCHASE_VAT_RATE = "PurchaseVatRate";
+    public static final String ARTICLE_SALES_VAT_RATE = "SALESVatRate";
+    public static final String ARTICLE_HS_CODE = "HsCode";
 
     public static final String STOCK = "Stock";
     public static final String PURCHASE_ORDERS = "PurchaseOrders";
