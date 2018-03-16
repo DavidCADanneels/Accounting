@@ -3,6 +3,7 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.function.Predicate;
 
 public class Article extends BusinessObject{
@@ -112,7 +113,9 @@ public class Article extends BusinessObject{
 
     public BigDecimal getSalesPricePromoWithoutVat() {
         if(salesPricePromoWithVat==null) return null;
-        return salesPricePromoWithVat.divide(getSalesFactor(),BigDecimal.ROUND_HALF_DOWN);
+        BigDecimal salesFactor = getSalesFactor();
+        BigDecimal divide = salesPricePromoWithVat.divide(salesFactor, BigDecimal.ROUND_HALF_DOWN);
+        return divide;
     }
 
     public Integer getPurchaseVatRate() {
@@ -125,12 +128,12 @@ public class Article extends BusinessObject{
 
     // return 0.06
     private BigDecimal getPurchasePercentage(){
-        return new BigDecimal(purchaseVatRate).divide(new BigDecimal(100),BigDecimal.ROUND_HALF_DOWN);
+        return new BigDecimal(purchaseVatRate).divide(new BigDecimal(100));
     }
 
     // return 0.06
     private BigDecimal getSalesPercentage(){
-        return new BigDecimal(salesVatRate).divide(new BigDecimal(100),BigDecimal.ROUND_HALF_DOWN);
+        return new BigDecimal(salesVatRate).divide(new BigDecimal(100));
     }
 
     // return 1.06
@@ -151,12 +154,12 @@ public class Article extends BusinessObject{
         return getPurchasePriceWithVat().multiply(new BigDecimal(number));
     }
 
-    public BigDecimal getProfit(BigDecimal salesprice){
+    public BigDecimal getUnitProfit(BigDecimal salesprice){
         return salesprice.subtract(purchasePrice);
     }
 
-    public BigDecimal getProfit(BigDecimal salesprice, int number){
-        return getProfit(salesprice).multiply(new BigDecimal(number));
+    public BigDecimal getItemProfit(BigDecimal salesprice){
+        return salesprice.subtract(purchasePrice.divide(new BigDecimal(itemsPerUnit), BigDecimal.ROUND_HALF_DOWN));
     }
 
     public BigDecimal getPurchaseVat(){
@@ -201,6 +204,7 @@ public class Article extends BusinessObject{
 
     public BigDecimal getSalesPriceWithVat(int number) {
         BigDecimal salesPricePerUnitWithVat = getSalesPricePerUnitWithVat(number);
+        if(salesPricePerUnitWithVat==null) return BigDecimal.ZERO;
         return salesPricePerUnitWithVat.multiply(new BigDecimal(number));
     }
 

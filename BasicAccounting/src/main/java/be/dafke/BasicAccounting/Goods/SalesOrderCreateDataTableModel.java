@@ -15,11 +15,16 @@ import static java.util.ResourceBundle.getBundle;
 
 public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderItem> {
 	private final Articles articles;
-	public static int NR_COL = 0;
-	public static int NAME_COL = 1;
-	public static int HS_COL = 2;
-	public static int PRICE_COL = 3;
-	public static int VAT_COL = 4;
+	public static int NR_OF_UNITS_COL = 0;
+	public static int NR_OF_ITEMS_COL = 1;
+	public static int ITEMS_PER_UNIT_COL = 2;
+	public static int NAME_COL = 3;
+	public static int PRICE_ITEM_COL = 4;
+	public static int PRICE_UNIT_COL = 5;
+	public static int TOTAL_EXCL_COL = 6;
+	public static int TOTAL_VAT_COL = 7;
+	public static int TOTAL_INCL_COL = 8;
+	public static int NR_OF_COL = 9;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private Contact contact;
@@ -36,19 +41,27 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 	}
 
 	private void setColumnClasses() {
-		columnClasses.put(NR_COL, Integer.class);
+		columnClasses.put(NR_OF_UNITS_COL, Integer.class);
+		columnClasses.put(NR_OF_ITEMS_COL, Integer.class);
+		columnClasses.put(ITEMS_PER_UNIT_COL, Integer.class);
 		columnClasses.put(NAME_COL, String.class);
-		columnClasses.put(HS_COL, String.class);
-		columnClasses.put(PRICE_COL, BigDecimal.class);
-		columnClasses.put(VAT_COL, Integer.class);
+		columnClasses.put(PRICE_ITEM_COL, BigDecimal.class);
+		columnClasses.put(PRICE_UNIT_COL, BigDecimal.class);
+		columnClasses.put(TOTAL_EXCL_COL, BigDecimal.class);
+		columnClasses.put(TOTAL_VAT_COL, BigDecimal.class);
+		columnClasses.put(TOTAL_INCL_COL, BigDecimal.class);
 	}
 
 	private void setColumnNames() {
-		columnNames.put(NR_COL, getBundle("Accounting").getString("NR_TO_ORDER"));
+		columnNames.put(NR_OF_UNITS_COL, getBundle("Accounting").getString("UNITS_TO_ORDER"));
+		columnNames.put(NR_OF_ITEMS_COL, getBundle("Accounting").getString("ITEMS_TO_ORDER"));
+		columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ARTICLE_ITEMS_PER_UNIT"));
 		columnNames.put(NAME_COL, getBundle("Accounting").getString("ARTICLE_NAME"));
-		columnNames.put(HS_COL, getBundle("Accounting").getString("ARTICLE_HS"));
-		columnNames.put(PRICE_COL, getBundle("Accounting").getString("ARTICLE_PRICE"));
-		columnNames.put(VAT_COL, getBundle("Accounting").getString("ARTICLE_VAT"));
+		columnNames.put(PRICE_ITEM_COL, getBundle("Accounting").getString("ARTICLE_SALES_PRICE_ITEM"));
+		columnNames.put(PRICE_UNIT_COL, getBundle("Accounting").getString("ARTICLE_SALES_PRICE_UNIT"));
+		columnNames.put(TOTAL_EXCL_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_EXCL"));
+		columnNames.put(TOTAL_VAT_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_TOTAL"));
+		columnNames.put(TOTAL_INCL_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_INCL"));
 	}
 	// DE GET METHODEN
 // ===============
@@ -61,25 +74,39 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 		if (col == NAME_COL) {
 			return article.getName();
 		}
-		if (col == VAT_COL) {
-			return article.getPurchaseVatRate();
+		if (col == ITEMS_PER_UNIT_COL) {
+			return article.getItemsPerUnit();
 		}
-		if (col == HS_COL) {
-			return article.getHSCode();
+		if (col == PRICE_ITEM_COL) {
+			return article.getSalesPriceSingleWithVat();
 		}
-		if (col == PRICE_COL) {
-			return article.getPurchasePrice();
+		if (col == PRICE_UNIT_COL) {
+			return article.getSalesPricePromoWithVat();
 		}
-		if (col == NR_COL) {
-			if (order==null) return null;
+		else {
+			if (order == null) return null;
 			OrderItem item = order.getBusinessObject(article.getName());
-			return item==null?0:item.getNumberOfItems();
+			if (col == TOTAL_EXCL_COL) {
+				return article.getSalesPriceWithoutVat(item.getNumberOfItems());
+			}
+			if (col == TOTAL_INCL_COL) {
+				return article.getSalesPriceWithVat(item.getNumberOfItems());
+			}
+			if (col == TOTAL_EXCL_COL) {
+				return article.getSalesVatAmount(item.getNumberOfItems());
+			}
+			if (col == NR_OF_UNITS_COL) {
+				return item == null ? 0 : item.getNumberOfUnits();
+			}
+			if (col == NR_OF_ITEMS_COL) {
+				return item == null ? 0 : item.getNumberOfItems();
+			}
 		}
 		return null;
 	}
 
 	public int getColumnCount() {
-		return columnNames.size();
+		return NR_OF_COL;
 	}
 
 	public int getRowCount() {
@@ -101,7 +128,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return col==NR_COL;
+		return col==NR_OF_UNITS_COL || col==NR_OF_ITEMS_COL;
 	}
 
 // DE SET METHODEN
@@ -109,7 +136,13 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 	@Override
 	public void setValueAt(Object value, int row, int col) {
 		OrderItem orderItem = getObject(row,col);
-		if(col == NR_COL){
+		if(col == NR_OF_UNITS_COL){
+			int nr = (Integer) value;
+			orderItem.setNumberOfUnits(nr);
+			orderItem.calculateNumberOfItems();
+			order.setOrderItem(orderItem);
+			saleTotalsPanel.fireOrderContentChanged(order);
+		} else if(col == NR_OF_ITEMS_COL){
 			int nr = (Integer) value;
 			orderItem.setNumberOfItems(nr);
 			orderItem.calculateNumberOfUnits();

@@ -115,7 +115,7 @@ public class XMLConstants {
     public static final String ARTICLE_SALES_PROMO_PRICE = "SalesPromoPrice";
     public static final String ARTICLE_ITEMS_PER_UNIT = "ItemsPerUnit";
     public static final String ARTICLE_PURCHASE_VAT_RATE = "PurchaseVatRate";
-    public static final String ARTICLE_SALES_VAT_RATE = "SALESVatRate";
+    public static final String ARTICLE_SALES_VAT_RATE = "SalesVatRate";
     public static final String ARTICLE_HS_CODE = "HsCode";
 
     public static final String STOCK = "Stock";

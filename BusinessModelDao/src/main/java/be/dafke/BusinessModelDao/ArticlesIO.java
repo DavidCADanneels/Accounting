@@ -52,9 +52,13 @@ public class ArticlesIO {
             if(salesPricePromo!=null)
                 article.setSalesPricePromoWithVat(parseBigDecimal(salesPricePromo));
 
-            String vatRate = getValue(element, ARTICLE_PURCHASE_VAT_RATE);
-            if(vatRate!=null)
-                article.setPurchaseVatRate(parseInt(vatRate));
+            String purchaseVatRate = getValue(element, ARTICLE_PURCHASE_VAT_RATE);
+            if(purchaseVatRate!=null)
+                article.setPurchaseVatRate(parseInt(purchaseVatRate));
+
+            String salesVatRate = getValue(element, ARTICLE_SALES_VAT_RATE);
+            if(salesVatRate!=null)
+                article.setSalesVatRate(parseInt(salesVatRate));
 
             String itemsPerUnit = getValue(element, ARTICLE_ITEMS_PER_UNIT);
             if(itemsPerUnit!=null)
