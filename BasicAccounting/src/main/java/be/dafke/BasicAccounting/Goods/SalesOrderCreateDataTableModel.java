@@ -120,7 +120,6 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 
 	@Override
 	public OrderItem getObject(int row, int col) {
-		if(contact==null) return null;
 		List<Article> articleList = articles.getBusinessObjects();
 		if(articleList == null || articleList.size() == 0) return null;
 		Article article = articleList.get(row);

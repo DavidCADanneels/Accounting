@@ -26,7 +26,6 @@ public class SalesOrderCreatePanel extends JPanel {
     private Contact contact;
     Predicate<Contact> filter;
     private final SalesOrderCreateDataTableModel salesOrderCreateDataTableModel;
-    private JTextField textField1, textField2, textField3;
 
     public SalesOrderCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
