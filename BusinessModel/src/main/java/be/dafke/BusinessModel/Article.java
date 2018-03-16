@@ -120,25 +120,17 @@ public class Article extends BusinessObject{
     }
 
     public BigDecimal getPurchasePrice(int number){
-        return multiply(purchasePrice, number);
-    }
-
-    private BigDecimal multiply(BigDecimal source, int number){
-        return source.multiply(new BigDecimal(number));
-    }
-
-    private BigDecimal divide(BigDecimal source, int number){
-        return source.divide(new BigDecimal(number));
+        return purchasePrice.multiply(new BigDecimal(number));
     }
 
     // return 0.06
     private BigDecimal getPurchasePercentage(){
-        return divide(new BigDecimal(purchaseVatRate),100);
+        return new BigDecimal(purchaseVatRate).divide(new BigDecimal(100),BigDecimal.ROUND_HALF_DOWN);
     }
 
     // return 0.06
     private BigDecimal getSalesPercentage(){
-        return divide(new BigDecimal(salesVatRate),100);
+        return new BigDecimal(salesVatRate).divide(new BigDecimal(100),BigDecimal.ROUND_HALF_DOWN);
     }
 
     // return 1.06
@@ -156,7 +148,7 @@ public class Article extends BusinessObject{
     }
 
     public BigDecimal getPurchasePriceWithVat(int number){
-        return multiply(getPurchasePriceWithVat(), number);
+        return getPurchasePriceWithVat().multiply(new BigDecimal(number));
     }
 
     public BigDecimal getProfit(BigDecimal salesprice){
@@ -164,7 +156,7 @@ public class Article extends BusinessObject{
     }
 
     public BigDecimal getProfit(BigDecimal salesprice, int number){
-        return multiply(getProfit(salesprice), number);
+        return getProfit(salesprice).multiply(new BigDecimal(number));
     }
 
     public BigDecimal getPurchaseVat(){
@@ -172,7 +164,7 @@ public class Article extends BusinessObject{
     }
 
     public BigDecimal getPurchaseVat(int number){
-        return multiply(getPurchaseVat(), number);
+        return getPurchaseVat().multiply(new BigDecimal(number));
     }
 
     public BigDecimal getSalesVatAmount(int number){
@@ -187,12 +179,12 @@ public class Article extends BusinessObject{
 
     public BigDecimal getSalesPriceWithoutVat() {
         BigDecimal salesPriceWithVat = getSalesPriceWithVat();
-        return salesPriceWithVat.divide(getSalesFactor());
+        return salesPriceWithVat.divide(getSalesFactor(),BigDecimal.ROUND_HALF_DOWN);
     }
 
     public BigDecimal getSalesPriceWithoutVat(int number) {
         BigDecimal salesPriceWithVat = getSalesPriceWithVat(number);
-        return salesPriceWithVat.divide(getSalesFactor());
+        return salesPriceWithVat.divide(getSalesFactor(),BigDecimal.ROUND_HALF_DOWN);
     }
 
     private BigDecimal getSalesPricePerUnitWithVat(int number){
@@ -209,7 +201,7 @@ public class Article extends BusinessObject{
 
     public BigDecimal getSalesPriceWithVat(int number) {
         BigDecimal salesPricePerUnitWithVat = getSalesPricePerUnitWithVat(number);
-        return multiply(salesPricePerUnitWithVat, number);
+        return salesPricePerUnitWithVat.multiply(new BigDecimal(number));
     }
 
     public static Predicate<Article> ofSupplier(Contact supplier) {
