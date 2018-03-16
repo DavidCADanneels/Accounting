@@ -5,6 +5,16 @@ import java.math.RoundingMode;
 
 public class SalesOrder extends Order {
 
+    public BigDecimal getTotalPurchasePriceExclVat() {
+        BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
+        for (OrderItem orderItem : getBusinessObjects()) {
+            Article article = orderItem.getArticle();
+            int number = orderItem.getNumberOfUnits();
+            totalPurchaseExcl = totalPurchaseExcl.add(article.getPurchasePrice(number)).setScale(2, RoundingMode.HALF_DOWN);
+        }
+        return totalPurchaseExcl;
+    }
+
     public BigDecimal getTotalSalesPriceExclVat() {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {

@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Goods;
 import be.dafke.BusinessModel.Article;
 import be.dafke.BusinessModel.Order;
 import be.dafke.BusinessModel.OrderItem;
+import be.dafke.BusinessModel.SalesOrder;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
@@ -25,7 +26,7 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<OrderIte
 	public static int NR_OF_COL = 6;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
-	private Order order;
+	private SalesOrder order;
 
 	public SalesOrdersViewDataTableModel() {
 		setColumnNames();
@@ -126,11 +127,11 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<OrderIte
 		return orderItems.get(row);
 	}
 
-	public Order getOrder() {
+	public SalesOrder getOrder() {
 		return order;
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(SalesOrder order) {
 		this.order = order;
 		fireTableDataChanged();
 	}
