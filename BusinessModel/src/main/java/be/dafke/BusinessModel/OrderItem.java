@@ -62,7 +62,7 @@ public class OrderItem extends BusinessObject{
     }
 
     public void calculateNumberOfUnits(){
-        numberOfItems = numberOfUnits/article.getItemsPerUnit();
+        numberOfUnits = numberOfItems/article.getItemsPerUnit();
     }
 
     public Article getArticle() {
