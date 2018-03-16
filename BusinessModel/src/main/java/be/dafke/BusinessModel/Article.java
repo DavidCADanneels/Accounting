@@ -190,22 +190,25 @@ public class Article extends BusinessObject{
         return salesPriceWithVat.divide(getSalesFactor(),BigDecimal.ROUND_HALF_DOWN);
     }
 
-    private BigDecimal getSalesPricePerUnitWithVat(int number){
-        if (number >= minimumNumberForReduction){
-            return salesPricePromoWithVat;
-        }else {
-            return salesPriceSingleWithVat;
-        }
-    }
-
     public BigDecimal getSalesPriceWithVat() {
         return salesPriceSingleWithVat;
     }
 
     public BigDecimal getSalesPriceWithVat(int number) {
-        BigDecimal salesPricePerUnitWithVat = getSalesPricePerUnitWithVat(number);
-        if(salesPricePerUnitWithVat==null) return BigDecimal.ZERO;
-        return salesPricePerUnitWithVat.multiply(new BigDecimal(number));
+        if(salesPriceSingleWithVat==null||salesPricePromoWithVat==null) return BigDecimal.ZERO;
+        if (number < minimumNumberForReduction){
+            return salesPriceSingleWithVat.multiply(new BigDecimal(number));
+        }else {
+            if(itemsPerUnit == 1) {
+                return salesPricePromoWithVat.multiply(new BigDecimal(number));
+            } else{
+                int nrOfUnits = number/itemsPerUnit;
+                int remainingItems = number%itemsPerUnit;
+                BigDecimal priceForUnits = salesPricePromoWithVat.multiply(new BigDecimal(nrOfUnits));
+                BigDecimal priceForItems = salesPriceSingleWithVat.multiply(new BigDecimal(remainingItems));
+                return priceForUnits.add(priceForItems);
+            }
+        }
     }
 
     public static Predicate<Article> ofSupplier(Contact supplier) {

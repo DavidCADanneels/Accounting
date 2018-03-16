@@ -92,7 +92,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 			if (col == TOTAL_INCL_COL) {
 				return article.getSalesPriceWithVat(item.getNumberOfItems());
 			}
-			if (col == TOTAL_EXCL_COL) {
+			if (col == TOTAL_VAT_COL) {
 				return article.getSalesVatAmount(item.getNumberOfItems());
 			}
 			if (col == NR_OF_UNITS_COL) {
