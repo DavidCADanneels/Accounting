@@ -40,6 +40,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
 
         placeOrderButton = new JButton("Place Order");
         placeOrderButton.addActionListener(e -> {
+            purchaseOrder = purchaseOrdersViewDataTableModel.getOrder();
             Transaction transaction = createPurchaseTransaction();
             Journal journal = purchaseOrders.getJournal();
             if (journal==null){
@@ -59,6 +60,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
         deliveredButton = new JButton("Order Delivered");
         deliveredButton.addActionListener(e -> {
             Stock stock = accounting.getStock();
+            purchaseOrder = purchaseOrdersViewDataTableModel.getOrder();
             stock.purchaseUnits(purchaseOrder);
             StockGUI.fireStockContentChanged(accounting);
             purchaseOrder.setDelivered(true);
@@ -67,6 +69,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
 
         payedButton = new JButton("Pay Order");
         payedButton.addActionListener(e -> {
+            purchaseOrder = purchaseOrdersViewDataTableModel.getOrder();
             purchaseOrder.setPayed(true);
             updateButtonsAndCheckBoxes();
         });
@@ -156,6 +159,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
             purchaseOrders.setStockAccount(stockAccount);
         }
 
+        purchaseOrder = purchaseOrdersViewDataTableModel.getOrder();
         Contact supplier = purchaseOrder.getSupplier();
         if(supplier == null){
             // TODO
