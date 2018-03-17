@@ -119,6 +119,8 @@ public class XMLConstants {
     public static final String ARTICLE_HS_CODE = "HsCode";
 
     public static final String STOCK = "Stock";
+    public static final String STOCK_TRANSACTIONS = "StockTransactions";
+    public static final String STOCK_TRANSACTION = "StockTransaction";
     public static final String PURCHASE_ORDERS = "PurchaseOrders";
     public static final String PURCHASE_ORDER = "PurchaseOrder";
     public static final String SALES_ORDERS = "SalesOrders";

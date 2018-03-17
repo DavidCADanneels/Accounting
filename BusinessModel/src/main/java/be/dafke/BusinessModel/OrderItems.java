@@ -11,6 +11,8 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class OrderItems extends BusinessCollection<OrderItem>{
+    private Transaction transaction;
+
     public OrderItem addBusinessObject(OrderItem orderItem) {
         Article article = orderItem.getArticle();
         String articleName = article.getName();
@@ -83,5 +85,13 @@ public class OrderItems extends BusinessCollection<OrderItem>{
             // This will not throw any exceptions: we already handled them above.
             addBusinessObject(orderItem, entry);
         }
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
+
+    public Transaction getTransaction() {
+        return transaction;
     }
 }

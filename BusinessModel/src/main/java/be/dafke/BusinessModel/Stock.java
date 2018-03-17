@@ -1,55 +1,29 @@
 package be.dafke.BusinessModel;
 
+import java.util.Collection;
+import java.util.HashMap;
+
 public class Stock extends OrderItems {
-    private Articles articles;
     private boolean removeIfEmpty = true;
+    protected final HashMap<Transaction,Order> transactions = new HashMap<>();
 
-    public Stock(Articles articles) {
-        super();
-        this.articles = articles;
-    }
-
-//    // Add per Unit
-//    public OrderItem addBusinessObject(OrderItem orderItem){
-//        Article article = orderItem.getArticle();
-//        int numberToAdd = orderItem.getNumberOfUnits();
-//        Integer itemsPerUnit = article.getItemsPerUnit();
-//        int numberOfItems = numberToAdd * itemsPerUnit;
-//        orderItem.setNumberOfUnits(numberOfItems);
-//        int numberInStock = getNumberInStock(article);
-//        stock.put(article, numberInStock+numberOfItems);
-//        return orderItem;
-//    }
-//
-//    // Remove per Item
-//    public void removeBusinessObject(OrderItem orderItem){
-//        Article article = orderItem.getArticle();
-////        Integer itemsPerUnit = article.getItemsPerUnit();
-//        int numberToRemove = orderItem.getNumberOfUnits();
-//        int numberInStock = getNumberInStock(article);
-//        int result = numberInStock-numberToRemove;
-//        if (result < 0){
-//            // TODO: throw error
-//        } else if (result == 0){
-//            stock.remove(article);
-//        } else {
-//            stock.put(article, result);
-//        }
-//    }
-
-    public void purchaseUnits(OrderItems load){
+    public void purchaseUnits(Order load){
         load.getBusinessObjects().forEach(this::addBusinessObject);
+        addTransaction(load.getTransaction(), load);
     }
 
-    public void sellItems(OrderItems load){
+    public void sellItems(Order load){
         for (OrderItem orderItem : load.getBusinessObjects()) {
             remove(orderItem, true, removeIfEmpty);
         }
+        addTransaction(load.getTransaction(),load);
     }
 
-//    public OrderItem getBusinessObject(String name){
-//        Article article = articles.getBusinessObject(name);
-//        return getBusinessObject(article);
-//    }
+    public Collection<Order> getTransactions() {
+        return transactions.values();
+    }
 
+    public void addTransaction(Transaction transaction, Order orderItems){
+        transactions.put(transaction, orderItems);
+    }
 }
