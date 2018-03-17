@@ -234,6 +234,7 @@ public class SalesOrdersViewPanel extends JPanel {
         // TODO: ask for Date and Description
 
         gainJournal.addBusinessObject(gainTransaction);
+        Main.fireJournalDataChanged(gainJournal);
 
         Journal salesJournal = salesOrders.getSalesJournal();
         if (salesJournal==null){
@@ -246,6 +247,7 @@ public class SalesOrdersViewPanel extends JPanel {
 
         Main.setJournal(salesJournal);
         Main.selectTransaction(salesTransaction);
+        Main.fireJournalDataChanged(salesJournal);
     }
 
     public void firePurchaseOrderAddedOrRemoved() {
