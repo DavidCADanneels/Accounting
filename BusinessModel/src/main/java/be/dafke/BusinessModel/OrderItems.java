@@ -37,10 +37,10 @@ public class OrderItems extends BusinessCollection<OrderItem>{
     }
 
     public void removeBusinessObject(OrderItem orderItem) {
-        remove(orderItem, false);
+        remove(orderItem, false, true);
     }
 
-    public void remove(OrderItem orderItem, boolean calculate){
+    public void remove(OrderItem orderItem, boolean calculate, boolean removeIfEmpty){
         Article article = orderItem.getArticle();
         String articleName = article.getName();
         orderItem.setName(articleName);
@@ -56,6 +56,21 @@ public class OrderItems extends BusinessCollection<OrderItem>{
                 } else {
                     int unitsToRemove = orderItem.getNumberOfUnits();
                     itemInStock.removeNumberOfUnits(unitsToRemove);
+                }
+                int numberOfItems = itemInStock.getNumberOfItems();
+                if(removeIfEmpty&&numberOfItems==0){
+                    int numberOfUnits = itemInStock.getNumberOfUnits();
+                    if(numberOfUnits!=0){
+                        System.err.println("Calculation error: items=0, units="+numberOfUnits);
+                        itemInStock.setNumberOfUnits(0);
+                    }
+                    try {
+                        // remove stock item
+                        super.removeBusinessObject(itemInStock);
+                    } catch (NotEmptyException e) {
+                        // unreachable code
+                        e.printStackTrace();
+                    }
                 }
                 setOrderItem(itemInStock);
             }

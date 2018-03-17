@@ -2,6 +2,7 @@ package be.dafke.BusinessModel;
 
 public class Stock extends OrderItems {
     private Articles articles;
+    private boolean removeIfEmpty = true;
 
     public Stock(Articles articles) {
         super();
@@ -42,7 +43,7 @@ public class Stock extends OrderItems {
 
     public void sellItems(OrderItems load){
         for (OrderItem orderItem : load.getBusinessObjects()) {
-            remove(orderItem, true);
+            remove(orderItem, true, removeIfEmpty);
         }
     }
 
