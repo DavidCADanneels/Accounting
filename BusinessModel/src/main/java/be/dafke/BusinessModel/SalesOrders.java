@@ -23,9 +23,13 @@ public class SalesOrders extends BusinessCollection<SalesOrder>{
     }
 
     public SalesOrder addBusinessObject(SalesOrder order) throws EmptyNameException, DuplicateNameException {
+        return addBusinessObject(order, id+1);
+    }
+    public SalesOrder addBusinessObject(SalesOrder order, int newId) throws EmptyNameException, DuplicateNameException {
         if (order.getName()==null) {
-            order.setName("SO" + ++id);
+            order.setName("SO" + newId);
         }
+        id++;
         return super.addBusinessObject(order);
     }
 

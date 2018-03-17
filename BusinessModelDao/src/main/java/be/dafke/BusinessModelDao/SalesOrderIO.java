@@ -101,7 +101,7 @@ public class SalesOrderIO {
                 order.addBusinessObject(orderItem);
             }
             try {
-                salesOrders.addBusinessObject(order);
+                salesOrders.addBusinessObject(order, parseInt(id));
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();
             }
