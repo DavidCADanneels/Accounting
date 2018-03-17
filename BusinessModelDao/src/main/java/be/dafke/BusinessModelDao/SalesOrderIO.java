@@ -31,11 +31,18 @@ public class SalesOrderIO {
         Accounts accounts = accounting.getAccounts();
         Journals journals = accounting.getJournals();
 
-        String journalName = getValue(rootElement, JOURNAL);
-        if(journalName!=null){
-            Journal journal = journals.getBusinessObject(journalName);
+        String journalNameSales = getValue(rootElement, SALES_JOURNAL);
+        if(journalNameSales!=null){
+            Journal journal = journals.getBusinessObject(journalNameSales);
             if (journal!=null) {
                 salesOrders.setSalesJournal(journal);
+            }
+        }
+        String journalNameGain = getValue(rootElement, GAIN_JOURNAL);
+        if(journalNameGain!=null){
+            Journal journal = journals.getBusinessObject(journalNameGain);
+            if (journal!=null) {
+                salesOrders.setGainJournal(journal);
             }
         }
         String stockAccountString = getValue(rootElement, STOCK_ACCOUNT);
@@ -101,8 +108,10 @@ public class SalesOrderIO {
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(SALES_ORDERS, 2));
-            Journal journal = salesOrders.getSalesJournal();
-            writer.write("  <" + JOURNAL + ">"+ (journal==null?"null":journal.getName())+"</" + JOURNAL + ">\n");
+            Journal salesJournal = salesOrders.getSalesJournal();
+            Journal gainJournal = salesOrders.getSalesJournal();
+            writer.write("  <" + SALES_JOURNAL + ">"+ (salesJournal==null?"null":salesJournal.getName())+"</" + SALES_JOURNAL + ">\n");
+            writer.write("  <" + GAIN_JOURNAL + ">"+ (gainJournal==null?"null":gainJournal.getName())+"</" + GAIN_JOURNAL + ">\n");
             writer.write("  <" + STOCK_ACCOUNT + ">"+salesOrders.getStockAccount()+"</" + STOCK_ACCOUNT + ">\n");
             writer.write("  <" + VAT_ACCOUNT + ">"+salesOrders.getVATAccount()+"</" + VAT_ACCOUNT + ">\n");
             writer.write("  <" + GAIN_ACCOUNT + ">"+salesOrders.getGainAccount()+"</" + GAIN_ACCOUNT + ">\n");
