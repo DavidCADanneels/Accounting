@@ -116,7 +116,7 @@ public class SalesOrderIO {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(SALES_ORDERS, 2));
             Journal salesJournal = salesOrders.getSalesJournal();
-            Journal gainJournal = salesOrders.getSalesJournal();
+            Journal gainJournal = salesOrders.getGainJournal();
             writer.write("  <" + SALES_JOURNAL + ">"+ (salesJournal==null?"null":salesJournal.getName())+"</" + SALES_JOURNAL + ">\n");
             writer.write("  <" + GAIN_JOURNAL + ">"+ (gainJournal==null?"null":gainJournal.getName())+"</" + GAIN_JOURNAL + ">\n");
             writer.write("  <" + STOCK_ACCOUNT + ">"+salesOrders.getStockAccount()+"</" + STOCK_ACCOUNT + ">\n");
