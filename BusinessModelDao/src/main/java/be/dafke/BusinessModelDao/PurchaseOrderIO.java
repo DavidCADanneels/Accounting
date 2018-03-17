@@ -99,7 +99,7 @@ public class PurchaseOrderIO {
             writer.write("  <" + STOCK_ACCOUNT + ">"+purchaseOrders.getStockAccount()+"</" + STOCK_ACCOUNT + ">\n");
             writer.write("  <" + VAT_ACCOUNT + ">"+purchaseOrders.getVATAccount()+"</" + VAT_ACCOUNT + ">\n");
 
-            for (Order order : purchaseOrders.getBusinessObjects()) {
+            for (PurchaseOrder order : purchaseOrders.getBusinessObjects()) {
                 writer.write(
                              "  <" + PURCHASE_ORDER + ">\n" +
                                 "    <" + ID + ">" + order.getName() + "</" + ID + ">\n" +
@@ -108,6 +108,15 @@ public class PurchaseOrderIO {
                                 "    <" + IS_DELIVERED + ">" + order.isDelivered() + "</" + IS_DELIVERED + ">\n" +
                                 "    <" + IS_PAYED + ">" + order.isPayed() + "</" + IS_PAYED + ">\n"
                 );
+                Transaction purchaseTransaction = order.getPurchaseTransaction();
+                if(purchaseTransaction!=null) {
+                    writer.write("    <" + PURCHASE_TRANSACTION + ">" + purchaseTransaction.getId() + "</" + PURCHASE_TRANSACTION + ">\n");
+                }
+                Transaction paymentTransaction = order.getPaymentTransaction();
+                if(paymentTransaction!=null) {
+                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.getId() + "</" + PAYMENT_TRANSACTION + ">\n");
+                }
+
                 for (OrderItem orderItem : order.getBusinessObjects()) {
                     Article article = orderItem.getArticle();
                     writer.write(

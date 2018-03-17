@@ -149,9 +149,9 @@ public class XMLReader {
         if(accounting.isContactsAccounting()) {
             readContacts(accounting);
             readArticles(accounting);
-            readStock(accounting);
             readPurchaseOrders(accounting);
             readSalesOrders(accounting);
+            readStock(accounting);
         }
     }
 

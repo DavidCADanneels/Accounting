@@ -57,8 +57,9 @@ public class StockIO {
                 order = salesOrders.getBusinessObject(name);
             }
             if(order!=null){
-                Transaction transaction = order.getTransaction();
-                stock.addTransaction(transaction, order);
+                //FIXME
+//                Transaction transaction = order.getTransaction();
+//                stock.addTransaction(transaction, order);
             }
         }
     }
@@ -86,13 +87,13 @@ public class StockIO {
             writer.write("  <" + STOCK_TRANSACTIONS + ">\n");
             for (Order order : stock.getTransactions()) {
                 writer.write("    <" + STOCK_TRANSACTION + ">\n");
-                writer.write("    <" + NAME + ">" + order.getName() + "</" + NAME + ">\n");
-//                writer.write("    <" + DATE + ">" + order.getTransaction() + "</" + DATE + ">\n");
+                writer.write("      <" + NAME + ">" + order.getName() + "</" + NAME + ">\n");
+//                writer.write("      <" + DATE + ">" + order.getTransaction() + "</" + DATE + ">\n");
                 if (order instanceof PurchaseOrder){
-                    writer.write("    <" + TYPE + ">" + PURCHASE_ORDER + "</" + TYPE + ">\n");
+                    writer.write("      <" + TYPE + ">" + PURCHASE_ORDER + "</" + TYPE + ">\n");
                 }
                 if (order instanceof SalesOrder){
-                    writer.write("    <" + TYPE + ">" + SALES_ORDER + "</" + TYPE + ">\n");
+                    writer.write("      <" + TYPE + ">" + SALES_ORDER + "</" + TYPE + ">\n");
                 }
                 writer.write("    </" + STOCK_TRANSACTION + ">\n");
             }

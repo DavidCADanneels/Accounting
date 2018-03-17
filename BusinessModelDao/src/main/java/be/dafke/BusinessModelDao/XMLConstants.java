@@ -130,6 +130,10 @@ public class XMLConstants {
     public static final String GAIN_ACCOUNT = "GainAccount";
     public static final String SALES_ACCOUNT = "SalesAccount";
     public static final String SALES_JOURNAL = "SalesJournal";
+    public static final String PURCHASE_TRANSACTION = "PurchaseTransaction";
+    public static final String SALES_TRANSACTION = "SalesTransaction";
+    public static final String GAIN_TRANSACTION = "GainTransaction";
+    public static final String PAYMENT_TRANSACTION = "PaymentTransaction";
     public static final String GAIN_JOURNAL = "GainJournal";
     public static final String IS_PLACED = "IsPlaced";
     public static final String IS_DELIVERED = "IsDelivered";

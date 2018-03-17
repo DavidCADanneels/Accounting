@@ -27,7 +27,6 @@ public class SalesOrderIO {
         Articles articles = accounting.getArticles();
         File xmlFile = new File(XML_PATH+accounting.getName()+"/"+SALES_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS);
-        int nr = 0;
         Accounts accounts = accounting.getAccounts();
         Journals journals = accounting.getJournals();
 
@@ -77,7 +76,6 @@ public class SalesOrderIO {
             SalesOrder order = new SalesOrder();
             String id = getValue(salesOrderElement, ID);
             order.setName(id);
-            nr++;
             String customerString = getValue(salesOrderElement, CUSTOMER);
             Contact customer = contacts.getBusinessObject(customerString);
             order.setCustomer(customer);
@@ -101,12 +99,11 @@ public class SalesOrderIO {
                 order.addBusinessObject(orderItem);
             }
             try {
-                salesOrders.addBusinessObject(order, parseInt(id));
+                salesOrders.addBusinessObject(order, id);
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();
             }
         }
-        SalesOrders.setId(nr);
     }
 
     public static void writeSalesOrders(Accounting accounting) {
@@ -123,7 +120,7 @@ public class SalesOrderIO {
             writer.write("  <" + VAT_ACCOUNT + ">"+salesOrders.getVATAccount()+"</" + VAT_ACCOUNT + ">\n");
             writer.write("  <" + GAIN_ACCOUNT + ">"+salesOrders.getGainAccount()+"</" + GAIN_ACCOUNT + ">\n");
             writer.write("  <" + SALES_ACCOUNT + ">"+salesOrders.getSalesAccount()+"</" + SALES_ACCOUNT + ">\n");
-            for (Order order : salesOrders.getBusinessObjects()) {
+            for (SalesOrder order : salesOrders.getBusinessObjects()) {
                 writer.write(
                              "  <" + SALES_ORDER + ">\n" +
                                  "    <" + ID + ">" + order.getName() + "</" + ID + ">\n" +
@@ -132,6 +129,18 @@ public class SalesOrderIO {
                                  "    <" + IS_DELIVERED + ">" + order.isDelivered() + "</" + IS_DELIVERED + ">\n" +
                                  "    <" + IS_PAYED + ">" + order.isPayed() + "</" + IS_PAYED + ">\n"
                 );
+                Transaction salesTransaction = order.getSalesTransaction();
+                if(salesTransaction!=null) {
+                    writer.write("    <" + SALES_TRANSACTION + ">" + salesTransaction.getId() + "</" + SALES_TRANSACTION + ">\n");
+                }
+                Transaction gainTransaction = order.getGainTransaction();
+                if(gainTransaction!=null) {
+                    writer.write("    <" + GAIN_TRANSACTION + ">" + gainTransaction.getId() + "</" + GAIN_TRANSACTION + ">\n");
+                }
+                Transaction paymentTransaction = order.getPaymentTransaction();
+                if(paymentTransaction!=null) {
+                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.getId() + "</" + PAYMENT_TRANSACTION + ">\n");
+                }
                 for (OrderItem orderItem : order.getBusinessObjects()) {
                     Article article = orderItem.getArticle();
                     writer.write(

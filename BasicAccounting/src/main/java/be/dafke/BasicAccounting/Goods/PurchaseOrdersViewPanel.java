@@ -49,7 +49,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
             transaction.setJournal(journal);
             // TODO: ask for Date and Description
 
-            purchaseOrder.setTransaction(transaction);
+            purchaseOrder.setPurchaseTransaction(transaction);
 
             journal.addBusinessObject(transaction);
             Main.setJournal(journal);

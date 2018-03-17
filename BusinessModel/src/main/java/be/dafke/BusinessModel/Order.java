@@ -5,6 +5,7 @@ public class Order extends OrderItems {
     private Contact customer, supplier;
     private boolean delivered, payed;
     private boolean placed;
+    private Transaction paymentTransaction;
 
     public Order() {
         super();
@@ -65,5 +66,13 @@ public class Order extends OrderItems {
                 remove(orderItem, false, true);
             }
         });
+    }
+
+    public Transaction getPaymentTransaction() {
+        return paymentTransaction;
+    }
+
+    public void setPaymentTransaction(Transaction paymentTransaction) {
+        this.paymentTransaction = paymentTransaction;
     }
 }

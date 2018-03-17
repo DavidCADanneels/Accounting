@@ -5,6 +5,8 @@ import java.math.RoundingMode;
 
 public class SalesOrder extends Order {
 
+    private Transaction salesTransaction, gainTransaction;
+
     public BigDecimal getTotalPurchasePriceExclVat() {
         BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {
@@ -43,5 +45,21 @@ public class SalesOrder extends Order {
             totalSalesExcl = totalSalesExcl.add(article.getSalesPriceWithVat(numberOfItems)).setScale(2, RoundingMode.HALF_DOWN);
         }
         return totalSalesExcl;
+    }
+
+    public Transaction getSalesTransaction() {
+        return salesTransaction;
+    }
+
+    public void setSalesTransaction(Transaction salesTransaction) {
+        this.salesTransaction = salesTransaction;
+    }
+
+    public Transaction getGainTransaction() {
+        return gainTransaction;
+    }
+
+    public void setGainTransaction(Transaction gainTransaction) {
+        this.gainTransaction = gainTransaction;
     }
 }

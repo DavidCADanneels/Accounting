@@ -18,16 +18,12 @@ public class SalesOrders extends BusinessCollection<SalesOrder>{
         super();
     }
 
-    public static void setId(int id) {
-        SalesOrders.id = id;
-    }
-
     public SalesOrder addBusinessObject(SalesOrder order) throws EmptyNameException, DuplicateNameException {
-        return addBusinessObject(order, id+1);
+        return addBusinessObject(order, "SO" +id+1);
     }
-    public SalesOrder addBusinessObject(SalesOrder order, int newId) throws EmptyNameException, DuplicateNameException {
+    public SalesOrder addBusinessObject(SalesOrder order, String name) throws EmptyNameException, DuplicateNameException {
         if (order.getName()==null) {
-            order.setName("SO" + newId);
+            order.setName(name);
         }
         id++;
         return super.addBusinessObject(order);
