@@ -95,17 +95,20 @@ public class JournalEditPanel extends JPanel implements ActionListener {
         credit = new JTextField(8);
         debet.setEditable(false);
         credit.setEditable(false);
-        paneel3.add(new JLabel(
-                getBundle("Accounting").getString("TOTAL_DEBIT")));
-        paneel3.add(debet);
-        paneel3.add(new JLabel(getBundle("Accounting").getString(
-                "TOTAL_CREDIT")));
-        paneel3.add(credit);
 
-        JPanel mainPanel = new JPanel(new GridLayout(0, 1));
+        JPanel paneel4 = new JPanel();
+        paneel4.add(new JLabel(getBundle("Accounting").getString("TOTAL_DEBIT")));
+        paneel4.add(debet);
+        paneel4.add(new JLabel(getBundle("Accounting").getString("TOTAL_CREDIT")));
+        paneel4.add(credit);
+
+        JPanel mainPanel = new JPanel();
+        mainPanel.setLayout(new BoxLayout(mainPanel,BoxLayout.Y_AXIS));
+//        mainPanel.setLayout(new GridLayout(0, 1));
         dateAndDescriptionPanel = new DateAndDescriptionPanel();
-        mainPanel.add(dateAndDescriptionPanel);
+        mainPanel.add(paneel4);
         mainPanel.add(paneel2);
+        mainPanel.add(dateAndDescriptionPanel);
         mainPanel.add(paneel3);
         return mainPanel;
     }

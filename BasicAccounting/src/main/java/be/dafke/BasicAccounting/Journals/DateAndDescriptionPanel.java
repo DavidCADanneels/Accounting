@@ -24,7 +24,7 @@ public class DateAndDescriptionPanel extends JPanel implements FocusListener {
         dag.addFocusListener(this);
         maand.addFocusListener(this);
         jaar.addFocusListener(this);
-        bewijs = new JTextField(30);
+        bewijs = new JTextField(20);
         bewijs.addFocusListener(this);
 
         JPanel panel1 = new JPanel();
@@ -40,6 +40,7 @@ public class DateAndDescriptionPanel extends JPanel implements FocusListener {
         panel2.add(new JLabel(getBundle("Accounting").getString("MESSAGE")));
         panel2.add(bewijs);
 
+        setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         add(panel1);
         add(panel2);
     }
