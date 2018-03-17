@@ -25,8 +25,8 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 29/04/2016.
  */
-public class JournalEditPanel extends JPanel implements FocusListener, ActionListener {
-    private JTextField debet, credit, dag, maand, jaar, bewijs, ident;
+public class JournalEditPanel extends JPanel implements ActionListener {
+    private JTextField debet, credit, ident;
     private JButton singleBook, save, clear;
     private JCheckBox balanceTransaction;
 
@@ -41,6 +41,7 @@ public class JournalEditPanel extends JPanel implements FocusListener, ActionLis
     private Transaction transaction;
     private Accounts accounts;
     private VATTransactions vatTransactions;
+    private DateAndDescriptionPanel dateAndDescriptionPanel;
 
     public JournalEditPanel() {
         setLayout(new BorderLayout());
@@ -71,14 +72,6 @@ public class JournalEditPanel extends JPanel implements FocusListener, ActionLis
     public JPanel createInputPanel(){
         ident = new JTextField(4);
         ident.setEditable(false);
-        dag = new JTextField(2);
-        maand = new JTextField(2);
-        jaar = new JTextField(4);
-        dag.addFocusListener(this);
-        maand.addFocusListener(this);
-        jaar.addFocusListener(this);
-        bewijs = new JTextField(30);
-        bewijs.addFocusListener(this);
         balanceTransaction = new JCheckBox("balanceTransaction",false);
         balanceTransaction.addActionListener(e -> transaction.setBalanceTransaction(balanceTransaction.isSelected()));
         singleBook = new JButton(getBundle("Accounting").getString("OK"));
@@ -89,24 +82,10 @@ public class JournalEditPanel extends JPanel implements FocusListener, ActionLis
         clear = new JButton(getBundle("Accounting").getString("CLEAR_PANEL"));
         clear.addActionListener(this);
 
-        JPanel paneel1 = new JPanel();
-        paneel1.add(new JLabel(
-                getBundle("Accounting").getString("TRANSACTION")));
-        paneel1.add(ident);
-        paneel1.add(new JLabel(getBundle("Accounting").getString("DATE")));
-        paneel1.add(dag);
-        paneel1.add(new JLabel("/"));
-        paneel1.add(maand);
-        paneel1.add(new JLabel("/"));
-        paneel1.add(jaar);
-        paneel1.add(new JLabel("(d/m/yyyy)"));
-        paneel1.add(balanceTransaction);
-
-
         JPanel paneel2 = new JPanel();
-        paneel2.add(new JLabel(getBundle("Accounting").getString(
-                "MESSAGE")));
-        paneel2.add(bewijs);
+        paneel2.add(new JLabel(getBundle("Accounting").getString("TRANSACTION")));
+        paneel2.add(ident);
+        paneel2.add(balanceTransaction);
 
         JPanel paneel3 = new JPanel();
         paneel3.add(singleBook);
@@ -124,7 +103,8 @@ public class JournalEditPanel extends JPanel implements FocusListener, ActionLis
         paneel3.add(credit);
 
         JPanel mainPanel = new JPanel(new GridLayout(0, 1));
-        mainPanel.add(paneel1);
+        dateAndDescriptionPanel = new DateAndDescriptionPanel();
+        mainPanel.add(dateAndDescriptionPanel);
         mainPanel.add(paneel2);
         mainPanel.add(paneel3);
         return mainPanel;
@@ -265,41 +245,6 @@ public class JournalEditPanel extends JPanel implements FocusListener, ActionLis
         setTransaction(transaction);
     }
 
-    private void setDate(Calendar date){
-        if (date == null){
-            dag.setText("");
-            maand.setText("");
-            jaar.setText("");
-        }else{
-            dag.setText(Utils.toDay(date)+"");
-            maand.setText(Utils.toMonth(date)+"");
-            jaar.setText(Utils.toYear(date)+"");
-        }
-    }
-
-    public void focusGained(FocusEvent fe) {
-        JTextField field = (JTextField)fe.getComponent();
-        field.selectAll();
-    }
-
-    public void focusLost(FocusEvent fe) {
-        if(transaction!=null){
-            Object source = fe.getSource();
-            if(source == dag || source == maand || source == jaar){
-                Calendar date = getDate();
-                if (date != null){
-                    transaction.setDate(date);
-                    dag.setText(Utils.toDay(date)+"");
-                    maand.setText(Utils.toMonth(date)+"");
-                    jaar.setText(Utils.toYear(date)+"");
-                }
-            } else if (source == bewijs){
-                // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
-                transaction.setDescription(bewijs.getText().trim());
-            }
-        }
-    }
-
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == clear) {
             clear();
@@ -320,7 +265,7 @@ public class JournalEditPanel extends JPanel implements FocusListener, ActionLis
     }
 
     public void clear() {
-        transaction = new Transaction(getDate(), "");
+        transaction = new Transaction(dateAndDescriptionPanel.getDate(), "");
         transaction.setJournal(journal);
         balanceTransaction.setSelected(false);
         journal.setCurrentTransaction(transaction);
@@ -330,14 +275,14 @@ public class JournalEditPanel extends JPanel implements FocusListener, ActionLis
 
     public Transaction saveTransaction(){
         if(transaction!=null){
-            Calendar date = getDate();
+            Calendar date = dateAndDescriptionPanel.getDate();
             if(date == null){
                 ActionUtils.showErrorMessage(ActionUtils.FILL_IN_DATE);
                 return null;
             } else {
                 // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
-                transaction.setDescription(getDescription());
-                transaction.setDate(getDate());
+                transaction.setDescription(dateAndDescriptionPanel.getDescription());
+                transaction.setDate(dateAndDescriptionPanel.getDate());
             }
         }
         return transaction;
@@ -373,22 +318,16 @@ public class JournalEditPanel extends JPanel implements FocusListener, ActionLis
 
     public void setJournal(Journal journal) {
         this.journal=journal;
+        dateAndDescriptionPanel.setJournal(journal);
         ident.setText(journal==null?"":journal.getAbbreviation() + " " + journal.getId());
         setTransaction(journal==null?null:journal.getCurrentTransaction());
     }
 
     public void setTransaction(Transaction transaction){
         this.transaction = transaction;
+        dateAndDescriptionPanel.setTransaction(transaction);
         journalDataModel.setTransaction(transaction);
         fireTransactionDataChanged();
-    }
-
-    private Calendar getDate(){
-        return Utils.toCalendar(dag.getText(),maand.getText(),jaar.getText());
-    }
-
-    private String getDescription(){
-        return bewijs.getText().trim();
     }
 
     public void addBooking(Booking booking){
@@ -474,13 +413,8 @@ public class JournalEditPanel extends JPanel implements FocusListener, ActionLis
         credittotaal = (transaction==null)?BigDecimal.ZERO:transaction.getCreditTotaal();//.setScale(2);
         debet.setText(debettotaal.toString());
         credit.setText(credittotaal.toString());
-        setDate(transaction==null?Calendar.getInstance():transaction.getDate());
-        bewijs.setEnabled((transaction!=null));
-        dag.setEnabled((transaction!=null));
-        maand.setEnabled((transaction!=null));
-        jaar.setEnabled((transaction!=null));
-        bewijs.setText(transaction==null?"":transaction.getDescription());
         balanceTransaction.setSelected(transaction!=null&&transaction.isBalanceTransaction());
+        dateAndDescriptionPanel.fireTransactionDataChanged();
 
         boolean okEnabled = journal!=null && transaction!=null && transaction.isBookable();
         boolean clearEnabled = journal!=null && transaction!=null && !transaction.getBusinessObjects().isEmpty();
