@@ -41,18 +41,7 @@ public class SalesOrdersViewPanel extends JPanel {
         placeOrderButton = new JButton("Place Order");
         placeOrderButton.addActionListener(e -> {
             salesOrder = salesOrdersViewDataTableModel.getOrder();
-            Transaction transaction = createSalesTransaction(salesOrder);
-            Journal journal = salesOrders.getJournal();
-            if (journal==null){
-                journal = setSalesJournal();
-            }
-            transaction.setJournal(journal);
-            // TODO: ask for Date and Description
-
-            journal.addBusinessObject(transaction);
-            Main.setJournal(journal);
-            Main.selectTransaction(transaction);
-
+            createSalesTransaction();
             salesOrder.setPlaced(true);
             updateButtonsAndCheckBoxes();
         });
@@ -125,18 +114,28 @@ public class SalesOrdersViewPanel extends JPanel {
 
     public Journal setSalesJournal(){
         JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals());
+        journalSelectorDialog.setTitle("Select Sales Journal");
         journalSelectorDialog.setVisible(true);
         Journal journal = journalSelectorDialog.getSelection();
-        salesOrders.setJournal(journal);
+        salesOrders.setSalesJournal(journal);
         return journal;
     }
 
-    private Transaction createSalesTransaction(SalesOrder salesOrder){
-        Transaction transaction;
-        // TODO: create transaction
+    public Journal setGainJournal(){
+        JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals());
+        journalSelectorDialog.setTitle("Select Gain Journal");
+        journalSelectorDialog.setVisible(true);
+        Journal journal = journalSelectorDialog.getSelection();
+        salesOrders.setGainJournal(journal);
+        return journal;
+    }
+
+    private void createSalesTransaction(){
+        Transaction salesTransaction, gainTransaction;
         Calendar date = Calendar.getInstance();
         String description = "";
-        transaction = new Transaction(date, description);
+        salesTransaction = new Transaction(date, description);
+        gainTransaction = new Transaction(date, description);
 
         Account vatAccount = salesOrders.getVATAccount();
         if (vatAccount == null){
@@ -170,6 +169,17 @@ public class SalesOrdersViewPanel extends JPanel {
             salesOrders.setGainAccount(gainAccount);
         }
 
+        Account salesAccount = salesOrders.getSalesAccount();
+        if (salesAccount == null){
+            AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.REVENUE);
+            ArrayList<AccountType> list = new ArrayList<>();
+            list.add(accountType);
+            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select Sales Account");
+            dialog.setVisible(true);
+            salesAccount = dialog.getSelection();
+            salesOrders.setSalesAccount(salesAccount);
+        }
+
         Contact customer = this.salesOrder.getCustomer();
         if(customer == null){
             // TODO
@@ -191,24 +201,51 @@ public class SalesOrdersViewPanel extends JPanel {
         BigDecimal customerAmount = this.salesOrder.getTotalSalesPriceInclVat();
         BigDecimal vatAmount = this.salesOrder.getTotalSalesVat();
 
-        Booking stockBooking = new Booking(stockAccount, stockAmount, true);
-        Booking gainBooking = new Booking(gainAccount, gainAmount, true);
-        Booking customerBooking = new Booking(customerAccount, customerAmount, false);
+        // For DIF
+        Booking stockBooking = new Booking(stockAccount, stockAmount, false);
+        Booking gainBooking = new Booking(gainAccount, gainAmount, false);
+        Booking salesDivBooking = new Booking(salesAccount, totalSalesPriceExclVat, true);
 
-        transaction.addBusinessObject(stockBooking);
-        transaction.addBusinessObject(gainBooking);
-        transaction.addBusinessObject(customerBooking);
+        Booking salesBooking = new Booking(salesAccount, totalSalesPriceExclVat, false);
+        Booking customerBooking = new Booking(customerAccount, customerAmount, true);
+
+        gainTransaction.addBusinessObject(gainBooking);
+        gainTransaction.addBusinessObject(stockBooking);
+        gainTransaction.addBusinessObject(salesDivBooking);
+
+        salesTransaction.addBusinessObject(salesBooking);
+        salesTransaction.addBusinessObject(customerBooking);
 
         if(vatAmount.compareTo(BigDecimal.ZERO) != 0) {
-            Booking vatBooking = new Booking(vatAccount, vatAmount, true);
-            transaction.addBusinessObject(vatBooking);
+            Booking vatBooking = new Booking(vatAccount, vatAmount, false);
+            salesTransaction.addBusinessObject(vatBooking);
             VATTransactions vatTransactions = accounting.getVatTransactions();
-            VATTransaction vatTransaction = vatTransactions.purchase(stockBooking, vatBooking, VATTransaction.PurchaseType.GOODS);
-            transaction.addVatTransaction(vatTransaction);
-            vatTransaction.setTransaction(transaction);
+            // TODO: now hardcoded 6%, could be 21% as well, or different per article
+            VATTransaction vatTransaction = vatTransactions.sale(salesBooking, vatBooking, 6);
+            salesTransaction.addVatTransaction(vatTransaction);
+            vatTransaction.setTransaction(salesTransaction);
         }
 
-        return transaction;
+        Journal gainJournal = salesOrders.getGainJournal();
+        if (gainJournal==null){
+            gainJournal = setGainJournal();
+        }
+        gainTransaction.setJournal(gainJournal);
+        // TODO: ask for Date and Description
+
+        gainJournal.addBusinessObject(gainTransaction);
+
+        Journal salesJournal = salesOrders.getSalesJournal();
+        if (salesJournal==null){
+            salesJournal = setSalesJournal();
+        }
+        salesTransaction.setJournal(salesJournal);
+        // TODO: ask for Date and Description
+
+        salesJournal.addBusinessObject(salesTransaction);
+
+        Main.setJournal(salesJournal);
+        Main.selectTransaction(salesTransaction);
     }
 
     public void firePurchaseOrderAddedOrRemoved() {

@@ -9,8 +9,10 @@ public class SalesOrders extends BusinessCollection<SalesOrder>{
     private static int id = 0;
     private Account VATAccount;
     private Account stockAccount;
-    private Journal journal;
+    private Journal salesJournal;
+    private Journal gainJournal;
     private Account gainAccount;
+    private Account salesAccount;
 
     public SalesOrders() {
         super();
@@ -47,12 +49,20 @@ public class SalesOrders extends BusinessCollection<SalesOrder>{
         this.stockAccount = stockAccount;
     }
 
-    public Journal getJournal() {
-        return journal;
+    public Journal getSalesJournal() {
+        return salesJournal;
     }
 
-    public void setJournal(Journal journal) {
-        this.journal = journal;
+    public void setSalesJournal(Journal salesJournal) {
+        this.salesJournal = salesJournal;
+    }
+
+    public Journal getGainJournal() {
+        return gainJournal;
+    }
+
+    public void setGainJournal(Journal gainJournal) {
+        this.gainJournal = gainJournal;
     }
 
     public Account getGainAccount() {
@@ -61,5 +71,13 @@ public class SalesOrders extends BusinessCollection<SalesOrder>{
 
     public void setGainAccount(Account gainAccount) {
         this.gainAccount = gainAccount;
+    }
+
+    public Account getSalesAccount() {
+        return salesAccount;
+    }
+
+    public void setSalesAccount(Account salesAccount) {
+        this.salesAccount = salesAccount;
     }
 }

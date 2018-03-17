@@ -28,6 +28,37 @@ public class SalesOrderIO {
         File xmlFile = new File(XML_PATH+accounting.getName()+"/"+SALES_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS);
         int nr = 0;
+        Accounts accounts = accounting.getAccounts();
+        Journals journals = accounting.getJournals();
+
+        String journalName = getValue(rootElement, JOURNAL);
+        if(journalName!=null){
+            Journal journal = journals.getBusinessObject(journalName);
+            if (journal!=null) {
+                salesOrders.setSalesJournal(journal);
+            }
+        }
+        String stockAccountString = getValue(rootElement, STOCK_ACCOUNT);
+        if(stockAccountString!=null){
+            Account account = accounts.getBusinessObject(stockAccountString);
+            if (account!=null) {
+                salesOrders.setStockAccount(account);
+            }
+        }
+        String vatAccount = getValue(rootElement, VAT_ACCOUNT);
+        if(vatAccount!=null){
+            Account account = accounts.getBusinessObject(vatAccount);
+            if (account!=null) {
+                salesOrders.setVATAccount(account);
+            }
+        }
+        String gainAccount = getValue(rootElement, GAIN_ACCOUNT);
+        if(gainAccount !=null){
+            Account account = accounts.getBusinessObject(gainAccount);
+            if (account!=null) {
+                salesOrders.setGainAccount(account);
+            }
+        }
         for (Element salesOrderElement : getChildren(rootElement, SALES_ORDER)) {
             SalesOrder order = new SalesOrder();
             String id = getValue(salesOrderElement, ID);
@@ -36,6 +67,10 @@ public class SalesOrderIO {
             String customerString = getValue(salesOrderElement, CUSTOMER);
             Contact customer = contacts.getBusinessObject(customerString);
             order.setCustomer(customer);
+
+            order.setPlaced(getBooleanValue(salesOrderElement, IS_PLACED));
+            order.setDelivered(getBooleanValue(salesOrderElement, IS_DELIVERED));
+            order.setPayed(getBooleanValue(salesOrderElement, IS_PAYED));
 
             for (Element element : getChildren(salesOrderElement, ARTICLE)) {
                 String name = getValue(element, NAME);
@@ -66,11 +101,19 @@ public class SalesOrderIO {
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(SALES_ORDERS, 2));
+            Journal journal = salesOrders.getSalesJournal();
+            writer.write("  <" + JOURNAL + ">"+ (journal==null?"null":journal.getName())+"</" + JOURNAL + ">\n");
+            writer.write("  <" + STOCK_ACCOUNT + ">"+salesOrders.getStockAccount()+"</" + STOCK_ACCOUNT + ">\n");
+            writer.write("  <" + VAT_ACCOUNT + ">"+salesOrders.getVATAccount()+"</" + VAT_ACCOUNT + ">\n");
+            writer.write("  <" + GAIN_ACCOUNT + ">"+salesOrders.getGainAccount()+"</" + GAIN_ACCOUNT + ">\n");
             for (Order order : salesOrders.getBusinessObjects()) {
                 writer.write(
                              "  <" + SALES_ORDER + ">\n" +
-                                "    <" + ID + ">" + order.getName() + "</" + ID + ">\n" +
-                                "    <" + CUSTOMER + ">" + order.getCustomer() + "</" + CUSTOMER + ">\n"
+                                 "    <" + ID + ">" + order.getName() + "</" + ID + ">\n" +
+                                 "    <" + CUSTOMER + ">" + order.getCustomer() + "</" + CUSTOMER + ">\n" +
+                                 "    <" + IS_PLACED + ">" + order.isPlaced() + "</" + IS_PLACED + ">\n" +
+                                 "    <" + IS_DELIVERED + ">" + order.isDelivered() + "</" + IS_DELIVERED + ">\n" +
+                                 "    <" + IS_PAYED + ">" + order.isPayed() + "</" + IS_PAYED + ">\n"
                 );
                 for (OrderItem orderItem : order.getBusinessObjects()) {
                     Article article = orderItem.getArticle();
