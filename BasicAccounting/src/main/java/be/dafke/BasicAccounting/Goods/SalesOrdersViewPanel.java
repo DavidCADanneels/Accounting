@@ -86,13 +86,7 @@ public class SalesOrdersViewPanel extends JPanel {
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {
             salesOrder = (SalesOrder) comboBox.getSelectedItem();
-            if(salesOrder!=null) {
-                payed.setSelected(salesOrder.isPayed());
-                delivered.setSelected(salesOrder.isDelivered());
-                deliveredButton.setEnabled(!salesOrder.isDelivered());
-                payedButton.setEnabled(!salesOrder.isPayed());
-                salesOrdersViewDataTableModel.setOrder(salesOrder);
-            }
+            updateButtonsAndCheckBoxes();
         });
         firePurchaseOrderAddedOrRemoved();
 
