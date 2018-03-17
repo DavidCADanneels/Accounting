@@ -19,14 +19,20 @@ public class SalesOrders extends BusinessCollection<SalesOrder>{
     }
 
     public SalesOrder addBusinessObject(SalesOrder order) throws EmptyNameException, DuplicateNameException {
-        return addBusinessObject(order, "SO" +id+1);
-    }
-    public SalesOrder addBusinessObject(SalesOrder order, String name) throws EmptyNameException, DuplicateNameException {
         if (order.getName()==null) {
-            order.setName(name);
+            id++;
+            order.setName(generateName("SO"));
+            order.setId(id);
         }
-        id++;
         return super.addBusinessObject(order);
+    }
+
+    public String generateName(String prefix){
+        if(id<10){
+            return prefix+"00"+id;
+        } else if(id<100){
+            return prefix+"0"+id;
+        } else return prefix+id;
     }
 
     public void removeBusinessObject(Order order){

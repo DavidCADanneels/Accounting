@@ -74,8 +74,6 @@ public class SalesOrderIO {
         }
         for (Element salesOrderElement : getChildren(rootElement, SALES_ORDER)) {
             SalesOrder order = new SalesOrder();
-            String id = getValue(salesOrderElement, ID);
-            order.setName(id);
             String customerString = getValue(salesOrderElement, CUSTOMER);
             Contact customer = contacts.getBusinessObject(customerString);
             order.setCustomer(customer);
@@ -99,7 +97,7 @@ public class SalesOrderIO {
                 order.addBusinessObject(orderItem);
             }
             try {
-                salesOrders.addBusinessObject(order, id);
+                salesOrders.addBusinessObject(order);
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();
             }
@@ -123,7 +121,7 @@ public class SalesOrderIO {
             for (SalesOrder order : salesOrders.getBusinessObjects()) {
                 writer.write(
                              "  <" + SALES_ORDER + ">\n" +
-                                 "    <" + ID + ">" + order.getName() + "</" + ID + ">\n" +
+                                 "    <" + ID + ">" + order.getId() + "</" + ID + ">\n" +
                                  "    <" + CUSTOMER + ">" + order.getCustomer() + "</" + CUSTOMER + ">\n" +
                                  "    <" + IS_PLACED + ">" + order.isPlaced() + "</" + IS_PLACED + ">\n" +
                                  "    <" + IS_DELIVERED + ">" + order.isDelivered() + "</" + IS_DELIVERED + ">\n" +

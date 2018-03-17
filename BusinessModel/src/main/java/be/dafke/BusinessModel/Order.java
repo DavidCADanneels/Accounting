@@ -6,6 +6,7 @@ public class Order extends OrderItems {
     private boolean delivered, payed;
     private boolean placed;
     private Transaction paymentTransaction;
+    private Integer id;
 
     public Order() {
         super();
@@ -74,5 +75,13 @@ public class Order extends OrderItems {
 
     public void setPaymentTransaction(Transaction paymentTransaction) {
         this.paymentTransaction = paymentTransaction;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    protected void setId(Integer id) {
+        this.id = id;
     }
 }
