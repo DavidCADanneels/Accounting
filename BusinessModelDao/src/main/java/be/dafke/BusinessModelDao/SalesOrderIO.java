@@ -66,6 +66,13 @@ public class SalesOrderIO {
                 salesOrders.setGainAccount(account);
             }
         }
+        String salesAccount = getValue(rootElement, SALES_ACCOUNT);
+        if(salesAccount !=null){
+            Account account = accounts.getBusinessObject(salesAccount);
+            if (account!=null) {
+                salesOrders.setSalesAccount(account);
+            }
+        }
         for (Element salesOrderElement : getChildren(rootElement, SALES_ORDER)) {
             SalesOrder order = new SalesOrder();
             String id = getValue(salesOrderElement, ID);
@@ -115,6 +122,7 @@ public class SalesOrderIO {
             writer.write("  <" + STOCK_ACCOUNT + ">"+salesOrders.getStockAccount()+"</" + STOCK_ACCOUNT + ">\n");
             writer.write("  <" + VAT_ACCOUNT + ">"+salesOrders.getVATAccount()+"</" + VAT_ACCOUNT + ">\n");
             writer.write("  <" + GAIN_ACCOUNT + ">"+salesOrders.getGainAccount()+"</" + GAIN_ACCOUNT + ">\n");
+            writer.write("  <" + SALES_ACCOUNT + ">"+salesOrders.getSalesAccount()+"</" + SALES_ACCOUNT + ">\n");
             for (Order order : salesOrders.getBusinessObjects()) {
                 writer.write(
                              "  <" + SALES_ORDER + ">\n" +
