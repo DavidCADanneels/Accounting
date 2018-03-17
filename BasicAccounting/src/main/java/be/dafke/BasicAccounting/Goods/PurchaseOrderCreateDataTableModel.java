@@ -16,11 +16,13 @@ import static java.util.ResourceBundle.getBundle;
 
 public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<OrderItem> {
 	private final Articles articles;
-	public static int NR_COL = 0;
-	public static int NAME_COL = 1;
-	public static int HS_COL = 2;
-	public static int PRICE_COL = 3;
-	public static int VAT_COL = 4;
+	public static int NR_OF_UNITS_COL = 0;
+	public static int NR_OF_ITEMS_COL = 1;
+	public static int NAME_COL = 2;
+	public static int HS_COL = 3;
+	public static int PRICE_COL = 4;
+	public static int VAT_COL = 5;
+	public static int NR_OF_COL = 6;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private Contact contact;
@@ -38,7 +40,8 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 	}
 
 	private void setColumnClasses() {
-		columnClasses.put(NR_COL, Integer.class);
+		columnClasses.put(NR_OF_UNITS_COL, Integer.class);
+		columnClasses.put(NR_OF_ITEMS_COL, Integer.class);
 		columnClasses.put(NAME_COL, String.class);
 		columnClasses.put(HS_COL, String.class);
 		columnClasses.put(PRICE_COL, BigDecimal.class);
@@ -46,7 +49,8 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 	}
 
 	private void setColumnNames() {
-		columnNames.put(NR_COL, getBundle("Accounting").getString("NR_TO_ORDER"));
+		columnNames.put(NR_OF_UNITS_COL, getBundle("Accounting").getString("UNITS_TO_ORDER"));
+		columnNames.put(NR_OF_ITEMS_COL, getBundle("Accounting").getString("ITEMS_TO_ORDER"));
 		columnNames.put(NAME_COL, getBundle("Accounting").getString("ARTICLE_NAME"));
 		columnNames.put(HS_COL, getBundle("Accounting").getString("ARTICLE_HS"));
 		columnNames.put(PRICE_COL, getBundle("Accounting").getString("ARTICLE_PURCHASE_PRICE"));
@@ -72,16 +76,22 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 		if (col == PRICE_COL) {
 			return article.getPurchasePrice();
 		}
-		if (col == NR_COL) {
+		else {
 			if (order==null) return null;
 			OrderItem item = order.getBusinessObject(article.getName());
-			return item==null?0:item.getNumberOfUnits();
+			if(item==null) return null;
+			if (col == NR_OF_UNITS_COL) {
+				return item.getNumberOfUnits();
+			}
+			if (col == NR_OF_ITEMS_COL) {
+				return item.getNumberOfItems();
+			}
 		}
 		return null;
 	}
 
 	public int getColumnCount() {
-		return columnNames.size();
+		return NR_OF_COL;
 	}
 
 	public int getRowCount() {
@@ -103,7 +113,7 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return col==NR_COL;
+		return col==NR_OF_UNITS_COL;
 	}
 
 // DE SET METHODEN
@@ -111,7 +121,7 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 	@Override
 	public void setValueAt(Object value, int row, int col) {
 		OrderItem orderItem = getObject(row,col);
-		if(col == NR_COL){
+		if(col == NR_OF_UNITS_COL){
 			int nr = (Integer) value;
 			orderItem.setNumberOfUnits(nr);
 			orderItem.calculateNumberOfItems();

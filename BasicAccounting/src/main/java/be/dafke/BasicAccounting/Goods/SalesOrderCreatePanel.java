@@ -11,6 +11,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.function.Predicate;
 
+import static be.dafke.BasicAccounting.Goods.SalesOrdersViewGUI.fireSalesOrderAddedOrRemovedForAll;
+
 /**
  * User: david
  * Date: 29-12-13
@@ -58,7 +60,7 @@ public class SalesOrderCreatePanel extends JPanel {
                 order = new SalesOrder();
                 order.setArticles(articles);
                 salesOrderCreateDataTableModel.setOrder(order);
-//                fireSalesOrderAddedOrRemovedForAll();
+                fireSalesOrderAddedOrRemovedForAll();
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {

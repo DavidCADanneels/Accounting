@@ -84,13 +84,15 @@ public class SalesOrdersViewPanel extends JPanel {
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {
             salesOrder = (SalesOrder) comboBox.getSelectedItem();
-            payed.setSelected(salesOrder.isPayed());
-            delivered.setSelected(salesOrder.isDelivered());
-            deliveredButton.setEnabled(!salesOrder.isDelivered());
-            payedButton.setEnabled(!salesOrder.isPayed());
-            salesOrdersViewDataTableModel.setOrder(salesOrder);
+            if(salesOrder!=null) {
+                payed.setSelected(salesOrder.isPayed());
+                delivered.setSelected(salesOrder.isDelivered());
+                deliveredButton.setEnabled(!salesOrder.isDelivered());
+                payedButton.setEnabled(!salesOrder.isPayed());
+                salesOrdersViewDataTableModel.setOrder(salesOrder);
+            }
         });
-        fireCustomerAddedOrRemoved();
+        firePurchaseOrderAddedOrRemoved();
 
         JScrollPane scrollPane = new JScrollPane(table);
         setLayout(new BorderLayout());
@@ -213,7 +215,7 @@ public class SalesOrdersViewPanel extends JPanel {
         return transaction;
     }
 
-    public void fireCustomerAddedOrRemoved() {
+    public void firePurchaseOrderAddedOrRemoved() {
         comboBox.removeAllItems();
         salesOrders.getBusinessObjects().forEach(order -> comboBox.addItem(order));
 //        salesOrdersViewDataTableModel.fireTableDataChanged();
