@@ -22,6 +22,7 @@ public class SalesOrdersViewPanel extends JPanel {
     private final JButton placeOrderButton, deliveredButton, payedButton;
     private final SelectableTable<OrderItem> table;
     private final SalesOrders salesOrders;
+    private final JTextField customerName;
     private JComboBox<Order> comboBox;
     private JCheckBox payed, delivered, placed;
     private SalesOrder salesOrder;
@@ -72,6 +73,9 @@ public class SalesOrdersViewPanel extends JPanel {
 
         salesTotalsPanel = new SaleTotalsPanel();
 
+        customerName = new JTextField(20);
+        customerName.setEditable(false);
+
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {
             salesOrder = (SalesOrder) comboBox.getSelectedItem();
@@ -82,12 +86,20 @@ public class SalesOrdersViewPanel extends JPanel {
         JScrollPane scrollPane = new JScrollPane(table);
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
-        JPanel north = new JPanel();
-        north.add(comboBox);
+        JPanel north1 = new JPanel();
+        north1.add(comboBox);
+        north1.add(customerName);
 
-        north.add(placed);
-        north.add(delivered);
-        north.add(payed);
+        JPanel north2 = new JPanel();
+        north2.add(placed);
+        north2.add(delivered);
+        north2.add(payed);
+
+        JPanel north = new JPanel();
+        north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
+        north.add(north1);
+        north.add(north2);
+
         add(north, BorderLayout.NORTH);
         JPanel south = new JPanel(new BorderLayout());
         south.add(salesTotalsPanel);
@@ -110,6 +122,7 @@ public class SalesOrdersViewPanel extends JPanel {
         payedButton.setEnabled(salesOrder !=null&&!salesOrder.isPayed());
         salesOrdersViewDataTableModel.setOrder(salesOrder);
         salesTotalsPanel.fireOrderContentChanged(salesOrder);
+        customerName.setText(salesOrder!=null&&salesOrder.getCustomer()!=null?salesOrder.getCustomer().getName():"");
     }
 
     public Journal setSalesJournal(){
