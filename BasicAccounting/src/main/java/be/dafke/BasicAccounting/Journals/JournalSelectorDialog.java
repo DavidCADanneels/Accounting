@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Journals;
+import be.dafke.ComponentModel.RefreshableDialog;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,14 +10,13 @@ import java.awt.*;
 /**
  * @author David Danneels
  */
-public class JournalSelectorDialog extends JDialog {
+public class JournalSelectorDialog extends RefreshableDialog {
 	private JButton ok;
 	private Journal journal;
 	private JComboBox<Journal> combo;
 
 	public JournalSelectorDialog(Journals journals){
-		setTitle("Select Journal:");
-		setModal(true);
+		super("Select Journal:");
 		combo = new JComboBox<>();
 		for (Journal journal : journals.getBusinessObjects()) {
 			combo.addItem(journal);

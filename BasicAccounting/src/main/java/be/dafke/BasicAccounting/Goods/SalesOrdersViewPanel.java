@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Goods;
 
 
 import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
+import be.dafke.BasicAccounting.Journals.DateAndDescriptionDialog;
 import be.dafke.BasicAccounting.Journals.JournalSelectorDialog;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
@@ -144,12 +145,6 @@ public class SalesOrdersViewPanel extends JPanel {
     }
 
     private void createSalesTransaction(){
-        Transaction salesTransaction, gainTransaction;
-        Calendar date = Calendar.getInstance();
-        String description = "";
-        salesTransaction = new Transaction(date, description);
-        gainTransaction = new Transaction(date, description);
-
         Account vatAccount = salesOrders.getVATAccount();
         if (vatAccount == null){
             AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.TAXDEBIT);
@@ -221,6 +216,16 @@ public class SalesOrdersViewPanel extends JPanel {
 
         Booking salesBooking = new Booking(salesAccount, totalSalesPriceExclVat, false);
         Booking customerBooking = new Booking(customerAccount, customerAmount, true);
+
+
+        DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
+        dateAndDescriptionDialog.setVisible(true);
+
+        Calendar date = dateAndDescriptionDialog.getDate();
+        String description = dateAndDescriptionDialog.getDescription();
+        Transaction salesTransaction = new Transaction(date, description);
+        Transaction gainTransaction = new Transaction(date, description);
+
 
         gainTransaction.addBusinessObject(gainBooking);
         gainTransaction.addBusinessObject(stockBooking);
