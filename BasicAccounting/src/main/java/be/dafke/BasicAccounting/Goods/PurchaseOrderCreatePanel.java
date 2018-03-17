@@ -61,6 +61,7 @@ public class PurchaseOrderCreatePanel extends JPanel {
                 order.setArticles(articles);
                 purchaseOrderCreateDataTableModel.setOrder(order);
                 firePurchaseOrderAddedOrRemovedForAll();
+                purchaseTotalsPanel.fireOrderContentChanged(order);
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {

@@ -60,6 +60,7 @@ public class SalesOrderCreatePanel extends JPanel {
                 order = new SalesOrder();
                 order.setArticles(articles);
                 salesOrderCreateDataTableModel.setOrder(order);
+                saleTotalsPanel.fireOrderContentChanged(order);
                 fireSalesOrderAddedOrRemovedForAll();
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
