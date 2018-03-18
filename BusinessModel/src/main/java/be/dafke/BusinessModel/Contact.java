@@ -16,6 +16,7 @@ public class Contact extends BusinessObject{
     private String countryCode = "";
     private String email = "";
     private String phone = "";
+    private String officialName = "";
     private BigDecimal turnOver = BigDecimal.ZERO;
     private BigDecimal VATTotal = BigDecimal.ZERO;
     private Account account;
@@ -75,6 +76,14 @@ public class Contact extends BusinessObject{
 
     public void setVatNumber(String vatNumber) {
         this.vatNumber = vatNumber;
+    }
+
+    public String getOfficialName() {
+        return officialName;
+    }
+
+    public void setOfficialName(String officialName) {
+        this.officialName = officialName;
     }
 
     public String getPostalCode() {

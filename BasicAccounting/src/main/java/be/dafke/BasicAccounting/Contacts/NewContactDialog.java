@@ -21,6 +21,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class NewContactDialog extends RefreshableDialog {
     public static final String NAME = "NAME_LABEL";
+    public static final String OFFICIAL_NAME = "OFFICIAL_NAME_LABEL";
     public static final String STREET_AND_NUMBER = "STREET_AND_NUMBER_LABEL";
     public static final String POSTAL_CODE = "POSTAL_CODE_LABEL";
     public static final String VAT_NR = "VAT_NR_LABEL";
@@ -28,7 +29,7 @@ public class NewContactDialog extends RefreshableDialog {
     public static final String COUNTRY = "COUNTRY_LABEL";
     public static final String PHONE = "PHONE_LABEL";
     public static final String EMAIL = "EMAIL_LABEL";
-    private final JTextField contactName, contactVAT, contactStreet, contactPostalCode, contactCity, contactCountry, contactPhone, contactEmail;
+    private final JTextField contactName, contactVAT, contactStreet, contactPostalCode, contactCity, contactCountry, contactPhone, contactEmail, officialName;
     private final JButton add;
     private final Contacts contacts;
     private Contact contact;
@@ -48,9 +49,12 @@ public class NewContactDialog extends RefreshableDialog {
         contactCountry = new JTextField(20);
         contactEmail = new JTextField(20);
         contactPhone = new JTextField(20);
+        officialName = new JTextField(20);
 
         north.add(new JLabel(getBundle("Contacts").getString(NAME)));
         north.add(contactName);
+        north.add(new JLabel(getBundle("Contacts").getString(OFFICIAL_NAME)));
+        north.add(officialName);
         north.add(new JLabel(getBundle("Contacts").getString(VAT_NR)));
         north.add(contactVAT);
         north.add(new JLabel(getBundle("Contacts").getString(STREET_AND_NUMBER)));
@@ -84,6 +88,7 @@ public class NewContactDialog extends RefreshableDialog {
         contactCountry.setText(contact.getCountryCode());
         contactEmail.setText(contact.getEmail());
         contactPhone.setText(contact.getPhone());
+        officialName.setText(contact.getOfficialName());
     }
 
     private void saveAccount() {
@@ -93,6 +98,8 @@ public class NewContactDialog extends RefreshableDialog {
         }
         String name = contactName.getText().trim();
         contact.setName(name);
+        String officialName = this.officialName.getText().trim();
+        contact.setOfficialName(officialName);
         String vat = contactVAT.getText().trim();
         contact.setVatNumber(vat);
         String street = contactStreet.getText().trim();
@@ -130,5 +137,6 @@ public class NewContactDialog extends RefreshableDialog {
         contactCountry.setText("");
         contactEmail.setText("");
         contactPhone.setText("");
+        officialName.setText("");
     }
 }

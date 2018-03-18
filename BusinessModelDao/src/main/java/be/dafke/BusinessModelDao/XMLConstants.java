@@ -70,6 +70,7 @@ public class XMLConstants {
     public static final String STREET_AND_NUMBER = "streetAndNumber";
     public static final String POSTAL_CODE = "postalCode";
     public static final String CITY = "city";
+    public static final String OFFICIAL_NAME = "OfficialName";
     public static final String COUNTRY_CODE = "countryCode";
     public static final String EMAIL_ADDRESS = "emailAddress";
     public static final String PHONE_NUMBER = "phoneNumber";

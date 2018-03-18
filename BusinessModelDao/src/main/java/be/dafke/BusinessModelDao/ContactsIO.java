@@ -31,6 +31,7 @@ public class ContactsIO {
         for (Element element : getChildren(rootElement, CONTACT)) {
             Contact contact = new Contact();
             contact.setName(getValue(element, NAME));
+            contact.setOfficialName(getValue(element, OFFICIAL_NAME));
             contact.setStreetAndNumber(getValue(element, STREET_AND_NUMBER));
             contact.setPostalCode(getValue(element, POSTAL_CODE));
             contact.setCity(getValue(element, CITY));
@@ -68,6 +69,7 @@ public class ContactsIO {
                 writer.write(
                         "  <"+CONTACT+">\n" +
                         "    <"+NAME+">" + contact.getName() + "</"+NAME+">\n" +
+                        "    <"+OFFICIAL_NAME+">" + contact.getOfficialName() + "</"+OFFICIAL_NAME+">\n" +
                         "    <"+STREET_AND_NUMBER+">" + contact.getStreetAndNumber() + "</"+STREET_AND_NUMBER+">\n" +
                         "    <"+POSTAL_CODE+">" + contact.getPostalCode() + "</"+POSTAL_CODE+">\n" +
                         "    <"+CITY+">" + contact.getCity() + "</"+CITY+">\n" +

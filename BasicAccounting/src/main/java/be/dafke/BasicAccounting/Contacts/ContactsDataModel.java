@@ -24,6 +24,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	public int CITY_COL;
 	public int COUNTRY_COL;
 	public int PHONE_COL;
+	public int OFFICIAL_COL;
 	public int EMAIL_COL;
 	public int CUSTOMER_COL;
 	public int SUPPLIER_COL;
@@ -85,18 +86,19 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 			SUPPLIER_COL = 12;
 		} else if(contactType == Contact.ContactType.ALL){
 			NAME_COL = 0;
-			CUSTOMER_COL = 1;
-			SUPPLIER_COL = 2;
-			VAT_NUMBER_COL = 3;
-			STREET_COL = 4;
-			POSTAL_COL = 5;
-			CITY_COL = 6;
-			COUNTRY_COL = 7;
-			PHONE_COL = 8;
-			EMAIL_COL = 9;
-			TURNOVER_COL = 10;
-			VAT_TOTAL_COL = 11;
-			NR_OF_COL = 12;
+			OFFICIAL_COL = 1;
+			CUSTOMER_COL = 2;
+			SUPPLIER_COL = 3;
+			VAT_NUMBER_COL = 4;
+			STREET_COL = 5;
+			POSTAL_COL = 6;
+			CITY_COL = 7;
+			COUNTRY_COL = 8;
+			PHONE_COL = 9;
+			EMAIL_COL = 10;
+			TURNOVER_COL = 11;
+			VAT_TOTAL_COL = 12;
+			NR_OF_COL = 13;
 		}
 		nonEditableColumns.add(VAT_TOTAL_COL);
 		nonEditableColumns.add(TURNOVER_COL);
@@ -105,6 +107,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 
 	private void setColumnClasses() {
 		columnClasses.put(NAME_COL, String.class);
+		columnClasses.put(OFFICIAL_COL, String.class);
 		columnClasses.put(CUSTOMER_COL, Boolean.class);
 		columnClasses.put(SUPPLIER_COL, Boolean.class);
 		columnClasses.put(VAT_NUMBER_COL, String.class);
@@ -120,6 +123,7 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 
 	private void setColumnNames() {
 		columnNames.put(NAME_COL, getBundle("Contacts").getString("NAME"));
+		columnNames.put(OFFICIAL_COL, getBundle("Contacts").getString("OFFICIAL_NAME"));
 		columnNames.put(CUSTOMER_COL, getBundle("Contacts").getString("CUSTOMER"));
 		columnNames.put(SUPPLIER_COL, getBundle("Contacts").getString("SUPPLIER"));
 		columnNames.put(VAT_NUMBER_COL, getBundle("Contacts").getString("VAT_NR"));
@@ -140,6 +144,8 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 		Contact contact = contacts.get(row);
 		if (col == NAME_COL) {
 			return contact.getName();
+		} else if (col == OFFICIAL_COL) {
+			return contact.getOfficialName();
 		} else if (col == VAT_NUMBER_COL) {
 			return contact.getVatNumber();
 		} else if (col == STREET_COL) {
@@ -209,6 +215,8 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 				String stringValue = (String) value;
 				if (col == NAME_COL) {
 					contact.setName(stringValue);
+				} else if (col == OFFICIAL_COL) {
+					contact.setOfficialName(stringValue);
 				} else if (col == VAT_NUMBER_COL) {
 					contact.setVatNumber(stringValue);
 				} else if (col == STREET_COL) {
