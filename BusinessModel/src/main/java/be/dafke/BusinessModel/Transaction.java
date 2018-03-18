@@ -14,7 +14,9 @@ import java.util.TreeMap;
  * @see Booking
  */
 public class Transaction extends BusinessCollection<Booking> {
-    private static final String ID = "id";
+    private static int id=0;
+    private int transactionId;
+//    private static final String ID = "id";
     private BigDecimal debitTotal;
     private BigDecimal creditTotal;
     private Journal journal;
@@ -35,6 +37,7 @@ public class Transaction extends BusinessCollection<Booking> {
     public Transaction(Calendar date, String description) {
         this.date = date==null?Calendar.getInstance():date;
         this.description = description;
+        transactionId = ++id;
 		debitTotal = new BigDecimal(0).setScale(2);
 		creditTotal = new BigDecimal(0).setScale(2);
 		VATAmount = BigDecimal.ZERO.setScale(2);
@@ -75,6 +78,10 @@ public class Transaction extends BusinessCollection<Booking> {
 
     public Integer getId(){
         return journal.getId(this);
+    }
+
+    public int getTransactionId() {
+        return transactionId;
     }
 
     public String getDescription(){

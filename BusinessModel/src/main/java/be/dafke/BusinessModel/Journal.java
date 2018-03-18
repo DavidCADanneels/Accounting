@@ -6,7 +6,10 @@ import be.dafke.Utils.MultiValueMap;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TreeMap;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 /**
  * Boekhoudkundig dagboek
@@ -97,6 +100,15 @@ public class Journal extends BusinessCollection<Transaction> {
         transaction.setDate(newDate);
         transaction.setForced(true);
         addBusinessObject(transaction);
+    }
+
+    public Transaction getTransaction(int id){
+        List<Transaction> transactions = getBusinessObjects(transaction -> transaction.getTransactionId()==id);
+        return transactions.get(0);
+    }
+
+    public List<Transaction> getBusinessObjects(Predicate<Transaction> predicate) {
+        return getBusinessObjects().stream().filter(predicate).collect(Collectors.toCollection(ArrayList::new));
     }
 
 	public void removeBusinessObject(Transaction transaction) {

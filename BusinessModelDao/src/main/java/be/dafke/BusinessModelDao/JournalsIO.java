@@ -339,6 +339,7 @@ public class JournalsIO {
             for (Transaction transaction : journal.getBusinessObjects()) {
                 writer.write(
                         "  <"+TRANSACTION+">\n" +
+                        "    <"+TRANSACTION_ID+">"+ transaction.getTransactionId()+"</"+TRANSACTION_ID+">\n" +
                         "    <"+DATE+">"+ Utils.toString(transaction.getDate())+"</"+DATE+">\n" +
                         "    <"+DESCRIPTION+">"+transaction.getDescription()+"</"+DESCRIPTION+">\n" +
                         "    <"+ID+">"+transaction.getId()+"</"+ID+">\n"
