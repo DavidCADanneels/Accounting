@@ -11,6 +11,7 @@ import java.util.regex.Pattern;
 public class Utils {
     /** "D/M/YYYY" -> Data */
 	public static Calendar toCalendar(String s) {
+	    if (s==null) return null;
 		Pattern p = Pattern.compile("[0-9]{1,2}/[0-9]{1,2}/[0-9]{4}");
 		Matcher m = p.matcher(s);
 		if (m.matches()) {
@@ -85,6 +86,7 @@ public class Utils {
     }
 
     public static int parseInt(String s) {
+        if(s==null) return 0;
         try {
             return Integer.parseInt(s);
         } catch (NumberFormatException nfe) {
