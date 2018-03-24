@@ -5,6 +5,7 @@ import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
+import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
@@ -130,7 +131,6 @@ public class JournalEditPanel extends JPanel implements ActionListener {
         Journal newJournal = getNewJournal(transaction, journals);
         if(newJournal!=null) { // e.g. when Cancel has been clicked
             oldJournal.removeBusinessObject(transaction);
-            transaction.setForced(true);
             newJournal.addBusinessObject(transaction);
             Main.fireJournalDataChanged(oldJournal);
             Main.fireJournalDataChanged(newJournal);
@@ -174,47 +174,34 @@ public class JournalEditPanel extends JPanel implements ActionListener {
         }
     }
 
-    private void deleteTransaction(Transaction transaction) {
+    private void deleteTransaction(Transaction transaction) {//throws NotEmptyException{
         Journal journal = transaction.getJournal();
         journal.removeBusinessObject(transaction);
+        Accounting accounting = journal.getAccounting();
+        Transactions transactions = accounting.getTransactions();
+        // TODO: throw exception if VAT.isRegistered or hasMortgage
+        transactions.removeBusinessObject(transaction);
 
         Main.fireJournalDataChanged(journal);
         for (Account account : transaction.getAccounts()) {
             Main.fireAccountDataChanged(account);
         }
 
-        // FIXME: link between transaction and mortgage is gone after restart (not saved in XML) ???
-        Mortgage mortgage = transaction.getMortgage();
-        if (mortgage != null) {
-            mortgage.decreaseNrPayed();
-        }
-
         VATTransaction vatTransaction = transaction.getVatTransaction();
         if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
-            vatTransactions.removeBusinessObject(vatTransaction);
             Main.fireVATFieldsUpdated();
         }
 
-        Contact contact = transaction.getContact();
-        BigDecimal turnOverAmount = transaction.getTurnOverAmount();
-        BigDecimal vatAmount = transaction.getVATAmount();
-        if (contact != null && turnOverAmount != null && vatAmount != null) {
-            contact.decreaseTurnOver(turnOverAmount);
-            contact.decreaseVATTotal(vatAmount);
-        }
+
 
 //        ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.getName());
     }
 
     public void addTransaction(Transaction transaction){
         Accounting accounting = journal.getAccounting();
-        accounting.addTransaction(transaction);
+        Transactions transactions = accounting.getTransactions();
+        transactions.addBusinessObject(transaction);
         journal.addBusinessObject(transaction);
-
-        Mortgage mortgage = transaction.getMortgage();
-        if (mortgage != null) {
-            mortgage.raiseNrPayed();
-        }
 
         VATTransaction vatTransaction = transaction.getVatTransaction();
         if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
@@ -234,9 +221,9 @@ public class JournalEditPanel extends JPanel implements ActionListener {
         Main.selectTransaction(transaction);
     }
 
-    public void editTransaction(Transaction transaction) {
+    public void editTransaction(Transaction transaction) {//throws NotEmptyException{
+        // deleteTransaction should throw NotEmptyException if not deletable/editable !
         deleteTransaction(transaction);
-        transaction.setForced(true);
         Journal journal = transaction.getJournal();
         //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
         // set Journal before Transaction: setJournal sets transaction to currentObject !!!

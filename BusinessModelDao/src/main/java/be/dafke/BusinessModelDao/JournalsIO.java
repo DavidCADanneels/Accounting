@@ -201,9 +201,8 @@ public class JournalsIO {
                 transaction.setBalanceTransaction(true);
             }
 
-            // FIXME: Journal.getAccounting() still needed ?
-//            Accounting accounting = journal.getAccounting();
-            accounting.addTransaction(transaction);
+            Transactions transactions = accounting.getTransactions();
+            transactions.addBusinessObject(transaction);
             journal.addBusinessObject(transaction);
 
             VATTransactions vatTransactions = accounting.getVatTransactions();

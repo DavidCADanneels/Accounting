@@ -15,7 +15,8 @@ import java.util.function.Predicate;
  * @see Booking
  */
 public class Transaction extends BusinessCollection<Booking> {
-    private static int id=0;
+    public static final String ID = "id";
+    private static Integer id=0;
     private int transactionId;
 //    private static final String ID = "id";
     private BigDecimal debitTotal;
@@ -32,7 +33,6 @@ public class Transaction extends BusinessCollection<Booking> {
     private VATTransaction vatTransaction = null;
     private Contact contact = null;
     private Mortgage mortgage = null;
-    private boolean forced = false;
     private boolean balanceTransaction = false;
 
     public Transaction(Calendar date, String description) {
@@ -59,7 +59,10 @@ public class Transaction extends BusinessCollection<Booking> {
 
     @Override
     public TreeMap<String, String> getUniqueProperties(){
-        return new TreeMap<>();
+        TreeMap<String,String> keyMap = new TreeMap<>();
+        keyMap.put(ID, id.toString());
+        return keyMap;
+
     }
 
 	public BigDecimal getDebetTotaal() {
@@ -203,14 +206,6 @@ public class Transaction extends BusinessCollection<Booking> {
 
     public Contact getContact() {
         return contact;
-    }
-
-    public void setForced(boolean forced) {
-        this.forced = forced;
-    }
-
-    public boolean isForced() {
-        return forced;
     }
 
     public void setBalanceTransaction(boolean balanceTransaction) {

@@ -17,7 +17,7 @@ public class Accounting extends BusinessObject{
     private Stock stock;
     private PurchaseOrders purchaseOrders;
     private SalesOrders salesOrders;
-    private Journal transactions;
+    private Transactions transactions;
     private VATTransactions vatTransactions;
     private VATFields vatFields;
     private Articles articles;
@@ -41,8 +41,7 @@ public class Accounting extends BusinessObject{
 
         journalTypes = new JournalTypes();
 
-        transactions = new Journal("master", "MA", true);
-        transactions.setAccounting(this);
+        transactions = new Transactions(this);
 
         vatFields = new VATFields(this);
         vatTransactions = new VATTransactions(this);
@@ -192,11 +191,7 @@ public class Accounting extends BusinessObject{
         this.companyContact = companyContact;
     }
 
-    public void addTransaction(Transaction transaction) {
-        transactions.addBusinessObject(transaction);
-    }
-
-    public Journal getTransactions() {
+    public Transactions getTransactions() {
         return transactions;
     }
 

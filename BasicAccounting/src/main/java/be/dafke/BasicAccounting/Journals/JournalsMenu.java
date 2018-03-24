@@ -22,7 +22,7 @@ public class JournalsMenu extends JMenu {
     private Accounts accounts;
     private AccountTypes accountTypes;
     private JournalEditPanel journalEditPanel;
-    private Journal transactions;
+    private Transactions transactions;
 
     public JournalsMenu(JournalEditPanel journalEditPanel) {
         super(getBundle("Accounting").getString("JOURNALS"));
@@ -85,6 +85,8 @@ public class JournalsMenu extends JMenu {
                     });
             addSeparator();
             JMenuItem master = new JMenuItem("Master");
+            // FIXME: create other viewer for Master Transactions
+            // (or use BusinessCollection<Transaction> iso Journal in JournalDetailsGUI)
             master.addActionListener(e -> JournalDetailsGUI.getJournalDetails(transactions,journals));
             add(master);
         }

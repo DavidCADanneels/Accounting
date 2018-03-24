@@ -22,7 +22,6 @@ public class Journal extends BusinessCollection<Transaction> {
     private JournalType type;
     private Transaction currentTransaction;
     private Accounting accounting;
-    private boolean master = false;
 
     public Journal(Journal journal) {
         this(journal.getName(), journal.abbreviation);
@@ -30,10 +29,6 @@ public class Journal extends BusinessCollection<Transaction> {
     }
 
     public Journal(String name, String abbreviation) {
-        this(name, abbreviation, false);
-    }
-    public Journal(String name, String abbreviation, boolean master) {
-        this.master = master;
         setName(name);
         setAbbreviation(abbreviation);
         currentTransaction = new Transaction(Calendar.getInstance(),"");
@@ -98,7 +93,6 @@ public class Journal extends BusinessCollection<Transaction> {
     public void changeDate(Transaction transaction, Calendar newDate){
         removeBusinessObject(transaction);
         transaction.setDate(newDate);
-        transaction.setForced(true);
         addBusinessObject(transaction);
     }
 
@@ -114,66 +108,15 @@ public class Journal extends BusinessCollection<Transaction> {
 	public void removeBusinessObject(Transaction transaction) {
         Calendar date = transaction.getDate();
         transactions.removeValue(date, transaction);
-
-        if(!master) {
-            ArrayList<Booking> bookings = transaction.getBusinessObjects();
-            for (Booking booking : bookings) {
-                Account account = booking.getAccount();
-                boolean book = !transaction.isBalanceTransaction();
-                account.removeBusinessObject(booking.getMovement(), book);
-            }
-
-            if (accounting.isVatAccounting() && accounting.getVatTransactions() != null) {
-                VATTransaction vatTransaction = transaction.getVatTransaction();
-                if (vatTransaction != null) {
-                    VATTransactions vatTransactions = accounting.getVatTransactions();
-                    vatTransactions.removeBusinessObject(vatTransaction);
-                }
-                Contact contact = transaction.getContact();
-                BigDecimal turnOverAmount = transaction.getTurnOverAmount();
-                BigDecimal vatAmount = transaction.getVATAmount();
-                if (contact != null && turnOverAmount != null && vatAmount != null) {
-                    contact.decreaseTurnOver(turnOverAmount);
-                    contact.decreaseVATTotal(vatAmount);
-                }
-            }
-        }
     }
 
 	public Transaction addBusinessObject(Transaction transaction) {
+        // TODD: refactor: call super method to add (sorted per ID) and remove the 'MultiValueMap transactions'
+        // (sort on date in UI, do not store journal id nr, e.g. DIV25, store transaction ID instead and apply dynamic numbering to calculate 'DIV25')
+//        super.addBusinessObject(transaction);
         Calendar date = transaction.getDate();
         transactions.addValue(date, transaction);
-
-        if(!master){
-            transaction.setJournal(this);
-
-            for (Booking booking : transaction.getBusinessObjects()) {
-                Account account = booking.getAccount();
-                Movement movement = booking.getMovement();
-                boolean book = !transaction.isBalanceTransaction();
-                account.addBusinessObject(movement, book);
-            }
-
-            if (accounting.isVatAccounting() && accounting.getVatTransactions() != null) {
-                VATTransaction vatTransaction = transaction.getVatTransaction();
-                if (vatTransaction != null) {
-                    VATTransactions vatTransactions = accounting.getVatTransactions();
-                    // TODO: raise count here, not when creating the VATTransaction (+ set ID)
-                    // TODO: remove below 2 lines
-                    int count = VATTransaction.raiseCount();
-                    vatTransaction.setId(count);
-                    vatTransactions.addBusinessObject(vatTransaction, transaction.isForced());
-                }
-                Contact contact = transaction.getContact();
-                BigDecimal turnOverAmount = transaction.getTurnOverAmount();
-                BigDecimal vatAmount = transaction.getVATAmount();
-                if (contact != null && turnOverAmount != null && vatAmount != null) {
-                    contact.increaseTurnOver(turnOverAmount);
-                    contact.increaseVATTotal(vatAmount);
-                }
-            }
-        }
-        transaction.setForced(false);
+        transaction.setJournal(this);
         return transaction;
 	}
 

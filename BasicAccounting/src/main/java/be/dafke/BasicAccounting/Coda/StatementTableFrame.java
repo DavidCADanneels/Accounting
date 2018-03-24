@@ -207,7 +207,8 @@ public class StatementTableFrame extends JFrame implements MouseListener {
                         journal.addBusinessObject(transaction);
                         // use current journal, correct ?
 //						Accounting accounting = journal.getAccounting();
-						accounting.addTransaction(transaction);
+						Transactions transactions = accounting.getTransactions();
+						transactions.addBusinessObject(transaction);
 
 						transaction = new Transaction(date, "");
                         // take the same date as previous transaction

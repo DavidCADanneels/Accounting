@@ -65,13 +65,9 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
 
     @Override
     public VATTransaction addBusinessObject(VATTransaction vatTransaction){
-        return addBusinessObject(vatTransaction, false);
-    }
-
-    public VATTransaction addBusinessObject(VATTransaction vatTransaction, boolean force){
         if(vatTransaction!=null) {
             vatTransactionsPerId.put(vatTransaction.getId(), vatTransaction);
-            if(force || !vatTransaction.isRegistered()) {
+            if(!vatTransaction.isRegistered()) {
                 for (VATBooking vatBooking : vatTransaction.getBusinessObjects()) {
                     VATField vatField = vatBooking.getVatField();
                     if (vatField != null) {
