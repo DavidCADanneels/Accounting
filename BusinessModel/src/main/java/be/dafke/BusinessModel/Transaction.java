@@ -6,6 +6,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 
 /**
  * Boekhoudkundige transactie Bevat minstens 2 boekingen
@@ -218,5 +219,9 @@ public class Transaction extends BusinessCollection<Booking> {
 
     public boolean isBalanceTransaction() {
         return balanceTransaction;
+    }
+
+    public static Predicate<Transaction> ofYear(int year) {
+        return transaction -> transaction.getDate()!=null && transaction.getDate().get(Calendar.YEAR)==year;
     }
 }

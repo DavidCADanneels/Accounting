@@ -91,7 +91,7 @@ public class Account extends BusinessCollection<Movement> implements Comparable<
     }
 
     public BigDecimal getSaldoOfYear(int year) {
-        return getSubAccount(new MovementOfYear(year)).getSaldo();
+        return getSubAccount(Movement.ofYear(year)).getSaldo();
     }
 
     public BigDecimal getSaldo() {

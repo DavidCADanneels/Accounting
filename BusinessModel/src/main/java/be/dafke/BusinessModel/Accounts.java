@@ -77,10 +77,6 @@ public class Accounts extends BusinessCollection<Account> {
 		return list;
 	}
 
-    public ArrayList<Account> getBusinessObjects(MovementOfYear movementOfYear) {
-        return getSubAccounts(movementOfYear).getBusinessObjects();
-    }
-
     public Accounts getSubAccounts(Predicate<Movement> predicate){
         ArrayList<Account> accounts = getBusinessObjects();
         Accounts newAccounts = new Accounts();

@@ -5,6 +5,7 @@ import be.dafke.ObjectModel.BusinessObject;
 import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.TreeMap;
+import java.util.function.Predicate;
 
 /**
  * User: Dafke
@@ -96,5 +97,9 @@ public class Movement extends BusinessObject{
 
     public void setDescription(String description){
         booking.getTransaction().setDescription(description);
+    }
+
+    public static Predicate<Movement> ofYear(int year) {
+        return movement -> movement.getDate()!=null && movement.getDate().get(Calendar.YEAR)==year;
     }
 }

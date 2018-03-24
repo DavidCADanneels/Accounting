@@ -9,7 +9,6 @@ import be.dafke.ComponentModel.SelectableTable;
 import javax.swing.*;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Set;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -66,11 +65,11 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
         Accounting accounting = Accountings.getActiveAccounting();
 
 //        Journal master = accounting.getTransactions();
-//        List<Transaction> transactions = master.getBusinessObjects(new TransactionOfYear(year));
-//        List<Movement> movements = master.getBusinessObjects(new TransactionOfYear(year));
+//        List<Transaction> transactions = master.getBusinessObjects(Transaction.ofYear(year));
+//        List<Movement> movements = master.getBusinessObjects(Transaction.ofYear(year));
 
         int year = gui.getSelectedObject().getTransaction().getDate().get(Calendar.YEAR);
-        Accounts subAccounts = accounting.getAccounts().getSubAccounts(new MovementOfYear(year));
+        Accounts subAccounts = accounting.getAccounts().getSubAccounts(Movement.ofYear(year));
 
         Journals journals = accounting.getJournals();
 
