@@ -151,11 +151,11 @@ public class JournalsIO {
         Element rootElement = getRootElement(xmlFile, JOURNAL);
         for (Element element: getChildren(rootElement, TRANSACTION)){
 
-            String dateString = getValue(element, DATE);
-            Calendar date = toCalendar(dateString);
+            Calendar date = toCalendar(getValue(element, DATE));
             String description = getValue(element, DESCRIPTION);
+            int id = parseInt(getValue(element, TRANSACTION_ID));
 
-            Transaction transaction = new Transaction(date, description);
+            Transaction transaction = new Transaction(date, description, id);
 
             for (Element bookingsElement : getChildren(element, BOOKING)) {
                 String idString = getValue(bookingsElement, ID);
@@ -210,8 +210,8 @@ public class JournalsIO {
 
             String vatIdString = getValue(element, VAT_ID);
             if (vatIdString != null) {
-                int id = Utils.parseInt(vatIdString);
-                VATTransaction vatTransaction = vatTransactions.getBusinessObject(id);
+                int vatid = Utils.parseInt(vatIdString);
+                VATTransaction vatTransaction = vatTransactions.getBusinessObject(vatid);
                 transaction.addVatTransaction(vatTransaction);
                 vatTransaction.setTransaction(transaction);
             }

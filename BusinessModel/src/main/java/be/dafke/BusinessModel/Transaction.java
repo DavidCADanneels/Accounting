@@ -35,9 +35,12 @@ public class Transaction extends BusinessCollection<Booking> {
     private boolean balanceTransaction = false;
 
     public Transaction(Calendar date, String description) {
+        this(date, description, ++id);
+    }
+    public Transaction(Calendar date, String description, int id) {
         this.date = date==null?Calendar.getInstance():date;
         this.description = description;
-        transactionId = ++id;
+        transactionId = id;
 		debitTotal = new BigDecimal(0).setScale(2);
 		creditTotal = new BigDecimal(0).setScale(2);
 		VATAmount = BigDecimal.ZERO.setScale(2);
