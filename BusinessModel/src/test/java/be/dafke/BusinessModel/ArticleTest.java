@@ -51,6 +51,7 @@ public class ArticleTest {
     @Test
     public void purchasePrices() {
         Article article = createArticle();
+        article.setPurchaseVatRate(6);
 
         assertEquals(purchasePriceWithVat, article.getPurchasePriceWithVat().setScale(2));
         assertEquals(purchasePriceVat, article.getPurchaseVat().setScale(2));
