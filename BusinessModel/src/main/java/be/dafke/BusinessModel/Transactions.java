@@ -49,8 +49,7 @@ public class Transactions extends Journal {
                 contact.increaseVATTotal(vatAmount);
             }
         }
-
-        return transaction;
+        return transactions.addValue(transaction.getDate(),transaction);
     }
 
     public void removeBusinessObject(Transaction transaction) {
@@ -80,6 +79,7 @@ public class Transactions extends Journal {
                 contact.decreaseVATTotal(vatAmount);
             }
         }
+        // do not remove transactions from master
     }
 }
 

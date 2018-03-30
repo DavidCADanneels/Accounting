@@ -17,6 +17,7 @@ import static be.dafke.BusinessModelDao.JournalsIO.writeJournalTypes;
 import static be.dafke.BusinessModelDao.JournalsIO.writeJournals;
 import static be.dafke.BusinessModelDao.MortgageIO.writeMortgages;
 import static be.dafke.BusinessModelDao.ProjectsIO.writeProjects;
+import static be.dafke.BusinessModelDao.JournalsIO.writeTransactions;
 import static be.dafke.BusinessModelDao.PurchaseOrderIO.writePurchasesOrders;
 import static be.dafke.BusinessModelDao.SalesOrderIO.writeSalesOrders;
 import static be.dafke.BusinessModelDao.StockIO.writeStock;
@@ -121,6 +122,7 @@ public class XMLWriter {
         File accountingFolder = new File(accountingsFolder, accounting.getName());
         accountingFolder.mkdirs();
         writeAccounts(accounting);
+        writeTransactions(accounting);
         writeJournals(accounting);
         writeJournalTypes(accounting);
         writeBalances(accounting);

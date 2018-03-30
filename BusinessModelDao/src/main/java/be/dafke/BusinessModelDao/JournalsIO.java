@@ -331,58 +331,15 @@ public class JournalsIO {
             Writer writer = new FileWriter(journalFile);
             writer.write(getXmlHeader(JOURNAL, 3));
             writer.write(
-                        "  <"+NAME+">"+journal.getName()+"</"+NAME+">\n" +
-                        "  <"+ABBREVIATION+">"+journal.getAbbreviation()+"</"+ABBREVIATION+">\n" +
-                        "  <"+TYPE+">"+journal.getType()+"</"+TYPE+">\n"
+                    "  <"+NAME+">"+journal.getName()+"</"+NAME+">\n" +
+                            "  <"+ABBREVIATION+">"+journal.getAbbreviation()+"</"+ABBREVIATION+">\n" +
+                            "  <"+TYPE+">"+journal.getType()+"</"+TYPE+">\n"
             );
             for (Transaction transaction : journal.getBusinessObjects()) {
-                writer.write(
-                        "  <"+TRANSACTION+">\n" +
-                        "    <"+TRANSACTION_ID+">"+ transaction.getTransactionId()+"</"+TRANSACTION_ID+">\n" +
-                        "    <"+DATE+">"+ Utils.toString(transaction.getDate())+"</"+DATE+">\n" +
-                        "    <"+DESCRIPTION+">"+transaction.getDescription()+"</"+DESCRIPTION+">\n" +
-                        "    <"+ID+">"+transaction.getId()+"</"+ID+">\n"
-                );
+                writer.write("  <"+TRANSACTION+">\n" +
+                        "    <"+TRANSACTION_ID+">"+ transaction.getTransactionId()+"</"+TRANSACTION_ID+">\n");
                 if(transaction.isBalanceTransaction()){
-                    writer.write(
-                    "    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n"
-                    );
-                }
-
-                VATTransaction vatTransaction = transaction.getVatTransaction();
-                if(vatTransaction!=null){
-                    writer.write(
-                        "    <"+VAT_ID+">"+vatTransaction.getId()+"</"+VAT_ID+">\n"
-                    );
-                }
-                for(Booking booking:transaction.getBusinessObjects()){
-                    writer.write(
-                        "    <"+BOOKING+">\n" +
-                        "      <"+ID+">"+booking.getId()+"</"+ID+">\n" +
-                        "      <"+ACCOUNT+">"+booking.getAccount()+"</"+ACCOUNT+">\n"
-                    );
-                    Movement movement = booking.getMovement();
-                    if(movement.isDebit()){
-                        writer.write(
-                        "      <"+DEBIT+">"+movement.getAmount()+"</"+DEBIT+">\n"
-                        );
-                    } else {
-                        writer.write(
-                        "      <"+CREDIT+">"+movement.getAmount()+"</"+CREDIT+">\n"
-                        );
-                    }
-                    ArrayList<VATBooking> vatBookings = booking.getVatBookings();
-                    for (VATBooking vatBooking:vatBookings) {
-                        VATField vatField = vatBooking.getVatField();
-                        VATMovement vatMovement = vatBooking.getVatMovement();
-                        writer.write("      <"+VATBOOKING+">\n");
-                        writer.write("        <"+VATFIELD+">"+vatField.getName()+"</"+VATFIELD+">\n");
-                        writer.write("        <"+AMOUNT+">"+vatMovement.getAmount()+"</"+AMOUNT+">\n");
-                        writer.write("      </"+VATBOOKING+">\n");
-                    }
-                    writer.write(
-                        "    </"+BOOKING+">\n"
-                    );
+                    writer.write("    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n");
                 }
                 writer.write("  </"+TRANSACTION+">\n");
             }
@@ -394,4 +351,50 @@ public class JournalsIO {
         }
     }
 
+    public static void writeTransactions(Accounting accounting){
+        Transactions transactions = accounting.getTransactions();
+        File transactionsFile = new File(XML_PATH+ accounting.getName() + "/" + TRANSACTIONS + XML_EXTENSION);
+        try {
+            Writer writer = new FileWriter(transactionsFile);
+            writer.write(getXmlHeader(TRANSACTIONS, 2));
+            for (Transaction transaction : transactions.getBusinessObjects()) {
+                writer.write("  <" + TRANSACTION + ">\n" +
+                        "    <" + TRANSACTION_ID + ">" + transaction.getTransactionId() + "</" + TRANSACTION_ID + ">\n" +
+                        "    <" + DATE + ">" + Utils.toString(transaction.getDate()) + "</" + DATE + ">\n" +
+                        "    <" + DESCRIPTION + ">" + transaction.getDescription() + "</" + DESCRIPTION + ">\n" +
+                        "    <" + ID + ">" + transaction.getId() + "</" + ID + ">\n");
+                VATTransaction vatTransaction = transaction.getVatTransaction();
+                if (vatTransaction != null) {
+                    writer.write("    <" + VAT_ID + ">" + vatTransaction.getId() + "</" + VAT_ID + ">\n");
+                }
+                for (Booking booking : transaction.getBusinessObjects()) {
+                    writer.write("    <" + BOOKING + ">\n" +
+                            "      <" + ID + ">" + booking.getId() + "</" + ID + ">\n" +
+                            "      <" + ACCOUNT + ">" + booking.getAccount() + "</" + ACCOUNT + ">\n");
+                    Movement movement = booking.getMovement();
+                    if (movement.isDebit()) {
+                        writer.write("      <" + DEBIT + ">" + movement.getAmount() + "</" + DEBIT + ">\n");
+                    } else {
+                        writer.write("      <" + CREDIT + ">" + movement.getAmount() + "</" + CREDIT + ">\n");
+                    }
+                    ArrayList<VATBooking> vatBookings = booking.getVatBookings();
+                    for (VATBooking vatBooking : vatBookings) {
+                        VATField vatField = vatBooking.getVatField();
+                        VATMovement vatMovement = vatBooking.getVatMovement();
+                        writer.write("      <" + VATBOOKING + ">\n" +
+                                "        <" + VATFIELD + ">" + vatField.getName() + "</" + VATFIELD + ">\n" +
+                                "        <" + AMOUNT + ">" + vatMovement.getAmount() + "</" + AMOUNT + ">\n" +
+                                "      </" + VATBOOKING + ">\n");
+                    }
+                    writer.write("    </" + BOOKING + ">\n");
+                }
+                writer.write("  </" + TRANSACTION + ">\n");
+            }
+            writer.write("</" + TRANSACTIONS + ">\n");
+            writer.flush();
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Journal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 }

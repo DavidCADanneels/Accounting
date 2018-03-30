@@ -24,7 +24,6 @@ import static be.dafke.BusinessModelDao.ProjectsIO.readProjects;
 import static be.dafke.BusinessModelDao.PurchaseOrderIO.readPurchaseOrders;
 import static be.dafke.BusinessModelDao.SalesOrderIO.readSalesOrders;
 import static be.dafke.BusinessModelDao.StockIO.readStock;
-import static be.dafke.BusinessModelDao.VATIO.readVATFields;
 import static be.dafke.BusinessModelDao.VATIO.readVATTransactions;
 import static be.dafke.BusinessModelDao.XMLConstants.*;
 
