@@ -64,10 +64,6 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
 
         Accounting accounting = Accountings.getActiveAccounting();
 
-//        Journal master = accounting.getTransactions();
-//        List<Transaction> transactions = master.getBusinessObjects(Transaction.ofYear(year));
-//        List<Movement> movements = master.getBusinessObjects(Transaction.ofYear(year));
-
         int year = gui.getSelectedObject().getTransaction().getDate().get(Calendar.YEAR);
         Accounts subAccounts = accounting.getAccounts().getSubAccounts(Movement.ofYear(year));
 
