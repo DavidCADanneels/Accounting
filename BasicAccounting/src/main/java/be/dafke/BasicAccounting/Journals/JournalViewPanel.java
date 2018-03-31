@@ -14,6 +14,7 @@ public class JournalViewPanel extends JPanel {
     private final JournalDetailsPopupMenu popup;
 
     private final JournalDetailsDataModel journalDetailsDataModel;
+    private final JournalColorRenderer renderer;
 
     public JournalViewPanel(JournalEditPanel journalEditPanel) {
 		setLayout(new BorderLayout());
@@ -22,7 +23,7 @@ public class JournalViewPanel extends JPanel {
         table = new SelectableTable<>(journalDetailsDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
 
-        JournalColorRenderer renderer = new JournalColorRenderer();
+        renderer = new JournalColorRenderer();
         table.setDefaultRenderer(String.class, renderer);
         table.setDefaultRenderer(Account.class, renderer);
         table.setDefaultRenderer(BigDecimal.class, renderer);
@@ -47,6 +48,7 @@ public class JournalViewPanel extends JPanel {
     }
 
     public void setJournal(Journal journal) {
+        renderer.setJournal(journal);
         journalDetailsDataModel.setJournal(journal);
         journalDetailsDataModel.fireTableDataChanged();
     }
