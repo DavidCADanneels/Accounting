@@ -4,6 +4,9 @@ import be.dafke.ObjectModel.BusinessCollection;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 
 // FIXME: should be:
@@ -19,34 +22,36 @@ public class Transactions extends Journal {
     }
 
     public Transaction addBusinessObject(Transaction transaction) {
-        for (Booking booking : transaction.getBusinessObjects()) {
-            Account account = booking.getAccount();
-            Movement movement = booking.getMovement();
-            boolean book = !transaction.isBalanceTransaction();
-            account.addBusinessObject(movement, book);
-        }
-
-        Mortgage mortgage = transaction.getMortgage();
-        if (mortgage != null) {
-            mortgage.raiseNrPayed();
-        }
-
-        if (accounting.isVatAccounting() && accounting.getVatTransactions() != null) {
-            VATTransaction vatTransaction = transaction.getVatTransaction();
-            if (vatTransaction != null) {
-                VATTransactions vatTransactions = accounting.getVatTransactions();
-                // TODO: raise count here, not when creating the VATTransaction (+ set ID)
-                // TODO: remove below 2 lines
-                int count = VATTransaction.raiseCount();
-                vatTransaction.setId(count);
-                vatTransactions.addBusinessObject(vatTransaction);
+        if(!transaction.isBalanceTransaction()) {
+            for (Booking booking : transaction.getBusinessObjects()) {
+                Account account = booking.getAccount();
+                Movement movement = booking.getMovement();
+                boolean book = !transaction.isBalanceTransaction();
+                account.addBusinessObject(movement, book);
             }
-            Contact contact = transaction.getContact();
-            BigDecimal turnOverAmount = transaction.getTurnOverAmount();
-            BigDecimal vatAmount = transaction.getVATAmount();
-            if (contact != null && turnOverAmount != null && vatAmount != null) {
-                contact.increaseTurnOver(turnOverAmount);
-                contact.increaseVATTotal(vatAmount);
+
+            Mortgage mortgage = transaction.getMortgage();
+            if (mortgage != null) {
+                mortgage.raiseNrPayed();
+            }
+
+            if (accounting.isVatAccounting() && accounting.getVatTransactions() != null) {
+                VATTransaction vatTransaction = transaction.getVatTransaction();
+                if (vatTransaction != null) {
+                    VATTransactions vatTransactions = accounting.getVatTransactions();
+                    // TODO: raise count here, not when creating the VATTransaction (+ set ID)
+                    // TODO: remove below 2 lines
+                    int count = VATTransaction.raiseCount();
+                    vatTransaction.setId(count);
+                    vatTransactions.addBusinessObject(vatTransaction);
+                }
+                Contact contact = transaction.getContact();
+                BigDecimal turnOverAmount = transaction.getTurnOverAmount();
+                BigDecimal vatAmount = transaction.getVATAmount();
+                if (contact != null && turnOverAmount != null && vatAmount != null) {
+                    contact.increaseTurnOver(turnOverAmount);
+                    contact.increaseVATTotal(vatAmount);
+                }
             }
         }
         return transactions.addValue(transaction.getDate(),transaction);
@@ -80,6 +85,17 @@ public class Transactions extends Journal {
             }
         }
         // do not remove transactions from master
+    }
+
+    public List<Transaction> getBusinessObjects(Predicate<Transaction> predicate) {
+        return getBusinessObjects().stream().filter(predicate).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    public Transaction getBusinessObject(Integer id){
+        List<Transaction> transactions = getBusinessObjects(transaction -> id.equals(transaction.getTransactionId()));
+        if(transactions==null || transactions.isEmpty()){
+            return null;
+        }else return transactions.get(0);
     }
 }
 
