@@ -22,14 +22,14 @@ public class Transactions extends Journal {
     }
 
     public Transaction addBusinessObject(Transaction transaction) {
-        if(!transaction.isBalanceTransaction()) {
-            for (Booking booking : transaction.getBusinessObjects()) {
-                Account account = booking.getAccount();
-                Movement movement = booking.getMovement();
-                boolean book = !transaction.isBalanceTransaction();
-                account.addBusinessObject(movement, book);
-            }
+        for (Booking booking : transaction.getBusinessObjects()) {
+            Account account = booking.getAccount();
+            Movement movement = booking.getMovement();
+            boolean book = !transaction.isBalanceTransaction();
+            account.addBusinessObject(movement, book);
+        }
 
+        if(!transaction.isBalanceTransaction()) {
             Mortgage mortgage = transaction.getMortgage();
             if (mortgage != null) {
                 mortgage.raiseNrPayed();
