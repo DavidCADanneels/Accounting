@@ -145,17 +145,36 @@ public class JournalsIO {
     }
 
     public static void readJournal(Journal journal, Accounting accounting) {
-        Accounts accounts = accounting.getAccounts();
+        Transactions transactions = accounting.getTransactions();
         String name = journal.getName();
         File xmlFile = new File(XML_PATH+accounting.getName()+"/Journals/"+name+ XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, JOURNAL);
-        for (Element element: getChildren(rootElement, TRANSACTION)){
+        for (Element element: getChildren(rootElement, TRANSACTION)) {
+            int id = parseInt(getValue(element, TRANSACTION_ID));
+
+            Transaction transaction = transactions.getBusinessObject(id);
+            journal.addBusinessObject(transaction);
+        }
+    }
+
+    public static void readTransactions(Accounting accounting) {
+        Transactions transactions = accounting.getTransactions();
+        VATTransactions vatTransactions = accounting.getVatTransactions();
+        Accounts accounts = accounting.getAccounts();
+        File xmlFile = new File(XML_PATH+accounting.getName()+"/"+TRANSACTIONS+ XML_EXTENSION);
+        Element rootElement = getRootElement(xmlFile, TRANSACTIONS);
+        for (Element element: getChildren(rootElement, TRANSACTION)) {
 
             Calendar date = toCalendar(getValue(element, DATE));
             String description = getValue(element, DESCRIPTION);
             int id = parseInt(getValue(element, TRANSACTION_ID));
 
             Transaction transaction = new Transaction(date, description, id);
+
+            String balanceTransactionString = getValue(element, BALANCE_TRANSACTION);
+            if(Boolean.valueOf(balanceTransactionString)){
+                transaction.setBalanceTransaction(true);
+            }
 
             for (Element bookingsElement : getChildren(element, BOOKING)) {
                 String idString = getValue(bookingsElement, ID);
@@ -195,17 +214,7 @@ public class JournalsIO {
 
                 transaction.addBusinessObject(booking);
             }
-
-            String balanceTransactionString = getValue(element, BALANCE_TRANSACTION);
-            if(Boolean.valueOf(balanceTransactionString)){
-                transaction.setBalanceTransaction(true);
-            }
-
-            Transactions transactions = accounting.getTransactions();
             transactions.addBusinessObject(transaction);
-            journal.addBusinessObject(transaction);
-
-            VATTransactions vatTransactions = accounting.getVatTransactions();
 
             String vatIdString = getValue(element, VAT_ID);
             if (vatIdString != null) {
@@ -333,11 +342,12 @@ public class JournalsIO {
             writer.write(
                     "  <"+NAME+">"+journal.getName()+"</"+NAME+">\n" +
                             "  <"+ABBREVIATION+">"+journal.getAbbreviation()+"</"+ABBREVIATION+">\n" +
-                            "  <"+TYPE+">"+journal.getType()+"</"+TYPE+">\n"
-            );
+                            "  <"+TYPE+">"+journal.getType()+"</"+TYPE+">\n");
             for (Transaction transaction : journal.getBusinessObjects()) {
-                writer.write("  <"+TRANSACTION+">\n" +
-                        "    <"+TRANSACTION_ID+">"+ transaction.getTransactionId()+"</"+TRANSACTION_ID+">\n");
+                writer.write(
+                        "  <"+TRANSACTION+">\n" +
+                            "    <"+ID+">" + transaction.getId() + "</"+ID+">\n" +
+                            "    <"+TRANSACTION_ID+">"+ transaction.getTransactionId()+"</"+TRANSACTION_ID+">\n");
                 if(transaction.isBalanceTransaction()){
                     writer.write("    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n");
                 }
@@ -363,6 +373,9 @@ public class JournalsIO {
                         "    <" + DATE + ">" + Utils.toString(transaction.getDate()) + "</" + DATE + ">\n" +
                         "    <" + DESCRIPTION + ">" + transaction.getDescription() + "</" + DESCRIPTION + ">\n" +
                         "    <" + ID + ">" + transaction.getId() + "</" + ID + ">\n");
+                if(transaction.isBalanceTransaction()){
+                    writer.write("    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n");
+                }
                 VATTransaction vatTransaction = transaction.getVatTransaction();
                 if (vatTransaction != null) {
                     writer.write("    <" + VAT_ID + ">" + vatTransaction.getId() + "</" + VAT_ID + ">\n");
