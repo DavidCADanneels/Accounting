@@ -16,8 +16,7 @@ import java.util.function.Predicate;
  */
 public class Transaction extends BusinessCollection<Booking> {
     public static final String ID = "id";
-    private static Integer id=0;
-    private int transactionId;
+    private Integer transactionId;
 //    private static final String ID = "id";
     private BigDecimal debitTotal;
     private BigDecimal creditTotal;
@@ -36,18 +35,18 @@ public class Transaction extends BusinessCollection<Booking> {
     private boolean balanceTransaction = false;
 
     public Transaction(Calendar date, String description) {
-        this(date, description, ++id);
-    }
-    public Transaction(Calendar date, String description, int id) {
         this.date = date==null?Calendar.getInstance():date;
         this.description = description;
-        transactionId = id;
-		debitTotal = new BigDecimal(0).setScale(2);
-		creditTotal = new BigDecimal(0).setScale(2);
-		VATAmount = BigDecimal.ZERO.setScale(2);
-		turnOverAmount = BigDecimal.ZERO.setScale(2);
+        debitTotal = new BigDecimal(0).setScale(2);
+        creditTotal = new BigDecimal(0).setScale(2);
+        VATAmount = BigDecimal.ZERO.setScale(2);
+        turnOverAmount = BigDecimal.ZERO.setScale(2);
         bookings = new ArrayList<>();
-	}
+    }
+
+    public void setTransactionId(int transactionId) {
+        this.transactionId = transactionId;
+    }
 
     public Mortgage getMortgage() {
         return mortgage;
@@ -57,13 +56,15 @@ public class Transaction extends BusinessCollection<Booking> {
         this.mortgage = mortgage;
     }
 
-    @Override
-    public TreeMap<String, String> getUniqueProperties(){
-        TreeMap<String,String> keyMap = new TreeMap<>();
-        keyMap.put(ID, id.toString());
-        return keyMap;
-
-    }
+//    TODO: uncomment if saved per ID (ID must be the unique identifier)
+//    (other options is to setName(id), but id is Integer (better save as int, not as String)
+//    @Override
+//    public TreeMap<String, String> getUniqueProperties(){
+//        TreeMap<String,String> keyMap = new TreeMap<>();
+//        keyMap.put(ID, transactionId.toString());
+//        return keyMap;
+//
+//    }
 
 	public BigDecimal getDebetTotaal() {
 		return debitTotal;

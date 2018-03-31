@@ -169,7 +169,8 @@ public class JournalsIO {
             String description = getValue(element, DESCRIPTION);
             int id = parseInt(getValue(element, TRANSACTION_ID));
 
-            Transaction transaction = new Transaction(date, description, id);
+            Transaction transaction = new Transaction(date, description);
+            transaction.setTransactionId(id);
 
             String balanceTransactionString = getValue(element, BALANCE_TRANSACTION);
             if(Boolean.valueOf(balanceTransactionString)){

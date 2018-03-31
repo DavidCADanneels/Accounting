@@ -200,6 +200,7 @@ public class JournalEditPanel extends JPanel implements ActionListener {
     public void addTransaction(Transaction transaction){
         Accounting accounting = journal.getAccounting();
         Transactions transactions = accounting.getTransactions();
+        transactions.setId(transaction);
         transactions.addBusinessObject(transaction);
         journal.addBusinessObject(transaction);
 

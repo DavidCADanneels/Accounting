@@ -208,6 +208,7 @@ public class StatementTableFrame extends JFrame implements MouseListener {
                         // use current journal, correct ?
 //						Accounting accounting = journal.getAccounting();
 						Transactions transactions = accounting.getTransactions();
+						transactions.setId(transaction);
 						transactions.addBusinessObject(transaction);
 
 						transaction = new Transaction(date, "");

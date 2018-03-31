@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 public class Transactions extends Journal {
 
     private final Accounting accounting;
+    private static Integer id=0;
 
     public Transactions(Accounting accounting) {
         super("Master", "MA");
@@ -54,6 +55,8 @@ public class Transactions extends Journal {
                 }
             }
         }
+        //TODO: save per ID, sort per date in UI
+//        super.addBusinessObject(transaction);
         return transactions.addValue(transaction.getDate(),transaction);
     }
 
@@ -96,6 +99,10 @@ public class Transactions extends Journal {
         if(transactions==null || transactions.isEmpty()){
             return null;
         }else return transactions.get(0);
+    }
+
+    public void setId(Transaction transaction) {
+        transaction.setTransactionId(++id);
     }
 }
 
