@@ -30,7 +30,7 @@ public class AccountsIO {
     public static void readAccounts(Accounting accounting){
         Accounts accounts = accounting.getAccounts();
         AccountTypes accountTypes = accounting.getAccountTypes();
-        File xmlFile = new File(XML_PATH+accounting.getName()+"/Accounts.xml");
+        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+ACCOUNTS+XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, ACCOUNTS);
         for (Element element : getChildren(rootElement, ACCOUNT)) {
 
@@ -60,23 +60,23 @@ public class AccountsIO {
     public static void writeAccountPdfFiles(Accounting accounting){
         String accountingName = accounting.getName();
         Accounts accounts = accounting.getAccounts();
-        File tmpFolder = new File(XML_PATH + accountingName + "/tmp");
+        File tmpFolder = new File(ACCOUNTINGS_FOLDER + accountingName + "/tmp");
         tmpFolder.mkdirs();
         for (Account account:accounts.getBusinessObjects()) {
             writeAccount(account, tmpFolder);
         }
 
-        File subFolder = new File(XML_PATH + accountingName + "/PDF/Accounts");
+        File subFolder = new File(ACCOUNTINGS_FOLDER + accountingName + "/" + PDF + "/" + ACCOUNTS);
         subFolder.mkdirs();
 
-        String accountsFolderPath = XML_PATH + accountingName + "/tmp/";
+        String accountsFolderPath = ACCOUNTINGS_FOLDER + accountingName + "/tmp/";
         String xslPath = "data/accounting/xsl/AccountPdf.xsl";
-        String resultPdfPolderPath = XML_PATH + accountingName + "/PDF/Accounts/";
+        String resultPdfPolderPath = ACCOUNTINGS_FOLDER + accountingName + "/PDF/Accounts/";
         accounts.getBusinessObjects().forEach(account -> {
             try {
-                String fileName = account.getName() + ".xml";
+                String fileName = account.getName() + XML_EXTENSION;
                 String xmlPath = accountsFolderPath + fileName;
-                PDFCreator.convertToPDF(xmlPath, xslPath, resultPdfPolderPath + account.getName() + ".pdf");
+                PDFCreator.convertToPDF(xmlPath, xslPath, resultPdfPolderPath + account.getName() + PDF_EXTENSION);
                 File file = new File(tmpFolder, fileName);
                 file.delete();
 
@@ -89,7 +89,7 @@ public class AccountsIO {
 
     public static void writeAccounts(Accounting accounting){
         Accounts accounts = accounting.getAccounts();
-        File accountsFile = new File(XML_PATH + accounting.getName() + "/" + ACCOUNTS+ XML_EXTENSION);
+        File accountsFile = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + ACCOUNTS+ XML_EXTENSION);
         try{
             Writer writer = new FileWriter(accountsFile);
             writer.write(getXmlHeader(ACCOUNTS, 2));
@@ -124,7 +124,7 @@ public class AccountsIO {
     }
 
     public static void writeAllAccounts(Accounts accounts, Accounting accounting){
-        File accountsFolder = new File(XML_PATH + accounting.getName() + "/" + ACCOUNTS);
+        File accountsFolder = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + ACCOUNTS);
         accountsFolder.mkdirs();
         for (Account account:accounts.getBusinessObjects()) {
             writeAccount(account, accountsFolder);

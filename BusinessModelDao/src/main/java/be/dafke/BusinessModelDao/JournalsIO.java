@@ -35,7 +35,7 @@ public class JournalsIO {
         JournalTypes journalTypes = accounting.getJournalTypes();
         Accounts accounts = accounting.getAccounts();
         AccountTypes accountTypes = accounting.getAccountTypes();
-        File xmlFile = new File(XML_PATH+accounting.getName()+"/JournalTypes.xml");
+        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+JOURNAL_TYPES+XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, JOURNAL_TYPES);
         for (Element element : getChildren(rootElement, JOURNAL_TYPE)) {
 
@@ -118,7 +118,7 @@ public class JournalsIO {
         JournalTypes journalTypes = accounting.getJournalTypes();
         Journals journals = accounting.getJournals();
 
-        File xmlFile = new File(XML_PATH+accounting.getName()+"/Journals.xml");
+        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+JOURNALS+XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, JOURNALS);
         for (Element element : getChildren(rootElement, JOURNAL)) {
 
@@ -147,7 +147,7 @@ public class JournalsIO {
     public static void readJournal(Journal journal, Accounting accounting) {
         Transactions transactions = accounting.getTransactions();
         String name = journal.getName();
-        File xmlFile = new File(XML_PATH+accounting.getName()+"/Journals/"+name+ XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+JOURNALS+"/"+name+ XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, JOURNAL);
         for (Element element: getChildren(rootElement, TRANSACTION)) {
             int id = parseInt(getValue(element, TRANSACTION_ID));
@@ -161,7 +161,7 @@ public class JournalsIO {
         Transactions transactions = accounting.getTransactions();
         VATTransactions vatTransactions = accounting.getVatTransactions();
         Accounts accounts = accounting.getAccounts();
-        File xmlFile = new File(XML_PATH+accounting.getName()+"/"+TRANSACTIONS+ XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+TRANSACTIONS+ XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, TRANSACTIONS);
         for (Element element: getChildren(rootElement, TRANSACTION)) {
 
@@ -229,7 +229,7 @@ public class JournalsIO {
 
     public static void writeJournalTypes(Accounting accounting){
         JournalTypes journalTypes = accounting.getJournalTypes();
-        File journalTypesFile = new File(XML_PATH + accounting.getName() + "/" + JOURNAL_TYPES + XML_EXTENSION);
+        File journalTypesFile = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + JOURNAL_TYPES + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(journalTypesFile);
             writer.write(getXmlHeader(JOURNAL_TYPES, 2));
@@ -291,15 +291,15 @@ public class JournalsIO {
         writeJournals(accounting);
         Journals journals = accounting.getJournals();
         String accountingName = accounting.getName();
-        File subFolder = new File(XML_PATH + accountingName + "/PDF/Journals");
+        File subFolder = new File(ACCOUNTINGS_FOLDER + accountingName + "/" + PDF +"/" +JOURNALS);
         subFolder.mkdirs();
 
-        String journalsFolderPath = XML_PATH + accountingName + "/Journals/";
+        String journalsFolderPath = ACCOUNTINGS_FOLDER + accountingName + "/" + JOURNALS + "/";
         String xslPath = "data/accounting/xsl/JournalPdf.xsl";
-        String resultPdfPolderPath = XML_PATH + accountingName + "/PDF/Journals/";
+        String resultPdfPolderPath = ACCOUNTINGS_FOLDER + accountingName + "/" + PDF +"/" + JOURNALS + "/";
         journals.getBusinessObjects().forEach(journal -> {
             try {
-                PDFCreator.convertToPDF(journalsFolderPath + journal.getName() + ".xml", xslPath, resultPdfPolderPath + journal.getName() + ".pdf");
+                PDFCreator.convertToPDF(journalsFolderPath + journal.getName() + XML_EXTENSION, xslPath, resultPdfPolderPath + journal.getName() + PDF_EXTENSION);
             } catch (IOException | FOPException | TransformerException e1) {
                 e1.printStackTrace();
             }
@@ -308,7 +308,7 @@ public class JournalsIO {
 
     public static void writeJournals(Accounting accounting){
         Journals journals = accounting.getJournals();
-        File journalsFile = new File(XML_PATH + accounting.getName() + "/" + JOURNALS + XML_EXTENSION);
+        File journalsFile = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + JOURNALS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(journalsFile);
             writer.write(getXmlHeader(JOURNALS, 2));
@@ -334,7 +334,7 @@ public class JournalsIO {
     }
 
     public static void writeJournal(Journal journal, Accounting accounting){
-        File journalsFolder = new File(XML_PATH+ accounting.getName() + "/" +  JOURNALS);
+        File journalsFolder = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" +  JOURNALS);
         journalsFolder.mkdirs();
         File journalFile = new File(journalsFolder, "/" +  journal.getName() + XML_EXTENSION);
         try {
@@ -364,7 +364,7 @@ public class JournalsIO {
 
     public static void writeTransactions(Accounting accounting){
         Transactions transactions = accounting.getTransactions();
-        File transactionsFile = new File(XML_PATH+ accounting.getName() + "/" + TRANSACTIONS + XML_EXTENSION);
+        File transactionsFile = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + TRANSACTIONS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(transactionsFile);
             writer.write(getXmlHeader(TRANSACTIONS, 2));

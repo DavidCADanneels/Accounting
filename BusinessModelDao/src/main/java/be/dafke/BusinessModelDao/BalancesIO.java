@@ -32,7 +32,7 @@ public class BalancesIO {
         Balances balances = accounting.getBalances();
         Accounts accounts = accounting.getAccounts();
         AccountTypes accountTypes = accounting.getAccountTypes();
-        File xmlFile = new File(XML_PATH+accounting.getName()+"/Balances.xml");
+        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/" +BALANCES + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, BALANCES);
         for (Element element: getChildren(rootElement, BALANCE)){
 
@@ -74,16 +74,16 @@ public class BalancesIO {
         BalancesIO.writeIndividualBalances(accounting);
 
         String accountingName = accounting.getName();
-        File subFolder = new File(XML_PATH + accounting.getName() + "/" + "PDF/Balances");
+    File subFolder = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + PDF + "/" + BALANCES);
         subFolder.mkdirs();
 
-        String resultXmlPath = XML_PATH+accountingName+"/Balances/ResultBalance.xml";
-        String yearXmlPath = XML_PATH+accountingName+"/Balances/YearBalance.xml";
-        String relationsXmlPath = XML_PATH+accountingName+"/Balances/RelationsBalance.xml";
+        String resultXmlPath = ACCOUNTINGS_FOLDER +accountingName + "/" + BALANCES + "/" + "ResultBalance" + XML_EXTENSION;
+        String yearXmlPath = ACCOUNTINGS_FOLDER +accountingName+ "/" + BALANCES + "/" + "YearBalance" + XML_EXTENSION;
+        String relationsXmlPath = ACCOUNTINGS_FOLDER +accountingName+ "/" + BALANCES + "/" + "RelationsBalance" + XML_EXTENSION;
         String xslPath = "data/accounting/xsl/BalancePdf.xsl";
-        String resultPdfPath = XML_PATH+accountingName+"/PDF/Balances/ResultBalance.pdf";
-        String yearPdfPath = XML_PATH+accountingName+"/PDF/Balances/YearBalance.pdf";
-        String relationsPdfPath = XML_PATH+accountingName+"/PDF/Balances/RelationsBalance.pdf";
+        String resultPdfPath = ACCOUNTINGS_FOLDER +accountingName+"/PDF/Balances/ResultBalance.pdf";
+        String yearPdfPath = ACCOUNTINGS_FOLDER +accountingName+"/PDF/Balances/YearBalance.pdf";
+        String relationsPdfPath = ACCOUNTINGS_FOLDER +accountingName+"/PDF/Balances/RelationsBalance.pdf";
         try {
             PDFCreator.convertToPDF(resultXmlPath, xslPath, resultPdfPath);
             PDFCreator.convertToPDF(yearXmlPath, xslPath, yearPdfPath);
@@ -95,7 +95,7 @@ public class BalancesIO {
 
     public static void writeBalances(Accounting accounting){
         Balances balances = accounting.getBalances();
-        File balancesFile = new File(XML_PATH + accounting.getName() + "/" + BALANCES+ XML_EXTENSION);
+        File balancesFile = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + BALANCES+ XML_EXTENSION);
         try{
             Writer writer = new FileWriter(balancesFile);
             writer.write(getXmlHeader(BALANCES, 2));
@@ -133,7 +133,7 @@ public class BalancesIO {
 
     public static void writeIndividualBalances(Accounting accounting){
         Balances balances = accounting.getBalances();
-        File balancesFolder = new File(XML_PATH + accounting.getName() + "/" + BALANCES);
+        File balancesFolder = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + BALANCES);
         balancesFolder.mkdirs();
         for(Balance balance:balances.getBusinessObjects()){
             writeBalance(balance, balancesFolder);

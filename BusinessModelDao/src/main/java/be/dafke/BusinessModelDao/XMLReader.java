@@ -68,7 +68,7 @@ public class XMLReader {
     }
 
     public static void readAccountings(Accountings accountings){
-        File xmlFile = new File("data/accounting/xml/Accountings.xml");
+        File xmlFile = new File(ACCOUNTINGS_FILE);
         if(!xmlFile.exists()){
             return;
         }
@@ -106,7 +106,7 @@ public class XMLReader {
     }
 
     public static void readSession(Accountings accountings) {
-        File xmlFile = new File( "data/accounting/xml/Session.xml");
+        File xmlFile = new File( SESSION_FILE);
         if (!xmlFile.exists()) {
             return;
         }

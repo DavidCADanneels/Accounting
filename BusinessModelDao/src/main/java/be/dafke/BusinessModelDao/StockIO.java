@@ -7,7 +7,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -25,7 +24,7 @@ public class StockIO {
         PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
         SalesOrders salesOrders = accounting.getSalesOrders();
         Articles articles = accounting.getArticles();
-        File xmlFile = new File(XML_PATH+accounting.getName()+"/"+STOCK + XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+STOCK + XML_EXTENSION);
 //        Element rootElement = getRootElement(xmlFile, STOCK);
         Element articlesElement = getRootElement(xmlFile, ARTICLES);
         for (Element element : getChildren(articlesElement, ARTICLE)) {
@@ -66,7 +65,7 @@ public class StockIO {
 
     public static void writeStock(Accounting accounting) {
         Stock stock = accounting.getStock();
-        File file = new File(XML_PATH + accounting.getName() + "/" + STOCK + XML_EXTENSION);
+        File file = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + STOCK + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(STOCK, 2));

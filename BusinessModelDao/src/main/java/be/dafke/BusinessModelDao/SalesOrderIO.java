@@ -25,7 +25,7 @@ public class SalesOrderIO {
         SalesOrders salesOrders = accounting.getSalesOrders();
         Contacts contacts = accounting.getContacts();
         Articles articles = accounting.getArticles();
-        File xmlFile = new File(XML_PATH+accounting.getName()+"/"+SALES_ORDERS + XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+SALES_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS);
         Accounts accounts = accounting.getAccounts();
         Journals journals = accounting.getJournals();
@@ -106,7 +106,7 @@ public class SalesOrderIO {
 
     public static void writeSalesOrders(Accounting accounting) {
         SalesOrders salesOrders = accounting.getSalesOrders();
-        File file = new File(XML_PATH + accounting.getName() + "/" + SALES_ORDERS + XML_EXTENSION);
+        File file = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + SALES_ORDERS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(SALES_ORDERS, 2));

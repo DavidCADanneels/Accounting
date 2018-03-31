@@ -26,7 +26,7 @@ public class ArticlesIO {
     public static void readArticles(Accounting accounting){
         Articles articles = accounting.getArticles();
         Contacts contacts = accounting.getContacts();
-        File xmlFile = new File(XML_PATH+accounting.getName()+"/"+ARTICLES + XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+ARTICLES + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, ARTICLES);
         for (Element element : getChildren(rootElement, ARTICLE)) {
 
@@ -91,7 +91,7 @@ public class ArticlesIO {
 
     public static void writeArticles(Accounting accounting) {
         Articles articles = accounting.getArticles();
-        File file = new File(XML_PATH + accounting.getName() + "/" + ARTICLES + XML_EXTENSION);
+        File file = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + ARTICLES + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(ARTICLES, 2));

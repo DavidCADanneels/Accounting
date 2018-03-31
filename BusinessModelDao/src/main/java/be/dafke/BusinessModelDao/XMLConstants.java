@@ -144,12 +144,18 @@ public class XMLConstants {
     public static final String NR_OF_UNITS = "NrOfUnits";
     public static final String NR_OF_ITEMS = "NrOfItems";
 
-    public static final String XML_PATH = "data/accounting/xml/Accountings/";
-    public static final String XML_EXTENSION = ".xml";
-
     public static final String SESSION = "Session";
     public static final String ACTIVE_ACCOUNTING = "ActiveAccounting";
     public static final String ACTIVE_JOURNAL = "ActiveJournal";
 
     public static final String NEXT_VAT_ID = "NextVatId";
+
+    public static final String XML_EXTENSION = ".xml";
+    public static final String PDF_EXTENSION = ".pdf";
+    public static final String PDF = "PDF";
+    public static final String XMLFOLDER = "data/accounting/xml/";
+    public static final String SESSION_FILE = XMLFOLDER + SESSION + XML_EXTENSION;
+    public static final String ACCOUNTINGS_PATH = XMLFOLDER + "Accountings";
+    public static final String ACCOUNTINGS_FILE = ACCOUNTINGS_PATH + XML_EXTENSION;
+    public static final String ACCOUNTINGS_FOLDER = ACCOUNTINGS_PATH + "/";
 }

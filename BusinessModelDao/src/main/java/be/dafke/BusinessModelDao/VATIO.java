@@ -26,7 +26,7 @@ public class VATIO {
 
     public static void readVATFields(Accounting accounting) {
         VATFields vatFields = accounting.getVatFields();
-        File xmlFile = new File(XML_PATH+accounting.getName()+"/VATFields.xml");
+        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+ "/" +VATFIELDS + XML_EXTENSION);
         if(xmlFile.exists()) {
             Element rootElement = getRootElement(xmlFile, VATFIELDS);
             for (Element element : getChildren(rootElement, VATFIELD)) {
@@ -47,7 +47,7 @@ public class VATIO {
         VATTransactions vatTransactions = accounting.getVatTransactions();
         VATFields vatFields = accounting.getVatFields();
         Accounts accounts = accounting.getAccounts();
-        File xmlFile = new File( XML_PATH+accounting.getName()+"/VATTransactions.xml");
+        File xmlFile = new File( ACCOUNTINGS_FOLDER +accounting.getName()+"/" +VATTRANSACTIONS + XML_EXTENSION);
         if(xmlFile.exists()) {
             Element rootElement = getRootElement(xmlFile, VATTRANSACTIONS);
             String debitAccountString = getValue(rootElement, DEBIT_ACCOUNT);
@@ -97,7 +97,7 @@ public class VATIO {
 
     public static void writeVATFields(Accounting accounting){
         VATFields vatFields = accounting.getVatFields();
-        File file = new File(XML_PATH + accounting.getName() + "/" + VATFIELDS+ XML_EXTENSION);
+        File file = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + VATFIELDS+ XML_EXTENSION);
         try{
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(VATFIELDS, 2));
@@ -119,7 +119,7 @@ public class VATIO {
 
     public static void writeVATTransactions(Accounting accounting){
         VATTransactions vatTransactions = accounting.getVatTransactions();
-        File file = new File(XML_PATH + accounting.getName() + "/" + VATTRANSACTIONS+ XML_EXTENSION);
+        File file = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + VATTRANSACTIONS+ XML_EXTENSION);
         try{
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(VATTRANSACTIONS, 2));

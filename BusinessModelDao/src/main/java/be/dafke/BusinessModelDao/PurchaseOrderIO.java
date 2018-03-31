@@ -25,7 +25,7 @@ public class PurchaseOrderIO {
         PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
         Contacts contacts = accounting.getContacts();
         Articles articles = accounting.getArticles();
-        File xmlFile = new File(XML_PATH+accounting.getName()+"/"+PURCHASE_ORDERS + XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+PURCHASE_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, PURCHASE_ORDERS);
         int nr = 0;
         Accounts accounts = accounting.getAccounts();
@@ -90,7 +90,7 @@ public class PurchaseOrderIO {
 
     public static void writePurchasesOrders(Accounting accounting) {
         PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
-        File file = new File(XML_PATH + accounting.getName() + "/" + PURCHASE_ORDERS + XML_EXTENSION);
+        File file = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + PURCHASE_ORDERS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(PURCHASE_ORDERS, 2));

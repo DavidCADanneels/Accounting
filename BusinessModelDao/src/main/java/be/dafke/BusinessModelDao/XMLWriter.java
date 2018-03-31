@@ -46,19 +46,19 @@ public class XMLWriter {
 
     public static void writeAccountings(Accountings accountings, File xmlFolder){
         xmlFolder.mkdirs();
-        File xmlFile = new File(xmlFolder, "Accountings.xml");
+        File xmlFile = new File(ACCOUNTINGS_FILE);
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write(getXmlHeader(ACCOUNTINGS, 0));
             for(Accounting accounting:accountings.getBusinessObjects()){
                 writer.write(
-                    "  <Accounting>\n" +
-                        "    <name>"+accounting.getName()+"</name>\n" +
+                    "  <" + ACCOUNTING + ">\n" +
+                        "    <" + NAME + ">"+accounting.getName()+"</" + NAME + ">\n" +
                         "    <"+VAT_ACCOUNTING+">"+accounting.isVatAccounting()+"</"+VAT_ACCOUNTING+">\n" +
                         "    <"+CONTACTS_ACCOUNTING+">"+accounting.isContactsAccounting()+"</"+CONTACTS_ACCOUNTING+">\n" +
                         "    <"+PROJECTS_ACCOUNTING+">"+accounting.isProjectsAccounting()+"</"+PROJECTS_ACCOUNTING+">\n" +
                         "    <"+MORTGAGES_ACCOUNTING+">"+accounting.isMortgagesAccounting()+"</"+MORTGAGES_ACCOUNTING+">\n" +
-                        "  </Accounting>\n"
+                        "  </" + ACCOUNTING + ">\n"
                 );
             }
 
@@ -77,7 +77,7 @@ public class XMLWriter {
     }
 
     private static void writeSession(Accountings accountings, File xmlFolder) {
-        File xmlFile = new File(xmlFolder, "Session.xml");
+        File xmlFile = new File(SESSION_FILE);
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write(getXmlHeader(SESSION, 0));
@@ -88,8 +88,8 @@ public class XMLWriter {
             for(Accounting accounting:accountings.getBusinessObjects()) {
                 Journal activeJournal = accounting.getActiveJournal();
                 writer.write(
-                        "  <Accounting>\n" +
-                            "    <name>"+accounting.getName()+"</name>\n" +
+                        "  <" + ACCOUNTING + ">\n" +
+                            "    <" + NAME + ">"+accounting.getName()+"</" + NAME + ">\n" +
                             "    <"+ACTIVE_JOURNAL+">"+(activeJournal==null?"null":activeJournal.getName())+"</"+ACTIVE_JOURNAL+">\n");
                 Journals journals = accounting.getJournals();
                 if(journals !=null){
@@ -97,14 +97,14 @@ public class XMLWriter {
                     for(Journal journal:journals.getBusinessObjects()) {
                         writer.write(
                         "      <" + JOURNAL + ">\n" +
-                            "        <name>"+journal.getName()+"</name>\n" +
+                            "        <"+ NAME + ">"+journal.getName()+"</"+ NAME + ">\n" +
                             "        <checkedTypesLeft>"+""+"</checkedTypesLeft>\n" +
                             "        <checkedTypesRight>"+""+"</checkedTypesRight>\n" +
                             "      </" + JOURNAL + ">\n");
                     }
                     writer.write("    </" + JOURNALS + ">\n");
                 }
-                writer.write("  </Accounting>\n");
+                writer.write("  </"+ ACCOUNTING + ">\n");
             }
             writer.write("  <" + NEXT_VAT_ID + ">" + VATTransaction.getCount() + "</" + NEXT_VAT_ID + ">\n");
 
@@ -118,8 +118,7 @@ public class XMLWriter {
 
 
     private static void writeAccounting(Accounting accounting, File xmlFolder) {
-        File accountingsFolder = new File(xmlFolder, "Accountings");
-        File accountingFolder = new File(accountingsFolder, accounting.getName());
+        File accountingFolder = new File(ACCOUNTINGS_FOLDER + accounting.getName());
         accountingFolder.mkdirs();
         writeAccounts(accounting);
         writeTransactions(accounting);

@@ -26,7 +26,7 @@ public class ContactsIO {
 
     public static void readContacts(Accounting accounting){
         Contacts contacts = accounting.getContacts();
-        File xmlFile = new File(XML_PATH+accounting.getName()+"/Contacts.xml");
+        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/" + CONTACTS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, CONTACTS);
         for (Element element : getChildren(rootElement, CONTACT)) {
             Contact contact = new Contact();
@@ -61,7 +61,7 @@ public class ContactsIO {
     public static void writeContacts(Accounting accounting){
         Contact companyContact = accounting.getCompanyContact();
         Contacts contacts = accounting.getContacts();
-        File accountsFile = new File(XML_PATH + accounting.getName() + "/" + "Contacts.xml");
+        File accountsFile = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + CONTACTS + XML_EXTENSION);
         try{
             Writer writer = new FileWriter(accountsFile);
             writer.write(getXmlHeader(CONTACTS, 2));
