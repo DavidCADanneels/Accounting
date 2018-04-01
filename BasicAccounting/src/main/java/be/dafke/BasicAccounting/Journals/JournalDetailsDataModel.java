@@ -147,7 +147,7 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 				Calendar date = transaction.getDate();
 				Calendar newDate = Utils.toCalendar((String) value);
 				if (journal != null && newDate != null) {
-					journal.changeDate(transaction, newDate);
+					transaction.setDate(newDate);
 				} else setValueAt(Utils.toString(date), row, col);
 			} else if (col == DESCRIPTION) {
 				transaction.setDescription((String) value);

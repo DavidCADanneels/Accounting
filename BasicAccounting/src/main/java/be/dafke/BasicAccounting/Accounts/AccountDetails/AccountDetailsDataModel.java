@@ -124,7 +124,7 @@ public class AccountDetailsDataModel extends SelectableTableModel<Booking> {
 			Transaction transaction = getTransaction(movement);
 			Journal journal = getJournal(movement);
 			if(newDate!=null && transaction != null && journal != null) {
-				journal.changeDate(transaction, newDate);
+				transaction.setDate(newDate);
 				Main.fireJournalDataChanged(journal);
 			}
 		} else if (col == 4) {

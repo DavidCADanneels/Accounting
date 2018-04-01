@@ -1,7 +1,6 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.Utils.MultiValueMap;
 
 import java.util.*;
 import java.util.function.Predicate;
@@ -83,12 +82,6 @@ public class Journal extends BusinessCollection<Transaction> {
 
     public int getId(Transaction transaction){
         return getBusinessObjects().indexOf(transaction)+1;
-    }
-
-    public void changeDate(Transaction transaction, Calendar newDate){
-        removeBusinessObject(transaction);
-        transaction.setDate(newDate);
-        addBusinessObject(transaction);
     }
 
     public Transaction getTransaction(int id){
