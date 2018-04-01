@@ -57,7 +57,7 @@ public class Transactions extends Journal {
         }
         //TODO: save per ID, sort per date in UI
 //        super.addBusinessObject(transaction);
-        return transactions.addValue(transaction.getDate(),transaction);
+        return transactions.put(transaction.getTransactionId(),transaction);
     }
 
     public void removeBusinessObject(Transaction transaction) {

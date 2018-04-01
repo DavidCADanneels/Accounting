@@ -3,11 +3,7 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.Utils.MultiValueMap;
 
-import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.List;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -18,7 +14,7 @@ import java.util.stream.Collectors;
  */
 public class Journal extends BusinessCollection<Transaction> {
     private String abbreviation;
-    protected final MultiValueMap<Calendar,Transaction> transactions;
+    protected final HashMap<Integer,Transaction> transactions = new HashMap<>();
     private JournalType type;
     private Transaction currentTransaction;
     private Accounting accounting;
@@ -32,7 +28,6 @@ public class Journal extends BusinessCollection<Transaction> {
         setName(name);
         setAbbreviation(abbreviation);
         currentTransaction = new Transaction(Calendar.getInstance(),"");
-        transactions = new MultiValueMap<>();
 	}
 
     public Accounting getAccounting() {
@@ -71,7 +66,7 @@ public class Journal extends BusinessCollection<Transaction> {
 
     @Override
 	public ArrayList<Transaction> getBusinessObjects() {
-        return transactions.values();
+        return transactions.values().stream().sorted().collect(Collectors.toCollection(ArrayList::new));
     }
 
 	public int getId() {
@@ -87,7 +82,7 @@ public class Journal extends BusinessCollection<Transaction> {
     }
 
     public int getId(Transaction transaction){
-        return transactions.values().indexOf(transaction)+1;
+        return getBusinessObjects().indexOf(transaction)+1;
     }
 
     public void changeDate(Transaction transaction, Calendar newDate){
@@ -106,16 +101,14 @@ public class Journal extends BusinessCollection<Transaction> {
     }
 
 	public void removeBusinessObject(Transaction transaction) {
-        Calendar date = transaction.getDate();
-        transactions.removeValue(date, transaction);
+        transactions.remove(transaction.getTransactionId());
     }
 
 	public Transaction addBusinessObject(Transaction transaction) {
         // TODD: refactor: call super method to add (sorted per ID) and remove the 'MultiValueMap transactions'
         // (sort on date in UI, do not store journal id nr, e.g. DIV25, store transaction ID instead and apply dynamic numbering to calculate 'DIV25')
 //        super.addBusinessObject(transaction);
-        Calendar date = transaction.getDate();
-        transactions.addValue(date, transaction);
+        transactions.put(transaction.getTransactionId(), transaction);
         transaction.setJournal(this);
         return transaction;
 	}

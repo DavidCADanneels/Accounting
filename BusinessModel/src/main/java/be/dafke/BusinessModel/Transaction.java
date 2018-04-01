@@ -14,7 +14,7 @@ import java.util.function.Predicate;
  * @since 01/10/2010
  * @see Booking
  */
-public class Transaction extends BusinessCollection<Booking> {
+public class Transaction extends BusinessCollection<Booking> implements Comparable<Transaction>{
     public static final String ID = "id";
     private Integer transactionId;
     private BigDecimal debitTotal;
@@ -80,6 +80,9 @@ public class Transaction extends BusinessCollection<Booking> {
     }
 
     public String getAbbreviation() {
+        if(journal == null){
+            return "NULL";
+        }
         return journal.getAbbreviation();
     }
 
@@ -220,5 +223,14 @@ public class Transaction extends BusinessCollection<Booking> {
 
     public static Predicate<Transaction> ofYear(int year) {
         return transaction -> transaction.getDate()!=null && transaction.getDate().get(Calendar.YEAR)==year;
+    }
+
+    @Override
+    public int compareTo(Transaction o) {
+        int i = date.compareTo(o.date);
+        if(i!=0)
+            return i;
+        else
+            return transactionId-o.transactionId;
     }
 }
