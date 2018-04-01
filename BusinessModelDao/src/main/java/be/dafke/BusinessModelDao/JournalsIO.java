@@ -216,6 +216,7 @@ public class JournalsIO {
                 transaction.addBusinessObject(booking);
             }
             transactions.addBusinessObject(transaction);
+            transactions.raiseId();
 
             String vatIdString = getValue(element, VAT_ID);
             if (vatIdString != null) {
