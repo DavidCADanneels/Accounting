@@ -367,9 +367,16 @@ public class JournalsIO {
                             "  <"+TYPE+">"+journal.getType()+"</"+TYPE+">\n");
             for (Transaction transaction : journal.getBusinessObjects()) {
                 writer.write(
-                        "  <"+TRANSACTION+">\n" +
-                            "    <"+ID+">" + transaction.getId() + "</"+ID+">\n" +
-                            "    <"+TRANSACTION_ID+">"+ transaction.getTransactionId()+"</"+TRANSACTION_ID+">\n");
+                        "  <" + TRANSACTION + ">\n");
+                Journal transactionJournal = transaction.getJournal();
+                if (transactionJournal == journal){
+                    writer.write("    <" + ID + ">" + transaction.getId() + "</" + ID + ">\n");
+                } else {
+                    writer.write("    <" + ID + ">" + journal.getId(transaction) + "</" + ID + ">\n" +
+                                     "    <" + ORIGINAL_JOURNAL + ">" + transaction.getAbbreviation() + "</" + ORIGINAL_JOURNAL + ">\n" +
+                                     "    <" + ORIGINAL_ID + ">" + transaction.getId() + "</" + ORIGINAL_ID + ">\n");
+                }
+                writer.write("    <" + TRANSACTION_ID + ">" + transaction.getTransactionId() + "</" + TRANSACTION_ID + ">\n");
                 if(transaction.isBalanceTransaction()){
                     writer.write("    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n");
                 }
