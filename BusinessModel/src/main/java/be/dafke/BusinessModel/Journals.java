@@ -6,7 +6,9 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.util.AbstractMap;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
+import java.util.function.Predicate;
 
 /**
  * Serialiseerbare map die alle dagboeken bevat
@@ -64,6 +66,12 @@ public class Journals extends BusinessCollection<Journal> {
 		result.remove(j);
 		return result;
 	}
+
+	public Journal getJournal(String abbreviation){
+        Predicate<Journal> predicate = Journal.withAbbr(abbreviation);
+        List<Journal> journals = getBusinessObjects(predicate);
+        return (journals==null||journals.isEmpty())?null:journals.get(0);
+    }
 
     public Journal modifyJournalAbbreviation(String oldAbbreviation, String newAbbreviation) throws EmptyNameException, DuplicateNameException {
         Map.Entry<String,String> oldEntry = new AbstractMap.SimpleImmutableEntry<>(ABBREVIATION, oldAbbreviation);

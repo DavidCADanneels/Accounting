@@ -141,6 +141,7 @@ public class JournalEditPanel extends JPanel implements ActionListener {
                 if (newJournal != null) { // e.g. when Cancel has been clicked
                     newJournal.addBusinessObject(transaction);
                 }
+                transaction.setJournal(newJournal);
                 for (Account account : transaction.getAccounts()) {
                     updatedAccounts.add(account);
                 }
@@ -218,6 +219,7 @@ public class JournalEditPanel extends JPanel implements ActionListener {
         transactions.setId(transaction);
         transactions.addBusinessObject(transaction);
         journal.addBusinessObject(transaction);
+        transaction.setJournal(journal);
 
         VATTransaction vatTransaction = transaction.getVatTransaction();
         if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {

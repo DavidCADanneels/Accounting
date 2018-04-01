@@ -27,6 +27,7 @@ public class XMLConstants {
     public static final String ABBREVIATION = "abbr";// TODO: 'abbr' or 'abbreviation'
     public static final String JOURNALS = "Journals";
     public static final String JOURNAL = "Journal";
+    public static final String DUPLICATE_JOURNAL = "DuplicateJournal";
     public static final String TRANSACTIONS = "Transactions";
     public static final String TRANSACTION = "Transaction";
     public static final String TRANSACTION_ID = "TransactionId";
@@ -47,6 +48,7 @@ public class XMLConstants {
     public static final String JOURNAL_ABBR = "journalAbbr";
     public static final String JOURNAL_NAME = "journalName";
     public static final String JOURNAL_ID = "journalId";
+    public static final String DUPLICATE_JOURNAL_ID = "duplicateJournalId";
     public static final String BALANCES = "Balances";
     public static final String BALANCE = "Balance";
     public final static String LEFTNAME = "LeftName";

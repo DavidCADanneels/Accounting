@@ -5,6 +5,7 @@ import be.dafke.ObjectModel.BusinessCollection;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.TreeMap;
 import java.util.function.Predicate;
 
@@ -20,6 +21,7 @@ public class Transaction extends BusinessCollection<Booking> implements Comparab
     private BigDecimal debitTotal;
     private BigDecimal creditTotal;
     private Journal journal;
+    private List<Journal> duplicateJournals = new ArrayList<>();
     private int nrOfDebits = 0;
 
     private String description;
@@ -232,5 +234,13 @@ public class Transaction extends BusinessCollection<Booking> implements Comparab
             return i;
         else
             return transactionId-o.transactionId;
+    }
+
+    public void addDuplicateJournal(Journal journal) {
+        duplicateJournals.add(journal);
+    }
+
+    public List<Journal> getDuplicateJournals() {
+        return duplicateJournals;
     }
 }

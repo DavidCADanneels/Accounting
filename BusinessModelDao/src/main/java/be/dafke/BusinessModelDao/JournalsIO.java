@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
@@ -118,7 +119,7 @@ public class JournalsIO {
         JournalTypes journalTypes = accounting.getJournalTypes();
         Journals journals = accounting.getJournals();
 
-        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+JOURNALS+XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + JOURNALS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, JOURNALS);
         for (Element element : getChildren(rootElement, JOURNAL)) {
 
@@ -138,7 +139,9 @@ public class JournalsIO {
                 e.printStackTrace();
             }
         }
+    }
 
+    public static void readJournalsContent(Journals journals, Accounting accounting){
         for(Journal journal:journals.getBusinessObjects()){
             readJournal(journal, accounting);
         }
@@ -154,6 +157,12 @@ public class JournalsIO {
 
             Transaction transaction = transactions.getBusinessObject(id);
             journal.addBusinessObject(transaction);
+            Journal oldJournal = transaction.getJournal();
+            if(oldJournal==null){
+                System.out.println("ERROR: should be set by Transactions");
+            } else if (oldJournal!=journal){
+                transaction.addDuplicateJournal(journal);
+            }
         }
     }
 
@@ -167,10 +176,21 @@ public class JournalsIO {
 
             Calendar date = toCalendar(getValue(element, DATE));
             String description = getValue(element, DESCRIPTION);
-            int id = parseInt(getValue(element, TRANSACTION_ID));
 
             Transaction transaction = new Transaction(date, description);
-            transaction.setTransactionId(id);
+
+            int transactionId = parseInt(getValue(element, TRANSACTION_ID));
+            transaction.setTransactionId(transactionId);
+
+            String journalAbbr = getValue(element, JOURNAL);
+            Journals journals = accounting.getJournals();
+            List<Journal> journalList = journals.getBusinessObjects(Journal.withAbbr(journalAbbr));
+            if(journalList.size()!=1){
+                System.out.println("Error: there should be exactly 1 match");
+            } else {
+                Journal journal = journalList.get(0);
+                transaction.setJournal(journal);
+            }
 
             String balanceTransactionString = getValue(element, BALANCE_TRANSACTION);
             if(Boolean.valueOf(balanceTransactionString)){
@@ -374,7 +394,14 @@ public class JournalsIO {
                         "    <" + TRANSACTION_ID + ">" + transaction.getTransactionId() + "</" + TRANSACTION_ID + ">\n" +
                         "    <" + DATE + ">" + Utils.toString(transaction.getDate()) + "</" + DATE + ">\n" +
                         "    <" + DESCRIPTION + ">" + transaction.getDescription() + "</" + DESCRIPTION + ">\n" +
-                        "    <" + JOURNAL + ">" + transaction.getAbbreviation()+transaction.getId() + "</" + JOURNAL + ">\n");
+                        "    <" + JOURNAL + ">" + transaction.getAbbreviation() + "</" + JOURNAL + ">\n" +
+                        "    <" + JOURNAL_ID + ">" + transaction.getId() + "</" + JOURNAL_ID + ">\n");
+                for(Journal journal : transaction.getDuplicateJournals()){
+                    writer.write(
+                            "    <" + DUPLICATE_JOURNAL + ">" + journal.getAbbreviation() + "</" + DUPLICATE_JOURNAL + ">\n" +
+                                "    <" + DUPLICATE_JOURNAL_ID + ">" + journal.getId(transaction) + "</" + DUPLICATE_JOURNAL_ID + ">\n"
+                    );
+                }
                 if(transaction.isBalanceTransaction()){
                     writer.write("    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n");
                 }

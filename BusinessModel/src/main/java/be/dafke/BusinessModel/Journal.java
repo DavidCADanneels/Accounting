@@ -101,10 +101,12 @@ public class Journal extends BusinessCollection<Transaction> {
         // TODD: refactor: call super method to add (sorted per ID) and remove the 'MultiValueMap transactions'
         // (sort on date in UI, do not store journal id nr, e.g. DIV25, store transaction ID instead and apply dynamic numbering to calculate 'DIV25')
 //        super.addBusinessObject(transaction);
-        transactions.put(transaction.getTransactionId(), transaction);
-        transaction.setJournal(this);
-        return transaction;
+        return transactions.put(transaction.getTransactionId(), transaction);
 	}
+
+	public static Predicate<Journal> withAbbr(String abbreviation){
+        return journal -> journal.getAbbreviation().equals(abbreviation);
+    }
 
     @Override
     public TreeMap<String,String> getUniqueProperties(){

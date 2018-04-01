@@ -19,6 +19,7 @@ import static be.dafke.BusinessModelDao.BalancesIO.readBalances;
 import static be.dafke.BusinessModelDao.ContactsIO.readContacts;
 import static be.dafke.BusinessModelDao.JournalsIO.readJournalTypes;
 import static be.dafke.BusinessModelDao.JournalsIO.readJournals;
+import static be.dafke.BusinessModelDao.JournalsIO.readJournalsContent;
 import static be.dafke.BusinessModelDao.JournalsIO.readTransactions;
 import static be.dafke.BusinessModelDao.MortgageIO.readMortgages;
 import static be.dafke.BusinessModelDao.ProjectsIO.readProjects;
@@ -137,8 +138,9 @@ public class XMLReader {
 //            readVATFields(accounting);
             readVATTransactions(accounting);
         }
-        readTransactions(accounting);
         readJournals(accounting);
+        readTransactions(accounting);
+        readJournalsContent(accounting.getJournals(),accounting);
         readBalances(accounting);
         if(accounting.isMortgagesAccounting()) {
             readMortgages(accounting);
