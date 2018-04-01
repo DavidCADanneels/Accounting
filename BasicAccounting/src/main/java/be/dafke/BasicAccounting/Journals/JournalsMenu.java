@@ -85,7 +85,7 @@ public class JournalsMenu extends JMenu {
                     });
             addSeparator();
             JMenuItem master = new JMenuItem("Master");
-            // FIXME: create other viewer for Master Transactions
+            // FIXME: create other viewer for Master Transactions (no colors, what about ID's? use "MA1 (DIV1)" or just "DIV1" (or "MA1")
             // (or use BusinessCollection<Transaction> iso Journal in JournalDetailsGUI)
             master.addActionListener(e -> JournalDetailsGUI.getJournalDetails(transactions,journals));
             add(master);
