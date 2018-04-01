@@ -115,9 +115,9 @@ public class JournalEditPanel extends JPanel implements ActionListener {
     }
 
     public void moveTransaction(Set<Transaction> transactions, Journals journals) {
-        for (Transaction transaction : transactions) {
-            moveTransaction(transaction, journals);
-        }
+        // ask journal only once
+        Journal newJournal = getNewJournal(transaction, journals);
+        moveTransaction(transactions, newJournal);
     }
 
     public void moveBookings(ArrayList<Booking> bookings, Journals journals) {
@@ -125,21 +125,36 @@ public class JournalEditPanel extends JPanel implements ActionListener {
         moveTransaction(transactions, journals);
     }
 
-    public void moveTransaction(Transaction transaction, Journals journals) {
-        Journal oldJournal = transaction.getJournal();
-
-        Journal newJournal = getNewJournal(transaction, journals);
-        if(newJournal!=null) { // e.g. when Cancel has been clicked
-            oldJournal.removeBusinessObject(transaction);
-            newJournal.addBusinessObject(transaction);
-            Main.fireJournalDataChanged(oldJournal);
-            Main.fireJournalDataChanged(newJournal);
-            for (Account account : transaction.getAccounts()) {
-                Main.fireAccountDataChanged(account);
-            }
-
-//                ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, oldJournal.getName(), newJournal.getName());
+    public void moveTransaction(Set<Transaction> transactions, Journal newJournal) {
+        Set<Journal> updatedJournals = new HashSet<>();
+        Set<Account> updatedAccounts = new HashSet<>();
+        if(newJournal!=null){
+            updatedJournals.add(newJournal);
         }
+        for (Transaction transaction : transactions) {
+            if (transaction != null) {
+                Journal oldJournal = transaction.getJournal();
+                if (oldJournal != null) {
+                    oldJournal.removeBusinessObject(transaction);
+                }
+
+                if (newJournal != null) { // e.g. when Cancel has been clicked
+                    newJournal.addBusinessObject(transaction);
+                }
+                for (Account account : transaction.getAccounts()) {
+                    updatedAccounts.add(account);
+                }
+            }
+        }
+
+        for (Journal journal:updatedJournals) {
+            Main.fireJournalDataChanged(journal);
+        }
+
+        for (Account account : updatedAccounts) {
+            Main.fireAccountDataChanged(account);
+        }
+//        ActionUtils.showErrorMessage(ActionUtils.TRANSACTION_MOVED, oldJournal.getName(), newJournal.getName());
     }
 
     public Set<Transaction> getTransactions(ArrayList<Booking> bookings){
