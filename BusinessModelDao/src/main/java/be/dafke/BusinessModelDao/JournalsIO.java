@@ -374,7 +374,7 @@ public class JournalsIO {
                         "    <" + TRANSACTION_ID + ">" + transaction.getTransactionId() + "</" + TRANSACTION_ID + ">\n" +
                         "    <" + DATE + ">" + Utils.toString(transaction.getDate()) + "</" + DATE + ">\n" +
                         "    <" + DESCRIPTION + ">" + transaction.getDescription() + "</" + DESCRIPTION + ">\n" +
-                        "    <" + ID + ">" + transaction.getId() + "</" + ID + ">\n");
+                        "    <" + JOURNAL + ">" + transaction.getAbbreviation()+transaction.getId() + "</" + JOURNAL + ">\n");
                 if(transaction.isBalanceTransaction()){
                     writer.write("    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n");
                 }
