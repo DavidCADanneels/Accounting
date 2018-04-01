@@ -17,14 +17,13 @@ import java.util.function.Predicate;
 public class Transaction extends BusinessCollection<Booking> {
     public static final String ID = "id";
     private Integer transactionId;
-//    private static final String ID = "id";
     private BigDecimal debitTotal;
     private BigDecimal creditTotal;
     private Journal journal;
     private int nrOfDebits = 0;
 
-    private String description = "";
-    private Calendar date = null;
+    private String description;
+    private Calendar date;
 
     private final ArrayList<Booking> bookings;
     private BigDecimal VATAmount;
@@ -85,7 +84,9 @@ public class Transaction extends BusinessCollection<Booking> {
     }
 
     public Integer getId(){
-        return journal.getId(this);
+        if(journal == null){
+            return 0;
+        } else return journal.getId(this);
     }
 
     public int getTransactionId() {
