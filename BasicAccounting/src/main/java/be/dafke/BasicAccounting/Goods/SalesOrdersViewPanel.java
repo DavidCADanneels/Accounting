@@ -251,6 +251,9 @@ public class SalesOrdersViewPanel extends JPanel {
         gainTransaction.setJournal(gainJournal);
         // TODO: ask for Date and Description
 
+        Transactions transactions = accounting.getTransactions();
+        transactions.setId(gainTransaction);
+        transactions.addBusinessObject(gainTransaction);
         gainJournal.addBusinessObject(gainTransaction);
         Main.fireJournalDataChanged(gainJournal);
 
@@ -261,6 +264,8 @@ public class SalesOrdersViewPanel extends JPanel {
         salesTransaction.setJournal(salesJournal);
         // TODO: ask for Date and Description
 
+        transactions.setId(salesTransaction);
+        transactions.addBusinessObject(salesTransaction);
         salesJournal.addBusinessObject(salesTransaction);
 
         Main.setJournal(salesJournal);

@@ -51,6 +51,9 @@ public class PurchaseOrdersViewPanel extends JPanel {
 
             purchaseOrder.setPurchaseTransaction(transaction);
 
+            Transactions transactions = accounting.getTransactions();
+            transactions.setId(transaction);
+            transactions.addBusinessObject(transaction);
             journal.addBusinessObject(transaction);
             Main.setJournal(journal);
             Main.selectTransaction(transaction);
