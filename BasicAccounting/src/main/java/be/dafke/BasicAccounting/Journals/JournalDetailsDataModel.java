@@ -92,36 +92,42 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 	}
 
 	public Object getValueAt(int row, int col) {
-		Booking boeking = getValueAt(row);
-        boolean first = (boeking == boeking.getTransaction().getBusinessObjects().get(0));
-        if (col == ID) {
-            if(first){
-                return boeking.getTransaction().getAbbreviation() + boeking.getTransaction().getId();
+		Booking booking = getValueAt(row);
+		Transaction transaction = booking.getTransaction();
+		boolean first = (booking == transaction.getBusinessObjects().get(0));
+		if (col == ID) {
+			if(first){
+				if(journal==transaction.getJournal()) {
+					return journal.getAbbreviation() + journal.getId(transaction);
+				} else {
+					return journal.getAbbreviation() + journal.getId(transaction) +
+							" (" + transaction.getAbbreviation() + transaction.getId() + ")";
+				}
             } else return "";
         } else if (col == DATE) {
             if(first){
-                return Utils.toString(boeking.getTransaction().getDate());
+                return Utils.toString(transaction.getDate());
             } else return "";
         } else if (col == DEBIT_ACCOUNT) {
-			if (boeking.isDebit())
-				return boeking.getAccount();
+			if (booking.isDebit())
+				return booking.getAccount();
 			else return null;
 		} else if (col == CREDIT_ACCOUNT) {
-			if(!boeking.isDebit())
-				return boeking.getAccount();
+			if(!booking.isDebit())
+				return booking.getAccount();
 			else return null;
         } else if (col == DEBIT_AMOUNT) {
-            if (boeking.isDebit()) return boeking.getAmount();
+            if (booking.isDebit()) return booking.getAmount();
             return "";
         } else if (col == CREDIT_AMOUNT) {
-            if (!boeking.isDebit()) return boeking.getAmount();
+            if (!booking.isDebit()) return booking.getAmount();
             return "";
         } else if (col == DESCRIPTION){
             if(first){
-                return boeking.getTransaction().getDescription();
+                return booking.getTransaction().getDescription();
             } else return "";
         } else if (col == VATINFO){
-            return boeking.getVATBookingsString();
+            return booking.getVATBookingsString();
 		} else return null;
     }
 
