@@ -21,7 +21,9 @@ public class JournalColorRenderer extends DefaultTableCellRenderer {
         if(booking!=null) {
             Transaction transaction = booking.getTransaction();
             Journal transactionJournal = transaction.getJournal();
-            if(journal!=null && journal != transactionJournal){
+            if(journal == null || transactionJournal == null){
+                cell.setBackground(Color.RED);
+            } else if(journal != transactionJournal){
                 cell.setBackground(Color.GREEN);
             } else {
                 cell.setBackground(Color.WHITE);

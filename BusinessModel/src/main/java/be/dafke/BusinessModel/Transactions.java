@@ -87,7 +87,8 @@ public class Transactions extends Journal {
                 contact.decreaseVATTotal(vatAmount);
             }
         }
-        // do not remove transactions from master
+        // do not remove transactions from master, just remove Journal link
+        transaction.setJournal(null);
     }
 
     public List<Transaction> getBusinessObjects(Predicate<Transaction> predicate) {
