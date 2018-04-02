@@ -309,18 +309,25 @@ public class JournalsIO {
     }
 
     public static void writeJournalPdfFiles(Accounting accounting){
-        writeJournals(accounting);
-        Journals journals = accounting.getJournals();
-        String accountingName = accounting.getName();
-        File subFolder = new File(ACCOUNTINGS_FOLDER + accountingName + "/" + PDF +"/" +JOURNALS);
-        subFolder.mkdirs();
-
-        String journalsFolderPath = ACCOUNTINGS_FOLDER + accountingName + "/" + JOURNALS + "/";
         String xslPath = "data/accounting/xsl/JournalPdf.xsl";
+
+        String accountingName = accounting.getName();
+        String tmpFolderPath = ACCOUNTINGS_FOLDER + accountingName + "/" + TMP + "/";
+        File tempFolder = new File(tmpFolderPath);
+        tempFolder.mkdirs();
+
         String resultPdfPolderPath = ACCOUNTINGS_FOLDER + accountingName + "/" + PDF +"/" + JOURNALS + "/";
+        File targetFolder = new File(resultPdfPolderPath);
+        targetFolder.mkdirs();
+
+        Journals journals = accounting.getJournals();
+        for (Journal journal:journals.getBusinessObjects()) {
+            writeJournal(journal, tmpFolderPath, true);
+        }
+
         journals.getBusinessObjects().forEach(journal -> {
             try {
-                PDFCreator.convertToPDF(journalsFolderPath + journal.getName() + XML_EXTENSION, xslPath, resultPdfPolderPath + journal.getName() + PDF_EXTENSION);
+                PDFCreator.convertToPDF(tmpFolderPath + journal.getName() + XML_EXTENSION, xslPath, resultPdfPolderPath + journal.getName() + PDF_EXTENSION);
             } catch (IOException | FOPException | TransformerException e1) {
                 e1.printStackTrace();
             }
@@ -329,7 +336,8 @@ public class JournalsIO {
 
     public static void writeJournals(Accounting accounting){
         Journals journals = accounting.getJournals();
-        File journalsFile = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + JOURNALS + XML_EXTENSION);
+        String path = ACCOUNTINGS_FOLDER + accounting.getName() + "/" + JOURNALS;
+        File journalsFile = new File(path + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(journalsFile);
             writer.write(getXmlHeader(JOURNALS, 2));
@@ -349,15 +357,15 @@ public class JournalsIO {
             Logger.getLogger(Journals.class.getName()).log(Level.SEVERE, null, ex);
         }
         for (Journal journal:journals.getBusinessObjects()) {
-            writeJournal(journal, accounting);
+            writeJournal(journal, path, false);
         }
 
     }
 
-    public static void writeJournal(Journal journal, Accounting accounting){
-        File journalsFolder = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" +  JOURNALS);
+    public static void writeJournal(Journal journal, String path, boolean details){
+        File journalsFolder = new File(path);
         journalsFolder.mkdirs();
-        File journalFile = new File(journalsFolder, "/" +  journal.getName() + XML_EXTENSION);
+        File journalFile = new File(path + "/" +  journal.getName() + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(journalFile);
             writer.write(getXmlHeader(JOURNAL, 3));
@@ -379,6 +387,29 @@ public class JournalsIO {
                 writer.write("    <" + TRANSACTION_ID + ">" + transaction.getTransactionId() + "</" + TRANSACTION_ID + ">\n");
                 if(transaction.isBalanceTransaction()){
                     writer.write("    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n");
+                }
+                if(details){
+//                    TODO: move all to method
+//                    writeDetails()
+                    writer.write("    <" + DATE + ">" + Utils.toString(transaction.getDate()) + "</" + DATE + ">\n" +
+                                     "    <" + DESCRIPTION + ">" + transaction.getDescription() + "</" + DESCRIPTION + ">\n");
+                    for (Booking booking : transaction.getBusinessObjects()) {
+                        writer.write("    <" + BOOKING + ">\n" +
+                                "      <" + ACCOUNT + ">" + booking.getAccount() + "</" + ACCOUNT + ">\n");
+                        Movement movement = booking.getMovement();
+                        if (movement.isDebit()) {
+                            writer.write("      <" + DEBIT + ">" + movement.getAmount() + "</" + DEBIT + ">\n");
+                        } else {
+                            writer.write("      <" + CREDIT + ">" + movement.getAmount() + "</" + CREDIT + ">\n");
+                        }
+                        ArrayList<VATBooking> vatBookings = booking.getVatBookings();
+                        for (VATBooking vatBooking : vatBookings) {
+                            VATField vatField = vatBooking.getVatField();
+                            VATMovement vatMovement = vatBooking.getVatMovement();
+                            writer.write("      <" + VATFIELD + ">" + vatField.getName() + "</" + VATFIELD + ">\n");
+                        }
+                        writer.write("    </" + BOOKING + ">\n");
+                    }
                 }
                 writer.write("  </"+TRANSACTION+">\n");
             }
@@ -409,6 +440,7 @@ public class JournalsIO {
                                 "    <" + DUPLICATE_JOURNAL_ID + ">" + journal.getId(transaction) + "</" + DUPLICATE_JOURNAL_ID + ">\n"
                     );
                 }
+//                TODO: reuse method writeDetails()
                 if(transaction.isBalanceTransaction()){
                     writer.write("    <"+BALANCE_TRANSACTION+">true</"+BALANCE_TRANSACTION+">\n");
                 }
@@ -437,6 +469,7 @@ public class JournalsIO {
                     }
                     writer.write("    </" + BOOKING + ">\n");
                 }
+//                TODO: end of method writeDetails(transaction)
                 writer.write("  </" + TRANSACTION + ">\n");
             }
             writer.write("</" + TRANSACTIONS + ">\n");
