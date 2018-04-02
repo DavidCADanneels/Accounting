@@ -103,7 +103,9 @@ public class Transactions extends Journal {
     }
 
     public void setId(Transaction transaction) {
-        transaction.setTransactionId(++id);
+        if(transaction.getTransactionId()==0) {
+            transaction.setTransactionId(++id);
+        }
     }
 
     public void raiseId(){

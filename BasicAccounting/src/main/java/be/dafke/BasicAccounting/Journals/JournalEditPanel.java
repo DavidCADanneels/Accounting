@@ -193,10 +193,7 @@ public class JournalEditPanel extends JPanel implements ActionListener {
     private void deleteTransaction(Transaction transaction) {//throws NotEmptyException{
         Journal journal = transaction.getJournal();
         journal.removeBusinessObject(transaction);
-        Accounting accounting = journal.getAccounting();
-        Transactions transactions = accounting.getTransactions();
-        // TODO: throw exception if VAT.isRegistered or hasMortgage
-        transactions.removeBusinessObject(transaction);
+        transaction.setJournal(null);
 
         Main.fireJournalDataChanged(journal);
         for (Account account : transaction.getAccounts()) {
@@ -207,9 +204,6 @@ public class JournalEditPanel extends JPanel implements ActionListener {
         if (vatTransaction != null && !vatTransaction.getBusinessObjects().isEmpty()) {
             Main.fireVATFieldsUpdated();
         }
-
-
-
 //        ActionUtils.showErrorMessage(TRANSACTION_REMOVED, journal.getName());
     }
 
@@ -241,8 +235,8 @@ public class JournalEditPanel extends JPanel implements ActionListener {
 
     public void editTransaction(Transaction transaction) {//throws NotEmptyException{
         // deleteTransaction should throw NotEmptyException if not deletable/editable !
-        deleteTransaction(transaction);
         Journal journal = transaction.getJournal();
+        deleteTransaction(transaction);
         //TODO: GUI with question where to open the transaction? (only usefull if multiple input GUIs are open)
         // set Journal before Transaction: setJournal sets transaction to currentObject !!!
 

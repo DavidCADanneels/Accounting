@@ -17,7 +17,7 @@ import java.util.function.Predicate;
  */
 public class Transaction extends BusinessCollection<Booking> implements Comparable<Transaction>{
     public static final String ID = "id";
-    private Integer transactionId;
+    private Integer transactionId = 0;
     private BigDecimal debitTotal;
     private BigDecimal creditTotal;
     private Journal journal;
