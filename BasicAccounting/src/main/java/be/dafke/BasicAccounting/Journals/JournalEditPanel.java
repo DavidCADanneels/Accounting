@@ -43,6 +43,7 @@ public class JournalEditPanel extends JPanel implements ActionListener {
     private Accounts accounts;
     private VATTransactions vatTransactions;
     private DateAndDescriptionPanel dateAndDescriptionPanel;
+    private Transactions transactions;
 
     public JournalEditPanel() {
         setLayout(new BorderLayout());
@@ -181,10 +182,6 @@ public class JournalEditPanel extends JPanel implements ActionListener {
 
     public void deleteBookings(ArrayList<Booking> bookings) {
         Set<Transaction> transactions = getTransactions(bookings);
-        deleteTransaction(transactions);
-    }
-
-    private void deleteTransaction(Set<Transaction> transactions) {
         for (Transaction transaction : transactions) {
             deleteTransaction(transaction);
         }
@@ -193,6 +190,7 @@ public class JournalEditPanel extends JPanel implements ActionListener {
     private void deleteTransaction(Transaction transaction) {//throws NotEmptyException{
         Journal journal = transaction.getJournal();
         journal.removeBusinessObject(transaction);
+        transactions.removeBusinessObject(transaction);
         transaction.setJournal(null);
 
         Main.fireJournalDataChanged(journal);
@@ -302,12 +300,17 @@ public class JournalEditPanel extends JPanel implements ActionListener {
         setAccounts(accounting==null?null:accounting.getAccounts());
         setJournal(accounting==null?null:accounting.getActiveJournal());
         setVatTransactions(accounting==null?null:accounting.getVatTransactions());
+        setTransactions(accounting==null?null:accounting.getTransactions());
 
         comboBox=createComboBox();
         debitAccount = table.getColumnModel().getColumn(JournalDataModel.DEBIT_ACCOUNT);
         debitAccount.setCellEditor(new DefaultCellEditor(comboBox));
         creditAccount = table.getColumnModel().getColumn(JournalDataModel.CREDIT_ACCOUNT);
         creditAccount.setCellEditor(new DefaultCellEditor(comboBox));
+    }
+
+    private void setTransactions(Transactions transactions) {
+        this.transactions = transactions;
     }
 
     public void setVatTransactions(VATTransactions vatTransactions) {

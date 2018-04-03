@@ -117,9 +117,6 @@ public class AccountsTablePanel extends JPanel {
         return journal;
     }
 
-    public void setJournal(Journal journal) {
-
-    }
     public void setJournal(Journal journal, boolean left) {
         this.journal = journal;
         if(journal!=null){

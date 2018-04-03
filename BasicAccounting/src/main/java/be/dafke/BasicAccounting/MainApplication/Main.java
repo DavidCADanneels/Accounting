@@ -273,6 +273,7 @@ public class Main {
 
     public static void deleteBookings(ArrayList<Booking> bookings){
         journalEditPanel.deleteBookings(bookings);
+
     }
 
     public static void moveBookings(ArrayList<Booking> bookings, Journals journals){
