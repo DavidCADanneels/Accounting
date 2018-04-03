@@ -16,7 +16,7 @@ public class JournalViewPanel extends JPanel {
     private final JournalDetailsDataModel journalDetailsDataModel;
     private final JournalColorRenderer renderer;
 
-    public JournalViewPanel(JournalEditPanel journalEditPanel) {
+    public JournalViewPanel() {
 		setLayout(new BorderLayout());
         journalDetailsDataModel = new JournalDetailsDataModel();
 

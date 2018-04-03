@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Accounts.AccountDetails;
 
-import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Transaction;
 

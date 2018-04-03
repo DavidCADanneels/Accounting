@@ -100,7 +100,7 @@ public class Main {
 
     private static void createComponents() {
         journalEditPanel = new JournalEditPanel();
-        journalViewPanel = new JournalViewPanel(journalEditPanel);
+        journalViewPanel = new JournalViewPanel();
         journalSelectorPanel = new JournalSelectorPanel(journalEditPanel);
         accountGuiLeft = new AccountsTablePanel(true);
         accountGuiRight = new AccountsTablePanel( false);
@@ -273,7 +273,6 @@ public class Main {
 
     public static void deleteBookings(ArrayList<Booking> bookings){
         journalEditPanel.deleteBookings(bookings);
-
     }
 
     public static void moveBookings(ArrayList<Booking> bookings, Journals journals){

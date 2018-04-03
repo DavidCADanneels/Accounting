@@ -26,8 +26,6 @@ public class AccountDetailsDataModel extends SelectableTableModel<Booking> {
 	private HashMap<Integer, String> columnNames = new HashMap<>();
 	private HashMap<Integer, Class> columnClasses = new HashMap<>();
 
-
-
 	public AccountDetailsDataModel(Account account) {
 		rekening = account;
 		createColumnNames();
@@ -110,7 +108,7 @@ public class AccountDetailsDataModel extends SelectableTableModel<Booking> {
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return (col == 1 || col == 4);
+		return (col == DATE || col == DESCRIPTION);
 	}
 
 // DE SET METHODEN
