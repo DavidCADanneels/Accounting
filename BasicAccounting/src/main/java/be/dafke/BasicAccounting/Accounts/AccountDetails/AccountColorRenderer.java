@@ -19,6 +19,11 @@ public class AccountColorRenderer extends DefaultTableCellRenderer {
         Booking booking = ((AccountDetailsDataModel) table.getModel()).getObject(row, column);
         if(booking!=null) {
             Transaction transaction = booking.getTransaction();
+            if(isSelected){
+                cell.setBackground(Color.CYAN);
+            } else {
+                cell.setBackground(Color.WHITE);
+            }
             if (transaction.isBalanceTransaction()) {
                 cell.setForeground(Color.RED);
             } else {
