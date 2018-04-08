@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Goods;
 
 
 import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
+import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
 import be.dafke.BasicAccounting.Journals.DateAndDescriptionDialog;
 import be.dafke.BasicAccounting.Journals.JournalSelectorDialog;
 import be.dafke.BasicAccounting.MainApplication.Main;
@@ -189,9 +190,12 @@ public class SalesOrdersViewPanel extends JPanel {
             salesOrders.setSalesAccount(salesAccount);
         }
 
-        Contact customer = this.salesOrder.getCustomer();
+        Contact customer = salesOrder.getCustomer();
         if(customer == null){
-            // TODO
+            Contacts contacts = accounting.getContacts();
+            ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(contacts, Contact.ContactType.CUSTOMERS);
+            contactSelectorDialog.setVisible(true);
+            customer = contactSelectorDialog.getSelection();
         }
         Account customerAccount = customer.getAccount();
         if (customerAccount == null){
@@ -213,11 +217,13 @@ public class SalesOrdersViewPanel extends JPanel {
 
         // For Sales
         Transaction salesTransaction = new Transaction(date, description);
+        salesTransaction.setContact(customer);
 
         BigDecimal customerAmount = salesOrder.getTotalSalesPriceInclVat();
         Booking customerBooking = new Booking(customerAccount, customerAmount, true);
         salesTransaction.addBusinessObject(customerBooking);
 
+        // Calculate Net Amounts per VAT Rate -> Fields 0, 1, 2, 3
         List<Integer> vatRates = new ArrayList<>();
         vatRates.add(6);
         vatRates.add(21);
@@ -229,15 +235,28 @@ public class SalesOrdersViewPanel extends JPanel {
                 Booking salesBooking = new Booking(salesAccount, netAmount, false);
                 salesTransaction.addBusinessObject(salesBooking);
 
+                salesTransaction.increaseTurnOverAmount(netAmount);
+
                 VATBooking revenueBooking = vatTransactions.getRevenueBooking(salesBooking, i);
                 vatTransaction.addBusinessObject(revenueBooking);
+
+                salesBooking.addVatBooking(revenueBooking);
             }
         }
-        BigDecimal vatAmount = salesOrder.calculateTotalSalesVat();
+        // Calculate Total VAT Amount -> Field 59
+        BigDecimal vatAmount = salesOrder.calculateTotalSalesVat(); // ensure no cent different
+
         Booking vatBooking = new Booking(vatAccount, vatAmount, false);
         salesTransaction.addBusinessObject(vatBooking);
+
+        salesTransaction.setVATAmount(vatAmount);
+
         VATBooking vatSalesBooking = vatTransactions.getVatSalesBooking(vatBooking);
         vatTransaction.addBusinessObject(vatSalesBooking);
+
+        vatBooking.addVatBooking(vatSalesBooking);
+
+        // ---
 
         salesTransaction.addVatTransaction(vatTransaction);
         vatTransaction.setTransaction(salesTransaction);
@@ -256,6 +275,8 @@ public class SalesOrdersViewPanel extends JPanel {
         gainTransaction.addBusinessObject(gainBooking);
         gainTransaction.addBusinessObject(stockBooking);
         gainTransaction.addBusinessObject(salesDivBooking);
+
+        // ---
 
         Journal gainJournal = salesOrders.getGainJournal();
         if (gainJournal==null){

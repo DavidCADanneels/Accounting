@@ -195,8 +195,16 @@ public class Transaction extends BusinessCollection<Booking> implements Comparab
         this.VATAmount = VATAmount;
     }
 
+//    public void increaseVATAmount(BigDecimal VATAmount) {
+//        this.VATAmount = this.VATAmount.add(VATAmount);
+//    }
+
     public void setTurnOverAmount(BigDecimal turnOverAmount) {
         this.turnOverAmount = turnOverAmount;
+    }
+
+    public void increaseTurnOverAmount(BigDecimal turnOverAmount) {
+        this.turnOverAmount = this.turnOverAmount.add(turnOverAmount);
     }
 
     public BigDecimal getVATAmount() {
