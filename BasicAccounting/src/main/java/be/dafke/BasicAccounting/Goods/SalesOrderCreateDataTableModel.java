@@ -19,12 +19,14 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 	public static int NR_OF_ITEMS_COL = 1;
 	public static int ITEMS_PER_UNIT_COL = 2;
 	public static int NAME_COL = 3;
-	public static int PRICE_ITEM_COL = 4;
-	public static int PRICE_UNIT_COL = 5;
-	public static int TOTAL_EXCL_COL = 6;
-	public static int TOTAL_VAT_COL = 7;
-	public static int TOTAL_INCL_COL = 8;
-	public static int NR_OF_COL = 9;
+	public static int SUPPLIER_COL = 4;
+	public static int PRICE_ITEM_COL = 5;
+	public static int PRICE_UNIT_COL = 6;
+	public static int VAT_RATE_COL = 7;
+	public static int TOTAL_EXCL_COL = 8;
+	public static int TOTAL_VAT_COL = 9;
+	public static int TOTAL_INCL_COL = 10;
+	public static int NR_OF_COL = 11;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private Contact contact;
@@ -50,6 +52,8 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 		columnClasses.put(TOTAL_EXCL_COL, BigDecimal.class);
 		columnClasses.put(TOTAL_VAT_COL, BigDecimal.class);
 		columnClasses.put(TOTAL_INCL_COL, BigDecimal.class);
+		columnClasses.put(SUPPLIER_COL, Contact.class);
+		columnClasses.put(VAT_RATE_COL, Integer.class);
 	}
 
 	private void setColumnNames() {
@@ -62,6 +66,8 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 		columnNames.put(TOTAL_EXCL_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_EXCL"));
 		columnNames.put(TOTAL_VAT_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_TOTAL"));
 		columnNames.put(TOTAL_INCL_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_INCL"));
+		columnNames.put(SUPPLIER_COL, getBundle("Contacts").getString("SUPPLIER"));
+		columnNames.put(VAT_RATE_COL, getBundle("Accounting").getString("ARTICLE_VAT"));
 	}
 	// DE GET METHODEN
 // ===============
@@ -82,6 +88,12 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 		}
 		if (col == PRICE_UNIT_COL) {
 			return article.getSalesPricePromoWithVat();
+		}
+		if (col == SUPPLIER_COL) {
+			return article.getSupplier();
+		}
+		if (col == VAT_RATE_COL) {
+			return article.getSalesVatRate();
 		}
 		else {
 			if (order == null) return null;
@@ -111,7 +123,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 
 	public int getRowCount() {
 		if(articles==null || contact==null) return 0;
-		List<Article> businessObjects = articles.getBusinessObjects();
+		List<Article> businessObjects = articles.getBusinessObjects(article -> article.getSalesPriceWithVat()!=null);
 		if(businessObjects == null || businessObjects.size() == 0) return 0;
 		return businessObjects.size();
 	}

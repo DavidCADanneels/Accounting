@@ -21,9 +21,10 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<OrderIte
 	public static int NR_OF_ITEMS_COL = 1;
 	public static int NAME_COL = 2;
 	public static int TOTAL_EXCL_COL = 3;
-	public static int TOTAL_VAT_COL = 4;
-	public static int TOTAL_INCL_COL = 5;
-	public static int NR_OF_COL = 6;
+	public static int VAT_RATE_COL = 4;
+	public static int TOTAL_VAT_COL = 5;
+	public static int TOTAL_INCL_COL = 6;
+	public static int NR_OF_COL = 7;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private SalesOrder order;
@@ -40,6 +41,7 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<OrderIte
 		columnClasses.put(TOTAL_EXCL_COL, BigDecimal.class);
 		columnClasses.put(TOTAL_VAT_COL, BigDecimal.class);
 		columnClasses.put(TOTAL_INCL_COL, BigDecimal.class);
+		columnClasses.put(VAT_RATE_COL, Integer.class);
 	}
 
 	private void setColumnNames() {
@@ -49,6 +51,7 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<OrderIte
 		columnNames.put(TOTAL_EXCL_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_EXCL"));
 		columnNames.put(TOTAL_VAT_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_TOTAL"));
 		columnNames.put(TOTAL_INCL_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_INCL"));
+		columnNames.put(VAT_RATE_COL, getBundle("Accounting").getString("ARTICLE_VAT"));
 	}
 	// DE GET METHODEN
 // ===============
@@ -73,6 +76,9 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<OrderIte
 			}
 			if (col == TOTAL_INCL_COL) {
 				return article.getSalesPriceWithVat(item.getNumberOfItems());
+			}
+			if (col == VAT_RATE_COL) {
+				return article.getSalesVatRate();
 			}
 			if (col == TOTAL_VAT_COL) {
 				return article.getSalesVatAmount(item.getNumberOfItems());
