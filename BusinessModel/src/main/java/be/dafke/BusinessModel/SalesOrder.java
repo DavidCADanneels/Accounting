@@ -78,6 +78,16 @@ public class SalesOrder extends Order {
         return totalSalesExcl;
     }
 
+    public BigDecimal getTotalSalesPriceInclVat(Predicate<OrderItem> predicate) {
+        BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
+        for (OrderItem orderItem : getBusinessObjects(predicate)) {
+            Article article = orderItem.getArticle();
+            int numberOfItems = orderItem.getNumberOfItems();
+            totalSalesExcl = totalSalesExcl.add(article.getSalesPriceWithVat(numberOfItems)).setScale(2, RoundingMode.HALF_DOWN);
+        }
+        return totalSalesExcl;
+    }
+
     public Transaction getSalesTransaction() {
         return salesTransaction;
     }

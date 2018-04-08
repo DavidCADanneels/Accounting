@@ -13,6 +13,7 @@ import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 /**
  * User: david
@@ -202,47 +203,59 @@ public class SalesOrdersViewPanel extends JPanel {
             customerAccount = dialog.getSelection();
             customer.setAccount(customerAccount);
         }
-
-        BigDecimal stockAmount = this.salesOrder.getTotalPurchasePriceExclVat();
-        BigDecimal totalSalesPriceExclVat = this.salesOrder.getTotalSalesPriceExclVat();
-        BigDecimal gainAmount = totalSalesPriceExclVat.subtract(stockAmount);
-        BigDecimal customerAmount = this.salesOrder.getTotalSalesPriceInclVat();
-        BigDecimal vatAmount = this.salesOrder.getTotalSalesVat();
-
-        // For DIF
-        Booking stockBooking = new Booking(stockAccount, stockAmount, false);
-        Booking gainBooking = new Booking(gainAccount, gainAmount, false);
-        Booking salesDivBooking = new Booking(salesAccount, totalSalesPriceExclVat, true);
-
-        Booking salesBooking = new Booking(salesAccount, totalSalesPriceExclVat, false);
-        Booking customerBooking = new Booking(customerAccount, customerAmount, true);
-
+        VATTransactions vatTransactions = accounting.getVatTransactions();
 
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
         dateAndDescriptionDialog.setVisible(true);
 
         Calendar date = dateAndDescriptionDialog.getDate();
         String description = dateAndDescriptionDialog.getDescription();
-        Transaction salesTransaction = new Transaction(date, description);
-        Transaction gainTransaction = new Transaction(date, description);
 
+        // For Sales
+        Transaction salesTransaction = new Transaction(date, description);
+
+        BigDecimal customerAmount = salesOrder.getTotalSalesPriceInclVat();
+        Booking customerBooking = new Booking(customerAccount, customerAmount, true);
+        salesTransaction.addBusinessObject(customerBooking);
+
+        List<Integer> vatRates = new ArrayList<>();
+        vatRates.add(6);
+        vatRates.add(21);
+
+        VATTransaction vatTransaction = new VATTransaction();
+        for(int i:vatRates){
+            BigDecimal netAmount = salesOrder.getTotalSalesPriceExclVat(OrderItem.withSalesVatRate(i));
+            if(netAmount.compareTo(BigDecimal.ZERO) != 0){
+                Booking salesBooking = new Booking(salesAccount, netAmount, false);
+                salesTransaction.addBusinessObject(salesBooking);
+
+                VATBooking revenueBooking = vatTransactions.getRevenueBooking(salesBooking, i);
+                vatTransaction.addBusinessObject(revenueBooking);
+            }
+        }
+        BigDecimal vatAmount = salesOrder.getTotalSalesVat();
+        Booking vatBooking = new Booking(vatAccount, vatAmount, false);
+        salesTransaction.addBusinessObject(vatBooking);
+        VATBooking vatSalesBooking = vatTransactions.getVatSalesBooking(vatBooking);
+        vatTransaction.addBusinessObject(vatSalesBooking);
+
+        salesTransaction.addVatTransaction(vatTransaction);
+        vatTransaction.setTransaction(salesTransaction);
+
+        // For Div
+        BigDecimal stockAmount = salesOrder.getTotalPurchasePriceExclVat();
+        BigDecimal totalSalesPriceExclVat = salesOrder.getTotalSalesPriceExclVat();
+        BigDecimal gainAmount = totalSalesPriceExclVat.subtract(stockAmount);
+
+        Booking stockBooking = new Booking(stockAccount, stockAmount, false);
+        Booking gainBooking = new Booking(gainAccount, gainAmount, false);
+        Booking salesDivBooking = new Booking(salesAccount, totalSalesPriceExclVat, true);
+
+        Transaction gainTransaction = new Transaction(date, description);
 
         gainTransaction.addBusinessObject(gainBooking);
         gainTransaction.addBusinessObject(stockBooking);
         gainTransaction.addBusinessObject(salesDivBooking);
-
-        salesTransaction.addBusinessObject(salesBooking);
-        salesTransaction.addBusinessObject(customerBooking);
-
-        if(vatAmount.compareTo(BigDecimal.ZERO) != 0) {
-            Booking vatBooking = new Booking(vatAccount, vatAmount, false);
-            salesTransaction.addBusinessObject(vatBooking);
-            VATTransactions vatTransactions = accounting.getVatTransactions();
-            // TODO: now hardcoded 6%, could be 21% as well, or different per article
-            VATTransaction vatTransaction = vatTransactions.sale(salesBooking, vatBooking, 6);
-            salesTransaction.addVatTransaction(vatTransaction);
-            vatTransaction.setTransaction(salesTransaction);
-        }
 
         Journal gainJournal = salesOrders.getGainJournal();
         if (gainJournal==null){
