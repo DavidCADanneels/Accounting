@@ -2,6 +2,7 @@ package be.dafke.BusinessModel;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.function.Predicate;
 
 public class SalesOrder extends Order {
 
@@ -10,6 +11,16 @@ public class SalesOrder extends Order {
     public BigDecimal getTotalPurchasePriceExclVat() {
         BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {
+            Article article = orderItem.getArticle();
+            int number = orderItem.getNumberOfUnits();
+            totalPurchaseExcl = totalPurchaseExcl.add(article.getPurchasePrice(number)).setScale(2, RoundingMode.HALF_DOWN);
+        }
+        return totalPurchaseExcl;
+    }
+
+    public BigDecimal getTotalPurchasePriceExclVat(Predicate<OrderItem> predicate) {
+        BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
+        for (OrderItem orderItem : getBusinessObjects(predicate)) {
             Article article = orderItem.getArticle();
             int number = orderItem.getNumberOfUnits();
             totalPurchaseExcl = totalPurchaseExcl.add(article.getPurchasePrice(number)).setScale(2, RoundingMode.HALF_DOWN);
@@ -27,9 +38,29 @@ public class SalesOrder extends Order {
         return totalSalesExcl;
     }
 
+    public BigDecimal getTotalSalesPriceExclVat(Predicate<OrderItem> predicate) {
+        BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
+        for (OrderItem orderItem : getBusinessObjects(predicate)) {
+            Article article = orderItem.getArticle();
+            int numberOfItems = orderItem.getNumberOfItems();
+            totalSalesExcl = totalSalesExcl.add(article.getSalesPriceWithoutVat(numberOfItems)).setScale(2, RoundingMode.HALF_DOWN);
+        }
+        return totalSalesExcl;
+    }
+
     public BigDecimal getTotalSalesVat() {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {
+            Article article = orderItem.getArticle();
+            int numberOfItems = orderItem.getNumberOfItems();
+            totalSalesExcl = totalSalesExcl.add(article.getSalesVatAmount(numberOfItems)).setScale(2, RoundingMode.HALF_DOWN);
+        }
+        return totalSalesExcl;
+    }
+
+    public BigDecimal getTotalSalesVat(Predicate<OrderItem> predicate) {
+        BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
+        for (OrderItem orderItem : getBusinessObjects(predicate)) {
             Article article = orderItem.getArticle();
             int numberOfItems = orderItem.getNumberOfItems();
             totalSalesExcl = totalSalesExcl.add(article.getSalesVatAmount(numberOfItems)).setScale(2, RoundingMode.HALF_DOWN);

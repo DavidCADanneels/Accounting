@@ -2,7 +2,7 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessObject;
 
-//import java.util.function.Predicate;
+import java.util.function.Predicate;
 
 public class OrderItem extends BusinessObject{
     private int numberOfUnits, numberOfItems;
@@ -23,6 +23,10 @@ public class OrderItem extends BusinessObject{
 
     public boolean isDeletable() {
         return numberOfItems==0 && numberOfUnits==0;
+    }
+
+    public static Predicate<OrderItem> withSalesVatRate(Integer vatRate){
+        return orderItem -> orderItem.article!=null && orderItem.article.getSalesVatRate() == vatRate;
     }
 
     public int getNumberOfUnits() {
