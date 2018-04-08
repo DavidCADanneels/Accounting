@@ -1,5 +1,7 @@
 package be.dafke.BusinessModel;
 
+import be.dafke.Utils.Utils;
+
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.function.Predicate;
@@ -102,5 +104,9 @@ public class SalesOrder extends Order {
 
     public void setGainTransaction(Transaction gainTransaction) {
         this.gainTransaction = gainTransaction;
+    }
+
+    public BigDecimal calculateTotalSalesVat() {
+        return getTotalSalesPriceInclVat().subtract(getTotalSalesPriceExclVat()).setScale(2, RoundingMode.HALF_DOWN);
     }
 }

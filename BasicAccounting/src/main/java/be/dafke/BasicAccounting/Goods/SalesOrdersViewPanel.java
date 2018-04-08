@@ -233,7 +233,7 @@ public class SalesOrdersViewPanel extends JPanel {
                 vatTransaction.addBusinessObject(revenueBooking);
             }
         }
-        BigDecimal vatAmount = salesOrder.getTotalSalesVat();
+        BigDecimal vatAmount = salesOrder.calculateTotalSalesVat();
         Booking vatBooking = new Booking(vatAccount, vatAmount, false);
         salesTransaction.addBusinessObject(vatBooking);
         VATBooking vatSalesBooking = vatTransactions.getVatSalesBooking(vatBooking);
