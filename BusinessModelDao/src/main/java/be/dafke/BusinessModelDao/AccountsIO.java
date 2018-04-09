@@ -70,7 +70,7 @@ public class AccountsIO {
         subFolder.mkdirs();
 
         String accountsFolderPath = ACCOUNTINGS_FOLDER + accountingName + "/tmp/";
-        String xslPath = "data/accounting/xsl/AccountPdf.xsl";
+        String xslPath = XSLFOLDER + "AccountPdf.xsl";
         String resultPdfPolderPath = ACCOUNTINGS_FOLDER + accountingName + "/PDF/Accounts/";
         accounts.getBusinessObjects().forEach(account -> {
             try {

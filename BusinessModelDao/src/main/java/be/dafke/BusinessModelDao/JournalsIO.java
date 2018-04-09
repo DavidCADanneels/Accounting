@@ -309,7 +309,7 @@ public class JournalsIO {
     }
 
     public static void writeJournalPdfFiles(Accounting accounting){
-        String xslPath = "data/accounting/xsl/JournalPdf.xsl";
+        String xslPath = XSLFOLDER + "JournalPdf.xsl";
 
         String accountingName = accounting.getName();
         String tmpFolderPath = ACCOUNTINGS_FOLDER + accountingName + "/" + TMP + "/";

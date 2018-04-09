@@ -38,7 +38,6 @@ import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.util.ArrayList;
 
 import static javax.swing.JSplitPane.BOTTOM;
@@ -56,9 +55,6 @@ public class Main {
     private static final ArrayList<JFrame> disposableComponents = new ArrayList<>();
 
     protected static Accountings accountings;
-    private static File xmlFolder;
-    private static File xslFolder;
-    private static File htmlFolder;
     private static JournalViewPanel journalViewPanel;
     private static JournalSelectorPanel journalSelectorPanel;
     private static JournalEditPanel journalEditPanel;
@@ -92,10 +88,6 @@ public class Main {
         setAccounting(Accountings.getActiveAccounting());
 
         launchFrame();
-    }
-
-    public static File getXmlFolder() {
-        return xmlFolder;
     }
 
     private static void createComponents() {
@@ -184,19 +176,20 @@ public class Main {
     }
 
     private static void readXmlData() {
-//        File userHome = new File(System.getProperty("user.home"));
-        File parentFolder = new File("data/accounting");
-        xmlFolder = new File(parentFolder, "xml");
-        xslFolder = new File(parentFolder, "xsl");
-        htmlFolder = new File(parentFolder, "html");
-
         accountings = new Accountings();
 
         XMLReader.readAccountings(accountings);
         for(Accounting accounting:accountings.getBusinessObjects()) {
-            XMLReader.readAccounting(accounting);
+            XMLReader.readAccountingSkeleton(accounting);
         }
+
         XMLReader.readSession(accountings);
+
+        Accounting accounting = Accountings.getActiveAccounting();
+        if(accounting!=null){
+            XMLReader.readAccountingDetails(accounting);
+            Accountings.setActiveAccounting(accounting);
+        }
     }
 
     private static JButton createSaveButton(){
@@ -206,6 +199,11 @@ public class Main {
     }
 
     public static void setAccounting(Accounting accounting) {
+
+        Accounting activeAccounting = Accountings.getActiveAccounting();
+        XMLWriter.writeAccounting(activeAccounting);
+
+        XMLReader.readAccountingDetails(accounting);
         Accountings.setActiveAccounting(accounting); // only need to write to XML, call this only when writing XML files?
 
         frame.setAccounting(accounting);
@@ -338,8 +336,7 @@ public class Main {
     }
 
     public static void saveData() {
-        xmlFolder.mkdirs();
-        XMLWriter.writeAccountings(accountings, xmlFolder);
+        XMLWriter.writeAccountings(accountings);
 
 //        File xslFolder = accountings.getXslFolder();
 //        File htmlFolder = accountings.getHtmlFolder();

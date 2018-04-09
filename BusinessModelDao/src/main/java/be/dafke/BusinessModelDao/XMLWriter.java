@@ -44,9 +44,9 @@ public class XMLWriter {
         return builder.toString();
     }
 
-    public static void writeAccountings(Accountings accountings, File xmlFolder){
-        xmlFolder.mkdirs();
+    public static void writeAccountings(Accountings accountings){
         File xmlFile = new File(ACCOUNTINGS_FILE);
+        xmlFile.getParentFile().mkdirs();
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write(getXmlHeader(ACCOUNTINGS, 0));
@@ -70,13 +70,14 @@ public class XMLWriter {
         }
 
         for(Accounting accounting:accountings.getBusinessObjects()){
-            writeAccounting(accounting, xmlFolder);
+            if(accounting.isRead())
+                writeAccounting(accounting);
         }
 
-        writeSession(accountings, xmlFolder);
+        writeActiveAccountings(accountings);
     }
 
-    private static void writeSession(Accountings accountings, File xmlFolder) {
+    private static void writeActiveAccountings(Accountings accountings) {
         File xmlFile = new File(SESSION_FILE);
         try {
             Writer writer = new FileWriter(xmlFile);
@@ -91,19 +92,19 @@ public class XMLWriter {
                         "  <" + ACCOUNTING + ">\n" +
                             "    <" + NAME + ">"+accounting.getName()+"</" + NAME + ">\n" +
                             "    <"+ACTIVE_JOURNAL+">"+(activeJournal==null?"null":activeJournal.getName())+"</"+ACTIVE_JOURNAL+">\n");
-                Journals journals = accounting.getJournals();
-                if(journals !=null){
-                    writer.write("    <" + JOURNALS + ">\n");
-                    for(Journal journal:journals.getBusinessObjects()) {
-                        writer.write(
-                        "      <" + JOURNAL + ">\n" +
-                            "        <"+ NAME + ">"+journal.getName()+"</"+ NAME + ">\n" +
-                            "        <checkedTypesLeft>"+""+"</checkedTypesLeft>\n" +
-                            "        <checkedTypesRight>"+""+"</checkedTypesRight>\n" +
-                            "      </" + JOURNAL + ">\n");
-                    }
-                    writer.write("    </" + JOURNALS + ">\n");
-                }
+//                Journals journals = accounting.getJournals();
+//                if(journals !=null){
+//                    writer.write("    <" + JOURNALS + ">\n");
+//                    for(Journal journal:journals.getBusinessObjects()) {
+//                        writer.write(
+//                        "      <" + JOURNAL + ">\n" +
+//                            "        <"+ NAME + ">"+journal.getName()+"</"+ NAME + ">\n" +
+//                            "        <checkedTypesLeft>"+""+"</checkedTypesLeft>\n" +
+//                            "        <checkedTypesRight>"+""+"</checkedTypesRight>\n" +
+//                            "      </" + JOURNAL + ">\n");
+//                    }
+//                    writer.write("    </" + JOURNALS + ">\n");
+//                }
                 writer.write("  </"+ ACCOUNTING + ">\n");
             }
             writer.write("  <" + NEXT_VAT_ID + ">" + VATTransaction.getCount() + "</" + NEXT_VAT_ID + ">\n");
@@ -117,7 +118,7 @@ public class XMLWriter {
     }
 
 
-    private static void writeAccounting(Accounting accounting, File xmlFolder) {
+    public static void writeAccounting(Accounting accounting) {
         File accountingFolder = new File(ACCOUNTINGS_FOLDER + accounting.getName());
         accountingFolder.mkdirs();
         writeAccounts(accounting);

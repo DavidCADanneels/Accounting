@@ -130,31 +130,37 @@ public class XMLReader {
         VATTransaction.setCount(Utils.parseInt(nextIdString));
     }
 
-    public static void readAccounting(Accounting accounting) {
+    public static void readAccountingSkeleton(Accounting accounting) {
         readAccounts(accounting);
         readJournalTypes(accounting);
-        if(accounting.isVatAccounting()) {
+        if (accounting.isVatAccounting()) {
             accounting.getVatFields().addDefaultFields();
-//            readVATFields(accounting);
+            //            readVATFields(accounting);
             readVATTransactions(accounting);
         }
         readJournals(accounting);
-        readTransactions(accounting);
-        readJournalsContent(accounting.getJournals(),accounting);
         readBalances(accounting);
-        if(accounting.isMortgagesAccounting()) {
+        if (accounting.isMortgagesAccounting()) {
             readMortgages(accounting);
         }
-        if(accounting.isProjectsAccounting()) {
+        if (accounting.isProjectsAccounting()) {
             readProjects(accounting);
         }
-        if(accounting.isContactsAccounting()) {
+        if (accounting.isContactsAccounting()) {
             readContacts(accounting);
             readArticles(accounting);
             readPurchaseOrders(accounting);
             readSalesOrders(accounting);
             readStock(accounting);
         }
+    }
+
+    public static void readAccountingDetails(Accounting accounting) {
+        if(!accounting.isRead()) {
+            readTransactions(accounting);
+            readJournalsContent(accounting.getJournals(), accounting);
+        }
+        accounting.setRead(true);
     }
 
     public static String getValue(Element element, String tagName){

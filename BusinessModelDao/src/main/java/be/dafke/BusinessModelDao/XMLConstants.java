@@ -159,6 +159,8 @@ public class XMLConstants {
     public static final String PDF = "PDF";
     public static final String TMP = "tmp";
     public static final String XMLFOLDER = "data/accounting/xml/";
+    public static final String XSLFOLDER = "data/accounting/xsl/";
+    public static final String HTMLFOLDER = "data/accounting/html/";
     public static final String SESSION_FILE = XMLFOLDER + SESSION + XML_EXTENSION;
     public static final String ACCOUNTINGS_PATH = XMLFOLDER + "Accountings";
     public static final String ACCOUNTINGS_FILE = ACCOUNTINGS_PATH + XML_EXTENSION;

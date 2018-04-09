@@ -80,7 +80,7 @@ public class BalancesIO {
         String resultXmlPath = ACCOUNTINGS_FOLDER +accountingName + "/" + BALANCES + "/" + "ResultBalance" + XML_EXTENSION;
         String yearXmlPath = ACCOUNTINGS_FOLDER +accountingName+ "/" + BALANCES + "/" + "YearBalance" + XML_EXTENSION;
         String relationsXmlPath = ACCOUNTINGS_FOLDER +accountingName+ "/" + BALANCES + "/" + "RelationsBalance" + XML_EXTENSION;
-        String xslPath = "data/accounting/xsl/BalancePdf.xsl";
+        String xslPath = XSLFOLDER + "BalancePdf.xsl";
         String resultPdfPath = ACCOUNTINGS_FOLDER +accountingName+"/PDF/Balances/ResultBalance.pdf";
         String yearPdfPath = ACCOUNTINGS_FOLDER +accountingName+"/PDF/Balances/YearBalance.pdf";
         String relationsPdfPath = ACCOUNTINGS_FOLDER +accountingName+"/PDF/Balances/RelationsBalance.pdf";
