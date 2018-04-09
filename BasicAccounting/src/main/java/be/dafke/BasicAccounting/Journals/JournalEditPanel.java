@@ -332,7 +332,7 @@ public class JournalEditPanel extends JPanel implements ActionListener {
         this.transaction = transaction;
         dateAndDescriptionPanel.setTransaction(transaction);
         journalDataModel.setTransaction(transaction);
-        balanceTransaction.setSelected(transaction.isBalanceTransaction());
+        balanceTransaction.setSelected(transaction!=null && transaction.isBalanceTransaction());
         fireTransactionDataChanged();
     }
 
