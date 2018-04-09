@@ -14,8 +14,8 @@ import java.io.IOException;
 public class Invoice {
     public static void main(String[] args) {
         String xmlPath = "data/accounting/xml/invoice.xml";
-        String xslPath = "data/accounting/xsl/goods.xsl";
-        String pdfPath = "data/accounting/xml/goods.pdf";
+        String xslPath = "data/accounting/xsl/invoice.xsl";
+        String pdfPath = "data/accounting/xml/Invoice.pdf";
         createInvoice(xmlPath, xslPath, pdfPath);
     }
 
