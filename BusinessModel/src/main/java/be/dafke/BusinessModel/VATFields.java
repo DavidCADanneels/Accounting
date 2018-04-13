@@ -46,15 +46,18 @@ public class VATFields extends BusinessCollection<VATField> {
             addBusinessObject(new VATField("1"));
             addBusinessObject(new VATField("2"));
             addBusinessObject(new VATField("3"));
+            addBusinessObject(new VATField("46"));
+            addBusinessObject(new VATField("49"));
+            addBusinessObject(new VATField("54"));
+            addBusinessObject(new VATField("55"));
+            addBusinessObject(new VATField("59"));
+            addBusinessObject(new VATField("63"));
+            addBusinessObject(new VATField("64"));
             addBusinessObject(new VATField("81"));
             addBusinessObject(new VATField("82"));
             addBusinessObject(new VATField("83"));
-            addBusinessObject(new VATField("54"));
-            addBusinessObject(new VATField("59"));
-            addBusinessObject(new VATField("49"));
-            addBusinessObject(new VATField("64"));
             addBusinessObject(new VATField("85"));
-            addBusinessObject(new VATField("63"));
+            addBusinessObject(new VATField("86"));
             // Next 4 fields have calculated amounts
 //            addBusinessObject(new VATField("XX"));
 //            addBusinessObject(new VATField("YY"));
