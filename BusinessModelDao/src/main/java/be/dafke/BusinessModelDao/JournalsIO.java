@@ -242,6 +242,9 @@ public class JournalsIO {
             if (vatIdString != null) {
                 int vatid = Utils.parseInt(vatIdString);
                 VATTransaction vatTransaction = vatTransactions.getBusinessObject(vatid);
+                if(vatTransaction==null){
+                    System.err.println("vatId: "+ vatid);
+                }
                 transaction.addVatTransaction(vatTransaction);
                 vatTransaction.setTransaction(transaction);
             }
