@@ -112,7 +112,7 @@ public class VATFields extends BusinessCollection<VATField> {
     }
     public VATField getXX() {
         VATField vatField = new VATField("XX");
-        vatField.setAmount(getBusinessObject("54").getSaldo().add(getBusinessObject("63").getSaldo()));
+        vatField.setAmount(getBusinessObject("54").getSaldo().add(getBusinessObject("55").getSaldo()).add(getBusinessObject("63").getSaldo()));
         return vatField;
     }
 

@@ -22,14 +22,17 @@ public class VATFieldsPanel extends JPanel {
     public static final String CREATE_FILE = "Create file";
     public static final String SALES_AT_0 = "Sales at 0%";
     public static final String SALES_AT_6 = "Sales at 6%";
-    //    public static final String SALES_AT_12 = "Sales at 12%";
+    public static final String SALES_AT_12 = "Sales at 12%";
     public static final String SALES_AT_21 = "Sales at 21%";
     public static final String TAX_ON_SALES_0_3 = "Tax on Sales (0-3)";
     public static final String CN_ON_SALES = "CN on Sales";
     public static final String TAX_ON_CN = "Tax on CN";
+    public static final String TAX_ON_ICL = "Tax on ICL";
+    public static final String SALES_ICL_TURNOVER = "Turnover ICL";
     public static final String PURCHASE_OF_SUPPLIES = "Purchase of supplies";
     public static final String PURCHASE_OF_SERVICES = "Purchase of services";
     public static final String PURCHASE_OF_INVESTMENTS = "Purchase of investments";
+    public static final String PURCHASE_ICL = "Purchase ICL";
     public static final String TAX_ON_PURCHASES_81_83 = "Tax on Purchases (81-83)";
     public static final String CN_ON_PURCHASES = "CN on Purchases";
     private Accounting accounting;
@@ -109,7 +112,7 @@ public class VATFieldsPanel extends JPanel {
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         panel.add(createFieldPanel("0", SALES_AT_0));
         panel.add(createFieldPanel("1", SALES_AT_6));
-//        panel.add(createFieldPanel("2", SALES_AT_12));
+        panel.add(createFieldPanel("2", SALES_AT_12));
         panel.add(createFieldPanel("3", SALES_AT_21));
         return panel;
     }
@@ -120,6 +123,7 @@ public class VATFieldsPanel extends JPanel {
         panel.add(createFieldPanel("54", TAX_ON_SALES_0_3));
         panel.add(createFieldPanel("49", CN_ON_SALES));
         panel.add(createFieldPanel("64", TAX_ON_CN));
+        panel.add(createFieldPanel("46", SALES_ICL_TURNOVER));
         return panel;
     }
 
@@ -143,6 +147,7 @@ public class VATFieldsPanel extends JPanel {
         panel.add(createFieldPanel("81", PURCHASE_OF_SUPPLIES));
         panel.add(createFieldPanel("82", PURCHASE_OF_SERVICES));
         panel.add(createFieldPanel("83", PURCHASE_OF_INVESTMENTS));
+        panel.add(createFieldPanel("86", PURCHASE_ICL));
         return panel;
     }
 
@@ -152,6 +157,7 @@ public class VATFieldsPanel extends JPanel {
         panel.add(createFieldPanel("59", TAX_ON_PURCHASES_81_83));
         panel.add(createFieldPanel("85", CN_ON_PURCHASES));
         panel.add(createFieldPanel("63", TAX_ON_CN));
+        panel.add(createFieldPanel("55", TAX_ON_ICL));
         return panel;
     }
 
@@ -172,7 +178,7 @@ public class VATFieldsPanel extends JPanel {
     private JPanel createTotalsLeftPanel(){
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-        panel.add(createFieldPanel("XX", "54+63"));
+        panel.add(createFieldPanel("XX", "54+55+63"));
         panel.add(createFieldPanel("YY", "59+64"));
         return panel;
     }
