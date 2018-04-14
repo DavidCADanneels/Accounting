@@ -130,24 +130,12 @@ public class VATIO {
                     "  <"+CREDIT_CN_ACCOUNT+">"+vatTransactions.getCreditCNAccount()+"</"+CREDIT_CN_ACCOUNT+">\n"
             );
             for(VATTransaction vatTransaction: vatTransactions.getBusinessObjects()) {
+                Transaction transaction = vatTransaction.getTransaction();
                 writer.write(
-                    "  <"+VATTRANSACTION+">\n" +
-                    "    <"+ID+">"+vatTransaction.getId()+"</"+ID+">\n" +
-                    "    <"+REGISTERED+">"+vatTransaction.isRegistered()+"</"+REGISTERED+">\n"
-                );
-                for(VATBooking vatBooking:vatTransaction.getBusinessObjects()){
-                    VATMovement vatMovement = vatBooking.getVatMovement();
-                    VATField vatField = vatBooking.getVatField();
-                    writer.write(
-                    "    <"+VATBOOKING+">\n" +
-                    "      <"+VATFIELD+">"+vatField.getName()+"</"+VATFIELD+">\n" +
-                    "      <"+AMOUNT+">"+vatMovement.getAmount()+"</"+AMOUNT+">\n" +
-//                    "      <"+INCREASE+">"+vatMovement.isIncrease()+"</"+INCREASE+">\n" +
-                    "    </"+VATBOOKING+">\n"
-                    );
-                }
-                writer.write(
-                        "  </"+VATTRANSACTION+">\n"
+                "  <"+VATTRANSACTION+">\n" +
+                    "    <"+TRANSACTION_ID+">"+transaction.getTransactionId()+"</"+TRANSACTION_ID+">\n" +
+                    "    <"+REGISTERED+">"+vatTransaction.isRegistered()+"</"+REGISTERED+">\n" +
+                    "  </"+VATTRANSACTION+">\n"
                 );
             }
             writer.write("</"+VATTRANSACTIONS+">");

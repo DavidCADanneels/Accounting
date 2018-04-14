@@ -449,7 +449,7 @@ public class JournalsIO {
                 }
                 VATTransaction vatTransaction = transaction.getVatTransaction();
                 if (vatTransaction != null) {
-                    writer.write("    <" + VAT_ID + ">" + vatTransaction.getId() + "</" + VAT_ID + ">\n");
+                    writer.write("    <"+REGISTERED+">"+vatTransaction.isRegistered()+"</"+REGISTERED+">\n");
                 }
                 for (Booking booking : transaction.getBusinessObjects()) {
                     writer.write("    <" + BOOKING + ">\n" +
