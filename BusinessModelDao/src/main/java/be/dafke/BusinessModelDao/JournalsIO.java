@@ -184,78 +184,80 @@ public class JournalsIO {
             transaction.setTransactionId(transactionId);
 
             String journalAbbr = getValue(element, JOURNAL);
-            Journals journals = accounting.getJournals();
-            List<Journal> journalList = journals.getBusinessObjects(Journal.withAbbr(journalAbbr));
-            if(journalList.size()!=1){
-                System.out.println("Error: there should be exactly 1 match");
-            } else {
-                Journal journal = journalList.get(0);
-                transaction.setJournal(journal);
-            }
-
-            String balanceTransactionString = getValue(element, BALANCE_TRANSACTION);
-            if(Boolean.valueOf(balanceTransactionString)){
-                transaction.setBalanceTransaction(true);
-            }
-
-            VATTransaction vatTransaction = null;
-            String registeredString = getValue(element, REGISTERED);
-            if(registeredString!=null){
-                vatTransaction = new VATTransaction();
-                vatTransaction.setId(transactionId);
-                if("true".equals(registeredString)) {
-                    vatTransaction.setRegistered();
-                }
-            }
-
-            for (Element bookingsElement : getChildren(element, BOOKING)) {
-                String idString = getValue(bookingsElement, ID);
-                String debitString = getValue(bookingsElement, DEBIT);
-                String creditString = getValue(bookingsElement, CREDIT);
-                String accountString = getValue(bookingsElement, ACCOUNT);
-
-                Account account = accounts.getBusinessObject(accountString);
-
-                boolean debit = true;
-                BigDecimal amount = BigDecimal.ZERO;
-                if (debitString != null) {
-                    debit = true;
-                    amount = new BigDecimal(debitString);
-                    if (creditString != null) {
-                        System.err.println("Movement cannot contain both 'debit' and 'credit' !!!");
-                    }
-                } else if (creditString != null) {
-                    debit = false;
-                    amount = new BigDecimal(creditString);
+            if (!journalAbbr.equals("NULL")) {
+                Journals journals = accounting.getJournals();
+                List<Journal> journalList = journals.getBusinessObjects(Journal.withAbbr(journalAbbr));
+                if (journalList.size() != 1) {
+                    System.out.println("Error: there should be exactly 1 match");
                 } else {
-                    System.err.println("No 'debit' or 'credit' tag found in Movement !!!");
+                    Journal journal = journalList.get(0);
+                    transaction.setJournal(journal);
                 }
-                Booking booking = new Booking(account, amount, debit, parseInt(idString));
 
-                // TODO: get vatMovement etc from existing objects-> vatTransactions
-                for (Element vatBookingsElement : getChildren(bookingsElement, VATBOOKING)){
-                    String amountString = getValue(vatBookingsElement, AMOUNT);
-                    String vatFieldString = getValue(vatBookingsElement, VATFIELD);
-                    VATField vatField = vatFields.getBusinessObject(vatFieldString);
-                    if (vatField == null) System.err.println("Field[" + vatFieldString + "] not found");
-                    BigDecimal vatAmount = new BigDecimal(amountString);
-                    VATMovement vatMovement = new VATMovement(vatAmount);
-                    VATBooking vatBooking = new VATBooking(vatField,vatMovement);
-                    booking.addVatBooking(vatBooking);
-                    if(vatTransaction==null){
-                        System.err.println("ERROR: vatTransaction should already be read: <registered> field is missing !");
-                    } else {
-                        vatTransaction.addBusinessObject(vatBooking);
+                String balanceTransactionString = getValue(element, BALANCE_TRANSACTION);
+                if (Boolean.valueOf(balanceTransactionString)) {
+                    transaction.setBalanceTransaction(true);
+                }
+
+                VATTransaction vatTransaction = null;
+                String registeredString = getValue(element, REGISTERED);
+                if (registeredString != null) {
+                    vatTransaction = new VATTransaction();
+                    vatTransaction.setId(transactionId);
+                    if ("true".equals(registeredString)) {
+                        vatTransaction.setRegistered();
                     }
                 }
-                transaction.addBusinessObject(booking);
+
+                for (Element bookingsElement : getChildren(element, BOOKING)) {
+                    String idString = getValue(bookingsElement, ID);
+                    String debitString = getValue(bookingsElement, DEBIT);
+                    String creditString = getValue(bookingsElement, CREDIT);
+                    String accountString = getValue(bookingsElement, ACCOUNT);
+
+                    Account account = accounts.getBusinessObject(accountString);
+
+                    boolean debit = true;
+                    BigDecimal amount = BigDecimal.ZERO;
+                    if (debitString != null) {
+                        debit = true;
+                        amount = new BigDecimal(debitString);
+                        if (creditString != null) {
+                            System.err.println("Movement cannot contain both 'debit' and 'credit' !!!");
+                        }
+                    } else if (creditString != null) {
+                        debit = false;
+                        amount = new BigDecimal(creditString);
+                    } else {
+                        System.err.println("No 'debit' or 'credit' tag found in Movement !!!");
+                    }
+                    Booking booking = new Booking(account, amount, debit, parseInt(idString));
+
+                    // TODO: get vatMovement etc from existing objects-> vatTransactions
+                    for (Element vatBookingsElement : getChildren(bookingsElement, VATBOOKING)) {
+                        String amountString = getValue(vatBookingsElement, AMOUNT);
+                        String vatFieldString = getValue(vatBookingsElement, VATFIELD);
+                        VATField vatField = vatFields.getBusinessObject(vatFieldString);
+                        if (vatField == null) System.err.println("Field[" + vatFieldString + "] not found");
+                        BigDecimal vatAmount = new BigDecimal(amountString);
+                        VATMovement vatMovement = new VATMovement(vatAmount);
+                        VATBooking vatBooking = new VATBooking(vatField, vatMovement);
+                        booking.addVatBooking(vatBooking);
+                        if (vatTransaction == null) {
+                            System.err.println("ERROR: vatTransaction should already be read: <registered> field is missing !");
+                        } else {
+                            vatTransaction.addBusinessObject(vatBooking);
+                        }
+                    }
+                    transaction.addBusinessObject(booking);
+                }
+                if (vatTransaction != null) {
+                    transaction.addVatTransaction(vatTransaction);
+                    //                vatTransactions.addBusinessObject(vatTransaction);
+                }
+                transactions.addBusinessObject(transaction);
+                transactions.raiseId();
             }
-            if(vatTransaction!=null){
-                transaction.addVatTransaction(vatTransaction);
-//                vatTransactions.addBusinessObject(vatTransaction);
-            }
-            transactions.addBusinessObject(transaction);
-            transactions.raiseId();
         }
     }
 
