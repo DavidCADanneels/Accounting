@@ -10,7 +10,6 @@ import java.util.Calendar;
  * Created by ddanneels on 28/12/2016.
  */
 public class VATTransaction extends BusinessCollection<VATBooking>{
-    private static int count = 0;
     private ArrayList<VATBooking> vatBookings = new ArrayList<>();
     private Transaction transaction;
     private Integer id;
@@ -22,18 +21,6 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public static int raiseCount(){
-        return ++count;
-    }
-
-    public static int getCount() {
-        return count;
-    }
-
-    public static void setCount(int count) {
-        VATTransaction.count = count;
     }
 
     public void setRegistered() {

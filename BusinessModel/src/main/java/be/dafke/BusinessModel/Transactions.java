@@ -30,6 +30,7 @@ public class Transactions extends Journal {
             account.addBusinessObject(movement, book);
         }
 
+        int transactionId = transaction.getTransactionId();
         if(!transaction.isBalanceTransaction()) {
             Mortgage mortgage = transaction.getMortgage();
             if (mortgage != null) {
@@ -42,8 +43,7 @@ public class Transactions extends Journal {
                     VATTransactions vatTransactions = accounting.getVatTransactions();
                     // TODO: raise count here, not when creating the VATTransaction (+ set ID)
                     // TODO: remove below 2 lines
-                    int count = VATTransaction.raiseCount();
-                    vatTransaction.setId(count);
+                    vatTransaction.setId(transactionId);
                     vatTransactions.addBusinessObject(vatTransaction);
                 }
                 Contact contact = transaction.getContact();
@@ -57,7 +57,7 @@ public class Transactions extends Journal {
         }
         //TODO: save per ID, sort per date in UI
 //        super.addBusinessObject(transaction);
-        return transactions.put(transaction.getTransactionId(),transaction);
+        return transactions.put(transactionId,transaction);
     }
 
     public void removeBusinessObject(Transaction transaction) {

@@ -189,6 +189,7 @@ public class Main {
         if(accounting!=null){
             XMLReader.readAccountingDetails(accounting);
             Accountings.setActiveAccounting(accounting);
+            accounting.setRead(true);
         }
     }
 

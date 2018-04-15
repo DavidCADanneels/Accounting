@@ -107,8 +107,6 @@ public class XMLWriter {
 //                }
                 writer.write("  </"+ ACCOUNTING + ">\n");
             }
-            writer.write("  <" + NEXT_VAT_ID + ">" + VATTransaction.getCount() + "</" + NEXT_VAT_ID + ">\n");
-
             writer.write("</"+SESSION+">");
             writer.flush();
             writer.close();

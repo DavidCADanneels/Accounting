@@ -125,9 +125,6 @@ public class XMLReader {
             Journal currentJournal = journalName==null?null:journals.getBusinessObject(journalName);
             accounting.setActiveJournal(currentJournal);
         }
-
-        String nextIdString = getValue(rootElement, NEXT_VAT_ID);
-        VATTransaction.setCount(Utils.parseInt(nextIdString));
     }
 
     public static void readAccountingSkeleton(Accounting accounting) {

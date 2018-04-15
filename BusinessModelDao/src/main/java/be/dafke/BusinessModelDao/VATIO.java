@@ -45,7 +45,6 @@ public class VATIO {
 
     public static void readVATTransactions(Accounting accounting){
         VATTransactions vatTransactions = accounting.getVatTransactions();
-        VATFields vatFields = accounting.getVatFields();
         Accounts accounts = accounting.getAccounts();
         File xmlFile = new File( ACCOUNTINGS_FOLDER +accounting.getName()+"/" +VATTRANSACTIONS + XML_EXTENSION);
         if(xmlFile.exists()) {
@@ -66,31 +65,6 @@ public class VATIO {
             }
             if (creditCNAccountString != null) {
                 vatTransactions.setCreditCNAccount(accounts.getBusinessObject(creditCNAccountString));
-            }
-
-            for (Element element : getChildren(rootElement, VATTRANSACTION)) {
-                String idString = getValue(element, ID);
-                int originalId = parseInt(idString);
-                VATTransaction vatTransaction = new VATTransaction();
-                vatTransaction.setId(originalId);
-                String registeredString = getValue(element, REGISTERED);
-                if("true".equals(registeredString)){
-                    vatTransaction.setRegistered();
-                }
-
-                for (Element vatBookingsElement : getChildren(element, VATBOOKING)) {
-                    String vatFieldString = getValue(vatBookingsElement, VATFIELD);
-                    String amountString = getValue(vatBookingsElement, AMOUNT);
-
-                    BigDecimal amount = parseBigDecimal(amountString);
-                    VATField vatField = vatFields.getBusinessObject(vatFieldString);
-                    if (vatField == null) System.err.println("Field[" + vatFieldString + "] not found");
-                    VATMovement vatMovement = new VATMovement(amount);
-                    VATBooking vatBooking = new VATBooking(vatField, vatMovement);
-
-                    vatTransaction.addBusinessObject(vatBooking);
-                }
-                vatTransactions.addBusinessObject(vatTransaction);
             }
         }
     }
@@ -129,15 +103,6 @@ public class VATIO {
                     "  <"+DEBIT_CN_ACCOUNT+">"+vatTransactions.getDebitCNAccount()+"</"+DEBIT_CN_ACCOUNT+">\n" +
                     "  <"+CREDIT_CN_ACCOUNT+">"+vatTransactions.getCreditCNAccount()+"</"+CREDIT_CN_ACCOUNT+">\n"
             );
-            for(VATTransaction vatTransaction: vatTransactions.getBusinessObjects()) {
-                Transaction transaction = vatTransaction.getTransaction();
-                writer.write(
-                "  <"+VATTRANSACTION+">\n" +
-                    "    <"+TRANSACTION_ID+">"+transaction.getTransactionId()+"</"+TRANSACTION_ID+">\n" +
-                    "    <"+REGISTERED+">"+vatTransaction.isRegistered()+"</"+REGISTERED+">\n" +
-                    "  </"+VATTRANSACTION+">\n"
-                );
-            }
             writer.write("</"+VATTRANSACTIONS+">");
             writer.flush();
             writer.close();

@@ -169,6 +169,7 @@ public class JournalsIO {
     public static void readTransactions(Accounting accounting) {
         Transactions transactions = accounting.getTransactions();
         VATTransactions vatTransactions = accounting.getVatTransactions();
+        VATFields vatFields = accounting.getVatFields();
         Accounts accounts = accounting.getAccounts();
         File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+TRANSACTIONS+ XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, TRANSACTIONS);
@@ -197,6 +198,16 @@ public class JournalsIO {
                 transaction.setBalanceTransaction(true);
             }
 
+            VATTransaction vatTransaction = null;
+            String registeredString = getValue(element, REGISTERED);
+            if(registeredString!=null){
+                vatTransaction = new VATTransaction();
+                vatTransaction.setId(transactionId);
+                if("true".equals(registeredString)) {
+                    vatTransaction.setRegistered();
+                }
+            }
+
             for (Element bookingsElement : getChildren(element, BOOKING)) {
                 String idString = getValue(bookingsElement, ID);
                 String debitString = getValue(bookingsElement, DEBIT);
@@ -221,33 +232,30 @@ public class JournalsIO {
                 }
                 Booking booking = new Booking(account, amount, debit, parseInt(idString));
 
-                VATFields vatFields = accounting.getVatFields();
                 // TODO: get vatMovement etc from existing objects-> vatTransactions
                 for (Element vatBookingsElement : getChildren(bookingsElement, VATBOOKING)){
                     String amountString = getValue(vatBookingsElement, AMOUNT);
                     String vatFieldString = getValue(vatBookingsElement, VATFIELD);
                     VATField vatField = vatFields.getBusinessObject(vatFieldString);
+                    if (vatField == null) System.err.println("Field[" + vatFieldString + "] not found");
                     BigDecimal vatAmount = new BigDecimal(amountString);
                     VATMovement vatMovement = new VATMovement(vatAmount);
                     VATBooking vatBooking = new VATBooking(vatField,vatMovement);
                     booking.addVatBooking(vatBooking);
+                    if(vatTransaction==null){
+                        System.err.println("ERROR: vatTransaction should already be read: <registered> field is missing !");
+                    } else {
+                        vatTransaction.addBusinessObject(vatBooking);
+                    }
                 }
-
                 transaction.addBusinessObject(booking);
+            }
+            if(vatTransaction!=null){
+                transaction.addVatTransaction(vatTransaction);
+//                vatTransactions.addBusinessObject(vatTransaction);
             }
             transactions.addBusinessObject(transaction);
             transactions.raiseId();
-
-            String vatIdString = getValue(element, VAT_ID);
-            if (vatIdString != null) {
-                int vatid = Utils.parseInt(vatIdString);
-                VATTransaction vatTransaction = vatTransactions.getBusinessObject(vatid);
-                if(vatTransaction==null){
-                    System.err.println("vatId: "+ vatid);
-                }
-                transaction.addVatTransaction(vatTransaction);
-                vatTransaction.setTransaction(transaction);
-            }
         }
     }
 
