@@ -73,9 +73,11 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 // ===============
 	public Object getValueAt(int row, int col) {
 		OrderItem orderItem = getObject(row, col);
-		if (orderItem==null) return null;
+		if (orderItem==null)
+			return null;
 		Article article = orderItem.getArticle();
-		if (article == null) return null;
+		if (article == null)
+			return null;
 
 		if (col == NAME_COL) {
 			return article.getName();
@@ -123,8 +125,8 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 
 	public int getRowCount() {
 		if(articles==null || contact==null) return 0;
-		List<Article> businessObjects = articles.getBusinessObjects(article -> article.getSalesPriceWithVat()!=null);
-		if(businessObjects == null || businessObjects.size() == 0) return 0;
+		List<Article> businessObjects = getArticles();
+		if(businessObjects == null) return 0;
 		return businessObjects.size();
 	}
 
@@ -141,6 +143,12 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 	@Override
 	public boolean isCellEditable(int row, int col) {
 		return col==NR_OF_UNITS_COL || col==NR_OF_ITEMS_COL;
+	}
+
+	private List<Article> getArticles(){
+		List<Article> businessObjects = articles.getBusinessObjects(article -> article.getSalesPriceWithVat()!=null);
+		if(businessObjects == null) return null;
+		return businessObjects;
 	}
 
 // DE SET METHODEN
@@ -165,8 +173,8 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 
 	@Override
 	public OrderItem getObject(int row, int col) {
-		List<Article> articleList = articles.getBusinessObjects();
-		if(articleList == null || articleList.size() == 0) return null;
+		List<Article> articleList = getArticles();
+		if(articleList == null || row >= articleList.size()) return null;
 		Article article = articleList.get(row);
 		return order.getBusinessObject(article.getName());
 	}
