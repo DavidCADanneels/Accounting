@@ -101,6 +101,9 @@ public class Journal extends BusinessCollection<Transaction> {
         // TODD: refactor: call super method to add (sorted per ID) and remove the 'MultiValueMap transactions'
         // (sort on date in UI, do not store journal id nr, e.g. DIV25, store transaction ID instead and apply dynamic numbering to calculate 'DIV25')
 //        super.addBusinessObject(transaction);
+        if (transaction == null){
+            System.err.println("error");
+        }
         return transactions.put(transaction.getTransactionId(), transaction);
 	}
 

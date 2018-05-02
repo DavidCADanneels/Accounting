@@ -156,7 +156,11 @@ public class JournalsIO {
             int id = parseInt(getValue(element, TRANSACTION_ID));
 
             Transaction transaction = transactions.getBusinessObject(id);
-            journal.addBusinessObject(transaction);
+            if (transaction == null){
+                System.err.println("id("+id+")not found");
+            } else {
+                journal.addBusinessObject(transaction);
+            }
             Journal oldJournal = transaction.getJournal();
             if(oldJournal==null){
                 System.out.println("ERROR: should be set by Transactions");
@@ -173,6 +177,7 @@ public class JournalsIO {
         Accounts accounts = accounting.getAccounts();
         File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+TRANSACTIONS+ XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, TRANSACTIONS);
+        int maxId = 0;
         for (Element element: getChildren(rootElement, TRANSACTION)) {
 
             Calendar date = toCalendar(getValue(element, DATE));
@@ -181,6 +186,7 @@ public class JournalsIO {
             Transaction transaction = new Transaction(date, description);
 
             int transactionId = parseInt(getValue(element, TRANSACTION_ID));
+            if(transactionId>maxId) maxId=transactionId;
             transaction.setTransactionId(transactionId);
 
             String journalAbbr = getValue(element, JOURNAL);
@@ -259,6 +265,8 @@ public class JournalsIO {
                 transactions.raiseId();
             }
         }
+
+        transactions.setId(maxId);
     }
 
     public static void writeJournalTypes(Accounting accounting){
