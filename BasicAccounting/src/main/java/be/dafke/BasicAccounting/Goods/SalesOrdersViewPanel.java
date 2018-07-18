@@ -41,7 +41,6 @@ public class SalesOrdersViewPanel extends JPanel {
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
-
         placeOrderButton = new JButton("Place Order");
         placeOrderButton.addActionListener(e -> {
             salesOrder = salesOrdersViewDataTableModel.getOrder();
@@ -86,34 +85,48 @@ public class SalesOrdersViewPanel extends JPanel {
         });
         firePurchaseOrderAddedOrRemoved();
 
-        JScrollPane scrollPane = new JScrollPane(table);
+
         setLayout(new BorderLayout());
-        add(scrollPane, BorderLayout.CENTER);
-        JPanel north1 = new JPanel();
-        north1.add(comboBox);
-        north1.add(customerName);
 
-        JPanel north2 = new JPanel();
-        north2.add(placed);
-        north2.add(delivered);
-        north2.add(payed);
+        JPanel tablePanel = createTablePanel();
 
-        JPanel north = new JPanel();
-        north.setLayout(new BoxLayout(north, BoxLayout.Y_AXIS));
-        north.add(north1);
-        north.add(north2);
+        JPanel orderPanel = new JPanel(new BorderLayout());
 
-        add(north, BorderLayout.NORTH);
-        JPanel south = new JPanel(new BorderLayout());
-        south.add(salesTotalsPanel);
+        JPanel customerPanel = new JPanel();
+        customerPanel.setLayout(new BoxLayout(customerPanel, BoxLayout.Y_AXIS));
+        //
+        JPanel statusPanel = new JPanel();
+        statusPanel.add(placed);
+        statusPanel.add(delivered);
+        statusPanel.add(payed);
+        //
+        customerPanel.add(customerName);
+        customerPanel.add(statusPanel);
+
+        orderPanel.add(customerPanel, BorderLayout.NORTH);
+        orderPanel.add(tablePanel,BorderLayout.CENTER);
+
+        JPanel south = new JPanel();
+        south.setLayout(new BoxLayout(south, BoxLayout.Y_AXIS));
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(placeOrderButton);
         buttonPanel.add(deliveredButton);
         buttonPanel.add(payedButton);
 
-        south.add(buttonPanel, BorderLayout.SOUTH);
+        south.add(buttonPanel);
+        south.add(comboBox);
+
+        add(orderPanel,BorderLayout.CENTER);
 
         add(south, BorderLayout.SOUTH);
+    }
+
+    private JPanel createTablePanel(){
+        JPanel panel = new JPanel(new BorderLayout());
+        JScrollPane scrollPane = new JScrollPane(table);
+        panel.add(scrollPane,BorderLayout.CENTER);
+        panel.add(salesTotalsPanel,BorderLayout.SOUTH);
+        return panel;
     }
 
     private void updateButtonsAndCheckBoxes() {
