@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 public class Transactions extends Journal {
 
     private final Accounting accounting;
-    private static Integer id=0;
+    private Integer id=0;
 
     public Transactions(Accounting accounting) {
         super("Master", "MA");

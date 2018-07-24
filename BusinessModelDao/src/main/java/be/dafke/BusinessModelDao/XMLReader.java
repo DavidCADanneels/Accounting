@@ -153,6 +153,7 @@ public class XMLReader {
     }
 
     public static void readAccountingDetails(Accounting accounting) {
+        // FIXME: ID must be updated to max of new accounting: no static int any longer !
         if(!accounting.isRead()) {
             readTransactions(accounting);
             readJournalsContent(accounting.getJournals(), accounting);

@@ -186,7 +186,9 @@ public class JournalsIO {
             Transaction transaction = new Transaction(date, description);
 
             int transactionId = parseInt(getValue(element, TRANSACTION_ID));
-            if(transactionId>maxId) maxId=transactionId;
+            if(transactionId>maxId){
+                maxId=transactionId;
+            }
             transaction.setTransactionId(transactionId);
 
             String journalAbbr = getValue(element, JOURNAL);
@@ -262,7 +264,7 @@ public class JournalsIO {
                     //                vatTransactions.addBusinessObject(vatTransaction);
                 }
                 transactions.addBusinessObject(transaction);
-                transactions.raiseId();
+//                transactions.raiseId();
             }
         }
 
