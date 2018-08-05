@@ -207,6 +207,7 @@ public class VATFieldsPanel extends JPanel {
                 ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting.getContacts(), Contact.ContactType.ALL);
                 contactSelectorDialog.setVisible(true);
                 companyContact = contactSelectorDialog.getSelection();
+                accounting.setCompanyContact(companyContact);
             }
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileFilter(new FileNameExtensionFilter("XML_EXTENSION files", "xml"));

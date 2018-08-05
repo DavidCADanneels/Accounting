@@ -71,6 +71,7 @@ public class ContactsPanel extends JPanel implements ListSelectionListener {
             ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting.getContacts(), Contact.ContactType.ALL);
             contactSelectorDialog.setVisible(true);
             companyContact = contactSelectorDialog.getSelection();
+            accounting.setCompanyContact(companyContact);
         }
 
         JFileChooser fileChooser = new JFileChooser();
