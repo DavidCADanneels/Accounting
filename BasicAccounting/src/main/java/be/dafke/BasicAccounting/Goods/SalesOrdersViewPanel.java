@@ -5,8 +5,10 @@ import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
 import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
 import be.dafke.BasicAccounting.Journals.DateAndDescriptionDialog;
 import be.dafke.BasicAccounting.Journals.JournalSelectorDialog;
+import be.dafke.BasicAccounting.MainApplication.InvoicePDF;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModelDao.SalesOrderIO;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
@@ -22,7 +24,7 @@ import java.util.List;
  * Time: 22:07
  */
 public class SalesOrdersViewPanel extends JPanel {
-    private final JButton placeOrderButton, deliveredButton, payedButton;
+    private final JButton placeOrderButton, deliveredButton, payedButton, createInvoiceButton;
     private final SelectableTable<OrderItem> table;
     private final SalesOrders salesOrders;
     private final JTextField customerName;
@@ -41,6 +43,30 @@ public class SalesOrdersViewPanel extends JPanel {
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
+
+        createInvoiceButton = new JButton("Create Invoice");
+        createInvoiceButton.addActionListener(e -> {
+            salesOrder = salesOrdersViewDataTableModel.getOrder();
+            if (salesOrder.getCustomer() == null) {
+                // should not occur
+            }
+
+            if (salesOrder.getSupplier() == null){
+                Contact companyContact = accounting.getCompanyContact();
+                if (companyContact == null) {
+                    // TODO: replace companyContact by Contact of type 'OWN'
+                    ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting.getContacts(), Contact.ContactType.ALL);
+                    contactSelectorDialog.setVisible(true);
+                    companyContact = contactSelectorDialog.getSelection();
+                    accounting.setCompanyContact(companyContact);
+                }
+                salesOrder.setSupplier(companyContact);
+            }
+            String xmlPath = SalesOrderIO.writeInvoiceXmlInputFile(accounting, salesOrder);
+            String pdfPath = SalesOrderIO.calculatePdfPath(accounting, salesOrder);
+            InvoicePDF.createInvoice(xmlPath, pdfPath);
+        });
+
         placeOrderButton = new JButton("Place Order");
         placeOrderButton.addActionListener(e -> {
             salesOrder = salesOrdersViewDataTableModel.getOrder();
@@ -109,6 +135,7 @@ public class SalesOrdersViewPanel extends JPanel {
         JPanel south = new JPanel();
         south.setLayout(new BoxLayout(south, BoxLayout.Y_AXIS));
         JPanel buttonPanel = new JPanel();
+        buttonPanel.add(createInvoiceButton);
         buttonPanel.add(placeOrderButton);
         buttonPanel.add(deliveredButton);
         buttonPanel.add(payedButton);
@@ -135,6 +162,7 @@ public class SalesOrdersViewPanel extends JPanel {
         delivered.setSelected(salesOrder !=null&& salesOrder.isDelivered());
         deliveredButton.setEnabled(salesOrder !=null&&!salesOrder.isDelivered());
         placeOrderButton.setEnabled(salesOrder !=null&&!salesOrder.isPlaced());
+        createInvoiceButton.setEnabled(salesOrder !=null);
         payedButton.setEnabled(salesOrder !=null&&!salesOrder.isPayed());
         salesOrdersViewDataTableModel.setOrder(salesOrder);
         salesTotalsPanel.fireOrderContentChanged(salesOrder);

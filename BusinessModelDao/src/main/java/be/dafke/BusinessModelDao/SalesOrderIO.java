@@ -3,12 +3,14 @@ package be.dafke.BusinessModelDao;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Utils.Utils;
 import org.w3c.dom.Element;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -156,6 +158,107 @@ public class SalesOrderIO {
             writer.close();
         } catch (IOException ex) {
             Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    public static String calculatePdfPath(Accounting accounting, SalesOrder salesOrder){
+        Integer id = salesOrder.getId();
+        String idString = Utils.toIDString("SO", id, 6);
+
+        return ACCOUNTINGS_FOLDER + accounting.getName() + "/" + INVOICES + "/" + idString + PDF_EXTENSION;
+    }
+
+    public static String writeInvoiceXmlInputFile(Accounting accounting, SalesOrder salesOrder){
+        Integer id = salesOrder.getId();
+        String idString = Utils.toIDString("SO", id, 6);
+
+        String folderPath = ACCOUNTINGS_FOLDER + accounting.getName() + "/" + INVOICES;
+        File folder = new File(folderPath);
+        folder.mkdirs();
+        String path = folderPath + "/" + idString + XML_EXTENSION;
+        File file = new File(path);
+        try {
+            Writer writer = new FileWriter(file);
+            writer.write(getXmlHeader(INVOICE, 3));
+
+            Contact supplier = salesOrder.getSupplier();
+            writer.write(
+                        "  <" + SUPPLIER + ">\n" +
+                            "    <" + NAME + ">" + supplier.getName() + "</" + NAME + ">\n" +
+                            "    <" + OFFICIAL_NAME + ">" + supplier.getOfficialName() + "</" + OFFICIAL_NAME + ">\n" +
+                            "    <" + STREET_AND_NUMBER + ">" + supplier.getStreetAndNumber() + "</" + STREET_AND_NUMBER + ">\n" +
+                            "    <" + POSTAL_CODE + ">" + supplier.getPostalCode() + "</" + POSTAL_CODE + ">\n" +
+                            "    <" + CITY + ">" + supplier.getCity() + "</" + CITY + ">\n" +
+                            "    <" + COUNTRY_CODE + ">" + supplier.getCountryCode() + "</" + COUNTRY_CODE + ">\n" +
+                            "    <" + VAT_NUMBER + ">" + supplier.getVatNumber() + "</" + VAT_NUMBER + ">\n" +
+                            "  </" + SUPPLIER + ">\n"
+            );
+
+            Contact customer = salesOrder.getCustomer();
+            writer.write(
+                    "  <" + CUSTOMER + ">\n" +
+                            "    <" + NAME + ">" + customer.getName() + "</" + NAME + ">\n" +
+                            "    <" + OFFICIAL_NAME + ">" + customer.getOfficialName() + "</" + OFFICIAL_NAME + ">\n" +
+                            "    <" + STREET_AND_NUMBER + ">" + customer.getStreetAndNumber() + "</" + STREET_AND_NUMBER + ">\n" +
+                            "    <" + POSTAL_CODE + ">" + customer.getPostalCode() + "</" + POSTAL_CODE + ">\n" +
+                            "    <" + CITY + ">" + customer.getCity() + "</" + CITY + ">\n" +
+                            "    <" + COUNTRY_CODE + ">" + customer.getCountryCode() + "</" + COUNTRY_CODE + ">\n" +
+                            "    <" + VAT_NUMBER + ">" + customer.getVatNumber() + "</" + VAT_NUMBER + ">\n" +
+                            "  </" + CUSTOMER + ">\n"
+            );
+
+            ArrayList<Integer> vatRates = new ArrayList<>();
+
+            writer.write("  <"+SALE+">\n");
+            for (OrderItem orderItem : salesOrder.getBusinessObjects()) {
+                Article article = orderItem.getArticle();
+                Integer salesVatRate = article.getSalesVatRate();
+                if(!vatRates.contains(salesVatRate)){
+                    vatRates.add(salesVatRate);
+                }
+
+                boolean listNrOfItems = true;
+                int numberOfUnits = orderItem.getNumberOfUnits();
+                int numberOfItems = orderItem.getNumberOfItems();
+                Integer itemsPerUnit = article.getItemsPerUnit();
+
+                if(numberOfUnits > 0 && Math.floorMod(numberOfItems,itemsPerUnit)==0){
+                    listNrOfItems = false;
+                }
+
+                writer.write(
+                            "    <" + ARTICLE + ">\n" +
+                                "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
+                                "      <" + NUMBER + ">" + (listNrOfItems?orderItem.getNumberOfItems():orderItem.getNumberOfUnits()) + "</" + NUMBER + ">\n" +
+                                "      <" + UNIT_PRICE + ">" + (listNrOfItems?article.getSalesPriceSingleWithVat():article.getSalesPricePromoWithVat()) + "</" + UNIT_PRICE + ">\n" +
+                                "      <" + TAX_RATE + ">" + salesVatRate + "</" + TAX_RATE + ">\n" +
+                                "      <" + TOTAL_PRICE + ">" + article.getSalesPriceWithVat(numberOfItems) + "</" + TOTAL_PRICE + ">\n" +
+                                "    </" + ARTICLE + ">\n"
+                );
+            }
+            writer.write("  </"+SALE+">\n");
+
+            writer.write("  <"+TOTALS+">\n");
+            for (Integer vatRate:vatRates) {
+                writer.write("    <"+TOTALS_LINE+">\n");
+                writer.write("      <"+TOTALS_LINE_EXCL+">" + salesOrder.getTotalSalesPriceExclVat(OrderItem.withSalesVatRate(vatRate)) + "</"+TOTALS_LINE_EXCL+">"+"\n");
+                writer.write("      <"+TOTALS_LINE_VAT_AMOUNT+">" + salesOrder.getTotalSalesVat(OrderItem.withSalesVatRate(vatRate)) + "</"+TOTALS_LINE_VAT_AMOUNT+">"+"\n");
+                writer.write("      <"+TOTALS_LINE_VAT_PCT+">" + vatRate + "</"+TOTALS_LINE_VAT_PCT+">"+"\n");
+                writer.write("      <"+TOTALS_LINE_INCL+">" + salesOrder.getTotalSalesPriceInclVat(OrderItem.withSalesVatRate(vatRate)) + "</"+TOTALS_LINE_INCL+">"+"\n");
+                writer.write("    </"+TOTALS_LINE+">\n");
+            }
+            writer.write("    <"+TOTAL_EXCL_VAT+">" + salesOrder.getTotalSalesPriceExclVat() + "</"+TOTAL_EXCL_VAT+">"+"\n");
+            writer.write("    <"+TOTAL_VAT+">" + salesOrder.getTotalSalesVat() + "</"+TOTAL_VAT+">"+"\n");
+            writer.write("    <"+TOTAL_INCL_VAT+">" + salesOrder.getTotalSalesPriceInclVat() + "</"+TOTAL_INCL_VAT+">"+"\n");
+            writer.write("  </"+TOTALS+">\n");
+            writer.write("</"+INVOICE+">\n");
+
+            writer.flush();
+            writer.close();
+        } catch (IOException ex) {
+            Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            return path;
         }
     }
 }
