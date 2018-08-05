@@ -147,8 +147,23 @@ public class XMLConstants {
     public static final String IS_PAYED = "IsPayed";
     public static final String NR_OF_UNITS = "NrOfUnits";
     public static final String NR_OF_ITEMS = "NrOfItems";
+    public static final String UNIT_PRICE = "UnitPrice";
+//    public static final String ITEM_PRICE = "ItemPrice";
+    public static final String TOTAL_PRICE = "TotalPrice";
+    public static final String TAX_RATE = "TaxRate";
     public static final String INVOICES = "Invoices";
     public static final String INVOICE = "Invoice";
+    public static final String SALE = "Sale";
+    public static final String TOTALS = "Totals";
+    public static final String TOTAL_EXCL_VAT = "TotalExclVat";
+    public static final String TOTAL_INCL_VAT = "TotalInclVat";
+    public static final String TOTAL_VAT = "TotalVat";
+
+    public static final String TOTALS_LINE = "TotalsLine";
+    public static final String TOTALS_LINE_EXCL = "TotalsLineExcl";
+    public static final String TOTALS_LINE_INCL = "TotalsLineIncl";
+    public static final String TOTALS_LINE_VAT_PCT = "TotalsLineVatPct";
+    public static final String TOTALS_LINE_VAT_AMOUNT = "TotalsLineVatAmount";
 
     public static final String SESSION = "Session";
     public static final String ACTIVE_ACCOUNTING = "ActiveAccounting";
