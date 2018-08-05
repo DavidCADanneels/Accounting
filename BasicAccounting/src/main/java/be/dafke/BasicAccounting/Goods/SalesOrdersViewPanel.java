@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Goods;
 
 import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
 import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
+import be.dafke.BasicAccounting.Contacts.ContactsPanel;
 import be.dafke.BasicAccounting.Journals.DateAndDescriptionDialog;
 import be.dafke.BasicAccounting.Journals.JournalSelectorDialog;
 import be.dafke.BasicAccounting.MainApplication.InvoicePDF;
@@ -54,11 +55,7 @@ public class SalesOrdersViewPanel extends JPanel {
             if (salesOrder.getSupplier() == null){
                 Contact companyContact = accounting.getCompanyContact();
                 if (companyContact == null) {
-                    // TODO: replace companyContact by Contact of type 'OWN'
-                    ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting.getContacts(), Contact.ContactType.ALL);
-                    contactSelectorDialog.setVisible(true);
-                    companyContact = contactSelectorDialog.getSelection();
-                    accounting.setCompanyContact(companyContact);
+                    ContactsPanel.setCompanyContact(accounting);
                 }
                 salesOrder.setSupplier(companyContact);
             }

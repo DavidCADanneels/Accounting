@@ -67,11 +67,7 @@ public class ContactsPanel extends JPanel implements ListSelectionListener {
         Accounting accounting = contacts.getAccounting();
         Contact companyContact = accounting.getCompanyContact();
         if (companyContact == null) {
-            // TODO: replace companyContact by Contact of type 'OWN'
-            ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting.getContacts(), Contact.ContactType.ALL);
-            contactSelectorDialog.setVisible(true);
-            companyContact = contactSelectorDialog.getSelection();
-            accounting.setCompanyContact(companyContact);
+            setCompanyContact(accounting);
         }
 
         JFileChooser fileChooser = new JFileChooser();
@@ -82,6 +78,14 @@ public class ContactsPanel extends JPanel implements ListSelectionListener {
 
             VATWriter.writeCustomerListing(selectedFile, year, companyContact, contacts);
         }
+    }
+
+    public static void setCompanyContact(Accounting accounting){
+        // TODO: replace companyContact by Contact of type 'OWN'
+        ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting.getContacts(), Contact.ContactType.ALL);
+        contactSelectorDialog.setVisible(true);
+        Contact companyContact = contactSelectorDialog.getSelection();
+        accounting.setCompanyContact(companyContact);
     }
 
     public void fireContactDataChanged(){

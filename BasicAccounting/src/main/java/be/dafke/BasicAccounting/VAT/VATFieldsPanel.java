@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.VAT;
 
-import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
+import be.dafke.BasicAccounting.Contacts.ContactsPanel;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.VATWriter;
@@ -203,11 +203,7 @@ public class VATFieldsPanel extends JPanel {
         button.addActionListener(e -> {
             Contact companyContact = accounting.getCompanyContact();
             if (companyContact == null) {
-                // TODO: replace companyContact by Contact of type 'OWN'
-                ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting.getContacts(), Contact.ContactType.ALL);
-                contactSelectorDialog.setVisible(true);
-                companyContact = contactSelectorDialog.getSelection();
-                accounting.setCompanyContact(companyContact);
+                ContactsPanel.setCompanyContact(accounting);
             }
             JFileChooser fileChooser = new JFileChooser();
             fileChooser.setFileFilter(new FileNameExtensionFilter("XML_EXTENSION files", "xml"));
