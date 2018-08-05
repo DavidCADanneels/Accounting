@@ -28,6 +28,29 @@ public class Utils {
 		return null;
 	}
 
+    /**
+     *
+     * @param id the number to transform/extend into a String
+     * @param length the number of digit to extend to
+     * @return
+     */
+	public static String toIDString(String prefix, int id, int length){
+        StringBuilder builder = new StringBuilder(prefix);
+        for(int power=1; power<=length; power++){
+            double maxDouble = Math.pow(10, power);
+            int maxInt = ((int) maxDouble);
+            if(id<maxInt){
+                int numberOfZeroToAdd = length - power;
+                for (int i = 0; i < numberOfZeroToAdd; i++) {
+                    builder.append("0");
+                }
+                builder.append(id);
+                return builder.toString();
+            }
+        }
+        return prefix + id;
+    }
+
     /** "D, M, YYYY" -> Data */
     public static Calendar toCalendar(String day, String month, String year) {
         try {

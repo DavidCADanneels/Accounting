@@ -3,6 +3,7 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Utils.Utils;
 
 public class SalesOrders extends BusinessCollection<SalesOrder>{
 
@@ -21,18 +22,10 @@ public class SalesOrders extends BusinessCollection<SalesOrder>{
     public SalesOrder addBusinessObject(SalesOrder order) throws EmptyNameException, DuplicateNameException {
         if (order.getName()==null) {
             id++;
-            order.setName(generateName("SO"));
+            order.setName(Utils.toIDString("SO", id, 3));
             order.setId(id);
         }
         return super.addBusinessObject(order);
-    }
-
-    public String generateName(String prefix){
-        if(id<10){
-            return prefix+"00"+id;
-        } else if(id<100){
-            return prefix+"0"+id;
-        } else return prefix+id;
     }
 
     public void removeBusinessObject(Order order){
