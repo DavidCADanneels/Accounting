@@ -195,17 +195,21 @@ public class Article extends BusinessObject{
     }
 
     public BigDecimal getSalesPriceWithVat(int number) {
-        if(salesPriceSingleWithVat==null||salesPricePromoWithVat==null) return BigDecimal.ZERO;
+        return getSalesPriceWithVat(number, salesPriceSingleWithVat, salesPricePromoWithVat);
+    }
+
+    public BigDecimal getSalesPriceWithVat(int number, BigDecimal singlePrice, BigDecimal boxPrice) {
+        if(singlePrice==null||boxPrice==null) return BigDecimal.ZERO;
         if (number < minimumNumberForReduction){
-            return salesPriceSingleWithVat.multiply(new BigDecimal(number));
+            return singlePrice.multiply(new BigDecimal(number));
         }else {
             if(itemsPerUnit == 1) {
-                return salesPricePromoWithVat.multiply(new BigDecimal(number));
+                return boxPrice.multiply(new BigDecimal(number));
             } else{
                 int nrOfUnits = number/itemsPerUnit;
                 int remainingItems = number%itemsPerUnit;
-                BigDecimal priceForUnits = salesPricePromoWithVat.multiply(new BigDecimal(nrOfUnits));
-                BigDecimal priceForItems = salesPriceSingleWithVat.multiply(new BigDecimal(remainingItems));
+                BigDecimal priceForUnits = boxPrice.multiply(new BigDecimal(nrOfUnits));
+                BigDecimal priceForItems = singlePrice.multiply(new BigDecimal(remainingItems));
                 return priceForUnits.add(priceForItems);
             }
         }

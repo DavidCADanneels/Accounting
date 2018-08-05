@@ -30,6 +30,9 @@ public class SalesOrder extends Order {
         return totalPurchaseExcl;
     }
 
+    // TODO: add 'singlePrice' and 'boxPrice' per article in Order
+    // stop calculating prices from the 'Article' object, prices might have changed afterwards.
+
     public BigDecimal getTotalSalesPriceExclVat() {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {
