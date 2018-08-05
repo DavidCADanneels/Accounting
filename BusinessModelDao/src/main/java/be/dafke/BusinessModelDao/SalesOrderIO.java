@@ -228,7 +228,7 @@ public class SalesOrderIO {
 
                 writer.write(
                             "    <" + ARTICLE + ">\n" +
-                                "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
+                                "      <" + NAME + ">" + (listNrOfItems?article.getItemName():article.getName()) + "</" + NAME + ">\n" +
                                 "      <" + NUMBER + ">" + (listNrOfItems?orderItem.getNumberOfItems():orderItem.getNumberOfUnits()) + "</" + NUMBER + ">\n" +
                                 "      <" + UNIT_PRICE + ">" + (listNrOfItems?article.getSalesPriceSingleWithVat():article.getSalesPricePromoWithVat()) + "</" + UNIT_PRICE + ">\n" +
                                 "      <" + TAX_RATE + ">" + salesVatRate + "</" + TAX_RATE + ">\n" +
