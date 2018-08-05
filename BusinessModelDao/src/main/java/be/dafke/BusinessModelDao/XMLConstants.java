@@ -147,6 +147,8 @@ public class XMLConstants {
     public static final String IS_PAYED = "IsPayed";
     public static final String NR_OF_UNITS = "NrOfUnits";
     public static final String NR_OF_ITEMS = "NrOfItems";
+    public static final String INVOICES = "Invoices";
+    public static final String INVOICE = "Invoice";
 
     public static final String SESSION = "Session";
     public static final String ACTIVE_ACCOUNTING = "ActiveAccounting";
