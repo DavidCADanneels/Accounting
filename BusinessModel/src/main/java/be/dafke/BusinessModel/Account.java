@@ -48,6 +48,10 @@ public class Account extends BusinessCollection<Movement> implements Comparable<
         return account -> account.getName()!=null && account.getName().toLowerCase().startsWith(prefix.toLowerCase());
     }
 
+    public static Predicate<Account> saldoNotZero() {
+        return account -> account.getSaldo().compareTo(BigDecimal.ZERO) != 0;
+    }
+
     public static Predicate<Account> namePrefixCaseSensitive(String prefix) {
         return account -> account.getName()!=null && account.getName().startsWith(prefix);
     }
