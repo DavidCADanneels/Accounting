@@ -88,6 +88,17 @@ public class AccountsTablePanel extends JPanel {
         new NewAccountDialog(accounts, accountTypes).setVisible(true);
     }
 
+    public void editAccount(){
+        popup.setVisible(false);
+        Account account = table.getSelectedObject();
+        if(account!=null) {
+            ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
+            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes);
+            newAccountDialog.setAccount(account);
+            newAccountDialog.setVisible(true);
+        }
+    }
+
     public void setPopup(AccountsTablePopupMenu popup) {
         this.popup = popup;
     }
