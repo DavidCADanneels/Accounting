@@ -13,10 +13,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
-import static be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementTableModel.NUMBER_COL;
 import static java.util.ResourceBundle.getBundle;
+import static java.util.stream.Collectors.*;
 
 /**
  * @author David Danneels
@@ -164,9 +163,9 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 			accountsList = this.accounts.getBusinessObjects();
 		}
 		if(filter==null){
-			return accountsList.stream().collect(Collectors.toCollection(ArrayList::new));
+			return new ArrayList<>(accountsList);
 		}
-		return accountsList.stream().filter(filter).collect(Collectors.toCollection(ArrayList::new));
+		return accountsList.stream().filter(filter).collect(toCollection(ArrayList::new));
 	}
 
 	public void setFilter(Predicate<Account> filter) {
