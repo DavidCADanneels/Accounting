@@ -24,7 +24,6 @@ public class AccountFilterPanel extends JPanel {
     private final JPanel name, number;
     private JTextField nameField, numberField;
     private JCheckBox hideEmptyCheckbox;
-    private boolean hideEmpty;
 
     private AccountDataModel model;
     private JLabel nameLabel, numberLabel;
@@ -36,10 +35,7 @@ public class AccountFilterPanel extends JPanel {
         name = createNamePanel();
         number = createNumberPanel();
         hideEmptyCheckbox = new JCheckBox("Hide Empty Accounts");
-        hideEmptyCheckbox.addActionListener(e -> {
-            hideEmpty = hideEmptyCheckbox.isSelected();
-            filter();
-        });
+        hideEmptyCheckbox.addActionListener(e -> filter());
 
         setLayout(new BorderLayout());
         JPanel south = new JPanel();
@@ -108,7 +104,7 @@ public class AccountFilterPanel extends JPanel {
         String namePrefix = nameField.getText();
         String numberPrefix = numberField.getText();
         Predicate<Account> predicate = Account.namePrefix(namePrefix).and(Account.numberPrefix(numberPrefix));
-        if(hideEmpty){
+        if(hideEmptyCheckbox.isSelected()){
             predicate =  predicate.and(Account.saldoNotZero());
         }
         model.setFilter(predicate);
@@ -137,5 +133,6 @@ public class AccountFilterPanel extends JPanel {
         types.setAccountList(accountList);
         boolean enabled = accountList!=null && (!accountList.isSingleAccount() || accountList.getAccount()==null);
         setEnabled(enabled);
+        filter();
     }
 }

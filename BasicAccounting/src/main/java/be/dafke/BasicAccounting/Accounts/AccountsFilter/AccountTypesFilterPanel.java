@@ -36,8 +36,6 @@ public class AccountTypesFilterPanel extends JPanel {
         setSelectedAccountTypes(accountList.getCheckedTypes());
 
         revalidate();
-        model.setAccountTypes(getSelectedAccountTypes());
-
     }
 
     public void setAvailableAccountTypes(ArrayList<AccountType> accountTypes) {

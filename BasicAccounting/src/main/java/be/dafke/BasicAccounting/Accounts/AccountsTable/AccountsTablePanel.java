@@ -170,8 +170,8 @@ public class AccountsTablePanel extends JPanel {
     }
     public void setAccountsList(AccountsList accountsList) {
         this.accountsList = accountsList;
-        filterPanel.setAccountList(accountsList);
         accountDataTableModel.setAccountList(accountsList);
+        filterPanel.setAccountList(accountsList);
         accountsTableButtons.setAccountsList(accountsList);
     }
 
