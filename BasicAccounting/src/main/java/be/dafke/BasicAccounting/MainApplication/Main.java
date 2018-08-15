@@ -367,15 +367,15 @@ public class Main {
         if(journalType == accountGuiRight.getJournalType())
             accountGuiRight.setAccountTypesList(accountTypes);
     }
-    public static void setAccountsListLeft(JournalType journalType, AccountsList accountsList) {
-        if(journalType == accountGuiLeft.getJournalType())
-            accountGuiLeft.setAccountsList(accountsList);
-    }
-
-    public static void setAccountsListRight(JournalType journalType, AccountsList accountsList) {
-        if(journalType == accountGuiRight.getJournalType())
-            accountGuiRight.setAccountsList(accountsList);
-    }
+//    public static void setAccountsListLeft(JournalType journalType, AccountsList accountsList) {
+//        if(journalType == accountGuiLeft.getJournalType())
+//            accountGuiLeft.setAccountsList(accountsList);
+//    }
+//
+//    public static void setAccountsListRight(JournalType journalType, AccountsList accountsList) {
+//        if(journalType == accountGuiRight.getJournalType())
+//            accountGuiRight.setAccountsList(accountsList);
+//    }
 
     public static void selectTransaction(Transaction transaction){
         journalViewPanel.selectTransaction(transaction);
