@@ -3,7 +3,6 @@ package be.dafke.BusinessModelDao;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.Utils.Utils;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -69,7 +68,7 @@ public class XMLReader {
     }
 
     public static void readAccountings(Accountings accountings){
-        File xmlFile = new File(ACCOUNTINGS_FILE);
+        File xmlFile = new File(ACCOUNTINGS_XML_FILE);
         if(!xmlFile.exists()){
             return;
         }

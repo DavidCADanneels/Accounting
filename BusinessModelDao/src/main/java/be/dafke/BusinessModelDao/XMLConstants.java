@@ -173,13 +173,20 @@ public class XMLConstants {
 
     public static final String XML_EXTENSION = ".xml";
     public static final String PDF_EXTENSION = ".pdf";
+    public static final String HTML_EXTENSION = ".html";
     public static final String PDF = "PDF";
     public static final String TMP = "tmp";
     public static final String XMLFOLDER = "data/accounting/xml/";
     public static final String XSLFOLDER = "data/accounting/xsl/";
     public static final String HTMLFOLDER = "data/accounting/html/";
+    public static final String PDFFOLDER = "data/accounting/pdf/";
     public static final String SESSION_FILE = XMLFOLDER + SESSION + XML_EXTENSION;
-    public static final String ACCOUNTINGS_PATH = XMLFOLDER + "Accountings";
-    public static final String ACCOUNTINGS_FILE = ACCOUNTINGS_PATH + XML_EXTENSION;
-    public static final String ACCOUNTINGS_FOLDER = ACCOUNTINGS_PATH + "/";
+    public static final String ACCOUNTINGS_XML_PATH = XMLFOLDER + "Accountings";
+    public static final String ACCOUNTINGS_XML_FILE = ACCOUNTINGS_XML_PATH + XML_EXTENSION;
+    public static final String ACCOUNTINGS_XML_FOLDER = ACCOUNTINGS_XML_PATH + "/";
+    public static final String ACCOUNTINGS_HTML_PATH = HTMLFOLDER + "Accountings";
+    public static final String ACCOUNTINGS_HTML_FILE = ACCOUNTINGS_HTML_PATH + HTML_EXTENSION;
+    public static final String ACCOUNTINGS_HTML_FOLDER = ACCOUNTINGS_HTML_PATH + "/";
+    public static final String ACCOUNTINGS_PDF_PATH = PDFFOLDER + "Accountings";
+    public static final String ACCOUNTINGS_PDF_FOLDER = ACCOUNTINGS_PDF_PATH + "/";
 }

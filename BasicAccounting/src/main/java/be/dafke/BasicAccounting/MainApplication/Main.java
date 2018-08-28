@@ -27,6 +27,7 @@ import be.dafke.BasicAccounting.VAT.VATTransactionsGUI;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.XMLReader;
 import be.dafke.BusinessModelDao.XMLWriter;
+import be.dafke.BusinessModelDao.XMLtoHTMLWriter;
 
 import javax.swing.JButton;
 import javax.swing.JComponent;
@@ -38,6 +39,7 @@ import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
 import java.util.ArrayList;
 
 import static javax.swing.JSplitPane.BOTTOM;
@@ -106,7 +108,7 @@ public class Main {
             public void windowClosing(WindowEvent e) {
                 PopupForTableActivator.closeAllPopups();
                 Main.closeAllFrames();
-                Main.saveData();
+                Main.saveData(false);
             }
         });
     }
@@ -193,16 +195,10 @@ public class Main {
         }
     }
 
-    private static JButton createSaveButton(){
-        JButton saveButton = new JButton("Save all");
-        saveButton.addActionListener(e -> Main.saveData());
-        return saveButton;
-    }
-
     public static void setAccounting(Accounting accounting) {
 
         Accounting activeAccounting = Accountings.getActiveAccounting();
-        XMLWriter.writeAccounting(activeAccounting);
+        XMLWriter.writeAccounting(activeAccounting, false);
 
         XMLReader.readAccountingDetails(accounting);
         Accountings.setActiveAccounting(accounting); // only need to write to XML, call this only when writing XML files?
@@ -336,16 +332,8 @@ public class Main {
         PurchaseOrderCreateGUI.fireSupplierAddedOrRemovedForAll();
     }
 
-    public static void saveData() {
-        XMLWriter.writeAccountings(accountings);
-
-//        File xslFolder = accountings.getXslFolder();
-//        File htmlFolder = accountings.getHtmlFolder();
-//        htmlFolder.mkdirs();
-
-//        XMLtoHTMLWriter.toHtml(accountings, xmlFolder, xslFolder, htmlFolder);
-
-
+    public static void saveData(boolean writeHtml) {
+        XMLWriter.writeAccountings(accountings, writeHtml);
     }
 
 

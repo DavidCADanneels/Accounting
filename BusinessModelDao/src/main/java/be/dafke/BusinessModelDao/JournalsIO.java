@@ -36,7 +36,7 @@ public class JournalsIO {
         JournalTypes journalTypes = accounting.getJournalTypes();
         Accounts accounts = accounting.getAccounts();
         AccountTypes accountTypes = accounting.getAccountTypes();
-        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+JOURNAL_TYPES+XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+JOURNAL_TYPES+XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, JOURNAL_TYPES);
         for (Element element : getChildren(rootElement, JOURNAL_TYPE)) {
 
@@ -119,7 +119,7 @@ public class JournalsIO {
         JournalTypes journalTypes = accounting.getJournalTypes();
         Journals journals = accounting.getJournals();
 
-        File xmlFile = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + JOURNALS + XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + JOURNALS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, JOURNALS);
         for (Element element : getChildren(rootElement, JOURNAL)) {
 
@@ -150,7 +150,7 @@ public class JournalsIO {
     public static void readJournal(Journal journal, Accounting accounting) {
         Transactions transactions = accounting.getTransactions();
         String name = journal.getName();
-        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+JOURNALS+"/"+name+ XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+JOURNALS+"/"+name+ XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, JOURNAL);
         for (Element element: getChildren(rootElement, TRANSACTION)) {
             int id = parseInt(getValue(element, TRANSACTION_ID));
@@ -175,7 +175,7 @@ public class JournalsIO {
         VATTransactions vatTransactions = accounting.getVatTransactions();
         VATFields vatFields = accounting.getVatFields();
         Accounts accounts = accounting.getAccounts();
-        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+TRANSACTIONS+ XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+TRANSACTIONS+ XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, TRANSACTIONS);
         int maxId = 0;
         for (Element element: getChildren(rootElement, TRANSACTION)) {
@@ -273,7 +273,7 @@ public class JournalsIO {
 
     public static void writeJournalTypes(Accounting accounting){
         JournalTypes journalTypes = accounting.getJournalTypes();
-        File journalTypesFile = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + JOURNAL_TYPES + XML_EXTENSION);
+        File journalTypesFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + JOURNAL_TYPES + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(journalTypesFile);
             writer.write(getXmlHeader(JOURNAL_TYPES, 2));
@@ -331,17 +331,27 @@ public class JournalsIO {
         }
     }
 
+    public static String createTmpFolder(Accounting accounting) {
+        String accountingName = accounting.getName();
+        String tmpFolderPath = ACCOUNTINGS_XML_FOLDER + accountingName + "/" + TMP + "/";
+        File tempFolder = new File(tmpFolderPath);
+        tempFolder.mkdirs();
+        return tmpFolderPath;
+    }
+
+    public static String createPdfFolder(Accounting accounting) {
+        String accountingName = accounting.getName();
+        String resultPdfPolderPath = ACCOUNTINGS_PDF_FOLDER + accountingName + "/" + JOURNALS + "/";
+        File targetFolder = new File(resultPdfPolderPath);
+        targetFolder.mkdirs();
+        return resultPdfPolderPath;
+    }
+
     public static void writeJournalPdfFiles(Accounting accounting){
         String xslPath = XSLFOLDER + "JournalPdf.xsl";
 
-        String accountingName = accounting.getName();
-        String tmpFolderPath = ACCOUNTINGS_FOLDER + accountingName + "/" + TMP + "/";
-        File tempFolder = new File(tmpFolderPath);
-        tempFolder.mkdirs();
-
-        String resultPdfPolderPath = ACCOUNTINGS_FOLDER + accountingName + "/" + PDF +"/" + JOURNALS + "/";
-        File targetFolder = new File(resultPdfPolderPath);
-        targetFolder.mkdirs();
+        String tmpFolderPath = createTmpFolder(accounting);
+        String resultPdfPolderPath = createPdfFolder(accounting);
 
         Journals journals = accounting.getJournals();
         for (Journal journal:journals.getBusinessObjects()) {
@@ -357,12 +367,12 @@ public class JournalsIO {
         });
     }
 
-    public static void writeJournals(Accounting accounting){
+    public static void writeJournals(Accounting accounting, boolean writeHtml){
         Journals journals = accounting.getJournals();
-        String path = ACCOUNTINGS_FOLDER + accounting.getName() + "/" + JOURNALS;
-        File journalsFile = new File(path + XML_EXTENSION);
+        String path = ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + JOURNALS;
+        File journalsXmlFile = new File(path + XML_EXTENSION);
         try {
-            Writer writer = new FileWriter(journalsFile);
+            Writer writer = new FileWriter(journalsXmlFile);
             writer.write(getXmlHeader(JOURNALS, 2));
             for (Journal journal : journals.getBusinessObjects()) {
                 writer.write(
@@ -383,6 +393,23 @@ public class JournalsIO {
             writeJournal(journal, path, false);
         }
 
+        if(writeHtml){
+            File journalsHtmlFile = new File(ACCOUNTINGS_HTML_FOLDER + accounting.getName() + "/" + JOURNALS+ HTML_EXTENSION);
+            File journalsXslFile = new File(XSLFOLDER + "Journals.xsl");
+            XMLtoHTMLWriter.xmlToHtml(journalsXmlFile,journalsXslFile,journalsHtmlFile, null);
+
+            String tmpFolderPath = createTmpFolder(accounting);
+            File journalsHtmlFolder = new File(ACCOUNTINGS_HTML_FOLDER + accounting.getName() + "/" + JOURNALS);
+            journalsHtmlFolder.mkdirs();
+
+            for (Journal journal:journals.getBusinessObjects()) {
+                writeJournal(journal, tmpFolderPath, true);
+                File journalXmlFile = new File(tmpFolderPath + "/" + journal.getName() + XML_EXTENSION);
+                File journalHtmlFile = new File(journalsHtmlFolder, journal.getName() + HTML_EXTENSION);
+                File journalXslFile = new File(XSLFOLDER + "Journal.xsl");
+                XMLtoHTMLWriter.xmlToHtml(journalXmlFile, journalXslFile, journalHtmlFile, null);
+            }
+        }
     }
 
     public static void writeJournal(Journal journal, String path, boolean details){
@@ -418,6 +445,7 @@ public class JournalsIO {
                                      "    <" + DESCRIPTION + ">" + transaction.getDescription() + "</" + DESCRIPTION + ">\n");
                     for (Booking booking : transaction.getBusinessObjects()) {
                         writer.write("    <" + BOOKING + ">\n" +
+                                "      <MovementId>" + booking.getId() + "</MovementId>\n" +
                                 "      <" + ACCOUNT + ">" + booking.getAccount() + "</" + ACCOUNT + ">\n");
                         Movement movement = booking.getMovement();
                         if (movement.isDebit()) {
@@ -446,7 +474,7 @@ public class JournalsIO {
 
     public static void writeTransactions(Accounting accounting){
         Transactions transactions = accounting.getTransactions();
-        File transactionsFile = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + TRANSACTIONS + XML_EXTENSION);
+        File transactionsFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + TRANSACTIONS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(transactionsFile);
             writer.write(getXmlHeader(TRANSACTIONS, 2));

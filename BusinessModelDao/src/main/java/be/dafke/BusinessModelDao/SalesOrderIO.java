@@ -27,7 +27,7 @@ public class SalesOrderIO {
         SalesOrders salesOrders = accounting.getSalesOrders();
         Contacts contacts = accounting.getContacts();
         Articles articles = accounting.getArticles();
-        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+SALES_ORDERS + XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+SALES_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS);
         Accounts accounts = accounting.getAccounts();
         Journals journals = accounting.getJournals();
@@ -108,7 +108,7 @@ public class SalesOrderIO {
 
     public static void writeSalesOrders(Accounting accounting) {
         SalesOrders salesOrders = accounting.getSalesOrders();
-        File file = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + SALES_ORDERS + XML_EXTENSION);
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + SALES_ORDERS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(SALES_ORDERS, 2));
@@ -165,14 +165,14 @@ public class SalesOrderIO {
         Integer id = salesOrder.getId();
         String idString = Utils.toIDString("SO", id, 6);
 
-        return ACCOUNTINGS_FOLDER + accounting.getName() + "/" + INVOICES + "/" + idString + PDF_EXTENSION;
+        return ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + INVOICES + "/" + idString + PDF_EXTENSION;
     }
 
     public static String writeInvoiceXmlInputFile(Accounting accounting, SalesOrder salesOrder){
         Integer id = salesOrder.getId();
         String idString = Utils.toIDString("SO", id, 6);
 
-        String folderPath = ACCOUNTINGS_FOLDER + accounting.getName() + "/" + INVOICES;
+        String folderPath = ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + INVOICES;
         File folder = new File(folderPath);
         folder.mkdirs();
         String path = folderPath + "/" + idString + XML_EXTENSION;

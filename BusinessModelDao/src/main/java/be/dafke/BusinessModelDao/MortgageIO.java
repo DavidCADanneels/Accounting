@@ -26,8 +26,8 @@ public class MortgageIO {
     public static void readMortgages(Accounting accounting) {
         Mortgages mortgages = accounting.getMortgages();
         Accounts accounts = accounting.getAccounts();
-        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+MORTGAGES+ XML_EXTENSION);
-        File mortgagesFolder = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+MORTGAGES);
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+MORTGAGES+ XML_EXTENSION);
+        File mortgagesFolder = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+MORTGAGES);
         Element rootElement = getRootElement(xmlFile, MORTGAGES);
         for (Element element : getChildren(rootElement, MORTGAGE)) {
 
@@ -82,8 +82,8 @@ public class MortgageIO {
 
     public static void writeMortgages(Accounting accounting){
         Mortgages mortgages = accounting.getMortgages();
-        File mortgagesFile = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + MORTGAGES+ XML_EXTENSION);
-        File mortgagesFolder = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + MORTGAGES);
+        File mortgagesFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + MORTGAGES+ XML_EXTENSION);
+        File mortgagesFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + MORTGAGES);
         try{
             Writer writer = new FileWriter(mortgagesFile);
             writer.write(getXmlHeader(MORTGAGES, 2));

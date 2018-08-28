@@ -44,11 +44,11 @@ public class XMLWriter {
         return builder.toString();
     }
 
-    public static void writeAccountings(Accountings accountings){
-        File xmlFile = new File(ACCOUNTINGS_FILE);
-        xmlFile.getParentFile().mkdirs();
+    public static void writeAccountings(Accountings accountings, boolean writeHtml){
+        File accountingsXmlFile = new File(ACCOUNTINGS_XML_FILE);
+        accountingsXmlFile.getParentFile().mkdirs();
         try {
-            Writer writer = new FileWriter(xmlFile);
+            Writer writer = new FileWriter(accountingsXmlFile);
             writer.write(getXmlHeader(ACCOUNTINGS, 0));
             for(Accounting accounting:accountings.getBusinessObjects()){
                 writer.write(
@@ -68,10 +68,15 @@ public class XMLWriter {
         } catch (IOException ex) {
             Logger.getLogger(Accountings.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if(writeHtml){
+            File accountingsHtmlFile = new File(ACCOUNTINGS_HTML_FILE);
+            File accountingsXslFile = new File(XSLFOLDER + "Accountings.xsl");
+            XMLtoHTMLWriter.xmlToHtml(accountingsXmlFile, accountingsXslFile, accountingsHtmlFile, null);
+        }
 
         for(Accounting accounting:accountings.getBusinessObjects()){
             if(accounting.isRead())
-                writeAccounting(accounting);
+                writeAccounting(accounting, writeHtml);
         }
 
         writeActiveAccountings(accountings);
@@ -116,12 +121,12 @@ public class XMLWriter {
     }
 
 
-    public static void writeAccounting(Accounting accounting) {
-        File accountingFolder = new File(ACCOUNTINGS_FOLDER + accounting.getName());
+    public static void writeAccounting(Accounting accounting, boolean writeHtml) {
+        File accountingFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName());
         accountingFolder.mkdirs();
-        writeAccounts(accounting);
+        writeAccounts(accounting, writeHtml);
         writeTransactions(accounting);
-        writeJournals(accounting);
+        writeJournals(accounting, writeHtml);
         writeJournalTypes(accounting);
         writeBalances(accounting);
         if(accounting.isProjectsAccounting()) {

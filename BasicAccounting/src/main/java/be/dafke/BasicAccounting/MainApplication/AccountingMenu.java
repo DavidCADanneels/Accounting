@@ -16,6 +16,7 @@ import static java.util.ResourceBundle.getBundle;
 public class AccountingMenu extends JMenu implements ActionListener {
     private JMenuItem startNew;
     private JMenuItem settings;
+    private JMenuItem saveHtml;
     private Accountings accountings;
     private Accounting accounting;
 
@@ -26,6 +27,8 @@ public class AccountingMenu extends JMenu implements ActionListener {
         startNew.addActionListener(e -> new NewAccountingPanel(accountings).setVisible(true));
         settings = new JMenuItem(getBundle("Accounting").getString("SETTINGS"));
         settings.addActionListener(this);
+        saveHtml = new JMenuItem(getBundle("Accounting").getString("SAVE_HTML"));
+        saveHtml.addActionListener(e -> Main.saveData(true));
 //        add(startNew);
     }
 
@@ -33,6 +36,7 @@ public class AccountingMenu extends JMenu implements ActionListener {
         removeAll();
         add(startNew);
         add(settings);
+        add(saveHtml);
         addSeparator();
         this.accounting=accounting;
 

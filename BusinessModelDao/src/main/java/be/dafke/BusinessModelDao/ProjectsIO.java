@@ -25,8 +25,8 @@ public class ProjectsIO {
         Projects projects = accounting.getProjects();
         Accounts accounts = accounting.getAccounts();
         AccountTypes accountTypes = accounting.getAccountTypes();
-        File projectsFolder = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+PROJECTS);
-        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+PROJECTS+ XML_EXTENSION);
+        File projectsFolder = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+PROJECTS);
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+PROJECTS+ XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, PROJECTS);
         for (Element element : getChildren(rootElement, PROJECT)) {
 
@@ -64,8 +64,8 @@ public class ProjectsIO {
 
     public static void writeProjects(Accounting accounting){
         Projects projects = accounting.getProjects();
-        File projectsFile = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + PROJECTS+ XML_EXTENSION);
-        File projectsFolder = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + PROJECTS);
+        File projectsFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + PROJECTS+ XML_EXTENSION);
+        File projectsFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + PROJECTS);
         try{
             Writer writer = new FileWriter(projectsFile);
             writer.write(getXmlHeader(PROJECTS, 2));

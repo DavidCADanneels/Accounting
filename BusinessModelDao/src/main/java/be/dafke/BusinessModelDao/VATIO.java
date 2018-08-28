@@ -9,15 +9,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
-import static be.dafke.Utils.Utils.parseBigDecimal;
-import static be.dafke.Utils.Utils.parseInt;
 
 /**
  * Created by ddanneels on 15/01/2017.
@@ -26,7 +23,7 @@ public class VATIO {
 
     public static void readVATFields(Accounting accounting) {
         VATFields vatFields = accounting.getVatFields();
-        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+ "/" +VATFIELDS + XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+ "/" +VATFIELDS + XML_EXTENSION);
         if(xmlFile.exists()) {
             Element rootElement = getRootElement(xmlFile, VATFIELDS);
             for (Element element : getChildren(rootElement, VATFIELD)) {
@@ -46,7 +43,7 @@ public class VATIO {
     public static void readVATTransactions(Accounting accounting){
         VATTransactions vatTransactions = accounting.getVatTransactions();
         Accounts accounts = accounting.getAccounts();
-        File xmlFile = new File( ACCOUNTINGS_FOLDER +accounting.getName()+"/" +VATTRANSACTIONS + XML_EXTENSION);
+        File xmlFile = new File( ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/" +VATTRANSACTIONS + XML_EXTENSION);
         if(xmlFile.exists()) {
             Element rootElement = getRootElement(xmlFile, VATTRANSACTIONS);
             String debitAccountString = getValue(rootElement, DEBIT_ACCOUNT);
@@ -71,7 +68,7 @@ public class VATIO {
 
     public static void writeVATFields(Accounting accounting){
         VATFields vatFields = accounting.getVatFields();
-        File file = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + VATFIELDS+ XML_EXTENSION);
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + VATFIELDS+ XML_EXTENSION);
         try{
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(VATFIELDS, 2));
@@ -93,7 +90,7 @@ public class VATIO {
 
     public static void writeVATTransactions(Accounting accounting){
         VATTransactions vatTransactions = accounting.getVatTransactions();
-        File file = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + VATTRANSACTIONS+ XML_EXTENSION);
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + VATTRANSACTIONS+ XML_EXTENSION);
         try{
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(VATTRANSACTIONS, 2));

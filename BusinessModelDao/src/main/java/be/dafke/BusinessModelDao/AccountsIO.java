@@ -30,7 +30,7 @@ public class AccountsIO {
     public static void readAccounts(Accounting accounting){
         Accounts accounts = accounting.getAccounts();
         AccountTypes accountTypes = accounting.getAccountTypes();
-        File xmlFile = new File(ACCOUNTINGS_FOLDER +accounting.getName()+"/"+ACCOUNTS+XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+ACCOUNTS+XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, ACCOUNTS);
         for (Element element : getChildren(rootElement, ACCOUNT)) {
 
@@ -60,18 +60,18 @@ public class AccountsIO {
     public static void writeAccountPdfFiles(Accounting accounting){
         String accountingName = accounting.getName();
         Accounts accounts = accounting.getAccounts();
-        File tmpFolder = new File(ACCOUNTINGS_FOLDER + accountingName + "/tmp");
+        File tmpFolder = new File(ACCOUNTINGS_XML_FOLDER + accountingName + "/tmp");
         tmpFolder.mkdirs();
         for (Account account:accounts.getBusinessObjects()) {
             writeAccount(account, tmpFolder);
         }
 
-        File subFolder = new File(ACCOUNTINGS_FOLDER + accountingName + "/" + PDF + "/" + ACCOUNTS);
+        File subFolder = new File(ACCOUNTINGS_XML_FOLDER + accountingName + "/" + PDF + "/" + ACCOUNTS);
         subFolder.mkdirs();
 
-        String accountsFolderPath = ACCOUNTINGS_FOLDER + accountingName + "/tmp/";
+        String accountsFolderPath = ACCOUNTINGS_XML_FOLDER + accountingName + "/tmp/";
         String xslPath = XSLFOLDER + "AccountPdf.xsl";
-        String resultPdfPolderPath = ACCOUNTINGS_FOLDER + accountingName + "/PDF/Accounts/";
+        String resultPdfPolderPath = ACCOUNTINGS_XML_FOLDER + accountingName + "/PDF/Accounts/";
         accounts.getBusinessObjects().forEach(account -> {
             try {
                 String fileName = account.getName() + XML_EXTENSION;
@@ -87,11 +87,11 @@ public class AccountsIO {
         tmpFolder.delete();
     }
 
-    public static void writeAccounts(Accounting accounting){
+    public static void writeAccounts(Accounting accounting, boolean writeHtml){
         Accounts accounts = accounting.getAccounts();
-        File accountsFile = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + ACCOUNTS+ XML_EXTENSION);
+        File accountsXmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + ACCOUNTS+ XML_EXTENSION);
         try{
-            Writer writer = new FileWriter(accountsFile);
+            Writer writer = new FileWriter(accountsXmlFile);
             writer.write(getXmlHeader(ACCOUNTS, 2));
             for(Account account: accounts.getBusinessObjects()) {
                 writer.write(
@@ -121,13 +121,28 @@ public class AccountsIO {
         } catch (IOException ex) {
             Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex);
         }
+        if(writeHtml){
+            writeAllAccounts(accounts,accounting, writeHtml);
+            File accountsHtmlFile = new File(ACCOUNTINGS_HTML_FOLDER + accounting.getName() + "/" + ACCOUNTS+ HTML_EXTENSION);
+            File accountsXslFile = new File(XSLFOLDER + "Accounts.xsl");
+            XMLtoHTMLWriter.xmlToHtml(accountsXmlFile,accountsXslFile,accountsHtmlFile, null);
+        }
+
     }
 
-    public static void writeAllAccounts(Accounts accounts, Accounting accounting){
-        File accountsFolder = new File(ACCOUNTINGS_FOLDER + accounting.getName() + "/" + ACCOUNTS);
-        accountsFolder.mkdirs();
+    public static void writeAllAccounts(Accounts accounts, Accounting accounting, boolean writeHtml){
+        File accountsXmlFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + ACCOUNTS);
+        accountsXmlFolder.mkdirs();
         for (Account account:accounts.getBusinessObjects()) {
-            writeAccount(account, accountsFolder);
+            writeAccount(account, accountsXmlFolder);
+            if(writeHtml) {
+                File accountsHtmlFolder = new File(ACCOUNTINGS_HTML_FOLDER + accounting.getName() + "/" + ACCOUNTS);
+                accountsHtmlFolder.mkdirs();
+                File accountHtmlFile = new File(accountsHtmlFolder, account.getName() + HTML_EXTENSION);
+                File accountXmlFile = new File(accountsXmlFolder, account.getName() + XML_EXTENSION);
+                File accountXslFile = new File(XSLFOLDER + "Account.xsl");
+                XMLtoHTMLWriter.xmlToHtml(accountXmlFile, accountXslFile, accountHtmlFile, null);
+            }
         }
     }
 
@@ -141,6 +156,7 @@ public class AccountsIO {
                 Transaction transaction = movement.getTransaction();
                 writer.write(
                             "  <"+MOVEMENT+">\n" +
+                            "    <"+TRANSACTION_ID+">"+transaction.getTransactionId()+"</"+TRANSACTION_ID+">\n" +
                             "    <"+ID+">"+movement.getId()+"</"+ID+">\n" +
                             "    <"+DATE+">"+Utils.toString(movement.getDate())+"</"+DATE+">\n" +
                             "    <"+DESCRIPTION +">"+movement.getDescription()+"</"+DESCRIPTION+">\n" +
