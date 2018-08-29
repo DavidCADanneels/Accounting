@@ -162,10 +162,7 @@ public class SalesOrderIO {
     }
 
     public static String calculatePdfPath(Accounting accounting, SalesOrder salesOrder){
-        Integer id = salesOrder.getId();
-        String idString = Utils.toIDString("SO", id, 6);
-
-        return ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + INVOICES + "/" + idString + PDF_EXTENSION;
+        return ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + INVOICES + "/Factuur-" + salesOrder.getInvoiceNumber() + PDF_EXTENSION;
     }
 
     public static String writeInvoiceXmlInputFile(Accounting accounting, SalesOrder salesOrder){
@@ -211,6 +208,8 @@ public class SalesOrderIO {
             ArrayList<Integer> vatRates = new ArrayList<>();
 
             writer.write("  <"+SALE+">\n");
+            writer.write("  <TotalPrice>" + salesOrder.getTotalSalesPriceInclVat()+ "</TotalPrice>\n");
+
             for (OrderItem orderItem : salesOrder.getBusinessObjects()) {
                 Article article = orderItem.getArticle();
                 Integer salesVatRate = article.getSalesVatRate();
