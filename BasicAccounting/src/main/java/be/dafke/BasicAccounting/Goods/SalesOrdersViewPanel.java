@@ -59,6 +59,10 @@ public class SalesOrdersViewPanel extends JPanel {
                 }
                 salesOrder.setSupplier(companyContact);
             }
+            if ("".equals(salesOrder.getInvoiceNumber())){
+                String invoiceNumber = JOptionPane.showInputDialog(this, "Enter Invoice Number");
+                salesOrder.setInvoiceNumber(invoiceNumber);
+            }
             String xmlPath = SalesOrderIO.writeInvoiceXmlInputFile(accounting, salesOrder);
             String pdfPath = SalesOrderIO.calculatePdfPath(accounting, salesOrder);
             InvoicePDF.createInvoice(xmlPath, pdfPath);

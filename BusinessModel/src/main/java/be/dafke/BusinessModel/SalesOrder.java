@@ -9,6 +9,7 @@ import java.util.function.Predicate;
 public class SalesOrder extends Order {
 
     private Transaction salesTransaction, gainTransaction;
+    private String invoiceNumber = "";
 
     public BigDecimal getTotalPurchasePriceExclVat() {
         BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
@@ -111,5 +112,13 @@ public class SalesOrder extends Order {
 
     public BigDecimal calculateTotalSalesVat() {
         return getTotalSalesPriceInclVat().subtract(getTotalSalesPriceExclVat()).setScale(2, RoundingMode.HALF_DOWN);
+    }
+
+    public String getInvoiceNumber() {
+        return invoiceNumber;
+    }
+
+    public void setInvoiceNumber(String invoiceNumber) {
+        this.invoiceNumber = invoiceNumber;
     }
 }

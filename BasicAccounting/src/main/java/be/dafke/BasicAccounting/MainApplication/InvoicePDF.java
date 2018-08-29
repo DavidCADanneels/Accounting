@@ -16,7 +16,6 @@ import java.util.ArrayList;
  * Time: 22:07
  */
 public class InvoicePDF {
-    private static SalesOrder salesOrder;
     private static String xslPath = "data/accounting/xsl/invoice.xsl";
 
     public static void main(String[] args) {
