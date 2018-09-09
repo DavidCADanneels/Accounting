@@ -181,6 +181,8 @@ public class SalesOrderIO {
             Contact supplier = salesOrder.getSupplier();
             writer.write(
                             "  <InvoiceNumber>" + salesOrder.getInvoiceNumber()+ "</InvoiceNumber>\n" +
+                            "  <"+DATE+">" + salesOrder.getDate()+ "</"+DATE+">\n" +
+                            "  <"+DESCRIPTION+">" + salesOrder.getDescription()+ "</"+DESCRIPTION+">\n" +
                             "  <" + SUPPLIER + ">\n" +
                             "    <" + NAME + ">" + supplier.getName() + "</" + NAME + ">\n" +
                             "    <" + OFFICIAL_NAME + ">" + supplier.getOfficialName() + "</" + OFFICIAL_NAME + ">\n" +

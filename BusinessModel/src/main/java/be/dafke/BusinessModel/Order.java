@@ -1,5 +1,7 @@
 package be.dafke.BusinessModel;
 
+import java.util.Calendar;
+
 public class Order extends OrderItems {
 //    private Articles articles;
     private Contact customer, supplier;
@@ -7,6 +9,8 @@ public class Order extends OrderItems {
     private boolean placed;
     private Transaction paymentTransaction;
     private Integer id;
+    private String date = null;
+    private String description;
 
     public Order() {
         super();
@@ -83,5 +87,21 @@ public class Order extends OrderItems {
 
     protected void setId(Integer id) {
         this.id = id;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

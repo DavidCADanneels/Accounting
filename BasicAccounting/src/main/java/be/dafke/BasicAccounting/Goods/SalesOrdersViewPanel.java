@@ -11,6 +11,7 @@ import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.SalesOrderIO;
 import be.dafke.ComponentModel.SelectableTable;
+import be.dafke.Utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -63,6 +64,16 @@ public class SalesOrdersViewPanel extends JPanel {
                 String invoiceNumber = JOptionPane.showInputDialog(this, "Enter Invoice Number");
                 salesOrder.setInvoiceNumber(invoiceNumber);
             }
+
+            DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
+            dateAndDescriptionDialog.setVisible(true);
+
+            Calendar date = dateAndDescriptionDialog.getDate();
+            String description = dateAndDescriptionDialog.getDescription();
+
+            salesOrder.setDate(Utils.toString(date));
+            salesOrder.setDescription(description);
+
             String xmlPath = SalesOrderIO.writeInvoiceXmlInputFile(accounting, salesOrder);
             String pdfPath = SalesOrderIO.calculatePdfPath(accounting, salesOrder);
             InvoicePDF.createInvoice(xmlPath, pdfPath);
