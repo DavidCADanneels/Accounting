@@ -22,7 +22,7 @@ public class OrderItem extends BusinessObject{
     public OrderItem(Integer number, Article article) {
         setName(article.getName());
         this.numberOfUnits = number==null?0:number;
-        this.numberOfItems = number==null?0:number*article.getItemsPerUnit();
+        this.numberOfItems = number==null?0:number*getItemsPerUnit();
         this.article = article;
     }
 
@@ -67,11 +67,11 @@ public class OrderItem extends BusinessObject{
     }
 
     public void calculateNumberOfItems(){
-        numberOfItems = numberOfUnits*article.getItemsPerUnit();
+        numberOfItems = numberOfUnits*getItemsPerUnit();
     }
 
     public void calculateNumberOfUnits(){
-        numberOfUnits = numberOfItems/article.getItemsPerUnit();
+        numberOfUnits = numberOfItems/getItemsPerUnit();
     }
 
     public Article getArticle() {

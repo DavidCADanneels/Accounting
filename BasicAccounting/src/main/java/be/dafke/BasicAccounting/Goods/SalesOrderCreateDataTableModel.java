@@ -83,7 +83,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 			return article.getName();
 		}
 		if (col == ITEMS_PER_UNIT_COL) {
-			return article.getItemsPerUnit();
+			return orderItem.getItemsPerUnit();
 		}
 		if (col == PRICE_ITEM_COL) {
             return orderItem.getPriceForItem();
@@ -95,7 +95,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 			return article.getSupplier();
 		}
 		if (col == VAT_RATE_COL) {
-			return article.getSalesVatRate();
+			return orderItem.getSalesVatRate();
 		}
         if (col == TOTAL_EXCL_COL) {
             return orderItem.getSalesPriceWithoutVat();
@@ -138,7 +138,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return col==NR_OF_UNITS_COL || col==NR_OF_ITEMS_COL || col == PRICE_ITEM_COL || col == PRICE_UNIT_COL;
+		return col==NR_OF_UNITS_COL || col==NR_OF_ITEMS_COL || col == PRICE_ITEM_COL || col == PRICE_UNIT_COL || col == ITEMS_PER_UNIT_COL || col == VAT_RATE_COL;
 	}
 
 	private List<Article> getArticles(){
@@ -166,6 +166,14 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 		} else if (col == PRICE_ITEM_COL){
 			BigDecimal amount = (BigDecimal) value;
 			orderItem.setPriceForItem(amount);
+		} else if (col == ITEMS_PER_UNIT_COL){
+            int nr = (Integer) value;
+            orderItem.setItemsPerUnit(nr);
+			orderItem.calculateNumberOfUnits();
+			orderItem.calculateNumberOfItems();
+		} else if (col == VAT_RATE_COL){
+            int nr = (Integer) value;
+            orderItem.setSalesVatRate(nr);
 		}
 		order.setOrderItem(orderItem);
 		saleTotalsPanel.fireOrderContentChanged(order);
