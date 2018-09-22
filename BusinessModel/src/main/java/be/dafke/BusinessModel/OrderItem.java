@@ -81,7 +81,7 @@ public class OrderItem extends BusinessObject{
     }
 
     public BigDecimal getPriceForItem() {
-        return priceForItem;
+        return priceForItem!=null?priceForItem:article.getSalesPriceItemWithVat();
     }
 
     public void setPriceForUnit(BigDecimal priceForUnit) {
@@ -89,6 +89,6 @@ public class OrderItem extends BusinessObject{
     }
 
     public BigDecimal getPriceForUnit() {
-        return priceForUnit;
+        return priceForUnit!=null?priceForUnit:article.getSalesPriceUnitWithVat();
     }
 }

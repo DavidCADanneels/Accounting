@@ -86,14 +86,10 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 			return article.getItemsPerUnit();
 		}
 		if (col == PRICE_ITEM_COL) {
-			if(orderItem.getPriceForItem()!=null){
-				return orderItem.getPriceForItem();
-			} else return article.getSalesPriceItemWithVat();
+            return orderItem.getPriceForItem();
 		}
 		if (col == PRICE_UNIT_COL) {
-			if (orderItem.getPriceForUnit()!=null){
-				return orderItem.getPriceForUnit();
-			} else return article.getSalesPriceUnitWithVat();
+            return orderItem.getPriceForUnit();
 		}
 		if (col == SUPPLIER_COL) {
 			return article.getSupplier();

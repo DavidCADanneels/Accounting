@@ -264,7 +264,7 @@ public class SalesOrderIO {
                             "    <" + ARTICLE + ">\n" +
                                 "      <" + NAME + ">" + (listNrOfItems?article.getItemName():article.getName()) + "</" + NAME + ">\n" +
                                 "      <" + NUMBER + ">" + (listNrOfItems?orderItem.getNumberOfItems():orderItem.getNumberOfUnits()) + "</" + NUMBER + ">\n" +
-                                "      <" + UNIT_PRICE + ">" + (listNrOfItems?article.getSalesPriceItemWithVat():article.getSalesPriceUnitWithVat()) + "</" + UNIT_PRICE + ">\n" +
+                                "      <" + UNIT_PRICE + ">" + (listNrOfItems?orderItem.getPriceForItem():orderItem.getPriceForUnit()) + "</" + UNIT_PRICE + ">\n" +
                                 "      <" + TAX_RATE + ">" + salesVatRate + "</" + TAX_RATE + ">\n" +
                                 "      <" + TOTAL_PRICE + ">" + article.getSalesPriceWithVat(numberOfItems) + "</" + TOTAL_PRICE + ">\n" +
                                 "    </" + ARTICLE + ">\n"
