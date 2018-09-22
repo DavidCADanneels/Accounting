@@ -125,6 +125,12 @@ public class SalesOrderIO {
                     }
                 }
 
+                // set Item Price
+                orderItem.setItemsPerUnit(parseInt(getValue(element, ITEMS_PER_UNIT)));
+
+                // set Sales VAT Rate
+                orderItem.setSalesVatRate(parseInt(getValue(element, SALES_VAT_RATE)));
+
                 orderItem.setName(name);
                 order.addBusinessObject(orderItem);
             }
@@ -173,11 +179,16 @@ public class SalesOrderIO {
                 }
                 for (OrderItem orderItem : order.getBusinessObjects()) {
                     Article article = orderItem.getArticle();
+
+                    // TODO: 1/ save OrderItem fields (I/O): itemsPerUnit, salesVatRate
+
                     writer.write(
                             "    <" + ARTICLE + ">\n" +
                                 "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
                                 "      <" + NR_OF_UNITS + ">" + orderItem.getNumberOfUnits() + "</" + NR_OF_UNITS + ">\n" +
                                 "      <" + NR_OF_ITEMS + ">" + orderItem.getNumberOfItems() + "</" + NR_OF_ITEMS + ">\n" +
+                                "      <" + ITEMS_PER_UNIT + ">" + orderItem.getItemsPerUnit() + "</" + ITEMS_PER_UNIT + ">\n" +
+                                "      <" + SALES_VAT_RATE + ">" + orderItem.getSalesVatRate() + "</" + SALES_VAT_RATE + ">\n" +
                                 "      <" + SALESPRICE_FOR_UNIT + ">" + orderItem.getPriceForUnit() + "</" + SALESPRICE_FOR_UNIT + ">\n" +
                                 "      <" + SALESPRICE_FOR_ITEM + ">" + orderItem.getPriceForItem() + "</" + SALESPRICE_FOR_ITEM + ">\n" +
                                 "    </" + ARTICLE + ">\n"
