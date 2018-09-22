@@ -67,29 +67,24 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<OrderIte
 		if (col == NAME_COL) {
 			return article.getName();
 		}
-		else {
-			if (order == null) return null;
-			OrderItem item = order.getBusinessObject(article.getName());
-			if(item==null) return null;
-			if (col == TOTAL_EXCL_COL) {
-				return orderItem.getSalesPriceWithoutVat();
-			}
-			if (col == TOTAL_INCL_COL) {
-				return orderItem.getSalesPriceWithVat();
-			}
-			if (col == VAT_RATE_COL) {
-				return article.getSalesVatRate();
-			}
-			if (col == TOTAL_VAT_COL) {
-				return orderItem.getSalesVatAmount();
-			}
-			if (col == NR_OF_UNITS_COL) {
-				return item.getNumberOfUnits();
-			}
-			if (col == NR_OF_ITEMS_COL) {
-				return item.getNumberOfItems();
-			}
-		}
+        if (col == TOTAL_EXCL_COL) {
+            return orderItem.getSalesPriceWithoutVat();
+        }
+        if (col == TOTAL_INCL_COL) {
+            return orderItem.getSalesPriceWithVat();
+        }
+        if (col == VAT_RATE_COL) {
+            return orderItem.getSalesVatRate();
+        }
+        if (col == TOTAL_VAT_COL) {
+            return orderItem.getSalesVatAmount();
+        }
+        if (col == NR_OF_UNITS_COL) {
+            return orderItem.getNumberOfUnits();
+        }
+        if (col == NR_OF_ITEMS_COL) {
+            return orderItem.getNumberOfItems();
+        }
 		return null;
 	}
 
