@@ -1,7 +1,5 @@
 package be.dafke.BusinessModel;
 
-import be.dafke.Utils.Utils;
-
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.util.function.Predicate;
@@ -31,15 +29,10 @@ public class SalesOrder extends Order {
         return totalPurchaseExcl;
     }
 
-    // TODO: add 'singlePrice' and 'boxPrice' per article in Order
-    // stop calculating prices from the 'Article' object, prices might have changed afterwards.
-
     public BigDecimal getTotalSalesPriceExclVat() {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {
-            Article article = orderItem.getArticle();
-            int numberOfItems = orderItem.getNumberOfItems();
-            totalSalesExcl = totalSalesExcl.add(article.getSalesPriceWithoutVat(numberOfItems)).setScale(2, RoundingMode.HALF_DOWN);
+            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesPriceWithoutVat()).setScale(2, RoundingMode.HALF_DOWN);
         }
         return totalSalesExcl;
     }
@@ -47,14 +40,7 @@ public class SalesOrder extends Order {
     public BigDecimal getTotalSalesPriceExclVat(Predicate<OrderItem> predicate) {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects(predicate)) {
-
-            // TODO: 1/ Use orderItem.itemPrice instead of orderItem.article.itemPrice
-            // TODO: 2/ Update orderItem.getItemPrice to fetch article.itemPrice if not set yet
-            // TODO: 3/ Review calculation of totals (use ... see TODO: 1/)
-
-            Article article = orderItem.getArticle();
-            int numberOfItems = orderItem.getNumberOfItems();
-            totalSalesExcl = totalSalesExcl.add(article.getSalesPriceWithoutVat(numberOfItems)).setScale(2, RoundingMode.HALF_DOWN);
+            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesPriceWithoutVat()).setScale(2, RoundingMode.HALF_DOWN);
         }
         return totalSalesExcl;
     }
@@ -62,9 +48,7 @@ public class SalesOrder extends Order {
     public BigDecimal getTotalSalesVat() {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {
-            Article article = orderItem.getArticle();
-            int numberOfItems = orderItem.getNumberOfItems();
-            totalSalesExcl = totalSalesExcl.add(article.getSalesVatAmount(numberOfItems)).setScale(2, RoundingMode.HALF_DOWN);
+            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesVatAmount()).setScale(2, RoundingMode.HALF_DOWN);
         }
         return totalSalesExcl;
     }
@@ -72,9 +56,7 @@ public class SalesOrder extends Order {
     public BigDecimal getTotalSalesVat(Predicate<OrderItem> predicate) {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects(predicate)) {
-            Article article = orderItem.getArticle();
-            int numberOfItems = orderItem.getNumberOfItems();
-            totalSalesExcl = totalSalesExcl.add(article.getSalesVatAmount(numberOfItems)).setScale(2, RoundingMode.HALF_DOWN);
+            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesVatAmount()).setScale(2, RoundingMode.HALF_DOWN);
         }
         return totalSalesExcl;
     }
@@ -82,9 +64,7 @@ public class SalesOrder extends Order {
     public BigDecimal getTotalSalesPriceInclVat() {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {
-            Article article = orderItem.getArticle();
-            int numberOfItems = orderItem.getNumberOfItems();
-            totalSalesExcl = totalSalesExcl.add(article.getSalesPriceWithVat(numberOfItems)).setScale(2, RoundingMode.HALF_DOWN);
+            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesPriceWithVat()).setScale(2, RoundingMode.HALF_DOWN);
         }
         return totalSalesExcl;
     }
@@ -92,9 +72,7 @@ public class SalesOrder extends Order {
     public BigDecimal getTotalSalesPriceInclVat(Predicate<OrderItem> predicate) {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects(predicate)) {
-            Article article = orderItem.getArticle();
-            int numberOfItems = orderItem.getNumberOfItems();
-            totalSalesExcl = totalSalesExcl.add(article.getSalesPriceWithVat(numberOfItems)).setScale(2, RoundingMode.HALF_DOWN);
+            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesPriceWithVat().setScale(2, RoundingMode.HALF_DOWN));
         }
         return totalSalesExcl;
     }

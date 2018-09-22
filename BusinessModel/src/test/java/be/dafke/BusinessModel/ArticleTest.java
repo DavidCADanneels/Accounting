@@ -62,57 +62,6 @@ public class ArticleTest {
         assertEquals(purchasePriceWithoutVatFive, article.getPurchasePrice(5).setScale(2));
     }
 
-    @Test
-    public void salesPricesDefaultNumbers() {
-        Article article = createArticle();
-
-        // without number (= 1)
-        assertEquals(salesPriceSingleWithVat, article.getSalesPriceWithVat().setScale(2));
-        assertEquals(salesPriceSingleVat, article.getSalesVatAmount().setScale(2));
-        assertEquals(salesPriceSingleWithoutVat, article.getSalesPriceWithoutVat().setScale(2));
-
-        // number = 1
-        assertEquals(salesPriceSingleWithVat, article.getSalesPriceWithVat(1).setScale(2));
-        assertEquals(salesPriceSingleVat, article.getSalesVatAmount(1).setScale(2));
-        assertEquals(salesPriceSingleWithoutVat, article.getSalesPriceWithoutVat(1).setScale(2));
-
-        // number = 5, minimum is 10, so no promo price
-        assertEquals(salesPriceSingleFiveWithVat, article.getSalesPriceWithVat(5).setScale(2));
-        assertEquals(salesPriceSingleFiveVat, article.getSalesVatAmount(5).setScale(2));
-        assertEquals(salesPriceSingleFiveWithoutVat, article.getSalesPriceWithoutVat(5).setScale(2));
-
-        // number = 10 > minium, so promo
-        assertEquals(salesPricePromoTenWithVat, article.getSalesPriceWithVat(10).setScale(2));
-        assertEquals(salesPricePromoTenVat, article.getSalesVatAmount(10).setScale(2));
-        assertEquals(salesPricePromoTenWithoutVat, article.getSalesPriceWithoutVat(10).setScale(2));
-    }
-    
-    @Test
-    public void salesPricesCustomNumbers() {
-        Article article = createArticle();
-        article.setItemsPerUnit(5);
-
-        // without number (= 1)
-        assertEquals(salesPriceSingleWithVat, article.getSalesPriceWithVat().setScale(2));
-        assertEquals(salesPriceSingleVat, article.getSalesVatAmount().setScale(2));
-        assertEquals(salesPriceSingleWithoutVat, article.getSalesPriceWithoutVat().setScale(2));
-
-        // number = 1
-        assertEquals(salesPriceSingleWithVat, article.getSalesPriceWithVat(1).setScale(2));
-        assertEquals(salesPriceSingleVat, article.getSalesVatAmount(1).setScale(2));
-        assertEquals(salesPriceSingleWithoutVat, article.getSalesPriceWithoutVat(1).setScale(2));
-
-        // number = 5, minimum is 5, so promo price
-        assertEquals(salesPricePromoFiveWithVat, article.getSalesPriceWithVat(5).setScale(2));
-        assertEquals(salesPricePromoFiveVat, article.getSalesVatAmount(5).setScale(2));
-        assertEquals(salesPricePromoFiveWithoutVat, article.getSalesPriceWithoutVat(5).setScale(2));
-
-        // number = 10 > minium, so promo
-        assertEquals(salesPricePromoTenWithVat, article.getSalesPriceWithVat(10).setScale(2));
-        assertEquals(salesPricePromoTenVat, article.getSalesVatAmount(10).setScale(2));
-        assertEquals(salesPricePromoTenWithoutVat, article.getSalesPriceWithoutVat(10).setScale(2));
-    }
-
     private Article createArticle(){
         Article article = new Article("name");
         article.setPurchasePrice(purchasePriceWithoutVat);

@@ -97,25 +97,21 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 		if (col == VAT_RATE_COL) {
 			return article.getSalesVatRate();
 		}
-		else {
-			if (order == null) return null;
-			OrderItem item = order.getBusinessObject(article.getName());
-			if (col == TOTAL_EXCL_COL) {
-				return article.getSalesPriceWithoutVat(item.getNumberOfItems());
-			}
-			if (col == TOTAL_INCL_COL) {
-				return article.getSalesPriceWithVat(item.getNumberOfItems());
-			}
-			if (col == TOTAL_VAT_COL) {
-				return article.getSalesVatAmount(item.getNumberOfItems());
-			}
-			if (col == NR_OF_UNITS_COL) {
-				return item == null ? 0 : item.getNumberOfUnits();
-			}
-			if (col == NR_OF_ITEMS_COL) {
-				return item == null ? 0 : item.getNumberOfItems();
-			}
-		}
+        if (col == TOTAL_EXCL_COL) {
+            return orderItem.getSalesPriceWithoutVat();
+        }
+        if (col == TOTAL_INCL_COL) {
+            return orderItem.getSalesPriceWithVat();
+        }
+        if (col == TOTAL_VAT_COL) {
+            return orderItem.getSalesVatAmount();
+        }
+        if (col == NR_OF_UNITS_COL) {
+            return orderItem.getNumberOfUnits();
+        }
+        if (col == NR_OF_ITEMS_COL) {
+            return orderItem.getNumberOfItems();
+        }
 		return null;
 	}
 
@@ -146,7 +142,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 	}
 
 	private List<Article> getArticles(){
-		List<Article> businessObjects = articles.getBusinessObjects(article -> article.getSalesPriceWithVat()!=null);
+		List<Article> businessObjects = articles.getBusinessObjects(article -> article.getSalesPriceItemWithVat()!=null);
 		if(businessObjects == null) return null;
 		return businessObjects;
 	}
@@ -160,22 +156,10 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 			int nr = (Integer) value;
 			orderItem.setNumberOfUnits(nr);
 			orderItem.calculateNumberOfItems();
-			if(nr>0){
-				Article article = orderItem.getArticle();
-				orderItem.setPriceForUnit(article.getSalesPriceUnitWithVat());
-			}
-			order.setOrderItem(orderItem);
-			saleTotalsPanel.fireOrderContentChanged(order);
 		} else if(col == NR_OF_ITEMS_COL){
 			int nr = (Integer) value;
 			orderItem.setNumberOfItems(nr);
 			orderItem.calculateNumberOfUnits();
-			if(nr>0){
-				Article article = orderItem.getArticle();
-				orderItem.setPriceForItem(article.getSalesPriceItemWithVat());
-			}
-			order.setOrderItem(orderItem);
-			saleTotalsPanel.fireOrderContentChanged(order);
 		} else if(col == PRICE_UNIT_COL){
 			BigDecimal amount = (BigDecimal) value;
 			orderItem.setPriceForUnit(amount);
@@ -183,6 +167,9 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 			BigDecimal amount = (BigDecimal) value;
 			orderItem.setPriceForItem(amount);
 		}
+		order.setOrderItem(orderItem);
+		saleTotalsPanel.fireOrderContentChanged(order);
+        fireTableDataChanged();
 	}
 
 	@Override

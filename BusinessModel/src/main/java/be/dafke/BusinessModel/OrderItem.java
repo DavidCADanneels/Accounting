@@ -91,4 +91,17 @@ public class OrderItem extends BusinessObject{
     public BigDecimal getPriceForUnit() {
         return priceForUnit!=null?priceForUnit:article.getSalesPriceUnitWithVat();
     }
+
+    public BigDecimal getSalesPriceWithoutVat() {
+        return article.getSalesPriceWithoutVat(numberOfItems, getPriceForItem(), getPriceForUnit());
+    }
+
+    public BigDecimal getSalesPriceWithVat() {
+        return article.getSalesPriceWithVat(numberOfItems, getPriceForItem(), getPriceForUnit());
+    }
+
+    public BigDecimal getSalesVatAmount() {
+        return article.getSalesVatAmount(numberOfItems, getPriceForItem(), getPriceForUnit());
+
+    }
 }
