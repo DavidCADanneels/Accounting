@@ -47,6 +47,11 @@ public class SalesOrder extends Order {
     public BigDecimal getTotalSalesPriceExclVat(Predicate<OrderItem> predicate) {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects(predicate)) {
+
+            // TODO: 1/ Use orderItem.itemPrice instead of orderItem.article.itemPrice
+            // TODO: 2/ Update orderItem.getItemPrice to fetch article.itemPrice if not set yet
+            // TODO: 3/ Review calculation of totals (use ... see TODO: 1/)
+
             Article article = orderItem.getArticle();
             int numberOfItems = orderItem.getNumberOfItems();
             totalSalesExcl = totalSalesExcl.add(article.getSalesPriceWithoutVat(numberOfItems)).setScale(2, RoundingMode.HALF_DOWN);
