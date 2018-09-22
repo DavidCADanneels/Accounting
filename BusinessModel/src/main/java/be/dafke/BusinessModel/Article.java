@@ -3,7 +3,6 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.util.function.Predicate;
 
 public class Article extends BusinessObject{
@@ -12,10 +11,9 @@ public class Article extends BusinessObject{
     private Integer purchaseVatRate = 0;
     private Integer salesVatRate = 6;
     private Integer itemsPerUnit = 1;
-    private Integer minimumNumberForReduction = 10;
     private BigDecimal purchasePrice = null;
-    private BigDecimal salesPriceSingleWithVat = null;
-    private BigDecimal salesPricePromoWithVat = null;
+    private BigDecimal salesPriceItemWithVat = null;
+    private BigDecimal salesPriceUnitWithVat = null;
     private Contact supplier, customer;
 
     public Article(String name){
@@ -54,24 +52,17 @@ public class Article extends BusinessObject{
         this.itemsPerUnit = itemsPerUnit;
     }
 
-    public void setMinimumNumberForReduction(Integer minimumNumberForReduction) {
-        this.minimumNumberForReduction = minimumNumberForReduction;
+
+    public void setSalesPriceItemWithVat(BigDecimal salesPriceItemWithVat) {
+        this.salesPriceItemWithVat = salesPriceItemWithVat;
     }
 
-    public void setSalesPriceSingleWithVat(BigDecimal salesPriceSingleWithVat) {
-        this.salesPriceSingleWithVat = salesPriceSingleWithVat;
-    }
-
-    public void setSalesPricePromoWithVat(BigDecimal salesPricePromoWithVat) {
-        this.salesPricePromoWithVat = salesPricePromoWithVat;
+    public void setSalesPriceUnitWithVat(BigDecimal salesPriceUnitWithVat) {
+        this.salesPriceUnitWithVat = salesPriceUnitWithVat;
     }
 
     public Integer getItemsPerUnit() {
         return itemsPerUnit;
-    }
-
-    public Integer getMinimumNumberForReduction() {
-        return minimumNumberForReduction;
     }
 
     public Contact getSupplier() {
@@ -98,23 +89,23 @@ public class Article extends BusinessObject{
         return salesVatRate;
     }
 
-    public BigDecimal getSalesPriceSingleWithVat() {
-        return salesPriceSingleWithVat;
+    public BigDecimal getSalesPriceItemWithVat() {
+        return salesPriceItemWithVat;
     }
 
-    public BigDecimal getSalesPricePromoWithVat() {
-        return salesPricePromoWithVat;
+    public BigDecimal getSalesPriceUnitWithVat() {
+        return salesPriceUnitWithVat;
     }
 
-    public BigDecimal getSalesPriceSingleWithoutVat() {
-        if(salesPriceSingleWithVat==null) return null;
-        return salesPriceSingleWithVat.divide(getSalesFactor(),BigDecimal.ROUND_HALF_DOWN);
+    public BigDecimal getSalesPriceItemWithoutVat() {
+        if(salesPriceItemWithVat ==null) return null;
+        return salesPriceItemWithVat.divide(getSalesFactor(),BigDecimal.ROUND_HALF_DOWN);
     }
 
-    public BigDecimal getSalesPricePromoWithoutVat() {
-        if(salesPricePromoWithVat==null) return null;
+    public BigDecimal getSalesPriceUnitWithoutVat() {
+        if(salesPriceUnitWithVat ==null) return null;
         BigDecimal salesFactor = getSalesFactor();
-        BigDecimal divide = salesPricePromoWithVat.divide(salesFactor, BigDecimal.ROUND_HALF_DOWN);
+        BigDecimal divide = salesPriceUnitWithVat.divide(salesFactor, BigDecimal.ROUND_HALF_DOWN);
         return divide;
     }
 
@@ -191,28 +182,20 @@ public class Article extends BusinessObject{
     }
 
     public BigDecimal getSalesPriceWithVat() {
-        return salesPriceSingleWithVat;
+        return salesPriceItemWithVat;
     }
 
     public BigDecimal getSalesPriceWithVat(int number) {
-        return getSalesPriceWithVat(number, salesPriceSingleWithVat, salesPricePromoWithVat);
+        return getSalesPriceWithVat(number, salesPriceItemWithVat, salesPriceUnitWithVat);
     }
 
-    public BigDecimal getSalesPriceWithVat(int number, BigDecimal singlePrice, BigDecimal boxPrice) {
-        if(singlePrice==null||boxPrice==null) return BigDecimal.ZERO;
-        if (number < minimumNumberForReduction){
-            return singlePrice.multiply(new BigDecimal(number));
-        }else {
-            if(itemsPerUnit == 1) {
-                return boxPrice.multiply(new BigDecimal(number));
-            } else{
-                int nrOfUnits = number/itemsPerUnit;
-                int remainingItems = number%itemsPerUnit;
-                BigDecimal priceForUnits = boxPrice.multiply(new BigDecimal(nrOfUnits));
-                BigDecimal priceForItems = singlePrice.multiply(new BigDecimal(remainingItems));
-                return priceForUnits.add(priceForItems);
-            }
-        }
+    private BigDecimal getSalesPriceWithVat(int number, BigDecimal itemPrice, BigDecimal unitPrice) {
+        if(itemPrice==null||unitPrice==null) return BigDecimal.ZERO;
+        int nrOfUnits = number/itemsPerUnit;
+        int remainingItems = number%itemsPerUnit;
+        BigDecimal priceForUnits = unitPrice.multiply(new BigDecimal(nrOfUnits));
+        BigDecimal priceForItems = itemPrice.multiply(new BigDecimal(remainingItems));
+        return priceForUnits.add(priceForItems);
     }
 
     public static Predicate<Article> ofSupplier(Contact supplier) {

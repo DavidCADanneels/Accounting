@@ -46,11 +46,11 @@ public class ArticlesIO {
 
             String salesPriceSingle = getValue(element, ARTICLE_SALES_SINGLE_PRICE);
             if(salesPriceSingle!=null)
-                article.setSalesPriceSingleWithVat(parseBigDecimal(salesPriceSingle));
+                article.setSalesPriceItemWithVat(parseBigDecimal(salesPriceSingle));
 
             String salesPricePromo = getValue(element, ARTICLE_SALES_PROMO_PRICE);
             if(salesPricePromo!=null)
-                article.setSalesPricePromoWithVat(parseBigDecimal(salesPricePromo));
+                article.setSalesPriceUnitWithVat(parseBigDecimal(salesPricePromo));
 
             String purchaseVatRate = getValue(element, ARTICLE_PURCHASE_VAT_RATE);
             if(purchaseVatRate!=null)
@@ -63,10 +63,6 @@ public class ArticlesIO {
             String itemsPerUnit = getValue(element, ARTICLE_ITEMS_PER_UNIT);
             if(itemsPerUnit!=null)
                 article.setItemsPerUnit(parseInt(itemsPerUnit));
-
-            String minForRed = getValue(element, ARTICLE_MIN_REDUCTION);
-            if(minForRed!=null)
-                article.setMinimumNumberForReduction(parseInt(minForRed));
 
             String supplierName = getValue(element, SUPPLIER);
             if(supplierName!=null) {
@@ -101,11 +97,10 @@ public class ArticlesIO {
                                 "    <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
                                 "    <" + ARTICLE_ITEM_NAME + ">" + article.getItemName() + "</" + ARTICLE_ITEM_NAME + ">\n" +
                                 "    <" + ARTICLE_ITEMS_PER_UNIT + ">" + article.getItemsPerUnit() + "</" + ARTICLE_ITEMS_PER_UNIT + ">\n" +
-                                "    <" + ARTICLE_MIN_REDUCTION + ">" + article.getMinimumNumberForReduction() + "</" + ARTICLE_MIN_REDUCTION + ">\n" +
                                 "    <" + ARTICLE_HS_CODE + ">" + article.getHSCode() + "</" + ARTICLE_HS_CODE + ">\n" +
                                 "    <" + ARTICLE_PURCHASE_PRICE + ">" + article.getPurchasePrice() + "</" + ARTICLE_PURCHASE_PRICE + ">\n" +
-                                "    <" + ARTICLE_SALES_SINGLE_PRICE + ">" + article.getSalesPriceSingleWithVat() + "</" + ARTICLE_SALES_SINGLE_PRICE + ">\n" +
-                                "    <" + ARTICLE_SALES_PROMO_PRICE + ">" + article.getSalesPricePromoWithVat() + "</" + ARTICLE_SALES_PROMO_PRICE + ">\n" +
+                                "    <" + ARTICLE_SALES_SINGLE_PRICE + ">" + article.getSalesPriceItemWithVat() + "</" + ARTICLE_SALES_SINGLE_PRICE + ">\n" +
+                                "    <" + ARTICLE_SALES_PROMO_PRICE + ">" + article.getSalesPriceUnitWithVat() + "</" + ARTICLE_SALES_PROMO_PRICE + ">\n" +
                                 "    <" + ARTICLE_PURCHASE_VAT_RATE + ">" + article.getPurchaseVatRate() + "</" + ARTICLE_PURCHASE_VAT_RATE + ">\n" +
                                 "    <" + ARTICLE_SALES_VAT_RATE + ">" + article.getSalesVatRate() + "</" + ARTICLE_SALES_VAT_RATE + ">\n" +
                                 "    <" + SUPPLIER + ">" + article.getSupplier() + "</" + SUPPLIER + ">\n" +

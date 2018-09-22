@@ -86,10 +86,14 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 			return article.getItemsPerUnit();
 		}
 		if (col == PRICE_ITEM_COL) {
-			return article.getSalesPriceSingleWithVat();
+			if(orderItem.getPriceForItem()!=null){
+				return orderItem.getPriceForItem();
+			} else return article.getSalesPriceItemWithVat();
 		}
 		if (col == PRICE_UNIT_COL) {
-			return article.getSalesPricePromoWithVat();
+			if (orderItem.getPriceForUnit()!=null){
+				return orderItem.getPriceForUnit();
+			} else return article.getSalesPriceUnitWithVat();
 		}
 		if (col == SUPPLIER_COL) {
 			return article.getSupplier();
@@ -142,7 +146,7 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return col==NR_OF_UNITS_COL || col==NR_OF_ITEMS_COL;
+		return col==NR_OF_UNITS_COL || col==NR_OF_ITEMS_COL || col == PRICE_ITEM_COL || col == PRICE_UNIT_COL;
 	}
 
 	private List<Article> getArticles(){
@@ -160,14 +164,28 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 			int nr = (Integer) value;
 			orderItem.setNumberOfUnits(nr);
 			orderItem.calculateNumberOfItems();
+			if(nr>0){
+				Article article = orderItem.getArticle();
+				orderItem.setPriceForUnit(article.getSalesPriceUnitWithVat());
+			}
 			order.setOrderItem(orderItem);
 			saleTotalsPanel.fireOrderContentChanged(order);
 		} else if(col == NR_OF_ITEMS_COL){
 			int nr = (Integer) value;
 			orderItem.setNumberOfItems(nr);
 			orderItem.calculateNumberOfUnits();
+			if(nr>0){
+				Article article = orderItem.getArticle();
+				orderItem.setPriceForItem(article.getSalesPriceItemWithVat());
+			}
 			order.setOrderItem(orderItem);
 			saleTotalsPanel.fireOrderContentChanged(order);
+		} else if(col == PRICE_UNIT_COL){
+			BigDecimal amount = (BigDecimal) value;
+			orderItem.setPriceForUnit(amount);
+		} else if (col == PRICE_ITEM_COL){
+			BigDecimal amount = (BigDecimal) value;
+			orderItem.setPriceForItem(amount);
 		}
 	}
 

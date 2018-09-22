@@ -90,7 +90,7 @@ public class ArticleTest {
     @Test
     public void salesPricesCustomNumbers() {
         Article article = createArticle();
-        article.setMinimumNumberForReduction(5);
+        article.setItemsPerUnit(5);
 
         // without number (= 1)
         assertEquals(salesPriceSingleWithVat, article.getSalesPriceWithVat().setScale(2));
@@ -116,8 +116,8 @@ public class ArticleTest {
     private Article createArticle(){
         Article article = new Article("name");
         article.setPurchasePrice(purchasePriceWithoutVat);
-        article.setSalesPriceSingleWithVat(salesPriceSingleWithVat);
-        article.setSalesPricePromoWithVat(salesPricePromoWithVat);
+        article.setSalesPriceItemWithVat(salesPriceSingleWithVat);
+        article.setSalesPriceUnitWithVat(salesPricePromoWithVat);
         return article;
     }
 }

@@ -2,11 +2,14 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessObject;
 
+import java.math.BigDecimal;
 import java.util.function.Predicate;
 
 public class OrderItem extends BusinessObject{
     private int numberOfUnits, numberOfItems;
     private Article article;
+    private BigDecimal priceForItem;
+    private BigDecimal priceForUnit;
 
     public OrderItem(Integer numberOfUnits, Integer numberOfItems, Article article) {
         this.numberOfUnits = numberOfUnits;
@@ -71,5 +74,21 @@ public class OrderItem extends BusinessObject{
 
     public Article getArticle() {
         return article;
+    }
+
+    public void setPriceForItem(BigDecimal priceForItem) {
+        this.priceForItem = priceForItem;
+    }
+
+    public BigDecimal getPriceForItem() {
+        return priceForItem;
+    }
+
+    public void setPriceForUnit(BigDecimal priceForUnit) {
+        this.priceForUnit = priceForUnit;
+    }
+
+    public BigDecimal getPriceForUnit() {
+        return priceForUnit;
     }
 }

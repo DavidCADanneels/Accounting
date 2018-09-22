@@ -10,6 +10,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -17,6 +18,7 @@ import java.util.logging.Logger;
 import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
+import static be.dafke.Utils.Utils.parseBigDecimal;
 import static be.dafke.Utils.Utils.parseInt;
 
 /**
@@ -85,16 +87,44 @@ public class SalesOrderIO {
             order.setPayed(getBooleanValue(salesOrderElement, IS_PAYED));
 
             for (Element element : getChildren(salesOrderElement, ARTICLE)) {
+
+                // Fetch constructor arguments
+                //
                 String name = getValue(element, NAME);
                 Article article = articles.getBusinessObject(name);
-
+                ///
                 String numberOfUnitsString = getValue(element, NR_OF_UNITS);
                 int numberOfUnits = parseInt(numberOfUnitsString);
-
+                //
                 String numberOfItemsString = getValue(element, NR_OF_ITEMS);
                 int numberOfItems = parseInt(numberOfItemsString);
-
+                //
+                // Create OrderItem
+                //
                 OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article);
+
+                // set Unit Price
+                //
+                String salesPriceForUnitString = getValue(element, SALESPRICE_FOR_UNIT);
+                BigDecimal salesPriceForUnit = null;
+                if(salesPriceForUnitString != null) {
+                    salesPriceForUnit = parseBigDecimal(salesPriceForUnitString);
+                    if(salesPriceForUnit!=null){
+                        orderItem.setPriceForUnit(salesPriceForUnit);
+                    }
+                }
+
+                // set Item Price
+                //
+                String salesPriceForItemString = getValue(element, SALESPRICE_FOR_ITEM);
+                BigDecimal salesPriceForItem = null;
+                if(salesPriceForItemString != null) {
+                    salesPriceForItem = parseBigDecimal(salesPriceForItemString);
+                    if (salesPriceForItem != null){
+                        orderItem.setPriceForItem(salesPriceForItem);
+                    }
+                }
+
                 orderItem.setName(name);
                 order.addBusinessObject(orderItem);
             }
@@ -148,6 +178,8 @@ public class SalesOrderIO {
                                 "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
                                 "      <" + NR_OF_UNITS + ">" + orderItem.getNumberOfUnits() + "</" + NR_OF_UNITS + ">\n" +
                                 "      <" + NR_OF_ITEMS + ">" + orderItem.getNumberOfItems() + "</" + NR_OF_ITEMS + ">\n" +
+                                "      <" + SALESPRICE_FOR_UNIT + ">" + orderItem.getPriceForUnit() + "</" + SALESPRICE_FOR_UNIT + ">\n" +
+                                "      <" + SALESPRICE_FOR_ITEM + ">" + orderItem.getPriceForItem() + "</" + SALESPRICE_FOR_ITEM + ">\n" +
                                 "    </" + ARTICLE + ">\n"
                     );
                 }
@@ -232,7 +264,7 @@ public class SalesOrderIO {
                             "    <" + ARTICLE + ">\n" +
                                 "      <" + NAME + ">" + (listNrOfItems?article.getItemName():article.getName()) + "</" + NAME + ">\n" +
                                 "      <" + NUMBER + ">" + (listNrOfItems?orderItem.getNumberOfItems():orderItem.getNumberOfUnits()) + "</" + NUMBER + ">\n" +
-                                "      <" + UNIT_PRICE + ">" + (listNrOfItems?article.getSalesPriceSingleWithVat():article.getSalesPricePromoWithVat()) + "</" + UNIT_PRICE + ">\n" +
+                                "      <" + UNIT_PRICE + ">" + (listNrOfItems?article.getSalesPriceItemWithVat():article.getSalesPriceUnitWithVat()) + "</" + UNIT_PRICE + ">\n" +
                                 "      <" + TAX_RATE + ">" + salesVatRate + "</" + TAX_RATE + ">\n" +
                                 "      <" + TOTAL_PRICE + ">" + article.getSalesPriceWithVat(numberOfItems) + "</" + TOTAL_PRICE + ">\n" +
                                 "    </" + ARTICLE + ">\n"

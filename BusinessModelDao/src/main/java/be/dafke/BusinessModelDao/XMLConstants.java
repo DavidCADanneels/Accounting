@@ -116,7 +116,7 @@ public class XMLConstants {
     public static final String ARTICLES = "Articles";
     public static final String ARTICLE = "Article";
     public static final String ARTICLE_ITEM_NAME = "ArticleItemsName";
-    public static final String ARTICLE_MIN_REDUCTION = "MinForReduction";
+//    public static final String ARTICLE_MIN_REDUCTION = "MinForReduction";
     public static final String ARTICLE_PURCHASE_PRICE = "PurchasePrice";
     public static final String ARTICLE_SALES_SINGLE_PRICE = "SalesSinglePrice";
     public static final String ARTICLE_SALES_PROMO_PRICE = "SalesPromoPrice";
@@ -147,6 +147,8 @@ public class XMLConstants {
     public static final String IS_PAYED = "IsPayed";
     public static final String NR_OF_UNITS = "NrOfUnits";
     public static final String NR_OF_ITEMS = "NrOfItems";
+    public static final String SALESPRICE_FOR_UNIT = "SalesPriceForUnit";
+    public static final String SALESPRICE_FOR_ITEM = "SalesPriceForItem";
     public static final String UNIT_PRICE = "UnitPrice";
 //    public static final String ITEM_PRICE = "ItemPrice";
     public static final String TOTAL_PRICE = "TotalPrice";

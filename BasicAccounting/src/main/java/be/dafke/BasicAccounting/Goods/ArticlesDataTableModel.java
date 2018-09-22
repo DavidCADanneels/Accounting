@@ -31,10 +31,9 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 	public static int SALES_VAT_COL = 9;
 	public static int SALE_SINGLE_INCL_COL = 10;
 	public static int SALE_PROMO_INCL_COL = 11;
-	public static int MIN_NR_PROMO_COL = 12;
-	public static int GAIN_ON_SINGLE_COL = 13;
-	public static int GAIN_ON_PROMO_COL = 14;
-	public static int NR_OF_COL = 15;
+	public static int GAIN_ON_SINGLE_COL = 12;
+	public static int GAIN_ON_PROMO_COL = 13;
+	public static int NR_OF_COL = 14;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private List<Integer> editableColumns = new ArrayList<>();
@@ -57,7 +56,6 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		editableColumns.add(SUPPLIER_COL);
 		editableColumns.add(SALE_SINGLE_INCL_COL);
 		editableColumns.add(SALE_PROMO_INCL_COL);
-		editableColumns.add(MIN_NR_PROMO_COL);
 	}
 
 	private void setColumnClasses() {
@@ -73,7 +71,6 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		columnClasses.put(SALE_PROMO_EXCL_COL, BigDecimal.class);
 		columnClasses.put(SALE_SINGLE_INCL_COL, BigDecimal.class);
 		columnClasses.put(SALE_PROMO_INCL_COL, BigDecimal.class);
-		columnClasses.put(MIN_NR_PROMO_COL, Integer.class);
 		columnClasses.put(GAIN_ON_SINGLE_COL, BigDecimal.class);
 		columnClasses.put(GAIN_ON_PROMO_COL, BigDecimal.class);
 	}
@@ -91,7 +88,6 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		columnNames.put(SALE_PROMO_EXCL_COL, getBundle("Accounting").getString("SALE_PROMO_EXCL"));
 		columnNames.put(SALE_SINGLE_INCL_COL, getBundle("Accounting").getString("SALE_SINGLE_INCL"));
 		columnNames.put(SALE_PROMO_INCL_COL, getBundle("Accounting").getString("SALE_PROMO_INCL"));
-		columnNames.put(MIN_NR_PROMO_COL, getBundle("Accounting").getString("SALE_MIN_NR_PROMO"));
 		columnNames.put(GAIN_ON_SINGLE_COL, getBundle("Accounting").getString("GAIN_ON_SINGLE"));
 		columnNames.put(GAIN_ON_PROMO_COL, getBundle("Accounting").getString("GAIN_ON_PROMO"));
 	}
@@ -125,31 +121,28 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 			return article.getItemsPerUnit();
 		}
 		if (col == SALE_SINGLE_EXCL_COL) {
-			BigDecimal salesPriceSingleWithoutVat = article.getSalesPriceSingleWithoutVat();
+			BigDecimal salesPriceSingleWithoutVat = article.getSalesPriceItemWithoutVat();
 			return salesPriceSingleWithoutVat!=null?salesPriceSingleWithoutVat:BigDecimal.ZERO;
 		}
 		if (col == SALE_PROMO_EXCL_COL) {
-			BigDecimal salesPricePromoWithoutVat = article.getSalesPricePromoWithoutVat();
+			BigDecimal salesPricePromoWithoutVat = article.getSalesPriceUnitWithoutVat();
 			return salesPricePromoWithoutVat!=null?salesPricePromoWithoutVat:BigDecimal.ZERO;
 		}
 		if (col == SALE_SINGLE_INCL_COL) {
-			BigDecimal salesPriceSingleWithVat = article.getSalesPriceSingleWithVat();
+			BigDecimal salesPriceSingleWithVat = article.getSalesPriceItemWithVat();
 			return salesPriceSingleWithVat!=null?salesPriceSingleWithVat:BigDecimal.ZERO;
 		}
 		if (col == SALE_PROMO_INCL_COL) {
-			BigDecimal salesPricePromoWithVat = article.getSalesPricePromoWithVat();
+			BigDecimal salesPricePromoWithVat = article.getSalesPriceUnitWithVat();
 			return salesPricePromoWithVat!=null?salesPricePromoWithVat:BigDecimal.ZERO;
 		}
-		if (col == MIN_NR_PROMO_COL) {
-			return article.getMinimumNumberForReduction();
-		}
 		if (col == GAIN_ON_SINGLE_COL) {
-			BigDecimal salesPriceSingleWithoutVat = article.getSalesPriceSingleWithoutVat();
+			BigDecimal salesPriceSingleWithoutVat = article.getSalesPriceItemWithoutVat();
 			if(salesPriceSingleWithoutVat==null) return BigDecimal.ZERO;
 			return article.getItemProfit(salesPriceSingleWithoutVat);
 		}
 		if (col == GAIN_ON_PROMO_COL) {
-			BigDecimal salesPricePromoWithoutVat = article.getSalesPricePromoWithoutVat();
+			BigDecimal salesPricePromoWithoutVat = article.getSalesPriceUnitWithoutVat();
 			if(salesPricePromoWithoutVat==null) return BigDecimal.ZERO;
 			return article.getUnitProfit(salesPricePromoWithoutVat);
 		}
@@ -206,16 +199,13 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		if(col == ITEMS_PER_UNIT_COL){
             article.setItemsPerUnit((Integer) value);
 		}
-		if(col == MIN_NR_PROMO_COL){
-            article.setMinimumNumberForReduction((Integer) value);
-		}
 		if (col == SALE_SINGLE_INCL_COL) {
 			BigDecimal amount = (BigDecimal) value;
-			article.setSalesPriceSingleWithVat(amount.setScale(2));
+			article.setSalesPriceItemWithVat(amount.setScale(2));
 		}
 		if (col == SALE_PROMO_INCL_COL) {
 			BigDecimal amount = (BigDecimal) value;
-			article.setSalesPricePromoWithVat(amount.setScale(2));
+			article.setSalesPriceUnitWithVat(amount.setScale(2));
 		}
 		if(col == ITEM_NAME_COL){
             article.setItemName((String) value);
