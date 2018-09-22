@@ -92,6 +92,16 @@ public class Utils {
         return c.get(Calendar.YEAR);
     }
 
+    // 6 -> 0.06
+    public static BigDecimal getPercentage(int pct){
+        return new BigDecimal(pct).divide(new BigDecimal(100));
+    }
+
+    // 6 -> 1.06
+    public static BigDecimal getFactor(int pct){
+        return BigDecimal.ONE.add(getPercentage(pct));
+    }
+
     public static BigDecimal parseBigDecimal(String s) {
         try {
             return new BigDecimal(s);

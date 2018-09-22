@@ -1,6 +1,7 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.function.Predicate;
@@ -105,43 +106,42 @@ public class Article extends BusinessObject{
     public BigDecimal getSalesPriceUnitWithoutVat() {
         if(salesPriceUnitWithVat ==null) return null;
         BigDecimal salesFactor = getSalesFactor();
-        BigDecimal divide = salesPriceUnitWithVat.divide(salesFactor, BigDecimal.ROUND_HALF_DOWN);
-        return divide;
+        return salesPriceUnitWithVat.divide(salesFactor, BigDecimal.ROUND_HALF_DOWN);
     }
 
     public Integer getPurchaseVatRate() {
         return purchaseVatRate;
     }
 
-    public BigDecimal getPurchasePrice(int number){
+    BigDecimal getPurchasePrice(int number){
         return purchasePrice.multiply(new BigDecimal(number));
     }
 
-    // return 0.06
+    // 6 -> 0.06
     private BigDecimal getPurchasePercentage(){
-        return new BigDecimal(purchaseVatRate).divide(new BigDecimal(100));
+        return Utils.getPercentage(purchaseVatRate);
     }
 
-    // return 0.06
-    private BigDecimal getSalesPercentage(){
-        return new BigDecimal(salesVatRate).divide(new BigDecimal(100));
+    // 6 -> 0.06
+    BigDecimal getSalesPercentage(){
+        return Utils.getPercentage(salesVatRate);
     }
 
-    // return 1.06
+    // 6 -> 1.06
     private BigDecimal getPurchaseFactor(){
-        return BigDecimal.ONE.add(getPurchasePercentage());
+        return Utils.getFactor(purchaseVatRate);
     }
 
-    // return 1.06
-    private BigDecimal getSalesFactor(){
-        return BigDecimal.ONE.add(getSalesPercentage());
+    // 6 -> 1.06
+    BigDecimal getSalesFactor(){
+        return Utils.getFactor(salesVatRate);
     }
 
-    public BigDecimal getPurchasePriceWithVat(){
+    BigDecimal getPurchasePriceWithVat(){
         return purchasePrice.multiply(getPurchaseFactor());
     }
 
-    public BigDecimal getPurchasePriceWithVat(int number){
+    BigDecimal getPurchasePriceWithVat(int number){
         return getPurchasePriceWithVat().multiply(new BigDecimal(number));
     }
 
@@ -153,32 +153,15 @@ public class Article extends BusinessObject{
         return salesprice.subtract(purchasePrice.divide(new BigDecimal(itemsPerUnit), BigDecimal.ROUND_HALF_DOWN));
     }
 
-    public BigDecimal getPurchaseVat(){
+    BigDecimal getPurchaseVat(){
         return purchasePrice.multiply(getPurchasePercentage());
     }
 
-    public BigDecimal getPurchaseVat(int number){
+    BigDecimal getPurchaseVat(int number){
         return getPurchaseVat().multiply(new BigDecimal(number));
     }
 
-    public BigDecimal getSalesVatAmount(int number, BigDecimal itemPrice, BigDecimal unitPrice){
-        BigDecimal salesPriceWithoutVat = getSalesPriceWithoutVat(number, itemPrice, unitPrice);
-        return salesPriceWithoutVat.multiply(getSalesPercentage());
-    }
 
-    public BigDecimal getSalesPriceWithoutVat(int number, BigDecimal itemPrice, BigDecimal unitPrice) {
-        BigDecimal salesPriceWithVat = getSalesPriceWithVat(number, itemPrice, unitPrice);
-        return salesPriceWithVat.divide(getSalesFactor(),BigDecimal.ROUND_HALF_DOWN);
-    }
-
-    public BigDecimal getSalesPriceWithVat(int number, BigDecimal itemPrice, BigDecimal unitPrice) {
-        if(itemPrice==null||unitPrice==null) return BigDecimal.ZERO;
-        int nrOfUnits = number/itemsPerUnit;
-        int remainingItems = number%itemsPerUnit;
-        BigDecimal priceForUnits = unitPrice.multiply(new BigDecimal(nrOfUnits));
-        BigDecimal priceForItems = itemPrice.multiply(new BigDecimal(remainingItems));
-        return priceForUnits.add(priceForItems);
-    }
 
     public static Predicate<Article> ofSupplier(Contact supplier) {
         return article -> article.getSupplier() == supplier;
