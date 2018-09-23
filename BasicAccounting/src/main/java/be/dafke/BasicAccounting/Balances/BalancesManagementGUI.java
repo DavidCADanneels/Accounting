@@ -27,13 +27,13 @@ public class BalancesManagementGUI extends JFrame {
 		pack();
 	}
 
-	public static void showBalancesManager(Balances balances, Accounts accounts, AccountTypes accountTypes) {
+	public static BalancesManagementGUI getInstance(Balances balances, Accounts accounts, AccountTypes accountTypes) {
 		BalancesManagementGUI gui = balancesManagementGuis.get(balances);
 		if(gui == null){
 			gui = new BalancesManagementGUI(balances, accounts, accountTypes);
 			balancesManagementGuis.put(balances,gui);
 			Main.addFrame(gui);
 		}
-		gui.setVisible(true);
+		return gui;
 	}
 }

@@ -28,7 +28,6 @@ public class BalanceGUI extends JFrame {
 			otherBalanceMap.put(balance,balanceGUI);
 			Main.addFrame(balanceGUI);
 		}
-		balanceGUI.setVisible(true);
 		return balanceGUI;
 	}
 

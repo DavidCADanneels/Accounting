@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Balances;
 
-import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.BalancesIO;
 
@@ -21,13 +20,15 @@ public class BalancesMenu extends JMenu {
     private Balances balances;
     private Accounting accounting;
     private AccountTypes accountTypes;
-    private JournalEditPanel journalEditPanel;
 
-    public BalancesMenu(JournalEditPanel journalEditPanel){
+    public BalancesMenu(){
         super(getBundle("BusinessModel").getString("BALANCES"));
-        this.journalEditPanel = journalEditPanel;
         manage = new JMenuItem(getBundle("BusinessModel").getString("MANAGE_BALANCES"));
-        manage.addActionListener(e -> BalancesManagementGUI.showBalancesManager(balances, accounts, accountTypes));
+        manage.addActionListener(e -> {
+            BalancesManagementGUI balancesManagementGUI = BalancesManagementGUI.getInstance(balances, accounts, accountTypes);
+            balancesManagementGUI.setLocation(getLocationOnScreen());
+            balancesManagementGUI.setVisible(true);
+        });
         pdfGeneration = new JMenuItem(getBundle("BusinessModel").getString("GENERATE_PDF"));
         pdfGeneration.addActionListener(e -> BalancesIO.writeBalancePdfFiles(accounting));
         add(manage);
@@ -47,10 +48,14 @@ public class BalancesMenu extends JMenu {
     public void fireBalancesChanged(){
         removeAll();
         if(balances!=null) {
-            balances.getBusinessObjects().stream().forEach(balance -> {
+            balances.getBusinessObjects().forEach(balance -> {
                 String name = balance.getName();
                 JMenuItem item = new JMenuItem(name);
-                item.addActionListener(e -> BalanceGUI.getBalance(journals, balances.getBusinessObject(name)));
+                item.addActionListener(e -> {
+                    BalanceGUI balanceGUI = BalanceGUI.getBalance(journals, balances.getBusinessObject(name));
+                    balanceGUI.setLocation(getLocationOnScreen());
+                    balanceGUI.setVisible(true);
+                });
                 add(item);
             });
             add(manage);

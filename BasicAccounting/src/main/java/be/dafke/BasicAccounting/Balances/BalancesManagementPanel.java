@@ -31,13 +31,14 @@ public class BalancesManagementPanel extends JPanel implements FocusListener {
 
     public BalancesManagementPanel(Balances balances, Accounts accounts, AccountTypes accountTypes) {
         this.accounts = accounts;
-        setAccountTypes(accountTypes);
-        setBalances(balances);
 
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         add(createSavePanel());
         add(createNameFieldPanel());
         add(createCenterPanel());
+
+        setAccountTypes(accountTypes);
+        setBalances(balances);
     }
 
     public void setAccountTypes(AccountTypes accountTypes) {
