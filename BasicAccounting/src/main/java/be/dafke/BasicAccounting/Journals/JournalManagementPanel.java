@@ -33,7 +33,7 @@ public class JournalManagementPanel extends JPanel implements ListSelectionListe
         this.journalTypes = journalTypes;
         this.accounts = accounts;
         this.accountTypes = accountTypes;
-        journalManagementTableModel = new JournalManagementTableModel(journals);
+        journalManagementTableModel = new JournalManagementTableModel(this, journals);
 
         tabel = new SelectableTable<>(journalManagementTableModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
@@ -100,7 +100,7 @@ public class JournalManagementPanel extends JPanel implements ListSelectionListe
     private ArrayList<Journal> getSelectedJournals(){
         int[] rows = tabel.getSelectedRows();
         if (rows.length == 0) {
-            ActionUtils.showErrorMessage(ActionUtils.SELECT_JOURNAL_FIRST);
+            ActionUtils.showErrorMessage(this, ActionUtils.SELECT_JOURNAL_FIRST);
         }
         ArrayList<Journal> journalList = new ArrayList<>();
         for(int row : rows) {

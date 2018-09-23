@@ -119,9 +119,9 @@ public class NewContactDialog extends RefreshableDialog {
                 contacts.addBusinessObject(contact);
                 Main.fireContactAdded();
             } catch (DuplicateNameException e) {
-                ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, name);
+                ActionUtils.showErrorMessage(this, ActionUtils.ACCOUNT_DUPLICATE_NAME, name);
             } catch (EmptyNameException e) {
-                ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NAME_EMPTY);
+                ActionUtils.showErrorMessage(this, ActionUtils.ACCOUNT_NAME_EMPTY);
             }
             clearFields();
             contact=null;

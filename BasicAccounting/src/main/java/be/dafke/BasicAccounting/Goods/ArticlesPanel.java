@@ -29,7 +29,7 @@ public class ArticlesPanel extends JPanel {
 
     public ArticlesPanel(Articles articles, Contacts contacts) {
         this.contacts = contacts;
-        articlesDataTableModel = new ArticlesDataTableModel(articles);
+        articlesDataTableModel = new ArticlesDataTableModel(this, articles);
         table = new SelectableTable<>(articlesDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);
@@ -47,17 +47,17 @@ public class ArticlesPanel extends JPanel {
         add = new JButton("Add Article");
         add(add, BorderLayout.NORTH);
         add.addActionListener( e -> {
-            String name = JOptionPane.showInputDialog(getBundle("Accounting").getString("NAME_LABEL"));
+            String name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"));
             while (name != null && name.equals(""))
-                name = JOptionPane.showInputDialog(getBundle("Accounting").getString("NAME_LABEL"));
+                name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"));
             if (name != null) {
                 try {
                     articles.addBusinessObject(new Article(name));
                     articlesDataTableModel.fireTableDataChanged();
                 } catch (EmptyNameException ex) {
-                    ActionUtils.showErrorMessage(ActionUtils.ARTICLE_NAME_EMPTY);
+                    ActionUtils.showErrorMessage(this, ActionUtils.ARTICLE_NAME_EMPTY);
                 } catch (DuplicateNameException ex) {
-                    ActionUtils.showErrorMessage(ActionUtils.ARTICLE_DUPLICATE_NAME, name.trim());
+                    ActionUtils.showErrorMessage(this, ActionUtils.ARTICLE_DUPLICATE_NAME, name.trim());
                 }
             }
         });

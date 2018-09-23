@@ -138,17 +138,17 @@ public class ProjectManagementPanel extends JPanel implements ListSelectionListe
     }
 
     private void createNewProject(){
-        String name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
+        String name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
         while (name != null && name.equals(""))
-            name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
+            name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
         if (name != null) {
             Project project = new Project(name, accounts, accountTypes);
             try {
                 projects.addBusinessObject(project);
             } catch (EmptyNameException e) {
-                ActionUtils.showErrorMessage(ActionUtils.PROJECT_NAME_EMPTY);
+                ActionUtils.showErrorMessage(this, ActionUtils.PROJECT_NAME_EMPTY);
             } catch (DuplicateNameException e) {
-                ActionUtils.showErrorMessage(ActionUtils.PROJECT_DUPLICATE_NAME, name.trim());
+                ActionUtils.showErrorMessage(this, ActionUtils.PROJECT_DUPLICATE_NAME, name.trim());
             }
             ((DefaultComboBoxModel<Project>) combo.getModel()).addElement(project);
             (combo.getModel()).setSelectedItem(project);

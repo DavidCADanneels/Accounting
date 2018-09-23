@@ -85,9 +85,9 @@ public class NewAccountingPanel extends RefreshableDialog {
                 Accountings.setActiveAccounting(accounting);
                 setAccounting(accounting);
             } catch (DuplicateNameException e) {
-                ActionUtils.showErrorMessage(ActionUtils.ACCOUNTING_DUPLICATE_NAME);
+                ActionUtils.showErrorMessage(this, ActionUtils.ACCOUNTING_DUPLICATE_NAME);
             } catch (EmptyNameException e) {
-                ActionUtils.showErrorMessage(ActionUtils.ACCOUNTING_NAME_EMPTY);
+                ActionUtils.showErrorMessage(this, ActionUtils.ACCOUNTING_NAME_EMPTY);
             }
         }
     }

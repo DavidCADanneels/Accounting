@@ -14,11 +14,10 @@ import static java.util.ResourceBundle.getBundle;
 public class NewJournalPanel extends JPanel {
     private JTextField name, abbr;
     private JComboBox<JournalType> type;
-    private JButton add, newType;
     private Journals journals;
     private Journal journal;
 
-    public NewJournalPanel(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
+    NewJournalPanel(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         this.journals = journals;
         
         setLayout(new GridLayout(0,2));
@@ -36,10 +35,10 @@ public class NewJournalPanel extends JPanel {
         }
         type.setModel(model);
         add(type);
-        add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_JOURNAL"));
+        JButton add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_JOURNAL"));
         add.addActionListener(e -> saveJournal());
         add(add);
-        newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
+        JButton newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
         newType.addActionListener(e -> {
             Point locationOnScreen = getLocationOnScreen();
             JournalTypeManagementGUI journalTypeManagementGUI = JournalTypeManagementGUI.getInstance(accounts, journalTypes, accountTypes);
@@ -79,9 +78,9 @@ public class NewJournalPanel extends JPanel {
                 journal.setType(journalType);
             }
         } catch (DuplicateNameException e) {
-            ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR, newName.trim(), newAbbreviation.trim());
+            ActionUtils.showErrorMessage(this, ActionUtils.JOURNAL_DUPLICATE_NAME_AND_OR_ABBR, newName.trim(), newAbbreviation.trim());
         } catch (EmptyNameException e) {
-            ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_ABBR_EMPTY);
+            ActionUtils.showErrorMessage(this, ActionUtils.JOURNAL_NAME_ABBR_EMPTY);
         }
         Main.fireJournalDataChanged(journal);
     }

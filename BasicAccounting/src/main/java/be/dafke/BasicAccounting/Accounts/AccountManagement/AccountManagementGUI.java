@@ -39,7 +39,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		super(getBundle("Accounting").getString("ACCOUNT_MANAGEMENT_TITLE"));
 		this.accounts = accounts;
 		this.accountTypes = accountTypes;
-		this.accountManagementTableModel = new AccountManagementTableModel(accounts);
+		this.accountManagementTableModel = new AccountManagementTableModel(this, accounts);
 
 		// COMPONENTS
 		//
@@ -152,7 +152,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 			}
 			if (failed.size() > 0) {
 				if (failed.size() == 1) {
-					ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NOT_EMPTY, failed.get(0));
+					ActionUtils.showErrorMessage(this, ActionUtils.ACCOUNT_NOT_EMPTY, failed.get(0));
 				} else {
 					StringBuilder builder = new StringBuilder(getBundle("BusinessActions").getString("MULTIPLE_ACCOUNTS_NOT_EMPTY")+"\n");
 					for(String s : failed){

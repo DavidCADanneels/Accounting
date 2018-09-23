@@ -90,7 +90,7 @@ public class AccountActions {
                     amount = amount.setScale(2);
                     ok = amount.compareTo(BigDecimal.ZERO)>=0;
                 } catch (NumberFormatException nfe) {
-                    ActionUtils.showErrorMessage(ActionUtils.INVALID_INPUT);
+                    ActionUtils.showErrorMessage(component, ActionUtils.INVALID_INPUT);
                 }
             }
         }

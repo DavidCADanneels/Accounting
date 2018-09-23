@@ -171,9 +171,9 @@ public class CounterPartySelector extends RefreshableDialog implements ActionLis
                     newCounterPartyCombo.addItem(newCounterParty);
                     newCounterPartyCombo.setSelectedItem(newCounterParty);
                 } catch (EmptyNameException e1) {
-                    ActionUtils.showErrorMessage(ActionUtils.COUNTERPARTY_NAME_EMPTY);
+                    ActionUtils.showErrorMessage(this, ActionUtils.COUNTERPARTY_NAME_EMPTY);
                 } catch (DuplicateNameException e1) {
-                    ActionUtils.showErrorMessage(ActionUtils.COUNTERPARTY_DUPLICATE_NAME);
+                    ActionUtils.showErrorMessage(this, ActionUtils.COUNTERPARTY_DUPLICATE_NAME);
                 }
 			}
 		} else if (e.getSource() == oldCounterPartyCombo) {

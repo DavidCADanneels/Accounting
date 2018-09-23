@@ -9,6 +9,7 @@ import be.dafke.ComponentModel.SelectableTableModel;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
+import java.awt.*;
 import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
@@ -26,8 +27,10 @@ public class JournalManagementTableModel extends SelectableTableModel<Journal> {
     private HashMap<Integer, String> columnNames = new HashMap<>();
     private HashMap<Integer, Class> columnClasses = new HashMap<>();
     private final Journals journals;
+    private Component parent;
 
-    public JournalManagementTableModel(Journals journals) {
+    public JournalManagementTableModel(Component parent, Journals journals) {
+        this.parent = parent;
         this.journals = journals;
         createColumnNames();
         createColumnClasses();
@@ -96,9 +99,9 @@ public class JournalManagementTableModel extends SelectableTableModel<Journal> {
                     journals.modifyName(oldName, newName);
                     Main.fireJournalDataChanged(journal);
                 } catch (EmptyNameException e) {
-                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_NAME_EMPTY);
+                    ActionUtils.showErrorMessage(parent, ActionUtils.JOURNAL_NAME_EMPTY);
                 } catch (DuplicateNameException e) {
-                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_NAME, newName.trim());
+                    ActionUtils.showErrorMessage(parent, ActionUtils.JOURNAL_DUPLICATE_NAME, newName.trim());
                 }
             }
         } else if (col == ABBR_COL) {
@@ -108,9 +111,9 @@ public class JournalManagementTableModel extends SelectableTableModel<Journal> {
                 try {
                     journals.modifyJournalAbbreviation(oldAbbreviation, newAbbreviation);
                 } catch (DuplicateNameException e) {
-                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_DUPLICATE_ABBR,newAbbreviation.trim());
+                    ActionUtils.showErrorMessage(parent, ActionUtils.JOURNAL_DUPLICATE_ABBR,newAbbreviation.trim());
                 } catch (EmptyNameException e) {
-                    ActionUtils.showErrorMessage(ActionUtils.JOURNAL_ABBR_EMPTY);
+                    ActionUtils.showErrorMessage(parent, ActionUtils.JOURNAL_ABBR_EMPTY);
                 }
             }
         } else if (col == TYPE_COL) {

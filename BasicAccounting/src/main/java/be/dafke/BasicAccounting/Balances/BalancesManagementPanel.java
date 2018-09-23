@@ -93,9 +93,9 @@ public class BalancesManagementPanel extends JPanel implements FocusListener {
     }
 
     public void createNewBalance(){
-        String name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
+        String name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
         while (name != null && name.equals(""))
-            name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
+            name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
         if (name != null) {
             Balance balance = new Balance(name,accounts);
             try {

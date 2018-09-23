@@ -51,9 +51,9 @@ public class MortgageTable extends JFrame {
             mortgages.addBusinessObject(mortgage);
             dispose();
         } catch (DuplicateNameException e) {
-			ActionUtils.showErrorMessage(ActionUtils.MORTGAGE_DUPLICATE_NAME);
+			ActionUtils.showErrorMessage(this, ActionUtils.MORTGAGE_DUPLICATE_NAME);
         } catch (EmptyNameException e) {
-			ActionUtils.showErrorMessage(ActionUtils.MORTGAGE_NAME_EMPTY);
+			ActionUtils.showErrorMessage(this, ActionUtils.MORTGAGE_NAME_EMPTY);
         }
         Main.fireMortgageAddedOrRemoved(mortgages);
 	}

@@ -9,6 +9,7 @@ import be.dafke.ComponentModel.SelectableTableModel;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
+import java.awt.*;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
@@ -27,8 +28,10 @@ public class AccountManagementTableModel extends SelectableTableModel<Account> {
 	private ArrayList<Integer> nonEditableColumns = new ArrayList<>();
 
 	private final Accounts accounts;
+	private final Component parent;
 
-	public AccountManagementTableModel(Accounts accounts) {
+	public AccountManagementTableModel(Component parent, Accounts accounts) {
+		this.parent = parent;
 		this.accounts = accounts;
 		nonEditableColumns.add(SALDO_COL);
 //		nonEditableColumns.add(TYPE_COL);
@@ -114,9 +117,9 @@ public class AccountManagementTableModel extends SelectableTableModel<Account> {
 						accounts.modifyName(oldName, newName);
 						Main.fireAccountDataChanged(account);
 					} catch (DuplicateNameException e) {
-						ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME,newName.trim());
+						ActionUtils.showErrorMessage(parent, ActionUtils.ACCOUNT_DUPLICATE_NAME,newName.trim());
 					} catch (EmptyNameException e) {
-						ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NAME_EMPTY);
+						ActionUtils.showErrorMessage(parent, ActionUtils.ACCOUNT_NAME_EMPTY);
 					}
 				}
 			}else if(col== TYPE_COL){

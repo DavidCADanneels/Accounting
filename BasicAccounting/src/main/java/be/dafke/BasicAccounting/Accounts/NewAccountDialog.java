@@ -82,9 +82,9 @@ public class NewAccountDialog extends RefreshableDialog {
                 saveOtherProperties();
             }
         } catch (DuplicateNameException e) {
-            ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_DUPLICATE_NAME, newName);
+            ActionUtils.showErrorMessage(this, ActionUtils.ACCOUNT_DUPLICATE_NAME, newName);
         } catch (EmptyNameException e) {
-            ActionUtils.showErrorMessage(ActionUtils.ACCOUNT_NAME_EMPTY);
+            ActionUtils.showErrorMessage(this, ActionUtils.ACCOUNT_NAME_EMPTY);
         }
     }
 

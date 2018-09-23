@@ -6,6 +6,7 @@ import be.dafke.ComponentModel.SelectableTableModel;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
+import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,11 +35,13 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 	public static int GAIN_ON_SINGLE_COL = 12;
 	public static int GAIN_ON_PROMO_COL = 13;
 	public static int NR_OF_COL = 14;
+	private final Component parent;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private List<Integer> editableColumns = new ArrayList<>();
 
-	public ArticlesDataTableModel(Articles articles) {
+	public ArticlesDataTableModel(Component parent, Articles articles) {
+		this.parent = parent;
 		this.articles = articles;
 		setColumnNames();
 		setColumnClasses();
@@ -218,9 +221,9 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 				try {
 					articles.modifyName(oldName, newName);
 				} catch (DuplicateNameException e) {
-					ActionUtils.showErrorMessage(ActionUtils.ARTICLE_DUPLICATE_NAME, newName.trim());
+					ActionUtils.showErrorMessage(parent, ActionUtils.ARTICLE_DUPLICATE_NAME, newName.trim());
 				} catch (EmptyNameException e) {
-					ActionUtils.showErrorMessage(ActionUtils.ARTICLE_NAME_EMPTY);
+					ActionUtils.showErrorMessage(parent, ActionUtils.ARTICLE_NAME_EMPTY);
 				}
 			}
 		}

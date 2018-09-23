@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import javax.swing.*;
 
+import java.awt.*;
 import java.text.MessageFormat;
 
 import static java.util.ResourceBundle.getBundle;
@@ -49,10 +50,13 @@ public class ActionUtils {
     public static final String CHOOSE_NEW_TYPE = "CHOOSE_NEW_TYPE";
     public static final String CHANGE_TYPE = "CHANGE_TYPE";
 
+    public static void showErrorMessage(Component component, String message){
+        JOptionPane.showMessageDialog(component, getBundle("BusinessActions").getString(message));
+    }
 
-    public static void showErrorMessage(String message, Object ... messageArguments){
+    public static void showErrorMessage(Component component, String message, Object ... messageArguments){
         MessageFormat formatter = new MessageFormat(getBundle("BusinessActions").getString(message));
-        JOptionPane.showMessageDialog(null, formatter.format(messageArguments));
+        JOptionPane.showMessageDialog(component, formatter.format(messageArguments));
     }
 
     public static String getFormattedString(String message, Object ... messageArguments){

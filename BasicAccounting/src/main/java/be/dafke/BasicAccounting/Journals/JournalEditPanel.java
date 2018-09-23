@@ -277,7 +277,7 @@ public class JournalEditPanel extends JPanel implements ActionListener {
         if(transaction!=null){
             Calendar date = dateAndDescriptionPanel.getDate();
             if(date == null){
-                ActionUtils.showErrorMessage(ActionUtils.FILL_IN_DATE);
+                ActionUtils.showErrorMessage(this, ActionUtils.FILL_IN_DATE);
                 return null;
             } else {
                 // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)

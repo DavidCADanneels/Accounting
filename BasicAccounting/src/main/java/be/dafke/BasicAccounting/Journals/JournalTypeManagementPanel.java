@@ -108,7 +108,7 @@ public class JournalTypeManagementPanel extends JPanel implements ActionListener
     }
 
     public void createNewJournalType(){
-        String name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
+        String name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
         while (name != null) {
             name = name.trim();
             JournalType journalType = new JournalType(name);
@@ -120,11 +120,11 @@ public class JournalTypeManagementPanel extends JPanel implements ActionListener
                 (combo.getModel()).setSelectedItem(journalType);
                 name = null;
             } catch (DuplicateNameException e) {
-                ActionUtils.showErrorMessage(ActionUtils.JOURNAL_TYPE_DUPLICATE_NAME, name);
-                name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
+                ActionUtils.showErrorMessage(this, ActionUtils.JOURNAL_TYPE_DUPLICATE_NAME, name);
+                name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
             } catch (EmptyNameException e) {
-                ActionUtils.showErrorMessage(ActionUtils.JOURNAL_TYPE_NAME_EMPTY);
-                name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
+                ActionUtils.showErrorMessage(this, ActionUtils.JOURNAL_TYPE_NAME_EMPTY);
+                name = JOptionPane.showInputDialog(this, getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
             }
         }
     }
