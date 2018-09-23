@@ -69,7 +69,7 @@ public class JournalGUIPopupMenu extends JPopupMenu{
             //TODO: or JournalGUI.table should contain Movements iso Bookings
             // booking must be removed and re-added to Transaction to re-calculate the totals
             transaction.removeBusinessObject(booking);
-            BigDecimal amount = AccountActions.askAmount(account, booking.isDebit(),transaction);
+            BigDecimal amount = AccountActions.askAmount(account, booking.isDebit(),transaction, this);
             if (amount != null) {
                 booking.setAmount(amount);
             }

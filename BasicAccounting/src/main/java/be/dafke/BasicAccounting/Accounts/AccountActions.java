@@ -15,6 +15,7 @@ import be.dafke.BusinessModel.VATTransaction;
 import be.dafke.BusinessModel.VATTransactions;
 
 import javax.swing.JOptionPane;
+import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -29,27 +30,27 @@ public class AccountActions {
     public static final String SELECT_TAX_CREDIT_CN_ACCOUNT = "select Tax Credit CN Account";
     public static final String SELECT_TAX_DEBIT_CN_ACCOUNT = "select Tax Debit CN Account";
 
-    public static void book(Account account, boolean debit, VATTransaction.VATType vatType, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Contacts contacts){
+    public static void book(Account account, boolean debit, VATTransaction.VATType vatType, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Contacts contacts, Component component){
         Transaction transaction = Main.getTransaction();
-        BigDecimal amount = askAmount(account, debit, transaction);
+        BigDecimal amount = askAmount(account, debit, transaction, component);
         if (amount != null) {
             Booking booking = new Booking(account, amount, debit);
             Main.addBooking(booking);
 
             //
             if (vatType == VATTransaction.VATType.PURCHASE) {
-                purchaseAny(transaction, booking, vatTransactions, accounts, accountTypes);
+                purchaseAny(transaction, booking, vatTransactions, accounts, accountTypes, component);
             } else if (vatType == VATTransaction.VATType.CUSTOMER){
-                Contact contact = getContact(account, contacts, Contact.ContactType.CUSTOMERS);
+                Contact contact = getContact(account, contacts, Contact.ContactType.CUSTOMERS, component);
                 transaction.setContact(contact);
             } else if (vatType == VATTransaction.VATType.SALE){
-                saleAny(transaction, booking, vatTransactions, accounts, accountTypes);
+                saleAny(transaction, booking, vatTransactions, accounts, accountTypes, component);
             }
             Main.fireTransactionInputDataChanged();
         }
     }
 
-    public static BigDecimal askAmount(Account account, boolean debit, Transaction transaction) {
+    public static BigDecimal askAmount(Account account, boolean debit, Transaction transaction, Component component) {
         if (transaction == null) return null;
         BigDecimal creditTotal = transaction.getCreditTotaal();
         BigDecimal debitTotal = transaction.getDebetTotaal();
@@ -64,20 +65,20 @@ public class AccountActions {
                 suggestedAmount = defaultAmount;
             }
         }
-        return askAmount(account, suggestedAmount);
+        return askAmount(account, suggestedAmount, component);
     }
 
-    public static BigDecimal askAmount(Account account, BigDecimal suggestedAmount){
+    public static BigDecimal askAmount(Account account, BigDecimal suggestedAmount, Component component){
         boolean ok = false;
         BigDecimal amount = null;
         while (!ok) {
             String s;
             if(suggestedAmount!=null){
                 // TODO: add title ...
-                s = JOptionPane.showInputDialog(getBundle("BusinessActions").getString(
+                s = JOptionPane.showInputDialog(component, getBundle("BusinessActions").getString(
                         "ENTER_AMOUNT")+ account.getName(), suggestedAmount.toString());
             } else {
-                s = JOptionPane.showInputDialog(getBundle("BusinessActions").getString(
+                s = JOptionPane.showInputDialog(component, getBundle("BusinessActions").getString(
                         "ENTER_AMOUNT")+ account.getName());
             }
             if (s == null || s.equals("")) {
@@ -96,9 +97,9 @@ public class AccountActions {
         return amount;
     }
 
-    public static Integer getPercentage(VATTransactions vatTransactions){
+    public static Integer getPercentage(VATTransactions vatTransactions, Component component){
         Integer[] percentages = vatTransactions.getVatPercentages();
-        int nr = JOptionPane.showOptionDialog(null, "BTW %", "BTW %",
+        int nr = JOptionPane.showOptionDialog(component, "BTW %", "BTW %",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, percentages, null);
         if (nr != -1) {
             return percentages[nr];
@@ -110,37 +111,37 @@ public class AccountActions {
         return amount.multiply(percentage).setScale(2, BigDecimal.ROUND_HALF_UP);
     }
 
-    private static VATTransaction.PurchaseType getPurchaseType(){
+    private static VATTransaction.PurchaseType getPurchaseType(Component component){
         VATTransaction.PurchaseType[] purchaseTypes = VATTransaction.PurchaseType.values();
-        int nr2 = JOptionPane.showOptionDialog(null, "Purchase Type", "Purchase Type",
+        int nr2 = JOptionPane.showOptionDialog(component, "Purchase Type", "Purchase Type",
                 JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, purchaseTypes, null);
         return purchaseTypes[nr2];
     }
 
     // PURCHASE
 
-    public static void purchaseAny(Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes){
+    public static void purchaseAny(Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Component component){
         BigDecimal amount = booking.getAmount();
         boolean debit = booking.isDebit();
         // Read percentage
-        Integer pct = getPercentage(vatTransactions);
+        Integer pct = getPercentage(vatTransactions, component);
         if (pct != null && pct != 0) {
             BigDecimal suggestedAmount = getTaxOnNet(amount, pct);
 //            if (amount.compareTo(BigDecimal.ZERO) >= 0) {
             if(debit){
-                purchase(suggestedAmount, transaction, booking, vatTransactions, accounts, accountTypes);
+                purchase(suggestedAmount, transaction, booking, vatTransactions, accounts, accountTypes, component);
             } else {
-                purchaseCN(suggestedAmount, transaction, booking, vatTransactions, accounts, accountTypes);
+                purchaseCN(suggestedAmount, transaction, booking, vatTransactions, accounts, accountTypes, component);
             }
         }
     }
 
-    public static void purchase(BigDecimal suggestedVatAmount, Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes) {
+    public static void purchase(BigDecimal suggestedVatAmount, Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Component component) {
         boolean debit = booking.isDebit();
-        VATTransaction.PurchaseType purchaseType = getPurchaseType();
+        VATTransaction.PurchaseType purchaseType = getPurchaseType(component);
         Account btwAccount = getCreditAccount(vatTransactions, accounts, accountTypes);
         if(btwAccount!=null) {
-            BigDecimal btwAmount = askAmount(btwAccount, suggestedVatAmount);
+            BigDecimal btwAmount = askAmount(btwAccount, suggestedVatAmount, component);
             if(btwAmount!=null) {
                 Booking vatBooking = new Booking(btwAccount, btwAmount, debit);
                 transaction.addBusinessObject(vatBooking);
@@ -152,13 +153,13 @@ public class AccountActions {
         }
     }
 
-    public static void purchaseCN(BigDecimal suggestedVatAmount, Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes){
+    public static void purchaseCN(BigDecimal suggestedVatAmount, Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Component component){
         boolean debit = booking.isDebit();
-        VATTransaction.PurchaseType purchaseType = getPurchaseType();
+        VATTransaction.PurchaseType purchaseType = getPurchaseType(component);
 
         Account btwAccount = getCreditCNAccount(vatTransactions, accounts, accountTypes);
         if (btwAccount != null) {
-            BigDecimal btwAmount = askAmount(btwAccount, suggestedVatAmount);
+            BigDecimal btwAmount = askAmount(btwAccount, suggestedVatAmount, component);
             if (btwAmount != null) {
                 Booking bookingVat = new Booking(btwAccount, btwAmount, debit);
                 transaction.addBusinessObject(bookingVat);
@@ -172,27 +173,27 @@ public class AccountActions {
 
     // SALE
 
-    public static void saleAny(Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes) {
+    public static void saleAny(Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Component component) {
         BigDecimal amount = booking.getAmount();
         boolean debit = booking.isDebit();
-        Integer pct = getPercentage(vatTransactions);
+        Integer pct = getPercentage(vatTransactions, component);
         if (pct != null) {
             BigDecimal suggestedAmount = getTaxOnNet(amount, pct);
             if (!debit) {
-                sell(transaction, booking, suggestedAmount, pct, vatTransactions, accounts, accountTypes);
+                sell(transaction, booking, suggestedAmount, pct, vatTransactions, accounts, accountTypes, component);
             } else {
-                sellCN(transaction, booking, suggestedAmount, pct, vatTransactions, accounts, accountTypes);
+                sellCN(transaction, booking, suggestedAmount, pct, vatTransactions, accounts, accountTypes, component);
             }
         }
     }
 
-    private static void sell(Transaction transaction, Booking booking, BigDecimal suggestedVATAmount, int pct, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes) {
+    private static void sell(Transaction transaction, Booking booking, BigDecimal suggestedVATAmount, int pct, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Component component) {
         BigDecimal amount = booking.getAmount();
         boolean debit = booking.isDebit();
 
         Account vatAccount = getDebitAccount(vatTransactions, accounts, accountTypes);
         if(vatAccount!=null) {
-            BigDecimal vatAmount = askAmount(vatAccount, suggestedVATAmount);
+            BigDecimal vatAmount = askAmount(vatAccount, suggestedVATAmount, component);
             if(vatAmount!=null) {
                 Booking vatBooking = new Booking(vatAccount, vatAmount, debit);
                 transaction.addBusinessObject(vatBooking);
@@ -207,12 +208,12 @@ public class AccountActions {
         }
     }
 
-    public static void sellCN(Transaction transaction, Booking booking, BigDecimal suggestedVATAmount, int pct, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes){
+    public static void sellCN(Transaction transaction, Booking booking, BigDecimal suggestedVATAmount, int pct, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Component component){
         BigDecimal amount = booking.getAmount();
         boolean debit = booking.isDebit();
         Account btwAccount = getDebitCNAccount(vatTransactions, accounts, accountTypes);
         if (btwAccount != null) {
-            BigDecimal vatAmount = askAmount(btwAccount, suggestedVATAmount);
+            BigDecimal vatAmount = askAmount(btwAccount, suggestedVATAmount, component);
             if (vatAmount != null) {
                 Booking vatBooking = new Booking(btwAccount, vatAmount, debit);
                 transaction.addBusinessObject(vatBooking);
@@ -273,12 +274,13 @@ public class AccountActions {
         return btwAccount;
     }
 
-    public static Contact getContact(Account account, Contacts contacts, Contact.ContactType contactType){
+    public static Contact getContact(Account account, Contacts contacts, Contact.ContactType contactType, Component component){
         Contact contact = account.getContact();
         if(contact!=null){
             return contact;
         } else {
             ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(contacts, contactType);
+            contactSelectorDialog.setLocation(component.getLocationOnScreen());
             contactSelectorDialog.setVisible(true);
             contact = contactSelectorDialog.getSelection();
             // TODO: null check needed here?

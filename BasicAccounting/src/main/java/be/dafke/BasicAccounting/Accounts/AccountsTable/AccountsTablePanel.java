@@ -184,7 +184,7 @@ public class AccountsTablePanel extends JPanel {
         popup.setVisible(false);
         for(Account account : table.getSelectedObjects()){
             ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
-            AccountActions.book(account, debit, vatType, vatTransactions, accounts, accountTypes, contacts);
+            AccountActions.book(account, debit, vatType, vatTransactions, accounts, accountTypes, contacts, this);
         }
     }
 
