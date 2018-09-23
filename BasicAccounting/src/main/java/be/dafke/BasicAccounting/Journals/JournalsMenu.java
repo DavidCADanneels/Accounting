@@ -6,6 +6,8 @@ import be.dafke.BusinessModelDao.JournalsIO;
 import javax.swing.JMenu;
 import javax.swing.JMenuItem;
 
+import java.awt.*;
+
 import static be.dafke.BasicAccounting.Journals.JournalManagementGUI.showJournalManager;
 import static be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI.showJournalTypeManager;
 import static java.util.ResourceBundle.getBundle;
@@ -80,14 +82,20 @@ public class JournalsMenu extends JMenu {
             journals.getBusinessObjects().stream()
                     .forEach(journal -> {
                         JMenuItem details = new JMenuItem(journal.getName());
-                        details.addActionListener(e -> JournalDetailsGUI.getJournalDetails(journal,journals));
+                        details.addActionListener(e -> {
+                            Point locationOnScreen = getLocationOnScreen();
+                            JournalDetailsGUI.getJournalDetails(locationOnScreen,journal,journals);
+                        });
                         add(details);
                     });
             addSeparator();
             JMenuItem master = new JMenuItem("Master");
             // FIXME: create other viewer for Master Transactions (no colors, what about ID's? use "MA1 (DIV1)" or just "DIV1" (or "MA1")
             // (or use BusinessCollection<Transaction> iso Journal in JournalDetailsGUI)
-            master.addActionListener(e -> JournalDetailsGUI.getJournalDetails(transactions,journals));
+            master.addActionListener(e -> {
+                Point locationOnScreen = getLocationOnScreen();
+                JournalDetailsGUI.getJournalDetails(locationOnScreen, transactions,journals);
+            });
             add(master);
         }
     }

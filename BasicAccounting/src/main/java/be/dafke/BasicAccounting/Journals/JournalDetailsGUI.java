@@ -1,18 +1,14 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
-import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Booking;
 import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.Journals;
-import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.math.BigDecimal;
 import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
@@ -25,20 +21,20 @@ public class JournalDetailsGUI extends JFrame implements WindowListener {
 	private static HashMap<Journal,JournalDetailsGUI> journalDetailsMap = new HashMap<>();
 	private final JournalDetailsPanel journalDetailsPanel;
 
-	private JournalDetailsGUI(Journal journal, Journals journals) {
+	private JournalDetailsGUI(Point location, Journal journal, Journals journals) {
 		super(getBundle("Accounting").getString("JOURNAL_DETAILS") + journal.toString());
 		journalDetailsPanel = new JournalDetailsPanel(journal, journals);
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+		setLocation(location);
 		setContentPane(journalDetailsPanel);
 		pack();
 
 	}
 
-	public static JournalDetailsGUI getJournalDetails(Journal journal, Journals journals){
+	public static JournalDetailsGUI getJournalDetails(Point location, Journal journal, Journals journals){
 		JournalDetailsGUI journalDetailsGUI = journalDetailsMap.get(journal);
 		if(journalDetailsGUI ==null){
-			journalDetailsGUI = new JournalDetailsGUI(journal, journals);
+			journalDetailsGUI = new JournalDetailsGUI(location, journal, journals);
 			journalDetailsMap.put(journal, journalDetailsGUI);
 			Main.addFrame(journalDetailsGUI);
 		}

@@ -7,6 +7,7 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Set;
 
@@ -67,12 +68,13 @@ public class AccountDetailsPopupMenu extends JPopupMenu {
     }
 
     private void showDetails() {
+        Point locationOnScreen = getLocationOnScreen();
         setVisible(false);
         ArrayList<Booking> bookings = gui.getSelectedObjects();
         for (Booking booking : bookings) {
             Transaction transaction = booking.getTransaction();
             Journal journal = transaction.getJournal();
-            JournalDetailsGUI newGui = JournalDetailsGUI.getJournalDetails(journal, journals);
+            JournalDetailsGUI newGui = JournalDetailsGUI.getJournalDetails(locationOnScreen, journal, journals);
             newGui.selectObject(booking);
         }
     }
