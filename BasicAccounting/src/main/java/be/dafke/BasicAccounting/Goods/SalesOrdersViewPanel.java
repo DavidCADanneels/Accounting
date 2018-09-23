@@ -47,6 +47,7 @@ class SalesOrdersViewPanel extends JPanel {
 //        table.setRowSorter(null);
 
         createInvoiceButton = new JButton("Create Invoice");
+        createInvoiceButton.setVisible(false);
         createInvoiceButton.addActionListener(e -> {
             salesOrder = salesOrdersViewDataTableModel.getOrder();
             if (salesOrder.getCustomer() == null) {
@@ -119,6 +120,7 @@ class SalesOrdersViewPanel extends JPanel {
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {
             salesOrder = (SalesOrder) comboBox.getSelectedItem();
+            createInvoiceButton.setVisible(salesOrder!=null&&salesOrder.isInvoice());
             updateButtonsAndCheckBoxes();
         });
         firePurchaseOrderAddedOrRemoved();
