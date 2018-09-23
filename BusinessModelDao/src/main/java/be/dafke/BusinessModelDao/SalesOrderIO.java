@@ -41,6 +41,13 @@ public class SalesOrderIO {
                 salesOrders.setSalesJournal(journal);
             }
         }
+        String journalNoInvoiceNameSales = getValue(rootElement, SALES_NO_INVOICE_JOURNAL);
+        if(journalNoInvoiceNameSales!=null){
+            Journal journal = journals.getBusinessObject(journalNoInvoiceNameSales);
+            if (journal!=null) {
+                salesOrders.setSalesNoInvoiceJournal(journal);
+            }
+        }
         String journalNameGain = getValue(rootElement, GAIN_JOURNAL);
         if(journalNameGain!=null){
             Journal journal = journals.getBusinessObject(journalNameGain);
@@ -151,8 +158,10 @@ public class SalesOrderIO {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(SALES_ORDERS, 2));
             Journal salesJournal = salesOrders.getSalesJournal();
+            Journal salesNoInvoiceJournal = salesOrders.getSalesNoInvoiceJournal();
             Journal gainJournal = salesOrders.getGainJournal();
             writer.write("  <" + SALES_JOURNAL + ">"+ (salesJournal==null?"null":salesJournal.getName())+"</" + SALES_JOURNAL + ">\n");
+            writer.write("  <" + SALES_NO_INVOICE_JOURNAL + ">"+ (salesNoInvoiceJournal==null?"null":salesNoInvoiceJournal.getName())+"</" + SALES_NO_INVOICE_JOURNAL + ">\n");
             writer.write("  <" + GAIN_JOURNAL + ">"+ (gainJournal==null?"null":gainJournal.getName())+"</" + GAIN_JOURNAL + ">\n");
             writer.write("  <" + STOCK_ACCOUNT + ">"+salesOrders.getStockAccount()+"</" + STOCK_ACCOUNT + ">\n");
             writer.write("  <" + VAT_ACCOUNT + ">"+salesOrders.getVATAccount()+"</" + VAT_ACCOUNT + ">\n");
