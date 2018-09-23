@@ -204,7 +204,8 @@ public class PurchaseOrdersViewPanel extends JPanel {
 
     public void firePurchaseOrderAddedOrRemoved() {
         comboBox.removeAllItems();
-        purchaseOrders.getBusinessObjects().forEach(order -> comboBox.addItem(order));
+        purchaseOrders.getBusinessObjects().forEach(order -> comboBox.insertItemAt(order,0));
+        comboBox.setSelectedIndex(0);
 //        purchaseOrderDataTableModel.fireTableDataChanged();
     }
 }
