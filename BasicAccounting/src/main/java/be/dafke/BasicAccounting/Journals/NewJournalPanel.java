@@ -9,7 +9,6 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import javax.swing.*;
 import java.awt.*;
 
-import static be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI.showJournalTypeManager;
 import static java.util.ResourceBundle.getBundle;
 
 public class NewJournalPanel extends JPanel {
@@ -41,7 +40,12 @@ public class NewJournalPanel extends JPanel {
         add.addActionListener(e -> saveJournal());
         add(add);
         newType = new JButton(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
-        newType.addActionListener(e -> showJournalTypeManager(accounts, journalTypes,accountTypes));
+        newType.addActionListener(e -> {
+            Point locationOnScreen = getLocationOnScreen();
+            JournalTypeManagementGUI journalTypeManagementGUI = JournalTypeManagementGUI.getInstance(accounts, journalTypes, accountTypes);
+            journalTypeManagementGUI.setLocation(locationOnScreen);
+            journalTypeManagementGUI.setVisible(true);
+        });
         add(newType);
     }
 

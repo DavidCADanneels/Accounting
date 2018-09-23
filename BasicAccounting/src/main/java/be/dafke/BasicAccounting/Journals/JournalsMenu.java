@@ -8,8 +8,6 @@ import javax.swing.JMenuItem;
 
 import java.awt.*;
 
-import static be.dafke.BasicAccounting.Journals.JournalManagementGUI.showJournalManager;
-import static be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI.showJournalTypeManager;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -23,23 +21,38 @@ public class JournalsMenu extends JMenu {
     private JournalTypes journalTypes;
     private Accounts accounts;
     private AccountTypes accountTypes;
-    private JournalEditPanel journalEditPanel;
+//    private JournalEditPanel journalEditPanel;
     private Transactions transactions;
 
-    public JournalsMenu(JournalEditPanel journalEditPanel) {
+    public JournalsMenu() {
         super(getBundle("Accounting").getString("JOURNALS"));
-        this.journalEditPanel = journalEditPanel;
+//        this.journalEditPanel = journalEditPanel;
 //        setMnemonic(KeyEvent.VK_P);
         add = new JMenuItem(getBundle("Accounting").getString("ADD_JOURNAL"));
-        add.addActionListener(e -> NewJournalGUI.getInstance(accounts, journals, journalTypes, accountTypes).setVisible(true));
+        add.addActionListener(e -> {
+            Point locationOnScreen = getLocationOnScreen();
+            NewJournalGUI newJournalGUI = NewJournalGUI.getInstance(accounts, journals, journalTypes, accountTypes);
+            newJournalGUI.setLocation(locationOnScreen);
+            newJournalGUI.setVisible(true);
+        });
         add.setEnabled(false);
 
         manage = new JMenuItem(getBundle("Accounting").getString("MANAGE_JOURNALS"));
-        manage.addActionListener(e -> showJournalManager(accounts, journals, journalTypes, accountTypes).setVisible(true));
+        manage.addActionListener(e -> {
+            Point locationOnScreen = getLocationOnScreen();
+            JournalManagementGUI journalManagementGUI = JournalManagementGUI.getInstance(accounts, journals, journalTypes, accountTypes);
+            journalManagementGUI.setLocation(locationOnScreen);
+            journalManagementGUI.setVisible(true);
+        });
         manage.setEnabled(false);
 
         types = new JMenuItem(getBundle("Accounting").getString("MANAGE_JOURNAL_TYPES"));
-        types.addActionListener(e -> showJournalTypeManager(accounts, journalTypes,accountTypes));
+        types.addActionListener(e -> {
+            Point locationOnScreen = getLocationOnScreen();
+            JournalTypeManagementGUI journalTypeManagementGUI = JournalTypeManagementGUI.getInstance(accounts, journalTypes, accountTypes);
+            journalTypeManagementGUI.setLocation(locationOnScreen);
+            journalTypeManagementGUI.setVisible(true);
+        });
         types.setEnabled(false);
 
         generatePdf = new JMenuItem(getBundle("BusinessModel").getString("GENERATE_PDF"));

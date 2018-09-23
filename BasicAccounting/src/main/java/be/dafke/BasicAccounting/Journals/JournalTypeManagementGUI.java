@@ -36,14 +36,14 @@ public class JournalTypeManagementGUI extends JFrame {
 		pack();
 	}
 
-	public static void showJournalTypeManager(Accounts accounts, JournalTypes journalTypes, AccountTypes accountTypes) {
+	public static JournalTypeManagementGUI getInstance(Accounts accounts, JournalTypes journalTypes, AccountTypes accountTypes) {
 		JournalTypeManagementGUI gui = journalTypeManagementGuis.get(journalTypes);
 		if(gui == null){
 			gui = new JournalTypeManagementGUI(accounts, journalTypes, accountTypes);
 			journalTypeManagementGuis.put(journalTypes,gui);
 			Main.addFrame(gui);
 		}
-		gui.setVisible(true);
+		return gui;
 	}
 
 

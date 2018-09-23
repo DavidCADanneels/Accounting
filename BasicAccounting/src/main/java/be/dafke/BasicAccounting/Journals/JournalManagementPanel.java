@@ -12,7 +12,6 @@ import javax.swing.table.TableColumn;
 import java.awt.*;
 import java.util.ArrayList;
 
-import static be.dafke.BasicAccounting.Journals.JournalTypeManagementGUI.showJournalTypeManager;
 import static java.util.ResourceBundle.getBundle;
 
 public class JournalManagementPanel extends JPanel implements ListSelectionListener {
@@ -77,8 +76,18 @@ public class JournalManagementPanel extends JPanel implements ListSelectionListe
             newJournalGUI.setJournal(journal);
             newJournalGUI.setVisible(true);
         });
-        newType.addActionListener(e -> showJournalTypeManager(accounts, journalTypes,accountTypes));
-        add.addActionListener(e -> NewJournalGUI.getInstance(accounts, journals, journalTypes, accountTypes).setVisible(true));
+        newType.addActionListener(e -> {
+            Point locationOnScreen = getLocationOnScreen();
+            JournalTypeManagementGUI journalTypeManagementGUI = JournalTypeManagementGUI.getInstance(accounts, journalTypes, accountTypes);
+            journalTypeManagementGUI.setLocation(locationOnScreen);
+            journalTypeManagementGUI.setVisible(true);
+        });
+        add.addActionListener(e -> {
+            Point locationOnScreen = getLocationOnScreen();
+            NewJournalGUI newJournalGUI = NewJournalGUI.getInstance(accounts, journals, journalTypes, accountTypes);
+            newJournalGUI.setLocation(locationOnScreen);
+            newJournalGUI.setVisible(true);
+        });
         delete.setEnabled(false);
         edit.setEnabled(false);
         south.add(delete);

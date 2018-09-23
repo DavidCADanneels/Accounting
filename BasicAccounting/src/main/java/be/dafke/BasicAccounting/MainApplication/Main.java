@@ -150,7 +150,7 @@ public class Main {
 
         accountingMenu = new AccountingMenu(accountings);
         accountsMenu = new AccountsMenu(journalEditPanel);
-        journalsMenu = new JournalsMenu(journalEditPanel);
+        journalsMenu = new JournalsMenu();
         balancesMenu = new BalancesMenu(journalEditPanel);
         contactsMenu = new ContactsMenu();
         goodsMenu = new GoodsMenu();

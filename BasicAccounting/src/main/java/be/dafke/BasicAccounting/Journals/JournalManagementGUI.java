@@ -22,7 +22,7 @@ public class JournalManagementGUI extends JFrame {
 		pack();
 	}
 
-    public static JournalManagementGUI showJournalManager(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
+    public static JournalManagementGUI getInstance(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         JournalManagementGUI gui = journalManagementGuis.get(journals);
         if(gui == null){
             gui = new JournalManagementGUI(accounts, journals, journalTypes, accountTypes);
