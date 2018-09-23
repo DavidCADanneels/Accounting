@@ -45,14 +45,14 @@ public class AccountingSettingsPanel extends JFrame implements ActionListener{
         pack();
     }
 
-    public static void showPanel(Accounting accounting){
+    public static AccountingSettingsPanel showPanel(Accounting accounting){
         AccountingSettingsPanel accountingSettingsPanel = accountingSettingsMap.get(accounting);
         if(accountingSettingsPanel == null){
             accountingSettingsPanel = new AccountingSettingsPanel(accounting);
             accountingSettingsMap.put(accounting,accountingSettingsPanel);
             Main.addFrame(accountingSettingsPanel);
         }
-        accountingSettingsPanel.setVisible(true);
+        return accountingSettingsPanel;
     }
 
     private void setActions() {

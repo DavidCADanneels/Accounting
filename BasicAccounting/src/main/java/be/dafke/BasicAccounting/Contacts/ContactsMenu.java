@@ -20,15 +20,27 @@ public class ContactsMenu extends JMenu {
         super(getBundle("Contacts").getString("CONTACTS"));
 //        setMnemonic(KeyEvent.VK_P);
         suppliers = new JMenuItem(getBundle("Contacts").getString("SUPPLIERS"));
-        suppliers.addActionListener(e -> ContactsGUI.showSuppliers(contacts).setVisible(true));
+        suppliers.addActionListener(e -> {
+            ContactsGUI contactsGUI = ContactsGUI.showSuppliers(contacts);
+            contactsGUI.setLocation(getLocationOnScreen());
+            contactsGUI.setVisible(true);
+        });
         suppliers.setEnabled(false);
 
         customers = new JMenuItem(getBundle("Contacts").getString("CUSTOMERS"));
-        customers.addActionListener(e -> ContactsGUI.showCustomers(contacts).setVisible(true));
+        customers.addActionListener(e -> {
+            ContactsGUI contactsGUI = ContactsGUI.showCustomers(contacts);
+            contactsGUI.setLocation(getLocationOnScreen());
+            contactsGUI.setVisible(true);
+        });
         customers.setEnabled(false);
 
         all = new JMenuItem(getBundle("Contacts").getString("ALL"));
-        all.addActionListener(e -> ContactsGUI.showContacts(contacts).setVisible(true));
+        all.addActionListener(e -> {
+            ContactsGUI contactsGUI = ContactsGUI.showContacts(contacts);
+            contactsGUI.setLocation(getLocationOnScreen());
+            contactsGUI.setVisible(true);
+        });
         all.setEnabled(false);
 
         add(customers);

@@ -18,32 +18,31 @@ import java.util.List;
 import static be.dafke.BusinessModelDao.VATWriter.Period.QUARTER;
 import static javax.swing.BoxLayout.Y_AXIS;
 
-public class VATFieldsPanel extends JPanel {
-    public static final String CREATE_FILE = "Create file";
-    public static final String SALES_AT_0 = "Sales at 0%";
-    public static final String SALES_AT_6 = "Sales at 6%";
-    public static final String SALES_AT_12 = "Sales at 12%";
-    public static final String SALES_AT_21 = "Sales at 21%";
-    public static final String TAX_ON_SALES_0_3 = "Tax on Sales (0-3)";
-    public static final String CN_ON_SALES = "CN on Sales";
-    public static final String TAX_ON_CN = "Tax on CN";
-    public static final String TAX_ON_ICL = "Tax on ICL";
-    public static final String SALES_ICL_TURNOVER = "Turnover ICL";
-    public static final String PURCHASE_OF_SUPPLIES = "Purchase of supplies";
-    public static final String PURCHASE_OF_SERVICES = "Purchase of services";
-    public static final String PURCHASE_OF_INVESTMENTS = "Purchase of investments";
-    public static final String PURCHASE_ICL = "Purchase ICL";
-    public static final String TAX_ON_PURCHASES_81_83 = "Tax on Purchases (81-83)";
-    public static final String CN_ON_PURCHASES = "CN on Purchases";
+class VATFieldsPanel extends JPanel {
+    private static final String CREATE_FILE = "Create file";
+    private static final String SALES_AT_0 = "Sales at 0%";
+    private static final String SALES_AT_6 = "Sales at 6%";
+    private static final String SALES_AT_12 = "Sales at 12%";
+    private static final String SALES_AT_21 = "Sales at 21%";
+    private static final String TAX_ON_SALES_0_3 = "Tax on Sales (0-3)";
+    private static final String CN_ON_SALES = "CN on Sales";
+    private static final String TAX_ON_CN = "Tax on CN";
+    private static final String TAX_ON_ICL = "Tax on ICL";
+    private static final String SALES_ICL_TURNOVER = "Turnover ICL";
+    private static final String PURCHASE_OF_SUPPLIES = "Purchase of supplies";
+    private static final String PURCHASE_OF_SERVICES = "Purchase of services";
+    private static final String PURCHASE_OF_INVESTMENTS = "Purchase of investments";
+    private static final String PURCHASE_ICL = "Purchase ICL";
+    private static final String TAX_ON_PURCHASES_81_83 = "Tax on Purchases (81-83)";
+    private static final String CN_ON_PURCHASES = "CN on Purchases";
     private Accounting accounting;
     private VATFields vatFields;
     private HashMap<String,JTextField> textFields = new HashMap<>();
-    List<VATTransaction> selectedVatTransactions;
+    private List<VATTransaction> selectedVatTransactions;
 
-    public VATFieldsPanel(VATFields vatFields, Accounting accounting, List<VATTransaction> selectedVatTransactions) {
+    VATFieldsPanel(VATFields vatFields, Accounting accounting, List<VATTransaction> selectedVatTransactions) {
         this.accounting = accounting;
         this.selectedVatTransactions = selectedVatTransactions;
-        this.accounting = accounting;
         this.vatFields = vatFields;
         JPanel left = createSalesPanel();
         JPanel right = createPurchasePanel();
@@ -54,7 +53,6 @@ public class VATFieldsPanel extends JPanel {
         add(right);
         add(totals);
         add(buttonPanel);
-
     }
 
     private JPanel createFieldPanel(String nr, String description){
@@ -78,7 +76,7 @@ public class VATFieldsPanel extends JPanel {
         return panel;
     }
 
-    public void updateVATFields(){
+    void updateVATFields(){
         for (String nr: textFields.keySet()){
             JTextField textField = textFields.get(nr);
             VATField vatField = vatFields.getBusinessObject(nr);

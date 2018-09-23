@@ -14,7 +14,7 @@ import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
 import java.math.BigDecimal;
 
-public class MortgageCalculatorPanel extends JPanel implements ActionListener, FocusListener {
+public class MortgageCalculatorPanel extends JPanel implements FocusListener {
     private final JTextField amountField, months, yearPercent, monthPercent, mensField, totalIntrestFixed,
             totalToPayFixed, totalIntrestDegres, totalToPayDegres, totalIntrestDifference, totalToPayDifference;
     private final JButton converter, create;
@@ -48,9 +48,15 @@ public class MortgageCalculatorPanel extends JPanel implements ActionListener, F
         mensField.addFocusListener(this);
 
         converter = new JButton("Bereken mensualiteit");
-        converter.addActionListener(this);
+        converter.addActionListener(e -> {
+            berekenMensualiteit();
+            activateButtons();
+        });
         create = new JButton("Create Table");
-        create.addActionListener(this);
+        create.addActionListener(e -> {
+            createTable();
+            activateButtons();
+        });
 
         converter.setEnabled(false);
         create.setEnabled(false);
@@ -115,15 +121,6 @@ public class MortgageCalculatorPanel extends JPanel implements ActionListener, F
         add(line4);
     }
 
-    public void actionPerformed(ActionEvent e) {
-        if (e.getSource() == converter) {
-            berekenMensualiteit();
-        } else if (e.getSource() == create) {
-            createTable();
-        }
-        activateButtons();
-    }
-
     private void activateButtons() {
         if (maandPercentage != null && startKapitaal != null && aantalMaanden != 0) {
             converter.setEnabled(true);
@@ -154,6 +151,7 @@ public class MortgageCalculatorPanel extends JPanel implements ActionListener, F
             newMortgage.setStartCapital(startKapitaal);
             MortgageTable gui = new MortgageTable(newMortgage, startKapitaal, mortgages);
             Main.addFrame(gui);
+            gui.setLocation(getLocationOnScreen());
             gui.setVisible(true);
         }
     }

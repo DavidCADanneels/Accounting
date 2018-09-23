@@ -43,7 +43,11 @@ public class MortgagePanel extends JPanel implements ActionListener {
             select();
         });
         create = new JButton("Create new Mortgage table");
-        create.addActionListener(e -> MortgageCalculatorGUI.showCalculator(mortgages).setVisible(true));
+        create.addActionListener(e -> {
+            MortgageCalculatorGUI mortgageCalculatorGUI = MortgageCalculatorGUI.showCalculator(mortgages);
+            mortgageCalculatorGUI.setLocation(getLocationOnScreen());
+            mortgageCalculatorGUI.setVisible(true);
+        });
 
         JPanel left = new JPanel(new BorderLayout());
         left.add(mortgagesList, BorderLayout.CENTER);

@@ -7,6 +7,7 @@ import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.JMenuItem;
 import javax.swing.JPopupMenu;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -28,6 +29,7 @@ public class VATTransactionsPopupMenu extends JPopupMenu {
     }
 
     private void book() {
+        Point locationOnScreen = getLocationOnScreen();
         setVisible(false);
         ArrayList<VATBooking> selectedObjects = table.getSelectedObjects();
 //        selectedObjects.forEach(vatBooking -> vatBooking.getVatTransaction());
@@ -38,6 +40,8 @@ public class VATTransactionsPopupMenu extends JPopupMenu {
                 transactions.add(vatTransaction);
             }
         });
-        VATFieldsGUI.getInstance(transactions, accounting).setVisible(true);
+        VATFieldsGUI vatFieldsGUI = VATFieldsGUI.getInstance(transactions, accounting);
+        vatFieldsGUI.setLocation(locationOnScreen);
+        vatFieldsGUI.setVisible(true);
     }
 }

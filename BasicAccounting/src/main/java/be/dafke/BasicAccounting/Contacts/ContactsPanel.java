@@ -27,7 +27,11 @@ public class ContactsPanel extends JPanel implements ListSelectionListener {
         this.contacts = contacts;
 
         JButton create = new JButton(getBundle("Contacts").getString("NEW_CONTACT"));
-        create.addActionListener(e -> new NewContactDialog(contacts).setVisible(true));
+        create.addActionListener(e -> {
+            NewContactDialog newContactDialog = new NewContactDialog(contacts);
+            newContactDialog.setLocation(getLocationOnScreen());
+            newContactDialog.setVisible(true);
+        });
 
         JButton createList = new JButton(getBundle("Contacts").getString("CUSTUMER_LISTING"));
         createList.addActionListener(e -> createCustomerListing());

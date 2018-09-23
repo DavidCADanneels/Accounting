@@ -32,23 +32,31 @@ public class StockPanel extends JPanel {
 
         createPurchaseOrder = new JButton(getBundle("Accounting").getString("CREATE_PO"));
         createPurchaseOrder.addActionListener(e -> {
-            PurchaseOrderCreateGUI.showPurchaseOrderGUI(accounting).setVisible(true);
+            PurchaseOrderCreateGUI purchaseOrderCreateGUI = PurchaseOrderCreateGUI.showPurchaseOrderGUI(accounting);
+            purchaseOrderCreateGUI.setLocation(getLocationOnScreen());
+            purchaseOrderCreateGUI.setVisible(true);
         });
 
         createSalesOrder = new JButton(getBundle("Accounting").getString("CREATE_SO"));
         createSalesOrder.addActionListener(e -> {
-            SalesOrderCreateGUI.showSalesOrderGUI(accounting).setVisible(true);
+            SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderGUI(accounting);
+            salesOrderCreateGUI.setLocation(getLocationOnScreen());
+            salesOrderCreateGUI.setVisible(true);
         });
 
 
         viewPurchaseOrder = new JButton(getBundle("Accounting").getString("VIEW_PO"));
         viewPurchaseOrder.addActionListener(e -> {
-            PurchaseOrdersViewGUI.showPurchaseOrderGUI(accounting).setVisible(true);
+            PurchaseOrdersViewGUI purchaseOrdersViewGUI = PurchaseOrdersViewGUI.showPurchaseOrderGUI(accounting);
+            purchaseOrdersViewGUI.setLocation(getLocationOnScreen());
+            purchaseOrdersViewGUI.setVisible(true);
         });
 
         viewSalesOrder = new JButton(getBundle("Accounting").getString("VIEW_SO"));
         viewSalesOrder.addActionListener(e -> {
-            SalesOrdersViewGUI.showSalesOrderGUI(accounting).setVisible(true);
+            SalesOrdersViewGUI salesOrdersViewGUI = SalesOrdersViewGUI.showSalesOrderGUI(accounting);
+            salesOrdersViewGUI.setLocation(getLocationOnScreen());
+            salesOrdersViewGUI.setVisible(true);
         });
 
 

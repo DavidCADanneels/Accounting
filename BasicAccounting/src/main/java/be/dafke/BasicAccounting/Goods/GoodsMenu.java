@@ -28,14 +28,18 @@ public class GoodsMenu extends JMenu {
         articlesTable = new JMenuItem(getBundle("Accounting").getString("ARTICLES"));
         articlesTable.setMnemonic(KeyEvent.VK_A);
         articlesTable.addActionListener(e -> {
-            ArticlesGUI.showArticles(articles, contacts).setVisible(true);
+            ArticlesGUI articlesGUI = ArticlesGUI.showArticles(articles, contacts);
+            articlesGUI.setLocation(getLocationOnScreen());
+            articlesGUI.setVisible(true);
         });
         articlesTable.setEnabled(false);
 
         stockTable = new JMenuItem(getBundle("Accounting").getString("STOCK"));
         stockTable.setMnemonic(KeyEvent.VK_S);
         stockTable.addActionListener(e -> {
-            StockGUI.showStock(accounting).setVisible(true);
+            StockGUI stockGUI = StockGUI.showStock(accounting);
+            stockGUI.setLocation(getLocationOnScreen());
+            stockGUI.setVisible(true);
         });
         stockTable.setEnabled(false);
 

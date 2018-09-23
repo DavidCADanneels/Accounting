@@ -24,12 +24,20 @@ public class ProjectsMenu extends JMenu {
 //        setMnemonic(KeyEvent.VK_P);
         manage = new JMenuItem(getBundle("Projects").getString(
                 "PROJECTMANAGER"));
-        manage.addActionListener(e -> ProjectManagementGUI.showManager(accounts, accountTypes, projects).setVisible(true));
+        manage.addActionListener(e -> {
+            ProjectManagementGUI projectManagementGUI = ProjectManagementGUI.showManager(accounts, accountTypes, projects);
+            projectManagementGUI.setLocation(getLocationOnScreen());
+            projectManagementGUI.setVisible(true);
+        });
         manage.setEnabled(false);
 
         project = new JMenuItem(getBundle("Projects").getString(
                 "PROJECTS"));
-        project.addActionListener(e -> ProjectGUI.showProjects(accounts, accountTypes, projects).setVisible(true));
+        project.addActionListener(e -> {
+            ProjectGUI projectGUI = ProjectGUI.showProjects(accounts, accountTypes, projects);
+            projectGUI.setLocation(getLocationOnScreen());
+            projectGUI.setVisible(true);
+        });
         project.setEnabled(false);
 
         add(project);

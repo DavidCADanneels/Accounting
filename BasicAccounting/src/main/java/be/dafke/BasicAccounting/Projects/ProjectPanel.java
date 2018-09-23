@@ -33,7 +33,11 @@ public class ProjectPanel extends JPanel{
         });
         //
         manage = new JButton(getBundle("Projects").getString("PROJECTMANAGER"));
-        manage.addActionListener(e -> ProjectManagementGUI.showManager(accounts, accountTypes, projects).setVisible(true));
+        manage.addActionListener(e -> {
+            ProjectManagementGUI projectManagementGUI = ProjectManagementGUI.showManager(accounts, accountTypes, projects);
+            projectManagementGUI.setLocation(getLocationOnScreen());
+            projectManagementGUI.setVisible(true);
+        });
         //
         noord.add(combo);
         noord.add(manage);

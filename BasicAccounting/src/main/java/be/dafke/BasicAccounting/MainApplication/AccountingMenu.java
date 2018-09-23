@@ -13,7 +13,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * @author David Danneels
  */
-public class AccountingMenu extends JMenu implements ActionListener {
+public class AccountingMenu extends JMenu {
     private JMenuItem startNew;
     private JMenuItem settings;
     private JMenuItem saveHtml;
@@ -24,9 +24,17 @@ public class AccountingMenu extends JMenu implements ActionListener {
         super(getBundle("Accounting").getString("ACCOUNTING"));
         this.accountings = accountings;
         startNew = new JMenuItem(getBundle("Accounting").getString("NEW_ACCOUNTING"));
-        startNew.addActionListener(e -> new NewAccountingPanel(accountings).setVisible(true));
+        startNew.addActionListener(e -> {
+            NewAccountingPanel newAccountingPanel = new NewAccountingPanel(accountings);
+            newAccountingPanel.setLocation(getLocationOnScreen());
+            newAccountingPanel.setVisible(true);
+        });
         settings = new JMenuItem(getBundle("Accounting").getString("SETTINGS"));
-        settings.addActionListener(this);
+        settings.addActionListener(e -> {
+            AccountingSettingsPanel accountingSettingsPanel = AccountingSettingsPanel.showPanel(accounting);
+            accountingSettingsPanel.setLocation(getLocationOnScreen());
+            accountingSettingsPanel.setVisible(true);
+        });
         saveHtml = new JMenuItem(getBundle("Accounting").getString("SAVE_HTML"));
         saveHtml.addActionListener(e -> Main.saveData(true));
 //        add(startNew);
@@ -51,8 +59,4 @@ public class AccountingMenu extends JMenu implements ActionListener {
                 });
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        AccountingSettingsPanel.showPanel(accounting);
-    }
 }

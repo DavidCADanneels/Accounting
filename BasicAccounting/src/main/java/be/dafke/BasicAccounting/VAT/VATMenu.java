@@ -26,11 +26,19 @@ public class VATMenu extends JMenu {
 //        setMnemonic(KeyEvent.VK_P);
 
         vatFieldsMenuItem = new JMenuItem(getBundle("VAT").getString("VAT_FIELDS"));
-        vatFieldsMenuItem.addActionListener(e -> VATFieldsGUI.getInstance(vatFields, accounting).setVisible(true));
+        vatFieldsMenuItem.addActionListener(e -> {
+            VATFieldsGUI vatFieldsGUI = VATFieldsGUI.getInstance(vatFields, accounting);
+            vatFieldsGUI.setLocation(getLocationOnScreen());
+            vatFieldsGUI.setVisible(true);
+        });
         vatFieldsMenuItem.setEnabled(false);
 
         vatTransactionsMenuItem = new JMenuItem(getBundle("VAT").getString("VAT_TRANSACTIONS"));
-        vatTransactionsMenuItem.addActionListener(e -> VATTransactionsGUI.getInstance(vatTransactions).setVisible(true));
+        vatTransactionsMenuItem.addActionListener(e -> {
+            VATTransactionsGUI vatTransactionsGUI = VATTransactionsGUI.getInstance(vatTransactions);
+            vatTransactionsGUI.setLocation(getLocationOnScreen());
+            vatTransactionsGUI.setVisible(true);
+        });
         vatTransactionsMenuItem.setEnabled(false);
 
         add(vatFieldsMenuItem);

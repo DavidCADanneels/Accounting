@@ -21,7 +21,11 @@ public class MorgagesMenu extends JMenu {
         super(getBundle("Mortgage").getString("MORTGAGES"));
 //        setMnemonic(KeyEvent.VK_M);
         mortgage = new JMenuItem("Mortgages");
-        mortgage.addActionListener(e -> MortgageGUI.showMortgages(mortgages, accounts).setVisible(true));
+        mortgage.addActionListener(e -> {
+            MortgageGUI mortgageGUI = MortgageGUI.showMortgages(mortgages, accounts);
+            mortgageGUI.setLocation(getLocationOnScreen());
+            mortgageGUI.setVisible(true);
+        });
         mortgage.setEnabled(false);
         add(mortgage);
     }
