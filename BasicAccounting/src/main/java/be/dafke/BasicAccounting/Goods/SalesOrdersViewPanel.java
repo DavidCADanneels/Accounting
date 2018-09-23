@@ -123,7 +123,6 @@ public class SalesOrdersViewPanel extends JPanel {
         });
         firePurchaseOrderAddedOrRemoved();
 
-
         setLayout(new BorderLayout());
 
         JPanel tablePanel = createTablePanel();
@@ -362,7 +361,8 @@ public class SalesOrdersViewPanel extends JPanel {
 
     public void firePurchaseOrderAddedOrRemoved() {
         comboBox.removeAllItems();
-        salesOrders.getBusinessObjects().forEach(order -> comboBox.addItem(order));
+        salesOrders.getBusinessObjects().forEach(order -> comboBox.insertItemAt(order,0));
+        comboBox.setSelectedIndex(0);
 //        salesOrdersViewDataTableModel.fireTableDataChanged();
     }
 }
