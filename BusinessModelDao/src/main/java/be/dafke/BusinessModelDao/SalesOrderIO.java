@@ -85,6 +85,7 @@ public class SalesOrderIO {
             order.setPlaced(getBooleanValue(salesOrderElement, IS_PLACED));
             order.setDelivered(getBooleanValue(salesOrderElement, IS_DELIVERED));
             order.setInvoice(getBooleanValue(salesOrderElement, INVOICE));
+            order.setInvoiceNumber(getValue(salesOrderElement, INVOICE_NUMBER));
             order.setPayed(getBooleanValue(salesOrderElement, IS_PAYED));
 
             for (Element element : getChildren(salesOrderElement, ARTICLE)) {
@@ -164,9 +165,12 @@ public class SalesOrderIO {
                                  "    <" + CUSTOMER + ">" + order.getCustomer() + "</" + CUSTOMER + ">\n" +
                                  "    <" + IS_PLACED + ">" + order.isPlaced() + "</" + IS_PLACED + ">\n" +
                                  "    <" + IS_DELIVERED + ">" + order.isDelivered() + "</" + IS_DELIVERED + ">\n" +
-                                 "    <" + INVOICE + ">" + order.isInvoice() + "</" + INVOICE + ">\n" +
-                                 "    <" + IS_PAYED + ">" + order.isPayed() + "</" + IS_PAYED + ">\n"
+                                 "    <" + IS_PAYED + ">" + order.isPayed() + "</" + IS_PAYED + ">\n" +
+                                 "    <" + INVOICE + ">" + order.isInvoice() + "</" + INVOICE + ">\n"
                 );
+                if(order.getInvoiceNumber()!=null) {
+                    writer.write("    <" + INVOICE_NUMBER + ">" + order.getInvoiceNumber() + "</" + INVOICE_NUMBER + ">\n");
+                }
                 Transaction salesTransaction = order.getSalesTransaction();
                 if(salesTransaction!=null) {
                     writer.write("    <" + SALES_TRANSACTION + ">" + salesTransaction.getId() + "</" + SALES_TRANSACTION + ">\n");

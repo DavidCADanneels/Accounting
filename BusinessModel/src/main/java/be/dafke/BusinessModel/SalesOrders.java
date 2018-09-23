@@ -11,6 +11,7 @@ public class SalesOrders extends BusinessCollection<SalesOrder>{
     private Account VATAccount;
     private Account stockAccount;
     private Journal salesJournal;
+    private Journal salesNoInvoiceJournal;
     private Journal gainJournal;
     private Account gainAccount;
     private Account salesAccount;
@@ -78,5 +79,13 @@ public class SalesOrders extends BusinessCollection<SalesOrder>{
 
     public void setSalesAccount(Account salesAccount) {
         this.salesAccount = salesAccount;
+    }
+
+    public Journal getSalesNoInvoiceJournal() {
+        return salesNoInvoiceJournal;
+    }
+
+    public void setSalesNoInvoiceJournal(Journal salesNoInvoiceJournal) {
+        this.salesNoInvoiceJournal = salesNoInvoiceJournal;
     }
 }

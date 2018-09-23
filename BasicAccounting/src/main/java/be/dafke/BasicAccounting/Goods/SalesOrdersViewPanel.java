@@ -345,9 +345,17 @@ class SalesOrdersViewPanel extends JPanel {
         gainJournal.addBusinessObject(gainTransaction);
         Main.fireJournalDataChanged(gainJournal);
 
-        Journal salesJournal = salesOrders.getSalesJournal();
-        if (salesJournal==null){
-            salesJournal = setSalesJournal();
+        Journal salesJournal;
+        if(salesOrder.isInvoice()) {
+            salesJournal = salesOrders.getSalesJournal();
+            if (salesJournal == null) {
+                salesJournal = setSalesJournal();
+            }
+        } else {
+            salesJournal = salesOrders.getSalesNoInvoiceJournal();
+            if (salesJournal == null) {
+                salesJournal = setSalesNoInvoiceJournal();
+            }
         }
         salesTransaction.setJournal(salesJournal);
         // TODO: ask for Date and Description
@@ -359,6 +367,15 @@ class SalesOrdersViewPanel extends JPanel {
         Main.setJournal(salesJournal);
         Main.selectTransaction(salesTransaction);
         Main.fireJournalDataChanged(salesJournal);
+    }
+
+    private Journal setSalesNoInvoiceJournal() {
+        JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals());
+        journalSelectorDialog.setTitle("Select Sales (No Invoice) Journal");
+        journalSelectorDialog.setVisible(true);
+        Journal journal = journalSelectorDialog.getSelection();
+        salesOrders.setSalesNoInvoiceJournal(journal);
+        return journal;
     }
 
     void firePurchaseOrderAddedOrRemoved() {

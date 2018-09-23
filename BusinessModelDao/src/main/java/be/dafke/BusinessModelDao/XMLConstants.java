@@ -155,6 +155,7 @@ public class XMLConstants {
     public static final String TAX_RATE = "TaxRate";
     public static final String INVOICES = "Invoices";
     public static final String INVOICE = "Invoice";
+    public static final String INVOICE_NUMBER = "InvoiceNumber";
     public static final String SALE = "Sale";
     public static final String TOTALS = "Totals";
     public static final String TOTAL_EXCL_VAT = "TotalExclVat";

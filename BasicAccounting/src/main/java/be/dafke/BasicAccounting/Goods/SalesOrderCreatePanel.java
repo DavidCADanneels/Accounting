@@ -56,9 +56,7 @@ class SalesOrderCreatePanel extends JPanel {
                     contactSelectorDialog.setVisible(true);
                     noInvoice = contactSelectorDialog.getSelection();
                 }
-                Contact previousContact = contact; // save current value
-                model.setSelectedItem(noInvoice); // selection changes the value
-                contact = previousContact;       // restore the old value
+                model.setSelectedItem(noInvoice);
             }
         });
         //
