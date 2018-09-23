@@ -41,7 +41,7 @@ public class JournalEditPanel extends JPanel implements ActionListener {
     private Journal journal;
     private Transaction transaction;
     private Accounts accounts;
-    private VATTransactions vatTransactions;
+//    private VATTransactions vatTransactions;
     private DateAndDescriptionPanel dateAndDescriptionPanel;
     private Transactions transactions;
 
@@ -299,7 +299,7 @@ public class JournalEditPanel extends JPanel implements ActionListener {
         popup.setAccounting(accounting);
         setAccounts(accounting==null?null:accounting.getAccounts());
         setJournal(accounting==null?null:accounting.getActiveJournal());
-        setVatTransactions(accounting==null?null:accounting.getVatTransactions());
+//        setVatTransactions(accounting==null?null:accounting.getVatTransactions());
         setTransactions(accounting==null?null:accounting.getTransactions());
 
         comboBox=createComboBox();
@@ -313,9 +313,9 @@ public class JournalEditPanel extends JPanel implements ActionListener {
         this.transactions = transactions;
     }
 
-    public void setVatTransactions(VATTransactions vatTransactions) {
-        this.vatTransactions = vatTransactions;
-    }
+//    public void setVatTransactions(VATTransactions vatTransactions) {
+//        this.vatTransactions = vatTransactions;
+//    }
 
     public void setAccounts(Accounts accounts) {
         this.accounts = accounts;

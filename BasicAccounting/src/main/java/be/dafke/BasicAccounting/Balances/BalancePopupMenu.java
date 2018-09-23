@@ -1,12 +1,12 @@
 package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI;
-import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
+import java.awt.Point;
 import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
@@ -30,7 +30,8 @@ public class BalancePopupMenu extends JPopupMenu {
     public void showDetails() {
         ArrayList<Account> accounts = gui.getSelectedObjects();
         for(Account account: accounts) {
-            AccountDetailsGUI.getAccountDetails(account, journals);
+            Point locationOnScreen = getLocationOnScreen();
+            AccountDetailsGUI.getAccountDetails(locationOnScreen, account, journals);
         }
         setVisible(false);
     }

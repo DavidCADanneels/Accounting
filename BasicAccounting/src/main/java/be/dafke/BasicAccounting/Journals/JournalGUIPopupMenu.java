@@ -8,6 +8,7 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
+import java.awt.Point;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 
@@ -105,11 +106,12 @@ public class JournalGUIPopupMenu extends JPopupMenu{
     }
 
     private void showDetails() {
-        setVisible(false);
         ArrayList<Booking> bookings = table.getSelectedObjects();
         for (Booking booking : bookings) {
             Account account = booking.getAccount();
-            AccountDetailsGUI.getAccountDetails(account, journals);
+            Point locationOnScreen = getLocationOnScreen();
+            AccountDetailsGUI.getAccountDetails(locationOnScreen, account, journals);
         }
+        setVisible(false);
     }
 }

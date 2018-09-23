@@ -14,6 +14,7 @@ import javax.swing.border.TitledBorder;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Point;
 import java.util.ArrayList;
 
 import static be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI.showAccountManager;
@@ -72,7 +73,8 @@ public class AccountsTablePanel extends JPanel {
 	public void showDetails(){
         popup.setVisible(false);
         for(Account account : table.getSelectedObjects()){
-            AccountDetailsGUI.getAccountDetails(account, journals);
+            Point location = getLocationOnScreen();
+            AccountDetailsGUI.getAccountDetails(location, account, journals);
         }
     }
 

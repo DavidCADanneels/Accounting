@@ -7,6 +7,7 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -109,13 +110,14 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
     }
 
     private void showDetails() {
-        setVisible(false);
         ArrayList<Booking> bookings = gui.getSelectedObjects();
         for (Booking booking : bookings) {
             Account account = booking.getAccount();
-            AccountDetailsGUI newGui = AccountDetailsGUI.getAccountDetails(account, journals);
+            Point locationOnScreen = getLocationOnScreen();
+            AccountDetailsGUI newGui = AccountDetailsGUI.getAccountDetails(locationOnScreen, account, journals);
             newGui.selectObject(booking);
         }
+        setVisible(false);
     }
 
 }
