@@ -23,14 +23,15 @@ public class ProjectManagementPanel extends JPanel implements ListSelectionListe
     private final PrefixFilterPanel<Account> zoeker;
     private final AlphabeticListModel<Account> allAccountsModel, projectAccountsModel;
     private final JList<Account> allAccounts, projectAccounts;
-    private final JButton moveTo, moveBack, newProject, addAccount;
+    private final JButton moveTo;
+    private final JButton moveBack;
     private final JComboBox<Project> combo;
     private Project project;
     private Accounts accounts;
     private AccountTypes accountTypes;
     private Projects projects;
 
-    public ProjectManagementPanel(Accounts accounts, AccountTypes accountTypes, Projects projects) {
+    ProjectManagementPanel(Accounts accounts, AccountTypes accountTypes, Projects projects) {
         this.accounts = accounts;
         this.accountTypes = accountTypes;
         this.projects = projects;
@@ -48,8 +49,12 @@ public class ProjectManagementPanel extends JPanel implements ListSelectionListe
         moveBack.setEnabled(false);
         onder.add(moveBack);
         //
-        addAccount = new JButton("Add Account");
-        addAccount.addActionListener(e -> new NewAccountDialog(accounts, accountTypes.getBusinessObjects()).setVisible(true));
+        JButton addAccount = new JButton("Add Account");
+        addAccount.addActionListener(e -> {
+            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes.getBusinessObjects());
+            newAccountDialog.setLocation(getLocationOnScreen());
+            newAccountDialog.setVisible(true);
+        });
         onder.add(addAccount);
         //
         // links
@@ -73,7 +78,7 @@ public class ProjectManagementPanel extends JPanel implements ListSelectionListe
         projectAccounts.addListSelectionListener(this);
         projectAccounts.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
         //
-        newProject = new JButton(getBundle("Projects").getString("NEW_PROJECT"));
+        JButton newProject = new JButton(getBundle("Projects").getString("NEW_PROJECT"));
         newProject.addActionListener(e -> createNewProject());
         JPanel noord = new JPanel();
         combo = new JComboBox<>();
@@ -106,7 +111,7 @@ public class ProjectManagementPanel extends JPanel implements ListSelectionListe
         }
     }
 
-    public void moveToProject(){
+    private void moveToProject(){
         for(Account account : allAccounts.getSelectedValuesList()) {
             projectAccountsModel.addElement(account);
             // TODO check if account belongs to another project (and remove it there ?)
@@ -120,7 +125,7 @@ public class ProjectManagementPanel extends JPanel implements ListSelectionListe
         }
     }
 
-    public void removeFromProject(){
+    private void removeFromProject(){
         for(Account account : projectAccounts.getSelectedValuesList()) {
             allAccountsModel.addElement(account);
             try {
@@ -132,7 +137,7 @@ public class ProjectManagementPanel extends JPanel implements ListSelectionListe
         }
     }
 
-    public void createNewProject(){
+    private void createNewProject(){
         String name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
         while (name != null && name.equals(""))
             name = JOptionPane.showInputDialog(getBundle("Projects").getString("ENTER_NAME_FOR_PROJECT"));
@@ -151,7 +156,7 @@ public class ProjectManagementPanel extends JPanel implements ListSelectionListe
         }
     }
 
-    public void comboAction() {
+    private void comboAction() {
         project = (Project) combo.getSelectedItem();
         projectAccountsModel.removeAllElements();
         if(project!=null) {
@@ -164,7 +169,7 @@ public class ProjectManagementPanel extends JPanel implements ListSelectionListe
         }
     }
 
-    public ArrayList<Account> getAccountNoMatchProject(Project project) {
+    private ArrayList<Account> getAccountNoMatchProject(Project project) {
         ArrayList<Account> result = new ArrayList<>();
         for(Account account : accounts.getBusinessObjects()) {
             if (!project.getBusinessObjects().contains(account)){

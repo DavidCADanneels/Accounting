@@ -73,7 +73,7 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 		return comboBox;
 	}
 
-	public static AccountManagementGUI showAccountManager(Accounts accounts, ArrayList<AccountType> accountTypes) {
+	public static AccountManagementGUI getInstance(Accounts accounts, ArrayList<AccountType> accountTypes) {
 		AccountManagementGUI gui = accountManagementGuis.get(accounts);
 		if(gui == null){
 			gui = new AccountManagementGUI(accounts, accountTypes);
@@ -94,11 +94,16 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 			if(selectedRow!=-1) {
 				Account account = accountManagementTableModel.getObject(selectedRow, 0);
 				NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes);
+				newAccountDialog.setLocation(getLocationOnScreen());
 				newAccountDialog.setAccount(account);
 				newAccountDialog.setVisible(true);
 			}
 		});
-		newAccount.addActionListener(e -> new NewAccountDialog(accounts, accountTypes).setVisible(true));
+		newAccount.addActionListener(e -> {
+			NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes);
+			newAccountDialog.setLocation(getLocationOnScreen());
+			newAccountDialog.setVisible(true);
+		});
 		delete.setEnabled(false);
 		edit.setEnabled(false);
         south.add(delete);

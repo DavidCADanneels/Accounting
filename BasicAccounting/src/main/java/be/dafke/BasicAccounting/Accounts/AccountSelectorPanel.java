@@ -14,20 +14,23 @@ import java.util.ArrayList;
  * Created by ddanneels on 14/05/2017.
  */
 public class AccountSelectorPanel extends JPanel {
-    private JButton create;
     private Account account;
     private JComboBox<Account> combo;
     private DefaultComboBoxModel<Account> model;
     private Accounts accounts;
     private ArrayList<AccountType> accountTypes;
 
-    public AccountSelectorPanel(Accounts accounts, ArrayList<AccountType> accountTypes) {
+    AccountSelectorPanel(Accounts accounts, ArrayList<AccountType> accountTypes) {
         this.accountTypes = accountTypes;
         model = new DefaultComboBoxModel<>();
         combo = new JComboBox<>(model);
         combo.addActionListener(e -> account = (Account) combo.getSelectedItem());
-        create = new JButton("Add account(s) ...");
-        create.addActionListener(e -> new NewAccountDialog(accounts, accountTypes).setVisible(true));
+        JButton create = new JButton("Add account(s) ...");
+        create.addActionListener(e -> {
+            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes);
+            newAccountDialog.setLocation(getLocationOnScreen());
+            newAccountDialog.setVisible(true);
+        });
         add(combo);
         add(create);
         setAccounts(accounts);
@@ -39,7 +42,7 @@ public class AccountSelectorPanel extends JPanel {
 
     public void fireAccountDataChanged() {
         model.removeAllElements();
-        accounts.getAccountsByType(accountTypes).stream().forEach(account -> model.addElement(account));
+        accounts.getAccountsByType(accountTypes).forEach(account -> model.addElement(account));
         invalidate();
         combo.invalidate();
     }

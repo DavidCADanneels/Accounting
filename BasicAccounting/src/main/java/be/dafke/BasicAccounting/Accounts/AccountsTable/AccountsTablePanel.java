@@ -2,8 +2,8 @@ package be.dafke.BasicAccounting.Accounts.AccountsTable;
 
 import be.dafke.BasicAccounting.Accounts.*;
 import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI;
+import be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI;
 import be.dafke.BasicAccounting.Accounts.AccountsFilter.AccountFilterPanel;
-import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
@@ -17,7 +17,6 @@ import java.awt.Dimension;
 import java.awt.Point;
 import java.util.ArrayList;
 
-import static be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI.showAccountManager;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -81,13 +80,17 @@ public class AccountsTablePanel extends JPanel {
     public void manageAccounts(){
         popup.setVisible(false);
         ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
-        showAccountManager(accounts, accountTypes).setVisible(true);
+        AccountManagementGUI accountManagementGUI = AccountManagementGUI.getInstance(accounts, accountTypes);
+        accountManagementGUI.setLocation(getLocationOnScreen());
+        accountManagementGUI.setVisible(true);
     }
 
     public void addAccount(){
         popup.setVisible(false);
         ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
-        new NewAccountDialog(accounts, accountTypes).setVisible(true);
+        NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes);
+        newAccountDialog.setLocation(getLocation());
+        newAccountDialog.setVisible(true);
     }
 
     public void editAccount(){

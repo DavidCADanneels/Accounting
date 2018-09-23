@@ -149,7 +149,7 @@ public class Main {
         menuBar = new JMenuBar();
 
         accountingMenu = new AccountingMenu(accountings);
-        accountsMenu = new AccountsMenu(journalEditPanel);
+        accountsMenu = new AccountsMenu();
         journalsMenu = new JournalsMenu();
         balancesMenu = new BalancesMenu(journalEditPanel);
         contactsMenu = new ContactsMenu();

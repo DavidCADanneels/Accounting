@@ -25,7 +25,11 @@ public class AccountsListSingleAccountSelectorPanel extends JPanel {
         combo = new JComboBox<>(model);
         combo.addActionListener(e -> selectionChanged());
         create = new JButton("Add account(s) ...");
-        create.addActionListener(e -> new NewAccountDialog(accounts, accountTypes.getBusinessObjects()).setVisible(true));
+        create.addActionListener(e -> {
+            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes.getBusinessObjects());
+            newAccountDialog.setLocation(getLocationOnScreen());
+            newAccountDialog.setVisible(true);
+        });
         add(combo);
         add(create);
         accounts.getBusinessObjects().stream().forEach(account -> model.addElement(account));

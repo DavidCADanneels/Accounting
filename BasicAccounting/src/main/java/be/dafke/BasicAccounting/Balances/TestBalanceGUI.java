@@ -22,14 +22,13 @@ public class TestBalanceGUI extends JFrame {
 		pack();
 	}
 
-	public static TestBalanceGUI getTestBalance(Journals journals, Accounts accounts) {
+	public static TestBalanceGUI getInstance(Journals journals, Accounts accounts) {
 		TestBalanceGUI testBalanceGUI = testBalanceMap.get(accounts);
 		if(testBalanceGUI ==null){
 			testBalanceGUI = new TestBalanceGUI(journals, accounts);
 			testBalanceMap.put(accounts, testBalanceGUI);
 			Main.addFrame(testBalanceGUI);
 		}
-		testBalanceGUI.setVisible(true);
 		return testBalanceGUI;
 	}
 
