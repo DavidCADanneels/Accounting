@@ -84,6 +84,7 @@ public class SalesOrderIO {
 
             order.setPlaced(getBooleanValue(salesOrderElement, IS_PLACED));
             order.setDelivered(getBooleanValue(salesOrderElement, IS_DELIVERED));
+            order.setInvoice(getBooleanValue(salesOrderElement, INVOICE));
             order.setPayed(getBooleanValue(salesOrderElement, IS_PAYED));
 
             for (Element element : getChildren(salesOrderElement, ARTICLE)) {
@@ -163,6 +164,7 @@ public class SalesOrderIO {
                                  "    <" + CUSTOMER + ">" + order.getCustomer() + "</" + CUSTOMER + ">\n" +
                                  "    <" + IS_PLACED + ">" + order.isPlaced() + "</" + IS_PLACED + ">\n" +
                                  "    <" + IS_DELIVERED + ">" + order.isDelivered() + "</" + IS_DELIVERED + ">\n" +
+                                 "    <" + INVOICE + ">" + order.isInvoice() + "</" + INVOICE + ">\n" +
                                  "    <" + IS_PAYED + ">" + order.isPayed() + "</" + IS_PAYED + ">\n"
                 );
                 Transaction salesTransaction = order.getSalesTransaction();

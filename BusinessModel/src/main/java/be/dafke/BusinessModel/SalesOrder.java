@@ -8,6 +8,7 @@ public class SalesOrder extends Order {
 
     private Transaction salesTransaction, gainTransaction;
     private String invoiceNumber = "";
+    private boolean invoice = false;
 
     public BigDecimal getTotalPurchasePriceExclVat() {
         BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
@@ -103,5 +104,13 @@ public class SalesOrder extends Order {
 
     public void setInvoiceNumber(String invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
+    }
+
+    public boolean isInvoice() {
+        return invoice;
+    }
+
+    public void setInvoice(boolean invoice) {
+        this.invoice = invoice;
     }
 }
