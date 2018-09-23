@@ -106,12 +106,12 @@ public class JournalGUIPopupMenu extends JPopupMenu{
     }
 
     private void showDetails() {
+        Point locationOnScreen = getLocationOnScreen();
+        setVisible(false);
         ArrayList<Booking> bookings = table.getSelectedObjects();
         for (Booking booking : bookings) {
             Account account = booking.getAccount();
-            Point locationOnScreen = getLocationOnScreen();
             AccountDetailsGUI.getAccountDetails(locationOnScreen, account, journals);
         }
-        setVisible(false);
     }
 }
