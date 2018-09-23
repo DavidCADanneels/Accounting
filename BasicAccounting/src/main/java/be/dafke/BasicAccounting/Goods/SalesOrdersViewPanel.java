@@ -25,7 +25,7 @@ import java.util.List;
  * Date: 29-12-13
  * Time: 22:07
  */
-public class SalesOrdersViewPanel extends JPanel {
+class SalesOrdersViewPanel extends JPanel {
     private final JButton placeOrderButton, deliveredButton, payedButton, createInvoiceButton;
     private final SelectableTable<OrderItem> table;
     private final SalesOrders salesOrders;
@@ -37,7 +37,7 @@ public class SalesOrdersViewPanel extends JPanel {
     private final SalesOrdersViewDataTableModel salesOrdersViewDataTableModel;
     private SaleTotalsPanel salesTotalsPanel;
 
-    public SalesOrdersViewPanel(Accounting accounting) {
+    SalesOrdersViewPanel(Accounting accounting) {
         this.accounting = accounting;
         this.salesOrders = accounting.getSalesOrders();
         salesOrdersViewDataTableModel = new SalesOrdersViewDataTableModel();
@@ -180,7 +180,7 @@ public class SalesOrdersViewPanel extends JPanel {
         customerName.setText(salesOrder!=null&&salesOrder.getCustomer()!=null?salesOrder.getCustomer().getName():"");
     }
 
-    public Journal setSalesJournal(){
+    private Journal setSalesJournal(){
         JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals());
         journalSelectorDialog.setTitle("Select Sales Journal");
         journalSelectorDialog.setVisible(true);
@@ -189,7 +189,7 @@ public class SalesOrdersViewPanel extends JPanel {
         return journal;
     }
 
-    public Journal setGainJournal(){
+    private Journal setGainJournal(){
         JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals());
         journalSelectorDialog.setTitle("Select Gain Journal");
         journalSelectorDialog.setVisible(true);
@@ -359,7 +359,7 @@ public class SalesOrdersViewPanel extends JPanel {
         Main.fireJournalDataChanged(salesJournal);
     }
 
-    public void firePurchaseOrderAddedOrRemoved() {
+    void firePurchaseOrderAddedOrRemoved() {
         comboBox.removeAllItems();
         salesOrders.getBusinessObjects().forEach(order -> comboBox.insertItemAt(order,0));
         comboBox.setSelectedIndex(0);

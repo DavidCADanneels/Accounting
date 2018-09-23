@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.Goods;
 
 
-import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -18,18 +18,18 @@ import static be.dafke.BasicAccounting.Goods.SalesOrdersViewGUI.fireSalesOrderAd
  * Date: 29-12-13
  * Time: 22:07
  */
-public class SalesOrderCreatePanel extends JPanel {
-    private final JButton orderButton;
-    private final SelectableTable<OrderItem> table;
+class SalesOrderCreatePanel extends JPanel {
+    private Contact noInvoice = null;
     private SalesOrder order;
+    private JCheckBox invoice;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
     private Articles articles;
     private Contact contact;
-    Predicate<Contact> filter;
+    private Predicate<Contact> filter;
     private final SalesOrderCreateDataTableModel salesOrderCreateDataTableModel;
 
-    public SalesOrderCreatePanel(Accounting accounting) {
+    SalesOrderCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
         order = new SalesOrder();
@@ -37,20 +37,45 @@ public class SalesOrderCreatePanel extends JPanel {
 
         SaleTotalsPanel saleTotalsPanel = new SaleTotalsPanel();
         salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, null, order, saleTotalsPanel);
-        table = new SelectableTable<>(salesOrderCreateDataTableModel);
+        SelectableTable<OrderItem> table = new SelectableTable<>(salesOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
 
+        invoice = new JCheckBox("Invoice");
+        invoice.addActionListener(e -> {
+            comboBox.setEnabled(invoice.isSelected());
+            order.setInvoice(invoice.isSelected());
+            ComboBoxModel<Contact> model = comboBox.getModel();
+            if(invoice.isSelected()) {
+                model.setSelectedItem(contact);
+            } else {
+                if(noInvoice == null){
+                    ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(contacts, Contact.ContactType.CUSTOMERS);
+                    contactSelectorDialog.setLocation(getLocationOnScreen());
+                    contactSelectorDialog.setVisible(true);
+                    noInvoice = contactSelectorDialog.getSelection();
+                }
+                Contact previousContact = contact; // save current value
+                model.setSelectedItem(noInvoice); // selection changes the value
+                contact = previousContact;       // restore the old value
+            }
+        });
+        //
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {
             contact = (Contact) comboBox.getSelectedItem();
             salesOrderCreateDataTableModel.setContact(contact);
         });
+        comboBox.setEnabled(false);
+        JPanel north = new JPanel();
+        north.add(invoice);
+        north.add(comboBox);
+
         filter = Contact::isCustomer;
         fireCustomerAddedOrRemoved();
 
-        orderButton = new JButton("Book Order");
+        JButton orderButton = new JButton("Book Order");
         orderButton.addActionListener(e -> {
             SalesOrders salesOrders = accounting.getSalesOrders();
             order.setCustomer(contact);
@@ -74,12 +99,13 @@ public class SalesOrderCreatePanel extends JPanel {
 
         JScrollPane scrollPane = new JScrollPane(table);
         setLayout(new BorderLayout());
+
         add(scrollPane, BorderLayout.CENTER);
-        add(comboBox, BorderLayout.NORTH);
+        add(north, BorderLayout.NORTH);
         add(south, BorderLayout.SOUTH);
     }
 
-    public void fireCustomerAddedOrRemoved() {
+    void fireCustomerAddedOrRemoved() {
         comboBox.removeAllItems();
         contacts.getBusinessObjects(filter).forEach(contact -> comboBox.addItem(contact));
 //        salesOrderDataTableModel.fireTableDataChanged();
