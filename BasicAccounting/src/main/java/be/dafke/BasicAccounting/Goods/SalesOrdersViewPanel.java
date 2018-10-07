@@ -61,8 +61,9 @@ class SalesOrdersViewPanel extends JPanel {
                 }
                 salesOrder.setSupplier(companyContact);
             }
-            if ("".equals(salesOrder.getInvoiceNumber())){
-                String invoiceNumber = JOptionPane.showInputDialog(this, "Enter Invoice Number");
+            String invoiceNumber = salesOrder.getInvoiceNumber();
+            if (invoiceNumber==null || "".equals(invoiceNumber)){
+                invoiceNumber = JOptionPane.showInputDialog(this, "Enter Invoice Number");
                 salesOrder.setInvoiceNumber(invoiceNumber);
             }
 
