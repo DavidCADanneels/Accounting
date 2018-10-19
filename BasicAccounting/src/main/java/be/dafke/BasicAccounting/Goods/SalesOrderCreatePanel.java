@@ -32,6 +32,7 @@ class SalesOrderCreatePanel extends JPanel {
     SalesOrderCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
+        noInvoice=accounting.getContactNoInvoice();
         order = new SalesOrder();
         order.setArticles(articles);
 
@@ -55,6 +56,7 @@ class SalesOrderCreatePanel extends JPanel {
                     contactSelectorDialog.setLocation(getLocationOnScreen());
                     contactSelectorDialog.setVisible(true);
                     noInvoice = contactSelectorDialog.getSelection();
+                    accounting.setContactNoInvoice(noInvoice);
                 }
                 model.setSelectedItem(noInvoice);
             }

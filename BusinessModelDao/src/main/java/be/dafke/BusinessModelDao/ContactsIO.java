@@ -56,10 +56,16 @@ public class ContactsIO {
             Contact companyContact = contacts.getBusinessObject(companyContactName);
             accounting.setCompanyContact(companyContact);
         }
+        String noInvoiceContactName = getValue(rootElement, CONTACT_NO_INVOICE);
+        if(noInvoiceContactName!=null) {
+            Contact noInvoiceContact = contacts.getBusinessObject(noInvoiceContactName);
+            accounting.setContactNoInvoice(noInvoiceContact);
+        }
     }
 
     public static void writeContacts(Accounting accounting){
         Contact companyContact = accounting.getCompanyContact();
+        Contact contactNoInvoice = accounting.getContactNoInvoice();
         Contacts contacts = accounting.getContacts();
         File accountsFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + CONTACTS + XML_EXTENSION);
         try{
@@ -86,6 +92,7 @@ public class ContactsIO {
                 );
             }
             writer.write("  <"+COMPANY_CONTACT+">"+(companyContact==null?"null":companyContact.getName())+"</"+COMPANY_CONTACT+">\n");
+            writer.write("  <"+CONTACT_NO_INVOICE+">"+(contactNoInvoice==null?"null":contactNoInvoice.getName())+"</"+CONTACT_NO_INVOICE+">\n");
             writer.write("</Contacts>");
             writer.flush();
             writer.close();

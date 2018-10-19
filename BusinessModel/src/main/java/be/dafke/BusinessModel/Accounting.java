@@ -22,6 +22,7 @@ public class Accounting extends BusinessObject{
     private VATFields vatFields;
     private Articles articles;
     private Contact companyContact=null;
+    private Contact contactNoInvoice=null;
     private CounterParties counterParties;
     private Statements statements;
     private boolean read = false;
@@ -111,6 +112,10 @@ public class Accounting extends BusinessObject{
         return companyContact;
     }
 
+    public Contact getContactNoInvoice() {
+        return contactNoInvoice;
+    }
+
     public CounterParties getCounterParties() {
         return counterParties;
     }
@@ -189,6 +194,10 @@ public class Accounting extends BusinessObject{
 
     public void setCompanyContact(Contact companyContact) {
         this.companyContact = companyContact;
+    }
+
+    public void setContactNoInvoice(Contact contactNoInvoice) {
+        this.contactNoInvoice = contactNoInvoice;
     }
 
     public Transactions getTransactions() {
