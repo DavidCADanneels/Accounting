@@ -148,6 +148,7 @@ class SalesOrdersViewPanel extends JPanel {
 
         JPanel south = new JPanel();
         south.setLayout(new BoxLayout(south, BoxLayout.Y_AXIS));
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(createInvoiceButton);
         buttonPanel.add(placeOrderButton);

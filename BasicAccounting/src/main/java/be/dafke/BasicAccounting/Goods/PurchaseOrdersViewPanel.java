@@ -95,26 +95,37 @@ public class PurchaseOrdersViewPanel extends JPanel {
         });
         firePurchaseOrderAddedOrRemoved();
 
-        JScrollPane scrollPane = new JScrollPane(table);
         setLayout(new BorderLayout());
-        add(scrollPane, BorderLayout.CENTER);
-        JPanel north = new JPanel();
-        north.add(comboBox);
 
-        north.add(placed);
-        north.add(delivered);
-        north.add(payed);
-        add(north, BorderLayout.NORTH);
+        JPanel tablePanel = createTablePanel();
+        add(tablePanel, BorderLayout.CENTER);
+
+        JPanel statusPanel = new JPanel();
+        statusPanel.add(placed);
+        statusPanel.add(delivered);
+        statusPanel.add(payed);
+        add(statusPanel, BorderLayout.NORTH);
+
         JPanel south = new JPanel(new BorderLayout());
-        south.add(purchaseTotalsPanel);
+        south.setLayout(new BoxLayout(south, BoxLayout.Y_AXIS));
+
         JPanel buttonPanel = new JPanel();
         buttonPanel.add(placeOrderButton);
         buttonPanel.add(deliveredButton);
         buttonPanel.add(payedButton);
 
-        south.add(buttonPanel, BorderLayout.SOUTH);
+        south.add(buttonPanel);
+        south.add(comboBox);
 
         add(south, BorderLayout.SOUTH);
+    }
+
+    private JPanel createTablePanel(){
+        JPanel panel = new JPanel(new BorderLayout());
+        JScrollPane scrollPane = new JScrollPane(table);
+        panel.add(scrollPane,BorderLayout.CENTER);
+        panel.add(purchaseTotalsPanel,BorderLayout.SOUTH);
+        return panel;
     }
 
     private void updateButtonsAndCheckBoxes() {
