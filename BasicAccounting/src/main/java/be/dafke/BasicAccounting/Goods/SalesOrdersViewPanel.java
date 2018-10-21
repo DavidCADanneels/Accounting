@@ -320,6 +320,9 @@ class SalesOrdersViewPanel extends JPanel {
         // For Div
         BigDecimal stockAmount = salesOrder.getTotalPurchasePriceExclVat();
         BigDecimal totalSalesPriceExclVat = salesOrder.getTotalSalesPriceExclVat();
+
+        Transactions transactions = accounting.getTransactions();
+/*
         BigDecimal gainAmount = totalSalesPriceExclVat.subtract(stockAmount);
 
         Booking stockBooking = new Booking(stockAccount, stockAmount, false);
@@ -341,12 +344,11 @@ class SalesOrdersViewPanel extends JPanel {
         gainTransaction.setJournal(gainJournal);
         // TODO: ask for Date and Description
 
-        Transactions transactions = accounting.getTransactions();
         transactions.setId(gainTransaction);
         transactions.addBusinessObject(gainTransaction);
         gainJournal.addBusinessObject(gainTransaction);
         Main.fireJournalDataChanged(gainJournal);
-
+*/
         Journal salesJournal;
         if(salesOrder.isInvoice()) {
             salesJournal = salesOrders.getSalesJournal();
