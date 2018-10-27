@@ -317,12 +317,11 @@ class SalesOrdersViewPanel extends JPanel {
         salesTransaction.addVatTransaction(vatTransaction);
         vatTransaction.setTransaction(salesTransaction);
 
+        Transactions transactions = accounting.getTransactions();
+/*
         // For Div
         BigDecimal stockAmount = salesOrder.getTotalPurchasePriceExclVat();
         BigDecimal totalSalesPriceExclVat = salesOrder.getTotalSalesPriceExclVat();
-
-        Transactions transactions = accounting.getTransactions();
-/*
         BigDecimal gainAmount = totalSalesPriceExclVat.subtract(stockAmount);
 
         Booking stockBooking = new Booking(stockAccount, stockAmount, false);
