@@ -125,5 +125,6 @@ public class NewAccountDialog extends RefreshableDialog {
         numberField.setText(number==null?"":number.toString());
         BigDecimal defaultAmount = account.getDefaultAmount();
         defaultAmountField.setText(defaultAmount==null?"":defaultAmount.toString());
+        type.setSelectedItem(account.getType());
     }
 }
