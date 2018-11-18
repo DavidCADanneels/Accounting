@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Balances;
 
 import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Balance;
 import be.dafke.BusinessModel.Journals;
 
@@ -12,19 +13,19 @@ public class BalanceGUI extends JFrame {
 	private static HashMap<Balance,BalanceGUI> otherBalanceMap = new HashMap<>();
 	private final BalancePanel balancePanel;
 
-	private BalanceGUI(Journals journals, Balance balance) {
+	private BalanceGUI(Accounting accounting, Balance balance) {
 		super(balance.getName());
-		balancePanel = new BalancePanel(journals, balance);
+		balancePanel = new BalancePanel(accounting, balance);
 //		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setContentPane(balancePanel);
 		pack();
 
 	}
 
-	public static BalanceGUI getBalance(Journals journals, Balance balance) {
+	public static BalanceGUI getBalance(Accounting accounting, Balance balance) {
 		BalanceGUI balanceGUI = otherBalanceMap.get(balance);
 		if(balanceGUI==null){
-			balanceGUI = new BalanceGUI(journals, balance);
+			balanceGUI = new BalanceGUI(accounting, balance);
 			otherBalanceMap.put(balance,balanceGUI);
 			Main.addFrame(balanceGUI);
 		}

@@ -47,7 +47,7 @@ public class AccountsMenu extends JMenu {
 
         testBalance = new JMenuItem(getBundle("BusinessModel").getString("TESTBALANCE"));
         testBalance.addActionListener(e -> {
-            TestBalanceGUI testBalanceGUI = TestBalanceGUI.getInstance(journals, accounts);
+            TestBalanceGUI testBalanceGUI = TestBalanceGUI.getInstance(accounting);
             testBalanceGUI.setLocation(getLocationOnScreen());
             testBalanceGUI.setVisible(true);
         });

@@ -75,9 +75,9 @@ public class JournalDetailsPopupMenu extends JPopupMenu {
         Balance relationsBalance = balances.createRelationsBalance(subAccounts);
         Balance resultBalance = balances.createResultBalance(subAccounts);
 
-        BalanceGUI.getBalance(journals, closingBalance).setVisible(true);
-        BalanceGUI.getBalance(journals, resultBalance).setVisible(true);
-        BalanceGUI.getBalance(journals, relationsBalance).setVisible(true);
+        BalanceGUI.getBalance(accounting, closingBalance).setVisible(true);
+        BalanceGUI.getBalance(accounting, resultBalance).setVisible(true);
+        BalanceGUI.getBalance(accounting, relationsBalance).setVisible(true);
 
         // choice 2: year=year of selected transaction
 //        Accounting accounting = Accountings.getActiveAccounting();

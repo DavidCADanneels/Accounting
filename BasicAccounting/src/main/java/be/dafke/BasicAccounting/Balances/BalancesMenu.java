@@ -52,7 +52,7 @@ public class BalancesMenu extends JMenu {
                 String name = balance.getName();
                 JMenuItem item = new JMenuItem(name);
                 item.addActionListener(e -> {
-                    BalanceGUI balanceGUI = BalanceGUI.getBalance(journals, balances.getBusinessObject(name));
+                    BalanceGUI balanceGUI = BalanceGUI.getBalance(accounting, balances.getBusinessObject(name));
                     balanceGUI.setLocation(getLocationOnScreen());
                     balanceGUI.setVisible(true);
                 });
