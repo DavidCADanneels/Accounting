@@ -106,6 +106,11 @@ public class XMLConstants {
     public static final String VATTRANSACTIONS = "VATTransactions";
     public static final String VATTRANSACTION = "VATTransaction";
     public static final String VATBOOKING = "VATBooking";
+    public static final String DELIVEROO_SALES_JOURNAL = "DeliverooSalesJournal";
+    public static final String DELIVEROO_SERVICE_JOURNAL = "DeliverooServiceJournal";
+    public static final String DELIVEROO_SERVICE_ACCOUNT = "DeliverooServiceAccount";
+    public static final String DELIVEROO_BALANCE_ACCOUNT = "DeliverooBalanceAccount";
+    public static final String DELIVEROO_REVENUE_ACCOUNT = "DeliverooRevenueAccount";
     public static final String DEBIT_ACCOUNT = "DebitAccount";
     public static final String CREDIT_ACCOUNT = "CreditAccount";
     public static final String DEBIT_CN_ACCOUNT = "DebitCNAccount";

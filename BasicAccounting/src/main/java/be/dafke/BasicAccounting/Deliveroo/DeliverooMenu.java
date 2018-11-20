@@ -13,7 +13,7 @@ public class DeliverooMenu extends JMenu {
         super("Deliveroo");
         dailyOrders = new JMenuItem("Daily Orders");
         dailyOrders.addActionListener(e -> {
-            DeliverooGUI instance = DeliverooGUI.getInstance();
+            DeliverooGUI instance = DeliverooGUI.getInstance(accounting);
             instance.setVisible(true);
         });
         add(dailyOrders);

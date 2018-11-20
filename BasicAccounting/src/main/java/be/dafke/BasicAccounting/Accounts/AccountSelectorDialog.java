@@ -36,7 +36,7 @@ public class AccountSelectorDialog extends RefreshableDialog {
 	public static AccountSelectorDialog getAccountSelector(Accounts accounts, ArrayList<AccountType> accountTypes, String title){
 		if(accountSelectorDialog ==null){
 			accountSelectorDialog = new AccountSelectorDialog(accounts, accountTypes, title);
-		}
+		} else accountSelectorDialog.setTitle(title);
 		return accountSelectorDialog;
 	}
 
