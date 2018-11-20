@@ -35,6 +35,7 @@ public class XMLReader {
 
     public static final String VAT_ACCOUNTING = "VatAccounting";
     public static final String CONTACTS_ACCOUNTING = "ContactsAccounting";
+    public static final String DELIVEROO_ACCOUNTING = "DeliverooAccounting";
     public static final String PROJECTS_ACCOUNTING = "ProjectsAccounting";
     public static final String MORTGAGES_ACCOUNTING = "MortgagesAccounting";
 
@@ -92,6 +93,10 @@ public class XMLReader {
             String contactsAccountingString = getValue(element, CONTACTS_ACCOUNTING);
             boolean contactsAccounting = Boolean.valueOf(contactsAccountingString);
             accounting.setContactsAccounting(contactsAccounting);
+
+            String deliverooAccountingString = getValue(element, DELIVEROO_ACCOUNTING);
+            boolean deliverooAccounting = Boolean.valueOf(deliverooAccountingString);
+            accounting.setDeliverooAccounting(deliverooAccounting);
 
             String mortgagesAccountingString = getValue(element, MORTGAGES_ACCOUNTING);
             boolean mortgagesAccounting = Boolean.valueOf(mortgagesAccountingString);

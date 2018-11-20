@@ -16,7 +16,7 @@ public class NewJournalDialog extends RefreshableDialog {
 
     public NewJournalDialog(Accounts accounts, Journals journals, JournalTypes journalTypes, AccountTypes accountTypes) {
         super(getBundle("Accounting").getString("NEW_JOURNAL_GUI_TITLE"));
-        newJournalPanel =new NewJournalPanel(accounts, journals, journalTypes, accountTypes);
+        newJournalPanel = new NewJournalPanel(accounts, journals, journalTypes, accountTypes);
         setContentPane(newJournalPanel);
         pack();
     }

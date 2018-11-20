@@ -12,6 +12,7 @@ import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
 import be.dafke.BasicAccounting.Contacts.ContactsGUI;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
+import be.dafke.BasicAccounting.Deliveroo.DeliverooMenu;
 import be.dafke.BasicAccounting.Goods.ArticlesGUI;
 import be.dafke.BasicAccounting.Goods.GoodsMenu;
 import be.dafke.BasicAccounting.Goods.PurchaseOrderCreateGUI;
@@ -73,6 +74,7 @@ public class Main {
     private static MorgagesMenu morgagesMenu;
     private static ContactsMenu contactsMenu;
     private static GoodsMenu goodsMenu;
+    private static DeliverooMenu deliverooMenu;
     private static ProjectsMenu projectsMenu;
     private static CodaMenu codaMenu;
     private static VATMenu vatMenu;
@@ -154,6 +156,7 @@ public class Main {
         balancesMenu = new BalancesMenu();
         contactsMenu = new ContactsMenu();
         goodsMenu = new GoodsMenu();
+        deliverooMenu = new DeliverooMenu();
         morgagesMenu = new MorgagesMenu();
         projectsMenu = new ProjectsMenu();
         codaMenu = new CodaMenu();
@@ -165,6 +168,7 @@ public class Main {
         menuBar.add(balancesMenu);
         menuBar.add(contactsMenu);
         menuBar.add(goodsMenu);
+        menuBar.add(deliverooMenu);
         menuBar.add(morgagesMenu);
         menuBar.add(projectsMenu);
         menuBar.add(codaMenu);
@@ -210,11 +214,20 @@ public class Main {
         journalEditPanel.setAccounting(accounting);
         journalViewPanel.setAccounting(accounting);
         journalSelectorPanel.setAccounting(accounting);
-        mortgagesPanel.setMortgages(accounting==null?null:accounting.getMortgages());
+        mortgagesPanel.setMortgages(accounting == null ? null : accounting.getMortgages());
 
+        setMenuAccounting(accounting);
+        if (accounting != null) {
+            setJournal(accounting.getActiveJournal());
+        }
+
+    }
+
+    public static void setMenuAccounting(Accounting accounting){
         projectsMenu.setAccounting(accounting);
         morgagesMenu.setAccounting(accounting);
         goodsMenu.setAccounting(accounting);
+        deliverooMenu.setAccounting(accounting);
         codaMenu.setAccounting(accounting);
         contactsMenu.setAccounting(accounting);
         accountsMenu.setAccounting(accounting);
@@ -229,10 +242,9 @@ public class Main {
             // TODO: add option isGoodsAccounting (setVisible(..) )
             contactsMenu.setVisible(accounting.isContactsAccounting());
             projectsMenu.setVisible(accounting.isProjectsAccounting());
-
+            deliverooMenu.setVisible(accounting.isDeliverooAccounting());
             mortgagesPanel.setVisible(accounting.isMortgagesAccounting());
 
-            setJournal(accounting.getActiveJournal());
         }
     }
 
@@ -292,6 +304,13 @@ public class Main {
 
     public static void fireJournalAdded(Journals journals) {
         journalSelectorPanel.setJournals(journals);
+    }
+
+    public static void fireAccountingTypeChanged(Accounting accounting){
+        Accounting activeAccounting = Accountings.getActiveAccounting();
+        if(activeAccounting == accounting){
+            setMenuAccounting(accounting);
+        }
     }
 
     public static void fireAccountDataChanged(Account account){

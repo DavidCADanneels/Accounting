@@ -56,6 +56,7 @@ public class XMLWriter {
                         "    <" + NAME + ">"+accounting.getName()+"</" + NAME + ">\n" +
                         "    <"+VAT_ACCOUNTING+">"+accounting.isVatAccounting()+"</"+VAT_ACCOUNTING+">\n" +
                         "    <"+CONTACTS_ACCOUNTING+">"+accounting.isContactsAccounting()+"</"+CONTACTS_ACCOUNTING+">\n" +
+                        "    <"+DELIVEROO_ACCOUNTING+">"+accounting.isDeliverooAccounting()+"</"+DELIVEROO_ACCOUNTING+">\n" +
                         "    <"+PROJECTS_ACCOUNTING+">"+accounting.isProjectsAccounting()+"</"+PROJECTS_ACCOUNTING+">\n" +
                         "    <"+MORTGAGES_ACCOUNTING+">"+accounting.isMortgagesAccounting()+"</"+MORTGAGES_ACCOUNTING+">\n" +
                         "  </" + ACCOUNTING + ">\n"

@@ -20,10 +20,12 @@ public class AccountingSettingsPanel extends JFrame implements ActionListener{
     public static final String VAT = getBundle("VAT").getString("VAT");
     public static final String CONTACTS = getBundle("Contacts").getString("CONTACTS");
     public static final String PROJECTS = getBundle("Projects").getString("PROJECTS");
+    public static final String DELIVEROO = "Deliveroo";
     public static final String MORTGAGES = getBundle("Mortgage").getString("MORTGAGES");
     private JCheckBox vatAccounting;
     private JCheckBox contacts;
     private JCheckBox projects;
+    private JCheckBox deliveroo;
     private JCheckBox mortgages;
     private Accounting accounting;
     private static HashMap<Accounting,AccountingSettingsPanel> accountingSettingsMap = new HashMap<>();
@@ -58,15 +60,23 @@ public class AccountingSettingsPanel extends JFrame implements ActionListener{
     private void setActions() {
         vatAccounting.addActionListener(e -> {
             accounting.setVatAccounting(vatAccounting.isSelected());
+            Main.fireAccountingTypeChanged(accounting);
         });
         contacts.addActionListener(e -> {
             accounting.setContactsAccounting(contacts.isSelected());
+            Main.fireAccountingTypeChanged(accounting);
         });
         projects.addActionListener(e -> {
             accounting.setProjectsAccounting(projects.isSelected());
+            Main.fireAccountingTypeChanged(accounting);
+        });
+        deliveroo.addActionListener(e -> {
+            accounting.setDeliverooAccounting(deliveroo.isSelected());
+            Main.fireAccountingTypeChanged(accounting);
         });
         mortgages.addActionListener(e -> {
             accounting.setMortgagesAccounting(mortgages.isSelected());
+            Main.fireAccountingTypeChanged(accounting);
         });
     }
 
@@ -74,6 +84,7 @@ public class AccountingSettingsPanel extends JFrame implements ActionListener{
         vatAccounting.setSelected(accounting.isVatAccounting());
         contacts.setSelected(accounting.isContactsAccounting());
         projects.setSelected(accounting.isProjectsAccounting());
+        deliveroo.setSelected(accounting.isDeliverooAccounting());
         mortgages.setSelected(accounting.isMortgagesAccounting());
         allContacts.removeActionListener(this);
         allContacts.removeAllItems();
@@ -112,11 +123,13 @@ public class AccountingSettingsPanel extends JFrame implements ActionListener{
         vatAccounting = new JCheckBox(VAT);
         contacts = new JCheckBox(CONTACTS);
         projects = new JCheckBox(PROJECTS);
+        deliveroo = new JCheckBox(DELIVEROO);
         mortgages = new JCheckBox(MORTGAGES);
 
         panel.add(vatAccounting);
         panel.add(contacts);
         panel.add(projects);
+        panel.add(deliveroo);
         panel.add(mortgages);
 
         return panel;
