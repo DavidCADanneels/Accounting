@@ -31,9 +31,9 @@ public class JournalsMenu extends JMenu {
         add = new JMenuItem(getBundle("Accounting").getString("ADD_JOURNAL"));
         add.addActionListener(e -> {
             Point locationOnScreen = getLocationOnScreen();
-            NewJournalGUI newJournalGUI = NewJournalGUI.getInstance(accounts, journals, journalTypes, accountTypes);
-            newJournalGUI.setLocation(locationOnScreen);
-            newJournalGUI.setVisible(true);
+            NewJournalDialog newJournalDialog = new NewJournalDialog(accounts, journals, journalTypes, accountTypes);
+            newJournalDialog.setLocation(locationOnScreen);
+            newJournalDialog.setVisible(true);
         });
         add.setEnabled(false);
 

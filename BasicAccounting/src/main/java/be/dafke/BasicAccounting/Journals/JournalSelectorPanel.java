@@ -43,6 +43,7 @@ public class JournalSelectorPanel extends JPanel implements ActionListener{
 	}
 
 	public void setJournals(Journals journals){
+		Journal selectedJournal = (Journal)combo.getSelectedItem();
 		combo.removeActionListener(this);
 		combo.removeAllItems();
 		if (journals!=null) {
@@ -51,6 +52,7 @@ public class JournalSelectorPanel extends JPanel implements ActionListener{
 			}
 		}
 		combo.addActionListener(this);
+		combo.setSelectedItem(selectedJournal);
 		combo.setEnabled(journals!=null);
 	}
 

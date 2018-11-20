@@ -72,9 +72,9 @@ public class JournalManagementPanel extends JPanel implements ListSelectionListe
         edit.addActionListener(e -> {
             int selectedRow = tabel.getSelectedRow();
             Journal journal = journalManagementTableModel.getObject(selectedRow, 0);
-            NewJournalGUI newJournalGUI = NewJournalGUI.getInstance(accounts, journals, journalTypes, accountTypes);
-            newJournalGUI.setJournal(journal);
-            newJournalGUI.setVisible(true);
+            NewJournalDialog newJournalDialog = new NewJournalDialog(accounts, journals, journalTypes, accountTypes);
+            newJournalDialog.setJournal(journal);
+            newJournalDialog.setVisible(true);
         });
         newType.addActionListener(e -> {
             Point locationOnScreen = getLocationOnScreen();
@@ -84,9 +84,9 @@ public class JournalManagementPanel extends JPanel implements ListSelectionListe
         });
         add.addActionListener(e -> {
             Point locationOnScreen = getLocationOnScreen();
-            NewJournalGUI newJournalGUI = NewJournalGUI.getInstance(accounts, journals, journalTypes, accountTypes);
-            newJournalGUI.setLocation(locationOnScreen);
-            newJournalGUI.setVisible(true);
+            NewJournalDialog newJournalDialog = new NewJournalDialog(accounts, journals, journalTypes, accountTypes);
+            newJournalDialog.setLocation(locationOnScreen);
+            newJournalDialog.setVisible(true);
         });
         delete.setEnabled(false);
         edit.setEnabled(false);

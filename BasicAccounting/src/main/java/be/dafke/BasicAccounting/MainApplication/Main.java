@@ -290,6 +290,10 @@ public class Main {
         frame.fireDataChanged();
     }
 
+    public static void fireJournalAdded(Journals journals) {
+        journalSelectorPanel.setJournals(journals);
+    }
+
     public static void fireAccountDataChanged(Account account){
         AccountDetailsGUI.fireAccountDataChangedForAll(account);
         AccountSelectorDialog.fireAccountDataChangedForAll();
