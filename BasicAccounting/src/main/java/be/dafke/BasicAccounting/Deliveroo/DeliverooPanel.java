@@ -58,6 +58,31 @@ public class DeliverooPanel extends JPanel {
         setLayout(new BorderLayout());
         add(createTopPanel(), BorderLayout.NORTH);
         add(createOverviewPanel(), BorderLayout.CENTER);
+        clear();
+    }
+
+    private void clear() {
+        salesAmountInclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
+        salesAmountExclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
+        salesAmountVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
+
+        serviceAmountExclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
+        serviceAmountVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
+        serviceAmountInclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
+
+        receivedExclVat.setText("");
+        receivedInclVat.setText("");
+        receivedVat.setText("");
+        serviceExclVat.setText("");
+        serviceVat.setText("");
+        serviceInclVat.setText("");
+        price.setText("");
+        Calendar date = transaction.getDate();
+        transaction = new Transaction(date, "");
+        dateAndDescriptionPanel.setTransaction(transaction);
+        dateAndDescriptionPanel.fireTransactionDataChanged();
+
+        book.setEnabled(false);
     }
 
     private JPanel createTopPanel(){
@@ -194,13 +219,15 @@ public class DeliverooPanel extends JPanel {
         transactions.setId(serviceTransaction);
         transactions.addBusinessObject(serviceTransaction);
         serviceJournal.addBusinessObject(serviceTransaction);
+
+        clear();
     }
 
     private void calculateTotals() {
         String text = price.getText();
         salesAmountInclVat = Utils.parseBigDecimal(text);
-        Calendar date = dateAndDescriptionPanel.getDate();
-        if(salesAmountInclVat!=null && date!=null){
+        book.setEnabled(salesAmountInclVat!=null);
+        if(salesAmountInclVat!=null){
             salesAmountInclVat = salesAmountInclVat.setScale(2,BigDecimal.ROUND_HALF_DOWN);
             price.setText(salesAmountInclVat.toString());
 

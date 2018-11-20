@@ -51,11 +51,6 @@ public class VATIO {
             String creditAccountString = getValue(rootElement, CREDIT_ACCOUNT);
             String debitCNAccountString = getValue(rootElement, DEBIT_CN_ACCOUNT);
             String creditCNAccountString = getValue(rootElement, CREDIT_CN_ACCOUNT);
-            String deliverooServiceJournalString = getValue(rootElement, DELIVEROO_SERVICE_JOURNAL);
-            String deliverooSalesJournalString = getValue(rootElement, DELIVEROO_SALES_JOURNAL);
-            String deliverooBalanceAccountString = getValue(rootElement, DELIVEROO_BALANCE_ACCOUNT);
-            String deliverooServiceAccountString = getValue(rootElement, DELIVEROO_SERVICE_ACCOUNT);
-            String deliverooRevenueAccountString = getValue(rootElement, DELIVEROO_REVENUE_ACCOUNT);
 
             if (debitAccountString != null) {
                 vatTransactions.setDebitAccount(accounts.getBusinessObject(debitAccountString));
@@ -69,6 +64,22 @@ public class VATIO {
             if (creditCNAccountString != null) {
                 vatTransactions.setCreditCNAccount(accounts.getBusinessObject(creditCNAccountString));
             }
+        }
+    }
+
+    public static void readDeliveroo(Accounting accounting){
+        VATTransactions vatTransactions = accounting.getVatTransactions();
+        Accounts accounts = accounting.getAccounts();
+        Journals journals = accounting.getJournals();
+        File xmlFile = new File( ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/" +VATTRANSACTIONS + XML_EXTENSION);
+        if(xmlFile.exists()) {
+            Element rootElement = getRootElement(xmlFile, VATTRANSACTIONS);
+            String deliverooServiceJournalString = getValue(rootElement, DELIVEROO_SERVICE_JOURNAL);
+            String deliverooSalesJournalString = getValue(rootElement, DELIVEROO_SALES_JOURNAL);
+            String deliverooBalanceAccountString = getValue(rootElement, DELIVEROO_BALANCE_ACCOUNT);
+            String deliverooServiceAccountString = getValue(rootElement, DELIVEROO_SERVICE_ACCOUNT);
+            String deliverooRevenueAccountString = getValue(rootElement, DELIVEROO_REVENUE_ACCOUNT);
+
             if (deliverooServiceJournalString != null) {
                 vatTransactions.setDeliverooServiceJournal(journals.getBusinessObject(deliverooServiceJournalString));
             }
