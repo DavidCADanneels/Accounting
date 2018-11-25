@@ -29,4 +29,20 @@ public class DateAndDescriptionDialog extends RefreshableDialog {
         }
         return dateAndDescriptionDialog;
     }
+
+    public void setDescription(String description) {
+        dateAndDescriptionPanel.setDescription(description);
+    }
+
+    public void setDate(Calendar date) {
+        dateAndDescriptionPanel.setDate(date);
+    }
+
+    public void enableDescription(boolean enabled){
+        dateAndDescriptionPanel.enableDescription(enabled);
+    }
+
+    public void enableDate(boolean enabled){
+        dateAndDescriptionPanel.enableDate(enabled);
+    }
 }

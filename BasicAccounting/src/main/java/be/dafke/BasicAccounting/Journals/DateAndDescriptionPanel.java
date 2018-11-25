@@ -7,13 +7,12 @@ import be.dafke.Utils.Utils;
 import javax.swing.*;
 import java.awt.event.FocusEvent;
 import java.awt.event.FocusListener;
-import java.math.BigDecimal;
 import java.util.Calendar;
 
 import static java.util.ResourceBundle.getBundle;
 
 public class DateAndDescriptionPanel extends JPanel implements FocusListener {
-    private JTextField dag, maand, jaar, bewijs;
+    private JTextField dag, maand, jaar, description;
     private Transaction transaction;
     private Journal journal;
 
@@ -24,8 +23,8 @@ public class DateAndDescriptionPanel extends JPanel implements FocusListener {
         dag.addFocusListener(this);
         maand.addFocusListener(this);
         jaar.addFocusListener(this);
-        bewijs = new JTextField(20);
-        bewijs.addFocusListener(this);
+        description = new JTextField(20);
+        description.addFocusListener(this);
 
         JPanel panel1 = new JPanel();
         panel1.add(new JLabel(getBundle("Accounting").getString("DATE")));
@@ -38,7 +37,7 @@ public class DateAndDescriptionPanel extends JPanel implements FocusListener {
 
         JPanel panel2 = new JPanel();
         panel2.add(new JLabel(getBundle("Accounting").getString("MESSAGE")));
-        panel2.add(bewijs);
+        panel2.add(description);
 
         setLayout(new BoxLayout(this,BoxLayout.Y_AXIS));
         add(panel1);
@@ -50,7 +49,7 @@ public class DateAndDescriptionPanel extends JPanel implements FocusListener {
     }
 
     public String getDescription(){
-        return bewijs.getText().trim();
+        return description.getText().trim();
     }
 
     public void focusGained(FocusEvent fe) {
@@ -69,20 +68,20 @@ public class DateAndDescriptionPanel extends JPanel implements FocusListener {
                     maand.setText(Utils.toMonth(date)+"");
                     jaar.setText(Utils.toYear(date)+"");
                 }
-            } else if (source == bewijs){
+            } else if (source == description){
                 // TODO Encode text for XML / HTML (not here, but in toXML() / here escaping ?)
-                transaction.setDescription(bewijs.getText().trim());
+                transaction.setDescription(description.getText().trim());
             }
         }
     }
 
     public void fireTransactionDataChanged() {
         setDate(transaction==null?Calendar.getInstance():transaction.getDate());
-        bewijs.setEnabled((transaction!=null));
+        description.setEnabled((transaction!=null));
         dag.setEnabled((transaction!=null));
         maand.setEnabled((transaction!=null));
         jaar.setEnabled((transaction!=null));
-        bewijs.setText(transaction==null?"":transaction.getDescription());
+        description.setText(transaction==null?"":transaction.getDescription());
 
         boolean okEnabled = journal!=null && transaction!=null && transaction.isBookable();
         boolean clearEnabled = journal!=null && transaction!=null && !transaction.getBusinessObjects().isEmpty();
@@ -114,5 +113,19 @@ public class DateAndDescriptionPanel extends JPanel implements FocusListener {
 
     public Journal getJournal() {
         return journal;
+    }
+
+    public void setDescription(String description) {
+        this.description.setText(description);
+    }
+
+    public void enableDescription(boolean enabled){
+        description.setEnabled(enabled);
+    }
+
+    public void enableDate(boolean enabled){
+        dag.setEnabled(enabled);
+        maand.setEnabled(enabled);
+        jaar.setEnabled(enabled);
     }
 }
