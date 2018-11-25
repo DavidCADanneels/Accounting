@@ -2,10 +2,12 @@ package be.dafke.BasicAccounting.Goods;
 
 
 import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
+import be.dafke.BasicAccounting.Journals.DateAndDescriptionDialog;
 import be.dafke.BasicAccounting.Journals.JournalSelectorDialog;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
+import be.dafke.Utils.Utils;
 
 import javax.swing.*;
 import java.awt.*;
@@ -66,7 +68,19 @@ public class PurchaseOrdersViewPanel extends JPanel {
         deliveredButton.addActionListener(e -> {
             Stock stock = accounting.getStock();
             purchaseOrder = purchaseOrdersViewDataTableModel.getOrder();
-            stock.purchaseUnits(purchaseOrder);
+            DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
+            Contact supplier = purchaseOrder.getSupplier();
+            dateAndDescriptionDialog.setDescription(supplier.getName());
+            dateAndDescriptionDialog.enableDescription(false);
+            dateAndDescriptionDialog.setVisible(true);
+
+            Calendar date = dateAndDescriptionDialog.getDate();
+            String description = dateAndDescriptionDialog.getDescription();
+
+            purchaseOrder.setDate(Utils.toString(date));
+            purchaseOrder.setDescription(description);
+
+            stock.buyOrder(purchaseOrder);
             StockGUI.fireStockContentChanged(accounting);
             purchaseOrder.setDelivered(true);
             updateButtonsAndCheckBoxes();

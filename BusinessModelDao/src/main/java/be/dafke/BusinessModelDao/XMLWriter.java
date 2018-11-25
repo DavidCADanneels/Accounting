@@ -21,6 +21,7 @@ import static be.dafke.BusinessModelDao.JournalsIO.writeTransactions;
 import static be.dafke.BusinessModelDao.PurchaseOrderIO.writePurchasesOrders;
 import static be.dafke.BusinessModelDao.SalesOrderIO.writeSalesOrders;
 import static be.dafke.BusinessModelDao.StockIO.writeStock;
+import static be.dafke.BusinessModelDao.StockIO.writeStockTransactions;
 import static be.dafke.BusinessModelDao.VATIO.writeVATFields;
 import static be.dafke.BusinessModelDao.VATIO.writeVATTransactions;
 import static be.dafke.BusinessModelDao.XMLConstants.*;
@@ -141,6 +142,7 @@ public class XMLWriter {
             writeContacts(accounting);
             writeArticles(accounting);
             writeStock(accounting);
+            writeStockTransactions(accounting);
             writePurchasesOrders(accounting);
             writeSalesOrders(accounting);
         }

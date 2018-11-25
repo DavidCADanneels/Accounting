@@ -93,7 +93,7 @@ class SalesOrdersViewPanel extends JPanel {
         deliveredButton.addActionListener(e -> {
             Stock stock = accounting.getStock();
             salesOrder = salesOrdersViewDataTableModel.getOrder();
-            stock.sellItems(salesOrder);
+            stock.sellOrder(salesOrder);
             StockGUI.fireStockContentChanged(accounting);
             salesOrder.setDelivered(true);
             updateButtonsAndCheckBoxes();

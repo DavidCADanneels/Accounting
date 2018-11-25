@@ -5,29 +5,32 @@ import java.util.HashMap;
 
 public class Stock extends OrderItems {
     private boolean removeIfEmpty = true;
-    protected final HashMap<Transaction,Order> transactions = new HashMap<>();
+    protected final HashMap<String,Order> transactions = new HashMap<>();
 
-    public void purchaseUnits(PurchaseOrder purchaseOrder){
-        purchaseOrder.getBusinessObjects().forEach(this::addBusinessObject);
-        addTransaction(purchaseOrder.getPurchaseTransaction(), purchaseOrder);
+    public void buyOrder(PurchaseOrder purchaseOrder){
+        for (OrderItem orderItem : purchaseOrder.getBusinessObjects()) {
+            OrderItem newOrderItem = new OrderItem(orderItem.getNumberOfUnits(), orderItem.getNumberOfItems(), orderItem.getArticle());
+            addBusinessObject(newOrderItem);
+        }
+        addTransaction(purchaseOrder);
     }
 
-    public void sellItems(SalesOrder salesOrder){
+    public void sellOrder(SalesOrder salesOrder){
         for (OrderItem orderItem : salesOrder.getBusinessObjects()) {
             remove(orderItem, true, removeIfEmpty);
         }
-        addTransaction(salesOrder.getSalesTransaction(),salesOrder);
+        addTransaction(salesOrder);
     }
 
     public void payOrder(Order order){
-        addTransaction(order.getPaymentTransaction(), order);
+        addTransaction(order);
     }
 
     public Collection<Order> getTransactions() {
         return transactions.values();
     }
 
-    public void addTransaction(Transaction transaction, Order orderItems){
-        transactions.put(transaction, orderItems);
+    public void addTransaction(Order order){
+        transactions.put(order.getName(), order);
     }
 }
