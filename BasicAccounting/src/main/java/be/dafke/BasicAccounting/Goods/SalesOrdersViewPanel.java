@@ -93,6 +93,19 @@ class SalesOrdersViewPanel extends JPanel {
         deliveredButton.addActionListener(e -> {
             Stock stock = accounting.getStock();
             salesOrder = salesOrdersViewDataTableModel.getOrder();
+
+            DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
+            Contact customer = salesOrder.getCustomer();
+            dateAndDescriptionDialog.setDescription(customer.getName());
+            dateAndDescriptionDialog.enableDescription(false);
+            dateAndDescriptionDialog.setVisible(true);
+
+            Calendar date = dateAndDescriptionDialog.getDate();
+            String description = dateAndDescriptionDialog.getDescription();
+
+            salesOrder.setDate(Utils.toString(date));
+            salesOrder.setDescription(description);
+
             stock.sellOrder(salesOrder);
             StockGUI.fireStockContentChanged(accounting);
             salesOrder.setDelivered(true);

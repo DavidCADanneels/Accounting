@@ -17,7 +17,8 @@ public class Stock extends OrderItems {
 
     public void sellOrder(SalesOrder salesOrder){
         for (OrderItem orderItem : salesOrder.getBusinessObjects()) {
-            remove(orderItem, true, removeIfEmpty);
+            OrderItem newOrderItem = new OrderItem(orderItem.getNumberOfUnits(), orderItem.getNumberOfItems(), orderItem.getArticle());
+            remove(newOrderItem, true, removeIfEmpty);
         }
         addTransaction(salesOrder);
     }
