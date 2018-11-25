@@ -78,7 +78,7 @@ public class StockIO {
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(STOCK_TRANSACTIONS, 2));
-            for (Order order : stock.getTransactions()) {
+            for (Order order : stock.getOrders()) {
                 writer.write("  <" + STOCK_TRANSACTION + ">\n");
                 writer.write("    <" + NAME + ">" + order.getName() + "</" + NAME + ">\n");
                 writer.write("    <" + DATE + ">" + order.getDate() + "</" + DATE + ">\n");
