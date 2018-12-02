@@ -6,7 +6,6 @@ import be.dafke.BasicAccounting.Journals.DateAndDescriptionDialog;
 import be.dafke.BasicAccounting.Journals.JournalSelectorDialog;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
@@ -20,23 +19,78 @@ import java.util.Calendar;
  * Date: 29-12-13
  * Time: 22:07
  */
-public class PurchaseOrdersViewPanel extends JPanel {
-    private final JButton placeOrderButton, deliveredButton, payedButton;
+public class PurchaseOrdersDetailPanel extends JPanel {
+    private JButton placeOrderButton, deliveredButton, payedButton;
     private final PurchaseOrders purchaseOrders;
-    private final PurchaseOrderDetailTable purchaseOrderDetailTable;
-    private final PurchaseTotalsPanel purchaseTotalsPanel;
-
-    private JComboBox<PurchaseOrder> comboBox;
+    private JTextField supplierName;
     private JCheckBox payed, delivered, placed;
     private PurchaseOrder purchaseOrder;
     private Accounting accounting;
 
 
-    public PurchaseOrdersViewPanel(Accounting accounting) {
+    public PurchaseOrdersDetailPanel(Accounting accounting) {
         this.accounting = accounting;
         this.purchaseOrders = accounting.getPurchaseOrders();
-        purchaseTotalsPanel = new PurchaseTotalsPanel();
-        purchaseOrderDetailTable = new PurchaseOrderDetailTable(purchaseTotalsPanel);
+
+        JPanel supplierDetailsPanel = createSupplierDetailsPanel();
+        JPanel supplierNamePanel = createSupplierNamePanel();
+
+
+        JPanel south = new JPanel(new BorderLayout());
+        south.setLayout(new BoxLayout(south, BoxLayout.Y_AXIS));
+
+        JPanel statusPanel = createStatusPanel();
+        JPanel buttonPanel = createButtonPanel();
+        south.add(statusPanel);
+        south.add(buttonPanel);
+
+        setLayout(new BorderLayout());
+        add(supplierNamePanel, BorderLayout.NORTH);
+        add(supplierDetailsPanel, BorderLayout.CENTER);
+        add(south, BorderLayout.SOUTH);
+    }
+
+    private JPanel createSupplierNamePanel(){
+        JPanel panel = new JPanel();
+
+        supplierName = new JTextField(20);
+        supplierName.setEditable(false);
+
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(supplierName);
+        return panel;
+    }
+
+    private JPanel createSupplierDetailsPanel(){
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Details"));
+        panel.add(new JLabel("Details"));
+        panel.add(new JLabel("Details"));
+        panel.add(new JLabel("Details"));
+        panel.add(new JLabel("Details"));
+        panel.add(new JLabel("Details"));
+        return panel;
+    }
+
+    private JPanel createStatusPanel(){
+        JPanel statusPanel = new JPanel();
+
+        placed = new JCheckBox("Ordered");
+        payed = new JCheckBox("Payed");
+        delivered = new JCheckBox("Delived");
+        placed.setEnabled(false);
+        payed.setEnabled(false);
+        delivered.setEnabled(false);
+
+        statusPanel.add(placed);
+        statusPanel.add(delivered);
+        statusPanel.add(payed);
+
+        return statusPanel;
+    }
+
+    private JPanel createButtonPanel(){
+        JPanel panel = new JPanel();
 
         placeOrderButton = new JButton("Place Order");
         placeOrderButton.addActionListener(e -> placeOrder());
@@ -47,55 +101,24 @@ public class PurchaseOrdersViewPanel extends JPanel {
         payedButton = new JButton("Pay Order");
         payedButton.addActionListener(e -> payOrder());
 
-        placed = new JCheckBox("Ordered");
-        payed = new JCheckBox("Payed");
-        delivered = new JCheckBox("Delived");
-        placed.setEnabled(false);
-        payed.setEnabled(false);
-        delivered.setEnabled(false);
+        panel.add(placeOrderButton);
+        panel.add(deliveredButton);
+        panel.add(payedButton);
 
-        comboBox = new JComboBox<>();
-        comboBox.addActionListener(e -> {
-            purchaseOrder = (PurchaseOrder) comboBox.getSelectedItem();
-            updateButtonsAndCheckBoxes();
-        });
-        firePurchaseOrderAddedOrRemoved();
+        return panel;
+    }
 
-        JPanel tablePanel = purchaseOrderDetailTable;
-        JPanel center = new JPanel(new BorderLayout());
-        center.add(tablePanel, BorderLayout.CENTER);
-        center.add(purchaseTotalsPanel, BorderLayout.SOUTH);
-
-        JPanel statusPanel = new JPanel();
-        statusPanel.add(placed);
-        statusPanel.add(delivered);
-        statusPanel.add(payed);
-
-        JPanel south = new JPanel(new BorderLayout());
-        south.setLayout(new BoxLayout(south, BoxLayout.Y_AXIS));
-        //
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(placeOrderButton);
-        buttonPanel.add(deliveredButton);
-        buttonPanel.add(payedButton);
-        //
-        south.add(buttonPanel);
-        south.add(comboBox);
-
-        setLayout(new BorderLayout());
-        add(statusPanel, BorderLayout.NORTH);
-        add(center, BorderLayout.CENTER);
-        add(south, BorderLayout.SOUTH);
+    public void setOrder(PurchaseOrder purchaseOrder){
+        this.purchaseOrder = purchaseOrder;
+        updateButtonsAndCheckBoxes();
     }
 
     private void payOrder(){
-        purchaseOrder = purchaseOrderDetailTable.getOrder();
         purchaseOrder.setPayed(true);
         updateButtonsAndCheckBoxes();
     }
 
     private void placeOrder(){
-        purchaseOrder = purchaseOrderDetailTable.getOrder();
         Transaction transaction = createPurchaseTransaction();
         Journal journal = purchaseOrders.getJournal();
         if (journal==null){
@@ -119,7 +142,6 @@ public class PurchaseOrdersViewPanel extends JPanel {
 
     private void deliverOrder(){
         Stock stock = accounting.getStock();
-        purchaseOrder = purchaseOrderDetailTable.getOrder();
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
         Contact supplier = purchaseOrder.getSupplier();
         dateAndDescriptionDialog.setDescription(supplier.getName());
@@ -145,7 +167,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
         deliveredButton.setEnabled(purchaseOrder !=null&&!purchaseOrder.isDelivered());
         placeOrderButton.setEnabled(purchaseOrder !=null&&!purchaseOrder.isPlaced());
         payedButton.setEnabled(purchaseOrder !=null&&!purchaseOrder.isPayed());
-        purchaseOrderDetailTable.setOrder(purchaseOrder);
+        supplierName.setText(purchaseOrder!=null&&purchaseOrder.getSupplier()!=null?purchaseOrder.getSupplier().getName():"");
     }
 
     public Journal setPurchaseJournal(){
@@ -184,7 +206,6 @@ public class PurchaseOrdersViewPanel extends JPanel {
             purchaseOrders.setStockAccount(stockAccount);
         }
 
-        purchaseOrder = purchaseOrderDetailTable.getOrder();
         Contact supplier = purchaseOrder.getSupplier();
         if(supplier == null){
             // TODO
@@ -220,12 +241,5 @@ public class PurchaseOrdersViewPanel extends JPanel {
         }
 
         return transaction;
-    }
-
-    public void firePurchaseOrderAddedOrRemoved() {
-        comboBox.removeAllItems();
-        purchaseOrders.getBusinessObjects().forEach(order -> comboBox.insertItemAt(order,0));
-        comboBox.setSelectedIndex(0);
-//        purchaseOrderDataTableModel.fireTableDataChanged();
     }
 }

@@ -15,7 +15,7 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 22:07
  */
 public class StockPanel extends JPanel {
-    private final JButton createPurchaseOrder, createSalesOrder, viewPurchaseOrder ,viewSalesOrder;
+    private final JButton viewPurchaseOrder ,viewSalesOrder;
     private final SelectableTable<OrderItem> table;
     private final StockDataTableModel stockDataTableModel;
 
@@ -30,39 +30,22 @@ public class StockPanel extends JPanel {
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
 
-        createPurchaseOrder = new JButton(getBundle("Accounting").getString("CREATE_PO"));
-        createPurchaseOrder.addActionListener(e -> {
-            PurchaseOrderCreateGUI purchaseOrderCreateGUI = PurchaseOrderCreateGUI.showPurchaseOrderGUI(accounting);
-            purchaseOrderCreateGUI.setLocation(getLocationOnScreen());
-            purchaseOrderCreateGUI.setVisible(true);
-        });
-
-        createSalesOrder = new JButton(getBundle("Accounting").getString("CREATE_SO"));
-        createSalesOrder.addActionListener(e -> {
-            SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderGUI(accounting);
-            salesOrderCreateGUI.setLocation(getLocationOnScreen());
-            salesOrderCreateGUI.setVisible(true);
-        });
-
-
         viewPurchaseOrder = new JButton(getBundle("Accounting").getString("VIEW_PO"));
         viewPurchaseOrder.addActionListener(e -> {
-            PurchaseOrdersViewGUI purchaseOrdersViewGUI = PurchaseOrdersViewGUI.showPurchaseOrderGUI(accounting);
+            PurchaseOrdersOverviewGUI purchaseOrdersViewGUI = PurchaseOrdersOverviewGUI.showPurchaseOrderGUI(accounting);
             purchaseOrdersViewGUI.setLocation(getLocationOnScreen());
             purchaseOrdersViewGUI.setVisible(true);
         });
 
         viewSalesOrder = new JButton(getBundle("Accounting").getString("VIEW_SO"));
         viewSalesOrder.addActionListener(e -> {
-            SalesOrdersViewGUI salesOrdersViewGUI = SalesOrdersViewGUI.showSalesOrderGUI(accounting);
+            SalesOrdersOverviewGUI salesOrdersViewGUI = SalesOrdersOverviewGUI.showSalesOrderGUI(accounting);
             salesOrdersViewGUI.setLocation(getLocationOnScreen());
             salesOrdersViewGUI.setVisible(true);
         });
 
 
         JPanel buttons = new JPanel(new GridLayout(0,2));
-        buttons.add(createPurchaseOrder);
-        buttons.add(createSalesOrder);
         buttons.add(viewPurchaseOrder);
         buttons.add(viewSalesOrder);
 

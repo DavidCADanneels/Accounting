@@ -10,7 +10,6 @@ import be.dafke.BasicAccounting.MainApplication.InvoicePDF;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.SalesOrderIO;
-import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
@@ -25,100 +24,47 @@ import java.util.List;
  * Date: 29-12-13
  * Time: 22:07
  */
-class SalesOrdersViewPanel extends JPanel {
-    private final JButton placeOrderButton, deliveredButton, payedButton, createInvoiceButton;
-    private final SelectableTable<OrderItem> table;
+class SalesOrdersDetailPanel extends JPanel {
+    private JButton placeOrderButton, deliveredButton, payedButton, createInvoiceButton;
     private final SalesOrders salesOrders;
-    private final JTextField customerName;
-    private JComboBox<Order> comboBox;
+    private JTextField customerName;
     private JCheckBox payed, delivered, placed;
     private SalesOrder salesOrder;
     private Accounting accounting;
-    private final SalesOrdersViewDataTableModel salesOrdersViewDataTableModel;
-    private SaleTotalsPanel salesTotalsPanel;
 
-    SalesOrdersViewPanel(Accounting accounting) {
+    SalesOrdersDetailPanel(Accounting accounting) {
         this.accounting = accounting;
         this.salesOrders = accounting.getSalesOrders();
-        salesOrdersViewDataTableModel = new SalesOrdersViewDataTableModel();
-        table = new SelectableTable<>(salesOrdersViewDataTableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
-        table.setAutoCreateRowSorter(true);
-//        table.setRowSorter(null);
 
-        createInvoiceButton = new JButton("Create Invoice");
-        createInvoiceButton.setVisible(false);
-        createInvoiceButton.addActionListener(e -> {
-            salesOrder = salesOrdersViewDataTableModel.getOrder();
-            if (salesOrder.getCustomer() == null) {
-                // should not occur
-            }
+        JPanel customerDetailsPanel = createCustomerDetailsPanel();
+        JPanel customerNamePanel = createCustomerNamePanel();
 
-            if (salesOrder.getSupplier() == null){
-                Contact companyContact = accounting.getCompanyContact();
-                if (companyContact == null) {
-                    ContactsPanel.setCompanyContact(accounting);
-                }
-                salesOrder.setSupplier(companyContact);
-            }
-            String invoiceNumber = salesOrder.getInvoiceNumber();
-            if (invoiceNumber==null || "".equals(invoiceNumber)){
-                invoiceNumber = JOptionPane.showInputDialog(this, "Enter Invoice Number");
-                salesOrder.setInvoiceNumber(invoiceNumber);
-            }
+        JPanel south = new JPanel();
+        south.setLayout(new BoxLayout(south, BoxLayout.Y_AXIS));
 
-            DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
-            dateAndDescriptionDialog.setVisible(true);
+        JPanel statusPanel = createStatusPanel();
+        JPanel buttonPanel = createButtonPanel();
+        south.add(statusPanel);
+        south.add(buttonPanel);
 
-            Calendar date = dateAndDescriptionDialog.getDate();
-            String description = dateAndDescriptionDialog.getDescription();
+        setLayout(new BorderLayout());
+        add(customerNamePanel,BorderLayout.NORTH);
+        add(customerDetailsPanel,BorderLayout.CENTER);
+        add(south, BorderLayout.SOUTH);
+    }
 
-            salesOrder.setDate(Utils.toString(date));
-            salesOrder.setDescription(description);
+    private JPanel createCustomerDetailsPanel(){
+        JPanel panel = new JPanel();
+        panel.add(new JLabel("Details"));
+        panel.add(new JLabel("Details"));
+        panel.add(new JLabel("Details"));
+        panel.add(new JLabel("Details"));
+        panel.add(new JLabel("Details"));
+        panel.add(new JLabel("Details"));
+        return panel;
+    }
 
-            String xmlPath = SalesOrderIO.writeInvoiceXmlInputFile(accounting, salesOrder);
-            String pdfPath = SalesOrderIO.calculatePdfPath(accounting, salesOrder);
-            InvoicePDF.createInvoice(xmlPath, pdfPath);
-        });
-
-        placeOrderButton = new JButton("Place Order");
-        placeOrderButton.addActionListener(e -> {
-            salesOrder = salesOrdersViewDataTableModel.getOrder();
-            createSalesTransaction();
-            salesOrder.setPlaced(true);
-            updateButtonsAndCheckBoxes();
-        });
-
-        deliveredButton = new JButton("Order Delivered");
-        deliveredButton.addActionListener(e -> {
-            Stock stock = accounting.getStock();
-            salesOrder = salesOrdersViewDataTableModel.getOrder();
-
-            DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
-            Contact customer = salesOrder.getCustomer();
-            dateAndDescriptionDialog.setDescription(customer.getName());
-            dateAndDescriptionDialog.enableDescription(false);
-            dateAndDescriptionDialog.setVisible(true);
-
-            Calendar date = dateAndDescriptionDialog.getDate();
-            String description = dateAndDescriptionDialog.getDescription();
-
-            salesOrder.setDate(Utils.toString(date));
-            salesOrder.setDescription(description);
-
-            stock.sellOrder(salesOrder);
-            StockGUI.fireStockContentChanged(accounting);
-            salesOrder.setDelivered(true);
-            updateButtonsAndCheckBoxes();
-        });
-
-        payedButton = new JButton("Order Payed");
-        payedButton.addActionListener(e -> {
-            salesOrder = salesOrdersViewDataTableModel.getOrder();
-            salesOrder.setPayed(true);
-            updateButtonsAndCheckBoxes();
-        });
-
+    private JPanel createStatusPanel(){
         placed = new JCheckBox("Ordered");
         payed = new JCheckBox("Payed");
         delivered = new JCheckBox("Delived");
@@ -126,62 +72,109 @@ class SalesOrdersViewPanel extends JPanel {
         payed.setEnabled(false);
         delivered.setEnabled(false);
 
-        salesTotalsPanel = new SaleTotalsPanel();
+        JPanel panel = new JPanel();
+        panel.add(placed);
+        panel.add(delivered);
+        panel.add(payed);
+        return panel;
+    }
+
+    private JPanel createCustomerNamePanel(){
+        JPanel panel = new JPanel();
 
         customerName = new JTextField(20);
         customerName.setEditable(false);
 
-        comboBox = new JComboBox<>();
-        comboBox.addActionListener(e -> {
-            salesOrder = (SalesOrder) comboBox.getSelectedItem();
-            createInvoiceButton.setVisible(salesOrder!=null&&salesOrder.isInvoice());
-            updateButtonsAndCheckBoxes();
-        });
-        fireSalesOrderAddedOrRemoved();
-
-        setLayout(new BorderLayout());
-
-        JPanel tablePanel = createTablePanel();
-
-        JPanel orderPanel = new JPanel(new BorderLayout());
-
-        JPanel customerPanel = new JPanel();
-        customerPanel.setLayout(new BoxLayout(customerPanel, BoxLayout.Y_AXIS));
-        //
-        JPanel statusPanel = new JPanel();
-        statusPanel.add(placed);
-        statusPanel.add(delivered);
-        statusPanel.add(payed);
-        //
-        customerPanel.add(customerName);
-        customerPanel.add(statusPanel);
-
-        orderPanel.add(customerPanel, BorderLayout.NORTH);
-        orderPanel.add(tablePanel,BorderLayout.CENTER);
-
-        JPanel south = new JPanel();
-        south.setLayout(new BoxLayout(south, BoxLayout.Y_AXIS));
-
-        JPanel buttonPanel = new JPanel();
-        buttonPanel.add(createInvoiceButton);
-        buttonPanel.add(placeOrderButton);
-        buttonPanel.add(deliveredButton);
-        buttonPanel.add(payedButton);
-
-        south.add(buttonPanel);
-        south.add(comboBox);
-
-        add(orderPanel,BorderLayout.CENTER);
-
-        add(south, BorderLayout.SOUTH);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.add(customerName);
+        return panel;
     }
 
-    private JPanel createTablePanel(){
-        JPanel panel = new JPanel(new BorderLayout());
-        JScrollPane scrollPane = new JScrollPane(table);
-        panel.add(scrollPane,BorderLayout.CENTER);
-        panel.add(salesTotalsPanel,BorderLayout.SOUTH);
+    private JPanel createButtonPanel(){
+        createInvoiceButton = new JButton("Create Invoice");
+        createInvoiceButton.setVisible(false);
+        createInvoiceButton.addActionListener(e -> createInvoice());
+
+        placeOrderButton = new JButton("Place Order");
+        placeOrderButton.addActionListener(e -> placeOrder());
+
+        deliveredButton = new JButton("Order Delivered");
+        deliveredButton.addActionListener(e -> deliverOrder());
+
+        payedButton = new JButton("Order Payed");
+        payedButton.addActionListener(e -> payOrder());
+
+        JPanel panel = new JPanel();
+        panel.add(createInvoiceButton);
+        panel.add(placeOrderButton);
+        panel.add(deliveredButton);
+        panel.add(payedButton);
+
         return panel;
+    }
+
+    private void payOrder() {
+        salesOrder.setPayed(true);
+        updateButtonsAndCheckBoxes();
+    }
+
+    private void deliverOrder() {
+        Stock stock = accounting.getStock();
+
+        DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
+        Contact customer = salesOrder.getCustomer();
+        dateAndDescriptionDialog.setDescription(customer.getName());
+        dateAndDescriptionDialog.enableDescription(false);
+        dateAndDescriptionDialog.setVisible(true);
+
+        Calendar date = dateAndDescriptionDialog.getDate();
+        String description = dateAndDescriptionDialog.getDescription();
+
+        salesOrder.setDate(Utils.toString(date));
+        salesOrder.setDescription(description);
+
+        stock.sellOrder(salesOrder);
+        StockGUI.fireStockContentChanged(accounting);
+        salesOrder.setDelivered(true);
+        updateButtonsAndCheckBoxes();
+    }
+
+    private void placeOrder() {
+        createSalesTransaction();
+        salesOrder.setPlaced(true);
+        updateButtonsAndCheckBoxes();
+    }
+
+    private void createInvoice(){
+        if (salesOrder.getCustomer() == null) {
+            // should not occur
+        }
+
+        if (salesOrder.getSupplier() == null){
+            Contact companyContact = accounting.getCompanyContact();
+            if (companyContact == null) {
+                ContactsPanel.setCompanyContact(accounting);
+            }
+            salesOrder.setSupplier(companyContact);
+        }
+        String invoiceNumber = salesOrder.getInvoiceNumber();
+        if (invoiceNumber==null || "".equals(invoiceNumber)){
+            invoiceNumber = JOptionPane.showInputDialog(this, "Enter Invoice Number");
+            salesOrder.setInvoiceNumber(invoiceNumber);
+        }
+
+        DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
+        dateAndDescriptionDialog.setVisible(true);
+
+        Calendar date = dateAndDescriptionDialog.getDate();
+        String description = dateAndDescriptionDialog.getDescription();
+
+        salesOrder.setDate(Utils.toString(date));
+        salesOrder.setDescription(description);
+
+        String xmlPath = SalesOrderIO.writeInvoiceXmlInputFile(accounting, salesOrder);
+        String pdfPath = SalesOrderIO.calculatePdfPath(accounting, salesOrder);
+        InvoicePDF.createInvoice(xmlPath, pdfPath);
     }
 
     private void updateButtonsAndCheckBoxes() {
@@ -192,8 +185,6 @@ class SalesOrdersViewPanel extends JPanel {
         placeOrderButton.setEnabled(salesOrder !=null&&!salesOrder.isPlaced());
         createInvoiceButton.setEnabled(salesOrder !=null);
         payedButton.setEnabled(salesOrder !=null&&!salesOrder.isPayed());
-        salesOrdersViewDataTableModel.setOrder(salesOrder);
-        salesTotalsPanel.fireOrderContentChanged(salesOrder);
         customerName.setText(salesOrder!=null&&salesOrder.getCustomer()!=null?salesOrder.getCustomer().getName():"");
     }
 
@@ -394,10 +385,9 @@ class SalesOrdersViewPanel extends JPanel {
         return journal;
     }
 
-    void fireSalesOrderAddedOrRemoved() {
-        comboBox.removeAllItems();
-        salesOrders.getBusinessObjects().forEach(order -> comboBox.insertItemAt(order,0));
-        comboBox.setSelectedIndex(0);
-//        salesOrdersViewDataTableModel.fireTableDataChanged();
+    public void setOrder(SalesOrder salesOrder){
+        this.salesOrder = salesOrder;
+        createInvoiceButton.setVisible(salesOrder!=null&&salesOrder.isInvoice());
+        updateButtonsAndCheckBoxes();
     }
 }
