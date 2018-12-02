@@ -23,7 +23,7 @@ public class PurchaseOrderCreateDataTableModel extends PurchaseOrdersViewDataTab
 	public PurchaseOrderCreateDataTableModel(Articles articles, Contact contact, PurchaseOrder order, PurchaseTotalsPanel purchaseTotalsPanel) {
 		super();
 		this.purchaseTotalsPanel = purchaseTotalsPanel;
-		setOrder(order);
+		this.order = order;
 		this.articles = articles;
 		this.contact = contact;
 	}
