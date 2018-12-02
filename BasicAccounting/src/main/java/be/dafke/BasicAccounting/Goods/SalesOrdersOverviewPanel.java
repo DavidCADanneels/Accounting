@@ -7,6 +7,7 @@ import be.dafke.BusinessModel.SalesOrder;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.awt.*;
 
 import static java.util.ResourceBundle.getBundle;
@@ -18,15 +19,15 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class SalesOrdersOverviewPanel extends JPanel {
     private final SelectableTable<SalesOrder> table;
-    private final SalesOrdersOverviewDataTableModel purchaseOrdersOverviewDataTableModel;
+    private final SalesOrdersOverviewDataTableModel tableModel;
     private final SalesOrderDetailTable salesOrderDetailTable;
     private final SaleTotalsPanel saleTotalsPanel;
     private final JButton createSalesOrder;
     private final SalesOrdersDetailPanel salesOrdersDetailPanel;
 
     public SalesOrdersOverviewPanel(Accounting accounting) {
-        purchaseOrdersOverviewDataTableModel = new SalesOrdersOverviewDataTableModel(accounting.getSalesOrders());
-        table = new SelectableTable<>(purchaseOrdersOverviewDataTableModel);
+        tableModel = new SalesOrdersOverviewDataTableModel(accounting.getSalesOrders());
+        table = new SelectableTable<>(tableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
@@ -41,7 +42,12 @@ public class SalesOrdersOverviewPanel extends JPanel {
         DefaultListSelectionModel selection = new DefaultListSelectionModel();
         selection.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                SalesOrder salesOrder = table.getSelectedObject();
+                int selectedRow = table.getSelectedRow();
+                RowSorter<? extends TableModel> rowSorter = table.getRowSorter();
+                int rowInModel = rowSorter.convertRowIndexToModel(selectedRow);
+
+                SalesOrder salesOrder = tableModel.getObject(rowInModel, 0);
+
                 salesOrderDetailTable.setOrder(salesOrder);
                 salesOrdersDetailPanel.setOrder(salesOrder);
             }
@@ -71,6 +77,6 @@ public class SalesOrdersOverviewPanel extends JPanel {
     }
 
     public void fireSalesOrderAddedOrRemoved() {
-        purchaseOrdersOverviewDataTableModel.fireTableDataChanged();
+        tableModel.fireTableDataChanged();
     }
 }

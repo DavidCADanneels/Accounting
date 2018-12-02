@@ -6,6 +6,7 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.awt.*;
 
 import static java.util.ResourceBundle.getBundle;
@@ -17,15 +18,15 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class PurchaseOrdersOverviewPanel extends JPanel {
     private final SelectableTable<PurchaseOrder> table;
-    private final PurchaseOrdersOverviewDataTableModel purchaseOrdersOverviewDataTableModel;
+    private final PurchaseOrdersOverviewDataTableModel tableModel;
     private final PurchaseOrderDetailTable purchaseOrderDetailTable;
     private final PurchaseTotalsPanel purchaseTotalsPanel;
     private final JButton createPurchaseOrder;
     private final PurchaseOrdersDetailPanel purchaseOrdersDetailPanel;
 
     public PurchaseOrdersOverviewPanel(Accounting accounting) {
-        purchaseOrdersOverviewDataTableModel = new PurchaseOrdersOverviewDataTableModel(accounting.getPurchaseOrders());
-        table = new SelectableTable<>(purchaseOrdersOverviewDataTableModel);
+        tableModel = new PurchaseOrdersOverviewDataTableModel(accounting.getPurchaseOrders());
+        table = new SelectableTable<>(tableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
@@ -40,7 +41,12 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
         DefaultListSelectionModel selection = new DefaultListSelectionModel();
         selection.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                PurchaseOrder purchaseOrder = table.getSelectedObject();
+                int selectedRow = table.getSelectedRow();
+                RowSorter<? extends TableModel> rowSorter = table.getRowSorter();
+                int rowInModel = rowSorter.convertRowIndexToModel(selectedRow);
+
+                PurchaseOrder purchaseOrder = tableModel.getObject(rowInModel, 0);
+
                 purchaseOrderDetailTable.setOrder(purchaseOrder);
                 purchaseOrdersDetailPanel.setOrder(purchaseOrder);
             }
@@ -70,6 +76,6 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
     }
 
     public void firePurchaseOrderAddedOrRemoved() {
-        purchaseOrdersOverviewDataTableModel.fireTableDataChanged();
+        tableModel.fireTableDataChanged();
     }
 }
