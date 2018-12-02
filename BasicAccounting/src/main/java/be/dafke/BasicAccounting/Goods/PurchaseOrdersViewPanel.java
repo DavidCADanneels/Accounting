@@ -22,27 +22,23 @@ import java.util.Calendar;
  */
 public class PurchaseOrdersViewPanel extends JPanel {
     private final JButton placeOrderButton, deliveredButton, payedButton;
-    private final SelectableTable<OrderItem> table;
     private final PurchaseOrders purchaseOrders;
-    private final PurchaseTotalsPanel purchaseTotalsPanel;
+    private final PurchaseOrderDetailTable purchaseOrderDetailTable;
+
     private JComboBox<PurchaseOrder> comboBox;
     private JCheckBox payed, delivered, placed;
     private PurchaseOrder purchaseOrder;
     private Accounting accounting;
-    private final PurchaseOrdersViewDataTableModel purchaseOrdersViewDataTableModel;
+
 
     public PurchaseOrdersViewPanel(Accounting accounting) {
         this.accounting = accounting;
         this.purchaseOrders = accounting.getPurchaseOrders();
-        purchaseOrdersViewDataTableModel = new PurchaseOrdersViewDataTableModel();
-        table = new SelectableTable<>(purchaseOrdersViewDataTableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
-        table.setAutoCreateRowSorter(true);
-//        table.setRowSorter(null);
+        purchaseOrderDetailTable = new PurchaseOrderDetailTable();
 
         placeOrderButton = new JButton("Place Order");
         placeOrderButton.addActionListener(e -> {
-            purchaseOrder = purchaseOrdersViewDataTableModel.getOrder();
+            purchaseOrder = purchaseOrderDetailTable.getOrder();
             Transaction transaction = createPurchaseTransaction();
             Journal journal = purchaseOrders.getJournal();
             if (journal==null){
@@ -67,7 +63,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
         deliveredButton = new JButton("Order Delivered");
         deliveredButton.addActionListener(e -> {
             Stock stock = accounting.getStock();
-            purchaseOrder = purchaseOrdersViewDataTableModel.getOrder();
+            purchaseOrder = purchaseOrderDetailTable.getOrder();
             DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
             Contact supplier = purchaseOrder.getSupplier();
             dateAndDescriptionDialog.setDescription(supplier.getName());
@@ -88,7 +84,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
 
         payedButton = new JButton("Pay Order");
         payedButton.addActionListener(e -> {
-            purchaseOrder = purchaseOrdersViewDataTableModel.getOrder();
+            purchaseOrder = purchaseOrderDetailTable.getOrder();
             purchaseOrder.setPayed(true);
             updateButtonsAndCheckBoxes();
         });
@@ -100,7 +96,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
         payed.setEnabled(false);
         delivered.setEnabled(false);
 
-        purchaseTotalsPanel = new PurchaseTotalsPanel();
+
 
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {
@@ -111,7 +107,8 @@ public class PurchaseOrdersViewPanel extends JPanel {
 
         setLayout(new BorderLayout());
 
-        JPanel tablePanel = createTablePanel();
+
+        JPanel tablePanel = purchaseOrderDetailTable;
         add(tablePanel, BorderLayout.CENTER);
 
         JPanel statusPanel = new JPanel();
@@ -134,14 +131,6 @@ public class PurchaseOrdersViewPanel extends JPanel {
         add(south, BorderLayout.SOUTH);
     }
 
-    private JPanel createTablePanel(){
-        JPanel panel = new JPanel(new BorderLayout());
-        JScrollPane scrollPane = new JScrollPane(table);
-        panel.add(scrollPane,BorderLayout.CENTER);
-        panel.add(purchaseTotalsPanel,BorderLayout.SOUTH);
-        return panel;
-    }
-
     private void updateButtonsAndCheckBoxes() {
         payed.setSelected(purchaseOrder !=null&& purchaseOrder.isPayed());
         placed.setSelected(purchaseOrder !=null&& purchaseOrder.isPlaced());
@@ -149,8 +138,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
         deliveredButton.setEnabled(purchaseOrder !=null&&!purchaseOrder.isDelivered());
         placeOrderButton.setEnabled(purchaseOrder !=null&&!purchaseOrder.isPlaced());
         payedButton.setEnabled(purchaseOrder !=null&&!purchaseOrder.isPayed());
-        purchaseOrdersViewDataTableModel.setOrder(purchaseOrder);
-        purchaseTotalsPanel.fireOrderContentChanged(purchaseOrder);
+        purchaseOrderDetailTable.setOrder(purchaseOrder);
     }
 
     public Journal setPurchaseJournal(){
@@ -189,7 +177,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
             purchaseOrders.setStockAccount(stockAccount);
         }
 
-        purchaseOrder = purchaseOrdersViewDataTableModel.getOrder();
+        purchaseOrder = purchaseOrderDetailTable.getOrder();
         Contact supplier = purchaseOrder.getSupplier();
         if(supplier == null){
             // TODO
