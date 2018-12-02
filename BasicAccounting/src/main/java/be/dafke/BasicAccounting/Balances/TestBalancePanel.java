@@ -24,8 +24,7 @@ public class TestBalancePanel extends JPanel{
 
         tabel = new SelectableTable<>(testBalanceDataModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
-        //tabel.setAutoCreateRowSorter(true);
-        tabel.setRowSorter(null);
+//        tabel.setRowSorter(null);
         JScrollPane scrollPane = new JScrollPane(tabel);
 
         popup = new BalancePopupMenu(accounting, tabel);

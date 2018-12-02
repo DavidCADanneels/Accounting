@@ -32,8 +32,6 @@ public class ArticlesPanel extends JPanel {
         articlesDataTableModel = new ArticlesDataTableModel(this, articles);
         table = new SelectableTable<>(articlesDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
-        table.setAutoCreateRowSorter(true);
-//        table.setRowSorter(null);
 
         comboBox = new JComboBox<>();
         fireSupplierAddedOrRemoved();

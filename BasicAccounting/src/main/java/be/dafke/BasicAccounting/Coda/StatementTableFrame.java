@@ -35,7 +35,6 @@ public class StatementTableFrame extends JFrame implements MouseListener {
 		dataModel = new StatementDataModel(statements);
 		tabel = new JTable(dataModel);
 		tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
-		// tabel.setAutoCreateRowSorter(true);
 		tabel.setRowSorter(null);
 
 		JScrollPane scrollPane = new JScrollPane(tabel);

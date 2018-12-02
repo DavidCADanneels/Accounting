@@ -27,7 +27,6 @@ public class VATTransactionsPanel extends JPanel {
         tabel.setDefaultRenderer(VATField.class, renderer);
         tabel.setDefaultRenderer(BigDecimal.class, renderer);
         tabel.setDefaultRenderer(String.class, renderer);
-        //tabel.setAutoCreateRowSorter(true);
         tabel.setRowSorter(null);
         popup = new VATTransactionsPopupMenu(tabel, vatTransactions.getAccounting());
         tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));

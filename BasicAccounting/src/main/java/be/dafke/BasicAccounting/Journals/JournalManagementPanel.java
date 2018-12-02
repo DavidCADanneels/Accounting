@@ -37,7 +37,6 @@ public class JournalManagementPanel extends JPanel implements ListSelectionListe
 
         tabel = new SelectableTable<>(journalManagementTableModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
-        tabel.setRowSorter(null);
 
         selection = new DefaultListSelectionModel();
         selection.addListSelectionListener(this);
@@ -70,8 +69,7 @@ public class JournalManagementPanel extends JPanel implements ListSelectionListe
         add = new JButton(getBundle("Accounting").getString("NEW_JOURNAL"));
         delete.addActionListener(e -> deleteJournal());
         edit.addActionListener(e -> {
-            int selectedRow = tabel.getSelectedRow();
-            Journal journal = journalManagementTableModel.getObject(selectedRow, 0);
+            Journal journal = tabel.getSelectedObject();
             NewJournalDialog newJournalDialog = new NewJournalDialog(accounts, journals, journalTypes, accountTypes);
             newJournalDialog.setJournal(journal);
             newJournalDialog.setVisible(true);
@@ -97,20 +95,6 @@ public class JournalManagementPanel extends JPanel implements ListSelectionListe
         return south;
     }
 
-    private ArrayList<Journal> getSelectedJournals(){
-        int[] rows = tabel.getSelectedRows();
-        if (rows.length == 0) {
-            ActionUtils.showErrorMessage(this, ActionUtils.SELECT_JOURNAL_FIRST);
-        }
-        ArrayList<Journal> journalList = new ArrayList<>();
-        for(int row : rows) {
-            Journal journal = (Journal) tabel.getModel().getValueAt(row, 0);
-            journalList.add(journal);
-        }
-        return journalList;
-
-    }
-
     private void deleteJournal(ArrayList<Journal> journalList, Journals journals) {
         ArrayList<String> failed = new ArrayList<>();
         for(Journal journal : journalList) {
@@ -134,7 +118,7 @@ public class JournalManagementPanel extends JPanel implements ListSelectionListe
     }
 
     public void deleteJournal() {
-        ArrayList<Journal> journalList = getSelectedJournals();
+        ArrayList<Journal> journalList = tabel.getSelectedObjects();
         if (!journalList.isEmpty()) {
             deleteJournal(journalList, journals);
             fireJournalDataChanged();

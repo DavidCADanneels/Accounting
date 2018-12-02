@@ -28,8 +28,6 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
         tableModel = new PurchaseOrdersOverviewDataTableModel(accounting.getPurchaseOrders());
         table = new SelectableTable<>(tableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
-        table.setAutoCreateRowSorter(true);
-//        table.setRowSorter(null);
 
         purchaseTotalsPanel = new PurchaseTotalsPanel();
 

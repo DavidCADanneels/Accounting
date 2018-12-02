@@ -18,8 +18,6 @@ public class SalesOrderDetailTable extends JPanel {
         salesOrdersViewDataTableModel = new SalesOrdersViewDataTableModel();
         table = new SelectableTable<>(salesOrdersViewDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 200));
-        table.setAutoCreateRowSorter(true);
-//        table.setRowSorter(null);
 
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane);

@@ -90,9 +90,8 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
         newAccount = new JButton(getBundle("Accounting").getString("ADD_ACCOUNT"));
 		delete.addActionListener(e -> deleteAccounts(tabel.getSelectedObjects(), accounts));
 		edit.addActionListener(e -> {
-			int selectedRow = tabel.getSelectedRow();
-			if(selectedRow!=-1) {
-				Account account = accountManagementTableModel.getObject(selectedRow, 0);
+			Account account = tabel.getSelectedObject();
+			if(account!=null) {
 				NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes);
 				newAccountDialog.setLocation(getLocationOnScreen());
 				newAccountDialog.setAccount(account);
@@ -129,8 +128,8 @@ public class AccountManagementGUI extends JFrame implements ListSelectionListene
 
 	public void valueChanged(ListSelectionEvent e) {
 		if (!e.getValueIsAdjusting()) {
-			int[] rows = tabel.getSelectedRows();
-			if (rows.length != 0) {
+			ArrayList<Account> accounts = tabel.getSelectedObjects();
+			if (accounts!=null && accounts.size() > 0) {
 				delete.setEnabled(true);
 				edit.setEnabled(true);
 			} else {

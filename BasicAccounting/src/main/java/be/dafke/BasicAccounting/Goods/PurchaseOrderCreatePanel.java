@@ -36,8 +36,6 @@ public class PurchaseOrderCreatePanel extends JPanel {
         purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null, order, purchaseTotalsPanel);
         table = new SelectableTable<>(purchaseOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
-        table.setAutoCreateRowSorter(true);
-//        table.setRowSorter(null);
 
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {

@@ -29,8 +29,6 @@ public class SalesOrdersOverviewPanel extends JPanel {
         tableModel = new SalesOrdersOverviewDataTableModel(accounting.getSalesOrders());
         table = new SelectableTable<>(tableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
-        table.setAutoCreateRowSorter(true);
-//        table.setRowSorter(null);
 
         saleTotalsPanel = new SaleTotalsPanel();
 
@@ -42,12 +40,7 @@ public class SalesOrdersOverviewPanel extends JPanel {
         DefaultListSelectionModel selection = new DefaultListSelectionModel();
         selection.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                int selectedRow = table.getSelectedRow();
-                RowSorter<? extends TableModel> rowSorter = table.getRowSorter();
-                int rowInModel = rowSorter.convertRowIndexToModel(selectedRow);
-
-                SalesOrder salesOrder = tableModel.getObject(rowInModel, 0);
-
+                SalesOrder salesOrder = table.getSelectedObject();
                 salesOrderDetailTable.setOrder(salesOrder);
                 salesOrdersDetailPanel.setOrder(salesOrder);
             }

@@ -29,7 +29,6 @@ public class CounterPartyTableFrame extends JFrame implements MouseListener {
 
         tabel = new JTable(dataModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
-        //tabel.setAutoCreateRowSorter(true);
         tabel.setRowSorter(null);
         JScrollPane scrollPane = new JScrollPane(tabel);
         JPanel contentPanel = new JPanel(new BorderLayout());
@@ -39,7 +38,6 @@ public class CounterPartyTableFrame extends JFrame implements MouseListener {
         setContentPane(contentPanel);
         pack();
 
-		// tabel.setAutoCreateRowSorter(true);
 		tabel.addMouseListener(this);
 	}
 

@@ -19,8 +19,6 @@ public class PurchaseOrderDetailTable extends JPanel {
         purchaseOrdersViewDataTableModel = new PurchaseOrdersViewDataTableModel();
         table = new SelectableTable<>(purchaseOrdersViewDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 200));
-        table.setAutoCreateRowSorter(true);
-//        table.setRowSorter(null);
 
         JScrollPane scrollPane = new JScrollPane(table);
         add(scrollPane);

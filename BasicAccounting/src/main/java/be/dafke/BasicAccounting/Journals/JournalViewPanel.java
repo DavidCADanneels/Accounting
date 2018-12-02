@@ -22,6 +22,7 @@ public class JournalViewPanel extends JPanel {
 
         table = new SelectableTable<>(journalDetailsDataModel);
         table.setPreferredScrollableViewportSize(new Dimension(800, 200));
+        table.setRowSorter(null);
 
         renderer = new JournalColorRenderer();
         table.setDefaultRenderer(String.class, renderer);

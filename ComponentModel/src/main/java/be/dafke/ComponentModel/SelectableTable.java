@@ -1,6 +1,7 @@
 package be.dafke.ComponentModel;
 
 import javax.swing.*;
+import javax.swing.table.TableModel;
 import java.util.ArrayList;
 
 /**
@@ -12,14 +13,18 @@ public class SelectableTable<BusinessObject> extends JTable{
     public SelectableTable(SelectableTableModel<BusinessObject> model) {
         super(model);
         this.model = model;
+        setAutoCreateRowSorter(true);
+//        setRowSorter(null);
     }
 
     public ArrayList<BusinessObject> getSelectedObjects() {
-        int[] rows = getSelectedRows();
+        int[] selectedRows = getSelectedRows();
         int col = getSelectedColumn();
+        RowSorter<? extends TableModel> rowSorter = getRowSorter();
         ArrayList<BusinessObject> businessObjectArrayList = new ArrayList<>();
-        for(int row : rows) {
-            BusinessObject businessObject = model.getObject(row, col);
+        for(int selectedRow : selectedRows) {
+            int rowInModel = rowSorter.convertRowIndexToModel(selectedRow);
+            BusinessObject businessObject = model.getObject(rowInModel, col);
             if(businessObject!=null)
                 businessObjectArrayList.add(businessObject);
         }
@@ -27,8 +32,10 @@ public class SelectableTable<BusinessObject> extends JTable{
     }
 
     public BusinessObject getSelectedObject() {
-        int row = getSelectedRow();
+        int selectedRow = getSelectedRow();
+        RowSorter<? extends TableModel> rowSorter = getRowSorter();
+        int rowInModel = rowSorter.convertRowIndexToModel(selectedRow);
         int col = getSelectedColumn();
-        return model.getObject(row, col);
+        return model.getObject(rowInModel, col);
     }
 }

@@ -27,7 +27,6 @@ public class JournalDetailsPanel extends JPanel{
         table.setDefaultRenderer(String.class, renderer);
         table.setDefaultRenderer(Account.class, renderer);
         table.setDefaultRenderer(BigDecimal.class, renderer);
-        //table.setAutoCreateRowSorter(true);
         table.setRowSorter(null);
 
         popup = new JournalDetailsPopupMenu(journals, table);

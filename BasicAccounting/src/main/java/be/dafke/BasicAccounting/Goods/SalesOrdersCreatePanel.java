@@ -38,8 +38,6 @@ class SalesOrdersCreatePanel extends JPanel {
         salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, null, order, saleTotalsPanel);
         SelectableTable<OrderItem> table = new SelectableTable<>(salesOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
-        table.setAutoCreateRowSorter(true);
-//        table.setRowSorter(null);
 
         invoice = new JCheckBox("Invoice");
         invoice.addActionListener(e -> {

@@ -28,9 +28,6 @@ public class AccountDetailsPanel extends JPanel {
         table.setDefaultRenderer(Account.class, renderer);
         table.setDefaultRenderer(BigDecimal.class, renderer);
 
-        //table.setAutoCreateRowSorter(true);
-        table.setRowSorter(null);
-
         popup = new AccountDetailsPopupMenu(journals, table);
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table));
 

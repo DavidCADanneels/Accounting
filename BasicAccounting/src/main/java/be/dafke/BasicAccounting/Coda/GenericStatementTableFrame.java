@@ -20,7 +20,6 @@ public class GenericStatementTableFrame extends JFrame {
 
         tabel = new JTable(dataModel);
         tabel.setPreferredScrollableViewportSize(new Dimension(500, 200));
-        //tabel.setAutoCreateRowSorter(true);
         tabel.setRowSorter(null);
         JScrollPane scrollPane = new JScrollPane(tabel);
         JPanel contentPanel = new JPanel(new BorderLayout());
