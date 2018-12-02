@@ -49,6 +49,13 @@ public class PurchaseOrderCreateDataTableModel extends PurchaseOrdersViewDataTab
 		}
 	}
 
+	public int getRowCount() {
+		if(articles==null || contact==null || filter==null) return 0;
+		List<Article> businessObjects = articles.getBusinessObjects(filter);
+		if(businessObjects == null || businessObjects.size() == 0) return 0;
+		return businessObjects.size();
+	}
+
 	@Override
 	public OrderItem getObject(int row, int col) {
 		if(contact==null || filter==null) return null;
