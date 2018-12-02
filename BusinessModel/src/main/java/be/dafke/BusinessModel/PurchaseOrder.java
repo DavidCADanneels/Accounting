@@ -2,39 +2,62 @@ package be.dafke.BusinessModel;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;
+import java.util.function.Predicate;
 
 public class PurchaseOrder extends Order {
 
     private Transaction purchaseTransaction;
 
     public BigDecimal getTotalPurchasePriceExclVat() {
-        BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
+        BigDecimal total = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {
-            Article article = orderItem.getArticle();
-            int number = orderItem.getNumberOfUnits();
-            totalPurchaseExcl = totalPurchaseExcl.add(article.getPurchasePrice(number)).setScale(2, RoundingMode.HALF_DOWN);
+            total = total.add(orderItem.getPurchasePriceWithoutVat()).setScale(2, RoundingMode.HALF_DOWN);
         }
-        return totalPurchaseExcl;
+        return total;
     }
 
-    public BigDecimal getTotalPurchaseVat() {
-        BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
-        for (OrderItem orderItem : getBusinessObjects()) {
-            Article article = orderItem.getArticle();
-            int number = orderItem.getNumberOfUnits();
-            totalPurchaseExcl = totalPurchaseExcl.add(article.getPurchaseVat(number)).setScale(2, RoundingMode.HALF_DOWN);
+    public BigDecimal getTotalPurchasePriceExclVat(Predicate<OrderItem> predicate) {
+        BigDecimal total = BigDecimal.ZERO.setScale(2);
+        for (OrderItem orderItem : getBusinessObjects(predicate)) {
+            total = total.add(orderItem.getPurchasePriceWithoutVat()).setScale(2, RoundingMode.HALF_DOWN);
         }
-        return totalPurchaseExcl;
+        return total;
     }
 
     public BigDecimal getTotalPurchasePriceInclVat() {
-        BigDecimal totalPurchaseExcl = BigDecimal.ZERO.setScale(2);
+        BigDecimal total = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {
-            Article article = orderItem.getArticle();
-            int number = orderItem.getNumberOfUnits();
-            totalPurchaseExcl = totalPurchaseExcl.add(article.getPurchasePriceWithVat(number)).setScale(2, RoundingMode.HALF_DOWN);
+            total = total.add(orderItem.getPurchasePriceWithVat()).setScale(2, RoundingMode.HALF_DOWN);
         }
-        return totalPurchaseExcl;
+        return total;
+    }
+
+    public BigDecimal getTotalPurchasePriceInclVat(Predicate<OrderItem> predicate) {
+        BigDecimal total = BigDecimal.ZERO.setScale(2);
+        for (OrderItem orderItem : getBusinessObjects(predicate)) {
+            total = total.add(orderItem.getPurchasePriceWithVat().setScale(2, RoundingMode.HALF_DOWN));
+        }
+        return total;
+    }
+
+    public BigDecimal getTotalPurchaseVat() {
+        BigDecimal total = BigDecimal.ZERO.setScale(2);
+        for (OrderItem orderItem : getBusinessObjects()) {
+            total = total.add(orderItem.getPurchaseVatAmount()).setScale(2, RoundingMode.HALF_DOWN);
+        }
+        return total;
+    }
+
+    public BigDecimal getTotalPurchaseVat(Predicate<OrderItem> predicate) {
+        BigDecimal total = BigDecimal.ZERO.setScale(2);
+        for (OrderItem orderItem : getBusinessObjects(predicate)) {
+            total = total.add(orderItem.getPurchaseVatAmount()).setScale(2, RoundingMode.HALF_DOWN);
+        }
+        return total;
+    }
+
+    public BigDecimal calculateTotalPurchaseVat() {
+        return getTotalPurchasePriceInclVat().subtract(getTotalPurchasePriceExclVat()).setScale(2, RoundingMode.HALF_DOWN);
     }
 
     public void setPurchaseTransaction(Transaction purchaseTransaction) {

@@ -1,35 +1,29 @@
 package be.dafke.BasicAccounting.Goods;
 
-import be.dafke.BusinessModel.Order;
+import be.dafke.BusinessModel.OrderItem;
 import be.dafke.BusinessModel.PurchaseOrder;
 
-import javax.swing.*;
-import java.awt.*;
-
-public class PurchaseTotalsPanel extends JPanel{
-    private JTextField textField1, textField2, textField3;
-
-    public PurchaseTotalsPanel() {
-        setLayout(new GridLayout(0,2));
-
-        textField1 = new JTextField("0.00",10);
-        textField2 = new JTextField("0.00",10);
-        textField3 = new JTextField("0.00",10);
-        textField1.setEditable(false);
-        textField2.setEditable(false);
-        textField3.setEditable(false);
-
-        add(new JLabel("Total (excl. VAT):"));
-        add(textField1);
-        add(new JLabel("Total VAT:"));
-        add(textField2);
-        add(new JLabel("Total (incl. VAT):"));
-        add(textField3);
-    }
+public class PurchaseTotalsPanel extends TotalsPanel{
 
     public void fireOrderContentChanged(PurchaseOrder order){
-        textField1.setText(order==null?"":order.getTotalPurchasePriceExclVat().toString());
-        textField2.setText(order==null?"":order.getTotalPurchaseVat().toString());
-        textField3.setText(order==null?"":order.getTotalPurchasePriceInclVat().toString());
+        if(order==null){
+            reset();
+        } else {
+            net0pct.setText(order.getTotalPurchasePriceExclVat(OrderItem.withPurchaseVatRate(0)).toString());
+            net6pct.setText(order.getTotalPurchasePriceExclVat(OrderItem.withPurchaseVatRate(6)).toString());
+            net21pct.setText(order.getTotalPurchasePriceExclVat(OrderItem.withPurchaseVatRate(21)).toString());
+
+            vat6pct.setText(order.getTotalPurchaseVat(OrderItem.withPurchaseVatRate(6)).toString());
+            vat21pct.setText(order.getTotalPurchaseVat(OrderItem.withPurchaseVatRate(21)).toString());
+
+            total0pct.setText(order.getTotalPurchasePriceInclVat(OrderItem.withPurchaseVatRate(0)).toString());
+            total6pct.setText(order.getTotalPurchasePriceInclVat(OrderItem.withPurchaseVatRate(6)).toString());
+            total21pct.setText(order.getTotalPurchasePriceInclVat(OrderItem.withPurchaseVatRate(21)).toString());
+
+            totalNet.setText(order.getTotalPurchasePriceExclVat().toString());
+            totalVatRest.setText("("+order.calculateTotalPurchaseVat().toString()+")");
+            totalVat.setText(order.getTotalPurchaseVat().toString());
+            total.setText(order.getTotalPurchasePriceInclVat().toString());
+        }
     }
 }

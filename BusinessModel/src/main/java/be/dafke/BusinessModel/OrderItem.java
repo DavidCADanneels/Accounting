@@ -36,6 +36,10 @@ public class OrderItem extends BusinessObject{
         return orderItem -> orderItem.getSalesVatRate() == vatRate;
     }
 
+    public static Predicate<OrderItem> withPurchaseVatRate(Integer vatRate){
+        return orderItem -> orderItem.getPurchaseVatRate() == vatRate;
+    }
+
     public int getItemsPerUnit() {
         return itemsPerUnit!=0?itemsPerUnit:article==null?0:article.getItemsPerUnit();
     }
