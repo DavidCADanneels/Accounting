@@ -9,12 +9,14 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.math.BigDecimal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
+import static be.dafke.Utils.Utils.parseBigDecimal;
 import static be.dafke.Utils.Utils.parseInt;
 
 /**
@@ -78,8 +80,12 @@ public class PurchaseOrderIO {
                 String purchaseVatRateString = getValue(element, PURCHASE_VAT_RATE);
                 int purchaseVatRate = parseInt(purchaseVatRateString);
 
+                String purchasePriceString = getValue(element, PURCHASE_PRICE);
+                BigDecimal purchasePrice = parseBigDecimal(purchasePriceString);
+
                 OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article);
                 orderItem.setPurchaseVatRate(purchaseVatRate);
+                orderItem.setPurchasePriceForUnit(purchasePrice);
                 orderItem.setName(name);
                 order.addBusinessObject(orderItem);
             }
