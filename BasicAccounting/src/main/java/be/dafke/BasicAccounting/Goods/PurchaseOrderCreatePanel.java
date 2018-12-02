@@ -8,7 +8,6 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.util.function.Predicate;
 
 /**
@@ -60,7 +59,7 @@ public class PurchaseOrderCreatePanel extends JPanel {
                 purchaseOrderCreateDataTableModel.setOrder(order);
                 // TODO: pass view panel and call directly
                 PurchaseOrdersViewGUI.firePurchaseOrderAddedOrRemovedForAll();
-                PurchaseOrdersGUI.firePurchaseOrderAddedOrRemovedForAll();
+                PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAll();
                 purchaseTotalsPanel.fireOrderContentChanged(order);
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();

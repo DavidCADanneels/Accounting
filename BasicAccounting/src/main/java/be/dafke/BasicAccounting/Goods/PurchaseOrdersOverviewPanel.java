@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Goods;
 
 
+import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
@@ -14,22 +15,24 @@ import java.awt.*;
  * Date: 29-12-13
  * Time: 22:07
  */
-public class PurchaseOrdersOverViewPanel extends JPanel implements ListSelectionListener {
+public class PurchaseOrdersOverviewPanel extends JPanel {
     private final SelectableTable<PurchaseOrder> table;
     private final PurchaseOrdersOverViewDataTableModel purchaseOrdersOverViewDataTableModel;
     private final PurchaseOrderDetailTable purchaseOrderDetailTable;
+    private final PurchaseTotalsPanel purchaseTotalsPanel;
 
-    public PurchaseOrdersOverViewPanel(Accounting accounting) {
+    public PurchaseOrdersOverviewPanel(Accounting accounting) {
         purchaseOrdersOverViewDataTableModel = new PurchaseOrdersOverViewDataTableModel(accounting.getPurchaseOrders());
         table = new SelectableTable<>(purchaseOrdersOverViewDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
 
+        purchaseTotalsPanel = new PurchaseTotalsPanel();
 
-        purchaseOrderDetailTable = new PurchaseOrderDetailTable();
+        purchaseOrderDetailTable = new PurchaseOrderDetailTable(purchaseTotalsPanel);
 
-//        firePurchaseOrderAddedOrRemoved();
+        firePurchaseOrderAddedOrRemoved();
 
         DefaultListSelectionModel selection = new DefaultListSelectionModel();
         selection.addListSelectionListener(e -> {
@@ -40,20 +43,16 @@ public class PurchaseOrdersOverViewPanel extends JPanel implements ListSelection
         });
         table.setSelectionModel(selection);
 
-        setLayout(new BorderLayout());
-
         JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane,BorderLayout.NORTH);
 
-        add(purchaseOrderDetailTable, BorderLayout.SOUTH);
+        JPanel details = new JPanel(new BorderLayout());
+        details.add(purchaseOrderDetailTable, BorderLayout.CENTER);
+        details.add(purchaseTotalsPanel, BorderLayout.SOUTH);
+
+        add(Main.createSplitPane(scrollPane, details, JSplitPane.VERTICAL_SPLIT));
     }
 
     public void firePurchaseOrderAddedOrRemoved() {
         purchaseOrdersOverViewDataTableModel.fireTableDataChanged();
-    }
-
-    @Override
-    public void valueChanged(ListSelectionEvent e) {
-
     }
 }

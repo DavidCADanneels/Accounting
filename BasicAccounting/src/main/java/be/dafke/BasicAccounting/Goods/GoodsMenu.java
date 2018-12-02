@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Goods;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Articles;
 import be.dafke.BusinessModel.Contacts;
-import be.dafke.BusinessModel.Stock;
 
 import javax.swing.*;
 
@@ -15,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneels on 27/12/2015.
  */
 public class GoodsMenu extends JMenu {
-    private JMenuItem articlesTable, stockTable, purchaseOrders, salesOrders, purchaseOverView;
+    private JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders;
 
     private Articles articles;
     private Contacts contacts;
@@ -45,20 +44,11 @@ public class GoodsMenu extends JMenu {
         purchaseOrders = new JMenuItem(getBundle("Accounting").getString("PO"));
         purchaseOrders.setMnemonic(KeyEvent.VK_P);
         purchaseOrders.addActionListener(e -> {
-            PurchaseOrdersGUI purchaseOrdersGUI = PurchaseOrdersGUI.showPurchaseOrderGUI(accounting);
-            purchaseOrdersGUI.setLocation(getLocationOnScreen());
-            purchaseOrdersGUI.setVisible(true);
+            PurchaseOrdersOverviewGUI purchaseOrdersOverviewGUI = PurchaseOrdersOverviewGUI.showPurchaseOrderGUI(accounting);
+            purchaseOrdersOverviewGUI.setLocation(getLocationOnScreen());
+            purchaseOrdersOverviewGUI.setVisible(true);
         });
         purchaseOrders.setEnabled(false);
-
-        purchaseOverView = new JMenuItem(getBundle("Accounting").getString("PO_OVERVIEW"));
-        purchaseOverView.setMnemonic(KeyEvent.VK_O);
-        purchaseOverView.addActionListener(e -> {
-            PurchaseOrdersOverViewGUI purchaseOrdersOverViewGUI = PurchaseOrdersOverViewGUI.showPurchaseOrderGUI(accounting);
-            purchaseOrdersOverViewGUI.setLocation(getLocationOnScreen());
-            purchaseOrdersOverViewGUI.setVisible(true);
-        });
-        purchaseOverView.setEnabled(false);
 
         salesOrders = new JMenuItem(getBundle("Accounting").getString("SO"));
         salesOrders.setMnemonic(KeyEvent.VK_S);
@@ -72,7 +62,6 @@ public class GoodsMenu extends JMenu {
         add(articlesTable);
         add(stockTable);
         add(purchaseOrders);
-        add(purchaseOverView);
         add(salesOrders);
     }
 
@@ -82,7 +71,6 @@ public class GoodsMenu extends JMenu {
         setArticles(accounting==null?null:accounting.getArticles());
         stockTable.setEnabled(accounting!=null);
         purchaseOrders.setEnabled(accounting!=null);
-        purchaseOverView.setEnabled(accounting!=null);
         salesOrders.setEnabled(accounting!=null);
     }
 

@@ -13,20 +13,16 @@ public class PurchaseOrderDetailTable extends JPanel {
     private final PurchaseOrdersViewDataTableModel purchaseOrdersViewDataTableModel;
     private final PurchaseTotalsPanel purchaseTotalsPanel;
 
-    public PurchaseOrderDetailTable() {
-        setLayout(new BorderLayout());
-
+    public PurchaseOrderDetailTable(PurchaseTotalsPanel purchaseTotalsPanel) {
+        this.purchaseTotalsPanel = purchaseTotalsPanel;
         purchaseOrdersViewDataTableModel = new PurchaseOrdersViewDataTableModel();
         table = new SelectableTable<>(purchaseOrdersViewDataTableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
+        table.setPreferredScrollableViewportSize(new Dimension(1000, 200));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
 
-        purchaseTotalsPanel = new PurchaseTotalsPanel();
-
         JScrollPane scrollPane = new JScrollPane(table);
-        add(scrollPane,BorderLayout.CENTER);
-        add(purchaseTotalsPanel,BorderLayout.SOUTH);
+        add(scrollPane);
     }
 
     public PurchaseOrder getOrder(){

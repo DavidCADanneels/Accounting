@@ -351,7 +351,6 @@ public class Main {
         ContactsGUI.fireSupplierAddedOrRemovedForAll();
         ArticlesGUI.fireSupplierAddedOrRemovedForAll();
         PurchaseOrderCreateGUI.fireSupplierAddedOrRemovedForAll();
-        PurchaseOrdersGUI.fireSupplierAddedOrRemovedForAll();
     }
 
     public static void saveData(boolean writeHtml) {
