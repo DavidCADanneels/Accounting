@@ -6,8 +6,6 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import java.awt.*;
 
 /**
@@ -17,13 +15,13 @@ import java.awt.*;
  */
 public class PurchaseOrdersOverviewPanel extends JPanel {
     private final SelectableTable<PurchaseOrder> table;
-    private final PurchaseOrdersOverViewDataTableModel purchaseOrdersOverViewDataTableModel;
+    private final PurchaseOrdersOverviewDataTableModel purchaseOrdersOverviewDataTableModel;
     private final PurchaseOrderDetailTable purchaseOrderDetailTable;
     private final PurchaseTotalsPanel purchaseTotalsPanel;
 
     public PurchaseOrdersOverviewPanel(Accounting accounting) {
-        purchaseOrdersOverViewDataTableModel = new PurchaseOrdersOverViewDataTableModel(accounting.getPurchaseOrders());
-        table = new SelectableTable<>(purchaseOrdersOverViewDataTableModel);
+        purchaseOrdersOverviewDataTableModel = new PurchaseOrdersOverviewDataTableModel(accounting.getPurchaseOrders());
+        table = new SelectableTable<>(purchaseOrdersOverviewDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
@@ -53,6 +51,6 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
     }
 
     public void firePurchaseOrderAddedOrRemoved() {
-        purchaseOrdersOverViewDataTableModel.fireTableDataChanged();
+        purchaseOrdersOverviewDataTableModel.fireTableDataChanged();
     }
 }

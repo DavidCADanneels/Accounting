@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Goods;
 
 import be.dafke.BusinessModel.OrderItem;
 import be.dafke.BusinessModel.PurchaseOrder;
+import be.dafke.BusinessModel.SalesOrder;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;

@@ -85,7 +85,7 @@ class SalesOrdersCreatePanel extends JPanel {
                 salesOrderCreateDataTableModel.setOrder(order);
                 saleTotalsPanel.fireOrderContentChanged(order);
                 SalesOrdersViewGUI.fireSalesOrderAddedOrRemovedForAll();
-                SalesOrdersGUI.fireSalesOrderAddedOrRemovedForAll();
+                SalesOrdersOverviewGUI.fireSalesOrderAddedOrRemovedForAll();
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {

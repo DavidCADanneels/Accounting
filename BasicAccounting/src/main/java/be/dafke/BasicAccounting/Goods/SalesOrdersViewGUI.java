@@ -40,6 +40,6 @@ public class SalesOrdersViewGUI extends JFrame {
     }
 
     private void fireSalesOrderAddedOrRemoved() {
-        orderPanel.firePurchaseOrderAddedOrRemoved();
+        orderPanel.fireSalesOrderAddedOrRemoved();
     }
 }

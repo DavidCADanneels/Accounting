@@ -1,6 +1,9 @@
 package be.dafke.BasicAccounting.Goods;
 
-import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModel.Contact;
+import be.dafke.BusinessModel.Order;
+import be.dafke.BusinessModel.PurchaseOrder;
+import be.dafke.BusinessModel.PurchaseOrders;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
@@ -13,7 +16,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class PurchaseOrdersOverViewDataTableModel extends SelectableTableModel<PurchaseOrder> {
+public abstract class OrdersOverviewDataTableModel<T> extends SelectableTableModel<T> {
 	public static int ORDER_NR_COL = 0;
 	public static int DATE_COL = 1;
 	public static int CONTACT_COL = 2;
@@ -21,18 +24,15 @@ public class PurchaseOrdersOverViewDataTableModel extends SelectableTableModel<P
 	public static int VAT_AMOUNT_COL = 4;
 	public static int PRICE_TOTAL_INCL_COL = 5;
 	public static int NR_OF_COL = 6;
-	private HashMap<Integer,String> columnNames = new HashMap<>();
-	private HashMap<Integer,Class> columnClasses = new HashMap<>();
-	PurchaseOrders purchaseOrders;
+	protected HashMap<Integer,String> columnNames = new HashMap<>();
+	protected HashMap<Integer,Class> columnClasses = new HashMap<>();
 
-
-	public PurchaseOrdersOverViewDataTableModel(PurchaseOrders purchaseOrders) {
-		this.purchaseOrders = purchaseOrders;
+	public OrdersOverviewDataTableModel() {
 		setColumnNames();
 		setColumnClasses();
 	}
 
-	private void setColumnClasses() {
+	protected void setColumnClasses() {
 		columnClasses.put(ORDER_NR_COL, String.class);
 		columnClasses.put(DATE_COL, String.class);
 		columnClasses.put(CONTACT_COL, Contact.class);
@@ -41,40 +41,13 @@ public class PurchaseOrdersOverViewDataTableModel extends SelectableTableModel<P
 		columnClasses.put(PRICE_TOTAL_INCL_COL, BigDecimal.class);
 	}
 
-	private void setColumnNames() {
+	protected void setColumnNames() {
 		columnNames.put(ORDER_NR_COL, getBundle("Accounting").getString("ORDER_NR"));
 		columnNames.put(DATE_COL, getBundle("Accounting").getString("ITEMS_TO_ORDER"));
-		columnNames.put(CONTACT_COL, getBundle("Contacts").getString("SUPPLIER"));
+		columnNames.put(CONTACT_COL, getBundle("Contacts").getString("CONTACT"));
 		columnNames.put(PRICE_TOTAL_EXCL_COL, getBundle("Accounting").getString("TOTAL_VAT_EXCL"));
 		columnNames.put(VAT_AMOUNT_COL, getBundle("Accounting").getString("TOTAL_VAT"));
 		columnNames.put(PRICE_TOTAL_INCL_COL, getBundle("Accounting").getString("TOTAL_VAT_INCL"));
-	}
-	// DE GET METHODEN
-// ===============
-	public Object getValueAt(int row, int col) {
-		if (purchaseOrders == null) return null;
-		PurchaseOrder purchaseOrder = getObject(row, col);
-		if(purchaseOrder == null) return null;
-
-		if (col == CONTACT_COL) {
-			return purchaseOrder.getSupplier();
-		}
-		if (col == PRICE_TOTAL_EXCL_COL) {
-			return purchaseOrder.getTotalPurchasePriceExclVat();
-		}
-		if (col == VAT_AMOUNT_COL) {
-			return purchaseOrder.getTotalPurchaseVat();
-		}
-		if (col == PRICE_TOTAL_INCL_COL) {
-			return purchaseOrder.getTotalPurchasePriceInclVat();
-		}
-		if (col == ORDER_NR_COL) {
-			return purchaseOrder.getName();
-		}
-		if (col == DATE_COL) {
-			return purchaseOrder.getDate();
-		}
-		return null;
 	}
 
 	public int getColumnCount() {
@@ -82,10 +55,7 @@ public class PurchaseOrdersOverViewDataTableModel extends SelectableTableModel<P
 	}
 
 	public int getRowCount() {
-		if(purchaseOrders == null) return 0;
-		List<PurchaseOrder> businessObjects = purchaseOrders.getBusinessObjects();
-		if(businessObjects == null || businessObjects.size() == 0) return 0;
-		return businessObjects.size();
+		return 0;
 	}
 
 	@Override
@@ -111,9 +81,5 @@ public class PurchaseOrdersOverViewDataTableModel extends SelectableTableModel<P
 	}
 
 	@Override
-	public PurchaseOrder getObject(int row, int col) {
-		List<PurchaseOrder> purchaseOrders = this.purchaseOrders.getBusinessObjects();
-		if(purchaseOrders == null || purchaseOrders.size() == 0) return null;
-		return purchaseOrders.get(row);
-	}
+	public abstract T getObject(int row, int col);
 }

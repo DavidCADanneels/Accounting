@@ -137,7 +137,7 @@ class SalesOrdersViewPanel extends JPanel {
             createInvoiceButton.setVisible(salesOrder!=null&&salesOrder.isInvoice());
             updateButtonsAndCheckBoxes();
         });
-        firePurchaseOrderAddedOrRemoved();
+        fireSalesOrderAddedOrRemoved();
 
         setLayout(new BorderLayout());
 
@@ -394,7 +394,7 @@ class SalesOrdersViewPanel extends JPanel {
         return journal;
     }
 
-    void firePurchaseOrderAddedOrRemoved() {
+    void fireSalesOrderAddedOrRemoved() {
         comboBox.removeAllItems();
         salesOrders.getBusinessObjects().forEach(order -> comboBox.insertItemAt(order,0));
         comboBox.setSelectedIndex(0);
