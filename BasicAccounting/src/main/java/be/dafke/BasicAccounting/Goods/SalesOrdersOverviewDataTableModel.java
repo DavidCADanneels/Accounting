@@ -1,7 +1,5 @@
 package be.dafke.BasicAccounting.Goods;
 
-import be.dafke.BusinessModel.PurchaseOrder;
-import be.dafke.BusinessModel.PurchaseOrders;
 import be.dafke.BusinessModel.SalesOrder;
 import be.dafke.BusinessModel.SalesOrders;
 
