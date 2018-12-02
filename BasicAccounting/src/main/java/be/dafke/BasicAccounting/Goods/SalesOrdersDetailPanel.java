@@ -27,7 +27,7 @@ import java.util.List;
 class SalesOrdersDetailPanel extends JPanel {
     private JButton placeOrderButton, deliveredButton, payedButton, createInvoiceButton;
     private final SalesOrders salesOrders;
-    private JTextField customerName;
+    private JTextField customerName, invoiceNr;
     private JCheckBox payed, delivered, placed;
     private SalesOrder salesOrder;
     private Accounting accounting;
@@ -92,7 +92,8 @@ class SalesOrdersDetailPanel extends JPanel {
 
     private JPanel createButtonPanel(){
         createInvoiceButton = new JButton("Create Invoice");
-        createInvoiceButton.setVisible(false);
+//        createInvoiceButton.setVisible(false);
+        createInvoiceButton.setEnabled(false);
         createInvoiceButton.addActionListener(e -> createInvoice());
 
         placeOrderButton = new JButton("Place Order");
@@ -105,11 +106,22 @@ class SalesOrdersDetailPanel extends JPanel {
         payedButton.addActionListener(e -> payOrder());
 
         JPanel panel = new JPanel();
-        panel.add(createInvoiceButton);
-        panel.add(placeOrderButton);
-        panel.add(deliveredButton);
-        panel.add(payedButton);
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        JPanel line1 = new JPanel();
+        JPanel line2 = new JPanel();
 
+        invoiceNr = new JTextField(10);
+        invoiceNr.setEnabled(false);
+        line1.add(new JLabel("Invoice:"));
+        line1.add(invoiceNr);
+        line1.add(createInvoiceButton);
+
+        line2.add(placeOrderButton);
+        line2.add(deliveredButton);
+        line2.add(payedButton);
+
+        panel.add(line1);
+        panel.add(line2);
         return panel;
     }
 
@@ -183,7 +195,7 @@ class SalesOrdersDetailPanel extends JPanel {
         delivered.setSelected(salesOrder !=null&& salesOrder.isDelivered());
         deliveredButton.setEnabled(salesOrder !=null&&!salesOrder.isDelivered());
         placeOrderButton.setEnabled(salesOrder !=null&&!salesOrder.isPlaced());
-        createInvoiceButton.setEnabled(salesOrder !=null);
+//        createInvoiceButton.setEnabled(salesOrder !=null&&salesOrder.isInvoice());
         payedButton.setEnabled(salesOrder !=null&&!salesOrder.isPayed());
         customerName.setText(salesOrder!=null&&salesOrder.getCustomer()!=null?salesOrder.getCustomer().getName():"");
     }
@@ -387,7 +399,15 @@ class SalesOrdersDetailPanel extends JPanel {
 
     public void setOrder(SalesOrder salesOrder){
         this.salesOrder = salesOrder;
-        createInvoiceButton.setVisible(salesOrder!=null&&salesOrder.isInvoice());
+        if(salesOrder!=null&&salesOrder.isInvoice()){
+//            createInvoiceButton.setVisible(true);
+            createInvoiceButton.setEnabled(true);
+            invoiceNr.setText(salesOrder.getInvoiceNumber());
+        } else {
+//            createInvoiceButton.setVisible(false);
+            createInvoiceButton.setEnabled(false);
+            invoiceNr.setText("");
+        }
         updateButtonsAndCheckBoxes();
     }
 }
