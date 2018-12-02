@@ -26,7 +26,7 @@ public class PurchaseOrdersViewDataTableModel extends SelectableTableModel<Order
 	public static int NR_OF_COL = 9;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
-	private PurchaseOrder order;
+	protected PurchaseOrder order;
 
 	public PurchaseOrdersViewDataTableModel() {
 		setColumnNames();
