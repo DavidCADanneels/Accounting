@@ -1,13 +1,10 @@
 package be.dafke.BasicAccounting.Goods;
 
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
-
-import static java.util.ResourceBundle.getBundle;
+import java.util.function.Predicate;
 
 /**
  * @author David Danneels
@@ -15,8 +12,8 @@ import static java.util.ResourceBundle.getBundle;
 
 public class SalesOrderCreateDataTableModel extends SalesOrdersViewDataTableModel {
 	private final Articles articles;
-
 	private Contact contact;
+	private Predicate<Article> filter = article -> article.getSalesPriceItemWithVat()!=null;
 	private SalesOrder order;
 	private SaleTotalsPanel saleTotalsPanel;
 
@@ -29,7 +26,6 @@ public class SalesOrderCreateDataTableModel extends SalesOrdersViewDataTableMode
 	}
 
 	public int getRowCount() {
-		if(articles==null || contact==null) return 0;
 		List<Article> businessObjects = getArticles();
 		if(businessObjects == null) return 0;
 		return businessObjects.size();
@@ -41,7 +37,8 @@ public class SalesOrderCreateDataTableModel extends SalesOrdersViewDataTableMode
 	}
 
 	private List<Article> getArticles(){
-		List<Article> businessObjects = articles.getBusinessObjects(article -> article.getSalesPriceItemWithVat()!=null);
+		if(articles==null || contact==null || filter==null) return null;
+		List<Article> businessObjects = articles.getBusinessObjects(filter);
 		if(businessObjects == null) return null;
 		return businessObjects;
 	}
@@ -82,7 +79,7 @@ public class SalesOrderCreateDataTableModel extends SalesOrdersViewDataTableMode
 	@Override
 	public OrderItem getObject(int row, int col) {
 		List<Article> articleList = getArticles();
-		if(articleList == null || row >= articleList.size()) return null;
+		if(articleList == null) return null;
 		Article article = articleList.get(row);
 		return order.getBusinessObject(article.getName());
 	}

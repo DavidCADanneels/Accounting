@@ -13,10 +13,7 @@ import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
 import be.dafke.BasicAccounting.Contacts.ContactsGUI;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
 import be.dafke.BasicAccounting.Deliveroo.DeliverooMenu;
-import be.dafke.BasicAccounting.Goods.ArticlesGUI;
-import be.dafke.BasicAccounting.Goods.GoodsMenu;
-import be.dafke.BasicAccounting.Goods.PurchaseOrderCreateGUI;
-import be.dafke.BasicAccounting.Goods.SalesOrderCreateGUI;
+import be.dafke.BasicAccounting.Goods.*;
 import be.dafke.BasicAccounting.Journals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgageGUI;
@@ -135,7 +132,7 @@ public class Main {
         return accountingMultiPanel;
     }
 
-    private static JSplitPane createSplitPane(JComponent panel1, JComponent panel2, int orientation) {
+    public static JSplitPane createSplitPane(JComponent panel1, JComponent panel2, int orientation) {
         JSplitPane splitPane = new JSplitPane(orientation);
         if(orientation == JSplitPane.VERTICAL_SPLIT){
             splitPane.add(panel1,TOP);
@@ -353,6 +350,7 @@ public class Main {
         ContactsGUI.fireSupplierAddedOrRemovedForAll();
         ArticlesGUI.fireSupplierAddedOrRemovedForAll();
         PurchaseOrderCreateGUI.fireSupplierAddedOrRemovedForAll();
+        PurchaseOrdersGUI.fireSupplierAddedOrRemovedForAll();
     }
 
     public static void saveData(boolean writeHtml) {

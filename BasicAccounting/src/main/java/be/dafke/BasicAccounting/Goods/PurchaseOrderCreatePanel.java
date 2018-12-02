@@ -11,8 +11,6 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.util.function.Predicate;
 
-import static be.dafke.BasicAccounting.Goods.PurchaseOrdersViewGUI.firePurchaseOrderAddedOrRemovedForAll;
-
 /**
  * User: david
  * Date: 29-12-13
@@ -60,7 +58,9 @@ public class PurchaseOrderCreatePanel extends JPanel {
                 order = new PurchaseOrder();
                 order.setArticles(articles);
                 purchaseOrderCreateDataTableModel.setOrder(order);
-                firePurchaseOrderAddedOrRemovedForAll();
+                // TODO: pass view panel and call directly
+                PurchaseOrdersViewGUI.firePurchaseOrderAddedOrRemovedForAll();
+                PurchaseOrdersGUI.firePurchaseOrderAddedOrRemovedForAll();
                 purchaseTotalsPanel.fireOrderContentChanged(order);
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();

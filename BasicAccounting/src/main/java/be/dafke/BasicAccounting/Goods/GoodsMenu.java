@@ -15,11 +15,10 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneels on 27/12/2015.
  */
 public class GoodsMenu extends JMenu {
-    private JMenuItem articlesTable, stockTable;
+    private JMenuItem articlesTable, stockTable, purchaseOrders, salesOrders;
 
     private Articles articles;
     private Contacts contacts;
-    private Stock stock;
     private Accounting accounting;
 
     public GoodsMenu() {
@@ -35,7 +34,7 @@ public class GoodsMenu extends JMenu {
         articlesTable.setEnabled(false);
 
         stockTable = new JMenuItem(getBundle("Accounting").getString("STOCK"));
-        stockTable.setMnemonic(KeyEvent.VK_S);
+        stockTable.setMnemonic(KeyEvent.VK_T);
         stockTable.addActionListener(e -> {
             StockGUI stockGUI = StockGUI.showStock(accounting);
             stockGUI.setLocation(getLocationOnScreen());
@@ -43,20 +42,37 @@ public class GoodsMenu extends JMenu {
         });
         stockTable.setEnabled(false);
 
+        purchaseOrders = new JMenuItem(getBundle("Accounting").getString("PO"));
+        purchaseOrders.setMnemonic(KeyEvent.VK_P);
+        purchaseOrders.addActionListener(e -> {
+            PurchaseOrdersGUI purchaseOrdersGUI = PurchaseOrdersGUI.showPurchaseOrderGUI(accounting);
+            purchaseOrdersGUI.setLocation(getLocationOnScreen());
+            purchaseOrdersGUI.setVisible(true);
+        });
+        purchaseOrders.setEnabled(false);
+
+        salesOrders = new JMenuItem(getBundle("Accounting").getString("SO"));
+        salesOrders.setMnemonic(KeyEvent.VK_S);
+        salesOrders.addActionListener(e -> {
+//            SalesOrdersGUI salesOrdersGUI = SalesOrdersGUI.showPurchaseOrderGUI(accounting);
+//            salesOrdersGUI.setLocation(getLocationOnScreen());
+//            salesOrdersGUI.setVisible(true);
+        });
+        salesOrders.setEnabled(false);
+
         add(articlesTable);
         add(stockTable);
+        add(purchaseOrders);
+        add(salesOrders);
     }
 
     public void setAccounting(Accounting accounting) {
         this.accounting = accounting;
         setContacts(accounting==null?null:accounting.getContacts());
         setArticles(accounting==null?null:accounting.getArticles());
-        setStock(accounting==null?null:accounting.getStock());
-    }
-
-    public void setStock(Stock stock) {
-        this.stock = stock;
-        stockTable.setEnabled(stock!=null);
+        stockTable.setEnabled(accounting!=null);
+        purchaseOrders.setEnabled(accounting!=null);
+        salesOrders.setEnabled(accounting!=null);
     }
 
     public void setContacts(Contacts contacts) {

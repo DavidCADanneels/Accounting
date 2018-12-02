@@ -7,7 +7,6 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public class Stock extends OrderItems {
-    private boolean removeIfEmpty = true;
     protected final HashMap<String,Order> orders = new HashMap<>(); // "PO1", PurchaseOrder ; "SO1", SalesOrder ; ...
     protected final HashMap<Article,Integer> stock = new HashMap<>(); // "Coconut", 24 ; "Pala", 15 ; ...
 
