@@ -11,14 +11,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.function.Predicate;
 
-import static be.dafke.BasicAccounting.Goods.SalesOrdersViewGUI.fireSalesOrderAddedOrRemovedForAll;
-
 /**
  * User: david
  * Date: 29-12-13
  * Time: 22:07
  */
-class SalesOrderCreatePanel extends JPanel {
+class SalesOrdersCreatePanel extends JPanel {
     private Contact noInvoice = null;
     private SalesOrder order;
     private JCheckBox invoice;
@@ -29,7 +27,7 @@ class SalesOrderCreatePanel extends JPanel {
     private Predicate<Contact> filter;
     private final SalesOrderCreateDataTableModel salesOrderCreateDataTableModel;
 
-    SalesOrderCreatePanel(Accounting accounting) {
+    SalesOrdersCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
         noInvoice=accounting.getContactNoInvoice();
@@ -86,7 +84,8 @@ class SalesOrderCreatePanel extends JPanel {
                 order.setArticles(articles);
                 salesOrderCreateDataTableModel.setOrder(order);
                 saleTotalsPanel.fireOrderContentChanged(order);
-                fireSalesOrderAddedOrRemovedForAll();
+                SalesOrdersViewGUI.fireSalesOrderAddedOrRemovedForAll();
+                SalesOrdersGUI.fireSalesOrderAddedOrRemovedForAll();
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {

@@ -54,9 +54,9 @@ public class GoodsMenu extends JMenu {
         salesOrders = new JMenuItem(getBundle("Accounting").getString("SO"));
         salesOrders.setMnemonic(KeyEvent.VK_S);
         salesOrders.addActionListener(e -> {
-//            SalesOrdersGUI salesOrdersGUI = SalesOrdersGUI.showPurchaseOrderGUI(accounting);
-//            salesOrdersGUI.setLocation(getLocationOnScreen());
-//            salesOrdersGUI.setVisible(true);
+            SalesOrdersGUI salesOrdersGUI = SalesOrdersGUI.showSalesOrderGUI(accounting);
+            salesOrdersGUI.setLocation(getLocationOnScreen());
+            salesOrdersGUI.setVisible(true);
         });
         salesOrders.setEnabled(false);
 

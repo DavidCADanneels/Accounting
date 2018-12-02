@@ -15,17 +15,17 @@ import static javax.swing.JSplitPane.VERTICAL_SPLIT;
  * Time: 22:07
  */
 public class PurchaseOrdersGUI extends JFrame {
-    private final PurchaseOrdersViewPanel ordersViewPanel;
+    private final PurchaseOrdersViewPanel orderViewPanel;
     private final PurchaseOrderCreatePanel orderCreatePanel;
 
     private static PurchaseOrdersGUI purchaseOrderGui = null;
 
     private PurchaseOrdersGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("PO"));
-        ordersViewPanel = new PurchaseOrdersViewPanel(accounting);
+        orderViewPanel = new PurchaseOrdersViewPanel(accounting);
         orderCreatePanel = new PurchaseOrderCreatePanel(accounting);
 
-        JSplitPane splitPane = Main.createSplitPane(ordersViewPanel, orderCreatePanel, VERTICAL_SPLIT);
+        JSplitPane splitPane = Main.createSplitPane(orderViewPanel, orderCreatePanel, VERTICAL_SPLIT);
 
         setContentPane(splitPane);
         pack();
@@ -57,7 +57,7 @@ public class PurchaseOrdersGUI extends JFrame {
 
 
     public void firePurchaseOrderAddedOrRemoved(){
-        ordersViewPanel.firePurchaseOrderAddedOrRemoved();
+        orderViewPanel.firePurchaseOrderAddedOrRemoved();
 
     }
 }

@@ -344,6 +344,7 @@ public class Main {
     public static void fireCustomerAddedOrRemoved() {
         ContactsGUI.fireCustomerAddedOrRemovedForAll();
         SalesOrderCreateGUI.fireCustomerAddedOrRemovedForAll();
+        SalesOrdersGUI.fireCustomerAddedOrRemovedForAll();
     }
 
     public static void fireSupplierAddedOrRemoved() {
