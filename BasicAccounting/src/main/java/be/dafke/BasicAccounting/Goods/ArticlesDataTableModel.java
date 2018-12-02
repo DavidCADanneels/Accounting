@@ -81,11 +81,11 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 	private void setColumnNames() {
 		columnNames.put(UNIT_NAME_COL, getBundle("Accounting").getString("ARTICLE_UNIT_NAME"));
 		columnNames.put(ITEM_NAME_COL, getBundle("Accounting").getString("ARTICLE_ITEM_NAME"));
-		columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ARTICLE_ITEMS_PER_UNIT"));
+		columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ITEMS_PER_UNIT"));
 		columnNames.put(HS_COL, getBundle("Accounting").getString("ARTICLE_HS"));
-		columnNames.put(PURCHASE_PRICE_COL, getBundle("Accounting").getString("ARTICLE_PURCHASE_PRICE"));
-		columnNames.put(PURCHASE_VAT_COL, getBundle("Accounting").getString("ARTICLE_PURCHASE_VAT"));
-		columnNames.put(SALES_VAT_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT"));
+		columnNames.put(PURCHASE_PRICE_COL, getBundle("Accounting").getString("PURCHASE_PRICE"));
+		columnNames.put(PURCHASE_VAT_COL, getBundle("Accounting").getString("PURCHASE_VAT"));
+		columnNames.put(SALES_VAT_COL, getBundle("Accounting").getString("SALES_VAT"));
 		columnNames.put(SUPPLIER_COL, getBundle("Contacts").getString("SUPPLIER"));
 		columnNames.put(SALE_SINGLE_EXCL_COL, getBundle("Accounting").getString("SALE_SINGLE_EXCL"));
 		columnNames.put(SALE_PROMO_EXCL_COL, getBundle("Accounting").getString("SALE_PROMO_EXCL"));

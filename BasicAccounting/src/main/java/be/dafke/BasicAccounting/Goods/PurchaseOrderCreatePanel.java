@@ -38,7 +38,7 @@ public class PurchaseOrderCreatePanel extends JPanel {
         PurchaseTotalsPanel purchaseTotalsPanel = new PurchaseTotalsPanel();
         purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null, order, purchaseTotalsPanel);
         table = new SelectableTable<>(purchaseOrderCreateDataTableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 200));
+        table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
 

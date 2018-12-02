@@ -59,15 +59,15 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 	private void setColumnNames() {
 		columnNames.put(NR_OF_UNITS_COL, getBundle("Accounting").getString("UNITS_TO_ORDER"));
 		columnNames.put(NR_OF_ITEMS_COL, getBundle("Accounting").getString("ITEMS_TO_ORDER"));
-		columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ARTICLE_ITEMS_PER_UNIT"));
+		columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ITEMS_PER_UNIT"));
 		columnNames.put(NAME_COL, getBundle("Accounting").getString("ARTICLE_NAME"));
-		columnNames.put(PRICE_ITEM_COL, getBundle("Accounting").getString("ARTICLE_SALES_PRICE_ITEM"));
-		columnNames.put(PRICE_UNIT_COL, getBundle("Accounting").getString("ARTICLE_SALES_PRICE_UNIT"));
-		columnNames.put(TOTAL_EXCL_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_EXCL"));
-		columnNames.put(TOTAL_VAT_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_TOTAL"));
-		columnNames.put(TOTAL_INCL_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_INCL"));
+		columnNames.put(PRICE_ITEM_COL, getBundle("Accounting").getString("PRICE_ITEM"));
+		columnNames.put(PRICE_UNIT_COL, getBundle("Accounting").getString("PRICE_UNIT"));
+		columnNames.put(TOTAL_EXCL_COL, getBundle("Accounting").getString("TOTAL_VAT_EXCL"));
+		columnNames.put(TOTAL_VAT_COL, getBundle("Accounting").getString("TOTAL_VAT"));
+		columnNames.put(TOTAL_INCL_COL, getBundle("Accounting").getString("TOTAL_VAT_INCL"));
 		columnNames.put(SUPPLIER_COL, getBundle("Contacts").getString("SUPPLIER"));
-		columnNames.put(VAT_RATE_COL, getBundle("Accounting").getString("ARTICLE_VAT"));
+		columnNames.put(VAT_RATE_COL, getBundle("Accounting").getString("VAT_RATE"));
 	}
 	// DE GET METHODEN
 // ===============
@@ -86,10 +86,10 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 			return orderItem.getItemsPerUnit();
 		}
 		if (col == PRICE_ITEM_COL) {
-            return orderItem.getPriceForItem();
+            return orderItem.getSalesPriceForItem();
 		}
 		if (col == PRICE_UNIT_COL) {
-            return orderItem.getPriceForUnit();
+            return orderItem.getSalesPriceForUnit();
 		}
 		if (col == SUPPLIER_COL) {
 			return article.getSupplier();
@@ -162,10 +162,10 @@ public class SalesOrderCreateDataTableModel extends SelectableTableModel<OrderIt
 			orderItem.calculateNumberOfUnits();
 		} else if(col == PRICE_UNIT_COL){
 			BigDecimal amount = (BigDecimal) value;
-			orderItem.setPriceForUnit(amount);
+			orderItem.setSalesPriceForUnit(amount);
 		} else if (col == PRICE_ITEM_COL){
 			BigDecimal amount = (BigDecimal) value;
-			orderItem.setPriceForItem(amount);
+			orderItem.setSalesPriceForItem(amount);
 		} else if (col == ITEMS_PER_UNIT_COL){
             int nr = (Integer) value;
             orderItem.setItemsPerUnit(nr);

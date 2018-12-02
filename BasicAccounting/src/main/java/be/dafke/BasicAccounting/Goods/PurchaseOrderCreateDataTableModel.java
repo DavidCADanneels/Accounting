@@ -53,8 +53,8 @@ public class PurchaseOrderCreateDataTableModel extends SelectableTableModel<Orde
 		columnNames.put(NR_OF_ITEMS_COL, getBundle("Accounting").getString("ITEMS_TO_ORDER"));
 		columnNames.put(NAME_COL, getBundle("Accounting").getString("ARTICLE_NAME"));
 		columnNames.put(HS_COL, getBundle("Accounting").getString("ARTICLE_HS"));
-		columnNames.put(PRICE_COL, getBundle("Accounting").getString("ARTICLE_PURCHASE_PRICE"));
-		columnNames.put(VAT_COL, getBundle("Accounting").getString("ARTICLE_VAT"));
+		columnNames.put(PRICE_COL, getBundle("Accounting").getString("PURCHASE_PRICE"));
+		columnNames.put(VAT_COL, getBundle("Accounting").getString("VAT_RATE"));
 	}
 	// DE GET METHODEN
 // ===============

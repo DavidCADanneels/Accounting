@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Goods;
 
 import be.dafke.BusinessModel.Article;
-import be.dafke.BusinessModel.Order;
 import be.dafke.BusinessModel.OrderItem;
 import be.dafke.BusinessModel.SalesOrder;
 import be.dafke.ComponentModel.SelectableTableModel;
@@ -48,10 +47,10 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<OrderIte
 		columnNames.put(NR_OF_UNITS_COL, getBundle("Accounting").getString("UNITS_TO_ORDER"));
 		columnNames.put(NR_OF_ITEMS_COL, getBundle("Accounting").getString("ITEMS_TO_ORDER"));
 		columnNames.put(NAME_COL, getBundle("Accounting").getString("ARTICLE_NAME"));
-		columnNames.put(TOTAL_EXCL_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_EXCL"));
-		columnNames.put(TOTAL_VAT_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_TOTAL"));
-		columnNames.put(TOTAL_INCL_COL, getBundle("Accounting").getString("ARTICLE_SALES_VAT_INCL"));
-		columnNames.put(VAT_RATE_COL, getBundle("Accounting").getString("ARTICLE_VAT"));
+		columnNames.put(TOTAL_EXCL_COL, getBundle("Accounting").getString("TOTAL_VAT_EXCL"));
+		columnNames.put(TOTAL_VAT_COL, getBundle("Accounting").getString("TOTAL_VAT"));
+		columnNames.put(TOTAL_INCL_COL, getBundle("Accounting").getString("TOTAL_VAT_INCL"));
+		columnNames.put(VAT_RATE_COL, getBundle("Accounting").getString("VAT_RATE"));
 	}
 	// DE GET METHODEN
 // ===============

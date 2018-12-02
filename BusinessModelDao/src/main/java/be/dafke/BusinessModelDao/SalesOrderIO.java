@@ -119,7 +119,7 @@ public class SalesOrderIO {
                 if(salesPriceForUnitString != null) {
                     salesPriceForUnit = parseBigDecimal(salesPriceForUnitString);
                     if(salesPriceForUnit!=null){
-                        orderItem.setPriceForUnit(salesPriceForUnit);
+                        orderItem.setSalesPriceForUnit(salesPriceForUnit);
                     }
                 }
 
@@ -130,7 +130,7 @@ public class SalesOrderIO {
                 if(salesPriceForItemString != null) {
                     salesPriceForItem = parseBigDecimal(salesPriceForItemString);
                     if (salesPriceForItem != null){
-                        orderItem.setPriceForItem(salesPriceForItem);
+                        orderItem.setSalesPriceForItem(salesPriceForItem);
                     }
                 }
 
@@ -204,8 +204,8 @@ public class SalesOrderIO {
                                 "      <" + NR_OF_ITEMS + ">" + orderItem.getNumberOfItems() + "</" + NR_OF_ITEMS + ">\n" +
                                 "      <" + ITEMS_PER_UNIT + ">" + orderItem.getItemsPerUnit() + "</" + ITEMS_PER_UNIT + ">\n" +
                                 "      <" + SALES_VAT_RATE + ">" + orderItem.getSalesVatRate() + "</" + SALES_VAT_RATE + ">\n" +
-                                "      <" + SALESPRICE_FOR_UNIT + ">" + orderItem.getPriceForUnit() + "</" + SALESPRICE_FOR_UNIT + ">\n" +
-                                "      <" + SALESPRICE_FOR_ITEM + ">" + orderItem.getPriceForItem() + "</" + SALESPRICE_FOR_ITEM + ">\n" +
+                                "      <" + SALESPRICE_FOR_UNIT + ">" + orderItem.getSalesPriceForUnit() + "</" + SALESPRICE_FOR_UNIT + ">\n" +
+                                "      <" + SALESPRICE_FOR_ITEM + ">" + orderItem.getSalesPriceForItem() + "</" + SALESPRICE_FOR_ITEM + ">\n" +
                                 "    </" + ARTICLE + ">\n"
                     );
                 }
@@ -290,7 +290,7 @@ public class SalesOrderIO {
                             "    <" + ARTICLE + ">\n" +
                                 "      <" + NAME + ">" + (listNrOfItems?article.getItemName():article.getName()) + "</" + NAME + ">\n" +
                                 "      <" + NUMBER + ">" + (listNrOfItems?orderItem.getNumberOfItems():orderItem.getNumberOfUnits()) + "</" + NUMBER + ">\n" +
-                                "      <" + UNIT_PRICE + ">" + (listNrOfItems?orderItem.getPriceForItem():orderItem.getPriceForUnit()) + "</" + UNIT_PRICE + ">\n" +
+                                "      <" + UNIT_PRICE + ">" + (listNrOfItems?orderItem.getSalesPriceForItem():orderItem.getSalesPriceForUnit()) + "</" + UNIT_PRICE + ">\n" +
                                 "      <" + TAX_RATE + ">" + salesVatRate + "</" + TAX_RATE + ">\n" +
                                 "      <" + TOTAL_PRICE + ">" + orderItem.getSalesPriceWithVat() + "</" + TOTAL_PRICE + ">\n" +
                                 "    </" + ARTICLE + ">\n"

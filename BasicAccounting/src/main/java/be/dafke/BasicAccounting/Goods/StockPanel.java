@@ -23,7 +23,7 @@ public class StockPanel extends JPanel {
         Stock stock = accounting.getStock();
         stockDataTableModel = new StockDataTableModel(stock);
         table = new SelectableTable<>(stockDataTableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 200));
+        table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
         JScrollPane scrollPane = new JScrollPane(table);

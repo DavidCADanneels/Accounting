@@ -36,7 +36,7 @@ public class PurchaseOrdersViewPanel extends JPanel {
         this.purchaseOrders = accounting.getPurchaseOrders();
         purchaseOrdersViewDataTableModel = new PurchaseOrdersViewDataTableModel();
         table = new SelectableTable<>(purchaseOrdersViewDataTableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 200));
+        table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
 

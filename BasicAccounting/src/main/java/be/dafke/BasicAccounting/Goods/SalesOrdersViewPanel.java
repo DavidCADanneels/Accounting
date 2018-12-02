@@ -42,7 +42,7 @@ class SalesOrdersViewPanel extends JPanel {
         this.salesOrders = accounting.getSalesOrders();
         salesOrdersViewDataTableModel = new SalesOrdersViewDataTableModel();
         table = new SelectableTable<>(salesOrdersViewDataTableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 200));
+        table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         table.setAutoCreateRowSorter(true);
 //        table.setRowSorter(null);
 

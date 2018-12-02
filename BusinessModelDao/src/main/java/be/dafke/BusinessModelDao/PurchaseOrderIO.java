@@ -75,7 +75,11 @@ public class PurchaseOrderIO {
                 String numberOfItemsString = getValue(element, NR_OF_ITEMS);
                 int numberOfItems = parseInt(numberOfItemsString);
 
+                String purchaseVatRateString = getValue(element, PURCHASE_VAT_RATE);
+                int purchaseVatRate = parseInt(purchaseVatRateString);
+
                 OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article);
+                orderItem.setPurchaseVatRate(purchaseVatRate);
                 orderItem.setName(name);
                 order.addBusinessObject(orderItem);
             }
@@ -124,6 +128,8 @@ public class PurchaseOrderIO {
                                 "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
                                 "      <" + NR_OF_UNITS + ">" + orderItem.getNumberOfUnits() + "</" + NR_OF_UNITS + ">\n" +
                                 "      <" + NR_OF_ITEMS + ">" + orderItem.getNumberOfItems() + "</" + NR_OF_ITEMS + ">\n" +
+                                "      <" + PURCHASE_VAT_RATE + ">" + orderItem.getPurchaseVatRate() + "</" + PURCHASE_VAT_RATE + ">\n" +
+                                "      <" + PURCHASE_PRICE + ">" + orderItem.getPurchasePriceForUnit() + "</" + PURCHASE_PRICE + ">\n" +
                                 "    </" + ARTICLE + ">\n"
                     );
                 }
