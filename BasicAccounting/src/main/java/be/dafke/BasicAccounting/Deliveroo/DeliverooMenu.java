@@ -5,7 +5,7 @@ import be.dafke.BusinessModel.Accounting;
 import javax.swing.*;
 
 public class DeliverooMenu extends JMenu {
-    private JMenuItem dailyOrders, meals;
+    private JMenuItem dailyOrders, ordersOverview, meals;
     private Accounting accounting;
 
     public DeliverooMenu() {
@@ -16,14 +16,21 @@ public class DeliverooMenu extends JMenu {
             mealsGUI.setLocation(getLocationOnScreen());
             mealsGUI.setVisible(true);
         });
-        dailyOrders = new JMenuItem("Daily Orders");
+        dailyOrders = new JMenuItem("Daily Order Input");
         dailyOrders.addActionListener(e -> {
-            DeliverooGUI deliverooOrders = DeliverooGUI.getInstance(accounting);
+            DeliverooOrderCreateGUI deliverooOrders = DeliverooOrderCreateGUI.getInstance(accounting);
+            deliverooOrders.setLocation(getLocationOnScreen());
+            deliverooOrders.setVisible(true);
+        });
+        ordersOverview = new JMenuItem("Daily Order Overview");
+        ordersOverview.addActionListener(e -> {
+            DeliverooOrderOverviewGUI deliverooOrders = DeliverooOrderOverviewGUI.getInstance(accounting);
             deliverooOrders.setLocation(getLocationOnScreen());
             deliverooOrders.setVisible(true);
         });
         add(meals);
         add(dailyOrders);
+        add(ordersOverview);
     }
 
     public void setAccounting(Accounting accounting) {

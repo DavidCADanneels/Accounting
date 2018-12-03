@@ -14,68 +14,41 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class DeliverooPanel extends JPanel {
+public class DeliverooOrderCreatePanel extends JPanel {
     public static final int FOOD_SALES_PERCENTAGE = 6;
     public static final int DELIVERY_PROFIT_PERCENTAGE = 27;
     public static final int DELIVERY_SERVICE_PERCENTAGE = 21;
     private JTextField price;
-    private JTextField receivedInclVat, receivedVat, receivedExclVat;
-    private JTextField serviceInclVat, serviceVat, serviceExclVat;
     private JButton book;
+    private DeliveryTotalsPanel totalsPanel;
     private DateAndDescriptionPanel dateAndDescriptionPanel;
     private Transaction transaction;
     private Accounting accounting;
 
-    private BigDecimal salesAmountInclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
-    private BigDecimal salesAmountExclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
-    private BigDecimal salesAmountVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
+    private JTable table;
+    private DeliverooOrdersCreateOrderDataTableModel tableModel;
+    private MealOrder mealOrder;
 
-    private BigDecimal serviceAmountExclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
-    private BigDecimal serviceAmountVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
-    private BigDecimal serviceAmountInclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
-
-    public DeliverooPanel(Accounting accounting) {
+    public DeliverooOrderCreatePanel(Accounting accounting) {
         this.accounting = accounting;
+        totalsPanel = new DeliveryTotalsPanel();
         transaction = new Transaction(Calendar.getInstance(),"");
-        dateAndDescriptionPanel = new DateAndDescriptionPanel();
-        dateAndDescriptionPanel.setTransaction(transaction);
-        dateAndDescriptionPanel.fireTransactionDataChanged();
-
-        receivedExclVat = new JTextField(10);
-        receivedInclVat = new JTextField(10);
-        receivedVat = new JTextField(10);
-        serviceExclVat = new JTextField(10);
-        serviceVat = new JTextField(10);
-        serviceInclVat = new JTextField(10);
-
-        receivedExclVat.setEnabled(false);
-        receivedInclVat.setEnabled(false);
-        receivedVat.setEnabled(false);
-        serviceExclVat.setEnabled(false);
-        serviceVat.setEnabled(false);
-        serviceInclVat.setEnabled(false);
 
         setLayout(new BorderLayout());
+        add(totalsPanel, BorderLayout.SOUTH);
         add(createTopPanel(), BorderLayout.NORTH);
-        add(createOverviewPanel(), BorderLayout.CENTER);
         clear();
+        add(createOrderPanel(), BorderLayout.CENTER);
+    }
+
+    private JScrollPane createOrderPanel() {
+        tableModel = new DeliverooOrdersCreateOrderDataTableModel(accounting.getDeliverooMeals(), mealOrder);
+        table = new JTable(tableModel);
+        return new JScrollPane(table);
     }
 
     private void clear() {
-        salesAmountInclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
-        salesAmountExclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
-        salesAmountVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
-
-        serviceAmountExclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
-        serviceAmountVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
-        serviceAmountInclVat = BigDecimal.ZERO.setScale(2,BigDecimal.ROUND_HALF_DOWN);
-
-        receivedExclVat.setText("");
-        receivedInclVat.setText("");
-        receivedVat.setText("");
-        serviceExclVat.setText("");
-        serviceVat.setText("");
-        serviceInclVat.setText("");
+        totalsPanel.clear();
         price.setText("");
         Calendar date = transaction.getDate();
         transaction = new Transaction(date, "");
@@ -83,18 +56,30 @@ public class DeliverooPanel extends JPanel {
         dateAndDescriptionPanel.fireTransactionDataChanged();
 
         book.setEnabled(false);
+
+        mealOrder = new MealOrder();
+        mealOrder.setMeals(accounting.getDeliverooMeals());
     }
 
     private JPanel createTopPanel(){
+        dateAndDescriptionPanel = new DateAndDescriptionPanel();
+        dateAndDescriptionPanel.setTransaction(transaction);
+        dateAndDescriptionPanel.fireTransactionDataChanged();
+
         book = new JButton("Book");
-        book.addActionListener(e -> book());
-        price = new JTextField(10);
-        price.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusLost(FocusEvent e) {
-                calculateTotals();
-            }
+        book.addActionListener(e -> {
+            addHistory();
+            book();
+            clear();
         });
+        price = new JTextField(10);
+        price.setEnabled(false);
+//        price.addFocusListener(new FocusAdapter() {
+//            @Override
+//            public void focusLost(FocusEvent e) {
+//                calculateTotals();
+//            }
+//        });
         JPanel panel = new JPanel();
         panel.add(dateAndDescriptionPanel);
         JPanel right = new JPanel(new GridLayout(0,2));
@@ -106,30 +91,8 @@ public class DeliverooPanel extends JPanel {
         return panel;
     }
 
-    private JPanel createOverviewPanel(){
-        JPanel panel = new JPanel();
-        JPanel leftPanel = new JPanel(new GridLayout(0,2));
-        JPanel rightPanel = new JPanel(new GridLayout(0,2));
-
-        leftPanel.add(new JLabel("Ontvangsten"));
-        leftPanel.add(receivedInclVat);
-
-        leftPanel.add(new JLabel("Excl BTW"));
-        leftPanel.add(receivedExclVat);
-
-        leftPanel.add(new JLabel("BTW"));
-        leftPanel.add(receivedVat);
-
-        rightPanel.add(new JLabel("Service"));
-        rightPanel.add(serviceExclVat);
-        rightPanel.add(new JLabel("BTW"));
-        rightPanel.add(serviceVat);
-        rightPanel.add(new JLabel("Te betalen"));
-        rightPanel.add(serviceInclVat);
-
-        panel.add(leftPanel);
-        panel.add(rightPanel);
-        return panel;
+    private void addHistory() {
+        mealOrder.removeEmptyOrderItems();
     }
 
     private void book() {
@@ -194,9 +157,9 @@ public class DeliverooPanel extends JPanel {
             vatTransactions.setCreditAccount(vatCostsAccount);
         }
 
-        Booking salesBooking = new Booking(deliverooBalanceAccount, salesAmountInclVat, true);
-        Booking salesVatBooking = new Booking(vatSalesAccount, salesAmountVat, false);
-        Booking salesRevenueBooking = new Booking(deliverooRevenueAccount, salesAmountExclVat, false);
+        Booking salesBooking = new Booking(deliverooBalanceAccount, totalsPanel.getSalesAmountInclVat(), true);
+        Booking salesVatBooking = new Booking(vatSalesAccount, totalsPanel.getSalesAmountVat(), false);
+        Booking salesRevenueBooking = new Booking(deliverooRevenueAccount, totalsPanel.getSalesAmountExclVat(), false);
         transaction.setJournal(salesJournal);
         Calendar date = transaction.getDate();
         String description = dateAndDescriptionPanel.getDescription();
@@ -210,40 +173,25 @@ public class DeliverooPanel extends JPanel {
 
         Transaction serviceTransaction = new Transaction(date, description);
         serviceTransaction.setJournal(serviceJournal);
-        Booking serviceBooking = new Booking(deliverooServiceAccount, serviceAmountExclVat, true);
-        Booking serviceVatBooking = new Booking(vatCostsAccount, serviceAmountVat, true);
-        Booking debtsBooking = new Booking(deliverooBalanceAccount, serviceAmountInclVat, false);
+        Booking serviceBooking = new Booking(deliverooServiceAccount, totalsPanel.getServiceAmountExclVat(), true);
+        Booking serviceVatBooking = new Booking(vatCostsAccount, totalsPanel.getServiceAmountVat(), true);
+        Booking debtsBooking = new Booking(deliverooBalanceAccount, totalsPanel.getServiceAmountInclVat(), false);
         serviceTransaction.addBusinessObject(serviceBooking);
         serviceTransaction.addBusinessObject(serviceVatBooking);
         serviceTransaction.addBusinessObject(debtsBooking);
         transactions.setId(serviceTransaction);
         transactions.addBusinessObject(serviceTransaction);
         serviceJournal.addBusinessObject(serviceTransaction);
-
-        clear();
     }
 
-    private void calculateTotals() {
-        String text = price.getText();
-        salesAmountInclVat = Utils.parseBigDecimal(text);
-        book.setEnabled(salesAmountInclVat!=null);
-        if(salesAmountInclVat!=null){
-            salesAmountInclVat = salesAmountInclVat.setScale(2,BigDecimal.ROUND_HALF_DOWN);
-            price.setText(salesAmountInclVat.toString());
+    public void calculateTotals(MealOrder mealOrder2) {
 
-            salesAmountExclVat = salesAmountInclVat.divide(Utils.getFactor(FOOD_SALES_PERCENTAGE),BigDecimal.ROUND_HALF_DOWN).setScale(2,BigDecimal.ROUND_HALF_DOWN);
-            salesAmountVat = salesAmountExclVat.multiply(Utils.getPercentage(FOOD_SALES_PERCENTAGE)).setScale(2,BigDecimal.ROUND_HALF_DOWN);
-
-            serviceAmountExclVat = salesAmountInclVat.multiply(Utils.getPercentage(DELIVERY_PROFIT_PERCENTAGE)).setScale(2,BigDecimal.ROUND_HALF_DOWN);
-            serviceAmountVat = serviceAmountExclVat.multiply(Utils.getPercentage(DELIVERY_SERVICE_PERCENTAGE)).setScale(2,BigDecimal.ROUND_HALF_DOWN);
-            serviceAmountInclVat = serviceAmountExclVat.add(serviceAmountVat).setScale(2,BigDecimal.ROUND_HALF_DOWN);
-
-            receivedInclVat.setText(salesAmountInclVat.toString());
-            receivedExclVat.setText(salesAmountExclVat.toString());
-            receivedVat.setText(salesAmountVat.toString());
-            serviceInclVat.setText(serviceAmountInclVat.toString());
-            serviceExclVat.setText(serviceAmountExclVat.toString());
-            serviceVat.setText(serviceAmountVat.toString());
-        }
+        BigDecimal totalPrice = mealOrder.getTotalPrice();
+        totalsPanel.setSalesAmountInclVat(totalPrice);
+        totalsPanel.calculateTotals();
+        BigDecimal salesAmountInclVat = totalsPanel.getSalesAmountInclVat();
+        book.setEnabled(salesAmountInclVat.compareTo(BigDecimal.ZERO)>0);
+        salesAmountInclVat = salesAmountInclVat.setScale(2,BigDecimal.ROUND_HALF_DOWN);
+        price.setText(salesAmountInclVat.toString());
     }
 }
