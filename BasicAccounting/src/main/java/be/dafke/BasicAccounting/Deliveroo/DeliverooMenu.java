@@ -3,19 +3,26 @@ package be.dafke.BasicAccounting.Deliveroo;
 import be.dafke.BusinessModel.Accounting;
 
 import javax.swing.*;
-import java.awt.*;
 
 public class DeliverooMenu extends JMenu {
-    private JMenuItem dailyOrders;
+    private JMenuItem dailyOrders, meals;
     private Accounting accounting;
 
     public DeliverooMenu() {
         super("Deliveroo");
+        meals = new JMenuItem("Meals");
+        meals.addActionListener(e -> {
+            MealsGUI mealsGUI = MealsGUI.showMeals(accounting.getDeliverooMeals());
+            mealsGUI.setLocation(getLocationOnScreen());
+            mealsGUI.setVisible(true);
+        });
         dailyOrders = new JMenuItem("Daily Orders");
         dailyOrders.addActionListener(e -> {
-            DeliverooGUI instance = DeliverooGUI.getInstance(accounting);
-            instance.setVisible(true);
+            DeliverooGUI deliverooOrders = DeliverooGUI.getInstance(accounting);
+            deliverooOrders.setLocation(getLocationOnScreen());
+            deliverooOrders.setVisible(true);
         });
+        add(meals);
         add(dailyOrders);
     }
 

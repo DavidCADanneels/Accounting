@@ -23,34 +23,7 @@ import static java.util.ResourceBundle.getBundle;
 public class ArticlesGUI extends JFrame {
     private final ArticlesPanel articlesPanel;
 
-    public static void main(String[] args) {
-        Articles articles = new Articles();
-//        addDummyData(articles);
-        Accounting accounting = new Accounting("test");
-        Contacts contacts = new Contacts(accounting);
-        ArticlesGUI goederen = new ArticlesGUI(articles, contacts);
-        goederen.setVisible(true);
-    }
-
     private static final HashMap<Articles, ArticlesGUI> articlesGuis = new HashMap<>();
-
-    public static void addDummyData(Articles articles){
-        Article article1 = new Article("article1");
-        Article article2 = new Article("article2");
-        Article article3 = new Article("article3");
-        Article article4 = new Article("article4");
-        try {
-            articles.addBusinessObject(article1);
-            articles.addBusinessObject(article2);
-            articles.addBusinessObject(article3);
-            articles.addBusinessObject(article4);
-        } catch (EmptyNameException e) {
-            e.printStackTrace();
-        } catch (DuplicateNameException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     private ArticlesGUI(Articles articles, Contacts contacts) {
         super(getBundle("Accounting").getString("ARTICLES"));

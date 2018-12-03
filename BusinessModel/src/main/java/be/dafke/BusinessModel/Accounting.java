@@ -25,6 +25,7 @@ public class Accounting extends BusinessObject{
     private Contact contactNoInvoice=null;
     private CounterParties counterParties;
     private Statements statements;
+    private DeliverooMeals deliverooMeals;
     private boolean read = false;
     private boolean vatAccounting = false;
     private boolean mortgagesAccounting = true;
@@ -65,6 +66,8 @@ public class Accounting extends BusinessObject{
         purchaseOrders = new PurchaseOrders();
 
         salesOrders = new SalesOrders();
+
+        deliverooMeals = new DeliverooMeals();
 	}
 
     // Collections
@@ -219,5 +222,13 @@ public class Accounting extends BusinessObject{
 
     public Journal getActiveJournal() {
         return activeJournal;
+    }
+
+    public DeliverooMeals getDeliverooMeals() {
+        return deliverooMeals;
+    }
+
+    public void setDeliverooMeals(DeliverooMeals deliverooMeals) {
+        this.deliverooMeals = deliverooMeals;
     }
 }
