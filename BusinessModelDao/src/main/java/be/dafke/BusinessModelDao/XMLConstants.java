@@ -135,6 +135,8 @@ public class XMLConstants {
     public static final String MEAL_NR = "MealNr";
     public static final String MEAL_NAME = "MealName";
     public static final String PRICE = "Price";
+    public static final String MEAL_ORDERS = "MealOrders";
+    public static final String MEAL_ORDER = "MealOrder";
 
     public static final String STOCK = "Stock";
     public static final String STOCK_TRANSACTIONS = "StockTransactions";

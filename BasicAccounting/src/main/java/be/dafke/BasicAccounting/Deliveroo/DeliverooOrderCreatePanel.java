@@ -4,6 +4,8 @@ import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
 import be.dafke.BasicAccounting.Journals.DateAndDescriptionPanel;
 import be.dafke.BasicAccounting.Journals.JournalSelectorDialog;
 import be.dafke.BusinessModel.*;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
@@ -69,7 +71,7 @@ public class DeliverooOrderCreatePanel extends JPanel {
         book = new JButton("Book");
         book.addActionListener(e -> {
             addHistory();
-            book();
+//            book();
             clear();
         });
         price = new JTextField(10);
@@ -93,6 +95,13 @@ public class DeliverooOrderCreatePanel extends JPanel {
 
     private void addHistory() {
         mealOrder.removeEmptyOrderItems();
+        MealOrders mealOrders = accounting.getMealOrders();
+        try {
+            mealOrders.addBusinessObject(mealOrder);
+        } catch (EmptyNameException | DuplicateNameException e) {
+            e.printStackTrace();
+        }
+        clear();
     }
 
     private void book() {

@@ -15,6 +15,7 @@ import static be.dafke.BusinessModelDao.BalancesIO.writeBalances;
 import static be.dafke.BusinessModelDao.ContactsIO.writeContacts;
 import static be.dafke.BusinessModelDao.JournalsIO.writeJournalTypes;
 import static be.dafke.BusinessModelDao.JournalsIO.writeJournals;
+import static be.dafke.BusinessModelDao.MealOrderIO.writeMealOrders;
 import static be.dafke.BusinessModelDao.MealsIO.writeMeals;
 import static be.dafke.BusinessModelDao.MortgageIO.writeMortgages;
 import static be.dafke.BusinessModelDao.ProjectsIO.writeProjects;
@@ -152,6 +153,7 @@ public class XMLWriter {
         }
         if(accounting.isDeliverooAccounting()){
             writeMeals(accounting);
+            writeMealOrders(accounting);
         }
 
 //        JournalsIO.writeJournalPdfFiles(accounting);

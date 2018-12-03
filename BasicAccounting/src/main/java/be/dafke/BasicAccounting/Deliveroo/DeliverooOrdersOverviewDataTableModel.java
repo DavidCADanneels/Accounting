@@ -54,7 +54,7 @@ public class DeliverooOrdersOverviewDataTableModel extends SelectableTableModel<
 		if(mealOrder == null) return null;
 
 		if (col == ID_COL) {
-			return mealOrder.getId();
+			return mealOrder.getName();
 		}
 		if (col == DATE_COL) {
 			return mealOrder.getDate();

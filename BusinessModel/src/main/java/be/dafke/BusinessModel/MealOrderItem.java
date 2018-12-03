@@ -35,5 +35,7 @@ public class MealOrderItem extends BusinessObject{
         return deliverooMeal;
     }
 
-
+    public boolean isDeletable() {
+        return numberOfItems==0;
+    }
 }

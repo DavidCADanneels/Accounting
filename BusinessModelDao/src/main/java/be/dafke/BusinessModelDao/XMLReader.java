@@ -20,6 +20,7 @@ import static be.dafke.BusinessModelDao.JournalsIO.readJournalTypes;
 import static be.dafke.BusinessModelDao.JournalsIO.readJournals;
 import static be.dafke.BusinessModelDao.JournalsIO.readJournalsContent;
 import static be.dafke.BusinessModelDao.JournalsIO.readTransactions;
+import static be.dafke.BusinessModelDao.MealOrderIO.readMealOrders;
 import static be.dafke.BusinessModelDao.MealsIO.readMeals;
 import static be.dafke.BusinessModelDao.MortgageIO.readMortgages;
 import static be.dafke.BusinessModelDao.ProjectsIO.readProjects;
@@ -161,6 +162,7 @@ public class XMLReader {
         }
         if (accounting.isDeliverooAccounting()){
             readMeals(accounting);
+            readMealOrders(accounting);
         }
     }
 

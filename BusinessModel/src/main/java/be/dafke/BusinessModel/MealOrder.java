@@ -11,16 +11,13 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class MealOrder extends BusinessCollection<MealOrderItem>{
+    private static int nr=0;
     private Calendar date;
     private String description;
-    private String id;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
+    public MealOrder() {
+        nr++;
+        setName("DEL"+nr);
     }
 
     public Calendar getDate() {
