@@ -22,7 +22,7 @@ public class SalesOrdersOverviewPanel extends JPanel {
     private final SalesOrdersOverviewDataTableModel tableModel;
     private final SalesOrderDetailTable salesOrderDetailTable;
     private final SaleTotalsPanel saleTotalsPanel;
-    private final JButton createSalesOrder;
+
     private final SalesOrdersDetailPanel salesOrdersDetailPanel;
 
     public SalesOrdersOverviewPanel(Accounting accounting) {
@@ -53,20 +53,9 @@ public class SalesOrdersOverviewPanel extends JPanel {
         details.add(salesOrderDetailTable, BorderLayout.CENTER);
         details.add(saleTotalsPanel, BorderLayout.SOUTH);
 
-        createSalesOrder = new JButton(getBundle("Accounting").getString("CREATE_SO"));
-        createSalesOrder.addActionListener(e -> {
-            SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderGUI(accounting);
-            salesOrderCreateGUI.setLocation(getLocationOnScreen());
-            salesOrderCreateGUI.setVisible(true);
-        });
-
-        JPanel rightPanel = new JPanel(new BorderLayout());
-        rightPanel.add(salesOrdersDetailPanel);
-        rightPanel.add(createSalesOrder, BorderLayout.SOUTH);
-
         setLayout(new BorderLayout());
         add(Main.createSplitPane(scrollPane, details, JSplitPane.VERTICAL_SPLIT), BorderLayout.CENTER);
-        add(rightPanel, BorderLayout.EAST);
+        add(salesOrdersDetailPanel, BorderLayout.EAST);
     }
 
     public void fireSalesOrderAddedOrRemoved() {
