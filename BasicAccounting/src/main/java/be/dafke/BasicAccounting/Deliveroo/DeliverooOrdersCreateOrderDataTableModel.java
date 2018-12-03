@@ -94,7 +94,7 @@ public class DeliverooOrdersCreateOrderDataTableModel extends SelectableTableMod
 			MealOrderItem mealOrderItem = getObject(row, col);
 			mealOrderItem.setNumberOfItems(numberOfItems);
 			mealOrder.setOrderItem(mealOrderItem);
-			DeliverooOrderCreateGUI.calculateTotalsForAll(mealOrder);
+			DeliverooOrderCreateGUI.calculateTotalsForAll();
 		}
 	}
 
@@ -133,5 +133,9 @@ public class DeliverooOrdersCreateOrderDataTableModel extends SelectableTableMod
 	@Override
 	public boolean isCellEditable(int row, int col) {
 		return col==NR_COL;
+	}
+
+	public void setMealOrder(MealOrder mealOrder) {
+		this.mealOrder = mealOrder;
 	}
 }

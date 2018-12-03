@@ -27,14 +27,14 @@ public class DeliverooOrderCreateGUI extends JFrame {
 		return deliverooOrderCreateGUI;
 	}
 
-	public static void calculateTotalsForAll(MealOrder mealOrder){
+	public static void calculateTotalsForAll(){
 		if(deliverooOrderCreateGUI != null){
-			deliverooOrderCreateGUI.calculateTotals(mealOrder);
+			deliverooOrderCreateGUI.calculateTotals();
 		}
 	}
 
-	public void calculateTotals(MealOrder mealOrder){
-		deliverooOrderCreatePanel.calculateTotals(mealOrder);
+	public void calculateTotals(){
+		deliverooOrderCreatePanel.calculateTotals();
 	}
 
 }

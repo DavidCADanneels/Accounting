@@ -39,8 +39,8 @@ public class DeliverooOrderCreatePanel extends JPanel {
         setLayout(new BorderLayout());
         add(totalsPanel, BorderLayout.SOUTH);
         add(createTopPanel(), BorderLayout.NORTH);
-        clear();
         add(createOrderPanel(), BorderLayout.CENTER);
+        clear();
     }
 
     private JScrollPane createOrderPanel() {
@@ -61,6 +61,7 @@ public class DeliverooOrderCreatePanel extends JPanel {
 
         mealOrder = new MealOrder();
         mealOrder.setMeals(accounting.getDeliverooMeals());
+        tableModel.setMealOrder(mealOrder);
     }
 
     private JPanel createTopPanel(){
@@ -70,8 +71,12 @@ public class DeliverooOrderCreatePanel extends JPanel {
 
         book = new JButton("Book");
         book.addActionListener(e -> {
+            Calendar date = dateAndDescriptionPanel.getDate();
+            String description = dateAndDescriptionPanel.getDescription();
+            mealOrder.setDate(date);
+            mealOrder.setDescription(description);
             addHistory();
-//            book();
+            book();
             clear();
         });
         price = new JTextField(10);
@@ -101,7 +106,7 @@ public class DeliverooOrderCreatePanel extends JPanel {
         } catch (EmptyNameException | DuplicateNameException e) {
             e.printStackTrace();
         }
-        clear();
+//        clear();
     }
 
     private void book() {
@@ -193,13 +198,14 @@ public class DeliverooOrderCreatePanel extends JPanel {
         serviceJournal.addBusinessObject(serviceTransaction);
     }
 
-    public void calculateTotals(MealOrder mealOrder2) {
+    public void calculateTotals() {
 
         BigDecimal totalPrice = mealOrder.getTotalPrice();
         totalsPanel.setSalesAmountInclVat(totalPrice);
         totalsPanel.calculateTotals();
         BigDecimal salesAmountInclVat = totalsPanel.getSalesAmountInclVat();
-        book.setEnabled(salesAmountInclVat.compareTo(BigDecimal.ZERO)>0);
+        String description = dateAndDescriptionPanel.getDescription();
+        book.setEnabled(salesAmountInclVat.compareTo(BigDecimal.ZERO)>0 && !description.isEmpty());
         salesAmountInclVat = salesAmountInclVat.setScale(2,BigDecimal.ROUND_HALF_DOWN);
         price.setText(salesAmountInclVat.toString());
     }

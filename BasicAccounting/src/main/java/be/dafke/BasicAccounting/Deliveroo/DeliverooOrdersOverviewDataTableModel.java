@@ -3,8 +3,10 @@ package be.dafke.BasicAccounting.Deliveroo;
 import be.dafke.BasicAccounting.Goods.OrdersOverviewDataTableModel;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
+import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 
@@ -34,7 +36,7 @@ public class DeliverooOrdersOverviewDataTableModel extends SelectableTableModel<
 	protected void setColumnClasses() {
 		columnClasses.put(ID_COL, String.class);
 		columnClasses.put(DATE_COL, String.class);
-		columnClasses.put(DESCRIPTION_COL, Contact.class);
+		columnClasses.put(DESCRIPTION_COL, String.class);
 		columnClasses.put(PRICE_TOTAL_COL, BigDecimal.class);
 	}
 
@@ -57,7 +59,8 @@ public class DeliverooOrdersOverviewDataTableModel extends SelectableTableModel<
 			return mealOrder.getName();
 		}
 		if (col == DATE_COL) {
-			return mealOrder.getDate();
+			Calendar date = mealOrder.getDate();
+			return Utils.toString(date);
 		}
 		if (col == DESCRIPTION_COL) {
 			return mealOrder.getDescription();

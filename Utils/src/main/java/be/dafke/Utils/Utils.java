@@ -70,6 +70,7 @@ public class Utils {
 
 	/** Date -> "D/M/YYYY" */
 	public static String toString(Calendar c) {
+//	    if(c == null) return "null";
 		StringBuilder builder = new StringBuilder();
 		builder.append(c.get(Calendar.DATE)).append("/");
 		builder.append(c.get(Calendar.MONTH) + 1).append("/");

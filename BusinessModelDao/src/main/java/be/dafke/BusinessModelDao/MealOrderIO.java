@@ -34,7 +34,8 @@ public class MealOrderIO {
 
 
         for (Element mealOrderElement : getChildren(rootElement, MEAL_ORDER)) {
-            MealOrder mealOrder = new MealOrder();
+            String name = getValue(mealOrderElement, NAME);
+            MealOrder mealOrder = new MealOrder(name);
 
             mealOrder.setDescription(getValue(mealOrderElement, DESCRIPTION));
             mealOrder.setDate(Utils.toCalendar(getValue(mealOrderElement, DATE)));
@@ -68,7 +69,7 @@ public class MealOrderIO {
             for (MealOrder order : mealOrders.getBusinessObjects()) {
                 writer.write(
                              "  <" + MEAL_ORDER + ">\n" +
-                                 "    <" + DATE + ">" + order.getDate() + "</" + DATE + ">\n" +
+                                 "    <" + DATE + ">" + Utils.toString(order.getDate()) + "</" + DATE + ">\n" +
                                  "    <" + DESCRIPTION + ">" + order.getDescription() + "</" + DESCRIPTION + ">\n" +
                                  "    <" + NAME + ">" + order.getName() + "</" + NAME + ">\n" +
                                  "    <" + TOTAL_PRICE + ">" + order.getTotalPrice() + "</" + TOTAL_PRICE + ">\n"

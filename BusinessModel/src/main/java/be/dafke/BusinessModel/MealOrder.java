@@ -20,6 +20,11 @@ public class MealOrder extends BusinessCollection<MealOrderItem>{
         setName("DEL"+nr);
     }
 
+    public MealOrder(String name){
+        nr++;
+        setName(name);
+    }
+
     public Calendar getDate() {
         return date;
     }
