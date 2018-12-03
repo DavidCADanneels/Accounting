@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Goods;
 
 
 import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
+import be.dafke.BasicAccounting.Contacts.ContactDetailsPanel;
 import be.dafke.BasicAccounting.Journals.DateAndDescriptionDialog;
 import be.dafke.BasicAccounting.Journals.JournalSelectorDialog;
 import be.dafke.BasicAccounting.MainApplication.Main;
@@ -9,10 +10,14 @@ import be.dafke.BusinessModel.*;
 import be.dafke.Utils.Utils;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
+import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import static java.util.ResourceBundle.getBundle;
 
 /**
  * User: david
@@ -21,54 +26,57 @@ import java.util.Calendar;
  */
 public class PurchaseOrdersDetailPanel extends JPanel {
     private JButton placeOrderButton, deliveredButton, payedButton;
+    private final JButton createPurchaseOrder;
     private final PurchaseOrders purchaseOrders;
-    private JTextField supplierName;
     private JCheckBox payed, delivered, placed;
     private PurchaseOrder purchaseOrder;
     private Accounting accounting;
+    private ContactDetailsPanel contactDetailsPanel;
 
 
     public PurchaseOrdersDetailPanel(Accounting accounting) {
         this.accounting = accounting;
         this.purchaseOrders = accounting.getPurchaseOrders();
 
-        JPanel supplierDetailsPanel = createSupplierDetailsPanel();
-        JPanel supplierNamePanel = createSupplierNamePanel();
+        createPurchaseOrder = new JButton(getBundle("Accounting").getString("CREATE_PO"));
+        createPurchaseOrder.addActionListener(e -> {
+            PurchaseOrderCreateGUI purchaseOrderCreateGUI = PurchaseOrderCreateGUI.showPurchaseOrderGUI(accounting);
+            purchaseOrderCreateGUI.setLocation(getLocationOnScreen());
+            purchaseOrderCreateGUI.setVisible(true);
+        });
 
+        JPanel orderPanel = createOrderPanel();
+        JPanel customerPanel = createCustomerPanel(accounting.getContacts());
 
-        JPanel south = new JPanel(new BorderLayout());
-        south.setLayout(new BoxLayout(south, BoxLayout.Y_AXIS));
+        setLayout(new BorderLayout());
+        add(orderPanel, BorderLayout.NORTH);
+        add(customerPanel,BorderLayout.CENTER);
+        add(createPurchaseOrder, BorderLayout.SOUTH);
+    }
+
+    private JPanel createOrderPanel(){
+        JPanel panel = new JPanel();
+        panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Order"));
 
         JPanel statusPanel = createStatusPanel();
         JPanel buttonPanel = createButtonPanel();
-        south.add(statusPanel);
-        south.add(buttonPanel);
-
-        setLayout(new BorderLayout());
-        add(supplierNamePanel, BorderLayout.NORTH);
-        add(supplierDetailsPanel, BorderLayout.CENTER);
-        add(south, BorderLayout.SOUTH);
-    }
-
-    private JPanel createSupplierNamePanel(){
-        JPanel panel = new JPanel();
-
-        supplierName = new JTextField(20);
-        supplierName.setEditable(false);
 
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
-        panel.add(supplierName);
+        panel.add(statusPanel);
+        panel.add(buttonPanel);
         return panel;
     }
 
-    private JPanel createSupplierDetailsPanel(){
+    private JPanel createCustomerPanel(Contacts contacts){
         JPanel panel = new JPanel();
-        panel.add(new JLabel("Details"));
-        panel.add(new JLabel("Details"));
-        panel.add(new JLabel("Details"));
-        panel.add(new JLabel("Details"));
-        panel.add(new JLabel("Details"));
-        panel.add(new JLabel("Details"));
+        panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Supplier"));
+
+        panel.setLayout(new BorderLayout());
+        contactDetailsPanel = new ContactDetailsPanel(contacts);
+        contactDetailsPanel.setEnabled(false);
+
+        panel.add(contactDetailsPanel, BorderLayout.NORTH);
+
         return panel;
     }
 
@@ -167,7 +175,11 @@ public class PurchaseOrdersDetailPanel extends JPanel {
         deliveredButton.setEnabled(purchaseOrder !=null&&!purchaseOrder.isDelivered());
         placeOrderButton.setEnabled(purchaseOrder !=null&&!purchaseOrder.isPlaced());
         payedButton.setEnabled(purchaseOrder !=null&&!purchaseOrder.isPayed());
-        supplierName.setText(purchaseOrder!=null&&purchaseOrder.getSupplier()!=null?purchaseOrder.getSupplier().getName():"");
+        if(purchaseOrder!=null&&purchaseOrder.getSupplier()!=null){
+            contactDetailsPanel.setContact(purchaseOrder.getSupplier());
+        } else {
+            contactDetailsPanel.clearFields();
+        }
     }
 
     public Journal setPurchaseJournal(){

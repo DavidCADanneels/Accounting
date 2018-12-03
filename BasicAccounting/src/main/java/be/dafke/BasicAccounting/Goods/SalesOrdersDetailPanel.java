@@ -43,15 +43,15 @@ class SalesOrdersDetailPanel extends JPanel {
         this.accounting = accounting;
         this.salesOrders = accounting.getSalesOrders();
 
-        JPanel orderPanel = createOrderPanel();
-        JPanel customerPanel = createCustomerPanel(accounting.getContacts());
-
         createSalesOrder = new JButton(getBundle("Accounting").getString("CREATE_SO"));
         createSalesOrder.addActionListener(e -> {
             SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderGUI(accounting);
             salesOrderCreateGUI.setLocation(getLocationOnScreen());
             salesOrderCreateGUI.setVisible(true);
         });
+
+        JPanel orderPanel = createOrderPanel();
+        JPanel customerPanel = createCustomerPanel(accounting.getContacts());
 
         setLayout(new BorderLayout());
         add(orderPanel, BorderLayout.NORTH);
