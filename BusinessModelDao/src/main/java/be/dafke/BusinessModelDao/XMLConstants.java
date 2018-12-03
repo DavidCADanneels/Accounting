@@ -130,6 +130,11 @@ public class XMLConstants {
     public static final String PURCHASE_VAT_RATE = "PurchaseVatRate";
     public static final String SALES_VAT_RATE = "SalesVatRate";
     public static final String ARTICLE_HS_CODE = "HsCode";
+    public static final String MEALS = "Meals";
+    public static final String MEAL = "Meal";
+    public static final String MEAL_NR = "MealNr";
+    public static final String MEAL_NAME = "MealName";
+    public static final String PRICE = "Price";
 
     public static final String STOCK = "Stock";
     public static final String STOCK_TRANSACTIONS = "StockTransactions";
