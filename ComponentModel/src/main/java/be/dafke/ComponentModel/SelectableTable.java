@@ -23,10 +23,16 @@ public class SelectableTable<BusinessObject> extends JTable{
         RowSorter<? extends TableModel> rowSorter = getRowSorter();
         ArrayList<BusinessObject> businessObjectArrayList = new ArrayList<>();
         for(int selectedRow : selectedRows) {
-            int rowInModel = rowSorter.convertRowIndexToModel(selectedRow);
-            BusinessObject businessObject = model.getObject(rowInModel, col);
-            if(businessObject!=null)
+            BusinessObject businessObject;
+            if(rowSorter!=null) {
+                int rowInModel = rowSorter.convertRowIndexToModel(selectedRow);
+                businessObject = model.getObject(rowInModel, col);
+            } else {
+                businessObject = model.getObject(selectedRow, col);
+            }
+            if(businessObject!=null) {
                 businessObjectArrayList.add(businessObject);
+            }
         }
         return businessObjectArrayList;
     }
@@ -34,8 +40,12 @@ public class SelectableTable<BusinessObject> extends JTable{
     public BusinessObject getSelectedObject() {
         int selectedRow = getSelectedRow();
         RowSorter<? extends TableModel> rowSorter = getRowSorter();
-        int rowInModel = rowSorter.convertRowIndexToModel(selectedRow);
         int col = getSelectedColumn();
-        return model.getObject(rowInModel, col);
+        if(rowSorter!=null) {
+            int rowInModel = rowSorter.convertRowIndexToModel(selectedRow);
+            return model.getObject(rowInModel, col);
+        } else {
+            return model.getObject(selectedRow,col);
+        }
     }
 }
