@@ -1,18 +1,11 @@
 package be.dafke.BasicAccounting.VAT;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
-import be.dafke.BusinessModel.VATBooking;
-import be.dafke.BusinessModel.VATField;
 import be.dafke.BusinessModel.VATTransactions;
-import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.math.BigDecimal;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
@@ -20,7 +13,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 28/12/2016.
  */
-public class VATTransactionsGUI extends JFrame {
+public class VATTransactionsGUI extends JFrame implements WindowListener {
     private static final HashMap<VATTransactions, VATTransactionsGUI> vatGuis = new HashMap<>();
     private final VATTransactionsPanel vatTransactionsPanel;
 
@@ -38,16 +31,21 @@ public class VATTransactionsGUI extends JFrame {
 
     private VATTransactionsGUI(VATTransactions vatTransactions) {
         super(getBundle("VAT").getString("VAT_TRANSACTIONS"));
-
         vatTransactionsPanel = new VATTransactionsPanel(vatTransactions);
-
-
         setContentPane(vatTransactionsPanel);
         updateVATTransactions();
         pack();
     }
 
-
+    public void windowClosing(WindowEvent we) {
+        vatTransactionsPanel.closePopups();
+    }
+    public void windowOpened(WindowEvent e) {}
+    public void windowClosed(WindowEvent e) {}
+    public void windowIconified(WindowEvent e) {}
+    public void windowDeiconified(WindowEvent e) {}
+    public void windowActivated(WindowEvent e) {}
+    public void windowDeactivated(WindowEvent e) {}
 
     public void updateVATTransactions(){
         vatTransactionsPanel.updateVATTransactions();

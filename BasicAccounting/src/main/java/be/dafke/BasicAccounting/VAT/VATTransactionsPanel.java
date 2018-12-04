@@ -28,11 +28,17 @@ public class VATTransactionsPanel extends JPanel {
         tabel.setDefaultRenderer(BigDecimal.class, renderer);
         tabel.setDefaultRenderer(String.class, renderer);
         tabel.setRowSorter(null);
+
         popup = new VATTransactionsPopupMenu(tabel, vatTransactions.getAccounting());
         tabel.addMouseListener(PopupForTableActivator.getInstance(popup,tabel));
+
         JScrollPane scrollPane = new JScrollPane(tabel);
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
+    }
+
+    public void closePopups(){
+        popup.setVisible(false);
     }
 
     public void updateVATTransactions(){
