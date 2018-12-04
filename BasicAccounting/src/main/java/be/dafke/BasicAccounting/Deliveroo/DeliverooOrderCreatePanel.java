@@ -106,7 +106,7 @@ public class DeliverooOrderCreatePanel extends JPanel {
         } catch (EmptyNameException | DuplicateNameException e) {
             e.printStackTrace();
         }
-//        clear();
+        DeliverooOrderOverviewGUI.fireOrderAddedForAll();
     }
 
     private void book() {
@@ -199,7 +199,6 @@ public class DeliverooOrderCreatePanel extends JPanel {
     }
 
     public void calculateTotals() {
-
         BigDecimal totalPrice = mealOrder.getTotalPrice();
         totalsPanel.setSalesAmountInclVat(totalPrice);
         totalsPanel.calculateTotals();

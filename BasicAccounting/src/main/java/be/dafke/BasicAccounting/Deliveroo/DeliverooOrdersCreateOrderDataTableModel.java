@@ -137,5 +137,6 @@ public class DeliverooOrdersCreateOrderDataTableModel extends SelectableTableMod
 
 	public void setMealOrder(MealOrder mealOrder) {
 		this.mealOrder = mealOrder;
+		fireTableDataChanged();
 	}
 }

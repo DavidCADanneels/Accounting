@@ -41,4 +41,8 @@ public class DeliverooOrderOverviewPanel extends JPanel {
     private void clear() {
         totalsPanel.clear();
     }
+
+    public void fireOrderAdded() {
+        tableModel.fireTableDataChanged();
+    }
 }

@@ -9,10 +9,12 @@ import static java.util.ResourceBundle.getBundle;
 
 public class DeliverooOrderOverviewGUI extends JFrame {
 	private static DeliverooOrderOverviewGUI deliverooOrderCreateGUI = null;
+	private final DeliverooOrderOverviewPanel deliverooOrderOverviewPanel;
 
 	private DeliverooOrderOverviewGUI(Accounting accounting) {
 		super(getBundle("Accounting").getString("DELIVEROO_ORDER"));
-		setContentPane(new DeliverooOrderOverviewPanel(accounting));
+		deliverooOrderOverviewPanel = new DeliverooOrderOverviewPanel(accounting);
+		setContentPane(deliverooOrderOverviewPanel);
 		pack();
 	}
 
@@ -22,5 +24,14 @@ public class DeliverooOrderOverviewGUI extends JFrame {
 			Main.addFrame(deliverooOrderCreateGUI);
 		}
 		return deliverooOrderCreateGUI;
+	}
+
+	public static void fireOrderAddedForAll() {
+		if(deliverooOrderCreateGUI != null)
+			deliverooOrderCreateGUI.fireOrderAdded();
+	}
+
+	private void fireOrderAdded() {
+		deliverooOrderOverviewPanel.fireOrderAdded();
 	}
 }
