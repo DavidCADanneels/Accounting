@@ -14,7 +14,6 @@ public class SalesOrderCreateDataTableModel extends SalesOrdersViewDataTableMode
 	private final Articles articles;
 	private Contact contact;
 	private Predicate<Article> filter = article -> article.getSalesPriceItemWithVat()!=null;
-	private SalesOrder order;
 	private SaleTotalsPanel saleTotalsPanel;
 
 	public SalesOrderCreateDataTableModel(Articles articles, Contact contact, SalesOrder order, SaleTotalsPanel saleTotalsPanel) {
