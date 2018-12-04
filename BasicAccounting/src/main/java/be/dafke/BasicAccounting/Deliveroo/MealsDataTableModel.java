@@ -24,7 +24,8 @@ public class MealsDataTableModel extends SelectableTableModel<DeliverooMeal> {
 	public static int NAME_COL = 1;
 	public static int SALES_PRICE_COL = 2;
 	public static int DESCRIPTION_COL = 3;
-	public static int NR_OF_COL = 4;
+	public static int USAGE_COL = 4;
+	public static int NR_OF_COL = 5;
 	private final Component parent;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
@@ -47,6 +48,7 @@ public class MealsDataTableModel extends SelectableTableModel<DeliverooMeal> {
 
 	private void setColumnClasses() {
 		columnClasses.put(NR_COL, String.class);
+		columnClasses.put(USAGE_COL, Integer.class);
 		columnClasses.put(NAME_COL, String.class);
 		columnClasses.put(DESCRIPTION_COL, String.class);
 		columnClasses.put(SALES_PRICE_COL, BigDecimal.class);
@@ -54,6 +56,7 @@ public class MealsDataTableModel extends SelectableTableModel<DeliverooMeal> {
 
 	private void setColumnNames() {
 		columnNames.put(NR_COL, getBundle("Accounting").getString("MEAL_NR"));
+		columnNames.put(USAGE_COL, getBundle("Accounting").getString("USAGE"));
 		columnNames.put(NAME_COL, getBundle("Accounting").getString("MEAL_NAME"));
 		columnNames.put(DESCRIPTION_COL, getBundle("Accounting").getString("DESCRIPTION"));
 		columnNames.put(SALES_PRICE_COL, getBundle("Accounting").getString("PRICE"));
@@ -65,6 +68,9 @@ public class MealsDataTableModel extends SelectableTableModel<DeliverooMeal> {
 		if(meal==null) return null;
 		if (col == NR_COL) {
 			return meal.getName();
+		}
+		if (col == USAGE_COL) {
+			return meal.getTotalOrdered();
 		}
 		if (col == NAME_COL) {
 			return meal.getMealName();

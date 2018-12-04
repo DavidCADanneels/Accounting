@@ -8,6 +8,15 @@ public class DeliverooMeal extends BusinessObject{
     private String mealName = "";
     private String description = "";
     private BigDecimal salesPrice = null;
+    private Integer totalOrdered = 0;
+
+    public void addUsage(int nr){
+        totalOrdered+=nr;
+    }
+
+    public Integer getTotalOrdered() {
+        return totalOrdered;
+    }
 
     public DeliverooMeal(String name){
         setName(name);

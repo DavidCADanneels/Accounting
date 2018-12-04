@@ -9,4 +9,13 @@ public class MealOrders extends BusinessCollection<MealOrder>{
     public MealOrders() {
         super();
     }
+
+    public MealOrder addBusinessObject(MealOrder mealOrder) throws EmptyNameException, DuplicateNameException {
+        super.addBusinessObject(mealOrder);
+        mealOrder.getBusinessObjects().forEach(mealOrderItem -> {
+            DeliverooMeal deliverooMeal = mealOrderItem.getDeliverooMeal();
+            deliverooMeal.addUsage(mealOrderItem.getNumberOfItems());
+        });
+        return mealOrder;
+    }
 }
