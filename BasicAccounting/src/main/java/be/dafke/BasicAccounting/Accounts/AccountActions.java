@@ -121,11 +121,20 @@ public class AccountActions {
         VATTransaction vatTransaction = new VATTransaction();
         if(debit) {
             PurchaseType purchaseType = askPurchaseType(component);
-            if (purchaseType != null) {
+
+            if (purchaseType != null && purchaseType != PurchaseType.VR) {
+                int choice = JOptionPane.showConfirmDialog(component, "Intracommunautair?", "Intracommunautair?", JOptionPane.YES_NO_OPTION);
+                boolean intracom = JOptionPane.YES_OPTION==choice;
 
                 VATBooking costBooking = purchaseType.getCostBooking(amount);
                 booking.addVatBooking(costBooking);
                 vatTransaction.addBusinessObject(costBooking);
+
+                if(intracom){
+                    VATBooking intraComBooking = PurchaseType.getIntraComBooking(amount);
+                    booking.addVatBooking(intraComBooking);
+                    vatTransaction.addBusinessObject(intraComBooking);
+                }
 
                 Integer pct = getPercentage(vatTransactions, component);
                 if (pct != null && pct != 0) {
@@ -147,7 +156,7 @@ public class AccountActions {
             }
         } else {
             PurchaseType purchaseType = askPurchaseType(component);
-            if (purchaseType != null) {
+            if (purchaseType != null && purchaseType != PurchaseType.VR) {
                 // 81/82/83
                 VATBooking costBooking = purchaseType.getCostBooking(amount.negate());
                 booking.addVatBooking(costBooking);
