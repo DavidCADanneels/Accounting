@@ -3,11 +3,11 @@ package be.dafke.BasicAccounting.Goods;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.OrderItem;
 import be.dafke.BusinessModel.SalesOrder;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
-import javax.swing.table.TableModel;
 import java.awt.*;
 
 import static java.util.ResourceBundle.getBundle;
@@ -18,21 +18,25 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 22:07
  */
 public class SalesOrdersOverviewPanel extends JPanel {
-    private final SelectableTable<SalesOrder> table;
-    private final SalesOrdersOverviewDataTableModel tableModel;
-    private final SalesOrderDetailTable salesOrderDetailTable;
+    private final SelectableTable<SalesOrder> overviewTable;
+    private final SelectableTable<OrderItem> detailsTable;
+    private final SalesOrdersOverviewDataTableModel overviewTableModel;
+    private final SalesOrdersViewDataTableModel detailsTableModel;
     private final SaleTotalsPanel saleTotalsPanel;
 
     private final SalesOrdersDetailPanel salesOrdersDetailPanel;
 
     public SalesOrdersOverviewPanel(Accounting accounting) {
-        tableModel = new SalesOrdersOverviewDataTableModel(accounting.getSalesOrders());
-        table = new SelectableTable<>(tableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
+        overviewTableModel = new SalesOrdersOverviewDataTableModel(accounting.getSalesOrders());
+        overviewTable = new SelectableTable<>(overviewTableModel);
+        overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400));
+
+        detailsTableModel = new SalesOrdersViewDataTableModel();
+        detailsTable = new SelectableTable<>(detailsTableModel);
+        detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200));
 
         saleTotalsPanel = new SaleTotalsPanel();
 
-        salesOrderDetailTable = new SalesOrderDetailTable(saleTotalsPanel);
         salesOrdersDetailPanel = new SalesOrdersDetailPanel(accounting);
 
         fireSalesOrderAddedOrRemoved();
@@ -40,25 +44,28 @@ public class SalesOrdersOverviewPanel extends JPanel {
         DefaultListSelectionModel selection = new DefaultListSelectionModel();
         selection.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                SalesOrder salesOrder = table.getSelectedObject();
-                salesOrderDetailTable.setOrder(salesOrder);
+                SalesOrder salesOrder = overviewTable.getSelectedObject();
+                detailsTableModel.setOrder(salesOrder);
+                saleTotalsPanel.fireOrderContentChanged(salesOrder);
                 salesOrdersDetailPanel.setOrder(salesOrder);
             }
         });
-        table.setSelectionModel(selection);
+        overviewTable.setSelectionModel(selection);
 
-        JScrollPane scrollPane = new JScrollPane(table);
+        JScrollPane overviewScroll = new JScrollPane(overviewTable);
+        JScrollPane detailScroll = new JScrollPane(detailsTable);
+        JSplitPane splitPane = Main.createSplitPane(overviewScroll, detailScroll, JSplitPane.VERTICAL_SPLIT);
 
-        JPanel details = new JPanel(new BorderLayout());
-        details.add(salesOrderDetailTable, BorderLayout.CENTER);
-        details.add(saleTotalsPanel, BorderLayout.SOUTH);
+        JPanel center = new JPanel(new BorderLayout());
+        center.add(splitPane, BorderLayout.CENTER);
+        center.add(saleTotalsPanel, BorderLayout.SOUTH);
 
         setLayout(new BorderLayout());
-        add(Main.createSplitPane(scrollPane, details, JSplitPane.VERTICAL_SPLIT), BorderLayout.CENTER);
+        add(center, BorderLayout.CENTER);
         add(salesOrdersDetailPanel, BorderLayout.EAST);
     }
 
     public void fireSalesOrderAddedOrRemoved() {
-        tableModel.fireTableDataChanged();
+        overviewTableModel.fireTableDataChanged();
     }
 }

@@ -6,7 +6,6 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
-import javax.swing.table.TableModel;
 import java.awt.*;
 
 import static java.util.ResourceBundle.getBundle;
@@ -17,21 +16,25 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 22:07
  */
 public class PurchaseOrdersOverviewPanel extends JPanel {
-    private final SelectableTable<PurchaseOrder> table;
-    private final PurchaseOrdersOverviewDataTableModel tableModel;
-    private final PurchaseOrderDetailTable purchaseOrderDetailTable;
+    private final SelectableTable<PurchaseOrder> overviewTable;
+    private final SelectableTable<OrderItem> detailsTable;
+    private final PurchaseOrdersOverviewDataTableModel overviewTableModel;
+    private final PurchaseOrdersViewDataTableModel detailsTableModel;
     private final PurchaseTotalsPanel purchaseTotalsPanel;
 
     private final PurchaseOrdersDetailPanel purchaseOrdersDetailPanel;
 
     public PurchaseOrdersOverviewPanel(Accounting accounting) {
-        tableModel = new PurchaseOrdersOverviewDataTableModel(accounting.getPurchaseOrders());
-        table = new SelectableTable<>(tableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
+        overviewTableModel = new PurchaseOrdersOverviewDataTableModel(accounting.getPurchaseOrders());
+        overviewTable = new SelectableTable<>(overviewTableModel);
+        overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400));
+
+        detailsTableModel = new PurchaseOrdersViewDataTableModel();
+        detailsTable = new SelectableTable<>(detailsTableModel);
+        detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200));
 
         purchaseTotalsPanel = new PurchaseTotalsPanel();
 
-        purchaseOrderDetailTable = new PurchaseOrderDetailTable(purchaseTotalsPanel);
         purchaseOrdersDetailPanel = new PurchaseOrdersDetailPanel(accounting);
 
         firePurchaseOrderAddedOrRemoved();
@@ -39,25 +42,28 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
         DefaultListSelectionModel selection = new DefaultListSelectionModel();
         selection.addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
-                PurchaseOrder purchaseOrder = table.getSelectedObject();
-                purchaseOrderDetailTable.setOrder(purchaseOrder);
+                PurchaseOrder purchaseOrder = overviewTable.getSelectedObject();
+                detailsTableModel.setOrder(purchaseOrder);
+                purchaseTotalsPanel.fireOrderContentChanged(purchaseOrder);
                 purchaseOrdersDetailPanel.setOrder(purchaseOrder);
             }
         });
-        table.setSelectionModel(selection);
+        overviewTable.setSelectionModel(selection);
 
-        JScrollPane scrollPane = new JScrollPane(table);
+        JScrollPane overviewScroll = new JScrollPane(overviewTable);
+        JScrollPane detailScroll = new JScrollPane(detailsTable);
+        JSplitPane splitPane = Main.createSplitPane(overviewScroll, detailScroll, JSplitPane.VERTICAL_SPLIT);
 
-        JPanel details = new JPanel(new BorderLayout());
-        details.add(purchaseOrderDetailTable, BorderLayout.CENTER);
-        details.add(purchaseTotalsPanel, BorderLayout.SOUTH);
+        JPanel center = new JPanel(new BorderLayout());
+        center.add(splitPane, BorderLayout.CENTER);
+        center.add(purchaseTotalsPanel, BorderLayout.SOUTH);
 
         setLayout(new BorderLayout());
-        add(Main.createSplitPane(scrollPane, details, JSplitPane.VERTICAL_SPLIT));
+        add(center, BorderLayout.CENTER);
         add(purchaseOrdersDetailPanel, BorderLayout.EAST);
     }
 
     public void firePurchaseOrderAddedOrRemoved() {
-        tableModel.fireTableDataChanged();
+        overviewTableModel.fireTableDataChanged();
     }
 }
