@@ -13,7 +13,7 @@ public class DeliverooOrderCreateGUI extends JFrame {
 	private final DeliverooOrderCreatePanel deliverooOrderCreatePanel;
 
 	private DeliverooOrderCreateGUI(Accounting accounting) {
-		super(getBundle("Accounting").getString("DELIVEROO_ORDER"));
+		super(getBundle("Accounting").getString("DELIVEROO_ORDER_INPUT"));
 		deliverooOrderCreatePanel = new DeliverooOrderCreatePanel(accounting);
 		setContentPane(deliverooOrderCreatePanel);
 		pack();

@@ -12,7 +12,7 @@ public class DeliverooOrderOverviewGUI extends JFrame {
 	private final DeliverooOrderOverviewPanel deliverooOrderOverviewPanel;
 
 	private DeliverooOrderOverviewGUI(Accounting accounting) {
-		super(getBundle("Accounting").getString("DELIVEROO_ORDER"));
+		super(getBundle("Accounting").getString("DELIVEROO_ORDER_OVERVIEW"));
 		deliverooOrderOverviewPanel = new DeliverooOrderOverviewPanel(accounting);
 		setContentPane(deliverooOrderOverviewPanel);
 		pack();

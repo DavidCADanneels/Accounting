@@ -23,7 +23,7 @@ public class MealsGUI extends JFrame {
     private static final HashMap<DeliverooMeals, MealsGUI> articlesGuis = new HashMap<>();
 
     private MealsGUI(DeliverooMeals deliverooMeals) {
-        super(getBundle("Accounting").getString("ARTICLES"));
+        super(getBundle("Accounting").getString("MEALS"));
         mealsPanel = new MealsPanel(deliverooMeals);
         setContentPane(mealsPanel);
         pack();
