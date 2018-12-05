@@ -120,7 +120,6 @@ public class AccountActions {
         boolean debit = booking.isDebit();
         VATTransaction vatTransaction = new VATTransaction();
         if(debit) {
-//                purchase(suggestedAmount, transaction, booking, vatTransactions, accounts, accountTypes, component);
             PurchaseType purchaseType = askPurchaseType(component);
             if (purchaseType != null) {
 
@@ -147,8 +146,6 @@ public class AccountActions {
                 }
             }
         } else {
-//                purchaseCN(suggestedAmount, transaction, booking, vatTransactions, accounts, accountTypes, component);
-
             PurchaseType purchaseType = askPurchaseType(component);
             if (purchaseType != null) {
                 // 81/82/83
