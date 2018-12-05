@@ -97,10 +97,15 @@ public class Booking extends BusinessObject {
             StringBuffer buffer = new StringBuffer("(");
             for (VATBooking vatBooking:vatBookings) {
                 VATField vatField = vatBooking.getVatField();
-                BigDecimal amount = vatBooking.getVatMovement().getAmount();
-                boolean plus = amount.compareTo(BigDecimal.ZERO) >= 0;
-                buffer.append(plus?"+":"-");
-                buffer.append(vatField.getName());
+                if(vatField != null){
+                    VATMovement vatMovement = vatBooking.getVatMovement();
+                    if(vatMovement != null){
+                        BigDecimal amount = vatMovement.getAmount();
+                        boolean plus = amount.compareTo(BigDecimal.ZERO) >= 0;
+                        buffer.append(plus ? "+" : "-");
+                        buffer.append(vatField.getName());
+                    }
+                }
             }
             buffer.append(")");
             return buffer.toString();
