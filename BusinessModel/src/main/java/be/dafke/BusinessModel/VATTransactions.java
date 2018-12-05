@@ -231,36 +231,4 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         BigDecimal vatAmount = bookingVat.getAmount();
         return new VATBooking(vatFields.getBusinessObject("54"), new VATMovement(vatAmount));
     }
-
-    public VATTransaction sale(Booking booking, Booking bookingVat, Integer pct) {
-        VATTransaction vatTransaction = new VATTransaction();
-
-        VATBooking revenueBooking = getRevenueBooking(booking, pct);
-        booking.addVatBooking(revenueBooking);
-
-        VATBooking vatBooking = getVatSalesBooking(bookingVat);
-        bookingVat.addVatBooking(vatBooking);
-
-        vatTransaction.addBusinessObject(revenueBooking);
-        vatTransaction.addBusinessObject(vatBooking);
-
-        return vatTransaction;
-    }
-
-    public VATTransaction saleCN(Booking booking, Booking bookingVat, int pct) {
-        BigDecimal btwAmount = bookingVat.getAmount();
-
-        BigDecimal revenueAmount = booking.getAmount();
-        VATTransaction vatTransaction = new VATTransaction();
-        VATBooking revenueBooking = new VATBooking(vatFields.getBusinessObject("49"), new VATMovement(revenueAmount));
-        VATBooking vatBooking = new VATBooking(vatFields.getBusinessObject("64"), new VATMovement(btwAmount));
-        vatTransaction.addBusinessObject(revenueBooking);
-        vatTransaction.addBusinessObject(vatBooking);
-
-        booking.addVatBooking(revenueBooking);
-        bookingVat.addVatBooking(vatBooking);
-
-        return vatTransaction;
-    }
-
 }

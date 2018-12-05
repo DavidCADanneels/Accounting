@@ -1,18 +1,9 @@
 package be.dafke.BasicAccounting.Accounts;
 
 import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
-import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.Booking;
-import be.dafke.BusinessModel.Contact;
-import be.dafke.BusinessModel.Contacts;
-import be.dafke.BusinessModel.Transaction;
-import be.dafke.BusinessModel.VATTransaction;
-import be.dafke.BusinessModel.VATTransactions;
+import be.dafke.BusinessModel.*;
 
 import javax.swing.JOptionPane;
 import java.awt.*;
@@ -173,58 +164,75 @@ public class AccountActions {
 
     // SALE
 
+    public static SalesType askSalesType(Component component){
+        SalesType[] salesTypes = SalesType.values();
+        int nr = JOptionPane.showOptionDialog(component, "BTW %", "BTW %",
+                JOptionPane.DEFAULT_OPTION, JOptionPane.INFORMATION_MESSAGE, null, salesTypes, null);
+        if (nr != -1) {
+            return salesTypes[nr];
+        } else return null;
+    }
+
     public static void saleAny(Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Component component) {
         BigDecimal amount = booking.getAmount();
         boolean debit = booking.isDebit();
-        Integer pct = getPercentage(vatTransactions, component);
-        if (pct != null) {
-            BigDecimal suggestedAmount = getTaxOnNet(amount, pct);
-            if (!debit) {
-                sell(transaction, booking, suggestedAmount, pct, vatTransactions, accounts, accountTypes, component);
-            } else {
-                sellCN(transaction, booking, suggestedAmount, pct, vatTransactions, accounts, accountTypes, component);
+        VATTransaction vatTransaction = new VATTransaction();
+        BigDecimal vatAmount = BigDecimal.ZERO.setScale(2);
+        if (debit){
+            // CN
+
+            VATBooking cnRevenueBooking = SalesCNType.VAT_49.getSalesCnRevenueBooking(amount);
+            booking.addVatBooking(cnRevenueBooking);
+            vatTransaction.addBusinessObject(cnRevenueBooking); // TODO: get rid of this
+
+            Account vatAccount = getDebitAccount(vatTransactions, accounts, accountTypes);
+            // TODO? ask percentage and calculate suggested amount ?
+            vatAmount = askAmount(vatAccount, null, component);
+
+            Booking bookingVat = new Booking(vatAccount, vatAmount, booking.isDebit());
+
+            VATBooking cnVatBooking = SalesCNType.VAT_49.getSalesCnVatBooking(vatAmount);
+            bookingVat.addVatBooking(cnVatBooking);
+            vatTransaction.addBusinessObject(cnVatBooking);
+
+            Main.addBooking(bookingVat);
+        } else {
+            SalesType salesType = askSalesType(component);
+            if (salesType != null) {
+
+                VATBooking revenueBooking = salesType.getRevenueBooking(amount);
+                booking.addVatBooking(revenueBooking);
+                vatTransaction.addBusinessObject(revenueBooking);
+
+                Integer pct = salesType.getPct();
+
+                if (pct != 0) {
+                    Account vatAccount = getDebitCNAccount(vatTransactions, accounts, accountTypes);
+
+                    BigDecimal suggestedAmount = getTaxOnNet(amount, pct);
+                    vatAmount = askAmount(vatAccount, suggestedAmount, component);
+
+                    if (vatAmount != null) {
+                        Booking bookingVat = new Booking(vatAccount, vatAmount, booking.isDebit());
+
+                        VATBooking vatBooking = vatTransactions.getVatSalesBooking(bookingVat);
+                        bookingVat.addVatBooking(vatBooking);
+                        vatTransaction.addBusinessObject(vatBooking);
+
+                        Main.addBooking(bookingVat);
+                    }
+                }
             }
         }
-    }
+        transaction.addVatTransaction(vatTransaction);
+        vatTransaction.setTransaction(transaction);
 
-    private static void sell(Transaction transaction, Booking booking, BigDecimal suggestedVATAmount, int pct, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Component component) {
-        BigDecimal amount = booking.getAmount();
-        boolean debit = booking.isDebit();
-
-        Account vatAccount = getDebitAccount(vatTransactions, accounts, accountTypes);
-        if(vatAccount!=null) {
-            BigDecimal vatAmount = askAmount(vatAccount, suggestedVATAmount, component);
-            if(vatAmount!=null) {
-                Booking vatBooking = new Booking(vatAccount, vatAmount, debit);
-                transaction.addBusinessObject(vatBooking);
-
-                VATTransaction vatTransaction = vatTransactions.sale(booking, vatBooking, pct);
-                transaction.addVatTransaction(vatTransaction);
-                vatTransaction.setTransaction(transaction);
-
-                transaction.setTurnOverAmount(amount);
-                transaction.setVATAmount(vatAmount);
-            }
-        }
-    }
-
-    public static void sellCN(Transaction transaction, Booking booking, BigDecimal suggestedVATAmount, int pct, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Component component){
-        BigDecimal amount = booking.getAmount();
-        boolean debit = booking.isDebit();
-        Account btwAccount = getDebitCNAccount(vatTransactions, accounts, accountTypes);
-        if (btwAccount != null) {
-            BigDecimal vatAmount = askAmount(btwAccount, suggestedVATAmount, component);
-            if (vatAmount != null) {
-                Booking vatBooking = new Booking(btwAccount, vatAmount, debit);
-                transaction.addBusinessObject(vatBooking);
-
-                VATTransaction vatTransaction = vatTransactions.saleCN(booking, vatBooking, pct);
-                transaction.addVatTransaction(vatTransaction);
-                vatTransaction.setTransaction(transaction);
-
-                transaction.setTurnOverAmount(amount.negate());
-                transaction.setVATAmount(vatAmount.negate());
-            }
+        if (debit){
+            transaction.setTurnOverAmount(amount.negate());
+            transaction.setVATAmount(vatAmount.negate());
+        } else {
+            transaction.setTurnOverAmount(amount);
+            transaction.setVATAmount(vatAmount);
         }
     }
 
