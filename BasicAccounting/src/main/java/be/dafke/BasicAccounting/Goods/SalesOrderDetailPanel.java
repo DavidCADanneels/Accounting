@@ -329,7 +329,7 @@ class SalesOrderDetailPanel extends JPanel {
                 salesBooking.addVatBooking(revenueBooking);
             }
         }
-        // Calculate Total VAT Amount -> Field 59
+        // Calculate Total VAT Amount -> Field 54
         BigDecimal vatAmount = salesOrder.calculateTotalSalesVat(); // ensure no cent different
 
         Booking vatBooking = new Booking(vatAccount, vatAmount, false);
@@ -337,7 +337,7 @@ class SalesOrderDetailPanel extends JPanel {
 
         salesTransaction.setVATAmount(vatAmount);
 
-        VATBooking vatSalesBooking = vatTransactions.getVatSalesBooking(vatBooking);
+        VATBooking vatSalesBooking = SalesType.getVatBooking(vatAmount);
         vatTransaction.addBusinessObject(vatSalesBooking);
 
         vatBooking.addVatBooking(vatSalesBooking);

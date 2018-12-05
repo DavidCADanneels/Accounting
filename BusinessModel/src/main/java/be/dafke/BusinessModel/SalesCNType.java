@@ -6,21 +6,20 @@ public enum SalesCNType {
     VAT_49 ("CN on Sales", "49");
 
     private final String message;
-    private final VATField salesCnRevenueField;
-    private final VATField salesCnVatField = new VATField("64");
-
+    private final VATField revenueCnField;
+    private static final VATField vatCnField = new VATField("64");
 
     SalesCNType(String message, String nr) {
         this.message = message;
-        salesCnRevenueField = new VATField(nr);
+        revenueCnField = new VATField(nr);
     }
 
     public String getMessage() {
         return message;
     }
 
-    public VATField getSalesCnRevenueField() {
-        return salesCnRevenueField;
+    public VATField getRevenueCnField() {
+        return revenueCnField;
     }
 
     @Override
@@ -29,10 +28,10 @@ public enum SalesCNType {
     }
 
     public VATBooking getSalesCnRevenueBooking(BigDecimal amount){
-        return new VATBooking(salesCnRevenueField, new VATMovement(amount));
+        return new VATBooking(revenueCnField, new VATMovement(amount));
     }
 
-    public VATBooking getSalesCnVatBooking(BigDecimal amount){
-        return new VATBooking(salesCnVatField, new VATMovement(amount));
+    public static VATBooking getSalesCnVatBooking(BigDecimal amount){
+        return new VATBooking(vatCnField, new VATMovement(amount));
     }
 }

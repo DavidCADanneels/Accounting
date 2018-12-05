@@ -31,10 +31,6 @@ public class VATTransaction extends BusinessCollection<VATBooking>{
         return registered;
     }
 
-    public enum PurchaseType{
-        GOODS, SERVICES, INVESTMENTS;
-    }
-
     public enum VATType{
         SALE, PURCHASE, CUSTOMER;
     }

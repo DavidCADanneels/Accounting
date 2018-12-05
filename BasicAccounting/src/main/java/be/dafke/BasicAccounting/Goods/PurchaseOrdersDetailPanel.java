@@ -232,26 +232,32 @@ public class PurchaseOrdersDetailPanel extends JPanel {
             supplierAccount = dialog.getSelection();
             supplier.setAccount(supplierAccount);
         }
+        VATTransaction vatTransaction = new VATTransaction();
 
         BigDecimal stockAmount = purchaseOrder.getTotalPurchasePriceExclVat();
-        BigDecimal vatAmount = purchaseOrder.getTotalPurchaseVat();
-        BigDecimal supplierAmount = purchaseOrder.getTotalPurchasePriceInclVat();
-
         Booking stockBooking = new Booking(stockAccount, stockAmount, true);
-        Booking supplierBooking = new Booking(supplierAccount, supplierAmount, false);
-
+        VATBooking stockVatBooking = PurchaseType.VAT_81.getCostBooking(stockAmount);
+        stockBooking.addVatBooking(stockVatBooking);
+        //
         transaction.addBusinessObject(stockBooking);
+        vatTransaction.addBusinessObject(stockVatBooking);
+
+        BigDecimal supplierAmount = purchaseOrder.getTotalPurchasePriceInclVat();
+        Booking supplierBooking = new Booking(supplierAccount, supplierAmount, false);
+        // (no VAT Booking for Supplier)
         transaction.addBusinessObject(supplierBooking);
 
+        BigDecimal vatAmount = purchaseOrder.getTotalPurchaseVat();
         if(vatAmount.compareTo(BigDecimal.ZERO) != 0) {
-            Booking vatBooking = new Booking(vatAccount, vatAmount, true);
-            transaction.addBusinessObject(vatBooking);
-            VATTransactions vatTransactions = accounting.getVatTransactions();
-            VATTransaction vatTransaction = vatTransactions.purchase(stockBooking, vatBooking, VATTransaction.PurchaseType.GOODS);
-            transaction.addVatTransaction(vatTransaction);
-            vatTransaction.setTransaction(transaction);
+            Booking bookingVat = new Booking(vatAccount, vatAmount, true);
+            VATBooking vatBooking = PurchaseType.getVatBooking(vatAmount);
+            bookingVat.addVatBooking(vatBooking);
+            //
+            transaction.addBusinessObject(bookingVat);
+            vatTransaction.addBusinessObject(vatBooking);
         }
-
+        transaction.addVatTransaction(vatTransaction);
+        vatTransaction.setTransaction(transaction);
         return transaction;
     }
 }

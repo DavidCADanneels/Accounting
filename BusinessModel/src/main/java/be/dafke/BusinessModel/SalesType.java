@@ -10,15 +10,14 @@ public enum SalesType {
     VAT_46 ("Intra-comm", "46", 0);
 
     private final String message;
-    private final VATField vatField;
+    private final VATField revenueField;
     // TODO: fetch from vatFields iso new Field
-    private final VATField salesCnRevenueField = new VATField("49");
-    private final VATField salesCnVatField = new VATField("64");
+    private static final VATField vatField = new VATField("54");
     private final Integer pct;
 
     SalesType(String message, String nr, Integer pct) {
         this.message = message;
-        vatField = new VATField(nr);
+        revenueField = new VATField(nr);
         this.pct = pct;
     }
 
@@ -34,8 +33,8 @@ public enum SalesType {
         return message;
     }
 
-    public VATField getVatField() {
-        return vatField;
+    public VATField getRevenueField() {
+        return revenueField;
     }
 
     public Integer getPct() {
@@ -48,14 +47,11 @@ public enum SalesType {
     }
 
     public VATBooking getRevenueBooking(BigDecimal revenueAmount){
+        return new VATBooking(revenueField, new VATMovement(revenueAmount));
+    }
+
+    public static VATBooking getVatBooking(BigDecimal revenueAmount){
         return new VATBooking(vatField, new VATMovement(revenueAmount));
     }
 
-    public VATBooking getSalesCnRevenueBooking(BigDecimal amount){
-        return new VATBooking(salesCnRevenueField, new VATMovement(amount));
-    }
-
-    public VATBooking getSalesCnVatBooking(BigDecimal amount){
-        return new VATBooking(salesCnVatField, new VATMovement(amount));
-    }
 }
