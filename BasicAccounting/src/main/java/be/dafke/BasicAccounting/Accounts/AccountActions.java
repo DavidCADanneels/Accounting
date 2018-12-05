@@ -204,13 +204,15 @@ public class AccountActions {
             // TODO? ask percentage and calculate suggested amount ?
             vatAmount = askAmount(vatAccount, null, component);
 
-            Booking bookingVat = new Booking(vatAccount, vatAmount, booking.isDebit());
+            if(vatAmount!=null) {
+                Booking bookingVat = new Booking(vatAccount, vatAmount, booking.isDebit());
 
-            VATBooking cnVatBooking = SalesCNType.getSalesCnVatBooking(vatAmount);
-            bookingVat.addVatBooking(cnVatBooking);
-            vatTransaction.addBusinessObject(cnVatBooking);
+                VATBooking cnVatBooking = SalesCNType.getSalesCnVatBooking(vatAmount);
+                bookingVat.addVatBooking(cnVatBooking);
+                vatTransaction.addBusinessObject(cnVatBooking);
 
-            Main.addBooking(bookingVat);
+                Main.addBooking(bookingVat);
+            }
         } else {
             SalesType salesType = askSalesType(component);
             if (salesType != null) {
@@ -231,7 +233,6 @@ public class AccountActions {
                         Booking bookingVat = new Booking(vatAccount, vatAmount, booking.isDebit());
 
                         VATBooking vatBooking = salesType.getVatBooking(vatAmount);
-//                        VATBooking vatBooking = vatTransactions.getVatSalesBooking(bookingVat);
                         bookingVat.addVatBooking(vatBooking);
                         vatTransaction.addBusinessObject(vatBooking);
 
@@ -245,10 +246,12 @@ public class AccountActions {
 
         if (debit){
             transaction.setTurnOverAmount(amount.negate());
-            transaction.setVATAmount(vatAmount.negate());
+            if(vatAmount!=null)
+                transaction.setVATAmount(vatAmount.negate());
         } else {
             transaction.setTurnOverAmount(amount);
-            transaction.setVATAmount(vatAmount);
+            if(vatAmount!=null)
+                transaction.setVATAmount(vatAmount);
         }
     }
 

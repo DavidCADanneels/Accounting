@@ -49,9 +49,11 @@ public class Transactions extends Journal {
                 Contact contact = transaction.getContact();
                 BigDecimal turnOverAmount = transaction.getTurnOverAmount();
                 BigDecimal vatAmount = transaction.getVATAmount();
-                if (contact != null && turnOverAmount != null && vatAmount != null) {
-                    contact.increaseTurnOver(turnOverAmount);
-                    contact.increaseVATTotal(vatAmount);
+                if (contact != null){
+                    if(turnOverAmount != null)
+                        contact.increaseTurnOver(turnOverAmount);
+                    if(vatAmount != null)
+                        contact.increaseVATTotal(vatAmount);
                 }
             }
         }
@@ -82,9 +84,11 @@ public class Transactions extends Journal {
             Contact contact = transaction.getContact();
             BigDecimal turnOverAmount = transaction.getTurnOverAmount();
             BigDecimal vatAmount = transaction.getVATAmount();
-            if (contact != null && turnOverAmount != null && vatAmount != null) {
-                contact.decreaseTurnOver(turnOverAmount);
-                contact.decreaseVATTotal(vatAmount);
+            if (contact != null){
+                if(turnOverAmount != null)
+                    contact.decreaseTurnOver(turnOverAmount);
+                if(vatAmount != null)
+                    contact.decreaseVATTotal(vatAmount);
             }
         }
         // do not remove transactions from master, just remove Journal link
