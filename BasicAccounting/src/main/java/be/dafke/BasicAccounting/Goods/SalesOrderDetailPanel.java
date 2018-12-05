@@ -315,15 +315,15 @@ class SalesOrderDetailPanel extends JPanel {
         vatRates.add(21);
 
         VATTransaction vatTransaction = new VATTransaction();
-        for(int i:vatRates){
-            BigDecimal netAmount = salesOrder.getTotalSalesPriceExclVat(OrderItem.withSalesVatRate(i));
+        for(int pct:vatRates){
+            BigDecimal netAmount = salesOrder.getTotalSalesPriceExclVat(OrderItem.withSalesVatRate(pct));
             if(netAmount.compareTo(BigDecimal.ZERO) != 0){
                 Booking salesBooking = new Booking(salesAccount, netAmount, false);
                 salesTransaction.addBusinessObject(salesBooking);
 
                 salesTransaction.increaseTurnOverAmount(netAmount);
 
-                VATBooking revenueBooking = vatTransactions.getRevenueBooking(salesBooking, i);
+                VATBooking revenueBooking = SalesType.getRevenueBookingByPct(netAmount, pct);
                 vatTransaction.addBusinessObject(revenueBooking);
 
                 salesBooking.addVatBooking(revenueBooking);

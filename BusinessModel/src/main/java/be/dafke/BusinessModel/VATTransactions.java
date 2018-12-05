@@ -213,20 +213,6 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
         return vatTransaction;
     }
 
-    public VATBooking getRevenueBooking(Booking booking, Integer pct){
-        BigDecimal revenueAmount = booking.getAmount();
-        if(pct==0){
-            return new VATBooking(vatFields.getBusinessObject("0"), new VATMovement(revenueAmount));
-        } else if(pct==6){
-            return new VATBooking(vatFields.getBusinessObject("1"), new VATMovement(revenueAmount));
-        } else if(pct==12){
-            return new VATBooking(vatFields.getBusinessObject("2"), new VATMovement(revenueAmount));
-        } else if(pct==21){
-            return new VATBooking(vatFields.getBusinessObject("3"), new VATMovement(revenueAmount));
-        }
-        else return null;
-    }
-
     public VATBooking getVatSalesBooking(Booking bookingVat){
         BigDecimal vatAmount = bookingVat.getAmount();
         return new VATBooking(vatFields.getBusinessObject("54"), new VATMovement(vatAmount));

@@ -22,6 +22,14 @@ public enum SalesType {
         this.pct = pct;
     }
 
+    public static VATBooking getRevenueBookingByPct(BigDecimal amount, int pct) {
+        if(pct == 6){
+            return VAT_1.getRevenueBooking(amount);
+        } else if(pct == 21){
+            return VAT_3.getRevenueBooking(amount);
+        } else return null;
+    }
+
     public String getMessage() {
         return message;
     }
