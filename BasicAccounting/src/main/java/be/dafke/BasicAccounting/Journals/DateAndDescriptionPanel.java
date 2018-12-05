@@ -44,6 +44,10 @@ public class DateAndDescriptionPanel extends JPanel implements FocusListener {
         add(panel2);
     }
 
+    public void addDescriptionFocusListener(FocusListener listener){
+        description.addFocusListener(listener);
+    }
+
     public Calendar getDate(){
         return Utils.toCalendar(dag.getText(),maand.getText(),jaar.getText());
     }

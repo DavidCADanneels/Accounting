@@ -66,6 +66,12 @@ public class DeliverooOrderCreatePanel extends JPanel {
 
     private JPanel createTopPanel(){
         dateAndDescriptionPanel = new DateAndDescriptionPanel();
+        dateAndDescriptionPanel.addDescriptionFocusListener(new FocusAdapter() {
+            @Override
+            public void focusLost(FocusEvent e) {
+                enableButtonIfPossible();
+            }
+        });
         dateAndDescriptionPanel.setTransaction(transaction);
         dateAndDescriptionPanel.fireTransactionDataChanged();
 
@@ -203,9 +209,15 @@ public class DeliverooOrderCreatePanel extends JPanel {
         totalsPanel.setSalesAmountInclVat(totalPrice);
         totalsPanel.calculateTotals();
         BigDecimal salesAmountInclVat = totalsPanel.getSalesAmountInclVat();
-        String description = dateAndDescriptionPanel.getDescription();
-        book.setEnabled(salesAmountInclVat.compareTo(BigDecimal.ZERO)>0 && !description.isEmpty());
         salesAmountInclVat = salesAmountInclVat.setScale(2,BigDecimal.ROUND_HALF_DOWN);
         price.setText(salesAmountInclVat.toString());
+        enableButtonIfPossible();
+    }
+
+    public void enableButtonIfPossible(){
+        String text = price.getText();
+        BigDecimal salesAmountInclVat = Utils.parseBigDecimal(text);
+        String description = dateAndDescriptionPanel.getDescription();
+        book.setEnabled(salesAmountInclVat.compareTo(BigDecimal.ZERO)>0 && !description.isEmpty());
     }
 }
