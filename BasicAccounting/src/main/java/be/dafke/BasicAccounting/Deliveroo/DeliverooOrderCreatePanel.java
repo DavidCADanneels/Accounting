@@ -28,7 +28,7 @@ public class DeliverooOrderCreatePanel extends JPanel {
     private Accounting accounting;
 
     private JTable table;
-    private DeliverooOrdersCreateOrderDataTableModel tableModel;
+    private DeliverooOrderCreateDataTableModel tableModel;
     private MealOrder mealOrder;
 
     public DeliverooOrderCreatePanel(Accounting accounting) {
@@ -36,17 +36,15 @@ public class DeliverooOrderCreatePanel extends JPanel {
         totalsPanel = new DeliveryTotalsPanel();
         transaction = new Transaction(Calendar.getInstance(),"");
 
+        tableModel = new DeliverooOrderCreateDataTableModel(accounting.getDeliverooMeals(), mealOrder);//, totalsPanel);
+        table = new JTable(tableModel);
+
+        JScrollPane orderPanel = new JScrollPane(table);
         setLayout(new BorderLayout());
         add(totalsPanel, BorderLayout.SOUTH);
         add(createTopPanel(), BorderLayout.NORTH);
-        add(createOrderPanel(), BorderLayout.CENTER);
+        add(orderPanel, BorderLayout.CENTER);
         clear();
-    }
-
-    private JScrollPane createOrderPanel() {
-        tableModel = new DeliverooOrdersCreateOrderDataTableModel(accounting.getDeliverooMeals(), mealOrder);
-        table = new JTable(tableModel);
-        return new JScrollPane(table);
     }
 
     private void clear() {
@@ -112,7 +110,7 @@ public class DeliverooOrderCreatePanel extends JPanel {
         } catch (EmptyNameException | DuplicateNameException e) {
             e.printStackTrace();
         }
-        DeliverooOrderOverviewGUI.fireOrderAddedForAll();
+        DeliverooOrdersOverviewGUI.fireOrderAddedForAll();
     }
 
     private void book() {

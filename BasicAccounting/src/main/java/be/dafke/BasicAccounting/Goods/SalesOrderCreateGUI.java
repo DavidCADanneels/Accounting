@@ -14,13 +14,13 @@ import static java.util.ResourceBundle.getBundle;
  * Time: 22:07
  */
 public class SalesOrderCreateGUI extends JFrame {
-    private final SalesOrdersCreatePanel orderPanel;
+    private final SalesOrderCreatePanel orderPanel;
 
     private static SalesOrderCreateGUI salesOrderCreateGui = null;
 
     private SalesOrderCreateGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("CREATE_SO"));
-        orderPanel = new SalesOrdersCreatePanel(accounting);
+        orderPanel = new SalesOrderCreatePanel(accounting);
         setContentPane(orderPanel);
         pack();
     }

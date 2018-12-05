@@ -16,7 +16,7 @@ import java.util.function.Predicate;
  * Date: 29-12-13
  * Time: 22:07
  */
-class SalesOrdersCreatePanel extends JPanel {
+class SalesOrderCreatePanel extends JPanel {
     private Contact noInvoice = null;
     private SalesOrder order;
     private JCheckBox invoice;
@@ -27,7 +27,7 @@ class SalesOrdersCreatePanel extends JPanel {
     private Predicate<Contact> filter;
     private final SalesOrderCreateDataTableModel salesOrderCreateDataTableModel;
 
-    SalesOrdersCreatePanel(Accounting accounting) {
+    SalesOrderCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
         noInvoice=accounting.getContactNoInvoice();

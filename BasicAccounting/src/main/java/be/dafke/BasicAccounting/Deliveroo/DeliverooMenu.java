@@ -24,7 +24,7 @@ public class DeliverooMenu extends JMenu {
         });
         ordersOverview = new JMenuItem("Daily Order Overview");
         ordersOverview.addActionListener(e -> {
-            DeliverooOrderOverviewGUI deliverooOrders = DeliverooOrderOverviewGUI.getInstance(accounting);
+            DeliverooOrdersOverviewGUI deliverooOrders = DeliverooOrdersOverviewGUI.getInstance(accounting);
             deliverooOrders.setLocation(getLocationOnScreen());
             deliverooOrders.setVisible(true);
         });

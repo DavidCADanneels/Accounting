@@ -21,23 +21,23 @@ public class SalesOrdersOverviewPanel extends JPanel {
     private final SelectableTable<SalesOrder> overviewTable;
     private final SelectableTable<OrderItem> detailsTable;
     private final SalesOrdersOverviewDataTableModel overviewTableModel;
-    private final SalesOrdersViewDataTableModel detailsTableModel;
+    private final SalesOrderViewDataTableModel detailsTableModel;
     private final SaleTotalsPanel saleTotalsPanel;
 
-    private final SalesOrdersDetailPanel salesOrdersDetailPanel;
+    private final SalesOrderDetailPanel salesOrderDetailPanel;
 
     public SalesOrdersOverviewPanel(Accounting accounting) {
         overviewTableModel = new SalesOrdersOverviewDataTableModel(accounting.getSalesOrders());
         overviewTable = new SelectableTable<>(overviewTableModel);
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
-        detailsTableModel = new SalesOrdersViewDataTableModel();
+        detailsTableModel = new SalesOrderViewDataTableModel();
         detailsTable = new SelectableTable<>(detailsTableModel);
         detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200));
 
         saleTotalsPanel = new SaleTotalsPanel();
 
-        salesOrdersDetailPanel = new SalesOrdersDetailPanel(accounting);
+        salesOrderDetailPanel = new SalesOrderDetailPanel(accounting);
 
         fireSalesOrderAddedOrRemoved();
 
@@ -47,7 +47,7 @@ public class SalesOrdersOverviewPanel extends JPanel {
                 SalesOrder salesOrder = overviewTable.getSelectedObject();
                 detailsTableModel.setOrder(salesOrder);
                 saleTotalsPanel.fireOrderContentChanged(salesOrder);
-                salesOrdersDetailPanel.setOrder(salesOrder);
+                salesOrderDetailPanel.setOrder(salesOrder);
             }
         });
         overviewTable.setSelectionModel(selection);
@@ -62,7 +62,7 @@ public class SalesOrdersOverviewPanel extends JPanel {
 
         setLayout(new BorderLayout());
         add(center, BorderLayout.CENTER);
-        add(salesOrdersDetailPanel, BorderLayout.EAST);
+        add(salesOrderDetailPanel, BorderLayout.EAST);
     }
 
     public void fireSalesOrderAddedOrRemoved() {

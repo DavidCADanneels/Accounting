@@ -29,7 +29,7 @@ import static java.util.ResourceBundle.getBundle;
  * Date: 29-12-13
  * Time: 22:07
  */
-class SalesOrdersDetailPanel extends JPanel {
+class SalesOrderDetailPanel extends JPanel {
     private JButton placeOrderButton, deliveredButton, payedButton, createInvoiceButton;
     private JButton createSalesOrder;
     private final SalesOrders salesOrders;
@@ -39,7 +39,7 @@ class SalesOrdersDetailPanel extends JPanel {
     private Accounting accounting;
     private ContactDetailsPanel contactDetailsPanel;
 
-    SalesOrdersDetailPanel(Accounting accounting) {
+    SalesOrderDetailPanel(Accounting accounting) {
         this.accounting = accounting;
         this.salesOrders = accounting.getSalesOrders();
 

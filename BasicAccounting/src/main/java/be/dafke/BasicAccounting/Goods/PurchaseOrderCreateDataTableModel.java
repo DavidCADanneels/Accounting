@@ -1,10 +1,8 @@
 package be.dafke.BasicAccounting.Goods;
 
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
 
@@ -14,7 +12,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class PurchaseOrderCreateDataTableModel extends PurchaseOrdersViewDataTableModel {
+public class PurchaseOrderCreateDataTableModel extends PurchaseOrderViewDataTableModel {
 	private final Articles articles;
 	private Contact contact;
 	private Predicate<Article> filter;

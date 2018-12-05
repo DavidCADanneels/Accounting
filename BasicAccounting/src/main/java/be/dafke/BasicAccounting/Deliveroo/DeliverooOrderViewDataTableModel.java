@@ -1,6 +1,9 @@
 package be.dafke.BasicAccounting.Deliveroo;
 
-import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModel.DeliverooMeal;
+import be.dafke.BusinessModel.DeliverooMeals;
+import be.dafke.BusinessModel.MealOrder;
+import be.dafke.BusinessModel.MealOrderItem;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
@@ -14,7 +17,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class DeliverooOrdersCreateOrderDataTableModel extends SelectableTableModel<MealOrderItem> {
+public class DeliverooOrderViewDataTableModel extends SelectableTableModel<MealOrderItem> {
 	public static int NR_COL = 0;
 	public static int ID_COL = 1;
 	public static int NAME_COL = 2;
@@ -24,15 +27,9 @@ public class DeliverooOrdersCreateOrderDataTableModel extends SelectableTableMod
 	public static int NR_OF_COL = 5;
 	protected HashMap<Integer,String> columnNames = new HashMap<>();
 	protected HashMap<Integer,Class> columnClasses = new HashMap<>();
-	private MealOrder mealOrder;
+	protected MealOrder mealOrder;
 
-//	MealOrders mealOrders;
-	DeliverooMeals deliverooMeals;
-
-	public DeliverooOrdersCreateOrderDataTableModel(DeliverooMeals deliverooMeals, MealOrder mealOrder) {
-//		this.mealOrders = mealOrders;
-		this.deliverooMeals = deliverooMeals;
-		this.mealOrder = mealOrder;
+	public DeliverooOrderViewDataTableModel() {
 		setColumnNames();
 		setColumnClasses();
 	}
@@ -59,10 +56,12 @@ public class DeliverooOrdersCreateOrderDataTableModel extends SelectableTableMod
 	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
+		if(mealOrder == null) return null;
 		ArrayList<MealOrderItem> mealOrderItems = mealOrder.getBusinessObjects();
 		if(mealOrderItems == null) return null;
 		MealOrderItem mealOrderItem = getObject(row, col);
 
+		if(mealOrderItem == null) return null;
 		if (col == NR_COL) {
 			return mealOrderItem.getNumberOfItems();
 		}
@@ -88,20 +87,9 @@ public class DeliverooOrdersCreateOrderDataTableModel extends SelectableTableMod
 	}
 
 	@Override
-	public void setValueAt(Object object, int row, int col){
-		if(col == NR_COL){
-			Integer numberOfItems = (Integer) object;
-			MealOrderItem mealOrderItem = getObject(row, col);
-			mealOrderItem.setNumberOfItems(numberOfItems);
-			mealOrder.setOrderItem(mealOrderItem);
-			DeliverooOrderCreateGUI.calculateTotalsForAll();
-		}
-	}
-
-	@Override
 	public int getRowCount() {
-		if(deliverooMeals == null) return 0;
-		List<DeliverooMeal> businessObjects = deliverooMeals.getBusinessObjects();
+		if(mealOrder == null) return 0;
+		List<MealOrderItem> businessObjects = mealOrder.getBusinessObjects();
 		if(businessObjects == null || businessObjects.size() == 0) return 0;
 		return businessObjects.size();
 	}
@@ -113,11 +101,9 @@ public class DeliverooOrdersCreateOrderDataTableModel extends SelectableTableMod
 
 	@Override
 	public MealOrderItem getObject(int row, int col) {
-		List<DeliverooMeal> businessObjects = deliverooMeals.getBusinessObjects();
+		List<MealOrderItem> businessObjects = mealOrder.getBusinessObjects();
 		if(businessObjects == null || businessObjects.size() == 0) return null;
-		DeliverooMeal deliverooMeal = businessObjects.get(row);
-		MealOrderItem orderItem = mealOrder.getBusinessObject(deliverooMeal.getName());
-		return orderItem;
+		return businessObjects.get(row);
 	}
 
 	@Override
@@ -132,7 +118,7 @@ public class DeliverooOrdersCreateOrderDataTableModel extends SelectableTableMod
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return col==NR_COL;
+		return false;
 	}
 
 	public void setMealOrder(MealOrder mealOrder) {

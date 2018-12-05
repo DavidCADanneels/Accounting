@@ -19,7 +19,7 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
     private final SelectableTable<PurchaseOrder> overviewTable;
     private final SelectableTable<OrderItem> detailsTable;
     private final PurchaseOrdersOverviewDataTableModel overviewTableModel;
-    private final PurchaseOrdersViewDataTableModel detailsTableModel;
+    private final PurchaseOrderViewDataTableModel detailsTableModel;
     private final PurchaseTotalsPanel purchaseTotalsPanel;
 
     private final PurchaseOrdersDetailPanel purchaseOrdersDetailPanel;
@@ -29,7 +29,7 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
         overviewTable = new SelectableTable<>(overviewTableModel);
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
-        detailsTableModel = new PurchaseOrdersViewDataTableModel();
+        detailsTableModel = new PurchaseOrderViewDataTableModel();
         detailsTable = new SelectableTable<>(detailsTableModel);
         detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200));
 

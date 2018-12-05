@@ -16,7 +16,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class SalesOrdersViewDataTableModel extends SelectableTableModel<OrderItem> {
+public class SalesOrderViewDataTableModel extends SelectableTableModel<OrderItem> {
 	public static int NR_OF_UNITS_COL = 0;
 	public static int NR_OF_ITEMS_COL = 1;
 	public static int ITEMS_PER_UNIT_COL = 2;
@@ -33,7 +33,7 @@ public class SalesOrdersViewDataTableModel extends SelectableTableModel<OrderIte
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	protected SalesOrder order;
 
-	public SalesOrdersViewDataTableModel() {
+	public SalesOrderViewDataTableModel() {
 		setColumnNames();
 		setColumnClasses();
 	}

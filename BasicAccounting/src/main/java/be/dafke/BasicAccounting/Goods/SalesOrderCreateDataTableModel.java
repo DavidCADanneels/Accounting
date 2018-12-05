@@ -10,7 +10,7 @@ import java.util.function.Predicate;
  * @author David Danneels
  */
 
-public class SalesOrderCreateDataTableModel extends SalesOrdersViewDataTableModel {
+public class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel {
 	private final Articles articles;
 	private Contact contact;
 	private Predicate<Article> filter = article -> article.getSalesPriceItemWithVat()!=null;
