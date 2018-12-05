@@ -13,6 +13,7 @@ public enum PurchaseType {
     private VATField costField = null;
     private static VATField vatField = new VATField("59");
     private static VATField intraComField = new VATField("86");
+    private static VATField intraComVatField = new VATField("55");
 
     PurchaseType(String message, String nr) {
         this.message = message;
@@ -42,5 +43,9 @@ public enum PurchaseType {
 
     public static VATBooking getIntraComBooking(BigDecimal amount) {
         return new VATBooking(intraComField, new VATMovement(amount));
+    }
+
+    public static VATBooking getIntraComVatBooking(BigDecimal amount) {
+        return new VATBooking(intraComVatField, new VATMovement(amount));
     }
 }

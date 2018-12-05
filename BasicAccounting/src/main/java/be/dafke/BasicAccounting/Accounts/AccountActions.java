@@ -112,9 +112,6 @@ public class AccountActions {
     }
 
     // PURCHASE
-
-
-
     public static void purchaseAny(Transaction transaction, Booking booking, VATTransactions vatTransactions, Accounts accounts, ArrayList<AccountType> accountTypes, Component component){
         BigDecimal amount = booking.getAmount();
         boolean debit = booking.isDebit();
@@ -130,13 +127,16 @@ public class AccountActions {
                 booking.addVatBooking(costBooking);
                 vatTransaction.addBusinessObject(costBooking);
 
+                Integer pct;
                 if(intracom){
                     VATBooking intraComBooking = PurchaseType.getIntraComBooking(amount);
                     booking.addVatBooking(intraComBooking);
                     vatTransaction.addBusinessObject(intraComBooking);
+                    pct = 21;
+                } else {
+                    pct = getPercentage(vatTransactions, component);
                 }
 
-                Integer pct = getPercentage(vatTransactions, component);
                 if (pct != null && pct != 0) {
                     BigDecimal suggestedAmount = getTaxOnNet(amount, pct);
 
@@ -145,12 +145,21 @@ public class AccountActions {
 
                     if (vatAmount != null) {
                         Booking bookingVat = new Booking(vatAccount, vatAmount, debit);
-
                         VATBooking vatBooking = purchaseType.getVatBooking(vatAmount);
                         bookingVat.addVatBooking(vatBooking);
                         vatTransaction.addBusinessObject(vatBooking);
 
                         Main.addBooking(bookingVat);
+
+                        if(intracom){
+                            Account vatDebitAccount = getDebitAccount(vatTransactions, accounts, accountTypes);
+                            Booking bookingVatIntracom = new Booking(vatDebitAccount, vatAmount, !debit);
+                            VATBooking intraComVatBooking = PurchaseType.getIntraComVatBooking(vatAmount);
+                            bookingVatIntracom.addVatBooking(intraComVatBooking);
+                            vatTransaction.addBusinessObject(intraComVatBooking);
+
+                            Main.addBooking(bookingVatIntracom);
+                        }
                     }
                 }
             }
@@ -184,7 +193,6 @@ public class AccountActions {
     }
 
     // SALE
-
     public static SalesType askSalesType(Component component){
         SalesType[] salesTypes = SalesType.values();
         int nr = JOptionPane.showOptionDialog(component, "BTW %", "BTW %",
@@ -206,7 +214,7 @@ public class AccountActions {
             booking.addVatBooking(cnRevenueBooking);
             vatTransaction.addBusinessObject(cnRevenueBooking); // TODO: get rid of this
 
-            Account vatAccount = getDebitAccount(vatTransactions, accounts, accountTypes);
+            Account vatAccount = getDebitCNAccount(vatTransactions, accounts, accountTypes);
             // TODO? ask percentage and calculate suggested amount ?
             vatAmount = askAmount(vatAccount, null, component);
 
@@ -230,7 +238,7 @@ public class AccountActions {
                 Integer pct = salesType.getPct();
 
                 if (pct != null && pct != 0) {
-                    Account vatAccount = getDebitCNAccount(vatTransactions, accounts, accountTypes);
+                    Account vatAccount = getDebitAccount(vatTransactions, accounts, accountTypes);
 
                     BigDecimal suggestedAmount = getTaxOnNet(amount, pct);
                     vatAmount = askAmount(vatAccount, suggestedAmount, component);
