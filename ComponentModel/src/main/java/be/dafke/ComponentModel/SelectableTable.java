@@ -39,6 +39,7 @@ public class SelectableTable<BusinessObject> extends JTable{
 
     public BusinessObject getSelectedObject() {
         int selectedRow = getSelectedRow();
+        if(selectedRow == -1) return null;
         RowSorter<? extends TableModel> rowSorter = getRowSorter();
         int col = getSelectedColumn();
         if(rowSorter!=null) {

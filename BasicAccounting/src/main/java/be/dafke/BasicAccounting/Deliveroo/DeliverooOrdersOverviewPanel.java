@@ -32,10 +32,12 @@ public class DeliverooOrdersOverviewPanel extends JPanel {
             if (!e.getValueIsAdjusting()) {
                 MealOrder mealOrder = overviewTable.getSelectedObject();
                 detailsTableModel.setMealOrder(mealOrder);
-                BigDecimal totalPrice = mealOrder.getTotalPrice();
+                BigDecimal totalPrice = BigDecimal.ZERO.setScale(2);
+                if(mealOrder != null){
+                    totalPrice = mealOrder.getTotalPrice();
+                }
                 totalsPanel.setSalesAmountInclVat(totalPrice);
                 totalsPanel.calculateTotals();
-//                salesOrdersDetailPanel.setOrder(mealOrder);
             }
         });
         overviewTable.setSelectionModel(selection);
