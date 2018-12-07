@@ -164,6 +164,10 @@ public class Article extends BusinessObject{
         return article -> article.getSupplier() == supplier;
     }
 
+    public static Predicate<Article> withOrders(){
+        return article -> article.getPurchaseOrders().size()>0 || article.getSalesOrders().size()>0;
+    }
+
     public ArrayList<PurchaseOrder> getPurchaseOrders() {
         return purchaseOrders;
     }

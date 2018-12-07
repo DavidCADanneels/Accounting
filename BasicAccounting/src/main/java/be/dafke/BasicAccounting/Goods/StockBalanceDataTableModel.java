@@ -4,6 +4,7 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.util.HashMap;
+import java.util.List;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -11,8 +12,8 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class StockBalanceDataTableModel extends SelectableTableModel<OrderItem> {
-	private final Stock stock;
+public class StockBalanceDataTableModel extends SelectableTableModel<Article> {
+	private final Articles articles;
 	public static int ARTIKEL_COL = 0;
 	public static int ADDED_COL = 1;
 	public static int REMOVED_COL = 2;
@@ -21,8 +22,8 @@ public class StockBalanceDataTableModel extends SelectableTableModel<OrderItem> 
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 
-	public StockBalanceDataTableModel(Stock stock) {
-		this.stock = stock;
+	public StockBalanceDataTableModel(Articles articles) {
+		this.articles = articles;
 		setColumnNames();
 		setColumnClasses();
 	}
@@ -43,8 +44,7 @@ public class StockBalanceDataTableModel extends SelectableTableModel<OrderItem> 
 	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
-		OrderItem orderItem = getObject(row,col);
-		Article article = orderItem.getArticle();
+		Article article = getObject(row,col);
 		if (col == ARTIKEL_COL) {
 			return article;
 		}
@@ -65,10 +65,10 @@ public class StockBalanceDataTableModel extends SelectableTableModel<OrderItem> 
 	}
 
 	public int getRowCount() {
-		if(stock == null){
+		if(articles == null){
 			return 0;
 		}
-		return stock.getBusinessObjects().size();
+		return articles.getBusinessObjects(Article.withOrders()).size();
 	}
 
 	@Override
@@ -94,8 +94,9 @@ public class StockBalanceDataTableModel extends SelectableTableModel<OrderItem> 
 	}
 
 	@Override
-	public OrderItem getObject(int row, int col) {
-		return stock.getBusinessObjects().get(row);
+	public Article getObject(int row, int col) {
+        List<Article> businessObjects = articles.getBusinessObjects(Article.withOrders());
+        return businessObjects.get(row);
 	}
 
 }

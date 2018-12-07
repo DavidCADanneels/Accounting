@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Goods;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Article;
 import be.dafke.BusinessModel.OrderItem;
 import be.dafke.ComponentModel.SelectableTable;
 
@@ -10,12 +11,12 @@ import java.awt.*;
 
 public class StockHistoryPanel extends JPanel {
     private final SelectableTable<OrderItem> transactionsTable;
-    private final SelectableTable<OrderItem> balanceTable;
+    private final SelectableTable<Article> balanceTable;
     private StockBalanceDataTableModel stockBalanceDataTableModel;
     private StockTransactionsDataTableModel stockTransactionsDataTableModel;
 
     public StockHistoryPanel(Accounting accounting) {
-        stockBalanceDataTableModel = new StockBalanceDataTableModel(accounting.getStock());
+        stockBalanceDataTableModel = new StockBalanceDataTableModel(accounting.getArticles());
         balanceTable = new SelectableTable<>(stockBalanceDataTableModel);
         balanceTable.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
