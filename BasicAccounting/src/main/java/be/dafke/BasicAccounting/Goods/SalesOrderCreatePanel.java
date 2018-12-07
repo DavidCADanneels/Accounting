@@ -77,7 +77,7 @@ class SalesOrderCreatePanel extends JPanel {
             salesOrder.setCustomer(contact);
             try {
                 salesOrder.removeEmptyOrderItems();
-                salesOrder.addSalesOrderToArticles();
+
                 salesOrders.addBusinessObject(salesOrder);
                 salesOrder = new SalesOrder();
                 salesOrder.setArticles(articles);

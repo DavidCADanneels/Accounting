@@ -19,11 +19,12 @@ public class PurchaseOrders extends BusinessCollection<PurchaseOrder>{
         PurchaseOrders.id = id;
     }
 
-    public PurchaseOrder addBusinessObject(PurchaseOrder order) throws EmptyNameException, DuplicateNameException {
-        if(order.getName()==null) {
-            order.setName("PO" + ++id);
+    public PurchaseOrder addBusinessObject(PurchaseOrder purchaseOrder) throws EmptyNameException, DuplicateNameException {
+        if(purchaseOrder.getName()==null) {
+            purchaseOrder.setName("PO" + ++id);
         }
-        return super.addBusinessObject(order);
+        purchaseOrder.addPurchaseOrderToArticles();
+        return super.addBusinessObject(purchaseOrder);
     }
 
     public void removeBusinessObject(Order order){

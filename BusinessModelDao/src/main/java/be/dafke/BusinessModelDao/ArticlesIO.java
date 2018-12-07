@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -91,20 +92,34 @@ public class ArticlesIO {
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(ARTICLES, 2));
-                for (Article article : articles.getBusinessObjects()) {
+            for (Article article : articles.getBusinessObjects()) {
                 writer.write(
                         "  <" + ARTICLE + ">\n" +
-                                "    <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                                "    <" + ARTICLE_ITEM_NAME + ">" + article.getItemName() + "</" + ARTICLE_ITEM_NAME + ">\n" +
-                                "    <" + ITEMS_PER_UNIT + ">" + article.getItemsPerUnit() + "</" + ITEMS_PER_UNIT + ">\n" +
-                                "    <" + ARTICLE_HS_CODE + ">" + article.getHSCode() + "</" + ARTICLE_HS_CODE + ">\n" +
-                                "    <" + PURCHASE_PRICE + ">" + article.getPurchasePrice() + "</" + PURCHASE_PRICE + ">\n" +
-                                "    <" + SALES_SINGLE_PRICE + ">" + article.getSalesPriceItemWithVat() + "</" + SALES_SINGLE_PRICE + ">\n" +
-                                "    <" + SALES_PROMO_PRICE + ">" + article.getSalesPriceUnitWithVat() + "</" + SALES_PROMO_PRICE + ">\n" +
-                                "    <" + PURCHASE_VAT_RATE + ">" + article.getPurchaseVatRate() + "</" + PURCHASE_VAT_RATE + ">\n" +
-                                "    <" + SALES_VAT_RATE + ">" + article.getSalesVatRate() + "</" + SALES_VAT_RATE + ">\n" +
-                                "    <" + SUPPLIER + ">" + article.getSupplier() + "</" + SUPPLIER + ">\n" +
-                                "  </" + ARTICLE + ">\n"
+                            "    <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
+                            "    <" + ARTICLE_ITEM_NAME + ">" + article.getItemName() + "</" + ARTICLE_ITEM_NAME + ">\n" +
+                            "    <" + ITEMS_PER_UNIT + ">" + article.getItemsPerUnit() + "</" + ITEMS_PER_UNIT + ">\n" +
+                            "    <" + ARTICLE_HS_CODE + ">" + article.getHSCode() + "</" + ARTICLE_HS_CODE + ">\n" +
+                            "    <" + PURCHASE_PRICE + ">" + article.getPurchasePrice() + "</" + PURCHASE_PRICE + ">\n" +
+                            "    <" + SALES_SINGLE_PRICE + ">" + article.getSalesPriceItemWithVat() + "</" + SALES_SINGLE_PRICE + ">\n" +
+                            "    <" + SALES_PROMO_PRICE + ">" + article.getSalesPriceUnitWithVat() + "</" + SALES_PROMO_PRICE + ">\n" +
+                            "    <" + PURCHASE_VAT_RATE + ">" + article.getPurchaseVatRate() + "</" + PURCHASE_VAT_RATE + ">\n" +
+                            "    <" + SALES_VAT_RATE + ">" + article.getSalesVatRate() + "</" + SALES_VAT_RATE + ">\n" +
+                            "    <" + SUPPLIER + ">" + article.getSupplier() + "</" + SUPPLIER + ">\n"
+                );
+                ArrayList<PurchaseOrder> purchaseOrders = article.getPurchaseOrders();
+                for(PurchaseOrder purchaseOrder:purchaseOrders) {
+                    writer.write(
+                        "    <" + PURCHASE_ORDER + ">" + purchaseOrder + "</" + PURCHASE_ORDER + ">\n"
+                    );
+                }
+                ArrayList<SalesOrder> salesOrders = article.getSalesOrders();
+                for(SalesOrder salesOrder:salesOrders){
+                    writer.write(
+                        "    <" + SALES_ORDER + ">" + salesOrder + "</" + SALES_ORDER + ">\n"
+                    );
+                }
+                writer.write(
+                        "  </" + ARTICLE + ">\n"
                 );
             }
             writer.write("</" + ARTICLES + ">\n");

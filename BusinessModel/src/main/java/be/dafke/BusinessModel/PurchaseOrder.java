@@ -8,6 +8,13 @@ public class PurchaseOrder extends Order {
 
     private Transaction purchaseTransaction;
 
+    public OrderItem addBusinessObject(OrderItem orderItem) {
+        super.addBusinessObject(orderItem);
+//        Article article = orderItem.getArticle();
+//        article.addPurchaseOrder(this);
+        return orderItem;
+    }
+
     public BigDecimal getTotalPurchasePriceExclVat() {
         BigDecimal total = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {

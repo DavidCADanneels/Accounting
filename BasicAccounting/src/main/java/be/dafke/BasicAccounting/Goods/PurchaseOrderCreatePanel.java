@@ -51,7 +51,6 @@ public class PurchaseOrderCreatePanel extends JPanel {
             purchaseOrder.setSupplier(contact);
             try {
                 purchaseOrder.removeEmptyOrderItems();
-                purchaseOrder.addPurchaseOrderToArticles();
                 purchaseOrders.addBusinessObject(purchaseOrder);
                 purchaseOrder = new PurchaseOrder();
                 purchaseOrder.setArticles(articles);

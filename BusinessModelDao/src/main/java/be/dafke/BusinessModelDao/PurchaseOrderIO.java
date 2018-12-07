@@ -55,17 +55,17 @@ public class PurchaseOrderIO {
             }
         }
         for (Element purchaseOrderElement : getChildren(rootElement, PURCHASE_ORDER)) {
-            PurchaseOrder order = new PurchaseOrder();
+            PurchaseOrder purchaseOrder = new PurchaseOrder();
             String id = getValue(purchaseOrderElement, ID);
-            order.setName(id);
+            purchaseOrder.setName(id);
             nr++;
             String supplierString = getValue(purchaseOrderElement, SUPPLIER);
             Contact supplier = contacts.getBusinessObject(supplierString);
-            order.setSupplier(supplier);
+            purchaseOrder.setSupplier(supplier);
 
-            order.setPlaced(getBooleanValue(purchaseOrderElement, IS_PLACED));
-            order.setDelivered(getBooleanValue(purchaseOrderElement, IS_DELIVERED));
-            order.setPayed(getBooleanValue(purchaseOrderElement, IS_PAYED));
+            purchaseOrder.setPlaced(getBooleanValue(purchaseOrderElement, IS_PLACED));
+            purchaseOrder.setDelivered(getBooleanValue(purchaseOrderElement, IS_DELIVERED));
+            purchaseOrder.setPayed(getBooleanValue(purchaseOrderElement, IS_PAYED));
 
             for (Element element : getChildren(purchaseOrderElement, ARTICLE)) {
                 String name = getValue(element, NAME);
@@ -87,10 +87,10 @@ public class PurchaseOrderIO {
                 orderItem.setPurchaseVatRate(purchaseVatRate);
                 orderItem.setPurchasePriceForUnit(purchasePrice);
                 orderItem.setName(name);
-                order.addBusinessObject(orderItem);
+                purchaseOrder.addBusinessObject(orderItem);
             }
             try {
-                purchaseOrders.addBusinessObject(order);
+                purchaseOrders.addBusinessObject(purchaseOrder);
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();
             }
