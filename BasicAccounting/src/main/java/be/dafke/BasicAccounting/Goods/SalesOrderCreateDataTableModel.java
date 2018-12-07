@@ -19,6 +19,7 @@ public class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel
 	public SalesOrderCreateDataTableModel(Articles articles, Contact contact, SalesOrder order, SaleTotalsPanel saleTotalsPanel) {
 		super();
 		this.saleTotalsPanel = saleTotalsPanel;
+		// articles should be stock instead (stock/articles contains nrInStock, nrSold, ...
 		this.articles = articles;
 		this.contact = contact;
 		this.order = order;

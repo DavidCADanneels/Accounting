@@ -21,7 +21,7 @@ public class SalesOrdersOverviewPanel extends JPanel {
     private final SelectableTable<SalesOrder> overviewTable;
     private final SelectableTable<OrderItem> detailsTable;
     private final SalesOrdersOverviewDataTableModel overviewTableModel;
-    private final SalesOrderViewDataTableModel detailsTableModel;
+    private final SalesOrderDetailsDataTableModel detailsTableModel;
     private final SaleTotalsPanel saleTotalsPanel;
 
     private final SalesOrderDetailPanel salesOrderDetailPanel;
@@ -31,7 +31,7 @@ public class SalesOrdersOverviewPanel extends JPanel {
         overviewTable = new SelectableTable<>(overviewTableModel);
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
-        detailsTableModel = new SalesOrderViewDataTableModel();
+        detailsTableModel = new SalesOrderDetailsDataTableModel();
         detailsTable = new SelectableTable<>(detailsTableModel);
         detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200));
 

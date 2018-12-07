@@ -41,7 +41,7 @@ public class GoodsMenu extends JMenu {
         });
         stockTable.setEnabled(false);
 
-        purchaseOrders = new JMenuItem(getBundle("Accounting").getString("PO"));
+        purchaseOrders = new JMenuItem(getBundle("Accounting").getString("POS"));
         purchaseOrders.setMnemonic(KeyEvent.VK_P);
         purchaseOrders.addActionListener(e -> {
             PurchaseOrdersOverviewGUI purchaseOrdersOverviewGUI = PurchaseOrdersOverviewGUI.showPurchaseOrderGUI(accounting);
@@ -50,7 +50,7 @@ public class GoodsMenu extends JMenu {
         });
         purchaseOrders.setEnabled(false);
 
-        salesOrders = new JMenuItem(getBundle("Accounting").getString("SO"));
+        salesOrders = new JMenuItem(getBundle("Accounting").getString("SOS"));
         salesOrders.setMnemonic(KeyEvent.VK_S);
         salesOrders.addActionListener(e -> {
             SalesOrdersOverviewGUI salesOrdersGUI = SalesOrdersOverviewGUI.showSalesOrderGUI(accounting);

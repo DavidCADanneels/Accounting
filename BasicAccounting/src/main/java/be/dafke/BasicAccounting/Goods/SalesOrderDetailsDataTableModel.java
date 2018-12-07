@@ -1,6 +1,9 @@
 package be.dafke.BasicAccounting.Goods;
 
-import be.dafke.BusinessModel.*;
+import be.dafke.BusinessModel.Article;
+import be.dafke.BusinessModel.OrderItem;
+import be.dafke.BusinessModel.PurchaseOrder;
+import be.dafke.BusinessModel.SalesOrder;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;
@@ -13,12 +16,12 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class SalesOrderViewDataTableModel extends SelectableTableModel<OrderItem> {
+public class SalesOrderDetailsDataTableModel extends SelectableTableModel<OrderItem> {
 	public static int NR_OF_UNITS_COL = 0;
 	public static int NR_OF_ITEMS_COL = 1;
 	public static int ITEMS_PER_UNIT_COL = 2;
 	public static int NAME_COL = 3;
-	public static int SUPPLIER_COL = 4;
+	public static int PO_COL = 4;
 	public static int PRICE_ITEM_COL = 5;
 	public static int PRICE_UNIT_COL = 6;
 	public static int VAT_RATE_COL = 7;
@@ -30,7 +33,7 @@ public class SalesOrderViewDataTableModel extends SelectableTableModel<OrderItem
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	protected SalesOrder order;
 
-	public SalesOrderViewDataTableModel() {
+	public SalesOrderDetailsDataTableModel() {
 		setColumnNames();
 		setColumnClasses();
 	}
@@ -45,7 +48,7 @@ public class SalesOrderViewDataTableModel extends SelectableTableModel<OrderItem
 		columnClasses.put(TOTAL_EXCL_COL, BigDecimal.class);
 		columnClasses.put(TOTAL_VAT_COL, BigDecimal.class);
 		columnClasses.put(TOTAL_INCL_COL, BigDecimal.class);
-		columnClasses.put(SUPPLIER_COL, Contact.class);
+		columnClasses.put(PO_COL, PurchaseOrder.class);
 		columnClasses.put(VAT_RATE_COL, Integer.class);
 	}
 
@@ -59,7 +62,7 @@ public class SalesOrderViewDataTableModel extends SelectableTableModel<OrderItem
 		columnNames.put(TOTAL_EXCL_COL, getBundle("Accounting").getString("TOTAL_VAT_EXCL"));
 		columnNames.put(TOTAL_VAT_COL, getBundle("Accounting").getString("TOTAL_VAT"));
 		columnNames.put(TOTAL_INCL_COL, getBundle("Accounting").getString("TOTAL_VAT_INCL"));
-		columnNames.put(SUPPLIER_COL, getBundle("Contacts").getString("SUPPLIER"));
+		columnNames.put(PO_COL, getBundle("Accounting").getString("PO"));
 		columnNames.put(VAT_RATE_COL, getBundle("Accounting").getString("VAT_RATE"));
 	}
 
@@ -85,8 +88,8 @@ public class SalesOrderViewDataTableModel extends SelectableTableModel<OrderItem
 		if (col == PRICE_UNIT_COL) {
 			return orderItem.getSalesPriceForUnit();
 		}
-		if (col == SUPPLIER_COL) {
-			return article.getSupplier();
+		if (col == PO_COL) {
+			return orderItem.getPurchaseOrder();
 		}
 		if (col == VAT_RATE_COL) {
 			return orderItem.getSalesVatRate();
