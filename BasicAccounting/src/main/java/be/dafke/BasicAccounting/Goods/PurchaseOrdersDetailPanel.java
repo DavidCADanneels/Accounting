@@ -149,7 +149,6 @@ public class PurchaseOrdersDetailPanel extends JPanel {
     }
 
     private void deliverOrder(){
-        Stock stock = accounting.getStock();
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
         Contact supplier = purchaseOrder.getSupplier();
         dateAndDescriptionDialog.setDescription(supplier.getName());
@@ -162,8 +161,13 @@ public class PurchaseOrdersDetailPanel extends JPanel {
         purchaseOrder.setDate(Utils.toString(date));
         purchaseOrder.setDescription(description);
 
+        Stock stock = accounting.getStock();
         stock.buyOrder(purchaseOrder);
-        StockGUI.fireStockContentChanged(accounting);
+
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        stockTransactions.addOrder(purchaseOrder);
+
+        StockGUI.fireStockContentChanged();
         purchaseOrder.setDelivered(true);
         updateButtonsAndCheckBoxes();
     }

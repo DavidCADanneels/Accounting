@@ -141,8 +141,6 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     private void deliverOrder() {
-        Stock stock = accounting.getStock();
-
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
         Contact customer = salesOrder.getCustomer();
         dateAndDescriptionDialog.setDescription(customer.getName());
@@ -155,8 +153,13 @@ class SalesOrderDetailPanel extends JPanel {
         salesOrder.setDate(Utils.toString(date));
         salesOrder.setDescription(description);
 
+        Stock stock = accounting.getStock();
         stock.sellOrder(salesOrder);
-        StockGUI.fireStockContentChanged(accounting);
+
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        stockTransactions.addOrder(salesOrder);
+
+        StockGUI.fireStockContentChanged();
         salesOrder.setDelivered(true);
         updateButtonsAndCheckBoxes();
     }

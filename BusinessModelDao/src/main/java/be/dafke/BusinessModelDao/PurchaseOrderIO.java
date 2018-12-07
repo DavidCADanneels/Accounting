@@ -83,7 +83,7 @@ public class PurchaseOrderIO {
                 String purchasePriceString = getValue(element, PURCHASE_PRICE);
                 BigDecimal purchasePrice = parseBigDecimal(purchasePriceString);
 
-                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article);
+                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, purchaseOrder);
                 orderItem.setPurchaseVatRate(purchaseVatRate);
                 orderItem.setPurchasePriceForUnit(purchasePrice);
                 orderItem.setName(name);

@@ -14,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneels on 27/12/2015.
  */
 public class GoodsMenu extends JMenu {
-    private JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders;
+    private JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders, stockHistoryTable;
 
     private Articles articles;
     private Contacts contacts;
@@ -41,6 +41,15 @@ public class GoodsMenu extends JMenu {
         });
         stockTable.setEnabled(false);
 
+        stockHistoryTable = new JMenuItem(getBundle("Accounting").getString("STOCK_HISTORY"));
+        stockHistoryTable.setMnemonic(KeyEvent.VK_H);
+        stockHistoryTable.addActionListener(e -> {
+            StockHistoryGUI stockGUI = StockHistoryGUI.showStockHistory(accounting);
+            stockGUI.setLocation(getLocationOnScreen());
+            stockGUI.setVisible(true);
+        });
+        stockHistoryTable.setEnabled(false);
+
         purchaseOrders = new JMenuItem(getBundle("Accounting").getString("POS"));
         purchaseOrders.setMnemonic(KeyEvent.VK_P);
         purchaseOrders.addActionListener(e -> {
@@ -61,6 +70,7 @@ public class GoodsMenu extends JMenu {
 
         add(articlesTable);
         add(stockTable);
+        add(stockHistoryTable);
         add(purchaseOrders);
         add(salesOrders);
     }
@@ -70,6 +80,7 @@ public class GoodsMenu extends JMenu {
         setContacts(accounting==null?null:accounting.getContacts());
         setArticles(accounting==null?null:accounting.getArticles());
         stockTable.setEnabled(accounting!=null);
+        stockHistoryTable.setEnabled(accounting!=null);
         purchaseOrders.setEnabled(accounting!=null);
         salesOrders.setEnabled(accounting!=null);
     }

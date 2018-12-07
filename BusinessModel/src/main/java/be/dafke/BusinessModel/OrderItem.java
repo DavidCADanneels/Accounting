@@ -15,10 +15,12 @@ public class OrderItem extends BusinessObject{
     private Integer salesVatRate = null;
     private Integer purchaseVatRate = null;
     private PurchaseOrder purchaseOrder;
+    private Order order;
 
-    public OrderItem(Integer numberOfUnits, Integer numberOfItems, Article article) {
+    public OrderItem(Integer numberOfUnits, Integer numberOfItems, Article article, Order order) {
         this.numberOfUnits = numberOfUnits;
         this.numberOfItems = numberOfItems;
+        this.order = order;
         this.article = article;
     }
 
@@ -230,5 +232,9 @@ public class OrderItem extends BusinessObject{
 
     public PurchaseOrder getPurchaseOrder() {
         return purchaseOrder;
+    }
+
+    public Order getOrder() {
+        return order;
     }
 }

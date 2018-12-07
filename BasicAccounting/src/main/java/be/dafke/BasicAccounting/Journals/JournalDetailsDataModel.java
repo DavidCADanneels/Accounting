@@ -4,6 +4,7 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
 import be.dafke.Utils.Utils;
 
+import java.awt.print.Book;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -162,30 +163,37 @@ public class JournalDetailsDataModel extends SelectableTableModel<Booking> {
 		}
 	}
 
+	private ArrayList<Booking> getAllItems(){
+		ArrayList<Booking> bookings = new ArrayList<>();
+		for(Transaction transaction : journal.getBusinessObjects()){
+			bookings.addAll(transaction.getBusinessObjects());
+		}
+		return bookings;
+	}
+
 	@Override
 	public Booking getObject(int row, int col) {
 		if(journal==null) return null;
-		ArrayList<Booking> boekingen = new ArrayList<>();
-		for(Transaction transaction : journal.getBusinessObjects()){
-			boekingen.addAll(transaction.getBusinessObjects());
-		}
-		return boekingen.get(row);
+		ArrayList<Booking> bookings = getAllItems();
+		return bookings.get(row);
 	}
 
-	public int getRow(Booking booking) {
-		if(journal==null) return -1;
+	private int getRowInList(ArrayList<Booking> list, Booking booking){
 		int row = 0;
-		ArrayList<Booking> boekingen = new ArrayList<>();
-		for(Transaction transaction : journal.getBusinessObjects()){
-			boekingen.addAll(transaction.getBusinessObjects());
-		}
-		for(Booking booking1:boekingen){
-			if(booking1!=booking){
+		for(Booking search:list){
+			if(search!=booking){
 				row++;
 			} else{
 				return row;
 			}
 		}
+		// TODO: return -1 and catch effects
 		return 0;
+	}
+
+	public int getRow(Booking booking) {
+		if(journal==null) return -1;
+		ArrayList<Booking> bookings = getAllItems();
+		return getRowInList(bookings,booking);
 	}
 }

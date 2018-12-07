@@ -85,16 +85,16 @@ public class SalesOrderIO {
             }
         }
         for (Element salesOrderElement : getChildren(rootElement, SALES_ORDER)) {
-            SalesOrder order = new SalesOrder();
+            SalesOrder salesOrder = new SalesOrder();
             String customerString = getValue(salesOrderElement, CUSTOMER);
             Contact customer = contacts.getBusinessObject(customerString);
-            order.setCustomer(customer);
+            salesOrder.setCustomer(customer);
 
-            order.setPlaced(getBooleanValue(salesOrderElement, IS_PLACED));
-            order.setDelivered(getBooleanValue(salesOrderElement, IS_DELIVERED));
-            order.setInvoice(getBooleanValue(salesOrderElement, INVOICE));
-            order.setInvoiceNumber(getValue(salesOrderElement, INVOICE_NUMBER));
-            order.setPayed(getBooleanValue(salesOrderElement, IS_PAYED));
+            salesOrder.setPlaced(getBooleanValue(salesOrderElement, IS_PLACED));
+            salesOrder.setDelivered(getBooleanValue(salesOrderElement, IS_DELIVERED));
+            salesOrder.setInvoice(getBooleanValue(salesOrderElement, INVOICE));
+            salesOrder.setInvoiceNumber(getValue(salesOrderElement, INVOICE_NUMBER));
+            salesOrder.setPayed(getBooleanValue(salesOrderElement, IS_PAYED));
 
             for (Element element : getChildren(salesOrderElement, ARTICLE)) {
 
@@ -111,7 +111,7 @@ public class SalesOrderIO {
                 //
                 // Create OrderItem
                 //
-                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article);
+                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, salesOrder);
 
                 // set Unit Price
                 //
@@ -148,10 +148,10 @@ public class SalesOrderIO {
                 }
 
                 orderItem.setName(name);
-                order.addBusinessObject(orderItem);
+                salesOrder.addBusinessObject(orderItem);
             }
             try {
-                salesOrders.addBusinessObject(order);
+                salesOrders.addBusinessObject(salesOrder);
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();
             }

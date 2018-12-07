@@ -5,19 +5,10 @@ import java.util.Collection;
 import java.util.HashMap;
 
 public class Stock extends OrderItems {
-    protected final HashMap<String,Order> orders = new HashMap<>(); // "PO1", PurchaseOrder ; "SO1", SalesOrder ; ...
-    protected final HashMap<String,PurchaseOrder> purchaseOrders = new HashMap<>(); // "PO1", PurchaseOrder ; "SO1", SalesOrder ; ...
-    protected final HashMap<String,SalesOrder> salesOrders = new HashMap<>(); // "PO1", PurchaseOrder ; "SO1", SalesOrder ; ...
     protected final HashMap<Article,Integer> numberInStock = new HashMap<>(); // "Coconut", 24 ; "Pala", 15 ; ...
 
     public void buyOrder(PurchaseOrder purchaseOrder){
         addToStock(purchaseOrder);
-        addPurchaseOrder(purchaseOrder);
-    }
-
-    private void addPurchaseOrder(PurchaseOrder purchaseOrder) {
-        purchaseOrders.put(purchaseOrder.getName(), purchaseOrder);
-        addOrder(purchaseOrder);
     }
 
     public void addToStock(OrderItems order){
@@ -28,14 +19,8 @@ public class Stock extends OrderItems {
 
     public void sellOrder(SalesOrder salesOrder){
         removeFromStock(salesOrder);
-        addSalesOrder(salesOrder);
-        addOrder(salesOrder);
     }
 
-    private void addSalesOrder(SalesOrder salesOrder) {
-        salesOrders.put(salesOrder.getName(), salesOrder);
-        addOrder(salesOrder);
-    }
 
     public void removeFromStock(OrderItems order){
         for (OrderItem orderItem : order.getBusinessObjects()) {
@@ -65,17 +50,9 @@ public class Stock extends OrderItems {
             Integer nrInStock = numberInStock.get(article);
             Integer itemsPerUnit = article.getItemsPerUnit();
             Integer unit = nrInStock / itemsPerUnit;
-            OrderItem item = new OrderItem(unit, nrInStock, article);
+            OrderItem item = new OrderItem(unit, nrInStock, article, null);
             orderItems.add(item);
         }
         return orderItems;
-    }
-
-    public Collection<Order> getOrders() {
-        return orders.values();
-    }
-
-    public void addOrder(Order order){
-        orders.put(order.getName(), order);
     }
 }

@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Goods;
 
 
-import be.dafke.BasicAccounting.Journals.JournalDataModel;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
@@ -25,17 +24,17 @@ public class ArticlesPanel extends JPanel {
     private TableColumn supplierColumn;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
-    private final ArticlesDataTableModel articlesDataTableModel;
+    private final ArticlesDetailsDataTableModel articlesDataTableModel;
 
     public ArticlesPanel(Articles articles, Contacts contacts) {
         this.contacts = contacts;
-        articlesDataTableModel = new ArticlesDataTableModel(this, articles);
+        articlesDataTableModel = new ArticlesDetailsDataTableModel(this, articles);
         table = new SelectableTable<>(articlesDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
         comboBox = new JComboBox<>();
         fireSupplierAddedOrRemoved();
-        supplierColumn = table.getColumnModel().getColumn(ArticlesDataTableModel.SUPPLIER_COL);
+        supplierColumn = table.getColumnModel().getColumn(ArticlesDetailsDataTableModel.SUPPLIER_COL);
         supplierColumn.setCellEditor(new DefaultCellEditor(comboBox));
 
         JScrollPane scrollPane = new JScrollPane(table);

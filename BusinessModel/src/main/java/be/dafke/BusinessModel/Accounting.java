@@ -15,6 +15,7 @@ public class Accounting extends BusinessObject{
     private Projects projects;
     private Contacts contacts;
     private Stock stock;
+    private StockTransactions stockTransactions;
     private PurchaseOrders purchaseOrders;
     private SalesOrders salesOrders;
     private Transactions transactions;
@@ -63,6 +64,8 @@ public class Accounting extends BusinessObject{
         articles = new Articles();
 
         stock = new Stock();
+
+        stockTransactions = new StockTransactions();
 
         purchaseOrders = new PurchaseOrders();
 
@@ -241,5 +244,9 @@ public class Accounting extends BusinessObject{
 
     public void setMealOrders(MealOrders mealOrders) {
         this.mealOrders = mealOrders;
+    }
+
+    public StockTransactions getStockTransactions() {
+        return stockTransactions;
     }
 }

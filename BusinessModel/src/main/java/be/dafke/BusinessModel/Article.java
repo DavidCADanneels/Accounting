@@ -5,6 +5,7 @@ import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.function.Predicate;
 
 public class Article extends BusinessObject{
@@ -19,6 +20,9 @@ public class Article extends BusinessObject{
     private Contact supplier;
     private ArrayList<PurchaseOrder> purchaseOrders = new ArrayList<>();
     private ArrayList<SalesOrder> salesOrders = new ArrayList<>();
+
+    private Integer nrAdded = 0;
+    private Integer nrRemoved = 0;
 
     public Article(String name){
         setName(name);
@@ -170,9 +174,33 @@ public class Article extends BusinessObject{
 
     public void addPurchaseOrder(PurchaseOrder purchaseOrder) {
         purchaseOrders.add(purchaseOrder);
+        List<OrderItem> orderItems = purchaseOrder.getBusinessObjects(OrderItem.containsArticle(this));
+        for(OrderItem orderItem:orderItems){
+//            assert (orderItem.getArticle()==this)
+            int numberOfItems = orderItem.getNumberOfItems();
+            nrAdded+= numberOfItems;
+        }
     }
 
     public void addSalesOrder(SalesOrder salesOrder) {
         salesOrders.add(salesOrder);
+        List<OrderItem> orderItems = salesOrder.getBusinessObjects(OrderItem.containsArticle(this));
+        for(OrderItem orderItem:orderItems){
+//            assert (orderItem.getArticle()==this)
+            int numberOfItems = orderItem.getNumberOfItems();
+            nrRemoved+= numberOfItems;
+        }
+    }
+
+    public Integer getNrInStock() {
+        return nrAdded - nrRemoved;
+    }
+
+    public Integer getNrAdded() {
+        return nrAdded;
+    }
+
+    public Integer getNrRemoved() {
+        return nrRemoved;
     }
 }

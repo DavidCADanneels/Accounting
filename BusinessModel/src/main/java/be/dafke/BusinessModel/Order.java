@@ -17,7 +17,7 @@ public class Order extends OrderItems {
     public void setArticles(Articles articles){
 //        this.articles = articles;
         articles.getBusinessObjects().forEach( article -> {
-            addBusinessObject(new OrderItem(0,0,article));
+            addBusinessObject(new OrderItem(0,0,article, this));
         });
     }
 

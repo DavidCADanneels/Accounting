@@ -20,6 +20,7 @@ import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 public class StockIO {
     public static void readStockTransactions(Accounting accounting){
         Stock stock = accounting.getStock();
+        StockTransactions stockTransactions = accounting.getStockTransactions();
         PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
         SalesOrders salesOrders = accounting.getSalesOrders();
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+STOCK_TRANSACTIONS + XML_EXTENSION);
@@ -33,12 +34,14 @@ public class StockIO {
             if(type!=null&&type.equals(PURCHASE_ORDER)){
                 PurchaseOrder purchaseOrder = purchaseOrders.getBusinessObject(name);
                 stock.buyOrder(purchaseOrder);
+                stockTransactions.addOrder(purchaseOrder);
                 purchaseOrder.setDescription(description);
                 purchaseOrder.setDate(date);
             }
             if(type!=null&&type.equals(SALES_ORDER)){
                 SalesOrder salesOrder = salesOrders.getBusinessObject(name);
                 stock.sellOrder(salesOrder);
+                stockTransactions.addOrder(salesOrder);
                 salesOrder.setDescription(description);
                 salesOrder.setDate(date);
             }
@@ -73,12 +76,12 @@ public class StockIO {
     }
 
     public static void writeStockTransactions(Accounting accounting) {
-        Stock stock = accounting.getStock();
+        StockTransactions stockTransactions = accounting.getStockTransactions();
         File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + STOCK_TRANSACTIONS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(STOCK_TRANSACTIONS, 2));
-            for (Order order : stock.getOrders()) {
+            for (Order order : stockTransactions.getOrders()) {
                 writer.write("  <" + STOCK_TRANSACTION + ">\n");
                 writer.write("    <" + NAME + ">" + order.getName() + "</" + NAME + ">\n");
                 writer.write("    <" + DATE + ">" + order.getDate() + "</" + DATE + ">\n");
