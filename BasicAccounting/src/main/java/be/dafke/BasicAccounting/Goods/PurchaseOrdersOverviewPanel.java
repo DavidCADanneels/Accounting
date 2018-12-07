@@ -8,8 +8,6 @@ import be.dafke.ComponentModel.SelectableTable;
 import javax.swing.*;
 import java.awt.*;
 
-import static java.util.ResourceBundle.getBundle;
-
 /**
  * User: david
  * Date: 29-12-13
@@ -65,5 +63,14 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
 
     public void firePurchaseOrderAddedOrRemoved() {
         overviewTableModel.fireTableDataChanged();
+    }
+
+    public void selectOrder(PurchaseOrder purchaseOrder) {
+        int row = overviewTableModel.getRow(purchaseOrder);
+        if(row!=-1){
+            overviewTable.setRowSelectionInterval(row,row);
+            Rectangle cellRect = overviewTable.getCellRect(row, 0, false);
+            overviewTable.scrollRectToVisible(cellRect);
+        }
     }
 }

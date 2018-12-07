@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Goods;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.PurchaseOrder;
 
 import javax.swing.*;
 
@@ -41,5 +42,9 @@ public class PurchaseOrdersOverviewGUI extends JFrame {
 
     public void firePurchaseOrderAddedOrRemoved(){
         ordersOverViewPanel.firePurchaseOrderAddedOrRemoved();
+    }
+
+    public void selectOrder(PurchaseOrder purchaseOrder) {
+        ordersOverViewPanel.selectOrder(purchaseOrder);
     }
 }

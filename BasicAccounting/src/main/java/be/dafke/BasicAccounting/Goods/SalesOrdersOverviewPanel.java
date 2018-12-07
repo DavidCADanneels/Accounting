@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Goods;
 
 
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.OrderItem;
 import be.dafke.BusinessModel.SalesOrder;
@@ -9,8 +10,6 @@ import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.awt.*;
-
-import static java.util.ResourceBundle.getBundle;
 
 /**
  * User: david
@@ -25,6 +24,7 @@ public class SalesOrdersOverviewPanel extends JPanel {
     private final SaleTotalsPanel saleTotalsPanel;
 
     private final SalesOrderDetailPanel salesOrderDetailPanel;
+    private final SalesOrderDetailsPopupMenu popup;
 
     public SalesOrdersOverviewPanel(Accounting accounting) {
         overviewTableModel = new SalesOrdersOverviewDataTableModel(accounting.getSalesOrders());
@@ -34,9 +34,11 @@ public class SalesOrdersOverviewPanel extends JPanel {
         detailsTableModel = new SalesOrderDetailsDataTableModel();
         detailsTable = new SelectableTable<>(detailsTableModel);
         detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200));
+        //
+        popup = new SalesOrderDetailsPopupMenu(detailsTable, accounting);
+        detailsTable.addMouseListener(PopupForTableActivator.getInstance(popup,detailsTable));
 
         saleTotalsPanel = new SaleTotalsPanel();
-
         salesOrderDetailPanel = new SalesOrderDetailPanel(accounting);
 
         fireSalesOrderAddedOrRemoved();

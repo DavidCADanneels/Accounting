@@ -1,10 +1,8 @@
 package be.dafke.BasicAccounting.Goods;
 
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.SelectableTableModel;
 
-import java.math.BigDecimal;
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 import static java.util.ResourceBundle.getBundle;
@@ -65,5 +63,14 @@ public class PurchaseOrdersOverviewDataTableModel extends OrdersOverviewDataTabl
 		List<PurchaseOrder> purchaseOrders = this.purchaseOrders.getBusinessObjects();
 		if(purchaseOrders == null || purchaseOrders.size() == 0) return null;
 		return purchaseOrders.get(row);
+	}
+
+	public int getRow(PurchaseOrder order) {
+		if(purchaseOrders == null) return -1;
+		ArrayList<PurchaseOrder> businessObjects = purchaseOrders.getBusinessObjects();
+		for(int row=0;row<businessObjects.size();row++){
+			if(getObject(row,0)==order) return row;
+		}
+		return -1;
 	}
 }
