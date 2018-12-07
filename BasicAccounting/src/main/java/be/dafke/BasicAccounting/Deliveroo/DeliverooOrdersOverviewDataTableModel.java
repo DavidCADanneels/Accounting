@@ -6,6 +6,7 @@ import be.dafke.ComponentModel.SelectableTableModel;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
@@ -31,6 +32,10 @@ public class DeliverooOrdersOverviewDataTableModel extends SelectableTableModel<
 		this.mealOrders = mealOrders;
 		setColumnNames();
 		setColumnClasses();
+	}
+
+	public void setMealOrders(MealOrders mealOrders) {
+		this.mealOrders = mealOrders;
 	}
 
 	protected void setColumnClasses() {
@@ -89,6 +94,11 @@ public class DeliverooOrdersOverviewDataTableModel extends SelectableTableModel<
 		List<MealOrder> businessObjects = this.mealOrders.getBusinessObjects();
 		if(businessObjects == null || businessObjects.size() == 0) return null;
 		return businessObjects.get(row);
+	}
+
+	public int getRow(MealOrder mealOrder){
+		ArrayList<MealOrder> businessObjects = mealOrders.getBusinessObjects();
+		return businessObjects.indexOf(mealOrder);
 	}
 
 	@Override

@@ -55,7 +55,16 @@ public class DeliverooOrdersOverviewPanel extends JPanel {
         totalsPanel.clear();
     }
 
-    public void fireOrderAdded() {
+    public void fireOrderAdded(MealOrders mealOrders, MealOrder mealOrder) {
+        overviewTableModel.setMealOrders(mealOrders);
         overviewTableModel.fireTableDataChanged();
+        selectOrder(mealOrder);
+    }
+
+    private void selectOrder(MealOrder mealOrder) {
+        int row = overviewTableModel.getRow(mealOrder);
+        overviewTable.setRowSelectionInterval(row, row);
+        Rectangle cellRect = overviewTable.getCellRect(row, 0, false);
+        overviewTable.scrollRectToVisible(cellRect);
     }
 }

@@ -110,7 +110,7 @@ public class DeliverooOrderCreatePanel extends JPanel {
         } catch (EmptyNameException | DuplicateNameException e) {
             e.printStackTrace();
         }
-        DeliverooOrdersOverviewGUI.fireOrderAddedForAll();
+        DeliverooOrdersOverviewGUI.fireOrderAddedForAll(mealOrders, mealOrder);
     }
 
     private void book() {
@@ -216,6 +216,6 @@ public class DeliverooOrderCreatePanel extends JPanel {
         String text = price.getText();
         BigDecimal salesAmountInclVat = Utils.parseBigDecimal(text);
         String description = dateAndDescriptionPanel.getDescription();
-        book.setEnabled(salesAmountInclVat.compareTo(BigDecimal.ZERO)>0 && !description.isEmpty());
+        book.setEnabled(salesAmountInclVat !=null && salesAmountInclVat.compareTo(BigDecimal.ZERO)>0 && !description.isEmpty());
     }
 }

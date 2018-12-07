@@ -2,6 +2,8 @@ package be.dafke.BasicAccounting.Deliveroo;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.MealOrder;
+import be.dafke.BusinessModel.MealOrders;
 
 import javax.swing.*;
 
@@ -26,12 +28,12 @@ public class DeliverooOrdersOverviewGUI extends JFrame {
 		return deliverooOrderCreateGUI;
 	}
 
-	public static void fireOrderAddedForAll() {
+	public static void fireOrderAddedForAll(MealOrders mealOrders, MealOrder mealOrder) {
 		if(deliverooOrderCreateGUI != null)
-			deliverooOrderCreateGUI.fireOrderAdded();
+			deliverooOrderCreateGUI.fireOrderAdded(mealOrders, mealOrder);
 	}
 
-	private void fireOrderAdded() {
-		deliverooOrdersOverviewPanel.fireOrderAdded();
+	private void fireOrderAdded(MealOrders mealOrders, MealOrder mealOrder) {
+		deliverooOrdersOverviewPanel.fireOrderAdded(mealOrders, mealOrder);
 	}
 }
