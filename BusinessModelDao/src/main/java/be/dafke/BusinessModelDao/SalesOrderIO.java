@@ -26,6 +26,7 @@ import static be.dafke.Utils.Utils.parseInt;
  */
 public class SalesOrderIO {
     public static void readSalesOrders(Accounting accounting){
+        PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
         SalesOrders salesOrders = accounting.getSalesOrders();
         Contacts contacts = accounting.getContacts();
         Articles articles = accounting.getArticles();
@@ -140,6 +141,12 @@ public class SalesOrderIO {
                 // set Sales VAT Rate
                 orderItem.setSalesVatRate(parseInt(getValue(element, SALES_VAT_RATE)));
 
+                String purchaseOrderForItemString = getValue(element, PURCHASE_ORDER);
+                if(purchaseOrderForItemString != null) {
+                    PurchaseOrder purchaseOrder = purchaseOrders.getBusinessObject(purchaseOrderForItemString);
+                    orderItem.setPurchaseOrder(purchaseOrder);
+                }
+
                 orderItem.setName(name);
                 order.addBusinessObject(orderItem);
             }
@@ -206,6 +213,7 @@ public class SalesOrderIO {
                                 "      <" + SALES_VAT_RATE + ">" + orderItem.getSalesVatRate() + "</" + SALES_VAT_RATE + ">\n" +
                                 "      <" + SALESPRICE_FOR_UNIT + ">" + orderItem.getSalesPriceForUnit() + "</" + SALESPRICE_FOR_UNIT + ">\n" +
                                 "      <" + SALESPRICE_FOR_ITEM + ">" + orderItem.getSalesPriceForItem() + "</" + SALESPRICE_FOR_ITEM + ">\n" +
+                                "      <" + PURCHASE_ORDER + ">" + orderItem.getPurchaseOrder() + "</" + PURCHASE_ORDER + ">\n" +
                                 "    </" + ARTICLE + ">\n"
                     );
                 }

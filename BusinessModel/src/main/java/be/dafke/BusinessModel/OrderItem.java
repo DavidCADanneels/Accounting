@@ -14,6 +14,7 @@ public class OrderItem extends BusinessObject{
     private int itemsPerUnit = 0;
     private Integer salesVatRate = null;
     private Integer purchaseVatRate = null;
+    private PurchaseOrder purchaseOrder;
 
     public OrderItem(Integer numberOfUnits, Integer numberOfItems, Article article) {
         this.numberOfUnits = numberOfUnits;
@@ -221,5 +222,13 @@ public class OrderItem extends BusinessObject{
 
     public void setPurchaseVatRate(Integer purchaseVatRate) {
         this.purchaseVatRate = purchaseVatRate;
+    }
+
+    public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+        this.purchaseOrder = purchaseOrder;
+    }
+
+    public PurchaseOrder getPurchaseOrder() {
+        return purchaseOrder;
     }
 }
