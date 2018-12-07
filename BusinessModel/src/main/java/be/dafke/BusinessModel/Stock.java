@@ -6,42 +6,50 @@ import java.util.HashMap;
 
 public class Stock extends OrderItems {
     protected final HashMap<String,Order> orders = new HashMap<>(); // "PO1", PurchaseOrder ; "SO1", SalesOrder ; ...
-    protected final HashMap<Article,Integer> stock = new HashMap<>(); // "Coconut", 24 ; "Pala", 15 ; ...
+    protected final HashMap<Article,Integer> numberInStock = new HashMap<>(); // "Coconut", 24 ; "Pala", 15 ; ...
 
     public void buyOrder(PurchaseOrder purchaseOrder){
-        for (OrderItem orderItem : purchaseOrder.getBusinessObjects()) {
-            addBusinessObject(orderItem);
-        }
+        addToStock(purchaseOrder);
         addOrder(purchaseOrder);
     }
 
+    public void addToStock(OrderItems order){
+        for (OrderItem orderItem : order.getBusinessObjects()) {
+            addBusinessObject(orderItem);
+        }
+    }
+
     public void sellOrder(SalesOrder salesOrder){
-        for (OrderItem orderItem : salesOrder.getBusinessObjects()) {
+        removeFromStock(salesOrder);
+        addOrder(salesOrder);
+    }
+
+    public void removeFromStock(OrderItems order){
+        for (OrderItem orderItem : order.getBusinessObjects()) {
             removeBusinessObject(orderItem);
         }
-        addOrder(salesOrder);
     }
 
     public OrderItem addBusinessObject(OrderItem orderItem) {
         Article article = orderItem.getArticle();
-        Integer nr = stock.getOrDefault(article, 0);
+        Integer nr = numberInStock.getOrDefault(article, 0);
         nr+=orderItem.getNumberOfItems();
-        stock.put(article, nr);
+        numberInStock.put(article, nr);
         return orderItem;
     }
 
     public void removeBusinessObject(OrderItem orderItem) {
         Article article = orderItem.getArticle();
-        Integer nr = stock.getOrDefault(article, 0);
+        Integer nr = numberInStock.getOrDefault(article, 0);
         nr-=orderItem.getNumberOfItems();
-        stock.put(article, nr);
+        numberInStock.put(article, nr);
     }
 
     @Override
     public ArrayList<OrderItem> getBusinessObjects() {
         ArrayList<OrderItem> orderItems = new ArrayList<>();
-        for(Article article:stock.keySet()) {
-            Integer nrInStock = stock.get(article);
+        for(Article article: numberInStock.keySet()) {
+            Integer nrInStock = numberInStock.get(article);
             Integer itemsPerUnit = article.getItemsPerUnit();
             Integer unit = nrInStock / itemsPerUnit;
             OrderItem item = new OrderItem(unit, nrInStock, article);
