@@ -1,7 +1,5 @@
 package be.dafke.BusinessModel;
 
-import com.sun.org.apache.xpath.internal.operations.Or;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
@@ -50,10 +48,6 @@ public class Stock extends OrderItems {
             orderItems.add(item);
         }
         return orderItems;
-    }
-
-    public void payOrder(Order order){
-        addOrder(order);
     }
 
     public Collection<Order> getOrders() {

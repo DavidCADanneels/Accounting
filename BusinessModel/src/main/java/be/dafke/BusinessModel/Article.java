@@ -15,7 +15,7 @@ public class Article extends BusinessObject{
     private BigDecimal purchasePrice = null;
     private BigDecimal salesPriceItemWithVat = null;
     private BigDecimal salesPriceUnitWithVat = null;
-    private Contact supplier, customer;
+    private Contact supplier;
 
     public Article(String name){
         setName(name);
@@ -45,10 +45,6 @@ public class Article extends BusinessObject{
         this.supplier = supplier;
     }
 
-    public void setCustomer(Contact customer) {
-        this.customer = customer;
-    }
-
     public void setItemsPerUnit(Integer itemsPerUnit) {
         this.itemsPerUnit = itemsPerUnit;
     }
@@ -68,10 +64,6 @@ public class Article extends BusinessObject{
 
     public Contact getSupplier() {
         return supplier;
-    }
-
-    public Contact getCustomer() {
-        return customer;
     }
 
     public BigDecimal getPurchasePrice(){
@@ -161,13 +153,7 @@ public class Article extends BusinessObject{
         return getPurchaseVat().multiply(new BigDecimal(number));
     }
 
-
-
     public static Predicate<Article> ofSupplier(Contact supplier) {
         return article -> article.getSupplier() == supplier;
-    }
-
-    public static Predicate<Article> forCustomer(Contact customer) {
-        return article -> article.getCustomer() == customer;
     }
 }
