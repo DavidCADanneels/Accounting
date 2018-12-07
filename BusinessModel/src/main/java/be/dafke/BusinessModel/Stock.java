@@ -1,11 +1,9 @@
 package be.dafke.BusinessModel;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
+import java.util.*;
 
 public class Stock extends OrderItems {
-    protected final HashMap<Article,Integer> numberInStock = new HashMap<>(); // "Coconut", 24 ; "Pala", 15 ; ...
+    private HashSet<Article> articles = new HashSet<>();
 
     public void buyOrder(PurchaseOrder purchaseOrder){
         addToStock(purchaseOrder);
@@ -30,24 +28,23 @@ public class Stock extends OrderItems {
 
     public OrderItem addBusinessObject(OrderItem orderItem) {
         Article article = orderItem.getArticle();
-        Integer nr = numberInStock.getOrDefault(article, 0);
-        nr+=orderItem.getNumberOfItems();
-        numberInStock.put(article, nr);
+        articles.add(article);
         return orderItem;
     }
 
     public void removeBusinessObject(OrderItem orderItem) {
-        Article article = orderItem.getArticle();
-        Integer nr = numberInStock.getOrDefault(article, 0);
-        nr-=orderItem.getNumberOfItems();
-        numberInStock.put(article, nr);
+//        Article article = orderItem.getArticle();
+//        Integer nrInStock = article.getNrInStock();
+//        if(nrInStock == 0){
+//            articles.remove(article);
+//        }
     }
 
     @Override
     public ArrayList<OrderItem> getBusinessObjects() {
         ArrayList<OrderItem> orderItems = new ArrayList<>();
-        for(Article article: numberInStock.keySet()) {
-            Integer nrInStock = numberInStock.get(article);
+        for(Article article: articles) {
+            Integer nrInStock = article.getNrInStock();
             Integer itemsPerUnit = article.getItemsPerUnit();
             Integer unit = nrInStock / itemsPerUnit;
             OrderItem item = new OrderItem(unit, nrInStock, article, null);
