@@ -18,7 +18,7 @@ import java.util.function.Predicate;
  */
 class SalesOrderCreatePanel extends JPanel {
     private Contact noInvoice = null;
-    private SalesOrder order;
+    private SalesOrder salesOrder;
     private JCheckBox invoice;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
@@ -31,18 +31,18 @@ class SalesOrderCreatePanel extends JPanel {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
         noInvoice=accounting.getContactNoInvoice();
-        order = new SalesOrder();
-        order.setArticles(articles);
+        salesOrder = new SalesOrder();
+        salesOrder.setArticles(articles);
 
         SaleTotalsPanel saleTotalsPanel = new SaleTotalsPanel();
-        salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, null, order, saleTotalsPanel);
+        salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, null, salesOrder, saleTotalsPanel);
         SelectableTable<OrderItem> table = new SelectableTable<>(salesOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
         invoice = new JCheckBox("Invoice");
         invoice.addActionListener(e -> {
             comboBox.setEnabled(invoice.isSelected());
-            order.setInvoice(invoice.isSelected());
+            salesOrder.setInvoice(invoice.isSelected());
             ComboBoxModel<Contact> model = comboBox.getModel();
             if(invoice.isSelected()) {
                 model.setSelectedItem(contact);
@@ -74,14 +74,15 @@ class SalesOrderCreatePanel extends JPanel {
         JButton orderButton = new JButton("Book Order");
         orderButton.addActionListener(e -> {
             SalesOrders salesOrders = accounting.getSalesOrders();
-            order.setCustomer(contact);
+            salesOrder.setCustomer(contact);
             try {
-                order.removeEmptyOrderItems();
-                salesOrders.addBusinessObject(order);
-                order = new SalesOrder();
-                order.setArticles(articles);
-                salesOrderCreateDataTableModel.setOrder(order);
-                saleTotalsPanel.fireOrderContentChanged(order);
+                salesOrder.removeEmptyOrderItems();
+                salesOrder.addSalesOrderToArticles();
+                salesOrders.addBusinessObject(salesOrder);
+                salesOrder = new SalesOrder();
+                salesOrder.setArticles(articles);
+                salesOrderCreateDataTableModel.setOrder(salesOrder);
+                saleTotalsPanel.fireOrderContentChanged(salesOrder);
                 SalesOrdersOverviewGUI.fireSalesOrderAddedOrRemovedForAll();
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();

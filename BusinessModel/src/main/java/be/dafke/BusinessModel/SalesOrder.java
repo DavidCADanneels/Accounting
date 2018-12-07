@@ -93,4 +93,11 @@ public class SalesOrder extends Order {
     public void setInvoice(boolean invoice) {
         this.invoice = invoice;
     }
+
+    public void addSalesOrderToArticles() {
+        getBusinessObjects().forEach(orderItem -> {
+            Article article = orderItem.getArticle();
+            article.addSalesOrder(this);
+        });
+    }
 }

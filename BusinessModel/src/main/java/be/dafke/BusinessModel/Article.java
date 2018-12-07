@@ -4,6 +4,7 @@ import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 public class Article extends BusinessObject{
@@ -16,6 +17,8 @@ public class Article extends BusinessObject{
     private BigDecimal salesPriceItemWithVat = null;
     private BigDecimal salesPriceUnitWithVat = null;
     private Contact supplier;
+    private ArrayList<PurchaseOrder> purchaseOrders = new ArrayList<>();
+    private ArrayList<SalesOrder> salesOrders = new ArrayList<>();
 
     public Article(String name){
         setName(name);
@@ -155,5 +158,21 @@ public class Article extends BusinessObject{
 
     public static Predicate<Article> ofSupplier(Contact supplier) {
         return article -> article.getSupplier() == supplier;
+    }
+
+    public ArrayList<PurchaseOrder> getPurchaseOrders() {
+        return purchaseOrders;
+    }
+
+    public ArrayList<SalesOrder> getSalesOrders() {
+        return salesOrders;
+    }
+
+    public void addPurchaseOrder(PurchaseOrder purchaseOrder) {
+        purchaseOrders.add(purchaseOrder);
+    }
+
+    public void addSalesOrder(SalesOrder salesOrder) {
+        salesOrders.add(salesOrder);
     }
 }

@@ -18,7 +18,7 @@ import java.util.function.Predicate;
 public class PurchaseOrderCreatePanel extends JPanel {
     private final JButton orderButton;
     private final SelectableTable<OrderItem> table;
-    private PurchaseOrder order;
+    private PurchaseOrder purchaseOrder;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
     private Articles articles;
@@ -29,11 +29,11 @@ public class PurchaseOrderCreatePanel extends JPanel {
     public PurchaseOrderCreatePanel(Accounting accounting) {
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
-        order = new PurchaseOrder();
-        order.setArticles(articles);
+        purchaseOrder = new PurchaseOrder();
+        purchaseOrder.setArticles(articles);
 
         PurchaseTotalsPanel purchaseTotalsPanel = new PurchaseTotalsPanel();
-        purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null, order, purchaseTotalsPanel);
+        purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null, purchaseOrder, purchaseTotalsPanel);
         table = new SelectableTable<>(purchaseOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
@@ -48,16 +48,17 @@ public class PurchaseOrderCreatePanel extends JPanel {
         orderButton = new JButton("Book Order");
         orderButton.addActionListener(e -> {
             PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
-            order.setSupplier(contact);
+            purchaseOrder.setSupplier(contact);
             try {
-                order.removeEmptyOrderItems();
-                purchaseOrders.addBusinessObject(order);
-                order = new PurchaseOrder();
-                order.setArticles(articles);
-                purchaseOrderCreateDataTableModel.setOrder(order);
+                purchaseOrder.removeEmptyOrderItems();
+                purchaseOrder.addPurchaseOrderToArticles();
+                purchaseOrders.addBusinessObject(purchaseOrder);
+                purchaseOrder = new PurchaseOrder();
+                purchaseOrder.setArticles(articles);
+                purchaseOrderCreateDataTableModel.setOrder(purchaseOrder);
                 // TODO: pass view panel and call directly
                 PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAll();
-                purchaseTotalsPanel.fireOrderContentChanged(order);
+                purchaseTotalsPanel.fireOrderContentChanged(purchaseOrder);
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {

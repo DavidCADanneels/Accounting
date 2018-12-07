@@ -60,6 +60,13 @@ public class PurchaseOrder extends Order {
         return getTotalPurchasePriceInclVat().subtract(getTotalPurchasePriceExclVat()).setScale(2, RoundingMode.HALF_DOWN);
     }
 
+    public void addPurchaseOrderToArticles() {
+        getBusinessObjects().forEach(orderItem -> {
+            Article article = orderItem.getArticle();
+            article.addPurchaseOrder(this);
+        });
+    }
+
     public void setPurchaseTransaction(Transaction purchaseTransaction) {
         this.purchaseTransaction = purchaseTransaction;
     }
