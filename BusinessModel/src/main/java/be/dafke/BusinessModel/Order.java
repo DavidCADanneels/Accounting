@@ -1,7 +1,5 @@
 package be.dafke.BusinessModel;
 
-import java.util.Calendar;
-
 public class Order extends OrderItems {
 //    private Articles articles;
     private Contact customer, supplier;
