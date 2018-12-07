@@ -153,9 +153,6 @@ class SalesOrderDetailPanel extends JPanel {
         salesOrder.setDate(Utils.toString(date));
         salesOrder.setDescription(description);
 
-        Stock stock = accounting.getStock();
-        stock.sellOrder(salesOrder);
-
         StockTransactions stockTransactions = accounting.getStockTransactions();
         stockTransactions.addOrder(salesOrder);
 

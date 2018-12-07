@@ -4,6 +4,7 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.util.HashMap;
+import java.util.List;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -11,8 +12,8 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class StockDataTableModel extends SelectableTableModel<OrderItem> {
-	private final Stock stock;
+public class StockDataTableModel extends SelectableTableModel<Article> {
+	private final Articles articles;
 	public static int UNITS_IN_STOCK_COL = 0;
 	public static int ITEMS_PER_UNIT_COL = 1;
 	public static int ITEMS_IN_STOCK_COL = 2;
@@ -21,8 +22,8 @@ public class StockDataTableModel extends SelectableTableModel<OrderItem> {
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 
-	public StockDataTableModel(Stock stock) {
-		this.stock = stock;
+	public StockDataTableModel(Articles articles) {
+		this.articles = articles;
 		setColumnNames();
 		setColumnClasses();
 	}
@@ -45,23 +46,22 @@ public class StockDataTableModel extends SelectableTableModel<OrderItem> {
 	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
-		OrderItem orderItem = getObject(row,col);
+		Article article = getObject(row,col);
+		if(article == null) return null;
 		if (col == UNITS_IN_STOCK_COL) {
-			return orderItem.getNumberOfUnits();
+			return article.getNrInStock()/article.getItemsPerUnit();
 		}
 		if (col == ITEMS_IN_STOCK_COL) {
-			return orderItem.getNumberOfItems();
+			return article.getNrInStock();
 		}
 		if (col == ITEMS_PER_UNIT_COL) {
-			Article article = orderItem.getArticle();
-			return article==null?0:article.getItemsPerUnit();
+			return article.getItemsPerUnit();
 		}
 		if (col == ARTIKEL_COL) {
-			return orderItem.getArticle();
+			return article;
 		}
 		if (col == SUPPLIER_COL) {
-			Article article = orderItem.getArticle();
-			return article==null?null:article.getSupplier();
+			return article.getSupplier();
 		}
 		return null;
 	}
@@ -71,10 +71,10 @@ public class StockDataTableModel extends SelectableTableModel<OrderItem> {
 	}
 
 	public int getRowCount() {
-        if(stock == null){
-            return 0;
-        }
-		return stock.getBusinessObjects().size();
+		if(articles == null){
+			return 0;
+		}
+		return articles.getBusinessObjects(Article.withOrders()).size();
 	}
 
 	@Override
@@ -100,7 +100,8 @@ public class StockDataTableModel extends SelectableTableModel<OrderItem> {
 	}
 
 	@Override
-	public OrderItem getObject(int row, int col) {
-		return stock.getBusinessObjects().get(row);
+	public Article getObject(int row, int col) {
+		List<Article> businessObjects = articles.getBusinessObjects(Article.withOrders());
+		return businessObjects.get(row);
 	}
 }

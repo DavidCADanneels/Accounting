@@ -161,9 +161,6 @@ public class PurchaseOrdersDetailPanel extends JPanel {
         purchaseOrder.setDate(Utils.toString(date));
         purchaseOrder.setDescription(description);
 
-        Stock stock = accounting.getStock();
-        stock.buyOrder(purchaseOrder);
-
         StockTransactions stockTransactions = accounting.getStockTransactions();
         stockTransactions.addOrder(purchaseOrder);
 

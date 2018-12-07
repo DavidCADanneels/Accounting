@@ -98,5 +98,4 @@ public class StockBalanceDataTableModel extends SelectableTableModel<Article> {
         List<Article> businessObjects = articles.getBusinessObjects(Article.withOrders());
         return businessObjects.get(row);
 	}
-
 }

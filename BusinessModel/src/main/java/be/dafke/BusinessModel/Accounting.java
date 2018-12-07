@@ -14,7 +14,6 @@ public class Accounting extends BusinessObject{
     private Mortgages mortgages;
     private Projects projects;
     private Contacts contacts;
-    private Stock stock;
     private StockTransactions stockTransactions;
     private PurchaseOrders purchaseOrders;
     private SalesOrders salesOrders;
@@ -62,8 +61,6 @@ public class Accounting extends BusinessObject{
         projects = new Projects();
 
         articles = new Articles();
-
-        stock = new Stock();
 
         stockTransactions = new StockTransactions();
 
@@ -136,10 +133,6 @@ public class Accounting extends BusinessObject{
 
     public Articles getArticles() {
         return articles;
-    }
-
-    public Stock getStock() {
-        return stock;
     }
 
     public PurchaseOrders getPurchaseOrders() {

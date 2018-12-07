@@ -16,12 +16,11 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class StockPanel extends JPanel {
     private final JButton viewPurchaseOrder ,viewSalesOrder;
-    private final SelectableTable<OrderItem> table;
+    private final SelectableTable<Article> table;
     private final StockDataTableModel stockDataTableModel;
 
     public StockPanel(Accounting accounting) {
-        Stock stock = accounting.getStock();
-        stockDataTableModel = new StockDataTableModel(stock);
+        stockDataTableModel = new StockDataTableModel(accounting.getArticles());
         table = new SelectableTable<>(stockDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
         JScrollPane scrollPane = new JScrollPane(table);
