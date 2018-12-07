@@ -50,4 +50,8 @@ public class MealsPanel extends JPanel {
             }
         });
     }
+
+    public void fireMealUsageUpdated() {
+        mealsDataTableModel.fireTableDataChanged();
+    }
 }

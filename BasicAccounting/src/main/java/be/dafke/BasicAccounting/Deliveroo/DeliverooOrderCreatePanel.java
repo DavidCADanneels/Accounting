@@ -111,6 +111,7 @@ public class DeliverooOrderCreatePanel extends JPanel {
             e.printStackTrace();
         }
         DeliverooOrdersOverviewGUI.fireOrderAddedForAll(mealOrders, mealOrder);
+        MealsGUI.fireMealUsageUpdatedForAll();
     }
 
     private void book() {

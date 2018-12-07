@@ -1,14 +1,10 @@
 package be.dafke.BasicAccounting.Deliveroo;
 
 
-import be.dafke.BasicAccounting.Goods.ArticlesPanel;
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Articles;
-import be.dafke.BusinessModel.Contacts;
 import be.dafke.BusinessModel.DeliverooMeals;
 
 import javax.swing.*;
-import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -20,7 +16,7 @@ import static java.util.ResourceBundle.getBundle;
 public class MealsGUI extends JFrame {
     private final MealsPanel mealsPanel;
 
-    private static final HashMap<DeliverooMeals, MealsGUI> articlesGuis = new HashMap<>();
+    private static MealsGUI mealsGui = null;
 
     private MealsGUI(DeliverooMeals deliverooMeals) {
         super(getBundle("Accounting").getString("MEALS"));
@@ -30,12 +26,20 @@ public class MealsGUI extends JFrame {
     }
 
     public static MealsGUI showMeals(DeliverooMeals deliverooMeals) {
-        MealsGUI gui = articlesGuis.get(deliverooMeals);
-        if (gui == null) {
-            gui = new MealsGUI(deliverooMeals);
-            articlesGuis.put(deliverooMeals, gui);
-            Main.addFrame(gui);
+        if (mealsGui == null) {
+            mealsGui = new MealsGUI(deliverooMeals);
+            Main.addFrame(mealsGui);
         }
-        return gui;
+        return mealsGui;
+    }
+
+    public static void fireMealUsageUpdatedForAll(){
+        if (mealsGui!=null){
+            mealsGui.fireMealUsageUpdated();
+        }
+    }
+
+    public void fireMealUsageUpdated(){
+        mealsPanel.fireMealUsageUpdated();
     }
 }
