@@ -185,7 +185,9 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		Article article = getObject(row,col);
 		if(col == PURCHASE_PRICE_COL){
 			BigDecimal purchasePrice = (BigDecimal) value;
-			article.setPurchasePrice(purchasePrice.setScale(2));
+			if(purchasePrice.scale()<2)
+				purchasePrice = purchasePrice.setScale(2);
+			article.setPurchasePrice(purchasePrice);
 		}
 		if(col == HS_COL){
             article.setHSCode((String) value);
