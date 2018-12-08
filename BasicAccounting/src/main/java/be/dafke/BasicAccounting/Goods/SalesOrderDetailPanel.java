@@ -467,12 +467,12 @@ class SalesOrderDetailPanel extends JPanel {
         }
         gainTransaction.setJournal(gainJournal);
 
-        salesOrder.setGainTransaction(gainTransaction);
 
         Transactions transactions = accounting.getTransactions();
         transactions.setId(gainTransaction);
         transactions.addBusinessObject(gainTransaction);
         gainJournal.addBusinessObject(gainTransaction);
+        salesOrder.setGainTransaction(gainTransaction);
         Main.fireJournalDataChanged(gainJournal);
     }
 

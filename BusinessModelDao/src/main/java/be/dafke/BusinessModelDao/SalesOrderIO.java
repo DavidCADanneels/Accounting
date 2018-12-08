@@ -103,6 +103,14 @@ public class SalesOrderIO {
             salesOrder.setInvoiceNumber(getValue(salesOrderElement, INVOICE_NUMBER));
             salesOrder.setPayed(getBooleanValue(salesOrderElement, IS_PAYED));
 
+            Integer gainTransactionId = Utils.parseInt(getValue(salesOrderElement, GAIN_TRANSACTION));
+
+            Journal gainJournal = salesOrders.getGainJournal();
+            if(gainTransactionId != 0 && gainJournal!=null){
+                Transaction transaction = gainJournal.getBusinessObject(gainTransactionId);
+                salesOrder.setGainTransaction(transaction);
+            }
+
             for (Element element : getChildren(salesOrderElement, ARTICLE)) {
 
                 // Fetch constructor arguments
@@ -201,7 +209,7 @@ public class SalesOrderIO {
                 }
                 Transaction gainTransaction = order.getGainTransaction();
                 if(gainTransaction!=null) {
-                    writer.write("    <" + GAIN_TRANSACTION + ">" + gainTransaction.getId() + "</" + GAIN_TRANSACTION + ">\n");
+                    writer.write("    <" + GAIN_TRANSACTION + ">" + gainTransaction.getTransactionId() + "</" + GAIN_TRANSACTION + ">\n");
                 }
                 Transaction paymentTransaction = order.getPaymentTransaction();
                 if(paymentTransaction!=null) {

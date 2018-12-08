@@ -156,9 +156,6 @@ public class XMLReader {
         if (accounting.isContactsAccounting()) {
             readContacts(accounting);
             readArticles(accounting);
-            readPurchaseOrders(accounting);
-            readSalesOrders(accounting);
-            readStockTransactions(accounting);
         }
         if (accounting.isDeliverooAccounting()){
             readMeals(accounting);
@@ -171,6 +168,9 @@ public class XMLReader {
         if(!accounting.isRead()) {
             readTransactions(accounting);
             readJournalsContent(accounting.getJournals(), accounting);
+            readPurchaseOrders(accounting);
+            readSalesOrders(accounting);
+            readStockTransactions(accounting);
         }
         accounting.setRead(true);
     }

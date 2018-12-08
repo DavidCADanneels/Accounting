@@ -93,6 +93,10 @@ public class Journal extends BusinessCollection<Transaction> {
         return getBusinessObjects().stream().filter(predicate).collect(Collectors.toCollection(ArrayList::new));
     }
 
+    public Transaction getBusinessObject(Integer transactionId){
+        return transactions.get(transactionId);
+    }
+
 	public void removeBusinessObject(Transaction transaction) {
         transactions.remove(transaction.getTransactionId());
     }
