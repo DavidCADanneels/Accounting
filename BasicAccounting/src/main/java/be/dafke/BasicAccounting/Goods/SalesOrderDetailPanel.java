@@ -429,6 +429,9 @@ class SalesOrderDetailPanel extends JPanel {
         Main.setJournal(salesJournal);
         Main.selectTransaction(salesTransaction);
         Main.fireJournalDataChanged(salesJournal);
+        for (Account account : salesTransaction.getAccounts()) {
+            Main.fireAccountDataChanged(account);
+        }
     }
 
     private void createGainTransaction(){
@@ -474,6 +477,9 @@ class SalesOrderDetailPanel extends JPanel {
         gainJournal.addBusinessObject(gainTransaction);
         salesOrder.setGainTransaction(gainTransaction);
         Main.fireJournalDataChanged(gainJournal);
+        for (Account account : gainTransaction.getAccounts()) {
+            Main.fireAccountDataChanged(account);
+        }
     }
 
     private Journal setSalesNoInvoiceJournal() {
