@@ -141,18 +141,22 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     private void deliverOrder() {
-        DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
+        Calendar date;
         Contact customer = salesOrder.getCustomer();
-        dateAndDescriptionDialog.setDescription(customer.getName());
-        dateAndDescriptionDialog.enableDescription(false);
-        dateAndDescriptionDialog.setVisible(true);
+        String description = customer.getName();
+        String deliveryDate = salesOrder.getDeliveryDate(); // FIXME: return Calendar iso String
+        if(deliveryDate==null) {
+            DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
+            dateAndDescriptionDialog.setDescription(description);
+            dateAndDescriptionDialog.setDate(Calendar.getInstance());
+            dateAndDescriptionDialog.setVisible(true);
 
-        Calendar date = dateAndDescriptionDialog.getDate();
-        String description = dateAndDescriptionDialog.getDescription();
+            date = dateAndDescriptionDialog.getDate();
+//            description = dateAndDescriptionDialog.getDescription();
 
-        salesOrder.setDeliveryDate(Utils.toString(date));
-        salesOrder.setDescription(description);
-
+            salesOrder.setDeliveryDate(Utils.toString(date));
+            salesOrder.setDescription(description);
+        }
         StockTransactions stockTransactions = accounting.getStockTransactions();
         stockTransactions.addOrder(salesOrder);
 
@@ -447,14 +451,21 @@ class SalesOrderDetailPanel extends JPanel {
         Booking gainBooking = new Booking(gainAccount, gainAmount, false);
         Booking salesDivBooking = new Booking(salesGainAccount, totalSalesPriceExclVat, true);
 
-        DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
-        dateAndDescriptionDialog.enableDescription(false);
-        dateAndDescriptionDialog.setDescription(salesOrder.getName());
-        dateAndDescriptionDialog.setDate(Utils.toCalendar(salesOrder.getDeliveryDate()));
-        dateAndDescriptionDialog.setVisible(true);
+        Calendar date;
+        String description = salesOrder.getName();
+        String deliveryDate = salesOrder.getDeliveryDate(); // FIXME: return Calendar iso String
+        if(deliveryDate==null) {
+            DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
+            dateAndDescriptionDialog.enableDescription(false);
+            dateAndDescriptionDialog.setDescription(description);
+            dateAndDescriptionDialog.setDate(Calendar.getInstance());
+            dateAndDescriptionDialog.setVisible(true);
 
-        Calendar date = dateAndDescriptionDialog.getDate();
-        String description = dateAndDescriptionDialog.getDescription();
+            date = dateAndDescriptionDialog.getDate();
+            description = dateAndDescriptionDialog.getDescription();
+        } else {
+            date = Utils.toCalendar(deliveryDate);
+        }
 
         Transaction gainTransaction = new Transaction(date, description);
 
