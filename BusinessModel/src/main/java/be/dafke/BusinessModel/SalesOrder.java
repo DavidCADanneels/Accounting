@@ -88,7 +88,7 @@ public class SalesOrder extends Order {
             BigDecimal totalPurchaseValue = purchasePriceForItem.multiply(new BigDecimal(numberOfItems));
             totalStockValue = totalStockValue.add(totalPurchaseValue);
         }
-        return totalStockValue.setScale(2);
+        return totalStockValue.setScale(2, BigDecimal.ROUND_HALF_DOWN);
     }
 
     public String getInvoiceNumber() {
