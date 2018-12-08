@@ -45,7 +45,7 @@ public class PurchaseOrdersOverviewDataTableModel extends OrdersOverviewDataTabl
 			return purchaseOrder.getName();
 		}
 		if (col == DATE_COL) {
-			return purchaseOrder.getDate();
+			return purchaseOrder.getDeliveryDate();
 		}
 		return null;
 	}

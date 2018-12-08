@@ -7,7 +7,7 @@ public class Order extends OrderItems {
     private boolean placed;
     private Transaction paymentTransaction;
     private Integer id;
-    private String date = null;
+    private String deliveryDate = null;
     private String description;
 
     public Order() {
@@ -87,12 +87,12 @@ public class Order extends OrderItems {
         this.id = id;
     }
 
-    public String getDate() {
-        return date;
+    public String getDeliveryDate() {
+        return deliveryDate;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDeliveryDate(String deliveryDate) {
+        this.deliveryDate = deliveryDate;
     }
 
     public void setDescription(String description) {

@@ -84,6 +84,13 @@ public class SalesOrderIO {
                 salesOrders.setSalesAccount(account);
             }
         }
+        String salesGainAccount = getValue(rootElement, SALES_GAIN_ACCOUNT);
+        if(salesGainAccount !=null){
+            Account account = accounts.getBusinessObject(salesGainAccount);
+            if (account!=null) {
+                salesOrders.setSalesGainAccount(account);
+            }
+        }
         for (Element salesOrderElement : getChildren(rootElement, SALES_ORDER)) {
             SalesOrder salesOrder = new SalesOrder();
             String customerString = getValue(salesOrderElement, CUSTOMER);
@@ -174,6 +181,7 @@ public class SalesOrderIO {
             writer.write("  <" + VAT_ACCOUNT + ">"+salesOrders.getVATAccount()+"</" + VAT_ACCOUNT + ">\n");
             writer.write("  <" + GAIN_ACCOUNT + ">"+salesOrders.getGainAccount()+"</" + GAIN_ACCOUNT + ">\n");
             writer.write("  <" + SALES_ACCOUNT + ">"+salesOrders.getSalesAccount()+"</" + SALES_ACCOUNT + ">\n");
+            writer.write("  <" + SALES_GAIN_ACCOUNT + ">"+salesOrders.getSalesGainAccount()+"</" + SALES_GAIN_ACCOUNT + ">\n");
             for (SalesOrder order : salesOrders.getBusinessObjects()) {
                 writer.write(
                              "  <" + SALES_ORDER + ">\n" +
@@ -247,7 +255,7 @@ public class SalesOrderIO {
             Contact supplier = salesOrder.getSupplier();
             writer.write(
                             "  <InvoiceNumber>" + salesOrder.getInvoiceNumber()+ "</InvoiceNumber>\n" +
-                            "  <"+DATE+">" + salesOrder.getDate()+ "</"+DATE+">\n" +
+                            "  <"+DATE+">" + salesOrder.getDeliveryDate()+ "</"+DATE+">\n" +
                             "  <"+DESCRIPTION+">" + salesOrder.getDescription()+ "</"+DESCRIPTION+">\n" +
                             "  <" + SUPPLIER + ">\n" +
                             "    <" + NAME + ">" + supplier.getName() + "</" + NAME + ">\n" +

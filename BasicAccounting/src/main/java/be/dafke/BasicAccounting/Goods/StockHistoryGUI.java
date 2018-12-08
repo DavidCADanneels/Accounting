@@ -32,4 +32,14 @@ public class StockHistoryGUI extends JFrame {
         }
         return gui;
     }
+
+    public static void fireStockContentChanged(){
+        if(gui!=null){
+            gui.updateStockContent();
+        }
+    }
+
+    private void updateStockContent() {
+        stockPanel.fireStockContentChanged();
+    }
 }

@@ -43,7 +43,7 @@ public abstract class OrdersOverviewDataTableModel<T> extends SelectableTableMod
 
 	protected void setColumnNames() {
 		columnNames.put(ORDER_NR_COL, getBundle("Accounting").getString("ORDER_NR"));
-		columnNames.put(DATE_COL, getBundle("Accounting").getString("ITEMS_TO_ORDER"));
+		columnNames.put(DATE_COL, getBundle("Accounting").getString("DELIVERY_DATE"));
 		columnNames.put(CONTACT_COL, getBundle("Contacts").getString("CONTACT"));
 		columnNames.put(PRICE_TOTAL_EXCL_COL, getBundle("Accounting").getString("TOTAL_VAT_EXCL"));
 		columnNames.put(VAT_AMOUNT_COL, getBundle("Accounting").getString("TOTAL_VAT"));

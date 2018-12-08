@@ -23,6 +23,8 @@ public class Article extends BusinessObject{
 
     private Integer nrAdded = 0;
     private Integer nrRemoved = 0;
+    private Integer nrOrderedForSO = 0;
+    private Integer nrOrderedByPO = 0;
 
     public Article(String name){
         setName(name);
@@ -178,22 +180,28 @@ public class Article extends BusinessObject{
 
     public void addPurchaseOrder(PurchaseOrder purchaseOrder) {
         purchaseOrders.add(purchaseOrder);
-        List<OrderItem> orderItems = purchaseOrder.getBusinessObjects(OrderItem.containsArticle(this));
-        for(OrderItem orderItem:orderItems){
-//            assert (orderItem.getArticle()==this)
-            int numberOfItems = orderItem.getNumberOfItems();
-            nrAdded+= numberOfItems;
-        }
+    }
+
+    public void setPoOrdered(int numberOfItems) {
+        nrOrderedByPO += numberOfItems;
+    }
+
+    public void setPoDelivered(int numberOfItems) {
+        nrOrderedByPO-=numberOfItems;
+        nrAdded+=numberOfItems;
     }
 
     public void addSalesOrder(SalesOrder salesOrder) {
         salesOrders.add(salesOrder);
-        List<OrderItem> orderItems = salesOrder.getBusinessObjects(OrderItem.containsArticle(this));
-        for(OrderItem orderItem:orderItems){
-//            assert (orderItem.getArticle()==this)
-            int numberOfItems = orderItem.getNumberOfItems();
-            nrRemoved+= numberOfItems;
-        }
+    }
+
+    public void setSoOrdered(int numberOfItems) {
+        nrOrderedForSO += numberOfItems;
+    }
+
+    public void setSoDelivered(int numberOfItems) {
+        nrOrderedForSO-=numberOfItems;
+        nrRemoved+=numberOfItems;
     }
 
     public Integer getNrInStock() {
@@ -206,5 +214,29 @@ public class Article extends BusinessObject{
 
     public Integer getNrRemoved() {
         return nrRemoved;
+    }
+
+    public Integer getNrOrderedForSO() {
+        return nrOrderedForSO;
+    }
+
+    public Integer getNrOrderedByPO() {
+        return nrOrderedByPO;
+    }
+
+    public void setNrAdded(Integer nrAdded) {
+        this.nrAdded = nrAdded;
+    }
+
+    public void setNrRemoved(Integer nrRemoved) {
+        this.nrRemoved = nrRemoved;
+    }
+
+    public void setNrOrderedForSO(Integer nrOrderedForSO) {
+        this.nrOrderedForSO = nrOrderedForSO;
+    }
+
+    public void setNrOrderedByPO(Integer nrOrderedByPO) {
+        this.nrOrderedByPO = nrOrderedByPO;
     }
 }

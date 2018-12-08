@@ -139,6 +139,11 @@ public class XMLConstants {
     public static final String MEAL_ORDER = "MealOrder";
     public static final String USAGE = "AlreadyOrdered";
 
+    public static final String NR_IN_STOCK = "StockInStock";
+    public static final String NR_ADDED = "StockAdded";
+    public static final String NR_REMOVED = "StockRemoved";
+    public static final String NR_PO_ORDERED = "StockInPO";
+    public static final String NR_SO_ORDERED = "StockInSO";
     public static final String STOCK = "Stock";
     public static final String STOCK_TRANSACTIONS = "StockTransactions";
     public static final String STOCK_TRANSACTION = "StockTransaction";
@@ -150,6 +155,7 @@ public class XMLConstants {
     public static final String VAT_ACCOUNT = "VatAccount";
     public static final String GAIN_ACCOUNT = "GainAccount";
     public static final String SALES_ACCOUNT = "SalesAccount";
+    public static final String SALES_GAIN_ACCOUNT = "SalesGainAccount";
     public static final String SALES_JOURNAL = "SalesJournal";
     public static final String SALES_NO_INVOICE_JOURNAL = "SalesNoInvoiceJournal";
     public static final String PURCHASE_TRANSACTION = "PurchaseTransaction";

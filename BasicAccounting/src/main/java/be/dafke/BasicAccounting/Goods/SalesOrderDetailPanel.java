@@ -150,19 +150,40 @@ class SalesOrderDetailPanel extends JPanel {
         Calendar date = dateAndDescriptionDialog.getDate();
         String description = dateAndDescriptionDialog.getDescription();
 
-        salesOrder.setDate(Utils.toString(date));
+        salesOrder.setDeliveryDate(Utils.toString(date));
         salesOrder.setDescription(description);
 
         StockTransactions stockTransactions = accounting.getStockTransactions();
         stockTransactions.addOrder(salesOrder);
 
         StockGUI.fireStockContentChanged();
+        StockHistoryGUI.fireStockContentChanged();
+
+        salesOrder.getBusinessObjects().forEach(orderItem -> {
+            Article article = orderItem.getArticle();
+            int numberOfItems = orderItem.getNumberOfItems();
+            article.setSoDelivered(numberOfItems);
+        });
+
+
         salesOrder.setDelivered(true);
+
+
         updateButtonsAndCheckBoxes();
     }
 
     private void placeOrder() {
         createSalesTransaction();
+        createGainTransaction();
+        salesOrder.getBusinessObjects().forEach(orderItem -> {
+            Article article = orderItem.getArticle();
+            int numberOfItems = orderItem.getNumberOfItems();
+            article.setSoOrdered(numberOfItems);
+        });
+
+        StockHistoryGUI.fireStockContentChanged();
+
+
         salesOrder.setPlaced(true);
         updateButtonsAndCheckBoxes();
     }
@@ -191,7 +212,7 @@ class SalesOrderDetailPanel extends JPanel {
         Calendar date = dateAndDescriptionDialog.getDate();
         String description = dateAndDescriptionDialog.getDescription();
 
-        salesOrder.setDate(Utils.toString(date));
+        salesOrder.setDeliveryDate(Utils.toString(date));
         salesOrder.setDescription(description);
 
         String xmlPath = SalesOrderIO.writeInvoiceXmlInputFile(accounting, salesOrder);
@@ -232,50 +253,77 @@ class SalesOrderDetailPanel extends JPanel {
         return journal;
     }
 
-    private void createSalesTransaction(){
-        Account vatAccount = salesOrders.getVATAccount();
-        if (vatAccount == null){
+    private Account getVatAccount(){
+        Account account = salesOrders.getVATAccount();
+        if (account == null){
             AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.TAXDEBIT);
             ArrayList<AccountType> list = new ArrayList<>();
             list.add(accountType);
             AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select VAT Account for Sales");
             dialog.setVisible(true);
-            vatAccount = dialog.getSelection();
-            salesOrders.setVATAccount(vatAccount);
+            account = dialog.getSelection();
+            salesOrders.setVATAccount(account);
         }
-        Account stockAccount = salesOrders.getStockAccount();
-        if (stockAccount == null){
+        return account;
+    }
+
+    private Account getStockAccount(){
+        Account account = salesOrders.getStockAccount();
+        if (account == null){
             AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.ASSET);
             ArrayList<AccountType> list = new ArrayList<>();
             list.add(accountType);
             AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select Stock Account");
             dialog.setVisible(true);
-            stockAccount = dialog.getSelection();
-            salesOrders.setStockAccount(stockAccount);
+            account = dialog.getSelection();
+            salesOrders.setStockAccount(account);
         }
+        return account;
+    }
 
-        Account gainAccount = salesOrders.getGainAccount();
-        if (gainAccount == null){
+    private Account getGainAccount(){
+        Account account = salesOrders.getGainAccount();
+        if (account == null){
             AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.REVENUE);
             ArrayList<AccountType> list = new ArrayList<>();
             list.add(accountType);
             AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select Gain Account");
             dialog.setVisible(true);
-            gainAccount = dialog.getSelection();
-            salesOrders.setGainAccount(gainAccount);
+            account = dialog.getSelection();
+            salesOrders.setGainAccount(account);
         }
+        return account;
+    }
 
-        Account salesAccount = salesOrders.getSalesAccount();
-        if (salesAccount == null){
+    private Account getSalesAccount(){
+        Account account = salesOrders.getSalesAccount();
+        if (account == null){
             AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.REVENUE);
             ArrayList<AccountType> list = new ArrayList<>();
             list.add(accountType);
             AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select Sales Account");
             dialog.setVisible(true);
-            salesAccount = dialog.getSelection();
-            salesOrders.setSalesAccount(salesAccount);
+            account = dialog.getSelection();
+            salesOrders.setSalesAccount(account);
         }
+        return account;
+    }
 
+    private Account getSalesGainAccount(){
+        Account account = salesOrders.getSalesGainAccount();
+        if (account == null){
+            AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.ASSET);
+            ArrayList<AccountType> list = new ArrayList<>();
+            list.add(accountType);
+            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select Sales Gain Account");
+            dialog.setVisible(true);
+            account = dialog.getSelection();
+            salesOrders.setSalesGainAccount(account);
+        }
+        return account;
+    }
+
+    private Contact getCustomer(){
         Contact customer = salesOrder.getCustomer();
         if(customer == null){
             Contacts contacts = accounting.getContacts();
@@ -283,6 +331,10 @@ class SalesOrderDetailPanel extends JPanel {
             contactSelectorDialog.setVisible(true);
             customer = contactSelectorDialog.getSelection();
         }
+        return customer;
+    }
+
+    private Account getCustomerAccount(Contact customer){
         Account customerAccount = customer.getAccount();
         if (customerAccount == null){
             AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.CREDIT);
@@ -293,7 +345,14 @@ class SalesOrderDetailPanel extends JPanel {
             customerAccount = dialog.getSelection();
             customer.setAccount(customerAccount);
         }
-        VATTransactions vatTransactions = accounting.getVatTransactions();
+        return customerAccount;
+    }
+
+    private void createSalesTransaction(){
+        Contact customer = getCustomer();
+        Account customerAccount = getCustomerAccount(customer);
+        Account vatAccount = getVatAccount();
+        Account salesAccount = getSalesAccount();
 
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
         dateAndDescriptionDialog.setVisible(true);
@@ -347,37 +406,6 @@ class SalesOrderDetailPanel extends JPanel {
         salesTransaction.addVatTransaction(vatTransaction);
         vatTransaction.setTransaction(salesTransaction);
 
-        Transactions transactions = accounting.getTransactions();
-/*
-        // For Div
-        BigDecimal stockAmount = salesOrder.getTotalPurchasePriceExclVat();
-        BigDecimal totalSalesPriceExclVat = salesOrder.getTotalSalesPriceExclVat();
-        BigDecimal gainAmount = totalSalesPriceExclVat.subtract(stockAmount);
-
-        Booking stockBooking = new Booking(stockAccount, stockAmount, false);
-        Booking gainBooking = new Booking(gainAccount, gainAmount, false);
-        Booking salesDivBooking = new Booking(salesAccount, totalSalesPriceExclVat, true);
-
-        Transaction gainTransaction = new Transaction(date, description);
-
-        gainTransaction.addBusinessObject(gainBooking);
-        gainTransaction.addBusinessObject(stockBooking);
-        gainTransaction.addBusinessObject(salesDivBooking);
-
-        // ---
-
-        Journal gainJournal = salesOrders.getGainJournal();
-        if (gainJournal==null){
-            gainJournal = setGainJournal();
-        }
-        gainTransaction.setJournal(gainJournal);
-        // TODO: ask for Date and Description
-
-        transactions.setId(gainTransaction);
-        transactions.addBusinessObject(gainTransaction);
-        gainJournal.addBusinessObject(gainTransaction);
-        Main.fireJournalDataChanged(gainJournal);
-*/
         Journal salesJournal;
         if(salesOrder.isInvoice()) {
             salesJournal = salesOrders.getSalesJournal();
@@ -393,6 +421,7 @@ class SalesOrderDetailPanel extends JPanel {
         salesTransaction.setJournal(salesJournal);
         // TODO: ask for Date and Description
 
+        Transactions transactions = accounting.getTransactions();
         transactions.setId(salesTransaction);
         transactions.addBusinessObject(salesTransaction);
         salesJournal.addBusinessObject(salesTransaction);
@@ -400,6 +429,51 @@ class SalesOrderDetailPanel extends JPanel {
         Main.setJournal(salesJournal);
         Main.selectTransaction(salesTransaction);
         Main.fireJournalDataChanged(salesJournal);
+    }
+
+    private void createGainTransaction(){
+        Account salesGainAccount = getSalesGainAccount();
+        Account stockAccount = getStockAccount();
+        Account gainAccount = getGainAccount();
+
+        BigDecimal stockAmount = salesOrder.calculateTotalStockValue();
+        BigDecimal totalSalesPriceExclVat = salesOrder.getTotalSalesPriceExclVat();
+        BigDecimal gainAmount = totalSalesPriceExclVat.subtract(stockAmount);
+
+        Booking stockBooking = new Booking(stockAccount, stockAmount, false);
+        Booking gainBooking = new Booking(gainAccount, gainAmount, false);
+        Booking salesDivBooking = new Booking(salesGainAccount, totalSalesPriceExclVat, true);
+
+        DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
+        dateAndDescriptionDialog.enableDescription(false);
+        dateAndDescriptionDialog.setDescription(salesOrder.getName());
+        dateAndDescriptionDialog.setDate(Utils.toCalendar(salesOrder.getDeliveryDate()));
+        dateAndDescriptionDialog.setVisible(true);
+
+        Calendar date = dateAndDescriptionDialog.getDate();
+        String description = dateAndDescriptionDialog.getDescription();
+
+        Transaction gainTransaction = new Transaction(date, description);
+
+        gainTransaction.addBusinessObject(gainBooking);
+        gainTransaction.addBusinessObject(stockBooking);
+        gainTransaction.addBusinessObject(salesDivBooking);
+
+        // ---
+
+        Journal gainJournal = salesOrders.getGainJournal();
+        if (gainJournal==null){
+            gainJournal = setGainJournal();
+        }
+        gainTransaction.setJournal(gainJournal);
+
+        salesOrder.setGainTransaction(gainTransaction);
+
+        Transactions transactions = accounting.getTransactions();
+        transactions.setId(gainTransaction);
+        transactions.addBusinessObject(gainTransaction);
+        gainJournal.addBusinessObject(gainTransaction);
+        Main.fireJournalDataChanged(gainJournal);
     }
 
     private Journal setSalesNoInvoiceJournal() {

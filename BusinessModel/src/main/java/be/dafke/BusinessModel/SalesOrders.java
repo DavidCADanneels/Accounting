@@ -15,6 +15,7 @@ public class SalesOrders extends BusinessCollection<SalesOrder>{
     private Journal gainJournal;
     private Account gainAccount;
     private Account salesAccount;
+    private Account salesGainAccount;
 
     public SalesOrders() {
         super();
@@ -88,5 +89,13 @@ public class SalesOrders extends BusinessCollection<SalesOrder>{
 
     public void setSalesNoInvoiceJournal(Journal salesNoInvoiceJournal) {
         this.salesNoInvoiceJournal = salesNoInvoiceJournal;
+    }
+
+    public Account getSalesGainAccount() {
+        return salesGainAccount;
+    }
+
+    public void setSalesGainAccount(Account salesGainAccount) {
+        this.salesGainAccount = salesGainAccount;
     }
 }

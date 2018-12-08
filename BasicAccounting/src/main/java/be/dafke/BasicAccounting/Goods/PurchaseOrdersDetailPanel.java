@@ -127,22 +127,15 @@ public class PurchaseOrdersDetailPanel extends JPanel {
     }
 
     private void placeOrder(){
-        Transaction transaction = createPurchaseTransaction();
-        Journal journal = purchaseOrders.getJournal();
-        if (journal==null){
-            journal = setPurchaseJournal();
-        }
-        transaction.setJournal(journal);
-        // TODO: ask for Date and Description
+        createPurchaseTransaction();
 
-        purchaseOrder.setPurchaseTransaction(transaction);
+        purchaseOrder.getBusinessObjects().forEach(orderItem -> {
+            Article article = orderItem.getArticle();
+            int numberOfItems = orderItem.getNumberOfItems();
+            article.setPoOrdered(numberOfItems);
+        });
 
-        Transactions transactions = accounting.getTransactions();
-        transactions.setId(transaction);
-        transactions.addBusinessObject(transaction);
-        journal.addBusinessObject(transaction);
-        Main.setJournal(journal);
-        Main.selectTransaction(transaction);
+        StockHistoryGUI.fireStockContentChanged();
 
         purchaseOrder.setPlaced(true);
         updateButtonsAndCheckBoxes();
@@ -158,13 +151,21 @@ public class PurchaseOrdersDetailPanel extends JPanel {
         Calendar date = dateAndDescriptionDialog.getDate();
         String description = dateAndDescriptionDialog.getDescription();
 
-        purchaseOrder.setDate(Utils.toString(date));
+        purchaseOrder.setDeliveryDate(Utils.toString(date));
         purchaseOrder.setDescription(description);
 
         StockTransactions stockTransactions = accounting.getStockTransactions();
         stockTransactions.addOrder(purchaseOrder);
 
         StockGUI.fireStockContentChanged();
+        StockHistoryGUI.fireStockContentChanged();
+
+        purchaseOrder.getBusinessObjects().forEach(orderItem -> {
+            Article article = orderItem.getArticle();
+            int numberOfItems = orderItem.getNumberOfItems();
+            article.setPoDelivered(numberOfItems);
+        });
+
         purchaseOrder.setDelivered(true);
         updateButtonsAndCheckBoxes();
     }
@@ -191,7 +192,7 @@ public class PurchaseOrdersDetailPanel extends JPanel {
         return journal;
     }
 
-    private Transaction createPurchaseTransaction() {
+    private void createPurchaseTransaction() {
         Transaction transaction;
         // TODO: create transaction
         Calendar date = Calendar.getInstance();
@@ -259,6 +260,21 @@ public class PurchaseOrdersDetailPanel extends JPanel {
         }
         transaction.addVatTransaction(vatTransaction);
         vatTransaction.setTransaction(transaction);
-        return transaction;
+
+        Journal journal = purchaseOrders.getJournal();
+        if (journal==null){
+            journal = setPurchaseJournal();
+        }
+        transaction.setJournal(journal);
+        // TODO: ask for Date and Description
+
+        purchaseOrder.setPurchaseTransaction(transaction);
+
+        Transactions transactions = accounting.getTransactions();
+        transactions.setId(transaction);
+        transactions.addBusinessObject(transaction);
+        journal.addBusinessObject(transaction);
+        Main.setJournal(journal);
+        Main.selectTransaction(transaction);
     }
 }

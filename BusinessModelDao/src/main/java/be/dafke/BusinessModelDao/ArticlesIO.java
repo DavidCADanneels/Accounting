@@ -65,6 +65,22 @@ public class ArticlesIO {
             if(itemsPerUnit!=null)
                 article.setItemsPerUnit(parseInt(itemsPerUnit));
 
+            String nrAddedString = getValue(element, NR_ADDED);
+            if(nrAddedString!=null)
+                article.setNrAdded(parseInt(nrAddedString));
+
+            String nrRemovedString = getValue(element, NR_REMOVED);
+            if(nrRemovedString!=null)
+                article.setNrRemoved(parseInt(nrRemovedString));
+
+            String nrSoOrderedString = getValue(element, NR_SO_ORDERED);
+            if(nrSoOrderedString!=null)
+                article.setNrOrderedForSO(parseInt(nrSoOrderedString));
+
+            String nrPoOrderedString = getValue(element, NR_PO_ORDERED);
+            if(nrPoOrderedString !=null)
+                article.setNrOrderedByPO(parseInt(nrPoOrderedString ));
+
             String supplierName = getValue(element, SUPPLIER);
             if(supplierName!=null) {
                 Contact supplier = contacts.getBusinessObject(supplierName);
@@ -104,6 +120,11 @@ public class ArticlesIO {
                             "    <" + SALES_PROMO_PRICE + ">" + article.getSalesPriceUnitWithVat() + "</" + SALES_PROMO_PRICE + ">\n" +
                             "    <" + PURCHASE_VAT_RATE + ">" + article.getPurchaseVatRate() + "</" + PURCHASE_VAT_RATE + ">\n" +
                             "    <" + SALES_VAT_RATE + ">" + article.getSalesVatRate() + "</" + SALES_VAT_RATE + ">\n" +
+                            "    <" + NR_IN_STOCK + ">" + article.getNrInStock() + "</" + NR_IN_STOCK + ">\n" +
+                            "    <" + NR_ADDED + ">" + article.getNrAdded() + "</" + NR_ADDED + ">\n" +
+                            "    <" + NR_REMOVED + ">" + article.getNrRemoved() + "</" + NR_REMOVED + ">\n" +
+                            "    <" + NR_SO_ORDERED + ">" + article.getNrOrderedForSO() + "</" + NR_SO_ORDERED + ">\n" +
+                            "    <" + NR_PO_ORDERED + ">" + article.getNrOrderedByPO() + "</" + NR_PO_ORDERED + ">\n" +
                             "    <" + SUPPLIER + ">" + article.getSupplier() + "</" + SUPPLIER + ">\n"
                 );
                 ArrayList<PurchaseOrder> purchaseOrders = article.getPurchaseOrders();

@@ -34,13 +34,13 @@ public class StockIO {
                 PurchaseOrder purchaseOrder = purchaseOrders.getBusinessObject(name);
                 stockTransactions.addOrder(purchaseOrder);
                 purchaseOrder.setDescription(description);
-                purchaseOrder.setDate(date);
+                purchaseOrder.setDeliveryDate(date);
             }
             if(type!=null&&type.equals(SALES_ORDER)){
                 SalesOrder salesOrder = salesOrders.getBusinessObject(name);
                 stockTransactions.addOrder(salesOrder);
                 salesOrder.setDescription(description);
-                salesOrder.setDate(date);
+                salesOrder.setDeliveryDate(date);
             }
         }
     }
@@ -80,7 +80,7 @@ public class StockIO {
             for (Order order : stockTransactions.getOrders()) {
                 writer.write("  <" + STOCK_TRANSACTION + ">\n");
                 writer.write("    <" + NAME + ">" + order.getName() + "</" + NAME + ">\n");
-                writer.write("    <" + DATE + ">" + order.getDate() + "</" + DATE + ">\n");
+                writer.write("    <" + DATE + ">" + order.getDeliveryDate() + "</" + DATE + ">\n");
                 writer.write("    <" + DESCRIPTION + ">" + order.getDescription() + "</" + DESCRIPTION + ">\n");
                 if (order instanceof PurchaseOrder){
                     writer.write("    <" + TYPE + ">" + PURCHASE_ORDER + "</" + TYPE + ">\n");

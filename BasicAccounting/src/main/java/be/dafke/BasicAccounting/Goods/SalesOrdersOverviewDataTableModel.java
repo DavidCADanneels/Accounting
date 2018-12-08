@@ -45,7 +45,7 @@ public class SalesOrdersOverviewDataTableModel extends OrdersOverviewDataTableMo
 			return salesOrder.getName();
 		}
 		if (col == DATE_COL) {
-			return salesOrder.getDate();
+			return salesOrder.getDeliveryDate();
 		}
 		return null;
 	}

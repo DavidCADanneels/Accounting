@@ -32,4 +32,9 @@ public class StockHistoryPanel extends JPanel {
         setLayout(new BorderLayout());
         add(splitPane, BorderLayout.CENTER);
     }
+
+    public void fireStockContentChanged() {
+        stockBalanceDataTableModel.fireTableDataChanged();
+        stockTransactionsDataTableModel.fireTableDataChanged();
+    }
 }
