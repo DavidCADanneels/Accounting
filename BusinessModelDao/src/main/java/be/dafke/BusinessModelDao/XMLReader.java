@@ -168,9 +168,11 @@ public class XMLReader {
         if(!accounting.isRead()) {
             readTransactions(accounting);
             readJournalsContent(accounting.getJournals(), accounting);
-            readPurchaseOrders(accounting);
-            readSalesOrders(accounting);
-            readStockTransactions(accounting);
+            if (accounting.isContactsAccounting()) {
+                readPurchaseOrders(accounting);
+                readSalesOrders(accounting);
+                readStockTransactions(accounting);
+            }
         }
         accounting.setRead(true);
     }
