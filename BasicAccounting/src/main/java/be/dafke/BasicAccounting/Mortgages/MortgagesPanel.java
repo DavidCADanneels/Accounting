@@ -9,10 +9,13 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.util.List;
 
 public class MortgagesPanel extends JPanel {
 	private final JList<Mortgage> list;
 	private final JButton pay;// , newMortgage, details;
+	private final JCheckBox hidePayedOff;
+	private Mortgages mortgages;
 	private final DefaultListModel<Mortgage> listModel;
 	private Mortgage selectedMortgage;
 	private JournalEditPanel journalEditPanel;
@@ -36,6 +39,12 @@ public class MortgagesPanel extends JPanel {
 		pay.setMnemonic(KeyEvent.VK_P);
 		pay.addActionListener(e -> book());
 		pay.setEnabled(false);
+
+		hidePayedOff = new JCheckBox("Hide Payed Off");
+		hidePayedOff.setSelected(true);
+		hidePayedOff.addActionListener(e -> refreshList());
+
+		add(hidePayedOff, BorderLayout.NORTH);
 		add(list, BorderLayout.CENTER);
 		add(pay, BorderLayout.SOUTH);
 	}
@@ -54,9 +63,20 @@ public class MortgagesPanel extends JPanel {
 	}
 
 	public void setMortgages(Mortgages mortgages) {
+		this.mortgages = mortgages;
+		refreshList();
+	}
+
+	private void refreshList(){
 		listModel.clear();
 		if (mortgages != null) {
-			for (Mortgage mortgage : mortgages.getBusinessObjects()) {
+			List<Mortgage> businessObjects;
+			if(hidePayedOff.isSelected()) {
+				businessObjects = mortgages.getBusinessObjects(mortgage -> !mortgage.isPayedOff());
+			} else {
+				businessObjects = mortgages.getBusinessObjects();
+			}
+			for (Mortgage mortgage : businessObjects) {
 				if (!listModel.contains(mortgage)) {
 					listModel.addElement(mortgage);
 				}
