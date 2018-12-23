@@ -38,9 +38,8 @@ public class ContactsSettingsPanel extends JPanel {
         noInvoiceContactSelection.addActionListener(e -> updateSelectedNoInvoiceContact());
         noInvoiceContactSelection.setEnabled(accounting.isContactsAccounting());
 
-        FlowLayout flowLayout = new FlowLayout(FlowLayout.LEADING);
-//        flowLayout.setAlignOnBaseline(true);
-        setLayout(flowLayout);
+        JPanel panel = new JPanel();
+        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
 
         JPanel panel1 = new JPanel();
         panel1.add(new JLabel("Company Contact"));
@@ -50,8 +49,10 @@ public class ContactsSettingsPanel extends JPanel {
         panel2.add(new JLabel("NoInvoice Contact"));
         panel2.add(noInvoiceContactSelection);
 
-        add(panel1);
-        add(panel2);
+        panel.add(panel1);
+        panel.add(panel2);
+
+        add(panel);
     }
 
     public void updateSelectedCompanyContact() {
