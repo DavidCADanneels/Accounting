@@ -160,13 +160,13 @@ public class Main {
         menuBar.add(journalsMenu);
         menuBar.add(accountsMenu);
         menuBar.add(balancesMenu);
+        menuBar.add(projectsMenu);
+        menuBar.add(morgagesMenu);
         menuBar.add(contactsMenu);
+        menuBar.add(vatMenu);
         menuBar.add(tradeMenu);
         menuBar.add(deliverooMenu);
-        menuBar.add(morgagesMenu);
-        menuBar.add(projectsMenu);
         menuBar.add(codaMenu);
-        menuBar.add(vatMenu);
     }
 
     private static void launchFrame(){
