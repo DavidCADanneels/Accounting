@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Deliveroo;
 
-import be.dafke.BasicAccounting.Goods.OrdersOverviewDataTableModel;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
 import be.dafke.Utils.Utils;

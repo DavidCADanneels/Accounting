@@ -13,7 +13,7 @@ import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
 import be.dafke.BasicAccounting.Contacts.ContactsGUI;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
 import be.dafke.BasicAccounting.Deliveroo.DeliverooMenu;
-import be.dafke.BasicAccounting.Goods.*;
+import be.dafke.BasicAccounting.Trade.*;
 import be.dafke.BasicAccounting.Journals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
 import be.dafke.BasicAccounting.Mortgages.MortgageGUI;

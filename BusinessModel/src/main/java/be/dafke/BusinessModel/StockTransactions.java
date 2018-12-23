@@ -12,7 +12,6 @@ public class StockTransactions {
     private Account salesAccount;
     private Account salesGainAccount;
 
-
     protected final ArrayList<Order> orders = new ArrayList<>();
 
     public ArrayList<Order> getOrders() {
