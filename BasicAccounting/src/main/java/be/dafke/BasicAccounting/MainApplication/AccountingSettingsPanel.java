@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.Contacts.ContactsSettingsPanel;
+import be.dafke.BasicAccounting.Deliveroo.DeliverooSettingsPanel;
 import be.dafke.BasicAccounting.Trade.TradeSettingsPanel;
 import be.dafke.BasicAccounting.VAT.VATSettingsPanel;
 import be.dafke.BusinessModel.Accounting;
@@ -30,7 +31,7 @@ public class AccountingSettingsPanel extends JFrame {
     private JCheckBox mortgages;
     private Accounting accounting;
     private static HashMap<Accounting,AccountingSettingsPanel> accountingSettingsMap = new HashMap<>();
-    private JPanel contactsTab, vatTab, tradeTab;
+    private JPanel contactsTab, vatTab, tradeTab, deliverooTab;
 
     private AccountingSettingsPanel(Accounting accounting) {
         super(accounting.getName() + " / " + title);
@@ -39,6 +40,7 @@ public class AccountingSettingsPanel extends JFrame {
         contactsTab = new ContactsSettingsPanel(accounting);
         vatTab = new VATSettingsPanel(accounting);
         tradeTab = new TradeSettingsPanel(accounting);
+        deliverooTab = new DeliverooSettingsPanel(accounting);
 
         tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         tabbedPane.addTab("Modules",createCenterPanel());
@@ -66,9 +68,20 @@ public class AccountingSettingsPanel extends JFrame {
 
     private void updateDeliverooSetting(){
         boolean deliverooSelected = deliveroo.isSelected();
+        deliverooTab.setEnabled(deliverooSelected);
         if(deliverooSelected){
             vatAccounting.setSelected(true);
             updateVatSetting();
+            int index = 3;
+            if(tradeAccounting.isSelected()){
+                index = 4;
+            }
+            tabbedPane.insertTab("Deliveroo", null, deliverooTab, "", index);
+        } else {
+            int indexOfComponent = tabbedPane.indexOfComponent(deliverooTab);
+            if(indexOfComponent!=-1) {
+                tabbedPane.removeTabAt(indexOfComponent);
+            }
         }
         accounting.setDeliverooAccounting(deliverooSelected);
         Main.fireAccountingTypeChanged(accounting);
@@ -119,7 +132,7 @@ public class AccountingSettingsPanel extends JFrame {
         if(tradeAccountingSelected){
             vatAccounting.setSelected(true);
             updateVatSetting();
-            tabbedPane.insertTab("Trade", null, tradeTab, "", 2);
+            tabbedPane.insertTab("Trade", null, tradeTab, "", 3);
         } else {
             int indexOfComponent = tabbedPane.indexOfComponent(tradeTab);
             if(indexOfComponent!=-1) {
