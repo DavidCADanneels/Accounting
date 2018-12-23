@@ -28,12 +28,12 @@ public class Accounting extends BusinessObject{
     private DeliverooMeals deliverooMeals;
     private MealOrders mealOrders;
     private boolean read = false;
-    private boolean vatAccounting = false;
-    private boolean mortgagesAccounting = true;
     private boolean projectsAccounting = true;
+    private boolean mortgagesAccounting = false;
+    private boolean contactsAccounting = false;
+    private boolean vatAccounting = false;
+    private boolean tradeAccounting = false;
     private boolean deliverooAccounting = false;
-    private boolean tradeAccounting = true;
-    private boolean contactsAccounting = true;
     private Journal activeJournal;
 
     public Accounting(String name) {
