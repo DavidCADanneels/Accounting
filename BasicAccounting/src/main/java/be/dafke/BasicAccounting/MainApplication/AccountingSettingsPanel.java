@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.Contacts.ContactsSettingsPanel;
+import be.dafke.BasicAccounting.VAT.VATSettingsPanel;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contact;
 
@@ -31,13 +32,14 @@ public class AccountingSettingsPanel extends JFrame {
     private JCheckBox mortgages;
     private Accounting accounting;
     private static HashMap<Accounting,AccountingSettingsPanel> accountingSettingsMap = new HashMap<>();
-    private JPanel contactsTab;
+    private JPanel contactsTab, vatTab;
 
     private AccountingSettingsPanel(Accounting accounting) {
         super(accounting.getName() + " / " + title);
         this.accounting = accounting;
 
         contactsTab = new ContactsSettingsPanel(accounting);
+        vatTab = new VATSettingsPanel(accounting);
 
         tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         tabbedPane.addTab("Modules",createCenterPanel());
@@ -75,14 +77,20 @@ public class AccountingSettingsPanel extends JFrame {
 
     private void updateVatSetting(){
         boolean vatAccountingSelected = vatAccounting.isSelected();
+        vatTab.setEnabled(vatAccountingSelected);
         if(vatAccountingSelected) {
             contacts.setSelected(true);
             updateContactSetting();
+            tabbedPane.insertTab("VAT", null, vatTab, "", 2);
         } else {
             tradeAccounting.setSelected(false);
             updateTradeSetting();
             deliveroo.setSelected(false);
             updateDeliverooSetting();
+            int indexOfComponent = tabbedPane.indexOfComponent(vatTab);
+            if(indexOfComponent!=-1) {
+                tabbedPane.removeTabAt(indexOfComponent);
+            }
         }
         accounting.setVatAccounting(vatAccountingSelected);
         Main.fireAccountingTypeChanged(accounting);

@@ -13,7 +13,6 @@ import static java.util.ResourceBundle.getBundle;
  * Created by ddanneels on 3/03/2017.
  */
 public class ContactsSettingsPanel extends JPanel {
-    public static final String title = getBundle("Contacts").getString("CONTACTS");
     private Accounting accounting;
     private final JComboBox<Contact> companyContactSelection, noInvoiceContactSelection;
     private final DefaultComboBoxModel<Contact> companyContactModel, noInVoiceContactModel;
@@ -22,8 +21,10 @@ public class ContactsSettingsPanel extends JPanel {
         this.accounting = accounting;
         companyContactModel = new DefaultComboBoxModel<>();
         noInVoiceContactModel = new DefaultComboBoxModel<>();
-        accounting.getContacts().getBusinessObjects().stream().forEach(contact -> companyContactModel.addElement(contact));
-        accounting.getContacts().getBusinessObjects().stream().forEach(contact -> noInVoiceContactModel.addElement(contact));
+        accounting.getContacts().getBusinessObjects().forEach(contact -> {
+            companyContactModel.addElement(contact);
+            noInVoiceContactModel.addElement(contact);
+        });
 
         companyContactSelection = new JComboBox<>(companyContactModel);
         noInvoiceContactSelection = new JComboBox<>(noInVoiceContactModel);
@@ -72,8 +73,8 @@ public class ContactsSettingsPanel extends JPanel {
         noInvoiceContactSelection.setEnabled(enabled);
         if(!enabled){
             companyContactSelection.setSelectedItem(null);
-            updateSelectedCompanyContact();
             noInvoiceContactSelection.setSelectedItem(null);
+            updateSelectedCompanyContact();
             updateSelectedNoInvoiceContact();
         }
     }
