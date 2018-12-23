@@ -3,11 +3,11 @@ package be.dafke.BusinessModel;
 import java.util.ArrayList;
 
 public class StockTransactions {
-    private Account stockAccount;
-    private Journal salesJournal;
     private Journal purchaseJournal;
+    private Journal salesJournal;
     private Journal salesNoInvoiceJournal;
     private Journal gainJournal;
+    private Account stockAccount;
     private Account gainAccount;
     private Account salesAccount;
     private Account salesGainAccount;

@@ -1,15 +1,13 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.Contacts.ContactsSettingsPanel;
+import be.dafke.BasicAccounting.Trade.TradeSettingsPanel;
 import be.dafke.BasicAccounting.VAT.VATSettingsPanel;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Contact;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.HashMap;
 
-import static java.awt.BorderLayout.*;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -32,7 +30,7 @@ public class AccountingSettingsPanel extends JFrame {
     private JCheckBox mortgages;
     private Accounting accounting;
     private static HashMap<Accounting,AccountingSettingsPanel> accountingSettingsMap = new HashMap<>();
-    private JPanel contactsTab, vatTab;
+    private JPanel contactsTab, vatTab, tradeTab;
 
     private AccountingSettingsPanel(Accounting accounting) {
         super(accounting.getName() + " / " + title);
@@ -40,6 +38,7 @@ public class AccountingSettingsPanel extends JFrame {
 
         contactsTab = new ContactsSettingsPanel(accounting);
         vatTab = new VATSettingsPanel(accounting);
+        tradeTab = new TradeSettingsPanel(accounting);
 
         tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         tabbedPane.addTab("Modules",createCenterPanel());
@@ -116,9 +115,16 @@ public class AccountingSettingsPanel extends JFrame {
 
     private void updateTradeSetting(){
         boolean tradeAccountingSelected = tradeAccounting.isSelected();
+        tradeTab.setEnabled(tradeAccountingSelected);
         if(tradeAccountingSelected){
             vatAccounting.setSelected(true);
             updateVatSetting();
+            tabbedPane.insertTab("Trade", null, tradeTab, "", 2);
+        } else {
+            int indexOfComponent = tabbedPane.indexOfComponent(tradeTab);
+            if(indexOfComponent!=-1) {
+                tabbedPane.removeTabAt(indexOfComponent);
+            }
         }
         accounting.setTradeAccounting(tradeAccountingSelected);
         Main.fireAccountingTypeChanged(accounting);

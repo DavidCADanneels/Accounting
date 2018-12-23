@@ -1,0 +1,205 @@
+package be.dafke.BasicAccounting.Trade;
+
+import be.dafke.BusinessModel.*;
+
+import javax.swing.*;
+import java.awt.*;
+
+/**
+ * Created by ddanneels on 3/03/2017.
+ */
+public class TradeSettingsPanel extends JPanel {
+    private Accounting accounting;
+    private final JComboBox<Account> stockAccountSelection, gainAccountSelection, salesAccountSelection, salesGainAccountSelection;
+    private final JComboBox<Journal> purchaseJournalSelection, salesJournalSelection, salesNoInvoiceSelection, gainJournalSelection;
+    private final DefaultComboBoxModel<Account> stockAccountModel, gainAccountModel, salesAccountModel, salesGainAccountModel;
+    private final DefaultComboBoxModel<Journal> purchaseJournalModel, salesJournalModel, salesNoInvoiceModel, gainJournalModel;
+
+    public TradeSettingsPanel(Accounting accounting) {
+        this.accounting = accounting;
+        stockAccountModel = new DefaultComboBoxModel<>();
+        gainAccountModel = new DefaultComboBoxModel<>();
+        salesAccountModel = new DefaultComboBoxModel<>();
+        salesGainAccountModel = new DefaultComboBoxModel<>();
+
+        purchaseJournalModel = new DefaultComboBoxModel<>();
+        salesJournalModel = new DefaultComboBoxModel<>();
+        salesNoInvoiceModel = new DefaultComboBoxModel<>();
+        gainJournalModel = new DefaultComboBoxModel<>();
+
+        accounting.getAccounts().getBusinessObjects().forEach(account -> {
+            stockAccountModel.addElement(account);
+            gainAccountModel.addElement(account);
+            salesAccountModel.addElement(account);
+            salesGainAccountModel.addElement(account);
+        });
+
+        accounting.getJournals().getBusinessObjects().forEach(journal -> {
+            purchaseJournalModel.addElement(journal);
+            salesJournalModel.addElement(journal);
+            salesNoInvoiceModel.addElement(journal);
+            gainJournalModel.addElement(journal);
+        });
+
+        stockAccountSelection = new JComboBox<>(stockAccountModel);
+        gainAccountSelection = new JComboBox<>(gainAccountModel);
+        salesAccountSelection = new JComboBox<>(salesAccountModel);
+        salesGainAccountSelection = new JComboBox<>(salesGainAccountModel);
+
+        purchaseJournalSelection = new JComboBox<>(purchaseJournalModel);
+        salesJournalSelection = new JComboBox<>(salesJournalModel);
+        salesNoInvoiceSelection = new JComboBox<>(salesNoInvoiceModel);
+        gainJournalSelection = new JComboBox<>(gainJournalModel);
+
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+
+        Account stockAccount = stockTransactions.getStockAccount();
+        Account gainAccount = stockTransactions.getGainAccount();
+        Account salesAccount = stockTransactions.getSalesAccount();
+        Account salesGainAccount = stockTransactions.getSalesGainAccount();
+
+        Journal purchaseJournal = stockTransactions.getPurchaseJournal();
+        Journal salesJournal = stockTransactions.getSalesJournal();
+        Journal salesNoInvoiceJournal = stockTransactions.getSalesNoInvoiceJournal();
+        Journal gainJournal = stockTransactions.getGainJournal();
+
+        stockAccountSelection.setSelectedItem(stockAccount);
+        stockAccountSelection.addActionListener(e -> updateSelectedStockAccount());
+        stockAccountSelection.setEnabled(accounting.isTradeAccounting());
+
+        gainAccountSelection.setSelectedItem(gainAccount);
+        gainAccountSelection.addActionListener(e -> updateSelectedSalesGainAccount());
+        gainAccountSelection.setEnabled(accounting.isTradeAccounting());
+
+        salesAccountSelection.setSelectedItem(salesAccount);
+        salesAccountSelection.addActionListener(e -> updateSelectedSalesAccount());
+        salesAccountSelection.setEnabled(accounting.isTradeAccounting());
+
+        salesGainAccountSelection.setSelectedItem(salesGainAccount);
+        salesGainAccountSelection.addActionListener(e -> updateSelectedGainAccount());
+        salesGainAccountSelection.setEnabled(accounting.isTradeAccounting());
+
+        purchaseJournalSelection.setSelectedItem(purchaseJournal);
+        purchaseJournalSelection.addActionListener(e -> updateSelectedPurchaseJournal());
+        purchaseJournalSelection.setEnabled(accounting.isTradeAccounting());
+
+        salesJournalSelection.setSelectedItem(salesJournal);
+        salesJournalSelection.addActionListener(e -> updateSelectedSalesJournal());
+        salesJournalSelection.setEnabled(accounting.isTradeAccounting());
+
+        salesNoInvoiceSelection.setSelectedItem(salesNoInvoiceJournal);
+        salesNoInvoiceSelection.addActionListener(e -> updateSelectedSalesNoInvoiceJournal());
+        salesNoInvoiceSelection.setEnabled(accounting.isTradeAccounting());
+
+        gainJournalSelection.setSelectedItem(gainJournal);
+        gainJournalSelection.addActionListener(e -> updateSelectedGainJournal());
+        gainJournalSelection.setEnabled(accounting.isTradeAccounting());
+
+        JPanel panel = new JPanel();
+        panel.setLayout(new GridLayout(0, 2));
+
+        panel.add(new JLabel("Stock Account"));
+        panel.add(stockAccountSelection);
+        panel.add(new JLabel("Gain Account"));
+        panel.add(gainAccountSelection);
+        panel.add(new JLabel("Sales Account"));
+        panel.add(salesAccountSelection);
+        panel.add(new JLabel("Sales Gain Account"));
+        panel.add(salesGainAccountSelection);
+
+        panel.add(new JLabel("Purchase Journal"));
+        panel.add(purchaseJournalSelection);
+        panel.add(new JLabel("Sales Journal"));
+        panel.add(salesJournalSelection);
+        panel.add(new JLabel("Sales (no invoice) Journal"));
+        panel.add(salesNoInvoiceSelection);
+        panel.add(new JLabel("Gain Journal"));
+        panel.add(gainJournalSelection);
+
+        add(panel);
+    }
+
+    public void updateSelectedStockAccount() {
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        Account account = (Account) stockAccountSelection.getSelectedItem();
+        stockTransactions.setStockAccount(account);
+    }
+
+    public void updateSelectedGainAccount() {
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        Account account = (Account) gainAccountSelection.getSelectedItem();
+        stockTransactions.setGainAccount(account);
+    }
+
+    public void updateSelectedSalesAccount() {
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        Account account = (Account) salesAccountSelection.getSelectedItem();
+        stockTransactions.setSalesAccount(account);
+    }
+
+    public void updateSelectedSalesGainAccount() {
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        Account account = (Account) salesGainAccountSelection.getSelectedItem();
+        stockTransactions.setSalesGainAccount(account);
+    }
+
+    public void updateSelectedPurchaseJournal() {
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        Journal journal = (Journal) purchaseJournalSelection.getSelectedItem();
+        stockTransactions.setPurchaseJournal(journal);
+    }
+
+    public void updateSelectedSalesJournal() {
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        Journal journal = (Journal) salesJournalSelection.getSelectedItem();
+        stockTransactions.setSalesJournal(journal);
+    }
+
+    public void updateSelectedSalesNoInvoiceJournal() {
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        Journal journal = (Journal) salesNoInvoiceSelection.getSelectedItem();
+        stockTransactions.setSalesNoInvoiceJournal(journal);
+    }
+
+    public void updateSelectedGainJournal() {
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        Journal journal = (Journal) gainJournalSelection.getSelectedItem();
+        stockTransactions.setGainJournal(journal);
+    }
+
+
+    @Override
+    public void setEnabled(boolean enabled){
+        super.setEnabled(enabled);
+        stockAccountSelection.setEnabled(enabled);
+        gainAccountSelection.setEnabled(enabled);
+        salesAccountSelection.setEnabled(enabled);
+        salesGainAccountSelection.setEnabled(enabled);
+
+        purchaseJournalSelection.setEnabled(enabled);
+        salesJournalSelection.setEnabled(enabled);
+        salesNoInvoiceSelection.setEnabled(enabled);
+        gainJournalSelection.setEnabled(enabled);
+        if(!enabled){
+            stockAccountSelection.setSelectedItem(null);
+            gainAccountSelection.setSelectedItem(null);
+            salesAccountSelection.setSelectedItem(null);
+            salesGainAccountSelection.setSelectedItem(null);
+
+            purchaseJournalSelection.setSelectedItem(null);
+            salesJournalSelection.setSelectedItem(null);
+            salesNoInvoiceSelection.setSelectedItem(null);
+            gainJournalSelection.setSelectedItem(null);
+
+            updateSelectedStockAccount();
+            updateSelectedGainAccount();
+            updateSelectedSalesAccount();
+            updateSelectedSalesGainAccount();
+
+            updateSelectedPurchaseJournal();
+            updateSelectedSalesJournal();
+            updateSelectedSalesNoInvoiceJournal();
+            updateSelectedGainJournal();
+        }
+    }
+}
