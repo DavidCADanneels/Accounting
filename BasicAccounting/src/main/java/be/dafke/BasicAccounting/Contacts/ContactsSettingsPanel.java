@@ -5,6 +5,8 @@ import be.dafke.BusinessModel.Contact;
 
 import javax.swing.*;
 
+import java.awt.*;
+
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -13,36 +15,65 @@ import static java.util.ResourceBundle.getBundle;
 public class ContactsSettingsPanel extends JPanel {
     public static final String title = getBundle("Contacts").getString("CONTACTS");
     private Accounting accounting;
-    private JComboBox<Contact> allContacts;
-    private DefaultComboBoxModel<Contact> model;
+    private final JComboBox<Contact> companyContactSelection, noInvoiceContactSelection;
+    private final DefaultComboBoxModel<Contact> companyContactModel, noInVoiceContactModel;
 
     public ContactsSettingsPanel(Accounting accounting) {
         this.accounting = accounting;
-        model = new DefaultComboBoxModel<>();
-        accounting.getContacts().getBusinessObjects().stream().forEach(contact -> model.addElement(contact));
+        companyContactModel = new DefaultComboBoxModel<>();
+        noInVoiceContactModel = new DefaultComboBoxModel<>();
+        accounting.getContacts().getBusinessObjects().stream().forEach(contact -> companyContactModel.addElement(contact));
+        accounting.getContacts().getBusinessObjects().stream().forEach(contact -> noInVoiceContactModel.addElement(contact));
 
-        allContacts = new JComboBox<>(model);
+        companyContactSelection = new JComboBox<>(companyContactModel);
+        noInvoiceContactSelection = new JComboBox<>(noInVoiceContactModel);
+
         Contact companyContact = accounting.getCompanyContact();
-        allContacts.setSelectedItem(companyContact);
-        allContacts.addActionListener(e -> updateSelectedContact());
-        allContacts.setEnabled(accounting.isContactsAccounting());
+        companyContactSelection.setSelectedItem(companyContact);
+        companyContactSelection.addActionListener(e -> updateSelectedCompanyContact());
+        companyContactSelection.setEnabled(accounting.isContactsAccounting());
 
-        add(new JLabel("Company Contact"));
-        add(allContacts);
+        Contact contactNoInvoice = accounting.getContactNoInvoice();
+        noInvoiceContactSelection.setSelectedItem(contactNoInvoice);
+        noInvoiceContactSelection.addActionListener(e -> updateSelectedNoInvoiceContact());
+        noInvoiceContactSelection.setEnabled(accounting.isContactsAccounting());
+
+        FlowLayout flowLayout = new FlowLayout(FlowLayout.LEADING);
+//        flowLayout.setAlignOnBaseline(true);
+        setLayout(flowLayout);
+
+        JPanel panel1 = new JPanel();
+        panel1.add(new JLabel("Company Contact"));
+        panel1.add(companyContactSelection);
+
+        JPanel panel2 = new JPanel();
+        panel2.add(new JLabel("NoInvoice Contact"));
+        panel2.add(noInvoiceContactSelection);
+
+        add(panel1);
+        add(panel2);
     }
 
-    public void updateSelectedContact() {
-        Contact contact = (Contact)allContacts.getSelectedItem();
+    public void updateSelectedCompanyContact() {
+        Contact contact = (Contact) companyContactSelection.getSelectedItem();
         accounting.setCompanyContact(contact);
+    }
+
+    public void updateSelectedNoInvoiceContact() {
+        Contact contact = (Contact) noInvoiceContactSelection.getSelectedItem();
+        accounting.setContactNoInvoice(contact);
     }
 
     @Override
     public void setEnabled(boolean enabled){
         super.setEnabled(enabled);
-        allContacts.setEnabled(enabled);
+        companyContactSelection.setEnabled(enabled);
+        noInvoiceContactSelection.setEnabled(enabled);
         if(!enabled){
-            allContacts.setSelectedItem(null);
-            updateSelectedContact();
+            companyContactSelection.setSelectedItem(null);
+            updateSelectedCompanyContact();
+            noInvoiceContactSelection.setSelectedItem(null);
+            updateSelectedNoInvoiceContact();
         }
     }
 }
