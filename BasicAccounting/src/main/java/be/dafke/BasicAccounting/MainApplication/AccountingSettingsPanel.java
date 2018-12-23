@@ -1,12 +1,11 @@
 package be.dafke.BasicAccounting.MainApplication;
 
+import be.dafke.BasicAccounting.Contacts.ContactsSettingsPanel;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contact;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 
 import static java.awt.BorderLayout.*;
@@ -23,6 +22,7 @@ public class AccountingSettingsPanel extends JFrame {
     public static final String PROJECTS = getBundle("Projects").getString("PROJECTS");
     public static final String DELIVEROO = "Deliveroo";
     public static final String MORTGAGES = getBundle("Mortgage").getString("MORTGAGES");
+    private final JTabbedPane tabbedPane;
     private JCheckBox vatAccounting;
     private JCheckBox tradeAccounting;
     private JCheckBox contacts;
@@ -31,20 +31,18 @@ public class AccountingSettingsPanel extends JFrame {
     private JCheckBox mortgages;
     private Accounting accounting;
     private static HashMap<Accounting,AccountingSettingsPanel> accountingSettingsMap = new HashMap<>();
-    private JComboBox<Contact> allContacts;
-    private DefaultComboBoxModel<Contact> model;
+    private JPanel contactsTab;
 
     private AccountingSettingsPanel(Accounting accounting) {
         super(accounting.getName() + " / " + title);
         this.accounting = accounting;
-        JPanel center = createContentPanel();
-        JScrollPane scrollPane = new JScrollPane(center);
 
-        JPanel contentPanel = new JPanel(new BorderLayout());
-        contentPanel.add(scrollPane, BorderLayout.CENTER);
+        contactsTab = new ContactsSettingsPanel(accounting);
 
-        setContentPane(contentPanel);
+        tabbedPane = new JTabbedPane(JTabbedPane.TOP);
+        tabbedPane.addTab("Modules",createCenterPanel());
 
+        setContentPane(tabbedPane);
         pack();
     }
 
@@ -85,13 +83,17 @@ public class AccountingSettingsPanel extends JFrame {
 
     private void updateContactSetting(){
         boolean contactsSelected = contacts.isSelected();
-        allContacts.setEnabled(contactsSelected);
+        contactsTab.setEnabled(contactsSelected);
         if(!contactsSelected){
             accounting.setCompanyContact(null);
-            allContacts.setSelectedItem(null);
-            updateSelectedContact();
             vatAccounting.setSelected(false);
             updateVatSetting();
+            int indexOfComponent = tabbedPane.indexOfComponent(contactsTab);
+            if(indexOfComponent!=-1) {
+                tabbedPane.removeTabAt(indexOfComponent);
+            }
+        } else {
+            tabbedPane.insertTab("Contacts", null, contactsTab, "", 1);
         }
         accounting.setContactsAccounting(contactsSelected);
         Main.fireAccountingTypeChanged(accounting);
@@ -107,31 +109,14 @@ public class AccountingSettingsPanel extends JFrame {
         Main.fireAccountingTypeChanged(accounting);
     }
 
-    private JPanel createContentPanel() {
-        JPanel mainPanel = new JPanel(new BorderLayout());
-
-        JPanel checkBoxes = createCenterPanel();
-        JPanel comboBox = createNorthPanel();
-
-        mainPanel.add(checkBoxes,CENTER);
-        mainPanel.add(comboBox,NORTH);
-        return mainPanel;
+    private void updateMortgageSetting(){
+        accounting.setMortgagesAccounting(mortgages.isSelected());
+        Main.fireAccountingTypeChanged(accounting);
     }
 
-    private JPanel createNorthPanel(){
-        model = new DefaultComboBoxModel<>();
-        accounting.getContacts().getBusinessObjects().stream().forEach(contact -> model.addElement(contact));
-
-        allContacts = new JComboBox<>(model);
-        Contact companyContact = accounting.getCompanyContact();
-        allContacts.setSelectedItem(companyContact);
-        allContacts.addActionListener(e -> updateSelectedContact());
-        allContacts.setEnabled(accounting.isContactsAccounting());
-
-        JPanel panel = new JPanel();
-        panel.add(new JLabel("Company Contact"));
-        panel.add(allContacts);
-        return panel;
+    private void updateProjectSetting(){
+        accounting.setProjectsAccounting(projects.isSelected());
+        Main.fireAccountingTypeChanged(accounting);
     }
 
     private JPanel createCenterPanel(){
@@ -152,18 +137,19 @@ public class AccountingSettingsPanel extends JFrame {
         tradeAccounting.setSelected(accounting.isTradeAccounting());
         deliveroo.setSelected(accounting.isDeliverooAccounting());
 
-        projects.addActionListener(e -> {
-            accounting.setProjectsAccounting(projects.isSelected());
-            Main.fireAccountingTypeChanged(accounting);
-        });
-        mortgages.addActionListener(e -> {
-            accounting.setMortgagesAccounting(mortgages.isSelected());
-            Main.fireAccountingTypeChanged(accounting);
-        });
+        projects.addActionListener(e -> updateProjectSetting());
+        mortgages.addActionListener(e -> updateMortgageSetting());
         contacts.addActionListener(e -> updateContactSetting());
         vatAccounting.addActionListener(e -> updateVatSetting());
         tradeAccounting.addActionListener(e -> updateTradeSetting());
         deliveroo.addActionListener(e -> updateDeliverooSetting());
+
+        updateProjectSetting();
+        updateMortgageSetting();
+        updateContactSetting();
+        updateVatSetting();
+        updateTradeSetting();
+        updateDeliverooSetting();
 
         panel.add(projects);
         panel.add(mortgages);
@@ -173,10 +159,5 @@ public class AccountingSettingsPanel extends JFrame {
         panel.add(deliveroo);
 
         return panel;
-    }
-
-    public void updateSelectedContact() {
-        Contact contact = (Contact)allContacts.getSelectedItem();
-        accounting.setCompanyContact(contact);
     }
 }
