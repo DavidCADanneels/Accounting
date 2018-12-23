@@ -15,7 +15,7 @@ import static java.util.ResourceBundle.getBundle;
 /**
  * Created by ddanneels on 3/03/2017.
  */
-public class AccountingSettingsPanel extends JFrame implements ActionListener{
+public class AccountingSettingsPanel extends JFrame {
     public static final String title = getBundle("Accounting").getString("SETTINGS");
     public static final String TRADE = getBundle("Accounting").getString("TRADE");
     public static final String VAT = getBundle("VAT").getString("VAT");
@@ -44,8 +44,7 @@ public class AccountingSettingsPanel extends JFrame implements ActionListener{
         contentPanel.add(scrollPane, BorderLayout.CENTER);
 
         setContentPane(contentPanel);
-        setAccounting(accounting);
-        setActions();
+
         pack();
     }
 
@@ -59,46 +58,53 @@ public class AccountingSettingsPanel extends JFrame implements ActionListener{
         return accountingSettingsPanel;
     }
 
-    private void setActions() {
-        vatAccounting.addActionListener(e -> {
-            accounting.setVatAccounting(vatAccounting.isSelected());
-            Main.fireAccountingTypeChanged(accounting);
-        });
-        tradeAccounting.addActionListener(e -> {
-            accounting.setTradeAccounting(tradeAccounting.isSelected());
-            Main.fireAccountingTypeChanged(accounting);
-        });
-        contacts.addActionListener(e -> {
-            accounting.setContactsAccounting(contacts.isSelected());
-            Main.fireAccountingTypeChanged(accounting);
-        });
-        projects.addActionListener(e -> {
-            accounting.setProjectsAccounting(projects.isSelected());
-            Main.fireAccountingTypeChanged(accounting);
-        });
-        deliveroo.addActionListener(e -> {
-            accounting.setDeliverooAccounting(deliveroo.isSelected());
-            Main.fireAccountingTypeChanged(accounting);
-        });
-        mortgages.addActionListener(e -> {
-            accounting.setMortgagesAccounting(mortgages.isSelected());
-            Main.fireAccountingTypeChanged(accounting);
-        });
+    private void updateDeliverooSetting(){
+        boolean deliverooSelected = deliveroo.isSelected();
+        if(deliverooSelected){
+            vatAccounting.setSelected(true);
+            updateVatSetting();
+        }
+        accounting.setDeliverooAccounting(deliverooSelected);
+        Main.fireAccountingTypeChanged(accounting);
     }
 
-    private void setAccounting(Accounting accounting) {
-        tradeAccounting.setSelected(accounting.isTradeAccounting());
-        vatAccounting.setSelected(accounting.isVatAccounting());
-        contacts.setSelected(accounting.isContactsAccounting());
-        projects.setSelected(accounting.isProjectsAccounting());
-        deliveroo.setSelected(accounting.isDeliverooAccounting());
-        mortgages.setSelected(accounting.isMortgagesAccounting());
-        allContacts.removeActionListener(this);
-        allContacts.removeAllItems();
-        accounting.getContacts().getBusinessObjects().stream().forEach(contact -> model.addElement(contact));
-        Contact companyContact = accounting.getCompanyContact();
-        allContacts.setSelectedItem(companyContact);
-        allContacts.addActionListener(this);
+    private void updateVatSetting(){
+        boolean vatAccountingSelected = vatAccounting.isSelected();
+        if(vatAccountingSelected) {
+            contacts.setSelected(true);
+            updateContactSetting();
+        } else {
+            tradeAccounting.setSelected(false);
+            updateTradeSetting();
+            deliveroo.setSelected(false);
+            updateDeliverooSetting();
+        }
+        accounting.setVatAccounting(vatAccountingSelected);
+        Main.fireAccountingTypeChanged(accounting);
+    }
+
+    private void updateContactSetting(){
+        boolean contactsSelected = contacts.isSelected();
+        allContacts.setEnabled(contactsSelected);
+        if(!contactsSelected){
+            accounting.setCompanyContact(null);
+            allContacts.setSelectedItem(null);
+            updateSelectedContact();
+            vatAccounting.setSelected(false);
+            updateVatSetting();
+        }
+        accounting.setContactsAccounting(contactsSelected);
+        Main.fireAccountingTypeChanged(accounting);
+    }
+
+    private void updateTradeSetting(){
+        boolean tradeAccountingSelected = tradeAccounting.isSelected();
+        if(tradeAccountingSelected){
+            vatAccounting.setSelected(true);
+            updateVatSetting();
+        }
+        accounting.setTradeAccounting(tradeAccountingSelected);
+        Main.fireAccountingTypeChanged(accounting);
     }
 
     private JPanel createContentPanel() {
@@ -113,11 +119,16 @@ public class AccountingSettingsPanel extends JFrame implements ActionListener{
     }
 
     private JPanel createNorthPanel(){
-        JPanel panel = new JPanel();
         model = new DefaultComboBoxModel<>();
+        accounting.getContacts().getBusinessObjects().stream().forEach(contact -> model.addElement(contact));
+
         allContacts = new JComboBox<>(model);
-        allContacts.setSelectedItem(null);
-        allContacts.addActionListener(this);
+        Contact companyContact = accounting.getCompanyContact();
+        allContacts.setSelectedItem(companyContact);
+        allContacts.addActionListener(e -> updateSelectedContact());
+        allContacts.setEnabled(accounting.isContactsAccounting());
+
+        JPanel panel = new JPanel();
         panel.add(new JLabel("Company Contact"));
         panel.add(allContacts);
         return panel;
@@ -127,25 +138,44 @@ public class AccountingSettingsPanel extends JFrame implements ActionListener{
         JPanel panel = new JPanel();
 
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
-        tradeAccounting = new JCheckBox(TRADE);
-        vatAccounting = new JCheckBox(VAT);
-        contacts = new JCheckBox(CONTACTS);
         projects = new JCheckBox(PROJECTS);
-        deliveroo = new JCheckBox(DELIVEROO);
         mortgages = new JCheckBox(MORTGAGES);
+        contacts = new JCheckBox(CONTACTS);
+        vatAccounting = new JCheckBox(VAT);
+        tradeAccounting = new JCheckBox(TRADE);
+        deliveroo = new JCheckBox(DELIVEROO);
 
-        panel.add(tradeAccounting);
-        panel.add(vatAccounting);
-        panel.add(contacts);
+        projects.setSelected(accounting.isProjectsAccounting());
+        mortgages.setSelected(accounting.isMortgagesAccounting());
+        contacts.setSelected(accounting.isContactsAccounting());
+        vatAccounting.setSelected(accounting.isVatAccounting());
+        tradeAccounting.setSelected(accounting.isTradeAccounting());
+        deliveroo.setSelected(accounting.isDeliverooAccounting());
+
+        projects.addActionListener(e -> {
+            accounting.setProjectsAccounting(projects.isSelected());
+            Main.fireAccountingTypeChanged(accounting);
+        });
+        mortgages.addActionListener(e -> {
+            accounting.setMortgagesAccounting(mortgages.isSelected());
+            Main.fireAccountingTypeChanged(accounting);
+        });
+        contacts.addActionListener(e -> updateContactSetting());
+        vatAccounting.addActionListener(e -> updateVatSetting());
+        tradeAccounting.addActionListener(e -> updateTradeSetting());
+        deliveroo.addActionListener(e -> updateDeliverooSetting());
+
         panel.add(projects);
-        panel.add(deliveroo);
         panel.add(mortgages);
+        panel.add(contacts);
+        panel.add(vatAccounting);
+        panel.add(tradeAccounting);
+        panel.add(deliveroo);
 
         return panel;
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
+    public void updateSelectedContact() {
         Contact contact = (Contact)allContacts.getSelectedItem();
         accounting.setCompanyContact(contact);
     }
