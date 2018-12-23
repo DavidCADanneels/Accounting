@@ -26,46 +26,83 @@ import static be.dafke.Utils.Utils.parseInt;
  */
 public class MealOrderIO {
     public static void readMealOrders(Accounting accounting){
+        // TODO: save this info in mealOrder iso vatTransactions
+        VATTransactions vatTransactions = accounting.getVatTransactions();
+        Accounts accounts = accounting.getAccounts();
+        Journals journals = accounting.getJournals();
+
         MealOrders mealOrders = accounting.getMealOrders();
         DeliverooMeals deliverooMeals = accounting.getDeliverooMeals();
 
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+MEAL_ORDERS + XML_EXTENSION);
-        Element rootElement = getRootElement(xmlFile, MEAL_ORDERS);
+        if(xmlFile.exists()) {
+            Element rootElement = getRootElement(xmlFile, MEAL_ORDERS);
+            String deliverooServiceJournalString = getValue(rootElement, DELIVEROO_SERVICE_JOURNAL);
+            String deliverooSalesJournalString = getValue(rootElement, DELIVEROO_SALES_JOURNAL);
+            String deliverooBalanceAccountString = getValue(rootElement, DELIVEROO_BALANCE_ACCOUNT);
+            String deliverooServiceAccountString = getValue(rootElement, DELIVEROO_SERVICE_ACCOUNT);
+            String deliverooRevenueAccountString = getValue(rootElement, DELIVEROO_REVENUE_ACCOUNT);
 
-
-        for (Element mealOrderElement : getChildren(rootElement, MEAL_ORDER)) {
-            String name = getValue(mealOrderElement, NAME);
-            MealOrder mealOrder = new MealOrder(name);
-
-            mealOrder.setDescription(getValue(mealOrderElement, DESCRIPTION));
-            mealOrder.setDate(Utils.toCalendar(getValue(mealOrderElement, DATE)));
-
-            for (Element element : getChildren(mealOrderElement, MEAL)) {
-                String id = getValue(element, MEAL_NR);
-                DeliverooMeal deliverooMeal = deliverooMeals.getBusinessObject(id);
-
-                String nrSting = getValue(element, NR_OF_ITEMS);
-                Integer nr = Utils.parseInt(nrSting);
-
-                MealOrderItem mealOrderItem = new MealOrderItem(nr, deliverooMeal);
-
-                mealOrder.addBusinessObject(mealOrderItem);
+            if (deliverooServiceJournalString != null) {
+                vatTransactions.setDeliverooServiceJournal(journals.getBusinessObject(deliverooServiceJournalString));
             }
-            try {
-                mealOrders.addBusinessObject(mealOrder);
-            } catch (EmptyNameException | DuplicateNameException e) {
-                e.printStackTrace();
+            if (deliverooSalesJournalString != null) {
+                vatTransactions.setDeliverooSalesJournal(journals.getBusinessObject(deliverooSalesJournalString));
+            }
+            if (deliverooBalanceAccountString != null) {
+                vatTransactions.setDeliverooBalanceAccount(accounts.getBusinessObject(deliverooBalanceAccountString));
+            }
+            if (deliverooServiceAccountString != null) {
+                vatTransactions.setDeliverooServiceAccount(accounts.getBusinessObject(deliverooServiceAccountString));
+            }
+            if (deliverooRevenueAccountString != null) {
+                vatTransactions.setDeliverooRevenueAccount(accounts.getBusinessObject(deliverooRevenueAccountString));
+            }
+
+            for (Element mealOrderElement : getChildren(rootElement, MEAL_ORDER)) {
+                String name = getValue(mealOrderElement, NAME);
+                MealOrder mealOrder = new MealOrder(name);
+
+                mealOrder.setDescription(getValue(mealOrderElement, DESCRIPTION));
+                mealOrder.setDate(Utils.toCalendar(getValue(mealOrderElement, DATE)));
+
+                for (Element element : getChildren(mealOrderElement, MEAL)) {
+                    String id = getValue(element, MEAL_NR);
+                    DeliverooMeal deliverooMeal = deliverooMeals.getBusinessObject(id);
+
+                    String nrSting = getValue(element, NR_OF_ITEMS);
+                    Integer nr = Utils.parseInt(nrSting);
+
+                    MealOrderItem mealOrderItem = new MealOrderItem(nr, deliverooMeal);
+
+                    mealOrder.addBusinessObject(mealOrderItem);
+                }
+                try {
+                    mealOrders.addBusinessObject(mealOrder);
+                } catch (EmptyNameException | DuplicateNameException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
     public static void writeMealOrders(Accounting accounting) {
         MealOrders mealOrders = accounting.getMealOrders();
-
+        VATTransactions vatTransactions = accounting.getVatTransactions();
         File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + MEAL_ORDERS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(MEAL_ORDERS, 2));
+            // TODO: save this info in mealOrder iso vatTransactions
+            Journal deliverooSalesJournal = vatTransactions.getDeliverooSalesJournal();
+            Journal deliverooServiceJournal = vatTransactions.getDeliverooServiceJournal();
+            writer.write(
+                    "  <" + DELIVEROO_SALES_JOURNAL + ">" + (deliverooSalesJournal == null ? "null" : deliverooSalesJournal.getName()) + "</" + DELIVEROO_SALES_JOURNAL + ">\n" +
+                            "  <" + DELIVEROO_SERVICE_JOURNAL + ">" + (deliverooServiceJournal == null ? "null" : deliverooServiceJournal.getName()) + "</" + DELIVEROO_SERVICE_JOURNAL + ">\n" +
+                            "  <" + DELIVEROO_SERVICE_ACCOUNT + ">" + vatTransactions.getDeliverooServiceAccount() + "</" + DELIVEROO_SERVICE_ACCOUNT + ">\n" +
+                            "  <" + DELIVEROO_REVENUE_ACCOUNT + ">" + vatTransactions.getDeliverooRevenueAccount() + "</" + DELIVEROO_REVENUE_ACCOUNT + ">\n" +
+                            "  <" + DELIVEROO_BALANCE_ACCOUNT + ">" + vatTransactions.getDeliverooBalanceAccount() + "</" + DELIVEROO_BALANCE_ACCOUNT + ">\n"
+            );
             for (MealOrder order : mealOrders.getBusinessObjects()) {
                 writer.write(
                              "  <" + MEAL_ORDER + ">\n" +

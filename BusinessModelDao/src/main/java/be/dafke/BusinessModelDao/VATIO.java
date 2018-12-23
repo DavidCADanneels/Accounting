@@ -131,12 +131,7 @@ public class VATIO {
                     "  <"+DEBIT_ACCOUNT+">"+vatTransactions.getDebitAccount()+"</"+DEBIT_ACCOUNT+">\n" +
                     "  <"+CREDIT_ACCOUNT+">"+vatTransactions.getCreditAccount()+"</"+CREDIT_ACCOUNT+">\n" +
                     "  <"+DEBIT_CN_ACCOUNT+">"+vatTransactions.getDebitCNAccount()+"</"+DEBIT_CN_ACCOUNT+">\n" +
-                    "  <"+CREDIT_CN_ACCOUNT+">"+vatTransactions.getCreditCNAccount()+"</"+CREDIT_CN_ACCOUNT+">\n" +
-                    "  <"+DELIVEROO_SALES_JOURNAL+">"+ (deliverooSalesJournal==null?"null":deliverooSalesJournal.getName())+"</"+DELIVEROO_SALES_JOURNAL+">\n" +
-                    "  <"+DELIVEROO_SERVICE_JOURNAL+">"+ (deliverooServiceJournal==null?"null":deliverooServiceJournal.getName())+"</"+DELIVEROO_SERVICE_JOURNAL+">\n" +
-                    "  <"+DELIVEROO_SERVICE_ACCOUNT+">"+vatTransactions.getDeliverooServiceAccount()+"</"+DELIVEROO_SERVICE_ACCOUNT+">\n" +
-                    "  <"+DELIVEROO_REVENUE_ACCOUNT+">"+vatTransactions.getDeliverooRevenueAccount()+"</"+DELIVEROO_REVENUE_ACCOUNT+">\n" +
-                    "  <"+DELIVEROO_BALANCE_ACCOUNT+">"+vatTransactions.getDeliverooBalanceAccount()+"</"+DELIVEROO_BALANCE_ACCOUNT+">\n"
+                    "  <"+CREDIT_CN_ACCOUNT+">"+vatTransactions.getCreditCNAccount()+"</"+CREDIT_CN_ACCOUNT+">\n"
             );
             writer.write("</"+VATTRANSACTIONS+">");
             writer.flush();
