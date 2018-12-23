@@ -42,6 +42,13 @@ public class AccountingSettingsPanel extends JFrame {
         tabbedPane = new JTabbedPane(JTabbedPane.TOP);
         tabbedPane.addTab("Modules",createCenterPanel());
 
+        updateProjectSetting();
+        updateMortgageSetting();
+        updateContactSetting();
+        updateVatSetting();
+        updateTradeSetting();
+        updateDeliverooSetting();
+
         setContentPane(tabbedPane);
         pack();
     }
@@ -143,13 +150,6 @@ public class AccountingSettingsPanel extends JFrame {
         vatAccounting.addActionListener(e -> updateVatSetting());
         tradeAccounting.addActionListener(e -> updateTradeSetting());
         deliveroo.addActionListener(e -> updateDeliverooSetting());
-
-        updateProjectSetting();
-        updateMortgageSetting();
-        updateContactSetting();
-        updateVatSetting();
-        updateTradeSetting();
-        updateDeliverooSetting();
 
         panel.add(projects);
         panel.add(mortgages);
