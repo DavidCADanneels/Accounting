@@ -26,8 +26,6 @@ import static be.dafke.Utils.Utils.parseInt;
  */
 public class MealOrderIO {
     public static void readMealOrders(Accounting accounting){
-        // TODO: save this info in mealOrder iso vatTransactions
-        VATTransactions vatTransactions = accounting.getVatTransactions();
         Accounts accounts = accounting.getAccounts();
         Journals journals = accounting.getJournals();
 
@@ -44,19 +42,19 @@ public class MealOrderIO {
             String deliverooRevenueAccountString = getValue(rootElement, DELIVEROO_REVENUE_ACCOUNT);
 
             if (deliverooServiceJournalString != null) {
-                vatTransactions.setDeliverooServiceJournal(journals.getBusinessObject(deliverooServiceJournalString));
+                mealOrders.setDeliverooServiceJournal(journals.getBusinessObject(deliverooServiceJournalString));
             }
             if (deliverooSalesJournalString != null) {
-                vatTransactions.setDeliverooSalesJournal(journals.getBusinessObject(deliverooSalesJournalString));
+                mealOrders.setDeliverooSalesJournal(journals.getBusinessObject(deliverooSalesJournalString));
             }
             if (deliverooBalanceAccountString != null) {
-                vatTransactions.setDeliverooBalanceAccount(accounts.getBusinessObject(deliverooBalanceAccountString));
+                mealOrders.setDeliverooBalanceAccount(accounts.getBusinessObject(deliverooBalanceAccountString));
             }
             if (deliverooServiceAccountString != null) {
-                vatTransactions.setDeliverooServiceAccount(accounts.getBusinessObject(deliverooServiceAccountString));
+                mealOrders.setDeliverooServiceAccount(accounts.getBusinessObject(deliverooServiceAccountString));
             }
             if (deliverooRevenueAccountString != null) {
-                vatTransactions.setDeliverooRevenueAccount(accounts.getBusinessObject(deliverooRevenueAccountString));
+                mealOrders.setDeliverooRevenueAccount(accounts.getBusinessObject(deliverooRevenueAccountString));
             }
 
             for (Element mealOrderElement : getChildren(rootElement, MEAL_ORDER)) {
@@ -88,20 +86,18 @@ public class MealOrderIO {
 
     public static void writeMealOrders(Accounting accounting) {
         MealOrders mealOrders = accounting.getMealOrders();
-        VATTransactions vatTransactions = accounting.getVatTransactions();
         File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + MEAL_ORDERS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(MEAL_ORDERS, 2));
-            // TODO: save this info in mealOrder iso vatTransactions
-            Journal deliverooSalesJournal = vatTransactions.getDeliverooSalesJournal();
-            Journal deliverooServiceJournal = vatTransactions.getDeliverooServiceJournal();
+            Journal deliverooSalesJournal = mealOrders.getDeliverooSalesJournal();
+            Journal deliverooServiceJournal = mealOrders.getDeliverooServiceJournal();
             writer.write(
                     "  <" + DELIVEROO_SALES_JOURNAL + ">" + (deliverooSalesJournal == null ? "null" : deliverooSalesJournal.getName()) + "</" + DELIVEROO_SALES_JOURNAL + ">\n" +
                             "  <" + DELIVEROO_SERVICE_JOURNAL + ">" + (deliverooServiceJournal == null ? "null" : deliverooServiceJournal.getName()) + "</" + DELIVEROO_SERVICE_JOURNAL + ">\n" +
-                            "  <" + DELIVEROO_SERVICE_ACCOUNT + ">" + vatTransactions.getDeliverooServiceAccount() + "</" + DELIVEROO_SERVICE_ACCOUNT + ">\n" +
-                            "  <" + DELIVEROO_REVENUE_ACCOUNT + ">" + vatTransactions.getDeliverooRevenueAccount() + "</" + DELIVEROO_REVENUE_ACCOUNT + ">\n" +
-                            "  <" + DELIVEROO_BALANCE_ACCOUNT + ">" + vatTransactions.getDeliverooBalanceAccount() + "</" + DELIVEROO_BALANCE_ACCOUNT + ">\n"
+                            "  <" + DELIVEROO_SERVICE_ACCOUNT + ">" + mealOrders.getDeliverooServiceAccount() + "</" + DELIVEROO_SERVICE_ACCOUNT + ">\n" +
+                            "  <" + DELIVEROO_REVENUE_ACCOUNT + ">" + mealOrders.getDeliverooRevenueAccount() + "</" + DELIVEROO_REVENUE_ACCOUNT + ">\n" +
+                            "  <" + DELIVEROO_BALANCE_ACCOUNT + ">" + mealOrders.getDeliverooBalanceAccount() + "</" + DELIVEROO_BALANCE_ACCOUNT + ">\n"
             );
             for (MealOrder order : mealOrders.getBusinessObjects()) {
                 writer.write(

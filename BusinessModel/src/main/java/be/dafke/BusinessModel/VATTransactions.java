@@ -13,8 +13,6 @@ import java.util.List;
 public class VATTransactions extends BusinessCollection<VATTransaction> {
     private final VATFields vatFields;
     private Account creditAccount, debitAccount, creditCNAccount, debitCNAccount;
-    private Account deliverooBalanceAccount, deliverooServiceAccount, deliverooRevenueAccount;
-    private Journal deliverooSalesJournal, deliverooServiceJournal;
     private Integer[] vatPercentages = new Integer[]{0, 6, 12, 21};
     private final HashMap<Integer,VATTransaction> vatTransactionsPerId = new HashMap<>();
     private Accounting accounting;
@@ -53,46 +51,6 @@ public class VATTransactions extends BusinessCollection<VATTransaction> {
 
     public void setDebitCNAccount(Account debitCNAccount) {
         this.debitCNAccount = debitCNAccount;
-    }
-
-    public Account getDeliverooBalanceAccount() {
-        return deliverooBalanceAccount;
-    }
-
-    public void setDeliverooBalanceAccount(Account deliverooBalanceAccount) {
-        this.deliverooBalanceAccount = deliverooBalanceAccount;
-    }
-
-    public Account getDeliverooServiceAccount() {
-        return deliverooServiceAccount;
-    }
-
-    public void setDeliverooServiceAccount(Account deliverooServiceAccount) {
-        this.deliverooServiceAccount = deliverooServiceAccount;
-    }
-
-    public Account getDeliverooRevenueAccount() {
-        return deliverooRevenueAccount;
-    }
-
-    public void setDeliverooRevenueAccount(Account deliverooRevenueAccount) {
-        this.deliverooRevenueAccount = deliverooRevenueAccount;
-    }
-
-    public Journal getDeliverooSalesJournal() {
-        return deliverooSalesJournal;
-    }
-
-    public void setDeliverooSalesJournal(Journal deliverooSalesJournal) {
-        this.deliverooSalesJournal = deliverooSalesJournal;
-    }
-
-    public Journal getDeliverooServiceJournal() {
-        return deliverooServiceJournal;
-    }
-
-    public void setDeliverooServiceJournal(Journal deliverooServiceJournal) {
-        this.deliverooServiceJournal = deliverooServiceJournal;
     }
 
     public VATTransactions(Accounting accounting) {

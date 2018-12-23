@@ -115,25 +115,25 @@ public class DeliverooOrderCreatePanel extends JPanel {
     }
 
     private void book() {
-        VATTransactions vatTransactions = accounting.getVatTransactions();
-        Journal salesJournal = vatTransactions.getDeliverooSalesJournal();
-        Journal serviceJournal = vatTransactions.getDeliverooServiceJournal();
-        Account deliverooBalanceAccount = vatTransactions.getDeliverooBalanceAccount();
-        Account deliverooServiceAccount = vatTransactions.getDeliverooServiceAccount();
-        Account deliverooRevenueAccount = vatTransactions.getDeliverooRevenueAccount();
-        Account vatSalesAccount = vatTransactions.getDebitAccount();
-        Account vatCostsAccount = vatTransactions.getCreditAccount();
+        // Deliveroo
+        //
+        MealOrders mealOrders = accounting.getMealOrders();
+        Journal salesJournal = mealOrders.getDeliverooSalesJournal();
+        Journal serviceJournal = mealOrders.getDeliverooServiceJournal();
+        Account deliverooBalanceAccount = mealOrders.getDeliverooBalanceAccount();
+        Account deliverooServiceAccount = mealOrders.getDeliverooServiceAccount();
+        Account deliverooRevenueAccount = mealOrders.getDeliverooRevenueAccount();
         if(salesJournal==null){
             JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals());
             journalSelectorDialog.setVisible(true);
             salesJournal = journalSelectorDialog.getSelection();
-            vatTransactions.setDeliverooSalesJournal(salesJournal);
+            mealOrders.setDeliverooSalesJournal(salesJournal);
         }
         if(serviceJournal==null){
             JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals());
             journalSelectorDialog.setVisible(true);
             serviceJournal = journalSelectorDialog.getSelection();
-            vatTransactions.setDeliverooServiceJournal(serviceJournal);
+            mealOrders.setDeliverooServiceJournal(serviceJournal);
         }
         if(deliverooBalanceAccount==null){
             Accounts accounts = accounting.getAccounts();
@@ -141,7 +141,7 @@ public class DeliverooOrderCreatePanel extends JPanel {
             AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, "select Deliveroo Balance Account");
             accountSelectorDialog.setVisible(true);
             deliverooBalanceAccount = accountSelectorDialog.getSelection();
-            vatTransactions.setDeliverooBalanceAccount(deliverooBalanceAccount);
+            mealOrders.setDeliverooBalanceAccount(deliverooBalanceAccount);
         }
         if(deliverooServiceAccount==null){
             Accounts accounts = accounting.getAccounts();
@@ -149,7 +149,7 @@ public class DeliverooOrderCreatePanel extends JPanel {
             AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, "select Deliveroo Service Account");
             accountSelectorDialog.setVisible(true);
             deliverooServiceAccount = accountSelectorDialog.getSelection();
-            vatTransactions.setDeliverooServiceAccount(deliverooServiceAccount);
+            mealOrders.setDeliverooServiceAccount(deliverooServiceAccount);
         }
         if(deliverooRevenueAccount==null){
             Accounts accounts = accounting.getAccounts();
@@ -157,8 +157,14 @@ public class DeliverooOrderCreatePanel extends JPanel {
             AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, "select Deliveroo Revenue Account");
             accountSelectorDialog.setVisible(true);
             deliverooRevenueAccount = accountSelectorDialog.getSelection();
-            vatTransactions.setDeliverooRevenueAccount(deliverooRevenueAccount);
+            mealOrders.setDeliverooRevenueAccount(deliverooRevenueAccount);
         }
+
+        // VAT
+        //
+        VATTransactions vatTransactions = accounting.getVatTransactions();
+        Account vatSalesAccount = vatTransactions.getDebitAccount();
+        Account vatCostsAccount = vatTransactions.getCreditAccount();
         if(vatSalesAccount==null){
             Accounts accounts = accounting.getAccounts();
             ArrayList<AccountType> accountTypes = accounting.getAccountTypes().getBusinessObjects();

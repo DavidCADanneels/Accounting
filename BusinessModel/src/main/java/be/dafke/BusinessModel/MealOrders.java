@@ -5,6 +5,8 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 public class MealOrders extends BusinessCollection<MealOrder>{
+    private Account deliverooBalanceAccount, deliverooServiceAccount, deliverooRevenueAccount;
+    private Journal deliverooSalesJournal, deliverooServiceJournal;
 
     public MealOrders() {
         super();
@@ -17,5 +19,45 @@ public class MealOrders extends BusinessCollection<MealOrder>{
             deliverooMeal.addUsage(mealOrderItem.getNumberOfItems());
         });
         return mealOrder;
+    }
+
+    public Account getDeliverooBalanceAccount() {
+        return deliverooBalanceAccount;
+    }
+
+    public void setDeliverooBalanceAccount(Account deliverooBalanceAccount) {
+        this.deliverooBalanceAccount = deliverooBalanceAccount;
+    }
+
+    public Account getDeliverooServiceAccount() {
+        return deliverooServiceAccount;
+    }
+
+    public void setDeliverooServiceAccount(Account deliverooServiceAccount) {
+        this.deliverooServiceAccount = deliverooServiceAccount;
+    }
+
+    public Account getDeliverooRevenueAccount() {
+        return deliverooRevenueAccount;
+    }
+
+    public void setDeliverooRevenueAccount(Account deliverooRevenueAccount) {
+        this.deliverooRevenueAccount = deliverooRevenueAccount;
+    }
+
+    public Journal getDeliverooSalesJournal() {
+        return deliverooSalesJournal;
+    }
+
+    public void setDeliverooSalesJournal(Journal deliverooSalesJournal) {
+        this.deliverooSalesJournal = deliverooSalesJournal;
+    }
+
+    public Journal getDeliverooServiceJournal() {
+        return deliverooServiceJournal;
+    }
+
+    public void setDeliverooServiceJournal(Journal deliverooServiceJournal) {
+        this.deliverooServiceJournal = deliverooServiceJournal;
     }
 }

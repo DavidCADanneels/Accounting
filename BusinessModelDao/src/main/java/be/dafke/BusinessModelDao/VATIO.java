@@ -66,37 +66,6 @@ public class VATIO {
         }
     }
 
-    public static void readDeliveroo(Accounting accounting){
-        VATTransactions vatTransactions = accounting.getVatTransactions();
-        Accounts accounts = accounting.getAccounts();
-        Journals journals = accounting.getJournals();
-        File xmlFile = new File( ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/" +VATTRANSACTIONS + XML_EXTENSION);
-        if(xmlFile.exists()) {
-            Element rootElement = getRootElement(xmlFile, VATTRANSACTIONS);
-            String deliverooServiceJournalString = getValue(rootElement, DELIVEROO_SERVICE_JOURNAL);
-            String deliverooSalesJournalString = getValue(rootElement, DELIVEROO_SALES_JOURNAL);
-            String deliverooBalanceAccountString = getValue(rootElement, DELIVEROO_BALANCE_ACCOUNT);
-            String deliverooServiceAccountString = getValue(rootElement, DELIVEROO_SERVICE_ACCOUNT);
-            String deliverooRevenueAccountString = getValue(rootElement, DELIVEROO_REVENUE_ACCOUNT);
-
-            if (deliverooServiceJournalString != null) {
-                vatTransactions.setDeliverooServiceJournal(journals.getBusinessObject(deliverooServiceJournalString));
-            }
-            if (deliverooSalesJournalString != null) {
-                vatTransactions.setDeliverooSalesJournal(journals.getBusinessObject(deliverooSalesJournalString));
-            }
-            if (deliverooBalanceAccountString != null) {
-                vatTransactions.setDeliverooBalanceAccount(accounts.getBusinessObject(deliverooBalanceAccountString));
-            }
-            if (deliverooServiceAccountString != null) {
-                vatTransactions.setDeliverooServiceAccount(accounts.getBusinessObject(deliverooServiceAccountString));
-            }
-            if (deliverooRevenueAccountString != null) {
-                vatTransactions.setDeliverooRevenueAccount(accounts.getBusinessObject(deliverooRevenueAccountString));
-            }
-        }
-    }
-
     public static void writeVATFields(Accounting accounting){
         VATFields vatFields = accounting.getVatFields();
         File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + VATFIELDS+ XML_EXTENSION);
@@ -125,8 +94,6 @@ public class VATIO {
         try{
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(VATTRANSACTIONS, 2));
-            Journal deliverooSalesJournal = vatTransactions.getDeliverooSalesJournal();
-            Journal deliverooServiceJournal = vatTransactions.getDeliverooServiceJournal();
             writer.write(
                     "  <"+DEBIT_ACCOUNT+">"+vatTransactions.getDebitAccount()+"</"+DEBIT_ACCOUNT+">\n" +
                     "  <"+CREDIT_ACCOUNT+">"+vatTransactions.getCreditAccount()+"</"+CREDIT_ACCOUNT+">\n" +
