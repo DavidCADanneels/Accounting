@@ -32,6 +32,7 @@ public class Accounting extends BusinessObject{
     private boolean mortgagesAccounting = true;
     private boolean projectsAccounting = true;
     private boolean deliverooAccounting = false;
+    private boolean tradeAccounting = true;
     private boolean contactsAccounting = true;
     private Journal activeJournal;
 
@@ -185,6 +186,14 @@ public class Accounting extends BusinessObject{
 
     public void setProjectsAccounting(boolean projectsAccounting) {
         this.projectsAccounting = projectsAccounting;
+    }
+
+    public boolean isTradeAccounting() {
+        return tradeAccounting;
+    }
+
+    public void setTradeAccounting(boolean tradeAccounting) {
+        this.tradeAccounting = tradeAccounting;
     }
 
     public boolean isContactsAccounting() {

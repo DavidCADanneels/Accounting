@@ -40,6 +40,7 @@ public class XMLReader {
     public static final String CONTACTS_ACCOUNTING = "ContactsAccounting";
     public static final String DELIVEROO_ACCOUNTING = "DeliverooAccounting";
     public static final String PROJECTS_ACCOUNTING = "ProjectsAccounting";
+    public static final String TRADE_ACCOUNTING = "TradeAccounting";
     public static final String MORTGAGES_ACCOUNTING = "MortgagesAccounting";
 
     private static Document getDocument(File xmlFile){
@@ -97,6 +98,10 @@ public class XMLReader {
             boolean contactsAccounting = Boolean.valueOf(contactsAccountingString);
             accounting.setContactsAccounting(contactsAccounting);
 
+            String tradeAccountingString = getValue(element, TRADE_ACCOUNTING);
+            boolean tradeAccounting = Boolean.valueOf(tradeAccountingString);
+            accounting.setTradeAccounting(tradeAccounting);
+
             String deliverooAccountingString = getValue(element, DELIVEROO_ACCOUNTING);
             boolean deliverooAccounting = Boolean.valueOf(deliverooAccountingString);
             accounting.setDeliverooAccounting(deliverooAccounting);
@@ -143,35 +148,55 @@ public class XMLReader {
             readVATTransactions(accounting);
         }
         readJournals(accounting);
-        readBalances(accounting);
-        if (accounting.isMortgagesAccounting()) {
-            readMortgages(accounting);
-        }
-        if (accounting.isProjectsAccounting()) {
-            readProjects(accounting);
-        }
-        if (accounting.isDeliverooAccounting()) {
-            readDeliveroo(accounting);
-        }
-        if (accounting.isContactsAccounting()) {
-            readContacts(accounting);
-            readArticles(accounting);
-        }
-        if (accounting.isDeliverooAccounting()){
-            readMeals(accounting);
-            readMealOrders(accounting);
-        }
+//        readBalances(accounting);
+//        if (accounting.isMortgagesAccounting()) {
+//            readMortgages(accounting);
+//        }
+//        if (accounting.isProjectsAccounting()) {
+//            readProjects(accounting);
+//        }
+//        if (accounting.isDeliverooAccounting()) {
+//            readDeliveroo(accounting);
+//        }
+//        if (accounting.isContactsAccounting()) {
+//            readContacts(accounting);
+//        }
+//        if (accounting.isTradeAccounting()){
+//            readArticles(accounting);
+//        }
+//        if (accounting.isDeliverooAccounting()){
+//            readMeals(accounting);
+//            readMealOrders(accounting);
+//        }
     }
 
     public static void readAccountingDetails(Accounting accounting) {
         // FIXME: ID must be updated to max of new accounting: no static int any longer !
         if(!accounting.isRead()) {
+            readBalances(accounting);
             readTransactions(accounting);
             readJournalsContent(accounting.getJournals(), accounting);
+            if (accounting.isMortgagesAccounting()) {
+                readMortgages(accounting);
+            }
+            if (accounting.isProjectsAccounting()) {
+                readProjects(accounting);
+            }
+            if (accounting.isDeliverooAccounting()) {
+                readDeliveroo(accounting);
+            }
             if (accounting.isContactsAccounting()) {
+                readContacts(accounting);
+            }
+            if (accounting.isTradeAccounting()) {
+                readArticles(accounting);
                 readPurchaseOrders(accounting);
                 readSalesOrders(accounting);
                 readStockTransactions(accounting);
+            }
+            if (accounting.isDeliverooAccounting()){
+                readMeals(accounting);
+                readMealOrders(accounting);
             }
         }
         accounting.setRead(true);

@@ -25,9 +25,7 @@ import be.dafke.BasicAccounting.VAT.VATTransactionsGUI;
 import be.dafke.BusinessModel.*;
 import be.dafke.BusinessModelDao.XMLReader;
 import be.dafke.BusinessModelDao.XMLWriter;
-import be.dafke.BusinessModelDao.XMLtoHTMLWriter;
 
-import javax.swing.JButton;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JMenuBar;
@@ -37,7 +35,6 @@ import javax.swing.WindowConstants;
 import java.awt.BorderLayout;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.io.File;
 import java.util.ArrayList;
 
 import static javax.swing.JSplitPane.BOTTOM;
@@ -70,7 +67,7 @@ public class Main {
     private static BalancesMenu balancesMenu;
     private static MorgagesMenu morgagesMenu;
     private static ContactsMenu contactsMenu;
-    private static GoodsMenu goodsMenu;
+    private static GoodsMenu tradeMenu;
     private static DeliverooMenu deliverooMenu;
     private static ProjectsMenu projectsMenu;
     private static CodaMenu codaMenu;
@@ -152,7 +149,7 @@ public class Main {
         journalsMenu = new JournalsMenu();
         balancesMenu = new BalancesMenu();
         contactsMenu = new ContactsMenu();
-        goodsMenu = new GoodsMenu();
+        tradeMenu = new GoodsMenu();
         deliverooMenu = new DeliverooMenu();
         morgagesMenu = new MorgagesMenu();
         projectsMenu = new ProjectsMenu();
@@ -164,7 +161,7 @@ public class Main {
         menuBar.add(accountsMenu);
         menuBar.add(balancesMenu);
         menuBar.add(contactsMenu);
-        menuBar.add(goodsMenu);
+        menuBar.add(tradeMenu);
         menuBar.add(deliverooMenu);
         menuBar.add(morgagesMenu);
         menuBar.add(projectsMenu);
@@ -223,7 +220,7 @@ public class Main {
     public static void setMenuAccounting(Accounting accounting){
         projectsMenu.setAccounting(accounting);
         morgagesMenu.setAccounting(accounting);
-        goodsMenu.setAccounting(accounting);
+        tradeMenu.setAccounting(accounting);
         deliverooMenu.setAccounting(accounting);
         codaMenu.setAccounting(accounting);
         contactsMenu.setAccounting(accounting);
@@ -236,7 +233,7 @@ public class Main {
         if(accounting!=null) {
             vatMenu.setVisible(accounting.isVatAccounting());
             morgagesMenu.setVisible(accounting.isMortgagesAccounting());
-            // TODO: add option isGoodsAccounting (setVisible(..) )
+            tradeMenu.setVisible(accounting.isTradeAccounting());
             contactsMenu.setVisible(accounting.isContactsAccounting());
             projectsMenu.setVisible(accounting.isProjectsAccounting());
             deliverooMenu.setVisible(accounting.isDeliverooAccounting());

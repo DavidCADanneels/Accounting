@@ -17,12 +17,14 @@ import static java.util.ResourceBundle.getBundle;
  */
 public class AccountingSettingsPanel extends JFrame implements ActionListener{
     public static final String title = getBundle("Accounting").getString("SETTINGS");
+    public static final String TRADE = getBundle("Accounting").getString("TRADE");
     public static final String VAT = getBundle("VAT").getString("VAT");
     public static final String CONTACTS = getBundle("Contacts").getString("CONTACTS");
     public static final String PROJECTS = getBundle("Projects").getString("PROJECTS");
     public static final String DELIVEROO = "Deliveroo";
     public static final String MORTGAGES = getBundle("Mortgage").getString("MORTGAGES");
     private JCheckBox vatAccounting;
+    private JCheckBox tradeAccounting;
     private JCheckBox contacts;
     private JCheckBox projects;
     private JCheckBox deliveroo;
@@ -62,6 +64,10 @@ public class AccountingSettingsPanel extends JFrame implements ActionListener{
             accounting.setVatAccounting(vatAccounting.isSelected());
             Main.fireAccountingTypeChanged(accounting);
         });
+        tradeAccounting.addActionListener(e -> {
+            accounting.setTradeAccounting(tradeAccounting.isSelected());
+            Main.fireAccountingTypeChanged(accounting);
+        });
         contacts.addActionListener(e -> {
             accounting.setContactsAccounting(contacts.isSelected());
             Main.fireAccountingTypeChanged(accounting);
@@ -81,6 +87,7 @@ public class AccountingSettingsPanel extends JFrame implements ActionListener{
     }
 
     private void setAccounting(Accounting accounting) {
+        tradeAccounting.setSelected(accounting.isTradeAccounting());
         vatAccounting.setSelected(accounting.isVatAccounting());
         contacts.setSelected(accounting.isContactsAccounting());
         projects.setSelected(accounting.isProjectsAccounting());
@@ -120,12 +127,14 @@ public class AccountingSettingsPanel extends JFrame implements ActionListener{
         JPanel panel = new JPanel();
 
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
+        tradeAccounting = new JCheckBox(TRADE);
         vatAccounting = new JCheckBox(VAT);
         contacts = new JCheckBox(CONTACTS);
         projects = new JCheckBox(PROJECTS);
         deliveroo = new JCheckBox(DELIVEROO);
         mortgages = new JCheckBox(MORTGAGES);
 
+        panel.add(tradeAccounting);
         panel.add(vatAccounting);
         panel.add(contacts);
         panel.add(projects);

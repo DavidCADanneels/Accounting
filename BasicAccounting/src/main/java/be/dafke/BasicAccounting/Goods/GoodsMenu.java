@@ -21,7 +21,7 @@ public class GoodsMenu extends JMenu {
     private Accounting accounting;
 
     public GoodsMenu() {
-        super(getBundle("Accounting").getString("GOODS"));
+        super(getBundle("Accounting").getString("TRADE"));
         setMnemonic(KeyEvent.VK_G);
         articlesTable = new JMenuItem(getBundle("Accounting").getString("ARTICLES"));
         articlesTable.setMnemonic(KeyEvent.VK_A);
