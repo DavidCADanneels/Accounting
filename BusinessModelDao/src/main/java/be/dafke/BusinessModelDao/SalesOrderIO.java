@@ -26,71 +26,14 @@ import static be.dafke.Utils.Utils.parseInt;
  */
 public class SalesOrderIO {
     public static void readSalesOrders(Accounting accounting){
+        StockTransactions stockTransactions = accounting.getStockTransactions();
         PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
         SalesOrders salesOrders = accounting.getSalesOrders();
         Contacts contacts = accounting.getContacts();
         Articles articles = accounting.getArticles();
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+SALES_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS);
-        Accounts accounts = accounting.getAccounts();
-        Journals journals = accounting.getJournals();
 
-        String journalNameSales = getValue(rootElement, SALES_JOURNAL);
-        if(journalNameSales!=null){
-            Journal journal = journals.getBusinessObject(journalNameSales);
-            if (journal!=null) {
-                salesOrders.setSalesJournal(journal);
-            }
-        }
-        String journalNoInvoiceNameSales = getValue(rootElement, SALES_NO_INVOICE_JOURNAL);
-        if(journalNoInvoiceNameSales!=null){
-            Journal journal = journals.getBusinessObject(journalNoInvoiceNameSales);
-            if (journal!=null) {
-                salesOrders.setSalesNoInvoiceJournal(journal);
-            }
-        }
-        String journalNameGain = getValue(rootElement, GAIN_JOURNAL);
-        if(journalNameGain!=null){
-            Journal journal = journals.getBusinessObject(journalNameGain);
-            if (journal!=null) {
-                salesOrders.setGainJournal(journal);
-            }
-        }
-        String stockAccountString = getValue(rootElement, STOCK_ACCOUNT);
-        if(stockAccountString!=null){
-            Account account = accounts.getBusinessObject(stockAccountString);
-            if (account!=null) {
-                salesOrders.setStockAccount(account);
-            }
-        }
-        String vatAccount = getValue(rootElement, VAT_ACCOUNT);
-        if(vatAccount!=null){
-            Account account = accounts.getBusinessObject(vatAccount);
-            if (account!=null) {
-                salesOrders.setVATAccount(account);
-            }
-        }
-        String gainAccount = getValue(rootElement, GAIN_ACCOUNT);
-        if(gainAccount !=null){
-            Account account = accounts.getBusinessObject(gainAccount);
-            if (account!=null) {
-                salesOrders.setGainAccount(account);
-            }
-        }
-        String salesAccount = getValue(rootElement, SALES_ACCOUNT);
-        if(salesAccount !=null){
-            Account account = accounts.getBusinessObject(salesAccount);
-            if (account!=null) {
-                salesOrders.setSalesAccount(account);
-            }
-        }
-        String salesGainAccount = getValue(rootElement, SALES_GAIN_ACCOUNT);
-        if(salesGainAccount !=null){
-            Account account = accounts.getBusinessObject(salesGainAccount);
-            if (account!=null) {
-                salesOrders.setSalesGainAccount(account);
-            }
-        }
         for (Element salesOrderElement : getChildren(rootElement, SALES_ORDER)) {
             SalesOrder salesOrder = new SalesOrder();
             String customerString = getValue(salesOrderElement, CUSTOMER);
@@ -105,7 +48,7 @@ public class SalesOrderIO {
 
             Integer gainTransactionId = Utils.parseInt(getValue(salesOrderElement, GAIN_TRANSACTION));
 
-            Journal gainJournal = salesOrders.getGainJournal();
+            Journal gainJournal = stockTransactions.getGainJournal();
             if(gainTransactionId != 0 && gainJournal!=null){
                 Transaction transaction = gainJournal.getBusinessObject(gainTransactionId);
                 salesOrder.setGainTransaction(transaction);
@@ -179,17 +122,6 @@ public class SalesOrderIO {
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(SALES_ORDERS, 2));
-            Journal salesJournal = salesOrders.getSalesJournal();
-            Journal salesNoInvoiceJournal = salesOrders.getSalesNoInvoiceJournal();
-            Journal gainJournal = salesOrders.getGainJournal();
-            writer.write("  <" + SALES_JOURNAL + ">"+ (salesJournal==null?"null":salesJournal.getName())+"</" + SALES_JOURNAL + ">\n");
-            writer.write("  <" + SALES_NO_INVOICE_JOURNAL + ">"+ (salesNoInvoiceJournal==null?"null":salesNoInvoiceJournal.getName())+"</" + SALES_NO_INVOICE_JOURNAL + ">\n");
-            writer.write("  <" + GAIN_JOURNAL + ">"+ (gainJournal==null?"null":gainJournal.getName())+"</" + GAIN_JOURNAL + ">\n");
-            writer.write("  <" + STOCK_ACCOUNT + ">"+salesOrders.getStockAccount()+"</" + STOCK_ACCOUNT + ">\n");
-            writer.write("  <" + VAT_ACCOUNT + ">"+salesOrders.getVATAccount()+"</" + VAT_ACCOUNT + ">\n");
-            writer.write("  <" + GAIN_ACCOUNT + ">"+salesOrders.getGainAccount()+"</" + GAIN_ACCOUNT + ">\n");
-            writer.write("  <" + SALES_ACCOUNT + ">"+salesOrders.getSalesAccount()+"</" + SALES_ACCOUNT + ">\n");
-            writer.write("  <" + SALES_GAIN_ACCOUNT + ">"+salesOrders.getSalesGainAccount()+"</" + SALES_GAIN_ACCOUNT + ">\n");
             for (SalesOrder order : salesOrders.getBusinessObjects()) {
                 writer.write(
                              "  <" + SALES_ORDER + ">\n" +

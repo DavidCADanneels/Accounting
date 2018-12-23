@@ -40,18 +40,12 @@ public class ContactsSettingsPanel extends JPanel {
         noInvoiceContactSelection.setEnabled(accounting.isContactsAccounting());
 
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new GridLayout(0, 2));
 
-        JPanel panel1 = new JPanel();
-        panel1.add(new JLabel("Company Contact"));
-        panel1.add(companyContactSelection);
-
-        JPanel panel2 = new JPanel();
-        panel2.add(new JLabel("NoInvoice Contact"));
-        panel2.add(noInvoiceContactSelection);
-
-        panel.add(panel1);
-        panel.add(panel2);
+        panel.add(new JLabel("Company Contact"));
+        panel.add(companyContactSelection);
+        panel.add(new JLabel("NoInvoice Contact"));
+        panel.add(noInvoiceContactSelection);
 
         add(panel);
     }

@@ -24,34 +24,20 @@ import static be.dafke.Utils.Utils.parseInt;
  */
 public class PurchaseOrderIO {
     public static void readPurchaseOrders(Accounting accounting){
+        StockTransactions stockTransactions = accounting.getStockTransactions();
         PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
         Contacts contacts = accounting.getContacts();
         Articles articles = accounting.getArticles();
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+PURCHASE_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, PURCHASE_ORDERS);
         int nr = 0;
-        Accounts accounts = accounting.getAccounts();
         Journals journals = accounting.getJournals();
 
         String journalName = getValue(rootElement, JOURNAL);
         if(journalName!=null){
             Journal journal = journals.getBusinessObject(journalName);
             if (journal!=null) {
-                purchaseOrders.setJournal(journal);
-            }
-        }
-        String stockAccountString = getValue(rootElement, STOCK_ACCOUNT);
-        if(stockAccountString!=null){
-            Account account = accounts.getBusinessObject(stockAccountString);
-            if (account!=null) {
-                purchaseOrders.setStockAccount(account);
-            }
-        }
-        String vatAccount = getValue(rootElement, VAT_ACCOUNT);
-        if(vatAccount!=null){
-            Account account = accounts.getBusinessObject(vatAccount);
-            if (account!=null) {
-                purchaseOrders.setVATAccount(account);
+                stockTransactions.setPurchaseJournal(journal);
             }
         }
         for (Element purchaseOrderElement : getChildren(rootElement, PURCHASE_ORDER)) {
@@ -104,11 +90,6 @@ public class PurchaseOrderIO {
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(PURCHASE_ORDERS, 2));
-            Journal journal = purchaseOrders.getJournal();
-            writer.write("  <" + JOURNAL + ">"+ (journal==null?"null":journal.getName())+"</" + JOURNAL + ">\n");
-            writer.write("  <" + STOCK_ACCOUNT + ">"+purchaseOrders.getStockAccount()+"</" + STOCK_ACCOUNT + ">\n");
-            writer.write("  <" + VAT_ACCOUNT + ">"+purchaseOrders.getVATAccount()+"</" + VAT_ACCOUNT + ">\n");
-
             for (PurchaseOrder order : purchaseOrders.getBusinessObjects()) {
                 writer.write(
                              "  <" + PURCHASE_ORDER + ">\n" +

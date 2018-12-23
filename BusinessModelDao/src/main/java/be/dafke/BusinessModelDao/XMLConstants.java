@@ -157,6 +157,7 @@ public class XMLConstants {
     public static final String SALES_ACCOUNT = "SalesAccount";
     public static final String SALES_GAIN_ACCOUNT = "SalesGainAccount";
     public static final String SALES_JOURNAL = "SalesJournal";
+    public static final String PURCHASE_JOURNAL = "PurchaseJournal";
     public static final String SALES_NO_INVOICE_JOURNAL = "SalesNoInvoiceJournal";
     public static final String PURCHASE_TRANSACTION = "PurchaseTransaction";
     public static final String SALES_TRANSACTION = "SalesTransaction";

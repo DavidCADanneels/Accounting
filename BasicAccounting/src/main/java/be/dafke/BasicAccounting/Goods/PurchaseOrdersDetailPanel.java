@@ -184,14 +184,6 @@ public class PurchaseOrdersDetailPanel extends JPanel {
         }
     }
 
-    public Journal setPurchaseJournal(){
-        JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals());
-        journalSelectorDialog.setVisible(true);
-        Journal journal = journalSelectorDialog.getSelection();
-        purchaseOrders.setJournal(journal);
-        return journal;
-    }
-
     private void createPurchaseTransaction() {
         Transaction transaction;
         // TODO: create transaction
@@ -199,41 +191,14 @@ public class PurchaseOrdersDetailPanel extends JPanel {
         String description = "";
         transaction = new Transaction(date, description);
 
-        Account vatAccount = purchaseOrders.getVATAccount();
-        if (vatAccount == null){
-            AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.TAXCREDIT);
-            ArrayList<AccountType> list = new ArrayList<>();
-            list.add(accountType);
-            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select VAT Account for Purchases");
-            dialog.setVisible(true);
-            vatAccount = dialog.getSelection();
-            purchaseOrders.setVATAccount(vatAccount);
-        }
-        Account stockAccount = purchaseOrders.getStockAccount();
-        if (stockAccount == null){
-            AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.ASSET);
-            ArrayList<AccountType> list = new ArrayList<>();
-            list.add(accountType);
-            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select Stock Account");
-            dialog.setVisible(true);
-            stockAccount = dialog.getSelection();
-            purchaseOrders.setStockAccount(stockAccount);
-        }
+        Account creditAccount = StockUtils.getVatCreditAccount(accounting);
+        Account stockAccount = StockUtils.getStockAccount(accounting);
 
         Contact supplier = purchaseOrder.getSupplier();
         if(supplier == null){
             // TODO
         }
-        Account supplierAccount = supplier.getAccount();
-        if (supplierAccount == null){
-            AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.DEBIT);
-            ArrayList<AccountType> list = new ArrayList<>();
-            list.add(accountType);
-            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select Supplier Account");
-            dialog.setVisible(true);
-            supplierAccount = dialog.getSelection();
-            supplier.setAccount(supplierAccount);
-        }
+        Account supplierAccount = StockUtils.getSupplierAccount(supplier, accounting);
         VATTransaction vatTransaction = new VATTransaction();
 
         BigDecimal stockAmount = purchaseOrder.getTotalPurchasePriceExclVat();
@@ -251,7 +216,7 @@ public class PurchaseOrdersDetailPanel extends JPanel {
 
         BigDecimal vatAmount = purchaseOrder.getTotalPurchaseVat();
         if(vatAmount.compareTo(BigDecimal.ZERO) != 0) {
-            Booking bookingVat = new Booking(vatAccount, vatAmount, true);
+            Booking bookingVat = new Booking(creditAccount, vatAmount, true);
             VATBooking vatBooking = PurchaseType.getVatBooking(vatAmount);
             bookingVat.addVatBooking(vatBooking);
             //
@@ -261,10 +226,7 @@ public class PurchaseOrdersDetailPanel extends JPanel {
         transaction.addVatTransaction(vatTransaction);
         vatTransaction.setTransaction(transaction);
 
-        Journal journal = purchaseOrders.getJournal();
-        if (journal==null){
-            journal = setPurchaseJournal();
-        }
+        Journal journal = StockUtils.getPurchaseJournal(accounting);
         transaction.setJournal(journal);
         // TODO: ask for Date and Description
 

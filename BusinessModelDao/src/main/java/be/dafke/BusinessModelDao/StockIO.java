@@ -18,12 +18,80 @@ import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
  * Created by ddanneels on 15/01/2017.
  */
 public class StockIO {
+    public static void readStockSettings(Accounting accounting) {
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + STOCK_TRANSACTIONS + XML_EXTENSION);
+        Element transactionsElement = getRootElement(xmlFile, STOCK_TRANSACTIONS);
+
+        Accounts accounts = accounting.getAccounts();
+        Journals journals = accounting.getJournals();
+
+        String stockAccountString = getValue(transactionsElement, STOCK_ACCOUNT);
+        if (stockAccountString != null) {
+            stockTransactions.setStockAccount(accounts.getBusinessObject(stockAccountString));
+        }
+
+        String purchaseJournalString = getValue(transactionsElement, PURCHASE_JOURNAL);
+        if (purchaseJournalString != null) {
+            Journal journal = journals.getBusinessObject(purchaseJournalString);
+            if(journal!=null) {
+                stockTransactions.setPurchaseJournal(journal);
+            }
+        }
+
+        String journalNameSales = getValue(transactionsElement, SALES_JOURNAL);
+        if (journalNameSales != null) {
+            Journal journal = journals.getBusinessObject(journalNameSales);
+            if (journal != null) {
+                stockTransactions.setSalesJournal(journal);
+            }
+        }
+        String journalNoInvoiceNameSales = getValue(transactionsElement, SALES_NO_INVOICE_JOURNAL);
+        if (journalNoInvoiceNameSales != null) {
+            Journal journal = journals.getBusinessObject(journalNoInvoiceNameSales);
+            if (journal != null) {
+                stockTransactions.setSalesNoInvoiceJournal(journal);
+            }
+        }
+        String journalNameGain = getValue(transactionsElement, GAIN_JOURNAL);
+        if (journalNameGain != null) {
+            Journal journal = journals.getBusinessObject(journalNameGain);
+            if (journal != null) {
+                stockTransactions.setGainJournal(journal);
+            }
+        }
+        String gainAccount = getValue(transactionsElement, GAIN_ACCOUNT);
+        if (gainAccount != null) {
+            Account account = accounts.getBusinessObject(gainAccount);
+            if (account != null) {
+                stockTransactions.setGainAccount(account);
+            }
+        }
+        String salesAccount = getValue(transactionsElement, SALES_ACCOUNT);
+        if (salesAccount != null) {
+            Account account = accounts.getBusinessObject(salesAccount);
+            if (account != null) {
+                stockTransactions.setSalesAccount(account);
+            }
+        }
+        String salesGainAccount = getValue(transactionsElement, SALES_GAIN_ACCOUNT);
+        if (salesGainAccount != null) {
+            Account account = accounts.getBusinessObject(salesGainAccount);
+            if (account != null) {
+                stockTransactions.setSalesGainAccount(account);
+            }
+        }
+
+    }
+
     public static void readStockTransactions(Accounting accounting){
         StockTransactions stockTransactions = accounting.getStockTransactions();
+
         PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
         SalesOrders salesOrders = accounting.getSalesOrders();
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+STOCK_TRANSACTIONS + XML_EXTENSION);
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + STOCK_TRANSACTIONS + XML_EXTENSION);
         Element transactionsElement = getRootElement(xmlFile, STOCK_TRANSACTIONS);
+
         for (Element element : getChildren(transactionsElement, STOCK_TRANSACTION)) {
             String name = getValue(element, NAME);
             String type = getValue(element, TYPE);
@@ -77,6 +145,25 @@ public class StockIO {
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(STOCK_TRANSACTIONS, 2));
+
+            Account stockAccount = stockTransactions.getStockAccount();
+            Journal salesJournal = stockTransactions.getSalesJournal();
+            Journal purchaseJournal = stockTransactions.getPurchaseJournal();
+            Journal salesNoInvoiceJournal = stockTransactions.getSalesNoInvoiceJournal();
+            Journal gainJournal = stockTransactions.getGainJournal();
+            Account gainAccount = stockTransactions.getGainAccount();
+            Account salesAccount = stockTransactions.getSalesAccount();
+            Account salesGainAccount = stockTransactions.getSalesGainAccount();
+
+            writer.write("  <" + PURCHASE_JOURNAL + ">"+ (purchaseJournal==null?"null":purchaseJournal.getName())+"</" + PURCHASE_JOURNAL + ">\n");
+            writer.write("  <" + STOCK_ACCOUNT+">"+ (stockAccount==null?"null":stockAccount.getName()) +"</" + STOCK_ACCOUNT+">\n");
+            writer.write("  <" + SALES_JOURNAL + ">"+ (salesJournal==null?"null":salesJournal.getName())+"</" + SALES_JOURNAL + ">\n");
+            writer.write("  <" + SALES_NO_INVOICE_JOURNAL + ">"+ (salesNoInvoiceJournal==null?"null":salesNoInvoiceJournal.getName())+"</" + SALES_NO_INVOICE_JOURNAL + ">\n");
+            writer.write("  <" + GAIN_JOURNAL + ">"+ (gainJournal==null?"null":gainJournal.getName())+"</" + GAIN_JOURNAL + ">\n");
+            writer.write("  <" + GAIN_ACCOUNT + ">"+(gainAccount==null?"null":gainAccount)+"</" + GAIN_ACCOUNT + ">\n");
+            writer.write("  <" + SALES_ACCOUNT + ">"+(salesAccount==null?"null":salesAccount)+"</" + SALES_ACCOUNT + ">\n");
+            writer.write("  <" + SALES_GAIN_ACCOUNT + ">"+(salesGainAccount==null?"null":salesGainAccount)+"</" + SALES_GAIN_ACCOUNT + ">\n");
+
             for (Order order : stockTransactions.getOrders()) {
                 writer.write("  <" + STOCK_TRANSACTION + ">\n");
                 writer.write("    <" + NAME + ">" + order.getName() + "</" + NAME + ">\n");

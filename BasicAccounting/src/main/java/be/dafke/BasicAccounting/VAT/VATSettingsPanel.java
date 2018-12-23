@@ -6,6 +6,8 @@ import be.dafke.BusinessModel.VATTransactions;
 
 import javax.swing.*;
 
+import java.awt.*;
+
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -56,30 +58,17 @@ public class VATSettingsPanel extends JPanel {
         creditCnAccountSelection.addActionListener(e -> updateSelectedCreditCnAccount());
         creditCnAccountSelection.setEnabled(accounting.isVatAccounting());
 
-
         JPanel panel = new JPanel();
-        panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
+        panel.setLayout(new GridLayout(0, 2));
 
-        JPanel panel1 = new JPanel();
-        panel1.add(new JLabel("Debit Account"));
-        panel1.add(debitAccountSelection);
-
-        JPanel panel2 = new JPanel();
-        panel2.add(new JLabel("Credit Account"));
-        panel2.add(creditAccountSelection);
-
-        JPanel panel3 = new JPanel();
-        panel3.add(new JLabel("Debit CN Account"));
-        panel3.add(debitCnAccountSelection);
-
-        JPanel panel4 = new JPanel();
-        panel4.add(new JLabel("Credit CN Account"));
-        panel4.add(creditCnAccountSelection);
-
-        panel.add(panel1);
-        panel.add(panel2);
-        panel.add(panel3);
-        panel.add(panel4);
+        panel.add(new JLabel("Debit Account"));
+        panel.add(debitAccountSelection);
+        panel.add(new JLabel("Credit Account"));
+        panel.add(creditAccountSelection);
+        panel.add(new JLabel("Debit CN Account"));
+        panel.add(debitCnAccountSelection);
+        panel.add(new JLabel("Credit CN Account"));
+        panel.add(creditCnAccountSelection);
 
         add(panel);
     }
