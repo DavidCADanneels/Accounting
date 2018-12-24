@@ -75,30 +75,36 @@ public class ContactsSettingsPanel extends JPanel {
     }
 
     public void copyContacts(Accounting copyFrom) {
-        Contact companyContactFrom = copyFrom.getCompanyContact();
-        Contact contactNoInvoiceFrom = copyFrom.getContactNoInvoice();
-        Contacts contacts = accounting.getContacts();
-
         companyContactModel.removeAllElements();
         noInVoiceContactModel.removeAllElements();
 
-        if(copyFrom.isContactsAccounting() && companyContactFrom!=null && contactNoInvoiceFrom!=null) {
-            Contact companyContact = contacts.getBusinessObject(companyContactFrom.getName());
-            Contact contactNoInvoice = contacts.getBusinessObject(contactNoInvoiceFrom.getName());
-            accounting.setCompanyContact(companyContact);
-            accounting.setContactNoInvoice(contactNoInvoice);
-            contacts.getBusinessObjects().forEach(contact -> {
-                companyContactModel.addElement(contact);
-                noInVoiceContactModel.addElement(contact);
-            });
-            companyContactSelection.setSelectedItem(companyContact);
-            noInvoiceContactSelection.setSelectedItem(contactNoInvoice);
+        if (copyFrom!=null) {
+            Contact companyContactFrom = copyFrom.getCompanyContact();
+            Contact contactNoInvoiceFrom = copyFrom.getContactNoInvoice();
+            Contacts contacts = accounting.getContacts();
+
+
+            if (copyFrom.isContactsAccounting() && companyContactFrom != null && contactNoInvoiceFrom != null) {
+                Contact companyContact = contacts.getBusinessObject(companyContactFrom.getName());
+                Contact contactNoInvoice = contacts.getBusinessObject(contactNoInvoiceFrom.getName());
+                accounting.setCompanyContact(companyContact);
+                accounting.setContactNoInvoice(contactNoInvoice);
+                contacts.getBusinessObjects().forEach(contact -> {
+                    companyContactModel.addElement(contact);
+                    noInVoiceContactModel.addElement(contact);
+                });
+                companyContactSelection.setSelectedItem(companyContact);
+                noInvoiceContactSelection.setSelectedItem(contactNoInvoice);
+            } else {
+                accounting.setCompanyContact(null);
+                accounting.setContactNoInvoice(null);
+                companyContactSelection.setSelectedItem(null);
+                noInvoiceContactSelection.setSelectedItem(null);
+
+            }
         } else {
-            accounting.setCompanyContact(null);
-            accounting.setContactNoInvoice(null);
             companyContactSelection.setSelectedItem(null);
             noInvoiceContactSelection.setSelectedItem(null);
-
         }
     }
 }

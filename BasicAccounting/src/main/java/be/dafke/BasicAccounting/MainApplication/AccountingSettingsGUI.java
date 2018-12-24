@@ -15,7 +15,7 @@ public class AccountingSettingsGUI extends JFrame {
     private final JTabbedPane tabbedPane;
     private static HashMap<Accounting,AccountingSettingsGUI> accountingSettingsMap = new HashMap<>();
 
-    public AccountingSettingsGUI(Accounting accounting, JPanel copyPanel) {
+    public AccountingSettingsGUI(Accounting accounting, AccountingCopyPanel copyPanel) {
         super(accounting.getName() + " / " + title);
         tabbedPane = new AccountingSettingsPanel(accounting, copyPanel);
         setContentPane(tabbedPane);

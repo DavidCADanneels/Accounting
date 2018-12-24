@@ -26,6 +26,23 @@ public class Article extends BusinessObject{
     private Integer nrOrderedForSO = 0;
     private Integer nrOrderedByPO = 0;
 
+    public Article(Article article){
+        this(article.getName());
+        HSCode = article.getHSCode();
+        itemName = article.getItemName();
+        purchaseVatRate = article.getPurchaseVatRate();
+        salesVatRate = article.getSalesVatRate();
+        itemsPerUnit = article.getItemsPerUnit();
+        purchasePrice = article.getPurchasePrice();
+        salesPriceItemWithVat = article.getSalesPriceItemWithVat();
+        salesPriceUnitWithVat = article.getSalesPriceUnitWithVat();
+        supplier = article.getSupplier();
+        nrRemoved = article.getNrRemoved();
+        nrAdded = article.getNrAdded();
+        nrOrderedByPO = article.getNrOrderedByPO();
+        nrOrderedForSO = article.getNrOrderedForSO();
+    }
+
     public Article(String name){
         setName(name);
     }

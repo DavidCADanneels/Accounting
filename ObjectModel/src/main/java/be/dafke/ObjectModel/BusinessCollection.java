@@ -169,4 +169,9 @@ public class BusinessCollection <V extends BusinessObject> extends BusinessObjec
     public List<V> getBusinessObjects(Predicate<V> predicate) {
         return getBusinessObjects().stream().filter(predicate).collect(Collectors.toCollection(ArrayList::new));
     }
+
+    public void clear() {
+        TreeMap<String, V> stringVTreeMap = dataTables.get(NAME);
+        stringVTreeMap.clear();
+    }
 }

@@ -1,6 +1,8 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.*;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 
@@ -15,6 +17,7 @@ public class AccountingCopyPanel extends JPanel {
     private Accounting newAccounting;
 
     public AccountingCopyPanel(){
+        newAccounting = createAccounting();
         copyAccounts = new JCheckBox("copy Accounts");
         copyJournals = new JCheckBox("copy Journals");
         copyContacts = new JCheckBox("copy Contacts");
@@ -50,8 +53,8 @@ public class AccountingCopyPanel extends JPanel {
 
     // SET
 
-    public void setAccounting(Accounting accounting){
-        newAccounting = accounting;
+    public Accounting getAccounting(){
+        return newAccounting;
     }
 
     public void setSettingsPanel(AccountingSettingsPanel accountingSettingsPanel) {
@@ -70,7 +73,7 @@ public class AccountingCopyPanel extends JPanel {
 
     // CREATE
 
-    public Accounting createAccounting(){
+    private Accounting createAccounting(){
         Accounting accounting = new Accounting("New Accounting");
         accounting.getAccountTypes().addDefaultTypes();
         accounting.getJournalTypes().addDefaultType(accounting.getAccountTypes());
@@ -95,6 +98,38 @@ public class AccountingCopyPanel extends JPanel {
 
     public void copyVatSettings(){
         newAccounting.copyVatSettings(copyFrom.getVatTransactions());
+    }
+
+    private void copyArticles() {
+        Articles articlesFrom = copyFrom.getArticles();
+        Articles articlesTo = newAccounting.getArticles();
+        articlesTo.clear();
+        articlesFrom.getBusinessObjects().forEach(article -> {
+            Article newArticle = new Article(article);
+            try {
+                articlesTo.addBusinessObject(newArticle);
+            } catch (EmptyNameException e) {
+                e.printStackTrace();
+            } catch (DuplicateNameException e) {
+                e.printStackTrace();
+            }
+        });
+    }
+
+    private void copyDeliverooMeals() {
+        DeliverooMeals deliverooMealsFrom = copyFrom.getDeliverooMeals();
+        DeliverooMeals deliverooMealsTo = newAccounting.getDeliverooMeals();
+        deliverooMealsTo.clear();
+        deliverooMealsFrom.getBusinessObjects().forEach(deliverooMeal -> {
+            DeliverooMeal newMeal = new DeliverooMeal(deliverooMeal);
+            try {
+                deliverooMealsTo.addBusinessObject(newMeal);
+            } catch (EmptyNameException e){
+                e.printStackTrace();
+            } catch (DuplicateNameException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     // UPDATE
@@ -126,10 +161,13 @@ public class AccountingCopyPanel extends JPanel {
             copyContacts();
             if(copyFrom!=null){
                 accountingSettingsPanel.copyContacts(copyFrom);
+            } else {
+                accountingSettingsPanel.copyContacts(null);
             }
         } else {
-            accountingSettingsPanel.setVatSelected(false);
+//            accountingSettingsPanel.setVatSelected(false);
             selectCopyVat(false);
+            accountingSettingsPanel.copyContacts(null);
         }
     }
 
@@ -143,10 +181,13 @@ public class AccountingCopyPanel extends JPanel {
             copyVatSettings();
             if(copyFrom!=null){
                 accountingSettingsPanel.copyVatSettings(copyFrom);
+            } else {
+                accountingSettingsPanel.copyVatSettings(null);
             }
         } else {
             selectCopyTrade(false);
             selectCopyDeliveroo(false);
+            accountingSettingsPanel.copyVatSettings(null);
         }
     }
 
@@ -156,10 +197,14 @@ public class AccountingCopyPanel extends JPanel {
             selectCopyVat(true);
             accountingSettingsPanel.setTradeSelected(true);
             if(copyFrom!=null){
+                // TODO: need separate check box to copy Articles?
+                copyArticles();
                 accountingSettingsPanel.copyTradeSettings(copyFrom);
+            } else {
+                accountingSettingsPanel.copyTradeSettings(null);
             }
         } else {
-
+            accountingSettingsPanel.copyTradeSettings(null);
         }
 
     }
@@ -170,10 +215,14 @@ public class AccountingCopyPanel extends JPanel {
             selectCopyVat(true);
             accountingSettingsPanel.setDeliveooSelected(true);
             if(copyFrom!=null){
+                // TODO: need separate check box to copy Meals?
+                copyDeliverooMeals();
                 accountingSettingsPanel.copyDeliverooSettings(copyFrom);
+            } else {
+                accountingSettingsPanel.copyDeliverooSettings(null);
             }
         } else {
-
+            accountingSettingsPanel.copyDeliverooSettings(null);
         }
     }
 
@@ -194,30 +243,57 @@ public class AccountingCopyPanel extends JPanel {
     }
 
     public void selectCopyContacts(boolean selected){
-        boolean enabled = copyFrom!=null && copyFrom.isContactsAccounting();
-        copyContacts.setEnabled(enabled);
+        boolean enabled = enableCopyContacts();
         copyContacts.setSelected(enabled && selected);
         updateCopyContactsSelected();
     }
 
-    private void selectCopyVat(boolean selected) {
-        boolean enabled = copyFrom!=null && copyFrom.isVatAccounting();
-        copyVat.setEnabled(enabled);
+    public void selectCopyVat(boolean selected) {
+        boolean enabled = enableCopyVat();
         copyVat.setSelected(enabled && selected);
         updateCopyVATSelected();
     }
 
-    private void selectCopyTrade(boolean selected) {
-        boolean enabled = copyFrom!=null && copyFrom.isTradeAccounting();
-        copyTrade.setEnabled(enabled);
+    public void selectCopyTrade(boolean selected) {
+        boolean enabled = enableCopyTrade();
         copyTrade.setSelected(enabled && selected);
         updateCopyTradeSelected();
     }
 
-    private void selectCopyDeliveroo(boolean selected) {
-        boolean enabled = copyFrom!=null && copyFrom.isDeliverooAccounting();
-        copyDeliveroo.setEnabled(enabled);
+    public void selectCopyDeliveroo(boolean selected) {
+        boolean enabled = enableCopyDeliveroo();
         copyDeliveroo.setSelected(enabled && selected);
         updateCopyDeliverooSelected();
     }
+
+    // ENABLE
+
+    public boolean enableCopyContacts() {
+        boolean enabled = copyFrom!=null && copyFrom.isContactsAccounting() && newAccounting.isContactsAccounting();
+        copyContacts.setEnabled(enabled);
+        if(!enabled) copyContacts.setSelected(false);
+        return enabled;
+    }
+
+    public boolean enableCopyVat() {
+        boolean enabled = copyFrom!=null && copyFrom.isVatAccounting() && newAccounting.isVatAccounting();
+        copyVat.setEnabled(enabled);
+        if(!enabled) copyVat.setSelected(false);
+        return enabled;
+    }
+
+    public boolean enableCopyTrade() {
+        boolean enabled = copyFrom!=null && copyFrom.isTradeAccounting() && newAccounting.isTradeAccounting();
+        copyTrade.setEnabled(enabled);
+        if(!enabled) copyTrade.setSelected(false);
+        return enabled;
+    }
+
+    public boolean enableCopyDeliveroo() {
+        boolean enabled = copyFrom!=null && copyFrom.isDeliverooAccounting() && newAccounting.isDeliverooAccounting();
+        copyDeliveroo.setEnabled(enabled);
+        if(!enabled) copyDeliveroo.setSelected(false);
+        return enabled;
+    }
+
 }

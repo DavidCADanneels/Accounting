@@ -20,6 +20,10 @@ public class AccountingSettingsPanel extends JTabbedPane {
     public static final String PROJECTS = getBundle("Projects").getString("PROJECTS");
     public static final String DELIVEROO = "Deliveroo";
     public static final String MORTGAGES = getBundle("Mortgage").getString("MORTGAGES");
+    public static final int CONTACTS_INDEX = 1;
+    public static final int VAT_INDEX = 2;
+    public static final int TRADE_INDEX = 3;
+    public static final int DELIVEROO_INDEX = 3; // or 4 if Trade is active
     private JCheckBox vatAccounting;
     private JCheckBox tradeAccounting;
     private JCheckBox contacts;
@@ -31,9 +35,9 @@ public class AccountingSettingsPanel extends JTabbedPane {
     private VATSettingsPanel vatTab;
     private TradeSettingsPanel tradeTab;
     private DeliverooSettingsPanel deliverooTab;
-    private JPanel copyPanel;
+    private AccountingCopyPanel copyPanel;
 
-    public AccountingSettingsPanel(Accounting accounting, JPanel copyPanel) {
+    public AccountingSettingsPanel(Accounting accounting, AccountingCopyPanel copyPanel) {
         this.accounting = accounting;
         this.copyPanel = copyPanel;
 
@@ -52,27 +56,6 @@ public class AccountingSettingsPanel extends JTabbedPane {
         updateVatSetting();
         updateTradeSetting();
         updateDeliverooSetting();
-    }
-
-    private void updateDeliverooSetting(){
-        boolean deliverooSelected = deliveroo.isSelected();
-        deliverooTab.setEnabled(deliverooSelected);
-        if(deliverooSelected){
-            vatAccounting.setSelected(true);
-            updateVatSetting();
-            int index = 3;
-            if(tradeAccounting.isSelected()){
-                index = 4;
-            }
-            insertTab("Deliveroo", null, deliverooTab, "", index);
-        } else {
-            int indexOfComponent = indexOfComponent(deliverooTab);
-            if(indexOfComponent!=-1) {
-                removeTabAt(indexOfComponent);
-            }
-        }
-        accounting.setDeliverooAccounting(deliverooSelected);
-        Main.fireAccountingTypeChanged(accounting);
     }
 
     public void setContactsSelected(boolean selected){
@@ -95,15 +78,36 @@ public class AccountingSettingsPanel extends JTabbedPane {
         updateTradeSetting();
     }
 
+    private void updateContactSetting(){
+        boolean selected = contacts.isSelected();
+        contactsTab.setEnabled(selected);
+        if(!selected){
+            accounting.setCompanyContact(null);
+            setVatSelected(false);
+//            vatAccounting.setSelected(false);
+//            updateVatSetting();
+            int indexOfComponent = indexOfComponent(contactsTab);
+            if(indexOfComponent!=-1) {
+                removeTabAt(indexOfComponent);
+            }
+        } else {
+            insertTab("Contacts", null, contactsTab, "", CONTACTS_INDEX);
+        }
+        accounting.setContactsAccounting(selected);
+        if(copyPanel!=null){
+            copyPanel.enableCopyContacts();
+        }
+        Main.fireAccountingTypeChanged(accounting);
+    }
 
     private void updateVatSetting(){
-        boolean vatAccountingSelected = vatAccounting.isSelected();
-        vatTab.setEnabled(vatAccountingSelected);
-        if(vatAccountingSelected) {
+        boolean selected = vatAccounting.isSelected();
+        vatTab.setEnabled(selected);
+        if(selected) {
             setContactsSelected(true);
 //            contacts.setSelected(true);
 //            updateContactSetting();
-            insertTab("VAT", null, vatTab, "", 2);
+            insertTab("VAT", null, vatTab, "", VAT_INDEX);
         } else {
             setTradeSelected(false);
 //            tradeAccounting.setSelected(false);
@@ -116,44 +120,59 @@ public class AccountingSettingsPanel extends JTabbedPane {
                 removeTabAt(indexOfComponent);
             }
         }
-        accounting.setVatAccounting(vatAccountingSelected);
-        Main.fireAccountingTypeChanged(accounting);
-    }
-
-    private void updateContactSetting(){
-        boolean contactsSelected = contacts.isSelected();
-        contactsTab.setEnabled(contactsSelected);
-        if(!contactsSelected){
-            accounting.setCompanyContact(null);
-            setVatSelected(false);
-//            vatAccounting.setSelected(false);
-//            updateVatSetting();
-            int indexOfComponent = indexOfComponent(contactsTab);
-            if(indexOfComponent!=-1) {
-                removeTabAt(indexOfComponent);
-            }
-        } else {
-            insertTab("Contacts", null, contactsTab, "", 1);
+        accounting.setVatAccounting(selected);
+        if(copyPanel!=null){
+            copyPanel.enableCopyVat();
         }
-        accounting.setContactsAccounting(contactsSelected);
         Main.fireAccountingTypeChanged(accounting);
     }
 
     private void updateTradeSetting(){
-        boolean tradeAccountingSelected = tradeAccounting.isSelected();
-        tradeTab.setEnabled(tradeAccountingSelected);
-        if(tradeAccountingSelected){
+        boolean selected = tradeAccounting.isSelected();
+        tradeTab.setEnabled(selected);
+        if(selected){
             setVatSelected(true);
 //            vatAccounting.setSelected(true);
 //            updateVatSetting();
-            insertTab("Trade", null, tradeTab, "", 3);
+            insertTab("Trade", null, tradeTab, "", TRADE_INDEX);
         } else {
             int indexOfComponent = indexOfComponent(tradeTab);
             if(indexOfComponent!=-1) {
                 removeTabAt(indexOfComponent);
             }
         }
-        accounting.setTradeAccounting(tradeAccountingSelected);
+        accounting.setTradeAccounting(selected);
+        if(copyPanel!=null){
+            copyPanel.enableCopyTrade();
+        }
+        Main.fireAccountingTypeChanged(accounting);
+    }
+
+    private void updateDeliverooSetting(){
+        boolean selected = deliveroo.isSelected();
+        deliverooTab.setEnabled(selected);
+        if(selected){
+            vatAccounting.setSelected(true);
+            updateVatSetting();
+            int index = DELIVEROO_INDEX;
+            if(tradeAccounting.isSelected()){
+                index++;
+            }
+            // TODO: if tab for Mortgages is available, raise index as well
+//            if(mortgages.isSelected()){
+//                index++;
+//            }
+            insertTab("Deliveroo", null, deliverooTab, "", index);
+        } else {
+            int indexOfComponent = indexOfComponent(deliverooTab);
+            if(indexOfComponent!=-1) {
+                removeTabAt(indexOfComponent);
+            }
+        }
+        accounting.setDeliverooAccounting(selected);
+        if(copyPanel!=null){
+            copyPanel.enableCopyDeliveroo();
+        }
         Main.fireAccountingTypeChanged(accounting);
     }
 
@@ -221,6 +240,4 @@ public class AccountingSettingsPanel extends JTabbedPane {
     public void copyDeliverooSettings(Accounting copyFrom) {
         deliverooTab.copyDeliverooSettings(copyFrom);
     }
-
-
 }

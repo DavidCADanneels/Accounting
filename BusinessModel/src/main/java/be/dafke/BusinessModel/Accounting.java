@@ -165,6 +165,7 @@ public class Accounting extends BusinessObject{
     }
 
     public void copyVatSettings(VATTransactions vatTransactions) {
+        vatFields.clear();
         vatFields.addDefaultFields();
         Account debitAccount = vatTransactions.getDebitAccount();
         Account creditAccount = vatTransactions.getCreditAccount();

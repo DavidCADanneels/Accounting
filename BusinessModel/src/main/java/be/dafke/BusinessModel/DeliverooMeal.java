@@ -18,6 +18,12 @@ public class DeliverooMeal extends BusinessObject{
         return totalOrdered;
     }
 
+    public DeliverooMeal(DeliverooMeal meal){
+        this(meal.getName());
+        mealName = meal.mealName;
+        description = meal.description;
+        salesPrice = meal.salesPrice;
+    }
     public DeliverooMeal(String name){
         setName(name);
     }

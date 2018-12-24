@@ -31,7 +31,6 @@ public class NewAccountingPanel extends RefreshableDialog {
     public NewAccountingPanel(Accountings accountings) {
         super(getBundle("Accounting").getString("NEW_ACCOUNTING_GUI_TITLE"));
         this.accountings = accountings;
-        accounting = new Accounting("New Accounting");
         setContentPane(createContentPanel());
         pack();
     }
@@ -76,8 +75,7 @@ public class NewAccountingPanel extends RefreshableDialog {
         panel.add(namePanel, BorderLayout.NORTH);
 
         accountingCopyPanel = new AccountingCopyPanel();
-        Accounting accounting = accountingCopyPanel.createAccounting();
-        accountingCopyPanel.setAccounting(accounting);
+        accounting = accountingCopyPanel.getAccounting();
         accountingSettingsPanel = new AccountingSettingsPanel(accounting, accountingCopyPanel);
         accountingCopyPanel.setSettingsPanel(accountingSettingsPanel);
 //        JSplitPane splitPane = Main.createSplitPane(accountingCopyPanel, accountingSettingsPanel, JSplitPane.HORIZONTAL_SPLIT);
