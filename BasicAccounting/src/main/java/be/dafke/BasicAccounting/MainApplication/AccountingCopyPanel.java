@@ -81,18 +81,6 @@ public class AccountingCopyPanel extends JPanel {
         }
     }
 
-    public boolean isCopyAccountsSelected(){
-        return copyAccounts.isSelected();
-    }
-
-    public boolean isCopyJournalsSelected(){
-        return copyJournals.isSelected();
-    }
-
-    public boolean isCopyContactsSelected(){
-        return copyContacts.isSelected();
-    }
-
     public void setSettingsPanel(AccountingSettingsPanel accountingSettingsPanel) {
         this.accountingSettingsPanel = accountingSettingsPanel;
     }
@@ -100,5 +88,10 @@ public class AccountingCopyPanel extends JPanel {
     public void setCopyFrom(Accounting copyFrom) {
         this.copyFrom = copyFrom;
         updateCopyContactsSelected();
+    }
+
+    public void enableCopyContacts(boolean enabled) {
+        if(!enabled) copyContacts.setSelected(false);
+        copyContacts.setEnabled(enabled);
     }
 }

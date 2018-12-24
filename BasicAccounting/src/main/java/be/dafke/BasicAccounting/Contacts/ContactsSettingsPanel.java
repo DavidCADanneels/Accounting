@@ -78,19 +78,27 @@ public class ContactsSettingsPanel extends JPanel {
         Contact companyContactFrom = copyFrom.getCompanyContact();
         Contact contactNoInvoiceFrom = copyFrom.getContactNoInvoice();
         Contacts contacts = accounting.getContacts();
-        Contact companyContact = contacts.getBusinessObject(companyContactFrom.getName());
-        Contact contactNoInvoice = contacts.getBusinessObject(contactNoInvoiceFrom.getName());
-        accounting.setCompanyContact(companyContact);
-        accounting.setContactNoInvoice(contactNoInvoice);
 
         companyContactModel.removeAllElements();
         noInVoiceContactModel.removeAllElements();
-        accounting.getContacts().getBusinessObjects().forEach(contact -> {
-            companyContactModel.addElement(contact);
-            noInVoiceContactModel.addElement(contact);
-        });
 
-        companyContactSelection.setSelectedItem(companyContact);
-        noInvoiceContactSelection.setSelectedItem(contactNoInvoice);
+        if(copyFrom.isContactsAccounting() && companyContactFrom!=null && contactNoInvoiceFrom!=null) {
+            Contact companyContact = contacts.getBusinessObject(companyContactFrom.getName());
+            Contact contactNoInvoice = contacts.getBusinessObject(contactNoInvoiceFrom.getName());
+            accounting.setCompanyContact(companyContact);
+            accounting.setContactNoInvoice(contactNoInvoice);
+            contacts.getBusinessObjects().forEach(contact -> {
+                companyContactModel.addElement(contact);
+                noInVoiceContactModel.addElement(contact);
+                companyContactSelection.setSelectedItem(companyContact);
+                noInvoiceContactSelection.setSelectedItem(contactNoInvoice);
+            });
+        } else {
+            accounting.setCompanyContact(null);
+            accounting.setContactNoInvoice(null);
+            companyContactSelection.setSelectedItem(null);
+            noInvoiceContactSelection.setSelectedItem(null);
+
+        }
     }
 }

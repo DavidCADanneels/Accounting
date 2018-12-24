@@ -94,6 +94,7 @@ public class NewAccountingPanel extends RefreshableDialog {
     private void selectedAccountChanged() {
         Accounting accounting = (Accounting) accountingToCopyFrom.getSelectedItem();
         accountingCopyPanel.setCopyFrom(accounting);
+        accountingCopyPanel.enableCopyContacts(accounting.isContactsAccounting());
     }
 
     public void saveAccounting() {
