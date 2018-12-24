@@ -210,6 +210,8 @@ class SalesOrderDetailPanel extends JPanel {
         }
 
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
+        dateAndDescriptionDialog.setDescription("");
+        dateAndDescriptionDialog.enableDescription(true);
         dateAndDescriptionDialog.setVisible(true);
 
         Calendar date = dateAndDescriptionDialog.getDate();
