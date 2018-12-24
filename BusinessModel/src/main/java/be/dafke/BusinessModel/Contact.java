@@ -21,6 +21,28 @@ public class Contact extends BusinessObject{
     private BigDecimal VATTotal = BigDecimal.ZERO;
     private Account account;
 
+    public Contact() {
+
+    }
+
+    public Contact(Contact contact, Accounts accounts) {
+        setName(contact.getName());
+        supplier = contact.supplier;
+        customer = contact.customer;
+        vatNumber = contact.vatNumber;
+        postalCode = contact.postalCode;
+        city = contact.city;
+        countryCode = contact.countryCode;
+        email = contact.email;
+        phone = contact.phone;
+        officialName = contact.officialName;
+        Account contactAccount = contact.getAccount();
+        if(contactAccount!=null){
+            String accountName = contactAccount.getName();
+            account = accounts.getBusinessObject(accountName);
+        }
+    }
+
     public enum ContactType{
         // TODO: add 'OWN' to store Own Company Details ? (or continue using ... )
         ALL, CUSTOMERS, SUPPLIERS;

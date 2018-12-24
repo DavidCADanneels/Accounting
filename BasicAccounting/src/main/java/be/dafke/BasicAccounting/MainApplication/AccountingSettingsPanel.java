@@ -7,22 +7,19 @@ import be.dafke.BasicAccounting.VAT.VATSettingsPanel;
 import be.dafke.BusinessModel.Accounting;
 
 import javax.swing.*;
-import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
 /**
  * Created by ddanneels on 3/03/2017.
  */
-public class AccountingSettingsPanel extends JFrame {
-    public static final String title = getBundle("Accounting").getString("SETTINGS");
+public class AccountingSettingsPanel extends JTabbedPane {
     public static final String TRADE = getBundle("Accounting").getString("TRADE");
     public static final String VAT = getBundle("VAT").getString("VAT");
     public static final String CONTACTS = getBundle("Contacts").getString("CONTACTS");
     public static final String PROJECTS = getBundle("Projects").getString("PROJECTS");
     public static final String DELIVEROO = "Deliveroo";
     public static final String MORTGAGES = getBundle("Mortgage").getString("MORTGAGES");
-    private final JTabbedPane tabbedPane;
     private JCheckBox vatAccounting;
     private JCheckBox tradeAccounting;
     private JCheckBox contacts;
@@ -30,20 +27,21 @@ public class AccountingSettingsPanel extends JFrame {
     private JCheckBox deliveroo;
     private JCheckBox mortgages;
     private Accounting accounting;
-    private static HashMap<Accounting,AccountingSettingsPanel> accountingSettingsMap = new HashMap<>();
     private JPanel contactsTab, vatTab, tradeTab, deliverooTab;
+    private JPanel copyPanel;
 
-    private AccountingSettingsPanel(Accounting accounting) {
-        super(accounting.getName() + " / " + title);
+    public AccountingSettingsPanel(Accounting accounting, JPanel copyPanel) {
         this.accounting = accounting;
+        this.copyPanel = copyPanel;
+
+        setTabPlacement(JTabbedPane.TOP);
+        JComponent mainPanel = createCenterPanel();
+        addTab("Modules", mainPanel);
 
         contactsTab = new ContactsSettingsPanel(accounting);
         vatTab = new VATSettingsPanel(accounting);
         tradeTab = new TradeSettingsPanel(accounting);
         deliverooTab = new DeliverooSettingsPanel(accounting);
-
-        tabbedPane = new JTabbedPane(JTabbedPane.TOP);
-        tabbedPane.addTab("Modules",createCenterPanel());
 
         updateProjectSetting();
         updateMortgageSetting();
@@ -51,19 +49,6 @@ public class AccountingSettingsPanel extends JFrame {
         updateVatSetting();
         updateTradeSetting();
         updateDeliverooSetting();
-
-        setContentPane(tabbedPane);
-        pack();
-    }
-
-    public static AccountingSettingsPanel showPanel(Accounting accounting){
-        AccountingSettingsPanel accountingSettingsPanel = accountingSettingsMap.get(accounting);
-        if(accountingSettingsPanel == null){
-            accountingSettingsPanel = new AccountingSettingsPanel(accounting);
-            accountingSettingsMap.put(accounting,accountingSettingsPanel);
-            Main.addFrame(accountingSettingsPanel);
-        }
-        return accountingSettingsPanel;
     }
 
     private void updateDeliverooSetting(){
@@ -76,32 +61,56 @@ public class AccountingSettingsPanel extends JFrame {
             if(tradeAccounting.isSelected()){
                 index = 4;
             }
-            tabbedPane.insertTab("Deliveroo", null, deliverooTab, "", index);
+            insertTab("Deliveroo", null, deliverooTab, "", index);
         } else {
-            int indexOfComponent = tabbedPane.indexOfComponent(deliverooTab);
+            int indexOfComponent = indexOfComponent(deliverooTab);
             if(indexOfComponent!=-1) {
-                tabbedPane.removeTabAt(indexOfComponent);
+                removeTabAt(indexOfComponent);
             }
         }
         accounting.setDeliverooAccounting(deliverooSelected);
         Main.fireAccountingTypeChanged(accounting);
     }
 
+    public void setContactsSelected(boolean selected){
+        contacts.setSelected(selected);
+        updateContactSetting();
+    }
+
+    public void setVatSelected(boolean selected) {
+        vatAccounting.setSelected(selected);
+        updateVatSetting();
+    }
+
+    public void setDeliveooSelected(boolean selected) {
+        deliveroo.setSelected(selected);
+        updateDeliverooSetting();
+    }
+
+    public void setTradeSelected(boolean selected) {
+        tradeAccounting.setSelected(selected);
+        updateTradeSetting();
+    }
+
+
     private void updateVatSetting(){
         boolean vatAccountingSelected = vatAccounting.isSelected();
         vatTab.setEnabled(vatAccountingSelected);
         if(vatAccountingSelected) {
-            contacts.setSelected(true);
-            updateContactSetting();
-            tabbedPane.insertTab("VAT", null, vatTab, "", 2);
+            setContactsSelected(true);
+//            contacts.setSelected(true);
+//            updateContactSetting();
+            insertTab("VAT", null, vatTab, "", 2);
         } else {
-            tradeAccounting.setSelected(false);
-            updateTradeSetting();
-            deliveroo.setSelected(false);
-            updateDeliverooSetting();
-            int indexOfComponent = tabbedPane.indexOfComponent(vatTab);
+            setTradeSelected(false);
+//            tradeAccounting.setSelected(false);
+//            updateTradeSetting();
+            setDeliveooSelected(false);
+//            deliveroo.setSelected(false);
+//            updateDeliverooSetting();
+            int indexOfComponent = indexOfComponent(vatTab);
             if(indexOfComponent!=-1) {
-                tabbedPane.removeTabAt(indexOfComponent);
+                removeTabAt(indexOfComponent);
             }
         }
         accounting.setVatAccounting(vatAccountingSelected);
@@ -113,14 +122,15 @@ public class AccountingSettingsPanel extends JFrame {
         contactsTab.setEnabled(contactsSelected);
         if(!contactsSelected){
             accounting.setCompanyContact(null);
-            vatAccounting.setSelected(false);
-            updateVatSetting();
-            int indexOfComponent = tabbedPane.indexOfComponent(contactsTab);
+            setVatSelected(false);
+//            vatAccounting.setSelected(false);
+//            updateVatSetting();
+            int indexOfComponent = indexOfComponent(contactsTab);
             if(indexOfComponent!=-1) {
-                tabbedPane.removeTabAt(indexOfComponent);
+                removeTabAt(indexOfComponent);
             }
         } else {
-            tabbedPane.insertTab("Contacts", null, contactsTab, "", 1);
+            insertTab("Contacts", null, contactsTab, "", 1);
         }
         accounting.setContactsAccounting(contactsSelected);
         Main.fireAccountingTypeChanged(accounting);
@@ -130,13 +140,14 @@ public class AccountingSettingsPanel extends JFrame {
         boolean tradeAccountingSelected = tradeAccounting.isSelected();
         tradeTab.setEnabled(tradeAccountingSelected);
         if(tradeAccountingSelected){
-            vatAccounting.setSelected(true);
-            updateVatSetting();
-            tabbedPane.insertTab("Trade", null, tradeTab, "", 3);
+            setVatSelected(true);
+//            vatAccounting.setSelected(true);
+//            updateVatSetting();
+            insertTab("Trade", null, tradeTab, "", 3);
         } else {
-            int indexOfComponent = tabbedPane.indexOfComponent(tradeTab);
+            int indexOfComponent = indexOfComponent(tradeTab);
             if(indexOfComponent!=-1) {
-                tabbedPane.removeTabAt(indexOfComponent);
+                removeTabAt(indexOfComponent);
             }
         }
         accounting.setTradeAccounting(tradeAccountingSelected);
@@ -153,7 +164,7 @@ public class AccountingSettingsPanel extends JFrame {
         Main.fireAccountingTypeChanged(accounting);
     }
 
-    private JPanel createCenterPanel(){
+    private JComponent createCenterPanel(){
         JPanel panel = new JPanel();
 
         panel.setLayout(new BoxLayout(panel,BoxLayout.Y_AXIS));
@@ -164,12 +175,12 @@ public class AccountingSettingsPanel extends JFrame {
         tradeAccounting = new JCheckBox(TRADE);
         deliveroo = new JCheckBox(DELIVEROO);
 
-        projects.setSelected(accounting.isProjectsAccounting());
-        mortgages.setSelected(accounting.isMortgagesAccounting());
-        contacts.setSelected(accounting.isContactsAccounting());
-        vatAccounting.setSelected(accounting.isVatAccounting());
-        tradeAccounting.setSelected(accounting.isTradeAccounting());
-        deliveroo.setSelected(accounting.isDeliverooAccounting());
+        projects.setSelected(accounting==null||accounting.isProjectsAccounting());
+        mortgages.setSelected(accounting==null||accounting.isMortgagesAccounting());
+        contacts.setSelected(accounting==null||accounting.isContactsAccounting());
+        vatAccounting.setSelected(accounting==null||accounting.isVatAccounting());
+        tradeAccounting.setSelected(accounting==null||accounting.isTradeAccounting());
+        deliveroo.setSelected(accounting==null||accounting.isDeliverooAccounting());
 
         projects.addActionListener(e -> updateProjectSetting());
         mortgages.addActionListener(e -> updateMortgageSetting());
@@ -185,6 +196,10 @@ public class AccountingSettingsPanel extends JFrame {
         panel.add(tradeAccounting);
         panel.add(deliveroo);
 
-        return panel;
+        if(copyPanel==null) {
+            return panel;
+        } else {
+            return Main.createSplitPane(panel, copyPanel, JSplitPane.HORIZONTAL_SPLIT);
+        }
     }
 }

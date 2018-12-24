@@ -156,6 +156,10 @@ public class Accounting extends BusinessObject{
         this.accounts = new Accounts(accounts);
     }
 
+    public void copyContacts(Contacts contacts) {
+        this.contacts = new Contacts(contacts, accounts);
+    }
+
     public void copyJournals(Journals journals) {
         this.journals = new Journals(journals);
     }

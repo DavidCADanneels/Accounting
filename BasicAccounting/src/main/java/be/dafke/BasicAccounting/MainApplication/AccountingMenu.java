@@ -5,9 +5,6 @@ import be.dafke.BusinessModel.Accountings;
 
 import javax.swing.*;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -29,9 +26,9 @@ public class AccountingMenu extends JMenu {
             newAccountingPanel.setLocation(getLocationOnScreen());
             newAccountingPanel.setVisible(true);
         });
-        settings = new JMenuItem(getBundle("Accounting").getString("SETTINGS"));
+        settings = new JMenuItem(getBundle("Accounting").getString("SETTINGS_MENU"));
         settings.addActionListener(e -> {
-            AccountingSettingsPanel accountingSettingsPanel = AccountingSettingsPanel.showPanel(accounting);
+            AccountingSettingsGUI accountingSettingsPanel = AccountingSettingsGUI.showPanel(accounting);
             accountingSettingsPanel.setLocation(getLocationOnScreen());
             accountingSettingsPanel.setVisible(true);
         });
