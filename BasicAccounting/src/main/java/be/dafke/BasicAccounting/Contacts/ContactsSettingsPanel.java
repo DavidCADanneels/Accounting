@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Contacts;
 
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contact;
+import be.dafke.BusinessModel.Contacts;
 
 import javax.swing.*;
 
@@ -71,5 +72,25 @@ public class ContactsSettingsPanel extends JPanel {
             updateSelectedCompanyContact();
             updateSelectedNoInvoiceContact();
         }
+    }
+
+    public void copyContacts(Accounting copyFrom) {
+        Contact companyContactFrom = copyFrom.getCompanyContact();
+        Contact contactNoInvoiceFrom = copyFrom.getContactNoInvoice();
+        Contacts contacts = accounting.getContacts();
+        Contact companyContact = contacts.getBusinessObject(companyContactFrom.getName());
+        Contact contactNoInvoice = contacts.getBusinessObject(contactNoInvoiceFrom.getName());
+        accounting.setCompanyContact(companyContact);
+        accounting.setContactNoInvoice(contactNoInvoice);
+
+        companyContactModel.removeAllElements();
+        noInVoiceContactModel.removeAllElements();
+        accounting.getContacts().getBusinessObjects().forEach(contact -> {
+            companyContactModel.addElement(contact);
+            noInVoiceContactModel.addElement(contact);
+        });
+
+        companyContactSelection.setSelectedItem(companyContact);
+        noInvoiceContactSelection.setSelectedItem(contactNoInvoice);
     }
 }

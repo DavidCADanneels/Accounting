@@ -9,6 +9,8 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import javax.swing.*;
 
 import java.awt.*;
+import java.awt.event.FocusAdapter;
+import java.awt.event.FocusEvent;
 
 import static be.dafke.BasicAccounting.MainApplication.Main.setAccounting;
 import static java.util.ResourceBundle.getBundle;
@@ -29,7 +31,7 @@ public class NewAccountingPanel extends RefreshableDialog {
     public NewAccountingPanel(Accountings accountings) {
         super(getBundle("Accounting").getString("NEW_ACCOUNTING_GUI_TITLE"));
         this.accountings = accountings;
-        accounting = new Accounting("tmp");
+        accounting = new Accounting("New Accounting");
         setContentPane(createContentPanel());
         pack();
     }
@@ -42,8 +44,29 @@ public class NewAccountingPanel extends RefreshableDialog {
         for(Accounting accounting:accountings.getBusinessObjects()) {
             accountingToCopyFrom.addItem(accounting);
         }
+        accountingToCopyFrom.addActionListener(e -> selectedAccountChanged());
 
         nameField = new JTextField(10);
+        nameField.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                super.focusGained(e);
+
+            }
+
+            @Override
+            public void focusLost(FocusEvent e) {
+                super.focusLost(e);
+                String name = nameField.getText();
+                if(name!=null && !name.trim().isEmpty()){
+                    add.setEnabled(true);
+                    accounting.setName(name.trim());
+                } else {
+                    accounting.setName(name);
+                }
+            }
+        });
+
         JPanel namePanel = new JPanel();
         namePanel.add(new JLabel("Name:"));
         namePanel.add(nameField);
@@ -53,41 +76,29 @@ public class NewAccountingPanel extends RefreshableDialog {
         panel.add(namePanel, BorderLayout.NORTH);
 
         accountingCopyPanel = new AccountingCopyPanel();
-        accountingSettingsPanel = new AccountingSettingsPanel(new Accounting("tmp"), accountingCopyPanel);
+        Accounting accounting = accountingCopyPanel.createAccounting();
+        accountingCopyPanel.setAccounting(accounting);
+        accountingSettingsPanel = new AccountingSettingsPanel(accounting, accountingCopyPanel);
         accountingCopyPanel.setSettingsPanel(accountingSettingsPanel);
 //        JSplitPane splitPane = Main.createSplitPane(accountingCopyPanel, accountingSettingsPanel, JSplitPane.HORIZONTAL_SPLIT);
         panel.add(accountingSettingsPanel, BorderLayout.CENTER);
 
         add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_ACCOUNTING"));
-        add.addActionListener(e -> addAccounting());
+        add.setEnabled(false);
+        add.addActionListener(e -> saveAccounting());
         panel.add(add, BorderLayout.SOUTH);
 
         return panel;
     }
 
-    private void addAccounting() {
-        String name = nameField.getText().trim();
-        if(name!=null && !name.isEmpty()) {
-            saveAccounting(name);
-        }
+    private void selectedAccountChanged() {
+        Accounting accounting = (Accounting) accountingToCopyFrom.getSelectedItem();
+        accountingCopyPanel.setCopyFrom(accounting);
     }
 
-    public void saveAccounting(String name) {
-        accounting.setName(name);
-        accounting.getAccountTypes().addDefaultTypes();
-        accounting.getJournalTypes().addDefaultType(accounting.getAccountTypes());
-        accounting.getBalances().addDefaultBalances();
-        accounting.getVatFields().addDefaultFields();
-        Accounting source = (Accounting)accountingToCopyFrom.getSelectedItem();
-        if(accountingCopyPanel.isCopyAccountsSelected()){
-            accounting.copyAccounts(source.getAccounts());
-        }
-        if(accountingCopyPanel.isCopyJournalsSelected()){
-            accounting.copyJournals(source.getJournals());
-            accounting.copyJournalTypes(source.getJournalTypes());
-        }
-        if(accountingCopyPanel.isCopyContactsSelected()){
-            accounting.copyContacts(source.getContacts());
+    public void saveAccounting() {
+        if(accounting.isVatAccounting()) {
+            accounting.getVatFields().addDefaultFields();
         }
         try{
             accountings.addBusinessObject(accounting);
@@ -98,6 +109,7 @@ public class NewAccountingPanel extends RefreshableDialog {
         }
         Accountings.setActiveAccounting(accounting);
         setAccounting(accounting);
-        accounting = new Accounting("tmp");
+//        do not clear yet, check details
+//        accountingCopyPanel.createAccounting();
     }
 }

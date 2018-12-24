@@ -27,7 +27,10 @@ public class AccountingSettingsPanel extends JTabbedPane {
     private JCheckBox deliveroo;
     private JCheckBox mortgages;
     private Accounting accounting;
-    private JPanel contactsTab, vatTab, tradeTab, deliverooTab;
+    private ContactsSettingsPanel contactsTab;
+    private VATSettingsPanel vatTab;
+    private TradeSettingsPanel tradeTab;
+    private DeliverooSettingsPanel deliverooTab;
     private JPanel copyPanel;
 
     public AccountingSettingsPanel(Accounting accounting, JPanel copyPanel) {
@@ -202,4 +205,10 @@ public class AccountingSettingsPanel extends JTabbedPane {
             return Main.createSplitPane(panel, copyPanel, JSplitPane.HORIZONTAL_SPLIT);
         }
     }
+
+    public void copyContacts(Accounting copyFrom) {
+        contactsTab.copyContacts(copyFrom);
+    }
+
+
 }

@@ -1,5 +1,7 @@
 package be.dafke.BasicAccounting.MainApplication;
 
+import be.dafke.BusinessModel.Accounting;
+
 import javax.swing.*;
 
 /**
@@ -9,6 +11,8 @@ public class AccountingCopyPanel extends JPanel {
 
     private JCheckBox copyAccounts, copyJournals, copyContacts;
     private AccountingSettingsPanel accountingSettingsPanel;
+    private Accounting copyFrom;
+    private Accounting newAccounting;
 
     public AccountingCopyPanel(){
         copyAccounts = new JCheckBox("copy Accounts");
@@ -28,11 +32,23 @@ public class AccountingCopyPanel extends JPanel {
         add(panel);
     }
 
+    public void setAccounting(Accounting accounting){
+        newAccounting = accounting;
+    }
+
+    public Accounting createAccounting(){
+        Accounting accounting = new Accounting("New Accounting");
+        accounting.getAccountTypes().addDefaultTypes();
+        accounting.getJournalTypes().addDefaultType(accounting.getAccountTypes());
+        accounting.getBalances().addDefaultBalances();
+        return accounting;
+    }
+
     private void updateCopyAccountsSelected() {
         boolean copyAccountsSelected = copyAccounts.isSelected();
 //        accountsTab.setEnabled(copyAccountsSelected);
         if(copyAccountsSelected){
-
+            newAccounting.copyAccounts(copyFrom.getAccounts());
         } else {
 
         }
@@ -42,7 +58,8 @@ public class AccountingCopyPanel extends JPanel {
         boolean copyJournalsSelected = copyJournals.isSelected();
 //        journalsTab.setEnabled(copyJournalsSelected);
         if(copyJournalsSelected){
-
+            newAccounting.copyJournals(copyFrom.getJournals());
+            newAccounting.copyJournalTypes(copyFrom.getJournalTypes());
         } else {
 
         }
@@ -55,6 +72,10 @@ public class AccountingCopyPanel extends JPanel {
             copyAccounts.setSelected(true);
             updateCopyAccountsSelected();
             accountingSettingsPanel.setContactsSelected(true);
+            newAccounting.copyContacts(copyFrom.getContacts());
+            if(copyFrom!=null){
+                accountingSettingsPanel.copyContacts(copyFrom);
+            }
         } else {
             accountingSettingsPanel.setVatSelected(false);
         }
@@ -74,5 +95,10 @@ public class AccountingCopyPanel extends JPanel {
 
     public void setSettingsPanel(AccountingSettingsPanel accountingSettingsPanel) {
         this.accountingSettingsPanel = accountingSettingsPanel;
+    }
+
+    public void setCopyFrom(Accounting copyFrom) {
+        this.copyFrom = copyFrom;
+        updateCopyContactsSelected();
     }
 }
