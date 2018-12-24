@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.VAT;
 
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.VATTransactions;
 
 import javax.swing.*;
@@ -113,6 +114,66 @@ public class VATSettingsPanel extends JPanel {
             updateSelectedCreditAccount();
             updateSelectedDebitCnAccount();
             updateSelectedCreditCnAccount();
+        }
+    }
+
+    public void copyVatSettings(Accounting copyFrom) {
+        VATTransactions vatTransactions = copyFrom.getVatTransactions();
+
+        Account debitAccount = vatTransactions.getDebitAccount();
+        Account creditAccount = vatTransactions.getCreditAccount();
+        Account debitCNAccount = vatTransactions.getDebitCNAccount();
+        Account creditCNAccount = vatTransactions.getCreditCNAccount();
+
+        debitAccountModel.removeAllElements();
+        creditAccountModel.removeAllElements();
+        debitCnAccountModel.removeAllElements();
+        creditCnAccountModel.removeAllElements();
+
+        Accounts accounts = accounting.getAccounts();
+        if(accounts!=null) {
+            accounts.getBusinessObjects().forEach(account -> {
+                debitAccountModel.addElement(account);
+                creditAccountModel.addElement(account);
+                debitCnAccountModel.addElement(account);
+                creditCnAccountModel.addElement(account);
+            });
+        }
+
+        if(debitAccount!=null){
+            Account account = accounts.getBusinessObject(debitAccount.getName());
+            vatTransactions.setDebitAccount(account);
+            debitAccountSelection.setSelectedItem(account);
+        } else {
+            vatTransactions.setDebitAccount(null);
+            debitAccountSelection.setSelectedItem(null);
+        }
+
+        if(creditAccount!=null){
+            Account account = accounts.getBusinessObject(creditAccount.getName());
+            vatTransactions.setCreditAccount(account);
+            creditAccountSelection.setSelectedItem(account);
+        } else {
+            vatTransactions.setCreditAccount(null);
+            creditAccountSelection.setSelectedItem(null);
+        }
+
+        if(debitCNAccount!=null){
+            Account account = accounts.getBusinessObject(debitCNAccount.getName());
+            vatTransactions.setDebitCNAccount(account);
+            debitCnAccountSelection.setSelectedItem(account);
+        } else {
+            vatTransactions.setDebitCNAccount(null);
+            debitCnAccountSelection.setSelectedItem(null);
+        }
+
+        if(creditCNAccount!=null){
+            Account account = accounts.getBusinessObject(creditCNAccount.getName());
+            vatTransactions.setCreditCNAccount(account);
+            creditCnAccountSelection.setSelectedItem(account);
+        } else {
+            vatTransactions.setCreditCNAccount(null);
+            creditCnAccountSelection.setSelectedItem(null);
         }
     }
 }

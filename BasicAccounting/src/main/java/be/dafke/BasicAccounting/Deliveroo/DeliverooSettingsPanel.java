@@ -139,4 +139,84 @@ public class DeliverooSettingsPanel extends JPanel {
             updateSelectedServiceJournal();
         }
     }
+
+    public void copyDeliverooSettings(Accounting copyFrom) {
+        MealOrders mealOrders = copyFrom.getMealOrders();
+
+        Account deliverooServiceAccount = mealOrders.getDeliverooServiceAccount();
+        Account deliverooRevenueAccount = mealOrders.getDeliverooRevenueAccount();
+        Account deliverooBalanceAccount = mealOrders.getDeliverooBalanceAccount();
+
+        Journal deliverooSalesJournal = mealOrders.getDeliverooSalesJournal();
+        Journal deliverooServiceJournal = mealOrders.getDeliverooServiceJournal();
+
+        Accounts accounts = accounting.getAccounts();
+        Journals journals = accounting.getJournals();
+
+        serviceAccountModel.removeAllElements();
+        salesAccountModel.removeAllElements();
+        balanceAccountModel.removeAllElements();
+
+        salesJournalModel.removeAllElements();
+        serviceJournalModel.removeAllElements();
+
+        if(accounts!=null){
+            accounts.getBusinessObjects().forEach(account -> {
+                serviceAccountModel.addElement(account);
+                salesAccountModel.addElement(account);
+                balanceAccountModel.addElement(account);
+            });
+        }
+        if(journals!=null){
+            journals.getBusinessObjects().forEach(journal -> {
+                salesJournalModel.addElement(journal);
+                serviceJournalModel.addElement(journal);
+            });
+        }
+
+        if(deliverooServiceAccount!=null) {
+            Account account = accounts.getBusinessObject(deliverooServiceAccount.getName());
+            mealOrders.setDeliverooServiceAccount(account);
+            serviceAccountSelection.setSelectedItem(account);
+        } else {
+            mealOrders.setDeliverooServiceAccount(null);
+            serviceAccountSelection.setSelectedItem(null);
+        }
+
+        if(deliverooRevenueAccount!=null) {
+            Account account = accounts.getBusinessObject(deliverooRevenueAccount.getName());
+            mealOrders.setDeliverooRevenueAccount(account);
+            revenueAccountSelection.setSelectedItem(account);
+        } else {
+            mealOrders.setDeliverooRevenueAccount(null);
+            revenueAccountSelection.setSelectedItem(null);
+        }
+
+        if(deliverooBalanceAccount!=null) {
+            Account account = accounts.getBusinessObject(deliverooBalanceAccount.getName());
+            mealOrders.setDeliverooBalanceAccount(account);
+            balanceAccountSelection.setSelectedItem(account);
+        } else {
+            mealOrders.setDeliverooBalanceAccount(null);
+            balanceAccountSelection.setSelectedItem(null);
+        }
+
+        if(deliverooSalesJournal!=null) {
+            Journal journal = journals.getBusinessObject(deliverooSalesJournal.getName());
+            mealOrders.setDeliverooSalesJournal(journal);
+            salesJournalSelection.setSelectedItem(journal);
+        } else {
+            mealOrders.setDeliverooSalesJournal(null);
+            salesJournalSelection.setSelectedItem(null);
+        }
+
+        if(deliverooServiceJournal!=null) {
+            Journal journal = journals.getBusinessObject(deliverooServiceJournal.getName());
+            mealOrders.setDeliverooServiceJournal(journal);
+            serviceJournalSelection.setSelectedItem(journal);
+        } else {
+            mealOrders.setDeliverooServiceJournal(null);
+            serviceJournalSelection.setSelectedItem(null);
+        }
+    }
 }

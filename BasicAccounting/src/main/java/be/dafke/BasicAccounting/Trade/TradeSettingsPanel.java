@@ -4,6 +4,7 @@ import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
 
 /**
  * Created by ddanneels on 3/03/2017.
@@ -200,6 +201,121 @@ public class TradeSettingsPanel extends JPanel {
             updateSelectedSalesJournal();
             updateSelectedSalesNoInvoiceJournal();
             updateSelectedGainJournal();
+        }
+    }
+
+    public void copyTradeSettings(Accounting copyFrom) {
+        StockTransactions stockTransactions = copyFrom.getStockTransactions();
+
+        Account stockAccount = stockTransactions.getStockAccount();
+        Account gainAccount = stockTransactions.getGainAccount();
+        Account salesAccount = stockTransactions.getSalesAccount();
+        Account salesGainAccount = stockTransactions.getSalesGainAccount();
+        Journal salesJournal = stockTransactions.getSalesJournal();
+        Journal purchaseJournal = stockTransactions.getPurchaseJournal();
+        Journal salesNoInvoiceJournal = stockTransactions.getSalesNoInvoiceJournal();
+        Journal gainJournal = stockTransactions.getGainJournal();
+
+        Accounts accounts = accounting.getAccounts();
+        Journals journals = accounting.getJournals();
+
+        stockAccountModel.removeAllElements();
+        gainAccountModel.removeAllElements();
+        salesAccountModel.removeAllElements();
+        salesGainAccountModel.removeAllElements();
+
+        purchaseJournalModel.removeAllElements();
+        salesJournalModel.removeAllElements();
+        salesNoInvoiceModel.removeAllElements();
+        gainJournalModel.removeAllElements();
+
+        if(accounts!=null){
+            accounts.getBusinessObjects().forEach(account -> {
+                stockAccountModel.addElement(account);
+                gainAccountModel.addElement(account);
+                salesAccountModel.addElement(account);
+                salesGainAccountModel.addElement(account);
+            });
+        }
+        if(journals!=null){
+            journals.getBusinessObjects().forEach(journal -> {
+                purchaseJournalModel.addElement(journal);
+                salesJournalModel.addElement(journal);
+                salesNoInvoiceModel.addElement(journal);
+                gainJournalModel.addElement(journal);
+            });
+        }
+
+        if(stockAccount!=null) {
+            Account account = accounts.getBusinessObject(stockAccount.getName());
+            stockTransactions.setStockAccount(account);
+            stockAccountSelection.setSelectedItem(account);
+        } else {
+            stockTransactions.setStockAccount(null);
+            stockAccountSelection.setSelectedItem(null);
+        }
+
+        if(gainAccount!=null) {
+            Account account = accounts.getBusinessObject(gainAccount.getName());
+            stockTransactions.setGainAccount(account);
+            gainAccountSelection.setSelectedItem(account);
+        } else {
+            stockTransactions.setGainAccount(null);
+            gainAccountSelection.setSelectedItem(null);
+        }
+
+        if(salesAccount!=null) {
+            Account account = accounts.getBusinessObject(salesAccount.getName());
+            stockTransactions.setSalesAccount(account);
+            salesAccountSelection.setSelectedItem(account);
+        } else {
+            stockTransactions.setSalesAccount(null);
+            salesAccountSelection.setSelectedItem(null);
+        }
+
+        if(salesGainAccount!=null) {
+            Account account = accounts.getBusinessObject(salesGainAccount.getName());
+            stockTransactions.setSalesGainAccount(account);
+            salesGainAccountSelection.setSelectedItem(account);
+        } else {
+            stockTransactions.setSalesGainAccount(null);
+            salesGainAccountSelection.setSelectedItem(null);
+        }
+
+        if(salesJournal!=null) {
+            Journal journal = journals.getBusinessObject(salesJournal.getName());
+            stockTransactions.setSalesJournal(journal);
+            purchaseJournalSelection.setSelectedItem(journal);
+        } else {
+            stockTransactions.setSalesJournal(null);
+            purchaseJournalSelection.setSelectedItem(null);
+        }
+
+        if(purchaseJournal!=null) {
+            Journal journal = journals.getBusinessObject(purchaseJournal.getName());
+            stockTransactions.setPurchaseJournal(journal);
+            salesJournalSelection.setSelectedItem(journal);
+        } else {
+            stockTransactions.setPurchaseJournal(null);
+            salesJournalSelection.setSelectedItem(null);
+        }
+
+        if(salesNoInvoiceJournal!=null) {
+            Journal journal = journals.getBusinessObject(salesNoInvoiceJournal.getName());
+            stockTransactions.setSalesNoInvoiceJournal(journal);
+            salesNoInvoiceSelection.setSelectedItem(journal);
+        } else {
+            stockTransactions.setSalesNoInvoiceJournal(null);
+            salesNoInvoiceSelection.setSelectedItem(null);
+        }
+
+        if(gainJournal!=null) {
+            Journal journal = journals.getBusinessObject(gainJournal.getName());
+            stockTransactions.setGainJournal(journal);
+            gainJournalSelection.setSelectedItem(journal);
+        } else {
+            stockTransactions.setGainJournal(null);
+            gainJournalSelection.setSelectedItem(null);
         }
     }
 }

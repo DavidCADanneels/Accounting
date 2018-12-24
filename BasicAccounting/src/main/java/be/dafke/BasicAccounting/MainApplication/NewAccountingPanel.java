@@ -94,13 +94,14 @@ public class NewAccountingPanel extends RefreshableDialog {
     private void selectedAccountChanged() {
         Accounting accounting = (Accounting) accountingToCopyFrom.getSelectedItem();
         accountingCopyPanel.setCopyFrom(accounting);
-        accountingCopyPanel.enableCopyContacts(accounting.isContactsAccounting());
+//        accountingCopyPanel.enableCopyContacts(accounting.isContactsAccounting());
+
     }
 
     public void saveAccounting() {
-        if(accounting.isVatAccounting()) {
-            accounting.getVatFields().addDefaultFields();
-        }
+//        if(accounting.isVatAccounting()) {
+//            accounting.getVatFields().addDefaultFields();
+//        }
         try{
             accountings.addBusinessObject(accounting);
         } catch (DuplicateNameException e) {

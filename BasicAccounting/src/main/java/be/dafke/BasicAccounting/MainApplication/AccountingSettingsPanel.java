@@ -210,5 +210,17 @@ public class AccountingSettingsPanel extends JTabbedPane {
         contactsTab.copyContacts(copyFrom);
     }
 
+    public void copyVatSettings(Accounting copyFrom) {
+        vatTab.copyVatSettings(copyFrom);
+    }
+
+    public void copyTradeSettings(Accounting copyFrom) {
+        tradeTab.copyTradeSettings(copyFrom);
+    }
+
+    public void copyDeliverooSettings(Accounting copyFrom) {
+        deliverooTab.copyDeliverooSettings(copyFrom);
+    }
+
 
 }

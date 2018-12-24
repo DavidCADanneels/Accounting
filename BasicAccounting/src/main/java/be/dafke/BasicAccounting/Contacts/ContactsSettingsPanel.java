@@ -90,9 +90,9 @@ public class ContactsSettingsPanel extends JPanel {
             contacts.getBusinessObjects().forEach(contact -> {
                 companyContactModel.addElement(contact);
                 noInVoiceContactModel.addElement(contact);
-                companyContactSelection.setSelectedItem(companyContact);
-                noInvoiceContactSelection.setSelectedItem(contactNoInvoice);
             });
+            companyContactSelection.setSelectedItem(companyContact);
+            noInvoiceContactSelection.setSelectedItem(contactNoInvoice);
         } else {
             accounting.setCompanyContact(null);
             accounting.setContactNoInvoice(null);

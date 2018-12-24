@@ -164,6 +164,31 @@ public class Accounting extends BusinessObject{
         this.journals = new Journals(journals);
     }
 
+    public void copyVatSettings(VATTransactions vatTransactions) {
+        vatFields.addDefaultFields();
+        Account debitAccount = vatTransactions.getDebitAccount();
+        Account creditAccount = vatTransactions.getCreditAccount();
+        Account debitCNAccount = vatTransactions.getDebitCNAccount();
+        Account creditCNAccount = vatTransactions.getCreditCNAccount();
+
+        if(debitAccount!=null){
+            Account account = accounts.getBusinessObject(debitAccount.getName());
+            vatTransactions.setDebitAccount(account);
+        }
+        if(creditAccount!=null){
+            Account account = accounts.getBusinessObject(creditAccount.getName());
+            vatTransactions.setCreditAccount(account);
+        }
+        if(debitCNAccount!=null){
+            Account account = accounts.getBusinessObject(debitCNAccount.getName());
+            vatTransactions.setDebitCNAccount(account);
+        }
+        if(creditCNAccount!=null){
+            Account account = accounts.getBusinessObject(creditCNAccount.getName());
+            vatTransactions.setCreditCNAccount(account);
+        }
+    }
+
     public void copyJournalTypes(JournalTypes journalTypes) {
         this.journalTypes = new JournalTypes(journalTypes);
     }
