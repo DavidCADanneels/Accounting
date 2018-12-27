@@ -12,16 +12,14 @@ import java.util.function.Predicate;
 
 public class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel {
 	private final Articles articles;
-	private Contact contact;
 	private Predicate<Article> filter = article -> article.getSalesPriceItemWithVat()!=null;
 	private SaleTotalsPanel saleTotalsPanel;
 
-	public SalesOrderCreateDataTableModel(Articles articles, Contact contact, SalesOrder order, SaleTotalsPanel saleTotalsPanel) {
+	public SalesOrderCreateDataTableModel(Articles articles, SalesOrder order, SaleTotalsPanel saleTotalsPanel) {
 		super();
 		this.saleTotalsPanel = saleTotalsPanel;
 		// articles should be stock instead (stock/articles contains nrInStock, nrSold, ...
 		this.articles = articles;
-		this.contact = contact;
 		this.order = order;
 	}
 
@@ -37,7 +35,7 @@ public class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel
 	}
 
 	private List<Article> getArticles(){
-		if(articles==null || contact==null || filter==null) return null;
+		if(articles==null || filter==null) return null;
 		List<Article> businessObjects = articles.getBusinessObjects(filter);
 		if(businessObjects == null) return null;
 		return businessObjects;
@@ -82,11 +80,5 @@ public class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel
 		if(articleList == null) return null;
 		Article article = articleList.get(row);
 		return order.getBusinessObject(article.getName());
-	}
-
-	public void setContact(Contact contact) {
-		this.contact = contact;
-		order.setCustomer(contact);
-		fireTableDataChanged();
 	}
 }

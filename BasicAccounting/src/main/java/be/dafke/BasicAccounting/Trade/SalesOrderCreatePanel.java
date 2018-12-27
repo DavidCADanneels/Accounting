@@ -17,7 +17,7 @@ import java.util.function.Predicate;
  * Time: 22:07
  */
 class SalesOrderCreatePanel extends JPanel {
-    private Contact noInvoice = null;
+    private Contact noInvoice;
     private SalesOrder salesOrder;
     private JCheckBox invoice;
     private JComboBox<Contact> comboBox;
@@ -35,7 +35,7 @@ class SalesOrderCreatePanel extends JPanel {
         salesOrder.setArticles(articles);
 
         SaleTotalsPanel saleTotalsPanel = new SaleTotalsPanel();
-        salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, null, salesOrder, saleTotalsPanel);
+        salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, salesOrder, saleTotalsPanel);
         SelectableTable<OrderItem> table = new SelectableTable<>(salesOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
@@ -60,21 +60,27 @@ class SalesOrderCreatePanel extends JPanel {
         //
         comboBox = new JComboBox<>();
         comboBox.addActionListener(e -> {
-            contact = (Contact) comboBox.getSelectedItem();
-            salesOrderCreateDataTableModel.setContact(contact);
+            if(invoice.isSelected()) {
+                contact = (Contact) comboBox.getSelectedItem();
+            }
         });
-        comboBox.setEnabled(false);
         JPanel north = new JPanel();
         north.add(invoice);
         north.add(comboBox);
 
         filter = Contact::isCustomer;
         fireCustomerAddedOrRemoved();
+        comboBox.setSelectedItem(noInvoice);
+        comboBox.setEnabled(false);
 
         JButton orderButton = new JButton("Book Order");
         orderButton.addActionListener(e -> {
             SalesOrders salesOrders = accounting.getSalesOrders();
-            salesOrder.setCustomer(contact);
+            if(invoice.isSelected()) {
+                salesOrder.setCustomer(contact);
+            } else {
+                salesOrder.setCustomer(noInvoice);
+            }
             try {
                 salesOrder.removeEmptyOrderItems();
 
