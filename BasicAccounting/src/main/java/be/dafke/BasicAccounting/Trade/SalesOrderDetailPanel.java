@@ -6,6 +6,7 @@ import be.dafke.BasicAccounting.Contacts.ContactDetailsPanel;
 import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
 import be.dafke.BasicAccounting.Contacts.ContactsPanel;
 import be.dafke.BasicAccounting.Journals.DateAndDescriptionDialog;
+import be.dafke.BasicAccounting.Journals.JournalSelectorDialog;
 import be.dafke.BasicAccounting.MainApplication.InvoicePDF;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import static be.dafke.Utils.Utils.parseInt;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -30,8 +32,8 @@ import static java.util.ResourceBundle.getBundle;
  */
 class SalesOrderDetailPanel extends JPanel {
     private JButton placeOrderButton, deliveredButton, payedButton, createInvoiceButton;
+    private JButton salesTransactionButton, gainTransactionButton, paymentTransactionButton;
     private JButton createSalesOrder;
-    private final SalesOrders salesOrders;
     private JTextField invoiceNr;
     private JCheckBox payed, delivered, placed;
     private SalesOrder salesOrder;
@@ -40,7 +42,6 @@ class SalesOrderDetailPanel extends JPanel {
 
     SalesOrderDetailPanel(Accounting accounting) {
         this.accounting = accounting;
-        this.salesOrders = accounting.getSalesOrders();
 
         createSalesOrder = new JButton(getBundle("Accounting").getString("CREATE_SO"));
         createSalesOrder.addActionListener(e -> {
@@ -114,10 +115,20 @@ class SalesOrderDetailPanel extends JPanel {
         payedButton = new JButton("Order Payed");
         payedButton.addActionListener(e -> payOrder());
 
+        salesTransactionButton = new JButton("SalesTransaction");
+        salesTransactionButton.addActionListener(e -> selectSalesTransaction());
+
+        gainTransactionButton = new JButton("GainTransaction");
+        gainTransactionButton.addActionListener(e -> selectGainTransaction());
+
+        paymentTransactionButton = new JButton("PaymentTransaction");
+        paymentTransactionButton.addActionListener(e -> selectPaymentTransaction());
+
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
         JPanel line1 = new JPanel();
         JPanel line2 = new JPanel();
+        JPanel line3 = new JPanel();
 
         invoiceNr = new JTextField(10);
         invoiceNr.setEnabled(false);
@@ -129,13 +140,58 @@ class SalesOrderDetailPanel extends JPanel {
         line2.add(deliveredButton);
         line2.add(payedButton);
 
+        line3.add(salesTransactionButton);
+        line3.add(gainTransactionButton);
+        line3.add(paymentTransactionButton);
+
         panel.add(line1);
         panel.add(line2);
+        panel.add(line3);
         return panel;
     }
 
+    private void selectPaymentTransaction() {
+        Contact customer = salesOrder.getCustomer();
+        if("Daginkomsten".equals(customer.getName())) {
+            salesOrder.setPaymentTransaction(askId("CASH"));
+        } else {
+            salesOrder.setPaymentTransaction(askId("BE"));
+        }
+        updateButtonsAndCheckBoxes();
+    }
+
+    private void selectSalesTransaction() {
+        Contact customer = salesOrder.getCustomer();
+        if("Daginkomsten".equals(customer.getName())) {
+            salesOrder.setSalesTransaction(askId("DAG"));
+        } else {
+            salesOrder.setSalesTransaction(askId("VB"));
+        }
+        updateButtonsAndCheckBoxes();
+    }
+
+    private void selectGainTransaction() {
+        salesOrder.setGainTransaction(askId("GAIN"));
+        updateButtonsAndCheckBoxes();
+    }
+
+    private Transaction askId(String abbr) {
+        Journals journals = accounting.getJournals();
+        Journal journal = journals.getJournal(abbr);
+
+        JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals());
+        journalSelectorDialog.setSelectedJournal(journal);
+        journalSelectorDialog.setVisible(true);
+        journal = journalSelectorDialog.getSelection();
+
+        String idString = JOptionPane.showInputDialog(this, "Enter id for " + journal.getName() + ":");
+        int id = parseInt(idString);
+        ArrayList<Transaction> businessObjects = journal.getBusinessObjects();
+        Transaction transaction = businessObjects.get(id - 1);
+        return transaction;
+    }
+
     private void payOrder() {
-        salesOrder.setPayed(true);
         updateButtonsAndCheckBoxes();
     }
 
@@ -162,32 +218,13 @@ class SalesOrderDetailPanel extends JPanel {
         StockGUI.fireStockContentChanged();
         StockHistoryGUI.fireStockContentChanged();
 
-        salesOrder.getBusinessObjects().forEach(orderItem -> {
-            Article article = orderItem.getArticle();
-            int numberOfItems = orderItem.getNumberOfItems();
-            article.setSoDelivered(numberOfItems);
-        });
-
-
-        salesOrder.setDelivered(true);
-
-
         updateButtonsAndCheckBoxes();
     }
 
     private void placeOrder() {
         createSalesTransaction();
         createGainTransaction();
-        salesOrder.getBusinessObjects().forEach(orderItem -> {
-            Article article = orderItem.getArticle();
-            int numberOfItems = orderItem.getNumberOfItems();
-            article.setSoOrdered(numberOfItems);
-        });
-
         StockHistoryGUI.fireStockContentChanged();
-
-
-        salesOrder.setPlaced(true);
         updateButtonsAndCheckBoxes();
     }
 
@@ -226,18 +263,25 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     private void updateButtonsAndCheckBoxes() {
-        payed.setSelected(salesOrder !=null&& salesOrder.isPayed());
-        placed.setSelected(salesOrder !=null&& salesOrder.isPlaced());
-        delivered.setSelected(salesOrder !=null&& salesOrder.isDelivered());
-        deliveredButton.setEnabled(salesOrder !=null&&!salesOrder.isDelivered());
-        placeOrderButton.setEnabled(salesOrder !=null&&!salesOrder.isPlaced());
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        ArrayList<Order> orders = stockTransactions.getOrders();
+        Transaction salesTransaction = salesOrder==null?null:salesOrder.getSalesTransaction();
+        payed.setSelected(salesOrder !=null&& salesOrder.getPaymentTransaction()!=null);
+        placed.setSelected(salesTransaction!=null);
+        delivered.setSelected(salesOrder !=null&& orders.contains(salesOrder));
+        deliveredButton.setEnabled(salesOrder !=null&&!orders.contains(salesOrder));
+        placeOrderButton.setEnabled(salesTransaction==null);
 //        createInvoiceButton.setEnabled(salesOrder !=null&&salesOrder.isInvoice());
-        payedButton.setEnabled(salesOrder !=null&&!salesOrder.isPayed());
+        payedButton.setEnabled(salesOrder !=null&&salesOrder.getPaymentTransaction()==null);
         if(salesOrder!=null&&salesOrder.getCustomer()!=null){
             contactDetailsPanel.setContact(salesOrder.getCustomer());
         } else {
             contactDetailsPanel.clearFields();
         }
+
+        salesTransactionButton.setEnabled(salesOrder!=null && salesOrder.getSalesTransaction()==null);
+        gainTransactionButton.setEnabled(salesOrder !=null && salesOrder.getGainTransaction()==null);
+        paymentTransactionButton.setEnabled(salesOrder !=null && salesOrder.getPaymentTransaction()==null);
     }
 
 
@@ -339,7 +383,7 @@ class SalesOrderDetailPanel extends JPanel {
         transactions.setId(salesTransaction);
         transactions.addBusinessObject(salesTransaction);
         salesJournal.addBusinessObject(salesTransaction);
-
+        salesOrder.setSalesTransaction(salesTransaction);
         Main.setJournal(salesJournal);
         Main.selectTransaction(salesTransaction);
         Main.fireJournalDataChanged(salesJournal);

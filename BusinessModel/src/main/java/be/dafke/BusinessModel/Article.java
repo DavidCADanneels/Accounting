@@ -240,20 +240,4 @@ public class Article extends BusinessObject{
     public Integer getNrOrderedByPO() {
         return nrOrderedByPO;
     }
-
-    public void setNrAdded(Integer nrAdded) {
-        this.nrAdded = nrAdded;
-    }
-
-    public void setNrRemoved(Integer nrRemoved) {
-        this.nrRemoved = nrRemoved;
-    }
-
-    public void setNrOrderedForSO(Integer nrOrderedForSO) {
-        this.nrOrderedForSO = nrOrderedForSO;
-    }
-
-    public void setNrOrderedByPO(Integer nrOrderedByPO) {
-        this.nrOrderedByPO = nrOrderedByPO;
-    }
 }

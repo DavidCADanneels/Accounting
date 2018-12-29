@@ -12,8 +12,10 @@ import javax.swing.border.LineBorder;
 import javax.swing.border.TitledBorder;
 import java.awt.*;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Calendar;
 
+import static be.dafke.Utils.Utils.parseInt;
 import static java.util.ResourceBundle.getBundle;
 
 /**
@@ -24,7 +26,6 @@ import static java.util.ResourceBundle.getBundle;
 public class PurchaseOrdersDetailPanel extends JPanel {
     private JButton placeOrderButton, deliveredButton, payedButton;
     private final JButton createPurchaseOrder;
-    private final PurchaseOrders purchaseOrders;
     private JCheckBox payed, delivered, placed;
     private PurchaseOrder purchaseOrder;
     private Accounting accounting;
@@ -33,7 +34,6 @@ public class PurchaseOrdersDetailPanel extends JPanel {
 
     public PurchaseOrdersDetailPanel(Accounting accounting) {
         this.accounting = accounting;
-        this.purchaseOrders = accounting.getPurchaseOrders();
 
         createPurchaseOrder = new JButton(getBundle("Accounting").getString("CREATE_PO"));
         createPurchaseOrder.addActionListener(e -> {
@@ -119,22 +119,14 @@ public class PurchaseOrdersDetailPanel extends JPanel {
     }
 
     private void payOrder(){
-        purchaseOrder.setPayed(true);
         updateButtonsAndCheckBoxes();
     }
 
     private void placeOrder(){
         createPurchaseTransaction();
 
-        purchaseOrder.getBusinessObjects().forEach(orderItem -> {
-            Article article = orderItem.getArticle();
-            int numberOfItems = orderItem.getNumberOfItems();
-            article.setPoOrdered(numberOfItems);
-        });
-
         StockHistoryGUI.fireStockContentChanged();
 
-        purchaseOrder.setPlaced(true);
         updateButtonsAndCheckBoxes();
     }
 
@@ -157,23 +149,19 @@ public class PurchaseOrdersDetailPanel extends JPanel {
         StockGUI.fireStockContentChanged();
         StockHistoryGUI.fireStockContentChanged();
 
-        purchaseOrder.getBusinessObjects().forEach(orderItem -> {
-            Article article = orderItem.getArticle();
-            int numberOfItems = orderItem.getNumberOfItems();
-            article.setPoDelivered(numberOfItems);
-        });
-
-        purchaseOrder.setDelivered(true);
         updateButtonsAndCheckBoxes();
     }
 
     private void updateButtonsAndCheckBoxes() {
-        payed.setSelected(purchaseOrder !=null&& purchaseOrder.isPayed());
-        placed.setSelected(purchaseOrder !=null&& purchaseOrder.isPlaced());
-        delivered.setSelected(purchaseOrder !=null&& purchaseOrder.isDelivered());
-        deliveredButton.setEnabled(purchaseOrder !=null&&!purchaseOrder.isDelivered());
-        placeOrderButton.setEnabled(purchaseOrder !=null&&!purchaseOrder.isPlaced());
-        payedButton.setEnabled(purchaseOrder !=null&&!purchaseOrder.isPayed());
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        ArrayList<Order> orders = stockTransactions.getOrders();
+        Transaction purchaseTransaction = purchaseOrder==null?null:purchaseOrder.getPurchaseTransaction();
+        payed.setSelected(purchaseOrder !=null&& purchaseOrder.getPurchaseTransaction()!=null);
+        placed.setSelected(purchaseTransaction!=null);
+        delivered.setSelected(purchaseOrder !=null&& orders.contains(purchaseOrder));
+        deliveredButton.setEnabled(purchaseOrder !=null&&!orders.contains(purchaseOrder));
+        placeOrderButton.setEnabled(purchaseTransaction==null);
+        payedButton.setEnabled(purchaseOrder !=null&&purchaseOrder.getPurchaseTransaction()==null);
         if(purchaseOrder!=null&&purchaseOrder.getSupplier()!=null){
             contactDetailsPanel.setContact(purchaseOrder.getSupplier());
         } else {

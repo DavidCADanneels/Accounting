@@ -33,6 +33,10 @@ public class JournalSelectorDialog extends RefreshableDialog {
 		pack();
 	}
 
+	public void setSelectedJournal(Journal journal){
+		combo.setSelectedItem(journal);
+	}
+
 	public Journal getSelection(){
 		return journal;
 	}

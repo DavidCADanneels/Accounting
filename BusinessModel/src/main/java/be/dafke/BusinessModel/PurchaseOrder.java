@@ -76,6 +76,13 @@ public class PurchaseOrder extends Order {
 
     public void setPurchaseTransaction(Transaction purchaseTransaction) {
         this.purchaseTransaction = purchaseTransaction;
+
+        getBusinessObjects().forEach(orderItem -> {
+            Article article = orderItem.getArticle();
+            int numberOfItems = orderItem.getNumberOfItems();
+            article.setPoOrdered(numberOfItems);
+        });
+
     }
 
     public Transaction getPurchaseTransaction() {

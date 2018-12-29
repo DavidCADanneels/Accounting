@@ -3,8 +3,6 @@ package be.dafke.BusinessModel;
 public class Order extends OrderItems {
 //    private Articles articles;
     private Contact customer, supplier;
-    private boolean delivered, payed;
-    private boolean placed;
     private Transaction paymentTransaction;
     private Integer id;
     private String deliveryDate = null;
@@ -19,30 +17,6 @@ public class Order extends OrderItems {
         articles.getBusinessObjects().forEach( article -> {
             addBusinessObject(new OrderItem(0,0,article, this));
         });
-    }
-
-    public void setDelivered(boolean delivered) {
-        this.delivered = delivered;
-    }
-
-    public boolean isDelivered() {
-        return delivered;
-    }
-
-    public boolean isPayed() {
-        return payed;
-    }
-
-    public void setPayed(boolean payed) {
-        this.payed = payed;
-    }
-
-    public boolean isPlaced() {
-        return placed;
-    }
-
-    public void setPlaced(boolean placed) {
-        this.placed = placed;
     }
 
     public Contact getCustomer() {

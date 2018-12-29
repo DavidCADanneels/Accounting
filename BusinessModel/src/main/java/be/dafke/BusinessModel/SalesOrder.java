@@ -64,6 +64,14 @@ public class SalesOrder extends Order {
 
     public void setSalesTransaction(Transaction salesTransaction) {
         this.salesTransaction = salesTransaction;
+
+        getBusinessObjects().forEach(orderItem -> {
+            Article article = orderItem.getArticle();
+            int numberOfItems = orderItem.getNumberOfItems();
+            article.setSoOrdered(numberOfItems);
+        });
+
+
     }
 
     public Transaction getGainTransaction() {

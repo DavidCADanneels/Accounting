@@ -65,22 +65,6 @@ public class ArticlesIO {
             if(itemsPerUnit!=null)
                 article.setItemsPerUnit(parseInt(itemsPerUnit));
 
-            String nrAddedString = getValue(element, NR_ADDED);
-            if(nrAddedString!=null)
-                article.setNrAdded(parseInt(nrAddedString));
-
-            String nrRemovedString = getValue(element, NR_REMOVED);
-            if(nrRemovedString!=null)
-                article.setNrRemoved(parseInt(nrRemovedString));
-
-            String nrSoOrderedString = getValue(element, NR_SO_ORDERED);
-            if(nrSoOrderedString!=null)
-                article.setNrOrderedForSO(parseInt(nrSoOrderedString));
-
-            String nrPoOrderedString = getValue(element, NR_PO_ORDERED);
-            if(nrPoOrderedString !=null)
-                article.setNrOrderedByPO(parseInt(nrPoOrderedString ));
-
             String supplierName = getValue(element, SUPPLIER);
             if(supplierName!=null) {
                 Contact supplier = contacts.getBusinessObject(supplierName);

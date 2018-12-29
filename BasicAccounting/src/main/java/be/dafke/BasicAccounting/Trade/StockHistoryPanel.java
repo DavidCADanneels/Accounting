@@ -16,7 +16,7 @@ public class StockHistoryPanel extends JPanel {
     private StockTransactionsDataTableModel stockTransactionsDataTableModel;
 
     public StockHistoryPanel(Accounting accounting) {
-        stockBalanceDataTableModel = new StockBalanceDataTableModel(accounting.getArticles());
+        stockBalanceDataTableModel = new StockBalanceDataTableModel(accounting);
         balanceTable = new SelectableTable<>(stockBalanceDataTableModel);
         balanceTable.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 

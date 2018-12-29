@@ -20,6 +20,22 @@ public class StockTransactions {
 
     public void addOrder(Order order){
         orders.add(order);
+        if(order instanceof SalesOrder){
+            SalesOrder salesOrder = (SalesOrder) order;
+            salesOrder.getBusinessObjects().forEach(orderItem -> {
+                Article article = orderItem.getArticle();
+                int numberOfItems = orderItem.getNumberOfItems();
+                article.setSoDelivered(numberOfItems);
+            });
+        }
+        if (order instanceof PurchaseOrder){
+            PurchaseOrder purchaseOrder = (PurchaseOrder) order;
+            purchaseOrder.getBusinessObjects().forEach(orderItem -> {
+                Article article = orderItem.getArticle();
+                int numberOfItems = orderItem.getNumberOfItems();
+                article.setPoDelivered(numberOfItems);
+            });
+        }
     }
 
     public Account getStockAccount() {

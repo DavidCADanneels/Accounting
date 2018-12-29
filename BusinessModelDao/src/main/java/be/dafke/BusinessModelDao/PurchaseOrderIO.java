@@ -3,6 +3,7 @@ package be.dafke.BusinessModelDao;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Utils.Utils;
 import org.w3c.dom.Element;
 
 import java.io.File;
@@ -49,10 +50,6 @@ public class PurchaseOrderIO {
             Contact supplier = contacts.getBusinessObject(supplierString);
             purchaseOrder.setSupplier(supplier);
 
-            purchaseOrder.setPlaced(getBooleanValue(purchaseOrderElement, IS_PLACED));
-            purchaseOrder.setDelivered(getBooleanValue(purchaseOrderElement, IS_DELIVERED));
-            purchaseOrder.setPayed(getBooleanValue(purchaseOrderElement, IS_PAYED));
-
             for (Element element : getChildren(purchaseOrderElement, ARTICLE)) {
                 String name = getValue(element, NAME);
                 Article article = articles.getBusinessObject(name);
@@ -75,6 +72,16 @@ public class PurchaseOrderIO {
                 orderItem.setName(name);
                 purchaseOrder.addBusinessObject(orderItem);
             }
+
+            Transactions transactions = accounting.getTransactions();
+            int purchaseTransactionId = parseInt(getValue(purchaseOrderElement, PURCHASE_TRANSACTION));
+            Transaction purchaseTransaction = transactions.getBusinessObject(purchaseTransactionId);
+            purchaseOrder.setPurchaseTransaction(purchaseTransaction);
+
+            int paymentTransactionId = parseInt(getValue(purchaseOrderElement, PAYMENT_TRANSACTION));
+            Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId);
+            purchaseOrder.setPaymentTransaction(paymentTransaction);
+
             try {
                 purchaseOrders.addBusinessObject(purchaseOrder);
             } catch (EmptyNameException | DuplicateNameException e) {
@@ -94,18 +101,15 @@ public class PurchaseOrderIO {
                 writer.write(
                              "  <" + PURCHASE_ORDER + ">\n" +
                                 "    <" + ID + ">" + order.getName() + "</" + ID + ">\n" +
-                                "    <" + SUPPLIER + ">" + order.getSupplier() + "</" + SUPPLIER + ">\n" +
-                                "    <" + IS_PLACED + ">" + order.isPlaced() + "</" + IS_PLACED + ">\n" +
-                                "    <" + IS_DELIVERED + ">" + order.isDelivered() + "</" + IS_DELIVERED + ">\n" +
-                                "    <" + IS_PAYED + ">" + order.isPayed() + "</" + IS_PAYED + ">\n"
+                                "    <" + SUPPLIER + ">" + order.getSupplier() + "</" + SUPPLIER + ">\n"
                 );
                 Transaction purchaseTransaction = order.getPurchaseTransaction();
                 if(purchaseTransaction!=null) {
-                    writer.write("    <" + PURCHASE_TRANSACTION + ">" + purchaseTransaction.getId() + "</" + PURCHASE_TRANSACTION + ">\n");
+                    writer.write("    <" + PURCHASE_TRANSACTION + ">" + purchaseTransaction.getTransactionId() + "</" + PURCHASE_TRANSACTION + ">\n");
                 }
                 Transaction paymentTransaction = order.getPaymentTransaction();
                 if(paymentTransaction!=null) {
-                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.getId() + "</" + PAYMENT_TRANSACTION + ">\n");
+                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.getTransactionId() + "</" + PAYMENT_TRANSACTION + ">\n");
                 }
 
                 for (OrderItem orderItem : order.getBusinessObjects()) {

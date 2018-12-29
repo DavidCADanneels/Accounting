@@ -18,21 +18,24 @@ import java.util.function.Predicate;
 public class PurchaseOrderCreatePanel extends JPanel {
     private final JButton orderButton;
     private final SelectableTable<OrderItem> table;
+    private final PurchaseTotalsPanel purchaseTotalsPanel;
     private PurchaseOrder purchaseOrder;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
     private Articles articles;
     private Contact contact;
     Predicate<Contact> filter;
+    private Accounting accounting;
     private final PurchaseOrderCreateDataTableModel purchaseOrderCreateDataTableModel;
 
     public PurchaseOrderCreatePanel(Accounting accounting) {
+        this.accounting = accounting;
         this.contacts = accounting.getContacts();
         this.articles = accounting.getArticles();
         purchaseOrder = new PurchaseOrder();
         purchaseOrder.setArticles(articles);
 
-        PurchaseTotalsPanel purchaseTotalsPanel = new PurchaseTotalsPanel();
+        purchaseTotalsPanel = new PurchaseTotalsPanel();
         purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null, purchaseOrder, purchaseTotalsPanel);
         table = new SelectableTable<>(purchaseOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
@@ -45,25 +48,8 @@ public class PurchaseOrderCreatePanel extends JPanel {
         filter = Contact::isSupplier;
         fireSupplierAddedOrRemoved();
 
-        orderButton = new JButton("Book Order");
-        orderButton.addActionListener(e -> {
-            PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
-            purchaseOrder.setSupplier(contact);
-            try {
-                purchaseOrder.removeEmptyOrderItems();
-                purchaseOrders.addBusinessObject(purchaseOrder);
-                purchaseOrder = new PurchaseOrder();
-                purchaseOrder.setArticles(articles);
-                purchaseOrderCreateDataTableModel.setOrder(purchaseOrder);
-                // TODO: pass view panel and call directly
-                PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAll();
-                purchaseTotalsPanel.fireOrderContentChanged(purchaseOrder);
-            } catch (EmptyNameException e1) {
-                e1.printStackTrace();
-            } catch (DuplicateNameException e1) {
-                e1.printStackTrace();
-            }
-        });
+        orderButton = new JButton("Add Purchase Order");
+        orderButton.addActionListener(e -> order());
         JPanel south = new JPanel(new BorderLayout());
         south.add(orderButton, BorderLayout.SOUTH);
         south.add(purchaseTotalsPanel, BorderLayout.CENTER);
@@ -73,6 +59,25 @@ public class PurchaseOrderCreatePanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
         add(comboBox, BorderLayout.NORTH);
         add(south, BorderLayout.SOUTH);
+    }
+
+    public void order(){
+        PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
+        purchaseOrder.setSupplier(contact);
+        try {
+            purchaseOrder.removeEmptyOrderItems();
+            purchaseOrders.addBusinessObject(purchaseOrder);
+            purchaseOrder = new PurchaseOrder();
+            purchaseOrder.setArticles(articles);
+            purchaseOrderCreateDataTableModel.setOrder(purchaseOrder);
+            // TODO: pass view panel and call directly
+            PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAll();
+            purchaseTotalsPanel.fireOrderContentChanged(purchaseOrder);
+        } catch (EmptyNameException e1) {
+            e1.printStackTrace();
+        } catch (DuplicateNameException e1) {
+            e1.printStackTrace();
+        }
     }
 
     public void fireSupplierAddedOrRemoved() {

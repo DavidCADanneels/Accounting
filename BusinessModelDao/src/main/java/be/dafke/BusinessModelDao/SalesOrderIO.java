@@ -40,19 +40,8 @@ public class SalesOrderIO {
             Contact customer = contacts.getBusinessObject(customerString);
             salesOrder.setCustomer(customer);
 
-            salesOrder.setPlaced(getBooleanValue(salesOrderElement, IS_PLACED));
-            salesOrder.setDelivered(getBooleanValue(salesOrderElement, IS_DELIVERED));
             salesOrder.setInvoice(getBooleanValue(salesOrderElement, INVOICE));
             salesOrder.setInvoiceNumber(getValue(salesOrderElement, INVOICE_NUMBER));
-            salesOrder.setPayed(getBooleanValue(salesOrderElement, IS_PAYED));
-
-            Integer gainTransactionId = Utils.parseInt(getValue(salesOrderElement, GAIN_TRANSACTION));
-
-            Journal gainJournal = stockTransactions.getGainJournal();
-            if(gainTransactionId != 0 && gainJournal!=null){
-                Transaction transaction = gainJournal.getBusinessObject(gainTransactionId);
-                salesOrder.setGainTransaction(transaction);
-            }
 
             for (Element element : getChildren(salesOrderElement, ARTICLE)) {
 
@@ -108,6 +97,19 @@ public class SalesOrderIO {
                 orderItem.setName(name);
                 salesOrder.addBusinessObject(orderItem);
             }
+            Transactions transactions = accounting.getTransactions();
+            int salesTransactionId = parseInt(getValue(salesOrderElement, SALES_TRANSACTION));
+            Transaction salesTransaction = transactions.getBusinessObject(salesTransactionId);
+            salesOrder.setSalesTransaction(salesTransaction);
+
+            int paymentTransactionId = parseInt(getValue(salesOrderElement, PAYMENT_TRANSACTION));
+            Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId);
+            salesOrder.setPaymentTransaction(paymentTransaction);
+
+            int gainTransactionId = parseInt(getValue(salesOrderElement, GAIN_TRANSACTION));
+            Transaction gainTransaction = transactions.getBusinessObject(gainTransactionId);
+            salesOrder.setGainTransaction(gainTransaction);
+
             try {
                 salesOrders.addBusinessObject(salesOrder);
             } catch (EmptyNameException | DuplicateNameException e) {
@@ -127,9 +129,6 @@ public class SalesOrderIO {
                              "  <" + SALES_ORDER + ">\n" +
                                  "    <" + ID + ">" + order.getId() + "</" + ID + ">\n" +
                                  "    <" + CUSTOMER + ">" + order.getCustomer() + "</" + CUSTOMER + ">\n" +
-                                 "    <" + IS_PLACED + ">" + order.isPlaced() + "</" + IS_PLACED + ">\n" +
-                                 "    <" + IS_DELIVERED + ">" + order.isDelivered() + "</" + IS_DELIVERED + ">\n" +
-                                 "    <" + IS_PAYED + ">" + order.isPayed() + "</" + IS_PAYED + ">\n" +
                                  "    <" + INVOICE + ">" + order.isInvoice() + "</" + INVOICE + ">\n"
                 );
                 if(order.getInvoiceNumber()!=null) {
@@ -137,15 +136,21 @@ public class SalesOrderIO {
                 }
                 Transaction salesTransaction = order.getSalesTransaction();
                 if(salesTransaction!=null) {
-                    writer.write("    <" + SALES_TRANSACTION + ">" + salesTransaction.getId() + "</" + SALES_TRANSACTION + ">\n");
+                    writer.write("    <" + SALES_TRANSACTION + ">" + salesTransaction.getTransactionId() + "</" + SALES_TRANSACTION + ">\n");
+                } else {
+                    writer.write("    <" + SALES_TRANSACTION + ">null</" + SALES_TRANSACTION + ">\n");
                 }
                 Transaction gainTransaction = order.getGainTransaction();
                 if(gainTransaction!=null) {
                     writer.write("    <" + GAIN_TRANSACTION + ">" + gainTransaction.getTransactionId() + "</" + GAIN_TRANSACTION + ">\n");
+                } else {
+                    writer.write("    <" + GAIN_TRANSACTION + ">null</" + GAIN_TRANSACTION + ">\n");
                 }
                 Transaction paymentTransaction = order.getPaymentTransaction();
                 if(paymentTransaction!=null) {
-                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.getId() + "</" + PAYMENT_TRANSACTION + ">\n");
+                    writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.getTransactionId() + "</" + PAYMENT_TRANSACTION + ">\n");
+                } else {
+                    writer.write("    <" + PAYMENT_TRANSACTION + ">null</" + PAYMENT_TRANSACTION + ">\n");
                 }
                 for (OrderItem orderItem : order.getBusinessObjects()) {
                     Article article = orderItem.getArticle();

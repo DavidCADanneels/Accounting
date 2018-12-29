@@ -73,7 +73,7 @@ class SalesOrderCreatePanel extends JPanel {
         comboBox.setSelectedItem(noInvoice);
         comboBox.setEnabled(false);
 
-        JButton orderButton = new JButton("Book Order");
+        JButton orderButton = new JButton("Add Sales Order");
         orderButton.addActionListener(e -> {
             SalesOrders salesOrders = accounting.getSalesOrders();
             if(invoice.isSelected()) {

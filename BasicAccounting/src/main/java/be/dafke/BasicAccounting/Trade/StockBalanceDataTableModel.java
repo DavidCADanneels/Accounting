@@ -24,8 +24,9 @@ public class StockBalanceDataTableModel extends SelectableTableModel<Article> {
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 
-	public StockBalanceDataTableModel(Articles articles) {
-		this.articles = articles;
+	public StockBalanceDataTableModel(Accounting accounting) {
+		this.articles = accounting.getArticles();
+//		accounting.getS
 		setColumnNames();
 		setColumnClasses();
 	}
