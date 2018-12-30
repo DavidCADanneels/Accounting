@@ -35,7 +35,7 @@ class SalesOrderDetailPanel extends JPanel {
     private JButton salesTransactionButton, gainTransactionButton, paymentTransactionButton;
     private JButton createSalesOrder;
     private JTextField invoiceNr;
-    private JCheckBox payed, delivered, placed;
+    private JCheckBox payed, delivered, placed, creditNote, promoOrder;
     private SalesOrder salesOrder;
     private Accounting accounting;
     private ContactDetailsPanel contactDetailsPanel;
@@ -89,14 +89,20 @@ class SalesOrderDetailPanel extends JPanel {
         placed = new JCheckBox("Ordered");
         payed = new JCheckBox("Payed");
         delivered = new JCheckBox("Delived");
+        creditNote = new JCheckBox("CN");
+        promoOrder = new JCheckBox("Promo");
         placed.setEnabled(false);
         payed.setEnabled(false);
         delivered.setEnabled(false);
+        creditNote.setEnabled(false);
+        promoOrder.setEnabled(false);
 
         JPanel panel = new JPanel();
         panel.add(placed);
         panel.add(delivered);
         panel.add(payed);
+        panel.add(creditNote);
+        panel.add(promoOrder);
         return panel;
     }
 
@@ -223,7 +229,9 @@ class SalesOrderDetailPanel extends JPanel {
 
     private void placeOrder() {
         createSalesTransaction();
-        createGainTransaction();
+        if(!salesOrder.isPromoOrder()) {
+            createGainTransaction();
+        }
         StockHistoryGUI.fireStockContentChanged();
         updateButtonsAndCheckBoxes();
     }
@@ -263,16 +271,27 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     private void updateButtonsAndCheckBoxes() {
+        Transaction salesTransaction = salesOrder==null?null:salesOrder.getSalesTransaction();
+        Transaction paymentTransaction = salesOrder==null?null:salesOrder.getPaymentTransaction();
+
         StockTransactions stockTransactions = accounting.getStockTransactions();
         ArrayList<Order> orders = stockTransactions.getOrders();
-        Transaction salesTransaction = salesOrder==null?null:salesOrder.getSalesTransaction();
-        payed.setSelected(salesOrder !=null&& salesOrder.getPaymentTransaction()!=null);
+        boolean orderDelivered = salesOrder!=null && orders.contains(salesOrder);
+        boolean toBeDelivered = salesOrder!=null && !orders.contains(salesOrder);
+
+        boolean isCreditNote = salesOrder!=null&& salesOrder.isCreditNote();
+        boolean isPromoOrder = salesOrder!=null&& salesOrder.isPromoOrder();
+
         placed.setSelected(salesTransaction!=null);
-        delivered.setSelected(salesOrder !=null&& orders.contains(salesOrder));
-        deliveredButton.setEnabled(salesOrder !=null&&!orders.contains(salesOrder));
+        delivered.setSelected(orderDelivered);
+        payed.setSelected(paymentTransaction !=null);
+        creditNote.setSelected(isCreditNote);
+        promoOrder.setSelected(isPromoOrder);
+
+        deliveredButton.setEnabled(toBeDelivered);
         placeOrderButton.setEnabled(salesTransaction==null);
 //        createInvoiceButton.setEnabled(salesOrder !=null&&salesOrder.isInvoice());
-        payedButton.setEnabled(salesOrder !=null&&salesOrder.getPaymentTransaction()==null);
+        payedButton.setEnabled(salesOrder !=null&& paymentTransaction ==null);
         if(salesOrder!=null&&salesOrder.getCustomer()!=null){
             contactDetailsPanel.setContact(salesOrder.getCustomer());
         } else {
@@ -281,7 +300,7 @@ class SalesOrderDetailPanel extends JPanel {
 
         salesTransactionButton.setEnabled(salesOrder!=null && salesOrder.getSalesTransaction()==null);
         gainTransactionButton.setEnabled(salesOrder !=null && salesOrder.getGainTransaction()==null);
-        paymentTransactionButton.setEnabled(salesOrder !=null && salesOrder.getPaymentTransaction()==null);
+        paymentTransactionButton.setEnabled(salesOrder !=null && paymentTransaction ==null);
     }
 
 

@@ -9,6 +9,8 @@ public class SalesOrder extends Order {
     private Transaction salesTransaction, gainTransaction;
     private String invoiceNumber = "";
     private boolean invoice = false;
+    private boolean creditNote = false;
+    private boolean promoOrder = false;
 
     public BigDecimal getTotalSalesPriceExclVat() {
         BigDecimal total = BigDecimal.ZERO.setScale(2);
@@ -120,5 +122,21 @@ public class SalesOrder extends Order {
             Article article = orderItem.getArticle();
             article.addSalesOrder(this);
         });
+    }
+
+    public boolean isCreditNote() {
+        return creditNote;
+    }
+
+    public void setCreditNote(boolean creditNote) {
+        this.creditNote = creditNote;
+    }
+
+    public boolean isPromoOrder() {
+        return promoOrder;
+    }
+
+    public void setPromoOrder(boolean promoOrder) {
+        this.promoOrder = promoOrder;
     }
 }

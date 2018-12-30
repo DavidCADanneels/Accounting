@@ -1,23 +1,9 @@
 package be.dafke.BasicAccounting.Accounts;
 
-import be.dafke.BasicAccounting.MainApplication.ActionUtils;
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.Accounts;
 import be.dafke.ComponentModel.RefreshableDialog;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
-import java.awt.GridLayout;
-import java.math.BigDecimal;
-import java.math.BigInteger;
 import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;

@@ -20,6 +20,8 @@ class SalesOrderCreatePanel extends JPanel {
     private Contact noInvoice;
     private SalesOrder salesOrder;
     private JCheckBox invoice;
+    private JCheckBox creditNote;
+    private JCheckBox promoOrder;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
     private Articles articles;
@@ -39,6 +41,16 @@ class SalesOrderCreatePanel extends JPanel {
         SelectableTable<OrderItem> table = new SelectableTable<>(salesOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
+        creditNote = new JCheckBox("CreditNote");
+        creditNote.setSelected(false);
+        creditNote.addActionListener(e -> {
+            salesOrder.setCreditNote(creditNote.isSelected());
+        });
+        promoOrder = new JCheckBox("Promo Order");
+        promoOrder.setSelected(false);
+        promoOrder.addActionListener(e -> {
+            salesOrder.setPromoOrder(promoOrder.isSelected());
+        });
         invoice = new JCheckBox("Invoice");
         invoice.addActionListener(e -> {
             comboBox.setEnabled(invoice.isSelected());
@@ -67,6 +79,8 @@ class SalesOrderCreatePanel extends JPanel {
         JPanel north = new JPanel();
         north.add(invoice);
         north.add(comboBox);
+        north.add(creditNote);
+        north.add(promoOrder);
 
         filter = Contact::isCustomer;
         fireCustomerAddedOrRemoved();

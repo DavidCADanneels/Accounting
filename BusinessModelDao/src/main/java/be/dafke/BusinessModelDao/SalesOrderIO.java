@@ -36,6 +36,13 @@ public class SalesOrderIO {
 
         for (Element salesOrderElement : getChildren(rootElement, SALES_ORDER)) {
             SalesOrder salesOrder = new SalesOrder();
+
+            boolean cn = getBooleanValue(salesOrderElement, CREDIT_NOTE);
+            salesOrder.setCreditNote(cn);
+
+            boolean promo = getBooleanValue(salesOrderElement, PROMO_ORDER);
+            salesOrder.setPromoOrder(promo);
+
             String customerString = getValue(salesOrderElement, CUSTOMER);
             Contact customer = contacts.getBusinessObject(customerString);
             salesOrder.setCustomer(customer);
@@ -124,35 +131,47 @@ public class SalesOrderIO {
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(SALES_ORDERS, 2));
-            for (SalesOrder order : salesOrders.getBusinessObjects()) {
+            for (SalesOrder salesOrder : salesOrders.getBusinessObjects()) {
                 writer.write(
                              "  <" + SALES_ORDER + ">\n" +
-                                 "    <" + ID + ">" + order.getId() + "</" + ID + ">\n" +
-                                 "    <" + CUSTOMER + ">" + order.getCustomer() + "</" + CUSTOMER + ">\n" +
-                                 "    <" + INVOICE + ">" + order.isInvoice() + "</" + INVOICE + ">\n"
+                                 "    <" + ID + ">" + salesOrder.getId() + "</" + ID + ">\n" +
+                                 "    <" + CUSTOMER + ">" + salesOrder.getCustomer() + "</" + CUSTOMER + ">\n" +
+                                 "    <" + INVOICE + ">" + salesOrder.isInvoice() + "</" + INVOICE + ">\n"
                 );
-                if(order.getInvoiceNumber()!=null) {
-                    writer.write("    <" + INVOICE_NUMBER + ">" + order.getInvoiceNumber() + "</" + INVOICE_NUMBER + ">\n");
+                if(salesOrder.isCreditNote()){
+                    // only write if 'true' ('false' is default value)
+                    writer.write(
+                                    "    <" + CREDIT_NOTE + ">" + salesOrder.isCreditNote() + "</" + CREDIT_NOTE + ">\n"
+                    );
                 }
-                Transaction salesTransaction = order.getSalesTransaction();
+                if(salesOrder.isPromoOrder()){
+                    // only write if 'true' ('false' is default value)
+                    writer.write(
+                                    "    <" + PROMO_ORDER + ">" + salesOrder.isPromoOrder() + "</" + PROMO_ORDER + ">\n"
+                    );
+                }
+                if(salesOrder.getInvoiceNumber()!=null) {
+                    writer.write("    <" + INVOICE_NUMBER + ">" + salesOrder.getInvoiceNumber() + "</" + INVOICE_NUMBER + ">\n");
+                }
+                Transaction salesTransaction = salesOrder.getSalesTransaction();
                 if(salesTransaction!=null) {
                     writer.write("    <" + SALES_TRANSACTION + ">" + salesTransaction.getTransactionId() + "</" + SALES_TRANSACTION + ">\n");
                 } else {
                     writer.write("    <" + SALES_TRANSACTION + ">null</" + SALES_TRANSACTION + ">\n");
                 }
-                Transaction gainTransaction = order.getGainTransaction();
+                Transaction gainTransaction = salesOrder.getGainTransaction();
                 if(gainTransaction!=null) {
                     writer.write("    <" + GAIN_TRANSACTION + ">" + gainTransaction.getTransactionId() + "</" + GAIN_TRANSACTION + ">\n");
                 } else {
                     writer.write("    <" + GAIN_TRANSACTION + ">null</" + GAIN_TRANSACTION + ">\n");
                 }
-                Transaction paymentTransaction = order.getPaymentTransaction();
+                Transaction paymentTransaction = salesOrder.getPaymentTransaction();
                 if(paymentTransaction!=null) {
                     writer.write("    <" + PAYMENT_TRANSACTION + ">" + paymentTransaction.getTransactionId() + "</" + PAYMENT_TRANSACTION + ">\n");
                 } else {
                     writer.write("    <" + PAYMENT_TRANSACTION + ">null</" + PAYMENT_TRANSACTION + ">\n");
                 }
-                for (OrderItem orderItem : order.getBusinessObjects()) {
+                for (OrderItem orderItem : salesOrder.getBusinessObjects()) {
                     Article article = orderItem.getArticle();
 
                     // TODO: 1/ save OrderItem fields (I/O): itemsPerUnit, salesVatRate

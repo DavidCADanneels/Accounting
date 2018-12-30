@@ -87,6 +87,8 @@ public class XMLConstants {
     public static final String TURNOVER = "Turnover";
     public static final String COMPANY_CONTACT = "companyContact";
     public static final String CONTACT_NO_INVOICE = "ContactNoInvoice";
+    public static final String CREDIT_NOTE = "CN";
+    public static final String PROMO_ORDER = "PromoOrder";
 
     public static final String MORTGAGES = "Mortgages";
     public static final String MORTGAGE = "Mortgage";
