@@ -22,19 +22,36 @@ public class StockTransactions {
         orders.add(order);
         if(order instanceof SalesOrder){
             SalesOrder salesOrder = (SalesOrder) order;
-            salesOrder.getBusinessObjects().forEach(orderItem -> {
-                Article article = orderItem.getArticle();
-                int numberOfItems = orderItem.getNumberOfItems();
-                article.setSoDelivered(numberOfItems);
-            });
+            if(!salesOrder.isCreditNote()){
+                salesOrder.getBusinessObjects().forEach(orderItem -> {
+                    Article article = orderItem.getArticle();
+                    int numberOfItems = orderItem.getNumberOfItems();
+                    article.setSoDelivered(numberOfItems);
+                });
+
+            } else {
+                salesOrder.getBusinessObjects().forEach(orderItem -> {
+                    Article article = orderItem.getArticle();
+                    int numberOfItems = orderItem.getNumberOfItems();
+                    article.setSoCnDelivered(numberOfItems);
+                });
+            }
         }
         if (order instanceof PurchaseOrder){
             PurchaseOrder purchaseOrder = (PurchaseOrder) order;
-            purchaseOrder.getBusinessObjects().forEach(orderItem -> {
-                Article article = orderItem.getArticle();
-                int numberOfItems = orderItem.getNumberOfItems();
-                article.setPoDelivered(numberOfItems);
-            });
+            if(!purchaseOrder.isCreditNote()) {
+                purchaseOrder.getBusinessObjects().forEach(orderItem -> {
+                    Article article = orderItem.getArticle();
+                    int numberOfItems = orderItem.getNumberOfItems();
+                    article.setPoDelivered(numberOfItems);
+                });
+            } else {
+                purchaseOrder.getBusinessObjects().forEach(orderItem -> {
+                    Article article = orderItem.getArticle();
+                    int numberOfItems = orderItem.getNumberOfItems();
+                    article.setPoCnDelivered(numberOfItems);
+                });
+            }
         }
     }
 

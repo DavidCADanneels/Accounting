@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Trade;
 
 
+import be.dafke.BasicAccounting.Accounts.AccountActions;
 import be.dafke.BasicAccounting.Contacts.ContactDetailsPanel;
 import be.dafke.BasicAccounting.Journals.DateAndDescriptionDialog;
 import be.dafke.BasicAccounting.MainApplication.Main;
@@ -176,7 +177,6 @@ public class PurchaseOrdersDetailPanel extends JPanel {
         String description = "";
         transaction = new Transaction(date, description);
 
-        Account creditAccount = StockUtils.getVatCreditAccount(accounting);
         Account stockAccount = StockUtils.getStockAccount(accounting);
 
         Contact supplier = purchaseOrder.getSupplier();
@@ -186,27 +186,33 @@ public class PurchaseOrdersDetailPanel extends JPanel {
         Account supplierAccount = StockUtils.getSupplierAccount(supplier, accounting);
         VATTransaction vatTransaction = new VATTransaction();
 
+        boolean creditNote = purchaseOrder.isCreditNote();
+
         BigDecimal stockAmount = purchaseOrder.getTotalPurchasePriceExclVat();
-        Booking stockBooking = new Booking(stockAccount, stockAmount, true);
-        VATBooking stockVatBooking = PurchaseType.VAT_81.getCostBooking(stockAmount);
-        stockBooking.addVatBooking(stockVatBooking);
-        //
+        Booking stockBooking = new Booking(stockAccount, stockAmount, !creditNote);
+
+        PurchaseType purchaseType = PurchaseType.VAT_81;
+        if(!creditNote){
+            AccountActions.addPurchaseVatTransaction(stockBooking, purchaseType, vatTransaction);
+        } else {
+            AccountActions.addPurchaseCnVatTransaction(stockBooking, purchaseType, vatTransaction);
+        }
         transaction.addBusinessObject(stockBooking);
-        vatTransaction.addBusinessObject(stockVatBooking);
 
         BigDecimal supplierAmount = purchaseOrder.getTotalPurchasePriceInclVat();
-        Booking supplierBooking = new Booking(supplierAccount, supplierAmount, false);
+        Booking supplierBooking = new Booking(supplierAccount, supplierAmount, creditNote);
         // (no VAT Booking for Supplier)
         transaction.addBusinessObject(supplierBooking);
 
         BigDecimal vatAmount = purchaseOrder.getTotalPurchaseVat();
         if(vatAmount.compareTo(BigDecimal.ZERO) != 0) {
-            Booking bookingVat = new Booking(creditAccount, vatAmount, true);
-            VATBooking vatBooking = PurchaseType.getVatBooking(vatAmount);
-            bookingVat.addVatBooking(vatBooking);
-            //
-            transaction.addBusinessObject(bookingVat);
-            vatTransaction.addBusinessObject(vatBooking);
+            if(!creditNote) {
+                Booking bookingVat = AccountActions.createPurchaseVatBooking(accounting, vatAmount, vatTransaction);
+                transaction.addBusinessObject(bookingVat);
+            } else {
+                Booking bookingVat = AccountActions.createPurchaseCnVatBooking(accounting, vatAmount, vatTransaction);
+                transaction.addBusinessObject(bookingVat);
+            }
         }
         transaction.addVatTransaction(vatTransaction);
         vatTransaction.setTransaction(transaction);

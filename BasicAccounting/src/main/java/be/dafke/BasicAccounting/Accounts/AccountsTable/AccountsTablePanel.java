@@ -29,16 +29,13 @@ public class AccountsTablePanel extends JPanel {
     private final AccountFilterPanel filterPanel;
 
     private AccountsTablePopupMenu popup;
-    private Accounts accounts;
-    private Journals journals;
+    private Accounting accounting;
     private Journal journal;
     private JournalType journalType;
     private AccountsList accountsList;
     private AccountsTableButtons accountsTableButtons;
 
     private VATTransaction.VATType vatType = null;
-    private VATTransactions vatTransactions = null;
-    private Contacts contacts = null;
 
     public AccountsTablePanel(boolean left) {
 		setLayout(new BorderLayout());
@@ -73,14 +70,14 @@ public class AccountsTablePanel extends JPanel {
         popup.setVisible(false);
         for(Account account : table.getSelectedObjects()){
             Point location = getLocationOnScreen();
-            AccountDetailsGUI.getAccountDetails(location, account, journals);
+            AccountDetailsGUI.getAccountDetails(location, account, accounting.getJournals());
         }
     }
 
     public void manageAccounts(){
         popup.setVisible(false);
         ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
-        AccountManagementGUI accountManagementGUI = AccountManagementGUI.getInstance(accounts, accountTypes);
+        AccountManagementGUI accountManagementGUI = AccountManagementGUI.getInstance(accounting.getAccounts(), accountTypes);
         accountManagementGUI.setLocation(getLocationOnScreen());
         accountManagementGUI.setVisible(true);
     }
@@ -88,7 +85,7 @@ public class AccountsTablePanel extends JPanel {
     public void addAccount(){
         popup.setVisible(false);
         ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
-        NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes);
+        NewAccountDialog newAccountDialog = new NewAccountDialog(accounting.getAccounts(), accountTypes);
         newAccountDialog.setLocation(getLocation());
         newAccountDialog.setVisible(true);
     }
@@ -98,7 +95,7 @@ public class AccountsTablePanel extends JPanel {
         Account account = table.getSelectedObject();
         if(account!=null) {
             ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
-            NewAccountDialog newAccountDialog = new NewAccountDialog(accounts, accountTypes);
+            NewAccountDialog newAccountDialog = new NewAccountDialog(accounting.getAccounts(), accountTypes);
             newAccountDialog.setAccount(account);
             newAccountDialog.setVisible(true);
         }
@@ -109,14 +106,12 @@ public class AccountsTablePanel extends JPanel {
     }
 
     public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
 	    // FIXME: enable buttons if something is selected (Listener) or make sure always something is selected
         // for info: the buttons can be used if nothing is selected, their listeners can deal with non-selections
         accountsTableButtons.setActive(accounting!=null);
 	    accountDataTableModel.setFilter(null);
         setAccounts(accounting==null?null:accounting.getAccounts());
-        setJournals(accounting==null?null:accounting.getJournals());
-        setVatTransactions(accounting == null ? null : accounting.getVatTransactions());
-        setContacts(accounting == null ? null : accounting.getContacts());
         // if setAccounts() is used here, popup.setAccounts() will be called twice
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table));  // TODO: Needed?
         fireAccountDataChanged();
@@ -156,15 +151,6 @@ public class AccountsTablePanel extends JPanel {
         }
     }
 
-
-    public void setVatTransactions(VATTransactions vatTransactions) {
-        this.vatTransactions = vatTransactions;
-    }
-
-    public void setContacts(Contacts contacts) {
-        this.contacts = contacts;
-    }
-
     public void setVatType(VATTransaction.VATType vatType) {
         this.vatType = vatType;
     }
@@ -183,18 +169,12 @@ public class AccountsTablePanel extends JPanel {
     public void book(boolean debit) {
         popup.setVisible(false);
         for(Account account : table.getSelectedObjects()){
-            ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
-            AccountActions.book(account, debit, vatType, vatTransactions, accounts, accountTypes, contacts, this);
+            AccountActions.book(account, debit, vatType, accounting, this);
         }
-    }
-
-    public void setJournals(Journals journals) {
-        this.journals = journals;
     }
 
 
     public void setAccounts(Accounts accounts) {
-        this.accounts = accounts;
         accountDataTableModel.setAccounts(accounts);
         filterPanel.clearSearchFields();
         fireAccountDataChanged();

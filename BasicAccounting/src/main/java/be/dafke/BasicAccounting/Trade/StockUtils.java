@@ -67,36 +67,6 @@ public class StockUtils {
         return account;
     }
 
-    public static Account getVatDebitAccount(Accounting accounting){
-        VATTransactions vatTransactions = accounting.getVatTransactions();
-        Account debitAccount = vatTransactions.getDebitAccount();
-        if (debitAccount == null){
-            AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.TAXDEBIT);
-            ArrayList<AccountType> list = new ArrayList<>();
-            list.add(accountType);
-            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select VAT Account for Sales");
-            dialog.setVisible(true);
-            debitAccount = dialog.getSelection();
-            vatTransactions.setDebitAccount(debitAccount);
-        }
-        return debitAccount;
-    }
-
-    public static Account getVatCreditAccount(Accounting accounting){
-        VATTransactions vatTransactions = accounting.getVatTransactions();
-        Account creditAccount = vatTransactions.getCreditAccount();
-        if (creditAccount == null){
-            AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.TAXCREDIT);
-            ArrayList<AccountType> list = new ArrayList<>();
-            list.add(accountType);
-            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select VAT Account for Purchases");
-            dialog.setVisible(true);
-            creditAccount = dialog.getSelection();
-            vatTransactions.setCreditAccount(creditAccount);
-        }
-        return creditAccount;
-    }
-
     public static Account getSupplierAccount(Contact supplier, Accounting accounting){
         Account supplierAccount = supplier.getAccount();
         if (supplierAccount == null){

@@ -7,6 +7,7 @@ public class Order extends OrderItems {
     private Integer id;
     private String deliveryDate = null;
     private String description;
+    private boolean creditNote;
 
     public Order() {
         super();
@@ -75,5 +76,13 @@ public class Order extends OrderItems {
 
     public String getDescription() {
         return description;
+    }
+
+    public boolean isCreditNote() {
+        return creditNote;
+    }
+
+    public void setCreditNote(boolean creditNote) {
+        this.creditNote = creditNote;
     }
 }

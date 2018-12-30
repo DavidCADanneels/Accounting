@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Trade;
 
 
+import be.dafke.BasicAccounting.Accounts.AccountActions;
 import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
 import be.dafke.BasicAccounting.Contacts.ContactDetailsPanel;
 import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
@@ -334,7 +335,6 @@ class SalesOrderDetailPanel extends JPanel {
     private void createSalesTransaction(){
         Contact customer = getCustomer();
         Account customerAccount = getCustomerAccount(customer);
-        Account vatAccount = StockUtils.getVatDebitAccount(accounting);
         Account salesAccount = StockUtils.getSalesAccount(accounting);
 
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
@@ -347,47 +347,49 @@ class SalesOrderDetailPanel extends JPanel {
         Transaction salesTransaction = new Transaction(date, description);
         salesTransaction.setContact(customer);
 
+        boolean creditNote = salesOrder.isCreditNote();
+
         BigDecimal customerAmount = salesOrder.getTotalSalesPriceInclVat();
-        Booking customerBooking = new Booking(customerAccount, customerAmount, true);
+        Booking customerBooking = new Booking(customerAccount, customerAmount, !creditNote);
         salesTransaction.addBusinessObject(customerBooking);
 
         // Calculate Net Amounts per VAT Rate -> Fields 0, 1, 2, 3
-        List<Integer> vatRates = new ArrayList<>();
-        vatRates.add(6);
-        vatRates.add(21);
+        List<SalesType> salesTypes = new ArrayList<>();
+        salesTypes.add(SalesType.VAT_1);
+        salesTypes.add(SalesType.VAT_3);
 
         VATTransaction vatTransaction = new VATTransaction();
-        for(int pct:vatRates){
-            BigDecimal netAmount = salesOrder.getTotalSalesPriceExclVat(OrderItem.withSalesVatRate(pct));
+        for(SalesType salesType:salesTypes){
+            BigDecimal netAmount = salesOrder.getTotalSalesPriceExclVat(OrderItem.withSalesVatRate(salesType.getPct()));
             if(netAmount.compareTo(BigDecimal.ZERO) != 0){
-                Booking salesBooking = new Booking(salesAccount, netAmount, false);
-                salesTransaction.addBusinessObject(salesBooking);
-
-                salesTransaction.increaseTurnOverAmount(netAmount);
-
-                VATBooking revenueBooking = SalesType.getRevenueBookingByPct(netAmount, pct);
-                vatTransaction.addBusinessObject(revenueBooking);
-
-                salesBooking.addVatBooking(revenueBooking);
+                if(!creditNote) {
+                    Booking salesBooking = new Booking(salesAccount, netAmount, false);
+                    AccountActions.addSalesVatTransaction(salesBooking, salesType, vatTransaction);
+                    salesTransaction.addBusinessObject(salesBooking);
+                    salesTransaction.increaseTurnOverAmount(netAmount);
+                } else {
+                    Booking salesCnBooking = new Booking(salesAccount, netAmount, true);
+                    AccountActions.addSalesCnVatTransaction(salesCnBooking, vatTransaction);
+                    salesTransaction.addBusinessObject(salesCnBooking);
+                    salesTransaction.increaseTurnOverAmount(netAmount.negate());
+                }
             }
         }
-        // Calculate Total VAT Amount -> Field 54
-        BigDecimal vatAmount = salesOrder.calculateTotalSalesVat(); // ensure no cent different
-
-        Booking vatBooking = new Booking(vatAccount, vatAmount, false);
-        salesTransaction.addBusinessObject(vatBooking);
-
-        salesTransaction.setVATAmount(vatAmount);
-
-        VATBooking vatSalesBooking = SalesType.getVatBooking(vatAmount);
-        vatTransaction.addBusinessObject(vatSalesBooking);
-
-        vatBooking.addVatBooking(vatSalesBooking);
-
-        // ---
-
         salesTransaction.addVatTransaction(vatTransaction);
         vatTransaction.setTransaction(salesTransaction);
+
+        // Calculate Total VAT Amount -> Field 54
+        BigDecimal vatAmount = salesOrder.calculateTotalSalesVat(); // ensure no cent different
+        if(!creditNote) {
+            Booking vatBooking = AccountActions.createSalesVatBooking(accounting, vatAmount, vatTransaction);
+            salesTransaction.setVATAmount(vatAmount);
+            salesTransaction.addBusinessObject(vatBooking);
+        } else {
+            Booking vatBooking = AccountActions.createSalesCnVatBooking(accounting, vatAmount, vatTransaction);
+            salesTransaction.setVATAmount(vatAmount.negate());
+            salesTransaction.addBusinessObject(vatBooking);
+        }
+        // ---
 
         Journal salesJournal;
         if(salesOrder.isInvoice()) {
@@ -420,9 +422,11 @@ class SalesOrderDetailPanel extends JPanel {
         BigDecimal totalSalesPriceExclVat = salesOrder.getTotalSalesPriceExclVat();
         BigDecimal gainAmount = totalSalesPriceExclVat.subtract(stockAmount);
 
-        Booking stockBooking = new Booking(stockAccount, stockAmount, false);
-        Booking gainBooking = new Booking(gainAccount, gainAmount, false);
-        Booking salesDivBooking = new Booking(salesGainAccount, totalSalesPriceExclVat, true);
+        boolean creditNote = salesOrder.isCreditNote();
+
+        Booking stockBooking = new Booking(stockAccount, stockAmount, creditNote);
+        Booking gainBooking = new Booking(gainAccount, gainAmount, creditNote);
+        Booking salesDivBooking = new Booking(salesGainAccount, totalSalesPriceExclVat, !creditNote);
 
         Calendar date;
         String description = salesOrder.getName();

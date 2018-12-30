@@ -203,9 +203,18 @@ public class Article extends BusinessObject{
         nrOrderedByPO += numberOfItems;
     }
 
+    public void setPoCnOrdered(int numberOfItems) {
+        nrOrderedByPO -= numberOfItems;
+    }
+
     public void setPoDelivered(int numberOfItems) {
         nrOrderedByPO-=numberOfItems;
         nrAdded+=numberOfItems;
+    }
+
+    public void setPoCnDelivered(int numberOfItems) {
+        nrOrderedByPO+=numberOfItems;
+        nrAdded-=numberOfItems;
     }
 
     public void addSalesOrder(SalesOrder salesOrder) {
@@ -216,9 +225,18 @@ public class Article extends BusinessObject{
         nrOrderedForSO += numberOfItems;
     }
 
+    public void setSoCnOrdered(int numberOfItems) {
+        nrOrderedForSO -= numberOfItems;
+    }
+
     public void setSoDelivered(int numberOfItems) {
         nrOrderedForSO-=numberOfItems;
         nrRemoved+=numberOfItems;
+    }
+
+    public void setSoCnDelivered(int numberOfItems) {
+        nrOrderedForSO+=numberOfItems;
+        nrRemoved-=numberOfItems;
     }
 
     public Integer getNrInStock() {
