@@ -81,6 +81,13 @@ public class StockIO {
                 stockTransactions.setSalesGainAccount(account);
             }
         }
+        String promoAccount = getValue(transactionsElement, PROMO_ACCOUNT);
+        if (promoAccount != null) {
+            Account account = accounts.getBusinessObject(promoAccount);
+            if (account != null) {
+                stockTransactions.setPromoAccount(account);
+            }
+        }
 
     }
 
@@ -154,6 +161,7 @@ public class StockIO {
             Account gainAccount = stockTransactions.getGainAccount();
             Account salesAccount = stockTransactions.getSalesAccount();
             Account salesGainAccount = stockTransactions.getSalesGainAccount();
+            Account salesPromoAccount = stockTransactions.getPromoAccount();
 
             writer.write("  <" + PURCHASE_JOURNAL + ">"+ (purchaseJournal==null?"null":purchaseJournal.getName())+"</" + PURCHASE_JOURNAL + ">\n");
             writer.write("  <" + STOCK_ACCOUNT+">"+ (stockAccount==null?"null":stockAccount.getName()) +"</" + STOCK_ACCOUNT+">\n");
@@ -163,6 +171,7 @@ public class StockIO {
             writer.write("  <" + GAIN_ACCOUNT + ">"+(gainAccount==null?"null":gainAccount)+"</" + GAIN_ACCOUNT + ">\n");
             writer.write("  <" + SALES_ACCOUNT + ">"+(salesAccount==null?"null":salesAccount)+"</" + SALES_ACCOUNT + ">\n");
             writer.write("  <" + SALES_GAIN_ACCOUNT + ">"+(salesGainAccount==null?"null":salesGainAccount)+"</" + SALES_GAIN_ACCOUNT + ">\n");
+            writer.write("  <" + PROMO_ACCOUNT + ">"+(salesPromoAccount==null?"null":salesPromoAccount)+"</" + PROMO_ACCOUNT + ">\n");
 
             for (Order order : stockTransactions.getOrders()) {
                 writer.write("  <" + STOCK_TRANSACTION + ">\n");

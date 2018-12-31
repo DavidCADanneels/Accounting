@@ -81,6 +81,21 @@ public class StockUtils {
         return supplierAccount;
     }
 
+    public static Account getPromoAccount(Accounting accounting){
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        Account promoAccount = stockTransactions.getPromoAccount();
+        if (promoAccount == null){
+            AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.COST);
+            ArrayList<AccountType> list = new ArrayList<>();
+            list.add(accountType);
+            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select Promo Account");
+            dialog.setVisible(true);
+            promoAccount = dialog.getSelection();
+            stockTransactions.setPromoAccount(promoAccount);
+        }
+        return promoAccount;
+    }
+
     public static Journal getSalesJournal(Accounting accounting){
         StockTransactions stockTransactions = accounting.getStockTransactions();
         Journal salesJournal = stockTransactions.getSalesJournal();

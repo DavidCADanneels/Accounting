@@ -11,6 +11,7 @@ public class StockTransactions {
     private Account gainAccount;
     private Account salesAccount;
     private Account salesGainAccount;
+    private Account promoAccount;
 
     protected final ArrayList<Order> orders = new ArrayList<>();
 
@@ -109,6 +110,14 @@ public class StockTransactions {
 
     public void setSalesGainAccount(Account salesGainAccount) {
         this.salesGainAccount = salesGainAccount;
+    }
+
+    public Account getPromoAccount() {
+        return promoAccount;
+    }
+
+    public void setPromoAccount(Account promoAccount) {
+        this.promoAccount = promoAccount;
     }
 
     public Journal getPurchaseJournal() {

@@ -229,8 +229,10 @@ class SalesOrderDetailPanel extends JPanel {
     }
 
     private void placeOrder() {
-        createSalesTransaction();
-        if(!salesOrder.isPromoOrder()) {
+        if(salesOrder.isPromoOrder()){
+            createPromoTransaction();
+        } else {
+            createSalesTransaction();
             createGainTransaction();
         }
         StockHistoryGUI.fireStockContentChanged();
@@ -332,26 +334,59 @@ class SalesOrderDetailPanel extends JPanel {
         return customerAccount;
     }
 
-    private void createSalesTransaction(){
-        Contact customer = getCustomer();
-        Account customerAccount = getCustomerAccount(customer);
-        Account salesAccount = StockUtils.getSalesAccount(accounting);
-
+    public Transaction createTransaction(){
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
         dateAndDescriptionDialog.setVisible(true);
 
         Calendar date = dateAndDescriptionDialog.getDate();
         String description = dateAndDescriptionDialog.getDescription();
+        return new Transaction(date, description);
+    }
 
-        // For Sales
-        Transaction salesTransaction = new Transaction(date, description);
-        salesTransaction.setContact(customer);
+    private void createPromoTransaction() {
+        Transaction transaction = createTransaction();
+
+        Account promoCost = StockUtils.getPromoAccount(accounting);
+        Account stockAccount = StockUtils.getStockAccount(accounting);
+        BigDecimal totalSalesPriceInclVat = salesOrder.getTotalSalesPriceInclVat();
+
+        Booking costBooking = new Booking(promoCost, totalSalesPriceInclVat, true);
+        Booking stockBooking = new Booking(stockAccount, totalSalesPriceInclVat, false);
+        transaction.addBusinessObject(costBooking);
+        transaction.addBusinessObject(stockBooking);
+
+        Journal salesJournal = StockUtils.getSalesNoInvoiceJournal(accounting);
+        transaction.setJournal(salesJournal);
+
+        Transactions transactions = accounting.getTransactions();
+        transactions.setId(transaction);
+        transactions.addBusinessObject(transaction);
+        salesJournal.addBusinessObject(transaction);
+        salesOrder.setSalesTransaction(transaction);
+        salesOrder.setGainTransaction(transaction);
+        Main.setJournal(salesJournal);
+        Main.selectTransaction(transaction);
+        Main.fireJournalDataChanged(salesJournal);
+        for (Account account : transaction.getAccounts()) {
+            Main.fireAccountDataChanged(account);
+        }
+    }
+
+    private void createSalesTransaction(){
+        Transaction transaction = createTransaction();
+
+        Contact customer = getCustomer();
+        transaction.setContact(customer);
+
+        Account customerAccount = getCustomerAccount(customer);
+        Account salesAccount = StockUtils.getSalesAccount(accounting);
 
         boolean creditNote = salesOrder.isCreditNote();
 
-        BigDecimal customerAmount = salesOrder.getTotalSalesPriceInclVat();
-        Booking customerBooking = new Booking(customerAccount, customerAmount, !creditNote);
-        salesTransaction.addBusinessObject(customerBooking);
+        BigDecimal salesPriceInclVat = salesOrder.getTotalSalesPriceInclVat();
+
+        Booking customerBooking = new Booking(customerAccount, salesPriceInclVat, !creditNote);
+        transaction.addBusinessObject(customerBooking);
 
         // Calculate Net Amounts per VAT Rate -> Fields 0, 1, 2, 3
         List<SalesType> salesTypes = new ArrayList<>();
@@ -365,29 +400,29 @@ class SalesOrderDetailPanel extends JPanel {
                 if(!creditNote) {
                     Booking salesBooking = new Booking(salesAccount, netAmount, false);
                     AccountActions.addSalesVatTransaction(salesBooking, salesType, vatTransaction);
-                    salesTransaction.addBusinessObject(salesBooking);
-                    salesTransaction.increaseTurnOverAmount(netAmount);
+                    transaction.addBusinessObject(salesBooking);
+                    transaction.increaseTurnOverAmount(netAmount);
                 } else {
                     Booking salesCnBooking = new Booking(salesAccount, netAmount, true);
                     AccountActions.addSalesCnVatTransaction(salesCnBooking, vatTransaction);
-                    salesTransaction.addBusinessObject(salesCnBooking);
-                    salesTransaction.increaseTurnOverAmount(netAmount.negate());
+                    transaction.addBusinessObject(salesCnBooking);
+                    transaction.increaseTurnOverAmount(netAmount.negate());
                 }
             }
         }
-        salesTransaction.addVatTransaction(vatTransaction);
-        vatTransaction.setTransaction(salesTransaction);
+        transaction.addVatTransaction(vatTransaction);
+        vatTransaction.setTransaction(transaction);
 
         // Calculate Total VAT Amount -> Field 54
         BigDecimal vatAmount = salesOrder.calculateTotalSalesVat(); // ensure no cent different
         if(!creditNote) {
             Booking vatBooking = AccountActions.createSalesVatBooking(accounting, vatAmount, vatTransaction);
-            salesTransaction.setVATAmount(vatAmount);
-            salesTransaction.addBusinessObject(vatBooking);
+            transaction.setVATAmount(vatAmount);
+            transaction.addBusinessObject(vatBooking);
         } else {
             Booking vatBooking = AccountActions.createSalesCnVatBooking(accounting, vatAmount, vatTransaction);
-            salesTransaction.setVATAmount(vatAmount.negate());
-            salesTransaction.addBusinessObject(vatBooking);
+            transaction.setVATAmount(vatAmount.negate());
+            transaction.addBusinessObject(vatBooking);
         }
         // ---
 
@@ -397,18 +432,18 @@ class SalesOrderDetailPanel extends JPanel {
         } else {
             salesJournal = StockUtils.getSalesNoInvoiceJournal(accounting);
         }
-        salesTransaction.setJournal(salesJournal);
+        transaction.setJournal(salesJournal);
         // TODO: ask for Date and Description
 
         Transactions transactions = accounting.getTransactions();
-        transactions.setId(salesTransaction);
-        transactions.addBusinessObject(salesTransaction);
-        salesJournal.addBusinessObject(salesTransaction);
-        salesOrder.setSalesTransaction(salesTransaction);
+        transactions.setId(transaction);
+        transactions.addBusinessObject(transaction);
+        salesJournal.addBusinessObject(transaction);
+        salesOrder.setSalesTransaction(transaction);
         Main.setJournal(salesJournal);
-        Main.selectTransaction(salesTransaction);
+        Main.selectTransaction(transaction);
         Main.fireJournalDataChanged(salesJournal);
-        for (Account account : salesTransaction.getAccounts()) {
+        for (Account account : transaction.getAccounts()) {
             Main.fireAccountDataChanged(account);
         }
     }
