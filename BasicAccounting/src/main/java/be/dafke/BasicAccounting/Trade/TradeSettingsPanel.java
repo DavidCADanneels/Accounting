@@ -11,9 +11,9 @@ import java.util.ArrayList;
  */
 public class TradeSettingsPanel extends JPanel {
     private Accounting accounting;
-    private final JComboBox<Account> stockAccountSelection, gainAccountSelection, salesAccountSelection, salesGainAccountSelection;
+    private final JComboBox<Account> stockAccountSelection, gainAccountSelection, salesAccountSelection, salesGainAccountSelection, promoAccountSelection;
     private final JComboBox<Journal> purchaseJournalSelection, salesJournalSelection, salesNoInvoiceSelection, gainJournalSelection;
-    private final DefaultComboBoxModel<Account> stockAccountModel, gainAccountModel, salesAccountModel, salesGainAccountModel;
+    private final DefaultComboBoxModel<Account> stockAccountModel, gainAccountModel, salesAccountModel, salesGainAccountModel, promoAccountModel;
     private final DefaultComboBoxModel<Journal> purchaseJournalModel, salesJournalModel, salesNoInvoiceModel, gainJournalModel;
 
     public TradeSettingsPanel(Accounting accounting) {
@@ -22,19 +22,23 @@ public class TradeSettingsPanel extends JPanel {
         gainAccountModel = new DefaultComboBoxModel<>();
         salesAccountModel = new DefaultComboBoxModel<>();
         salesGainAccountModel = new DefaultComboBoxModel<>();
+        promoAccountModel = new DefaultComboBoxModel<>();
 
         purchaseJournalModel = new DefaultComboBoxModel<>();
         salesJournalModel = new DefaultComboBoxModel<>();
         salesNoInvoiceModel = new DefaultComboBoxModel<>();
         gainJournalModel = new DefaultComboBoxModel<>();
 
+        // TODO: add only relevant account(type)s, e.g. COST, REVENUE, ...
         accounting.getAccounts().getBusinessObjects().forEach(account -> {
             stockAccountModel.addElement(account);
             gainAccountModel.addElement(account);
             salesAccountModel.addElement(account);
             salesGainAccountModel.addElement(account);
+            promoAccountModel.addElement(account);
         });
 
+        // TODO: add only relevant journal(type)s, e.g. SALES, PURCHASE, PAYMENT, GAIN
         accounting.getJournals().getBusinessObjects().forEach(journal -> {
             purchaseJournalModel.addElement(journal);
             salesJournalModel.addElement(journal);
@@ -46,6 +50,7 @@ public class TradeSettingsPanel extends JPanel {
         gainAccountSelection = new JComboBox<>(gainAccountModel);
         salesAccountSelection = new JComboBox<>(salesAccountModel);
         salesGainAccountSelection = new JComboBox<>(salesGainAccountModel);
+        promoAccountSelection = new JComboBox<>(promoAccountModel);
 
         purchaseJournalSelection = new JComboBox<>(purchaseJournalModel);
         salesJournalSelection = new JComboBox<>(salesJournalModel);
@@ -58,6 +63,7 @@ public class TradeSettingsPanel extends JPanel {
         Account gainAccount = stockTransactions.getGainAccount();
         Account salesAccount = stockTransactions.getSalesAccount();
         Account salesGainAccount = stockTransactions.getSalesGainAccount();
+        Account promoAccount = stockTransactions.getPromoAccount();
 
         Journal purchaseJournal = stockTransactions.getPurchaseJournal();
         Journal salesJournal = stockTransactions.getSalesJournal();
@@ -79,6 +85,10 @@ public class TradeSettingsPanel extends JPanel {
         salesGainAccountSelection.setSelectedItem(salesGainAccount);
         salesGainAccountSelection.addActionListener(e -> updateSelectedGainAccount());
         salesGainAccountSelection.setEnabled(accounting.isTradeAccounting());
+
+        promoAccountSelection.setSelectedItem(promoAccount);
+        promoAccountSelection.addActionListener(e -> updateSelectedPromoAccount());
+        promoAccountSelection.setEnabled(accounting.isTradeAccounting());
 
         purchaseJournalSelection.setSelectedItem(purchaseJournal);
         purchaseJournalSelection.addActionListener(e -> updateSelectedPurchaseJournal());
@@ -107,6 +117,8 @@ public class TradeSettingsPanel extends JPanel {
         panel.add(salesAccountSelection);
         panel.add(new JLabel("Sales Gain Account"));
         panel.add(salesGainAccountSelection);
+        panel.add(new JLabel("Sales Promo Account"));
+        panel.add(promoAccountSelection);
 
         panel.add(new JLabel("Purchase Journal"));
         panel.add(purchaseJournalSelection);
@@ -144,6 +156,12 @@ public class TradeSettingsPanel extends JPanel {
         stockTransactions.setSalesGainAccount(account);
     }
 
+    public void updateSelectedPromoAccount() {
+        StockTransactions stockTransactions = accounting.getStockTransactions();
+        Account account = (Account) promoAccountSelection.getSelectedItem();
+        stockTransactions.setPromoAccount(account);
+    }
+
     public void updateSelectedPurchaseJournal() {
         StockTransactions stockTransactions = accounting.getStockTransactions();
         Journal journal = (Journal) purchaseJournalSelection.getSelectedItem();
@@ -176,6 +194,7 @@ public class TradeSettingsPanel extends JPanel {
         gainAccountSelection.setEnabled(enabled);
         salesAccountSelection.setEnabled(enabled);
         salesGainAccountSelection.setEnabled(enabled);
+        promoAccountSelection.setEnabled(enabled);
 
         purchaseJournalSelection.setEnabled(enabled);
         salesJournalSelection.setEnabled(enabled);
@@ -186,6 +205,7 @@ public class TradeSettingsPanel extends JPanel {
             gainAccountSelection.setSelectedItem(null);
             salesAccountSelection.setSelectedItem(null);
             salesGainAccountSelection.setSelectedItem(null);
+            promoAccountSelection.setSelectedItem(null);
 
             purchaseJournalSelection.setSelectedItem(null);
             salesJournalSelection.setSelectedItem(null);
@@ -209,6 +229,7 @@ public class TradeSettingsPanel extends JPanel {
         gainAccountModel.removeAllElements();
         salesAccountModel.removeAllElements();
         salesGainAccountModel.removeAllElements();
+        promoAccountModel.removeAllElements();
 
         purchaseJournalModel.removeAllElements();
         salesJournalModel.removeAllElements();
@@ -222,6 +243,8 @@ public class TradeSettingsPanel extends JPanel {
             Account gainAccount = stockTransactions.getGainAccount();
             Account salesAccount = stockTransactions.getSalesAccount();
             Account salesGainAccount = stockTransactions.getSalesGainAccount();
+            Account promoAccount = stockTransactions.getPromoAccount();
+
             Journal salesJournal = stockTransactions.getSalesJournal();
             Journal purchaseJournal = stockTransactions.getPurchaseJournal();
             Journal salesNoInvoiceJournal = stockTransactions.getSalesNoInvoiceJournal();
@@ -237,6 +260,7 @@ public class TradeSettingsPanel extends JPanel {
                     gainAccountModel.addElement(account);
                     salesAccountModel.addElement(account);
                     salesGainAccountModel.addElement(account);
+                    promoAccountModel.addElement(account);
                 });
             }
             if (journals != null) {
@@ -284,6 +308,15 @@ public class TradeSettingsPanel extends JPanel {
                 salesGainAccountSelection.setSelectedItem(null);
             }
 
+            if (promoAccount != null) {
+                Account account = accounts.getBusinessObject(promoAccount.getName());
+                stockTransactions.setPromoAccount(account);
+                promoAccountSelection.setSelectedItem(account);
+            } else {
+                stockTransactions.setPromoAccount(null);
+                promoAccountSelection.setSelectedItem(null);
+            }
+
             if (salesJournal != null) {
                 Journal journal = journals.getBusinessObject(salesJournal.getName());
                 stockTransactions.setSalesJournal(journal);
@@ -324,6 +357,7 @@ public class TradeSettingsPanel extends JPanel {
             gainAccountSelection.setSelectedItem(null);
             salesAccountSelection.setSelectedItem(null);
             salesGainAccountSelection.setSelectedItem(null);
+            promoAccountModel.setSelectedItem(null);
 
             purchaseJournalSelection.setSelectedItem(null);
             salesJournalSelection.setSelectedItem(null);
