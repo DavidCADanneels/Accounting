@@ -194,11 +194,15 @@ public class Main {
     }
 
     public static void setAccounting(Accounting accounting) {
+        setAccounting(accounting, true);
+    }
+
+    public static void setAccounting(Accounting accounting, boolean readDetails) {
 
         Accounting activeAccounting = Accountings.getActiveAccounting();
         XMLWriter.writeAccounting(activeAccounting, false);
 
-        XMLReader.readAccountingDetails(accounting);
+        if (readDetails) XMLReader.readAccountingDetails(accounting);
         Accountings.setActiveAccounting(accounting); // only need to write to XML, call this only when writing XML files?
 
         frame.setAccounting(accounting);

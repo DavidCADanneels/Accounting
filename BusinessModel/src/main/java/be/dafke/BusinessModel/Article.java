@@ -26,19 +26,21 @@ public class Article extends BusinessObject{
     private Integer nrOrderedForSO = 0;
     private Integer nrOrderedByPO = 0;
 
-    public Article(Article article){
+    public Article(Article article, Contacts contacts){
         this(article.getName());
-        HSCode = article.getHSCode();
-        itemName = article.getItemName();
-        purchaseVatRate = article.getPurchaseVatRate();
-        salesVatRate = article.getSalesVatRate();
-        itemsPerUnit = article.getItemsPerUnit();
-        purchasePrice = article.getPurchasePrice();
-        salesPriceItemWithVat = article.getSalesPriceItemWithVat();
-        salesPriceUnitWithVat = article.getSalesPriceUnitWithVat();
-        supplier = article.getSupplier();
-        nrRemoved = article.getNrRemoved();
-        nrAdded = article.getNrAdded();
+        HSCode = article.HSCode;
+        itemName = article.itemName;
+        purchaseVatRate = article.purchaseVatRate;
+        salesVatRate = article.salesVatRate;
+        itemsPerUnit = article.itemsPerUnit;
+        purchasePrice = article.purchasePrice;
+        salesPriceItemWithVat = article.salesPriceItemWithVat;
+        salesPriceUnitWithVat = article.salesPriceUnitWithVat;
+        String supplierName = article.supplier.getName();
+        supplier = contacts.getBusinessObject(supplierName);
+        nrRemoved = 0;
+        nrAdded = 0;
+        // TODO: copy open SO and PO ?
         nrOrderedByPO = article.getNrOrderedByPO();
         nrOrderedForSO = article.getNrOrderedForSO();
     }

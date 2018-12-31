@@ -101,11 +101,24 @@ public class AccountingCopyPanel extends JPanel {
     }
 
     private void copyArticles() {
+        PurchaseOrder purchaseOrder = new PurchaseOrder();
+        purchaseOrder.setName("PO0");
+
         Articles articlesFrom = copyFrom.getArticles();
         Articles articlesTo = newAccounting.getArticles();
         articlesTo.clear();
         articlesFrom.getBusinessObjects().forEach(article -> {
-            Article newArticle = new Article(article);
+            Article newArticle = new Article(article, newAccounting.getContacts());
+            Integer numberOfItems = article.getNrInStock();
+            if(numberOfItems >0){
+                Integer itemsPerUnit = newArticle.getItemsPerUnit();
+                Integer numberOfUnits = numberOfItems / itemsPerUnit;
+                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, newArticle, purchaseOrder);
+                purchaseOrder.addBusinessObject(orderItem);
+                // TODO: call setPurchaseTransaction (= beginBalans) 'later' iso setPoOrdered
+                // setPurchaseTransaction calls setPoOrdered as well
+                newArticle.setPoOrdered(numberOfItems);
+            }
             try {
                 articlesTo.addBusinessObject(newArticle);
             } catch (EmptyNameException e) {
@@ -114,6 +127,20 @@ public class AccountingCopyPanel extends JPanel {
                 e.printStackTrace();
             }
         });
+        if (!purchaseOrder.getBusinessObjects().isEmpty()) {
+            // TODO: 'later' = here !
+//            purchaseOrder.setPurchaseTransaction(beginBalans);
+            try {
+                PurchaseOrders purchaseOrders = newAccounting.getPurchaseOrders();
+                purchaseOrders.addBusinessObject(purchaseOrder);
+            } catch (EmptyNameException e) {
+                e.printStackTrace();
+            } catch (DuplicateNameException e) {
+                e.printStackTrace();
+            }
+            StockTransactions stockTransactions = newAccounting.getStockTransactions();
+            stockTransactions.addOrder(purchaseOrder);
+        }
     }
 
     private void copyDeliverooMeals() {
@@ -198,8 +225,8 @@ public class AccountingCopyPanel extends JPanel {
             accountingSettingsPanel.setTradeSelected(true);
             if(copyFrom!=null){
                 // TODO: need separate check box to copy Articles?
-                copyArticles();
                 accountingSettingsPanel.copyTradeSettings(copyFrom);
+                copyArticles();
             } else {
                 accountingSettingsPanel.copyTradeSettings(null);
             }

@@ -37,8 +37,7 @@ public class StockTransactions {
                     article.setSoCnDelivered(numberOfItems);
                 });
             }
-        }
-        if (order instanceof PurchaseOrder){
+        } else if (order instanceof PurchaseOrder){
             PurchaseOrder purchaseOrder = (PurchaseOrder) order;
             if(!purchaseOrder.isCreditNote()) {
                 purchaseOrder.getBusinessObjects().forEach(orderItem -> {
