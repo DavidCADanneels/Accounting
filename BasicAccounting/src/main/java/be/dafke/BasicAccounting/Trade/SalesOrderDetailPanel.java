@@ -355,18 +355,18 @@ class SalesOrderDetailPanel extends JPanel {
         transaction.addBusinessObject(costBooking);
         transaction.addBusinessObject(stockBooking);
 
-        Journal salesJournal = StockUtils.getSalesNoInvoiceJournal(accounting);
-        transaction.setJournal(salesJournal);
+        Journal journal = StockUtils.getGainJournal(accounting);
+        transaction.setJournal(journal);
 
         Transactions transactions = accounting.getTransactions();
         transactions.setId(transaction);
         transactions.addBusinessObject(transaction);
-        salesJournal.addBusinessObject(transaction);
+        journal.addBusinessObject(transaction);
         salesOrder.setSalesTransaction(transaction);
         salesOrder.setGainTransaction(transaction);
-        Main.setJournal(salesJournal);
+        Main.setJournal(journal);
         Main.selectTransaction(transaction);
-        Main.fireJournalDataChanged(salesJournal);
+        Main.fireJournalDataChanged(journal);
         for (Account account : transaction.getAccounts()) {
             Main.fireAccountDataChanged(account);
         }
