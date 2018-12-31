@@ -28,6 +28,9 @@ public class ContactDetailsPanel extends JPanel {
     public static final String COUNTRY = "COUNTRY_LABEL";
     public static final String PHONE = "PHONE_LABEL";
     public static final String EMAIL = "EMAIL_LABEL";
+    public static final String CUSTOMER = "CUSTOMER_LABEL";
+    public static final String SUPPLIER = "SUPPLIER_LABEL";
+    private final JCheckBox customer, supplier;
     private final JTextField contactName, contactVAT, contactStreet, contactPostalCode, contactCity, contactCountry, contactPhone, contactEmail, officialName;
     private final Contacts contacts;
     private Contact contact;
@@ -46,6 +49,8 @@ public class ContactDetailsPanel extends JPanel {
         contactEmail = new JTextField(20);
         contactPhone = new JTextField(20);
         officialName = new JTextField(20);
+        customer = new JCheckBox(getBundle("Contacts").getString(CUSTOMER));
+        supplier = new JCheckBox(getBundle("Contacts").getString(SUPPLIER));
 
         add(new JLabel(getBundle("Contacts").getString(NAME)));
         add(contactName);
@@ -65,6 +70,8 @@ public class ContactDetailsPanel extends JPanel {
         add(contactPhone);
         add(new JLabel(getBundle("Contacts").getString(EMAIL)));
         add(contactEmail);
+        add(customer);
+        add(supplier);
     }
 
     public void setEnabled(boolean enabled){
@@ -77,6 +84,8 @@ public class ContactDetailsPanel extends JPanel {
         contactEmail.setEnabled(enabled);
         contactPhone.setEnabled(enabled);
         officialName.setEnabled(enabled);
+        customer.setEnabled(enabled);
+        supplier.setEnabled(enabled);
     }
 
     public void setContact(Contact contact){
@@ -90,6 +99,8 @@ public class ContactDetailsPanel extends JPanel {
         contactEmail.setText(contact.getEmail());
         contactPhone.setText(contact.getPhone());
         officialName.setText(contact.getOfficialName());
+        customer.setSelected(contact.isCustomer());
+        supplier.setSelected(contact.isSupplier());
     }
 
     public void saveAccount() {
@@ -115,6 +126,8 @@ public class ContactDetailsPanel extends JPanel {
         contact.setEmail(email);
         String phone = contactPhone.getText().trim();
         contact.setPhone(phone);
+        contact.setCustomer(customer.isSelected());
+        contact.setSupplier(supplier.isSelected());
         if(newContact) {
             try {
                 contacts.addBusinessObject(contact);
@@ -127,6 +140,7 @@ public class ContactDetailsPanel extends JPanel {
             clearFields();
             contact=null;
         }
+        Main.fireContactAdded();
     }
 
     public void clearFields() {
@@ -139,5 +153,7 @@ public class ContactDetailsPanel extends JPanel {
         contactEmail.setText("");
         contactPhone.setText("");
         officialName.setText("");
+        customer.setSelected(false);
+        supplier.setSelected(false);
     }
 }
