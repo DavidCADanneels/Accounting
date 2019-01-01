@@ -23,13 +23,19 @@ public class StockTransactions {
         orders.add(order);
         if(order instanceof SalesOrder){
             SalesOrder salesOrder = (SalesOrder) order;
-            if(!salesOrder.isCreditNote()){
+            // TODO implement PromoOrder extends Order
+            if(salesOrder.isPromoOrder()){
+                salesOrder.getBusinessObjects().forEach(orderItem -> {
+                    Article article = orderItem.getArticle();
+                    int numberOfItems = orderItem.getNumberOfItems();
+                    article.setPromoOrderDelivered(numberOfItems);
+                });
+            } else if(!salesOrder.isCreditNote()){
                 salesOrder.getBusinessObjects().forEach(orderItem -> {
                     Article article = orderItem.getArticle();
                     int numberOfItems = orderItem.getNumberOfItems();
                     article.setSoDelivered(numberOfItems);
                 });
-
             } else {
                 salesOrder.getBusinessObjects().forEach(orderItem -> {
                     Article article = orderItem.getArticle();
@@ -52,6 +58,13 @@ public class StockTransactions {
                     article.setPoCnDelivered(numberOfItems);
                 });
             }
+        } else if (order instanceof StockOrder){
+            // TODO: implement
+            order.getBusinessObjects().forEach(orderItem -> {
+                Article article = orderItem.getArticle();
+                int numberOfItems = orderItem.getNumberOfItems();
+                article.setStockOrderDelivered(numberOfItems);
+            });
         }
     }
 

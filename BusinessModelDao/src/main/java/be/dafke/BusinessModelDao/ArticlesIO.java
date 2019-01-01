@@ -109,6 +109,8 @@ public class ArticlesIO {
                             "    <" + NR_REMOVED + ">" + article.getNrRemoved() + "</" + NR_REMOVED + ">\n" +
                             "    <" + NR_SO_ORDERED + ">" + article.getNrOrderedForSO() + "</" + NR_SO_ORDERED + ">\n" +
                             "    <" + NR_PO_ORDERED + ">" + article.getNrOrderedByPO() + "</" + NR_PO_ORDERED + ">\n" +
+                            "    <" + NR_INIT_STOCK + ">" + article.getInitStock() + "</" + NR_INIT_STOCK + ">\n" +
+                            "    <" + NR_PROMO_REMOVED + ">" + article.getNrPromo() + "</" + NR_PROMO_REMOVED + ">\n" +
                             "    <" + SUPPLIER + ">" + article.getSupplier() + "</" + SUPPLIER + ">\n"
                 );
                 ArrayList<PurchaseOrder> purchaseOrders = article.getPurchaseOrders();

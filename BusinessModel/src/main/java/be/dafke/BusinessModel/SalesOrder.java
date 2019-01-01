@@ -70,6 +70,7 @@ public class SalesOrder extends Order {
             getBusinessObjects().forEach(orderItem -> {
                 Article article = orderItem.getArticle();
                 int numberOfItems = orderItem.getNumberOfItems();
+                // TODO: do not 'setSoOrdered' for PromoOrder
                 article.setSoOrdered(numberOfItems);
             });
         } else {

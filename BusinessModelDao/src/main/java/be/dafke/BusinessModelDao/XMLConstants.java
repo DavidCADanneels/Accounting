@@ -89,6 +89,7 @@ public class XMLConstants {
     public static final String CONTACT_NO_INVOICE = "ContactNoInvoice";
     public static final String CREDIT_NOTE = "CN";
     public static final String PROMO_ORDER = "PromoOrder";
+    public static final String STOCK_ORDER = "StockOrder";
 
     public static final String MORTGAGES = "Mortgages";
     public static final String MORTGAGE = "Mortgage";
@@ -146,6 +147,8 @@ public class XMLConstants {
     public static final String NR_REMOVED = "StockRemoved";
     public static final String NR_PO_ORDERED = "StockInPO";
     public static final String NR_SO_ORDERED = "StockInSO";
+    public static final String NR_INIT_STOCK = "InitStock";
+    public static final String NR_PROMO_REMOVED = "PromoRemoved";
     public static final String STOCK = "Stock";
     public static final String STOCK_TRANSACTIONS = "StockTransactions";
     public static final String STOCK_TRANSACTION = "StockTransaction";

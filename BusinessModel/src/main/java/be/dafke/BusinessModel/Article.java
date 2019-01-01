@@ -22,6 +22,8 @@ public class Article extends BusinessObject{
     private ArrayList<PurchaseOrder> purchaseOrders = new ArrayList<>();
     private ArrayList<SalesOrder> salesOrders = new ArrayList<>();
 
+    private Integer initStock = 0;
+    private Integer nrPromo = 0;
     private Integer nrAdded = 0;
     private Integer nrRemoved = 0;
     private Integer nrOrderedForSO = 0;
@@ -232,6 +234,18 @@ public class Article extends BusinessObject{
         nrAdded-=numberOfItems;
     }
 
+    public void setStockOrderDelivered(int numberOfItems) {
+        nrAdded+=numberOfItems;
+        initStock+=numberOfItems;
+    }
+
+    public void setPromoOrderDelivered(int numberOfItems) {
+        nrRemoved+=numberOfItems;
+        // TODO: remove below line if 'PromoOrder extends Order' is implemented
+        nrOrderedForSO-=numberOfItems;
+        nrPromo+=numberOfItems;
+    }
+
     public void addSalesOrder(SalesOrder salesOrder) {
         salesOrders.add(salesOrder);
     }
@@ -272,5 +286,13 @@ public class Article extends BusinessObject{
 
     public Integer getNrOrderedByPO() {
         return nrOrderedByPO;
+    }
+
+    public Integer getInitStock() {
+        return initStock;
+    }
+
+    public Integer getNrPromo() {
+        return nrPromo;
     }
 }
