@@ -1,5 +1,8 @@
 package be.dafke.BusinessModel;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
 public class Order extends OrderItems {
 //    private Articles articles;
     private Contact customer, supplier;
@@ -18,6 +21,17 @@ public class Order extends OrderItems {
         articles.getBusinessObjects().forEach( article -> {
             addBusinessObject(new OrderItem(0,0,article, this));
         });
+    }
+
+    public BigDecimal getTotalStockValue() {
+        BigDecimal total = BigDecimal.ZERO.setScale(2);
+        for (OrderItem orderItem : getBusinessObjects()) {
+            total = total.add(orderItem.getStockValue()).setScale(2, RoundingMode.HALF_DOWN);
+//            total = total.add(orderItem.getStockValue());
+        }
+        // FIXME: set scale for each addition or only at the end?
+//        return total.setScale(2, RoundingMode.HALF_DOWN);
+        return total;
     }
 
     public Contact getCustomer() {

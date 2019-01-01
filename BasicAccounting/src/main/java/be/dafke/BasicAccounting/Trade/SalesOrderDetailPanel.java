@@ -30,6 +30,7 @@ public class SalesOrderDetailPanel extends JPanel {
     private JButton placeOrderButton, deliveredButton, payedButton, createInvoiceButton;
     private JButton salesTransactionButton, gainTransactionButton, paymentTransactionButton;
     private JButton createSalesOrder;
+    private JButton createPromoOrder;
     private JTextField invoiceNr;
     private JCheckBox payed, delivered, placed, creditNote, promoOrder;
     private SalesOrder salesOrder;
@@ -46,13 +47,23 @@ public class SalesOrderDetailPanel extends JPanel {
             salesOrderCreateGUI.setVisible(true);
         });
 
+        createPromoOrder = new JButton(getBundle("Accounting").getString("CREATE_PR"));
+        createPromoOrder.addActionListener(e -> {
+            PromoOrderCreateGUI promoOrderCreateGUI = PromoOrderCreateGUI.showPromoOrderGUI(accounting);
+            promoOrderCreateGUI.setLocation(getLocationOnScreen());
+            promoOrderCreateGUI.setVisible(true);
+        });
+
         JPanel orderPanel = createOrderPanel();
         JPanel customerPanel = createCustomerPanel(accounting.getContacts());
 
         setLayout(new BorderLayout());
         add(orderPanel, BorderLayout.NORTH);
         add(customerPanel,BorderLayout.CENTER);
-        add(createSalesOrder, BorderLayout.SOUTH);
+        JPanel buttonPanel = new JPanel();
+        buttonPanel.add(createSalesOrder);
+        buttonPanel.add(createPromoOrder);
+        add(buttonPanel, BorderLayout.SOUTH);
     }
 
     private JPanel createOrderPanel(){
@@ -448,7 +459,7 @@ public class SalesOrderDetailPanel extends JPanel {
         Account stockAccount = StockUtils.getStockAccount(accounting);
         Account gainAccount = StockUtils.getGainAccount(accounting);
 
-        BigDecimal stockAmount = salesOrder.calculateTotalStockValue();
+        BigDecimal stockAmount = salesOrder.getTotalStockValue();
         BigDecimal totalSalesPriceExclVat = salesOrder.getTotalSalesPriceExclVat();
         BigDecimal gainAmount = totalSalesPriceExclVat.subtract(stockAmount);
 

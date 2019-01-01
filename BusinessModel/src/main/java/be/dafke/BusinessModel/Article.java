@@ -19,6 +19,7 @@ public class Article extends BusinessObject{
     private BigDecimal salesPriceUnitWithVat = null;
     private Contact supplier;
     private ArrayList<StockOrder> stockOrders = new ArrayList<>();
+    private ArrayList<PromoOrder> promoOrders = new ArrayList<>();
     private ArrayList<PurchaseOrder> purchaseOrders = new ArrayList<>();
     private ArrayList<SalesOrder> salesOrders = new ArrayList<>();
 
@@ -208,12 +209,20 @@ public class Article extends BusinessObject{
         return stockOrders;
     }
 
+    public ArrayList<PromoOrder> getPromoOrders() {
+        return promoOrders;
+    }
+
     public void addPurchaseOrder(PurchaseOrder purchaseOrder) {
         purchaseOrders.add(purchaseOrder);
     }
 
     public void addStockOrder(StockOrder stockOrder) {
         stockOrders.add(stockOrder);
+    }
+
+    public void addPromoOrder(PromoOrder promoOrder) {
+        promoOrders.add(promoOrder);
     }
 
     public void setPoOrdered(int numberOfItems) {
@@ -242,7 +251,7 @@ public class Article extends BusinessObject{
     public void setPromoOrderDelivered(int numberOfItems) {
         nrRemoved+=numberOfItems;
         // TODO: remove below line if 'PromoOrder extends Order' is implemented
-        nrOrderedForSO-=numberOfItems;
+//        nrOrderedForSO-=numberOfItems;
         nrPromo+=numberOfItems;
     }
 

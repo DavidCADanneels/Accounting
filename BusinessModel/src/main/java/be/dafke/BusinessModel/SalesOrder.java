@@ -94,19 +94,6 @@ public class SalesOrder extends Order {
         return getTotalSalesPriceInclVat().subtract(getTotalSalesPriceExclVat()).setScale(2, RoundingMode.HALF_DOWN);
     }
 
-    public BigDecimal calculateTotalStockValue(){
-        BigDecimal totalStockValue = BigDecimal.ZERO;
-        for (OrderItem orderItem : getBusinessObjects()) {
-            BigDecimal purchasePriceForUnit = orderItem.getPurchasePriceForUnit();
-            int itemsPerUnit = orderItem.getItemsPerUnit();
-            BigDecimal purchasePriceForItem = purchasePriceForUnit.divide(new BigDecimal(itemsPerUnit), BigDecimal.ROUND_HALF_DOWN);
-            int numberOfItems = orderItem.getNumberOfItems();
-            BigDecimal totalPurchaseValue = purchasePriceForItem.multiply(new BigDecimal(numberOfItems));
-            totalStockValue = totalStockValue.add(totalPurchaseValue);
-        }
-        return totalStockValue.setScale(2, BigDecimal.ROUND_HALF_DOWN);
-    }
-
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
@@ -132,9 +119,5 @@ public class SalesOrder extends Order {
 
     public boolean isPromoOrder() {
         return promoOrder;
-    }
-
-    public void setPromoOrder(boolean promoOrder) {
-        this.promoOrder = promoOrder;
     }
 }

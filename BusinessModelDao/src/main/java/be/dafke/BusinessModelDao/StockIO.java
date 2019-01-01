@@ -117,8 +117,13 @@ public class StockIO {
                 StockOrder stockOrder = stockOrders.getBusinessObject(name);
                 stockTransactions.addOrder(stockOrder);
                 stockOrder.setDescription(description);
+                stockOrder.setDeliveryDate(date);
             } else if(type!=null&&type.equals(PROMO_ORDER)){
-
+                PromoOrders promoOrders = accounting.getPromoOrders();
+                PromoOrder promoOrder = promoOrders.getBusinessObject(name);
+                stockTransactions.addOrder(promoOrder);
+                promoOrder.setDescription(description);
+                promoOrder.setDeliveryDate(date);
             }
         }
     }
@@ -189,6 +194,9 @@ public class StockIO {
                 }
                 if (order instanceof StockOrder){
                     writer.write("    <" + TYPE + ">" + STOCK_ORDER + "</" + TYPE + ">\n");
+                }
+                if (order instanceof PromoOrder){
+                    writer.write("    <" + TYPE + ">" + PROMO_ORDER + "</" + TYPE + ">\n");
                 }
                 writer.write("  </" + STOCK_TRANSACTION + ">\n");
             }

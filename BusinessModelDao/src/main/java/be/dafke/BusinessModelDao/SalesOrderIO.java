@@ -23,22 +23,18 @@ import static be.dafke.Utils.Utils.parseInt;
 
 public class SalesOrderIO {
     public static void readSalesOrders(Accounting accounting){
-        StockTransactions stockTransactions = accounting.getStockTransactions();
         PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
-        SalesOrders salesOrders = accounting.getSalesOrders();
         Contacts contacts = accounting.getContacts();
         Articles articles = accounting.getArticles();
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+SALES_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS);
 
         for (Element salesOrderElement : getChildren(rootElement, SALES_ORDER)) {
+            SalesOrders salesOrders = accounting.getSalesOrders();
             SalesOrder salesOrder = new SalesOrder();
 
             boolean cn = getBooleanValue(salesOrderElement, CREDIT_NOTE);
             salesOrder.setCreditNote(cn);
-
-            boolean promo = getBooleanValue(salesOrderElement, PROMO_ORDER);
-            salesOrder.setPromoOrder(promo);
 
             String customerString = getValue(salesOrderElement, CUSTOMER);
             Contact customer = contacts.getBusinessObject(customerString);
@@ -68,9 +64,9 @@ public class SalesOrderIO {
                 //
                 String salesPriceForUnitString = getValue(element, SALESPRICE_FOR_UNIT);
                 BigDecimal salesPriceForUnit = null;
-                if(salesPriceForUnitString != null) {
+                if (salesPriceForUnitString != null) {
                     salesPriceForUnit = parseBigDecimal(salesPriceForUnitString);
-                    if(salesPriceForUnit!=null){
+                    if (salesPriceForUnit != null) {
                         orderItem.setSalesPriceForUnit(salesPriceForUnit);
                     }
                 }
@@ -79,9 +75,9 @@ public class SalesOrderIO {
                 //
                 String salesPriceForItemString = getValue(element, SALESPRICE_FOR_ITEM);
                 BigDecimal salesPriceForItem = null;
-                if(salesPriceForItemString != null) {
+                if (salesPriceForItemString != null) {
                     salesPriceForItem = parseBigDecimal(salesPriceForItemString);
-                    if (salesPriceForItem != null){
+                    if (salesPriceForItem != null) {
                         orderItem.setSalesPriceForItem(salesPriceForItem);
                     }
                 }
@@ -93,7 +89,7 @@ public class SalesOrderIO {
                 orderItem.setSalesVatRate(parseInt(getValue(element, SALES_VAT_RATE)));
 
                 String purchaseOrderForItemString = getValue(element, PURCHASE_ORDER);
-                if(purchaseOrderForItemString != null) {
+                if (purchaseOrderForItemString != null) {
                     PurchaseOrder purchaseOrder = purchaseOrders.getBusinessObject(purchaseOrderForItemString);
                     orderItem.setPurchaseOrder(purchaseOrder);
                 }
@@ -139,12 +135,6 @@ public class SalesOrderIO {
                     // only write if 'true' ('false' is default value)
                     writer.write(
                                     "    <" + CREDIT_NOTE + ">" + salesOrder.isCreditNote() + "</" + CREDIT_NOTE + ">\n"
-                    );
-                }
-                if(salesOrder.isPromoOrder()){
-                    // only write if 'true' ('false' is default value)
-                    writer.write(
-                                    "    <" + PROMO_ORDER + ">" + salesOrder.isPromoOrder() + "</" + PROMO_ORDER + ">\n"
                     );
                 }
                 if(salesOrder.getInvoiceNumber()!=null) {

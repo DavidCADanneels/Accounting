@@ -21,16 +21,16 @@ public class StockTransactions {
 
     public void addOrder(Order order){
         orders.add(order);
-        if(order instanceof SalesOrder){
+        if(order instanceof PromoOrder){
+            PromoOrder promoOrder = (PromoOrder) order;
+            promoOrder.getBusinessObjects().forEach(orderItem -> {
+                Article article = orderItem.getArticle();
+                int numberOfItems = orderItem.getNumberOfItems();
+                article.setPromoOrderDelivered(numberOfItems);
+            });
+        } else if(order instanceof SalesOrder){
             SalesOrder salesOrder = (SalesOrder) order;
-            // TODO implement PromoOrder extends Order
-            if(salesOrder.isPromoOrder()){
-                salesOrder.getBusinessObjects().forEach(orderItem -> {
-                    Article article = orderItem.getArticle();
-                    int numberOfItems = orderItem.getNumberOfItems();
-                    article.setPromoOrderDelivered(numberOfItems);
-                });
-            } else if(!salesOrder.isCreditNote()){
+            if(!salesOrder.isCreditNote()){
                 salesOrder.getBusinessObjects().forEach(orderItem -> {
                     Article article = orderItem.getArticle();
                     int numberOfItems = orderItem.getNumberOfItems();
@@ -59,7 +59,6 @@ public class StockTransactions {
                 });
             }
         } else if (order instanceof StockOrder){
-            // TODO: implement
             order.getBusinessObjects().forEach(orderItem -> {
                 Article article = orderItem.getArticle();
                 int numberOfItems = orderItem.getNumberOfItems();

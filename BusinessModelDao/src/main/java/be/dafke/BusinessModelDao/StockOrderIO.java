@@ -22,7 +22,6 @@ import static be.dafke.Utils.Utils.parseInt;
 public class StockOrderIO {
     public static void readStockOrders(Accounting accounting){
         StockOrders stockOrders = accounting.getStockOrders();
-        Contacts contacts = accounting.getContacts();
         Articles articles = accounting.getArticles();
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+STOCK_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, STOCK_ORDERS);

@@ -85,6 +85,7 @@ public class XMLConstants {
     public static final String COMPANY_CONTACT = "companyContact";
     public static final String CONTACT_NO_INVOICE = "ContactNoInvoice";
     public static final String CREDIT_NOTE = "CN";
+    public static final String PROMO_ORDERS = "PromoOrders";
     public static final String PROMO_ORDER = "PromoOrder";
     public static final String STOCK_ORDERS = "StockOrders";
     public static final String STOCK_ORDER = "StockOrder";
@@ -125,6 +126,9 @@ public class XMLConstants {
     public static final String ARTICLE_ITEM_NAME = "ArticleItemsName";
 //    public static final String ARTICLE_MIN_REDUCTION = "MinForReduction";
     public static final String PURCHASE_PRICE = "PurchasePrice";
+    public static final String PURCHASE_PRICE_UNIT = "PurchasePriceUnit";
+    public static final String PURCHASE_PRICE_ITEM = "PurchasePriceItem";
+    public static final String PURCHASE_PRICE_TOTAL = "PurchasePriceTotal";
     public static final String SALES_SINGLE_PRICE = "SalesSinglePrice";
     public static final String SALES_PROMO_PRICE = "SalesPromoPrice";
     public static final String ITEMS_PER_UNIT = "ItemsPerUnit";

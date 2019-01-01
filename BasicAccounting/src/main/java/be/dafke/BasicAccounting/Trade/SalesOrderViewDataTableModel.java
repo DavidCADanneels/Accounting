@@ -28,7 +28,7 @@ public class SalesOrderViewDataTableModel extends SelectableTableModel<OrderItem
 	public static int NR_OF_COL = 11;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
-	protected SalesOrder order;
+	protected Order order;
 
 	public SalesOrderViewDataTableModel() {
 		setColumnNames();
@@ -149,11 +149,11 @@ public class SalesOrderViewDataTableModel extends SelectableTableModel<OrderItem
 		return orderItems.get(row);
 	}
 
-	public SalesOrder getOrder() {
+	public Order getOrder() {
 		return order;
 	}
 
-	public void setOrder(SalesOrder order) {
+	public void setOrder(Order order) {
 		this.order = order;
 		fireTableDataChanged();
 	}

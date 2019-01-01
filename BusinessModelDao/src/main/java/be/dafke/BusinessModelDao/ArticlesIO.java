@@ -122,6 +122,18 @@ public class ArticlesIO {
                         "    <" + SALES_ORDER + ">" + salesOrder + "</" + SALES_ORDER + ">\n"
                     );
                 }
+                ArrayList<StockOrder> stockOrders = article.getStockOrders();
+                for(StockOrder stockOrder:stockOrders){
+                    writer.write(
+                            "    <" + STOCK_ORDER + ">" + stockOrder + "</" + STOCK_ORDER + ">\n"
+                    );
+                }
+                ArrayList<PromoOrder> promoOrders = article.getPromoOrders();
+                for(PromoOrder promoOrder:promoOrders){
+                    writer.write(
+                            "    <" + PROMO_ORDER + ">" + promoOrder + "</" + PROMO_ORDER + ">\n"
+                    );
+                }
                 writer.write(
                         "  </" + ARTICLE + ">\n"
                 );
