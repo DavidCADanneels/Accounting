@@ -1,8 +1,5 @@
 package be.dafke.BusinessModelDao;
 
-/**
- * Created by ddanneels on 15/01/2017.
- */
 public class XMLConstants {
     public static final String NAME = "name";
     public static final String ACCOUNTINGS = "Accountings";

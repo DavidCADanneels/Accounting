@@ -10,10 +10,6 @@ import java.util.Calendar;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by ddanneels on 14/07/2015.
- */
-
 public class AccountTest {
 
     public static final String ACCOUNT_TYPE_NAME = "AccountTypeName";

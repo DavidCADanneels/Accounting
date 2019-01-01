@@ -9,9 +9,6 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
 
-/**
- * Created by ddanneel on 18/02/2015.
- */
 public class PopupForTableActivator extends MouseAdapter {
     private static ArrayList<JPopupMenu> popupForTableActivators = new ArrayList<>();
 

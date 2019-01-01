@@ -14,11 +14,6 @@ import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * User: david
- * Date: 5-1-14
- * Time: 16:22
- */
 public class JournalManagementTableModel extends SelectableTableModel<Journal> {
     public static final int NAME_COL = 0;
     public static final int ABBR_COL = 1;

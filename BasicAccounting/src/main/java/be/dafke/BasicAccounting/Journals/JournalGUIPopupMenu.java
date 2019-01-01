@@ -14,9 +14,6 @@ import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneel on 15/02/2015.
- */
 public class JournalGUIPopupMenu extends JPopupMenu{
     private final JMenuItem delete, edit, change, debitCredit, details;
     private final SelectableTable<Booking> table;

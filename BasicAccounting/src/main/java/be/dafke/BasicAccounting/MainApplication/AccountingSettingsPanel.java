@@ -10,9 +10,6 @@ import javax.swing.*;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 3/03/2017.
- */
 public class AccountingSettingsPanel extends JTabbedPane {
     public static final String TRADE = getBundle("Accounting").getString("TRADE");
     public static final String VAT = getBundle("VAT").getString("VAT");

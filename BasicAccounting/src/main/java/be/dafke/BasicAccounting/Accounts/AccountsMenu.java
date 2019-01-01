@@ -14,9 +14,6 @@ import java.awt.*;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 27/12/2015.
- */
 public class AccountsMenu extends JMenu {
     private static JMenuItem add, manage, testBalance, generatePdf;
     private Accounting accounting;

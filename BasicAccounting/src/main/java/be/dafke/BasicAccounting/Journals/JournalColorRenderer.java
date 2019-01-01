@@ -1,15 +1,11 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.VAT.VATTransactionsDataModel;
 import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
-/**
- * Created by ddanneels on 7/05/2017.
- */
 public class JournalColorRenderer extends DefaultTableCellRenderer {
     private Journal journal;
 

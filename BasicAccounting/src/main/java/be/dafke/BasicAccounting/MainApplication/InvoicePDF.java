@@ -8,13 +8,7 @@ import org.apache.fop.apps.FOPException;
 
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
-import java.util.ArrayList;
 
-/**
- * User: david
- * Date: 29-12-13
- * Time: 22:07
- */
 public class InvoicePDF {
     private static String xslPath = "data/accounting/xsl/invoice.xsl";
 

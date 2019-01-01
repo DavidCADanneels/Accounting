@@ -4,13 +4,9 @@ import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contacts;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 27/12/2015.
- */
 public class ContactsMenu extends JMenu {
     private JMenuItem suppliers, customers, all;
 

@@ -9,9 +9,6 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 
-/**
- * Created by ddanneels on 14/05/2017.
- */
 public class AccountsListConfigPanel extends JPanel {
     private final ButtonConfigPanel buttonConfigPanel;
     private JRadioButton byType, singleAccount;

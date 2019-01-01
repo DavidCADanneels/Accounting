@@ -20,9 +20,6 @@ import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 import static be.dafke.Utils.Utils.parseBigDecimal;
 import static be.dafke.Utils.Utils.parseInt;
 
-/**
- * Created by ddanneels on 15/01/2017.
- */
 public class PurchaseOrderIO {
     public static void readPurchaseOrders(Accounting accounting){
         PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();

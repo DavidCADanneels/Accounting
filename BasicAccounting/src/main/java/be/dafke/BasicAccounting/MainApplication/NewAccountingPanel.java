@@ -17,9 +17,6 @@ import java.awt.event.FocusEvent;
 import static be.dafke.BasicAccounting.MainApplication.Main.setAccounting;
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 22/01/2017.
- */
 public class NewAccountingPanel extends RefreshableDialog {
 
     private JButton add;

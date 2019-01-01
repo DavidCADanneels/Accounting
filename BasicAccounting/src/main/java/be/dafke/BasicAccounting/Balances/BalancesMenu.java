@@ -7,11 +7,6 @@ import javax.swing.*;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * User: david
- * Date: 30-12-13
- * Time: 11:03
- */
 public class BalancesMenu extends JMenu {
     private JMenuItem manage;
     private JMenuItem pdfGeneration;

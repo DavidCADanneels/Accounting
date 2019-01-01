@@ -11,9 +11,6 @@ import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JPanel;
 
-/**
- * Created by ddanneels on 14/05/2017.
- */
 public class AccountsListSingleAccountSelectorPanel extends JPanel {
     private JButton create;
     private JComboBox<Account> combo;

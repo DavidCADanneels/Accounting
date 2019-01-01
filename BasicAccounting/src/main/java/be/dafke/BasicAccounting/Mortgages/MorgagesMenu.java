@@ -5,13 +5,9 @@ import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Mortgages;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 26/12/2015.
- */
 public class MorgagesMenu extends JMenu {
     private JMenuItem mortgage;
     private Mortgages mortgages;

@@ -6,13 +6,9 @@ import be.dafke.BusinessModel.Accounts;
 import be.dafke.BusinessModel.Projects;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 27/12/2015.
- */
 public class ProjectsMenu extends JMenu {
     private JMenuItem manage, project;
     private Projects projects;

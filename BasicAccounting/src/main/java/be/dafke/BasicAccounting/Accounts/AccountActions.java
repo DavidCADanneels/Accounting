@@ -12,9 +12,6 @@ import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 1/05/2017.
- */
 public class AccountActions {
     public static final String SELECT_TAX_CREDIT_ACCOUNT = "Select VAT Account for Purchases";
     public static final String SELECT_TAX_DEBIT_ACCOUNT = "Select VAT Account for Sales";

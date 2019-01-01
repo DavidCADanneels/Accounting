@@ -10,9 +10,6 @@ import java.awt.event.KeyEvent;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 27/12/2015.
- */
 public class GoodsMenu extends JMenu {
     private JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders, stockHistoryTable;
 

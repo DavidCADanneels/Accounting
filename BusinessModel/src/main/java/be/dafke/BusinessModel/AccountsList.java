@@ -5,9 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Predicate;
 
-/**
- * Created by ddanneels on 26/05/2017.
- */
 public class AccountsList {
     private boolean singleAccount = false;
     private Account account = null;

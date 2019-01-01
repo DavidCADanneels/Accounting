@@ -8,11 +8,6 @@ import java.util.Calendar;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
 
-/**
- * User: david
- * Date: 17/08/14
- * Time: 12:59
- */
 public class UtilsTest {
 
     @Test

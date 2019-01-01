@@ -15,9 +15,6 @@ import java.util.Map;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 7/05/2017.
- */
 public class AccountTypesFilterPanel extends JPanel {
     private final Map<AccountType, JCheckBox> boxes;
     private AccountDataModel model;

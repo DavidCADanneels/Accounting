@@ -10,9 +10,6 @@ import java.awt.*;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 27/12/2015.
- */
 public class JournalsMenu extends JMenu {
     private Accounting accounting;
     private JMenuItem add, manage, types, generatePdf;

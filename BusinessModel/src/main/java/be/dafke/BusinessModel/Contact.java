@@ -4,9 +4,6 @@ import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;
 
-/**
- * Created by ddanneels on 15/11/2016.
- */
 public class Contact extends BusinessObject{
     private boolean supplier, customer;
     private String streetAndNumber = "";

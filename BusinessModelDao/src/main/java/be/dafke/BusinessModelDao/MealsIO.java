@@ -17,9 +17,6 @@ import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 import static be.dafke.Utils.Utils.parseBigDecimal;
 
-/**
- * Created by ddanneels on 15/01/2017.
- */
 public class MealsIO {
     public static void readMeals(Accounting accounting){
         DeliverooMeals deliverooMeals = accounting.getDeliverooMeals();

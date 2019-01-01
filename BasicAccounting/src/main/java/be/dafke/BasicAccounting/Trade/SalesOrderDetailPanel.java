@@ -26,12 +26,7 @@ import java.util.List;
 import static be.dafke.Utils.Utils.parseInt;
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * User: david
- * Date: 29-12-13
- * Time: 22:07
- */
-class SalesOrderDetailPanel extends JPanel {
+public class SalesOrderDetailPanel extends JPanel {
     private JButton placeOrderButton, deliveredButton, payedButton, createInvoiceButton;
     private JButton salesTransactionButton, gainTransactionButton, paymentTransactionButton;
     private JButton createSalesOrder;

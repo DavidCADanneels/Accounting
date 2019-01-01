@@ -16,14 +16,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import static be.dafke.Utils.Utils.parseInt;
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * User: david
- * Date: 29-12-13
- * Time: 22:07
- */
 public class PurchaseOrdersDetailPanel extends JPanel {
     private JButton placeOrderButton, deliveredButton, payedButton;
     private final JButton createPurchaseOrder;

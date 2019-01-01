@@ -6,9 +6,6 @@ import be.dafke.BusinessModel.Statements;
 
 import javax.swing.*;
 
-/**
- * Created by ddanneels on 27/12/2015.
- */
 public class CodaMenu extends JMenu {
     private JMenuItem movementsItem, counterPartiesItem;
     private CounterParties counterParties;

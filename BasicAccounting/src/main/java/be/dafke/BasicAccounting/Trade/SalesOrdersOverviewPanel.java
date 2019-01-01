@@ -11,11 +11,6 @@ import be.dafke.ComponentModel.SelectableTable;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * User: david
- * Date: 29-12-13
- * Time: 22:07
- */
 public class SalesOrdersOverviewPanel extends JPanel {
     private final SelectableTable<SalesOrder> overviewTable;
     private final SelectableTable<OrderItem> detailsTable;

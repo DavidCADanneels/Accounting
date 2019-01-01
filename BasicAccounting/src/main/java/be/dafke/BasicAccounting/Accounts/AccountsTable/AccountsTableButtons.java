@@ -7,9 +7,6 @@ import java.awt.event.KeyEvent;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 1/05/2017.
- */
 public class AccountsTableButtons extends JPanel {
     private JButton leftButton, rightButton, accountDetails;
     private boolean leftAction = true;

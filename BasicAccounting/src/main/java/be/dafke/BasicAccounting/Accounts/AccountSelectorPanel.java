@@ -10,9 +10,6 @@ import javax.swing.JComboBox;
 import javax.swing.JPanel;
 import java.util.ArrayList;
 
-/**
- * Created by ddanneels on 14/05/2017.
- */
 public class AccountSelectorPanel extends JPanel {
     private Account account;
     private JComboBox<Account> combo;

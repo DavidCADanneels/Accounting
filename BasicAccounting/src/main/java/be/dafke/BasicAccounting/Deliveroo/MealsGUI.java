@@ -8,11 +8,6 @@ import javax.swing.*;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * User: david
- * Date: 29-12-13
- * Time: 22:07
- */
 public class MealsGUI extends JFrame {
     private final MealsPanel mealsPanel;
 

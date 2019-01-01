@@ -10,11 +10,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.function.Predicate;
 
-/**
- * User: david
- * Date: 29-12-13
- * Time: 22:07
- */
 public class PurchaseOrderCreatePanel extends JPanel {
     private final JButton orderButton;
     private final SelectableTable<OrderItem> table;

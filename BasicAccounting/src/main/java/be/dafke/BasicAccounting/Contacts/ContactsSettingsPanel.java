@@ -8,11 +8,6 @@ import javax.swing.*;
 
 import java.awt.*;
 
-import static java.util.ResourceBundle.getBundle;
-
-/**
- * Created by ddanneels on 3/03/2017.
- */
 public class ContactsSettingsPanel extends JPanel {
     private Accounting accounting;
     private final JComboBox<Contact> companyContactSelection, noInvoiceContactSelection;

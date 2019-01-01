@@ -13,9 +13,6 @@ import java.util.Calendar;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneel on 15/02/2015.
- */
 public class JournalDetailsPopupMenu extends JPopupMenu {
     private final JMenuItem move, delete, edit, details, balance;
 

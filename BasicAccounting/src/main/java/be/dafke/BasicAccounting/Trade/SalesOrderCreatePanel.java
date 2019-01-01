@@ -11,12 +11,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.function.Predicate;
 
-/**
- * User: david
- * Date: 29-12-13
- * Time: 22:07
- */
-class SalesOrderCreatePanel extends JPanel {
+public class SalesOrderCreatePanel extends JPanel {
     private Contact noInvoice;
     private SalesOrder salesOrder;
     private JCheckBox invoice;

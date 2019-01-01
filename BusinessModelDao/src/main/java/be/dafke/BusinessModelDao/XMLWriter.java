@@ -30,9 +30,6 @@ import static be.dafke.BusinessModelDao.VATIO.writeVATTransactions;
 import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 
-/**
- * Created by ddanneels on 15/01/2017.
- */
 public class XMLWriter {
     public static String getXmlHeader(String className, int depth) {
         StringBuilder builder = new StringBuilder("<?xml version=\"1.0\" encoding=\"ISO-8859-1\"?>\n");

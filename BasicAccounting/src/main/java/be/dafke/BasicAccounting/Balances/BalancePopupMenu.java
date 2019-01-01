@@ -14,9 +14,6 @@ import java.util.ArrayList;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneel on 15/02/2015.
- */
 public class BalancePopupMenu extends JPopupMenu {
     private final JMenuItem details, edit;
     private Accounting accounting;

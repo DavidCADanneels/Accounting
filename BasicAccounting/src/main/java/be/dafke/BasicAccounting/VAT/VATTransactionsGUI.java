@@ -10,9 +10,6 @@ import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 28/12/2016.
- */
 public class VATTransactionsGUI extends JFrame implements WindowListener {
     private static final HashMap<VATTransactions, VATTransactionsGUI> vatGuis = new HashMap<>();
     private final VATTransactionsPanel vatTransactionsPanel;

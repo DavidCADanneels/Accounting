@@ -16,9 +16,6 @@ import java.util.function.Predicate;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 7/05/2017.
- */
 public class AccountFilterPanel extends JPanel {
     private final AccountTypesFilterPanel types;
     private final JPanel name, number;

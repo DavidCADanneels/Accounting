@@ -23,9 +23,6 @@ import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 import static be.dafke.Utils.Utils.parseBigDecimal;
 import static be.dafke.Utils.Utils.parseBigInteger;
 
-/**
- * Created by ddanneels on 15/01/2017.
- */
 public class AccountsIO {
     public static void readAccounts(Accounting accounting){
         Accounts accounts = accounting.getAccounts();

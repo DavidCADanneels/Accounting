@@ -4,9 +4,6 @@ import javax.swing.*;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 10/12/2015.
- */
 public class AccountsTablePopupMenu extends JPopupMenu {
     private final JMenuItem manage, add, edit, debit, credit, details;
 

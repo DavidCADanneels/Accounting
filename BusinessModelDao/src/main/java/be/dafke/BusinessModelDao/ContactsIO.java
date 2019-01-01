@@ -19,9 +19,6 @@ import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 
-/**
- * Created by ddanneels on 15/01/2017.
- */
 public class ContactsIO {
 
     public static void readContacts(Accounting accounting){

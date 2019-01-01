@@ -1,34 +1,13 @@
 package be.dafke.BasicAccounting.Contacts;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.Contacts;
-import be.dafke.BusinessModelDao.VATWriter;
 
-import javax.swing.DefaultListSelectionModel;
-import javax.swing.JButton;
-import javax.swing.JFileChooser;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
-import javax.swing.filechooser.FileNameExtensionFilter;
-import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.io.File;
 import java.util.HashMap;
 
-import static java.awt.BorderLayout.CENTER;
-import static java.awt.BorderLayout.SOUTH;
-import static java.util.ResourceBundle.getBundle;
-
-/**
- * Created by ddanneels on 15/11/2016.
- */
 public class ContactsGUI extends JFrame {
 
 

@@ -7,9 +7,6 @@ import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 3/03/2017.
- */
 public class AccountingSettingsGUI extends JFrame {
     public static final String title = getBundle("Accounting").getString("SETTINGS");
     private final JTabbedPane tabbedPane;

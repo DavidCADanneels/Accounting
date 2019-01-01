@@ -6,9 +6,6 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.math.BigDecimal;
 
-/**
- * Created by ddanneels on 28/12/2016.
- */
 public class VATFields extends BusinessCollection<VATField> {
     private Accounting accounting;
 

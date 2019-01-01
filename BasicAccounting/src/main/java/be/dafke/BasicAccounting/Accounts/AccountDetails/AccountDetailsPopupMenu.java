@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Accounts.AccountDetails;
 
 import be.dafke.BasicAccounting.Journals.JournalDetailsGUI;
-import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
@@ -9,13 +8,9 @@ import be.dafke.ComponentModel.SelectableTable;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Set;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneel on 15/02/2015.
- */
 public class AccountDetailsPopupMenu extends JPopupMenu {
     private final JMenuItem move, delete, edit, details;
 

@@ -5,9 +5,6 @@ import be.dafke.ObjectModel.BusinessObject;
 import java.math.BigDecimal;
 import java.util.TreeMap;
 
-/**
- * Created by ddanneels on 26/12/2015.
- */
 public class MortgageTransaction extends BusinessObject{
     public static final String NR = "nr";
     public static final String MENSUALITY = "mensuality";

@@ -7,9 +7,6 @@ import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;
 import java.awt.*;
 
-/**
- * Created by ddanneels on 7/05/2017.
- */
 public class AccountColorRenderer extends DefaultTableCellRenderer {
 
     @Override

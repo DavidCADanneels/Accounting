@@ -5,9 +5,6 @@ import be.dafke.BusinessModel.*;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by ddanneels on 3/03/2017.
- */
 public class DeliverooSettingsPanel extends JPanel {
     private Accounting accounting;
     private final JComboBox<Account> serviceAccountSelection, revenueAccountSelection, balanceAccountSelection;

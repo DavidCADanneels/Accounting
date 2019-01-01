@@ -6,11 +6,6 @@ import org.apache.fop.apps.FOPException;
 import javax.xml.transform.TransformerException;
 import java.io.IOException;
 
-/**
- * User: david
- * Date: 29-12-13
- * Time: 22:07
- */
 public class BalancePDF {
     public static void main(String[] args) {
         String xslFile = "data/accounting/xsl/goods.xsl";

@@ -1,14 +1,9 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
-/**
- * Created by ddanneels on 28/12/2016.
- */
 public class VATTransaction extends BusinessCollection<VATBooking>{
     private ArrayList<VATBooking> vatBookings = new ArrayList<>();
     private Transaction transaction;

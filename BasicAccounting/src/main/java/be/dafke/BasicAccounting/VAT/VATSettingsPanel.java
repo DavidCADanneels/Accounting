@@ -9,11 +9,6 @@ import javax.swing.*;
 
 import java.awt.*;
 
-import static java.util.ResourceBundle.getBundle;
-
-/**
- * Created by ddanneels on 3/03/2017.
- */
 public class VATSettingsPanel extends JPanel {
     private Accounting accounting;
     private final JComboBox<Account> debitAccountSelection, creditAccountSelection, debitCnAccountSelection, creditCnAccountSelection;

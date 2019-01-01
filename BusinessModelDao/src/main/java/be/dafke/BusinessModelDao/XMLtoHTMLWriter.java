@@ -11,11 +11,6 @@ import java.io.FileOutputStream;
 import java.io.OutputStream;
 import java.util.Vector;
 
-/**
- * User: david
- * Date: 27-12-13
- * Time: 20:55
- */
 public class XMLtoHTMLWriter {
 
     public static void xmlToHtml(File xmlFile, File xslFile, File htmlFile, Vector params) {

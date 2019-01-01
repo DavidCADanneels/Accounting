@@ -7,9 +7,6 @@ import java.text.MessageFormat;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 2/05/2016.
- */
 public class ActionUtils {
     public static final String ACCOUNTING_DUPLICATE_NAME = "ACCOUNTING_DUPLICATE_NAME";
     public static final String ACCOUNTING_NAME_EMPTY = "ACCOUNTING_NAME_EMPTY";

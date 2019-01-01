@@ -6,9 +6,6 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 
-/**
- * Created by ddanneels on 3/03/2017.
- */
 public class AccountingCopyPanel extends JPanel {
 
     private final JCheckBox copyAccounts, copyJournals, copyContacts, copyVat, copyTrade, copyDeliveroo;

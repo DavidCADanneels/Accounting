@@ -15,9 +15,6 @@ import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-/**
- * Created by ddanneels on 14/01/2017.
- */
 public class VATWriter {
     public enum Period {QUARTER,MONTH}
 

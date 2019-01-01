@@ -13,11 +13,6 @@ import java.awt.*;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * User: david
- * Date: 29-12-13
- * Time: 22:07
- */
 public class ArticlesPanel extends JPanel {
     private final JButton add;
     private final SelectableTable<Article> table;

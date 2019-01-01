@@ -10,9 +10,6 @@ import javax.swing.JPopupMenu;
 import java.awt.*;
 import java.util.ArrayList;
 
-/**
- * Created by ddanneels on 7/05/2017.
- */
 public class VATTransactionsPopupMenu extends JPopupMenu {
     private final JMenuItem book;
     private final SelectableTable<VATBooking> table;

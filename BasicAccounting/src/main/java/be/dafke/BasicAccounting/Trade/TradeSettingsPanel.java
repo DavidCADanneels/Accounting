@@ -4,11 +4,7 @@ import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
 
-/**
- * Created by ddanneels on 3/03/2017.
- */
 public class TradeSettingsPanel extends JPanel {
     private Accounting accounting;
     private final JComboBox<Account> stockAccountSelection, gainAccountSelection, salesAccountSelection, salesGainAccountSelection, promoAccountSelection;

@@ -2,14 +2,10 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessCollection;
 
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-/**
- * Created by ddanneels on 25/12/2016.
- */
 public class VATTransactions extends BusinessCollection<VATTransaction> {
     private final VATFields vatFields;
     private Account creditAccount, debitAccount, creditCNAccount, debitCNAccount;

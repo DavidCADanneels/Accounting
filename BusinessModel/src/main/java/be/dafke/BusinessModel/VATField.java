@@ -4,9 +4,6 @@ import be.dafke.ObjectModel.BusinessCollection;
 
 import java.math.BigDecimal;
 
-/**
- * Created by ddanneels on 27/12/2016.
- */
 public class VATField extends BusinessCollection<VATMovement> {
     private BigDecimal amount = BigDecimal.ZERO;
 

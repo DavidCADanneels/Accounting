@@ -10,9 +10,6 @@ import java.awt.event.KeyEvent;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 27/12/2015.
- */
 public class VATMenu extends JMenu {
     private Accounting accounting;
     private JMenuItem vatFieldsMenuItem;

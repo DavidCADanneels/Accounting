@@ -21,11 +21,6 @@ import java.util.List;
 
 import static java.util.ResourceBundle.getBundle;
 
-
-
-/**
- * Created by ddanneels on 29/04/2016.
- */
 public class JournalEditPanel extends JPanel implements ActionListener {
     private JTextField debet, credit, ident;
     private JButton singleBook, save, clear;

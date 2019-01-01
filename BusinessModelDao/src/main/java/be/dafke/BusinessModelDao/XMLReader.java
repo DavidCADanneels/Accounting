@@ -32,9 +32,6 @@ import static be.dafke.BusinessModelDao.StockOrderIO.readStockOrders;
 import static be.dafke.BusinessModelDao.VATIO.readVATTransactions;
 import static be.dafke.BusinessModelDao.XMLConstants.*;
 
-/**
- * Created by ddanneels on 28/12/2015.
- */
 public class XMLReader {
 
     public static final String VAT_ACCOUNTING = "VatAccounting";

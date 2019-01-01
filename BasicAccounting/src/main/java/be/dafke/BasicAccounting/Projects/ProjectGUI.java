@@ -1,22 +1,13 @@
 package be.dafke.BasicAccounting.Projects;
 
-import be.dafke.BasicAccounting.Balances.BalanceDataModel;
-import be.dafke.BasicAccounting.Journals.JournalDetailsDataModel;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
-import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
-import java.awt.*;
 import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
-/**
- * Created by ddanneels on 2/11/2016.
- */
 public class ProjectGUI extends JFrame {
     private static final HashMap<Projects, ProjectGUI> projectGuis = new HashMap<>();
     private final ProjectPanel projectPanel;

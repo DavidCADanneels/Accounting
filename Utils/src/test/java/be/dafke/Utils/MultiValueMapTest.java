@@ -3,15 +3,10 @@ package be.dafke.Utils;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.util.ArrayList;
-
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
-/**
- * Created by ddanneels on 25/07/2015.
- */
 public class MultiValueMapTest {
     public static final String KEY1 = "Key1";
     public static final String KEY2 = "Key2";

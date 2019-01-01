@@ -43,11 +43,6 @@ import static javax.swing.JSplitPane.RIGHT;
 import static javax.swing.JSplitPane.TOP;
 import static javax.swing.JSplitPane.VERTICAL_SPLIT;
 
-/**
- * User: david
- * Date: 29-12-13
- * Time: 22:07
- */
 public class Main {
     private static final ArrayList<JFrame> disposableComponents = new ArrayList<>();
 

@@ -4,9 +4,6 @@ import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-/**
- * Created by ddanneels on 15/11/2016.
- */
 public class Contacts extends BusinessCollection<Contact> {
     private Accounting accounting;
 

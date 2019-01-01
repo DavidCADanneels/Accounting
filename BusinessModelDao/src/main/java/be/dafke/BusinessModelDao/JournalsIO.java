@@ -27,9 +27,6 @@ import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 import static be.dafke.Utils.Utils.parseInt;
 import static be.dafke.Utils.Utils.toCalendar;
 
-/**
- * Created by ddanneels on 15/01/2017.
- */
 public class JournalsIO {
 
     public static void readJournalTypes(Accounting accounting){

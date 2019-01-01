@@ -4,9 +4,6 @@ import javax.swing.*;
 import javax.swing.table.TableModel;
 import java.util.ArrayList;
 
-/**
- * Created by ddanneel on 17/02/2015.
- */
 public class SelectableTable<BusinessObject> extends JTable{
     protected SelectableTableModel<BusinessObject> model;
 

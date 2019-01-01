@@ -6,9 +6,6 @@ import java.math.BigDecimal;
 
 import static org.junit.Assert.*;
 
-/**
- * Created by ddanneels on 7/12/2015.
- */
 public class MovementTest {
 
     public static final BigDecimal AMOUNT = BigDecimal.TEN;

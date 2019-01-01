@@ -19,9 +19,6 @@ import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 import static be.dafke.Utils.Utils.parseBigDecimal;
 import static be.dafke.Utils.Utils.parseInt;
 
-/**
- * Created by ddanneels on 15/01/2017.
- */
 public class StockOrderIO {
     public static void readStockOrders(Accounting accounting){
         StockOrders stockOrders = accounting.getStockOrders();
