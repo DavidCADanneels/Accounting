@@ -16,14 +16,15 @@ import static java.util.ResourceBundle.getBundle;
 public class PurchaseOrderViewDataTableModel extends SelectableTableModel<OrderItem> {
 	public static int NR_OF_UNITS_COL = 0;
 	public static int NR_OF_ITEMS_COL = 1;
-	public static int NAME_COL = 2;
-	public static int HS_COL = 3;
-	public static int PRICE_UNIT_COL = 4;
-	public static int VAT_RATE_COL = 5;
-	public static int PRICE_TOTAL_EXCL_COL = 6;
-	public static int VAT_AMOUNT_COL = 7;
-	public static int PRICE_TOTAL_INCL_COL = 8;
-	public static int NR_OF_COL = 9;
+	public static int ITEMS_PER_UNIT_COL = 2;
+	public static int NAME_COL = 3;
+	public static int HS_COL = 4;
+	public static int PRICE_UNIT_COL = 5;
+	public static int VAT_RATE_COL = 6;
+	public static int PRICE_TOTAL_EXCL_COL = 7;
+	public static int VAT_AMOUNT_COL = 8;
+	public static int PRICE_TOTAL_INCL_COL = 9;
+	public static int NR_OF_COL = 10;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	protected PurchaseOrder order;
@@ -36,6 +37,7 @@ public class PurchaseOrderViewDataTableModel extends SelectableTableModel<OrderI
 	private void setColumnClasses() {
 		columnClasses.put(NR_OF_UNITS_COL, Integer.class);
 		columnClasses.put(NR_OF_ITEMS_COL, Integer.class);
+		columnClasses.put(ITEMS_PER_UNIT_COL, Integer.class);
 		columnClasses.put(NAME_COL, String.class);
 		columnClasses.put(HS_COL, String.class);
 		columnClasses.put(PRICE_UNIT_COL, BigDecimal.class);
@@ -48,6 +50,7 @@ public class PurchaseOrderViewDataTableModel extends SelectableTableModel<OrderI
 	private void setColumnNames() {
 		columnNames.put(NR_OF_UNITS_COL, getBundle("Accounting").getString("UNITS_TO_ORDER"));
 		columnNames.put(NR_OF_ITEMS_COL, getBundle("Accounting").getString("ITEMS_TO_ORDER"));
+		columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ITEMS_PER_UNIT"));
 		columnNames.put(NAME_COL, getBundle("Accounting").getString("ARTICLE_NAME"));
 		columnNames.put(HS_COL, getBundle("Accounting").getString("ARTICLE_HS"));
 		columnNames.put(PRICE_UNIT_COL, getBundle("Accounting").getString("PRICE_UNIT"));
@@ -93,6 +96,9 @@ public class PurchaseOrderViewDataTableModel extends SelectableTableModel<OrderI
 		}
 		if (col == NR_OF_ITEMS_COL) {
 			return orderItem.getNumberOfItems();
+		}
+		if (col == ITEMS_PER_UNIT_COL) {
+			return orderItem.getItemsPerUnit();
 		}
 		return null;
 	}
