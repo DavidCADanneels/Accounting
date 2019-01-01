@@ -18,6 +18,7 @@ public class Article extends BusinessObject{
     private BigDecimal salesPriceItemWithVat = null;
     private BigDecimal salesPriceUnitWithVat = null;
     private Contact supplier;
+    private ArrayList<StockOrder> stockOrders = new ArrayList<>();
     private ArrayList<PurchaseOrder> purchaseOrders = new ArrayList<>();
     private ArrayList<SalesOrder> salesOrders = new ArrayList<>();
 
@@ -197,8 +198,16 @@ public class Article extends BusinessObject{
         return salesOrders;
     }
 
+    public ArrayList<StockOrder> getStockOrders() {
+        return stockOrders;
+    }
+
     public void addPurchaseOrder(PurchaseOrder purchaseOrder) {
         purchaseOrders.add(purchaseOrder);
+    }
+
+    public void addStockOrder(StockOrder stockOrder) {
+        stockOrders.add(stockOrder);
     }
 
     public void setPoOrdered(int numberOfItems) {

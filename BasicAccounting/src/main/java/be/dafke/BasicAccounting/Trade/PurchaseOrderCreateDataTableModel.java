@@ -16,9 +16,9 @@ public class PurchaseOrderCreateDataTableModel extends PurchaseOrderViewDataTabl
 	private final Articles articles;
 	private Contact contact;
 	private Predicate<Article> filter;
-	private PurchaseTotalsPanel purchaseTotalsPanel;
+	private TotalsPanel purchaseTotalsPanel;
 
-	public PurchaseOrderCreateDataTableModel(Articles articles, Contact contact, PurchaseOrder order, PurchaseTotalsPanel purchaseTotalsPanel) {
+	public PurchaseOrderCreateDataTableModel(Articles articles, Contact contact, PurchaseOrder order, TotalsPanel purchaseTotalsPanel) {
 		super();
 		this.purchaseTotalsPanel = purchaseTotalsPanel;
 		this.order = order;

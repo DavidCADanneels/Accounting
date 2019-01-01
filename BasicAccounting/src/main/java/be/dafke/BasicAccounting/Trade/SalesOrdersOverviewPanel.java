@@ -21,7 +21,7 @@ public class SalesOrdersOverviewPanel extends JPanel {
     private final SelectableTable<OrderItem> detailsTable;
     private final SalesOrdersOverviewDataTableModel overviewTableModel;
     private final SalesOrderDetailsDataTableModel detailsTableModel;
-    private final SaleTotalsPanel saleTotalsPanel;
+    private final TotalsPanel totalsPanel;
 
     private final SalesOrderDetailPanel salesOrderDetailPanel;
     private final SalesOrderDetailsPopupMenu popup;
@@ -38,7 +38,7 @@ public class SalesOrdersOverviewPanel extends JPanel {
         popup = new SalesOrderDetailsPopupMenu(detailsTable, accounting);
         detailsTable.addMouseListener(PopupForTableActivator.getInstance(popup,detailsTable));
 
-        saleTotalsPanel = new SaleTotalsPanel();
+        totalsPanel = new TotalsPanel();
         salesOrderDetailPanel = new SalesOrderDetailPanel(accounting);
 
         fireSalesOrderAddedOrRemoved();
@@ -48,7 +48,7 @@ public class SalesOrdersOverviewPanel extends JPanel {
             if (!e.getValueIsAdjusting()) {
                 SalesOrder salesOrder = overviewTable.getSelectedObject();
                 detailsTableModel.setOrder(salesOrder);
-                saleTotalsPanel.fireOrderContentChanged(salesOrder);
+                totalsPanel.fireOrderContentChanged(salesOrder);
                 salesOrderDetailPanel.setOrder(salesOrder);
             }
         });
@@ -60,7 +60,7 @@ public class SalesOrdersOverviewPanel extends JPanel {
 
         JPanel center = new JPanel(new BorderLayout());
         center.add(splitPane, BorderLayout.CENTER);
-        center.add(saleTotalsPanel, BorderLayout.SOUTH);
+        center.add(totalsPanel, BorderLayout.SOUTH);
 
         setLayout(new BorderLayout());
         add(center, BorderLayout.CENTER);

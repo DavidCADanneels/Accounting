@@ -1,5 +1,7 @@
 package be.dafke.BasicAccounting.Trade;
 
+import be.dafke.BusinessModel.*;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -72,6 +74,71 @@ public class TotalsPanel extends JPanel {
         totalVatRest.setText("(0.00)");
         totalVat.setText("0.00");
         total.setText("0.00");
+    }
+
+    public void fireOrderContentChanged(Order order){
+        if(order==null){
+            reset();
+        } else if (order instanceof StockOrder) {
+            setTotals((StockOrder)order);
+        } else if (order instanceof SalesOrder) {
+            setTotals((SalesOrder)order);
+        } else {
+            setTotals((PurchaseOrder)order);
+        }
+    }
+
+    public void setTotals(SalesOrder order){
+        net0pct.setText(order.getTotalSalesPriceExclVat(OrderItem.withSalesVatRate(0)).toString());
+        net6pct.setText(order.getTotalSalesPriceExclVat(OrderItem.withSalesVatRate(6)).toString());
+        net21pct.setText(order.getTotalSalesPriceExclVat(OrderItem.withSalesVatRate(21)).toString());
+
+        vat6pct.setText(order.getTotalSalesVat(OrderItem.withSalesVatRate(6)).toString());
+        vat21pct.setText(order.getTotalSalesVat(OrderItem.withSalesVatRate(21)).toString());
+
+        total0pct.setText(order.getTotalSalesPriceInclVat(OrderItem.withSalesVatRate(0)).toString());
+        total6pct.setText(order.getTotalSalesPriceInclVat(OrderItem.withSalesVatRate(6)).toString());
+        total21pct.setText(order.getTotalSalesPriceInclVat(OrderItem.withSalesVatRate(21)).toString());
+
+        totalNet.setText(order.getTotalSalesPriceExclVat().toString());
+        totalVatRest.setText("("+order.calculateTotalSalesVat().toString()+")");
+        totalVat.setText(order.getTotalSalesVat().toString());
+        total.setText(order.getTotalSalesPriceInclVat().toString());
+    }
+    public void setTotals(PurchaseOrder order){
+        net0pct.setText(order.getTotalPurchasePriceExclVat(OrderItem.withPurchaseVatRate(0)).toString());
+        net6pct.setText(order.getTotalPurchasePriceExclVat(OrderItem.withPurchaseVatRate(6)).toString());
+        net21pct.setText(order.getTotalPurchasePriceExclVat(OrderItem.withPurchaseVatRate(21)).toString());
+
+        vat6pct.setText(order.getTotalPurchaseVat(OrderItem.withPurchaseVatRate(6)).toString());
+        vat21pct.setText(order.getTotalPurchaseVat(OrderItem.withPurchaseVatRate(21)).toString());
+
+        total0pct.setText(order.getTotalPurchasePriceInclVat(OrderItem.withPurchaseVatRate(0)).toString());
+        total6pct.setText(order.getTotalPurchasePriceInclVat(OrderItem.withPurchaseVatRate(6)).toString());
+        total21pct.setText(order.getTotalPurchasePriceInclVat(OrderItem.withPurchaseVatRate(21)).toString());
+
+        totalNet.setText(order.getTotalPurchasePriceExclVat().toString());
+        totalVatRest.setText("("+order.calculateTotalPurchaseVat().toString()+")");
+        totalVat.setText(order.getTotalPurchaseVat().toString());
+        total.setText(order.getTotalPurchasePriceInclVat().toString());
+    }
+
+    public void setTotals(StockOrder order){
+        net0pct.setText(order.getTotalStockValue().toString());
+        net6pct.setText("-");
+        net21pct.setText("-");
+
+        vat6pct.setText("-");
+        vat21pct.setText("-");
+
+        total0pct.setText(order.getTotalStockValue().toString());
+        total6pct.setText("-");
+        total21pct.setText("-");
+
+        totalNet.setText(order.getTotalStockValue().toString());
+        totalVatRest.setText("-");
+        totalVat.setText("-");
+        total.setText(order.getTotalStockValue().toString());
     }
 }
 

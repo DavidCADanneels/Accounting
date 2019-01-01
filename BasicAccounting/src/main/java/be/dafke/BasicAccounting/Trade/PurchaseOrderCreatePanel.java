@@ -18,7 +18,7 @@ import java.util.function.Predicate;
 public class PurchaseOrderCreatePanel extends JPanel {
     private final JButton orderButton;
     private final SelectableTable<OrderItem> table;
-    private final PurchaseTotalsPanel purchaseTotalsPanel;
+    private final TotalsPanel totalsPanel;
     private PurchaseOrder purchaseOrder;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
@@ -35,8 +35,8 @@ public class PurchaseOrderCreatePanel extends JPanel {
         purchaseOrder = new PurchaseOrder();
         purchaseOrder.setArticles(articles);
 
-        purchaseTotalsPanel = new PurchaseTotalsPanel();
-        purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null, purchaseOrder, purchaseTotalsPanel);
+        totalsPanel = new TotalsPanel();
+        purchaseOrderCreateDataTableModel = new PurchaseOrderCreateDataTableModel(articles, null, purchaseOrder, totalsPanel);
         table = new SelectableTable<>(purchaseOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
@@ -52,7 +52,7 @@ public class PurchaseOrderCreatePanel extends JPanel {
         orderButton.addActionListener(e -> order());
         JPanel south = new JPanel(new BorderLayout());
         south.add(orderButton, BorderLayout.SOUTH);
-        south.add(purchaseTotalsPanel, BorderLayout.CENTER);
+        south.add(totalsPanel, BorderLayout.CENTER);
 
         JScrollPane scrollPane = new JScrollPane(table);
         setLayout(new BorderLayout());
@@ -72,7 +72,7 @@ public class PurchaseOrderCreatePanel extends JPanel {
             purchaseOrderCreateDataTableModel.setOrder(purchaseOrder);
             // TODO: pass view panel and call directly
             PurchaseOrdersOverviewGUI.firePurchaseOrderAddedOrRemovedForAll();
-            purchaseTotalsPanel.fireOrderContentChanged(purchaseOrder);
+            totalsPanel.fireOrderContentChanged(purchaseOrder);
         } catch (EmptyNameException e1) {
             e1.printStackTrace();
         } catch (DuplicateNameException e1) {

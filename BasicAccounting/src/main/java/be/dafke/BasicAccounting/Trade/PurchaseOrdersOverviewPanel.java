@@ -18,7 +18,7 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
     private final SelectableTable<OrderItem> detailsTable;
     private final PurchaseOrdersOverviewDataTableModel overviewTableModel;
     private final PurchaseOrderViewDataTableModel detailsTableModel;
-    private final PurchaseTotalsPanel purchaseTotalsPanel;
+    private final TotalsPanel totalsPanel;
 
     private final PurchaseOrdersDetailPanel purchaseOrdersDetailPanel;
 
@@ -31,7 +31,7 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
         detailsTable = new SelectableTable<>(detailsTableModel);
         detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200));
 
-        purchaseTotalsPanel = new PurchaseTotalsPanel();
+        totalsPanel = new TotalsPanel();
 
         purchaseOrdersDetailPanel = new PurchaseOrdersDetailPanel(accounting);
 
@@ -42,7 +42,7 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
             if (!e.getValueIsAdjusting()) {
                 PurchaseOrder purchaseOrder = overviewTable.getSelectedObject();
                 detailsTableModel.setOrder(purchaseOrder);
-                purchaseTotalsPanel.fireOrderContentChanged(purchaseOrder);
+                totalsPanel.fireOrderContentChanged(purchaseOrder);
                 purchaseOrdersDetailPanel.setOrder(purchaseOrder);
             }
         });
@@ -54,7 +54,7 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
 
         JPanel center = new JPanel(new BorderLayout());
         center.add(splitPane, BorderLayout.CENTER);
-        center.add(purchaseTotalsPanel, BorderLayout.SOUTH);
+        center.add(totalsPanel, BorderLayout.SOUTH);
 
         setLayout(new BorderLayout());
         add(center, BorderLayout.CENTER);
