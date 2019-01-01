@@ -190,6 +190,10 @@ public class Article extends BusinessObject{
         return article -> article.getPurchaseOrders().size()>0 || article.getSalesOrders().size()>0;
     }
 
+    public static Predicate<Article> inStock(){
+        return article -> article.getNrInStock() > 0;
+    }
+
     public ArrayList<PurchaseOrder> getPurchaseOrders() {
         return purchaseOrders;
     }

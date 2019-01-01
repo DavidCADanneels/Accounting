@@ -40,13 +40,31 @@ public class StockPanel extends JPanel {
             salesOrdersViewGUI.setLocation(getLocationOnScreen());
             salesOrdersViewGUI.setVisible(true);
         });
+        add(createFilterPanel(), BorderLayout.NORTH);
+        add(createButtonPanel(), BorderLayout.SOUTH);
+    }
 
+    private JPanel createFilterPanel(){
+        JPanel panel = new JPanel();
+        JRadioButton withOrders = new JRadioButton("with Orders");
+        JRadioButton inStock = new JRadioButton("in Stock");
+        withOrders.addActionListener(e -> stockDataTableModel.setFilter(Article.withOrders()));
+        inStock.addActionListener(e -> stockDataTableModel.setFilter(Article.inStock()));
+        ButtonGroup group = new ButtonGroup();
+        group.add(withOrders);
+        group.add(inStock);
+        withOrders.setSelected(true);
+        stockDataTableModel.setFilter(Article.withOrders());
+        panel.add(withOrders);
+        panel.add(inStock);
+        return panel;
+    }
 
-        JPanel buttons = new JPanel(new GridLayout(0,2));
-        buttons.add(viewPurchaseOrder);
-        buttons.add(viewSalesOrder);
-
-        add(buttons, BorderLayout.NORTH);
+    private JPanel createButtonPanel(){
+        JPanel panel = new JPanel(new GridLayout(0,2));
+        panel.add(viewPurchaseOrder);
+        panel.add(viewSalesOrder);
+        return panel;
     }
 
     public void fireStockContentChanged(){

@@ -5,6 +5,7 @@ import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.function.Predicate;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -21,6 +22,7 @@ public class StockDataTableModel extends SelectableTableModel<Article> {
 	public static int SUPPLIER_COL = 4;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
+	private Predicate<Article> filter;
 
 	public StockDataTableModel(Articles articles) {
 		this.articles = articles;
@@ -71,10 +73,10 @@ public class StockDataTableModel extends SelectableTableModel<Article> {
 	}
 
 	public int getRowCount() {
-		if(articles == null){
+		if(articles == null || filter == null){
 			return 0;
 		}
-		return articles.getBusinessObjects(Article.withOrders()).size();
+		return articles.getBusinessObjects(filter).size();
 	}
 
 	@Override
@@ -101,7 +103,13 @@ public class StockDataTableModel extends SelectableTableModel<Article> {
 
 	@Override
 	public Article getObject(int row, int col) {
-		List<Article> businessObjects = articles.getBusinessObjects(Article.withOrders());
+		if(articles == null || filter == null) return null;
+		List<Article> businessObjects = articles.getBusinessObjects(filter);
 		return businessObjects.get(row);
+	}
+
+	public void setFilter(Predicate<Article> filter){
+		this.filter = filter;
+		fireTableDataChanged();
 	}
 }
