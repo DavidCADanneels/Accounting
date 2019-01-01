@@ -94,8 +94,6 @@ public class StockIO {
     public static void readStockTransactions(Accounting accounting){
         StockTransactions stockTransactions = accounting.getStockTransactions();
 
-        PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
-        SalesOrders salesOrders = accounting.getSalesOrders();
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + STOCK_TRANSACTIONS + XML_EXTENSION);
         Element transactionsElement = getRootElement(xmlFile, STOCK_TRANSACTIONS);
 
@@ -106,16 +104,24 @@ public class StockIO {
             String description = getValue(element, DESCRIPTION);
 
             if(type!=null&&type.equals(PURCHASE_ORDER)){
+                PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
                 PurchaseOrder purchaseOrder = purchaseOrders.getBusinessObject(name);
                 stockTransactions.addOrder(purchaseOrder);
                 purchaseOrder.setDescription(description);
                 purchaseOrder.setDeliveryDate(date);
-            }
-            if(type!=null&&type.equals(SALES_ORDER)){
+            } else if(type!=null&&type.equals(SALES_ORDER)){
+                SalesOrders salesOrders = accounting.getSalesOrders();
                 SalesOrder salesOrder = salesOrders.getBusinessObject(name);
                 stockTransactions.addOrder(salesOrder);
                 salesOrder.setDescription(description);
                 salesOrder.setDeliveryDate(date);
+            } else if(type!=null&&type.equals(STOCK_ORDER)){
+                StockOrders stockOrders = accounting.getStockOrders();
+                StockOrder stockOrder = stockOrders.getBusinessObject(name);
+                stockTransactions.addOrder(stockOrder);
+                stockOrder.setDescription(description);
+            } else if(type!=null&&type.equals(PROMO_ORDER)){
+
             }
         }
     }
@@ -128,7 +134,7 @@ public class StockIO {
             writer.write(getXmlHeader(STOCK, 2));
 
             writer.write("  <" + ARTICLES + ">\n");
-            for (Article article : articles.getBusinessObjects(Article.withOrders())) {
+            for (Article article : articles.getBusinessObjects(Article.inStock())) {
                 writer.write(
                          "    <" + ARTICLE + ">\n" +
                              "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
@@ -183,6 +189,9 @@ public class StockIO {
                 }
                 if (order instanceof SalesOrder){
                     writer.write("    <" + TYPE + ">" + SALES_ORDER + "</" + TYPE + ">\n");
+                }
+                if (order instanceof StockOrder){
+                    writer.write("    <" + TYPE + ">" + STOCK_ORDER + "</" + TYPE + ">\n");
                 }
                 writer.write("  </" + STOCK_TRANSACTION + ">\n");
             }

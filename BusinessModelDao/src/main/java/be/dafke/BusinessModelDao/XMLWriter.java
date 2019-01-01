@@ -24,6 +24,7 @@ import static be.dafke.BusinessModelDao.PurchaseOrderIO.writePurchasesOrders;
 import static be.dafke.BusinessModelDao.SalesOrderIO.writeSalesOrders;
 import static be.dafke.BusinessModelDao.StockIO.writeStock;
 import static be.dafke.BusinessModelDao.StockIO.writeStockTransactions;
+import static be.dafke.BusinessModelDao.StockOrderIO.writeStockOrders;
 import static be.dafke.BusinessModelDao.VATIO.writeVATFields;
 import static be.dafke.BusinessModelDao.VATIO.writeVATTransactions;
 import static be.dafke.BusinessModelDao.XMLConstants.*;
@@ -150,6 +151,7 @@ public class XMLWriter {
             writeStockTransactions(accounting);
             writePurchasesOrders(accounting);
             writeSalesOrders(accounting);
+            writeStockOrders(accounting);
         }
         if(accounting.isMortgagesAccounting()) {
             writeMortgages(accounting);

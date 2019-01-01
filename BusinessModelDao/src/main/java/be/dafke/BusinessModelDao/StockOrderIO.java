@@ -3,7 +3,6 @@ package be.dafke.BusinessModelDao;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.Utils.Utils;
 import org.w3c.dom.Element;
 
 import java.io.File;
@@ -23,23 +22,20 @@ import static be.dafke.Utils.Utils.parseInt;
 /**
  * Created by ddanneels on 15/01/2017.
  */
-public class PurchaseOrderIO {
-    public static void readPurchaseOrders(Accounting accounting){
-        PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
+public class StockOrderIO {
+    public static void readStockOrders(Accounting accounting){
+        StockOrders stockOrders = accounting.getStockOrders();
         Contacts contacts = accounting.getContacts();
         Articles articles = accounting.getArticles();
-        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+PURCHASE_ORDERS + XML_EXTENSION);
-        Element rootElement = getRootElement(xmlFile, PURCHASE_ORDERS);
+        File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+STOCK_ORDERS + XML_EXTENSION);
+        Element rootElement = getRootElement(xmlFile, STOCK_ORDERS);
         int nr = 0;
 
-        for (Element purchaseOrderElement : getChildren(rootElement, PURCHASE_ORDER)) {
-            PurchaseOrder purchaseOrder = new PurchaseOrder();
+        for (Element purchaseOrderElement : getChildren(rootElement, STOCK_ORDER)) {
+            StockOrder stockOrder = new StockOrder();
             String id = getValue(purchaseOrderElement, ID);
-            purchaseOrder.setName(id);
+            stockOrder.setName(id);
             nr++;
-            String supplierString = getValue(purchaseOrderElement, SUPPLIER);
-            Contact supplier = contacts.getBusinessObject(supplierString);
-            purchaseOrder.setSupplier(supplier);
 
             for (Element element : getChildren(purchaseOrderElement, ARTICLE)) {
                 String name = getValue(element, NAME);
@@ -57,24 +53,24 @@ public class PurchaseOrderIO {
                 String purchasePriceString = getValue(element, PURCHASE_PRICE);
                 BigDecimal purchasePrice = parseBigDecimal(purchasePriceString);
 
-                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, purchaseOrder);
+                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, stockOrder);
                 orderItem.setPurchaseVatRate(purchaseVatRate);
                 orderItem.setPurchasePriceForUnit(purchasePrice);
                 orderItem.setName(name);
-                purchaseOrder.addBusinessObject(orderItem);
+                stockOrder.addBusinessObject(orderItem);
             }
 
             Transactions transactions = accounting.getTransactions();
-            int purchaseTransactionId = parseInt(getValue(purchaseOrderElement, PURCHASE_TRANSACTION));
-            Transaction purchaseTransaction = transactions.getBusinessObject(purchaseTransactionId);
-            purchaseOrder.setPurchaseTransaction(purchaseTransaction);
+            int balanceTransactionId = parseInt(getValue(purchaseOrderElement, BALANCE_TRANSACTION));
+            Transaction balanceTransaction = transactions.getBusinessObject(balanceTransactionId);
+            stockOrder.setBalanceTransaction(balanceTransaction);
 
             int paymentTransactionId = parseInt(getValue(purchaseOrderElement, PAYMENT_TRANSACTION));
             Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId);
-            purchaseOrder.setPaymentTransaction(paymentTransaction);
+            stockOrder.setPaymentTransaction(paymentTransaction);
 
             try {
-                purchaseOrders.addBusinessObject(purchaseOrder);
+                stockOrders.addBusinessObject(stockOrder);
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();
             }
@@ -82,21 +78,20 @@ public class PurchaseOrderIO {
         PurchaseOrders.setId(nr);
     }
 
-    public static void writePurchasesOrders(Accounting accounting) {
-        PurchaseOrders purchaseOrders = accounting.getPurchaseOrders();
-        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + PURCHASE_ORDERS + XML_EXTENSION);
+    public static void writeStockOrders(Accounting accounting) {
+        StockOrders stockOrders = accounting.getStockOrders();
+        File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + STOCK_ORDERS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
-            writer.write(getXmlHeader(PURCHASE_ORDERS, 2));
-            for (PurchaseOrder order : purchaseOrders.getBusinessObjects()) {
+            writer.write(getXmlHeader(STOCK_ORDERS, 2));
+            for (StockOrder order : stockOrders.getBusinessObjects()) {
                 writer.write(
-                             "  <" + PURCHASE_ORDER + ">\n" +
-                                "    <" + ID + ">" + order.getName() + "</" + ID + ">\n" +
-                                "    <" + SUPPLIER + ">" + order.getSupplier() + "</" + SUPPLIER + ">\n"
+                             "  <" + STOCK_ORDER + ">\n" +
+                                "    <" + ID + ">" + order.getName() + "</" + ID + ">\n"
                 );
-                Transaction purchaseTransaction = order.getPurchaseTransaction();
-                if(purchaseTransaction!=null) {
-                    writer.write("    <" + PURCHASE_TRANSACTION + ">" + purchaseTransaction.getTransactionId() + "</" + PURCHASE_TRANSACTION + ">\n");
+                Transaction balanceTransaction = order.getBalanceTransaction();
+                if(balanceTransaction!=null) {
+                    writer.write("    <" + BALANCE_TRANSACTION + ">" + balanceTransaction.getTransactionId() + "</" + BALANCE_TRANSACTION + ">\n");
                 }
                 Transaction paymentTransaction = order.getPaymentTransaction();
                 if(paymentTransaction!=null) {
@@ -115,9 +110,9 @@ public class PurchaseOrderIO {
                                 "    </" + ARTICLE + ">\n"
                     );
                 }
-                writer.write("  </" + PURCHASE_ORDER + ">\n");
+                writer.write("  </" + STOCK_ORDER + ">\n");
             }
-            writer.write("</" + PURCHASE_ORDERS + ">\n");
+            writer.write("</" + STOCK_ORDERS + ">\n");
             writer.flush();
             writer.close();
         } catch (IOException ex) {

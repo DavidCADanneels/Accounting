@@ -28,6 +28,7 @@ import static be.dafke.BusinessModelDao.PurchaseOrderIO.readPurchaseOrders;
 import static be.dafke.BusinessModelDao.SalesOrderIO.readSalesOrders;
 import static be.dafke.BusinessModelDao.StockIO.readStockSettings;
 import static be.dafke.BusinessModelDao.StockIO.readStockTransactions;
+import static be.dafke.BusinessModelDao.StockOrderIO.readStockOrders;
 import static be.dafke.BusinessModelDao.VATIO.readVATTransactions;
 import static be.dafke.BusinessModelDao.XMLConstants.*;
 
@@ -190,6 +191,7 @@ public class XMLReader {
                 readArticles(accounting);
                 readPurchaseOrders(accounting);
                 readSalesOrders(accounting);
+                readStockOrders(accounting);
                 readStockTransactions(accounting);
             }
             if (accounting.isDeliverooAccounting()){
