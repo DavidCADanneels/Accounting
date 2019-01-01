@@ -11,7 +11,7 @@ import java.awt.event.KeyEvent;
 import static java.util.ResourceBundle.getBundle;
 
 public class GoodsMenu extends JMenu {
-    private JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders, stockHistoryTable;
+    private JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders, promoOrders, stockHistoryTable;
 
     private Articles articles;
     private Contacts contacts;
@@ -65,11 +65,21 @@ public class GoodsMenu extends JMenu {
         });
         salesOrders.setEnabled(false);
 
+        promoOrders = new JMenuItem(getBundle("Accounting").getString("PROMO_ORDERS"));
+        promoOrders.setMnemonic(KeyEvent.VK_R);
+        promoOrders.addActionListener(e -> {
+            PromoOrdersOverviewGUI promoOrdersGUI = PromoOrdersOverviewGUI.showPromoOrderGUI(accounting);
+            promoOrdersGUI.setLocation(getLocationOnScreen());
+            promoOrdersGUI.setVisible(true);
+        });
+        promoOrders.setEnabled(false);
+
         add(articlesTable);
         add(stockTable);
         add(stockHistoryTable);
         add(purchaseOrders);
         add(salesOrders);
+        add(promoOrders);
     }
 
     public void setAccounting(Accounting accounting) {
@@ -80,6 +90,7 @@ public class GoodsMenu extends JMenu {
         stockHistoryTable.setEnabled(accounting!=null);
         purchaseOrders.setEnabled(accounting!=null);
         salesOrders.setEnabled(accounting!=null);
+        promoOrders.setEnabled(accounting!=null);
     }
 
     public void setContacts(Contacts contacts) {

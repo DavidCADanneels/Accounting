@@ -19,8 +19,8 @@ class PromoOrderCreatePanel extends JPanel {
         promoOrder = new PromoOrder();
         promoOrder.setArticles(articles);
 
-        TotalsPanel saleTotalsPanel = new TotalsPanel();
-        salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, promoOrder, saleTotalsPanel);
+        TotalsPanel totalsPanel = new TotalsPanel();
+        salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, promoOrder, totalsPanel);
         SelectableTable<OrderItem> table = new SelectableTable<>(salesOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
@@ -38,8 +38,8 @@ class PromoOrderCreatePanel extends JPanel {
                 promoOrder = new PromoOrder();
                 promoOrder.setArticles(articles);
                 salesOrderCreateDataTableModel.setOrder(promoOrder);
-                saleTotalsPanel.fireOrderContentChanged(promoOrder);
-                SalesOrdersOverviewGUI.fireSalesOrderAddedOrRemovedForAll();
+                totalsPanel.fireOrderContentChanged(promoOrder);
+                PromoOrdersOverviewGUI.firePromoOrderAddedOrRemovedForAll();
             } catch (EmptyNameException e1) {
                 e1.printStackTrace();
             } catch (DuplicateNameException e1) {
@@ -48,7 +48,7 @@ class PromoOrderCreatePanel extends JPanel {
         });
         JPanel south = new JPanel(new BorderLayout());
         south.add(orderButton, BorderLayout.SOUTH);
-        south.add(saleTotalsPanel, BorderLayout.CENTER);
+        south.add(totalsPanel, BorderLayout.CENTER);
 
         JScrollPane scrollPane = new JScrollPane(table);
         setLayout(new BorderLayout());

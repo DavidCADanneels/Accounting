@@ -79,12 +79,12 @@ public class TotalsPanel extends JPanel {
     public void fireOrderContentChanged(Order order){
         if(order==null){
             reset();
-        } else if (order instanceof StockOrder) {
-            setTotals((StockOrder)order);
         } else if (order instanceof SalesOrder) {
             setTotals((SalesOrder)order);
-        } else {
+        } else if (order instanceof PurchaseOrder) {
             setTotals((PurchaseOrder)order);
+        } else {
+            setTotals(order);
         }
     }
 
@@ -123,7 +123,7 @@ public class TotalsPanel extends JPanel {
         total.setText(order.getTotalPurchasePriceInclVat().toString());
     }
 
-    public void setTotals(StockOrder order){
+    public void setTotals(Order order){
         net0pct.setText(order.getTotalStockValue().toString());
         net6pct.setText("-");
         net21pct.setText("-");
