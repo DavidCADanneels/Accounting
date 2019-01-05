@@ -6,12 +6,14 @@ import be.dafke.BusinessModel.Accounting;
 
 import javax.swing.*;
 
+import java.util.HashMap;
+
 import static java.util.ResourceBundle.getBundle;
 
 public class SalesOrdersOverviewGUI extends JFrame {
     private final SalesOrdersOverviewPanel ordersOverViewPanel;
 
-    private static SalesOrdersOverviewGUI salesOrderGui = null;
+    private static HashMap<Accounting,SalesOrdersOverviewGUI> map = new HashMap<>();
 
     private SalesOrdersOverviewGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("SO_OVERVIEW"));
@@ -21,16 +23,18 @@ public class SalesOrdersOverviewGUI extends JFrame {
     }
 
     public static SalesOrdersOverviewGUI showSalesOrderGUI(Accounting accounting) {
-        if (salesOrderGui == null) {
-            salesOrderGui = new SalesOrdersOverviewGUI(accounting);
-            Main.addFrame(salesOrderGui);
+        SalesOrdersOverviewGUI gui = map.get(accounting);
+        if (gui == null) {
+            gui = new SalesOrdersOverviewGUI(accounting);
+            map.put(accounting, gui);
+            Main.addFrame(gui);
         }
-        return salesOrderGui;
+        return gui;
     }
 
     public static void fireSalesOrderAddedOrRemovedForAll(){
-        if (salesOrderGui!=null){
-            salesOrderGui.fireSalesOrderAddedOrRemoved();
+        for (SalesOrdersOverviewGUI gui : map.values()){
+            gui.fireSalesOrderAddedOrRemoved();
         }
     }
 

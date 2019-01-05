@@ -7,12 +7,14 @@ import be.dafke.BusinessModel.PurchaseOrder;
 
 import javax.swing.*;
 
+import java.util.HashMap;
+
 import static java.util.ResourceBundle.getBundle;
 
 public class PurchaseOrdersOverviewGUI extends JFrame {
     private final PurchaseOrdersOverviewPanel ordersOverViewPanel;
 
-    private static PurchaseOrdersOverviewGUI purchaseOrderGui = null;
+    private static HashMap<Accounting,PurchaseOrdersOverviewGUI> map = null;
 
     private PurchaseOrdersOverviewGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("PO_OVERVIEW"));
@@ -22,16 +24,18 @@ public class PurchaseOrdersOverviewGUI extends JFrame {
     }
 
     public static PurchaseOrdersOverviewGUI showPurchaseOrderGUI(Accounting accounting) {
-        if (purchaseOrderGui == null) {
-            purchaseOrderGui = new PurchaseOrdersOverviewGUI(accounting);
-            Main.addFrame(purchaseOrderGui);
+        PurchaseOrdersOverviewGUI gui = map.get(accounting);
+        if (gui == null) {
+            gui = new PurchaseOrdersOverviewGUI(accounting);
+            map.put(accounting, gui);
+            Main.addFrame(gui);
         }
-        return purchaseOrderGui;
+        return gui;
     }
 
     public static void firePurchaseOrderAddedOrRemovedForAll(){
-        if (purchaseOrderGui!=null){
-            purchaseOrderGui.firePurchaseOrderAddedOrRemoved();
+        for (PurchaseOrdersOverviewGUI gui : map.values()){
+            gui.firePurchaseOrderAddedOrRemoved();
         }
     }
 

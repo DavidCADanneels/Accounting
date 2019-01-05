@@ -6,12 +6,14 @@ import be.dafke.BusinessModel.Accounting;
 
 import javax.swing.*;
 
+import java.util.HashMap;
+
 import static java.util.ResourceBundle.getBundle;
 
 public class PromoOrdersOverviewGUI extends JFrame {
     private final PromoOrdersOverviewPanel ordersOverViewPanel;
 
-    private static PromoOrdersOverviewGUI salesOrderGui = null;
+    private static HashMap<Accounting,PromoOrdersOverviewGUI> map = new HashMap<>();
 
     private PromoOrdersOverviewGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("PR_OVERVIEW"));
@@ -21,16 +23,18 @@ public class PromoOrdersOverviewGUI extends JFrame {
     }
 
     public static PromoOrdersOverviewGUI showPromoOrderGUI(Accounting accounting) {
-        if (salesOrderGui == null) {
-            salesOrderGui = new PromoOrdersOverviewGUI(accounting);
-            Main.addFrame(salesOrderGui);
+        PromoOrdersOverviewGUI gui = map.get(accounting);
+        if (gui == null) {
+            gui = new PromoOrdersOverviewGUI(accounting);
+            map.put(accounting, gui);
+            Main.addFrame(gui);
         }
-        return salesOrderGui;
+        return gui;
     }
 
     public static void firePromoOrderAddedOrRemovedForAll(){
-        if (salesOrderGui!=null){
-            salesOrderGui.firePromoOrderAddedOrRemoved();
+        for (PromoOrdersOverviewGUI gui : map.values()){
+            gui.firePromoOrderAddedOrRemoved();
         }
     }
 
