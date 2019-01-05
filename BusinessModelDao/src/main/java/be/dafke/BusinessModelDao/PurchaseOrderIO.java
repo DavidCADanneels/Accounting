@@ -3,7 +3,6 @@ package be.dafke.BusinessModelDao;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.Utils.Utils;
 import org.w3c.dom.Element;
 
 import java.io.File;
@@ -27,18 +26,21 @@ public class PurchaseOrderIO {
         Articles articles = accounting.getArticles();
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+PURCHASE_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, PURCHASE_ORDERS);
-        int nr = 0;
 
-        for (Element purchaseOrderElement : getChildren(rootElement, PURCHASE_ORDER)) {
-            PurchaseOrder purchaseOrder = new PurchaseOrder();
-            String id = getValue(purchaseOrderElement, ID);
-            purchaseOrder.setName(id);
-            nr++;
-            String supplierString = getValue(purchaseOrderElement, SUPPLIER);
+        for (Element orderElement : getChildren(rootElement, PURCHASE_ORDER)) {
+            PurchaseOrder order = new PurchaseOrder();
+
+            String idString = getValue(orderElement, ID);
+            order.setId(parseInt(idString));
+
+            String orderName = getValue(orderElement, NAME);
+            order.setName(orderName);
+
+            String supplierString = getValue(orderElement, SUPPLIER);
             Contact supplier = contacts.getBusinessObject(supplierString);
-            purchaseOrder.setSupplier(supplier);
+            order.setSupplier(supplier);
 
-            for (Element element : getChildren(purchaseOrderElement, ARTICLE)) {
+            for (Element element : getChildren(orderElement, ARTICLE)) {
                 String name = getValue(element, NAME);
                 Article article = articles.getBusinessObject(name);
 
@@ -54,29 +56,28 @@ public class PurchaseOrderIO {
                 String purchasePriceString = getValue(element, PURCHASE_PRICE);
                 BigDecimal purchasePrice = parseBigDecimal(purchasePriceString);
 
-                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, purchaseOrder);
+                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, order);
                 orderItem.setPurchaseVatRate(purchaseVatRate);
                 orderItem.setPurchasePriceForUnit(purchasePrice);
                 orderItem.setName(name);
-                purchaseOrder.addBusinessObject(orderItem);
+                order.addBusinessObject(orderItem);
             }
 
             Transactions transactions = accounting.getTransactions();
-            int purchaseTransactionId = parseInt(getValue(purchaseOrderElement, PURCHASE_TRANSACTION));
+            int purchaseTransactionId = parseInt(getValue(orderElement, PURCHASE_TRANSACTION));
             Transaction purchaseTransaction = transactions.getBusinessObject(purchaseTransactionId);
-            purchaseOrder.setPurchaseTransaction(purchaseTransaction);
+            order.setPurchaseTransaction(purchaseTransaction);
 
-            int paymentTransactionId = parseInt(getValue(purchaseOrderElement, PAYMENT_TRANSACTION));
+            int paymentTransactionId = parseInt(getValue(orderElement, PAYMENT_TRANSACTION));
             Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId);
-            purchaseOrder.setPaymentTransaction(paymentTransaction);
+            order.setPaymentTransaction(paymentTransaction);
 
             try {
-                purchaseOrders.addBusinessObject(purchaseOrder);
+                purchaseOrders.addBusinessObject(order);
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();
             }
         }
-        PurchaseOrders.setId(nr);
     }
 
     public static void writePurchasesOrders(Accounting accounting) {
@@ -88,7 +89,8 @@ public class PurchaseOrderIO {
             for (PurchaseOrder order : purchaseOrders.getBusinessObjects()) {
                 writer.write(
                              "  <" + PURCHASE_ORDER + ">\n" +
-                                "    <" + ID + ">" + order.getName() + "</" + ID + ">\n" +
+                                "    <" + ID + ">" + order.getId() + "</" + ID + ">\n" +
+                                "    <" + NAME + ">" + order.getName() + "</" + NAME + ">\n" +
                                 "    <" + SUPPLIER + ">" + order.getSupplier() + "</" + SUPPLIER + ">\n"
                 );
                 Transaction purchaseTransaction = order.getPurchaseTransaction();

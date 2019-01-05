@@ -7,20 +7,16 @@ import be.dafke.Utils.Utils;
 
 public class SalesOrders extends BusinessCollection<SalesOrder>{
 
-    private static int id = 0;
+    private int id = 0;
 
-    public SalesOrders() {
-        super();
-    }
-
-    public SalesOrder addBusinessObject(SalesOrder salesOrder) throws EmptyNameException, DuplicateNameException {
-        if (salesOrder.getName()==null) {
+    public SalesOrder addBusinessObject(SalesOrder order) throws EmptyNameException, DuplicateNameException {
+        if (order.getId()==null) {
             id++;
-            salesOrder.setName(Utils.toIDString("SO", id, 3));
-            salesOrder.setId(id);
+            order.setId(id);
         }
-        salesOrder.addSalesOrderToArticles();
-        return super.addBusinessObject(salesOrder);
+        order.setName(Utils.toIDString("SO", order.getId(), 3));
+        order.addSalesOrderToArticles();
+        return super.addBusinessObject(order);
     }
 
     public void removeBusinessObject(Order order){

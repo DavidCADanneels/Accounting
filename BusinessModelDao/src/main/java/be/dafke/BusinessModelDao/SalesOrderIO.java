@@ -29,21 +29,27 @@ public class SalesOrderIO {
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+SALES_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS);
 
-        for (Element salesOrderElement : getChildren(rootElement, SALES_ORDER)) {
+        for (Element orderElement : getChildren(rootElement, SALES_ORDER)) {
             SalesOrders salesOrders = accounting.getSalesOrders();
-            SalesOrder salesOrder = new SalesOrder();
+            SalesOrder order = new SalesOrder();
 
-            boolean cn = getBooleanValue(salesOrderElement, CREDIT_NOTE);
-            salesOrder.setCreditNote(cn);
+            String idString = getValue(orderElement, ID);
+            order.setId(parseInt(idString));
 
-            String customerString = getValue(salesOrderElement, CUSTOMER);
+            String orderName = getValue(orderElement, NAME);
+            order.setName(orderName);
+
+            boolean cn = getBooleanValue(orderElement, CREDIT_NOTE);
+            order.setCreditNote(cn);
+
+            String customerString = getValue(orderElement, CUSTOMER);
             Contact customer = contacts.getBusinessObject(customerString);
-            salesOrder.setCustomer(customer);
+            order.setCustomer(customer);
 
-            salesOrder.setInvoice(getBooleanValue(salesOrderElement, INVOICE));
-            salesOrder.setInvoiceNumber(getValue(salesOrderElement, INVOICE_NUMBER));
+            order.setInvoice(getBooleanValue(orderElement, INVOICE));
+            order.setInvoiceNumber(getValue(orderElement, INVOICE_NUMBER));
 
-            for (Element element : getChildren(salesOrderElement, ARTICLE)) {
+            for (Element element : getChildren(orderElement, ARTICLE)) {
 
                 // Fetch constructor arguments
                 //
@@ -58,7 +64,7 @@ public class SalesOrderIO {
                 //
                 // Create OrderItem
                 //
-                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, salesOrder);
+                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, order);
 
                 // set Unit Price
                 //
@@ -95,23 +101,23 @@ public class SalesOrderIO {
                 }
 
                 orderItem.setName(name);
-                salesOrder.addBusinessObject(orderItem);
+                order.addBusinessObject(orderItem);
             }
             Transactions transactions = accounting.getTransactions();
-            int salesTransactionId = parseInt(getValue(salesOrderElement, SALES_TRANSACTION));
+            int salesTransactionId = parseInt(getValue(orderElement, SALES_TRANSACTION));
             Transaction salesTransaction = transactions.getBusinessObject(salesTransactionId);
-            salesOrder.setSalesTransaction(salesTransaction);
+            order.setSalesTransaction(salesTransaction);
 
-            int paymentTransactionId = parseInt(getValue(salesOrderElement, PAYMENT_TRANSACTION));
+            int paymentTransactionId = parseInt(getValue(orderElement, PAYMENT_TRANSACTION));
             Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId);
-            salesOrder.setPaymentTransaction(paymentTransaction);
+            order.setPaymentTransaction(paymentTransaction);
 
-            int gainTransactionId = parseInt(getValue(salesOrderElement, GAIN_TRANSACTION));
+            int gainTransactionId = parseInt(getValue(orderElement, GAIN_TRANSACTION));
             Transaction gainTransaction = transactions.getBusinessObject(gainTransactionId);
-            salesOrder.setGainTransaction(gainTransaction);
+            order.setGainTransaction(gainTransaction);
 
             try {
-                salesOrders.addBusinessObject(salesOrder);
+                salesOrders.addBusinessObject(order);
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();
             }
@@ -128,6 +134,7 @@ public class SalesOrderIO {
                 writer.write(
                              "  <" + SALES_ORDER + ">\n" +
                                  "    <" + ID + ">" + salesOrder.getId() + "</" + ID + ">\n" +
+                                 "    <" + NAME + ">" + salesOrder.getName() + "</" + NAME + ">\n" +
                                  "    <" + CUSTOMER + ">" + salesOrder.getCustomer() + "</" + CUSTOMER + ">\n" +
                                  "    <" + INVOICE + ">" + salesOrder.isInvoice() + "</" + INVOICE + ">\n"
                 );

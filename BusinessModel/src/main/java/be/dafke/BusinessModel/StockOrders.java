@@ -3,25 +3,20 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessCollection;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.Utils.Utils;
 
 public class StockOrders extends BusinessCollection<StockOrder>{
 
-    private static int id = 0;
+    private int id = 0;
 
-    public StockOrders() {
-        super();
-    }
-
-    public static void setId(int id) {
-        StockOrders.id = id;
-    }
-
-    public StockOrder addBusinessObject(StockOrder stockOrder) throws EmptyNameException, DuplicateNameException {
-        if(stockOrder.getName()==null) {
-            stockOrder.setName("ST" + ++id);
+    public StockOrder addBusinessObject(StockOrder order) throws EmptyNameException, DuplicateNameException {
+        if(order.getId()==null) {
+            id++;
+            order.setId(id);
         }
-        stockOrder.addStockOrderToArticles();
-        return super.addBusinessObject(stockOrder);
+        order.setName(Utils.toIDString("ST", order.getId(), 3));
+        order.addStockOrderToArticles();
+        return super.addBusinessObject(order);
     }
 
     public void removeBusinessObject(Order order){

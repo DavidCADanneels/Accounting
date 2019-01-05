@@ -25,15 +25,17 @@ public class StockOrderIO {
         Articles articles = accounting.getArticles();
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+STOCK_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, STOCK_ORDERS);
-        int nr = 0;
 
-        for (Element purchaseOrderElement : getChildren(rootElement, STOCK_ORDER)) {
-            StockOrder stockOrder = new StockOrder();
-            String id = getValue(purchaseOrderElement, ID);
-            stockOrder.setName(id);
-            nr++;
+        for (Element orderElement : getChildren(rootElement, STOCK_ORDER)) {
+            StockOrder order = new StockOrder();
 
-            for (Element element : getChildren(purchaseOrderElement, ARTICLE)) {
+            String idString = getValue(orderElement, ID);
+            order.setId(parseInt(idString));
+
+            String orderName = getValue(orderElement, NAME);
+            order.setName(orderName);
+
+            for (Element element : getChildren(orderElement, ARTICLE)) {
                 String name = getValue(element, NAME);
                 Article article = articles.getBusinessObject(name);
 
@@ -49,29 +51,28 @@ public class StockOrderIO {
                 String purchasePriceString = getValue(element, PURCHASE_PRICE);
                 BigDecimal purchasePrice = parseBigDecimal(purchasePriceString);
 
-                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, stockOrder);
+                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, order);
                 orderItem.setPurchaseVatRate(purchaseVatRate);
                 orderItem.setPurchasePriceForUnit(purchasePrice);
                 orderItem.setName(name);
-                stockOrder.addBusinessObject(orderItem);
+                order.addBusinessObject(orderItem);
             }
 
             Transactions transactions = accounting.getTransactions();
-            int balanceTransactionId = parseInt(getValue(purchaseOrderElement, BALANCE_TRANSACTION));
+            int balanceTransactionId = parseInt(getValue(orderElement, BALANCE_TRANSACTION));
             Transaction balanceTransaction = transactions.getBusinessObject(balanceTransactionId);
-            stockOrder.setBalanceTransaction(balanceTransaction);
+            order.setBalanceTransaction(balanceTransaction);
 
-            int paymentTransactionId = parseInt(getValue(purchaseOrderElement, PAYMENT_TRANSACTION));
+            int paymentTransactionId = parseInt(getValue(orderElement, PAYMENT_TRANSACTION));
             Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId);
-            stockOrder.setPaymentTransaction(paymentTransaction);
+            order.setPaymentTransaction(paymentTransaction);
 
             try {
-                stockOrders.addBusinessObject(stockOrder);
+                stockOrders.addBusinessObject(order);
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();
             }
         }
-        PurchaseOrders.setId(nr);
     }
 
     public static void writeStockOrders(Accounting accounting) {
@@ -83,7 +84,8 @@ public class StockOrderIO {
             for (StockOrder order : stockOrders.getBusinessObjects()) {
                 writer.write(
                              "  <" + STOCK_ORDER + ">\n" +
-                                "    <" + ID + ">" + order.getName() + "</" + ID + ">\n"
+                                "    <" + ID + ">" + order.getId() + "</" + ID + ">\n" +
+                                "    <" + NAME + ">" + order.getName() + "</" + NAME + ">\n"
                 );
                 Transaction balanceTransaction = order.getBalanceTransaction();
                 if(balanceTransaction!=null) {

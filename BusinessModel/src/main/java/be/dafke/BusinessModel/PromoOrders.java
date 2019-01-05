@@ -7,24 +7,16 @@ import be.dafke.Utils.Utils;
 
 public class PromoOrders extends BusinessCollection<PromoOrder>{
 
-    private static int id = 0;
+    private int id = 0;
 
-    public PromoOrders() {
-        super();
-    }
-
-    public static void setId(int id) {
-        PromoOrders.id = id;
-    }
-
-    public PromoOrder addBusinessObject(PromoOrder promoOrder) throws EmptyNameException, DuplicateNameException {
-        if(promoOrder.getName()==null) {
+    public PromoOrder addBusinessObject(PromoOrder order) throws EmptyNameException, DuplicateNameException {
+        if(order.getId()==null) {
             id++;
-            promoOrder.setName(Utils.toIDString("PR", id, 3));
-            promoOrder.setId(id);
+            order.setId(id);
         }
-        promoOrder.addPromoOrderToArticles();
-        return super.addBusinessObject(promoOrder);
+        order.setName(Utils.toIDString("PR", order.getId(), 3));
+        order.addPromoOrderToArticles();
+        return super.addBusinessObject(order);
     }
 
     public void removeBusinessObject(Order order){

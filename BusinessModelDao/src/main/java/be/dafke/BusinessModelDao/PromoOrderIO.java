@@ -27,10 +27,18 @@ public class PromoOrderIO {
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+PROMO_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, PROMO_ORDERS);
 
-        for (Element salesOrderElement : getChildren(rootElement, PROMO_ORDER)) {
+        for (Element orderElement : getChildren(rootElement, PROMO_ORDER)) {
             PromoOrders promoOrders = accounting.getPromoOrders();
-            PromoOrder promoOrder = new PromoOrder();
-            for (Element element : getChildren(salesOrderElement, ARTICLE)) {
+
+            PromoOrder order = new PromoOrder();
+
+            String idString = getValue(orderElement, ID);
+            order.setId(parseInt(idString));
+
+            String orderName = getValue(orderElement, NAME);
+            order.setName(orderName);
+
+            for (Element element : getChildren(orderElement, ARTICLE)) {
 
                 // Fetch constructor arguments
                 //
@@ -45,7 +53,7 @@ public class PromoOrderIO {
                 //
                 // Create OrderItem
                 //
-                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, promoOrder);
+                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, order);
 
                 // set Item Price
                 orderItem.setItemsPerUnit(parseInt(getValue(element, ITEMS_PER_UNIT)));
@@ -69,15 +77,15 @@ public class PromoOrderIO {
                 }
 
                 orderItem.setName(name);
-                promoOrder.addBusinessObject(orderItem);
+                order.addBusinessObject(orderItem);
             }
             Transactions transactions = accounting.getTransactions();
-            int paymentTransactionId = parseInt(getValue(salesOrderElement, PAYMENT_TRANSACTION));
+            int paymentTransactionId = parseInt(getValue(orderElement, PAYMENT_TRANSACTION));
             Transaction paymentTransaction = transactions.getBusinessObject(paymentTransactionId);
-            promoOrder.setPaymentTransaction(paymentTransaction);
+            order.setPaymentTransaction(paymentTransaction);
 
             try {
-                promoOrders.addBusinessObject(promoOrder);
+                promoOrders.addBusinessObject(order);
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();
             }
@@ -93,7 +101,8 @@ public class PromoOrderIO {
             for (PromoOrder promoOrder : promoOrders.getBusinessObjects()) {
                 writer.write(
                              "  <" + PROMO_ORDER + ">\n" +
-                                 "    <" + ID + ">" + promoOrder.getId() + "</" + ID + ">\n"
+                                 "    <" + ID + ">" + promoOrder.getId() + "</" + ID + ">\n" +
+                                 "    <" + NAME + ">" + promoOrder.getName() + "</" + NAME + ">\n"
                 );
                 Transaction paymentTransaction = promoOrder.getPaymentTransaction();
                 if(paymentTransaction!=null) {

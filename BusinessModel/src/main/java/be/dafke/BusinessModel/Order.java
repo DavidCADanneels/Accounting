@@ -4,7 +4,6 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 
 public class Order extends OrderItems {
-//    private Articles articles;
     private Contact customer, supplier;
     private Transaction paymentTransaction;
     private Integer id;
@@ -12,12 +11,7 @@ public class Order extends OrderItems {
     private String description;
     private boolean creditNote;
 
-    public Order() {
-        super();
-    }
-
     public void setArticles(Articles articles){
-//        this.articles = articles;
         articles.getBusinessObjects().forEach( article -> {
             addBusinessObject(new OrderItem(0,0,article, this));
         });
@@ -72,7 +66,7 @@ public class Order extends OrderItems {
         return id;
     }
 
-    protected void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
