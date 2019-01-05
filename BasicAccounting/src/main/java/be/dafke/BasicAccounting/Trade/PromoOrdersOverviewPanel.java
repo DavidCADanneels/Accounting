@@ -23,8 +23,8 @@ public class PromoOrdersOverviewPanel extends JPanel {
     private final PromoOrderDetailPanel salesOrderDetailPanel;
     private final SalesOrderDetailsPopupMenu popup;
 
-    public PromoOrdersOverviewPanel(Accounting accounting) {
-        overviewTableModel = new PromoOrdersOverviewDataTableModel(accounting.getPromoOrders());
+    public PromoOrdersOverviewPanel() {
+        overviewTableModel = new PromoOrdersOverviewDataTableModel();
         overviewTable = new SelectableTable<>(overviewTableModel);
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
@@ -32,11 +32,11 @@ public class PromoOrdersOverviewPanel extends JPanel {
         detailsTable = new SelectableTable<>(detailsTableModel);
         detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200));
         //
-        popup = new SalesOrderDetailsPopupMenu(detailsTable, accounting);
+        popup = new SalesOrderDetailsPopupMenu(detailsTable);
         detailsTable.addMouseListener(PopupForTableActivator.getInstance(popup,detailsTable));
 
         totalsPanel = new TotalsPanel();
-        salesOrderDetailPanel = new PromoOrderDetailPanel(accounting);
+        salesOrderDetailPanel = new PromoOrderDetailPanel();
 
         firePromoOrderAddedOrRemoved();
 
@@ -66,5 +66,11 @@ public class PromoOrdersOverviewPanel extends JPanel {
 
     public void firePromoOrderAddedOrRemoved() {
         overviewTableModel.fireTableDataChanged();
+    }
+
+    public void setAccounting(Accounting accounting) {
+        overviewTableModel.setAccounting(accounting);
+        popup.setAccounting(accounting);
+        salesOrderDetailPanel.setAccounting(accounting);
     }
 }

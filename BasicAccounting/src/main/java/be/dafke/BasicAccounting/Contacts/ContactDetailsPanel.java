@@ -2,9 +2,9 @@ package be.dafke.BasicAccounting.Contacts;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.Contacts;
-import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
@@ -32,12 +32,11 @@ public class ContactDetailsPanel extends JPanel {
     public static final String SUPPLIER = "SUPPLIER_LABEL";
     private final JCheckBox customer, supplier;
     private final JTextField contactName, contactVAT, contactStreet, contactPostalCode, contactCity, contactCountry, contactPhone, contactEmail, officialName;
-    private final Contacts contacts;
+    private Contacts contacts;
     private Contact contact;
     private boolean newContact;
 
-    public ContactDetailsPanel(Contacts contacts) {
-        this.contacts = contacts;
+    public ContactDetailsPanel() {
         setLayout(new GridLayout(0,2));
 
         contactName = new JTextField(20);
@@ -72,6 +71,14 @@ public class ContactDetailsPanel extends JPanel {
         add(contactEmail);
         add(customer);
         add(supplier);
+    }
+
+    public void setAccounting(Accounting accounting) {
+        setContacts(accounting==null?null:accounting.getContacts());
+    }
+
+    public void setContacts(Contacts contacts) {
+        this.contacts = contacts;
     }
 
     public void setEnabled(boolean enabled){

@@ -17,8 +17,8 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
 
     private final PurchaseOrdersDetailPanel purchaseOrdersDetailPanel;
 
-    public PurchaseOrdersOverviewPanel(Accounting accounting) {
-        overviewTableModel = new PurchaseOrdersOverviewDataTableModel(accounting.getPurchaseOrders());
+    public PurchaseOrdersOverviewPanel() {
+        overviewTableModel = new PurchaseOrdersOverviewDataTableModel();
         overviewTable = new SelectableTable<>(overviewTableModel);
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
@@ -28,7 +28,7 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
 
         totalsPanel = new TotalsPanel();
 
-        purchaseOrdersDetailPanel = new PurchaseOrdersDetailPanel(accounting);
+        purchaseOrdersDetailPanel = new PurchaseOrdersDetailPanel();
 
         firePurchaseOrderAddedOrRemoved();
 
@@ -67,5 +67,11 @@ public class PurchaseOrdersOverviewPanel extends JPanel {
             Rectangle cellRect = overviewTable.getCellRect(row, 0, false);
             overviewTable.scrollRectToVisible(cellRect);
         }
+    }
+
+    public void setAccounting(Accounting accounting) {
+        overviewTableModel.setAccounting(accounting);
+//        popup.setAccounting(accounting);
+        purchaseOrdersDetailPanel.setAccounting(accounting);
     }
 }

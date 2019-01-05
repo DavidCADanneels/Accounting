@@ -36,8 +36,8 @@ public class SalesOrderIO {
             String idString = getValue(orderElement, ID);
             order.setId(parseInt(idString));
 
-            String orderName = getValue(orderElement, NAME);
-            order.setName(orderName);
+//            String orderName = getValue(orderElement, NAME);
+//            order.setName(orderName);
 
             boolean cn = getBooleanValue(orderElement, CREDIT_NOTE);
             order.setCreditNote(cn);

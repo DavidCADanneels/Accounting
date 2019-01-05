@@ -24,7 +24,8 @@ public class NewContactDialog extends RefreshableDialog {
     public NewContactDialog(Contacts contacts) {
         super(getBundle("Contacts").getString("NEW_CONTACT_GUI_TITLE"));
 
-        contactDetailsPanel = new ContactDetailsPanel(contacts);
+        contactDetailsPanel = new ContactDetailsPanel();
+        contactDetailsPanel.setContacts(contacts);
 
 		add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_CONTACT"));
 		add.addActionListener(e -> contactDetailsPanel.saveAccount());

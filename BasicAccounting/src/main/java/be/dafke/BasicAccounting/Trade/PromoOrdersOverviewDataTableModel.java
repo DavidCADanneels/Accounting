@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Trade;
 
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.PromoOrder;
 import be.dafke.BusinessModel.PromoOrders;
 import be.dafke.BusinessModel.SalesOrder;
@@ -25,10 +26,9 @@ public class PromoOrdersOverviewDataTableModel extends SelectableTableModel<Prom
 
 	private PromoOrders promoOrders;
 
-	public PromoOrdersOverviewDataTableModel(PromoOrders promoOrders) {
+	public PromoOrdersOverviewDataTableModel() {
 		setColumnNames();
 		setColumnClasses();
-		this.promoOrders = promoOrders;
 	}
 
 	protected void setColumnClasses() {
@@ -101,5 +101,10 @@ public class PromoOrdersOverviewDataTableModel extends SelectableTableModel<Prom
 		List<PromoOrder> businessObjects = this.promoOrders.getBusinessObjects();
 		if(businessObjects == null || businessObjects.size() == 0) return null;
 		return businessObjects.get(row);
+	}
+
+	public void setAccounting(Accounting accounting) {
+		promoOrders = accounting.getPromoOrders();
+		fireTableDataChanged();
 	}
 }

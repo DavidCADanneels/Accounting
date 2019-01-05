@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Trade;
 
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.SalesOrder;
 import be.dafke.BusinessModel.SalesOrders;
 
@@ -16,10 +17,9 @@ public class SalesOrdersOverviewDataTableModel extends OrdersOverviewDataTableMo
 	SalesOrders salesOrders;
 
 
-	public SalesOrdersOverviewDataTableModel(SalesOrders salesOrders) {
+	public SalesOrdersOverviewDataTableModel(){
 		super();
 		columnNames.put(CONTACT_COL, getBundle("Contacts").getString("CUSTOMER"));
-		this.salesOrders = salesOrders;
 	}
 
 	// DE GET METHODEN
@@ -63,5 +63,10 @@ public class SalesOrdersOverviewDataTableModel extends OrdersOverviewDataTableMo
 		List<SalesOrder> businessObjects = this.salesOrders.getBusinessObjects();
 		if(businessObjects == null || businessObjects.size() == 0) return null;
 		return businessObjects.get(row);
+	}
+
+	public void setAccounting(Accounting accounting) {
+		salesOrders = accounting.getSalesOrders();
+		fireTableDataChanged();
 	}
 }

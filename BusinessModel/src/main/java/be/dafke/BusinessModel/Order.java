@@ -70,6 +70,10 @@ public class Order extends OrderItems {
         this.id = id;
     }
 
+    public void setName(String name){
+        super.setName(name);
+    }
+
     public String getDeliveryDate() {
         return deliveryDate;
     }

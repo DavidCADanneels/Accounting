@@ -21,8 +21,8 @@ public class SalesOrdersOverviewPanel extends JPanel {
     private final SalesOrderDetailPanel salesOrderDetailPanel;
     private final SalesOrderDetailsPopupMenu popup;
 
-    public SalesOrdersOverviewPanel(Accounting accounting) {
-        overviewTableModel = new SalesOrdersOverviewDataTableModel(accounting.getSalesOrders());
+    public SalesOrdersOverviewPanel(){
+        overviewTableModel = new SalesOrdersOverviewDataTableModel();
         overviewTable = new SelectableTable<>(overviewTableModel);
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
@@ -30,11 +30,11 @@ public class SalesOrdersOverviewPanel extends JPanel {
         detailsTable = new SelectableTable<>(detailsTableModel);
         detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200));
         //
-        popup = new SalesOrderDetailsPopupMenu(detailsTable, accounting);
+        popup = new SalesOrderDetailsPopupMenu(detailsTable);
         detailsTable.addMouseListener(PopupForTableActivator.getInstance(popup,detailsTable));
 
         totalsPanel = new TotalsPanel();
-        salesOrderDetailPanel = new SalesOrderDetailPanel(accounting);
+        salesOrderDetailPanel = new SalesOrderDetailPanel();
 
         fireSalesOrderAddedOrRemoved();
 
@@ -64,5 +64,11 @@ public class SalesOrdersOverviewPanel extends JPanel {
 
     public void fireSalesOrderAddedOrRemoved() {
         overviewTableModel.fireTableDataChanged();
+    }
+
+    public void setAccounting(Accounting accounting) {
+        overviewTableModel.setAccounting(accounting);
+        popup.setAccounting(accounting);
+        salesOrderDetailPanel.setAccounting(accounting);
     }
 }

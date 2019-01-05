@@ -36,9 +36,7 @@ public class SalesOrderDetailPanel extends JPanel {
     private Accounting accounting;
     private ContactDetailsPanel contactDetailsPanel;
 
-    public SalesOrderDetailPanel(Accounting accounting) {
-        this.accounting = accounting;
-
+    public SalesOrderDetailPanel() {
         createSalesOrder = new JButton(getBundle("Accounting").getString("CREATE_SO"));
         createSalesOrder.addActionListener(e -> {
             SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderGUI(accounting);
@@ -47,7 +45,7 @@ public class SalesOrderDetailPanel extends JPanel {
         });
 
         JPanel orderPanel = createOrderPanel();
-        JPanel customerPanel = createCustomerPanel(accounting.getContacts());
+        JPanel customerPanel = createCustomerPanel();
 
         setLayout(new BorderLayout());
         add(orderPanel, BorderLayout.NORTH);
@@ -68,12 +66,12 @@ public class SalesOrderDetailPanel extends JPanel {
         return panel;
     }
 
-    private JPanel createCustomerPanel(Contacts contacts){
+    private JPanel createCustomerPanel(){
         JPanel panel = new JPanel();
         panel.setBorder(new TitledBorder(new LineBorder(Color.BLACK), "Customer"));
 
         panel.setLayout(new BorderLayout());
-        contactDetailsPanel = new ContactDetailsPanel(contacts);
+        contactDetailsPanel = new ContactDetailsPanel();
         contactDetailsPanel.setEnabled(false);
 
         panel.add(contactDetailsPanel, BorderLayout.NORTH);
@@ -494,5 +492,10 @@ public class SalesOrderDetailPanel extends JPanel {
     public void setOrder(SalesOrder salesOrder){
         this.salesOrder = salesOrder;
         updateButtonsAndCheckBoxes();
+    }
+
+    public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
+        contactDetailsPanel.setAccounting(accounting);
     }
 }

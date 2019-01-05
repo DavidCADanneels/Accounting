@@ -23,9 +23,7 @@ public class PromoOrderDetailPanel extends JPanel {
     private PromoOrder promoOrder;
     private Accounting accounting;
 
-    public PromoOrderDetailPanel(Accounting accounting) {
-        this.accounting = accounting;
-
+    public PromoOrderDetailPanel() {
         createPromoOrder = new JButton(getBundle("Accounting").getString("CREATE_PR"));
         createPromoOrder.addActionListener(e -> {
             PromoOrderCreateGUI promoOrderCreateGUI = PromoOrderCreateGUI.showPromoOrderGUI(accounting);
@@ -172,4 +170,9 @@ public class PromoOrderDetailPanel extends JPanel {
         this.promoOrder = promoOrder;
         updateButtonsAndCheckBoxes();
     }
+
+    public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
+    }
+
 }

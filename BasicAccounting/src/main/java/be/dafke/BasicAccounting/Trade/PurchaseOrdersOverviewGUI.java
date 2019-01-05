@@ -16,9 +16,9 @@ public class PurchaseOrdersOverviewGUI extends JFrame {
 
     private static HashMap<Accounting,PurchaseOrdersOverviewGUI> map = null;
 
-    private PurchaseOrdersOverviewGUI(Accounting accounting) {
+    private PurchaseOrdersOverviewGUI() {
         super(getBundle("Accounting").getString("PO_OVERVIEW"));
-        ordersOverViewPanel = new PurchaseOrdersOverviewPanel(accounting);
+        ordersOverViewPanel = new PurchaseOrdersOverviewPanel();
         setContentPane(ordersOverViewPanel);
         pack();
     }
@@ -26,7 +26,8 @@ public class PurchaseOrdersOverviewGUI extends JFrame {
     public static PurchaseOrdersOverviewGUI showPurchaseOrderGUI(Accounting accounting) {
         PurchaseOrdersOverviewGUI gui = map.get(accounting);
         if (gui == null) {
-            gui = new PurchaseOrdersOverviewGUI(accounting);
+            gui = new PurchaseOrdersOverviewGUI();
+            gui.setAccounting(accounting);
             map.put(accounting, gui);
             Main.addFrame(gui);
         }
@@ -45,5 +46,9 @@ public class PurchaseOrdersOverviewGUI extends JFrame {
 
     public void selectOrder(PurchaseOrder purchaseOrder) {
         ordersOverViewPanel.selectOrder(purchaseOrder);
+    }
+
+    public void setAccounting(Accounting accounting) {
+        ordersOverViewPanel.setAccounting(accounting);
     }
 }

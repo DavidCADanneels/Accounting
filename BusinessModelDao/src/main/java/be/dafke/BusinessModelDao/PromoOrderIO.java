@@ -35,8 +35,8 @@ public class PromoOrderIO {
             String idString = getValue(orderElement, ID);
             order.setId(parseInt(idString));
 
-            String orderName = getValue(orderElement, NAME);
-            order.setName(orderName);
+//            String orderName = getValue(orderElement, NAME);
+//            order.setName(orderName);
 
             for (Element element : getChildren(orderElement, ARTICLE)) {
 

@@ -33,8 +33,8 @@ public class PurchaseOrderIO {
             String idString = getValue(orderElement, ID);
             order.setId(parseInt(idString));
 
-            String orderName = getValue(orderElement, NAME);
-            order.setName(orderName);
+//            String orderName = getValue(orderElement, NAME);
+//            order.setName(orderName);
 
             String supplierString = getValue(orderElement, SUPPLIER);
             Contact supplier = contacts.getBusinessObject(supplierString);

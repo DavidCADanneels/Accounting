@@ -11,14 +11,15 @@ import java.util.HashMap;
 import static java.util.ResourceBundle.getBundle;
 
 public class PromoOrdersOverviewGUI extends JFrame {
-    private final PromoOrdersOverviewPanel ordersOverViewPanel;
+    private final PromoOrdersOverviewPanel gui;
 
     private static HashMap<Accounting,PromoOrdersOverviewGUI> map = new HashMap<>();
 
     private PromoOrdersOverviewGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("PR_OVERVIEW"));
-        ordersOverViewPanel = new PromoOrdersOverviewPanel(accounting);
-        setContentPane(ordersOverViewPanel);
+        gui = new PromoOrdersOverviewPanel();
+        gui.setAccounting(accounting);
+        setContentPane(gui);
         pack();
     }
 
@@ -39,6 +40,6 @@ public class PromoOrdersOverviewGUI extends JFrame {
     }
 
     private void firePromoOrderAddedOrRemoved() {
-        ordersOverViewPanel.firePromoOrderAddedOrRemoved();
+        gui.firePromoOrderAddedOrRemoved();
     }
 }

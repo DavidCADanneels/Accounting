@@ -16,10 +16,9 @@ public class PurchaseOrdersOverviewDataTableModel extends OrdersOverviewDataTabl
 	PurchaseOrders purchaseOrders;
 
 
-	public PurchaseOrdersOverviewDataTableModel(PurchaseOrders purchaseOrders) {
+	public PurchaseOrdersOverviewDataTableModel() {
 		super();
 		columnNames.put(CONTACT_COL, getBundle("Contacts").getString("SUPPLIER"));
-		this.purchaseOrders = purchaseOrders;
 	}
 
 	// DE GET METHODEN
@@ -72,5 +71,10 @@ public class PurchaseOrdersOverviewDataTableModel extends OrdersOverviewDataTabl
 			if(getObject(row,0)==order) return row;
 		}
 		return -1;
+	}
+
+	public void setAccounting(Accounting accounting) {
+		purchaseOrders = accounting.getPurchaseOrders();
+		fireTableDataChanged();
 	}
 }

@@ -15,9 +15,9 @@ public class SalesOrdersOverviewGUI extends JFrame {
 
     private static HashMap<Accounting,SalesOrdersOverviewGUI> map = new HashMap<>();
 
-    private SalesOrdersOverviewGUI(Accounting accounting) {
+    private SalesOrdersOverviewGUI(){
         super(getBundle("Accounting").getString("SO_OVERVIEW"));
-        ordersOverViewPanel = new SalesOrdersOverviewPanel(accounting);
+        ordersOverViewPanel = new SalesOrdersOverviewPanel();
         setContentPane(ordersOverViewPanel);
         pack();
     }
@@ -25,11 +25,16 @@ public class SalesOrdersOverviewGUI extends JFrame {
     public static SalesOrdersOverviewGUI showSalesOrderGUI(Accounting accounting) {
         SalesOrdersOverviewGUI gui = map.get(accounting);
         if (gui == null) {
-            gui = new SalesOrdersOverviewGUI(accounting);
+            gui = new SalesOrdersOverviewGUI();
+            gui.setAccounting(accounting);
             map.put(accounting, gui);
             Main.addFrame(gui);
         }
         return gui;
+    }
+
+    public void setAccounting(Accounting accounting) {
+        ordersOverViewPanel.setAccounting(accounting);
     }
 
     public static void fireSalesOrderAddedOrRemovedForAll(){
