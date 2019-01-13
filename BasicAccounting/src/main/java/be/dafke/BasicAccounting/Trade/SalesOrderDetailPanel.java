@@ -30,6 +30,7 @@ public class SalesOrderDetailPanel extends JPanel {
     private JButton placeOrderButton, deliveredButton, createInvoiceButton;
     private JButton salesTransactionButton, gainTransactionButton, paymentTransactionButton;
     private JButton createSalesOrder;
+    private JButton editSalesOrder;
     private JTextField invoiceNr;
     private JCheckBox payed, delivered, placed, creditNote, promoOrder;
     private SalesOrder salesOrder;
@@ -44,13 +45,24 @@ public class SalesOrderDetailPanel extends JPanel {
             salesOrderCreateGUI.setVisible(true);
         });
 
+        editSalesOrder = new JButton(getBundle("Accounting").getString("EDIT_SO"));
+        editSalesOrder.addActionListener(e -> {
+            SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderGUI(accounting);
+            salesOrderCreateGUI.setSalesOrder(salesOrder);
+            salesOrderCreateGUI.setLocation(getLocationOnScreen());
+            salesOrderCreateGUI.setVisible(true);
+        });
+
         JPanel orderPanel = createOrderPanel();
         JPanel customerPanel = createCustomerPanel();
 
         setLayout(new BorderLayout());
         add(orderPanel, BorderLayout.NORTH);
         add(customerPanel,BorderLayout.CENTER);
-        add(createSalesOrder, BorderLayout.SOUTH);
+        JPanel south = new JPanel();
+        south.add(createSalesOrder);
+        south.add(editSalesOrder);
+        add(south, BorderLayout.SOUTH);
     }
 
     private JPanel createOrderPanel(){

@@ -85,8 +85,10 @@ public class SalesOrderCreatePanel extends JPanel {
             }
             try {
                 salesOrder.removeEmptyOrderItems();
-
-                salesOrders.addBusinessObject(salesOrder);
+                SalesOrder existing = salesOrders.getBusinessObject(salesOrder.getName());
+                if(existing==null) {
+                    salesOrders.addBusinessObject(salesOrder);
+                }
                 salesOrder = new SalesOrder();
                 salesOrder.setArticles(articles);
                 salesOrderCreateDataTableModel.setOrder(salesOrder);
@@ -108,6 +110,29 @@ public class SalesOrderCreatePanel extends JPanel {
         add(scrollPane, BorderLayout.CENTER);
         add(north, BorderLayout.NORTH);
         add(south, BorderLayout.SOUTH);
+    }
+
+    public void setSalesOrder(SalesOrder salesOrder) {
+        this.salesOrder = salesOrder;
+        comboBox.setEnabled(salesOrder!=null);
+        invoice.setEnabled(salesOrder!=null);
+        creditNote.setEnabled(salesOrder != null);
+        if (salesOrder!=null){
+            invoice.setSelected(salesOrder.isInvoice());
+            if(salesOrder.isInvoice()) {
+                contact = salesOrder.getCustomer();
+                comboBox.setSelectedItem(contact);
+            } else {
+                noInvoice = salesOrder.getCustomer();
+                comboBox.setSelectedItem(noInvoice);
+            }
+            creditNote.setSelected(salesOrder.isCreditNote());
+        } else {
+            contact = null;
+            noInvoice = null;
+        }
+        salesOrderCreateDataTableModel.setOrder(salesOrder);
+        salesOrderCreateDataTableModel.fireTableDataChanged();
     }
 
     void fireCustomerAddedOrRemoved() {

@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Trade;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.SalesOrder;
 
 import javax.swing.*;
 
@@ -36,5 +37,9 @@ public class SalesOrderCreateGUI extends JFrame {
 
     public void fireCustomerAddedOrRemoved() {
         orderPanel.fireCustomerAddedOrRemoved();
+    }
+
+    public void setSalesOrder(SalesOrder salesOrder) {
+        orderPanel.setSalesOrder(salesOrder);
     }
 }
