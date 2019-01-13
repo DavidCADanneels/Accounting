@@ -29,8 +29,8 @@ public class SalesOrderIO {
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+SALES_ORDERS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, SALES_ORDERS);
 
+        SalesOrders salesOrders = accounting.getSalesOrders();
         for (Element orderElement : getChildren(rootElement, SALES_ORDER)) {
-            SalesOrders salesOrders = accounting.getSalesOrders();
             SalesOrder order = new SalesOrder();
 
             String idString = getValue(orderElement, ID);
