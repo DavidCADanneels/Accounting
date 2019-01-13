@@ -13,6 +13,7 @@ public class SalesOrderCreateGUI extends JFrame {
     private final SalesOrderCreatePanel orderPanel;
 
     private static SalesOrderCreateGUI salesOrderCreateGui = null;
+    private static SalesOrderCreateGUI salesEditCreateGui = null;
 
     private SalesOrderCreateGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("CREATE_SO"));
@@ -29,9 +30,20 @@ public class SalesOrderCreateGUI extends JFrame {
         return salesOrderCreateGui;
     }
 
+    public static SalesOrderCreateGUI showSalesOrderEditGUI(Accounting accounting) {
+        if (salesEditCreateGui == null) {
+            salesEditCreateGui = new SalesOrderCreateGUI(accounting);
+            Main.addFrame(salesEditCreateGui);
+        }
+        return salesEditCreateGui;
+    }
+
     public static void fireCustomerAddedOrRemovedForAll() {
         if(salesOrderCreateGui!=null){
             salesOrderCreateGui.fireCustomerAddedOrRemoved();
+        }
+        if(salesEditCreateGui!=null){
+            salesEditCreateGui.fireCustomerAddedOrRemoved();
         }
     }
 

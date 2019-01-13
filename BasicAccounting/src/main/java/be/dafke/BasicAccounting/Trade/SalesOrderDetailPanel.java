@@ -47,7 +47,7 @@ public class SalesOrderDetailPanel extends JPanel {
 
         editSalesOrder = new JButton(getBundle("Accounting").getString("EDIT_SO"));
         editSalesOrder.addActionListener(e -> {
-            SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderGUI(accounting);
+            SalesOrderCreateGUI salesOrderCreateGUI = SalesOrderCreateGUI.showSalesOrderEditGUI(accounting);
             salesOrderCreateGUI.setSalesOrder(salesOrder);
             salesOrderCreateGUI.setLocation(getLocationOnScreen());
             salesOrderCreateGUI.setVisible(true);
