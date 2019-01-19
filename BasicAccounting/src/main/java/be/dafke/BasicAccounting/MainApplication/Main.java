@@ -321,9 +321,15 @@ public class Main {
         BalanceGUI.fireAccountDataChangedForAll();
     }
 
-    public static void fireContactAdded() {
+    public static void fireContactAdded(Contact contact) {
         ContactSelectorDialog.fireContactDataChangedForAll();
         ContactsGUI.fireContactAddedForAll();
+         if(contact.isCustomer()){
+        SalesOrderCreateGUI.fireCustomerAddedOrRemovedForAll();
+//         } else if(contact.isSupplier()){
+             // TODO: implement below method
+//        PromoOrderCreateGUI.fireCustomerAddedOrRemovedForAll();
+         }
     }
 
     public static void fireCustomerDataChanged() {
