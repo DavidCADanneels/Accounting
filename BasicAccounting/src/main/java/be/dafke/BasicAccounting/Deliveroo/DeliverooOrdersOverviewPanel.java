@@ -10,6 +10,7 @@ import java.math.BigDecimal;
 
 public class DeliverooOrdersOverviewPanel extends JPanel {
 
+    private final JButton createButton;
     private SelectableTable<MealOrder> overviewTable;
     private SelectableTable<MealOrderItem> detailsTable;
     private DeliverooOrdersOverviewDataTableModel overviewTableModel;
@@ -26,6 +27,13 @@ public class DeliverooOrdersOverviewPanel extends JPanel {
         detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200));
 
         totalsPanel = new DeliveryTotalsPanel();
+
+        createButton = new JButton("Create new Order");
+        createButton.addActionListener(e -> {
+            DeliverooOrderCreateGUI deliverooOrders = DeliverooOrderCreateGUI.getInstance(accounting);
+            deliverooOrders.setLocation(getLocationOnScreen());
+            deliverooOrders.setVisible(true);
+        });
 
         DefaultListSelectionModel selection = new DefaultListSelectionModel();
         selection.addListSelectionListener(e -> {
@@ -47,6 +55,7 @@ public class DeliverooOrdersOverviewPanel extends JPanel {
         JSplitPane splitPane = Main.createSplitPane(overviewScroll, detailScroll, JSplitPane.VERTICAL_SPLIT);
 
         JPanel center = new JPanel(new BorderLayout());
+        center.add(createButton, BorderLayout.NORTH);
         center.add(splitPane, BorderLayout.CENTER);
         center.add(totalsPanel, BorderLayout.SOUTH);
 

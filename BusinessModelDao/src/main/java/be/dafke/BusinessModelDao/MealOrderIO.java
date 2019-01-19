@@ -51,15 +51,20 @@ public class MealOrderIO {
             }
 
             for (Element mealOrderElement : getChildren(rootElement, MEAL_ORDER)) {
-                String name = getValue(mealOrderElement, NAME);
-                MealOrder mealOrder = new MealOrder(name);
+//                String name = getValue(mealOrderElement, NAME);
+//                MealOrder mealOrder = new MealOrder(name);
+                MealOrder mealOrder = new MealOrder();
+
+                String idString = getValue(mealOrderElement, ID);
+                Integer orderId = Utils.parseInt(idString);
+                mealOrder.setId(orderId);
 
                 mealOrder.setDescription(getValue(mealOrderElement, DESCRIPTION));
                 mealOrder.setDate(Utils.toCalendar(getValue(mealOrderElement, DATE)));
 
                 for (Element element : getChildren(mealOrderElement, MEAL)) {
-                    String id = getValue(element, MEAL_NR);
-                    DeliverooMeal deliverooMeal = deliverooMeals.getBusinessObject(id);
+                    String mealNr = getValue(element, MEAL_NR);
+                    DeliverooMeal deliverooMeal = deliverooMeals.getBusinessObject(mealNr);
 
                     String nrSting = getValue(element, NR_OF_ITEMS);
                     Integer nr = Utils.parseInt(nrSting);
@@ -98,6 +103,7 @@ public class MealOrderIO {
                                  "    <" + DATE + ">" + Utils.toString(order.getDate()) + "</" + DATE + ">\n" +
                                  "    <" + DESCRIPTION + ">" + order.getDescription() + "</" + DESCRIPTION + ">\n" +
                                  "    <" + NAME + ">" + order.getName() + "</" + NAME + ">\n" +
+                                 "    <" + ID + ">" + order.getId() + "</" + ID + ">\n" +
                                  "    <" + TOTAL_PRICE + ">" + order.getTotalPrice() + "</" + TOTAL_PRICE + ">\n"
                 );
                 for (MealOrderItem orderItem : order.getBusinessObjects()) {

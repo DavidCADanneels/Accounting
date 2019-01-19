@@ -11,18 +11,23 @@ import java.util.Map;
 import java.util.TreeMap;
 
 public class MealOrder extends BusinessCollection<MealOrderItem>{
-    private static int nr=0;
     private Calendar date;
     private String description;
+    private Integer id;
 
-    public MealOrder() {
-        nr++;
-        setName("DEL"+nr);
+    public void addUsage(){
+        getBusinessObjects().forEach(mealOrderItem -> {
+            DeliverooMeal deliverooMeal = mealOrderItem.getDeliverooMeal();
+            deliverooMeal.addUsage(mealOrderItem.getNumberOfItems());
+        });
     }
 
-    public MealOrder(String name){
-        nr++;
-        setName(name);
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Calendar getDate() {

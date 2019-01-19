@@ -4,8 +4,4 @@ import be.dafke.ObjectModel.BusinessCollection;
 
 public class DeliverooMeals extends BusinessCollection<DeliverooMeal> {
 
-    public DeliverooMeals() {
-        super();
-    }
-
 }
