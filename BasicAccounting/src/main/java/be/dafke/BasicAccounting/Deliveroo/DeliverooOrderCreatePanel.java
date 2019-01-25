@@ -1,5 +1,6 @@
 package be.dafke.BasicAccounting.Deliveroo;
 
+import be.dafke.BasicAccounting.Accounts.AccountActions;
 import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
 import be.dafke.BasicAccounting.Journals.DateAndDescriptionPanel;
 import be.dafke.BasicAccounting.Journals.JournalSelectorDialog;
@@ -186,6 +187,12 @@ public class DeliverooOrderCreatePanel extends JPanel {
         Booking salesBooking = new Booking(deliverooBalanceAccount, totalsPanel.getSalesAmountInclVat(), true);
         Booking salesVatBooking = new Booking(vatSalesAccount, totalsPanel.getSalesAmountVat(), false);
         Booking salesRevenueBooking = new Booking(deliverooRevenueAccount, totalsPanel.getSalesAmountExclVat(), false);
+
+        VATTransaction vatSalesTransaction = new VATTransaction();
+        AccountActions.addSalesVatTransaction(salesRevenueBooking, SalesType.VAT_1, vatSalesTransaction);
+        AccountActions.addSalesVatVatTransaction(salesVatBooking, vatSalesTransaction);
+        transaction.addVatTransaction(vatSalesTransaction);
+
         transaction.setJournal(salesJournal);
         Calendar date = transaction.getDate();
         String description = dateAndDescriptionPanel.getDescription();
@@ -202,6 +209,12 @@ public class DeliverooOrderCreatePanel extends JPanel {
         Booking serviceBooking = new Booking(deliverooServiceAccount, totalsPanel.getServiceAmountExclVat(), true);
         Booking serviceVatBooking = new Booking(vatCostsAccount, totalsPanel.getServiceAmountVat(), true);
         Booking debtsBooking = new Booking(deliverooBalanceAccount, totalsPanel.getServiceAmountInclVat(), false);
+
+        VATTransaction vatServiceTransaction = new VATTransaction();
+        AccountActions.addPurchaseVatTransaction(serviceBooking, PurchaseType.VAT_82, vatServiceTransaction);
+        AccountActions.addPurchaseVatVatTransaction(serviceVatBooking, vatServiceTransaction);
+        serviceTransaction.addVatTransaction(vatServiceTransaction);
+
         serviceTransaction.addBusinessObject(serviceBooking);
         serviceTransaction.addBusinessObject(serviceVatBooking);
         serviceTransaction.addBusinessObject(debtsBooking);

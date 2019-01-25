@@ -117,6 +117,13 @@ public class AccountActions {
         vatTransaction.addBusinessObject(costBooking);
     }
 
+    public static void addPurchaseVatVatTransaction(Booking booking, VATTransaction vatTransaction){
+        BigDecimal amount = booking.getAmount();
+        VATBooking vatBooking = PurchaseType.getVatBooking(amount);
+        booking.addVatBooking(vatBooking);
+        vatTransaction.addBusinessObject(vatBooking);
+    }
+
     public static void addPurchaseCnVatTransaction(Booking booking, PurchaseType purchaseType, VATTransaction vatTransaction){
         BigDecimal amount = booking.getAmount();
 
@@ -304,6 +311,13 @@ public class AccountActions {
         VATBooking revenueBooking = salesType.getRevenueBooking(amount);
         booking.addVatBooking(revenueBooking);
         vatTransaction.addBusinessObject(revenueBooking);
+    }
+
+    public static void addSalesVatVatTransaction(Booking booking, VATTransaction vatTransaction){
+        BigDecimal amount = booking.getAmount();
+        VATBooking vatBooking = SalesType.getVatBooking(amount);
+        booking.addVatBooking(vatBooking);
+        vatTransaction.addBusinessObject(vatBooking);
     }
 
     public static void addSalesCnVatTransaction(Booking booking, VATTransaction vatTransaction){
