@@ -36,7 +36,8 @@ public class DeliverooOrderCreatePanel extends JPanel {
         totalsPanel = new DeliveryTotalsPanel();
         transaction = new Transaction(Calendar.getInstance(),"");
 
-        tableModel = new DeliverooOrderCreateDataTableModel(accounting.getDeliverooMeals(), mealOrder);//, totalsPanel);
+        tableModel = new DeliverooOrderCreateDataTableModel(accounting);//, totalsPanel);
+        tableModel.setMealOrder(mealOrder);
         table = new JTable(tableModel);
 
         JScrollPane orderPanel = new JScrollPane(table);
@@ -110,7 +111,7 @@ public class DeliverooOrderCreatePanel extends JPanel {
         } catch (EmptyNameException | DuplicateNameException e) {
             e.printStackTrace();
         }
-        DeliverooOrdersOverviewGUI.fireOrderAddedForAll(mealOrders, mealOrder);
+        DeliverooOrdersOverviewGUI.fireOrderAddedForAll(accounting, mealOrder);
         MealsGUI.fireMealUsageUpdatedForAll();
     }
 

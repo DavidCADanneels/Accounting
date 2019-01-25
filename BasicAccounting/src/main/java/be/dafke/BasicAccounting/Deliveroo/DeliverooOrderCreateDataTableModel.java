@@ -10,11 +10,12 @@ import java.util.List;
 
 public class DeliverooOrderCreateDataTableModel extends DeliverooOrderViewDataTableModel {
 	private final DeliverooMeals deliverooMeals;
+	private final Accounting accounting;
 
-	public DeliverooOrderCreateDataTableModel(DeliverooMeals deliverooMeals, MealOrder mealOrder) {
+	public DeliverooOrderCreateDataTableModel(Accounting accounting) {
 		super();
-		this.deliverooMeals = deliverooMeals;
-		setMealOrder(mealOrder); // this also fires a tableChanged event.
+		this.accounting = accounting;
+		deliverooMeals = accounting.getDeliverooMeals();
 	}
 
 	@Override
@@ -24,7 +25,7 @@ public class DeliverooOrderCreateDataTableModel extends DeliverooOrderViewDataTa
 			MealOrderItem mealOrderItem = getObject(row, col);
 			mealOrderItem.setNumberOfItems(numberOfItems);
 			mealOrder.setOrderItem(mealOrderItem);
-			DeliverooOrderCreateGUI.calculateTotalsForAll();
+			DeliverooOrderCreateGUI.calculateTotalsForAll(accounting);
 		}
 	}
 

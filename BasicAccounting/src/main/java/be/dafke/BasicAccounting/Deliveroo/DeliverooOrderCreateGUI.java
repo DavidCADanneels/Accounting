@@ -2,14 +2,16 @@ package be.dafke.BasicAccounting.Deliveroo;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.MealOrder;
+import be.dafke.BusinessModel.DeliverooMeals;
 
 import javax.swing.*;
+
+import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;
 
 public class DeliverooOrderCreateGUI extends JFrame {
-	private static DeliverooOrderCreateGUI deliverooOrderCreateGUI = null;
+	private static HashMap<Accounting, DeliverooOrderCreateGUI> deliverooOrderCreateGuis = new HashMap<>();
 	private final DeliverooOrderCreatePanel deliverooOrderCreatePanel;
 
 	private DeliverooOrderCreateGUI(Accounting accounting) {
@@ -20,16 +22,19 @@ public class DeliverooOrderCreateGUI extends JFrame {
 	}
 
 	public static DeliverooOrderCreateGUI getInstance(Accounting accounting) {
-		if(deliverooOrderCreateGUI == null){
-			deliverooOrderCreateGUI = new DeliverooOrderCreateGUI(accounting);
-			Main.addFrame(deliverooOrderCreateGUI);
+		DeliverooOrderCreateGUI gui = deliverooOrderCreateGuis.get(accounting);
+		if(gui == null){
+			gui = new DeliverooOrderCreateGUI(accounting);
+			deliverooOrderCreateGuis.put(accounting, gui);
+			Main.addFrame(gui);
 		}
-		return deliverooOrderCreateGUI;
+		return gui;
 	}
 
-	public static void calculateTotalsForAll(){
-		if(deliverooOrderCreateGUI != null){
-			deliverooOrderCreateGUI.calculateTotals();
+	public static void calculateTotalsForAll(Accounting accounting){
+		DeliverooOrderCreateGUI gui = deliverooOrderCreateGuis.get(accounting);
+		if(gui!=null){
+			gui.calculateTotals();
 		}
 	}
 

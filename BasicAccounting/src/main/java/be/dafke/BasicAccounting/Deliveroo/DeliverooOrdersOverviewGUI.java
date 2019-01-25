@@ -7,10 +7,12 @@ import be.dafke.BusinessModel.MealOrders;
 
 import javax.swing.*;
 
+import java.util.HashMap;
+
 import static java.util.ResourceBundle.getBundle;
 
 public class DeliverooOrdersOverviewGUI extends JFrame {
-	private static DeliverooOrdersOverviewGUI deliverooOrderCreateGUI = null;
+	private static HashMap<Accounting, DeliverooOrdersOverviewGUI> deliverooOrderCreateGuis = new HashMap<>();
 	private final DeliverooOrdersOverviewPanel deliverooOrdersOverviewPanel;
 
 	private DeliverooOrdersOverviewGUI(Accounting accounting) {
@@ -21,19 +23,23 @@ public class DeliverooOrdersOverviewGUI extends JFrame {
 	}
 
 	public static DeliverooOrdersOverviewGUI getInstance(Accounting accounting) {
-		if(deliverooOrderCreateGUI == null){
-			deliverooOrderCreateGUI = new DeliverooOrdersOverviewGUI(accounting);
-			Main.addFrame(deliverooOrderCreateGUI);
+		DeliverooOrdersOverviewGUI gui = deliverooOrderCreateGuis.get(accounting);
+		if(gui == null){
+			gui = new DeliverooOrdersOverviewGUI(accounting);
+			deliverooOrderCreateGuis.put(accounting, gui);
+			Main.addFrame(gui);
 		}
-		return deliverooOrderCreateGUI;
+		return gui;
 	}
 
-	public static void fireOrderAddedForAll(MealOrders mealOrders, MealOrder mealOrder) {
-		if(deliverooOrderCreateGUI != null)
-			deliverooOrderCreateGUI.fireOrderAdded(mealOrders, mealOrder);
+	public static void fireOrderAddedForAll(Accounting accounting, MealOrder mealOrder) {
+		DeliverooOrdersOverviewGUI gui = deliverooOrderCreateGuis.get(accounting);
+		if(gui != null) {
+			gui.fireOrderAdded(accounting, mealOrder);
+		}
 	}
 
-	private void fireOrderAdded(MealOrders mealOrders, MealOrder mealOrder) {
-		deliverooOrdersOverviewPanel.fireOrderAdded(mealOrders, mealOrder);
+	private void fireOrderAdded(Accounting accounting, MealOrder mealOrder) {
+		deliverooOrdersOverviewPanel.fireOrderAdded(accounting, mealOrder);
 	}
 }

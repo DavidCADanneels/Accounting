@@ -66,7 +66,8 @@ public class DeliverooOrdersOverviewPanel extends JPanel {
         totalsPanel.clear();
     }
 
-    public void fireOrderAdded(MealOrders mealOrders, MealOrder mealOrder) {
+    public void fireOrderAdded(Accounting accounting, MealOrder mealOrder) {
+        MealOrders mealOrders = accounting.getMealOrders();
         overviewTableModel.setMealOrders(mealOrders);
         overviewTableModel.fireTableDataChanged();
         selectOrder(mealOrder);
