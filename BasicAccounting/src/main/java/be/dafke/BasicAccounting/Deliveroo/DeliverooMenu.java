@@ -12,7 +12,7 @@ public class DeliverooMenu extends JMenu {
         super("Deliveroo");
         meals = new JMenuItem("Meals");
         meals.addActionListener(e -> {
-            MealsGUI mealsGUI = MealsGUI.showMeals(accounting.getDeliverooMeals());
+            MealsGUI mealsGUI = MealsGUI.showMeals(accounting);
             mealsGUI.setLocation(getLocationOnScreen());
             mealsGUI.setVisible(true);
         });
