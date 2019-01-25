@@ -138,11 +138,9 @@ public class AccountActions {
 
     public static Booking createPurchaseVatBooking(Accounting accounting, BigDecimal vatAmount, VATTransaction vatTransaction){
         Account vatAccount = getVatCreditAccount(accounting);
-        Booking bookingVat = new Booking(vatAccount, vatAmount, true);
-        VATBooking vatBooking = PurchaseType.getVatBooking(vatAmount);
-        bookingVat.addVatBooking(vatBooking);
-        vatTransaction.addBusinessObject(vatBooking);
-        return bookingVat;
+        Booking booking = new Booking(vatAccount, vatAmount, true);
+        addPurchaseVatVatTransaction(booking, vatTransaction);
+        return booking;
     }
 
     public static Booking createPurchaseCnVatBooking(Accounting accounting, BigDecimal vatAmount, VATTransaction vatTransaction){
@@ -290,11 +288,9 @@ public class AccountActions {
 
     public static Booking createSalesVatBooking(Accounting accounting, BigDecimal vatAmount, VATTransaction vatTransaction){
         Account vatAccount = getVatDebitAccount(accounting);
-        Booking bookingVat = new Booking(vatAccount, vatAmount, false);
-        VATBooking vatBooking = SalesType.getVatBooking(vatAmount);
-        bookingVat.addVatBooking(vatBooking);
-        vatTransaction.addBusinessObject(vatBooking);
-        return bookingVat;
+        Booking booking = new Booking(vatAccount, vatAmount, false);
+        addSalesVatVatTransaction(booking, vatTransaction);
+        return booking;
     }
 
     public static Booking createSalesCnVatBooking(Accounting accounting, BigDecimal vatAmount, VATTransaction vatTransaction){

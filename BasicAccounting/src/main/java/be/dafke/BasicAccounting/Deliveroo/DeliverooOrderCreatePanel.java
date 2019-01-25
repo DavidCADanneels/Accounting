@@ -164,55 +164,43 @@ public class DeliverooOrderCreatePanel extends JPanel {
 
         // VAT
         //
-        VATTransactions vatTransactions = accounting.getVatTransactions();
-        Account vatSalesAccount = vatTransactions.getDebitAccount();
-        Account vatCostsAccount = vatTransactions.getCreditAccount();
-        if(vatSalesAccount==null){
-            Accounts accounts = accounting.getAccounts();
-            ArrayList<AccountType> accountTypes = accounting.getAccountTypes().getBusinessObjects();
-            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, "select Sales VAT Account");
-            accountSelectorDialog.setVisible(true);
-            vatSalesAccount = accountSelectorDialog.getSelection();
-            vatTransactions.setDebitAccount(vatSalesAccount);
-        }
-        if(vatCostsAccount==null){
-            Accounts accounts = accounting.getAccounts();
-            ArrayList<AccountType> accountTypes = accounting.getAccountTypes().getBusinessObjects();
-            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, "select Costs VAT Account");
-            accountSelectorDialog.setVisible(true);
-            vatCostsAccount = accountSelectorDialog.getSelection();
-            vatTransactions.setCreditAccount(vatCostsAccount);
-        }
+        VATTransaction vatSalesTransaction = new VATTransaction();
+
+        Booking salesVatBooking = AccountActions.createSalesVatBooking(accounting, totalsPanel.getSalesAmountVat(), vatSalesTransaction);
 
         Booking salesBooking = new Booking(deliverooBalanceAccount, totalsPanel.getSalesAmountInclVat(), true);
-        Booking salesVatBooking = new Booking(vatSalesAccount, totalsPanel.getSalesAmountVat(), false);
-        Booking salesRevenueBooking = new Booking(deliverooRevenueAccount, totalsPanel.getSalesAmountExclVat(), false);
 
-        VATTransaction vatSalesTransaction = new VATTransaction();
+        Booking salesRevenueBooking = new Booking(deliverooRevenueAccount, totalsPanel.getSalesAmountExclVat(), false);
         AccountActions.addSalesVatTransaction(salesRevenueBooking, SalesType.VAT_1, vatSalesTransaction);
-        AccountActions.addSalesVatVatTransaction(salesVatBooking, vatSalesTransaction);
+
         transaction.addVatTransaction(vatSalesTransaction);
 
         transaction.setJournal(salesJournal);
         Calendar date = transaction.getDate();
         String description = dateAndDescriptionPanel.getDescription();
+
         transaction.addBusinessObject(salesBooking);
         transaction.addBusinessObject(salesVatBooking);
         transaction.addBusinessObject(salesRevenueBooking);
+
         Transactions transactions = accounting.getTransactions();
         transactions.setId(transaction);
         transactions.addBusinessObject(transaction);
         salesJournal.addBusinessObject(transaction);
 
-        Transaction serviceTransaction = new Transaction(date, description);
-        serviceTransaction.setJournal(serviceJournal);
-        Booking serviceBooking = new Booking(deliverooServiceAccount, totalsPanel.getServiceAmountExclVat(), true);
-        Booking serviceVatBooking = new Booking(vatCostsAccount, totalsPanel.getServiceAmountVat(), true);
-        Booking debtsBooking = new Booking(deliverooBalanceAccount, totalsPanel.getServiceAmountInclVat(), false);
 
         VATTransaction vatServiceTransaction = new VATTransaction();
+
+        Booking serviceVatBooking = AccountActions.createPurchaseVatBooking(accounting, totalsPanel.getServiceAmountVat(), vatServiceTransaction);
+
+        Booking serviceBooking = new Booking(deliverooServiceAccount, totalsPanel.getServiceAmountExclVat(), true);
         AccountActions.addPurchaseVatTransaction(serviceBooking, PurchaseType.VAT_82, vatServiceTransaction);
-        AccountActions.addPurchaseVatVatTransaction(serviceVatBooking, vatServiceTransaction);
+
+        Booking debtsBooking = new Booking(deliverooBalanceAccount, totalsPanel.getServiceAmountInclVat(), false);
+
+        Transaction serviceTransaction = new Transaction(date, description);
+        serviceTransaction.setJournal(serviceJournal);
+
         serviceTransaction.addVatTransaction(vatServiceTransaction);
 
         serviceTransaction.addBusinessObject(serviceBooking);
