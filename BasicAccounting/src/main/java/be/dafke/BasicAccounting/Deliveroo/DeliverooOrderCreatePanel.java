@@ -166,10 +166,9 @@ public class DeliverooOrderCreatePanel extends JPanel {
         //
         VATTransaction vatSalesTransaction = new VATTransaction();
 
+
+        Booking customerBooking = new Booking(deliverooBalanceAccount, totalsPanel.getSalesAmountInclVat(), true);
         Booking salesVatBooking = AccountActions.createSalesVatBooking(accounting, totalsPanel.getSalesAmountVat(), vatSalesTransaction);
-
-        Booking salesBooking = new Booking(deliverooBalanceAccount, totalsPanel.getSalesAmountInclVat(), true);
-
         Booking salesRevenueBooking = new Booking(deliverooRevenueAccount, totalsPanel.getSalesAmountExclVat(), false);
         AccountActions.addSalesVatTransaction(salesRevenueBooking, SalesType.VAT_1, vatSalesTransaction);
 
@@ -179,9 +178,9 @@ public class DeliverooOrderCreatePanel extends JPanel {
         Calendar date = transaction.getDate();
         String description = dateAndDescriptionPanel.getDescription();
 
-        transaction.addBusinessObject(salesBooking);
-        transaction.addBusinessObject(salesVatBooking);
+        transaction.addBusinessObject(customerBooking);
         transaction.addBusinessObject(salesRevenueBooking);
+        transaction.addBusinessObject(salesVatBooking);
 
         Transactions transactions = accounting.getTransactions();
         transactions.setId(transaction);
@@ -191,11 +190,9 @@ public class DeliverooOrderCreatePanel extends JPanel {
 
         VATTransaction vatServiceTransaction = new VATTransaction();
 
-        Booking serviceVatBooking = AccountActions.createPurchaseVatBooking(accounting, totalsPanel.getServiceAmountVat(), vatServiceTransaction);
-
         Booking serviceBooking = new Booking(deliverooServiceAccount, totalsPanel.getServiceAmountExclVat(), true);
         AccountActions.addPurchaseVatTransaction(serviceBooking, PurchaseType.VAT_82, vatServiceTransaction);
-
+        Booking serviceVatBooking = AccountActions.createPurchaseVatBooking(accounting, totalsPanel.getServiceAmountVat(), vatServiceTransaction);
         Booking debtsBooking = new Booking(deliverooBalanceAccount, totalsPanel.getServiceAmountInclVat(), false);
 
         Transaction serviceTransaction = new Transaction(date, description);
@@ -206,6 +203,7 @@ public class DeliverooOrderCreatePanel extends JPanel {
         serviceTransaction.addBusinessObject(serviceBooking);
         serviceTransaction.addBusinessObject(serviceVatBooking);
         serviceTransaction.addBusinessObject(debtsBooking);
+
         transactions.setId(serviceTransaction);
         transactions.addBusinessObject(serviceTransaction);
         serviceJournal.addBusinessObject(serviceTransaction);

@@ -14,7 +14,7 @@ import static java.util.ResourceBundle.getBundle;
 public class PurchaseOrdersOverviewGUI extends JFrame {
     private final PurchaseOrdersOverviewPanel ordersOverViewPanel;
 
-    private static HashMap<Accounting,PurchaseOrdersOverviewGUI> map = null;
+    private static HashMap<Accounting,PurchaseOrdersOverviewGUI> map = new HashMap<>();
 
     private PurchaseOrdersOverviewGUI() {
         super(getBundle("Accounting").getString("PO_OVERVIEW"));
