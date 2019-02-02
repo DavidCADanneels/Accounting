@@ -48,10 +48,10 @@ public class StockPanel extends JPanel {
         ButtonGroup group = new ButtonGroup();
         group.add(withOrders);
         group.add(inStock);
-        withOrders.setSelected(true);
-        stockDataTableModel.setFilter(Article.withOrders());
-        panel.add(withOrders);
+        inStock.setSelected(true);
+        stockDataTableModel.setFilter(Article.inStock());
         panel.add(inStock);
+        panel.add(withOrders);
         return panel;
     }
 
