@@ -56,6 +56,8 @@ public class SalesOrderDetailPanel extends JPanel {
         JPanel orderPanel = createOrderPanel();
         JPanel customerPanel = createCustomerPanel();
 
+        disableButtons();
+
         setLayout(new BorderLayout());
         add(orderPanel, BorderLayout.NORTH);
         add(customerPanel,BorderLayout.CENTER);
@@ -110,6 +112,15 @@ public class SalesOrderDetailPanel extends JPanel {
         panel.add(creditNote);
         panel.add(promoOrder);
         return panel;
+    }
+
+    private void disableButtons(){
+        placeOrderButton.setEnabled(false);
+        deliveredButton.setEnabled(false);
+        createInvoiceButton.setEnabled(false);
+        salesTransactionButton.setEnabled(false);
+        gainTransactionButton.setEnabled(false);
+        paymentTransactionButton.setEnabled(false);
     }
 
     private JPanel createButtonPanel(){
@@ -335,6 +346,7 @@ public class SalesOrderDetailPanel extends JPanel {
 
     public Transaction createTransaction(){
         DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
+        dateAndDescriptionDialog.enableDescription(true);
         dateAndDescriptionDialog.setVisible(true);
 
         Calendar date = dateAndDescriptionDialog.getDate();
