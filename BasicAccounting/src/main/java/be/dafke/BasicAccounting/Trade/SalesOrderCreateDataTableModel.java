@@ -12,7 +12,8 @@ import java.util.function.Predicate;
 
 public class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel {
 	private final Articles articles;
-	private Predicate<Article> filter = article -> article.getSalesPriceItemWithVat()!=null;
+//	private Predicate<Article> filter = article -> article.getSalesPriceItemWithVat()!=null;
+	private Predicate<Article> filter = Article.inStock();
 	private TotalsPanel totalsPanel;
 
 	public SalesOrderCreateDataTableModel(Articles articles, Order order, TotalsPanel totalsPanel) {

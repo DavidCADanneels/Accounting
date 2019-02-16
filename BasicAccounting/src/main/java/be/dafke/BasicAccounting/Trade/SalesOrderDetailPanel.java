@@ -63,7 +63,7 @@ public class SalesOrderDetailPanel extends JPanel {
         add(customerPanel,BorderLayout.CENTER);
         JPanel south = new JPanel();
         south.add(createSalesOrder);
-        south.add(editSalesOrder);
+//        south.add(editSalesOrder);
         add(south, BorderLayout.SOUTH);
     }
 
@@ -115,6 +115,7 @@ public class SalesOrderDetailPanel extends JPanel {
     }
 
     private void disableButtons(){
+        editSalesOrder.setEnabled(false);
         placeOrderButton.setEnabled(false);
         deliveredButton.setEnabled(false);
         createInvoiceButton.setEnabled(false);
@@ -155,6 +156,7 @@ public class SalesOrderDetailPanel extends JPanel {
         line1.add(invoiceNr);
         line1.add(createInvoiceButton);
 
+        line2.add(editSalesOrder);
         line2.add(placeOrderButton);
         line2.add(deliveredButton);
 
@@ -298,6 +300,8 @@ public class SalesOrderDetailPanel extends JPanel {
         creditNote.setSelected(isCreditNote);
         promoOrder.setSelected(isPromoOrder);
 
+//        editSalesOrder.setEnabled(true);
+        editSalesOrder.setEnabled(salesOrder.isEditable());
         deliveredButton.setEnabled(toBeDelivered);
         placeOrderButton.setEnabled(salesTransaction==null);
         if(salesOrder!=null&&salesOrder.isInvoice()){

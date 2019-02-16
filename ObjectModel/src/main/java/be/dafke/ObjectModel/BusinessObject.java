@@ -26,6 +26,13 @@ public class BusinessObject {
 //		setSaved(false);
     }
 
+    /**Checks if the BusinessObject is editable:
+     * @return if the BusinessObject is editable (default: false)
+     */
+    public boolean isEditable() {
+        return false;
+    }
+
     /**Checks if the BusinessObject is deletable:
      * @return if the BusinessObject is deletable (default: false)
      */

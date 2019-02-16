@@ -82,6 +82,12 @@ public class SalesOrder extends Order {
         }
     }
 
+    @Override
+    public boolean isEditable(){
+        // TODO: change into: 'salesTransaction==null||!salesTransaction.isVatBooked()'
+        return salesTransaction==null;
+    }
+
     public Transaction getGainTransaction() {
         return gainTransaction;
     }
