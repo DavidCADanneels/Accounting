@@ -4,12 +4,14 @@ package be.dafke.BasicAccounting.Trade;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Accounting;
+import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.OrderItem;
 import be.dafke.BusinessModel.SalesOrder;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
 import java.awt.*;
+import java.math.BigDecimal;
 
 public class SalesOrdersOverviewPanel extends JPanel {
     private final SelectableTable<SalesOrder> overviewTable;
@@ -25,6 +27,11 @@ public class SalesOrdersOverviewPanel extends JPanel {
         overviewTableModel = new SalesOrdersOverviewDataTableModel();
         overviewTable = new SelectableTable<>(overviewTableModel);
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400));
+        SalesOrderInvoiceColorRenderer invoice = new SalesOrderInvoiceColorRenderer();
+        SalesOrderPayedColorRenderer payed = new SalesOrderPayedColorRenderer();
+        overviewTable.setDefaultRenderer(BigDecimal.class, payed);
+        overviewTable.setDefaultRenderer(Contact.class, invoice);
+        overviewTable.setDefaultRenderer(String.class, invoice);
 
         detailsTableModel = new SalesOrderDetailsDataTableModel();
         detailsTable = new SelectableTable<>(detailsTableModel);
