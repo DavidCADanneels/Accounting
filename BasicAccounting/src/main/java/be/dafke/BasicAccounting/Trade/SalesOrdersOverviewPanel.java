@@ -54,12 +54,45 @@ public class SalesOrdersOverviewPanel extends JPanel {
         JSplitPane splitPane = Main.createSplitPane(overviewScroll, detailScroll, JSplitPane.VERTICAL_SPLIT);
 
         JPanel center = new JPanel(new BorderLayout());
+        center.add(createFilterPane(), BorderLayout.NORTH);
         center.add(splitPane, BorderLayout.CENTER);
         center.add(totalsPanel, BorderLayout.SOUTH);
 
         setLayout(new BorderLayout());
         add(center, BorderLayout.CENTER);
         add(salesOrderDetailPanel, BorderLayout.EAST);
+    }
+
+    private JPanel createFilterPane() {
+        JRadioButton all = new JRadioButton("All");
+        JRadioButton invoice = new JRadioButton("Invoice");
+        JRadioButton noInvoice = new JRadioButton("Non-Invoice");
+        ButtonGroup group = new ButtonGroup();
+        group.add(all);
+        group.add(invoice);
+        group.add(noInvoice);
+
+        all.setSelected(true);
+        all.addActionListener(e -> {
+            overviewTableModel.setFilter(null);
+            overviewTableModel.fireTableDataChanged();
+        });
+
+        invoice.addActionListener(e -> {
+            overviewTableModel.setFilter(salesOrder -> salesOrder.isInvoice());
+            overviewTableModel.fireTableDataChanged();
+        });
+
+        noInvoice.addActionListener(e -> {
+            overviewTableModel.setFilter(salesOrder -> !salesOrder.isInvoice());
+            overviewTableModel.fireTableDataChanged();
+        });
+
+        JPanel panel = new JPanel();
+        panel.add(all);
+        panel.add(invoice);
+        panel.add(noInvoice);
+        return panel;
     }
 
     public void fireSalesOrderAddedOrRemoved() {

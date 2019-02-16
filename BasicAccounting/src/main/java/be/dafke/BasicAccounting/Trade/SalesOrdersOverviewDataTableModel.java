@@ -5,6 +5,7 @@ import be.dafke.BusinessModel.SalesOrder;
 import be.dafke.BusinessModel.SalesOrders;
 
 import java.util.List;
+import java.util.function.Predicate;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -15,7 +16,7 @@ import static java.util.ResourceBundle.getBundle;
 public class SalesOrdersOverviewDataTableModel extends OrdersOverviewDataTableModel<SalesOrder> {
 
 	SalesOrders salesOrders;
-
+	Predicate<SalesOrder> filter;
 
 	public SalesOrdersOverviewDataTableModel(){
 		super();
@@ -53,14 +54,14 @@ public class SalesOrdersOverviewDataTableModel extends OrdersOverviewDataTableMo
 	@Override
 	public int getRowCount() {
 		if(salesOrders == null) return 0;
-		List<SalesOrder> businessObjects = salesOrders.getBusinessObjects();
+		List<SalesOrder> businessObjects = filter==null?salesOrders.getBusinessObjects():salesOrders.getBusinessObjects(filter);
 		if(businessObjects == null || businessObjects.size() == 0) return 0;
 		return businessObjects.size();
 	}
 
 	@Override
 	public SalesOrder getObject(int row, int col) {
-		List<SalesOrder> businessObjects = this.salesOrders.getBusinessObjects();
+		List<SalesOrder> businessObjects = filter==null?salesOrders.getBusinessObjects():salesOrders.getBusinessObjects(filter);
 		if(businessObjects == null || businessObjects.size() == 0) return null;
 		return businessObjects.get(row);
 	}
@@ -68,5 +69,9 @@ public class SalesOrdersOverviewDataTableModel extends OrdersOverviewDataTableMo
 	public void setAccounting(Accounting accounting) {
 		salesOrders = accounting.getSalesOrders();
 		fireTableDataChanged();
+	}
+
+	public void setFilter(Predicate<SalesOrder> filter) {
+		this.filter = filter;
 	}
 }
