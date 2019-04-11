@@ -54,34 +54,51 @@ public class AccountsIO {
         }
     }
 
-    public static void writeAccountPdfFiles(Accounting accounting){
+    public static String createTmpFolder(Accounting accounting) {
         String accountingName = accounting.getName();
+        String tmpFolderPath = ACCOUNTINGS_XML_FOLDER + accountingName + "/" + TMP + "/";
+        File tempFolder = new File(tmpFolderPath);
+        tempFolder.mkdirs();
+        return tmpFolderPath;
+    }
+
+    public static String createPdfFolder(Accounting accounting) {
+        String accountingName = accounting.getName();
+        String resultPdfPolderPath = ACCOUNTINGS_PDF_FOLDER + accountingName + "/" + ACCOUNTS + "/";
+        File targetFolder = new File(resultPdfPolderPath);
+        targetFolder.mkdirs();
+        return resultPdfPolderPath;
+    }
+
+    public static void writeAccountPdfFiles(Accounting accounting){
+        String xslPath = XSLFOLDER + "AccountPdf.xsl";
+
+        String tmpFolderPath = createTmpFolder(accounting);
+        String resultPdfPolderPath = createPdfFolder(accounting);
+
         Accounts accounts = accounting.getAccounts();
-        File tmpFolder = new File(ACCOUNTINGS_XML_FOLDER + accountingName + "/tmp");
-        tmpFolder.mkdirs();
         for (Account account:accounts.getBusinessObjects()) {
-            writeAccount(account, tmpFolder);
+            if(!account.getBusinessObjects().isEmpty()) {
+                writeAccount(account, tmpFolderPath);
+            }
         }
 
-        File subFolder = new File(ACCOUNTINGS_XML_FOLDER + accountingName + "/" + PDF + "/" + ACCOUNTS);
-        subFolder.mkdirs();
-
-        String accountsFolderPath = ACCOUNTINGS_XML_FOLDER + accountingName + "/tmp/";
-        String xslPath = XSLFOLDER + "AccountPdf.xsl";
-        String resultPdfPolderPath = ACCOUNTINGS_XML_FOLDER + accountingName + "/PDF/Accounts/";
         accounts.getBusinessObjects().forEach(account -> {
-            try {
-                String fileName = account.getName() + XML_EXTENSION;
-                String xmlPath = accountsFolderPath + fileName;
-                PDFCreator.convertToPDF(xmlPath, xslPath, resultPdfPolderPath + account.getName() + PDF_EXTENSION);
-                File file = new File(tmpFolder, fileName);
-                file.delete();
+            if(!account.getBusinessObjects().isEmpty()) {
+                try {
+                    String fileName = account.getName() + XML_EXTENSION;
+                    String xmlPath = tmpFolderPath + fileName;
+                    PDFCreator.convertToPDF(xmlPath, xslPath, resultPdfPolderPath + account.getName() + PDF_EXTENSION);
+                    File file = new File(xmlPath);
+                    file.delete();
 
-            } catch (IOException | FOPException | TransformerException e1) {
-                e1.printStackTrace();
+                } catch (IOException | FOPException | TransformerException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
-        tmpFolder.delete();
+        File folder = new File(tmpFolderPath);
+        folder.delete();
     }
 
     public static void writeAccounts(Accounting accounting, boolean writeHtml){
@@ -119,7 +136,7 @@ public class AccountsIO {
             Logger.getLogger(Accounts.class.getName()).log(Level.SEVERE, null, ex);
         }
         if(writeHtml){
-            writeAllAccounts(accounts,accounting, writeHtml);
+            writeAllAccounts(accounting, writeHtml);
             File accountsHtmlFile = new File(ACCOUNTINGS_HTML_FOLDER + accounting.getName() + "/" + ACCOUNTS+ HTML_EXTENSION);
             File accountsXslFile = new File(XSLFOLDER + "Accounts.xsl");
             XMLtoHTMLWriter.xmlToHtml(accountsXmlFile,accountsXslFile,accountsHtmlFile, null);
@@ -127,23 +144,29 @@ public class AccountsIO {
 
     }
 
-    public static void writeAllAccounts(Accounts accounts, Accounting accounting, boolean writeHtml){
-        File accountsXmlFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + ACCOUNTS);
+    public static void writeAllAccounts(Accounting accounting, boolean writeHtml){
+        Accounts accounts =  accounting.getAccounts();
+        String path = ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + ACCOUNTS;
+        File accountsXmlFolder = new File(path);
         accountsXmlFolder.mkdirs();
         for (Account account:accounts.getBusinessObjects()) {
-            writeAccount(account, accountsXmlFolder);
-            if(writeHtml) {
-                File accountsHtmlFolder = new File(ACCOUNTINGS_HTML_FOLDER + accounting.getName() + "/" + ACCOUNTS);
-                accountsHtmlFolder.mkdirs();
-                File accountHtmlFile = new File(accountsHtmlFolder, account.getName() + HTML_EXTENSION);
-                File accountXmlFile = new File(accountsXmlFolder, account.getName() + XML_EXTENSION);
-                File accountXslFile = new File(XSLFOLDER + "Account.xsl");
-                XMLtoHTMLWriter.xmlToHtml(accountXmlFile, accountXslFile, accountHtmlFile, null);
+            if (!account.getBusinessObjects().isEmpty()) {
+                writeAccount(account, path);
+                if (writeHtml) {
+                    File accountsHtmlFolder = new File(ACCOUNTINGS_HTML_FOLDER + accounting.getName() + "/" + ACCOUNTS);
+                    accountsHtmlFolder.mkdirs();
+                    File accountHtmlFile = new File(accountsHtmlFolder, account.getName() + HTML_EXTENSION);
+                    File accountXmlFile = new File(accountsXmlFolder, account.getName() + XML_EXTENSION);
+                    File accountXslFile = new File(XSLFOLDER + "Account.xsl");
+                    XMLtoHTMLWriter.xmlToHtml(accountXmlFile, accountXslFile, accountHtmlFile, null);
+                }
             }
         }
     }
 
-    private static void writeAccount(Account account, File accountsFolder) {
+    private static void writeAccount(Account account, String accountsPath) {
+        File accountsFolder = new File(accountsPath);
+//        accountsFolder.mkdirs();
         File accountFile = new File(accountsFolder, account.getName()+ XML_EXTENSION);
         try {
             Writer writer = new FileWriter(accountFile);

@@ -352,16 +352,26 @@ public class JournalsIO {
 
         Journals journals = accounting.getJournals();
         for (Journal journal:journals.getBusinessObjects()) {
-            writeJournal(journal, tmpFolderPath, true);
+            if(!journal.getBusinessObjects().isEmpty()) {
+                writeJournal(journal, tmpFolderPath, true);
+            }
         }
 
         journals.getBusinessObjects().forEach(journal -> {
-            try {
-                PDFCreator.convertToPDF(tmpFolderPath + journal.getName() + XML_EXTENSION, xslPath, resultPdfPolderPath + journal.getName() + PDF_EXTENSION);
-            } catch (IOException | FOPException | TransformerException e1) {
-                e1.printStackTrace();
+            if(!journal.getBusinessObjects().isEmpty()) {
+                try {
+                    String fileName = journal.getName() + XML_EXTENSION;
+                    String xmlPath = tmpFolderPath + fileName;
+                    PDFCreator.convertToPDF(xmlPath, xslPath, resultPdfPolderPath + journal.getName() + PDF_EXTENSION);
+                    File file = new File(xmlPath);
+                    file.delete();
+                } catch (IOException | FOPException | TransformerException e1) {
+                    e1.printStackTrace();
+                }
             }
         });
+        File folder = new File(tmpFolderPath);
+        folder.delete();
     }
 
     public static void writeJournals(Accounting accounting, boolean writeHtml){
@@ -412,7 +422,7 @@ public class JournalsIO {
     public static void writeJournal(Journal journal, String path, boolean details){
         File journalsFolder = new File(path);
         journalsFolder.mkdirs();
-        File journalFile = new File(path + "/" +  journal.getName() + XML_EXTENSION);
+        File journalFile = new File(path, journal.getName() + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(journalFile);
             writer.write(getXmlHeader(JOURNAL, 3));

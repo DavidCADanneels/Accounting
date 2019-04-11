@@ -23,8 +23,6 @@ import static be.dafke.Utils.Utils.parseStringList;
 
 public class BalancesIO {
 
-
-
     public static void readBalances(Accounting accounting){
         Balances balances = accounting.getBalances();
         Accounts accounts = accounting.getAccounts();
@@ -67,20 +65,27 @@ public class BalancesIO {
         }
     }
 
-    public static void writeBalancePdfFiles(Accounting accounting){
-        BalancesIO.writeIndividualBalances(accounting);
-
+    public static String createPdfFolder(Accounting accounting) {
         String accountingName = accounting.getName();
-    File subFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + PDF + "/" + BALANCES);
-        subFolder.mkdirs();
-
-        String resultXmlPath = ACCOUNTINGS_XML_FOLDER +accountingName + "/" + BALANCES + "/" + "ResultBalance" + XML_EXTENSION;
-        String yearXmlPath = ACCOUNTINGS_XML_FOLDER +accountingName+ "/" + BALANCES + "/" + "YearBalance" + XML_EXTENSION;
-        String relationsXmlPath = ACCOUNTINGS_XML_FOLDER +accountingName+ "/" + BALANCES + "/" + "RelationsBalance" + XML_EXTENSION;
+        String resultPdfPolderPath = ACCOUNTINGS_PDF_FOLDER + accountingName + "/" + BALANCES + "/";
+        File targetFolder = new File(resultPdfPolderPath);
+        targetFolder.mkdirs();
+        return resultPdfPolderPath;
+    }
+    
+    public static void writeBalancePdfFiles(Accounting accounting){
+        String inputXmlPath = BalancesIO.writeIndividualBalances(accounting);
         String xslPath = XSLFOLDER + "BalancePdf.xsl";
-        String resultPdfPath = ACCOUNTINGS_XML_FOLDER +accountingName+"/PDF/Balances/ResultBalance.pdf";
-        String yearPdfPath = ACCOUNTINGS_XML_FOLDER +accountingName+"/PDF/Balances/YearBalance.pdf";
-        String relationsPdfPath = ACCOUNTINGS_XML_FOLDER +accountingName+"/PDF/Balances/RelationsBalance.pdf";
+
+        String resultPdfPolderPath = createPdfFolder(accounting);
+
+        String resultXmlPath = inputXmlPath + "ResultBalance" + XML_EXTENSION;
+        String yearXmlPath = inputXmlPath + "YearBalance" + XML_EXTENSION;
+        String relationsXmlPath = inputXmlPath + "RelationsBalance" + XML_EXTENSION;
+        
+        String resultPdfPath = resultPdfPolderPath + "ResultBalance.pdf";
+        String yearPdfPath = resultPdfPolderPath + "YearBalance.pdf";
+        String relationsPdfPath = resultPdfPolderPath + "RelationsBalance.pdf";
         try {
             PDFCreator.convertToPDF(resultXmlPath, xslPath, resultPdfPath);
             PDFCreator.convertToPDF(yearXmlPath, xslPath, yearPdfPath);
@@ -125,16 +130,18 @@ public class BalancesIO {
         } catch (IOException ex) {
             Logger.getLogger(Balances.class.getName()).log(Level.SEVERE, null, ex);
         }
-//        writeIndividualBalances(accounting);
+        writeIndividualBalances(accounting);
     }
 
-    public static void writeIndividualBalances(Accounting accounting){
+    public static String writeIndividualBalances(Accounting accounting){
         Balances balances = accounting.getBalances();
-        File balancesFolder = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + BALANCES);
+        String path = ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + BALANCES + "/";
+        File balancesFolder = new File(path);
         balancesFolder.mkdirs();
         for(Balance balance:balances.getBusinessObjects()){
             writeBalance(balance, balancesFolder);
         }
+        return path;
     }
 
     public static void writeBalance(Balance balance, File balancesFolder) {
