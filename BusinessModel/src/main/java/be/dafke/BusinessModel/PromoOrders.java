@@ -10,8 +10,8 @@ public class PromoOrders extends BusinessCollection<PromoOrder>{
     private int id = 0;
 
     public PromoOrder addBusinessObject(PromoOrder order) throws EmptyNameException, DuplicateNameException {
+        id++;
         if(order.getId()==null) {
-            id++;
             order.setId(id);
         }
         order.setName(Utils.toIDString("PR", order.getId(), 3));
