@@ -6,7 +6,6 @@ import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.OrderItem;
 import be.dafke.BusinessModel.PromoOrder;
-import be.dafke.BusinessModel.SalesOrder;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;
@@ -17,10 +16,10 @@ public class PromoOrdersOverviewPanel extends JPanel {
     private final SelectableTable<OrderItem> detailsTable;
     private final PromoOrdersOverviewDataTableModel overviewTableModel;
 
-    private final PromoOrderDetailsDataTableModel detailsTableModel;
+    private final PromoOrderViewDataTableModel detailsTableModel;
     private final TotalsPanel totalsPanel;
 
-    private final PromoOrderDetailPanel salesOrderDetailPanel;
+    private final PromoOrderDetailPanel promoOrderDetailPanel;
     private final SalesOrderDetailsPopupMenu popup;
 
     public PromoOrdersOverviewPanel() {
@@ -28,7 +27,7 @@ public class PromoOrdersOverviewPanel extends JPanel {
         overviewTable = new SelectableTable<>(overviewTableModel);
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
-        detailsTableModel = new PromoOrderDetailsDataTableModel();
+        detailsTableModel = new PromoOrderViewDataTableModel();
         detailsTable = new SelectableTable<>(detailsTableModel);
         detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200));
         //
@@ -36,7 +35,7 @@ public class PromoOrdersOverviewPanel extends JPanel {
         detailsTable.addMouseListener(PopupForTableActivator.getInstance(popup,detailsTable));
 
         totalsPanel = new TotalsPanel();
-        salesOrderDetailPanel = new PromoOrderDetailPanel();
+        promoOrderDetailPanel = new PromoOrderDetailPanel();
 
         firePromoOrderAddedOrRemoved();
 
@@ -46,7 +45,7 @@ public class PromoOrdersOverviewPanel extends JPanel {
                 PromoOrder promoOrder = overviewTable.getSelectedObject();
                 detailsTableModel.setOrder(promoOrder);
                 totalsPanel.fireOrderContentChanged(promoOrder);
-                salesOrderDetailPanel.setOrder(promoOrder);
+                promoOrderDetailPanel.setOrder(promoOrder);
             }
         });
         overviewTable.setSelectionModel(selection);
@@ -61,7 +60,7 @@ public class PromoOrdersOverviewPanel extends JPanel {
 
         setLayout(new BorderLayout());
         add(center, BorderLayout.CENTER);
-        add(salesOrderDetailPanel, BorderLayout.EAST);
+        add(promoOrderDetailPanel, BorderLayout.EAST);
     }
 
     public void firePromoOrderAddedOrRemoved() {
@@ -71,6 +70,6 @@ public class PromoOrdersOverviewPanel extends JPanel {
     public void setAccounting(Accounting accounting) {
         overviewTableModel.setAccounting(accounting);
         popup.setAccounting(accounting);
-        salesOrderDetailPanel.setAccounting(accounting);
+        promoOrderDetailPanel.setAccounting(accounting);
     }
 }

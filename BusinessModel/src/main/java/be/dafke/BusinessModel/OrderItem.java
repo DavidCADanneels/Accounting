@@ -121,19 +121,30 @@ public class OrderItem extends BusinessObject{
     }
 
     public BigDecimal getSalesPriceWithoutVat() {
-        return getSalesPriceWithoutVat(numberOfItems, getSalesPriceForItem(), getSalesPriceForUnit());
+        return getSalesPriceWithoutVat(false);
+    }
+
+    public BigDecimal getSalesPriceWithoutVat(boolean promo) {
+        return getSalesPriceWithoutVat(numberOfItems, getSalesPriceForItem(), getSalesPriceForUnit(), promo);
     }
 
     public BigDecimal getSalesPriceWithVat() {
-        return getSalesPriceWithVat(numberOfItems, getSalesPriceForItem(), getSalesPriceForUnit());
+        return getSalesPriceWithVat(false);
+    }
+
+    public BigDecimal getSalesPriceWithVat(boolean promo) {
+        return getSalesPriceWithVat(numberOfItems, getSalesPriceForItem(), getSalesPriceForUnit(), promo);
     }
 
     public BigDecimal getSalesVatAmount() {
-        return getSalesVatAmount(numberOfItems, getSalesPriceForItem(), getSalesPriceForUnit());
+        return getSalesVatAmount(false);
+    }
+    public BigDecimal getSalesVatAmount(boolean promo) {
+        return getSalesVatAmount(numberOfItems, getSalesPriceForItem(), getSalesPriceForUnit(), promo);
     }
 
-    private BigDecimal getSalesVatAmount(int number, BigDecimal itemPrice, BigDecimal unitPrice){
-        BigDecimal salesPriceWithoutVat = getSalesPriceWithoutVat(number, itemPrice, unitPrice);
+    private BigDecimal getSalesVatAmount(int number, BigDecimal itemPrice, BigDecimal unitPrice, boolean promo){
+        BigDecimal salesPriceWithoutVat = getSalesPriceWithoutVat(number, itemPrice, unitPrice, promo);
         return salesPriceWithoutVat.multiply(getSalesPercentage());
     }
 
@@ -146,18 +157,22 @@ public class OrderItem extends BusinessObject{
         return BigDecimal.ONE.add(getSalesPercentage());
     }
 
-    private BigDecimal getSalesPriceWithoutVat(int number, BigDecimal itemPrice, BigDecimal unitPrice) {
-        BigDecimal salesPriceWithVat = getSalesPriceWithVat(number, itemPrice, unitPrice);
+    private BigDecimal getSalesPriceWithoutVat(int number, BigDecimal itemPrice, BigDecimal unitPrice, boolean promo) {
+        BigDecimal salesPriceWithVat = getSalesPriceWithVat(number, itemPrice, unitPrice, promo);
         return salesPriceWithVat.divide(getSalesFactor(),ROUND_HALF_DOWN);
     }
 
-    private BigDecimal getSalesPriceWithVat(int number, BigDecimal itemPrice, BigDecimal unitPrice) {
+    private BigDecimal getSalesPriceWithVat(int number, BigDecimal itemPrice, BigDecimal unitPrice, boolean promo) {
         if(itemPrice==null||unitPrice==null) return BigDecimal.ZERO;
-        int nrOfUnits = number/getItemsPerUnit();
-        int remainingItems = number%getItemsPerUnit();
-        BigDecimal priceForUnits = unitPrice.multiply(new BigDecimal(nrOfUnits));
-        BigDecimal priceForItems = itemPrice.multiply(new BigDecimal(remainingItems));
-        return priceForUnits.add(priceForItems);
+        if(promo) {
+            int nrOfUnits = number / getItemsPerUnit();
+            int remainingItems = number % getItemsPerUnit();
+            BigDecimal priceForUnits = unitPrice.multiply(new BigDecimal(nrOfUnits));
+            BigDecimal priceForItems = itemPrice.multiply(new BigDecimal(remainingItems));
+            return priceForUnits.add(priceForItems);
+        } else {
+            return itemPrice.multiply(new BigDecimal(getNumberOfItems()));
+        }
     }
     public Integer getSalesVatRate() {
         return salesVatRate!=null?salesVatRate:article==null?null:article.getSalesVatRate();

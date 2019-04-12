@@ -16,6 +16,7 @@ public class SalesOrderCreatePanel extends JPanel {
     private SalesOrder salesOrder;
     private JCheckBox invoice;
     private JCheckBox creditNote;
+    private JCheckBox promoPrice;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
     private Articles articles;
@@ -39,6 +40,12 @@ public class SalesOrderCreatePanel extends JPanel {
         creditNote.setSelected(false);
         creditNote.addActionListener(e -> {
             salesOrder.setCreditNote(creditNote.isSelected());
+        });
+
+        promoPrice = new JCheckBox("Unit Promo");
+        promoPrice.setSelected(false);
+        promoPrice.addActionListener(e -> {
+            salesOrder.setUnitPromotions(promoPrice.isSelected());
         });
         invoice = new JCheckBox("Invoice");
         invoice.addActionListener(e -> {

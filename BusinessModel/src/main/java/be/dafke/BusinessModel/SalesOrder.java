@@ -10,11 +10,12 @@ public class SalesOrder extends Order {
     private String invoiceNumber = "";
     private boolean invoice = false;
     private boolean promoOrder = false;
+    private boolean unitPromotions;
 
     public BigDecimal getTotalSalesPriceExclVat() {
         BigDecimal total = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {
-            total = total.add(orderItem.getSalesPriceWithoutVat()).setScale(2, RoundingMode.HALF_DOWN);
+            total = total.add(orderItem.getSalesPriceWithoutVat(unitPromotions)).setScale(2, RoundingMode.HALF_DOWN);
         }
         return total;
     }
@@ -22,7 +23,7 @@ public class SalesOrder extends Order {
     public BigDecimal getTotalSalesPriceExclVat(Predicate<OrderItem> predicate) {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects(predicate)) {
-            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesPriceWithoutVat()).setScale(2, RoundingMode.HALF_DOWN);
+            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesPriceWithoutVat(unitPromotions)).setScale(2, RoundingMode.HALF_DOWN);
         }
         return totalSalesExcl;
     }
@@ -30,7 +31,7 @@ public class SalesOrder extends Order {
     public BigDecimal getTotalSalesVat() {
         BigDecimal totalSalesVat = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {
-            totalSalesVat = totalSalesVat.add(orderItem.getSalesVatAmount()).setScale(2, RoundingMode.HALF_DOWN);
+            totalSalesVat = totalSalesVat.add(orderItem.getSalesVatAmount(unitPromotions)).setScale(2, RoundingMode.HALF_DOWN);
         }
         return totalSalesVat;
     }
@@ -38,7 +39,7 @@ public class SalesOrder extends Order {
     public BigDecimal getTotalSalesVat(Predicate<OrderItem> predicate) {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects(predicate)) {
-            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesVatAmount()).setScale(2, RoundingMode.HALF_DOWN);
+            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesVatAmount(unitPromotions)).setScale(2, RoundingMode.HALF_DOWN);
         }
         return totalSalesExcl;
     }
@@ -46,7 +47,7 @@ public class SalesOrder extends Order {
     public BigDecimal getTotalSalesPriceInclVat() {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects()) {
-            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesPriceWithVat()).setScale(2, RoundingMode.HALF_DOWN);
+            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesPriceWithVat(unitPromotions)).setScale(2, RoundingMode.HALF_DOWN);
         }
         return totalSalesExcl;
     }
@@ -54,7 +55,7 @@ public class SalesOrder extends Order {
     public BigDecimal getTotalSalesPriceInclVat(Predicate<OrderItem> predicate) {
         BigDecimal totalSalesExcl = BigDecimal.ZERO.setScale(2);
         for (OrderItem orderItem : getBusinessObjects(predicate)) {
-            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesPriceWithVat().setScale(2, RoundingMode.HALF_DOWN));
+            totalSalesExcl = totalSalesExcl.add(orderItem.getSalesPriceWithVat(unitPromotions).setScale(2, RoundingMode.HALF_DOWN));
         }
         return totalSalesExcl;
     }
@@ -125,5 +126,13 @@ public class SalesOrder extends Order {
 
     public boolean isPromoOrder() {
         return promoOrder;
+    }
+
+    public void setUnitPromotions(boolean unitPromotions) {
+        this.unitPromotions = unitPromotions;
+    }
+
+    public boolean isUnitPromotions() {
+        return unitPromotions;
     }
 }

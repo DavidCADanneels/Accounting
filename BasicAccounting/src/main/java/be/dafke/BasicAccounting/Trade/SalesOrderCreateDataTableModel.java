@@ -16,7 +16,7 @@ public class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel
 	private Predicate<Article> filter = Article.inStock();
 	private TotalsPanel totalsPanel;
 
-	public SalesOrderCreateDataTableModel(Articles articles, Order order, TotalsPanel totalsPanel) {
+	public SalesOrderCreateDataTableModel(Articles articles, SalesOrder order, TotalsPanel totalsPanel) {
 		super();
 		this.totalsPanel = totalsPanel;
 		// articles should be stock instead (stock/articles contains nrInStock, nrSold, ...

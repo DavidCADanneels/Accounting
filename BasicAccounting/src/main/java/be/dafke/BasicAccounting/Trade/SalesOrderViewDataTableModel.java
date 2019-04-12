@@ -28,7 +28,7 @@ public class SalesOrderViewDataTableModel extends SelectableTableModel<OrderItem
 	public static int NR_OF_COL = 11;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
-	protected Order order;
+	protected SalesOrder order;
 
 	public SalesOrderViewDataTableModel() {
 		setColumnNames();
@@ -92,13 +92,13 @@ public class SalesOrderViewDataTableModel extends SelectableTableModel<OrderItem
 			return orderItem.getSalesVatRate();
 		}
 		if (col == TOTAL_EXCL_COL) {
-			return orderItem.getSalesPriceWithoutVat();
+			return orderItem.getSalesPriceWithoutVat(order.isUnitPromotions());
 		}
 		if (col == TOTAL_INCL_COL) {
-			return orderItem.getSalesPriceWithVat();
+			return orderItem.getSalesPriceWithVat(order.isUnitPromotions());
 		}
 		if (col == TOTAL_VAT_COL) {
-			return orderItem.getSalesVatAmount();
+			return orderItem.getSalesVatAmount(order.isUnitPromotions());
 		}
 		if (col == NR_OF_UNITS_COL) {
 			return orderItem.getNumberOfUnits();
@@ -153,7 +153,7 @@ public class SalesOrderViewDataTableModel extends SelectableTableModel<OrderItem
 		return order;
 	}
 
-	public void setOrder(Order order) {
+	public void setOrder(SalesOrder order) {
 		this.order = order;
 		fireTableDataChanged();
 	}

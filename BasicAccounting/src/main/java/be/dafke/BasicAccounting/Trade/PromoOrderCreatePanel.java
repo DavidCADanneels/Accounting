@@ -12,7 +12,7 @@ import java.awt.*;
 class PromoOrderCreatePanel extends JPanel {
     private PromoOrder promoOrder;
     private Articles articles;
-    private final SalesOrderCreateDataTableModel salesOrderCreateDataTableModel;
+    private final PromoOrderCreateDataTableModel promoOrderCreateDataTableModel;
 
     PromoOrderCreatePanel(Accounting accounting) {
         this.articles = accounting.getArticles();
@@ -20,8 +20,8 @@ class PromoOrderCreatePanel extends JPanel {
         promoOrder.setArticles(articles);
 
         TotalsPanel totalsPanel = new TotalsPanel();
-        salesOrderCreateDataTableModel = new SalesOrderCreateDataTableModel(articles, promoOrder, totalsPanel);
-        SelectableTable<OrderItem> table = new SelectableTable<>(salesOrderCreateDataTableModel);
+        promoOrderCreateDataTableModel = new PromoOrderCreateDataTableModel(articles, promoOrder, totalsPanel);
+        SelectableTable<OrderItem> table = new SelectableTable<>(promoOrderCreateDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
 
@@ -37,7 +37,7 @@ class PromoOrderCreatePanel extends JPanel {
                 promoOrders.addBusinessObject(promoOrder);
                 promoOrder = new PromoOrder();
                 promoOrder.setArticles(articles);
-                salesOrderCreateDataTableModel.setOrder(promoOrder);
+                promoOrderCreateDataTableModel.setOrder(promoOrder);
                 totalsPanel.fireOrderContentChanged(promoOrder);
                 PromoOrdersOverviewGUI.firePromoOrderAddedOrRemovedForAll();
             } catch (EmptyNameException e1) {
