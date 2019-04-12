@@ -55,12 +55,12 @@ public class StockTransactionsDataTableModel extends SelectableTableModel<OrderI
 			return order;
 		}
 		if (col == ADDED_COL) {
-			if(order!=null && order instanceof PurchaseOrder) {
+			if(order!=null && (order instanceof PurchaseOrder || order instanceof StockOrder)) {
 				return orderItem.getNumberOfItems();
 			} else return null;
 		}
 		if (col == REMOVED_COL) {
-			if(order!=null && order instanceof SalesOrder) {
+			if(order!=null && (order instanceof SalesOrder || order instanceof PromoOrder)) {
 				return orderItem.getNumberOfItems();
 			} else return null;
 		}
