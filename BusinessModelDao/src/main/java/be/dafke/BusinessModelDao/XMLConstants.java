@@ -38,6 +38,7 @@ public class XMLConstants {
     public static final String ORIGINAL_ID = "originalId";
     public static final String DEBIT = "debit";
     public static final String CREDIT = "credit";
+    public static final String UNIT = "unit";
 
     public static final String PROJECTS = "Projects";
     public static final String PROJECT = "Project";
@@ -125,6 +126,8 @@ public class XMLConstants {
     public static final String ARTICLE = "Article";
     public static final String ARTICLE_ITEM_NAME = "ArticleItemsName";
 //    public static final String ARTICLE_MIN_REDUCTION = "MinForReduction";
+    public static final String INGREDIENTS = "Ingredients";
+    public static final String INGREDIENT = "Ingredient";
     public static final String PURCHASE_PRICE = "PurchasePrice";
     public static final String PURCHASE_PRICE_UNIT = "PurchasePriceUnit";
     public static final String PURCHASE_PRICE_ITEM = "PurchasePriceItem";

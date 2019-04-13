@@ -24,6 +24,6 @@ public enum Unit {
 
     public String toString(){
         if(symbol.equals("")) return name;
-        else return name + " (" + symbol + " )";
+        else return name + " (" + symbol + ")";
     }
 }
