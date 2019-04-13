@@ -16,6 +16,10 @@ public class ActionUtils {
 
     public static final String ARTICLE_DUPLICATE_NAME = "ARTICLE_DUPLICATE_NAME";
     public static final String ARTICLE_NAME_EMPTY = "ARTICLE_NAME_EMPTY";
+
+    public static final String INGREDIENT_DUPLICATE_NAME = "INGREDIENT_DUPLICATE_NAME";
+    public static final String INGREDIENT_NAME_EMPTY = "INGREDIENT_NAME_EMPTY";
+
     public static final String PROJECT_DUPLICATE_NAME = "PROJECT_DUPLICATE_NAME";
     public static final String PROJECT_NAME_EMPTY = "PROJECT_NAME_EMPTY";
 

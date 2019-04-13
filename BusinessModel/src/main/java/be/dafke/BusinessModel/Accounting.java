@@ -23,6 +23,7 @@ public class Accounting extends BusinessObject{
     private VATTransactions vatTransactions;
     private VATFields vatFields;
     private Articles articles;
+    private Ingredients ingredients;
     private Contact companyContact=null;
     private Contact contactNoInvoice=null;
     private CounterParties counterParties;
@@ -64,6 +65,8 @@ public class Accounting extends BusinessObject{
         projects = new Projects();
 
         articles = new Articles();
+
+        ingredients = new Ingredients();
 
         stockTransactions = new StockTransactions();
 
@@ -140,6 +143,10 @@ public class Accounting extends BusinessObject{
 
     public Articles getArticles() {
         return articles;
+    }
+
+    public Ingredients getIngredients() {
+        return ingredients;
     }
 
     public PurchaseOrders getPurchaseOrders() {

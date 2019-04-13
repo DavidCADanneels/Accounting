@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Trade;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Articles;
 import be.dafke.BusinessModel.Contacts;
+import be.dafke.BusinessModel.Ingredients;
 
 import javax.swing.*;
 
@@ -11,15 +12,17 @@ import java.awt.event.KeyEvent;
 import static java.util.ResourceBundle.getBundle;
 
 public class GoodsMenu extends JMenu {
-    private JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders, promoOrders, stockHistoryTable;
+    private JMenuItem articlesTable, ingredientsTable, stockTable, salesOrders, purchaseOrders, promoOrders, stockHistoryTable;
 
     private Articles articles;
+    private Ingredients ingredients;
     private Contacts contacts;
     private Accounting accounting;
 
     public GoodsMenu() {
         super(getBundle("Accounting").getString("TRADE"));
-        setMnemonic(KeyEvent.VK_G);
+        setMnemonic(KeyEvent.VK_T);
+
         articlesTable = new JMenuItem(getBundle("Accounting").getString("ARTICLES"));
         articlesTable.setMnemonic(KeyEvent.VK_A);
         articlesTable.addActionListener(e -> {
@@ -29,8 +32,17 @@ public class GoodsMenu extends JMenu {
         });
         articlesTable.setEnabled(false);
 
+        ingredientsTable = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS"));
+        ingredientsTable.setMnemonic(KeyEvent.VK_I);
+        ingredientsTable.addActionListener(e -> {
+            IngredientsGUI ingredientsGUI = IngredientsGUI.showArticles(ingredients);
+            ingredientsGUI.setLocation(getLocationOnScreen());
+            ingredientsGUI.setVisible(true);
+        });
+        ingredientsTable.setEnabled(false);
+
         stockTable = new JMenuItem(getBundle("Accounting").getString("STOCK"));
-        stockTable.setMnemonic(KeyEvent.VK_T);
+        stockTable.setMnemonic(KeyEvent.VK_S);
         stockTable.addActionListener(e -> {
             StockGUI stockGUI = StockGUI.showStock(accounting);
             stockGUI.setLocation(getLocationOnScreen());
@@ -75,6 +87,7 @@ public class GoodsMenu extends JMenu {
         promoOrders.setEnabled(false);
 
         add(articlesTable);
+        add(ingredientsTable);
         add(stockTable);
         add(stockHistoryTable);
         add(purchaseOrders);
@@ -86,6 +99,7 @@ public class GoodsMenu extends JMenu {
         this.accounting = accounting;
         setContacts(accounting==null?null:accounting.getContacts());
         setArticles(accounting==null?null:accounting.getArticles());
+        setIngredients(accounting==null?null:accounting.getIngredients());
         stockTable.setEnabled(accounting!=null);
         stockHistoryTable.setEnabled(accounting!=null);
         purchaseOrders.setEnabled(accounting!=null);
@@ -100,5 +114,10 @@ public class GoodsMenu extends JMenu {
     public void setArticles(Articles articles){
         this.articles = articles;
         articlesTable.setEnabled(articles!=null);
+    }
+
+    public void setIngredients(Ingredients ingredients){
+        this.ingredients = ingredients;
+        ingredientsTable.setEnabled(ingredients!=null);
     }
 }
