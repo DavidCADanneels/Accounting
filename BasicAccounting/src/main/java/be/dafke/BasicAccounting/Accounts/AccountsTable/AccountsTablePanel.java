@@ -111,7 +111,7 @@ public class AccountsTablePanel extends JPanel {
         // for info: the buttons can be used if nothing is selected, their listeners can deal with non-selections
         accountsTableButtons.setActive(accounting!=null);
 	    accountDataTableModel.setFilter(null);
-        setAccounts(accounting==null?null:accounting.getAccounts());
+        accountDataTableModel.setAccounts(accounting==null?null:accounting.getAccounts());
         // if setAccounts() is used here, popup.setAccounts() will be called twice
         table.addMouseListener(PopupForTableActivator.getInstance(popup, table));  // TODO: Needed?
         fireAccountDataChanged();
@@ -173,16 +173,14 @@ public class AccountsTablePanel extends JPanel {
         }
     }
 
-
-    public void setAccounts(Accounts accounts) {
-        accountDataTableModel.setAccounts(accounts);
-        filterPanel.clearSearchFields();
-        fireAccountDataChanged();
-    }
-
     public void fireAccountDataChanged() {
         int row = table.getSelectedRow();
         accountDataTableModel.fireTableDataChanged();
-        if (row != -1) table.setRowSelectionInterval(row, row);
+        try {
+            if (row != -1) table.setRowSelectionInterval(row, row);
+        }catch (IllegalArgumentException iae){
+            System.err.println("row = "+row);
+            iae.printStackTrace();
+        }
     }
 }
