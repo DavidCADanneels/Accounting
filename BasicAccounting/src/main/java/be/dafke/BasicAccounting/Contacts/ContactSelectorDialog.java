@@ -16,14 +16,15 @@ public class ContactSelectorDialog extends RefreshableDialog {
 	private Contacts contacts;
 	private static ContactSelectorDialog contactSelectorDialog = null;
 
-	private ContactSelectorDialog(Contacts contacts, Contact.ContactType contactType) {
+	private ContactSelectorDialog(Accounting accounting, Contact.ContactType contactType) {
 		super("Select Contact");
+		Contacts contacts = accounting.getContacts();
 		this.contactType = contactType;
 		model = new DefaultComboBoxModel<>();
 		combo = new JComboBox<>(model);
 		combo.addActionListener(e -> contact = (Contact) combo.getSelectedItem());
 		create = new JButton("Add contact(s) ...");
-		create.addActionListener(e -> new NewContactDialog(contacts).setVisible(true));
+		create.addActionListener(e -> new NewContactDialog(accounting).setVisible(true));
 		ok = new JButton("Ok (Close popup)");
 		ok.addActionListener(e -> dispose());
 		JPanel innerPanel = new JPanel(new BorderLayout());
@@ -37,16 +38,21 @@ public class ContactSelectorDialog extends RefreshableDialog {
 		pack();
 	}
 
-	public static ContactSelectorDialog getContactSelector(Contacts contacts, Contact.ContactType contactType){
+	public static ContactSelectorDialog getContactSelector(Accounting accounting, Contact.ContactType contactType){
 		if(contactSelectorDialog==null){
-			contactSelectorDialog = new ContactSelectorDialog(contacts, contactType);
+			contactSelectorDialog = new ContactSelectorDialog(accounting, contactType);
 		}
-		contactSelectorDialog.setContacts(contacts);
+		contactSelectorDialog.setAccounting(accounting);
 		return contactSelectorDialog;
 	}
 
 	public Contact getSelection() {
 		return contact;
+	}
+
+	public void setAccounting(Accounting accounting){
+//		this.accounting = accounting;
+		setContacts(accounting==null?null:accounting.getContacts());
 	}
 
     public void setContacts(Contacts contacts) {

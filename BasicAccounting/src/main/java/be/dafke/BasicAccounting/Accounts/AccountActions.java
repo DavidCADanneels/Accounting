@@ -392,12 +392,11 @@ public class AccountActions {
     }
 
     public static Contact getContact(Account account, Accounting accounting, Contact.ContactType contactType, Component component){
-        Contacts contacts = accounting.getContacts();
         Contact contact = account.getContact();
         if(contact!=null){
             return contact;
         } else {
-            ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(contacts, contactType);
+            ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting, contactType);
             contactSelectorDialog.setLocation(component.getLocationOnScreen());
             contactSelectorDialog.setVisible(true);
             contact = contactSelectorDialog.getSelection();

@@ -10,14 +10,15 @@ import static java.util.ResourceBundle.getBundle;
 public class ContactsMenu extends JMenu {
     private JMenuItem suppliers, customers, all;
 
-    private Contacts contacts;
+    private Accounting accounting;
+//    private Contacts contacts;
 
     public ContactsMenu() {
         super(getBundle("Contacts").getString("CONTACTS"));
 //        setMnemonic(KeyEvent.VK_P);
         suppliers = new JMenuItem(getBundle("Contacts").getString("SUPPLIERS"));
         suppliers.addActionListener(e -> {
-            ContactsGUI contactsGUI = ContactsGUI.showSuppliers(contacts);
+            ContactsGUI contactsGUI = ContactsGUI.showSuppliers(accounting);
             contactsGUI.setLocation(getLocationOnScreen());
             contactsGUI.setVisible(true);
         });
@@ -25,7 +26,7 @@ public class ContactsMenu extends JMenu {
 
         customers = new JMenuItem(getBundle("Contacts").getString("CUSTOMERS"));
         customers.addActionListener(e -> {
-            ContactsGUI contactsGUI = ContactsGUI.showCustomers(contacts);
+            ContactsGUI contactsGUI = ContactsGUI.showCustomers(accounting);
             contactsGUI.setLocation(getLocationOnScreen());
             contactsGUI.setVisible(true);
         });
@@ -33,7 +34,7 @@ public class ContactsMenu extends JMenu {
 
         all = new JMenuItem(getBundle("Contacts").getString("ALL"));
         all.addActionListener(e -> {
-            ContactsGUI contactsGUI = ContactsGUI.showContacts(contacts);
+            ContactsGUI contactsGUI = ContactsGUI.showContacts(accounting);
             contactsGUI.setLocation(getLocationOnScreen());
             contactsGUI.setVisible(true);
         });
@@ -45,11 +46,12 @@ public class ContactsMenu extends JMenu {
     }
 
     public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
         setContacts(accounting==null?null:accounting.getContacts());
     }
 
     public void setContacts(Contacts contacts){
-        this.contacts = contacts;
+//        this.contacts = contacts;
         suppliers.setEnabled(contacts!=null);
         customers.setEnabled(contacts!=null);
         all.setEnabled(contacts!=null);

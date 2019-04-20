@@ -327,25 +327,11 @@ public class SalesOrderDetailPanel extends JPanel {
         Contact customer = salesOrder.getCustomer();
         if(customer == null){
             Contacts contacts = accounting.getContacts();
-            ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(contacts, Contact.ContactType.CUSTOMERS);
+            ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting, Contact.ContactType.CUSTOMERS);
             contactSelectorDialog.setVisible(true);
             customer = contactSelectorDialog.getSelection();
         }
         return customer;
-    }
-
-    private Account getCustomerAccount(Contact customer){
-        Account customerAccount = customer.getAccount();
-        if (customerAccount == null){
-            AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.CREDIT);
-            ArrayList<AccountType> list = new ArrayList<>();
-            list.add(accountType);
-            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select Customer Account");
-            dialog.setVisible(true);
-            customerAccount = dialog.getSelection();
-            customer.setAccount(customerAccount);
-        }
-        return customerAccount;
     }
 
     public Transaction createTransaction(){
@@ -393,7 +379,7 @@ public class SalesOrderDetailPanel extends JPanel {
         Contact customer = getCustomer();
         transaction.setContact(customer);
 
-        Account customerAccount = getCustomerAccount(customer);
+        Account customerAccount = StockUtils.getCustomerAccount(customer, accounting);
         Account salesAccount = StockUtils.getSalesAccount(accounting);
 
         boolean creditNote = salesOrder.isCreditNote();

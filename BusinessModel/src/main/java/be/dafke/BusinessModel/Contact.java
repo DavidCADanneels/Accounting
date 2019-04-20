@@ -5,7 +5,7 @@ import be.dafke.ObjectModel.BusinessObject;
 import java.math.BigDecimal;
 
 public class Contact extends BusinessObject{
-    private boolean supplier, customer;
+//    private boolean supplier, customer;
     private String streetAndNumber = "";
     private String vatNumber = "";
     private String postalCode = "";
@@ -17,6 +17,8 @@ public class Contact extends BusinessObject{
     private BigDecimal turnOver = BigDecimal.ZERO;
     private BigDecimal VATTotal = BigDecimal.ZERO;
     private Account account;
+    private Account customerAccount = null;
+    private Account supplierAccount = null;
 
     public Contact() {
 
@@ -24,8 +26,8 @@ public class Contact extends BusinessObject{
 
     public Contact(Contact contact, Accounts accounts) {
         setName(contact.getName());
-        supplier = contact.supplier;
-        customer = contact.customer;
+//        supplier = contact.supplier;
+//        customer = contact.customer;
         vatNumber = contact.vatNumber;
         postalCode = contact.postalCode;
         city = contact.city;
@@ -38,6 +40,16 @@ public class Contact extends BusinessObject{
             String accountName = contactAccount.getName();
             account = accounts.getBusinessObject(accountName);
         }
+        Account otherCustomerAccount = contact.getAccount();
+        if(otherCustomerAccount!=null){
+            String accountName = otherCustomerAccount.getName();
+            customerAccount = accounts.getBusinessObject(accountName);
+        }
+        Account otherSupplierAccount = contact.getAccount();
+        if(otherSupplierAccount!=null){
+            String accountName = otherSupplierAccount.getName();
+            supplierAccount = accounts.getBusinessObject(accountName);
+        }
     }
 
     public enum ContactType{
@@ -46,19 +58,11 @@ public class Contact extends BusinessObject{
     }
 
     public boolean isSupplier() {
-        return supplier;
-    }
-
-    public void setSupplier(boolean supplier) {
-        this.supplier = supplier;
+        return supplierAccount!=null;
     }
 
     public boolean isCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(boolean customer) {
-        this.customer = customer;
+        return customerAccount!=null;
     }
 
     public String getStreetAndNumber() {
@@ -137,6 +141,14 @@ public class Contact extends BusinessObject{
         return account;
     }
 
+    public Account getCustomerAccount() {
+        return customerAccount;
+    }
+
+    public Account getSupplierAccount() {
+        return supplierAccount;
+    }
+
     public void increaseTurnOver(BigDecimal amount){
         turnOver = turnOver.add(amount);
         turnOver.setScale(2);
@@ -167,5 +179,13 @@ public class Contact extends BusinessObject{
 
     public void setAccount(Account account) {
         this.account = account;
+    }
+
+    public void setCustomerAccount(Account customerAccount) {
+        this.customerAccount = customerAccount;
+    }
+
+    public void setSupplierAccount(Account supplierAccount) {
+        this.supplierAccount = supplierAccount;
     }
 }

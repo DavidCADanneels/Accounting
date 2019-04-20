@@ -1,6 +1,9 @@
 package be.dafke.BasicAccounting.Contacts;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.Trade.StockUtils;
+import be.dafke.BusinessModel.Account;
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.Contacts;
 import be.dafke.ComponentModel.SelectableTableModel;
@@ -36,8 +39,10 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
     private List<Contact> contacts;
     private ArrayList<Integer> nonEditableColumns = new ArrayList<>();
+    private Accounting accounting;
 
-	public ContactsDataModel(Contacts contacts, Contact.ContactType contactType) {
+	public ContactsDataModel(Accounting accounting, Contacts contacts, Contact.ContactType contactType) {
+		this.accounting = accounting;
 		this.contactType = contactType;
 		if(contactType == Contact.ContactType.ALL) {
 			this.contacts = contacts.getBusinessObjects();
@@ -205,11 +210,21 @@ public class ContactsDataModel extends SelectableTableModel<Contact> {
 		if(isCellEditable(row, col)){
 			if(col== CUSTOMER_COL) {
 				Boolean customer = (Boolean) value;
-				contact.setCustomer(customer);
+				if(customer) {
+					Account customerAccount = StockUtils.getCustomerAccount(contact, accounting);
+					contact.setCustomerAccount(customerAccount);
+				} else {
+					contact.setCustomerAccount(null);
+				}
 				Main.fireCustomerAddedOrRemoved();
 			} else if(col== SUPPLIER_COL) {
 				Boolean supplier = (Boolean) value;
-				contact.setSupplier(supplier);
+				if(supplier) {
+					Account supplierAccount = StockUtils.getSupplierAccount(contact, accounting);
+					contact.setSupplierAccount(supplierAccount);
+				} else {
+					contact.setSupplierAccount(null);
+				}
 				Main.fireSupplierAddedOrRemoved();
 			} else {
 				String stringValue = (String) value;

@@ -2,6 +2,8 @@ package be.dafke.BasicAccounting.Contacts;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BasicAccounting.Trade.StockUtils;
+import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.Contacts;
@@ -28,10 +30,14 @@ public class ContactDetailsPanel extends JPanel {
     public static final String COUNTRY = "COUNTRY_LABEL";
     public static final String PHONE = "PHONE_LABEL";
     public static final String EMAIL = "EMAIL_LABEL";
-    public static final String CUSTOMER = "CUSTOMER_LABEL";
-    public static final String SUPPLIER = "SUPPLIER_LABEL";
+    public static final String CUSTOMER = "CUSTOMER";
+    public static final String SUPPLIER = "SUPPLIER";
+    public static final String CUSTOMER_LABEL = "CUSTOMER_LABEL";
+    public static final String SUPPLIER_LABEL = "SUPPLIER_LABEL";
     private final JCheckBox customer, supplier;
+    private final JTextField customerAccountName, supplierAccountName;
     private final JTextField contactName, contactVAT, contactStreet, contactPostalCode, contactCity, contactCountry, contactPhone, contactEmail, officialName;
+    private Accounting accounting;
     private Contacts contacts;
     private Contact contact;
     private boolean newContact;
@@ -48,8 +54,23 @@ public class ContactDetailsPanel extends JPanel {
         contactEmail = new JTextField(20);
         contactPhone = new JTextField(20);
         officialName = new JTextField(20);
+        customerAccountName = new JTextField(20);
+        supplierAccountName = new JTextField(20);
         customer = new JCheckBox(getBundle("Contacts").getString(CUSTOMER));
         supplier = new JCheckBox(getBundle("Contacts").getString(SUPPLIER));
+
+        customerAccountName.setEnabled(false);
+        supplierAccountName.setEnabled(false);
+
+        customer.addActionListener(e -> {
+            if(customer.isSelected()) {
+                StockUtils.getCustomerAccount(contact, accounting);
+            }
+
+        });
+        supplier.addActionListener(e -> {
+            StockUtils.getSupplierAccount(contact, accounting);
+        });
 
         add(new JLabel(getBundle("Contacts").getString(NAME)));
         add(contactName);
@@ -71,9 +92,14 @@ public class ContactDetailsPanel extends JPanel {
         add(contactEmail);
         add(customer);
         add(supplier);
+        add(new JLabel(getBundle("Contacts").getString(CUSTOMER_LABEL)));
+        add(customerAccountName);
+        add(new JLabel(getBundle("Contacts").getString(SUPPLIER_LABEL)));
+        add(supplierAccountName);
     }
 
     public void setAccounting(Accounting accounting) {
+        this.accounting = accounting;
         setContacts(accounting==null?null:accounting.getContacts());
     }
 
@@ -95,7 +121,7 @@ public class ContactDetailsPanel extends JPanel {
         supplier.setEnabled(enabled);
     }
 
-    public void setContact(Contact contact){
+    public void setContact(Contact contact) {
         this.contact = contact;
         contactName.setText(contact.getName());
         contactVAT.setText(contact.getVatNumber());
@@ -108,6 +134,18 @@ public class ContactDetailsPanel extends JPanel {
         officialName.setText(contact.getOfficialName());
         customer.setSelected(contact.isCustomer());
         supplier.setSelected(contact.isSupplier());
+        Account customerAccount = contact.getCustomerAccount();
+        if (customerAccount != null){
+            customerAccountName.setText(customerAccount.toString());
+        } else {
+            customerAccountName.setText("");
+        }
+        Account supplierAccount = contact.getSupplierAccount();
+        if(supplierAccount!=null) {
+            supplierAccountName.setText(supplierAccount.toString());
+        } else {
+            supplierAccountName.setText("");
+        }
     }
 
     public void saveAccount() {
@@ -133,8 +171,8 @@ public class ContactDetailsPanel extends JPanel {
         contact.setEmail(email);
         String phone = contactPhone.getText().trim();
         contact.setPhone(phone);
-        contact.setCustomer(customer.isSelected());
-        contact.setSupplier(supplier.isSelected());
+//        contact.setCustomer(customer.isSelected());
+//        contact.setSupplier(supplier.isSelected());
         if(newContact) {
             try {
                 contacts.addBusinessObject(contact);

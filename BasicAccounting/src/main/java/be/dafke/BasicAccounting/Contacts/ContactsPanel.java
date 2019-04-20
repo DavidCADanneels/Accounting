@@ -18,17 +18,19 @@ import static java.util.ResourceBundle.getBundle;
 
 public class ContactsPanel extends JPanel implements ListSelectionListener {
     private final Contacts contacts;
+    private final Accounting accounting;
 
     private JTable table;
     private ContactsDataModel contactsDataModel;
     private JButton details;
 
-    public ContactsPanel(Contact.ContactType contactType, Contacts contacts) {
-        this.contacts = contacts;
+    public ContactsPanel(Contact.ContactType contactType, Accounting accounting) {
+        this.accounting = accounting;
+        contacts = accounting.getContacts();
 
         JButton create = new JButton(getBundle("Contacts").getString("NEW_CONTACT"));
         create.addActionListener(e -> {
-            NewContactDialog newContactDialog = new NewContactDialog(contacts);
+            NewContactDialog newContactDialog = new NewContactDialog(accounting);
             newContactDialog.setLocation(getLocationOnScreen());
             newContactDialog.setVisible(true);
         });
@@ -41,7 +43,7 @@ public class ContactsPanel extends JPanel implements ListSelectionListener {
             int selectedRow = table.getSelectedRow();
             if(selectedRow!=-1) {
                 Contact contact = contactsDataModel.getObject(selectedRow, 0);
-                NewContactDialog newContactDialog = new NewContactDialog(contacts);
+                NewContactDialog newContactDialog = new NewContactDialog(accounting);
                 newContactDialog.setContact(contact);
                 newContactDialog.setVisible(true);
             }
@@ -55,7 +57,7 @@ public class ContactsPanel extends JPanel implements ListSelectionListener {
             south.add(createList);
         }
 
-        contactsDataModel = new ContactsDataModel(contacts, contactType);
+        contactsDataModel = new ContactsDataModel(accounting, contacts, contactType);
         table = new JTable(contactsDataModel);
         DefaultListSelectionModel selection = new DefaultListSelectionModel();
         selection.addListSelectionListener(this);
@@ -86,7 +88,7 @@ public class ContactsPanel extends JPanel implements ListSelectionListener {
 
     public static void setCompanyContact(Accounting accounting){
         // TODO: replace companyContact by Contact of type 'OWN'
-        ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting.getContacts(), Contact.ContactType.ALL);
+        ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting, Contact.ContactType.ALL);
         contactSelectorDialog.setVisible(true);
         Contact companyContact = contactSelectorDialog.getSelection();
         accounting.setCompanyContact(companyContact);

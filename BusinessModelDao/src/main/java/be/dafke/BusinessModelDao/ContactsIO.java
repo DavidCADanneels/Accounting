@@ -36,12 +36,18 @@ public class ContactsIO {
             contact.setEmail(getValue(element, EMAIL_ADDRESS));
             contact.setPhone(getValue(element, PHONE_NUMBER));
             contact.setVatNumber(getValue(element, VAT_NUMBER));
-            contact.setCustomer(Boolean.valueOf(getValue(element, CUSTOMER)));
-            contact.setSupplier(Boolean.valueOf(getValue(element, SUPPLIER)));
             contact.setVATTotal(Utils.parseBigDecimal(getValue(element, VAT_TOTAL)));
             contact.setTurnOver(Utils.parseBigDecimal(getValue(element, TURNOVER)));
             String accountName = getValue(element, ACCOUNT);
             contact.setAccount(accounting.getAccounts().getBusinessObject(accountName));
+            String customerAccountName = getValue(element, CUSTOMER_ACCOUNT);
+            if(customerAccountName!=null){
+                contact.setCustomerAccount(accounting.getAccounts().getBusinessObject(customerAccountName));
+            }
+            String supplierAccountName = getValue(element, SUPPLIER_ACCOUNT);
+            if(supplierAccountName!=null) {
+                contact.setSupplierAccount(accounting.getAccounts().getBusinessObject(supplierAccountName));
+            }
             try {
                 contacts.addBusinessObject(contact);
             } catch (EmptyNameException | DuplicateNameException e) {
@@ -82,9 +88,9 @@ public class ContactsIO {
                         "    <"+VAT_NUMBER+">" + contact.getVatNumber() + "</"+VAT_NUMBER+">\n" +
                         "    <"+VAT_TOTAL+">" + contact.getVATTotal() + "</"+VAT_TOTAL+">\n" +
                         "    <"+TURNOVER+">" + contact.getTurnOver() + "</"+TURNOVER+">\n" +
-                        "    <"+CUSTOMER+">" + contact.isCustomer() + "</"+CUSTOMER+">\n" +
-                        "    <"+SUPPLIER+">" + contact.isSupplier() + "</"+SUPPLIER+">\n" +
                         "    <"+ACCOUNT+">" + contact.getAccount() + "</"+ACCOUNT+">\n" +
+                        "    <"+CUSTOMER_ACCOUNT+">" + contact.getCustomerAccount() + "</"+CUSTOMER_ACCOUNT+">\n" +
+                        "    <"+SUPPLIER_ACCOUNT+">" + contact.getSupplierAccount() + "</"+SUPPLIER_ACCOUNT+">\n" +
                         "  </"+CONTACT+">\n"
                 );
             }

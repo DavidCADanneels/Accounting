@@ -58,7 +58,7 @@ public class SalesOrderCreatePanel extends JPanel {
                 model.setSelectedItem(contact);
             } else {
                 if(noInvoice == null){
-                    ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(contacts, Contact.ContactType.CUSTOMERS);
+                    ContactSelectorDialog contactSelectorDialog = ContactSelectorDialog.getContactSelector(accounting, Contact.ContactType.CUSTOMERS);
                     contactSelectorDialog.setLocation(getLocationOnScreen());
                     contactSelectorDialog.setVisible(true);
                     noInvoice = contactSelectorDialog.getSelection();

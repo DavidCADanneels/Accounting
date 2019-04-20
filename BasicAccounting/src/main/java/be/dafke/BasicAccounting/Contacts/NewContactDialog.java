@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Contacts;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contact;
 import be.dafke.BusinessModel.Contacts;
 import be.dafke.ComponentModel.RefreshableDialog;
@@ -21,11 +22,11 @@ public class NewContactDialog extends RefreshableDialog {
     private final JButton add;
     private final ContactDetailsPanel contactDetailsPanel;
 
-    public NewContactDialog(Contacts contacts) {
+    public NewContactDialog(Accounting accounting) {
         super(getBundle("Contacts").getString("NEW_CONTACT_GUI_TITLE"));
 
         contactDetailsPanel = new ContactDetailsPanel();
-        contactDetailsPanel.setContacts(contacts);
+        contactDetailsPanel.setAccounting(accounting);
 
 		add = new JButton(getBundle("BusinessActions").getString("CREATE_NEW_CONTACT"));
 		add.addActionListener(e -> contactDetailsPanel.saveAccount());

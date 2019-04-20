@@ -67,8 +67,22 @@ public class StockUtils {
         return account;
     }
 
+    public static Account getCustomerAccount(Contact customer, Accounting accounting){
+        Account customerAccount = customer.getCustomerAccount();
+        if (customerAccount == null){
+            AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.CREDIT);
+            ArrayList<AccountType> list = new ArrayList<>();
+            list.add(accountType);
+            AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select Customer Account");
+            dialog.setVisible(true);
+            customerAccount = dialog.getSelection();
+            customer.setCustomerAccount(customerAccount);
+        }
+        return customerAccount;
+    }
+
     public static Account getSupplierAccount(Contact supplier, Accounting accounting){
-        Account supplierAccount = supplier.getAccount();
+        Account supplierAccount = supplier.getSupplierAccount();
         if (supplierAccount == null){
             AccountType accountType = accounting.getAccountTypes().getBusinessObject(AccountTypes.DEBIT);
             ArrayList<AccountType> list = new ArrayList<>();
@@ -76,7 +90,7 @@ public class StockUtils {
             AccountSelectorDialog dialog = new AccountSelectorDialog(accounting.getAccounts(), list, "Select Supplier Account");
             dialog.setVisible(true);
             supplierAccount = dialog.getSelection();
-            supplier.setAccount(supplierAccount);
+            supplier.setSupplierAccount(supplierAccount);
         }
         return supplierAccount;
     }

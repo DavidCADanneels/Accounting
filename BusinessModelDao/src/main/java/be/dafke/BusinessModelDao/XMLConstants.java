@@ -6,6 +6,8 @@ public class XMLConstants {
     public static final String ACCOUNTING = "Accounting";
     public static final String ACCOUNTS = "Accounts";
     public static final String ACCOUNT = "Account";
+    public static final String CUSTOMER_ACCOUNT = "CustomerAccount";
+    public static final String SUPPLIER_ACCOUNT = "SupplierAccount";
     public static final String TYPE = "type";
     public static final String NUMBER = "number";
     public static final String DEFAULT_AMOUNT = "defaultAmount";
