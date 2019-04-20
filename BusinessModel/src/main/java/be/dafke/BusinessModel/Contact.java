@@ -138,7 +138,7 @@ public class Contact extends BusinessObject{
 
     public void increaseTurnOver(BigDecimal amount){
         turnOver = turnOver.add(amount);
-        turnOver.setScale(2);
+        turnOver = turnOver.setScale(2);
     }
 
     public void increaseVATTotal(BigDecimal amount){
