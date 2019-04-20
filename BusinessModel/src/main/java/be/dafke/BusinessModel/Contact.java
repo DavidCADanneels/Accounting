@@ -5,7 +5,6 @@ import be.dafke.ObjectModel.BusinessObject;
 import java.math.BigDecimal;
 
 public class Contact extends BusinessObject{
-//    private boolean supplier, customer;
     private String streetAndNumber = "";
     private String vatNumber = "";
     private String postalCode = "";
@@ -16,7 +15,6 @@ public class Contact extends BusinessObject{
     private String officialName = "";
     private BigDecimal turnOver = BigDecimal.ZERO;
     private BigDecimal VATTotal = BigDecimal.ZERO;
-    private Account account;
     private Account customerAccount = null;
     private Account supplierAccount = null;
 
@@ -26,8 +24,6 @@ public class Contact extends BusinessObject{
 
     public Contact(Contact contact, Accounts accounts) {
         setName(contact.getName());
-//        supplier = contact.supplier;
-//        customer = contact.customer;
         vatNumber = contact.vatNumber;
         postalCode = contact.postalCode;
         city = contact.city;
@@ -35,17 +31,12 @@ public class Contact extends BusinessObject{
         email = contact.email;
         phone = contact.phone;
         officialName = contact.officialName;
-        Account contactAccount = contact.getAccount();
-        if(contactAccount!=null){
-            String accountName = contactAccount.getName();
-            account = accounts.getBusinessObject(accountName);
-        }
-        Account otherCustomerAccount = contact.getAccount();
+        Account otherCustomerAccount = contact.getCustomerAccount();
         if(otherCustomerAccount!=null){
             String accountName = otherCustomerAccount.getName();
             customerAccount = accounts.getBusinessObject(accountName);
         }
-        Account otherSupplierAccount = contact.getAccount();
+        Account otherSupplierAccount = contact.getSupplierAccount();
         if(otherSupplierAccount!=null){
             String accountName = otherSupplierAccount.getName();
             supplierAccount = accounts.getBusinessObject(accountName);
@@ -137,10 +128,6 @@ public class Contact extends BusinessObject{
         return VATTotal;
     }
 
-    public Account getAccount() {
-        return account;
-    }
-
     public Account getCustomerAccount() {
         return customerAccount;
     }
@@ -156,17 +143,17 @@ public class Contact extends BusinessObject{
 
     public void increaseVATTotal(BigDecimal amount){
         VATTotal = VATTotal.add(amount);
-        VATTotal.setScale(2);
+        VATTotal = VATTotal.setScale(2);
     }
 
     public void decreaseTurnOver(BigDecimal amount){
         turnOver = turnOver.subtract(amount);
-        turnOver.setScale(2);
+        turnOver = turnOver.setScale(2);
     }
 
     public void decreaseVATTotal(BigDecimal amount){
         VATTotal = VATTotal.subtract(amount);
-        VATTotal.setScale(2);
+        VATTotal = VATTotal.setScale(2);
     }
 
     public void setTurnOver(BigDecimal turnOver) {
@@ -175,10 +162,6 @@ public class Contact extends BusinessObject{
 
     public void setVATTotal(BigDecimal VATTotal) {
         this.VATTotal = VATTotal;
-    }
-
-    public void setAccount(Account account) {
-        this.account = account;
     }
 
     public void setCustomerAccount(Account customerAccount) {
