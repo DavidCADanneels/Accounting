@@ -83,16 +83,19 @@ public class SalesOrdersOverviewPanel extends JPanel {
         all.addActionListener(e -> {
             overviewTableModel.setFilter(null);
             overviewTableModel.fireTableDataChanged();
+            overviewTable.revalidate();
         });
 
         invoice.addActionListener(e -> {
             overviewTableModel.setFilter(salesOrder -> salesOrder.isInvoice());
             overviewTableModel.fireTableDataChanged();
+            overviewTable.revalidate();
         });
 
         noInvoice.addActionListener(e -> {
             overviewTableModel.setFilter(salesOrder -> !salesOrder.isInvoice());
             overviewTableModel.fireTableDataChanged();
+            overviewTable.revalidate();
         });
 
         JPanel panel = new JPanel();
