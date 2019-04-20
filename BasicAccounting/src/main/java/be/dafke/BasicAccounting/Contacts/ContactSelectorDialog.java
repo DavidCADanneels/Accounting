@@ -33,14 +33,15 @@ public class ContactSelectorDialog extends RefreshableDialog {
 		innerPanel.add(panel, BorderLayout.CENTER);
 		innerPanel.add(ok, BorderLayout.SOUTH);
 		setContentPane(innerPanel);
-		setContacts(contacts);
+//		setContacts(contacts);
 		pack();
 	}
 
 	public static ContactSelectorDialog getContactSelector(Contacts contacts, Contact.ContactType contactType){
-		if(contactSelectorDialog ==null){
+		if(contactSelectorDialog==null){
 			contactSelectorDialog = new ContactSelectorDialog(contacts, contactType);
 		}
+		contactSelectorDialog.setContacts(contacts);
 		return contactSelectorDialog;
 	}
 
