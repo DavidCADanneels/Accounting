@@ -241,6 +241,7 @@ public class JournalsIO {
                         VATBooking vatBooking = new VATBooking(vatField, vatMovement);
                         booking.addVatBooking(vatBooking);
                         if (vatTransaction == null) {
+                            System.err.println(transactionId);
                             System.err.println("ERROR: vatTransaction should already be read: <registered> field is missing !");
                         } else {
                             vatTransaction.addBusinessObject(vatBooking);

@@ -10,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -65,13 +64,7 @@ public class ArticlesIO {
             String supplierName = getValue(element, SUPPLIER);
             if(supplierName!=null) {
                 Contact supplier = contacts.getBusinessObject(supplierName);
-                List<Contact> suppliersList = contacts.getBusinessObjects(Contact::isSupplier);
                 if (supplier != null) {
-                    if (!suppliersList.contains(supplier)) {
-                        System.err.println("The contact " + supplierName + " is not marked as Supplier");
-                        // TODO: setSupplier ?
-//                        supplier.setSupplier(true);
-                    }
                     article.setSupplier(supplier);
                 }
             }
