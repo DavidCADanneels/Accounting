@@ -217,7 +217,6 @@ public class XMLConstants {
     public static final String XSLFOLDER = "data/accounting/xsl/";
     public static final String HTMLFOLDER = "data/accounting/html/";
     public static final String PDFFOLDER = "data/accounting/pdf/";
-    public static final String SESSION_FILE = XMLFOLDER + SESSION + XML_EXTENSION;
     public static final String ACCOUNTINGS_XML_PATH = XMLFOLDER + "Accountings";
     public static final String ACCOUNTINGS_XML_FILE = ACCOUNTINGS_XML_PATH + XML_EXTENSION;
     public static final String ACCOUNTINGS_XML_FOLDER = ACCOUNTINGS_XML_PATH + "/";

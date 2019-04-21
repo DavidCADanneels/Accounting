@@ -88,7 +88,11 @@ public class XMLWriter {
     }
 
     private static void writeActiveAccountings(Accountings accountings) {
-        File xmlFile = new File(SESSION_FILE);
+        String homeDir = System.getProperty("user.home");
+        File homeFolder = new File(homeDir);
+        File subFolder = new File(homeFolder, ".Accounting");
+        subFolder.mkdirs();
+        File xmlFile = new File(subFolder, "Session.xml");
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write(getXmlHeader(SESSION, 0));
