@@ -2,9 +2,6 @@ package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessObject;
 
-import java.math.BigDecimal;
-import java.util.function.Predicate;
-
 public class MealOrderItem extends BusinessObject{
     private int numberOfItems = 0;
     private DeliverooMeal deliverooMeal;

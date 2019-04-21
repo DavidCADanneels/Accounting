@@ -8,7 +8,6 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
-import javax.swing.table.TableColumn;
 import java.awt.*;
 
 import static java.util.ResourceBundle.getBundle;

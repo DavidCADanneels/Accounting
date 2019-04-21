@@ -1,7 +1,6 @@
 package be.dafke.BasicAccounting.Deliveroo;
 
 import be.dafke.BusinessModel.DeliverooMeal;
-import be.dafke.BusinessModel.DeliverooMeals;
 import be.dafke.BusinessModel.MealOrder;
 import be.dafke.BusinessModel.MealOrderItem;
 import be.dafke.ComponentModel.SelectableTableModel;

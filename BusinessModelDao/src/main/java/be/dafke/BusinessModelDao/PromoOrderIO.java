@@ -3,7 +3,6 @@ package be.dafke.BusinessModelDao;
 import be.dafke.BusinessModel.*;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
-import be.dafke.Utils.Utils;
 import org.w3c.dom.Element;
 
 import java.io.File;
@@ -11,7 +10,6 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
 import java.math.BigDecimal;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 

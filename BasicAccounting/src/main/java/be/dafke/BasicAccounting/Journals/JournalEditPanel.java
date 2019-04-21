@@ -5,8 +5,6 @@ import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
-import be.dafke.ObjectModel.Exceptions.NotEmptyException;
-import be.dafke.Utils.Utils;
 
 import javax.swing.*;
 import javax.swing.table.TableColumn;
@@ -17,7 +15,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Set;
-import java.util.List;
 
 import static java.util.ResourceBundle.getBundle;
 

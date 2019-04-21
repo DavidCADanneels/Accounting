@@ -5,7 +5,6 @@ import be.dafke.BasicAccounting.Accounts.NewAccountDialog;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;

@@ -1,8 +1,5 @@
 package be.dafke.BasicAccounting.MainApplication;
 
-import be.dafke.BusinessModel.Contact;
-import be.dafke.BusinessModel.OrderItem;
-import be.dafke.BusinessModel.SalesOrder;
 import be.dafke.BusinessModelDao.PDFCreator;
 import org.apache.fop.apps.FOPException;
 

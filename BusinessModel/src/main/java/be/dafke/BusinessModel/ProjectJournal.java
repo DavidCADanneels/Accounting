@@ -1,7 +1,5 @@
 package be.dafke.BusinessModel;
 
-import java.util.Calendar;
-
 /**
  * Boekhoudkundig dagboek
  * @author David Danneels

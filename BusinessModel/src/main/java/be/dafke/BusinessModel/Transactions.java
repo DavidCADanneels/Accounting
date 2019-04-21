@@ -1,7 +1,5 @@
 package be.dafke.BusinessModel;
 
-import be.dafke.ObjectModel.BusinessCollection;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;

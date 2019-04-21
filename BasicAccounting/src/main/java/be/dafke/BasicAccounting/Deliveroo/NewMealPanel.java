@@ -1,9 +1,6 @@
 package be.dafke.BasicAccounting.Deliveroo;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
-import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Account;
-import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.DeliverooMeal;
 import be.dafke.BusinessModel.DeliverooMeals;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
@@ -13,7 +10,6 @@ import be.dafke.Utils.Utils;
 import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
-import java.math.BigInteger;
 
 import static java.util.ResourceBundle.getBundle;
 

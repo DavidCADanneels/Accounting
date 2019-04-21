@@ -1,9 +1,5 @@
 package be.dafke.BusinessModel;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-import java.util.function.Predicate;
-
 public class StockOrder extends Order {
 
     private Transaction balanceTransaction;

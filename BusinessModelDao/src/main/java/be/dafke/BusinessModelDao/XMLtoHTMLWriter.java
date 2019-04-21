@@ -1,8 +1,5 @@
 package be.dafke.BusinessModelDao;
 
-import be.dafke.BusinessModel.Accounting;
-import be.dafke.ObjectModel.BusinessCollection;
-import be.dafke.ObjectModel.BusinessObject;
 import org.apache.fop.cli.InputHandler;
 
 import java.io.BufferedOutputStream;

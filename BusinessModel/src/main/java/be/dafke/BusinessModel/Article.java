@@ -5,7 +5,6 @@ import be.dafke.Utils.Utils;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.List;
 import java.util.function.Predicate;
 
 public class Article extends BusinessObject{

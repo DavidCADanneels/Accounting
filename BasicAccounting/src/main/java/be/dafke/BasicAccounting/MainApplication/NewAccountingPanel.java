@@ -2,7 +2,6 @@ package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Accountings;
-import be.dafke.BusinessModelDao.XMLReader;
 import be.dafke.BusinessModelDao.XMLWriter;
 import be.dafke.ComponentModel.RefreshableDialog;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;

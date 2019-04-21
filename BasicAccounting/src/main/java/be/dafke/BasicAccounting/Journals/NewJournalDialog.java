@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.RefreshableDialog;
 

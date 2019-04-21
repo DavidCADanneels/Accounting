@@ -1,9 +1,6 @@
 package be.dafke.BasicAccounting.Trade;
 
-import be.dafke.BasicAccounting.VAT.VATTransactionsDataModel;
 import be.dafke.BusinessModel.SalesOrder;
-import be.dafke.BusinessModel.VATBooking;
-import be.dafke.BusinessModel.VATTransaction;
 
 import javax.swing.*;
 import javax.swing.table.DefaultTableCellRenderer;

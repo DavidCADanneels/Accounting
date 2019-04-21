@@ -14,7 +14,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.math.BigDecimal;
 import java.util.HashMap;
 
 import static java.util.ResourceBundle.getBundle;

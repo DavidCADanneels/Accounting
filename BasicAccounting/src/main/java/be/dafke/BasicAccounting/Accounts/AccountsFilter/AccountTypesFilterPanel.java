@@ -2,7 +2,6 @@ package be.dafke.BasicAccounting.Accounts.AccountsFilter;
 
 import be.dafke.BasicAccounting.Accounts.AccountDataModel;
 import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.AccountsList;
 
 import javax.swing.JCheckBox;

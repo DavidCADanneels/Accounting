@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.ObjectModel.Exceptions.NotEmptyException;

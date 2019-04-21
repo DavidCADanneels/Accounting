@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Deliveroo;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.MealOrder;
-import be.dafke.BusinessModel.MealOrders;
 
 import javax.swing.*;
 

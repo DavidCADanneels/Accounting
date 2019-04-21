@@ -1,28 +1,13 @@
 package be.dafke.BasicAccounting.Journals;
 
-import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.AccountTypes;
 import be.dafke.BusinessModel.Accounts;
-import be.dafke.BusinessModel.AccountsList;
-import be.dafke.BusinessModel.JournalType;
 import be.dafke.BusinessModel.JournalTypes;
-import be.dafke.BusinessModel.VATTransaction;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.border.TitledBorder;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.HashMap;
 
-import static java.awt.BorderLayout.CENTER;
-import static java.awt.BorderLayout.NORTH;
 import static java.util.ResourceBundle.getBundle;
 
 public class JournalTypeManagementGUI extends JFrame {

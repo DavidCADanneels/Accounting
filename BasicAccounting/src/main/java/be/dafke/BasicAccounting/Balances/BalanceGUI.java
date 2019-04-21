@@ -1,10 +1,8 @@
 package be.dafke.BasicAccounting.Balances;
 
-import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Balance;
-import be.dafke.BusinessModel.Journals;
 
 import javax.swing.*;
 import java.util.HashMap;

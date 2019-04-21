@@ -6,8 +6,6 @@ import java.math.BigDecimal;
 import java.util.List;
 import java.util.function.Predicate;
 
-import static java.util.ResourceBundle.getBundle;
-
 /**
  * @author David Danneels
  */

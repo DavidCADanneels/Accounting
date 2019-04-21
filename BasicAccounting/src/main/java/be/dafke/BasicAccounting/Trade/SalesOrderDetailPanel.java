@@ -2,7 +2,6 @@ package be.dafke.BasicAccounting.Trade;
 
 
 import be.dafke.BasicAccounting.Accounts.AccountActions;
-import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
 import be.dafke.BasicAccounting.Contacts.ContactDetailsPanel;
 import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
 import be.dafke.BasicAccounting.Contacts.ContactsPanel;

@@ -1,11 +1,9 @@
 package be.dafke.BasicAccounting.Balances;
 
-import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Balance;
-import be.dafke.BusinessModel.Journals;
 import be.dafke.ComponentModel.SelectableTable;
 
 import javax.swing.*;

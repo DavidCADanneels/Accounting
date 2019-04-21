@@ -9,16 +9,12 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import static be.dafke.BusinessModelDao.XMLConstants.*;
 import static be.dafke.BusinessModelDao.XMLReader.*;
 import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
-import static be.dafke.Utils.Utils.parseBigDecimal;
-import static be.dafke.Utils.Utils.parseInt;
 
 public class IngredientsIO {
     public static void readIngredients(Accounting accounting){

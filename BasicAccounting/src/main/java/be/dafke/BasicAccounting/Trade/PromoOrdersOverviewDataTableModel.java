@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Trade;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.PromoOrder;
 import be.dafke.BusinessModel.PromoOrders;
-import be.dafke.BusinessModel.SalesOrder;
 import be.dafke.ComponentModel.SelectableTableModel;
 
 import java.math.BigDecimal;

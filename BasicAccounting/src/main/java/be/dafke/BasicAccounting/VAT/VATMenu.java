@@ -6,7 +6,6 @@ import be.dafke.BusinessModel.VATFields;
 import be.dafke.BusinessModel.VATTransactions;
 
 import javax.swing.*;
-import java.awt.event.KeyEvent;
 
 import static java.util.ResourceBundle.getBundle;
 

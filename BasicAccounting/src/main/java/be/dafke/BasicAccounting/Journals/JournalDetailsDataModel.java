@@ -4,7 +4,6 @@ import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
 import be.dafke.Utils.Utils;
 
-import java.awt.print.Book;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;

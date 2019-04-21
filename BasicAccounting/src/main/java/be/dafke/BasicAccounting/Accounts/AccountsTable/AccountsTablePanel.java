@@ -1,9 +1,10 @@
 package be.dafke.BasicAccounting.Accounts.AccountsTable;
 
-import be.dafke.BasicAccounting.Accounts.*;
+import be.dafke.BasicAccounting.Accounts.AccountActions;
 import be.dafke.BasicAccounting.Accounts.AccountDetails.AccountDetailsGUI;
 import be.dafke.BasicAccounting.Accounts.AccountManagement.AccountManagementGUI;
 import be.dafke.BasicAccounting.Accounts.AccountsFilter.AccountFilterPanel;
+import be.dafke.BasicAccounting.Accounts.NewAccountDialog;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTable;

@@ -1,13 +1,8 @@
 package be.dafke.BasicAccounting.Contacts;
 
-import be.dafke.BasicAccounting.MainApplication.ActionUtils;
-import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Contact;
-import be.dafke.BusinessModel.Contacts;
 import be.dafke.ComponentModel.RefreshableDialog;
-import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
-import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import javax.swing.*;
 

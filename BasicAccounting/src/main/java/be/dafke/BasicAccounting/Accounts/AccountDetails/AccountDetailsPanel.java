@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Accounts.AccountDetails;
 
-import be.dafke.BasicAccounting.Journals.JournalEditPanel;
 import be.dafke.BasicAccounting.MainApplication.PopupForTableActivator;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.Booking;
