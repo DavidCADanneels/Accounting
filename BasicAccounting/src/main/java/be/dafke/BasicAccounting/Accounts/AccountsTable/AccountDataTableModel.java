@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Accounts.AccountsTable;
 
-import be.dafke.BasicAccounting.Accounts.AccountDataModel;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.Accounts;
@@ -22,7 +21,7 @@ import static java.util.stream.Collectors.*;
  * @author David Danneels
  */
 
-public class AccountDataTableModel extends SelectableTableModel<Account> implements AccountDataModel {
+public class AccountDataTableModel extends SelectableTableModel<Account> {
 	private int ACCOUNT_COL;
 	private int SALDO_COL;
 	private int NUMBER_COL;
@@ -73,6 +72,7 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 	public void setShowNumbers(boolean showNumbers) {
 		this.showNumbers = showNumbers;
 		initialize();
+		fireTableStructureChanged();
 	}
 
 	private void setColumnClasses() {

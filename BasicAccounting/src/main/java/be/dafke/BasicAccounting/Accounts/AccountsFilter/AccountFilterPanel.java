@@ -1,6 +1,6 @@
 package be.dafke.BasicAccounting.Accounts.AccountsFilter;
 
-import be.dafke.BasicAccounting.Accounts.AccountDataModel;
+import be.dafke.BasicAccounting.Accounts.AccountsTable.AccountDataTableModel;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountsList;
@@ -22,11 +22,12 @@ public class AccountFilterPanel extends JPanel {
     private final JPanel name, number;
     private JTextField nameField, numberField;
     private JCheckBox hideEmptyCheckbox;
+    private JCheckBox showNumbersCheckbox;
 
-    private AccountDataModel model;
+    private AccountDataTableModel model;
     private JLabel nameLabel, numberLabel;
 
-    public AccountFilterPanel(AccountDataModel model, boolean left) {
+    public AccountFilterPanel(AccountDataTableModel model, boolean left) {
         this.model = model;
 
         types = new AccountTypesFilterPanel(model, left);
@@ -35,6 +36,10 @@ public class AccountFilterPanel extends JPanel {
         hideEmptyCheckbox = new JCheckBox("Hide Empty Accounts");
         hideEmptyCheckbox.addActionListener(e -> filter());
 
+        showNumbersCheckbox = new JCheckBox("Show Numbers");
+        showNumbersCheckbox.addActionListener(e -> showNumbers());
+        showNumbersCheckbox.setSelected(true);
+
         setLayout(new BorderLayout());
         JPanel south = new JPanel();
         south.setLayout(new BoxLayout(south, BoxLayout.Y_AXIS));
@@ -42,8 +47,16 @@ public class AccountFilterPanel extends JPanel {
         south.add(name);
         south.add(number);
         south.add(hideEmptyCheckbox);
+        south.add(showNumbersCheckbox);
         add(south, BorderLayout.SOUTH);
         add(types, BorderLayout.CENTER);
+    }
+
+    private void showNumbers() {
+        boolean selected = showNumbersCheckbox.isSelected();
+        model.setShowNumbers(selected);
+        number.setVisible(selected);
+        invalidate();
     }
 
     private JPanel createNamePanel(){

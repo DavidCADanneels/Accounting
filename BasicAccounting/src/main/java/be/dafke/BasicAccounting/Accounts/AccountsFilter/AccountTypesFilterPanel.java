@@ -1,6 +1,7 @@
 package be.dafke.BasicAccounting.Accounts.AccountsFilter;
 
 import be.dafke.BasicAccounting.Accounts.AccountDataModel;
+import be.dafke.BasicAccounting.Accounts.AccountsTable.AccountDataTableModel;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountsList;
 import be.dafke.BusinessModel.Journal;
@@ -21,7 +22,7 @@ public class AccountTypesFilterPanel extends JPanel {
     private Journal journal;
     private boolean left;
 
-    public AccountTypesFilterPanel(AccountDataModel model, boolean left) {
+    public AccountTypesFilterPanel(AccountDataTableModel model, boolean left) {
         this.model = model;
         this.left = left;
         setLayout(new GridLayout(0, 3));
