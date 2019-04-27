@@ -4,6 +4,7 @@ import be.dafke.BasicAccounting.Accounts.AccountDataModel;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountsList;
+import be.dafke.BusinessModel.Journal;
 
 import javax.swing.*;
 import javax.swing.event.DocumentEvent;
@@ -25,10 +26,10 @@ public class AccountFilterPanel extends JPanel {
     private AccountDataModel model;
     private JLabel nameLabel, numberLabel;
 
-    public AccountFilterPanel(AccountDataModel model) {
+    public AccountFilterPanel(AccountDataModel model, boolean left) {
         this.model = model;
 
-        types = new AccountTypesFilterPanel(model);
+        types = new AccountTypesFilterPanel(model, left);
         name = createNamePanel();
         number = createNumberPanel();
         hideEmptyCheckbox = new JCheckBox("Hide Empty Accounts");
@@ -69,6 +70,10 @@ public class AccountFilterPanel extends JPanel {
         panel.add(nameLabel);
         panel.add(nameField);
         return panel;
+    }
+
+    public void setJournal(Journal journal){
+        types.setJournal(journal);
     }
 
     private JPanel createNumberPanel(){

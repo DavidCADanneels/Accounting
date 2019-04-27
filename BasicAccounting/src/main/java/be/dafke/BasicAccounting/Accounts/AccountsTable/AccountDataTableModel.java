@@ -4,6 +4,7 @@ import be.dafke.BasicAccounting.Accounts.AccountDataModel;
 import be.dafke.BusinessModel.Account;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.Accounts;
+import be.dafke.BusinessModel.Journal;
 import be.dafke.BusinessModel.AccountsList;
 import be.dafke.ComponentModel.SelectableTableModel;
 
@@ -32,11 +33,14 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 
     private Account account = null;
     private Accounts accounts;
+    private Journal journal;
+    private boolean left;
     private List<AccountType> accountTypes;
     private Predicate<Account> filter;
 	private boolean singleAccount = false;
 
-	public AccountDataTableModel() {
+	public AccountDataTableModel(boolean left) {
+		this.left = left;
 		initialize();
 	}
 
@@ -181,11 +185,19 @@ public class AccountDataTableModel extends SelectableTableModel<Account> impleme
 			accountTypes = null;
 			account = accountList.getAccount();
 			filter = account==null?null:Account.name(accountList.getAccount().getName());
-		} else {
-			accountTypes = accountList.getCheckedTypes();
+		} else if(journal!=null){
+			if(left) {
+				accountTypes = journal.getCheckedTypesLeft();
+			} else {
+				accountTypes = journal.getCheckedTypesRight();
+			}
 			filter = null;
 		}
 		fireTableDataChanged();
+	}
+
+	public void setJournal(Journal journal) {
+		this.journal = journal;
 	}
 
 	@Deprecated

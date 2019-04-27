@@ -33,10 +33,6 @@ public class AccountsList {
         availableAccountTypes.put(accountType, available);
     }
 
-    public void setTypeChecked(AccountType accountType, boolean available){
-        checkedAccountTypes.put(accountType, available);
-    }
-
     public boolean isTypeAvailable(AccountType accountType){
         return availableAccountTypes.get(accountType);
     }
@@ -75,7 +71,7 @@ public class AccountsList {
         return accountTypes;
     }
 
-    public ArrayList<AccountType> getCheckedTypes() {
+    public ArrayList<AccountType> getCheckedTypes(boolean left) {
         ArrayList<AccountType> accountTypes = new ArrayList<>();
         for(Map.Entry<AccountType, Boolean> entry : checkedAccountTypes.entrySet()){
             if(entry.getValue()){
@@ -85,9 +81,9 @@ public class AccountsList {
         return accountTypes;
     }
 
-    public boolean isChecked(AccountType accountType){
-        return checkedAccountTypes.get(accountType);
-    }
+//    public boolean isChecked(AccountType accountType){
+//        return checkedAccountTypes.get(accountType);
+//    }
 
     public boolean isLeftAction() {
         return leftAction;

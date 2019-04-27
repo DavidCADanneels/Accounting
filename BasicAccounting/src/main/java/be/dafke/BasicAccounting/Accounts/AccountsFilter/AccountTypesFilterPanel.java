@@ -3,6 +3,7 @@ package be.dafke.BasicAccounting.Accounts.AccountsFilter;
 import be.dafke.BasicAccounting.Accounts.AccountDataModel;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountsList;
+import be.dafke.BusinessModel.Journal;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -17,20 +18,25 @@ import static java.util.ResourceBundle.getBundle;
 public class AccountTypesFilterPanel extends JPanel {
     private final Map<AccountType, JCheckBox> boxes;
     private AccountDataModel model;
-    private AccountsList accountList;
+    private Journal journal;
+    private boolean left;
 
-    public AccountTypesFilterPanel(AccountDataModel model) {
+    public AccountTypesFilterPanel(AccountDataModel model, boolean left) {
         this.model = model;
+        this.left = left;
         setLayout(new GridLayout(0, 3));
         boxes = new HashMap<>();
     }
 
     public void setAccountList(AccountsList accountList) {
-        this.accountList = accountList;
-
         setAvailableAccountTypes(accountList.getAccountTypes());
-        setSelectedAccountTypes(accountList.getCheckedTypes());
-
+        if(journal!=null) {
+            if (left) {
+                setSelectedAccountTypes(journal.getCheckedTypesLeft());
+            } else {
+                setSelectedAccountTypes(journal.getCheckedTypesRight());
+            }
+        }
         revalidate();
     }
 
@@ -41,8 +47,6 @@ public class AccountTypesFilterPanel extends JPanel {
             for (AccountType accountType : accountTypes) {
                 addCheckBox(accountType);
             }
-        } else {
-
         }
     }
 
@@ -66,8 +70,14 @@ public class AccountTypesFilterPanel extends JPanel {
         List<AccountType> selectedAccountTypes = getSelectedAccountTypes();
         model.setAccountTypes(selectedAccountTypes);
         // TODO: can't we just remove and re-add only 'type' i.s.o. all types?
-        for (AccountType accountType : boxes.keySet()) {
-            accountList.setTypeChecked(accountType, selectedAccountTypes.contains(accountType));
+        if(journal!=null) {
+            for (AccountType accountType : boxes.keySet()) {
+                if (left) {
+                    journal.setTypeCheckedLeft(accountType, selectedAccountTypes.contains(accountType));
+                } else {
+                    journal.setTypeCheckedRight(accountType, selectedAccountTypes.contains(accountType));
+                }
+            }
         }
     }
 
@@ -97,4 +107,7 @@ public class AccountTypesFilterPanel extends JPanel {
         return types;
     }
 
+    public void setJournal(Journal journal) {
+        this.journal = journal;
+    }
 }

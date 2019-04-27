@@ -18,6 +18,7 @@ public class AccountsListConfigPanel extends JPanel {
     private JTextField taxType;
 
     private AccountsListAccountTypesFilterPanel accountTypesFilterPanel;
+//    private Journal journal;
 
     public AccountsListConfigPanel(Accounts accounts, AccountTypes accountTypes, boolean left) {
         setLayout(new BorderLayout());
@@ -51,9 +52,6 @@ public class AccountsListConfigPanel extends JPanel {
         add(buttonConfigPanel, BorderLayout.SOUTH);
 //        refresh();
     }
-
-
-
 
     public void setAccountsList(AccountsList accountsList) {
         this.accountsList = accountsList;

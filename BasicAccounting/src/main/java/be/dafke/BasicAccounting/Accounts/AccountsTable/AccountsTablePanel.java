@@ -44,7 +44,7 @@ public class AccountsTablePanel extends JPanel {
 
         // CENTER
         //
-        accountDataTableModel = new AccountDataTableModel();
+        accountDataTableModel = new AccountDataTableModel(left);
         table = new SelectableTable<>(accountDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(100, 100));
 
@@ -55,7 +55,7 @@ public class AccountsTablePanel extends JPanel {
 
         accountsTableButtons = new AccountsTableButtons(this, left);
 
-        filterPanel = new AccountFilterPanel(accountDataTableModel);
+        filterPanel = new AccountFilterPanel(accountDataTableModel, left);
 
         JScrollPane scrollPane1 = new JScrollPane(table);
         JPanel center = new JPanel();
@@ -67,7 +67,13 @@ public class AccountsTablePanel extends JPanel {
         add(accountsTableButtons,BorderLayout.SOUTH);
 	}
 
-	public void showDetails(){
+    public void setJournal(Journal journal) {
+        this.journal = journal;
+        filterPanel.setJournal(journal);
+        accountDataTableModel.setJournal(journal);
+    }
+
+    public void showDetails(){
         popup.setVisible(false);
         for(Account account : table.getSelectedObjects()){
             Point location = getLocationOnScreen();
@@ -131,6 +137,8 @@ public class AccountsTablePanel extends JPanel {
 
     public void setJournal(Journal journal, boolean left) {
         this.journal = journal;
+        accountDataTableModel.setJournal(journal);
+        filterPanel.setJournal(journal);
         if(journal!=null){
             JournalType journalType = journal.getType();
             setJournalType(journalType);
@@ -158,8 +166,8 @@ public class AccountsTablePanel extends JPanel {
 
     public void setAccountTypesList(ArrayList<AccountType> accountTypes) {
         filterPanel.setAccountTypesList(accountTypes);
-
     }
+
     public void setAccountsList(AccountsList accountsList) {
         this.accountsList = accountsList;
         accountDataTableModel.setAccountList(accountsList);

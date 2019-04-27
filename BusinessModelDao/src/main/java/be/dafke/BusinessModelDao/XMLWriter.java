@@ -6,8 +6,10 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
 
 import static be.dafke.BusinessModelDao.AccountsIO.writeAccounts;
 import static be.dafke.BusinessModelDao.ArticlesIO.writeArticles;
@@ -93,6 +95,7 @@ public class XMLWriter {
         File subFolder = new File(homeFolder, ".Accounting");
         subFolder.mkdirs();
         File xmlFile = new File(subFolder, "Session.xml");
+
         try {
             Writer writer = new FileWriter(xmlFile);
             writer.write(getXmlHeader(SESSION, 0));
@@ -106,19 +109,26 @@ public class XMLWriter {
                         "  <" + ACCOUNTING + ">\n" +
                             "    <" + NAME + ">"+accounting.getName()+"</" + NAME + ">\n" +
                             "    <"+ACTIVE_JOURNAL+">"+(activeJournal==null?"null":activeJournal.getName())+"</"+ACTIVE_JOURNAL+">\n");
-//                Journals journals = accounting.getJournals();
-//                if(journals !=null){
-//                    writer.write("    <" + JOURNALS + ">\n");
-//                    for(Journal journal:journals.getBusinessObjects()) {
-//                        writer.write(
-//                        "      <" + JOURNAL + ">\n" +
-//                            "        <"+ NAME + ">"+journal.getName()+"</"+ NAME + ">\n" +
-//                            "        <checkedTypesLeft>"+""+"</checkedTypesLeft>\n" +
-//                            "        <checkedTypesRight>"+""+"</checkedTypesRight>\n" +
-//                            "      </" + JOURNAL + ">\n");
-//                    }
-//                    writer.write("    </" + JOURNALS + ">\n");
-//                }
+                Journals journals = accounting.getJournals();
+                if(journals !=null){
+                    writer.write("    <" + JOURNALS + ">\n");
+                    for(Journal journal:journals.getBusinessObjects()) {
+                        ArrayList<AccountType> leftCheckedTypes = journal.getCheckedTypesLeft();
+                        ArrayList<AccountType> rightCheckedTypes = journal.getCheckedTypesRight();
+
+                        String leftCheckedStream = leftCheckedTypes.stream().sorted().map(AccountType::getName).collect(Collectors.joining(","));
+                        String rightCheckedStream = rightCheckedTypes.stream().sorted().map(AccountType::getName).collect(Collectors.joining(","));
+
+
+                        writer.write(
+                        "      <" + JOURNAL + ">\n" +
+                            "        <"+ NAME + ">"+journal.getName()+"</"+ NAME + ">\n" +
+                            "        <"+CHECKED_LEFT+">"+leftCheckedStream+"</"+CHECKED_LEFT+">\n" +
+                            "        <"+CHECKED_RIGHT+">"+rightCheckedStream+"</"+CHECKED_RIGHT+">\n" +
+                            "      </" + JOURNAL + ">\n");
+                    }
+                    writer.write("    </" + JOURNALS + ">\n");
+                }
                 writer.write("  </"+ ACCOUNTING + ">\n");
             }
             writer.write("</"+SESSION+">");

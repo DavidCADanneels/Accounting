@@ -11,6 +11,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import static be.dafke.BusinessModelDao.AccountsIO.readAccounts;
 import static be.dafke.BusinessModelDao.ArticlesIO.readArticles;
@@ -132,13 +133,39 @@ public class XMLReader {
             Accountings.setActiveAccounting(accountings.getBusinessObject(value));
         }
 
-        for (Element element : getChildren(rootElement, ACCOUNTING)) {
-            String accountingName = getValue(element, NAME);
-            String journalName = getValue(element, ACTIVE_JOURNAL);
+        for (Element accountingElement : getChildren(rootElement, ACCOUNTING)) {
+            String accountingName = getValue(accountingElement, NAME);
+            String activeJournalName = getValue(accountingElement, ACTIVE_JOURNAL);
             Accounting accounting = accountings.getBusinessObject(accountingName);
             Journals journals = accounting.getJournals();
-            Journal currentJournal = journalName==null?null:journals.getBusinessObject(journalName);
-            accounting.setActiveJournal(currentJournal);
+            Journal activeJournal = activeJournalName==null?null:journals.getBusinessObject(activeJournalName);
+            accounting.setActiveJournal(activeJournal);
+            for (Element journalElement : getChildren(accountingElement, JOURNAL)) {
+                String journalName = getValue(journalElement, NAME);
+                Journal journal = journals.getBusinessObject(journalName);
+                ArrayList<String> checkedTypesLeft = new ArrayList<>();
+                ArrayList<String> checkedTypesRight = new ArrayList<>();
+                String checkedLeftString = getValue(journalElement, CHECKED_LEFT);
+                String checkedRightString = getValue(journalElement, CHECKED_RIGHT);
+                if (checkedLeftString != null) {
+                    String[] checkedList = checkedLeftString.split(",");
+                    checkedTypesLeft.addAll(Arrays.asList(checkedList));
+                }
+                if (checkedRightString != null) {
+                    String[] checkedList = checkedRightString.split(",");
+                    checkedTypesRight.addAll(Arrays.asList(checkedList));
+                }
+                AccountTypes accountTypes = accounting.getAccountTypes();
+                checkedTypesLeft.forEach(typeName -> {
+                    AccountType type = accountTypes.getBusinessObject(typeName);
+                    journal.setTypeCheckedLeft(type, true);
+                });
+                checkedTypesRight.forEach(typeName -> {
+                    AccountType type = accountTypes.getBusinessObject(typeName);
+                    journal.setTypeCheckedRight(type, true);
+                });
+            }
+
         }
     }
 

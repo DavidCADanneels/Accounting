@@ -17,6 +17,8 @@ public class Journal extends BusinessCollection<Transaction> {
     private JournalType type;
     private Transaction currentTransaction;
     private Accounting accounting;
+    private HashMap<AccountType, Boolean> checkedAccountTypesLeft = new HashMap<>();
+    private HashMap<AccountType, Boolean> checkedAccountTypesRight = new HashMap<>();
 
     public Journal(Journal journal) {
         this(journal.getName(), journal.abbreviation);
@@ -120,5 +122,33 @@ public class Journal extends BusinessCollection<Transaction> {
         TreeMap<String,String> keyMap = super.getUniqueProperties();
         keyMap.put(Journals.ABBREVIATION, abbreviation);
         return keyMap;
+    }
+
+    public ArrayList<AccountType> getCheckedTypesLeft() {
+        ArrayList<AccountType> accountTypes = new ArrayList<>();
+        for(Map.Entry<AccountType, Boolean> entry : checkedAccountTypesLeft.entrySet()){
+            if(entry.getValue()){
+                accountTypes.add(entry.getKey());
+            }
+        }
+        return accountTypes;
+    }
+
+    public ArrayList<AccountType> getCheckedTypesRight() {
+        ArrayList<AccountType> accountTypes = new ArrayList<>();
+        for(Map.Entry<AccountType, Boolean> entry : checkedAccountTypesRight.entrySet()){
+            if(entry.getValue()){
+                accountTypes.add(entry.getKey());
+            }
+        }
+        return accountTypes;
+    }
+
+    public void setTypeCheckedLeft(AccountType accountType, boolean available){
+        checkedAccountTypesLeft.put(accountType, available);
+    }
+
+    public void setTypeCheckedRight(AccountType accountType, boolean available){
+        checkedAccountTypesRight.put(accountType, available);
     }
 }

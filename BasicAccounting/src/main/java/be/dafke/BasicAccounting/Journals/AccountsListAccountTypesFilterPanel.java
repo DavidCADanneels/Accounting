@@ -1,10 +1,7 @@
 package be.dafke.BasicAccounting.Journals;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.AccountType;
-import be.dafke.BusinessModel.AccountTypes;
-import be.dafke.BusinessModel.AccountsList;
-import be.dafke.BusinessModel.JournalType;
+import be.dafke.BusinessModel.*;
 
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
@@ -42,7 +39,6 @@ public class AccountsListAccountTypesFilterPanel extends JPanel {
 
     private void checkBoxAction(AccountType accountType, JCheckBox checkBox, boolean left){
         accountsList.setTypeAvailable(accountType, checkBox.isSelected());
-        accountsList.setTypeChecked(accountType, checkBox.isSelected());
         ArrayList<AccountType> accountTypes = accountsList.getAccountTypes();
         if(left) {
 //            Main.setAccountsListLeft(journalType, accountsList);
