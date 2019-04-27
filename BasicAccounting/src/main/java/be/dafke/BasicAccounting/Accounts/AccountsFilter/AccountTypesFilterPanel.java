@@ -1,6 +1,5 @@
 package be.dafke.BasicAccounting.Accounts.AccountsFilter;
 
-import be.dafke.BasicAccounting.Accounts.AccountDataModel;
 import be.dafke.BasicAccounting.Accounts.AccountsTable.AccountDataTableModel;
 import be.dafke.BusinessModel.AccountType;
 import be.dafke.BusinessModel.AccountsList;
@@ -18,7 +17,7 @@ import static java.util.ResourceBundle.getBundle;
 
 public class AccountTypesFilterPanel extends JPanel {
     private final Map<AccountType, JCheckBox> boxes;
-    private AccountDataModel model;
+    private AccountDataTableModel model;
     private Journal journal;
     private boolean left;
 
