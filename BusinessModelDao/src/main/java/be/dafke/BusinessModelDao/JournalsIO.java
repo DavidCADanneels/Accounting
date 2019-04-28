@@ -161,7 +161,6 @@ public class JournalsIO {
 
     public static void readTransactions(Accounting accounting) {
         Transactions transactions = accounting.getTransactions();
-        VATTransactions vatTransactions = accounting.getVatTransactions();
         VATFields vatFields = accounting.getVatFields();
         Accounts accounts = accounting.getAccounts();
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+TRANSACTIONS+ XML_EXTENSION);
@@ -232,12 +231,16 @@ public class JournalsIO {
 
                     // TODO: get vatMovement etc from existing objects-> vatTransactions
                     for (Element vatBookingsElement : getChildren(bookingsElement, VATBOOKING)) {
-                        String amountString = getValue(vatBookingsElement, AMOUNT);
                         String vatFieldString = getValue(vatBookingsElement, VATFIELD);
                         VATField vatField = vatFields.getBusinessObject(vatFieldString);
                         if (vatField == null) System.err.println("Field[" + vatFieldString + "] not found");
+                        String amountString = getValue(vatBookingsElement, AMOUNT);
                         BigDecimal vatAmount = new BigDecimal(amountString);
-                        VATMovement vatMovement = new VATMovement(vatAmount);
+                        if(amount.compareTo(vatAmount)!=0){
+                            System.err.println("Difference: "+ amount.toString() + " | " + vatAmount.toString());
+                        }
+                        boolean positive = vatAmount.compareTo(BigDecimal.ZERO)>=0;
+                        VATMovement vatMovement = new VATMovement(positive?amount:amount.negate());
                         VATBooking vatBooking = new VATBooking(vatField, vatMovement);
                         booking.addVatBooking(vatBooking);
                         if (vatTransaction == null) {
