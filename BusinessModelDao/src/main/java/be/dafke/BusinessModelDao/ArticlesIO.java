@@ -30,9 +30,6 @@ public class ArticlesIO {
             String name = getValue(element, NAME);
             Article article = new Article(name);
 
-            String itemName = getValue(element, ARTICLE_ITEM_NAME);
-            article.setItemName(itemName);
-
             String hsCode = getValue(element, ARTICLE_HS_CODE);
             if(hsCode!=null)
                 article.setHSCode(hsCode);
@@ -82,7 +79,6 @@ public class ArticlesIO {
                 writer.write(
                         "  <" + ARTICLE + ">\n" +
                             "    <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                            "    <" + ARTICLE_ITEM_NAME + ">" + article.getItemName() + "</" + ARTICLE_ITEM_NAME + ">\n" +
                             "    <" + ITEMS_PER_UNIT + ">" + article.getItemsPerUnit() + "</" + ITEMS_PER_UNIT + ">\n" +
                             "    <" + ARTICLE_HS_CODE + ">" + article.getHSCode() + "</" + ARTICLE_HS_CODE + ">\n" +
                             "    <" + PURCHASE_PRICE + ">" + article.getPurchasePrice() + "</" + PURCHASE_PRICE + ">\n" +

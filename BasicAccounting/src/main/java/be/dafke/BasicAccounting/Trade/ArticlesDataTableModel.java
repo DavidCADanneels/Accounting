@@ -21,16 +21,15 @@ import static java.util.ResourceBundle.getBundle;
 public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 	private final Articles articles;
 	public static int UNIT_NAME_COL = 0;
-	public static int ITEM_NAME_COL = 1;
-	public static int ITEMS_PER_UNIT_COL = 2;
-	public static int HS_COL = 3;
-	public static int PURCHASE_PRICE_COL = 4;
-	public static int PURCHASE_VAT_COL = 5;
-	public static int SUPPLIER_COL = 6;
-	public static int SALE_ITEM_EXCL_COL = 7;
-	public static int SALES_VAT_COL = 8;
-	public static int SALE_ITEM_INCL_COL = 9;
-	public static int NR_OF_COL = 10;
+	public static int ITEMS_PER_UNIT_COL = 1;
+	public static int HS_COL = 2;
+	public static int PURCHASE_PRICE_COL = 3;
+	public static int PURCHASE_VAT_COL = 4;
+	public static int SUPPLIER_COL = 5;
+	public static int SALE_ITEM_EXCL_COL = 6;
+	public static int SALES_VAT_COL = 7;
+	public static int SALE_ITEM_INCL_COL = 8;
+	public static int NR_OF_COL = 9;
 	private final Component parent;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
@@ -46,7 +45,6 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 
 	private void setEditableColumns() {
 		editableColumns.add(UNIT_NAME_COL);
-		editableColumns.add(ITEM_NAME_COL);
 		editableColumns.add(ITEMS_PER_UNIT_COL);
 		editableColumns.add(HS_COL);
 		editableColumns.add(PURCHASE_PRICE_COL);
@@ -58,7 +56,6 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 
 	private void setColumnClasses() {
 		columnClasses.put(UNIT_NAME_COL, String.class);
-		columnClasses.put(ITEM_NAME_COL, String.class);
 		columnClasses.put(ITEMS_PER_UNIT_COL, Integer.class);
 		columnClasses.put(HS_COL, String.class);
 		columnClasses.put(PURCHASE_PRICE_COL, BigDecimal.class);
@@ -71,7 +68,6 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 
 	private void setColumnNames() {
 		columnNames.put(UNIT_NAME_COL, getBundle("Accounting").getString("ARTICLE_UNIT_NAME"));
-		columnNames.put(ITEM_NAME_COL, getBundle("Accounting").getString("ARTICLE_ITEM_NAME"));
 		columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ITEMS_PER_UNIT"));
 		columnNames.put(HS_COL, getBundle("Accounting").getString("ARTICLE_HS"));
 		columnNames.put(PURCHASE_PRICE_COL, getBundle("Accounting").getString("PURCHASE_PRICE"));
@@ -88,9 +84,6 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		if(article==null) return null;
 		if (col == UNIT_NAME_COL) {
 			return article.getName();
-		}
-		if (col == ITEM_NAME_COL) {
-			return article.getItemName();
 		}
 		if (col == PURCHASE_VAT_COL) {
 			return article.getPurchaseVatRate();
@@ -176,9 +169,6 @@ public class ArticlesDataTableModel extends SelectableTableModel<Article> {
 		if (col == SALE_ITEM_INCL_COL) {
 			BigDecimal amount = (BigDecimal) value;
 			article.setSalesPriceItemWithVat(amount.setScale(2));
-		}
-		if(col == ITEM_NAME_COL){
-            article.setItemName((String) value);
 		}
 		if(col == UNIT_NAME_COL) {
 //            article.setName((String) value);

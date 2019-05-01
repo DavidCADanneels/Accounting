@@ -9,7 +9,6 @@ import java.util.function.Predicate;
 
 public class Article extends BusinessObject{
     private String HSCode = "";
-    private String itemName = "";
     private Integer purchaseVatRate = 0;
     private Integer salesVatRate = 6;
     private Integer itemsPerUnit = 1;
@@ -31,7 +30,6 @@ public class Article extends BusinessObject{
     public Article(Article article, Contacts contacts){
         this(article.getName());
         HSCode = article.HSCode;
-        itemName = article.itemName;
         purchaseVatRate = article.purchaseVatRate;
         salesVatRate = article.salesVatRate;
         itemsPerUnit = article.itemsPerUnit;
@@ -52,10 +50,6 @@ public class Article extends BusinessObject{
 
     public void setHSCode(String HSCode) {
         this.HSCode = HSCode;
-    }
-
-    public void setItemName(String itemName) {
-        this.itemName = itemName;
     }
 
     public void setSalesVatRate(Integer salesVatRate) {
@@ -96,10 +90,6 @@ public class Article extends BusinessObject{
 
     public String getHSCode() {
         return HSCode;
-    }
-
-    public String getItemName() {
-        return itemName;
     }
 
     public Integer getSalesVatRate() {

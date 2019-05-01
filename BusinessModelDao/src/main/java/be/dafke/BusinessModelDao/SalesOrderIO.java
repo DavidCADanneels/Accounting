@@ -55,6 +55,9 @@ public class SalesOrderIO {
                 //
                 String name = getValue(element, NAME);
                 Article article = articles.getBusinessObject(name);
+                if(article == null){
+                    System.err.println(name + " not found in Articles");
+                }
                 //
                 String numberOfItemsString = getValue(element, NR_OF_ITEMS);
                 int numberOfItems = parseInt(numberOfItemsString);
@@ -237,7 +240,7 @@ public class SalesOrderIO {
 
                 writer.write(
                             "    <" + ARTICLE + ">\n" +
-                                "      <" + NAME + ">" + (article.getItemName()) + "</" + NAME + ">\n" +
+                                "      <" + NAME + ">" + (article.getName()) + "</" + NAME + ">\n" +
                                 "      <" + NUMBER + ">" + (orderItem.getNumberOfItems()) + "</" + NUMBER + ">\n" +
                                 "      <" + TAX_RATE + ">" + salesVatRate + "</" + TAX_RATE + ">\n" +
                                 "      <" + TOTAL_PRICE + ">" + orderItem.getSalesPriceWithVat() + "</" + TOTAL_PRICE + ">\n" +
