@@ -292,6 +292,7 @@ public class SalesOrderDetailPanel extends JPanel {
 
         boolean isCreditNote = salesOrder!=null&& salesOrder.isCreditNote();
         boolean isPromoOrder = salesOrder!=null&& salesOrder.isPromoOrder();
+        boolean editable = salesOrder != null && salesOrder.isEditable();
 
         placed.setSelected(salesTransaction!=null);
         delivered.setSelected(orderDelivered);
@@ -300,7 +301,7 @@ public class SalesOrderDetailPanel extends JPanel {
         promoOrder.setSelected(isPromoOrder);
 
 //        editSalesOrder.setEnabled(true);
-        editSalesOrder.setEnabled(salesOrder.isEditable());
+        editSalesOrder.setEnabled(editable);
         deliveredButton.setEnabled(toBeDelivered);
         placeOrderButton.setEnabled(salesTransaction==null);
         if(salesOrder!=null&&salesOrder.isInvoice()){
