@@ -15,7 +15,6 @@ public class Article extends BusinessObject{
     private Integer itemsPerUnit = 1;
     private BigDecimal purchasePrice = null;
     private BigDecimal salesPriceItemWithVat = null;
-    private BigDecimal salesPriceUnitWithVat = null;
     private Contact supplier;
     private ArrayList<StockOrder> stockOrders = new ArrayList<>();
     private ArrayList<PromoOrder> promoOrders = new ArrayList<>();
@@ -38,7 +37,6 @@ public class Article extends BusinessObject{
         itemsPerUnit = article.itemsPerUnit;
         purchasePrice = article.purchasePrice;
         salesPriceItemWithVat = article.salesPriceItemWithVat;
-        salesPriceUnitWithVat = article.salesPriceUnitWithVat;
         String supplierName = article.supplier.getName();
         supplier = contacts.getBusinessObject(supplierName);
         nrRemoved = 0;
@@ -80,13 +78,8 @@ public class Article extends BusinessObject{
         this.itemsPerUnit = itemsPerUnit;
     }
 
-
     public void setSalesPriceItemWithVat(BigDecimal salesPriceItemWithVat) {
         this.salesPriceItemWithVat = salesPriceItemWithVat;
-    }
-
-    public void setSalesPriceUnitWithVat(BigDecimal salesPriceUnitWithVat) {
-        this.salesPriceUnitWithVat = salesPriceUnitWithVat;
     }
 
     public Integer getItemsPerUnit() {
@@ -117,71 +110,18 @@ public class Article extends BusinessObject{
         return salesPriceItemWithVat;
     }
 
-    public BigDecimal getSalesPriceUnitWithVat() {
-        return salesPriceUnitWithVat;
-    }
-
     public BigDecimal getSalesPriceItemWithoutVat() {
         if(salesPriceItemWithVat ==null) return null;
         return salesPriceItemWithVat.divide(getSalesFactor(),BigDecimal.ROUND_HALF_DOWN);
-    }
-
-    public BigDecimal getSalesPriceUnitWithoutVat() {
-        if(salesPriceUnitWithVat ==null) return null;
-        BigDecimal salesFactor = getSalesFactor();
-        return salesPriceUnitWithVat.divide(salesFactor, BigDecimal.ROUND_HALF_DOWN);
     }
 
     public Integer getPurchaseVatRate() {
         return purchaseVatRate;
     }
 
-    BigDecimal getPurchasePrice(int number){
-        return purchasePrice.multiply(new BigDecimal(number));
-    }
-
-    // 6 -> 0.06
-    private BigDecimal getPurchasePercentage(){
-        return Utils.getPercentage(purchaseVatRate);
-    }
-
-    // 6 -> 0.06
-    BigDecimal getSalesPercentage(){
-        return Utils.getPercentage(salesVatRate);
-    }
-
-    // 6 -> 1.06
-    private BigDecimal getPurchaseFactor(){
-        return Utils.getFactor(purchaseVatRate);
-    }
-
     // 6 -> 1.06
     BigDecimal getSalesFactor(){
         return Utils.getFactor(salesVatRate);
-    }
-
-    BigDecimal getPurchasePriceWithVat(){
-        return purchasePrice.multiply(getPurchaseFactor());
-    }
-
-    BigDecimal getPurchasePriceWithVat(int number){
-        return getPurchasePriceWithVat().multiply(new BigDecimal(number));
-    }
-
-    public BigDecimal getUnitProfit(BigDecimal salesprice){
-        return salesprice.subtract(purchasePrice);
-    }
-
-    public BigDecimal getItemProfit(BigDecimal salesprice){
-        return salesprice.subtract(purchasePrice.divide(new BigDecimal(itemsPerUnit), BigDecimal.ROUND_HALF_DOWN));
-    }
-
-    BigDecimal getPurchaseVat(){
-        return purchasePrice.multiply(getPurchasePercentage());
-    }
-
-    BigDecimal getPurchaseVat(int number){
-        return getPurchaseVat().multiply(new BigDecimal(number));
     }
 
     public static Predicate<Article> ofSupplier(Contact supplier) {

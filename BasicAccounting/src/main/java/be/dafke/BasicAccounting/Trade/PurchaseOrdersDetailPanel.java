@@ -164,12 +164,15 @@ public class PurchaseOrdersDetailPanel extends JPanel {
     }
 
     private void createPurchaseTransaction() {
-        Transaction transaction;
-        // TODO: create transaction
-        Calendar date = Calendar.getInstance();
-        String description = "";
-        transaction = new Transaction(date, description);
+        DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
+        dateAndDescriptionDialog.enableDescription(true);
+        dateAndDescriptionDialog.setDescription(purchaseOrder.getName());
+        dateAndDescriptionDialog.setVisible(true);
 
+        Calendar date = dateAndDescriptionDialog.getDate();
+        String description = dateAndDescriptionDialog.getDescription();
+
+        Transaction transaction = new Transaction(date, description);
         Account stockAccount = StockUtils.getStockAccount(accounting);
 
         Contact supplier = purchaseOrder.getSupplier();

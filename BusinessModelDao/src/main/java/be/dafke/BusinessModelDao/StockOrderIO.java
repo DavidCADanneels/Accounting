@@ -39,9 +39,6 @@ public class StockOrderIO {
                 String name = getValue(element, NAME);
                 Article article = articles.getBusinessObject(name);
 
-                String numberOfUnitsString = getValue(element, NR_OF_UNITS);
-                int numberOfUnits = parseInt(numberOfUnitsString);
-
                 String numberOfItemsString = getValue(element, NR_OF_ITEMS);
                 int numberOfItems = parseInt(numberOfItemsString);
 
@@ -51,7 +48,7 @@ public class StockOrderIO {
                 String purchasePriceString = getValue(element, PURCHASE_PRICE);
                 BigDecimal purchasePrice = parseBigDecimal(purchasePriceString);
 
-                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, order);
+                OrderItem orderItem = new OrderItem(numberOfItems, article, order);
                 orderItem.setPurchaseVatRate(purchaseVatRate);
                 orderItem.setPurchasePriceForUnit(purchasePrice);
                 orderItem.setName(name);
@@ -101,7 +98,6 @@ public class StockOrderIO {
                     writer.write(
                             "    <" + ARTICLE + ">\n" +
                                 "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                                "      <" + NR_OF_UNITS + ">" + orderItem.getNumberOfUnits() + "</" + NR_OF_UNITS + ">\n" +
                                 "      <" + NR_OF_ITEMS + ">" + orderItem.getNumberOfItems() + "</" + NR_OF_ITEMS + ">\n" +
                                 "      <" + PURCHASE_VAT_RATE + ">" + orderItem.getPurchaseVatRate() + "</" + PURCHASE_VAT_RATE + ">\n" +
                                 "      <" + PURCHASE_PRICE + ">" + orderItem.getPurchasePriceForUnit() + "</" + PURCHASE_PRICE + ">\n" +

@@ -30,7 +30,7 @@ public class PromoOrderCreateDataTableModel extends PromoOrderViewDataTableModel
 
     @Override
     public boolean isCellEditable(int row, int col) {
-        return col==NR_OF_UNITS_COL || col==NR_OF_ITEMS_COL || col == PURCHASE_PRICE_UNIT_COL || col == ITEMS_PER_UNIT_COL;
+        return col==NR_OF_ITEMS_COL || col == PURCHASE_PRICE_UNIT_COL;
     }
 
     private List<Article> getArticles(){
@@ -46,22 +46,12 @@ public class PromoOrderCreateDataTableModel extends PromoOrderViewDataTableModel
     @Override
     public void setValueAt(Object value, int row, int col) {
         OrderItem orderItem = getObject(row,col);
-        if(col == NR_OF_UNITS_COL){
-            int nr = (Integer) value;
-            orderItem.setNumberOfUnits(nr);
-            orderItem.calculateNumberOfItems();
-        } else if(col == NR_OF_ITEMS_COL){
+        if(col == NR_OF_ITEMS_COL){
             int nr = (Integer) value;
             orderItem.setNumberOfItems(nr);
-            orderItem.calculateNumberOfUnits();
         } else if(col == PURCHASE_PRICE_UNIT_COL){
             BigDecimal amount = (BigDecimal) value;
             orderItem.setPurchasePriceForUnit(amount);
-        } else if (col == ITEMS_PER_UNIT_COL){
-            int nr = (Integer) value;
-            orderItem.setItemsPerUnit(nr);
-            orderItem.calculateNumberOfUnits();
-            orderItem.calculateNumberOfItems();
         }
         order.setOrderItem(orderItem);
         totalsPanel.fireOrderContentChanged(order);

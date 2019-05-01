@@ -45,10 +45,6 @@ public class ArticlesIO {
             if(salesPriceSingle!=null)
                 article.setSalesPriceItemWithVat(parseBigDecimal(salesPriceSingle));
 
-            String salesPricePromo = getValue(element, SALES_PROMO_PRICE);
-            if(salesPricePromo!=null)
-                article.setSalesPriceUnitWithVat(parseBigDecimal(salesPricePromo));
-
             String purchaseVatRate = getValue(element, PURCHASE_VAT_RATE);
             if(purchaseVatRate!=null)
                 article.setPurchaseVatRate(parseInt(purchaseVatRate));
@@ -91,7 +87,6 @@ public class ArticlesIO {
                             "    <" + ARTICLE_HS_CODE + ">" + article.getHSCode() + "</" + ARTICLE_HS_CODE + ">\n" +
                             "    <" + PURCHASE_PRICE + ">" + article.getPurchasePrice() + "</" + PURCHASE_PRICE + ">\n" +
                             "    <" + SALES_SINGLE_PRICE + ">" + article.getSalesPriceItemWithVat() + "</" + SALES_SINGLE_PRICE + ">\n" +
-                            "    <" + SALES_PROMO_PRICE + ">" + article.getSalesPriceUnitWithVat() + "</" + SALES_PROMO_PRICE + ">\n" +
                             "    <" + PURCHASE_VAT_RATE + ">" + article.getPurchaseVatRate() + "</" + PURCHASE_VAT_RATE + ">\n" +
                             "    <" + SALES_VAT_RATE + ">" + article.getSalesVatRate() + "</" + SALES_VAT_RATE + ">\n" +
                             "    <" + NR_IN_STOCK + ">" + article.getNrInStock() + "</" + NR_IN_STOCK + ">\n" +

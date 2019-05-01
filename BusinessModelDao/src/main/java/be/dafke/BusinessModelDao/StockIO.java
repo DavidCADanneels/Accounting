@@ -140,7 +140,6 @@ public class StockIO {
                 writer.write(
                          "    <" + ARTICLE + ">\n" +
                              "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                             "      <" + NR_OF_UNITS + ">" + article.getNrInStock()/article.getItemsPerUnit() + "</" + NR_OF_UNITS + ">\n" +
                              "      <" + NR_OF_ITEMS + ">" + article.getNrInStock() + "</" + NR_OF_ITEMS + ">\n" +
                              "    </" + ARTICLE + ">\n"
                 );

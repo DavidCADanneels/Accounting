@@ -21,7 +21,6 @@ public class OrderItems extends BusinessCollection<OrderItem>{
             e.printStackTrace();
             return null;
         } catch (DuplicateNameException e) {
-            int unitsToAdd = orderItem.getNumberOfUnits();
             int itemsToAdd = orderItem.getNumberOfItems();
             OrderItem itemInStock = getBusinessObject(articleName);
             if(itemInStock==null){
@@ -29,7 +28,6 @@ public class OrderItems extends BusinessCollection<OrderItem>{
                 return null;
             }
             itemInStock.addNumberOfItems(itemsToAdd);
-            itemInStock.addNumberOfUnits(unitsToAdd);
             setOrderItem(itemInStock);
             return itemInStock;
         }
@@ -50,19 +48,8 @@ public class OrderItems extends BusinessCollection<OrderItem>{
             OrderItem itemInStock = getBusinessObject(articleName);
             if (itemInStock != null) {
                 itemInStock.removeNumberOfItems(itemsToRemove);
-                if(calculate){
-                    itemInStock.calculateNumberOfUnits();
-                } else {
-                    int unitsToRemove = orderItem.getNumberOfUnits();
-                    itemInStock.removeNumberOfUnits(unitsToRemove);
-                }
                 int numberOfItems = itemInStock.getNumberOfItems();
-                if(removeIfEmpty&&numberOfItems==0){
-                    int numberOfUnits = itemInStock.getNumberOfUnits();
-                    if(numberOfUnits!=0){
-                        System.err.println("Calculation error: items=0, units="+numberOfUnits);
-                        itemInStock.setNumberOfUnits(0);
-                    }
+                if(removeIfEmpty && numberOfItems==0){
                     try {
                         // remove stock item
                         super.removeBusinessObject(itemInStock);

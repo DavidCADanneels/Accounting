@@ -10,8 +10,8 @@ public class StockOrders extends BusinessCollection<StockOrder>{
     private int id = 0;
 
     public StockOrder addBusinessObject(StockOrder order) throws EmptyNameException, DuplicateNameException {
+        id++;
         if(order.getId()==null) {
-            id++;
             order.setId(id);
         }
         order.setName(Utils.toIDString("ST", order.getId(), 3));

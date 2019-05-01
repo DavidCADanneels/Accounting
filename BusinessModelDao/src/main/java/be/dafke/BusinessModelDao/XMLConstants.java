@@ -136,7 +136,6 @@ public class XMLConstants {
     public static final String PURCHASE_PRICE_ITEM = "PurchasePriceItem";
     public static final String PURCHASE_PRICE_TOTAL = "PurchasePriceTotal";
     public static final String SALES_SINGLE_PRICE = "SalesSinglePrice";
-    public static final String SALES_PROMO_PRICE = "SalesPromoPrice";
     public static final String ITEMS_PER_UNIT = "ItemsPerUnit";
     public static final String PURCHASE_VAT_RATE = "PurchaseVatRate";
     public static final String SALES_VAT_RATE = "SalesVatRate";
@@ -182,7 +181,6 @@ public class XMLConstants {
     public static final String IS_DELIVERED = "IsDelivered";
     public static final String NR_OF_UNITS = "NrOfUnits";
     public static final String NR_OF_ITEMS = "NrOfItems";
-    public static final String SALESPRICE_FOR_UNIT = "SalesPriceForUnit";
     public static final String SALESPRICE_FOR_ITEM = "SalesPriceForItem";
     public static final String UNIT_PRICE = "UnitPrice";
 //    public static final String ITEM_PRICE = "ItemPrice";

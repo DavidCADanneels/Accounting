@@ -107,10 +107,8 @@ public class AccountingCopyPanel extends JPanel {
         articlesFrom.getBusinessObjects().forEach(article -> {
             Article newArticle = new Article(article, newAccounting.getContacts());
             Integer numberOfItems = article.getNrInStock();
-            if(numberOfItems >0){
-                Integer itemsPerUnit = newArticle.getItemsPerUnit();
-                Integer numberOfUnits = numberOfItems / itemsPerUnit;
-                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, newArticle, purchaseOrder);
+            if(numberOfItems>0){
+                OrderItem orderItem = new OrderItem(numberOfItems, newArticle, purchaseOrder);
                 purchaseOrder.addBusinessObject(orderItem);
                 // TODO: call setPurchaseTransaction (= beginBalans) 'later' iso setPoOrdered
                 // setPurchaseTransaction calls setPoOrdered as well

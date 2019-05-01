@@ -43,15 +43,12 @@ public class PromoOrderIO {
                 String name = getValue(element, NAME);
                 Article article = articles.getBusinessObject(name);
                 ///
-                String numberOfUnitsString = getValue(element, NR_OF_UNITS);
-                int numberOfUnits = parseInt(numberOfUnitsString);
-                //
                 String numberOfItemsString = getValue(element, NR_OF_ITEMS);
                 int numberOfItems = parseInt(numberOfItemsString);
                 //
                 // Create OrderItem
                 //
-                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, order);
+                OrderItem orderItem = new OrderItem(numberOfItems, article, order);
 
                 // set Item Price
                 orderItem.setItemsPerUnit(parseInt(getValue(element, ITEMS_PER_UNIT)));

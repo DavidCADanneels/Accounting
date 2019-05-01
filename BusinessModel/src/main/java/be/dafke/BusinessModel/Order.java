@@ -13,7 +13,7 @@ public class Order extends OrderItems {
 
     public void setArticles(Articles articles){
         articles.getBusinessObjects().forEach( article -> {
-            addBusinessObject(new OrderItem(0,0,article, this));
+            addBusinessObject(new OrderItem(0,article, this));
         });
     }
 

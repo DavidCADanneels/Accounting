@@ -32,7 +32,7 @@ public class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel
 
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return col==NR_OF_UNITS_COL || col==NR_OF_ITEMS_COL || col == PRICE_ITEM_COL || col == PRICE_UNIT_COL || col == ITEMS_PER_UNIT_COL || col == VAT_RATE_COL;
+		return col==NR_OF_ITEMS_COL || col == PRICE_ITEM_COL || col == VAT_RATE_COL;
 	}
 
 	private List<Article> getArticles(){
@@ -47,25 +47,12 @@ public class SalesOrderCreateDataTableModel extends SalesOrderViewDataTableModel
 	@Override
 	public void setValueAt(Object value, int row, int col) {
 		OrderItem orderItem = getObject(row,col);
-		if(col == NR_OF_UNITS_COL){
-			int nr = (Integer) value;
-			orderItem.setNumberOfUnits(nr);
-			orderItem.calculateNumberOfItems();
-		} else if(col == NR_OF_ITEMS_COL){
+		if(col == NR_OF_ITEMS_COL){
 			int nr = (Integer) value;
 			orderItem.setNumberOfItems(nr);
-			orderItem.calculateNumberOfUnits();
-		} else if(col == PRICE_UNIT_COL){
-			BigDecimal amount = (BigDecimal) value;
-			orderItem.setSalesPriceForUnit(amount);
 		} else if (col == PRICE_ITEM_COL){
 			BigDecimal amount = (BigDecimal) value;
 			orderItem.setSalesPriceForItem(amount);
-		} else if (col == ITEMS_PER_UNIT_COL){
-            int nr = (Integer) value;
-            orderItem.setItemsPerUnit(nr);
-			orderItem.calculateNumberOfUnits();
-			orderItem.calculateNumberOfItems();
 		} else if (col == VAT_RATE_COL){
             int nr = (Integer) value;
             orderItem.setSalesVatRate(nr);

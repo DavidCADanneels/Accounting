@@ -55,27 +55,13 @@ public class SalesOrderIO {
                 //
                 String name = getValue(element, NAME);
                 Article article = articles.getBusinessObject(name);
-                ///
-                String numberOfUnitsString = getValue(element, NR_OF_UNITS);
-                int numberOfUnits = parseInt(numberOfUnitsString);
                 //
                 String numberOfItemsString = getValue(element, NR_OF_ITEMS);
                 int numberOfItems = parseInt(numberOfItemsString);
                 //
                 // Create OrderItem
                 //
-                OrderItem orderItem = new OrderItem(numberOfUnits, numberOfItems, article, order);
-
-                // set Unit Price
-                //
-                String salesPriceForUnitString = getValue(element, SALESPRICE_FOR_UNIT);
-                BigDecimal salesPriceForUnit = null;
-                if (salesPriceForUnitString != null) {
-                    salesPriceForUnit = parseBigDecimal(salesPriceForUnitString);
-                    if (salesPriceForUnit != null) {
-                        orderItem.setSalesPriceForUnit(salesPriceForUnit);
-                    }
-                }
+                OrderItem orderItem = new OrderItem(numberOfItems, article, order);
 
                 // set Item Price
                 //
@@ -173,11 +159,9 @@ public class SalesOrderIO {
                     writer.write(
                             "    <" + ARTICLE + ">\n" +
                                 "      <" + NAME + ">" + article.getName() + "</" + NAME + ">\n" +
-                                "      <" + NR_OF_UNITS + ">" + orderItem.getNumberOfUnits() + "</" + NR_OF_UNITS + ">\n" +
                                 "      <" + NR_OF_ITEMS + ">" + orderItem.getNumberOfItems() + "</" + NR_OF_ITEMS + ">\n" +
                                 "      <" + ITEMS_PER_UNIT + ">" + orderItem.getItemsPerUnit() + "</" + ITEMS_PER_UNIT + ">\n" +
                                 "      <" + SALES_VAT_RATE + ">" + orderItem.getSalesVatRate() + "</" + SALES_VAT_RATE + ">\n" +
-                                "      <" + SALESPRICE_FOR_UNIT + ">" + orderItem.getSalesPriceForUnit() + "</" + SALESPRICE_FOR_UNIT + ">\n" +
                                 "      <" + SALESPRICE_FOR_ITEM + ">" + orderItem.getSalesPriceForItem() + "</" + SALESPRICE_FOR_ITEM + ">\n" +
                                 "      <" + PURCHASE_ORDER + ">" + orderItem.getPurchaseOrder() + "</" + PURCHASE_ORDER + ">\n" +
                                 "    </" + ARTICLE + ">\n"
@@ -251,20 +235,10 @@ public class SalesOrderIO {
                     vatRates.add(salesVatRate);
                 }
 
-                boolean listNrOfItems = true;
-                int numberOfUnits = orderItem.getNumberOfUnits();
-                int numberOfItems = orderItem.getNumberOfItems();
-                Integer itemsPerUnit = article.getItemsPerUnit();
-
-                if(numberOfUnits > 0 && Math.floorMod(numberOfItems,itemsPerUnit)==0){
-                    listNrOfItems = false;
-                }
-
                 writer.write(
                             "    <" + ARTICLE + ">\n" +
-                                "      <" + NAME + ">" + (listNrOfItems?article.getItemName():article.getName()) + "</" + NAME + ">\n" +
-                                "      <" + NUMBER + ">" + (listNrOfItems?orderItem.getNumberOfItems():orderItem.getNumberOfUnits()) + "</" + NUMBER + ">\n" +
-                                "      <" + UNIT_PRICE + ">" + (listNrOfItems?orderItem.getSalesPriceForItem():orderItem.getSalesPriceForUnit()) + "</" + UNIT_PRICE + ">\n" +
+                                "      <" + NAME + ">" + (article.getItemName()) + "</" + NAME + ">\n" +
+                                "      <" + NUMBER + ">" + (orderItem.getNumberOfItems()) + "</" + NUMBER + ">\n" +
                                 "      <" + TAX_RATE + ">" + salesVatRate + "</" + TAX_RATE + ">\n" +
                                 "      <" + TOTAL_PRICE + ">" + orderItem.getSalesPriceWithVat() + "</" + TOTAL_PRICE + ">\n" +
                                 "    </" + ARTICLE + ">\n"

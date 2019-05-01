@@ -16,7 +16,6 @@ public class SalesOrderCreatePanel extends JPanel {
     private SalesOrder salesOrder;
     private JCheckBox invoice;
     private JCheckBox creditNote;
-    private JCheckBox promoPrice;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
     private Articles articles;
@@ -42,13 +41,6 @@ public class SalesOrderCreatePanel extends JPanel {
             salesOrder.setCreditNote(creditNote.isSelected());
         });
 
-        promoPrice = new JCheckBox("Unit Promo");
-        promoPrice.setSelected(false);
-        promoPrice.addActionListener(e -> {
-            salesOrder.setUnitPromotions(promoPrice.isSelected());
-            salesOrderCreateDataTableModel.fireTableDataChanged();
-            saleTotalsPanel.setTotals(salesOrder);
-        });
         invoice = new JCheckBox("Invoice");
         invoice.addActionListener(e -> {
             comboBox.setEnabled(invoice.isSelected());
@@ -78,7 +70,6 @@ public class SalesOrderCreatePanel extends JPanel {
         north.add(invoice);
         north.add(comboBox);
         north.add(creditNote);
-        north.add(promoPrice);
 
         filter = Contact::isCustomer;
         fireCustomerAddedOrRemoved();
@@ -127,7 +118,6 @@ public class SalesOrderCreatePanel extends JPanel {
         comboBox.setEnabled(salesOrder!=null);
         invoice.setEnabled(salesOrder!=null);
         creditNote.setEnabled(salesOrder != null);
-        promoPrice.setEnabled(salesOrder != null);
         if (salesOrder!=null){
             invoice.setSelected(salesOrder.isInvoice());
             if(salesOrder.isInvoice()) {
@@ -138,7 +128,6 @@ public class SalesOrderCreatePanel extends JPanel {
                 comboBox.setSelectedItem(noInvoice);
             }
             creditNote.setSelected(salesOrder.isCreditNote());
-            promoPrice.setSelected(salesOrder.isUnitPromotions());
         } else {
             contact = null;
             noInvoice = null;

@@ -14,14 +14,12 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class PromoOrderViewDataTableModel extends SelectableTableModel<OrderItem> {
-	public static int NR_OF_UNITS_COL = 0;
-	public static int NR_OF_ITEMS_COL = 1;
-	public static int ITEMS_PER_UNIT_COL = 2;
-	public static int NAME_COL = 3;
-	public static int PURCHASE_PRICE_ITEM_COL = 4;
-	public static int PURCHASE_PRICE_UNIT_COL = 5;
-	public static int TOTAL_PURCHASE_PRICE_COL = 6;
-	public static int NR_OF_COL = 7;
+	public static int NR_OF_ITEMS_COL = 0;
+	public static int NAME_COL = 1;
+	public static int PURCHASE_PRICE_ITEM_COL = 2;
+	public static int PURCHASE_PRICE_UNIT_COL = 3;
+	public static int TOTAL_PURCHASE_PRICE_COL = 4;
+	public static int NR_OF_COL = 5;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	protected PromoOrder order;
@@ -32,9 +30,7 @@ public class PromoOrderViewDataTableModel extends SelectableTableModel<OrderItem
 	}
 
 	private void setColumnClasses() {
-		columnClasses.put(NR_OF_UNITS_COL, Integer.class);
 		columnClasses.put(NR_OF_ITEMS_COL, Integer.class);
-		columnClasses.put(ITEMS_PER_UNIT_COL, Integer.class);
 		columnClasses.put(NAME_COL, String.class);
 		columnClasses.put(PURCHASE_PRICE_ITEM_COL, BigDecimal.class);
 		columnClasses.put(PURCHASE_PRICE_UNIT_COL, BigDecimal.class);
@@ -42,9 +38,7 @@ public class PromoOrderViewDataTableModel extends SelectableTableModel<OrderItem
 	}
 
 	private void setColumnNames() {
-		columnNames.put(NR_OF_UNITS_COL, getBundle("Accounting").getString("UNITS_TO_ORDER"));
 		columnNames.put(NR_OF_ITEMS_COL, getBundle("Accounting").getString("ITEMS_TO_ORDER"));
-		columnNames.put(ITEMS_PER_UNIT_COL, getBundle("Accounting").getString("ITEMS_PER_UNIT"));
 		columnNames.put(NAME_COL, getBundle("Accounting").getString("ARTICLE_NAME"));
 		columnNames.put(PURCHASE_PRICE_ITEM_COL, getBundle("Accounting").getString("PRICE_ITEM"));
 		columnNames.put(PURCHASE_PRICE_UNIT_COL, getBundle("Accounting").getString("PRICE_UNIT"));
@@ -64,9 +58,6 @@ public class PromoOrderViewDataTableModel extends SelectableTableModel<OrderItem
 		if (col == NAME_COL) {
 			return article.getName();
 		}
-		if (col == ITEMS_PER_UNIT_COL) {
-			return orderItem.getItemsPerUnit();
-		}
 		if (col == PURCHASE_PRICE_ITEM_COL) {
 			return orderItem.getPurchasePriceForItem();
 		}
@@ -75,9 +66,6 @@ public class PromoOrderViewDataTableModel extends SelectableTableModel<OrderItem
 		}
 		if (col == TOTAL_PURCHASE_PRICE_COL) {
 			return orderItem.getStockValue();
-		}
-		if (col == NR_OF_UNITS_COL) {
-			return orderItem.getNumberOfUnits();
 		}
 		if (col == NR_OF_ITEMS_COL) {
 			return orderItem.getNumberOfItems();
@@ -120,6 +108,7 @@ public class PromoOrderViewDataTableModel extends SelectableTableModel<OrderItem
 
 	@Override
 	public OrderItem getObject(int row, int col) {
+		if(order==null) return null;
 		List<OrderItem> orderItems = order.getBusinessObjects();
 		if(orderItems == null || orderItems.size() == 0) return null;
 		return orderItems.get(row);

@@ -25,7 +25,7 @@ public class PurchaseOrderCreateDataTableModel extends PurchaseOrderViewDataTabl
 	}
 	@Override
 	public boolean isCellEditable(int row, int col) {
-		return (col == NR_OF_UNITS_COL || col == NR_OF_ITEMS_COL || col == ITEMS_PER_UNIT_COL || col == PRICE_UNIT_COL);
+		return (col == NR_OF_UNITS_COL || col == PRICE_UNIT_COL || col == ITEMS_PER_UNIT_COL);
 	}
 
 // DE SET METHODEN
@@ -37,10 +37,6 @@ public class PurchaseOrderCreateDataTableModel extends PurchaseOrderViewDataTabl
 			int nr = (Integer) value;
 			orderItem.setNumberOfUnits(nr);
 			orderItem.calculateNumberOfItems();
-		} else if(col == NR_OF_ITEMS_COL){
-			int nr = (Integer) value;
-			orderItem.setNumberOfItems(nr);
-			orderItem.calculateNumberOfUnits();
 		} else if(col == ITEMS_PER_UNIT_COL){
 			int nr = (Integer) value;
 			orderItem.setItemsPerUnit(nr);

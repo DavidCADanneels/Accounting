@@ -19,17 +19,17 @@ public class ArticlesPanel extends JPanel {
     private TableColumn supplierColumn;
     private JComboBox<Contact> comboBox;
     private Contacts contacts;
-    private final ArticlesDetailsDataTableModel articlesDataTableModel;
+    private final ArticlesDataTableModel articlesDataTableModel;
 
     public ArticlesPanel(Articles articles, Contacts contacts) {
         this.contacts = contacts;
-        articlesDataTableModel = new ArticlesDetailsDataTableModel(this, articles);
+        articlesDataTableModel = new ArticlesDataTableModel(this, articles);
         table = new SelectableTable<>(articlesDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
         comboBox = new JComboBox<>();
         fireSupplierAddedOrRemoved();
-        supplierColumn = table.getColumnModel().getColumn(ArticlesDetailsDataTableModel.SUPPLIER_COL);
+        supplierColumn = table.getColumnModel().getColumn(ArticlesDataTableModel.SUPPLIER_COL);
         supplierColumn.setCellEditor(new DefaultCellEditor(comboBox));
 
         JScrollPane scrollPane = new JScrollPane(table);
