@@ -240,8 +240,9 @@ public class SalesOrderDetailPanel extends JPanel {
         if(salesOrder.isPromoOrder()){
             createPromoTransaction();
         } else {
-            createSalesTransaction();
-            createGainTransaction();
+            Transaction salesTransaction = createTransaction(null, salesOrder.getName());
+            createSalesTransaction(salesTransaction);
+            createGainTransaction(salesTransaction.getDate());
         }
         StockHistoryGUI.fireStockContentChanged();
         updateButtonsAndCheckBoxes();
@@ -334,18 +335,25 @@ public class SalesOrderDetailPanel extends JPanel {
         return customer;
     }
 
-    public Transaction createTransaction(){
-        DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
-        dateAndDescriptionDialog.enableDescription(true);
-        dateAndDescriptionDialog.setVisible(true);
+    public Transaction createTransaction(Calendar date, String description){
+        if (date == null || description == null) {
+            DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
+            dateAndDescriptionDialog.enableDescription(true);
+            if(description!=null){
+                dateAndDescriptionDialog.setDescription(description);
+            } else {
+                dateAndDescriptionDialog.setDescription("");
+            }
+            dateAndDescriptionDialog.setVisible(true);
 
-        Calendar date = dateAndDescriptionDialog.getDate();
-        String description = dateAndDescriptionDialog.getDescription();
+            date = dateAndDescriptionDialog.getDate();
+            description = dateAndDescriptionDialog.getDescription();
+        }
         return new Transaction(date, description);
     }
 
     private void createPromoTransaction() {
-        Transaction transaction = createTransaction();
+        Transaction transaction = createTransaction(null, salesOrder.getName());
 
         Account promoCost = StockUtils.getPromoAccount(accounting);
         Account stockAccount = StockUtils.getStockAccount(accounting);
@@ -373,8 +381,7 @@ public class SalesOrderDetailPanel extends JPanel {
         }
     }
 
-    private void createSalesTransaction(){
-        Transaction transaction = createTransaction();
+    private void createSalesTransaction(Transaction transaction){
 
         Contact customer = getCustomer();
         transaction.setContact(customer);
@@ -449,7 +456,7 @@ public class SalesOrderDetailPanel extends JPanel {
         }
     }
 
-    private void createGainTransaction(){
+    private void createGainTransaction(Calendar date){
         Account salesGainAccount = StockUtils.getSalesGainAccount(accounting);
         Account stockAccount = StockUtils.getStockAccount(accounting);
         Account gainAccount = StockUtils.getGainAccount(accounting);
@@ -464,23 +471,7 @@ public class SalesOrderDetailPanel extends JPanel {
         Booking gainBooking = new Booking(gainAccount, gainAmount, creditNote);
         Booking salesDivBooking = new Booking(salesGainAccount, totalSalesPriceExclVat, !creditNote);
 
-        Calendar date;
-        String description = salesOrder.getName();
-        String deliveryDate = salesOrder.getDeliveryDate(); // FIXME: return Calendar iso String
-        if(deliveryDate==null) {
-            DateAndDescriptionDialog dateAndDescriptionDialog = DateAndDescriptionDialog.getDateAndDescriptionDialog();
-            dateAndDescriptionDialog.enableDescription(false);
-            dateAndDescriptionDialog.setDescription(description);
-            dateAndDescriptionDialog.setDate(Calendar.getInstance());
-            dateAndDescriptionDialog.setVisible(true);
-
-            date = dateAndDescriptionDialog.getDate();
-            description = dateAndDescriptionDialog.getDescription();
-        } else {
-            date = Utils.toCalendar(deliveryDate);
-        }
-
-        Transaction gainTransaction = new Transaction(date, description);
+        Transaction gainTransaction = new Transaction(date, salesOrder.getName());
 
         gainTransaction.addBusinessObject(gainBooking);
         gainTransaction.addBusinessObject(stockBooking);
