@@ -181,8 +181,8 @@ public class XMLConstants {
     public static final String NR_OF_UNITS = "NrOfUnits";
     public static final String NR_OF_ITEMS = "NrOfItems";
     public static final String SALESPRICE_FOR_ITEM = "SalesPriceForItem";
-    public static final String UNIT_PRICE = "UnitPrice";
-//    public static final String ITEM_PRICE = "ItemPrice";
+//    public static final String UNIT_PRICE = "UnitPrice";
+    public static final String ITEM_PRICE = "ItemPrice";
     public static final String TOTAL_PRICE = "TotalPrice";
     public static final String TAX_RATE = "TaxRate";
     public static final String INVOICES = "Invoices";

@@ -242,6 +242,7 @@ public class SalesOrderIO {
                             "    <" + ARTICLE + ">\n" +
                                 "      <" + NAME + ">" + (article.getName()) + "</" + NAME + ">\n" +
                                 "      <" + NUMBER + ">" + (orderItem.getNumberOfItems()) + "</" + NUMBER + ">\n" +
+                                "      <" + ITEM_PRICE + ">" + orderItem.getSalesPriceForItem() + "</" + ITEM_PRICE + ">\n" +
                                 "      <" + TAX_RATE + ">" + salesVatRate + "</" + TAX_RATE + ">\n" +
                                 "      <" + TOTAL_PRICE + ">" + orderItem.getSalesPriceWithVat() + "</" + TOTAL_PRICE + ">\n" +
                                 "    </" + ARTICLE + ">\n"
