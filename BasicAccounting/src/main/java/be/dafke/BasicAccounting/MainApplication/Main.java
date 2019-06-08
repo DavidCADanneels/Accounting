@@ -62,7 +62,7 @@ public class Main {
     private static BalancesMenu balancesMenu;
     private static MorgagesMenu morgagesMenu;
     private static ContactsMenu contactsMenu;
-    private static GoodsMenu tradeMenu;
+    private static TradeMenu tradeMenu;
     private static MealsMenu mealsMenu;
     private static ProjectsMenu projectsMenu;
     private static CodaMenu codaMenu;
@@ -144,7 +144,7 @@ public class Main {
         journalsMenu = new JournalsMenu();
         balancesMenu = new BalancesMenu();
         contactsMenu = new ContactsMenu();
-        tradeMenu = new GoodsMenu();
+        tradeMenu = new TradeMenu();
         mealsMenu = new MealsMenu();
         morgagesMenu = new MorgagesMenu();
         projectsMenu = new ProjectsMenu();

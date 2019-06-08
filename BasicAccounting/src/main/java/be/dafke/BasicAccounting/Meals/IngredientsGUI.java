@@ -1,8 +1,7 @@
-package be.dafke.BasicAccounting.Trade;
+package be.dafke.BasicAccounting.Meals;
 
 
 import be.dafke.BasicAccounting.MainApplication.Main;
-import be.dafke.BusinessModel.Allergenes;
 import be.dafke.BusinessModel.Ingredients;
 
 import javax.swing.*;

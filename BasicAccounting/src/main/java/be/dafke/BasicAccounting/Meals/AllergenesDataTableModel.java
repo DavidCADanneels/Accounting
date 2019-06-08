@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting.Trade;
+package be.dafke.BasicAccounting.Meals;
 
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;

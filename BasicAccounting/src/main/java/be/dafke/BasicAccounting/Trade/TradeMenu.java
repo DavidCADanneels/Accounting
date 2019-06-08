@@ -1,5 +1,7 @@
 package be.dafke.BasicAccounting.Trade;
 
+import be.dafke.BasicAccounting.Meals.AllergenesGUI;
+import be.dafke.BasicAccounting.Meals.IngredientsGUI;
 import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
@@ -8,16 +10,14 @@ import java.awt.event.KeyEvent;
 
 import static java.util.ResourceBundle.getBundle;
 
-public class GoodsMenu extends JMenu {
-    private JMenuItem articlesTable, ingredientsTable, allergenesTable, stockTable, salesOrders, purchaseOrders, promoOrders, stockHistoryTable;
+public class TradeMenu extends JMenu {
+    private JMenuItem articlesTable, stockTable, salesOrders, purchaseOrders, promoOrders, stockHistoryTable;
 
     private Articles articles;
-    private Ingredients ingredients;
-    private Allergenes allergenes;
     private Contacts contacts;
     private Accounting accounting;
 
-    public GoodsMenu() {
+    public TradeMenu() {
         super(getBundle("Accounting").getString("TRADE"));
         setMnemonic(KeyEvent.VK_T);
 
@@ -29,24 +29,6 @@ public class GoodsMenu extends JMenu {
             articlesGUI.setVisible(true);
         });
         articlesTable.setEnabled(false);
-
-        ingredientsTable = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS"));
-        ingredientsTable.setMnemonic(KeyEvent.VK_I);
-        ingredientsTable.addActionListener(e -> {
-            IngredientsGUI ingredientsGUI = IngredientsGUI.showIngredients(ingredients);
-            ingredientsGUI.setLocation(getLocationOnScreen());
-            ingredientsGUI.setVisible(true);
-        });
-        ingredientsTable.setEnabled(false);
-
-        allergenesTable = new JMenuItem(getBundle("Accounting").getString("ALLERGENES"));
-        allergenesTable.setMnemonic(KeyEvent.VK_A);
-        allergenesTable.addActionListener(e -> {
-            AllergenesGUI allergenesGUI = AllergenesGUI.showAllergenes(allergenes);
-            allergenesGUI.setLocation(getLocationOnScreen());
-            allergenesGUI.setVisible(true);
-        });
-        allergenesTable.setEnabled(false);
 
         stockTable = new JMenuItem(getBundle("Accounting").getString("STOCK"));
         stockTable.setMnemonic(KeyEvent.VK_S);
@@ -94,8 +76,6 @@ public class GoodsMenu extends JMenu {
         promoOrders.setEnabled(false);
 
         add(articlesTable);
-        add(ingredientsTable);
-        add(allergenesTable);
         add(stockTable);
         add(stockHistoryTable);
         add(purchaseOrders);
@@ -107,8 +87,6 @@ public class GoodsMenu extends JMenu {
         this.accounting = accounting;
         setContacts(accounting==null?null:accounting.getContacts());
         setArticles(accounting==null?null:accounting.getArticles());
-        setIngredients(accounting==null?null:accounting.getIngredients());
-        setAllergenes(accounting==null?null:accounting.getAllergenes());
         stockTable.setEnabled(accounting!=null);
         stockHistoryTable.setEnabled(accounting!=null);
         purchaseOrders.setEnabled(accounting!=null);
@@ -123,15 +101,5 @@ public class GoodsMenu extends JMenu {
     public void setArticles(Articles articles){
         this.articles = articles;
         articlesTable.setEnabled(articles!=null);
-    }
-
-    public void setIngredients(Ingredients ingredients){
-        this.ingredients = ingredients;
-        ingredientsTable.setEnabled(ingredients!=null);
-    }
-
-    public void setAllergenes(Allergenes allergenes){
-        this.allergenes = allergenes;
-        allergenesTable.setEnabled(allergenes!=null);
     }
 }
