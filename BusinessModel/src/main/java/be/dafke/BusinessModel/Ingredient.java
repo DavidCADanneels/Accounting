@@ -1,14 +1,14 @@
 package be.dafke.BusinessModel;
 
 import be.dafke.ObjectModel.BusinessObject;
+import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
+import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
-import java.util.HashSet;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Ingredient extends BusinessObject {
     private Unit unit;
-    private Set<Allergene> allergenes = new HashSet<>();
+    private Allergenes allergenes = new Allergenes();
 
     public Ingredient(String name, Unit unit) {
         setName(name);
@@ -20,10 +20,10 @@ public class Ingredient extends BusinessObject {
     }
 
     public String getAllergenesString() {
-        return allergenes.stream().map(BusinessObject::getName).collect(Collectors.joining(","));
+        return allergenes.getBusinessObjects().stream().map(BusinessObject::getName).collect(Collectors.joining(","));
     }
 
-    public Set<Allergene> getAllergenes() {
+    public Allergenes getAllergenes() {
         return allergenes;
     }
 
@@ -32,6 +32,10 @@ public class Ingredient extends BusinessObject {
     }
 
     public void addAllergene(Allergene allergene){
-        allergenes.add(allergene);
+        try {
+            allergenes.addBusinessObject(allergene);
+        } catch (EmptyNameException | DuplicateNameException e) {
+            e.printStackTrace();
+        }
     }
 }

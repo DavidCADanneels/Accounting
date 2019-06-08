@@ -3,7 +3,6 @@ package be.dafke.BasicAccounting.Trade;
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -106,6 +105,7 @@ public class AllergenesDataTableModel extends SelectableTableModel<Allergene> {
 
 	public void setAllergenes(Allergenes allergenes) {
 		this.allergenes = allergenes;
+		fireTableDataChanged();
 	}
 
 	@Override

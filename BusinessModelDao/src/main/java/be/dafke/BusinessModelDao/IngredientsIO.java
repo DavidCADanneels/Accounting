@@ -9,7 +9,6 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -53,8 +52,8 @@ public class IngredientsIO {
                         "  <" + INGREDIENT + ">\n" +
                             "    <" + NAME + ">" + ingredient.getName() + "</" + NAME + ">\n" +
                             "    <" + UNIT + ">" + ingredient.getUnit().getName().toUpperCase() + "</" + UNIT + ">\n");
-                Set<Allergene> allergenes = ingredient.getAllergenes();
-                for (Allergene allergene:allergenes) {
+                Allergenes allergenes = ingredient.getAllergenes();
+                for (Allergene allergene:allergenes.getBusinessObjects()) {
                     writer.write("    <" + ALLERGENE + ">\n");
                     writer.write("      <" + ID + ">" + allergene.getName() + "</" + ID + ">\n");
                     writer.write("    </" + ALLERGENE + ">\n");

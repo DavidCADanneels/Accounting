@@ -16,15 +16,17 @@ import static java.util.ResourceBundle.getBundle;
 public class IngredientsPanel extends JPanel {
     private final IngredientsDataTableModel ingredientsDataTableModel;
     private final AllergenesDataTableModel allergenesDataTableModel;
+    private final SelectableTable<Ingredient> ingredientsTable;
+    private final SelectableTable<Allergene> allergenesTable;
 
     public IngredientsPanel(Ingredients ingredients) {
         ingredientsDataTableModel = new IngredientsDataTableModel(this);
         ingredientsDataTableModel.setIngredients(ingredients);
-        SelectableTable<Ingredient> ingredientsTable = new SelectableTable<>(ingredientsDataTableModel);
+        ingredientsTable = new SelectableTable<>(ingredientsDataTableModel);
         ingredientsTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
         allergenesDataTableModel = new AllergenesDataTableModel();
-        SelectableTable<Allergene> allergenesTable = new SelectableTable<>(allergenesDataTableModel);
+        allergenesTable = new SelectableTable<>(allergenesDataTableModel);
         allergenesTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
         JComboBox<Unit> comboBox = new JComboBox<>(Unit.values());
@@ -38,6 +40,16 @@ public class IngredientsPanel extends JPanel {
         JScrollPane allergenesScrollPane = new JScrollPane(allergenesTable);
         JPanel allergenesPanel = new JPanel(new BorderLayout());
         allergenesPanel.add(allergenesScrollPane, BorderLayout.CENTER);
+
+        DefaultListSelectionModel selection = new DefaultListSelectionModel();
+        selection.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                Ingredient ingredient = ingredientsTable.getSelectedObject();
+                Allergenes allergenes = ingredient.getAllergenes();
+                allergenesDataTableModel.setAllergenes(allergenes);
+            }
+        });
+        ingredientsTable.setSelectionModel(selection);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitPane.add(ingredientsPanel);
