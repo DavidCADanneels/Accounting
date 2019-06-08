@@ -4,7 +4,6 @@ package be.dafke.BasicAccounting.Trade;
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.Allergene;
 import be.dafke.BusinessModel.Allergenes;
-import be.dafke.BusinessModel.Ingredient;
 import be.dafke.ComponentModel.SelectableTable;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
