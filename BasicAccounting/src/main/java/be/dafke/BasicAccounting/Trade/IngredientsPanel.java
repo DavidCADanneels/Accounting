@@ -58,9 +58,9 @@ public class IngredientsPanel extends JPanel {
         setLayout(new BorderLayout());
         add(splitPane, BorderLayout.CENTER);
 
-        JButton add = new JButton("Add Ingredient");
-        add(add, BorderLayout.NORTH);
-        add.addActionListener(e -> {
+        JButton addIngredient = new JButton("Add Ingredient");
+        add(addIngredient, BorderLayout.NORTH);
+        addIngredient.addActionListener(e -> {
             String name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"));
             while (name != null && name.equals(""))
                 name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"));
@@ -75,5 +75,8 @@ public class IngredientsPanel extends JPanel {
                 }
             }
         });
+
+        JButton addAllergene = new JButton("Add Allergene");
+        add(addAllergene, BorderLayout.SOUTH);
     }
 }
