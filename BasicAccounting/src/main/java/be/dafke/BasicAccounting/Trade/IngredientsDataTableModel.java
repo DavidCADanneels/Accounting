@@ -7,9 +7,9 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -21,7 +21,8 @@ public class IngredientsDataTableModel extends SelectableTableModel<Ingredient> 
 	private final Ingredients ingredients;
 	public static int NAME_COL = 0;
 	public static int UNIT_COL = 1;
-	public static int NR_OF_COL = 2;
+	public static int ALLERGENES_COL = 2;
+	public static int NR_OF_COL = 3;
 	private final Component parent;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
@@ -45,11 +46,13 @@ public class IngredientsDataTableModel extends SelectableTableModel<Ingredient> 
 	private void setColumnClasses() {
 		columnClasses.put(NAME_COL, String.class);
 		columnClasses.put(UNIT_COL, Unit.class);
+		columnClasses.put(ALLERGENES_COL, String.class);
 	}
 
 	private void setColumnNames() {
 		columnNames.put(NAME_COL, getBundle("Accounting").getString("INGREDIENT_NAME"));
 		columnNames.put(UNIT_COL, getBundle("Accounting").getString("INGREDIENT_UNIT"));
+		columnNames.put(ALLERGENES_COL, getBundle("Accounting").getString("ALLERGENES"));
 	}
 	// DE GET METHODEN
 // ===============
@@ -61,6 +64,10 @@ public class IngredientsDataTableModel extends SelectableTableModel<Ingredient> 
 		}
 		if (col == UNIT_COL) {
 			return ingredient.getUnit();
+		}
+		if (col == ALLERGENES_COL) {
+			Set<Allergene> allergenes = ingredient.getAllergenes();
+			return allergenes.stream().sorted().map(Allergene::getName).collect(Collectors.joining(","));
 		}
 		return null;
 	}
