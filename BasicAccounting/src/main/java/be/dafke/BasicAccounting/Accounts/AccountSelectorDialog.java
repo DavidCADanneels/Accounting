@@ -12,17 +12,17 @@ import java.util.ArrayList;
 
 public class AccountSelectorDialog extends RefreshableDialog {
 	private JButton ok;
-	private AccountSelectorPanel accountSelectorPanel;
-	private static AccountSelectorDialog accountSelectorDialog = null;
+	private AccountSelectorPanel selectorPanel;
+	private static AccountSelectorDialog selectorDialog = null;
 
 	private AccountSelectorDialog(Accounts accounts, ArrayList<AccountType> accountTypes) {
 		this(accounts, accountTypes, "Select Account");
 	}
 	public AccountSelectorDialog(Accounts accounts, ArrayList<AccountType> accountTypes, String title) {
 		super(title);
-		accountSelectorPanel = new AccountSelectorPanel(accounts, accountTypes);
+		selectorPanel = new AccountSelectorPanel(accounts, accountTypes);
 		JPanel innerPanel = new JPanel(new BorderLayout());
-		innerPanel.add(accountSelectorPanel, BorderLayout.CENTER);
+		innerPanel.add(selectorPanel, BorderLayout.CENTER);
 
 		ok = new JButton("Ok (Close popup)");
 		ok.addActionListener(e -> dispose());
@@ -34,34 +34,34 @@ public class AccountSelectorDialog extends RefreshableDialog {
 	}
 
 	public static AccountSelectorDialog getAccountSelector(Accounts accounts, ArrayList<AccountType> accountTypes, String title){
-		if(accountSelectorDialog ==null){
-			accountSelectorDialog = new AccountSelectorDialog(accounts, accountTypes, title);
-		} else accountSelectorDialog.setTitle(title);
-		return accountSelectorDialog;
+		if(selectorDialog ==null){
+			selectorDialog = new AccountSelectorDialog(accounts, accountTypes, title);
+		} else selectorDialog.setTitle(title);
+		return selectorDialog;
 	}
 
 	public static AccountSelectorDialog getAccountSelector(Accounts accounts, ArrayList<AccountType> accountTypes){
-		if(accountSelectorDialog ==null){
-			accountSelectorDialog = new AccountSelectorDialog(accounts, accountTypes);
+		if(selectorDialog ==null){
+			selectorDialog = new AccountSelectorDialog(accounts, accountTypes);
 		}
-		return accountSelectorDialog;
+		return selectorDialog;
 	}
 
 	public Account getSelection() {
-		return accountSelectorPanel.getSelection();
+		return selectorPanel.getSelection();
 	}
 
     public void setAccounts(Accounts accounts) {
-		accountSelectorPanel.setAccounts(accounts);
+		selectorPanel.setAccounts(accounts);
     }
 
 	public static void fireAccountDataChangedForAll() {
-		if(accountSelectorDialog !=null){
-			accountSelectorDialog.fireAccountDataChanged();
+		if(selectorDialog !=null){
+			selectorDialog.fireAccountDataChanged();
 		}
 	}
 
 	public void fireAccountDataChanged() {
-		accountSelectorPanel.fireAccountDataChanged();
+		selectorPanel.fireAccountDataChanged();
 	}
 }

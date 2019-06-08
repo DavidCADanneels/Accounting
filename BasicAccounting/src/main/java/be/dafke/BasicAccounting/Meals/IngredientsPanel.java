@@ -10,6 +10,7 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import javax.swing.*;
 import javax.swing.table.TableColumn;
 import java.awt.*;
+import java.util.Set;
 
 import static java.util.ResourceBundle.getBundle;
 
@@ -73,17 +74,16 @@ public class IngredientsPanel extends JPanel {
             }
         });
 
-        addAllergene = new JButton("Add Allergene");
+        addAllergene = new JButton("Update Allergenes");
         addAllergene.setEnabled(false);
         add(addAllergene, BorderLayout.SOUTH);
         addAllergene.addActionListener(e -> {
             Object[] allergeneList = allergenes.getBusinessObjects().toArray();
             if(allergeneList.length>0) {
-                int index = JOptionPane.showOptionDialog(this, "Select Allergene", "Allergene Selection",
-                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, allergeneList, allergeneList[0]);
-                Allergene allergene = (Allergene)allergeneList[index];
-                selectedIngredient.addAllergene(allergene);
+                AllergenesPerIngredientDialog dialog = new AllergenesPerIngredientDialog(selectedIngredient, allergenes);
+                dialog.setVisible(true);
                 ingredientsDataTableModel.fireTableDataChanged();
+                allergenesDataTableModel.fireTableDataChanged();
             }
         });
 

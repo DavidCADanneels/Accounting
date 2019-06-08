@@ -24,6 +24,11 @@ public class Allergene extends BusinessObject {
         this.shortName = shortName;
     }
 
+    @Override
+    public boolean isDeletable(){
+        return true;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }

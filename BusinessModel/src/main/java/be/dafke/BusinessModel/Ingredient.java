@@ -3,7 +3,9 @@ package be.dafke.BusinessModel;
 import be.dafke.ObjectModel.BusinessObject;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
+import be.dafke.ObjectModel.Exceptions.NotEmptyException;
 
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class Ingredient extends BusinessObject {
@@ -31,10 +33,25 @@ public class Ingredient extends BusinessObject {
         this.unit = unit;
     }
 
+    public void overwriteAllAllergenes(Set<Allergene> allergenes) {
+        this.allergenes = new Allergenes();
+        for (Allergene allergene:allergenes) {
+            addAllergene(allergene);
+        }
+    }
+
     public void addAllergene(Allergene allergene){
         try {
             allergenes.addBusinessObject(allergene);
         } catch (EmptyNameException | DuplicateNameException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void removeAllergene(Allergene allergene){
+        try {
+            allergenes.removeBusinessObject(allergene);
+        } catch (NotEmptyException e) {
             e.printStackTrace();
         }
     }
