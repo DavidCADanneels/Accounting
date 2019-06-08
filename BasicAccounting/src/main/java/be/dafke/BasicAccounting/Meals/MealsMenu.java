@@ -36,7 +36,7 @@ public class MealsMenu extends JMenu {
         ingredientsMenu = new JMenuItem(getBundle("Accounting").getString("INGREDIENTS"));
         ingredientsMenu.setMnemonic(KeyEvent.VK_I);
         ingredientsMenu.addActionListener(e -> {
-            IngredientsGUI ingredientsGUI = IngredientsGUI.showIngredients(ingredients);
+            IngredientsGUI ingredientsGUI = IngredientsGUI.showIngredients(accounting);
             ingredientsGUI.setLocation(getLocationOnScreen());
             ingredientsGUI.setVisible(true);
         });

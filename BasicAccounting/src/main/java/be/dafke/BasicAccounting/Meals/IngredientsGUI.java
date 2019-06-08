@@ -2,6 +2,7 @@ package be.dafke.BasicAccounting.Meals;
 
 
 import be.dafke.BasicAccounting.MainApplication.Main;
+import be.dafke.BusinessModel.Accounting;
 import be.dafke.BusinessModel.Ingredients;
 
 import javax.swing.*;
@@ -12,20 +13,20 @@ import static java.util.ResourceBundle.getBundle;
 public class IngredientsGUI extends JFrame {
     private final IngredientsPanel ingredientsPanel;
 
-    private static final HashMap<Ingredients, IngredientsGUI> articlesGuis = new HashMap<>();
+    private static final HashMap<Accounting, IngredientsGUI> articlesGuis = new HashMap<>();
 
-    private IngredientsGUI(Ingredients ingredients) {
+    private IngredientsGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("INGREDIENTS"));
-        ingredientsPanel = new IngredientsPanel(ingredients);
+        ingredientsPanel = new IngredientsPanel(accounting);
         setContentPane(ingredientsPanel);
         pack();
     }
 
-    public static IngredientsGUI showIngredients(Ingredients ingredients) {
-        IngredientsGUI gui = articlesGuis.get(ingredients);
+    public static IngredientsGUI showIngredients(Accounting accounting) {
+        IngredientsGUI gui = articlesGuis.get(accounting);
         if (gui == null) {
-            gui = new IngredientsGUI(ingredients);
-            articlesGuis.put(ingredients, gui);
+            gui = new IngredientsGUI(accounting);
+            articlesGuis.put(accounting, gui);
             Main.addFrame(gui);
         }
         return gui;

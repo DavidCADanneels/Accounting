@@ -18,8 +18,15 @@ public class IngredientsPanel extends JPanel {
     private final AllergenesDataTableModel allergenesDataTableModel;
     private final SelectableTable<Ingredient> ingredientsTable;
     private final SelectableTable<Allergene> allergenesTable;
+    private final JButton addAllergene;
+    private Ingredient selectedIngredient;
 
-    public IngredientsPanel(Ingredients ingredients) {
+    private Ingredients ingredients;
+    private Allergenes allergenes;
+
+    public IngredientsPanel(Accounting accounting) {
+        ingredients = accounting.getIngredients();
+        allergenes = accounting.getAllergenes();
         ingredientsDataTableModel = new IngredientsDataTableModel(this);
         ingredientsDataTableModel.setIngredients(ingredients);
         ingredientsTable = new SelectableTable<>(ingredientsDataTableModel);
@@ -40,16 +47,6 @@ public class IngredientsPanel extends JPanel {
         JScrollPane allergenesScrollPane = new JScrollPane(allergenesTable);
         JPanel allergenesPanel = new JPanel(new BorderLayout());
         allergenesPanel.add(allergenesScrollPane, BorderLayout.CENTER);
-
-        DefaultListSelectionModel selection = new DefaultListSelectionModel();
-        selection.addListSelectionListener(e -> {
-            if (!e.getValueIsAdjusting()) {
-                Ingredient ingredient = ingredientsTable.getSelectedObject();
-                Allergenes allergenes = ingredient.getAllergenes();
-                allergenesDataTableModel.setAllergenes(allergenes);
-            }
-        });
-        ingredientsTable.setSelectionModel(selection);
 
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitPane.add(ingredientsPanel);
@@ -76,7 +73,34 @@ public class IngredientsPanel extends JPanel {
             }
         });
 
-        JButton addAllergene = new JButton("Add Allergene");
+        addAllergene = new JButton("Add Allergene");
+        addAllergene.setEnabled(false);
         add(addAllergene, BorderLayout.SOUTH);
+        addAllergene.addActionListener(e -> {
+            Object[] allergeneList = allergenes.getBusinessObjects().toArray();
+            if(allergeneList.length>0) {
+                int index = JOptionPane.showOptionDialog(this, "Select Allergene", "Allergene Selection",
+                        JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE, null, allergeneList, allergeneList[0]);
+                Allergene allergene = (Allergene)allergeneList[index];
+                selectedIngredient.addAllergene(allergene);
+                ingredientsDataTableModel.fireTableDataChanged();
+            }
+        });
+
+
+        DefaultListSelectionModel selection = new DefaultListSelectionModel();
+        selection.addListSelectionListener(e -> {
+            if (!e.getValueIsAdjusting()) {
+                selectedIngredient = ingredientsTable.getSelectedObject();
+                if(selectedIngredient !=null) {
+                    addAllergene.setEnabled(true);
+                    Allergenes allergenes = selectedIngredient.getAllergenes();
+                    allergenesDataTableModel.setAllergenes(allergenes);
+                } else {
+                    addAllergene.setEnabled(false);
+                }
+            }
+        });
+        ingredientsTable.setSelectionModel(selection);
     }
 }
