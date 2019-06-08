@@ -9,6 +9,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Writer;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -19,14 +20,20 @@ import static be.dafke.BusinessModelDao.XMLWriter.getXmlHeader;
 public class IngredientsIO {
     public static void readIngredients(Accounting accounting){
         Ingredients ingredients = accounting.getIngredients();
+        Allergenes allergenes = accounting.getAllergenes();
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+INGREDIENTS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, INGREDIENTS);
-        for (Element element : getChildren(rootElement, INGREDIENT)) {
+        for (Element ingredientElement : getChildren(rootElement, INGREDIENT)) {
 
-            String name = getValue(element, NAME);
-            String unitName = getValue(element, UNIT);
+            String name = getValue(ingredientElement, NAME);
+            String unitName = getValue(ingredientElement, UNIT);
             Unit unit = Unit.valueOf(unitName);
             Ingredient ingredient = new Ingredient(name, unit);
+            for(Element allergeneElement : getChildren(ingredientElement, ALLERGENES)){
+                String allergeneId = getValue(allergeneElement, ALLERGENE);
+                Allergene allergene = allergenes.getBusinessObject(allergeneId);
+                ingredient.addAllergene(allergene);
+            }
             try {
                 ingredients.addBusinessObject(ingredient);
             } catch (EmptyNameException | DuplicateNameException e) {
@@ -45,9 +52,16 @@ public class IngredientsIO {
                 writer.write(
                         "  <" + INGREDIENT + ">\n" +
                             "    <" + NAME + ">" + ingredient.getName() + "</" + NAME + ">\n" +
-                            "    <" + UNIT + ">" + ingredient.getUnit().getName().toUpperCase() + "</" + UNIT + ">\n" +
-                            "  </" + INGREDIENT + ">\n"
-                );
+                            "    <" + UNIT + ">" + ingredient.getUnit().getName().toUpperCase() + "</" + UNIT + ">\n");
+                Set<Allergene> allergenes = ingredient.getAllergenes();
+                if(!allergenes.isEmpty()){
+                    writer.write("      <" + ALLERGENES + ">\n");
+                    for (Allergene allergene:allergenes) {
+                        writer.write("        <" + ALLERGENE + ">" + allergene.getName() + "</" + ALLERGENE + ">\n");
+                    }
+                    writer.write("      </" + ALLERGENES + ">\n");
+                }
+                writer.write("  </" + INGREDIENT + ">\n");
             }
             writer.write("</" + INGREDIENTS + ">\n");
             writer.flush();
