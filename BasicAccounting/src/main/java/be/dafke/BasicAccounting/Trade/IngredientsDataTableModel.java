@@ -18,7 +18,7 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class IngredientsDataTableModel extends SelectableTableModel<Ingredient> {
-	private final Ingredients ingredients;
+	private Ingredients ingredients;
 	public static int NAME_COL = 0;
 	public static int UNIT_COL = 1;
 	public static int ALLERGENES_COL = 2;
@@ -29,9 +29,8 @@ public class IngredientsDataTableModel extends SelectableTableModel<Ingredient> 
 	private List<Integer> editableColumns = new ArrayList<>();
 
 
-	public IngredientsDataTableModel(Component parent, Ingredients ingredients) {
+	public IngredientsDataTableModel(Component parent) {
 		this.parent = parent;
-		this.ingredients = ingredients;
 		setColumnNames();
 		setColumnClasses();
 		setEditableColumns();
@@ -120,6 +119,10 @@ public class IngredientsDataTableModel extends SelectableTableModel<Ingredient> 
 			}
 		}
 		fireTableDataChanged();
+	}
+
+	public void setIngredients(Ingredients ingredients) {
+		this.ingredients = ingredients;
 	}
 
 	@Override

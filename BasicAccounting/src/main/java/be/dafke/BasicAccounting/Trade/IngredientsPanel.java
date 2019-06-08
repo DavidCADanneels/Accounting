@@ -15,17 +15,23 @@ import static java.util.ResourceBundle.getBundle;
 
 public class IngredientsPanel extends JPanel {
     private final IngredientsDataTableModel ingredientsDataTableModel;
+    private final AllergenesDataTableModel allergenesDataTableModel;
 
     public IngredientsPanel(Ingredients ingredients) {
-        ingredientsDataTableModel = new IngredientsDataTableModel(this, ingredients);
-        SelectableTable<Ingredient> table = new SelectableTable<>(ingredientsDataTableModel);
-        table.setPreferredScrollableViewportSize(new Dimension(500, 200));
+        ingredientsDataTableModel = new IngredientsDataTableModel(this);
+        ingredientsDataTableModel.setIngredients(ingredients);
+        SelectableTable<Ingredient> ingredientsTable = new SelectableTable<>(ingredientsDataTableModel);
+        ingredientsTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
+
+        allergenesDataTableModel = new AllergenesDataTableModel();
+        SelectableTable<Allergene> allergenesTable = new SelectableTable<>(allergenesDataTableModel);
+        allergenesTable.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
         JComboBox<Unit> comboBox = new JComboBox<>(Unit.values());
-        TableColumn unitColumn = table.getColumnModel().getColumn(IngredientsDataTableModel.UNIT_COL);
+        TableColumn unitColumn = ingredientsTable.getColumnModel().getColumn(IngredientsDataTableModel.UNIT_COL);
         unitColumn.setCellEditor(new DefaultCellEditor(comboBox));
 
-        JScrollPane scrollPane = new JScrollPane(table);
+        JScrollPane scrollPane = new JScrollPane(ingredientsTable);
         setLayout(new BorderLayout());
         add(scrollPane, BorderLayout.CENTER);
 
@@ -38,7 +44,7 @@ public class IngredientsPanel extends JPanel {
             if (name != null) {
                 try {
                     ingredients.addBusinessObject(new Ingredient(name, Unit.PIECE));
-                    ingredientsDataTableModel.fireTableDataChanged();
+                    allergenesDataTableModel.fireTableDataChanged();
                 } catch (EmptyNameException ex) {
                     ActionUtils.showErrorMessage(this, ActionUtils.INGREDIENT_NAME_EMPTY);
                 } catch (DuplicateNameException ex) {

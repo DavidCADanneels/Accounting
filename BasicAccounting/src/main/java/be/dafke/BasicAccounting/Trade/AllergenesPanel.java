@@ -17,7 +17,8 @@ public class AllergenesPanel extends JPanel {
     private final AllergenesDataTableModel allergenesDataTableModel;
 
     public AllergenesPanel(Allergenes allergenes) {
-        allergenesDataTableModel = new AllergenesDataTableModel(this, allergenes);
+        allergenesDataTableModel = new AllergenesDataTableModel();
+        allergenesDataTableModel.setAllergenes(allergenes);
         SelectableTable<Allergene> table = new SelectableTable<>(allergenesDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
 

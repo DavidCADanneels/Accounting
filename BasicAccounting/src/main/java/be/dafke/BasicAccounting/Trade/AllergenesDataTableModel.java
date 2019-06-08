@@ -15,20 +15,16 @@ import static java.util.ResourceBundle.getBundle;
  */
 
 public class AllergenesDataTableModel extends SelectableTableModel<Allergene> {
-	private final Allergenes allergenes;
+	private Allergenes allergenes;
 	public static int ID_COL = 0;
 	public static int NAME_COL = 1;
 	public static int DESC_COL = 2;
 	public static int NR_OF_COL = 3;
-	private final Component parent;
 	private HashMap<Integer,String> columnNames = new HashMap<>();
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private List<Integer> editableColumns = new ArrayList<>();
 
-
-	public AllergenesDataTableModel(Component parent, Allergenes allergenes) {
-		this.parent = parent;
-		this.allergenes = allergenes;
+	public AllergenesDataTableModel() {
 		setColumnNames();
 		setColumnClasses();
 		setEditableColumns();
@@ -106,6 +102,10 @@ public class AllergenesDataTableModel extends SelectableTableModel<Allergene> {
 			allergene.setDescription((String)value);
 		}
 		fireTableDataChanged();
+	}
+
+	public void setAllergenes(Allergenes allergenes) {
+		this.allergenes = allergenes;
 	}
 
 	@Override
