@@ -12,6 +12,7 @@ import java.util.logging.Logger;
 import java.util.stream.Collectors;
 
 import static be.dafke.BusinessModelDao.AccountsIO.writeAccounts;
+import static be.dafke.BusinessModelDao.AllergenesIO.writeAllergenes;
 import static be.dafke.BusinessModelDao.ArticlesIO.writeArticles;
 import static be.dafke.BusinessModelDao.BalancesIO.writeBalances;
 import static be.dafke.BusinessModelDao.ContactsIO.writeContacts;
@@ -160,6 +161,7 @@ public class XMLWriter {
         }
         if(accounting.isTradeAccounting()) {
             writeArticles(accounting);
+            writeAllergenes(accounting);
             writeIngredientes(accounting);
             writeStock(accounting);
             writeStockTransactions(accounting);

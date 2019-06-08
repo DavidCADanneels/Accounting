@@ -24,6 +24,7 @@ public class Accounting extends BusinessObject{
     private VATFields vatFields;
     private Articles articles;
     private Ingredients ingredients;
+    private Allergenes allergenes;
     private Contact companyContact=null;
     private Contact contactNoInvoice=null;
     private CounterParties counterParties;
@@ -67,6 +68,8 @@ public class Accounting extends BusinessObject{
         articles = new Articles();
 
         ingredients = new Ingredients();
+
+        allergenes = new Allergenes();
 
         stockTransactions = new StockTransactions();
 
@@ -147,6 +150,10 @@ public class Accounting extends BusinessObject{
 
     public Ingredients getIngredients() {
         return ingredients;
+    }
+
+    public Allergenes getAllergenes() {
+        return allergenes;
     }
 
     public PurchaseOrders getPurchaseOrders() {

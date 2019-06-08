@@ -21,7 +21,7 @@ public class IngredientsGUI extends JFrame {
         pack();
     }
 
-    public static IngredientsGUI showArticles(Ingredients ingredients) {
+    public static IngredientsGUI showIngredients(Ingredients ingredients) {
         IngredientsGUI gui = articlesGuis.get(ingredients);
         if (gui == null) {
             gui = new IngredientsGUI(ingredients);

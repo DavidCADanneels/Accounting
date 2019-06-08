@@ -14,6 +14,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import static be.dafke.BusinessModelDao.AccountsIO.readAccounts;
+import static be.dafke.BusinessModelDao.AllergenesIO.readAllergenes;
 import static be.dafke.BusinessModelDao.ArticlesIO.readArticles;
 import static be.dafke.BusinessModelDao.BalancesIO.readBalances;
 import static be.dafke.BusinessModelDao.ContactsIO.readContacts;
@@ -217,6 +218,7 @@ public class XMLReader {
             }
             if (accounting.isTradeAccounting()) {
                 readStockSettings(accounting);
+                readAllergenes(accounting);
                 readIngredients(accounting);
                 readArticles(accounting);
                 readPurchaseOrders(accounting);
