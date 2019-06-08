@@ -34,12 +34,16 @@ public class IngredientsPanel extends JPanel {
         JScrollPane ingredientsScrollPane = new JScrollPane(ingredientsTable);
         JPanel ingredientsPanel = new JPanel(new BorderLayout());
         ingredientsPanel.add(ingredientsScrollPane, BorderLayout.CENTER);
+
         JScrollPane allergenesScrollPane = new JScrollPane(allergenesTable);
         JPanel allergenesPanel = new JPanel(new BorderLayout());
         allergenesPanel.add(allergenesScrollPane, BorderLayout.CENTER);
+
         JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT);
         splitPane.add(ingredientsPanel);
         splitPane.add(allergenesScrollPane);
+
+        setLayout(new BorderLayout());
         add(splitPane, BorderLayout.CENTER);
 
         JButton add = new JButton("Add Ingredient");
