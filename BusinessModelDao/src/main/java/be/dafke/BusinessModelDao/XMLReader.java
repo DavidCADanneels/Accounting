@@ -40,7 +40,7 @@ public class XMLReader {
 
     public static final String VAT_ACCOUNTING = "VatAccounting";
     public static final String CONTACTS_ACCOUNTING = "ContactsAccounting";
-    public static final String DELIVEROO_ACCOUNTING = "DeliverooAccounting";
+    public static final String MEAL_ORDER_ACCOUNTING = "MealOrderAccounting";
     public static final String PROJECTS_ACCOUNTING = "ProjectsAccounting";
     public static final String TRADE_ACCOUNTING = "TradeAccounting";
     public static final String MORTGAGES_ACCOUNTING = "MortgagesAccounting";
@@ -104,9 +104,9 @@ public class XMLReader {
             boolean tradeAccounting = Boolean.valueOf(tradeAccountingString);
             accounting.setTradeAccounting(tradeAccounting);
 
-            String deliverooAccountingString = getValue(element, DELIVEROO_ACCOUNTING);
-            boolean deliverooAccounting = Boolean.valueOf(deliverooAccountingString);
-            accounting.setDeliverooAccounting(deliverooAccounting);
+            String mealsAccountingString = getValue(element, MEAL_ORDER_ACCOUNTING);
+            boolean mealsAccounting = Boolean.valueOf(mealsAccountingString);
+            accounting.setMealsAccounting(mealsAccounting);
 
             String mortgagesAccountingString = getValue(element, MORTGAGES_ACCOUNTING);
             boolean mortgagesAccounting = Boolean.valueOf(mortgagesAccountingString);
@@ -179,26 +179,6 @@ public class XMLReader {
             readVATTransactions(accounting);
         }
         readJournals(accounting);
-//        readBalances(accounting);
-//        if (accounting.isMortgagesAccounting()) {
-//            readMortgages(accounting);
-//        }
-//        if (accounting.isProjectsAccounting()) {
-//            readProjects(accounting);
-//        }
-//        if (accounting.isDeliverooAccounting()) {
-//            readDeliveroo(accounting);
-//        }
-//        if (accounting.isContactsAccounting()) {
-//            readContacts(accounting);
-//        }
-//        if (accounting.isTradeAccounting()){
-//            readArticles(accounting);
-//        }
-//        if (accounting.isDeliverooAccounting()){
-//            readMeals(accounting);
-//            readMealOrders(accounting);
-//        }
     }
 
     public static void readAccountingDetails(Accounting accounting) {
@@ -227,7 +207,7 @@ public class XMLReader {
                 readPromoOrders(accounting);
                 readStockTransactions(accounting);
             }
-            if (accounting.isDeliverooAccounting()){
+            if (accounting.isMealsAccounting()){
                 readMeals(accounting);
                 readMealOrders(accounting);
             }

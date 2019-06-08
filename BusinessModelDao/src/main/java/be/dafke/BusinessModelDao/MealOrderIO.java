@@ -23,31 +23,31 @@ public class MealOrderIO {
         Journals journals = accounting.getJournals();
 
         MealOrders mealOrders = accounting.getMealOrders();
-        DeliverooMeals deliverooMeals = accounting.getDeliverooMeals();
+        Meals meals = accounting.getMeals();
 
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+MEAL_ORDERS + XML_EXTENSION);
         if(xmlFile.exists()) {
             Element rootElement = getRootElement(xmlFile, MEAL_ORDERS);
-            String deliverooServiceJournalString = getValue(rootElement, DELIVEROO_SERVICE_JOURNAL);
-            String deliverooSalesJournalString = getValue(rootElement, DELIVEROO_SALES_JOURNAL);
-            String deliverooBalanceAccountString = getValue(rootElement, DELIVEROO_BALANCE_ACCOUNT);
-            String deliverooServiceAccountString = getValue(rootElement, DELIVEROO_SERVICE_ACCOUNT);
-            String deliverooRevenueAccountString = getValue(rootElement, DELIVEROO_REVENUE_ACCOUNT);
+            String mealOrderServiceJournalString = getValue(rootElement, MEAL_ORDER_SERVICE_JOURNAL);
+            String mealOrderSalesJournalString = getValue(rootElement, MEAL_ORDER_SALES_JOURNAL);
+            String mealOrderBalanceAccountString = getValue(rootElement, MEAL_ORDER_BALANCE_ACCOUNT);
+            String mealOrderServiceAccountString = getValue(rootElement, MEAL_ORDER_SERVICE_ACCOUNT);
+            String mealOrderRevenueAccountString = getValue(rootElement, MEAL_ORDER_REVENUE_ACCOUNT);
 
-            if (deliverooServiceJournalString != null) {
-                mealOrders.setDeliverooServiceJournal(journals.getBusinessObject(deliverooServiceJournalString));
+            if (mealOrderServiceJournalString != null) {
+                mealOrders.setMealOrderServiceJournal(journals.getBusinessObject(mealOrderServiceJournalString));
             }
-            if (deliverooSalesJournalString != null) {
-                mealOrders.setDeliverooSalesJournal(journals.getBusinessObject(deliverooSalesJournalString));
+            if (mealOrderSalesJournalString != null) {
+                mealOrders.setMealOrderSalesJournal(journals.getBusinessObject(mealOrderSalesJournalString));
             }
-            if (deliverooBalanceAccountString != null) {
-                mealOrders.setDeliverooBalanceAccount(accounts.getBusinessObject(deliverooBalanceAccountString));
+            if (mealOrderBalanceAccountString != null) {
+                mealOrders.setMealOrderBalanceAccount(accounts.getBusinessObject(mealOrderBalanceAccountString));
             }
-            if (deliverooServiceAccountString != null) {
-                mealOrders.setDeliverooServiceAccount(accounts.getBusinessObject(deliverooServiceAccountString));
+            if (mealOrderServiceAccountString != null) {
+                mealOrders.setMealOrderServiceAccount(accounts.getBusinessObject(mealOrderServiceAccountString));
             }
-            if (deliverooRevenueAccountString != null) {
-                mealOrders.setDeliverooRevenueAccount(accounts.getBusinessObject(deliverooRevenueAccountString));
+            if (mealOrderRevenueAccountString != null) {
+                mealOrders.setMealOrderRevenueAccount(accounts.getBusinessObject(mealOrderRevenueAccountString));
             }
 
             for (Element mealOrderElement : getChildren(rootElement, MEAL_ORDER)) {
@@ -64,12 +64,12 @@ public class MealOrderIO {
 
                 for (Element element : getChildren(mealOrderElement, MEAL)) {
                     String mealNr = getValue(element, MEAL_NR);
-                    DeliverooMeal deliverooMeal = deliverooMeals.getBusinessObject(mealNr);
+                    Meal meal = meals.getBusinessObject(mealNr);
 
                     String nrSting = getValue(element, NR_OF_ITEMS);
                     Integer nr = Utils.parseInt(nrSting);
 
-                    MealOrderItem mealOrderItem = new MealOrderItem(nr, deliverooMeal);
+                    MealOrderItem mealOrderItem = new MealOrderItem(nr, meal);
 
                     mealOrder.addBusinessObject(mealOrderItem);
                 }
@@ -88,14 +88,14 @@ public class MealOrderIO {
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(MEAL_ORDERS, 2));
-            Journal deliverooSalesJournal = mealOrders.getDeliverooSalesJournal();
-            Journal deliverooServiceJournal = mealOrders.getDeliverooServiceJournal();
+            Journal mealOrderSalesJournal = mealOrders.getMealOrderSalesJournal();
+            Journal mealOrderServiceJournal = mealOrders.getMealOrderServiceJournal();
             writer.write(
-                    "  <" + DELIVEROO_SALES_JOURNAL + ">" + (deliverooSalesJournal == null ? "null" : deliverooSalesJournal.getName()) + "</" + DELIVEROO_SALES_JOURNAL + ">\n" +
-                            "  <" + DELIVEROO_SERVICE_JOURNAL + ">" + (deliverooServiceJournal == null ? "null" : deliverooServiceJournal.getName()) + "</" + DELIVEROO_SERVICE_JOURNAL + ">\n" +
-                            "  <" + DELIVEROO_SERVICE_ACCOUNT + ">" + mealOrders.getDeliverooServiceAccount() + "</" + DELIVEROO_SERVICE_ACCOUNT + ">\n" +
-                            "  <" + DELIVEROO_REVENUE_ACCOUNT + ">" + mealOrders.getDeliverooRevenueAccount() + "</" + DELIVEROO_REVENUE_ACCOUNT + ">\n" +
-                            "  <" + DELIVEROO_BALANCE_ACCOUNT + ">" + mealOrders.getDeliverooBalanceAccount() + "</" + DELIVEROO_BALANCE_ACCOUNT + ">\n"
+                    "  <" + MEAL_ORDER_SALES_JOURNAL + ">" + (mealOrderSalesJournal == null ? "null" : mealOrderSalesJournal.getName()) + "</" + MEAL_ORDER_SALES_JOURNAL + ">\n" +
+                            "  <" + MEAL_ORDER_SERVICE_JOURNAL + ">" + (mealOrderServiceJournal == null ? "null" : mealOrderServiceJournal.getName()) + "</" + MEAL_ORDER_SERVICE_JOURNAL + ">\n" +
+                            "  <" + MEAL_ORDER_SERVICE_ACCOUNT + ">" + mealOrders.getMealOrderServiceAccount() + "</" + MEAL_ORDER_SERVICE_ACCOUNT + ">\n" +
+                            "  <" + MEAL_ORDER_REVENUE_ACCOUNT + ">" + mealOrders.getMealOrderRevenueAccount() + "</" + MEAL_ORDER_REVENUE_ACCOUNT + ">\n" +
+                            "  <" + MEAL_ORDER_BALANCE_ACCOUNT + ">" + mealOrders.getMealOrderBalanceAccount() + "</" + MEAL_ORDER_BALANCE_ACCOUNT + ">\n"
             );
             for (MealOrder order : mealOrders.getBusinessObjects()) {
                 writer.write(
@@ -107,13 +107,13 @@ public class MealOrderIO {
                                  "    <" + TOTAL_PRICE + ">" + order.getTotalPrice() + "</" + TOTAL_PRICE + ">\n"
                 );
                 for (MealOrderItem orderItem : order.getBusinessObjects()) {
-                    DeliverooMeal deliverooMeal = orderItem.getDeliverooMeal();
+                    Meal meal = orderItem.getMeal();
 
                     writer.write(
                             "    <" + MEAL + ">\n" +
                                 "      <" + NR_OF_ITEMS + ">" + orderItem.getNumberOfItems() + "</" + NR_OF_ITEMS + ">\n" +
-                                "      <" + MEAL_NR + ">" + deliverooMeal.getName() + "</" + MEAL_NR + ">\n" +
-                                "      <" + NAME + ">" + deliverooMeal.getMealName() + "</" + NAME + ">\n" +
+                                "      <" + MEAL_NR + ">" + meal.getName() + "</" + MEAL_NR + ">\n" +
+                                "      <" + NAME + ">" + meal.getMealName() + "</" + NAME + ">\n" +
                                 "    </" + MEAL + ">\n"
                     );
                 }

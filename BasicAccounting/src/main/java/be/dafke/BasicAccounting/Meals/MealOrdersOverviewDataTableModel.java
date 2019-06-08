@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting.Deliveroo;
+package be.dafke.BasicAccounting.Meals;
 
 import be.dafke.BusinessModel.*;
 import be.dafke.ComponentModel.SelectableTableModel;
@@ -16,7 +16,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class DeliverooOrdersOverviewDataTableModel extends SelectableTableModel<MealOrder> {
+public class MealOrdersOverviewDataTableModel extends SelectableTableModel<MealOrder> {
 	public static int ID_COL = 0;
 	public static int DATE_COL = 1;
 	public static int DESCRIPTION_COL = 2;
@@ -27,7 +27,7 @@ public class DeliverooOrdersOverviewDataTableModel extends SelectableTableModel<
 
 	MealOrders mealOrders;
 
-	public DeliverooOrdersOverviewDataTableModel(MealOrders mealOrders) {
+	public MealOrdersOverviewDataTableModel(MealOrders mealOrders) {
 		this.mealOrders = mealOrders;
 		setColumnNames();
 		setColumnClasses();

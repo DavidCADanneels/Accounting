@@ -1,6 +1,6 @@
-package be.dafke.BasicAccounting.Deliveroo;
+package be.dafke.BasicAccounting.Meals;
 
-import be.dafke.BusinessModel.DeliverooMeal;
+import be.dafke.BusinessModel.Meal;
 import be.dafke.BusinessModel.MealOrder;
 import be.dafke.BusinessModel.MealOrderItem;
 import be.dafke.ComponentModel.SelectableTableModel;
@@ -16,7 +16,7 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class DeliverooOrderViewDataTableModel extends SelectableTableModel<MealOrderItem> {
+public class MealOrderViewDataTableModel extends SelectableTableModel<MealOrderItem> {
 	public static int NR_COL = 0;
 	public static int ID_COL = 1;
 	public static int NAME_COL = 2;
@@ -28,7 +28,7 @@ public class DeliverooOrderViewDataTableModel extends SelectableTableModel<MealO
 	protected HashMap<Integer,Class> columnClasses = new HashMap<>();
 	protected MealOrder mealOrder;
 
-	public DeliverooOrderViewDataTableModel() {
+	public MealOrderViewDataTableModel() {
 		setColumnNames();
 		setColumnClasses();
 	}
@@ -64,22 +64,22 @@ public class DeliverooOrderViewDataTableModel extends SelectableTableModel<MealO
 		if (col == NR_COL) {
 			return mealOrderItem.getNumberOfItems();
 		}
-		DeliverooMeal deliverooMeal = mealOrderItem.getDeliverooMeal();
-		if(deliverooMeal==null) return null;
+		Meal meal = mealOrderItem.getMeal();
+		if(meal ==null) return null;
 		if (col == ID_COL) {
-			return deliverooMeal.getName();
+			return meal.getName();
 		}
 		if (col == NAME_COL) {
-			return deliverooMeal.getMealName();
+			return meal.getMealName();
 		}
 //		if (col == DESCRIPTION_COL) {
-//			return deliverooMeal.getDescription();
+//			return meal.getDescription();
 //		}
 		if (col == SALES_PRICE_SINGLE_COL) {
-			return deliverooMeal.getSalesPrice();
+			return meal.getSalesPrice();
 		}
 		if (col == SALES_PRICE_TOTAL_COL) {
-			BigDecimal salesPrice = deliverooMeal.getSalesPrice();
+			BigDecimal salesPrice = meal.getSalesPrice();
 			return salesPrice.multiply(new BigDecimal(mealOrderItem.getNumberOfItems()));
 		}
 		return null;

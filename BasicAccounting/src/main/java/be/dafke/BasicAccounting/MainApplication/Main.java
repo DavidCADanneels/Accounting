@@ -12,7 +12,7 @@ import be.dafke.BasicAccounting.Coda.CodaMenu;
 import be.dafke.BasicAccounting.Contacts.ContactSelectorDialog;
 import be.dafke.BasicAccounting.Contacts.ContactsGUI;
 import be.dafke.BasicAccounting.Contacts.ContactsMenu;
-import be.dafke.BasicAccounting.Deliveroo.DeliverooMenu;
+import be.dafke.BasicAccounting.Meals.MealsMenu;
 import be.dafke.BasicAccounting.Trade.*;
 import be.dafke.BasicAccounting.Journals.*;
 import be.dafke.BasicAccounting.Mortgages.MorgagesMenu;
@@ -63,7 +63,7 @@ public class Main {
     private static MorgagesMenu morgagesMenu;
     private static ContactsMenu contactsMenu;
     private static GoodsMenu tradeMenu;
-    private static DeliverooMenu deliverooMenu;
+    private static MealsMenu mealsMenu;
     private static ProjectsMenu projectsMenu;
     private static CodaMenu codaMenu;
     private static VATMenu vatMenu;
@@ -145,7 +145,7 @@ public class Main {
         balancesMenu = new BalancesMenu();
         contactsMenu = new ContactsMenu();
         tradeMenu = new GoodsMenu();
-        deliverooMenu = new DeliverooMenu();
+        mealsMenu = new MealsMenu();
         morgagesMenu = new MorgagesMenu();
         projectsMenu = new ProjectsMenu();
         codaMenu = new CodaMenu();
@@ -160,7 +160,7 @@ public class Main {
         menuBar.add(contactsMenu);
         menuBar.add(vatMenu);
         menuBar.add(tradeMenu);
-        menuBar.add(deliverooMenu);
+        menuBar.add(mealsMenu);
         menuBar.add(codaMenu);
     }
 
@@ -220,7 +220,7 @@ public class Main {
         projectsMenu.setAccounting(accounting);
         morgagesMenu.setAccounting(accounting);
         tradeMenu.setAccounting(accounting);
-        deliverooMenu.setAccounting(accounting);
+        mealsMenu.setAccounting(accounting);
         codaMenu.setAccounting(accounting);
         contactsMenu.setAccounting(accounting);
         accountsMenu.setAccounting(accounting);
@@ -235,7 +235,7 @@ public class Main {
             tradeMenu.setVisible(accounting.isTradeAccounting());
             contactsMenu.setVisible(accounting.isContactsAccounting());
             projectsMenu.setVisible(accounting.isProjectsAccounting());
-            deliverooMenu.setVisible(accounting.isDeliverooAccounting());
+            mealsMenu.setVisible(accounting.isMealsAccounting());
             mortgagesPanel.setVisible(accounting.isMortgagesAccounting());
 
         }

@@ -1,26 +1,26 @@
-package be.dafke.BasicAccounting.Deliveroo;
+package be.dafke.BasicAccounting.Meals;
 
 import be.dafke.BusinessModel.Accounting;
 
 import javax.swing.*;
 
-public class DeliverooMenu extends JMenu {
+public class MealsMenu extends JMenu {
     private JMenuItem ordersOverview, meals;
     private Accounting accounting;
 
-    public DeliverooMenu() {
-        super("Deliveroo");
-        meals = new JMenuItem("Meals");
+    public MealsMenu() {
+        super("Meals");
+        meals = new JMenuItem("Available Meals");
         meals.addActionListener(e -> {
             MealsGUI mealsGUI = MealsGUI.showMeals(accounting);
             mealsGUI.setLocation(getLocationOnScreen());
             mealsGUI.setVisible(true);
         });
-        ordersOverview = new JMenuItem("Daily Orders");
+        ordersOverview = new JMenuItem("Meal Orders");
         ordersOverview.addActionListener(e -> {
-            DeliverooOrdersOverviewGUI deliverooOrders = DeliverooOrdersOverviewGUI.getInstance(accounting);
-            deliverooOrders.setLocation(getLocationOnScreen());
-            deliverooOrders.setVisible(true);
+            MealOrdersOverviewGUI mealOrdersOverviewGUI = MealOrdersOverviewGUI.getInstance(accounting);
+            mealOrdersOverviewGUI.setLocation(getLocationOnScreen());
+            mealOrdersOverviewGUI.setVisible(true);
         });
         add(meals);
         add(ordersOverview);

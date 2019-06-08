@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting.Deliveroo;
+package be.dafke.BasicAccounting.Meals;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
 import be.dafke.BusinessModel.*;
@@ -18,8 +18,8 @@ import static java.util.ResourceBundle.getBundle;
  * @author David Danneels
  */
 
-public class MealsDataTableModel extends SelectableTableModel<DeliverooMeal> {
-	private final DeliverooMeals deliverooMeals;
+public class MealsDataTableModel extends SelectableTableModel<Meal> {
+	private final Meals meals;
 	public static int NR_COL = 0;
 	public static int NAME_COL = 1;
 	public static int SALES_PRICE_COL = 2;
@@ -31,9 +31,9 @@ public class MealsDataTableModel extends SelectableTableModel<DeliverooMeal> {
 	private HashMap<Integer,Class> columnClasses = new HashMap<>();
 	private List<Integer> editableColumns = new ArrayList<>();
 
-	public MealsDataTableModel(Component parent, DeliverooMeals deliverooMeals) {
+	public MealsDataTableModel(Component parent, Meals meals) {
 		this.parent = parent;
-		this.deliverooMeals = deliverooMeals;
+		this.meals = meals;
 		setColumnNames();
 		setColumnClasses();
 		setEditableColumns();
@@ -64,7 +64,7 @@ public class MealsDataTableModel extends SelectableTableModel<DeliverooMeal> {
 	// DE GET METHODEN
 // ===============
 	public Object getValueAt(int row, int col) {
-		DeliverooMeal meal = getObject(row, col);
+		Meal meal = getObject(row, col);
 		if(meal==null) return null;
 		if (col == NR_COL) {
 			return meal.getName();
@@ -89,10 +89,10 @@ public class MealsDataTableModel extends SelectableTableModel<DeliverooMeal> {
 	}
 
 	public int getRowCount() {
-        if(deliverooMeals == null){
+        if(meals == null){
             return 0;
         }
-		return deliverooMeals.getBusinessObjects().size();
+		return meals.getBusinessObjects().size();
 	}
 
 	@Override
@@ -114,7 +114,7 @@ public class MealsDataTableModel extends SelectableTableModel<DeliverooMeal> {
 // ===============
 	@Override
 	public void setValueAt(Object value, int row, int col) {
-		DeliverooMeal meal = getObject(row,col);
+		Meal meal = getObject(row,col);
 		if(col == SALES_PRICE_COL){
 			BigDecimal purchasePrice = (BigDecimal) value;
 			meal.setSalesPrice(purchasePrice.setScale(2));
@@ -131,7 +131,7 @@ public class MealsDataTableModel extends SelectableTableModel<DeliverooMeal> {
 			String newName = (String) value;
 			if (newName != null && !oldName.trim().equals(newName.trim())) {
 				try {
-					deliverooMeals.modifyName(oldName, newName);
+					meals.modifyName(oldName, newName);
 				} catch (DuplicateNameException e) {
 					ActionUtils.showErrorMessage(parent, ActionUtils.ARTICLE_DUPLICATE_NAME, newName.trim());
 				} catch (EmptyNameException e) {
@@ -143,7 +143,7 @@ public class MealsDataTableModel extends SelectableTableModel<DeliverooMeal> {
 	}
 
 	@Override
-	public DeliverooMeal getObject(int row, int col) {
-		return deliverooMeals.getBusinessObjects().get(row);
+	public Meal getObject(int row, int col) {
+		return meals.getBusinessObjects().get(row);
 	}
 }

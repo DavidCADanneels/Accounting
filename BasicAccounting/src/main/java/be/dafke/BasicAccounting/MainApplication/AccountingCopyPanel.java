@@ -8,7 +8,7 @@ import javax.swing.*;
 
 public class AccountingCopyPanel extends JPanel {
 
-    private final JCheckBox copyAccounts, copyJournals, copyContacts, copyVat, copyTrade, copyDeliveroo;
+    private final JCheckBox copyAccounts, copyJournals, copyContacts, copyVat, copyTrade, copyMealOrders;
     private AccountingSettingsPanel accountingSettingsPanel;
     private Accounting copyFrom;
     private Accounting newAccounting;
@@ -20,21 +20,21 @@ public class AccountingCopyPanel extends JPanel {
         copyContacts = new JCheckBox("copy Contacts");
         copyVat = new JCheckBox("copy VAT Settings");
         copyTrade = new JCheckBox("copy Trade Settings");
-        copyDeliveroo = new JCheckBox("copy Deliveroo Settings");
+        copyMealOrders = new JCheckBox("copy Meal Order Settings");
 
         copyAccounts.addActionListener(e -> updateCopyAccountsSelected());
         copyJournals.addActionListener(e -> updateCopyJournalsSelected());
         copyContacts.addActionListener(e -> updateCopyContactsSelected());
         copyVat.addActionListener(e -> updateCopyVATSelected());
         copyTrade.addActionListener(e -> updateCopyTradeSelected());
-        copyDeliveroo.addActionListener(e -> updateCopyDeliverooSelected());
+        copyMealOrders.addActionListener(e -> updateCopyMealSelected());
 
         copyAccounts.setEnabled(false);
         copyJournals.setEnabled(false);
         copyContacts.setEnabled(false);
         copyVat.setEnabled(false);
         copyTrade.setEnabled(false);
-        copyDeliveroo.setEnabled(false);
+        copyMealOrders.setEnabled(false);
 
         JPanel panel = new JPanel();
         panel.setLayout(new BoxLayout(panel, BoxLayout.Y_AXIS));
@@ -43,7 +43,7 @@ public class AccountingCopyPanel extends JPanel {
         panel.add(copyContacts);
         panel.add(copyVat);
         panel.add(copyTrade);
-        panel.add(copyDeliveroo);
+        panel.add(copyMealOrders);
 
         add(panel);
     }
@@ -65,7 +65,7 @@ public class AccountingCopyPanel extends JPanel {
         selectCopyContacts(copyContacts.isSelected());
         selectCopyVat(copyVat.isSelected());
         selectCopyTrade(copyTrade.isSelected());
-        selectCopyDeliveroo(copyDeliveroo.isSelected());
+        selectCopyMeals(copyMealOrders.isSelected());
     }
 
     // CREATE
@@ -138,14 +138,14 @@ public class AccountingCopyPanel extends JPanel {
         }
     }
 
-    private void copyDeliverooMeals() {
-        DeliverooMeals deliverooMealsFrom = copyFrom.getDeliverooMeals();
-        DeliverooMeals deliverooMealsTo = newAccounting.getDeliverooMeals();
-        deliverooMealsTo.clear();
-        deliverooMealsFrom.getBusinessObjects().forEach(deliverooMeal -> {
-            DeliverooMeal newMeal = new DeliverooMeal(deliverooMeal);
+    private void copyMeals() {
+        Meals mealsFrom = copyFrom.getMeals();
+        Meals mealsTo = newAccounting.getMeals();
+        mealsTo.clear();
+        mealsFrom.getBusinessObjects().forEach(meal -> {
+            Meal newMeal = new Meal(meal);
             try {
-                deliverooMealsTo.addBusinessObject(newMeal);
+                mealsTo.addBusinessObject(newMeal);
             } catch (EmptyNameException e){
                 e.printStackTrace();
             } catch (DuplicateNameException e) {
@@ -208,7 +208,7 @@ public class AccountingCopyPanel extends JPanel {
             }
         } else {
             selectCopyTrade(false);
-            selectCopyDeliveroo(false);
+            selectCopyMeals(false);
             accountingSettingsPanel.copyVatSettings(null);
         }
     }
@@ -231,20 +231,20 @@ public class AccountingCopyPanel extends JPanel {
 
     }
 
-    private void updateCopyDeliverooSelected() {
-        boolean selected = copyDeliveroo.isSelected();
+    private void updateCopyMealSelected() {
+        boolean selected = copyMealOrders.isSelected();
         if(selected){
             selectCopyVat(true);
-            accountingSettingsPanel.setDeliveooSelected(true);
+            accountingSettingsPanel.setMealsSelected(true);
             if(copyFrom!=null){
                 // TODO: need separate check box to copy Meals?
-                copyDeliverooMeals();
-                accountingSettingsPanel.copyDeliverooSettings(copyFrom);
+                copyMeals();
+                accountingSettingsPanel.copyMealSettings(copyFrom);
             } else {
-                accountingSettingsPanel.copyDeliverooSettings(null);
+                accountingSettingsPanel.copyMealSettings(null);
             }
         } else {
-            accountingSettingsPanel.copyDeliverooSettings(null);
+            accountingSettingsPanel.copyMealSettings(null);
         }
     }
 
@@ -282,10 +282,10 @@ public class AccountingCopyPanel extends JPanel {
         updateCopyTradeSelected();
     }
 
-    public void selectCopyDeliveroo(boolean selected) {
-        boolean enabled = enableCopyDeliveroo();
-        copyDeliveroo.setSelected(enabled && selected);
-        updateCopyDeliverooSelected();
+    public void selectCopyMeals(boolean selected) {
+        boolean enabled = enableCopyMeals();
+        copyMealOrders.setSelected(enabled && selected);
+        updateCopyMealSelected();
     }
 
     // ENABLE
@@ -311,10 +311,10 @@ public class AccountingCopyPanel extends JPanel {
         return enabled;
     }
 
-    public boolean enableCopyDeliveroo() {
-        boolean enabled = copyFrom!=null && copyFrom.isDeliverooAccounting() && newAccounting.isDeliverooAccounting();
-        copyDeliveroo.setEnabled(enabled);
-        if(!enabled) copyDeliveroo.setSelected(false);
+    public boolean enableCopyMeals() {
+        boolean enabled = copyFrom!=null && copyFrom.isMealsAccounting() && newAccounting.isMealsAccounting();
+        copyMealOrders.setEnabled(enabled);
+        if(!enabled) copyMealOrders.setSelected(false);
         return enabled;
     }
 

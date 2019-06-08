@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting.Deliveroo;
+package be.dafke.BasicAccounting.Meals;
 
 import be.dafke.BusinessModel.*;
 
@@ -8,14 +8,14 @@ import java.util.List;
  * @author David Danneels
  */
 
-public class DeliverooOrderCreateDataTableModel extends DeliverooOrderViewDataTableModel {
-	private final DeliverooMeals deliverooMeals;
+public class MealOrderCreateDataTableModel extends MealOrderViewDataTableModel {
+	private final Meals meals;
 	private final Accounting accounting;
 
-	public DeliverooOrderCreateDataTableModel(Accounting accounting) {
+	public MealOrderCreateDataTableModel(Accounting accounting) {
 		super();
 		this.accounting = accounting;
-		deliverooMeals = accounting.getDeliverooMeals();
+		meals = accounting.getMeals();
 	}
 
 	@Override
@@ -25,24 +25,24 @@ public class DeliverooOrderCreateDataTableModel extends DeliverooOrderViewDataTa
 			MealOrderItem mealOrderItem = getObject(row, col);
 			mealOrderItem.setNumberOfItems(numberOfItems);
 			mealOrder.setOrderItem(mealOrderItem);
-			DeliverooOrderCreateGUI.calculateTotalsForAll(accounting);
+			MealOrderCreateGUI.calculateTotalsForAll(accounting);
 		}
 	}
 
 	@Override
 	public int getRowCount() {
-		if(deliverooMeals == null) return 0;
-		List<DeliverooMeal> businessObjects = deliverooMeals.getBusinessObjects();
+		if(meals == null) return 0;
+		List<Meal> businessObjects = meals.getBusinessObjects();
 		if(businessObjects == null || businessObjects.size() == 0) return 0;
 		return businessObjects.size();
 	}
 
 	@Override
 	public MealOrderItem getObject(int row, int col) {
-		List<DeliverooMeal> businessObjects = deliverooMeals.getBusinessObjects();
+		List<Meal> businessObjects = meals.getBusinessObjects();
 		if(businessObjects == null || businessObjects.size() == 0) return null;
-		DeliverooMeal deliverooMeal = businessObjects.get(row);
-		MealOrderItem orderItem = mealOrder.getBusinessObject(deliverooMeal.getName());
+		Meal meal = businessObjects.get(row);
+		MealOrderItem orderItem = mealOrder.getBusinessObject(meal.getName());
 		return orderItem;
 	}
 

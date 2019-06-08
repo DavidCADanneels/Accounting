@@ -1,18 +1,18 @@
-package be.dafke.BasicAccounting.Deliveroo;
+package be.dafke.BasicAccounting.Meals;
 
 import be.dafke.BusinessModel.*;
 
 import javax.swing.*;
 import java.awt.*;
 
-public class DeliverooSettingsPanel extends JPanel {
+public class MealsSettingsPanel extends JPanel {
     private Accounting accounting;
     private final JComboBox<Account> serviceAccountSelection, revenueAccountSelection, balanceAccountSelection;
     private final JComboBox<Journal> salesJournalSelection, serviceJournalSelection;
     private final DefaultComboBoxModel<Account> serviceAccountModel, salesAccountModel, balanceAccountModel;
     private final DefaultComboBoxModel<Journal> salesJournalModel, serviceJournalModel;
 
-    public DeliverooSettingsPanel(Accounting accounting) {
+    public MealsSettingsPanel(Accounting accounting) {
         this.accounting = accounting;
         serviceAccountModel = new DefaultComboBoxModel<>();
         salesAccountModel = new DefaultComboBoxModel<>();
@@ -41,32 +41,32 @@ public class DeliverooSettingsPanel extends JPanel {
 
         MealOrders mealOrders = accounting.getMealOrders();
 
-        Account serviceAccount = mealOrders.getDeliverooServiceAccount();
-        Account revenueAccount = mealOrders.getDeliverooRevenueAccount();
-        Account balanceAccount = mealOrders.getDeliverooBalanceAccount();
+        Account serviceAccount = mealOrders.getMealOrderServiceAccount();
+        Account revenueAccount = mealOrders.getMealOrderRevenueAccount();
+        Account balanceAccount = mealOrders.getMealOrderBalanceAccount();
 
-        Journal salesJournal = mealOrders.getDeliverooSalesJournal();
-        Journal serviceJournal = mealOrders.getDeliverooServiceJournal();
+        Journal salesJournal = mealOrders.getMealOrderSalesJournal();
+        Journal serviceJournal = mealOrders.getMealOrderServiceJournal();
 
         serviceAccountSelection.setSelectedItem(serviceAccount);
         serviceAccountSelection.addActionListener(e -> updateSelectedServiceAccount());
-        serviceAccountSelection.setEnabled(accounting.isDeliverooAccounting());
+        serviceAccountSelection.setEnabled(accounting.isMealsAccounting());
 
         revenueAccountSelection.setSelectedItem(revenueAccount);
         revenueAccountSelection.addActionListener(e -> updateSelectedRevenueAccount());
-        revenueAccountSelection.setEnabled(accounting.isDeliverooAccounting());
+        revenueAccountSelection.setEnabled(accounting.isMealsAccounting());
 
         balanceAccountSelection.setSelectedItem(balanceAccount);
         balanceAccountSelection.addActionListener(e -> updateSelectedBalanceAccount());
-        balanceAccountSelection.setEnabled(accounting.isDeliverooAccounting());
+        balanceAccountSelection.setEnabled(accounting.isMealsAccounting());
 
         salesJournalSelection.setSelectedItem(salesJournal);
         salesJournalSelection.addActionListener(e -> updateSelectedSalesJournal());
-        salesJournalSelection.setEnabled(accounting.isDeliverooAccounting());
+        salesJournalSelection.setEnabled(accounting.isMealsAccounting());
 
         serviceJournalSelection.setSelectedItem(serviceJournal);
         serviceJournalSelection.addActionListener(e -> updateSelectedServiceJournal());
-        serviceJournalSelection.setEnabled(accounting.isDeliverooAccounting());
+        serviceJournalSelection.setEnabled(accounting.isMealsAccounting());
 
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(0, 2));
@@ -88,31 +88,31 @@ public class DeliverooSettingsPanel extends JPanel {
     public void updateSelectedServiceAccount() {
         Account account = (Account) serviceAccountSelection.getSelectedItem();
         MealOrders mealOrders = accounting.getMealOrders();
-        mealOrders.setDeliverooServiceAccount(account);
+        mealOrders.setMealOrderServiceAccount(account);
     }
 
     public void updateSelectedRevenueAccount() {
         Account account = (Account) revenueAccountSelection.getSelectedItem();
         MealOrders mealOrders = accounting.getMealOrders();
-        mealOrders.setDeliverooRevenueAccount(account);
+        mealOrders.setMealOrderRevenueAccount(account);
     }
 
     public void updateSelectedBalanceAccount() {
         Account account = (Account) balanceAccountSelection.getSelectedItem();
         MealOrders mealOrders = accounting.getMealOrders();
-        mealOrders.setDeliverooBalanceAccount(account);
+        mealOrders.setMealOrderBalanceAccount(account);
     }
 
     public void updateSelectedSalesJournal() {
         Journal journal = (Journal) salesJournalSelection.getSelectedItem();
         MealOrders mealOrders = accounting.getMealOrders();
-        mealOrders.setDeliverooSalesJournal(journal);
+        mealOrders.setMealOrderSalesJournal(journal);
     }
 
     public void updateSelectedServiceJournal() {
         Journal journal = (Journal) serviceJournalSelection.getSelectedItem();
         MealOrders mealOrders = accounting.getMealOrders();
-        mealOrders.setDeliverooServiceJournal(journal);
+        mealOrders.setMealOrderServiceJournal(journal);
     }
 
     @Override
@@ -137,7 +137,7 @@ public class DeliverooSettingsPanel extends JPanel {
         }
     }
 
-    public void copyDeliverooSettings(Accounting copyFrom) {
+    public void copyMealOrderSettings(Accounting copyFrom) {
         serviceAccountModel.removeAllElements();
         salesAccountModel.removeAllElements();
         balanceAccountModel.removeAllElements();
@@ -148,12 +148,12 @@ public class DeliverooSettingsPanel extends JPanel {
         if (copyFrom != null) {
             MealOrders mealOrders = copyFrom.getMealOrders();
 
-            Account deliverooServiceAccount = mealOrders.getDeliverooServiceAccount();
-            Account deliverooRevenueAccount = mealOrders.getDeliverooRevenueAccount();
-            Account deliverooBalanceAccount = mealOrders.getDeliverooBalanceAccount();
+            Account mealOrderServiceAccount = mealOrders.getMealOrderServiceAccount();
+            Account mealOrderRevenueAccount = mealOrders.getMealOrderRevenueAccount();
+            Account mealOrderBalanceAccount = mealOrders.getMealOrderBalanceAccount();
 
-            Journal deliverooSalesJournal = mealOrders.getDeliverooSalesJournal();
-            Journal deliverooServiceJournal = mealOrders.getDeliverooServiceJournal();
+            Journal mealOrderSalesJournal = mealOrders.getMealOrderSalesJournal();
+            Journal mealOrderServiceJournal = mealOrders.getMealOrderServiceJournal();
 
             Accounts accounts = accounting.getAccounts();
             Journals journals = accounting.getJournals();
@@ -172,48 +172,48 @@ public class DeliverooSettingsPanel extends JPanel {
                 });
             }
 
-            if (deliverooServiceAccount != null) {
-                Account account = accounts.getBusinessObject(deliverooServiceAccount.getName());
-                mealOrders.setDeliverooServiceAccount(account);
+            if (mealOrderServiceAccount != null) {
+                Account account = accounts.getBusinessObject(mealOrderServiceAccount.getName());
+                mealOrders.setMealOrderServiceAccount(account);
                 serviceAccountSelection.setSelectedItem(account);
             } else {
-                mealOrders.setDeliverooServiceAccount(null);
+                mealOrders.setMealOrderServiceAccount(null);
                 serviceAccountSelection.setSelectedItem(null);
             }
 
-            if (deliverooRevenueAccount != null) {
-                Account account = accounts.getBusinessObject(deliverooRevenueAccount.getName());
-                mealOrders.setDeliverooRevenueAccount(account);
+            if (mealOrderRevenueAccount != null) {
+                Account account = accounts.getBusinessObject(mealOrderRevenueAccount.getName());
+                mealOrders.setMealOrderRevenueAccount(account);
                 revenueAccountSelection.setSelectedItem(account);
             } else {
-                mealOrders.setDeliverooRevenueAccount(null);
+                mealOrders.setMealOrderRevenueAccount(null);
                 revenueAccountSelection.setSelectedItem(null);
             }
 
-            if (deliverooBalanceAccount != null) {
-                Account account = accounts.getBusinessObject(deliverooBalanceAccount.getName());
-                mealOrders.setDeliverooBalanceAccount(account);
+            if (mealOrderBalanceAccount != null) {
+                Account account = accounts.getBusinessObject(mealOrderBalanceAccount.getName());
+                mealOrders.setMealOrderBalanceAccount(account);
                 balanceAccountSelection.setSelectedItem(account);
             } else {
-                mealOrders.setDeliverooBalanceAccount(null);
+                mealOrders.setMealOrderBalanceAccount(null);
                 balanceAccountSelection.setSelectedItem(null);
             }
 
-            if (deliverooSalesJournal != null) {
-                Journal journal = journals.getBusinessObject(deliverooSalesJournal.getName());
-                mealOrders.setDeliverooSalesJournal(journal);
+            if (mealOrderSalesJournal != null) {
+                Journal journal = journals.getBusinessObject(mealOrderSalesJournal.getName());
+                mealOrders.setMealOrderSalesJournal(journal);
                 salesJournalSelection.setSelectedItem(journal);
             } else {
-                mealOrders.setDeliverooSalesJournal(null);
+                mealOrders.setMealOrderSalesJournal(null);
                 salesJournalSelection.setSelectedItem(null);
             }
 
-            if (deliverooServiceJournal != null) {
-                Journal journal = journals.getBusinessObject(deliverooServiceJournal.getName());
-                mealOrders.setDeliverooServiceJournal(journal);
+            if (mealOrderServiceJournal != null) {
+                Journal journal = journals.getBusinessObject(mealOrderServiceJournal.getName());
+                mealOrders.setMealOrderServiceJournal(journal);
                 serviceJournalSelection.setSelectedItem(journal);
             } else {
-                mealOrders.setDeliverooServiceJournal(null);
+                mealOrders.setMealOrderServiceJournal(null);
                 serviceJournalSelection.setSelectedItem(null);
             }
         } else {

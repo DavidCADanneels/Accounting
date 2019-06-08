@@ -29,7 +29,7 @@ public class Accounting extends BusinessObject{
     private Contact contactNoInvoice=null;
     private CounterParties counterParties;
     private Statements statements;
-    private DeliverooMeals deliverooMeals;
+    private Meals meals;
     private MealOrders mealOrders;
     private boolean read = false;
     private boolean projectsAccounting = true;
@@ -37,7 +37,7 @@ public class Accounting extends BusinessObject{
     private boolean contactsAccounting = false;
     private boolean vatAccounting = false;
     private boolean tradeAccounting = false;
-    private boolean deliverooAccounting = false;
+    private boolean mealsAccounting = false;
     private Journal activeJournal;
 
     public Accounting(String name) {
@@ -81,7 +81,7 @@ public class Accounting extends BusinessObject{
 
         promoOrders = new PromoOrders();
 
-        deliverooMeals = new DeliverooMeals();
+        meals = new Meals();
 
         mealOrders = new MealOrders();
 	}
@@ -262,12 +262,12 @@ public class Accounting extends BusinessObject{
         this.contactsAccounting = contactsAccounting;
     }
 
-    public boolean isDeliverooAccounting() {
-        return deliverooAccounting;
+    public boolean isMealsAccounting() {
+        return mealsAccounting;
     }
 
-    public void setDeliverooAccounting(boolean deliverooAccounting) {
-        this.deliverooAccounting = deliverooAccounting;
+    public void setMealsAccounting(boolean mealsAccounting) {
+        this.mealsAccounting = mealsAccounting;
     }
 
     public void setCompanyContact(Contact companyContact) {
@@ -290,12 +290,12 @@ public class Accounting extends BusinessObject{
         return activeJournal;
     }
 
-    public DeliverooMeals getDeliverooMeals() {
-        return deliverooMeals;
+    public Meals getMeals() {
+        return meals;
     }
 
-    public void setDeliverooMeals(DeliverooMeals deliverooMeals) {
-        this.deliverooMeals = deliverooMeals;
+    public void setMeals(Meals meals) {
+        this.meals = meals;
     }
 
     public MealOrders getMealOrders() {

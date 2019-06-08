@@ -4,12 +4,12 @@ import be.dafke.ObjectModel.BusinessObject;
 
 public class MealOrderItem extends BusinessObject{
     private int numberOfItems = 0;
-    private DeliverooMeal deliverooMeal;
+    private Meal meal;
 
-    public MealOrderItem(Integer numberOfItems, DeliverooMeal deliverooMeal) {
-        setName(deliverooMeal.getName());
+    public MealOrderItem(Integer numberOfItems, Meal meal) {
+        setName(meal.getName());
         this.numberOfItems = numberOfItems;
-        this.deliverooMeal = deliverooMeal;
+        this.meal = meal;
     }
 
     public int getNumberOfItems() {
@@ -28,8 +28,8 @@ public class MealOrderItem extends BusinessObject{
         this.numberOfItems -= numberOfItems;
     }
 
-    public DeliverooMeal getDeliverooMeal() {
-        return deliverooMeal;
+    public Meal getMeal() {
+        return meal;
     }
 
     public boolean isDeletable() {

@@ -1,8 +1,8 @@
-package be.dafke.BasicAccounting.Deliveroo;
+package be.dafke.BasicAccounting.Meals;
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
-import be.dafke.BusinessModel.DeliverooMeal;
-import be.dafke.BusinessModel.DeliverooMeals;
+import be.dafke.BusinessModel.Meal;
+import be.dafke.BusinessModel.Meals;
 import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;
@@ -16,11 +16,11 @@ import static java.util.ResourceBundle.getBundle;
 public class NewMealPanel extends JPanel {
     private JTextField mealNr, mealName, price, description;
     private JButton add;
-    private DeliverooMeal meal;
-    private DeliverooMeals deliverooMeals;
+    private Meal meal;
+    private Meals meals;
 
-    public NewMealPanel(DeliverooMeals deliverooMeals) {
-        this.deliverooMeals = deliverooMeals;
+    public NewMealPanel(Meals meals) {
+        this.meals = meals;
         setLayout(new GridLayout(0,2));
         add(new JLabel(getBundle("Accounting").getString("MEAL_NR")));
         mealNr = new JTextField(20);
@@ -43,7 +43,7 @@ public class NewMealPanel extends JPanel {
         add(add);
     }
 
-    public void setMeal(DeliverooMeal meal) {
+    public void setMeal(Meal meal) {
         this.meal = meal;
         mealNr.setText(meal.getName());
         mealName.setText(meal.getMealName());
@@ -56,15 +56,15 @@ public class NewMealPanel extends JPanel {
         String newName = mealNr.getText().trim();
         try {
             if (meal == null) {
-                meal = new DeliverooMeal(newName.trim());
-                deliverooMeals.addBusinessObject(meal);
+                meal = new Meal(newName.trim());
+                meals.addBusinessObject(meal);
 //                Main.fireAccountDataChanged(meal);
                 saveOtherProperties();
                 meal = null;
                 clearFields();
             } else {
                 String oldName = meal.getName();
-                deliverooMeals.modifyName(oldName, newName);
+                meals.modifyName(oldName, newName);
                 saveOtherProperties();
             }
         } catch (DuplicateNameException e) {

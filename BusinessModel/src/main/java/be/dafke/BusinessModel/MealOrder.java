@@ -17,8 +17,8 @@ public class MealOrder extends BusinessCollection<MealOrderItem>{
 
     public void addUsage(){
         getBusinessObjects().forEach(mealOrderItem -> {
-            DeliverooMeal deliverooMeal = mealOrderItem.getDeliverooMeal();
-            deliverooMeal.addUsage(mealOrderItem.getNumberOfItems());
+            Meal meal = mealOrderItem.getMeal();
+            meal.addUsage(mealOrderItem.getNumberOfItems());
         });
     }
 
@@ -49,9 +49,9 @@ public class MealOrder extends BusinessCollection<MealOrderItem>{
     public BigDecimal getTotalPrice(){
         BigDecimal total = BigDecimal.ZERO.setScale(2);
         for(MealOrderItem mealOrderItem:getBusinessObjects()){
-            DeliverooMeal deliverooMeal = mealOrderItem.getDeliverooMeal();
+            Meal meal = mealOrderItem.getMeal();
             int numberOfItems = mealOrderItem.getNumberOfItems();
-            BigDecimal salesPrice = deliverooMeal.getSalesPrice().multiply(new BigDecimal(numberOfItems));
+            BigDecimal salesPrice = meal.getSalesPrice().multiply(new BigDecimal(numberOfItems));
             total = total.add(salesPrice);
         }
         return total;
@@ -77,9 +77,9 @@ public class MealOrder extends BusinessCollection<MealOrderItem>{
         }
     }
 
-    public void setMeals(DeliverooMeals deliverooMeals){
-        deliverooMeals.getBusinessObjects().forEach(deliverooMeal -> {
-            addBusinessObject(new MealOrderItem(0, deliverooMeal));
+    public void setMeals(Meals meals){
+        meals.getBusinessObjects().forEach(meal -> {
+            addBusinessObject(new MealOrderItem(0, meal));
         });
     }
 

@@ -19,28 +19,28 @@ import static be.dafke.Utils.Utils.parseBigDecimal;
 
 public class MealsIO {
     public static void readMeals(Accounting accounting){
-        DeliverooMeals deliverooMeals = accounting.getDeliverooMeals();
+        Meals meals = accounting.getMeals();
         File xmlFile = new File(ACCOUNTINGS_XML_FOLDER +accounting.getName()+"/"+MEALS + XML_EXTENSION);
         Element rootElement = getRootElement(xmlFile, MEALS);
         for (Element element : getChildren(rootElement, MEAL)) {
 
             String mealNr = getValue(element, MEAL_NR);
-            DeliverooMeal deliverooMeal = new DeliverooMeal(mealNr);
+            Meal meal = new Meal(mealNr);
 
             String mealName = getValue(element, MEAL_NAME);
             if(mealName!=null)
-                deliverooMeal.setMealName(mealName);
+                meal.setMealName(mealName);
 
             String salesPrice = getValue(element, PRICE);
             if(salesPrice!=null)
-                deliverooMeal.setSalesPrice(parseBigDecimal(salesPrice));
+                meal.setSalesPrice(parseBigDecimal(salesPrice));
 
             String description = getValue(element, DESCRIPTION);
             if(description!=null)
-                deliverooMeal.setDescription(description);
+                meal.setDescription(description);
 
             try {
-                deliverooMeals.addBusinessObject(deliverooMeal);
+                meals.addBusinessObject(meal);
             } catch (EmptyNameException | DuplicateNameException e) {
                 e.printStackTrace();
             }
@@ -48,19 +48,19 @@ public class MealsIO {
     }
 
     public static void writeMeals(Accounting accounting) {
-        DeliverooMeals deliverooMeals = accounting.getDeliverooMeals();
+        Meals meals = accounting.getMeals();
         File file = new File(ACCOUNTINGS_XML_FOLDER + accounting.getName() + "/" + MEALS + XML_EXTENSION);
         try {
             Writer writer = new FileWriter(file);
             writer.write(getXmlHeader(MEALS, 2));
-                for (DeliverooMeal deliverooMeal : deliverooMeals.getBusinessObjects()) {
+                for (Meal meal : meals.getBusinessObjects()) {
                 writer.write(
                         "  <" + MEAL + ">\n" +
-                                "    <" + MEAL_NR + ">" + deliverooMeal.getName() + "</" + MEAL_NR + ">\n" +
-                                "    <" + MEAL_NAME + ">" + deliverooMeal.getMealName() + "</" + MEAL_NAME + ">\n" +
-                                "    <" + PRICE + ">" + deliverooMeal.getSalesPrice() + "</" + PRICE + ">\n" +
-                                "    <" + DESCRIPTION + ">" + deliverooMeal.getDescription() + "</" + DESCRIPTION + ">\n" +
-                                "    <" + USAGE + ">" + deliverooMeal.getTotalOrdered() + "</" + USAGE + ">\n" +
+                                "    <" + MEAL_NR + ">" + meal.getName() + "</" + MEAL_NR + ">\n" +
+                                "    <" + MEAL_NAME + ">" + meal.getMealName() + "</" + MEAL_NAME + ">\n" +
+                                "    <" + PRICE + ">" + meal.getSalesPrice() + "</" + PRICE + ">\n" +
+                                "    <" + DESCRIPTION + ">" + meal.getDescription() + "</" + DESCRIPTION + ">\n" +
+                                "    <" + USAGE + ">" + meal.getTotalOrdered() + "</" + USAGE + ">\n" +
                                 "  </" + MEAL + ">\n"
                 );
             }
@@ -68,7 +68,7 @@ public class MealsIO {
             writer.flush();
             writer.close();
         } catch (IOException ex) {
-            Logger.getLogger(DeliverooMeal.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Meal.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 }

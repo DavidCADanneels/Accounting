@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting.Deliveroo;
+package be.dafke.BasicAccounting.Meals;
 
 
 import be.dafke.BasicAccounting.MainApplication.ActionUtils;
@@ -14,11 +14,11 @@ import static java.util.ResourceBundle.getBundle;
 
 public class MealsPanel extends JPanel {
     private final JButton add;
-    private final SelectableTable<DeliverooMeal> table;
+    private final SelectableTable<Meal> table;
     private final MealsDataTableModel mealsDataTableModel;
 
-    public MealsPanel(DeliverooMeals deliverooMeals) {
-        mealsDataTableModel = new MealsDataTableModel(this, deliverooMeals);
+    public MealsPanel(Meals meals) {
+        mealsDataTableModel = new MealsDataTableModel(this, meals);
         table = new SelectableTable<>(mealsDataTableModel);
         table.setPreferredScrollableViewportSize(new Dimension(500, 200));
 
@@ -34,7 +34,7 @@ public class MealsPanel extends JPanel {
                 name = JOptionPane.showInputDialog(this, getBundle("Accounting").getString("NAME_LABEL"));
             if (name != null) {
                 try {
-                    deliverooMeals.addBusinessObject(new DeliverooMeal(name));
+                    meals.addBusinessObject(new Meal(name));
                     mealsDataTableModel.fireTableDataChanged();
                 } catch (EmptyNameException ex) {
                     ActionUtils.showErrorMessage(this, ActionUtils.ARTICLE_NAME_EMPTY);

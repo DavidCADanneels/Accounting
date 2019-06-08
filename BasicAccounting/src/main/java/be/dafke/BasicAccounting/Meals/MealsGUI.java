@@ -1,9 +1,9 @@
-package be.dafke.BasicAccounting.Deliveroo;
+package be.dafke.BasicAccounting.Meals;
 
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.Accounting;
-import be.dafke.BusinessModel.DeliverooMeals;
+import be.dafke.BusinessModel.Meals;
 
 import javax.swing.*;
 
@@ -18,8 +18,8 @@ public class MealsGUI extends JFrame {
 
     private MealsGUI(Accounting accounting) {
         super(getBundle("Accounting").getString("MEALS"));
-        DeliverooMeals deliverooMeals = accounting.getDeliverooMeals();
-        mealsPanel = new MealsPanel(deliverooMeals);
+        Meals meals = accounting.getMeals();
+        mealsPanel = new MealsPanel(meals);
         setContentPane(mealsPanel);
         pack();
     }

@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting.Deliveroo;
+package be.dafke.BasicAccounting.Meals;
 
 import be.dafke.BasicAccounting.MainApplication.Main;
 import be.dafke.BusinessModel.*;
@@ -8,21 +8,21 @@ import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
 
-public class DeliverooOrdersOverviewPanel extends JPanel {
+public class MealOrdersOverviewPanel extends JPanel {
 
     private final JButton createButton;
     private SelectableTable<MealOrder> overviewTable;
     private SelectableTable<MealOrderItem> detailsTable;
-    private DeliverooOrdersOverviewDataTableModel overviewTableModel;
-    private DeliverooOrderViewDataTableModel detailsTableModel;
+    private MealOrdersOverviewDataTableModel overviewTableModel;
+    private MealOrderViewDataTableModel detailsTableModel;
     private DeliveryTotalsPanel totalsPanel;
 
-    public DeliverooOrdersOverviewPanel(Accounting accounting) {
-        overviewTableModel = new DeliverooOrdersOverviewDataTableModel(accounting.getMealOrders());
+    public MealOrdersOverviewPanel(Accounting accounting) {
+        overviewTableModel = new MealOrdersOverviewDataTableModel(accounting.getMealOrders());
         overviewTable = new SelectableTable<>(overviewTableModel);
         overviewTable.setPreferredScrollableViewportSize(new Dimension(1000, 400));
 
-        detailsTableModel = new DeliverooOrderViewDataTableModel();
+        detailsTableModel = new MealOrderViewDataTableModel();
         detailsTable = new SelectableTable<>(detailsTableModel);
         detailsTable.setPreferredScrollableViewportSize(new Dimension(1000, 200));
 
@@ -30,9 +30,9 @@ public class DeliverooOrdersOverviewPanel extends JPanel {
 
         createButton = new JButton("Create new Order");
         createButton.addActionListener(e -> {
-            DeliverooOrderCreateGUI deliverooOrders = DeliverooOrderCreateGUI.getInstance(accounting);
-            deliverooOrders.setLocation(getLocationOnScreen());
-            deliverooOrders.setVisible(true);
+            MealOrderCreateGUI mealOrdersGui = MealOrderCreateGUI.getInstance(accounting);
+            mealOrdersGui.setLocation(getLocationOnScreen());
+            mealOrdersGui.setVisible(true);
         });
 
         DefaultListSelectionModel selection = new DefaultListSelectionModel();

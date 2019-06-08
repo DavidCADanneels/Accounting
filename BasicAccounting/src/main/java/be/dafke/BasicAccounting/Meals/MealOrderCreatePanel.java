@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting.Deliveroo;
+package be.dafke.BasicAccounting.Meals;
 
 import be.dafke.BasicAccounting.Accounts.AccountActions;
 import be.dafke.BasicAccounting.Accounts.AccountSelectorDialog;
@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class DeliverooOrderCreatePanel extends JPanel {
+public class MealOrderCreatePanel extends JPanel {
     public static final int FOOD_SALES_PERCENTAGE = 6;
     public static final int DELIVERY_PROFIT_PERCENTAGE = 27;
     public static final int DELIVERY_SERVICE_PERCENTAGE = 21;
@@ -29,15 +29,15 @@ public class DeliverooOrderCreatePanel extends JPanel {
     private Accounting accounting;
 
     private JTable table;
-    private DeliverooOrderCreateDataTableModel tableModel;
+    private MealOrderCreateDataTableModel tableModel;
     private MealOrder mealOrder;
 
-    public DeliverooOrderCreatePanel(Accounting accounting) {
+    public MealOrderCreatePanel(Accounting accounting) {
         this.accounting = accounting;
         totalsPanel = new DeliveryTotalsPanel();
         transaction = new Transaction(Calendar.getInstance(),"");
 
-        tableModel = new DeliverooOrderCreateDataTableModel(accounting);//, totalsPanel);
+        tableModel = new MealOrderCreateDataTableModel(accounting);//, totalsPanel);
         tableModel.setMealOrder(mealOrder);
         table = new JTable(tableModel);
 
@@ -60,7 +60,7 @@ public class DeliverooOrderCreatePanel extends JPanel {
         book.setEnabled(false);
 
         mealOrder = new MealOrder();
-        mealOrder.setMeals(accounting.getDeliverooMeals());
+        mealOrder.setMeals(accounting.getMeals());
         tableModel.setMealOrder(mealOrder);
     }
 
@@ -112,54 +112,54 @@ public class DeliverooOrderCreatePanel extends JPanel {
         } catch (EmptyNameException | DuplicateNameException e) {
             e.printStackTrace();
         }
-        DeliverooOrdersOverviewGUI.fireOrderAddedForAll(accounting, mealOrder);
+        MealOrdersOverviewGUI.fireOrderAddedForAll(accounting, mealOrder);
         MealsGUI.fireMealUsageUpdatedForAll(accounting);
     }
 
     private void book() {
-        // Deliveroo
+        //  MealOrder
         //
         MealOrders mealOrders = accounting.getMealOrders();
-        Journal salesJournal = mealOrders.getDeliverooSalesJournal();
-        Journal serviceJournal = mealOrders.getDeliverooServiceJournal();
-        Account deliverooBalanceAccount = mealOrders.getDeliverooBalanceAccount();
-        Account deliverooServiceAccount = mealOrders.getDeliverooServiceAccount();
-        Account deliverooRevenueAccount = mealOrders.getDeliverooRevenueAccount();
+        Journal salesJournal = mealOrders.getMealOrderSalesJournal();
+        Journal serviceJournal = mealOrders.getMealOrderServiceJournal();
+        Account mealOrderBalanceAccount = mealOrders.getMealOrderBalanceAccount();
+        Account mealOrderServiceAccount = mealOrders.getMealOrderServiceAccount();
+        Account mealOrderRevenueAccount = mealOrders.getMealOrderRevenueAccount();
         if(salesJournal==null){
             JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals());
             journalSelectorDialog.setVisible(true);
             salesJournal = journalSelectorDialog.getSelection();
-            mealOrders.setDeliverooSalesJournal(salesJournal);
+            mealOrders.setMealOrderSalesJournal(salesJournal);
         }
         if(serviceJournal==null){
             JournalSelectorDialog journalSelectorDialog = new JournalSelectorDialog(accounting.getJournals());
             journalSelectorDialog.setVisible(true);
             serviceJournal = journalSelectorDialog.getSelection();
-            mealOrders.setDeliverooServiceJournal(serviceJournal);
+            mealOrders.setMealOrderServiceJournal(serviceJournal);
         }
-        if(deliverooBalanceAccount==null){
+        if(mealOrderBalanceAccount==null){
             Accounts accounts = accounting.getAccounts();
             ArrayList<AccountType> accountTypes = accounting.getAccountTypes().getBusinessObjects();
-            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, "select Deliveroo Balance Account");
+            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, "select Meal Order Balance Account");
             accountSelectorDialog.setVisible(true);
-            deliverooBalanceAccount = accountSelectorDialog.getSelection();
-            mealOrders.setDeliverooBalanceAccount(deliverooBalanceAccount);
+            mealOrderBalanceAccount = accountSelectorDialog.getSelection();
+            mealOrders.setMealOrderBalanceAccount(mealOrderBalanceAccount);
         }
-        if(deliverooServiceAccount==null){
+        if(mealOrderServiceAccount==null){
             Accounts accounts = accounting.getAccounts();
             ArrayList<AccountType> accountTypes = accounting.getAccountTypes().getBusinessObjects();
-            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, "select Deliveroo Service Account");
+            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, "select Meal Order Service Account");
             accountSelectorDialog.setVisible(true);
-            deliverooServiceAccount = accountSelectorDialog.getSelection();
-            mealOrders.setDeliverooServiceAccount(deliverooServiceAccount);
+            mealOrderServiceAccount = accountSelectorDialog.getSelection();
+            mealOrders.setMealOrderServiceAccount(mealOrderServiceAccount);
         }
-        if(deliverooRevenueAccount==null){
+        if(mealOrderRevenueAccount==null){
             Accounts accounts = accounting.getAccounts();
             ArrayList<AccountType> accountTypes = accounting.getAccountTypes().getBusinessObjects();
-            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, "select Deliveroo Revenue Account");
+            AccountSelectorDialog accountSelectorDialog = AccountSelectorDialog.getAccountSelector(accounts, accountTypes, "select Meal Order Revenue Account");
             accountSelectorDialog.setVisible(true);
-            deliverooRevenueAccount = accountSelectorDialog.getSelection();
-            mealOrders.setDeliverooRevenueAccount(deliverooRevenueAccount);
+            mealOrderRevenueAccount = accountSelectorDialog.getSelection();
+            mealOrders.setMealOrderRevenueAccount(mealOrderRevenueAccount);
         }
 
         // VAT
@@ -167,9 +167,9 @@ public class DeliverooOrderCreatePanel extends JPanel {
         VATTransaction vatSalesTransaction = new VATTransaction();
 
 
-        Booking customerBooking = new Booking(deliverooBalanceAccount, totalsPanel.getSalesAmountInclVat(), true);
+        Booking customerBooking = new Booking(mealOrderBalanceAccount, totalsPanel.getSalesAmountInclVat(), true);
         Booking salesVatBooking = AccountActions.createSalesVatBooking(accounting, totalsPanel.getSalesAmountVat(), vatSalesTransaction);
-        Booking salesRevenueBooking = new Booking(deliverooRevenueAccount, totalsPanel.getSalesAmountExclVat(), false);
+        Booking salesRevenueBooking = new Booking(mealOrderRevenueAccount, totalsPanel.getSalesAmountExclVat(), false);
         AccountActions.addSalesVatTransaction(salesRevenueBooking, SalesType.VAT_1, vatSalesTransaction);
 
         transaction.addVatTransaction(vatSalesTransaction);
@@ -190,10 +190,10 @@ public class DeliverooOrderCreatePanel extends JPanel {
 
         VATTransaction vatServiceTransaction = new VATTransaction();
 
-        Booking serviceBooking = new Booking(deliverooServiceAccount, totalsPanel.getServiceAmountExclVat(), true);
+        Booking serviceBooking = new Booking(mealOrderServiceAccount, totalsPanel.getServiceAmountExclVat(), true);
         AccountActions.addPurchaseVatTransaction(serviceBooking, PurchaseType.VAT_82, vatServiceTransaction);
         Booking serviceVatBooking = AccountActions.createPurchaseVatBooking(accounting, totalsPanel.getServiceAmountVat(), vatServiceTransaction);
-        Booking debtsBooking = new Booking(deliverooBalanceAccount, totalsPanel.getServiceAmountInclVat(), false);
+        Booking debtsBooking = new Booking(mealOrderBalanceAccount, totalsPanel.getServiceAmountInclVat(), false);
 
         Transaction serviceTransaction = new Transaction(date, description);
         serviceTransaction.setJournal(serviceJournal);

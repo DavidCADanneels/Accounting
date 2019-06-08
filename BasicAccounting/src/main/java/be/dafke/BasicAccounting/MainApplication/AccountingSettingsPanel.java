@@ -1,7 +1,7 @@
 package be.dafke.BasicAccounting.MainApplication;
 
 import be.dafke.BasicAccounting.Contacts.ContactsSettingsPanel;
-import be.dafke.BasicAccounting.Deliveroo.DeliverooSettingsPanel;
+import be.dafke.BasicAccounting.Meals.MealsSettingsPanel;
 import be.dafke.BasicAccounting.Trade.TradeSettingsPanel;
 import be.dafke.BasicAccounting.VAT.VATSettingsPanel;
 import be.dafke.BusinessModel.Accounting;
@@ -15,23 +15,23 @@ public class AccountingSettingsPanel extends JTabbedPane {
     public static final String VAT = getBundle("VAT").getString("VAT");
     public static final String CONTACTS = getBundle("Contacts").getString("CONTACTS");
     public static final String PROJECTS = getBundle("Projects").getString("PROJECTS");
-    public static final String DELIVEROO = "Deliveroo";
+    public static final String MEALS = getBundle("Accounting").getString("MEALS");
     public static final String MORTGAGES = getBundle("Mortgage").getString("MORTGAGES");
     public static final int CONTACTS_INDEX = 1;
     public static final int VAT_INDEX = 2;
     public static final int TRADE_INDEX = 3;
-    public static final int DELIVEROO_INDEX = 3; // or 4 if Trade is active
+    public static final int MEALS_INDEX = 3; // or 4 if Trade is active
     private JCheckBox vatAccounting;
     private JCheckBox tradeAccounting;
     private JCheckBox contacts;
     private JCheckBox projects;
-    private JCheckBox deliveroo;
+    private JCheckBox meals;
     private JCheckBox mortgages;
     private Accounting accounting;
     private ContactsSettingsPanel contactsTab;
     private VATSettingsPanel vatTab;
     private TradeSettingsPanel tradeTab;
-    private DeliverooSettingsPanel deliverooTab;
+    private MealsSettingsPanel mealsTab;
     private AccountingCopyPanel copyPanel;
 
     public AccountingSettingsPanel(Accounting accounting, AccountingCopyPanel copyPanel) {
@@ -45,14 +45,14 @@ public class AccountingSettingsPanel extends JTabbedPane {
         contactsTab = new ContactsSettingsPanel(accounting);
         vatTab = new VATSettingsPanel(accounting);
         tradeTab = new TradeSettingsPanel(accounting);
-        deliverooTab = new DeliverooSettingsPanel(accounting);
+        mealsTab = new MealsSettingsPanel(accounting);
 
         updateProjectSetting();
         updateMortgageSetting();
         updateContactSetting();
         updateVatSetting();
         updateTradeSetting();
-        updateDeliverooSetting();
+        updateMealsSetting();
     }
 
     public void setContactsSelected(boolean selected){
@@ -65,9 +65,9 @@ public class AccountingSettingsPanel extends JTabbedPane {
         updateVatSetting();
     }
 
-    public void setDeliveooSelected(boolean selected) {
-        deliveroo.setSelected(selected);
-        updateDeliverooSetting();
+    public void setMealsSelected(boolean selected) {
+        meals.setSelected(selected);
+        updateMealsSetting();
     }
 
     public void setTradeSelected(boolean selected) {
@@ -109,9 +109,9 @@ public class AccountingSettingsPanel extends JTabbedPane {
             setTradeSelected(false);
 //            tradeAccounting.setSelected(false);
 //            updateTradeSetting();
-            setDeliveooSelected(false);
-//            deliveroo.setSelected(false);
-//            updateDeliverooSetting();
+            setMealsSelected(false);
+//            meals.setSelected(false);
+//            updateMealsSetting();
             int indexOfComponent = indexOfComponent(vatTab);
             if(indexOfComponent!=-1) {
                 removeTabAt(indexOfComponent);
@@ -145,13 +145,13 @@ public class AccountingSettingsPanel extends JTabbedPane {
         Main.fireAccountingTypeChanged(accounting);
     }
 
-    private void updateDeliverooSetting(){
-        boolean selected = deliveroo.isSelected();
-        deliverooTab.setEnabled(selected);
+    private void updateMealsSetting(){
+        boolean selected = meals.isSelected();
+        mealsTab.setEnabled(selected);
         if(selected){
             vatAccounting.setSelected(true);
             updateVatSetting();
-            int index = DELIVEROO_INDEX;
+            int index = MEALS_INDEX;
             if(tradeAccounting.isSelected()){
                 index++;
             }
@@ -159,16 +159,16 @@ public class AccountingSettingsPanel extends JTabbedPane {
 //            if(mortgages.isSelected()){
 //                index++;
 //            }
-            insertTab("Deliveroo", null, deliverooTab, "", index);
+            insertTab("Meals", null, mealsTab, "", index);
         } else {
-            int indexOfComponent = indexOfComponent(deliverooTab);
+            int indexOfComponent = indexOfComponent(mealsTab);
             if(indexOfComponent!=-1) {
                 removeTabAt(indexOfComponent);
             }
         }
-        accounting.setDeliverooAccounting(selected);
+        accounting.setMealsAccounting(selected);
         if(copyPanel!=null){
-            copyPanel.enableCopyDeliveroo();
+            copyPanel.enableCopyMeals();
         }
         Main.fireAccountingTypeChanged(accounting);
     }
@@ -192,28 +192,28 @@ public class AccountingSettingsPanel extends JTabbedPane {
         contacts = new JCheckBox(CONTACTS);
         vatAccounting = new JCheckBox(VAT);
         tradeAccounting = new JCheckBox(TRADE);
-        deliveroo = new JCheckBox(DELIVEROO);
+        meals = new JCheckBox(MEALS);
 
         projects.setSelected(accounting==null||accounting.isProjectsAccounting());
         mortgages.setSelected(accounting==null||accounting.isMortgagesAccounting());
         contacts.setSelected(accounting==null||accounting.isContactsAccounting());
         vatAccounting.setSelected(accounting==null||accounting.isVatAccounting());
         tradeAccounting.setSelected(accounting==null||accounting.isTradeAccounting());
-        deliveroo.setSelected(accounting==null||accounting.isDeliverooAccounting());
+        meals.setSelected(accounting==null||accounting.isMealsAccounting());
 
         projects.addActionListener(e -> updateProjectSetting());
         mortgages.addActionListener(e -> updateMortgageSetting());
         contacts.addActionListener(e -> updateContactSetting());
         vatAccounting.addActionListener(e -> updateVatSetting());
         tradeAccounting.addActionListener(e -> updateTradeSetting());
-        deliveroo.addActionListener(e -> updateDeliverooSetting());
+        meals.addActionListener(e -> updateMealsSetting());
 
         panel.add(projects);
         panel.add(mortgages);
         panel.add(contacts);
         panel.add(vatAccounting);
         panel.add(tradeAccounting);
-        panel.add(deliveroo);
+        panel.add(meals);
 
         if(copyPanel==null) {
             return panel;
@@ -234,7 +234,7 @@ public class AccountingSettingsPanel extends JTabbedPane {
         tradeTab.copyTradeSettings(copyFrom);
     }
 
-    public void copyDeliverooSettings(Accounting copyFrom) {
-        deliverooTab.copyDeliverooSettings(copyFrom);
+    public void copyMealSettings(Accounting copyFrom) {
+        mealsTab.copyMealOrderSettings(copyFrom);
     }
 }

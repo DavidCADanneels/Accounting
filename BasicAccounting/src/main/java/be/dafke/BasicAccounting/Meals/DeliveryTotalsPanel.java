@@ -1,4 +1,4 @@
-package be.dafke.BasicAccounting.Deliveroo;
+package be.dafke.BasicAccounting.Meals;
 
 import be.dafke.Utils.Utils;
 
@@ -6,9 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.math.BigDecimal;
 
-import static be.dafke.BasicAccounting.Deliveroo.DeliverooOrderCreatePanel.DELIVERY_PROFIT_PERCENTAGE;
-import static be.dafke.BasicAccounting.Deliveroo.DeliverooOrderCreatePanel.DELIVERY_SERVICE_PERCENTAGE;
-import static be.dafke.BasicAccounting.Deliveroo.DeliverooOrderCreatePanel.FOOD_SALES_PERCENTAGE;
+import static be.dafke.BasicAccounting.Meals.MealOrderCreatePanel.DELIVERY_PROFIT_PERCENTAGE;
+import static be.dafke.BasicAccounting.Meals.MealOrderCreatePanel.DELIVERY_SERVICE_PERCENTAGE;
+import static be.dafke.BasicAccounting.Meals.MealOrderCreatePanel.FOOD_SALES_PERCENTAGE;
 
 public class DeliveryTotalsPanel extends JPanel{
     private JTextField receivedInclVat, receivedVat, receivedExclVat;

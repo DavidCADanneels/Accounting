@@ -6,8 +6,8 @@ import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;
 
 public class MealOrders extends BusinessCollection<MealOrder>{
-    private Account deliverooBalanceAccount, deliverooServiceAccount, deliverooRevenueAccount;
-    private Journal deliverooSalesJournal, deliverooServiceJournal;
+    private Account mealOrderBalanceAccount, mealOrderServiceAccount, mealOrderRevenueAccount;
+    private Journal mealOrderSalesJournal, mealOrderServiceJournal;
 
     private int id = 0;
 
@@ -22,43 +22,43 @@ public class MealOrders extends BusinessCollection<MealOrder>{
         return mealOrder;
     }
 
-    public Account getDeliverooBalanceAccount() {
-        return deliverooBalanceAccount;
+    public Account getMealOrderBalanceAccount() {
+        return mealOrderBalanceAccount;
     }
 
-    public void setDeliverooBalanceAccount(Account deliverooBalanceAccount) {
-        this.deliverooBalanceAccount = deliverooBalanceAccount;
+    public void setMealOrderBalanceAccount(Account mealOrderBalanceAccount) {
+        this.mealOrderBalanceAccount = mealOrderBalanceAccount;
     }
 
-    public Account getDeliverooServiceAccount() {
-        return deliverooServiceAccount;
+    public Account getMealOrderServiceAccount() {
+        return mealOrderServiceAccount;
     }
 
-    public void setDeliverooServiceAccount(Account deliverooServiceAccount) {
-        this.deliverooServiceAccount = deliverooServiceAccount;
+    public void setMealOrderServiceAccount(Account mealOrderServiceAccount) {
+        this.mealOrderServiceAccount = mealOrderServiceAccount;
     }
 
-    public Account getDeliverooRevenueAccount() {
-        return deliverooRevenueAccount;
+    public Account getMealOrderRevenueAccount() {
+        return mealOrderRevenueAccount;
     }
 
-    public void setDeliverooRevenueAccount(Account deliverooRevenueAccount) {
-        this.deliverooRevenueAccount = deliverooRevenueAccount;
+    public void setMealOrderRevenueAccount(Account mealOrderRevenueAccount) {
+        this.mealOrderRevenueAccount = mealOrderRevenueAccount;
     }
 
-    public Journal getDeliverooSalesJournal() {
-        return deliverooSalesJournal;
+    public Journal getMealOrderSalesJournal() {
+        return mealOrderSalesJournal;
     }
 
-    public void setDeliverooSalesJournal(Journal deliverooSalesJournal) {
-        this.deliverooSalesJournal = deliverooSalesJournal;
+    public void setMealOrderSalesJournal(Journal mealOrderSalesJournal) {
+        this.mealOrderSalesJournal = mealOrderSalesJournal;
     }
 
-    public Journal getDeliverooServiceJournal() {
-        return deliverooServiceJournal;
+    public Journal getMealOrderServiceJournal() {
+        return mealOrderServiceJournal;
     }
 
-    public void setDeliverooServiceJournal(Journal deliverooServiceJournal) {
-        this.deliverooServiceJournal = deliverooServiceJournal;
+    public void setMealOrderServiceJournal(Journal mealOrderServiceJournal) {
+        this.mealOrderServiceJournal = mealOrderServiceJournal;
     }
 }

@@ -4,7 +4,7 @@ import be.dafke.ObjectModel.BusinessObject;
 
 import java.math.BigDecimal;
 
-public class DeliverooMeal extends BusinessObject{
+public class Meal extends BusinessObject{
     private String mealName = "";
     private String description = "";
     private BigDecimal salesPrice = null;
@@ -18,13 +18,13 @@ public class DeliverooMeal extends BusinessObject{
         return totalOrdered;
     }
 
-    public DeliverooMeal(DeliverooMeal meal){
+    public Meal(Meal meal){
         this(meal.getName());
         mealName = meal.mealName;
         description = meal.description;
         salesPrice = meal.salesPrice;
     }
-    public DeliverooMeal(String name){
+    public Meal(String name){
         setName(name);
     }
 
