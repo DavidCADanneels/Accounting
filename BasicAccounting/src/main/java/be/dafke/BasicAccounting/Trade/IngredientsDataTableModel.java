@@ -66,8 +66,7 @@ public class IngredientsDataTableModel extends SelectableTableModel<Ingredient> 
 			return ingredient.getUnit();
 		}
 		if (col == ALLERGENES_COL) {
-			Set<Allergene> allergenes = ingredient.getAllergenes();
-			return allergenes.stream().sorted().map(Allergene::getName).collect(Collectors.joining(","));
+			return ingredient.getAllergenesString();
 		}
 		return null;
 	}

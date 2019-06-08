@@ -29,8 +29,8 @@ public class IngredientsIO {
             String unitName = getValue(ingredientElement, UNIT);
             Unit unit = Unit.valueOf(unitName);
             Ingredient ingredient = new Ingredient(name, unit);
-            for(Element allergeneElement : getChildren(ingredientElement, ALLERGENES)){
-                String allergeneId = getValue(allergeneElement, ALLERGENE);
+            for(Element allergeneElement : getChildren(ingredientElement, ALLERGENE)) {
+                String allergeneId = getValue(allergeneElement, ID);
                 Allergene allergene = allergenes.getBusinessObject(allergeneId);
                 ingredient.addAllergene(allergene);
             }
@@ -54,12 +54,10 @@ public class IngredientsIO {
                             "    <" + NAME + ">" + ingredient.getName() + "</" + NAME + ">\n" +
                             "    <" + UNIT + ">" + ingredient.getUnit().getName().toUpperCase() + "</" + UNIT + ">\n");
                 Set<Allergene> allergenes = ingredient.getAllergenes();
-                if(!allergenes.isEmpty()){
-                    writer.write("      <" + ALLERGENES + ">\n");
-                    for (Allergene allergene:allergenes) {
-                        writer.write("        <" + ALLERGENE + ">" + allergene.getName() + "</" + ALLERGENE + ">\n");
-                    }
-                    writer.write("      </" + ALLERGENES + ">\n");
+                for (Allergene allergene:allergenes) {
+                    writer.write("    <" + ALLERGENE + ">\n");
+                    writer.write("      <" + ID + ">" + allergene.getName() + "</" + ID + ">\n");
+                    writer.write("    </" + ALLERGENE + ">\n");
                 }
                 writer.write("  </" + INGREDIENT + ">\n");
             }

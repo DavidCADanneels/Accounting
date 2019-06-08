@@ -4,6 +4,7 @@ import be.dafke.ObjectModel.BusinessObject;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class Ingredient extends BusinessObject {
     private Unit unit;
@@ -16,6 +17,10 @@ public class Ingredient extends BusinessObject {
 
     public Unit getUnit() {
         return unit;
+    }
+
+    public String getAllergenesString() {
+        return allergenes.stream().map(BusinessObject::getName).collect(Collectors.joining(","));
     }
 
     public Set<Allergene> getAllergenes() {
