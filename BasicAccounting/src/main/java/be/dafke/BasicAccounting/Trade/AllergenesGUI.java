@@ -16,7 +16,7 @@ public class AllergenesGUI extends JFrame {
     private static final HashMap<Allergenes, AllergenesGUI> guis = new HashMap<>();
 
     private AllergenesGUI(Allergenes allergenes) {
-        super(getBundle("Accounting").getString("INGREDIENTS"));
+        super(getBundle("Accounting").getString("ALLERGENES"));
         ingredientsPanel = new AllergenesPanel(allergenes);
         setContentPane(ingredientsPanel);
         pack();
