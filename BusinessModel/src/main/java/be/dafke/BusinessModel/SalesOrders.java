@@ -5,6 +5,7 @@ import be.dafke.ObjectModel.Exceptions.DuplicateNameException;
 import be.dafke.ObjectModel.Exceptions.EmptyNameException;
 import be.dafke.Utils.Utils;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 
 public class SalesOrders extends BusinessCollection<SalesOrder>{
@@ -16,7 +17,12 @@ public class SalesOrders extends BusinessCollection<SalesOrder>{
         for (SalesOrder orderToAdd:ordersToAdd) {
             ArrayList<OrderItem> orderItemsToAdd = orderToAdd.getBusinessObjects();
             for (OrderItem orderitemToAdd : orderItemsToAdd) {
-                OrderItem newItem = new OrderItem(orderitemToAdd);
+                String name = orderitemToAdd.getName();
+                BigDecimal salesPriceForItem = orderitemToAdd.getSalesPriceForItem();
+                int numberOfItems = orderitemToAdd.getNumberOfItems();
+                Article article = orderitemToAdd.getArticle();
+                OrderItem newItem = new OrderItem(numberOfItems, article, name+" @("+salesPriceForItem+")", null);
+                newItem.setSalesPriceForItem(salesPriceForItem);
                 salesOrder.addBusinessObject(newItem);
             }
         }

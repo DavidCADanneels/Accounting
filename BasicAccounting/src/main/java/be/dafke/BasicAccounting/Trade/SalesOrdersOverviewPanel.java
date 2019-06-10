@@ -76,7 +76,7 @@ public class SalesOrdersOverviewPanel extends JPanel {
             salesOrderDetailPanel.disableButtons();
             // Clear details
             salesOrderDetailPanel.updateContactDetails(combinedOrder);
-
+            salesOrderDetailPanel.updateInvoiceButtonAndField();
         } else {
             SalesOrder salesOrder = overviewTable.getSelectedObject();
             detailsTableModel.setOrder(salesOrder);

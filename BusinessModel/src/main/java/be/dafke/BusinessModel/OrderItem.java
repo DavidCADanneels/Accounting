@@ -19,22 +19,15 @@ public class OrderItem extends BusinessObject{
     private Order order;
 
     public OrderItem(Integer numberOfItems, Article article, Order order) {
-        setName(article.getName());
+        this(numberOfItems, article, article.getName(), order);
+    }
+
+    public OrderItem(Integer numberOfItems, Article article, String name, Order order) {
+        setName(name);
         this.numberOfItems = numberOfItems;
         this.order = order;
         this.article = article;
     }
-
-    public OrderItem(OrderItem orderitem) {
-        this(orderitem.getNumberOfItems(), orderitem.getArticle(), null);
-    }
-
-//    public OrderItem(Integer number, Article article) {
-//        setName(article.getName());
-//        this.numberOfUnits = number==null?0:number;
-//        this.numberOfItems = number==null?0:number*getItemsPerUnit();
-//        this.article = article;
-//    }
 
     public boolean isDeletable() {
         return numberOfItems==0 && numberOfUnits==0;

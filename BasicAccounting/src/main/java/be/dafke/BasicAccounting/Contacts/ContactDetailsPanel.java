@@ -198,6 +198,8 @@ public class ContactDetailsPanel extends JPanel {
         contactEmail.setText("");
         contactPhone.setText("");
         officialName.setText("");
+        customerAccountName.setText("");
+        supplierAccountName.setText("");
         customer.setSelected(false);
         supplier.setSelected(false);
     }

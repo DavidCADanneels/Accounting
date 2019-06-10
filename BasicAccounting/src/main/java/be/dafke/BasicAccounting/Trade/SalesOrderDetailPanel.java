@@ -305,6 +305,17 @@ public class SalesOrderDetailPanel extends JPanel {
         editSalesOrder.setEnabled(editable);
         deliveredButton.setEnabled(toBeDelivered);
         placeOrderButton.setEnabled(salesTransaction==null);
+
+        updateInvoiceButtonAndField();
+
+        updateContactDetails(salesOrder);
+
+        salesTransactionButton.setEnabled(salesOrder!=null && salesOrder.getSalesTransaction()==null);
+        gainTransactionButton.setEnabled(salesOrder !=null && salesOrder.getGainTransaction()==null);
+        paymentTransactionButton.setEnabled(salesOrder !=null && paymentTransaction ==null);
+    }
+
+    public void updateInvoiceButtonAndField() {
         if(salesOrder!=null&&salesOrder.isInvoice()){
             createInvoiceButton.setEnabled(true);
             invoiceNr.setText(salesOrder.getInvoiceNumber());
@@ -312,12 +323,6 @@ public class SalesOrderDetailPanel extends JPanel {
             createInvoiceButton.setEnabled(false);
             invoiceNr.setText("");
         }
-
-        updateContactDetails(salesOrder);
-
-        salesTransactionButton.setEnabled(salesOrder!=null && salesOrder.getSalesTransaction()==null);
-        gainTransactionButton.setEnabled(salesOrder !=null && salesOrder.getGainTransaction()==null);
-        paymentTransactionButton.setEnabled(salesOrder !=null && paymentTransaction ==null);
     }
 
     public void updateContactDetails(SalesOrder salesOrder){

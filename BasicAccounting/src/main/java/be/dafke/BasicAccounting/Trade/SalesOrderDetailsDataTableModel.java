@@ -66,12 +66,8 @@ public class SalesOrderDetailsDataTableModel extends SelectableTableModel<OrderI
 		OrderItem orderItem = getObject(row, col);
 		if (orderItem==null)
 			return null;
-		Article article = orderItem.getArticle();
-		if (article == null)
-			return null;
-
 		if (col == NAME_COL) {
-			return article.getName();
+			return orderItem.getName();
 		}
 		if (col == ITEMS_PER_UNIT_COL) {
 			return orderItem.getItemsPerUnit();

@@ -11,9 +11,7 @@ import java.util.TreeMap;
 public class OrderItems extends BusinessCollection<OrderItem>{
 
     public OrderItem addBusinessObject(OrderItem orderItem) {
-        Article article = orderItem.getArticle();
-        String articleName = article.getName();
-        orderItem.setName(articleName);
+        String orderItemName = orderItem.getName();
         try {
             return super.addBusinessObject(orderItem);
         } catch (EmptyNameException e) {
@@ -22,7 +20,7 @@ public class OrderItems extends BusinessCollection<OrderItem>{
             return null;
         } catch (DuplicateNameException e) {
             int itemsToAdd = orderItem.getNumberOfItems();
-            OrderItem itemInStock = getBusinessObject(articleName);
+            OrderItem itemInStock = getBusinessObject(orderItemName);
             if(itemInStock==null){
                 // cannot be null since DuplicateNameException
                 return null;
